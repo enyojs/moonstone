@@ -1,0 +1,12 @@
+
+.moonraker-panels-sample {
+	width:500px;
+	height:400px;
+	border:1px solid red;
+}
+
+.spotlight {
+	background-color:transparent;
+	box-shadow:none;
+	-webkit-animation:none;
+}
