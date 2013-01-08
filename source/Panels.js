@@ -31,17 +31,21 @@ enyo.kind({
 	*/
 	_spotFocus: function(inSender, inEvent) {
 		var dir = inEvent.dir,
-			control = inEvent.originator,
-			panel;
+			control = inEvent.originator;
 		
-		// If panels gets focus, pass to current panel
+		// If panels gets focus, either pass focus to current panel or out of
+		// panels (if the current focused item is a panel)
 		if(control === this) {
-			enyo.Spotlight.spot(this.getActive(), dir);
+			if(this.isPanel(enyo.Spotlight.getCurrent())) {
+				this._spotEscape(dir);
+			} else {
+				this._spotLastFocused();
+			}
 			return true;
 		}
 		
 		// If a panel gets focus, handle event based on the focus direction
-		if(this._isAPanel(control)) {
+		if(this.isPanel(control)) {
 			this._handleFocusDirection(dir, control);
 			return true;
 		}
@@ -64,17 +68,22 @@ enyo.kind({
 				break;
 			case "UP":
 			case "DOWN":
+				this._spotEscape(inDirection);
+				break;
 			default:
-				this._spotLastFocused(inControl);
+				enyo.Spotlight.setCurrent(inControl);
 				break;
 		}
 	},
 	
+	//* Move spotlight to next adjacent control of _this_
+	_spotEscape: function(inDirection) {
+		enyo.Spotlight.spot(enyo.Spotlight._getAdjacentControl(inDirection, this));
+	},
+	
 	//* Set the last-focused control for the given panel
 	_setLastFocused: function(inPanel, inControl) {
-		this.log("-------",inPanel);
 		inPanel = inPanel || this.getActive();
-		this.log(inPanel.name, inControl.name);
 		if(inControl.isDescendantOf(inPanel)) {
 			inPanel._lastFocused = inControl;
 		}
@@ -96,29 +105,25 @@ enyo.kind({
 		}
 	},
 	
-	//* Check whether the given control is a panel
-	_isAPanel: function(inControl) {
-		var panels = this.getPanels();
-		for(var i=0;i<panels.length;i++) {
-			if(inControl === panels[i]) {
-				return true;
-			}
-		}
-	},
-	
 	//* Return the index of the parent panel of _inControl_
 	_getContainingPanel: function(inControl) {
-		var parent = inControl.parent,
-			panels = this.getPanels();
-		
-		// TODO
-		for(var i=0;i<panels.length;i++) {
+		for(var i=0, panels = this.getPanels();i<panels.length;i++) {
 			if(inControl.isDescendantOf(panels[i])) {
 				return panels[i];
 			}
 		}
 
 		return null;
+	},
+	
+	//* Check whether the given control is a panel
+	isPanel: function(inControl) {
+		var panels = this.getPanels();
+		for(var i=0;i<panels.length;i++) {
+			if(inControl === panels[i]) {
+				return true;
+			}
+		}
 	},
 	
 	//* Spot the specified control or the last focused control on index changes

@@ -3,7 +3,7 @@ enyo.kind({
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name:"test", spotlight:true, kind:"Button", content:"Test button", style:"margin:40px 0px;"},
+		{name:"test", spotlight:true, kind:"Button", content:"Test button", style:"margin:40px 2px;"},
 		{name: "panels", kind: "moon.Panels", classes: "moonraker-panels-sample", arrangerKind: "CarouselArranger", components: [
 			{name: "panel1", components: [
 				{tag:"h1", content:"Panel 1"},
@@ -38,6 +38,8 @@ enyo.kind({
 				{content:"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."}
 			]}
 		]},
+		{name:"test2", spotlight:true, kind:"Button", content:"Test button 2", style:"margin:40px 2px;"},
+		
 		{name: "logContainer", style: "position:absolute;right:40px;top:40px;width:600px;", components: [
 			{content: "Current spotlighted item:", style: "font-size:14px;"},
 			{name: "currentSpot", style: "font-size:18px;border:1px solid #444;"},
@@ -45,8 +47,8 @@ enyo.kind({
 			{name: "panelIndex", style: "font-size:18px;border:1px solid #444;"},
 			{content: "_lastFocused :", style: "font-size:14px;margin-top:20px;"},
 			{name: "lastFocused", style: "font-size:18px;border:1px solid #444;"},
-			{name: "delete2Button", kind:"Button", content: "Delete Panel 2", ontap: "delete2"},
-			{name: "createPanelButton", kind:"Button", content: "Create New Panel", ontap: "createComponent"}
+			{name: "delete2Button", kind:"Button", spotlight: true, content: "Delete Panel 2", ontap: "delete2"},
+			{name: "createPanelButton", kind:"Button", spotlight: true, content: "Create New Panel", ontap: "createComponent"}
 		]}
 	],
 	create: function() {
