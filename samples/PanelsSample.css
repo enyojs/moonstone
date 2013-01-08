@@ -9,4 +9,13 @@
 	background-color:transparent;
 	box-shadow:none;
 	-webkit-animation:none;
+	border:none;
+}
+
+.moonraker-panels-sample.spotlight {
+	border:1px solid red;
+}
+
+.moonraker-panels-sample > * {
+	width:300px;
 }
