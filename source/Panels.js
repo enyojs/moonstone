@@ -19,6 +19,14 @@ enyo.kind({
 	addControl: function(inControl, inBefore) {
 		this.inherited(arguments);
 		inControl.spotlight = true;
+		
+		// Insert item into _this._lastFocused_ for the added control
+		if(inBefore !== undefined) {
+			var idx = (inBefore === null) ? 0 : this.indexOfChild(inBefore);
+			this._lastFocused.splice(idx, 0, null);
+		} else {
+			this._lastFocused.push(null);
+		}
 	},
 	
 	/**
@@ -156,5 +164,13 @@ enyo.kind({
 		}
 		this.inherited(arguments);
 		this._spotLastFocused();
+	},
+	
+	//* Destroy panel at given index and remove the appropriate item from _this._lastFocused_
+	destroyPanel: function(inIndex) {
+		var panel = this.getPanels()[inIndex];
+		panel.destroy();
+		this.render();
+		this._lastFocused.splice(inIndex,1);
 	}
 });
