@@ -43,7 +43,7 @@ enyo.kind({
 			{name: "currentSpot", style: "font-size:18px;border:1px solid #444;"},
 			{content: "Current panel index:", style: "font-size:14px;margin-top:20px;"},
 			{name: "panelIndex", style: "font-size:18px;border:1px solid #444;"},
-			{content: "_lastFocused[] :", style: "font-size:14px;margin-top:20px;"},
+			{content: "_lastFocused :", style: "font-size:14px;margin-top:20px;"},
 			{name: "lastFocused", style: "font-size:18px;border:1px solid #444;"},
 			{name: "delete2Button", kind:"Button", content: "Delete Panel 2", ontap: "delete2"},
 			{name: "createPanelButton", kind:"Button", content: "Create New Panel", ontap: "createComponent"}
@@ -57,13 +57,14 @@ enyo.kind({
 		this.$.currentSpot.setContent(enyo.Spotlight.getCurrent().name);
 		this.$.panelIndex.setContent(this.$.panels.getIndex());
 		
+		var panels = this.$.panels.getPanels();
 		var lfStr = "[ ";
-		for(var i=0;i<this.$.panels._lastFocused.length;i++) {
+		for(var i=0;i<panels.length;i++) {
 			if(i > 0) {
 				lfStr += ", ";
 			}
-			if(this.$.panels._lastFocused[i]) {
-				lfStr += i+": "+this.$.panels._lastFocused[i].name;
+			if(panels[i]._lastFocused) {
+				lfStr += i+": "+panels[i]._lastFocused.name;
 			}
 		}
 		lfStr += " ]";
@@ -89,7 +90,8 @@ enyo.kind({
 		this.$.panels.setIndex(3);
 	},
 	delete2: function(inSender, inEvent) {
-		this.$.panels.destroyPanel(1);
+		this.$.panels.getPanels()[1].destroy();
+		this.$.panels.render();
 	},
 	createComponent: function(inSender, inEvent) {
 		var p = this.$.panels.createComponent({tag: "h1", content: "I created this panel!"});

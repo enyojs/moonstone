@@ -12,32 +12,27 @@ enyo.kind({
 		onSpotlightFocus:  "_spotFocus"
 	},
 	
-	//* Array of items that last had focus in each panel
-	_lastFocused: [],
-	
-	//* Override _addControl_ to make sure each panel instance is spotlight-able
+	/*
+		Override _addControl_ to make sure each panel instance is spotlight-able
+		and has a _lastFocused_ property
+	*/
 	addControl: function(inControl, inBefore) {
 		this.inherited(arguments);
-		inControl.spotlight = true;
-		
-		// Insert item into _this._lastFocused_ for the added control
-		if(inBefore !== undefined) {
-			var idx = (inBefore === null) ? 0 : this.indexOfChild(inBefore);
-			this._lastFocused.splice(idx, 0, null);
-		} else {
-			this._lastFocused.push(null);
-		}
+		enyo.mixin(inControl, {
+			spotlight: true,
+			_lastFocused: null
+		});
 	},
 	
 	/**
 		Spotlight focus handler. If the originator of the focus event is a panel,
-		set focus to the last focused item in that panel. Otherwise update
-		_this.lastFocused[]_ with the originator.
+		set focus to the last focused item in that panel. Otherwise update the
+		_lastFocused_ property of the originator.
 	*/
 	_spotFocus: function(inSender, inEvent) {
 		var dir = inEvent.dir,
 			control = inEvent.originator,
-			index = -1;
+			panel;
 		
 		// If panels gets focus, pass to current panel
 		if(control === this) {
@@ -50,11 +45,9 @@ enyo.kind({
 			this._handleFocusDirection(dir, control);
 			return true;
 		}
-		
-		// Get the index of the panel that the spotlighted item belongs to
-		index = this._getContainingPanelIndex(control);
+
 		// Set last focused item for the given panel
-		this._setLastFocused(control, index);
+		this._setLastFocused(this._getContainingPanel(control), control);
 	},
 	
 	/**
@@ -72,34 +65,35 @@ enyo.kind({
 			case "UP":
 			case "DOWN":
 			default:
-				this._spotLastFocused(this.indexOfChild(inControl));
+				this._spotLastFocused(inControl);
 				break;
 		}
 	},
 	
-	//* Set the last-focused control for the given panel	TODO - this is NOT efficient!
-	_setLastFocused: function(inControl, inIndex) {
-		inIndex = inIndex || this.getIndex();
-		if(this._isChildOfIndex(inControl, inIndex)) {
-			this._lastFocused[inIndex] = inControl;
+	//* Set the last-focused control for the given panel
+	_setLastFocused: function(inPanel, inControl) {
+		this.log("-------",inPanel);
+		inPanel = inPanel || this.getActive();
+		this.log(inPanel.name, inControl.name);
+		if(inControl.isDescendantOf(inPanel)) {
+			inPanel._lastFocused = inControl;
 		}
 	},
 	
 	//* Return the last-focused control for the given panel
-	_getLastFocused: function(inIndex) {
-		return this._lastFocused[inIndex] || enyo.Spotlight.getFirstChild(this.getPanels()[inIndex]);
+	_getLastFocused: function(inPanel) {
+		return inPanel._lastFocused || enyo.Spotlight.getFirstChild(inPanel);
 	},
 	
 	//* Spot the last focused control in the given panel
-	_spotLastFocused: function(inIndex) {
-		inIndex = inIndex || this.getIndex();
-		var lastFocused = this._getLastFocused(inIndex);
-		if(!lastFocused) {
-			enyo.Spotlight.setCurrent(this.getPanels()[inIndex]);
-			return true;
+	_spotLastFocused: function(inPanel) {
+		inPanel = inPanel || this.getActive();
+		var lastFocused = inPanel._lastFocused || enyo.Spotlight.getFirstChild(inPanel);
+		if(lastFocused) {
+			enyo.Spotlight.spot(lastFocused);
+		} else {
+			enyo.Spotlight.setCurrent(inPanel);
 		}
-		enyo.Spotlight.spot(lastFocused);
-		return true;
 	},
 	
 	//* Check whether the given control is a panel
@@ -112,66 +106,46 @@ enyo.kind({
 		}
 	},
 	
-	/**
-		Determine if _inControl_ is a child of the panel at _inIndex_. If _inIndex_ is
-		not specified, use current index.
-	*/
-	_isChildOfIndex: function(inControl, inIndex) {
-		inIndex = inIndex || this.getIndex();
-		var panelIndex = this._getContainingPanelIndex(inControl);
-		return panelIndex === inIndex;
-	},
-	
 	//* Return the index of the parent panel of _inControl_
-	_getContainingPanelIndex: function(inControl) {
+	_getContainingPanel: function(inControl) {
 		var parent = inControl.parent,
 			panels = this.getPanels();
 		
-		while(parent !== this) {
-			for(var i=0;i<panels.length;i++) {
-				if(parent === panels[i]) {
-					return i;
-				}
+		// TODO
+		for(var i=0;i<panels.length;i++) {
+			if(inControl.isDescendantOf(panels[i])) {
+				return panels[i];
 			}
-			parent = parent.parent;
 		}
-		
-		return -1;
+
+		return null;
 	},
 	
 	//* Spot the specified control or the last focused control on index changes
 	next: function(inControl) {
 		if(inControl) {
-			this._setLastFocused(inControl, this.getIndex() + 1)
+			this._setLastFocused(this.getPanels()[this.getIndex()+1], inControl);
 		}
 		this.inherited(arguments);
 	},
 	previous: function(inControl) {
 		if(inControl) {
-			this._setLastFocused(inControl, this.getIndex() - 1)
+			this._setLastFocused(this.getPanels()[this.getIndex()-1], inControl);
 		}
 		this.inherited(arguments);
 	},
 	setIndexDirect: function(inIndex, inControl) {
 		if(inControl) {
-			this._setLastFocused(inControl, inIndex)
+			this._setLastFocused(this.getPanels()[this.getIndex()], inControl);
 		}
 		this.inherited(arguments);
 	},
 	//* After usual setIndex() logic, spot the last focused item for the current index
 	setIndex: function(inIndex, inControl) {
 		if(inControl) {
-			this._setLastFocused(inControl, inIndex)
+			this._setLastFocused(this.getPanels()[this.getIndex()], inControl);
 		}
 		this.inherited(arguments);
 		this._spotLastFocused();
-	},
-	
-	//* Destroy panel at given index and remove the appropriate item from _this._lastFocused_
-	destroyPanel: function(inIndex) {
-		var panel = this.getPanels()[inIndex];
-		panel.destroy();
-		this.render();
-		this._lastFocused.splice(inIndex,1);
 	}
 });
