@@ -47,7 +47,7 @@ enyo.kind({
 		
 		// If a panel gets focus, handle event based on the focus direction
 		if(this._isAPanel(control)) {
-			this._handleFocusDirection(dir);
+			this._handleFocusDirection(dir, control);
 			return true;
 		}
 		
@@ -61,8 +61,8 @@ enyo.kind({
 		When a panel gets focus, call _this.next_ or _this.previous_ if the
 		user pressed left or right
 	*/
-	_handleFocusDirection: function(dir) {
-		switch(dir) {
+	_handleFocusDirection: function(inDirection, inControl) {
+		switch(inDirection) {
 			case "RIGHT":
 				this.next();
 				break;
@@ -72,7 +72,7 @@ enyo.kind({
 			case "UP":
 			case "DOWN":
 			default:
-				this._spotLastFocused();
+				this._spotLastFocused(this.indexOfChild(inControl));
 				break;
 		}
 	},
@@ -87,14 +87,15 @@ enyo.kind({
 	
 	//* Return the last-focused control for the given panel
 	_getLastFocused: function(inIndex) {
-		return this._lastFocused[inIndex] || enyo.Spotlight.getFirstChild(this.getActive());
+		return this._lastFocused[inIndex] || enyo.Spotlight.getFirstChild(this.getPanels()[inIndex]);
 	},
 	
-	//* Spot the last focused control in the current panel
-	_spotLastFocused: function() {
-		var lastFocused = this._getLastFocused(this.getIndex());
+	//* Spot the last focused control in the given panel
+	_spotLastFocused: function(inIndex) {
+		inIndex = inIndex || this.getIndex();
+		var lastFocused = this._getLastFocused(inIndex);
 		if(!lastFocused) {
-			enyo.Spotlight.setCurrent(this.getActive());
+			enyo.Spotlight.setCurrent(this.getPanels()[inIndex]);
 			return true;
 		}
 		enyo.Spotlight.spot(lastFocused);
