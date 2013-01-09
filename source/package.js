@@ -1,3 +1,4 @@
 enyo.depends(
-	"Panels.js"
+	"Panels.js",
+	"SimplePicker.js"
 );

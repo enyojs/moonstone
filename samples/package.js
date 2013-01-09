@@ -1,4 +1,6 @@
 enyo.depends(
+	"sample.css",
 	"PanelsSample.js",
-	"PanelsSample.css"
+	"PanelsSample.css",
+	"SimplePickerSample.js"
 );

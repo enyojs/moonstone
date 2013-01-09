@@ -1,0 +1,41 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
+/* Moonraker default parameters defined here */
+/* Moonraker rules defined here */
+/* Import font styles */
+/* Individual widget CSS */
+.moon-simple-picker {
+  display: inline-block;
+}
+.moon-simple-picker > * {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+.moon-simple-picker-button {
+  border-radius: 0;
+  background: gray;
+  color: white;
+  border: 0;
+  height: 30px;
+  font-weight: normal;
+}
+.moon-simple-picker-client {
+  background: gray;
+  height: 30px;
+  color: white;
+}
+.moon-simple-picker-item {
+  white-space: nowrap;
+  text-align: center;
+  padding: 5px 10px;
+}
+.moon {
+  font-size: 20px;
+}
