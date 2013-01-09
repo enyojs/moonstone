@@ -112,8 +112,6 @@ enyo.kind({
 				return panels[i];
 			}
 		}
-
-		return null;
 	},
 	
 	//* Check whether the given control is a panel
