@@ -6,6 +6,7 @@
 	"samples": [
 		{"name": "Panels", "path":"$lib/moonraker/samples/PanelsSample"},
 		{"name": "Simple Picker", "path":"$lib/moonraker/samples/SimplePickerSample", "css":"sample"},
-                {"name": "Checkbox", "path":"$lib/moonraker/samples/CheckboxSample"}
+        {"name": "Checkbox", "path":"$lib/moonraker/samples/CheckboxSample"},
+        {"name": "View Select Button", "path":"$lib/moonraker/samples/ViewSelectButtonSample"}
 	]
 }

@@ -1,9 +1,11 @@
 enyo.depends(
+	"Button.js",
 	"Item.js",
 	"Panels.js",
 	"SimplePicker.js",
 	"Checkbox.js",
 	"LabeledCheckbox.js",
 	"Toggle.js",
-	"LabeledToggle.js"
+	"LabeledToggle.js",
+	"ViewSelectButton.js"
 );

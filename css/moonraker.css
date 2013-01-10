@@ -112,6 +112,42 @@
   border-left-style: solid;
   padding-right: 0px;
 }
+/* Button */
+.moon-button {
+  display: inline-block;
+  font-size: 14px;
+  border-width: 0px;
+  background-color: transparent;
+  letter-spacing: normal;
+  margin: 2px;
+  padding: 1px 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 28px;
+  cursor: pointer;
+  padding: 0px 10px;
+}
+.moon-button.spotlight {
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: orange;
+  border-left-style: solid;
+  padding: 0px 0px 0px 4px;
+}
+/* View Select Button */
+.moon-view-select-button {
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+}
+.moon-button-bar {
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  height: 1px;
+  width: 0px;
+  background-color: orange;
+}
 .moon {
   font-size: 20px;
 }
