@@ -1,0 +1,28 @@
+
+.moon-labeled-checkbox {
+	width:200px;
+	height:40px;
+	display:block;
+}
+.moon-labeled-checkbox .moon-labeled-checkbox-label {
+	line-height:40px;
+	border-right:1px solid red;
+	float:left;
+	width:160px;
+	height:40px;
+	overflow:hidden;
+	-webkit-mask-image: -webkit-gradient(
+		linear, 100% center, 80% center,
+		from(rgba(0,0,0,0)), to(rgba(0,0,0,1))
+	);
+	white-space:nowrap;
+}
+.moon-labeled-checkbox .moon-checkbox {
+	float:right;
+}
+
+.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label {
+	.moonrakerSpotlight(width 0.1s linear, padding 0.1s linear);
+	width:144px;
+	padding-left:4px;
+}

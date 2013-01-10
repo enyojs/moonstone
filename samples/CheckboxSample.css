@@ -1,0 +1,74 @@
+
+.spotlight {
+	background:none;
+	-webkit-animation:none;
+	border:none;
+	box-shadow:none;
+}
+
+.moon-checkbox {
+	cursor: pointer;
+	height: 32px;
+	width: 32px;
+	background: url(../images/checkbox.png);
+	/* reset for ? */
+	margin: 0px;
+	/* these entries cause toggle-button and checkbox to line up properly*/
+	display: inline-block;
+	vertical-align: middle;
+	margin:4px 0px;
+}
+
+.moon-checkbox[checked] {
+	background-position: 0px -32px;
+}
+
+.moon-checkbox[disabled] {
+	opacity: 0.4;
+}
+
+.moon-labeled-checkbox {
+	width:200px;
+	height:40px;
+	display:block;
+	padding:0px 20px;
+}
+.moon-labeled-checkbox .moon-labeled-checkbox-label {
+	line-height:40px;
+	border-right:1px solid red;
+	float:left;
+	width:160px;
+	height:40px;
+	overflow:hidden;
+	-webkit-mask-image: -webkit-gradient(
+		linear, 100% center, 80% center,
+		from(rgba(0,0,0,0)), to(rgba(0,0,0,1))
+	);
+	white-space:nowrap;
+}
+.moon-labeled-checkbox .moon-checkbox {
+	float:right;
+}
+
+.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label {
+	-webkit-transition: border-width 0.1s linear;
+	border-left-width: 16px;
+	border-left-color: orange;
+	border-left-style: solid;
+	width:144px;
+	padding-left:4px;
+}
+
+.checkbox-sample-wrapper {
+	margin:20px;
+	border:1px solid #aaa;
+	width:240px;
+	display:inline-block;
+}
+
+.checkbox-sample-wrapper-title {
+	font-size:18px;
+	line-height:30px;
+	border-bottom:1px solid #aaa;
+	padding:0px 20px;
+}
