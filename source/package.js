@@ -3,5 +3,7 @@ enyo.depends(
 	"Panels.js",
 	"SimplePicker.js",
 	"Checkbox.js",
-	"LabeledCheckbox.js"
+	"LabeledCheckbox.js",
+	"Toggle.js",
+	"LabeledToggle.js"
 );

@@ -65,3 +65,16 @@
 	border-bottom:1px solid #aaa;
 	padding:0px 20px;
 }
+
+.moon-toggle {
+	cursor: pointer;
+	height: 32px;
+	width: 32px;
+	line-height:32px;
+	text-align:left;
+	text-transform:uppercase;
+	background:inherit;
+}
+.moon-toggle[disabled] {
+	opacity: 0.4;
+}
