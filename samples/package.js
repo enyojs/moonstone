@@ -4,5 +4,7 @@ enyo.depends(
 	"PanelsSample.css",
 	"SimplePickerSample.js",
 	"CheckboxSample.js",
-	"CheckboxSample.css"
+	"CheckboxSample.css",
+	"ViewSelectButtonSample.js",
+	"ViewSelectButtonSample.css"
 );
