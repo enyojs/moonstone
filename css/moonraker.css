@@ -7,6 +7,12 @@
 /* LESS file.                                                               */
 
 /* Moonraker default parameters defined here */
+/* Disabled Opacity */
+/* ---------------------------------------*/
+/* Images */
+/* ---------------------------------------*/
+/* Spotlight */
+/* ---------------------------------------*/
 /* Moonraker rules defined here */
 /* Import font styles */
 /* Individual widget CSS */
@@ -35,6 +41,52 @@
   white-space: nowrap;
   text-align: center;
   padding: 5px 10px;
+}
+/* Checkbox.css */
+.moon-checkbox {
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  background: url(././../images/checkbox.png) no-repeat;
+  /* reset for ? */
+
+  margin: 0px;
+  /* these entries cause toggle-button and checkbox to line up properly*/
+
+  display: inline-block;
+  vertical-align: middle;
+}
+.moon-checkbox[checked] {
+  background-position: 0px -32px;
+}
+.moon-checkbox[disabled] {
+  opacity: 0.4;
+}
+.moon-labeled-checkbox {
+  width: 200px;
+  height: 40px;
+  display: block;
+}
+.moon-labeled-checkbox .moon-labeled-checkbox-label {
+  line-height: 40px;
+  border-right: 1px solid red;
+  float: left;
+  width: 160px;
+  height: 40px;
+  overflow: hidden;
+  -webkit-mask-image: -webkit-gradient(linear, 100% center, 80% center, from(rgba(0, 0, 0, 0)), to(#000000));
+  white-space: nowrap;
+}
+.moon-labeled-checkbox .moon-checkbox {
+  float: right;
+}
+.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label {
+  -webkit-transition: border-width 0.1s linear, width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: #ffa500;
+  border-left-style: solid;
+  width: 144px;
+  padding-left: 4px;
 }
 .moon {
   font-size: 20px;
