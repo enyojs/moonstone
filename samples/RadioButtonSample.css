@@ -1,4 +1,4 @@
-.moon-view-select-button-sample {
+.moon-radio-button-sample {
 	margin:40px;
 }
 
@@ -6,21 +6,20 @@
 	margin:40px 0px 0px 0px;
 }
 
-/* ViewSelector */
-.moon-view-select-button {
+/* Radio Button */
+.moon-radio-button-group {
 	position: relative;
 	margin: 0px;
 	padding: 0px;
 }
 
-.moon-button {
+.moon-radio-button-group .moon-button {
 	display: inline-block;
-	font-size: 14px;
+	font-size: 16px;
 	border-width: 0px;
 	background-color: transparent;
 	letter-spacing: normal;
 	margin: 2px;
-	padding: 1px 0px;
 	white-space: nowrap;
 	overflow: hidden;
 	height: 28px;
@@ -28,7 +27,7 @@
 	padding:0px 10px;
 }
 
-.moon-button.spotlight {
+.moon-radio-button-group .moon-button.spotlight {
 	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
 	border-left-width: 16px;
 	border-left-color: orange;

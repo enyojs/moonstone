@@ -1,37 +1,35 @@
 /**
 	A modified "enyo.Button" control intended to be used
-	only within a "moon.ViewSelectButton".
+	only within a "moon.RadioButton".
 	
 */
 enyo.kind({
-	name: "moon.ViewSelectButtonItem",
+	name: "moon.RadioButton",
 	kind: "moon.Button",
 	contentWidth: 0,
 	rendered: function() {
 		this.inherited(arguments);
 		this.contentWidth = this.getBounds().width;
-		this.log(this.content, this.contentWidth, (this.contentWidth + ((this.content.length + 2) * 2) ));
-		// Resize the button to fit ViewSelectButtonItem kerning state
-		// (current-width + ((string-length + arbitrary padding) * size-of-letter-spacing))
+		// Resize the button to fit RadioButton kerning state
 		this.applyStyle("width", this.contentWidth + "px");
 	}
 });
 
 /**
-	A group of "moon.ViewSelectButtonItem" objects laid out horizontally. Within the
+	A group of "moon.RadioButton" objects laid out horizontally. Within the
 	same button group, tapping on one button will release any previously tapped button.
 	
-		{kind: "moon.ViewSelectButton", onActivate: "buttonActivated", components: [
+		{kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
 			{content: "Cats", active: true},
 			{content: "Dogs"},
 			{content: "Bears"}
 		]}
 */
 enyo.kind({
-	name: "moon.ViewSelectButton",
+	name: "moon.RadioButtonGroup",
 	kind: "enyo.Group",
-	defaultKind: "moon.ViewSelectButtonItem",
-	classes: "enyo-tool-decorator moon-view-select-button",
+	defaultKind: "moon.RadioButton",
+	classes: "enyo-tool-decorator moon-radio-button-group",
 	published: {
 		barClasses: ""
 	},
@@ -75,7 +73,7 @@ enyo.kind({
 	calcBarValue: function(activeItem) {
 		if ((this.active) && (this.componentsRendered)) {
 
-			if (this.active.kind === "moon.ViewSelectButtonItem") {
+			if (this.active.kind === "moon.RadioButton") {
 				this.$.bar.applyStyle("width", activeItem.contentWidth + "px");
 
 				// IE8 doesn't return getBoundingClientRect().width, so we calculate from right/left. Who cares ... it's IE8 ... I know
