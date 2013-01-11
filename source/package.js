@@ -7,5 +7,8 @@ enyo.depends(
 	"LabeledCheckbox.js",
 	"Toggle.js",
 	"LabeledToggle.js",
-	"ViewSelectButton.js"
+	"RadioButton.js",
+	"Drawer.js",
+	"ExpandableList.js",
+	"ExpandablePicker.js"
 );

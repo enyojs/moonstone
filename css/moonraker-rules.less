@@ -8,12 +8,5 @@
 @import "LabeledCheckbox.less";
 @import "Item.less";
 @import "Button.less";
-@import "ViewSelectButton.less";
-
-.moonrakerSpotlight(@trans, @trans2:X, ...) {
-	@props: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
-	-webkit-transition: @moon-spotlight-transition, @props;
-	border-left-width: @moon-spotlight-border-width;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: @moon-spotlight-border-style;
-}
+@import "RadioButton.less";
+@import "ExpandablePicker.less";

@@ -108,6 +108,8 @@
 .moon-item {
   padding: 0 16px 0 16px;
   margin: 16px 0 16px 0;
+  border-color: orange;
+  overflow: hidden;
 }
 .moon-item.spotlight {
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -138,8 +140,8 @@
   border-left-style: solid;
   padding: 0px 0px 0px 4px;
 }
-/* View Select Button */
-.moon-view-select-button {
+/* Radio Button */
+.moon-radio-button {
   position: relative;
   margin: 0px;
   padding: 0px;
@@ -151,6 +153,17 @@
   height: 1px;
   width: 0px;
   background-color: orange;
+}
+.moon-item.moon-expandable-picker-header {
+  font-size: 18px;
+  line-height: 54px;
+  height: 54px;
+  padding: 0px 16px;
+}
+.moon-expandable-picker-header.open {
+  line-height: 22px;
+  font-size: 12px;
+  border-bottom: 1px solid #aaa;
 }
 .moon {
   font-size: 20px;
