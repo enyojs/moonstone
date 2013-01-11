@@ -1,6 +1,20 @@
 /* Import font styles */
 @import "moonraker-fonts.less";
 
+.moon {
+	font-family: @moon-font-family;
+	font-size: @moon-text-size;
+	text-transform: uppercase;
+}
+
+.moonrakerSpotlight(@trans, @trans2:X, ...) {
+	@props: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
+	-webkit-transition: @moon-spotlight-transition, @props;
+	border-left-width: @moon-spotlight-border-width;
+	border-left-color: @moon-spotlight-border-color;
+	border-left-style: @moon-spotlight-border-style;
+}
+
 /* Individual widget CSS */
 @import "SimplePicker.less";
 @import "Checkbox.less";

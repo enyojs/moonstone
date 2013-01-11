@@ -3,16 +3,3 @@
 
 /* Moonraker rules defined here */
 @import "moonraker-rules.less";
-
-
-.moon {
-	font-size: 20px;
-}
-
-.moonrakerSpotlight(@trans, @trans2:X, ...) {
-	@props: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
-	-webkit-transition: @moon-spotlight-transition, @props;
-	border-left-width: @moon-spotlight-border-width;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: @moon-spotlight-border-style;
-}
