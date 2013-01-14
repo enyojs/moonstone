@@ -51,7 +51,7 @@ enyo.kind({
 	},
 	published: {
 		//* If true, only one item can be selected in this picker.
-		highlander: false,
+		highlander: true,
 		//* Reference to currently selected item, if any.
 		selected: null,
 		//* Index of currently selected item, if any.
@@ -78,7 +78,7 @@ enyo.kind({
 		this.noneTextChanged();
 	},
 	highlanderChanged: function() {
-		this.$.client.setHighlander(this.highlander);
+		this.$.client.setHighlander(this.getHighlander());
 	},
 	selectedChanged: function() {
 		var selected = this.getSelected(),
@@ -115,7 +115,9 @@ enyo.kind({
 		}
 	},
 	openChanged: function() {
-		this.inherited(arguments);
+		var open = this.getOpen();
+		
+		this.$.drawer.setOpen(open);
 		
 		if(this.$.drawer.getOpen()) {
 			this.addClass("open");

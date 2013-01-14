@@ -12,12 +12,10 @@ enyo.kind({
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: false},
-		{name: "drawer", kind: "moon.Drawer"}
+		{name: "client", kind: "moon.Drawer"}
 	],
 	create: function() {
-		this.controlParentName = "drawer";
 		this.inherited(arguments);
-		this.discoverControlParent();
 		this.openChanged();
 	},
 	contentChanged: function() {
@@ -25,7 +23,7 @@ enyo.kind({
 	},
 	openChanged: function() {
 		var open = this.getOpen();
-		this.$.drawer.setOpen(open);
+		this.$.client.setOpen(open);
 		if(open) {
 			this.addClass("open");
 		} else {
