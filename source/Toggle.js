@@ -9,6 +9,10 @@ enyo.kind({
 	},
 	//* @protected
 	kind: "moon.Checkbox",
+	create: function() {
+		this.inherited(arguments);
+		this.checkedChanged();
+	},
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setChecked(!this.getChecked());

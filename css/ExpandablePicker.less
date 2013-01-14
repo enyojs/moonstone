@@ -1,13 +1,32 @@
+.moon-expandable-picker {
+	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+	cursor:pointer;
+}
+.moon-expandable-picker.spotlight {
+	padding:0px 0px 0px 4px;
+	border-left:16px solid orange;
+}
 
 .moon-item.moon-expandable-picker-header {
 	font-size:18px;
-	line-height:54px;
-	height:54px;
-	padding:0px 16px;
+	line-height:18px;
+	height:22px;
+	padding:4px 0px 0px 0px;
+	margin:0px;
+	-webkit-transition: height 0.1s linear, padding 0.1s linear, font-size 0.1s linear, line-height 0.1s linear, padding 0.1s linear, border-width 0.1s linear;
 }
 
-.moon-expandable-picker-header.open {
+.moon-expandable-picker.open .moon-expandable-picker-header {
+	height:22px;
 	line-height:22px;
 	font-size:12px;
 	border-bottom:1px solid #aaa;
+}
+
+.moon-expandable-picker-current-value {
+	font-size:12px;
+	line-height:12px;
+	height:12px;
+	margin:0px;
+	padding:0px 0px 4px 0px;
 }

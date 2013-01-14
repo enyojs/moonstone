@@ -4,6 +4,6 @@ enyo.kind({
 	//* @protected
 	components: [
 		{name: "label", classes: "moon-labeled-checkbox-label"},
-		{kind: "moon.Toggle", spotlight: false}
+		{name: "input", kind: "moon.Toggle", spotlight: false}
 	]
 });

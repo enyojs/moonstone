@@ -1,33 +1,26 @@
 enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
 	style: "margin:20px;",
+	classes: "moon",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
 		{components: [
-			{kind: "moon.ExpandablePicker", content: "Expandable Toggle Group Picker", open: false, highlander: true, defaultKind: "moon.LabeledToggle", classes: "moon-expandable-picker-wrapper", components: [
-				{content: "One"},
-				{content: "Two"},
-				{content: "Three"},
-				{content: "Four"},
-				{content: "Five"},
-				{content: "Six"}
+			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Menu Langauge", defaultKind: "moon.LabeledToggle", classes: "moon-expandable-picker-wrapper", components: [
+				{content: "English"},
+				{content: "Spanish"},
+				{content: "French"},
+				{content: "German"},
+				{content: "Italian"},
+				{content: "Japanese"}
 			]},
-			{kind: "moon.ExpandablePicker", content: "Expandable Checkbox Picker", open: false, highlander: false, defaultKind: "moon.LabeledCheckbox", classes: "moon-expandable-picker-wrapper", components: [
-				{content: "One"},
-				{content: "Two"},
-				{content: "Three"},
-				{content: "Four"},
-				{content: "Five"},
-				{content: "Six"}
+			{kind: "moon.ExpandablePicker", content: "Key Lock", classes: "moon-expandable-picker-wrapper", components: [
+				{content: "On", active: true},
+				{content: "Off"},
 			]},
-			{kind: "moon.ExpandablePicker", content: "Expandable Checkbox Group Picker", open: false, highlander: true, defaultKind: "moon.LabeledCheckbox", classes: "moon-expandable-picker-wrapper", components: [
-				{content: "One"},
-				{content: "Two"},
-				{content: "Three"},
-				{content: "Four"},
-				{content: "Five"},
-				{content: "Six"}
+			{kind: "moon.ExpandablePicker", content: "ISM Method", classes: "moon-expandable-picker-wrapper", components: [
+				{content: "Normal"},
+				{content: "Orbiter"},
 			]}
 		]}
 	]

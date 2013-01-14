@@ -1,20 +1,32 @@
 enyo.kind({
 	name: "moon.LabeledCheckbox",
 	classes: "moon-labeled-checkbox",
+	published: {
+		checked: false,
+		value: false
+	},
 	//* @protected
 	spotlight: true,
 	handlers: {
-		ontap: "tap"
+		ontap: "tap",
+		onActivate: "decorateActivateEvent"
 	},
 	components: [
 		{name: "label", classes: "moon-labeled-checkbox-label"},
-		{name: "checkbox", spotlight: false, kind: "moon.Checkbox"}
+		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
 	contentChanged: function() {
 		this.$.label.setContent(this.getContent());
 	},
+	checkedChanged: function() {
+		this.$.input.setChecked(this.getChecked());
+	},
 	tap: function(inSender, inEvent) {
 		this.waterfallDown("ontap", inEvent, inSender);
 		return true;
+	},
+	decorateActivateEvent: function(inSender, inEvent) {
+		inEvent.toggledControl = this;
+		inEvent.checked = this.checked = this.$.input.getChecked();
 	}
 });

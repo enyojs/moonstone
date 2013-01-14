@@ -1,0 +1,32 @@
+/* ExpandableListItem.css */
+.moon-expandable-list-item {
+	padding: 0 16px 0 0;
+	margin: 16px 0 16px 0;
+	border-color:orange;
+	overflow:hidden;
+}
+
+.moon-expandable-list-item.spotlight {
+	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+	border-left-width: 16px;
+	border-left-color: orange;
+	border-left-style: solid;
+	padding-right:0px;
+}
+.moon-expandable-list-item.open.spotlight {
+	-webkit-transition: none;
+	border-left-width: 0px;
+	padding-right:16px;
+}
+
+.moon-expandable-list-item .moon-item {
+	margin:0px;
+}
+
+.moon-expandable-list-item.open.spotlight .moon-expandable-list-item-header {
+	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+	border-left-width: 16px;
+	border-left-color: orange;
+	border-left-style: solid;
+	padding-right:0px;
+}
