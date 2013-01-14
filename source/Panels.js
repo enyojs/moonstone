@@ -6,7 +6,7 @@ enyo.kind({
 	name: "moon.Panels",
 	kind: "enyo.Panels",
 	spotlight: true,
-	
+
 	//* @protected
 	handlers: {
 		onSpotlightFocus:  "_spotFocus"
@@ -150,5 +150,12 @@ enyo.kind({
 		}
 		this.inherited(arguments);
 		this._spotLastFocused();
+	},
+	// Automatically jump index to any panel body that was tapped
+	tap: function(inSender, inEvent) {
+		var tapped = enyo.indexOf(inEvent.originator, this.getPanels());
+		if ((tapped >= 0) && (tapped != this.getIndex())) {
+			this.setIndex(tapped);
+		}
 	}
 });
