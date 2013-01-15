@@ -143,6 +143,13 @@
   display: block;
   position: relative;
 }
+.moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
+  height: 40px;
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 20px, #ffffff 50px);
+}
+.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 70px);
+}
 .moon-labeled-checkbox .moon-labeled-checkbox-label {
   line-height: 40px;
   float: left;
@@ -154,11 +161,9 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  background-color: #fff;
-  -webkit-mask-image: -webkit-gradient(linear, 0% center, 20% center, from(rgba(0, 0, 0, 0)), to(#000000));
 }
 .moon-labeled-checkbox .moon-checkbox[checked] {
-  background-color: #fff;
+  background-color: transparent;
 }
 /* Item.css */
 .moon-item {

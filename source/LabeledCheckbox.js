@@ -13,13 +13,16 @@ enyo.kind({
 		onActivate: "decorateActivateEvent"
 	},
 	components: [
-		{name: "label", classes: "moon-labeled-checkbox-label"},
+		{classes: "moon-labeled-checkbox-label-wrapper", components: [
+			{name: "label", classes: "moon-labeled-checkbox-label"},
+		]},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
 	contentChanged: function() {
 		this.$.label.setContent(this.getContent());
 	},
 	checkedChanged: function() {
+		this.log(this.getClientControls());
 		this.$.input.setChecked(this.getChecked());
 	},
 	tap: function(inSender, inEvent) {
