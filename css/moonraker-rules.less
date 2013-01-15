@@ -7,12 +7,21 @@
 	text-transform: uppercase;
 }
 
-.moonrakerSpotlight(@trans, @trans2:X, ...) {
-	@props: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`;
-	-webkit-transition: @moon-spotlight-transition, @props;
+.moon-no-border {
+	-webkit-transition: @moon-spotlight-transition;
+	border-left-width: @moon-no-spotlight-border-width;
+	border-left-color: @moon-no-spotlight-border-color;
+	border-left-style: @moon-no-spotlight-border-style;
+	padding-left: @moon-no-spotlight-padding-left;
+	padding-right: @moon-no-spotlight-padding-right;
+}
+
+.moon-border {
 	border-left-width: @moon-spotlight-border-width;
 	border-left-color: @moon-spotlight-border-color;
 	border-left-style: @moon-spotlight-border-style;
+	padding-left: @moon-spotlight-padding-left;
+	padding-right: @moon-spotlight-padding-right;
 }
 
 /* Individual widget CSS */

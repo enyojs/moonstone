@@ -1,5 +1,6 @@
 enyo.kind({
 	name: "moon.LabeledCheckbox",
+	kind: "moon.Item",
 	published: {
 		checked: false,
 		value: false

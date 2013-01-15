@@ -1,15 +1,10 @@
 /* Item.css */
 .moon-item {
-	padding: 0 24px 0 0px;
-	margin: 16px 0 16px 0;
-	border-color:orange;
+	.moon-no-border();
+	margin: 16px 0px;
 	overflow:hidden;
 }
 
 .moon-item.spotlight {
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	border-left-width: 16px;
-	border-left-color: orange;
-	border-left-style: solid;
-	padding: 0 0 0 8px;
+	.moon-border();
 }
