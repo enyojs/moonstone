@@ -75,7 +75,6 @@
   cursor: pointer;
   height: 32px;
   width: 32px;
-  background: url(././../images/checkbox.png) no-repeat;
   /* reset for ? */
 
   margin: 0px;
@@ -85,23 +84,52 @@
   vertical-align: middle;
 }
 .moon-checkbox[checked] {
-  background-position: 0px -32px;
+  background: url(././../images/checkbox.png) no-repeat 0px 0px;
 }
 .moon-checkbox[disabled] {
   opacity: 0.4;
 }
-/* Toggle.css */
-.moon-toggle {
+.moon-checkbox .moon-overlay {
   cursor: pointer;
   height: 32px;
   width: 32px;
+  background: transparent url(././../images/checkbox.png) no-repeat 0px -32px;
+  /* reset for ? */
+
+  margin: 0px;
+  /* these entries cause toggle-button and checkbox to line up properly*/
+
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 1;
+  -webkit-transition: opacity 0.25s linear;
+}
+.moon-checkbox .moon-overlay.off {
+  opacity: 0;
+}
+/* Toggle.css */
+.moon-checkbox.moon-toggle {
   line-height: 32px;
   text-align: left;
   text-transform: uppercase;
   background: inherit;
+  opacity: 1;
+  background: transparent none no-repeat 0 0;
+  position: relative;
 }
-.moon-toggle[disabled] {
+.moon-checkbox.moon-toggle[disabled] {
   opacity: 0.4;
+}
+.moon-checkbox.moon-toggle[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-checkbox.moon-toggle .moon-overlay {
+  background: transparent;
+  color: orange;
+  position: absolute;
+}
+.moon-toggle-text {
+  position: absolute;
 }
 .moon-labeled-checkbox {
   width: 200px;

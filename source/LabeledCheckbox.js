@@ -1,11 +1,11 @@
 enyo.kind({
 	name: "moon.LabeledCheckbox",
-	classes: "moon-labeled-checkbox",
 	published: {
 		checked: false,
 		value: false
 	},
 	//* @protected
+	classes: "moon-labeled-checkbox",
 	spotlight: true,
 	handlers: {
 		ontap: "tap",

@@ -3,7 +3,6 @@
 	cursor: pointer;
 	height: @moon-checkbox-image-height;
 	width: @moon-checkbox-image-width;
-	background: @moon-checkbox-image no-repeat;
 	/* reset for ? */
 	margin: 0px;
 	/* these entries cause toggle-button and checkbox to line up properly*/
@@ -12,9 +11,27 @@
 }
 
 .moon-checkbox[checked] {
-	background-position: 0px -@moon-checkbox-image-height;
+	background: @moon-checkbox-image no-repeat 0px 0px;
 }
 
 .moon-checkbox[disabled] {
 	opacity: @moon-disabled-opacity;
+}
+
+.moon-checkbox .moon-overlay {
+	cursor: pointer;
+	height: @moon-checkbox-image-height;
+	width: @moon-checkbox-image-width;
+	background: transparent @moon-checkbox-image no-repeat 0px -@moon-checkbox-image-height;
+	/* reset for ? */
+	margin: 0px;
+	/* these entries cause toggle-button and checkbox to line up properly*/
+	display: inline-block;
+	vertical-align: middle;
+	opacity:1;
+	-webkit-transition: opacity 0.25s linear;
+}
+
+.moon-checkbox .moon-overlay.off {
+	opacity:0;
 }

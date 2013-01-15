@@ -1,13 +1,27 @@
 /* Toggle.css */
-.moon-toggle {
-	cursor: pointer;
-	height: 32px;
-	width: 32px;
-	line-height:32px;
+
+.moon-checkbox.moon-toggle {
+	line-height: @moon-checkbox-image-height;
 	text-align:left;
 	text-transform:uppercase;
 	background:inherit;
+	opacity:1;
+	background: transparent none no-repeat 0 0;
+	position:relative;
 }
-.moon-toggle[disabled] {
+.moon-checkbox.moon-toggle[disabled] {
 	opacity: 0.4;
+}
+.moon-checkbox.moon-toggle[checked] {
+	background: transparent none no-repeat 0px 0px;
+}
+
+.moon-checkbox.moon-toggle .moon-overlay {
+	background:transparent;
+	color:orange;
+	position:absolute;
+}
+
+.moon-toggle-text {
+	position:absolute;
 }

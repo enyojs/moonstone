@@ -1,6 +1,7 @@
 enyo.kind({
 	name: "moon.sample.CheckboxSample",
 	fit: true,
+	classes: "moon",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{components: [

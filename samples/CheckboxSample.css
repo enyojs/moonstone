@@ -1,25 +1,4 @@
 
-.moon-checkbox {
-	cursor: pointer;
-	height: 32px;
-	width: 32px;
-	background: url(../images/checkbox.png);
-	/* reset for ? */
-	margin: 0px;
-	/* these entries cause toggle-button and checkbox to line up properly*/
-	display: inline-block;
-	vertical-align: middle;
-	margin:4px 0px;
-}
-
-.moon-checkbox[checked] {
-	background-position: 0px -32px;
-}
-
-.moon-checkbox[disabled] {
-	opacity: 0.4;
-}
-
 .moon-labeled-checkbox {
 	width:200px;
 	height:40px;
