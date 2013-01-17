@@ -8,5 +8,7 @@ enyo.depends(
 	"RadioButtonSample.js",
 	"RadioButtonSample.css",
 	"ExpandablePickerSample.js",
-	"ExpandablePickerSample.css"
+	"ExpandablePickerSample.css",
+	"ScrollerSample.js",
+	"ScrollerSample.css"
 );
