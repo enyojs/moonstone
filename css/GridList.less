@@ -1,0 +1,55 @@
+/*
+	Put anything you reference with "url()" in ../assets/
+	This way, you can minify your application, and just remove the "source" folder for production
+*/
+.enyo-gridlist-row {
+	overflow: visible;
+}
+.moon-gridlist {
+	background: #eee;
+}
+.moon-gridlist-imageitem {
+	width: 100%;
+	height: 100%; 
+	overflow: visible;
+	background: #ccc;
+}
+.moon-gridlist-imageitem.selected {
+	background: orange;
+	padding: 3px;
+	/*Offset the bottom-padding by adding negative top-margin*/
+	margin-top: -3px;
+}
+.moon-gridlist-imageitem img {
+	width: 100%;
+	height: 100%;
+}
+.moon-gridlist-imageitem.loading {
+	/*background: url(../images/spinner-dark.gif) center center no-repeat;*/
+}
+.moon-gridlist-imageitem .caption {
+	font-weight: bold;
+	text-align: center;
+	font-size: 10pt;
+	text-transform: uppercase;
+	z-index: 10;
+	padding-top: 10px;
+	color: #555;
+	width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	height: 30px;
+	overflow: hidden;
+}
+.spotlight {
+	background: orange !important;
+	padding-left: 24px !important;
+	margin-right: -24px !important;
+}
+.spotlight.selected {
+	background: orange !important;
+	padding-left: 24px !important;
+	margin-right: -24px !important;
+	padding-top: 3px !important;
+	padding-bottom: 3px !important;
+}
