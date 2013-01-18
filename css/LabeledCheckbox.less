@@ -1,0 +1,28 @@
+
+.moon-labeled-checkbox {
+	height: @moon-checkbox-image-height;
+	display: block;
+	position:relative;
+}
+.moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
+	height:40px;
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent 20px, white 50px);
+}
+.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent (@moon-no-spotlight-padding-right + 20), white (@moon-no-spotlight-padding-right + 40));
+}
+.moon-labeled-checkbox .moon-labeled-checkbox-label {
+	line-height: 40px;
+	float: left;
+	height: @moon-checkbox-image-height;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.moon-labeled-checkbox .moon-checkbox {
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+.moon-labeled-checkbox .moon-checkbox[checked] {
+	background-color:transparent;
+}

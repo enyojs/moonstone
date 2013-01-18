@@ -1,0 +1,11 @@
+.checkbox-sample-wrapper {
+	margin:20px;
+	width:240px;
+	display:inline-block;
+}
+
+.checkbox-sample-wrapper-title {
+	font-size:18px;
+	line-height:30px;
+	border-bottom:1px solid #aaa;
+}

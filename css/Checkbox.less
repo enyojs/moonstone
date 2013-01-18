@@ -1,0 +1,29 @@
+/* Checkbox.css */
+.moon-checkbox {
+	cursor: pointer;
+	height: @moon-checkbox-image-height;
+	width: @moon-checkbox-width;
+}
+
+.moon-checkbox[checked] {
+	background-image: @moon-checkbox-image;
+	background-repeat: no-repeat;
+	background-position: 10px 0px;
+}
+
+.moon-checkbox[disabled] {
+	opacity: @moon-disabled-opacity;
+}
+
+.moon-checkbox .moon-overlay {
+	cursor: pointer;
+	height: @moon-checkbox-image-height;
+	width: @moon-checkbox-width;
+	background: transparent @moon-checkbox-image no-repeat 10px -@moon-checkbox-image-height;
+	opacity: 1;
+	-webkit-transition: opacity 0.4s linear;
+}
+
+.moon-checkbox .moon-overlay.off {
+	opacity: 0;
+}

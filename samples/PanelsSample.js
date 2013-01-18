@@ -53,7 +53,11 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		setInterval(enyo.bind(this,this.updateLogs), 300);
+		this.interval = setInterval(enyo.bind(this,this.updateLogs), 300);
+	},
+	destroy: function() {
+		clearInterval(this.interval);
+		this.inherited(arguments);
 	},
 	updateLogs: function() {
 		this.$.currentSpot.setContent(enyo.Spotlight.getCurrent().name);

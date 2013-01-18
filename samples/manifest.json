@@ -5,6 +5,10 @@
 	"loadPackages": "$lib/moonraker $lib/moonraker/samples $lib/spotlight",
 	"samples": [
 		{"name": "Panels", "path":"$lib/moonraker/samples/PanelsSample"},
-		{"name": "Simple Picker", "path":"$lib/moonraker/samples/SimplePickerSample", "css":"sample"}
+		{"name": "Simple Picker", "path":"$lib/moonraker/samples/SimplePickerSample", "css":"sample"},
+        {"name": "Checkbox", "path":"$lib/moonraker/samples/CheckboxSample"},
+        {"name": "Radio Button", "path":"$lib/moonraker/samples/RadioButtonSample"},
+        {"name": "Expandable Picker", "path":"$lib/moonraker/samples/ExpandablePickerSample"},
+        {"name": "Scroller", "path":"$lib/moonraker/samples/ScrollerSample"}
 	]
 }

@@ -4,4 +4,12 @@ enyo.depends(
 	"PanelsSample.css",
 	"SimplePickerSample.js",
 	"GridListSample.js"
+	"CheckboxSample.js",
+	"CheckboxSample.css",
+	"RadioButtonSample.js",
+	"RadioButtonSample.css",
+	"ExpandablePickerSample.js",
+	"ExpandablePickerSample.css",
+	"ScrollerSample.js",
+	"ScrollerSample.css"
 );
