@@ -53,7 +53,6 @@ enyo.kind({
 		console.error("Missing API key. Your Netflix API key is required to use this component.");
 	},
 	setupItem: function(inSender, inEvent) {
-		this.log("Hello");
 		var i = inEvent.index;
 		var item = this.results[i];
 		this.$.item.setSource(item.BoxArt.LargeUrl);

@@ -4,7 +4,7 @@ enyo.depends(
 	"Panels.js",
 	"SimplePicker.js",
 	"GridList.js",
-	"GridListImageItem.js"
+	"GridListImageItem.js",
 	"Checkbox.js",
 	"LabeledCheckbox.js",
 	"Toggle.js",
