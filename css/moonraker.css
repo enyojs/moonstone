@@ -334,7 +334,7 @@
   /*background: url(../images/spinner-dark.gif) center center no-repeat;*/
 
 }
-.moon-gridlist-imageitem.caption {
+.moon-gridlist-imageitem .caption {
   font-weight: bold;
   text-align: center;
   font-size: 10pt;
