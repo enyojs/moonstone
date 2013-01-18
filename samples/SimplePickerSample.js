@@ -27,9 +27,9 @@ enyo.kind({
 			{content:"Picker 2"}
 		]},
 		{kind:"Input", spotlight:true},
-		{kind:"Button", content:"Change", spotlight:true, ontap:"changeItem"},
-		{kind:"Button", content:"Add", spotlight:true, ontap:"addItem"},
-		{kind:"Button", content:"Delete", spotlight:true, ontap:"destroyItem"}
+		{kind:"moon.Button", content:"Change", spotlight:true, ontap:"changeItem"},
+		{kind:"moon.Button", content:"Add", spotlight:true, ontap:"addItem"},
+		{kind:"moon.Button", content:"Delete", spotlight:true, ontap:"destroyItem"}
 	],
 	changed: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.index + ")");
