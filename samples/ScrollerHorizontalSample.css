@@ -1,0 +1,26 @@
+
+.moon-scroller-sample-horizontal {
+	width:500px;
+	display:block;
+	border:1px solid blue;
+	white-space:nowrap;	
+}
+
+.moon-scroller-sample-item {
+	width:50px;
+	display:inline-block;
+	white-space:normal;
+}
+
+.moon-scroller-sample.spotlight {
+	border:1px solid orange;
+}
+
+.moon-button {
+	margin:0px;
+	width:300px;
+	border:1px solid red;
+}
+.moon-button.spotlight {
+	background:orange;
+}

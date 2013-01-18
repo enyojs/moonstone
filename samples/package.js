@@ -11,5 +11,10 @@ enyo.depends(
 	"ExpandablePickerSample.js",
 	"ExpandablePickerSample.css",
 	"ScrollerSample.js",
-	"ScrollerSample.css"
+	"ScrollerSample.css",
+	"HorizontalScrollerSample.js",
+	"HorizontalScrollerSample.css",	
+	"ListHorizontalSample.js",
+	"ListVerticalSample.js",
+	"ListSample.css"
 );
