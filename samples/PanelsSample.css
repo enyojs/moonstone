@@ -1,5 +1,4 @@
-
-.moonraker-panels-sample {
+.moonraker-panels-sample-panels {
 	width:500px;
 	height:400px;
 	border:1px solid red;
@@ -10,6 +9,10 @@
 	border:1px solid red;
 }
 
-.moonraker-panels-sample > * {
+.moonraker-panels-sample-panels > * {
 	width:300px;
+}
+
+.moonraker-panels-sample button.spotlight {
+	background: orange;
 }

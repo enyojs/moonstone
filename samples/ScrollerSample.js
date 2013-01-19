@@ -1,11 +1,11 @@
 enyo.kind({
 	name: 'moon.sample.ScrollerSample',
-	classes: "moon",
+	classes: "moon moon-scroller-sample",
 	fit: false,
 	components:[
 		{kind: 'enyo.Spotlight'},
 		{kind: "moon.Button", content: "A button"},
-		{name: 'scroller', kind: 'moon.Scroller', spotlight: "container", touch: true, classes: 'moon-scroller-sample',
+		{name: 'scroller', kind: 'moon.Scroller', spotlight: "container", touch: true, classes: 'moon-scroller-sample-scroller',
 			components: [
 				{kind: "moon.Item", content: "This is an item 1"},
 				{kind: "moon.Item", content: "This is an item 2"},

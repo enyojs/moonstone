@@ -1,19 +1,18 @@
 
-.moon-scroller-sample {
+.moon-scroller-sample-scroller {
 	width:500px;
 	height:400px;
 	display:block;
 	border:1px solid blue;
 }
-.moon-scroller-sample.spotlight {
+.moon-scroller-sample-scroller.spotlight {
 	border:1px solid orange;
 }
 
-.moon-button {
+.moon-scroller-sample .moon-button {
 	margin:0px;
 	width:300px;
-	border:1px solid red;
-}
-.moon-button.spotlight {
-	background:orange;
+	border-top:1px solid red;
+	border-right:1px solid red;
+	border-bottom:1px solid red;
 }

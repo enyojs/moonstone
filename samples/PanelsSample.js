@@ -1,10 +1,11 @@
 enyo.kind({
 	name: "moon.sample.PanelsSample",
+	classes: "moonraker-panels-sample",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name:"test", spotlight:true, kind:"Button", content:"Test button", style:"margin:40px 2px;"},
-		{name: "panels", kind: "moon.Panels", classes: "moonraker-panels-sample", arrangerKind: "CarouselArranger", components: [
+		{name: "panels", kind: "moon.Panels", classes: "moonraker-panels-sample-panels", arrangerKind: "CarouselArranger", components: [
 			{name: "panel1", components: [
 				{tag:"h1", content:"Panel 1"},
 				{name:"button1", kind:"Button", spotlight: true, content:"Button 1", ontap: "buttonTapped"},
@@ -40,7 +41,7 @@ enyo.kind({
 		]},
 		{name:"test2", spotlight:true, kind:"Button", content:"Test button 2", style:"margin:40px 2px;"},
 		
-		{name: "logContainer", style: "position:absolute;right:40px;top:40px;width:600px;", components: [
+		{name: "logContainer", style: "position:absolute;right:40px;top:40px;width:400px;", components: [
 			{content: "Current spotlighted item:", style: "font-size:14px;"},
 			{name: "currentSpot", style: "font-size:18px;border:1px solid #444;"},
 			{content: "Current panel index:", style: "font-size:14px;margin-top:20px;"},

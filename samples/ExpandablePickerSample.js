@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
 	style: "margin:20px;",
-	classes: "moon",
+	classes: "moon enyo-unselectable",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
