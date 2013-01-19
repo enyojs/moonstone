@@ -9,6 +9,7 @@
         {"name": "Checkbox", "path":"$lib/moonraker/samples/CheckboxSample"},
         {"name": "Radio Button", "path":"$lib/moonraker/samples/RadioButtonSample"},
         {"name": "Expandable Picker", "path":"$lib/moonraker/samples/ExpandablePickerSample"},
-        {"name": "Scroller", "path":"$lib/moonraker/samples/ScrollerSample"}
+        {"name": "Scroller", "path":"$lib/moonraker/samples/ScrollerSample"},
+        {"name": "Spotlight Sandbox", "path":"$lib/moonraker/samples/SpotlightSample"}
 	]
 }
