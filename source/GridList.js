@@ -17,6 +17,7 @@ enyo.kind(
         itemMinWidth: 180, 
         itemMinHeight: 180, 
         itemWidth: 180, 
-        itemHeight: 180
+        itemHeight: 180,
+        itemFluidWidth: true
     }
 );
