@@ -63,7 +63,7 @@ enyo.kind({
 		onActivate: "activated"
 	},
 	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
+		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
 		{name: "drawer", kind: "moon.Drawer", components: [
