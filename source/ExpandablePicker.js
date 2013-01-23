@@ -72,16 +72,10 @@ enyo.kind({
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
 		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
-	//* This is used to prevent events from firing during initialization
-	isRendered: false,
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
 		this.noneTextChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.isRendered = true;
 	},
 	//* When the _selected_ control changes, update _checked_ values appropriately and fire an onChange event
 	selectedChanged: function() {
@@ -147,7 +141,7 @@ enyo.kind({
 		var index = this.getClientControls().indexOf(inEvent.toggledControl),
 			_this = this;
 		
-		if(inEvent.checked && index > -1) {
+		if(inEvent.checked && index > -1 && this.getAutoCollapse()) {
 			this.setSelected(inEvent.toggledControl);
 			if(this.isRendered) {
 				setTimeout(function() {

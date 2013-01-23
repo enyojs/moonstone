@@ -19,9 +19,15 @@ enyo.kind({
 		]},
 		{name: "bottom", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
+	//* This is used to prevent events from firing during initialization
+	isRendered: false,
 	create: function() {
 		this.inherited(arguments);
 		this.openChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.isRendered = true;
 	},
 	//* Facade for header content
 	contentChanged: function() {
@@ -41,6 +47,9 @@ enyo.kind({
 			this.removeClass("open");
 			this.spotlight = true;
 			this.$.header.spotlight = false;
+			if(this.isRendered) {
+				enyo.Spotlight.spot(this);
+			}
 		}
 	},
 	//* If select event came from header, call _expandContract()_
@@ -67,6 +76,8 @@ enyo.kind({
 			enyo.Spotlight.spot(this);
 			this.$.header.removeClass("spotlight");	//<--- TODO - why do we need this here?
 			return true;
+		} else if(!this.getOpen()) {
+			enyo.Spotlight.spot(this);
 		}
 	},
 	//* When spotlight reaches the bottom of the expandable list item, prevent user from continuing downward.
