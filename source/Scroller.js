@@ -3,9 +3,9 @@ enyo.kind({
 	name: "moon.Scroller",
 	kind: "enyo.Scroller",
 	handlers: {
-		onSpotlightFocused: "_spotFocused"
+		onSpotlightFocused: "spotFocused"
 	},
-	_spotFocused: function(inSender, inEvent) {
+	spotFocused: function(inSender, inEvent) {
 		if(inEvent.originator === this) {
 			return;
 		}
