@@ -368,3 +368,45 @@
   padding-top: 3px !important;
   padding-bottom: 3px !important;
 }
+/* Page Controls */
+.moon-page-left {
+  position: absolute;
+  z-index: 10;
+  margin-top: 45%;
+  height: 100%;
+}
+.moon-page-right {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  margin-top: 45%;
+  height: 100%;
+}
+.moon-page-up {
+  position: absolute;
+  z-index: 150;
+  margin-left: 45%;
+  width: 100%;
+}
+.moon-page-down {
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  margin-left: 45%;
+  width: 100%;
+}
+.moon-page-left .button.spotlight {
+  background-position: 0 -64px;
+}
+.moon-page-right .button.spotlight {
+  background-position: 0 -64px;
+}
+.moon-page-up .button.spotlight {
+  background-position: 0 -64px;
+}
+.moon-page-down .button {
+  background-position: 0 -64px;
+}
+.moon-page-down .button.spotlight {
+  background-position: 0 0px;
+}
