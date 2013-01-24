@@ -17,7 +17,7 @@ enyo.kind({
 			]},
 				{kind: "moon.Item", content: "This is an item 1"},
 				{kind: "moon.Item", content: "This is an item 2"},
-				{kind: "moon.Item", content: "This is an item 3"},
+				{kind: "moon.Item", content: "This is an item 3", style: "background-color:red;width:1000px;"},
 				{kind: "moon.Item", content: "This is an item 4"},
 				{kind: "moon.Item", content: "This is an item 5"},
 				{kind: "moon.Item", content: "This is an item 6"},

@@ -1,12 +1,12 @@
 enyo.kind({
 	name: "moon.ExpandableListItem",
 	kind: "moon.Item",
+	classes: "moon-expandable-list-item",
 	published: {
 		open: false,
 		autoCollapse: true
 	},
 	spotlight: false,
-	classes: "moon-expandable-list-item",
 	defaultKind: "moon.Item",
 	handlers: {
 		onSpotlightSelect: "spotlightSelect"
