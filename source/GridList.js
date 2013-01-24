@@ -11,7 +11,6 @@ enyo.kind(
         name: "moon.GridList", 
         kind: "enyo.GridList", 
         classes: "moon-gridlist", 
-        multiSelect: true, 
         spotlight: true, 
         itemSpacing: 8, 
         itemMinWidth: 180, 

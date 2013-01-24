@@ -328,8 +328,9 @@
 .moon-gridlist-imageitem.selected {
   background: orange;
   padding: 3px;
-  /*Offset the bottom-padding by adding negative top-margin*/
+  /*Offset the right and bottom padding by adding negative top and left margin*/
 
+  margin-left: -3px;
   margin-top: -3px;
 }
 .moon-gridlist-imageitem img {
