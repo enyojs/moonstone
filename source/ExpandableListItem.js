@@ -1,5 +1,6 @@
 enyo.kind({
 	name: "moon.ExpandableListItem",
+	kind: "moon.Item",
 	published: {
 		open: false,
 		autoCollapse: true
@@ -14,7 +15,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "moon.Drawer", components: [
+		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group"}
 		]},
 		{name: "bottom", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
@@ -88,6 +89,12 @@ enyo.kind({
 			enyo.Spotlight.spot(nextItem);
 			return true;
 		}
+		return true;
+	},
+	drawerAnimationStep: function() {
+		this.bubble("onRequestScrollIntoView");
+	},
+	requestScrollIntoView: function() {
 		return true;
 	}
 });

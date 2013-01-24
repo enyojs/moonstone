@@ -2,10 +2,14 @@
 enyo.kind({
 	name: "moon.Scroller",
 	kind: "enyo.Scroller",
+	spotlight: "container",
 	published: {
-		pagePercent: 40, //Percent of scroller client area to jump when paging
-		hidePagingOnKey: false, //Hide the paging controls if a key is pressed (5 way mode)
-		hoverPagingOnly: false //Only show the paging controls if user is hovering the pointer above this control
+		//* Percent of scroller client area to jump when paging
+		pagePercent: 40,
+		//* Hide the paging controls if a key is pressed (5 way mode)
+		hidePagingOnKey: false,
+		//* Only show the paging controls if user is hovering the pointer above this control
+		hoverPagingOnly: false
 	},
 	horizonalPageControls: [
 		{name:"pageBackControl", classes: "moon-page-left", showing:false, components: [
@@ -23,12 +27,14 @@ enyo.kind({
 			{kind: "onyx.IconButton", classes: "button", spotlight:true, src: "../images/downArrow.png", ontap:"pageForward"}
 		]}
 	],	
-	hovering: false, //Is pointer hovering over this control
+	// Is pointer hovering over this control
+	hovering: false,
 	components: [
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged"}
 	],
 	handlers: {
-		onSpotlightFocused: "_spotFocused",
+		onSpotlightFocused: "spotFocused",
+		onRequestScrollIntoView: "requestScrollIntoView",
 		onScrollStop: "updatePageControls",
 		onenter: "enter",
 		onleave: "leave"		
@@ -41,35 +47,23 @@ enyo.kind({
 		this.createChrome(this.orientV ? this.verticalPageControls : this.horizonalPageControls);
 		this.inherited(arguments);
 	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.updatePageControls();
+	},
 	spotFocused: function(inSender, inEvent) {
 		if(inEvent.originator === this) {
 			return;
 		}
-		
 		if(!this.$.strategy.isInView(inEvent.originator.hasNode())) {
-			this.scrollToNode(inEvent.originator.hasNode(), true, true);
+			this.animateToControl(inEvent.originator);
 		}
 	},
-	spotlightModeChanged: function(inSender, inEvent) {
-		if (inEvent.pointerMode) {
-			this.updatePageControls();
-		} else if (this.hidePagingOnKey) {
-			this.$.pageBackControl.hide();
-			this.$.pageForwardControl.hide();				
-		}
-	},
-	enter: function(){
-		if (this.hoverPagingOnly) {
-			this.hovering = true;
-			this.updatePageControls();
-		}
-	},
-	leave: function(){
-		if (this.hoverPagingOnly) {
-			this.hovering = false;			
-			this.$.pageBackControl.hide();
-			this.$.pageForwardControl.hide();			
-		}
+	requestScrollIntoView: function(inSender, inEvent) {
+		var side = inEvent.side;
+		// If the node is not in view, scroll it in
+		this.animateToControl(inEvent.originator);
+		return true;
 	},
 	updatePageControls: function(inSender, inEvent) {
 		var sb = this.getScrollBounds();		
@@ -98,42 +92,77 @@ enyo.kind({
 			this.$.pageForwardControl.hide();
 		}
 	},
-	scrollToNode: function(inNode) {
-		this.$.strategy.animateToNode(inNode);
+	enter: function(){
+		if (this.hoverPagingOnly) {
+			this.hovering = true;
+			this.updatePageControls();
+		}
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.updatePageControls();
+	leave: function(){
+		if (this.hoverPagingOnly) {
+			this.hovering = false;			
+			this.$.pageBackControl.hide();
+			this.$.pageForwardControl.hide();			
+		}
+	},
+	animateToControl: function(inControl) {
+		var controlBounds = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
+			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this),
+			scrollBounds = this.$.strategy.getScrollBounds(),
+			offsetTop = controlBounds.top - absoluteBounds.top,
+			offsetLeft = controlBounds.left - absoluteBounds.left,
+			offsetHeight = controlBounds.height,
+			offsetWidth = controlBounds.width,
+			xDir,
+			yDir,
+			x,
+			y;
 		
-		// TODO - this should be copied/pasted into ScrollStrategy.js when the time is right.
-		this.$.strategy.animateToNode = function(inNode) {
-			if(!this.scrollNode) {
-				return;
-			}
-
-			var sb = this.getScrollBounds(),
-				b = {height: inNode.offsetHeight, width: inNode.offsetWidth, top: 0, left: 0},
-				n = inNode;
-
-			while (n && n.parentNode && n.id != this.scrollNode.id) {
-				b.top += n.offsetTop;
-				b.left += n.offsetLeft;
-				n = n.parentNode;
-			}
-
-			var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
-			var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
-
-			// Only scroll far enough to reveal _inNode_
-			var y = (yDir === 0)
-				?	sb.top
-				:	Math.min(sb.maxTop, (yDir === 1) ? b.top - sb.clientHeight + b.height : b.top);
-			var x = (xDir === 0)
-				?	sb.left
-				:	Math.min(sb.maxLeft, (xDir === 1) ? b.left - sb.clientWidth + b.width : b.left);
-
+		// 0: currently visible, 1: right of viewport, -1: left of viewport
+		xDir = (offsetLeft >= scrollBounds.left && offsetLeft + offsetWidth <= scrollBounds.left + scrollBounds.clientWidth)
+			?	0
+			:	offsetLeft - scrollBounds.left > 0 ? 1 : offsetLeft - scrollBounds.left < 0 ? -1 : 0;
+		// 0: currently visible, 1: below viewport, -1: above viewport
+		yDir = (offsetTop >= scrollBounds.top && offsetTop + offsetHeight <= scrollBounds.top + scrollBounds.clientHeight)
+			?	0
+			:	offsetTop - scrollBounds.top > 0 ? 1 : offsetTop - scrollBounds.top < 0 ? -1 : 0;
+		
+		switch(xDir) {
+			case 0:
+				x = this.getScrollLeft();
+				break;
+			case 1:
+				x = (offsetWidth > scrollBounds.clientWidth) ? offsetLeft : offsetLeft - scrollBounds.clientWidth + offsetWidth;
+				break;
+			case -1:
+				x = offsetLeft;
+				break;
+		}
+		
+		switch(yDir) {
+			case 0:
+				y = this.getScrollTop();
+				break;
+			case 1:
+				y = (offsetHeight > scrollBounds.clientHeight) ? offsetTop : offsetTop - scrollBounds.clientHeight + offsetHeight;
+				break;
+			case -1:
+				y = offsetTop;
+				break;
+		}
+		
+		// If x or y changed, scroll to new position
+		if(x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x,y);
-		};
+		}
+	},
+	spotlightModeChanged: function(inSender, inEvent) {
+		if (inEvent.pointerMode) {
+			this.updatePageControls();
+		} else if (this.hidePagingOnKey) {
+			this.$.pageBackControl.hide();
+			this.$.pageForwardControl.hide();				
+		}
 	},
 	pageBack: function() {
 		var sb = this.getScrollBounds();

@@ -60,13 +60,14 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.LabeledCheckbox",
 	handlers: {
-		onActivate: "activated"
+		onActivate: "activated",
+		requestScrollIntoView: "requestScrollIntoView"
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "moon.Drawer", components: [
+		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", highlander: true}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
