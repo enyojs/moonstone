@@ -14,5 +14,6 @@ enyo.depends(
 	"ExpandableListItem.js",
 	"ExpandablePicker.js",
 	"Header.js",
-	"Scroller.js"
+	"Scroller.js",
+	"List.js"
 );

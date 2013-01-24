@@ -26,8 +26,8 @@
 	_createComponent()/render()_ or _destroy()_.
 
 		// Add new items to picker
-		this.$.expandablePicker.createCompoent({"New York"}).render();
-		this.$.expandablePicker.createCompoent({"London"}).render();
+		this.$.expandablePicker.createComponent({"New York"}).render();
+		this.$.expandablePicker.createComponent({"London"}).render();
 
 		// Remove currently selected item from picker
 		this.$.expandablePicker.getSelected().destroy();
@@ -50,8 +50,6 @@ enyo.kind({
 		onChange: ""
 	},
 	published: {
-		//* If true, only one item can be selected in this picker.
-		highlander: true,
 		//* Reference to currently selected item, if any.
 		selected: null,
 		//* Index of currently selected item, if any.
@@ -62,24 +60,25 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.LabeledCheckbox",
 	handlers: {
-		onActivate: "activated"
+		onActivate: "activated",
+		requestScrollIntoView: "requestScrollIntoView"
 	},
 	components: [
-		{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-header"},
-		{name: "drawer", kind: "moon.Drawer", components: [
-			{name: "client", kind: "Group"}
+		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
+			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
+		},
+		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
+			{name: "client", kind: "Group", highlander: true}
 		]},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", content: ""}
+		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
+		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.highlanderChanged();
 		this.initializeActiveItem();
 		this.noneTextChanged();
 	},
-	highlanderChanged: function() {
-		this.$.client.setHighlander(this.getHighlander());
-	},
+	//* When the _selected_ control changes, update _checked_ values appropriately and fire an onChange event
 	selectedChanged: function() {
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
@@ -100,6 +99,7 @@ enyo.kind({
 			this.fireChangeEvent();
 		}
 	},
+	//* When the _selectedIndex_ changes, call _this.setChecked()_ on the appropriate control
 	selectedIndexChanged: function() {
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
@@ -109,25 +109,16 @@ enyo.kind({
 			this.setSelected(controls[index]);
 		}
 	},
+	//* If no selected item, use _this.noneText_ for current value
 	noneTextChanged: function() {
 		if(this.getSelected() === null && this.getSelectedIndex() === -1) {
 			this.$.currentValue.setContent(this.getNoneText());
 		}
 	},
+	//* When _this.open_ changes, show/hide _this.$.currentValue_
 	openChanged: function() {
-		var open = this.getOpen();
-		
-		this.$.drawer.setOpen(open);
-		
-		if(this.$.drawer.getOpen()) {
-			this.addClass("open");
-			this.spotlight = false;
-			this.$.currentValue.setShowing(false);
-		} else {
-			this.removeClass("open");
-			this.spotlight = true;
-			this.$.currentValue.setShowing(true);
-		}
+		this.inherited(arguments);
+		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
 	},
 	/*
 		When the picker is initialized, look for any items with an active:true flag, and
@@ -146,12 +137,22 @@ enyo.kind({
 			}
 		}
 	},
+	//* When an item is chosen, mark it as checked, and close the picker.
 	activated: function(inSender, inEvent) {
-		var index = this.getClientControls().indexOf(inEvent.toggledControl);
-		if(inEvent.checked && index > -1) {
+		var index = this.getClientControls().indexOf(inEvent.toggledControl),
+			_this = this;
+		
+		if(inEvent.checked && index > -1 && this.getAutoCollapse()) {
 			this.setSelected(inEvent.toggledControl);
+			if(this.isRendered) {
+				setTimeout(function() {
+					_this.setOpen(false);
+					enyo.Spotlight.spot(_this);
+				}, 300);
+			}
 		}
 	},
+	//* Fire an onChange event
 	fireChangeEvent: function() {
 		this.doChange({
 			selected: this.getSelected(),

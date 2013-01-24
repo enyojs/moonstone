@@ -22,7 +22,6 @@ enyo.kind({
 		this.$.label.setContent(this.getContent());
 	},
 	checkedChanged: function() {
-		this.log(this.getClientControls());
 		this.$.input.setChecked(this.getChecked());
 	},
 	tap: function(inSender, inEvent) {
