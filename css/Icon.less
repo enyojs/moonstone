@@ -1,0 +1,21 @@
+/* Icon.css */
+.moon-icon, .moon-icon-toggle {
+	width: @moon-icon-size;
+	height: @moon-icon-size;
+	background-repeat: no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.moon-icon.moon-icon-button.active, .moon-icon.onyx-icon-button:active:hover, .moon-icon-toggle.active {
+	background-position: 0 -@moon-icon-size;
+}
+
+.moon-icon.disabled {
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}
+
+.moon-icon.disabled:active:hover {
+	background-position: 0 0px;
+}
