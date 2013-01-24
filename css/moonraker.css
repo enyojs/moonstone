@@ -13,6 +13,10 @@
 /* ---------------------------------------*/
 /* Images */
 /* ---------------------------------------*/
+/* Icon Sizes */
+/* ---------------------------------------*/
+/* Disabled Opacity */
+/* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
 /* Moonraker rules defined here */
@@ -80,6 +84,7 @@
   padding-left: 8px;
   padding-right: 0px;
 }
+/* LESS pre-calculations */
 /* Individual widget CSS */
 .moon-simple-picker {
   display: inline-block;
@@ -367,45 +372,61 @@
   padding-top: 3px !important;
   padding-bottom: 3px !important;
 }
-/* Page Controls */
-.moon-page-left {
-  position: absolute;
-  z-index: 10;
-  margin-top: 45%;
-  height: 100%;
-}
-.moon-page-right {
-  position: absolute;
-  right: 0;
-  z-index: 10;
-  margin-top: 45%;
-  height: 100%;
-}
-.moon-page-up {
+/* Scroller Page Controls */
+.moon-paging-button {
   position: absolute;
   z-index: 150;
-  margin-left: 45%;
-  width: 100%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 0 0;
 }
-.moon-page-down {
-  position: absolute;
-  bottom: 0;
-  z-index: 10;
-  margin-left: 45%;
-  width: 100%;
+.moon-paging-button.top {
+  top: 0px;
+  background-image: url(./../images/upArrow.png);
 }
-.moon-page-left .button.spotlight {
+.moon-paging-button.top.spotlight {
+  background-position: 0px -64px;
+}
+.right {
+  right: 0px;
+  background-image: url(./../images/rightArrow.png);
+}
+.moon-paging-button.right.spotlight {
+  background-position: 0px -64px;
+}
+.moon-paging-button.bottom {
+  bottom: 0px;
+  background-image: url(./../images/downArrow.png);
   background-position: 0 -64px;
 }
-.moon-page-right .button.spotlight {
-  background-position: 0 -64px;
+.moon-paging-button.bottom.spotlight {
+  background-position: 0px 0px;
 }
-.moon-page-up .button.spotlight {
-  background-position: 0 -64px;
+.moon-paging-button.left {
+  left: 0px;
+  background-image: url(./../images/leftArrow.png);
 }
-.moon-page-down .button {
-  background-position: 0 -64px;
+.moon-paging-button.left.spotlight {
+  background-position: 0px -64px;
 }
-.moon-page-down .button.spotlight {
+/* Icon.css */
+.moon-icon,
+.moon-icon-toggle {
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+}
+.moon-icon.moon-icon-button.active,
+.moon-icon.onyx-icon-button:active:hover,
+.moon-icon-toggle.active {
+  background-position: 0 -32px;
+}
+.moon-icon.disabled {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+.moon-icon.disabled:active:hover {
   background-position: 0 0px;
 }

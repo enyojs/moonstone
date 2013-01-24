@@ -4,8 +4,10 @@ enyo.kind({
 	classes: "moon-list",
 	touch:true,
 	published: {
-		hidePagingOnKey: false, //Hide the paging controls if a key is pressed (5 way mode)
-		hoverPagingOnly: false //Only show the paging controls if user is hovering the pointer above this control
+		//* Hide the paging controls if a key is pressed (5 way mode)
+		hidePagingOnKey: true,
+		//*Only show the paging controls if user is hovering the pointer above this control
+		hoverPagingOnly: false
 	},
 	handlers: {
 		onScrollStop: "updatePageControls",
@@ -14,21 +16,24 @@ enyo.kind({
 	},
 	horizonalPageControls: [
 		{name:"pageBackControl", classes: "moon-page-left", showing:false, components: [
-			{kind: "onyx.IconButton", classes: "button", spotlight:true, src: "../images/leftArrow.png", ontap:"pageBack"}
+			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/leftArrow.png", ontap:"pageBack"}
 		]},
 		{name:"pageForwardControl", classes: "moon-page-right", showing:false, components: [		
-			{kind: "onyx.IconButton", classes: "button", spotlight:true, src: "../images/rightArrow.png", ontap:"pageForward"}
+			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/rightArrow.png", ontap:"pageForward"}
 		]}
 	],	
 	verticalPageControls: [
 		{name:"pageBackControl", classes: "moon-page-up", showing:false, components: [
-			{kind: "onyx.IconButton", classes: "button", spotlight:true, src: "../images/upArrow.png", ontap:"pageBack"}
+			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/upArrow.png", ontap:"pageBack"}
 		]},
 		{name:"pageForwardControl", classes: "moon-page-down", showing:false, components: [		
-			{kind: "onyx.IconButton", classes: "button", spotlight:true, src: "../images/downArrow.png", ontap:"pageForward"}
+			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/downArrow.png", ontap:"pageForward"}
 		]}
 	],
-	hovering: false, //Is pointer hovering over this control
+	//Are the page controls currently hidden
+	pageControlsHidden: true,
+	//Is the pointer hovering over this control
+	hovering: false,
 	components: [
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged"}
 	],
@@ -66,36 +71,40 @@ enyo.kind({
 		}
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
-		if (inEvent.pointerMode) {
-			this.updatePageControls();
+		if (inEvent.pointerMode && (!this.hoverPagingOnly || this.hovering)) {
+			this.pageControlsHidden = false;
+			this.updatePageControls();	
 		} else if (this.hidePagingOnKey) {
-			this.$.pageBackControl.hide();
-			this.$.pageForwardControl.hide();				
+			this.hidePageControls();			
 		}
 	},
 	enter: function(){
 		if (this.hoverPagingOnly) {
+			this.pageControlsHidden = false;
 			this.hovering = true;
 			this.updatePageControls();
 		}
 	},
 	leave: function(){
 		if (this.hoverPagingOnly) {
-			this.hovering = false;			
-			this.$.pageBackControl.hide();
-			this.$.pageForwardControl.hide();			
+			this.hovering = false;
+			this.hidePageControls();
 		}
 	},
+	hidePageControls: function() {
+		this.pageControlsHidden = true;
+		this.$.pageBackControl.hide();
+		this.$.pageForwardControl.hide();	
+	},
 	updatePageControls: function() {
-		var sb = this.getScrollBounds();		
+		var sb = this.getScrollBounds();
 		var scrollPos = this.orientV ? sb.top : sb.left;
 		var scrollBoundary = this.orientV ? sb.maxTop : sb.maxLeft;
 		
-		//if we're in hover only mode & they're not hovering, get out of here
-		if (this.hoverPagingOnly && !this.hovering){
+		if (this.pageControlsHidden){
 			return;
 		} 	
-		
+
 		//show the relevant control if we're not at the corresponding edge
 		if (!this.$.pageBackControl.showing && (scrollPos > 0)) {
 			this.$.pageBackControl.show();
