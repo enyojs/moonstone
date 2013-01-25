@@ -5,7 +5,7 @@ enyo.kind({
 	components:[
 		{kind: 'enyo.Spotlight'},
 		{kind: "moon.Button", content: "A button"},
-		{name: 'scroller', kind: 'moon.Scroller', touch: true, classes: 'moon-scroller-sample-scroller',
+		{name: 'scroller', kind: 'moon.Scroller', classes: 'moon-scroller-sample-scroller',
 			components: [
 			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.LabeledToggle", classes: "moon-expandable-picker-wrapper", components: [
 				{content: "English"},

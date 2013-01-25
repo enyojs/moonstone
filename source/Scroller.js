@@ -5,7 +5,7 @@ enyo.kind({
 	spotlight: "container",
 	published: {
 		//* Percent of scroller client area to jump when paging
-		pagePercent: 40,
+		pageRatio: 0.9,
 		//* Hide the paging controls if a key is pressed (5 way mode)
 		hidePagingOnKey: true,
 		//* Only show the paging controls if user is hovering the pointer above this control
@@ -19,6 +19,7 @@ enyo.kind({
 		{name: "pageUpControl", kind: "moon.PagingControl", side: "top"},
 		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom"}
 	],
+	touch: true,
 	// Are the page controls currently hidden
 	pageControlsHidden: true,	
 	// Is the pointer hovering over this control
@@ -33,9 +34,6 @@ enyo.kind({
 		onenter: "enter",
 		onleave: "leave",
 		onPaginate: "paginate"
-	},
-	create: function() { 
-		this.inherited(arguments);
 	},
 	initComponents: function() {
 		this.createPageControls();
@@ -52,6 +50,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.updatePageControls();
+		this.positionPageControls();
 	},
 	spotFocused: function(inSender, inEvent) {
 		if (inEvent.originator === this) {
@@ -107,7 +106,6 @@ enyo.kind({
 		// If we are beyond the back edge, show and position back control
 		if (!inControlBack.getShowing() && (inPos > 0)) {
 			inControlBack.show();
-			this.positionPageControl(inControlBack);
 		} else if (inPos === 0) {
 			inControlBack.hide();
 		}
@@ -115,9 +113,19 @@ enyo.kind({
 		// If we are beyond the forward edge, show and position forward control
 		if (!inControlForward.getShowing() && (inPos < inBoundary)) {
 			inControlForward.show();
-			this.positionPageControl(inControlForward);	
 		} else if (inPos === inBoundary) {
 			inControlForward.hide();
+		}
+	},
+	positionPageControls: function() {
+		if (this.getHorizontal() !== "hidden") {
+			this.positionPageControl(this.$.pageLeftControl);
+			this.positionPageControl(this.$.pageRightControl);
+		}
+		
+		if (this.getVertical() !== "hidden") {
+			this.positionPageControl(this.$.pageUpControl);
+			this.positionPageControl(this.$.pageDownControl);
 		}
 	},
 	//* Position _inControl_ based on it's _side_ value (top, right, bottom, or left)
@@ -224,16 +232,16 @@ enyo.kind({
 		
 		switch (side) {
 			case "top":
-				this.scrollTo(this.getScrollLeft() ,sb.top - sb.maxTop * (this.pagePercent/100));
+				this.scrollTo(this.getScrollLeft(), sb.top - (sb.clientHeight*this.pageRatio));
 				break;
 			case "right":
-				this.scrollTo(sb.left + sb.maxLeft * (this.pagePercent/100), this.getScrollTop());
+				this.scrollTo(sb.left + (sb.clientWidth*this.pageRatio), this.getScrollTop());
 				break;
 			case "bottom":
-				this.scrollTo(this.getScrollLeft(), sb.top + sb.maxTop * (this.pagePercent/100));
+				this.scrollTo(this.getScrollLeft(), sb.top + (sb.clientHeight*this.pageRatio));
 				break;
 			case "left":
-				this.scrollTo(sb.left - sb.maxLeft * (this.pagePercent/100), this.getScrollTop());
+				this.scrollTo(sb.left - (sb.clientWidth*this.pageRatio), this.getScrollTop());
 				break;
 		}
 	}
