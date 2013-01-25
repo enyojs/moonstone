@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.PanelsSample",
-	classes: "moonraker-panels-sample",
+	classes: "moonraker-panels-sample enyo-unselectable",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
