@@ -59,7 +59,7 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true},
+		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, name:"button"},
 		{kind:"enyo.Panels", classes:"moon-simple-picker-client", controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
 		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true}
 	],
@@ -101,6 +101,7 @@ enyo.kind({
 			c$[i].setBounds({width:width});
 		}
 		this.$.client.reflow();
+		this.$.client.setBounds({height: this.$.button.getBounds().height});
 
 		// Make sure selected item is in sync after Panels reflow, which may have
 		// followed an item being added/removed
