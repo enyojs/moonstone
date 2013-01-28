@@ -4,15 +4,14 @@ enyo.kind({
 	classes: "moon-list",
 	touch:true,
 	published: {
-		//* Percent of scroller client area to jump when paging
-		pagePercent: 40,
 		//* Hide the paging controls if a key is pressed (5 way mode)
 		hidePagingOnKey: true,
 		//*Only show the paging controls if user is hovering the pointer above this control
 		hoverPagingOnly: false
 	},
 	handlers: {
-		onScrollStop: "updatePageControls",
+		onScrollStop: "scrollStop",
+		onScrollStart: "scrollStart",
 		onenter: "enter",
 		onleave: "leave",
 		onPaginate: "paginate"
@@ -29,6 +28,10 @@ enyo.kind({
 	pageControlsHidden: true,
 	//Is the pointer hovering over this control
 	hovering: false,
+	//* Reference to interval that updates page control visibility while scrolling
+	updatePageControlsInterval: null,
+	//* Time in MS between running updatePageControls() while scrolling
+	updatePageControlsMS: 200,
 	components: [
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged"}
 	],
@@ -42,7 +45,7 @@ enyo.kind({
 				return;
 			}
 			
-			var sb = this.getScrollBounds(),
+			var sb = this._getScrollBounds(),
 				b = {height: inNode.offsetHeight, width: inNode.offsetWidth, top: 0, left: 0},
 				n = inNode;
 
@@ -112,7 +115,7 @@ enyo.kind({
 		}
 	},
 	updateHorizontalPageControls: function() {
-		var sb = this.getScrollBounds();
+		var sb = this._getScrollBounds();
 		
 		// Hide horizontal controls if no room to scroll
 		if (sb.clientWidth >= sb.width) {
@@ -124,7 +127,7 @@ enyo.kind({
 		this.showHidePageControls(this.getScrollLeft(), sb.maxLeft, this.$.pageLeftControl, this.$.pageRightControl);
 	},
 	updateVerticalPageControls: function() {
-		var sb = this.getScrollBounds();
+		var sb = this._getScrollBounds();
 		
 		// Hide vertical controls if no room to scroll
 		if (sb.clientHeight >= sb.height) {
@@ -139,7 +142,7 @@ enyo.kind({
 		// If we are beyond the back edge, show and position back control
 		if (!inControlBack.getShowing() && (inPos > 0)) {
 			inControlBack.show();
-			this.positionPageControl(inControlBack);
+			//this.positionPageControl(inControlBack);
 		} else if (inPos === 0) {
 			inControlBack.hide();
 		}
@@ -147,7 +150,7 @@ enyo.kind({
 		// If we are beyond the forward edge, show and position forward control
 		if (!inControlForward.getShowing() && (inPos < inBoundary)) {
 			inControlForward.show();
-			this.positionPageControl(inControlForward);	
+			//this.positionPageControl(inControlForward);	
 		} else if (inPos === inBoundary) {
 			inControlForward.hide();
 		}
@@ -165,7 +168,7 @@ enyo.kind({
 	},
 	//* Position _inControl_ based on it's _side_ value (top, right, bottom, or left)
 	positionPageControl: function(inControl) {
-		var sb = this.getScrollBounds(),
+		var sb = this._getScrollBounds(),
 			cb = inControl.getBounds(),
 			side = inControl.getSide(),
 			attribute,
@@ -183,7 +186,7 @@ enyo.kind({
 	},
 	pageBack: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnBack().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
-			sb = this.getScrollBounds(),
+			sb = this._getScrollBounds(),
 			node,
 			pageDelta,
 			threshold = this.orientV ? sb.top : sb.left;
@@ -204,7 +207,7 @@ enyo.kind({
 	},
 	pageForward: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnForward().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
-			sb = this.getScrollBounds(),
+			sb = this._getScrollBounds(),
 			node,
 			nodeEdge,
 			threshold = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth;
@@ -221,51 +224,16 @@ enyo.kind({
 				return;
 			}
 		}
-		
-		
-		
-		/*
-		//now find the node to scroll to which keeps the previoulsy found node fully onscreen
-		var j=i;
-		while (j < this.count) {
-			var node = this.$.generator.fetchRowNode(j);
-			var nEdge = this.orientV ? (node.offsetParent.offsetTop + node.offsetTop + node.clientHeight) : 
-			                            (node.offsetParent.offsetLeft + node.offsetLeft + node.clientWidth);
-			var nReposition = nEdge - (this.orientV ? sb.clientHeight : sb.clientWidth);
-			var scrollerEdge = this.orientV ? (sb.top + sb.clientHeight) : (sb.left + sb.clientWidth);
-			
-			if (nReposition <= scrollerEdge) {	
-				var posDelta = this.orientV ? (nEdge - scrollerEdge) : (nEdge - scrollerEdge);
-				var oReposition = (this.orientV ? (rNode.offsetParent.offsetTop + rNode.offsetTop) : (rNode.offsetParent.offsetLeft + rNode.offsetLeft)) - posDelta;
-				
-				if (oReposition <= (this.orientV ? sb.top : sb.left)) {
-					//went a little too far, but previous node is it
-					break;
-				} else {
-					//works but see if we can go further
-					j++;
-				}
-			} else if (nReposition > scrollerEdge) {
-				//went too far
-				j--;				
-				break;
-			} else {
-				//haven't gotten to a node far right enough yet
-				j++;
-			}
-		}
-		this.getStrategy().animateToNode(this.$.generator.fetchRowNode(j >= this.count ? this.count-1 : j));
-		*/
 	},
 	findBoundingPageOnBack: function() {
-		var sb = this.getScrollBounds(),
+		var sb = this._getScrollBounds(),
 			coordinate = this.orientV ? sb.top - sb.clientHeight : sb.left - sb.clientWidth,
 			pageInfo = this.positionToPageInfo(coordinate);
 
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
 	findBoundingPageOnForward: function() {
-		var sb = this.getScrollBounds(),
+		var sb = this._getScrollBounds(),
 			coordinate = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth,
 			pageInfo = this.positionToPageInfo(coordinate);
 
@@ -291,5 +259,23 @@ enyo.kind({
 				this.pageForward();
 				return;
 		}
+	},
+	
+	scrollStart: function(inSender, inEvent) {
+		this.updatePageControls();
+		this.updatePageControlsInterval = setInterval(enyo.bind(this, this.updatePageControls), this.updatePageControlsMS);
+	},
+	scrollStop: function(inSender, inEvent) {
+		clearInterval(this.updatePageControlsInterval);
+		this.updatePageControls();
+	},
+	
+	/**
+		Returns an object describing the scroll boundaries with _height_ and
+		_width_ properties. Does not stop the scroller from scrolling.
+		TODO - This should be moved up to the Enyo core scroller.
+	*/
+	_getScrollBounds: function() {
+		return this.$.strategy._getScrollBounds();
 	}
 });
