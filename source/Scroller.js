@@ -3,6 +3,7 @@ enyo.kind({
 	name: "moon.Scroller",
 	kind: "enyo.Scroller",
 	spotlight: "container",
+	touch: true,
 	published: {
 		//* Percent of scroller client area to jump when paging
 		pageRatio: 0.9,
@@ -19,7 +20,6 @@ enyo.kind({
 		{name: "pageUpControl", kind: "moon.PagingControl", side: "top"},
 		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom"}
 	],
-	touch: true,
 	// Are the page controls currently hidden
 	pageControlsHidden: true,	
 	// Is the pointer hovering over this control

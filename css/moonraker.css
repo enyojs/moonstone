@@ -24,43 +24,43 @@
 /* ----- MISO ------ */
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url(css/../fonts/miso/miso-regular.woff) format("woff"), url(css/../fonts/miso/miso-regular.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/miso/miso-regular.woff) format("woff"), url(./../fonts/miso/miso-regular.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url(css/../fonts/miso/miso-bold.woff) format("woff"), url(css/../fonts/miso/miso-bold.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/miso/miso-bold.woff) format("woff"), url(./../fonts/miso/miso-bold.ttf) format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url(css/../fonts/miso/miso-light.woff) format("woff"), url(css/../fonts/miso/miso-light.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/miso/miso-light.woff) format("woff"), url(./../fonts/miso/miso-light.ttf) format("truetype");
   font-weight: 100;
   font-style: normal;
 }
 /* ----- PRELUDE ------ */
 @font-face {
   font-family: "PreludeWGL Light";
-  src: local("☺"), url(css/../fonts/PreludeWGL/PreludeWGL-Light.woff) format("woff"), url(css/../fonts/PreludeWGL/PreludeWGL-Light.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-Light.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-Light.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "PreludeWGL Medium";
-  src: local("☺"), url(css/../fonts/PreludeWGL/PreludeWGL-Medium.woff) format("woff"), url(css/../fonts/PreludeWGL/PreludeWGL-Medium.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-Medium.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-Medium.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "PreludeWGL Medium";
-  src: local("☺"), url(css/../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff) format("woff"), url(css/../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf) format("truetype");
   font-style: italic;
 }
 @font-face {
   font-family: "PreludeWGL Bold Italic";
-  src: local("☺"), url(css/../fonts/PreludeWGL/PreludeWGL-BoldItalic.woff) format("woff"), url(css/../fonts/PreludeWGL/PreludeWGL-BoldItalic.ttf) format("truetype");
+  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-BoldItalic.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-BoldItalic.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -120,7 +120,7 @@
   width: 50px;
 }
 .moon-checkbox[checked] {
-  background-image: url(css/css/../images/checkbox.png);
+  background-image: url(././../images/checkbox.png);
   background-repeat: no-repeat;
   background-position: 10px 0px;
 }
@@ -131,7 +131,7 @@
   cursor: pointer;
   height: 40px;
   width: 50px;
-  background: transparent url(css/css/../images/checkbox.png) no-repeat 10px -40px;
+  background: transparent url(././../images/checkbox.png) no-repeat 10px -40px;
   opacity: 1;
   -webkit-transition: opacity 0.4s linear;
 }
@@ -379,21 +379,21 @@
 }
 .moon-paging-button.top {
   top: 0px;
-  background-image: url(css/../images/upArrow.png);
+  background-image: url(./../images/upArrow.png);
 }
 .moon-paging-button.top.spotlight {
   background-position: 0px -64px;
 }
 .right {
   right: 0px;
-  background-image: url(css/../images/rightArrow.png);
+  background-image: url(./../images/rightArrow.png);
 }
 .moon-paging-button.right.spotlight {
   background-position: 0px -64px;
 }
 .moon-paging-button.bottom {
   bottom: 0px;
-  background-image: url(css/../images/downArrow.png);
+  background-image: url(./../images/downArrow.png);
   background-position: 0 -64px;
 }
 .moon-paging-button.bottom.spotlight {
@@ -401,7 +401,7 @@
 }
 .moon-paging-button.left {
   left: 0px;
-  background-image: url(css/../images/leftArrow.png);
+  background-image: url(./../images/leftArrow.png);
 }
 .moon-paging-button.left.spotlight {
   background-position: 0px -64px;
