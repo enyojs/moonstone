@@ -157,12 +157,6 @@ enyo.kind({
 		*/
 		value: null
 	},
-				// {kind:"moon.IntegerPicker", name:"day",classes: "moon-date-picker-day",
-				// spotlight: true, onSpotlightUp:"previous", onSpotlightDown:"next"},
-				// {kind:"moon.IntegerPicker", name:"month",classes: "moon-date-picker-day",
-				// spotlight: true},
-				// {kind:"moon.IntegerPicker", min:"1900", max:"2100", value:"2013", style:"width:100px", name:"year", classes: "moon-date-picker-day",
-				// spotlight: true}
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-date-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
