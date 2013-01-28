@@ -88,10 +88,15 @@ enyo.kind({
 	},
 	hidePageControls: function() {
 		this.pageControlsHidden = true;
-		this.$.pageUpControl.hide();
-		this.$.pageDownControl.hide();
-		this.$.pageLeftControl.hide();
-		this.$.pageRightControl.hide();
+		
+		if(this.getHorizontal() !== "hidden") {
+			this.$.pageLeftControl.hide();
+			this.$.pageRightControl.hide();
+		}
+		if(this.getVertical() !== "hidden") {
+			this.$.pageUpControl.hide();
+			this.$.pageDownControl.hide();
+		}
 	},
 	updatePageControls: function() {
 		if (this.pageControlsHidden) {
