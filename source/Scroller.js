@@ -62,7 +62,7 @@ enyo.kind({
 		}
 	},
 	requestScrollIntoView: function(inSender, inEvent) {
-		this.animateToControl(inEvent.originator);
+		this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
 		return true;
 	},
 	updatePageControls: function() {
@@ -166,10 +166,10 @@ enyo.kind({
 		this.$.pageLeftControl.hide();
 		this.$.pageRightControl.hide();
 	},
-	animateToControl: function(inControl) {
+	animateToControl: function(inControl, inScrollFullPage) {
 		var controlBounds = inControl.getAbsoluteBounds(),
 			absoluteBounds = this.getAbsoluteBounds(),
-			scrollBounds = this.$.strategy.getScrollBounds(),
+			scrollBounds = this.getScrollBounds(),
 			offsetTop = controlBounds.top - absoluteBounds.top,
 			offsetLeft = controlBounds.left - absoluteBounds.left,
 			offsetHeight = controlBounds.height,
@@ -193,10 +193,10 @@ enyo.kind({
 				x = this.getScrollLeft();
 				break;
 			case 1:
-				x = (offsetWidth > scrollBounds.clientWidth) ? offsetLeft : offsetLeft - scrollBounds.clientWidth + offsetWidth;
+				x = (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) ? offsetLeft : offsetLeft - scrollBounds.clientWidth + offsetWidth;
 				break;
 			case -1:
-				x = offsetLeft;
+				x = (inScrollFullPage) ? offsetLeft - scrollBounds.clientWidth + offsetWidth : offsetLeft;
 				break;
 		}
 		
@@ -205,10 +205,10 @@ enyo.kind({
 				y = this.getScrollTop();
 				break;
 			case 1:
-				y = (offsetHeight > scrollBounds.clientHeight) ? offsetTop : offsetTop - scrollBounds.clientHeight + offsetHeight;
+				y = (inScrollFullPage || offsetHeight > scrollBounds.clientHeight) ? offsetTop : offsetTop - scrollBounds.clientHeight + offsetHeight;
 				break;
 			case -1:
-				y = offsetTop;
+				y = (inScrollFullPage) ? offsetTop - scrollBounds.clientHeight + offsetHeight : offsetTop;
 				break;
 		}
 		
