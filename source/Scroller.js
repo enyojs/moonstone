@@ -167,13 +167,14 @@ enyo.kind({
 		this.$.pageRightControl.hide();
 	},
 	animateToControl: function(inControl, inScrollFullPage) {
-		var controlBounds = inControl.getAbsoluteBounds(),
+		var controlBounds  = inControl.getAbsoluteBounds(),
 			absoluteBounds = this.getAbsoluteBounds(),
-			scrollBounds = this.getScrollBounds(),
-			offsetTop = controlBounds.top - absoluteBounds.top,
-			offsetLeft = controlBounds.left - absoluteBounds.left,
-			offsetHeight = controlBounds.height,
-			offsetWidth = controlBounds.width,
+			scrollBounds   = this.getScrollBounds(),
+			nodeStyle      = enyo.dom.getComputedStyle(inControl.hasNode()),
+			offsetTop      = controlBounds.top - absoluteBounds.top,
+			offsetLeft     = controlBounds.left - absoluteBounds.left,
+			offsetHeight   = controlBounds.height,
+			offsetWidth    = controlBounds.width,
 			xDir,
 			yDir,
 			x,
@@ -194,9 +195,11 @@ enyo.kind({
 				break;
 			case 1:
 				x = (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) ? offsetLeft : offsetLeft - scrollBounds.clientWidth + offsetWidth;
+				x += nodeStyle ? parseInt(nodeStyle.marginRight, 10) : 0;
 				break;
 			case -1:
 				x = (inScrollFullPage) ? offsetLeft - scrollBounds.clientWidth + offsetWidth : offsetLeft;
+				x -= nodeStyle ? parseInt(nodeStyle.marginLeft, 10) : 0;
 				break;
 		}
 		
@@ -206,9 +209,11 @@ enyo.kind({
 				break;
 			case 1:
 				y = (inScrollFullPage || offsetHeight > scrollBounds.clientHeight) ? offsetTop : offsetTop - scrollBounds.clientHeight + offsetHeight;
+				y += nodeStyle ? parseInt(nodeStyle.marginBottom, 10) : 0;
 				break;
 			case -1:
 				y = (inScrollFullPage) ? offsetTop - scrollBounds.clientHeight + offsetHeight : offsetTop;
+				y -= nodeStyle ? parseInt(nodeStyle.marginTop, 10) : 0;
 				break;
 		}
 		
