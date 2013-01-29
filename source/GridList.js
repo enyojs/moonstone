@@ -17,6 +17,12 @@ enyo.kind(
         itemMinHeight: 180, 
         itemWidth: 180, 
         itemHeight: 180,
-        itemFluidWidth: true
+        itemFluidWidth: true,
+        events: {
+            ontap: "tap"
+        },
+        tap: function(inSender, inEvent) {
+            enyo.Spotlight.spot(this);
+        }
     }
 );
