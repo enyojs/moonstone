@@ -9,6 +9,7 @@ enyo.kind({
 			name: "gridlist", 
 			kind: "moon.GridList",
 			onSetupItem: "setupItem", 
+			toggleSelected: true, 
 			components: [
 	            {name: "item", kind: "moon.GridList.ImageItem"}
 	        ]
