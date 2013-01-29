@@ -1,6 +1,6 @@
 /**
-	_moon.ExpandablePicker is used to as a drop-down picker menu that solicits a choice
-	from the user.  The picker's child components, typically _moon.LabeledCheckbox_s,
+	_moon.ExpandablePicker_ is used to as a drop-down picker menu that solicits a choice
+	from the user.  The picker's child components, typically multiple _moon.LabeledCheckbox_es,
 	become the options for the picker.
 		
 		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [

@@ -1,110 +1,96 @@
+/**
+	_moon.List_ inherits from _enyo.List_, and adds 5-way focus (Spotlight)
+	support and pagination buttons.
+
+	For the time being, _moon.List_ requires a _strategyKind_ of _TouchScrollStrategy_.
+
+	For more information, see the documentation on
+	[Lists](https://github.com/enyojs/enyo/wiki/Lists)
+	in the Enyo Developer Guide.
+*/
 enyo.kind({
 	name: "moon.List",
 	kind: "enyo.List",
 	classes: "moon-list",
-	touch:true,
 	published: {
-		//* Hide the paging controls if a key is pressed (5 way mode)
+		//* If true, hide the paging controls if a key is pressed (5 way mode)
 		hidePagingOnKey: true,
-		//*Only show the paging controls if user is hovering the pointer above this control
-		hoverPagingOnly: false
+		//* If true, hide the paging controls if user's pointer leaves this control
+		hidePagingOnLeave: true
 	},
+	//* @protected
 	handlers: {
-		onenter: "enter",
 		onleave: "leave",
+		onmousemove: "mousemove",
 		onPaginate: "paginate",
 	},
-	horizonalPageControls: [
-		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left"},
-		{name: "pageRightControl", kind: "moon.PagingControl", side: "right"}
+	touch: true,
+	
+	
+	/************** Begin moon.List/moon.Scroller identical code - this should be moved to a base class ************/
+	
+	
+	//* Pagination buttons
+	pageControls: [
+		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left", showing: false},
+		{name: "pageRightControl", kind: "moon.PagingControl", side: "right", showing: false},
+		{name: "pageUpControl", kind: "moon.PagingControl", side: "top", showing: false},
+		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom", showing: false}
 	],
-	verticalPageControls: [
-		{name: "pageUpControl", kind: "moon.PagingControl", side: "top"},
-		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom"}
-	],
-	//Are the page controls currently hidden
-	pageControlsHidden: true,
-	//Is the pointer hovering over this control
+	//* If true, the pointer is currently hovering over this control
 	hovering: false,
-	// Cache scroll bounds
+	//* Cache scroll bounds so we don't have to run stop() every time we need them
 	scrollBounds: {},
 	components: [
-		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged"}
+		//* Signal to listen for spotlight mode changing from 5-way to pointer
+		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls"}
 	],
+	//* During initialization, create page controls
 	initComponents: function() {
 		this.createPageControls();
 		this.inherited(arguments);
-		
-		//* This should be moved to the appropriate strategy when the time is right
-		this.$.strategy.animateToNode = function(inNode) {
-			if(!this.scrollNode) {
-				return;
-			}
-			
-			var sb = this._getScrollBounds(),
-				b = {height: inNode.offsetHeight, width: inNode.offsetWidth, top: 0, left: 0},
-				n = inNode;
-
-			while (n && n.parentNode && n.id != this.scrollNode.id) {
-				b.top += n.offsetTop;
-				b.left += n.offsetLeft;
-				n = n.parentNode;
-			}
-
-			var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
-			var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
-
-			var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
-			var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
-			
-			this.scrollTo(x,y);
-		}
 	},
+	//* Create _this.pageControls_ as chrome components
 	createPageControls: function() {
-		if(this.getHorizontal() !== "hidden") {
-			this.createChrome(this.horizonalPageControls);
-		}
-		if(this.getVertical() !== "hidden") {
-			this.createChrome(this.verticalPageControls);
-		}
+		this.createChrome(this.pageControls);
 	},
+	//* Update the cached _this.scrollBounds_ property and position page controls
 	rendered: function() {
 		this.inherited(arguments);
 		this.updateScrollBounds();
 		this.positionPageControls();
+		this.showHidePageControls();
 	},
-	enter: function(){
-		if (this.hoverPagingOnly) {
-			this.pageControlsHidden = false;
-			this.hovering = true;
-			this.updatePageControls();
-		}
+	//* On leave, set _this.hovering_ to false and show/hide pagination controls
+	leave: function() {
+		this.hovering = false;
+		this.showHidePageControls();
 	},
-	leave: function(){
-		if (this.hoverPagingOnly) {
-			this.hovering = false;
-			this.hidePageControls();
-		}
-	},
-	hidePageControls: function() {
-		this.pageControlsHidden = true;
-		
-		if(this.getHorizontal() !== "hidden") {
-			this.$.pageLeftControl.hide();
-			this.$.pageRightControl.hide();
-		}
-		if(this.getVertical() !== "hidden") {
-			this.$.pageUpControl.hide();
-			this.$.pageDownControl.hide();
-		}
-	},
+	//* On scroll, update our cached _this.scrollBounds_ property, and show/hide pagination controls
 	scroll: function(inSender, inEvent) {
 		this.inherited(arguments);
 		this.updateScrollBounds();
-		this.updatePageControls();
+		this.showHidePageControls();
 	},
-	updatePageControls: function() {
-		if (this.pageControlsHidden) {
+	//* At the beginning of a scroll event, cache the scroll bounds in _this.scrollBounds_
+	scrollStart: function() {
+		this.updateScrollBounds();
+		this.inherited(arguments);
+	},
+	//* On mouse move, show/hide page controls
+	mousemove: function() {
+		this.hovering = true;
+		this.showHidePageControls();
+	},
+	//* Show/hide pagination controls as appropriate
+	showHidePageControls: function() {
+		if (
+			// If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
+			(!enyo.Spotlight.getPointerMode() && this.getHidePagingOnKey()) ||
+			// If not hovering and set to hide on leave, hide pagination controls.
+			(this.getHidePagingOnLeave() && !this.hovering)
+		   ) {
+			this.hidePageControls();
 			return;
 		}
 		
@@ -114,25 +100,27 @@ enyo.kind({
 		if (this.getHorizontal() !== "hidden") {
 			s = this.getScrollLeft();
 			this.$.pageLeftControl.setShowing(s > 0);
-			this.$.pageRightControl.setShowing(s <= sb.maxLeft);
+			this.$.pageRightControl.setShowing(s < sb.maxLeft);
+		} else {
+			this.$.pageLeftControl.hide();
+			this.$.pageRightControl.hide();
 		}
 		
 		if (this.getVertical() !== "hidden") {
 			s = this.getScrollTop();
 			this.$.pageUpControl.setShowing(s > 0);
-			this.$.pageDownControl.setShowing(s <= sb.maxTop);
+			this.$.pageDownControl.setShowing(s < sb.maxTop);
+		} else {
+			this.$.pageUpControl.hide();
+			this.$.pageDownControl.hide();
 		}
 	},
+	//* Position each of the four pagination controls
 	positionPageControls: function() {
-		if (this.getHorizontal() !== "hidden") {
-			this.positionPageControl(this.$.pageLeftControl);
-			this.positionPageControl(this.$.pageRightControl);
-		}
-		
-		if (this.getVertical() !== "hidden") {
-			this.positionPageControl(this.$.pageUpControl);
-			this.positionPageControl(this.$.pageDownControl);
-		}
+		this.positionPageControl(this.$.pageLeftControl);
+		this.positionPageControl(this.$.pageRightControl);
+		this.positionPageControl(this.$.pageUpControl);
+		this.positionPageControl(this.$.pageDownControl);
 	},
 	//* Position _inControl_ based on it's _side_ value (top, right, bottom, or left)
 	positionPageControl: function(inControl) {
@@ -152,6 +140,45 @@ enyo.kind({
 		
 		inControl.applyStyle(attribute,position+"px");
 	},
+	//* Hide pagination controls
+	hidePageControls: function() {
+		this.$.pageLeftControl.hide();
+		this.$.pageRightControl.hide();
+		this.$.pageUpControl.hide();
+		this.$.pageDownControl.hide();
+	},
+	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
+	// TODO - come back to this...
+	updateScrollBounds: function() {
+		this.scrollBounds = this.$.strategy._getScrollBounds();
+	},
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/***************** Begin moon.List unique code **************/
+	
+	//* Handle paginate event sent from PagingControl buttons
+	paginate: function(inSender, inEvent) {
+		switch (inEvent.side) {
+			case "top":
+			case "left":
+				this.pageBack();
+				break;
+			case "bottom":
+			case "right":
+				this.pageForward();
+				break;
+		}
+	},
+	//* Scroll one page backward, lining up with the appropriate node
 	pageBack: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnBack().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
 			sb = this.scrollBounds,
@@ -166,13 +193,14 @@ enyo.kind({
 				?	(node.offsetParent.offsetTop  + node.offsetTop  + sb.clientHeight)
 				:	(node.offsetParent.offsetLeft + node.offsetLeft + sb.clientWidth);
 			
-			//find the first node whose top/left edge will be at or past the scrollers top/left edge when scrolled
+			// Find the first node whose top/left edge will be at or past the scrollers top/left edge when scrolled
 			if (pageDelta >= threshold) {
-				this.getStrategy().animateToNode(node);
+				this.animateToNode(node);
 				return;
 			}
 		}
 	},
+	//* Scroll one page forward, lining up with the appropriate node
 	pageForward: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnForward().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
 			sb = this.scrollBounds,
@@ -186,13 +214,14 @@ enyo.kind({
 				?	(node.offsetParent.offsetTop  + node.offsetTop  + node.clientHeight)
 				:	(node.offsetParent.offsetLeft + node.offsetLeft + node.clientWidth);
 			
-			//scroll to the first offscreen (or partially offscreen) node
+			// Scroll to the first offscreen (or partially offscreen) node
 			if (nodeEdge > threshold) {
-				this.getStrategy().animateToNode(node);
+				this.animateToNode(node);
 				return;
 			}
 		}
 	},
+	//* Find page at one clientHeight/Width before the current top/left
 	findBoundingPageOnBack: function() {
 		var sb = this.scrollBounds,
 			coordinate = this.orientV ? sb.top - sb.clientHeight : sb.left - sb.clientWidth,
@@ -200,6 +229,7 @@ enyo.kind({
 
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
+	//* Find page at one clientHeight/Width after the current top/left
 	findBoundingPageOnForward: function() {
 		var sb = this.scrollBounds,
 			coordinate = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth,
@@ -207,32 +237,37 @@ enyo.kind({
 
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
-	spotlightModeChanged: function(inSender, inEvent) {
-		if (inEvent.pointerMode && (!this.hoverPagingOnly || this.hovering)) {
-			this.pageControlsHidden = false;
-			this.updatePageControls();	
-		} else if (this.hidePagingOnKey) {
-			this.hidePageControls();			
+	//* This should be moved to the appropriate strategy when the time is right
+	animateToNode: function(inNode) {
+		var sb = this.scrollBounds,
+			st = this.getStrategy(),
+			b = {
+				height: inNode.offsetHeight,
+				width: inNode.offsetWidth,
+				top: 0,
+				left: 0
+			},
+			n = inNode;
+		
+		if(!st.scrollNode) {
+			return;
 		}
-	},
-	//* Handle paginate event sent from PagingControl buttons
-	paginate: function(inSender, inEvent) {
-		switch (inEvent.side) {
-			case "top":
-			case "left":
-				this.pageBack();
-				return;
-			case "bottom":
-			case "right":
-				this.pageForward();
-				return;
+		
+		while (n && n.parentNode && n.id != st.scrollNode.id) {
+			b.top += n.offsetTop;
+			b.left += n.offsetLeft;
+			n = n.parentNode;
 		}
-	},
-	scrollStart: function() {
-		this.updateScrollBounds();
-		this.inherited(arguments);
-	},
-	updateScrollBounds: function() {
-		this.scrollBounds = this.$.strategy._getScrollBounds();
+
+		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
+		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
+
+		var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
+		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
+		
+		// If x or y changed, scroll to new position
+		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
+			this.scrollTo(x,y);
+		}
 	}
 });
