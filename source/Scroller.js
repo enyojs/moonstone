@@ -10,7 +10,9 @@ enyo.kind({
 		//* Hide the paging controls if a key is pressed (5 way mode)
 		hidePagingOnKey: true,
 		//* Only show the paging controls if user is hovering the pointer above this control
-		hoverPagingOnly: true
+		hoverPagingOnly: true,
+		//* If true, scroller will scroll until it's edge meets the next item's edge
+		scrollFullPage: false
 	},
 	horizonalPageControls: [
 		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left"},
@@ -180,6 +182,9 @@ enyo.kind({
 			x,
 			y;
 		
+		// allow local inScrollFullPage param to override scroller property
+		inScrollFullPage = (typeof inScrollFullPage === "undefined") ? this.getScrollFullPage() : inScrollFullPage;
+		
 		// 0: currently visible, 1: right of viewport, -1: left of viewport
 		xDir = (offsetLeft >= scrollBounds.left && offsetLeft + offsetWidth <= scrollBounds.left + scrollBounds.clientWidth)
 			?	0
@@ -194,12 +199,28 @@ enyo.kind({
 				x = this.getScrollLeft();
 				break;
 			case 1:
-				x = (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) ? offsetLeft : offsetLeft - scrollBounds.clientWidth + offsetWidth;
-				x += nodeStyle ? parseInt(nodeStyle.marginRight, 10) : 0;
+				// If control requested to be scrolled all the way to the viewport's left, or if the control
+				// is larger than the viewport, scroll to the control's left edge. Otherwise scroll just
+				// far enough to get the control into view.
+				if (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) {
+					x = offsetLeft;
+				} else {
+					x = offsetLeft - scrollBounds.clientWidth + offsetWidth;
+					// If nodeStyle exists, add the _marginRight_ to the scroll value.
+					x += (nodeStyle) ? parseInt(nodeStyle.marginRight, 10) : 0;
+				}
 				break;
 			case -1:
-				x = (inScrollFullPage) ? offsetLeft - scrollBounds.clientWidth + offsetWidth : offsetLeft;
-				x -= nodeStyle ? parseInt(nodeStyle.marginLeft, 10) : 0;
+				// If control requested to be scrolled all the way to the viewport's right, or if the control
+				// is larger than the viewport, scroll to the control's right edge. Otherwise scroll just
+				// far enough to get the control into view.
+				if (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) {
+					x = offsetLeft - scrollBounds.clientWidth + offsetWidth;
+				} else {
+					x = offsetLeft;
+					// If nodeStyle exists, subtract the _marginLeft_ to the scroll value.
+					x -= (nodeStyle) ? parseInt(nodeStyle.marginLeft, 10) : 0;
+				}
 				break;
 		}
 		
@@ -208,12 +229,28 @@ enyo.kind({
 				y = this.getScrollTop();
 				break;
 			case 1:
-				y = (inScrollFullPage || offsetHeight > scrollBounds.clientHeight) ? offsetTop : offsetTop - scrollBounds.clientHeight + offsetHeight;
-				y += nodeStyle ? parseInt(nodeStyle.marginBottom, 10) : 0;
+				// If control requested to be scrolled all the way to the viewport's top, or if the control
+				// is larger than the viewport, scroll to the control's top edge. Otherwise scroll just
+				// far enough to get the control into view.
+				if (inScrollFullPage || offsetHeight > scrollBounds.clientHeight) {
+					y = offsetTop;
+				} else {
+					y = offsetTop - scrollBounds.clientHeight + offsetHeight;
+					// If nodeStyle exists, add the _marginBottom_ to the scroll value.
+					y += (nodeStyle) ? parseInt(nodeStyle.marginBottom, 10) : 0;
+				}
 				break;
 			case -1:
-				y = (inScrollFullPage) ? offsetTop - scrollBounds.clientHeight + offsetHeight : offsetTop;
-				y -= nodeStyle ? parseInt(nodeStyle.marginTop, 10) : 0;
+				// If control requested to be scrolled all the way to the viewport's bottom, or if the control
+				// is larger than the viewport, scroll to the control's bottom edge. Otherwise scroll just
+				// far enough to get the control into view.
+				if (inScrollFullPage || offsetHeight > scrollBounds.clientHeight) {
+					y = offsetTop - scrollBounds.clientHeight + offsetHeight;
+				} else {
+					y = offsetTop;
+					// If nodeStyle exists, subtract the _marginTop_ to the scroll value.
+					y -= (nodeStyle) ? parseInt(nodeStyle.marginTop, 10) : 0;
+				}
 				break;
 		}
 		
