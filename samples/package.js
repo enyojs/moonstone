@@ -16,5 +16,7 @@ enyo.depends(
 	"HorizontalScrollerSample.css",	
 	"ListHorizontalSample.js",
 	"ListVerticalSample.js",
-	"ListSample.css"
+	"ListSample.css",
+	"DatePickerSample.js",
+	"DatePickerSample.css"	
 );
