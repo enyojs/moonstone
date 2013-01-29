@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.RadioButtonSample",
-	classes: "moon-radio-button-sample",
+	classes: "moon-radio-button-sample enyo-unselectable",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},

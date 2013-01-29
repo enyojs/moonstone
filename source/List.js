@@ -10,43 +10,38 @@ enyo.kind({
 		hoverPagingOnly: false
 	},
 	handlers: {
-		onScrollStop: "updatePageControls",
 		onenter: "enter",
-		onleave: "leave"
+		onleave: "leave",
+		onPaginate: "paginate",
 	},
 	horizonalPageControls: [
-		{name:"pageBackControl", classes: "moon-page-left", showing:false, components: [
-			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/leftArrow.png", ontap:"pageBack"}
-		]},
-		{name:"pageForwardControl", classes: "moon-page-right", showing:false, components: [		
-			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/rightArrow.png", ontap:"pageForward"}
-		]}
-	],	
+		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left"},
+		{name: "pageRightControl", kind: "moon.PagingControl", side: "right"}
+	],
 	verticalPageControls: [
-		{name:"pageBackControl", classes: "moon-page-up", showing:false, components: [
-			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/upArrow.png", ontap:"pageBack"}
-		]},
-		{name:"pageForwardControl", classes: "moon-page-down", showing:false, components: [		
-			{kind: "moon.IconButton", classes: "button", spotlight:true, src: "../images/downArrow.png", ontap:"pageForward"}
-		]}
+		{name: "pageUpControl", kind: "moon.PagingControl", side: "top"},
+		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom"}
 	],
 	//Are the page controls currently hidden
 	pageControlsHidden: true,
 	//Is the pointer hovering over this control
 	hovering: false,
+	// Cache scroll bounds
+	scrollBounds: {},
 	components: [
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged"}
 	],
 	initComponents: function() {
-		this.createChrome(this.orientV ? this.verticalPageControls : this.horizonalPageControls);
+		this.createPageControls();
 		this.inherited(arguments);
 		
+		//* This should be moved to the appropriate strategy when the time is right
 		this.$.strategy.animateToNode = function(inNode) {
 			if(!this.scrollNode) {
 				return;
 			}
-
-			var sb = this.getScrollBounds(),
+			
+			var sb = this._getScrollBounds(),
 				b = {height: inNode.offsetHeight, width: inNode.offsetWidth, top: 0, left: 0},
 				n = inNode;
 
@@ -59,24 +54,24 @@ enyo.kind({
 			var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
 			var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
 
-			// Only scroll far enough to reveal _inNode_
-			var y = (yDir === 0)
-				?	sb.top
-				:	Math.min(sb.maxTop, (yDir === 1) ? b.top - sb.clientHeight + b.height : b.top);
-			var x = (xDir === 0)
-				?	sb.left
-				:	Math.min(sb.maxLeft, (xDir === 1) ? b.left - sb.clientWidth + b.width : b.left);
-
+			var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
+			var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
+			
 			this.scrollTo(x,y);
 		}
 	},
-	spotlightModeChanged: function(inSender, inEvent) {
-		if (inEvent.pointerMode && (!this.hoverPagingOnly || this.hovering)) {
-			this.pageControlsHidden = false;
-			this.updatePageControls();	
-		} else if (this.hidePagingOnKey) {
-			this.hidePageControls();			
+	createPageControls: function() {
+		if(this.getHorizontal() !== "hidden") {
+			this.createChrome(this.horizonalPageControls);
 		}
+		if(this.getVertical() !== "hidden") {
+			this.createChrome(this.verticalPageControls);
+		}
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.updateScrollBounds();
+		this.positionPageControls();
 	},
 	enter: function(){
 		if (this.hoverPagingOnly) {
@@ -93,123 +88,151 @@ enyo.kind({
 	},
 	hidePageControls: function() {
 		this.pageControlsHidden = true;
-		this.$.pageBackControl.hide();
-		this.$.pageForwardControl.hide();	
+		
+		if(this.getHorizontal() !== "hidden") {
+			this.$.pageLeftControl.hide();
+			this.$.pageRightControl.hide();
+		}
+		if(this.getVertical() !== "hidden") {
+			this.$.pageUpControl.hide();
+			this.$.pageDownControl.hide();
+		}
+	},
+	scroll: function(inSender, inEvent) {
+		this.inherited(arguments);
+		this.updateScrollBounds();
+		this.updatePageControls();
 	},
 	updatePageControls: function() {
-		var sb = this.getScrollBounds();
-		var scrollPos = this.orientV ? sb.top : sb.left;
-		var scrollBoundary = this.orientV ? sb.maxTop : sb.maxLeft;
-		
-		if (this.pageControlsHidden){
+		if (this.pageControlsHidden) {
 			return;
-		} 	
-
-		//show the relevant control if we're not at the corresponding edge
-		if (!this.$.pageBackControl.showing && (scrollPos > 0)) {
-			this.$.pageBackControl.show();
-		} 		
-		if (!this.$.pageForwardControl.showing && (scrollPos < scrollBoundary)) {
-			//make sure that there's room for scrolling, otherwise don't show controls at all
-			if (this.scrollerSize < this.portSize) {
-				this.$.pageForwardControl.show();				
-			}
 		}
-
-		//if we hit an edge, hide the corresponding page control
-		if (scrollPos == 0) {
-			this.$.pageBackControl.hide();
-		} else if (scrollPos == scrollBoundary) {
-			this.$.pageForwardControl.hide();
+		
+		var sb = this.scrollBounds,
+			s;
+		
+		if (this.getHorizontal() !== "hidden") {
+			s = this.getScrollLeft();
+			this.$.pageLeftControl.setShowing(s > 0);
+			this.$.pageRightControl.setShowing(s <= sb.maxLeft);
+		}
+		
+		if (this.getVertical() !== "hidden") {
+			s = this.getScrollTop();
+			this.$.pageUpControl.setShowing(s > 0);
+			this.$.pageDownControl.setShowing(s <= sb.maxTop);
 		}
 	},
-	pageBack: function() {
-		var i = document.querySelector('#' +  this.findBoundingPageOnBack().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10);
-		var sb = this.getScrollBounds();
+	positionPageControls: function() {
+		if (this.getHorizontal() !== "hidden") {
+			this.positionPageControl(this.$.pageLeftControl);
+			this.positionPageControl(this.$.pageRightControl);
+		}
 		
-		while (i < this.count) {
-			var node = this.$.generator.fetchRowNode(i);
-			var pageDelta = this.orientV ? (node.offsetParent.offsetTop + node.offsetTop + sb.clientHeight) :
-			 							   (node.offsetParent.offsetLeft + node.offsetLeft + sb.clientWidth);
-			//find the first node whose left edge will be at or past the scrollers left edge when scrolled
-			if (pageDelta >= (this.orientV ? sb.top : sb.left)) {
+		if (this.getVertical() !== "hidden") {
+			this.positionPageControl(this.$.pageUpControl);
+			this.positionPageControl(this.$.pageDownControl);
+		}
+	},
+	//* Position _inControl_ based on it's _side_ value (top, right, bottom, or left)
+	positionPageControl: function(inControl) {
+		var sb = this.scrollBounds,
+			cb = inControl.getBounds(),
+			side = inControl.getSide(),
+			attribute,
+			position;
+		
+		if (side === "top" || side === "bottom") {
+			attribute = "left";
+			position = sb.clientWidth/2 - cb.width/2;
+		} else {
+			attribute = "top";
+			position = sb.clientHeight/2 - cb.height/2;
+		}
+		
+		inControl.applyStyle(attribute,position+"px");
+	},
+	pageBack: function() {
+		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnBack().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
+			sb = this.scrollBounds,
+			node,
+			pageDelta,
+			threshold = this.orientV ? sb.top : sb.left;
+		
+		for(i;i<this.count;i++) {
+			node = this.$.generator.fetchRowNode(i);
+			
+			pageDelta = (this.orientV)
+				?	(node.offsetParent.offsetTop  + node.offsetTop  + sb.clientHeight)
+				:	(node.offsetParent.offsetLeft + node.offsetLeft + sb.clientWidth);
+			
+			//find the first node whose top/left edge will be at or past the scrollers top/left edge when scrolled
+			if (pageDelta >= threshold) {
 				this.getStrategy().animateToNode(node);
-				break;
-			} else {
-				i++;
+				return;
 			}
 		}
 	},
 	pageForward: function() {
-		var i = document.querySelector('#' +  this.findBoundingPageOnForward().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10);
-		var sb = this.getScrollBounds();	
-					
-		var rNode;
-		while (i < this.count) {
-			var rNode = this.$.generator.fetchRowNode(i);
-			var nodeEdge = this.orientV ? (rNode.offsetParent.offsetTop + rNode.offsetTop + rNode.clientHeight) : 
-			                              (rNode.offsetParent.offsetLeft + rNode.offsetLeft + rNode.clientWidth);
-			//scroll to the first offscreen (or partially offscreen) node
-			if (nodeEdge > (this.orientV ? (sb.top + sb.clientHeight) : (sb.left + sb.clientWidth))) {
-				break;
-			} else {
-				i++;
-			}
-		}
-		
-		//now find the node to scroll to which keeps the previoulsy found node fully onscreen
-		var j=i;
-		while (j < this.count) {
-			var node = this.$.generator.fetchRowNode(j);
-			var nEdge = this.orientV ? (node.offsetParent.offsetTop + node.offsetTop + node.clientHeight) : 
-			                            (node.offsetParent.offsetLeft + node.offsetLeft + node.clientWidth);
-			var nReposition = nEdge - (this.orientV ? sb.clientHeight : sb.clientWidth);
-			var scrollerEdge = this.orientV ? (sb.top + sb.clientHeight) : (sb.left + sb.clientWidth);
+		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnForward().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
+			sb = this.scrollBounds,
+			node,
+			nodeEdge,
+			threshold = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth;
+
+		for(i;i<this.count;i++) {
+			node = this.$.generator.fetchRowNode(i);
+			nodeEdge = (this.orientV)
+				?	(node.offsetParent.offsetTop  + node.offsetTop  + node.clientHeight)
+				:	(node.offsetParent.offsetLeft + node.offsetLeft + node.clientWidth);
 			
-			if (nReposition <= scrollerEdge) {	
-				var posDelta = this.orientV ? (nEdge - scrollerEdge) : (nEdge - scrollerEdge);
-				var oReposition = (this.orientV ? (rNode.offsetParent.offsetTop + rNode.offsetTop) : (rNode.offsetParent.offsetLeft + rNode.offsetLeft)) - posDelta;
-				
-				if (oReposition <= (this.orientV ? sb.top : sb.left)) {
-					//went a little too far, but previous node is it
-					break;
-				} else {
-					//works but see if we can go further
-					j++;
-				}
-			} else if (nReposition > scrollerEdge) {
-				//went too far
-				j--;				
-				break;
-			} else {
-				//haven't gotten to a node far right enough yet
-				j++;
+			//scroll to the first offscreen (or partially offscreen) node
+			if (nodeEdge > threshold) {
+				this.getStrategy().animateToNode(node);
+				return;
 			}
 		}
-		this.getStrategy().animateToNode(this.$.generator.fetchRowNode(j >= this.count ? this.count-1 : j));
 	},
 	findBoundingPageOnBack: function() {
-		var page0Bounds = this.$.page0.getBounds();
-		var sb = this.getScrollBounds();		
-		var scrollEdge = this.orientV ? (sb.top - sb.clientHeight) : (sb.left - sb.clientWidth);
+		var sb = this.scrollBounds,
+			coordinate = this.orientV ? sb.top - sb.clientHeight : sb.left - sb.clientWidth,
+			pageInfo = this.positionToPageInfo(coordinate);
 
-		//find the page that bounds the area to the left of the scrollers current visible area
-		if ((scrollEdge < 0) || ((this.orientV ? page0Bounds.top : page0Bounds.left) <= scrollEdge)) {
-			return this.$.page0;
-		} else {
-			return this.$.page1;
-		}			
+		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
 	findBoundingPageOnForward: function() {
-		var page0Bounds = this.$.page0.getBounds();
-		var scrollEdge = this.orientV ? this.getScrollTop() : this.getScrollLeft();
-		var page0Edge = this.orientV ? (page0Bounds.top + page0Bounds.height) : (page0Bounds.left + page0Bounds.width);
-		
-		//find the page that bounds the scrollers left edge
-		if ((page0Bounds.left <= scrollEdge) && (page0Edge > scrollEdge)) {
-			return this.$.page0;
-		} else {
-			return this.$.page1;			
-		}			
-	}	
+		var sb = this.scrollBounds,
+			coordinate = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth,
+			pageInfo = this.positionToPageInfo(coordinate);
+
+		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
+	},
+	spotlightModeChanged: function(inSender, inEvent) {
+		if (inEvent.pointerMode && (!this.hoverPagingOnly || this.hovering)) {
+			this.pageControlsHidden = false;
+			this.updatePageControls();	
+		} else if (this.hidePagingOnKey) {
+			this.hidePageControls();			
+		}
+	},
+	//* Handle paginate event sent from PagingControl buttons
+	paginate: function(inSender, inEvent) {
+		switch (inEvent.side) {
+			case "top":
+			case "left":
+				this.pageBack();
+				return;
+			case "bottom":
+			case "right":
+				this.pageForward();
+				return;
+		}
+	},
+	scrollStart: function() {
+		this.updateScrollBounds();
+		this.inherited(arguments);
+	},
+	updateScrollBounds: function() {
+		this.scrollBounds = this.$.strategy._getScrollBounds();
+	}
 });

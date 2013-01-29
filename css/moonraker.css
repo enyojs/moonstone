@@ -66,7 +66,7 @@
 }
 .moon {
   font-family: "Miso";
-  font-size: 20px;
+  font-size: 40px;
   text-transform: uppercase;
 }
 .moon-no-border {
@@ -96,19 +96,17 @@
 }
 .moon-simple-picker-button {
   border-radius: 0;
-  background: gray;
-  color: white;
+  color: black;
   border: 0;
-  height: 30px;
   font-weight: normal;
+  background: inherit;
 }
 .moon-simple-picker-button.spotlight {
   background: orange;
+  color: white;
 }
 .moon-simple-picker-client {
-  background: gray;
-  height: 30px;
-  color: white;
+  color: black;
 }
 .moon-simple-picker-item {
   white-space: nowrap;
@@ -216,7 +214,6 @@
 /* Button */
 .moon-button {
   display: inline-block;
-  font-size: 14px;
   border-width: 0px;
   background-color: transparent;
   letter-spacing: normal;
@@ -224,9 +221,9 @@
   padding: 1px 0px;
   white-space: nowrap;
   overflow: hidden;
-  height: 28px;
   cursor: pointer;
   padding: 0px 10px;
+  text-transform: uppercase;
 }
 .moon-button.spotlight {
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -251,8 +248,8 @@
 }
 /* ExpandableListItem.css */
 .moon-expandable-list-item {
-  padding: 0 16px 0 0;
-  margin: 16px 0 16px 0;
+  padding: 0px 16px 0px 0px;
+  margin: 16px 0px;
   border-color: orange;
   overflow: hidden;
 }
@@ -287,31 +284,26 @@
   border-left: 16px solid orange;
 }
 .moon-item.moon-expandable-picker-header {
-  font-size: 18px;
-  line-height: 18px;
-  height: 22px;
-  padding: 4px 0px 0px 0px;
+  line-height: 0.85em;
+  padding: 0px;
   margin: 0px;
-  -webkit-transition: height 0.1s linear, padding 0.1s linear, font-size 0.1s linear, line-height 0.1s linear, padding 0.1s linear, border-width 0.1s linear;
+  -webkit-transition: all 0.1s linear;
 }
 .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "PreludeWGL Medium";
-  height: 22px;
-  line-height: 22px;
-  font-size: 10px;
+  font-size: 20px;
   padding: 0px;
+  line-height: 1.2em;
   border-bottom: 1px solid #aaa;
 }
 .moon-expandable-picker-current-value {
   font-family: "PreludeWGL Medium";
-  font-size: 10px;
-  line-height: 12px;
-  height: 12px;
+  font-size: 20px;
   margin: 0px;
-  padding: 0px 0px 4px 0px;
+  padding: 0px;
 }
 .moon-header {
-  font-size: 2em;
+  font-size: 2.5em;
   height: 180px;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
@@ -429,4 +421,65 @@
 }
 .moon-icon.disabled:active:hover {
   background-position: 0 0px;
+}
+/* DatePicker.css */
+.moon-date-picker {
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  cursor: pointer;
+}
+.moon-date-picker.spotlight {
+  padding: 0px 0px 0px 4px;
+  border-left: 16px solid orange;
+}
+.moon-item.moon-date-picker-header {
+  line-height: 0.85em;
+  padding: 0px;
+  margin: 0px;
+  -webkit-transition: all 0.1s linear;
+}
+.moon-date-picker.open .moon-date-picker-header {
+  font-family: "PreludeWGL Medium";
+  font-size: 20px;
+  padding: 0px;
+  line-height: 1.2em;
+  border-bottom: none;
+}
+.moon-date-picker-current-value {
+  font-family: "PreludeWGL Medium";
+  font-size: 20px;
+  margin: 0px;
+  padding: 0px;
+}
+.moon-date-picker-component {
+  display: inline-block;
+  font-size: 14px;
+  overflow: hidden;
+  height: 28px;
+  cursor: pointer;
+  padding: 0px 10px;
+  height: 40px;
+  font-size: 20px;
+  font-family: "Miso";
+}
+.moon-date-picker-component.day {
+  width: 55px;
+}
+.moon-date-picker-component.day .dateName {
+  font-size: 14px;
+}
+.moon-date-picker-component.month {
+  width: 55px;
+}
+.moon-date-picker-component.month .monthName {
+  font-size: 14px;
+}
+.moon-date-picker-component.year {
+  width: 55px;
+}
+.moon-date-picker-component.spotlight {
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: orange;
+  border-left-style: solid;
+  padding: 0px 0px 0px 4px;
 }
