@@ -10,11 +10,9 @@ enyo.kind({
 		hoverPagingOnly: false
 	},
 	handlers: {
-		onScrollStop: "scrollStop",
-		onScrollStart: "scrollStart",
 		onenter: "enter",
 		onleave: "leave",
-		onPaginate: "paginate"
+		onPaginate: "paginate",
 	},
 	horizonalPageControls: [
 		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left"},
@@ -28,10 +26,8 @@ enyo.kind({
 	pageControlsHidden: true,
 	//Is the pointer hovering over this control
 	hovering: false,
-	//* Reference to interval that updates page control visibility while scrolling
-	updatePageControlsInterval: null,
-	//* Time in MS between running updatePageControls() while scrolling
-	updatePageControlsMS: 200,
+	// Cache scroll bounds
+	scrollBounds: {},
 	components: [
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged"}
 	],
@@ -74,6 +70,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.updateScrollBounds();
 		this.positionPageControls();
 	},
 	enter: function(){
@@ -101,58 +98,29 @@ enyo.kind({
 			this.$.pageDownControl.hide();
 		}
 	},
+	scroll: function(inSender, inEvent) {
+		this.inherited(arguments);
+		this.updateScrollBounds();
+		this.updatePageControls();
+	},
 	updatePageControls: function() {
 		if (this.pageControlsHidden) {
 			return;
 		}
 		
+		var sb = this.scrollBounds,
+			s;
+		
 		if (this.getHorizontal() !== "hidden") {
-			this.updateHorizontalPageControls();
+			s = this.getScrollLeft();
+			this.$.pageLeftControl.setShowing(s > 0);
+			this.$.pageRightControl.setShowing(s <= sb.maxLeft);
 		}
 		
 		if (this.getVertical() !== "hidden") {
-			this.updateVerticalPageControls();
-		}
-	},
-	updateHorizontalPageControls: function() {
-		var sb = this._getScrollBounds();
-		
-		// Hide horizontal controls if no room to scroll
-		if (sb.clientWidth >= sb.width) {
-			this.$.pageLeftControl.hide();
-			this.$.pageRightControl.hide();
-			return;
-		}
-		
-		this.showHidePageControls(this.getScrollLeft(), sb.maxLeft, this.$.pageLeftControl, this.$.pageRightControl);
-	},
-	updateVerticalPageControls: function() {
-		var sb = this._getScrollBounds();
-		
-		// Hide vertical controls if no room to scroll
-		if (sb.clientHeight >= sb.height) {
-			this.$.pageUpControl.hide();
-			this.$.pageDownControl.hide();
-			return;
-		}
-		
-		this.showHidePageControls(this.getScrollTop(), sb.maxTop, this.$.pageUpControl, this.$.pageDownControl);
-	},
-	showHidePageControls: function(inPos, inBoundary, inControlBack, inControlForward) {
-		// If we are beyond the back edge, show and position back control
-		if (!inControlBack.getShowing() && (inPos > 0)) {
-			inControlBack.show();
-			//this.positionPageControl(inControlBack);
-		} else if (inPos === 0) {
-			inControlBack.hide();
-		}
-		
-		// If we are beyond the forward edge, show and position forward control
-		if (!inControlForward.getShowing() && (inPos < inBoundary)) {
-			inControlForward.show();
-			//this.positionPageControl(inControlForward);	
-		} else if (inPos === inBoundary) {
-			inControlForward.hide();
+			s = this.getScrollTop();
+			this.$.pageUpControl.setShowing(s > 0);
+			this.$.pageDownControl.setShowing(s <= sb.maxTop);
 		}
 	},
 	positionPageControls: function() {
@@ -168,7 +136,7 @@ enyo.kind({
 	},
 	//* Position _inControl_ based on it's _side_ value (top, right, bottom, or left)
 	positionPageControl: function(inControl) {
-		var sb = this._getScrollBounds(),
+		var sb = this.scrollBounds,
 			cb = inControl.getBounds(),
 			side = inControl.getSide(),
 			attribute,
@@ -186,7 +154,7 @@ enyo.kind({
 	},
 	pageBack: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnBack().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
-			sb = this._getScrollBounds(),
+			sb = this.scrollBounds,
 			node,
 			pageDelta,
 			threshold = this.orientV ? sb.top : sb.left;
@@ -207,7 +175,7 @@ enyo.kind({
 	},
 	pageForward: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnForward().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
-			sb = this._getScrollBounds(),
+			sb = this.scrollBounds,
 			node,
 			nodeEdge,
 			threshold = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth;
@@ -226,14 +194,14 @@ enyo.kind({
 		}
 	},
 	findBoundingPageOnBack: function() {
-		var sb = this._getScrollBounds(),
+		var sb = this.scrollBounds,
 			coordinate = this.orientV ? sb.top - sb.clientHeight : sb.left - sb.clientWidth,
 			pageInfo = this.positionToPageInfo(coordinate);
 
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
 	findBoundingPageOnForward: function() {
-		var sb = this._getScrollBounds(),
+		var sb = this.scrollBounds,
 			coordinate = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth,
 			pageInfo = this.positionToPageInfo(coordinate);
 
@@ -260,22 +228,11 @@ enyo.kind({
 				return;
 		}
 	},
-	
-	scrollStart: function(inSender, inEvent) {
-		this.updatePageControls();
-		this.updatePageControlsInterval = setInterval(enyo.bind(this, this.updatePageControls), this.updatePageControlsMS);
+	scrollStart: function() {
+		this.updateScrollBounds();
+		this.inherited(arguments);
 	},
-	scrollStop: function(inSender, inEvent) {
-		clearInterval(this.updatePageControlsInterval);
-		this.updatePageControls();
-	},
-	
-	/**
-		Returns an object describing the scroll boundaries with _height_ and
-		_width_ properties. Does not stop the scroller from scrolling.
-		TODO - This should be moved up to the Enyo core scroller.
-	*/
-	_getScrollBounds: function() {
-		return this.$.strategy._getScrollBounds();
+	updateScrollBounds: function() {
+		this.scrollBounds = this.$.strategy._getScrollBounds();
 	}
 });
