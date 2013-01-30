@@ -4,7 +4,7 @@
 	_content_ property. The state of the Checkbox can be retreived
 	by interrogating the checked property.
 
-		{kind: "moon.LabeledCheckbox", content: "San Francisco", onCheckedChanged: "checkedChanged"}
+		{kind: "moon.LabeledCheckbox", content: "San Francisco", onchange: "checkedChanged"}
 		
 		checkedChanged: function(inSender, inEvent) {
 			var checked = inSender.getChecked();
