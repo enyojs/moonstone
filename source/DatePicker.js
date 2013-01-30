@@ -1,122 +1,115 @@
 enyo.kind({
-	name: "moon.DatePickerComponent",
-	kind: "enyo.Control",
-	classes: "moon-date-picker-component",
-	events: {
-		onValueChange: ""
-	},	
-	handlers: {
-		onSpotlightUp:"previous", 
-		onSpotlightDown:"next"
-	},
-	spotlight: true,
-	published: {
-		value: undefined,
-		min: 0,
-		max: 9
-	},
-	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		if (this.value){
-			this.valueChanged();	
-		} else {
-			this.setValue(this.min);
-		}
-	},
-	minChanged: function() {
-		this.valueChanged();
-	},
-	maxChanged: function() {
-		this.valueChanged();		
-	},
-	valueChanged: function(inOld) {
-		// Validate our value
-		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
-		this.setContent(this.value);
-	},
-	previous: function() {
-		if (this.value > this.min) {
-			this.setValue(this.value-1);
-			this.doValueChange();
-		}
-		return true;
-	},
-	next: function() {
-		if (this.value < this.max) {
-			this.setValue(this.value+1);
-			this.doValueChange();
-		}
-		return true;		
-	}
-})
-
-
-enyo.kind({
 	name: "moon.DayPicker",
-	kind: "moon.DatePickerComponent",
-	classes:"day",
+	kind: "moon.IntegerPicker",
+	classes:"moon-date-picker-day",
 	min:1,
 	value: new Date(),
 	published: {
 		days: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]		
 	},
-	components:[
-		{name:"date"},
-		{name:"dateName", classes:"dateName"}
-	],
-	valueChanged: function() {
-		if (this.value) {
-			this.$.date.setContent(this.value.getDate());
-			this.$.dateName.setContent(this.days[this.value.getDay()]);
-			this.setMax(this.monthLength(this.value.getFullYear(),this.value.getMonth()));
+	rangeChanged: function() {
+		this.max = this.monthLength(this.value.getFullYear(), this.value.getMonth());
+		this.$.client.destroyClientControls();	
+		for (var i=this.min; i<=this.max; i++) {
+			this.createComponent({
+				components:[
+					{content:i},
+					{content:this.days[new Date(this.value.getFullYear(), 
+												this.value.getMonth(), 
+												i).getDay()], 
+					 classes:"dateName"}
+				]}).render();
+		}
+		this.setSelectedIndex(this.value.getDate()-1);
+		this.reflow();
+	},
+	valueChanged: function(inOld) {
+		//if nothing but the time has changed, get out of here
+		if (inOld && inOld.getDate() == this.value.getDate() &&
+			inOld.getMonth() == this.value.getMonth() &&
+			inOld.getFullYear() == this.value.getFullYear()) {
+			return;
+		}
+			
+		//if month or year changed, reset range
+		if (this.value && inOld &&
+			(this.value.getFullYear() != inOld.getFullYear() || 
+			this.value.getMonth() != inOld.getMonth())) {
+			this.rangeChanged();
+		} else {
+			//otherwise just show the new day
+			var controls = this.$.client.getClientControls();
+			var len = controls.length;
+			for (var i=0; i<len; i++) {
+				if (this.value.getDate() === parseInt(controls[i].getControls()[0].content)) {
+					this.setSelected(controls[i]);
+					break;
+				}
+			}
 		}
 	},
 	daysChanged: function() {
-		this.$.dateName.setContent(this.days[this.value.getDay()]);		
+		this.rangeChanged();
 	},
 	monthLength: function(inYear, inMonth) {
 		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
-	previous: function() {
-		if (this.value.getDate()-1 >= this.min) {
-			this.value.setDate(this.value.getDate()-1);
-			this.valueChanged();
-			this.doValueChange();
+	selectedChanged: function(inOld) {
+		this.value = new Date(this.value.getFullYear(), 
+							  this.value.getMonth(), 
+							  this.selected.getControls()[0].content);		
+		if (this.selected != this.$.client.getActive()) {
+			this.$.client.setIndex(this.selected.indexInContainer());
 		}
-		return true;
-	},
-	next: function() {
-		if (this.value.getDate()+1 <= this.max) {
-			this.value.setDate(this.value.getDate()+1);
-			this.valueChanged();
-			this.doValueChange();			
-		}
-		return true;		
 	}
 })
 
 enyo.kind({
 	name: "moon.MonthPicker",
-	kind: "moon.DatePickerComponent",
-	classes:"month",	
+	kind: "moon.IntegerPicker",
+	classes:"moon-date-picker-month",	
 	published: {
 		abbrMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 		months: ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 	},
 	max:11,
-	components:[
-		{name:"month"},
-		{name:"monthName", classes:"monthName"}
-	],
+	value:0,
+	rangeChanged: function() {
+		this.$.client.destroyClientControls();			
+		for (var i=this.min; i<=this.max; i++) {
+			this.createComponent({
+				components:[
+					{content:i+1},
+					{content:this.months[i], classes:"monthName"}
+				]}).render();
+			this.setSelectedIndex(this.value);
+		}
+		this.reflow();
+	},
 	valueChanged: function(inOld) {
-		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
-		this.$.month.setContent(this.value+1);
-		this.$.monthName.setContent(this.months[this.value]);
+		//if month or year changed, reset range
+		if (this.value != inOld) {
+			var controls = this.$.client.getClientControls();
+			var len = controls.length;
+			// Validate our value
+			this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
+			for (var i=0; i<len; i++) {
+				if (this.value === parseInt(controls[i].getControls()[0].content)-1) {
+					this.setSelected(controls[i]);
+					break;
+				}
+			}
+		}
 	},
 	monthsChanged: function() {
-		this.$.monthName.setContent(this.months[this.value]);		
+		this.rangeChanged();
+	},
+	selectedChanged: function(inOld) {
+		this.value = this.selected.getControls()[0].content-1;
+		if (this.selected != this.$.client.getActive()) {
+			this.$.client.setIndex(this.selected.indexInContainer());
+		}
 	}
 })
 
@@ -135,7 +128,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		onValueChange: "updateDate"
+		onChange: "updateDate" //*onChange events coming from consituent controls (day & month)
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
@@ -180,8 +173,8 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.setupPickers(this._tf ? this._tf.getDateFieldOrder() : 'mdy');
 		this.value = this.value || new Date();
+		this.setupPickers(this._tf ? this._tf.getDateFieldOrder() : 'mdy');
 		this.valueChanged();
 	},
 	setupPickers: function(ordering) {
@@ -202,7 +195,7 @@ enyo.kind({
 				}
 				break;
 				case 'y': {
-					this.createComponent({kind:"moon.DatePickerComponent", name:"year", classes:"year", min:this.minYear, max:this.maxYear});
+					this.createComponent({kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-year", min:this.minYear, max:this.maxYear});
 				}
 				break;
 				default: break;
@@ -233,21 +226,31 @@ enyo.kind({
 		}
 		return dateStr;
 	},
-	updateDate: function() {
+	updateDate: function(inSender, inEvent) {
+		//* Avoid onChange events coming from itself
+		if (inEvent && inEvent.originator == this) {
+			return;
+		}
+		
 		var day = this.$.day.getValue(),
 		    month = this.$.month.getValue(),
 		    year = this.$.year.getValue();
-		
+
 		var maxDays = this.$.day.monthLength(year, month);
 		
-		this.setValue(new Date(year, 
-						   month, 
-						   (day.getDate() <= maxDays) ? day.getDate() : maxDays));
+		this.setValue(new Date(year, month, (day.getDate() <= maxDays) ? day.getDate() : maxDays));
 		return true;
 	},
-	valueChanged: function() {
-		this.$.month.setValue(this.value.getMonth());
+	valueChanged: function(inOld) {
+		//if it's the same date, get out of here
+		if (inOld && inOld.getDate() == this.value.getDate() &&
+			inOld.getMonth() == this.value.getMonth() &&
+			inOld.getFullYear() == this.value.getFullYear()) {
+			return;
+		}
+		
 		this.$.year.setValue(this.value.getFullYear());
+		this.$.month.setValue(this.value.getMonth());
 		this.$.day.setValue(this.value);
 		this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getDateFieldOrder() : 'mdy'));
 		this.doChange({name:this.name, value:this.value});		

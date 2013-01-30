@@ -359,10 +359,8 @@
 }
 .moon-gridlist-imageitem.spotlight.selected {
   background: orange !important;
-  padding-left: 24px !important;
+  padding-left: 27px !important;
   margin-right: -24px !important;
-  padding-top: 3px !important;
-  padding-bottom: 3px !important;
 }
 /* Scroller Page Controls */
 .moon-paging-button {
@@ -422,6 +420,32 @@
 .moon-icon.disabled:active:hover {
   background-position: 0 0px;
 }
+.moon-integer-picker {
+  display: inline-block;
+  font-size: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0px 10px;
+  font-size: 20px;
+  font-family: "Miso";
+}
+.moon-integer-picker.spotlight {
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: orange;
+  border-left-style: solid;
+  padding: 0px 0px 0px 4px;
+}
+.moon-integer-picker-item {
+  white-space: nowrap;
+  background: white;
+  font-size: 20px;
+  font-family: "Miso";
+}
+.moon-integer-picker-panels {
+  min-height: 40px;
+  min-width: 55px;
+}
 /* DatePicker.css */
 .moon-date-picker {
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -450,36 +474,18 @@
   margin: 0px;
   padding: 0px;
 }
-.moon-date-picker-component {
-  display: inline-block;
-  font-size: 14px;
-  overflow: hidden;
-  height: 28px;
-  cursor: pointer;
-  padding: 0px 10px;
-  height: 40px;
-  font-size: 20px;
-  font-family: "Miso";
-}
-.moon-date-picker-component.day {
+.moon-date-picker-day {
   width: 55px;
 }
-.moon-date-picker-component.day .dateName {
+.moon-date-picker-day .dateName {
   font-size: 14px;
 }
-.moon-date-picker-component.month {
+.moon-date-picker-month {
   width: 55px;
 }
-.moon-date-picker-component.month .monthName {
+.moon-date-picker-month .monthName {
   font-size: 14px;
 }
-.moon-date-picker-component.year {
+.moon-date-picker-year {
   width: 55px;
-}
-.moon-date-picker-component.spotlight {
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: orange;
-  border-left-style: solid;
-  padding: 0px 0px 0px 4px;
 }
