@@ -24,7 +24,7 @@ enyo.kind({
 		this.reflow();
 	},
 	valueChanged: function(inOld) {
-		//if nothing but the time has changed, get out of here
+		//if it's the same date (month,day,year), get out of here
 		if (inOld && inOld.getDate() == this.value.getDate() &&
 			inOld.getMonth() == this.value.getMonth() &&
 			inOld.getFullYear() == this.value.getFullYear()) {
@@ -242,7 +242,7 @@ enyo.kind({
 		return true;
 	},
 	valueChanged: function(inOld) {
-		//if it's the same date, get out of here
+		//if it's the same date (month,day,year), get out of here
 		if (inOld && inOld.getDate() == this.value.getDate() &&
 			inOld.getMonth() == this.value.getMonth() &&
 			inOld.getFullYear() == this.value.getFullYear()) {

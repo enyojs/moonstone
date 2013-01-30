@@ -35,7 +35,8 @@ enyo.kind({
 	},
 	spotlight: true,
 	components: [
-		{kind:"enyo.Panels", classes:"moon-integer-picker-panels", controlClasses:"moon-integer-picker-item", draggable:true, arrangerKind: "moon.IntegerPickerArranger", name:"client", onTransitionFinish:"transitionFinished"},
+		{kind:"enyo.Panels", classes:"moon-integer-picker-panels", controlClasses:"moon-integer-picker-item", draggable:true, 
+		 arrangerKind: "moon.IntegerPickerArranger", name:"client", onTransitionFinish:"transitionFinished"},
 	],
 	//* @protected
 	create: function() {
