@@ -22,19 +22,8 @@ enyo.kind({
 			{content: 'es_us'}																																																								
 		]},	
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},
+		{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},		
 		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
-		/*
-		{kind:"moon.IntegerPicker", name:"picker2", onChange:"changed", min:5, max:50},
-		{kind:"moon.VerticalPicker", name:"picker0", onChange:"changed", components: [
-			{content:"a"},
-			{content:"b"},
-			{content:"c"},
-			{content:"d"},
-			{content:"e"},
-			{content:"f"}			
-		]}
-		*/
 	],
 	pickerHandler: function(inSender, inEvent){
 		if (enyo.g11n) {
