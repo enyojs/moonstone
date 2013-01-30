@@ -1,9 +1,32 @@
+/**
+	A control that facades a <a href="#moon.Checkbox">moon.Checkbox</a>
+	and adds a label. The label text can be set by setting the
+	_content_ property. The state of the Checkbox can be retreived
+	by interrogating the checked property.
+
+		{kind: "moon.LabeledCheckbox", content: "San Francisco", onCheckedChanged: "checkedChanged"}
+		
+		checkedChanged: function(inSender, inEvent) {
+			var checked = inSender.getChecked();
+		}
+	
+	_moon.LabeledCheckbox_ can be used with a _Group_ to create a group of
+	checkboxes that only allows one checkbox to be chosen at a time (similar
+	to the behavior of a radio button).
+	
+		{kind: "Group", components: [
+			{kind: "moon.LabeledCheckbox", content: "New York"},
+			{kind: "moon.LabeledCheckbox", content: "London"},
+			{kind: "moon.LabeledCheckbox", content: "San Francisco"},
+			{kind: "moon.LabeledCheckbox", content: "Beijing"}
+		]}
+ */
 enyo.kind({
 	name: "moon.LabeledCheckbox",
 	kind: "moon.Item",
 	published: {
-		checked: false,
-		value: false
+		//* The state of the checkbox
+		checked: false
 	},
 	//* @protected
 	classes: "moon-labeled-checkbox",

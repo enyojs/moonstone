@@ -1,3 +1,8 @@
+/**
+	A box that shows or hides a check mark when clicked.
+	The onchange event is fired when it is clicked. Designed to
+	be used with <a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>.
+*/
 enyo.kind({
 	name: "moon.Checkbox",
 	classes: "moon-checkbox",

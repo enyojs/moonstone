@@ -237,7 +237,7 @@ enyo.kind({
 
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
-	//* This should be moved to the appropriate strategy when the time is right
+	//* Scroll to a given node in list
 	animateToNode: function(inNode) {
 		var sb = this.scrollBounds,
 			st = this.getStrategy(),
