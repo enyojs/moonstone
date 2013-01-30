@@ -1,9 +1,10 @@
-/*
- * moon.ImageGridItem extends enyo.ImageGridItem to add moonraker specific confiuguration, styling, decorators and focus-state management
- * 
- * @author: Surya Vakkalanka
- * @date: January 2013
- * 
+/**
+    _moon.GridList.ImageItem_ extends _enyo.GridList.ImageItem_ 
+    to add moonraker specific configuration, styling, decorators and spotlight/focus-state management.
+
+    Use this as a component of _moon.GridList_ to create an ImageGrid. 
+
+	See _moon.GridList_ for example usage.
 */
 
 enyo.kind({
