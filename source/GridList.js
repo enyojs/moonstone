@@ -34,7 +34,7 @@ enyo.kind(
         kind: "enyo.GridList", 
         classes: "moon-gridlist", 
         spotlight: true, 
-        itemSpacing: 8, 
+        itemSpacing: 64, 
         itemMinWidth: 180, 
         itemMinHeight: 180, 
         itemWidth: 180, 
