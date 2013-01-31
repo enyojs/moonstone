@@ -22,6 +22,40 @@ enyo.kind({
 		this.value = this.selected.content;
 	}
 });
+
+enyo.kind({
+	name: "moon.HourPicker",
+	kind: "moon.IntegerPicker",
+	min: 1,
+	max: 24,
+	value: new Date(),
+	meridiems: true,	//indicate AM/PM enable or disable
+	rangeChanged: function() {
+		if (this.meridiems == false) {
+			this.inherited(arguements);
+		} else {		
+			var value = this.value;
+			this.$.client.destroyClientControls();	
+			for (var i=k=this.min; i<=this.max; i++, k++) {
+				this.createComponent({
+					components:[
+						{content:k}
+					]}).render();
+				if(i == 12) {	//current hour reached meridiem(noon) 
+					k = this.min-1;
+				}
+			}
+			this.setSelectedIndex(this.value.getHours()-1);
+			this.reflow();
+			
+		}
+		
+	},	
+	selectedChanged: function(inOld) {
+		this.inherited(arguments);
+		this.value = this.selected.content;
+	}
+});
 		
 enyo.kind({
 	name: "moon.TimePicker",
@@ -89,18 +123,18 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'h': {
-					this.createComponent({kind:"moon.IntegerPicker", name:"hours", min:1,max:12});
+					this.createComponent({kind:"moon.HourPicker", name:"hour", meridiems:true});
 //					this._tf ? this.$.day.setDays(this.getDayFields()) : enyo.noop;					
 				}
 				break;
 				case 'm': {
-					this.createComponent({kind:"moon.IntegerPicker", name:"minutes", min:0,max:59});
+					this.createComponent({kind:"moon.IntegerPicker", name:"minute", min:0,max:59});
 //					this._tf ? this.$.month.setAbbrMonths(this._tf.getMonthFields()) : enyo.noop;
 //					this._tf ? this.$.month.setMonths(this.getLongMonthFields()) : enyo.noop;				
 				}
 				break;
 				case 'a': {
-					this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", min:this.minYear, max:this.maxYear});
+					this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year"});
 				}
 				break;
 				default: break;
@@ -137,14 +171,14 @@ enyo.kind({
 			return;
 		}
 		
-		var hours = this.$.hours.getValue(),
-		    minutes = this.$.minutes.getValue(),
+		var hour = this.$.hour.getValue(),
+		    minute = this.$.minute.getValue(),
 		    meridiem = this.$.meridiem.getValue();
 		
 		this.setValue(new Date(this.value.getFullYear(),
 							this.value.getMonth(),
 							this.value.getDate(),
-							hours, minutes,
+							hour, minute,
 							this.value.getSeconds(),
 							this.value.getMilliseconds()));
 		return true;
@@ -157,8 +191,8 @@ enyo.kind({
 		// 	return;
 		// }
 		
-		this.$.hours.setValue(this.value.getHours());
-		this.$.minutes.setValue(this.value.getMinutes());
+		this.$.hour.setValue(this.value.getHours());
+		this.$.minute.setValue(this.value.getMinutes());
 		this.$.meridiem.setValue("AM");
 		this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
 		this.doChange({name:this.name, value:this.value});		
