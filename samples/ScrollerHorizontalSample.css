@@ -1,26 +1,40 @@
 
 .moon-scroller-sample-horizontal {
-	width:500px;
+	margin:20px;
 	display:block;
-	border:1px solid blue;
-	white-space:nowrap;	
+	border:1px solid gray;
+	white-space:nowrap;
 }
 
-.moon-scroller-sample-item {
-	width:50px;
+.moon-scroller-sample-horizontal .moon-scroller-sample-item {
+	width:120px;
+	height:120px;
 	display:inline-block;
 	white-space:normal;
+	border-right:1px solid gray;
 }
 
-.moon-scroller-sample.spotlight {
+.moon-scroller-sample-item.enyo {
+	background:url(../images/enyo-icon.png) no-repeat center center;
+}
+
+.moon-scroller-sample-item.html5 {
+	background:url(../images/html5-icon.png) no-repeat center center;
+}
+
+.moon-scroller-sample-item.css3 {
+	background:url(../images/css3-icon.png) no-repeat center center;
+}
+
+.moon-scroller-sample-horizontal .moon-scroller-sample.spotlight {
 	border:1px solid orange;
 }
 
-.moon-button {
+.moon-scroller-sample-horizontal .moon-button {
 	margin:0px;
 	width:300px;
 	border:1px solid red;
 }
-.moon-button.spotlight {
+.moon-scroller-sample-horizontal .moon-button.spotlight {
 	background:orange;
 }

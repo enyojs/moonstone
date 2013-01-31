@@ -6,7 +6,6 @@ enyo.kind({
 	kind: "moon.IconButton",
 	classes: "moon-paging-button",
 	spotlight: true,
-	showing: false,
 	published: {
 		side: null
 	},
