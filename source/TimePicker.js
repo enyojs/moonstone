@@ -15,6 +15,7 @@ enyo.kind({
 					{content:this.meridiems[i]}
 				]}).render();
 		}
+		this.value = new Date().getHours() > 12 ? 1 : 0;
 		this.setSelectedIndex(this.value);
 		this.reflow();
 	},
@@ -33,7 +34,7 @@ enyo.kind({
 	meridiems: true,	//indicate AM/PM enable or disable
 	rangeChanged: function() {
 		if (this.meridiems == false) {
-			this.inherited(arguements);
+			this.inherited(arguments);
 		} else {		
 			var value = this.value;
 			this.$.client.destroyClientControls();	
@@ -194,12 +195,7 @@ enyo.kind({
 		
 		this.$.hour.setValue(this.value.getHours());
 		this.$.minute.setValue(this.value.getMinutes());
-		if (this.value.getHours() > 12) {
-			this.$.meridiem.setValue(1);	
-		} else {
-			this.$.meridiem.setValue(0);	
-		}
-		
+		this.$.hour.getValue() > 12 ? this.$.meridiem.setValue(1) : this.$.meridiem.setValue(0);	
 		this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
 		this.doChange({name:this.name, value:this.value});		
 	},
