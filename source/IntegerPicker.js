@@ -1,10 +1,3 @@
-enyo.kind({
-	name: "moon.IntegerPickerArranger",
-	kind: "enyo.TopBottomArranger",	
-	margin: 0
-});
-
-
 /**
     _moon.IntegerPicker_, a subkind of <a href="#moon.SimplePicker">moon.SimplePicker</a>,
     is used to display a list of integers that solicits a choice from the user, 
@@ -100,4 +93,10 @@ enyo.kind({
 		this.inherited(arguments);
 		return true;		
 	}
+});
+
+enyo.kind({
+	name: "moon.IntegerPickerArranger",
+	kind: "enyo.TopBottomArranger",	
+	margin: 0
 });
