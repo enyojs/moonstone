@@ -12,7 +12,7 @@ enyo.kind({
 	name: "moon.RadioButtonGroup",
 	kind: "enyo.Group",
 	published: {
-		//* CSS classes to be applied to selected bar
+		//* CSS classes to be applied to selected bar.
 		barClasses: ""
 	},
 	//* @protected
