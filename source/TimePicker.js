@@ -3,6 +3,7 @@ enyo.kind({
 	kind: "moon.IntegerPicker",
 	min: 0,
 	max: 1,
+	value: 0,
 	published: {
 		meridiems: ["AM","PM"]		
 	},
@@ -14,9 +15,9 @@ enyo.kind({
 					{content:this.meridiems[i]}
 				]}).render();
 		}
-		this.setSelectedIndex(0);
+		this.setSelectedIndex(this.value);
 		this.reflow();
-	},	
+	},
 	selectedChanged: function(inOld) {
 		this.inherited(arguments);
 		this.value = this.selected.content;
@@ -193,7 +194,12 @@ enyo.kind({
 		
 		this.$.hour.setValue(this.value.getHours());
 		this.$.minute.setValue(this.value.getMinutes());
-		this.$.meridiem.setValue("AM");
+		if (this.value.getHours() > 12) {
+			this.$.meridiem.setValue(1);	
+		} else {
+			this.$.meridiem.setValue(0);	
+		}
+		
 		this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
 		this.doChange({name:this.name, value:this.value});		
 	},
