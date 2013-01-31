@@ -123,7 +123,7 @@ enyo.kind({
 				}
 				break;
 				case 'a': {
-					dateStr += this.$.meridiem.getValue() + " ";
+					dateStr += this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] + " ";
 				}
 				break;
 				default: break;
