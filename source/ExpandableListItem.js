@@ -1,11 +1,36 @@
+/**
+	_moon.ExpandableListItem_ extends _moon.Item_, and allows for additional content
+	to be contained within a _moon.Drawer_ that opens below the control when
+	it is selected. To close the drawer, navigate (via 5-way) back to the top of the
+	drawer, or tap on the header text. The child components contained within the
+	control can be of any kind, and are set to _moon.Item_ by default.
+		
+		{kind: "moon.ExpandableListItem", content: "A Countries", components: [
+			{content: "Algeria"},
+			{content: "Argentina"},
+			{content: "Australia"}
+		]},
+		{kind: "moon.ExpandableListItem", content: "B Countries", components: [
+			{content: "Belgium"},
+			{content: "Bolivia"},
+			{content: "Brazil"}
+		]}
+*/
 enyo.kind({
 	name: "moon.ExpandableListItem",
 	kind: "moon.Item",
-	classes: "moon-expandable-list-item",
 	published: {
+		//* If true, the drawer is expanded, showing this item's contents.
 		open: false,
+		/**
+			If true, the drawer will automatically close when the user
+			navigates to the top of the control. If false, the user will have
+			to select/tap the header to close the drawer.
+		*/
 		autoCollapse: true
 	},
+	//* @protected
+	classes: "moon-expandable-list-item",
 	spotlight: false,
 	defaultKind: "moon.Item",
 	handlers: {
@@ -91,10 +116,12 @@ enyo.kind({
 		}
 		return true;
 	},
+	/**
+		Everytime the drawer animates, bubble the requestScrollIntoView event.
+		This makes for a smoother expansion animation when inside of a scroller,
+		as the height of the scroller changes with the drawer expansion.
+	*/
 	drawerAnimationStep: function() {
 		this.bubble("onRequestScrollIntoView");
-	},
-	requestScrollIntoView: function() {
-		return true;
 	}
 });

@@ -1,7 +1,8 @@
 /**
-	_moon.ExpandablePicker_ is used to as a drop-down picker menu that solicits a choice
-	from the user.  The picker's child components, typically multiple _moon.LabeledCheckbox_es,
-	become the options for the picker.
+	_moon.ExpandablePicker_ is based on _moon.ExpandableListItem_, and is used to as a
+	drop-down picker menu that solicits a choice from the user. The picker's child
+	components, typically multiple _moon.LabeledCheckbox_es, become the options for
+	the picker.
 		
 		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
 			{content: "San Francisco"},
@@ -9,9 +10,9 @@
 			{content: "Tokyo"}
 		]}
 
-	The picker can be programmatically changed by modifying the published properties _selectedIndex_
-	or _selected_ by calling the appropriate setter functions (_setSelectedIndex()_ and
-	_getSelectedIndex()_).
+	The picker can be programmatically changed by modifying the published properties
+	_selectedIndex_ or _selected_ by calling the appropriate setter functions
+	(_setSelectedIndex()_ and _getSelectedIndex()_).
 
 	The _onChange_ event is fired when the selected item changes, and contains the following
 	properties:
@@ -32,8 +33,8 @@
 		// Remove currently selected item from picker
 		this.$.expandablePicker.getSelected().destroy();
 	
-	When the picker is minimized, the content of the currently selected item is displayed as subtext
-	below the picker label.
+	When the picker is minimized, the content of the currently selected item is displayed
+	as subtext below the picker label.
 */
 enyo.kind({
 	name: "moon.ExpandablePicker",
@@ -142,9 +143,10 @@ enyo.kind({
 		var index = this.getClientControls().indexOf(inEvent.toggledControl),
 			_this = this;
 		
-		if(inEvent.checked && index > -1 && this.getAutoCollapse()) {
+		if(inEvent.checked && index > -1) {
 			this.setSelected(inEvent.toggledControl);
-			if(this.isRendered) {
+			// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
+			if(this.getAutoCollapse() && this.isRendered) {
 				setTimeout(function() {
 					_this.setOpen(false);
 					enyo.Spotlight.spot(_this);
