@@ -153,7 +153,11 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'h': {
-					dateStr += this.value.getHours() + " ";
+					if (this.meridiem == true && this.value.getHours() > 12) {
+						dateStr += this.value.getHours() - 12 + " ";	
+					} else {
+						dateStr += this.value.getHours() + " ";	
+					}
 				}
 				break;
 				case 'm': {
@@ -225,20 +229,6 @@ enyo.kind({
 			return true;
 		}
 	},
-	// getLongMonthFields: function() {
-	// 	if (this._tf && this._tf.dateTimeHash){
-	// 		return this._tf.dateTimeHash.long.month;
-	// 	}else{
-	// 		return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-	// 	}
-	// },
-	// getDayFields: function() {
-	// 	if (this._tf && this._tf.dateTimeHash){
-	// 		return this._tf.dateTimeHash.long.day;
-	// 	}else{
-	// 		return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-	// 	}
-	// },
 	localeChanged: function() {
 		this.refresh();
 	},
