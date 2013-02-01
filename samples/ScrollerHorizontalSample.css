@@ -12,6 +12,7 @@
 	display:inline-block;
 	white-space:normal;
 	border-right:1px solid gray;
+	font-size:0px;
 }
 
 .moon-scroller-sample-item.enyo {

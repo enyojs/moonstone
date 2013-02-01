@@ -17,29 +17,6 @@
 	background-color: #dedfdf;
 }
 
-
-/****** Vertical list sample *****/
-
-.list-vertical-sample-item {
-	border: 1px solid silver;
-	padding: 18px;
-	font-size: 18px;
-	font-weight: bold;
-	-webkit-transition: all 0.1s linear;
-}
-
-.list-vertical-controls-sample-list {
-	margin: auto;
-	background-color: #eee;
-}
-
-.moon-list-vertical-sample .spotlight .list-vertical-sample-item {
-	border-left:16px solid orange;
-}
-
-
-/****** Horizontal list sample *****/
-
 .moon-list-horizontal-sample {
 	height:300px;
 }
