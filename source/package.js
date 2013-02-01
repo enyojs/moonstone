@@ -20,7 +20,8 @@ enyo.depends(
 	"Scroller.js",
 	"List.js",
 	"PagingControl.js",
-	"IntegerPicker.js",	
+	"IntegerPicker.js",
+	"IntegerScrollPicker.js",	
 	"DatePicker.js",
 	"TimePicker.js"	
 );

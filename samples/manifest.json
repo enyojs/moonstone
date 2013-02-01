@@ -13,6 +13,8 @@
         {"name": "Horizontal List", "path":"$lib/moonraker/samples/ListHorizontalSample"},
         {"name": "Horizontal Scroller", "path":"$lib/moonraker/samples/ScrollerHorizontalSample"},
         {"name": "Vertical Scroller", "path":"$lib/moonraker/samples/ScrollerVerticalSample"},
+        {"name": "Date Picker", "path":"$lib/moonraker/samples/DatePickerSample"},
+        {"name": "Integer Scroll Picker", "path":"$lib/moonraker/samples/IntegerScrollPickerSample"},
         {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"}
 	]
 }

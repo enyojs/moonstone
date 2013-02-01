@@ -445,6 +445,26 @@
   min-height: 40px;
   min-width: 55px;
 }
+/* ScrollerPicker.css */
+.moon-scroll-picker {
+  height: 40px;
+  width: 50px;
+}
+.moon-scroll-picker.spotlight {
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: orange;
+  border-left-style: solid;
+  padding: 0px 0px 0px 4px;
+}
+.moon-scroll-picker-item {
+  white-space: nowrap;
+  height: 49px;
+  text-align: center;
+  background: white;
+  font-size: 20px;
+  font-family: "Miso";
+}
 /* DatePicker.css */
 .moon-date-picker {
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -474,13 +494,15 @@
   padding: 0px;
 }
 .moon-date-picker-day {
-  width: 55px;
+  width: 60px;
+  font-size: 20px;
 }
 .moon-date-picker-day .dateName {
   font-size: 14px;
 }
 .moon-date-picker-month {
   width: 55px;
+  font-size: 20px;
 }
 .moon-date-picker-month .monthName {
   font-size: 14px;
