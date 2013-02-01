@@ -30,32 +30,22 @@ enyo.kind({
 	kind: "moon.IntegerPicker",
 	min: 1,
 	max: 24,
-	value: new Date(),
+	value: new Date().getHours()-1,
 	meridiems: true,	//indicate AM/PM enable or disable
 	rangeChanged: function() {
 		if (this.meridiems == false) {
 			this.inherited(arguments);
 		} else {		
-			var value = this.value;
 			this.$.client.destroyClientControls();	
 			for (var i=k=this.min; i<=this.max; i++, k++) {
-				this.createComponent({
-					components:[
-						{content:k}
-					]}).render();
+				this.createComponent({content:k.toString()});
 				if(i == 12) {	//current hour reached meridiem(noon) 
 					k = this.min-1;
 				}
 			}
-			this.setSelectedIndex(this.value.getHours()-1);
+			this.setSelectedIndex(this.value);
 			this.reflow();
-			
 		}
-		
-	},	
-	selectedChanged: function(inOld) {
-		this.inherited(arguments);
-		this.value = this.selected.content;
 	}
 });
 		
@@ -73,7 +63,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-//		onChange: "updateTime" //*onChange events coming from consituent controls (day & month)
+		onChange: "updateTime" //*onChange events coming from consituent controls (hour)
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
