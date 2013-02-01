@@ -19,6 +19,10 @@ enyo.kind({
 		this.setSelectedIndex(this.value);
 		this.reflow();
 	},
+	valueChanged: function(inOld) {
+		//if hour is changed, adjust meridiem
+		this.setSelectedIndex(this.value);
+	},
 	selectedChanged: function(inOld) {
 		this.inherited(arguments);
 		this.value = this.selected.content;
@@ -115,7 +119,7 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'h': {
-					this.createComponent({kind:"moon.HourPicker", name:"hour", meridiems:true});
+					this.createComponent({kind:"moon.HourPicker", name:"hour", meridiems:false});
 //					this._tf ? this.$.day.setDays(this.getDayFields()) : enyo.noop;					
 				}
 				break;
@@ -163,10 +167,10 @@ enyo.kind({
 			return;
 		}
 		
-		var hour = this.$.hour.getValue(),
+		var hour = (this.meridiem == true) && (this.$.meridiem.getValue() == 1) ? this.$.hour.getValue() + 12 : this.$.hour.getValue(),
 		    minute = this.$.minute.getValue(),
-		    meridiem = this.$.meridiem.getValue();
-		
+		    meridiem = hour > 12 ? 1 : 0;
+		this.$.meridiem.setValue(meridiem);
 		this.setValue(new Date(this.value.getFullYear(),
 							this.value.getMonth(),
 							this.value.getDate(),
@@ -185,7 +189,10 @@ enyo.kind({
 		
 		this.$.hour.setValue(this.value.getHours());
 		this.$.minute.setValue(this.value.getMinutes());
-		this.$.hour.getValue() > 12 ? this.$.meridiem.setValue(1) : this.$.meridiem.setValue(0);	
+
+		var hour = this.$.hour.getValue();
+		hour > 12 ? this.$.meridiem.setValue(1) : this.$.meridiem.setValue(0);	
+
 		this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
 		this.doChange({name:this.name, value:this.value});		
 	},
