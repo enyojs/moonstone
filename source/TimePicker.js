@@ -9,7 +9,7 @@ enyo.kind({
 	},
 	rangeChanged: function() {
 		this.$.client.destroyClientControls();	
-		for (var i=this.min; i<=this.max; i++) {
+		for (var i = this.min; i <= this.max; i++) {
 			this.createComponent({
 				components:[
 					{content:this.meridiems[i]}
@@ -34,13 +34,13 @@ enyo.kind({
 	kind: "moon.IntegerPicker",
 	min: 1,
 	max: 24,
-	value: new Date().getHours()-1,
+	value: new Date().getHours() - 1,
 	rangeChanged: function() {
 		this.$.client.destroyClientControls();	
-		for (var i=k=this.min; i<=this.max; i++, k++) {
+		for (var i = k = this.min; i <= this.max; i++, k++) {
 			this.createComponent({content:k.toString()});
 			if(i == 12) {	//current hour reached meridiem(noon) 
-				k = this.min-1;
+				k = this.min - 1;
 			}
 		}
 		this.setSelectedIndex(this.value);
@@ -88,7 +88,7 @@ enyo.kind({
 			When meridiem is true, current time picker will display from 1 to 12 hour
 			with moon.MeridienPicker
 		*/
-		meridiem: true
+		meridiem: false
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-date-picker-header", spotlight: true,
@@ -116,6 +116,8 @@ enyo.kind({
 		this.value = this.value || new Date();
 		this.setupPickers(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
+		//Initial state for meridiem is false
+		this.meridiem = this.meridiem || false;
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.split("");
