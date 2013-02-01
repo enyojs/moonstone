@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "enyo.sample.ListVerticalSample",
+	name: "moon.sample.ListVerticalSample",
 	classes: "list-sample enyo-fit enyo-unselectable",
 	published: {
 		index: 0,
