@@ -9,6 +9,10 @@
         {"name": "Checkbox", "path":"$lib/moonraker/samples/CheckboxSample"},
         {"name": "Radio Button", "path":"$lib/moonraker/samples/RadioButtonSample"},
         {"name": "Expandable Picker", "path":"$lib/moonraker/samples/ExpandablePickerSample"},
-        {"name": "Scroller", "path":"$lib/moonraker/samples/ScrollerSample"}
+        {"name": "Vertical List", "path":"$lib/moonraker/samples/ListVerticalSample"},
+        {"name": "Horizontal List", "path":"$lib/moonraker/samples/ListHorizontalSample"},
+        {"name": "Horizontal Scroller", "path":"$lib/moonraker/samples/ScrollerHorizontalSample"},
+        {"name": "Vertical Scroller", "path":"$lib/moonraker/samples/ScrollerVerticalSample"},
+        {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"}
 	]
 }

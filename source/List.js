@@ -22,10 +22,10 @@ enyo.kind({
 	handlers: {
 		onleave: "leave",
 		onmousemove: "mousemove",
-		onPaginate: "paginate",
+		onPaginate: "paginate"
 	},
 	touch: true,
-	
+	spotlight: true,
 	
 	/************** Begin moon.List/moon.Scroller identical code - this should be moved to a base class ************/
 	
@@ -238,7 +238,7 @@ enyo.kind({
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
 	//* Scroll to a given node in list
-	animateToNode: function(inNode) {
+	animateToNode: function(inNode, inLazy) {
 		var sb = this.scrollBounds,
 			st = this.getStrategy(),
 			b = {
@@ -262,8 +262,19 @@ enyo.kind({
 		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
 		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
 
-		var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
-		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
+		var y = (yDir === 0) ? sb.top :
+			(inLazy)
+				?	(yDir === 1)
+					?	b.top + b.height - sb.clientHeight
+					:	b.top
+				:	Math.min(sb.maxTop, b.top);
+		
+		var x = (xDir === 0) ? sb.left :
+			(inLazy)
+				?	(xDir === 1)
+					?	b.left + b.width - sb.clientWidth
+					:	b.left
+				:	Math.min(sb.maxLeft, b.left);
 		
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {

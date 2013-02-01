@@ -1,6 +1,10 @@
 /**
 	The _moon.Panels_ kind extends _enyo.Panels_, and provides support for
 	spotlight events.
+	
+	For more information, see the
+	[Panels documentation](https://github.com/enyojs/enyo/wiki/Panels) in the Enyo
+	Developer Guide.
 */
 enyo.kind({
 	name: "moon.Panels",
@@ -11,6 +15,8 @@ enyo.kind({
 	handlers: {
 		onSpotlightFocus:  "_spotFocus"
 	},
+	
+	draggable: false,
 	
 	/*
 		Override _addControl_ to make sure each panel instance is spotlight-able

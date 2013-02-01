@@ -20,7 +20,7 @@ enyo.kind({
 	spotlight: "container",
 	published: {
 		//* Percent of scroller client area to jump when paging
-		pageRatio: 0.9,
+		pageRatio: 0.7,
 		//* If true, hide the paging controls if a key is pressed (5 way mode)
 		hidePagingOnKey: true,
 		//* If true, hide the paging controls if user's pointer leaves this control

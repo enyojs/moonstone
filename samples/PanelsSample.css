@@ -1,8 +1,7 @@
 .moonraker-panels-sample-panels {
-	width:500px;
 	height:400px;
-	border:1px solid red;
-	margin-left:30px;
+	border:1px solid gray;
+	margin:20px;
 }
 
 .moonraker-panels-sample.spotlight {
@@ -10,9 +9,16 @@
 }
 
 .moonraker-panels-sample-panels > * {
-	width:300px;
+	width:100%;
 }
 
 .moonraker-panels-sample button.spotlight {
 	background: orange;
+}
+
+.moon-panels-sample-output {
+	margin:0px 20px 20px;
+	font-family: PreludeWGL Medium;
+	font-size: 20px;
+	color: #000;
 }
