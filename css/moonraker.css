@@ -315,13 +315,15 @@
 */
 .enyo-gridlist-row {
   overflow: visible;
+  background: none;
 }
 .moon-gridlist-imageitem {
   width: 100%;
   height: 100%;
-  overflow: visible;
-  /*background: #ccc;*/
+  /* GF-1438 Moon: Grid - Entire item should scroll into view - offset the caption height so that item scrolls fully into view on spotlight focus state change */
 
+  margin-top: -30px;
+  overflow: visible;
 }
 .moon-gridlist-imageitem.selected {
   background: orange;
@@ -329,15 +331,11 @@
   /*Offset the right and bottom padding by adding negative top and left margin*/
 
   margin-left: -3px;
-  margin-top: -3px;
+  margin-top: -33px;
 }
 .moon-gridlist-imageitem img {
   width: 100%;
   height: 100%;
-}
-.moon-gridlist-imageitem.loading {
-  /*background: url(../images/spinner-dark.gif) center center no-repeat;*/
-
 }
 .moon-gridlist-imageitem .caption {
   font-weight: bold;
