@@ -42,9 +42,6 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.rangeChanged();
-		if (!this.value){
-			this.value = this.min;
-		}				
 	},
 	rendered: function(){
 		this.inherited(arguments);
@@ -56,6 +53,7 @@ enyo.kind({
 		this.$.item.setContent(index+this.min);
 	},
 	rangeChanged: function() {
+		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;		
 		this.$.repeater.setCount(this.max-this.min+1);
 		this.$.repeater.render();
 	},

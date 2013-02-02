@@ -70,7 +70,7 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.value = this.value || new Date();
+		this.value = this.value || new Date();		
 		this.setupPickers(this._tf ? this._tf.getDateFieldOrder() : 'mdy');
 		this.noneTextChanged();		
 	},
@@ -81,14 +81,12 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'd': {
-					this.createComponent({kind:"moon.DayPicker", name:"day", value:this.value});
-					this._tf ? this.$.day.setDays(this.getDayFields()) : enyo.noop;					
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"day", min:1, 
+						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
 				}
 				break;
 				case 'm': {
-					this.createComponent({kind:"moon.MonthPicker", name:"month", value:this.value.getMonth()});
-					this._tf ? this.$.month.setAbbrMonths(this._tf.getMonthFields()) : enyo.noop;
-					this._tf ? this.$.month.setMonths(this.getLongMonthFields()) : enyo.noop;				
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", min:1, max:12, value:this.value.getMonth()+1});
 				}
 				break;
 				case 'y': {
@@ -111,7 +109,7 @@ enyo.kind({
 				}
 				break;
 				case 'm': {
-					dateStr += this.$.month.getAbbrMonths()[this.value.getMonth()] + " ";
+					dateStr += this.getAbbrMonths()[this.value.getMonth()] + " ";
 				}
 				break;
 				case 'y': {
@@ -130,18 +128,24 @@ enyo.kind({
 		}
 		
 		var day = this.$.day.getValue(),
-		    month = this.$.month.getValue(),
+		    month = this.$.month.getValue()-1,
 		    year = this.$.year.getValue();
 
-		var maxDays = this.$.day.monthLength(year, month);
-		
-		this.setValue(new Date(year, month, (day.getDate() <= maxDays) ? day.getDate() : maxDays));
+		var maxDays = this.monthLength(year, month);
+		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays));
 		return true;
 	},
 	valueChanged: function(inOld) {
 		this.$.year.setValue(this.value.getFullYear());
-		this.$.month.setValue(this.value.getMonth());
-		this.$.day.setValue(this.value);
+		this.$.month.setValue(this.value.getMonth()+1);
+		this.$.day.setValue(this.value.getDate());
+					
+		if (inOld && 
+			(inOld.getFullYear() != this.value.getFullYear() || 
+			inOld.getMonth() != this.value.getMonth())) {
+			this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
+		}
+		
 		this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getDateFieldOrder() : 'mdy'));
 		this.doChange({name:this.name, value:this.value});		
 	},
@@ -173,19 +177,16 @@ enyo.kind({
 			return true;
 		}
 	},
-	getLongMonthFields: function() {
+	getAbbrMonths: function() {
 		if (this._tf && this._tf.dateTimeHash){
-			return this._tf.dateTimeHash.long.month;
+			return this._tf.getMonthFields();
 		}else{
 			return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		}
 	},
-	getDayFields: function() {
-		if (this._tf && this._tf.dateTimeHash){
-			return this._tf.dateTimeHash.long.day;
-		}else{
-			return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-		}
+	monthLength: function(inYear, inMonth) {
+		// determine number of days in a particular month/year
+		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	localeChanged: function() {
 		this.refresh();
@@ -196,100 +197,3 @@ enyo.kind({
 		this.render();
 	}
 });
-
-enyo.kind({
-	name: "moon.DayPicker",
-	kind: "moon.IntegerScrollPicker",
-	classes:"moon-date-picker-day",
-	min:1,
-	value: new Date(),
-	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
-			{name:"date", classes:"moon-date-picker-date"},
-			{name:"dateName", classes:"dateName"}
-		]}
-	],
-	published: {
-		days: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]		
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.rangeChanged();
-		if (!this.value){
-			this.value = new Date();
-		}				
-	},
-	rangeChanged: function() {
-		this.max = this.monthLength(this.value.getFullYear(), this.value.getMonth());
-		this.inherited(arguments);
-	},
-	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.date.setContent(index+1);
-		this.$.dateName.setContent(this.days[new Date(this.value.getFullYear(), 
-									this.value.getMonth(), 
-									index+1).getDay()]);
-	},
-	rendered: function(){
-		this.rendered._inherited._inherited.call(this, arguments);		
-		this.scrollToNode(this.$.repeater.fetchRowNode(this.value.getDate()-1));
-	},
-	valueChanged: function(inOld) {
-		//if month or year changed, reset range
-		if (this.value && inOld &&
-			(this.value.getFullYear() != inOld.getFullYear() || 
-			this.value.getMonth() != inOld.getMonth())) {
-			this.rangeChanged();
-		} else {
-			this.animateToNode(this.$.repeater.fetchRowNode(this.value.getDate() - this.min));
-		}
-	},
-	daysChanged: function() {
-		this.rangeChanged();
-	},
-	monthLength: function(inYear, inMonth) {
-		// determine number of days in a particular month/year
-		return 32 - new Date(inYear, inMonth, 32).getDate();
-	},
-	previous: function() {
-		if (this.value.getDate() > this.min) {
-			this.value.setDate(this.value.getDate()-1);
-			this.animateToNode(this.$.repeater.fetchRowNode(this.value.getDate() - this.min));
-		}
-		return true;
-	},
-	next: function() {
-		if (this.value.getDate() < this.max) {
-			this.value.setDate(this.value.getDate()+1);	
-			this.animateToNode(this.$.repeater.fetchRowNode(this.value.getDate() - this.min));
-		}
-		return true;		
-	}
-})
-
-enyo.kind({
-	name: "moon.MonthPicker",
-	kind: "moon.IntegerScrollPicker",
-	classes:"moon-date-picker-month",	
-	published: {
-		abbrMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-		months: ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-	},
-	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
-			{name:"month", classes:"moon-date-picker-month"},
-			{name:"monthName", classes:"monthName"}
-		]}
-	],
-	value:0,
-	min:0,
-	max:11,
-	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.month.setContent(index+1);
-		this.$.monthName.setContent(this.months[index]);
-	},	
-	monthsChanged: function() {
-		this.rangeChanged();
-	}
-})
