@@ -55,7 +55,7 @@ enyo.kind({
 		
 enyo.kind({
 	name: "moon.Calendar",
-	classes: "moon-date-picker",
+	classes: "moon-calendar",
 	events: {
 		/**
 			Fires when the date changes.
@@ -83,10 +83,14 @@ enyo.kind({
 			a Date object.
 		*/
 		value: null,
+		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", count: 30, components: [
-			{name: "item", kind: "enyo.Button", classes:"moon-calendar-item"}
+		{name:"repeater", kind:"enyo.FlyweightRepeater", onSetupItem: "setupDayItem", count: 7, components: [
+			{name: "day", classes:"moon-calendar-day-item"}
+		]},
+		{name:"repeater", kind:"enyo.FlyweightRepeater", onSetupItem: "setupDateItem", count: 30, components: [
+			{name: "date", kind: "enyo.Button", classes:"moon-calendar-date-item"}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
 	],
@@ -108,9 +112,13 @@ enyo.kind({
 		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
-	setupItem: function(inSender, inEvent) {
+	setupDayItem: function(inSender, inEvent) {
 		var index = inEvent.index;
-		this.$.item.setContent(index);
+		this.$.day.setContent(this.days[index]);
+	},
+	setupDateItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		this.$.date.setContent(index);
 	},
 	setupCalendar: function(ordering) {
 	
