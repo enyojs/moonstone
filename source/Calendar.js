@@ -26,8 +26,12 @@ enyo.kind({
 		var index = inEvent.index;
 		this.$.item.setMonth(this.months[index]);
 		this.$.item.setContent(this.days[index]);
-
 	},
+	fillDate: function(months, days) {
+		this.months = months;
+		this.days = days;
+		this.$.repeater.setCount(7);
+	}
 });
 		
 enyo.kind({
@@ -43,7 +47,8 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap" //*onChange events coming from consituent controls (hour)
+		ontap: "doTap", //*onChange events coming from consituent controls (hour)
+		onChange: "updateCalendar"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
@@ -71,11 +76,12 @@ enyo.kind({
 		dateArray: []
 	},
 	components: [
-		{name: "date", kind: "moon.DatePicker"},
-		{kind: 'enyo.Spotlight'},
+		{name: "datePicker", kind: "moon.DatePicker"},
+		//{kind: 'enyo.Spotlight'},
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
 		]},
+		{name: "dates"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -92,7 +98,8 @@ enyo.kind({
 		}
 
 		this.value = this.value || new Date();
-		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
+		this.setupCalendar();
+//		this.setupDates(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
 	/**
@@ -103,12 +110,22 @@ enyo.kind({
 		var index = inEvent.index;
 		this.$.day.setContent(this.days[index]);
 	},
+
+	setupCalendar: function() {
+		for (var i = 0; i < this.maxWeeks; i++) {
+			var days = [],
+				months = [];
+			this.$.dates.createComponent(
+				{kind: "moon.CalendarWeek", days: days, months: months}
+			)
+		}
+	},
 	/**
 		Set the first week of this month.
 		Before the first day of this month, some days from previous month will fill calendar
 	*/
 	setupFirstWeek: function() {
-		var dt = new Date();
+		var dt = new Date(this.value.getFullYear(), this.value.getMonth(), this.value.getDate());
 		dt.setDate(0);
 		var daysOfPrevMonth = dt.getDate(),
 			dayOfLastDate = dt.getDay(),
@@ -139,8 +156,9 @@ enyo.kind({
 			this.dateArray.push(i);
 		}		
 	},
-	setupCalendar: function(ordering) {
+	setupDates: function(ordering) {
 		this.setupFirstWeek();
+		
 		var thisMonth = this.value.getMonth(),
 			monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
 		for (var i = 1; i <= monthLength; i++) {
@@ -148,10 +166,10 @@ enyo.kind({
 			this.dateArray.push(i);
 		}
 
-		this.setupLastWeek(monthLength);
-		this.fillDate();
+		this.setupLastWeek(monthLength);		
 	},
 	fillDate: function() {
+		var calendarWeeks =this.$.dates.getControls();
 		for (var i = 0; i < this.dateArray.length / 7; i++) {
 			var days = [],
 				months = [];
@@ -159,31 +177,39 @@ enyo.kind({
 				months.push(this.months[i * 7 + j]);
 				days.push(this.dateArray[i * 7 + j]);		
 			}
-			this.createComponent(
-				{kind: "moon.CalendarWeek", days: days, months: months}
-			)
+			calendarWeeks[i].fillDate(months, days);
 		}
 	},
 	parseDate: function(ordering) {
 	},
+	/**
+		When value of DatePicker is changed, it will update Calendar
+	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
-		if (inEvent && inEvent.originator == this) {
+		if (inEvent && inEvent.originator == this || inEvent.originator.kind == "Selection") {
 			return;
 		}
 		//* Make empty
 		this.months = [];
 		this.dateArray = [];
-/*
-		this.setValue(this.$.date.getValue());
-		this.setupCalendar();
-*/
+
+		var year = this.$.datePicker.value.getFullYear(),
+			month = this.$.datePicker.value.getMonth(),
+			date = this.$.datePicker.value.getDate();
+		this.setValue(new Date(year, month, date));					
+
+//		this.setupDates();
+
 		return true;
 	},
 	monthLength: function(inYear, inMonth) {
 		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
+	/**
+		Change value of DatePicker with selected CalendarDate.
+	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
 			this.value.setDate(inEvent.originator.content);
@@ -193,7 +219,7 @@ enyo.kind({
 				this.value.setMonth(month);	
 			}
 			
-			this.$.date.setValue(new Date(this.value.getFullYear(),
+			this.$.datePicker.setValue(new Date(this.value.getFullYear(),
 								this.value.getMonth(),
 								this.value.getDate()));	
 		}
@@ -201,7 +227,9 @@ enyo.kind({
 		return true;
 	},
 	valueChanged: function(inOld) {
-
+		this.setupDates();
+		this.fillDate();
+		this.render();
 	},
 	localeChanged: function() {
 		this.refresh();
