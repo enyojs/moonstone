@@ -93,8 +93,26 @@ enyo.kind({
 			)
 */		}
 	},
+	/**
+		set last week of this month.
+		after last day of this month, some days from next month will fill calendar
+	*/
+	setupLastWeek: function(monthLength) {
+		var dayForLastWeek = (monthLength - this.value.getDate()) % 7;
+		for (var i = 1; i < 7 - dayForLastWeek; i++) {
+			this.dateArray.push(i);
+		}		
+	},
 	setupCalendar: function(ordering) {
-		// body...
+		this.setupFirstWeek();
+
+		var	monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
+		for (var i = this.value.getDate(); i <= monthLength; i++) {
+			this.dateArray.push(i);
+		}
+
+		this.setupLastWeek(monthLength);
+//		this.fillDate();
 	},
 	parseDate: function(ordering) {
 	},
