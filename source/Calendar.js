@@ -7,6 +7,7 @@ enyo.kind({
 		ontap: ""
 	},
 	published: {
+		year: undefined,
 		month: undefined,
 	}
 });
@@ -14,6 +15,7 @@ enyo.kind({
 enyo.kind({
 	name: "moon.CalendarWeek",
 	published: {
+		years: [],
 		months: [],
 		days: [],
 	},
@@ -24,10 +26,12 @@ enyo.kind({
 	],
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
+		this.$.item.setYear(this.years[index]);
 		this.$.item.setMonth(this.months[index]);
 		this.$.item.setContent(this.days[index]);
 	},
-	fillDate: function(months, days) {
+	fillDate: function(years, months, days) {
+		this.years = years;
 		this.months = months;
 		this.days = days;
 		this.$.repeater.setCount(7);
@@ -71,6 +75,7 @@ enyo.kind({
 			(it is unexpected input, makes err)
 		*/
 		maxWeeks: 6,
+		years: [],
 		months: [],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: []
@@ -127,13 +132,15 @@ enyo.kind({
 	setupFirstWeek: function() {
 		var dt = new Date(this.value.getFullYear(), this.value.getMonth(), this.value.getDate());
 		dt.setDate(0);
-		var daysOfPrevMonth = dt.getDate(),
+		var thisYear = dt.getFullYear(),
+			daysOfPrevMonth = dt.getDate(),
 			dayOfLastDate = dt.getDay(),
 			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
 		if (dayOfLastDate != 0) {
 			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
+				this.years.push(thisYear);
 				this.months.push(prevMonth);
 				this.dateArray.push(i);
 			}
@@ -147,11 +154,12 @@ enyo.kind({
 		var dt = new Date();
 		dt.setMonth(dt.getMonth() + 1);
 
-
-		var nextMonth = dt.getMonth();
-		var thisDate = dt.getDate();
+		var thisYear = dt.getFullYear(),
+			nextMonth = dt.getMonth(),
+			thisDate = dt.getDate();
 		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
 		for (var i = 1; i < offset; i++) {
+			this.years.push(thisYear);
 			this.months.push(nextMonth);
 			this.dateArray.push(i);
 		}		
@@ -159,9 +167,11 @@ enyo.kind({
 	setupDates: function(ordering) {
 		this.setupFirstWeek();
 		
-		var thisMonth = this.value.getMonth(),
+		var thisYear = this.value.getFullYear(),
+			thisMonth = this.value.getMonth(),
 			monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
 		for (var i = 1; i <= monthLength; i++) {
+			this.years.push(thisYear);
 			this.months.push(thisMonth);
 			this.dateArray.push(i);
 		}
@@ -171,13 +181,15 @@ enyo.kind({
 	fillDate: function() {
 		var calendarWeeks =this.$.dates.getControls();
 		for (var i = 0; i < this.dateArray.length / 7; i++) {
-			var days = [],
-				months = [];
+			var years = [],
+				months = [],
+				days = [];
 			for (var j = 0; j < 7; j++) {
+				years.push(this.years[i * 7 + j]);
 				months.push(this.months[i * 7 + j]);
 				days.push(this.dateArray[i * 7 + j]);		
 			}
-			calendarWeeks[i].fillDate(months, days);
+			calendarWeeks[i].fillDate(years, months, days);
 		}
 	},
 	parseDate: function(ordering) {
@@ -199,8 +211,6 @@ enyo.kind({
 			date = this.$.datePicker.value.getDate();
 		this.setValue(new Date(year, month, date));					
 
-//		this.setupDates();
-
 		return true;
 	},
 	monthLength: function(inYear, inMonth) {
@@ -212,13 +222,14 @@ enyo.kind({
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
+			//this.value.setYear(inEvent.originator.year);
 			this.value.setDate(inEvent.originator.content);
-		
+
 			var month = inEvent.originator.month;
 			if (month != this.value.getMonth() ) {
 				this.value.setMonth(month);	
 			}
-			
+		
 			this.$.datePicker.setValue(new Date(this.value.getFullYear(),
 								this.value.getMonth(),
 								this.value.getDate()));	
