@@ -237,14 +237,11 @@
   margin: 0px;
   /* Clip the background to allow for transparent border */
 
-  -moz-background-clip: padding;
-  /* Firefox 3.6 */
-
   -webkit-background-clip: padding;
-  /* Safari 4 Chrome 6 */
+  /* Safari */
 
   background-clip: padding-box;
-  /* Firefox 4, Safari 5, Opera 10, IE 9 */
+  /* Firefox 4+, Chrome, IE 9+ */
 
 }
 .moon-button.active,
