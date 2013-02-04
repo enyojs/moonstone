@@ -1,0 +1,31 @@
+/* Calendar.css */
+.moon-calendar-day-item {
+	text-align: center;
+	font-weight: bold;
+	font-size:14px;
+}
+
+.moon-calendar-date-item {
+	white-space:nowrap; 
+	text-align:center; 
+	padding:5px 10px;
+}
+
+.moon-calendar {
+	display: inline-block;
+}
+
+.moon-calendar-week {
+	display: inline-block;
+	white-space:nowrap; 
+	line-height: 40px;
+}
+
+.moon-calendar-date {
+	width: 80px;
+	height: 40px;
+    vertical-align: middle;
+    margin: 1px;
+    text-align: center;
+    
+}

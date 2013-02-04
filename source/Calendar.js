@@ -1,11 +1,11 @@
 enyo.kind({
 	name: "moon.Week",
-	classes: "moon-calendar-week",
+	
 	published: {
 		days: [],
 	},
 	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", onSetupItem: "setupItem", count: 7, components: [
+		{name:"repeater", kind:"enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
 			{name: "item", kind: "enyo.Button", classes: "moon-calendar-date"}
 		]},
 	],
