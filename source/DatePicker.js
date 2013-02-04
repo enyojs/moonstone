@@ -53,7 +53,7 @@ enyo.kind({
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
 		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", classes: "enyo-tool-decorator", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+			{name: "client", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
 	],
@@ -81,12 +81,13 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'd': {
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"day", min:1, 
-						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
+					this.createComponent(
+						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1, 
+							max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
 				}
 				break;
 				case 'm': {
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", min:1, max:12, value:this.value.getMonth()+1});
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
 				}
 				break;
 				case 'y': {
