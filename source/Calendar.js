@@ -179,16 +179,19 @@ enyo.kind({
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	doTap: function(inSender, inEvent) {
-		this.value.setDate(inEvent.originator.content);
-	
-		var month = inEvent.originator.month;
-		if (month != this.value.getMonth() ) {
-			this.value.setMonth(month);	
+		if (inEvent.originator.kind == "moon.CalendarDate") {
+			this.value.setDate(inEvent.originator.content);
+		
+			var month = inEvent.originator.month;
+			if (month != this.value.getMonth() ) {
+				this.value.setMonth(month);	
+			}
+			
+			this.$.date.setValue(new Date(this.value.getFullYear(),
+								this.value.getMonth(),
+								this.value.getDate()));	
 		}
 		
-		this.$.date.setValue(new Date(this.value.getFullYear(),
-							this.value.getMonth(),
-							this.value.getDate()));
 		return true;
 	},
 	valueChanged: function(inOld) {
