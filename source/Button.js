@@ -12,5 +12,20 @@ enyo.kind({
 	kind: "enyo.Button",
 	//* @protected
 	classes: "moon-button enyo-unselectable",
-	spotlight: true
+	spotlight: true,
+	//* Override default enyo.Button tap handler to toggle active state
+	tap: function() {
+		if (this.disabled) {
+			// work around for platforms like Chrome on Android or Opera that send
+			// mouseup to disabled form controls
+			return true;
+		} else {
+			this.setActive(!this.getActive());
+		}
+	},
+	//* Add _active_ css class if button is active
+	activeChanged: function() {
+		this.inherited(arguments);
+		this.addRemoveClass("active", this.getActive());
+	}
 });

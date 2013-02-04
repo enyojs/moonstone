@@ -1,21 +1,28 @@
 /* Button */
 .moon-button {
-	display: inline-block;
-	border-width: 0px;
-	background-color: transparent;
-	letter-spacing: normal;
-	margin: 2px;
-	padding: 1px 0px;
+	height: @moon-button-height;
+	border-radius: @moon-button-border-radius;
+	line-height: @moon-button-line-height;
+	font-size: @moon-text-size;
+	background-color: @moon-button-color;
+	border:@moon-button-border-width solid @moon-button-color;
+	cursor: pointer;
 	white-space: nowrap;
 	overflow: hidden;
-	cursor: pointer;
-	padding:0px 10px;
-	text-transform: uppercase;
+	display: inline-block;
+	min-width: @moon-button-height;
+	padding:0px 16px;
+	margin:0px;
 }
 .moon-button.spotlight {
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	border-left-width: 16px;
-	border-left-color: orange;
-	border-left-style: solid;
-	padding:0px 0px 0px 4px;
+	background: @moon-spotlight-border-color;
+	border:@moon-button-border-width solid @moon-spotlight-border-color;
+}
+
+.moon-button.active {
+	border:@moon-button-border-width solid @moon-spotlight-border-color;
+}
+
+.moon-button:disabled {
+	cursor: default;
 }

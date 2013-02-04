@@ -4,6 +4,7 @@
 	"ns": "moon.sample",
 	"loadPackages": "$lib/moonraker $lib/moonraker/samples $lib/spotlight",
 	"samples": [
+		{"name": "Button", "path":"$lib/moonraker/samples/ButtonSample"},
 		{"name": "Panels", "path":"$lib/moonraker/samples/PanelsSample"},
 		{"name": "Simple Picker", "path":"$lib/moonraker/samples/SimplePickerSample", "css":"sample"},
         {"name": "Checkbox", "path":"$lib/moonraker/samples/CheckboxSample"},

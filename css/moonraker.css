@@ -19,6 +19,8 @@
 /* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
+/* Button */
+/* ---------------------------------------*/
 /* Moonraker rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -83,6 +85,13 @@
   border-left-style: solid;
   padding-left: 8px;
   padding-right: 0px;
+}
+.moon-list-divider,
+.moon-list-divider:hover {
+  margin: 20px 0px 0px 0px;
+  padding: 0px 20px;
+  border-bottom: 1px solid #aaa;
+  font-size: 14px;
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
@@ -213,24 +222,29 @@
 }
 /* Button */
 .moon-button {
-  display: inline-block;
-  border-width: 0px;
-  background-color: transparent;
-  letter-spacing: normal;
-  margin: 2px;
-  padding: 1px 0px;
+  height: 60px;
+  border-radius: 30px;
+  line-height: 50px;
+  font-size: 40px;
+  background-color: #ffffff;
+  border: 4px solid #ffffff;
+  cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
-  cursor: pointer;
-  padding: 0px 10px;
-  text-transform: uppercase;
+  display: inline-block;
+  min-width: 60px;
+  padding: 0px 16px;
+  margin: 0px;
 }
 .moon-button.spotlight {
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: orange;
-  border-left-style: solid;
-  padding: 0px 0px 0px 4px;
+  background: #ffa500;
+  border: 4px solid #ffa500;
+}
+.moon-button.active {
+  border: 4px solid #ffa500;
+}
+.moon-button:disabled {
+  cursor: default;
 }
 /* Radio Button */
 .moon-radio-button {

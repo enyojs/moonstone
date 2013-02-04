@@ -25,5 +25,7 @@ enyo.depends(
 	"IntegerScrollPickerSample.js",
 	"IntegerScrollPickerSample.css",
 	"CalendarSample.js",
-	"CalendarSample.css"
+	"CalendarSample.css",
+	"ButtonSample.js",
+	"ButtonSample.css"
 );
