@@ -1,19 +1,33 @@
 enyo.kind({
-	name: "moon.CalendarWeek",
-	
+	name: "moon.CalendarDate",
+	kind: "enyo.Button",
+	classes: "moon-calendar-date",
+	spotlight: true,
+	events: {
+		ontap: ""
+	},
 	published: {
+		month: undefined,
+	}
+});
+
+enyo.kind({
+	name: "moon.CalendarWeek",
+	published: {
+		months: [],
 		days: [],
 	},
 	components: [
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
-			{name: "item", kind: "enyo.Button", classes: "moon-calendar-date"}
+			{name: "item", kind: "moon.CalendarDate"}
 		]},
 	],
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
+		this.$.item.setMonth(this.months[index]);
 		this.$.item.setContent(this.days[index]);
-	},
 
+	},
 });
 		
 enyo.kind({
@@ -29,7 +43,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		onChange: "updateCalendar" //*onChange events coming from consituent controls (hour)
+		ontap: "doTap" //*onChange events coming from consituent controls (hour)
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
@@ -46,12 +60,14 @@ enyo.kind({
 			a Date object.
 		*/
 		value: new Date(),
+		months: [],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: []
 	},
 	components: [
-//		{name: "", kind: "moon.DatePicker"},
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
+		{name: "date", kind: "moon.DatePicker"},
+		{kind: 'enyo.Spotlight'},
+		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
 		]},
 	],
@@ -73,44 +89,53 @@ enyo.kind({
 		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
-	setupItem: function(inSender, inEvent) {
+	/**
+		Set days from the first day to the last day.
+		Initially, SUN is the first day and SAT is the last day.
+	*/
+	setupDays: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.day.setContent(this.days[index]);
 	},
 	/**
-		set first week of this month.
-		before first day of this month, some days from previous month will fill calendar
+		Set the first week of this month.
+		Before the first day of this month, some days from previous month will fill calendar
 	*/
 	setupFirstWeek: function() {
 		var dt = new Date();
 		dt.setDate(0);
 		var daysOfPrevMonth = dt.getDate(),
-			dayOfLastDate = dt.getDay();
+			dayOfLastDate = dt.getDay(),
+			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
 		if (dayOfLastDate != 0) {
 			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
+				this.months.push(prevMonth);
 				this.dateArray.push(i);
 			}
 		}
 	},
 	/**
-		set last week of this month.
-		after last day of this month, some days from next month will fill calendar
+		Set the last week of this month.
+		After the last day of this month, some days from next month will fill calendar
 	*/
 	setupLastWeek: function(monthLength) {
 		var dt = new Date();
 		dt.setMonth(dt.getMonth() + 1);
+		var nextMonth = dt.getMonth();
 		var dayForLastWeek = (monthLength - this.value.getDate()) % 7;
 		for (var i = 1; i < 7 - dayForLastWeek; i++) {
+			this.months.push(nextMonth);
 			this.dateArray.push(i);
 		}		
 	},
 	setupCalendar: function(ordering) {
 		this.setupFirstWeek();
-
-		var	monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
+		var thisMonth = this.value.getMonth(),
+			monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
 		for (var i = 1; i <= monthLength; i++) {
+			this.months.push(thisMonth);
 			this.dateArray.push(i);
 		}
 
@@ -119,12 +144,14 @@ enyo.kind({
 	},
 	fillDate: function() {
 		for (var i = 0; i < this.dateArray.length / 7; i++) {
-			var days = [];
+			var days = [],
+				months = [];
 			for (var j = 0; j < 7; j++) {
+				months.push(this.months[i * 7 + j]);
 				days.push(this.dateArray[i * 7 + j]);		
 			}
 			this.createComponent(
-				{kind: "moon.CalendarWeek", days: days}
+				{kind: "moon.CalendarWeek", days: days, months: months}
 			)
 		}
 	},
@@ -135,10 +162,14 @@ enyo.kind({
 		if (inEvent && inEvent.originator == this) {
 			return;
 		}
+		//* Make empty
+		this.months = [];
+		this.dateArray = [];
+		
 		var days = this.value.getDate();
 		this.$.repeater.setCount(days);
 		    
-		this.setValue(new Date(this.value.getFullYear(),
+		this.$.date.setValue(new Date(this.value.getFullYear(),
 							this.value.getMonth(),
 							this.value.getDate()));
 		return true;
@@ -146,6 +177,19 @@ enyo.kind({
 	monthLength: function(inYear, inMonth) {
 		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
+	},
+	doTap: function(inSender, inEvent) {
+		this.value.setDate(inEvent.originator.content);
+	
+		var month = inEvent.originator.month;
+		if (month != this.value.getMonth() ) {
+			this.value.setMonth(month);	
+		}
+		
+		this.$.date.setValue(new Date(this.value.getFullYear(),
+							this.value.getMonth(),
+							this.value.getDate()));
+		return true;
 	},
 	valueChanged: function(inOld) {
 

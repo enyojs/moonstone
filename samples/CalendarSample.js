@@ -25,15 +25,9 @@ enyo.kind({
 		{kind: "moon.Calendar", content: "Calendar", meridiem: true, classes: "moon-date-picker-wrapper"},		
 		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
 	],
-/*	pickerHandler: function(inSender, inEvent){
-		if (enyo.g11n) {
-			this.$.calendarPicker.setLocale(inEvent.selected.content);
-		}
-		return true;
-	},
-*/	changed: function(inSender, inEvent) {
+/*	changed: function(inSender, inEvent) {
 		if (this.$.date){
 			this.$.date.setContent(inEvent.name + " changed to " + inEvent.value.toTimeString());			
 		}
-	}
+	}*/
 });
