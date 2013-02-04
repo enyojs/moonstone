@@ -5,24 +5,37 @@
 	line-height: @moon-button-line-height;
 	font-size: @moon-text-size;
 	background-color: @moon-button-color;
-	border:@moon-button-border-width solid @moon-button-color;
+	border: @moon-button-border-width solid transparent;
 	cursor: pointer;
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
 	min-width: @moon-button-height;
-	padding:0px 16px;
-	margin:0px;
+	padding: 0px 16px;
+	margin: 0px;
+	
+	/* Clip the background to allow for transparent border */
+	-moz-background-clip: padding;     /* Firefox 3.6 */
+	-webkit-background-clip: padding;  /* Safari 4 Chrome 6 */
+	background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
 }
+
+.moon-button.active,
+.moon-button.pressed,
+.moon-button:active,
+.moon-button.spotlight.pressed,
+.moon-button.spotlight:active
+{
+	border: @moon-button-border-width solid @moon-spotlight-border-color;
+	background-color: @moon-button-color;
+}
+
 .moon-button.spotlight {
 	background: @moon-spotlight-border-color;
-	border:@moon-button-border-width solid @moon-spotlight-border-color;
 }
 
-.moon-button.active {
-	border:@moon-button-border-width solid @moon-spotlight-border-color;
-}
-
-.moon-button:disabled {
+.moon-button[disabled] {
 	cursor: default;
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }

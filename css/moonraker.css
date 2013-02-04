@@ -89,9 +89,9 @@
 .moon-list-divider,
 .moon-list-divider:hover {
   margin: 20px 0px 0px 0px;
-  padding: 0px 20px;
+  padding: 0px 16px;
   border-bottom: 1px solid #aaa;
-  font-size: 14px;
+  font-size: 16px;
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
@@ -223,11 +223,11 @@
 /* Button */
 .moon-button {
   height: 60px;
-  border-radius: 30px;
+  border-radius: 9999px;
   line-height: 50px;
   font-size: 40px;
   background-color: #ffffff;
-  border: 4px solid #ffffff;
+  border: 4px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -235,16 +235,33 @@
   min-width: 60px;
   padding: 0px 16px;
   margin: 0px;
+  /* Clip the background to allow for transparent border */
+
+  -moz-background-clip: padding;
+  /* Firefox 3.6 */
+
+  -webkit-background-clip: padding;
+  /* Safari 4 Chrome 6 */
+
+  background-clip: padding-box;
+  /* Firefox 4, Safari 5, Opera 10, IE 9 */
+
+}
+.moon-button.active,
+.moon-button.pressed,
+.moon-button:active,
+.moon-button.spotlight.pressed,
+.moon-button.spotlight:active {
+  border: 4px solid #ffa500;
+  background-color: #ffffff;
 }
 .moon-button.spotlight {
   background: #ffa500;
-  border: 4px solid #ffa500;
 }
-.moon-button.active {
-  border: 4px solid #ffa500;
-}
-.moon-button:disabled {
+.moon-button[disabled] {
   cursor: default;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 /* Radio Button */
 .moon-radio-button {
