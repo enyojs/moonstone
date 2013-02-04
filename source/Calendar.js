@@ -112,7 +112,18 @@ enyo.kind({
 		}
 
 		this.setupLastWeek(monthLength);
-//		this.fillDate();
+		this.fillDate();
+	},
+	fillDate: function() {
+		for (var i = 0; i < this.dateArray.length / 7; i++) {
+			var days = [];
+			for (var j = 0; j < 7; j++) {
+				days.push(this.dateArray[i * 7 + j]);		
+			}
+			this.createComponent(
+				{kind: "moon.Week", days: days}
+			)
+		}
 	},
 	parseDate: function(ordering) {
 	},
