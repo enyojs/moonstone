@@ -1,11 +1,11 @@
 enyo.kind({
-	name: "moon.Week",
+	name: "moon.CalendarWeek",
 	
 	published: {
 		days: [],
 	},
 	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
+		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
 			{name: "item", kind: "enyo.Button", classes: "moon-calendar-date"}
 		]},
 	],
@@ -50,7 +50,10 @@ enyo.kind({
 		dateArray: []
 	},
 	components: [
-		{name:"day", kind: "moon.Week", days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},
+//		{name: "", kind: "moon.DatePicker"},
+		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
+			{name: "day", classes: "moon-calendar-date"}
+		]},
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -70,6 +73,10 @@ enyo.kind({
 		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		this.$.day.setContent(this.days[index]);
+	},
 	/**
 		set first week of this month.
 		before first day of this month, some days from previous month will fill calendar
@@ -85,19 +92,15 @@ enyo.kind({
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
 				this.dateArray.push(i);
 			}
-			for (i = 1; i < 7 - dayOfLastDate; i++) {
-				this.dateArray.push(i);	
-			}
-/*			this.createComponent(
-				{kind: "moon.Week", days: dateArray}
-			)
-*/		}
+		}
 	},
 	/**
 		set last week of this month.
 		after last day of this month, some days from next month will fill calendar
 	*/
 	setupLastWeek: function(monthLength) {
+		var dt = new Date();
+		dt.setMonth(dt.getMonth() + 1);
 		var dayForLastWeek = (monthLength - this.value.getDate()) % 7;
 		for (var i = 1; i < 7 - dayForLastWeek; i++) {
 			this.dateArray.push(i);
@@ -107,7 +110,7 @@ enyo.kind({
 		this.setupFirstWeek();
 
 		var	monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
-		for (var i = this.value.getDate(); i <= monthLength; i++) {
+		for (var i = 1; i <= monthLength; i++) {
 			this.dateArray.push(i);
 		}
 
@@ -121,7 +124,7 @@ enyo.kind({
 				days.push(this.dateArray[i * 7 + j]);		
 			}
 			this.createComponent(
-				{kind: "moon.Week", days: days}
+				{kind: "moon.CalendarWeek", days: days}
 			)
 		}
 	},
@@ -146,14 +149,6 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 
-	},
-	//* If no selected item, use _this.noneText_ for current value
-	noneTextChanged: function() {
-		if(this.value == null) {
-			this.$.currentValue.setContent(this.getNoneText());
-		} else { 
-			this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
-		}
 	},
 	localeChanged: function() {
 		this.refresh();

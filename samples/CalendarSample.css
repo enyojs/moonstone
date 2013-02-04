@@ -17,15 +17,11 @@
 
 .moon-calendar-week {
 	display: inline-block;
-	white-space:nowrap; 
-	line-height: 40px;
 }
 
 .moon-calendar-date {
 	width: 80px;
-	height: 40px;
-    vertical-align: middle;
-    margin: 1px;
-    text-align: center;
-    
+	vertical-align: middle;
+	margin: 1px;
+	text-align: center;    
 }
