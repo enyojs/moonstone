@@ -62,8 +62,10 @@ enyo.kind({
 		value: new Date(),
 		/**
 			The maximum number of weeks to display in a screen.
+			If this value over 9, it may show dates of 2 month later.
+			(it is unexpected input, makes err)
 		*/
-		maxWeeks: 5,
+		maxWeeks: 6,
 		months: [],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: []
@@ -128,7 +130,8 @@ enyo.kind({
 		var dt = new Date();
 		dt.setMonth(dt.getMonth() + 1);
 
-		var nextMonth = dt.getMonth() + 1;
+
+		var nextMonth = dt.getMonth();
 		var thisDate = dt.getDate();
 		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
 		for (var i = 1; i < offset; i++) {
@@ -171,7 +174,10 @@ enyo.kind({
 		//* Make empty
 		this.months = [];
 		this.dateArray = [];
-
+/*
+		this.setValue(this.$.date.getValue());
+		this.setupCalendar();
+*/
 		return true;
 	},
 	monthLength: function(inYear, inMonth) {
