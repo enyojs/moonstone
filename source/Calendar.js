@@ -60,6 +60,10 @@ enyo.kind({
 			a Date object.
 		*/
 		value: new Date(),
+		/**
+			The maximum number of weeks to display in a screen.
+		*/
+		maxWeeks: 5,
 		months: [],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: []
@@ -123,9 +127,11 @@ enyo.kind({
 	setupLastWeek: function(monthLength) {
 		var dt = new Date();
 		dt.setMonth(dt.getMonth() + 1);
-		var nextMonth = dt.getMonth();
-		var dayForLastWeek = (monthLength - this.value.getDate()) % 7;
-		for (var i = 1; i < 7 - dayForLastWeek; i++) {
+
+		var nextMonth = dt.getMonth() + 1;
+		var thisDate = dt.getDate();
+		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
+		for (var i = 1; i < offset; i++) {
 			this.months.push(nextMonth);
 			this.dateArray.push(i);
 		}		
@@ -165,13 +171,7 @@ enyo.kind({
 		//* Make empty
 		this.months = [];
 		this.dateArray = [];
-		
-		var days = this.value.getDate();
-		this.$.repeater.setCount(days);
-		    
-		this.$.date.setValue(new Date(this.value.getFullYear(),
-							this.value.getMonth(),
-							this.value.getDate()));
+
 		return true;
 	},
 	monthLength: function(inYear, inMonth) {
