@@ -1,54 +1,17 @@
 enyo.kind({
-	name: "moon.MeridiemPicker",
-	kind: "moon.IntegerPicker",
-	min: 0,
-	max: 1,
-	value: 0,
+	name: "moon.Week",
+	classes: "moon-calendar-week",
 	published: {
-		meridiems: ["AM","PM"]		
+		days: [],
 	},
-	rangeChanged: function() {
-		this.$.client.destroyClientControls();	
-		for (var i = this.min; i <= this.max; i++) {
-			this.createComponent({
-				components:[
-					{content:this.meridiems[i]}
-				]}).render();
-		}
-		this.value = new Date().getHours() > 12 ? 1 : 0;
-		this.setSelectedIndex(this.value);
-		this.reflow();
-	},
-	valueChanged: function(inOld) {
-		//if hour is changed, adjust meridiem
-		this.setSelectedIndex(this.value);
-	},
-	selectedChanged: function(inOld) {
-		this.inherited(arguments);
-		this.value = this.selected.content;
-	}
-});
-
-enyo.kind({
-	name: "moon.HourPicker",
-	kind: "moon.IntegerPicker",
-	min: 1,
-	max: 24,
-	value: new Date().getHours() - 1,
-	rangeChanged: function() {
-		this.$.client.destroyClientControls();	
-		for (var i = k = this.min; i <= this.max; i++, k++) {
-			this.createComponent({content:k.toString()});
-			if(i == 12) {	//current hour reached meridiem(noon) 
-				k = this.min - 1;
-			}
-		}
-		this.setSelectedIndex(this.value);
-		this.reflow();
-	},
-	valueChanged: function(inOld) {
-		//if hour is changed, adjust meridiem
-		this.setSelectedIndex(this.getSelectedIndex());
+	components: [
+		{name:"repeater", kind:"enyo.FlyweightRepeater", onSetupItem: "setupItem", count: 7, components: [
+			{name: "item", kind: "enyo.Button", classes: "moon-calendar-date"}
+		]},
+	],
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		this.$.item.setContent(this.days[index]);
 	},
 
 });
@@ -82,17 +45,12 @@ enyo.kind({
 			the control is updated to reflect the new value. _getValue_ returns
 			a Date object.
 		*/
-		value: null,
-		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+		value: new Date(),
+		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+		dateArray: []
 	},
 	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", onSetupItem: "setupDayItem", count: 7, components: [
-			{name: "day", classes:"moon-calendar-day-item"}
-		]},
-		{name:"repeater", kind:"enyo.FlyweightRepeater", onSetupItem: "setupDateItem", count: 30, components: [
-			{name: "date", kind: "enyo.Button", classes:"moon-calendar-date-item"}
-		]},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
+		{name:"day", kind: "moon.Week", days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]},
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -100,7 +58,7 @@ enyo.kind({
 			this.locale = enyo.g11n.currentLocale().getLocale();
 		}
 		this.initDefaults();
-		this.noneTextChanged();
+	//	this.noneTextChanged();
 	},
 	initDefaults: function() {
 		//Attempt to use the g11n lib (ie assume it is loaded)
@@ -112,19 +70,33 @@ enyo.kind({
 		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
-	setupDayItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.day.setContent(this.days[index]);
-	},
-	setupDateItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.date.setContent(index);
+	/**
+		set first week of this month.
+		before first day of this month, some days from previous month will fill calendar
+	*/
+	setupFirstWeek: function() {
+		var dt = new Date();
+		dt.setDate(0);
+		var daysOfPrevMonth = dt.getDate(),
+			dayOfLastDate = dt.getDay();
+		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
+		if (dayOfLastDate != 0) {
+			//var dateArray = [];
+			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
+				this.dateArray.push(i);
+			}
+			for (i = 1; i < 7 - dayOfLastDate; i++) {
+				this.dateArray.push(i);	
+			}
+/*			this.createComponent(
+				{kind: "moon.Week", days: dateArray}
+			)
+*/		}
 	},
 	setupCalendar: function(ordering) {
-	
+		// body...
 	},
 	parseDate: function(ordering) {
-	
 	},
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -139,16 +111,12 @@ enyo.kind({
 							this.value.getDate()));
 		return true;
 	},
+	monthLength: function(inYear, inMonth) {
+		// determine number of days in a particular month/year
+		return 32 - new Date(inYear, inMonth, 32).getDate();
+	},
 	valueChanged: function(inOld) {
-		//if it's the same date (month,day,year), get out of here
-		// if (inOld && inOld.getDate() == this.value.getDate() &&
-		// 	inOld.getMonth() == this.value.getMonth() &&
-		// 	inOld.getFullYear() == this.value.getFullYear()) {
-		// 	return;
-		// }
-		var hour = this.value.getHours();
-		this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
-		this.doChange({name:this.name, value:this.value});		
+
 	},
 	//* If no selected item, use _this.noneText_ for current value
 	noneTextChanged: function() {
