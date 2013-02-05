@@ -234,7 +234,7 @@ enyo.kind({
 	valueChanged: function(inOld) {
 		this.setupDates();
 		this.fillDate();
-		this.render();
+		this.$.dates.render();
 	},
 	localeChanged: function() {
 		this.refresh();
