@@ -1,0 +1,24 @@
+/* InputDecorator.css */
+.moon-input-decorator {
+	padding: 4px 16px 8px 16px;
+	border-radius: 9999px;
+	border: @moon-input-border-width solid transparent;
+	background-color: white;
+	margin: 0px;
+	font-size: @moon-sub-text-size;
+	font-family: @moon-sub-font-family;
+	
+	/* Clip the background to allow for transparent border */
+	-webkit-background-clip: padding;  /* Safari */
+	background-clip: padding-box;      /* Firefox 4+, Chrome, IE 9+ */
+}
+.moon-input-decorator.spotlight {
+	border: @moon-input-border-width solid @moon-input-border-color;
+}
+.moon-input-decorator.moon-disabled {
+	opacity: 0.4;
+}
+
+.moon-input-decorator.moon-focused {
+	box-shadow: 0px 14px 0px @moon-input-border-color;
+}

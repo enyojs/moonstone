@@ -1,0 +1,15 @@
+.moon-input-sample {
+	background: #eaeaea;
+}
+.moon-input-sample .moon-input-decorator {
+	margin: 20px;
+}
+.moon-input-sample .moon-input-sample-wrapper {
+	display:inline-block;
+	margin:20px;
+}
+.moon-input-sample-console {
+	font-family: PreludeWGL Light;
+	font-size: 22px;
+	margin: 20px;
+}
