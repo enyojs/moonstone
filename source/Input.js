@@ -15,11 +15,14 @@
 enyo.kind({
 	name: "moon.Input",
 	kind: "enyo.Input",
+	published: {
+		fieldType: "numeric" // all, email, only text, text/number (no special chars)
+	},
 	//* @protected
 	classes: "moon-input",
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
 		}
-	},
+	}
 });

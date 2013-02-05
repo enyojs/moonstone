@@ -1,0 +1,51 @@
+.moon-button-caption-decorator {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.moon-button-caption-decorator .moon-caption {
+	font-size: 12px;
+	font-family: @moon-sub-font-family;
+	display: inline-block;
+}
+
+.moon-button-caption-decorator .moon-caption.left,
+.moon-button-caption-decorator .moon-caption.right {
+	height: @moon-button-height;
+	line-height: @moon-button-height;
+}
+.moon-button-caption-decorator .moon-caption.left {
+	float: left;
+	padding-right: 10px;
+	text-align: left;
+}
+.moon-button-caption-decorator .moon-caption.right {
+	float: right;
+	padding-left: 10px;
+	text-align: right;
+}
+.moon-button-caption-decorator .moon-caption.top,
+.moon-button-caption-decorator .moon-caption.bottom {
+	display: block;
+	text-align: center;
+}
+.moon-button-caption-decorator .moon-caption.top {
+	padding-bottom: 4px;
+}
+.moon-button-caption-decorator .moon-caption.bottom {
+	padding-top: 4px;
+}
+
+.moon-caption-client {
+	display: inline-block;
+}
+.moon-caption-client.top,
+.moon-caption-client.bottom {
+	display: block;
+	margin: auto;
+}
+
+.moon-caption-client > * {
+	display: block;
+	margin: auto;
+}

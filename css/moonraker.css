@@ -254,6 +254,53 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
+.moon-button-caption-decorator {
+  display: inline-block;
+  vertical-align: top;
+}
+.moon-button-caption-decorator .moon-caption {
+  font-size: 12px;
+  font-family: "PreludeWGL Medium";
+  display: inline-block;
+}
+.moon-button-caption-decorator .moon-caption.left,
+.moon-button-caption-decorator .moon-caption.right {
+  height: 60px;
+  line-height: 60px;
+}
+.moon-button-caption-decorator .moon-caption.left {
+  float: left;
+  padding-right: 10px;
+  text-align: left;
+}
+.moon-button-caption-decorator .moon-caption.right {
+  float: right;
+  padding-left: 10px;
+  text-align: right;
+}
+.moon-button-caption-decorator .moon-caption.top,
+.moon-button-caption-decorator .moon-caption.bottom {
+  display: block;
+  text-align: center;
+}
+.moon-button-caption-decorator .moon-caption.top {
+  padding-bottom: 4px;
+}
+.moon-button-caption-decorator .moon-caption.bottom {
+  padding-top: 4px;
+}
+.moon-caption-client {
+  display: inline-block;
+}
+.moon-caption-client.top,
+.moon-caption-client.bottom {
+  display: block;
+  margin: auto;
+}
+.moon-caption-client > * {
+  display: block;
+  margin: auto;
+}
 /* Radio Button */
 .moon-radio-button {
   position: relative;
@@ -398,7 +445,7 @@
 .moon-paging-button.top.spotlight {
   background-position: 0px -64px;
 }
-.right {
+.moon-paging-button.right {
   right: 0px;
   background-image: url(./../images/rightArrow.png);
 }
@@ -696,11 +743,11 @@
 
 }
 .moon-input-decorator.spotlight {
-  border: 6px solid rgba(0, 0, 0, 0.2);
+  border: 6px solid #cc8400;
 }
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
 .moon-input-decorator.moon-focused {
-  box-shadow: 0px 14px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 14px 0px #cc8400;
 }

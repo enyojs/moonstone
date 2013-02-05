@@ -1,5 +1,6 @@
 enyo.depends(
 	"Button.js",
+	"CaptionDecorator.js",
 	"Item.js",
 	"Panels.js",
 	"SimplePicker.js",
@@ -26,5 +27,5 @@ enyo.depends(
 	"TimePicker.js",
 	"Calendar.js",
 	"Input.js",
-	"INputDecorator.js"
+	"InputDecorator.js"
 );
