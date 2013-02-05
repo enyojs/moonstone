@@ -1,17 +1,119 @@
-/**
-	_moon.DatePicker_ is a drop-down picker that contains a group of 
-	<a href="#moon.IntegerPicker">moon.IntegerPicker</a>
-	controls displaying the current date. The user may change the _day_,
-	_month_, and _year_ values.
+enyo.kind({
+	name: "moon.DayPicker",
+	kind: "moon.IntegerPicker",
+	classes:"moon-date-picker-day",
+	min:1,
+	value: new Date(),
+	published: {
+		days: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]		
+	},
+	rangeChanged: function() {
+		this.max = this.monthLength(this.value.getFullYear(), this.value.getMonth());
+		this.$.client.destroyClientControls();	
+		for (var i=this.min; i<=this.max; i++) {
+			this.createComponent({
+				components:[
+					{content:i},
+					{content:this.days[new Date(this.value.getFullYear(), 
+												this.value.getMonth(), 
+												i).getDay()], 
+					 classes:"dateName"}
+				]}).render();
+		}
+		this.setSelectedIndex(this.value.getDate()-1);
+		this.reflow();
+	},
+	valueChanged: function(inOld) {
+		//if it's the same date (month,day,year), get out of here
+		if (inOld && inOld.getDate() == this.value.getDate() &&
+			inOld.getMonth() == this.value.getMonth() &&
+			inOld.getFullYear() == this.value.getFullYear()) {
+			return;
+		}
+			
+		//if month or year changed, reset range
+		if (this.value && inOld &&
+			(this.value.getFullYear() != inOld.getFullYear() || 
+			this.value.getMonth() != inOld.getMonth())) {
+			this.rangeChanged();
+		} else {
+			//otherwise just show the new day
+			var controls = this.$.client.getClientControls();
+			var len = controls.length;
+			for (var i=0; i<len; i++) {
+				if (this.value.getDate() === parseInt(controls[i].getControls()[0].content)) {
+					this.setSelected(controls[i]);
+					break;
+				}
+			}
+		}
+	},
+	daysChanged: function() {
+		this.rangeChanged();
+	},
+	monthLength: function(inYear, inMonth) {
+		// determine number of days in a particular month/year
+		return 32 - new Date(inYear, inMonth, 32).getDate();
+	},
+	selectedChanged: function(inOld) {
+		this.value = new Date(this.value.getFullYear(), 
+							  this.value.getMonth(), 
+							  this.selected.getControls()[0].content);		
+		if (this.selected != this.$.client.getActive()) {
+			this.$.client.setIndex(this.selected.indexInContainer());
+		}
+	}
+})
 
-	By default, _DatePicker_ tries to determine the current locale and use its
-	rules to format the date (including the month name). In order to do this
-	successfully, the _g11n_ library must be loaded; if it is not loaded, the
-	control defaults to using standard U.S. date format.
+enyo.kind({
+	name: "moon.MonthPicker",
+	kind: "moon.IntegerPicker",
+	classes:"moon-date-picker-month",	
+	published: {
+		abbrMonths: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		months: ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+	},
+	max:11,
+	value:0,
+	rangeChanged: function() {
+		this.$.client.destroyClientControls();			
+		for (var i=this.min; i<=this.max; i++) {
+			this.createComponent({
+				components:[
+					{content:i+1},
+					{content:this.months[i], classes:"monthName"}
+				]}).render();
+			this.setSelectedIndex(this.value);
+		}
+		this.reflow();
+	},
+	valueChanged: function(inOld) {
+		//if month or year changed, reset range
+		if (this.value != inOld) {
+			var controls = this.$.client.getClientControls();
+			var len = controls.length;
+			// Validate our value
+			this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
+			for (var i=0; i<len; i++) {
+				if (this.value === parseInt(controls[i].getControls()[0].content)-1) {
+					this.setSelected(controls[i]);
+					break;
+				}
+			}
+		}
+	},
+	monthsChanged: function() {
+		this.rangeChanged();
+	},
+	selectedChanged: function(inOld) {
+		this.value = this.selected.getControls()[0].content-1;
+		if (this.selected != this.$.client.getActive()) {
+			this.$.client.setIndex(this.selected.indexInContainer());
+		}
+	}
+})
 
-	The _day_ field is automatically populated with the proper number of days
-	for the selected month and year.
-*/
+		
 enyo.kind({
 	name: "moon.DatePicker",
 	kind: "moon.ExpandableListItem",
@@ -158,6 +260,7 @@ enyo.kind({
 			this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getDateFieldOrder() : 'mdy'));
 		}
 	},
+	//* When _this.open_ changes, show/hide _this.$.currentValue_
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
@@ -169,7 +272,7 @@ enyo.kind({
 		}
 	},
 	closePicker: function(inSender, inEvent) {
-		// If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
+		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
 		if (inEvent.type == "onSpotlightSelect" || 
 			this.$.client.children[0].id == inEvent.originator.id) {
 			this.updateDate();
