@@ -139,14 +139,14 @@ enyo.kind({
 	valueChanged: function(inOld) {
 		this.$.year.setValue(this.value.getFullYear());
 		this.$.month.setValue(this.value.getMonth()+1);
-		this.$.day.setValue(this.value.getDate());
 					
 		if (inOld && 
 			(inOld.getFullYear() != this.value.getFullYear() || 
 			inOld.getMonth() != this.value.getMonth())) {
 			this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
 		}
-		
+		this.$.day.setValue(this.value.getDate());
+				
 		this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getDateFieldOrder() : 'mdy'));
 		this.doChange({name:this.name, value:this.value});		
 	},

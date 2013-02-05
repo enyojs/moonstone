@@ -25,6 +25,12 @@ enyo.kind({
 		{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},		
 		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
 	],
+	create: function(){
+		this.inherited(arguments);
+		// setTimeout(enyo.bind(this, function(){
+		// 	this.$.datePicker.setValue(new Date('1-29-13'));	
+		// }),1000)
+	},
 	pickerHandler: function(inSender, inEvent){
 		if (enyo.g11n) {
 			this.$.datePicker.setLocale(inEvent.selected.content);
