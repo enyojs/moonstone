@@ -68,7 +68,7 @@ enyo.kind({
 			the control is updated to reflect the new value. _getValue_ returns
 			a Date object.
 		*/
-		value: new Date(),
+		value: null,
 		/**
 			The maximum number of weeks to display in a screen.
 			If this value over 9, it may show dates of 2 month later.
@@ -102,7 +102,7 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.value = this.value || new Date();
+		this.value = this.value || this.$.datePicker.getValue() || new Date();
 		this.setupCalendar();
 //		this.setupDates(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
@@ -130,7 +130,8 @@ enyo.kind({
 		Before the first day of this month, some days from previous month will fill calendar
 	*/
 	setupFirstWeek: function() {
-		var dt = new Date(this.value.getFullYear(), this.value.getMonth(), this.value.getDate());
+		var value = this.value;
+		var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 		dt.setDate(0);
 		var thisYear = dt.getFullYear(),
 			daysOfPrevMonth = dt.getDate(),
@@ -151,7 +152,8 @@ enyo.kind({
 		After the last day of this month, some days from next month will fill calendar
 	*/
 	setupLastWeek: function(monthLength) {
-		var dt = new Date(this.value.getFullYear(), this.value.getMonth(), this.value.getDate());
+		var value = this.value;
+		var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 		dt.setMonth(dt.getMonth() + 1);
 
 		var thisYear = dt.getFullYear(),
@@ -173,8 +175,8 @@ enyo.kind({
 		this.setupFirstWeek();
 
 		var thisYear = this.value.getFullYear(),
-			thisMonth = this.value.getMonth(),
-			monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
+			thisMonth = this.value.getMonth();
+		var	monthLength = this.monthLength(thisYear, thisMonth);
 		for (var i = 1; i <= monthLength; i++) {
 			this.years.push(thisYear);
 			this.months.push(thisMonth);
@@ -207,12 +209,17 @@ enyo.kind({
 		if (inEvent && inEvent.originator == this || inEvent.originator.kind == "Selection") {
 			return;
 		}
-
-		var year = this.$.datePicker.value.getFullYear(),
-			month = this.$.datePicker.value.getMonth(),
-			date = this.$.datePicker.value.getDate();
-		this.setValue(new Date(year, month, date));					
-
+		var value = this.$.datePicker.getValue();
+		var year = value.getFullYear(),
+			month = value.getMonth();
+		//* Determine whether calender need to redraw or not
+		if (year != this.value.getFullYear() || month != this.value.getMonth()) {
+			this.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));	
+		} else {
+			this.value.setYear(year);
+			this.value.setMonth(month);
+			this.value.setDate(value.getDate());
+		}
 		return true;
 	},
 	monthLength: function(inYear, inMonth) {
