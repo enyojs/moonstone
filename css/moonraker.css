@@ -21,6 +21,8 @@
 /* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
+/* Input */
+/* ---------------------------------------*/
 /* Moonraker rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -88,7 +90,7 @@
 }
 .moon-list-divider,
 .moon-list-divider:hover {
-  margin: 20px 0px 0px 0px;
+  margin: 20px 0px 8px 0px;
   padding: 0px 16px;
   border-bottom: 1px solid #aaa;
   font-size: 16px;
@@ -235,14 +237,6 @@
   min-width: 60px;
   padding: 0px 16px;
   margin: 0px;
-  /* Clip the background to allow for transparent border */
-
-  -webkit-background-clip: padding;
-  /* Safari */
-
-  background-clip: padding-box;
-  /* Firefox 4+, Chrome, IE 9+ */
-
 }
 .moon-button.active,
 .moon-button.pressed,
@@ -654,4 +648,59 @@
 }
 .moon-date-picker-year .down-arrow-container {
   left: 23%;
+}
+/* Input.css */
+.moon-input {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  font-size: 20px;
+  font-family: "PreludeWGL Medium";
+}
+.moon-input-decorator.moon-focused .moon-input {
+  cursor: text;
+}
+.moon-input-decorator.moon-disabled .moon-input {
+  cursor: default;
+}
+.moon-input-decorator > input::-webkit-input-placeholder {
+  color: #7d7d7d;
+}
+.moon-input-decorator > input:-moz-placeholder {
+  color: #7d7d7d;
+}
+/* IE10 */
+.moon-input-decorator > input:-ms-input-placeholder {
+  color: #7d7d7d;
+}
+/* InputDecorator.css */
+.moon-input-decorator {
+  padding: 4px 16px 8px 16px;
+  border-radius: 9999px;
+  border: 4px solid transparent;
+  background-color: white;
+  margin: 0px;
+  font-size: 20px;
+  font-family: "PreludeWGL Medium";
+  /* Clip the background to allow for transparent border */
+
+  -webkit-background-clip: padding;
+  /* Safari */
+
+  background-clip: padding-box;
+  /* Firefox 4+, Chrome, IE 9+ */
+
+}
+.moon-input-decorator.spotlight {
+  border: 4px solid rgba(0, 0, 0, 0.2);
+}
+.moon-input-decorator.moon-disabled {
+  opacity: 0.4;
+}
+.moon-input-decorator.moon-focused {
+  box-shadow: 0px 14px 0px rgba(0, 0, 0, 0.2);
 }

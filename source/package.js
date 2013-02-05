@@ -24,5 +24,7 @@ enyo.depends(
 	"IntegerScrollPicker.js",	
 	"DatePicker.js",
 	"TimePicker.js",
-	"Calendar.js"	
+	"Calendar.js",
+	"Input.js",
+	"INputDecorator.js"
 );
