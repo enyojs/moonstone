@@ -37,7 +37,7 @@ enyo.kind({
 		this.$.repeater.setCount(7);
 	}
 });
-		
+
 enyo.kind({
 	name: "moon.Calendar",
 	classes: "moon-calendar",
@@ -151,7 +151,7 @@ enyo.kind({
 		After the last day of this month, some days from next month will fill calendar
 	*/
 	setupLastWeek: function(monthLength) {
-		var dt = new Date();
+		var dt = new Date(this.value.getFullYear(), this.value.getMonth(), this.value.getDate());
 		dt.setMonth(dt.getMonth() + 1);
 
 		var thisYear = dt.getFullYear(),
@@ -165,8 +165,13 @@ enyo.kind({
 		}		
 	},
 	setupDates: function(ordering) {
+		//* Make empty
+		this.years = [];
+		this.months = [];
+		this.dateArray = [];
+
 		this.setupFirstWeek();
-		
+
 		var thisYear = this.value.getFullYear(),
 			thisMonth = this.value.getMonth(),
 			monthLength = this.monthLength(this.value.getFullYear(), this.value.getMonth());
@@ -202,9 +207,6 @@ enyo.kind({
 		if (inEvent && inEvent.originator == this || inEvent.originator.kind == "Selection") {
 			return;
 		}
-		//* Make empty
-		this.months = [];
-		this.dateArray = [];
 
 		var year = this.$.datePicker.value.getFullYear(),
 			month = this.$.datePicker.value.getMonth(),
@@ -222,19 +224,11 @@ enyo.kind({
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
-			//this.value.setYear(inEvent.originator.year);
-			this.value.setDate(inEvent.originator.content);
 
-			var month = inEvent.originator.month;
-			if (month != this.value.getMonth() ) {
-				this.value.setMonth(month);	
-			}
-		
-			this.$.datePicker.setValue(new Date(this.value.getFullYear(),
-								this.value.getMonth(),
-								this.value.getDate()));	
+			this.$.datePicker.setValue(new Date(inEvent.originator.year,
+						inEvent.originator.month,
+						inEvent.originator.content));
 		}
-		
 		return true;
 	},
 	valueChanged: function(inOld) {
