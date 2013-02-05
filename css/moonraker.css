@@ -473,25 +473,137 @@
   min-height: 40px;
   min-width: 55px;
 }
-/* ScrollerPicker.css */
+/* IntegerScrollPicker.css */
 .moon-scroll-picker {
   height: 40px;
-  width: 50px;
+  border-top-width: 30px;
+  border-top-style: solid;
+  border-top-color: transparent;
+  border-bottom-width: 25px;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  border-radius: 24px;
 }
 .moon-scroll-picker.spotlight {
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: orange;
-  border-left-style: solid;
-  padding: 0px 0px 0px 4px;
+  border-top-color: orange;
+  border-bottom-color: orange;
+  background: orange;
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
+  padding-top: 5px;
   height: 49px;
   text-align: center;
-  background: white;
+  background: transparent;
   font-size: 20px;
   font-family: "Miso";
+}
+.moon-scroll-picker-overlay-container-top {
+  position: relative;
+  z-index: 1;
+}
+.moon-scroll-picker-overlay-top {
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  border-width: 10px;
+  border-radius: 24px;
+  border-top-width: 30px;
+  border-top-style: solid;
+  border-top-color: darkorange;
+}
+.moon-scroll-picker-overlay-top-border {
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  border-width: 10px;
+  border-radius: 24px;
+  border-top-width: 30px;
+  border-top-style: solid;
+  border-top-color: orange;
+  bottom: -56px;
+}
+.moon-scroll-picker-overlay-container-bottom {
+  position: relative;
+  z-index: 1;
+  top: 45px;
+}
+.moon-scroll-picker-overlay-bottom {
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  border-width: 10px;
+  border-radius: 24px;
+  border-bottom-width: 30px;
+  border-bottom-style: solid;
+  border-bottom-color: darkorange;
+}
+.moon-scroll-picker-overlay-bottom-border {
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  border-width: 10px;
+  border-radius: 24px;
+  border-bottom-width: 30px;
+  border-bottom-style: solid;
+  border-bottom-color: orange;
+  bottom: -44px;
+}
+.up-arrow-container {
+  position: relative;
+  z-index: 10;
+  top: 3px;
+  left: 33%;
+}
+.up-arrow {
+  border-color: transparent transparent white transparent;
+  border-style: solid;
+  border-width: 10px;
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: -19px;
+  left: -5px;
+}
+.up-arrow.spotlight {
+  border-color: transparent transparent orange transparent;
+}
+.up-arrow-border {
+  border-color: transparent transparent #666666 transparent;
+  border-style: solid;
+  border-width: 10px;
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: -16px;
+  left: -5px;
+}
+.down-arrow-container {
+  position: relative;
+  z-index: 10;
+  top: 75px;
+  left: 12%;
+}
+.down-arrow {
+  border-color: white transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px;
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: -19px;
+}
+.down-arrow.spotlight {
+  border-color: orange transparent transparent transparent;
+}
+.down-arrow-border {
+  border-color: #666666 transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px;
+  height: 0;
+  width: 0;
+  position: absolute;
+  bottom: -22px;
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -513,7 +625,10 @@
   font-size: 20px;
   padding: 0px;
   line-height: 1.2em;
-  border-bottom: none;
+  border-bottom: 1px solid #aaa;
+}
+.moon-date-picker-client {
+  padding-top: 10px;
 }
 .moon-date-picker-current-value {
   font-family: "PreludeWGL Medium";
@@ -522,19 +637,21 @@
   padding: 0px;
 }
 .moon-date-picker-day {
-  width: 60px;
+  padding-right: 40px;
+  width: 25px;
   font-size: 20px;
-}
-.moon-date-picker-day .dateName {
-  font-size: 14px;
 }
 .moon-date-picker-month {
-  width: 55px;
+  padding-right: 40px;
+  width: 25px;
   font-size: 20px;
 }
-.moon-date-picker-month .monthName {
-  font-size: 14px;
-}
 .moon-date-picker-year {
-  width: 55px;
+  width: 35px;
+}
+.moon-date-picker-year .up-arrow-container {
+  left: 37%;
+}
+.moon-date-picker-year .down-arrow-container {
+  left: 23%;
 }

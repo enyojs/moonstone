@@ -20,7 +20,11 @@
 	font-size:@moon-sub-text-size;
 	padding:0px;
 	line-height:1.2em;
-	border-bottom:none;
+	border-bottom:1px solid #aaa;
+}
+
+.moon-date-picker-client {
+	padding-top:10px;
 }
 
 .moon-date-picker-current-value {
@@ -31,23 +35,25 @@
 }
 
 .moon-date-picker-day {
-	width:60px;
+	padding-right:40px;
+	width:25px;
 	font-size: @moon-sub-text-size;	
 }
 
-.moon-date-picker-day .dateName {
-	font-size:14px;
-}
-
 .moon-date-picker-month {
-	width:55px;
+	padding-right:40px;
+	width:25px;
 	font-size: @moon-sub-text-size;
 }
 
-.moon-date-picker-month .monthName{
-	font-size:14px;
+.moon-date-picker-year {
+	width:35px;
 }
 
-.moon-date-picker-year {
-	width:55px;
+.moon-date-picker-year .up-arrow-container {
+  left:37%;
+}
+
+.moon-date-picker-year .down-arrow-container {
+  left:23%;
 }

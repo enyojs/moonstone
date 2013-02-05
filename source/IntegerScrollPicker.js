@@ -13,29 +13,43 @@
 */
 enyo.kind({
 	name: "moon.IntegerScrollPicker",	
-	classes: "moon-scroll-picker",
-	kind: "enyo.Scroller", 
-	thumb:false,
-	touch:true,	//force to touch based strategy for animated scrollTo behavior
 	published: {
 		value: null,
 		min: 0,
 		max: 9
 	},
 	handlers: {
-		onSpotlightUp:"previous", 
-		onSpotlightDown:"next", 
-		onSpotlightLeft:"left"		
+		onScrollStart:"scrollStart",
+		onScroll:"scroll",
+		onScrollStop:"scrollStop"
 	},
 	events: {
 		onChange: ""
 	},
-	spotlight: true,
 	//* Cache scroll bounds so we don't have to run stop() every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
-			{name: "item", classes:"moon-scroll-picker-item"}
+		{name:"topOverlay", classes:"moon-scroll-picker-overlay-container-top", showing:false, components:[		
+			{name:"overlayTest", classes:"moon-scroll-picker-overlay-top"},
+			{classes:"moon-scroll-picker-overlay-top-border"}			
+		]},	
+		{name:"bottomOverlay", classes:"moon-scroll-picker-overlay-container-bottom", showing:false, components:[		
+			{classes:"moon-scroll-picker-overlay-bottom"},
+			{classes:"moon-scroll-picker-overlay-bottom-border"}			
+		]},		
+		{classes:"down-arrow-container", components:[
+			{classes:"down-arrow-border"},
+			{name:"downArrow", classes:"down-arrow", ontap:"next"}
+		]},
+		{classes:"up-arrow-container", components:[
+			{classes:"up-arrow-border"},
+			{name:"upArrow", classes:"up-arrow", ontap:"previous"}
+		]},		
+		{kind: "enyo.Scroller", spotlight: true, thumb:false, touch:true, classes: "moon-scroll-picker", 
+		 onSpotlightUp:"previous", onSpotlightDown:"next", onSpotlightLeft:"left", onSpotlightFocused:"spotlightFocused", onSpotlightBlur:"spotlightBlur", components:[
+			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
+				{name: "item", classes:"moon-scroll-picker-item"}
+			]}
 		]}
 	],
 	//* @protected
@@ -46,7 +60,7 @@ enyo.kind({
 	rendered: function(){
 		this.inherited(arguments);
 		this.updateScrollBounds();		
-		this.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));		
+		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -55,6 +69,7 @@ enyo.kind({
 	rangeChanged: function() {
 		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;		
 		this.$.repeater.setCount(this.max-this.min+1);
+//		this.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 		this.$.repeater.render();
 	},
 	valueChanged: function(inOld) {
@@ -66,27 +81,48 @@ enyo.kind({
 	},
 	minChanged: function() {
 		this.rangeChanged();
-		this.render();
 	},
 	maxChanged: function() {
 		this.rangeChanged();
-		this.render();
 	},
 	previous: function() {
 		if (this.value > this.min) {
+			enyo.job.stop("hideTopOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
+			this.$.topOverlay.show();
+			enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
 		}
 		return true;
 	},
+	hideTopOverlay: function(){
+			this.$.topOverlay.setShowing(false);		
+	},
+	hideBottomOverlay: function(){
+			this.$.bottomOverlay.setShowing(false);		
+	},	
 	next: function() {
 		if (this.value < this.max) {
+			enyo.job.stop("hideBottomOverlay");			
 			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
+			this.$.bottomOverlay.show();
+			enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
 		}
-		return true;		
+		return true;
+	},
+	spotlightFocused: function() {
+		this.inherited(arguments);
+		this.$.downArrow.addClass("spotlight");
+		this.$.upArrow.addClass("spotlight");		
+	},
+	spotlightBlur: function() {
+		this.inherited(arguments);		
+		this.$.downArrow.removeClass("spotlight");
+		this.$.upArrow.removeClass("spotlight");
+		this.hideTopOverlay();		
+		this.hideBottomOverlay();
 	},
 	//scrollStop will be called multiple times if they hold the key down (due to getScrollBounds calls stopping the scroller)
 	scrollStop: function(inSender, inEvent) {
-		this.inherited(arguments);
 		this.updateScrollBounds();		
 		if (this.value!=null) {
 			this.doChange({
@@ -96,23 +132,21 @@ enyo.kind({
 		}
 	},
 	scrollStart: function(inSender, inEvent) {
-		this.inherited(arguments);
 		this.updateScrollBounds();		
 	},
 	//* On scroll, update our cached _this.scrollBounds_ property, and show/hide pagination controls
 	scroll: function(inSender, inEvent) {
-		this.inherited(arguments);
 		this.updateScrollBounds();
 	},
 	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
 	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
 	updateScrollBounds: function() {
-		this.scrollBounds = this.$.strategy._getScrollBounds();
+		this.scrollBounds = this.$.scroller.getStrategy()._getScrollBounds();
 	},
 	//* Scroll to a given node in list
 	animateToNode: function(inNode) {
 		var sb = this.scrollBounds,
-			st = this.getStrategy(),
+			st = this.$.scroller.getStrategy(),
 			b = {
 				height: inNode.offsetHeight,
 				width: inNode.offsetWidth,
@@ -138,8 +172,8 @@ enyo.kind({
 		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
 		
 		// If x or y changed, scroll to new position
-		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
-			this.scrollTo(x,y);
+		if (x !== this.$.scroller.getScrollLeft() || y !== this.$.scroller.getScrollTop()) {
+			this.$.scroller.scrollTo(x,y);
 		}
 	}
 });
