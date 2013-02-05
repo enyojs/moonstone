@@ -98,8 +98,8 @@ enyo.kind({
 		}
 
 		this.value = this.value || this.$.datePicker.getValue() || new Date();
-		this.setupCalendar();
-//		this.setupDates(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
+		this.setupLayout();
+//		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
 	/**
@@ -110,12 +110,15 @@ enyo.kind({
 		var index = inEvent.index;
 		this.$.day.setContent(this.days[index]);
 	},
-
-	setupCalendar: function() {
+	/**
+		Set a layout of calendar.
+		The content of it is not prepared at this time.
+	*/
+	setupLayout: function() {
 		for (var i = 0; i < this.maxWeeks; i++) {
 			var days = [];
 			this.$.dates.createComponent(
-				{kind: "moon.CalendarWeek", days: days, months: months}
+				{kind: "moon.CalendarWeek", days: days}
 			)
 		}
 	},
@@ -123,7 +126,7 @@ enyo.kind({
 		Set the first week of this month.
 		Before the first day of this month, some days from previous month will fill calendar
 	*/
-	setupFirstWeek: function() {
+	setupPrevMonth: function() {
 		var value = this.value;
 		var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 		dt.setDate(0);
@@ -143,7 +146,7 @@ enyo.kind({
 		Set the last week of this month.
 		After the last day of this month, some days from next month will fill calendar
 	*/
-	setupLastWeek: function(monthLength) {
+	setupNextMonth: function(monthLength) {
 		var value = this.value;
 		var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 		dt.setMonth(dt.getMonth() + 1);
@@ -156,11 +159,11 @@ enyo.kind({
 			this.dateArray.push(new Date(thisYear, nextMonth, i));
 		}		
 	},
-	setupDates: function(ordering) {
+	setupCalendar: function(ordering) {
 		//* Make empty
 		this.dateArray = [];
 
-		this.setupFirstWeek();
+		this.setupPrevMonth();
 
 		var thisYear = this.value.getFullYear(),
 			thisMonth = this.value.getMonth();
@@ -169,7 +172,7 @@ enyo.kind({
 			this.dateArray.push(new Date(thisYear, thisMonth, i));
 		}
 
-		this.setupLastWeek(monthLength);		
+		this.setupNextMonth(monthLength);		
 	},
 	fillDate: function() {
 		var calendarWeeks =this.$.dates.getControls();
@@ -221,7 +224,7 @@ enyo.kind({
 		return true;
 	},
 	valueChanged: function(inOld) {
-		this.setupDates();
+		this.setupCalendar();
 		this.fillDate();
 		this.$.dates.render();
 	},
