@@ -865,7 +865,8 @@
   height: 32px;
   width: 100%;
 }
-.moon-slider-knob {
+.moon-slider-knob,
+.moon-slider-knob.disabled:active:hover {
   position: relative;
   height: 16px;
   width: 16px;

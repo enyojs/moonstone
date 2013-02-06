@@ -104,6 +104,7 @@ enyo.kind({
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
+		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
 	},
 	valueChanged: function() {
@@ -131,7 +132,10 @@ enyo.kind({
 //		this.$.popup.hide();
 	},
 	dragstart: function(inSender, inEvent) {
-		if (inEvent.horizontal && !this.nofocus) {
+		if (this.disabled || this.nofocus)
+			return;	// return nothing
+
+		if (inEvent.horizontal) {
 			inEvent.preventDefault();
 			this.dragging = true;
 			this.$.knob.addClass("active");
@@ -157,7 +161,7 @@ enyo.kind({
 		return true;
 	},
 	tap: function(inSender, inEvent) {
-		if (this.disabled)
+		if (this.disabled || this.nofocus)
 			return true;
 		if (this.tappable) {
 			var v = this.calcKnobPosition(inEvent);
