@@ -7,14 +7,20 @@
 }
 
 .moon-expandable-list-item.spotlight {
+	transition: border-width 0.1s linear, padding 0.1s linear;
 	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
+	-o-transition: border-width 0.1s linear, padding 0.1s linear;
 	border-left-width: 16px;
 	border-left-color: orange;
 	border-left-style: solid;
 	padding-right: 0px;
 }
 .moon-expandable-list-item.open.spotlight {
+	transition: none;
 	-webkit-transition: none;
+	-moz-transition: none;
+	-o-transition: none;
 	border-left-width: 0px;
 	padding-right: 16px;
 }
@@ -24,7 +30,10 @@
 }
 
 .moon-expandable-list-item.open.spotlight .moon-expandable-list-item-header {
+	transition: border-width 0.1s linear, padding 0.1s linear;
 	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
+	-o-transition: border-width 0.1s linear, padding 0.1s linear;
 	border-left-width: 16px;
 	border-left-color: orange;
 	border-left-style: solid;

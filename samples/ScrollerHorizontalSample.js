@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable",
 	components:[
 		{kind: 'enyo.Spotlight'},
-		{name: 'scroller', kind: 'moon.Scroller', vertical:"hidden", spotlight: "container", touch: true, classes: 'moon-scroller-sample-horizontal',
+		{name: 'scroller', kind: 'moon.Scroller', vertical:"hidden", spotlight: "container", classes: 'moon-scroller-sample-horizontal',
 			components: [
 				{kind: "moon.Item", classes:"moon-scroller-sample-item enyo"},
 				{kind: "moon.Item", classes:"moon-scroller-sample-item html5"},
