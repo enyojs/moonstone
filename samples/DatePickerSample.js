@@ -23,7 +23,8 @@ enyo.kind({
 		]},	
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},		
-		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
+		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"},
+		{kind: "moon.DatePicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date", classes: "moon-date-picker-wrapper"}
 	],
 	create: function(){
 		this.inherited(arguments);
