@@ -10,6 +10,9 @@ enyo.kind({
 		{classes:"moon-sample-divider", content:"Slider 2: Focus"},
 		{name: "focusSlider", kind: "moon.Slider", value: 75, nofocus: false, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
+		{classes:"moon-sample-divider", content:"Slider 3: Disabled"},
+		{name: "disabledSlider", kind: "moon.Slider", value: 50, nofocus: false, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{tag:"br"},
 		{components: [
 			{kind: "moon.InputDecorator", style:"margin-right:10px;", components: [
 				{kind: "moon.Input", type: "number", placeholder: "Value", style: "width:50px;", value: 20}
