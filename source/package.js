@@ -27,5 +27,6 @@ enyo.depends(
 	"TimePicker.js",
 	"Calendar.js",
 	"Input.js",
-	"InputDecorator.js"
+	"InputDecorator.js",
+	"Slider.js"
 );
