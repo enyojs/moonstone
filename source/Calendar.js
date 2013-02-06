@@ -8,16 +8,25 @@ enyo.kind({
 	},
 	published: {
 		value: null,
+		color: 0,
 	},
-	valueChanged: function() {
+	colorChanged: function(inOld) {
+		if (this.color) {
+			this.addClass("moon-calendar-date-shadow");
+		} else {
+			this.removeClass("moon-calendar-date-shadow");
+		}
+	},
+	valueChanged: function(inOld) {
 		this.setContent(this.value.getDate());
-	}
+	},
 });
 
 enyo.kind({
 	name: "moon.CalendarWeek",
 	published: {
 		days: [],
+		colors: [],
 	},
 	components: [
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
@@ -26,11 +35,14 @@ enyo.kind({
 	],
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
-		var value = this.days[index];
+		var value = this.days[index],
+			color = this.colors[index];
 		this.$.item.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+		this.$.item.setColor(color);
 	},
-	fillDate: function(days) {
+	fillDate: function(days, colors) {
 		this.days = days;
+		this.colors = colors;
 		this.$.repeater.setCount(7);
 	}
 });
@@ -73,7 +85,8 @@ enyo.kind({
 		*/
 		maxWeeks: 6,
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-		dateArray: []
+		dateArray: [],
+		colorArray: []
 	},
 	components: [
 		{name: "datePicker", kind: "moon.DatePicker"},
@@ -138,7 +151,8 @@ enyo.kind({
 		if (dayOfLastDate != 0) {
 			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
-				this.dateArray.push(new Date(thisYear, prevMonth, i))
+				this.dateArray.push(new Date(thisYear, prevMonth, i));
+				this.colorArray.push(1);
 			}
 		}
 	},
@@ -157,11 +171,13 @@ enyo.kind({
 		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
 		for (var i = 1; i < offset; i++) {
 			this.dateArray.push(new Date(thisYear, nextMonth, i));
+			this.colorArray.push(1);
 		}		
 	},
 	setupCalendar: function(ordering) {
 		//* Make empty
 		this.dateArray = [];
+		this.colorArray = [];
 
 		this.setupPrevMonth();
 
@@ -170,6 +186,7 @@ enyo.kind({
 		var	monthLength = this.monthLength(thisYear, thisMonth);
 		for (var i = 1; i <= monthLength; i++) {
 			this.dateArray.push(new Date(thisYear, thisMonth, i));
+			this.colorArray.push(0);
 		}
 
 		this.setupNextMonth(monthLength);		
@@ -177,11 +194,13 @@ enyo.kind({
 	fillDate: function() {
 		var calendarWeeks =this.$.dates.getControls();
 		for (var i = 0; i < this.dateArray.length / 7; i++) {
-			var days = [];
+			var days = [],
+				colors = [];
 			for (var j = 0; j < 7; j++) {
-				days.push(this.dateArray[i * 7 + j]);		
+				days.push(this.dateArray[i * 7 + j]);
+				colors.push(this.colorArray[i * 7 + j]);
 			}
-			calendarWeeks[i].fillDate(days);
+			calendarWeeks[i].fillDate(days, colors);
 		}
 	},
 	parseDate: function(ordering) {
