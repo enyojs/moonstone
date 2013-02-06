@@ -821,6 +821,11 @@
   min-width: 128px;
   background-color: #a2a2a2;
 }
+.moon-slider.disabled {
+  cursor: default;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
 .moon-slider-taparea {
   position: absolute;
   top: -16px;
