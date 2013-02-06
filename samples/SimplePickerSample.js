@@ -5,19 +5,25 @@ enyo.kind({
 	components:[
 		{kind:"enyo.Spotlight"},
 		{classes:"moon-sample-divider", content:"Picker 1: Animated"},
-		{kind:"moon.SimplePicker", name:"picker0", onChange:"changed", components: [
+		{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
 			{content:"San Francisco"},
 			{content:"Boston"},
 			{content:"Tokyo"}
 		]},
 		{tag:"br"},{tag:"br"},
 		{classes:"moon-sample-divider", content:"Picker 2: Non-animated"},
-		{kind:"moon.SimplePicker", name:"picker1", animate:false, onChange:"changed", components: [
+		{kind:"moon.SimplePicker", name:"picker2", animate:false, onChange:"changed", components: [
 			{content:"Hotmail"},
 			{content:"GMail"},
 			{content:"Yahoo Mail"},
 			{content:"AOL Mail"},
 			{content:"Custom IMAP"}
+		]},
+		{tag:"br"},{tag:"br"},
+		{classes:"moon-sample-divider", content:"Picker 3: Disabled"},
+		{kind:"moon.SimplePicker", name:"picker3", disabled: true, components: [
+			{content:"Enyo"},
+			{content:"Sencha"}
 		]},
 		{tag:"br"},{tag:"br"},
 		{name:"result"},

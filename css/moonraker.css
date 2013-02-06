@@ -124,6 +124,12 @@
   text-align: center;
   padding: 5px 10px;
 }
+.moon-simple-picker.disabled,
+.moon-simple-picker-button[disabled] {
+  cursor: default;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
 /* Checkbox.css */
 .moon-checkbox {
   cursor: pointer;
