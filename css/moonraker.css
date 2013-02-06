@@ -150,7 +150,7 @@
   opacity: 0;
 }
 /* Toggle.css */
-.moon-checkbox.moon-toggle {
+.moon-checkbox.moon-toggle-button {
   line-height: 40px;
   text-align: left;
   text-transform: uppercase;
@@ -159,20 +159,20 @@
   background: transparent none no-repeat 0 0;
   position: relative;
 }
-.moon-checkbox.moon-toggle[disabled] {
+.moon-checkbox.moon-toggle-button[disabled] {
   opacity: 0.4;
 }
-.moon-checkbox.moon-toggle[checked] {
+.moon-checkbox.moon-toggle-button[checked] {
   background: transparent none no-repeat 0px 0px;
 }
-.moon-checkbox.moon-toggle .moon-overlay {
+.moon-checkbox.moon-toggle-button .moon-overlay {
   background: transparent;
   position: absolute;
   right: 0px;
   text-align: right;
   color: orange;
 }
-.moon-toggle-text {
+.moon-toggle-button-text {
   position: absolute;
   right: 0px;
   text-align: right;
@@ -203,6 +203,12 @@
 }
 .moon-labeled-checkbox .moon-checkbox[checked] {
   background-color: transparent;
+}
+.moon-labeled-checkbox.disabled,
+.moon-labeled-checkbox .moon-checkbox[disabled] {
+  cursor: default;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 /* Item.css */
 .moon-item {
@@ -595,6 +601,10 @@
   z-index: 10;
   top: 3px;
   left: 33%;
+  pointer-events: none;
+}
+.up-arrow-container.spotlight {
+  pointer-events: auto;
 }
 .up-arrow {
   border-color: transparent transparent white transparent;
@@ -605,9 +615,16 @@
   position: absolute;
   bottom: -19px;
   left: -5px;
+  pointer-events: none;
 }
-.up-arrow.spotlight {
+.up-arrow-container.spotlight .up-arrow {
   border-color: transparent transparent orange transparent;
+  pointer-events: auto;
+}
+.up-arrow-container.selected .up-arrow {
+  border-width: 8px;
+  left: -3px;
+  bottom: -16px;
 }
 .up-arrow-border {
   border-color: transparent transparent #666666 transparent;
@@ -618,12 +635,25 @@
   position: absolute;
   bottom: -16px;
   left: -5px;
+  pointer-events: none;
+}
+.up-arrow-container.selected .up-arrow-border {
+  border-width: 8px;
+  left: -3px;
+  bottom: -13px;
+}
+.up-arrow-container.spotlight .up-arrow-border {
+  pointer-events: auto;
 }
 .down-arrow-container {
   position: relative;
   z-index: 10;
   top: 75px;
   left: 12%;
+  pointer-events: none;
+}
+.down-arrow-container.spotlight {
+  pointer-events: auto;
 }
 .down-arrow {
   border-color: white transparent transparent transparent;
@@ -633,9 +663,16 @@
   width: 0;
   position: absolute;
   bottom: -19px;
+  pointer-events: none;
 }
-.down-arrow.spotlight {
+.down-arrow-container.selected .down-arrow {
+  border-width: 8px;
+  bottom: -18px;
+  left: 2px;
+}
+.down-arrow-container.spotlight .down-arrow {
   border-color: orange transparent transparent transparent;
+  pointer-events: auto;
 }
 .down-arrow-border {
   border-color: #666666 transparent transparent transparent;
@@ -645,6 +682,15 @@
   width: 0;
   position: absolute;
   bottom: -22px;
+  pointer-events: none;
+}
+.down-arrow-container.selected .down-arrow-border {
+  border-width: 8px;
+  bottom: -21px;
+  left: 2px;
+}
+.down-arrow-container.spotlight .down-arrow-border {
+  pointer-events: auto;
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -750,4 +796,69 @@
 }
 .moon-input-decorator.moon-focused {
   box-shadow: 0px 14px 0px #ffa500;
+}
+/* Slider.css */
+.moon-slider-bar {
+  height: 100%;
+  background-color: #69cdff;
+}
+.moon-slider-focus {
+  background-color: #ffa550;
+}
+.moon-slider-nofocus {
+  background-color: #69cdff;
+}
+.moon-slider {
+  position: relative;
+  margin: 10px 20px;
+  height: 5px;
+  min-width: 128px;
+  background-color: #a2a2a2;
+}
+.moon-slider-taparea {
+  position: absolute;
+  top: -16px;
+  height: 32px;
+  width: 100%;
+}
+.moon-slider-knob {
+  position: relative;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  margin: -10px -9px;
+  background-color: #ffa500;
+}
+.moon-slider-knob.active,
+.moon-slider-knob:active:hover {
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  margin: -18px -20px;
+}
+.moon-slider-popup {
+  position: absolute;
+  display: block;
+  z-index: 20;
+  left: 0px;
+  top: 0px;
+  width: 62px;
+  height: 37px;
+  padding-left: 4px;
+}
+.moon-slider-popup-label {
+  position: absolute;
+  top: 1px;
+  width: 60px;
+  height: 32px;
+  white-space: nowrap;
+  font-family: "PreludeWGL Medium";
+  color: #fff;
+  text-align: center;
+  line-height: 32px;
+  vertical-align: middle;
+  font-size: 14px;
+}
+.moon-slider-popup.above {
+  top: -56px;
 }

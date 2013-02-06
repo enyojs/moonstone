@@ -29,5 +29,6 @@ enyo.depends(
 	"ButtonSample.js",
 	"ButtonSample.css",
 	"InputSample.js",
-	"InputSample.css"
+	"InputSample.css",
+	"SliderSample.js"
 );

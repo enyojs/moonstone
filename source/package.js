@@ -8,8 +8,8 @@ enyo.depends(
 	"GridListImageItem.js",
 	"Checkbox.js",
 	"LabeledCheckbox.js",
-	"Toggle.js",
-	"LabeledToggle.js",
+	"ToggleButton.js",
+	"LabeledToggleButton.js",
 	"RadioButton.js",
 	"RadioButtonGroup.js",
 	"Drawer.js",
@@ -27,5 +27,6 @@ enyo.depends(
 	"TimePicker.js",
 	"Calendar.js",
 	"Input.js",
-	"InputDecorator.js"
+	"InputDecorator.js",
+	"Slider.js"
 );

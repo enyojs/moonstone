@@ -41,6 +41,10 @@ enyo.kind({
 		]},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
+	disabledChanged: function() {
+		this.inherited(arguments);
+		this.$.input.setDisabled(this.disabled);
+	},
 	contentChanged: function() {
 		this.$.label.setContent(this.getContent());
 	},

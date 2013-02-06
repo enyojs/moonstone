@@ -26,3 +26,8 @@
 .moon-labeled-checkbox .moon-checkbox[checked] {
 	background-color:transparent;
 }
+.moon-labeled-checkbox.disabled, .moon-labeled-checkbox .moon-checkbox[disabled] {
+	cursor: default;
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}

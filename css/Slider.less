@@ -1,0 +1,69 @@
+/* Slider.css */
+.moon-slider-bar {
+	height: 100%;
+	background-color: #69cdff;
+}
+.moon-slider-focus {
+	background-color: #ffa550;
+}
+.moon-slider-nofocus {
+	background-color: #69cdff;
+}
+.moon-slider {
+	position: relative;
+	margin: 10px 20px;
+
+	height: 5px;
+	min-width: 128px;
+	background-color: #a2a2a2;
+}
+.moon-slider-taparea {
+	position: absolute;
+	top: -16px;
+	height: 32px;
+	width: 100%;
+
+//	background-color: #f9adff;
+//	opacity:0.5;
+}
+.moon-slider-knob {
+	position: relative;
+	height: 16px;
+	width: 16px;
+	border-radius: 8px;
+	margin: -10px -9px;//margin: -8px -9px;
+	background-color: #ffa500;//background-color: #69cdff;
+}
+.moon-slider-knob.active,
+.moon-slider-knob:active:hover {
+	height: 36px;
+	width: 36px;
+	border-radius: 18px;
+	margin: -18px -20px;
+}
+.moon-slider-popup {
+	position: absolute;
+	display: block;
+	z-index: 20;
+	left: 0px;
+	top: 0px;
+	width: 62px;
+	height: 37px;
+	padding-left: 4px;
+}
+.moon-slider-popup-label {
+	position: absolute;
+	top: 1px;
+	width: 60px;
+	height: 32px;
+	white-space: nowrap;
+	font-family: "PreludeWGL Medium";
+	color: #fff;
+	text-align: center;
+	line-height: 32px;
+	vertical-align: middle;
+	font-size: 14px;
+}
+.moon-slider-popup.above {
+	top: -56px;
+}
