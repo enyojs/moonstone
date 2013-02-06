@@ -8,3 +8,8 @@
 .moon-item.spotlight {
 	.moon-border();
 }
+.moon-item.disabled {
+	cursor: default;
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}

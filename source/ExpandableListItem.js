@@ -87,6 +87,8 @@ enyo.kind({
 	},
 	//* If closed, open drawer and highlight first spottable child
 	expandContract: function() {
+		if (this.disabled)
+				return true;
 		if(!this.getOpen()) {
 			this.setOpen(true);
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
