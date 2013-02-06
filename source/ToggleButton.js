@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.Toggle",
+	name: "moon.ToggleButton",
 	kind: "moon.Checkbox",
 	published: {
 		//* Label for toggle button's "on" state
@@ -8,9 +8,9 @@ enyo.kind({
 		offContent: $L("off"),
 	},
 	//* @protected
-	classes: "moon-toggle",
+	classes: "moon-toggle-button",
 	components: [
-		{name: "label", classes: "moon-toggle-text"}
+		{name: "label", classes: "moon-toggle-button-text"}
 	],
 	create: function() {
 		this.inherited(arguments);
