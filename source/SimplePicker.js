@@ -55,18 +55,22 @@ enyo.kind({
 		//* Index of currently selected item, if any
 		selectedIndex:null,
 		//* Whether the picker transitions should animate left/right.
-		animate:true
+		animate:true,
+		//* When true, button is shown as disabled and does not generate tap
+		//* events
+		disabled: false
 	},
 	//* @protected
 	components: [
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, name:"button"},
+		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, name:"buttonLeft"},
 		{kind:"enyo.Panels", classes:"moon-simple-picker-client", controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true}
+		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true, name:"buttonRight"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.animateChanged();
 		this.selectedIndexChanged();
+		this.disabledChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -101,7 +105,7 @@ enyo.kind({
 			c$[i].setBounds({width:width});
 		}
 		this.$.client.reflow();
-		this.$.client.setBounds({height: this.$.button.getBounds().height});
+		this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 
 		// Make sure selected item is in sync after Panels reflow, which may have
 		// followed an item being added/removed
@@ -125,6 +129,11 @@ enyo.kind({
 				index: this.selected && this.selectedIndex
 			});
 		}
+	},
+	disabledChanged: function() {
+		this.addRemoveClass("disabled", this.disabled);
+		this.$.buttonLeft.setDisabled(this.disabled);
+		this.$.buttonRight.setDisabled(this.disabled);
 	},
 	animateChanged: function() {
 		this.$.client.setAnimate(this.animate);
