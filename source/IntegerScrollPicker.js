@@ -21,11 +21,17 @@ enyo.kind({
 	handlers: {
 		onScrollStart:"scrollStart",
 		onScroll:"scroll",
-		onScrollStop:"scrollStop"
+		onScrollStop:"scrollStop",
+		onSpotlightFocus:"spotlightFocus",
+		onSpotlightFocused:"spotlightFocus",
+		onSpotlightUp:"previous", 
+		onSpotlightDown:"next",
+		onSpotlightBlur:"spotlightBlur",
 	},
 	events: {
 		onChange: ""
 	},
+	spotlight:true,
 	//* Cache scroll bounds so we don't have to run stop() every time we need them
 	scrollBounds: {},
 	components: [
@@ -45,9 +51,7 @@ enyo.kind({
 			{classes:"up-arrow-border"},
 			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay"}
 		]},		
-		{kind: "enyo.Scroller", spotlight: true, thumb:false, touch:true, classes: "moon-scroll-picker", 
-		 onSpotlightUp:"previous", onSpotlightDown:"next", onSpotlightFocused:"spotlightFocused",
-		 onSpotlightBlur:"spotlightBlur", components:[
+		{kind: "enyo.Scroller", thumb:false, touch:true, classes: "moon-scroll-picker", components:[
 			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
@@ -125,13 +129,15 @@ enyo.kind({
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
 	},
-	spotlightFocused: function(s,e) {
+	spotlightFocus: function() {
 		this.inherited(arguments);		
+		this.$.scroller.addClass("spotlight");		
 		this.$.downArrowContainer.addClass("spotlight");
 		this.$.upArrowContainer.addClass("spotlight");		
 	},
 	spotlightBlur: function() {
 		this.inherited(arguments);		
+		this.$.scroller.removeClass("spotlight");		
 		this.$.downArrowContainer.removeClass("spotlight");
 		this.$.upArrowContainer.removeClass("spotlight");
 		this.hideTopOverlay();		
