@@ -115,6 +115,8 @@ enyo.kind({
 	},
 
 	tap: function(inSender, inEvent) {
+		if (this.disabled)
+			return true;
 		if (this.tappable) {
 			var v = this.calcKnobPosition(inEvent);
 			this.tapped = true;
