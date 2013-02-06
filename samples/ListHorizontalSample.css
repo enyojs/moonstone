@@ -12,11 +12,6 @@
 	background-color: #c4e3fe;
 }
 
-/* needed to make onyx-highlight more specific for highlighting to work */
-.onyx-highlight.list-sample-selected {
-	background-color: #dedfdf;
-}
-
 .moon-list-horizontal-sample {
 	height:300px;
 }

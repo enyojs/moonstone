@@ -37,16 +37,17 @@ enyo.kind({
 			{classes:"moon-scroll-picker-overlay-bottom"},
 			{classes:"moon-scroll-picker-overlay-bottom-border"}			
 		]},		
-		{classes:"down-arrow-container", components:[
+		{name:"downArrowContainer", classes:"down-arrow-container", components:[
 			{classes:"down-arrow-border"},
-			{name:"downArrow", classes:"down-arrow", ontap:"next"}
+			{name:"downArrow", classes:"down-arrow", ondown:"next", onup:"resetOverlay", onleave:"resetOverlay"}
 		]},
-		{classes:"up-arrow-container", components:[
+		{name:"upArrowContainer", classes:"up-arrow-container", components:[
 			{classes:"up-arrow-border"},
-			{name:"upArrow", classes:"up-arrow", ontap:"previous"}
+			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay"}
 		]},		
 		{kind: "enyo.Scroller", spotlight: true, thumb:false, touch:true, classes: "moon-scroll-picker", 
-		 onSpotlightUp:"previous", onSpotlightDown:"next", onSpotlightLeft:"left", onSpotlightFocused:"spotlightFocused", onSpotlightBlur:"spotlightBlur", components:[
+		 onSpotlightUp:"previous", onSpotlightDown:"next", onSpotlightFocused:"spotlightFocused",
+		 onSpotlightBlur:"spotlightBlur", components:[
 			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
@@ -69,13 +70,16 @@ enyo.kind({
 	rangeChanged: function() {
 		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;		
 		this.$.repeater.setCount(this.max-this.min+1);
-//		this.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 		this.$.repeater.render();
+		//asynchronously scroll to the current node, this works around a potential scrolling glitch
+		enyo.asyncMethod(enyo.bind(this,function(){
+			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		}));
 	},
 	valueChanged: function(inOld) {
 		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
-	//preventing dragging
+	//prevent scroller dragging
 	dragstart: function(inSender, inEvent) {
 		return true;
 	},
@@ -85,39 +89,51 @@ enyo.kind({
 	maxChanged: function() {
 		this.rangeChanged();
 	},
-	previous: function() {
+	previous: function(inSender, inEvent) {
 		if (this.value > this.min) {
-			enyo.job.stop("hideTopOverlay");
+			enyo.job.stop("hideBottomOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
-			this.$.topOverlay.show();
-			enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
-		}
-		return true;
-	},
-	hideTopOverlay: function(){
-			this.$.topOverlay.setShowing(false);		
-	},
-	hideBottomOverlay: function(){
-			this.$.bottomOverlay.setShowing(false);		
-	},	
-	next: function() {
-		if (this.value < this.max) {
-			enyo.job.stop("hideBottomOverlay");			
-			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
 			this.$.bottomOverlay.show();
-			enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
+			this.$.upArrowContainer.addClass("selected");
+			if (inEvent.originator != this.$.upArrow) {
+				enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
+			}
 		}
 		return true;
 	},
-	spotlightFocused: function() {
-		this.inherited(arguments);
-		this.$.downArrow.addClass("spotlight");
-		this.$.upArrow.addClass("spotlight");		
+	next: function(inSender, inEvent) {
+		if (this.value < this.max) {
+			enyo.job.stop("hideTopOverlay");			
+			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
+			this.$.topOverlay.show();
+			this.$.downArrowContainer.addClass("selected");
+			if (inEvent.originator != this.$.downArrow) {
+				enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);				
+			}
+		}
+		return true;
+	},
+	hideTopOverlay: function() {
+		this.$.downArrowContainer.removeClass("selected");
+		this.$.topOverlay.setShowing(false);		
+	},
+	hideBottomOverlay: function() {
+		this.$.upArrowContainer.removeClass("selected");
+		this.$.bottomOverlay.setShowing(false);		
+	},
+	resetOverlay: function() {
+		this.hideTopOverlay();
+		this.hideBottomOverlay();
+	},
+	spotlightFocused: function(s,e) {
+		this.inherited(arguments);		
+		this.$.downArrowContainer.addClass("spotlight");
+		this.$.upArrowContainer.addClass("spotlight");		
 	},
 	spotlightBlur: function() {
 		this.inherited(arguments);		
-		this.$.downArrow.removeClass("spotlight");
-		this.$.upArrow.removeClass("spotlight");
+		this.$.downArrowContainer.removeClass("spotlight");
+		this.$.upArrowContainer.removeClass("spotlight");
 		this.hideTopOverlay();		
 		this.hideBottomOverlay();
 	},
