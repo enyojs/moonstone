@@ -24,7 +24,10 @@ enyo.kind({
 		nofocus: true,
 		value: 0,
 		completed: 0,
-		tappable: true
+		tappable: true,
+		//* When true, button is shown as disabled and does not generate tap
+		//* events
+		disabled: false
 	},
 	events: {
 		//* Fires when progress animation to a position finishes.
@@ -55,6 +58,7 @@ enyo.kind({
 		this.progressChanged();
 		this.barClassesChanged();
 		this.valueChanged();
+		this.disabledChanged();
 	},
 
 	nofocusChanged: function() {
@@ -88,6 +92,10 @@ enyo.kind({
 	updateBarPosition: function(inPercent) {
 		this.$.bar.applyStyle("width", inPercent + "%");
 	},
+	disabledChanged: function() {
+		this.addRemoveClass("disabled", this.disabled);
+		this.setTappable(!this.disabled);
+	},
 	valueChanged: function() {
 		this.value = this.clampValue(this.min, this.max, this.value);
 		var p = this.calcPercent(this.value);
@@ -107,6 +115,8 @@ enyo.kind({
 	},
 
 	tap: function(inSender, inEvent) {
+		if (this.disabled)
+			return true;
 		if (this.tappable) {
 			var v = this.calcKnobPosition(inEvent);
 			this.tapped = true;

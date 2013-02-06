@@ -31,3 +31,8 @@
 	text-align:center; 
 	padding:5px 10px;
 }
+.moon-simple-picker.disabled, .moon-simple-picker-button[disabled] {
+	cursor: default;
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}
