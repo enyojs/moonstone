@@ -25,6 +25,7 @@ enyo.kind({
 		value: 0,
 		completed: 0,
 		tappable: true,
+		popupColor: "#a2a2a2",
 		//* When true, button is shown as disabled and does not generate tap
 		//* events
 		disabled: false
@@ -49,12 +50,13 @@ enyo.kind({
 	components: [
 		{name: "progressAnimator", kind: "Animator", onStep: "progressAnimatorStep", onEnd: "progressAnimatorComplete"},
 		{name: "animator", kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-
 		{name: "taparea", classes: "moon-slider-taparea"},
-
 		{name: "bar", classes: "moon-slider-bar"},
-
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
+		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
+			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 36 }},
+			{name: "popupLabel", classes: "moon-slider-popup-label"}
+		]}
 	],
 	//* @protected
 	create: function() {
@@ -68,8 +70,8 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.knobLeft = this.hasNode().getBoundingClientRect().left;
-//		this.drawToCanvas(this.controlColor);
-//		this.adjustPopupPosition(false);
+		this.drawToCanvas(this.popupColor);
+		this.adjustPopupPosition();
 	},
 	nofocusChanged: function() {
 		this.$.knob.setShowing(!this.nofocus);
@@ -117,19 +119,49 @@ enyo.kind({
 	},
 	updateKnobPosition: function(inPercent) {
 		this.$.knob.applyStyle("left", inPercent + "%");
-//		this.$.popup.applyStyle("left", inPercent + "%");
-//		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
+		this.$.popup.applyStyle("left", inPercent + "%");
+		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
 	},
 	calcKnobPosition: function(inEvent) {
 		//var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
 		var x = inEvent.clientX - this.knobLeft;
 		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
 	},
+	adjustPopupPosition: function() {
+		var inControl = this.$.popup;
+		
+		// popup bounds
+		var pb = inControl.hasNode().getBoundingClientRect();
+		// container bounds
+		var cb = this.container.hasNode().getBoundingClientRect();
+		// knob bounds
+		var kb = this.$.knob.hasNode().getBoundingClientRect();
+
+		// FIXME: What do we do when the popup's top goes above the window height?
+		// Adding "above" class directly to classes property for now
+		/*
+		// IE8 doesn't return window.page{X/Y}Offset
+		var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
+		//when the popup's top goes above the container's top, move popup below the decorator
+		if ((pb.top + pb.height) < pageYOffset) {
+			inControl.addRemoveClass("above", false);
+			inControl.addRemoveClass("below", true);
+		} else 	{
+			inControl.addRemoveClass("above", true);
+			inControl.addRemoveClass("below", false);
+		}
+		*/
+
+		// when the popup's right edge is out of the window, adjust to the left
+		if ( (pb.width + pb.left) > cb.right ) {
+			inControl.applyStyle("left", (kb.left - cb.left - pb.width) + "px");
+		}
+	},
 	showKnobStatus: function(inSender, inEvent) {
-//		this.$.popup.show();
+		this.$.popup.show();
 	},
 	hideKnobStatus: function(inSender, inEvent) {
-//		this.$.popup.hide();
+		this.$.popup.hide();
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled || this.nofocus)
@@ -148,7 +180,7 @@ enyo.kind({
 			var v = this.calcKnobPosition(inEvent);
 			this.setValue(v);
 			this.doChanging({value: this.value});
-//			this.adjustPopupPosition(inEvent);
+			this.adjustPopupPosition();
 			return true;
 		}
 	},
@@ -157,7 +189,7 @@ enyo.kind({
 		inEvent.preventTap();
 		this.doChange({value: this.value});
 		this.$.knob.removeClass("active");
-//		this.$.popup.setShowing(false);
+		this.$.popup.setShowing(false);
 		return true;
 	},
 	tap: function(inSender, inEvent) {
@@ -210,4 +242,22 @@ enyo.kind({
 		this.doAnimateFinish(inSender);
 		return true;
 	},
+	drawToCanvas: function(bgColor) {
+		var ctx = this.$.drawing.hasNode().getContext("2d");
+
+		// Set styles. Default color is knob's color
+		ctx.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
+
+		// Draw shape with arrow on bottom-left
+		ctx.moveTo(1, 37);
+		ctx.arcTo(1, 33, 12, 33, 4);
+		ctx.lineTo(46, 33);
+		ctx.arcTo(61, 33, 61, 17, 16);
+		ctx.moveTo(61, 17); // This is needed on IE9 for some reason
+		ctx.arcTo(61, 1, 46, 1, 16);
+		ctx.lineTo(16, 1);
+		ctx.arcTo(1, 1, 1, 17, 16);
+		ctx.lineTo(1, 37);
+		ctx.fill();
+	}
 });
