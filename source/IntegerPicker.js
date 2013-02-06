@@ -92,6 +92,10 @@ enyo.kind({
 		this.inherited(arguments);
 		this.value = parseInt(this.selected.content);
 	},
+	//* Override moon.SimplePicker disabledChanged()
+	disabledChanged: function() {
+		this.addRemoveClass("disabled", this.disabled);
+	},
 	previous: function() {
 		this.inherited(arguments);			
 		return true;
