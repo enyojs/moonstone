@@ -743,11 +743,11 @@
 
 }
 .moon-input-decorator.spotlight {
-  border: 6px solid #cc8400;
+  border: 6px solid #ffa500;
 }
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
 .moon-input-decorator.moon-focused {
-  box-shadow: 0px 14px 0px #cc8400;
+  box-shadow: 0px 14px 0px #ffa500;
 }
