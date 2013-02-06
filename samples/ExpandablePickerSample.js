@@ -6,7 +6,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{components: [
-			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: false, content: "Menu Langauge", defaultKind: "moon.LabeledToggle", classes: "moon-expandable-picker-wrapper", components: [
+			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: false, content: "Menu Langauge", defaultKind: "moon.LabeledToggleButton", classes: "moon-expandable-picker-wrapper", components: [
 				{content: "English"},
 				{content: "Spanish"},
 				{content: "French"},
