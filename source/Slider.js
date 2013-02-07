@@ -129,7 +129,7 @@ enyo.kind({
 	},
 	adjustPopupPosition: function() {
 		var inControl = this.$.popup;
-		
+
 		// popup bounds
 		var pb = inControl.hasNode().getBoundingClientRect();
 		// container bounds
@@ -151,10 +151,10 @@ enyo.kind({
 			inControl.addRemoveClass("below", false);
 		}
 		*/
-
+//		enyo.log("kb.left="+kb.left+", kb.right="+kb.right+", cb.left="+cb.left+", cb.right="+cb.right+", pb.left="+pb.left+", pb.right="+pb.right);
 		// when the popup's right edge is out of the window, adjust to the left
 		if ( (pb.width + pb.left) > cb.right ) {
-			inControl.applyStyle("left", (kb.left - cb.left - pb.width) + "px");
+			inControl.applyStyle("left", (cb.right - cb.left - pb.width - kb.width) + "px");
 		}
 	},
 	showKnobStatus: function(inSender, inEvent) {
@@ -189,7 +189,7 @@ enyo.kind({
 		inEvent.preventTap();
 		this.doChange({value: this.value});
 		this.$.knob.removeClass("active");
-		this.$.popup.setShowing(false);
+		this.hideKnobStatus();
 		return true;
 	},
 	tap: function(inSender, inEvent) {
