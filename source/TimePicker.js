@@ -23,9 +23,12 @@ enyo.kind({
 		//if hour is changed, adjust meridiem
 		this.setSelectedIndex(this.value);
 	},
+	/**
+		When meridien is changed, hour will be adjust.
+	*/
 	selectedChanged: function(inOld) {
 		this.inherited(arguments);
-		this.value = this.selected.content;
+		this.setValue(this.$.client.index);
 	}
 });
 
@@ -178,27 +181,35 @@ enyo.kind({
 		return dateStr;
 	},
 	updateTime: function(inSender, inEvent) {
-		//* Avoid onChange events coming from itself
-		if (inEvent && inEvent.originator == this) {
-			return;
+		if (inEvent) {
+			//* Avoid onChange events coming from itself
+			if (inEvent.originator == this) {
+				return
+			}
+			var hour = this.$.hour.getSelectedIndex();
+			var minute = this.$.minute.getValue();
+
+			if (inEvent.originator.kind == "moon.MeridiemPicker") {
+				if (inEvent.originator.value == 1 && hour < 11) {
+					hour += 12 ;
+				} else if (inEvent.originator.value == 0 && hour == 23) {
+					hour = -1;
+				} else if (inEvent.originator.value == 0 && hour > 11) {
+					hour -= 12 ;	
+				} 
+			} 			
+			hour++;
+
+			this.setValue(new Date(this.value.getFullYear(),
+								this.value.getMonth(),
+								this.value.getDate(),
+								hour, minute,
+								this.value.getSeconds(),
+								this.value.getMilliseconds()));
 		}
-		var hour = this.$.hour.getSelectedIndex() + 1,
-		    minute = this.$.minute.getValue();
-		this.setValue(new Date(this.value.getFullYear(),
-							this.value.getMonth(),
-							this.value.getDate(),
-							hour, minute,
-							this.value.getSeconds(),
-							this.value.getMilliseconds()));
 		return true;
 	},
 	valueChanged: function(inOld) {
-		//if it's the same date (month,day,year), get out of here
-		// if (inOld && inOld.getDate() == this.value.getDate() &&
-		// 	inOld.getMonth() == this.value.getMonth() &&
-		// 	inOld.getFullYear() == this.value.getFullYear()) {
-		// 	return;
-		// }
 		var hour = this.value.getHours();
 		this.$.hour.setValue(hour);	
 		this.$.minute.setValue(this.value.getMinutes());
