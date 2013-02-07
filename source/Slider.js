@@ -17,6 +17,7 @@ enyo.kind({
 	spotlight: true,
 	published: {
 		progress: 0,
+		bgProgress: 0,
 		min: 0,
 		max: 100,
 		barClasses: "",
@@ -51,6 +52,10 @@ enyo.kind({
 		{name: "progressAnimator", kind: "Animator", onStep: "progressAnimatorStep", onEnd: "progressAnimatorComplete"},
 		{name: "animator", kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
 		{name: "taparea", classes: "moon-slider-taparea"},
+/*		{name: "bgbar", classes: "moon-slider-bgbar", components: [
+			{name: "bar", classes: "moon-slider-bar"},
+		]},*/
+		{name: "bgbar", classes: "moon-slider-bgbar"},
 		{name: "bar", classes: "moon-slider-bar"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
@@ -62,6 +67,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.nofocusChanged();
+		this.bgProgressChanged();
 		this.progressChanged();
 		this.barClassesChanged();
 		this.valueChanged();
@@ -87,6 +93,12 @@ enyo.kind({
 		this.$.bar.removeClass(inOld);
 		this.$.bar.addClass(this.barClasses);
 	},
+	bgProgressChanged: function() {
+		this.bgProgress = this.clampValue(this.min, this.max, this.bgProgress);
+
+		var p = this.calcPercent(this.bgProgress);
+		this.updateBgBarPosition(p);
+	},
 	progressChanged: function() {
 		this.progress = this.clampValue(this.min, this.max, this.progress);
 		var p = this.calcPercent(this.progress);
@@ -103,6 +115,9 @@ enyo.kind({
 	},
 	updateBarPosition: function(inPercent) {
 		this.$.bar.applyStyle("width", inPercent + "%");
+	},
+	updateBgBarPosition: function(inPercent) {
+		this.$.bgbar.applyStyle("width", inPercent + "%");
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -158,7 +173,9 @@ enyo.kind({
 		}
 	},
 	showKnobStatus: function(inSender, inEvent) {
-		this.$.popup.show();
+		if (!this.disabled) {
+			this.$.popup.show();
+		}
 	},
 	hideKnobStatus: function(inSender, inEvent) {
 		this.$.popup.hide();

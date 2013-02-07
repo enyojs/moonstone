@@ -823,8 +823,14 @@
 }
 /* Slider.css */
 .moon-slider-bar {
+  position: relative;
+  top: -5px;
   height: 100%;
   background-color: #69cdff;
+}
+.moon-slider-bgbar {
+  height: 100%;
+  background-color: #828282;
 }
 .moon-slider-focus {
   background-color: #ffa550;
@@ -853,6 +859,7 @@
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
   position: relative;
+  top: -5px;
   height: 16px;
   width: 16px;
   border-radius: 8px;

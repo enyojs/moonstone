@@ -5,10 +5,10 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{classes:"moon-sample-divider", content:"Slider 1: No Focus"},
-		{name: "nofocusSlider", kind: "moon.Slider", value: 25, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{name: "nofocusSlider", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{classes:"moon-sample-divider", content:"Slider 2: Focus"},
-		{name: "focusSlider", kind: "moon.Slider", value: 75, nofocus: false, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{name: "focusSlider", kind: "moon.Slider", value: 75, bgProgress: 85, nofocus: false, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{classes:"moon-sample-divider", content:"Slider 3: Disabled"},
 		{name: "disabledSlider", kind: "moon.Slider", value: 50, nofocus: false, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
