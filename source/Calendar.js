@@ -17,7 +17,7 @@ enyo.kind({
 			this.removeClass("moon-calendar-date-shadow");
 		}
 	},
-	valueChanged: function(inOld) {
+	valueChanged: function() {
 		this.setContent(this.value.getDate());
 	},
 });
@@ -28,11 +28,23 @@ enyo.kind({
 		days: [],
 		colors: [],
 	},
+	handlers: {
+		ontap: "doTap"
+	},
 	components: [
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
 			{name: "item", kind: "moon.CalendarDate"}
 		]},
 	],
+	/**	
+		Usually when we select same item, setupItem() is not called
+		because setupItem() is called when changing selection is occured in repeater.
+	*/
+	doTap: function(inSender, inEvent) {
+		if (this.$.repeater.isSelected(inEvent.index)) {
+			this.setupItem(inSender, inEvent);
+		}
+	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
 		var value = this.days[index],
@@ -218,7 +230,7 @@ enyo.kind({
 			month = value.getMonth();
 		//* Determine whether calender need to redraw or not
 		if (year != this.value.getFullYear() || month != this.value.getMonth()) {
-			this.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));	
+			this.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
 		} else {
 			this.value.setYear(year);
 			this.value.setMonth(month);
