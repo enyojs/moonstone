@@ -822,15 +822,15 @@
   box-shadow: 0px 14px 0px #ffa500;
 }
 /* Slider.css */
-.moon-slider-bar {
-  position: relative;
-  top: -5px;
-  height: 100%;
-  background-color: #69cdff;
-}
 .moon-slider-bgbar {
   height: 100%;
   background-color: #828282;
+}
+.moon-slider-bar {
+  position: relative;
+  height: 100%;
+  margin: -5px;
+  background-color: #69cdff;
 }
 .moon-slider-focus {
   background-color: #ffa550;
@@ -844,6 +844,9 @@
   height: 5px;
   min-width: 128px;
   background-color: #a2a2a2;
+}
+.moon-slider.spotlight > .moon-slider-bar {
+  background-color: #ffa550;
 }
 .moon-slider.disabled {
   cursor: default;
@@ -859,7 +862,6 @@
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
   position: relative;
-  top: -5px;
   height: 16px;
   width: 16px;
   border-radius: 8px;
@@ -867,6 +869,7 @@
   background-color: #ffa500;
 }
 .moon-slider-knob.active,
+.moon-slider-knob.spotselect,
 .moon-slider-knob:active:hover {
   height: 36px;
   width: 36px;

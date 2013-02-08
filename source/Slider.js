@@ -22,7 +22,6 @@ enyo.kind({
 		max: 100,
 		barClasses: "",
 		lockBar: true,
-		nofocus: true,
 		value: 0,
 		completed: 0,
 		tappable: true,
@@ -46,15 +45,18 @@ enyo.kind({
 	handlers: {
 		ondragstart: "dragstart",
 		ondrag: "drag",
-		ondragfinish: "dragfinish"
+		ondragfinish: "dragfinish",
+		onSpotlightFocus:"spotFocus",
+		onSpotlightSelect: "spotSelect",
+		onSpotlightBlur:"spotBlur",
+//		onSpotlightFocused: "spotFocused",
+		onSpotlightLeft: "spotLeft",
+		onSpotlightRight: "spotRight"
 	},
 	components: [
 		{name: "progressAnimator", kind: "Animator", onStep: "progressAnimatorStep", onEnd: "progressAnimatorComplete"},
 		{name: "animator", kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
 		{name: "taparea", classes: "moon-slider-taparea"},
-/*		{name: "bgbar", classes: "moon-slider-bgbar", components: [
-			{name: "bar", classes: "moon-slider-bar"},
-		]},*/
 		{name: "bgbar", classes: "moon-slider-bgbar"},
 		{name: "bar", classes: "moon-slider-bar"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
@@ -66,28 +68,18 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.nofocusChanged();
 		this.bgProgressChanged();
 		this.progressChanged();
 		this.barClassesChanged();
 		this.valueChanged();
 		this.disabledChanged();
+		this.$.knob.setShowing(false);
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.knobLeft = this.hasNode().getBoundingClientRect().left;
 		this.drawToCanvas(this.popupColor);
 		this.adjustPopupPosition();
-	},
-	nofocusChanged: function() {
-		this.$.knob.setShowing(!this.nofocus);
-		this.tappable = !this.nofocus;
-
-		this.$.bar.removeClass(this.barClasses);
-		this.$.knob.removeClass(this.barClasses);
-		this.barClasses = !this.nofocus ? "moon-slider-focus" : "moon-slider-nofocus";
-		this.$.bar.addClass(this.barClasses);
-		this.$.knob.addClass(this.barClasses);
 	},
 	barClassesChanged: function(inOld) {
 		this.$.bar.removeClass(inOld);
@@ -103,6 +95,43 @@ enyo.kind({
 		this.progress = this.clampValue(this.min, this.max, this.progress);
 		var p = this.calcPercent(this.progress);
 		this.updateBarPosition(p);
+	},
+/*	spotFocused: function() {
+		return;
+	},*/
+	spotFocus: function() {
+		this.$.knob.setShowing(true);
+		return;
+	},
+	spotSelect: function() {
+		var sh = this.$.popup.getShowing();
+		this.$.knob.addRemoveClass("spotselect", !sh);
+		this.$.popup.setShowing(!sh);
+		this.selected = true;
+
+		return true;
+	},
+	spotBlur: function() {
+		if(this.dragging) {
+			return true;
+		}
+		else {
+			this.$.knob.hide();
+			this.$.popup.hide();
+			this.$.knob.removeClass("spotselect");
+		}
+	},
+	spotLeft: function(inSender, inEvent) {
+		if (this.selected) {
+			var v = inSender.value - 1;
+			this.animateTo(v);
+		}
+	},
+	spotRight: function(inSender, inEvent) {
+		if (this.selected) {
+			var v = inSender.value + 1;
+			this.animateTo(v);
+		}
 	},
 	clampValue: function(inMin, inMax, inValue) {
 		return Math.max(inMin, Math.min(inValue, inMax));
@@ -128,7 +157,7 @@ enyo.kind({
 		this.value = this.clampValue(this.min, this.max, this.value);
 		var p = this.calcPercent(this.value);
 		this.updateKnobPosition(p);
-		if (this.lockBar || this.nofocus) {
+		if (this.lockBar) {
 			this.setProgress(this.value);
 		}
 	},
@@ -181,7 +210,7 @@ enyo.kind({
 		this.$.popup.hide();
 	},
 	dragstart: function(inSender, inEvent) {
-		if (this.disabled || this.nofocus)
+		if (this.disabled)
 			return;	// return nothing
 
 		if (inEvent.horizontal) {
@@ -210,9 +239,7 @@ enyo.kind({
 		return true;
 	},
 	tap: function(inSender, inEvent) {
-		if (this.disabled || this.nofocus)
-			return true;
-		if (this.tappable) {
+		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			this.tapped = true;
 			this.animateTo(v);

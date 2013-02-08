@@ -4,14 +4,15 @@ enyo.kind({
 	classes: "moon moon-sample-padded enyo-unselectable",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{classes:"moon-sample-divider", content:"Slider 1: No Focus"},
-		{name: "nofocusSlider", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
-		{classes:"moon-sample-divider", content:"Slider 2: Focus"},
-		{name: "focusSlider", kind: "moon.Slider", value: 75, bgProgress: 85, nofocus: false, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{classes:"moon-sample-divider", content:"Slider 1: Default"},
+		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{tag:"br"},
+		{classes:"moon-sample-divider", content:"Slider 2: not locked bar"},
+		{kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{classes:"moon-sample-divider", content:"Slider 3: Disabled"},
-		{name: "disabledSlider", kind: "moon.Slider", value: 50, nofocus: false, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{components: [
 			{kind: "moon.InputDecorator", style:"margin-right:10px;", components: [
@@ -32,8 +33,6 @@ enyo.kind({
 
 		// FIXME : need to implement setChecked function in "moon.LabeledCheckbox"
 		this.$.animateSetting.setChecked(true);
-//		this.$.nofocusSlider.setNofocus(false);	// testing
-//		this.$.focusSlider.setNofocus(true);	// testing
 	},
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
