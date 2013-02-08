@@ -190,13 +190,16 @@ enyo.kind({
 			var minute = this.$.minute.getValue();
 
 			if (inEvent.originator.kind == "moon.MeridiemPicker") {
-				if (inEvent.originator.value == 1 && hour < 11) {
-					hour += 12 ;
-				} else if (inEvent.originator.value == 0 && hour == 23) {
-					hour = -1;
-				} else if (inEvent.originator.value == 0 && hour > 11) {
-					hour -= 12 ;	
+				if (hour < 11 && inEvent.originator.value == 1 ) {
+					hour += 12;
+				} else if ( hour > 11 && hour != 23 && inEvent.originator.value == 0) {
+					hour -= 12;	
+				} else if (hour == 23 && inEvent.originator.value == 1) {
+					hour -= 12;
+				} else if (hour == 11 && inEvent.originator.value == 0) {
+					hour += 12;
 				} 
+				this.$.hour.setSelectedIndex(hour);				
 			} 			
 			hour++;
 
