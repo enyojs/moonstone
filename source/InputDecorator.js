@@ -32,7 +32,8 @@ enyo.kind({
 	handlers: {
 		onDisabledChange: "disabledChange",
 		onfocus: "receiveFocus",
-		onblur: "receiveBlur"
+		onblur: "receiveBlur",
+		onSpotlightSelect: "spotSelect",
 	},
 	spotlight: true,
 	create:function() {
@@ -51,5 +52,17 @@ enyo.kind({
 	},
 	disabledChange: function(inSender, inEvent) {
 		this.addRemoveClass("moon-disabled", inEvent.originator.disabled);
+	},
+	spotSelect: function(inSender, inEvent) {
+		var c = inSender.children[0];
+		if (c) {
+			if (c.hasFocus()) {
+				inSender.focus();
+			}
+			else {
+				c.focus();
+				c.moveCursorToEnd();
+			}
+		}
 	}
 });
