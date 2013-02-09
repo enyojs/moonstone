@@ -1,0 +1,27 @@
+/* RichText.css */
+.moon-richtext {
+	margin: 0px;
+	padding: 0px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background: transparent;
+	box-shadow: none;
+	font-size: @moon-sub-text-size;
+	font-family: @moon-sub-font-family;
+	min-height: 20px;
+	min-width: 100px;
+}
+.moon-input-decorator > .moon-richtext {
+	background-image: none;
+	box-shadow: none;
+	text-transform: none;
+	/* FIXME: hack for styling reset on Android */
+	/* -webkit-appearance: caret;*/
+}
+.moon-input-decorator.moon-focused .moon-richtext {
+	cursor: text;
+}
+.moon-input-decorator.moon-disabled .moon-richtext {
+	cursor: default;
+}

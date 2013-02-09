@@ -28,5 +28,6 @@ enyo.depends(
 	"Calendar.js",
 	"Input.js",
 	"InputDecorator.js",
-	"Slider.js"
+	"Slider.js",
+	"RichText.js"
 );
