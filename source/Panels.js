@@ -1,167 +1,140 @@
 /**
-	The _moon.Panels_ kind extends _enyo.Panels_, and provides support for
-	spotlight events.
-	
-	For more information, see the
-	[Panels documentation](https://github.com/enyojs/enyo/wiki/Panels) in the Enyo
-	Developer Guide.
-*/
+ * moon.Panels kind definition
+ * @author: Lex Podgorny
+ */
+
 enyo.kind({
-	name: "moon.Panels",
-	kind: "enyo.Panels",
-	spotlight: true,
+	name				: 'moon.Panels',
+	kind 				: 'enyo.Panels',
+	spotlight			: true,
+	spotlightDecorate	: false,	
 
-	//* @protected
+	published: {
+	},
 	handlers: {
-		onSpotlightFocus:  "_spotFocus"
+		onSpotlightFocused			: 'onSpotlightFocused',
+		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
+		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
+		ontap						: 'onTap',
 	},
-	
-	draggable: false,
-	
-	/*
-		Override _addControl_ to make sure each panel instance is spotlight-able
-		and has a _lastFocused_ property
-	*/
-	addControl: function(inControl, inBefore) {
-		this.inherited(arguments);
-		enyo.mixin(inControl, {
-			spotlight: true,
-			_lastFocused: null
-		});
+	events: {
+		onIndexChange: '',
+		onIndexChanged: ''
 	},
-	
-	/**
-		Spotlight focus handler. If the originator of the focus event is a panel,
-		set focus to the last focused item in that panel. Otherwise update the
-		_lastFocused_ property of the originator.
-	*/
-	_spotFocus: function(inSender, inEvent) {
-		var dir = inEvent.dir,
-			control = inEvent.originator;
-		
-		// If panels gets focus, either pass focus to current panel or out of
-		// panels (if the current focused item is a panel)
-		if(control === this) {
-			if(this.isPanel(enyo.Spotlight.getCurrent())) {
-				this._spotEscape(dir);
-			} else {
-				this._spotLastFocused();
-			}
-			return true;
-		}
-		
-		// If a panel gets focus, handle event based on the focus direction
-		if(this.isPanel(control)) {
-			this._handleFocusDirection(dir, control);
-			return true;
-		}
 
-		// Set last focused item for the given panel
-		this._setLastFocused(this._getContainingPanel(control), control);
-	},
+	/************ PROTECTED **********/
 	
-	/**
-		When a panel gets focus, call _this.next_ or _this.previous_ if the
-		user pressed left or right
-	*/
-	_handleFocusDirection: function(inDirection, inControl) {
-		switch(inDirection) {
-			case "RIGHT":
-				this.next();
-				break;
-			case "LEFT":
-				this.previous();
-				break;
-			case "UP":
-			case "DOWN":
-				this._spotEscape(inDirection);
-				break;
-			default:
-				enyo.Spotlight.setCurrent(inControl);
-				break;
+	_bHasFocus: false,
+	
+	/************ PUBLIC *************/
+	
+	create: function(oSender, oEvent) {
+		this.inherited(arguments);
+		for (var n=0; n<this.getPanels().length; n++) {
+			this.getPanels()[n].spotlight = 'container';
 		}
 	},
 	
-	//* Move spotlight to next adjacent control of _this_
-	_spotEscape: function(inDirection) {
-		enyo.Spotlight.spot(enyo.Spotlight._getAdjacentControl(inDirection, this));
-	},
-	
-	//* Set the last-focused control for the given panel
-	_setLastFocused: function(inPanel, inControl) {
-		inPanel = inPanel || this.getActive();
-		if(inControl.isDescendantOf(inPanel)) {
-			inPanel._lastFocused = inControl;
+	onTap: function(oSender, oEvent) {
+		var n = this.getPanelIndex(oEvent.originator);
+			
+		if (n != -1 && n != this.getIndex()) {
+			this.setIndex(n);
+			enyo.Spotlight.setLast5WayControl(oEvent.originator);
+			enyo.Spotlight.setPointerMode(false);
+			return true;
 		}
+		return false; //
 	},
 	
-	//* Return the last-focused control for the given panel
-	_getLastFocused: function(inPanel) {
-		return inPanel._lastFocused || enyo.Spotlight.getFirstChild(inPanel);
-	},
-	
-	//* Spot the last focused control in the given panel
-	_spotLastFocused: function(inPanel) {
-		inPanel = inPanel || this.getActive();
-		var lastFocused = inPanel._lastFocused || enyo.Spotlight.getFirstChild(inPanel);
-		if(lastFocused) {
-			enyo.Spotlight.spot(lastFocused);
-		} else {
-			enyo.Spotlight.setCurrent(inPanel);
+	onSpotlightPanelLeave: function(oSender, oEvent) {
+		if (enyo.Spotlight.getPointerMode()) { return true; }
+		var sEvent,
+			nIndex = this.getIndex();
+		
+		switch (oEvent.direction) {
+			case 'LEFT':
+				this.doIndexChange({index: nIndex - 1});
+				if (nIndex > 0) {
+					this.setIndex(nIndex - 1);
+					this._bHasFocus = false;
+					return true;
+				}
+				sEvent = 'onSpotlightLeft';
+				break;
+			case 'RIGHT':
+				this.doIndexChange({index: nIndex + 1});
+				if (nIndex < this.getPanels().length - 1) {
+					this.setIndex(nIndex + 1);
+					this._bHasFocus = false;
+					return true;
+				}
+				sEvent = 'onSpotlightRight';
+				break;
+			case 'UP':
+				sEvent = 'onSpotlightUp';
+				break;
+			case 'DOWN':
+				sEvent = 'onSpotlightDown';
+				break;
+			
 		}
+		
+		if (typeof oEvent.direction != 'undefined') {
+			this._bHasFocus = false;
+			enyo.Spotlight.Util.dispatchEvent('onSpotlightBlur', null, enyo.Spotlight.getCurrent());
+			enyo.Spotlight.setCurrent(this.parent)
+			enyo.Spotlight.Util.dispatchEvent(sEvent, null, this.parent);
+		}
+		return true;
+	},
+
+	onSpotlightFocused: function(oSender, oEvent) {
+		if (oEvent.originator !== this) { return false; }
+		if (enyo.Spotlight.getPointerMode()) { return false; }
+		
+		if (this._bHasFocus) {														// Focus came from within
+			this._bHasFocus = false;
+		} else {																	// Focus came from without
+			enyo.Spotlight.spot(this.getCurrentPanel());
+			this._bHasFocus = true;
+		}
+		
+		return false;
 	},
 	
-	//* Return the index of the parent panel of _inControl_
-	_getContainingPanel: function(inControl) {
-		for(var i=0, panels = this.getPanels();i<panels.length;i++) {
-			if(inControl.isDescendantOf(panels[i])) {
-				return panels[i];
+	// Get index of a panel by it's reference
+	getPanelIndex: function(oControl) {
+		var oPanel 	= null;
+		
+		while (oControl.parent) {
+			if (oControl.parent === this) {
+				oPanel = oControl;
+				break;
+			}
+			oControl = oControl.parent;
+		}
+		
+		if (oPanel) {
+			for (var n=0; n<this.getPanels().length; n++) {
+				if (this.getPanels()[n] == oPanel) {
+					return n;
+				}
 			}
 		}
+		
+		return -1;
 	},
 	
-	//* Check whether the given control is a panel
-	isPanel: function(inControl) {
-		var panels = this.getPanels();
-		for(var i=0;i<panels.length;i++) {
-			if(inControl === panels[i]) {
-				return true;
-			}
-		}
+	getCurrentPanel: function() {
+		return this.getPanels()[this.getIndex()];
 	},
 	
-	//* Spot the specified control or the last focused control on index changes
-	next: function(inControl) {
-		if(inControl) {
-			this._setLastFocused(this.getPanels()[this.getIndex()+1], inControl);
-		}
+	setIndex: function(n) {
+		enyo.Spotlight.Decorator.Container.setFocus(this.getPanels()[this.getIndex()], false);
 		this.inherited(arguments);
-	},
-	previous: function(inControl) {
-		if(inControl) {
-			this._setLastFocused(this.getPanels()[this.getIndex()-1], inControl);
-		}
-		this.inherited(arguments);
-	},
-	setIndexDirect: function(inIndex, inControl) {
-		if(inControl) {
-			this._setLastFocused(this.getPanels()[this.getIndex()], inControl);
-		}
-		this.inherited(arguments);
-	},
-	//* After usual setIndex() logic, spot the last focused item for the current index
-	setIndex: function(inIndex, inControl) {
-		if(inControl) {
-			this._setLastFocused(this.getPanels()[this.getIndex()], inControl);
-		}
-		this.inherited(arguments);
-		this._spotLastFocused();
-	},
-	// Automatically jump index to any panel body that was tapped
-	tap: function(inSender, inEvent) {
-		var tapped = enyo.indexOf(inEvent.originator, this.getPanels());
-		if ((tapped >= 0) && (tapped != this.getIndex())) {
-			this.setIndex(tapped);
-		}
+		this.getPanels()[n].spotlight = 'container';
+		enyo.Spotlight.spot(this.getPanels()[n]);
+		this.doIndexChanged({index: n});
 	}
 });
