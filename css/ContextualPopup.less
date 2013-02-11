@@ -1,0 +1,185 @@
+/*ContextualPopup.css*/
+.moon-contextual-popup,
+.enyo.moon-contextual-popup {
+	min-height: 100px;
+	min-width: 100px;
+	font-size: 16px;
+	border-radius: 16px;
+	border: 12px solid rgba(100,100,100,0.1);
+	color: gray;
+	padding:6px;
+	background-clip:padding-box;
+	-webkit-background-clip:padding-box;
+	-moz-background-clip:padding-box;	
+	box-sizing: border-box;	
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background-color:white;	
+}
+
+/*setup the nub*/
+/*
+.moon-contextual-popup::before{
+	content: '';
+	position: absolute;
+	top:-1.5%;
+	left:-2%;
+	z-index:-1;
+	height:103%;
+	width:104%;
+	border-radius: 8px;
+	background-color:white;
+}
+*/
+	/*box-shadow:0 1px 2px rgba(0,0,0,0.4);*/
+
+/*setup the nub*/
+.moon-contextual-popup::after{
+  content: '';
+  position: absolute;
+  top: -10px;	
+  width:46px;
+  height:36px;
+}
+
+/*nub positioning*/
+/*horizontally centered nub*/
+.moon-contextual-popup.vertical::after {
+	position:absolute;
+ 	left:45%;
+	margin-top:-4px;
+	width:46px;
+  height:36px;
+	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+/*nub near horizontal left*/
+.moon-contextual-popup.vertical.right::after {
+	left:0%;
+	margin-left:20px;
+}
+/*nub near horizontal right*/
+.moon-contextual-popup.vertical.left::after {
+	left:100%;
+	margin-left: -55px;
+}
+/*downward facing nub*/
+.moon-contextual-popup.vertical.above::after {
+	top:100%;
+	margin-top:-4px;
+	width:46px;
+  	height:36px;
+	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+.moon-contextual-popup.vertical.below.right::after {
+	top:0%;
+	margin-top:-32px;
+	width:46px;
+  	height:36px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.moon-contextual-popup.vertical.below.left::after {
+	top:0%;
+	margin-top:-32px;
+	width:46px;
+  	height:36px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*nub positioning for left/right popups*/
+/*vertically centered nub for popups on left of activator*/
+.moon-contextual-popup.right::after {
+	left: 100%;
+	top:47%;
+	width:36px;
+  	height:46px;
+	margin-left:-4px;
+	background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*nub near vertical top for popups on left of activator*/
+.moon-contextual-popup.right.high::after {
+	top: 35px;
+	border:5px solid pink;
+	background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*nub near vertical bottom for popups on left of activator*/
+.moon-contextual-popup.right.low::after {
+	top:100%;
+	margin-top: -55px;
+	background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*vertically centered nub for popups on right of activator*/
+.moon-contextual-popup.left::after {
+	left: 0%;
+	margin-left: -20px;
+	top: 45%;
+	width:36px;
+  	height:46px;
+	background: transparent url('../images/contextual-popup-nubs/left.png') no-repeat;
+}
+/*nub near vertical top for popups on right of activator*/
+.moon-contextual-popup.left.high::after {
+	top: 35px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*nub near vertical bottom for popups on right of activator*/
+.moon-contextual-popup.left.low::after {
+	top:100%;
+	margin-top: -55px;
+	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+/*corners*/
+/*vertical top corners*/
+/*for popups on the left of the activator*/
+.moon-contextual-popup.vertical.below.left.corner::after {
+	top:0%;
+	left:100%;
+	margin-top:-10px;
+	margin-left:-19px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.moon-contextual-popup.vertical.below.right.corner::after {
+	top:0%;
+	left:0%;
+	margin-left: -1px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*vertical bottom corners*/
+.moon-contextual-popup.vertical.left.above.corner::after {
+	top:100%;
+	margin-left:-19px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.moon-contextual-popup.vertical.right.above.corner::after {
+	top:100%;
+	left:0%;
+	margin-left: -1px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*horizontal bottom corners*/
+.moon-contextual-popup.left.low.corner::after {
+	top:100%;
+	left:0%;
+	margin-top: -19px;
+	margin-left: -12px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.moon-contextual-popup.right.low.corner::after {
+	  top:100%;
+	  left:100%;
+	  margin-top: -19px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*horizontal top corners*/
+.moon-contextual-popup.left.high.corner::after {
+	top:0%;
+	left:0%;
+	margin-top: -1px;
+	margin-left: -12px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.moon-contextual-popup.right.high.corner::after {
+	top:0%;
+	left:100%;
+	margin-top:-1px;
+	margin-left:-9px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}

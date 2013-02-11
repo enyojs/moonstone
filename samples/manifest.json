@@ -17,6 +17,7 @@
         {"name": "Vertical Scroller", "path":"$lib/moonraker/samples/ScrollerVerticalSample"},
         {"name": "Date Picker", "path":"$lib/moonraker/samples/DatePickerSample"},
         {"name": "Integer Scroll Picker", "path":"$lib/moonraker/samples/IntegerScrollPickerSample"},
-        {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"}
+        {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"},
+        {"name": "Contextual Popup", "path":"$lib/moonraker/samples/ContextualPopupSample"},
 	]
 }

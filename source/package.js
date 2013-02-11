@@ -29,5 +29,6 @@ enyo.depends(
 	"Input.js",
 	"InputDecorator.js",
 	"Slider.js",
-	"RichText.js"
+	"RichText.js",
+	"ContextualPopup.js"
 );
