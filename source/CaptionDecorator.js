@@ -1,11 +1,10 @@
 /**
-	moon.Button_ is an <a href="#enyo.Button">enyo.Button</a> with Moonraker styling
-	applied. The color of the button may be customized by specifying a
-	background color.
-
-	For more information, see the documentation on
-	<a href="https://github.com/enyojs/enyo/wiki/Buttons">Buttons</a> in the
-	Enyo Developer Guide.
+	_moon.CaptionDecorator_ wraps a control with a caption. The position of the caption
+	is defined via the _side_ property.
+	
+	{kind: "moon.CaptionDecorator", side: "top", content: "Top Label", components: [
+		{kind: "moon.Button", content: "My Button", ontap: "buttonTapped"},
+	]}
 */
 enyo.kind({
 	name: "moon.CaptionDecorator",
