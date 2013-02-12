@@ -30,6 +30,7 @@ enyo.depends(
 	"InputDecorator.js",
 	"Slider.js",
 	"RichText.js",
+	"ContextualPopupDecorator.js",	
 	"ContextualPopup.js",
 	"InstantOnArranger.js",
 	"BreadcrumbDecorator.js"

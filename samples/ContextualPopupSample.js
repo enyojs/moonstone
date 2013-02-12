@@ -3,39 +3,13 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "enyo enyo-fit",
 	components: [
-		{kind: "onyx.Toolbar", name:"topToolbar", classes: "onyx-menu-toolbar", style:"background-color:lightgray", components: [
-			{kind:"FittableColumns", style:"width:100%;", components:[
-				{kind: "onyx.MenuDecorator", components: [
-					{kind:onyx.IconButton, src: "assets/menu-icon-bookmark.png"},
-					{kind: "moon.ContextualPopup",
-						components: [
-							{content:"testing 1"},
-							{content:"testing 2"}
-						]
-					}
-				]},
-				{kind: "onyx.MenuDecorator", fit:true, style:"position:absolute;right:0;", components: [
-					{kind:onyx.IconButton, src: "assets/menu-icon-bookmark.png"},
-					{kind: "moon.ContextualPopup",
-						components: [
-							{content:"testing 1"},
-							{content:"testing 2"},
-							{content:"testing 3"},
-							{content:"testing 4"},
-							{content:"testing 5"},
-							{content:"testing 6"}
-						]
-					}
-				]}
-			]}
-		]},
 		{kind: "Scroller", fit: true, thumb:false, components:[
 			{name:"buttonContainer", kind:"FittableRows", classes:"onyx-contextualpopup-button-container enyo-fit", components:[
 				//Top row of buttons
 				{components:[
-					{kind: "onyx.MenuDecorator", style:"display:inline-block", components: [
-						{name:"test", content: "Average"},
-						{kind: "moon.ContextualPopup",
+					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block", components: [
+						{content: "Average"},
+						{kind: "moon.ContextualPopup", style:"width:200px;height:200px;",
 							components: [
 								{content:"Item 1"},
 								{content:"Item 2"},
@@ -46,17 +20,17 @@ enyo.kind({
 						}
 					]},
 
-					{kind: "onyx.MenuDecorator", style:"display:inline-block;float:right", components: [
+					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block;float:right", components: [
 						{content:"Small"},
 						{kind: "moon.ContextualPopup"}
 					]}
 				]},
 				//Center row of buttons
 				{fit:true, style:"padding-top:15%;padding-bottom:15%;", components:[
-					{kind: "onyx.MenuDecorator", style:"display:inline-block;", components: [
+					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block;", components: [
 						{content: "Wide"},
 						{kind: "moon.ContextualPopup",
-							style:"width:300px",
+							style:"width:500px",
 							components: [
 								{kind: "Scroller", style:"min-width:150px;", horizontal:"auto",  touch:true, thumb:false,  components:[
 									{content:"testing 1"},
@@ -65,7 +39,7 @@ enyo.kind({
 							]
 						}
 					]},
-					{kind: "onyx.MenuDecorator", style:"display:inline-block;float:right", components: [
+					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block;float:right", components: [
 						{content:"Long"},
 						{kind: "moon.ContextualPopup",
 							components: [
@@ -104,7 +78,7 @@ enyo.kind({
 				]},
 				//Bottom row of buttons
 				{components:[
-					{kind: "onyx.MenuDecorator", style:"display:inline-block;", components: [
+					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block;", components: [
 						{content: "Press Me"},
 						{kind: "moon.ContextualPopup",
 							style:"width:200px",
@@ -121,7 +95,7 @@ enyo.kind({
 							]
 						}
 					]},
-					{kind: "onyx.MenuDecorator", style:"display:inline-block;float:right", components: [
+					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block;float:right", components: [
 						{content:"Try Me"},
 						{kind: "moon.ContextualPopup",
 							style:"width:250px",
@@ -136,39 +110,6 @@ enyo.kind({
 					]}
 				]}
 			]}
-		]},
-		{kind: "onyx.Toolbar", name:"bottomToolbar", classes: "onyx-menu-toolbar", style:"background-color:lightgray", components: [
-			{kind:"FittableColumns", style:"width:100%;", components:[
-				{kind: "onyx.MenuDecorator", components: [
-					{kind:onyx.IconButton, src: "assets/menu-icon-bookmark.png"},
-					{kind: "moon.ContextualPopup",
-						components: [
-							{content:"testing 1"},
-							{content:"testing 2"},
-							{content:"testing 3"},
-							{content:"testing 4"},
-							{content:"testing 5"},
-							{content:"testing 6"}
-						]
-					}
-				]},
-				{kind: "onyx.MenuDecorator", fit:true, style:"position:absolute;right:0;", components: [
-					{kind:onyx.IconButton, src: "assets/menu-icon-bookmark.png"},
-					{kind: "moon.ContextualPopup", name:"facebook",
-						components: [
-							{content:"testing 1"},
-							{content:"testing 2"},
-							{content:"testing 3"},
-							{content:"testing 4"},
-							{content:"testing 5"},
-							{content:"testing 6"}
-						]
-					}
-				]}
-			]}
-		]}
-	],
-	create: function(){
-		this.inherited(arguments);
-	}
+		]}	
+	]
 });

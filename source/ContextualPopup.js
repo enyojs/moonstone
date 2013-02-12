@@ -4,7 +4,7 @@ enyo.kind({
 	layoutKind: "ContextualLayout",
 	classes: "moon-contextual-popup",	
    	handlers: {
-		onRequestShowMenu: "requestShow",
+		onRequestShowPopup: "requestShow",
 	},
 	floating:true,
 	//layout parameters
