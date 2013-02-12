@@ -21,10 +21,18 @@ enyo.kind({
 		this.inherited(arguments);
 		this.disabledChanged();
 	},
+	blur: function() {
+		if (this.hasNode()) {
+			this.node.blur();
+		}
+	},
 	disabledChanged: function() {
 		this.inherited(arguments);
 		if (this.disabled) {
 			this.attributes.contenteditable = false;
 		}
+	},
+	insertLineBreak: function() {
+		document.execCommand("insertLineBreak", false);
 	}
 });

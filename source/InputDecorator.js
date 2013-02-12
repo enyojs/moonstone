@@ -55,13 +55,20 @@ enyo.kind({
 	},
 	spotSelect: function(inSender, inEvent) {
 		var c = inSender.children[0];
-		if (c) {
-			if (c.hasFocus()) {
-				inSender.focus();
+		if (c) {		
+			if (c.kind == "moon.RichText") {
+				if (c.hasFocus()) {
+					c.insertLineBreak();
+				}
+				else {
+					c.focus();
+					c.moveCursorToEnd();
+				}
 			}
 			else {
-				c.focus();
-				c.moveCursorToEnd();
+				if (!c.hasFocus()) {
+					c.focus();
+				}
 			}
 		}
 	}
