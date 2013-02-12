@@ -28,7 +28,9 @@ enyo.kind({
 		popupColor: "#a2a2a2",
 		//* When true, button is shown as disabled and does not generate tap
 		//* events
-		disabled: false
+		disabled: false,
+		//* Value increment that a sliders can be "snapped to" in either direction
+		increment: 0
 	},
 	events: {
 		//* Fires when progress animation to a position finishes.
@@ -49,7 +51,6 @@ enyo.kind({
 		onSpotlightFocus:"spotFocus",
 		onSpotlightSelect: "spotSelect",
 		onSpotlightBlur:"spotBlur",
-//		onSpotlightFocused: "spotFocused",
 		onSpotlightLeft: "spotLeft",
 		onSpotlightRight: "spotRight"
 	},
@@ -96,9 +97,6 @@ enyo.kind({
 		var p = this.calcPercent(this.progress);
 		this.updateBarPosition(p);
 	},
-/*	spotFocused: function() {
-		return;
-	},*/
 	spotFocus: function() {
 		this.$.knob.setShowing(true);
 		return;
@@ -107,7 +105,7 @@ enyo.kind({
 		var sh = this.$.popup.getShowing();
 		this.$.knob.addRemoveClass("spotselect", !sh);
 		this.$.popup.setShowing(!sh);
-		this.selected = true;
+		this.selected = !sh;
 
 		return true;
 	},
@@ -119,19 +117,23 @@ enyo.kind({
 			this.$.knob.hide();
 			this.$.popup.hide();
 			this.$.knob.removeClass("spotselect");
+			this.selected = false;
 		}
 	},
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = inSender.value - 1;
+			var v = inSender.value - (this.increment || 1);
 			this.animateTo(v);
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = inSender.value + 1;
+			var v = inSender.value + (this.increment || 1);
 			this.animateTo(v);
 		}
+	},
+	calcIncrement: function(inValue) {
+		return (Math.round(inValue / this.increment) * this.increment);
 	},
 	clampValue: function(inMin, inMax, inValue) {
 		return Math.max(inMin, Math.min(inValue, inMax));
@@ -224,6 +226,7 @@ enyo.kind({
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
+			v = (this.increment) ? this.calcIncrement(v) : v;
 			this.setValue(v);
 			this.doChanging({value: this.value});
 			this.adjustPopupPosition();
@@ -241,6 +244,7 @@ enyo.kind({
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
+			v = (this.increment) ? this.calcIncrement(v) : v;
 			this.tapped = true;
 			this.animateTo(v);
 			return true;

@@ -22,18 +22,12 @@ enyo.kind({
 			{kind: "moon.Button", content:"-", ontap:"decValue"},
 			{kind: "moon.Button", content:"+", ontap:"incValue"},
 			{tag: "br"},
-			{name:"animateSetting", kind: "moon.LabeledCheckbox", content: "Animated", style: "width:240px;"},
-			{tag: "br"},
+			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", style: "width:260px;"},
+			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by 5", style: "width:260px;", onActivate: "incrementActivate"},
 			{tag: "br"},
 			{name:"result", style:"font-size:20px;font-family:PreludeWGL Light", content:"No slider moved yet."}
 		]}
 	],
-	create: function() {
-		this.inherited(arguments);
-
-		// FIXME : need to implement setChecked function in "moon.LabeledCheckbox"
-		this.$.animateSetting.setChecked(true);
-	},
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
@@ -58,5 +52,21 @@ enyo.kind({
 	},
 	sliderChanged: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + Math.round(inSender.getValue()) + ".");
+	},
+	incrementActivate: function(inSender, inEvent) {
+		var sc = inSender.getChecked();
+
+		for (var i in this.$) {
+			if (this.$[i].kind == "moon.Slider") {
+				if (sc) {
+					this.$[i].setIncrement(5);
+				}
+				else {
+					this.$[i].setIncrement(0);
+				}
+			}
+		}
+
+		return true;
 	}
 });
