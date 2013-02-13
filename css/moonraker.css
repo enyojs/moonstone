@@ -1067,4 +1067,35 @@
   margin-top: -55px;
   background: transparent url(./../images/contextual-popup-nubs/down.png) no-repeat;
 }
-/*flush corners are not implemented currently per HI*/
+/*flush corners are not implemented currently per HI*//* TextArea.css */
+.moon-textarea {
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  font-size: 20px;
+  font-family: "PreludeWGL Medium";
+  /* need >=50px for scrollbar to be usable on mac */
+
+  min-height: 50px;
+  min-width: 100px;
+}
+.moon-input-decorator > .moon-textarea {
+  /* Remove scrollbars and resize handle */
+
+  resize: none;
+  overflow: auto;
+  /* FIXME: hack for styling reset on Android */
+
+  /* -webkit-appearance: caret;*/
+
+}
+.moon-input-decorator.moon-focused .moon-textarea {
+  cursor: text;
+}
+.moon-input-decorator.moon-disabled .moon-textarea {
+  cursor: default;
+}

@@ -1,11 +1,11 @@
 /**
-	_moon.Input_ is an moon-styled input control, derived from
-	<a href="#enyo.Input">enyo.Input</a>. Typically, an _moon.Input_ is placed
-	inside an <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
-	provides styling, e.g.:
+	_moon.TextArea_ is an Moonraker-styled TextArea control, derived from
+	<a href="#enyo.TextArea">enyo.TextArea</a>. Typically, an _moon.TextArea_
+	is placed inside an <a href="#moon.InputDecorator">moon.InputDecorator</a>,
+	which provides styling, e.g.:
 
 		{kind: "moon.InputDecorator", components: [
-			{kind: "moon.Input", placeholder: "Enter some text...", onchange: "inputChange"}
+			{kind: "moon.TextArea", onchange: "inputChange"}
 		]}
 
 	For more information, see the documentation on
@@ -13,13 +13,9 @@
 	Developer Guide.
 */
 enyo.kind({
-	name: "moon.Input",
-	kind: "enyo.Input",
-	published: {
-		fieldType: "numeric" // all, email, only text, text/number (no special chars)
-	},
-	//* @protected
-	classes: "moon-input",
+	name: "moon.TextArea",
+	kind: "enyo.TextArea",
+	classes: "moon-textarea",
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
@@ -38,5 +34,11 @@ enyo.kind({
 		}
 		inEvent.validKey = false;
 		return true;
+	},
+	up: function(inEvent) {
+		return this.left(inEvent);
+	},
+	down: function(inEvent) {
+		return this.right(inEvent);
 	}
 });

@@ -29,9 +29,20 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Disabled input", onchange:"inputChanged"}
+			]},			
+			{classes: "moon-list-divider", content: "TextAreas"},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.TextArea", placeholder: "Enter text here", onchange:"inputChanged"}
 			]},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.TextArea", placeholder: "JUST TYPE", onchange:"inputChanged"},
+				{kind: "Image", src: "assets/search-input-search.png"}
+			]},
+			{kind: "moon.InputDecorator", disabled: true, components: [
+				{kind: "moon.TextArea", disabled: true, placeholder: "Disabled input", onchange:"inputChanged"}
+			]},			
 			{classes: "moon-list-divider", content: "Result"},
-			{name: "console", classes: "moon-input-sample-console"},
+			{name: "console", classes: "moon-input-sample-console"}
 		]}
 	],
 	inputChanged: function(inSender, inEvent) {
