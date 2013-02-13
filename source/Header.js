@@ -7,7 +7,7 @@ enyo.kind({
         title: ''
     },
     components: [
-		{name: "title", allowHtml: true, classes: "moon-header-title", fit: true}
+		{name: "title", classes: "moon-header-title", fit: true}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -15,13 +15,13 @@ enyo.kind({
 	},
     //* @protected
     titleChanged: function() {
-    	//this.title = this.title.replace(" ", "<br/>");
-        this.$.title.setContent(this.title || this.content);
+    	this.$.title.setContent(this.title || this.content);
     }
 });
 
 enyo.kind({
 	name: "moon.HeaderItem",
+	kind: "moon.Item", 
 	classes: "moon-header-item",
 	published: {
         //* Sets the title of the header item
