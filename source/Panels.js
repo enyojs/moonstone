@@ -133,8 +133,8 @@ enyo.kind({
 	setIndex: function(n) {
 		enyo.Spotlight.Decorator.Container.setFocus(this.getPanels()[this.getIndex()], false);
 		this.inherited(arguments);
-		this.getPanels()[n].spotlight = 'container';
-		enyo.Spotlight.spot(this.getPanels()[n]);
-		this.doIndexChanged({index: n});
+		this.getActive().spotlight = 'container';
+		enyo.Spotlight.spot(this.getActive());
+		this.doIndexChanged({index: this.getIndex()});
 	}
 });
