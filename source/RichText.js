@@ -32,7 +32,38 @@ enyo.kind({
 			this.attributes.contenteditable = false;
 		}
 	},
-	insertLineBreak: function() {
-		document.execCommand("insertLineBreak", false);
+	left: function() {
+		return false;
+/*		var s = this.getSelection();
+		if (s.focusOffset == 0) {
+			return false;
+		}
+		else {
+			this.moveCursor("backward", "character");
+			return true;
+		}*/
+	},
+	right: function() {
+		return false;
+/*		var v = this.getValue();
+		var s = this.getSelection();
+		if (s.focusOffset == s.focusNode.length) {
+			return false;
+		}
+		else {
+			this.moveCursor("forward", "character");
+			return true;
+		}*/
+	},
+	up: function(inEvent) {
+		return false;
+/*		var s = this.getSelection();
+		inEvent.validKey = false;
+		return true;*/
+	},
+	down: function(inEvent) {
+		return false;
+/*		inEvent.validKey = false;
+		return true;*/
 	}
 });

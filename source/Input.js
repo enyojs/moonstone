@@ -24,5 +24,23 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.node.blur();
 		}
+	},
+	left: function(inEvent) {
+		inEvent.validKey = false;
+		if (this.node.selectionStart == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}		
+	},
+	right: function(inEvent) {
+		inEvent.validKey = false;
+		if (this.node.selectionStart == this.node.value.length) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 });

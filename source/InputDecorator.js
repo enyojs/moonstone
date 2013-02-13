@@ -34,6 +34,10 @@ enyo.kind({
 		onfocus: "receiveFocus",
 		onblur: "receiveBlur",
 		onSpotlightSelect: "spotSelect",
+		onSpotlightLeft: "spotLeft",
+		onSpotlightRight: "spotRight",
+		onSpotlightUp: "spotUp",
+		onSpotlightDown: "spotDown"
 	},
 	spotlight: true,
 	create:function() {
@@ -55,21 +59,43 @@ enyo.kind({
 	},
 	spotSelect: function(inSender, inEvent) {
 		var c = inSender.children[0];
-		if (c) {		
-			if (c.kind == "moon.RichText") {
-				if (c.hasFocus()) {
-					c.insertLineBreak();
-				}
-				else {
-					c.focus();
+		if (c) {
+			if (!c.hasFocus()) {
+				c.focus();	
+				if (c.kind == "moon.RichText") {
 					c.moveCursorToEnd();
 				}
-			}
-			else {
-				if (!c.hasFocus()) {
-					c.focus();
-				}
+				return true;
 			}
 		}
+		return false;
+	},
+	spotLeft: function(inSender, inEvent) {
+		var c = inSender.children[0];
+		if (c && c.hasFocus() && c.left) {
+			return c.left(inEvent);
+		}		
+		return false;
+	},
+	spotRight: function(inSender, inEvent) {
+		var c = inSender.children[0];
+		if (c && c.hasFocus() && c.right) {
+			return c.right(inEvent);
+		}		
+		return false;
+	},
+	spotUp: function(inSender, inEvent) {
+		var c = inSender.children[0];
+		if (c && c.hasFocus() && c.up) {
+			return c.up(inEvent);
+		}		
+		return false;
+	},
+	spotDown: function(inSender, inEvent) {
+		var c = inSender.children[0];
+		if (c && c.hasFocus() && c.down) {
+			return c.down(inEvent);
+		}		
+		return false;
 	}
 });
