@@ -91,7 +91,6 @@ enyo.kind({
 
 		this.value = this.value || new Date();
 		this.setupPickers(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
-		//this.valueChanged();
 		this.noneTextChanged();
 		//Initial state for meridiemEnable is false
 		this.meridiemEnable = this.meridiemEnable || false;
