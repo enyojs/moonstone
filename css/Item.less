@@ -1,10 +1,10 @@
 /* Item.css */
 .moon-item {
 	.moon-no-border();
-	margin: 16px 0px;
+	margin: 30px 0px;
 	overflow:hidden;
+	line-height: 30px;
 }
-
 .moon-item.spotlight {
 	.moon-border();
 }
@@ -12,4 +12,8 @@
 	cursor: default;
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}
+.moon-item.spotlight {
+	padding-left: 20px;
+	border-left: 24px solid #ffd200;
 }
