@@ -30,7 +30,10 @@ enyo.kind({
 		//* events
 		disabled: false,
 		//* Value increment that a sliders can be "snapped to" in either direction
-		increment: 0
+		increment: 0,
+		//* When true, knob and progress moves with animation by clicking left/right
+		//* direction key ot bye tapping the bar
+		animate : true
 	},
 	events: {
 		//* Fires when progress animation to a position finishes.
@@ -123,13 +126,23 @@ enyo.kind({
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
 			var v = inSender.value - (this.increment || 1);
-			this.animateTo(v);
+			if (this.animate) {
+				this.animateTo(v);
+			}
+			else {
+				this.setValue(v);
+			}
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
 			var v = inSender.value + (this.increment || 1);
-			this.animateTo(v);
+			if (this.animate) {
+				this.animateTo(v);
+			}
+			else {
+				this.setValue(v);
+			}
 		}
 	},
 	calcIncrement: function(inValue) {
@@ -246,7 +259,12 @@ enyo.kind({
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
 			this.tapped = true;
-			this.animateTo(v);
+			if (this.animate) {
+				this.animateTo(v);
+			}
+			else {
+				this.setValue(v);
+			}
 			return true;
 		}
 	},
