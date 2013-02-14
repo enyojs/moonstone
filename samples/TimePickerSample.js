@@ -22,7 +22,7 @@ enyo.kind({
 			{content: 'es_us'}																																																								
 		]},	*/
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.TimePicker", content: "Time", meridiem: true, classes: "moon-date-picker-wrapper"},		
+		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, classes: "moon-date-picker-wrapper"},		
 		{name:"time", style:"font-size:0.35em;font-family:PreludeWGL Light"}
 	],
 /*	pickerHandler: function(inSender, inEvent){

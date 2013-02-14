@@ -1,59 +1,33 @@
 enyo.kind({
 	name: "moon.MeridiemPicker",
-	kind: "moon.IntegerPicker",
+	kind: "moon.IntegerScrollPicker",
+	classes:"moon-date-picker-month",
 	min: 0,
 	max: 1,
-	value: 0,
+	value: null,
 	published: {
 		meridiems: ["AM","PM"]		
 	},
-	rangeChanged: function() {
-		this.$.client.destroyClientControls();	
-		for (var i = this.min; i <= this.max; i++) {
-			this.createComponent({
-				components:[
-					{content:this.meridiems[i]}
-				]}).render();
-		}
-		this.value = new Date().getHours() > 12 ? 1 : 0;
-		this.setSelectedIndex(this.value);
-		this.reflow();
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		this.$.item.setContent(this.meridiems[index]);
 	},
-	valueChanged: function(inOld) {
-		//if hour is changed, adjust meridiem
-		this.setSelectedIndex(this.value);
-	},
-	/**
-		When meridien is changed, hour will be adjust.
-	*/
-	selectedChanged: function(inOld) {
-		this.inherited(arguments);
-		this.setValue(this.$.client.index);
-	}
 });
 
 enyo.kind({
 	name: "moon.HourPicker",
-	kind: "moon.IntegerPicker",
+	kind: "moon.IntegerScrollPicker",
+	classes:"moon-date-picker-month",	
 	min: 1,
 	max: 24,
-	value: new Date().getHours() - 1,
-	rangeChanged: function() {
-		this.$.client.destroyClientControls();	
-		for (var i = k = this.min; i <= this.max; i++, k++) {
-			this.createComponent({content:k.toString()});
-			if(i == 12) {	//current hour reached meridiem(noon) 
-				k = this.min - 1;
-			}
+	value: null,
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		if(index > 11) {	//current hour reached meridiem(noon) 
+			index -= 12;
 		}
-		this.setSelectedIndex(this.value);
-		this.reflow();
+		this.$.item.setContent(index + this.min);
 	},
-	valueChanged: function(inOld) {
-		//if hour is changed, adjust meridiem
-		this.setSelectedIndex(this.getSelectedIndex());
-	},
-
 });
 		
 enyo.kind({
@@ -88,17 +62,17 @@ enyo.kind({
 		*/
 		value: null,
 		/**
-			When meridiem is true, current time picker will display from 1 to 12 hour
+			When meridiemEnable is true, current time picker will display from 1 to 12 hour
 			with moon.MeridienPicker
 		*/
-		meridiem: false
+		meridiemEnable: false
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-date-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
 		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", classes: "enyo-tool-decorator", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+			{name: "client", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
 	],
@@ -108,7 +82,6 @@ enyo.kind({
 			this.locale = enyo.g11n.currentLocale().getLocale();
 		}
 		this.initDefaults();
-		this.noneTextChanged();
 	},
 	initDefaults: function() {
 		//Attempt to use the g11n lib (ie assume it is loaded)
@@ -118,9 +91,10 @@ enyo.kind({
 
 		this.value = this.value || new Date();
 		this.setupPickers(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
-		this.valueChanged();
-		//Initial state for meridiem is false
-		this.meridiem = this.meridiem || false;
+		//this.valueChanged();
+		this.noneTextChanged();
+		//Initial state for meridiemEnable is false
+		this.meridiemEnable = this.meridiemEnable || false;
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.split("");
@@ -129,20 +103,20 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'h': {
-					if (this.meridiem == true) {
-						this.createComponent({kind:"moon.HourPicker", name:"hour"});	
+					if (this.meridiemEnable == true) {
+						this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: this.value.getHours()});	
 					} else {
-						this.createComponent({kind:"moon.IntegerPicker", name:"hour", min:1,max:24});	
+						this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:1,max:24, value: this.value.getHours()});	
 					}					
 				}
 				break;
 				case 'm': {
-					this.createComponent({kind:"moon.IntegerPicker", name:"minute", min:0,max:59});
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, value: this.value.getMinutes()});
 				}
 				break;
 				case 'a': {
-					if (this.meridiem == true) {
-						this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year"});
+					if (this.meridiemEnable == true) {
+						this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
 					}
 				}
 				break;
@@ -158,7 +132,7 @@ enyo.kind({
 			o = orderingArr[f];
 			switch (o){
 				case 'h': {
-					if (this.meridiem == true && this.value.getHours() > 12) {
+					if (this.meridiemEnable == true && this.value.getHours() > 12) {
 						dateStr += this.value.getHours() - 12 + " ";	
 					} else {
 						dateStr += this.value.getHours() + " ";	
@@ -170,7 +144,7 @@ enyo.kind({
 				}
 				break;
 				case 'a': {
-					if (this.meridiem == true) {
+					if (this.meridiemEnable == true) {
 						dateStr += this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] + " ";	
 					}					
 				}
@@ -186,39 +160,40 @@ enyo.kind({
 			if (inEvent.originator == this) {
 				return
 			}
-			var hour = this.$.hour.getSelectedIndex();
+			var hour = this.$.hour.getValue();
 			var minute = this.$.minute.getValue();
 
 			if (inEvent.originator.kind == "moon.MeridiemPicker") {
-				if (hour < 11 && inEvent.originator.value == 1 ) {
+				if (hour < 12 && inEvent.originator.value == 1 ) {
 					hour += 12;
-				} else if ( hour > 11 && hour != 23 && inEvent.originator.value == 0) {
+				} else if ( hour > 12 && hour != 24 && inEvent.originator.value == 0) {
 					hour -= 12;	
-				} else if (hour == 23 && inEvent.originator.value == 1) {
+				} else if (hour == 24 && inEvent.originator.value == 1) {
 					hour -= 12;
-				} else if (hour == 11 && inEvent.originator.value == 0) {
+				} else if (hour == 12 && inEvent.originator.value == 0) {
 					hour += 12;
 				} 
-				this.$.hour.setSelectedIndex(hour);				
+				this.$.hour.setValue(hour);				
 			} 			
-			hour++;
 
 			this.setValue(new Date(this.value.getFullYear(),
 								this.value.getMonth(),
 								this.value.getDate(),
-								hour, minute,
-								this.value.getSeconds(),
-								this.value.getMilliseconds()));
+								hour, minute));
 		}
 		return true;
 	},
 	valueChanged: function(inOld) {
 		var hour = this.value.getHours();
-		this.$.hour.setValue(hour);	
-		this.$.minute.setValue(this.value.getMinutes());
-		if (this.meridiem == true) {
+		if (this.meridiemEnable == true) {
 			hour > 11 ? this.$.meridiem.setValue(1) : this.$.meridiem.setValue(0);	
 		}
+		if (!hour) {
+			hour = 24;
+		}
+		this.$.hour.setValue(hour);	
+		this.$.minute.setValue(this.value.getMinutes());
+
 		this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
 		this.doChange({name:this.name, value:this.value});		
 	},
@@ -234,6 +209,14 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
+		//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+		if (this.$.drawer.getOpen()) {
+			this.$.hour.render();			
+			this.$.minute.render();			
+			if (this.meridiemEnable == true) {
+				this.$.meridiem.render();
+			}
+		}
 	},
 	closePicker: function(inSender, inEvent) {
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
