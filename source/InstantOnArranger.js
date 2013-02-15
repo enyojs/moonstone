@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "InstantOnArranger",
+	name: "moon.InstantOnArranger",
 	kind: "enyo.CardArranger",
 	/* 	This is a temporary hack until BreadCrumbDecorator eliminates dependency on Arrangers for its hidden panels logic. 
 		TODO: Eliminate the dependency of BreadCrumbDecorator on Arranger having to set the hiding panels. 
