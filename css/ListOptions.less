@@ -1,0 +1,70 @@
+/* List Options */
+.moon-list-options-header {
+	font-size: @moon-header-text-size;
+	height: 180px;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	overflow:hidden;
+}
+
+.moon-list-options-title {
+	margin-bottom:-10px;
+}
+
+.moon-list-options-current-value {
+	font-family: @moon-sub-font-family;
+	font-size: @moon-sub-text-size;
+	margin:0px;
+	padding-bottom:5px;
+	height:26px;
+	white-space: nowrap;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.moon-list-options-client {
+	display:inline-block;
+	float:right;	
+}
+
+.moon-list-options-activator {
+	border-radius: @moon-button-border-radius;
+	line-height: @moon-button-line-height;
+	background-color: lightgray;
+	border: @moon-button-border-width solid transparent;	
+	float:right;
+	margin-top:-6px;
+	width:40px;
+	height:40px;
+	min-width:40px;
+}
+
+.moon-list-options-activator.spotlight {
+	background: @moon-spotlight-border-color;
+}
+	
+.moon-list-options-activator::after {
+	content:"\2630";
+	position:absolute;
+	font-size:25px;
+	margin-left:-11px;
+	margin-top:-23px;
+}
+
+.moon-list-options-scroller {
+	background-color:lightgray;
+	height:300px;
+}
+
+.moon-list-options-container {
+	float:right;
+}
+
+.moon-list-options-menu {
+	display:inline-block;
+	vertical-align:top;
+	width:250px;
+	padding-left:10px;
+	padding-right:10px;
+}

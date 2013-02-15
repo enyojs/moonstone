@@ -1148,3 +1148,64 @@
 .moon-input-decorator.moon-disabled .moon-textarea {
   cursor: default;
 }
+/* List Options */
+.moon-list-options-header {
+  font-size: 2.5em;
+  height: 180px;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  overflow: hidden;
+}
+.moon-list-options-title {
+  margin-bottom: -10px;
+}
+.moon-list-options-current-value {
+  font-family: "PreludeWGL Medium";
+  font-size: 20px;
+  margin: 0px;
+  padding-bottom: 5px;
+  height: 26px;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.moon-list-options-client {
+  display: inline-block;
+  float: right;
+}
+.moon-list-options-activator {
+  border-radius: 9999px;
+  line-height: 50px;
+  background-color: lightgray;
+  border: 4px solid transparent;
+  float: right;
+  margin-top: -6px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+}
+.moon-list-options-activator.spotlight {
+  background: #ffd200;
+}
+.moon-list-options-activator::after {
+  content: "\2630";
+  position: absolute;
+  font-size: 25px;
+  margin-left: -11px;
+  margin-top: -23px;
+}
+.moon-list-options-scroller {
+  background-color: lightgray;
+  height: 300px;
+}
+.moon-list-options-container {
+  float: right;
+}
+.moon-list-options-menu {
+  display: inline-block;
+  vertical-align: top;
+  width: 250px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
