@@ -55,11 +55,11 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.$panels = this.$.client.children[0];
-		if (this.$panels.arrangerKind === "moon.InstantOnArranger") {
-			this.addClass("instantOn");
-		} else {
+		if (this.$panels.arrangerKind === "moon.LeanForwardArranger") {
 			this.addClass("leanForward");
 			this._visibleCrumbs = 1;
+		} else {
+			this.addClass("instantOn");
 		}
 	},
 	/**
