@@ -33,11 +33,11 @@ enyo.kind({
 		onDisabledChange: "disabledChange",
 		onfocus: "receiveFocus",
 		onblur: "receiveBlur",
-		onSpotlightSelect: "spotSelect",
+/*		onSpotlightSelect: "spotSelect",
 		onSpotlightLeft: "spotLeft",
 		onSpotlightRight: "spotRight",
 		onSpotlightUp: "spotUp",
-		onSpotlightDown: "spotDown"
+		onSpotlightDown: "spotDown"*/
 	},
 	spotlight: true,
 	create:function() {
