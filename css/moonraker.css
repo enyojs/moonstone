@@ -295,16 +295,7 @@
   z-index: 2;
   margin-left: 50px;
 }
-.moon-breadcrumb-decorator.leanForward .moon-breadcrumb-decorator-client {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-}
-.moon-breadcrumb {
+.moon-breadcrumb-decorator.leanForward .moon-breadcrumb-wrapper .moon-breadcrumb {
   font-size: 42px;
   margin-top: 52px;
   height: auto;
@@ -316,6 +307,35 @@
   border-bottom: 1px solid #cdcdcd;
   margin-right: 40px;
   color: #4b4b4b;
+}
+.moon-breadcrumb-decorator.leanForward .moon-breadcrumb-decorator-client {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+.moon-breadcrumb-decorator.instantOn .moon-breadcrumb-wrapper {
+  height: 50px;
+  width: 50%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+  z-index: 2;
+  text-align: right;
+  margin-top: -10px;
+}
+.moon-breadcrumb-decorator.instantOn .moon-breadcrumb-wrapper .moon-breadcrumb {
+  font-size: 24px;
+  line-height: 24px;
+  color: #fff;
+  display: inline-block;
+  margin-right: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px;
 }
 .moon-button-caption-decorator {
   display: inline-block;
