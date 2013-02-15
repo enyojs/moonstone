@@ -7,6 +7,19 @@
 	overflow: hidden;
 	z-index: 2;
 	margin-left: 50px;
+	.moon-breadcrumb {
+		font-size: 42px;
+		margin-top: 52px;
+		height:auto;
+		padding: 10px 0px 50px 0px;
+		line-height: 42px;
+		height: 130px;
+		margin-bottom: 40px;
+		border-top: 2px solid #cdcdcd;
+		border-bottom: 1px solid #cdcdcd;
+		margin-right: 40px;
+		color: #4b4b4b;
+	}
 }
 .moon-breadcrumb-decorator.leanForward .moon-breadcrumb-decorator-client {
 	width: 100%;
@@ -17,16 +30,23 @@
 	left: 0;
 	z-index: 1;
 }
-.moon-breadcrumb {
-	font-size: 42px;
-	margin-top: 52px;
-	height:auto;
-	padding: 10px 0px 50px 0px;
-	line-height: 42px;
-	height: 130px;
-	margin-bottom: 40px;
-	border-top: 2px solid #cdcdcd;
-	border-bottom: 1px solid #cdcdcd;
-	margin-right: 40px;
-	color: #4b4b4b;
+.moon-breadcrumb-decorator.instantOn .moon-breadcrumb-wrapper {
+	height: 50px;
+	width: 50%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	overflow: hidden;
+	z-index: 2;
+	text-align: right;
+	margin-top: -10px;
+	.moon-breadcrumb {
+		font-size: 24px;
+		line-height: 24px;
+		color: #fff;
+		display: inline-block;
+		margin-right: 20px;
+		background:rgba(0,0,0,0.7);
+		padding: 5px;
+	}
 }
