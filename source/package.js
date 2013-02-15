@@ -32,7 +32,7 @@ enyo.depends(
 	"RichText.js",
 	"ContextualPopupDecorator.js",	
 	"ContextualPopup.js",
-	"InstantOnArranger.js",
+	"LeanForwardArranger.js",
 	"BreadcrumbDecorator.js",
 	"TextArea.js"
 );
