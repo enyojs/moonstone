@@ -159,11 +159,12 @@ enyo.kind({
 		this.$panels.setIndex(inIndex);
 	},
 	showHideCrumbs: function() {
-		if (this._visibleCrumbs <= 0)
-			return;
 		var bc = this.getBreadcrumbs();
-		for (var i=0; i < bc.length ; i++) {
-			bc[i].setShowing(i >= bc.length - this._visibleCrumbs);
-		}
-	}
+		this.$.breadcrumbWrapper.setShowing(bc.length > 0);
+ 		if (this._visibleCrumbs <= 0)
+ 			return;
+ 		for (var i=0; i < bc.length ; i++) {
+ 			bc[i].setShowing(i >= bc.length - this._visibleCrumbs);
+ 		}
+ 	}
 });
