@@ -56,7 +56,7 @@ enyo.kind({
 				]
 			}
 		},
-		{name: "list", kind: "moon.List", style:"border: 1px solid blue;", spotlight: true, orient:"v", count: 2000, multiSelect: false, fit:true, classes: "list-vertical-controls-sample-list moon-list-vertical-sample",
+		{name: "list", kind: "moon.List", style:"border: 1px solid blue;margin-top:5px;", spotlight: true, orient:"v", count: 2000, multiSelect: false, fit:true, classes: "list-vertical-controls-sample-list moon-list-vertical-sample",
 			onSetupItem: "setupItem", components: [
 			{name: "item", classes: "list-vertical-sample-item enyo-border-box", components: [
 				{name: "index", classes: "list-sample-index"},

@@ -2,8 +2,7 @@
 	_moon.ListOptions is a drop down menu that presents potentially multiple menu lists to a user.
 */
 		//TODO: handle stacked situation onSpotlightDown
-		//TODO: figure out what's up with stacked drawer open/focus behavior
-		//TODO: integrate with current moon.Header		
+		//TODO: figure out what's up with stacked drawer open/focus behavior	
 		//TODO: any other unusual focus issues				
 enyo.kind({
 	name: "moon.ListOptions",
@@ -25,8 +24,7 @@ enyo.kind({
 	},
 	selectedOptions: [], //keeps track of the control ids & values that are selected in the list of options
 	components:[
-	 	{/*kind:"moon.Header",*/classes:"moon-list-options-header", components: [
-			{name:"title", classes:"moon-list-options-title"},
+	 	{kind:"moon.Header", components: [
 			{name:"currentValue", kind: "moon.Item", spotlight: false, content:"", classes:"moon-list-options-current-value"},
 			{components:[
 				{kind:"enyo.Button", classes:"moon-list-options-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
@@ -47,7 +45,7 @@ enyo.kind({
 	},
 	//* Facade for header content
 	contentChanged: function() {
-		this.$.title.setContent(this.getContent());
+		this.$.header.setTitle(this.getContent());
 	},
 	listOptionsChanged: function() {
 		for (option in this.listOptions) {

@@ -1,13 +1,12 @@
 enyo.kind({
 	name: "moon.Header",
 	classes: "moon-header",
-	layoutKind: "enyo.FittableColumnsLayout",
 	published: {
         //* Sets the title for the header
         title: ''
     },
     components: [
-		{name: "title", classes: "moon-header-title", fit: true}
+		{name: "title", classes: "moon-header-title"}
 	],
 	create: function() {
 		this.inherited(arguments);
