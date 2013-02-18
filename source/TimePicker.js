@@ -178,7 +178,9 @@ enyo.kind({
 			this.setValue(new Date(this.value.getFullYear(),
 								this.value.getMonth(),
 								this.value.getDate(),
-								hour, minute));
+								hour, minute,
+								this.value.getSeconds(),
+								this.value.getMilliseconds()));
 		}
 		return true;
 	},
