@@ -1,21 +1,22 @@
 enyo.kind({
 	name: "moon.sample.GridListSample",
-	classes: "moon moon-sample",
+	classes: "moon moon-sample enyo-fit",
 	kind: "FittableRows",
 	components: [
-		{kind: "enyo.Spotlight"}, 
+		{kind: "enyo.Spotlight"},
 		{classes: "moon-subheader", content: "MoonRaker GridList Sample"},
 		{
-			name: "gridlist", 
+			name: "gridlist",
 			kind: "moon.GridList",
-			onSetupItem: "setupItem", 
-			toggleSelected: true, 
+			onSetupItem: "setupItem",
+			toggleSelected: true,
 			components: [
-	            {name: "item", kind: "moon.GridList.ImageItem"}
-	        ]
-	    }
+				{name: "item", kind: "moon.GridList.ImageItem"}
+			],
+			fit:true
+		}
 	],
-	url: "http://odata.netflix.com/Catalog", 
+	url: "http://odata.netflix.com/Catalog",
 	api_key: "n7565824mb3yuv2hrgpdhvff",
 	create: function() {
 		this.inherited(arguments);
@@ -31,24 +32,24 @@ enyo.kind({
 		}
 		this.searchText = inSearchText || this.searchText;
 		// Build OData query
-        var query = this.url + "/Titles?$filter=substringof('" + escape(this.searchText) + "',Name)"  // filter by movie name
-            + "&$format=json"; // json request
-        var params = { 
+        var query = this.url + "/Titles?$filter=substringof('" + escape(this.searchText) + "',Name)" +  // filter by movie name
+            "&$format=json"; // json request
+        var params = {
 			oauth_consumer_key: this.api_key
-		}; 
+		};
 		return new enyo.JsonpRequest({url: query, callbackName: "$callback"}) .response(this, "processResponse") .go(params);
 	},
 	processResponse: function(inSender, inResponse) {
 		this.results = [];
 		var movies = inResponse ? inResponse["d"]["results"] || [] : [];
-		if (movies.length == 0) 
+		if (movies.length == 0)
 			return [];
 		var results = [];
 		for (var i = 0; i < movies.length; i++) {
-    		this.results.push(movies[i]);
+			this.results.push(movies[i]);
         }
 		this.$.gridlist.show(this.results.length);
-    	return results;
+		return results;
 	},
 	_error_missing_api_key: function () {
 		console.error("Missing API key. Your Netflix API key is required to use this component.");
