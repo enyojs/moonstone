@@ -22,12 +22,23 @@ enyo.kind({
 			{kind: "moon.Button", content:"-", ontap:"decValue"},
 			{kind: "moon.Button", content:"+", ontap:"incValue"},
 			{tag: "br"},
-			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", style: "width:260px;"},
-			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by 5", style: "width:260px;", onActivate: "incrementActivate"},
+			{style: "width:340px;", components: [
+				{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"}
+			]},
+			{kind: "FittableColumns", components: [
+				{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by number", style: "width:340px; display:inline-block;", onActivate: "changeIncrement"},
+				{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
+			]},
 			{tag: "br"},
 			{name:"result", style:"font-size:20px;font-family:PreludeWGL Light", content:"No slider moved yet."}
 		]}
 	],
+	//* @protected
+	create: function() {
+		this.inherited(arguments);
+		//* FIXME : intial 'value' in moon.IntegerPicker is not applied
+		this.$.intPicker.setValue(5);
+	},
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
@@ -53,20 +64,27 @@ enyo.kind({
 	sliderChanged: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + Math.round(inSender.getValue()) + ".");
 	},
-	incrementActivate: function(inSender, inEvent) {
-		var sc = inSender.getChecked();
+	animateActivate: function(inSender, inEvent) {
+		var ck = inSender.getChecked();
 
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
-				if (sc) {
-					this.$[i].setIncrement(5);
-				}
-				else {
-					this.$[i].setIncrement(0);
-				}
+				this.$[i].setAnimate(ck);
 			}
 		}
+		return true;
+	},
+	changeIncrement: function(inSender, inEvent) {
+		var v = this.$.intPicker.getValue();
+		if (!this.$.incrementSetting.getChecked()) {
+			v = 0;
+		}
 
+		for (var i in this.$) {
+			if (this.$[i].kind == "moon.Slider") {
+				this.$[i].setIncrement(v);
+			}
+		}
 		return true;
 	}
 });

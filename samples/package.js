@@ -32,5 +32,7 @@ enyo.depends(
 	"InputSample.css",
 	"SliderSample.js",
 	"ContextualPopupSample.js",
-	"ContextualPopupSample.css"
+	"ContextualPopupSample.css",
+	"ListOptionsSample.js",
+	"ListOptionsSample.css"	
 );

@@ -49,11 +49,18 @@ enyo.kind({
 	$panels: null,
 	//* Previous panels index
 	previousIndex: -1,
+	//* Number of crumbs to show (defaults to -1, which means unlimited)
+	_visibleCrumbs: -1,
 	//* During creation, add styling based on the arranger kind of the _Panels_ instance that this decorator wraps.
 	create: function() {
 		this.inherited(arguments);
 		this.$panels = this.$.client.children[0];
-		this.addClass(this.$panels.arrangerKind === "moon.InstantOnArranger" ? "instantOn" : "leanForward");
+		if (this.$panels.arrangerKind === "moon.LeanForwardArranger") {
+			this.addClass("leanForward");
+			this._visibleCrumbs = 1;
+		} else {
+			this.addClass("instantOn");
+		}
 	},
 	/**
 		When the panel index changes, update the breadcrumb appropriately. If a new breadcrumb is created,
@@ -93,6 +100,7 @@ enyo.kind({
 				this.createBreadcrumb(i);
 			}
 		}
+		this.showHideCrumbs();
 	},
 	//* Panels is moving backward - we will be removing breadcrumbs
 	panelsBackward: function(inIndex) {
@@ -110,6 +118,7 @@ enyo.kind({
 		}
 		
 		this.$.breadcrumbWrapper.render();
+		this.showHideCrumbs();
 	},
 	//* Provide reference to all breadcrumbs
 	getBreadcrumbs: function() {
@@ -129,6 +138,7 @@ enyo.kind({
 		// Allow _this.owner_ to customize breadcrumb via _onSetupBreadcrumb_ event
 		this.doSetupBreadcrumb({breadcrumb: bc});
 		bc.render();
+		//this.showHideCrumbs();
 	},
 	//* Destroy all existing breadcrumbs
 	destroyBreadcrumbs: function() {
@@ -147,5 +157,14 @@ enyo.kind({
 			this.panelIndexChanged(null, null, nextHiddenIndex);
 		}
 		this.$panels.setIndex(inIndex);
-	}
+	},
+	showHideCrumbs: function() {
+		var bc = this.getBreadcrumbs();
+		this.$.breadcrumbWrapper.setShowing(bc.length > 0);
+ 		if (this._visibleCrumbs <= 0)
+ 			return;
+ 		for (var i=0; i < bc.length ; i++) {
+ 			bc[i].setShowing(i >= bc.length - this._visibleCrumbs);
+ 		}
+ 	}
 });

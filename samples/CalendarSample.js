@@ -22,7 +22,7 @@ enyo.kind({
 			{content: 'es_us'}																																																								
 		]},	*/
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Calendar", content: "Calendar", meridiem: true, classes: "moon-date-picker-wrapper"},		
+		{kind: "moon.Calendar", content: "Calendar", classes: "moon-date-picker-wrapper"},		
 		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
 	],
 /*	changed: function(inSender, inEvent) {
