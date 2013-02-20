@@ -123,35 +123,24 @@ enyo.kind({
 			}
 		}
 	},
-	parseTime: function(ordering) {
-		var orderingArr = ordering.split(""),
-			dateStr = "";
-		var o,f,l;
-		for(f = 0, l = orderingArr.length; f < l; f++) {
-			o = orderingArr[f];
-			switch (o){
-				case 'h': {
-					if (this.meridiemEnable == true && this.value.getHours() > 12) {
-						dateStr += this.value.getHours() - 12 + " ";	
-					} else {
-						dateStr += this.value.getHours() + " ";	
-					}
-				}
-				break;
-				case 'm': {
-					dateStr += this.value.getMinutes() + " ";
-				}
-				break;
-				case 'a': {
-					if (this.meridiemEnable == true) {
-						dateStr += this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] + " ";	
-					}					
-				}
-				break;
-				default: break;
+	parseTime: function() {		
+		if (this._tf) {
+			var df = new enyo.g11n.DateFmt({
+				time: "short",
+				locale: new enyo.g11n.Locale(this.locale)
+			})
+			return df.format(this.value);			
+		} else {
+			var dateStr = "";
+			if (this.meridiemEnable == true && this.value.getHours() > 12) {
+				dateStr += this.value.getHours() - 12;
+			} else {
+				dateStr += this.value.getHours();
 			}
+			dateStr += ":" + this.value.getMinutes() + " ";
+			dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : "";
+			return dateStr;
 		}
-		return dateStr;
 	},
 	updateTime: function(inSender, inEvent) {
 		if (inEvent) {
@@ -195,7 +184,7 @@ enyo.kind({
 		this.$.hour.setValue(hour);	
 		this.$.minute.setValue(this.value.getMinutes());
 
-		this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
+		this.$.currentValue.setContent(this.parseTime());
 		this.doChange({name:this.name, value:this.value});		
 	},
 	//* If no selected item, use _this.noneText_ for current value
@@ -203,7 +192,7 @@ enyo.kind({
 		if(this.value == null) {
 			this.$.currentValue.setContent(this.getNoneText());
 		} else { 
-			this.$.currentValue.setContent(this.parseTime(this._tf ? this._tf.getTimeFieldOrder() : 'hma'));
+			this.$.currentValue.setContent(this.parseTime());
 		}
 	},
 	//* When _this.open_ changes, show/hide _this.$.currentValue_
