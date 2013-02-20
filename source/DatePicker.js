@@ -84,29 +84,16 @@ enyo.kind({
 			}
 		}
 	},
-	parseDate: function(ordering) {
-		var orderingArr = ordering.split(""),
-			dateStr = "";
-		var o,f,l;
-		for(f = 0, l = orderingArr.length; f < l; f++) {
-			o = orderingArr[f];
-			switch (o){
-				case 'd': {
-					dateStr += this.value.getDate() + " ";
-				}
-				break;
-				case 'm': {
-					dateStr += this.getAbbrMonths()[this.value.getMonth()] + " ";
-				}
-				break;
-				case 'y': {
-					dateStr += this.value.getFullYear() + " ";
-				}
-				break;
-				default: break;
-			}
+	parseDate: function() {
+		if (this._tf) {
+			var df = new enyo.g11n.DateFmt({
+				date: 'medium',
+				locale: new enyo.g11n.Locale(this.locale)
+			})
+			return df.format(this.value);			
+		} else {
+			return this.getAbbrMonths()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
-		return dateStr;
 	},
 	updateDate: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -133,7 +120,7 @@ enyo.kind({
 		}
 		this.$.day.setValue(this.value.getDate());
 				
-		this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getDateFieldOrder() : 'mdy'));
+		this.$.currentValue.setContent(this.parseDate());
 		this.doChange({name:this.name, value:this.value});		
 	},
 	//* If no selected item, use _this.noneText_ for current value
@@ -141,7 +128,7 @@ enyo.kind({
 		if(this.value == null) {
 			this.$.currentValue.setContent(this.getNoneText());
 		} else { 
-			this.$.currentValue.setContent(this.parseDate(this._tf ? this._tf.getDateFieldOrder() : 'mdy'));
+			this.$.currentValue.setContent(this.parseDate());
 		}
 	},
 	//* When _this.open_ changes, show/hide _this.$.currentValue_
