@@ -54,7 +54,9 @@ enyo.kind({
 	
 	// Focus left one of the panels
 	onSpotlightPanelLeave: function(oSender, oEvent) {
-		if (enyo.Spotlight.getPointerMode()) { return true; }
+		if (oEvent.originator != this.getActive()) 	{ return false; }
+		if (enyo.Spotlight.getPointerMode()) 		{ return true; }
+		
 		var sEvent,
 			nIndex = this.getIndex();
 		
