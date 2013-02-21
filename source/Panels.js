@@ -17,14 +17,13 @@ enyo.kind({
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
 		ontap						: 'onTap',
 	},
-	events: {
-		onIndexChange: '',
-		onIndexChanged: ''
-	},
 
 	/************ PROTECTED **********/
 	
-	_bHasFocus: false,
+	// Was last spotted control the panels's child?
+	_hadFocus: function() {
+		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
+	},
 	
 	/************ PUBLIC *************/
 	
@@ -47,6 +46,7 @@ enyo.kind({
 		return false; //
 	},
 	
+	// Focus left one of the panels
 	onSpotlightPanelLeave: function(oSender, oEvent) {
 		if (enyo.Spotlight.getPointerMode()) { return true; }
 		var sEvent,
@@ -54,19 +54,15 @@ enyo.kind({
 		
 		switch (oEvent.direction) {
 			case 'LEFT':
-				this.doIndexChange({index: nIndex - 1});
 				if (nIndex > 0) {
 					this.setIndex(nIndex - 1);
-					this._bHasFocus = false;
 					return true;
 				}
 				sEvent = 'onSpotlightLeft';
 				break;
 			case 'RIGHT':
-				this.doIndexChange({index: nIndex + 1});
 				if (nIndex < this.getPanels().length - 1) {
 					this.setIndex(nIndex + 1);
-					this._bHasFocus = false;
 					return true;
 				}
 				sEvent = 'onSpotlightRight';
@@ -81,7 +77,6 @@ enyo.kind({
 		}
 		
 		if (typeof oEvent.direction != 'undefined') {
-			this._bHasFocus = false;
 			enyo.Spotlight.Util.dispatchEvent('onSpotlightBlur', null, enyo.Spotlight.getCurrent());
 			enyo.Spotlight.setCurrent(this.parent)
 			enyo.Spotlight.Util.dispatchEvent(sEvent, null, this.parent);
@@ -93,11 +88,11 @@ enyo.kind({
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 		
-		if (this._bHasFocus) {														// Focus came from within
-			this._bHasFocus = false;
-		} else {																	// Focus came from without
-			enyo.Spotlight.spot(this.getCurrentPanel());
-			this._bHasFocus = true;
+		if (!this._hadFocus()) {									// Focus came from without
+			// console.log('PANELS FOCUS ENTER');
+			enyo.Spotlight.spot(this.getActive());
+		} else {
+			// console.log('PANELS FOCUS LEAVE');
 		}
 		
 		return false;
@@ -126,15 +121,9 @@ enyo.kind({
 		return -1;
 	},
 	
-	getCurrentPanel: function() {
-		return this.getPanels()[this.getIndex()];
-	},
-	
 	setIndex: function(n) {
-//		enyo.Spotlight.Decorator.Container.setFocus(this.getPanels()[this.getIndex()], false);
 		this.inherited(arguments);
 		this.getActive().spotlight = 'container';
 		enyo.Spotlight.spot(this.getActive());
-		this.doIndexChanged({index: this.getIndex()});
 	}
 });
