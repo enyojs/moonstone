@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.sample.InputSample",
 	classes: "moon moon-sample moon-input-sample",
-	kind: "FittableRows",
+	kind: "Scroller",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{classes: "moon-input-sample-wrapper", components: [
@@ -42,7 +42,7 @@ enyo.kind({
 				{kind: "moon.TextArea", disabled: true, placeholder: "Disabled input", onchange:"inputChanged"}
 			]},			
 			{classes: "moon-list-divider", content: "Result"},
-			{name: "console", classes: "moon-input-sample-console"}
+			{name: "console", classes: "moon-input-sample-console", content: "Input: "}
 		]}
 	],
 	inputChanged: function(inSender, inEvent) {
