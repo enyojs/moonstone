@@ -25,6 +25,11 @@ enyo.kind({
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
 	},
 	
+	_focusLeave: function(s5WayEventType) {
+		// console.log('PANELS LEAVE');
+		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
+	},
+	
 	/************ PUBLIC *************/
 	
 	create: function(oSender, oEvent) {
@@ -46,6 +51,7 @@ enyo.kind({
 		return false; //
 	},
 	
+	
 	// Focus left one of the panels
 	onSpotlightPanelLeave: function(oSender, oEvent) {
 		if (enyo.Spotlight.getPointerMode()) { return true; }
@@ -58,28 +64,22 @@ enyo.kind({
 					this.setIndex(nIndex - 1);
 					return true;
 				}
-				sEvent = 'onSpotlightLeft';
+				this._focusLeave('onSpotlightLeft');
 				break;
 			case 'RIGHT':
 				if (nIndex < this.getPanels().length - 1) {
 					this.setIndex(nIndex + 1);
 					return true;
 				}
-				sEvent = 'onSpotlightRight';
+				this._focusLeave('onSpotlightRight');
 				break;
 			case 'UP':
-				sEvent = 'onSpotlightUp';
+				this._focusLeave('onSpotlightUp');
 				break;
 			case 'DOWN':
-				sEvent = 'onSpotlightDown';
+				this._focusLeave('onSpotlightDown');
 				break;
 			
-		}
-		
-		if (typeof oEvent.direction != 'undefined') {
-			enyo.Spotlight.Util.dispatchEvent('onSpotlightBlur', null, enyo.Spotlight.getCurrent());
-			enyo.Spotlight.setCurrent(this.parent)
-			enyo.Spotlight.Util.dispatchEvent(sEvent, null, this.parent);
 		}
 		return true;
 	},
