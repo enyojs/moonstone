@@ -36,5 +36,6 @@ enyo.depends(
 	"BreadcrumbDecorator.js",
 	"TextArea.js",
 	"ListOptions.js",
-	"Divider.js"
+	"Divider.js",
+	"LabeledTextItem.js"
 );
