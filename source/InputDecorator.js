@@ -48,7 +48,8 @@ enyo.kind({
 		this.focused = focus;
 		this.addRemoveClass("moon-focused", this.alwaysLooksFocused || this.focused);
 	},
-	receiveFocus: function() {
+	receiveFocus: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this);
 		this.updateFocus(true);
 	},
 	receiveBlur: function() {
@@ -61,7 +62,7 @@ enyo.kind({
 		var c = inSender.children[0];
 		if (c) {
 			if (!c.hasFocus()) {
-				c.focus();	
+				c.focus();
 				if (c.kind == "moon.RichText") {
 					c.moveCursorToEnd();
 				}
@@ -74,28 +75,28 @@ enyo.kind({
 		var c = inSender.children[0];
 		if (c && c.hasFocus() && c.left) {
 			return c.left(inEvent);
-		}		
+		}
 		return false;
 	},
 	spotRight: function(inSender, inEvent) {
 		var c = inSender.children[0];
 		if (c && c.hasFocus() && c.right) {
 			return c.right(inEvent);
-		}		
+		}
 		return false;
 	},
 	spotUp: function(inSender, inEvent) {
 		var c = inSender.children[0];
 		if (c && c.hasFocus() && c.up) {
 			return c.up(inEvent);
-		}		
+		}
 		return false;
 	},
 	spotDown: function(inSender, inEvent) {
 		var c = inSender.children[0];
 		if (c && c.hasFocus() && c.down) {
 			return c.down(inEvent);
-		}		
+		}
 		return false;
 	}
 });
