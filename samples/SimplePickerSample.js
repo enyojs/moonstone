@@ -41,16 +41,16 @@ enyo.kind({
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.index + ")");
 	},
 	changeItem: function(inSender, inEvent) {
-		var picker = this.$["picker" + this.$.which.getSelectedIndex()];
+		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.setSelectedIndex(parseInt(this.$.input.getValue(),10));
 	},
 	addItem: function(inSender, inEvent) {
-		var picker = this.$["picker" + this.$.which.getSelectedIndex()];
+		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.createComponent({content:this.$.input.getValue()}).render();
 		picker.reflow();
 	},
 	destroyItem: function(inSender, inEvent) {
-		var picker = this.$["picker" + this.$.which.getSelectedIndex()];
+		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.getSelected().destroy();
 		picker.reflow();
 	}
