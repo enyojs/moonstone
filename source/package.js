@@ -35,5 +35,6 @@ enyo.depends(
 	"InstantOnArranger.js",
 	"BreadcrumbDecorator.js",
 	"TextArea.js",
-	"ListOptions.js"
+	"ListOptions.js",
+	"Divider.js"
 );
