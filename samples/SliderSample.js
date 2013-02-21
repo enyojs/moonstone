@@ -9,7 +9,10 @@ enyo.kind({
 		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{classes:"moon-sample-divider", content:"Slider 2: not locked bar"},
-		{kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{style: "width:340px;", components: [
+			{name:"lockBar", kind: "moon.LabeledToggleButton", checked: false, content: "lock bar", onchange: "lockbarChanged"}
+		]},
+		{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{classes:"moon-sample-divider", content:"Slider 3: Disabled"},
 		{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
@@ -63,6 +66,9 @@ enyo.kind({
 	},
 	sliderChanged: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + Math.round(inSender.getValue()) + ".");
+	},
+	lockbarChanged: function(inSender, inEvent) {
+		this.$.slider2.setLockBar(this.$.lockBar.getChecked());
 	},
 	animateActivate: function(inSender, inEvent) {
 		var ck = inSender.getChecked();
