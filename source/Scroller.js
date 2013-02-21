@@ -33,11 +33,11 @@ enyo.kind({
 	},
 	//* @protected
 	handlers: {
-		onSpotlightFocused: "spotFocused",
-		onRequestScrollIntoView: "requestScrollIntoView",
-		onleave: "leave",
-		onmousemove: "mousemove",
-		onPaginate: "paginate"
+		onSpotlightFocused		: "spotFocused",
+		onRequestScrollIntoView	: "requestScrollIntoView",
+		onleave					: "leave",
+		onmousemove				: "mousemove",
+		onPaginate				: "paginate"
 	},
 	touch: true,
 	
@@ -47,10 +47,10 @@ enyo.kind({
 	
 	//* Pagination buttons
 	pageControls: [
-		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left"},
-		{name: "pageRightControl", kind: "moon.PagingControl", side: "right"},
-		{name: "pageUpControl", kind: "moon.PagingControl", side: "top"},
-		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom"}
+		{name: "pageLeftControl", 	kind: "moon.PagingControl", side: "left"},
+		{name: "pageRightControl", 	kind: "moon.PagingControl", side: "right"},
+		{name: "pageUpControl", 	kind: "moon.PagingControl", side: "top"},
+		{name: "pageDownControl",	kind: "moon.PagingControl", side: "bottom"}
 	],
 	//* If true, the pointer is currently hovering over this control
 	hovering: false,
@@ -100,10 +100,8 @@ enyo.kind({
 	//* Show/hide pagination controls as appropriate
 	showHidePageControls: function() {
 		if (
-			// If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
-			(!enyo.Spotlight.getPointerMode() && this.getHidePagingOnKey()) ||
-			// If not hovering and set to hide on leave, hide pagination controls.
-			(this.getHidePagingOnLeave() && !this.hovering)
+			(!enyo.Spotlight.getPointerMode() && this.getHidePagingOnKey()) ||		// If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
+			(this.getHidePagingOnLeave() && !this.hovering)							// If not hovering and set to hide on leave, hide pagination controls.
 		   ) {
 			this.hidePageControls();
 			return;
@@ -130,6 +128,7 @@ enyo.kind({
 			this.$.pageDownControl.hide();
 		}
 	},
+	
 	//* Position each of the four pagination controls
 	positionPageControls: function() {
 		this.positionPageControl(this.$.pageLeftControl);
@@ -137,6 +136,7 @@ enyo.kind({
 		this.positionPageControl(this.$.pageUpControl);
 		this.positionPageControl(this.$.pageDownControl);
 	},
+	
 	//* Position _inControl_ based on it's _side_ value (top, right, bottom, or left)
 	positionPageControl: function(inControl) {
 		var sb = this.scrollBounds,
@@ -155,6 +155,7 @@ enyo.kind({
 		
 		inControl.applyStyle(attribute,position+"px");
 	},
+	
 	//* Hide pagination controls
 	hidePageControls: function() {
 		this.$.pageLeftControl.hide();
@@ -162,22 +163,14 @@ enyo.kind({
 		this.$.pageUpControl.hide();
 		this.$.pageDownControl.hide();
 	},
+	
 	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
 	// TODO - come back to this...
 	updateScrollBounds: function() {
 		this.scrollBounds = this.$.strategy._getScrollBounds();
 	},
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/*************** Begin moon.Scroller unique code ***************/
 	
 	//* Handle paginate event sent from PagingControl buttons
@@ -200,6 +193,7 @@ enyo.kind({
 				break;
 		}
 	},
+	
 	//* If a child component bubbles an onSpotlightFocused event, scroll it into view (if not already)
 	spotFocused: function(inSender, inEvent) {
 		if (inEvent.originator === this) {
@@ -211,12 +205,14 @@ enyo.kind({
 			this.animateToControl(inEvent.originator);
 		}
 	},
+	
 	//* Respond to child component requests to be scrolled into view
 	requestScrollIntoView: function(inSender, inEvent) {
 		this.updateScrollBounds();
 		this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
 		return true;
 	},
+	
 	/**
 		Scroll until _inControl_ is in view. If _inScrollFullPage_ is set, scroll until _inControl_'s
 		edge is aligned with visible scroll area's edge.
@@ -239,12 +235,21 @@ enyo.kind({
 		
 		// 0: currently visible, 1: right of viewport, -1: left of viewport
 		xDir = (offsetLeft >= scrollBounds.left && offsetLeft + offsetWidth <= scrollBounds.left + scrollBounds.clientWidth)
-			?	0
-			:	offsetLeft - scrollBounds.left > 0 ? 1 : offsetLeft - scrollBounds.left < 0 ? -1 : 0;
+			? 0
+			: offsetLeft - scrollBounds.left > 0 
+				? 1 
+				: offsetLeft - scrollBounds.left < 0 
+					? -1 
+					: 0;
+					
 		// 0: currently visible, 1: below viewport, -1: above viewport
 		yDir = (offsetTop >= scrollBounds.top && offsetTop + offsetHeight <= scrollBounds.top + scrollBounds.clientHeight)
-			?	0
-			:	offsetTop - scrollBounds.top > 0 ? 1 : offsetTop - scrollBounds.top < 0 ? -1 : 0;
+			? 0
+			: offsetTop - scrollBounds.top > 0 
+				? 1 
+				: offsetTop - scrollBounds.top < 0 
+					? -1 
+					: 0;
 		
 		switch (xDir) {
 			case 0:
