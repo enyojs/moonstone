@@ -904,7 +904,7 @@
 /* InputDecorator.css */
 .moon-input-decorator {
   padding: 4px 16px 8px 16px;
-  border-radius: 9999px;
+  border-radius: 32px;
   border: 6px solid transparent;
   background-color: white;
   margin: 0px;
