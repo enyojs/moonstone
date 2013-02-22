@@ -15,7 +15,7 @@ enyo.kind({
 		{name: "disabledButton", kind: "moon.RadioButtonGroup", disabled: true, onActivate: "buttonActivated", components: [
 			{content: "Whale", disabled: true},
 			{content: "Shark"},
-			{content: "Dolhpin"}
+			{content: "Dolphin"}
 		]},
 		{name: "result", classes: "moon-sample-result", content: "result"}
 	],
