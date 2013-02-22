@@ -1,11 +1,17 @@
 /* Radio Button */
 .moon-radio-button {
 	border-radius: 0px;
-	line-height: 100%;
+	line-height: 25px;
+	text-align: left;
 }
 
-.moon-radio-button.active.spotlight {
+.moon-radio-button.active,
+.moon-radio-button.pressed,
+.moon-radio-button:active,
+.moon-radio-button.spotlight,
+.moon-radio-button.spotlight.pressed,
+.moon-radio-button.spotlight:active,
+.moon-radio-button.active.spotlight
+{
 	border:none;
-	padding-left: 20px;
-	border-left: 24px solid #ffd200;
 }
