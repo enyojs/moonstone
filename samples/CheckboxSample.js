@@ -9,17 +9,17 @@ enyo.kind({
 			components: [
 			{classes: "checkbox-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Labeled Checkboxes"},
-				{kind: "moon.LabeledCheckbox", content: "Option 1"},
+				{kind: "moon.LabeledCheckbox", content: "Option 1", checked: true},
 				{kind: "moon.LabeledCheckbox", content: "Option 2"},
 				{kind: "moon.LabeledCheckbox", disabled: true, content: "Disabled"},
-				{kind: "moon.LabeledCheckbox", content: "Option 4"},
+				{kind: "moon.LabeledCheckbox", content: "Option 4", checked: true},
 				{kind: "moon.LabeledCheckbox", content: "This is a verrry long option 5"}
 			]},
 			{classes: "checkbox-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Labeled Checkbox Group"},
 				{kind: "Group", components: [
 					{kind: "moon.LabeledCheckbox", content: "Option 1"},
-					{kind: "moon.LabeledCheckbox", content: "Option 2"},
+					{kind: "moon.LabeledCheckbox", content: "Option 2", checked: true},
 					{kind: "moon.LabeledCheckbox", disabled: true, content: "Disabled"},
 					{kind: "moon.LabeledCheckbox", content: "Option 4"},
 					{kind: "moon.LabeledCheckbox", content: "Option 5"}
