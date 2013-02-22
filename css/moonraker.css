@@ -243,16 +243,14 @@
   border-left-style: solid;
   padding-left: 0px;
   padding-right: 24px;
-  margin: 30px 0px;
-  overflow: hidden;
-  line-height: 30px;
-}
-.moon-item.spotlight {
-  border-left-width: 24px;
-  border-left-color: #ffd200;
-  border-left-style: solid;
-  padding-left: 8px;
-  padding-right: 0px;
+  font-family: "Miso";
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 24px;
+  color: #4b4b4b;
+  margin: 0px 0px 33px 0px;
+  padding: 2px 0px 0px 0px;
+  text-transform: uppercase;
 }
 .moon-item.disabled {
   cursor: default;
@@ -260,8 +258,8 @@
   filter: alpha(opacity=40);
 }
 .moon-item.spotlight {
-  padding-left: 20px;
-  border-left: 24px solid #ffd200;
+  padding-left: 4px;
+  border-left: 16px solid #ffd200;
 }
 /* Button */
 .moon-button {
