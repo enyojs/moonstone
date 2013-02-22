@@ -396,9 +396,40 @@
 }
 /* Radio Button */
 .moon-radio-button {
+  border-radius: 0px;
+  line-height: 100%;
+}
+.moon-radio-button.active.spotlight {
+  border: none;
+  padding-left: 20px;
+  border-left: 24px solid #ffd200;
+}
+/* Radio Button */
+.moon-radio-button-group {
   position: relative;
   margin: 0px;
   padding: 0px;
+}
+.moon-radio-button-group .moon-button {
+  display: inline-block;
+  font-size: 16px;
+  border-width: 0px;
+  background-color: transparent;
+  letter-spacing: normal;
+  margin: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 28px;
+  cursor: pointer;
+  padding: 0px 10px;
+}
+.moon-radio-button-group .moon-button.spotlight {
+  transition: border-width 0.1s linear, padding 0.1s linear;
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
+  -o-transition: border-width 0.1s linear, padding 0.1s linear;
+  padding-left: 20px;
+  border-left: 24px solid #ffd200;
 }
 .moon-button-bar {
   position: absolute;
@@ -406,7 +437,7 @@
   left: 0px;
   height: 1px;
   width: 0px;
-  background-color: orange;
+  background-color: #ffd200;
 }
 /* ExpandableListItem.css */
 .moon-expandable-list-item {
