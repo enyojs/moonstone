@@ -1281,7 +1281,7 @@
   text-transform: none;
   margin: 0px;
   padding: 0px;
-=======
+}
 /* Spinner.css */
 .moon-spinner {
   width: 265px;
@@ -1291,7 +1291,6 @@
 }
 .moon-spinner.moon-light {
   background: url(./../images/spinner-large-light.gif) no-repeat 0 0;
->>>>>>> Implement moon.Spinner
 }
 .moon-imageitem {
   display: block;
