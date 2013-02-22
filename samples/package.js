@@ -41,5 +41,7 @@ enyo.depends(
 	"LabeledTextItemSample.css",
 	"ImageItemSample.js",
 	"ImageItemSample.css",
-	"SpinnerSample.js"
+	"SpinnerSample.js",
+	"ItemSample.css",
+	"ItemSample.js"
 );

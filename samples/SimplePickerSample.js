@@ -4,14 +4,14 @@ enyo.kind({
 	classes:"moon moon-sample-padded enyo-unselectable",
 	components:[
 		{kind:"enyo.Spotlight"},
-		{classes:"moon-sample-divider", content:"Picker 1: Animated"},
+		{kind: "moon.Divider", content:"Picker 1: Animated"},
 		{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
 			{content:"San Francisco"},
 			{content:"Boston"},
 			{content:"Tokyo"}
 		]},
 		{tag:"br"},{tag:"br"},
-		{classes:"moon-sample-divider", content:"Picker 2: Non-animated"},
+		{kind: "moon.Divider", content:"Picker 2: Non-animated"},
 		{kind:"moon.SimplePicker", name:"picker2", animate:false, onChange:"changed", components: [
 			{content:"Hotmail"},
 			{content:"GMail"},
@@ -20,7 +20,7 @@ enyo.kind({
 			{content:"Custom IMAP"}
 		]},
 		{tag:"br"},{tag:"br"},
-		{classes:"moon-sample-divider", content:"Picker 3: Disabled"},
+		{kind: "moon.Divider", content:"Picker 3: Disabled"},
 		{kind:"moon.SimplePicker", name:"picker3", disabled: true, components: [
 			{content:"Enyo"},
 			{content:"Sencha"}

@@ -14,7 +14,7 @@ enyo.kind({
 			],
 			listOptions:{
 				"option1": [
-					{content:"Category", classes:"moon-list-divider"},
+					{kind: "moon.Divider", content:"Category"},
 					{kind: "moon.Scroller", components: [
 						{content:"Action", kind:"moon.LabeledCheckbox", checked:true},
 						{content:"Comedy", kind:"moon.LabeledCheckbox"},
@@ -37,7 +37,7 @@ enyo.kind({
 					]}
 				],
 				"option2": [
-					{content:"Category", classes:"moon-list-divider"},
+					{kind: "moon.Divider", content:"Category"},
 					{kind: "moon.Scroller", components: [					
 						{content:"Action", kind:"moon.LabeledToggleButton"},
 						{content:"Comedy", kind:"moon.LabeledToggleButton"},
