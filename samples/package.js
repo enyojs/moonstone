@@ -38,5 +38,7 @@ enyo.depends(
 	"DividerSample.js",
 	"DividerSample.css",
 	"LabeledTextItemSample.js",
-	"LabeledTextItemSample.css"
+	"LabeledTextItemSample.css",
+	"ImageItemSample.js",
+	"ImageItemSample.css",
 );
