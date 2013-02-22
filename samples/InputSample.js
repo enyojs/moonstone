@@ -5,7 +5,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{classes: "moon-input-sample-wrapper", components: [
-			{classes: "moon-list-divider", content: "Inputs"},
+			{kind: "moon.Divider", content: "Inputs"},
 			{kind: "moon.InputDecorator", spotlight: true, components: [
 				{kind: "moon.Input", placeholder: "JUST TYPE", onchange:"inputChanged"}
 			]},
@@ -19,7 +19,7 @@ enyo.kind({
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.Input", disabled: true, value: "Disabled input"}
 			]},			
-			{classes: "moon-list-divider", content: "RichTexts"},
+			{kind: "moon.Divider", content: "RichTexts"},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.RichText", placeholder: "Enter text here", onchange:"inputChanged"}
 			]},
@@ -30,7 +30,7 @@ enyo.kind({
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Disabled input", onchange:"inputChanged"}
 			]},			
-			{classes: "moon-list-divider", content: "TextAreas"},
+			{kind: "moon.Divider", content: "TextAreas"},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.TextArea", placeholder: "Enter text here", onchange:"inputChanged"}
 			]},
@@ -41,7 +41,7 @@ enyo.kind({
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.TextArea", disabled: true, placeholder: "Disabled input", onchange:"inputChanged"}
 			]},			
-			{classes: "moon-list-divider", content: "Result"},
+			{kind: "moon.Divider", content: "Result"},
 			{name: "console", classes: "moon-input-sample-console", content: "Input: "}
 		]}
 	],

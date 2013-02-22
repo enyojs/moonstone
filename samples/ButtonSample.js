@@ -5,13 +5,14 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{classes: "moon-button-sample-wrapper", components: [
-			{content: "Focus Buttons:", classes: "moon-list-divider"},
+			{kind: "moon.Divider", content: "Focus Buttons:"},
 			{kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 			{kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
 			{kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 			{kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
-			
-			{content: "Captioned Buttons:", classes: "moon-list-divider"},
+			{tag: "br"},
+			{tag: "br"},
+			{kind: "moon.Divider", content: "Captioned Buttons:"},
 			{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
 				{kind: "moon.Button", content: "A", ontap: "buttonTapped"},
 			]},
@@ -24,8 +25,9 @@ enyo.kind({
 			{kind: "moon.CaptionDecorator", side: "left", content: "Bang", components: [
 				{kind: "moon.Button", content: "D", ontap: "buttonTapped"},
 			]},
-			
-			{content: "Tab Buttons:", classes: "moon-list-divider"},
+			{tag: "br"},
+			{tag: "br"},
+			{kind: "moon.Divider", content: "Tab Buttons:"},
 			{kind: "enyo.Group", classes: "moon-button-sample-group", components: [
 				{kind: "moon.Button", content: "Apple", ontap: "buttonTapped"},
 				{kind: "moon.Button", content: "Banana", ontap: "buttonTapped"},
