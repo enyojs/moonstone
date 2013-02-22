@@ -37,5 +37,6 @@ enyo.depends(
 	"TextArea.js",
 	"ListOptions.js",
 	"Divider.js",
-	"LabeledTextItem.js"
+	"LabeledTextItem.js",
+	"ImageItem.js"
 );
