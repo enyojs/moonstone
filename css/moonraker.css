@@ -140,7 +140,7 @@
 .spotlight .moon-checkbox[checked] {
   background-image: url(././../images/checkbox.png);
   background-repeat: no-repeat;
-  background-position: 10px -36px;
+  background-position: 10px -37px;
 }
 .moon-checkbox[disabled] {
   opacity: 0.4;
