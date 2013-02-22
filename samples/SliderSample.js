@@ -6,16 +6,16 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{tag:"br"},
-		{classes:"moon-sample-divider", content:"Slider 1: Default"},
+		{kind: "moon.Divider", content:"Slider 1: Default"},
 		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
-		{classes:"moon-sample-divider", content:"Slider 2: not locked bar"},
+		{kind: "moon.Divider", content:"Slider 2: not locked bar"},
 		{style: "width:340px;", components: [
 			{name:"lockBar", kind: "moon.LabeledToggleButton", checked: false, content: "lock bar", onchange: "lockbarChanged"}
 		]},
 		{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
-		{classes:"moon-sample-divider", content:"Slider 3: Disabled"},
+		{kind: "moon.Divider", content:"Slider 3: Disabled"},
 		{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
 		{components: [

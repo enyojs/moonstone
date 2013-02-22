@@ -154,13 +154,6 @@
 .moon-checkbox .moon-overlay.off {
   opacity: 0;
 }
-/* TODO: Remove moon-list-divider classes in favor of moon-divider after all samples have been cleaned up to start using moon.Divider */.moon-list-divider,
-.moon-list-divider:hover {
-  margin: 20px 0px 8px 0px;
-  padding: 0px 16px;
-  border-bottom: 1px solid #aaa;
-  font-size: 16px;
-}
 .moon-divider {
   font-family: "Miso";
   font-size: 20px;
@@ -633,7 +626,6 @@
 .moon-icon.disabled:active:hover {
   background-position: 0 0px;
 }
-<<<<<<< HEAD
 .moon-integer-picker {
   display: inline-block;
   font-size: 14px;
@@ -1279,16 +1271,6 @@
   text-transform: none;
   margin: 0px;
   padding: 0px;
-}
-/* Spinner.css */
-.moon-spinner {
-  width: 265px;
-  height: 86px;
-  display: inline-block;
-  background: url(./../images/spinner-large-dark.gif) no-repeat 0 0;
-}
-.moon-spinner.moon-light {
-  background: url(./../images/spinner-large-light.gif) no-repeat 0 0;
 }
 .moon-imageitem {
   display: block;
