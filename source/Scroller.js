@@ -15,9 +15,11 @@
 	Guide.
 */
 enyo.kind({
-	name: "moon.Scroller",
-	kind: "enyo.Scroller",
-	spotlight: "container",
+	name				: "moon.Scroller",
+	kind 				: "enyo.Scroller",
+	spotlight		 	: "container",
+	touch				: true,
+	
 	published: {
 		//* Percent of scroller client area to jump when paging
 		pageRatio: 0.7,
@@ -31,6 +33,7 @@ enyo.kind({
 		*/
 		scrollFullPage: false
 	},
+	
 	//* @protected
 	handlers: {
 		onSpotlightFocused		: "spotFocused",
@@ -39,8 +42,6 @@ enyo.kind({
 		onmousemove				: "mousemove",
 		onPaginate				: "paginate"
 	},
-	touch: true,
-	
 	
 	/************** Begin moon.List/moon.Scroller identical code - this should be moved to a base class ************/
 	
