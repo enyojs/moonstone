@@ -68,7 +68,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "onyx.Drawer", onStep: "drawerAnimationStep", components: [			
+		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [			
 		// NOTE: Replaced moon.Drawer with onyx.Drawer, because moon.Drawer is not in master moonraker branch, please move it to master before using in code. Lex.
 			{name: "client", kind: "Group", highlander: true}
 		]},
