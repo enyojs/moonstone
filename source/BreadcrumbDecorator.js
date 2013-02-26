@@ -38,7 +38,7 @@ enyo.kind({
 	},
 	//* @protected
 	handlers: {
-		onTransitionFinish: "panelIndexChanged"
+		onTransitionStart: "panelIndexChanged"
 	},
 	classes: "moon-breadcrumb-decorator",
 	components: [
