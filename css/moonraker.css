@@ -522,13 +522,15 @@
   font-weight: normal;
 }
 .moon-header {
-  font-size: 2.5em;
-  height: 180px;
-  border-bottom: 2px solid #cdcdcd;
+  font-size: 100px;
+  color: #4b4b4b;
+  font-weight: bold;
+  height: 394px;
+  border-bottom: 6px solid #4b4b4b;
   overflow: hidden;
 }
 .moon-header-title {
-  margin-bottom: -10px;
+  margin-top: 98px;
 }
 .moon-header-item {
   float: right;

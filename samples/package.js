@@ -43,5 +43,7 @@ enyo.depends(
 	"ImageItemSample.css",
 	"SpinnerSample.js",
 	"ItemSample.css",
-	"ItemSample.js"
+	"ItemSample.js",
+	"HeaderSample.js",
+	"HeaderSample.css"
 );
