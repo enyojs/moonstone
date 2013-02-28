@@ -45,5 +45,7 @@ enyo.depends(
 	"ItemSample.css",
 	"ItemSample.js",
 	"HeaderSample.js",
-	"HeaderSample.css"
+	"HeaderSample.css",
+	"SelectableItemSample.css",
+	"SelectableItemSample.js"
 );
