@@ -40,5 +40,6 @@ enyo.depends(
 	"Divider.js",
 	"LabeledTextItem.js",
 	"ImageItem.js",
-	"Spinner.js"
+	"Spinner.js",
+	"SelectableItem.js"
 );
