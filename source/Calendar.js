@@ -101,7 +101,7 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "datePicker", kind: "moon.DatePicker"},
+		{name: "datePicker", kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},
 		//{kind: 'enyo.Spotlight'},
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
