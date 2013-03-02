@@ -17,7 +17,7 @@ enyo.kind({
 						{kind: "moon.SelectableItem", content: "Item 4", spotlight: true}
 					]
 				},
-				{kind: "moon.Divider", content: "SelectableItem with Group"},
+				{kind: "moon.Divider", content: "SelectableItems with Group"},
 				{kind: "Group", components: [
 					{kind: "moon.SelectableItem", content: "Option 1"},
 					{kind: "moon.SelectableItem", content: "Option 2", checked: true},

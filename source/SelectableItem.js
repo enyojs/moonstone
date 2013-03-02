@@ -27,10 +27,18 @@ enyo.kind({
 		this.controls[0].setContent(content);
 		this.inherited(arguments);
 	},
+	tap: function(inSender, e) {
+		if (!this.disabled) {
+			this.setActive(!this.getActive());
+			this.bubble("onchange");
+		}
+		return !this.disabled;
+	},
 	selectedChanged: function() {
 		this.setNodeProperty("selected", this.selected);
 		this.setAttribute("selected", this.selected ? "selected" : "");
 		this.setActive(this.selected);
+		this.controls[0].addRemoveClass("moon-underline", this.selected)
 	},
 	// active property, and onActivate event, are part of "GroupItem" interface
 	// that we support in this object
