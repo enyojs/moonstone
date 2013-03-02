@@ -3,14 +3,18 @@
 }
 .moon-selectableItem .moon-overlay {
   cursor: pointer;
-  height: 36px;
-  width: 50px;
+  border-bottom:4px solid #FFB80D;
   opacity: 1;
   transition: opacity 0.4s linear;
   -webkit-transition: opacity 0.4s linear;
   -moz-transition: opacity 0.4s linear;
   -o-transition: opacity 0.4s linear;
 }
+.moon-selectableItem .moon-overlay.off {
+  opacity: 0;
+}
 .moon-selectableItem .moon-underline {
+  position: absolute;
+  padding-bottom: 8px;
   border-bottom:4px solid #A2A2A2
 }
