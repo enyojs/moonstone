@@ -1313,7 +1313,7 @@
 }
 .moon-selectableItem {
 }
-.moon-selectableItem .moon-overlay {
+.moon-selectableItem.active .moon-overlay {
   cursor: pointer;
   border-bottom:4px solid #FFB80D;
   opacity: 1;
@@ -1322,11 +1322,14 @@
   -moz-transition: opacity 0.4s linear;
   -o-transition: opacity 0.4s linear;
 }
-.moon-selectableItem .moon-overlay.off {
+.moon-selectableItem.active .moon-overlay.off {
   opacity: 0;
 }
 .moon-selectableItem .moon-underline {
   position: absolute;
   padding-bottom: 8px;
   border-bottom:4px solid #A2A2A2
+}
+.moon-selectableItem.spotlight .moon-underline {
+  border-bottom:4px solid #FFB80D;
 }
