@@ -78,6 +78,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
+		this.selectedIndexChanged();		
 		this.noneTextChanged();
 	},
 	//* When the _selected_ control changes, update _checked_ values appropriately and fire an onChange event
