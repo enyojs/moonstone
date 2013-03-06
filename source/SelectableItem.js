@@ -10,6 +10,7 @@ enyo.kind({
 	handlers: {
 		// prevent double onchange bubble in IE
 		onclick: "",
+		onwebkitTransitionEnd: "destroyOverlay"
 	},
 	published: {
 		//* Value of selectableItem; true if checked
@@ -33,6 +34,12 @@ enyo.kind({
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
+			if(this.shouldDoTransition(this.getActive())) {
+				this.glowTransition(this.getActive());
+			} else {
+				this.destroyOverlay();
+			}
+	
 			this.bubble("onchange");
 		}
 		return !this.disabled;
@@ -41,19 +48,11 @@ enyo.kind({
 		if(this.$.overlay) {
 			this.destroyOverlay(this.$.overlay);
 		}
-		var overlay = this.createOverlayComponent().render();
-		setTimeout(function() { overlay.addClass("off"); }, 50);
-	},
-	createOverlayComponent: function() {
-		var content = this.getContent();
-		return this.createComponent({tag: "span", name: "overlay", classes: "moon-overlay", content: content});
+		this.$.textUnderline.addClass("moon-overlay");
+		//setTimeout(function() { overlay.addClass("off"); }, 50);
 	},
 	destroyOverlay: function(inSender, inEvent) {
-		var overlay = this.$.overlay;
-		if(overlay && inSender === overlay) {
-			overlay.setShowing(false);
-			overlay.destroy();
-		}
+		this.$.textUnderline.removeClass("moon-overlay");
 	},
 	selectedChanged: function() {
 		this.setNodeProperty("selected", this.selected);
@@ -66,11 +65,6 @@ enyo.kind({
 	activeChanged: function() {
 		this.active = enyo.isTrue(this.active);
 		this.setSelected(this.active);
-		if(this.shouldDoTransition(this.getActive())) {
-			this.glowTransition(this.getActive());
-		} else {
-			this.destroyOverlay(this.$.overlay);
-		}
 		this.bubble("onActivate");
 	},
 });
