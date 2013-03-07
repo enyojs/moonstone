@@ -1,23 +1,14 @@
-/* Item.css */
+/* SelectableItem.css */
 .moon-selectableItem {
 }
-.moon-selectableItem.active .moon-overlay {
+.moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
   border-bottom:4px solid #FFB80D;
-  opacity: 1;
-  transition: opacity 0.4s linear;
-  -webkit-transition: opacity 0.4s linear;
-  -moz-transition: opacity 0.4s linear;
-  -o-transition: opacity 0.4s linear;
-}
-.moon-selectableItem.active .moon-overlay.off {
-  opacity: 0;
+  transition: border-color 0.4s linear;
+  -webkit-transition: border-color 0.4s linear;
+  -moz-transition: border-color 0.4s linear;
+  -o-transition: border-color 0.4s linear;
 }
 .moon-selectableItem .moon-underline {
-  position: absolute;
-  padding-bottom: 8px;
   border-bottom:4px solid #A2A2A2
-}
-.moon-selectableItem.spotlight .moon-underline {
-  border-bottom:4px solid #FFB80D;
 }

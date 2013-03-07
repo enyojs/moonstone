@@ -211,7 +211,7 @@
   padding: 2px 0px 0px 0px;
 }
 .moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 44px, #ffffff 64px);
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 59px, #ffffff 84px);
 }
 .moon-labeled-checkbox .moon-labeled-checkbox-label {
   float: left;
@@ -231,6 +231,22 @@
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+.moon-labeled-toggle-button {
+  display: block;
+  position: relative;
+}
+.moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
+  height: 24px;
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 30px, #ffffff 75px);
+  padding: 2px 0px 0px 0px;
+}
+.moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 59px, #ffffff 84px);
+}
+.moon-labeled-toggle-button .moon-labeled-toggle-button-label {
+  float: left;
+  white-space: nowrap;
 }
 /* Item.css */
 .moon-item {
@@ -260,6 +276,20 @@
 .moon-item.spotlight {
   padding-left: 4px;
   border-left: 16px solid #ffd200;
+}
+/* SelectableItem.css */
+.moon-selectableItem {
+}
+.moon-selectableItem .moon-underline.moon-overlay {
+  cursor: pointer;
+  border-bottom:4px solid #A2A2A2;
+  transition: border-color 0.4s linear;
+  -webkit-transition: border-color 0.4s linear;
+  -moz-transition: border-color 0.4s linear;
+  -o-transition: border-color 0.4s linear;
+}
+.moon-selectableItem .moon-underline {
+  border-bottom:4px solid #FFB80D;
 }
 /* Button */
 .moon-button {
@@ -1310,26 +1340,4 @@
 .moon-imageitem.align-right img {
   float: right;
   margin: 11px 0px 28px 64px;
-}
-.moon-selectableItem {
-}
-.moon-selectableItem.active .moon-overlay {
-  cursor: pointer;
-  border-bottom:4px solid #FFB80D;
-  opacity: 1;
-  transition: opacity 0.4s linear;
-  -webkit-transition: opacity 0.4s linear;
-  -moz-transition: opacity 0.4s linear;
-  -o-transition: opacity 0.4s linear;
-}
-.moon-selectableItem.active .moon-overlay.off {
-  opacity: 0;
-}
-.moon-selectableItem .moon-underline {
-  position: absolute;
-  padding-bottom: 8px;
-  border-bottom:4px solid #A2A2A2
-}
-.moon-selectableItem.spotlight .moon-underline {
-  border-bottom:4px solid #FFB80D;
 }

@@ -12,7 +12,6 @@ enyo.depends(
 	"LabeledToggleButton.js",
 	"RadioButton.js",
 	"RadioButtonGroup.js",
-	"Drawer.js",
 	"ExpandableListItem.js",
 	"ExpandablePicker.js",
 	"Header.js",

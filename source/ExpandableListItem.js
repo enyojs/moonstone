@@ -1,6 +1,6 @@
 /**
 	_moon.ExpandableListItem_ extends _moon.Item_, and allows for additional content
-	to be contained within a _moon.Drawer_ that opens below the control when
+	to be contained within a _enyo.Drawer_ that opens below the control when
 	it is selected. To close the drawer, navigate (via 5-way) back to the top of the
 	drawer, or tap on the header text. The child components contained within the
 	control can be of any kind, and are set to _moon.Item_ by default.
@@ -40,7 +40,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
+		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group"}
 		]},
 		{name: "bottom", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}

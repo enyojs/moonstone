@@ -18,7 +18,6 @@ enyo.kind({
 		active: false,
 	},
 	tools: [
-		{kind: "Animator", onStep: "animatorStep", onEnd: "destroyOverlay"},
 		{name: "textUnderline", tag: "span"}
 	],
 	initComponents: function() {
@@ -33,44 +32,24 @@ enyo.kind({
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
+			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());	
 			this.bubble("onchange");
 		}
 		return !this.disabled;
 	},
-	glowTransition: function(inSelected) {
-		if(this.$.overlay) {
-			this.destroyOverlay(this.$.overlay);
-		}
-		var overlay = this.createOverlayComponent().render();
-		setTimeout(function() { overlay.addClass("off"); }, 50);
-	},
-	createOverlayComponent: function() {
-		var content = this.getContent();
-		return this.createComponent({tag: "span", name: "overlay", classes: "moon-overlay", content: content});
-	},
-	destroyOverlay: function(inSender, inEvent) {
-		var overlay = this.$.overlay;
-		if(overlay && inSender === overlay) {
-			overlay.setShowing(false);
-			overlay.destroy();
-		}
-	},
 	selectedChanged: function() {
+		this.$.textUnderline.removeClass("moon-overlay");
 		this.setNodeProperty("selected", this.selected);
 		this.setAttribute("selected", this.selected ? "selected" : "");
 		this.setActive(this.selected);
 		this.$.textUnderline.addRemoveClass("moon-underline", this.selected);
+		this.render();
 	},
 	// active property, and onActivate event, are part of "GroupItem" interface
 	// that we support in this object
 	activeChanged: function() {
 		this.active = enyo.isTrue(this.active);
 		this.setSelected(this.active);
-		if(this.shouldDoTransition(this.getActive())) {
-			this.glowTransition(this.getActive());
-		} else {
-			this.destroyOverlay(this.$.overlay);
-		}
 		this.bubble("onActivate");
 	},
 });

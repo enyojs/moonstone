@@ -31,7 +31,7 @@ enyo.kind({
 				{name:"client", classes:"moon-list-options-client", spotlight: false}
 			]}
 		]},
-		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", components: [
+		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", components: [
 			{name: "listOptions", kind: "moon.Scroller", classes:"moon-list-options-scroller", onSpotlightFocus:"listOptionsFocus", components:[
 				{name:"listOptionsContainer", classes:"moon-list-options-container", onSpotlightDown:"spotlightDown", onSpotlightUp:"spotlightUp", onRequestScrollIntoView:"scrollIntoView"}
 			]}

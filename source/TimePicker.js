@@ -71,7 +71,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-date-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [
+		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
@@ -146,7 +146,7 @@ enyo.kind({
 		if (inEvent) {
 			//* Avoid onChange events coming from itself
 			if (inEvent.originator == this) {
-				return
+				return;
 			}
 			var hour = this.$.hour.getValue();
 			var minute = this.$.minute.getValue();

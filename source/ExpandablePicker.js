@@ -68,8 +68,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "moon.Drawer", onStep: "drawerAnimationStep", components: [			
-		// NOTE: Replaced moon.Drawer with onyx.Drawer, because moon.Drawer is not in master moonraker branch, please move it to master before using in code. Lex.
+		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [			
 			{name: "client", kind: "Group", highlander: true}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
@@ -78,6 +77,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
+		this.selectedIndexChanged();		
 		this.noneTextChanged();
 	},
 	//* When the _selected_ control changes, update _checked_ values appropriately and fire an onChange event
