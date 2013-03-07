@@ -10,7 +10,6 @@ enyo.kind({
 	handlers: {
 		// prevent double onchange bubble in IE
 		onclick: "",
-		onwebkitTransitionEnd: "destroyOverlay"
 	},
 	published: {
 		//* Value of selectableItem; true if checked
@@ -49,16 +48,17 @@ enyo.kind({
 			this.destroyOverlay(this.$.overlay);
 		}
 		this.$.textUnderline.addClass("moon-overlay");
-		//setTimeout(function() { overlay.addClass("off"); }, 50);
 	},
 	destroyOverlay: function(inSender, inEvent) {
 		this.$.textUnderline.removeClass("moon-overlay");
 	},
 	selectedChanged: function() {
+		this.$.textUnderline.removeClass("moon-overlay");
 		this.setNodeProperty("selected", this.selected);
 		this.setAttribute("selected", this.selected ? "selected" : "");
 		this.setActive(this.selected);
 		this.$.textUnderline.addRemoveClass("moon-underline", this.selected);
+		this.render();
 	},
 	// active property, and onActivate event, are part of "GroupItem" interface
 	// that we support in this object

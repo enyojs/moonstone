@@ -277,26 +277,19 @@
   padding-left: 4px;
   border-left: 16px solid #ffd200;
 }
-/* Item.css */
-.moon-selectableItem.active .moon-overlay {
-  cursor: pointer;
-  border-bottom: 4px solid #FFB80D;
-  opacity: 1;
-  transition: opacity 0.4s linear;
-  -webkit-transition: opacity 0.4s linear;
-  -moz-transition: opacity 0.4s linear;
-  -o-transition: opacity 0.4s linear;
+/* SelectableItem.css */
+.moon-selectableItem {
 }
-.moon-selectableItem.active .moon-overlay.off {
-  opacity: 0;
+.moon-selectableItem .moon-underline.moon-overlay {
+  cursor: pointer;
+  border-bottom:4px solid #A2A2A2;
+  transition: border-color 0.4s linear;
+  -webkit-transition: border-color 0.4s linear;
+  -moz-transition: border-color 0.4s linear;
+  -o-transition: border-color 0.4s linear;
 }
 .moon-selectableItem .moon-underline {
-  position: absolute;
-  padding-bottom: 8px;
-  border-bottom: 4px solid #a2a2a2;
-}
-.moon-selectableItem.spotlight .moon-underline {
-  border-bottom: 4px solid #FFB80D;
+  border-bottom:4px solid #FFB80D;
 }
 /* Button */
 .moon-button {
