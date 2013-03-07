@@ -146,7 +146,7 @@ enyo.kind({
 		if (inEvent) {
 			//* Avoid onChange events coming from itself
 			if (inEvent.originator == this) {
-				return
+				return;
 			}
 			var hour = this.$.hour.getValue();
 			var minute = this.$.minute.getValue();
