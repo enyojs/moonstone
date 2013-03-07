@@ -18,7 +18,6 @@ enyo.kind({
 		active: false,
 	},
 	tools: [
-		{kind: "Animator", onStep: "animatorStep", onEnd: "destroyOverlay"},
 		{name: "textUnderline", tag: "span"}
 	],
 	initComponents: function() {
@@ -33,24 +32,10 @@ enyo.kind({
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
-			if(this.shouldDoTransition(this.getActive())) {
-				this.glowTransition(this.getActive());
-			} else {
-				this.destroyOverlay();
-			}
-	
+			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());	
 			this.bubble("onchange");
 		}
 		return !this.disabled;
-	},
-	glowTransition: function(inSelected) {
-		if(this.$.overlay) {
-			this.destroyOverlay(this.$.overlay);
-		}
-		this.$.textUnderline.addClass("moon-overlay");
-	},
-	destroyOverlay: function(inSender, inEvent) {
-		this.$.textUnderline.removeClass("moon-overlay");
 	},
 	selectedChanged: function() {
 		this.$.textUnderline.removeClass("moon-overlay");
