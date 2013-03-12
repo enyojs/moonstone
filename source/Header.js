@@ -12,7 +12,7 @@ enyo.kind({
     components: [
         {name: "titleAbove", classes: "moon-header-title-above"},
 		{name: "title", classes: "moon-header-title"},
-        {name: "titleBelow", classes: "moon-header-title-below"}
+        {name: "titleBelow", kind: "moon.Item", spotlight: false, classes: "moon-header-title-below"}
 	],
 	create: function() {
 		this.inherited(arguments);

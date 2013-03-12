@@ -6,11 +6,11 @@ enyo.kind({
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind:"moon.ListOptions", content:"Header",
+		{kind:"moon.ListOptions", content:"Header", titleAbove: "03", 
 			components:[
-				{content:"item 1", style:"display:inline-block;margin-right:10px;font-size:0.3em;vertical-align:top;"},
-				{content:"item 2", style:"display:inline-block;margin-right:10px;font-size:0.3em;vertical-align:top;"},
-				{content:"item 3", style:"display:inline-block;margin-right:10px;font-size:0.3em;vertical-align:top;"}
+				{kind: "moon.Item", content:"item 1"},
+				{kind: "moon.Item", content:"item 2"},
+				{kind: "moon.Item", content:"item 3"}
 			],
 			listOptions:{
 				"option1": [

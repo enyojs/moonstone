@@ -17,15 +17,15 @@ enyo.kind({
 			selects a menu item & the current action will add or remove each selected value.
 		*/
 		autoCollapse: false,
-		listOptions: []
+		listOptions: [],
+		titleAbove: ''
 	},
 	handlers: {
 		onActivate: "optionSelected"
 	},
 	selectedOptions: [], //keeps track of the control ids & values that are selected in the list of options
 	components:[
-	 	{kind:"moon.Header", components: [
-			{name:"currentValue", kind: "moon.Item", spotlight: false, content:"", classes:"moon-list-options-current-value"},
+	 	{name: "header", kind:"moon.Header", components: [
 			{components:[
 				{kind:"enyo.Button", classes:"moon-list-options-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 				{name:"client", classes:"moon-list-options-client", spotlight: false}
@@ -42,10 +42,15 @@ enyo.kind({
 		this.$.listOptionsContainer.createComponents(this.listOptions);
 		this.openChanged();
 		this.listOptionsChanged();
+		this.titleAboveChanged();
 	},
 	//* Facade for header content
 	contentChanged: function() {
 		this.$.header.setTitle(this.getContent());
+	},
+	//* Facade for header titleAbove
+	titleAboveChanged: function() {
+		this.$.header.setTitleAbove(this.titleAbove);
 	},
 	listOptionsChanged: function() {
 		for (option in this.listOptions) {
@@ -95,7 +100,7 @@ enyo.kind({
 		for (var i=0;i<this.selectedOptions.length;i++) {
 			selections += (selections == "" ? "":" / ") + this.selectedOptions[i].content;
 		}
-		this.$.currentValue.setContent(selections);
+		this.$.header.setTitleBelow(selections);
 	},
 	//* If closed, open drawer and highlight first spottable child
 	expandContract: function() {

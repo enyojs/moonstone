@@ -10,49 +10,61 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-
 .moon-list-options-client {
 	display:inline-block;
-	float:right;	
+	float:right;
+	padding: 0px;
+	margin: 142px 0px 0px 0px;
 }
-
+.moon-list-options-client div {
+	display:inline-block;
+	vertical-align: middle;
+	font-size: @moon-sub-text-size;
+	line-height: @moon-sub-text-size;
+	padding: 10px;
+}
 .moon-list-options-activator {
 	border-radius: @moon-button-border-radius;
 	line-height: @moon-button-line-height;
 	background-color: lightgray;
-	border: @moon-button-border-width solid transparent;	
+	border: @moon-button-border-width solid transparent;
 	float:right;
-	margin-top:-6px;
 	width:40px;
 	height:40px;
 	min-width:40px;
+	padding: 0px 0px 0px 0px;
+	margin: 142px 0px 0px 0px;
 }
-
 .moon-list-options-activator.spotlight {
 	background: @moon-spotlight-border-color;
 }
-	
 .moon-list-options-activator::after {
 	content:"\2630";
-	position:absolute;
 	font-size:25px;
-	margin-left:-11px;
-	margin-top:-23px;
+	position: relative;
+	top: -13px;
 }
-
 .moon-list-options-scroller {
-	background-color:lightgray;
-	height:300px;
+	/* TODO: support dark and light themes */
+	background-color: #4B4B4B;
+	height:440px;
+	margin: 0px;
+	padding: 0px;
 }
-
 .moon-list-options-container {
 	float:right;
+	height:440px;
+	margin: 0px;
+	padding: 0px;
 }
-
 .moon-list-options-menu {
 	display:inline-block;
 	vertical-align:top;
-	width:250px;
-	padding-left:10px;
-	padding-right:10px;
+	width: 440px;
+	height: 440px;
+	margin: 31px;
+	padding: 0px;
+}
+.moon-list-options-menu * {
+	color: #FFFFFF;
 }
