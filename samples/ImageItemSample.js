@@ -4,6 +4,7 @@ enyo.kind({
 	layoutKind: "enyo.FittableColumnsLayout",
 	style: "padding: 20px;",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{	
 			style: "width: 600px;",
 			components: [

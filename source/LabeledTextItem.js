@@ -4,6 +4,7 @@
 
 enyo.kind({
     name: "moon.LabeledTextItem",
+    kind: "moon.Item", 
     classes: "moon-labeledtextitem",
     components:[
         {name: "label", classes: "label"},

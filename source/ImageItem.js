@@ -5,9 +5,10 @@
 enyo.kind({
     name: "moon.ImageItem",
     classes: "moon-imageitem",
+    kind: "moon.Item", 
     components:[
         {name: 'image', kind: 'enyo.Image'},
-        {name: 'textItem', kind: 'moon.LabeledTextItem'}
+        {name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
     ],
     published: {
         //* Sets the absolute URL path to the image

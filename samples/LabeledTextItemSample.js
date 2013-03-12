@@ -1,8 +1,10 @@
 enyo.kind({
 	name: "moon.sample.LabeledTextItemSample",
 	classes: "moon enyo-unselectable",
+	style: "padding: 20px;",
 	fit: true,
 	components: [
+		{kind: "enyo.Spotlight"},
 		{
 			kind: "moon.LabeledTextItem", 
 			label: "Breaking Bad", 

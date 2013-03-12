@@ -1,9 +1,8 @@
 .moon-labeledtextitem {
 	min-width: 336px;
-	height: 222px;
+	height: 194px;
 	overflow: hidden;
 }
-
 .moon-labeledtextitem .label {
 	font-family: @moon-font-family;
 	font-size: 36px;
@@ -11,11 +10,10 @@
 	line-height: 36px;
 	color: @moon-font-color-light;
 	border-top: 1px solid #A2A2A2;
-	margin: 9px 0px 3px 0px;
+	margin: 0px 0px 3px 0px;
 	padding: 6px 0px 0px 0px;
 	text-transform: uppercase;
 }
-
 .moon-labeledtextitem .text {
 	font-family: @moon-sub-font-family;
 	font-size: @moon-sub-text-size;
@@ -24,4 +22,11 @@
 	text-transform: none;
 	margin: 0px;
 	padding: 0px;
+}
+.moon-labeledtextitem.spotlight {
+	padding-left: 15px;
+	border-left-width: 25px;
+}
+.moon-labeledtextitem.selected {
+	background: #CCCCCC;
 }
