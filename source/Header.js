@@ -3,18 +3,35 @@ enyo.kind({
 	classes: "moon-header",
 	published: {
         //* Sets the title for the header
-        title: ''
+        title: '',
+        //* Sets the titleAbove for the header
+        titleAbove: '',
+        //* Sets the titleBelow for the header
+        titleBelow: ''
     },
     components: [
-		{name: "title", classes: "moon-header-title"}
+        {name: "titleAbove", classes: "moon-header-title-above"},
+		{name: "title", classes: "moon-header-title"},
+        {name: "titleBelow", classes: "moon-header-title-below"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.titleChanged();
+        this.titleAboveChanged();
+        this.titleBelowChanged();
 	},
     //* @protected
     titleChanged: function() {
     	this.$.title.setContent(this.title || this.content);
+    },
+    //* @protected
+    titleAboveChanged: function() {
+        this.$.titleAbove.addRemoveClass('no-border', this.titleAbove=='');
+        this.$.titleAbove.setContent(this.titleAbove || '');
+    },
+    //* @protected
+    titleBelowChanged: function() {
+        this.$.titleBelow.setContent(this.titleBelow || '');
     }
 });
 

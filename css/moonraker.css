@@ -556,15 +556,38 @@
   font-weight: normal;
 }
 .moon-header {
-  font-size: 100px;
   color: #4b4b4b;
-  font-weight: bold;
-  height: 394px;
+  height: 400px;
   border-bottom: 6px solid #4b4b4b;
   overflow: hidden;
+  min-width: 532px;
+  max-width: 928px;
+}
+.moon-header-title-above.no-border {
+  border: none;
+}
+.moon-header-title-above {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 58px 0px 5px 0px;
+  margin: 0px;
+  width: 30px;
+  border-bottom: 1px solid #4b4b4b;
 }
 .moon-header-title {
-  margin-top: 98px;
+  font-size: 100px;
+  font-weight: bold;
+  line-height: 68px;
+  padding: 19px 0px 0px 0px;
+  margin: 0px 0px 0px -5px;
+}
+.moon-header-title-below {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  padding: 6px 0px 6px 0px;
+  margin: 0px;
 }
 .moon-header-item {
   float: right;
