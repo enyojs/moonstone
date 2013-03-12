@@ -19,14 +19,16 @@ enyo.kind({
 		max: 9
 	},
 	handlers: {
-		onScrollStart:"scrollStart",
-		onScroll:"scroll",
-		onScrollStop:"scrollStop",
+		// onScrollStart:"scrollStart",
+		// onScroll:"scroll",
+		// onScrollStop:"scrollStop",
 		onSpotlightFocus:"spotlightFocus",
 		onSpotlightFocused:"spotlightFocus",
 		onSpotlightUp:"previous", 
 		onSpotlightDown:"next",
 		onSpotlightBlur:"spotlightBlur",
+		onSpotlightScrollUp:"previous",
+		onSpotlightScrollDown:"next"
 	},
 	events: {
 		onChange: ""
@@ -51,7 +53,7 @@ enyo.kind({
 			{classes:"up-arrow-border"},
 			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay"}
 		]},		
-		{kind: "enyo.Scroller", thumb:false, touch:true, classes: "moon-scroll-picker", components:[
+		{kind: "enyo.Scroller", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
 			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
@@ -144,22 +146,22 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	//scrollStop will be called multiple times if they hold the key down (due to getScrollBounds calls stopping the scroller)
-	scrollStop: function(inSender, inEvent) {
-		this.updateScrollBounds();		
-		if (this.value!=null) {
-			this.doChange({
-				name:this.name, 
-				value:this.value
-			});			
-		}
-	},
-	scrollStart: function(inSender, inEvent) {
-		this.updateScrollBounds();		
-	},
-	//* On scroll, update our cached _this.scrollBounds_ property, and show/hide pagination controls
-	scroll: function(inSender, inEvent) {
-		this.updateScrollBounds();
-	},
+	// scrollStop: function(inSender, inEvent) {
+	// 	this.updateScrollBounds();		
+	// 	if (this.value!=null) {
+	// 		this.doChange({
+	// 			name:this.name, 
+	// 			value:this.value
+	// 		});			
+	// 	}
+	// },
+	// scrollStart: function(inSender, inEvent) {
+	// 	this.updateScrollBounds();		
+	// },
+	// //* On scroll, update our cached _this.scrollBounds_ property, and show/hide pagination controls
+	// scroll: function(inSender, inEvent) {
+	// 	this.updateScrollBounds();
+	// },
 	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
 	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
 	updateScrollBounds: function() {
