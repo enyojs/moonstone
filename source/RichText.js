@@ -33,37 +33,39 @@ enyo.kind({
 		}
 	},
 	left: function() {
-		return false;
-/*		var s = this.getSelection();
-		if (s.focusOffset == 0) {
-			return false;
-		}
-		else {
-			this.moveCursor("backward", "character");
-			return true;
-		}*/
+		var sel = this.getSelection();
+		if (sel.rangeCount) {
+			var selRange = sel.getRangeAt(0);
+			var testRange = selRange.cloneRange();
+
+			testRange.selectNodeContents(this.node);
+			testRange.setEnd(selRange.startContainer, selRange.startOffset);
+
+			if (testRange.toString() == "") {
+				return false;
+			}
+        }
+		return true;
 	},
 	right: function() {
-		return false;
-/*		var v = this.getValue();
-		var s = this.getSelection();
-		if (s.focusOffset == s.focusNode.length) {
-			return false;
-		}
-		else {
-			this.moveCursor("forward", "character");
-			return true;
-		}*/
+		var sel = this.getSelection();
+		if (sel.rangeCount) {
+			var selRange = sel.getRangeAt(0);
+			var testRange = selRange.cloneRange();
+
+			testRange.selectNodeContents(this.node);
+			testRange.setStart(selRange.endContainer, selRange.endOffset);
+			
+			if (testRange.toString() == "") {
+				return false;
+			}
+        }
+		return true;
 	},
 	up: function(inEvent) {
-		return false;
-/*		var s = this.getSelection();
-		inEvent.validKey = false;
-		return true;*/
+		return this.left();
 	},
 	down: function(inEvent) {
-		return false;
-/*		inEvent.validKey = false;
-		return true;*/
+		return this.right();
 	}
 });

@@ -34,12 +34,11 @@ enyo.kind({
 		onDisabledChange	: 'onDisabledChange',
 		onfocus				: 'onFocus',
 		onblur				: 'onBlur',
-		// onSpotlightSelect	: 'onSpotlightSelect',
+		onSpotlightSelect	: 'onSpotlightSelect',
 		onSpotlightLeft		: 'onSpotlightLeft',
 		onSpotlightRight	: 'onSpotlightRight',
-		// onSpotlightUp		: 'onSpotlightUp',
-		// onSpotlightDown		: 'onSpotlightDown'
-		onSpotlightKeyDown	: 'onSpotlightKeyDown'
+		onSpotlightUp		: 'onSpotlightUp',
+		onSpotlightDown		: 'onSpotlightDown'
 	},
 	
 	//* @protected
@@ -119,7 +118,15 @@ enyo.kind({
 	
 	// Spotlight Event handlers:
 	/**************************************************/
-	
+
+	onSpotlightSelect: function(oSender, oEvent) {
+		var oInput = this.getInputControl();
+		if (oInput && oInput.hasFocus()) {
+			oEvent.allowDomDefault();		// Allow keydown to bubble
+			return true;					// Prevent onSpotlightLeft to bubble
+		}
+	},
+
 	onSpotlightLeft: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.left) {
