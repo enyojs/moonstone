@@ -25,14 +25,12 @@ enyo.kind({
 		if (!this.hasNode() || this.node.selectionStart == 0) {
 			return false;
 		}
-		inEvent.validKey = false;
 		return true;
 	},
 	right: function(inEvent) {
 		if (!this.hasNode() || this.node.selectionStart == this.node.value.length) {
 			return false;
 		}
-		inEvent.validKey = false;
 		return true;
 	},
 	up: function(inEvent) {
