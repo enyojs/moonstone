@@ -1,21 +1,9 @@
 .moon-button-sample {
 	background: #eaeaea;
-}
-.moon-button-sample .moon-button-wrapper {
-	margin: 20px;
-}
-.moon-button-sample .moon-button-sample-wrapper {
-	display:inline-block;
-	margin:20px;
+	padding: 20px;
 }
 .moon-button-sample .moon-button-sample-wrapper .moon-button-caption-decorator,
 .moon-button-sample .moon-button-sample-group button,
 .moon-button-sample .moon-button-sample-wrapper > button {
-	margin: 0px 20px;
-}
-
-.moon-button-sample .moon-button-sample-console {
-	font-family: PreludeWGL Light;
-	font-size: 22px;
 	margin: 20px;
 }

@@ -27,7 +27,50 @@ enyo.kind({
 			]},
 			{tag: "br"},
 			{tag: "br"},
-			{kind: "moon.Divider", content: "Tab Buttons:"},
+			{kind: "moon.Divider", content: "Buttons with components:"},
+			{kind: "moon.CaptionDecorator", side: "top", content: "Rent DVD", components: [
+				{
+					kind: "moon.Button", ontap: "buttonTapped",
+					components: [
+						{content: "$", classes: "moon-pre-text"},
+						{content: "0", classes: "moon-large-text"},
+						{content: "99", classes: "moon-superscript"}
+					]
+				},
+			]},
+			{kind: "moon.CaptionDecorator", side: "top", content: "Rent Blu-Ray", components: [
+				{
+					kind: "moon.Button", content: "B", ontap: "buttonTapped", 
+					components: [
+						{content: "$", classes: "moon-pre-text"},
+						{content: "1", classes: "moon-large-text"},
+						{content: "99", classes: "moon-superscript"}
+					]
+				},
+			]},
+			{kind: "moon.CaptionDecorator", side: "top", content: "Buy DVD", components: [
+				{
+					kind: "moon.Button", content: "C", ontap: "buttonTapped", 
+					components: [
+						{content: "$", classes: "moon-pre-text"},
+						{content: "5", classes: "moon-large-text"},
+						{content: "99", classes: "moon-superscript"}
+					]
+				},
+			]},
+			{kind: "moon.CaptionDecorator", side: "top", content: "Buy Blu-Ray", components: [
+				{
+					kind: "moon.Button", content: "D", ontap: "buttonTapped", 
+					components: [
+						{content: "$", classes: "moon-pre-text"},
+						{content: "9", classes: "moon-large-text"},
+						{content: "99", classes: "moon-superscript"}
+					]
+				},
+			]},
+			{tag: "br"},
+			{tag: "br"},
+			{kind: "moon.Divider", content: "Grouped Buttons:"},
 			{kind: "enyo.Group", classes: "moon-button-sample-group", components: [
 				{kind: "moon.Button", content: "Apple", ontap: "buttonTapped"},
 				{kind: "moon.Button", content: "Banana", ontap: "buttonTapped"},

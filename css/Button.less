@@ -1,18 +1,20 @@
 /* Button */
 .moon-button {
-	height: @moon-button-height;
+	max-height: 106px;
 	border-radius: @moon-button-border-radius;
-	line-height: @moon-button-line-height;
-	font-size: @moon-text-size;
-	background-color: @moon-button-color;
+	line-height: @moon-button-text-size;
+	font-size: @moon-button-text-size;
+	background-color: @moon-button-background-color;
 	border: @moon-button-border-width solid transparent;
 	cursor: pointer;
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
 	min-width: @moon-button-height;
-	padding: 0px 16px;
+	padding: 25px 22px 25px 22px;
 	margin: 0px;
+	text-transform: uppercase;
+	color: @moon-light-text-color;
 }
 
 .moon-button.active,
@@ -22,7 +24,7 @@
 .moon-button.spotlight:active
 {
 	border: @moon-button-border-width solid @moon-spotlight-border-color;
-	background-color: @moon-button-color;
+	background-color: @moon-button-background-color;
 }
 
 .moon-button.spotlight {
