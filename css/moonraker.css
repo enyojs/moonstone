@@ -58,9 +58,15 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Medium";
+  font-family: "PreludeWGL Medium Italic";
   src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf) format("truetype");
   font-style: italic;
+}
+@font-face {
+  font-family: "PreludeWGL Bold";
+  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-Bold.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-Bold.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
   font-family: "PreludeWGL Bold Italic";
@@ -591,32 +597,38 @@
   width: 100%;
   height: 100%;
 }
-.moon-gridlist-imageitem .caption {
-  font-size: 40px;
-  font-weight: normal;
-  text-align: left;
-  height: 42px;
+.moon-gridlist-imageitem .caption,
+.moon-gridlist-imageitem .caption1 {
+  font-famiy: "PreludeWGL Bold";
+  font-size: 12px;
+  text-align: center;
+  height: 20px;
+  line-height: 20px;
   text-transform: uppercase;
   z-index: 10;
-  padding-top: 10px;
-  color: #555;
+  padding: 8px 0px 0px 0px;
+  margin: 0px;
+  color: #4B4B4B;
   width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.moon-gridlist-imageitem .caption1 {
+  color: #A2A2A2;
+}
 .moon-gridlist-imageitem.spotlight {
   background: orange !important;
-  padding-left: 24px !important;
-  margin-right: -24px !important;
+  padding-left: 25px !important;
+  margin-right: -25px !important;
 }
 .moon-gridlist-imageitem.spotlight.selected {
   background: orange !important;
-  padding-left: 27px !important;
-  margin-right: -24px !important;
+  padding-left: 28px !important;
+  margin-right: -25px !important;
 }
 .moon-gridlist-imageitem.spotlight .caption {
-  margin-left: -24px;
+  margin-left: -25px;
 }
 /* Scroller Page Controls */
 .moon-paging-button {
@@ -922,8 +934,12 @@
   cursor: pointer;
   background: transparent;
   box-shadow: none;
-  font-size: 20px;
-  font-family: "PreludeWGL Medium";
+  font-size: 24px;
+  line-height: 24px;
+  height: 24px;
+  font-family: "Miso";
+  color: #4b4b4b;
+  text-transform: uppercase;
 }
 .moon-input-decorator.moon-focused .moon-input {
   cursor: text;
@@ -943,11 +959,12 @@
 }
 /* InputDecorator.css */
 .moon-input-decorator {
-  padding: 4px 16px 8px 16px;
-  border-radius: 32px;
+  margin: 0px;
+  padding: 8px 35px 12px 35px;
+  border-radius: 29px;
+  -moz-border-radius: 29px;
   border: 5px solid transparent;
   background-color: white;
-  margin: 0px;
   font-size: 20px;
   font-family: "PreludeWGL Medium";
   /* Clip the background to allow for transparent border */
@@ -967,7 +984,7 @@
   opacity: 0.4;
 }
 .moon-input-decorator.moon-focused {
-  box-shadow: 0px 14px 0px #ffb80d;
+  box-shadow: 0px 20px 0px #ffb80d;
 }
 /* Slider.css */
 .moon-slider-bgbar {
