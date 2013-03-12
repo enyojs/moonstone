@@ -9,6 +9,8 @@
 /* Moonraker default parameters defined here */
 /* Font */
 /* ---------------------------------------*/
+/* Colors */
+/* ---------------------------------------*/
 /* Disabled Opacity */
 /* ---------------------------------------*/
 /* Images */
@@ -136,7 +138,7 @@
   background: inherit;
 }
 .moon-simple-picker-button.spotlight {
-  background: orange;
+  background: #ffb80d;
   color: white;
 }
 .moon-simple-picker-client {
@@ -217,7 +219,7 @@
   position: absolute;
   right: 0px;
   text-align: right;
-  color: orange;
+  color: #ffb80d;
 }
 .moon-toggle-button-text {
   position: absolute;
@@ -513,7 +515,7 @@
 .moon-expandable-list-item {
   padding: 0px 16px 0px 0px;
   margin: 0px;
-  border-color: orange;
+  border-color: #ffb80d;
   overflow: hidden;
 }
 .moon-expandable-list-item.spotlight {
@@ -522,7 +524,7 @@
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   border-left-width: 16px;
-  border-left-color: orange;
+  border-left-color: #ffb80d;
   border-left-style: solid;
   padding-right: 0px;
 }
@@ -540,7 +542,7 @@
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   border-left-width: 16px;
-  border-left-color: orange;
+  border-left-color: #ffb80d;
   border-left-style: solid;
   padding-right: 0px;
 }
@@ -554,7 +556,7 @@
 }
 .moon-expandable-picker.spotlight {
   padding: 0px 0px 0px 4px;
-  border-left: 16px solid orange;
+  border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-picker-header {
   line-height: 28px;
@@ -636,7 +638,7 @@
   overflow: visible;
 }
 .moon-gridlist-imageitem.selected {
-  background: orange;
+  background: #ffb80d;
   padding: 3px;
   /*Offset the right and bottom padding by adding negative top and left margin*/
 
@@ -668,12 +670,12 @@
   color: #A2A2A2;
 }
 .moon-gridlist-imageitem.spotlight {
-  background: orange !important;
+  background: #ffb80d !important;
   padding-left: 25px !important;
   margin-right: -25px !important;
 }
 .moon-gridlist-imageitem.spotlight.selected {
-  background: orange !important;
+  background: #ffb80d !important;
   padding-left: 28px !important;
   margin-right: -25px !important;
 }
@@ -753,7 +755,7 @@
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   border-left-width: 16px;
-  border-left-color: orange;
+  border-left-color: #ffb80d;
   border-left-style: solid;
   padding: 0px 0px 0px 4px;
 }
@@ -779,9 +781,9 @@
   border-radius: 24px;
 }
 .moon-scroll-picker.spotlight {
-  border-top-color: orange;
-  border-bottom-color: orange;
-  background: orange;
+  border-top-color: #ffb80d;
+  border-bottom-color: #ffb80d;
+  background: #ffb80d;
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
@@ -804,7 +806,7 @@
   border-radius: 24px;
   border-top-width: 30px;
   border-top-style: solid;
-  border-top-color: darkorange;
+  border-top-color: #ffb80d;
 }
 .moon-scroll-picker-overlay-top-border {
   position: absolute;
@@ -814,7 +816,7 @@
   border-radius: 24px;
   border-top-width: 30px;
   border-top-style: solid;
-  border-top-color: orange;
+  border-top-color: #ffb80d;
   bottom: -56px;
 }
 .moon-scroll-picker-overlay-container-bottom {
@@ -830,7 +832,7 @@
   border-radius: 24px;
   border-bottom-width: 30px;
   border-bottom-style: solid;
-  border-bottom-color: darkorange;
+  border-bottom-color: #ffb80d;
 }
 .moon-scroll-picker-overlay-bottom-border {
   position: absolute;
@@ -840,7 +842,7 @@
   border-radius: 24px;
   border-bottom-width: 30px;
   border-bottom-style: solid;
-  border-bottom-color: orange;
+  border-bottom-color: #ffb80d;
   bottom: -44px;
 }
 .up-arrow-container {
@@ -860,7 +862,7 @@
   left: -5px;
 }
 .up-arrow-container.spotlight .up-arrow {
-  border-color: transparent transparent orange transparent;
+  border-color: transparent transparent #ffb80d transparent;
 }
 .up-arrow-container.selected .up-arrow {
   border-width: 8px;
@@ -903,7 +905,7 @@
   left: 2px;
 }
 .down-arrow-container.spotlight .down-arrow {
-  border-color: orange transparent transparent transparent;
+  border-color: #ffb80d transparent transparent transparent;
 }
 .down-arrow-border {
   border-color: #666666 transparent transparent transparent;
@@ -929,7 +931,7 @@
 }
 .moon-date-picker.spotlight {
   padding: 0px 0px 0px 4px;
-  border-left: 16px solid orange;
+  border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-date-picker-header {
   line-height: 0.85em;
