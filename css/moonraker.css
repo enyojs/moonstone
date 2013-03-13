@@ -7,9 +7,9 @@
 /* LESS file.                                                               */
 
 /* Moonraker default parameters defined here */
-/* Font */
-/* ---------------------------------------*/
 /* Colors */
+/* ---------------------------------------*/
+/* Font */
 /* ---------------------------------------*/
 /* Disabled Opacity */
 /* ---------------------------------------*/
@@ -162,12 +162,12 @@
   width: 50px;
 }
 .moon-checkbox[checked] {
-  background-image: url(././../images/checkbox.png);
+  background-image: url(./../images/checkbox.png);
   background-repeat: no-repeat;
   background-position: 10px 0px;
 }
 .spotlight .moon-checkbox[checked] {
-  background-image: url(././../images/checkbox.png);
+  background-image: url(./../images/checkbox.png);
   background-repeat: no-repeat;
   background-position: 10px -37px;
 }
@@ -178,7 +178,7 @@
   cursor: pointer;
   height: 36px;
   width: 50px;
-  background: transparent url(././../images/checkbox.png) no-repeat 10px -36px;
+  background: transparent url(./../images/checkbox.png) no-repeat 10px -36px;
   opacity: 1;
   transition: opacity 0.4s linear;
   -webkit-transition: opacity 0.4s linear;
@@ -481,13 +481,12 @@
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
-  font-size: 36px;
+  font-size: 48px;
   font-weight: bold;
-  line-height: 24px;
-  height: 25px;
+  line-height: 30px;
   color: #4b4b4b;
-  margin: 0px 0px 33px 0px;
-  padding: 2px 0px 0px 0px;
+  margin: 0px 62px 33px 0px;
+  padding: 3px 0px 2px 0px;
   text-transform: uppercase;
 }
 .moon-radio-button-group .moon-button.spotlight {
@@ -496,20 +495,23 @@
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   padding-left: 4px;
-  border-left: 16px solid #ffb80d;
+  border-left: 21px solid #ffb80d;
 }
 .moon-button-bar {
   position: absolute;
-  top: 30px;
+  top: 37px;
   left: 0px;
   height: 4px;
   width: 0px;
-  background-color: #ffb80d;
+  background-color: #A2A2A2;
 }
 /* TODO: Change the bar color and position on spotlight - unfortunately, the way we have implemented the bar today, it's not easy to change this via css - rethink design! */
 .moon-button-bar.spotlight {
-  background-color: #ffb80d;
-  left: 20px;
+  /* background-color: @moon-spotlight-border-color; */
+
+}
+.moon-radio-button-group .moon-button.spotlight {
+  margin-right: 41px;
 }
 /* ExpandableListItem.css */
 .moon-expandable-list-item {
@@ -1344,7 +1346,7 @@
 .moon-list-options-activator {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: lightgray;
+  background-color: #cccccc;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -1363,9 +1365,6 @@
   top: -13px;
 }
 .moon-list-options-scroller {
-  /* TODO: support dark and light themes */
-
-  background-color: #4B4B4B;
   height: 440px;
   margin: 0px;
   padding: 0px;
@@ -1383,9 +1382,6 @@
   height: 440px;
   margin: 31px;
   padding: 0px;
-}
-.moon-list-options-menu * {
-  color: #FFFFFF;
 }
 .moon-labeledtextitem {
   min-width: 336px;
@@ -1448,4 +1444,19 @@
 }
 .moon-imageitem.align-right.spotlight > .moon-labeledtextitem {
   padding-left: 15px;
+}
+/* Put this at the end because we want these to take precedence over others */
+.moon-dark-gray {
+  background-color: #4b4b4b;
+  color: #cccccc;
+}
+.moon-dark-gray * {
+  color: #cccccc;
+}
+.moon-light-gray {
+  background-color: #cccccc;
+  color: #4b4b4b;
+}
+.moon-light-gray * {
+  color: #4b4b4b;
 }

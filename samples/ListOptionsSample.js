@@ -4,9 +4,14 @@ enyo.kind({
 	style: "margin:20px;",
 	classes: "moon enyo-unselectable",
 	fit: true,
+	create: function() {
+		this.inherited(arguments);
+		//this.$.listOptions.$.drawer.addRemoveClass("moon-light-gray", true);
+		this.$.listOptions.$.drawer.addRemoveClass("moon-dark-gray", true);
+	},
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind:"moon.ListOptions", content:"Header", titleAbove: "03", 
+		{kind:"moon.ListOptions", name: "listOptions", content:"Header", titleAbove: "03", 
 			components:[
 				{kind: "moon.Item", content:"item 1"},
 				{kind: "moon.Item", content:"item 2"},

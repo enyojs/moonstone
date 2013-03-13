@@ -89,3 +89,19 @@
 @import "ListOptions.less";
 @import "LabeledTextItem.less";
 @import "ImageItem.less";
+
+/* Put this at the end because we want these to take precedence over others */
+.moon-dark-gray {
+	background-color: @moon-dark-gray;
+	color: @moon-light-gray;
+}
+.moon-dark-gray * {
+	color: @moon-light-gray;	
+}
+.moon-light-gray {
+	background-color: @moon-light-gray;
+	color: @moon-dark-gray;
+}
+.moon-light-gray * {
+	color: @moon-dark-gray;
+}

@@ -12,6 +12,11 @@ enyo.kind({
 			{kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 			{tag: "br"},
 			{tag: "br"},
+			{kind: "moon.Divider", content: "Themed Buttons:"},
+			{kind: "moon.Button", classes: "moon-dark-gray", content: "Dark", ontap: "buttonTapped"},
+			{kind: "moon.Button", classes: "moon-light-gray", content: "Light", ontap: "buttonTapped"},
+			{tag: "br"},
+			{tag: "br"},
 			{kind: "moon.Divider", content: "Captioned Buttons:"},
 			{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
 				{kind: "moon.Button", content: "A", ontap: "buttonTapped"},
