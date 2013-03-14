@@ -61,6 +61,7 @@ enyo.kind({
 		} else {
 			this.addClass("instantOn");
 		}
+		this.$panels.hiddenPanels = [];
 	},
 	/**
 		When the panel index changes, update the breadcrumb appropriately. If a new breadcrumb is created,
