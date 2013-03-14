@@ -5,7 +5,7 @@ enyo.kind({
 		TODO: Eliminate the dependency of BreadCrumbDecorator on Arranger having to set the hiding panels. 
 		All of the logic related to breadcrumbs shouold be encapsulated inside the BreadCrumbDecorator and not dependent on Arranger. 
 	*/
-	finish: function() {
+	start: function() {
 		this.inherited(arguments);
 		var hiding = [];
 		for (var i=0; i < this.container.toIndex; i++) {
