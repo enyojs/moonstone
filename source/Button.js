@@ -1,26 +1,29 @@
 /**
-	moon.Button_ is an <a href="#enyo.Button">enyo.Button</a> with Moonraker styling
+	moon.Button_ is an <a href='#enyo.Button'>enyo.Button</a> with Moonraker styling
 	applied. The color of the button may be customized by specifying a
 	background color.
 
 	For more information, see the documentation on
-	<a href="https://github.com/enyojs/enyo/wiki/Buttons">Buttons</a> in the
+	<a href='https://github.com/enyojs/enyo/wiki/Buttons'>Buttons</a> in the
 	Enyo Developer Guide.
 */
+
 enyo.kind({
-	name: "moon.Button",
-	kind: "enyo.Button",
-	//* @protected
-	classes: "moon-button enyo-unselectable",
-	spotlight: true,
+	name		: 'moon.Button',
+	kind 		: 'enyo.Button',
+	classes		: 'moon-button enyo-unselectable',
+	spotlight	: true,
+	
 	handlers: {
-		onSpotlightSelect: "spotFocus",
-		onSpotlightFocused: "spotFocused"
+		onSpotlightSelect	: 'depress',
+		onSpotlightKeyUp	: 'undepress'
 	},
-	spotFocus: function() {
-		this.addClass("pressed");
+	
+	depress: function() {
+		this.addClass('pressed');
 	},
-	spotFocused: function() {
-		this.removeClass("pressed");
+	
+	undepress: function() {
+		this.removeClass('pressed');
 	}
 });
