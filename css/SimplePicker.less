@@ -1,4 +1,3 @@
-
 .moon-simple-picker {
 	display: inline-block;
 }
@@ -10,26 +9,41 @@
 }
 
 .moon-simple-picker-button {
-	border-radius: 0;
-	color: black;
-	border: 0;
+	width: @moon-picker-button-width;
+	height: @moon-picker-button-width;
+	line-height: @moon-picker-button-width;
+	border-radius: @moon-picker-button-width/2;
+	border: 0px;
 	font-weight: normal;
 	background: inherit;
+	color: @moon-dark-gray;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .moon-simple-picker-button.spotlight {
 	background: @moon-spotlight-border-color;
-	color: white;
 }
 
 .moon-simple-picker-client {
-	color:black;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
 }
 
 .moon-simple-picker-item {
+	font-family: @moon-font-family;
+	font-size: @moon-large-text-size;
+	line-height: @moon-picker-button-width;
+	height: @moon-picker-button-width;
+	color: @moon-dark-gray;
 	white-space:nowrap; 
-	text-align:center; 
-	padding:5px 10px;
+	text-align: center; 
+	padding: 0px;
+	width: auto;
+	margin: 2px 0px 0px 0px;
 }
 .moon-simple-picker.disabled, .moon-simple-picker-button[disabled] {
 	cursor: default;
