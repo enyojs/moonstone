@@ -25,6 +25,10 @@
 /* ---------------------------------------*/
 /* Input */
 /* ---------------------------------------*/
+/* Pickers */
+/* ---------------------------------------*/
+/* Items */
+/* ---------------------------------------*/
 /* Moonraker rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -131,23 +135,38 @@
   box-sizing: border-box;
 }
 .moon-simple-picker-button {
-  border-radius: 0;
-  color: black;
-  border: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  border: 0px;
   font-weight: normal;
   background: inherit;
+  color: #4b4b4b;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  vertical-align: middle;
 }
 .moon-simple-picker-button.spotlight {
   background: #ffb80d;
-  color: white;
 }
 .moon-simple-picker-client {
-  color: black;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
 }
 .moon-simple-picker-item {
+  font-family: "Miso";
+  font-size: 48px;
+  line-height: 40px;
+  height: 40px;
+  color: #4b4b4b;
   white-space: nowrap;
   text-align: center;
-  padding: 5px 10px;
+  padding: 0px;
+  width: auto;
+  margin: 2px 0px 0px 0px;
 }
 .moon-simple-picker.disabled,
 .moon-simple-picker-button[disabled] {
@@ -279,6 +298,12 @@
   white-space: nowrap;
 }
 /* Item.css */
+.moon-item:first-of-type {
+  margin-top: 40px;
+}
+.moon-item:last-of-type {
+  margin-bottom: 53px;
+}
 .moon-item {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -306,18 +331,28 @@
 .moon-item.spotlight {
   padding-left: 4px;
   border-left: 16px solid #ffb80d;
+  line-height: 24px;
+  vertical-align: bottom;
+}
+.moon-item:first-of-type.spotlight {
+  margin-top: 40px;
+}
+.moon-item:last-of-type.spotlight {
+  margin-bottom: 53px;
 }
 /* SelectableItem.css */
 .moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
-  border-bottom: 4px solid #FFB80D;
+  border-bottom: 4px solid #A2A2A2;
+  padding: 0px;
   transition: border-color 0.4s linear;
   -webkit-transition: border-color 0.4s linear;
   -moz-transition: border-color 0.4s linear;
   -o-transition: border-color 0.4s linear;
 }
 .moon-selectableItem .moon-underline {
-  border-bottom: 4px solid #a2a2a2;
+  border-bottom: 4px solid #ffb80d;
+  padding-bottom: 5px;
 }
 /* Button */
 .moon-button {
@@ -364,16 +399,17 @@
   margin-left: 50px;
 }
 .moon-breadcrumb-decorator.leanForward .moon-breadcrumb-wrapper .moon-breadcrumb {
-  font-size: 42px;
-  margin-top: 52px;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 8px;
   height: auto;
   padding: 10px 0px 50px 0px;
-  line-height: 42px;
+  line-height: 44px;
   height: 130px;
   margin-bottom: 40px;
   border-top: 2px solid #cdcdcd;
   border-bottom: 1px solid #cdcdcd;
-  margin-right: 40px;
+  margin-right: 62px;
   color: #4b4b4b;
 }
 .moon-breadcrumb-decorator.leanForward .moon-breadcrumb-decorator-client {
@@ -506,9 +542,10 @@
   background-color: #A2A2A2;
 }
 /* TODO: Change the bar color and position on spotlight - unfortunately, the way we have implemented the bar today, it's not easy to change this via css - rethink design! */
-.moon-button-bar.spotlight {
+.spotlight.moon-button-bar {
   /* background-color: @moon-spotlight-border-color; */
 
+  left: 23px;
 }
 .moon-radio-button-group .moon-button.spotlight {
   margin-right: 41px;
