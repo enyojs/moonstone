@@ -19,6 +19,7 @@
         {"name": "Integer Scroll Picker", "path":"$lib/moonraker/samples/IntegerScrollPickerSample"},
         {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"},
         {"name": "Contextual Popup", "path":"$lib/moonraker/samples/ContextualPopupSample"},
-        {"name": "List Options", "path":"$lib/moonraker/samples/ListOptionsSample"}
+        {"name": "List Options", "path":"$lib/moonraker/samples/ListOptionsSample"},
+        {"name": "Icon Button", "path":"$lib/moonraker/samples/IconButtonSample"}
 	]
 }

@@ -24,6 +24,11 @@ enyo.kind({
 	},
 	classes: "moon-icon-button",
 	//* @protected
+	spotlight: true,
+	handlers: {
+		onSpotlightSelect: "spotFocus",
+		onSpotlightFocused: "spotFocused"
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.activeChanged();
@@ -36,5 +41,11 @@ enyo.kind({
 	},
 	activeChanged: function() {
 		this.bubble("onActivate");
+	},
+	spotFocus: function() {
+		this.addClass("pressed");
+	},
+	spotFocused: function() {
+		this.removeClass("pressed");
 	}
 });
