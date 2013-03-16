@@ -401,13 +401,13 @@
   min-height: 36px;
 }
 .moon-breadcrumb-title-above {
-  font-size: 36px;
+  font-size: 36px !important;
 }
 .moon-breadcrumb-title {
-  font-size: 36px;
+  font-size: 36px !important;
 }
 .moon-breadcrumb-title-below {
-  font-size: 36px;
+  font-size: 36px !important;
 }
 .moon-breadcrumb-decorator.leanForward .moon-breadcrumb-wrapper {
   width: 198px;
