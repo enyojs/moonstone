@@ -4,9 +4,11 @@
 enyo.kind({
 	name: "moon.Breadcrumb",
 	kind: "moon.Header",
-	components: [
-        {name: "titleAbove", classes: "moon-header-title-above moon-breadcrumb-title-above"},
-		{name: "title", classes: "moon-header-title moon-breadcrumb-title"},
-        {name: "titleBelow", kind: "moon.Item", spotlight: false, classes: "moon-header-title-below moon-breadcrumb-title-below"}
-	]
+	classes: "moon-breadcrumb",
+	create: function() {
+		this.inherited(arguments);
+		this.$.titleAbove.addClass("moon-breadcrumb-title-above");
+		this.$.title.addClass("moon-breadcrumb-title-above");
+		this.$.titleBelow.addClass("moon-breadcrumb-title-below");
+	}
 });
