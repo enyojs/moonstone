@@ -8,7 +8,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.$.titleAbove.addClass("moon-breadcrumb-title-above");
-		this.$.title.addClass("moon-breadcrumb-title-above");
+		this.$.title.addClass("moon-breadcrumb-title");
 		this.$.titleBelow.addClass("moon-breadcrumb-title-below");
 	}
 });
