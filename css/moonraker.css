@@ -402,9 +402,11 @@
 }
 .moon-breadcrumb-title-above {
   font-size: 36px !important;
+  border-bottom: 1px solid #7D7D7D !important;
 }
 .moon-breadcrumb-title {
   font-size: 36px !important;
+  padding: 8px 0px 0px 0px !important;
 }
 .moon-breadcrumb-title-below {
   font-size: 36px !important;
