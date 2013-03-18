@@ -300,12 +300,6 @@
   white-space: nowrap;
 }
 /* Item.css */
-.moon-item:first-of-type {
-  margin-top: 40px;
-}
-.moon-item:last-of-type {
-  margin-bottom: 53px;
-}
 .moon-item {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -335,12 +329,6 @@
   border-left: 16px solid #ffb80d;
   line-height: 24px;
   vertical-align: bottom;
-}
-.moon-item:first-of-type.spotlight {
-  margin-top: 40px;
-}
-.moon-item:last-of-type.spotlight {
-  margin-bottom: 53px;
 }
 /* SelectableItem.css */
 .moon-selectableItem .moon-underline.moon-overlay {
