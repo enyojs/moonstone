@@ -21,7 +21,6 @@
                 {"name": "Horizontal List", "path":"$lib/moonraker/samples/ListHorizontalSample"},
                 {"name": "List Options", "path":"$lib/moonraker/samples/ListOptionsSample"}
                 {"name": "Vertical List", "path":"$lib/moonraker/samples/ListVerticalSample"},
-                //{"name": "Panels", "path":"$lib/moonraker/samples/PanelsSample"},
                 {"name": "Radio Button", "path":"$lib/moonraker/samples/RadioButtonSample"},
                 {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"},
                 {"name": "Horizontal Scroller", "path":"$lib/moonraker/samples/ScrollerHorizontalSample"},
