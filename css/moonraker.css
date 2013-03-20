@@ -314,7 +314,7 @@
   font-family: "Miso";
   font-size: 36px;
   font-weight: bold;
-  line-height: 20px;
+  line-height: 24px;
   color: #4b4b4b;
   margin: 0px 0px 32px 0px;
   padding: 2px 0px 0px 0px;
@@ -328,7 +328,7 @@
 .moon-item.spotlight {
   padding-left: 4px;
   border-left: 16px solid #ffb80d;
-  line-height: 20px;
+  line-height: 24px;
   vertical-align: bottom;
 }
 /* SelectableItem.css */
