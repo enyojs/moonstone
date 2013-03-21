@@ -2,19 +2,19 @@
 .moon-checkbox {
 	cursor: pointer;
 	height: @moon-checkbox-image-height;
-	width: @moon-checkbox-width;
+	width: @moon-checkbox-image-width;
 }
 
 .moon-checkbox[checked] {
 	background-image: @moon-checkbox-image;
 	background-repeat: no-repeat;
-	background-position: 10px 0px;
+	background-position: 5px 1px;
 }
 
 .spotlight .moon-checkbox[checked] {
 	background-image: @moon-checkbox-image;
 	background-repeat: no-repeat;
-	background-position: 10px -37px;
+	background-position: 4px -@moon-checkbox-image-height;
 }
 .moon-checkbox[disabled] {
 	opacity: @moon-disabled-opacity;
@@ -23,8 +23,8 @@
 .moon-checkbox .moon-overlay {
 	cursor: pointer;
 	height: @moon-checkbox-image-height;
-	width: @moon-checkbox-width;
-	background: transparent @moon-checkbox-image no-repeat 10px -@moon-checkbox-image-height;
+	width: @moon-checkbox-image-width;
+	background: transparent @moon-checkbox-image no-repeat 4px -@moon-checkbox-image-height;
 	opacity: 1;
 	transition: opacity 0.4s linear;
 	-webkit-transition: opacity 0.4s linear;
