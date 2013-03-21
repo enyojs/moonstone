@@ -261,10 +261,13 @@ enyo.kind({
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
-			var value = inEvent.originator.value;
-			this.$.simplePicker.setValue(new Date(value.getFullYear(),
-						value.getMonth(),
-						value.getDate()));
+			var newMonth = inEvent.originator.value.getMonth(),
+				oldMonth = this.getValue().getMonth();
+			if (newMonth > oldMonth) {
+				this.$.simplePicker.next();	
+			} else if (newMonth < oldMonth) {
+				this.$.simplePicker.previous();	
+			} 			
 		}
 		return true;
 	},
