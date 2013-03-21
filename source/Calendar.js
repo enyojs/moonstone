@@ -125,6 +125,7 @@ enyo.kind({
 
 		this.value = this.value || new Date();
 		this.setupSimplePicker();
+		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
 		this.setupLayout();
 //		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
@@ -261,13 +262,18 @@ enyo.kind({
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
-			var newMonth = inEvent.originator.value.getMonth(),
-				oldMonth = this.getValue().getMonth();
-			if (newMonth > oldMonth) {
-				this.$.simplePicker.next();	
-			} else if (newMonth < oldMonth) {
-				this.$.simplePicker.previous();	
-			} 			
+			var newValue = inEvent.originator.value,
+				oldValue = this.getValue();
+			
+			if (newValue.getFullYear() > oldValue.getFullYear()) {
+				this.$.simplePicker.setSelectedIndex(0);
+			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
+				this.$.simplePicker.setSelectedIndex(11);
+			} else if (newValue.getMonth() > oldValue.getMonth()) {
+				this.$.simplePicker.next();
+			} else if (newValue.getMonth() < oldValue.getMonth()) {
+				this.$.simplePicker.previous();
+			}								
 		}
 		return true;
 	},
