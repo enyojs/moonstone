@@ -1,14 +1,16 @@
 enyo.kind({
 	name: "moon.CalendarDate",
-	kind: "enyo.Button",
+	kind: "moon.Button",
 	classes: "moon-calendar-date",
-	spotlight: true,
 	events: {
 		ontap: ""
 	},
 	published: {
 		value: null,
 		color: 0,
+	},
+	create: function() {
+		this.inherited(arguments);
 	},
 	colorChanged: function(inOld) {
 		if (this.color) {
@@ -258,7 +260,7 @@ enyo.kind({
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	/**
-		Change value of DatePicker with selected CalendarDate.
+		Change value of simplePicker with selected CalendarDate.
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
@@ -274,7 +276,7 @@ enyo.kind({
 			} else if (newValue.getMonth() < oldValue.getMonth()) {
 				this.$.simplePicker.previous();
 			}								
-		}
+		} 
 		return true;
 	},
 	valueChanged: function(inOld) {

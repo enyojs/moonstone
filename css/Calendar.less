@@ -1,16 +1,4 @@
 /* Calendar.css */
-.moon-calendar-day-item {
-	text-align: center;
-	font-weight: bold;
-	font-size:14px;
-}
-
-.moon-calendar-date-item {
-	white-space:nowrap; 
-	text-align:center; 
-	padding:5px 10px;
-}
-
 .moon-calendar {
 	display: inline-block;
 }
@@ -20,8 +8,22 @@
 }
 
 .moon-calendar-date {
-	width: 80px;
-	vertical-align: middle;
-	margin: 1px;
-	text-align: center;    
+	width: @moon-picker-button-width;
+	min-width: @moon-picker-button-width;	
+	height: @moon-picker-button-width;
+	line-height: @moon-picker-button-width;
+	border-radius: @moon-picker-button-width/2;
+	border: 0px;
+	font-weight: normal;
+	background: inherit;
+	color: @moon-dark-gray;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	vertical-align: middle;  
+}
+
+.moon-calendar-date-shadow {
+	background-color: #666666;
+	color: #f1f1f1;
 }

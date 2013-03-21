@@ -1495,3 +1495,28 @@
 .moon-light-gray * {
   color: #4b4b4b;
 }
+.moon-calendar {
+  display: inline-block;
+}
+.moon-calendar-week {
+  display: inline-block;
+}
+.moon-calendar-date {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  border: 0px;
+  font-weight: normal;
+  background: inherit;
+  color: #4b4b4b;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  vertical-align: middle; 
+}
+.moon-calendar-date-shadow {
+  background-color: #666666;
+  color: #f1f1f1;
+}
