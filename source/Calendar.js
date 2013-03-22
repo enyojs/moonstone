@@ -99,16 +99,16 @@ enyo.kind({
 		*/
 		maxWeeks: 6,
 		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+		//days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: [],
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker"},
-		//{kind: 'enyo.Spotlight'},
+		{name: "simplePicker", kind: "moon.SimplePicker", fit: true},
+		/*{kind: 'enyo.Spotlight'},
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
-		]},
+		]},*/
 		{name: "dates"}
 	],
 	create: function() {
@@ -136,10 +136,10 @@ enyo.kind({
 		Set days from the first day to the last day.
 		Initially, SUN is the first day and SAT is the last day.
 	*/
-	setupDays: function(inSender, inEvent) {
+/*	setupDays: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.day.setContent(this.days[index]);
-	},	
+	},	*/
 	/**
 		Set simplePicker with months
 		The contents will be filled with from JAN to DEC
