@@ -1495,21 +1495,26 @@
 .moon-light-gray * {
   color: #4b4b4b;
 }
+/* Calendar.css */
 .moon-calendar {
+  display: inline-block;
+}
+.moon-calendar-month {
   display: inline-block;
 }
 .moon-calendar-week {
   display: inline-block;
+  margin: 7px 0px 7px 0px;
 }
 .moon-calendar-date {
   width: 40px;
   min-width: 40px;
   height: 40px;
   line-height: 40px;
-  border-radius: 20px;
   border: 0px;
+  font-family: "PreludeWGL Medium";
   font-weight: normal;
-  font-size: 20px;
+  font-size: 20pt;
   background: inherit;
   color: #4b4b4b;
   padding: 0px;

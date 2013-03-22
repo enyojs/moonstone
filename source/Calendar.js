@@ -104,7 +104,7 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", fit: true},
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-month"},
 		/*{kind: 'enyo.Spotlight'},
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
@@ -146,6 +146,7 @@ enyo.kind({
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
+		this.$.simplePicker.$.client.addClass("content");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i]}
