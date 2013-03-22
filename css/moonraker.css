@@ -1509,6 +1509,7 @@
   border-radius: 20px;
   border: 0px;
   font-weight: normal;
+  font-size: 20px;
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
@@ -1517,6 +1518,5 @@
   vertical-align: middle; 
 }
 .moon-calendar-date-shadow {
-  background-color: #666666;
-  color: #f1f1f1;
+  color: #A2A2A2;
 }
