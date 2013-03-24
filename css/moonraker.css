@@ -1511,6 +1511,9 @@
   margin: 2px 0px 2px 0px;
   font-size: 48pt;
 }
+.moon-calendar-dates {
+  margin: 30px 0px 0px 0px;
+}
 .moon-calendar-week {
   margin: 7px 0px 7px 0px;
 }
