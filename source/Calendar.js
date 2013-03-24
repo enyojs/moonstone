@@ -34,7 +34,7 @@ enyo.kind({
 		ontap: "doTap"
 	},
 	components: [
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
+		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-block", onSetupItem: "setupItem", count: 7, components: [
 			{name: "item", kind: "moon.CalendarDate"}
 		]},
 	],
@@ -104,7 +104,7 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-month"},
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-block"},
 		/*{kind: 'enyo.Spotlight'},
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
@@ -146,7 +146,10 @@ enyo.kind({
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
-		this.$.simplePicker.$.client.addClass("content");
+		/*Todo: Follwing statement violates encapsulation -david.um */
+		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
+		this.$.simplePicker.$.client.addClass("picker-content");
+		this.$.simplePicker.$.buttonRight.addClass("picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i]}
