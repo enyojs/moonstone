@@ -24,7 +24,7 @@ enyo.kind({
 	},
 });
 
-enyo.kind({
+/*enyo.kind({
 	name: "moon.CalendarWeek",
 	published: {
 		days: [],
@@ -41,7 +41,7 @@ enyo.kind({
 	/**	
 		Usually when we select same item, setupItem() is not called
 		because setupItem() is called when changing selection is occured in repeater.
-	*/
+
 	doTap: function(inSender, inEvent) {
 		if (this.$.repeater.isSelected(inEvent.index)) {
 			this.setupItem(inSender, inEvent);
@@ -58,6 +58,33 @@ enyo.kind({
 		this.days = days;
 		this.colors = colors;
 		this.$.repeater.setCount(7);
+	}
+});*/
+enyo.kind({
+	name: "moon.CalendarWeek",
+	published: {
+		days: [],
+		colors: [],
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.setupLayout();
+	},
+	setupLayout: function() {
+		for (var i = 0; i < 7; i++) {		
+			this.createComponent({kind: "moon.CalendarDate"});
+		}
+	},
+	fillDate: function(days, colors) {
+		this.days = days;
+		this.colors = colors;
+
+		for (var i = 0; i < this.days.length; i++) {
+			var value = this.days[i],
+				color = this.colors[i];
+			this.controls[i].setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+			this.controls[i].setColor(color);
+		}
 	}
 });
 
@@ -109,7 +136,7 @@ enyo.kind({
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
 		]},*/
-		{name: "dates", classes: "moon-calendar-dates"}
+		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-dates"}
 	],
 	create: function() {
 		this.inherited(arguments);
