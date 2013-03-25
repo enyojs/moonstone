@@ -1523,6 +1523,7 @@
   height: 40px;
   line-height: 40px;
   border: 0px;
+  border-radius: 9999px;
   font-family: "PreludeWGL Medium";
   font-weight: normal;
   font-size: 20pt;
@@ -1532,6 +1533,13 @@
   margin: 0px;
   text-align: center;
   vertical-align: middle; 
+}
+.moon-calendar-date.spotlight {
+  border: 5px solid #ffb80d;
+  background-color: #ffffff;
+}
+.moon-calendar-date.active {
+  background-color: #ffb80d;
 }
 .moon-calendar-date-shadow {
   color: #A2A2A2;

@@ -1,7 +1,8 @@
 enyo.kind({
 	name: "moon.CalendarDate",
-	kind: "moon.Button",
-	classes: "moon-calendar-date",
+	kind: "enyo.Button",
+	classes: "moon-calendar-date enyo-unselectable",
+	spotlight: true,
 	events: {
 		ontap: ""
 	},
@@ -24,42 +25,6 @@ enyo.kind({
 	},
 });
 
-/*enyo.kind({
-	name: "moon.CalendarWeek",
-	published: {
-		days: [],
-		colors: [],
-	},
-	handlers: {
-		ontap: "doTap"
-	},
-	components: [
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-block", onSetupItem: "setupItem", count: 7, components: [
-			{name: "item", kind: "moon.CalendarDate"}
-		]},
-	],
-	/**	
-		Usually when we select same item, setupItem() is not called
-		because setupItem() is called when changing selection is occured in repeater.
-
-	doTap: function(inSender, inEvent) {
-		if (this.$.repeater.isSelected(inEvent.index)) {
-			this.setupItem(inSender, inEvent);
-		}
-	},
-	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		var value = this.days[index],
-			color = this.colors[index];
-		this.$.item.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
-		this.$.item.setColor(color);
-	},
-	fillDate: function(days, colors) {
-		this.days = days;
-		this.colors = colors;
-		this.$.repeater.setCount(7);
-	}
-});*/
 enyo.kind({
 	name: "moon.CalendarWeek",
 	published: {
@@ -101,7 +66,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", //*onChange events coming from consituent controls (hour)
+		ontap: "doTap", //*onChange events coming from consituent controls (simplePicker)
 		onChange: "updateCalendar"
 	},
 	published: {
