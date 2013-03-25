@@ -1,11 +1,10 @@
 enyo.kind({
 	name: "moon.sample.SliderSample",
 	fit: true,
-	classes: "moon moon-sample-padded enyo-unselectable",
+	classes: "moon enyo-unselectable moon-slider-sample",
 	kind: "Scroller",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{tag:"br"},
 		{kind: "moon.Divider", content:"Slider 1: Default"},
 		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
@@ -18,24 +17,22 @@ enyo.kind({
 		{kind: "moon.Divider", content:"Slider 3: Disabled"},
 		{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
 		{tag:"br"},
-		{components: [
-			{kind: "moon.InputDecorator", style:"margin-right:10px;", components: [
-				{kind: "moon.Input", type: "number", placeholder: "Value", style: "width:50px;", value: 20}
-			]},
+		{kind: "FittableColumns", classes: "moon-slider-sample-wrapper", components: [
+			{name: "input", kind: "moon.IntegerScrollPicker", min: 0, max: 100, value: 20},
 			{kind: "moon.Button", content:"Set", ontap:"changeValue"},
 			{kind: "moon.Button", content:"-", ontap:"decValue"},
 			{kind: "moon.Button", content:"+", ontap:"incValue"},
-			{tag: "br"},
-			{style: "width:340px;", components: [
-				{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"}
-			]},
-			{kind: "FittableColumns", components: [
-				{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by number", style: "width:340px; display:inline-block;", onActivate: "changeIncrement"},
-				{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
-			]},
-			{tag: "br"},
-			{name:"result", style:"font-size:20px;font-family:PreludeWGL Light", content:"No slider moved yet."}
-		]}
+		]},
+		{tag: "br"},
+		{style: "width:340px;", components: [
+			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"}
+		]},
+		{kind: "FittableColumns", components: [
+			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
+			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"},
+		]},
+		{tag: "br"},
+		{name:"result", style:"font-size:20px;font-family:PreludeWGL Light", content:"No slider moved yet."}
 	],
 	//* @protected
 	create: function() {
