@@ -10,6 +10,8 @@ enyo.kind({
 			kind: "moon.GridList",
 			onSetupItem: "setupItem",
 			toggleSelected: true,
+			itemWidth: 140, itemHeight: 140, 
+			itemSpacing: 100, 
 			components: [
 				{name: "item", kind: "moon.GridList.ImageItem"}
 			],
@@ -59,6 +61,7 @@ enyo.kind({
 		var item = this.results[i];
 		this.$.item.setSource(item.BoxArt.LargeUrl);
 		this.$.item.setCaption(item.Name);
+		this.$.item.setSubCaption(item.Name);
 		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	}
 });

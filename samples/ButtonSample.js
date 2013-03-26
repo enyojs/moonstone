@@ -1,5 +1,6 @@
 enyo.kind({
 	name: "moon.sample.ButtonSample",
+	kind: "moon.Scroller",
 	fit: true,
 	classes: "moon enyo-unselectable moon-button-sample",
 	components: [
