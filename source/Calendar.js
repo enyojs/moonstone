@@ -96,12 +96,13 @@ enyo.kind({
 			(it is unexpected input, makes err)
 		*/
 		maxWeeks: 6,
+		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: [],
 		colorArray: []
 	},
 	components: [
-		{name: "datePicker", kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},
+		{name: "simplePicker", kind: "moon.SimplePicker"},
 		//{kind: 'enyo.Spotlight'},
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
 			{name: "day", classes: "moon-calendar-date"}
@@ -122,7 +123,8 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.value = this.value || this.$.datePicker.getValue() || new Date();
+		this.value = this.value || new Date();
+		this.setupSimplePicker();
 		this.setupLayout();
 //		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
@@ -134,6 +136,18 @@ enyo.kind({
 	setupDays: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.day.setContent(this.days[index]);
+	},	
+	/**
+		Set simplePicker with months
+		The contents will be filled with from JAN to DEC
+	*/
+	setupSimplePicker: function() {
+		var months = this.months;
+		for (var i = 0; i < 12; i++) {
+			this.$.simplePicker.createComponent(
+				{content: months[i]}
+			)
+		}
 	},
 	/**
 		Set a layout of calendar.
@@ -225,12 +239,12 @@ enyo.kind({
 		if (inEvent && inEvent.originator == this || inEvent.originator.kind == "Selection") {
 			return;
 		}
-		var value = this.$.datePicker.getValue();
+		var value = this.value;
 		var year = value.getFullYear(),
-			month = value.getMonth();
+			month = this.$.simplePicker.getSelectedIndex();
 		//* Determine whether calender need to redraw or not
-		if (year != this.value.getFullYear() || month != this.value.getMonth()) {
-			this.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+		if (month != this.value.getMonth()) {
+			this.setValue(new Date(value.getFullYear(), month, value.getDate()));
 		} else {
 			this.value.setYear(year);
 			this.value.setMonth(month);
@@ -248,7 +262,7 @@ enyo.kind({
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
 			var value = inEvent.originator.value;
-			this.$.datePicker.setValue(new Date(value.getFullYear(),
+			this.$.simplePicker.setValue(new Date(value.getFullYear(),
 						value.getMonth(),
 						value.getDate()));
 		}
