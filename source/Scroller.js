@@ -219,8 +219,8 @@ enyo.kind({
 		edge is aligned with visible scroll area's edge.
 	*/
 	animateToControl: function(inControl, inScrollFullPage) {
-		var controlBounds  = inControl.getAbsoluteBounds(),
-			absoluteBounds = this.getAbsoluteBounds(),
+		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
+			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this),
 			scrollBounds   = this.scrollBounds,
 			offsetTop      = controlBounds.top - absoluteBounds.top,
 			offsetLeft     = controlBounds.left - absoluteBounds.left,
