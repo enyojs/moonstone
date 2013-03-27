@@ -98,10 +98,6 @@ enyo.kind({
 	},
 	components: [
 		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-simplepicmoon-calendar-block"},
-		/*{kind: 'enyo.Spotlight'},
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
-			{name: "day", classes: "moon-calendar-date"}
-		]},*/
 		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-dates"}
 	],
 	create: function() {
@@ -122,17 +118,8 @@ enyo.kind({
 		this.setupSimplePicker();
 		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
 		this.setupLayout();
-//		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
-	/**
-		Set days from the first day to the last day.
-		Initially, SUN is the first day and SAT is the last day.
-	*/
-/*	setupDays: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.day.setContent(this.days[index]);
-	},	*/
 	/**
 		Set simplePicker with months
 		The contents will be filled with from JAN to DEC
@@ -175,7 +162,6 @@ enyo.kind({
 			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
 		if (dayOfLastDate != 0) {
-			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
 				this.dateArray.push(new Date(thisYear, prevMonth, i));
 				this.colorArray.push(1);
