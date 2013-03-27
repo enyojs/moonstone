@@ -27,6 +27,7 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.CalendarWeek",
+	classes: "moon-calendar-week",
 	published: {
 		days: [],
 		colors: [],

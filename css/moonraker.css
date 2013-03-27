@@ -1515,6 +1515,7 @@
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-week {
+  width: 410px;
   margin: 7px 0px 7px 0px;
 }
 .moon-calendar-date {
@@ -1530,7 +1531,7 @@
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
-  margin: 0px;
+  margin: 0 2.26% 0 2.26%;
   text-align: center;
   vertical-align: middle; 
 }
