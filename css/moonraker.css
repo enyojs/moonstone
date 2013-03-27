@@ -185,12 +185,7 @@
 .moon-checkbox[checked] {
   background-image: url(./../images/checkbox.png);
   background-repeat: no-repeat;
-  background-position: 10px 0px;
-}
-.spotlight .moon-checkbox[checked] {
-  background-image: url(./../images/checkbox.png);
-  background-repeat: no-repeat;
-  background-position: 10px -37px;
+  background-position: 11px 1px;
 }
 .moon-checkbox[disabled] {
   opacity: 0.4;
