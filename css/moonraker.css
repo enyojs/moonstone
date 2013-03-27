@@ -187,12 +187,7 @@
 .moon-checkbox[checked] {
   background-image: url(./../images/checkbox.png);
   background-repeat: no-repeat;
-  background-position: 10px 0px;
-}
-.spotlight .moon-checkbox[checked] {
-  background-image: url(./../images/checkbox.png);
-  background-repeat: no-repeat;
-  background-position: 10px -37px;
+  background-position: 11px 1px;
 }
 .moon-checkbox[disabled] {
   opacity: 0.4;
@@ -249,9 +244,6 @@
   right: 0px;
   text-align: right;
   color: #A9A9A9;
-}
-.spotlight .moon-toggle-button-text {
-  color: #ffb80d;
 }
 .moon-labeled-checkbox {
   display: block;
