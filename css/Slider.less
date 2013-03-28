@@ -1,16 +1,16 @@
 /* Slider.css */
 .moon-slider-bgbar {
 	height: 100%;
-	background-color: #828282;
+	background-color: #7d7d7d;
 }
 .moon-slider-bar {
 	position: relative;
 	height: 100%;
-	margin: -5px;
+	margin: -4px;
 	background-color: #69cdff;
 }
 .moon-slider-focus {
-	background-color: #ffa550;
+	background-color: #ffb80d;
 }
 .moon-slider-nofocus {
 	background-color: #69cdff;
@@ -18,13 +18,12 @@
 .moon-slider {
 	position: relative;
 	margin: 10px 20px;
-
-	height: 5px;
+	height: 4px;
 	min-width: 128px;
-	background-color: #a2a2a2;
+	background-color: #323232;
 }
 .moon-slider.spotlight > .moon-slider-bar {
-	background-color: #ffa550;
+	background-color: #ffb80d;
 }
 .moon-slider.disabled {
 	cursor: default;
@@ -43,43 +42,44 @@
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover, {
 	position: relative;
-	height: 16px;
-	width: 16px;
-	border-radius: 8px;
-	margin: -10px -9px;//margin: -8px -9px;
-	background-color: #ffa500;//background-color: #69cdff;
+	height: 56px;
+	width: 56px;
+	border-radius: 28px;
+	margin: -30px -29px;
+	background-color: #ffb80d;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
 .moon-slider-knob:active:hover {
-	height: 36px;
-	width: 36px;
-	border-radius: 18px;
-	margin: -18px -20px;
+	height: 84px;
+	width: 84px;
+	border-radius: 42px;
+	margin: -42px -44px;
 }
 .moon-slider-popup {
 	position: absolute;
 	display: block;
 	z-index: 20;
-	left: 0px;
+	left: 100px;
 	top: 0px;
-	width: 62px;
-	height: 37px;
+	width: 88px;
+	height: 52px;
 	padding-left: 0px;
 }
 .moon-slider-popup-label {
 	position: absolute;
-	top: 1px;
+	top: 2px;
 	width: 60px;
-	height: 32px;
+	height: 45px;
 	white-space: nowrap;
 	font-family: "PreludeWGL Medium";
 	color: #fff;
 	text-align: center;
-	line-height: 32px;
+	line-height: 45px;
 	vertical-align: middle;
 	font-size: 14px;
 }
 .moon-slider-popup.above {
-	top: -54px;
+	top: -90px;
+	padding-left: 10px;
 }

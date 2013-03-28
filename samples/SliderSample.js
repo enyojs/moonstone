@@ -1,7 +1,8 @@
 enyo.kind({
 	name: "moon.sample.SliderSample",
 	fit: true,
-	classes: "moon moon-sample-padded enyo-unselectable",
+	classes: "moon enyo-unselectable",
+	style: "padding: 25px;",
 	kind: "Scroller",
 	components: [
 		{kind: "enyo.Spotlight"},
