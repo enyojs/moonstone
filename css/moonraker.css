@@ -252,7 +252,7 @@
 }
 .moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
   height: 24px;
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 20px, #ffffff 50px);
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
   padding: 2px 0px 0px 0px;
 }
 .moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
@@ -283,11 +283,11 @@
 }
 .moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
   height: 24px;
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 30px, #ffffff 75px);
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, #ffffff 75px);
   padding: 2px 0px 0px 0px;
 }
 .moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 59px, #ffffff 84px);
+  -webkit-mask-image: -webkit-linear-gradient(right, transparent 69px, #ffffff 84px);
 }
 .moon-labeled-toggle-button .moon-labeled-toggle-button-label {
   float: left;
