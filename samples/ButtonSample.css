@@ -1,3 +1,7 @@
+.moon-button-sample-scroller {
+	height:500px;
+}
+
 .moon-button-sample {
 	background: #eaeaea;
 	padding: 20px;
@@ -6,4 +10,8 @@
 .moon-button-sample .moon-button-sample-group button,
 .moon-button-sample .moon-button-sample-wrapper > button {
 	margin: 20px;
+}
+
+.moon-button-sample-console {
+	padding:20px;
 }
