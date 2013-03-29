@@ -4,7 +4,7 @@ enyo.kind({
 	layoutKind: "enyo.FittableColumnsLayout",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, classes:"moon-selectable-item-sample-scroller", components: [		
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
 			{	
 				fit: true,
 				style: "padding: 20px",

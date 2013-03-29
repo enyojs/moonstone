@@ -1,10 +1,11 @@
 enyo.kind({
 	name: "moon.sample.CheckboxSample",
 	fit: true,
+	kind:"FittableRows",
 	classes: "moon enyo-unselectable",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, classes:"moon-checkbox-sample-scroller", components: [										
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
 			{
 				components: [
 				{classes: "checkbox-sample-wrapper", components: [

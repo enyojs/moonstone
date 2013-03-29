@@ -1,10 +1,11 @@
 enyo.kind({
 	name: "moon.sample.ButtonSample",
 	fit: true,
+	kind:"FittableRows",	
 	classes: "moon enyo-unselectable moon-button-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, classes:"moon-button-sample-scroller", components: [								
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{kind: "moon.Button", content: "B", ontap: "buttonTapped"},

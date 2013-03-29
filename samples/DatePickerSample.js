@@ -1,5 +1,6 @@
 enyo.kind({
 	name: "moon.sample.DatePickerSample",
+	kind:"FittableRows",	
 	style: "margin:20px;",
 	classes: "moon enyo-unselectable",
 	fit: true,
@@ -8,7 +9,7 @@ enyo.kind({
 	},
 	components: [
 		{kind: "enyo.Spotlight"},	
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, classes:"moon-date-picker-sample-scroller", components: [	
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [	
 			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: $L("Choose Locale"), classes: "moon-expandable-picker-wrapper", onChange:"pickerHandler", components: [
 				{content: 'en_us', active:true},
 				{content: 'en_ca'},

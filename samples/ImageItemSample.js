@@ -5,7 +5,7 @@ enyo.kind({
 	style: "padding: 20px;",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, classes:"moon-image-item-sample-scroller", components: [		
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
 			{	
 				style: "width: 600px;",
 				components: [

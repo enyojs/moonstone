@@ -1,11 +1,12 @@
 enyo.kind({
 	name: "moon.sample.LabeledTextItemSample",	
+	kind:"FittableRows",	
 	classes: "moon enyo-unselectable",
 	style: "padding: 20px;",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, classes:"moon-labeled-text-item-sample-scroller", components: [
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
 			{
 				kind: "moon.LabeledTextItem", 
 				label: "Breaking Bad", 
