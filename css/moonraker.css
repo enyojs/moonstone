@@ -294,6 +294,12 @@
   float: left;
   white-space: nowrap;
 }
+.moon-labeled-toggle-button.disabled .moon-toggle-button-text {
+  color: inherit;
+}
+.moon-labeled-toggle-button.disabled .moon-toggle-button {
+  opacity: 1;
+}
 /* Item.css */
 .moon-item {
   transition: border-width 0.1s linear, padding 0.1s linear;
