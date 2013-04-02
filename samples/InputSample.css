@@ -1,3 +1,8 @@
+/* Remove default uppercase text-transform for this sample */
+.moon-input {
+	text-transform: none;
+}
+
 .moon-input-sample {
 	background: #eaeaea;
 }
@@ -21,4 +26,5 @@
 .moon-input-sample-console {
 	font-family: PreludeWGL Light;
 	font-size: 22px;
+	text-transform: none;
 }
