@@ -1,15 +1,15 @@
 /**
-    _moon.GridList_ extends _enyo.GridList_ 
+    _moon.GridList_ extends _enyo.GridList_
     to add moonraker specific configuration, styling, decorators and spotlight/focus-state management.
-    
+
     enyo.kind({
         ...
         components: [
-            {kind: "enyo.Spotlight"}, 
+            {kind: "enyo.Spotlight"},
             {
                 kind: "moon.GridList",
-                onSetupItem: "setupItem", 
-                toggleSelected: true, 
+                onSetupItem: "setupItem",
+                toggleSelected: true,
                 components: [
                     {name: "item", kind: "moon.GridList.ImageItem"}
                 ]
@@ -30,14 +30,14 @@
 
 enyo.kind(
     {
-        name: "moon.GridList", 
-        kind: "enyo.GridList", 
-        classes: "moon-gridlist", 
-        spotlight: true, 
-        itemSpacing: 64, 
-        itemMinWidth: 180, 
-        itemMinHeight: 180, 
-        itemWidth: 180, 
+        name: "moon.GridList",
+        kind: "enyo.GridList",
+        classes: "moon-gridlist",
+        spotlight: true,
+        itemSpacing: 64,
+        itemMinWidth: 180,
+        itemMinHeight: 180,
+        itemWidth: 180,
         itemHeight: 180,
         itemFluidWidth: true,
         events: {

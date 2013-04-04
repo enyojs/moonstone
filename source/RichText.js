@@ -41,7 +41,7 @@ enyo.kind({
 			testRange.selectNodeContents(this.node);
 			testRange.setEnd(selRange.startContainer, selRange.startOffset);
 
-			if (testRange.toString() == "") {
+			if (testRange.toString() === "") {
 				return false;
 			}
         }
@@ -55,8 +55,8 @@ enyo.kind({
 
 			testRange.selectNodeContents(this.node);
 			testRange.setStart(selRange.endContainer, selRange.endOffset);
-			
-			if (testRange.toString() == "") {
+
+			if (testRange.toString() === "") {
 				return false;
 			}
         }

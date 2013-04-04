@@ -5,15 +5,15 @@
 	by interrogating the checked property.
 
 		{kind: "moon.LabeledCheckbox", content: "San Francisco", onchange: "checkedChanged"}
-		
+
 		checkedChanged: function(inSender, inEvent) {
 			var checked = inSender.getChecked();
 		}
-	
+
 	_moon.LabeledCheckbox_ can be used with a _Group_ to create a group of
 	checkboxes that only allows one checkbox to be chosen at a time (similar
 	to the behavior of a radio button).
-	
+
 		{kind: "Group", components: [
 			{kind: "moon.LabeledCheckbox", content: "New York"},
 			{kind: "moon.LabeledCheckbox", content: "London"},
@@ -37,7 +37,7 @@ enyo.kind({
 	},
 	components: [
 		{classes: "moon-labeled-checkbox-label-wrapper", components: [
-			{name: "label", classes: "moon-labeled-checkbox-label"},
+			{name: "label", classes: "moon-labeled-checkbox-label"}
 		]},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],

@@ -4,7 +4,7 @@
 	it is selected. To close the drawer, navigate (via 5-way) back to the top of the
 	drawer, or tap on the header text. The child components contained within the
 	control can be of any kind, and are set to _moon.Item_ by default.
-		
+
 		{kind: "moon.ExpandableListItem", content: "A Countries", components: [
 			{content: "Algeria"},
 			{content: "Argentina"},
@@ -62,9 +62,9 @@ enyo.kind({
 	//* Facade for drawer
 	openChanged: function() {
 		var open = this.getOpen();
-		
+
 		this.$.drawer.setOpen(open);
-		
+
 		if(open) {
 			this.addClass("open");
 			this.spotlight = false;
@@ -87,8 +87,9 @@ enyo.kind({
 	},
 	//* If closed, open drawer and highlight first spottable child
 	expandContract: function() {
-		if (this.disabled)
-				return true;
+		if (this.disabled) {
+			return true;
+		}
 		if(!this.getOpen()) {
 			this.setOpen(true);
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));

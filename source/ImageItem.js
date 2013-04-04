@@ -5,7 +5,7 @@
 enyo.kind({
     name: "moon.ImageItem",
     classes: "moon-imageitem",
-    kind: "moon.Item", 
+    kind: "moon.Item",
     components:[
         {name: 'image', kind: 'enyo.Image'},
         {name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
@@ -29,7 +29,7 @@ enyo.kind({
     },
     //* @protected
     sourceChanged: function() {
-        if (!this.source || this.source == '') {
+        if (!this.source || this.source === '') {
             return;
         }
         this.$.image.setAttribute('src', this.source);

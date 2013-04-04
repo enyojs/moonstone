@@ -29,25 +29,25 @@ enyo.kind({
 			}
 		]}
 	],
-	
+
 	prev: function() { this.$.panels.previous(); },
 	next: function() { this.$.panels.next(); },
 	setPanelsIndex: function(inSender, inEvent) {
-		var val = parseInt(inEvent.target.value);
+		var val = parseInt(inEvent.target.value, 10);
 		if(val >= 0) {
 			this.$.panels.setIndex(val);
 		}
 	},
-	
+
 	setupBreadcrumb: function(inSender, inEvent) {
 		var bc = inEvent.breadcrumb,
 			color = this.setBreadcrumbColor(inEvent.breadcrumb.index),
 			content = this.setBreadcrumbContent(inEvent.breadcrumb.index);
-		
+
 		bc.applyStyle("background", color);
 		bc.$.title.setContent(content);
 	},
-	
+
 	setBreadcrumbColor: function(inIndex) {
 		switch(inIndex) {
 			case 0:  return "red";

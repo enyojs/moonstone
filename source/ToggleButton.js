@@ -5,7 +5,7 @@ enyo.kind({
 		//* Label for toggle button's "on" state
 		onContent: $L("on"),
 		//* Label for toggle button's "off" state
-		offContent: $L("off"),
+		offContent: $L("off")
 	},
 	//* @protected
 	classes: "moon-toggle-button",
