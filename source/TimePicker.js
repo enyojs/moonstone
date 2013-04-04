@@ -110,7 +110,7 @@ enyo.kind({
 				}
 				break;
 			case 'm': {
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, value: this.value.getMinutes()});
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
 				}
 				break;
 			case 'a': {
@@ -138,7 +138,7 @@ enyo.kind({
 			} else {
 				dateStr += this.value.getHours();
 			}
-			dateStr += ":" + this.value.getMinutes() + " ";
+			dateStr += ":" + ("00" + this.value.getMinutes()).slice(-2) + " ";
 			dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : "";
 			return dateStr;
 		}
