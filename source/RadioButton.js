@@ -9,7 +9,7 @@
 enyo.kind({
 	name: "moon.RadioButton",
 	kind: "moon.Button",
-	classes: "moon-item moon-radio-button",	
+	classes: "moon-item moon-radio-button",
 	//* @protected
 	rendered: function() {
 		this.inherited(arguments);

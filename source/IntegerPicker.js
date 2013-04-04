@@ -1,13 +1,13 @@
 enyo.kind({
 	name: "moon.IntegerPickerArranger",
-	kind: "enyo.TopBottomArranger",	
+	kind: "enyo.TopBottomArranger",
 	margin: 0
 });
 
 
 /**
     _moon.IntegerPicker_, a subkind of <a href="#moon.SimplePicker">moon.SimplePicker</a>,
-    is used to display a list of integers that solicits a choice from the user, 
+    is used to display a list of integers that solicits a choice from the user,
 	ranging from _min_ to _max_.
 
     To initialize the IntegerPicker to a particular value, set the _value_
@@ -15,35 +15,35 @@ enyo.kind({
 
 	{kind: "moon.IntegerPicker", noneText: "None Selected", content: "Choose a Number", min: 0, max: 25, value: 5]}
 
-	The picker can be programmatically changed by modifying the published properties _value_, 
+	The picker can be programmatically changed by modifying the published properties _value_,
 	_min_, or _max_ by calling the appropriate setter functions (_setValue()_, _setMin()_, _setMax()_ and
 	_getValue()_, _getMin()_ and _getMax()_).
 */
 enyo.kind({
 	name: "moon.IntegerPicker",
-	kind: "moon.SimplePicker",	
-	classes: "moon-integer-picker",	
+	kind: "moon.SimplePicker",
+	classes: "moon-integer-picker",
 	published: {
 		value: undefined,
 		min: 0,
 		max: 9
 	},
 	handlers: {
-		onSpotlightUp:"previous", 
-		onSpotlightDown:"next", 
+		onSpotlightUp:"previous",
+		onSpotlightDown:"next",
 		onSpotlightLeft:"left"
 	},
 	spotlight: true,
 	components: [
-		{kind:"enyo.Panels", classes:"moon-integer-picker-panels", controlClasses:"moon-integer-picker-item", draggable:true, 
-		 arrangerKind: "moon.IntegerPickerArranger", name:"client", onTransitionFinish:"transitionFinished"},
+		{kind:"enyo.Panels", classes:"moon-integer-picker-panels", controlClasses:"moon-integer-picker-item", draggable:true,
+		arrangerKind: "moon.IntegerPickerArranger", name:"client", onTransitionFinish:"transitionFinished"}
 	],
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		this.rangeChanged();
 		if (this.value){
-			this.valueChanged();	
+			this.valueChanged();
 		} else {
 			this.value = this.min;
 		}
@@ -52,7 +52,7 @@ enyo.kind({
 		for (var i=this.min; i<=this.max; i++) {
 			this.createComponent({content: i.toString()});
 		}
-		this.reflow();		
+		this.reflow();
 	},
 	valueChanged: function(inOld) {
 		var controls = this.$.client.getClientControls();
@@ -60,7 +60,7 @@ enyo.kind({
 		// Validate our value
 		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
 		for (var i=0; i<len; i++) {
-			if (this.value === parseInt(controls[i].content)) {
+			if (this.value === parseInt(controls[i].content, 10)) {
 				this.setSelected(controls[i]);
 				break;
 			}
@@ -90,18 +90,18 @@ enyo.kind({
 	},
 	selectedChanged: function(inOld) {
 		this.inherited(arguments);
-		this.value = parseInt(this.selected.content);
+		this.value = parseInt(this.selected.content, 10);
 	},
 	//* Override moon.SimplePicker disabledChanged()
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	previous: function() {
-		this.inherited(arguments);			
+		this.inherited(arguments);
 		return true;
 	},
 	next: function() {
 		this.inherited(arguments);
-		return true;		
+		return true;
 	}
 });

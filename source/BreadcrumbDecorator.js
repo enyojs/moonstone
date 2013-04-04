@@ -3,12 +3,12 @@
 	user to navigate to hidden panels. For instance, if the user moves forward from panel 1 to
 	panel 4, and panels 1 and 2 are hidden, breadcrumbs will be created for panels 1 and 2.
 	Clicking a breadcrumb will navigate the panels back to the related panel.
-	
+
 	Breadcrumbs are created based on a template of controls defined in the _breadcrumbComponents_
 	published property. Each time a breadcrumb is created, an _onSetupBreadcrumb_ event is
 	bubbled up. This event contains a reference to the newly created breadcrumb at
 	_inEvent.breadcrumb_, and allows the App to control the content/style of the breadcrumb.
-	
+
 	{name: "breadcrumb", kind: "moon.BreadcrumbDecorator", fit: true, classes: "enyo-fit", onSetupBreadcrumb: "setupBreadcrumb",
 		breadcrumbComponents: [
 			{name: "title", content: "title"}
@@ -70,13 +70,13 @@ enyo.kind({
 	panelIndexChanged: function(inSender, inEvent, inIndex) {
 		var i = inIndex || this.getLastHiddenPanelIndex(),
 			newIndex = this.$panels.getIndex();
-		
+
 		if (newIndex > this.previousIndex) {
 			this.panelsForward(i);
 		} else if (newIndex < this.previousIndex) {
 			this.panelsBackward(i);
 		}
-		
+
 		this.previousIndex = newIndex;
 	},
 	//* Panels is moving foward - we will be adding breadcrumbs
@@ -87,10 +87,11 @@ enyo.kind({
 			match,
 			i,
 			j;
-		
+
 		for (i=0;i<hiddenPanelIndices.length;i++) {
 			panelIndex = hiddenPanelIndices[i];
 			match = false;
+			var bc;
 			for(j=0;(bc = breadcrumbs[j]);j++) {
 				if(panelIndex === bc.index) {
 					match = true;
@@ -107,9 +108,10 @@ enyo.kind({
 	panelsBackward: function(inIndex) {
 		var highestHiddenIndex = this.getLastHiddenPanelIndex(),
 			breadcrumbs = this.getBreadcrumbs(),
-			j = breadcrumbs.length - 1;
-		
-		while(bc = breadcrumbs[j]) {
+			j = breadcrumbs.length - 1,
+			bc;
+
+		while((bc = breadcrumbs[j])) {
 			if (bc.index > highestHiddenIndex) {
 				bc.destroy();
 				j = breadcrumbs.length - 1;
@@ -117,7 +119,7 @@ enyo.kind({
 				j--;
 			}
 		}
-		
+
 		this.$.breadcrumbWrapper.render();
 		this.showHideCrumbs();
 	},
@@ -162,10 +164,11 @@ enyo.kind({
 	showHideCrumbs: function() {
 		var bc = this.getBreadcrumbs();
 		this.$.breadcrumbWrapper.setShowing(bc.length > 0);
- 		if (this._visibleCrumbs <= 0)
- 			return;
- 		for (var i=0; i < bc.length ; i++) {
- 			bc[i].setShowing(i >= bc.length - this._visibleCrumbs);
- 		}
- 	}
+		if (this._visibleCrumbs <= 0) {
+			return;
+		}
+		for (var i=0; i < bc.length ; i++) {
+			bc[i].setShowing(i >= bc.length - this._visibleCrumbs);
+		}
+	}
 });

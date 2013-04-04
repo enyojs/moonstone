@@ -9,7 +9,7 @@
 	<script src="../../../enyo/enyo.js" type="text/javascript"></script>
 	<script src="../../layout/package.js" type="text/javascript"></script>
 	<script src="../../moonraker/package.js" type="text/javascript"></script>
-	<script src="../../spotlight/package.js" type="text/javascript"></script>	
+	<script src="../../spotlight/package.js" type="text/javascript"></script>
 	<style>
 		.sample-scroller {
 			border:1px solid blue;
@@ -58,18 +58,18 @@
 			{kind:"moon.Button", content:"Spot", spotlight:true, onSpotlightSelect: "focusItem"},
 			{kind:"moon.Scroller", classes:"sample-scroller", components: [
 				{spotlight:'container', classes:"sample-container", components: [
-					{content:"1", kind:"moon.Item", ontap:"optionSelected"}		
-				]},	
+					{content:"1", kind:"moon.Item", ontap:"optionSelected"}
+				]},
 				{spotlight:'container', classes:"sample-container", components: [
 					{content:"2", kind:"moon.Item", ontap:"optionSelected"},
 					{content:"3", kind:"moon.Item", ontap:"optionSelected"},
-					{content:"4", kind:"moon.Item", ontap:"optionSelected"},					
+					{content:"4", kind:"moon.Item", ontap:"optionSelected"},
 				]},
 
 				{spotlight:'container', classes:"sample-container", components: [
 					{content:"5", kind:"moon.Item", ontap:"optionSelected"},
 					{content:"6", kind:"moon.Item", ontap:"optionSelected"}
-				]}	
+				]}
 			]}
 		],
 		rendered: function() {

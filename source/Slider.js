@@ -205,7 +205,7 @@ enyo.kind({
 		if ((pb.top + pb.height) < pageYOffset) {
 			inControl.addRemoveClass("above", false);
 			inControl.addRemoveClass("below", true);
-		} else 	{
+		} else {
 			inControl.addRemoveClass("above", true);
 			inControl.addRemoveClass("below", false);
 		}
@@ -225,8 +225,9 @@ enyo.kind({
 		this.$.popup.hide();
 	},
 	dragstart: function(inSender, inEvent) {
-		if (this.disabled)
+		if (this.disabled) {
 			return;	// return nothing
+		}
 
 		if (inEvent.horizontal) {
 			inEvent.preventDefault();

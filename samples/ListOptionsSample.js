@@ -11,7 +11,7 @@ enyo.kind({
 	},
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind:"moon.ListOptions", name: "listOptions", content:"Header", titleAbove: "03", 
+		{kind:"moon.ListOptions", name: "listOptions", content:"Header", titleAbove: "03",
 			components:[
 				{kind: "moon.Item", content:"item 1"},
 				{kind: "moon.Item", content:"item 2"},
@@ -43,7 +43,7 @@ enyo.kind({
 				],
 				"option2": [
 					{kind: "moon.Divider", content:"Category"},
-					{kind: "moon.Scroller", components: [					
+					{kind: "moon.Scroller", components: [
 						{content:"Action", kind:"moon.LabeledToggleButton"},
 						{content:"Comedy", kind:"moon.LabeledToggleButton"},
 						{content:"Drama", kind:"moon.LabeledToggleButton"}
@@ -71,6 +71,7 @@ enyo.kind({
 	],
 	names: [],
 	setupItem: function(inSender, inEvent) {
+		/* global makeName */
 		// this is the row we're setting up
 		var i = inEvent.index;
 		// make some mock data if we have none for this row

@@ -2,9 +2,9 @@ enyo.kind({
 	name: "moon.ContextualPopup",
 	kind: "enyo.Popup",
 	layoutKind: "ContextualLayout",
-	classes: "moon-contextual-popup",	
-   	handlers: {
-		onRequestShowPopup: "requestShow",
+	classes: "moon-contextual-popup",
+	handlers: {
+		onRequestShowPopup: "requestShow"
 	},
 	floating:true,
 	//layout parameters
@@ -17,7 +17,7 @@ enyo.kind({
 		var n = inEvent.activator.hasNode();
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
-		}						
+		}
 		this.show();
 		return true;
 	},
