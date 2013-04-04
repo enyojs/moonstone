@@ -2,8 +2,8 @@
 	_moon.ListOptions is a drop down menu that presents potentially multiple menu lists to a user.
 */
 		//TODO: handle stacked situation onSpotlightDown
-		//TODO: figure out what's up with stacked drawer open/focus behavior	
-		//TODO: any other unusual focus issues				
+		//TODO: figure out what's up with stacked drawer open/focus behavior
+		//TODO: any other unusual focus issues
 enyo.kind({
 	name: "moon.ListOptions",
 	classes: "moon-list-options",
@@ -12,7 +12,7 @@ enyo.kind({
 		open: false,
 		/**
 			If true, the drawer will automatically close when the user
-			selects a menu item & replace the current action with the selected value. 
+			selects a menu item & replace the current action with the selected value.
 			If false, the drawer does not automatically close when the user
 			selects a menu item & the current action will add or remove each selected value.
 		*/
@@ -25,7 +25,7 @@ enyo.kind({
 	},
 	selectedOptions: [], //keeps track of the control ids & values that are selected in the list of options
 	components:[
-	 	{name: "header", kind:"moon.Header", components: [
+		{name: "header", kind:"moon.Header", components: [
 			{components:[
 				{kind:"enyo.Button", classes:"moon-list-options-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 				{name:"client", classes:"moon-list-options-client", spotlight: false}
@@ -53,43 +53,44 @@ enyo.kind({
 		this.$.header.setTitleAbove(this.titleAbove);
 	},
 	listOptionsChanged: function() {
-		for (option in this.listOptions) {
+		for (var option in this.listOptions) {
 			this.$.listOptionsContainer.createComponents([
 				{
 					classes: "moon-list-options-menu",
 					components: this.listOptions[option]
 				}
-			])
+			]);
 		}
 	},
-	//If an option was selected then add or remove it to the list of selected options. 
+	//If an option was selected then add or remove it to the list of selected options.
 	//Note that this currently only allows for items conforming to either moon.LabeledCheckbox or moon.LabeledToggleButton interfaces
 	optionSelected: function(inSender, inEvent) {
+		var i;
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			if (this.autoCollapse) {
 				//single select just replaces current value & closes drawer
 				this.selectedOptions[0] = {id:inEvent.toggledControl.id, content:inEvent.toggledControl.getContent()};
 				setTimeout(enyo.bind(this, function() {
 					this.setOpen(false);
-					this.resetScrollers();					
+					this.resetScrollers();
 					enyo.Spotlight.spot(this.$.button);
 				}), 300);
 			} else {
 				//make sure it's not already selected
 				var selected = false;
-				for (var i=0;i<this.selectedOptions.length;i++) {
+				for (i=0;i<this.selectedOptions.length;i++) {
 					if (this.selectedOptions[i].id == inEvent.toggledControl.id) {
 						selected = true;
 						break;
 					}
 				}
 				if (!selected) {
-					this.selectedOptions.push({id:inEvent.toggledControl.id, content:inEvent.toggledControl.getContent()});	
+					this.selectedOptions.push({id:inEvent.toggledControl.id, content:inEvent.toggledControl.getContent()});
 				}
 			}
 		} else if (inEvent.toggledControl && !inEvent.toggledControl.checked) {
 			//remove the item if it's being unchecked
-			for (var i=0;i<this.selectedOptions.length;i++) {
+			for (i=0;i<this.selectedOptions.length;i++) {
 				if (this.selectedOptions[i].id == inEvent.toggledControl.id) {
 					this.selectedOptions.splice(i,1);
 					break;
@@ -97,17 +98,18 @@ enyo.kind({
 			}
 		}
 		var selections = "";
-		for (var i=0;i<this.selectedOptions.length;i++) {
-			selections += (selections == "" ? "":" / ") + this.selectedOptions[i].content;
+		for (i=0;i<this.selectedOptions.length;i++) {
+			selections += (selections === "" ? "":" / ") + this.selectedOptions[i].content;
 		}
 		this.$.header.setTitleBelow(selections);
 	},
 	//* If closed, open drawer and highlight first spottable child
 	expandContract: function() {
-		if (this.disabled)
-				return true;
+		if (this.disabled) {
+			return true;
+		}
 		if(!this.getOpen()) {
-			this.setOpen(true);			
+			this.setOpen(true);
 			//focus on the first menu option but make sure we're not focusing on a moon.Scroller (unless menus are stacked)
 			enyo.Spotlight.spot(this.filterScrollers(enyo.Spotlight.getFirstChild(this.$.listOptionsContainer)));
 		} else {
@@ -134,11 +136,11 @@ enyo.kind({
 				var controls = optionGroup[i].getControls();
 				for (var j=0;j<controls.length;j++) {
 					if (controls[j].kind == "moon.Scroller") {
-						controls[j].scrollTo(0,0);		
+						controls[j].scrollTo(0,0);
 					}
 				}
-			}			
-		}		
+			}
+		}
 	},
 	//* Facade for drawer
 	openChanged: function() {
@@ -167,34 +169,35 @@ enyo.kind({
 		}
 	},
 	refresh: function() {
+		var i, j, controls;
 		if (this.$.drawer.hasNode()) {
-			var br = this.$.drawer.hasNode().getBoundingClientRect();		  
+			var br = this.$.drawer.hasNode().getBoundingClientRect();
 
 			//get the total width of all option menus
 			var width = 0;
 			var optionGroup = this.$.listOptionsContainer.getControls();
-			for (var i=0;i<optionGroup.length;i++) {
+			for (i=0;i<optionGroup.length;i++) {
 				width += optionGroup[i].hasNode().getBoundingClientRect().width;
 			}
 
 			//if the option menus don't all fit horizontally, stack them & allow the main drawer scroller to scroll all of them
 			if (width > br.width) {
-				for (var i=0;i<optionGroup.length;i++) {
+				for (i=0;i<optionGroup.length;i++) {
 					optionGroup[i].applyStyle("display","block");
-					var controls = optionGroup[i].getControls();
-					for (var j=0;j<controls.length;j++) {
+					controls = optionGroup[i].getControls();
+					for (j=0;j<controls.length;j++) {
 						if (controls[j].kind == "moon.Scroller") {
 							controls[j].applyStyle("max-height", "none");
 						}
 					}
 				}
-				this.stacked = true;		
+				this.stacked = true;
 			} else {
 				//if all the menus fit horizontally, then give their individual scrollers a scroll height of the drawer so they self scroll
-				for (var i=0;i<optionGroup.length;i++) {
+				for (i=0;i<optionGroup.length;i++) {
 					optionGroup[i].applyStyle("display","inline-block");
-					var controls = optionGroup[i].getControls();
-					for (var j=0;j<controls.length;j++) {
+					controls = optionGroup[i].getControls();
+					for (j=0;j<controls.length;j++) {
 						if (controls[j].kind == "moon.Scroller") {
 							controls[j].applyStyle("max-height", (br.height - (controls[j].hasNode().getBoundingClientRect().top - br.top)) + "px");
 						}
@@ -202,7 +205,7 @@ enyo.kind({
 				}
 				this.stacked = false;
 			}
-		}		
+		}
 	},
 	//* When spotlight reaches the bottom or top of an option menu, prevent user from continuing downward.
 	spotlightDown: function(inSender, inEvent) {
@@ -214,21 +217,21 @@ enyo.kind({
 	spotlightUp: function(inSender, inEvent) {
 		var s = enyo.Spotlight.getSiblings(inEvent.originator);
 		//if current item is at the top of a menu OR is an expandable picker
-		if (inEvent.originator.kind == "moon.ExpandablePicker" || s.selfPosition == 0) {
+		if (inEvent.originator.kind === "moon.ExpandablePicker" || s.selfPosition === 0) {
 			//if the menus are not stacked OR the current item is the first in the stacked menu overall, close the drawer & focus the activator
 			if (!this.stacked || inEvent.originator == this.filterScrollers(enyo.Spotlight.getFirstChild(this.$.listOptionsContainer))) {
 				this.setOpen(false);
-				this.resetScrollers();					
+				this.resetScrollers();
 				enyo.Spotlight.spot(this.$.button);
-				return true;	
+				return true;
 			}
-		}		
+		}
 	},
-	//when menus are laid out horizontally prevent the onRequestScrollIntoView event from bubbling past the menus container 
+	//when menus are laid out horizontally prevent the onRequestScrollIntoView event from bubbling past the menus container
 	//- prevents scroll bouncing for scroller in scroller
 	scrollIntoView: function(inSender, inEvent) {
 		if (!this.stacked) {
-			return true;			
+			return true;
 		}
 	}
 });

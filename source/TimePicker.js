@@ -6,30 +6,30 @@ enyo.kind({
 	max: 1,
 	value: null,
 	published: {
-		meridiems: ["AM","PM"]		
+		meridiems: ["AM","PM"]
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.item.setContent(this.meridiems[index]);
-	},
+	}
 });
 
 enyo.kind({
 	name: "moon.HourPicker",
 	kind: "moon.IntegerScrollPicker",
-	classes:"moon-date-picker-month",	
+	classes:"moon-date-picker-month",
 	min: 1,
 	max: 24,
 	value: null,
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
-		if(index > 11) {	//current hour reached meridiem(noon) 
+		if(index > 11) {	//current hour reached meridiem(noon)
 			index -= 12;
 		}
 		this.$.item.setContent(index + this.min);
-	},
+	}
 });
-		
+
 enyo.kind({
 	name: "moon.TimePicker",
 	kind: "moon.ExpandableListItem",
@@ -101,38 +101,39 @@ enyo.kind({
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
 			switch (o){
-				case 'h': {
-					if (this.meridiemEnable == true) {
-						this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: this.value.getHours()});	
+			case 'h': {
+					if (this.meridiemEnable === true) {
+						this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: this.value.getHours()});
 					} else {
-						this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:1,max:24, value: this.value.getHours()});	
-					}					
+						this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:1,max:24, value: this.value.getHours()});
+					}
 				}
 				break;
-				case 'm': {
+			case 'm': {
 					this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, value: this.value.getMinutes()});
 				}
 				break;
-				case 'a': {
-					if (this.meridiemEnable == true) {
+			case 'a': {
+					if (this.meridiemEnable === true) {
 						this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
 					}
 				}
 				break;
-				default: break;
+			default:
+				break;
 			}
 		}
 	},
-	parseTime: function() {		
+	parseTime: function() {
 		if (this._tf) {
 			var df = new enyo.g11n.DateFmt({
 				time: "short",
 				locale: new enyo.g11n.Locale(this.locale)
-			})
-			return df.format(this.value);			
+			});
+			return df.format(this.value);
 		} else {
 			var dateStr = "";
-			if (this.meridiemEnable == true && this.value.getHours() > 12) {
+			if (this.meridiemEnable === true && this.value.getHours() > 12) {
 				dateStr += this.value.getHours() - 12;
 			} else {
 				dateStr += this.value.getHours();
@@ -154,15 +155,15 @@ enyo.kind({
 			if (inEvent.originator.kind == "moon.MeridiemPicker") {
 				if (hour < 12 && inEvent.originator.value == 1 ) {
 					hour += 12;
-				} else if ( hour > 12 && hour != 24 && inEvent.originator.value == 0) {
-					hour -= 12;	
-				} else if (hour == 24 && inEvent.originator.value == 1) {
+				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
 					hour -= 12;
-				} else if (hour == 12 && inEvent.originator.value == 0) {
+				} else if (hour == 24 && inEvent.originator.value === 1) {
+					hour -= 12;
+				} else if (hour == 12 && inEvent.originator.value === 0) {
 					hour += 12;
-				} 
-				this.$.hour.setValue(hour);				
-			} 			
+				}
+				this.$.hour.setValue(hour);
+			}
 
 			this.setValue(new Date(this.value.getFullYear(),
 								this.value.getMonth(),
@@ -175,23 +176,23 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		var hour = this.value.getHours();
-		if (this.meridiemEnable == true) {
-			hour > 11 ? this.$.meridiem.setValue(1) : this.$.meridiem.setValue(0);	
+		if (this.meridiemEnable === true) {
+			this.$.meridiem.setValue(hour > 11 ? 1 : 0);
 		}
 		if (!hour) {
 			hour = 24;
 		}
-		this.$.hour.setValue(hour);	
+		this.$.hour.setValue(hour);
 		this.$.minute.setValue(this.value.getMinutes());
 
 		this.$.currentValue.setContent(this.parseTime());
-		this.doChange({name:this.name, value:this.value});		
+		this.doChange({name:this.name, value:this.value});
 	},
 	//* If no selected item, use _this.noneText_ for current value
 	noneTextChanged: function() {
 		if(this.value == null) {
 			this.$.currentValue.setContent(this.getNoneText());
-		} else { 
+		} else {
 			this.$.currentValue.setContent(this.parseTime());
 		}
 	},
@@ -201,16 +202,16 @@ enyo.kind({
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
 		//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
 		if (this.$.drawer.getOpen()) {
-			this.$.hour.render();			
-			this.$.minute.render();			
-			if (this.meridiemEnable == true) {
+			this.$.hour.render();
+			this.$.minute.render();
+			if (this.meridiemEnable === true) {
 				this.$.meridiem.render();
 			}
 		}
 	},
 	closePicker: function(inSender, inEvent) {
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
-		if (inEvent.type == "onSpotlightSelect" || 
+		if (inEvent.type == "onSpotlightSelect" ||
 			this.$.client.children[0].id == inEvent.originator.id) {
 			this.updateTime();
 			this.expandContract();

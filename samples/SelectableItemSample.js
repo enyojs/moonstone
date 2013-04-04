@@ -5,7 +5,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
-			{	
+			{
 				fit: true,
 				style: "padding: 20px",
 				components: [

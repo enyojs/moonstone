@@ -33,7 +33,7 @@ enyo.kind({
 			} else {
 				this.destroyOverlay(this.$.overlay);
 			}
-			
+
 			this.bubble("onchange");
 		}
 		return !this.disabled;

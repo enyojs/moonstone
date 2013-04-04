@@ -15,34 +15,34 @@
 
 enyo.kind({
 	name	: 'moon.Input',
-	kind 	: 'enyo.Input',
+	kind	: 'enyo.Input',
 	classes	: 'moon-input',
-	
+
 	published: {
 		fieldType: 'numeric' // all, email, only text, text/number (no special chars)
 	},
-	
+
 	//* @protected
 	/**********************************************/
-	
+
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
 		}
 	},
-	
+
 	left: function() {
-		if (!this.hasNode() || this.node.selectionStart == 0) {
+		if (!this.hasNode() || this.node.selectionStart === 0) {
 			return false;
 		}
 		return true;
 	},
-	
+
 	right: function() {
 		if (!this.hasNode() || this.node.selectionStart == this.node.value.length) {
 			return false;
 		}
 		return true;
 	}
-	
+
 });

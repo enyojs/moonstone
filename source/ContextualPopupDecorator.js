@@ -4,7 +4,7 @@
 	other control with an _onActivate_ event. The decorator must surround both
 	the	activating control and the popup itself. When the control is activated,
 	the	popup shows itself in the correct position relative to the activator.
-	
+
 	{kind: "moon.ContextualPopupDecorator", components: [
 		{content: "Show Popup"},
 		{kind: "moon.ContextualPopup",

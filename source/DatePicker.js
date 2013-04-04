@@ -56,31 +56,29 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.value = this.value || new Date();		
+		this.value = this.value || new Date();
 		this.setupPickers(this._tf ? this._tf.getDateFieldOrder() : 'mdy');
-		this.noneTextChanged();		
+		this.noneTextChanged();
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.split("");
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			switch (o){
-				case 'd': {
-					this.createComponent(
-						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1, 
-							max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
-				}
+			switch (o) {
+			case 'd':
+				this.createComponent(
+					{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1,
+						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
 				break;
-				case 'm': {
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
-				}
+			case 'm':
+				this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
 				break;
-				case 'y': {
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear});
-				}
+			case 'y':
+				this.createComponent({kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear});
 				break;
-				default: break;
+			default:
+				break;
 			}
 		}
 	},
@@ -89,8 +87,8 @@ enyo.kind({
 			var df = new enyo.g11n.DateFmt({
 				date: 'medium',
 				locale: new enyo.g11n.Locale(this.locale)
-			})
-			return df.format(this.value);			
+			});
+			return df.format(this.value);
 		} else {
 			return this.getAbbrMonths()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
@@ -100,10 +98,10 @@ enyo.kind({
 		if (inEvent && inEvent.originator == this) {
 			return;
 		}
-		
+
 		var day = this.$.day.getValue(),
-		    month = this.$.month.getValue()-1,
-		    year = this.$.year.getValue();
+			month = this.$.month.getValue()-1,
+			year = this.$.year.getValue();
 
 		var maxDays = this.monthLength(year, month);
 		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays));
@@ -112,22 +110,22 @@ enyo.kind({
 	valueChanged: function(inOld) {
 		this.$.year.setValue(this.value.getFullYear());
 		this.$.month.setValue(this.value.getMonth()+1);
-					
-		if (inOld && 
-			(inOld.getFullYear() != this.value.getFullYear() || 
+
+		if (inOld &&
+			(inOld.getFullYear() != this.value.getFullYear() ||
 			inOld.getMonth() != this.value.getMonth())) {
 			this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
 		}
 		this.$.day.setValue(this.value.getDate());
-				
+
 		this.$.currentValue.setContent(this.parseDate());
-		this.doChange({name:this.name, value:this.value});		
+		this.doChange({name:this.name, value:this.value});
 	},
 	//* If no selected item, use _this.noneText_ for current value
 	noneTextChanged: function() {
 		if(this.value == null) {
 			this.$.currentValue.setContent(this.getNoneText());
-		} else { 
+		} else {
 			this.$.currentValue.setContent(this.parseDate());
 		}
 	},
@@ -137,14 +135,14 @@ enyo.kind({
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
 		//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
 		if (this.$.drawer.getOpen()) {
-			this.$.day.render();			
-			this.$.month.render();			
+			this.$.day.render();
+			this.$.month.render();
 			this.$.year.render();
 		}
 	},
 	closePicker: function(inSender, inEvent) {
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
-		if (inEvent.type == "onSpotlightSelect" || 
+		if (inEvent.type == "onSpotlightSelect" ||
 			this.$.client.children[0].id == inEvent.originator.id) {
 			this.updateDate();
 			this.expandContract();

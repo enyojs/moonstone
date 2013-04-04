@@ -10,19 +10,19 @@
 
 enyo.kind({
 	name		: 'moon.Button',
-	kind 		: 'enyo.Button',
+	kind		: 'enyo.Button',
 	classes		: 'moon-button enyo-unselectable',
 	spotlight	: true,
-	
+
 	handlers: {
 		onSpotlightSelect	: 'depress',
 		onSpotlightKeyUp	: 'undepress'
 	},
-	
+
 	depress: function() {
 		this.addClass('pressed');
 	},
-	
+
 	undepress: function() {
 		this.removeClass('pressed');
 	}

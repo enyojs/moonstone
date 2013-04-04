@@ -6,16 +6,16 @@ enyo.kind({
 	events: {
 	//* Fires when selectableItem is tapped.
 		onActivate: ""
-	},	
+	},
 	handlers: {
 		// prevent double onchange bubble in IE
-		onclick: "",
+		onclick: ""
 	},
 	published: {
 		//* Value of selectableItem; true if checked
 		selected: false,
 		//* Group API requirement for determining selected item
-		active: false,
+		active: false
 	},
 	tools: [
 		{name: "textUnderline", tag: "span"}
@@ -32,7 +32,7 @@ enyo.kind({
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
-			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());	
+			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());
 			this.bubble("onchange");
 		}
 		return !this.disabled;
@@ -51,5 +51,5 @@ enyo.kind({
 		this.active = enyo.isTrue(this.active);
 		this.setSelected(this.active);
 		this.bubble("onActivate");
-	},
+	}
 });

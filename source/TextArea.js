@@ -22,7 +22,7 @@ enyo.kind({
 		}
 	},
 	left: function(inEvent) {
-		if (!this.hasNode() || this.node.selectionStart == 0) {
+		if (!this.hasNode() || this.node.selectionStart === 0) {
 			return false;
 		}
 		return true;
