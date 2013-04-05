@@ -303,8 +303,8 @@ enyo.kind({
 	animatorComplete: function(inSender) {
 		if (this.tapped) {
 			this.tapped = false;
-			this.doChange({value: this.value});
 		}
+		this.doChange({value: this.value});
 		this.doAnimateFinish(inSender);
 		return true;
 	},
