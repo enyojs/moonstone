@@ -16,7 +16,9 @@ enyo.kind({
 	published: {
 		value: null,
 		min: 0,
-		max: 9
+		max: 9,
+		//* if specified, show value as this many zero-filled digits
+		digits: null
 	},
 	handlers: {
 		// onScrollStart:"scrollStart",
@@ -71,7 +73,11 @@ enyo.kind({
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
-		this.$.item.setContent(index+this.min);
+		var content = index + this.min;
+		if (this.digits) {
+			content = ("00000000000000000000" + content).slice(-this.digits);
+		}
+		this.$.item.setContent(content);
 	},
 	rangeChanged: function() {
 		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
