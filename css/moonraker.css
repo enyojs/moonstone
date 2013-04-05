@@ -668,6 +668,10 @@
   background: none;
 }
 .moon-gridlist-imageitem {
+  transition: padding 0.1s linear;
+  -webkit-transition: padding 0.1s linear;
+  -moz-transition: padding 0.1s linear;
+  -o-transition: padding 0.1s linear;
   width: 100%;
   height: 100%;
   /* GF-1438 Moon: Grid - Entire item should scroll into view - offset the caption height so that item scrolls fully into view on spotlight focus state change */
@@ -721,9 +725,6 @@
   background: #ffb80d !important;
   padding-left: 28px !important;
   margin-right: -25px !important;
-}
-.moon-gridlist-imageitem.spotlight .caption {
-  margin-left: -25px;
 }
 /* Scroller Page Controls */
 .moon-paging-button {
