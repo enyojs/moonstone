@@ -169,6 +169,11 @@ enyo.kind({
 		this.scrollBounds = this.$.strategy._getScrollBounds();
 	},
 
+	resizeHandler: function() {
+		this.inherited(arguments);
+		this.updateScrollBounds();
+		this.positionPageControls();
+	},
 
 	/*************** Begin moon.Scroller unique code ***************/
 
