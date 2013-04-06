@@ -103,34 +103,34 @@ enyo.kind({
 	},
 	previous: function(inSender, inEvent) {
 		if (this.value > this.min) {
-			enyo.job.stop("hideBottomOverlay");
+			enyo.job.stop("hideTopOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
-			this.$.bottomOverlay.show();
+			this.$.topOverlay.show();
 			this.$.upArrowContainer.addClass("selected");
 			if (inEvent.originator != this.$.upArrow) {
-				enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
+				enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
 			}
 		}
 		return true;
 	},
 	next: function(inSender, inEvent) {
 		if (this.value < this.max) {
-			enyo.job.stop("hideTopOverlay");
+			enyo.job.stop("hideBottomOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
-			this.$.topOverlay.show();
+			this.$.bottomOverlay.show();
 			this.$.downArrowContainer.addClass("selected");
 			if (inEvent.originator != this.$.downArrow) {
-				enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
+				enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
 			}
 		}
 		return true;
 	},
 	hideTopOverlay: function() {
-		this.$.downArrowContainer.removeClass("selected");
+		this.$.upArrowContainer.removeClass("selected");
 		this.$.topOverlay.setShowing(false);
 	},
 	hideBottomOverlay: function() {
-		this.$.upArrowContainer.removeClass("selected");
+		this.$.downArrowContainer.removeClass("selected");
 		this.$.bottomOverlay.setShowing(false);
 	},
 	resetOverlay: function() {
