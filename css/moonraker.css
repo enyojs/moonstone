@@ -255,6 +255,7 @@
 }
 .moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
   height: 24px;
+  min-height: 28.080000000000002px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
   padding: 2px 0px 0px 0px;
 }
