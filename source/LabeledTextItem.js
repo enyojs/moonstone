@@ -1,10 +1,10 @@
 /**
-    _moon.LabeledTextItem_ 
+    _moon.LabeledTextItem_
 */
 
 enyo.kind({
     name: "moon.LabeledTextItem",
-    kind: "moon.Item", 
+    kind: "moon.Item",
     classes: "moon-labeledtextitem",
     components:[
         {name: "label", classes: "label"},

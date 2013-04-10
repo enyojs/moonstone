@@ -13,7 +13,7 @@ enyo.depends(
 	"ScrollerVerticalSample.js",
 	"ScrollerVerticalSample.css",
 	"ScrollerHorizontalSample.js",
-	"ScrollerHorizontalSample.css",	
+	"ScrollerHorizontalSample.css",
 	"Scroller2dSample.js",
 	"Scroller2dSample.css",
 	"ListHorizontalSample.js",

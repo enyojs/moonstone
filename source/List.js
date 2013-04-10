@@ -26,10 +26,10 @@ enyo.kind({
 	},
 	touch: true,
 	spotlight: true,
-	
+
 	/************** Begin moon.List/moon.Scroller identical code - this should be moved to a base class ************/
-	
-	
+
+
 	//* Pagination buttons
 	pageControls: [
 		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left", showing: false},
@@ -89,14 +89,14 @@ enyo.kind({
 			(!enyo.Spotlight.getPointerMode() && this.getHidePagingOnKey()) ||
 			// If not hovering and set to hide on leave, hide pagination controls.
 			(this.getHidePagingOnLeave() && !this.hovering)
-		   ) {
+		) {
 			this.hidePageControls();
 			return;
 		}
-		
+
 		var sb = this.scrollBounds,
 			s;
-		
+
 		if (this.getHorizontal() !== "hidden") {
 			s = this.getScrollLeft();
 			this.$.pageLeftControl.setShowing(s > 0);
@@ -105,7 +105,7 @@ enyo.kind({
 			this.$.pageLeftControl.hide();
 			this.$.pageRightControl.hide();
 		}
-		
+
 		if (this.getVertical() !== "hidden") {
 			s = this.getScrollTop();
 			this.$.pageUpControl.setShowing(s > 0);
@@ -129,7 +129,7 @@ enyo.kind({
 			side = inControl.getSide(),
 			attribute,
 			position;
-		
+
 		if (side === "top" || side === "bottom") {
 			attribute = "left";
 			position = sb.clientWidth/2 - cb.width/2;
@@ -137,7 +137,7 @@ enyo.kind({
 			attribute = "top";
 			position = sb.clientHeight/2 - cb.height/2;
 		}
-		
+
 		inControl.applyStyle(attribute,position+"px");
 	},
 	//* Hide pagination controls
@@ -152,30 +152,30 @@ enyo.kind({
 	updateScrollBounds: function() {
 		this.scrollBounds = this.$.strategy._getScrollBounds();
 	},
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 	/***************** Begin moon.List unique code **************/
-	
+
 	//* Handle paginate event sent from PagingControl buttons
 	paginate: function(inSender, inEvent) {
 		switch (inEvent.side) {
-			case "top":
-			case "left":
-				this.pageBack();
-				break;
-			case "bottom":
-			case "right":
-				this.pageForward();
-				break;
+		case "top":
+		case "left":
+			this.pageBack();
+			break;
+		case "bottom":
+		case "right":
+			this.pageForward();
+			break;
 		}
 	},
 	//* Scroll one page backward, lining up with the appropriate node
@@ -185,14 +185,14 @@ enyo.kind({
 			node,
 			pageDelta,
 			threshold = this.orientV ? sb.top : sb.left;
-		
+
 		for(i;i<this.count;i++) {
 			node = this.$.generator.fetchRowNode(i);
-			
+
 			pageDelta = (this.orientV)
 				?	(node.offsetParent.offsetTop  + node.offsetTop  + sb.clientHeight)
 				:	(node.offsetParent.offsetLeft + node.offsetLeft + sb.clientWidth);
-			
+
 			// Find the first node whose top/left edge will be at or past the scrollers top/left edge when scrolled
 			if (pageDelta >= threshold) {
 				this.animateToNode(node);
@@ -213,7 +213,7 @@ enyo.kind({
 			nodeEdge = (this.orientV)
 				?	(node.offsetParent.offsetTop  + node.offsetTop  + node.clientHeight)
 				:	(node.offsetParent.offsetLeft + node.offsetLeft + node.clientWidth);
-			
+
 			// Scroll to the first offscreen (or partially offscreen) node
 			if (nodeEdge > threshold) {
 				this.animateToNode(node);
@@ -248,11 +248,11 @@ enyo.kind({
 				left: 0
 			},
 			n = inNode;
-		
+
 		if(!st.scrollNode) {
 			return;
 		}
-		
+
 		while (n && n.parentNode && n.id != st.scrollNode.id) {
 			b.top += n.offsetTop;
 			b.left += n.offsetLeft;
@@ -268,14 +268,14 @@ enyo.kind({
 					?	b.top + b.height - sb.clientHeight
 					:	b.top
 				:	Math.min(sb.maxTop, b.top);
-		
+
 		var x = (xDir === 0) ? sb.left :
 			(inLazy)
 				?	(xDir === 1)
 					?	b.left + b.width - sb.clientWidth
 					:	b.left
 				:	Math.min(sb.maxLeft, b.left);
-		
+
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x,y);

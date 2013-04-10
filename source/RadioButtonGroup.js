@@ -1,7 +1,7 @@
 /**
 	A group of "moon.RadioButton" objects laid out horizontally. Within the
 	same button group, tapping on one button will release any previously tapped button.
-	
+
 		{kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
 			{content: "Cats", active: true},
 			{content: "Dogs"},
@@ -56,6 +56,7 @@ enyo.kind({
 		}
 	},
 	calcBarValue: function(activeItem) {
+		var differential, xPos;
 		if ((this.active) && (this.componentsRendered)) {
 
 			if (this.active.kind === "moon.RadioButton") {
@@ -63,11 +64,11 @@ enyo.kind({
 
 				// IE8 doesn't return getBoundingClientRect().width, so we calculate from right/left. Who cares ... it's IE8 ... I know
 				//var differential = activeItem.hasNode().getBoundingClientRect().width - activeItem.contentWidth;
-				var differential = (activeItem.hasNode().getBoundingClientRect().right - activeItem.hasNode().getBoundingClientRect().left) - activeItem.contentWidth;
-				var xPos = this.getCSSProperty(activeItem, "offsetLeft", false) + (differential / 2);
+				differential = (activeItem.hasNode().getBoundingClientRect().right - activeItem.hasNode().getBoundingClientRect().left) - activeItem.contentWidth;
+				xPos = this.getCSSProperty(activeItem, "offsetLeft", false) + (differential / 2);
 
 			}
-			
+
 			this.$.animator.play({
 				startValue: this.lastBarPos,
 				endValue: xPos,
@@ -94,6 +95,8 @@ enyo.kind({
 		}
 	},
 	getCSSProperty: function(target, property, style) {
-		if (target.hasNode()) return (style) ? target.node.style[property] : target.node[property];
+		if (target.hasNode()) {
+			return (style) ? target.node.style[property] : target.node[property];
+		}
 	}
 });

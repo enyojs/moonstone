@@ -3,7 +3,7 @@
 	drop-down picker menu that solicits a choice from the user. The picker's child
 	components, typically multiple _moon.LabeledCheckbox_es, become the options for
 	the picker.
-		
+
 		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
 			{content: "San Francisco"},
 			{content: "Boston"},
@@ -32,7 +32,7 @@
 
 		// Remove currently selected item from picker
 		this.$.expandablePicker.getSelected().destroy();
-	
+
 	When the picker is minimized, the content of the currently selected item is displayed
 	as subtext below the picker label.
 */
@@ -68,7 +68,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [			
+		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", highlander: true}
 		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
@@ -77,7 +77,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
-		this.selectedIndexChanged();		
+		this.selectedIndexChanged();
 		this.noneTextChanged();
 	},
 	//* When the _selected_ control changes, update _checked_ values appropriately and fire an onChange event
@@ -85,7 +85,7 @@ enyo.kind({
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
 			index = -1;
-		
+
 		for(var i=0;i<controls.length;i++) {
 			if(controls[i] === selected) {
 				controls[i].setChecked(true);
@@ -94,7 +94,7 @@ enyo.kind({
 				controls[i].setChecked(false);
 			}
 		}
-		
+
 		if(index > -1 && index !== this.getSelectedIndex()) {
 			this.setSelectedIndex(index);
 			this.$.currentValue.setContent(selected.getContent());
@@ -106,7 +106,7 @@ enyo.kind({
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
 			index = this.getSelectedIndex();
-		
+
 		if(controls[index] && controls[index] !== selected) {
 			this.setSelected(controls[index]);
 		}
@@ -143,7 +143,7 @@ enyo.kind({
 	activated: function(inSender, inEvent) {
 		var index = this.getClientControls().indexOf(inEvent.toggledControl),
 			_this = this;
-		
+
 		if(inEvent.checked && index > -1) {
 			this.setSelected(inEvent.toggledControl);
 			// If _autoCollapse_ is set to true and this control is rendered, auto collapse.

@@ -1,7 +1,7 @@
 /**
 	_moon.CaptionDecorator_ wraps a control with a caption. The position of the caption
 	is defined via the _side_ property.
-	
+
 	{kind: "moon.CaptionDecorator", side: "top", content: "Top Label", components: [
 		{kind: "moon.Button", content: "My Button", ontap: "buttonTapped"},
 	]}

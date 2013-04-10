@@ -8,7 +8,7 @@ enyo.kind({
 	},
 	published: {
 		value: null,
-		color: 0,
+		color: 0
 	},
 	colorChanged: function(inOld) {
 		if (this.color) {
@@ -19,14 +19,14 @@ enyo.kind({
 	},
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
-	},
+	}
 });
 
 enyo.kind({
 	name: "moon.CalendarWeek",
 	published: {
 		days: [],
-		colors: [],
+		colors: []
 	},
 	handlers: {
 		ontap: "doTap"
@@ -34,9 +34,9 @@ enyo.kind({
 	components: [
 		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
 			{name: "item", kind: "moon.CalendarDate"}
-		]},
+		]}
 	],
-	/**	
+	/**
 		Usually when we select same item, setupItem() is not called
 		because setupItem() is called when changing selection is occured in repeater.
 	*/
@@ -136,7 +136,7 @@ enyo.kind({
 	setupDays: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.day.setContent(this.days[index]);
-	},	
+	},
 	/**
 		Set simplePicker with months
 		The contents will be filled with from JAN to DEC
@@ -146,7 +146,7 @@ enyo.kind({
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i]}
-			)
+			);
 		}
 	},
 	/**
@@ -158,7 +158,7 @@ enyo.kind({
 			var days = [];
 			this.$.dates.createComponent(
 				{kind: "moon.CalendarWeek", days: days}
-			)
+			);
 		}
 	},
 	/**
@@ -174,7 +174,7 @@ enyo.kind({
 			dayOfLastDate = dt.getDay(),
 			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
-		if (dayOfLastDate != 0) {
+		if (dayOfLastDate !== 0) {
 			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
 				this.dateArray.push(new Date(thisYear, prevMonth, i));
@@ -192,13 +192,12 @@ enyo.kind({
 		dt.setMonth(dt.getMonth() + 1);
 
 		var thisYear = dt.getFullYear(),
-			nextMonth = dt.getMonth(),
-			thisDate = dt.getDate();
+			nextMonth = dt.getMonth();
 		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
 		for (var i = 1; i < offset; i++) {
 			this.dateArray.push(new Date(thisYear, nextMonth, i));
 			this.colorArray.push(1);
-		}		
+		}
 	},
 	setupCalendar: function(ordering) {
 		//* Make empty
@@ -215,7 +214,7 @@ enyo.kind({
 			this.colorArray.push(0);
 		}
 
-		this.setupNextMonth(monthLength);		
+		this.setupNextMonth(monthLength);
 	},
 	fillDate: function() {
 		var calendarWeeks =this.$.dates.getControls();
