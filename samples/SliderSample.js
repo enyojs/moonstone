@@ -21,7 +21,7 @@ enyo.kind({
 			{name: "input", kind: "moon.IntegerScrollPicker", min: 0, max: 100, value: 20},
 			{kind: "moon.Button", content:"Set", ontap:"changeValue"},
 			{kind: "moon.Button", content:"-", ontap:"decValue"},
-			{kind: "moon.Button", content:"+", ontap:"incValue"},
+			{kind: "moon.Button", content:"+", ontap:"incValue"}
 		]},
 		{tag: "br"},
 		{style: "width:340px;", components: [
@@ -29,7 +29,7 @@ enyo.kind({
 		]},
 		{kind: "FittableColumns", components: [
 			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
-			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"},
+			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
 		]},
 		{tag: "br"},
 		{name:"result", style:"font-size:20px;font-family:PreludeWGL Light", content:"No slider moved yet."}
