@@ -65,6 +65,7 @@ enyo.kind({
 	initComponents: function() {
 		this.createPageControls();
 		this.inherited(arguments);
+		this.scrollTo(this.scrollLeft); //workaround for page control issue GF-2728
 	},
 	//* Create _this.pageControls_ as chrome components
 	createPageControls: function() {
