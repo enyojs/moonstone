@@ -96,8 +96,14 @@ enyo.kind({
 		var lastIndex = this.getPanels().length - 1;
 		toIndex = (typeof(toIndex) == 'number') ? toIndex : lastIndex;
 		while (lastIndex > -1 && lastIndex >= toIndex) {
-			this.getPanels()[lastIndex].destroy();
+			// Ask layout here about do I need to destroy panels.
+			//    if layout provides isOutOfScreen and given index is out of screen then destroy
+			if ( (this.layout && this.layout.isOutOfScreen && this.layout.isOutOfScreen(oEvent.toIndex+1)) || 
+				(this.layout && !this.layout.isOutOfScreen) )  {
+				this.getPanels()[lastIndex].destroy();
+			}
 			lastIndex = this.getPanels().length - 1;	
+
 		}
 	},
 	onBackwardTransitionFinished: function(oSender, oEvent) { // added
