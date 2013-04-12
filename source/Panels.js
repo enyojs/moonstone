@@ -84,9 +84,9 @@ enyo.kind({
 	pop: function(toIndex) {
 		this.setIndex(toIndex);
 	},
-	//* 
-	replace: function(index, inInfo, inMoreInfo) {
-		this.destroyPanels(index);
+	//* replace last panel
+	replace: function(inInfo, inMoreInfo) {
+		this.destroyPanels();
 		this.push(inInfo, inMoreInfo);
 	},
 	//* destroy component on top 
@@ -94,7 +94,7 @@ enyo.kind({
 	//*   if toIndex is undefined then pop one pannel	
 	destroyPanels: function(toIndex) { // added
 		var lastIndex = this.getPanels().length - 1;
-		toIndex = (typeof(toIndex) == 'undefined') ? lastIndex-1 : toIndex;
+		toIndex = (typeof(toIndex) == 'number') ? toIndex : lastIndex;
 		while (lastIndex > -1 && lastIndex >= toIndex) {
 			this.getPanels()[lastIndex].destroy();
 			lastIndex = this.getPanels().length - 1;	
