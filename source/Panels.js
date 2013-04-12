@@ -15,7 +15,8 @@ enyo.kind({
 		onSpotlightFocused			: 'onSpotlightFocused',
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
-		ontap						: 'onTap'
+		ontap						: 'onTap',
+		onTransitionFinish			: 'onBackwardTransitionFinished'
 	},
 
 	/************ PROTECTED **********/
@@ -36,6 +37,72 @@ enyo.kind({
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
+		}
+	},
+
+	//* create component on stack top
+	createComponent: function(inInfo, inMoreInfo) { // added
+		this.addBefore = undefined;
+		var c = this.inherited(arguments);
+		return c;
+	},
+	createComponents: function(inInfos, inCommonInfo) { // added
+		this.addBefore = undefined;
+		var cs = this.inherited(arguments);
+		return cs;
+	},
+	//* remove component if it is at stack top
+	removeComponent: function(inComponent) { // added
+		var lastIndex = this.getPanels().length - 1;
+		if (this.getPanels()[lastIndex] === inComponent) {
+			return this.inherited(arguments); 
+		}
+	},
+	//* create component on top and changeIndex
+	push: function(inInfo, inMoreInfo) { // added
+		var lastIndex = this.getPanels().length - 1,
+			oPanel = null;
+		oPanel = this.createComponent(inInfo, inMoreInfo);
+		oPanel.render();
+		this.resized();
+		this.setIndex(lastIndex+1);
+		return oPanel;
+	},
+	//* create component on top and changeIndex
+	pushs: function(inInfos, inCommonInfo) { // added
+		var lastIndex = this.getPanels().length - 1,
+			oPanels = null, oPanel = null;
+		oPanels = this.createComponents(inInfos, inCommonInfo);
+		for (var nPanel in oPanels) {
+			oPanels[nPanel].render();
+		}
+		this.resized();
+		this.setIndex(lastIndex+1);
+		return oPanel;
+	},
+	//* changeIndex
+	pop: function(toIndex) {
+		this.setIndex(toIndex);
+	},
+	//* 
+	replace: function(index, inInfo, inMoreInfo) {
+		this.destroyPanels(index);
+		this.push(inInfo, inMoreInfo);
+	},
+	//* destroy component on top 
+	//*   if toIndex is set then pop to toIndex
+	//*   if toIndex is undefined then pop one pannel	
+	destroyPanels: function(toIndex) { // added
+		var lastIndex = this.getPanels().length - 1;
+		toIndex = (typeof(toIndex) == 'undefined') ? lastIndex-1 : toIndex;
+		while (lastIndex > -1 && lastIndex >= toIndex) {
+			this.getPanels()[lastIndex].destroy();
+			lastIndex = this.getPanels().length - 1;	
+		}
+	},
+	onBackwardTransitionFinished: function(oSender, oEvent) { // added
+		if (oEvent.fromIndex > oEvent.toIndex) {
+			this.destroyPanels(oEvent.toIndex+1);
 		}
 	},
 
