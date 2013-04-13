@@ -1,6 +1,104 @@
 enyo.kind({
 	name: "moon.LeanForwardArranger",
 	kind: "enyo.DockRightArranger",
+	breadcrumbWidth: 200,
+	size: function() {
+		console.log("size()");
+		var c$ = this.container.getPanels(),
+			padding = this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {},
+			containerWidth = this.containerBounds.width,
+			offset,
+			xPos,
+			join,
+			currentIndex = this.container.getIndex(),
+			i, j, k, m, c, _w,
+			joinedPanels = [];
+			fullPanelEdge = (currentIndex === 0) ? 0 : this.breadcrumbWidth;
+		
+		containerWidth -= padding.left + padding.right;
+		
+		// reset panel arrangement positions
+		this.container.transitionPositions = {};
+		
+		// setup default widths for each panel
+		for (i=0; (c=c$[i]); i++) {
+			c.addStyles("min-width:;max-width:;");
+			c.width = c.getBounds().width;
+		}
+		
+		for (var i = 0, panel; (panel = c$[i]); i++) {
+			panel.setBounds({top: padding.top, bottom: padding.bottom});
+			fullPanelEdge = (i === 0) ? 0 : this.breadcrumbWidth;
+			
+			for (var j = 0, index; (index = c$[j]); j++) {
+				
+				// each active item should be at _fullPanelEdge_
+				if (i === j) {
+					xPos = fullPanelEdge;
+				
+				// breadcrumbed panels should be positioned to the left
+				} else if (i < j) {
+					xPos = fullPanelEdge - (j - i)*this.breadcrumbWidth;
+				
+				// upcoming panels should be layed out to the right if _joinToPrev_ is true
+				} else if (i > j) {
+					xPos = (j === 0) ? 0 : this.breadcrumbWidth;
+					for (k = i, join = true; k > j; k--) {
+						if (!c$[k].joinToPrev) {
+							join = false;
+							break;
+						}
+						xPos += c$[k-1].width;
+					}
+					
+					// if _joinToPrev_ is false or this panel won't fit on screen, move it offscreen
+					if (!join || xPos + c$[j].width > containerWidth) {
+						xPos = containerWidth;
+					} else {
+						joinedPanels.push(i);
+					}
+				}
+				this.container.transitionPositions[i + "." + j] = xPos;
+			}
+		}
+		
+		var tp = this.container.transitionPositions;
+		
+		for (var i = 0; i < joinedPanels.length; i++) {
+			for (var j = 0; j < c$.length; j++) {
+				tp[j+"."+joinedPanels[i]] = tp[j+"."+(joinedPanels[i]-1)];
+			}
+		}
+		
+		this.updateWidths(containerWidth);
+	},
+	updateWidths: function(inContainerWidth) {
+		var tp = this.container.transitionPositions;
+		var panels = this.container.getPanels();
+		
+		console.log(inContainerWidth);
+		
+		for (var i = 0, panel, newWidth; (panel = panels[i]); i++) {
+			var stretchPanel = null;
+			var stretchIndex = null;
+			var fullPanelEdge = (i === 0) ? 0 : this.breadcrumbWidth;
+			
+			for (var index = i; index < panels.length; index++) {
+				var thisTp = index+"."+i;
+				var thisPanel = panels[index];
+				if (tp[thisTp] >= fullPanelEdge && tp[thisTp] + thisPanel.width < inContainerWidth) {
+					stretchIndex = index;
+				} else {
+					break;
+				}
+			}
+			
+			if (stretchIndex !== null) {
+				var newWidth = inContainerWidth - tp[stretchIndex+"."+i];
+				panels[stretchIndex].addStyles("min-width:"+newWidth+"px;max-width:"+newWidth+"px;");
+			}
+		}
+	},
 	start: function() {
 		this.inherited(arguments);
 
@@ -32,7 +130,7 @@ enyo.kind({
 			var o = 1;
 			if(xPos === 0) {
 				var width = c.getBounds().width;
-				o = (width > this.container.transitionPositions[i+1 + "." + s]) ? 0 : 1;
+				//o = (width > this.container.transitionPositions[i+1 + "." + s]) ? 0 : 1;
 			}
 
 			this.arrangeControl(c, {left: xPos, opacity: o});
