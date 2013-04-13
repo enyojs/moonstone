@@ -1,5 +1,5 @@
 enyo.kind({
-	// 20130412
+	// 20130412-add
 	name : "moon.GridListPanel",
 	fit : true,
 	realtimeFit : true,
