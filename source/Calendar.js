@@ -7,6 +7,7 @@ enyo.kind({
 		value: null,
 		color: 0,
 	},
+
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-date-shadow");
@@ -14,6 +15,7 @@ enyo.kind({
 			this.removeClass("moon-calendar-date-shadow");
 		}
 	},
+
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
 	},
@@ -22,19 +24,20 @@ enyo.kind({
 enyo.kind({
 	name: "moon.CalendarWeek",
 	classes: "moon-calendar-week",
-	published: {
-		days: [],
-		colors: [],
-	},
+	days: [],
+	colors: [],
+
 	create: function() {
 		this.inherited(arguments);
 		this.setupLayout();
 	},
+
 	setupLayout: function() {
 		for (var i = 0; i < 7; i++) {		
 			this.createComponent({kind: "moon.CalendarDate"});
 		}
 	},
+
 	fillDate: function(days, colors) {
 		this.days = days;
 		this.colors = colors;
