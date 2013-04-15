@@ -8,15 +8,25 @@ enyo.kind({
 	kind				: 'enyo.Panels',
 	spotlight			: true,
 	spotlightDecorate	: false,
-
+	/**
+		_refCounter_ is the counter which indicates how many pre-transition is required.
+	*/
+	refCounter			: 0,
 	published: {
+		/**
+			_transitionReady_ is the ready flag.
+			If is has true, transition from arranger can be played.
+			The other hand, transition should be blocked until some internal transitions are finished.
+		*/
+		transitionReady: false,		
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
 		ontap						: 'onTap',
-		onTransitionFinish			: 'onBackwardTransitionFinished'
+		onTransitionFinish			: 'onBackwardTransitionFinished',
+		onPreTransitionFinish		: 'finishPreTransition'
 	},
 
 	/************ PROTECTED **********/
@@ -193,10 +203,61 @@ enyo.kind({
 
 		return -1;
 	},
-
+	/**
+		If there is any pre-transition from it's children,
+		Check whether it was done or not.
+    */
 	setIndex: function(n) {
-		this.inherited(arguments);
-		this.getActive().spotlight = 'container';
-		enyo.Spotlight.spot(this.getActive());
+		if (this.transitionReady) {
+			this.inherited(arguments);
+			this.getActive().spotlight = 'container';
+			enyo.Spotlight.spot(this.getActive());
+		} else {
+			this.checkIfTransitionReady(n);
+		}
+	},
+
+	finishPreTransition: function() {
+		this.refCounter--;
+		if (this.refCounter == 0) {
+			this.setTransitionReady(true);
+			this.transition();
+		}
+	},
+	
+	/**
+		Check whether child panel has transition or not.
+		If they has it, start transition and then marks _transitionReady_ true.
+		The property named _transitionReady_ means this object is ready to transit.
+	*/
+	checkPreTransition: function(panels) {
+		var readyFlag = true;
+		for (var i=0; i < panels.length; i++) {
+			if (!panels[i].transitionReady) {
+				panels[i].transitionReady = !(panels[i].transition && panels[i].transition()); // { animateClosed:true}
+				this.refCounter += !panels[i].transitionReady;
+				readyFlag &= panels[i].transitionReady;	
+			}
+			
+		}
+		return readyFlag;
+	},
+	
+	checkIfTransitionReady: function(selectedIndex) {
+		var panels = this.getPanels(),
+			readyFlag = true;
+
+		for (var i=0; i < panels.length; i++) {
+			readyFlag &= panels[i].transitionReady;
+		}
+
+		if (readyFlag || this.checkPreTransition(panels)) {
+			this.setTransitionReady(true);
+			this.transition(selectedIndex);
+		} 
+	},
+
+	transition: function(selectedIndex) {
+		this.setIndex(selectedIndex);
 	}
 });
