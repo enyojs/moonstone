@@ -3,9 +3,6 @@ enyo.kind({
 	kind: "enyo.Button",
 	classes: "moon-calendar-date enyo-unselectable",
 	spotlight: true,
-	events: {
-		ontap: ""
-	},
 	published: {
 		value: null,
 		color: 0,
