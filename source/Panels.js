@@ -213,7 +213,7 @@ enyo.kind({
 			this.getActive().spotlight = 'container';
 			enyo.Spotlight.spot(this.getActive());
 		} else {
-			this.checkIfTransitionReady();
+			this.checkIfTransitionReady(n);
 		}
 	},
 
@@ -243,7 +243,7 @@ enyo.kind({
 		return readyFlag;
 	},
 	
-	checkIfTransitionReady: function() {
+	checkIfTransitionReady: function(selectedIndex) {
 		var panels = this.getPanels(),
 			readyFlag = true;
 
@@ -253,7 +253,11 @@ enyo.kind({
 
 		if (readyFlag || this.checkPreTransition(panels)) {
 			this.setTransitionReady(true);
-			this.transition();
+			this.transition(selectedIndex);
 		} 
+	},
+
+	transition: function(selectedIndex) {
+		this.setIndex(selectedIndex);
 	}
 });
