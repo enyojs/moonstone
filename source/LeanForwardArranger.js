@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "enyo.DockRightArranger",
 	breadcrumbWidth: 200,
 	size: function() {
-		console.log("size()");
 		var c$ = this.container.getPanels(),
 			padding = this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {},
 			containerWidth = this.containerBounds.width,
@@ -12,13 +11,14 @@ enyo.kind({
 			join,
 			currentIndex = this.container.getIndex(),
 			i, j, k, m, c, _w,
-			joinedPanels = [];
-			fullPanelEdge = (currentIndex === 0) ? 0 : this.breadcrumbWidth;
+			joinedPanels = [],
+			fullPanelEdge = (currentIndex === 0) ? 0 : this.breadcrumbWidth,
+			tp;
 		
 		containerWidth -= padding.left + padding.right;
 		
 		// reset panel arrangement positions
-		this.container.transitionPositions = {};
+		tp = {};
 		
 		// setup default widths for each panel
 		for (i=0; (c=c$[i]); i++) {
@@ -58,11 +58,9 @@ enyo.kind({
 						joinedPanels.push(i);
 					}
 				}
-				this.container.transitionPositions[i + "." + j] = xPos;
+				tp[i + "." + j] = xPos;
 			}
 		}
-		
-		var tp = this.container.transitionPositions;
 		
 		for (var i = 0; i < joinedPanels.length; i++) {
 			for (var j = 0; j < c$.length; j++) {
@@ -70,6 +68,7 @@ enyo.kind({
 			}
 		}
 		
+		this.container.transitionPositions = tp;
 		this.updateWidths(containerWidth);
 	},
 	updateWidths: function(inContainerWidth) {
@@ -135,5 +134,8 @@ enyo.kind({
 
 			this.arrangeControl(c, {left: xPos, opacity: o});
 		}
+	},
+	isOutOfScreen: function(inIndex) {
+		return this.container.transitionPositions[inIndex+"."+this.container.getIndex()] >= this.containerBounds.width;
 	}
 });
