@@ -2,7 +2,6 @@ enyo.kind({
 	name : "moon.Panel",
 	fit : true,
 	realtimeFit : true,
-	clientObject : null,
 	spaceHeight : 100,
 	published: {
 		/**
@@ -16,7 +15,7 @@ enyo.kind({
     },
 
     events: {
-		onTapHandler : ""
+		onTapHandler : "",
     	/**	
     		Notify that this object will transit.
     	*/
