@@ -1,10 +1,35 @@
 enyo.kind({
 	name : "moon.Panel",
-	kind : "Control",
 	fit : true,
 	realtimeFit : true,
 	clientObject : null,
 	spaceHeight : 100,
+	published: {
+		/**
+			_transitionReady_ indicates that this object is ready to transit.
+			If this object does not have any transition or it has and conducted already, 
+			true value will be assigned.
+			Otherhand, if this object has some transition and conducted yet, false will be assinged.
+			Default value is null.
+		*/
+		transitionReady: null
+    },
+
+    events: {
+		onTapHandler : ""
+    	/**	
+    		Notify that this object will transit.
+    	*/
+    	onPreTransitionStart: "",
+    	/**	
+    		Notify that this object just finished its transition
+    	*/
+    	onPreTransitionFinish: "",
+    },
+
+	handlers: {
+    	onTransitionFinish: "finishPreTransition"
+    },
 
 	create : function(oSender, oEvent){
 		this.inherited(arguments);
@@ -13,11 +38,6 @@ enyo.kind({
 			this.setHeader( arguments[0].header );
 		}
 	},
-
-	events : {
-		onTapHandler : ""
-	},
-
 	fadeIn : function(){ 
 		this.$.layer.applyStyle("opacity",1.0);
 		this.$.space.applyStyle("height","0px");
@@ -92,5 +112,28 @@ enyo.kind({
 			if(tArray[i].destory) tArray[i].destory();
 		}
 		this.$.layer.children = [];
-	}
+	},
+	/**	
+		If this object has internal transition, set transitionReady as false to notify that
+		it is not prepared to be transited by arranger.
+	*/
+	startPreTransition: function() {
+		this.setTransitionReady(false);
+		this.firePreTransitionStart();
+	},
+
+	firePreTransitionStart: function() {
+		this.doPreTransitionStart();
+	},
+
+	finishPreTransition: function() {
+		if (this.transitionReady != null) {
+			this.setTransitionReady(true);		
+			this.firePreTransitionFinish();
+		}
+	},
+
+	firePreTransitionFinish: function() {
+		this.doPreTransitionFinish();
+	},
 });
