@@ -7,9 +7,6 @@ enyo.kind({
 		value: null,
 		color: 0,
 	},
-	create: function() {
-		this.inherited(arguments);
-	},
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-date-shadow");
