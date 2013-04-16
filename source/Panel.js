@@ -135,4 +135,19 @@ enyo.kind({
 	firePreTransitionFinish: function() {
 		this.doPreTransitionFinish();
 	},
+
+	transition: function() {
+		if (this.transitionReady) {
+			return false;
+		}         
+		/**
+			If you have some transition,
+			You should remove following comment out before doing transition.
+		*/
+		/**
+			this.startPreTransition();
+				do some work here.
+			return true;
+		*/
+	}	
 });
