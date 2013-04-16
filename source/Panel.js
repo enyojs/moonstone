@@ -2,7 +2,7 @@ enyo.kind({
 	name : "moon.Panel",
 	fit : true,
 	realtimeFit : true,
-	spaceHeight : 100,
+	
 	published: {
 		/**
 			_transitionReady_ indicates that this object is ready to transit.
@@ -13,9 +13,15 @@ enyo.kind({
 		*/
 		transitionReady: null
     },
+    
+	create : function(oSender, oEvent){
+		this.inherited(arguments);
+	},
 
-    events: {
+
+	events : {
 		onTapHandler : "",
+		
     	/**	
     		Notify that this object will transit.
     	*/
@@ -24,85 +30,181 @@ enyo.kind({
     		Notify that this object just finished its transition
     	*/
     	onPreTransitionFinish: "",
-    },
-
+	},
+	
 	handlers: {
     	onTransitionFinish: "finishPreTransition"
     },
 
-	create : function(oSender, oEvent){
-		this.inherited(arguments);
-
-		if(arguments[0].header){
-			this.setHeader( arguments[0].header );
-		}
-	},
-	fadeIn : function(){ 
-		this.$.layer.applyStyle("opacity",1.0);
-		this.$.space.applyStyle("height","0px");
-	},
-
-	fadeOut : function(){ 
-		this.$.layer.applyStyle("opacity",.0);
-		this.$.space.applyStyle("height", this.spaceHeight + "px");
-	},
-
-	components : [
-		{name : "panel", components : [
-			{kind : "FittableRows", classes :"moon moon-sample enyo-fit", components : [
-				// header
-				{name : "header", style:"padding:20px;height:150px", components : [	
-					{name : "index", style:"font-size:20px", content :""},
-					{name : "title", style:"font-size:60px", content :""}
-				]},
-
-				// divider
-				{ name : "divider", kind : "moon.Divider"},
-
-				// space : this space is using for transition annimation effect
-				{ name : "space",
-				 	style : "width: 0px; height:" + this.spaceHeight + "px;" + 
-				            "-webkit-transition: height .35s ease;",
-				},
-
-				// client
-				{ name : "client", style : "margin-left : 20px", ontap : "tapHandler",
-				  components : [{
-				  		name : "layer", 
-					 	style : "opacity : .0;" + 
-					            "-webkit-transition: opacity .35s ease",
-				  }]
-				}
-			]}
-		]}
-	],
-
 	tapHandler : function(inSenter, inEvent){
-		var tIndex = this.$.layer.children.indexOf(inEvent.originator);
-		//this.doTapHandler({index : tIndex })
 		this.doTapHandler( inEvent.originator );
 	},
+	
+	exit : function(){
+		this.ani();
+	},
 
-	// header setting 
+	ani : function(){
+		var animation = new StyleAnimation({
+			duration: 800,
+			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+			keyframes: {
+				0:  [
+					{
+						control: this.$.header,
+						properties: {
+							"height" : "auto",
+						}
+					},
+					{
+						control: this.$.line,
+						properties: {
+							"width": "auto",
+							"top" : "auto"
+						}
+					},
+					{
+						control: this.$.client,
+						properties: {
+							"width": "auto",
+							"height" : "auto",
+							"top" : "auto"
+						}
+					},
+					{
+						control: this.$.layer,
+						properties: {
+							"height" : "auto"
+						}
+					},
+					{
+						control: this.$.smallText,
+						properties: {
+							"top" : "auto"
+						}
+					}
+				],
+
+				40 :[
+					{
+						control: this.$.layer,
+						properties: {
+							"height": "0px"
+						}
+					},
+	
+				],
+
+				60: [
+					{
+						control: this.$.header,
+						properties: {
+							"height": "20px"
+						}
+					},
+					{
+						control: this.$.line,
+						properties: {
+							"top" : "44px"
+						}
+					},
+					{
+						control: this.$.client,
+						properties: {
+							"top" : "64px"
+						}
+					},
+					{
+						control: this.$.client,
+						properties: {
+							"top" : "64px"
+						}
+					},
+					{
+						control: this.$.smallText,
+						properties: {
+							"top": "0px"
+						}
+					}
+
+
+					],
+				80: [{
+					control: this.$.line,
+					properties: {
+						"width": "700px",
+					}
+				}],
+
+				130: [{
+					control: this.$.line,
+					properties: {
+						"width": "0px",
+					}
+				}],
+
+				400: [{
+					control: this.$.client,
+					properties: {
+
+					}
+				}]
+			}
+		}).play();
+	},
+
+	//=================================================================== components
+	components : [
+		{ 
+	    	name : "header",
+			content : "header",
+			style : "width:400px;height:150px;top:25px;left:25px;position:absolute;overflow:hidden;",
+			components : [
+				{ name : "index", content : "", style : "font-size:20px;text-decoration:underline;"},
+				{ name : "title", content : "", style : "font-size:60px;font-weight:bold;"}
+			]
+
+		},
+
+		{
+			name : "line",
+			tag : "hr",
+			style : "width:700px;top:230px;left:25px;position:absolute;margin:0px;border:0;height:5px;background-color:gray;"
+		},
+
+		{ 
+			name : "client",
+			content : "client",
+			style : "top:250px;left:25px;position:absolute;",
+			ontap : "tapHandler",
+			components : [
+				{
+					name : "layer",
+					style : "width:700px; height:400px; overflow:hidden;",
+				}
+			]
+		},
+		{
+			name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;",
+
+			components : [	
+				{ name : "smallText", content : "", style : "position:relative;font-size:25px;top:25px;font-weight:bold;"}
+			]
+		}
+	],
+
 	setHeader : function(pObj){
-		this.$.index.setContent("0" + pObj.index);
+		this.$.index.setContent(pObj.index);
 		this.$.title.setContent(pObj.title);
-
-		this.fadeIn();
+		this.$.smallText.setContent(pObj.title);
 	},
 
 	addClient : function(pArray){
-		this.fadeOut();
-
-		setTimeout( enyo.bind(this, function(){ 
-			// destory
-			this.destoryClient();
-
-			// create
-			this.$.layer.createComponents(pArray,{owner:this});
-			this.$.layer.render();
-			this.fadeIn();
-		}), 500 );
+		this.destoryClient();
+		
+		//this.$.layer.createComponents(pArray,{owner:this});
+		this.$.layer.createComponents(pArray,{owner:this.owner});
+		this.$.layer.render();
 	},
 
 	destoryClient : function(){
@@ -112,6 +214,7 @@ enyo.kind({
 		}
 		this.$.layer.children = [];
 	},
+	
 	/**	
 		If this object has internal transition, set transitionReady as false to notify that
 		it is not prepared to be transited by arranger.
@@ -149,5 +252,5 @@ enyo.kind({
 				do some work here.
 			return true;
 		*/
-	}	
+	}
 });
