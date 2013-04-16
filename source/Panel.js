@@ -41,6 +41,7 @@ enyo.kind({
 	},
 	
 	exit : function(){
+		this.log();
 		this.ani();
 	},
 
@@ -72,7 +73,7 @@ enyo.kind({
 						}
 					},
 					{
-						control: this.$.layer,
+						control: this.$.client,
 						properties: {
 							"height" : "auto"
 						}
@@ -87,7 +88,7 @@ enyo.kind({
 
 				40 :[
 					{
-						control: this.$.layer,
+						control: this.$.client,
 						properties: {
 							"height": "0px"
 						}
@@ -175,14 +176,8 @@ enyo.kind({
 		{ 
 			name : "client",
 			content : "client",
-			style : "top:250px;left:25px;position:absolute;",
-			ontap : "tapHandler",
-			components : [
-				{
-					name : "layer",
-					style : "width:700px; height:400px; overflow:hidden;",
-				}
-			]
+			style : "top:250px;left:25px;position:absolute;width:1000px; height:800px; overflow:hidden;",
+			ontap : "tapHandler"
 		},
 		{
 			name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;",
@@ -199,21 +194,21 @@ enyo.kind({
 		this.$.smallText.setContent(pObj.title);
 	},
 
-	addClient : function(pArray){
-		this.destoryClient();
+	// addClient : function(pArray){
+	// 	this.destoryClient();
 		
-		//this.$.layer.createComponents(pArray,{owner:this});
-		this.$.layer.createComponents(pArray,{owner:this.owner});
-		this.$.layer.render();
-	},
+	// 	//this.$.layer.createComponents(pArray,{owner:this});
+	// 	this.$.layer.createComponents(pArray,{owner:this.owner});
+	// 	this.$.layer.render();
+	// },
 
-	destoryClient : function(){
-		var tArray = this.$.layer.children;
-		for(var i=0;i<tArray.length;i++){
-			if(tArray[i].destory) tArray[i].destory();
-		}
-		this.$.layer.children = [];
-	},
+	// destoryClient : function(){
+	// 	var tArray = this.$.layer.children;
+	// 	for(var i=0;i<tArray.length;i++){
+	// 		if(tArray[i].destory) tArray[i].destory();
+	// 	}
+	// 	this.$.layer.children = [];
+	// },
 	
 	/**	
 		If this object has internal transition, set transitionReady as false to notify that
@@ -240,6 +235,7 @@ enyo.kind({
 	},
 
 	transition: function() {
+		this.log();
 		if (this.transitionReady) {
 			return false;
 		}         
@@ -247,10 +243,9 @@ enyo.kind({
 			If you have some transition,
 			You should remove following comment out before doing transition.
 		*/
-		/**
 			this.startPreTransition();
-				do some work here.
+			this.ani();
+				//do some work here.
 			return true;
-		*/
 	}
 });

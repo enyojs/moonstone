@@ -209,16 +209,20 @@ enyo.kind({
 		Check whether it was done or not.
     */
 	setIndex: function(n) {
-		// if (this.transitionReady) {
+		this.log(n, this.transitionReady);
+
+		if (this.transitionReady) {
 			this.inherited(arguments);
 			this.getActive().spotlight = 'container';
 			enyo.Spotlight.spot(this.getActive());
-		// } else {
-		// 	this.checkIfTransitionReady(n);
-		// }
+			this.setTransitionReady(false);
+		} else {
+			this.checkIfTransitionReady(n);
+		}
 	},
 
 	finishPreTransition: function() {
+		this.log();
 		this.refCounter--;
 		if (this.refCounter == 0) {
 			this.setTransitionReady(true);
