@@ -28,6 +28,7 @@ enyo.kind({
 		onTransitionFinish			: 'onBackwardTransitionFinished',
 		onPreTransitionFinish		: 'finishPreTransition'
 	},
+	defaultKind: "moon.Panel",
 
 	/************ PROTECTED **********/
 
@@ -96,7 +97,8 @@ enyo.kind({
 	},
 	//* replace last panel
 	replace: function(inInfo, inMoreInfo) {
-		this.destroyPanels();
+		var lastIndex = this.getPanels().length - 1;
+		this.getPanels()[lastIndex].destroy();
 		this.push(inInfo, inMoreInfo);
 	},
 	//* destroy component on top 
@@ -108,12 +110,11 @@ enyo.kind({
 		while (lastIndex > -1 && lastIndex >= toIndex) {
 			// Ask layout here about do I need to destroy panels.
 			//    if layout provides isOutOfScreen and given index is out of screen then destroy
-			if ( (this.layout && this.layout.isOutOfScreen && this.layout.isOutOfScreen(oEvent.toIndex+1)) || 
+			if ( (this.layout && this.layout.isOutOfScreen && this.layout.isOutOfScreen(lastIndex)) || 
 				(this.layout && !this.layout.isOutOfScreen) )  {
 				this.getPanels()[lastIndex].destroy();
 			}
-			lastIndex = this.getPanels().length - 1;	
-
+			lastIndex = lastIndex - 1;	
 		}
 	},
 	onBackwardTransitionFinished: function(oSender, oEvent) { // added
@@ -208,13 +209,13 @@ enyo.kind({
 		Check whether it was done or not.
     */
 	setIndex: function(n) {
-		if (this.transitionReady) {
+		// if (this.transitionReady) {
 			this.inherited(arguments);
 			this.getActive().spotlight = 'container';
 			enyo.Spotlight.spot(this.getActive());
-		} else {
-			this.checkIfTransitionReady(n);
-		}
+		// } else {
+		// 	this.checkIfTransitionReady(n);
+		// }
 	},
 
 	finishPreTransition: function() {
