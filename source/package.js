@@ -42,5 +42,6 @@ enyo.depends(
 	"ImageItem.js",
 	"Spinner.js",
 	"SelectableItem.js",
-	"Panel.js"
+	"Panel.js",
+	"StyleAnimation.js"
 );
