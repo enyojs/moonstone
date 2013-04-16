@@ -21,7 +21,6 @@ enyo.kind({
 
 	events : {
 		onTapHandler : "",
-		
     	/**	
     		Notify that this object will transit.
     	*/
@@ -41,8 +40,92 @@ enyo.kind({
 	},
 	
 	exit : function(){
+		this.$.option.applyStyle( "visibility" , "hidden");
 		this.log();
 		this.ani();
+	},
+
+	components : [
+		{ 
+	    	name : "header",
+			style : "width:400px;height:150px;top:25px;left:25px;position:absolute;overflow:hidden;",
+			components : [
+				{ name : "index", content : "", style : "font-size:20px;text-decoration:underline;"},
+				{ name : "title", content : "", style : "font-size:60px;font-weight:bold;"}
+			]
+
+		},
+
+		{
+			name : "option",
+			ontap : "tapHandler",
+			style : "position:absolute;top:176px;left:25px;width:700px;height:50px;margin:0px;"
+		},
+
+		{
+			name : "line",
+			tag : "hr",
+			style : "width:700px;top:230px;left:25px;position:absolute;margin:0px;border:0;height:5px;background-color:gray;"
+		},
+
+		{ 
+			name : "client",
+			style : "top:250px;left:25px;position:absolute;width:1000px; height:800px; overflow:hidden;",
+			ontap : "tapHandler"
+		},
+
+		{
+			name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;",
+
+			components : [	
+				{ name : "smallText", content : "", style : "position:relative;font-size:25px;top:25px;font-weight:bold;"}
+			]
+		}
+	],
+
+	setHeader : function(pObj){
+		this.$.index.setContent(pObj.index);
+		this.$.title.setContent(pObj.title);
+		this.$.smallText.setContent(pObj.title);
+	},
+	
+	/**	
+		If this object has internal transition, set transitionReady as false to notify that
+		it is not prepared to be transited by arranger.
+	*/
+	startPreTransition: function() {
+		this.setTransitionReady(false);
+		this.firePreTransitionStart();
+	},
+
+	firePreTransitionStart: function() {
+		this.doPreTransitionStart();
+	},
+
+	finishPreTransition: function() {
+		if (this.transitionReady != null) {
+			this.setTransitionReady(true);		
+			this.firePreTransitionFinish();
+		}
+	},
+
+	firePreTransitionFinish: function() {
+		this.doPreTransitionFinish();
+	},
+
+	transition: function() {
+		this.log();
+		if (this.transitionReady) {
+			return false;
+		}         
+		/**
+			If you have some transition,
+			You should remove following comment out before doing transition.
+		*/
+			this.startPreTransition();
+			this.ani();
+				//do some work here.
+			return true;
 	},
 
 	ani : function(){
@@ -152,100 +235,5 @@ enyo.kind({
 				}]
 			}
 		}).play();
-	},
-
-	//=================================================================== components
-	components : [
-		{ 
-	    	name : "header",
-			content : "header",
-			style : "width:400px;height:150px;top:25px;left:25px;position:absolute;overflow:hidden;",
-			components : [
-				{ name : "index", content : "", style : "font-size:20px;text-decoration:underline;"},
-				{ name : "title", content : "", style : "font-size:60px;font-weight:bold;"}
-			]
-
-		},
-
-		{
-			name : "line",
-			tag : "hr",
-			style : "width:700px;top:230px;left:25px;position:absolute;margin:0px;border:0;height:5px;background-color:gray;"
-		},
-
-		{ 
-			name : "client",
-			content : "client",
-			style : "top:250px;left:25px;position:absolute;width:1000px; height:800px; overflow:hidden;",
-			ontap : "tapHandler"
-		},
-		{
-			name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;",
-
-			components : [	
-				{ name : "smallText", content : "", style : "position:relative;font-size:25px;top:25px;font-weight:bold;"}
-			]
-		}
-	],
-
-	setHeader : function(pObj){
-		this.$.index.setContent(pObj.index);
-		this.$.title.setContent(pObj.title);
-		this.$.smallText.setContent(pObj.title);
-	},
-
-	// addClient : function(pArray){
-	// 	this.destoryClient();
-		
-	// 	//this.$.layer.createComponents(pArray,{owner:this});
-	// 	this.$.layer.createComponents(pArray,{owner:this.owner});
-	// 	this.$.layer.render();
-	// },
-
-	// destoryClient : function(){
-	// 	var tArray = this.$.layer.children;
-	// 	for(var i=0;i<tArray.length;i++){
-	// 		if(tArray[i].destory) tArray[i].destory();
-	// 	}
-	// 	this.$.layer.children = [];
-	// },
-	
-	/**	
-		If this object has internal transition, set transitionReady as false to notify that
-		it is not prepared to be transited by arranger.
-	*/
-	startPreTransition: function() {
-		this.setTransitionReady(false);
-		this.firePreTransitionStart();
-	},
-
-	firePreTransitionStart: function() {
-		this.doPreTransitionStart();
-	},
-
-	finishPreTransition: function() {
-		if (this.transitionReady != null) {
-			this.setTransitionReady(true);		
-			this.firePreTransitionFinish();
-		}
-	},
-
-	firePreTransitionFinish: function() {
-		this.doPreTransitionFinish();
-	},
-
-	transition: function() {
-		this.log();
-		if (this.transitionReady) {
-			return false;
-		}         
-		/**
-			If you have some transition,
-			You should remove following comment out before doing transition.
-		*/
-			this.startPreTransition();
-			this.ani();
-				//do some work here.
-			return true;
 	}
 });
