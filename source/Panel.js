@@ -1,47 +1,76 @@
 enyo.kind({
 	name : "moon.Panel",
+	kind: "FittableRows",
 	fit : true,
-	realtimeFit : true,
-	style: "overflow:hidden;",
+	classes: "moon-panel",
 	published: {
-		/**
-			_transitionReady_ indicates that this object is ready to transit.
-			If this object does not have any transition or it has and conducted already, 
-			true value will be assigned.
-			Otherhand, if this object has some transition and conducted yet, false will be assinged.
-			Default value is null.
-		*/
-		transitionReady: null,
 		title: "Title"
     },
 	events : {
-		onTapHandler : "",
-    	/**	
-    		Notify that this object will transit.
-    	*/
-    	onPreTransitionStart: "",
-    	/**	
-    		Notify that this object just finished its transition
-    	*/
-    	onPreTransitionFinish: "",
+    	//* This panel has completed it's pre-arrangement transition
 		onPreTransitionComplete: "",
+		//* This panel has completed it's post-arrangement transition
 		onPostTransitionComplete: ""
 	},
-	components : [
-		{name : "header", kind: "moon.Header", content : "header", titleAbove: "test", style: "padding: 0px 0px 0px 20px;display:block;"},
-		{name : "client", content : "client", style : "overflow:hidden;", ontap : "tapHandler"},
-		{name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;", components : [	
-			{name : "smallText", content : "", style : "position:relative;font-size:25px;top:25px;font-weight:bold;"}
-		]}
+	panelTools : [
+		{name: "header", kind: "moon.Header"},
+		{name: "panelBody", fit: true, classes: "moon-panel-body"}
+	],
+	headerComponents: [
+		{content: "This is a TEST!"}
 	],
 	isBreadcrumb: false,
 	
+	create: function() {
+		this.inherited(arguments);
+		this.$.header.createComponents(this.headerComponents);
+	},
+	initComponents: function() {
+		this.createTools();
+		this.controlParentName = "panelBody";
+		this.discoverControlParent();
+		this.inherited(arguments);
+	},
+	createTools: function() {
+		this.createComponents(this.panelTools);
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.titleChanged();
 	},
 	titleChanged: function() {
 		this.setHeader({index: this.container.getPanels().indexOf(this), title: this.getTitle()});
+	},
+	preTransitionComplete: function() {
+		this.isBreadcrumb = true;
+		this.doPreTransitionComplete();
+	},
+	postTransitionComplete: function() {
+		this.isBreadcrumb = false;
+		this.doPostTransitionComplete();
+	},
+	setHeader: function(inData) {
+		this.$.header.setTitleAbove(inData.index);
+		this.$.header.setTitle(inData.title);
+	},
+	preTransition: function(inFromIndex, inToIndex) {
+		var myIndex = this.container.getPanels().indexOf(this);
+		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
+			this.shrinkPanel();
+			return true;
+		}
+		
+		return false;
+	},
+	postTransition: function(inFromIndex, inToIndex) {
+		var myIndex = this.container.getPanels().indexOf(this);
+		
+		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
+			this.growPanel();
+			return true;
+		}
+		
+		return false;
 	},
 	shrinkPanel: function() {
 		var animation = new StyleAnimation({
@@ -58,13 +87,13 @@ enyo.kind({
 					}
 				},
 				{
-					control: this.$.client,
+					control: this.$.panelBody,
 					properties: {
 						"height" : "current"
 					}
 				}],
 				25: [{
-					control: this.$.client,
+					control: this.$.panelBody,
 					properties: {
 						"opacity" : "1"
 					}
@@ -77,7 +106,7 @@ enyo.kind({
 					}
 				},
 				{
-					control: this.$.client,
+					control: this.$.panelBody,
 					properties: {
 						"height"  : "0px",
 						"opacity" : "0"
@@ -107,10 +136,6 @@ enyo.kind({
 				}]
 			}
 		}).play();
-	},
-	preTransitionComplete: function() {
-		this.isBreadcrumb = true;
-		this.doPreTransitionComplete();
 	},
 	growPanel: function() {
 		var animation = new StyleAnimation({
@@ -143,7 +168,7 @@ enyo.kind({
 					}
 				},
 				{
-					control: this.$.client,
+					control: this.$.panelBody,
 					properties: {
 						"height"  : "current",
 						"opacity" : "current"
@@ -157,45 +182,19 @@ enyo.kind({
 					}
 				}],
 				75: [{
-					control: this.$.client,
+					control: this.$.panelBody,
 					properties: {
 						"opacity" : "1"
 					}
 				}],
 				100: [
 				{
-					control: this.$.client,
+					control: this.$.panelBody,
 					properties: {
 						"height"  : "auto"
 					}
 				}]
 			}
 		}).play();
-	},
-	postTransitionComplete: function() {
-		this.isBreadcrumb = false;
-		this.doPostTransitionComplete();
-	},
-	setHeader : function(pObj) {
-		this.$.header.setTitleAbove(pObj.index);
-		this.$.header.setTitle(pObj.title);
-	},
-	preTransition: function(inFromIndex, inToIndex) {
-		var myIndex = this.container.getPanels().indexOf(this);
-		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
-			this.shrinkPanel();
-			return true;
-		}
-		
-		return false;
-	},
-	postTransition: function(inFromIndex, inToIndex) {
-		var myIndex = this.container.getPanels().indexOf(this);
-		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
-			this.growPanel();
-			return true;
-		}
-		
-		return false;
 	}
 });
