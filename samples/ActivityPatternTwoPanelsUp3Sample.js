@@ -166,6 +166,7 @@ enyo.kind({
             kind: "moon.Header",
             content: "Movie Name",
             titleAbove: "03",
+            ontap: "preventPanelMoving",
             components: [
                 {
                     style: "width: 100%; text-align: right; margin: 125px 0px 0px 0px;",
@@ -181,6 +182,7 @@ enyo.kind({
             name: "container",
             kind: "FittableColumns",
             fit: true,
+            ontap: "preventPanelMoving",
             components: [
                 {
                     name: "detail",
@@ -339,6 +341,10 @@ enyo.kind({
         var x = Math.round((this.$.movie.node.offsetWidth - 160) * 0.5);
         var y = Math.round((h + 160) * -0.5) - this.$.info.node.offsetHeight;
         this.$.play.setStyle("-webkit-transform: translateX(" + x + "px) translateY(" + y + "px);");
+    },
+    
+    preventPanelMoving: function() {
+        return true;
     }
 });
 
@@ -358,18 +364,48 @@ enyo.kind({
             titleAbove: "04"
         },
         {
-			name: "scroller",
-            kind: "moon.Scroller",
+            name: "container",
             style: "margin: 28px 0px 0px 0px;",
-            classes: "moon-scroller-vertical-sample-scroller",
             fit: true,
-            touch: true
-		}
+            spotlight: "container",
+            components: [
+                {
+                    name: "list",
+                    kind: "moon.List",
+                    spotlight: true,
+                    orient:"v",
+                    count: 0,
+                    multiSelect: false,
+                    showing: false,
+                    classes: "enyo-fit moon-list-vertical-sample",
+            		onSetupItem: "setupItem",
+                    components: [
+            			{
+                            name: "item",
+                            kind: "enyo.FittableColumns",
+                            classes: "list-vertical-sample-item",
+                            components: [
+                                {name: "image", tag: "img", style: "width: 230px; height: 130px; margin: 0px 12px 0px 0px;"},
+                                {kind: "enyo.FittableRows", classes: "list-vertical-sample-item-label", components: [{name: "name"}, {name: "id"}]}
+                            ]
+                        }
+            		]
+                }
+            ]
+        }
     ],
     
     rendered: function() {
         this.inherited(arguments);
+        this.resizeHandler();
         this.search();
+    },
+    
+    resizeHandler: function() {
+        var h = this.$.container.node.offsetTop;
+        var w = this.$.container.node.offsetWidth;
+        this.$.list.setStyle("width: " + w + "px; top: " + h + "px;");
+        console.log(this.$.container.node.offsetWidth);
     },
     
     search: function() {
@@ -388,16 +424,17 @@ enyo.kind({
     
 	processFlickrResults: function(inRequest, inResponse) {
 		this.results = inResponse.photos.photo;
-        this.$.header.set("titleBelow", this.results.length + " Movies");
-        
-        for (var i = 0; i < this.results.length; i++) {
-            var item = this.results[i];
-            this.$.scroller.createComponent({
-                kind: "moon.ImageItem",
-                source: item.url_m,
-                label: item.title,
-                text: item.id
-            }, {owner:this}).render();
-        }
+        this.$.list.setCount(this.results.length);
+        this.$.list.setShowing(true);
+        this.$.list.render();
+	},
+    
+    setupItem: function(inSender, inEvent) {
+		var i = inEvent.index;
+        var item = this.results[i];
+		this.$.item.addRemoveClass("list-sample-selected", inSender.isSelected(i));
+		this.$.image.set("src", item.url_m);
+		this.$.name.setContent(item.title);
+		this.$.id.setContent(item.id);
 	}
 });

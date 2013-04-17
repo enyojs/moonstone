@@ -166,6 +166,7 @@ enyo.kind({
             kind: "moon.Header",
             content: "Movie Name",
             titleAbove: "03",
+            ontap: "preventPanelMoving",
             components: [
                 {
                     style: "width: 100%; text-align: right; margin: 125px 0px 0px 0px;",
@@ -181,6 +182,7 @@ enyo.kind({
             name: "container",
             kind: "FittableColumns",
             fit: true,
+            ontap: "preventPanelMoving",
             components: [
                 {
                     name: "detail",
@@ -339,6 +341,10 @@ enyo.kind({
         var x = Math.round((this.$.movie.node.offsetWidth - 160) * 0.5);
         var y = Math.round((h + 160) * -0.5) - this.$.info.node.offsetHeight;
         this.$.play.setStyle("-webkit-transform: translateX(" + x + "px) translateY(" + y + "px);");
+    },
+    
+    preventPanelMoving: function() {
+        return true;
     }
 });
 

@@ -54,3 +54,22 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+.list-vertical-sample-item {
+    margin: 0px 0px 10px 0px;
+	transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+}
+
+.list-vertical-sample-item-label {
+    width: 100%;
+    border-top:1px solid #cccccc;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.moon-list-vertical-sample .spotlight .list-vertical-sample-item {
+	border-left:16px solid orange;
+}

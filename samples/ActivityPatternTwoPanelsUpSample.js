@@ -147,21 +147,51 @@ enyo.kind({
             name: "header",
             kind: "moon.Header",
             content: "Browser Movies",
-            titleAbove: "02"
+            titleAbove: "02",
+            ontap: "preventPanelMoving"
         },
         {
-			name: "scroller",
-            kind: "moon.Scroller",
+            name: "container",
             style: "margin: 28px 0px 0px 0px;",
-            classes: "moon-scroller-vertical-sample-scroller",
             fit: true,
-            touch: true
-		}
+            spotlight: "container",
+            ontap: "preventPanelMoving",
+            components: [
+                {
+                    name: "list",
+                    kind: "moon.List",
+                    spotlight: true,
+                    orient:"v",
+                    count: 0,
+                    multiSelect: false,
+                    showing: false,
+                    classes: "enyo-fit moon-list-vertical-sample",
+            		onSetupItem: "setupItem",
+                    components: [
+            			{
+                            name: "item",
+                            kind: "enyo.FittableColumns",
+                            classes: "list-vertical-sample-item",
+                            components: [
+                                {name: "image", tag: "img", style: "width: 230px; height: 130px; margin: 0px 12px 0px 0px;"},
+                                {kind: "enyo.FittableRows", classes: "list-vertical-sample-item-label", components: [{name: "name"}, {name: "id"}]}
+                            ]
+                        }
+            		]
+                }
+            ]
+        }
     ],
     
     rendered: function() {
         this.inherited(arguments);
+        this.resizeHandler();
         this.search();
+    },
+    
+    resizeHandler: function() {
+        var h = this.$.container.node.offsetTop;
+        this.$.list.setStyle("top: " + h + "px;");
     },
     
     search: function() {
@@ -181,17 +211,23 @@ enyo.kind({
 	processFlickrResults: function(inRequest, inResponse) {
 		this.results = inResponse.photos.photo;
         this.$.header.set("titleBelow", this.results.length + " Movies");
-        
-        for (var i = 0; i < this.results.length; i++) {
-            var item = this.results[i];
-            this.$.scroller.createComponent({
-                kind: "moon.ImageItem",
-                source: item.url_m,
-                label: item.title,
-                text: item.id
-            }, {owner:this}).render();
-        }
-	}
+        this.$.list.setCount(this.results.length);
+        this.$.list.setShowing(true);
+        this.$.list.render();
+	},
+    
+    setupItem: function(inSender, inEvent) {
+		var i = inEvent.index;
+        var item = this.results[i];
+		this.$.item.addRemoveClass("list-sample-selected", inSender.isSelected(i));
+		this.$.image.set("src", item.url_m);
+		this.$.name.setContent(item.title);
+		this.$.id.setContent(item.id);
+	},
+    
+    preventPanelMoving: function() {
+        return true;
+    }
 });
 
 enyo.kind({
