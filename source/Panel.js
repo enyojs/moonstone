@@ -16,7 +16,6 @@ enyo.kind({
     },
 	events : {
 		onTapHandler : "",
-		
     	/**	
     		Notify that this object will transit.
     	*/
@@ -198,5 +197,5 @@ enyo.kind({
 		}
 		
 		return false;
-	},
+	}
 });
