@@ -2,6 +2,8 @@ enyo.kind({
 	name: "moon.sample.LeanForwardPanelsSample",
 	kind: "FittableRows",
 	components: [
+		{kind: "moon.Button", content: "Next", ontap: "next"},
+		{kind: "moon.Button", content: "Prev", ontap: "prev"},
 		{name: "panels", kind: "moon.LeanForwardPanels", fit: true, classes: "sample-panels", components: [
 			{content: "01", classes: "sample-panel sample-panel-1"},
 			{content: "02", classes: "sample-panel sample-panel-2"},
@@ -11,7 +13,13 @@ enyo.kind({
 			{content: "06", classes: "sample-panel sample-panel-6"},
 			{content: "07", joinToPrev: true, classes: "sample-panel sample-panel-7"}
 		]}
-	]
+	],
+	next: function() {
+		this.$.panels.next();
+	},
+	prev: function() {
+		this.$.panels.previous();
+	}
 });
 
 enyo.kind({

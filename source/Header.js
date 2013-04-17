@@ -27,7 +27,7 @@ enyo.kind({
 	//* @protected
 	titleAboveChanged: function() {
 		this.$.titleAbove.addRemoveClass('no-border', this.titleAbove === '');
-		this.$.titleAbove.setContent(this.titleAbove || '');
+		this.$.titleAbove.setContent(this.titleAbove);
 	},
 	//* @protected
 	titleBelowChanged: function() {

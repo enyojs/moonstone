@@ -20,16 +20,16 @@ enyo.kind({
 				0: [{
 					control: this.$.box,
 					properties: {
-						"height": "auto",
-						"border": "auto"
+						"height": "current",
+						"border": "current"
 					}
 				},
 				{
 					control: this.$.header,
 					properties: {
-						"font-size" : "auto",
-						"border-bottom" : "auto",
-						"line-height" : "auto"
+						"font-size" : "current",
+						"border-bottom" : "current",
+						"line-height" : "current"
 					}
 				}],
 				40: [{
@@ -167,11 +167,11 @@ enyo.kind({
 				for (var prop in control.properties) {
 					// at zero, every prop is a startvalue
 					if (i === 0 || !startValues[control.control.id]["properties"][prop]) {
-						if (control.properties[prop] === "auto") {
+						if (control.properties[prop] === "current") {
 							control.properties[prop] = enyo.dom.getComputedStyle(control.control.hasNode())[prop];
 						}
-						// If start value is set to _auto_, grab the computed value
-						startValues[control.control.id]["properties"][prop] = (control.properties[prop] === "auto")
+						// If start value is set to _current_, grab the computed value
+						startValues[control.control.id]["properties"][prop] = (control.properties[prop] === "current")
 							?	enyo.dom.getComputedStyle(control.control.hasNode())[prop]
 							:	control.properties[prop];
 					}
@@ -232,7 +232,9 @@ enyo.kind({
 		inInstruction.control.applyStyle(transitionProperty, newStyle);
 		inInstruction.control.applyStyle(inInstruction.property, inInstruction.endValue);
 		
-		//this.log(inInstruction.control.id, transitionProperty, ":", inInstruction.control.domStyles[transitionProperty], "---", inInstruction.property, ":", inInstruction.control.domStyles[inInstruction.property]);
+		// this.log("------");
+// 		this.log(inInstruction.control.id+".applyStyle("+transitionProperty+", "+newStyle+")");
+// 		this.log(inInstruction.control.id+".applyStyle("+inInstruction.property+", "+inInstruction.endValue+")");
 	},
 	beginStepping: function () {
 		this.setTimeElapsed(0);
@@ -253,6 +255,8 @@ enyo.kind({
 		this.stepInterval = null;
 	},
 	reset: function () {
+		this.onComplete && this.onComplete();
+		
 		var instructions = this.instructions;
 		for (var i = 0; i < instructions.length; i++) {
 			//this.log(instructions[i]);

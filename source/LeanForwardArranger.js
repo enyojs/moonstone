@@ -12,7 +12,7 @@ enyo.kind({
 			currentIndex = this.container.getIndex(),
 			i, j, k, m, c, _w,
 			joinedPanels = [],
-			fullPanelEdge = (currentIndex === 0) ? 0 : this.breadcrumbWidth,
+			breadcrumbEdge,
 			tp;
 		
 		containerWidth -= padding.left + padding.right;
@@ -26,19 +26,21 @@ enyo.kind({
 			c.width = c.getBounds().width;
 		}
 		
+		this.calcBreadcrumbEdges();
+		
 		for (var i = 0, panel; (panel = c$[i]); i++) {
 			panel.setBounds({top: padding.top, bottom: padding.bottom});
-			fullPanelEdge = (i === 0) ? 0 : this.breadcrumbWidth;
+			breadcrumbEdge = this.getBreadcrumbEdge(i);
 			
 			for (var j = 0, index; (index = c$[j]); j++) {
 				
-				// each active item should be at _fullPanelEdge_
+				// each active item should be at _breadcrumbEdge_
 				if (i === j) {
-					xPos = fullPanelEdge;
+					xPos = breadcrumbEdge;
 				
 				// breadcrumbed panels should be positioned to the left
 				} else if (i < j) {
-					xPos = fullPanelEdge - (j - i)*this.breadcrumbWidth;
+					xPos = breadcrumbEdge - (j - i - 1)*this.breadcrumbWidth;
 				
 				// upcoming panels should be layed out to the right if _joinToPrev_ is true
 				} else if (i > j) {
@@ -75,17 +77,15 @@ enyo.kind({
 		var tp = this.container.transitionPositions;
 		var panels = this.container.getPanels();
 		
-		console.log(inContainerWidth);
-		
 		for (var i = 0, panel, newWidth; (panel = panels[i]); i++) {
 			var stretchPanel = null;
 			var stretchIndex = null;
-			var fullPanelEdge = (i === 0) ? 0 : this.breadcrumbWidth;
+			var breadcrumbEdge = this.getBreadcrumbEdge(i);
 			
 			for (var index = i; index < panels.length; index++) {
 				var thisTp = index+"."+i;
 				var thisPanel = panels[index];
-				if (tp[thisTp] >= fullPanelEdge && tp[thisTp] + thisPanel.width < inContainerWidth) {
+				if (tp[thisTp] >= breadcrumbEdge && tp[thisTp] + thisPanel.width < inContainerWidth) {
 					stretchIndex = index;
 				} else {
 					break;
@@ -137,5 +137,23 @@ enyo.kind({
 	},
 	isOutOfScreen: function(inIndex) {
 		return this.container.transitionPositions[inIndex+"."+this.container.getIndex()] >= this.containerBounds.width;
+	},
+	isBreadcrumb: function(inPanelIndex, inActiveIndex) {
+		var index = inActiveIndex,
+			breadcrumbEdge = this.getBreadcrumbEdge(inActiveIndex),
+			tp = this.container.transitionPositions,
+			tpIndex = inPanelIndex+"."+index,
+			pos = tp[tpIndex];
+		
+		return pos < breadcrumbEdge;
+	},
+	calcBreadcrumbEdges: function() {
+		this.breadcrumbEdges = [];
+		for (var i = 0, panel; (panel = this.container.getPanels()[i]); i++) {
+			this.breadcrumbEdges[i] = (i === 0 || panel.joinToPrev) ? 0 : this.breadcrumbWidth;
+		}
+	},
+	getBreadcrumbEdge: function(inIndex) {
+		return this.breadcrumbEdges[inIndex];
 	}
 });

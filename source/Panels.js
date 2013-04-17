@@ -26,7 +26,8 @@ enyo.kind({
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
 		ontap						: 'onTap',
 		onTransitionFinish			: 'onBackwardTransitionFinished',
-		onPreTransitionFinish		: 'finishPreTransition'
+		onPreTransitionComplete		: 'panelPreTransitionComplete',
+		onPostTransitionComplete	: 'panelPostTransitionComplete'
 	},
 	defaultKind: "moon.Panel",
 
@@ -38,7 +39,6 @@ enyo.kind({
 	},
 
 	_focusLeave: function(s5WayEventType) {
-		// console.log('PANELS LEAVE');
 		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
 	},
 
@@ -172,11 +172,8 @@ enyo.kind({
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 
-		if (!this._hadFocus()) {									// Focus came from without
-			// console.log('PANELS FOCUS ENTER');
+		if (!this._hadFocus()) {
 			enyo.Spotlight.spot(this.getActive());
-		} else {
-			// console.log('PANELS FOCUS LEAVE');
 		}
 
 		return false;
@@ -208,61 +205,81 @@ enyo.kind({
 		If there is any pre-transition from it's children,
 		Check whether it was done or not.
     */
-	setIndex: function(n) {
-		this.log(n, this.transitionReady);
-
+	setIndex: function(inIndex) {
+		this.fromIndex = this.getIndex();
+		this.toIndex = inIndex;
+		
 		if (this.transitionReady) {
 			this.inherited(arguments);
 			this.getActive().spotlight = 'container';
 			enyo.Spotlight.spot(this.getActive());
 			this.setTransitionReady(false);
+			this.triggerPanelPostTransitions();
 		} else {
-			this.checkIfTransitionReady(n);
-		}
-	},
-
-	finishPreTransition: function() {
-		this.log();
-		this.refCounter--;
-		if (this.refCounter == 0) {
-			this.setTransitionReady(true);
-			this.transition();
+			this.transitionIndex = inIndex;
+			this.triggerPanelPreTransitions();
 		}
 	},
 	
-	/**
-		Check whether child panel has transition or not.
-		If they has it, start transition and then marks _transitionReady_ true.
-		The property named _transitionReady_ means this object is ready to transit.
-	*/
-	checkPreTransition: function(panels) {
-		var readyFlag = true;
-		for (var i=0; i < panels.length; i++) {
-			if (!panels[i].transitionReady) {
-				panels[i].transitionReady = !(panels[i].transition && panels[i].transition()); // { animateClosed:true}
-				this.refCounter += !panels[i].transitionReady;
-				readyFlag &= panels[i].transitionReady;	
+	triggerPanelPreTransitions: function() {
+		var panels = this.getPanels();
+		this.preTransitionWaitlist = [];
+		for(var i = 0, panel; (panel = panels[i]); i++) {
+			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex)) {
+				this.preTransitionWaitlist.push(i);
 			}
-			
 		}
-		return readyFlag;
+		
+		if (this.preTransitionWaitlist.length === 0) {
+			this.transitionReady = true;
+			this.setIndex(this.transitionIndex);
+		}
+	},
+	panelPreTransitionComplete: function(inSender, inEvent) {
+		var index = this.getPanels().indexOf(inSender);
+		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
+			if (this.preTransitionWaitlist[i] === index) {
+				this.preTransitionWaitlist.splice(i,1);
+				break;
+			}
+		}
+		
+		if (this.preTransitionWaitlist.length === 0) {
+			this.preTransitionComplete();
+		}
+	},
+	preTransitionComplete: function() {
+		this.transitionReady = true;
+		this.setIndex(this.transitionIndex);
 	},
 	
-	checkIfTransitionReady: function(selectedIndex) {
-		var panels = this.getPanels(),
-			readyFlag = true;
-
-		for (var i=0; i < panels.length; i++) {
-			readyFlag &= panels[i].transitionReady;
+	triggerPanelPostTransitions: function() {
+		var panels = this.getPanels();
+		this.postTransitionWaitlist = [];
+		for(var i = 0, panel; (panel = panels[i]); i++) {
+			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex)) {
+				this.postTransitionWaitlist.push(i);
+			}
 		}
-
-		if (readyFlag || this.checkPreTransition(panels)) {
-			this.setTransitionReady(true);
-			this.transition(selectedIndex);
-		} 
+		
+		if (this.postTransitionWaitlist.length === 0) {
+			this.postTransitionComplete();
+		}
 	},
-
-	transition: function(selectedIndex) {
-		this.setIndex(selectedIndex);
+	panelPostTransitionComplete: function(inSender, inEvent) {
+		var index = this.getPanels().indexOf(inSender);
+		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
+			if (this.postTransitionWaitlist[i] === index) {
+				this.postTransitionWaitlist.splice(i,1);
+				break;
+			}
+		}
+		
+		if (this.postTransitionWaitlist.length === 0) {
+			this.postTransitionComplete();
+		}
+	},
+	postTransitionComplete: function() {
+		
 	}
 });

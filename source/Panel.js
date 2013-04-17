@@ -2,7 +2,7 @@ enyo.kind({
 	name : "moon.Panel",
 	fit : true,
 	realtimeFit : true,
-	
+	style: "overflow:hidden;",
 	published: {
 		/**
 			_transitionReady_ indicates that this object is ready to transit.
@@ -11,14 +11,9 @@ enyo.kind({
 			Otherhand, if this object has some transition and conducted yet, false will be assinged.
 			Default value is null.
 		*/
-		transitionReady: null
+		transitionReady: null,
+		title: "Title"
     },
-    
-	create : function(oSender, oEvent){
-		this.inherited(arguments);
-	},
-
-
 	events : {
 		onTapHandler : "",
 		
@@ -30,222 +25,178 @@ enyo.kind({
     		Notify that this object just finished its transition
     	*/
     	onPreTransitionFinish: "",
+		onPreTransitionComplete: "",
+		onPostTransitionComplete: ""
 	},
+	components : [
+		{name : "header", kind: "moon.Header", content : "header", titleAbove: "test", style: "padding: 0px 0px 0px 20px;display:block;"},
+		{name : "client", content : "client", style : "overflow:hidden;", ontap : "tapHandler"},
+		{name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;", components : [	
+			{name : "smallText", content : "", style : "position:relative;font-size:25px;top:25px;font-weight:bold;"}
+		]}
+	],
+	isBreadcrumb: false,
 	
-	handlers: {
-    	onTransitionFinish: "finishPreTransition"
-    },
-
-	tapHandler : function(inSenter, inEvent){
-		this.doTapHandler( inEvent.originator );
+	rendered: function() {
+		this.inherited(arguments);
+		this.titleChanged();
 	},
-	
-	exit : function(){
-		this.log();
-		this.ani();
+	titleChanged: function() {
+		this.setHeader({index: this.container.getPanels().indexOf(this), title: this.getTitle()});
 	},
-
-	ani : function(){
+	shrinkPanel: function() {
 		var animation = new StyleAnimation({
 			duration: 800,
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+			onComplete: enyo.bind(this, function() {
+				this.preTransitionComplete();
+			}),
 			keyframes: {
-				0:  [
-					{
-						control: this.$.header,
-						properties: {
-							"height" : "auto",
-						}
-					},
-					{
-						control: this.$.line,
-						properties: {
-							"width": "auto",
-							"top" : "auto"
-						}
-					},
-					{
-						control: this.$.client,
-						properties: {
-							"width": "auto",
-							"height" : "auto",
-							"top" : "auto"
-						}
-					},
-					{
-						control: this.$.client,
-						properties: {
-							"height" : "auto"
-						}
-					},
-					{
-						control: this.$.smallText,
-						properties: {
-							"top" : "auto"
-						}
-					}
-				],
-
-				40 :[
-					{
-						control: this.$.client,
-						properties: {
-							"height": "0px"
-						}
-					},
-	
-				],
-
-				60: [
-					{
-						control: this.$.header,
-						properties: {
-							"height": "20px"
-						}
-					},
-					{
-						control: this.$.line,
-						properties: {
-							"top" : "44px"
-						}
-					},
-					{
-						control: this.$.client,
-						properties: {
-							"top" : "64px"
-						}
-					},
-					{
-						control: this.$.client,
-						properties: {
-							"top" : "64px"
-						}
-					},
-					{
-						control: this.$.smallText,
-						properties: {
-							"top": "0px"
-						}
-					}
-
-
-					],
-				80: [{
-					control: this.$.line,
+				0: [{
+					control: this.$.header,
 					properties: {
-						"width": "700px",
+						"height" : "current"
 					}
-				}],
-
-				130: [{
-					control: this.$.line,
-					properties: {
-						"width": "0px",
-					}
-				}],
-
-				400: [{
+				},
+				{
 					control: this.$.client,
 					properties: {
-
+						"height" : "current"
+					}
+				}],
+				25: [{
+					control: this.$.client,
+					properties: {
+						"opacity" : "1"
+					}
+				}],
+				50: [{
+					control: this.$.header,
+					properties: {
+						"height" : "95px",
+						"width"  : "current"
+					}
+				},
+				{
+					control: this.$.client,
+					properties: {
+						"height"  : "0px",
+						"opacity" : "0"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"width"     : "current",
+						"min-width" : "current",
+						"max-width" : "current"
+					}
+				}],
+				100: [{
+					control: this,
+					properties: {
+						"width" : "200px",
+						"min-width" : "200px",
+						"max-width" : "200px"
+					}
+				},
+				{
+					control: this.$.header,
+					properties: {
+						"width" : "200px"
 					}
 				}]
 			}
 		}).play();
 	},
-
-	//=================================================================== components
-	components : [
-		{ 
-	    	name : "header",
-			content : "header",
-			style : "width:400px;height:150px;top:25px;left:25px;position:absolute;overflow:hidden;",
-			components : [
-				{ name : "index", content : "", style : "font-size:20px;text-decoration:underline;"},
-				{ name : "title", content : "", style : "font-size:60px;font-weight:bold;"}
-			]
-
-		},
-
-		{
-			name : "line",
-			tag : "hr",
-			style : "width:700px;top:230px;left:25px;position:absolute;margin:0px;border:0;height:5px;background-color:gray;"
-		},
-
-		{ 
-			name : "client",
-			content : "client",
-			style : "top:250px;left:25px;position:absolute;width:1000px; height:800px; overflow:hidden;",
-			ontap : "tapHandler"
-		},
-		{
-			name : "smallTitle",  style : "height:30px;position:absolute;left:25px;top:50px;overflow:hidden;",
-
-			components : [	
-				{ name : "smallText", content : "", style : "position:relative;font-size:25px;top:25px;font-weight:bold;"}
-			]
-		}
-	],
-
-	setHeader : function(pObj){
-		this.$.index.setContent(pObj.index);
-		this.$.title.setContent(pObj.title);
-		this.$.smallText.setContent(pObj.title);
+	preTransitionComplete: function() {
+		this.isBreadcrumb = true;
+		this.doPreTransitionComplete();
 	},
-
-	// addClient : function(pArray){
-	// 	this.destoryClient();
-		
-	// 	//this.$.layer.createComponents(pArray,{owner:this});
-	// 	this.$.layer.createComponents(pArray,{owner:this.owner});
-	// 	this.$.layer.render();
-	// },
-
-	// destoryClient : function(){
-	// 	var tArray = this.$.layer.children;
-	// 	for(var i=0;i<tArray.length;i++){
-	// 		if(tArray[i].destory) tArray[i].destory();
-	// 	}
-	// 	this.$.layer.children = [];
-	// },
-	
-	/**	
-		If this object has internal transition, set transitionReady as false to notify that
-		it is not prepared to be transited by arranger.
-	*/
-	startPreTransition: function() {
-		this.setTransitionReady(false);
-		this.firePreTransitionStart();
+	growPanel: function() {
+		var animation = new StyleAnimation({
+			duration: 800,
+			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+			onComplete: enyo.bind(this, function() {
+				this.postTransitionComplete();
+			}),
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"width"     : "current",
+						"min-width" : "current",
+						"max-width" : "current"
+					}
+				}],
+				25: [{
+					control: this,
+					properties: {
+						"width"     : this.width+"px",
+						"min-width" : this.width+"px",
+						"max-width" : this.width+"px"
+					}
+				},
+				{
+					control: this.$.header,
+					properties: {
+						"height" : "current"
+					}
+				},
+				{
+					control: this.$.client,
+					properties: {
+						"height"  : "current",
+						"opacity" : "current"
+					}
+				}],
+				50: [{
+					control: this.$.header,
+					properties: {
+						"height" : "current",
+						"width"  : "auto"
+					}
+				}],
+				75: [{
+					control: this.$.client,
+					properties: {
+						"opacity" : "1"
+					}
+				}],
+				100: [
+				{
+					control: this.$.client,
+					properties: {
+						"height"  : "auto"
+					}
+				}]
+			}
+		}).play();
 	},
-
-	firePreTransitionStart: function() {
-		this.doPreTransitionStart();
+	postTransitionComplete: function() {
+		this.isBreadcrumb = false;
+		this.doPostTransitionComplete();
 	},
-
-	finishPreTransition: function() {
-		if (this.transitionReady != null) {
-			this.setTransitionReady(true);		
-			this.firePreTransitionFinish();
-		}
+	setHeader : function(pObj) {
+		this.$.header.setTitleAbove(pObj.index);
+		this.$.header.setTitle(pObj.title);
 	},
-
-	firePreTransitionFinish: function() {
-		this.doPreTransitionFinish();
-	},
-
-	transition: function() {
-		this.log();
-		if (this.transitionReady) {
-			return false;
-		}         
-		/**
-			If you have some transition,
-			You should remove following comment out before doing transition.
-		*/
-			this.startPreTransition();
-			this.ani();
-				//do some work here.
+	preTransition: function(inFromIndex, inToIndex) {
+		var myIndex = this.container.getPanels().indexOf(this);
+		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
+			this.shrinkPanel();
 			return true;
-	}
+		}
+		
+		return false;
+	},
+	postTransition: function(inFromIndex, inToIndex) {
+		var myIndex = this.container.getPanels().indexOf(this);
+		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
+			this.growPanel();
+			return true;
+		}
+		
+		return false;
+	},
 });
