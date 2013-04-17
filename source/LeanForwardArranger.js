@@ -76,6 +76,7 @@ enyo.kind({
 	updateWidths: function(inContainerWidth) {
 		var tp = this.container.transitionPositions;
 		var panels = this.container.getPanels();
+		var newWidth;
 		
 		for (var i = 0, panel, newWidth; (panel = panels[i]); i++) {
 			var stretchPanel = null;
@@ -93,8 +94,14 @@ enyo.kind({
 			}
 			
 			if (stretchIndex !== null) {
-				var newWidth = inContainerWidth - tp[stretchIndex+"."+i];
+				newWidth = inContainerWidth - tp[stretchIndex+"."+i];
 				panels[stretchIndex].addStyles("min-width:"+newWidth+"px;max-width:"+newWidth+"px;");
+			}
+		}
+		
+		for (i = 0; (panel = panels[i]); i++) {
+			if (panel.domStyles["min-width"] === "") {
+				panel.addStyles("min-width:"+panel.width+"px;max-width:"+panel.width+"px;");
 			}
 		}
 	},

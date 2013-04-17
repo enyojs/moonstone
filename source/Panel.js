@@ -14,7 +14,8 @@ enyo.kind({
 	},
 	panelTools : [
 		{name: "header", kind: "moon.Header"},
-		{name: "panelBody", fit: true, classes: "moon-panel-body"}
+		{name: "panelBody", fit: true, classes: "moon-panel-body"},
+		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerComponents: [
 		{content: "This is a TEST!"}
@@ -73,20 +74,12 @@ enyo.kind({
 		return false;
 	},
 	shrinkPanel: function() {
-		var animation = new StyleAnimation({
+		this.$.animator.newAnimation({
+			animationName: "preTransition",
 			duration: 800,
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
-			onComplete: enyo.bind(this, function() {
-				this.preTransitionComplete();
-			}),
 			keyframes: {
 				0: [{
-					control: this.$.header,
-					properties: {
-						"height" : "current"
-					}
-				},
-				{
 					control: this.$.panelBody,
 					properties: {
 						"height" : "current"
@@ -99,13 +92,6 @@ enyo.kind({
 					}
 				}],
 				50: [{
-					control: this.$.header,
-					properties: {
-						"height" : "95px",
-						"width"  : "current"
-					}
-				},
-				{
 					control: this.$.panelBody,
 					properties: {
 						"height"  : "0px",
@@ -127,23 +113,18 @@ enyo.kind({
 						"min-width" : "200px",
 						"max-width" : "200px"
 					}
-				},
-				{
-					control: this.$.header,
-					properties: {
-						"width" : "200px"
-					}
 				}]
 			}
-		}).play();
+		});
+		
+		this.$.header.animateCollapse();
+		this.$.animator.play();
 	},
 	growPanel: function() {
-		var animation = new StyleAnimation({
+		this.$.animator.newAnimation({
+			animationName: "postTransition",
 			duration: 800,
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
-			onComplete: enyo.bind(this, function() {
-				this.postTransitionComplete();
-			}),
 			keyframes: {
 				0: [{
 					control: this,
@@ -162,23 +143,10 @@ enyo.kind({
 					}
 				},
 				{
-					control: this.$.header,
-					properties: {
-						"height" : "current"
-					}
-				},
-				{
 					control: this.$.panelBody,
 					properties: {
 						"height"  : "current",
 						"opacity" : "current"
-					}
-				}],
-				50: [{
-					control: this.$.header,
-					properties: {
-						"height" : "current",
-						"width"  : "auto"
 					}
 				}],
 				75: [{
@@ -195,6 +163,19 @@ enyo.kind({
 					}
 				}]
 			}
-		}).play();
+		});
+		
+		this.$.header.animateExpand();
+		this.$.animator.play();
+	},
+	animationComplete: function(inSender, inEvent) {
+		switch (inEvent.animationName) {
+			case "preTransition":
+				this.preTransitionComplete();
+				break;
+			case "postTransition":
+				this.postTransitionComplete();
+				break;
+		}
 	}
 });
