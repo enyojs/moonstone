@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.video.detailPageAndList",
+    name: "moon.videoDetailPageAndSynopsisSample",
     kind: "FittableRows",
     style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
@@ -44,7 +44,7 @@ enyo.kind({
                                 {kind: "HomePanel", spotlight: "container"},
                                 {kind: "MoviesPanel", spotlight: "container"},
                                 {kind: "MovieDetailPanel", spotlight: "container"},
-                                {kind: "AlsoWatchedPanel", spotlight: "container"}
+                                {kind: "SynopsisPanel", spotlight: "container"}
                             ]
                         }
                     ]
@@ -349,47 +349,45 @@ enyo.kind({
 });
 
 enyo.kind({
-    name: "AlsoWatchedPanel",
+    name: "SynopsisPanel",
     layoutKind: "enyo.FittableRowsLayout",
 	style: "padding: 20px 50px 0px 10px; width: 28%",
     fit: true,
-    title: "Also Watched",
+    title: "Synopsis",
     titleAbove: "04",
     handler: {onresize: "resizeHandler"},
     components: [
         {
             kind: "moon.Header",
             style: "min-width: 200px;",
-            content: "Also Watched",
+            content: "Synopsis",
             titleAbove: "04"
         },
         {
             name: "container",
-            style: "margin: 28px 0px 0px 0px;",
+            kind: "FittableColumns",
             fit: true,
-            spotlight: "container",
             components: [
                 {
-                    name: "list",
-                    kind: "moon.List",
-                    spotlight: true,
-                    orient:"v",
-                    count: 0,
-                    multiSelect: false,
-                    showing: false,
-                    classes: "enyo-fit moon-list-vertical-sample",
-            		onSetupItem: "setupItem",
+                    name: "synopsis",
                     components: [
-            			{
-                            name: "item",
-                            kind: "enyo.FittableColumns",
-                            classes: "list-vertical-sample-item",
+                        {
+                            kind: "FittableRows",
                             components: [
-                                {name: "image", tag: "img", style: "width: 230px; height: 130px; margin: 0px 12px 0px 0px;"},
-                                {kind: "enyo.FittableRows", classes: "list-vertical-sample-item-label", components: [{name: "name"}, {name: "id"}]}
+                                {kind: "moon.Divider", style: "margin: 28px 0px 5px 0px; font-size: 28px;", content: "Synopsis"},
+                                {
+                                    style: "text-transform: none; font-size: 28px; color: #4b4b4b;",
+                                    components: [
+                                        {allowHtml: true, content: "<b>Staring: </b>Actor Name, Actor Name, and Actor Name"},
+                                        {tag: "br"},
+                                        {
+                                            content: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
+                                        }
+                                    ]
+                                }
                             ]
                         }
-            		]
+                    ]
                 }
             ]
         }
@@ -398,43 +396,11 @@ enyo.kind({
     rendered: function() {
         this.inherited(arguments);
         this.resizeHandler();
-        this.search();
     },
     
     resizeHandler: function() {
-        var h = this.$.container.node.offsetTop;
-        var w = this.$.container.node.offsetWidth;
-        this.$.list.setStyle("width: " + w + "px; top: " + h + "px;");
-        console.log(this.$.container.node.offsetWidth);
-    },
-    
-    search: function() {
-		var params = {
-			method: "flickr.photos.search",
-			format: "json",
-			api_key: "2a21b46e58d207e4888e1ece0cb149a5",
-			per_page: 50,
-			page: 0,
-			text: "korean sushi",
-			sort: "date-posted-desc",
-			extras: "url_m"
-		};
-		new enyo.JsonpRequest({url: "http://api.flickr.com/services/rest/", callbackName: "jsoncallback"}).response(this, "processFlickrResults").go(params);
-	},
-    
-	processFlickrResults: function(inRequest, inResponse) {
-		this.results = inResponse.photos.photo;
-        this.$.list.setCount(this.results.length);
-        this.$.list.setShowing(true);
-        this.$.list.render();
-	},
-    
-    setupItem: function(inSender, inEvent) {
-		var i = inEvent.index;
-        var item = this.results[i];
-		this.$.item.addRemoveClass("list-sample-selected", inSender.isSelected(i));
-		this.$.image.set("src", item.url_m);
-		this.$.name.setContent(item.title);
-		this.$.id.setContent(item.id);
-	}
+        var h = window.innerHeight - this.$.container.node.offsetTop;
+        this.$.container.applyStyle("height: " + h + "px;");
+        this.$.synopsis.applyStyle("height: " + h + "px;");
+    }
 });

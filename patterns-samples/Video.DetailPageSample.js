@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.video.listAndDetailPage",
+    name: "moon.videoDetailPageSample",
     kind: "FittableRows",
     style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
@@ -60,11 +60,10 @@ enyo.kind({
     
     onNavigate: function(inSender, inEvent) {
         if (this.inTransition) { return; }
-        if (this.$.panels.getIndex() != 0) { return; }
         
-        if (inEvent.originator instanceof moon.Button || inEvent.originator instanceof moon.Item) {
+        if (inEvent.originator instanceof moon.Button || inEvent.originator instanceof moon.Item || inEvent.originator instanceof enyo.Image) {
             if (inEvent.type == "ontap" || inEvent.type == "tap") {
-                this.$.panels.setIndex(2);
+                this.$.panels.next();
             }
         }
     },
@@ -138,60 +137,41 @@ enyo.kind({
 enyo.kind({
     name: "MoviesPanel",
     layoutKind: "enyo.FittableRowsLayout",
-	style: "padding: 20px 0px 0px 0px; width: 28%",
+	style: "padding: 20px 50px 0px 20px; width: 85%",
     fit: true,
     title: "Browser Movies",
     titleAbove: "02",
     components: [
         {
-            name: "header",
             kind: "moon.Header",
             content: "Browser Movies",
             titleAbove: "02",
-            ontap: "preventPanelMoving"
-        },
-        {
-            name: "container",
-            style: "margin: 28px 0px 0px 0px;",
-            fit: true,
-            spotlight: "container",
-            ontap: "preventPanelMoving",
             components: [
                 {
-                    name: "list",
-                    kind: "moon.List",
-                    spotlight: true,
-                    orient:"v",
-                    count: 0,
-                    multiSelect: false,
-                    showing: false,
-                    classes: "enyo-fit moon-list-vertical-sample",
-            		onSetupItem: "setupItem",
-                    components: [
-            			{
-                            name: "item",
-                            kind: "enyo.FittableColumns",
-                            classes: "list-vertical-sample-item",
-                            components: [
-                                {name: "image", tag: "img", style: "width: 230px; height: 130px; margin: 0px 12px 0px 0px;"},
-                                {kind: "enyo.FittableRows", classes: "list-vertical-sample-item-label", components: [{name: "name"}, {name: "id"}]}
-                            ]
-                        }
-            		]
+                    style: "width: 100%; text-align: right; margin: 125px 0px 0px 0px;",
+                    components: [{kind: "moon.IconButton", src: "assets/icon-list.png", style: "border: none;"}]
                 }
             ]
-        }
+        },
+        {
+			name: "gridlist",
+			kind: "moon.GridList",
+            style: "padding: 5px 0px 0px 0px;",
+            fit: true,
+			onSetupItem: "setupItem",
+            touch: true,
+            itemWidth: 270,
+			itemHeight: 202,
+			itemSpacing: 35,
+			components: [
+				{name: "item", kind: "moon.GridList.ImageItem"}
+			]
+		}
     ],
     
     rendered: function() {
         this.inherited(arguments);
-        this.resizeHandler();
         this.search();
-    },
-    
-    resizeHandler: function() {
-        var h = this.$.container.node.offsetTop;
-        this.$.list.setStyle("top: " + h + "px;");
     },
     
     search: function() {
@@ -210,30 +190,25 @@ enyo.kind({
     
 	processFlickrResults: function(inRequest, inResponse) {
 		this.results = inResponse.photos.photo;
-        this.$.header.set("titleBelow", this.results.length + " Movies");
-        this.$.list.setCount(this.results.length);
-        this.$.list.setShowing(true);
-        this.$.list.render();
+		this.$.gridlist.show(this.results.length);
 	},
     
-    setupItem: function(inSender, inEvent) {
+	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-        var item = this.results[i];
-		this.$.item.addRemoveClass("list-sample-selected", inSender.isSelected(i));
-		this.$.image.set("src", item.url_m);
-		this.$.name.setContent(item.title);
-		this.$.id.setContent(item.id);
-	},
-    
-    preventPanelMoving: function() {
-        return true;
-    }
+		var item = this.results[i];
+		if (!item.url_m) {
+			return;
+		}
+		this.$.item.setSource(item.url_m);
+		this.$.item.setCaption(item.title);
+		this.$.item.setSelected(this.$.gridlist.isSelected(i));
+	}
 });
 
 enyo.kind({
     name: "MovieDetailPanel",
     layoutKind: "enyo.FittableRowsLayout",
-	style: "padding: 20px 50px 0px 10px; width: 57%",
+	style: "padding: 20px 50px 0px 20px; width: 85%",
     fit: true,
     title: "Movie Name",
     titleAbove: "03",
@@ -261,25 +236,16 @@ enyo.kind({
             components: [
                 {
                     name: "detail",
-                    style: "width: 55%;",
+                    style: "width: 40%;",
                     components: [
                         {name: "movie", kind: "enyo.Image", src: "assets/default-movie.png", style: "width: 100%; padding: 28px 0px 0px 0px;"},
                         {
                             name: "info",
                             kind: "FittableColumns",
-                            style: "padding: 20px 0px 0px 0px;",
                             components: [
                                 {
                                     style: "width: 26%;",
                                     components: [
-                                        {
-                                            kind: "FittableRows",
-                                            style: "margin: 0px 0px 30px 0px;",
-                                            components: [
-                                                {kind: "moon.Divider", style: "margin: 0px 0px 15px 0px; font-size: 28px;", content: "Rating"},
-                                                {tag: "b", content: "PG-13", style: "font-size: 57px; color: #4b4b4b;"}
-                                            ]
-                                        },
                                         {
                                             kind: "moon.CaptionDecorator",
                                             side: "top",
@@ -303,14 +269,6 @@ enyo.kind({
                                     style: "width: 26%;",
                                     components: [
                                         {
-                                            kind: "FittableRows",
-                                            style: "margin: 0px 0px 30px 0px;",
-                                            components: [
-                                                {kind: "moon.Divider", style: "margin: 0px 0px 15px 0px; font-size: 28px;", content: "Release Date"},
-                                                {tag: "b", content: "2013", style: "font-size: 57px; color: #4b4b4b;"}
-                                            ]
-                                        },
-                                        {
                                             kind: "moon.CaptionDecorator",
                                             side: "top",
                                             content: "HD",
@@ -332,25 +290,6 @@ enyo.kind({
                                 {
                                     style: "width: 26%;",
                                     components: [
-                                        {
-                                            kind: "FittableColumns",
-                                            style: "margin: 0px 0px 30px 0px; font-size: 28px;",
-                                            components: [
-                                                {
-                                                    kind: "FittableRows",
-                                                    components: [
-                                                        {kind: "moon.Divider", style: "margin: 0px 0px 15px 0px; font-size: 28px; ", content: "Running Time"},
-                                                        {
-                                                            kind: "FittableColumns",
-                                                            components: [
-                                                                {tag: "b", content: "122", style: "font-size: 57px; color: #4b4b4b;"},
-                                                                {content: "min", style: "color: #4b4b4b; vertical-align: bottom; padding: 0px 0px 7px 0px;"}
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
                                         {
                                             kind: "moon.CaptionDecorator",
                                             side: "top",
@@ -377,12 +316,50 @@ enyo.kind({
                 {style: "width: 5%;"},
                 {
                     name: "synopsis",
-                    style: "width: 40%;",
+                    style: "width: 30%;",
                     components: [
                         {
                             kind: "FittableRows",
                             components: [
-                                {kind: "moon.Divider", style: "margin: 28px 0px 5px 0px; font-size: 28px;", content: "Synopsis"},
+                                {
+                                    kind: "FittableColumns",
+                                    style: "margin: 28px 0px 0px 0px; font-size: 28px;",
+                                    components: [
+                                        {
+                                            kind: "FittableRows",
+                                            style: "width: 30%;",
+                                            components: [
+                                                {kind: "moon.Divider", style: "margin: 0px 0px 15px 0px; font-size: 28px;", content: "Rating"},
+                                                {tag: "b", content: "PG-13", style: "font-size: 57px; color: #4b4b4b;"}
+                                            ]
+                                        },
+                                        {style: "width: 5%;"},
+                                        {
+                                            kind: "FittableRows",
+                                            style: "width: 30%;",
+                                            components: [
+                                                {kind: "moon.Divider", style: "margin: 0px 0px 15px 0px; font-size: 28px;", content: "Release Date"},
+                                                {tag: "b", content: "2013", style: "font-size: 57px; color: #4b4b4b;"}
+                                            ]
+                                        },
+                                        {style: "width: 5%;"},
+                                        {
+                                            kind: "FittableRows",
+                                            style: "width: 30%;",
+                                            components: [
+                                                {kind: "moon.Divider", style: "margin: 0px 0px 15px 0px; font-size: 28px;", content: "Running Time"},
+                                                {
+                                                    kind: "FittableColumns",
+                                                    components: [
+                                                        {tag: "b", content: "122", style: "font-size: 57px; color: #4b4b4b;"},
+                                                        {content: "min", style: "color: #4b4b4b; vertical-align: bottom; padding: 0px 0px 7px 0px;"}
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {kind: "moon.Divider", style: "margin: 70px 0px 5px 0px; font-size: 28px;", content: "Synopsis"},
                                 {
                                     style: "text-transform: none; font-size: 28px; color: #4b4b4b;",
                                     components: [
@@ -395,6 +372,21 @@ enyo.kind({
                                 }
                             ]
                         }
+                    ]
+                },
+                {style: "width: 5%;"},
+                {
+                    name: "more",
+                    style: "width: 20%;",
+                    components: [
+                        {kind: "moon.Divider", style: "margin: 28px 0px 5px 0px; font-size: 28px;", content: "More"},
+                        {kind: "Group", components: [
+                            {kind: "moon.SelectableItem", content: "Trailers", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Also Watched", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Recommendations", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Reviews", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Cast", spotlight: true}
+                        ]}
                     ]
                 }
             ]
@@ -411,6 +403,7 @@ enyo.kind({
         this.$.container.applyStyle("height: " + h + "px;");
         this.$.detail.applyStyle("height: " + h + "px;");
         this.$.synopsis.applyStyle("height: " + h + "px;");
+        this.$.more.applyStyle("height: " + h + "px;");
         
         h = Math.round(this.$.movie.node.offsetWidth * 353 / 627);
         this.$.movie.applyStyle("height: " + h + "px;");
