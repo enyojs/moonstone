@@ -1,0 +1,20 @@
+.moon-music-mainmenu {
+    margin: 0px 20px 20px 20px;
+}
+
+.moon-music-mainmenu-menu {
+    width: 15%;
+    padding: 10px 0px 0px 0px;
+}
+
+.moon-music-mainmenu-content {
+    padding: 2px 0px 0px 0px;
+}
+
+.moon-music-mainmenu-branding {
+    display: table-cell;
+	background: #666666;
+    color: #ffffff;
+    text-align: center;
+    vertical-align:middle;
+}
