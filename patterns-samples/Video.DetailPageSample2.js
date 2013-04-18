@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.video.detailPage2",
+    name: "moon.videoDetailPageSample2",
     kind: "FittableRows",
     style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",

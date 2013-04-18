@@ -8,10 +8,6 @@ enyo.kind({
 	kind				: 'enyo.Panels',
 	spotlight			: true,
 	spotlightDecorate	: false,
-	/**
-		_refCounter_ is the counter which indicates how many pre-transition is required.
-	*/
-	refCounter			: 0,
 	published: {
 		/**
 			_transitionReady_ is the ready flag.
@@ -220,7 +216,10 @@ enyo.kind({
 			this.triggerPanelPreTransitions();
 		}
 	},
-	
+	/**
+		If there is any panel which has preTransition,
+		put this panel index to preTransitionWainList
+	*/
 	triggerPanelPreTransitions: function() {
 		var panels = this.getPanels();
 		this.preTransitionWaitlist = [];
