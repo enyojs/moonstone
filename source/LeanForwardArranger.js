@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.LeanForwardArranger",
 	kind: "enyo.DockRightArranger",
-	breadcrumbWidth: 200,
+	breadcrumbWidth: 180,
 	size: function() {
 		var c$ = this.container.getPanels(),
 			padding = this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {},
@@ -30,9 +30,9 @@ enyo.kind({
 		
 		for (var i = 0, panel; (panel = c$[i]); i++) {
 			panel.setBounds({top: padding.top, bottom: padding.bottom});
-			breadcrumbEdge = this.getBreadcrumbEdge(i);
 			
 			for (var j = 0, index; (index = c$[j]); j++) {
+				breadcrumbEdge = this.getBreadcrumbEdge(j);
 				
 				// each active item should be at _breadcrumbEdge_
 				if (i === j) {
@@ -40,7 +40,7 @@ enyo.kind({
 				
 				// breadcrumbed panels should be positioned to the left
 				} else if (i < j) {
-					xPos = breadcrumbEdge - (j - i - 1)*this.breadcrumbWidth;
+					xPos = breadcrumbEdge - (j - i)*this.breadcrumbWidth;
 				
 				// upcoming panels should be layed out to the right if _joinToPrev_ is true
 				} else if (i > j) {
@@ -72,6 +72,10 @@ enyo.kind({
 		
 		this.container.transitionPositions = tp;
 		this.updateWidths(containerWidth);
+		
+		console.log(tp);
+		this.calcBreadcrumbPositions(joinedPanels);
+		console.log(this.breadcrumbPositions);
 	},
 	updateWidths: function(inContainerWidth) {
 		var tp = this.container.transitionPositions;
@@ -95,13 +99,46 @@ enyo.kind({
 			
 			if (stretchIndex !== null) {
 				newWidth = inContainerWidth - tp[stretchIndex+"."+i];
-				panels[stretchIndex].addStyles("min-width:"+newWidth+"px;max-width:"+newWidth+"px;");
+				panels[stretchIndex].addStyles("width:"+newWidth+"px;min-width:"+newWidth+"px;max-width:"+newWidth+"px;");
+				panels[stretchIndex].width = newWidth;
 			}
 		}
 		
 		for (i = 0; (panel = panels[i]); i++) {
 			if (panel.domStyles["min-width"] === "") {
 				panel.addStyles("min-width:"+panel.width+"px;max-width:"+panel.width+"px;");
+			}
+		}
+	},
+	calcBreadcrumbPositions: function(inJoinedPanels) {
+		var panels = this.container.getPanels(),
+			isBreadcrumb,
+			isJoined,
+			panel,
+			index,
+			i, j;
+		
+		this.breadcrumbPositions = {};
+		
+		for (i = 0, panel; (panel = panels[i]); i++) {
+			for (index = 0; index < panels.length; index++) {
+				isBreadcrumb = false;
+				
+				if (index > i) {
+					j = i+1;
+					isJoined = true;
+					
+					while (index >= j) {
+						if (inJoinedPanels.indexOf(j) === -1) {
+							isJoined = false;
+							break;
+						}
+						j++
+					}
+					
+					isBreadcrumb = !isJoined;
+				}
+				this.breadcrumbPositions[i+"."+index] = isBreadcrumb;
 			}
 		}
 	},
@@ -127,19 +164,13 @@ enyo.kind({
 		this.container.hiddenPanels = hiding;
 	},
 	arrange: function(inC, inName) {
-		var i, c;
 		var c$ = this.container.getPanels();
 		var s = this.container.clamp(inName);
-
+		var i, c, xPos;
+		
 		for (i=0; (c=c$[i]); i++) {
-			var xPos = this.container.transitionPositions[i + "." + s];
-			var o = 1;
-			if(xPos === 0) {
-				var width = c.getBounds().width;
-				//o = (width > this.container.transitionPositions[i+1 + "." + s]) ? 0 : 1;
-			}
-
-			this.arrangeControl(c, {left: xPos, opacity: o});
+			xPos = this.container.transitionPositions[i + "." + s];
+			this.arrangeControl(c, {left: xPos});
 		}
 	},
 	isOutOfScreen: function(inIndex) {
@@ -152,7 +183,10 @@ enyo.kind({
 			tpIndex = inPanelIndex+"."+index,
 			pos = tp[tpIndex];
 		
-		return pos < breadcrumbEdge;
+		//console.log("isBreadcrumb():", "panelIndex:", inPanelIndex, "activeIndex:", inActiveIndex, "pos:", pos, "bc edge:", breadcrumbEdge, "---->", pos < breadcrumbEdge);
+		//console.log("breadcrumbPositions:", inPanelIndex, inActiveIndex, this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex]);
+		return this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
+		//return pos < breadcrumbEdge;
 	},
 	calcBreadcrumbEdges: function() {
 		this.breadcrumbEdges = [];

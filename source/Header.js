@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.Header",
 	classes: "moon-header",
-	// style: "background: purple; border: 2px solid red;",
+	style: "overflow: visible;",
 	published: {
 		//* Sets the title for the header
 		title: '',
@@ -32,7 +32,8 @@ enyo.kind({
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
 		this.animProps = {
 			"height" : myStyle["height"],
-			"border" : myStyle["border-bottom-width"]
+			"border" : myStyle["border-bottom-width"],
+			"width"  : myStyle["width"]
 		};
 		this.$.title.animProps = {
 			"font-size" : titleStyle["font-size"],
@@ -40,7 +41,7 @@ enyo.kind({
 			"padding" : titleStyle["padding"]
 		};
 		this.$.titleAbove.animProps = {
-			"padding" : titleAboveStyle["padding"]
+			"width" : titleAboveStyle["width"]
 		};
 		
 		this.$.animator.newAnimation({
@@ -52,13 +53,8 @@ enyo.kind({
 					control: this,
 					properties: {
 						"height" : "current",
-						"border-bottom-width" : "current"
-					}
-				},
-				{
-					control: this.$.titleAbove,
-					properties: {
-						"padding" : "current"
+						"border-bottom-width" : "current",
+						"background" : "current"
 					}
 				},
 				{
@@ -75,12 +71,26 @@ enyo.kind({
 						"opacity" : "current"
 					}
 				}],
+				30: [{
+					control: this.$.titleAbove,
+					properties: {
+						"border-bottom-width" : "current"
+					}
+				}],
+				40: [{
+					control: this.$.titleAbove,
+					properties: {
+						"border-bottom-width" : "0px"
+					}
+				}],
 				50: [{
 					control: this,
 					properties: {
 						"height" : "100px",
 						"border-bottom-width" : "1px",
-						"width" : "current"
+						"width" : "current",
+						"min-width" : "current",
+						"max-width" : "current"
 					}
 				},
 				{
@@ -92,12 +102,6 @@ enyo.kind({
 					}
 				},
 				{
-					control: this.$.titleAbove,
-					properties: {
-						"padding" : "10px 0px 5px 0px"
-					}
-				},
-				{
 					control: this.$.client,
 					properties: {
 						"opacity" : "0"
@@ -106,7 +110,9 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "200px"
+						"width" : "30px",
+						"min-width" : "30px",
+						"max-width" : "30px"
 					}
 				}],
 				
@@ -119,20 +125,25 @@ enyo.kind({
 		this.$.animator.newAnimation({
 			animationName: "collapse",
 			duration: 500,
+			direction: "reverse",
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
 			keyframes: {
 				0: [{
 					control: this,
 					properties: {
-						"width" : "current"
+						"width" : "current",
+						"min-width" : "current",
+						"max-width" : "current"
 					}
 				}],
 				50: [{
 					control: this,
 					properties: {
-						"width" : "auto",
 						"height" : "current",
-						"border-bottom-width" : "current"
+						"border-bottom-width" : "current",
+						"width" : this.animProps["width"],
+						"min-width" : this.animProps["width"],
+						"max-width" : this.animProps["width"],
 					}
 				},
 				{
@@ -144,15 +155,21 @@ enyo.kind({
 					}
 				},
 				{
-					control: this.$.titleAbove,
-					properties: {
-						"padding" : "current"
-					}
-				},
-				{
 					control: this.$.client,
 					properties: {
 						"opacity" : "current"
+					}
+				}],
+				60: [{
+					control: this.$.titleAbove,
+					properties: {
+						"border-bottom-width" : "current"
+					}
+				}],
+				70: [{
+					control: this.$.titleAbove,
+					properties: {
+						"border-bottom-width" : "1px"
 					}
 				}],
 				100: [{
@@ -160,12 +177,6 @@ enyo.kind({
 					properties: {
 						"height" : this.animProps["height"],
 						"border-bottom-width" : this.animProps["border-bottom-width"]
-					}
-				},
-				{
-					control: this.$.titleAbove,
-					properties: {
-						"padding" : this.$.titleAbove.animProps["font-size"]
 					}
 				},
 				{
@@ -181,7 +192,7 @@ enyo.kind({
 					properties: {
 						"opacity" : "1"
 					}
-				}],
+				}]
 				
 			}
 		});

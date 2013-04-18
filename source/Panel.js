@@ -17,9 +17,8 @@ enyo.kind({
 		{name: "panelBody", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
-	headerComponents: [
-		{content: "This is a TEST!"}
-	],
+	headerComponents: [],
+	
 	isBreadcrumb: false,
 	
 	create: function() {
@@ -56,6 +55,7 @@ enyo.kind({
 	},
 	preTransition: function(inFromIndex, inToIndex) {
 		var myIndex = this.container.getPanels().indexOf(this);
+		
 		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
 			this.shrinkPanel();
 			return true;
@@ -65,7 +65,7 @@ enyo.kind({
 	},
 	postTransition: function(inFromIndex, inToIndex) {
 		var myIndex = this.container.getPanels().indexOf(this);
-		
+
 		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
 			this.growPanel();
 			return true;
@@ -121,6 +121,7 @@ enyo.kind({
 		this.$.animator.play();
 	},
 	growPanel: function() {
+		this.log(this.width);
 		this.$.animator.newAnimation({
 			animationName: "postTransition",
 			duration: 800,
