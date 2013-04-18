@@ -100,7 +100,7 @@ enyo.kind({
 			if (stretchIndex !== null) {
 				newWidth = inContainerWidth - tp[stretchIndex+"."+i];
 				panels[stretchIndex].addStyles("width:"+newWidth+"px;min-width:"+newWidth+"px;max-width:"+newWidth+"px;");
-				panels[stretchIndex].width = newWidth;
+				//panels[stretchIndex].width = newWidth;
 			}
 		}
 		
