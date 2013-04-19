@@ -10,7 +10,8 @@ enyo.kind({
 		keyframes: null,
 		duration: 1000,
 		timeElapsed: 0,
-		timingFunction: "linear"
+		timingFunction: "linear",
+		direction: "forward"
 	},
 	transitionProperty: enyo.dom.transition,
 	instructions: null,
@@ -44,12 +45,18 @@ enyo.kind({
 	},
 	//* @public
 	reset: function () {
-		// TODO - reset style changes
+		this._reset();
 	},
 	//* @public
 	play: function () {
-		this.applyStartValues(this.findStartValues());
+		var startValues = this.findStartValues();
+		this.applyStartValues(startValues);
+		this.cacheStartValues(startValues);
 		setTimeout(enyo.bind(this, "_play"), 0);
+	},
+	//* @public
+	pause: function () {
+		// TODO
 	},
 	
 	////////// PROTECTED //////////
@@ -175,12 +182,24 @@ enyo.kind({
 	},
 	//* @protected
 	applyStartValues: function(inStartValues) {
-		for(var item in inStartValues) {
-			var control = inStartValues[item].control;
+		var item, prop, control;
+		
+		for(item in inStartValues) {
+			control = inStartValues[item].control;
 			
-			for (var prop in inStartValues[item].properties) {
+			for (prop in inStartValues[item].properties) {
 				control.applyStyle(prop, inStartValues[item].properties[prop]);
 			}
+		}
+	},
+	//* @protected
+	cacheStartValues: function(inStartValues) {
+		var item, prop, control;
+		this.startValues = inStartValues;
+		
+		for(item in inStartValues) {
+			control = inStartValues[item].control;
+			inStartValues[item].properties[this.transitionProperty] = control.domStyles[this.transitionProperty];
 		}
 	},
 	//* @protected
@@ -205,7 +224,6 @@ enyo.kind({
 		inInstruction.control.applyStyle(transitionProperty, newStyle);
 		inInstruction.control.applyStyle(inInstruction.property, inInstruction.endValue);
 		
-		// this.log("------");
 		//  this.log(inInstruction.control.id+".applyStyle("+transitionProperty+", "+newStyle+")");
 		//  this.log(inInstruction.control.id+".applyStyle("+inInstruction.property+", "+inInstruction.endValue+")");
 	},
@@ -226,5 +244,12 @@ enyo.kind({
 		this.stop();
 		this.reset();
 		this.doComplete({animationName: this.getAnimationName()});
+	},
+	//* @protected
+	//* Reset transition properties to what they were before transition happened
+	_reset: function() {
+		for(var item in this.startValues) {
+			this.startValues[item].control.applyStyle(this.transitionProperty, this.startValues[item].properties[this.transitionProperty]);
+		}
 	}
 });

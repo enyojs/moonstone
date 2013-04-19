@@ -21,7 +21,7 @@ enyo.kind({
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
 		ontap						: 'onTap',
-		onTransitionFinish			: 'onBackwardTransitionFinished',
+		onTransitionFinish			: 'transitionFinish',
 		onPreTransitionComplete		: 'panelPreTransitionComplete',
 		onPostTransitionComplete	: 'panelPostTransitionComplete'
 	},
@@ -88,8 +88,13 @@ enyo.kind({
 		return oPanel;
 	},
 	//* changeIndex
-	pop: function(toIndex) {
-		this.setIndex(toIndex);
+	pop: function(inIndex) {
+		var panels = this.getPanels(),
+			inIndex = inIndex || panels.length - 1;
+		
+		while (panels.length > inIndex && inIndex >= 0) {
+			panels[panels.length - 1].destroy();
+		}
 	},
 	//* replace last panel
 	replace: function(inInfo, inMoreInfo) {
@@ -97,28 +102,6 @@ enyo.kind({
 		this.getPanels()[lastIndex].destroy();
 		this.push(inInfo, inMoreInfo);
 	},
-	//* destroy component on top 
-	//*   if toIndex is set then pop to toIndex
-	//*   if toIndex is undefined then pop one pannel	
-	destroyPanels: function(toIndex) { // added
-		var lastIndex = this.getPanels().length - 1;
-		toIndex = (typeof(toIndex) == 'number') ? toIndex : lastIndex;
-		while (lastIndex > -1 && lastIndex >= toIndex) {
-			// Ask layout here about do I need to destroy panels.
-			//    if layout provides isOutOfScreen and given index is out of screen then destroy
-			if ( (this.layout && this.layout.isOutOfScreen && this.layout.isOutOfScreen(lastIndex)) || 
-				(this.layout && !this.layout.isOutOfScreen) )  {
-				this.getPanels()[lastIndex].destroy();
-			}
-			lastIndex = lastIndex - 1;	
-		}
-	},
-	onBackwardTransitionFinished: function(oSender, oEvent) { // added
-		if (oEvent.fromIndex > oEvent.toIndex) {
-			this.destroyPanels(oEvent.toIndex+1);
-		}
-	},
-
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 
@@ -128,10 +111,8 @@ enyo.kind({
 			enyo.Spotlight.setPointerMode(false);
 			return true;
 		}
-		return false; //
+		return false;
 	},
-
-
 	// Focus left one of the panels
 	onSpotlightPanelLeave: function(oSender, oEvent) {
 		if (oEvent.originator != this.getActive())	{ return false; }
