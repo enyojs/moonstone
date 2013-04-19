@@ -5,7 +5,7 @@ enyo.kind({
 	classes: "moon-panel",
 	published: {
 		title: "Title",
-		titleBelow: "Title below"
+		titleBelow: ""
     },
 	events : {
     	//* This panel has completed it's pre-arrangement transition
