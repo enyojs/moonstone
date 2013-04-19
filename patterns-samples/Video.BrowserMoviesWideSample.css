@@ -14,20 +14,6 @@
     margin: 28px 0px 0px 0px;
 }
 
-.moon-labeledtextitem .label {
-    font-family: "Miso";
-    font-size: 36px;
-    font-weight: bold;
-    line-height: 36px;
-    color: #4b4b4b;
-    border-top: 1px solid #A2A2A2;
-    margin: 0px 0px 3px 0px;
-    padding: 6px 0px 0px 0px;
-    text-transform: uppercase;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
 .moon-video-browsermovies-item {
     margin: 0px 0px 10px 0px;
 	transition: all 0.1s linear;
@@ -49,6 +35,6 @@
     white-space: nowrap;
 }
 
-.moon-video-browsermovies-list .spotlight {
+.moon-video-browsermovies-list .spotlight .moon-video-browsermovies-item {
 	border-left:16px solid orange;
 }
