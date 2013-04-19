@@ -1,0 +1,73 @@
+.gray-background {
+    background: #eaeaea;
+}
+
+.moon-video-detail {
+    margin: 0px 20px 0px 20px;
+}
+
+.moon-video-detail-header-button {
+    margin: 0px 0px 5px 0px;
+}
+
+.moon-video-detail-header-button-right {
+    margin: 0px 0px 0px 20px;
+}
+
+.moon-video-detail-container {
+    margin: 28px 0px 0px 0px;
+}
+
+.moon-video-detail-detail {
+    width: 30%;
+    margin: 0px 20px 0px 0px;
+}
+
+.moon-video-detail-preview {
+    width: 100%;
+}
+
+.moon-video-detail-synopsis {
+    width: 45%;
+    margin: 0px 20px 0px 0px;
+}
+
+.moon-video-detail-devider {
+    margin: 0px 0px 15px 0px;
+    font-size: 28px;
+}
+
+.moon-video-detail-big-text {
+    font-size: 57px;
+    color: #4b4b4b;
+}
+
+.moon-video-detail-sub-text {
+    color: #4b4b4b;
+    vertical-align: bottom;
+    padding: 0px 0px 7px 0px;
+    font-size: 28px;
+}
+
+.moon-video-detail-devider-synopsis {
+    margin: 70px 0px 5px 0px;
+    font-size: 28px;
+}
+
+.moon-video-detail-content {
+    text-transform: none;
+    font-size: 28px;
+    color: #4b4b4b;
+}
+
+.moon-video-detail-more {
+    margin: 0px 0px 5px 0px;
+    font-size: 28px;
+}
+
+.moon-play-icon {
+    border-radius: 9999px;
+    width: 160px;
+    height: 160px;
+    background-position: 0 -42px;
+}

@@ -1,0 +1,54 @@
+.gray-background {
+    background: #eaeaea;
+}
+
+.moon-video-browsermovies {
+    margin: 0px 20px 20px 20px;
+}
+
+.moon-video-browsermovie-header-button {
+    margin: 0px 0px 5px 0px;
+}
+
+.moon-video-browsermovies-container {
+    margin: 28px 0px 0px 0px;
+}
+
+.moon-labeledtextitem .label {
+    font-family: "Miso";
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 36px;
+    color: #4b4b4b;
+    border-top: 1px solid #A2A2A2;
+    margin: 0px 0px 3px 0px;
+    padding: 6px 0px 0px 0px;
+    text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.moon-video-browsermovies-item {
+    margin: 0px 0px 10px 0px;
+	transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+}
+
+.moon-video-browsermovies-item-image {
+    width: 230px;
+    height: 130px;
+    margin: 0px 12px 0px 0px;
+}
+
+.moon-video-browsermovies-item-label {
+    width: 100%;
+    border-top:1px solid #cccccc;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.moon-video-browsermovies-list .spotlight {
+	border-left:16px solid orange;
+}
