@@ -4,7 +4,8 @@ enyo.kind({
 	fit : true,
 	classes: "moon-panel",
 	published: {
-		title: "Title"
+		title: "Title",
+		titleBelow: "Title below"
     },
 	events : {
     	//* This panel has completed it's pre-arrangement transition
@@ -17,8 +18,9 @@ enyo.kind({
 		{name: "panelBody", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
-	headerComponents: [],
-	
+	headerComponents: [
+		{content: "This is a TEST!"}
+	],
 	isBreadcrumb: false,
 	
 	create: function() {
@@ -36,10 +38,21 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.titleChanged();
+		this.setHeader({
+			index: this.container.getPanels().indexOf(this), 
+			title: this.getTitle(),
+			titleBelow: this.getTitleBelow(),
+		});
 	},
 	titleChanged: function() {
-		this.setHeader({index: this.container.getPanels().indexOf(this), title: this.getTitle()});
+		this.setHeader({
+			title: this.getTitle(),
+		});
+	},
+	titleBelowChanged: function() {
+		this.setHeader({
+			titleBelow: this.getTitleBelow(),
+		});
 	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
@@ -50,12 +63,12 @@ enyo.kind({
 		this.doPostTransitionComplete();
 	},
 	setHeader: function(inData) {
-		this.$.header.setTitleAbove(inData.index);
-		this.$.header.setTitle(inData.title);
+		this.$.header.setTitleAbove(inData.index || this.container.getPanels().indexOf(this));
+		this.$.header.setTitle(inData.title || this.getTitle());
+		this.$.header.setTitleBelow(inData.titleBelow || this.getTitleBelow());
 	},
 	preTransition: function(inFromIndex, inToIndex) {
 		var myIndex = this.container.getPanels().indexOf(this);
-		
 		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
 			this.shrinkPanel();
 			return true;
@@ -65,7 +78,7 @@ enyo.kind({
 	},
 	postTransition: function(inFromIndex, inToIndex) {
 		var myIndex = this.container.getPanels().indexOf(this);
-
+		
 		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
 			this.growPanel();
 			return true;
@@ -121,7 +134,6 @@ enyo.kind({
 		this.$.animator.play();
 	},
 	growPanel: function() {
-		this.log(this.width);
 		this.$.animator.newAnimation({
 			animationName: "postTransition",
 			duration: 800,
