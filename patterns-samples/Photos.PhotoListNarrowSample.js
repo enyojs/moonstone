@@ -34,6 +34,7 @@ enyo.kind({
                     kind : "moon.Scroller",
                     style : "width:350px;height:550px;padding: 20px 0px 0px 10px",
                     touch : true,
+                    horizontal : "hidden",
                     components : [
                         {
                             kind: "sample.PhotoListItem",

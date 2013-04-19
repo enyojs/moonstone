@@ -25,6 +25,7 @@ enyo.kind({
                 {
                     kind : "moon.Scroller",
                     style : "width:350px;height:550px;padding: 30px 0px 0px 35px",
+                    horizontal : "hidden",
                     touch : true,
                     components : [
                         {
