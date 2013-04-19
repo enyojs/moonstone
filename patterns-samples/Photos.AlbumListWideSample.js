@@ -2,18 +2,25 @@ enyo.kind({
     name: "moon.sample.photos.AlbumListWideSample",
 	kind: "moon.Panels",
 	classes: "photos-album",
-	title: "Albums",
+	params: {
+		method: "flickr.photos.search",
+		format: "json",
+		api_key: "2a21b46e58d207e4888e1ece0cb149a5",
+		per_page: 50,
+		page: 0,
+		text: "korean Idol",
+		sort: "date-posted-desc",
+		extras: "url_m"
+	},
 	components: [
-	
 		{name: "Albums", title: "Albums", components: [
 			{kind: "FittableColumns", components: [
 				{kind: "enyo.Spotlight"},
 				{
-					kind: "moon.List", 
-					spotlight: true,
-					style: "width: 15%;",
-					orient:"v", 
-					count: 5, 
+					kind: "moon.List",
+					count: 8,
+					classes: "moon-list-vertical-sample",
+					style: "width: 20%; height:550px;", 
 					onSetupItem: "setupImageItem", 
 					components: [
 						{
@@ -21,23 +28,24 @@ enyo.kind({
 							kind: "moon.ImageItem", 
 							source: "assets/album.png", 
 							label: "ALBUM NAME", 
-							ontap: "decorateTapEvent",
+							classes: "list-vertical-sample-item"
 						}
 					]
 				},
-				{
-					name: "gridlist",
-					kind: "moon.GridList",
-					fit: true,
-					onSetupItem: "setupGridItem",
-					touch: true,
-					itemWidth: 270,
-					itemHeight: 202,
-					itemSpacing: 20,
-					components: [
-						{name: "gridItem", kind: "moon.GridList.ImageItem"}
-					]
-				}
+				{kind : "moon.Scroller", style: "height:550px;", fit: true, touch: true, components:[
+					{
+						name: "gridlist",
+						kind: "moon.GridList",
+						onSetupItem: "setupGridItem",
+						touch: true,
+						itemWidth: 270,
+						itemHeight: 202,
+						itemSpacing: 20,
+						components: [
+							{name: "gridItem", kind: "moon.GridList.ImageItem"}
+						]
+					}
+				]}
 			]}
 			
 		]}
@@ -53,17 +61,7 @@ enyo.kind({
     },
 
 	search: function() {
-		var params = {
-			method: "flickr.photos.search",
-			format: "json",
-			api_key: "2a21b46e58d207e4888e1ece0cb149a5",
-			per_page: 50,
-			page: 0,
-			text: "korean Idol",
-			sort: "date-posted-desc",
-			extras: "url_m"
-		};
-		new enyo.JsonpRequest({url: "http://api.flickr.com/services/rest/", callbackName: "jsoncallback"}).response(this, "processFlickrResults").go(params);
+		new enyo.JsonpRequest({url: "http://api.flickr.com/services/rest/", callbackName: "jsoncallback"}).response(this, "processFlickrResults").go(this.params);
 	},
 
 	processFlickrResults: function(inRequest, inResponse) {
@@ -83,9 +81,11 @@ enyo.kind({
 	},
 
 	decorateTapEvent: function(inSender, inEvent) {
-		inEvent = enyo.mixin(inEvent, {
-			title: inSender.getContent(),
-			url:   inSender.url
-		});
+/*		inEvent = enyo.mixin(inEvent, {
+			title: inSender.getLabel(),
+		});*/
+		this.params.text = inSender.getLabel();
+		this.$.Albums.setTitle(this.params.text);
+		this.rendered();
 	}
 });
