@@ -14,24 +14,35 @@ enyo.kind({
 	},
 	components: [
 		{name: "Albums", title: "Albums", components: [
-			{kind: "FittableColumns", components: [
-				{kind: "enyo.Spotlight"},
-				{
-					kind: "moon.List",
-					count: 8,
-					classes: "moon-list-vertical-sample",
-					style: "width: 20%; height:550px;", 
-					onSetupItem: "setupImageItem", 
-					components: [
-						{
-							name: "imageItem", 
-							kind: "moon.ImageItem", 
-							source: "assets/album.png", 
-							label: "ALBUM NAME", 
-							classes: "list-vertical-sample-item"
-						}
-					]
-				},
+			{kind: "enyo.Spotlight"},
+			{kind: "FittableColumns", style: "height:550px;", components: [				
+				{kind : "moon.Scroller", style: "width: 20%;", horizontal: "hidden", touch: true, components:[
+					{
+						kind: "moon.ImageItem", 
+						source: "assets/album.png", 
+						label: "ALBUM NAME", 
+					},
+					{
+						kind: "moon.ImageItem", 
+						source: "assets/album.png", 
+						label: "ALBUM NAME", 
+					},
+					{
+						kind: "moon.ImageItem", 
+						source: "assets/album.png", 
+						label: "ALBUM NAME", 
+					},
+					{
+						kind: "moon.ImageItem", 
+						source: "assets/album.png", 
+						label: "ALBUM NAME", 
+					},
+					{
+						kind: "moon.ImageItem", 
+						source: "assets/album.png", 
+						label: "ALBUM NAME", 
+					}
+				]},
 				{kind : "moon.Scroller", style: "height:550px;", fit: true, touch: true, components:[
 					{
 						name: "gridlist",
@@ -51,10 +62,6 @@ enyo.kind({
 		]}
 	],
 	
-	setupImageItem: function(inSender, inEvent) {
-
-	},
-
 	rendered: function() {
         this.inherited(arguments);
         this.search();
@@ -78,14 +85,5 @@ enyo.kind({
 		this.$.gridItem.setSource(gridItem.url_m);
 		//this.$.gridItem.setCaption(gridItem.title);
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
-
-	decorateTapEvent: function(inSender, inEvent) {
-/*		inEvent = enyo.mixin(inEvent, {
-			title: inSender.getLabel(),
-		});*/
-		this.params.text = inSender.getLabel();
-		this.$.Albums.setTitle(this.params.text);
-		this.rendered();
 	}
 });
