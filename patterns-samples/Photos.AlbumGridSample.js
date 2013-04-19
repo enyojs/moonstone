@@ -10,24 +10,22 @@ enyo.kind({
 	],
 	components: [	
 		{name: "Albums", title: "Main Menu", components: [
-			{kind: "FittableColumns", components: [
-				{kind: "enyo.Spotlight"},
-				{
-					name: "gridlist",
-					kind: "moon.GridList",
-					fit: true,
-					count: 4,
-					onSetupItem: "setupGridItem",
-					touch: true,
-					itemWidth: 374,
-					itemHeight: 267,
-					itemSpacing: 30,
-					components: [
-						{name: "gridItem", kind: "moon.GridList.ImageItem"}
-					]
-				}
-			]},			
-		],
+			{kind: "enyo.Spotlight"},
+			{
+				name: "gridlist",
+				kind: "moon.GridList",
+				fit: true,
+				count: 4,
+				onSetupItem: "setupGridItem",
+				touch: true,
+				itemWidth: 374,
+				itemHeight: 267,
+				itemSpacing: 30,
+				components: [
+					{name: "gridItem", kind: "moon.GridList.ImageItem"}
+				]
+			}
+		]}
 	],
 	
 	setupGridItem: function(inSender, inEvent) {
