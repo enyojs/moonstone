@@ -1,4 +1,4 @@
-enyo.kind({
+	enyo.kind({
     name: "moon.sample.photos.AlbumGridSample",
 	kind: "moon.Panel",
 	index: "01",
