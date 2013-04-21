@@ -44,6 +44,7 @@ enyo.kind({
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
+			this.getPanels()[n].setIndex(n);
 		}
 	},
 
@@ -101,6 +102,15 @@ enyo.kind({
 		var lastIndex = this.getPanels().length - 1;
 		this.getPanels()[lastIndex].destroy();
 		this.push(inInfo, inMoreInfo);
+	},
+	removeControl: function() {
+		this.inherited(arguments);
+		var panels = this.getPanels();
+		for(i=0; i < panels.length; i++) {	
+			if(i != panels[i].getIndex()) {
+				panels[i].setIndex(i);
+			}
+		}
 	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
@@ -205,7 +215,7 @@ enyo.kind({
 		var panels = this.getPanels();
 		this.preTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex)) {
+			if (panel.preTransition && panel.preTransition(i, this.fromIndex, this.toIndex)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
@@ -237,7 +247,7 @@ enyo.kind({
 		var panels = this.getPanels();
 		this.postTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex)) {
+			if (panel.postTransition && panel.postTransition(i, this.fromIndex, this.toIndex)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}

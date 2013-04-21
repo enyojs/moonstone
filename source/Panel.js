@@ -4,6 +4,7 @@ enyo.kind({
 	fit : true,
 	classes: "moon-panel",
 	published: {
+		index: 0,
 		title: "Title",
 		titleBelow: ""
     },
@@ -39,7 +40,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.setHeader({
-			index: this.container.getPanels().indexOf(this), 
+			titleAbove: this.getIndex(),
 			title: this.getTitle(),
 			titleBelow: this.getTitleBelow(),
 		});
@@ -63,12 +64,16 @@ enyo.kind({
 		this.doPostTransitionComplete();
 	},
 	setHeader: function(inData) {
-		this.$.header.setTitleAbove(inData.index || this.container.getPanels().indexOf(this));
-		this.$.header.setTitle(inData.title || this.getTitle());
-		this.$.header.setTitleBelow(inData.titleBelow || this.getTitleBelow());
+		inData.titleAbove || this.$.header.setTitleAbove(inData.titleAbove);
+		this.$.header.setTitle(inData.title);
+		this.$.header.setTitleBelow(inData.titleBelow);
 	},
-	preTransition: function(inFromIndex, inToIndex) {
-		var myIndex = this.container.getPanels().indexOf(this);
+	/**
+		@param thisIndex panel index in this.container
+	*/
+	preTransition: function(thisIndex, inFromIndex, inToIndex) {
+		//var myIndex = this.container.getPanels().indexOf(this);
+		var myIndex = thisIndex;
 		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
 			this.shrinkPanel();
 			return true;
@@ -76,9 +81,9 @@ enyo.kind({
 		
 		return false;
 	},
-	postTransition: function(inFromIndex, inToIndex) {
-		var myIndex = this.container.getPanels().indexOf(this);
-		
+	postTransition: function(thisIndex, inFromIndex, inToIndex) {
+		//var myIndex = this.container.getPanels().indexOf(this);
+		var myIndex = thisIndex;
 		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
 			this.growPanel();
 			return true;
@@ -103,7 +108,7 @@ enyo.kind({
 					properties: {
 						"opacity" : "1"
 					}
-				}],
+				}],		
 				50: [{
 					control: this.$.panelBody,
 					properties: {
