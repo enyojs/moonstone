@@ -46,9 +46,9 @@ enyo.kind({
 	],
 	
 	rendered: function() {
-        this.inherited(arguments);
-        this.$.gridlist.show(this.imageList.length);
-    },
+		this.inherited(arguments);
+		this.$.gridlist.show(this.imageList.length);
+	},
 
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
