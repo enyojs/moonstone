@@ -46,7 +46,7 @@ enyo.kind({
                                     name: "image",
                                     fit: true,
                                     classes: "moon-music-item-image",
-                                    components: [{name: "play", classes: "moon-play-icon"}]
+                                    components: [{classes: "moon-play-icon"}]
                                 },
                                 {style: "display: table-cell; width: 20px;"},
                                 {classes: "moon-music-item-label", components: [{name: "track", classes: "moon-music-item-label-content"}]},
@@ -67,8 +67,8 @@ enyo.kind({
     },
     
     resizeList: function() {
-        var h = this.$.container.node.offsetTop;
-        this.$.list.setStyle("top: " + h + "px;");
+        var rect = this.$.container.getBounds();
+        this.$.list.setBounds({top: rect.top});
     },
     
     setupItem: function(inSender, inEvent) {

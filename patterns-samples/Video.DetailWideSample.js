@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.VideoDetailWideSample",
+    name: "moon.sample.video.DetailWide",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-video-detail",
     fit: true,
@@ -33,7 +33,11 @@ enyo.kind({
                     name: "detail",
                     classes: "moon-video-detail-detail",
                     components: [
-                        {name: "movie", kind: "enyo.Image", src: "assets/default-movie.png", classes: "moon-video-detail-preview"},
+                        {
+                            name: "movie",
+                            classes: "moon-video-detail-preview",
+                            components: [{name: "play", classes: "moon-play-icon"}]
+                        },
                         {
                             name: "info",
                             kind: "FittableColumns",
@@ -141,8 +145,7 @@ enyo.kind({
                                     ]
                                 }
                             ]
-                        },
-                        {name: "play", kind: "moon.IconButton", src: "assets/icon-big-play.png", classes: "moon-play-icon"}
+                        }
                     ]
                 },
                 {
@@ -176,11 +179,12 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        var h = Math.round(this.$.movie.node.offsetWidth * 353 / 627);
-        this.$.movie.applyStyle("height: " + h + "px;");
+        var w = this.$.detail.getBounds().width;
+        var h = Math.round(w * 353 / 627);
+        this.$.movie.setBounds({width: w, height: h});
         
-        var x = Math.round((this.$.movie.node.offsetWidth - 160) * 0.5);
-        var y = Math.round((h + 160) * -0.5) - this.$.info.node.offsetHeight - 10;
-        this.$.play.setStyle("-webkit-transform: translateX(" + x + "px) translateY(" + y + "px);");
+        w = Math.round((w - 160) * 0.5);
+        h = Math.round((h - 160) * 0.5);
+        this.$.play.setStyle("margin: " + h + "px 0px 0px " + w + "px;");
     }
 });

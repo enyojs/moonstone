@@ -3,7 +3,7 @@
 }
 
 .moon-music-trackonecolumn {
-    margin: 0px 20px 20px 20px;
+    margin: 0px 20px 0px 20px;
 }
 
 .moon-music-header-button {
@@ -15,7 +15,7 @@
 }
 
 .moon-music-container {
-    margin: 28px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
 }
 
 .moon-music-item {
@@ -34,10 +34,6 @@
     height: 126px;
     display: table-cell;
     background-repeat: no-repeat;
-	transition: all 0.1s linear;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	-o-transition: all 0.1s linear;
 }
 
 .moon-music-item-image:hover .moon-play-icon {

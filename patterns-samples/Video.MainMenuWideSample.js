@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.VideoMainMenuWideSample",
+    name: "moon.sample.video.MainMenuWide",
     layoutKind: "enyo.FittableRowsLayout",
     classes: "enyo-unselectable moon moon-video-mainmenu",
     fit: true,
@@ -44,12 +44,8 @@ enyo.kind({
     },
     
     resizeBranding: function() {
-        var w = this.$.content.node.offsetWidth;
-        var h = window.innerHeight - this.$.columns.node.offsetTop - 22;
-        if (this.w !== w || this.h !== h) {
-            this.$.branding.setStyle("width: " + w + "px; height: " + h + "px;");
-            this.w = w;
-            this.h = h;
-        }
+        var w = this.$.content.getBounds().width;
+        var h = this.getBounds().height - this.$.columns.getBounds().top - 2;
+        this.$.branding.setBounds({width: w, height: h});
     }
 });

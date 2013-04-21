@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.VideoBrowserMoviesWideSample",
+    name: "moon.sample.video.BrowserMoviesWide",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-video-browsermovies",
     fit: true,
@@ -60,8 +60,8 @@ enyo.kind({
     },
     
     resizeList: function() {
-        var h = this.$.container.node.offsetTop;
-        this.$.list.setStyle("top: " + h + "px;");
+        var rect = this.$.container.getBounds();
+        this.$.list.setBounds({top: rect.top});
     },
     
     search: function() {
