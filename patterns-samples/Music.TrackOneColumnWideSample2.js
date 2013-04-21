@@ -12,7 +12,7 @@ enyo.kind({
             classes: "moon-music-trackonecolumn-header",
             content: "Browser Tracks",
             titleAbove: "02",
-            titleBelow: "5 Tracks",
+            titleBelow: "15 Tracks",
             components: [
                 {
                     components: [

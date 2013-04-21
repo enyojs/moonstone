@@ -11,7 +11,7 @@ enyo.kind({
             kind: "moon.Header",
             content: "Browser Tracks",
             titleAbove: "02",
-            titleBelow: "5 Tracks",
+            titleBelow: "15 Tracks",
             components: [
                 {
                     components: [
