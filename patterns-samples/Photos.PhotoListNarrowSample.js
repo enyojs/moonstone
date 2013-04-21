@@ -1,13 +1,27 @@
 enyo.kind({
     name: "moon.sample.photos.PhotoListNarrowSample",
-    kind: "FittableRows",
-    style: "background: #eaeaea;",//" width:350px;",//overflow:hidden;",
+    //kind: "FittableRows",
+    kind : "moon.Panel",
+    style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
     fit: true,
 
     handlers: {
 
     },
+
+    create: function() {
+        this.inherited(arguments);
+        
+        this.setHeader({
+            title : "ALBUM",
+            index : "02",
+            titleBelow : "97 Photos",
+        });
+    },
+
+    headerComponents : [
+    ],
 
     components: [
         {kind : "enyo.Spotlight"},
@@ -18,42 +32,9 @@ enyo.kind({
 
             components : [
                 {
-                    kind : "moon.Header",
-                    allowHtml : true,
-                    title : "ALBUM",
-                    titleAbove : "02",
-                    titleBelow : "97 Photos",
-                    style : "padding-left:20px;",
 
-                    components : [
-                        //{ content : "NAME", classes : "moon-header-title", style : "text-align:left;position:relative;top:-25px;"  },
-                        //{ content : "97 Photos", style : "font-size:24px" }
-                    ]
-                },
-                {
-                    kind : "moon.Scroller",
-                    style : "width:350px;height:550px;padding: 20px 0px 0px 10px",
-                    touch : true,
-                    horizontal : "hidden",
-                    components : [
-                        {
-                            kind: "sample.PhotoListItem",
-                            source: "./assets/default-movie.png",
-                        },
-                        {
-                            kind: "sample.PhotoListItem",
-                            source: "./assets/default-movie.png",
-                        },
-                        {
-                            kind: "sample.PhotoListItem",
-                            source: "./assets/default-movie.png",
-                        },
-                        {
-                            kind: "sample.PhotoListItem",
-                            source: "./assets/default-movie.png",
-                        },
-                    ]
-
+                    kind : "moon.sample.photos.PhotoListNarrowSample.photoList",
+                    style : "margin : 20px 0px 0px 20px;"
                 }
             ]
         }
@@ -61,8 +42,36 @@ enyo.kind({
     ]
 });
 
+// photo list
 enyo.kind({
-    name: "sample.PhotoListItem",
+    name : "moon.sample.photos.PhotoListNarrowSample.photoList",
+    kind : "moon.Scroller",
+    style : "width:350px;height:550px;",
+    touch : true,
+    horizontal : "hidden",
+    components : [
+        {
+            kind: "sample.photo.PhotoListItem",
+            source: "./assets/default-movie.png",
+        },
+        {
+            kind: "sample.photo.PhotoListItem",
+            source: "./assets/default-movie.png",
+        },
+        {
+            kind: "sample.photo.PhotoListItem",
+            source: "./assets/default-movie.png",
+        },
+        {
+            kind: "sample.photo.PhotoListItem",
+            source: "./assets/default-movie.png",
+        },
+    ]
+});
+
+// phot list item
+enyo.kind({
+    name: "sample.photo.PhotoListItem",
     classes: "sample-photo-list-item",
     kind: "moon.Item",
     components:[

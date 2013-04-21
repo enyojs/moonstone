@@ -1,13 +1,27 @@
 enyo.kind({
     name: "moon.sample.photos.AlbumListNarrowSample",
-    kind: "FittableRows",
-    style: "background: #eaeaea;",//" width:350px; overflow:hidden",
+    //kind: "FittableRows",
+    kind : "moon.Panel",
+    style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
     fit: true,
 
     handlers: {
 
     },
+
+    create: function() {
+        this.inherited(arguments);
+        
+        this.setHeader({
+            title : "ALBUMS",
+            index : "01",
+            titleBelow : " "
+        });
+    },
+
+    headerComponents : [
+    ],
 
     components: [
         {kind : "enyo.Spotlight"},
@@ -17,49 +31,8 @@ enyo.kind({
             fit : true,
             components : [
                 {
-                    kind : "moon.Header",
-                    title : "ALBUMS",
-                    titleAbove : "01",
-                    style : "padding-left:20px;"
-                },
-                {
-                    kind : "moon.Scroller",
-                    style : "width:350px;height:550px;padding: 30px 0px 0px 35px",
-                    horizontal : "hidden",
-                    touch : true,
-                    components : [
-                        {
-                            components : [
-                                {
-                                    kind : "sample.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                }
-                            ]
-                        },
-
-                    ]
-
+                    kind : "moon.sample.photos.AlbumListNarrowSample.albumList",
+                    style : "margin : 20px 0px 0px 20px;"
                 }
             ]
         }
@@ -67,37 +40,93 @@ enyo.kind({
     ]
 });
 
+// album list
 enyo.kind({
-    name: "sample.AlbumListItem",
+    name : "moon.sample.photos.AlbumListNarrowSample.albumList",
+    kind : "moon.Scroller",
+    style : "width:400px;height:600px;",
+    horizontal : "hidden",
+    touch : true,
+    components : [
+        {
+            components : [
+                {tag : "br"},
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                }
+            ]
+        },
+
+    ]
+});
+
+// AlbumListItem
+enyo.kind({
+    name: "sample.photo.AlbumListItem",
     classes: "sample-album-list-item",
     kind: "moon.Item",
     style : "margin : 0px 0px 80px 0px;",
     components:[
         {
-            style : "margin : 40px 0px 60px 0px;",
+            kind : "FittableColumns",
             components : [
                 {
-                    name : "bgImage",
-                    kind : "enyo.Image",
-                    style : "margin: -24px 0px 0px 25px;",
+                    style : "margin : 40px 0px 60px 0px;",
                     components : [
                         {
-                            name : "image",
+                            name : "bgImage",
                             kind : "enyo.Image",
-                            style : "margin: -216px 0px 0px 0px;",
-                        }
+                            style : "margin: -22px 0px 0px 25px;",
+                            components : [
+                                {
+                                    name : "image",
+                                    kind : "enyo.Image",
+                                    style : "margin: -216px 0px 0px 0px;",
+                                }
+                            ]
+                        },
                     ]
                 },
+                {
+                    name : "title",
+                    style : "margin-left : 10px",
+                }
             ]
         }
     ],
+
     published: {
         source: '',
-        bgSource : ''
+        bgSource : '',
+        title : '',
     },
+
     create: function() {
         this.inherited(arguments);
         this.sourceChanged();
+        this.textChanged();
     },
 
     sourceChanged: function() {
@@ -107,4 +136,11 @@ enyo.kind({
         this.$.image.setAttribute('src', this.source);
         this.$.bgImage.setAttribute('src', this.bgSource);
     },
+
+    textChanged : function(){
+        if (!this.title || this.title === '') {
+            return;
+        }
+        this.$.title.content = this.title;
+    }
 });
