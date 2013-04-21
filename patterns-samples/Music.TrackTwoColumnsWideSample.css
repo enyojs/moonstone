@@ -25,7 +25,12 @@
     table-layout: fixed;
 }
 
-.moon-music-item:hover .moon-play-icon {
+.moon-music-item-column {
+    margin: 0px 0px 10px 0px;
+    width: 50%;
+}
+
+.moon-music-item-column:hover .moon-play-icon {
     visibility: visible;
 }
 
@@ -53,12 +58,12 @@
     font-size: 40px;
     font-weight: bold;
     text-transform: uppercase;
-    width: 30%;
+    width: 60%;
     vertical-align: middle;
     display: table-cell;
 }
 
-.moon-music-item-label-content {
+.moon-music-item-track {
     padding: 0px 0px 0px 5px;
 	transition: all 0.1s linear;
 	-webkit-transition: all 0.1s linear;
@@ -66,7 +71,21 @@
 	-o-transition: all 0.1s linear;
 }
 
-.moon-music-item-label:hover .moon-music-item-label-content {
+.moon-music-item-label:hover .moon-music-item-track {
+    border-left:16px solid orange;
+}
+
+.moon-music-item-artist {
+    padding: 0px 0px 0px 5px;
+    font-size: 38px;
+    font-weight: normal;
+	transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+}
+
+.moon-music-item-label:hover .moon-music-item-artist {
     border-left:16px solid orange;
 }
 
@@ -77,7 +96,7 @@
     font-family: "Miso";
     font-size: 38px;
     text-transform: uppercase;
-    width: 10%;
+    width: 20%;
     height: 126px;
     text-align: center;
     vertical-align: middle;
