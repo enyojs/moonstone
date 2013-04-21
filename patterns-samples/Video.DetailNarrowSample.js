@@ -1,10 +1,11 @@
 enyo.kind({
-    name: "moon.VideoDetailWideSample",
+    name: "moon.VideoDetailNarrowSample",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-video-detail",
     fit: true,
     title: "Movie Name",
     titleAbove: "03",
+    handler: {onresize: "resizeHandler"},
     components: [
         {kind: "enyo.Spotlight"},
         {
@@ -40,10 +41,19 @@ enyo.kind({
                         {
                             name: "info",
                             kind: "FittableColumns",
+                            classes: "moon-video-detail-info",
                             components: [
                                 {
                                     style: "width: 26%;",
                                     components: [
+                                        {
+                                            kind: "FittableRows",
+                                            classes: "moon-video-detail-devider-group",
+                                            components: [
+                                                {kind: "moon.Divider", classes: "moon-video-detail-devider", content: "Rating"},
+                                                {tag: "b", classes: "moon-video-detail-big-text", content: "PG-13"}
+                                            ]
+                                        },
                                         {
                                             kind: "moon.CaptionDecorator",
                                             side: "top",
@@ -67,6 +77,14 @@ enyo.kind({
                                     style: "width: 26%;",
                                     components: [
                                         {
+                                            kind: "FittableRows",
+                                            classes: "moon-video-detail-devider-group",
+                                            components: [
+                                                {kind: "moon.Divider", classes: "moon-video-detail-devider", content: "Release Date"},
+                                                {tag: "b", classes: "moon-video-detail-big-text", content: "2013"}
+                                            ]
+                                        },
+                                        {
                                             kind: "moon.CaptionDecorator",
                                             side: "top",
                                             content: "HD",
@@ -88,6 +106,26 @@ enyo.kind({
                                 {
                                     style: "width: 26%;",
                                     components: [
+                                        {
+                                            kind: "FittableColumns",
+                                            classes: "moon-video-detail-devider-group",
+                                            components: [
+                                                {
+                                                    kind: "FittableRows",
+                                                    fit: true,
+                                                    components: [
+                                                        {kind: "moon.Divider", classes: "moon-video-detail-devider", content: "Running Time"},
+                                                        {
+                                                            kind: "FittableColumns",
+                                                            components: [
+                                                                {tag: "b", classes: "moon-video-detail-big-text", content: "122"},
+                                                                {content: "min", classes: "moon-video-detail-sub-text"}
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
                                         {
                                             kind: "moon.CaptionDecorator",
                                             side: "top",
@@ -112,49 +150,11 @@ enyo.kind({
                 },
                 {
                     name: "synopsis",
-                    classes: "moon-video-detail-synopsis",
                     components: [
                         {
                             kind: "FittableRows",
                             components: [
-                                {
-                                    kind: "FittableColumns",
-                                    components: [
-                                        {
-                                            kind: "FittableRows",
-                                            style: "width: 30%;",
-                                            components: [
-                                                {kind: "moon.Divider", classes: "moon-video-detail-devider", content: "Rating"},
-                                                {tag: "b", classes: "moon-video-detail-big-text", content: "PG-13"}
-                                            ]
-                                        },
-                                        {style: "width: 5%;"},
-                                        {
-                                            kind: "FittableRows",
-                                            style: "width: 30%;",
-                                            components: [
-                                                {kind: "moon.Divider", classes: "moon-video-detail-devider", content: "Release Date"},
-                                                {tag: "b", classes: "moon-video-detail-big-text", content: "2013"}
-                                            ]
-                                        },
-                                        {style: "width: 5%;"},
-                                        {
-                                            kind: "FittableRows",
-                                            style: "width: 30%;",
-                                            components: [
-                                                {kind: "moon.Divider", classes: "moon-video-detail-devider", content: "Running Time"},
-                                                {
-                                                    kind: "FittableColumns",
-                                                    components: [
-                                                        {tag: "b", classes: "moon-video-detail-big-text", content: "122"},
-                                                        {content: "min", classes: "moon-video-detail-sub-text"}
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {kind: "moon.Divider", classes: "moon-video-detail-devider-synopsis", content: "Synopsis"},
+                                {kind: "moon.Divider", classes: "moon-video-detail-synopsis", content: "Synopsis"},
                                 {
                                     classes: "moon-video-detail-content",
                                     components: [
@@ -167,20 +167,6 @@ enyo.kind({
                                 }
                             ]
                         }
-                    ]
-                },
-                {
-                    name: "more",
-                    fit: true,
-                    components: [
-                        {kind: "moon.Divider", classes: "moon-video-detail-more", content: "More"},
-                        {kind: "Group", components: [
-                            {kind: "moon.SelectableItem", content: "Trailers", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Also Watched", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Recommendations", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Reviews", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Cast", spotlight: true}
-                        ]}
                     ]
                 }
             ]

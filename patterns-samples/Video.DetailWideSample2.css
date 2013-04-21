@@ -19,13 +19,13 @@
 }
 
 .moon-video-detail-detail {
-    width: 40%;
+    width: 30%;
     margin: 0px 20px 0px 0px;
 }
 
 .moon-video-detail-preview {
     display: table-cell;
-    background-image: url(assets/default-movie.png);
+    background-image: url(assets/default-movie-vertical.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
@@ -35,7 +35,7 @@
 }
 
 .moon-video-detail-synopsis {
-    width: 35%;
+    width: 45%;
     margin: 0px 20px 0px 0px;
 }
 

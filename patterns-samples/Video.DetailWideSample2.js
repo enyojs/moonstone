@@ -1,11 +1,11 @@
 enyo.kind({
-    name: "moon.sample.video.DetailWide2",
+    name: "moon.VideoDetailWideSample2",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-video-detail",
     fit: true,
     title: "Movie Name",
     titleAbove: "03",
-    //handler: {onresize: "resizeHandler"},
+    handler: {onresize: "resizeHandler"},
     components: [
         {kind: "enyo.Spotlight"},
         {
@@ -37,77 +37,6 @@ enyo.kind({
                             name: "movie",
                             classes: "moon-video-detail-preview",
                             components: [{name: "play", classes: "moon-play-icon"}]
-                        },
-                        {
-                            name: "info",
-                            kind: "FittableColumns",
-                            components: [
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "SD",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						ontap: "buttonTapped",
-                            						components: [
-                            							{content: "$", classes: "moon-pre-text"},
-                            							{content: "3", classes: "moon-large-text"},
-                            							{content: "99", classes: "moon-superscript"}
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {style: "width: 11%;"},
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "HD",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						ontap: "buttonTapped",
-                            						components: [
-                            							{content: "$", classes: "moon-pre-text"},
-                            							{content: "6", classes: "moon-large-text"},
-                            							{content: "99", classes: "moon-superscript"}
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {style: "width: 11%;"},
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "3D",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						ontap: "buttonTapped",
-                            						components: [
-                            							{content: "$", classes: "moon-pre-text"},
-                            							{content: "7", classes: "moon-large-text"},
-                            							{content: "99", classes: "moon-superscript"}
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
                         }
                     ]
                 },
@@ -195,7 +124,7 @@ enyo.kind({
     
     resizeHandler: function() {
         var w = this.$.detail.getBounds().width;
-        var h = Math.round(w * 353 / 627);
+        var h = Math.round(w * 650 / 425);
         this.$.movie.setBounds({width: w, height: h});
         
         w = Math.round((w - 160) * 0.5);

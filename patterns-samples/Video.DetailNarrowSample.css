@@ -19,13 +19,13 @@
 }
 
 .moon-video-detail-detail {
-    width: 30%;
+    width: 55%;
     margin: 0px 20px 0px 0px;
 }
 
 .moon-video-detail-preview {
     display: table-cell;
-    background-image: url(assets/default-movie-vertical.png);
+    background-image: url(assets/default-movie.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
@@ -34,9 +34,12 @@
     visibility: visible;
 }
 
-.moon-video-detail-synopsis {
-    width: 45%;
-    margin: 0px 20px 0px 0px;
+.moon-video-detail-info {
+    padding: 20px 0px 0px 0px;
+}
+
+.moon-video-detail-devider-group {
+    margin: 0px 0px 30px 0px;
 }
 
 .moon-video-detail-devider {
@@ -56,8 +59,8 @@
     font-size: 28px;
 }
 
-.moon-video-detail-devider-synopsis {
-    margin: 70px 0px 5px 0px;
+.moon-video-detail-synopsis {
+    margin: 0px 0px 0px 0px;
     font-size: 28px;
 }
 
@@ -65,11 +68,6 @@
     text-transform: none;
     font-size: 28px;
     color: #4b4b4b;
-}
-
-.moon-video-detail-more {
-    margin: 0px 0px 5px 0px;
-    font-size: 28px;
 }
 
 .moon-play-icon {
