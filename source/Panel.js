@@ -64,7 +64,7 @@ enyo.kind({
 		this.doPostTransitionComplete();
 	},
 	setHeader: function(inData) {
-		inData.titleAbove || this.$.header.setTitleAbove(inData.titleAbove);
+		this.$.header.setTitleAbove(inData.titleAbove);
 		this.$.header.setTitle(inData.title);
 		this.$.header.setTitleBelow(inData.titleBelow);
 	},
