@@ -187,7 +187,6 @@ enyo.kind({
         this.$.list.setBounds({top: rect.top, left: rect.left});
     },
     
-    
     setupItem: function(inSender, inEvent) {
         var url = "assets/default-music.png";
 		this.$.image.setStyle("background-image: url(" + url + ");");

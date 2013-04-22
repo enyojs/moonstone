@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.music.ArtistDetailNarrowSample",
+    name: "moon.sample.music.SimilarTracksNarrowSample",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
@@ -9,8 +9,9 @@ enyo.kind({
         {kind: "enyo.Spotlight"},
         {
             kind: "moon.Header",
-            content: "Artist",
+            content: "Sililar Tracks",
             titleAbove: "04",
+            titleBelow: "10 Tracks",
             components: [
                 {
                     classes: "moon-music-detail-header-button",
@@ -32,45 +33,6 @@ enyo.kind({
                     kind: "FittableRows",
                     classes: "moon-music-detail-detail",
                     components: [
-                        {
-                            kind: "FittableColumns",
-                            components: [
-                                {
-                                    name: "movie",
-                                    classes: "moon-music-detail-preview",
-                                    components: [{name: "play", classes: "moon-play-icon"}]
-                                },
-                                {
-                                    kind: "FittableRows",
-                                    fit: true,
-                                    components: [
-                                        {classes: "moon-music-item-label", content: "Artist Name"},
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {classes: "moon-music-artist", content: "Organized"},
-                                                {classes: "moon-music-artist-content", content: "5 April 2013"}
-                                            ]
-                                        },
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {classes: "moon-music-artist", content: "Debut"},
-                                                {classes: "moon-music-artist-content", content: "5 April 2013"}
-                                            ]
-                                        },
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {classes: "moon-music-artist", content: "Type"},
-                                                {classes: "moon-music-artist-content", content: "Solo"}
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
                         {
                             name: "listContainer",
                             fit: true,
@@ -102,6 +64,7 @@ enyo.kind({
                                                     classes: "moon-music-item-label",
                                                     components: [
                                                         {name: "track"},
+                                                        {name: "artist", classes: "moon-music-item-label-small"},
                                                         {name: "time", classes: "moon-music-item-label-small"}
                                                     ]
                                                 }
@@ -123,15 +86,6 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        var d = Math.round(this.$.detail.getBounds().width * 0.3);
-        if (d < 180) {
-            d = 180;
-        }
-        this.$.movie.setBounds({width: d, height: d});
-        
-        d = Math.round((d - 168) * 0.5);
-        this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
-        
         var rect = this.$.listContainer.getBounds();
         this.$.list.setBounds({top: rect.top, left: rect.left});
     },
@@ -140,6 +94,7 @@ enyo.kind({
         var url = "assets/default-music.png";
 		this.$.image.setStyle("background-image: url(" + url + ");");
 		this.$.track.setContent("Track Name");
+		this.$.artist.setContent("Artist Name");
 		this.$.time.setContent("3:40");
 	}
 });

@@ -11,9 +11,13 @@
     padding: 10px 0px 0px 0px;
 }
 
-.moon-music-mainmenu-content {    
+.moon-music-mainmenu-content {
     padding: 2px 0px 0px 0px;
-    background: #666666;
+}
+
+.moon-music-mainmenu-branding {
+    display: table-cell;
+	background: #666666;
     color: #ffffff;
     text-align: center;
     vertical-align:middle;
