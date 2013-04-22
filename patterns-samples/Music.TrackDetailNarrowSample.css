@@ -1,0 +1,78 @@
+.gray-background {
+    background: #eaeaea;
+}
+
+.moon-music-detail {
+    margin: 0px 20px 0px 20px;
+}
+
+.moon-music-detail-header-button {
+    margin: 0px 0px 5px 0px;
+}
+
+.moon-music-detail-header-button-right {
+    margin: 0px 0px 0px 20px;
+}
+
+.moon-music-detail-container {
+    margin: 28px 0px 0px 0px;
+}
+
+.moon-music-detail-detail {
+    width: 50%;
+    margin: 0px 20px 0px 0px;
+}
+
+.moon-music-detail-preview {
+    display: table-cell;
+    background-image: url(assets/default-music-big.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.moon-music-detail-preview:hover .moon-play-icon {
+    visibility: visible;
+}
+
+.moon-music-detail-info {
+    margin: 20px 0px 0px 0px;
+}
+
+.moon-music-detail-title {
+    width: 50%;
+    color: #4b4b4b;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.moon-music-detail-content {
+    width: 50%;
+    color: #4b4b4b;
+    font-size: 40px;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.moon-music-detail-more {
+    margin: 0px 0px 5px 0px;
+    font-size: 28px;
+}
+
+.moon-play-icon {
+    background-image: url("assets/icon-play-big.png");
+    border: 4px solid transparent;
+    border-radius: 9999px;
+    width: 160px;
+    height: 160px;
+    background-color: #ffffff;
+    visibility: hidden;
+}
+
+.moon-play-icon:hover {
+    background-color: #ffb80d;
+}
+
+.moon-play-icon:active {
+    background-color: #ffffff;
+    border: 4px solid #ffb80d;
+}
