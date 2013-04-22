@@ -9,7 +9,7 @@ enyo.kind({
 				fit: true,
 				style: "padding: 20px",
 				components: [
-					{kind: "moon.Divider", content: "SelectableItems witout Group"},
+					{kind: "moon.Divider", content: "SelectableItems Without Group"},
 					{
 						components: [
 							{kind: "moon.SelectableItem", content: "Item 1", spotlight: true},
@@ -18,7 +18,7 @@ enyo.kind({
 							{kind: "moon.SelectableItem", content: "Item 4", spotlight: true}
 						]
 					},
-					{kind: "moon.Divider", content: "SelectableItems with Group"},
+					{kind: "moon.Divider", content: "SelectableItems With Group"},
 					{kind: "Group", components: [
 						{kind: "moon.SelectableItem", content: "Option 1"},
 						{kind: "moon.SelectableItem", content: "Option 2", checked: true},
