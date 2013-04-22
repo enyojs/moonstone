@@ -61,7 +61,6 @@ enyo.kind({
                                             components: [
                             					{
                             						kind: "moon.Button",
-                            						ontap: "buttonTapped",
                             						components: [
                             							{content: "$", classes: "moon-pre-text"},
                             							{content: "3", classes: "moon-large-text"},
@@ -91,7 +90,6 @@ enyo.kind({
                                             components: [
                             					{
                             						kind: "moon.Button",
-                            						ontap: "buttonTapped",
                             						components: [
                             							{content: "$", classes: "moon-pre-text"},
                             							{content: "6", classes: "moon-large-text"},
@@ -133,7 +131,6 @@ enyo.kind({
                                             components: [
                             					{
                             						kind: "moon.Button",
-                            						ontap: "buttonTapped",
                             						components: [
                             							{content: "$", classes: "moon-pre-text"},
                             							{content: "7", classes: "moon-large-text"},
