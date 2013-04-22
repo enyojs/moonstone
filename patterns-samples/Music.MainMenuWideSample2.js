@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.MusicMainMenuWideSample2",
+    name: "moon.sample.music.MainMenuWideSample2",
     layoutKind: "enyo.FittableRowsLayout",
     fit: true,
     title: "Main Menu",

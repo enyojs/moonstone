@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.MusicTrackTwoColumnsWideSample",
+    name: "moon.sample.music.TrackTwoColumnsWideSample",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-music-trackonecolumn",
     fit: true,

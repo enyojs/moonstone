@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.VideoDetailNarrowSample2",
+    name: "moon.sample.video.DetailNarrowSample2",
     layoutKind: "enyo.FittableRowsLayout",
 	classes: "enyo-unselectable moon moon-video-detail",
     fit: true,
