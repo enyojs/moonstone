@@ -30,8 +30,8 @@ enyo.kind({
                 {
                     name: "list",
                     kind: "moon.List",
-                    classes: "enyo-fit moon-music-list",
-                    orient:"v",
+                    classes: "enyo-fit",
+                    orient: "v",
                     count: 15,
                     multiSelect: false,
             		onSetupItem: "setupItem",
