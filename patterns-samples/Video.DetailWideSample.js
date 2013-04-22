@@ -194,8 +194,8 @@ enyo.kind({
         var h = Math.round(w * 353 / 627);
         this.$.movie.setBounds({width: w, height: h});
         
-        w = Math.round((w - 160) * 0.5);
-        h = Math.round((h - 160) * 0.5);
+        w = Math.round((w - 168) * 0.5);
+        h = Math.round((h - 168) * 0.5);
         this.$.play.setStyle("margin: " + h + "px 0px 0px " + w + "px;");
     }
 });

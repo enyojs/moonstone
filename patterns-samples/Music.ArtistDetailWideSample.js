@@ -65,7 +65,6 @@ enyo.kind({
                     ]
                 },
                 {
-                    name: "synopsis",
                     classes: "moon-music-detail-bio",
                     components: [
                         {
@@ -181,13 +180,11 @@ enyo.kind({
         var d = this.$.detail.getBounds().width;
         this.$.movie.setBounds({width: d, height: d});
         
-        d = Math.round((d - 160) * 0.5);
+        d = Math.round((d - 168) * 0.5);
         this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
         
         var rect = this.$.listContainer.getBounds();
         this.$.list.setBounds({top: rect.top, left: rect.left});
-        
-        console.log(rect);
     },
     
     

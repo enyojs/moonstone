@@ -104,7 +104,7 @@ enyo.kind({
         var d = this.$.detail.getBounds().width;
         this.$.movie.setBounds({width: d, height: d});
         
-        d = Math.round((d - 160) * 0.5);
+        d = Math.round((d - 168) * 0.5);
         this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
     }
 });
