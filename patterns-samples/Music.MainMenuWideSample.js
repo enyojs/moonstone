@@ -1,17 +1,16 @@
 enyo.kind({
     name: "moon.sample.music.MainMenuWideSample",
-    kind: "moon.Panel",
+    layoutKind: "enyo.FittableRowsLayout",
     classes: "enyo-unselectable moon moon-music-mainmenu",
     fit: true,
-    index: "01",
     title: "Main Menu",
-    
+    titleAbove: "01",
     components: [
         {kind: "enyo.Spotlight"},
+        {kind: "moon.Header", content: "Main Menu", titleAbove: "01"},
         {
             name: "columns",
             kind: "FittableColumns",
-            fit: true,
             components: [
                 {
                     classes: "moon-music-mainmenu-menu",
@@ -23,14 +22,30 @@ enyo.kind({
                     ]
                 },
                 {
+                    name: "content",
                     fit: true,
-                    /**
-                        place any control instead of followings.
-                    */
                     classes: "moon-music-mainmenu-content",
-                    content: "branding"
+                    components: [
+                        {
+                            name: "branding",
+                            fit: true,
+                            classes: "moon-music-mainmenu-branding",
+                            content: "branding"
+                        }
+                    ]
                 }
             ]
         }
-    ],  
+    ],
+    
+    rendered: function() {
+        this.inherited(arguments);
+        this.resizeBranding();
+    },
+    
+    resizeBranding: function() {
+        var w = this.$.content.getBounds().width;
+        var h = this.getBounds().height - this.$.columns.getBounds().top - 2;
+        this.$.branding.setBounds({width: w, height: h});
+    }
 });
