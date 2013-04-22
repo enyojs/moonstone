@@ -1,8 +1,7 @@
 /**
-	_moon.Input_ is an moon-styled input control, derived from
-	<a href='#enyo.Input'>enyo.Input</a>. Typically, an _moon.Input_ is placed
-	inside an <a href='#moon.InputDecorator'>moon.InputDecorator</a>, which
-	provides styling, e.g.:
+	_moon.Input_ is a Moonraker-styled input control, derived from
+	<a href='#enyo.Input'>enyo.Input</a>. Typically, a _moon.Input_ is placed
+	inside a _moon.InputDecorator_, which provides styling, e.g.:
 
 		{kind: 'moon.InputDecorator', components: [
 			{kind: 'moon.Input', placeholder: 'Enter some text...', onchange: 'inputChange'}

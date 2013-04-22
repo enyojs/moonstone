@@ -1,8 +1,7 @@
 /**
-	_moon.RichText_ is an moonraker-styled RichText control, derived from
-	<a href="#enyo.RichText">enyo.RichText</a>. Typically, an _moon.RichText_
-	is placed inside an <a href="#moon.InputDecorator">moon.InputDecorator</a>,
-	which provides styling, e.g.:
+	_moon.RichText_ is a Moonraker-styled RichText control, derived from
+	<a href="#enyo.RichText">enyo.RichText</a>. Typically, a _moon.RichText_ is
+	placed inside a _moon.InputDecorator_, which provides styling, e.g.:
 
 		{kind: "moon.InputDecorator", components: [
 			{kind: "moon.RichText", style: "width: 240px;", onchange: "inputChange"}
