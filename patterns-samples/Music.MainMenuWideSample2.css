@@ -7,7 +7,7 @@
     margin: 0px 20px 20px 20px;
 }
 
-.moon-music-mainmenu-header {
+.moon-music-mainmenu .moon-header {
     color: #ffffff;
     border-bottom: 6px solid #ffffff;
 }
@@ -15,6 +15,7 @@
 .moon-header-title-above {
     font-size: 36px;
     font-weight: bold;
+    font-color: #ffffff;
     line-height: 36px;
     padding: 58px 0px 5px 0px;
     margin: 0px;
@@ -34,11 +35,7 @@
 
 .moon-music-mainmenu-content {
     padding: 10px 0px 0px 0px;
-}
-
-.moon-music-mainmenu-branding {
-    display: table-cell;
-	background: #666666;
+    background: #666666;
     color: #ffffff;
     text-align: center;
     vertical-align:middle;
