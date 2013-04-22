@@ -36,7 +36,7 @@ enyo.depends(
 	"Breadcrumb.js",
 	"BreadcrumbDecorator.js",
 	"TextArea.js",
-	"ListOptions.js",
+	"ListActions.js",
 	"Divider.js",
 	"LabeledTextItem.js",
 	"ImageItem.js",
