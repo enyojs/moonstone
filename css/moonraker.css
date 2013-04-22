@@ -1399,32 +1399,8 @@ PageControl's use of IconButtons
 .moon-input-decorator.moon-disabled .moon-textarea {
   cursor: default;
 }
-/* List Options */
-.moon-list-options-current-value {
-  font-family: "PreludeWGL Medium";
-  font-size: 20px;
-  margin: 0px;
-  padding-bottom: 5px;
-  height: 26px;
-  white-space: nowrap;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.moon-list-options-client {
-  display: inline-block;
-  float: right;
-  padding: 0px;
-  margin: 142px 0px 0px 0px;
-}
-.moon-list-options-client div {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 20px;
-  line-height: 20px;
-  padding: 10px;
-}
-.moon-list-options-activator {
+/* List Actions */
+.moon-list-actions-activator {
   border-radius: 9999px;
   line-height: 24px;
   background-color: #cccccc;
@@ -1434,35 +1410,62 @@ PageControl's use of IconButtons
   height: 40px;
   min-width: 40px;
   padding: 0px 0px 0px 0px;
-  margin: 142px 0px 0px 0px;
+  margin: 130px 0px 0px 0px;
 }
-.moon-list-options-activator.spotlight {
+.moon-list-actions-activator.spotlight {
   background: #ffb80d;
 }
-.moon-list-options-activator::after {
+.moon-list-actions-activator::after {
   content: "\2630";
   font-size: 25px;
   position: relative;
-  top: -13px;
 }
-.moon-list-options-scroller {
-  height: 440px;
-  margin: 0px;
-  padding: 0px;
+.moon-list-actions-drawer-popup {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
 }
-.moon-list-options-container {
+.moon-list-actions-client-container {
+  background-color: white;
+  border-top: 6px solid #4b4b4b;
+}
+.moon-list-actions-close {
+  border-radius: 9999px;
+  line-height: 24px;
+  background-color: #cccccc;
+  border: 5px solid transparent;
   float: right;
-  height: 440px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0px 0px 0px 0px;
+  margin: 10px 0px 0px 0px;
+}
+.moon-list-actions-close.spotlight {
+  background: #ffb80d;
+}
+.moon-list-actions-close::after {
+  content: "\2716";
+  font-size: 25px;
+  position: relative;
+  top: 3px;
+  left: 1px;
+}
+.moon-list-actions-scroller {
   margin: 0px;
   padding: 0px;
 }
-.moon-list-options-menu {
+.moon-list-actions-container {
+  float: right;
+  margin: 0px;
+  padding: 0px;
+}
+.moon-list-actions-menu {
   display: inline-block;
   vertical-align: top;
-  width: 440px;
-  height: 440px;
-  margin: 31px;
-  padding: 0px;
+  margin: 2px;
+  width: 300px;
 }
 .moon-labeledtextitem {
   min-width: 336px;

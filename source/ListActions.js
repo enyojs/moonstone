@@ -1,0 +1,306 @@
+enyo.kind({
+	name: "moon.ListActions",
+	published: {
+		//* If true, the drawer is expanded, showing this item's contents.
+		open: false,
+		/**
+			If true, the drawer will automatically close when the user
+			selects a menu item.
+		*/
+		autoCollapse: false,
+		/**
+			List of actions to be displayed.
+		*/		
+		listActions: []
+	},
+	handlers: {
+		onActivate: "optionSelected",
+    	onSpotlightSelect: "expandContract",
+		onSpotlightDown:"spotlightDown",
+		onSpotlightUp:"spotlightUp",
+		onSpotlightLeft:"spotlightLeft",
+		onSpotlightRight:"spotlightRight"
+	},
+	components:[
+		{name:"activator", kind: "moon.Button", classes: "moon-list-actions-activator", spotlight:true, ontap: "expandContract", ontap:"expandContract", onSpotlightSelect: "expandContract"},
+	    {name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [			
+			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
+        	    {name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
+				{classes: "moon-list-actions-client-container", components: [
+				    {name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
+						{name:"listActionsContainer", classes:"moon-list-actions-container", onRequestScrollIntoView:"scrollIntoView"}
+					]}
+				]}
+			]}
+		]}
+	],
+	create: function() {
+		this.inherited(arguments);
+		this.openChanged();		
+		this.listActionsChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		var clientRect = this.parent.node.getBoundingClientRect();
+		this.$.listActions.applyStyle('height', clientRect.bottom + "px");
+		this.$.listActions.resized();
+	},
+	listActionsChanged: function() {
+		for (var option in this.listActions) {
+			this.$.listActionsContainer.createComponents([
+				{
+					classes: "moon-list-actions-menu",
+					components: this.listActions[option]
+				}
+			]);
+		}
+	},
+	//* If closed, open drawer and highlight first spottable child
+	expandContract: function(inSender, inEvent) {
+	    if (inSender.name === inEvent.originator.name) {
+	        if (this.disabled) {
+    			return true;
+    		}
+    		if(!this.getOpen()) {
+				this.configurePopup();
+    			this.setOpen(true);
+    			//focus on the first menu option but make sure we're not focusing on a moon.Scroller (unless menus are stacked)
+    			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
+    		} else {
+    			this.setOpen(false);
+				enyo.Spotlight.spot(this.$.activator);
+				this.$.closeButton.undepress(); //why is this needed?
+    		}
+    		this.resetScrollers();
+    		return true;
+	    }
+	    return false;
+
+	},
+	configurePopup: function() {
+		var clientRect = this.parent.node.getBoundingClientRect();   
+		this.$.drawerPopup.applyStyle('width', clientRect.width + "px");
+		this.$.drawerPopup.applyStyle('height', clientRect.height + "px");
+	    this.$.drawerPopup.setShowing(true);
+	},
+	//* Facade for drawer
+	openChanged: function() {
+		this.$.drawer.setOpen(this.getOpen());
+		this.refresh();		
+	},
+	optionSelected: function(inSender, inEvent) {
+		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
+			if (this.autoCollapse) {
+				enyo.Spotlight.spot(this.$.activator);				
+				setTimeout(enyo.bind(this, function() {
+					this.setOpen(false);
+					this.resetScrollers();
+				}), 300);
+			}
+		}
+	},
+	resetScrollers: function() {
+		//if stacked scroll to the top of the main drawer scroller, otherwise scroll to the top of the individual menu scrollers
+		if (this.stacked) {
+			this.$.listActions.scrollTo(0,0);
+		} else {
+			var optionGroup = this.$.listActionsContainer.getControls();
+			for (var i=0;i<optionGroup.length;i++) {
+				var controls = optionGroup[i].getControls();
+				for (var j=0;j<controls.length;j++) {
+					if (controls[j].kind == "moon.Scroller") {
+						controls[j].scrollTo(0,0);
+					}
+				}
+			}
+		}
+	},
+	/**
+		Everytime the drawer animates, bubble the requestScrollIntoView event.
+		This makes for a smoother expansion animation when inside of a scroller,
+		as the height of the scroller changes with the drawer expansion.
+	*/
+	drawerAnimationStep: function() {
+		this.bubble("onRequestScrollIntoView");
+	},
+	drawerAnimationEnd: function() {
+		//refresh the list option menus when the drawer opens
+		if (this.$.drawer.hasNode() && this.open) {
+			this.refresh();
+		} else {
+			this.$.drawerPopup.setShowing(false);
+		}
+	},
+	resizeHandler: function() {
+		//don't refresh while animating
+		if (!this.$.drawer.$.animator.isAnimating()){
+			this.refresh();
+			this.$.listActions.render();
+		}
+	},
+	refresh: function() {
+		var i, j, controls;
+		if (this.$.drawer.hasNode()) {
+			var br = this.$.drawer.hasNode().getBoundingClientRect();
+			//get the total width of all option menus
+			var width = 0;
+			var optionGroup = this.$.listActionsContainer.getControls();
+			for (i=0;i<optionGroup.length;i++) {
+				width += optionGroup[i].hasNode().getBoundingClientRect().width;
+			}
+
+			//if the option menus don't all fit horizontally, stack them & allow the main drawer scroller to scroll all of them
+			if (width > br.width) {
+				for (i=0;i<optionGroup.length;i++) {
+					optionGroup[i].applyStyle("display","block");
+					controls = optionGroup[i].getControls();
+					for (j=0;j<controls.length;j++) {
+						if (controls[j].kind == "moon.Scroller") {
+							controls[j].applyStyle("max-height", "none");
+						}
+					}
+				}
+				this.stacked = true;
+			} else {
+				//if all the menus fit horizontally, then adjust their individual scrollers so they self scroll
+				for (i=0;i<optionGroup.length;i++) {
+					optionGroup[i].applyStyle("display","inline-block");
+					controls = optionGroup[i].getControls();
+					for (j=0;j<controls.length;j++) {
+						if (controls[j].kind == "moon.Scroller") {
+							//make the scroller the height of the drawer scroller - the items "heading" height - heading bottom margin height
+							controls[j].applyStyle("max-height", (this.$.listActions.hasNode().getBoundingClientRect().height 
+							- controls[0].hasNode().getBoundingClientRect().height 
+							- parseInt(controls[0].getComputedStyleValue('margin-bottom').replace('px'))) 
+							+ "px");							
+						}
+					}
+				}
+				this.stacked = false;
+			}
+		}
+	},
+	//* When spotlight reaches the left or right of an option menu, prevent user from continuing past the edge.
+	spotlightDown: function(inSender, inEvent) {
+		var s = enyo.Spotlight.getSiblings(inEvent.originator);
+		//prevent navigation past last item, handle stacked & non-stacked cases + close button
+		if (!this.stacked && s.selfPosition == (s.siblings.length-1)) {
+			return true;
+		} else {
+			var listActionItems = this.$.listActionsContainer.getControls();
+			var last = listActionItems[listActionItems.length-1];
+			if (enyo.Spotlight.Util.isChild(last, inEvent.originator) && s.selfPosition == (s.siblings.length-1)) {
+				return true;
+			}
+		}
+		
+		if (inEvent.originator == this.$.closeButton) {
+			return true;
+		}
+	},
+	spotlightUp: function(inSender, inEvent) {
+		var s = enyo.Spotlight.getSiblings(inEvent.originator);
+		//if current item is at the top of a menu OR is an expandable picker
+		if (inEvent.originator.kind === "moon.ExpandablePicker" || s.selfPosition === 0) {
+			//if the menus are not stacked OR the current item is the first in the stacked menu overall, close the drawer & focus the activator
+			if (!this.stacked || inEvent.originator == enyo.Spotlight.getFirstChild(this.$.listActionsContainer)) {
+				enyo.Spotlight.spot(this.$.closeButton);
+				return true;
+			}
+		}
+		
+		if (inEvent.originator == this.$.closeButton) {
+			return true;
+		}
+	},
+	//* When spotlight reaches the bottom or top of an option menu, prevent user from continuing downward.	
+	spotlightLeft: function(inSender, inEvent) {
+		if (this.stacked && inEvent.originator != this.$.closeButton && inEvent.originator != this.$.activator) {
+			return true;
+		} else {
+			//if it's coming from the left-most column then stop the left event
+			var listActionItems = this.$.listActionsContainer.getControls();
+			var first = listActionItems[0];
+			if (enyo.Spotlight.Util.isChild(first, inEvent.originator)) {
+				return true;
+			}
+		}
+	},
+	spotlightRight: function(inSender, inEvent) {
+		if (inEvent.originator == this.$.closeButton) {
+			return true;
+		} else if (this.stacked) {
+			enyo.Spotlight.spot(this.$.closeButton);
+		} else {
+			//if it's coming from the right-most column then focus the close button
+			var listActionItems = this.$.listActionsContainer.getControls();
+			var last = listActionItems[listActionItems.length-1];
+			if (enyo.Spotlight.Util.isChild(last, inEvent.originator)) {
+				enyo.Spotlight.spot(this.$.closeButton);				
+			}
+		}
+	},
+	//when menus are laid out horizontally prevent the onRequestScrollIntoView event from bubbling past the menus container
+	//- prevents scroll bouncing for scroller in scroller
+	scrollIntoView: function(inSender, inEvent) {
+		if (!this.stacked) {
+			return true;
+		}
+	}	
+});
+
+
+
+enyo.kind({
+	name: "enyo.ListActionDrawer",
+	kind: "enyo.Drawer",
+	openChanged: function() {
+		this.$.client.show();
+		if (this.hasNode()) {
+			if (this.$.animator.isAnimating()) {
+				this.$.animator.reverse();
+			} else {
+				var v = this.orient == "v";
+				var d = v ? "height" : "width";
+				var p = v ? "top" : "left";
+				// unfixing the height/width is needed to properly
+				// measure the scrollHeight/Width DOM property, but
+				// can cause a momentary flash of content on some browsers
+				this.applyStyle(d, null);
+				var s = this.hasNode()[v ? "scrollHeight" : "scrollWidth"];
+				s = this.node.getBoundingClientRect().height;
+				if (this.animated) {
+					this.$.animator.play({
+						startValue: this.open ? s : 0,
+						endValue: this.open ? 0 : s,
+						dimension: d,
+						position: p
+					});
+				} else {
+					// directly run last frame if not animating
+					this.animatorEnd();
+				}
+			}
+		} else {
+			this.$.client.setShowing(this.open);
+		}
+	},
+	animatorStep: function(inSender) {
+		// the actual drawer DOM node adjusts its height
+		if (this.hasNode()) {
+			var d = inSender.dimension;
+			
+			 var o = !this.open ? inSender.endValue : inSender.startValue;
+		}
+		// while the client inside the drawer adjusts its position to move out of the visible area
+		var cn = this.$.client.hasNode();
+		if (cn) {
+			var p = inSender.position;
+			var o = (this.open ? inSender.endValue : inSender.startValue);
+			cn.style[p] = this.$.client.domStyles[p] = (inSender.value + o) + "px";
+		}
+		if (this.container) {
+			this.container.resized();
+		}
+	}
+});

@@ -20,7 +20,7 @@
                 {"name": "Item", "path":"$lib/moonraker/samples/ItemSample"},
                 {"name": "Labeled Text Item", "path":"$lib/moonraker/samples/LabeledTextItemSample"},
                 {"name": "Horizontal List", "path":"$lib/moonraker/samples/ListHorizontalSample"},
-                {"name": "List Options", "path":"$lib/moonraker/samples/ListOptionsSample"},
+                {"name": "List Actions", "path":"$lib/moonraker/samples/ListActionsSample"},
                 {"name": "Vertical List", "path":"$lib/moonraker/samples/ListVerticalSample"},
                 {"name": "Radio Button", "path":"$lib/moonraker/samples/RadioButtonSample"},
                 {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"},
