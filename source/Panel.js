@@ -20,7 +20,7 @@ enyo.kind({
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerComponents: [
-		{content: "This is a TEST!"}
+		/* insert some control here */
 	],
 	isBreadcrumb: false,
 	
