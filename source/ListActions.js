@@ -64,7 +64,6 @@ enyo.kind({
     		if(!this.getOpen()) {
 				this.configurePopup();
     			this.setOpen(true);
-    			//focus on the first menu option but make sure we're not focusing on a moon.Scroller (unless menus are stacked)
     			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
     		} else {
     			this.setOpen(false);
@@ -91,10 +90,10 @@ enyo.kind({
 	optionSelected: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			if (this.autoCollapse) {
-				enyo.Spotlight.spot(this.$.activator);				
 				setTimeout(enyo.bind(this, function() {
-					this.setOpen(false);
+					this.setOpen(false);					
 					this.resetScrollers();
+					enyo.Spotlight.spot(this.$.activator);
 				}), 300);
 			}
 		}
@@ -103,6 +102,9 @@ enyo.kind({
 		//if stacked scroll to the top of the main drawer scroller, otherwise scroll to the top of the individual menu scrollers
 		if (this.stacked) {
 			this.$.listActions.scrollTo(0,0);
+			//reset focus to the first item in the main scroller
+			var child = enyo.Spotlight.getFirstChild(this.$.listActions);
+			enyo.Spotlight.Decorator.Container.setLastFocusedChild(child, enyo.Spotlight.getFirstChild(child));			
 		} else {
 			var optionGroup = this.$.listActionsContainer.getControls();
 			for (var i=0;i<optionGroup.length;i++) {
@@ -110,6 +112,9 @@ enyo.kind({
 				for (var j=0;j<controls.length;j++) {
 					if (controls[j].kind == "moon.Scroller") {
 						controls[j].scrollTo(0,0);
+						//reset focus to the first item in each scroller
+						enyo.Spotlight.Decorator.Container.setLastFocusedChild(controls[j], 
+							enyo.Spotlight.getFirstChild(controls[j]));
 					}
 				}
 			}

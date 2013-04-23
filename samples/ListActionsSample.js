@@ -64,6 +64,8 @@ enyo.kind({
                               {content:"Action", kind:"moon.LabeledCheckbox"},
                               {content:"Comedy", kind:"moon.LabeledCheckbox"},
                               {content:"Drama", kind:"moon.LabeledCheckbox"},
+                              {content:"Action", kind:"moon.LabeledCheckbox"},
+                              {content:"Comedy", kind:"moon.LabeledCheckbox"}
                           ]}
                       ],
                       "option2": [
