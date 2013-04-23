@@ -7,10 +7,6 @@
   width: 50%;
 }
 
-.photos-album .moon-panel-body {
-  padding-top: 20px;
-}
-
 .photos-album .moon-imageitem {
   height: 93px;
 }
@@ -19,15 +15,6 @@
   width: 131px;
   height: 93px;
   margin: 0px 20px 0px 0px;
-}
-
-.photos-album .moon-labeledtextitem .label {
-  border: none;
-}
-
-.photos-album .moon-icon-button {
-  width: 54px;
-  height: 54px;
 }
 
 .album-grid-sample .moon-gridlist-imageitem {
