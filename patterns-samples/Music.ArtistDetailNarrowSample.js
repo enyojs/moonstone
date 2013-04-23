@@ -127,9 +127,7 @@ enyo.kind({
         d = Math.round((d - 168) * 0.5);
         this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
         
-        this.$.listContainer.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
-        var rect = this.$.listContainer.getBounds();
-        this.$.list.setBounds({height: rect.height});
+        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
     },
     
     setupItem: function(inSender, inEvent) {
