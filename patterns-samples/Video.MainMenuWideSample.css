@@ -1,0 +1,20 @@
+.gray-background {
+    background: #eaeaea;
+}
+
+.moon-video-mainmenu {
+    margin: 0px 20px 20px 20px;
+}
+
+.moon-video-mainmenu-menu {
+    width: 15%;
+    padding: 10px 0px 0px 0px;
+}
+
+.moon-video-mainmenu-content {
+    padding: 2px 0px 0px 0px;
+	background: #666666;
+    color: #ffffff;
+    text-align: center;
+    vertical-align: middle;
+}

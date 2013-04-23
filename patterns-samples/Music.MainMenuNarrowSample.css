@@ -1,0 +1,33 @@
+.livetv-background {
+    background-image: url("assets/livetv-background.png");
+    background-size: 100% 100%;
+}
+
+.moon-music-mainmenu {
+    margin: 0px 20px 20px 20px;
+}
+
+.moon-music-mainmenu .moon-header {
+    color: #ffffff;
+    border-bottom: 6px solid #ffffff;
+}
+
+.moon-header-title-above {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 36px;
+    padding: 58px 0px 5px 0px;
+    margin: 0px;
+    width: 30px;
+    border-bottom: 1px solid #ffffff;
+}
+
+.moon-music-mainmenu-menu {
+    color: #ffffff;
+    width: 30%;
+    padding: 20px 0px 0px 0px;
+}
+
+.moon-music-mainmenu-item {
+    color: #ffffff;
+}

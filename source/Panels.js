@@ -8,15 +8,24 @@ enyo.kind({
 	kind				: 'enyo.Panels',
 	spotlight			: true,
 	spotlightDecorate	: false,
-
 	published: {
+		/**
+			_transitionReady_ is the ready flag.
+			If is has true, transition from arranger can be played.
+			The other hand, transition should be blocked until some internal transitions are finished.
+		*/
+		transitionReady: false,		
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
-		ontap						: 'onTap'
+		ontap						: 'onTap',
+		onTransitionFinish			: 'transitionFinish',
+		onPreTransitionComplete		: 'panelPreTransitionComplete',
+		onPostTransitionComplete	: 'panelPostTransitionComplete'
 	},
+	defaultKind: "moon.Panel",
 
 	/************ PROTECTED **********/
 
@@ -26,7 +35,6 @@ enyo.kind({
 	},
 
 	_focusLeave: function(s5WayEventType) {
-		// console.log('PANELS LEAVE');
 		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
 	},
 
@@ -39,6 +47,55 @@ enyo.kind({
 		}
 	},
 
+	//* create component on stack top
+	createComponent: function(inInfo, inMoreInfo) { // added
+		this.addBefore = undefined;
+		var c = this.inherited(arguments);
+		return c;
+	},
+	createComponents: function(inInfos, inCommonInfo) { // added
+		this.addBefore = undefined;
+		var cs = this.inherited(arguments);
+		return cs;
+	},
+	//* remove component if it is at stack top
+	removeComponent: function(inComponent) { // added
+		var lastIndex = this.getPanels().length - 1;
+		if (this.getPanels()[lastIndex] === inComponent) {
+			return this.inherited(arguments); 
+		}
+	},
+	//* create component on top and changeIndex
+	push: function(inInfo, inMoreInfo) { // added
+		var lastIndex = this.getPanels().length - 1,
+			oPanel = null;
+		oPanel = this.createComponent(inInfo, inMoreInfo);
+		oPanel.render();
+		this.resized();
+		this.setIndex(lastIndex+1);
+		return oPanel;
+	},
+	//* create component on top and changeIndex
+	pushs: function(inInfos, inCommonInfo) { // added
+		var lastIndex = this.getPanels().length - 1,
+			oPanels = null, oPanel = null;
+		oPanels = this.createComponents(inInfos, inCommonInfo);
+		for (var nPanel in oPanels) {
+			oPanels[nPanel].render();
+		}
+		this.resized();
+		this.setIndex(lastIndex+1);
+		return oPanel;
+	},
+	//* changeIndex
+	pop: function(inIndex) {
+		var panels = this.getPanels(),
+			inIndex = inIndex || panels.length - 1;
+		
+		while (panels.length > inIndex && inIndex >= 0) {
+			panels[panels.length - 1].destroy();
+		}
+	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 
@@ -48,10 +105,8 @@ enyo.kind({
 			enyo.Spotlight.setPointerMode(false);
 			return true;
 		}
-		return false; //
+		return false;
 	},
-
-
 	// Focus left one of the panels
 	onSpotlightPanelLeave: function(oSender, oEvent) {
 		if (oEvent.originator != this.getActive())	{ return false; }
@@ -88,11 +143,8 @@ enyo.kind({
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 
-		if (!this._hadFocus()) {									// Focus came from without
-			// console.log('PANELS FOCUS ENTER');
+		if (!this._hadFocus()) {
 			enyo.Spotlight.spot(this.getActive());
-		} else {
-			// console.log('PANELS FOCUS LEAVE');
 		}
 
 		return false;
@@ -120,10 +172,88 @@ enyo.kind({
 
 		return -1;
 	},
-
-	setIndex: function(n) {
-		this.inherited(arguments);
-		this.getActive().spotlight = 'container';
-		enyo.Spotlight.spot(this.getActive());
+	/**
+		If there is any pre-transition from it's children,
+		Check whether it was done or not.
+    */
+	setIndex: function(inIndex) {
+		this.fromIndex = this.getIndex();
+		this.toIndex = inIndex;
+		
+		if (this.transitionReady) {
+			this.inherited(arguments);
+			this.getActive().spotlight = 'container';
+			enyo.Spotlight.spot(this.getActive());
+			this.setTransitionReady(false);
+			this.triggerPanelPostTransitions();
+		} else {
+			this.transitionIndex = inIndex;
+			this.triggerPanelPreTransitions();
+		}
+	},
+	/**
+		If there is any panel which has preTransition,
+		put this panel index to preTransitionWainList
+	*/
+	triggerPanelPreTransitions: function() {
+		var panels = this.getPanels();
+		this.preTransitionWaitlist = [];
+		for(var i = 0, panel; (panel = panels[i]); i++) {
+			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex)) {
+				this.preTransitionWaitlist.push(i);
+			}
+		}
+		
+		if (this.preTransitionWaitlist.length === 0) {
+			this.transitionReady = true;
+			this.setIndex(this.transitionIndex);
+		}
+	},
+	panelPreTransitionComplete: function(inSender, inEvent) {
+		var index = this.getPanels().indexOf(inSender);
+		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
+			if (this.preTransitionWaitlist[i] === index) {
+				this.preTransitionWaitlist.splice(i,1);
+				break;
+			}
+		}
+		
+		if (this.preTransitionWaitlist.length === 0) {
+			this.preTransitionComplete();
+		}
+	},
+	preTransitionComplete: function() {
+		this.transitionReady = true;
+		this.setIndex(this.transitionIndex);
+	},
+	
+	triggerPanelPostTransitions: function() {
+		var panels = this.getPanels();
+		this.postTransitionWaitlist = [];
+		for(var i = 0, panel; (panel = panels[i]); i++) {
+			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex)) {
+				this.postTransitionWaitlist.push(i);
+			}
+		}
+		
+		if (this.postTransitionWaitlist.length === 0) {
+			this.postTransitionComplete();
+		}
+	},
+	panelPostTransitionComplete: function(inSender, inEvent) {
+		var index = this.getPanels().indexOf(inSender);
+		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
+			if (this.postTransitionWaitlist[i] === index) {
+				this.postTransitionWaitlist.splice(i,1);
+				break;
+			}
+		}
+		
+		if (this.postTransitionWaitlist.length === 0) {
+			this.postTransitionComplete();
+		}
+	},
+	postTransitionComplete: function() {
+		// TODO - something here?
 	}
 });
