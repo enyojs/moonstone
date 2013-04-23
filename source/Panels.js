@@ -254,6 +254,6 @@ enyo.kind({
 		}
 	},
 	postTransitionComplete: function() {
-		
+		// TODO - something here?
 	}
 });
