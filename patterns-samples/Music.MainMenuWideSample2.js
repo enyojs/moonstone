@@ -1,13 +1,12 @@
 enyo.kind({
     name: "moon.sample.music.MainMenuWideSample2",
-    layoutKind: "enyo.FittableRowsLayout",
+    kind: "moon.Panel",
     fit: true,
     title: "Main Menu",
     titleAbove: "01",
     classes: "enyo-unselectable moon moon-music-mainmenu",
     components: [
         {kind: "enyo.Spotlight"},
-        {kind: "moon.Header", classes: "moon-music-mainmenu-header", content: "Main Menu", titleAbove: "01"},
         {
             name: "columns",
             kind: "FittableColumns",
