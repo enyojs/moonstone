@@ -50,8 +50,8 @@ enyo.kind({
 	//* @public
 	
 	autoNumberChanged: function() {
-		if (this.getAutoNumber() == true) {
-			this.setTitleAbove(this.clientIndexInContainer()+1);
+		if (this.getAutoNumber() == true && this.container) {
+			this.setTitleAbove(this.clientIndexInContainer() + 1);
 		}
 	},
 	//* Facade for _this.header_
@@ -165,14 +165,14 @@ enyo.kind({
 		this.doPostTransitionComplete();
 	},
 	preTransition: function(inFromIndex, inToIndex) {
-		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
 			this.shrinkPanel();
 			return true;
 		}
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex) {
-		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
 			this.growPanel();
 			return true;
 		}
