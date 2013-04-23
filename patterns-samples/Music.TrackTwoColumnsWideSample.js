@@ -1,38 +1,31 @@
 enyo.kind({
     name: "moon.sample.music.TrackTwoColumnsWideSample",
-    layoutKind: "enyo.FittableRowsLayout",
+    kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-trackonecolumn",
     fit: true,
     title: "Browser Tracks",
     titleAbove: "02",
+    titleBelow: "15 Tracks",
+    headerComponents: [
+        {
+            components: [
+                {kind: "moon.IconButton", src: "assets/icon-album.png", classes: "moon-music-header-button"},
+                {kind: "moon.IconButton", src: "assets/icon-list.png", classes: "moon-music-header-button-right"}
+            ]
+        }
+    ],
     count: 15,
     components: [
         {kind: "enyo.Spotlight"},
         {
-            kind: "moon.Header",
-            content: "Browser Tracks",
-            titleAbove: "02",
-            titleBelow: "15 Tracks",
-            components: [
-                {
-                    components: [
-                        {kind: "moon.IconButton", src: "assets/icon-album.png", classes: "moon-music-header-button"},
-                        {kind: "moon.IconButton", src: "assets/icon-list.png", classes: "moon-music-header-button-right"}
-                    ]
-                }
-            ]
-        },
-        {
-            name: "container",
+            name: "listContainer",
             classes: "moon-music-container",
-            fit: true,
             spotlight: "container",
             components: [
                 {
                     name: "list",
                     kind: "moon.List",
-                    classes: "enyo-fit moon-music-list",
-                    orient:"v",
+                    style: "height: 300px;",
                     count: 8,
                     multiSelect: false,
             		onSetupItem: "setupItem",
@@ -97,12 +90,11 @@ enyo.kind({
     
     rendered: function() {
         this.inherited(arguments);
-        this.resizeList();
+        this.resizeHandler();
     },
     
-    resizeList: function() {
-        var rect = this.$.container.getBounds();
-        this.$.list.setBounds({top: rect.top});
+    resizeHandler: function() {
+        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
     },
     
     setupItem: function(inSender, inEvent) {
