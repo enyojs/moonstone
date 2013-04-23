@@ -1,5 +1,6 @@
 /**
-	_moon.Breadcrumb_ is used inside the components of BreadcrumbDecorator
+	_moon.Breadcrumb_, a subkind of _moon.Header_, is a control designed for use
+	inside the _components_ block of a _moon.BreadcrumbDecorator_.
 */
 enyo.kind({
 	name: "moon.Breadcrumb",
