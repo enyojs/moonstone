@@ -1,23 +1,14 @@
 enyo.kind({
     name: "moon.sample.photos.PhotoDetailNarrowSample",
-    //kind: "FittableRows",
     kind : "moon.Panel",
-    style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
     fit: true,
-
-    handlers: {
-
-    },
+    title : "PHOTO NAME",
+    titleAbove : "03",
+    titleBelow : "2013-04-08",
 
     create: function() {
         this.inherited(arguments);
-        
-        this.setHeader({
-            title : "PHOTO NAME",
-            index : "03",
-            titleBelow : "2013-04-08"
-        });
     },
 
     headerComponents : [
@@ -29,7 +20,6 @@ enyo.kind({
     components: [
         {kind : "enyo.Spotlight"},
         {
-            //tag : "img",
             kind : "enyo.Image",
             src : "./assets/default-movie.png",
             style : "margin: 20px 0px 0px 0px;width:600px; height:400px;"
