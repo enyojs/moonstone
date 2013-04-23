@@ -1,12 +1,16 @@
 enyo.kind({
+	//* @public
 	name : "moon.Panel",
 	kind: "FittableRows",
-	fit : true,
-	classes: "moon-panel",
 	published: {
-		index: 0,
-		title: "Title",
-		titleBelow: ""
+		//* Facade for the header _title_ property
+		title: "",
+		//* Facade for the header _titleAbove_ property
+		titleAbove: "",
+		//* Facade for the header _titleBelow_ property
+		titleBelow: "",
+		//* Automatically add the panel number as the header _titleAbove_ property
+		autoNumber: true
     },
 	events : {
     	//* This panel has completed it's pre-arrangement transition
@@ -14,19 +18,24 @@ enyo.kind({
 		//* This panel has completed it's post-arrangement transition
 		onPostTransitionComplete: ""
 	},
+	//* @protected
+	fit : true,
+	classes: "moon-panel",
 	panelTools : [
 		{name: "header", kind: "moon.Header"},
 		{name: "panelBody", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
-	headerComponents: [
-		/* insert some control here */
-	],
+	headerComponents: [],
 	isBreadcrumb: false,
 	
 	create: function() {
 		this.inherited(arguments);
 		this.$.header.createComponents(this.headerComponents);
+		this.autoNumberChanged();
+		this.titleChanged();
+		this.titleAboveChanged();
+		this.titleBelowChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -37,63 +46,29 @@ enyo.kind({
 	createTools: function() {
 		this.createComponents(this.panelTools);
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.setHeader({
-			titleAbove: this.getIndex(),
-			title: this.getTitle(),
-			titleBelow: this.getTitleBelow(),
-		});
+	
+	//* @public
+	
+	autoNumberChanged: function() {
+		if (this.getAutoNumber() == true) {
+			this.setTitleAbove(this.clientIndexInContainer()+1);
+		}
 	},
+	//* Facade for _this.header_
 	titleChanged: function() {
-		this.setHeader({
-			title: this.getTitle(),
-		});
+		this.$.header.setTitle(this.getTitle());
 	},
+	//* Facade for _this.header_
+	titleAboveChanged: function() {
+		this.$.header.setTitleAbove(this.getTitleAbove());
+	},
+	//* Facade for _this.header_
 	titleBelowChanged: function() {
-		this.setHeader({
-			titleBelow: this.getTitleBelow(),
-		});
-	},
-	preTransitionComplete: function() {
-		this.isBreadcrumb = true;
-		this.doPreTransitionComplete();
-	},
-	postTransitionComplete: function() {
-		this.isBreadcrumb = false;
-		this.doPostTransitionComplete();
-	},
-	setHeader: function(inData) {
-		this.$.header.setTitleAbove(inData.titleAbove);
-		this.$.header.setTitle(inData.title);
-		this.$.header.setTitleBelow(inData.titleBelow);
-	},
-	/**
-		@param thisIndex panel index in this.container
-	*/
-	preTransition: function(thisIndex, inFromIndex, inToIndex) {
-		//var myIndex = this.container.getPanels().indexOf(this);
-		var myIndex = thisIndex;
-		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
-			this.shrinkPanel();
-			return true;
-		}
-		
-		return false;
-	},
-	postTransition: function(thisIndex, inFromIndex, inToIndex) {
-		//var myIndex = this.container.getPanels().indexOf(this);
-		var myIndex = thisIndex;
-		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(myIndex, inToIndex)) {
-			this.growPanel();
-			return true;
-		}
-		
-		return false;
+		this.$.header.setTitleBelow(this.getTitleBelow());
 	},
 	shrinkPanel: function() {
 		this.$.animator.newAnimation({
-			animationName: "preTransition",
+			name: "preTransition",
 			duration: 800,
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
 			keyframes: {
@@ -108,7 +83,7 @@ enyo.kind({
 					properties: {
 						"opacity" : "1"
 					}
-				}],		
+				}],
 				50: [{
 					control: this.$.panelBody,
 					properties: {
@@ -119,45 +94,37 @@ enyo.kind({
 				{
 					control: this,
 					properties: {
-						"width"     : "current",
-						"min-width" : "current",
-						"max-width" : "current"
+						"width" : "current"
 					}
 				}],
 				100: [{
 					control: this,
 					properties: {
-						"width" : "200px",
-						"min-width" : "200px",
-						"max-width" : "200px"
+						"width" : "200px"
 					}
 				}]
 			}
 		});
 		
 		this.$.header.animateCollapse();
-		this.$.animator.play();
+		this.$.animator.play("preTransition");
 	},
 	growPanel: function() {
 		this.$.animator.newAnimation({
-			animationName: "postTransition",
+			name: "postTransition",
 			duration: 800,
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
 			keyframes: {
 				0: [{
 					control: this,
 					properties: {
-						"width"     : "current",
-						"min-width" : "current",
-						"max-width" : "current"
+						"width" : "current"
 					}
 				}],
 				25: [{
 					control: this,
 					properties: {
-						"width"     : this.width+"px",
-						"min-width" : this.width+"px",
-						"max-width" : this.width+"px"
+						"width" : this.actualWidth+"px"
 					}
 				},
 				{
@@ -177,17 +144,42 @@ enyo.kind({
 				{
 					control: this.$.panelBody,
 					properties: {
-						"height"  : "auto"
+						"height" : "auto"
 					}
 				}]
 			}
 		});
 		
 		this.$.header.animateExpand();
-		this.$.animator.play();
+		this.$.animator.play("postTransition");
+	},
+	
+	//* protected
+	
+	preTransitionComplete: function() {
+		this.isBreadcrumb = true;
+		this.doPreTransitionComplete();
+	},
+	postTransitionComplete: function() {
+		this.isBreadcrumb = false;
+		this.doPostTransitionComplete();
+	},
+	preTransition: function(inFromIndex, inToIndex) {
+		if (!this.isBreadcrumb && this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+			this.shrinkPanel();
+			return true;
+		}
+		return false;
+	},
+	postTransition: function(inFromIndex, inToIndex) {
+		if (this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+			this.growPanel();
+			return true;
+		}
+		return false;
 	},
 	animationComplete: function(inSender, inEvent) {
-		switch (inEvent.animationName) {
+		switch (inEvent.animation.name) {
 			case "preTransition":
 				this.preTransitionComplete();
 				break;

@@ -45,7 +45,7 @@ enyo.kind({
 		};
 		
 		this.$.animator.newAnimation({
-			animationName: "collapse",
+			name: "collapse",
 			duration: 800,
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
 			keyframes: {
@@ -118,14 +118,13 @@ enyo.kind({
 				
 			}
 		});
-		this.$.animator.play();
+		this.$.animator.play("collapse");
 	},
 	//* @public
 	animateExpand: function() {
 		this.$.animator.newAnimation({
-			animationName: "collapse",
+			name: "expand",
 			duration: 500,
-			direction: "reverse",
 			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
 			keyframes: {
 				0: [{
@@ -196,7 +195,7 @@ enyo.kind({
 				
 			}
 		});
-		this.$.animator.play();
+		this.$.animator.play("expand");
 	},
 	//* @protected
 	titleChanged: function() {

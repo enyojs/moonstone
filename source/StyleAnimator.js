@@ -5,80 +5,129 @@ enyo.kind({
 		onComplete: ""
 	},
 	published: {
-		animations: [],
-		animationName: "animation",
-		keyframes: null,
-		duration: 1000,
-		timeElapsed: 0,
-		timingFunction: "linear",
-		direction: "forward"
+		defaultDuration: 1000,
+		defaultTimingFunction: "linear",
+		defaultDirection: "forward"
 	},
 	transitionProperty: enyo.dom.transition,
 	instructions: null,
 	stepInterval: null,
 	stepIntervalMS: 100,
 	startTime: null,
+	animations: null,
 	
 	////////// PUBLIC //////////
-	
+	create: function() {
+		this.inherited(arguments);
+		this.animations = [];
+	},
 	//* @public
 	newAnimation: function(inProps) {
-		if (inProps.animationName) {
-			this.setAnimationName(inProps.animationName);
-		}
-		if (inProps.duration) {
-			this.setDuration(inProps.duration);
+		if (this.animations && inProps.name && this.getAnimation(inProps.name)) {
+			this.deleteAnimation(inProps.name);
 		}
 		
-		if (inProps.timingFunction) {
-			this.setTimingFunction(inProps.timingFunction);
+		inProps.keyframes = this.formatKeyframes(inProps.keyframes);
+		inProps.instructions = this.generateInstructions(inProps.keyframes);
+		
+		var animation = {
+			name:           inProps.name || this.generateAnimationName(),
+			duration:       inProps.duration || this.getDefaultDuration,
+			timingFunction: this.updateTimingFunction(inProps.timingFunction) || this.updateTimingFunction(this.getDefaultTimingFunction()),
+			direction:      inProps.direction || this.getDefaultDirection(),
+			timeElapsed:    0,
+			keyframes:      inProps.keyframes,
+			instructions:   inProps.instructions,
+			state:          "paused"
+		};
+		
+		this.animations.push(animation);
+		
+		return animation;
+	},
+	//* @public
+	reset: function (inName) {
+		var animation = this.getAnimation(inName);
+		this._reset(animation);
+	},
+	//* @public
+	play: function (inName) {
+		var animation = this.getAnimation(inName),
+			startValues;
+		
+		if (!animation) {
+			return;
 		}
 		
-		if (inProps.keyframes) {
-			this.setKeyframes(inProps.keyframes);
+		animation.startValues = this.findStartValues(animation);
+		this.applyStartValues(animation.startValues);
+		this.cacheStartValues(animation.startValues);
+		
+		setTimeout(enyo.bind(this, function() { this._play(animation); }), 0);
+	},
+	//* @public
+	pause: function(inName) {
+		var animation = this.getAnimation(inName);
+		if (animation.state === "playing") {
+			this._pause(animation);
 		}
 	},
-	//* @public
-	stop: function () {
-		clearInterval(this.stepInterval);
-		this.stepInterval = null;
+	//* @public - Lookup animation by name in _this.animations_
+	getAnimation: function(inName) {
+		var animation = null;
+		for (var i = 0; i < this.animations.length; i++) {
+			if (this.animations[i].name === inName) {
+				animation = this.animations[i];
+				break;
+			}
+		}
+		return animation;
+	},
+	//* @public - remove existing animation
+	deleteAnimation: function(inName) {
+		var animation = this.getAnimation(inName);
+		
+		if (!animation) {
+			return false;
+		}
+		
+		// Pause animation if necessary
+		this._pause(animation);
+		
+		// Splice out this animation
+		this.animations.splice(this.animations.indexOf(animation), 1);
 	},
 	//* @public
-	reset: function () {
-		this._reset();
+	start: function() {
+		this.beginStepping();
 	},
 	//* @public
-	play: function () {
-		var startValues = this.findStartValues();
-		this.applyStartValues(startValues);
-		this.cacheStartValues(startValues);
-		setTimeout(enyo.bind(this, "_play"), 0);
-	},
-	//* @public
-	pause: function () {
-		// TODO
+	stop: function() {
+		this.stopStepping();
 	},
 	
 	////////// PROTECTED //////////
 	
+	//* @protected - Generate a unique name based on the length of _this.animations_
+	generateAnimationName: function() {
+		var count = this.animations.length,
+			name = this.getName()+"_animation_"+count;
+		while (this.getAnimation(name)) {
+			name = this.getName()+"_animation_"+count;
+		}
+		return name;
+	},
 	//* @protected
-	keyframesChanged: function() {
+	formatKeyframes: function(inKeyframes) {
 		var frames = [];
-		for (var index in this.keyframes) {
-			frames.push({index: index, controls: this.keyframes[index]});
+		for (var index in inKeyframes) {
+			frames.push({index: index, controls: inKeyframes[index]});
 		}
-		this.keyframes = frames;
-		this.updateInstructions();
+		return frames;
 	},
 	//* @protected
-	timeElapsedChanged: function () {
-		if (this.getTimeElapsed() > this.getDuration()) {
-			this.animationComplete();
-		}
-	},
-	//* @protected
-	timingFunctionChanged: function() {
-		this.timingFunction = this.getTimingFunction().match(/\bcubic-bezier/i) ? this.getTimingFunction() : this.convertTimingFunctionToBezier(this.getTimingFunction());
+	updateTimingFunction: function(inTimingFunction) {
+		return inTimingFunction.match(/\bcubic-bezier/i) ? inTimingFunction : this.convertTimingFunctionToBezier(inTimingFunction);
 	},
 	//* @protected
 	convertTimingFunctionToBezier: function(timing) {
@@ -98,8 +147,8 @@ enyo.kind({
 		return timing;
 	},
 	//* @protected
-	updateInstructions: function () {
-		var frames = this.keyframes,
+	generateInstructions: function (inKeyframes) {
+		var frames = inKeyframes,
 			instructions = [],
 			instruction,
 			endValues;
@@ -107,6 +156,7 @@ enyo.kind({
 		for (var i = 0; i < frames.length-1; i++) {
 			for (var j = 0, control; (control = frames[i].controls[j]); j++) {
 				for (var prop in control.properties) {
+					
 					instruction = {
 						control: control.control,
 						property: prop,
@@ -116,7 +166,7 @@ enyo.kind({
 					
 					endValues = this.findEndValues(instruction, i+1, frames);
 					
-					// If no end values, skip this rule
+					// If no end values, skip this rule   TODO - is this right?
 					if (!endValues) {
 						continue;
 					}
@@ -127,11 +177,11 @@ enyo.kind({
 			}
 		}
 		
-		this.instructions = instructions;
+		return instructions;
 	},
 	//* @protected
-	findStartValues: function() {
-		var frames = this.keyframes,
+	findStartValues: function(inAnimation) {
+		var frames = inAnimation.keyframes,
 			startValues = {};
 		
 		for (var i = 0; i < frames.length-1; i++) {
@@ -176,9 +226,15 @@ enyo.kind({
 		}
 	},
 	//* @protected
-	_play: function () {
-		this.applyTransitions(0);
+	_play: function (inAnimation) {
+		this.startAnimation(inAnimation);
 		this.beginStepping();
+	},
+	startAnimation: function(inAnimation) {
+		this.applyTransitions(inAnimation, 0);
+		inAnimation.state = "playing";
+		inAnimation.timeElapsed = 0;
+		inAnimation.startTime = enyo.now();
 	},
 	//* @protected
 	applyStartValues: function(inStartValues) {
@@ -203,23 +259,23 @@ enyo.kind({
 		}
 	},
 	//* @protected
-	applyTransitions: function(inStartTime) {
-		var instructions = this.instructions;
+	applyTransitions: function(inAnimation, inStartTime) {
+		var instructions = inAnimation.instructions;
 		for (var i = 0; i < instructions.length; i++) {
 			if (instructions[i].startTime <= inStartTime && !instructions[i].started) {
-				this.applyTransition(instructions[i]);
+				this.applyTransition(inAnimation, instructions[i]);
 				instructions[i].started = true;
 			}
 		}
 	},
 	//* @protected
-	applyTransition: function (inInstruction) {
+	applyTransition: function (inAnimation, inInstruction) {
 		var currentStyle = inInstruction.control.domStyles[this.transitionProperty],
-			transitionTime = (inInstruction.endTime - inInstruction.startTime)*this.duration/(100*1000),
+			transitionTime = (inInstruction.endTime - inInstruction.startTime)*inAnimation.duration/(100*1000),
 			newStyle = currentStyle ? currentStyle + ", " : "",
 			transitionProperty = this.transitionProperty;
 		
-		newStyle += inInstruction.property + " " + transitionTime + "s " + this.getTimingFunction() + " 0s";
+		newStyle += inInstruction.property + " " + transitionTime + "s " + inAnimation.timingFunction + " 0s";
 		
 		inInstruction.control.applyStyle(transitionProperty, newStyle);
 		inInstruction.control.applyStyle(inInstruction.property, inInstruction.endValue);
@@ -227,29 +283,60 @@ enyo.kind({
 		//  this.log(inInstruction.control.id+".applyStyle("+transitionProperty+", "+newStyle+")");
 		//  this.log(inInstruction.control.id+".applyStyle("+inInstruction.property+", "+inInstruction.endValue+")");
 	},
-	//* @protected
-	beginStepping: function () {
-		this.setTimeElapsed(0);
-		this.startTime = enyo.now();
-		this.stepInterval = setInterval(enyo.bind(this, "_step"), this.stepIntervalMS);
-	},
-	//* @protected
-	_step: function () {
-		var elapsed = enyo.now() - this.startTime;
-		this.setTimeElapsed(elapsed);
-		this.applyTransitions(Math.round((elapsed/this.duration)*100));
-	},
-	//* @protected
-	animationComplete: function () {
-		this.stop();
-		this.reset();
-		this.doComplete({animationName: this.getAnimationName()});
-	},
-	//* @protected
-	//* Reset transition properties to what they were before transition happened
-	_reset: function() {
-		for(var item in this.startValues) {
-			this.startValues[item].control.applyStyle(this.transitionProperty, this.startValues[item].properties[this.transitionProperty]);
+	//* @protected - begin stepping
+	beginStepping: function() {
+		if (!this.stepInterval) {
+			this.stepInterval = setInterval(enyo.bind(this, "_step"), this.stepIntervalMS);
 		}
+	},
+	//* @protected - stop stepping
+	stopStepping: function() {
+		if (this.stepInterval) {
+			clearInterval(this.stepInterval);
+			this.stepInterval = null;
+		}
+	},
+	//* @protected - step through each playing animation
+	_step: function() {
+		var playingAnimations = false,
+			now = enyo.now(),
+			animation,
+			elapsed,
+			i;
+		
+		for (i = 0; (animation = this.animations[i]); i++) {
+			if (animation.state === "paused") {
+				continue;
+			}
+			
+			elapsed = now - animation.startTime;
+			
+			if (elapsed > animation.duration) {
+				this.completeAnimation(animation);
+			}
+			
+			animation.timeElapsed = elapsed;
+			this.applyTransitions(animation, Math.round((elapsed/animation.duration)*100));
+			playingAnimations = true;
+		}
+		
+		if (!playingAnimations) {
+			this.stop();
+		}
+	},
+	//* @protected
+	completeAnimation: function(inAnimation) {
+		this._pause(inAnimation);
+		this._reset(inAnimation);
+		this.doComplete({animation: inAnimation});
+	},
+	//* @protected - Reset transition properties to what they were before transition happened
+	_reset: function(inAnimation) {
+		for(var item in inAnimation.startValues) {
+			inAnimation.startValues[item].control.applyStyle(this.transitionProperty, inAnimation.startValues[item].properties[this.transitionProperty]);
+		}
+	},
+	_pause: function(inAnimation) {
+		inAnimation.state = "paused";
 	}
 });

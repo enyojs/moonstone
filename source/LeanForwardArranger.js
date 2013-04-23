@@ -2,142 +2,229 @@ enyo.kind({
 	name: "moon.LeanForwardArranger",
 	kind: "enyo.DockRightArranger",
 	breadcrumbWidth: 180,
+	debug: false,
 	size: function() {
-		var c$ = this.container.getPanels(),
-			padding = this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {},
-			containerWidth = this.containerBounds.width,
-			offset,
-			xPos,
-			join,
-			currentIndex = this.container.getIndex(),
-			i, j, k, m, c, _w,
-			joinedPanels = [],
-			breadcrumbEdge,
-			tp;
-		
-		containerWidth -= padding.left + padding.right;
-		
-		// reset panel arrangement positions
-		tp = {};
+		var containerWidth = this.getContainerWidth(),
+			panels = this.container.getPanels(),
+			joinedPanels,
+			i;
 		
 		// setup default widths for each panel
-		for (i=0; (c=c$[i]); i++) {
-			c.addStyles("min-width:;max-width:;");
-			c.width = c.getBounds().width;
+		for (i = 0; i < panels.length; i++) {
+			panels[i].actualWidth = null;
+			panels[i].width = panels[i].getBounds().width;
 		}
 		
-		this.calcBreadcrumbEdges();
+		joinedPanels = this.calculateJoinedPanels(containerWidth);
 		
-		for (var i = 0, panel; (panel = c$[i]); i++) {
-			panel.setBounds({top: padding.top, bottom: padding.bottom});
-			
-			for (var j = 0, index; (index = c$[j]); j++) {
-				breadcrumbEdge = this.getBreadcrumbEdge(j);
-				
-				// each active item should be at _breadcrumbEdge_
-				if (i === j) {
-					xPos = breadcrumbEdge;
-				
-				// breadcrumbed panels should be positioned to the left
-				} else if (i < j) {
-					xPos = breadcrumbEdge - (j - i)*this.breadcrumbWidth;
-				
-				// upcoming panels should be layed out to the right if _joinToPrev_ is true
-				} else if (i > j) {
-					xPos = (j === 0) ? 0 : this.breadcrumbWidth;
-					for (k = i, join = true; k > j; k--) {
-						if (!c$[k].joinToPrev) {
-							join = false;
-							break;
-						}
-						xPos += c$[k-1].width;
-					}
-					
-					// if _joinToPrev_ is false or this panel won't fit on screen, move it offscreen
-					if (!join || xPos + c$[j].width > containerWidth) {
-						xPos = containerWidth;
-					} else {
-						joinedPanels.push(i);
-					}
-				}
-				tp[i + "." + j] = xPos;
-			}
-		}
+		// stretch all panels to fit vertically
+		this.applyVerticalFit();
 		
-		for (var i = 0; i < joinedPanels.length; i++) {
-			for (var j = 0; j < c$.length; j++) {
-				tp[j+"."+joinedPanels[i]] = tp[j+"."+(joinedPanels[i]-1)];
-			}
-		}
+		// reset panel arrangement positions
+		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, joinedPanels);
+		this.adjustTransitionPositionsForJoinedPanels(joinedPanels);
 		
-		this.container.transitionPositions = tp;
-		this.updateWidths(containerWidth);
+		// Update individual panel widths to account for _joinedPanels_
+		this.updateWidths(containerWidth, joinedPanels);
+		this.applyUpdatedWidths();
 		
-		console.log(tp);
+		// Calculate _this.breadcrumbPositions_
 		this.calcBreadcrumbPositions(joinedPanels);
-		console.log(this.breadcrumbPositions);
-	},
-	updateWidths: function(inContainerWidth) {
-		var tp = this.container.transitionPositions;
-		var panels = this.container.getPanels();
-		var newWidth;
 		
-		for (var i = 0, panel, newWidth; (panel = panels[i]); i++) {
-			var stretchPanel = null;
-			var stretchIndex = null;
-			var breadcrumbEdge = this.getBreadcrumbEdge(i);
-			
-			for (var index = i; index < panels.length; index++) {
-				var thisTp = index+"."+i;
-				var thisPanel = panels[index];
-				if (tp[thisTp] >= breadcrumbEdge && tp[thisTp] + thisPanel.width < inContainerWidth) {
-					stretchIndex = index;
-				} else {
-					break;
+		this.debug && console.log("transitionPositions:", this.container.transitionPositions);
+		this.debug && console.log("breadcrumbPositions:", this.breadcrumbPositions);
+	},
+	calculateJoinedPanels: function(inContainerWidth) {
+		inContainerWidth = inContainerWidth || this.getContainerWidth();
+		
+		var panels = this.container.getPanels(),
+			joinedPanels = {};
+		
+		for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
+			for (var index = 0; index < panels.length; index++) {
+				if (panelIndex > index) {
+					joinedPanels[panelIndex + "." + index] = this.isPanelJoined(panelIndex, index, inContainerWidth);
 				}
-			}
-			
-			if (stretchIndex !== null) {
-				newWidth = inContainerWidth - tp[stretchIndex+"."+i];
-				panels[stretchIndex].addStyles("width:"+newWidth+"px;min-width:"+newWidth+"px;max-width:"+newWidth+"px;");
-				//panels[stretchIndex].width = newWidth;
 			}
 		}
 		
-		for (i = 0; (panel = panels[i]); i++) {
-			if (panel.domStyles["min-width"] === "") {
-				panel.addStyles("min-width:"+panel.width+"px;max-width:"+panel.width+"px;");
+		return this.formatJoinedPanels(joinedPanels)
+	},
+	isPanelJoined: function(inPanelIndex, inIndex, inContainerWidth) {
+		inContainerWidth = inContainerWidth || this.getContainerWidth();
+		
+		var panels = this.container.getPanels(),
+			xPos = this.getBreadcrumbEdge(inIndex),
+			i = inPanelIndex;
+		
+		while(i > inIndex) {
+			if (!panels[i].joinToPrev) {
+				return false;
 			}
+			
+			xPos += panels[i].width;
+			i--;
+		}
+		
+		if(xPos + panels[inIndex].width > inContainerWidth) {
+			return false;
+		}
+		
+		return true;
+	},
+	formatJoinedPanels: function(inJoinedPanels) {
+		var panels = this.container.getPanels(),
+			ret = [], i, j;
+		
+		for (i = 0; i < panels.length; i++) {
+			for (j = 0; j < panels.length; j++) {
+				if (!inJoinedPanels[i+"."+j]) {
+					continue;
+				}
+				
+				ret[i] = ret[i] || [];
+				ret[i].push(j);
+			}
+		}
+		
+		return ret;
+	},
+	calculateTransitionPositions: function(inContainerWidth, inJoinedPanels) {
+		var panels = this.container.getPanels(),
+			tp = {},
+			panel,
+			index;
+		
+		for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
+			for (var index = 0; index < panels.length; index++) {
+				tp[panelIndex + "." + index] = this.calculateXPos(panelIndex, index, inContainerWidth, inJoinedPanels);
+			}
+		}
+		
+		return tp;
+	},
+	calculateXPos: function(inPanelIndex, inIndex, inContainerWidth, inJoinedPanels) {
+		var breadcrumbEdge = this.getBreadcrumbEdge(inIndex),
+			panels = this.container.getPanels(),
+			joined = false,
+			xPos,
+			i;
+		
+		// each active item should be at _breadcrumbEdge_
+		if (inIndex === inPanelIndex) {
+			return breadcrumbEdge;
+		
+		// breadcrumbed panels should be positioned to the left
+		} else if (inIndex > inPanelIndex) {
+			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth;
+		
+		// upcoming panels should be layed out to the right if _joinToPrev_ is true
+		} else {
+			// If this panel is not joined at this index, put it off the screen to the right
+			if (!inJoinedPanels[inPanelIndex] || inJoinedPanels[inPanelIndex].indexOf(inIndex) === -1) {
+				return inContainerWidth;
+			}
+			
+			xPos = breadcrumbEdge;
+			
+			i = inPanelIndex;
+			while (i > inIndex) {
+				if (panels[i - 1]) {
+					xPos += panels[i - 1].width;
+				}
+				i--;
+			}
+			
+			return xPos;
+		}
+	},
+	recalculatePanelTransitionPositions: function(inPanelIndex, inContainerWidth, inJoinedPanels) {
+		var panels = this.container.getPanels();
+		for (var i = 0; i < panels.length; i++) {
+			this.container.transitionPositions[inPanelIndex + "." + i] = this.calculateXPos(inPanelIndex, i, inContainerWidth, inJoinedPanels);
+		}
+	},
+	adjustTransitionPositionsForJoinedPanels: function(inJoinedPanels) {
+		var tp = this.container.transitionPositions,
+			panels = this.container.getPanels();
+		
+		for (var i = panels.length; i >= 0; i--) {
+			if (!inJoinedPanels[i]) {
+				continue;
+			}
+			
+			for (var j = inJoinedPanels[i].length - 1; j >= 0; j--) {
+				for (var k = 0; k < panels.length; k++) {
+					tp[k+"."+i] = tp[k+"."+inJoinedPanels[i][j]];
+				}
+			}
+		}
+	},
+	updateWidths: function(inContainerWidth, inJoinedPanels) {
+		var tp = this.container.transitionPositions,
+			panels = this.container.getPanels(),
+			diff;
+		
+		// Calculate stretched widths for panels at the end of given index
+		for (var i = 0; i < inJoinedPanels.length; i++) {
+			if (!inJoinedPanels[i]) {
+				continue;
+			}
+			
+			totalWidth = panels[i].width + this.getBreadcrumbEdge(inJoinedPanels[i][0]);
+			
+			// Add the width of each additional panel that is visible at this index
+			for (var j = 0; j < inJoinedPanels[i].length; j++) {
+				// If this panel is joined with another one that has already been stretched, reposition
+				// it so everything is kosher. TODO - this is a strange edge case, needs to be discussed.
+				if (panels[inJoinedPanels[i][j]].actualWidth) {
+					totalWidth += panels[inJoinedPanels[i][j]].actualWidth;
+					// TODO - this.recalculatePanelTransitionPositions(i, inContainerWidth, inJoinedPanels);
+				} else {
+					totalWidth += panels[inJoinedPanels[i][j]].width;
+				}
+			}
+			
+			diff = inContainerWidth - totalWidth;
+			panels[i].actualWidth = panels[i].width + diff;
+			
+			this.debug && console.log(i, panels[i].width, "-->", panels[i].actualWidth);
+		}
+		
+		// Stretch all panels that should fill the whole width
+		for (var i = 0; i < panels.length; i++) {
+			if (!panels[i].actualWidth) {
+				for (var j = 0, match = false; j < inJoinedPanels.length; j++) {
+					if (inJoinedPanels[j] && inJoinedPanels[j].indexOf(i) >= 0) {
+						match = true;
+					}
+				}
+				panels[i].actualWidth = (match) ? panels[i].width : inContainerWidth - this.getBreadcrumbEdge(i);
+			}
+		}
+	},
+	applyUpdatedWidths: function() {
+		var panels = this.container.getPanels();
+		for (var i = 0; i < panels.length; i++) {
+			panels[i].applyStyle("width", panels[i].actualWidth + "px");
 		}
 	},
 	calcBreadcrumbPositions: function(inJoinedPanels) {
 		var panels = this.container.getPanels(),
 			isBreadcrumb,
-			isJoined,
-			panel,
 			index,
-			i, j;
+			i;
 		
 		this.breadcrumbPositions = {};
 		
-		for (i = 0, panel; (panel = panels[i]); i++) {
+		for (i = 0; i < panels.length; i++) {
 			for (index = 0; index < panels.length; index++) {
 				isBreadcrumb = false;
 				
 				if (index > i) {
-					j = i+1;
-					isJoined = true;
-					
-					while (index >= j) {
-						if (inJoinedPanels.indexOf(j) === -1) {
-							isJoined = false;
-							break;
-						}
-						j++
-					}
-					
-					isBreadcrumb = !isJoined;
+					isBreadcrumb = !(inJoinedPanels[index] && inJoinedPanels[index].indexOf(i) > -1);
 				}
+				
 				this.breadcrumbPositions[i+"."+index] = isBreadcrumb;
 			}
 		}
@@ -177,24 +264,32 @@ enyo.kind({
 		return this.container.transitionPositions[inIndex+"."+this.container.getIndex()] >= this.containerBounds.width;
 	},
 	isBreadcrumb: function(inPanelIndex, inActiveIndex) {
-		var index = inActiveIndex,
-			breadcrumbEdge = this.getBreadcrumbEdge(inActiveIndex),
-			tp = this.container.transitionPositions,
-			tpIndex = inPanelIndex+"."+index,
-			pos = tp[tpIndex];
-		
-		//console.log("isBreadcrumb():", "panelIndex:", inPanelIndex, "activeIndex:", inActiveIndex, "pos:", pos, "bc edge:", breadcrumbEdge, "---->", pos < breadcrumbEdge);
-		//console.log("breadcrumbPositions:", inPanelIndex, inActiveIndex, this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex]);
 		return this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
-		//return pos < breadcrumbEdge;
 	},
 	calcBreadcrumbEdges: function() {
 		this.breadcrumbEdges = [];
 		for (var i = 0, panel; (panel = this.container.getPanels()[i]); i++) {
-			this.breadcrumbEdges[i] = (i === 0 || panel.joinToPrev) ? 0 : this.breadcrumbWidth;
+			this.breadcrumbEdges[i] = (i === 0) ? 0 : this.breadcrumbWidth;
 		}
 	},
+	getContainerWidth: function() {
+		var containerWidth = this.containerBounds.width,
+			padding = this.getContainerPadding();
+		return containerWidth - (padding.left + padding.right);
+	},
 	getBreadcrumbEdge: function(inIndex) {
-		return this.breadcrumbEdges[inIndex];
+		return (inIndex === 0) ? 0 : this.breadcrumbWidth;
+	},
+	//* Set bounds for each panel to fit it vertically
+	applyVerticalFit: function() {
+		var panels = this.container.getPanels(),
+			padding = this.getContainerPadding();
+			
+		for (var i = 0, panel; (panel = panels[i]); i++) {
+			panel.setBounds({top: padding.top, bottom: padding.bottom});
+		}
+	},
+	getContainerPadding: function() {
+		return this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {};
 	}
 });
