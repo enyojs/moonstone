@@ -1,31 +1,21 @@
-.sample-photo-list-item {
-	width : 200px;
-	height : 160px;
-	display: block;
-	clear: both;
-	margin-top: 0px;
-	padding-top: 0px;
+.photo-album {
+	margin : 20px 50px 20px 50px;
 }
-.sample-photo-list-item img {
-	width : 200px;
-	height : 160px;
-	padding: 0px;
-	margin: 0px 64px 0px 0px;
-	display: inline-block;
-	float: left;
 
+.photo-album .moon-panel-body {
+	padding-top : 20px;
 }
-.sample-photo-list-item.align-right img {
-	float: right;
-	margin: 0px 0px 0px 64px;
+
+.photo-album .moon-imageitem {
+	height : 160px;
 }
-.sample-photo-list-item.spotlight {
-	padding-left: 0px;
-	border-left-width: 25px;
+
+.photo-album .moon-imageitem img {
+	width : 200px;
+	height : 160px;
+	margin : 0px 20px 0px 0px;
 }
-.sample-photo-list-item.selected {
-	background: #CCCCCC;
-}
-.sample-photo-list-item.align-right.spotlight > .moon-labeledtextitem {
-	padding-left: 15px;
+
+.photo-album .moon-labeledtextitem .label {
+	border : none;
 }

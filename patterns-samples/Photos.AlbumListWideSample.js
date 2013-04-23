@@ -1,7 +1,7 @@
 enyo.kind({
     name: "moon.sample.photos.AlbumListWideSample",
 	kind: "moon.Panel",
-	index: "01",
+	titleAbove: "01",
 	title: "Albums",
 	classes: "photos-album",
 	imageList: [

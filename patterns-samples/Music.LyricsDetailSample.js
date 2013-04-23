@@ -3,7 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
     classes: "enyo-unselectable moon moon-music-mainmenu",
     fit: true,
-    index: "04",
+    titleAbove: "04",
     title: "LYRICS",
     
     components: [

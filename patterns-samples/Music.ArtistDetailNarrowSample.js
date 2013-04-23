@@ -1,26 +1,21 @@
 enyo.kind({
     name: "moon.sample.music.ArtistDetailNarrowSample",
-    layoutKind: "enyo.FittableRowsLayout",
+    kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    title: "Movie Name",
-    titleAbove: "03",
+    title: "Artist",
+    titleAbove: "04",
+    headerComponents: [
+        {
+            classes: "moon-music-detail-header-button",
+            components: [
+                {kind: "moon.IconButton", src: "assets/icon-like.png"},
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
+            ]
+        }
+    ],
     components: [
         {kind: "enyo.Spotlight"},
-        {
-            kind: "moon.Header",
-            content: "Artist",
-            titleAbove: "04",
-            components: [
-                {
-                    classes: "moon-music-detail-header-button",
-                    components: [
-                        {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                        {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
-                    ]
-                }
-            ]
-        },
         {
             name: "container",
             kind: "FittableColumns",
@@ -73,14 +68,12 @@ enyo.kind({
                         {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
                         {
                             name: "listContainer",
-                            fit: true,
                             spotlight: "container",
                             components: [
                                 {
                                     name: "list",
                                     kind: "moon.List",
-                                    classes: "enyo-fit",
-                                    orient: "v",
+                                    style: "height: 300px;",
                                     count: 10,
                                     multiSelect: false,
                             		onSetupItem: "setupItem",
@@ -126,14 +119,15 @@ enyo.kind({
         var d = Math.round(this.$.detail.getBounds().width * 0.3);
         if (d < 180) {
             d = 180;
+        } else if (d > 388) {
+            d = 388;
         }
         this.$.movie.setBounds({width: d, height: d});
         
         d = Math.round((d - 168) * 0.5);
         this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
         
-        var rect = this.$.listContainer.getBounds();
-        this.$.list.setBounds({top: rect.top, left: rect.left});
+        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
     },
     
     setupItem: function(inSender, inEvent) {

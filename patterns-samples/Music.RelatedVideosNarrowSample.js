@@ -1,18 +1,13 @@
 enyo.kind({
     name: "moon.sample.music.RelatedVideosNarrowSample",
-    layoutKind: "enyo.FittableRowsLayout",
+    kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    title: "Movie Name",
-    titleAbove: "03",
+    title: "Related Videos",
+    titleAbove: "04",
+    titleBelow: "10 Tracks",
     components: [
         {kind: "enyo.Spotlight"},
-        {
-            kind: "moon.Header",
-            content: "Related Videos",
-            titleAbove: "04",
-            titleBelow: "10 Tracks"
-        },
         {
             name: "container",
             kind: "FittableColumns",
@@ -26,13 +21,12 @@ enyo.kind({
                     components: [
                         {
                             name: "listContainer",
-                            fit: true,
                             spotlight: "container",
                             components: [
                                 {
                                     name: "list",
                                     kind: "moon.List",
-                                    classes: "enyo-fit",
+                                    style: "height: 300px;",
                                     orient: "v",
                                     count: 10,
                                     multiSelect: false,
@@ -76,8 +70,7 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        var rect = this.$.listContainer.getBounds();
-        this.$.list.setBounds({top: rect.top, left: rect.left});
+        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
     },
     
     setupItem: function(inSender, inEvent) {

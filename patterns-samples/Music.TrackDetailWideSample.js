@@ -1,29 +1,24 @@
 enyo.kind({
     name: "moon.sample.music.TrackDetailWideSample",
-    layoutKind: "enyo.FittableRowsLayout",
+    kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    title: "Movie Name",
+    title: "Track Name",
     titleAbove: "03",
+    titleBelow: "Artist Name",
+    headerComponents: [
+        {
+            classes: "moon-music-detail-header-button",
+            components: [
+                {kind: "moon.IconButton", src: "assets/icon-album.png"},
+                {kind: "moon.IconButton", src: "assets/icon-download.png", classes: "moon-music-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-like.png", classes: "moon-music-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
+            ]
+        }
+    ],
     components: [
         {kind: "enyo.Spotlight"},
-        {
-            kind: "moon.Header",
-            content: "Track Name",
-            titleAbove: "03",
-            titleBelow: "Artist Name",
-            components: [
-                {
-                    classes: "moon-music-detail-header-button",
-                    components: [
-                        {kind: "moon.IconButton", src: "assets/icon-album.png"},
-                        {kind: "moon.IconButton", src: "assets/icon-download.png", classes: "moon-music-detail-header-button-right"},
-                        {kind: "moon.IconButton", src: "assets/icon-like.png", classes: "moon-music-detail-header-button-right"},
-                        {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
-                    ]
-                }
-            ]
-        },
         {
             name: "container",
             kind: "FittableColumns",

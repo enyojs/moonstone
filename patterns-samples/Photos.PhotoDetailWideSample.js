@@ -1,34 +1,24 @@
 enyo.kind({
     name: "moon.sample.photos.PhotoDetailWideSample",
-    //kind: "FittableRows",
     kind : "moon.Panel",
-    style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
     fit: true,
-
-    handlers: {
-
-    },
+    title : "PHOTO NAME",
+    titleAbove : "03",
+    titleBelow : "2013-04-08",
 
     create: function() {
         this.inherited(arguments);
-        
-        this.setHeader({
-            title : "PHOTO NAME",
-            index : "03",
-            titleBelow : "2013-04-08"
-        });
     },
 
     headerComponents : [
-        { kind : "moon.IconButton", style : "border:none;", src : "assets/icon-favorite.png", style : "margin : 0px 20px 10px 0px;" },
-        { kind : "moon.IconButton", style : "border:none;", src : "assets/icon-download.png", style : "margin : 0px 20px 10px 0px;"},
-        { kind : "moon.IconButton", style : "border:none;", src : "assets/icon-next.png", style : "margin : 0px 20px 10px 0px;" },
+        { kind : "moon.IconButton", src : "assets/icon-favorite.png", style : "margin : 0px 20px 10px 0px;" },
+        { kind : "moon.IconButton", src : "assets/icon-download.png", style : "margin : 0px 20px 10px 0px;"},
+        { kind : "moon.IconButton", src : "assets/icon-next.png", style : "margin : 0px 20px 10px 0px;" },
     ],
 
     buttonActivated: function(inSender, inEvent) {
         if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
-            console.log("buttonActivated>" + inEvent.originator.name);
             var tName = inEvent.originator.name;
 
             if(tName == "button-desc"){
@@ -68,7 +58,6 @@ enyo.kind({
                     style : "width : 47%;",
                     components : [
                         {
-                            style : "margin-top:10px",
                             components : [
                                 {   
                                     components : [
@@ -80,6 +69,10 @@ enyo.kind({
                                                 {name : "button-comments", style: "width:150px; font-size: 22px; margin-right : 8px;", content: "COMMENTS(98)"},
                                                 {name : "button-likes", style: "width:130px; font-size: 22px; margin-right : 8px;", content: "LIKES(387)"},
                                                 {name : "button-albums", style: "width:120px; font-size: 22px; margin-right : 8px;", content: "ALBUMS(5)"},
+                                                /*{name : "button-desc", content: "DESCRIPTION"},
+                                                {name : "button-comments", content: "COMMENTS(98)"},
+                                                {name : "button-likes", content: "LIKES(387)"},
+                                                {name : "button-albums", content: "ALBUMS(5)"},*/
                                             ]
                                         }
                                     ]
@@ -177,7 +170,7 @@ enyo.kind({
     components : [
         {
             kind: "sample.photo.FeedListItem",
-            style : "height:70px;",
+            style : "height:70px",
             source: "./assets/man0.png",
             title : "Username",
         },

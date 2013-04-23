@@ -1,7 +1,7 @@
 	enyo.kind({
     name: "moon.sample.photos.AlbumGridSample",
 	kind: "moon.Panel",
-	index: "01",
+	titleAbove: "01",
 	title: "Main Menu",
 	classes: "photos-album album-grid-sample",
 	imgList: [

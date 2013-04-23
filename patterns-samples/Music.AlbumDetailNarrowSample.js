@@ -3,8 +3,9 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    index: "04",
+    titleAbove: "04",
     title: "Album",    
+    titleBelow: "",
     components: [
         {kind: "enyo.Spotlight"},
         {
@@ -53,7 +54,8 @@ enyo.kind({
                 {
                     name: "list",
                     kind: "moon.List",
-                    count: 10,
+                    count: 100,
+                    style: "height: 800px",
                     multiSelect: false,
             		onSetupItem: "setupItem",
                     components: [

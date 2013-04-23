@@ -21,6 +21,8 @@
 .moon-music-detail-detail {
     width: 50%;
     margin: 0px 20px 0px 0px;
+    min-width: 324px;
+    max-width: 388px;
 }
 
 .moon-music-detail-preview {

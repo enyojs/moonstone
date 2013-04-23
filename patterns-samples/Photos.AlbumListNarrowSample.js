@@ -1,38 +1,25 @@
 enyo.kind({
     name: "moon.sample.photos.AlbumListNarrowSample",
-    //kind: "FittableRows",
     kind : "moon.Panel",
     style: "background: #eaeaea;",
     classes: "moon enyo-unselectable",
     fit: true,
-
-    handlers: {
-
-    },
+    title : "ALBUMS",
+    titleAbove : "01",
+    titleBelow : "",
 
     create: function() {
         this.inherited(arguments);
-        
-        this.setHeader({
-            title : "ALBUMS",
-            index : "01",
-            titleBelow : " "
-        });
     },
-
-    headerComponents : [
-    ],
 
     components: [
         {kind : "enyo.Spotlight"},
         {
             kind : "FittableRows",
-            style : "width : 350px;",
             fit : true,
             components : [
                 {
                     kind : "moon.sample.photos.AlbumListNarrowSample.albumList",
-                    style : "margin : 20px 0px 0px 20px;"
                 }
             ]
         }

@@ -1,27 +1,22 @@
 enyo.kind({
     name: "moon.sample.video.DetailWideSample",
-    layoutKind: "enyo.FittableRowsLayout",
+    kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-video-detail",
     fit: true,
     title: "Movie Name",
     titleAbove: "03",
+    headerComponents: [
+        {
+            classes: "moon-video-detail-header-button",
+            components: [
+                {kind: "moon.IconButton", src: "assets/icon-download.png"},
+                {kind: "moon.IconButton", src: "assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
+            ]
+        }
+    ],
     components: [
         {kind: "enyo.Spotlight"},
-        {
-            kind: "moon.Header",
-            content: "Movie Name",
-            titleAbove: "03",
-            components: [
-                {
-                    classes: "moon-video-detail-header-button",
-                    components: [
-                        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-                        {kind: "moon.IconButton", src: "assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
-                        {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
-                    ]
-                }
-            ]
-        },
         {
             name: "container",
             kind: "FittableColumns",

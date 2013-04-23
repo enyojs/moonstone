@@ -21,6 +21,8 @@
 .moon-video-detail-detail {
     width: 30%;
     margin: 0px 20px 0px 0px;
+    min-width: 400px;
+    max-width: 500px;
 }
 
 .moon-video-detail-preview {
@@ -37,6 +39,7 @@
 .moon-video-detail-synopsis {
     width: 45%;
     margin: 0px 20px 0px 0px;
+    min-width: 430px;
 }
 
 .moon-video-detail-devider {
