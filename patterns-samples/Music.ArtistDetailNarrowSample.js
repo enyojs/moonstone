@@ -119,6 +119,8 @@ enyo.kind({
         var d = Math.round(this.$.detail.getBounds().width * 0.3);
         if (d < 180) {
             d = 180;
+        } else if (d > 388) {
+            d = 388;
         }
         this.$.movie.setBounds({width: d, height: d});
         
