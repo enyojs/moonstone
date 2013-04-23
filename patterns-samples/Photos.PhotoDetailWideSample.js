@@ -9,15 +9,6 @@ enyo.kind({
 
     create: function() {
         this.inherited(arguments);
-<<<<<<< HEAD
-        /*
-        this.setHeader({
-            title : "PHOTO NAME",
-            index : "03",
-            titleBelow : "2013-04-08"
-        });*/
-=======
->>>>>>> change header setting method
     },
 
     headerComponents : [
