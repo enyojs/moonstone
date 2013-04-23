@@ -131,7 +131,9 @@ enyo.kind({
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
+			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
@@ -142,7 +144,9 @@ enyo.kind({
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
+			return true;
 		}
 	},
 	calcIncrement: function(inValue) {

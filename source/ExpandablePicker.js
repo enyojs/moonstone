@@ -81,7 +81,7 @@ enyo.kind({
 		this.noneTextChanged();
 	},
 	//* When the _selected_ control changes, update _checked_ values appropriately and fire an onChange event
-	selectedChanged: function() {
+	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
 			index = -1;
@@ -95,7 +95,7 @@ enyo.kind({
 			}
 		}
 
-		if(index > -1 && index !== this.getSelectedIndex()) {
+		if(index > -1 && selected !== inOldValue) {
 			this.setSelectedIndex(index);
 			this.$.currentValue.setContent(selected.getContent());
 			this.fireChangeEvent();
