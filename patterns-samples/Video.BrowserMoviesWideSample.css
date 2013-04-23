@@ -29,12 +29,21 @@
 }
 
 .moon-video-browsermovies-item-label {
-    width: 100%;
+    font-size: 20px;
     border-top:1px solid #cccccc;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.moon-video-browsermovies-list .spotlight .moon-video-browsermovies-item {
-	border-left:16px solid orange;
+.moon-video-browsermovies .moon-gridlist-imageitem {
+    margin-top: 0px;
+}
+
+.moon-video-browsermovies .moon-gridlist-imageitem.spotlight {
+  padding: 0px 0px 25px 0px !important;
+  margin: -25px 0px 0px 0px !important;
+}
+.moon-video-browsermovies .moon-gridlist-imageitem.spotlight.selected {
+  padding: 0px 0px 28px 0px !important;
+  margin: -25px 0px 0px 0px !important;
 }
