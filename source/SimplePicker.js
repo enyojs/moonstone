@@ -1,7 +1,8 @@
 /**
-	_moon.SimplePicker_ is used to solicit a choice from the user by cycling through a list
-	of options.  The picker's child components, typically simple _enyo.Control_'s with text
-	content, become the options for the picker.
+	_moon.SimplePicker_ is a control that solicits a choice from the user by
+	cycling through a list of options. The picker's child components, typically
+	simple _enyo.Control_ objects with text content, become the options for the
+	picker.
 
 		{kind:"moon.SimplePicker", onChange:"changed", selectedIndex:1, components: [
 			{content:"San Francisco"},
@@ -9,11 +10,12 @@
 			{content:"Tokyo"}
 		]}
 
-	The picker can be programmatically changed by calling _previous()_, _next()_, or modifying
-	the _selectedIndex_ published property by calling _setSelectedIndex()_.
+	The picker may be changed programmatically by calling _previous()_ or
+	_next()_, or by modifying the _selectedIndex_ published property by calling
+	_set("selectedIndex", <new value>)_.
 
-	The _onChange_ event is fired when the selected item changes, and contains the following
-	properties:
+	The _onChange_ event is fired when the selected item changes, and contains the
+	following	properties:
 
 		{
 			selected: [object Object],	// Reference to selected item
@@ -21,9 +23,9 @@
 			index: 1					// Index of selected item
 		}
 
-	Picker options can be adjusted programmatically using standard means, by calling
-	_createComponet()/render()_ or _destroy()_.  Note reflow() must be called when adding
-	new components:
+	The picker options may be modified programmatically in the standard manner, by
+	calling	_createComponent()/render()_ or _destroy()_.  Note that reflow() must
+	be called after components are added or removed:
 
 		// Add new items to picker
 		this.$.picker.createCompoent({"New York"}).render();
@@ -54,10 +56,9 @@ enyo.kind({
 		selected:"",
 		//* Index of currently selected item, if any
 		selectedIndex:null,
-		//* Whether the picker transitions should animate left/right.
+		//* When true, picker transitions animate left/right
 		animate:true,
-		//* When true, button is shown as disabled and does not generate tap
-		//* events
+		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false
 	},
 	//* @protected
@@ -149,12 +150,12 @@ enyo.kind({
 		}
 	},
 	//* @public
-	//* Cycles the selected item to the one previous to the currently selected item.
+	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
 		this.$.client.previous();
 	},
 	//* @public
-	//* Cycles the selected item to the one after to the currently selected item.
+	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
 		this.$.client.next();
 	}
