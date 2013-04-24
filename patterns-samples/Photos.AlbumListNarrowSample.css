@@ -1,30 +1,37 @@
+.photo-overlap-album {
+
+}
+
 .sample-album-list-item {
 	width : 200px;
-	height : 160px;
+	height : 150px;
 	display: block;
 	clear: both;
-	margin-top: 0px;
-	padding-top: 0px;
+	margin : 40px 0px 80px 0px;
 }
+
+.sample-album-list-item .front-image {
+	margin: -25px 0px 0px 25px;
+} 
+
+.sample-album-list-item .back-image {
+	margin: -215px 0px 0px 0px;
+}
+
+.sample-album-list-item .title-text {
+	margin: 0px 0px 0px 10px;
+}
+
 .sample-album-list-item img {
 	width : 200px;
-	height : 160px;
-/*	padding: 0px;
-	margin: 0px 64px 0px 0px;
-	display: inline-block;
-	float: left;*/
+	height : 150px;
 }
-.sample-album-list-item.align-right img {
-	float: right;
-	margin: 0px 0px 0px 64px;
-}
+
 .sample-album-list-item.spotlight {
 	padding-left: 0px;
 	border-left-width: 25px;
 }
+
 .sample-album-list-item.selected {
 	background: #CCCCCC;
-}
-.sample-album-list-item.align-right.spotlight > .moon-labeledtextitem {
-	padding-left: 15px;
 }
