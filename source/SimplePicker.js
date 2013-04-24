@@ -12,7 +12,7 @@
 
 	The picker may be changed programmatically by calling _previous()_ or
 	_next()_, or by modifying the _selectedIndex_ published property by calling
-	_set("selectedIndex", <new value>)_.
+	_set("selectedIndex", &lt;value&gt;)_.
 
 	The _onChange_ event is fired when the selected item changes, and contains the
 	following	properties:
