@@ -1,14 +1,13 @@
 /**
-
-	A control that presents a range of selection options in the form of a
-	horizontal slider with a control knob.  The knob may be tapped and dragged
-	to the desired location.
+	_moon.Slider_ is a control that presents a range of selection options in the
+	form of a horizontal slider with a control knob. The knob may be tapped and
+	dragged to the desired location.
 
 		{kind: "moon.Slider", value: 30}
 		{kind: "moon.Slider", value: 60, nofocus: false}
 
-	The _onChanging_ event is fired when dragging the control knob.
-	The _onChange_ event is fired when the position is set, either by finishing
+	The _onChanging_ event is fired while the control knob is being dragged, while
+	the _onChange_ event is fired when the position is set, either by finishing
 	a drag or by tapping the bar.
 */
 enyo.kind({
@@ -26,13 +25,12 @@ enyo.kind({
 		completed: 0,
 		tappable: true,
 		popupColor: "#ffb80d",
-		//* When true, button is shown as disabled and does not generate tap
-		//* events
+		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
-		//* Value increment that a sliders can be "snapped to" in either direction
+		//* Value increment that the slider can be "snapped to" in either direction
 		increment: 0,
-		//* When true, knob and progress moves with animation by clicking left/right
-		//* direction key ot bye tapping the bar
+		//* When true, knob and progress move with animation by clicking left/right
+		//* direction key or by tapping the bar
 		animate : true
 	},
 	events: {

@@ -1,16 +1,15 @@
 /**
-	A control that displays a spinner animation to indicate that activity is
-	taking place. By default, moon.Spinner will display a light spinner,
-	suitable for displaying against a dark background. To render a dark spinner
-	to be shown on a lighter background, add the "moon-light" class to the
-	spinner:
+	_moon.Spinner_ is a control that shows a spinning animation to indicate that
+	activity is taking place. By default, the spinner is light-colored and
+	suitable for displaying against a dark background. If you need a dark spinner
+	(to be shown on a lighter background), add the _moon-light_ CSS class:
 
 		{kind: "moon.Spinner", classes: "moon-light"}
 
 	Typically, a spinner is shown to indicate activity and hidden to indicate
-	that the activity has ended. The spinner animation will automatically start
-	when a spinner is shown. If you wish, you may control the animation directly
-	by calling the *start*, *stop*, and *toggle* methods.
+	that the activity has ended. The animation automatically starts when the
+	spinner is shown. If you wish, you may control the animation directly by
+	calling the *start*, *stop*, and *toggle* methods.
 */
 enyo.kind({
 	name: "moon.Spinner",
