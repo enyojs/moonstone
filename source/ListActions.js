@@ -1,5 +1,7 @@
 enyo.kind({
 	name: "moon.ListActions",
+	classes: "moon-list-actions",
+	kind: "enyo.GroupItem",
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents.
 		open: false,
@@ -15,14 +17,13 @@ enyo.kind({
 	},
 	handlers: {
 		onActivate: "optionSelected",
-    	onSpotlightSelect: "expandContract",
 		onSpotlightDown:"spotlightDown",
 		onSpotlightUp:"spotlightUp",
 		onSpotlightLeft:"spotlightLeft",
 		onSpotlightRight:"spotlightRight"
 	},
 	components:[
-		{name:"activator", kind: "moon.Button", classes: "moon-list-actions-activator", spotlight:true, ontap: "expandContract", ontap:"expandContract", onSpotlightSelect: "expandContract"},
+		{name:"activator", kind: "moon.Button", classes: "moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 	    {name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [			
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
         	    {name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
@@ -46,11 +47,12 @@ enyo.kind({
 		this.$.listActions.resized();
 	},
 	listActionsChanged: function() {
-		for (var option in this.listActions) {
+		for (option in this.listActions) {
 			this.$.listActionsContainer.createComponents([
 				{
 					classes: "moon-list-actions-menu",
-					components: this.listActions[option]
+					components: this.listActions[option].components,
+					action: this.listActions[option].action ? this.listActions[option].action : ""
 				}
 			]);
 		}
@@ -77,18 +79,28 @@ enyo.kind({
 
 	},
 	configurePopup: function() {
-		var clientRect = this.parent.node.getBoundingClientRect();   
+		var clientRect = this.parent.node.getBoundingClientRect(); 
 		this.$.drawerPopup.applyStyle('width', clientRect.width + "px");
 		this.$.drawerPopup.applyStyle('height', clientRect.height + "px");
 	    this.$.drawerPopup.setShowing(true);
+		this.$.drawerPopup.applyStyle('top', (clientRect.top - this.node.getBoundingClientRect().top)  + "px");
 	},
 	//* Facade for drawer
 	openChanged: function() {
 		this.$.drawer.setOpen(this.getOpen());
-		this.refresh();		
+		this.refresh();
 	},
 	optionSelected: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
+			//decorate the event with the control's group action name
+			var controls = this.$.listActionsContainer.getControls();
+			for (index in controls) {
+				if (enyo.Spotlight.Util.isChild(controls[index], inEvent.toggledControl)) {
+					inEvent.action = controls[index].action;
+					break;
+				}
+			}
+			
 			if (this.autoCollapse) {
 				setTimeout(enyo.bind(this, function() {
 					this.setOpen(false);					
@@ -135,6 +147,7 @@ enyo.kind({
 		} else {
 			this.$.drawerPopup.setShowing(false);
 		}
+		this.setActive(this.getOpen());
 	},
 	resizeHandler: function() {
 		//don't refresh while animating
@@ -291,12 +304,6 @@ enyo.kind({
 		}
 	},
 	animatorStep: function(inSender) {
-		// the actual drawer DOM node adjusts its height
-		if (this.hasNode()) {
-			var d = inSender.dimension;
-			
-			 var o = !this.open ? inSender.endValue : inSender.startValue;
-		}
 		// while the client inside the drawer adjusts its position to move out of the visible area
 		var cn = this.$.client.hasNode();
 		if (cn) {
