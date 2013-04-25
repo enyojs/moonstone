@@ -1,18 +1,20 @@
 /**
-	A control that activates a <a href="#moon.ContextualPopup">moon.ContextualPopup</a>. It loosely
-	couples the Popup with an activating control, which may be a button or any
-	other control with an _onActivate_ event. The decorator must surround both
-	the	activating control and the popup itself. When the control is activated,
-	the	popup shows itself in the correct position relative to the activator.
+	A control that activates a <a href="#moon.ContextualPopup">moon.ContextualPopup</a>.
+	It loosely couples the popup with an activating control, which may be a button
+	or any other control with an _onActivate_ event. The decorator must surround
+	both the	activating control and the popup itself.
+	
+	When the control is activated, the popup shows itself in the correct position
+	relative to the activator.
 
-	{kind: "moon.ContextualPopupDecorator", components: [
-		{content: "Show Popup"},
-		{kind: "moon.ContextualPopup",
-			components: [
-				{content:"Sample component in popup"}
-			]
-		}
-	]}
+		{kind: "moon.ContextualPopupDecorator", components: [
+			{content: "Show Popup"},
+			{kind: "moon.ContextualPopup",
+				components: [
+					{content:"Sample component in popup"}
+				]
+			}
+		]}
 */
 enyo.kind({
 	name: "moon.ContextualPopupDecorator",

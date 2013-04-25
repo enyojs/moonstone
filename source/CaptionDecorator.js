@@ -1,10 +1,10 @@
 /**
-	_moon.CaptionDecorator_ wraps a control with a caption. The position of the caption
-	is defined via the _side_ property.
+	_moon.CaptionDecorator_ wraps a control with a caption. The position of the
+	caption is defined via the _side_ property.
 
-	{kind: "moon.CaptionDecorator", side: "top", content: "Top Label", components: [
-		{kind: "moon.Button", content: "My Button", ontap: "buttonTapped"},
-	]}
+		{kind: "moon.CaptionDecorator", side: "top", content: "Top Label", components: [
+			{kind: "moon.Button", content: "My Button", ontap: "buttonTapped"},
+		]}
 */
 enyo.kind({
 	name: "moon.CaptionDecorator",

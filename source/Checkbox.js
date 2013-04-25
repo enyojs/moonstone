@@ -2,7 +2,7 @@
 	_moon.Checkbox_ is a box that, when clicked, shows or hides a checkmark and
 	fires the _onchange_ event. It derives from
 	<a href="#enyo.Checkbox">enyo.Checkbox</a> and is designed to be used with
-	_moon.LabeledCheckbox_.
+	<a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>.
 */
 enyo.kind({
 	name: "moon.Checkbox",
