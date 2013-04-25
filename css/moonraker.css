@@ -523,9 +523,10 @@
   font-weight: bold;
   line-height: 30px;
   color: #4b4b4b;
-  margin: 0px 62px 33px 0px;
+  margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
   text-transform: uppercase;
+  min-width: 0px;
 }
 .moon-radio-button-group .moon-button.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -547,10 +548,11 @@
 .spotlight.moon-button-bar {
   /* background-color: @moon-spotlight-border-color; */
 
+  transition: left 0.1s linear;
+  -webkit-transition: left 0.1s linear;
+  -moz-transition: left 0.1s linear;
+  -o-transition: left 0.1s linear;
   left: 23px;
-}
-.moon-radio-button-group .moon-button.spotlight {
-  margin-right: 41px;
 }
 /* ExpandableListItem.css */
 .moon-expandable-list-item {
