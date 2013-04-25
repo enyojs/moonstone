@@ -1063,6 +1063,29 @@ PageControl's use of IconButtons
 .moon-date-picker-year .down-arrow-container {
   left: 23%;
 }
+/* Calendar.css */
+.moon-calendar-day-item {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+.moon-calendar-date-item {
+  white-space: nowrap;
+  text-align: center;
+  padding: 5px 10px;
+}
+.moon-calendar {
+  display: inline-block;
+}
+.moon-calendar-week {
+  display: inline-block;
+}
+.moon-calendar-date {
+  width: 80px;
+  vertical-align: middle;
+  margin: 1px;
+  text-align: center;
+}
 /* Input.css */
 .moon-input {
   margin: 0px;
