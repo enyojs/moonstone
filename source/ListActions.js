@@ -79,10 +79,11 @@ enyo.kind({
 
 	},
 	configurePopup: function() {
-		var clientRect = this.parent.node.getBoundingClientRect(); 
+		var clientRect = this.parent.parent.node.getBoundingClientRect(); 
 		this.$.drawerPopup.applyStyle('width', clientRect.width + "px");
 		this.$.drawerPopup.applyStyle('height', clientRect.height + "px");
 	    this.$.drawerPopup.setShowing(true);
+		this.$.drawerPopup.applyStyle('left', (clientRect.left - this.node.getBoundingClientRect().left)  + "px");	
 		this.$.drawerPopup.applyStyle('top', (clientRect.top - this.node.getBoundingClientRect().top)  + "px");
 	},
 	//* Facade for drawer
