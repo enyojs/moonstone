@@ -39,13 +39,13 @@ enyo.kind({
 	],
 	//* If true, the pointer is currently hovering over this control
 	hovering: false,
-	//* Cache scroll bounds so we don't have to run stop() every time we need them
+	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
 		//* Signal to listen for spotlight mode changing from 5-way to pointer
 		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls"}
 	],
-	//* During initialization, create page controls
+	//* Creates page controls during initialization.
 	initComponents: function() {
 		this.createPageControls();
 		this.inherited(arguments);
@@ -54,7 +54,7 @@ enyo.kind({
 	createPageControls: function() {
 		this.createChrome(this.pageControls);
 	},
-	//* Updates the cached _this.scrollBounds_ property and position page controls.
+	//* Updates the cached _this.scrollBounds_ property and positions page controls.
 	rendered: function() {
 		this.inherited(arguments);
 		this.updateScrollBounds();
@@ -66,7 +66,7 @@ enyo.kind({
 		this.hovering = false;
 		this.showHidePageControls();
 	},
-	//* On scroll, updates our cached _this.scrollBounds_ property, and shows/hides
+	//* On scroll, updates cached _this.scrollBounds_ property and shows/hides
 	//* pagination controls.
 	scroll: function(inSender, inEvent) {
 		this.inherited(arguments);
@@ -168,7 +168,7 @@ enyo.kind({
 
 	/***************** Begin moon.List unique code **************/
 
-	//* Handles paginate event sent from PagingControl buttons.
+	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		switch (inEvent.side) {
 		case "top":
