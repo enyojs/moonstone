@@ -40,49 +40,49 @@
 /* ----- MISO ------ */
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url(./../fonts/miso/miso-regular.woff) format("woff"), url(./../fonts/miso/miso-regular.ttf) format("truetype");
+  src: local("☺"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url(./../fonts/miso/miso-bold.woff) format("woff"), url(./../fonts/miso/miso-bold.ttf) format("truetype");
+  src: local("☺"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url(./../fonts/miso/miso-light.woff) format("woff"), url(./../fonts/miso/miso-light.ttf) format("truetype");
+  src: local("☺"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
 }
 /* ----- PRELUDE ------ */
 @font-face {
   font-family: "PreludeWGL Light";
-  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-Light.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-Light.ttf) format("truetype");
+  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Light.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Light.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "PreludeWGL Medium";
-  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-Medium.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-Medium.ttf) format("truetype");
+  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Medium.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "PreludeWGL Medium Italic";
-  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf) format("truetype");
+  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf") format("truetype");
   font-style: italic;
 }
 @font-face {
   font-family: "PreludeWGL Bold";
-  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-Bold.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-Bold.ttf) format("truetype");
+  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Bold.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "PreludeWGL Bold Italic";
-  src: local("☺"), url(./../fonts/PreludeWGL/PreludeWGL-BoldItalic.woff) format("woff"), url(./../fonts/PreludeWGL/PreludeWGL-BoldItalic.ttf) format("truetype");
+  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-BoldItalic.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-BoldItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -187,7 +187,7 @@
   width: 50px;
 }
 .moon-checkbox[checked] {
-  background-image: url(./../images/checkbox.png);
+  background-image: url(../images/checkbox.png);
   background-repeat: no-repeat;
   background-position: 11px 1px;
 }
@@ -198,7 +198,7 @@
   cursor: pointer;
   height: 36px;
   width: 50px;
-  background: transparent url(./../images/checkbox.png) no-repeat 10px -36px;
+  background: transparent url(../images/checkbox.png) no-repeat 10px -36px;
   opacity: 1;
   transition: opacity 0.4s linear;
   -webkit-transition: opacity 0.4s linear;
@@ -305,15 +305,13 @@
 }
 /* Item.css */
 .moon-item {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
+  transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
+  -moz-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
+  -o-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   border-left-width: 0px;
   border-left-color: transparent;
   border-left-style: solid;
-  padding-left: 0px;
-  padding-right: 24px;
   font-family: "Miso";
   font-size: 36px;
   font-weight: bold;
@@ -322,6 +320,8 @@
   margin: 0px 0px 32px 0px;
   padding: 2px 0px 0px 0px;
   text-transform: uppercase;
+  vertical-align: top;
+  position: relative;
 }
 .moon-item.disabled {
   cursor: default;
@@ -329,10 +329,49 @@
   filter: alpha(opacity=40);
 }
 .moon-item.spotlight {
-  padding-left: 4px;
-  border-left: 16px solid #ffb80d;
+  border-style: solid;
+  border-color: #ffb80d;
   line-height: 24px;
-  vertical-align: bottom;
+}
+.moon-item-overlay {
+  transition: height 0.1s linear, width 0.1s linear;
+  -webkit-transition: height 0.1s linear, width 0.1s linear;
+  -moz-transition: height 0.1s linear, width 0.1s linear;
+  -o-transition: height 0.1s linear, width 0.1s linear;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  background-color: #ffb80d;
+}
+.moon-item.top.overlay.spotlight,
+.moon-item.bottom.overlay.spotlight,
+.moon-item.left.overlay.spotlight,
+.moon-item.right.overlay.spotlight {
+  border-width: 0px;
+}
+.moon-item.top.spotlight:not(.overlay) {
+  border-width: 16px 0px 0px;
+  margin-bottom: -16px;
+}
+.moon-item.bottom.spotlight:not(.overlay) {
+  border-width: 0px 0px 16px;
+  margin-top: -16px;
+}
+.moon-item.left.spotlight:not(.overlay) {
+  border-width: 0px 0px 0px 16px;
+  padding-left: 4px;
+}
+.moon-item.right.spotlight:not(.overlay) {
+  border-width: 0px 16px 0px 0px;
+  margin-left: -16px;
+}
+.moon-item.top.spotlight > .moon-item-overlay,
+.moon-item.bottom.spotlight > .moon-item-overlay {
+  height: 16px;
+}
+.moon-item.left.spotlight > .moon-item-overlay,
+.moon-item.right.spotlight > .moon-item-overlay {
+  width: 16px;
 }
 /* SelectableItem.css */
 .moon-selectableItem .moon-underline.moon-overlay {
@@ -742,21 +781,21 @@
 }
 .moon-paging-button.top {
   top: 0px;
-  background-image: url(./../images/upArrow.png);
+  background-image: url(../images/upArrow.png);
 }
 .moon-paging-button.top.spotlight {
   background-position: 0px -84px;
 }
 .moon-paging-button.right {
   right: 0px;
-  background-image: url(./../images/rightArrow.png);
+  background-image: url(../images/rightArrow.png);
 }
 .moon-paging-button.right.spotlight {
   background-position: 0px -84px;
 }
 .moon-paging-button.bottom {
   bottom: 0px;
-  background-image: url(./../images/downArrow.png);
+  background-image: url(../images/downArrow.png);
   background-position: 0px -84px;
 }
 .moon-paging-button.bottom.spotlight {
@@ -764,7 +803,7 @@
 }
 .moon-paging-button.left {
   left: 0px;
-  background-image: url(./../images/leftArrow.png);
+  background-image: url(../images/leftArrow.png);
 }
 .moon-paging-button.left.spotlight {
   background-position: 0px -84px;
@@ -1313,7 +1352,7 @@ PageControl's use of IconButtons
   margin-top: -4px;
   width: 46px;
   height: 36px;
-  background: transparent url(./../images/contextual-popup-nubs/down.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
 }
 /*nub near horizontal left*/
 .moon-contextual-popup.vertical.right::after {
@@ -1331,11 +1370,11 @@ PageControl's use of IconButtons
   margin-top: -4px;
   width: 46px;
   height: 36px;
-  background: transparent url(./../images/contextual-popup-nubs/down.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
 }
 .moon-contextual-popup.vertical.below::after {
   margin-top: -22px;
-  background: transparent url(./../images/contextual-popup-nubs/up.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
 }
 .moon-contextual-popup.vertical.below.right::after {
   top: 0%;
@@ -1343,7 +1382,7 @@ PageControl's use of IconButtons
   margin-top: -32px;
   width: 46px;
   height: 36px;
-  background: transparent url(./../images/contextual-popup-nubs/up.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
 }
 .moon-contextual-popup.vertical.below.left::after {
   top: 0%;
@@ -1351,7 +1390,7 @@ PageControl's use of IconButtons
   margin-top: -32px;
   width: 46px;
   height: 36px;
-  background: transparent url(./../images/contextual-popup-nubs/up.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
 }
 /*nub positioning for left/right popups*/
 /*vertically centered nub for popups on left of activator*/
@@ -1361,18 +1400,18 @@ PageControl's use of IconButtons
   width: 36px;
   height: 46px;
   margin-left: -4px;
-  background: transparent url(./../images/contextual-popup-nubs/right.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
 }
 /*nub near vertical top for popups on left of activator*/
 .moon-contextual-popup.right.high::after {
   top: 35px;
-  background: transparent url(./../images/contextual-popup-nubs/right.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
 }
 /*nub near vertical bottom for popups on left of activator*/
 .moon-contextual-popup.right.low::after {
   top: 100%;
   margin-top: -55px;
-  background: transparent url(./../images/contextual-popup-nubs/right.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
 }
 /*vertically centered nub for popups on right of activator*/
 .moon-contextual-popup.left::after {
@@ -1381,18 +1420,18 @@ PageControl's use of IconButtons
   top: 45%;
   width: 36px;
   height: 46px;
-  background: transparent url(./../images/contextual-popup-nubs/left.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/left.png') no-repeat;
 }
 /*nub near vertical top for popups on right of activator*/
 .moon-contextual-popup.left.high::after {
   top: 35px;
-  background: transparent url(./../images/contextual-popup-nubs/up.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
 }
 /*nub near vertical bottom for popups on right of activator*/
 .moon-contextual-popup.left.low::after {
   top: 100%;
   margin-top: -55px;
-  background: transparent url(./../images/contextual-popup-nubs/down.png) no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
 }
 /*flush corners are not implemented currently per HI*//* TextArea.css */
 .moon-textarea {
@@ -1566,10 +1605,10 @@ PageControl's use of IconButtons
   width: 52px;
   height: 52px;
   display: inline-block;
-  background: url(./../images/spinner-dark.gif) no-repeat 0 0;
+  background: url(../images/spinner-dark.gif) no-repeat 0 0;
 }
 .moon-spinner.moon-light {
-  background: url(./../images/spinner-light.gif) no-repeat 0 0;
+  background: url(../images/spinner-light.gif) no-repeat 0 0;
 }
 .moon-panel {
   overflow: hidden;
