@@ -179,9 +179,57 @@ enyo.kind({
 				this.pos = this.pos + this.rowSize;
 				break;
 		}
-		if (this.pos >= (this.orientV ? sb.maxTop : sb.maxTop)) {
+		if (this.pos > (this.orientV ? sb.maxTop : sb.maxTop)) {
+			this.scrollTo(this.orientV ? 0:sb.maxLeft, this.orientV ? sb.maxTop:0)
+			return;
+		} else if (this.pos <= 0) {
+			this.scrollTo(0, 0);
 			return;
 		}
 		this.scrollTo(this.orientV ? 0:this.pos, this.orientV ? this.pos:0);
+	},
+	//* Scrolls to a given node in the list.
+	animateToNode: function(inNode, inLazy) {
+		var sb = this.scrollBounds,
+			st = this.getStrategy(),
+			b = {
+				height: inNode.offsetHeight,
+				width: inNode.offsetWidth,
+				top: 0,
+				left: 0
+			},
+			n = inNode;
+
+		if(!st.scrollNode) {
+			return;
+		}
+
+		while (n && n.parentNode && n.id != st.scrollNode.id) {
+			b.top += n.offsetTop;
+			b.left += n.offsetLeft;
+			n = n.parentNode;
+		}
+
+		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
+		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
+
+		var y = (yDir === 0) ? sb.top :
+			(inLazy)
+				?	(yDir === 1)
+					?	b.top + b.height - sb.clientHeight
+					:	b.top
+				:	Math.min(sb.maxTop, b.top);
+
+		var x = (xDir === 0) ? sb.left :
+			(inLazy)
+				?	(xDir === 1)
+					?	b.left + b.width - sb.clientWidth
+					:	b.left
+				:	Math.min(sb.maxLeft, b.left);
+
+		// If x or y changed, scroll to new position
+		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
+			this.scrollTo(x,y);
+		}
 	}
 });
