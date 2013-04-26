@@ -17,9 +17,10 @@
 	font-weight: bold;
 	line-height: 30px;
 	color: @moon-font-color-light;
-	margin: 0px 62px 33px 0px;
+	margin: 0px 37px 33px 0px;
 	padding: 3px 0px 2px 0px;
 	text-transform: uppercase;
+	min-width: 0px;
 }
 
 .moon-radio-button-group .moon-button.spotlight {
@@ -42,8 +43,12 @@
 /* TODO: Change the bar color and position on spotlight - unfortunately, the way we have implemented the bar today, it's not easy to change this via css - rethink design! */
 .spotlight.moon-button-bar {
 	/* background-color: @moon-spotlight-border-color; */
+	transition: left 0.1s linear;
+	-webkit-transition: left 0.1s linear;
+	-moz-transition: left 0.1s linear;
+	-o-transition: left 0.1s linear;
 	left: 23px;
 }
 .moon-radio-button-group .moon-button.spotlight {
-	margin-right: 41px;
+	// margin-right: 41px;
 }

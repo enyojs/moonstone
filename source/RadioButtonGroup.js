@@ -18,7 +18,9 @@ enyo.kind({
 	//* @protected
 	classes: "enyo-tool-decorator moon-radio-button-group",
 	handlers: {
-		onActivate: "activate"
+		onActivate: "activate",
+		onSpotlightFocus : "spotFocus",
+		onSpotlightBlur	: "spotBlur"
 	},
 	moreComponents: [
 		{kind: "enyo.Control", name: "bar", classes: "moon-button-bar"},
@@ -58,17 +60,14 @@ enyo.kind({
 	calcBarValue: function(activeItem) {
 		var differential, xPos;
 		if ((this.active) && (this.componentsRendered)) {
-
 			if (this.active.kind === "moon.RadioButton") {
 				this.$.bar.applyStyle("width", activeItem.contentWidth + "px");
-
 				// IE8 doesn't return getBoundingClientRect().width, so we calculate from right/left. Who cares ... it's IE8 ... I know
 				//var differential = activeItem.hasNode().getBoundingClientRect().width - activeItem.contentWidth;
-				differential = (activeItem.hasNode().getBoundingClientRect().right - activeItem.hasNode().getBoundingClientRect().left) - activeItem.contentWidth;
+				differential = (activeItem.hasNode().getBoundingClientRect().right - activeItem.hasNode().getBoundingClientRect().left) - activeItem.contentWidth - 25;
+				//adjusting for 25 extra pixels added to make room for spotlight focus
 				xPos = this.getCSSProperty(activeItem, "offsetLeft", false) + (differential / 2);
-
 			}
-
 			this.$.animator.play({
 				startValue: this.lastBarPos,
 				endValue: xPos,
@@ -90,6 +89,7 @@ enyo.kind({
 				}
 			} else {
 				this.setActive(inEvent.originator);
+				this.$.bar.addClass("spotlight");
 				this.calcBarValue(inEvent.originator);
 			}
 		}
@@ -97,6 +97,20 @@ enyo.kind({
 	getCSSProperty: function(target, property, style) {
 		if (target.hasNode()) {
 			return (style) ? target.node.style[property] : target.node[property];
+		}
+	},
+	spotFocus: function(inSender, inEvent) {
+		if ( (this.active == inEvent.originator) &&
+		     (!this.$.bar.hasClass("spotlight")))
+		{
+			this.$.bar.addClass("spotlight");
+		}		
+	},
+	spotBlur: function(inSender, inEvent) {
+		if ( (this.active == inEvent.originator) &&
+		     (this.$.bar.hasClass("spotlight")))
+		{
+			this.$.bar.removeClass("spotlight");
 		}
 	}
 });
