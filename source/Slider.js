@@ -9,7 +9,7 @@
 
 	The _onChanging_ event is fired when dragging the control knob.
 	The _onChange_ event is fired when the position is set, either by finishing
-	a drag or by tapping the bar.
+	a drag or by tapping the bar or by pressing the left/right remote button.
 */
 enyo.kind({
 	name: "moon.Slider",
@@ -127,10 +127,12 @@ enyo.kind({
 		if (this.selected) {
 			var v = inSender.value - (this.increment || 1);
 			if (this.animate) {
+				this.spotted = true;
 				this.animateTo(v);
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
 		}
 	},
@@ -138,10 +140,12 @@ enyo.kind({
 		if (this.selected) {
 			var v = inSender.value + (this.increment || 1);
 			if (this.animate) {
+				this.spotted = true;
 				this.animateTo(v);
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
 		}
 	},
@@ -264,6 +268,7 @@ enyo.kind({
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
 			return true;
 		}
@@ -301,10 +306,11 @@ enyo.kind({
 		return true;
 	},
 	animatorComplete: function(inSender) {
-		if (this.tapped) {
+		if (this.tapped || this.spotted) {
 			this.tapped = false;
+			this.spotted = false;
+			this.doChange({value: this.value});
 		}
-		this.doChange({value: this.value});
 		this.doAnimateFinish(inSender);
 		return true;
 	},
