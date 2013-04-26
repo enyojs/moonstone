@@ -179,6 +179,9 @@ enyo.kind({
 				this.pos = this.pos + this.rowSize;
 				break;
 		}
+		if (this.pos >= (this.orientV ? sb.maxTop : sb.maxTop)) {
+			return;
+		}
 		this.scrollTo(this.orientV ? 0:this.pos, this.orientV ? this.pos:0);
 	}
 });
