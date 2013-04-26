@@ -1,5 +1,5 @@
 /**
-	_moon.Divider is a simple styled component that may be used as a separator
+	_moon.Divider_ is a simple styled component that may be used as a separator
 	(divider) between groups of components.
 */
 enyo.kind({

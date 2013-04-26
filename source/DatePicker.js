@@ -7,15 +7,19 @@ enyo.kind({
 			Fires when the date changes.
 
 			_inEvent.name_ contains the name of this control.
-			_inEvent.value_ contains the current Date object (standard JS Date object).
+
+			_inEvent.value_ contains a standard JavaScript Date object representing
+			the current date.
 		*/
 		onChange: ""
 	},
 	handlers: {
-		onChange: "updateDate" //*onChange events coming from consituent controls (day & month)
+		//* Handler for _onChange_ events coming from constituent controls (day and month)
+		onChange: "updateDate" 
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
+		//* Text to be displayed in the _currentValue_ control if no item is
+		//* currently selected.
 		noneText: "",
 		/**
 			Current locale used for formatting. Can be set after control
@@ -28,9 +32,9 @@ enyo.kind({
 		//* Optional maximum year value
 		maxYear: 2099,
 		/**
-			The current Date object. When a Date object is passed to _setValue_,
-			the control is updated to reflect the new value. _getValue_ returns
-			a Date object.
+			The current date as a standard JavaScript Date object. When a Date object
+			is passed to _setValue()_, the control is updated to reflect the new
+			value. _getValue()_ returns a Date object.
 		*/
 		value: null
 	},
@@ -51,7 +55,7 @@ enyo.kind({
 		this.initDefaults();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (ie assume it is loaded)
+		//Attempt to use the g11n lib (assuming that it is loaded)
 		if (enyo.g11n) {
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
@@ -121,7 +125,7 @@ enyo.kind({
 		this.$.currentValue.setContent(this.parseDate());
 		this.doChange({name:this.name, value:this.value});
 	},
-	//* If no selected item, use _this.noneText_ for current value
+	//* If no item is selected, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
 		if(this.value == null) {
 			this.$.currentValue.setContent(this.getNoneText());
@@ -129,7 +133,7 @@ enyo.kind({
 			this.$.currentValue.setContent(this.parseDate());
 		}
 	},
-	//* When _this.open_ changes, show/hide _this.$.currentValue_
+	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
@@ -157,8 +161,8 @@ enyo.kind({
 			return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 		}
 	},
+	//* Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {
-		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	localeChanged: function() {
