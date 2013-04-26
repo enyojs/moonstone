@@ -19,11 +19,12 @@ enyo.kind({
 		onPostTransitionComplete: ""
 	},
 	//* @protected
+	spotlight: "container",
 	fit : true,
 	classes: "moon-panel",
 	panelTools : [
 		{name: "header", kind: "moon.Header"},
-		{name: "panelBody", fit: true, classes: "moon-panel-body"},
+		{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerComponents: [],
