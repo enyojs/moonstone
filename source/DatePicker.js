@@ -19,10 +19,10 @@ enyo.kind({
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
-		//* currently selected.
+		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting. Can be set after control
+			Current locale used for formatting. May be set after control
 			creation, in which case the control will be updated to reflect the
 			new value.
 		*/

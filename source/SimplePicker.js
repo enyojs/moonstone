@@ -1,8 +1,8 @@
 /**
 	_moon.SimplePicker_ is a control that solicits a choice from the user by
 	cycling through a list of options. The picker's child components, typically
-	simple _enyo.Control_ objects with text content, become the options for the
-	picker.
+	simple <a href="#enyo.Control">enyo.Control</a> objects with text content,
+	become the options for the picker.
 
 		{kind:"moon.SimplePicker", onChange:"changed", selectedIndex:1, components: [
 			{content:"San Francisco"},
@@ -24,12 +24,12 @@
 		}
 
 	The picker options may be modified programmatically in the standard manner, by
-	calling	_createComponent()/render()_ or _destroy()_.  Note that reflow() must
-	be called after components are added or removed:
+	calling	_createComponent().render()_ or _destroy()_.  Note that _reflow()_
+	must be called after components are added or removed:
 
 		// Add new items to picker
-		this.$.picker.createCompoent({"New York"}).render();
-		this.$.picker.createCompoent({"London"}).render();
+		this.$.picker.createComponent({"New York"}).render();
+		this.$.picker.createComponent({"London"}).render();
 		this.$.picker.reflow();
 
 		// Remove currently selected item from picker
@@ -47,7 +47,7 @@ enyo.kind({
 
 			_inEvent.content_ contains the content of the currently selected item.
 
-			_inEvent.index contains the index of the currently selected item.
+			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange:""
 	},
