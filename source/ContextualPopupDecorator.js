@@ -1,8 +1,9 @@
 /**
-	A control that activates a <a href="#moon.ContextualPopup">moon.ContextualPopup</a>.
-	It loosely couples the popup with an activating control, which may be a button
-	or any other control with an _onActivate_ event. The decorator must surround
-	both the	activating control and the popup itself.
+	_moon.ContextualPopupDecorator_ is a control that activates a
+	<a href="#moon.ContextualPopup">moon.ContextualPopup</a>. It loosely couples
+	the popup with an activating control, which may be a button or any other
+	control that fires an _onActivate_ event. The decorator surrounds both the
+	activating control and the contextual popup.
 	
 	When the control is activated, the popup shows itself in the correct position
 	relative to the activator.

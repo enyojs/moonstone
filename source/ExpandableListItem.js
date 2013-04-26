@@ -1,9 +1,10 @@
 /**
-	_moon.ExpandableListItem_, which extends _moon.Item_, displays a header while
-	also allowing additional content to be stored in an _enyo.Drawer_.  When the
-	header is selected, the drawer opens below. To close the drawer, tap on the
-	header text or navigate (via 5-way) back to the top of the drawer.
-	
+	_moon.ExpandableListItem_, which extends <a href="#moon.Item">moon.Item</a>,
+	displays a header while also allowing additional content to be stored in an
+	<a href="#enyo.Drawer">enyo.Drawer</a>. When the header is selected, the
+	drawer opens below. To close the drawer, tap on the header text or navigate
+	(via 5-way) back to the top of the drawer.
+
 	The control's child components may be of any kind; by default, they are
 	instances of _moon.Item_.
 
@@ -27,7 +28,7 @@ enyo.kind({
 		/**
 			If true, the drawer automatically closes when the user navigates to the
 			top of the control; if false, the user must select/tap the header to close
-			the drawer.
+			the drawer
 		*/
 		autoCollapse: true
 	},
@@ -100,7 +101,7 @@ enyo.kind({
 		}
 		return true;
 	},
-	//* Closes drawer if drawer is currently open, autoCollapse is set to true,
+	//* Closes drawer if drawer is currently open, _autoCollapse_ is set to true,
 	//* and event was sent via keypress (i.e., it has a direction).
 	headerFocus: function(inSender, inEvent) {
 		if(this.getOpen() && this.getAutoCollapse() && inEvent && inEvent.dir && inEvent.dir === "UP") {

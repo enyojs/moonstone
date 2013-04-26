@@ -10,7 +10,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
-		    {kind: "moon.ListActions", listActions: [
+		    {kind: "moon.ListActions", iconSrc:"$/../images/list-actions-activator.png", listActions: [
 				{
 					action: "category",						
 					components: [
@@ -61,7 +61,7 @@ enyo.kind({
 					]
 				}
 			]},
-			{kind: "moon.ListActions", autoCollapse:true, style:"padding-right:45px;", listActions: [
+			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"$/../images/list-actions-activator.png", listActions: [
 				{
 					action: "category",						
 					components: [

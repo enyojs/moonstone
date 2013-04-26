@@ -1,8 +1,9 @@
 /**
-	_moon.ExpandablePicker_, which extends _moon.ExpandableListItem_, is a
-	drop-down picker menu that solicits a choice from the user. The picker's child
-	components, which are instances of _moon.LabeledCheckbox_ by default, provide
-	the options for the picker.
+	_moon.ExpandablePicker_, which extends
+	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
+	picker menu that solicits a choice from the user. The picker's child
+	components, which are instances of <a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>
+	by default, provide the options for the picker.
 
 		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
 			{content: "San Francisco"},
@@ -25,7 +26,7 @@
 		}
 
 	The picker options may be modified programmatically in the standard manner, by
-	calling _createComponent()/render()_ or _destroy()_.
+	calling _createComponent().render()_ or _destroy()_.
 
 		// Add new items to picker
 		this.$.expandablePicker.createComponent({"New York"}).render();
@@ -46,7 +47,9 @@ enyo.kind({
 			Fires when the currently selected item changes.
 
 			_inEvent.selected_ contains a reference to the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
+
 			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: ""
