@@ -16,7 +16,7 @@ enyo.kind({
 		]},
 		{classes:"right-panel", components:[
 			{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-			    {kind: "moon.ListActions", autoCollapse:true, listActions:[
+			    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
 					    {kind: "moon.Divider", content:"Filter"},
 					    {kind: "moon.Scroller", components: [

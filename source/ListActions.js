@@ -13,7 +13,8 @@ enyo.kind({
 		/**
 			List of actions to be displayed.
 		*/		
-		listActions: []
+		listActions: [],
+		iconSrc: ""
 	},
 	handlers: {
 		onActivate: "optionSelected",
@@ -23,7 +24,7 @@ enyo.kind({
 		onSpotlightRight:"spotlightRight"
 	},
 	components:[
-		{name:"activator", kind: "moon.Button", classes: "moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
+		{name:"activator", kind: "moon.IconButton", classes:"moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 	    {name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [			
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
         	    {name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
@@ -39,6 +40,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.openChanged();		
 		this.listActionsChanged();
+		this.$.activator.setSrc(this.iconSrc);
 	},
 	rendered: function() {
 		this.inherited(arguments);

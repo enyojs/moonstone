@@ -21,7 +21,7 @@ enyo.kind({
 		{classes:"right-panel", components:[
 			{kind:"FittableRows", components:[
 				{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-				    {kind: "moon.ListActions", listActions:[
+				    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
 						{
 							action: "sort",
 							components: [
