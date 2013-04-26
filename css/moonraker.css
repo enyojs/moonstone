@@ -1468,33 +1468,19 @@ PageControl's use of IconButtons
 /* List Actions */
 .moon-list-actions {
   position: relative;
+  display: inline-block;
   overflow: visible;
-}
-.moon-list-actions-activator {
-  border-radius: 9999px;
-  line-height: 24px;
-  background-color: #cccccc;
-  border: 5px solid transparent;
   float: right;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  padding: 0px 0px 0px 0px;
-  margin: 130px 0px 0px 0px;
-}
-.moon-list-actions-activator.spotlight {
-  background: #ffb80d;
-}
-.moon-list-actions-activator::after {
-  content: "\2630";
-  font-size: 25px;
-  position: relative;
+  margin-left: 15px;
 }
 .moon-list-actions-drawer-popup {
   position: absolute;
   top: 0px;
   left: 0px;
   overflow: hidden;
+}
+.moon-list-actions-activator {
+  margin-bottom: 10px;
 }
 .moon-list-actions-client-container {
   background-color: white;
