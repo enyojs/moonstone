@@ -1,13 +1,12 @@
 /**
-	_moon.IconButton_ is an icon that acts like a button. The icon image is
-	specified by setting the _src_ property to a URL.
+	_moon.IconButton_ is an icon that acts like a button. Specify the icon image
+	by setting the _src_ property to a URL indicating the image file's location.
 
-	If you want to combine an icon with text inside a button, use an
-	<a href="#moon.Icon">moon.Icon</a> inside an
-	<a href="#moon.Button">moon.Button</a>.
+	If you want to combine an icon with text inside a button, use a
+	<a href="#moon.Icon">moon.Icon</a> inside a	<a href="#moon.Button">moon.Button</a>.
 
 	The image associated with the _src_ property of the IconButton is assumed
-	to be 32x64-pixel strip with the top half showing the button's normal state
+	to be 32x64-pixel strip, with the top half showing the button's normal state
 	and the bottom half showing its state when hovered-over or active.
 
 	For more information, see the documentation on
@@ -18,8 +17,11 @@ enyo.kind({
 	name: "moon.IconButton",
 	kind: "moon.Icon",
 	published: {
-		//* Used when the IconButton is part of a <a href="#enyo.Group">enyo.Group</a>, true
-		//* to indicate that this is the active button of the group, false otherwise.
+		/**
+			Used when the IconButton is part of an <a href="#enyo.Group">enyo.Group</a>.
+			A value of true indicates that this is the active button of the group;
+			false, that it is not the active button.
+		*/
 		active: false
 	},
 	classes: "moon-icon-button",
