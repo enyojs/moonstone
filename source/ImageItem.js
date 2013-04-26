@@ -1,5 +1,9 @@
 /**
-    _moon.ImageItem_ uses _moon.LabeledTextItem_ to add a image to the left or right (configurable)
+	_moon.ImageItem_, which derives from <a href="#moon.Item">moon.Item</a>, is a
+	control that combines an <a href="#enyo.Image">enyo.Image</a>	with a
+	<a href="#moon.LabeledTextItem">moon.LabeledTextItem</a>. By default,	the
+	image is displayed to the left of the text; to display the image on the	right,
+	set _imageAlignRight: true_.
 */
 
 enyo.kind({
@@ -11,11 +15,11 @@ enyo.kind({
         {name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
     ],
     published: {
-        //* Sets the absolute URL path to the image
+        //* The absolute URL path to the image
         source: '',
-        //* Sets the label to be displayed along with the text
+        //* The label to be displayed along with the text
         label: '',
-        //* Sets the text to be displayed in the item
+        //* The text to be displayed in the item
         text: '',
         //* Set to true to align image to right
         imageAlignRight: false

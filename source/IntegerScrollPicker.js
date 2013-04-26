@@ -1,15 +1,15 @@
 /**
-    _moon.IntegerScrollPicker_ is used to display a list of integers that solicits a choice from the user,
-	ranging from _min_ to _max_.
+	_moon.IntegerScrollPicker_ is a control that displays a list of integers
+	ranging from _min_ to _max_, soliciting a choice from the user.
 
-    To initialize the IntegerScrollPicker to a particular value, set the _value_
-    property to the integer that should be selected.
+	To initialize the picker to a particular integer, set the _value_ property to
+	that integer:
 
-	{kind: "moon.IntegerScrollPicker", noneText: "None Selected", content: "Choose a Number", min: 0, max: 25, value: 5]}
+		{kind: "moon.IntegerScrollPicker", noneText: "None Selected",
+			content: "Choose a Number", min: 0, max: 25, value: 5}
 
-	The picker can be programmatically changed by modifying the published properties _value_,
-	_min_, or _max_ by calling the appropriate setter functions (_setValue()_, _setMin()_, _setMax()_ and
-	_getValue()_, _getMin()_ and _getMax()_).
+	The picker may be changed programmatically by modifying the published
+	properties _value_,	_min_, or _max_ in the normal manner, by calling _set()_.
 */
 enyo.kind({
 	name: "moon.IntegerScrollPicker",
@@ -17,7 +17,8 @@ enyo.kind({
 		value: null,
 		min: 0,
 		max: 9,
-		//* if specified, show value as this many zero-filled digits
+		//* If a number is specified, picker value is displayed as this many
+		//* zero-filled digits
 		digits: null
 	},
 	handlers: {
@@ -36,7 +37,7 @@ enyo.kind({
 		onChange: ""
 	},
 	spotlight:true,
-	//* Cache scroll bounds so we don't have to run stop() every time we need them
+	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
 		{name:"topOverlay", classes:"moon-scroll-picker-overlay-container-top", showing:false, components:[
@@ -173,7 +174,7 @@ enyo.kind({
 	updateScrollBounds: function() {
 		this.scrollBounds = this.$.scroller.getStrategy()._getScrollBounds();
 	},
-	//* Scroll to a given node in list
+	//* Scrolls to a given node in the list.
 	animateToNode: function(inNode) {
 		var sb = this.scrollBounds,
 			st = this.$.scroller.getStrategy(),

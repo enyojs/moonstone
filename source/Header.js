@@ -3,11 +3,11 @@ enyo.kind({
 	classes: "moon-header",
 	style: "overflow: visible;",
 	published: {
-		//* Sets the title for the header
+		//* The title for the header
 		title: '',
-		//* Sets the titleAbove for the header
+		//* The text above the header
 		titleAbove: '',
-		//* Sets the titleBelow for the header
+		//* The text below the header
 		titleBelow: ''
 	},
 	components: [
@@ -221,9 +221,9 @@ enyo.kind({
 	kind: "moon.Item",
 	classes: "moon-header-item",
 	published: {
-		//* Sets the title of the header item
+		//* Title of the header item
 		title: '',
-		//* Sets the description of the header item
+		//* Description of the header item
 		description: ''
 	},
 	components: [

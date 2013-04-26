@@ -1,7 +1,7 @@
 /**
 	_moon.InputDecorator_ is a control that provides input styling. Any controls
 	in the InputDecorator will appear to be inside an area styled as an	input.
-	Usually, an InputDecorator surrounds an	<a href='#moon.Input'>moon.Input</a>.
+	Usually, an InputDecorator surrounds a <a href='#moon.Input'>moon.Input</a>:
 
 		{kind: 'moon.InputDecorator', components: [
 			{kind: 'moon.Input'}
@@ -46,7 +46,7 @@ enyo.kind({
 
 	_oInputControl: null,
 
-	// Is control an input field?
+	// Returns boolean indicating whether passed-in control is an input field.
 	_isInput: function(oControl) {
 		return (
 			oControl instanceof moon.Input		||
@@ -55,7 +55,7 @@ enyo.kind({
 		);
 	},
 
-	// Traverse tree of children to find input control
+	// Traverses tree of children to find input control.
 	_findInputControl: function(oControl) {
 		oControl = oControl || this;
 
