@@ -16,7 +16,8 @@ enyo.kind({
 		//* If true, paging controls are hidden if a key is pressed (5-way mode)
 		hidePagingOnKey: true,
 		//* If true, paging controls are hidden if the user's pointer leaves this control
-		hidePagingOnLeave: true
+		hidePagingOnLeave: true,
+		pageSize: null
 	},
 	//* @protected
 	handlers: {
@@ -24,11 +25,10 @@ enyo.kind({
 		onmousemove: "mousemove",
 		onPageHold: "holdHandler",
 		onPageHoldPulse: "holdHandler",		
-		onPageRelease: "holdHandler"
+		onPageRelease: "holdHandler"		
 	},
 	touch: true,
 	spotlight: true,
-	pos: null, //keeps track of desired scroll position on pagination since ScrollMath doesn't keep it
 
 	/************** Begin moon.List/moon.Scroller identical code - this should be moved to a base class ************/
 
@@ -50,6 +50,7 @@ enyo.kind({
 	],
 	//* Creates page controls during initialization.
 	initComponents: function() {
+		this.strategyKind = "moon.ScrollStrategy",
 		this.createPageControls();
 		this.inherited(arguments);
 	},
@@ -63,6 +64,7 @@ enyo.kind({
 		this.updateScrollBounds();
 		this.positionPageControls();
 		this.showHidePageControls();
+		this.$.strategy.setPageSize(this.pageSize ? this.pageSize : this.rowSize);
 	},
 	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
 	leave: function() {
@@ -159,35 +161,11 @@ enyo.kind({
 		this.scrollBounds = this.$.strategy._getScrollBounds();
 	},
 	holdHandler: function(inSender, inEvent) {
-		enyo.Spotlight.Accelerator.processKey(inEvent, this.paginate, this);
-		if (inEvent.type == "pagerelease") {
-			this.pos = null;
-		}
+		this.$.strategy.holdHandler(inSender, inEvent);
 	},
-	paginate: function(inEvent){
-		var sb = this.scrollBounds;		
-		if (!this.pos) {
-			this.pos = this.orientV ? sb.top : sb.left;
-		}
-		switch (inEvent.originator.name.replace("Control","")) {
-			case "pageLeft": 
-			case "pageUp":
-				this.pos = this.pos - this.rowSize;
-				break;
-			case "pageRight":
-			case "pageDown":
-				this.pos = this.pos + this.rowSize;
-				break;
-		}
-		if (this.pos > (this.orientV ? sb.maxTop : sb.maxTop)) {
-			this.scrollTo(this.orientV ? 0:sb.maxLeft, this.orientV ? sb.maxTop:0)
-			return;
-		} else if (this.pos <= 0) {
-			this.scrollTo(0, 0);
-			return;
-		}
-		this.scrollTo(this.orientV ? 0:this.pos, this.orientV ? this.pos:0);
-	},
+	
+	/***************** Begin moon.List unique code **************/
+	
 	//* Scrolls to a given node in the list.
 	animateToNode: function(inNode, inLazy) {
 		var sb = this.scrollBounds,

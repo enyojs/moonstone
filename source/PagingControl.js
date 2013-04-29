@@ -8,7 +8,7 @@ enyo.kind({
 	spotlight: true,
 	published: {
 		side: null,
-		holdPulseDelay: 20
+		holdPulseDelay: 40
 	},
 	handlers: {
 		onSpotlightFocused: "noop",
@@ -79,6 +79,8 @@ enyo.kind({
 			this.sendHold();
 		}
 		this.doPageHoldPulse({type:"pageholdpulse", preventDefault:enyo.gesture.preventDefault});
+		this.bubble('onPageHoldPulse')
+		this.bubble('onpageholdpulse')		
 	},
 	sendHold: function() {
 		this.doPageHold();

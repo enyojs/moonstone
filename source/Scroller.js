@@ -43,7 +43,9 @@ enyo.kind({
 		onRequestScrollIntoView	: "requestScrollIntoView",
 		onleave					: "leave",
 		onmousemove				: "mousemove",
-		onPaginate				: "paginate"
+		onPageHold				: "holdHandler",
+		onPageHoldPulse			: "holdHandler",		
+		onPageRelease			: "holdHandler"
 	},
 
 	/************** Begin moon.List/moon.Scroller identical code - this should be moved to a base class ************/
@@ -66,6 +68,7 @@ enyo.kind({
 	],
 	//* Creates page controls during initialization.
 	initComponents: function() {
+		this.strategyKind = "moon.ScrollStrategy",		
 		this.createPageControls();
 		this.inherited(arguments);
 		this.scrollTo(this.scrollLeft); //workaround for page control issue GF-2728
@@ -75,11 +78,13 @@ enyo.kind({
 		this.createChrome(this.pageControls);
 	},
 	//* Updates the cached _this.scrollBounds_ property and positions page controls.
-	rendered: function() {
+	rendered: function() {				
 		this.inherited(arguments);
 		this.updateScrollBounds();
 		this.positionPageControls();
 		this.showHidePageControls();
+		var sb = this.scrollBounds;		
+		this.$.strategy.setPageSize(this.getVertical() !== "hidden" ? sb.clientHeight*this.pageRatio : sb.clientWidth*this.pageRatio);
 	},
 	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
 	leave: function() {
@@ -181,29 +186,12 @@ enyo.kind({
 		this.updateScrollBounds();
 		this.positionPageControls();
 	},
-
-	/*************** Begin moon.Scroller unique code ***************/
-
-	//* Handles _paginate_ event sent from PagingControl buttons.
-	paginate: function(inSender, inEvent) {
-		var sb = this.getScrollBounds(),
-			side = inEvent.side;
-
-		switch (side) {
-		case "top":
-			this.scrollTo(this.getScrollLeft(), sb.top - (sb.clientHeight*this.pageRatio));
-			break;
-		case "right":
-			this.scrollTo(sb.left + (sb.clientWidth*this.pageRatio), this.getScrollTop());
-			break;
-		case "bottom":
-			this.scrollTo(this.getScrollLeft(), sb.top + (sb.clientHeight*this.pageRatio));
-			break;
-		case "left":
-			this.scrollTo(sb.left - (sb.clientWidth*this.pageRatio), this.getScrollTop());
-			break;
-		}
+	
+	holdHandler: function(inSender, inEvent) {
+		this.$.strategy.holdHandler(inSender, inEvent);
 	},
+	
+	/*************** Begin moon.Scroller unique code ***************/
 
 	//* Scrolls a child component into view if it bubbles an _onSpotlightFocused_
 	//* event (and it is not already in view).
