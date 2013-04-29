@@ -3,19 +3,20 @@ enyo.kind({
 	name : "moon.Panel",
 	kind: "FittableRows",
 	published: {
-		//* Facade for the header _title_ property
+		//* Facade for the header's _title_ property
 		title: "",
-		//* Facade for the header _titleAbove_ property
+		//* Facade for the header's _titleAbove_ property
 		titleAbove: "",
-		//* Facade for the header _titleBelow_ property
+		//* Facade for the header's _titleBelow_ property
 		titleBelow: "",
-		//* Automatically add the panel number as the header _titleAbove_ property
+		//* If true, the header's _titleAbove_ property is automatically populated
+		//* with the panel number
 		autoNumber: true
     },
 	events : {
-    	//* This panel has completed it's pre-arrangement transition
+		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
-		//* This panel has completed it's post-arrangement transition
+		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
 	},
 	//* @protected
@@ -55,15 +56,15 @@ enyo.kind({
 			this.setTitleAbove(this.clientIndexInContainer() + 1);
 		}
 	},
-	//* Facade for _this.header_
+	//* Updates _this.header_ when _title_ changes.
 	titleChanged: function() {
 		this.$.header.setTitle(this.getTitle());
 	},
-	//* Facade for _this.header_
+	//* Updates _this.header_ when _titleAbove_ changes.
 	titleAboveChanged: function() {
 		this.$.header.setTitleAbove(this.getTitleAbove());
 	},
-	//* Facade for _this.header_
+	//* Updates _this.header_ when _titleBelow_ changes.
 	titleBelowChanged: function() {
 		this.$.header.setTitleBelow(this.getTitleBelow());
 	},
@@ -155,7 +156,7 @@ enyo.kind({
 		this.$.animator.play("postTransition");
 	},
 	
-	//* protected
+	//* @protected
 	
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;

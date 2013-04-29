@@ -1,6 +1,8 @@
 /**
-	A group of "moon.RadioButton" objects laid out horizontally. Within the
-	same button group, tapping on one button will release any previously tapped button.
+	_moon.RadioButtonGroup_ is a container in which a group of
+	<a href="#moon.RadioButton">moon.RadioButton</a> objects are laid out
+	horizontally. Within a given button group, tapping on one button will release
+	any previously-tapped button.
 
 		{kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
 			{content: "Cats", active: true},
@@ -12,7 +14,7 @@ enyo.kind({
 	name: "moon.RadioButtonGroup",
 	kind: "enyo.Group",
 	published: {
-		//* CSS classes to be applied to selected bar.
+		//* CSS classes to be applied to selected bar
 		barClasses: ""
 	},
 	//* @protected

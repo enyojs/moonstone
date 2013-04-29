@@ -1,6 +1,7 @@
 /**
-	A modified "enyo.Button" control intended to be used
-	within a <a href="#moon.RadioButtonGroup">moon.RadioButtonGroup</a>.
+	_moon.RadioButton_ is a modified <a href="#enyo.Button">enyo.Button</a>
+	control designed to be used inside a
+	<a href="#moon.RadioButtonGroup">moon.RadioButtonGroup</a>.
 
 	For more information, see the documentation on
 	[Buttons](https://github.com/enyojs/enyo/wiki/Buttons) in the Enyo Developer
