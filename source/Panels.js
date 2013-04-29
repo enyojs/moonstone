@@ -10,9 +10,9 @@ enyo.kind({
 	spotlightDecorate	: false,
 	published: {
 		/**
-			_transitionReady_ is the ready flag.
-			If is has true, transition from arranger can be played.
-			The other hand, transition should be blocked until some internal transitions are finished.
+			The ready flag. If true, the transition from arranger can be played;
+			otherwise, the transition should be delayed until some internal
+			transitions have finished.
 		*/
 		transitionReady: false,		
 	},
@@ -29,7 +29,7 @@ enyo.kind({
 
 	/************ PROTECTED **********/
 
-	// Was last spotted control the panels's child?
+	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
 	},
@@ -47,7 +47,7 @@ enyo.kind({
 		}
 	},
 
-	//* create component on stack top
+	//* Creates component on top of stack.
 	createComponent: function(inInfo, inMoreInfo) { // added
 		this.addBefore = undefined;
 		var c = this.inherited(arguments);
@@ -58,14 +58,14 @@ enyo.kind({
 		var cs = this.inherited(arguments);
 		return cs;
 	},
-	//* remove component if it is at stack top
+	//* Removes component if it is on top of stack.
 	removeComponent: function(inComponent) { // added
 		var lastIndex = this.getPanels().length - 1;
 		if (this.getPanels()[lastIndex] === inComponent) {
 			return this.inherited(arguments); 
 		}
 	},
-	//* create component on top and changeIndex
+	//* Creates component on top and changes index.
 	push: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = null;
@@ -75,7 +75,7 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* create component on top and changeIndex
+	//* Creates component on top and changes index.
 	pushs: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = null, oPanel = null;
@@ -87,7 +87,7 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* changeIndex
+	//* Changes index.
 	pop: function(inIndex) {
 		var panels = this.getPanels(),
 			inIndex = inIndex || panels.length - 1;
@@ -107,7 +107,7 @@ enyo.kind({
 		}
 		return false;
 	},
-	// Focus left one of the panels
+	// Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(oSender, oEvent) {
 		if (oEvent.originator != this.getActive())	{ return false; }
 		if (enyo.Spotlight.getPointerMode())		{ return true; }
@@ -150,7 +150,7 @@ enyo.kind({
 		return false;
 	},
 
-	// Get index of a panel by it's reference
+	// Gets index of a panel by its reference.
 	getPanelIndex: function(oControl) {
 		var oPanel = null;
 
@@ -173,9 +173,9 @@ enyo.kind({
 		return -1;
 	},
 	/**
-		If there is any pre-transition from it's children,
-		Check whether it was done or not.
-    */
+		If there is any pre-transition from this control's children, checks whether
+		it was done or not.
+	*/
 	setIndex: function(inIndex) {
 		this.fromIndex = this.getIndex();
 		this.toIndex = inIndex;
@@ -192,8 +192,8 @@ enyo.kind({
 		}
 	},
 	/**
-		If there is any panel which has preTransition,
-		put this panel index to preTransitionWainList
+		If any panel has pre-transition, pushes the panel's index to
+		preTransitionWaitList.
 	*/
 	triggerPanelPreTransitions: function() {
 		var panels = this.getPanels();

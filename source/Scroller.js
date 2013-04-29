@@ -1,6 +1,6 @@
 /**
-	_moon.Scroller_ inherits from _enyo.Scroller_, adding support for 5-way focus
-	(Spotlight) and pagination buttons.
+	_moon.Scroller_ extends <a href="#enyo.Scroller">enyo.Scroller</a>, adding
+	support for 5-way focus (Spotlight) and pagination buttons.
 
 	For the time being, _moon.Scroller_ requires a _strategyKind_ of
 	_TouchScrollStrategy_.

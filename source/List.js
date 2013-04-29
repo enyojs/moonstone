@@ -1,6 +1,6 @@
 /**
-	_moon.List_ inherits from _enyo.List_, adding support for 5-way focus
-	(Spotlight) and pagination buttons.
+	_moon.List_ extends <a href="#enyo.List">enyo.List</a>, adding support for
+	5-way focus (Spotlight) and pagination buttons.
 
 	For the time being, _moon.List_ requires a _strategyKind_ of _TouchScrollStrategy_.
 

@@ -1,5 +1,6 @@
 /**
-	Paging control button kind
+	_moon.PagingControl_ is a paging control button derived from
+	<a href="#moon.IconButton">moon.IconButton</a>.
 **/
 enyo.kind({
 	name: "moon.PagingControl",
@@ -20,7 +21,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.sideChanged();
 	},
-	//* Set this control's css class based on side
+	//* Sets this control's CSS class based on its _side_ value.
 	sideChanged: function() {
 		var s = this.getSide();
 		if (s === "top") {
@@ -44,10 +45,11 @@ enyo.kind({
 			this.removeClass("left");
 		}
 	},
-	//* When button is tapped, bubble a paginate event
+	//* Bubbles a _paginate_ event when button is tapped.
 	tap: function() {
 		this.doPaginate({side: this.getSide()});
 	},
-	//* Override default focused handling to make sure scroller doesn't scroll to this button
+	//* Overrides default focused handling to make sure scroller doesn't scroll to
+	//* this button.
 	noop: function() { return true; }
 });
