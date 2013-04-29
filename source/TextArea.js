@@ -1,7 +1,8 @@
 /**
 	_moon.TextArea_ is a Moonraker-styled TextArea control, derived from
 	<a href="#enyo.TextArea">enyo.TextArea</a>. Typically, a _moon.TextArea_ is
-	placed inside a _moon.InputDecorator_, which provides styling, e.g.:
+	placed inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
+	provides styling, e.g.:
 
 		{kind: "moon.InputDecorator", components: [
 			{kind: "moon.TextArea", onchange: "inputChange"}
