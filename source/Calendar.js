@@ -37,8 +37,8 @@ enyo.kind({
 		]}
 	],
 	/**
-		Usually when we select same item, setupItem() is not called
-		because setupItem() is called when changing selection is occured in repeater.
+		Usually, when we select the same item, _setupItem()_ is not called because
+		it is called when the selection change occurs in _repeater_.
 	*/
 	doTap: function(inSender, inEvent) {
 		if (this.$.repeater.isSelected(inEvent.index)) {
@@ -67,20 +67,24 @@ enyo.kind({
 			Fires when the date changes.
 
 			_inEvent.name_ contains the name of this control.
-			_inEvent.value_ contains the current Date object (standard JS Date object).
+
+			_inEvent.value_ contains a standard JavaScript Date object representing
+			the current date.
 		*/
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", //*onChange events coming from consituent controls (hour)
+		ontap: "doTap", 
+		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
+		//* Text to be displayed in the _currentValue_ control if no item is
+		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting. Can be set after control
-			creation, in which case the control will be updated to reflect the
+			Current locale used for formatting. May be set after the control is
+			created, in which case the control will be updated to reflect the
 			new value.
 		*/
 		locale: "en_us",
@@ -92,8 +96,8 @@ enyo.kind({
 		value: null,
 		/**
 			The maximum number of weeks to display in a screen.
-			If this value over 9, it may show dates of 2 month later.
-			(it is unexpected input, makes err)
+			If this value is greater than 9, dates two months in the future may be
+			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
 		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
@@ -118,7 +122,7 @@ enyo.kind({
 	//	this.noneTextChanged();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (ie assume it is loaded)
+		//Attempt to use the g11n lib (assuming that it is loaded)
 		if (enyo.g11n) {
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
@@ -130,7 +134,7 @@ enyo.kind({
 		this.valueChanged();
 	},
 	/**
-		Set days from the first day to the last day.
+		Sets up days of the week from first day to last day.
 		Initially, SUN is the first day and SAT is the last day.
 	*/
 	setupDays: function(inSender, inEvent) {
@@ -138,8 +142,7 @@ enyo.kind({
 		this.$.day.setContent(this.days[index]);
 	},
 	/**
-		Set simplePicker with months
-		The contents will be filled with from JAN to DEC
+		Populates SimplePicker with months of the year, from JAN to DEC.
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
@@ -150,8 +153,8 @@ enyo.kind({
 		}
 	},
 	/**
-		Set a layout of calendar.
-		The content of it is not prepared at this time.
+		Sets up the layout for a calendar.
+		The content of the calendar is not prepared at this time.
 	*/
 	setupLayout: function() {
 		for (var i = 0; i < this.maxWeeks; i++) {
@@ -162,8 +165,9 @@ enyo.kind({
 		}
 	},
 	/**
-		Set the first week of this month.
-		Before the first day of this month, some days from previous month will fill calendar
+		Sets up the first week of this month.
+		Before the first day of this month, days from the previous month will be
+		used to fill the calendar.
 	*/
 	setupPrevMonth: function() {
 		var value = this.value;
@@ -183,8 +187,9 @@ enyo.kind({
 		}
 	},
 	/**
-		Set the last week of this month.
-		After the last day of this month, some days from next month will fill calendar
+		Sets up the last week of this month.
+		After the last day of this month, days from the next month will be used to
+		fill the calendar.
 	*/
 	setupNextMonth: function(monthLength) {
 		var value = this.value;
@@ -231,7 +236,7 @@ enyo.kind({
 	parseDate: function(ordering) {
 	},
 	/**
-		When value of DatePicker is changed, it will update Calendar
+		Updates calendar when value of DatePicker changes. 
 	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -251,12 +256,12 @@ enyo.kind({
 		}
 		return true;
 	},
+	// Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {
-		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	/**
-		Change value of DatePicker with selected CalendarDate.
+		Updates DatePicker to reflect the selected CalendarDate.
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
