@@ -1,71 +1,94 @@
 enyo.kind({
-    name: "albumArt",
-    published: {
-        src: ""
-    },
-    components: [
-        {name: "button", kind: moon.IconButton, src: "assets/icon-play.png", classes: "moon-play-icon"},
-        {name: "image", kind: enyo.Image, classes: "moon-album-cover-art"}
-    ],
-    create: function() {
-        this.inherited(arguments);
-        this.srcChanged();
-    },
-    srcChanged: function() {
-        this.$.image.setSrc(this.src);
-    }
-});
-
-enyo.kind({
-    name: "moon.MusicAlbumDetailWideSample",
-    kind: moon.Panel,
-    classes: "enyo-unselectable moon ",
+    name: "moon.sample.music.AlbumDetailWideSample",
+    kind: "moon.Panel",
+	classes: "enyo-unselectable moon moon-music-detail",
+    fit: true,
     titleAbove: "04",
-    title: "ALBUM",
-    titleBelow: "ALBUM TITLE (ARTISTS)",
-    headerComponents: [
-
-        {kind: moon.IconButton, src: "assets/icon-download.png"},
-        {kind: moon.IconButton, src: "assets/icon-favorite.png", classes: "moon-header-button-right"},
-        {kind: moon.IconButton, src: "assets/icon-next.png", classes: "moon-header-button-right"}
-    ],
+    title: "Album",    
+    titleBelow: "ALBUM TITLE(ARTISTS)",
     components: [
-        {kind: "Spotlight"},
-        {kind: enyo.FittableColumns, classes: "moon-music-album-detail-container", components: [
-            {kind: enyo.FittableRows, classes: "moon-music-album-detail-wide-left", components: [
-                {kind: "albumArt", name: "AlbumArt", src: "assets/album.PNG", classes: "moon-album-cover-art"},
-                {kind: enyo.FittableColumns, components: [
-                    {content: "RELEASED", classes: "moon-album-label"},
-                    {content: "5 April 2013", classes: "moon-album-label-value"},
-                ]},
-                {kind: enyo.FittableColumns, components: [
-                    {content: "GENRE", classes: "moon-album-label"},
-                    {content: "Dance", classes: "moon-album-label-value"},
-                ]}
-            ]},
-            {kind: enyo.FittableRows, classes: "moon-music-album-detail-wide-right", components: [
-                {kind: "moon.Divider", name: "tracklistheader", classes: "moon-music-detail-divider", content: "11 TRACKS"},
-                {kind: moon.List, name: "tracklist", spotlight: "container", fit:true, orient:"v", count: 10, onSetupItem: "setupItem", classes: "moon-music-detail-wide-tracklist", components: [
-                    {name: "item", components: [
-                        {name: "tracknum", classes: "moon-music-detail-wide-tracklist-tracknum enyo-inline "},
-                        {name: "trackname", classes: "moon-music-detail-wide-tracklist-trackname enyo-inline "},
-                        {name: "artistname", classes: "moon-music-detail-wide-tracklist-artistname enyo-inline "},
-                        {name: "runningtime", classes: "moon-music-detail-wide-tracklist-runningtime enyo-inline "}
-                    ]}
-                ]}
-            ]}
+        {kind: "enyo.Spotlight"},
+        {
+            name: "detail",
+            kind: "FittableColumns",
+            classes: "moon-music-detail-detail",
+            components: [
+                {
+                    kind: "FittableRows",
+                    components: [
+                        {
+                            classes: "moon-music-detail-preview",
+                            components: [{name: "play", classes: "moon-play-icon"}]
+                        },
+                        {
+                            kind: "FittableRows",
+                            fit: true,
+                            components: [
+                                {classes: "moon-music-item-label", content: "Album Title"},
+                                {
+                                    kind: "FittableColumns",
+                                    components: [
+                                        {classes: "moon-music-artist", content: "RELEASED"},
+                                        {classes: "moon-music-artist-content", content: "5 April 2013"}
+                                    ]
+                                },
+                                {
+                                    kind: "FittableColumns",
+                                    components: [
+                                        {classes: "moon-music-artist", content: "GENRE"},
+                                        {classes: "moon-music-artist-content", content: "Dance"}
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    kind: "FittableRows",
+                    fit:true, 
+                    components: [
+                        {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 11 Tracks"},
+                        {
+                            name: "list",
+                            kind: "moon.List",
+                            count: 11,
+                            style: "height: 800px",
+                            multiSelect: false,
+                    		onSetupItem: "setupItem",
+                            components: [
+                    			{
+                                    name: "item",
+                                    kind: "enyo.FittableColumns",
+                                    classes: "moon-music-item",
+                                    fit: true,
+                                    components: [
+                                        {name: "index"},
+                                        {style: "display: table-cell; width: 5px;"},
+                                        {name: "track"},
+                                        {style: "display: table-cell; width: 5px;"},
+                                        {name: "time", classes: "moon-music-item-label-small"}
+                                    ]
+                                }
+                    		]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+
+    headerComponents: [
+        {classes: "moon-music-detail-header-button", components: [
+            {kind: "moon.IconButton", src: "assets/icon-album.png"},
+            {kind: "moon.IconButton", src: "assets/icon-download.png"},
+            {kind: "moon.IconButton", src: "assets/icon-like.png"},
+            {kind: "moon.IconButton", src: "assets/icon-next.png"}
         ]}
     ],
+       
     setupItem: function(inSender, inEvent) {
-        var i = inEvent.index + 1;
-        var ni = ("0" + i).slice(-2);
-        this.$.tracknum.setContent(ni); 
-        this.$.trackname.setContent("track name"); 
-        this.$.artistname.setContent("artist name");
-        this.$.runningtime.setContent("3:40");
-    },
-    create: function() {
-        this.inherited(arguments);
-        this.$.tracklistheader.setContent(this.$.tracklist.getCount() + " TRACKS");
-    }
+        this.$.index.setContent(inEvent.index);
+		this.$.track.setContent("Track Name");
+		this.$.time.setContent("3:40");
+	}
 });
