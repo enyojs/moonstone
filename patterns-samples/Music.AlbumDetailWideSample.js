@@ -17,14 +17,13 @@ enyo.kind({
 });
 
 enyo.kind({
-    name: "moon.MusicAlbumDetailWideSample",
+    name: "moon.sample.music.AlbumDetailWideSample",
     kind: moon.Panel,
-    classes: "enyo-unselectable moon ",
+    classes: "enyo-unselectable moon moon-music-detail",
     titleAbove: "04",
-    title: "ALBUM",
+    title: "Album",
     titleBelow: "ALBUM TITLE (ARTISTS)",
     headerComponents: [
-
         {kind: moon.IconButton, src: "assets/icon-download.png"},
         {kind: moon.IconButton, src: "assets/icon-favorite.png", classes: "moon-header-button-right"},
         {kind: moon.IconButton, src: "assets/icon-next.png", classes: "moon-header-button-right"}

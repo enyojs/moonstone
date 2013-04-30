@@ -48,6 +48,7 @@
     font-size: 36px;
     font-weight: bold;
     text-transform: uppercase;
+
 }
 
 .moon-album-label-value {
@@ -55,6 +56,7 @@
     font-size: 36px;
     float: right;
     text-transform: uppercase;
+    overflow: hidden;
 }
 
 .moon-music-detail-wide-tracklist {
