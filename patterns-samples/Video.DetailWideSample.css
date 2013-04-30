@@ -27,7 +27,7 @@
 
 .moon-video-detail-preview {
     display: table-cell;
-    background-image: url(assets/default-movie.png);
+    background-image: url("assets/default-movie.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }

@@ -2,21 +2,22 @@ enyo.kind({
     name: "moon.sample.video.DetailWideSample",
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-video-detail",
-    fit: true,
     title: "Movie Name",
     titleAbove: "03",
     headerComponents: [
         {
             classes: "moon-video-detail-header-button",
             components: [
-                {kind: "moon.IconButton", src: "assets/icon-download.png"},
-                {kind: "moon.IconButton", src: "assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
-                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
+                {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-download.png"},
+                {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
             ]
         }
     ],
     components: [
+/** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
+*/
         {
             name: "container",
             kind: "FittableColumns",
