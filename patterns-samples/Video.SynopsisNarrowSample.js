@@ -2,16 +2,13 @@ enyo.kind({
     name: "moon.sample.video.SynopsisNarrowSample",
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-video-synopsis",
-    fit: true,
-    title: "Synopsis",
     titleAbove: "04",
+    title: "Synopsis",
+
     components: [
         {kind: "enyo.Spotlight"},
         {
-            name: "container",
-            kind: "FittableColumns",
             classes: "moon-video-detail-container",
-            fit: true,
             components: [
                 {
                     kind: "FittableRows",
