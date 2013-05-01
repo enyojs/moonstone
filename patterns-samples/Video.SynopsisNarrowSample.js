@@ -6,7 +6,9 @@ enyo.kind({
     title: "Synopsis",
 
     components: [
+/** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
+*/
         {
             classes: "moon-video-detail-container",
             components: [
