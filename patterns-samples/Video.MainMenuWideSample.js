@@ -2,19 +2,20 @@ enyo.kind({
     name: "moon.sample.video.MainMenuWideSample",
     kind: "moon.Panel",
     classes: "enyo-unselectable moon moon-video-mainmenu",
-    fit: true,
     titleAbove: "01",
     title: "Main Menu",
     components: [
+/** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
+*/
         {kind: "FittableColumns", components: [
             {
                 classes: "moon-video-mainmenu-menu",
                 components: [
-                    {kind: "moon.Item", content: "Browser Movies", spotlight: true},
-                    {kind: "moon.Item", content: "Browser TV Shows", spotlight: true},
-                    {kind: "moon.Item", content: "Queue", spotlight: true},
-                    {kind: "moon.Item", content: "Search", spotlight: true}
+                    {kind: "moon.Item", content: "Browser Movies"},
+                    {kind: "moon.Item", content: "Browser TV Shows"},
+                    {kind: "moon.Item", content: "Queue"},
+                    {kind: "moon.Item", content: "Search"}
                 ]
             },
             {
