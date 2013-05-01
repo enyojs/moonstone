@@ -1,3 +1,7 @@
+/**
+	_moon.LabeledToggleButton_ is a control that combines a
+	<a href="#moon.ToggleButton">moon.ToggleButton</a> with a text label.
+*/
 enyo.kind({
 	name: "moon.LabeledToggleButton",
 	kind: "moon.LabeledCheckbox",
