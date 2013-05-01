@@ -3,15 +3,15 @@ enyo.kind({
 	classes: "moon-list-actions",
 	kind: "enyo.GroupItem",
 	published: {
-		//* If true, the drawer is expanded, showing this item's contents.
+		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
 		/**
 			If true, the drawer will automatically close when the user
-			selects a menu item.
+			selects a menu item
 		*/
 		autoCollapse: false,
 		/**
-			List of actions to be displayed.
+			List of actions to be displayed
 		*/		
 		listActions: [],
 		iconSrc: ""
@@ -59,7 +59,10 @@ enyo.kind({
 			]);
 		}
 	},
-	//* If closed, open drawer and highlight first spottable child
+	/**
+		If drawer is closed, opens drawer and highlights first spottable child; if
+		drawer is open, closes drawer and highlights the activating control.
+	*/
 	expandContract: function(inSender, inEvent) {
 	    if (inSender.name === inEvent.originator.name) {
 	        if (this.disabled) {
@@ -88,7 +91,7 @@ enyo.kind({
 		this.$.drawerPopup.applyStyle('left', (clientRect.left - this.node.getBoundingClientRect().left)  + "px");	
 		this.$.drawerPopup.applyStyle('top', (clientRect.top - this.node.getBoundingClientRect().top)  + "px");
 	},
-	//* Facade for drawer
+	//* Updates _this.$.drawer.open_ and redraws drawer when _this.open_ changes.
 	openChanged: function() {
 		this.$.drawer.setOpen(this.getOpen());
 		this.refresh();
@@ -114,7 +117,7 @@ enyo.kind({
 		}
 	},
 	resetScrollers: function() {
-		//if stacked scroll to the top of the main drawer scroller, otherwise scroll to the top of the individual menu scrollers
+		//if stacked, scroll to the top of the main drawer scroller; otherwise, scroll to the top of the individual menu scrollers
 		if (this.stacked) {
 			this.$.listActions.scrollTo(0,0);
 			//reset focus to the first item in the main scroller
@@ -136,9 +139,9 @@ enyo.kind({
 		}
 	},
 	/**
-		Everytime the drawer animates, bubble the requestScrollIntoView event.
-		This makes for a smoother expansion animation when inside of a scroller,
-		as the height of the scroller changes with the drawer expansion.
+		Bubbles the _requestScrollIntoView_ event each time the drawer animates. 
+		This makes for a smoother expansion animation when inside a scroller, as the
+		height of the scroller changes with the drawer's expansion.
 	*/
 	drawerAnimationStep: function() {
 		this.bubble("onRequestScrollIntoView");
@@ -201,7 +204,10 @@ enyo.kind({
 			}
 		}
 	},
-	//* When spotlight reaches the left or right of an option menu, prevent user from continuing past the edge.
+	/**
+		When spotlight reaches bottom edge of option menu, prevents user from
+		continuing further.
+	*/
 	spotlightDown: function(inSender, inEvent) {
 		var s = enyo.Spotlight.getSiblings(inEvent.originator);
 		//prevent navigation past last item, handle stacked & non-stacked cases + close button
@@ -219,6 +225,10 @@ enyo.kind({
 			return true;
 		}
 	},
+	/**
+		When spotlight reaches top edge of option menu, prevents user from
+		continuing further.
+	*/
 	spotlightUp: function(inSender, inEvent) {
 		var s = enyo.Spotlight.getSiblings(inEvent.originator);
 		//if current item is at the top of a menu OR is an expandable picker
@@ -234,12 +244,15 @@ enyo.kind({
 			return true;
 		}
 	},
-	//* When spotlight reaches the bottom or top of an option menu, prevent user from continuing downward.	
+	/**
+		When spotlight reaches left edge of option menu, prevents user from
+		continuing further.
+	*/
 	spotlightLeft: function(inSender, inEvent) {
 		if (this.stacked && inEvent.originator != this.$.closeButton && inEvent.originator != this.$.activator) {
 			return true;
 		} else {
-			//if it's coming from the left-most column then stop the left event
+			//if it's coming from the left-most column, then stop the left event
 			var listActionItems = this.$.listActionsContainer.getControls();
 			var first = listActionItems[0];
 			if (enyo.Spotlight.Util.isChild(first, inEvent.originator)) {
@@ -247,13 +260,17 @@ enyo.kind({
 			}
 		}
 	},
+	/**
+		When spotlight reaches right edge of option menu, prevents user from
+		continuing further.
+	*/
 	spotlightRight: function(inSender, inEvent) {
 		if (inEvent.originator == this.$.closeButton) {
 			return true;
 		} else if (this.stacked) {
 			enyo.Spotlight.spot(this.$.closeButton);
 		} else {
-			//if it's coming from the right-most column then focus the close button
+			//if it's coming from the right-most column, then focus the close button
 			var listActionItems = this.$.listActionsContainer.getControls();
 			var last = listActionItems[listActionItems.length-1];
 			if (enyo.Spotlight.Util.isChild(last, inEvent.originator)) {
@@ -261,8 +278,11 @@ enyo.kind({
 			}
 		}
 	},
-	//when menus are laid out horizontally prevent the onRequestScrollIntoView event from bubbling past the menus container
-	//- prevents scroll bouncing for scroller in scroller
+	/**
+		When menus are laid out horizontally, prevents _onRequestScrollIntoView_
+		event from bubbling past the menus' container. This prevents scroll bouncing
+		for nested scrollers.
+	*/
 	scrollIntoView: function(inSender, inEvent) {
 		if (!this.stacked) {
 			return true;

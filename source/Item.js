@@ -9,8 +9,8 @@ enyo.kind({
 		//* When true, button is shown as disabled and does not generate tap
 		//* events
 		disabled: false,
-		//* The relative position of the spotlight
-		//* Valid values: left, right, top, bottom
+		//* The relative position of the spotlight;
+		//* valid values are "left", "right", "top", and "bottom"
 		spotlightPosition: "left",
 		//* The behavior of the spotlight
 		spotlightOverlay: false
