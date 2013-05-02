@@ -30,6 +30,7 @@
         	{"name": "Simple Picker", "path":"$lib/moonraker/samples/SimplePickerSample", "css":"sample"},
                 {"name": "Slider", "path":"$lib/moonraker/samples/SliderSample", "css":"sample"},
                 {"name": "Spinner", "path":"$lib/moonraker/samples/SpinnerSample", "css":"sample"},
-                {"name": "Time Picker", "path":"$lib/moonraker/samples/TimePickerSample", "css":"sample"}
+                {"name": "Time Picker", "path":"$lib/moonraker/samples/TimePickerSample", "css":"sample"},
+                {"name": "Accordion", "path":"$lib/moonraker/samples/AccordionSample", "css":"sample"}
 	]
 }
