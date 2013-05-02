@@ -1607,6 +1607,89 @@ PageControl's use of IconButtons
   overflow: hidden;
   position: relative;
 }
+.moon-accordion {
+  padding: 0px 16px 0px 0px;
+  margin: 0px;
+  border-color: #ffb80d;
+  overflow: hidden;
+}
+.moon-accordian.spotlight {
+  transition: border-width 0.1s linear, padding 0.1s linear;
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
+  -o-transition: border-width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: #ffb80d;
+  border-left-style: solid;
+  padding-right: 0px;
+}
+.moon-accordian.open.spotlight {
+  transition: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  border-left-width: 0px;
+  padding-right: 16px;
+}
+.moon-accordian-header {
+  display: inline-block;
+  padding-right: 24px;
+}
+.moon-accordian.open.spotlight .moon-accordian-header {
+  float: left;
+  transition: border-width 0.1s linear, padding 0.1s linear;
+  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
+  -o-transition: border-width 0.1s linear, padding 0.1s linear;
+  border-left-width: 16px;
+  border-left-color: #ffb80d;
+  border-left-style: solid;
+  padding-right: 0px;
+}
+.moon-accordion-client {
+  margin-left: 40px;
+}
+.moon-accordian-bottom {
+  margin: 0px;
+  padding: 0px;
+  height: 0px;
+}
+.moon-accordian-arrow {
+  position: relative;
+  display: inline-block;
+}
+.moon-accordian-arrow.up {
+  top: -5px;
+  border-color: transparent transparent #666666 transparent;
+  border-style: solid;
+  border-width: 10px;
+}
+.moon-accordian-arrow.down {
+  top: 5px;
+  border-color: #666666 transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px;
+  height: 0;
+  width: 0;
+}
+.moon-accordian-arrow.up::after {
+  content: '';
+  position: absolute;
+  border-color: transparent transparent white transparent;
+  border-style: solid;
+  border-width: 10px;
+  bottom: -13px;
+  left: -10px;
+}
+.moon-accordian-arrow.down::after {
+  content: '';
+  position: absolute;
+  border-color: white transparent transparent transparent;
+  border-style: solid;
+  border-width: 10px;
+  bottom: -5px;
+  left: -10px;
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
