@@ -55,16 +55,16 @@ enyo.kind({
 	holdHandler: function(inSender, inEvent) {
 		//Create a job to prevent pagination on tap if the intention is to auto scroll on hold
 		if (inEvent.type == 'pagehold') {
-			enyo.job('preventPaginate', enyo.bind(this,function(){this.preventPaginate = true}), 200);
+			this.startJob('preventPaginate', this.bindSafely(function(){this.preventPaginate = true}), 200);
 		} else if (inEvent.type == 'pagerelease') {
-			enyo.job.stop('preventPaginate');
+			this.stopJob('preventPaginate');
 		}
 		this.$.strategy.holdHandler(inSender, inEvent);
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){
-			enyo.job.stop('preventPaginate');			
+			this.stopJob('preventPaginate');			
 			this.preventPaginate = false;
 			return;
 		}

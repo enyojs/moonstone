@@ -63,7 +63,7 @@ enyo.kind({
 	**/
 	beginHold: function(e) {
 		this.holdStart = enyo.now();
-		this.holdJob = setInterval(enyo.bind(this, "sendHoldPulse", e), this.holdPulseDelay);
+		this.holdJob = setInterval(this.bindSafely("sendHoldPulse", e), this.holdPulseDelay);
 	},
 	cancelHold: function() {
 		clearInterval(this.holdJob);
