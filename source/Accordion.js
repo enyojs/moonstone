@@ -13,13 +13,13 @@ enyo.kind({
 		autoCollapse: false
 	},
 	components: [
-	    {name: "header", kind: "moon.Item", classes: "moon-accordian-header", spotlight: true,
+	    {name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
 		    onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"},
-		{name:"arrow", classes:"moon-accordian-arrow"},
+		{name:"arrow", classes:"moon-accordion-arrow"},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", classes: "moon-accordion-client"}
 		]},
-		{name: "bottom", spotlight: true, classes: "moon-accordian-bottom", onSpotlightFocus: "spotlightFocusBottom"}
+		{name: "bottom", spotlight: true, classes: "moon-accordion-bottom", onSpotlightFocus: "spotlightFocusBottom"}
 	],
 	//* @protected
 	rendered: function() {
@@ -38,7 +38,8 @@ enyo.kind({
 			this.setActive(true);
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
-			this.setActive(false);
+			this.active = false;
+			this.setOpen(false);
 		}
 		return true;
 	},

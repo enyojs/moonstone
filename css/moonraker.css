@@ -1616,7 +1616,7 @@ PageControl's use of IconButtons
   border-color: #ffb80d;
   overflow: hidden;
 }
-.moon-accordian.spotlight {
+.moon-accordion.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -1626,7 +1626,7 @@ PageControl's use of IconButtons
   border-left-style: solid;
   padding-right: 0px;
 }
-.moon-accordian.open.spotlight {
+.moon-accordion.open.spotlight {
   transition: none;
   -webkit-transition: none;
   -moz-transition: none;
@@ -1634,11 +1634,11 @@ PageControl's use of IconButtons
   border-left-width: 0px;
   padding-right: 16px;
 }
-.moon-accordian-header {
+.moon-accordion-header {
   display: inline-block;
   padding-right: 24px;
 }
-.moon-accordian.open.spotlight .moon-accordian-header {
+.moon-accordion.open.spotlight .moon-accordion-header {
   float: left;
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -1652,22 +1652,22 @@ PageControl's use of IconButtons
 .moon-accordion-client {
   margin-left: 40px;
 }
-.moon-accordian-bottom {
+.moon-accordion-bottom {
   margin: 0px;
   padding: 0px;
   height: 0px;
 }
-.moon-accordian-arrow {
+.moon-accordion-arrow {
   position: relative;
   display: inline-block;
 }
-.moon-accordian-arrow.up {
+.moon-accordion-arrow.up {
   top: -5px;
   border-color: transparent transparent #666666 transparent;
   border-style: solid;
   border-width: 10px;
 }
-.moon-accordian-arrow.down {
+.moon-accordion-arrow.down {
   top: 5px;
   border-color: #666666 transparent transparent transparent;
   border-style: solid;
@@ -1675,7 +1675,7 @@ PageControl's use of IconButtons
   height: 0;
   width: 0;
 }
-.moon-accordian-arrow.up::after {
+.moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
   border-color: transparent transparent white transparent;
@@ -1684,7 +1684,7 @@ PageControl's use of IconButtons
   bottom: -13px;
   left: -10px;
 }
-.moon-accordian-arrow.down::after {
+.moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
   border-color: white transparent transparent transparent;
