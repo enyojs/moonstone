@@ -3,7 +3,6 @@ enyo.kind({
     name: "moon.sample.search.RecentSearchFullSample",
     kind: "FittableRows",
     //* @protected
-    autoNumber: false,
     fit: true,
     classes: "moon enyo-unselectable" /* + "background-full-image" */, 
     components: [
