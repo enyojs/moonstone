@@ -1,16 +1,21 @@
 enyo.kind({
     name: "moon.sample.music.TrackTwoColumnsWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-trackonecolumn",
+	classes: "enyo-unselectable moon moon-music-track-two-column",
     fit: true,
     title: "Browser Tracks",
     titleAbove: "02",
     titleBelow: "15 Tracks",
     headerComponents: [
         {
+            classes: "header",
             components: [
-                {kind: "moon.IconButton", src: "assets/icon-album.png", classes: "moon-music-header-button"},
-                {kind: "moon.IconButton", src: "assets/icon-list.png", classes: "moon-music-header-button-right"}
+                {kind: "moon.IconButton", src: "assets/icon-album.png"},
+                {
+                    kind: "moon.IconButton",
+                    src: "assets/icon-list.png",
+                    classes: "right-button"
+                }
             ]
         }
     ],
@@ -18,71 +23,65 @@ enyo.kind({
     components: [
         {kind: "enyo.Spotlight"},
         {
-            name: "listContainer",
-            classes: "moon-music-container",
-            spotlight: "container",
+            name: "list",
+            kind: "moon.List",
+            style: "height: 300px;",
+            classes: "list",
+            count: 8,
+            multiSelect: false,
+            onSetupItem: "setupItem",
             components: [
                 {
-                    name: "list",
-                    kind: "moon.List",
-                    style: "height: 300px;",
-                    count: 8,
-                    multiSelect: false,
-            		onSetupItem: "setupItem",
+                    name: "item",
+                    kind: "enyo.FittableColumns",
+                    classes: "item",
+                    fit: true,
                     components: [
-            			{
-                            name: "item",
+                        {
                             kind: "enyo.FittableColumns",
-                            classes: "moon-music-item",
+                            classes: "column",
                             fit: true,
                             components: [
                                 {
-                                    kind: "enyo.FittableColumns",
-                                    classes: "moon-music-item-column",
+                                    name: "preview",
                                     fit: true,
+                                    classes: "preview",
+                                    components: [{classes: "play-icon"}]
+                                },
+                                {style: "display: table-cell; width: 20px;"},
+                                {
+                                    classes: "label",
                                     components: [
-                                        {
-                                            name: "image",
-                                            fit: true,
-                                            classes: "moon-music-item-image",
-                                            components: [{classes: "moon-play-icon"}]
-                                        },
-                                        {style: "display: table-cell; width: 20px;"},
-                                        {
-                                            classes: "moon-music-item-label",
-                                            components: [
-                                                {name: "track", classes: "moon-music-item-track"},
-                                                {name: "artist", classes: "moon-music-item-artist"}
-                                            ]
-                                        },
-                                        {name: "time", classes: "moon-music-item-label-right"}
+                                        {name: "track", classes: "content"},
+                                        {name: "artist", classes: "small-content"}
                                     ]
                                 },
+                                {name: "time", classes: "time"}
+                            ]
+                        },
+                        {
+                            kind: "enyo.FittableColumns",
+                            classes: "column",
+                            fit: true,
+                            components: [
                                 {
-                                    kind: "enyo.FittableColumns",
-                                    classes: "moon-music-item-column",
+                                    name: "preview2",
                                     fit: true,
+                                    classes: "preview",
+                                    components: [{classes: "play-icon"}]
+                                },
+                                {style: "display: table-cell; width: 20px;"},
+                                {
+                                    classes: "label",
                                     components: [
-                                        {
-                                            name: "image2",
-                                            fit: true,
-                                            classes: "moon-music-item-image",
-                                            components: [{classes: "moon-play-icon"}]
-                                        },
-                                        {style: "display: table-cell; width: 20px;"},
-                                        {
-                                            classes: "moon-music-item-label",
-                                            components: [
-                                                {name: "track2", classes: "moon-music-item-track"},
-                                                {name: "artist2", classes: "moon-music-item-artist"}
-                                            ]
-                                        },
-                                        {name: "time2", classes: "moon-music-item-label-right"}
+                                        {name: "track2", classes: "content"},
+                                        {name: "artist2", classes: "small-content"}
                                     ]
-                                }
+                                },
+                                {name: "time2", classes: "time"}
                             ]
                         }
-            		]
+                    ]
                 }
             ]
         }
@@ -94,26 +93,28 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
+        var h = this.getAbsoluteBounds().height;
+        h -= this.$.list.getAbsoluteBounds().top;
+        this.$.list.setBounds({height: h});
     },
     
     setupItem: function(inSender, inEvent) {
         var index = inEvent.index * 2;
         var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
+		this.$.preview.setStyle("background-image: url(" + url + ");");
 		this.$.track.setContent("Track Name");
 		this.$.artist.setContent("Artist");
 		this.$.time.setContent("3:40");
         
         index++;
         if (index < this.count) {
-            this.$.image2.setShowing(true);
-            this.$.image2.setStyle("background-image: url(" + url + ");");
+            this.$.preview2.setShowing(true);
+            this.$.preview2.setStyle("background-image: url(" + url + ");");
     		this.$.track2.setContent("Track Name");
     		this.$.artist2.setContent("Artist");
     		this.$.time2.setContent("3:40");
         } else {
-            this.$.image2.setShowing(false);
+            this.$.preview2.setShowing(false);
     		this.$.track2.setContent("");
     		this.$.artist2.setContent("");
     		this.$.time2.setContent("");

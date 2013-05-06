@@ -6,67 +6,33 @@
     margin: 0px 20px 0px 20px;
 }
 
-.moon-video-detail-header-button {
+.moon-video-detail .header {
     margin: 0px 0px 5px 0px;
 }
 
-.moon-video-detail-header-button-right {
+.moon-video-detail .right-button {
     margin: 0px 0px 0px 20px;
 }
 
-.moon-video-detail-container {
+.moon-video-detail .client {
     margin: 28px 0px 0px 0px;
 }
 
-.moon-video-detail-detail {
+.moon-video-detail .detail {
     width: 55%;
     margin: 0px 20px 0px 0px;
     min-width: 500px;
     max-width: 700px;
 }
 
-.moon-video-detail-preview {
+.moon-video-detail .preview {
     display: table-cell;
     background-image: url(assets/default-movie.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
 
-.moon-video-detail-preview:hover .moon-play-icon {
-    visibility: visible;
-}
-
-.moon-video-detail-info {
-    padding: 20px 0px 0px 0px;
-}
-
-.moon-video-detail-devider-group {
-    margin: 0px 0px 30px 0px;
-}
-
-.moon-video-detail-devider {
-    margin: 0px 0px 15px 0px;
-    font-size: 28px;
-}
-
-.moon-video-detail-big-text {
-    font-size: 57px;
-    color: #4b4b4b;
-}
-
-.moon-video-detail-sub-text {
-    color: #4b4b4b;
-    vertical-align: bottom;
-    padding: 0px 0px 7px 0px;
-    font-size: 28px;
-}
-
-.moon-video-detail-more {
-    margin: 0px 0px 5px 0px;
-    font-size: 28px;
-}
-
-.moon-play-icon {
+.moon-video-detail .play-icon {
     background-image: url("assets/icon-play-big.png");
     border: 4px solid transparent;
     border-radius: 9999px;
@@ -76,11 +42,45 @@
     visibility: hidden;
 }
 
-.moon-play-icon:hover {
+.moon-video-detail .play-icon:hover {
     background-color: #ffb80d;
 }
 
-.moon-play-icon:active {
+.moon-video-detail .play-icon:active {
     background-color: #ffffff;
     border: 4px solid #ffb80d;
+}
+
+.moon-video-detail .preview:hover .play-icon {
+    visibility: visible;
+}
+
+.moon-video-detail .info {
+    padding: 20px 0px 0px 0px;
+}
+
+.moon-video-detail .group {
+    margin: 0px 0px 30px 0px;
+}
+
+.moon-video-detail .divider {
+    margin: 0px 0px 15px 0px;
+    font-size: 28px;
+}
+
+.moon-video-detail .big {
+    font-size: 57px;
+    color: #4b4b4b;
+}
+
+.moon-video-detail .sub {
+    color: #4b4b4b;
+    vertical-align: bottom;
+    padding: 0px 0px 7px 0px;
+    font-size: 28px;
+}
+
+.moon-video-detail .more-divider {
+    margin: 0px 0px 5px 0px;
+    font-size: 28px;
 }

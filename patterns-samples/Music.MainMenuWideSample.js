@@ -1,7 +1,7 @@
 enyo.kind({
     name: "moon.sample.music.MainMenuWideSample",
     kind: "moon.Panel",
-    classes: "enyo-unselectable moon moon-music-mainmenu",
+    classes: "enyo-unselectable moon moon-music-main-menu",
     fit: true,
     title: "Main Menu",
     titleAbove: "01",
@@ -12,23 +12,23 @@ enyo.kind({
             kind: "FittableColumns",
             components: [
                 {
-                    classes: "moon-music-mainmenu-menu",
+                    classes: "menu",
                     components: [
-                        {kind: "moon.Item", content: "Browser Tracks", spotlight: true},
-                        {kind: "moon.Item", content: "Browser Albums", spotlight: true},
-                        {kind: "moon.Item", content: "Browser Artists", spotlight: true},
-                        {kind: "moon.Item", content: "Browser Playlist", spotlight: true},
+                        {kind: "moon.Item", content: "Browser Tracks"},
+                        {kind: "moon.Item", content: "Browser Albums"},
+                        {kind: "moon.Item", content: "Browser Artists"},
+                        {kind: "moon.Item", content: "Browser Playlist"},
                     ]
                 },
                 {
                     name: "content",
                     fit: true,
-                    classes: "moon-music-mainmenu-content",
+                    classes: "content",
                     components: [
                         {
                             name: "branding",
                             fit: true,
-                            classes: "moon-music-mainmenu-branding",
+                            classes: "branding",
                             content: "branding"
                         }
                     ]
@@ -44,7 +44,8 @@ enyo.kind({
     
     resizeBranding: function() {
         var w = this.$.content.getBounds().width;
-        var h = this.getBounds().height - this.$.columns.getBounds().top - 2;
+        var h = this.getBounds().height;
+        h -= this.$.columns.getAbsoluteBounds().top - 2;
         this.$.branding.setBounds({width: w, height: h});
     }
 });
