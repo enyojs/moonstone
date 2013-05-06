@@ -33,21 +33,18 @@ enyo.kind({
                         ]},
                         {classes: "moon-header-search-right"},
                     ]},
-                    {name: "container", classes: 'search-recent-result-container'},
+                    {name: "container", classes: 'body-container'},
                 ]         
             }
         ]}
     ],
 
-    create: function() {
-        this.inherited(arguments);
-        this.initItems();
-    },
-    initItems: function() {
+    initComponents: function() {
         var length = 6;
+        this.inherited(arguments);
         for (var i=0; i<length; i++) {
             this.$.container.createComponent({
-                name: "item"+i, kind: "search-recent-category", 
+                name: "item"+i, kind: "moon.sample.search.recent.category", 
                 categoryName: "RECENT SEARCH", 
                 items: [
                     {text: "RESULT", imageSrc: './assets/default-movie.png'},
@@ -66,7 +63,7 @@ enyo.kind({
 
 enyo.kind({
     //* @public
-    name: "search-recent-category",
+    name: "moon.sample.search.recent.category",
     published: {
         //* Category title
         categoryName: "",
@@ -79,11 +76,8 @@ enyo.kind({
         {name: "title", kind: "moon.Item", spotlight: true, classes: 'category-name'},
     ],
 
-    create: function() {
+    initComponents: function() {
         this.inherited(arguments);
-        this.initItems();
-    },
-    initItems: function() {
         this.$.title.setContent(this.categoryName);
         if (this.items instanceof Array) {
             for (var item in this.items) {
