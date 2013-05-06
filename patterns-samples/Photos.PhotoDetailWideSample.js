@@ -12,7 +12,9 @@ enyo.kind({
         { kind : "moon.IconButton", classes : "header-icon", src : "assets/icon-next.png"},
     ],
     components: [
-        {kind : "enyo.Spotlight"},
+/** If you want to use this template alone with spotlight, remove this comment out.
+        {kind: "enyo.Spotlight"},
+*/
         {
             kind : "FittableColumns",
             components : [
