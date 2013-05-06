@@ -4,7 +4,7 @@ enyo.kind({
     fit: true,
     title: "Main Menu",
     titleAbove: "01",
-    classes: "enyo-unselectable moon moon-music-mainmenu",
+    classes: "enyo-unselectable moon moon-music-main-menu",
     components: [
         {kind: "enyo.Spotlight"},
         {
@@ -12,22 +12,22 @@ enyo.kind({
             kind: "FittableColumns",
             components: [
                 {
-                    classes: "moon-music-mainmenu-menu",
+                    classes: "menu",
                     components: [
-                        {kind: "moon.Item", classes: "moon-music-mainmenu-item", content: "Browser Video", spotlight: true},
-                        {kind: "moon.Item", classes: "moon-music-mainmenu-item", content: "Browser Photos", spotlight: true},
-                        {kind: "moon.Item", classes: "moon-music-mainmenu-item", content: "Browser Music", spotlight: true}
+                        {kind: "moon.Item", classes: "item", content: "Browser Video"},
+                        {kind: "moon.Item", classes: "item", content: "Browser Photos"},
+                        {kind: "moon.Item", classes: "item", content: "Browser Music"}
                     ]
                 },
                 {
                     name: "content",
                     fit: true,
-                    classes: "moon-music-mainmenu-content",
+                    classes: "content",
                     components: [
                         {
                             name: "branding",
                             fit: true,
-                            classes: "moon-music-mainmenu-branding",
+                            classes: "branding",
                             content: "branding"
                         }
                     ]
@@ -43,7 +43,8 @@ enyo.kind({
     
     resizeBranding: function() {
         var w = this.$.content.getBounds().width;
-        var h = this.getBounds().height - this.$.columns.getBounds().top - 2;
+        var h = this.getBounds().height;
+        h -= this.$.columns.getAbsoluteBounds().top - 2;
         this.$.branding.setBounds({width: w, height: h});
     }
 });
