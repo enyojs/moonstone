@@ -1,3 +1,12 @@
+/**
+	_moon.Panel_ is the default kind for controls created inside a
+	<a href="#moon.Panels">moon.Panels</a> container.  Typically, a _moon.Panels_
+	will contain several instances of _moon.Panel_.
+	
+	The built-in features of _moon.Panel_ include a header and a FittableRows
+	layout for the main body content.
+*/
+
 enyo.kind({
 	//* @public
 	name : "moon.Panel",
