@@ -7,14 +7,17 @@ enyo.kind({
     titleBelow : "",
     classes : "photo-overlap-album",
     components: [
-        {kind : "enyo.Spotlight"},
+/** If you want to use this template alone with spotlight, remove this comment out.
+        {kind: "enyo.Spotlight"},
+*/
         {
             kind : "FittableRows",
             fit : true,
             components : [
                 {
                     kind : "moon.Scroller",
-                    style : "width:400px;height:600px;",
+                    fit: true,
+                    //style : "width:400px;height:600px;",
                     horizontal : "hidden",
                     touch : true,
                     components : [

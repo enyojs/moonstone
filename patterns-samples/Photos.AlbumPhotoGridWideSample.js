@@ -22,7 +22,9 @@ enyo.kind({
 		{src: "assets/album.png"}
 	],
 	components: [	
-		{kind: "enyo.Spotlight"},
+/** If you want to use this template alone with spotlight, remove this comment out.
+        {kind: "enyo.Spotlight"},
+*/
 		{
 			name: "gridlist",
 			kind: "moon.GridList",

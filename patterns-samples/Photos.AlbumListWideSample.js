@@ -21,9 +21,11 @@ enyo.kind({
 		{src: "assets/album.png"}
 	],
 	components: [
-		{kind: "enyo.Spotlight"},
-		{kind: "FittableColumns", style: "height:550px;", components: [				
-			{kind : "moon.Scroller", style: "width: 20%;", horizontal: "hidden", touch: true, components:[
+/** If you want to use this template alone with spotlight, remove this comment out.
+        {kind: "enyo.Spotlight"},
+*/
+		{kind: "FittableColumns", fit: true, components: [				
+			{kind : "moon.Scroller", style: "width: 25%;", horizontal: "hidden", touch: true, components:[
 				{
 					kind: "moon.ImageItem", 
 					source: "assets/album.png", 
@@ -56,8 +58,8 @@ enyo.kind({
 					kind: "moon.GridList",
 					onSetupItem: "setupGridItem",
 					touch: true,
-					itemWidth: 270,
-					itemHeight: 202,
+					itemWidth: 200,
+					//itemHeight: 202,
 					itemSpacing: 20,
 					components: [
 						{name: "gridItem", kind: "moon.GridList.ImageItem"}
