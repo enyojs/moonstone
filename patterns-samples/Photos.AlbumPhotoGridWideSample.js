@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.photos.PhotoGridSample",
+    name: "moon.sample.photos.AlbumPhotoGridSample",
 	kind: "moon.Panel",
 	titleAbove: "02",
 	title: "Album Name",
