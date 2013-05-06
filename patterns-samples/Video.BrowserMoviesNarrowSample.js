@@ -8,7 +8,7 @@ enyo.kind({
 
     headerComponents: [
         {classes: "moon-video-browsermovie-header-button", components: [
-            {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-list.png"}
+            {kind: "moon.IconButton", src: "assets/icon-list.png"}
         ]}
     ],    
     
@@ -24,43 +24,43 @@ enyo.kind({
             components : [
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 },
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 },
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 },
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 },
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 },
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 },
                 {
                     kind : "moon.ImageItem",
-                    source: enyo.path.rewrite("$lib/moonraker/patterns-samples/assets/album.png"),
+                    source: "assets/album.png",
                     label: "MOVIE NAME",
                     text: "Staring: Actor Name and Actor Name"
                 }

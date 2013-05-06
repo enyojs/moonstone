@@ -8,9 +8,9 @@ enyo.kind({
         {
             classes: "moon-video-detail-header-button",
             components: [
-                {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-download.png"},
-                {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
-                {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
+                {kind: "moon.IconButton", src: "assets/icon-download.png"},
+                {kind: "moon.IconButton", src: "assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
             ]
         }
     ],

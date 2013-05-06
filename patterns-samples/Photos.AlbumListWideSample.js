@@ -52,7 +52,7 @@ enyo.kind({
 					label: "ALBUM NAME", 
 				}
 			]},
-			{kind : "moon.Scroller", style: "height:550px;", fit: true, touch: true, components:[
+			{kind : "moon.Scroller", fit: true, touch: true, components:[
 				{
 					name: "gridlist",
 					kind: "moon.GridList",

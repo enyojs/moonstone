@@ -6,26 +6,26 @@ enyo.kind({
     title: "Browser Movies",
 
     imgList: [
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"},
-        {src: "$lib/moonraker/patterns-samples/assets/album.png", name: "MOVIE NAME"}
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"},
+        {src: "assets/album.png", name: "MOVIE NAME"}
     ],    
 
     headerComponents: [
         {classes: "moon-video-browsermovie-header-button", components: [
-            {kind: "moon.IconButton", src: "$lib/moonraker/patterns-samples/assets/icon-list.png"}
+            {kind: "moon.IconButton", src: "assets/icon-list.png"}
         ]}
     ],    
     
@@ -57,8 +57,7 @@ enyo.kind({
         if (!gridItem.src) {
             return;
         }
-        var src = enyo.path.rewrite(gridItem.src)
-        this.$.gridItem.setSource(src);
+        this.$.gridItem.setSource(gridItem.src);
         this.$.gridCaption.setContent(gridItem.name);
         this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
     },
