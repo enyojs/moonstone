@@ -1,5 +1,5 @@
 /**
-	_moon.Input_ is a Moonraker-styled input control, derived from
+	_moon.Input_ is a Moonstone-styled input control, derived from
 	<a href='#enyo.Input'>enyo.Input</a>. Typically, a _moon.Input_ is placed
 	inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
 	provides styling, e.g.:

@@ -1,5 +1,5 @@
 /**
-	_moon.ContextualPopup_ is a popup window control with Moonraker visual styling
+	_moon.ContextualPopup_ is a popup window control with Moonstone visual styling
 	applied.  It extends <a href="#enyo.Popup">enyo.Popup</a> and is designed to
 	be used with <a href="#moon.ContextualPopupDecorator">moon.ContextualPopupDecorator</a>.
 */
