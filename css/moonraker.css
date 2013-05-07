@@ -602,6 +602,7 @@
   margin: 0px;
   border-color: #ffb80d;
   overflow: hidden;
+  margin-bottom: 45px;
 }
 .moon-expandable-list-item.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -620,6 +621,13 @@
   -o-transition: none;
   border-left-width: 0px;
   padding-right: 16px;
+}
+.moon-expandable-list-item .moon-expandable-list-item-header {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+.moon-expandable-list-item.open .moon-expandable-list-item-header {
+  padding-bottom: 20px;
 }
 .moon-expandable-list-item.open.spotlight .moon-expandable-list-item-header {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -1615,6 +1623,7 @@ PageControl's use of IconButtons
   margin: 0px;
   border-color: #ffb80d;
   overflow: hidden;
+  margin-bottom: 45px;
 }
 .moon-accordion.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -1637,6 +1646,7 @@ PageControl's use of IconButtons
 .moon-accordion-header {
   display: inline-block;
   padding-right: 24px;
+  margin-bottom: 0px;
 }
 .moon-accordion.open.spotlight .moon-accordion-header {
   float: left;
@@ -1674,6 +1684,7 @@ PageControl's use of IconButtons
   border-width: 10px;
   height: 0;
   width: 0;
+  margin-bottom: 0px;
 }
 .moon-accordion-arrow.up::after {
   content: '';
