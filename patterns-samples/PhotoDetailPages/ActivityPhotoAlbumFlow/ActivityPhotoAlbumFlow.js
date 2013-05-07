@@ -24,7 +24,7 @@ enyo.kind({
 });
 
 enyo.kind({
-    name: "moon.sample.panels.ActivityPhotoAlbumFlowSample",
+    name: "moon.sample.photo.ActivityPhotoAlbumFlowSample",
     style: "background: #eaeaea;",
     classes: "moon enyo-fit",
     components: [
