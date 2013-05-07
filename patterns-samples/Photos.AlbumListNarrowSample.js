@@ -1,11 +1,11 @@
 enyo.kind({
     name: "moon.sample.photos.AlbumListNarrowSample",
     kind : "moon.Panel",
+    classes: "moon enyo-unselectable photos-album",
     fit: true,
     title : "ALBUMS",
     titleAbove : "01",
     titleBelow : "",
-    classes : "photo-overlap-album",
     components: [
 /** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
