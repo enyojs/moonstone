@@ -6,14 +6,8 @@ enyo.kind({
     fit: true,
     classes: "moon enyo-unselectable" /* + "background-full-image" */, 
     components: [
-        {kind: "enyo.Spotlight"},
-        {classes: "left-panel", components: [
-            {classes: "left-panel-content", components: [
-                {content: "01", classes: "left-panel-number"},
-                {content: "MAIN MENU", classes: "left-panel-title"}
-            ]}
-        ]},
-        {classes: "right-panel", components: [
+        // {kind: "enyo.Spotlight"},
+        {classes: "drawer-panel", components: [
              {
                 name: "",
                 kind: "moon.Panel",
@@ -36,12 +30,6 @@ enyo.kind({
                 ]         
             }
         ]},
-        {classes: "moon-header-close-container", components: [
-            {classes: "moon-header-close-box", spotlight: true, components: [
-                {tag: "p", content: "CLOSE", showing: false, classes: "moon-header-close-content text"},
-                {tag: "img", src:"../samples/assets/search-input-search.png", classes: "moon-header-close-content img"}
-            ]}
-        ]}          
     ],
 
     initComponents: function() {
@@ -87,8 +75,8 @@ enyo.kind({
         if (this.items instanceof Array) {
             for (var item in this.items) {
                 this.createComponent({
-                    classes: 'item', style: "background-image: url(" + (this.items[item])['imageSrc'] + ");", components: [
-                        {content: (this.items[item])['text'], spotlight: true, classes: "item-text"}
+                    spotlight: true, classes: 'item', style: "background-image: url(" + (this.items[item])['imageSrc'] + ");", components: [
+                        {content: (this.items[item])['text'], classes: "item-text"}
                     ]
                 });
             }
