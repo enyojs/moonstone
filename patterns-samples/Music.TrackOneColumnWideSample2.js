@@ -1,54 +1,58 @@
 enyo.kind({
     name: "moon.sample.music.TrackOneColumnWideSample2",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-trackonecolumn",
+	classes: "enyo-unselectable moon moon-music-track-one-column",
     fit: true,
     title: "Browser Tracks",
     titleAbove: "02",
     titleBelow: "15 Tracks",
     headerComponents: [
         {
+            classes: "header",
             components: [
-                {kind: "moon.IconButton", src: "assets/icon-album.png", classes: "moon-music-header-button"},
-                {kind: "moon.IconButton", src: "assets/icon-list.png", classes: "moon-music-header-button-right"}
+                {kind: "moon.IconButton", src: "assets/icon-album.png"},
+                {
+                    kind: "moon.IconButton",
+                    src: "assets/icon-list.png",
+                    classes: "right-button"
+                }
             ]
         }
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
-            name: "listContainer",
-            classes: "moon-music-container",
-            spotlight: "container",
+            name: "list",
+            kind: "moon.List",
+            style: "height: 300px;",
+            classes: "client",
+            count: 15,
+            multiSelect: false,
+            onSetupItem: "setupItem",
             components: [
                 {
-                    name: "list",
-                    kind: "moon.List",
-                    style: "height: 300px;",
-                    count: 15,
-                    multiSelect: false,
-            		onSetupItem: "setupItem",
+                    kind: "enyo.FittableColumns",
+                    classes: "item",
+                    fit: true,
                     components: [
-            			{
-                            name: "item",
-                            kind: "enyo.FittableColumns",
-                            classes: "moon-music-item",
+                        {
+                            name: "preview",
                             fit: true,
-                            components: [
-                                {
-                                    name: "image",
-                                    fit: true,
-                                    classes: "moon-music-item-image",
-                                    components: [{classes: "moon-play-icon"}]
-                                },
-                                {style: "display: table-cell; width: 20px;"},
-                                {classes: "moon-music-item-label", components: [{name: "track", classes: "moon-music-item-label-content"}]},
-                                {classes: "moon-music-item-label", components: [{name: "artist", classes: "moon-music-item-label-content"}]},
-                                {classes: "moon-music-item-label", components: [{name: "album", classes: "moon-music-item-label-content"}]},
-                                {name: "time", classes: "moon-music-item-label-right"}
-                            ]
-                        }
-            		]
+                            classes: "preview",
+                            components: [{classes: "play-icon"}]
+                        },
+                        {style: "display: table-cell; width: 20px;"},
+                        {classes: "label", components: [
+                            {name: "track", classes: "content"}
+                        ]},
+                        {classes: "label", components: [
+                            {name: "artist", classes: "content"}
+                        ]},
+                        {classes: "label", components: [
+                            {name: "album", classes: "content"}
+                        ]},
+                        {name: "time", classes: "time"}
+                    ]
                 }
             ]
         }
@@ -60,12 +64,14 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
+        var h = this.getAbsoluteBounds().height;
+        h -= this.$.list.getAbsoluteBounds().top;
+        this.$.list.setBounds({height: h});
     },
     
     setupItem: function(inSender, inEvent) {
         var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
+		this.$.preview.setStyle("background-image: url(" + url + ");");
 		this.$.track.setContent("Track Name");
 		this.$.artist.setContent("Artist Name");
 		this.$.album.setContent("Album Name");
