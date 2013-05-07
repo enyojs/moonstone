@@ -4,7 +4,7 @@ enyo.kind({
     kind: "FittableRows",
     //* @protected
     fit: true,
-    classes: "moon enyo-unselectable" /* + "background-full-image" */, 
+    classes: "moon enyo-unselectable", 
     components: [
         // {kind: "enyo.Spotlight"},
         {classes: "drawer-panel", components: [

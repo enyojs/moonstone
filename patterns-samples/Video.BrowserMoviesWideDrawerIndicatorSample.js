@@ -31,10 +31,10 @@ enyo.kind({
                 {name: "searchIcon", tag: "img", src:"../samples/assets/search-input-search.png", classes: "moon-header-close-content img"}
             ]}
         ]},
-        {name: "drawer", kind: "enyo.Drawer", open: false, components: [
-            {kind: "moon.sample.search.RecentSearchDrawerSample", style: "z-index: 5;"}
+        {name: "drawer", kind: "enyo.Drawer", open: false, classes: "moon-drawer-search", components: [
+            {kind: "moon.sample.search.RecentSearchDrawerSample", style: ""}
         ]},
-        {name: "panel1", kind: "moon.Panel", fit: true, titleAbove: "02", title: "Browser Movies", classes: "enyo-unselectable moon moon-video-browsermovies", components: [
+        {kind: "moon.Panel", fit: true, titleAbove: "02", title: "Browser Movies", classes: "enyo-unselectable moon moon-video-browsermovies", components: [
             {
                 classes: "moon-video-browsermovies-container",
                 name: "gridlist",
@@ -54,9 +54,6 @@ enyo.kind({
         ]}
     ],
 
-    initComponent: function(){
-        this.inherited(arguments);
-    },
     setupGridItem: function(inSender, inEvent) {
         var i = inEvent.index;
         var gridItem = this.imgList[i];
@@ -74,11 +71,9 @@ enyo.kind({
         if(this.$.drawer.open){
             this.$.closeText.setShowing(true);
             this.$.searchIcon.setShowing(false);
-
         } else {
             this.$.closeText.setShowing(false);
             this.$.searchIcon.setShowing(true);
-            enyo.Spotlight.spot(this.$.panel1);
         }
     },
 });
