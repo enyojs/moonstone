@@ -13,7 +13,7 @@ enyo.depends(
 	"ScrollerVerticalSample.js",
 	"ScrollerVerticalSample.css",
 	"ScrollerHorizontalSample.js",
-	"ScrollerHorizontalSample.css",	
+	"ScrollerHorizontalSample.css",
 	"Scroller2dSample.js",
 	"Scroller2dSample.css",
 	"ListHorizontalSample.js",
@@ -31,10 +31,11 @@ enyo.depends(
 	"InputSample.js",
 	"InputSample.css",
 	"SliderSample.js",
+	"SliderSample.css",
 	"ContextualPopupSample.js",
 	"ContextualPopupSample.css",
-	"ListOptionsSample.js",
-	"ListOptionsSample.css",
+	"ListActionsSample.js",
+	"ListActionsSample.css",
 	"DividerSample.js",
 	"DividerSample.css",
 	"LabeledTextItemSample.js",
@@ -47,5 +48,7 @@ enyo.depends(
 	"HeaderSample.js",
 	"HeaderSample.css",
 	"SelectableItemSample.css",
-	"SelectableItemSample.js"
+	"SelectableItemSample.js",
+	"AccordionSample.css",
+	"AccordionSample.js"	
 );

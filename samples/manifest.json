@@ -13,13 +13,14 @@
                 {"name": "Expandable Picker", "path":"$lib/moonraker/samples/ExpandablePickerSample"},
                 {"name": "Grid List", "path":"$lib/moonraker/samples/GridListSample"},
                 {"name": "Header", "path":"$lib/moonraker/samples/HeaderSample"},
+                {"name": "Icon Button", "path":"$lib/moonraker/samples/IconButtonSample"},
                 {"name": "Image Item", "path":"$lib/moonraker/samples/ImageItemSample"},
                 {"name": "Input", "path":"$lib/moonraker/samples/InputSample"},
                 {"name": "Integer Scroll Picker", "path":"$lib/moonraker/samples/IntegerScrollPickerSample"},
                 {"name": "Item", "path":"$lib/moonraker/samples/ItemSample"},
                 {"name": "Labeled Text Item", "path":"$lib/moonraker/samples/LabeledTextItemSample"},
                 {"name": "Horizontal List", "path":"$lib/moonraker/samples/ListHorizontalSample"},
-                {"name": "List Options", "path":"$lib/moonraker/samples/ListOptionsSample"},
+                {"name": "List Actions", "path":"$lib/moonraker/samples/ListActionsSample"},
                 {"name": "Vertical List", "path":"$lib/moonraker/samples/ListVerticalSample"},
                 {"name": "Radio Button", "path":"$lib/moonraker/samples/RadioButtonSample"},
                 {"name": "2d Scroller", "path":"$lib/moonraker/samples/Scroller2dSample"},
@@ -29,6 +30,7 @@
         	{"name": "Simple Picker", "path":"$lib/moonraker/samples/SimplePickerSample", "css":"sample"},
                 {"name": "Slider", "path":"$lib/moonraker/samples/SliderSample", "css":"sample"},
                 {"name": "Spinner", "path":"$lib/moonraker/samples/SpinnerSample", "css":"sample"},
-                {"name": "Time Picker", "path":"$lib/moonraker/samples/TimePickerSample", "css":"sample"}
+                {"name": "Time Picker", "path":"$lib/moonraker/samples/TimePickerSample", "css":"sample"},
+                {"name": "Accordion", "path":"$lib/moonraker/samples/AccordionSample", "css":"sample"}
 	]
 }

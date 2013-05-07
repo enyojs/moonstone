@@ -1,10 +1,15 @@
+/**
+	_moon.ContextualPopup_ is a popup window control with Moonraker visual styling
+	applied.  It extends <a href="#enyo.Popup">enyo.Popup</a> and is designed to
+	be used with <a href="#moon.ContextualPopupDecorator">moon.ContextualPopupDecorator</a>.
+*/
 enyo.kind({
 	name: "moon.ContextualPopup",
 	kind: "enyo.Popup",
 	layoutKind: "ContextualLayout",
-	classes: "moon-contextual-popup",	
-   	handlers: {
-		onRequestShowPopup: "requestShow",
+	classes: "moon-contextual-popup",
+	handlers: {
+		onRequestShowPopup: "requestShow"
 	},
 	floating:true,
 	//layout parameters
@@ -17,7 +22,7 @@ enyo.kind({
 		var n = inEvent.activator.hasNode();
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
-		}						
+		}
 		this.show();
 		return true;
 	},

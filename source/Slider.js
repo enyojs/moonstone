@@ -1,14 +1,13 @@
 /**
-
-	A control that presents a range of selection options in the form of a
-	horizontal slider with a control knob.  The knob may be tapped and dragged
-	to the desired location.
+	_moon.Slider_ is a control that presents a range of selection options in the
+	form of a horizontal slider with a control knob. The knob may be tapped and
+	dragged to the desired location.
 
 		{kind: "moon.Slider", value: 30}
 		{kind: "moon.Slider", value: 60, nofocus: false}
 
-	The _onChanging_ event is fired when dragging the control knob.
-	The _onChange_ event is fired when the position is set, either by finishing
+	The _onChanging_ event is fired while the control knob is being dragged, while
+	the _onChange_ event is fired when the position is set, either by finishing
 	a drag or by tapping the bar.
 */
 enyo.kind({
@@ -25,14 +24,13 @@ enyo.kind({
 		value: 0,
 		completed: 0,
 		tappable: true,
-		popupColor: "#a2a2a2",
-		//* When true, button is shown as disabled and does not generate tap
-		//* events
+		popupColor: "#ffb80d",
+		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
-		//* Value increment that a sliders can be "snapped to" in either direction
+		//* Value increment that the slider can be "snapped to" in either direction
 		increment: 0,
-		//* When true, knob and progress moves with animation by clicking left/right
-		//* direction key ot bye tapping the bar
+		//* When true, knob and progress move with animation by clicking left/right
+		//* direction key or by tapping the bar
 		animate : true
 	},
 	events: {
@@ -65,7 +63,7 @@ enyo.kind({
 		{name: "bar", classes: "moon-slider-bar"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 36 }},
+			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
 		]}
 	],
@@ -131,7 +129,9 @@ enyo.kind({
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
+			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
@@ -142,7 +142,9 @@ enyo.kind({
 			}
 			else {
 				this.setValue(v);
+				this.doChange({value: this.value});
 			}
+			return true;
 		}
 	},
 	calcIncrement: function(inValue) {
@@ -205,7 +207,7 @@ enyo.kind({
 		if ((pb.top + pb.height) < pageYOffset) {
 			inControl.addRemoveClass("above", false);
 			inControl.addRemoveClass("below", true);
-		} else 	{
+		} else {
 			inControl.addRemoveClass("above", true);
 			inControl.addRemoveClass("below", false);
 		}
@@ -225,8 +227,9 @@ enyo.kind({
 		this.$.popup.hide();
 	},
 	dragstart: function(inSender, inEvent) {
-		if (this.disabled)
+		if (this.disabled) {
 			return;	// return nothing
+		}
 
 		if (inEvent.horizontal) {
 			inEvent.preventDefault();
@@ -309,21 +312,28 @@ enyo.kind({
 		return true;
 	},
 	drawToCanvas: function(bgColor) {
+		var h = 51; // height total
+		var hb = h - 4; // height bubble
+		var hbc = (hb-1)/2; // height of bubble's center
+		var w = 61; // width total
+		var wre = 46; // width's right edge
+		var wle = 16; // width's left edge
+		var r = 20; // radius
+
 		var ctx = this.$.drawing.hasNode().getContext("2d");
 
 		// Set styles. Default color is knob's color
 		ctx.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 
 		// Draw shape with arrow on bottom-left
-		ctx.moveTo(1, 37);
-		ctx.arcTo(1, 33, 12, 33, 4);
-		ctx.lineTo(46, 33);
-		ctx.arcTo(61, 33, 61, 17, 16);
-		ctx.moveTo(61, 17); // This is needed on IE9 for some reason
-		ctx.arcTo(61, 1, 46, 1, 16);
-		ctx.lineTo(16, 1);
-		ctx.arcTo(1, 1, 1, 17, 16);
-		ctx.lineTo(1, 37);
+		ctx.moveTo(1, h);
+		ctx.arcTo(1, hb, 39, hb, 8);
+		ctx.lineTo(wre, hb);
+		ctx.arcTo(w, hb, w, hbc, r);
+		ctx.arcTo(w, 1, wre, 1, r);
+		ctx.lineTo(wle, 1);
+		ctx.arcTo(1, 1, 1, hbc, r);
+		ctx.lineTo(1, h);
 		ctx.fill();
 	}
 });

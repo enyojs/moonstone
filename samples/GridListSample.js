@@ -10,6 +10,9 @@ enyo.kind({
 			kind: "moon.GridList",
 			onSetupItem: "setupItem",
 			toggleSelected: true,
+			itemWidth: 140,
+			itemHeight: 140,
+			itemSpacing: 100,
 			components: [
 				{name: "item", kind: "moon.GridList.ImageItem"}
 			],
@@ -32,7 +35,7 @@ enyo.kind({
 		}
 		this.searchText = inSearchText || this.searchText;
 		// Build OData query
-        var query = this.url + "/Titles?$filter=substringof('" + escape(this.searchText) + "',Name)" +  // filter by movie name
+        var query = this.url + "/Titles?$filter=substringof('" + window.escape(this.searchText) + "',Name)" +  // filter by movie name
             "&$format=json"; // json request
         var params = {
 			oauth_consumer_key: this.api_key
@@ -42,8 +45,9 @@ enyo.kind({
 	processResponse: function(inSender, inResponse) {
 		this.results = [];
 		var movies = inResponse ? inResponse["d"]["results"] || [] : [];
-		if (movies.length == 0)
+		if (movies.length === 0) {
 			return [];
+		}
 		var results = [];
 		for (var i = 0; i < movies.length; i++) {
 			this.results.push(movies[i]);
@@ -52,13 +56,14 @@ enyo.kind({
 		return results;
 	},
 	_error_missing_api_key: function () {
-		console.error("Missing API key. Your Netflix API key is required to use this component.");
+		enyo.error("Missing API key. Your Netflix API key is required to use this component.");
 	},
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
 		var item = this.results[i];
 		this.$.item.setSource(item.BoxArt.LargeUrl);
 		this.$.item.setCaption(item.Name);
+		this.$.item.setSubCaption(item.Name);
 		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	}
 });

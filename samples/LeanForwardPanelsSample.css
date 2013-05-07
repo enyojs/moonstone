@@ -1,0 +1,37 @@
+.sample-panels {
+	background: black;
+}
+
+.sample-panel {
+	text-align: center;
+	font-size: 30px;
+}
+
+.sample-panel-1 {
+	background: red;
+	width: 500px;
+}
+.sample-panel-2 {
+	background: green;
+	width: 400px;
+}
+.sample-panel-3 {
+	background: yellow;
+	width: 300px;
+}
+.sample-panel-4 {
+	background: blue;
+	width: 100px;
+}
+.sample-panel-5 {
+	background: purple;
+	width: 400px;
+}
+.sample-panel-6 {
+	background: orange;
+	width: 500px;
+}
+.sample-panel-7 {
+	background: pink;
+	width: 800px;
+}

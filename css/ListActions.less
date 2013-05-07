@@ -1,0 +1,58 @@
+/* List Actions */
+.moon-list-actions {
+	position:relative;
+	display:inline-block;
+	overflow:visible;
+	float:right;
+	margin-left:15px;
+}
+.moon-list-actions-drawer-popup {
+	position:absolute;
+	top:0px;
+	left:0px;
+	overflow:hidden;
+}
+.moon-list-actions-activator {
+	margin-bottom:10px;
+}
+.moon-list-actions-client-container {
+	background-color:white;
+	border-top: 6px solid #4b4b4b;
+}
+.moon-list-actions-close {
+	border-radius: @moon-button-border-radius;
+	line-height: @moon-button-line-height;
+	background-color: @moon-light-gray;
+	border: @moon-button-border-width solid transparent;
+	float:right;
+	width:40px;
+	height:40px;
+	min-width:40px;
+	padding: 0px 0px 0px 0px;
+	margin: 10px 10px 0px 10px;
+}
+.moon-list-actions-close.spotlight {
+	background: @moon-spotlight-border-color;
+}
+.moon-list-actions-close::after {
+	content:"\2716";
+	font-size:25px;
+	position: relative;
+	top: 3px;
+	left:1px;
+}
+.moon-list-actions-scroller {
+	margin: 0px;
+	padding: 0px;
+}
+.moon-list-actions-container {
+	float:right;
+	margin: 0px;
+	padding: 0px;
+}
+.moon-list-actions-menu {
+	display:inline-block;
+	vertical-align:top;
+	margin:2px;	
+	width: 300px;
+}

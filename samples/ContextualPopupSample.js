@@ -4,7 +4,7 @@ enyo.kind({
 	classes: "enyo enyo-fit",
 	components: [
 		{kind: "Scroller", fit: true, thumb:false, components:[
-			{name:"buttonContainer", kind:"FittableRows", classes:"onyx-contextualpopup-button-container enyo-fit", components:[
+			{name:"buttonContainer", kind:"FittableRows", classes:"enyo-fit", components:[
 				//Top row of buttons
 				{components:[
 					{kind: "moon.ContextualPopupDecorator", style:"display:inline-block", components: [
@@ -110,6 +110,6 @@ enyo.kind({
 					]}
 				]}
 			]}
-		]}	
+		]}
 	]
 });

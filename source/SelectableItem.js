@@ -4,18 +4,19 @@ enyo.kind({
 	classes: "moon-selectableItem",
 	spotlight: true,
 	events: {
-	//* Fires when selectableItem is tapped.
+	//* Fires when the SelectableItem is tapped.
 		onActivate: ""
-	},	
+	},
 	handlers: {
-		// prevent double onchange bubble in IE
-		onclick: "",
+		// prevents double bubbling of _onchange_ in IE
+		onclick: ""
 	},
 	published: {
-		//* Value of selectableItem; true if checked
+		//* True if this item is currently selected; false if not
 		selected: false,
-		//* Group API requirement for determining selected item
-		active: false,
+		//* For use with Enyo Group API; true if this item is the selected item in
+		//* the group
+		active: false
 	},
 	tools: [
 		{name: "textUnderline", tag: "span"}
@@ -32,7 +33,7 @@ enyo.kind({
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
-			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());	
+			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());
 			this.bubble("onchange");
 		}
 		return !this.disabled;
@@ -45,11 +46,14 @@ enyo.kind({
 		this.$.textUnderline.addRemoveClass("moon-underline", this.selected);
 		this.render();
 	},
-	// active property, and onActivate event, are part of "GroupItem" interface
-	// that we support in this object
+	/**
+		For use with the Enyo Group API, which is supported by this object. Called
+		when the active item within the group changes. The _active_ property and
+		_onActivate_ event are both part of the Group API.
+	*/
 	activeChanged: function() {
 		this.active = enyo.isTrue(this.active);
 		this.setSelected(this.active);
 		this.bubble("onActivate");
-	},
+	}
 });

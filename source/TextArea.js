@@ -1,8 +1,8 @@
 /**
-	_moon.TextArea_ is an Moonraker-styled TextArea control, derived from
-	<a href="#enyo.TextArea">enyo.TextArea</a>. Typically, an _moon.TextArea_
-	is placed inside an <a href="#moon.InputDecorator">moon.InputDecorator</a>,
-	which provides styling, e.g.:
+	_moon.TextArea_ is a Moonraker-styled TextArea control, derived from
+	<a href="#enyo.TextArea">enyo.TextArea</a>. Typically, a _moon.TextArea_ is
+	placed inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
+	provides styling, e.g.:
 
 		{kind: "moon.InputDecorator", components: [
 			{kind: "moon.TextArea", onchange: "inputChange"}
@@ -22,7 +22,7 @@ enyo.kind({
 		}
 	},
 	left: function(inEvent) {
-		if (!this.hasNode() || this.node.selectionStart == 0) {
+		if (!this.hasNode() || this.node.selectionStart === 0) {
 			return false;
 		}
 		return true;

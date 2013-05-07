@@ -4,8 +4,9 @@
 	margin-bottom: 33px;
 }
 .moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
-	height: 24px;
-	-webkit-mask-image: -webkit-linear-gradient(right, transparent 20px, white 50px);
+	height: @moon-item-line-height;
+	min-height: (@moon-item-font-size * .78);
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, white 50px);
 	padding: 2px 0px 0px 0px;
 }
 .moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {

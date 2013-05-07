@@ -19,15 +19,15 @@ enyo.kind({
 			{content: 'it_it'},
 			{content: 'es_es'},
 			{content: 'es_mx'},
-			{content: 'es_us'}																																																								
+			{content: 'es_us'}
 		]},	*/
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Calendar", content: "Calendar", classes: "moon-date-picker-wrapper"},		
+		{kind: "moon.Calendar", content: "Calendar", classes: "moon-date-picker-wrapper"},
 		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
-	],
+	]
 /*	changed: function(inSender, inEvent) {
 		if (this.$.date){
-			this.$.date.setContent(inEvent.name + " changed to " + inEvent.value.toTimeString());			
+			this.$.date.setContent(inEvent.name + " changed to " + inEvent.value.toTimeString());
 		}
 	}*/
 });

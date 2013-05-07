@@ -1,7 +1,8 @@
 /**
-	A box that shows or hides a check mark when clicked.
-	The onchange event is fired when it is clicked. Designed to
-	be used with <a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>.
+	_moon.Checkbox_ is a box that, when clicked, shows or hides a checkmark and
+	fires an _onchange_ event. It derives from
+	<a href="#enyo.Checkbox">enyo.Checkbox</a> and is designed to be used with
+	<a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>.
 */
 enyo.kind({
 	name: "moon.Checkbox",
@@ -33,7 +34,7 @@ enyo.kind({
 			} else {
 				this.destroyOverlay(this.$.overlay);
 			}
-			
+
 			this.bubble("onchange");
 		}
 		return !this.disabled;

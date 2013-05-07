@@ -5,7 +5,7 @@ enyo.kind({
 	spotlight: true,
 	published: {
 		value: null,
-		color: 0,
+		color: 0
 	},
 
 	colorChanged: function(inOld) {
@@ -18,7 +18,7 @@ enyo.kind({
 
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
-	},
+	}
 });
 
 enyo.kind({
@@ -59,20 +59,24 @@ enyo.kind({
 			Fires when the date changes.
 
 			_inEvent.name_ contains the name of this control.
-			_inEvent.value_ contains the current Date object (standard JS Date object).
+
+			_inEvent.value_ contains a standard JavaScript Date object representing
+			the current date.
 		*/
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", //*onChange events coming from consituent controls (simplePicker)
+		ontap: "doTap", 
+		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
+		//* Text to be displayed in the _currentValue_ control if no item is
+		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting. Can be set after control
-			creation, in which case the control will be updated to reflect the
+			Current locale used for formatting. May be set after the control is
+			created, in which case the control will be updated to reflect the
 			new value.
 		*/
 		locale: "en_us",
@@ -84,8 +88,8 @@ enyo.kind({
 		value: null,
 		/**
 			The maximum number of weeks to display in a screen.
-			If this value over 9, it may show dates of 2 month later.
-			(it is unexpected input, makes err)
+			If this value is greater than 9, dates two months in the future may be
+			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
 		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
@@ -106,7 +110,7 @@ enyo.kind({
 	//	this.noneTextChanged();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (ie assume it is loaded)
+		//Attempt to use the g11n lib (assuming that it is loaded)
 		if (enyo.g11n) {
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
@@ -118,8 +122,15 @@ enyo.kind({
 		this.valueChanged();
 	},
 	/**
-		Set simplePicker with months
-		The contents will be filled with from JAN to DEC
+		Sets up days of the week from first day to last day.
+		Initially, SUN is the first day and SAT is the last day.
+	*/
+	setupDays: function(inSender, inEvent) {
+		var index = inEvent.index;
+		this.$.day.setContent(this.days[index]);
+	},
+	/**
+		Populates SimplePicker with months of the year, from JAN to DEC.
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
@@ -130,24 +141,25 @@ enyo.kind({
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i]}
-			)
+			);
 		}
 	},
 	/**
-		Set a layout of calendar.
-		The content of it is not prepared at this time.
+		Sets up the layout for a calendar.
+		The content of the calendar is not prepared at this time.
 	*/
 	setupLayout: function() {
 		for (var i = 0; i < this.maxWeeks; i++) {
 			var days = [];
 			this.$.dates.createComponent(
 				{kind: "moon.CalendarWeek", days: days}
-			)
+			);
 		}
 	},
 	/**
-		Set the first week of this month.
-		Before the first day of this month, some days from previous month will fill calendar
+		Sets up the first week of this month.
+		Before the first day of this month, days from the previous month will be
+		used to fill the calendar.
 	*/
 	setupPrevMonth: function() {
 		var value = this.value;
@@ -158,7 +170,7 @@ enyo.kind({
 			dayOfLastDate = dt.getDay(),
 			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
-		if (dayOfLastDate != 0) {
+		if (dayOfLastDate !== 0) {
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
 				this.dateArray.push(new Date(thisYear, prevMonth, i));
 				this.colorArray.push(1);
@@ -166,8 +178,9 @@ enyo.kind({
 		}
 	},
 	/**
-		Set the last week of this month.
-		After the last day of this month, some days from next month will fill calendar
+		Sets up the last week of this month.
+		After the last day of this month, days from the next month will be used to
+		fill the calendar.
 	*/
 	setupNextMonth: function(monthLength) {
 		var value = this.value;
@@ -175,13 +188,12 @@ enyo.kind({
 		dt.setMonth(dt.getMonth() + 1);
 
 		var thisYear = dt.getFullYear(),
-			nextMonth = dt.getMonth(),
-			thisDate = dt.getDate();
+			nextMonth = dt.getMonth();
 		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
 		for (var i = 1; i < offset; i++) {
 			this.dateArray.push(new Date(thisYear, nextMonth, i));
 			this.colorArray.push(1);
-		}		
+		}
 	},
 	setupCalendar: function(ordering) {
 		//* Make empty
@@ -198,7 +210,7 @@ enyo.kind({
 			this.colorArray.push(0);
 		}
 
-		this.setupNextMonth(monthLength);		
+		this.setupNextMonth(monthLength);
 	},
 	fillDate: function() {
 		var calendarWeeks =this.$.dates.getControls();
@@ -215,7 +227,7 @@ enyo.kind({
 	parseDate: function(ordering) {
 	},
 	/**
-		When value of DatePicker is changed, it will update Calendar
+		Updates calendar when value of DatePicker changes. 
 	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -235,12 +247,12 @@ enyo.kind({
 		}
 		return true;
 	},
+	// Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {
-		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	/**
-		Change value of simplePicker with selected CalendarDate.
+		Updates DatePicker to reflect the selected CalendarDate.
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
