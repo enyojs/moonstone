@@ -36,7 +36,7 @@ enyo.kind({
     //* @protected
     classes: "category",
     components: [
-        {name: "title", kind: "moon.Item", spotlight: true, classes: "category-name"},
+        {name: "title", kind: "moon.Item", classes: "category-name"},
         {name: "items", kind: "Repeater", onSetupItem: "setupItem", count: 3,  components: [
             {name: "item", spotlight: true, classes: "item", components: [
                 {name: "itemText", classes: "item-text"}
