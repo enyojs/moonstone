@@ -1,6 +1,6 @@
 enyo.kind({
-    name: "moon.sample.photos.AlbumPhotoGridSampleExtend",
-    kind: "moon.sample.photos.AlbumPhotoGridSample",
+    name: "moon.sample.photos.PhotoGridSampleExtend",
+    kind: "moon.sample.photos.PhotoGridSample",
     handlers: {
         ontap: "tapHandler"
     },
@@ -24,14 +24,14 @@ enyo.kind({
 });
 
 enyo.kind({
-    name: "moon.sample.photo.ActivityPhotoAlbumFlowSample",
+    name: "moon.sample.photos.ActivityPhotoAlbumFlowSample",
     style: "background: #eaeaea;",
     classes: "moon enyo-fit",
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", arrangerKind: "moon.LeanForwardArranger", onTransitionFinish: "panelsTransitionFinish", classes: "enyo-fit", components: [
             {kind: "moon.sample.photos.AlbumListWideSample", ontap: "albumListTapped"},
-            {kind: "moon.sample.photos.AlbumPhotoGridSampleExtend", onSelect: "photoGridTapped"}
+            {kind: "moon.sample.photos.PhotoGridSampleExtend", onSelect: "photoGridTapped"}
         ]}
     ],
     
