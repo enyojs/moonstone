@@ -42,10 +42,10 @@ enyo.kind({
                     {content: "Dance", classes: "moon-album-label-value"},
                 ]}
             ]},
-            {kind: enyo.FittableRows, classes: "moon-music-album-detail-wide-right", components: [
+            {kind: enyo.FittableRows, fit: true, classes: "moon-music-album-detail-wide-right", components: [
                 {kind: "moon.Divider", name: "tracklistheader", classes: "moon-music-detail-divider", content: "11 TRACKS"},
-                {kind: moon.List, name: "tracklist", spotlight: "container", fit:true, orient:"v", count: 10, onSetupItem: "setupItem", classes: "moon-music-detail-wide-tracklist", components: [
-                    {name: "item", components: [
+                {kind: moon.List, name: "tracklist", spotlight: true, fit:true, orient:"v", count: 10, onSetupItem: "setupItem", classes: "moon-music-detail-wide-tracklist", components: [
+                    {name: "item", classes: "moon-music-detail-wide-tracklist-item", components: [
                         {name: "tracknum", classes: "moon-music-detail-wide-tracklist-tracknum enyo-inline "},
                         {name: "trackname", classes: "moon-music-detail-wide-tracklist-trackname enyo-inline "},
                         {name: "artistname", classes: "moon-music-detail-wide-tracklist-artistname enyo-inline "},
@@ -56,12 +56,13 @@ enyo.kind({
         ]}
     ],
     setupItem: function(inSender, inEvent) {
-        var i = inEvent.index + 1;
-        var ni = ("0" + i).slice(-2);
+        var i = inEvent.index;
+        var ni = ("0" + (i+1)).slice(-2);
         this.$.tracknum.setContent(ni); 
         this.$.trackname.setContent("track name"); 
         this.$.artistname.setContent("artist name");
         this.$.runningtime.setContent("3:40");
+        this.$.item.addRemoveClass("moon-music-detail-list-selected", inSender.isSelected(i));
     },
     create: function() {
         this.inherited(arguments);
