@@ -1,35 +1,5 @@
-.background-full-image {
-    background: url(assets/the-lorax-pic08.jpg) no-repeat; 
-    background-size: cover;
-}
-.left-panel {
-    width: 15%;
-    height: 100%;
-    display: inline-block;
-    vertical-align: top;
-    background-color: #EEEEEE;
-}
-.left-panel-content {
-    float: right;
-    padding: 10px;
-    padding-top: 55px;
-    font-weight: bold;
-    color: #4b4b4b;
-}
-.left-panel-number {
-    font-size: 0.7em;
-}
-.left-panel-title {
-    font-size: 0.4em;
-}
-.right-panel {
-    display: inline-block;
-    vertical-align: top;
-    padding-left: 50px;
-    padding-right: 50px;
-    width: 85%;
-    /*background:rgba(0,0,0,0.4);*/
-    background-color: #EEEEEE;
+.moon-sample-search-RecentSearchFullSample {
+    background-color: #EAEAEA;
     height: 100%;
 }
 .moon-header {

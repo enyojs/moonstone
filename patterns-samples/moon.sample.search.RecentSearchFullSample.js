@@ -1,41 +1,26 @@
 enyo.kind({
     //* @public
     name: "moon.sample.search.RecentSearchFullSample",
-    kind: "FittableRows",
+    kind: "moon.Panel",
     //* @protected
     fit: true,
-    classes: "moon enyo-unselectable" /* + "background-full-image" */, 
+    titleAbove: "02",
+    title: "Search",
+    classes: "moon enyo-unselectable moon-sample-search-RecentSearchFullSample", 
+    headerComponents: [
+        {kind: "moon.IconButton", classes: "moon-header-delete-button", src: "assets/trash-can-icon.png"}
+    ],
     components: [
         {kind: "enyo.Spotlight"},
-        {classes: "left-panel", components: [
-            {classes: "left-panel-content", components: [
-                {content: "01", classes: "left-panel-number"},
-                {content: "MAIN MENU", classes: "left-panel-title"}
-            ]}
+        {kind: "FittableColumns", classes: "moon-header-search", style: "width: 100%;", components: [
+            {classes: "moon-header-search-left"},
+            {kind: "moon.InputDecorator", fit: true, style: "", components: [
+                {kind: "moon.Input", placeholder: "Search term", onchange: "inputChanged"},
+                {kind: "Image", src: "../samples/assets/search-input-search.png"}
+            ]},
+            {classes: "moon-header-search-right"},
         ]},
-        {classes: "right-panel", components: [
-             {
-                name: "",
-                kind: "moon.Panel",
-                titleAbove: "02",
-                title: "Search",
-                classes: "moon-sample-search-RecentSearchFullSample",
-                headerComponents: [
-                    {kind: "moon.IconButton", classes: "moon-header-delete-button", src: "assets/trash-can-icon.png"}
-                ],
-                components: [
-                    {kind: "FittableColumns", classes: "moon-header-search", style: "width: 100%;", components: [
-                        {classes: "moon-header-search-left"},
-                        {kind: "moon.InputDecorator", fit: true, style: "", components: [
-                            {kind: "moon.Input", placeholder: "Search term", onchange: "inputChanged"},
-                            {kind: "Image", src: "../samples/assets/search-input-search.png"}
-                        ]},
-                        {classes: "moon-header-search-right"},
-                    ]},
-                    {name: "container", classes: 'body-container'},
-                ]         
-            }
-        ]}
+        {name: "container", classes: 'body-container'},
     ],
 
     initComponents: function() {
