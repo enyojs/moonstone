@@ -10,10 +10,10 @@
 			var checked = inSender.get("checked");
 		}
 
-	By placing instances of _moon.LabeledCheckbox_ inside an
-	<a href="#enyo.Group">enyo.Group</a>, you may create a group of checkboxes in
-	which only one checkbox may be chosen at a time (similar to the behavior of a
-	radio button group).
+	You may place _moon.LabeledCheckbox_ objects inside an
+	<a href="#enyo.Group">enyo.Group</a> to create a group of checkboxes in which
+	only one checkbox may be chosen at a time (similar to how a radio button group
+	behaves):
 
 		{kind: "Group", components: [
 			{kind: "moon.LabeledCheckbox", content: "New York"},

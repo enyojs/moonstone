@@ -2,7 +2,7 @@
 	_moon.Icon_ is a control that displays an icon image. Specify the image by
 	setting the _src_ property to a URL indicating the image file's location.
 
-	In Moonraker, icons have a size of 32x32 pixels. Since the icon image is
+	In Moonstone, icons have a size of 32x32 pixels. Since the icon image is
 	applied as a CSS background, the height and width of an icon must be set if an
 	image of a different size is used.
 

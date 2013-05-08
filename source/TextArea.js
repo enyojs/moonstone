@@ -1,5 +1,5 @@
 /**
-	_moon.TextArea_ is a Moonraker-styled TextArea control, derived from
+	_moon.TextArea_ is a Moonstone-styled TextArea control, derived from
 	<a href="#enyo.TextArea">enyo.TextArea</a>. Typically, a _moon.TextArea_ is
 	placed inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
 	provides styling, e.g.:

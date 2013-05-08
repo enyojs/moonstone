@@ -1,15 +1,13 @@
 enyo.kind({
 	name: "moon.CalendarDate",
 	kind: "enyo.Button",
-	classes: "moon-calendar-date",
+	classes: "moon-calendar-date enyo-unselectable",
 	spotlight: true,
-	events: {
-		ontap: ""
-	},
 	published: {
 		value: null,
 		color: 0
 	},
+
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-date-shadow");
@@ -17,6 +15,7 @@ enyo.kind({
 			this.removeClass("moon-calendar-date-shadow");
 		}
 	},
+
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
 	}
@@ -24,38 +23,31 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.CalendarWeek",
-	published: {
-		days: [],
-		colors: []
+	classes: "moon-calendar-week",
+	days: [],
+	colors: [],
+
+	create: function() {
+		this.inherited(arguments);
+		this.setupLayout();
 	},
-	handlers: {
-		ontap: "doTap"
-	},
-	components: [
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
-			{name: "item", kind: "moon.CalendarDate"}
-		]}
-	],
-	/**
-		Usually when we select same item, setupItem() is not called
-		because setupItem() is called when changing selection is occured in repeater.
-	*/
-	doTap: function(inSender, inEvent) {
-		if (this.$.repeater.isSelected(inEvent.index)) {
-			this.setupItem(inSender, inEvent);
+
+	setupLayout: function() {
+		for (var i = 0; i < 7; i++) {		
+			this.createComponent({kind: "moon.CalendarDate"});
 		}
 	},
-	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		var value = this.days[index],
-			color = this.colors[index];
-		this.$.item.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
-		this.$.item.setColor(color);
-	},
+
 	fillDate: function(days, colors) {
 		this.days = days;
 		this.colors = colors;
-		this.$.repeater.setCount(7);
+
+		for (var i = 0; i < this.days.length; i++) {
+			var value = this.days[i],
+				color = this.colors[i];
+			this.controls[i].setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+			this.controls[i].setColor(color);
+		}
 	}
 });
 
@@ -67,20 +59,24 @@ enyo.kind({
 			Fires when the date changes.
 
 			_inEvent.name_ contains the name of this control.
-			_inEvent.value_ contains the current Date object (standard JS Date object).
+
+			_inEvent.value_ contains a standard JavaScript Date object representing
+			the current date.
 		*/
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", //*onChange events coming from consituent controls (hour)
+		ontap: "doTap", 
+		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is currently selected.
+		//* Text to be displayed in the _currentValue_ control if no item is
+		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting. Can be set after control
-			creation, in which case the control will be updated to reflect the
+			Current locale used for formatting. May be set after the control is
+			created, in which case the control will be updated to reflect the
 			new value.
 		*/
 		locale: "en_us",
@@ -92,22 +88,18 @@ enyo.kind({
 		value: null,
 		/**
 			The maximum number of weeks to display in a screen.
-			If this value over 9, it may show dates of 2 month later.
-			(it is unexpected input, makes err)
+			If this value is greater than 9, dates two months in the future may be
+			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
 		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+		//days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: [],
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker"},
-		//{kind: 'enyo.Spotlight'},
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
-			{name: "day", classes: "moon-calendar-date"}
-		]},
-		{name: "dates"}
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-simplepicmoon-calendar-block"},
+		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-dates"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -118,19 +110,19 @@ enyo.kind({
 	//	this.noneTextChanged();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (ie assume it is loaded)
+		//Attempt to use the g11n lib (assuming that it is loaded)
 		if (enyo.g11n) {
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
 		this.value = this.value || new Date();
 		this.setupSimplePicker();
+		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
 		this.setupLayout();
-//		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
 	/**
-		Set days from the first day to the last day.
+		Sets up days of the week from first day to last day.
 		Initially, SUN is the first day and SAT is the last day.
 	*/
 	setupDays: function(inSender, inEvent) {
@@ -138,11 +130,14 @@ enyo.kind({
 		this.$.day.setContent(this.days[index]);
 	},
 	/**
-		Set simplePicker with months
-		The contents will be filled with from JAN to DEC
+		Populates SimplePicker with months of the year, from JAN to DEC.
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
+		/*Todo: Follwing statement violates encapsulation -david.um */
+		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
+		this.$.simplePicker.$.client.addClass("picker-content");
+		this.$.simplePicker.$.buttonRight.addClass("picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i]}
@@ -150,8 +145,8 @@ enyo.kind({
 		}
 	},
 	/**
-		Set a layout of calendar.
-		The content of it is not prepared at this time.
+		Sets up the layout for a calendar.
+		The content of the calendar is not prepared at this time.
 	*/
 	setupLayout: function() {
 		for (var i = 0; i < this.maxWeeks; i++) {
@@ -162,8 +157,9 @@ enyo.kind({
 		}
 	},
 	/**
-		Set the first week of this month.
-		Before the first day of this month, some days from previous month will fill calendar
+		Sets up the first week of this month.
+		Before the first day of this month, days from the previous month will be
+		used to fill the calendar.
 	*/
 	setupPrevMonth: function() {
 		var value = this.value;
@@ -175,7 +171,6 @@ enyo.kind({
 			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
 		if (dayOfLastDate !== 0) {
-			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
 				this.dateArray.push(new Date(thisYear, prevMonth, i));
 				this.colorArray.push(1);
@@ -183,8 +178,9 @@ enyo.kind({
 		}
 	},
 	/**
-		Set the last week of this month.
-		After the last day of this month, some days from next month will fill calendar
+		Sets up the last week of this month.
+		After the last day of this month, days from the next month will be used to
+		fill the calendar.
 	*/
 	setupNextMonth: function(monthLength) {
 		var value = this.value;
@@ -231,7 +227,7 @@ enyo.kind({
 	parseDate: function(ordering) {
 	},
 	/**
-		When value of DatePicker is changed, it will update Calendar
+		Updates calendar when value of DatePicker changes. 
 	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -251,20 +247,28 @@ enyo.kind({
 		}
 		return true;
 	},
+	// Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {
-		// determine number of days in a particular month/year
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	/**
-		Change value of DatePicker with selected CalendarDate.
+		Updates DatePicker to reflect the selected CalendarDate.
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
-			var value = inEvent.originator.value;
-			this.$.simplePicker.setValue(new Date(value.getFullYear(),
-						value.getMonth(),
-						value.getDate()));
-		}
+			var newValue = inEvent.originator.value,
+				oldValue = this.getValue();
+			
+			if (newValue.getFullYear() > oldValue.getFullYear()) {
+				this.$.simplePicker.setSelectedIndex(0);
+			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
+				this.$.simplePicker.setSelectedIndex(11);
+			} else if (newValue.getMonth() > oldValue.getMonth()) {
+				this.$.simplePicker.next();
+			} else if (newValue.getMonth() < oldValue.getMonth()) {
+				this.$.simplePicker.previous();
+			}								
+		} 
 		return true;
 	},
 	valueChanged: function(inOld) {

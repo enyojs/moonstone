@@ -1,5 +1,5 @@
 /**
-	_moon.RichText_ is a Moonraker-styled RichText control, derived from
+	_moon.RichText_ is a Moonstone-styled RichText control, derived from
 	<a href="#enyo.RichText">enyo.RichText</a>. Typically, a _moon.RichText_ is
 	placed inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
 	provides styling, e.g.:

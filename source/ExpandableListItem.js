@@ -46,7 +46,7 @@ enyo.kind({
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group"}
 		]},
-		{name: "bottom", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
+		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
 	//* Used to prevent events from firing during initialization
 	isRendered: false,

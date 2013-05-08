@@ -1,5 +1,5 @@
 /**
-	_moon.Button_ is an <a href="#enyo.Button">enyo.Button</a> with Moonraker
+	_moon.Button_ is an <a href="#enyo.Button">enyo.Button</a> with Moonstone
 	styling applied. The color of the button may be customized by specifying a
 	background color.
 
