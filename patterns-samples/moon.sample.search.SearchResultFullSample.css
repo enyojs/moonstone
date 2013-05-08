@@ -1,0 +1,117 @@
+.background-full-image {
+    background: url(assets/the-lorax-pic08.jpg) no-repeat; 
+    background-size: cover;
+}
+.left-panel {
+    width: 15%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #EEEEEE;
+}
+.left-panel-content {
+    float: right;
+    padding: 10px;
+    padding-top: 55px;
+    font-weight: bold;
+    color: #4b4b4b;
+}
+.left-panel-number {
+    font-size: 0.7em;
+}
+.left-panel-title {
+    font-size: 0.4em;
+}
+.right-panel {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 85%;
+    /*background:rgba(0,0,0,0.4);*/
+    background-color: #EEEEEE;
+    height: 100%;
+}
+.moon-header {
+	height: 96px;
+    margin-bottom: 49px;
+}
+.moon-header .moon-header-title-above {
+    font-size: 0.7em;
+    font-weight: bold;
+    line-height: 0.7em;
+    padding: 0px;
+    margin: 54px 0px 7px 1px;
+    width: 30px;
+    border-bottom: 0px solid #4b4b4b;
+}
+.moon-header .moon-header-title {
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 36px;
+    text-transform: uppercase;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 6px 0px;
+}
+.moon-header .moon-header-title-below {
+    font-size: 0px;
+    font-weight: normal;	
+    line-height: 0px;
+    min-height: 0px;
+    padding: 0px 0px 0px 0px;
+    margin: 18px;
+}
+.moon-header-search {
+    position: absolute;
+    top: -145px;
+}
+.moon-header-search-left {
+    width: 210px;
+}
+.moon-header-search-right {
+    width: 219px;
+}
+.moon-header-delete-button {
+    margin: 0px 0px 10px 15px;
+}
+.moon-panel-body {
+    overflow: visible;
+    position: relative;
+}
+.moon-sample-search-devider{
+    margin-bottom: 0px;
+    border: 0px;
+}
+/* grid-list */
+.grid-list {
+    margin-top: 0px;
+    margin-left: -20px;
+    max-height: 511px;
+}
+.grid-list .moon-gridlist-imageitem {
+    margin-top: 0px;
+}
+/* grid-list caption, image */
+.grid-list .moon-gridlist-imageitem .caption {
+    box-sizing: border-box;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: -20px;
+    width: 100%;
+    background-color: #CCCCCC;
+    text-align: left;
+}
+.grid-list .moon-gridlist-imageitem.spotlight {
+  background: #ffb80d !important;
+  padding-left: 0px !important;
+  margin-right: 0px !important;
+}
+.grid-list .moon-gridlist-imageitem.spotlight.selected {
+  background: #ffb80d !important;
+  padding-left: 3px !important;
+  margin-right: 0px !important;
+}
+.grid-list .moon-gridlist-imageitem.spotlight .caption {
+    margin-left: 0px;
+    background-color: #ffb80d;
+}
