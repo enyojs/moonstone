@@ -1,15 +1,13 @@
 enyo.kind({
 	name: "moon.CalendarDate",
 	kind: "enyo.Button",
-	classes: "moon-calendar-date",
+	classes: "moon-calendar-date enyo-unselectable",
 	spotlight: true,
-	events: {
-		ontap: ""
-	},
 	published: {
 		value: null,
 		color: 0
 	},
+
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-date-shadow");
@@ -17,6 +15,7 @@ enyo.kind({
 			this.removeClass("moon-calendar-date-shadow");
 		}
 	},
+
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
 	}
@@ -24,38 +23,31 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.CalendarWeek",
-	published: {
-		days: [],
-		colors: []
+	classes: "moon-calendar-week",
+	days: [],
+	colors: [],
+
+	create: function() {
+		this.inherited(arguments);
+		this.setupLayout();
 	},
-	handlers: {
-		ontap: "doTap"
-	},
-	components: [
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupItem", count: 7, components: [
-			{name: "item", kind: "moon.CalendarDate"}
-		]}
-	],
-	/**
-		Usually, when we select the same item, _setupItem()_ is not called because
-		it is called when the selection change occurs in _repeater_.
-	*/
-	doTap: function(inSender, inEvent) {
-		if (this.$.repeater.isSelected(inEvent.index)) {
-			this.setupItem(inSender, inEvent);
+
+	setupLayout: function() {
+		for (var i = 0; i < 7; i++) {		
+			this.createComponent({kind: "moon.CalendarDate"});
 		}
 	},
-	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		var value = this.days[index],
-			color = this.colors[index];
-		this.$.item.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
-		this.$.item.setColor(color);
-	},
+
 	fillDate: function(days, colors) {
 		this.days = days;
 		this.colors = colors;
-		this.$.repeater.setCount(7);
+
+		for (var i = 0; i < this.days.length; i++) {
+			var value = this.days[i],
+				color = this.colors[i];
+			this.controls[i].setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+			this.controls[i].setColor(color);
+		}
 	}
 });
 
@@ -101,17 +93,13 @@ enyo.kind({
 		*/
 		maxWeeks: 6,
 		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+		//days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: [],
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker"},
-		//{kind: 'enyo.Spotlight'},
-		{name:"repeater", kind: "enyo.FlyweightRepeater", clientClasses: "moon-calendar-week", onSetupItem: "setupDays", count: 7, components: [
-			{name: "day", classes: "moon-calendar-date"}
-		]},
-		{name: "dates"}
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-simplepicmoon-calendar-block"},
+		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-dates"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -129,8 +117,8 @@ enyo.kind({
 
 		this.value = this.value || new Date();
 		this.setupSimplePicker();
+		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
 		this.setupLayout();
-//		this.setupCalendar(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
 		this.valueChanged();
 	},
 	/**
@@ -146,6 +134,10 @@ enyo.kind({
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
+		/*Todo: Follwing statement violates encapsulation -david.um */
+		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
+		this.$.simplePicker.$.client.addClass("picker-content");
+		this.$.simplePicker.$.buttonRight.addClass("picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i]}
@@ -179,7 +171,6 @@ enyo.kind({
 			prevMonth = dt.getMonth();
 		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
 		if (dayOfLastDate !== 0) {
-			//var dateArray = [];
 			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
 				this.dateArray.push(new Date(thisYear, prevMonth, i));
 				this.colorArray.push(1);
@@ -265,11 +256,19 @@ enyo.kind({
 	*/
 	doTap: function(inSender, inEvent) {
 		if (inEvent.originator.kind == "moon.CalendarDate") {
-			var value = inEvent.originator.value;
-			this.$.simplePicker.setValue(new Date(value.getFullYear(),
-						value.getMonth(),
-						value.getDate()));
-		}
+			var newValue = inEvent.originator.value,
+				oldValue = this.getValue();
+			
+			if (newValue.getFullYear() > oldValue.getFullYear()) {
+				this.$.simplePicker.setSelectedIndex(0);
+			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
+				this.$.simplePicker.setSelectedIndex(11);
+			} else if (newValue.getMonth() > oldValue.getMonth()) {
+				this.$.simplePicker.next();
+			} else if (newValue.getMonth() < oldValue.getMonth()) {
+				this.$.simplePicker.previous();
+			}								
+		} 
 		return true;
 	},
 	valueChanged: function(inOld) {
