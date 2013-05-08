@@ -1,0 +1,79 @@
+.slideshow-layered-sample {
+	background-color: gray;
+	padding: 20px;
+}
+
+.moon-photo-slideshow {
+//	color: white;
+	position: absolute;
+	z-index: 10;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+//	bottom: 0;
+//	background:rgba(0,0,0,0.4);
+//	padding: 20px 0px 0px 0px;
+}
+
+.moon-photo-slideshow-image {
+	width:100%;
+	height:100%;
+}
+
+.moon-photo-slideshow-control {
+	color: white;
+	position: absolute;
+	z-index: 20;
+	left: 0px;
+	width: 100%;
+	bottom: 0;
+	background:rgba(0,0,0,0.4);
+	padding: 20px 0px 0px 0px;
+}
+
+.moon-slideshow-control .spotlight .slideshow-control-item {
+	border-bottom:16px solid orange;
+	//border-width: 0px 0px 16px;
+	margin-top: -16px;
+	
+	//	padding: 0px 0px 16px 0px !important;
+//	margin: -16px 0px 0px 0px !important;
+//	background: #ffb80d !important;
+}
+
+.moon-slideshow-control {
+	//height:160px;
+	//height:202px;
+}
+
+.moon-slideshow-control-list {
+	margin: auto;
+}
+
+.slideshow-control-item {
+	margin: 16px 20px 16px 0px;
+
+//	background:rgba(50,50,50, 0.8);
+	//border: 1px solid silver;
+	padding: 0px;
+	font-size: 18px;
+	font-weight: bold;
+//	width:240px;
+//	height:160px;
+	transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+}
+
+.slideshow-control-left {
+	width: 20%;
+	padding: 0px 0px 0px 60px;
+}
+
+.slideshow-control-left > div {
+	margin: 0px 20px 0px 0px;
+}
+
+
