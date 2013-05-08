@@ -149,6 +149,6 @@
 .item-text {
     position:absolute; left: 0px; right: 0px; bottom: 0px; height: 24px; padding-left: 5px; background-color: #CCCCCC;
 }
-.item-text.spotlight {
+.spotlight .item-text {
     background-color: #ffb80d;   
 }

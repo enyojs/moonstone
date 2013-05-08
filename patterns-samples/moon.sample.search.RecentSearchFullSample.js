@@ -81,8 +81,8 @@ enyo.kind({
         if (this.items instanceof Array) {
             for (var item in this.items) {
                 this.createComponent({
-                    classes: 'item', style: "background-image: url(" + (this.items[item])['imageSrc'] + ");", components: [
-                        {content: (this.items[item])['text'], spotlight: true, classes: "item-text"}
+                    classes: 'item', spotlight: true, style: "background-image: url(" + (this.items[item])['imageSrc'] + ");", components: [
+                        {content: (this.items[item])['text'], classes: "item-text"}
                     ]
                 });
             }
