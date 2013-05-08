@@ -20,25 +20,10 @@ enyo.kind({
             ]},
             {classes: "moon-header-search-right"},
         ]},
-        {name: "container", classes: 'body-container'},
+        {name: "container", kind: "Repeater", onSetupItem: "setupItem", count: 6,  classes: "categories", components: [
+            {kind:"moon.sample.search.recent.category"}
+        ]}
     ],
-
-    initComponents: function() {
-        var length = 6;
-        this.inherited(arguments);
-        for (var i=0; i<length; i++) {
-            this.$.container.createComponent({
-                name: "item"+i, kind: "moon.sample.search.recent.category", 
-                categoryName: "RECENT SEARCH", 
-                items: [
-                    {text: "RESULT", imageSrc: './assets/default-movie.png'},
-                    {text: "RESULT", imageSrc: './assets/default-movie.png'},
-                    {text: "RESULT", imageSrc: './assets/default-movie.png'}
-                ],
-                classes: 'search-recent-category'
-            });
-        }
-    }
 
     //* @public
 
@@ -48,30 +33,27 @@ enyo.kind({
 enyo.kind({
     //* @public
     name: "moon.sample.search.recent.category",
-    published: {
-        //* Category title
-        categoryName: "",
-        //* The items of a category
-        items: "",
-    },
     //* @protected
     classes: "category",
     components: [
-        {name: "title", kind: "moon.Item", spotlight: true, classes: 'category-name'},
+        {name: "title", kind: "moon.Item", spotlight: true, classes: "category-name"},
+        {name: "items", kind: "Repeater", onSetupItem: "setupItem", count: 3,  components: [
+            {name: "item", spotlight: true, classes: "item", components: [
+                {name: "itemText", classes: "item-text"}
+            ]}
+        ]}
     ],
 
     initComponents: function() {
         this.inherited(arguments);
-        this.$.title.setContent(this.categoryName);
-        if (this.items instanceof Array) {
-            for (var item in this.items) {
-                this.createComponent({
-                    classes: 'item', spotlight: true, style: "background-image: url(" + (this.items[item])['imageSrc'] + ");", components: [
-                        {content: (this.items[item])['text'], classes: "item-text"}
-                    ]
-                });
-            }
-        }
+        this.$.title.setContent("RECENT SEARCH");
+    },
+
+    setupItem: function(inSender, inEvent) {
+        var item = inEvent.item;
+        item.$.item.applyStyle("background-image", "url('./assets/default-movie.png');");
+        item.$.itemText.setContent("RESULT");
+        return true;
     }
 
     //* @public
