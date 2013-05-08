@@ -2,25 +2,50 @@ enyo.kind({
 	name: "moon.PhotoSlideshow",
 	kind: "enyo.Popup",
 	classes: "moon-photo-slideshow",
-	published: {
-		//sortAction: null,
-	},
 	components: [
-		{name: "photo", kind: "enyo.Image", ontap: "tapHandler", classes: "moon-photo-slideshow-image"},
-		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler"}
+		//{name: "photo", kind: "enyo.Image", ontap: "tapHandler", classes: "moon-photo-slideshow-image"},
+		{name: "photo", ontap: "tapHandler", classes: "moon-photo-slideshow-image"},
+		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler", onChangeSlide: "changeSlideHandler"}
 	],
 	create: function() {
 		this.inherited(arguments);
+		
+		// mockup data
+		this.results = [{width: "500", height: "300", url: "../assets/breaking_bad.png"},
+						{width: "400", height: "400", url: "../assets/south_park.png"},
+						{width: "500", height: "500", url: "../assets/paulie.png"},
+						{width: "300", height: "300", url: "../assets/breaking_bad.png"},
+						{width: "400", height: "200", url: "../assets/south_park.png"},
+						{width: "200", height: "200", url: "../assets/paulie.png"},
+						{width: "500", height: "300", url: "../assets/breaking_bad.png"},
+						{width: "250", height: "400", url: "../assets/south_park.png"},
+						{width: "500", height: "500", url: "../assets/paulie.png"},
+						{width: "300", height: "300", url: "../assets/breaking_bad.png"},
+						{width: "400", height: "200", url: "../assets/south_park.png"},
+						{width: "200", height: "200", url: "../assets/paulie.png"},
+						{width: "300", height: "250", url: "../assets/breaking_bad.png"},
+						{width: "250", height: "200", url: "../assets/south_park.png"},
+						{width: "200", height: "200", url: "../assets/paulie.png"}
+					];
+		this.$.slideControl.results = this.results;
+		this.$.slideControl.setCount(this.results.length);
 	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideControl.toggleMinMax();
 	},
-	requestShow: function(inSender, inEvent) {
-		this.$.photo.setSrc("../assets/the-lorax-pic08.jpg");
+	requestShow: function(inUrl) {
+		// TODO: set inUrl as default image path when path is invalid
+		this.$.photo.setSrc(inUrl);
+		
 		this.inherited(arguments);
 	},
 	closeHandler: function(inSender, inEvent) {
 		this.requestHide();
+		return true;
+	},
+	changeSlideHandler: function(inSender, inEvent) {
+		this.$.photo.setSrc(this.results[inEvent.index].url);
+		return true;
 	}
 });
 
@@ -34,55 +59,65 @@ enyo.kind({
 	min: 0,
 	max: 100,
 	published: {
-		controlHeight: 160	// height of Slideshow control
+		listHeight: 160,	// height (px) of image list item
+		index: 0,			// index number of image item
+		count: 0			// count of image item
 	},
 	events: {
-		onClose:""
+		onClose: "",
+		onChangeSlide: ""
 	},
 	components: [
 		{kind: "enyo.Spotlight"},
-		{content:"Item 1", kind: "enyo.FittableColumns", components: [
-			//{content:"Item 1-1"},
-			{name: "object", classes: "slideshow-control-left", components: [
-				{kind: "moon.IconButton", classes:"slideshow-control-left-button", src: "../assets/trash-can-icon.png", ontap: "closeHandler"},
+		{layoutKind: 'HFlexLayout', components: [
+			{flex: true, classes:"moon-photo-slideshow-control-left-button", components: [
+				{kind: "moon.IconButton", src: "../assets/trash-can-icon.png", ontap: "closeHandler"},
 				{kind: "moon.IconButton", src: "../assets/trash-can-icon.png", ontap: "deleteActivated"},
 				{kind: "moon.IconButton", src: "../assets/trash-can-icon.png", ontap: "deleteActivated"}
 			]},
-
-			{content:"Item 1-2", fit: true},
-			{content:"Item 1-3"}
+			{content:"Item 1-2", classes: "moon-photo-slideshow-control-middle-button", components: [
+				{kind: "moon.IconButton", src: "../assets/trash-can-icon.png", ontap: "prevHandler"},
+				{kind: "moon.IconButton", src: "../assets/trash-can-icon.png", ontap: "playHandler"},
+				{kind: "moon.IconButton", src: "../assets/trash-can-icon.png", ontap: "nextHandler"}
+			]},
+			{flex: true, components: [
+				{kind: "moon.ExpandablePicker", content: "SlideShow Speed", style: "width:240px;", components: [
+					{content: "Normal"},
+					{content: "Orbiter", active: true}
+				]}
+			]}
 		]},
-		{style: "margin: 20px;"},
-
-		{name: "list", kind: "moon.List", orient:"h", count: 10, multiSelect: false, spotlight: true, classes: "moon-slideshow-control-list moon-slideshow-control",
-			onSetupItem: "setupItem", components: [
-				{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "slideshow-control-item"}
+		{name: "list", kind: "moon.List", orient:"h", count: 10, multiSelect: false, spotlight: true, 			onSetupItem: "setupItem", components: [
+				{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item"}
 		]}
 
 	],
 	create: function() {
 		this.inherited(arguments);
 		var wh = enyo.dom.getWindowHeight();
-		var sh = 280;
-		this.setBounds({top: wh - sh, height: sh}, "px");
+		var controlH = 280;
+		this.setBounds({top: wh - controlH, height: controlH}, "px");
 
 		// mockup data
-		this.results = [{width: "500", height: "300", url: "../assets/breaking_bad.png"},
+/*		this.results = [{width: "500", height: "300", url: "../assets/breaking_bad.png"},
 						{width: "400", height: "400", url: "../assets/south_park.png"},
 						{width: "500", height: "500", url: "../assets/paulie.png"},
 						{width: "300", height: "300", url: "../assets/breaking_bad.png"},
 						{width: "400", height: "200", url: "../assets/south_park.png"},
 						{width: "200", height: "200", url: "../assets/paulie.png"},
 						{width: "500", height: "300", url: "../assets/breaking_bad.png"},
-						{width: "400", height: "400", url: "../assets/south_park.png"},
+						{width: "250", height: "400", url: "../assets/south_park.png"},
 						{width: "500", height: "500", url: "../assets/paulie.png"},
 						{width: "300", height: "300", url: "../assets/breaking_bad.png"},
 						{width: "400", height: "200", url: "../assets/south_park.png"},
+						{width: "200", height: "200", url: "../assets/paulie.png"},
+						{width: "300", height: "250", url: "../assets/breaking_bad.png"},
+						{width: "250", height: "200", url: "../assets/south_park.png"},
 						{width: "200", height: "200", url: "../assets/paulie.png"}
 					];
-
-		this.$.list.applyStyle("height", (this.controlHeight + 16 * 2 + 10) + "px");
-		this.$.list.setCount(this.results.length);
+*/
+		this.$.list.applyStyle("height", (this.listHeight + 16 * 2 + 10) + "px");
+		//this.$.list.setCount(this.results.length);
 	},
 	setupItem: function(inSender, inEvent) {
 		// this is the row we're setting up
@@ -91,11 +126,32 @@ enyo.kind({
 		var itemH = this.results[i].height;
 		var w2h = itemW/itemH;
 
-		this.$.item.setAttribute("height", this.controlHeight + "px");
-		this.$.item.setAttribute("width", + w2h * this.controlHeight + "px");
+		this.$.item.setAttribute("height", this.listHeight + "px");
+		this.$.item.setAttribute("width", + w2h * this.listHeight + "px");
 		this.$.item.setSrc(this.results[i].url);
+	},
+	countChanged: function() {
+		this.$.list.setCount(this.count);
 	},
 	closeHandler: function(inSender, inEvent) {
 		this.doClose({});
+		return true;
+	},
+	prevHandler: function(inSender, inEvent) {
+		if (this.index > 0) {
+			this.index--;
+			this.doChangeSlide({index: this.index});
+		}		
+		return true;
+	},
+	playHandler: function(inSender, inEvent) {
+		return true;
+	},
+	nextHandler: function(inSender, inEvent) {
+		if (this.index < (this.results.length-1)) {
+			this.index++;
+			this.doChangeSlide({index: this.index});
+		}	
+		return true;
 	}
 });
