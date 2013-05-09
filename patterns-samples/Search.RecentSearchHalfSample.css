@@ -8,19 +8,13 @@
     height: 200px;
 }
 
-.moon-search-devider {
-    margin: 0px 0px 15px 0px;
-    padding: 25px 40px 11px 40px;
-    height: 50px;
+.moon-search .radio-button {
     font-size: 28px;
+    margin : 20px 10px 0px 0px;
 }
 
-.moon-search-button {
-    margin: 0px 0px 5px 0px;
-}
-
-.moon-search-button-right {
-    margin: 0px 0px 0px 20px;
+.moon-search .icon-button-right {
+    float: right;
 }
 
 .moon-search-recent-list {

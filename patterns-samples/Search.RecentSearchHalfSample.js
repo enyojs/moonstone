@@ -22,15 +22,15 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    layoutKind: "FittableColumnsLayout",
+                    kind: "moon.RadioButtonGroup", 
+                    onActivate: "", 
                     components: [
-                        {kind: "moon.Divider", classes: "moon-search-devider", content: "SUGGESTED SEARCH"},
-                        {kind: "moon.Divider", fit: true, classes: "moon-search-devider", content: "RECENT SEARCHES"},
-                        {kind: "moon.Divider", classes: "moon-search-button", components: [
-                            {kind: "moon.IconButton", src: "assets/icon-round-delete.png", classes: "moon-search-button-right"},
-                        ]},
-                    ]
+                        {classes : "radio-button", content: "SUGGESTED SEARCH"},
+                        {classes : "radio-button", content: "RECENT SEARCHES"},
+                        {kind: "moon.IconButton", src: "assets/icon-round-delete.png", classes: "icon-button-right"}
+                    ],
                 },
+                { kind : "moon.Divider", classes : "divider" },
                 {
                     kind: "moon.List",
                     count: 10,
