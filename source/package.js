@@ -44,5 +44,6 @@ enyo.depends(
 	"SelectableItem.js",
 	"Panel.js",
 	"StyleAnimator.js",
-	"Accordion.js"
+	"Accordion.js",
+	"ScrollStrategy.js"	
 );
