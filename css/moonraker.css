@@ -1681,21 +1681,6 @@ PageControl's use of IconButtons
   bottom: -5px;
   left: -10px;
 }
-/* Put this at the end because we want these to take precedence over others */
-.moon-dark-gray {
-  background-color: #4b4b4b;
-  color: #cccccc;
-}
-.moon-dark-gray * {
-  color: #cccccc;
-}
-.moon-light-gray {
-  background-color: #cccccc;
-  color: #4b4b4b;
-}
-.moon-light-gray * {
-  color: #4b4b4b;
-}
 /* Calendar.css */
 .moon-calendar {
   display: inline-block;
@@ -1734,15 +1719,69 @@ PageControl's use of IconButtons
   padding: 0px;
   margin: 0 2.26% 0 2.26%;
   text-align: center;
-  vertical-align: middle; 
+  vertical-align: middle;
 }
 .moon-calendar-date.spotlight {
   border: 5px solid #ffb80d;
-  background-color: #ffffff;
+  background: #ffb80d;
 }
 .moon-calendar-date.active {
   background-color: #ffb80d;
 }
 .moon-calendar-date-shadow {
   color: #A2A2A2;
+}
+.moon-searchheader {
+  height: 96px;
+  margin-bottom: 49px;
+}
+.moon-searchheader-title-above {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0px;
+  margin: 54px 0px 7px 1px;
+  width: 30px;
+  border-bottom: 0px solid #4b4b4b;
+}
+.moon-searchheader-title {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  text-transform: uppercase;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 6px 0px;
+}
+.moon-searchheader-title-below {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  min-height: 18px;
+  padding: 0px 0px 0px 0px;
+  margin: 18px;
+}
+.moon-searchheader-container {
+  position: absolute;
+  top: 0px;
+}
+.moon-searchheader-search-left {
+  width: 210px;
+}
+.moon-searchheader-search-right {
+  width: 219px;
+}
+/* Put this at the end because we want these to take precedence over others */
+.moon-dark-gray {
+  background-color: #4b4b4b;
+  color: #cccccc;
+}
+.moon-dark-gray * {
+  color: #cccccc;
+}
+.moon-light-gray {
+  background-color: #cccccc;
+  color: #4b4b4b;
+}
+.moon-light-gray * {
+  color: #4b4b4b;
 }
