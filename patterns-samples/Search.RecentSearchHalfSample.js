@@ -8,7 +8,7 @@ enyo.kind({
 
     headerComponents: [
          {kind: "FittableColumns", components: [
-            {kind: "moon.InputDecorator", fit: true, style: "", components: [
+            {kind: "moon.InputDecorator", fit: true, components: [
                 {kind: "moon.Input", placeholder: "Search term", onchange: "inputChanged"},
                 {kind: "Image", src: "../samples/assets/search-input-search.png"}
             ]},
@@ -38,11 +38,12 @@ enyo.kind({
                     onSetupItem: "setupItem",
                     components: [
                         {
+                            name: "item",
                             layoutKind: "FittableColumnsLayout",
                             fit: true,
                             classes: "moon-search-recent-list",
                             components: [
-                                {name: "name"},
+                                {kind: "moon.Item"},
                                 {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
                                 {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
                             ]
@@ -54,6 +55,6 @@ enyo.kind({
     ],
 
     setupItem: function(inSender, inEvent) {
-        this.$.name.setContent("RECENT SEARCH");
+        this.$.item.controls[0].setContent("RECENT SEARCH");
     }
 });
