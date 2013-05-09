@@ -2,52 +2,71 @@
     background: #eaeaea;
 }
 
-.moon-music-detail {
+.moon-music-artist-detail {
     margin: 0px 20px 0px 20px;
 }
 
-.moon-music-detail-header-button {
+.moon-music-artist-detail .header {
     margin: 0px 0px 5px 0px;
 }
 
-.moon-music-detail-header-button-right {
+.moon-music-artist-detail .right-button {
     margin: 0px 0px 0px 20px;
 }
 
-.moon-music-detail-container {
+.moon-music-artist-detail .client {
     margin: 28px 0px 0px 0px;
 }
 
-.moon-music-detail-detail {
+.moon-music-artist-detail .detail {
     width: 28%;
     margin: 0px 20px 0px 0px;
     min-width: 324px;
     max-width: 388px;
 }
 
-.moon-music-detail-preview {
+.moon-music-artist-detail .preview {
     display: table-cell;
     background-image: url(assets/default-music-big.png);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
 
-.moon-music-detail-preview:hover .moon-play-icon {
+.moon-music-artist-detail .preview .play-icon {
+    background-image: url("assets/icon-play-big.png");
+    border: 4px solid transparent;
+    border-radius: 9999px;
+    width: 160px;
+    height: 160px;
+    background-color: #ffffff;
+    visibility: hidden;
+}
+
+.moon-music-artist-detail .preview.spotlight .play-icon:hover {
+    background-color: #ffb80d;
+}
+
+.moon-music-artist-detail .preview.spotlight .play-icon:active {
+    background-color: #ffffff;
+    border: 4px solid #ffb80d;
+}
+
+.moon-music-artist-detail .preview.spotlight .play-icon {
     visibility: visible;
 }
 
-.moon-music-detail-info {
+.moon-music-artist-detail .info {
     margin: 20px 0px 0px 0px;
 }
 
-.moon-music-detail-title {
+.moon-music-artist-detail .title {
     width: 50%;
     color: #4b4b4b;
     font-size: 40px;
     font-weight: bold;
 }
 
-.moon-music-detail-content {
+.moon-music-artist-detail .content {
     width: 50%;
     color: #4b4b4b;
     font-size: 40px;
@@ -55,29 +74,60 @@
     text-transform: none;
 }
 
-.moon-music-detail-bio {
+.moon-music-artist-detail .bio {
     width: 42%;
     margin: 0px 20px 0px 0px;
 }
 
-.moon-music-detail-bio-devider {
+.moon-music-artist-detail .bio .devider {
     margin: 0px 0px 5px 0px;
     font-size: 28px;
 }
 
-.moon-music-detail-bio-content {
+.moon-music-artist-detail .bio .content {
+    width: 100%;
     text-transform: none;
     font-size: 28px;
     color: #4b4b4b;
 }
 
-.moon-music-detail-related-image {
-    width: 100%;
-    height: 126px;
-    background-repeat: no-repeat;
+.moon-music-artist-detail .related {
+    min-width: 378px;
 }
 
-.related-focus {
+.moon-music-artist-detail .related .devider {
+    margin: 0px 0px 10px 0px;
+    font-size: 28px;
+}
+
+.moon-music-artist-detail .related .left-item {
+    width: 33%;
+    height: 126px;
+    background-repeat: no-repeat;
+    background-image: url(assets/default-music.png);
+    background-position: left;
+    text-align: left;
+}
+
+.moon-music-artist-detail .related .center-item {
+    width: 34%;
+    height: 126px;
+    background-repeat: no-repeat;
+    background-image: url(assets/default-music.png);
+    background-position: center;
+    text-align: center;
+}
+
+.moon-music-artist-detail .related .right-item {
+    width: 33%;
+    height: 126px;
+    background-repeat: no-repeat;
+    background-image: url(assets/default-music.png);
+    background-position: right;
+    text-align: right;
+}
+
+.moon-music-artist-detail .related .focus {
     width: 126px;
     height: 126px;
 	transition: all 0.1s linear;
@@ -86,53 +136,65 @@
 	-o-transition: all 0.1s linear;
 }
 
-.moon-music-detail-related-image:hover .related-focus {
+.moon-music-artist-detail .related .left-item.spotlight .focus {
     height: 110px;
     border-bottom:16px solid orange;
 }
 
-.moon-music-detail-related {
-    min-width: 378px;
+.moon-music-artist-detail .related .center-item.spotlight .focus {
+    height: 110px;
+    border-bottom:16px solid orange;
 }
 
-.moon-music-detail-related-devider {
-    margin: 0px 0px 10px 0px;
-    font-size: 28px;
+.moon-music-artist-detail .related .right-item.spotlight .focus {
+    height: 110px;
+    border-bottom:16px solid orange;
 }
 
-.moon-music-detail-top-devider {
+.moon-music-artist-detail .related .second-devider {
     margin: 40px 0px 5px 0px;
     font-size: 28px;
 }
 
-.moon-music-item {
+.moon-music-artist-detail .item {
     margin: 0px 0px 10px 0px;
     width: 100%;
     display: table;
     table-layout: fixed;
 }
 
-.moon-music-item:hover .moon-play-music-icon {
-    visibility: visible;
-}
-
-.moon-music-item-image {
+.moon-music-artist-detail .item .preview {
     width: 126px;
     height: 126px;
     display: table-cell;
     background-repeat: no-repeat;
 }
 
-.moon-music-item-image:hover .moon-play-music-icon {
+.moon-music-artist-detail .item .play-icon {
+    background-image: url("assets/icon-play.png");
+    margin: 14px 0px 0px 14px;
+    border: 4px solid transparent;
+    border-radius: 9999px;
+    width: 90px;
+    height: 90px;
+    visibility: hidden;
+    background-color: #ffffff;
+}
+
+.moon-music-artist-detail .item .preview:hover .play-icon {
     background-color: #ffb80d;
 }
 
-.moon-music-item-image:active .moon-play-music-icon {
+.moon-music-artist-detail .item .preview:active .play-icon {
     background-color: #ffffff;
     border: 4px solid #ffb80d;
 }
 
-.moon-music-item-label {
+.moon-music-artist-detail .spotlight .item .play-icon {
+    visibility: visible;
+}
+
+.moon-music-artist-detail .heading {
     overflow: hidden;
     white-space: nowrap;
     color: #4b4b4b;
@@ -144,37 +206,7 @@
     display: table-cell;
 }
 
-.moon-music-item-label-small {
+.moon-music-artist-detail .small-content {
     font-size: 32px;
     font-weight: normal;
-}
-
-.moon-play-icon {
-    background-image: url("assets/icon-play-big.png");
-    border: 4px solid transparent;
-    border-radius: 9999px;
-    width: 160px;
-    height: 160px;
-    background-color: #ffffff;
-    visibility: hidden;
-}
-
-.moon-play-icon:hover {
-    background-color: #ffb80d;
-}
-
-.moon-play-icon:active {
-    background-color: #ffffff;
-    border: 4px solid #ffb80d;
-}
-
-.moon-play-music-icon {
-    background-image: url("assets/icon-play.png");
-    margin: 14px 0px 0px 14px;
-    border: 4px solid transparent;
-    border-radius: 9999px;
-    width: 90px;
-    height: 90px;
-    visibility: hidden;
-    background-color: #ffffff;
 }
