@@ -32,7 +32,7 @@
     background-repeat: no-repeat;
 }
 
-.moon-music-track-detail .play-icon {
+.moon-music-track-detail .preview .play-icon {
     background-image: url("assets/icon-play-big.png");
     border: 4px solid transparent;
     border-radius: 9999px;
@@ -42,16 +42,16 @@
     visibility: hidden;
 }
 
-.moon-music-track-detail .play-icon:hover {
+.moon-music-track-detail .preview.spotlight .play-icon:hover {
     background-color: #ffb80d;
 }
 
-.moon-music-track-detail .play-icon:active {
+.moon-music-track-detail .preview.spotlight .play-icon:active {
     background-color: #ffffff;
     border: 4px solid #ffb80d;
 }
 
-.moon-music-track-detail .preview:hover .play-icon {
+.moon-music-track-detail .preview.spotlight .play-icon {
     visibility: visible;
 }
 

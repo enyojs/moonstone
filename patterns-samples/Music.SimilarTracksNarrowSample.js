@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-similar-tracks",
     fit: true,
+    spotlight: false,
     title: "Similar Tracks",
     titleAbove: "04",
     titleBelow: "10 Tracks",
@@ -63,7 +64,7 @@ enyo.kind({
     
     resizeHandler: function() {
         var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top;
+        h -= this.$.list.getAbsoluteBounds().top + 20;
         this.$.list.setBounds({height: h});
     },
     

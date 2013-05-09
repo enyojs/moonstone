@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-track-two-column",
     fit: true,
+    spotlight: false,
     title: "Browser Tracks",
     titleAbove: "02",
     titleBelow: "15 Tracks",
@@ -19,68 +20,41 @@ enyo.kind({
             ]
         }
     ],
-    count: 15,
     components: [
         {kind: "enyo.Spotlight"},
         {
             name: "list",
-            kind: "moon.List",
-            style: "height: 300px;",
+            kind: "moon.GridList",
             classes: "list",
-            count: 8,
-            multiSelect: false,
+            fit: true,
+            count: 15,
+            itemWidth: 300,
+			itemHeight: 136,
+			itemSpacing: 0,
+            touch: true,
+            spotlight: true,
             onSetupItem: "setupItem",
             components: [
                 {
-                    name: "item",
+                    name: "gridItem",
                     kind: "enyo.FittableColumns",
-                    classes: "item",
-                    fit: true,
+                    classes: "moon-gridlist-item moon-gridlist-imageitem item",
+                    tag: "span",
                     components: [
                         {
-                            kind: "enyo.FittableColumns",
-                            classes: "column",
-                            fit: true,
+                            name: "preview",
+                            classes: "preview",
+                            components: [{classes: "play-icon"}]
+                        },
+                        {style: "display: table-cell; width: 20px;"},
+                        {
+                            classes: "label",
                             components: [
-                                {
-                                    name: "preview",
-                                    fit: true,
-                                    classes: "preview",
-                                    components: [{classes: "play-icon"}]
-                                },
-                                {style: "display: table-cell; width: 20px;"},
-                                {
-                                    classes: "label",
-                                    components: [
-                                        {name: "track", classes: "content"},
-                                        {name: "artist", classes: "small-content"}
-                                    ]
-                                },
-                                {name: "time", classes: "time"}
+                                {name: "track", classes: "content"},
+                                {name: "artist", classes: "small-content"}
                             ]
                         },
-                        {
-                            kind: "enyo.FittableColumns",
-                            classes: "column",
-                            fit: true,
-                            components: [
-                                {
-                                    name: "preview2",
-                                    fit: true,
-                                    classes: "preview",
-                                    components: [{classes: "play-icon"}]
-                                },
-                                {style: "display: table-cell; width: 20px;"},
-                                {
-                                    classes: "label",
-                                    components: [
-                                        {name: "track2", classes: "content"},
-                                        {name: "artist2", classes: "small-content"}
-                                    ]
-                                },
-                                {name: "time2", classes: "time"}
-                            ]
-                        }
+                        {name: "time", classes: "time"}
                     ]
                 }
             ]
@@ -93,31 +67,16 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top;
-        this.$.list.setBounds({height: h});
+        var w = Math.floor(this.getAbsoluteBounds().width * 0.5);
+        this.$.list.set("itemWidth", Math.floor(this.getAbsoluteBounds().width * 0.5) - 10);
+        this.$.list.render();
     },
     
     setupItem: function(inSender, inEvent) {
-        var index = inEvent.index * 2;
         var url = "assets/default-music.png";
 		this.$.preview.setStyle("background-image: url(" + url + ");");
-		this.$.track.setContent("Track Name");
+		this.$.track.setContent("Track Name" + inEvent.index);
 		this.$.artist.setContent("Artist");
 		this.$.time.setContent("3:40");
-        
-        index++;
-        if (index < this.count) {
-            this.$.preview2.setShowing(true);
-            this.$.preview2.setStyle("background-image: url(" + url + ");");
-    		this.$.track2.setContent("Track Name");
-    		this.$.artist2.setContent("Artist");
-    		this.$.time2.setContent("3:40");
-        } else {
-            this.$.preview2.setShowing(false);
-    		this.$.track2.setContent("");
-    		this.$.artist2.setContent("");
-    		this.$.time2.setContent("");
-        }
 	}
 });

@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-related-video",
     fit: true,
+    spotlight: false,
     title: "Related Videos",
     titleAbove: "04",
     titleBelow: "10 Tracks",
@@ -49,7 +50,7 @@ enyo.kind({
     
     resizeHandler: function() {
         var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top;
+        h -= this.$.list.getAbsoluteBounds().top + 20;
         this.$.list.setBounds({height: h});
     },
     

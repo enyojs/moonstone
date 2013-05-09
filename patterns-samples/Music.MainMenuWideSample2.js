@@ -2,6 +2,7 @@ enyo.kind({
     name: "moon.sample.music.MainMenuWideSample2",
     kind: "moon.Panel",
     fit: true,
+    spotlight: false,
     title: "Main Menu",
     titleAbove: "01",
     classes: "enyo-unselectable moon moon-music-main-menu",

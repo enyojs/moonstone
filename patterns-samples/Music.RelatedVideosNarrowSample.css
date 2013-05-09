@@ -29,7 +29,7 @@
     background-color: #ffffff;
 }
 
-.moon-music-related-video .item:hover .play-icon {
+.moon-music-related-video .spotlight .item .play-icon {
     visibility: visible;
 }
 

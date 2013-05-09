@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-artist-detail",
     fit: true,
+    spotlight: false,
     title: "Artist",
     titleAbove: "04",
     headerComponents: [
@@ -27,6 +28,7 @@ enyo.kind({
                 {
                     name: "music",
                     classes: "preview",
+                    spotlight: true,
                     components: [{name: "play", classes: "play-icon"}]
                 },
                 {
@@ -75,16 +77,16 @@ enyo.kind({
                     components: [
                         {
                             name: "preview",
-                            fit: true,
                             classes: "preview",
-                            components: [{classes: "play-icon"}]
+                            fit: true,
+                            components: [{classes: "play-icon", spotlight: false}]
                         },
                         {style: "display: table-cell; width: 20px;"},
                         {
                             classes: "heading",
                             components: [
-                                {name: "track"},
-                                {name: "time", classes: "small-content"}
+                                {name: "track", spotlight: false},
+                                {name: "time", classes: "small-content", spotlight: false}
                             ]
                         }
                     ]
@@ -111,7 +113,7 @@ enyo.kind({
         this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
         
         d = this.getAbsoluteBounds().height;
-        d -= this.$.list.getAbsoluteBounds().top;
+        d -= this.$.list.getAbsoluteBounds().top + 20;
         this.$.list.setBounds({height: d});
     },
     

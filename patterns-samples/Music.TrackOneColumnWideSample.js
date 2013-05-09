@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-track-one-column",
     fit: true,
+    spotlight: false,
     title: "Browser Tracks",
     titleAbove: "02",
     titleBelow: "15 Tracks",
@@ -37,8 +38,8 @@ enyo.kind({
                     components: [
                         {
                             name: "preview",
-                            fit: true,
                             classes: "preview",
+                            fit: true,
                             components: [{classes: "play-icon"}]
                         },
                         {style: "display: table-cell; width: 20px;"},
@@ -65,9 +66,8 @@ enyo.kind({
     
     resizeHandler: function() {
         var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top;
+        h -= this.$.list.getAbsoluteBounds().top + 20;
         this.$.list.setBounds({height: h});
-    },
     
     setupItem: function(inSender, inEvent) {
         var url = "assets/default-music.png";

@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-track-one-column",
     fit: true,
+    spotlight: false,
     title: "Browser Tracks",
     titleAbove: "02",
     headerComponents: [
@@ -62,7 +63,7 @@ enyo.kind({
     
     resizeHandler: function() {
         var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top;
+        h -= this.$.list.getAbsoluteBounds().top + 20;
         this.$.list.setBounds({height: h});
     },
     

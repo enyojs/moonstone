@@ -26,7 +26,7 @@
     margin: 0px 20px 0px 0px;
 }
 
-.moon-music-artist-detail .play-icon {
+.moon-music-artist-detail .preview .play-icon {
     background-image: url("assets/icon-play-big.png");
     border: 4px solid transparent;
     border-radius: 9999px;
@@ -36,16 +36,16 @@
     visibility: hidden;
 }
 
-.moon-music-artist-detail .play-icon:hover {
+.moon-music-artist-detail .preview.spotlight .play-icon:hover {
     background-color: #ffb80d;
 }
 
-.moon-music-artist-detail .play-icon:active {
+.moon-music-artist-detail .preview.spotlight .play-icon:active {
     background-color: #ffffff;
     border: 4px solid #ffb80d;
 }
 
-.moon-music-artist-detail .preview:hover .play-icon {
+.moon-music-artist-detail .preview.spotlight .play-icon {
     visibility: visible;
 }
 
@@ -121,7 +121,7 @@
     border: 4px solid #ffb80d;
 }
 
-.moon-music-artist-detail .item:hover .play-icon {
+.moon-music-artist-detail .spotlight .item .play-icon {
     visibility: visible;
 }
 

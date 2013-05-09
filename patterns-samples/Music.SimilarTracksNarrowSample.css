@@ -44,7 +44,7 @@
     background-color: #ffffff;
 }
 
-.moon-music-similar-tracks .item:hover .play-icon {
+.moon-music-similar-tracks .spotlight .item .play-icon {
     visibility: visible;
 }
 

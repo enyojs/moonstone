@@ -3,6 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-track-detail",
     fit: true,
+    spotlight: false,
     title: "Track Name",
     titleAbove: "03",
     headerComponents: [
@@ -43,6 +44,7 @@ enyo.kind({
                         {
                             name: "movie",
                             classes: "preview",
+                            spotlight: true,
                             components: [{name: "play", classes: "play-icon"}]
                         },
                         {
