@@ -1,4 +1,6 @@
 .moon-search {
+    float: right;
+    width: 800px;
     margin: 0px 20px 0px 20px;
 }
 

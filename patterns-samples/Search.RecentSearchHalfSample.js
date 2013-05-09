@@ -6,6 +6,15 @@ enyo.kind({
     titleAbove: "02",
     title: "SEARCH",
 
+    headerComponents: [
+         {kind: "FittableColumns", components: [
+            {kind: "moon.InputDecorator", fit: true, style: "", components: [
+                {kind: "moon.Input", placeholder: "Search term", onchange: "inputChanged"},
+                {kind: "Image", src: "../samples/assets/search-input-search.png"}
+            ]},
+        ]}
+    ],
+
     components: [
         {kind: "enyo.Spotlight"},
         {
