@@ -17,7 +17,7 @@ GOTO OK
 
 ECHO Must supply target folder parameter, e.g.:
 ECHO.
-ECHO   deploy.bat ../deploy/lib/moonraker
+ECHO   deploy.bat ../deploy/lib/moonstone
 ECHO.
 GOTO :EOF
 
