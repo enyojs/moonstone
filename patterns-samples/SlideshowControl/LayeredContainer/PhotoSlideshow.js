@@ -6,6 +6,7 @@ enyo.kind({
 		{name: "photo", ontap: "tapHandler", classes: "moon-photo-slideshow-image"},
 		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler", onChangeSlide: "changeSlideHandler"}
 	],
+	moreComponents: [],
 	create: function() {
 		this.inherited(arguments);
 		
@@ -68,12 +69,10 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{layoutKind: 'HFlexLayout', components: [
-			{flex: true, classes:"moon-photo-slideshow-control-left-button", components: [
-				{kind: "moon.IconButton", src: "../assets/fit-icon.png", ontap: "closeHandler"},
-				{kind: "moon.IconButton", src: "../assets/favorite_icon.png", ontap: "deleteActivated"},
-				{kind: "moon.IconButton", src: "../assets/share_icon.png", ontap: "deleteActivated"}
+			{name:"left", flex: true, kind: "FittableColumns", noStretch: true, classes:"moon-photo-slideshow-control-left-button", components: [
+				{kind: "moon.IconButton", src: "../assets/fit-icon.png", ontap: "closeHandler"}
 			]},
-			{content:"Item 1-2", classes: "moon-photo-slideshow-control-middle-button", components: [
+			{classes: "moon-photo-slideshow-control-middle-button", components: [
 				{kind: "moon.IconButton", src: "../assets/icon_previous.png", ontap: "prevHandler"},
 				{kind: "moon.IconButton", src: "../assets/icon_play.png", ontap: "playHandler"},
 				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler"}
@@ -88,10 +87,13 @@ enyo.kind({
 		{name: "list", kind: "moon.List", orient:"h", multiSelect: false, spotlight: true, 			onSetupItem: "setupItem", onSpotlightSelect: "itemSelectHandler",  components: [
 			{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"}
 		]}
-
 	],
 	create: function() {
 		this.inherited(arguments);
+		if (this.container.moreComponents.length > 0) {
+			this.$.left.createComponents(this.container.moreComponents, {owner: this.owner});
+		}
+		
 		var wh = enyo.dom.getWindowHeight();
 		var controlH = 280;
 		this.setBounds({top: wh - controlH, height: controlH}, "px");

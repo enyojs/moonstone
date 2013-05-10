@@ -19,14 +19,38 @@ enyo.kind({
 		this.inherited(arguments);
 		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow"});
 		this.$.slideShow.render();
-		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");// test
+		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");// test. should be removed
 	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");
 	}
-});
+}); 
 
 enyo.kind({
 	name: "moon.sample.slideshow.PhotoSlideshow",
-	kind: "moon.PhotoSlideshow"
+	kind: "moon.PhotoSlideshow",
+	moreComponents: [
+		{name: "favorite", kind: "moon.IconButton", src: "../assets/favorite_icon.png", ontap: "favoriteHandler"},
+		{kind: "moon.sample.slideshow.SharePopup"}
+	],
+	favoriteHandler: function(inSender, inEvent) {
+		enyo.log("Favorite button is clicked");
+		return true;
+	}
+});
+
+enyo.kind({
+	name: "moon.sample.slideshow.SharePopup",
+	kind: "moon.ContextualPopupDecorator",
+	defaultKind: "moon.IconButton",
+	components: [
+		{src: "../assets/share_icon.png", ontap: "shareHandler"},
+		{kind: "moon.ContextualPopup", components: [
+				{content:"Sample component in popup"}
+		]}
+	],
+	shareHandler: function(inSender, inEvent) {
+		enyo.log("ShareTo button is clicked");
+		return true;
+	}
 });

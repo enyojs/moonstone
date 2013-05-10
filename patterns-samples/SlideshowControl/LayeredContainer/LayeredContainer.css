@@ -51,12 +51,13 @@
 }
 
 .moon-photo-slideshow-control-left-button {
-	text-align: right;
+	text-align: center;
 	margin-bottom: 20px;
 }
 
 .moon-photo-slideshow-control-left-button > * {
 	margin-right: 20px;
+	box-sizing: content-box;
 }
 
 .moon-photo-slideshow-control-middle-button {
