@@ -30,6 +30,10 @@ enyo.kind({
 				{content: "Item Three"},
 				{content: "Item Four"}
 			]},
+
+			{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: false, content: "SLIDESHOW SPEED", 
+			classes: "moon-expandable-picker-wrapper", value: 1, min: 1, max: 15, unit: "sec", autoCollapse: true},
+
 			{kind: "moon.ExpandableListItem", disabled: true, content: "This is a disabled list item", components: [
 				{content: "Item Three"},
 				{content: "Item Four"}
