@@ -69,3 +69,22 @@
 	margin: 0px 20px 0px 20px;
 }
 
+
+/* TODO: remove bellowing css class after creating moon.ImageButton */
+.moon-photo-slideshow-control-middle-button .big-icon-button {
+	width: 80px;
+	height: 80px;
+	border-radius: 0px;
+	border: 0px;
+	background: transparent;
+}
+/* TODO: remove bellowing css class after creating moon.ImageButton */
+.moon-photo-slideshow-control-middle-button .big-icon-button.active,
+.moon-photo-slideshow-control-middle-button .big-icon-button.spotlight,
+.moon-photo-slideshow-control-middle-button .big-icon-button.spotlight.pressed,
+.moon-photo-slideshow-control-middle-button .big-icon-button.spotlight:active {
+  background-position: 0 -80px;
+  border: 0px;
+  background-color: transparent;
+}
+

@@ -4,9 +4,10 @@ enyo.kind({
 	classes: "moon-photo-slideshow",
 	components: [
 		{name: "photo", ontap: "tapHandler", classes: "moon-photo-slideshow-image"},
-		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler", onChangeSlide: "changeSlideHandler"}
+		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler", onChangeSlide: "changeSlideHandler", onStartSlideshow: "startSlideshowHandler", onCompleteSlideshow: "completeSlideshowHandler"}
 	],
 	moreComponents: [],
+	results: [],
 	create: function() {
 		this.inherited(arguments);
 		
@@ -46,6 +47,14 @@ enyo.kind({
 	changeSlideHandler: function(inSender, inEvent) {
 		this.$.photo.applyStyle("background-image", "url('" + this.results[inEvent.index].url + "')");
 		return true;
+	},
+	startSlideshowHandler: function(inSender, inEvent) {
+		this.$.slideControl.animateToMax();
+		return true;
+	},
+	completeSlideshowHandler: function(inSender, inEvent) {
+		this.$.slideControl.animateToMin();
+		return true;
 	}
 });
 
@@ -64,7 +73,9 @@ enyo.kind({
 	},
 	events: {
 		onClose: "",
-		onChangeSlide: ""
+		onChangeSlide: "",
+		onStartSlideshow: "",
+		onCompleteSlideshow: ""
 	},
 	components: [
 		{kind: "enyo.Spotlight"},
@@ -73,9 +84,9 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../assets/fit-icon.png", ontap: "closeHandler"}
 			]},
 			{classes: "moon-photo-slideshow-control-middle-button", components: [
-				{kind: "moon.IconButton", src: "../assets/icon_previous.png", ontap: "prevHandler"},
-				{kind: "moon.IconButton", src: "../assets/icon_play.png", ontap: "playHandler"},
-				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler"}
+				{kind: "moon.IconButton", src: "../assets/icon_previous.png", ontap: "prevHandler", classes: "big-icon-button"},
+				{name:"playpause", mode: "pause", kind: "moon.IconButton", src: "../assets/icon_play.png", ontap: "playHandler", classes: "big-icon-button"},
+				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler", classes: "big-icon-button"}
 			]},
 			{flex: true, components: [
 				{kind: "moon.ExpandablePicker", content: "SlideShow Speed", style: "width:240px;", components: [
@@ -115,10 +126,13 @@ enyo.kind({
 		this.$.list.setCount(this.count);
 	},
 	closeHandler: function(inSender, inEvent) {
-		this.doClose({});
+		this.doClose();
 		return true;
 	},
 	prevHandler: function(inSender, inEvent) {
+		this.stopJob("playSlideshow");
+		delete this.indexPause;
+		
 		if (this.index > 0) {
 			this.index--;
 			this.doChangeSlide({index: this.index, direction: "prev"});
@@ -126,9 +140,40 @@ enyo.kind({
 		return true;
 	},
 	playHandler: function(inSender, inEvent) {
+		if (this.$.playpause.mode == "play") {
+			this.$.playpause.mode = "pause";
+			this.$.playpause.setSrc("../assets/icon_play.png");
+			this.stopJob("playSlideshow");
+			this.indexPause = this.index;
+		}
+		else {
+			this.$.playpause.mode = "play";
+			this.$.playpause.setSrc("../assets/icon_pause.png");
+			
+			// Slideshow will start from index[0] image
+			this.index = (this.indexPause) ? this.indexPause : 0;
+			this.doStartSlideshow({index: this.index});
+			this.startJob("playSlideshow", "displaySlideImage", 0);
+		}
 		return true;
 	},
+	displaySlideImage: function() {
+		this.doChangeSlide({index: this.index, direction: "none"});
+		
+		if (this.index < (this.count - 1)) {
+			this.index++;
+			this.startJob("playSlideshow", "displaySlideImage", 1000);
+		}
+		else {
+			this.$.playpause.mode = "pause";
+			this.$.playpause.setSrc("../assets/icon_play.png");
+			this.doCompleteSlideshow({index: this.index});
+		}
+	},
 	nextHandler: function(inSender, inEvent) {
+		this.stopJob("playSlideshow");
+		delete this.indexPause;
+		
 		if (this.index < (this.results.length-1)) {
 			this.index++;
 			this.doChangeSlide({index: this.index, direction: "next"});
@@ -136,6 +181,9 @@ enyo.kind({
 		return true;
 	},
 	itemSelectHandler: function(inSender, inEvent) {
+		this.stopJob("playSlideshow");
+		delete this.indexPause;
+		
 		if (typeof inSender._nCurrentSpotlightItem != 'undefined') {
 			this.index = inSender._nCurrentSpotlightItem;
 		}

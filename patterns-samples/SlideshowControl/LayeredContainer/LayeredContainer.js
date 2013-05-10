@@ -19,7 +19,10 @@ enyo.kind({
 		this.inherited(arguments);
 		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow"});
 		this.$.slideShow.render();
-		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");// test. should be removed
+		
+		// test. should be removed
+		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");
+		// end
 	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");
