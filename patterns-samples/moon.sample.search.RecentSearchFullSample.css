@@ -77,3 +77,36 @@
 .spotlight > .item-text {
     background-color: #ffb80d;   
 }
+/* grid-list */
+.grid-list {
+    margin-top: 0px;
+    margin-left: -20px;
+    max-height: 511px;
+}
+.grid-list .moon-gridlist-imageitem {
+    margin-top: 0px;
+}
+/* grid-list caption, image */
+.grid-list .moon-gridlist-imageitem .caption {
+    box-sizing: border-box;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: -20px;
+    width: 100%;
+    background-color: #CCCCCC;
+    text-align: left;
+}
+.grid-list .moon-gridlist-imageitem.spotlight {
+  background: #ffb80d !important;
+  padding-left: 0px !important;
+  margin-right: 0px !important;
+}
+.grid-list .moon-gridlist-imageitem.spotlight.selected {
+  background: #ffb80d !important;
+  padding-left: 3px !important;
+  margin-right: 0px !important;
+}
+.grid-list .moon-gridlist-imageitem.spotlight .caption {
+    margin-left: 0px;
+    background-color: #ffb80d;
+}

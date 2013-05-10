@@ -2,6 +2,9 @@ enyo.kind({
     //* @public
     name: "moon.sample.search.RecentSearchFullSample",
     kind: "moon.SearchPanel",
+    handlers: {
+        "onSearch": "search"
+    },
     //* @protected
     fit: true,
     titleAbove: "02",
@@ -13,14 +16,47 @@ enyo.kind({
     ],
     components: [
         {kind: "enyo.Spotlight"},
-        {name: "container", kind: "Repeater", onSetupItem: "setupItem", count: 6, classes: "categories", components: [
-            {kind:"moon.sample.search.recent.category"}
+        {name: "recentResult", kind: "Repeater", count: 6, classes: "categories", components: [
+            {kind: "moon.sample.search.recent.category"}
+        ]},
+        {name: "searchResult", components: [
+            {
+                name: "gridlist", kind: "moon.GridList",
+                onSetupItem: "setupGridItem",
+                fit: true, count: 0, toggleSelected: true,
+                itemWidth: 200, itemHeight: 130, itemSpacing: 20,
+                classes: "grid-list", 
+                components: [
+                    {name: "gridItem", kind: "moon.GridList.ImageItem"}
+                ]
+            }
         ]}
     ],
+    setupGridItem: function(inSender, inEvent) {
+        var i = inEvent.index;
+
+        this.$.gridItem.setSource("assets/default-movie.png");
+        this.$.gridItem.setCaption("RESULT");
+        this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
+
+        return true;
+    },
 
     //* @public
 
-    // Do something
+    search: function(inSender, inEvent) {
+        // console.log("[moon.SearchPanel] onSearch Event - search keyword : " + inEvent.keyword);
+
+        if(inEvent.keyword != "") {
+            this.$.recentResult.setShowing(false);
+            this.$.gridlist.setCount(20);
+            this.$.gridlist.resized();
+        } else {
+            this.$.recentResult.setShowing(true);
+            this.$.gridlist.setCount(0);
+            this.$.gridlist.resized();
+        }
+    }
 });
 
 enyo.kind({
