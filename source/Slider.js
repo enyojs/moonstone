@@ -78,7 +78,6 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.knobLeft = this.hasNode().getBoundingClientRect().left;
 		this.drawToCanvas(this.popupColor);
 		this.adjustPopupPosition();
 	},
@@ -183,8 +182,7 @@ enyo.kind({
 		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
 	},
 	calcKnobPosition: function(inEvent) {
-		//var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
-		var x = inEvent.clientX - this.knobLeft;
+		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
 		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
 	},
 	adjustPopupPosition: function() {
