@@ -36,6 +36,8 @@
 /* ---------------------------------------*/
 /* IntegerScrollPicker */
 /* ---------------------------------------*/
+/* Grid Dimensions */
+/* ---------------------------------------*/
 /* Moonraker rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -87,6 +89,91 @@
   font-weight: normal;
   font-style: normal;
 }
+/* Import grid classes/mixins */
+/* ------- Horizontal Dimensioning (columns) ------- */
+.moon-1h {
+  width: 70px;
+}
+.moon-2h {
+  width: 150px;
+}
+.moon-3h {
+  width: 230px;
+}
+.moon-4h {
+  width: 310px;
+}
+.moon-5h {
+  width: 390px;
+}
+.moon-6h {
+  width: 470px;
+}
+.moon-7h {
+  width: 550px;
+}
+.moon-8h {
+  width: 630px;
+}
+.moon-9h {
+  width: 710px;
+}
+.moon-10h {
+  width: 790px;
+}
+.moon-11h {
+  width: 870px;
+}
+.moon-12h {
+  width: 950px;
+}
+.moon-13h {
+  width: 1030px;
+}
+.moon-14h {
+  width: 1110px;
+}
+.moon-15h {
+  width: 1190px;
+}
+.moon-16h {
+  width: 1270px;
+}
+.moon-17h {
+  width: 1350px;
+}
+.moon-18h {
+  width: 1430px;
+}
+.moon-19h {
+  width: 1510px;
+}
+.moon-20h {
+  width: 1590px;
+}
+/* ------- Vertical Dimensioning (columns) ------- */
+.moon-1v {
+  width: 170px;
+}
+.moon-2v {
+  width: 350px;
+}
+.moon-3v {
+  width: 530px;
+}
+.moon-4v {
+  width: 710px;
+}
+.moon-5v {
+  width: 890px;
+}
+.moon-6v {
+  width: 1070px;
+}
+.moon-7v {
+  width: 1250px;
+}
+/* Common classes applicable to multiple controls */
 .moon {
   font-family: "Miso";
   font-size: 40px;
@@ -1772,6 +1859,12 @@ PageControl's use of IconButtons
 .moon-table-cell {
   padding-right: 2em;
   white-space: nowrap;
+}
+.moon.enyo-fittable-rows-layout > *,
+.moon .enyo-fittable-rows-layout > *,
+.moon.enyo-fittable-columns-layout > *,
+.moon .enyo-fittable-columns-layout > * {
+  margin: 5px 5px 5px 5px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
