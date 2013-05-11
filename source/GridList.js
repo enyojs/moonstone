@@ -1,6 +1,6 @@
 /**
 	_moon.GridList_ extends <a href="#enyo.GridList">enyo.GridList</a>, adding
-	Moonraker-specific configuration, styling, decorators, and Spotlight/focus-state
+	Moonstone-specific configuration, styling, decorators, and Spotlight/focus-state
 	management.
 
 		enyo.kind({

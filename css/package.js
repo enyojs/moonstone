@@ -1,3 +1,3 @@
 enyo.depends(
-	"moonraker.less"
+	"moonstone.less"
 );

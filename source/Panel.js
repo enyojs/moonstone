@@ -1,3 +1,4 @@
+//* @public
 /**
 	_moon.Panel_ is the default kind for controls created inside a
 	<a href="#moon.Panels">moon.Panels</a> container.  Typically, a _moon.Panels_
@@ -8,9 +9,7 @@
 */
 
 enyo.kind({
-	//* @public
 	name : "moon.Panel",
-	kind: "FittableRows",
 	published: {
 		//* Facade for the header's _title_ property
 		title: "",
@@ -28,13 +27,16 @@ enyo.kind({
 		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
 	},
+	
 	//* @protected
+	
 	spotlight: "container",
 	fit : true,
 	classes: "moon-panel",
+	layoutKind: "FittableRowsLayout",
 	panelTools : [
 		{name: "header", kind: "moon.Header"},
-		{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"},
+		{name: "panelBody", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerComponents: [],
@@ -56,6 +58,12 @@ enyo.kind({
 	},
 	createTools: function() {
 		this.createComponents(this.panelTools);
+	},
+	//* Force layout kind changes to apply to _this.$.panelBody_
+	layoutKindChanged: function() {
+		this.$.panelBody.setLayoutKind(this.getLayoutKind());
+		this.layoutKind = "FittableRowsLayout";
+		this.inherited(arguments);
 	},
 	
 	//* @public
