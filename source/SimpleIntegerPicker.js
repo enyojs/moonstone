@@ -51,10 +51,11 @@ enyo.kind({
 			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: "",
-		onSelect: "" // Fixme: duplicated with activated
+		onSelect: "" 
 	},
 	handlers: {
 		onTransitionStart: "transitionStart",
+		onTransitionFinish:"transitionFinished",
 		onSpotlightSelect: "fireSelectEvent",
 		onSpotlightRight: "next",
 		onSpotlightBlur: "spotlightBlur",
@@ -65,15 +66,11 @@ enyo.kind({
 		onSpotlightScrollRight: "next"
 	},	
 	published: {
-		// //* Reference to currently selected item, if any
-		// selected:"",
-		// //* Index of currently selected item, if any
-		// selectedIndex:null,
 		//* When true, picker transitions animate left/right
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
-		content: "",
+		content: "sec",
 		value: -1,
 		min: 1,
 		max: 9,
@@ -92,7 +89,7 @@ enyo.kind({
 			{classes:"moon-scroll-picker-overlay-right-border"}
 		]},	
 		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:"<", ontap:"previous", name:"buttonLeft"},
-		{kind:"enyo.Panels", classes:"moon-simple-integer-picker-client", controlClasses:"moon-simple-integer-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished", onSelect: "fireSelectEvent"},
+		{kind:"enyo.Panels", classes:"moon-simple-integer-picker-client", controlClasses:"moon-simple-integer-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client"},
 		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:">", ontap:"next", name:"buttonRight"}
 	],
 	create: function() {
@@ -105,10 +102,6 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this._rendered = true;
-		setInterval(enyo.bind(this, function() {
-			this.$.client.layout.size();
-			this.log("bam");
-		}), 1000);
 	},
 	populate: function() {
 		for(var i=this.min; i<=this.max; i=i+this.step) {
@@ -151,18 +144,16 @@ enyo.kind({
 
 		// Make sure selected item is in sync after Panels reflow, which may have
 		// followed an item being added/removed
-		if (this.value != this.$.client.getActive().value) {
-			// this.setSelected(this.$.client.getActive());
-			this.setValue(this.$.client.getActive().value);
-			this.fireChangedEvent();
-		}
+		// if (this.value != this.$.client.getActive().value) {
+		// 	this.setValue(this.$.client.getActive().value);
+		// 	this.fireChangedEvent();
+		// }
 	},
 	hideOverlay: function() {
 		this.$.leftOverlay.setShowing(false);
 		this.$.rightOverlay.setShowing(false);
 	},
 	transitionStart: function(inSender, inEvent) {
-		console.log("started" + inEvent.fromIndex + " "+ inEvent.toIndex);
 		if (inEvent.fromIndex > inEvent.toIndex) {
 			this.$.leftOverlay.show();
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
@@ -170,10 +161,8 @@ enyo.kind({
 		}
 	},
 	transitionFinished: function(inSender, inEvent) {
-		// this.setSelected(this.$.client.getActive());
-		// this.setSelectedIndex(this.$.client.getIndex());
-		// this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-		// this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;		
+		this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
+		this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;		
 		this.fireChangedEvent();
 		this.hideOverlay();
 		return true;
@@ -194,8 +183,8 @@ enyo.kind({
 		if (this._rendered) {
 			var _this = this;
 			this.doChange({
-				content: _this.$.client.getPanels()[this.$.client.getIndex()].content,
-				value: _this.$.client.getPanels()[this.$.client.getIndex()].value
+				content: _this.content,
+				value: _this.value
 			});
 		}
 	},
@@ -207,23 +196,10 @@ enyo.kind({
 	animateChanged: function() {
 		this.$.client.setAnimate(this.animate);
 	},
-	// selectedChanged: function(inOld) {
-	// 	if (this.selected != this.$.client.getActive()) {
-	// 		this.$.client.setIndex(this.selected.indexInContainer());
-	// 	}
-	// 	this.value = this.selected.value;
-	// },
-	// selectedIndexChanged: function(inOld) {
-	// 	if ((this.selectedIndex !== null) && (this.selectedIndex != this.$.client.getIndex())) {
-	// 		this.$.client.setIndex(this.selectedIndex);
-	// 	}
-	// 	this.value = this.selected.value;
-	// },
 	valueChanged: function(inOld) {
 		if ((this.$.client.getIndex() != this.indexhash[this.value])) {
 			this.$.client.setIndex(this.indexhash[this.value]);
 			this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-			this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;
 		}
 	},
 	//* @public

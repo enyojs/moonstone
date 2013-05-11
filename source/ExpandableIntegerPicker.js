@@ -66,7 +66,7 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.SimpleIntegerPicker",
 	handlers: {
-		spotlightFocus: "activated",
+		// spotlightFocus: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
 	},
 	components: [
@@ -79,7 +79,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "client", kind: "moon.SimpleIntegerPicker", value: this.value, min: this.min, max: this.max, unit: this.unit, onSelect: "selectHandler"});
+		this.createComponent({name: "client", kind: "moon.SimpleIntegerPicker", value: this.value, min: this.min, max: this.max, unit: this.unit, onChange: "changeHandler", onSelect: "selectHandler"});
 		this.noneTextChanged();
 		this.updateContent();
 	},
@@ -105,7 +105,6 @@ enyo.kind({
 			this.$.currentValue.setContent(this.getNoneText());
 		}
 	},
-
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
@@ -114,14 +113,9 @@ enyo.kind({
 			this.$.client.reflow();
 		}
 	},
-
 	//* When an item is chosen, marks it as checked and closes the picker.
 	selectHandler: function(inSender, inEvent) {
 		var _this = this;
-		console.log("selectHandler called");
-
-		this.updateContent();
-
 		// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
 		if(this.getAutoCollapse() && this.isRendered) {
 			setTimeout(function() {
@@ -130,6 +124,9 @@ enyo.kind({
 			}, 300);
 		}
 	},
+	changeHandler: function(inSender, inEvent) {
+		this.updateContent();
+	},	
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({
