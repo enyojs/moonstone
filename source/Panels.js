@@ -1,6 +1,9 @@
 /**
- * moon.Panels kind definition
- * @author: Lex Podgorny
+	_moon.Panels_ extends <a href="#enyo.Panels">enyo.Panels</a>, adding support
+	for 5-way focus (Spotlight).  By default, controls added to a _moon.Panels_
+	are instances of <a href="#moon.Panel">moon.Panel</a>.
+
+	@author: Lex Podgorny
  */
 
 enyo.kind({
@@ -65,7 +68,7 @@ enyo.kind({
 			return this.inherited(arguments); 
 		}
 	},
-	//* Creates component on top and changes index.
+	//* Creates component on top of stack and changes index.
 	push: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = null;
@@ -75,7 +78,7 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Creates component on top and changes index.
+	//* Creates component on top of stack and changes index.
 	pushs: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = null, oPanel = null;
@@ -173,7 +176,7 @@ enyo.kind({
 		return -1;
 	},
 	/**
-		If there is any pre-transition from this control's children, checks whether
+		If there was a pre-transition from this control's children, checks whether
 		it was done or not.
 	*/
 	setIndex: function(inIndex) {
@@ -192,8 +195,8 @@ enyo.kind({
 		}
 	},
 	/**
-		If any panel has pre-transition, pushes the panel's index to
-		preTransitionWaitList.
+		If any panel has a pre-transition, pushes the panel's index to
+		_preTransitionWaitList_.
 	*/
 	triggerPanelPreTransitions: function() {
 		var panels = this.getPanels();

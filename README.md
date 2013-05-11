@@ -1,4 +1,4 @@
-moonraker
+moonstone
 =========
 
-Moonraker UI library for TV user interfaces.
+Moonstone UI library for TV user interfaces.

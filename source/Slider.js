@@ -4,11 +4,10 @@
 	dragged to the desired location.
 
 		{kind: "moon.Slider", value: 30}
-		{kind: "moon.Slider", value: 60, nofocus: false}
 
-	The _onChanging_ event is fired while the control knob is being dragged, while
-	the _onChange_ event is fired when the position is set, either by finishing
-	a drag or by tapping the bar.
+	The _onChanging_ event is fired while the control knob is being dragged, and
+	the _onChange_ event is fired when the position is set, either by finishing a
+	drag or by tapping the bar.
 */
 enyo.kind({
 	name: "moon.Slider",

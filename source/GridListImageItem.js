@@ -1,7 +1,7 @@
 /**
 	_moon.GridList.ImageItem_ extends
 	<a href="#enyo.GridList.ImageItem">enyo.GridList.ImageItem</a>, adding
-	Moonraker-specific configuration, styling, decorators, and Spotlight/focus-state
+	Moonstone-specific configuration, styling, decorators, and Spotlight/focus-state
 	management.
 
 	You may create an image grid by adding instances of this kind as components of
