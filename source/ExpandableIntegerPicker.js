@@ -79,9 +79,9 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "client", kind: "moon.SimpleIntegerPicker", min: this.min, max: this.max, unit: this.unit, onSelect: "valueSelectHandler"});
-		this.valueChanged();
+		this.createComponent({name: "client", kind: "moon.SimpleIntegerPicker", value: this.value, min: this.min, max: this.max, unit: this.unit, onSelect: "selectHandler"});
 		this.noneTextChanged();
+		this.updateContent();
 	},
 	initComponents: function() {
 		this.controlParentName = "drawer";
@@ -89,33 +89,19 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	valueChanged: function(inOld) {
-			this.$.client.setValue(this.value);
+		this.$.client.setValue(this.value);
 	},
-	valueChangeHandler: function() {
-		var selected = this.$.client.selected;
-
-		if(selected.value !== this.value) {
-			this.value = selected.value;
-			this.$.currentValue.setContent(selected.getContent());
+	updateContent: function() {
+		if(this.$.client.content !== this.content) {
+			this.value = this.$.client.value;
+			this.content = this.$.client.content;
+			this.$.currentValue.setContent(this.content);
 			this.fireChangeEvent();
-		}
-	},
-	valueSelectHandler: function() {
-		var _this = this;
-		this.valueChangeHandler();
-		// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
-		if(this.getAutoCollapse() && this.isRendered) {
-			setTimeout(function() {
-				_this.setOpen(false);
-				enyo.Spotlight.spot(_this);
-			}, 300);
 		}
 	},
 	//* If there is no selected item, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		var selected = this.$.client.selected;
-
-		if(selected.value !== this.value) {
+		if(this.$.client.getValue() == -1) {
 			this.$.currentValue.setContent(this.getNoneText());
 		}
 	},
@@ -124,26 +110,31 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
+		if (this.$.drawer.open) {
+			this.$.client.reflow();
+		}
 	},
 
 	//* When an item is chosen, marks it as checked and closes the picker.
-	// activated: function(inSender, inEvent) {
-	// 	console.log("activated");
-	// 		// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
-	// 		if(this.getAutoCollapse() && this.isRendered) {
-	// 			setTimeout(function() {
-	// 				_this.setOpen(false);
-	// 				enyo.Spotlight.spot(_this);
-	// 			}, 300);
-	// 		}
+	selectHandler: function(inSender, inEvent) {
+		var _this = this;
+		console.log("selectHandler called");
 
-	// },
+		this.updateContent();
+
+		// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
+		if(this.getAutoCollapse() && this.isRendered) {
+			setTimeout(function() {
+				_this.setOpen(false);
+				enyo.Spotlight.spot(_this);
+			}, 300);
+		}
+	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({
-			value: this.$.client.selected.value,
-			content: this.$.client.selected.content,
-			index: this.$.client.selectedIndex
+			value: this.value,
+			content: this.content,
 		});
 	}
 });

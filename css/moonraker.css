@@ -189,6 +189,7 @@
 
 
 .moon-simple-integer-picker {
+  position: relative;
   display: table-cell;
   vertical-align: middle;
   height: 35px;
@@ -219,13 +220,13 @@
   margin: 0px;
   text-align: center;
   vertical-align: middle;
+  z-index: 2;
 }
 
 .moon-simple-integer-picker-client {
   padding: 0px;
   margin: 0px;
   border: 0px;
-  min-width: 70px;
 }
 
 .moon-simple-integer-picker-item {
@@ -972,6 +973,8 @@ PageControl's use of IconButtons
   min-height: 40px;
   min-width: 55px;
 }
+
+
 /* IntegerScrollPicker.css */
 .moon-scroll-picker {
   height: 40px;
@@ -1125,37 +1128,14 @@ PageControl's use of IconButtons
   left: 2px;
 }
 
-/* IntegerHScrollPicker.css */
-.moon-hscroll-picker {
-  height: 40px;
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-left-color: transparent;
-  border-right-width: 25px;
-  border-right-style: solid;
-  border-right-color: white;
-  border-radius: 24px;
-}
-.moon-hscroll-picker.spotlight {
-  border-left-color: #ffb80d;
-  border-right-color: #ffb80d;
-  background: #ffb80d;
-}
-.moon-hscroll-picker-item {
-  white-space: nowrap;
-  padding-left: 5px;
-  width: 49px;
-  text-align: center;
-  background: transparent;
-  font-size: 20px;
-  font-family: "Miso";
-  display: inline;
-}
-.moon-hscroll-picker-overlay-container-left {
-  position: relative;
+
+
+
+.moon-scroll-picker-overlay-container-left {
   z-index: 1;
+  height: 35px;
 }
-.moon-hscroll-picker-overlay-left {
+.moon-scroll-picker-overlay-left {
   position: absolute;
   width: 20px;
   height: 100%;
@@ -1165,7 +1145,7 @@ PageControl's use of IconButtons
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
-.moon-hscroll-picker-overlay-left-border {
+.moon-scroll-picker-overlay-left-border {
   position: absolute;
   width: 20px;
   height: 100%;
@@ -1174,14 +1154,14 @@ PageControl's use of IconButtons
   border-left-width: 30px;
   border-left-style: solid;
   border-left-color: #ffb80d;
-  right: -56px;
+  left: 6px;
 }
-.moon-hscroll-picker-overlay-container-right {
-  position: relative;
+
+.moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  left: 45px;
+  height: 35px;
 }
-.moon-hscroll-picker-overlay-right {
+.moon-scroll-picker-overlay-right {
   position: absolute;
   width: 20px;
   height: 100%;
@@ -1190,8 +1170,9 @@ PageControl's use of IconButtons
   border-right-width: 30px;
   border-right-style: solid;
   border-right-color: rgba(0, 0, 0, 0.13);
+  right: 0px;
 }
-.moon-hscroll-picker-overlay-right-border {
+.moon-scroll-picker-overlay-right-border {
   position: absolute;
   width: 20px;
   height: 100%;
@@ -1200,84 +1181,12 @@ PageControl's use of IconButtons
   border-right-width: 30px;
   border-right-style: solid;
   border-right-color: #ffb80d;
-  right: -44px;
+  right: 6px;
 }
-.left-arrow-container {
-  position: relative;
-  z-index: 10;
-  left: 3px;
-  top: 33%;
-}
-.left-arrow {
-  border-color: transparent transparent white transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  right: -19px;
-  top: -5px;
-}
-.left-arrow-container.spotlight .left-arrow {
-  border-color: transparent transparent #ffb80d transparent;
-}
-.left-arrow-container.selected .left-arrow {
-  border-width: 8px;
-  top: -3px;
-  right: -16px;
-}
-.left-arrow-border {
-  border-color: transparent transparent #666666 transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  right: -16px;
-  top: -5px;
-}
-.left-arrow-container.selected .left-arrow-border {
-  border-width: 8px;
-  top: -3px;
-  right: -13px;
-}
-.right-arrow-container {
-  position: relative;
-  z-index: 10;
-  left: 75px;
-  top: 12%;
-}
-.right-arrow {
-  border-color: white transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  right: -19px;
-}
-.right-arrow-container.selected .right-arrow {
-  border-width: 8px;
-  bottom: -18px;
-  top: 2px;
-}
-.right-arrow-container.spotlight .right-arrow {
-  border-color: #ffb80d transparent transparent transparent;
-}
-.right-arrow-border {
-  border-color: #666666 transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  right: -22px;
-}
-.right-arrow-container.selected .right-arrow-border {
-  border-width: 8px;
-  right: -21px;
-  top: 2px;
-}
+
+
+
+
 
 
 
