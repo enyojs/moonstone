@@ -4,7 +4,7 @@ enyo.kind({
 	kind: "FittableRows",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{classes: "moon-subheader", content: "MoonRaker GridList Sample"},
+		{classes: "moon-subheader", content: "Moonstone GridList Sample"},
 		{
 			name: "gridlist",
 			kind: "moon.GridList",
@@ -16,54 +16,57 @@ enyo.kind({
 			components: [
 				{name: "item", kind: "moon.GridList.ImageItem"}
 			],
-			fit:true
+			fit: true
 		}
 	],
-	url: "http://odata.netflix.com/Catalog",
-	api_key: "n7565824mb3yuv2hrgpdhvff",
+	url: "http://api.flickr.com/services/rest/?",
+	api_key: "2a21b46e58d207e4888e1ece0cb149a5",
 	create: function() {
 		this.inherited(arguments);
 		if (!this.api_key) {
 			this._error_missing_api_key();
+			return;
 		}
-		this.search("007");
+		this.search("007", 1);
 	},
 	search: function(inSearchText, inPage) {
+		// Capture searchText and strip any whitespace
+		var searchText = inSearchText.replace(/^\s+|\s+$/g, '');
 		if (!this.api_key) {
 			this._error_missing_api_key();
 			return;
 		}
-		this.searchText = inSearchText || this.searchText;
-		// Build OData query
-        var query = this.url + "/Titles?$filter=substringof('" + window.escape(this.searchText) + "',Name)" +  // filter by movie name
-            "&$format=json"; // json request
-        var params = {
-			oauth_consumer_key: this.api_key
-		};
-		return new enyo.JsonpRequest({url: query, callbackName: "$callback"}) .response(this, "processResponse") .go(params);
+		this.searchFlickr(searchText, inPage);
 	},
-	processResponse: function(inSender, inResponse) {
-		this.results = [];
-		var movies = inResponse ? inResponse["d"]["results"] || [] : [];
-		if (movies.length === 0) {
-			return [];
-		}
-		var results = [];
-		for (var i = 0; i < movies.length; i++) {
-			this.results.push(movies[i]);
-        }
-		this.$.gridlist.show(this.results.length);
-		return results;
+	searchFlickr: function(inSearchText, inPage) {
+		var params = {
+			method: "flickr.photos.search",
+			format: "json",
+			api_key: this.api_key,
+			per_page: 100,
+			page: inPage,
+			text: inSearchText,
+			sort: 'date-posted-desc',
+			extras: 'url_m'
+		};
+		new enyo.JsonpRequest({url: this.url, callbackName: "jsoncallback"}).response(this, "processResponse").go(params);
 	},
 	_error_missing_api_key: function () {
-		enyo.error("Missing API key. Your Netflix API key is required to use this component.");
+		enyo.error("Missing API key. Your Flickr API key is required to use this component.");
+	},
+	processResponse: function(inRequest, inResponse) {
+		this.results = inResponse.photos.photo;
+		this.$.gridlist.show(this.results.length);
 	},
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
 		var item = this.results[i];
-		this.$.item.setSource(item.BoxArt.LargeUrl);
-		this.$.item.setCaption(item.Name);
-		this.$.item.setSubCaption(item.Name);
+		if (!item.url_m) {
+			return;
+		}
+		this.$.item.setSource(item.url_m);
+		this.$.item.setCaption(item.title);
+		this.$.item.setSubCaption(item.id);
 		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	}
 });
