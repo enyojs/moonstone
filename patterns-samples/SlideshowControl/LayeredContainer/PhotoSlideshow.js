@@ -102,8 +102,8 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler", classes: "big-icon-button"}
 			]},
 			{flex: true, components: [
-				{name:"speed", kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "SLIDESHOW SPEED",
-			classes: "moon-photo-slideshow-control-picker-wrapper", value: 3, min: 1, max: 15, unit: "sec", autoCollapse: true, style: "color: white;"}
+				{name:"speed", kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "SLIDESHOW SPEED", 
+			classes: "moon-photo-slideshow-control-picker-wrapper", value: 3, min: 1, max: 15, unit: "sec", autoCollapse: true}
 			]}
 		]},
 		{name: "list", kind: "moon.List", orient:"h", multiSelect: false, spotlight: true, 			onSetupItem: "setupItem", onSpotlightSelect: "itemSelectHandler",  components: [

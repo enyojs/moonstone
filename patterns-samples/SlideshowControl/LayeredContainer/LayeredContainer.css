@@ -67,6 +67,11 @@
 	margin: 0px 20px 0px 20px;
 }
 
+.moon-photo-slideshow-control-picker-wrapper {
+	width:250px;
+	display:block;
+}
+
 
 /* TODO: remove bellowing css class after creating moon.ImageButton */
 .moon-photo-slideshow-control-middle-button .big-icon-button {
@@ -86,3 +91,9 @@
   background-color: transparent;
 }
 
+/* TODO: remove bellowing css class after the policy for white string is decided
+   Now, color of moon-item css class is @moon-font-color-light (#4B4B4B) */
+.moon-item,
+.moon-simple-integer-picker-button {
+	color: white;
+}
