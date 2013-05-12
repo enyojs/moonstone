@@ -169,7 +169,7 @@ enyo.kind({
 	},
 	spotlightBlur: function() {
 		this.hideOverlay();
-	},	
+	},
 	fireSelectEvent: function () {
 		if (this._rendered) {	
 			var _this = this;	
@@ -178,7 +178,7 @@ enyo.kind({
 				value: _this.value
 			});		
 		}
-	},	
+	},
 	fireChangedEvent: function() {
 		if (this._rendered) {
 			var _this = this;

@@ -305,7 +305,6 @@
 }
 .moon-simple-integer-picker-item {
   display: table;
-  color: #4b4b4b;
   white-space: nowrap;
   text-align: center;
   padding: 0px;
@@ -317,6 +316,7 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
+/* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
   height: 40px;
@@ -891,7 +891,6 @@
 }
 .moon-expandable-integer-picker-current-value {
   font-size: 20px;
-  color: #4B4B4B;
   margin: 0px;
   padding: 0px;
   line-height: 14px;
@@ -2000,4 +1999,19 @@ PageControl's use of IconButtons
 .moon.enyo-fittable-columns-layout > *,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
+}
+/* Put this at the end because we want these to take precedence over others */
+.moon-dark-gray {
+  background-color: #4b4b4b;
+  color: #cccccc;
+}
+.moon-dark-gray * {
+  color: #cccccc;
+}
+.moon-light-gray {
+  background-color: #cccccc;
+  color: #4b4b4b;
+}
+.moon-light-gray * {
+  color: #4b4b4b;
 }
