@@ -273,8 +273,10 @@
   display: table-cell;
   vertical-align: middle;
   height: 40px;
+  line-height: 20px;
   font-family: "Miso";
   font-size: 20px;
+  font-weight: normal;
   border-radius: 20px;
 }
 .moon-simple-integer-picker > * {
@@ -288,7 +290,6 @@
 .moon-simple-integer-picker-button {
   width: 40px;
   height: 20px;
-  line-height: 20px;
   border-radius: 20px;
   border: 0px;
   font-weight: normal;
