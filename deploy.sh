@@ -10,7 +10,7 @@ if [ x$TARGET = x ]; then
 cat <<EOF
 Must supply target folder parameter, e.g.:
 
-  deploy.bat ../deploy/lib/moonraker
+  deploy.bat ../deploy/lib/moonstone
 EOF
 else
 	mkdir -p $TARGET/images/
