@@ -1,81 +1,69 @@
 enyo.kind({
     name: "moon.sample.music.AlbumDetailWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-detail",
-    fit: true,
     titleAbove: "04",
     title: "Album",    
     titleBelow: "ALBUM TITLE(ARTISTS)",
+    layoutKind: "FittableColumnsLayout",
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "detail",
-            kind: "FittableColumns",
-            classes: "moon-music-detail-detail",
+            kind: "FittableRows",
             components: [
                 {
-                    kind: "FittableRows",
-                    components: [
-                        {
-                            classes: "moon-music-detail-preview",
-                            components: [{name: "play", classes: "moon-play-icon"}]
-                        },
-                        {
-                            kind: "FittableRows",
-                            fit: true,
-                            components: [
-                                {classes: "moon-music-item-label", content: "Album Title"},
-                                {
-                                    kind: "FittableColumns",
-                                    components: [
-                                        {classes: "moon-music-artist", content: "RELEASED"},
-                                        {classes: "moon-music-artist-content", content: "5 April 2013"}
-                                    ]
-                                },
-                                {
-                                    kind: "FittableColumns",
-                                    components: [
-                                        {classes: "moon-music-artist", content: "GENRE"},
-                                        {classes: "moon-music-artist-content", content: "Dance"}
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
+                    name: "cover",
+                    kind: "enyo.Image",
+                    style: "height: 200px; width: 200px;"
                 },
                 {
-                    kind: "FittableRows",
-                    fit:true, 
+                    kind: "moon.Table",
+                    name: "albumInfo",
                     components: [
-                        {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 11 Tracks"},
+                        {components: [
+                            {name: "album", attributes: {colspan: "2"}, style: "font-weight: bold;"}
+                        ]},
+                        {components: [
+                            {content: "Released"},
+                            {name: "releaseDate"}
+                        ]},
+                        {components: [
+                            {content: "Genre"},
+                            {content: "genre"}
+                        ]}
+                    ]
+                }
+            ]
+        },
+        {
+            kind: "FittableRows",
+            fit:true, 
+            components: [
+                {kind: "moon.Divider", content: "Top 11 Tracks"},
+                {
+                    kind: "moon.Scroller",
+                    fit: true,
+                    horizontal: "hidden",
+                    components: [
                         {
-                            name: "list",
-                            kind: "moon.List",
-                            count: 11,
-                            style: "height: 800px",
-                            multiSelect: false,
-                    		onSetupItem: "setupItem",
+                            name: "trackInfo",
+                            kind: "moon.DataTable",
                             components: [
-                    			{
-                                    name: "item",
-                                    kind: "enyo.FittableColumns",
-                                    classes: "moon-music-item",
-                                    fit: true,
+                                {
+                                    spotlight: true,
+                                    ontap: "changeTrackName",
                                     components: [
-                                        {name: "index"},
-                                        {style: "display: table-cell; width: 5px;"},
-                                        {name: "track"},
-                                        {style: "display: table-cell; width: 5px;"},
-                                        {name: "time", classes: "moon-music-item-label-small"}
-                                    ]
+                                        {bindFrom: "number"},
+                                        {bindFrom: "name"},
+                                        {bindFrom: "duration"}
+                                    ]                                        
                                 }
-                    		]
+                            ]
                         }
                     ]
                 }
             ]
         }
     ],
+
 
     headerComponents: [
         {classes: "moon-music-detail-header-button", components: [
@@ -85,10 +73,65 @@ enyo.kind({
             {kind: "moon.IconButton", src: "assets/icon-next.png"}
         ]}
     ],
-       
-    setupItem: function(inSender, inEvent) {
-        this.$.index.setContent(inEvent.index);
-		this.$.track.setContent("Track Name");
-		this.$.time.setContent("3:40");
-	}
+    bindings: [
+        {from: ".controller.artist", to: "$.artist.content"},
+        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
+        {from: ".controller.genre", to: "$.genre.content"},
+        {from: ".controller.album", to: "$.album.content"},
+        {from: ".controller.coverUrl", to: "$.cover.src"},
+        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+    ]
+});
+
+enyo.ready(function() {
+    var sampleModel = new enyo.Model({
+        artist: "Queen",
+        album: "Greatest Hits",
+        releaseDate: "1981",
+        genre: "Rock",
+        tracks: new enyo.Collection([
+            {number: "1", name: "Bohemian Rhapsody", duration: "5:56"},
+            {number: "2", name: "Another One Bites the Dust", duration: "3:36"},
+            {number: "3", name: "Killer Queen", duration: "2:57"},
+            {number: "4", name: "Fat Bottomed Girls", duration: "3:16"},
+            {number: "5", name: "Bicycle Race", duration: "3:01"},
+            {number: "6", name: "You're My Best Friend", duration: "2:52"},
+            {number: "7", name: "Don't Stop Me Now", duration: "3:29"},
+            {number: "8", name: "Save Me", duration: "3:52"},
+            {number: "9", name: "Crazy Little Thing Called Love", duration: "2:42"},
+            {number: "10", name: "Somebody to Love", duration: "4:56"},
+            {number: "11", name: "Now I'm Here", duration: "4:10"},
+            {number: "12", name: "Good Old-Fashioned Lover Boy", duration: "2:54"},
+            {number: "13", name: "Play the Game", duration: "3:33"},
+            {number: "14", name: "Flash", duration: "2:48"},
+            {number: "15", name: "Seven Seas of Rhye", duration: "2:47"},
+            {number: "16", name: "We Will Rock You", duration: "2:01"},
+            {number: "17", name: "We Are the Champions", duration: "2:59"}
+        ]),
+        coverUrl: "http://upload.wikimedia.org/wikipedia/en/9/92/QueenGH2011.jpg"
+    });
+    
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.AlbumDetailWideSample",
+                    controller: ".app.controllers.albumController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "albumController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeTrackName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("name", "We are the Champions");
+                }
+            }
+        ]
+    });
 });
