@@ -19,15 +19,11 @@ enyo.kind({
 		this.inherited(arguments);
 		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow"});
 		this.$.slideShow.render();
-		
-		// test. should be removed
-		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");
-		// end
 	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow("../assets/the-lorax-pic08.jpg");
 	}
-}); 
+});
 
 enyo.kind({
 	name: "moon.sample.slideshow.PhotoSlideshow",
@@ -49,7 +45,7 @@ enyo.kind({
 	components: [
 		{src: "../assets/share_icon.png", ontap: "shareHandler"},
 		{kind: "moon.ContextualPopup", components: [
-				{content:"Sample component in popup"}
+			{content:"Sample component in popup"}
 		]}
 	],
 	shareHandler: function(inSender, inEvent) {
