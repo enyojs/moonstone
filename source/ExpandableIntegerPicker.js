@@ -41,7 +41,7 @@
 enyo.kind({
 	name: "moon.ExpandableIntegerPicker",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-expandable-picker",
+	classes: "moon-expandable-integer-picker",
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -70,11 +70,11 @@ enyo.kind({
 		requestScrollIntoView: "requestScrollIntoView"
 	},
 	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
+		{name: "header", kind: "moon.Item", classes: "moon-expandable-integer-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep"},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
+		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-integer-picker-current-value", ontap: "expandContract", content: ""},
 		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
 	create: function() {

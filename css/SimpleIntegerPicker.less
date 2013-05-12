@@ -1,52 +1,112 @@
-.moon-simple-picker {
-	display: inline-block;
+
+.moon-simple-integer-picker {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  height: @moon-picker-button-width;
+  font-family: @moon-font-family;
+  font-size: @moon-sub-text-size;
+  border-radius: @moon-picker-button-width/2;
 }
 
-.moon-simple-picker > * {
-	display: inline-block;
-	vertical-align: middle;
-	box-sizing: border-box;
+.moon-simple-integer-picker > * {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
 }
 
-.moon-simple-picker-button {
-	width: @moon-picker-button-width;
-	height: @moon-picker-button-width;
-	line-height: @moon-picker-button-width;
-	border-radius: @moon-picker-button-width/2;
-	border: 0px;
-	font-weight: normal;
-	background: inherit;
-	color: @moon-dark-gray;
-	padding: 0px;
-	margin: 0px;
-	text-align: center;
-	vertical-align: middle;
+.moon-simple-integer-picker.spotlight {
+  background: @moon-spotlight-border-color;
 }
 
-.moon-simple-picker-button.spotlight {
-	background: @moon-spotlight-border-color;
+.moon-simple-integer-picker-button {
+  width: @moon-picker-button-width;
+  height: @moon-picker-button-width/2;
+  border-radius: @moon-picker-button-width/2;  border: 0px;
+  font-weight: normal;
+  background: inherit;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 2;
 }
 
-.moon-simple-picker-client {
-	padding: 0px;
-	margin: 0px;
-	border: 0px;
+.moon-simple-integer-picker-client {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
 }
 
-.moon-simple-picker-item {
-	font-family: @moon-font-family;
-	font-size: @moon-large-text-size;
-	line-height: @moon-picker-button-width;
-	height: @moon-picker-button-width;
-	color: @moon-dark-gray;
-	white-space:nowrap; 
-	text-align: center; 
-	padding: 0px;
-	width: auto;
-	margin: 2px 0px 0px 0px;
+.moon-simple-integer-picker-item {
+  display: table;
+  color: @moon-dark-gray;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0px;
+  width: auto;
 }
-.moon-simple-picker.disabled, .moon-simple-picker-button[disabled] {
-	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
+.moon-simple-integer-picker.disabled,
+.moon-simple-integer-picker-button[disabled] {
+  cursor: default;
+  opacity: @moon-disabled-opacity;
+  filter: alpha(opacity=@moon-disabled-opacity-ie);
+}
+
+
+
+
+
+
+.moon-scroll-picker-overlay-container-left {
+  z-index: 1;
+  height: @moon-picker-button-width;
+}
+.moon-scroll-picker-overlay-left {
+  position: absolute;
+  width: @moon-picker-button-width/2;
+  height: 100%;
+  border-width: @moon-picker-button-width/2;
+  border-radius: @moon-picker-button-width/2;
+  border-left-width: @moon-picker-button-width/2;
+  border-left-style: solid;
+  border-left-color: @moon-shadow-color;
+}
+.moon-scroll-picker-overlay-left-border {
+  position: absolute;
+  width: @moon-picker-button-width/2;
+  height: 100%;
+  border-width: @moon-picker-button-width/2;
+  border-radius: @moon-picker-button-width/2;
+  border-left-width: @moon-picker-button-width/2;
+  border-left-style: solid;
+  border-left-color: @moon-orange;
+  left: 6px;
+}
+
+.moon-scroll-picker-overlay-container-right {
+  z-index: 1;
+  height: @moon-picker-button-width;
+}
+.moon-scroll-picker-overlay-right {
+  position: absolute;
+  width: @moon-picker-button-width/2;
+  height: 100%;
+  border-width: @moon-picker-button-width/2;
+  border-radius: @moon-picker-button-width/2;
+  border-right-width: @moon-picker-button-width/2;
+  border-right-style: solid;
+  border-right-color: @moon-shadow-color;
+  right: 0px;
+}
+.moon-scroll-picker-overlay-right-border {
+  position: absolute;
+  width: @moon-picker-button-width/2;
+  height: 100%;
+  border-width: @moon-picker-button-width/2;
+  border-radius: @moon-picker-button-width/2;
+  border-right-width: @moon-picker-button-width/2;
+  border-right-style: solid;
+  border-right-color: @moon-orange;
+  right: 6px;
 }
