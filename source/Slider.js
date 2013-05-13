@@ -72,11 +72,11 @@ enyo.kind({
 		this.bgProgressChanged();
 		this.progressChanged();
 		this.barClassesChanged();
-		this.valueChanged();
 		this.disabledChanged();
 		this.$.knob.setShowing(false);
 	},
 	rendered: function() {
+		this.valueChanged();
 		this.inherited(arguments);
 		this.drawToCanvas(this.popupColor);
 		this.adjustPopupPosition();
@@ -175,6 +175,7 @@ enyo.kind({
 		if (this.lockBar) {
 			this.setProgress(this.value);
 		}
+		this.adjustPopupPosition();
 	},
 	updateKnobPosition: function(inPercent) {
 		this.$.knob.applyStyle("left", inPercent + "%");
@@ -187,6 +188,7 @@ enyo.kind({
 	},
 	adjustPopupPosition: function() {
 		var inControl = this.$.popup;
+		var hFlip = false;
 
 		// popup bounds
 		var pb = inControl.hasNode().getBoundingClientRect();
@@ -209,11 +211,13 @@ enyo.kind({
 			inControl.addRemoveClass("below", false);
 		}
 		*/
-//		enyo.log("kb.left="+kb.left+", kb.right="+kb.right+", cb.left="+cb.left+", cb.right="+cb.right+", pb.left="+pb.left+", pb.right="+pb.right);
 		// when the popup's right edge is out of the window, adjust to the left
-		if ( (pb.width + pb.left) > cb.right ) {
-			inControl.applyStyle("left", (cb.right - cb.left - pb.width - kb.width) + "px");
+		if ( (kb.left + (kb.width/2) + pb.width) > cb.right ) {
+			inControl.applyStyle("left", (kb.left - pb.width) + "px");
+			hFlip = true;
 		}
+		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
+		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 	},
 	showKnobStatus: function(inSender, inEvent) {
 		if (!this.disabled) {
@@ -242,7 +246,6 @@ enyo.kind({
 			v = (this.increment) ? this.calcIncrement(v) : v;
 			this.setValue(v);
 			this.doChanging({value: this.value});
-			this.adjustPopupPosition();
 			return true;
 		}
 	},
