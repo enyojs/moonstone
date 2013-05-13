@@ -1,10 +1,12 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.ArtistDetailNarrowSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-detail",
-    fit: true,
-    title: "Artist",
     titleAbove: "04",
+    title: "Artist",
+    titleBelow: "",
+    layoutKind: "FittableRowsLayout",
     headerComponents: [
         {
             classes: "moon-music-detail-header-button",
@@ -15,92 +17,65 @@ enyo.kind({
         }
     ],
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "container",
             kind: "FittableColumns",
-            classes: "moon-music-detail-container",
-            fit: true,
             components: [
                 {
-                    name: "detail",
-                    kind: "FittableRows",
-                    classes: "moon-music-detail-detail",
+                    name: "artistImage",
+                    kind: "enyo.Image",
+                    style: "height: 200px; width: 200px;"
+                },
+                {
+                    kind: "moon.Table",
+                    name: "artistInfo",
+                    components: [
+                        {name: "artist", attributes: {colspan: "2"}, style: "font-weight: bold;"},
+                        {components: [
+                            {content: "Organized"},
+                            {name: "organizedDate"}
+                        ]},
+                        {components: [
+                            {content: "Debut"},
+                            {name: "debutDate"}
+                        ]},
+                        {components: [
+                            {content: "Type"},
+                            {name: "type"}
+                        ]}
+                    ]
+                }
+            ]
+        },
+        {kind: "moon.Divider", content: "Top 10 Tracks"},
+        {
+            kind: "moon.Scroller",
+            fit: true,
+            horizontal: "hidden",
+            components: [
+               {
+                    name: "trackInfo",
+                    kind: "enyo.DataList",
+                    // orient: "v",
+                    count: 10,
                     components: [
                         {
-                            kind: "FittableColumns",
+                            kind: "moon.Table",
+                            spotlight: true,
+                            ontap: "changeTrackName",
                             components: [
                                 {
-                                    name: "movie",
-                                    classes: "moon-music-detail-preview",
-                                    components: [{name: "play", classes: "moon-play-icon"}]
+                                    name: "cover",
+                                    kind: "enyo.Image",
+                                    style: "height: 126px; width: 126px;",
+                                    bindFrom: "coverUrl", 
+                                    bindTo: "src"
                                 },
                                 {
-                                    kind: "FittableRows",
-                                    fit: true,
+                                    kind: "moon.Table",
                                     components: [
-                                        {classes: "moon-music-item-label", content: "Artist Name"},
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {classes: "moon-music-artist", content: "Organized"},
-                                                {classes: "moon-music-artist-content", content: "5 April 2013"}
-                                            ]
-                                        },
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {classes: "moon-music-artist", content: "Debut"},
-                                                {classes: "moon-music-artist-content", content: "5 April 2013"}
-                                            ]
-                                        },
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {classes: "moon-music-artist", content: "Type"},
-                                                {classes: "moon-music-artist-content", content: "Solo"}
-                                            ]
-                                        }
+                                        {components: [{bindFrom: "name"}]},
+                                        {components: [{bindFrom: "duration"}]}
                                     ]
-                                }
-                            ]
-                        },
-                        {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
-                        {
-                            name: "listContainer",
-                            spotlight: "container",
-                            components: [
-                                {
-                                    name: "list",
-                                    kind: "moon.List",
-                                    style: "height: 300px;",
-                                    count: 10,
-                                    multiSelect: false,
-                            		onSetupItem: "setupItem",
-                                    components: [
-                            			{
-                                            name: "item",
-                                            kind: "enyo.FittableColumns",
-                                            classes: "moon-music-item",
-                                            fit: true,
-                                            components: [
-                                                {
-                                                    name: "image",
-                                                    fit: true,
-                                                    classes: "moon-music-item-image",
-                                                    components: [{classes: "moon-play-music-icon"}]
-                                                },
-                                                {style: "display: table-cell; width: 20px;"},
-                                                {
-                                                    classes: "moon-music-item-label",
-                                                    components: [
-                                                        {name: "track"},
-                                                        {name: "time", classes: "moon-music-item-label-small"}
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                            		]
                                 }
                             ]
                         }
@@ -109,31 +84,56 @@ enyo.kind({
             ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        var d = Math.round(this.$.detail.getBounds().width * 0.3);
-        if (d < 180) {
-            d = 180;
-        } else if (d > 388) {
-            d = 388;
-        }
-        this.$.movie.setBounds({width: d, height: d});
-        
-        d = Math.round((d - 168) * 0.5);
-        this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
-        
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
-		this.$.track.setContent("Track Name");
-		this.$.time.setContent("3:40");
-	}
+    bindings: [
+        {from: ".controller.artist", to: "$.artist.content"},
+        {from: ".controller.organizedDate", to: "$.organizedDate.content"},
+        {from: ".controller.debutDate", to: "$.debutDate.content"},
+        {from: ".controller.type", to: "$.type.content"},
+        {from: ".controller.artistImageUrl", to: "$.artistImage.src"},
+        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        artist: "Paul McCartney",
+        organizedDate: "5 April 2013",
+        debutDate: "5 April 1973",
+        type: "Solo",
+        tracks: new enyo.Collection([
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"}
+        ]),
+        artistImageUrl: "http://www.biography.com/imported/images/Biography/Images/Profiles/M/Paul-Mccartney-9390850-1-402.jpg"
+    });
+ 
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.ArtistDetailNarrowSample",
+                    controller: ".app.controllers.albumController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "albumController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeTrackName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("name", "We are the Champions");
+                }
+            }
+        ]
+    });
 });

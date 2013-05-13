@@ -1,3 +1,5 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.AlbumDetailWideSample",
     kind: "moon.Panel",
@@ -83,6 +85,8 @@ enyo.kind({
     ]
 });
 
+// Sample model
+
 enyo.ready(function() {
     var sampleModel = new enyo.Model({
         artist: "Queen",
@@ -111,6 +115,8 @@ enyo.ready(function() {
         coverUrl: "http://upload.wikimedia.org/wikipedia/en/9/92/QueenGH2011.jpg"
     });
     
+//  Application to render sample
+
     new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
