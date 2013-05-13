@@ -13,9 +13,9 @@ enyo.kind({
         {name: "titleBelow", kind: "moon.Item", spotlight: false, classes: "moon-searchheader-title-below"},
         {name: "searchInputContainer", kind: "FittableColumns", classes: "moon-searchheader-container", style: "width: 100%;", components: [
             {classes: "moon-searchheader-search-left"},
-            {kind: "moon.InputDecorator", fit: true, onSpotlightUp: "", components: [
-                {name: "searchInput", kind: "moon.Input", placeholder: "Search term", oninput: "search"},
-                {kind: "Image", src: "../samples/assets/search-input-search.png"}
+            {kind: "moon.InputDecorator", layoutKind: "FittableColumnsLayout", fit: true, components: [
+                {name: "searchInput", kind: "moon.Input", oninput: "search", fit: true, placeholder: "Search term"},
+                {kind: "Image", src: "../samples/assets/search-input-search.png", style: "width: 20px;height:20px;margin-left:10px;"}
             ]},
             {classes: "moon-searchheader-search-right"},
         ]},
