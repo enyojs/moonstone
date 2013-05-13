@@ -14,22 +14,33 @@ enyo.kind({
 	classes: "moon-slider",
 	spotlight: true,
 	published: {
+		//* Progress completed
 		progress: 0,
+		//* Progress completed of background
 		bgProgress: 0,
+		//* Minimum acceptable value
 		min: 0,
+		//* Maximum acceptable value
 		max: 100,
+		//* CSS classes to be applied to the bar
 		barClasses: "",
+		//* If true, keep bar in sync with knob
 		lockBar: true,
+		//* Current value
 		value: 0,
 		completed: 0,
+		//* If true, bar can be tapped to set value directly
 		tappable: true,
+		//* Color of value popup
 		popupColor: "#ffb80d",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		//* Value increment that the slider can be "snapped to" in either direction
 		increment: 0,
-		//* When true, knob and progress move with animation by clicking left/right
-		//* direction key or by tapping the bar
+		/**
+			When true, knob and progress move with animation by clicking left/right
+			direction key or by tapping the bar.
+		*/
 		animate : true
 	},
 	events: {
@@ -66,19 +77,19 @@ enyo.kind({
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
 		]}
 	],
+	animatingTo: null,
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		this.bgProgressChanged();
 		this.progressChanged();
 		this.barClassesChanged();
-		this.valueChanged();
+		this.initValue();
 		this.disabledChanged();
 		this.$.knob.setShowing(false);
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.knobLeft = this.hasNode().getBoundingClientRect().left;
 		this.drawToCanvas(this.popupColor);
 		this.adjustPopupPosition();
 	},
@@ -110,39 +121,27 @@ enyo.kind({
 		return true;
 	},
 	spotBlur: function() {
-		if(this.dragging) {
+		if (this.dragging) {
 			return true;
-		}
-		else {
-			this.$.knob.hide();
-			this.$.popup.hide();
-			this.$.knob.removeClass("spotselect");
+		} else {
+			this.$.knob && this.$.knob.hide();
+			this.$.knob && this.$.knob.removeClass("spotselect");
+			this.$.popup && this.$.popup.hide();
 			this.selected = false;
 		}
 	},
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = inSender.value - (this.increment || 1);
-			if (this.animate) {
-				this.animateTo(v);
-			}
-			else {
-				this.setValue(v);
-				this.doChange({value: this.value});
-			}
+			// If in the process of animating, work from the previously set value
+			var v = this.getValue() - (this.increment || 1);
+			this.setValue(v);
 			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = inSender.value + (this.increment || 1);
-			if (this.animate) {
-				this.animateTo(v);
-			}
-			else {
-				this.setValue(v);
-				this.doChange({value: this.value});
-			}
+			var v = this.getValue() + (this.increment || 1);
+			this.setValue(v);
 			return true;
 		}
 	},
@@ -169,13 +168,40 @@ enyo.kind({
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
 	},
-	valueChanged: function() {
-		this.value = this.clampValue(this.min, this.max, this.value);
-		var p = this.calcPercent(this.value);
-		this.updateKnobPosition(p);
+	//* Prep value at create time
+	initValue: function() {
+		this.updateKnobPosition(this.calcPercent(this.getValue()));
+		if (this.lockBar) {
+			this.setProgress(this.getValue());
+		}
+	},
+	setValue: function(inValue) {
+		if (this.animate) {
+			this.animateTo(this.getValue(), inValue);
+		} else {
+			this._setValue(inValue);
+		}
+	},
+	_setValue: function(inValue) {
+		var v = this.clampValue(this.min, this.max, inValue);
+
+		// If no change, return
+		if (v === this.value) {
+			return;
+		}
+		
+		this.value = v;
+		
+		this.updateKnobPosition(this.calcPercent(this.value));
+		
 		if (this.lockBar) {
 			this.setProgress(this.value);
 		}
+		
+		this.sendChangeEvent({value: this.getValue()});
+	},
+	getValue: function() {
+		return (this.animatingTo !== null) ? this.animatingTo : this.value;
 	},
 	updateKnobPosition: function(inPercent) {
 		this.$.knob.applyStyle("left", inPercent + "%");
@@ -183,8 +209,7 @@ enyo.kind({
 		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
 	},
 	calcKnobPosition: function(inEvent) {
-		//var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
-		var x = inEvent.clientX - this.knobLeft;
+		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
 		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
 	},
 	adjustPopupPosition: function() {
@@ -242,31 +267,40 @@ enyo.kind({
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this.setValue(v);
-			this.doChanging({value: this.value});
+			v = this.clampValue(this.min, this.max, v);
+			var p = this.calcPercent(v);
+
+			this.updateKnobPosition(p);
+			
+			if (this.lockBar) {
+				this.setProgress(v);
+			}
+			
+			this.sendChangingEvent({value: v});
 			this.adjustPopupPosition();
+			
 			return true;
 		}
 	},
 	dragfinish: function(inSender, inEvent) {
+		var v = this.calcKnobPosition(inEvent);
+		v = (this.increment) ? this.calcIncrement(v) : v;
+		this._setValue(v);
+		
 		this.dragging = false;
+
 		inEvent.preventTap();
-		this.doChange({value: this.value});
+		
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
+		
 		return true;
 	},
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this.tapped = true;
-			if (this.animate) {
-				this.animateTo(v);
-			}
-			else {
-				this.setValue(v);
-			}
+			this.setValue(v);
 			return true;
 		}
 	},
@@ -290,23 +324,32 @@ enyo.kind({
 	},
 	//* @public
 	//* Animates to the given value.
-	animateTo: function(inValue) {
+	animateTo: function(inStartValue, inEndValue) {
+		this.animatingTo = inEndValue;
+		
 		this.$.animator.play({
-			startValue: this.value,
-			endValue: inValue,
+			startValue: inStartValue,
+			endValue: inEndValue,
 			node: this.hasNode()
 		});
 	},
 	//* @protected
 	animatorStep: function(inSender) {
-		this.setValue(inSender.value);
+		var v = this.clampValue(this.min, this.max, inSender.value),
+			p = this.calcPercent(v);
+
+		this.updateKnobPosition(p);
+
+		if (this.lockBar) {
+			this.setProgress(v);
+		}
+
+		this.sendChangingEvent({value: v});
 		return true;
 	},
 	animatorComplete: function(inSender) {
-		if (this.tapped) {
-			this.tapped = false;
-			this.doChange({value: this.value});
-		}
+		this._setValue(inSender.value);
+		this.animatingTo = null;
 		this.doAnimateFinish(inSender);
 		return true;
 	},
@@ -334,5 +377,29 @@ enyo.kind({
 		ctx.arcTo(1, 1, 1, hbc, r);
 		ctx.lineTo(1, h);
 		ctx.fill();
-	}
+	},
+	
+	changeDelayMS: 50,
+	sendChangeEvent: function(inEventData) {
+		var jobName = this.id + "sliderChange",
+			job = enyo.bind(this, function() { this.doChange(inEventData); });
+		
+		enyo.job.throttle(jobName, job, this.changeDelayMS);
+	},
+	sendChangingEvent: function(inEventData) {
+		var jobName = this.id + "sliderChanging",
+			job = enyo.bind(this, function() { this.doChanging(inEventData); });
+		
+		enyo.job.throttle(jobName, job, this.changeDelayMS);
+	},
 });
+
+enyo.job.throttle = function(inJobName, inJob, inWait) {
+	if (enyo.job._jobs[inJobName]) {
+		return;
+	}
+	inJob();
+	enyo.job._jobs[inJobName] = setTimeout(function() {
+		enyo.job.stop(inJobName);
+	}, inWait);
+};
