@@ -15,7 +15,7 @@ enyo.kind({
 			otherwise, the transition should be delayed until some internal
 			transitions have finished.
 		*/
-		transitionReady: false,		
+		transitionReady: false
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -30,7 +30,7 @@ enyo.kind({
 	draggable: false,
 
 	/************ PROTECTED **********/
-	
+
 	create: function(oSender, oEvent) {
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
@@ -48,17 +48,19 @@ enyo.kind({
 
 	/************ PUBLIC *************/
 
-	//* Creates component on top of stack and increments index
+	//* Create a panel on top of the stack and increment index to
+	//* select that component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = this.createComponent(inInfo, inMoreInfo);
-		
+
 		oPanel.render();
 		this.resized();
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Creates components on top of stack and increments index
+	//* Create multiple panels on top of the stack and update index to
+	//* select the last component.
 	pushPanels: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
@@ -67,16 +69,16 @@ enyo.kind({
 		for (nPanel in oPanels) {
 			oPanels[nPanel].render();
 		}
-		
+
 		this.resized();
 		this.setIndex(lastIndex+1);
 		return oPanels;
 	},
-	//* Destroys panels after _inIndex_
-	pop: function(inIndex) {
-		var panels = this.getPanels(),
-			inIndex = inIndex || panels.length - 1;
-		
+	//* Destroys panels the have an index greater or equal to _inIndex_
+	popPanels: function(inIndex) {
+		var panels = this.getPanels();
+		inIndex = inIndex || panels.length - 1;
+
 		while (panels.length > inIndex && inIndex >= 0) {
 			panels[panels.length - 1].destroy();
 		}
@@ -164,7 +166,7 @@ enyo.kind({
 	setIndex: function(inIndex) {
 		this.fromIndex = this.getIndex();
 		this.toIndex = inIndex;
-		
+
 		if (this.transitionReady) {
 			this.inherited(arguments);
 			this.getActive().spotlight = 'container';
@@ -188,7 +190,7 @@ enyo.kind({
 				this.preTransitionWaitlist.push(i);
 			}
 		}
-		
+
 		if (this.preTransitionWaitlist.length === 0) {
 			this.transitionReady = true;
 			this.setIndex(this.transitionIndex);
@@ -202,7 +204,7 @@ enyo.kind({
 				break;
 			}
 		}
-		
+
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
@@ -211,7 +213,7 @@ enyo.kind({
 		this.transitionReady = true;
 		this.setIndex(this.transitionIndex);
 	},
-	
+
 	triggerPanelPostTransitions: function() {
 		var panels = this.getPanels();
 		this.postTransitionWaitlist = [];
@@ -220,7 +222,7 @@ enyo.kind({
 				this.postTransitionWaitlist.push(i);
 			}
 		}
-		
+
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
@@ -233,7 +235,7 @@ enyo.kind({
 				break;
 			}
 		}
-		
+
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
