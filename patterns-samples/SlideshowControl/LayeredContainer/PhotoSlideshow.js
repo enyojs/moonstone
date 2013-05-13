@@ -102,11 +102,11 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler", classes: "big-icon-button"}
 			]},
 			{flex: true, components: [
-				{name:"speed", kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "SLIDESHOW SPEED", 
+				{name:"speed", kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "SLIDESHOW SPEED",
 			classes: "moon-photo-slideshow-control-picker-wrapper", value: 3, min: 1, max: 15, unit: "sec", autoCollapse: true}
 			]}
 		]},
-		{name: "list", kind: "moon.List", orient:"h", multiSelect: false, spotlight: true, 			onSetupItem: "setupItem", onSpotlightSelect: "itemSelectHandler",  components: [
+		{name: "list", kind: "moon.List", orient:"h", multiSelect: false, spotlight: true, onSetupItem: "setupItem", onSpotlightSelect: "itemSelectHandler",  components: [
 			{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"}
 		]}
 	],
@@ -189,12 +189,13 @@ enyo.kind({
 	itemSelectHandler: function(inSender, inEvent) {
 		this.stopSlideshow();
 
-		if (typeof inSender._nCurrentSpotlightItem != 'undefined') {
-			this.index = inSender._nCurrentSpotlightItem;
+		if (inSender.kindName == 'moon.List') {
+			this.index = enyo.Spotlight.Decorator.List._getCurrent(inSender);
 		}
 		else {
 			this.index = inEvent.index;
 		}
+
 		this.doChangeSlide({index: this.index, direction: "none"});
 		return true;
 	},
