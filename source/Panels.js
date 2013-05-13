@@ -2,8 +2,6 @@
 	_moon.Panels_ extends <a href="#enyo.Panels">enyo.Panels</a>, adding support
 	for 5-way focus (Spotlight).  By default, controls added to a _moon.Panels_
 	are instances of <a href="#moon.Panel">moon.Panel</a>.
-
-	@author: Lex Podgorny
  */
 
 enyo.kind({
@@ -29,9 +27,16 @@ enyo.kind({
 		onPostTransitionComplete	: 'panelPostTransitionComplete'
 	},
 	defaultKind: "moon.Panel",
+	draggable: false,
 
 	/************ PROTECTED **********/
-
+	
+	create: function(oSender, oEvent) {
+		this.inherited(arguments);
+		for (var n=0; n<this.getPanels().length; n++) {
+			this.getPanels()[n].spotlight = 'container';
+		}
+	},
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
@@ -43,54 +48,31 @@ enyo.kind({
 
 	/************ PUBLIC *************/
 
-	create: function(oSender, oEvent) {
-		this.inherited(arguments);
-		for (var n=0; n<this.getPanels().length; n++) {
-			this.getPanels()[n].spotlight = 'container';
-		}
-	},
-
-	//* Creates component on top of stack.
-	createComponent: function(inInfo, inMoreInfo) { // added
-		this.addBefore = undefined;
-		var c = this.inherited(arguments);
-		return c;
-	},
-	createComponents: function(inInfos, inCommonInfo) { // added
-		this.addBefore = undefined;
-		var cs = this.inherited(arguments);
-		return cs;
-	},
-	//* Removes component if it is on top of stack.
-	removeComponent: function(inComponent) { // added
-		var lastIndex = this.getPanels().length - 1;
-		if (this.getPanels()[lastIndex] === inComponent) {
-			return this.inherited(arguments); 
-		}
-	},
-	//* Creates component on top of stack and changes index.
-	push: function(inInfo, inMoreInfo) { // added
+	//* Creates component on top of stack and increments index
+	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
-			oPanel = null;
-		oPanel = this.createComponent(inInfo, inMoreInfo);
+			oPanel = this.createComponent(inInfo, inMoreInfo);
+		
 		oPanel.render();
 		this.resized();
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Creates component on top of stack and changes index.
-	pushs: function(inInfos, inCommonInfo) { // added
+	//* Creates components on top of stack and increments index
+	pushPanels: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
-			oPanels = null, oPanel = null;
-		oPanels = this.createComponents(inInfos, inCommonInfo);
-		for (var nPanel in oPanels) {
+			oPanels = this.createComponents(inInfos, inCommonInfo),
+			nPanel;
+
+		for (nPanel in oPanels) {
 			oPanels[nPanel].render();
 		}
+		
 		this.resized();
 		this.setIndex(lastIndex+1);
-		return oPanel;
+		return oPanels;
 	},
-	//* Changes index.
+	//* Destroys panels after _inIndex_
 	pop: function(inIndex) {
 		var panels = this.getPanels(),
 			inIndex = inIndex || panels.length - 1;
