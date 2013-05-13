@@ -29,7 +29,7 @@ enyo.kind({
                     kind: "moon.Table",
                     name: "artistInfo",
                     components: [
-                        {name: "artist", attributes: {colspan: "2"}, style: "font-weight: bold;"},
+                        {components: [{name: "artist", attributes: {colspan: "2"}, style: "font-weight: bold;"}]},
                         {components: [
                             {content: "Organized"},
                             {name: "organizedDate"}
@@ -55,26 +55,28 @@ enyo.kind({
                {
                     name: "trackInfo",
                     kind: "enyo.DataList",
-                    // orient: "v",
-                    count: 10,
                     components: [
                         {
-                            kind: "moon.Table",
-                            spotlight: true,
-                            ontap: "changeTrackName",
+                            /* Todo: Needs to make a component for this */
+                            name: "item",
+                            kind: "enyo.FittableColumns",
+                            classes: "moon-music-item",
+                            fit: true,
                             components: [
                                 {
                                     name: "cover",
                                     kind: "enyo.Image",
                                     style: "height: 126px; width: 126px;",
+                                    classes: "moon-music-item-image",
                                     bindFrom: "coverUrl", 
                                     bindTo: "src"
                                 },
                                 {
-                                    kind: "moon.Table",
+                                    classes: "moon-music-item-label",
+                                    fit: true,
                                     components: [
-                                        {components: [{bindFrom: "name"}]},
-                                        {components: [{bindFrom: "duration"}]}
+                                        {bindFrom: "name"},
+                                        {bindFrom: "duration", classes: "moon-music-item-label-small"}
                                     ]
                                 }
                             ]
@@ -103,6 +105,18 @@ enyo.ready(function(){
         debutDate: "5 April 1973",
         type: "Solo",
         tracks: new enyo.Collection([
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"},
             {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
             {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
             {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
