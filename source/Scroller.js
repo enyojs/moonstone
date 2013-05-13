@@ -83,7 +83,7 @@ enyo.kind({
 		}
 
 		if (!this.$.strategy.isInView(inEvent.originator.hasNode())) {
-			this.updateScrollBounds();
+			this.$.strategy.updateScrollBounds();
 			this.animateToControl(inEvent.originator);
 		}
 	},

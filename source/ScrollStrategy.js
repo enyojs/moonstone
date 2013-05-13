@@ -11,7 +11,11 @@ enyo.kind({
 	handlers: {
 		onscrollstart: "scrollStart"
 	},
-	pos: null, //keeps track of desired scroll position on pagination since ScrollMath doesn't keep it
+	/** 
+		Keeps track of desired scroll position on pagination since ScrollMath doesn't keep it. 
+		Tracking horizontal & vertical for Scroller which can move both ways in one instance.
+	*/
+	pos: {top: null, left: null},
 	//* Pagination buttons
 	pageControls: [
 		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left", showing: false},
@@ -56,6 +60,11 @@ enyo.kind({
 		this.inherited(arguments);
 		this.updateScrollBounds();
 		this.showHidePageControls();
+	},
+	//* Clear the tracked scroll positions when scroller drag finishes
+	dragfinish: function() {
+		this.inherited(arguments);
+		this.pos = {top:null, left:null};
 	},
 	//* At the beginning of a scroll event, caches the scroll bounds in
 	//* _this.scrollBounds_.
@@ -136,34 +145,46 @@ enyo.kind({
 	},
 	holdHandler: function(inSender, inEvent) {
 		enyo.Spotlight.Accelerator.processKey(inEvent, inEvent.type == "pagerelease" ? enyo.nop : this.autoScroll, this);
-		if (inEvent.type == "pagerelease") {
-			this.pos = null;
+		if (inEvent.type == "pagerelease" || inEvent.type == "pagehold") {
+			this.pos = {top:null, left:null};
 		}
 	},
 	autoScroll: function(inEvent){
 		var sb = this.getScrollBounds(),
-		orientV = this.vertical != "hidden";
-		if (!this.pos) {
-			this.pos = orientV ? sb.top : sb.left;
+		orientV = this.vertical != "hidden" && 
+				  (inEvent.originator.side == "top" || 
+				  inEvent.originator.side == "bottom");
+	
+		if (orientV && !this.pos.top) {
+			this.pos.top = sb.top;
+		} else if (!this.pos.left) {
+			this.pos.left = sb.left;			
 		}
 		switch (inEvent.originator.side) {
 			case "left": 
+				this.pos.left = this.pos.left - this.pageSize;
+				break;			
 			case "top":
-				this.pos = this.pos - this.pageSize;
+				this.pos.top = this.pos.top - this.pageSize;
 				break;
 			case "right":
+				this.pos.left = this.pos.left + this.pageSize;
+				break;			
 			case "bottom":
-				this.pos = this.pos + this.pageSize;
+				this.pos.top = this.pos.top + this.pageSize;
 				break;
 		}
-		if (this.pos > (orientV ? sb.maxTop : sb.maxLeft)) {
-			this.scrollTo(orientV ? 0:sb.maxLeft, orientV ? sb.maxTop:0)
-			return;
-		} else if (this.pos <= 0) {
-			this.scrollTo(0, 0);
-			return;
+		if (this.pos[orientV ? "top" : "left"] > (orientV ? sb.maxTop : sb.maxLeft)) {
+			this.pos.left = orientV ? sb.left:sb.maxLeft;
+			this.pos.top = orientV ? sb.maxTop:sb.top;
+		} else if (this.pos[orientV ? "top" : "left"] <= 0) {
+			this.pos.left = orientV ? sb.left:0;
+			this.pos.top = orientV ? 0:sb.top;
+		} else {
+			this.pos.left = orientV ? sb.left:this.pos.left;
+			this.pos.top = orientV ? this.pos.top:sb.top;
 		}
-		this.scrollTo(orientV ? 0:this.pos, orientV ? this.pos:0);
+		this.scrollTo(this.pos.left, this.pos.top);
 		this.updateScrollBounds();
 	}
 });
