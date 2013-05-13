@@ -189,15 +189,15 @@ enyo.kind({
 		if (v === this.value) {
 			return;
 		}
-		
+
 		this.value = v;
-		
+
 		this.updateKnobPosition(this.calcPercent(this.value));
-		
+
 		if (this.lockBar) {
 			this.setProgress(this.value);
 		}
-		
+
 		this.sendChangeEvent({value: this.getValue()});
 	},
 	getValue: function() {
@@ -271,14 +271,14 @@ enyo.kind({
 			var p = this.calcPercent(v);
 
 			this.updateKnobPosition(p);
-			
+
 			if (this.lockBar) {
 				this.setProgress(v);
 			}
-			
+
 			this.sendChangingEvent({value: v});
 			this.adjustPopupPosition();
-			
+
 			return true;
 		}
 	},
@@ -286,14 +286,14 @@ enyo.kind({
 		var v = this.calcKnobPosition(inEvent);
 		v = (this.increment) ? this.calcIncrement(v) : v;
 		this._setValue(v);
-		
+
 		this.dragging = false;
 
 		inEvent.preventTap();
-		
+
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
-		
+
 		return true;
 	},
 	tap: function(inSender, inEvent) {
@@ -326,7 +326,7 @@ enyo.kind({
 	//* Animates to the given value.
 	animateTo: function(inStartValue, inEndValue) {
 		this.animatingTo = inEndValue;
-		
+
 		this.$.animator.play({
 			startValue: inStartValue,
 			endValue: inEndValue,
@@ -378,28 +378,12 @@ enyo.kind({
 		ctx.lineTo(1, h);
 		ctx.fill();
 	},
-	
+
 	changeDelayMS: 50,
 	sendChangeEvent: function(inEventData) {
-		var jobName = this.id + "sliderChange",
-			job = enyo.bind(this, function() { this.doChange(inEventData); });
-		
-		enyo.job.throttle(jobName, job, this.changeDelayMS);
+		this.throttleJob("sliderChange", function() { this.doChange(inEventData); }, this.changeDelayMS);
 	},
 	sendChangingEvent: function(inEventData) {
-		var jobName = this.id + "sliderChanging",
-			job = enyo.bind(this, function() { this.doChanging(inEventData); });
-		
-		enyo.job.throttle(jobName, job, this.changeDelayMS);
+		this.throttleJob("sliderChanging", function() { this.doChanging(inEventData); }, this.changeDelayMS);
 	},
 });
-
-enyo.job.throttle = function(inJobName, inJob, inWait) {
-	if (enyo.job._jobs[inJobName]) {
-		return;
-	}
-	inJob();
-	enyo.job._jobs[inJobName] = setTimeout(function() {
-		enyo.job.stop(inJobName);
-	}, inWait);
-};
