@@ -26,7 +26,7 @@ enyo.kind({
                         ]},
                         {flex: true, components: [
                             {kind: "moon.Divider", content: "Release Date"},
-                            {name: "date"}
+                            {name: "releaseDate"}
                         ]},
                         {flex: true, components: [
                             {kind: "moon.Divider", content: "Running Time"},
@@ -69,7 +69,7 @@ enyo.kind({
     bindings: [
         {from: ".controller.posterUrl", to: "$.movie.src"},
         {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.date", to: "$.date.content"},
+        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
         {from: ".controller.duration", to: "$.duration.content"},
         {from: ".controller.valueSD", to: "$.valueSD.content"},
         {from: ".controller.valueHD", to: "$.valueHD.content"},
@@ -86,7 +86,7 @@ enyo.ready(function(){
     var sampleModel = new enyo.Model({
         posterUrl: "http://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG",
         rating: "PG-13",
-        date: "2013",
+        releaseDate: "2013",
         duration: "122",
         valueSD: "$3.99",
         valueHD: "$6.99",
