@@ -1,131 +1,95 @@
 enyo.kind({
     name: "moon.sample.music.TrackDetailWideSample2",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-track-detail",
+	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    spotlight: false,
     title: "Track Name",
     titleAbove: "03",
     headerComponents: [
         {
-            classes: "header",
+            classes: "moon-music-detail-header-button",
             components: [
                 {kind: "moon.IconButton", src: "assets/icon-album.png"},
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-download.png",
-                    classes: "right-button"
-                },
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-like.png",
-                    classes: "right-button"
-                },
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-next.png",
-                    classes: "right-button"
-                }
+                {kind: "moon.IconButton", src: "assets/icon-download.png", classes: "moon-music-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-like.png", classes: "moon-music-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
             ]
         }
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
+            name: "container",
             kind: "FittableColumns",
-            classes: "client",
+            classes: "moon-music-detail-container",
             fit: true,
             components: [
                 {
                     name: "detail",
                     kind: "FittableRows",
-                    classes: "detail",
+                    classes: "moon-music-detail-detail",
                     components: [
                         {
                             name: "movie",
-                            classes: "preview",
-                            spotlight: true,
-                            components: [{name: "play", classes: "play-icon"}]
+                            classes: "moon-music-detail-preview",
+                            components: [{name: "play", classes: "moon-play-icon"}]
                         }
                     ]
                 },
                 {
-                    kind: "FittableRows",
-                    classes: "track",
+                    classes: "moon-music-detail-track",
                     components: [
                         {
-                            kind: "moon.Divider",
-                            classes: "track-divider",
-                            content: "Track Info"
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "info",
+                            kind: "FittableRows",
                             components: [
-                                {classes: "title", content: "Released"},
-                                {classes: "content", content: "5 April 2013"}
-                            ]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "info",
-                            components: [
-                                {classes: "title", content: "Artist"},
-                                {classes: "content", content: "Name"}
-                            ]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "info",
-                            components: [
-                                {classes: "title", content: "Album"},
-                                {classes: "content", content: "New"}
-                            ]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "info",
-                            components: [
-                                {classes: "title", content: "Genre"},
-                                {classes: "content", content: "Ballad"}
+                                {kind: "moon.Divider", classes: "moon-music-detail-track-devider", content: "Track Info"},
+                                {
+                                    kind: "FittableColumns",
+                                    classes: "moon-music-detail-info",
+                                    components: [
+                                        {classes: "moon-music-detail-title", content: "Released"},
+                                        {classes: "moon-music-detail-content", content: "5 April 2013"}
+                                    ]
+                                },
+                                {
+                                    kind: "FittableColumns",
+                                    classes: "moon-music-detail-info",
+                                    components: [
+                                        {classes: "moon-music-detail-title", content: "Artist"},
+                                        {classes: "moon-music-detail-content", content: "Name"}
+                                    ]
+                                },
+                                {
+                                    kind: "FittableColumns",
+                                    classes: "moon-music-detail-info",
+                                    components: [
+                                        {classes: "moon-music-detail-title", content: "Album"},
+                                        {classes: "moon-music-detail-content", content: "New"}
+                                    ]
+                                },
+                                {
+                                    kind: "FittableColumns",
+                                    classes: "moon-music-detail-info",
+                                    components: [
+                                        {classes: "moon-music-detail-title", content: "Genre"},
+                                        {classes: "moon-music-detail-content", content: "Ballad"}
+                                    ]
+                                }
                             ]
                         }
                     ]
                 },
                 {
+                    name: "more",
                     fit: true,
                     components: [
-                        {
-                            kind: "moon.Divider",
-                            classes: "more-divider",
-                            content: "More"
-                        },
+                        {kind: "moon.Divider", classes: "moon-music-detail-more", content: "More"},
                         {kind: "Group", components: [
-                            {
-                                kind: "moon.SelectableItem",
-                                classes: "item",
-                                content: "Lyrics"
-                            },
-                            {
-                                kind: "moon.SelectableItem",
-                                classes: "item",
-                                content: "Artist"
-                            },
-                            {
-                                kind: "moon.SelectableItem",
-                                classes: "item",
-                                content: "Album"
-                            },
-                            {
-                                kind: "moon.SelectableItem",
-                                classes: "item",
-                                content: "Similar Track"
-                            },
-                            {
-                                kind: "moon.SelectableItem",
-                                classes: "item",
-                                content: "Related Videos"
-                            }
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Lyrics", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Artist", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Album", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Similar Track", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Related Videos", spotlight: true}
                         ]}
                     ]
                 }

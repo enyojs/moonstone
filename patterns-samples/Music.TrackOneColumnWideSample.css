@@ -2,61 +2,50 @@
     background: #eaeaea;
 }
 
-.moon-music-track-one-column {
+.moon-music-trackonecolumn {
     margin: 0px 20px 0px 20px;
 }
 
-.moon-music-track-one-column .header {
+.moon-music-header-button {
     margin: 0px 0px 5px 0px;
 }
 
-.moon-music-track-one-column .right-button {
+.moon-music-header-button-right {
     margin: 0px 0px 5px 20px;
 }
 
-.moon-music-track-one-column .list {
+.moon-music-container {
     margin: 10px 0px 0px 0px;
 }
 
-.moon-music-track-one-column .item {
+.moon-music-item {
     margin: 0px 0px 10px 0px;
     width: 100%;
     display: table;
     table-layout: fixed;
 }
 
-.moon-music-track-one-column .play-icon {
-    background-image: url("assets/icon-play.png");
-    margin: 14px 0px 0px 14px;
-    border: 4px solid transparent;
-    border-radius: 9999px;
-    width: 90px;
-    height: 90px;
-    visibility: hidden;
-    background-color: #ffffff;
-}
-
-.moon-music-track-one-column .spotlight .item .play-icon {
+.moon-music-item:hover .moon-play-icon {
     visibility: visible;
 }
 
-.moon-music-track-one-column .item .preview {
+.moon-music-item-image {
     width: 126px;
     height: 126px;
     display: table-cell;
     background-repeat: no-repeat;
 }
 
-.moon-music-track-one-column .item .preview:hover .play-icon {
+.moon-music-item-image:hover .moon-play-icon {
     background-color: #ffb80d;
 }
 
-.moon-music-track-one-column .item .preview:active .play-icon {
+.moon-music-item-image:active .moon-play-icon {
     background-color: #ffffff;
     border: 4px solid #ffb80d;
 }
 
-.moon-music-track-one-column .item .label {
+.moon-music-item-label {
     overflow: hidden;
     white-space: nowrap;
     color: #4b4b4b;
@@ -69,7 +58,7 @@
     display: table-cell;
 }
 
-.moon-music-track-one-column .item .content {
+.moon-music-item-label-content {
     padding: 0px 0px 0px 5px;
 	transition: all 0.1s linear;
 	-webkit-transition: all 0.1s linear;
@@ -77,11 +66,11 @@
 	-o-transition: all 0.1s linear;
 }
 
-.moon-music-track-one-column .item .label:hover .content {
+.moon-music-item-label:hover .moon-music-item-label-content {
     border-left:16px solid orange;
 }
 
-.moon-music-track-one-column .item .time {
+.moon-music-item-label-right {
     overflow: hidden;
     white-space: nowrap;
     color: #4b4b4b;
@@ -93,4 +82,15 @@
     text-align: center;
     vertical-align: middle;
     display: table-cell;
+}
+
+.moon-play-icon {
+    background-image: url("assets/icon-play.png");
+    margin: 14px 0px 0px 14px;
+    border: 4px solid transparent;
+    border-radius: 9999px;
+    width: 90px;
+    height: 90px;
+    visibility: hidden;
+    background-color: #ffffff;
 }
