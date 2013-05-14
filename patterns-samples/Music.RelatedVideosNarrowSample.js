@@ -1,40 +1,61 @@
 enyo.kind({
     name: "moon.sample.music.RelatedVideosNarrowSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-related-video",
+	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    spotlight: false,
     title: "Related Videos",
     titleAbove: "04",
     titleBelow: "10 Tracks",
     components: [
         {kind: "enyo.Spotlight"},
         {
-            name: "list",
-            kind: "moon.List",
-            style: "height: 300px;",
-            classes: "list",
-            count: 10,
-            multiSelect: false,
-            onSetupItem: "setupItem",
+            name: "container",
+            kind: "FittableColumns",
+            classes: "moon-music-detail-container",
+            fit: true,
             components: [
                 {
-                    kind: "enyo.FittableColumns",
-                    classes: "item",
-                    fit: true,
+                    name: "detail",
+                    kind: "FittableRows",
+                    classes: "moon-music-detail-detail",
                     components: [
                         {
-                            name: "preview",
-                            fit: true,
-                            classes: "preview",
-                            components: [{classes: "play-icon"}]
-                        },
-                        {style: "display: table-cell; width: 20px;"},
-                        {
-                            classes: "content",
+                            name: "listContainer",
+                            spotlight: "container",
                             components: [
-                                {name: "title"},
-                                {name: "time", classes: "small-content"}
+                                {
+                                    name: "list",
+                                    kind: "moon.List",
+                                    style: "height: 300px;",
+                                    orient: "v",
+                                    count: 10,
+                                    multiSelect: false,
+                            		onSetupItem: "setupItem",
+                                    components: [
+                            			{
+                                            name: "item",
+                                            kind: "enyo.FittableColumns",
+                                            classes: "moon-music-item",
+                                            fit: true,
+                                            components: [
+                                                {
+                                                    name: "image",
+                                                    fit: true,
+                                                    classes: "moon-music-item-image",
+                                                    components: [{classes: "moon-play-music-icon"}]
+                                                },
+                                                {style: "display: table-cell; width: 20px;"},
+                                                {
+                                                    classes: "moon-music-item-label",
+                                                    components: [
+                                                        {name: "title"},
+                                                        {name: "time", classes: "moon-music-item-label-small"}
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                            		]
+                                }
                             ]
                         }
                     ]
@@ -49,14 +70,12 @@ enyo.kind({
     },
     
     resizeHandler: function() {
-        var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top + 20;
-        this.$.list.setBounds({height: h});
+        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
     },
     
     setupItem: function(inSender, inEvent) {
         var url = "assets/default-music.png";
-		this.$.preview.setStyle("background-image: url(" + url + ");");
+		this.$.image.setStyle("background-image: url(" + url + ");");
 		this.$.title.setContent("Video Title");
 		this.$.time.setContent("3:40");
 	}

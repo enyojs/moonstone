@@ -1,81 +1,69 @@
 enyo.kind({
     name: "moon.sample.music.TrackDetailNarrowSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-track-detail",
+	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    spotlight: false,
     title: "Track Name",
     titleAbove: "03",
     titleBelow: "Artist Name",
     headerComponents: [
         {
-            classes: "header",
+            classes: "moon-music-detail-header-button",
             components: [
                 {kind: "moon.IconButton", src: "assets/icon-album.png"},
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-download.png",
-                    classes: "right-button"
-                },
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-like.png",
-                    classes: "right-button"
-                },
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-next.png",
-                    classes: "right-button"
-                }
+                {kind: "moon.IconButton", src: "assets/icon-download.png", classes: "moon-music-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-like.png", classes: "moon-music-detail-header-button-right"},
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
             ]
         }
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
+            name: "container",
             kind: "FittableColumns",
-            classes: "client",
+            classes: "moon-music-detail-container",
             fit: true,
             components: [
                 {
                     name: "detail",
                     kind: "FittableRows",
-                    classes: "detail",
+                    classes: "moon-music-detail-detail",
                     components: [
                         {
                             name: "movie",
-                            classes: "preview",
-                            spotlight: true,
-                            components: [{name: "play", classes: "play-icon"}]
+                            classes: "moon-music-detail-preview",
+                            components: [{name: "play", classes: "moon-play-icon"}]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "info",
+                            classes: "moon-music-detail-info",
                             components: [
-                                {classes: "title", content: "Released"},
-                                {classes: "content", content: "5 April 2013"}
+                                {classes: "moon-music-detail-title", content: "Released"},
+                                {classes: "moon-music-detail-content", content: "5 April 2013"}
                             ]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "info",
+                            classes: "moon-music-detail-info",
                             components: [
-                                {classes: "title", content: "Genre"},
-                                {classes: "content", content: "Ballad"}
+                                {classes: "moon-music-detail-title", content: "Genre"},
+                                {classes: "moon-music-detail-content", content: "Ballad"}
                             ]
                         }
                     ]
                 },
                 {
+                    name: "more",
                     fit: true,
                     components: [
-                        {kind: "moon.Divider", classes: "divider", content: "More"},
+                        {kind: "moon.Divider", classes: "moon-music-detail-more", content: "More"},
                         {kind: "Group", components: [
-                            {kind: "moon.SelectableItem", content: "Lyrics"},
-                            {kind: "moon.SelectableItem", content: "Artist"},
-                            {kind: "moon.SelectableItem", content: "Album"},
-                            {kind: "moon.SelectableItem", content: "Similar Track"},
-                            {kind: "moon.SelectableItem", content: "Related Videos"}
+                            {kind: "moon.SelectableItem", content: "Lyrics", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Artist", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Album", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Similar Track", spotlight: true},
+                            {kind: "moon.SelectableItem", content: "Related Videos", spotlight: true}
                         ]}
                     ]
                 }

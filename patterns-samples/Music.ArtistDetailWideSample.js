@@ -1,178 +1,160 @@
 enyo.kind({
     name: "moon.sample.music.ArtistDetailWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-artist-detail",
+	classes: "enyo-unselectable moon moon-music-detail",
     fit: true,
-    spotlight: false,
     title: "Artist",
     titleAbove: "04",
     titleBelow: "Artist Name",
     headerComponents: [
         {
-            classes: "header",
+            classes: "moon-music-detail-header-button",
             components: [
                 {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-next.png",
-                    classes: "right-button"
-                }
+                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
             ]
         }
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
+            name: "container",
             kind: "FittableColumns",
-            classes: "client",
+            classes: "moon-music-detail-container",
             fit: true,
             components: [
                 {
                     name: "detail",
                     kind: "FittableRows",
-                    classes: "detail",
+                    classes: "moon-music-detail-detail",
                     components: [
                         {
-                            name: "music",
-                            classes: "preview",
-                            spotlight: true,
-                            components: [{name: "play", classes: "play-icon"}]
+                            name: "movie",
+                            classes: "moon-music-detail-preview",
+                            components: [{name: "play", classes: "moon-play-icon"}]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "info",
+                            classes: "moon-music-detail-info",
                             components: [
-                                {classes: "title", content: "Organized"},
-                                {classes: "content", content: "5 April 2013"}
+                                {classes: "moon-music-detail-title", content: "Organized"},
+                                {classes: "moon-music-detail-content", content: "5 April 2013"}
                             ]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "info",
+                            classes: "moon-music-detail-info",
                             components: [
-                                {classes: "title", content: "Debut"},
-                                {classes: "content", content: "5 April 2013"}
+                                {classes: "moon-music-detail-title", content: "Debut"},
+                                {classes: "moon-music-detail-content", content: "5 April 2013"}
                             ]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "info",
+                            classes: "moon-music-detail-info",
                             components: [
-                                {classes: "title", content: "Type"},
-                                {classes: "content", content: "Solo"}
+                                {classes: "moon-music-detail-title", content: "Type"},
+                                {classes: "moon-music-detail-content", content: "Solo"}
                             ]
                         }
                     ]
                 },
                 {
-                    classes: "bio",
-                    kind: "FittableRows",
+                    classes: "moon-music-detail-bio",
                     components: [
-                        {kind: "moon.Divider", classes: "devider", content: "Bio"},
                         {
-                            classes: "content",
-                            content: "Jon Arryn, the Hand of the King, is dead. Ki" +
-                                     "ng Robert Baratheon plans to ask his oldest " +
-                                     "friend, Eddard Stark, to take Jon's place. A" +
-                                     "cross the sea, Viserys Targaryen plans to we" +
-                                     "d his sister to a nomadic warlord in exchang" +
-                                     "e for an army. Jon Arryn, the Hand of the Ki" +
-                                     "ng, is dead. King Robert Baratheon plans to " +
-                                     "ask his oldest friend, Eddard Stark, to take" +
-                                     " Jon's place. Across the sea, Viserys Targar" +
-                                     "yen plans to wed his sister to a nomadic war" +
-                                     "lord in exchange for an army. Jon Arryn, the" +
-                                     " Hand of"
+                            kind: "FittableRows",
+                            components: [
+                                {kind: "moon.Divider", classes: "moon-music-detail-bio-devider", content: "Bio"},
+                                {
+                                    classes: "moon-music-detail-bio-content",
+                                    components: [
+                                        {
+                                            content: "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    classes: "related",
+                    classes: "moon-music-detail-related",
                     fit: true,
                     components: [
-                        {
-                            kind: "moon.Divider",
-                            classes: "devider",
-                            content: "Related Artists"
-                        },
+                        {kind: "moon.Divider", classes: "moon-music-detail-related-devider", content: "Related Artists"},
                         {
                             kind: "FittableColumns",
                             components: [
                     			{
-                                    classes: "left-item",
-                                    spotlight: true,
+                                    style: "width: 33%;",
                                     components: [
                                         {
-                                            tag: "img",
-                                            src: "assets/blank.png",
-                                            classes: "focus"
+                                            classes: "moon-music-detail-related-image",
+                                            style: "background-image: url(assets/default-music.png); background-position: left center; text-align: left;",
+                                            components: [{tag: "img", src: "assets/blank.png", classes: "related-focus"}]
                                         }
                                     ]
                                 },
                     			{
-                                    classes: "center-item",
-                                    spotlight: true,
+                                    style: "width: 34%;",
                                     components: [
                                         {
-                                            tag: "img",
-                                            src: "assets/blank.png",
-                                            classes: "focus"
+                                            classes: "moon-music-detail-related-image",
+                                            style: "background-image: url(assets/default-music.png); background-position: center; text-align: center;",
+                                            components: [{tag: "img", src: "assets/blank.png", classes: "related-focus"}]
                                         }
                                     ]
                                 },
                                 {
-                                    classes: "right-item",
-                                    spotlight: true,
+                                    style: "width: 33%;",
                                     components: [
                                         {
-                                            tag: "img",
-                                            src: "assets/blank.png",
-                                            classes: "focus"
+                                            classes: "moon-music-detail-related-image",
+                                            style: "background-image: url(assets/default-music.png); background-position: right center; text-align: right;",
+                                            components: [{tag: "img", src: "assets/blank.png", classes: "related-focus"}]
                                         }
                                     ]
                                 }
                     		]
                         },
+                        {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
                         {
-                            kind: "moon.Divider",
-                            classes: "second-devider",
-                            content: "Top 10 Tracks"
-                        },
-                        {
-                            name: "list",
-                            kind: "moon.List",
-                            style: "height: 300px;",
-                            count: 10,
-                            multiSelect: false,
-                            onSetupItem: "setupItem",
+                            name: "listContainer",
+                            spotlight: "container",
                             components: [
                                 {
-                                    kind: "enyo.FittableColumns",
-                                    classes: "item",
-                                    fit: true,
+                                    name: "list",
+                                    kind: "moon.List",
+                                    style: "height: 300px;",
+                                    count: 10,
+                                    multiSelect: false,
+                            		onSetupItem: "setupItem",
                                     components: [
-                                        {
-                                            name: "preview",
+                            			{
+                                            name: "item",
+                                            kind: "enyo.FittableColumns",
+                                            classes: "moon-music-item",
                                             fit: true,
-                                            classes: "preview",
-                                            components: [{classes: "play-icon"}]
-                                        },
-                                        {style: "display: table-cell; width: 20px;"},
-                                        {
-                                            classes: "heading",
                                             components: [
-                                                {name: "track"},
                                                 {
-                                                    name: "artist",
-                                                    classes: "small-content"
+                                                    name: "image",
+                                                    fit: true,
+                                                    classes: "moon-music-item-image",
+                                                    components: [{classes: "moon-play-music-icon"}]
                                                 },
+                                                {style: "display: table-cell; width: 20px;"},
                                                 {
-                                                    name: "time",
-                                                    classes: "small-content"
+                                                    classes: "moon-music-item-label",
+                                                    components: [
+                                                        {name: "track"},
+                                                        {name: "artist", classes: "moon-music-item-label-small"},
+                                                        {name: "time", classes: "moon-music-item-label-small"}
+                                                    ]
                                                 }
                                             ]
                                         }
-                                    ]
+                            		]
                                 }
                             ]
                         }
@@ -189,19 +171,17 @@ enyo.kind({
     
     resizeHandler: function() {
         var d = this.$.detail.getBounds().width;
-        this.$.music.setBounds({width: d, height: d});
+        this.$.movie.setBounds({width: d, height: d});
         
         d = Math.round((d - 168) * 0.5);
         this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
         
-        d = this.getAbsoluteBounds().height;
-        d -= this.$.list.getAbsoluteBounds().top + 20;
-        this.$.list.setBounds({height: d});
+        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
     },
     
     setupItem: function(inSender, inEvent) {
         var url = "assets/default-music.png";
-		this.$.preview.setStyle("background-image: url(" + url + ");");
+		this.$.image.setStyle("background-image: url(" + url + ");");
 		this.$.track.setContent("Track Name");
 		this.$.artist.setContent("Artist Name");
 		this.$.time.setContent("3:40");

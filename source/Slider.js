@@ -14,33 +14,22 @@ enyo.kind({
 	classes: "moon-slider",
 	spotlight: true,
 	published: {
-		//* Progress completed
 		progress: 0,
-		//* Progress completed of background
 		bgProgress: 0,
-		//* Minimum acceptable value
 		min: 0,
-		//* Maximum acceptable value
 		max: 100,
-		//* CSS classes to be applied to the bar
 		barClasses: "",
-		//* If true, keep bar in sync with knob
 		lockBar: true,
-		//* Current value
 		value: 0,
 		completed: 0,
-		//* If true, bar can be tapped to set value directly
 		tappable: true,
-		//* Color of value popup
 		popupColor: "#ffb80d",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		//* Value increment that the slider can be "snapped to" in either direction
 		increment: 0,
-		/**
-			When true, knob and progress move with animation by clicking left/right
-			direction key or by tapping the bar.
-		*/
+		//* When true, knob and progress move with animation by clicking left/right
+		//* direction key or by tapping the bar
 		animate : true
 	},
 	events: {
@@ -77,14 +66,13 @@ enyo.kind({
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
 		]}
 	],
-	animatingTo: null,
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		this.bgProgressChanged();
 		this.progressChanged();
 		this.barClassesChanged();
-		this.initValue();
+		this.valueChanged();
 		this.disabledChanged();
 		this.$.knob.setShowing(false);
 	},
@@ -121,27 +109,39 @@ enyo.kind({
 		return true;
 	},
 	spotBlur: function() {
-		if (this.dragging) {
+		if(this.dragging) {
 			return true;
-		} else {
-			this.$.knob && this.$.knob.hide();
-			this.$.knob && this.$.knob.removeClass("spotselect");
-			this.$.popup && this.$.popup.hide();
+		}
+		else {
+			this.$.knob.hide();
+			this.$.popup.hide();
+			this.$.knob.removeClass("spotselect");
 			this.selected = false;
 		}
 	},
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
-			// If in the process of animating, work from the previously set value
-			var v = this.getValue() - (this.increment || 1);
-			this.setValue(v);
+			var v = inSender.value - (this.increment || 1);
+			if (this.animate) {
+				this.animateTo(v);
+			}
+			else {
+				this.setValue(v);
+				this.doChange({value: this.value});
+			}
 			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = this.getValue() + (this.increment || 1);
-			this.setValue(v);
+			var v = inSender.value + (this.increment || 1);
+			if (this.animate) {
+				this.animateTo(v);
+			}
+			else {
+				this.setValue(v);
+				this.doChange({value: this.value});
+			}
 			return true;
 		}
 	},
@@ -168,40 +168,13 @@ enyo.kind({
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
 	},
-	//* Prep value at create time
-	initValue: function() {
-		this.updateKnobPosition(this.calcPercent(this.getValue()));
-		if (this.lockBar) {
-			this.setProgress(this.getValue());
-		}
-	},
-	setValue: function(inValue) {
-		if (this.animate) {
-			this.animateTo(this.getValue(), inValue);
-		} else {
-			this._setValue(inValue);
-		}
-	},
-	_setValue: function(inValue) {
-		var v = this.clampValue(this.min, this.max, inValue);
-
-		// If no change, return
-		if (v === this.value) {
-			return;
-		}
-
-		this.value = v;
-
-		this.updateKnobPosition(this.calcPercent(this.value));
-
+	valueChanged: function() {
+		this.value = this.clampValue(this.min, this.max, this.value);
+		var p = this.calcPercent(this.value);
+		this.updateKnobPosition(p);
 		if (this.lockBar) {
 			this.setProgress(this.value);
 		}
-
-		this.sendChangeEvent({value: this.getValue()});
-	},
-	getValue: function() {
-		return (this.animatingTo !== null) ? this.animatingTo : this.value;
 	},
 	updateKnobPosition: function(inPercent) {
 		this.$.knob.applyStyle("left", inPercent + "%");
@@ -267,40 +240,31 @@ enyo.kind({
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			v = this.clampValue(this.min, this.max, v);
-			var p = this.calcPercent(v);
-
-			this.updateKnobPosition(p);
-
-			if (this.lockBar) {
-				this.setProgress(v);
-			}
-
-			this.sendChangingEvent({value: v});
+			this.setValue(v);
+			this.doChanging({value: this.value});
 			this.adjustPopupPosition();
-
 			return true;
 		}
 	},
 	dragfinish: function(inSender, inEvent) {
-		var v = this.calcKnobPosition(inEvent);
-		v = (this.increment) ? this.calcIncrement(v) : v;
-		this._setValue(v);
-
 		this.dragging = false;
-
 		inEvent.preventTap();
-
+		this.doChange({value: this.value});
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
-
 		return true;
 	},
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this.setValue(v);
+			this.tapped = true;
+			if (this.animate) {
+				this.animateTo(v);
+			}
+			else {
+				this.setValue(v);
+			}
 			return true;
 		}
 	},
@@ -324,32 +288,23 @@ enyo.kind({
 	},
 	//* @public
 	//* Animates to the given value.
-	animateTo: function(inStartValue, inEndValue) {
-		this.animatingTo = inEndValue;
-
+	animateTo: function(inValue) {
 		this.$.animator.play({
-			startValue: inStartValue,
-			endValue: inEndValue,
+			startValue: this.value,
+			endValue: inValue,
 			node: this.hasNode()
 		});
 	},
 	//* @protected
 	animatorStep: function(inSender) {
-		var v = this.clampValue(this.min, this.max, inSender.value),
-			p = this.calcPercent(v);
-
-		this.updateKnobPosition(p);
-
-		if (this.lockBar) {
-			this.setProgress(v);
-		}
-
-		this.sendChangingEvent({value: v});
+		this.setValue(inSender.value);
 		return true;
 	},
 	animatorComplete: function(inSender) {
-		this._setValue(inSender.value);
-		this.animatingTo = null;
+		if (this.tapped) {
+			this.tapped = false;
+			this.doChange({value: this.value});
+		}
 		this.doAnimateFinish(inSender);
 		return true;
 	},
@@ -377,13 +332,5 @@ enyo.kind({
 		ctx.arcTo(1, 1, 1, hbc, r);
 		ctx.lineTo(1, h);
 		ctx.fill();
-	},
-
-	changeDelayMS: 50,
-	sendChangeEvent: function(inEventData) {
-		this.throttleJob("sliderChange", function() { this.doChange(inEventData); }, this.changeDelayMS);
-	},
-	sendChangingEvent: function(inEventData) {
-		this.throttleJob("sliderChanging", function() { this.doChanging(inEventData); }, this.changeDelayMS);
-	},
+	}
 });

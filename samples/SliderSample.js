@@ -43,7 +43,11 @@ enyo.kind({
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
-				this.$[i].setValue(this.$.input.getValue());
+				if (this.$.animateSetting.getChecked()) {
+					this.$[i].animateTo(this.$.input.getValue());
+				} else {
+					this.$[i].setValue(this.$.input.getValue());
+				}
 			}
 		}
 	},
