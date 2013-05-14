@@ -41,20 +41,19 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    // TODO : change FittableColumns as HFlexBox after fixing Flex layout bug
-                    // now, when we use flex and scroller on same components[], the height of scroller
-                    //  is not correct. So, we can't see page control at bottom area
-                    kind: "FittableColumns",
+                    kind: "HFlexBox",
+                    // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
+                    style: "height: 100px;", 
                     components: [
-                        {style: "width: 33%;", flex: true, components: [
+                        {flex: true, components: [
                             {kind: "moon.Divider", content: "Rating"},
                             {name: "rating"}
                         ]},
-                        {style: "width: 33%;", flex: true, components: [
+                        {flex: true, components: [
                             {kind: "moon.Divider", content: "Release Date"},
                             {name: "releaseDate"}
                         ]},
-                        {style: "width: 33%;", flex: true, components: [
+                        {flex: true, components: [
                             {kind: "moon.Divider", content: "Running Time"},
                             {name: "duration"}
                         ]}
