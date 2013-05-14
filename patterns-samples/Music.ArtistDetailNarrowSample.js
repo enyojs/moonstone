@@ -48,37 +48,30 @@ enyo.kind({
         },
         {kind: "moon.Divider", content: "Top 10 Tracks"},
         {
-            kind: "moon.Scroller",
+            name: "trackInfo",
+            kind: "moon.DataList",
             fit: true,
-            horizontal: "hidden",
             components: [
-               {
-                    name: "trackInfo",
-                    kind: "enyo.DataList",
+                {
+                    /* Todo: Needs to make a component for this */
+                    kind: "moon.Item",
+                    layoutKind: "FittableColumnsLayout",
+                    classes: "moon-music-item",
+                    fit: true,
                     components: [
                         {
-                            /* Todo: Needs to make a component for this */
-                            name: "item",
-                            kind: "enyo.FittableColumns",
-                            classes: "moon-music-item",
+                            kind: "enyo.Image",
+                            style: "height: 126px; width: 126px;",
+                            classes: "moon-music-item-image",
+                            bindFrom: "coverUrl", 
+                            bindTo: "src"
+                        },
+                        {
+                            classes: "moon-music-item-label",
                             fit: true,
                             components: [
-                                {
-                                    name: "cover",
-                                    kind: "enyo.Image",
-                                    style: "height: 126px; width: 126px;",
-                                    classes: "moon-music-item-image",
-                                    bindFrom: "coverUrl", 
-                                    bindTo: "src"
-                                },
-                                {
-                                    classes: "moon-music-item-label",
-                                    fit: true,
-                                    components: [
-                                        {bindFrom: "name"},
-                                        {bindFrom: "duration", classes: "moon-music-item-label-small"}
-                                    ]
-                                }
+                                {bindFrom: "name"},
+                                {bindFrom: "duration", classes: "moon-music-item-label-small"}
                             ]
                         }
                     ]

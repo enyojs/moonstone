@@ -1,11 +1,12 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.ArtistDetailWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-detail",
-    fit: true,
-    title: "Artist",
     titleAbove: "04",
+    title: "Artist",
     titleBelow: "Artist Name",
+    layoutKind: "FittableColumnsLayout",
     headerComponents: [
         {
             classes: "moon-music-detail-header-button",
@@ -16,174 +17,168 @@ enyo.kind({
         }
     ],
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "container",
-            kind: "FittableColumns",
-            classes: "moon-music-detail-container",
-            fit: true,
+            kind: "FittableRows",
             components: [
                 {
-                    name: "detail",
-                    kind: "FittableRows",
-                    classes: "moon-music-detail-detail",
-                    components: [
-                        {
-                            name: "movie",
-                            classes: "moon-music-detail-preview",
-                            components: [{name: "play", classes: "moon-play-icon"}]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "moon-music-detail-info",
-                            components: [
-                                {classes: "moon-music-detail-title", content: "Organized"},
-                                {classes: "moon-music-detail-content", content: "5 April 2013"}
-                            ]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "moon-music-detail-info",
-                            components: [
-                                {classes: "moon-music-detail-title", content: "Debut"},
-                                {classes: "moon-music-detail-content", content: "5 April 2013"}
-                            ]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "moon-music-detail-info",
-                            components: [
-                                {classes: "moon-music-detail-title", content: "Type"},
-                                {classes: "moon-music-detail-content", content: "Solo"}
-                            ]
-                        }
-                    ]
+                    name: "artistImage",
+                    kind: "enyo.Image",
+                    style: "height: 200px; width: 200px;"
                 },
                 {
-                    classes: "moon-music-detail-bio",
+                    kind: 'moon.Table',
                     components: [
                         {
-                            kind: "FittableRows",
                             components: [
-                                {kind: "moon.Divider", classes: "moon-music-detail-bio-devider", content: "Bio"},
-                                {
-                                    classes: "moon-music-detail-bio-content",
-                                    components: [
-                                        {
-                                            content: "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of"
-                                        }
-                                    ]
-                                }
+                                {content: "Organized"},
+                                {name: "organized"}
                             ]
-                        }
-                    ]
-                },
-                {
-                    classes: "moon-music-detail-related",
-                    fit: true,
-                    components: [
-                        {kind: "moon.Divider", classes: "moon-music-detail-related-devider", content: "Related Artists"},
-                        {
-                            kind: "FittableColumns",
-                            components: [
-                    			{
-                                    style: "width: 33%;",
-                                    components: [
-                                        {
-                                            classes: "moon-music-detail-related-image",
-                                            style: "background-image: url(assets/default-music.png); background-position: left center; text-align: left;",
-                                            components: [{tag: "img", src: "assets/blank.png", classes: "related-focus"}]
-                                        }
-                                    ]
-                                },
-                    			{
-                                    style: "width: 34%;",
-                                    components: [
-                                        {
-                                            classes: "moon-music-detail-related-image",
-                                            style: "background-image: url(assets/default-music.png); background-position: center; text-align: center;",
-                                            components: [{tag: "img", src: "assets/blank.png", classes: "related-focus"}]
-                                        }
-                                    ]
-                                },
-                                {
-                                    style: "width: 33%;",
-                                    components: [
-                                        {
-                                            classes: "moon-music-detail-related-image",
-                                            style: "background-image: url(assets/default-music.png); background-position: right center; text-align: right;",
-                                            components: [{tag: "img", src: "assets/blank.png", classes: "related-focus"}]
-                                        }
-                                    ]
-                                }
-                    		]
                         },
-                        {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
                         {
-                            name: "listContainer",
-                            spotlight: "container",
                             components: [
-                                {
-                                    name: "list",
-                                    kind: "moon.List",
-                                    style: "height: 300px;",
-                                    count: 10,
-                                    multiSelect: false,
-                            		onSetupItem: "setupItem",
-                                    components: [
-                            			{
-                                            name: "item",
-                                            kind: "enyo.FittableColumns",
-                                            classes: "moon-music-item",
-                                            fit: true,
-                                            components: [
-                                                {
-                                                    name: "image",
-                                                    fit: true,
-                                                    classes: "moon-music-item-image",
-                                                    components: [{classes: "moon-play-music-icon"}]
-                                                },
-                                                {style: "display: table-cell; width: 20px;"},
-                                                {
-                                                    classes: "moon-music-item-label",
-                                                    components: [
-                                                        {name: "track"},
-                                                        {name: "artist", classes: "moon-music-item-label-small"},
-                                                        {name: "time", classes: "moon-music-item-label-small"}
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                            		]
-                                }
+                                {content: "Debut"},
+                                {name: "debut"}
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Type"},
+                                {name: "type"}
                             ]
                         }
                     ]
                 }
             ]
+        },
+        {
+            kind: "FittableRows",
+            fit: true,
+            components: [
+                {kind: "moon.Divider", content: "Bio"},
+                {name: "bio"}
+            ]
+        },
+        {
+            kind: "FittableRows",
+            style: "width: 400px;",
+            components: [
+                {kind: "moon.Divider", content: "Related Artists"},
+                {
+                    name: "relatedArtists",
+                    kind: "enyo.DataTable",
+                    components: [{
+                        kind: "enyo.Image",
+                        style: "padding: 2px 10px;height: 100px; width: 100px; ",
+                        bindFrom: "relatedUrl",
+                        bindTo: "src"
+                    }]
+                },
+                {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
+                {
+                    name: "trackInfo",
+                    kind: "moon.DataList",
+                    components: [
+            			{
+                            kind: "moon.Item",
+                            layoutKind: "FittableColumnsLayout",
+                            classes: "moon-music-item",
+                            fit: true,
+                            components: [
+                                {
+                                    kind: "enyo.Image",
+                                    style: "padding: 2px 10px;height: 100px; width: 100px; ",
+                                    bindFrom: "coverUrl",
+                                    bindTo: "src"
+                                },
+                                {
+                                    classes: "moon-music-item-label",
+                                    kind: "enyo.FittableRows",
+                                    fit: true,
+                                    components: [
+                                        {bindFrom: "track", },
+                                        {bindFrom: "artist", classes: "moon-music-item-label-small"},
+                                        {bindFrom: "duration", classes: "moon-music-item-label-small"}
+                                    ]
+                                }
+                            ]
+                        }
+            		]
+                }
+            ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        var d = this.$.detail.getBounds().width;
-        this.$.movie.setBounds({width: d, height: d});
+    bindings: [
+        {from: ".controller.artist", to: "$.artist.content"},
+        {from: ".controller.artistImageUrl", to: "$.artistImage.src"},
+        {from: ".controller.organized", to: "$.organized.content"},
+        {from: ".controller.debut", to: "$.debut.content"},
+        {from: ".controller.type", to: "$.type.content"},
+        {from: ".controller.bio", to: "$.bio.content"},
+        {from: ".controller.related", to: "$.relatedArtists.controller"},
+        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+    ]
+});
+
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        artist: "Paul McCartney",
+        artistImageUrl: "http://www.biography.com/imported/images/Biography/Images/Profiles/M/Paul-Mccartney-9390850-1-402.jpg",
+        organized: "5 April 2013",
+        debut: "5 April 1973",
+        type: "Solo",
+        bio: "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of",
+        related: new enyo.Collection([
+            {relatedUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-"},
+            {relatedUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT8QwvaGvOfOFEM86P5tfDvT-HwCYJMdNkzX9QWlVBw3JdFq5bI"},
+            {relatedUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRZloZ98xtYFPjkhKdwbmKYElRXdr4ehWf41-oBcS7WLXhBJHvX"}
+        ]),
+        tracks: new enyo.Collection([
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"}
+        ])
         
-        d = Math.round((d - 168) * 0.5);
-        this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
-        
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
-		this.$.track.setContent("Track Name");
-		this.$.artist.setContent("Artist Name");
-		this.$.time.setContent("3:40");
-	}
+    });
+ 
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.ArtistDetailWideSample",
+                    controller: ".app.controllers.artistController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "artistController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeTrackName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("name", "We are the Champions");
+                }
+            }
+        ]
+    });
 });
