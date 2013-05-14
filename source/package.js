@@ -47,5 +47,7 @@ enyo.depends(
 	"Accordion.js",
 	"Table.js",
 	"DataTable.js",
-	"ScrollStrategy.js"
+	"ScrollStrategy.js",
+	"SearchPanel.js",
+	"SearchHeader.js"
 );
