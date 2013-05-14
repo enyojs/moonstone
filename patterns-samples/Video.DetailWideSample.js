@@ -38,7 +38,7 @@ enyo.kind({
         },
         {
             kind: "FittableRows",
-            style: "width: 800px;",
+            fit: true,
             components: [
                 {
                     // TODO : change FittableColumns as HFlexBox after fixing Flex layout bug
@@ -70,8 +70,8 @@ enyo.kind({
             ]
         },
         {
-            fit: true,
             kind: "FittableRows",
+            style: "width: 25%;",
             components: [
                 {kind: "moon.Divider", classes: "moon-video-detail-more", content: "More"},
                 {kind: "Group", components: [
