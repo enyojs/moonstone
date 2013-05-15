@@ -1,88 +1,119 @@
 enyo.kind({
     name: "moon.sample.music.TrackDetailWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-detail",
+	classes: "enyo-unselectable moon moon-music-track-detail",
     fit: true,
+    spotlight: false,
     title: "Track Name",
     titleAbove: "03",
     titleBelow: "Artist Name",
     headerComponents: [
         {
-            classes: "moon-music-detail-header-button",
+            classes: "header",
             components: [
                 {kind: "moon.IconButton", src: "assets/icon-album.png"},
-                {kind: "moon.IconButton", src: "assets/icon-download.png", classes: "moon-music-detail-header-button-right"},
-                {kind: "moon.IconButton", src: "assets/icon-like.png", classes: "moon-music-detail-header-button-right"},
-                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
+                {
+                    kind: "moon.IconButton",
+                    src: "assets/icon-download.png",
+                    classes: "right-button"
+                },
+                {
+                    kind: "moon.IconButton",
+                    src: "assets/icon-like.png",
+                    classes: "right-button"
+                },
+                {
+                    kind: "moon.IconButton",
+                    src: "assets/icon-next.png",
+                    classes: "right-button"
+                }
             ]
         }
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
-            name: "container",
             kind: "FittableColumns",
-            classes: "moon-music-detail-container",
+            classes: "client",
             fit: true,
             components: [
                 {
                     name: "detail",
                     kind: "FittableRows",
-                    classes: "moon-music-detail-detail",
+                    classes: "detail",
                     components: [
                         {
                             name: "movie",
-                            classes: "moon-music-detail-preview",
-                            components: [{name: "play", classes: "moon-play-icon"}]
+                            classes: "preview",
+                            spotlight: true,
+                            components: [{name: "play", classes: "play-icon"}]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "moon-music-detail-info",
+                            classes: "info",
                             components: [
-                                {classes: "moon-music-detail-title", content: "Released"},
-                                {classes: "moon-music-detail-content", content: "5 April 2013"}
+                                {classes: "title", content: "Released"},
+                                {classes: "content", content: "5 April 2013"}
                             ]
                         },
                         {
                             kind: "FittableColumns",
-                            classes: "moon-music-detail-info",
+                            classes: "info",
                             components: [
-                                {classes: "moon-music-detail-title", content: "Genre"},
-                                {classes: "moon-music-detail-content", content: "Ballad"}
+                                {classes: "title", content: "Genre"},
+                                {classes: "content", content: "Ballad"}
                             ]
                         }
                     ]
                 },
                 {
-                    classes: "moon-music-detail-lyrics",
+                    kind: "FittableRows",
+                    classes: "lyrics",
                     components: [
                         {
-                            kind: "FittableRows",
+                            kind: "moon.Divider",
+                            classes: "lyrics-devider",
+                            content: "Lyrics"
+                        },
+                        {
+                            classes: "content",
                             components: [
-                                {kind: "moon.Divider", classes: "moon-music-detail-lyrics-devider", content: "Lyrics"},
                                 {
-                                    classes: "moon-music-detail-lyrics-content",
-                                    components: [
-                                        {
-                                            allowHtml: true,
-                                            content: "Can't see the lights or the blue orange signs<br />Can't see the road or the long white lines<br />Feeling the ground through the pedals on the floor<br />Felling death pounding at the door<br /><br />Windows all open, chaos in my hair<br />Driving me round and leaving me there<br />Cover my eyes and we'll die driving blind<br />Cover my trail and we'll leave this life behind<br /><br />Drive blind<br /><br />All at onec, too mush light<br />Captured and frozen, hear no sound<br />Bright flashes penetrate<br />Glowing, flowing, lifting off the ground"
-                                        }
-                                    ]
+                                    allowHtml: true,
+                                    content: "Can't see the lights or the blue ora" +
+                                             "nge signs<br />Can't see the road or" +
+                                             "the long white lines<br />Feeling th" +
+                                             "e ground through the pedals on the f" +
+                                             "loor<br />Felling death pounding at " +
+                                             "the door<br /><br />Windows all open" +
+                                             ", chaos in my hair<br />Driving me r" +
+                                             "ound and leaving me there<br />Cover" +
+                                             " my eyes and we'll die driving blind" +
+                                             "<br />Cover my trail and we'll leave" +
+                                             " this life behind<br /><br />Drive b" +
+                                             "lind<br /><br />All at onec, too mus" +
+                                             "h light<br />Captured and frozen, he" +
+                                             "ar no sound<br />Bright flashes pene" +
+                                             "trate<br />Glowing, flowing, lifting" +
+                                             " off the ground"
                                 }
                             ]
                         }
                     ]
                 },
                 {
-                    name: "more",
                     fit: true,
                     components: [
-                        {kind: "moon.Divider", classes: "moon-music-detail-more", content: "More"},
+                        {
+                            kind: "moon.Divider",
+                            classes: "more-divider",
+                            content: "More"
+                        },
                         {kind: "Group", components: [
-                            {kind: "moon.SelectableItem", content: "Artist", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Album", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Similar Track", spotlight: true},
-                            {kind: "moon.SelectableItem", content: "Related Videos", spotlight: true}
+                            {kind: "moon.SelectableItem", content: "Artist"},
+                            {kind: "moon.SelectableItem", content: "Album"},
+                            {kind: "moon.SelectableItem", content: "Similar Track"},
+                            {kind: "moon.SelectableItem", content: "Related Videos"}
                         ]}
                     ]
                 }
