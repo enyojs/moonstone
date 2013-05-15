@@ -117,9 +117,12 @@ enyo.kind({
 		}
 	},
 	transitionFinished: function(inSender, inEvent) {
+		var fp = (this.getSelected() === this.$.client.getActive()); // false positive
 		this.setSelected(this.$.client.getActive());
 		this.setSelectedIndex(this.$.client.getIndex());
-		this.fireChangedEvent();
+		if (!fp) {
+			this.fireChangedEvent();
+		}
 		return true;
 	},
 	fireChangedEvent: function() {
