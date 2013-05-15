@@ -68,20 +68,20 @@ enyo.kind({
                     kind: "enyo.DataTable",
                     components: [{
                         kind: "enyo.Image",
-                        style: "padding: 2px 10px;height: 100px; width: 100px; ",
+                        style: "padding: 2px 10px; height: 100px; width: 100px; ",
                         bindFrom: "relatedUrl",
                         bindTo: "src"
                     }]
                 },
-                {kind: "moon.Divider", classes: "moon-music-detail-top-devider", content: "Top 10 Tracks"},
+                {kind: "moon.Divider", content: "Top 10 Tracks"},
                 {
                     name: "trackInfo",
                     kind: "moon.DataList",
+                    fit: true,
                     components: [
             			{
                             kind: "moon.Item",
                             layoutKind: "FittableColumnsLayout",
-                            classes: "moon-music-item",
                             fit: true,
                             components: [
                                 {

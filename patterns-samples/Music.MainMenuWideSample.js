@@ -1,50 +1,104 @@
+// Sample view
+
+enyo.kind({
+    name: "enyo.VCenter",
+    kind: "enyo.Control",
+    create: function() {
+        this.inherited(arguments);
+        this.contentChanged();
+    },
+    components: [{
+        classes: "vertical-align-center-wrapper",
+        components: [{
+            name: "client",
+            classes: "vertical-align-center-content"
+        }]
+    }],
+    create: function() {
+        this.inherited(arguments);
+        // Fix See http://caniuse.com/#search=table-cell
+        if (enyo.platform.ie < 8) {
+            this.$.client.applyStyle("display", "inline-block");
+        }
+    },
+    contentChanged: function() {
+        this.$.client.setContent(this.content);
+    }
+});
+
 enyo.kind({
     name: "moon.sample.music.MainMenuWideSample",
     kind: "moon.Panel",
-    classes: "enyo-unselectable moon moon-music-mainmenu",
-    fit: true,
-    title: "Main Menu",
     titleAbove: "01",
+    title: "Main Menu",
+    titleBelow: "",
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "columns",
             kind: "FittableColumns",
+            fit: true,
             components: [
                 {
+                    kind: "moon.DataList",
+                    name: "menus",
                     classes: "moon-music-mainmenu-menu",
                     components: [
-                        {kind: "moon.Item", content: "Browser Tracks", spotlight: true},
-                        {kind: "moon.Item", content: "Browser Albums", spotlight: true},
-                        {kind: "moon.Item", content: "Browser Artists", spotlight: true},
-                        {kind: "moon.Item", content: "Browser Playlist", spotlight: true},
+                        {kind: "moon.Item", ontap: "onTap", bindFrom: "name"}
                     ]
                 },
                 {
-                    name: "content",
                     fit: true,
-                    classes: "moon-music-mainmenu-content",
+                    kind: "enyo.VCenter",
+                    allowHtml: true,
+                    classes: "moon-music-mainmenu-branding",
                     components: [
-                        {
-                            name: "branding",
-                            fit: true,
-                            classes: "moon-music-mainmenu-branding",
-                            content: "branding"
-                        }
+                        {content: "branding"},
+                        {content: "branding"},
+                        {content: "branding"},
+                        {content: "branding"},
                     ]
                 }
             ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeBranding();
-    },
-    
-    resizeBranding: function() {
-        var w = this.$.content.getBounds().width;
-        var h = this.getBounds().height - this.$.columns.getBounds().top - 2;
-        this.$.branding.setBounds({width: w, height: h});
-    }
+    bindings: [
+        {from: ".controller.menu", to: "$.menus.controller"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel0 = new enyo.Model({
+        menu: new enyo.Collection([
+            {name: "Browser video"},
+            {name: "Browser photos"},
+            {name: "Browser music"}
+        ])
+    });
+
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.MainMenuWideSample",
+                    controller: ".app.controllers.menuController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "menuController", 
+                kind: "enyo.ModelController",
+                model: sampleModel0,
+                onTap: function(inSender, inEvent) {
+                    console.log("on Menu Tap: " + inEvent.originator.name);
+                }
+            }
+        ]
+    });
 });
