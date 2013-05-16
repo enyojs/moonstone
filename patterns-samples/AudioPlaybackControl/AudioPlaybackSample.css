@@ -1,0 +1,47 @@
+.sample-audio-playback {
+  background: #eaeaea;
+}
+.sample-audio-playback-page-content {
+	margin: 20px;
+}
+.sample-audio-playback-item-image {
+  width: 126px;
+  height: 126px;
+  display: inline-block;
+  background: transparent url(assets/default-music.png) no-repeat 0px 0px;
+  margin: 0px 20px;
+}
+.sample-audio-playback-item-track {
+	overflow: hidden;
+  white-space: nowrap;
+  line-height: 126px;
+  height: 126px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: middle;
+  display: inline-block;
+  width: 25%;
+}
+.sample-audio-playback-item-artist {
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 126px;
+  height: 126px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: middle;
+  display: inline-block;
+  width: 25%;
+}
+.sample-audio-playback-item-time {
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 126px;
+  height: 126px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: middle;
+  display: inline-block;
+  width: 15%;
+  font-size: 30px;
+}

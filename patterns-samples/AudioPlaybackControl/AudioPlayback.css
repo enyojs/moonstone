@@ -1,0 +1,136 @@
+/* AudioPlaybackDrawer CSS Rules */
+.moon-audio-playback-drawer {
+  border-bottom: 1px solid gray;
+}
+
+/* AudioPlayback CSS rules */
+.moon-audio-playback-control {
+  background-color: white;
+  position: relative;
+}
+.moon-audio-playback-control.spotlight {
+  
+}
+.moon-audio-playback-control.extended {
+  height: 80px;
+}
+.moon-audio-playback-mini {
+	transition: height 0.1s linear;
+  -webkit-transition: height 0.1s linear;
+  -moz-transition: height 0.1s linear;
+  -o-transition: height 0.1s linear;
+	height: 40px;
+	font-size: 18px;
+	overflow: hidden;
+}
+.moon-audio-playback-main {
+	transition: height 0.1s linear;
+  -webkit-transition: height 0.1s linear;
+  -moz-transition: height 0.1s linear;
+  -o-transition: height 0.1s linear;
+	height: 0px;
+	overflow: hidden;
+}
+.moon-audio-playback-control.spotlight > .moon-audio-playback-mini,
+.moon-audio-playback-control.extended > .moon-audio-playback-mini {
+	height: 0px;
+}
+.moon-audio-playback-control.spotlight > .moon-audio-playback-main,
+.moon-audio-playback-control.extended > .moon-audio-playback-main {
+	height: 80px;
+}
+
+/* Mini-view CSS Rules */
+.moon-audio-playback-mini > * {
+  display: inline-block;
+}
+.moon-audio-playback-label-mini {
+  width:25%;
+  text-align:center;
+}
+.moon-audio-playback-container.mini {
+  width: 50%;
+  vertical-align: middle;
+}
+.moon-audio-playback-playtime.mini {
+  width: 10%;
+}
+.moon-audio-playback-icons.mini {
+  width: 5%;
+}
+.moon-audio-playback-count.mini {
+  width: 10%;
+  text-align: right;
+}
+
+/* Main-view CSS Rules */
+.moon-audio-playback-main > * {
+  display: inline-block;
+}
+.moon-audio-playback-track-icon {
+  width: 80px;
+  height: 80px;
+  background: transparent url(assets/default-music-sm.png) no-repeat 0px 0px;
+}
+.moon-audio-playback-track-info {
+  width: 240px;
+  height: 80px;
+  vertical-align: top;
+  padding-left: 6px;
+}
+.moon-audio-playback-track {
+  font-size:18px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+}
+.moon-audio-playback-artist {
+  font-size:18px;
+  height: 40px;
+  line-height: 40px;
+}
+.moon-audio-playback-container {
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  height: 100%;
+}
+.moon-audio-playback-slider {
+  width: 90%;
+  top: 50%;
+  margin-top: -1px;
+}
+.moon-audio-playback-playtime.main {
+  font-size: 20px;
+  vertical-align: top;
+  position: relative;
+  top: 30px;
+  padding-right: 20px;
+}
+.moon-audio-playback-icon-button {
+  background-color: gray;
+  position: relative;
+  vertical-align: top;
+  top: 14px;
+  margin: 0px 4px;
+}
+.moon-audio-playback-slider.spotlight > .moon-slider-knob {
+  background-color: #ffb80d;
+}
+.moon-audio-playback-slider > .moon-slider-knob,
+.moon-audio-playback-slider > .moon-slider-knob.disabled:active:hover {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  margin: -17px -16px;
+  background-color: gray;
+}
+.moon-audio-playback-slider > .moon-slider-knob.active,
+.moon-audio-playback-slider > .moon-slider-knob.spotselect,
+.moon-audio-playback-slider > .moon-slider-knob:active:hover {
+  height: 34px;
+  width: 34px;
+  border-radius: 17px;
+  margin: -19px -18px;
+  background-color: #ffb80d;
+}
