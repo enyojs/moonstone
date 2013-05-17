@@ -1,60 +1,39 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.RelatedVideosNarrowSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-detail",
-    fit: true,
-    title: "Related Videos",
     titleAbove: "04",
-    titleBelow: "10 Tracks",
+    title: "Related Videos",
+    titleBelow: "n Videos",
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "container",
-            kind: "FittableColumns",
-            classes: "moon-music-detail-container",
+            name: "videoInfo",
+            kind: "moon.DataList",
             fit: true,
             components: [
                 {
-                    name: "detail",
-                    kind: "FittableRows",
-                    classes: "moon-music-detail-detail",
+                    kind: "moon.Item",
+                    layoutKind: "FittableColumnsLayout",
+                    // To enyo.VCenter works, item needs height.
+                    classes: "moon-music-item",
                     components: [
                         {
-                            name: "listContainer",
-                            spotlight: "container",
+                            kind: "enyo.Image",
+                            classes: "moon-music-item-image",
+                            bindFrom: "coverUrl", 
+                            bindTo: "src"
+                        },
+                        {
+                            fit: true,
+                            LayoutKind: "FittableRowsLayout",
                             components: [
                                 {
-                                    name: "list",
-                                    kind: "moon.List",
-                                    style: "height: 300px;",
-                                    orient: "v",
-                                    count: 10,
-                                    multiSelect: false,
-                            		onSetupItem: "setupItem",
+                                    kind: "enyo.VCenter",
                                     components: [
-                            			{
-                                            name: "item",
-                                            kind: "enyo.FittableColumns",
-                                            classes: "moon-music-item",
-                                            fit: true,
-                                            components: [
-                                                {
-                                                    name: "image",
-                                                    fit: true,
-                                                    classes: "moon-music-item-image",
-                                                    components: [{classes: "moon-play-music-icon"}]
-                                                },
-                                                {style: "display: table-cell; width: 20px;"},
-                                                {
-                                                    classes: "moon-music-item-label",
-                                                    components: [
-                                                        {name: "title"},
-                                                        {name: "time", classes: "moon-music-item-label-small"}
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                            		]
+                                        {bindFrom: "title"},
+                                        {bindFrom: "time"}
+                                    ]
                                 }
                             ]
                         }
@@ -63,20 +42,54 @@ enyo.kind({
             ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
-		this.$.title.setContent("Video Title");
-		this.$.time.setContent("3:40");
-	}
+    bindings: [
+        {from: ".controller.videos", to: "$.videoInfo.controller"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function (){
+    var sampleModel = new enyo.Model({
+        videos: new enyo.Collection([
+            {coverUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQDHwnqaTVagXWigAs9od_ZykEdrdgU-MlkKI764e-YhOpte4JC", title: "Monsters", time: "1:40"},
+            {coverUrl: "http://www.impawards.com/1988/posters/without_a_clue_ver2.jpg", title: "Sherlock", time: "2:10"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwR6L4-Xicn8Jmo_h5YGo_b0ggkXex8uzqtCQOclXOVrw8Mr8RNg", title: "Hooks", time: "1:40"},
+            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/12/getsmart-poster-big.thumbnail.jpg", title: "Get Start", time: "2:10"},
+            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/04/tron-movie-poster.jpg", title: "Tron", time: "1:40"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHy6Nzzhkp89421zfEpywMOCxS96taMY62uvXAY6pC0zqlBbqrWw", title: "Teeth", time: "2:10"},
+            {coverUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQDHwnqaTVagXWigAs9od_ZykEdrdgU-MlkKI764e-YhOpte4JC", title: "Monsters", time: "1:40"},
+            {coverUrl: "http://www.impawards.com/1988/posters/without_a_clue_ver2.jpg", title: "Sherlock", time: "2:10"},
+            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwR6L4-Xicn8Jmo_h5YGo_b0ggkXex8uzqtCQOclXOVrw8Mr8RNg", title: "Hooks", time: "1:40"},
+            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/12/getsmart-poster-big.thumbnail.jpg", title: "Get Start", time: "2:10"},
+            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/04/tron-movie-poster.jpg", title: "Tron", time: "1:40"},
+            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHy6Nzzhkp89421zfEpywMOCxS96taMY62uvXAY6pC0zqlBbqrWw", title: "Teeth", time: "2:10"}
+        ])
+    });
+
+// Sample Application
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.RelatedVideosNarrowSample",
+                    controller: ".app.controllers.videoController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "videoController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeVideoName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("title", "Good video");
+                }
+            }
+        ]
+    });
 });

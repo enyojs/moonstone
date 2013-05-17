@@ -3,24 +3,7 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-.moon-music-mainmenu-menu {
-    width: 250px;
-}
 
 .moon-music-mainmenu-branding {
-    background: #666666;
-    color: #ffffff;
     text-align: center;
-}
-
-
-/* vertival centering */
-.vertical-align-center-wrapper {
-    display: table;
-    width: 100%;
-    height: 100%;
-}
-.vertical-align-center-content {
-    display: table-cell;
-    vertical-align: middle;
 }

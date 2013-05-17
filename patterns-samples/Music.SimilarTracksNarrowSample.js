@@ -1,9 +1,27 @@
+// Sample View
+
+enyo.kind({
+    name: "music.PlayIconButton",
+    published: {
+        src: ""
+    },
+    classes: "moon-music-item-image",
+    components: [{classes: "moon-play-music-icon"}],
+    create: function() {
+        this.inherited(arguments);
+        this.srcChanged();
+    },
+    srcChanged: function(inOld) {
+        this.setStyle("background-image: url(" + this.src + ");");
+    }
+});
+
+
 enyo.kind({
     name: "moon.sample.music.SimilarTracksNarrowSample",
     kind: "moon.Panel",
 	classes: "enyo-unselectable moon moon-music-detail",
-    fit: true,
-    title: "Sililar Tracks",
+    title: "Similar Tracks",
     titleAbove: "04",
     titleBelow: "10 Tracks",
     headerComponents: [
@@ -16,77 +34,83 @@ enyo.kind({
         }
     ],
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "container",
-            kind: "FittableColumns",
-            classes: "moon-music-detail-container",
+            name: "trackList",
+            kind: "moon.DataList",
+            layoutKind: "FittableColumnsLayout",
             fit: true,
             components: [
                 {
-                    name: "detail",
-                    kind: "FittableRows",
-                    classes: "moon-music-detail-detail",
+                    classes: "moon-music-item",
                     components: [
+                        {kind: "music.PlayIconButton", bindFrom: "coverUrl", bindTo: "src"},
+                        {style: "display: table-cell; width: 20px;"},
                         {
-                            name: "listContainer",
-                            spotlight: "container",
+                            classes: "moon-music-item-label",
                             components: [
-                                {
-                                    name: "list",
-                                    kind: "moon.List",
-                                    style: "height: 300px;",
-                                    count: 10,
-                                    multiSelect: false,
-                            		onSetupItem: "setupItem",
-                                    components: [
-                            			{
-                                            name: "item",
-                                            kind: "enyo.FittableColumns",
-                                            classes: "moon-music-item",
-                                            fit: true,
-                                            components: [
-                                                {
-                                                    name: "image",
-                                                    fit: true,
-                                                    classes: "moon-music-item-image",
-                                                    components: [{classes: "moon-play-music-icon"}]
-                                                },
-                                                {style: "display: table-cell; width: 20px;"},
-                                                {
-                                                    classes: "moon-music-item-label",
-                                                    components: [
-                                                        {name: "track"},
-                                                        {name: "artist", classes: "moon-music-item-label-small"},
-                                                        {name: "time", classes: "moon-music-item-label-small"}
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                            		]
-                                }
+                                {bindFrom: "track"},
+                                {bindFrom: "artist", classes: "moon-music-item-label-small"},
+                                {bindFrom: "time", classes: "moon-music-item-label-small"}
                             ]
                         }
                     ]
-                }
-            ]
+                }    
+    		]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
-		this.$.track.setContent("Track Name");
-		this.$.artist.setContent("Artist Name");
-		this.$.time.setContent("3:40");
-	}
+    bindings: [
+        {from: ".controller.track", to: "$.trackList.controller"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function (){
+    var sampleModel = new enyo.Model({
+        track: new enyo.Collection([
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"}
+        ])
+    });
+
+// Sample Application
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.SimilarTracksNarrowSample",
+                    controller: ".app.controllers.trackController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "trackController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeVideoName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("title", "Good video");
+                }
+            }
+        ]
+    });
 });

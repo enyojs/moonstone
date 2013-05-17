@@ -18,16 +18,18 @@ enyo.kind({
     ],
     components: [
         {
-            kind: "FittableColumns",
+            kind: "enyo.FittableColumns",
+            noStretch: true,
             components: [
                 {
                     name: "artistImage",
                     kind: "enyo.Image",
-                    style: "height: 200px; width: 200px;"
+                    classes: "moon-music-midium-image"
                 },
                 {
-                    kind: "moon.Table",
+                    kind: "enyo.Table",
                     name: "artistInfo",
+                    fit: true,
                     components: [
                         {components: [{name: "artist", attributes: {colspan: "2"}, style: "font-weight: bold;"}]},
                         {components: [
@@ -49,26 +51,22 @@ enyo.kind({
         {kind: "moon.Divider", content: "Top 10 Tracks"},
         {
             name: "trackInfo",
-            kind: "moon.DataList",
+            kind: "enyo.DataList",
+            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
             fit: true,
             components: [
                 {
-                    /* Todo: Needs to make a component for this */
                     kind: "moon.Item",
-                    layoutKind: "FittableColumnsLayout",
                     classes: "moon-music-item",
-                    fit: true,
                     components: [
                         {
                             kind: "enyo.Image",
-                            style: "height: 126px; width: 126px;",
-                            classes: "moon-music-item-image",
+                            classes: "moon-music-small-image",
                             bindFrom: "coverUrl", 
                             bindTo: "src"
                         },
                         {
                             classes: "moon-music-item-label",
-                            fit: true,
                             components: [
                                 {bindFrom: "name"},
                                 {bindFrom: "duration", classes: "moon-music-item-label-small"}

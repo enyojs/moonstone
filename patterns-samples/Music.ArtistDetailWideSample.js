@@ -18,32 +18,38 @@ enyo.kind({
     ],
     components: [
         {
-            kind: "FittableRows",
+            classes: "moon-5h",
             components: [
                 {
                     name: "artistImage",
                     kind: "enyo.Image",
-                    style: "height: 200px; width: 200px;"
+                    classes: "moon-music-big-image"
                 },
                 {
-                    kind: 'moon.Table',
+                    classes: "enyo-table",
+                    style: "width: 100%",
                     components: [
                         {
+                            classes: "enyo-table-row",
                             components: [
-                                {content: "Organized"},
-                                {name: "organized"}
+                                {content: "Organized", classes: "enyo-table-cell"},
+                                {name: "organized", classes: "enyo-table-cell"}
                             ]
                         },
                         {
+                            xstyle: "display: table-row;",
+                            classes: "enyo-table-row",
                             components: [
-                                {content: "Debut"},
-                                {name: "debut"}
+                                {content: "Debut", classes: "enyo-table-cell"},
+                                {name: "debut", classes: "enyo-table-cell"}
                             ]
                         },
                         {
+                            xstyle: "display: table-row;",
+                            classes: "enyo-table-row",
                             components: [
-                                {content: "Type"},
-                                {name: "type"}
+                                {content: "Type", classes: "enyo-table-cell"},
+                                {name: "type", classes: "enyo-table-cell"}
                             ]
                         }
                     ]
@@ -55,12 +61,19 @@ enyo.kind({
             fit: true,
             components: [
                 {kind: "moon.Divider", content: "Bio"},
-                {name: "bio"}
+                {
+                    kind: "moon.Scroller", 
+                    horizontal: "hidden",
+                    fit: true,
+                    components: [
+                        {name: "bio", allowHtml: true}
+                    ]
+                }
             ]
         },
         {
             kind: "FittableRows",
-            style: "width: 400px;",
+            classes: "moon-6h",
             components: [
                 {kind: "moon.Divider", content: "Related Artists"},
                 {
@@ -68,7 +81,7 @@ enyo.kind({
                     kind: "enyo.DataTable",
                     components: [{
                         kind: "enyo.Image",
-                        style: "padding: 2px 10px; height: 100px; width: 100px; ",
+                        classes: "moon-music-small-image",
                         bindFrom: "relatedUrl",
                         bindTo: "src"
                     }]
@@ -77,23 +90,22 @@ enyo.kind({
                 {
                     name: "trackInfo",
                     kind: "moon.DataList",
+                    scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
                     fit: true,
                     components: [
             			{
                             kind: "moon.Item",
-                            layoutKind: "FittableColumnsLayout",
-                            fit: true,
+                            classes: "moon-music-item",
                             components: [
                                 {
                                     kind: "enyo.Image",
-                                    style: "padding: 2px 10px;height: 100px; width: 100px; ",
+                                    classes: "moon-music-small-image",
                                     bindFrom: "coverUrl",
                                     bindTo: "src"
                                 },
                                 {
-                                    classes: "moon-music-item-label",
                                     kind: "enyo.FittableRows",
-                                    fit: true,
+                                    classes: "moon-music-item-label",
                                     components: [
                                         {bindFrom: "track", },
                                         {bindFrom: "artist", classes: "moon-music-item-label-small"},

@@ -48,6 +48,7 @@ enyo.kind({
                         {
                             name: "trackInfo",
                             kind: "moon.DataTable",
+                            style: "width: 100%",
                             components: [
                                 {
                                     spotlight: true,

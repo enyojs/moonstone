@@ -7,7 +7,13 @@ enyo.kind({
     title: "LYRICS",
     titleBelow: "",
     components: [
-        {name: "lyrics", allowHtml: true}
+        {
+            kind: "moon.Scroller", 
+            fit: true,
+            components: [
+                {name: "lyrics", allowHtml: true}
+            ]
+        }
     ],
     bindings: [
         {from: ".controller.lyrics", to: "$.lyrics.content"}
