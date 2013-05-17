@@ -16,6 +16,7 @@
     display: block;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    overflow: hidden;
 }
 
 .moon-search-result-item-text {
@@ -23,9 +24,9 @@
     width: 100%;
     bottom: 0px;
     height: 24px;
-    padding: 0px 3px;
     color: white;
     font-size: 20px;
+    padding: 0px 3px;
 }
 
 .moon-search-result-item-text.spotlight {
