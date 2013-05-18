@@ -28,7 +28,7 @@ enyo.kind({
 			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"}
 		]},
 		{kind: "FittableColumns", components: [
-			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
+			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: false, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
 			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
 		]},
 		{tag: "br"},
