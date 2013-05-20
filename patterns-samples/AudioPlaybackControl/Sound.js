@@ -11,7 +11,13 @@ enyo.kind({
 		type: "audio/mpeg",
 		preload: true
 	},
+	events: {
+		onEnd: ""
+	},
 	//* @protected
+	handlers: {
+		onended: "ended"
+	},
 	isPlaying: false,
 	components: [
 		{name: "source", tag: "source"}
@@ -20,6 +26,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.srcChanged();
 		this.preloadChanged();
+		this.setAttribute("onended", enyo.bubbler);
 	},
 	srcChanged: function() {
 		var path = enyo.path.rewrite(this.src);
@@ -49,6 +56,19 @@ enyo.kind({
 	seekTo: function(inValue) {
 		if (this.hasNode()) {
 			this.node.currentTime = inValue;
+		}
+	},
+	ended: function() {
+		this.doEnd();
+	},
+	getCurrentTime: function() {
+		if (this.hasNode()) {
+			return Math.floor(this.node.currentTime);
+		}
+	},
+	getDuration: function() {
+		if (this.hasNode()) {
+			return Math.floor(this.node.duration);
 		}
 	}
 });

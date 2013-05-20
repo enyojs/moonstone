@@ -4,8 +4,8 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.AudioPlayback", audioFiles: [
-			{artistName: "Joe Satriani", trackName: "Made of Tears", src: "assets/audio/made-of-tears.mp3", iconSrc: "assets/default-music-sm.png", duration: 332},
-			{artistName: "Marcus Miller", trackName: "Power of Soul", src: "assets/audio/power-of-soul.mp3", iconSrc: "assets/default-music-sm.png", duration: 413}
+			{artistName: "Joe Satriani", trackName: "Made of Tears", src: "assets/audio/made-of-tears.mp3", iconSrc: "assets/default-music-sm.png"},
+			{artistName: "Marcus Miller", trackName: "Power of Soul", src: "assets/audio/power-of-soul.mp3", iconSrc: "assets/default-music-sm.png"}
 		], components: [
 			{kind: "moon.sample.music.TrackOneColumnWideSample"}
 		], drawerComponents: [
