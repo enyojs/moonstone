@@ -85,6 +85,10 @@ enyo.kind({
 	titleBelowChanged: function() {
 		this.$.header.setTitleBelow(this.getTitleBelow());
 	},
+	//* Get _this.header_ to update panel header dynamically.
+	getHeader: function() {
+		return this.$.header;
+	},
 	shrinkPanel: function() {
 		this.$.animator.newAnimation({
 			name: "preTransition",
