@@ -41,7 +41,9 @@ enyo.kind({
 			When true, knob and progress move with animation by clicking left/right
 			direction key or by tapping the bar.
 		*/
-		animate : true
+		animate: true,
+		//* When true, the slider's popup bubble is displayed when slider is adjusted
+		noPopup: false
 	},
 	events: {
 		//* Fires when progress animation to a position finishes.
@@ -239,7 +241,7 @@ enyo.kind({
 			inControl.addRemoveClass("below", false);
 		}
 		*/
-//		enyo.log("kb.left="+kb.left+", kb.right="+kb.right+", cb.left="+cb.left+", cb.right="+cb.right+", pb.left="+pb.left+", pb.right="+pb.right);
+		// enyo.log("kb.left="+kb.left+", kb.right="+kb.right+", cb.left="+cb.left+", cb.right="+cb.right+", pb.left="+pb.left+", pb.right="+pb.right);
 		// when the popup's right edge is out of the window, adjust to the left
 		if ( (kb.left + (kb.width/2) + pb.width) > cb.right ) {
 			inControl.applyStyle("left", (kb.left - pb.width) + "px");
@@ -249,12 +251,14 @@ enyo.kind({
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 	},
 	showKnobStatus: function(inSender, inEvent) {
-		if (!this.disabled) {
+		if ((!this.disabled) && (!this.noPopup)) {
 			this.$.popup.show();
 		}
 	},
 	hideKnobStatus: function(inSender, inEvent) {
-		this.$.popup.hide();
+		if (!this.noPopup) {
+			this.$.popup.hide();
+		}
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
