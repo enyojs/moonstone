@@ -1,6 +1,6 @@
 enyo.kind({
     //* @public
-    name: "moon.sample.search.RecentSearchFullSample",
+    name: "Search.SearchFullSample",
     kind: "moon.SearchPanel",
     handlers: {
         "onSearch": "search"
