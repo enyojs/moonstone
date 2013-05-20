@@ -19,7 +19,7 @@
 */
 enyo.kind({
 	name: "moon.ContextualPopupDecorator",
-	defaultKind: "moon.Button",
+	defaultKind: "moon.ContextualPopupButton",
 	//* @protected
 	// selection on ios prevents tap events, so avoid.
 	classes: "moon-contextual-popup-decorator enyo-unselectable",
