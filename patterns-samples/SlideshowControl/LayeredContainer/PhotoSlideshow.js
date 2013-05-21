@@ -13,6 +13,8 @@ enyo.kind({
 		/**
 			Fires once per item at render time
 			_inEvent.index_ contains the current list index
+			_inEvent.thumb_ contains the curren thumbnail
+			_inEvent.image_ contains the curren image url
 		*/
 		onSetupItem: ""
 	},
@@ -20,9 +22,17 @@ enyo.kind({
 	//* @protected
 
 	slideTools: [
-		{name: "photo", ontap: "tapHandler", classes: "moon-photo-slideshow-image"},
+		{name:"photo", kind:"SimpleImageCarousel", classes: "moon-photo-slideshow-image", onSetupItem: "setupItem", ontap: "tapHandler", onZoom: "zoomHandler"},
 		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler", onChangeSlide: "changeSlideHandler", onStartSlideshow: "startSlideshowHandler", onCompleteSlideshow: "completeSlideshowHandler"}
 	],
+	create: function() {
+		this.inherited(arguments);
+		this.preloadImage = new Image();
+	},
+	destroy: function() {
+		delete this.preloadImage;
+		this.inherited(arguments);
+	},
     initComponents: function() {
     	this.createTools();
 		this.controlParentName = "slideControl";
@@ -32,7 +42,11 @@ enyo.kind({
     createTools: function() {
 		this.createComponents(this.slideTools);
 	},
+	setupItem: function(inSender, inEvent) {
+		return this.doSetupItem(inEvent);
+	},
 	countChanged: function() {
+		this.$.photo.setCount(this.count);
 		this.$.slideControl.setCount(this.count);
 	},
 	hide: function() {
@@ -45,13 +59,17 @@ enyo.kind({
 	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideControl.toggleMinMax();
+		enyo.log("tapHandler");
+	},
+	zoomHandler: function(inSender, inEvent) {
+		var aa = 0;
 	},
 	closeHandler: function(inSender, inEvent) {
 		this.requestHide();
 		return true;
 	},
 	changeSlideHandler: function(inSender, inEvent) {
-		this.$.photo.applyStyle("background-image", "url('" + this.$.slideControl.getImageUrl(inEvent.index) + "')");
+		this.$.photo.moveImageByIndex(inEvent.index, inEvent.direction);
 		return true;
 	},
 	startSlideshowHandler: function(inSender, inEvent) {
@@ -65,13 +83,6 @@ enyo.kind({
 
 	//* @public
 
-	//* Show PhotoSlideshow control after setting backgound image */
-	requestShow: function() {
-		var url = this.$.slideControl.getImageUrl(0);
-		this.$.photo.applyStyle("background-image", "url('" + url + "')");
-
-		this.inherited(arguments);
-	}
 });
 
 enyo.kind({
@@ -193,15 +204,13 @@ enyo.kind({
 		return true;
 	},
 	displaySlideImage: function() {
-		this.doChangeSlide({index: this.index, direction: "none"});
-
 		if (this.index < (this.count - 1)) {
+			this.slideJob = setTimeout(enyo.bind(this, function() { this.displaySlideImage(); }), this.$.speed.getValue() * 1000);
+			this.doChangeSlide({index: this.index, direction: "next"});
 			this.index++;
-			this.startJob("playSlideshow", "displaySlideImage", this.$.speed.getValue() * 1000);
 		}
 		else {
-			this.$.playpause.mode = "pause";
-			this.$.playpause.setSrc("../assets/icon_play.png");
+			this.stopSlideshow();
 			this.doCompleteSlideshow({index: this.index});
 		}
 	},
@@ -234,8 +243,7 @@ enyo.kind({
 	stopSlideshow: function() {
 		this.$.playpause.mode = "pause";
 		this.$.playpause.setSrc("../assets/icon_play.png");
-
-		this.stopJob("playSlideshow");
+		clearTimeout(this.slideJob);
 		delete this.indexPause;
 	},
 	//* Return large image url */
