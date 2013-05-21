@@ -70,7 +70,7 @@ enyo.kind({
 	
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() == true && this.container) {
-			this.setTitleAbove(this.clientIndexInContainer() + 1);
+			this.setTitleAbove(this.indexInContainer() + 1);
 		}
 	},
 	//* Updates _this.header_ when _title_ changes.
@@ -188,14 +188,14 @@ enyo.kind({
 		this.doPostTransitionComplete();
 	},
 	preTransition: function(inFromIndex, inToIndex) {
-		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.indexInContainer(), inToIndex)) {
 			this.shrinkPanel();
 			return true;
 		}
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex) {
-		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.indexInContainer(), inToIndex)) {
 			this.growPanel();
 			return true;
 		}
