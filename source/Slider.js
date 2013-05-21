@@ -116,7 +116,9 @@ enyo.kind({
 	spotSelect: function() {
 		var sh = this.$.popup.getShowing();
 		this.$.knob.addRemoveClass("spotselect", !sh);
-		this.$.popup.setShowing(!sh);
+		if (!this.noPopup) {
+			this.$.popup.setShowing(!sh);
+		}
 		this.selected = !sh;
 
 		return true;
