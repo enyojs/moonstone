@@ -6,16 +6,12 @@
     margin: 0px 20px 0px 20px;
 }
 
-.moon-video-detail-container {
-    margin: 28px 0px 0px 0px;
-}
-
-.moon-video-detail-devider-synopsis {
-    margin: 0px 0px 5px 0px;
+.moon-video-synopsis .divider {
+    margin: 28px 0px 5px 0px;
     font-size: 28px;
 }
 
-.moon-video-detail-content {
+.moon-video-synopsis .content {
     text-transform: none;
     font-size: 28px;
     color: #4b4b4b;
