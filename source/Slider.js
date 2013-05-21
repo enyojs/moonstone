@@ -11,43 +11,30 @@
 */
 enyo.kind({
 	name: "moon.Slider",
+	kind: "moon.ProgressBar",
 	classes: "moon-slider",
 	spotlight: true,
 	published: {
-		//* Progress completed
-		progress: 0,
-		//* Progress completed of background
-		bgProgress: 0,
-		//* Minimum acceptable value
-		min: 0,
-		//* Maximum acceptable value
-		max: 100,
-		//* CSS classes to be applied to the bar
-		barClasses: "",
-		//* If true, keep bar in sync with knob
-		lockBar: true,
-		//* Current value
+		//* Position of slider, expressed as an integer between 0 and 100,
+		//* inclusive
 		value: 0,
-		completed: 0,
-		//* If true, bar can be tapped to set value directly
+		//* If true, current progress will be styled differently from rest of bar
+		lockBar: true,
+		//* If true, tapping on bar will change current position
 		tappable: true,
 		//* Color of value popup
 		popupColor: "#ffb80d",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
-		//* Value increment that the slider can be "snapped to" in either direction
-		increment: 0,
 		/**
 			When true, knob and progress move with animation by clicking left/right
 			direction key or by tapping the bar.
 		*/
 		animate: true,
-		//* When true, the slider's popup bubble is displayed when slider is adjusted
+		//* When false, the slider's popup bubble is displayed when slider is adjusted
 		noPopup: false
 	},
 	events: {
-		//* Fires when progress animation to a position finishes.
-		onAnimateProgressFinish: "",
 		//* Fires when bar position is set. The _value_ property contains the
 		//* new position.
 		onChange: "",
@@ -57,22 +44,20 @@ enyo.kind({
 		//* Fires when animation to a position finishes.
 		onAnimateFinish: ""
 	},
+	//* @protected
 	handlers: {
 		ondragstart: "dragstart",
 		ondrag: "drag",
 		ondragfinish: "dragfinish",
-		onSpotlightFocus:"spotFocus",
+		onSpotlightFocus: "spotFocus",
 		onSpotlightSelect: "spotSelect",
-		onSpotlightBlur:"spotBlur",
+		onSpotlightBlur: "spotBlur",
 		onSpotlightLeft: "spotLeft",
 		onSpotlightRight: "spotRight"
 	},
-	components: [
-		{name: "progressAnimator", kind: "Animator", onStep: "progressAnimatorStep", onEnd: "progressAnimatorComplete"},
-		{name: "animator", kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{name: "taparea", classes: "moon-slider-taparea"},
-		{name: "bgbar", classes: "moon-slider-bgbar"},
-		{name: "bar", classes: "moon-slider-bar"},
+	moreComponents: [
+		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
+		{classes: "moon-slider-taparea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
 			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
@@ -80,91 +65,15 @@ enyo.kind({
 		]}
 	],
 	animatingTo: null,
-	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.bgProgressChanged();
-		this.progressChanged();
-		this.barClassesChanged();
+		this.createComponents(this.moreComponents);
 		this.initValue();
 		this.disabledChanged();
-		this.$.knob.setShowing(false);
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.drawToCanvas(this.popupColor);
-	},
-	barClassesChanged: function(inOld) {
-		this.$.bar.removeClass(inOld);
-		this.$.bar.addClass(this.barClasses);
-	},
-	bgProgressChanged: function() {
-		this.bgProgress = this.clampValue(this.min, this.max, this.bgProgress);
-
-		var p = this.calcPercent(this.bgProgress);
-		this.updateBgBarPosition(p);
-	},
-	progressChanged: function() {
-		this.progress = this.clampValue(this.min, this.max, this.progress);
-		var p = this.calcPercent(this.progress);
-		this.updateBarPosition(p);
-	},
-	spotFocus: function() {
-		this.$.knob.setShowing(true);
-		return;
-	},
-	spotSelect: function() {
-		var sh = this.$.popup.getShowing();
-		this.$.knob.addRemoveClass("spotselect", !sh);
-		if (!this.noPopup) {
-			this.$.popup.setShowing(!sh);
-		}
-		this.selected = !sh;
-
-		return true;
-	},
-	spotBlur: function() {
-		if (this.dragging) {
-			return true;
-		} else {
-			this.$.knob && this.$.knob.hide();
-			this.$.knob && this.$.knob.removeClass("spotselect");
-			this.$.popup && this.$.popup.hide();
-			this.selected = false;
-		}
-	},
-	spotLeft: function(inSender, inEvent) {
-		if (this.selected) {
-			// If in the process of animating, work from the previously set value
-			var v = this.getValue() - (this.increment || 1);
-			this.setValue(v);
-			return true;
-		}
-	},
-	spotRight: function(inSender, inEvent) {
-		if (this.selected) {
-			var v = this.getValue() + (this.increment || 1);
-			this.setValue(v);
-			return true;
-		}
-	},
-	calcIncrement: function(inValue) {
-		return (Math.round(inValue / this.increment) * this.increment);
-	},
-	clampValue: function(inMin, inMax, inValue) {
-		return Math.max(inMin, Math.min(inValue, inMax));
-	},
-	calcRatio: function(inValue) {
-		return (inValue - this.min) / (this.max - this.min);
-	},
-	calcPercent: function(inValue) {
-		return this.calcRatio(inValue) * 100;
-	},
-	updateBarPosition: function(inPercent) {
-		this.$.bar.applyStyle("width", inPercent + "%");
-	},
-	updateBgBarPosition: function(inPercent) {
-		this.$.bgbar.applyStyle("width", inPercent + "%");
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -194,7 +103,6 @@ enyo.kind({
 		}
 
 		this.value = v;
-
 		this.updateKnobPosition(this.calcPercent(this.value));
 
 		if (this.lockBar) {
@@ -212,10 +120,6 @@ enyo.kind({
 		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
 		this.updatePopupPosition();
 	},
-	calcKnobPosition: function(inEvent) {
-		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
-		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
-	},
 	updatePopupPosition: function() {
 		var inControl = this.$.popup;
 		if (!inControl.hasNode().getBoundingClientRect) {
@@ -229,21 +133,6 @@ enyo.kind({
 		// knob bounds
 		var kb = this.$.knob.hasNode().getBoundingClientRect();
 
-		// FIXME: What do we do when the popup's top goes above the window height?
-		// Adding "above" class directly to classes property for now
-		/*
-		// IE8 doesn't return window.page{X/Y}Offset
-		var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
-		//when the popup's top goes above the container's top, move popup below the decorator
-		if ((pb.top + pb.height) < pageYOffset) {
-			inControl.addRemoveClass("above", false);
-			inControl.addRemoveClass("below", true);
-		} else {
-			inControl.addRemoveClass("above", true);
-			inControl.addRemoveClass("below", false);
-		}
-		*/
-		// enyo.log("kb.left="+kb.left+", kb.right="+kb.right+", cb.left="+cb.left+", cb.right="+cb.right+", pb.left="+pb.left+", pb.right="+pb.right);
 		// when the popup's right edge is out of the window, adjust to the left
 		if ( (kb.left + (kb.width/2) + pb.width) > cb.right ) {
 			inControl.applyStyle("left", (kb.left - pb.width) + "px");
@@ -252,15 +141,9 @@ enyo.kind({
 		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 	},
-	showKnobStatus: function(inSender, inEvent) {
-		if ((!this.disabled) && (!this.noPopup)) {
-			this.$.popup.show();
-		}
-	},
-	hideKnobStatus: function(inSender, inEvent) {
-		if (!this.noPopup) {
-			this.$.popup.hide();
-		}
+	calcKnobPosition: function(inEvent) {
+		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
+		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
@@ -294,6 +177,9 @@ enyo.kind({
 		}
 	},
 	dragfinish: function(inSender, inEvent) {
+		if (this.disabled) {
+			return;	// return nothing
+		}
 		var v = this.calcKnobPosition(inEvent);
 		v = (this.increment) ? this.calcIncrement(v) : v;
 		this._setValue(v);
@@ -304,7 +190,6 @@ enyo.kind({
 
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
-
 		return true;
 	},
 	tap: function(inSender, inEvent) {
@@ -314,24 +199,6 @@ enyo.kind({
 			this.setValue(v);
 			return true;
 		}
-	},
-	//* @public
-	//* Animates progress to the given value.
-	animateProgressTo: function(inValue) {
-		this.$.progressAnimator.play({
-			startValue: this.progress,
-			endValue: inValue,
-			node: this.hasNode()
-		});
-	},
-	//* @protected
-	progressAnimatorStep: function(inSender) {
-		this.setProgress(inSender.value);
-		return true;
-	},
-	progressAnimatorComplete: function(inSender) {
-		this.doAnimateProgressFinish(inSender);
-		return true;
 	},
 	//* @public
 	//* Animates to the given value.
@@ -363,6 +230,53 @@ enyo.kind({
 		this.animatingTo = null;
 		this.doAnimateFinish(inSender);
 		return true;
+	},
+	spotFocus: function() {
+		return;
+	},
+	spotSelect: function() {
+		var sh = this.$.popup.getShowing();
+		this.$.knob.addRemoveClass("spotselect", !sh);
+		if (!this.noPopup) {
+			this.$.popup.setShowing(!sh);
+		}
+		this.selected = !sh;
+
+		return true;
+	},
+	spotBlur: function() {
+		if (this.dragging) {
+			return true;
+		} else {
+			this.$.knob && this.$.knob.removeClass("spotselect");
+			this.$.popup && this.$.popup.hide();
+			this.selected = false;
+		}
+	},
+	spotLeft: function(inSender, inEvent) {
+		if (this.selected) {
+			// If in the process of animating, work from the previously set value
+			var v = this.getValue() - (this.increment || 1);
+			this.setValue(v);
+			return true;
+		}
+	},
+	spotRight: function(inSender, inEvent) {
+		if (this.selected) {
+			var v = this.getValue() + (this.increment || 1);
+			this.setValue(v);
+			return true;
+		}
+	},
+	showKnobStatus: function(inSender, inEvent) {
+		if ((!this.disabled) && (!this.noPopup)) {
+			this.$.popup.show();
+		}
+	},
+	hideKnobStatus: function(inSender, inEvent) {
+		if (!this.noPopup) {
+			this.$.popup.hide();
+		}
 	},
 	drawToCanvas: function(bgColor) {
 		var h = 51; // height total
