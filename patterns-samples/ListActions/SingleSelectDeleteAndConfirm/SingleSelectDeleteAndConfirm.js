@@ -16,18 +16,18 @@ enyo.kind({
 		]},
 		{classes:"right-panel", components:[
 			{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-			    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
+				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
-					    {kind: "moon.Divider", content:"Filter"},
-					    {kind: "moon.Scroller", components: [
+						{kind: "moon.Divider", content:"Filter"},
+						{kind: "moon.Scroller", components: [
 							{kind: "Group", components: [
-						        {content:"New Releases", kind:"moon.LabeledCheckbox"},
-						        {content:"Most Popular", kind:"moon.LabeledCheckbox"},
-						        {content:"Action & Adventure", kind:"moon.LabeledCheckbox"},
-						        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-						        {content:"Drama", kind:"moon.LabeledCheckbox"}
+								{content:"New Releases", kind:"moon.LabeledCheckbox"},
+								{content:"Most Popular", kind:"moon.LabeledCheckbox"},
+								{content:"Action & Adventure", kind:"moon.LabeledCheckbox"},
+								{content:"Comedy", kind:"moon.LabeledCheckbox"},
+								{content:"Drama", kind:"moon.LabeledCheckbox"}
 							]}
-					    ]}
+						]}
 					]}
 				]},
 				{kind: "moon.IconButton", classes: "delete-button", src: "../assets/trash-can-icon.png", ontap: "deleteActivated"}
@@ -48,11 +48,10 @@ enyo.kind({
 	},
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
-			this.$.header.setTitleBelow(inEvent.toggledControl.getContent())
+			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
 		}
 	},
 	deleteActivated: function(inSender, inEvent) {
-		console.log('delete activated');
 	}
 });
 
@@ -60,11 +59,11 @@ enyo.kind({
 	name: "ListItem",
 	classes:"list-item",
 	components: [
-		{tag:"img", src:"../assets/movieImage.jpg", classes:"item-image"},	
+		{tag:"img", src:"../assets/movieImage.jpg", classes:"item-image"},
 		{classes:"item-info", components:[
 			{name:"title", classes:"item-title"},
 			{name:"date", classes:"item-date"},
-			{name:"time", classes:"item-time"}			
+			{name:"time", classes:"item-time"}
 		]}
 	]
 });

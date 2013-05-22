@@ -102,16 +102,14 @@ enyo.kind({
 		}
 	},
 	spotFocus: function(inSender, inEvent) {
-		if ( (this.active == inEvent.originator) &&
-		     (!this.$.bar.hasClass("spotlight")))
-		{
+		if ((this.active == inEvent.originator) &&
+			(!this.$.bar.hasClass("spotlight"))) {
 			this.$.bar.addClass("spotlight");
-		}		
+		}
 	},
 	spotBlur: function(inSender, inEvent) {
-		if ( (this.active == inEvent.originator) &&
-		     (this.$.bar.hasClass("spotlight")))
-		{
+		if ((this.active == inEvent.originator) &&
+			(this.$.bar.hasClass("spotlight"))) {
 			this.$.bar.removeClass("spotlight");
 		}
 	}

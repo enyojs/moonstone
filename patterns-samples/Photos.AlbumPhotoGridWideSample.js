@@ -21,7 +21,7 @@ enyo.kind({
 		{src: "assets/album.png"},
 		{src: "assets/album.png"}
 	],
-	components: [	
+	components: [
 		{kind: "enyo.Spotlight"},
 		{
 			name: "gridlist",
@@ -44,7 +44,7 @@ enyo.kind({
 		{kind: "moon.IconButton", src: "assets/icon-round-download.png"},
 		{kind: "moon.IconButton", src: "assets/icon-round-delete.png"}
 	],
-	
+
 	rendered: function() {
 		this.inherited(arguments);
 		this.$.gridlist.show(this.imageList.length);
@@ -58,5 +58,5 @@ enyo.kind({
 		}
 		this.$.gridItem.setSource(gridItem.src);
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
+	}
 });

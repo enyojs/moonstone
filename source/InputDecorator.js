@@ -31,7 +31,7 @@ enyo.kind({
 	classes           : 'moon-input-decorator',
 	spotlight         : true,
 	spotlightDecorate : false,
-	
+
 	handlers : {
 		onDisabledChange  : 'onDisabledChange',
 		onfocus           : 'onFocus',
@@ -132,9 +132,8 @@ enyo.kind({
 			return true;                         // Prevent onSpotlightLeft to bubble
 		}
 	},
-	
+
 	onSpotlightBlur: function(oSender, oEvent) {
-		var oInput = this.getInputControl();
 		this.blur();
 	},
 
@@ -147,7 +146,7 @@ enyo.kind({
 			} else {
 				this.blur();
 				oInput.blur();
-			} 
+			}
 		}
 	},
 

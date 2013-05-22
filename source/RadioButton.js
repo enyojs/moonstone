@@ -15,7 +15,7 @@ enyo.kind({
 		onSpotlightFocus : 'focus',
 		onSpotlightBlur	: 'blur'
 	},
-	
+
 	//* @protected
 	rendered: function() {
 		this.inherited(arguments);

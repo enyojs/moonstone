@@ -95,7 +95,7 @@ enyo.kind({
 	},
 	reflow: function() {
 		this.inherited(arguments);
-		
+
 		// Find max width of all children
 		var width = 0;
 		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {

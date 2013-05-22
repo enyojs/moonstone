@@ -10,7 +10,7 @@
 */
 
 enyo.kind({
-    name: "moon.GridList.ImageItem",
-    kind: "enyo.GridList.ImageItem",
-    classes: "moon-gridlist-item moon-gridlist-imageitem"
+	name: "moon.GridList.ImageItem",
+	kind: "enyo.GridList.ImageItem",
+	classes: "moon-gridlist-item moon-gridlist-imageitem"
 });

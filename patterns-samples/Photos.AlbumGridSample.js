@@ -1,5 +1,5 @@
-	enyo.kind({
-    name: "moon.sample.photos.AlbumGridSample",
+enyo.kind({
+	name: "moon.sample.photos.AlbumGridSample",
 	kind: "moon.Panel",
 	titleAbove: "01",
 	title: "Main Menu",
@@ -10,7 +10,7 @@
 		{src: "assets/album.png"},
 		{src: "assets/album.png"}
 	],
-	components: [	
+	components: [
 		{kind: "enyo.Spotlight"},
 		{
 			name: "gridlist",
@@ -35,5 +35,5 @@
 		}
 		this.$.gridItem.setSource(gridItem.src);
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
+	}
 });

@@ -29,25 +29,23 @@
 		});
 */
 
-enyo.kind(
-    {
-        name: "moon.GridList",
-        kind: "enyo.GridList",
-        classes: "moon-gridlist",
-        spotlight: true,
-        itemSpacing: 64,
-        itemMinWidth: 180,
-        itemMinHeight: 180,
-        itemWidth: 180,
-        itemHeight: 180,
-        itemFluidWidth: true,
-        events: {
-            //* @protected
-            ontap: "tap"
-        },
-        //* @protected
-        tap: function(inSender, inEvent) {
-            enyo.Spotlight.spot(this);
-        }
-    }
-);
+enyo.kind({
+	name: "moon.GridList",
+	kind: "enyo.GridList",
+	classes: "moon-gridlist",
+	spotlight: true,
+	itemSpacing: 64,
+	itemMinWidth: 180,
+	itemMinHeight: 180,
+	itemWidth: 180,
+	itemHeight: 180,
+	itemFluidWidth: true,
+	events: {
+		//* @protected
+		ontap: "tap"
+	},
+	//* @protected
+	tap: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this);
+	}
+});
