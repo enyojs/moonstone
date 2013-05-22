@@ -6,7 +6,6 @@ enyo.kind({
     titleAbove: "01",
     title: "Main Menu",
     titleBelow: "",
-    classes: "livetv-background",
     components: [
         {
             kind: "moon.DataList",
@@ -42,7 +41,8 @@ enyo.ready(function(){
                 {
                     kind: "moon.sample.music.MainMenuNarrowSample",
                     controller: ".app.controllers.menuController",
-                    classes: "enyo-fit"
+                    classes: "enyo-fit",
+                    style: "background-image: url(assets/livetv-background.png); background-size: 100% 100%;"
                 }
             ]
         },

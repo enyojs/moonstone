@@ -1,74 +1,162 @@
+// Sample view
+
+enyo.kind({
+    name: "Test.Controller",
+    kind: "enyo.ModelController",
+    handlers: {
+        ontap: "myTapHandler"
+    },
+    myTapHandler: function (sender, event) {
+        this.log(this.owner, this.model);
+        this.set("artist", "Hi");
+    }
+});
+
 enyo.kind({
     name: "moon.sample.music.TrackOneColumnWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-trackonecolumn",
-    fit: true,
-    title: "Browser Tracks",
     titleAbove: "02",
+    title: "Browser Tracks",
     titleBelow: "15 Tracks",
     headerComponents: [
-        {
-            components: [
-                {kind: "moon.IconButton", src: "assets/icon-album.png", classes: "moon-music-header-button"},
-                {kind: "moon.IconButton", src: "assets/icon-list.png", classes: "moon-music-header-button-right"}
-            ]
-        }
+        {kind: "moon.IconButton", src: "assets/icon-album.png"},
+        {kind: "moon.IconButton", src: "assets/icon-list.png"}
     ],
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "listContainer",
-            classes: "moon-music-container",
-            spotlight: "container",
+            kind:"moon.Scroller", 
+            horizontal: "hidden",
+            fit: true,
             components: [
                 {
-                    name: "list",
-                    kind: "moon.List",
-                    style: "height: 300px;",
-                    count: 15,
-                    multiSelect: false,
-            		onSetupItem: "setupItem",
+                    name: "trackList",
+                    kind: "moon.DataTable",
+                    childControllerKind: "Test.Controller",
                     components: [
-            			{
-                            name: "item",
-                            kind: "enyo.FittableColumns",
-                            classes: "moon-music-item",
-                            fit: true,
+                        {
                             components: [
                                 {
-                                    name: "image",
-                                    fit: true,
-                                    classes: "moon-music-item-image",
-                                    components: [{classes: "moon-play-icon"}]
+                                    components: [
+                                        {
+                                            kind: "moon.Item",
+                                            components: [
+                                                {
+                                                    kind: "enyo.Image", 
+                                                    classes: "moon-music-small-image",
+                                                    bindFrom: "coverUrl", 
+                                                    bindTo: "src"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
-                                {style: "display: table-cell; width: 20px;"},
-                                {classes: "moon-music-item-label", components: [{name: "track", classes: "moon-music-item-label-content"}]},
-                                {classes: "moon-music-item-label", components: [{name: "artist", classes: "moon-music-item-label-content"}]},
-                                {classes: "moon-music-item-label", components: [{name: "album", classes: "moon-music-item-label-content"}]},
-                                {name: "time", classes: "moon-music-item-label-right"}
+                                {
+                                    components: [
+                                        {
+                                            kind: "moon.Item",
+                                            ontap: "changeName",
+                                            bindFrom: "track"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            kind: "moon.Item",
+                                            ontap: "changeName",
+                                            bindFrom: "artist"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            kind: "moon.Item",
+                                            ontap: "changeName",
+                                            bindFrom: "album"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            kind: "moon.Item",
+                                            ontap: "changeName",
+                                            bindFrom: "time"
+                                        }
+                                    ]
+                                },
                             ]
                         }
-            		]
+                    ]
                 }
             ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        this.$.list.setBounds({height: this.getAbsoluteBounds().height - this.$.listContainer.getAbsoluteBounds().top});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.image.setStyle("background-image: url(" + url + ");");
-		this.$.track.setContent("Track Name");
-		this.$.artist.setContent("Artist Name");
-		this.$.album.setContent("Album Name");
-		this.$.time.setContent("3:40");
-	}
+    bindings: [
+        {from: ".controller.track", to: "$.trackList.controller"}
+    ]
+});
+
+// Sample Model
+
+enyo.ready(function (){
+    var sampleModel = new enyo.Model({
+        track: new enyo.Collection([
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"}
+        ])
+    });
+
+// Sample Application
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.TrackOneColumnWideSample",
+                    controller: ".app.controllers.trackController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "trackController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeName: function(inSender, inEvent) {
+                    /** Todo: find the way how to access active datalist row */
+                    //inSender.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.controller.set("track", "Good track");
+                    var controller = inEvent.originator.controller || inEvent.originator.parent.controller;
+                }
+            }
+        ]
+    });
 });

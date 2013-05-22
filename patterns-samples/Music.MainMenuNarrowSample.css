@@ -3,8 +3,3 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-
-.livetv-background {
-    background-image: url("assets/livetv-background.png");
-    background-size: 100% 100%;
-}

@@ -10,38 +10,57 @@ enyo.kind({
         {
             name: "videoInfo",
             kind: "moon.DataList",
+            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
             fit: true,
             components: [
                 {
                     kind: "moon.Item",
-                    layoutKind: "FittableColumnsLayout",
-                    // To enyo.VCenter works, item needs height.
-                    classes: "moon-music-item",
+                    spotlight: true,
+                    ontap: "changeName",
                     components: [
                         {
-                            kind: "enyo.Image",
-                            classes: "moon-music-item-image",
-                            bindFrom: "coverUrl", 
-                            bindTo: "src"
-                        },
-                        {
-                            fit: true,
-                            LayoutKind: "FittableRowsLayout",
+                            kind: "enyo.Table",
                             components: [
                                 {
-                                    kind: "enyo.VCenter",
                                     components: [
-                                        {bindFrom: "title"},
-                                        {bindFrom: "time"}
+                                        {
+                                            components: [
+                                                {
+                                                    kind: "enyo.Image", 
+                                                    style: "width: 170px; height: 126px;",
+                                                    bindFrom: "coverUrl", 
+                                                    bindTo: "src"
+                                                }
+                                            ],
+                                            attributes: {rowspan: "4"}
+                                        },
+                                        {
+                                            style: "height: 40px;"
+                                        }
                                     ]
-                                }
+                                },
+                                {
+                                    components: [
+                                        {
+                                            bindFrom: "title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            bindFrom: "time", 
+                                            classes: "moon-superscript"
+                                        }
+                                    ]
+                                },
                             ]
                         }
                     ]
                 }
             ]
         }
-    ],
+    ], 
     bindings: [
         {from: ".controller.videos", to: "$.videoInfo.controller"}
     ]
@@ -52,18 +71,17 @@ enyo.kind({
 enyo.ready(function (){
     var sampleModel = new enyo.Model({
         videos: new enyo.Collection([
-            {coverUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQDHwnqaTVagXWigAs9od_ZykEdrdgU-MlkKI764e-YhOpte4JC", title: "Monsters", time: "1:40"},
-            {coverUrl: "http://www.impawards.com/1988/posters/without_a_clue_ver2.jpg", title: "Sherlock", time: "2:10"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwR6L4-Xicn8Jmo_h5YGo_b0ggkXex8uzqtCQOclXOVrw8Mr8RNg", title: "Hooks", time: "1:40"},
-            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/12/getsmart-poster-big.thumbnail.jpg", title: "Get Start", time: "2:10"},
-            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/04/tron-movie-poster.jpg", title: "Tron", time: "1:40"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHy6Nzzhkp89421zfEpywMOCxS96taMY62uvXAY6pC0zqlBbqrWw", title: "Teeth", time: "2:10"},
-            {coverUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQDHwnqaTVagXWigAs9od_ZykEdrdgU-MlkKI764e-YhOpte4JC", title: "Monsters", time: "1:40"},
-            {coverUrl: "http://www.impawards.com/1988/posters/without_a_clue_ver2.jpg", title: "Sherlock", time: "2:10"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTwR6L4-Xicn8Jmo_h5YGo_b0ggkXex8uzqtCQOclXOVrw8Mr8RNg", title: "Hooks", time: "1:40"},
-            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/12/getsmart-poster-big.thumbnail.jpg", title: "Get Start", time: "2:10"},
-            {coverUrl: "http://www.myconfinedspace.com/wp-content/uploads/2007/04/tron-movie-poster.jpg", title: "Tron", time: "1:40"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHy6Nzzhkp89421zfEpywMOCxS96taMY62uvXAY6pC0zqlBbqrWw", title: "Teeth", time: "2:10"}
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"}
         ])
     });
 

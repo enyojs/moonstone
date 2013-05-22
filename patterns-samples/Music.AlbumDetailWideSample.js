@@ -7,22 +7,26 @@ enyo.kind({
     title: "Album",    
     titleBelow: "ALBUM TITLE(ARTISTS)",
     layoutKind: "FittableColumnsLayout",
+    headerComponents: [
+        {kind: "moon.IconButton", src: "assets/icon-album.png"},
+        {kind: "moon.IconButton", src: "assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+    ],
     components: [
         {
-            kind: "FittableRows",
+            classes: "moon-5h",
             components: [
                 {
                     name: "cover",
                     kind: "enyo.Image",
-                    style: "height: 200px; width: 200px;"
+                    style: "width: 350px; height: 350px;",
                 },
                 {
                     kind: "moon.Table",
                     name: "albumInfo",
+                    classes: "enyo-table-fit",
                     components: [
-                        {components: [
-                            {name: "album", attributes: {colspan: "2"}, style: "font-weight: bold;"}
-                        ]},
                         {components: [
                             {content: "Released"},
                             {name: "releaseDate"}
@@ -66,16 +70,6 @@ enyo.kind({
             ]
         }
     ],
-
-
-    headerComponents: [
-        {classes: "moon-music-detail-header-button", components: [
-            {kind: "moon.IconButton", src: "assets/icon-album.png"},
-            {kind: "moon.IconButton", src: "assets/icon-download.png"},
-            {kind: "moon.IconButton", src: "assets/icon-like.png"},
-            {kind: "moon.IconButton", src: "assets/icon-next.png"}
-        ]}
-    ],
     bindings: [
         {from: ".controller.artist", to: "$.artist.content"},
         {from: ".controller.releaseDate", to: "$.releaseDate.content"},
@@ -113,7 +107,7 @@ enyo.ready(function() {
             {number: "16", name: "We Will Rock You", duration: "2:01"},
             {number: "17", name: "We Are the Champions", duration: "2:59"}
         ]),
-        coverUrl: "http://upload.wikimedia.org/wikipedia/en/9/92/QueenGH2011.jpg"
+        coverUrl: "assets/default-music-big.png"
     });
     
 //  Application to render sample

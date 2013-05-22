@@ -21,10 +21,11 @@ enyo.kind({
                     ]
                 },
                 {
-                    fit: true,
                     kind: "enyo.VCenter",
-                    classes: "moon-dark-gray moon-music-mainmenu-branding",
-                    content: "branding"
+                    content: "branding",
+                    fit: true,
+                    classes: "moon-dark-gray",
+                    style: "text-align: center"
                 }
             ]
         }
@@ -55,7 +56,8 @@ enyo.ready(function(){
                 {
                     kind: "moon.sample.music.MainMenuWideSample2",
                     controller: ".app.controllers.menuController",
-                    classes: "enyo-fit"
+                    classes: "enyo-fit",
+                    style: "background-image: url(assets/livetv-background.png); background-size: 100% 100%;"
                 }
             ]
         },

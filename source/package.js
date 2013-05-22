@@ -46,6 +46,7 @@ enyo.depends(
 	"StyleAnimator.js",
 	"Accordion.js",
 	"Table.js",
+	"DataList.js",
 	"DataTable.js",
-	"DataList.js"
+	"DataGridList.js"
 );

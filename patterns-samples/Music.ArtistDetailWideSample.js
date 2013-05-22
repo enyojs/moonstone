@@ -8,13 +8,8 @@ enyo.kind({
     titleBelow: "Artist Name",
     layoutKind: "FittableColumnsLayout",
     headerComponents: [
-        {
-            classes: "moon-music-detail-header-button",
-            components: [
-                {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
-            ]
-        }
+        {kind: "moon.IconButton", src: "assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
     components: [
         {
@@ -23,33 +18,28 @@ enyo.kind({
                 {
                     name: "artistImage",
                     kind: "enyo.Image",
-                    classes: "moon-music-big-image"
+                    style: "width: 350px; height: 350px;",
                 },
                 {
-                    classes: "enyo-table",
-                    style: "width: 100%",
+                    kind: "moon.Table",
+                    classes: "enyo-table-fit",
                     components: [
                         {
-                            classes: "enyo-table-row",
                             components: [
-                                {content: "Organized", classes: "enyo-table-cell"},
-                                {name: "organized", classes: "enyo-table-cell"}
+                                {content: "Organized"},
+                                {name: "organized"}
                             ]
                         },
                         {
-                            xstyle: "display: table-row;",
-                            classes: "enyo-table-row",
                             components: [
-                                {content: "Debut", classes: "enyo-table-cell"},
-                                {name: "debut", classes: "enyo-table-cell"}
+                                {content: "Debut"},
+                                {name: "debut"}
                             ]
                         },
                         {
-                            xstyle: "display: table-row;",
-                            classes: "enyo-table-row",
                             components: [
-                                {content: "Type", classes: "enyo-table-cell"},
-                                {name: "type", classes: "enyo-table-cell"}
+                                {content: "Type"},
+                                {name: "type"}
                             ]
                         }
                     ]
@@ -78,13 +68,16 @@ enyo.kind({
                 {kind: "moon.Divider", content: "Related Artists"},
                 {
                     name: "relatedArtists",
-                    kind: "enyo.DataTable",
-                    components: [{
-                        kind: "enyo.Image",
-                        classes: "moon-music-small-image",
-                        bindFrom: "relatedUrl",
-                        bindTo: "src"
-                    }]
+                    kind: "moon.DataGridList",
+                    classes: "moon-1v",
+                    components: [
+                        {
+                            kind: "enyo.Image",
+                            style: "width: 130px; height: 130px;",
+                            bindFrom: "relatedUrl",
+                            bindTo: "src"
+                        }
+                    ]
                 },
                 {kind: "moon.Divider", content: "Top 10 Tracks"},
                 {
@@ -95,21 +88,43 @@ enyo.kind({
                     components: [
             			{
                             kind: "moon.Item",
-                            classes: "moon-music-item",
                             components: [
                                 {
-                                    kind: "enyo.Image",
-                                    classes: "moon-music-small-image",
-                                    bindFrom: "coverUrl",
-                                    bindTo: "src"
-                                },
-                                {
-                                    kind: "enyo.FittableRows",
-                                    classes: "moon-music-item-label",
+                                    kind: "enyo.Table",
                                     components: [
-                                        {bindFrom: "track", },
-                                        {bindFrom: "artist", classes: "moon-music-item-label-small"},
-                                        {bindFrom: "duration", classes: "moon-music-item-label-small"}
+                                        {
+                                            components: [
+                                                {
+                                                    components: [
+                                                        {
+                                                            kind: "enyo.Image", 
+                                                            bindFrom: "coverUrl", 
+                                                            bindTo: "src"
+                                                        }
+                                                    ],
+                                                    attributes: {rowspan: "4"}
+                                                },
+                                                {
+                                                    bindFrom: "track"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindFrom: "artist", 
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindFrom: "duration", 
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        }
                                     ]
                                 }
                             ]
@@ -137,33 +152,30 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         artist: "Paul McCartney",
-        artistImageUrl: "http://www.biography.com/imported/images/Biography/Images/Profiles/M/Paul-Mccartney-9390850-1-402.jpg",
+        artistImageUrl: "assets/default-music-big.png",
         organized: "5 April 2013",
         debut: "5 April 1973",
         type: "Solo",
         bio: "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of",
         related: new enyo.Collection([
-            {relatedUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-"},
-            {relatedUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT8QwvaGvOfOFEM86P5tfDvT-HwCYJMdNkzX9QWlVBw3JdFq5bI"},
-            {relatedUrl: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRZloZ98xtYFPjkhKdwbmKYElRXdr4ehWf41-oBcS7WLXhBJHvX"}
+            {relatedUrl: "assets/default-music.png"},
+            {relatedUrl: "assets/default-music.png"},
+            {relatedUrl: "assets/default-music.png"}
         ]),
         tracks: new enyo.Collection([
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", track: "A Day In The Life / Give Peace A Chance", artist: "Paul Mccartney", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", track: "A Lovely Way To Spend An Evening", artist: "Paul Mccartney", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", track: "Ain't That A Shame", artist: "Paul Mccartney", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", track: "All Shook Up", artist: "Paul Mccartney", duration: "2:04"}
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"}
         ])
         
     });

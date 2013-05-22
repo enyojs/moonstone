@@ -3,35 +3,3 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-
-.moon-music-midium-image {
-    width: 200px;
-    height: 200px;
-}
-.moon-music-small-image {
-    width: 130px;
-    height: 130px;
-    margin: 0px 2px 0px 0px;
-}
-.moon-music-item {
-    margin: 0px 0px 10px 0px;
-    display: table;
-    table-layout: fixed;
-}
-.moon-music-item-label {
-    overflow: hidden;
-    white-space: nowrap;
-    color: #4b4b4b;
-    font-family: "Miso";
-    font-size: 40px;
-    line-height: 40px;
-    font-weight: bold;
-    text-transform: uppercase;
-    vertical-align: middle;
-    display: table-cell;
-}
-.moon-music-item-label-small {
-    font-size: 32px;
-    line-height: 32px;
-    font-weight: normal;
-}

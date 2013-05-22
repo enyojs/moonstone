@@ -3,12 +3,3 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-
-.moon-music-item {
-    height: 130px;
-}
-
-.moon-music-item-image {
-    height: 126px; 
-    width: 126px;
-}

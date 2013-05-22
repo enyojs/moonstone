@@ -20,10 +20,11 @@ enyo.kind({
                     ]
                 },
                 {
-                    fit: true,
                     kind: "enyo.VCenter",
-                    classes: "moon-dark-gray moon-music-mainmenu-branding",
-                    content: "branding"
+                    content: "branding",
+                    fit: true,
+                    classes: "moon-dark-gray",
+                    style: "text-align: center"
                 }
             ]
         }

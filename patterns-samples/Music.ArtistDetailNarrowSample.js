@@ -9,10 +9,9 @@ enyo.kind({
     layoutKind: "FittableRowsLayout",
     headerComponents: [
         {
-            classes: "moon-music-detail-header-button",
             components: [
                 {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
+                {kind: "moon.IconButton", src: "assets/icon-next.png"}
             ]
         }
     ],
@@ -24,7 +23,7 @@ enyo.kind({
                 {
                     name: "artistImage",
                     kind: "enyo.Image",
-                    classes: "moon-music-midium-image"
+                    style: "width: 200px; height: 200px;"
                 },
                 {
                     kind: "enyo.Table",
@@ -57,19 +56,35 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.Item",
-                    classes: "moon-music-item",
                     components: [
                         {
-                            kind: "enyo.Image",
-                            classes: "moon-music-small-image",
-                            bindFrom: "coverUrl", 
-                            bindTo: "src"
-                        },
-                        {
-                            classes: "moon-music-item-label",
+                            kind: "enyo.Table",
                             components: [
-                                {bindFrom: "name"},
-                                {bindFrom: "duration", classes: "moon-music-item-label-small"}
+                                {
+                                    components: [
+                                        {
+                                            components: [
+                                                {
+                                                    kind: "enyo.Image", 
+                                                    bindFrom: "coverUrl", 
+                                                    bindTo: "src"
+                                                }
+                                            ],
+                                            attributes: {rowspan: "3"}
+                                        },
+                                        {
+                                            bindFrom: "name"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            bindFrom: "duration", 
+                                            classes: "moon-superscript"
+                                        }
+                                    ]
+                                }
                             ]
                         }
                     ]
@@ -96,24 +111,22 @@ enyo.ready(function(){
         debutDate: "5 April 1973",
         type: "Solo",
         tracks: new enyo.Collection([
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-Vd9y-xwlX8kVxfGhWuDY-LeynvSM8dlUPL3qtsYhVEfb6X4", name: "A Day In The Life / Give Peace A Chance", duration: "5:44"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRQDnsmdRkuX8viSpmoE6YwgR_JvgM9ikv68ORR7HCtfP6LLuLnRQ", name: "A Lovely Way To Spend An Evening", duration: "3:06"},
-            {coverUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwLf3VBLXboAa55J9GkAVwoozAtQTfeUPsQc5P33MzTga-YVsxzQ", name: "Ain't That A Shame", duration: "3:40"},
-            {coverUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR0fTM65PSpV99dQ0oRYhA1hi76oPxGznpdOGQL6M0X2lryckJ-", name: "All Shook Up", duration: "2:04"}
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"}
         ]),
-        artistImageUrl: "http://www.biography.com/imported/images/Biography/Images/Profiles/M/Paul-Mccartney-9390850-1-402.jpg"
+        artistImageUrl: "assets/default-music-big.png"
     });
  
 //  Application to render sample
