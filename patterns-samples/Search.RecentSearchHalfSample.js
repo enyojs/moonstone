@@ -9,10 +9,6 @@ enyo.kind({
     titleAbove: "02",
     title: "SEARCH",
 
-    headerComponents: [
-        {kind: "moon.IconButton", classes: "moon-header-delete-button", src: "assets/trash-can-icon.png"}
-    ],
-
     components: [
         {kind: "enyo.Spotlight"},
         {
@@ -25,11 +21,11 @@ enyo.kind({
                     components: [
                         {classes : "radio-button", content: "SUGGESTED SEARCH"},
                         {classes : "radio-button", content: "RECENT SEARCHES"},
-                        {kind: "moon.IconButton", src: "assets/icon-round-delete.png", classes: "icon-button-right"}
+                        {kind: "moon.IconButton", classes: "icon-button-right", src: "assets/trash-can-icon.png"}
                     ],
                 },
                 { kind : "moon.Divider", classes : "divider" },
-                {
+                {              
                     kind: "moon.List",
                     count: 10,
                     fit: true,
@@ -38,10 +34,9 @@ enyo.kind({
                         {
                             name: "item",
                             layoutKind: "FittableColumnsLayout",
-                            fit: true,
                             classes: "moon-search-recent-list",
                             components: [
-                                {kind: "moon.Item"},
+                                {name: "itemTitle", fit: true, kind: "moon.Item"},
                                 {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
                                 {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
                             ]
@@ -53,6 +48,7 @@ enyo.kind({
     ],
 
     setupItem: function(inSender, inEvent) {
-        this.$.item.controls[0].setContent("RECENT SEARCH");
+        this.$.itemTitle.setContent("RECENT SEARCH");
+        return true;
     }
 });
