@@ -1,3 +1,26 @@
+// enyo.DataGridList.ImageItem
+
+enyo.kind({
+    name: "enyo.DataGridList.TitleImageItem",
+    kind: "enyo.GridList.ImageItem",
+    classes: "enyo-gridlist-titleimageitem",
+    components:[
+        {name: 'image', bindFrom: "image", bindTo: "src", kind: 'enyo.Image'},
+        {name: "text", bindFrom: "text", classes: "caption"}
+    ]
+});
+
+// moon.DataGridList.TitleImageItem
+
+enyo.kind({
+    name: "moon.DataGridList.TitleImageItem",
+    kind: "enyo.DataGridList.TitleImageItem",
+    spotlight: true,
+    classes: "moon-gridlist-titleimageitem"
+});
+
+// Search.SearchFullSample
+
 enyo.kind({
     //* @public
     name: "Search.SearchFullSample",
@@ -7,40 +30,86 @@ enyo.kind({
     },
     //* @protected
     fit: true,
-    titleAbove: "02",
     title: "Search",
     spotlight: false,
-    classes: "moon enyo-unselectable moon-sample-search-RecentSearchFullSample", 
+    style: "background-color: #EAEAEA;",
     headerComponents: [
-        {kind: "moon.IconButton", classes: "moon-header-delete-button", src: "assets/trash-can-icon.png"}
+        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px", src: "assets/trash-can-icon.png"}
     ],
     components: [
-        {kind: "enyo.Spotlight"},
-        {name: "recentResult", kind: "Repeater", count: 6, classes: "categories", components: [
-            {kind: "moon.sample.search.recent.category"}
+        {name: "recentResult", kind: "moon.Scroller", fit: true, components: [
+            {style: "display: inline-block; float: left; width: 438px;", components: [
+                {name: "title1", kind: "moon.Item"},          
+                {components: [
+                    {name: "recentSearchResults1", kind: "enyo.DataGridList", components: [
+                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                    ]}
+                ]}
+            ]},
+            {style: "display: inline-block; float: left; width: 438px;", components: [
+                {name: "title2", kind: "moon.Item"},          
+                {components: [
+                    {name: "recentSearchResults2", kind: "enyo.DataGridList", components: [
+                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                    ]}
+                ]}
+            ]},
+            {style: "display: inline-block; float: left; width: 438px;", components: [
+                {name: "title3", kind: "moon.Item"},          
+                {components: [
+                    {name: "recentSearchResults3", kind: "enyo.DataGridList", components: [
+                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                    ]}
+                ]}
+            ]},
+            {style: "display: inline-block; float: left; width: 438px;", components: [
+                {name: "title4", kind: "moon.Item"},          
+                {components: [
+                    {name: "recentSearchResults4", kind: "enyo.DataGridList", components: [
+                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                    ]}
+                ]}
+            ]},
+            {style: "display: inline-block; float: left; width: 438px;", components: [
+                {name: "title5", kind: "moon.Item"},          
+                {components: [
+                    {name: "recentSearchResults5", kind: "enyo.DataGridList", components: [
+                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                    ]}
+                ]}
+            ]},
+            {style: "display: inline-block; float: left; width: 438px;", components: [
+                {name: "title6", kind: "moon.Item"},          
+                {components: [
+                    {name: "recentSearchResults6", kind: "enyo.DataGridList", components: [
+                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                    ]}
+                ]}
+            ]}
         ]},
-        {name: "searchResult", components: [
+        {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
             {
-                name: "gridlist", kind: "moon.GridList",
-                onSetupItem: "setupGridItem",
-                fit: true, count: 0, toggleSelected: true,
-                itemWidth: 200, itemHeight: 130, itemSpacing: 20,
-                classes: "grid-list", 
-                components: [
-                    {name: "gridItem", kind: "moon.GridList.ImageItem"}
-                ]
+                kind: "moon.DataGridList.TitleImageItem",
+                style: "height: 126px; width: 126px; margin: 10px;",
+                spotlightPosition:"bottom"
             }
         ]}
     ],
-    setupGridItem: function(inSender, inEvent) {
-        var i = inEvent.index;
-
-        this.$.gridItem.setSource("assets/default-movie.png");
-        this.$.gridItem.setCaption("RESULT");
-        this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-
-        return true;
-    },
+    bindings: [
+        {from: ".controller.title1", to: "$.title1.content"},
+        {from: ".controller.title2", to: "$.title2.content"},
+        {from: ".controller.title3", to: "$.title3.content"},
+        {from: ".controller.title4", to: "$.title4.content"},
+        {from: ".controller.title5", to: "$.title5.content"},
+        {from: ".controller.title6", to: "$.title6.content"},
+        {from: ".controller.recentSearchResults1", to: "$.recentSearchResults1.controller"},
+        {from: ".controller.recentSearchResults2", to: "$.recentSearchResults2.controller"},
+        {from: ".controller.recentSearchResults3", to: "$.recentSearchResults3.controller"},
+        {from: ".controller.recentSearchResults4", to: "$.recentSearchResults4.controller"},
+        {from: ".controller.recentSearchResults5", to: "$.recentSearchResults5.controller"},
+        {from: ".controller.recentSearchResults6", to: "$.recentSearchResults6.controller"},
+        {from: ".controller.instantSearchResults", to: "$.instantSearchResults.controller"}
+    ],
 
     //* @public
 
@@ -49,42 +118,98 @@ enyo.kind({
 
         if(inEvent.keyword != "") {
             this.$.recentResult.setShowing(false);
-            this.$.gridlist.setCount(20);
-            this.$.gridlist.resized();
+            this.$.instantSearchResults.setShowing(true);
         } else {
             this.$.recentResult.setShowing(true);
-            this.$.gridlist.setCount(0);
-            this.$.gridlist.resized();
+            this.$.instantSearchResults.setShowing(false);
         }
     }
 });
 
-enyo.kind({
-    //* @public
-    name: "moon.sample.search.recent.category",
-    //* @protected
-    classes: "category",
-    components: [
-        {name: "title", kind: "moon.Item", classes: "category-name"},
-        {name: "items", kind: "Repeater", onSetupItem: "setupItem", count: 3, components: [
-            {name: "item", spotlight: true, classes: "item", components: [
-                {name: "itemText", classes: "item-text"}
-            ]}
-        ]}
-    ],
+// Sample model
 
-    initComponents: function() {
-        this.inherited(arguments);
-        this.$.title.setContent("RECENT SEARCH");
-    },
-    setupItem: function(inSender, inEvent) {
-        var item = inEvent.item;
-        item.$.item.applyStyle("background-image", "url('./assets/default-movie.png');");
-        item.$.itemText.setContent("RESULT");
-        return true;
-    }
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        title1: "RECENT SEARCH1",
+        title2: "RECENT SEARCH2",
+        title3: "RECENT SEARCH3",
+        title4: "RECENT SEARCH4",
+        title5: "RECENT SEARCH5",
+        title6: "RECENT SEARCH6",
+        recentSearchResults1: new enyo.Collection([
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        recentSearchResults2: new enyo.Collection([
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        recentSearchResults3: new enyo.Collection([
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        recentSearchResults4: new enyo.Collection([
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        recentSearchResults5: new enyo.Collection([
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        recentSearchResults6: new enyo.Collection([
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"},
+            {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        instantSearchResults: new enyo.Collection([
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image:"./assets/default-movie.png"}
+        ])
+    });
 
-    //* @public
+//  Application to render sample
 
-    // Do something
-});               
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "Search.SearchFullSample",
+                    controller: ".app.controllers.searchFullController",
+                    classes: "enyo-fit"
+                }
+            ],
+        },
+        controllers: [
+            {
+                name: "searchFullController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+            }
+        ]
+    });
+});
