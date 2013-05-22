@@ -35,9 +35,9 @@ enyo.kind({
                             layoutKind: "FittableColumnsLayout",
                             classes: "moon-search-recent-list",
                             components: [
-                                {name: "itemTitle", kind: "moon.Item", fit: true, content: "RECENT"},
-                                {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
-                                {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
+                                {name: "itemTitle", kind: "moon.Item"},
+                                {kind: 'enyo.Image', classes: "moon-search-image", src: "assets/album.png"},
+                                {kind: 'enyo.Image', classes: "moon-search-image", src: "assets/album.png"}
                             ]
                         }
                     ]
@@ -47,7 +47,7 @@ enyo.kind({
     ],
 
     setupItem: function(inSender, inEvent) {
-        //this.$.itemTitle.setContent("RECENT SEARCH");
+        this.$.itemTitle.setContent("RECENT SEARCH");
         return true;
     }
 });
