@@ -7,15 +7,17 @@ enyo.kind({
     },
     //* @protected
     fit: true,
+    titleAbove: "02",
     title: "Search",
     spotlight: false,
-    classes: "moon-sample-search-RecentSearchFullSample", 
+    classes: "moon enyo-unselectable moon-sample-search-RecentSearchFullSample", 
     headerComponents: [
         {kind: "moon.IconButton", classes: "moon-header-delete-button", src: "assets/trash-can-icon.png"}
     ],
     components: [
+        {kind: "enyo.Spotlight"},
         {name: "recentResult", kind: "Repeater", count: 6, classes: "categories", components: [
-            {kind: "Search.RecentSearchFullSample"}
+            {kind: "moon.sample.search.recent.category"}
         ]},
         {name: "searchResult", components: [
             {
@@ -59,7 +61,7 @@ enyo.kind({
 
 enyo.kind({
     //* @public
-    name: "Search.RecentSearchFullSample",
+    name: "moon.sample.search.recent.category",
     //* @protected
     classes: "category",
     components: [
@@ -86,96 +88,3 @@ enyo.kind({
 
     // Do something
 });               
-
-// Sample model
-
-enyo.ready(function(){
-    var sampleModel = new enyo.Model({
-        recentSearchResults: new enyo.Collection([
-            {
-                title:"RECENT SEARCH1",
-                itemText1:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText2:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText3:"RESULT1", itemSource:"./assets/default-movie.png"
-            },
-            {
-                title:"RECENT SEARCH1",
-                itemText1:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText2:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText3:"RESULT1", itemSource:"./assets/default-movie.png"
-            },
-            {
-                title:"RECENT SEARCH1",
-                itemText1:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText2:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText3:"RESULT1", itemSource:"./assets/default-movie.png"
-            },
-            {
-                title:"RECENT SEARCH1",
-                itemText1:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText2:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText3:"RESULT1", itemSource:"./assets/default-movie.png"
-            },
-            {
-                title:"RECENT SEARCH1",
-                itemText1:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText2:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText3:"RESULT1", itemSource:"./assets/default-movie.png"
-            },
-            {
-                title:"RECENT SEARCH1",
-                itemText1:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText2:"RESULT1", itemSource:"./assets/default-movie.png",
-                itemText3:"RESULT1", itemSource:"./assets/default-movie.png"
-            }            
-        ]),
-        instantSearchResults: new enyo.Collection([
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"},
-            {itemText:"RESULT2", itemSource:"./assets/default-movie.png"}
-        ])
-    });
-
-//  Application to render sample
-
-    new enyo.Application({
-        view: {
-            classes: "enyo-unselectable moon",
-            components: [
-                {kind: "enyo.Spotlight"},
-                {
-                    kind: "Search.SearchFullSample",
-                    controller: ".app.controllers.searchFullController",
-                    classes: "enyo-fit"
-                }
-            ],
-        },
-        controllers: [
-            {
-                name: "searchFullController",
-                kind: "enyo.ModelController",
-                model: sampleModel,
-                // changeTrackName: function(inSender, inEvent) {
-                //     inSender.parent.controller.set("name", "We are the Champions");
-                // }
-            }
-        ]
-    });
-});
