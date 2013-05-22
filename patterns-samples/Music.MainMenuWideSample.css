@@ -2,20 +2,20 @@
     background: #eaeaea;
 }
 
-.moon-music-mainmenu {
+.moon-music-main-menu {
     margin: 0px 20px 20px 20px;
 }
 
-.moon-music-mainmenu-menu {
+.moon-music-main-menu .menu {
     width: 15%;
     padding: 10px 0px 0px 0px;
 }
 
-.moon-music-mainmenu-content {
+.moon-music-main-menu .content {
     padding: 2px 0px 0px 0px;
 }
 
-.moon-music-mainmenu-branding {
+.moon-music-main-menu .branding {
     display: table-cell;
 	background: #666666;
     color: #ffffff;

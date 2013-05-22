@@ -9,18 +9,24 @@ enyo.kind({
 			joinedPanels,
 			i;
 		
-		// setup default widths for each panel
+		// Setup default widths for each panel
 		for (i = 0; i < panels.length; i++) {
+			// If panels have already been stretched, unstretch them before doing calculations
+			if (panels[i].actualWidth) {
+				panels[i].applyStyle("width", panels[i].width + "px");
+			}
+			
 			panels[i].actualWidth = null;
 			panels[i].width = panels[i].getBounds().width;
 		}
 		
+		// Calculate which panels will be joined
 		joinedPanels = this.calculateJoinedPanels(containerWidth);
 		
-		// stretch all panels to fit vertically
+		// Stretch all panels to fit vertically
 		this.applyVerticalFit();
 		
-		// reset panel arrangement positions
+		// Reset panel arrangement positions
 		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, joinedPanels);
 		this.adjustTransitionPositionsForJoinedPanels(joinedPanels);
 		
@@ -69,7 +75,7 @@ enyo.kind({
 		if(xPos + panels[inIndex].width > inContainerWidth) {
 			return false;
 		}
-		
+
 		return true;
 	},
 	formatJoinedPanels: function(inJoinedPanels) {

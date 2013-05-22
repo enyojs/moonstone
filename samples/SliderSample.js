@@ -5,14 +5,14 @@ enyo.kind({
 	kind: "Scroller",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content:"Slider 1: Default"},
-		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{kind: "moon.Divider", content: "Slider 1: Default"},
+		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 		{tag:"br"},
 		{kind: "moon.Divider", content:"Slider 2: not locked bar"},
 		{style: "width:340px;", components: [
 			{name:"lockBar", kind: "moon.LabeledToggleButton", checked: false, content: "lock bar", onchange: "lockbarChanged"}
 		]},
-		{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging: "sliderChanging", onChange: "sliderChanged"},
 		{tag:"br"},
 		{kind: "moon.Divider", content:"Slider 3: Disabled"},
 		{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
@@ -25,10 +25,11 @@ enyo.kind({
 		]},
 		{tag: "br"},
 		{style: "width:340px;", components: [
-			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"}
+			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"},
+			{kind: "moon.LabeledCheckbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
 		]},
 		{kind: "FittableColumns", components: [
-			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: true, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
+			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: false, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
 			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
 		]},
 		{tag: "br"},
@@ -43,11 +44,7 @@ enyo.kind({
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
-				if (this.$.animateSetting.getChecked()) {
-					this.$[i].animateTo(this.$.input.getValue());
-				} else {
-					this.$[i].setValue(this.$.input.getValue());
-				}
+				this.$[i].setValue(this.$.input.getValue());
 			}
 		}
 	},
@@ -90,5 +87,10 @@ enyo.kind({
 			}
 		}
 		return true;
+	},
+	changeStatusBubble: function(inSender, inEvent) {
+		var status = inEvent.checked;
+		this.$.slider.setNoPopup(!status);
+		this.$.slider2.setNoPopup(!status);
 	}
 });

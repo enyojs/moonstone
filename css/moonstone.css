@@ -1326,7 +1326,7 @@ PageControl's use of IconButtons
   z-index: 20;
   left: 100px;
   top: 0px;
-  width: 88px;
+  width: 62px;
   height: 52px;
   padding-left: 0px;
 }
@@ -1346,6 +1346,11 @@ PageControl's use of IconButtons
 .moon-slider-popup.above {
   top: -90px;
   padding-left: 10px;
+}
+.moon-slider-popup-flip-h {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
 }
 /* RichText.css */
 .moon-richtext {
@@ -1865,6 +1870,45 @@ PageControl's use of IconButtons
 .moon.enyo-fittable-columns-layout > *,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
+}
+.moon-searchheader {
+  height: 96px;
+  margin-bottom: 49px;
+}
+.moon-searchheader-title-above {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0px;
+  margin: 54px 0px 7px 1px;
+  width: 30px;
+  border-bottom: 0px solid #4b4b4b;
+}
+.moon-searchheader-title {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  text-transform: uppercase;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 6px 0px;
+}
+.moon-searchheader-title-below {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  min-height: 18px;
+  padding: 0px 0px 0px 0px;
+  margin: 18px;
+}
+.moon-searchheader-container {
+  position: absolute;
+  top: 0px;
+}
+.moon-searchheader-search-left {
+  width: 210px;
+}
+.moon-searchheader-search-right {
+  width: 219px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
