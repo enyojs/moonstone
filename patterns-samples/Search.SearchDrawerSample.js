@@ -6,7 +6,7 @@ enyo.kind({
     kind: "moon.Panel",
     //* @protected
     title: "Empty",
-    // style: "background-color: #EAEAEA;",
+    style: "background-color: #EAEAEA;",
     headerComponents: [
         {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px;", src: "assets/trash-can-icon.png"}
     ],
@@ -36,7 +36,7 @@ enyo.kind({
         {from: ".controller.recentSearchResults4", to: "$.drawer.$.recentSearchResults4.controller"},
         {from: ".controller.recentSearchResults5", to: "$.drawer.$.recentSearchResults5.controller"},
         {from: ".controller.recentSearchResults6", to: "$.drawer.$.recentSearchResults6.controller"},
-        {from: ".controller.instantSearchResults", to: "$.instantSearchResults.controller"}
+        {from: ".controller.instantSearchResults", to: "$.drawer.$.instantSearchResults.controller"}
     ],
 
     //* @public
@@ -121,13 +121,13 @@ enyo.kind({
                 ]}
             ]}
         ]},
-        // {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
-        //     {
-        //         kind: "moon.DataGridList.TitleImageItem",
-        //         style: "height: 126px; width: 126px; margin: 10px;",
-        //         spotlightPosition:"bottom"
-        //     }
-        // ]}
+        {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
+            {
+                kind: "moon.DataGridList.TitleImageItem",
+                style: "height: 126px; width: 126px; margin: 10px;",
+                spotlightPosition:"bottom"
+            }
+        ]}
     ],
 
     //* @public
@@ -205,6 +205,28 @@ enyo.ready(function(){
             {text: "RESULT1", image: "./assets/default-movie.png"},
             {text: "RESULT1", image: "./assets/default-movie.png"},
             {text: "RESULT1", image: "./assets/default-movie.png"}
+        ]),
+        instantSearchResults: new enyo.Collection([
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image:"./assets/default-movie.png"}
         ])
     });
 
