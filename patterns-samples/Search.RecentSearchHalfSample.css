@@ -1,0 +1,28 @@
+.moon-search {
+    float: right;
+    width: 800px;
+    margin: 0px 20px 0px 20px;
+}
+
+.moon-search .moon-header {
+    height: 200px;
+}
+
+.moon-search .radio-button {
+    font-size: 28px;
+    margin : 20px 10px 0px 0px;
+}
+
+.moon-search .icon-button-right {
+    float: right;
+}
+
+.moon-search-recent-list {
+    min-height: 130px;
+    margin: 20px 0px 0px 0px;
+}
+
+.moon-search-images {
+    float: right;
+    margin: 0px 0px 0px 20px;
+}
