@@ -15,28 +15,27 @@ enyo.kind({
             layoutKind: "FittableRowsLayout",
             fit: true,
             components: [
-                {
-                    kind: "moon.RadioButtonGroup", 
-                    onActivate: "", 
+                {                  
                     components: [
-                        {classes : "radio-button", content: "SUGGESTED SEARCH"},
-                        {classes : "radio-button", content: "RECENT SEARCHES"},
+                        {kind: "moon.RadioButtonGroup", components: [
+                            {classes: "radio-button", content: "SUGGESTED SEARCH"},
+                            {classes: "radio-button", content: "RECENT SEARCHES"},
+                        ]},               
                         {kind: "moon.IconButton", classes: "icon-button-right", src: "assets/trash-can-icon.png"}
                     ],
                 },
                 { kind : "moon.Divider", classes : "divider" },
-                {              
+                {
                     kind: "moon.List",
                     count: 10,
                     fit: true,
                     onSetupItem: "setupItem",
                     components: [
                         {
-                            name: "item",
                             layoutKind: "FittableColumnsLayout",
                             classes: "moon-search-recent-list",
                             components: [
-                                {name: "itemTitle", fit: true, kind: "moon.Item"},
+                                {name: "itemTitle", kind: "moon.Item", fit: true, content: "RECENT"},
                                 {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
                                 {kind: 'enyo.Image', classes: "moon-search-images", src: "assets/album.png"},
                             ]
@@ -48,7 +47,7 @@ enyo.kind({
     ],
 
     setupItem: function(inSender, inEvent) {
-        this.$.itemTitle.setContent("RECENT SEARCH");
+        //this.$.itemTitle.setContent("RECENT SEARCH");
         return true;
     }
 });
