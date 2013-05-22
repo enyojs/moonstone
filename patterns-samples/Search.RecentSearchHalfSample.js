@@ -1,18 +1,16 @@
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
-    kind: "moon.Panel",
+    kind: "moon.SearchPanel",
 	classes: "enyo-unselectable moon moon-search",
+    handlers: {
+        "onSearch": "search"
+    },
     fit: true,
     titleAbove: "02",
     title: "SEARCH",
 
     headerComponents: [
-         {kind: "FittableColumns", components: [
-            {kind: "moon.InputDecorator", fit: true, components: [
-                {kind: "moon.Input", placeholder: "Search term", onchange: "inputChanged"},
-                {kind: "Image", src: "../samples/assets/search-input-search.png"}
-            ]},
-        ]}
+        {kind: "moon.IconButton", classes: "moon-header-delete-button", src: "assets/trash-can-icon.png"}
     ],
 
     components: [

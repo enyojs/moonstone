@@ -1,11 +1,6 @@
 .moon-search {
-    float: right;
-    width: 800px;
-    margin: 0px 20px 0px 20px;
-}
-
-.moon-search .moon-header {
-    height: 200px;
+    background-color: #EAEAEA;
+    height: 100%;
 }
 
 .moon-search .radio-button {
