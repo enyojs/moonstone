@@ -177,34 +177,34 @@ enyo.ready(function(){
         title5: "RECENT SEARCH5",
         title6: "RECENT SEARCH6",
         recentSearchResults1: new enyo.Collection([
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"}
         ]),
         recentSearchResults2: new enyo.Collection([
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"}
         ]),
         recentSearchResults3: new enyo.Collection([
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"}
         ]),
         recentSearchResults4: new enyo.Collection([
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"}
         ]),
         recentSearchResults5: new enyo.Collection([
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"}
         ]),
         recentSearchResults6: new enyo.Collection([
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"},
-            {text: "RESULT1", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"},
+            {text: "RESULT", image: "./assets/default-movie.png"}
         ]),
         instantSearchResults: new enyo.Collection([
             {text: "RESULT", image: "./assets/default-movie.png"},
