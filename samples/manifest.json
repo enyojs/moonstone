@@ -27,6 +27,7 @@
                 {"name": "Horizontal Scroller", "path":"$lib/moonstone/samples/ScrollerHorizontalSample"},
                 {"name": "Vertical Scroller", "path":"$lib/moonstone/samples/ScrollerVerticalSample"},
                 {"name": "Progress Bar", "path":"$lib/moonstone/samples/ProgressSample"},
+                {"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"},
                 {"name": "Selectable Item", "path":"$lib/moonstone/samples/SelectableItemSample"},
         	{"name": "Simple Picker", "path":"$lib/moonstone/samples/SimplePickerSample", "css":"sample"},
                 {"name": "Slider", "path":"$lib/moonstone/samples/SliderSample", "css":"sample"},

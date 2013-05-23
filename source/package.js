@@ -50,5 +50,7 @@ enyo.depends(
 	"DataTable.js",
 	"ScrollStrategy.js",
 	"SearchPanel.js",
-	"SearchHeader.js"
+	"SearchHeader.js",
+	"Tooltip.js",
+	"TooltipDecorator.js"
 );
