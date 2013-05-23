@@ -1,0 +1,49 @@
+/* Tooltip.css */
+
+.moon-tooltip {
+	z-index: 20;
+	left: 0px;
+	background-repeat: no-repeat;
+	height: 68px;
+}
+.moon-tooltip-label {
+	font-family: "Miso";
+	height: 59px;
+	line-height: 59px;
+	vertical-align: middle;
+	white-space: nowrap;
+	color: #fff;
+	text-align: center;
+	font-size: 30px;
+	padding: 0px 24px;
+	background-color: #4b4b4b;
+	border-radius: 30px;
+}
+.moon-tooltip.below {
+	top: 100%;
+}
+.moon-tooltip.below > .moon-tooltip-label {
+	margin: 9px 0px 0px;
+}
+.moon-tooltip.above {
+	top: -120%;
+}
+.moon-tooltip.above > .moon-tooltip-label {
+	margin: 0px 0px 9px;
+}
+.moon-tooltip.above.left-arrow {
+	background-image: url('../images/tooltip-nubs/top-left.png');
+	background-position: left bottom;
+}
+.moon-tooltip.above.right-arrow {
+	background-image: url('../images/tooltip-nubs/top-right.png');
+	background-position: right bottom;
+}
+.moon-tooltip.below.left-arrow {
+	background-image: url('../images/tooltip-nubs/bottom-left.png');
+	background-position: left top;
+}
+.moon-tooltip.below.right-arrow {
+	background-image: url('../images/tooltip-nubs/bottom-right.png');
+	background-position: right top;
+}
