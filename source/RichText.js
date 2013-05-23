@@ -44,7 +44,7 @@ enyo.kind({
 			if (testRange.toString() === "") {
 				return false;
 			}
-        }
+		}
 		return true;
 	},
 	right: function() {
@@ -59,7 +59,7 @@ enyo.kind({
 			if (testRange.toString() === "") {
 				return false;
 			}
-        }
+		}
 		return true;
 	},
 	up: function(inEvent) {

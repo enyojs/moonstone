@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.photos.AlbumListWideSample",
+	name: "moon.sample.photos.AlbumListWideSample",
 	kind: "moon.Panel",
 	titleAbove: "01",
 	title: "Albums",
@@ -22,32 +22,32 @@ enyo.kind({
 	],
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "FittableColumns", style: "height:550px;", components: [				
+		{kind: "FittableColumns", style: "height:550px;", components: [
 			{kind : "moon.Scroller", style: "width: 20%;", horizontal: "hidden", touch: true, components:[
 				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
+					kind: "moon.ImageItem",
+					source: "assets/album.png",
+					label: "ALBUM NAME"
 				},
 				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
+					kind: "moon.ImageItem",
+					source: "assets/album.png",
+					label: "ALBUM NAME"
 				},
 				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
+					kind: "moon.ImageItem",
+					source: "assets/album.png",
+					label: "ALBUM NAME"
 				},
 				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
+					kind: "moon.ImageItem",
+					source: "assets/album.png",
+					label: "ALBUM NAME"
 				},
 				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
+					kind: "moon.ImageItem",
+					source: "assets/album.png",
+					label: "ALBUM NAME"
 				}
 			]},
 			{kind : "moon.Scroller", style: "height:550px;", fit: true, touch: true, components:[
@@ -66,7 +66,7 @@ enyo.kind({
 			]}
 		]}
 	],
-	
+
 	rendered: function() {
 		this.inherited(arguments);
 		this.$.gridlist.show(this.imageList.length);
@@ -80,5 +80,5 @@ enyo.kind({
 		}
 		this.$.gridItem.setSource(gridItem.src);
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
+	}
 });

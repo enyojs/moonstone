@@ -3,7 +3,7 @@
 	_moon.Panel_ is the default kind for controls created inside a
 	<a href="#moon.Panels">moon.Panels</a> container.  Typically, a _moon.Panels_
 	will contain several instances of _moon.Panel_.
-	
+
 	The built-in features of _moon.Panel_ include a header and a FittableRows
 	layout for the main body content.
 */
@@ -20,16 +20,16 @@ enyo.kind({
 		//* If true, the header's _titleAbove_ property is automatically populated
 		//* with the panel number
 		autoNumber: true
-    },
+	},
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
 		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
 	},
-	
+
 	//* @protected
-	
+
 	spotlight: "container",
 	fit : true,
 	classes: "moon-panel",
@@ -41,7 +41,7 @@ enyo.kind({
 	],
 	headerComponents: [],
 	isBreadcrumb: false,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		this.$.header.createComponents(this.headerComponents);
@@ -65,11 +65,11 @@ enyo.kind({
 		this.layoutKind = "FittableRowsLayout";
 		this.inherited(arguments);
 	},
-	
+
 	//* @public
-	
+
 	autoNumberChanged: function() {
-		if (this.getAutoNumber() == true && this.container) {
+		if (this.getAutoNumber() === true && this.container) {
 			this.setTitleAbove(this.indexInContainer() + 1);
 		}
 	},
@@ -128,7 +128,7 @@ enyo.kind({
 				}]
 			}
 		});
-		
+
 		this.$.header.animateCollapse();
 		this.$.animator.play("preTransition");
 	},
@@ -163,8 +163,7 @@ enyo.kind({
 						"opacity" : "1"
 					}
 				}],
-				100: [
-				{
+				100: [{
 					control: this.$.panelBody,
 					properties: {
 						"height" : "auto"
@@ -172,13 +171,13 @@ enyo.kind({
 				}]
 			}
 		});
-		
+
 		this.$.header.animateExpand();
 		this.$.animator.play("postTransition");
 	},
-	
+
 	//* @protected
-	
+
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
@@ -203,12 +202,12 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "preTransition":
-				this.preTransitionComplete();
-				break;
-			case "postTransition":
-				this.postTransitionComplete();
-				break;
+		case "preTransition":
+			this.preTransitionComplete();
+			break;
+		case "postTransition":
+			this.postTransitionComplete();
+			break;
 		}
 	}
 });

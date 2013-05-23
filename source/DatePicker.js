@@ -15,7 +15,7 @@ enyo.kind({
 	},
 	handlers: {
 		//* Handler for _onChange_ events coming from constituent controls (day and month)
-		onChange: "updateDate" 
+		onChange: "updateDate"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is

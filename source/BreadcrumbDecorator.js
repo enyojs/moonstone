@@ -44,7 +44,7 @@ enyo.kind({
 	events: {
 		/**
 			Fires when a new breadcrumb is created.
-			
+
 			_inEvent.breadcrumb_ contains a reference to the newly created breadcrumb.
 		*/
 		onSetupBreadcrumb: ""

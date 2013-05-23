@@ -4,7 +4,7 @@ enyo.kind({
     name: "moon.sample.music.AlbumDetailNarrowSample",
     kind: "moon.Panel",
     titleAbove: "04",
-    title: "Album",    
+    title: "Album",
     titleBelow: "",
     components: [
         {
@@ -40,7 +40,7 @@ enyo.kind({
                                 {name: "genreRow", components: [
                                     {content: "Genre"},
                                     {name: "genre"}
-                                ]},
+                                ]}
                             ]
                         }
                     ]
@@ -60,7 +60,7 @@ enyo.kind({
                                     ontap: "changeTrackName",
                                     components: [
                                         {
-                                            bindFrom: "number",
+                                            bindFrom: "number"
                                         },
                                         {
                                             bindFrom: "name"
@@ -122,7 +122,7 @@ enyo.ready(function(){
         ]),
         coverUrl: "http://upload.wikimedia.org/wikipedia/en/9/92/QueenGH2011.jpg"
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({

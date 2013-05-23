@@ -1,7 +1,5 @@
 enyo.depends(
 	"sample.css",
-	"PanelsSample.js",
-	"PanelsSample.css",
 	"SimplePickerSample.js",
 	"GridListSample.js",
 	"CheckboxSample.js",
@@ -52,5 +50,5 @@ enyo.depends(
 	"SelectableItemSample.css",
 	"SelectableItemSample.js",
 	"AccordionSample.css",
-	"AccordionSample.js"	
+	"AccordionSample.js"
 );

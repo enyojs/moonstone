@@ -248,8 +248,12 @@ enyo.kind({
 		if (this.dragging) {
 			return true;
 		} else {
-			this.$.knob && this.$.knob.removeClass("spotselect");
-			this.$.popup && this.$.popup.hide();
+			if (this.$.knob) {
+				this.$.knob.removeClass("spotselect");
+			}
+			if (this.$.popup) {
+				this.$.popup.hide();
+			}
 			this.selected = false;
 		}
 	},

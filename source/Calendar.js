@@ -33,7 +33,7 @@ enyo.kind({
 	},
 
 	setupLayout: function() {
-		for (var i = 0; i < 7; i++) {		
+		for (var i = 0; i < 7; i++) {
 			this.createComponent({kind: "moon.CalendarDate"});
 		}
 	},
@@ -66,7 +66,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", 
+		ontap: "doTap",
 		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
@@ -227,7 +227,7 @@ enyo.kind({
 	parseDate: function(ordering) {
 	},
 	/**
-		Updates calendar when value of DatePicker changes. 
+		Updates calendar when value of DatePicker changes.
 	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -258,7 +258,7 @@ enyo.kind({
 		if (inEvent.originator.kind == "moon.CalendarDate") {
 			var newValue = inEvent.originator.value,
 				oldValue = this.getValue();
-			
+
 			if (newValue.getFullYear() > oldValue.getFullYear()) {
 				this.$.simplePicker.setSelectedIndex(0);
 			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
@@ -267,8 +267,8 @@ enyo.kind({
 				this.$.simplePicker.next();
 			} else if (newValue.getMonth() < oldValue.getMonth()) {
 				this.$.simplePicker.previous();
-			}								
-		} 
+			}
+		}
 		return true;
 	},
 	valueChanged: function(inOld) {

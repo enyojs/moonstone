@@ -47,7 +47,7 @@ enyo.kind({
 	},
 	handlers: {
 		//* Handler for _onChange_ events coming from constituent controls (hour)
-		onChange: "updateTime" 
+		onChange: "updateTime"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
