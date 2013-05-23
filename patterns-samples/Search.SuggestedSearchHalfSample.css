@@ -1,0 +1,24 @@
+.moon-search {
+    background-color: #EAEAEA;
+    height: 100%;
+}
+
+.moon-search .radio-button {
+    font-size: 28px;
+}
+
+.moon-search .icon-button-right {
+    float: right;
+}
+
+.moon-search-recent-list {
+    min-height: 130px;
+    margin: 20px 0px 0px 0px;
+}
+
+.moon-search-image {
+    float: right;
+    width: 131px;
+    height: 90px;
+    margin: 0px 0px 0px 20px;
+}
