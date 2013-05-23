@@ -1,6 +1,6 @@
 {
 	"sourcePath":"../../..",
-	"name": "Moonraker",
+	"name": "Moonstone",
 	"ns": "moon.sample",
 	"loadPackages": "$lib/moonstone $lib/moonstone/samples $lib/spotlight",
 	"samples": [

@@ -11,7 +11,7 @@ and contributing to the [Enyo community gallery](http://enyojs.com/gallery).
 
 ## Modifications to CSS
 
-Moonraker CSS is defined using parameterized LESS files.  Whenever you make changes to LESS files in Moonraker, you'll also need to re-generate and check-in the top-level .css file as well, to maintain backward-compatibility for environments that don't wish to use LESS.
+Moonstone CSS is defined using parameterized LESS files.  Whenever you make changes to LESS files in Moonstone, you'll also need to re-generate and check-in the top-level .css file as well, to maintain backward-compatibility for environments that don't wish to use LESS.
 
 You can re-generate the top-level moonstone.css file as follows:
 
@@ -23,7 +23,7 @@ NOTE: Since LESS generates relative URLs, it's important to run the `lessc.sh` s
 Also note you only need to generate the .css file when you're ready to check in your changes.  During development, you can do all your testing modifying just LESS files if you include "less-xyz.min.js" in your app's debug.html file, which compiles the LESS client-side during loading:
 
     <script src="enyo/tools/minifier/node_modules/less/dist/less-1.3.0e.min.js"></script>
-    
+
 Additionally, any new controls contributed should follow this basic pattern to ensure proper themability support:
 
 * Place control's .js file(s) in `lib/moonstone/source` and add to `lib/moonstone/source/package.js`
@@ -35,7 +35,7 @@ Refer to the [UI Theming Guide](https://github.com/enyojs/enyo/wiki/UI-Theming) 
 
 ## Samples
 
-Every new control should be accompanied by at least one sample in the [Enyo 2 Sampler](http://enyojs.com/sampler).  Read the [Sampler readme](https://github.com/enyojs/sampler) for details on how to go about adding new samples to the Sampler.  
+Every new control should be accompanied by at least one sample in the [Enyo 2 Sampler](http://enyojs.com/sampler).  Read the [Sampler readme](https://github.com/enyojs/sampler) for details on how to go about adding new samples to the Sampler.
 
 Guidelines for samples:
 

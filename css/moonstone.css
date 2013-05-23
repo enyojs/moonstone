@@ -6,7 +6,7 @@
 /* minifier to fall back to using CSS files in place of the same-name       */
 /* LESS file.                                                               */
 
-/* Moonraker default parameters defined here */
+/* Moonstone default parameters defined here */
 /* Colors */
 /* ---------------------------------------*/
 /* Font */
@@ -38,7 +38,7 @@
 /* ---------------------------------------*/
 /* Grid Dimensions */
 /* ---------------------------------------*/
-/* Moonraker rules defined here */
+/* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
 @font-face {
@@ -951,7 +951,7 @@
   background-color: #ffb80d;
 }
 /*
-fixme: The following exists only to temporarily 
+fixme: The following exists only to temporarily
 preserve the current behavior of the
 PageControl's use of IconButtons
 */
