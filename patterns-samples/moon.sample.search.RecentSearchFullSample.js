@@ -19,7 +19,7 @@ enyo.kind({
         {name: "recentResult", kind: "Repeater", count: 6, classes: "categories", components: [
             {kind: "moon.sample.search.recent.category"}
         ]},
-        {name: "searchResult", components: [
+/*        {name: "searchResult", components: [
             {
                 name: "gridlist", kind: "moon.GridList",
                 onSetupItem: "setupGridItem",
@@ -30,7 +30,7 @@ enyo.kind({
                     {name: "gridItem", kind: "moon.GridList.ImageItem"}
                 ]
             }
-        ]}
+        ]}*/
     ],
     setupGridItem: function(inSender, inEvent) {
         var i = inEvent.index;
