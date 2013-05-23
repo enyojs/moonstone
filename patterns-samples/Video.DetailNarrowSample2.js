@@ -92,7 +92,7 @@ enyo.ready(function(){
         valueHD: "$6.99",
         value3D: "$7.99"
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({

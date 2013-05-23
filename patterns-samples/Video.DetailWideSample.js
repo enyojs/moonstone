@@ -43,7 +43,7 @@ enyo.kind({
                 {
                     kind: "HFlexBox",
                     // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
-                    style: "height: 100px;", 
+                    style: "height: 100px;",
                     components: [
                         {flex: true, components: [
                             {kind: "moon.Divider", content: "Rating"},
