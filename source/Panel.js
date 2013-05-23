@@ -163,8 +163,7 @@ enyo.kind({
 						"opacity" : "1"
 					}
 				}],
-				100: [
-				{
+				100: [{
 					control: this.$.panelBody,
 					properties: {
 						"height" : "auto"

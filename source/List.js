@@ -32,7 +32,7 @@ enyo.kind({
 	touch: true,
 	spotlight: true,
 	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy",
+		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
 	},
 	rendered: function() {
