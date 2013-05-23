@@ -11,14 +11,10 @@
     float: right;
 }
 
-.moon-search-recent-list {
-    min-height: 130px;
-    margin: 20px 0px 0px 0px;
-}
-
-.moon-search-image {
+.moon-search .item {
+    display: inline-block;
     float: right;
     width: 131px;
     height: 90px;
-    margin: 0px 0px 0px 20px;
+    margin: 0px 0px 20px 10px;
 }

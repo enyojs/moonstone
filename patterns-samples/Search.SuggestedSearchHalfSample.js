@@ -41,9 +41,9 @@ enyo.kind({
     //* @public
     name: "moon.sample.search.suggested.category",
     //* @protected
-    classes: "category",
+    layoutKind: "FittableColumnsLayout",
     components: [
-        {name: "title", kind: "moon.Item", classes: "category-name"},
+        {name: "title", kind: "moon.Item", fit: true},
         {name: "items", kind: "Repeater", onSetupItem: "setupItem", count: 3, components: [
             {name: "item", spotlight: true, classes: "item", components: [
                 {name: "itemText", classes: "item-text"}
