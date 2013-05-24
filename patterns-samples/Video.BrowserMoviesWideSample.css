@@ -1,49 +1,34 @@
-.gray-background {
-    background: #eaeaea;
-}
+/*
+    Sample-specific CSS would go here, but to make your
+    application easier to maintain, you should try to
+    minimize the use of custom CSS.
+*/
 
-.moon-video-browsermovies {
-    margin: 0px 20px 20px 20px;
-}
-
-.moon-video-browsermovie-header-button {
-    margin: 0px 0px 5px 0px;
-}
-
-.moon-video-browsermovies-container {
-    margin: 28px 0px 0px 0px;
-}
-
-.moon-video-browsermovies-item {
-    margin: 0px 0px 10px 0px;
-	transition: all 0.1s linear;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	-o-transition: all 0.1s linear;
-}
-
-.moon-video-browsermovies-item-image {
-    width: 230px;
-    height: 130px;
-    margin: 0px 12px 0px 0px;
-}
-
-.moon-video-browsermovies-item-label {
-    font-size: 20px;
-    border-top:1px solid #cccccc;
+.moon-movie-list-item {
+    float: left;
+    margin: 0px 6px 6px 0px;
+    clear: none;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     overflow: hidden;
-    white-space: nowrap;
 }
 
-.moon-video-browsermovies .moon-gridlist-imageitem {
-    margin-top: 0px;
+.moon-movie-list-item-text {
+    position:absolute;
+    width: 100%;
+    bottom: 0px;
+    height: 24px;
+    color: white;
+    font-size: 20px;
+    padding: 0px 3px;
+    background-color: #4b4b4b;
 }
 
-.moon-video-browsermovies .moon-gridlist-imageitem.spotlight {
-  padding: 0px 0px 25px 0px !important;
-  margin: -25px 0px 0px 0px !important;
-}
-.moon-video-browsermovies .moon-gridlist-imageitem.spotlight.selected {
-  padding: 0px 0px 28px 0px !important;
-  margin: -25px 0px 0px 0px !important;
+.moon-movie-list-item-text.spotlight {
+  color: black;
+  background-color: #ffb80d;
 }
