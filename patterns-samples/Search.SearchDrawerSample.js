@@ -2,7 +2,7 @@
 
 enyo.kind({
     //* @public
-    name: "Search.SearchDrawerSample",
+    name: "moon.sample.search.SearchDrawerSample",
     kind: "moon.Panel",
     //* @protected
     title: "Empty",
@@ -13,7 +13,7 @@ enyo.kind({
     components: [
         {style: "position: absolute; top: -420px; left: -15px; right: -15px;", components:[
             {name: "drawerContainer", kind: "enyo.Drawer", open: false, style: "position: absolute; top: 0px;", components: [
-                {name: "drawer", kind: "Search.SearchDrawer"}
+                {name: "drawer", kind: "moon.sample.search.SearchDrawer"}
             ]},
             {classes: "drawer-close-container", style: "position: absolute; top: 0px;", ontap:"activateDrawer", components: [
                 {classes: "drawer-close-box", spotlight: true, components: [
@@ -57,7 +57,7 @@ enyo.kind({
 
 enyo.kind({
     //* @public
-    name: "Search.SearchDrawer",
+    name: "moon.sample.search.SearchDrawer",
     kind: "moon.SearchPanel",
     handlers: {
         "onSearch": "search"
@@ -238,7 +238,7 @@ enyo.ready(function(){
             components: [
                 {kind: "enyo.Spotlight"},
                 {
-                    kind: "Search.SearchDrawerSample",
+                    kind: "moon.sample.search.SearchDrawerSample",
                     controller: ".app.controllers.searchDrawerController",
                     classes: "enyo-fit"
                 }

@@ -23,7 +23,7 @@ enyo.kind({
 
 enyo.kind({
     //* @public
-    name: "Search.SearchFullSample",
+    name: "moon.sample.search.SearchFullSample",
     kind: "moon.SearchPanel",
     handlers: {
         "onSearch": "search"
@@ -198,7 +198,7 @@ enyo.ready(function(){
             components: [
                 {kind: "enyo.Spotlight"},
                 {
-                    kind: "Search.SearchFullSample",
+                    kind: "moon.sample.search.SearchFullSample",
                     controller: ".app.controllers.searchFullController",
                     classes: "enyo-fit"
                 }
