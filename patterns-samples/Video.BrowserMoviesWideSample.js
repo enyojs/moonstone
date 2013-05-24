@@ -55,7 +55,7 @@ enyo.kind({
             kind: "enyo.DataGridList",
             components: [
                 {
-                    kind: "moon.MovieImageItem", 
+                    kind: "moon.MovieImageItem",
                     bindFrom: "option",
                     bindTo: "option",
                     ontap: "changeName"
