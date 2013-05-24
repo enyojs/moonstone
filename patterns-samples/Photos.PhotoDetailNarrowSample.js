@@ -15,7 +15,6 @@ enyo.kind({
 
     components: [
         {
-            //bindFrom: "src"
             name: "photoDetail",
             kind: "enyo.Image",
             src: "",
@@ -55,7 +54,7 @@ enyo.ready(function(){
                 kind: "enyo.ModelController",
                 model: sampleModel,
                 changImage: function(inSender, inEvent) {
-                    enyo.log("Item: " + inEvent.originator.parent.controller.model.get("menuItem"));
+                    
                 }
             }
         ]
