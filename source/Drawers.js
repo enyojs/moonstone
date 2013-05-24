@@ -108,6 +108,14 @@ enyo.kind({
 			}
 		}
 	},
+	resizeHandler: function() {
+		this.inherited(arguments);
+		var drawers = this.$.drawers.getControls();
+		for (index in drawers){
+			drawers[index].resizeDrawers();
+		}
+		this.$.closeContainer.hide();
+	},
 	spotUp: function(inSender, inEvent) {
 		if (inEvent.originator == this.$.closeContainer) {
 			return true;
@@ -166,5 +174,5 @@ enyo.kind({
 				return true;
 			}
 		}
-	}	
+	}
 });

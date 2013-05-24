@@ -81,6 +81,15 @@ enyo.kind({
 		if (this.controlsOpen) {
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		}
+	},
+	resizeDrawers: function() {
+		this.$.controlDrawer.$.client.setShowing(true);		
+		this.$.client.setDrawerProps({height:this.calcDrawerHeight()});
+		this.$.controlDrawer.$.client.setShowing(false);
+		this.$.client.render();
+		this.$.controlDrawer.render();		
+		this.setOpen(false);
+		this.setControlsOpen(false);
 	}
 });
 
