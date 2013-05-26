@@ -17,8 +17,9 @@
 }
 
 .moon-search-image {
+    display: inline-block;
     float: right;
     width: 131px;
     height: 90px;
     margin: 0px 0px 0px 20px;
-}
+},

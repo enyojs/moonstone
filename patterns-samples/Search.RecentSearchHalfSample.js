@@ -1,16 +1,14 @@
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
     kind: "moon.SearchPanel",
-	classes: "enyo-unselectable moon moon-search",
+	classes: "moon-search",
     handlers: {
-        "onSearch": "search"
+        onSearch: ""
     },
-    fit: true,
     titleAbove: "02",
     title: "SEARCH",
 
     components: [
-        {kind: "enyo.Spotlight"},
         {
             layoutKind: "FittableRowsLayout",
             fit: true,
@@ -26,18 +24,16 @@ enyo.kind({
                 },
                 { kind : "moon.Divider", classes : "divider" },
                 {
-                    kind: "moon.List",
-                    count: 10,
+                    name: "searchList",
+                    kind: "moon.DataList",
                     fit: true,
-                    onSetupItem: "setupItem",
                     components: [
                         {
-                            layoutKind: "FittableColumnsLayout",
                             classes: "moon-search-recent-list",
                             components: [
-                                {name: "itemTitle", kind: "moon.Item"},
-                                {kind: 'enyo.Image', classes: "moon-search-image", src: "assets/album.png"},
-                                {kind: 'enyo.Image', classes: "moon-search-image", src: "assets/album.png"}
+                                {kind: "moon.Item", style: "display: inline-block", bindFrom: "title"},
+                                {kind: 'enyo.Image', classes: "moon-search-image", bindFrom: "imgSrc", bindTo: "src"},
+                                {kind: 'enyo.Image', classes: "moon-search-image", bindFrom: "imgSrc", bindTo: "src"}
                             ]
                         }
                     ]
@@ -45,9 +41,47 @@ enyo.kind({
             ]
         }
     ],
+    bindings: [
+        {from: ".controller.listItems", to: "$.searchList.controller"},
+    ]
+});
 
-    setupItem: function(inSender, inEvent) {
-        this.$.itemTitle.setContent("RECENT SEARCH");
-        return true;
-    }
+// Settings Main Menu Model
+enyo.ready(function(){
+    var menuModel = new enyo.Model({
+        listItems: new enyo.Collection([
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
+           {title: "RECENT SEARCH", imgSrc: "assets/album.png"}
+        ])
+    });
+
+//  Application to render sample
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.search.RecentSearchHalfSample",
+                    controller: ".app.controllers.RecentSearchController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "RecentSearchController",
+                kind: "enyo.ModelController",
+                model: menuModel,
+                changeItemName: function(inSender, inEvent){
+     //               inSender.parent.controller.set("name", "Changed");
+                }
+            }
+        ]
+    });
 });
