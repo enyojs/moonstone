@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.BreadcrumbPanelsSample",
+    name: "moon.sample.LeanForwardPanelsSample",
     classes: "enyo-fit moon",
     fit: true,
     components: [
