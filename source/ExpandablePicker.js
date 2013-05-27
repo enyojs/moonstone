@@ -60,7 +60,9 @@ enyo.kind({
 		//* Index of currently selected item, if any
 		selectedIndex: -1,
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
-		noneText: ""
+		noneText: "",
+		//* Text to be display when the drawer is opened
+		helpText: ""
 	},
 	//* @protected
 	defaultKind: "moon.LabeledCheckbox",
@@ -73,8 +75,9 @@ enyo.kind({
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", kind: "Group", highlander: true}
-		]},
+			{name: "client", kind: "Group", highlander: true},
+			{name: "helpText"}
+		]},		
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
 		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
@@ -83,6 +86,7 @@ enyo.kind({
 		this.initializeActiveItem();
 		this.selectedIndexChanged();
 		this.noneTextChanged();
+		this.helpTextChanged();
 	},
 	//* When the _selected_ control changes, updates _checked_ values
 	//* appropriately and fires an _onChange_ event.
@@ -127,6 +131,12 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
+	},
+	//* When drawer is opened/closed, shows/hides _this.$.helpText.
+	helpTextChanged: function() {
+		this.inherited(arguments);
+		this.$.helpText.setContent(this.helpText);
+		this.$.helpText.setShowing(!this.$.drawer.getOpen());	
 	},
 	/*
 		When the picker is initialized, looks for any items with an _active:true_
