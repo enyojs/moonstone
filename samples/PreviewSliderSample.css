@@ -1,0 +1,13 @@
+.enyo-scene-preview {
+	position: absolute;
+	z-index: 20;
+}
+
+/*.moon-slider-sample {
+	background: #eaeaea;
+	padding: 25px;
+}
+.moon-slider-sample .moon-slider-sample-wrapper > button {
+	margin: 20px;
+}
+*/

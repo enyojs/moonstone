@@ -59,6 +59,12 @@ enyo.kind({
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
 		{classes: "moon-slider-taparea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
+		// {kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
+		// 	{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
+		// 	{name: "popupLabel", classes: "moon-slider-popup-label"}
+		// ]}
+	],
+	popupComponents: [
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
 			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
@@ -68,6 +74,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.createComponents(this.moreComponents);
+		this.createComponents(this.popupComponents);
 		this.initValue();
 		this.disabledChanged();
 	},
@@ -237,9 +244,17 @@ enyo.kind({
 	spotSelect: function() {
 		var sh = this.$.popup.getShowing();
 		this.$.knob.addRemoveClass("spotselect", !sh);
-		if (!this.noPopup) {
-			this.$.popup.setShowing(!sh);
-		}
+		
+		// if (!this.noPopup) {
+			// this.$.popup.setShowing(!sh);
+			if (!sh) {
+				this.showKnobStatus();
+			}
+			else {
+				this.hideKnobStatus();
+			}
+		// }
+
 		this.selected = !sh;
 
 		return true;
