@@ -3,6 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "enyo enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: "Scroller", fit: true, thumb:false, components:[
 			{name:"buttonContainer", kind:"FittableRows", classes:"enyo-fit", components:[
 				//Top row of buttons
