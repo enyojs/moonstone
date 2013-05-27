@@ -1,0 +1,34 @@
+.main-view {
+	background-color: #eee;
+}
+
+.moon-controls-headline-wrapper {
+	padding-left: 10px;
+	padding-top: 20px;
+}
+
+.moon-controls-subine-wrapper {
+	padding: 5px;
+}
+
+.moon-control-sample-body-wrapper {
+	width: 32%;
+}
+
+.moon-controls-item-wrapper {
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+.moon-controls-item-wrapper.subitem > * {
+
+}
+
+.moon-controls-item-wrapper.adjust {
+	width: 75%;
+}
+
+.moon-controls-spacing > * {
+	margin-left: 80px;
+	margin-top: 20px;
+}
