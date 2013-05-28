@@ -26,7 +26,7 @@ enyo.kind({
 			creation, in which case the control will be updated to reflect the
 			new value.
 		*/
-		locale: "en_us",
+		locale: "en-US",
 		//* Optional minimum year value
 		minYear: 1900,
 		//* Optional maximum year value
@@ -49,19 +49,25 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		if (enyo.g11n) {
-			this.locale = enyo.g11n.currentLocale().getLocale();
+		// if (enyo.g11n) {
+		// 	this.locale = enyo.g11n.currentLocale().getLocale();
+		// }
+		if (typeof ilib !== "undefined") {
+			this.locale = ilib.getLocale();
 		}
 		this.initDefaults();
 	},
 	initDefaults: function() {
 		//Attempt to use the g11n lib (assuming that it is loaded)
-		if (enyo.g11n) {
-			this._tf = new enyo.g11n.Fmts({locale:this.locale});
+		// if (enyo.g11n) {
+		// 	this._tf = new enyo.g11n.Fmts({locale:this.locale});
+		// }
+		if (typeof ilib !== "undefined") {
+			this._tf = new ilib.DateFmt({locale:this.locale});
 		}
 
 		this.value = this.value || new Date();
-		this.setupPickers(this._tf ? this._tf.getDateFieldOrder() : 'mdy');
+		this.setupPickers(this._tf ? this._tf.getDateComponents() : "mdy");
 		this.noneTextChanged();
 	},
 	setupPickers: function(ordering) {
@@ -88,11 +94,11 @@ enyo.kind({
 	},
 	parseDate: function() {
 		if (this._tf) {
-			var df = new enyo.g11n.DateFmt({
-				date: 'medium',
-				locale: new enyo.g11n.Locale(this.locale)
+			var df = new ilib.DateFmt({
+				length: 'long',
+				locale: new ilib.Locale(this.locale),
 			});
-			return df.format(this.value);
+			return df.format(new ilib.Date.GregDate(this.value));
 		} else {
 			return this.getAbbrMonths()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
@@ -155,11 +161,7 @@ enyo.kind({
 		}
 	},
 	getAbbrMonths: function() {
-		if (this._tf && this._tf.dateTimeHash){
-			return this._tf.getMonthFields();
-		}else{
-			return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-		}
+		return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	},
 	//* Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {
@@ -170,6 +172,9 @@ enyo.kind({
 	},
 	refresh: function(){
 		this.destroyClientControls();
+		if (this._tf) {
+			delete this._tf;
+		}
 		this.initDefaults();
 		this.render();
 	}
