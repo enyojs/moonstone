@@ -10,7 +10,7 @@ enyo.kind({
             name: "picker1",
             kind: "moon.ExpandablePicker",           
             helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
-                     "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
+                      "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
             components: [
                 {
                     name: "p1Value1",
@@ -48,9 +48,7 @@ enyo.kind({
         },
         {
             name: "picker3",
-            kind: "moon.ExpandablePicker",
-            helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
-                     "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
+            kind: "moon.ExpandablePicker",           
             components: [
                 {
                     name: "p3Value1",

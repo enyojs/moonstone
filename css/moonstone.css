@@ -762,6 +762,9 @@
   line-height: 14px;
   font-weight: normal;
 }
+.moon-expandable-picker-help-text {
+  color: gray;
+}
 .moon-header {
   color: #4b4b4b;
   height: 400px;
@@ -1382,23 +1385,6 @@ PageControl's use of IconButtons
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
   cursor: default;
-}
-/*ContextualPopupButton.css*/
-.contextual-popup-button {
-  background-image: url(../images/contextual-arrow.png);
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 50px;
-}
-.contextual-popup-button.spotlight {
-  background-image: url(../images/contextual-arrow-spotlight.png);
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 50px;
-}
-.contextual-popup-button.pressed,
-.contextual-popup-button:active {
-  background-image: url(../images/contextual-arrow.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
