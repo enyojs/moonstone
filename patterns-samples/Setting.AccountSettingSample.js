@@ -9,7 +9,7 @@ enyo.kind({
     components: [
         {
             kind: "FittableColumns",
-            fit: true, 
+ 
             components: [
                 {
                     name: "eMail",
@@ -25,7 +25,6 @@ enyo.kind({
         },
     	{
     		kind: "FittableColumns",
-            fit:true,
     		components: [
     			{name: "autoSign"},
     			{
