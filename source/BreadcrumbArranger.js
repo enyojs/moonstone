@@ -284,7 +284,8 @@ enyo.kind({
 		return containerWidth - (padding.left + padding.right);
 	},
 	getBreadcrumbEdge: function(inIndex) {
-		return (inIndex === 0) ? 0 : this.breadcrumbWidth;
+		var leftMargin = this.containerBounds.width * (1 - this.container.panelCoverRatio);
+		return leftMargin;
 	},
 	//* Set bounds for each panel to fit it vertically
 	applyVerticalFit: function() {
