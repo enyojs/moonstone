@@ -38,12 +38,9 @@ enyo.kind({
 					this.$[i].setLocale(selected.content);
 				}
 			}
-		}		
+		}
 	},
 	pickerHandler: function(inSender, inEvent){
-		if (enyo.g11n) {
-			this.$.datePicker.setLocale(inEvent.selected.content);
-		}
 		if (ilib) {
 			this.$.datePicker.setLocale(inEvent.selected.content);;
 		}

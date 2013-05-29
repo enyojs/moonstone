@@ -15,7 +15,7 @@ enyo.kind({
 	},
 	handlers: {
 		//* Handler for _onChange_ events coming from constituent controls (day and month)
-		onChange: "updateDate" 
+		onChange: "updateDate"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
@@ -49,19 +49,13 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		// if (enyo.g11n) {
-		// 	this.locale = enyo.g11n.currentLocale().getLocale();
-		// }
 		if (typeof ilib !== "undefined") {
 			this.locale = ilib.getLocale();
 		}
 		this.initDefaults();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (assuming that it is loaded)
-		// if (enyo.g11n) {
-		// 	this._tf = new enyo.g11n.Fmts({locale:this.locale});
-		// }
+		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({locale:this.locale});
 		}
@@ -96,7 +90,7 @@ enyo.kind({
 		if (this._tf) {
 			var df = new ilib.DateFmt({
 				length: 'long',
-				locale: new ilib.Locale(this.locale),
+				locale: new ilib.Locale(this.locale)
 			});
 			return df.format(new ilib.Date.GregDate(this.value));
 		} else {
