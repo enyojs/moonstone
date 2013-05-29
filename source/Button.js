@@ -29,6 +29,11 @@ enyo.kind({
 		onSpotlightKeyUp	: 'undepress'
 	},
 
+	create: function() {
+		this.inherited(arguments);
+		this.smallChanged();
+	},
+
 	depress: function() {
 		this.addClass('pressed');
 	},
@@ -38,6 +43,6 @@ enyo.kind({
 	},
 
 	smallChanged: function() {
-		this.addRemoveClass(this.small, 'small');
+		this.addRemoveClass('small', this.small);
 	}
 });
