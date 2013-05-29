@@ -12,6 +12,13 @@ enyo.kind({
 	name		: 'moon.Button',
 	kind		: 'enyo.Button',
 	publiched	: {
+		/**
+			_small_ is a parameter to indicates the size of button.
+			If it has true value, diameter of this button is 60px.
+			However, the tap-target for button still has 78px, so it has
+			invisible DOM which wrap this small button to provide wider tap zone.
+
+		*/
 		small	: false,
 	},
 	classes		: 'moon-button enyo-unselectable',
