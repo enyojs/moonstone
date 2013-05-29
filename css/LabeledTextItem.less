@@ -4,7 +4,6 @@
 	overflow: hidden;
 }
 .moon-labeledtextitem .label {
-	font-family: @moon-font-family;
 	font-size: 36px;
 	font-weight: bold;
 	line-height: 36px;
@@ -21,6 +20,9 @@
 	text-transform: none;
 	margin: 0px;
 	padding: 0px;
+}
+.enyo-locale-non-latin .moon-labeledtextitem .text {
+	font-family: @moon-non-latin-font-family;
 }
 .moon-labeledtextitem.spotlight {
 	padding-left: 15px;

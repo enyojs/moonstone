@@ -5,7 +5,6 @@
 	overflow: hidden;
 	min-width: 532px;
 	position: relative;
-	font-family: @moon-alt-font-family;
 }
 .moon-header-title-above.no-border {
 	border: none;
@@ -28,12 +27,16 @@
 	margin: 0px 0px 0px 0px;
 }
 .moon-header-title-below {
+	font-family: @moon-font-family;
 	font-size: @moon-header-sub-text-size;
 	font-weight: normal;
 	line-height: @moon-header-sub-text-size;
 	min-height: @moon-header-sub-text-size;
 	padding: 6px 0px 6px 0px;
 	margin: 0px;
+}
+.enyo-locale-non-latin .moon-header-title-below {
+	font-family: @moon-non-latin-font-family;
 }
 .moon-header-item {
 	float: right;
