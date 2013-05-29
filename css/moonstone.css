@@ -89,6 +89,13 @@
   font-weight: normal;
   font-style: normal;
 }
+/* ----- LG Display ------ */
+@font-face {
+  font-family: "LG Display";
+  src: local("☺"), url("LG_Display.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 /* Import grid classes/mixins */
 /* ------- Horizontal Dimensioning (columns) ------- */
 .moon-1h {
@@ -179,6 +186,9 @@
   font-size: 40px;
   text-transform: uppercase;
 }
+.enyo-non-latin .moon {
+  font-family: "LG Display";
+}
 .moon-no-border {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -262,6 +272,9 @@
   width: auto;
   margin: 2px 0px 0px 0px;
 }
+.ento-non-latin .moon-simple-picker-item {
+  font-family: "LG Display";
+}
 .moon-simple-picker.disabled,
 .moon-simple-picker-button[disabled] {
   cursor: default;
@@ -306,6 +319,9 @@
   padding: 0px 0px 6px 0px;
   text-transform: uppercase;
   font-weight: bold;
+}
+.enyo-non-latin .moon-divider {
+  font-family: "LG Display";
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-button {
@@ -413,6 +429,9 @@
   text-transform: uppercase;
   vertical-align: top;
   position: relative;
+}
+.enyo-non-latin .moon-item {
+  font-family: "LG Display";
 }
 .moon-item.disabled {
   cursor: default;
@@ -581,6 +600,9 @@
   font-size: 12px;
   font-family: "PreludeWGL Medium";
   display: inline-block;
+}
+.enyo-non-latin .moon-button-caption-decorator .moon-caption {
+  font-family: "LG Display";
 }
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
@@ -762,9 +784,6 @@
   line-height: 14px;
   font-weight: normal;
 }
-.moon-expandable-picker-help-text {
-  color: gray;
-}
 .moon-header {
   color: #4b4b4b;
   height: 400px;
@@ -859,6 +878,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   vertical-align: bottom;
+}
+.enyo-non-latin .moon-gridlist-imageitem .caption,
+.enyo-non-latin .moon-gridlist-imageitem .sub-caption {
+  font-family: "LG Display";
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #A2A2A2;
@@ -979,6 +1002,9 @@ PageControl's use of IconButtons
   font-size: 20px;
   font-family: "Miso";
 }
+.enyo-non-latin .moon-integer-picker {
+  font-family: "LG Display";
+}
 .moon-integer-picker.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -994,6 +1020,9 @@ PageControl's use of IconButtons
   background: white;
   font-size: 20px;
   font-family: "Miso";
+}
+.enyo-non-latin .moon-integer-picker-item {
+  font-family: "LG Display";
 }
 .moon-integer-picker-panels {
   min-height: 40px;
@@ -1023,6 +1052,9 @@ PageControl's use of IconButtons
   background: transparent;
   font-size: 20px;
   font-family: "Miso";
+}
+.enyo-non-latin .moon-scroll-picker-item {
+  font-family: "LG Display";
 }
 .moon-scroll-picker-overlay-container-top {
   position: relative;
@@ -1179,6 +1211,9 @@ PageControl's use of IconButtons
   line-height: 1.2em;
   border-bottom: 1px solid #aaa;
 }
+.enyo-non-latin .moon-date-picker.open .moon-date-picker-header {
+  font-family: "LG Display";
+}
 .moon-date-picker-client {
   padding-top: 10px;
 }
@@ -1187,6 +1222,9 @@ PageControl's use of IconButtons
   font-size: 20px;
   margin: 0px;
   padding: 0px;
+}
+.enyo-non-latin .moon-date-picker-current-value {
+  font-family: "LG Display";
 }
 .moon-date-picker-day {
   padding-right: 40px;
@@ -1223,6 +1261,9 @@ PageControl's use of IconButtons
   color: #4b4b4b;
   text-transform: uppercase;
 }
+.enyo-non-latin .moon-input {
+  font-family: "LG Display";
+}
 .moon-input-decorator.moon-focused .moon-input {
   cursor: text;
 }
@@ -1258,6 +1299,9 @@ PageControl's use of IconButtons
   background-clip: padding-box;
   /* Firefox 4+, Chrome, IE 9+ */
 
+}
+.enyo-non-latin .moon-input-decorator {
+  font-family: "LG Display";
 }
 .moon-input-decorator.spotlight {
   border: 5px solid #ffb80d;
@@ -1342,6 +1386,9 @@ PageControl's use of IconButtons
   vertical-align: middle;
   font-size: 14px;
 }
+.enyo-non-latin .moon-slider-popup-label {
+  font-family: "LG Display";
+}
 .moon-slider-popup.above {
   top: -90px;
   padding-left: 10px;
@@ -1371,6 +1418,9 @@ PageControl's use of IconButtons
   min-height: 20px;
   min-width: 100px;
 }
+.enyo-non-latin .moon-richtext {
+  font-family: "LG Display";
+}
 .moon-input-decorator > .moon-richtext {
   background-image: none;
   box-shadow: none;
@@ -1385,6 +1435,23 @@ PageControl's use of IconButtons
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
   cursor: default;
+}
+/*ContextualPopupButton.css*/
+.contextual-popup-button {
+  background-image: url(../images/contextual-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.spotlight {
+  background-image: url(../images/contextual-arrow-spotlight.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.pressed,
+.contextual-popup-button:active {
+  background-image: url(../images/contextual-arrow.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
@@ -1538,6 +1605,9 @@ PageControl's use of IconButtons
   min-height: 50px;
   min-width: 100px;
 }
+.enyo-non-latin .moon-textarea {
+  font-family: "LG Display";
+}
 .moon-input-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
 
@@ -1628,6 +1698,9 @@ PageControl's use of IconButtons
   padding: 6px 0px 0px 0px;
   text-transform: uppercase;
 }
+.enyo-non-latin .moon-labeledtextitem .label {
+  font-family: "LG Display";
+}
 .moon-labeledtextitem .text {
   font-family: "PreludeWGL Medium";
   font-size: 20px;
@@ -1636,6 +1709,9 @@ PageControl's use of IconButtons
   text-transform: none;
   margin: 0px;
   padding: 0px;
+}
+.enyo-non-latin .moon-labeledtextitem .text {
+  font-family: "LG Display";
 }
 .moon-labeledtextitem.spotlight {
   padding-left: 15px;
@@ -1828,6 +1904,9 @@ PageControl's use of IconButtons
 }
 .moon-calendar-date-shadow {
   color: #A2A2A2;
+}
+.enyo-non-latin .moon-calendar-date {
+  font-family: "LG Display";
 }
 /* Table.css */
 /*.moon-table {
