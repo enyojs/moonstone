@@ -336,35 +336,35 @@
   text-align: right;
   color: #A9A9A9;
 }
-.moon-labeled-checkbox {
+.moon-checkbox-item {
   display: block;
   position: relative;
   margin-bottom: 33px;
 }
-.moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
+.moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 24px;
   min-height: 28.080000000000002px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
   padding: 2px 0px 0px 0px;
 }
-.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
+.moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 59px, #ffffff 84px);
 }
-.moon-labeled-checkbox .moon-labeled-checkbox-label {
+.moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
 }
-.moon-labeled-checkbox .moon-checkbox {
+.moon-checkbox-item .moon-checkbox {
   position: absolute;
   top: 0px;
   right: 0px;
   margin-top: -1px;
 }
-.moon-labeled-checkbox .moon-checkbox[checked] {
+.moon-checkbox-item .moon-checkbox[checked] {
   background-color: transparent;
 }
-.moon-labeled-checkbox.disabled,
-.moon-labeled-checkbox .moon-checkbox[disabled] {
+.moon-checkbox-item.disabled,
+.moon-checkbox-item .moon-checkbox[disabled] {
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
@@ -533,7 +533,7 @@
 .moon-breadcrumb-title-below {
   font-size: 36px !important;
 }
-.moon-breadcrumb-decorator.leanForward .moon-breadcrumb-wrapper {
+.moon-breadcrumb-decorator.breadcrumb .moon-breadcrumb-wrapper {
   width: 198px;
   position: absolute;
   top: 0;
@@ -544,7 +544,7 @@
   margin-left: 50px;
   margin-right: 31px;
 }
-.moon-breadcrumb-decorator.leanForward .moon-breadcrumb-decorator-client {
+.moon-breadcrumb-decorator.breadcrumb .moon-breadcrumb-decorator-client {
   width: 100%;
   position: absolute;
   top: 0;
@@ -620,28 +620,28 @@
   display: block;
   margin: auto;
 }
-/* Radio Button */
-.moon-radio-button {
+/* Radio Item */
+.moon-radio-item {
   border-radius: 0px;
   line-height: 25px;
   text-align: left;
 }
-.moon-radio-button.active,
-.moon-radio-button.pressed,
-.moon-radio-button:active,
-.moon-radio-button.spotlight,
-.moon-radio-button.spotlight.pressed,
-.moon-radio-button.spotlight:active,
-.moon-radio-button.active.spotlight {
+.moon-radio-item.active,
+.moon-radio-item.pressed,
+.moon-radio-item:active,
+.moon-radio-item.spotlight,
+.moon-radio-item.spotlight.pressed,
+.moon-radio-item.spotlight:active,
+.moon-radio-item.active.spotlight {
   border: none;
 }
-/* Radio Button */
-.moon-radio-button-group {
+/* Radio Item */
+.moon-radio-item-group {
   position: relative;
   margin: 0px;
   padding: 0px;
 }
-.moon-radio-button-group .moon-button {
+.moon-radio-item-group .moon-button {
   display: inline-block;
   border-width: 0px;
   background-color: transparent;
@@ -658,7 +658,7 @@
   text-transform: uppercase;
   min-width: 0px;
 }
-.moon-radio-button-group .moon-button.spotlight {
+.moon-radio-item-group .moon-button.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -1780,29 +1780,29 @@ PageControl's use of IconButtons
   left: -10px;
 }
 /* Calendar.css */
-.moon-calendar {
+.moon-calendar-picker {
   display: inline-block;
 }
-.moon-calendar-block {
+.moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar .picker-content {
+.moon-calendar-picker .picker-content {
   margin: 0px 132px 0px 132px;
   font-size: 36pt;
   font-weight: bold;
 }
-.moon-calendar .picker-button {
+.moon-calendar-picker .picker-button {
   margin: 2px 0px 2px 0px;
   font-size: 48pt;
 }
-.moon-calendar-dates {
+.moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
 }
-.moon-calendar-week {
+.moon-calendar-picker-week {
   width: 410px;
   margin: 7px 0px 7px 0px;
 }
-.moon-calendar-date {
+.moon-calendar-picker-date {
   width: 40px;
   min-width: 40px;
   height: 40px;
@@ -1819,14 +1819,14 @@ PageControl's use of IconButtons
   text-align: center;
   vertical-align: middle;
 }
-.moon-calendar-date.spotlight {
+.moon-calendar-picker-date.spotlight {
   border: 5px solid #ffb80d;
   background: #ffb80d;
 }
-.moon-calendar-date.active {
+.moon-calendar-picker-date.active {
   background-color: #ffb80d;
 }
-.moon-calendar-date-shadow {
+.moon-calendar-picker-date-shadow {
   color: #A2A2A2;
 }
 /* Table.css */

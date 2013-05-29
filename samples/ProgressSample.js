@@ -18,7 +18,7 @@ enyo.kind({
 		{tag: "br"},
 		{tag: "br"},
 		{style: "width:240px;", components: [
-			{name: "animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated"}
+			{name: "animateSetting", kind: "moon.CheckboxItem", checked: true, content: "Animated"}
 		]}
 	],
 	changeValue: function(inSender, inEvent) {

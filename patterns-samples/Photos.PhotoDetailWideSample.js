@@ -34,7 +34,7 @@ enyo.kind({
                     kind : "FittableRows",
                     components : [
                         {
-                            kind: "moon.RadioButtonGroup", 
+                            kind: "moon.RadioItemGroup", 
                             onActivate: "buttonActivated", 
                             components: [
                                 {name : "button-desc", classes : "radio-button", content: "DESCRIPTION"},
@@ -79,7 +79,7 @@ enyo.kind({
     ],
 
     buttonActivated: function(inSender, inEvent) {
-        if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
+        if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
             var tName = inEvent.originator.name;
 
             if(tName == "button-desc"){

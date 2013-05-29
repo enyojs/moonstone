@@ -1,16 +1,16 @@
 /**
-	_moon.RadioButton_ is a modified <a href="#enyo.Button">enyo.Button</a>
+	_moon.RadioItem_ is a modified <a href="#enyo.Button">enyo.Button</a>
 	control designed to be used inside a
-	<a href="#moon.RadioButtonGroup">moon.RadioButtonGroup</a>.
+	<a href="#moon.RadioItemGroup">moon.RadioItemGroup</a>.
 
 	For more information, see the documentation on
 	[Buttons](https://github.com/enyojs/enyo/wiki/Buttons) in the Enyo Developer
 	Guide.
 */
 enyo.kind({
-	name: "moon.RadioButton",
+	name: "moon.RadioItem",
 	kind: "moon.Button",
-	classes: "moon-item moon-radio-button",
+	classes: "moon-item moon-radio-item",
 	handlers: {
 		onSpotlightFocus : 'focus',
 		onSpotlightBlur	: 'blur'
@@ -20,7 +20,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.contentWidth = this.getBounds().width;
-		// Resize the button to fit RadioButton kerning state
+		// Resize the button to fit RadioItem kerning state
 		//25 extra pixels to make room for spotlight focus
 		this.applyStyle("width", this.contentWidth + 25 + "px");
 	},

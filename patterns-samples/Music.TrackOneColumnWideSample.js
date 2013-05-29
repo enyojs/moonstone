@@ -68,6 +68,7 @@ enyo.kind({
         var h = this.getAbsoluteBounds().height;
         h -= this.$.list.getAbsoluteBounds().top + 20;
         this.$.list.setBounds({height: h});
+    },
     
     setupItem: function(inSender, inEvent) {
         var url = "assets/default-music.png";

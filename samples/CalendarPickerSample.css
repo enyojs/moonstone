@@ -1,20 +1,20 @@
 /* Calendar.css */
-.moon-calendar {
+.moon-calendar-picker {
 	display: inline-block;
 }
 
-.moon-calendar-week {
+.moon-calendar-picker-week {
 	display: inline-block;
 }
 
-.moon-calendar-date {
+.moon-calendar-picker-date {
 	width: 80px;
 	vertical-align: middle;
 	margin: 1px;
 	text-align: center;
 }
 
-.moon-calendar-date-shadow {
+.moon-calendar-picker-date-shadow {
 	background-color: #666666;
 	color: #f1f1f1;
 }
