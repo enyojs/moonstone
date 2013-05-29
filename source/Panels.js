@@ -37,7 +37,6 @@ enyo.kind({
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
 		}
-		this.panelCoverRatioChanged();
 	},
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
@@ -244,8 +243,5 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		// TODO - something here?
-	},
-	panelCoverRatioChanged: function() {
-		this.resized();
 	}
 });

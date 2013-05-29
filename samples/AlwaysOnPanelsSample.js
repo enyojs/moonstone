@@ -4,7 +4,7 @@ enyo.kind({
     fit: true,
     components: [
         {kind: "enyo.Spotlight"},
-        {name: "panels", kind: "moon.Panels", panelCoverRatio: 0.5, arrangerKind: "moon.BreadcrumbArranger", classes: "enyo-fit", panelCoverRatio: 0.7, components: [
+        {name: "panels", kind: "moon.Panels", panelCoverRatio: 0.3, arrangerKind: "moon.BreadcrumbArranger", classes: "enyo-fit", components: [
             {title: "First", components: [
 				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
 				{kind: "moon.Item", content: "Item Two"},
