@@ -26,10 +26,9 @@ enyo.kind({
     	{
     		kind: "FittableColumns",
     		components: [
-    			{name: "autoSign"},
     			{
-    				name: "toggleButton",
-                    kind: "moon.ToggleButton"
+    				name: "autoSign",
+                    kind: "moon.LabeledToggleButton"
     			}
     		]
     	},
