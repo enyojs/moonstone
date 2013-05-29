@@ -103,7 +103,9 @@ enyo.kind({
 		if(index > -1 && selected !== inOldValue) {
 			this.setSelectedIndex(index);
 			this.$.currentValue.setContent(selected.getContent());
-			this.fireChangeEvent();
+			if(this.hasNode()) {
+				this.fireChangeEvent();
+			}
 		}
 	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the
