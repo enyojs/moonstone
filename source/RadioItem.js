@@ -20,7 +20,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.contentWidth = this.getBounds().width;
-		// Resize the button to fit RadioButton kerning state
+		// Resize the button to fit RadioItem kerning state
 		//25 extra pixels to make room for spotlight focus
 		this.applyStyle("width", this.contentWidth + 25 + "px");
 	},
