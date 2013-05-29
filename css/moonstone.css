@@ -175,9 +175,8 @@
 }
 /* Common classes applicable to multiple controls */
 .moon {
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
   font-size: 40px;
-  text-transform: uppercase;
 }
 .moon-no-border {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -241,6 +240,7 @@
   margin: 0px;
   text-align: center;
   vertical-align: middle;
+  font-family: "Miso";
 }
 .moon-simple-picker-button.spotlight {
   background: #ffb80d;
@@ -251,8 +251,8 @@
   border: 0px;
 }
 .moon-simple-picker-item {
-  font-family: "Miso";
-  font-size: 48px;
+  font-family: "MuseoSans Medium";
+  font-size: 24px;
   line-height: 40px;
   height: 40px;
   color: #4b4b4b;
@@ -297,11 +297,11 @@
   opacity: 0;
 }
 .moon-divider {
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
   font-size: 20px;
   line-height: 20px;
   color: #4b4b4b;
-  border-bottom: 1px solid #A2A2A2;
+  border-bottom: 1px solid #b5b5b5;
   margin: 0px 0px 37px 0px;
   padding: 0px 0px 6px 0px;
   text-transform: uppercase;
@@ -343,7 +343,7 @@
 }
 .moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
   height: 24px;
-  min-height: 28.080000000000002px;
+  min-height: 20.28px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
   padding: 2px 0px 0px 0px;
 }
@@ -403,14 +403,13 @@
   border-left-width: 0px;
   border-left-color: transparent;
   border-left-style: solid;
-  font-family: "Miso";
-  font-size: 36px;
+  font-family: "MuseoSans Medium";
+  font-size: 26px;
   font-weight: bold;
   line-height: 24px;
   color: #4b4b4b;
   margin: 0px 0px 32px 0px;
   padding: 2px 0px 0px 0px;
-  text-transform: uppercase;
   vertical-align: top;
   position: relative;
 }
@@ -495,6 +494,7 @@
   margin: 0px;
   text-transform: uppercase;
   color: #4b4b4b;
+  font-family: "Miso";
 }
 .moon-button.active,
 .moon-button.pressed,
@@ -625,6 +625,8 @@
   border-radius: 0px;
   line-height: 25px;
   text-align: left;
+  font-family: "MuseoSans Medium";
+  text-transform: none !important;
 }
 .moon-radio-button.active,
 .moon-radio-button.pressed,
@@ -769,15 +771,16 @@
   overflow: hidden;
   min-width: 532px;
   position: relative;
+  font-family: "Miso";
 }
 .moon-header-title-above.no-border {
   border: none;
-  min-height: 36px;
+  min-height: 26px;
 }
 .moon-header-title-above {
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 36px;
+  line-height: 26px;
   padding: 58px 0px 5px 0px;
   margin: 0px;
   width: 30px;
@@ -974,7 +977,7 @@ PageControl's use of IconButtons
   cursor: pointer;
   padding: 0px 10px;
   font-size: 20px;
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
 }
 .moon-integer-picker.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -990,7 +993,7 @@ PageControl's use of IconButtons
   white-space: nowrap;
   background: white;
   font-size: 20px;
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
 }
 .moon-integer-picker-panels {
   min-height: 40px;
@@ -1213,10 +1216,9 @@ PageControl's use of IconButtons
   cursor: pointer;
   background: transparent;
   box-shadow: none;
-  font-size: 24px;
-  line-height: 24px;
-  height: 24px;
-  font-family: "Miso";
+  font-size: 20px;
+  line-height: 20px;
+  height: 20px;
   color: #4b4b4b;
   text-transform: uppercase;
 }
@@ -1332,12 +1334,12 @@ PageControl's use of IconButtons
   width: 60px;
   height: 45px;
   white-space: nowrap;
-  font-family: "MuseoSans Medium";
+  font-family: "Miso";
   color: #fff;
   text-align: center;
   line-height: 45px;
   vertical-align: middle;
-  font-size: 14px;
+  font-size: 24px;
 }
 .moon-slider-popup.above {
   top: -90px;
@@ -1632,7 +1634,7 @@ PageControl's use of IconButtons
   overflow: hidden;
 }
 .moon-labeledtextitem .label {
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
   font-size: 36px;
   font-weight: bold;
   line-height: 36px;
@@ -1640,10 +1642,9 @@ PageControl's use of IconButtons
   border-top: 1px solid #A2A2A2;
   margin: 0px 0px 3px 0px;
   padding: 6px 0px 0px 0px;
-  text-transform: uppercase;
 }
 .moon-labeledtextitem .text {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans Light";
   font-size: 20px;
   color: #4b4b4b;
   line-height: 24px;
@@ -1759,6 +1760,7 @@ PageControl's use of IconButtons
 .moon-accordion-arrow {
   position: relative;
   display: inline-block;
+  font-family: "Miso";
 }
 .moon-accordion-arrow.up {
   top: -5px;
@@ -1895,9 +1897,9 @@ PageControl's use of IconButtons
   margin-bottom: 49px;
 }
 .moon-searchheader-title-above {
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 36px;
+  line-height: 26px;
   padding: 0px;
   margin: 54px 0px 7px 1px;
   width: 30px;
