@@ -59,33 +59,33 @@
   font-weight: 100;
   font-style: normal;
 }
-/* ----- PRELUDE ------ */
+/* ----- Museo Sans ------ */
 @font-face {
-  font-family: "PreludeWGL Light";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Light.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Light.ttf") format("truetype");
+  font-family: "MuseoSans Light";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-100.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Medium";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Medium.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Medium.ttf") format("truetype");
+  font-family: "MuseoSans Medium";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Medium Italic";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf") format("truetype");
+  font-family: "MuseoSans Medium Italic";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
   font-style: italic;
 }
 @font-face {
-  font-family: "PreludeWGL Bold";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Bold.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Bold.ttf") format("truetype");
+  font-family: "MuseoSans Bold";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Bold Italic";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-BoldItalic.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-BoldItalic.ttf") format("truetype");
+  font-family: "MuseoSans Bold Italic";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -579,7 +579,7 @@
 }
 .moon-button-caption-decorator .moon-caption {
   font-size: 12px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   display: inline-block;
 }
 .moon-button-caption-decorator .moon-caption.left,
@@ -762,9 +762,6 @@
   line-height: 14px;
   font-weight: normal;
 }
-.moon-expandable-picker-help-text {
-  color: gray;
-}
 .moon-header {
   color: #4b4b4b;
   height: 400px;
@@ -843,7 +840,7 @@
 }
 .moon-gridlist-imageitem .caption,
 .moon-gridlist-imageitem .sub-caption {
-  font-family: "PreludeWGL Bold";
+  font-family: "MuseoSans Bold";
   font-weight: normal;
   font-size: 12px;
   text-align: center;
@@ -1021,8 +1018,8 @@ PageControl's use of IconButtons
   height: 49px;
   text-align: center;
   background: transparent;
-  font-size: 20px;
-  font-family: "Miso";
+  font-size: 14px;
+  font-family: "MuseoSans Medium";
 }
 .moon-scroll-picker-overlay-container-top {
   position: relative;
@@ -1173,7 +1170,7 @@ PageControl's use of IconButtons
   -o-transition: all 0.1s linear;
 }
 .moon-date-picker.open .moon-date-picker-header {
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   font-size: 20px;
   padding: 0px;
   line-height: 1.2em;
@@ -1183,7 +1180,7 @@ PageControl's use of IconButtons
   padding-top: 10px;
 }
 .moon-date-picker-current-value {
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   font-size: 20px;
   margin: 0px;
   padding: 0px;
@@ -1248,7 +1245,7 @@ PageControl's use of IconButtons
   border: 5px solid transparent;
   background-color: white;
   font-size: 20px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   /* Clip the background to allow for transparent border */
 
   border: 5px solid #eaeaea;
@@ -1335,7 +1332,7 @@ PageControl's use of IconButtons
   width: 60px;
   height: 45px;
   white-space: nowrap;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   color: #fff;
   text-align: center;
   line-height: 45px;
@@ -1367,7 +1364,7 @@ PageControl's use of IconButtons
   background: transparent;
   box-shadow: none;
   font-size: 20px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   min-height: 20px;
   min-width: 100px;
 }
@@ -1385,6 +1382,23 @@ PageControl's use of IconButtons
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
   cursor: default;
+}
+/*ContextualPopupButton.css*/
+.contextual-popup-button {
+  background-image: url(../images/contextual-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.spotlight {
+  background-image: url(../images/contextual-arrow-spotlight.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.pressed,
+.contextual-popup-button:active {
+  background-image: url(../images/contextual-arrow.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
@@ -1532,7 +1546,7 @@ PageControl's use of IconButtons
   background: transparent;
   box-shadow: none;
   font-size: 20px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   /* need >=50px for scrollbar to be usable on mac */
 
   min-height: 50px;
@@ -1629,7 +1643,7 @@ PageControl's use of IconButtons
   text-transform: uppercase;
 }
 .moon-labeledtextitem .text {
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   font-size: 20px;
   color: #4b4b4b;
   line-height: 24px;
@@ -1809,7 +1823,7 @@ PageControl's use of IconButtons
   line-height: 40px;
   border: 0px;
   border-radius: 9999px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   font-weight: normal;
   font-size: 20pt;
   background: inherit;

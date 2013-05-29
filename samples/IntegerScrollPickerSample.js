@@ -9,7 +9,7 @@ enyo.kind({
 	components: [
 		{kind: 'enyo.Spotlight'},
 		{kind:"moon.IntegerScrollPicker", name:"Scroller", value:2013, min:1900, max:2100, classes:"moon-date-picker-year"},
-		{name:"value", style:"font-size:0.35em;font-family:PreludeWGL Light"}
+		{name:"value", style:"font-size:0.35em;font-family:MuseoSans Light"}
 	],
 	changed: function(inSender, inEvent) {
 		if (this.$.value){

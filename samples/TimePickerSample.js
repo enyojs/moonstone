@@ -25,7 +25,7 @@ enyo.kind({
 				{content: 'es_us'}
 			]},
 			{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, classes: "moon-date-picker-wrapper"},
-			{name:"time", style:"font-size:0.35em;font-family:PreludeWGL Light"},
+			{name:"time", style:"font-size:0.35em;font-family:MuseoSans Light"},
 			{kind: "moon.TimePicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time", classes: "moon-date-picker-wrapper"}
 		]}
 	],
