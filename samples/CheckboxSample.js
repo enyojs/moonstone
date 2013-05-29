@@ -49,7 +49,7 @@ enyo.kind({
 			]},
 			{components: [
 				{classes: "checkbox-sample-wrapper", components: [
-					{kind: "moon.Divider", content: "Labeled Toggle Buttons"},
+					{kind: "moon.Divider", content: "Toggle Items"},
 					{kind: "moon.ToggleItem", content: "Option 1"},
 					{kind: "moon.ToggleItem", content: "Option 2"},
 					{kind: "moon.ToggleItem", disabled: true, content: "Disabled"},
@@ -57,7 +57,7 @@ enyo.kind({
 					{kind: "moon.ToggleItem", content: "This is a verrry long option 5"}
 				]},
 				{classes: "checkbox-sample-wrapper", components: [
-					{kind: "moon.Divider", content: "Labeled Toggle Button Group"},
+					{kind: "moon.Divider", content: "Toggle Item Group"},
 					{kind: "Group", components: [
 						{kind: "moon.ToggleItem", content: "Option 1"},
 						{kind: "moon.ToggleItem", content: "Option 2"},
@@ -67,7 +67,7 @@ enyo.kind({
 					]}
 				]},
 				{classes: "checkbox-sample-wrapper", components: [
-					{kind: "moon.Divider", content: "Dark Toggle Button Group"},
+					{kind: "moon.Divider", content: "Dark Toggle Item Group"},
 					{kind: "Group", classes: "moon-dark-gray", components: [
 						{kind: "moon.ToggleItem", content: "Option 1"},
 						{kind: "moon.ToggleItem", content: "Option 2"},
@@ -77,7 +77,7 @@ enyo.kind({
 					]}
 				]},
 				{classes: "checkbox-sample-wrapper", components: [
-					{kind: "moon.Divider", content: "Light Toggle Button Group"},
+					{kind: "moon.Divider", content: "Light Toggle Item Group"},
 					{kind: "Group", classes: "moon-light-gray", components: [
 						{kind: "moon.ToggleItem", content: "Option 1"},
 						{kind: "moon.ToggleItem", content: "Option 2"},

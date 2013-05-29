@@ -1,4 +1,4 @@
-/**
+**
 	_moon.RadioItemGroup_ is a container in which a group of
 	<a href="#moon.RadioItem">moon.RadioItem</a> objects are laid out
 	horizontally. Within a given button group, tapping on one button will release
