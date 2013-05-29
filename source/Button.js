@@ -11,6 +11,9 @@
 enyo.kind({
 	name		: 'moon.Button',
 	kind		: 'enyo.Button',
+	publiched	: {
+		small	: false,
+	},
 	classes		: 'moon-button enyo-unselectable',
 	spotlight	: true,
 
@@ -25,5 +28,9 @@ enyo.kind({
 
 	undepress: function() {
 		this.removeClass('pressed');
+	},
+
+	smallChanged: function() {
+		this.addRemoveClass(this.small, 'small');
 	}
 });
