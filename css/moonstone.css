@@ -1265,41 +1265,26 @@ PageControl's use of IconButtons
 .moon-input-decorator.moon-focused {
   box-shadow: 0px 20px 0px #ffb80d;
 }
-/* Slider.css */
-.moon-slider-bgbar {
-  height: 100%;
-  background-color: #7d7d7d;
-}
-.moon-slider-bar {
-  position: relative;
-  height: 100%;
-  margin: -4px;
-  background-color: #69cdff;
-}
-.moon-slider-focus {
-  background-color: #ffb80d;
-}
-.moon-slider-nofocus {
-  background-color: #69cdff;
-}
-.moon-slider {
+/* ProgressBar.css */
+.moon-progress-bar {
   position: relative;
   margin: 10px 20px;
   height: 4px;
-  min-width: 128px;
   background-color: #323232;
+  min-width: 128px;
 }
-.moon-slider.spotlight > .moon-slider-bar {
-  background-color: #ffb80d;
+.moon-progress-bg-bar {
+  height: 100%;
+  background-color: #7d7d7d;
 }
-.moon-slider.disabled {
-  cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+.moon-progress-bar-bar {
+  height: 100%;
+  background-color: #69cdff;
+  margin-top: -4px;
 }
 .moon-slider-taparea {
   position: absolute;
-  top: -16px;
+  top: -14px;
   height: 32px;
   width: 100%;
 }
@@ -1310,7 +1295,7 @@ PageControl's use of IconButtons
   width: 56px;
   border-radius: 28px;
   margin: -30px -29px;
-  background-color: #ffb80d;
+  background-color: #69cdff;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
@@ -1320,13 +1305,24 @@ PageControl's use of IconButtons
   border-radius: 42px;
   margin: -42px -44px;
 }
+.moon-slider.spotlight > .moon-progress-bar-bar {
+  background-color: #ffb80d;
+}
+.moon-slider.spotlight > .moon-slider-knob {
+  background-color: #ffb80d;
+}
+.moon-slider.disabled {
+  cursor: default;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
 .moon-slider-popup {
   position: absolute;
   display: block;
   z-index: 20;
   left: 100px;
   top: 0px;
-  width: 88px;
+  width: 62px;
   height: 52px;
   padding-left: 0px;
 }
@@ -1346,6 +1342,17 @@ PageControl's use of IconButtons
 .moon-slider-popup.above {
   top: -90px;
   padding-left: 10px;
+}
+.moon-slider-popup-flip-h {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+}
+.moon-slider-focus {
+  background-color: #ffb80d;
+}
+.moon-slider-nofocus {
+  background-color: #69cdff;
 }
 /* RichText.css */
 .moon-richtext {
@@ -1375,6 +1382,23 @@ PageControl's use of IconButtons
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
   cursor: default;
+}
+/*ContextualPopupButton.css*/
+.contextual-popup-button {
+  background-image: url(../images/contextual-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.spotlight {
+  background-image: url(../images/contextual-arrow-spotlight.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.pressed,
+.contextual-popup-button:active {
+  background-image: url(../images/contextual-arrow.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
@@ -1865,6 +1889,45 @@ PageControl's use of IconButtons
 .moon.enyo-fittable-columns-layout > *,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
+}
+.moon-searchheader {
+  height: 96px;
+  margin-bottom: 49px;
+}
+.moon-searchheader-title-above {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0px;
+  margin: 54px 0px 7px 1px;
+  width: 30px;
+  border-bottom: 0px solid #4b4b4b;
+}
+.moon-searchheader-title {
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 36px;
+  text-transform: uppercase;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 6px 0px;
+}
+.moon-searchheader-title-below {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 18px;
+  min-height: 18px;
+  padding: 0px 0px 0px 0px;
+  margin: 18px;
+}
+.moon-searchheader-container {
+  position: absolute;
+  top: 0px;
+}
+.moon-searchheader-search-left {
+  width: 210px;
+}
+.moon-searchheader-search-right {
+  width: 219px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {

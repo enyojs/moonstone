@@ -19,6 +19,7 @@ enyo.depends(
 	"IconButton.js",
 	"Scroller.js",
 	"List.js",
+	"DataList.js",
 	"PagingControl.js",
 	"IntegerPicker.js",
 	"IntegerScrollPicker.js",
@@ -27,8 +28,10 @@ enyo.depends(
 	"Calendar.js",
 	"Input.js",
 	"InputDecorator.js",
+	"ProgressBar.js",
 	"Slider.js",
 	"RichText.js",
+	"ContextualPopupButton.js",
 	"ContextualPopupDecorator.js",
 	"ContextualPopup.js",
 	"LeanForwardArranger.js",
@@ -46,5 +49,8 @@ enyo.depends(
 	"StyleAnimator.js",
 	"Accordion.js",
 	"Table.js",
-	"DataTable.js"
+	"DataTable.js",
+	"ScrollStrategy.js",
+	"SearchPanel.js",
+	"SearchHeader.js"
 );

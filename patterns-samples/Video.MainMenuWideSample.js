@@ -1,27 +1,66 @@
 enyo.kind({
     name: "moon.sample.video.MainMenuWideSample",
     kind: "moon.Panel",
-    classes: "enyo-unselectable moon moon-video-mainmenu",
+    layoutKind: "FittableColumnsLayout",
     titleAbove: "01",
     title: "Main Menu",
     components: [
 /** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
 */
-        {kind: "FittableColumns", components: [
-            {
-                classes: "moon-video-mainmenu-menu",
-                components: [
-                    {kind: "moon.Item", content: "Browser Movies"},
-                    {kind: "moon.Item", content: "Browser TV Shows"},
-                    {kind: "moon.Item", content: "Queue"},
-                    {kind: "moon.Item", content: "Search"}
-                ]
-            },
-            {
-                classes: "moon-video-mainmenu-content",
-                content: "branding"
-            }
-        ]}
+        {
+            name: "menuList",
+            kind: "enyo.DataList",
+            style: "width: 300px;",
+            components: [
+                {bindFrom:"menuItem", kind: "moon.Item", ontap: "changePanel"}
+            ]
+        },
+        {
+            fit: true,
+            classes: "moon-dark-gray",
+            content: "branding"
+        }
+    ],
+    bindings: [
+        {from: ".controller.menus", to: "$.menuList.controller"}
     ]
  });
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        menus: new enyo.Collection([
+            {menuItem: "Browser Movies"},
+            {menuItem: "Browser TV Shows"},
+            {menuItem: "Queue"},
+            {menuItem: "Search"}
+        ])
+    });
+
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {
+                    kind: "moon.sample.video.MainMenuWideSample",
+                    controller: ".app.controllers.movieController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "movieController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changePanel: function(inSender, inEvent) {
+                    enyo.log("Item: " + inEvent.originator.parent.controller.model.get("menuItem"));
+                }
+            }
+        ]
+    });
+});

@@ -70,7 +70,7 @@ enyo.kind({
 	
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() == true && this.container) {
-			this.setTitleAbove(this.clientIndexInContainer() + 1);
+			this.setTitleAbove(this.indexInContainer() + 1);
 		}
 	},
 	//* Updates _this.header_ when _title_ changes.
@@ -84,6 +84,10 @@ enyo.kind({
 	//* Updates _this.header_ when _titleBelow_ changes.
 	titleBelowChanged: function() {
 		this.$.header.setTitleBelow(this.getTitleBelow());
+	},
+	//* Get _this.header_ to update panel header dynamically.
+	getHeader: function() {
+		return this.$.header;
 	},
 	shrinkPanel: function() {
 		this.$.animator.newAnimation({
@@ -184,14 +188,14 @@ enyo.kind({
 		this.doPostTransitionComplete();
 	},
 	preTransition: function(inFromIndex, inToIndex) {
-		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.indexInContainer(), inToIndex)) {
 			this.shrinkPanel();
 			return true;
 		}
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex) {
-		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.indexInContainer(), inToIndex)) {
 			this.growPanel();
 			return true;
 		}

@@ -44,6 +44,14 @@ enyo.kind({
 			return false;
 		}
 		return true;
+	},
+	
+	up: function() {
+		return false;
+	},
+	
+	down: function() {
+		return false;
 	}
 
 });
