@@ -22,7 +22,7 @@
                 {"name": "Horizontal List", "path":"$lib/moonstone/samples/ListHorizontalSample"},
                 {"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
                 {"name": "Vertical List", "path":"$lib/moonstone/samples/ListVerticalSample"},
-                {"name": "Radio Button", "path":"$lib/moonstone/samples/RadioButtonSample"},
+                {"name": "Radio Item", "path":"$lib/moonstone/samples/RadioButtonSample"},
                 {"name": "2d Scroller", "path":"$lib/moonstone/samples/Scroller2dSample"},
                 {"name": "Horizontal Scroller", "path":"$lib/moonstone/samples/ScrollerHorizontalSample"},
                 {"name": "Vertical Scroller", "path":"$lib/moonstone/samples/ScrollerVerticalSample"},
