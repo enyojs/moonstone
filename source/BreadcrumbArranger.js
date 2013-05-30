@@ -285,6 +285,7 @@ enyo.kind({
 	},
 	getBreadcrumbEdge: function(inIndex) {
 		var leftMargin = this.containerBounds.width * (1 - this.container.panelCoverRatio);
+		(this.container.showFirstBreadcrumb) && (inIndex != 0) && (leftMargin += this.breadcrumbWidth);
 		return leftMargin;
 	},
 	//* Set bounds for each panel to fit it vertically

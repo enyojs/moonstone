@@ -1,10 +1,9 @@
 enyo.kind({
     name: "moon.sample.AlwaysOnPanelsSample",
-    classes: "enyo-fit moon",
-    fit: true,
+    classes: "moon",
     components: [
         {kind: "enyo.Spotlight"},
-        {name: "panels", kind: "moon.Panels", panelCoverRatio: 0.3, arrangerKind: "moon.BreadcrumbArranger", classes: "enyo-fit", components: [
+        {name: "panels", kind: "moon.Panels", pattern: "alwayson", classes: "enyo-fit", components: [
             {title: "First", components: [
 				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
 				{kind: "moon.Item", content: "Item Two"},

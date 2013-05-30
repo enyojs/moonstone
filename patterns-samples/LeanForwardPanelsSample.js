@@ -1,10 +1,9 @@
 enyo.kind({
     name: "moon.sample.LeanForwardPanelsSample",
-    classes: "enyo-fit moon",
-    fit: true,
+    classes: "moon",
     components: [
         {kind: "enyo.Spotlight"},
-        {name: "panels", kind: "moon.Panels", arrangerKind: "moon.BreadcrumbArranger", classes: "enyo-fit", components: [
+        {name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
             {title: "First", components: [
 				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
 				{kind: "moon.Item", content: "Item Two"},
