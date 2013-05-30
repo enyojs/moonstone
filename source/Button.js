@@ -44,5 +44,13 @@ enyo.kind({
 
 	smallChanged: function() {
 		this.addRemoveClass('small', this.small);
+	},
+
+	prepareTags: function(inContent) {
+		this.inherited(arguments);
+		if(this.small) {
+			this._openTag = "<div class='small-decorator'>" + this._openTag;
+			this._closeTag = this._closeTag + "</div>";
+		}		
 	}
 });
