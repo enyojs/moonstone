@@ -2071,6 +2071,25 @@ p.moon-drawers-close-handle-text {
   height: 100%;
   width: 100%;
 }
+/* Popup.css */
+.moon-popup {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+}
+/* Dialog.css */
+.moon-dialog-title {
+  font-size: 82px;
+  margin-bottom: 40px;
+}
+.moon-dialog-message {
+  font-size: 28px;
+}
+.moon-dialog-client > * {
+  margin-left: 10px;
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
