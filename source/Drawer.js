@@ -53,13 +53,13 @@ enyo.kind({
 		}
 	},
 	calcDrawerHeight: function() {
-		var parentClientRect = this.parent.parent.node.getBoundingClientRect();		
+		var parentClientRect = this.parent.parent.hasNode().getBoundingClientRect();		
 		if (this.controlDrawerComponents == null) {
 			return parentClientRect.height;
 		} else {
-			var controlDrawerRect = this.$.controlDrawer.node.getBoundingClientRect();
+			var controlDrawerRect = this.$.controlDrawer.hasNode().getBoundingClientRect();
 			return (parentClientRect.height - controlDrawerRect.height);
-		}
+		}			
 	},
     toggleDrawer: function() {
 		if (this.controlDrawerComponents == null) {
