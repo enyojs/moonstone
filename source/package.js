@@ -55,5 +55,7 @@ enyo.depends(
 	"SearchHeader.js",
 	"DrawerHandle.js",
 	"Drawer.js",
-	"Drawers.js"		
+	"Drawers.js",
+	"Popup.js",
+	"Dialog.js"
 );
