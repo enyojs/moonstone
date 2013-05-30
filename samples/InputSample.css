@@ -7,16 +7,11 @@
 	background: #eaeaea;
 }
 
-.moon-input-sample-scroller {
-	height:400px;
-}
-
 .moon-input-sample .moon-input-decorator {
 	margin: 20px;
 }
-.moon-input-sample .moon-input-sample-wrapper {
-	display:inline-block;
-	margin:20px;
+.moon-input-sample {
+	padding:20px;
 }
 
 .moon-input-sample-result {
