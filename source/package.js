@@ -57,5 +57,7 @@ enyo.depends(
 	"Drawer.js",
 	"Drawers.js",
 	"Popup.js",
-	"Dialog.js"
+	"Dialog.js",
+	"TooltipDecorator.js",
+	"Tooltip.js"
 );

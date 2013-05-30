@@ -53,5 +53,7 @@ enyo.depends(
 	"SelectableItemSample.js",
 	"AccordionSample.css",
 	"AccordionSample.js",
-	"PopupSample.js"
+	"PopupSample.js",
+	"TooltipSample.css",
+	"TooltipSample.js"
 );
