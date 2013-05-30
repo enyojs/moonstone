@@ -33,7 +33,7 @@ enyo.kind({
 			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
 		]},
 		{tag: "br"},
-		{name:"result", style:"font-size:20px;font-family:PreludeWGL Light", content:"No slider moved yet."}
+		{name:"result", style:"font-size:20px;font-family:MuseoSans Light", content:"No slider moved yet."}
 	],
 	//* @protected
 	create: function() {

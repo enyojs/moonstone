@@ -4,7 +4,6 @@
 	overflow: hidden;
 }
 .moon-labeledtextitem .label {
-	font-family: @moon-font-family;
 	font-size: 36px;
 	font-weight: bold;
 	line-height: 36px;
@@ -12,16 +11,18 @@
 	border-top: 1px solid #A2A2A2;
 	margin: 0px 0px 3px 0px;
 	padding: 6px 0px 0px 0px;
-	text-transform: uppercase;
 }
 .moon-labeledtextitem .text {
-	font-family: @moon-sub-font-family;
+	font-family: @moon-font-family-light;
 	font-size: @moon-sub-text-size;
 	color: @moon-font-color-light;
 	line-height: 24px;
 	text-transform: none;
 	margin: 0px;
 	padding: 0px;
+}
+.enyo-locale-non-latin .moon-labeledtextitem .text {
+	font-family: @moon-non-latin-font-family;
 }
 .moon-labeledtextitem.spotlight {
 	padding-left: 15px;

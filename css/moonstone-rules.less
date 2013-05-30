@@ -8,7 +8,22 @@
 .moon {
 	font-family: @moon-font-family;
 	font-size: @moon-text-size;
+}
+
+.enyo-locale-non-latin .moon,
+.enyo-locale-non-latin input,
+.enyo-locale-non-latin textarea,
+.enyo-locale-non-latin button {
+	font-family: @moon-non-latin-font-family;
+}
+
+.moon-header-font {
+	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
+}
+
+.enyo-locale-non-latin .moon-header-font {
+	font-family: @moon-non-latin-font-family;
 }
 
 .moon-no-border {

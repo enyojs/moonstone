@@ -59,33 +59,39 @@
   font-weight: 100;
   font-style: normal;
 }
-/* ----- PRELUDE ------ */
+/* ----- Museo Sans ------ */
 @font-face {
-  font-family: "PreludeWGL Light";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Light.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Light.ttf") format("truetype");
+  font-family: "MuseoSans Light";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-100.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Medium";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Medium.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Medium.ttf") format("truetype");
+  font-family: "MuseoSans Medium";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Medium Italic";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-MediumItalic.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-MediumItalic.ttf") format("truetype");
+  font-family: "MuseoSans Medium Italic";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
   font-style: italic;
 }
 @font-face {
-  font-family: "PreludeWGL Bold";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-Bold.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-Bold.ttf") format("truetype");
+  font-family: "MuseoSans Bold";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "PreludeWGL Bold Italic";
-  src: local("☺"), url("../fonts/PreludeWGL/PreludeWGL-BoldItalic.woff") format("woff"), url("../fonts/PreludeWGL/PreludeWGL-BoldItalic.ttf") format("truetype");
+  font-family: "MuseoSans Bold Italic";
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
+  font-style: italic;
+}
+/* ----- LG Display ------ */
+@font-face {
+  font-family: "LG Display";
+  src: local("☺"), url("LG_Display.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -175,9 +181,21 @@
 }
 /* Common classes applicable to multiple controls */
 .moon {
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
   font-size: 40px;
+}
+.enyo-locale-non-latin .moon,
+.enyo-locale-non-latin input,
+.enyo-locale-non-latin textarea,
+.enyo-locale-non-latin button {
+  font-family: "LG Display";
+}
+.moon-header-font {
+  font-family: "Miso";
   text-transform: uppercase;
+}
+.enyo-locale-non-latin .moon-header-font {
+  font-family: "LG Display";
 }
 .moon-no-border {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -241,6 +259,7 @@
   margin: 0px;
   text-align: center;
   vertical-align: middle;
+  font-family: "Miso";
 }
 .moon-simple-picker-button.spotlight {
   background: #ffb80d;
@@ -251,8 +270,7 @@
   border: 0px;
 }
 .moon-simple-picker-item {
-  font-family: "Miso";
-  font-size: 48px;
+  font-size: 24px;
   line-height: 40px;
   height: 40px;
   color: #4b4b4b;
@@ -297,11 +315,10 @@
   opacity: 0;
 }
 .moon-divider {
-  font-family: "Miso";
   font-size: 20px;
   line-height: 20px;
   color: #4b4b4b;
-  border-bottom: 1px solid #A2A2A2;
+  border-bottom: 1px solid #b5b5b5;
   margin: 0px 0px 37px 0px;
   padding: 0px 0px 6px 0px;
   text-transform: uppercase;
@@ -343,7 +360,7 @@
 }
 .moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
   height: 24px;
-  min-height: 28.080000000000002px;
+  min-height: 20.28px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
   padding: 2px 0px 0px 0px;
 }
@@ -403,14 +420,12 @@
   border-left-width: 0px;
   border-left-color: transparent;
   border-left-style: solid;
-  font-family: "Miso";
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold;
   line-height: 24px;
   color: #4b4b4b;
   margin: 0px 0px 32px 0px;
   padding: 2px 0px 0px 0px;
-  text-transform: uppercase;
   vertical-align: top;
   position: relative;
 }
@@ -493,7 +508,6 @@
   min-width: 95px;
   padding: 29px 22px 29px 22px;
   margin: 0px;
-  text-transform: uppercase;
   color: #4b4b4b;
 }
 .moon-button.active,
@@ -579,7 +593,7 @@
 }
 .moon-button-caption-decorator .moon-caption {
   font-size: 12px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   display: inline-block;
 }
 .moon-button-caption-decorator .moon-caption.left,
@@ -625,6 +639,8 @@
   border-radius: 0px;
   line-height: 25px;
   text-align: left;
+  font-family: "MuseoSans Medium";
+  text-transform: none !important;
 }
 .moon-radio-button.active,
 .moon-radio-button.pressed,
@@ -762,9 +778,6 @@
   line-height: 14px;
   font-weight: normal;
 }
-.moon-expandable-picker-help-text {
-  color: gray;
-}
 .moon-header {
   color: #4b4b4b;
   height: 400px;
@@ -775,12 +788,12 @@
 }
 .moon-header-title-above.no-border {
   border: none;
-  min-height: 36px;
+  min-height: 26px;
 }
 .moon-header-title-above {
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 36px;
+  line-height: 26px;
   padding: 58px 0px 5px 0px;
   margin: 0px;
   width: 30px;
@@ -794,12 +807,16 @@
   margin: 0px 0px 0px 0px;
 }
 .moon-header-title-below {
+  font-family: "MuseoSans Medium";
   font-size: 18px;
   font-weight: normal;
   line-height: 18px;
   min-height: 18px;
   padding: 6px 0px 6px 0px;
   margin: 0px;
+}
+.enyo-locale-non-latin .moon-header-title-below {
+  font-family: "LG Display";
 }
 .moon-header-item {
   float: right;
@@ -843,8 +860,7 @@
 }
 .moon-gridlist-imageitem .caption,
 .moon-gridlist-imageitem .sub-caption {
-  font-family: "PreludeWGL Bold";
-  font-weight: normal;
+  font-weight: bold;
   font-size: 12px;
   text-align: center;
   height: 20px;
@@ -977,7 +993,7 @@ PageControl's use of IconButtons
   cursor: pointer;
   padding: 0px 10px;
   font-size: 20px;
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
 }
 .moon-integer-picker.spotlight {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -993,7 +1009,7 @@ PageControl's use of IconButtons
   white-space: nowrap;
   background: white;
   font-size: 20px;
-  font-family: "Miso";
+  font-family: "MuseoSans Medium";
 }
 .moon-integer-picker-panels {
   min-height: 40px;
@@ -1021,8 +1037,7 @@ PageControl's use of IconButtons
   height: 49px;
   text-align: center;
   background: transparent;
-  font-size: 20px;
-  font-family: "Miso";
+  font-size: 14px;
 }
 .moon-scroll-picker-overlay-container-top {
   position: relative;
@@ -1173,7 +1188,6 @@ PageControl's use of IconButtons
   -o-transition: all 0.1s linear;
 }
 .moon-date-picker.open .moon-date-picker-header {
-  font-family: "PreludeWGL Medium";
   font-size: 20px;
   padding: 0px;
   line-height: 1.2em;
@@ -1183,7 +1197,6 @@ PageControl's use of IconButtons
   padding-top: 10px;
 }
 .moon-date-picker-current-value {
-  font-family: "PreludeWGL Medium";
   font-size: 20px;
   margin: 0px;
   padding: 0px;
@@ -1216,10 +1229,9 @@ PageControl's use of IconButtons
   cursor: pointer;
   background: transparent;
   box-shadow: none;
-  font-size: 24px;
-  line-height: 24px;
-  height: 24px;
-  font-family: "Miso";
+  font-size: 20px;
+  line-height: 20px;
+  height: 20px;
   color: #4b4b4b;
   text-transform: uppercase;
 }
@@ -1248,7 +1260,6 @@ PageControl's use of IconButtons
   border: 5px solid transparent;
   background-color: white;
   font-size: 20px;
-  font-family: "PreludeWGL Medium";
   /* Clip the background to allow for transparent border */
 
   border: 5px solid #eaeaea;
@@ -1335,12 +1346,15 @@ PageControl's use of IconButtons
   width: 60px;
   height: 45px;
   white-space: nowrap;
-  font-family: "PreludeWGL Medium";
+  font-family: "Miso";
   color: #fff;
   text-align: center;
   line-height: 45px;
   vertical-align: middle;
-  font-size: 14px;
+  font-size: 24px;
+}
+.enyo-locale-non-latin .moon-slider-popup-label {
+  font-family: "LG Display";
 }
 .moon-slider-popup.above {
   top: -90px;
@@ -1367,7 +1381,6 @@ PageControl's use of IconButtons
   background: transparent;
   box-shadow: none;
   font-size: 20px;
-  font-family: "PreludeWGL Medium";
   min-height: 20px;
   min-width: 100px;
 }
@@ -1385,6 +1398,23 @@ PageControl's use of IconButtons
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
   cursor: default;
+}
+/*ContextualPopupButton.css*/
+.contextual-popup-button {
+  background-image: url(../images/contextual-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.spotlight {
+  background-image: url(../images/contextual-arrow-spotlight.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.pressed,
+.contextual-popup-button:active {
+  background-image: url(../images/contextual-arrow.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
@@ -1532,7 +1562,7 @@ PageControl's use of IconButtons
   background: transparent;
   box-shadow: none;
   font-size: 20px;
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Medium";
   /* need >=50px for scrollbar to be usable on mac */
 
   min-height: 50px;
@@ -1618,7 +1648,6 @@ PageControl's use of IconButtons
   overflow: hidden;
 }
 .moon-labeledtextitem .label {
-  font-family: "Miso";
   font-size: 36px;
   font-weight: bold;
   line-height: 36px;
@@ -1626,16 +1655,18 @@ PageControl's use of IconButtons
   border-top: 1px solid #A2A2A2;
   margin: 0px 0px 3px 0px;
   padding: 6px 0px 0px 0px;
-  text-transform: uppercase;
 }
 .moon-labeledtextitem .text {
-  font-family: "PreludeWGL Medium";
+  font-family: "MuseoSans Light";
   font-size: 20px;
   color: #4b4b4b;
   line-height: 24px;
   text-transform: none;
   margin: 0px;
   padding: 0px;
+}
+.enyo-locale-non-latin .moon-labeledtextitem .text {
+  font-family: "LG Display";
 }
 .moon-labeledtextitem.spotlight {
   padding-left: 15px;
@@ -1745,6 +1776,7 @@ PageControl's use of IconButtons
 .moon-accordion-arrow {
   position: relative;
   display: inline-block;
+  font-family: "Miso";
 }
 .moon-accordion-arrow.up {
   top: -5px;
@@ -1809,7 +1841,6 @@ PageControl's use of IconButtons
   line-height: 40px;
   border: 0px;
   border-radius: 9999px;
-  font-family: "PreludeWGL Medium";
   font-weight: normal;
   font-size: 20pt;
   background: inherit;
@@ -1881,9 +1912,9 @@ PageControl's use of IconButtons
   margin-bottom: 49px;
 }
 .moon-searchheader-title-above {
-  font-size: 36px;
+  font-size: 26px;
   font-weight: bold;
-  line-height: 36px;
+  line-height: 26px;
   padding: 0px;
   margin: 54px 0px 7px 1px;
   width: 30px;
