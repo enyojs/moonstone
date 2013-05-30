@@ -496,6 +496,11 @@
   text-transform: uppercase;
   color: #4b4b4b;
 }
+.moon-button.small{
+  max-height: 60px;
+  min-width: 60px;  
+  padding: 13px 22px 13px 22px;
+}
 .moon-button.active,
 .moon-button.pressed,
 .moon-button:active,
