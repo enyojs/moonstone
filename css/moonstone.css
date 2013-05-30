@@ -2059,12 +2059,10 @@ p.moon-drawers-close-handle-text {
   position: absolute;
   bottom: 0;
   width: 100%;
+  padding: 40px;
   box-sizing: border-box;
 }
-/* Popup.css */
-.moon-dialog {
-  padding: 40px;
-}
+/* Dialog.css */
 .moon-dialog-title {
   font-size: 82px;
   margin-bottom: 40px;
