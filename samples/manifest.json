@@ -33,6 +33,7 @@
                 {"name": "Spinner", "path":"$lib/moonstone/samples/SpinnerSample", "css":"sample"},
                 {"name": "Time Picker", "path":"$lib/moonstone/samples/TimePickerSample", "css":"sample"},
                 {"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},
-                {"name": "Popup", "path":"$lib/moonstone/samples/PopupSample", "css":"sample"}
+                {"name": "Popup", "path":"$lib/moonstone/samples/PopupSample", "css":"sample"},
+                {"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"}
 	]
 }
