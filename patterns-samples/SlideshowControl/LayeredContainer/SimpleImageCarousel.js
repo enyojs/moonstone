@@ -51,11 +51,21 @@ enyo.kind({
 	initImageViews: function() {
 		var thumb = {};
 		var image = {};
+
 		this.preload = (this.count < 2) ? this.count : 2;
-		for (var index=0; index < this.preload; index++) {
-			this.doSetupItem({index: index+this.initIndex, thumb: thumb, image: image});
-			this.$["container" + index].createComponent({
-					name: "image" + index,
+		if (this.initIndex > 0 && (this.preload + 1 <= this.count)) {
+			this.preload++;
+			this.createComponent({name: "container2", style: "height:100%; width:100%;"});
+		}
+
+		for (var i=0; i < this.preload; i++) {
+			var imageIndex = i+this.initIndex;
+			if (this.initIndex > 0) {
+				imageIndex--;
+			}
+			this.doSetupItem({index: imageIndex, thumb: thumb, image: image});
+			this.$["container" + i].createComponent({
+					name: "image" + i,
 					kind: "ImageView",
 					scale: this.defaultScale,
 					disableZoom: this.disableZoom,
@@ -63,9 +73,11 @@ enyo.kind({
 					verticalDragPropagation: false,
 					style: "height:100%; width:100%;"
 				}, {owner: this});
-			this.$["container" + index].imageIndex = index + this.initIndex;
-			this.$["image" + index].render();
+			this.$["container" + i].imageIndex = imageIndex;
+			this.$["image" + i].render();
 		}
+
+		this.index = this.lastIndex = 1;
 	},
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex === inEvent.toIndex) {
