@@ -42,7 +42,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow", onSetupItem: "setupItem"});
+		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow", onSetupItem: "setupItem", index: 0});
 		this.$.slideShow.setCount(this.results.length);
 		this.$.slideShow.render();
 	},

@@ -6,8 +6,10 @@ enyo.kind({
 	kind: "enyo.Popup",
 	classes: "moon-photo-slideshow",
 	published: {
-		//* The number of items contained in the list */
-		count: 0
+		//* The number of items contained in the list
+		count: 0,
+		//* active item's index in the list
+		index: 0
 	},
 	events: {
 		/**
@@ -22,12 +24,26 @@ enyo.kind({
 	//* @protected
 
 	slideTools: [
-		{name:"photo", kind:"SimpleImageCarousel", classes: "moon-photo-slideshow-image", onSetupItem: "setupItem", ontap: "tapHandler", onZoom: "zoomHandler"},
-		{name: "slideControl", kind: "moon.PhotoSlideshowControl", onClose: "closeHandler", onChangeSlide: "changeSlideHandler", onStartSlideshow: "startSlideshowHandler", onCompleteSlideshow: "completeSlideshowHandler"}
+		{	
+			name:"photo", 
+			kind:"SimpleImageCarousel", 
+			classes: "moon-photo-slideshow-image", 
+			onSetupItem: "setupItem", 
+			onImageSelected: "imageSelected", 
+			ontap: "tapHandler"
+		},
+		{	name: "slideControl", 
+			kind: "moon.PhotoSlideshowControl", 
+			onClose: "closeHandler", 
+			onChangeSlide: "changeSlideHandler", 
+			onStartSlideshow: "startSlideshowHandler", 
+			onCompleteSlideshow: "completeSlideshowHandler"
+		}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.preloadImage = new Image();
+		this.indexChanged();
 	},
 	destroy: function() {
 		delete this.preloadImage;
@@ -45,9 +61,23 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		return this.doSetupItem(inEvent);
 	},
+	imageSelected: function(inSender, inEvent) {
+		this.imageIndex = inEvent.imageIndex;
+		this.$.slideControl.selectImage(inEvent.imageIndex);
+		return true;
+	},
 	countChanged: function() {
 		this.$.photo.setCount(this.count);
 		this.$.slideControl.setCount(this.count);
+	},
+	indexChanged: function() {
+		if (this.imageIndex === undefined) {
+			this.$.photo.setInitIndex(this.index);
+			this.$.slideControl.selectImage(this.index);
+		}
+		else {
+			this.$.photo.moveImageByIndex(this.index, "none");
+		}
 	},
 	hide: function() {
 		this.$.slideControl.stopSlideshow();
@@ -58,17 +88,15 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	tapHandler: function(inSender, inEvent) {
+		this.$.slideControl.stopSlideshow();
 		this.$.slideControl.toggleMinMax();
-		enyo.log("tapHandler");
-	},
-	zoomHandler: function(inSender, inEvent) {
-		var aa = 0;
 	},
 	closeHandler: function(inSender, inEvent) {
 		this.requestHide();
 		return true;
 	},
 	changeSlideHandler: function(inSender, inEvent) {
+		this.imageIndex = inEvent.index;
 		this.$.photo.moveImageByIndex(inEvent.index, inEvent.direction);
 		return true;
 	},
@@ -79,10 +107,7 @@ enyo.kind({
 	completeSlideshowHandler: function(inSender, inEvent) {
 		this.$.slideControl.animateToMin();
 		return true;
-	},
-
-	//* @public
-
+	}
 });
 
 enyo.kind({
@@ -196,8 +221,7 @@ enyo.kind({
 			this.$.playpause.mode = "play";
 			this.$.playpause.setSrc("../assets/icon_pause.png");
 
-			// Slideshow will start from index[0] image
-			this.index = (this.indexPause) ? this.indexPause : 0;
+			this.index = (this.indexPause) ? this.indexPause : this.index;
 			this.doStartSlideshow({index: this.index});
 			this.startJob("playSlideshow", "displaySlideImage", 0);
 		}
@@ -239,19 +263,26 @@ enyo.kind({
 
 	//* @public
 
-	//* Stop slideshow play when playing slideshow */
+	//* Stop slideshow play when playing slideshow
 	stopSlideshow: function() {
 		this.$.playpause.mode = "pause";
 		this.$.playpause.setSrc("../assets/icon_play.png");
 		clearTimeout(this.slideJob);
+		delete this.slideJob;
 		delete this.indexPause;
 	},
-	//* Return large image url */
+	//* Return large image url
 	getImageUrl: function(inIndex) {
 		if (this.imageUrls[inIndex]) {
 			return this.imageUrls[inIndex];
 		}
 
 		return "";
+	},
+	//* This is called when Image carousel's active image is changed
+	selectImage: function(inIndex) {
+		if (this.slideJob === undefined) {
+			this.index = inIndex;
+		}
 	}
 });

@@ -10,8 +10,10 @@ enyo.kind({
 	//* If true, ImageView instances are created with zooming disabled.
 	disableZoom:  false,
 	published: {
-		//* The number of image items contained in the list */
-		count: 0
+		//* The number of image items contained in the list
+		count: 0,
+		//* Initial index value in the list at creation time
+		initIndex: 0
 	},
 	events: {
 		/**
@@ -19,7 +21,11 @@ enyo.kind({
 			_inEvent.index_ contains the current list index
 			_inEvent.image_ contains the curren image url
 		*/
-		onSetupItem: ""
+		onSetupItem: "",
+		/** Fires at the end of a image panel transition.
+			_inEvent.imageIndex contains the index of active image.
+		*/
+		onImageSelected: ""
 	},
 	//* @protected
 	handlers: {
@@ -47,7 +53,7 @@ enyo.kind({
 		var image = {};
 		this.preload = (this.count < 2) ? this.count : 2;
 		for (var index=0; index < this.preload; index++) {
-			this.doSetupItem({index: index, thumb: thumb, image: image});
+			this.doSetupItem({index: index+this.initIndex, thumb: thumb, image: image});
 			this.$["container" + index].createComponent({
 					name: "image" + index,
 					kind: "ImageView",
@@ -57,17 +63,17 @@ enyo.kind({
 					verticalDragPropagation: false,
 					style: "height:100%; width:100%;"
 				}, {owner: this});
-			this.$["container" + index].imageIndex = index;
+			this.$["container" + index].imageIndex = index + this.initIndex;
 			this.$["image" + index].render();
 		}
 	},
 	transitionStart: function(inSender, inEvent) {
-		if (inEvent.fromIndex==inEvent.toIndex) {
+		if (inEvent.fromIndex === inEvent.toIndex) {
 			return true; //prevent from bubbling if there's no change
 		}
 	},
 	popPrevPanel: function(inIndex, inDirection) {
-		var prev = (inDirection == "next") ? (inIndex - 2) : (inIndex + 2);
+		var prev = (inDirection === "next") ? (inIndex - 2) : (inIndex + 2);
 		if (prev >= 0 && prev <= this.count) {
 			if (this.getPanels()[prev]) {
 				this.getPanels()[prev].destroy();
@@ -79,7 +85,7 @@ enyo.kind({
 	pushNextPanel: function(inImageIndex, inDirection) {
 		var next;
 		var before = undefined;
-		if (inDirection == "next") {
+		if (inDirection === "next") {
 			next = inImageIndex + 1;
 			if (next >= this.count) {
 				return false;
@@ -93,12 +99,19 @@ enyo.kind({
 			before = this.getPanels()[0];
 		}
 
-		if (this.$["container" + next]) {
+		var ps = this.getPanels();
+		if (ps.length !== 0 && ps[ps.length - 1].imageIndex === next) {
 			return false;
 		}
 
+		var prefix = "container" + next + "_";
+		var n, i = 1;
+		do {
+			n = prefix + String(i);
+		} while (this.$[n]);
+
 		this.createComponent({
-			name: "container" + next,
+			name: n,
 			style: "height:100%; width:100%;",
 			addBefore: before
 		});
@@ -106,8 +119,8 @@ enyo.kind({
 		var image = {};
 		var thumb = {};
 		this.doSetupItem({index: next, thumb: thumb, image: image});
-		this.$["container" + next].createComponent({
-				name: "image" + next,
+		this.$[n].createComponent({
+				name: "image" + next + "_" + String(i),
 				kind: "ImageView",
 				scale: this.defaultScale,
 				disableZoom: this.disableZoom,
@@ -115,56 +128,61 @@ enyo.kind({
 				verticalDragPropagation: false,
 				style: "height:100%; width:100%;"
 			}, {owner: this});
-		this.$["container" + next].imageIndex = next;
-		this.$["container" + next].render();
+		this.$[n].imageIndex = next;
+		this.$[n].render();
 
 		return true;
 	},
 	transitionFinish: function(inSender, inEvent) {
-		if (inEvent.fromIndex === undefined || inEvent.fromIndex==inEvent.toIndex) {
+		if (inEvent.fromIndex === undefined || inEvent.fromIndex === inEvent.toIndex) {
 			return true; //prevent from bubbling if there's no change
 		}
 
 		var imageIndex = this.getPanels()[inEvent.toIndex].imageIndex;
 		if (inEvent.toIndex > inEvent.fromIndex) {
 			this.pushNextPanel(imageIndex, "next");
-			if (this.popPrevPanel(inEvent.toIndex, "next") == true) {
+			if (this.popPrevPanel(inEvent.toIndex, "next") === true) {
 				this.index = this.lastIndex = inEvent.toIndex - 1;
 			}
 		}
 		else if (inEvent.toIndex < inEvent.fromIndex) {
 			this.popPrevPanel(inEvent.toIndex, "prev");
-			if (this.pushNextPanel(imageIndex, "prev") == true) {
+			if (this.pushNextPanel(imageIndex, "prev") === true) {
 				this.index = this.lastIndex = inEvent.fromIndex;
 			}
 		}
 
 		this.resized();
+
+		this.doImageSelected({imageIndex: imageIndex});
 		return true;
 	},
 	//* @public
 	//* Returns the currently displayed ImageView.
-//	getActiveImage: function() {
-//		return this.getImageByIndex(this.index);
-//	},
-	//* Returns the ImageView with the specified index.
-//	getImageByIndex: function(index) {
-//		return this.$["image" + index] || this.loadImageView(index);
-//	}
-
+	getActiveImage: function() {
+		return this.getPanels()[this.index];
+	},
+	getActiveImageIndex: function() {
+		return this.getPanels()[this.index].imageIndex;
+	},
+	//* Move panel according image index and moving direction
 	moveImageByIndex: function(inIndex, inDirection) {
-		var imageIndex = this.getPanels()[this.index].imageIndex;
-		if (imageIndex == inIndex || imageIndex > this.count - 1) {
+		if (this.$.animator.isAnimating()) {
 			return false;
 		}
-		if (inDirection == "prev" && this.index == 0) {
+
+		var imageIndex = this.getPanels()[this.index].imageIndex;
+		if (imageIndex === inIndex || imageIndex > this.count - 1) {
+			return false;
+		}
+		if (inDirection === "prev" && this.index === 0) {
 			return false;
 		}
 		if (inDirection === undefined) {
 			inDirection = "none";
 		}
 
-		if (inDirection == "none") {
+		if (inDirection === "none") {
 			// delete next panel
 			var p = this.getPanels()[this.index + 1];
 			if (p !== undefined) {
@@ -178,8 +196,7 @@ enyo.kind({
 
 			this.createComponent({
 				name: n,
-				style: "height:100%; width:100%;"//,
-				//addBefore: before
+				style: "height:100%; width:100%;"
 			});
 
 			var thumb = {};
@@ -198,15 +215,15 @@ enyo.kind({
 			this.$[n].render();
 			this.setIndex(this.index + 1);
 		}
-		else if (inDirection == "next") {
-			if (inIndex == 0) {
-				this.carouselJob = setTimeout(enyo.bind(this, function() { this.moveImageByIndex(inIndex, "none"); }), 0);
+		else if (inDirection === "next") {
+			if (inIndex === 0) {
+				this.carouselJob = setTimeout(enyo.bindSafely(this, function() { this.moveImageByIndex(inIndex, "none"); }), 0);
 			}
 			else {
 				this.setIndex(this.index + 1);
 			}
 		}
-		else if (inDirection == "prev") {
+		else if (inDirection === "prev") {
 			this.setIndex(this.index - 1);
 		}
 	}
