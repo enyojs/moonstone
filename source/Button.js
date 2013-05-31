@@ -21,6 +21,7 @@ enyo.kind({
 		*/
 		small	: false,
 	},
+	targetLayer	: "",
 	classes		: 'moon-button enyo-unselectable',
 	spotlight	: true,
 
@@ -44,13 +45,36 @@ enyo.kind({
 
 	smallChanged: function() {
 		this.addRemoveClass('small', this.small);
+		if(this.small) {
+			this.targetLayer = new moon.TargetLayer({addBefore: this, owner: this.owner});
+			/**Todo: event propagation from button to target Tap*/
+		}
 	},
 
-	prepareTags: function(inContent) {
-		this.inherited(arguments);
+	rendered: function() {
 		if(this.small) {
-			this._openTag = "<div class='small-decorator'>" + this._openTag;
-			this._closeTag = this._closeTag + "</div>";
-		}		
-	}
+			if (!this.targetLayer.hasNode()) {
+				this.targetLayer.render(this.parent.node);
+			}
+			this.appendNodeToParent(this.targetLayer.node);
+		}	
+		this.inherited(arguments);
+	},
 });
+
+enyo.kind({
+	name: "moon.TargetLayer",
+	classes: "small-decorator",
+
+	create: function() {
+		this.inherited(arguments);
+		var tmp = this.owner;
+	},
+
+	render: function(node) {
+		if (node) {
+			this.parentNode = node;	
+		}		
+		return this.inherited(arguments);
+	}
+})
