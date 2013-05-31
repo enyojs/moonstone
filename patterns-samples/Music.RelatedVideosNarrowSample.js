@@ -1,63 +1,113 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.RelatedVideosNarrowSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-related-video",
-    fit: true,
-    spotlight: false,
-    title: "Related Videos",
     titleAbove: "04",
-    titleBelow: "10 Tracks",
+    title: "Related Videos",
+    titleBelow: "n Videos",
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "list",
-            kind: "moon.List",
-            style: "height: 300px;",
-            classes: "list",
-            count: 10,
-            multiSelect: false,
-            onSetupItem: "setupItem",
+            name: "videoInfo",
+            kind: "moon.DataList",
+            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+            fit: true,
             components: [
                 {
-                    kind: "enyo.FittableColumns",
-                    classes: "item",
-                    fit: true,
+                    kind: "moon.Item",
+                    spotlight: true,
+                    ontap: "changeName",
                     components: [
                         {
-                            name: "preview",
-                            fit: true,
-                            classes: "preview",
-                            components: [{classes: "play-icon"}]
-                        },
-                        {style: "display: table-cell; width: 20px;"},
-                        {
-                            classes: "content",
+                            kind: "enyo.Table",
                             components: [
-                                {name: "title"},
-                                {name: "time", classes: "small-content"}
+                                {
+                                    components: [
+                                        {
+                                            components: [
+                                                {
+                                                    kind: "enyo.Image", 
+                                                    style: "width: 170px; height: 126px;",
+                                                    bindFrom: "coverUrl", 
+                                                    bindTo: "src"
+                                                }
+                                            ],
+                                            attributes: {rowspan: "4"}
+                                        },
+                                        {
+                                            style: "height: 40px;"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            bindFrom: "title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    components: [
+                                        {
+                                            bindFrom: "time", 
+                                            classes: "moon-superscript"
+                                        }
+                                    ]
+                                },
                             ]
                         }
                     ]
                 }
             ]
         }
-    ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        var h = this.getAbsoluteBounds().height;
-        h -= this.$.list.getAbsoluteBounds().top + 20;
-        this.$.list.setBounds({height: h});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.preview.setStyle("background-image: url(" + url + ");");
-		this.$.title.setContent("Video Title");
-		this.$.time.setContent("3:40");
-	}
+    ], 
+    bindings: [
+        {from: ".controller.videos", to: "$.videoInfo.controller"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function (){
+    var sampleModel = new enyo.Model({
+        videos: new enyo.Collection([
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"}
+        ])
+    });
+
+// Sample Application
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.RelatedVideosNarrowSample",
+                    controller: ".app.controllers.videoController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "videoController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeVideoName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("title", "Good video");
+                }
+            }
+        ]
+    });
 });

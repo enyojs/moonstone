@@ -4,71 +4,69 @@ enyo.kind({
     name: "moon.sample.music.AlbumDetailNarrowSample",
     kind: "moon.Panel",
     titleAbove: "04",
-    title: "Album",    
+    title: "Album",
     titleBelow: "",
+    layoutKind: "FittableRowsLayout",
+    headerComponents: [
+        {kind: "moon.IconButton", src: "assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+    ],
     components: [
         {
-            name: "detail",
-            fit: true,
-            kind: "FittableRows",
+            kind: "FittableColumns",
+            noStretch: true,
             components: [
                 {
-                    kind: "FittableColumns",
-                    noStretch: true,
-                    components: [
-                        {
-                            name: "cover",
-                            kind: "enyo.Image",
-                            style: "height: 200px; width: 200px;"
-                        },
-                        {
-                            kind: "moon.Table",
-                            name: "albumInfo",
-                            fit: true,
-                            components: [
-                                {components: [
-                                    {name: "album", attributes: {colspan: "2"}, style: "font-weight: bold;"}
-                                ]},
-                                {components: [
-                                    {content: "Artist"},
-                                    {name: "artist"}
-                                ]},
-                                {components: [
-                                    {content: "Released"},
-                                    {name: "releaseDate"}
-                                ]},
-                                {name: "genreRow", components: [
-                                    {content: "Genre"},
-                                    {name: "genre"}
-                                ]},
-                            ]
-                        }
-                    ]
+                    name: "cover",
+                    kind: "enyo.Image",
+                    style: "height: 200px; width: 200px;"
                 },
-                {kind: "moon.Divider", content: "SONGS"},
                 {
-                    kind: "moon.Scroller",
+                    kind: "moon.Table",
                     fit: true,
                     components: [
+                        {components: [
+                            {name: "album", attributes: {colspan: "2"}, style: "font-weight: bold;"}
+                        ]},
+                        {components: [
+                            {content: "Artist"},
+                            {name: "artist"}
+                        ]},
+                        {components: [
+                            {content: "Released"},
+                            {name: "releaseDate"}
+                        ]},
+                        {name: "genreRow", components: [
+                            {content: "Genre"},
+                            {name: "genre"}
+                        ]},
+                    ]
+                }
+            ]
+        },
+        {kind: "moon.Divider", content: "SONGS"},
+        {
+            kind: "moon.Scroller",
+            horizontal: "hidden",
+            fit: true,
+            components: [
+                {
+                    name: "trackInfo",
+                    kind: "moon.DataTable",
+                    style: "width: 100%;",
+                    components: [
                         {
-                            name: "trackInfo",
-                            kind: "moon.DataTable",
-                            style: "width: 100%;",
+                            spotlight: true,
+                            ontap: "changeTrackName",
                             components: [
                                 {
-                                    spotlight: true,
-                                    ontap: "changeTrackName",
-                                    components: [
-                                        {
-                                            bindFrom: "number",
-                                        },
-                                        {
-                                            bindFrom: "name"
-                                        },
-                                        {
-                                            bindFrom: "duration"
-                                        }
-                                    ]
+                                    bindFrom: "number",
+                                },
+                                {
+                                    bindFrom: "name"
+                                },
+                                {
+                                    bindFrom: "duration"
                                 }
                             ]
                         }
@@ -76,12 +74,6 @@ enyo.kind({
                 }
             ]
         }
-    ],
-    headerComponents: [
-        {classes: "moon-music-detail-header-button", components: [
-            {kind: "moon.IconButton", src: "assets/icon-like.png"},
-            {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
-        ]}
     ],
     bindings: [
         {from: ".controller.artist", to: "$.artist.content"},
@@ -120,7 +112,7 @@ enyo.ready(function(){
             {number: "16", name: "We Will Rock You", duration: "2:01"},
             {number: "17", name: "We Are the Champions", duration: "2:59"}
         ]),
-        coverUrl: "http://upload.wikimedia.org/wikipedia/en/9/92/QueenGH2011.jpg"
+        coverUrl: "assets/default-music-big.png"
     });
  
 //  Application to render sample
