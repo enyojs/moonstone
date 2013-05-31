@@ -24,7 +24,6 @@ enyo.kind({
                 },
                 {
                     kind: "moon.Table",
-                    name: "albumInfo",
                     classes: "enyo-table-fit",
                     components: [
                         {components: [
@@ -33,7 +32,7 @@ enyo.kind({
                         ]},
                         {components: [
                             {content: "Genre"},
-                            {content: "genre"}
+                            {name: "genre"}
                         ]}
                     ]
                 }
@@ -71,10 +70,8 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.artist", to: "$.artist.content"},
         {from: ".controller.releaseDate", to: "$.releaseDate.content"},
         {from: ".controller.genre", to: "$.genre.content"},
-        {from: ".controller.album", to: "$.album.content"},
         {from: ".controller.coverUrl", to: "$.cover.src"},
         {from: ".controller.tracks", to: "$.trackInfo.controller"}
     ]
@@ -84,8 +81,6 @@ enyo.kind({
 
 enyo.ready(function() {
     var sampleModel = new enyo.Model({
-        artist: "Queen",
-        album: "Greatest Hits",
         releaseDate: "1981",
         genre: "Rock",
         tracks: new enyo.Collection([

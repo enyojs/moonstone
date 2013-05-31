@@ -34,21 +34,14 @@ enyo.kind({
                                                     bindTo: "src"
                                                 }
                                             ],
-                                            attributes: {rowspan: "3"}
+                                            attributes: {rowspan: "2"}
                                         },
                                         {
-                                            style: "height: 35px;"
+                                            bindFrom: "track"
                                         },
                                         {
                                             bindFrom: "time", 
-                                            attributes: {rowspan: "3"}
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
-                                        {
-                                            bindFrom: "track"
+                                            attributes: {rowspan: "2"}
                                         }
                                     ]
                                 },

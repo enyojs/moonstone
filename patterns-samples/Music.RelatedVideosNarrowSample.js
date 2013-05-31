@@ -32,15 +32,8 @@ enyo.kind({
                                                     bindTo: "src"
                                                 }
                                             ],
-                                            attributes: {rowspan: "4"}
+                                            attributes: {rowspan: "2"}
                                         },
-                                        {
-                                            style: "height: 40px;"
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
                                         {
                                             bindFrom: "title"
                                         }
@@ -53,7 +46,7 @@ enyo.kind({
                                             classes: "moon-superscript"
                                         }
                                     ]
-                                },
+                                }
                             ]
                         }
                     ]

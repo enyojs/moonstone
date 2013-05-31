@@ -27,7 +27,6 @@ enyo.kind({
                 },
                 {
                     kind: "enyo.Table",
-                    name: "artistInfo",
                     fit: true,
                     components: [
                         {components: [{name: "artist", attributes: {colspan: "2"}, style: "font-weight: bold;"}]},

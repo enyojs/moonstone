@@ -68,8 +68,7 @@ enyo.kind({
                 {kind: "moon.Divider", content: "Related Artists"},
                 {
                     name: "relatedArtists",
-                    kind: "moon.DataGridList",
-                    classes: "moon-1v",
+                    kind: "enyo.DataGridList",
                     components: [
                         {
                             kind: "enyo.Image",

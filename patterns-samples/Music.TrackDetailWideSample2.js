@@ -7,7 +7,6 @@ enyo.kind({
     titleAbove: "03",
     titleBelow: "",
     layoutKind: "FittableColumnsLayout",
-    classes: "moon-dark-gray",
     headerComponents: [
         {kind: "moon.IconButton", src: "assets/icon-album.png"},
         {kind: "moon.IconButton", src: "assets/icon-download.png"},

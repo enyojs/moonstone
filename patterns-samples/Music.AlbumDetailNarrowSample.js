@@ -36,7 +36,7 @@ enyo.kind({
                             {content: "Released"},
                             {name: "releaseDate"}
                         ]},
-                        {name: "genreRow", components: [
+                        {components: [
                             {content: "Genre"},
                             {name: "genre"}
                         ]},
