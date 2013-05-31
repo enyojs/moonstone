@@ -78,10 +78,8 @@ enyo.kind({
         }
     ],
     headerComponents: [
-        {classes: "moon-music-detail-header-button", components: [
-            {kind: "moon.IconButton", src: "assets/icon-like.png"},
-            {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-music-detail-header-button-right"}
-        ]}
+        {kind: "moon.IconButton", src: "assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
     bindings: [
         {from: ".controller.artist", to: "$.artist.content"},
