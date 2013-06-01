@@ -18,12 +18,17 @@ enyo.kind({
 	published: {
 		flag: true
 	},
-	
-	classes: "moon enyo-unselectable moon-dark-gray",
-
+	classes: "moon enyo-unselectable",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "enyo.Image", style: "width:100%", src: "./assets/Header.png"}, //
+		{style: "background-color: black; padding 5px; height: 60px; width: 100%; z-index: 10;", components: [
+			{name: "classesButton", kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
+				{content: "moon-light-gray", active: true},
+				{content: "moon-dark-gray"}
+			]}
+		]},
+		{kind: "enyo.Image", style: "width:100%", src: "./assets/Header.png"},
+
 		{kind: "FittableColumns", components: [
 			// LEFT COLUMN
 			{classes: "moon-control-sample-body-wrapper",
@@ -681,5 +686,14 @@ enyo.kind({
 		this.$.bIcon6.spotlight = !tmp;
 
 		return true; 
+	},
+	buttonActivated: function(inSender, inEvent) {
+		if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
+			this.addRemoveClass("moon-dark-gray", (inEvent.originator.getContent() == "moon-dark-gray"));
+			this.addRemoveClass("moon-light-gray", (inEvent.originator.getContent() == "moon-light-gray"));
+		} else {
+			//
+		}
+
 	}
 });
