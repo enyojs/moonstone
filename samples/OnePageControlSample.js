@@ -19,7 +19,7 @@ enyo.kind({
 		flag: true
 	},
 	
-	classes: "moon enyo-unselectable main-view",
+	classes: "moon enyo-unselectable moon-dark-gray",
 
 	components: [
 		{kind: "enyo.Spotlight"},
