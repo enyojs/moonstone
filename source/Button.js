@@ -46,8 +46,7 @@ enyo.kind({
 	smallChanged: function() {
 		this.addRemoveClass('small', this.small);
 		if(this.small) {
-			this.targetLayer = new moon.TargetLayer({addBefore: this, owner: this.owner});
-			/**Todo: event propagation from button to target Tap*/
+			this.targetLayer = new moon.TargetLayer({addBefore: this, owner: this.owner});			
 		}
 	},
 
@@ -57,6 +56,10 @@ enyo.kind({
 				this.targetLayer.render(this.parent.node);
 			}
 			this.appendNodeToParent(this.targetLayer.node);
+			/**
+				for event propagation from button to target Tap
+			*/
+			this.setContainer(this.targetLayer);
 		}	
 		this.inherited(arguments);
 	},
@@ -65,10 +68,11 @@ enyo.kind({
 enyo.kind({
 	name: "moon.TargetLayer",
 	classes: "small-decorator",
+	spotlight	: true,
 
-	create: function() {
-		this.inherited(arguments);
-		var tmp = this.owner;
+	handlers: {
+		onenter	: 'enter',
+		onleave	: 'leave'
 	},
 
 	render: function(node) {
@@ -76,5 +80,15 @@ enyo.kind({
 			this.parentNode = node;	
 		}		
 		return this.inherited(arguments);
+	},
+
+	enter: function(inSender, inEvent) {
+		this.controls[0].addClass("spotlight");
+		return true;
+	},
+
+	leave: function(inSender, inEvent) {
+		this.controls[0].removeClass("spotlight");
+		return true;
 	}
 })
