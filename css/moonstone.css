@@ -503,6 +503,7 @@
 }
 .small-decorator{
   display: inline-block;
+  cursor: pointer;
   border-radius: 9999px;
   border: 9px solid transparent;
 }

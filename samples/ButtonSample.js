@@ -8,7 +8,7 @@ enyo.kind({
 		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Focus Buttons:"},
-				{kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
+				{kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 				{kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
 				{kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
