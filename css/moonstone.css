@@ -507,6 +507,7 @@
   border-radius: 9999px;
   border: 9px solid transparent;
 }
+.small-decorator:active .moon-button,
 .moon-button.active,
 .moon-button.pressed,
 .moon-button:active,
