@@ -42,20 +42,22 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow", onSetupItem: "setupItem", index: 2});
+		this.createComponent({name: "slideShow", kind:"moon.sample.slideshow.PhotoSlideshow", onSetupImage: "setupImage", index: 2});
 		this.$.slideShow.setCount(this.results.length);
 		this.$.slideShow.render();
 	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow();
 	},
-	setupItem: function(inSender, inEvent) {
+	setupImage: function(inSender, inEvent) {
 		// this is the row we're setting up
 		var i = inEvent.index;
-		inEvent.thumb.width = this.results[i].width;
-		inEvent.thumb.height = this.results[i].height;
-		inEvent.thumb.src= this.results[i].thumb;
-		inEvent.image.src = this.results[i].url;
+		if (inEvent.thumb && inEvent.image) {
+			inEvent.thumb.width = this.results[i].width;
+			inEvent.thumb.height = this.results[i].height;
+			inEvent.thumb.src= this.results[i].thumb;
+			inEvent.image.src = this.results[i].url;
+		}
 
 		return true;
 	}

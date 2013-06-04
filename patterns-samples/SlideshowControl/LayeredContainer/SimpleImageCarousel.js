@@ -21,7 +21,7 @@ enyo.kind({
 			_inEvent.index_ contains the current list index
 			_inEvent.image_ contains the curren image url
 		*/
-		onSetupItem: "",
+		onSetupImage: "",
 		/** Fires at the end of a image panel transition.
 			_inEvent.imageIndex contains the index of active image.
 		*/
@@ -63,7 +63,7 @@ enyo.kind({
 			if (this.initIndex > 0) {
 				imageIndex--;
 			}
-			this.doSetupItem({index: imageIndex, thumb: thumb, image: image});
+			this.doSetupImage({index: imageIndex, thumb: thumb, image: image});
 			this.$["container" + i].createComponent({
 					name: "image" + i,
 					kind: "ImageView",
@@ -130,7 +130,7 @@ enyo.kind({
 
 		var image = {};
 		var thumb = {};
-		this.doSetupItem({index: next, thumb: thumb, image: image});
+		this.doSetupImage({index: next, thumb: thumb, image: image});
 		this.$[n].createComponent({
 				name: "image" + next + "_" + String(i),
 				kind: "ImageView",
@@ -213,7 +213,7 @@ enyo.kind({
 
 			var thumb = {};
 			var image = {};
-			this.doSetupItem({index: inIndex, thumb: thumb, image: image});
+			this.doSetupImage({index: inIndex, thumb: thumb, image: image});
 			this.$[n].createComponent({
 					name: "image" + inIndex + "_" + String(i),
 					kind: "ImageView",

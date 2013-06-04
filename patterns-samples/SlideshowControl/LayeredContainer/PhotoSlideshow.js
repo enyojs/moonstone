@@ -18,7 +18,7 @@ enyo.kind({
 			_inEvent.thumb_ contains the curren thumbnail
 			_inEvent.image_ contains the curren image url
 		*/
-		onSetupItem: ""
+		onSetupImage: ""
 	},
 
 	//* @protected
@@ -28,7 +28,7 @@ enyo.kind({
 			name:"photo", 
 			kind:"SimpleImageCarousel", 
 			classes: "moon-photo-slideshow-image", 
-			onSetupItem: "setupItem", 
+			onSetupImage: "setupImage", 
 			onImageSelected: "imageSelected", 
 			ontap: "tapHandler"
 		},
@@ -58,8 +58,8 @@ enyo.kind({
     createTools: function() {
 		this.createComponents(this.slideTools);
 	},
-	setupItem: function(inSender, inEvent) {
-		return this.doSetupItem(inEvent);
+	setupImage: function(inSender, inEvent) {
+		return this.doSetupImage(inEvent);
 	},
 	imageSelected: function(inSender, inEvent) {
 		this.imageIndex = inEvent.imageIndex;
@@ -139,7 +139,7 @@ enyo.kind({
 			_inEvent.thumb_ contains the curren thumbnail
 			_inEvent.image_ contains the curren image url
 		*/
-		onSetupItem: ""
+		onSetupImage: ""
 	},
 
 	//* @protected
@@ -184,7 +184,7 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		var thumb = {};
 		var image = {};
-		this.doSetupItem({index: inEvent.index, thumb: thumb, image: image});
+		this.doSetupImage({index: inEvent.index, thumb: thumb, image: image});
 		this.$.item.setSrc(thumb.src);
 		if (thumb.width > 0) {
 			var w2h = thumb.width / thumb.height;
