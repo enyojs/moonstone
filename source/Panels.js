@@ -83,16 +83,24 @@ enyo.kind({
 			panels[panels.length - 1].destroy();
 		}
 	},
-	replaceNextPanel: function(inInfo, inMoreInfo) {
+	replacePanel: function(index, inInfo, inMoreInfo) {
 		var panels = this.getPanels(),
 			oPanel = null;
-		this.popPanels(this.getIndex()+1);					// destroy next panel
-		oPanel = this.createComponent(inInfo, inMoreInfo);	// create next panel
+
+		(panels.length > index) && panels[index].destroy();
+		(panels.length > index) && (inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo));
+		oPanel = this.createComponent(inInfo, inMoreInfo);
 		oPanel.render();
 		this.resized();
 	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
+
+		// Two panels up case: If originator has joinPanel property then replace right panel
+		if (n != -1 && oEvent.originator.joinPanel) {
+			this.replacePanel(this.getIndex()+1, {kind: oEvent.originator.joinPanel, joinToPrev: true});
+			this.next();
+		}
 
 		if (n != -1 && n != this.getIndex()) {
 			this.setIndex(n);
