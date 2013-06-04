@@ -79,7 +79,7 @@ enyo.kind({
     ],
 
 /*    buttonActivated: function(inSender, inEvent) {
-        if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
+        if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
 =======
     buttonActivated: function(inSender, inEvent) {
         if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
