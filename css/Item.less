@@ -36,9 +36,10 @@
 	height: 0px;
 	background-color: @moon-spotlight-border-color;
 }
-.moon-item.top.overlay.spotlight, .moon-item.bottom.overlay.spotlight, .moon-item.left.overlay.spotlight, .moon-item.right.overlay.spotlight {
+.moon-item.locale-default.overlay.spotlight, .moon-item.top.overlay.spotlight, .moon-item.bottom.overlay.spotlight, .moon-item.left.overlay.spotlight, .moon-item.right.overlay.spotlight {
 	border-width: 0px;
 }
+
 .moon-item.top.spotlight:not(.overlay) {
 	border-width: 16px 0px 0px;
 	margin-bottom: -16px;
@@ -47,17 +48,37 @@
 	border-width: 0px 0px 16px;
 	margin-top: -16px;
 }
-.moon-item.left.spotlight:not(.overlay) {
+.moon-item-left-spotlight-not-overlay {
 	border-width: 0px 0px 0px 16px;
 	padding-left: 4px;
 }
-.moon-item.right.spotlight:not(.overlay) {
+.moon-item.left.spotlight:not(.overlay) {
+	.moon-item-left-spotlight-not-overlay;
+}
+.moon-item-right-spotlight-not-overlay {
 	border-width: 0px 16px 0px 0px;
-	margin-left: -16px;
+	padding-right: 4px;
+}
+.moon-item.right.spotlight:not(.overlay) {
+	.moon-item-right-spotlight-not-overlay;
 }
 .moon-item.top.spotlight > .moon-item-overlay, .moon-item.bottom.spotlight > .moon-item-overlay {
 	height: 16px;
 }
 .moon-item.left.spotlight > .moon-item-overlay, .moon-item.right.spotlight > .moon-item-overlay {
 	width: 16px;
+}
+
+/* ---- Locale-specific styles ----- */
+
+// Left-to-right:
+.moon-item.locale-default.spotlight:not(.overlay) {
+	.moon-item-left-spotlight-not-overlay;
+}
+// Right-to-left:
+.enyo-locale-right-to-left {
+	direction: rtl;
+	.moon-item.locale-default.spotlight:not(.overlay) {
+		.moon-item-right-spotlight-not-overlay;
+	}
 }
