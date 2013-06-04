@@ -28,8 +28,9 @@ enyo.kind({
 		//* (webOS only) if true, stretch the video to fill the entire window
 		fitToWindow: false
 	},
-	// components: [ 
-		// {name: "mediad", kind: "PalmService"} 
+	// components: [
+	// 	{name: "screen", tag: "canvas", showing: false, style: "position: absolute; z-index: 5;top: 0px;"}
+	// 	// {name: "mediad", kind: "PalmService"} 
 	// ], 
 	//* @protected
 	tag: "video",

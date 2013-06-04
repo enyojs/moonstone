@@ -7,11 +7,12 @@ enyo.kind({
 	// },
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: "video", kind: "Video", src: "http://www.w3schools.com/html/movie.mp4", ontimeupdate:"timeupdate"},
+		// {name: "video", kind: "Video", src: "http://www.w3schools.com/html/movie.mp4", ontimeupdate:"timeupdate"},
+		{name: "video", kind: "Video", src: "http://www.w3schools.com/html/mov_bbb.mp4", ontimeupdate:"timeupdate"},
 		{name: "slider", kind: "moon.PreviewSlider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"}
 	],
 	timeupdate: function(inSender, inEvent) {
-		this.log(inEvent);
+		// this.log(inEvent);
 	},
 	//* @protected
 	create: function() {

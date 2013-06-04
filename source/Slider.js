@@ -65,7 +65,7 @@ enyo.kind({
 		// ]}
 	],
 	popupComponents: [
-		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
+		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", captureEvents:false, components: [
 			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
 		]}

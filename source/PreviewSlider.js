@@ -66,20 +66,35 @@ enyo.kind({
 	// 	]}
 	// ],
 	popupComponents: [
-		{kind: "enyo.Popup", name: "popup", classes: "moon-preview-slider-popup above", components: [
+		{kind: "enyo.Popup", name: "popup", classes: "moon-preview-slider-popup above", captureEvents:false, components: [
 			{tag: "canvas", name: "drawing", attributes: { width: 340, height: 270 }},
 			{name: "popupLabel", showing: false}
-		]}
+		]},
+		// {name:"bgScreen", tag: "canvas", showing: false, classes: "moon-preview-screen", style: "top: 0px;"}
 	],
 	create: function() {
 		this.inherited(arguments);
-
+		
+		this.videoChanged();
 		// this.$.popupLabel.hide();
 		// this.$.popup.
 		// this.$.drawing.setAttribute("width", 320);
 		// this.$.drawing.setAttribute("height", 240);
 
-		this.$.popup.setShowing(true);
+		// this.$.popup.setShowing(true);
+	},
+	videoChanged: function() {
+		if (this.video !== null && this.video.container) {
+			if (this.$["bgScreen"] !== undefined) {
+				this.$["bgScreen"].destroy();
+			}
+			this.video.container.createComponent({	name:"bgScreen", 
+									tag: "canvas", 
+									showing: false, 
+									classes: "moon-preview-screen",
+									style: "margin-top:0px;margin-left:0px;"}, {owner: this});
+			// this.video.applyStyle("z-index", -2);
+		}
 	},
 
 	//* @public
@@ -137,18 +152,18 @@ enyo.kind({
 	// getValue: function() {
 	// 	return (this.animatingTo !== null) ? this.animatingTo : this.value;
 	// },
-	updateKnobPosition: function(inPercent) {
-		this.$.knob.applyStyle("left", inPercent + "%");
-		this.$.popup.applyStyle("left", inPercent + "%");
-		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
-		this.updatePopupPosition();
-	},
+	// updateKnobPosition: function(inPercent) {
+	// 	this.$.knob.applyStyle("left", inPercent + "%");
+	// 	this.$.popup.applyStyle("left", inPercent + "%");
+	// 	this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
+	// 	this.updatePopupPosition();
+	// },
 	updatePopupPosition: function() {
 		var inControl = this.$.popup;
 		if (!inControl.hasNode().getBoundingClientRect) {
 			return;
 		}
-		var hFlip = false;
+/*		var hFlip = false;
 		// popup bounds
 		var pb = inControl.hasNode().getBoundingClientRect();
 		// container bounds
@@ -163,7 +178,8 @@ enyo.kind({
 		}
 		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 		// this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
-
+*/
+		this.inherited(arguments);
 		var ctx = this.$.drawing.hasNode().getContext("2d");
 		if (this.video !== null) {
 			ctx.drawImage(this.video.hasNode() , 10, 10, 320, 240);
@@ -186,6 +202,32 @@ enyo.kind({
 	// 		return true;
 	// 	}
 	// },
+	dragstart: function(inSender, inEvent) {
+		if (this.video !== null && this.video.hasNode()) {
+			this.video.pause();
+
+			var b = this.video.getBounds();
+			// this.$.previewScreen.setAttribute("top", b.top);
+			// this.$.previewScreen.setAttribute("left", b.left);
+			var bs = this.$.bgScreen;
+			// bs.setAttribute("top", b.top);
+			bs.setAttribute("width", b.width);
+			bs.setAttribute("height", b.height);
+
+			bs.setBounds(b);
+			// bs.applyStyle("top", b.top + "px");
+			// bs.applyStyle("left", b.left + "px");
+			// bs.applyStyle("height", b.height + "px");
+			// bs.applyStyle("width", b.width + "px");
+
+			var ctx = bs.hasNode().getContext("2d");
+			ctx.drawImage(this.video.hasNode() , 0, 0, b.width, b.height);
+
+			bs.setShowing(true);
+		}
+
+		this.inherited(arguments);
+	},
 	// drag: function(inSender, inEvent) {
 	// 	if (this.dragging) {
 	// 		var v = this.calcKnobPosition(inEvent);
@@ -204,6 +246,21 @@ enyo.kind({
 	// 		return true;
 	// 	}
 	// },
+	drag: function(inSender, inEvent) {
+		if (this.dragging && this.video.hasNode()) {
+			var v = this.calcKnobPosition(inEvent);
+			v = this.clampValue(this.min, this.max, v);
+			var p = this.calcPercent(v);
+			var d = this.video.hasNode().duration;
+
+			var t = d * p / 100;
+			this.video.setCurrentTime(t);
+
+			this.log(t + " : " + this.video.getCurrentTime());
+		}
+
+		this.inherited(arguments);
+	},
 	// dragfinish: function(inSender, inEvent) {
 	// 	if (this.disabled) {
 	// 		return;	// return nothing
@@ -220,6 +277,14 @@ enyo.kind({
 	// 	this.hideKnobStatus();
 	// 	return true;
 	// },
+	dragfinish: function(inSender, inEvent) {
+		this.inherited(arguments);
+
+		if (this.video !== null) {
+			this.video.play();
+			this.$.bgScreen.setShowing(false);
+		}
+	},
 	// tap: function(inSender, inEvent) {
 	// 	if (this.tappable && !this.disabled) {
 	// 		var v = this.calcKnobPosition(inEvent);
@@ -228,6 +293,19 @@ enyo.kind({
 	// 		return true;
 	// 	}
 	// },
+	tap: function(inSender, inEvent) {
+		this.inherited(arguments);
+
+		if (this.tappable && !this.disabled) {
+			var v = this.calcKnobPosition(inEvent);
+			v = this.clampValue(this.min, this.max, v);
+			var p = this.calcPercent(v);
+			var d = this.video.hasNode().duration;
+
+			var t = d * p / 100;
+			this.video.setCurrentTime(t);
+		}
+	},
 	// //* @public
 	// //* Animates to the given value.
 	// animateTo: function(inStartValue, inEndValue) {
