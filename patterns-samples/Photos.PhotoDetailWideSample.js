@@ -73,17 +73,13 @@ enyo.kind({
         }
     ],
 
-<<<<<<< HEAD
     bindings: [
         {from: ".controller.details", to: "$.panels.controller"}
     ],
 
-/*    buttonActivated: function(inSender, inEvent) {
-        if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
-=======
+
     buttonActivated: function(inSender, inEvent) {
         if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
->>>>>>> origin/GF-4999-Rename-Jungchae
             var tName = inEvent.originator.name;
 
             if(tName == "button-desc"){
@@ -96,7 +92,7 @@ enyo.kind({
                 this.$.panels.setIndex(3);
             }        
         }
-    }*/
+    }
 });
 
 // Sample model

@@ -22,13 +22,8 @@ enyo.kind({
 			{content: 'es_us'}
 		]},	*/
 		{kind: "enyo.Spotlight"},
-<<<<<<< HEAD:samples/CalendarSample.js
-		{kind: "moon.Calendar", content: "Calendar", classes: "moon-date-picker-wrapper"},
-		{name:"date", style:"font-size:0.35em;font-family:MuseoSans Light"}
-=======
 		{kind: "moon.CalendarPicker", content: "Calendar", classes: "moon-date-picker-wrapper"},
-		{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"}
->>>>>>> origin/GF-4999-Rename-Jungchae:samples/CalendarPickerSample.js
+		{name:"date", style:"font-size:0.35em;font-family:MuseoSans Light"}
 	]
 /*	changed: function(inSender, inEvent) {
 		if (this.$.date){
