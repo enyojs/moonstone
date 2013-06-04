@@ -83,6 +83,14 @@ enyo.kind({
 			panels[panels.length - 1].destroy();
 		}
 	},
+	replaceNextPanel: function(inInfo, inMoreInfo) {
+		var panels = this.getPanels(),
+			oPanel = null;
+		this.popPanels(this.getIndex()+1);					// destroy next panel
+		oPanel = this.createComponent(inInfo, inMoreInfo);	// create next panel
+		oPanel.render();
+		this.resized();
+	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 
