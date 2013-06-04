@@ -47,7 +47,7 @@ enyo.kind({
 	},
 	handlers: {
 		//* Handler for _onChange_ events coming from constituent controls (hour)
-		onChange: "updateTime" 
+		onChange: "updateTime"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
@@ -57,7 +57,7 @@ enyo.kind({
 			Current locale used for formatting. May be set after control creation, in
 			which case the control will be updated to reflect the new value.
 		*/
-		locale: "en_us",
+		locale: "en-US",
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
 			is passed to _setValue()_, the control is updated to reflect the new
@@ -80,19 +80,19 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		if (enyo.g11n) {
-			this.locale = enyo.g11n.currentLocale().getLocale();
+		if (typeof ilib !== "undefined") {
+			this.locale = ilib.getLocale();
 		}
 		this.initDefaults();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (assuming that it is loaded)
-		if (enyo.g11n) {
-			this._tf = new enyo.g11n.Fmts({locale:this.locale});
+		//Attempt to use the ilib lib (assuming that it is loaded)
+		if (typeof ilib !== "undefined") {
+			this._tf = new ilib.DateFmt({locale:this.locale, type: "time"});
 		}
 
 		this.value = this.value || new Date();
-		this.setupPickers(this._tf ? this._tf.getTimeFieldOrder() : 'hma');
+		this.setupPickers(this._tf ? this._tf.getTimeComponents() : 'hma');
 		this.noneTextChanged();
 		//Initial state for meridiemEnable is false
 		this.meridiemEnable = this.meridiemEnable || false;
@@ -128,12 +128,14 @@ enyo.kind({
 	},
 	parseTime: function() {
 		if (this._tf) {
-			var df = new enyo.g11n.DateFmt({
-				time: "short",
-				locale: new enyo.g11n.Locale(this.locale)
+			var df = new ilib.DateFmt({
+				length: 'long',
+				locale: new ilib.Locale(this.locale),
+				type: "time"
 			});
-			return df.format(this.value);
-		} else {
+			return df.format(new ilib.Date.GregDate(this.value));
+		}
+		else {
 			var dateStr = "";
 			if (this.meridiemEnable === true && this.value.getHours() > 12) {
 				dateStr += this.value.getHours() - 12;

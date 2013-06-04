@@ -82,15 +82,17 @@ enyo.kind({
 			return;
 		}
 
-		if (!this.$.strategy.isInView(inEvent.originator.hasNode())) {
+		if ((!this.$.strategy.isInView(inEvent.originator.hasNode())) && (!enyo.Spotlight.getPointerMode())) {
 			this.$.strategy.updateScrollBounds();
 			this.animateToControl(inEvent.originator);
 		}
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
-		this.$.strategy.updateScrollBounds();
-		this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+		if (!enyo.Spotlight.getPointerMode()) {
+			this.$.strategy.updateScrollBounds();
+			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+		}
 		return true;
 	},
 	/**
