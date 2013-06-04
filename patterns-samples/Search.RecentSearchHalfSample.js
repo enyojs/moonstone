@@ -15,7 +15,7 @@ enyo.kind({
             components: [
                 {                  
                     components: [
-                        {kind: "moon.RadioButtonGroup", components: [
+                        {kind: "moon.RadioItemGroup", components: [
                             {classes: "radio-button", content: "SUGGESTED SEARCH"},
                             {classes: "radio-button", content: "RECENT SEARCHES"},
                         ]},               

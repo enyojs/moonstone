@@ -10,7 +10,7 @@ enyo.kind({
 		{tag:"br"},
 		{kind: "moon.Divider", content:"Slider 2: not locked bar"},
 		{style: "width:340px;", components: [
-			{name:"lockBar", kind: "moon.LabeledToggleButton", checked: false, content: "lock bar", onchange: "lockbarChanged"}
+			{name:"lockBar", kind: "moon.ToggleItem", checked: false, content: "lock bar", onchange: "lockbarChanged"}
 		]},
 		{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging: "sliderChanging", onChange: "sliderChanged"},
 		{tag:"br"},
@@ -25,11 +25,11 @@ enyo.kind({
 		]},
 		{tag: "br"},
 		{style: "width:340px;", components: [
-			{name:"animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated", onActivate: "animateActivate"},
-			{kind: "moon.LabeledCheckbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
+			{name:"animateSetting", kind: "moon.CheckboxItem", checked: true, content: "Animated", onActivate: "animateActivate"},
+			{kind: "moon.CheckboxItem", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
 		]},
 		{kind: "FittableColumns", components: [
-			{name:"incrementSetting", kind: "moon.LabeledCheckbox", checked: false, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
+			{name:"incrementSetting", kind: "moon.CheckboxItem", checked: false, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
 			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
 		]},
 		{tag: "br"},

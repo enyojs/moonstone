@@ -1,18 +1,18 @@
 enyo.kind({
-	name: "moon.sample.RadioButtonSample",
-	classes: "moon-radio-button-sample enyo-unselectable",
+	name: "moon.sample.RadioItemSample",
+	classes: "moon-radio-item-sample enyo-unselectable",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content:"Radio Buttons"},
-		{name: "testSelectButton", kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
+		{kind: "moon.Divider", content:"Radio Items"},
+		{name: "testSelectButton", kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
 			{content: "Cat"},
 			{content: "Dog"},
 			{content: "Hippopotamus"}
 		]},
 		{tag: "br"},{tag: "br"},{tag: "br"},
-		{kind: "moon.Divider", content:"Disabled Radio Buttons"},
-		{name: "disabledButton", kind: "moon.RadioButtonGroup", disabled: true, onActivate: "buttonActivated", components: [
+		{kind: "moon.Divider", content:"Disabled Radio Items"},
+		{name: "disabledButton", kind: "moon.RadioItemGroup", disabled: true, onActivate: "buttonActivated", components: [
 			{content: "Whale", disabled: true},
 			{content: "Shark"},
 			{content: "Dolphin"}
@@ -24,7 +24,7 @@ enyo.kind({
 		this.$.result.setContent("");
 	},
 	buttonActivated: function(inSender, inEvent) {
-		if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
+		if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
 			this.$.result.setContent("The \"" + inEvent.originator.getContent() + "\" button is selected.");
 		} else {
 			this.$.result.setContent("The \"" + inEvent.originator.name + "\" button is selected.");

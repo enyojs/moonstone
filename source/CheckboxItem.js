@@ -1,44 +1,44 @@
 /**
-	_moon.LabeledCheckbox_ is a control that combines a
+	_moon.CheckboxItem_ is a control that combines a
 	<a href="#moon.Checkbox">moon.Checkbox</a> with a text label. The label text
 	may be set via the _content_ property. The state of the Checkbox may be
 	retrieved by interrogating the _checked_ property.
 
-		{kind: "moon.LabeledCheckbox", content: "San Francisco", onchange: "checkedChanged"}
+		{kind: "moon.CheckboxItem", content: "San Francisco", onchange: "checkedChanged"}
 
 		checkedChanged: function(inSender, inEvent) {
 			var checked = inSender.get("checked");
 		}
 
-	You may place _moon.LabeledCheckbox_ objects inside an
+	You may place _moon.CheckboxItem_ objects inside an
 	<a href="#enyo.Group">enyo.Group</a> to create a group of checkboxes in which
-	only one checkbox may be chosen at a time (similar to how a radio button group
+	only one checkbox may be chosen at a time (similar to how a Radio Item group
 	behaves):
 
 		{kind: "Group", components: [
-			{kind: "moon.LabeledCheckbox", content: "New York"},
-			{kind: "moon.LabeledCheckbox", content: "London"},
-			{kind: "moon.LabeledCheckbox", content: "San Francisco"},
-			{kind: "moon.LabeledCheckbox", content: "Beijing"}
+			{kind: "moon.CheckboxItem", content: "New York"},
+			{kind: "moon.CheckboxItem", content: "London"},
+			{kind: "moon.CheckboxItem", content: "San Francisco"},
+			{kind: "moon.CheckboxItem", content: "Beijing"}
 		]}
  */
 enyo.kind({
-	name: "moon.LabeledCheckbox",
+	name: "moon.CheckboxItem",
 	kind: "moon.Item",
 	published: {
 		//* The state of the checkbox
 		checked: false
 	},
 	//* @protected
-	classes: "moon-labeled-checkbox",
+	classes: "moon-checkbox-item",
 	spotlight: true,
 	handlers: {
 		ontap: "tap",
 		onActivate: "decorateActivateEvent"
 	},
 	components: [
-		{classes: "moon-labeled-checkbox-label-wrapper", components: [
-			{name: "label", classes: "moon-labeled-checkbox-label"}
+		{classes: "moon-checkbox-item-label-wrapper", components: [
+			{name: "label", classes: "moon-checkbox-item-label"}
 		]},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],

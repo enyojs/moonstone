@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.LeanForwardArranger",
+	name: "moon.BreadcrumbArranger",
 	kind: "enyo.DockRightArranger",
 	breadcrumbWidth: 180,
 	debug: false,
