@@ -108,10 +108,8 @@ enyo.kind({
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
+		this.preventResize = false;
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
-		if (this.$.drawer.open) {
-			this.$.client.reflow();
-		}
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
 	selectHandler: function(inSender, inEvent) {
@@ -133,5 +131,12 @@ enyo.kind({
 			value: this.value,
 			content: this.content,
 		});
+	},
+	resized: function() {
+		if (!this.preventResize){
+			this.$.client.resized();
+			enyo.log();
+			this.preventResize = true;
+		}
 	}
 });
