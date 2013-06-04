@@ -18,7 +18,7 @@
 				{name: "title", content: "title"}
 			],
 			components: [
-				{kind: "enyo.Panels", name: "panels", arrangerKind: "moon.LeanForwardArranger",
+				{kind: "enyo.Panels", name: "panels", arrangerKind: "moon.BreadcrumbArranger",
 					realtimeFit: true, classes: "enyo-fit moon-panels-sample",
 					components: [
 						{content: 0, classes: "moon-panels-sample-panel", style: "background:red;width:50%;"},
@@ -69,8 +69,8 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.$panels = this.$.client.children[0];
-		if (this.$panels.arrangerKind === "moon.LeanForwardArranger") {
-			this.addClass("leanForward");
+		if (this.$panels.arrangerKind === "moon.BreadcrumbArranger") {
+			this.addClass("breadcrumb");
 			this._visibleCrumbs = 1;
 		} else {
 			this.addClass("instantOn");

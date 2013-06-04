@@ -2,7 +2,7 @@
 	_moon.ExpandablePicker_, which extends
 	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
 	picker menu that solicits a choice from the user. The picker's child
-	components, which are instances of <a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>
+	components, which are instances of <a href="#moon.CheckboxItem">moon.CheckboxItem</a>
 	by default, provide the options for the picker.
 
 		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
@@ -65,7 +65,7 @@ enyo.kind({
 		helpText: ""
 	},
 	//* @protected
-	defaultKind: "moon.LabeledCheckbox",
+	defaultKind: "moon.CheckboxItem",
 	handlers: {
 		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"

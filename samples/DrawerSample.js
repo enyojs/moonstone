@@ -30,7 +30,7 @@ enyo.kind({
 			}
 			],
 			components: [
-		        {name: "panels", kind: "moon.Panels", arrangerKind: "moon.LeanForwardArranger", classes: "enyo-fit", components: [
+		        {name: "panels", kind: "moon.Panels", arrangerKind: "moon.BreadcrumbArranger", classes: "enyo-fit", components: [
 					// BUG? - List & Gridlist not playing together at the same time?
 					// {title: "Browse Movies", components: [			
 					// 					{

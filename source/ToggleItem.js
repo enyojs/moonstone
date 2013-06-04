@@ -1,10 +1,10 @@
 /**
-	_moon.LabeledToggleButton_ is a control that combines a
+	_moon.ToggleItem_ is a control that combines a
 	<a href="#moon.ToggleButton">moon.ToggleButton</a> with a text label.
 */
 enyo.kind({
-	name: "moon.LabeledToggleButton",
-	kind: "moon.LabeledCheckbox",
+	name: "moon.ToggleItem",
+	kind: "moon.CheckboxItem",
 	//* @protected
 	classes: "moon-labeled-toggle-button",
 	components: [

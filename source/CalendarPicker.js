@@ -1,7 +1,7 @@
 enyo.kind({
-	name: "moon.CalendarDate",
+	name: "moon.CalendarPickerDate",
 	kind: "enyo.Button",
-	classes: "moon-calendar-date enyo-unselectable",
+	classes: "moon-calendar-picker-date enyo-unselectable",
 	spotlight: true,
 	published: {
 		value: null,
@@ -10,9 +10,9 @@ enyo.kind({
 
 	colorChanged: function(inOld) {
 		if (this.color) {
-			this.addClass("moon-calendar-date-shadow");
+			this.addClass("moon-calendar-picker-date-shadow");
 		} else {
-			this.removeClass("moon-calendar-date-shadow");
+			this.removeClass("moon-calendar-picker-date-shadow");
 		}
 	},
 
@@ -22,8 +22,8 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "moon.CalendarWeek",
-	classes: "moon-calendar-week",
+	name: "moon.CalendarPickerWeek",
+	classes: "moon-calendar-picker-week",
 	days: [],
 	colors: [],
 
@@ -34,7 +34,7 @@ enyo.kind({
 
 	setupLayout: function() {
 		for (var i = 0; i < 7; i++) {		
-			this.createComponent({kind: "moon.CalendarDate"});
+			this.createComponent({kind: "moon.CalendarPickerDate"});
 		}
 	},
 
@@ -52,8 +52,8 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "moon.Calendar",
-	classes: "moon-calendar",
+	name: "moon.CalendarPicker",
+	classes: "moon-calendar-picker",
 	events: {
 		/**
 			Fires when the date changes.
@@ -98,8 +98,8 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-simplepicmoon-calendar-block"},
-		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-dates"}
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicmoon-calendar-picker-block"},
+		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-picker-dates"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -152,7 +152,7 @@ enyo.kind({
 		for (var i = 0; i < this.maxWeeks; i++) {
 			var days = [];
 			this.$.dates.createComponent(
-				{kind: "moon.CalendarWeek", days: days}
+				{kind: "moon.CalendarPickerWeek", days: days}
 			);
 		}
 	},
@@ -255,7 +255,7 @@ enyo.kind({
 		Updates DatePicker to reflect the selected CalendarDate.
 	*/
 	doTap: function(inSender, inEvent) {
-		if (inEvent.originator.kind == "moon.CalendarDate") {
+		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
 			var newValue = inEvent.originator.value,
 				oldValue = this.getValue();
 			

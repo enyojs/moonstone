@@ -33,7 +33,7 @@ enyo.kind({
                     kind: "FittableRows",
                     components: [
                         {
-                            kind: "moon.RadioButtonGroup", 
+                            kind: "moon.RadioItemGroup", 
                             onActivate: "buttonActivated", 
                             components: [
                                 {name: "button-desc", classes: "radio-button", content: "DESCRIPTION"},
@@ -73,12 +73,17 @@ enyo.kind({
         }
     ],
 
+<<<<<<< HEAD
     bindings: [
         {from: ".controller.details", to: "$.panels.controller"}
     ],
 
 /*    buttonActivated: function(inSender, inEvent) {
         if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
+=======
+    buttonActivated: function(inSender, inEvent) {
+        if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
+>>>>>>> origin/GF-4999-Rename-Jungchae
             var tName = inEvent.originator.name;
 
             if(tName == "button-desc"){
