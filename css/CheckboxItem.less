@@ -1,31 +1,31 @@
-.moon-labeled-checkbox {
+.moon-checkbox-item {
 	display: block;
 	position:relative;
 	margin-bottom: 33px;
 }
-.moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
+.moon-checkbox-item .moon-checkbox-item-label-wrapper {
 	height: @moon-item-line-height;
 	min-height: (@moon-item-font-size * .78);
 	-webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, white 50px);
 	padding: 2px 0px 0px 0px;
 }
-.moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
+.moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
 	-webkit-mask-image: -webkit-linear-gradient(right, transparent (@moon-no-spotlight-padding-right + 35), white (@moon-no-spotlight-padding-right + 60));
 }
-.moon-labeled-checkbox .moon-labeled-checkbox-label {
+.moon-checkbox-item .moon-checkbox-item-label {
 	float: left;
 	white-space: nowrap;
 }
-.moon-labeled-checkbox .moon-checkbox {
+.moon-checkbox-item .moon-checkbox {
 	position:absolute;
 	top:0px;
 	right:0px;
 	margin-top: -1px;
 }
-.moon-labeled-checkbox .moon-checkbox[checked] {
+.moon-checkbox-item .moon-checkbox[checked] {
 	background-color:transparent;
 }
-.moon-labeled-checkbox.disabled, .moon-labeled-checkbox .moon-checkbox[disabled] {
+.moon-checkbox-item.disabled, .moon-checkbox-item .moon-checkbox[disabled] {
 	cursor: default;
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);

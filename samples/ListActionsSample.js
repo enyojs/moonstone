@@ -16,24 +16,24 @@ enyo.kind({
 					components: [
 					    {kind: "moon.Divider", content:"Category"},
 					    {kind: "moon.Scroller", components: [
-					        {content:"Action", kind:"moon.LabeledCheckbox", checked:true},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"}
+					        {content:"Action", kind:"moon.CheckboxItem", checked:true},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"}
 					    ]}
 					]						
 				},
@@ -41,16 +41,16 @@ enyo.kind({
 					components: [
 					    {kind: "moon.Divider", content:"Category"},
 					    {kind: "moon.Scroller", components: [
-					        {content:"Action", kind:"moon.LabeledToggleButton"},
-					        {content:"Comedy", kind:"moon.LabeledToggleButton"},
-					        {content:"Drama", kind:"moon.LabeledToggleButton"}
+					        {content:"Action", kind:"moon.ToggleItem"},
+					        {content:"Comedy", kind:"moon.ToggleItem"},
+					        {content:"Drama", kind:"moon.ToggleItem"}
 					    ]}
 					],						
 				},
 				{
 					action: "menu-language",
 					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.LabeledToggleButton", classes: "moon-expandable-picker-wrapper", components: [
+                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
                             {content: "English"},
                             {content: "Spanish"},
                             {content: "French"},
@@ -67,17 +67,17 @@ enyo.kind({
 					components: [
 					    {kind: "moon.Divider", content:"Category"},
 					    {kind: "moon.Scroller", components: [
-					        {content:"Action", kind:"moon.LabeledCheckbox", checked:true},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-					        {content:"Drama", kind:"moon.LabeledCheckbox"},
-					        {content:"Action", kind:"moon.LabeledCheckbox"},
-					        {content:"Comedy", kind:"moon.LabeledCheckbox"}
+					        {content:"Action", kind:"moon.CheckboxItem", checked:true},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"},
+					        {content:"Drama", kind:"moon.CheckboxItem"},
+					        {content:"Action", kind:"moon.CheckboxItem"},
+					        {content:"Comedy", kind:"moon.CheckboxItem"}
 					    ]}
 					]						
 				},
@@ -85,16 +85,16 @@ enyo.kind({
 					components: [
 					    {kind: "moon.Divider", content:"Category"},
 					    {kind: "moon.Scroller", components: [
-					        {content:"Action", kind:"moon.LabeledToggleButton"},
-					        {content:"Comedy", kind:"moon.LabeledToggleButton"},
-					        {content:"Drama", kind:"moon.LabeledToggleButton"}
+					        {content:"Action", kind:"moon.ToggleItem"},
+					        {content:"Comedy", kind:"moon.ToggleItem"},
+					        {content:"Drama", kind:"moon.ToggleItem"}
 					    ]}
 					],						
 				},
 				{
 					action: "menu-language",
 					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.LabeledToggleButton", classes: "moon-expandable-picker-wrapper", components: [
+                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
                             {content: "English"},
                             {content: "Spanish"},
                             {content: "French"},

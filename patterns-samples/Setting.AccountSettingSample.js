@@ -26,7 +26,7 @@ enyo.kind({
     	{
 			name: "autoSign",
 			classes:"moon-settings-auto-sign",
-			kind: "moon.LabeledToggleButton"
+			kind: "moon.ToggleItem"
     	},
     	{name: "help", classes: "moon-settings-content"},
     	{

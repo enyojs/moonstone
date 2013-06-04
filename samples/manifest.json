@@ -1,11 +1,11 @@
 {
 	"sourcePath":"../../..",
-	"name": "Moonraker",
+	"name": "Moonstone",
 	"ns": "moon.sample",
 	"loadPackages": "$lib/moonstone $lib/moonstone/samples $lib/spotlight",
 	"samples": [
         	{"name": "Button", "path":"$lib/moonstone/samples/ButtonSample"},
-                {"name": "Calendar", "path":"$lib/moonstone/samples/CalendarSample"},
+                {"name": "Calendar", "path":"$lib/moonstone/samples/CalendarPickerSample"},
                 {"name": "Checkbox", "path":"$lib/moonstone/samples/CheckboxSample"},
                 {"name": "Contextual Popup", "path":"$lib/moonstone/samples/ContextualPopupSample"},
                 {"name": "Date Picker", "path":"$lib/moonstone/samples/DatePickerSample"},
@@ -22,7 +22,7 @@
                 {"name": "Horizontal List", "path":"$lib/moonstone/samples/ListHorizontalSample"},
                 {"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
                 {"name": "Vertical List", "path":"$lib/moonstone/samples/ListVerticalSample"},
-                {"name": "Radio Button", "path":"$lib/moonstone/samples/RadioButtonSample"},
+                {"name": "Radio Item", "path":"$lib/moonstone/samples/RadioItemSample"},
                 {"name": "2d Scroller", "path":"$lib/moonstone/samples/Scroller2dSample"},
                 {"name": "Horizontal Scroller", "path":"$lib/moonstone/samples/ScrollerHorizontalSample"},
                 {"name": "Vertical Scroller", "path":"$lib/moonstone/samples/ScrollerVerticalSample"},
