@@ -45,13 +45,22 @@ enyo.kind({
 			classes: "enyo-fit",
 			components: [
 				{title: "Menu", components: [
-					{kind: "moon.Item", content: "Music", joinPanel: "musicBrowser"},
-					{kind: "moon.Item", content: "Movie", joinPanel: "movieBrowser"},
-					{kind: "moon.Item", content: "Photo", joinPanel: "photoBrowser"}
+					{kind: "moon.Item", content: "Music", ontap: "onTap", nextPanel: "musicBrowser"},
+					{kind: "moon.Item", content: "Movie", ontap: "onTap", nextPanel: "movieBrowser"},
+					{kind: "moon.Item", content: "Photo", ontap: "onTap", nextPanel: "photoBrowser"}
 				]},
 				{kind: "musicBrowser", joinToPrev: true}
 			]
 		}
-	]
+	],
+	create: function() {
+		this.inherited(arguments);
+	},
+	onTap: function(inSender, inEvent) {
+		if (inEvent.originator.nextPanel) {
+			this.$.panels.replacePanel(this.$.panels.getIndex()+1, {kind: inEvent.originator.nextPanel, joinToPrev: true});
+			this.$.panels.next();
+		}
+	}
 });
 

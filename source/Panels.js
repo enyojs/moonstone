@@ -96,12 +96,6 @@ enyo.kind({
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 
-		// Two panels up case: If originator has joinPanel property then replace right panel
-		if (n != -1 && oEvent.originator.joinPanel) {
-			this.replacePanel(this.getIndex()+1, {kind: oEvent.originator.joinPanel, joinToPrev: true});
-			this.next();
-		}
-
 		if (n != -1 && n != this.getIndex()) {
 			this.setIndex(n);
 			enyo.Spotlight.setLast5WayControl(oEvent.originator);
