@@ -1,0 +1,37 @@
+.moon-expandable-integer-picker {
+	transition: border-width 0.1s linear, padding 0.1s linear;
+	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
+	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
+	-o-transition: border-width 0.1s linear, padding 0.1s linear;
+	cursor:pointer;
+	margin-bottom: 45px;
+}
+.moon-expandable-integer-picker.spotlight {
+	padding:0px 0px 0px 4px;
+	border-left:16px solid @moon-spotlight-border-color;
+}
+
+.moon-item.moon-expandable-integer-picker-header {
+	line-height: 28px;
+	padding: 0px;
+	margin: 0px 0px 10px 0px;
+	transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+}
+
+.moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
+	font-size: @moon-sub-text-size;
+	padding: 0px;
+	border-bottom: 1px solid #aaa;
+	margin-bottom: 1px;
+}
+
+.moon-expandable-integer-picker-current-value {
+	font-size: @moon-sub-text-size;
+	margin: 0px;
+	padding: 0px;
+	line-height: 14px;
+	font-weight: normal;
+}
