@@ -13,6 +13,7 @@
 */
 enyo.kind({
 	name: "moon.IntegerScrollPicker",
+	classes: "moon-scroll-picker-container",
 	published: {
 		value: null,
 		min: 0,
@@ -50,11 +51,15 @@ enyo.kind({
 		]},
 		{name:"downArrowContainer", classes:"down-arrow-container", components:[
 			{classes:"down-arrow-border"},
-			{name:"downArrow", classes:"down-arrow", ondown:"next", onup:"resetOverlay", onleave:"resetOverlay"}
+			{name:"downArrow", classes:"down-arrow", ondown:"next", onup:"resetOverlay", onleave:"resetOverlay", components: [
+				{classes: "taparea"}
+			]}
 		]},
 		{name:"upArrowContainer", classes:"up-arrow-container", components:[
 			{classes:"up-arrow-border"},
-			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay"}
+			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay", components: [
+				{classes: "taparea"}
+			]}
 		]},
 		{kind: "enyo.Scroller", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
 			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [

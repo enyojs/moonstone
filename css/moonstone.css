@@ -639,8 +639,6 @@
   border-radius: 0px;
   line-height: 25px;
   text-align: left;
-  font-family: "MuseoSans Medium";
-  text-transform: none !important;
 }
 .moon-radio-item.active,
 .moon-radio-item.pressed,
@@ -777,6 +775,9 @@
   padding: 0px;
   line-height: 14px;
   font-weight: normal;
+}
+.moon-expandable-picker-help-text {
+  color: gray;
 }
 .moon-header {
   color: #4b4b4b;
@@ -1016,8 +1017,11 @@ PageControl's use of IconButtons
   min-width: 55px;
 }
 /* IntegerScrollPicker.css */
+.moon-scroll-picker-container {
+  padding: 27px 21px;
+}
 .moon-scroll-picker {
-  height: 40px;
+  height: 102px;
   border-top-width: 30px;
   border-top-style: solid;
   border-top-color: transparent;
@@ -1034,10 +1038,12 @@ PageControl's use of IconButtons
 .moon-scroll-picker-item {
   white-space: nowrap;
   padding-top: 5px;
-  height: 49px;
+  height: 97px;
+  line-height: 97px;
+  vertical-align: middle;
   text-align: center;
   background: transparent;
-  font-size: 14px;
+  font-size: 15px;
 }
 .moon-scroll-picker-overlay-container-top {
   position: relative;
@@ -1067,7 +1073,7 @@ PageControl's use of IconButtons
 .moon-scroll-picker-overlay-container-bottom {
   position: relative;
   z-index: 1;
-  top: 45px;
+  top: 107px;
 }
 .moon-scroll-picker-overlay-bottom {
   position: absolute;
@@ -1106,6 +1112,22 @@ PageControl's use of IconButtons
   bottom: -19px;
   left: -5px;
 }
+.up-arrow > .taparea {
+  position: absolute;
+  height: 78px;
+  width: 78px;
+  top: -40px;
+  left: -40px;
+  background-color: transparent;
+}
+.down-arrow > .taparea {
+  position: absolute;
+  height: 78px;
+  width: 78px;
+  top: -40px;
+  left: -40px;
+  background-color: transparent;
+}
 .up-arrow-container.spotlight .up-arrow {
   border-color: transparent transparent #ffb80d transparent;
 }
@@ -1132,7 +1154,7 @@ PageControl's use of IconButtons
 .down-arrow-container {
   position: relative;
   z-index: 10;
-  top: 75px;
+  top: 137px;
   left: 12%;
 }
 .down-arrow {
@@ -1811,7 +1833,7 @@ PageControl's use of IconButtons
   bottom: -5px;
   left: -10px;
 }
-/* Calendar.css */
+/* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
 }
