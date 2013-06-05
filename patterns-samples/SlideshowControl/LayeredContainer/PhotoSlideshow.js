@@ -28,7 +28,6 @@ enyo.kind({
 			name:"photo", 
 			kind:"SimpleImageCarousel", 
 			classes: "moon-photo-slideshow-image", 
-			onSetupImage: "setupImage", 
 			onImageSelected: "imageSelected", 
 			ontap: "tapHandler"
 		},
@@ -57,9 +56,6 @@ enyo.kind({
     },
     createTools: function() {
 		this.createComponents(this.slideTools);
-	},
-	setupImage: function(inSender, inEvent) {
-		return this.doSetupImage(inEvent);
 	},
 	imageSelected: function(inSender, inEvent) {
 		this.imageIndex = inEvent.imageIndex;
