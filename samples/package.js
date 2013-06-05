@@ -6,8 +6,8 @@ enyo.depends(
 	"GridListSample.js",
 	"CheckboxSample.js",
 	"CheckboxSample.css",
-	"RadioButtonSample.js",
-	"RadioButtonSample.css",
+	"RadioItemSample.js",
+	"RadioItemSample.css",
 	"ExpandablePickerSample.js",
 	"ExpandablePickerSample.css",
 	"ScrollerVerticalSample.js",
@@ -24,8 +24,8 @@ enyo.depends(
 	"DatePickerSample.css",
 	"IntegerScrollPickerSample.js",
 	"IntegerScrollPickerSample.css",
-	"CalendarSample.js",
-	"CalendarSample.css",
+	"CalendarPickerSample.js",
+	"CalendarPickerSample.css",
 	"ButtonSample.js",
 	"ButtonSample.css",
 	"InputSample.js",
@@ -52,5 +52,8 @@ enyo.depends(
 	"SelectableItemSample.css",
 	"SelectableItemSample.js",
 	"AccordionSample.css",
-	"AccordionSample.js"	
+	"AccordionSample.js",
+	"PopupSample.js",
+	"TooltipSample.css",
+	"TooltipSample.js"
 );

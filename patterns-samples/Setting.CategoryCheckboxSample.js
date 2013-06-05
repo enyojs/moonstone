@@ -12,7 +12,7 @@ enyo.kind({
 			kind: "moon.DataList",
 			components: [
 				{
-					kind: "moon.LabeledCheckbox",
+					kind: "moon.CheckboxItem",
 					ontap: "changeItemName",
 					bindFrom: "name",
 					bindTo: "content"

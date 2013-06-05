@@ -77,7 +77,7 @@ enyo.kind({
         				},
 						{
 							name: "item",
-							kind: "moon.LabeledCheckbox"
+							kind: "moon.CheckboxItem"
 						},
         				{kind: "moon.Divider", content: "SETTINGS CATEGORY2"},
         				{
@@ -86,7 +86,7 @@ enyo.kind({
         					scrollerOptions: "false",
         					components: [
 	        					{
-	        						kind: "moon.LabeledCheckbox",
+	        						kind: "moon.CheckboxItem",
 									bindFrom: "name",
 									bindTo: "content"
 								}
