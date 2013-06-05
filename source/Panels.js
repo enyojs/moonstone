@@ -35,8 +35,13 @@ enyo.kind({
 	/************ PROTECTED **********/
 
 	create: function(oSender, oEvent) {
-		this.applyPattern();
+		this._applyPattern();				// this needs to be done before creation of super class
 		this.inherited(arguments);
+		if (this.pattern == "alwayson") {	// this needs to be done after creation of super class
+			this.applyStyle("left", "50%");
+			this.applyStyle("overflow", "visible"); 
+			this.applyStyle("background-color", "rgba(100,100,100,0.5)");
+		}
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
 		}
@@ -49,6 +54,20 @@ enyo.kind({
 
 	_focusLeave: function(s5WayEventType) {
 		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
+	},
+	_applyPattern: function() {
+		switch (this.pattern) {
+			case "none":
+				this.arrangerKind = "enyo.CarouselArranger";
+				break;
+			case "alwayson":
+				this.arrangerKind = "moon.BreadcrumbArranger";
+				break;
+			case "activity":
+			default:
+				this.arrangerKind = "moon.BreadcrumbArranger";
+				this.showFirstBreadcrumb = true;
+		}
 	},
 
 	/************ PUBLIC *************/
@@ -247,27 +266,5 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		// TODO - something here?
-	},
-	applyPattern: function() {
-		switch (this.pattern) {
-			case "none":
-				this.arrangerKind = "enyo.CarouselArranger";
-				this.panelCoverRatio = 1;
-				this.showFirstBreadcrumb = false;
-				this.defalutKind = "enyo.Panel";
-				break;
-			case "alwayson":
-				this.arrangerKind = "moon.BreadcrumbArranger";
-				this.panelCoverRatio = 0.5;
-				this.showFirstBreadcrumb = false;
-				this.defalutKind = "moon.Panel";
-				break;
-			case "activity":
-			default:
-				this.arrangerKind = "moon.BreadcrumbArranger";
-				this.panelCoverRatio = 1;
-				this.showFirstBreadcrumb = true;
-				this.defalutKind = "moon.Panel";
-		}
 	}
 });
