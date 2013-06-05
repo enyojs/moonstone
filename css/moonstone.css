@@ -639,8 +639,6 @@
   border-radius: 0px;
   line-height: 25px;
   text-align: left;
-  font-family: "MuseoSans Medium";
-  text-transform: none !important;
 }
 .moon-radio-item.active,
 .moon-radio-item.pressed,
@@ -777,6 +775,9 @@
   padding: 0px;
   line-height: 14px;
   font-weight: normal;
+}
+.moon-expandable-picker-help-text {
+  color: gray;
 }
 .moon-header {
   color: #4b4b4b;
@@ -1811,7 +1812,7 @@ PageControl's use of IconButtons
   bottom: -5px;
   left: -10px;
 }
-/* Calendar.css */
+/* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
 }

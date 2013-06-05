@@ -297,5 +297,8 @@ enyo.kind({
 	},
 	getContainerPadding: function() {
 		return this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {};
+	},
+	getTransitionOptions: function(fromIndex, toIndex) {
+		return {isBreadcrumb: this.isBreadcrumb(fromIndex, toIndex)};
 	}
 });
