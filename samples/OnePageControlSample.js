@@ -21,14 +21,12 @@ enyo.kind({
 	classes: "moon enyo-unselectable",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{style: "background-color: black; padding 5px; height: 60px; width: 100%; z-index: 10;", components: [
-			{name: "classesButton", kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
-				{content: "moon-light-gray", active: true},
-				{content: "moon-dark-gray"}
+		{style: "background-color: black; padding-top: 40px; height: 100px; width: 100%; z-index: 10;", components: [
+			{name: "classesButton", kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
+				{name: "radioTheme1", content: "moon-light-gray", active: true},
+				{name: "radioTheme2", content: "moon-dark-gray"}
 			]}
 		]},
-		{kind: "enyo.Image", style: "width:100%", src: "./assets/Header.png"},
-
 		{kind: "FittableColumns", components: [
 			// LEFT COLUMN
 			{classes: "moon-control-sample-body-wrapper",
@@ -64,10 +62,10 @@ enyo.kind({
 					{kind: "UI.Name", content: "CHECKBOX ITEM"},
 					{classes: "moon-controls-item-wrapper subitem adjust",
 						components: [
-							{name: "check1", kind: "moon.LabeledCheckbox", content: "Vanilla"},
-							{name: "check2", kind: "moon.LabeledCheckbox", content: "Chocolate"	},
-							{name: "check3", kind: "moon.LabeledCheckbox", content: "Strawberry"},
-							{name: "check4", kind: "moon.LabeledCheckbox", content: "Rocky Road"}
+							{name: "check1", kind: "moon.CheckboxItem", content: "Vanilla"},
+							{name: "check2", kind: "moon.CheckboxItem", content: "Chocolate"	},
+							{name: "check3", kind: "moon.CheckboxItem", content: "Strawberry"},
+							{name: "check4", kind: "moon.CheckboxItem", content: "Rocky Road"}
 					]},
 					//////////////////////////////////
 					// EXPANDABLE PICKER ITEM
@@ -159,9 +157,9 @@ enyo.kind({
 					// TOGGLE ITEM
 					{kind: "UI.Name", content: "TOGGLE ITEM"},
 					{classes: "moon-controls-item-wrapper adjust", components: [
-							{name: "toggItem1", kind: "moon.LabeledToggleButton", content: "Vanilla"},
-							{name: "toggItem2", kind: "moon.LabeledToggleButton", content: "Chocolate"},
-							{name: "toggItem3", kind: "moon.LabeledToggleButton", content: "Strawberry"}
+							{name: "toggItem1", kind: "moon.ToggleItem", content: "Vanilla"},
+							{name: "toggItem2", kind: "moon.ToggleItem", content: "Chocolate"},
+							{name: "toggItem3", kind: "moon.ToggleItem", content: "Strawberry"}
 					]},
 					//////////////////////////////////
 					// TOGGLE BUTTON ITEM : TO BE ADDED 
@@ -174,18 +172,18 @@ enyo.kind({
 					// RADIO CONTROL GROUP
 					{kind: "UI.Name", content: "RADIO ITEM GROUP"},
 					{classes: "moon-controls-item-wrapper subitem", components: [
-						{name: "radioCtrl1", kind: "moon.RadioButtonGroup",  components: [
+						{name: "radioCtrl1", kind: "moon.RadioItemGroup",  components: [
 							{name: "radioItem1", content: "All"},
 							{name: "radioItem2", content: "Online"},
 							{name: "radioItem3", content: "Skype"}
 						]},
 						// RADIO CONTROL GROUP EX VIEW
-						{name: "radioCtrl2", kind: "moon.RadioButtonGroup", components: [
+						{name: "radioCtrl2", kind: "moon.RadioItemGroup", components: [
 							{name: "radioItem4", content: "All"},
 							{name: "radioItem5", content: "Online"},
 							{name: "radioItem6", content: "Skype"}
 						]},
-						{name: "radioCtrl3", kind: "moon.RadioButtonGroup", components: [
+						{name: "radioCtrl3", kind: "moon.RadioItemGroup", components: [
 							{name: "radioItem7", content: "All"},
 							{name: "radioItem8", content: "Online"},
 							{name: "radioItem9", content: "Skype"}
@@ -224,7 +222,7 @@ enyo.kind({
 					//////////////////////////////////
 					// CALENDAR PICKER
 					{kind: "UI.Name", content: "CALENDAR PICKER"},
-					{kind: "moon.Calendar", classes: "moon-controls-item-wrapper subitem", content: "Calendar"},
+					{kind: "moon.CalendarPicker", classes: "moon-controls-item-wrapper subitem", content: "Calendar"},
 					{tag:"br"},
 					{tag:"br"},
 					//////////////////////////////////
@@ -311,10 +309,14 @@ enyo.kind({
 					// Tool Tip
 					{kind: "UI.Name", content: "TOOL TIP"},
 					{classes: "enyo-children-inline moon-controls-spacing", components: [
-						//	{kind: "moon.Tooltip", content: "6 NEW MESSAGES"},
-						//	{kind: "moon.Tooltip", content: "21"}
-							{kind: "enyo.Popup", classes: "moon-slider-popup", popupColor: "@moon-dark-gray", content: "6 NEW MESSAGES"},
-							{kind: "enyo.Popup", classes: "moon-slider-popup", popupColor: "@moon-dark-gray", content: "21"}
+						{kind: "moon.TooltipDecorator", style:"display:inline-block;", components: [
+							{kind: "moon.Button", content: "Tooltip"},
+							{kind: "moon.Tooltip", content: "6 NEW MESSAGES"}
+						]},
+						{kind: "moon.TooltipDecorator", style:"display:inline-block;", components: [
+							{kind: "moon.Button", content: "Tooltip"},
+							{kind: "moon.Tooltip", content: "21"}
+						]}
 					]},	
 					{tag: "br"},			
 					{tag: "br"},
@@ -329,19 +331,19 @@ enyo.kind({
 				        ]},
 				     	{
 							kind: "moon.ImageItem",
-							source: "./assets/movie-brazil.png",
+							source: "./assets/default-music.png",
 							label: "Brazil",
 							text: "Sam Lowry is low-level bureaucrat trapped in a needlessly inefficient near-future society."
 						},
 						{
 							kind: "moon.ImageItem",
-							source: "./assets/movie-coffee-and-cigarettes.png",
+							source: "./assets/default-music.png",
 							label: "Coffe and Cigarettes",
 							text: "A series of vignettes directed by Jim Jarmusch. With Roberto Benigni, Tom Waits, RZA, Bill Murray."
 						},
 						{
 							kind: "moon.ImageItem",
-							source: "./assets/movie-the-cremaster-cycle.png",
+							source: "./assets/default-music.png",
 							label: "The Cremaster Cycle",
 							text: "The Cremaster Cycle is an art project consisting of five films with related sculptures, pho-tographs and drawings."
 						}
@@ -474,30 +476,8 @@ enyo.kind({
 							components: [
 								{content:"Sub-Header"},
 								{content:"Sub-Sub-Header"},
-								{kind: "enyo.Image", style: "width:30%", src: "./assets/contextpopup.png"},
+								{kind: "enyo.Image", style: "width:30%", src: "./assets/default-movie.png"},
 								{allowHtml: true, classes: "enyo-unselectable", content:
-									"Lorem ipsum dolor sit<br>\
-									amet, consect etur adipis<br>\
-									icing elit, sed do eiusmod<br>\
-									tempor incididunt utre<br>\
-									labore et dolor magna<br>\
-									aliqua. Ut enim ad minim<br>\
-									veniam, quis nostrud."}
-							]
-						}
-					]},
-					{tag: "br"},
-			        {tag: "br"},
-			        //////////////////////////////////
-					// Contextual Popup Sample
-					{kind: "moon.ContextualPopupDecorator", components: [
-						{content:"BUTTON"},
-						{name: "ctxPopup2", kind: "moon.ContextualPopup", 
-							components: [
-								{content:"Sub-Header"},
-								{content:"Sub-Sub-Header"},
-								{kind: "enyo.Image", style: "width:30%", src: "./assets/contextpopup.png"},
-								{allowHtml: true, content:
 									"Lorem ipsum dolor sit<br>\
 									amet, consect etur adipis<br>\
 									icing elit, sed do eiusmod<br>\
@@ -525,14 +505,14 @@ enyo.kind({
 									components: [
 									    {kind: "moon.Divider", content:"Sort"},
 									    {kind: "moon.Scroller",  classes: "list-action-wrapper", horizontal: "hidden", components: [
-									        {content:"Alphabetical (A-Z)", kind:"moon.LabeledCheckbox"},
-									        {content:"Release Date", kind:"moon.LabeledCheckbox"}
+									        {content:"Alphabetical (A-Z)", kind:"moon.CheckboxItem"},
+									        {content:"Release Date", kind:"moon.CheckboxItem"}
 									    ]},
 									    {kind: "moon.Divider", content:"Filters"},
 									    {kind: "moon.Scroller",  classes: "list-action-wrapper", horizontal: "hidden", components: [
-									        {content:"New Release", kind:"moon.LabeledCheckbox"},
-									        {content:"Most Popular", kind:"moon.LabeledCheckbox"},
-									        {content:"Action", kind:"moon.LabeledCheckbox"}
+									        {content:"New Release", kind:"moon.CheckboxItem"},
+									        {content:"Most Popular", kind:"moon.CheckboxItem"},
+									        {content:"Action", kind:"moon.CheckboxItem"}
 									    ]}
 									]						
 								}
@@ -541,19 +521,19 @@ enyo.kind({
 						{components: [
 								{
 									kind: "moon.ImageItem",
-									source: "./assets/movie-brazil.png",
+									source: "./assets/default-music.png",
 									label: "Brazil",
 									text: "Sam Lowry is low-level bureaucrat trapped in a needlessly inefficient near-future society."
 								},
 								{
 									kind: "moon.ImageItem",
-									source: "./assets/movie-coffee-and-cigarettes.png",
+									source: "./assets/default-music.png",
 									label: "Coffe and Cigarettes",
 									text: "A series of vignettes directed by Jim Jarmusch. With Roberto Benigni, Tom Waits, RZA, Bill Murray."
 								},
 								{
 									kind: "moon.ImageItem",
-									source: "./assets/movie-the-cremaster-cycle.png",
+									source: "./assets/default-music.png",
 									label: "The Cremaster Cycle",
 									text: "The Cremaster Cycle is an art project consisting of five films with related sculptures, pho-tographs and drawings."
 								}
@@ -688,7 +668,7 @@ enyo.kind({
 		return true; 
 	},
 	buttonActivated: function(inSender, inEvent) {
-		if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioButton")) {
+		if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
 			this.addRemoveClass("moon-dark-gray", (inEvent.originator.getContent() == "moon-dark-gray"));
 			this.addRemoveClass("moon-light-gray", (inEvent.originator.getContent() == "moon-light-gray"));
 		} else {
