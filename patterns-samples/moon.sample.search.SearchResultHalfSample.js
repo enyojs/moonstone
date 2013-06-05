@@ -46,11 +46,13 @@ enyo.kind({
     titleBelow: "",
     headerComponents: [
         /* Fixme: moon.Panel needs interface to change Header, Body, Tools area size */
-         {kind: "FittableColumns", components: [
-            {kind: "moon.InputDecorator", fit: true, components: [
-                {kind: "moon.Input", placeholder: "Search term", onchange: "inputChanged"},
-                {kind: "Image", src: "../samples/assets/search-input-search.png"}
-            ]},
+        {kind: "moon.InputDecorator", components: [
+            {style: "width: 500px", components: [
+                {layoutKind: 'HFlexLayout', components: [
+                    {kind: "moon.Input", placeholder: "Search term", flex: true, onchange: "inputChanged"},
+                    {kind: "Image", src: "../samples/assets/search-input-search.png"}
+                ]}
+            ]}
         ]}
     ],
     components: [
