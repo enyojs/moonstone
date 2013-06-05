@@ -15,7 +15,8 @@ enyo.kind({
 			otherwise, the transition should be delayed until some internal
 			transitions have finished.
 		*/
-		transitionReady: false
+		transitionReady: false,
+		pattern: "activity"			// none, activity(default), alwayson
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -28,15 +29,19 @@ enyo.kind({
 	},
 	defaultKind: "moon.Panel",
 	draggable: false,
+	panelCoverRatio: 1,				// 0 ~ 1
+	showFirstBreadcrumb: false,		// none: false, activity: true, alwayson: false
 
 	/************ PROTECTED **********/
 
 	create: function(oSender, oEvent) {
+		this.applyPattern();
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
 		}
 	},
+
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
@@ -242,5 +247,27 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		// TODO - something here?
+	},
+	applyPattern: function() {
+		switch (this.pattern) {
+			case "none":
+				this.arrangerKind = "enyo.CarouselArranger";
+				this.panelCoverRatio = 1;
+				this.showFirstBreadcrumb = false;
+				this.defalutKind = "enyo.Panel";
+				break;
+			case "alwayson":
+				this.arrangerKind = "moon.BreadcrumbArranger";
+				this.panelCoverRatio = 0.5;
+				this.showFirstBreadcrumb = false;
+				this.defalutKind = "moon.Panel";
+				break;
+			case "activity":
+			default:
+				this.arrangerKind = "moon.BreadcrumbArranger";
+				this.panelCoverRatio = 1;
+				this.showFirstBreadcrumb = true;
+				this.defalutKind = "moon.Panel";
+		}
 	}
 });
