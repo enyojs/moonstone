@@ -11,7 +11,7 @@
 enyo.kind({
 	name		: 'moon.Button',
 	kind		: 'enyo.Button',
-	publiched	: {
+	published	: {
 		/**
 			_small_ is a parameter to indicates the size of button.
 			If it has true value, diameter of this button is 60px.
