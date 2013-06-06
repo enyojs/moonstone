@@ -89,7 +89,9 @@ enyo.kind({
 
 		if (panels.length > index) {
 			panels[index].destroy();
-			inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+			if (panels.length > index) {
+				inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+			}
 		}
 		oPanel = this.createComponent(inInfo, inMoreInfo);
 		oPanel.render();
