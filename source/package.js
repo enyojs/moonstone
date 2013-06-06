@@ -53,5 +53,6 @@ enyo.depends(
 	"SearchPanel.js",
 	"SearchHeader.js",
 	"Video.js",
-	"PreviewSlider.js"
+	"PreviewSlider.js",
+	"VideoPlayback.js"
 );

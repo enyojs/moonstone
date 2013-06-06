@@ -15,24 +15,7 @@ enyo.kind({
 	// classes: "moon-slider",
 	// spotlight: true,
 	published: {
-	// 	//* Position of slider, expressed as an integer between 0 and 100,
-	// 	//* inclusive
-	// 	value: 0,
-	// 	//* If true, current progress will be styled differently from rest of bar
-	// 	lockBar: true,
-	// 	//* If true, tapping on bar will change current position
-	// 	tappable: true,
-	// 	//* Color of value popup
-	// 	popupColor: "#ffb80d",
-	// 	//* When true, button is shown as disabled and does not generate tap events
-	// 	disabled: false,
-	// 	/**
-	// 		When true, knob and progress move with animation by clicking left/right
-	// 		direction key or by tapping the bar.
-	// 	*/
-	// 	animate: true,
-	// 	//* When false, the slider's popup bubble is displayed when slider is adjusted
-	// 	noPopup: false
+		//* enyo.Video object
 		video: null
 	},
 	// events: {
@@ -88,11 +71,30 @@ enyo.kind({
 			if (this.$["bgScreen"] !== undefined) {
 				this.$["bgScreen"].destroy();
 			}
-			this.video.container.createComponent({	name:"bgScreen", 
+			// this.video.container.$.previewContainer.createComponent({	name:"bgScreen",
+			// 						tag: "canvas",
+			// 						showing: false,
+			// 						classes: "moon-preview-screen",
+			// 						// controlParentName: "videoPlayback",
+			// 						container: this.video.container,
+			// 						parent: this.video.container,
+			// 						style: "margin-top:0px;margin-left:0px;"}, {owner: this});
+
+			// this.video.container.$.previewContainer.createComponent({	name:"bgScreen",
+			// 						tag: "canvas", 
+			// 						showing: false, 	
+			// 						classes: "moon-preview-screen",
+			// 						// controlParentName: "videoPlayback",
+			// 						container: this.video.container,
+			// 						parent: this.video.container,
+			// 						style: "margin-top:0px;margin-left:0px;"}, {owner: this});
+
+			this.video.container.createComponent({	name:"bgScreen",
 									tag: "canvas", 
 									showing: false, 
 									classes: "moon-preview-screen",
 									style: "margin-top:0px;margin-left:0px;"}, {owner: this});
+			
 			// this.video.applyStyle("z-index", -2);
 		}
 	},
@@ -207,19 +209,13 @@ enyo.kind({
 			this.video.pause();
 
 			var b = this.video.getBounds();
-			// this.$.previewScreen.setAttribute("top", b.top);
-			// this.$.previewScreen.setAttribute("left", b.left);
+			// var bs = this.video.container.$.bgScreen;
 			var bs = this.$.bgScreen;
-			// bs.setAttribute("top", b.top);
+			// this.log(bs);
 			bs.setAttribute("width", b.width);
 			bs.setAttribute("height", b.height);
-
 			bs.setBounds(b);
-			// bs.applyStyle("top", b.top + "px");
-			// bs.applyStyle("left", b.left + "px");
-			// bs.applyStyle("height", b.height + "px");
-			// bs.applyStyle("width", b.width + "px");
-
+	
 			var ctx = bs.hasNode().getContext("2d");
 			ctx.drawImage(this.video.hasNode() , 0, 0, b.width, b.height);
 
@@ -228,24 +224,6 @@ enyo.kind({
 
 		this.inherited(arguments);
 	},
-	// drag: function(inSender, inEvent) {
-	// 	if (this.dragging) {
-	// 		var v = this.calcKnobPosition(inEvent);
-	// 		v = (this.increment) ? this.calcIncrement(v) : v;
-	// 		v = this.clampValue(this.min, this.max, v);
-	// 		var p = this.calcPercent(v);
-
-	// 		this.updateKnobPosition(p);
-
-	// 		if (this.lockBar) {
-	// 			this.setProgress(v);
-	// 		}
-
-	// 		this.sendChangingEvent({value: v});
-
-	// 		return true;
-	// 	}
-	// },
 	drag: function(inSender, inEvent) {
 		if (this.dragging && this.video.hasNode()) {
 			var v = this.calcKnobPosition(inEvent);
@@ -256,43 +234,21 @@ enyo.kind({
 			var t = d * p / 100;
 			this.video.setCurrentTime(t);
 
-			this.log(t + " : " + this.video.getCurrentTime());
+			// this.log(t + " : " + this.video.getCurrentTime());
 		}
 
 		this.inherited(arguments);
 	},
-	// dragfinish: function(inSender, inEvent) {
-	// 	if (this.disabled) {
-	// 		return;	// return nothing
-	// 	}
-	// 	var v = this.calcKnobPosition(inEvent);
-	// 	v = (this.increment) ? this.calcIncrement(v) : v;
-	// 	this._setValue(v);
-
-	// 	this.dragging = false;
-
-	// 	inEvent.preventTap();
-
-	// 	this.$.knob.removeClass("active");
-	// 	this.hideKnobStatus();
-	// 	return true;
-	// },
 	dragfinish: function(inSender, inEvent) {
 		this.inherited(arguments);
 
 		if (this.video !== null) {
+			// var bs = this.video.container.$.bgScreen;
+			var bs = this.$.bgScreen;
 			this.video.play();
-			this.$.bgScreen.setShowing(false);
+			bs.setShowing(false);
 		}
 	},
-	// tap: function(inSender, inEvent) {
-	// 	if (this.tappable && !this.disabled) {
-	// 		var v = this.calcKnobPosition(inEvent);
-	// 		v = (this.increment) ? this.calcIncrement(v) : v;
-	// 		this.setValue(v);
-	// 		return true;
-	// 	}
-	// },
 	tap: function(inSender, inEvent) {
 		this.inherited(arguments);
 
@@ -317,73 +273,8 @@ enyo.kind({
 	// 		node: this.hasNode()
 	// 	});
 	// },
+
 	//* @protected
-	// animatorStep: function(inSender) {
-	// 	var v = this.clampValue(this.min, this.max, inSender.value),
-	// 		p = this.calcPercent(v);
-
-	// 	this.updateKnobPosition(p);
-
-	// 	if (this.lockBar) {
-	// 		this.setProgress(v);
-	// 	}
-
-	// 	this.sendChangingEvent({value: v});
-	// 	return true;
-	// },
-	// animatorComplete: function(inSender) {
-	// 	this._setValue(inSender.value);
-	// 	this.animatingTo = null;
-	// 	this.doAnimateFinish(inSender);
-	// 	return true;
-	// },
-	// spotFocus: function() {
-	// 	return;
-	// },
-	// spotSelect: function() {
-	// 	var sh = this.$.popup.getShowing();
-	// 	this.$.knob.addRemoveClass("spotselect", !sh);
-	// 	if (!this.noPopup) {
-	// 		this.$.popup.setShowing(!sh);
-	// 	}
-	// 	this.selected = !sh;
-
-	// 	return true;
-	// },
-	// spotBlur: function() {
-	// 	if (this.dragging) {
-	// 		return true;
-	// 	} else {
-	// 		this.$.knob && this.$.knob.removeClass("spotselect");
-	// 		this.$.popup && this.$.popup.hide();
-	// 		this.selected = false;
-	// 	}
-	// },
-	// spotLeft: function(inSender, inEvent) {
-	// 	if (this.selected) {
-	// 		// If in the process of animating, work from the previously set value
-	// 		var v = this.getValue() - (this.increment || 1);
-	// 		this.setValue(v);
-	// 		return true;
-	// 	}
-	// },
-	// spotRight: function(inSender, inEvent) {
-	// 	if (this.selected) {
-	// 		var v = this.getValue() + (this.increment || 1);
-	// 		this.setValue(v);
-	// 		return true;
-	// 	}
-	// },
-	// showKnobStatus: function(inSender, inEvent) {
-	// 	if ((!this.disabled) && (!this.noPopup)) {
-	// 		this.$.popup.show();
-	// 	}
-	// },
-	// hideKnobStatus: function(inSender, inEvent) {
-	// 	if (!this.noPopup) {
-	// 		this.$.popup.hide();
-	// 	}
-	// },
 	showKnobStatus: function(inSender, inEvent) {
 		if (!this.noPopup && this.video !== null) {
 			var ctx = this.$.drawing.hasNode().getContext("2d");

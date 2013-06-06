@@ -26,7 +26,9 @@ enyo.kind({
 		//* if true, restart video playback from beginning when finished
 		loop: false,
 		//* (webOS only) if true, stretch the video to fill the entire window
-		fitToWindow: false
+		fitToWindow: false,
+		width: 640,
+		height: 360
 	},
 	// components: [
 	// 	{name: "screen", tag: "canvas", showing: false, style: "position: absolute; z-index: 5;top: 0px;"}
@@ -45,6 +47,9 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 
+		this.widthChanged();
+		this.heightChanged();
+
 		enyo.makeBubble(this, "timeupdate");
 
 		// delayed until here because we need the node to be created 
@@ -59,6 +64,18 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.node.load();
 		}
+	},
+	widthChanged: function() {
+		this.setAttribute("width", this.width + "px");
+	},
+	heightChanged: function() {
+		this.setAttribute("height", this.height + "px");
+		// var n = this.hasNode();
+		// if (n) {
+		// 	var or = n.videoWidth / n.videoHeight;
+		// 	var tr = this.width / this.height;
+		// 	enyo.dom.transform(this.$.video, {scaleY: or/tr});
+		// }
 	},
 	posterChanged: function() {
 		if (this.poster) {
