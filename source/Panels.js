@@ -31,6 +31,7 @@ enyo.kind({
 	draggable: false,
 	panelCoverRatio: 1,				// 0 ~ 1
 	showFirstBreadcrumb: false,		// none: false, activity: true, alwayson: false
+	arrangerKind: "moon.BreadcrumbArranger",
 
 	/************ PROTECTED **********/
 
@@ -202,10 +203,13 @@ enyo.kind({
 		_preTransitionWaitList_.
 	*/
 	triggerPanelPreTransitions: function() {
-		var panels = this.getPanels();
+		var panels = this.getPanels(),
+			options = {};
+
 		this.preTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex)) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex, options)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
@@ -234,10 +238,12 @@ enyo.kind({
 	},
 
 	triggerPanelPostTransitions: function() {
-		var panels = this.getPanels();
+		var panels = this.getPanels(),
+			options = {};
 		this.postTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex)) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex, options)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}
@@ -262,27 +268,23 @@ enyo.kind({
 	postTransitionComplete: function() {
 		// TODO - something here?
 	},
+	getTransitionOptions: function(fromIndex, toIndex) {
+		if (this.layout.getTransitionOptions) {
+			return this.layout.getTransitionOptions(fromIndex, toIndex);
+		} else {
+			return {};
+		}
+	},
 	_applyPattern: function() {
 		switch (this.pattern) {
 			case "none":
-				this.arrangerKind = "enyo.CarouselArranger";
-				this.panelCoverRatio = 1;
-				this.showFirstBreadcrumb = false;
-				this.defalutKind = "enyo.Panel";
 				break;
 			case "alwayson":
-				this.arrangerKind = "moon.BreadcrumbArranger";
-				this.panelCoverRatio = 1;
-				this.showFirstBreadcrumb = false;
 				this.addClass("panels-50-percent-scrim");
-				this.defalutKind = "moon.Panel";
 				break;
 			case "activity":
 			default:
-				this.arrangerKind = "moon.BreadcrumbArranger";
-				this.panelCoverRatio = 1;
 				this.showFirstBreadcrumb = true;
-				this.defalutKind = "moon.Panel";
 		}
 	}
 });
