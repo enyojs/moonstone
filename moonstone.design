@@ -1,0 +1,24 @@
+{
+    "palette": [
+        {
+            "name": "moonstone",
+            "items": [
+                {
+                    "name": "moon.Accordion",
+                    "kind": "moon.Accordion",
+                    "description": "An accordion component",
+                    "config": {
+                        "kind": "moon.Accordion",
+                        "open": true,
+                        "content": "Accordion",
+                        "components": [
+                            {"kind": "moon.Item", "content": "item 1"},
+                            {"kind": "moon.Item", "content": "item 2"},
+                            {"kind": "moon.Item", "content": "item 3"}
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
