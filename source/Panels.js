@@ -88,6 +88,20 @@ enyo.kind({
 			panels[panels.length - 1].destroy();
 		}
 	},
+	replacePanel: function(index, inInfo, inMoreInfo) {
+		var panels = this.getPanels(),
+			oPanel = null;
+
+		if (panels.length > index) {
+			panels[index].destroy();
+			if (panels.length > index) {
+				inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+			}
+		}
+		oPanel = this.createComponent(inInfo, inMoreInfo);
+		oPanel.render();
+		this.resized();
+	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 
