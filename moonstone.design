@@ -17,6 +17,15 @@
                             {"kind": "moon.Item", "content": "item 3"}
                         ]
                     }
+                },
+                {
+                    "name": "moon.Button",
+                    "kind": "moon.Button",
+                    "description": "A button component",
+                    "config": {
+                        "kind": "moon.Button",
+                        "content": "Moonstone"
+                    }
                 }
             ]
         }
