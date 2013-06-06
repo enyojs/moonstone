@@ -128,7 +128,7 @@ enyo.kind({
                             components: [
                                 {
                                     name: "item",
-                                    kind: "moon.LabeledCheckbox"
+                                    kind: "moon.CheckboxItem"
                                 },
                                 {
                                     name: "picker2",

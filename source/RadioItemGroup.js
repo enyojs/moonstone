@@ -1,24 +1,24 @@
 /**
-	_moon.RadioButtonGroup_ is a container in which a group of
-	<a href="#moon.RadioButton">moon.RadioButton</a> objects are laid out
+	_moon.RadioItemGroup_ is a container in which a group of
+	<a href="#moon.RadioItem">moon.RadioItem</a> objects are laid out
 	horizontally. Within a given button group, tapping on one button will release
 	any previously-tapped button.
 
-		{kind: "moon.RadioButtonGroup", onActivate: "buttonActivated", components: [
+		{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
 			{content: "Cats", active: true},
 			{content: "Dogs"},
 			{content: "Bears"}
 		]}
 */
 enyo.kind({
-	name: "moon.RadioButtonGroup",
+	name: "moon.RadioItemGroup",
 	kind: "enyo.Group",
 	published: {
 		//* CSS classes to be applied to selected bar
 		barClasses: ""
 	},
 	//* @protected
-	classes: "enyo-tool-decorator moon-radio-button-group",
+	classes: "enyo-tool-decorator moon-radio-item-group",
 	handlers: {
 		onActivate: "activate",
 		onSpotlightFocus : "spotFocus",
@@ -28,7 +28,7 @@ enyo.kind({
 		{kind: "enyo.Control", name: "bar", classes: "moon-button-bar"},
 		{kind: "enyo.Animator", onStep: "animatorStep", onEnd: "animatorEnd"}
 	],
-	defaultKind: "moon.RadioButton",
+	defaultKind: "moon.RadioItem",
 	componentsRendered: false,
 	lastBarPos: 0,
 	create: function() {
@@ -62,7 +62,7 @@ enyo.kind({
 	calcBarValue: function(activeItem) {
 		var differential, xPos;
 		if ((this.active) && (this.componentsRendered)) {
-			if (this.active.kind === "moon.RadioButton") {
+			if (this.active.kind === "moon.RadioItem") {
 				this.$.bar.applyStyle("width", activeItem.contentWidth + "px");
 				// IE8 doesn't return getBoundingClientRect().width, so we calculate from right/left. Who cares ... it's IE8 ... I know
 				//var differential = activeItem.hasNode().getBoundingClientRect().width - activeItem.contentWidth;

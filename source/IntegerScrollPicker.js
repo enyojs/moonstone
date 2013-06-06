@@ -65,10 +65,10 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.rangeChanged();
 	},
 	rendered: function(){
 		this.inherited(arguments);
+		this.rangeChanged();
 		this.updateScrollBounds();
 		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
