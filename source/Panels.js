@@ -36,7 +36,7 @@ enyo.kind({
 	/************ PROTECTED **********/
 
 	create: function(oSender, oEvent) {
-		this.applyPattern();
+		this._applyPattern();
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
@@ -275,13 +275,12 @@ enyo.kind({
 			return {};
 		}
 	},
-	applyPattern: function() {
-		enyo.log(this.arrangerKind)
+	_applyPattern: function() {
 		switch (this.pattern) {
 			case "none":
 				break;
 			case "alwayson":
-				this.panelCoverRatio = 0.5;
+				this.addClass("panels-50-percent-scrim");
 				break;
 			case "activity":
 			default:

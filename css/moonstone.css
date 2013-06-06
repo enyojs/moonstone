@@ -1862,6 +1862,12 @@ PageControl's use of IconButtons
   overflow: hidden;
   position: relative;
 }
+body .enyo-fit.panels-50-percent-scrim,
+.panels-50-percent-scrim {
+  left: 50%;
+  overflow: visible;
+  background-color: rgba(100, 100, 100, 0.5);
+}
 .moon-accordion {
   padding: 0px 16px 0px 0px;
   margin: 0px;
