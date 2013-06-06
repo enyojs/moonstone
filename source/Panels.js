@@ -35,7 +35,7 @@ enyo.kind({
 	/************ PROTECTED **********/
 
 	create: function(oSender, oEvent) {
-		this.applyPattern();
+		this._applyPattern();
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
@@ -248,7 +248,7 @@ enyo.kind({
 	postTransitionComplete: function() {
 		// TODO - something here?
 	},
-	applyPattern: function() {
+	_applyPattern: function() {
 		switch (this.pattern) {
 			case "none":
 				this.arrangerKind = "enyo.CarouselArranger";
@@ -258,8 +258,9 @@ enyo.kind({
 				break;
 			case "alwayson":
 				this.arrangerKind = "moon.BreadcrumbArranger";
-				this.panelCoverRatio = 0.5;
+				this.panelCoverRatio = 1;
 				this.showFirstBreadcrumb = false;
+				this.addClass("panels-50-percent-scrim");
 				this.defalutKind = "moon.Panel";
 				break;
 			case "activity":
