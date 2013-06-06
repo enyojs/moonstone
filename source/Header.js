@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.Header",
-	classes: "moon-header",
+	classes: "moon-header moon-header-font",
 	style: "overflow: visible;",
 	published: {
 		//* The title for the header

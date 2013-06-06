@@ -8,7 +8,22 @@
 .moon {
 	font-family: @moon-font-family;
 	font-size: @moon-text-size;
+}
+
+.enyo-locale-non-latin .moon,
+.enyo-locale-non-latin input,
+.enyo-locale-non-latin textarea,
+.enyo-locale-non-latin button {
+	font-family: @moon-non-latin-font-family;
+}
+
+.moon-header-font {
+	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
+}
+
+.enyo-locale-non-latin .moon-header-font {
+	font-family: @moon-non-latin-font-family;
 }
 
 .moon-no-border {
@@ -60,21 +75,23 @@
 
 /* Individual widget CSS */
 @import "SimplePicker.less";
+@import "SimpleIntegerPicker.less";
 @import "Checkbox.less";
 @import "Divider.less";
 @import "ToggleButton.less";
-@import "LabeledCheckbox.less";
-@import "LabeledToggleButton.less";
+@import "CheckboxItem.less";
+@import "ToggleItem.less";
 @import "Item.less";
 @import "SelectableItem.less";
 @import "Button.less";
 @import "Breadcrumb.less";
 @import "BreadcrumbDecorator.less";
 @import "CaptionDecorator.less";
-@import "RadioButton.less";
-@import "RadioButtonGroup.less";
+@import "RadioItem.less";
+@import "RadioItemGroup.less";
 @import "ExpandableListItem.less";
 @import "ExpandablePicker.less";
+@import "ExpandableIntegerPicker.less";
 @import "Header.less";
 @import "GridList.less";
 @import "PagingControl.less";
@@ -98,13 +115,16 @@
 @import "Spinner.less";
 @import "Panel.less";
 @import "Accordion.less";
-@import "Calendar.less";
+@import "CalendarPicker.less";
 @import "Table.less";
 @import "FittableLayout.less";
 @import "SearchHeader.less";
 @import "DrawerHandle.less";
 @import "Drawer.less";
 @import "Drawers.less";
+@import "Popup.less";
+@import "Dialog.less";
+@import "Tooltip.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
