@@ -1,27 +1,29 @@
 // Search.SearchDrawerSample
-
 enyo.kind({
     //* @public
     name: "moon.sample.search.SearchDrawerSample",
-    kind: "moon.Panel",
-    //* @protected
-    title: "Empty",
-    style: "background-color: #EAEAEA;",
-    headerComponents: [
-        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px;", src: "assets/trash-can-icon.png"}
-    ],
+    classes: "enyo-fit moon drawer-sample",
+    fit: true,
     components: [
-        {style: "position: absolute; top: -420px; left: -15px; right: -15px;", components:[
-            {name: "drawerContainer", kind: "enyo.Drawer", open: false, style: "position: absolute; top: 0px;", components: [
-                {name: "drawer", kind: "moon.sample.search.SearchDrawer"}
-            ]},
-            {classes: "drawer-close-container", style: "position: absolute; top: 0px;", ontap:"activateDrawer", components: [
-                {classes: "drawer-close-box", spotlight: true, components: [
-                    {name: "closeText", tag: "p", content: "CLOSE", showing: false, classes: "drawer-close-content text"},
-                    {name: "searchIcon", tag: "img", src:"../samples/assets/search-input-search.png", classes: "drawer-close-content img"}
-                ]}
-            ]},
-        ]},
+        {kind: "enyo.Spotlight"},
+		{kind:"moon.Drawers", drawers:[
+				{name:"searchDrawer", kind:"moon.Drawer",
+					handle: {kind:"moon.DrawerHandle", content:"SEARCH"},
+					components:[{name: "drawer", kind: "moon.sample.search.SearchDrawer"}]
+				}
+			],
+			components: [
+				{
+				    kind: "moon.Panel",
+					classes: "enyo-fit", 
+				    //* @protected
+				    title: "Empty",
+				    style: "background-color: #EAEAEA;",
+				    headerComponents: [
+				        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px;", src: "assets/trash-can-icon.png"}
+				    ]
+				}
+		]}	
     ],
     bindings: [
         {from: ".controller.title1", to: "$.drawer.$.title1.content"},
@@ -37,24 +39,11 @@ enyo.kind({
         {from: ".controller.recentSearchResults5", to: "$.drawer.$.recentSearchResults5.controller"},
         {from: ".controller.recentSearchResults6", to: "$.drawer.$.recentSearchResults6.controller"},
         {from: ".controller.instantSearchResults", to: "$.drawer.$.instantSearchResults.controller"}
-    ],
-
-    //* @public
-
-    activateDrawer: function() {
-        this.$.drawerContainer.setOpen(!this.$.drawerContainer.open);
-        if(this.$.drawerContainer.open){
-            this.$.closeText.setShowing(true);
-            this.$.searchIcon.setShowing(false);
-        } else {
-            this.$.closeText.setShowing(false);
-            this.$.searchIcon.setShowing(true);
-        }
-    },
+    ]
 });
 
-// Search.SearchDrawer
 
+// Search.SearchDrawer
 enyo.kind({
     //* @public
     name: "moon.sample.search.SearchDrawer",
