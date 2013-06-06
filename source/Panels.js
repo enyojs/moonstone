@@ -31,6 +31,7 @@ enyo.kind({
 	draggable: false,
 	panelCoverRatio: 1,				// 0 ~ 1
 	showFirstBreadcrumb: false,		// none: false, activity: true, alwayson: false
+	arrangerKind: "moon.BreadcrumbArranger",
 
 	/************ PROTECTED **********/
 
@@ -275,25 +276,16 @@ enyo.kind({
 		}
 	},
 	applyPattern: function() {
+		enyo.log(this.arrangerKind)
 		switch (this.pattern) {
 			case "none":
-				this.arrangerKind = "enyo.CarouselArranger";
-				this.panelCoverRatio = 1;
-				this.showFirstBreadcrumb = false;
-				this.defalutKind = "enyo.Panel";
 				break;
 			case "alwayson":
-				this.arrangerKind = "moon.BreadcrumbArranger";
 				this.panelCoverRatio = 0.5;
-				this.showFirstBreadcrumb = false;
-				this.defalutKind = "moon.Panel";
 				break;
 			case "activity":
 			default:
-				this.arrangerKind = "moon.BreadcrumbArranger";
-				this.panelCoverRatio = 1;
 				this.showFirstBreadcrumb = true;
-				this.defalutKind = "moon.Panel";
 		}
 	}
 });
