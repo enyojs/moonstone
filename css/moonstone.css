@@ -963,6 +963,10 @@
   position: absolute;
   bottom: 0px;
   right: 0px;
+  margin-bottom: 10px;
+}
+.moon-header-client > * {
+  margin-left: 10px;
 }
 /*
 	Put anything you reference with "url()" in ../assets/
