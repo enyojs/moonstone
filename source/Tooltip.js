@@ -70,7 +70,7 @@ enyo.kind({
 	adjustPosition: function(belowActivator) {
 		if (this.showing && this.hasNode()) {
 			var b = this.node.getBoundingClientRect();
-			
+
 			//when the tooltip bottom goes below the window height move it above the decorator
 			if (b.top + b.height > window.innerHeight) {
 				this.addRemoveClass("below", false);
@@ -81,7 +81,7 @@ enyo.kind({
 				this.addRemoveClass("below", true);
 				this.applyStyle("top", "100%");
 			}
-			
+
 			// FIXME: Leaving the following commented until verification from UX
 			//when the tooltip top goes above the window height move it below the decorator
 			/*

@@ -43,18 +43,18 @@ enyo.kind({
 			var b = this.getBounds();
 			var ob;
 			switch (this.spotlightPosition) {
-				case "top":
-					ob = {width: b.width};
-					break;
-				case "bottom":
-					ob = {width: b.width, bottom: 0};
-					break;
-				case "left":
-					ob = {height: b.height};
-					break;
-				case "right":
-					ob = {height: b.height, right: 0};
-					break;
+			case "top":
+				ob = {width: b.width};
+				break;
+			case "bottom":
+				ob = {width: b.width, bottom: 0};
+				break;
+			case "left":
+				ob = {height: b.height};
+				break;
+			case "right":
+				ob = {height: b.height, right: 0};
+				break;
 			}
 			this.$.overlay.setBounds(ob);
 		}

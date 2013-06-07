@@ -277,14 +277,15 @@ enyo.kind({
 	},
 	_applyPattern: function() {
 		switch (this.pattern) {
-			case "none":
-				break;
-			case "alwayson":
-				this.addClass("panels-50-percent-scrim");
-				break;
-			case "activity":
-			default:
-				this.showFirstBreadcrumb = true;
+		case "none":
+			break;
+		case "alwayson":
+			this.addClass("panels-50-percent-scrim");
+			break;
+		case "activity":
+			/* falls through */
+		default:
+			this.showFirstBreadcrumb = true;
 		}
 	}
 });

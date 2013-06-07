@@ -77,7 +77,7 @@ enyo.kind({
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", highlander: true},
 			{name: "helpText", classes: "moon-expandable-picker-help-text"}
-		]},		
+		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
 		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
@@ -138,7 +138,7 @@ enyo.kind({
 	helpTextChanged: function() {
 		this.inherited(arguments);
 		this.$.helpText.setContent(this.helpText);
-		this.$.helpText.setShowing(!!this.helpText);	
+		this.$.helpText.setShowing(!!this.helpText);
 	},
 	/*
 		When the picker is initialized, looks for any items with an _active:true_
