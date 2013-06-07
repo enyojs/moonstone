@@ -26,6 +26,29 @@
                         "kind": "moon.Button",
                         "content": "Moonstone"
                     }
+                },
+                {
+                    "name": "moon.CheckboxItem(Single)",
+                    "kind": "moon.CheckboxItem",
+                    "description": "A single checkbox item",
+                    "config": {
+                        "kind": "moon.CheckboxItem",
+                        "content": "Option",
+                        "checked": true
+                    }
+                },
+                {
+                    "name": "moon.CheckboxItem(Group)",
+                    "kind": "Group",
+                    "description": "A group checkbox item",
+                    "config": {
+                        "kind": "Group",
+                        "components": [
+                            {"kind": "moon.CheckboxItem", "content": "Option 1"},
+                            {"kind": "moon.CheckboxItem", "content": "Option 2", "checked": true},
+                            {"kind": "moon.CheckboxItem", "content": "Option 3"}
+                        ]
+                    }
                 }
             ]
         }
