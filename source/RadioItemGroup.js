@@ -106,7 +106,7 @@ enyo.kind({
 		     (!this.$.bar.hasClass("spotlight")))
 		{
 			this.$.bar.addClass("spotlight");
-		}		
+		}
 	},
 	spotBlur: function(inSender, inEvent) {
 		if ( (this.active == inEvent.originator) &&

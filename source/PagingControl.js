@@ -21,7 +21,7 @@ enyo.kind({
 	events: {
 		onPaginate: "",
 		onPageHold: "",
-		onPageHoldPulse: "",		
+		onPageHoldPulse: "",
 		onPageRelease: ""
 	},
 	create: function() {
@@ -59,8 +59,8 @@ enyo.kind({
 	//* Overrides default focused handling to make sure scroller doesn't scroll to
 	//* this button.
 	noop: function() { return true; },
-	/** 
-		Handle auto page scrolling on hold events. Main reason we don't use the existing mouse hold 
+	/**
+		Handle auto page scrolling on hold events. Main reason we don't use the existing mouse hold
 		implementation in drag.js is that holdPulseDelay is global and we need a custom rate here.
 	**/
 	beginHold: function(e) {

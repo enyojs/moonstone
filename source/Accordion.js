@@ -3,7 +3,7 @@ enyo.kind({
 	kind: "moon.ExpandableListItem",
 	classes: "moon-accordion",
 	published: {
-		//* True if the item is currently selected				
+		//* True if the item is currently selected
 	    active: false,
 		/**
 			If true, the drawer automatically closes when the user navigates to the

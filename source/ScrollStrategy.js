@@ -11,8 +11,8 @@ enyo.kind({
 	handlers: {
 		onscrollstart: "scrollStart"
 	},
-	/** 
-		Keeps track of desired scroll position on pagination since ScrollMath doesn't keep it. 
+	/**
+		Keeps track of desired scroll position on pagination since ScrollMath doesn't keep it.
 		Tracking horizontal & vertical for Scroller which can move both ways in one instance.
 	*/
 	pos: {top: null, left: null},
@@ -31,7 +31,7 @@ enyo.kind({
 	initComponents: function() {
 		this.createPageControls();
 		this.inherited(arguments);
-		this.createComponents([{kind: "Signals", onSpotlightModeChanged: "showHidePageControls"}]);		
+		this.createComponents([{kind: "Signals", onSpotlightModeChanged: "showHidePageControls"}]);
 	},
 	//* Creates _this.pageControls_ as chrome components.
 	createPageControls: function() {
@@ -150,25 +150,25 @@ enyo.kind({
 	},
 	autoScroll: function(inEvent){
 		var sb = this.getScrollBounds(),
-		orientV = this.vertical != "hidden" && 
-				  (inEvent.originator.side == "top" || 
+		orientV = this.vertical != "hidden" &&
+				  (inEvent.originator.side == "top" ||
 				  inEvent.originator.side == "bottom");
-	
+
 		if (orientV && !this.pos.top) {
 			this.pos.top = sb.top;
 		} else if (!this.pos.left) {
-			this.pos.left = sb.left;			
+			this.pos.left = sb.left;
 		}
 		switch (inEvent.originator.side) {
-			case "left": 
+			case "left":
 				this.pos.left = this.pos.left - this.pageSize;
-				break;			
+				break;
 			case "top":
 				this.pos.top = this.pos.top - this.pageSize;
 				break;
 			case "right":
 				this.pos.left = this.pos.left + this.pageSize;
-				break;			
+				break;
 			case "bottom":
 				this.pos.top = this.pos.top + this.pageSize;
 				break;

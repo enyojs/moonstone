@@ -5,11 +5,11 @@
 	at the top right of the view. When they are selected they will open their corresponding
 	<a href="#moon.Drawer">moon.Drawer's</a> main drawer or control drawer depending on it's
 	configuration.
-	
+
 	The control's child components may be of any kind.
 
 	{kind:"moon.Drawers", drawers:[
-		{name:"musicDrawer", kind: "moon.Drawer", 
+		{name:"musicDrawer", kind: "moon.Drawer",
 			handle: {kind:"moon.DrawerHandle", content:"Handle"},
 		 	components: [
 				{content:"Drawer Content"}
@@ -55,7 +55,7 @@ enyo.kind({
 		var handles = [];
 		for (index in this.drawers){
 			handles.push(this.drawers[index].handle);
-		}		
+		}
 		this.$.handleContainer.createComponents(handles, {owner:this});
 		for (index in handles) {
 			this.$.handleContainer.getControls()[index].addClass('moon-drawers-handle');
@@ -68,7 +68,7 @@ enyo.kind({
 		var handles = this.$.handleContainer.getControls();
 		for (index in handles)
 		{
-			if (handles[index] == inEvent.originator || 
+			if (handles[index] == inEvent.originator ||
 				enyo.Spotlight.Util.isChild(handles[index],inEvent.originator)) {
 				var drawer = this.$.drawers.getControls()[index];
 				drawer.toggleDrawer();
@@ -84,7 +84,7 @@ enyo.kind({
 				if (drawers[index].controlDrawerComponents !== null && drawers[index].getControlsOpen()) {
 					enyo.Spotlight.spot(drawers[index].$.controlDrawer);
 				} else {
-					enyo.Spotlight.spot(this.$.handleContainer);	
+					enyo.Spotlight.spot(this.$.handleContainer);
 				}
 			}
 		}
@@ -123,7 +123,7 @@ enyo.kind({
 		//if at the top of a drawer then move focus to the close handle
 		var drawers = this.$.drawers.getControls();
 		for (index in drawers) {
-			if (drawers[index].getOpen()) {				
+			if (drawers[index].getOpen()) {
 				if (drawers[index].$.client == inEvent.originator) {
 					enyo.Spotlight.spot(this.$.closeContainer);
 					return true;
@@ -135,22 +135,22 @@ enyo.kind({
 		}
 	},
 	spotDown: function(inSender, inEvent) {
-		//if they hit down while on the close handle		
+		//if they hit down while on the close handle
 		if (inEvent.originator == this.$.closeContainer) {
 			var drawers = this.$.drawers.getControls();
 			for (index in drawers) {
-				if (drawers[index].getOpen()) {					
+				if (drawers[index].getOpen()) {
 					enyo.Spotlight.spot(drawers[index].$.client);
 					return true;
 				}
 			}
 		}
-		
+
 		//if they hit down while on one of the drawer handles
 		if (enyo.Spotlight.Util.isChild(this.$.handleContainer,inEvent.originator)) {
 			enyo.Spotlight.spot(this.$.client);
 		}
-		
+
 		//if at the bottom a drawer then stop them from going further
 		var drawers = this.$.drawers.getControls();
 		for (index in drawers) {

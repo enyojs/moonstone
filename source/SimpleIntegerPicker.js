@@ -39,7 +39,7 @@
 enyo.kind({
 	name: "moon.SimpleIntegerPicker",
 	classes: "moon-simple-integer-picker",
-	spotlight:true, 
+	spotlight:true,
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -51,7 +51,7 @@ enyo.kind({
 			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: "",
-		onSelect: "" 
+		onSelect: ""
 	},
 	handlers: {
 		onTransitionStart: "transitionStart",
@@ -64,7 +64,7 @@ enyo.kind({
 		onSpotlightLeft: "previous",
 		onSpotlightScrollLeft: "previous",
 		onSpotlightScrollRight: "next"
-	},	
+	},
 	published: {
 		//* When true, picker transitions animate left/right
 		animate:true,
@@ -87,7 +87,7 @@ enyo.kind({
 		{name:"rightOverlay", classes:"moon-scroll-picker-overlay-container-right", showing:false, components:[
 			{classes:"moon-scroll-picker-overlay-right"},
 			{classes:"moon-scroll-picker-overlay-right-border"}
-		]},	
+		]},
 		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:"<", ontap:"previous", name:"buttonLeft"},
 		{kind:"enyo.Panels", classes:"moon-simple-integer-picker-client", controlClasses:"moon-simple-integer-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client"},
 		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:">", ontap:"next", name:"buttonRight"}
@@ -127,7 +127,7 @@ enyo.kind({
 	},
 	reflow: function() {
 		this.inherited(arguments);
-		
+
 		// Find max width of all children
 		if (this.getAbsoluteShowing()) {
 			var width = 0;
@@ -139,7 +139,7 @@ enyo.kind({
 				c$[i].setBounds({width:width});
 			}
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});			
+			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
 
 		// Make sure selected item is in sync after Panels reflow, which may have
@@ -162,7 +162,7 @@ enyo.kind({
 	},
 	transitionFinished: function(inSender, inEvent) {
 		this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-		this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;		
+		this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;
 		this.fireChangedEvent();
 		this.hideOverlay();
 		return true;
@@ -171,12 +171,12 @@ enyo.kind({
 		this.hideOverlay();
 	},
 	fireSelectEvent: function () {
-		if (this._rendered) {	
-			var _this = this;	
+		if (this._rendered) {
+			var _this = this;
 			this.doSelect({
 				content: _this.content,
 				value: _this.value
-			});		
+			});
 		}
 	},
 	fireChangedEvent: function() {

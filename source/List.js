@@ -26,8 +26,8 @@ enyo.kind({
 		onmousemove: "mousemove",
 		onPaginate: "paginate",
 		onPageHold: "holdHandler",
-		onPageHoldPulse: "holdHandler",		
-		onPageRelease: "holdHandler"		
+		onPageHoldPulse: "holdHandler",
+		onPageRelease: "holdHandler"
 	},
 	touch: true,
 	spotlight: true,
@@ -49,8 +49,8 @@ enyo.kind({
 	},
 	scrollStart: function() {
 		this.$.strategy.scrollStart();
-		this.inherited(arguments);		
-	},	
+		this.inherited(arguments);
+	},
 	holdHandler: function(inSender, inEvent) {
 		//Create a job to prevent pagination on tap if the intention is to auto scroll on hold
 		if (inEvent.type == 'pagehold') {
@@ -63,7 +63,7 @@ enyo.kind({
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){
-			this.stopJob('preventPaginate');			
+			this.stopJob('preventPaginate');
 			this.preventPaginate = false;
 			return;
 		}

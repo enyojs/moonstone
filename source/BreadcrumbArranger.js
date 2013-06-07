@@ -8,44 +8,44 @@ enyo.kind({
 			panels = this.container.getPanels(),
 			joinedPanels,
 			i;
-		
+
 		// Setup default widths for each panel
 		for (i = 0; i < panels.length; i++) {
 			// If panels have already been stretched, unstretch them before doing calculations
 			if (panels[i].actualWidth) {
 				panels[i].applyStyle("width", panels[i].width + "px");
 			}
-			
+
 			panels[i].actualWidth = null;
 			panels[i].width = panels[i].getBounds().width;
 		}
-		
+
 		// Calculate which panels will be joined
 		joinedPanels = this.calculateJoinedPanels(containerWidth);
-		
+
 		// Stretch all panels to fit vertically
 		this.applyVerticalFit();
-		
+
 		// Reset panel arrangement positions
 		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, joinedPanels);
 		this.adjustTransitionPositionsForJoinedPanels(joinedPanels);
-		
+
 		// Update individual panel widths to account for _joinedPanels_
 		this.updateWidths(containerWidth, joinedPanels);
 		this.applyUpdatedWidths();
-		
+
 		// Calculate _this.breadcrumbPositions_
 		this.calcBreadcrumbPositions(joinedPanels);
-		
+
 		this.debug && console.log("transitionPositions:", this.container.transitionPositions);
 		this.debug && console.log("breadcrumbPositions:", this.breadcrumbPositions);
 	},
 	calculateJoinedPanels: function(inContainerWidth) {
 		inContainerWidth = inContainerWidth || this.getContainerWidth();
-		
+
 		var panels = this.container.getPanels(),
 			joinedPanels = {};
-		
+
 		for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 			for (var index = 0; index < panels.length; index++) {
 				if (panelIndex > index) {
@@ -53,25 +53,25 @@ enyo.kind({
 				}
 			}
 		}
-		
+
 		return this.formatJoinedPanels(joinedPanels)
 	},
 	isPanelJoined: function(inPanelIndex, inIndex, inContainerWidth) {
 		inContainerWidth = inContainerWidth || this.getContainerWidth();
-		
+
 		var panels = this.container.getPanels(),
 			xPos = this.getBreadcrumbEdge(inIndex),
 			i = inPanelIndex;
-		
+
 		while(i > inIndex) {
 			if (!panels[i].joinToPrev) {
 				return false;
 			}
-			
+
 			xPos += panels[i].width;
 			i--;
 		}
-		
+
 		if(xPos + panels[inIndex].width > inContainerWidth) {
 			return false;
 		}
@@ -81,18 +81,18 @@ enyo.kind({
 	formatJoinedPanels: function(inJoinedPanels) {
 		var panels = this.container.getPanels(),
 			ret = [], i, j;
-		
+
 		for (i = 0; i < panels.length; i++) {
 			for (j = 0; j < panels.length; j++) {
 				if (!inJoinedPanels[i+"."+j]) {
 					continue;
 				}
-				
+
 				ret[i] = ret[i] || [];
 				ret[i].push(j);
 			}
 		}
-		
+
 		return ret;
 	},
 	calculateTransitionPositions: function(inContainerWidth, inJoinedPanels) {
@@ -100,13 +100,13 @@ enyo.kind({
 			tp = {},
 			panel,
 			index;
-		
+
 		for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 			for (var index = 0; index < panels.length; index++) {
 				tp[panelIndex + "." + index] = this.calculateXPos(panelIndex, index, inContainerWidth, inJoinedPanels);
 			}
 		}
-		
+
 		return tp;
 	},
 	calculateXPos: function(inPanelIndex, inIndex, inContainerWidth, inJoinedPanels) {
@@ -115,24 +115,24 @@ enyo.kind({
 			joined = false,
 			xPos,
 			i;
-		
+
 		// each active item should be at _breadcrumbEdge_
 		if (inIndex === inPanelIndex) {
 			return breadcrumbEdge;
-		
+
 		// breadcrumbed panels should be positioned to the left
 		} else if (inIndex > inPanelIndex) {
 			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth;
-		
+
 		// upcoming panels should be layed out to the right if _joinToPrev_ is true
 		} else {
 			// If this panel is not joined at this index, put it off the screen to the right
 			if (!inJoinedPanels[inPanelIndex] || inJoinedPanels[inPanelIndex].indexOf(inIndex) === -1) {
 				return inContainerWidth;
 			}
-			
+
 			xPos = breadcrumbEdge;
-			
+
 			i = inPanelIndex;
 			while (i > inIndex) {
 				if (panels[i - 1]) {
@@ -140,7 +140,7 @@ enyo.kind({
 				}
 				i--;
 			}
-			
+
 			return xPos;
 		}
 	},
@@ -153,12 +153,12 @@ enyo.kind({
 	adjustTransitionPositionsForJoinedPanels: function(inJoinedPanels) {
 		var tp = this.container.transitionPositions,
 			panels = this.container.getPanels();
-		
+
 		for (var i = panels.length; i >= 0; i--) {
 			if (!inJoinedPanels[i]) {
 				continue;
 			}
-			
+
 			for (var j = inJoinedPanels[i].length - 1; j >= 0; j--) {
 				for (var k = 0; k < panels.length; k++) {
 					tp[k+"."+i] = tp[k+"."+inJoinedPanels[i][j]];
@@ -170,15 +170,15 @@ enyo.kind({
 		var tp = this.container.transitionPositions,
 			panels = this.container.getPanels(),
 			diff;
-		
+
 		// Calculate stretched widths for panels at the end of given index
 		for (var i = 0; i < inJoinedPanels.length; i++) {
 			if (!inJoinedPanels[i]) {
 				continue;
 			}
-			
+
 			totalWidth = panels[i].width + this.getBreadcrumbEdge(inJoinedPanels[i][0]);
-			
+
 			// Add the width of each additional panel that is visible at this index
 			for (var j = 0; j < inJoinedPanels[i].length; j++) {
 				// If this panel is joined with another one that has already been stretched, reposition
@@ -190,13 +190,13 @@ enyo.kind({
 					totalWidth += panels[inJoinedPanels[i][j]].width;
 				}
 			}
-			
+
 			diff = inContainerWidth - totalWidth;
 			panels[i].actualWidth = panels[i].width + diff;
-			
+
 			this.debug && console.log(i, panels[i].width, "-->", panels[i].actualWidth);
 		}
-		
+
 		// Stretch all panels that should fill the whole width
 		for (var i = 0; i < panels.length; i++) {
 			if (!panels[i].actualWidth) {
@@ -220,17 +220,17 @@ enyo.kind({
 			isBreadcrumb,
 			index,
 			i;
-		
+
 		this.breadcrumbPositions = {};
-		
+
 		for (i = 0; i < panels.length; i++) {
 			for (index = 0; index < panels.length; index++) {
 				isBreadcrumb = false;
-				
+
 				if (index > i) {
 					isBreadcrumb = !(inJoinedPanels[index] && inJoinedPanels[index].indexOf(i) > -1);
 				}
-				
+
 				this.breadcrumbPositions[i+"."+index] = isBreadcrumb;
 			}
 		}
@@ -260,7 +260,7 @@ enyo.kind({
 		var c$ = this.container.getPanels();
 		var s = this.container.clamp(inName);
 		var i, c, xPos;
-		
+
 		for (i=0; (c=c$[i]); i++) {
 			xPos = this.container.transitionPositions[i + "." + s];
 			this.arrangeControl(c, {left: xPos});
@@ -292,7 +292,7 @@ enyo.kind({
 	applyVerticalFit: function() {
 		var panels = this.container.getPanels(),
 			padding = this.getContainerPadding();
-			
+
 		for (var i = 0, panel; (panel = panels[i]); i++) {
 			panel.setBounds({top: padding.top, bottom: padding.bottom});
 		}
