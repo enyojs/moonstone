@@ -12,9 +12,9 @@
                         "open": true,
                         "content": "Accordion",
                         "components": [
-                            {"kind": "moon.Item", "content": "item 1"},
-                            {"kind": "moon.Item", "content": "item 2"},
-                            {"kind": "moon.Item", "content": "item 3"}
+                            {"kind": "moon.Item", "content": "Item 1"},
+                            {"kind": "moon.Item", "content": "Item 2"},
+                            {"kind": "moon.Item", "content": "Item 3"}
                         ]
                     }
                 },
@@ -24,11 +24,11 @@
                     "description": "A button component",
                     "config": {
                         "kind": "moon.Button",
-                        "content": "Moonstone"
+                        "content": "Button"
                     }
                 },
                 {
-                    "name": "moon.CheckboxItem(Single)",
+                    "name": "moon.CheckboxItem",
                     "kind": "moon.CheckboxItem",
                     "description": "A single checkbox item",
                     "config": {
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "name": "moon.CheckboxItem(Group)",
+                    "name": "moon.CheckboxItem (Grouped)",
                     "kind": "Group",
                     "description": "A group checkbox item",
                     "config": {
