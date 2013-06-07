@@ -25,8 +25,7 @@ enyo.kind({
 				]
 			},
 			{name:"searchDrawer", kind:"moon.Drawer", classes:"search-drawer",
-				handle: {kind:"moon.DrawerHandle", content:"SEARCH"},
-				components:[{kind: "moon.sample.search.RecentSearchDrawerSample", style: "margin-top:25px;"}]
+				handle: {kind:"moon.DrawerHandle", content:"SEARCH"}
 			}
 			],
 			components: [
