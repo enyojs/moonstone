@@ -233,8 +233,6 @@ enyo.kind({
 
 			var t = d * p / 100;
 			this.video.setCurrentTime(t);
-
-			// this.log(t + " : " + this.video.getCurrentTime());
 		}
 
 		this.inherited(arguments);

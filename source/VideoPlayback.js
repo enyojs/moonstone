@@ -27,25 +27,31 @@ enyo.kind({
 	// 	onSpotlightFocus: "spotFocus",
 	},
 	components: [
-		// {kind: "enyo.Spotlight"},
-		// {name: "video", kind: "Video", src: "http://www.w3schools.com/html/movie.mp4", ontimeupdate:"timeupdate"},
-		{name: "video", kind: "enyo.Video", /*src: "http://www.w3schools.com/html/mov_bbb.mp4",*/ ontimeupdate:"timeupdate"},
-		// {name: "bgScreen", tag: "canvas", showing: false, classes: "moon-preview-screen"},
+		{name: "video", kind: "enyo.Video", classes: "moon-video-playback-video", ontimeupdate:"timeupdate"},
+		{name: "captionDisplay", classes: "moon-video-playback-caption-display", components: [
+			{name: "caption", content: "caption.....", classes: "moon-video-playback-caption"},
+		]},
+		{name: "spiner", /*showing: false,*/ components: [
+			{kind: "moon.Spinner", classes: "moon-light"}
+		]},
 		{name: "header",  layoutKind: enyo.HFlexLayout, classes: "moon-video-playback-header", components: [
-			{name: "details", content: "details"},
-			{name: "feedback", content: "feedback"}
+			{name: "details", flex: true, classes: "moon-video-playback-details", components: [{content: "details"}]},
+			{name: "feedback", classes: "moon-video-playback-feedback", components: [{content: "feedback"}]}
 		]},
 		{name: "bottom", classes: "moon-video-playback-bottom", components: [
-			{name: "controls", layoutKind: enyo.HFlexLayout, components: [
-				{name: "blank", style: "width: 200px;"},
-				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", flex: true, style:"height:100px;", components: [
-					{name: "trickPlay", content: "trickPlay", style: "height:100%; width:100%;"},
-					{name: "client", content: "additional", style: "height:100%; width:100%;"}
+			{layoutKind: enyo.HFlexLayout, components: [
+				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", flex: true, classes: "moon-video-playback-controller", components: [
+					{name: "trickPlay", layoutKind: "FittableColumnsLayout", classes: "enyo-center", components: [
+						{kind: "moon.Button", content: "Back"},
+						{kind: "moon.Button", content: "Play"},
+						{kind: "moon.Button", content: "Forward"},
+						
+					]},
+					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center"}
 				]},
 				{name: "more", kind: "moon.Button", content: "more", ontap: "tapHandler"},
-				{name: "blank2", style: "width: 100px;"}
 			]},
-			{name: "slider", kind: "moon.PreviewSlider", ondragstart: "previewDrag" /*classes:"moon-video-playback-slider", onChange: "sliderChanged"*/}
+			{name: "slider", kind: "moon.PreviewSlider", classes:"moon-video-playback-slider"/*,  ondragstart: "previewDrag", onChange: "sliderChanged"*/}
 		]}
 	],
 	create: function() {
@@ -69,14 +75,17 @@ enyo.kind({
 	},
 	widthChanged: function() {
 		this.$.video.setWidth(this.width);
-		// this.$.video.setAttribute("width", this.width + "px");
+		this.$.video.setAttribute("width", this.width + "px");
 	},
 	heightChanged: function() {
 		this.$.video.setHeight(this.height);
-		// this.$.video.setAttribute("height", this.height + "px");
+		this.$.video.setAttribute("height", this.height + "px");
 	},
 	timeupdate: function(inSender, inEvent) {
-		// this.log(inEvent);
+		var val = (inSender.getCurrentTime() / inSender.getDuration())*100;
+		if (!this.$.slider.dragging) {
+			this.$.slider.setValue(val);
+		}
 		return true;
 	},
 

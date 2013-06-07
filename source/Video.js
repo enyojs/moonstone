@@ -20,9 +20,9 @@ enyo.kind({
 		//* source of image file to show when video isn't available
 		poster: "",
 		//* if true, show controls for starting and stopping video playback
-		showControls: true,
+		showControls: false,
 		//* if true, video will automatically start
-		autoplay: false,
+		autoplay: true,
 		//* if true, restart video playback from beginning when finished
 		loop: false,
 		//* (webOS only) if true, stretch the video to fill the entire window
@@ -30,10 +30,6 @@ enyo.kind({
 		width: 640,
 		height: 360
 	},
-	// components: [
-	// 	{name: "screen", tag: "canvas", showing: false, style: "position: absolute; z-index: 5;top: 0px;"}
-	// 	// {name: "mediad", kind: "PalmService"} 
-	// ], 
 	//* @protected
 	tag: "video",
 	create: function() {
@@ -136,5 +132,11 @@ enyo.kind({
 		if ((typeof inTime === 'number') && this.hasNode()) {
 			this.node.currentTime = inTime;
 		}
+	},
+	getDuration: function() {
+		if (this.hasNode()) {
+			return this.node.duration;
+		}
+		return 0;
 	}
 });

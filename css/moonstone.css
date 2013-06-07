@@ -1354,6 +1354,83 @@ PageControl's use of IconButtons
 .moon-slider-nofocus {
   background-color: #69cdff;
 }
+.moon-preview-slider-popup {
+  position: absolute;
+  display: block;
+  z-index: 20;
+  left: 100px;
+  top: 0px;
+  width: 340px;
+  height: 270px;
+  padding-left: 0px;
+}
+/*.moon-slider-popup-label {
+	position: absolute;
+	top: 2px;
+	width: 60px;
+	height: 45px;
+	white-space: nowrap;
+	font-family: "PreludeWGL Medium";
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+	vertical-align: middle;
+	font-size: 14px;
+}*/
+.moon-preview-slider-popup.above {
+  top: -310px;
+  padding-left: 10px;
+}
+/*.moon-slider-popup-flip-h {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}*/
+.moon-preview-screen {
+  position: absolute;
+  /*	margin-top: 0px;
+	margin-left: 0px;*/
+
+  /*z-index: -1;*/
+
+}
+.moon-video-playback {
+  position: relative;
+  padding: 0px;
+  vertical-align: middle;
+}
+.moon-video-playback-video {
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.moon-video-playback-header {
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  z-index: 2;
+}
+.moon-video-playback-header > * {
+  margin: 10px 10px;
+}
+.moon-video-playback-details {
+  border: 1px solid;
+}
+.moon-video-playback-feedback {
+  border: 1px solid;
+}
+.moon-video-playback-bottom {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  z-index: 2;
+}
+.moon-video-playback-controller > * {
+  width: 100%;
+  height: 100%;
+}
 /* RichText.css */
 .moon-richtext {
   margin: 0px;

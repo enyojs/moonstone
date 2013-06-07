@@ -1,14 +1,55 @@
 .moon-video-playback {
-	;
+	position: relative;
+	padding: 0px;
+	vertical-align: middle;
+}
+
+.moon-video-playback-video {
+	text-align: center;	
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+.moon-video-playback-caption-display {
+	text-align: center;
+	position: absolute;
+}
+
+.moon-video-playback-caption {
+	display: block;
+	text-align: center;
 }
 
 .moon-video-playback-header {
 	position: absolute;
+	width: 100%;
 	top: 0px;
+	z-index: 2;
+}
+
+.moon-video-playback-header > * {
+	margin: @moon-grid-gutter-width @moon-grid-gutter-height;
+}
+
+.moon-video-playback-details {
+	border: 1px solid;
+}
+
+.moon-video-playback-feedback {
+	border: 1px solid;
 }
 
 .moon-video-playback-bottom {
 	position: absolute;
-	bottom: 50px;
-	width: 100%
+	width: 100%;
+	bottom: 0px;
+	width: 100%;
+	z-index: 2;
+}
+
+.moon-video-playback-controller > * {
+	width: 100%;
+	height: 100%;	
 }
