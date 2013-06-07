@@ -53,7 +53,7 @@ enyo.kind({
 	},
 	setupHandles: function() {
 		var handles = [];
-		for (index in this.drawers){
+		for (var index in this.drawers){
 			handles.push(this.drawers[index].handle);
 		}
 		this.$.handleContainer.createComponents(handles, {owner:this});
@@ -66,7 +66,7 @@ enyo.kind({
 	},
 	handleTapped: function(inSender, inEvent) {
 		var handles = this.$.handleContainer.getControls();
-		for (index in handles)
+		for (var index in handles)
 		{
 			if (handles[index] == inEvent.originator ||
 				enyo.Spotlight.Util.isChild(handles[index],inEvent.originator)) {
@@ -78,7 +78,7 @@ enyo.kind({
 	},
 	closeDrawer: function(inSender, inEvent) {
 		var drawers = this.$.drawers.getControls();
-		for (index in drawers){
+		for (var index in drawers){
 			if (drawers[index].getOpen()) {
 				drawers[index].setOpen(false);
 				if (drawers[index].controlDrawerComponents !== null && drawers[index].getControlsOpen()) {
@@ -92,7 +92,7 @@ enyo.kind({
 		return true;
 	},
 	clientTapped: function(inSender, inEvent) {
-		for (index in this.drawers)
+		for (var index in this.drawers)
 		{
 			var drawer = this.$.drawers.getControls()[index];
 			drawer.setControlsOpen(false);
@@ -100,7 +100,7 @@ enyo.kind({
 	},
 	drawerActivated: function(inSender, inEvent) {
 		var drawers = this.$.drawers.getControls();
-		for (index in drawers)
+		for (var index in drawers)
 		{
 			if (drawers[index] == inEvent.originator) {
 				this.$.closeContainer.show();
@@ -111,7 +111,7 @@ enyo.kind({
 	resizeHandler: function() {
 		this.inherited(arguments);
 		var drawers = this.$.drawers.getControls();
-		for (index in drawers){
+		for (var index in drawers){
 			drawers[index].resizeDrawers();
 		}
 		this.$.closeContainer.hide();
@@ -122,7 +122,7 @@ enyo.kind({
 		}
 		//if at the top of a drawer then move focus to the close handle
 		var drawers = this.$.drawers.getControls();
-		for (index in drawers) {
+		for (var index in drawers) {
 			if (drawers[index].getOpen()) {
 				if (drawers[index].$.client == inEvent.originator) {
 					enyo.Spotlight.spot(this.$.closeContainer);
@@ -135,9 +135,11 @@ enyo.kind({
 		}
 	},
 	spotDown: function(inSender, inEvent) {
+		var drawers = this.$.drawers.getControls();
+		var index;
+
 		//if they hit down while on the close handle
 		if (inEvent.originator == this.$.closeContainer) {
-			var drawers = this.$.drawers.getControls();
 			for (index in drawers) {
 				if (drawers[index].getOpen()) {
 					enyo.Spotlight.spot(drawers[index].$.client);
@@ -152,7 +154,6 @@ enyo.kind({
 		}
 
 		//if at the bottom a drawer then stop them from going further
-		var drawers = this.$.drawers.getControls();
 		for (index in drawers) {
 			//when the main drawer is open
 			if (drawers[index].getOpen()) {

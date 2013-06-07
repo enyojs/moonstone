@@ -32,7 +32,7 @@ enyo.kind({
 	touch: true,
 	spotlight: true,
 	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy",
+		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
 	},
 	rendered: function() {
@@ -54,7 +54,7 @@ enyo.kind({
 	holdHandler: function(inSender, inEvent) {
 		//Create a job to prevent pagination on tap if the intention is to auto scroll on hold
 		if (inEvent.type == 'pagehold') {
-			this.startJob('preventPaginate', this.bindSafely(function(){this.preventPaginate = true}), 200);
+			this.startJob('preventPaginate', this.bindSafely(function(){this.preventPaginate = true;}), 200);
 		} else if (inEvent.type == 'pagerelease') {
 			this.stopJob('preventPaginate');
 		}

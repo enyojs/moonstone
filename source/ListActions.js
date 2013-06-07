@@ -49,7 +49,7 @@ enyo.kind({
 		this.$.listActions.resized();
 	},
 	listActionsChanged: function() {
-		for (option in this.listActions) {
+		for (var option in this.listActions) {
 			this.$.listActionsContainer.createComponents([
 				{
 					classes: "moon-list-actions-menu",
@@ -100,7 +100,7 @@ enyo.kind({
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			//decorate the event with the control's group action name
 			var controls = this.$.listActionsContainer.getControls();
-			for (index in controls) {
+			for (var index in controls) {
 				if (enyo.Spotlight.Util.isChild(controls[index], inEvent.toggledControl)) {
 					inEvent.action = controls[index].action;
 					break;
@@ -195,7 +195,7 @@ enyo.kind({
 							//make the scroller the height of the drawer scroller - the items "heading" height - heading bottom margin height
 							controls[j].applyStyle("max-height", (this.$.listActions.hasNode().getBoundingClientRect().height
 							- controls[0].hasNode().getBoundingClientRect().height
-							- parseInt(controls[0].getComputedStyleValue('margin-bottom').replace('px')))
+							- parseInt(controls[0].getComputedStyleValue('margin-bottom'), 10))
 							+ "px");
 						}
 					}

@@ -52,8 +52,7 @@ enyo.kind({
 	},
 	//* @public
 	play: function (inName) {
-		var animation = this.getAnimation(inName),
-			startValues;
+		var animation = this.getAnimation(inName);
 
 		if (!animation) {
 			return;
@@ -250,7 +249,7 @@ enyo.kind({
 	},
 	//* @protected
 	cacheStartValues: function(inStartValues) {
-		var item, prop, control;
+		var item, control;
 		this.startValues = inStartValues;
 
 		for(item in inStartValues) {

@@ -134,7 +134,6 @@ enyo.kind({
 	},
 
 	onSpotlightBlur: function(oSender, oEvent) {
-		var oInput = this.getInputControl();
 		this.blur();
 	},
 

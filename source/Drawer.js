@@ -141,11 +141,6 @@ enyo.kind({
 		} else {
 			// save changes to this.domCssText --> see ENYO-1561
 			this.$.client.domCssText = enyo.Control.domStylesToCssText(this.$.client.domStyles);
-			// at end of open animation, clean limit on height/width
-			var v = (this.orient == "v");
-			var d = v ? "height" : "width";
-			var p = v ? "top" : "left";
-			var cn = this.$.client.hasNode();
 		}
 		if (this.container) {
 			this.container.resized();

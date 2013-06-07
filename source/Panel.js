@@ -69,7 +69,7 @@ enyo.kind({
 	//* @public
 
 	autoNumberChanged: function() {
-		if (this.getAutoNumber() == true && this.container) {
+		if (this.getAutoNumber() === true && this.container) {
 			this.setTitleAbove(this.indexInContainer() + 1);
 		}
 	},

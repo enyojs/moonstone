@@ -37,8 +37,10 @@ enyo.kind({
 		// Calculate _this.breadcrumbPositions_
 		this.calcBreadcrumbPositions(joinedPanels);
 
-		this.debug && console.log("transitionPositions:", this.container.transitionPositions);
-		this.debug && console.log("breadcrumbPositions:", this.breadcrumbPositions);
+		if (this.debug) {
+			enyo.log("transitionPositions:", this.container.transitionPositions);
+			enyo.log("breadcrumbPositions:", this.breadcrumbPositions);
+		}
 	},
 	calculateJoinedPanels: function(inContainerWidth) {
 		inContainerWidth = inContainerWidth || this.getContainerWidth();
@@ -54,7 +56,7 @@ enyo.kind({
 			}
 		}
 
-		return this.formatJoinedPanels(joinedPanels)
+		return this.formatJoinedPanels(joinedPanels);
 	},
 	isPanelJoined: function(inPanelIndex, inIndex, inContainerWidth) {
 		inContainerWidth = inContainerWidth || this.getContainerWidth();
@@ -97,9 +99,7 @@ enyo.kind({
 	},
 	calculateTransitionPositions: function(inContainerWidth, inJoinedPanels) {
 		var panels = this.container.getPanels(),
-			tp = {},
-			panel,
-			index;
+			tp = {};
 
 		for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 			for (var index = 0; index < panels.length; index++) {
@@ -112,7 +112,6 @@ enyo.kind({
 	calculateXPos: function(inPanelIndex, inIndex, inContainerWidth, inJoinedPanels) {
 		var breadcrumbEdge = this.getBreadcrumbEdge(inIndex),
 			panels = this.container.getPanels(),
-			joined = false,
 			xPos,
 			i;
 
@@ -167,20 +166,20 @@ enyo.kind({
 		}
 	},
 	updateWidths: function(inContainerWidth, inJoinedPanels) {
-		var tp = this.container.transitionPositions,
-			panels = this.container.getPanels(),
-			diff;
+		var panels = this.container.getPanels(),
+			diff,
+			i, j;
 
 		// Calculate stretched widths for panels at the end of given index
-		for (var i = 0; i < inJoinedPanels.length; i++) {
+		for (i = 0; i < inJoinedPanels.length; i++) {
 			if (!inJoinedPanels[i]) {
 				continue;
 			}
 
-			totalWidth = panels[i].width + this.getBreadcrumbEdge(inJoinedPanels[i][0]);
+			var totalWidth = panels[i].width + this.getBreadcrumbEdge(inJoinedPanels[i][0]);
 
 			// Add the width of each additional panel that is visible at this index
-			for (var j = 0; j < inJoinedPanels[i].length; j++) {
+			for (j = 0; j < inJoinedPanels[i].length; j++) {
 				// If this panel is joined with another one that has already been stretched, reposition
 				// it so everything is kosher. TODO - this is a strange edge case, needs to be discussed.
 				if (panels[inJoinedPanels[i][j]].actualWidth) {
@@ -194,13 +193,16 @@ enyo.kind({
 			diff = inContainerWidth - totalWidth;
 			panels[i].actualWidth = panels[i].width + diff;
 
-			this.debug && console.log(i, panels[i].width, "-->", panels[i].actualWidth);
+			if (this.debug) {
+				enyo.log(i, panels[i].width, "-->", panels[i].actualWidth);
+			}
 		}
 
 		// Stretch all panels that should fill the whole width
-		for (var i = 0; i < panels.length; i++) {
+		for (i = 0; i < panels.length; i++) {
 			if (!panels[i].actualWidth) {
-				for (var j = 0, match = false; j < inJoinedPanels.length; j++) {
+				var match = false;
+				for (j = 0; j < inJoinedPanels.length; j++) {
 					if (inJoinedPanels[j] && inJoinedPanels[j].indexOf(i) >= 0) {
 						match = true;
 					}
@@ -285,7 +287,9 @@ enyo.kind({
 	},
 	getBreadcrumbEdge: function(inIndex) {
 		var leftMargin = this.containerBounds.width * (1 - this.container.panelCoverRatio);
-		(this.container.showFirstBreadcrumb) && (inIndex != 0) && (leftMargin += this.breadcrumbWidth);
+		if (this.container.showFirstBreadcrumb && inIndex !== 0) {
+			leftMargin += this.breadcrumbWidth;
+		}
 		return leftMargin;
 	},
 	//* Set bounds for each panel to fit it vertically

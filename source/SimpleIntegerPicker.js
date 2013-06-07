@@ -105,7 +105,7 @@ enyo.kind({
 	},
 	populate: function() {
 		for(var i=this.min; i<=this.max; i=i+this.step) {
-			var o = this.createComponent({content: i + " " + this.unit, value: i});
+			this.createComponent({content: i + " " + this.unit, value: i});
 			this.indexhash[i] = this.$.client.getPanels().length - 1;
 		}
 	},

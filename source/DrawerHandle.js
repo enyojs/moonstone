@@ -31,7 +31,7 @@ enyo.kind({
 		this.marqueeChanged();
 	},
 	contentChanged: function() {
-		this.$.handleContent.setContent(this.getContent())
+		this.$.handleContent.setContent(this.getContent());
 	},
 	marqueeChanged: function() {
 		this.$.handleContent.addRemoveClass("marquee",this.marquee);
