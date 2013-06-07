@@ -98,7 +98,7 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicmoon-calendar-picker-block"},
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
 		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-picker-dates"}
 	],
 	create: function() {
@@ -136,11 +136,10 @@ enyo.kind({
 		var months = this.months;
 		/*Todo: Follwing statement violates encapsulation -david.um */
 		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
-		this.$.simplePicker.$.client.addClass("picker-content");
 		this.$.simplePicker.$.buttonRight.addClass("picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
-				{content: months[i]}
+				{content: months[i], classes: "picker-content"}
 			);
 		}
 	},
