@@ -1,45 +1,44 @@
 enyo.kind({
 	name: "moon.sample.SliderSample",
+	kind: "FittableRows",
 	fit: true,
-	classes: "moon enyo-unselectable moon-slider-sample",
-	kind: "Scroller",
+	classes: "moon enyo-unselectable moon-slider-sample moon-sample-padded",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content: "Slider 1: Default"},
-		{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
-		{tag:"br"},
-		{kind: "moon.Divider", content:"Slider 2: not locked bar"},
-		{style: "width:340px;", components: [
-			{name:"lockBar", kind: "moon.ToggleItem", checked: false, content: "lock bar", onchange: "lockbarChanged"}
-		]},
-		{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging: "sliderChanging", onChange: "sliderChanged"},
-		{tag:"br"},
-		{kind: "moon.Divider", content:"Slider 3: Disabled"},
-		{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
-		{tag:"br"},
-		{kind: "FittableColumns", classes: "moon-slider-sample-wrapper", components: [
-			{name: "input", kind: "moon.IntegerScrollPicker", min: 0, max: 100, value: 20},
+		{kind: "moon.Scroller", fit: true, components: [
+		
+			{kind: "moon.Divider", content: "Slider 1: Default"},
+			{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
+		
+			{kind: "moon.Divider", content:"Slider 2: not locked bar"},
+			{classes: "checkbox-sample-wrapper", components: [
+				{name:"lockBar", kind: "moon.ToggleItem", checked: false, content: "lock bar", onchange: "lockbarChanged"}
+			]},
+			{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging: "sliderChanging", onChange: "sliderChanged"},
+		
+			{kind: "moon.Divider", content:"Slider 3: Disabled"},
+			{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
+			
+			{kind: "moon.InputDecorator", classes: "slider-sample-input-decorator", components: [
+				{name: "input", kind: "moon.Input", value: 20}
+			]},
 			{kind: "moon.Button", content:"Set", ontap:"changeValue"},
 			{kind: "moon.Button", content:"-", ontap:"decValue"},
-			{kind: "moon.Button", content:"+", ontap:"incValue"}
-		]},
-		{tag: "br"},
-		{style: "width:340px;", components: [
-			{name:"animateSetting", kind: "moon.CheckboxItem", checked: true, content: "Animated", onActivate: "animateActivate"},
-			{kind: "moon.CheckboxItem", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
-		]},
-		{kind: "FittableColumns", components: [
-			{name:"incrementSetting", kind: "moon.CheckboxItem", checked: false, content: "increment by number", style: "width:340px; display:inline-block;vertical-align:top;", onActivate: "changeIncrement"},
-			{name:"intPicker", kind: "moon.IntegerPicker", min: 1, max: 25, value: 5, onChange:"changeIncrement"}
-		]},
-		{tag: "br"},
-		{name:"result", style:"font-size:20px;font-family:MuseoSans Light", content:"No slider moved yet."}
+			{kind: "moon.Button", content:"+", ontap:"incValue"},
+			
+			{classes: "checkbox-sample-wrapper", components: [
+				{name: "animateSetting", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Animated", onActivate: "animateActivate"},
+				{name: "showStatus", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"},
+			]},
+		
+			{name:"result", content:"No slider moved yet."}
+		]}
 	],
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		//* FIXME : intial 'value' in moon.IntegerPicker is not applied
-		this.$.intPicker.setValue(5);
+		//this.$.intPicker.setValue(5);
 	},
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
