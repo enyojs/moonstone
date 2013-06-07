@@ -12,6 +12,11 @@
 .moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
 	-webkit-mask-image: -webkit-linear-gradient(right, transparent (@moon-no-spotlight-padding-right + 35), white (@moon-no-spotlight-padding-right + 60));
 }
+
+
+
+
+
 .moon-labeled-checkbox .moon-labeled-checkbox-label {
 	float: left;
 	white-space: nowrap;
@@ -22,6 +27,9 @@
 	right:0px;
 	margin-top: -1px;
 }
+
+
+
 .moon-labeled-checkbox .moon-checkbox[checked] {
 	background-color:transparent;
 }
@@ -30,3 +38,26 @@
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
+
+/*guru changes for RTL begin*/
+
+.enyo-locale-right-to-left .moon-labeled-checkbox .moon-checkbox {
+	left:0px;
+	right:auto;	
+	
+}
+
+.enyo-locale-right-to-left .moon-labeled-checkbox.spotlight .moon-labeled-checkbox-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(left, transparent (@moon-no-spotlight-padding-right + 35), white (@moon-no-spotlight-padding-right + 60));
+}
+
+.enyo-locale-right-to-left .moon-labeled-checkbox .moon-labeled-checkbox-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(left, transparent 40px, white 50px);
+}
+	
+
+.enyo-locale-right-to-left .moon-labeled-checkbox .moon-labeled-checkbox-label {
+	float: right;
+	white-space: nowrap;
+}
+/*guru changes for RTL end*/

@@ -23,3 +23,17 @@
 .moon-labeled-toggle-button.disabled .moon-toggle-button {
 	opacity: 1;
 }
+
+/*GURU RTL changes  begin*/
+.enyo-locale-right-to-left .moon-labeled-toggle-button .moon-labeled-toggle-button-label {
+	float: right;
+	}
+
+.enyo-locale-right-to-left .moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(left, transparent 50px, white 75px);
+	
+}
+.enyo-locale-right-to-left .moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(left, transparent (@moon-no-spotlight-padding-right + 45), white (@moon-no-spotlight-padding-right + 60));
+}
+/*GURU RTL changes end */
