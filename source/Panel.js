@@ -187,15 +187,15 @@ enyo.kind({
 		this.isBreadcrumb = false;
 		this.doPostTransitionComplete();
 	},
-	preTransition: function(inFromIndex, inToIndex) {
-		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.indexInContainer(), inToIndex)) {
+	preTransition: function(inFromIndex, inToIndex, options) {
+		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;
 		}
 		return false;
 	},
-	postTransition: function(inFromIndex, inToIndex) {
-		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.indexInContainer(), inToIndex)) {
+	postTransition: function(inFromIndex, inToIndex, options) {
+		if (this.container && this.isBreadcrumb && !options.isBreadcrumb) {
 			this.growPanel();
 			return true;
 		}
