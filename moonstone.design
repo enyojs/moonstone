@@ -49,6 +49,25 @@
                             {"kind": "moon.CheckboxItem", "content": "Option 3"}
                         ]
                     }
+                },
+                {
+                    "name": "moon.ContextualPopup",
+                    "kind": "moon.ContextualPopupDecorator",
+                    "description": "A contextual Popup",
+                    "config": {
+                        "kind": "moon.ContextualPopupDecorator",
+                        "components": [
+                            {"content": "ContextualPopup"},
+                            {
+                                "kind": "moon.ContextualPopup",
+                                "components": [
+                                    {"content": "Item 1"},
+                                    {"content": "Item 2"},
+                                    {"content": "Item 3"}
+                                ]
+                            }
+                        ]
+                    }
                 }
             ]
         }
