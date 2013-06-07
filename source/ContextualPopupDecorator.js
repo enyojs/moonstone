@@ -4,7 +4,7 @@
 	the popup with an activating control, which may be a button or any other
 	control that fires an _onActivate_ event. The decorator surrounds both the
 	activating control and the contextual popup.
-	
+
 	When the control is activated, the popup shows itself in the correct position
 	relative to the activator.
 

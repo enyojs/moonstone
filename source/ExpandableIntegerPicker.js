@@ -124,7 +124,7 @@ enyo.kind({
 	},
 	changeHandler: function(inSender, inEvent) {
 		this.updateContent();
-	},	
+	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({

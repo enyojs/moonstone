@@ -3,8 +3,8 @@ enyo.kind({
 	kind: "moon.ExpandableListItem",
 	classes: "moon-accordion",
 	published: {
-		//* True if the item is currently selected				
-	    active: false,
+		//* True if the item is currently selected
+		active: false,
 		/**
 			If true, the drawer automatically closes when the user navigates to the
 			top of the control; if false, the user must select/tap the header to close
@@ -13,8 +13,8 @@ enyo.kind({
 		autoCollapse: false
 	},
 	components: [
-	    {name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
-		    onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"},
+		{name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
+			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"},
 		{name:"arrow", classes:"moon-accordion-arrow"},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", classes: "moon-accordion-client"}
@@ -27,8 +27,8 @@ enyo.kind({
 		this.setActive(this.open);
 	},
 	activeChanged: function() {
-	    this.bubble("onActivate");
-        this.setOpen(this.active);
+		this.bubble("onActivate");
+		this.setOpen(this.active);
 	},
 	expandContract: function() {
 		if (this.disabled) {
@@ -44,11 +44,11 @@ enyo.kind({
 		return true;
 	},
 	openChanged: function() {
-	    this.setArrow(this.open);
-	    this.inherited(arguments);
+		this.setArrow(this.open);
+		this.inherited(arguments);
 	},
 	setArrow: function(open) {
-	    this.$.arrow.addRemoveClass('up', open);
-	    this.$.arrow.addRemoveClass('down', !open);
+		this.$.arrow.addRemoveClass('up', open);
+		this.$.arrow.addRemoveClass('down', !open);
 	}
 });
