@@ -1,51 +1,75 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.MainMenuWideSample2",
     kind: "moon.Panel",
-    fit: true,
-    spotlight: false,
-    title: "Main Menu",
     titleAbove: "01",
-    classes: "enyo-unselectable moon moon-music-main-menu",
+    title: "Main Menu",
+    titleBelow: "",
+    classes: "livetv-background",
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            name: "columns",
             kind: "FittableColumns",
+            fit: true,
             components: [
                 {
-                    classes: "menu",
+                    kind: "moon.DataList",
+                    name: "menus",
+                    classes: "moon-5h",
                     components: [
-                        {kind: "moon.Item", classes: "item", content: "Browser Video"},
-                        {kind: "moon.Item", classes: "item", content: "Browser Photos"},
-                        {kind: "moon.Item", classes: "item", content: "Browser Music"}
+                        {kind: "moon.Item", ontap: "onTap", bindFrom: "name"}
                     ]
                 },
                 {
-                    name: "content",
+                    kind: "enyo.VCenter",
+                    content: "branding",
                     fit: true,
-                    classes: "content",
-                    components: [
-                        {
-                            name: "branding",
-                            fit: true,
-                            classes: "branding",
-                            content: "branding"
-                        }
-                    ]
+                    classes: "moon-dark-gray",
+                    style: "text-align: center"
                 }
             ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeBranding();
-    },
-    
-    resizeBranding: function() {
-        var w = this.$.content.getBounds().width;
-        var h = this.getBounds().height;
-        h -= this.$.columns.getAbsoluteBounds().top - 2;
-        this.$.branding.setBounds({width: w, height: h});
-    }
+    bindings: [
+        {from: ".controller.menu", to: "$.menus.controller"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel0 = new enyo.Model({
+        menu: new enyo.Collection([
+            {name: "Browser video"},
+            {name: "Browser photos"},
+            {name: "Browser music"}
+        ])
+    });
+
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.MainMenuWideSample2",
+                    controller: ".app.controllers.menuController",
+                    classes: "enyo-fit",
+                    style: "background-image: url(assets/livetv-background.png); background-size: 100% 100%;"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "menuController", 
+                kind: "enyo.ModelController",
+                model: sampleModel0,
+                onTap: function(inSender, inEvent) {
+                    console.log("on Menu Tap: " + inEvent.originator.name);
+                }
+            }
+        ]
+    });
 });
