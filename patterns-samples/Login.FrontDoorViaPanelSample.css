@@ -4,3 +4,10 @@
     minimize the use of custom CSS.
 */
 
+.moon-margin-top-bottom {
+    margin-bottom: 20px;
+}
+
+.moon-margin-left-right {
+    margin-right: 20px;
+}

@@ -14,47 +14,44 @@ enyo.kind({
                     ontap: "selectApp",
                     bindFrom: "text",
                     style: "width: 300px;",
-                    classes: "moon-dark-gray"
+                    classes: "moon-dark-gray moon-margin-top-bottom"
                 }
             ]},
             {fit: true, components:[                
-                {kind: "FittableColumns", components:[
+                {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
                     {content: "Email", style: "width: 180px;"},
                     {
                         kind: "moon.InputDecorator",
-                        layoutKind: "FittableColumnsLayout",
                         fit: true,
                         components: [
                             {
                                 name: "email",
                                 kind: "moon.Input",
                                 onchange: "emailChanged",
-                                fit: true
                             }
                         ]
                     }
                 ]},
-                {tag: "br"},
-                {kind: "FittableColumns", components:[
-                    {content: "Password", style: "width: 180px;"},
+                {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
+                    {content: "Password", style: "width: 180px; margin-bottom: 20px;"},
                     {
                         kind: "moon.InputDecorator",
-                        layoutKind: "FittableColumnsLayout",
                         fit: true,
                         components: [
                             {
                                 name: "password",
                                 kind: "moon.Input",
                                 onchange: "passwordChanged",
-                                fit: true
                             }
                         ]
                     },
                 ]},
-                {tag: "br"},
                 {
-                    layoutKind: 'HFlexLayout', fit: true, components: [
-                        {style: "width: 250px; margin-right: 10px;", components:[
+                    layoutKind: 'HFlexLayout',
+                    fit: true,
+                    classes: "moon-margin-top-bottom",
+                    components: [
+                        {style: "width: 250px;", classes: "moon-margin-left-right", components:[
                             {style: "height: 32px"},
                             {
                                 kind: "moon.CheckboxItem",
@@ -66,7 +63,7 @@ enyo.kind({
                             kind: "moon.Button",
                             content: "Log in",
                             flex: true,
-                            classes: "moon-dark-gray"
+                            classes: "moon-dark-gray moon-margin-left-right"
                         },
                         {
                             kind: "moon.Button",
