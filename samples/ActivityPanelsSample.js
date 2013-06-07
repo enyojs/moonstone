@@ -1,6 +1,9 @@
 enyo.kind({
-    name: "moon.sample.LeanForwardPanelsSample",
+    name: "moon.sample.ActivityPanelsSample",
     classes: "moon",
+    handlers: {
+    	ontap : "next"
+    },
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
@@ -54,5 +57,12 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Five"}
 			]},
         ]},
-    ]
+    ],
+    next: function(inSender, inEvent) {
+    	if (inEvent.originator.kind == "moon.Item") {
+    		enyo.log("next");
+    		this.$.panels.next();
+    	}
+    	return false;
+    }
 });
