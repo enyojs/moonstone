@@ -151,8 +151,8 @@ enyo.kind({
 	autoScroll: function(inEvent){
 		var sb = this.getScrollBounds(),
 		orientV = this.vertical != "hidden" &&
-				  (inEvent.originator.side == "top" ||
-				  inEvent.originator.side == "bottom");
+				(inEvent.originator.side == "top" ||
+				inEvent.originator.side == "bottom");
 
 		if (orientV && !this.pos.top) {
 			this.pos.top = sb.top;

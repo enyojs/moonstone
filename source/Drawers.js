@@ -11,13 +11,13 @@
 	{kind:"moon.Drawers", drawers:[
 		{name:"musicDrawer", kind: "moon.Drawer",
 			handle: {kind:"moon.DrawerHandle", content:"Handle"},
-		 	components: [
+			components: [
 				{content:"Drawer Content"}
-		 	],
-		 	controlDrawerComponents: [
-		 		{content:"Controls"}
+			],
+			controlDrawerComponents: [
+				{content:"Controls"}
 			]}
-	 	]},
+		]},
 		components: [
 			{content: "Content Area"}
 		]
@@ -36,11 +36,11 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-        {name:"closeContainer", classes: "moon-drawers-close-container", spotlight:true, ontap: "closeDrawer", showing: false, components: [
-	    	{classes: "moon-drawers-close-handle", components: [
-	        	{name: "closeText", tag: "p", content: "CLOSE", classes: "moon-drawers-close-handle-text"}
+		{name:"closeContainer", classes: "moon-drawers-close-container", spotlight:true, ontap: "closeDrawer", showing: false, components: [
+			{classes: "moon-drawers-close-handle", components: [
+				{name: "closeText", tag: "p", content: "CLOSE", classes: "moon-drawers-close-handle-text"}
 			]}
-	    ]},
+		]},
 		{name:"handleContainer", spotlight:'container', classes:"moon-drawers-handle-container"},
 		{name:"drawers", classes:"moon-drawers-drawer-container"},
 		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}

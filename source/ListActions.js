@@ -25,11 +25,11 @@ enyo.kind({
 	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes:"moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
-	    {name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
+		{name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
-        	    {name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
+				{name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
 				{classes: "moon-list-actions-client-container", components: [
-				    {name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
+					{name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
 						{name:"listActionsContainer", classes:"moon-list-actions-container", onRequestScrollIntoView:"scrollIntoView"}
 					]}
 				]}
@@ -64,30 +64,30 @@ enyo.kind({
 		drawer is open, closes drawer and highlights the activating control.
 	*/
 	expandContract: function(inSender, inEvent) {
-	    if (inSender.name === inEvent.originator.name) {
-	        if (this.disabled) {
-    			return true;
-    		}
-    		if(!this.getOpen()) {
+		if (inSender.name === inEvent.originator.name) {
+			if (this.disabled) {
+				return true;
+			}
+			if(!this.getOpen()) {
 				this.configurePopup();
-    			this.setOpen(true);
-    			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
-    		} else {
-    			this.setOpen(false);
+				this.setOpen(true);
+				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
+			} else {
+				this.setOpen(false);
 				enyo.Spotlight.spot(this.$.activator);
 				this.$.closeButton.undepress(); //why is this needed?
-    		}
-    		this.resetScrollers();
-    		return true;
-	    }
-	    return false;
+			}
+			this.resetScrollers();
+			return true;
+		}
+		return false;
 
 	},
 	configurePopup: function() {
 		var clientRect = this.parent.parent.hasNode().getBoundingClientRect();
 		this.$.drawerPopup.applyStyle('width', clientRect.width + "px");
 		this.$.drawerPopup.applyStyle('height', clientRect.height + "px");
-	    this.$.drawerPopup.setShowing(true);
+		this.$.drawerPopup.setShowing(true);
 		this.$.drawerPopup.applyStyle('left', (clientRect.left - this.hasNode().getBoundingClientRect().left)  + "px");
 		this.$.drawerPopup.applyStyle('top', (clientRect.top - this.hasNode().getBoundingClientRect().top)  + "px");
 	},

@@ -7,13 +7,13 @@
 
 	{name:"musicDrawer", kind: "moon.Drawer",
 		handle: {kind:"moon.DrawerHandle", content:"Handle"},
-	 	components: [
+		components: [
 			{content:"Drawer Content"}
-	 	],
-	 	controlDrawerComponents: [
-	 		{content:"Controls"}
+		],
+		controlDrawerComponents: [
+			{content:"Controls"}
 		]}
- 	}
+	}
 */
 enyo.kind({
 	name: "moon.DrawerHandle",
@@ -24,7 +24,7 @@ enyo.kind({
 		marquee: false
 	},
 	components: [
-    	{name:"handleContent", tag: "p", classes: "moon-drawer-handle-text moon-drawer-handle-text"}
+		{name:"handleContent", tag: "p", classes: "moon-drawer-handle-text moon-drawer-handle-text"}
 	],
 	create: function() {
 		this.inherited(arguments);

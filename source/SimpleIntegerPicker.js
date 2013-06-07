@@ -145,8 +145,8 @@ enyo.kind({
 		// Make sure selected item is in sync after Panels reflow, which may have
 		// followed an item being added/removed
 		// if (this.value != this.$.client.getActive().value) {
-		// 	this.setValue(this.$.client.getActive().value);
-		// 	this.fireChangedEvent();
+		//   this.setValue(this.$.client.getActive().value);
+		//   this.fireChangedEvent();
 		// }
 	},
 	hideOverlay: function() {

@@ -12,13 +12,13 @@
 
 	{name:"musicDrawer", kind: "moon.Drawer",
 		handle: {kind:"moon.DrawerHandle", content:"Handle"},
-	 	components: [
+		components: [
 			{content:"Drawer Content"}
-	 	],
-	 	controlDrawerComponents: [
-	 		{content:"Controls"}
+		],
+		controlDrawerComponents: [
+			{content:"Controls"}
 		]}
- 	}
+	}
 */
 enyo.kind({
 	name: "moon.Drawer",
@@ -61,14 +61,14 @@ enyo.kind({
 			return (parentClientRect.height - controlDrawerRect.height);
 		}
 	},
-    toggleDrawer: function() {
+	toggleDrawer: function() {
 		if (this.controlDrawerComponents == null) {
 			this.setOpen(!this.open);
 		} else {
 			this.setControlsOpen(!this.controlsOpen);
 		}
 		return true;
-    },
+	},
 	openChanged: function() {
 		this.$.client.setOpen(this.open);
 		if (this.open) {
