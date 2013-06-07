@@ -132,16 +132,16 @@ enyo.kind({
 	//* @protected
 	convertTimingFunctionToBezier: function(timing) {
 		switch (timing) {
-			case "linear":
-				return "cubic-bezier(0, 0, 1, 1)";
-			case "ease":
-				return "cubic-bezier(0.25, 0.1, 0.25, 1.0)";
-			case "ease-in":
-				return "cubic-bezier(.42, 0, 1, 1)";
-			case "ease-out":
-				return "cubic-bezier(0, 0, .58, 1)";
-			case "ease-in-out":
-				return "cubic-bezier(.42, 0, .58, 1)";
+		case "linear":
+			return "cubic-bezier(0, 0, 1, 1)";
+		case "ease":
+			return "cubic-bezier(0.25, 0.1, 0.25, 1.0)";
+		case "ease-in":
+			return "cubic-bezier(.42, 0, 1, 1)";
+		case "ease-out":
+			return "cubic-bezier(0, 0, .58, 1)";
+		case "ease-in-out":
+			return "cubic-bezier(.42, 0, .58, 1)";
 		}
 		enyo.warn("Unknown timing function: ", timing);
 		return timing;
