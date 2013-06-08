@@ -11,6 +11,7 @@ enyo.depends(
 	"CheckboxItem.js",
 	"ToggleButton.js",
 	"ToggleItem.js",
+	"ToggleText.js",
 	"RadioItem.js",
 	"RadioItemGroup.js",
 	"ExpandableListItem.js",
