@@ -4,7 +4,6 @@ enyo.kind({
 	kind: "FittableRows",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{classes: "moon-subheader", content: "Moonstone GridList Sample"},
 		{
 			name: "gridlist",
 			kind: "moon.GridList",
