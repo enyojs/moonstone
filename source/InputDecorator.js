@@ -108,7 +108,7 @@ enyo.kind({
 
 	onFocus: function(oSender, oEvent) {
 		enyo.Spotlight.spot(this);
-		enyo.Spotlight.disablePointerMode();
+	//	enyo.Spotlight.disablePointerMode();
 		this.updateFocus(true);
 	},
 
