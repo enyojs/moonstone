@@ -1,17 +1,8 @@
 /* Calendar.css */
-.moon-calendar-picker {
-	display: inline-block;
-}
-
-.moon-calendar-picker-week {
-	display: inline-block;
-}
 
 .moon-calendar-picker-date {
 	width: 80px;
-	vertical-align: middle;
 	margin: 1px;
-	text-align: center;
 }
 
 .moon-calendar-picker-date-shadow {
