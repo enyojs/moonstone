@@ -8,7 +8,7 @@
 enyo.kind({
 	name: "moon.Popup",
 	kind: enyo.Popup,
-	classes: "moon-dark-gray moon-popup",
+	classes: "moon moon-dark-gray moon-popup",
 	modal: true,
 	floating: true,
 	handlers: {
