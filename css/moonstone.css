@@ -7,6 +7,8 @@
 /* LESS file.                                                               */
 
 /* Moonraker default parameters defined here */
+/* App */
+/* ---------------------------------------*/
 /* Colors */
 /* ---------------------------------------*/
 /* Font */
@@ -183,6 +185,7 @@
 .moon {
   font-family: "MuseoSans Medium";
   font-size: 40px;
+  padding: 20px;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
