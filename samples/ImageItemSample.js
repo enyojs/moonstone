@@ -2,6 +2,7 @@ enyo.kind({
 	name: "moon.sample.ImageItemSample",
 	classes: "moon enyo-unselectable",
 	layoutKind: "enyo.FittableColumnsLayout",
+	classes: "moon enyo-unselectable enyo-fit",	
 	style: "padding: 20px;",
 	components: [
 		{kind: "enyo.Spotlight"},

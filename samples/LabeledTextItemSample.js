@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.sample.LabeledTextItemSample",
 	kind:"FittableRows",
-	classes: "moon enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	style: "padding: 20px;",
 	fit: true,
 	components: [

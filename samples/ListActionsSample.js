@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.ListActionsSample",
 	kind:"FittableRows",
 	style: "margin:20px;",
-	classes: "moon enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	fit: true,
 	handlers: {
 		onActivate: "activateHandler"
@@ -10,7 +10,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
-		    {kind: "moon.ListActions", iconSrc:"$/../images/list-actions-activator.png", listActions: [
+		    {kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
 				{
 					action: "category",						
 					components: [
@@ -61,7 +61,7 @@ enyo.kind({
 					]
 				}
 			]},
-			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"$/../images/list-actions-activator.png", listActions: [
+			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"./assets/icon-list.png", listActions: [
 				{
 					action: "category",						
 					components: [

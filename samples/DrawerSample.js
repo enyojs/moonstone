@@ -1,10 +1,10 @@
 enyo.kind({
 	name: "moon.sample.DrawerSample",
-    classes: "enyo-fit moon drawer-sample",
+	classes: "moon moon-sample moon-input-sample enyo-fit",
     fit: true,
     components: [
         {kind: "enyo.Spotlight"},
-		{kind:"moon.Drawers", drawers:[
+		{kind:"moon.Drawers", style:"position:relative;", drawers:[
 			{name:"musicDrawer", kind: "moon.Drawer", classes:"music-drawer", open:false, controlsOpen:false,
 				handle: {kind:"moon.DrawerHandle", content:"TRACK NAME BY ARTIST", marquee:true},
 				components: [
@@ -26,7 +26,7 @@ enyo.kind({
 			},
 			{name:"searchDrawer", kind:"moon.Drawer", classes:"search-drawer",
 				handle: {kind:"moon.DrawerHandle", content:"SEARCH"},
-				components:[{kind: "moon.sample.search.RecentSearchDrawerSample", style: "margin-top:25px;"}]
+				components:[{content:"drawer content goes here", classes:"search-drawer-content"}]
 			}
 			],
 			components: [
