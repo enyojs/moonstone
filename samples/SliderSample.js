@@ -35,11 +35,6 @@ enyo.kind({
 		]}
 	],
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		//* FIXME : intial 'value' in moon.IntegerPicker is not applied
-		//this.$.intPicker.setValue(5);
-	},
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
