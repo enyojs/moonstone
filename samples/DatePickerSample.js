@@ -47,7 +47,7 @@ enyo.kind({
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.date){
+		if (this.$.date && inEvent.value){
 			this.$.date.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
 	}
