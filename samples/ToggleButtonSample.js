@@ -1,11 +1,10 @@
 enyo.kind({
 	name: "moon.sample.ToggleButtonSample",
-	fit: true,
-	kind:"FittableRows",
-	classes: "moon enyo-unselectable moon-toggle-button-sample enyo-fit",
+	kind: enyo.FittableRows,
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
+		{name: 'scroller', kind: 'moon.Scroller', fit: true, classes: "enyo-fill", touch: true, components: [
 			{classes: "moon-toggle-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"},
@@ -42,7 +41,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name: "console", classes: "moon-toggle-button-sample-console"}
+		{name: "console", classes: "moon-toggle-button-sample-console moon-dark-gray"}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		var str = '"'+inSender.content+'" ';
