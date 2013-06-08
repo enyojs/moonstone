@@ -1,52 +1,39 @@
 enyo.kind({
 	name: "moon.sample.DrawerSample",
-    classes: "enyo-fit moon drawer-sample",
+	classes: "moon moon-sample moon-input-sample enyo-fit",
     fit: true,
     components: [
         {kind: "enyo.Spotlight"},
-		{kind:"moon.Drawers", drawers:[
-			{name:"musicDrawer", kind: "moon.Drawer", classes:"music-drawer", open:false, controlsOpen:false,
-				handle: {kind:"moon.DrawerHandle", content:"TRACK NAME BY ARTIST", marquee:true},
-				components: [
-					{kind:"Tracks"}
-				],
-				controlDrawerComponents: [
-					{kind:"FittableColumns", components:[
-						{classes:"drawer-components", fit:true, components:[
-							{classes:"player-controls", components: [
-								{tag:"img", src:"$/assets/back.png", classes:"back-button"},
-								{tag:"img", src:"$/assets/pause.png", classes:"pause-button"},
-								{tag:"img", src:"$/assets/forward.png", classes:"forward-button"}
+		{
+			kind:"moon.Drawers", 
+			style:"position:relative;", 
+			drawers:[
+				{name:"musicDrawer", kind: "moon.Drawer", classes:"music-drawer", open:false, controlsOpen:false,
+					handle: {kind:"moon.DrawerHandle", content:"TRACK NAME BY ARTIST", marquee:true},
+					components: [
+						{kind:"Tracks"}
+					],
+					controlDrawerComponents: [
+						{kind:"FittableColumns", components:[
+							{classes:"drawer-components", fit:true, components:[
+								{classes:"player-controls", components: [
+									{tag:"img", src:"$/assets/back.png", classes:"back-button"},
+									{tag:"img", src:"$/assets/pause.png", classes:"pause-button"},
+									{tag:"img", src:"$/assets/forward.png", classes:"forward-button"}
+								]},
+								{kind: "moon.Slider"}
 							]},
-							{kind: "moon.Slider"}
-						]},
-						{kind:"moon.Button",content:"OPEN", classes:"player-controls-open-button", spotlight:true, ontap:"openMainDrawer"}
-					]}
-				]
-			},
-			{name:"searchDrawer", kind:"moon.Drawer", classes:"search-drawer",
-				handle: {kind:"moon.DrawerHandle", content:"SEARCH"}
-			}
+							{kind:"moon.Button",content:"OPEN", classes:"player-controls-open-button", spotlight:true, ontap:"openMainDrawer"}
+						]}
+					]
+				},
+				{name:"searchDrawer", kind:"moon.Drawer", classes:"search-drawer",
+					handle: {kind:"moon.DrawerHandle", content:"SEARCH"},
+					components: [{content:"drawer content goes here", classes:"search-drawer-content"}]
+				}
 			],
 			components: [
 		        {name: "panels", kind: "moon.Panels", arrangerKind: "moon.BreadcrumbArranger", classes: "enyo-fit", components: [
-					// BUG? - List & Gridlist not playing together at the same time?
-					// {title: "Browse Movies", components: [			
-					// 					{
-					// 						name: "gridlist",
-					// 						kind: "moon.GridList",
-					// 						onSetupItem: "setupItem",
-					// 						toggleSelected: true,
-					// 						itemWidth: 140,
-					// 						itemHeight: 140,
-					// 						itemSpacing: 100,
-					// 						count:30,
-					// 						components: [
-					// 							{name: "item", kind: "moon.GridList.ImageItem"}
-					// 						],
-					// 						fit: true
-					// 					}
-					// 				]},		
 			        {title: "First", components: [
 						{kind: "moon.Item", classes:"basic-panels", content: "Item One"},
 						{kind: "moon.Item", content: "Item Two"},
@@ -67,14 +54,7 @@ enyo.kind({
     ],
 	openMainDrawer: function() {
 		this.$.musicDrawer.setOpen(true);
-	},
-	// BUG? - List & Gridlist not playing together at the same time?	
-	// setupItem: function(inSender, inEvent) {
-	// 	var i = inEvent.index;
-	// 	this.$.item.setSource("./assets/paulie.png");
-	// 	this.$.item.setCaption("Paulie");
-	// 	this.$.item.setSelected(this.$.gridlist.isSelected(i));
-	// }
+	}
 });
 
 //View for the first drawer

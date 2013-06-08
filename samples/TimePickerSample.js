@@ -9,7 +9,7 @@ enyo.kind({
 	},
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
+		{name: 'scroller', kind: 'moon.Scroller', classes:"moon-time-picker-sample-scroller", touch: true, components: [
 			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Choose Locale", classes: "moon-expandable-picker-wrapper", onChange:"pickerHandler", components: [
 				{content: 'en-US', active:true},
 				{content: 'en-CA'},
@@ -47,7 +47,7 @@ enyo.kind({
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.time){
+		if (this.$.time && inEvent.value){
 			var timeArray = inEvent.value.toTimeString().split(":");
 			this.$.time.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}

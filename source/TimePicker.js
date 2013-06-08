@@ -54,8 +54,9 @@ enyo.kind({
 		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting. May be set after control creation, in
-			which case the control will be updated to reflect the new value.
+			Current locale used for formatting (only valid when ilib is loaded). 
+			May be set after control creation, in which case the control will be 
+			updated to reflect the new value.
 		*/
 		locale: "en-US",
 		/**
@@ -65,7 +66,8 @@ enyo.kind({
 		*/
 		value: null,
 		/**
-			When true, the picker uses a 12-hour clock
+			When true, the picker uses a 12-hour clock (this value is ignored when ilib
+			is loaded, since the meridiem will be set by the current locale)
 		*/
 		meridiemEnable: false
 	},
@@ -88,52 +90,51 @@ enyo.kind({
 	initDefaults: function() {
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({locale:this.locale, type: "time"});
+			this._tf = new ilib.DateFmt({locale:this.locale, type: "time", timezone:"local"});
+			this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
 		}
 
 		this.value = this.value || new Date();
-		this.setupPickers(this._tf ? this._tf.getTimeComponents() : 'hma');
+		this.setupPickers(this._tf ? this._tf.getTemplate() : 'hma');
 		this.noneTextChanged();
 		//Initial state for meridiemEnable is false
-		this.meridiemEnable = this.meridiemEnable || false;
 	},
 	setupPickers: function(ordering) {
-		var orderingArr = ordering.split("");
+		var orderingArr = ordering.toLowerCase().split("");
+		var doneArr = [];
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			switch (o){
-			case 'h': {
-					if (this.meridiemEnable === true) {
-						this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: this.value.getHours()});
-					} else {
-						this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:1,max:24, value: this.value.getHours()});
+			if (doneArr.indexOf(o) < 0) {
+				switch (o){
+				case 'h': {
+						if (this.meridiemEnable === true) {
+							this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)});
+						} else {
+							this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
+						}
 					}
-				}
-				break;
-			case 'm': {
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
-				}
-				break;
-			case 'a': {
-					if (this.meridiemEnable === true) {
-						this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
+					break;
+				case 'm': {
+						this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
 					}
+					break;
+				case 'a': {
+						if (this.meridiemEnable === true) {
+							this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
+						}
+					}
+					break;
+				default:
+					break;
 				}
-				break;
-			default:
-				break;
 			}
+			doneArr.push(o);
 		}
 	},
 	parseTime: function() {
 		if (this._tf) {
-			var df = new ilib.DateFmt({
-				length: 'long',
-				locale: new ilib.Locale(this.locale),
-				type: "time"
-			});
-			return df.format(new ilib.Date.GregDate(this.value));
+			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 		}
 		else {
 			var dateStr = "";
@@ -208,7 +209,7 @@ enyo.kind({
 		if (this.$.drawer.getOpen()) {
 			this.$.hour.render();
 			this.$.minute.render();
-			if (this.meridiemEnable === true) {
+			if (this.$.meridiem) {
 				this.$.meridiem.render();
 			}
 		}

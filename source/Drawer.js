@@ -7,18 +7,18 @@
 	it will take up the amount of space left by the containing view minus the controlDrawerComponents height.
 	When the toggleDrawer function is called it will open the controlDrawer if controlDrawerComponents exist,
 	otherwise it will open the main drawer.
-		
+
 	The control's child components may be of any kind.
 
-	{name:"musicDrawer", kind: "moon.Drawer", 
+	{name:"musicDrawer", kind: "moon.Drawer",
 		handle: {kind:"moon.DrawerHandle", content:"Handle"},
-	 	components: [
+		components: [
 			{content:"Drawer Content"}
-	 	],
-	 	controlDrawerComponents: [
-	 		{content:"Controls"}
+		],
+		controlDrawerComponents: [
+			{content:"Controls"}
 		]}
- 	}
+	}
 */
 enyo.kind({
 	name: "moon.Drawer",
@@ -26,7 +26,7 @@ enyo.kind({
 	classes: "moon-drawer",
 	published: {
 		controlDrawerComponents: null,
-		handle: null,		
+		handle: null,
 		open: false,
 		controlsOpen: false
 	},
@@ -49,31 +49,31 @@ enyo.kind({
 		//we now force it to hide (if it is set to not be open) so that there isn't an animation on startup
 		if (!this.controlsOpen) {
 			this.$.controlDrawer.open = this.controlsOpen;
-			this.$.controlDrawer.$.client.setShowing(this.controlsOpen);			
+			this.$.controlDrawer.$.client.setShowing(this.controlsOpen);
 		}
 	},
 	calcDrawerHeight: function() {
-		var parentClientRect = this.parent.parent.hasNode().getBoundingClientRect();		
+		var parentClientRect = this.parent.parent.hasNode().getBoundingClientRect();
 		if (this.controlDrawerComponents == null) {
 			return parentClientRect.height;
 		} else {
 			var controlDrawerRect = this.$.controlDrawer.hasNode().getBoundingClientRect();
 			return (parentClientRect.height - controlDrawerRect.height);
-		}			
+		}
 	},
-    toggleDrawer: function() {
+	toggleDrawer: function() {
 		if (this.controlDrawerComponents == null) {
 			this.setOpen(!this.open);
 		} else {
 			this.setControlsOpen(!this.controlsOpen);
 		}
 		return true;
-    },
+	},
 	openChanged: function() {
 		this.$.client.setOpen(this.open);
 		if (this.open) {
 			this.doActivate();
-			enyo.Spotlight.spot(this.$.client);			
+			enyo.Spotlight.spot(this.$.client);
 		}
 	},
 	controlsOpenChanged: function() {
@@ -83,11 +83,11 @@ enyo.kind({
 		}
 	},
 	resizeDrawers: function() {
-		this.$.controlDrawer.$.client.setShowing(true);		
+		this.$.controlDrawer.$.client.setShowing(true);
 		this.$.client.setDrawerProps({height:this.calcDrawerHeight()});
 		this.$.controlDrawer.$.client.setShowing(false);
 		this.$.client.render();
-		this.$.controlDrawer.render();		
+		this.$.controlDrawer.render();
 		this.setOpen(false);
 		this.setControlsOpen(false);
 	}
@@ -118,7 +118,7 @@ enyo.kind({
 				// measure the scrollHeight/Width DOM property, but
 				// can cause a momentary flash of content on some browsers
 				this.applyStyle(d, null);
- 
+
 				if (this.animated) {
 					this.$.animator.play({
 						startValue: this.open ? 0 : s,
@@ -141,11 +141,6 @@ enyo.kind({
 		} else {
 			// save changes to this.domCssText --> see ENYO-1561
 			this.$.client.domCssText = enyo.Control.domStylesToCssText(this.$.client.domStyles);
-			// at end of open animation, clean limit on height/width
-			var v = (this.orient == "v");
-			var d = v ? "height" : "width";
-			var p = v ? "top" : "left";
-			var cn = this.$.client.hasNode();
 		}
 		if (this.container) {
 			this.container.resized();
