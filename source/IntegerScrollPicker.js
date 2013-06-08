@@ -23,9 +23,6 @@ enyo.kind({
 		digits: null
 	},
 	handlers: {
-		// onScrollStart:"scrollStart",
-		// onScroll:"scroll",
-		// onScrollStop:"scrollStop",
 		onSpotlightFocus:"spotlightFocus",
 		onSpotlightFocused:"spotlightFocus",
 		onSpotlightUp:"previous",
@@ -116,6 +113,7 @@ enyo.kind({
 			if (inEvent.originator != this.$.upArrow) {
 				enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
 			}
+			this.fireChangeEvent();
 		}
 		return true;
 	},
@@ -128,6 +126,7 @@ enyo.kind({
 			if (inEvent.originator != this.$.downArrow) {
 				enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
 			}
+			this.fireChangeEvent();
 		}
 		return true;
 	},
@@ -138,6 +137,12 @@ enyo.kind({
 	hideBottomOverlay: function() {
 		this.$.downArrowContainer.removeClass("selected");
 		this.$.bottomOverlay.setShowing(false);
+	},
+	fireChangeEvent: function() {
+		this.doChange({
+			name:this.name,
+			value:this.value
+		});
 	},
 	resetOverlay: function() {
 		this.hideTopOverlay();
@@ -157,23 +162,6 @@ enyo.kind({
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
 	},
-	//scrollStop will be called multiple times if they hold the key down (due to getScrollBounds calls stopping the scroller)
-	// scrollStop: function(inSender, inEvent) {
-	//	this.updateScrollBounds();
-	//	if (this.value!=null) {
-	//		this.doChange({
-	//			name:this.name,
-	//			value:this.value
-	//		});
-	//	}
-	// },
-	// scrollStart: function(inSender, inEvent) {
-	//	this.updateScrollBounds();
-	// },
-	// //* On scroll, update our cached _this.scrollBounds_ property, and show/hide pagination controls
-	// scroll: function(inSender, inEvent) {
-	//	this.updateScrollBounds();
-	// },
 	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
 	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
 	updateScrollBounds: function() {

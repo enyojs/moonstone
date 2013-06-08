@@ -47,7 +47,7 @@ enyo.kind({
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.time){
+		if (this.$.time && inEvent.value){
 			var timeArray = inEvent.value.toTimeString().split(":");
 			this.$.time.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}
