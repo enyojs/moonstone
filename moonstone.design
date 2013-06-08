@@ -1,0 +1,75 @@
+{
+    "palette": [
+        {
+            "name": "moonstone",
+            "items": [
+                {
+                    "name": "moon.Accordion",
+                    "kind": "moon.Accordion",
+                    "description": "An accordion component",
+                    "config": {
+                        "kind": "moon.Accordion",
+                        "open": true,
+                        "content": "Accordion",
+                        "components": [
+                            {"kind": "moon.Item", "content": "Item 1"},
+                            {"kind": "moon.Item", "content": "Item 2"},
+                            {"kind": "moon.Item", "content": "Item 3"}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.Button",
+                    "kind": "moon.Button",
+                    "description": "A button component",
+                    "config": {
+                        "kind": "moon.Button",
+                        "content": "Button"
+                    }
+                },
+                {
+                    "name": "moon.CheckboxItem",
+                    "kind": "moon.CheckboxItem",
+                    "description": "A single checkbox item",
+                    "config": {
+                        "kind": "moon.CheckboxItem",
+                        "content": "Option",
+                        "checked": true
+                    }
+                },
+                {
+                    "name": "moon.CheckboxItem (Grouped)",
+                    "kind": "Group",
+                    "description": "A group checkbox item",
+                    "config": {
+                        "kind": "Group",
+                        "components": [
+                            {"kind": "moon.CheckboxItem", "content": "Option 1"},
+                            {"kind": "moon.CheckboxItem", "content": "Option 2", "checked": true},
+                            {"kind": "moon.CheckboxItem", "content": "Option 3"}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.ContextualPopup",
+                    "kind": "moon.ContextualPopupDecorator",
+                    "description": "A contextual Popup",
+                    "config": {
+                        "kind": "moon.ContextualPopupDecorator",
+                        "components": [
+                            {"content": "ContextualPopup"},
+                            {
+                                "kind": "moon.ContextualPopup",
+                                "components": [
+                                    {"content": "Item 1"},
+                                    {"content": "Item 2"},
+                                    {"content": "Item 3"}
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
