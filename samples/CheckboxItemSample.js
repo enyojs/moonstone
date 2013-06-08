@@ -5,7 +5,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
-			{controlClasses:"moon-checkbox-sample-wrapper moon-4h", components: [
+			{classes:"moon-hspacing", controlClasses:"moon-4h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Items"},
 					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, onchange: "itemChanged"},
