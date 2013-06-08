@@ -42,18 +42,18 @@ enyo.kind({
 		onleave					: "leave",
 		onmousemove				: "mousemove",
 		onPageHold				: "holdHandler",
-		onPageHoldPulse			: "holdHandler",		
+		onPageHoldPulse			: "holdHandler",
 		onPageRelease			: "holdHandler",
-		onPaginate				: "paginate"		
+		onPaginate				: "paginate"
 	},
 	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy",		
+		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
 	},
-	rendered: function() {				
+	rendered: function() {
 		this.inherited(arguments);
-		this.scrollTo(this.scrollLeft); //workaround for page control issue GF-2728		
-		var sb = this.$.strategy.scrollBounds;		
+		this.scrollTo(this.scrollLeft); //workaround for page control issue GF-2728
+		var sb = this.$.strategy.scrollBounds;
 		this.$.strategy.setPageSize(this.getVertical() !== "hidden" ? sb.clientHeight*this.pageRatio : sb.clientWidth*this.pageRatio);
 	},
 	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
@@ -66,7 +66,7 @@ enyo.kind({
 	},
 	scrollStart: function() {
 		this.$.strategy.scrollStart();
-		this.inherited(arguments);		
+		this.inherited(arguments);
 	},
 	holdHandler: function(inSender, inEvent) {
 		this.$.strategy.holdHandler(inSender, inEvent);

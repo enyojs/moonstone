@@ -56,5 +56,19 @@ enyo.depends(
 	"AccordionSample.js",
 	"PopupSample.js",
 	"TooltipSample.css",
-	"TooltipSample.js"
+	"TooltipSample.js",
+	"IconButtonSample.js",
+	"IconButtonSample.css",
+	"DrawerSample.js",
+	"DrawerSample.css",
+	"TimePickerSample.js",
+	"TimePickerSample.css",
+	"AlwaysOnPanelsSample.js",
+	"AlwaysOnPanelsSample.css",	
+	"LeanForwardPanelsSample.js",
+	"LeanForwardPanelsSample.css",
+	"PanelsWithCardArrangerSample.js",
+	"PanelsWithCardArrangerSample.css",
+	"PanelsWithCarouselArrangerSample.js",
+	"PanelsWithCarouselArrangerSample.css"
 );

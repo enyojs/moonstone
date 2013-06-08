@@ -33,7 +33,7 @@ enyo.kind({
 	},
 
 	setupLayout: function() {
-		for (var i = 0; i < 7; i++) {		
+		for (var i = 0; i < 7; i++) {
 			this.createComponent({kind: "moon.CalendarPickerDate"});
 		}
 	},
@@ -66,7 +66,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", 
+		ontap: "doTap",
 		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
@@ -98,7 +98,7 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicmoon-calendar-picker-block"},
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
 		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-picker-dates"}
 	],
 	create: function() {
@@ -136,11 +136,10 @@ enyo.kind({
 		var months = this.months;
 		/*Todo: Follwing statement violates encapsulation -david.um */
 		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
-		this.$.simplePicker.$.client.addClass("picker-content");
 		this.$.simplePicker.$.buttonRight.addClass("picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
-				{content: months[i]}
+				{content: months[i], classes: "picker-content"}
 			);
 		}
 	},
@@ -227,7 +226,7 @@ enyo.kind({
 	parseDate: function(ordering) {
 	},
 	/**
-		Updates calendar when value of DatePicker changes. 
+		Updates calendar when value of DatePicker changes.
 	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -258,7 +257,7 @@ enyo.kind({
 		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
 			var newValue = inEvent.originator.value,
 				oldValue = this.getValue();
-			
+
 			if (newValue.getFullYear() > oldValue.getFullYear()) {
 				this.$.simplePicker.setSelectedIndex(0);
 			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
@@ -267,8 +266,8 @@ enyo.kind({
 				this.$.simplePicker.next();
 			} else if (newValue.getMonth() < oldValue.getMonth()) {
 				this.$.simplePicker.previous();
-			}								
-		} 
+			}
+		}
 		return true;
 	},
 	valueChanged: function(inOld) {

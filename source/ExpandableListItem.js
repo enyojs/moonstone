@@ -81,7 +81,7 @@ enyo.kind({
 			}
 		}
 	},
-	//* Calls _expandContract()_ if _select_ event came from header. 
+	//* Calls _expandContract()_ if _select_ event came from header.
 	spotlightSelect: function(inSender, inEvent) {
 		if(inSender === this) {
 			this.expandContract(inSender, inEvent);

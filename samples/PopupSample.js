@@ -14,14 +14,20 @@ enyo.kind({
 		{kind: "moon.Button", content: "Button in Popup", ontap: "showPopup", popup: "buttonPopup"},
 		{name: "buttonPopup", kind: "moon.Popup", components: [
 			{kind: "moon.Divider", content: "Buttons in popup example"},
-			{kind: "moon.Button", content: "Hi"},
-			{kind: "moon.Button", content: "By"},
+			{kind: "moon.Button", content: "Hello"},
+			{kind: "moon.Button", content: "Goodbye"},
 		]}
 	],
 	showPopup: function(inSender) {
+		this.hidePopups();
 		var p = this.$[inSender.popup];
 		if (p) {
 			p.show();
 		}
+	},
+	hidePopups: function() {
+		this.$.basicPopup.hide();
+		this.$.longPopup.hide();
+		this.$.buttonPopup.hide();
 	}
 });
