@@ -1168,7 +1168,7 @@ PageControl's use of IconButtons
   border-top-color: transparent;
   border-bottom-width: 25px;
   border-bottom-style: solid;
-  border-bottom-color: white;
+  border-bottom-color: transparent;
   border-radius: 24px;
 }
 .moon-scroll-picker.spotlight {
@@ -1244,7 +1244,7 @@ PageControl's use of IconButtons
   left: 33%;
 }
 .up-arrow {
-  border-color: transparent transparent white transparent;
+  border-color: transparent transparent #cccccc transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1292,7 +1292,7 @@ PageControl's use of IconButtons
   left: 12%;
 }
 .down-arrow {
-  border-color: white transparent transparent transparent;
+  border-color: #cccccc transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1958,7 +1958,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
-  border-color: transparent transparent white transparent;
+  border-color: transparent transparent #cccccc transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -13px;
@@ -1967,7 +1967,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
-  border-color: white transparent transparent transparent;
+  border-color: #cccccc transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -5px;

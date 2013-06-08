@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.AccordionSample",
 	kind:"FittableRows",	
 	style: "margin:20px;",
-	classes: "moon enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},

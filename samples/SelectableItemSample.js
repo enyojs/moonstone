@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.SelectableItemSample",
-	classes: "moon enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	layoutKind: "enyo.FittableColumnsLayout",
 	components: [
 		{kind: "enyo.Spotlight"},

@@ -9,7 +9,7 @@ enyo.kind({
 	},
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
+		{name: 'scroller', kind: 'moon.Scroller', classes:"moon-time-picker-sample-scroller", touch: true, components: [
 			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Choose Locale", classes: "moon-expandable-picker-wrapper", onChange:"pickerHandler", components: [
 				{content: 'en-US', active:true},
 				{content: 'en-CA'},
