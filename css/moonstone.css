@@ -163,25 +163,25 @@
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  width: 170px;
+  height: 170px;
 }
 .moon-2v {
-  width: 350px;
+  height: 350px;
 }
 .moon-3v {
-  width: 530px;
+  height: 530px;
 }
 .moon-4v {
-  width: 710px;
+  height: 710px;
 }
 .moon-5v {
-  width: 890px;
+  height: 890px;
 }
 .moon-6v {
-  width: 1070px;
+  height: 1070px;
 }
 .moon-7v {
-  width: 1250px;
+  height: 1250px;
 }
 /* Common classes applicable to multiple controls */
 .moon {
