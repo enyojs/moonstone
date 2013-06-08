@@ -1,11 +1,12 @@
 enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
+	kind: "FittableRows",
 	style: "margin:20px;",
 	classes: "moon enyo-unselectable",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{components: [
+		{kind:"moon.Scroller", fit:true, components: [
 			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: false, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
 				{content: "English"},
 				{content: "Spanish"},
