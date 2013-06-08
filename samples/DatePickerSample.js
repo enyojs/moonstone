@@ -1,32 +1,53 @@
 enyo.kind({
 	name: "moon.sample.DatePickerSample",
-	kind:"FittableRows",
-	style: "margin:20px;",
 	classes: "moon enyo-unselectable enyo-fit",
-	fit: true,
 	handlers: {
 		onChange: "changed"
 	},
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', classes:"moon-date-picker-sample-scroller", touch: true, components: [
-			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Choose Locale", classes: "moon-expandable-picker-wrapper", onChange:"pickerHandler", components: [
-				{content: 'en-US', active:true},
-				{content: 'en-CA'},
-				{content: 'en-IE'},
-				{content: 'en-GB'},
-				{content: 'en-MX'},
-				{content: 'de-DE'},
-				{content: 'fr-FR'},
-				{content: 'fr-CA'},
-				{content: 'it-IT'},
-				{content: 'es-ES'},
-				{content: 'es-MX'},
-				{content: 'es-US'}
-			]},
-			{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},
-			{name:"date", style:"font-size:0.35em;font-family:MuseoSans Light"},
-			{kind: "moon.DatePicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date", classes: "moon-date-picker-wrapper"}
+		{kind: 'moon.Scroller', classes:"enyo-fill", touch: true, components: [
+			{
+				name: "langPicker", 
+				kind: "moon.ExpandablePicker", 
+				autoCollapse: true, 
+				noneText: "No Language Selected", 
+				content: "Choose Locale", 
+				classes: "moon-sample-padded", 
+				onChange:"pickerHandler", 
+				components: [
+					{content: 'en-US', active:true},
+					{content: 'en-CA'},
+					{content: 'en-IE'},
+					{content: 'en-GB'},
+					{content: 'en-MX'},
+					{content: 'de-DE'},
+					{content: 'fr-FR'},
+					{content: 'fr-CA'},
+					{content: 'it-IT'},
+					{content: 'es-ES'},
+					{content: 'es-MX'},
+					{content: 'es-US'}
+				]
+			},
+			{
+				kind: "moon.DatePicker", 
+				noneText: "Pick a Date", 
+				content: "Date", 
+				classes: "moon-sample-padded"
+			},
+			{
+				name: "date", 
+				classes: "moon-sample-datepicker-console"
+			},
+			{tag: "br"},
+			{
+				kind: "moon.DatePicker", 
+				disabled: true, 
+				noneText: "Disabled Date Picker", 
+				content: "Disabled Date", 
+				classes: "moon-sample-padded"
+			}
 		]}
 	],
 	create: function(){
