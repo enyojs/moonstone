@@ -1,12 +1,9 @@
 enyo.kind({
 	name: "moon.sample.AccordionSample",
-	kind:"FittableRows",	
-	style: "margin:20px;",
 	classes: "moon enyo-unselectable enyo-fit",
-	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [		
+		{name: 'scroller', kind: 'moon.Scroller', classes: "enyo-fill", touch: true, components: [		
 			{kind: "moon.Divider", content: "Not In Group"},
 	        {components: [
 	            {kind: "moon.Accordion", content: "This is an accordion", components: [
