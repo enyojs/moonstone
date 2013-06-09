@@ -285,7 +285,7 @@ enyo.kind({
 		switch (this.pattern) {
 		case "none":
 			break;
-		case "alwayson":
+		case "alwaysviewing":
 			this.addClass("panels-50-percent-scrim");
 			break;
 		case "activity":
