@@ -14,12 +14,11 @@ enyo.kind({
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
-			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"},
+			ontap: "expandContract", onSpotlightSelect: "expandContract"},
 		{name:"arrow", classes:"moon-accordion-arrow"},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", classes: "moon-accordion-client"}
-		]},
-		{name: "bottom", spotlight: true, classes: "moon-accordion-bottom", onSpotlightFocus: "spotlightFocusBottom"}
+		]}
 	],
 	//* @protected
 	rendered: function() {

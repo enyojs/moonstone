@@ -57,10 +57,15 @@ enyo.kind({
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
+		//* Initial value
 		value: -1,
+		//* Minimum value
 		min: 0,
+		//* Maximum value
 		max: 9,
+		//* Amount to increment/decrement by
 		step: 1,
+		//* Unit/label to be appended to the end of the number
 		unit: "sec"
 	},
 	//* @protected
@@ -73,7 +78,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-integer-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep"},
+		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", classes:"moon-expandable-integer-picker-drawer"},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-integer-picker-current-value", ontap: "expandContract", content: ""},
 		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
@@ -82,6 +87,7 @@ enyo.kind({
 		this.createComponent({name: "client", kind: "moon.SimpleIntegerPicker", value: this.value, min: this.min, max: this.max, unit: this.unit, onChange: "changeHandler", onSelect: "selectHandler"});
 		this.noneTextChanged();
 		this.updateContent();
+		this.openChanged();
 	},
 	initComponents: function() {
 		this.controlParentName = "drawer";
@@ -109,13 +115,13 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.preventResize = false;
-		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
+		this.$.currentValue.setShowing(!this.open);
+		this.$.bottom.setShowing(this.open);
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
 	selectHandler: function(inSender, inEvent) {
 		var _this = this;
-		// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
-		if(this.getAutoCollapse() && this.isRendered) {
+		if (this.isRendered) {
 			setTimeout(function() {
 				_this.setOpen(false);
 				enyo.Spotlight.spot(_this);
