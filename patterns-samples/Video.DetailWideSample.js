@@ -1,280 +1,136 @@
 enyo.kind({
     name: "moon.sample.video.DetailWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-video-detail",
-    fit: true,
-    spotlight: false,
+    layoutKind: "FittableColumnsLayout",
     title: "Movie Name",
     titleAbove: "03",
     headerComponents: [
-        {
-            classes: "header",
-            components: [
-                {kind: "moon.IconButton", src: "assets/icon-download.png"},
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-favorite.png",
-                    classes: "right-button"
-                },
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-next.png",
-                    classes: "right-button"
-                }
-            ]
-        }
+        {kind: "moon.IconButton", src: "assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
-            kind: "FittableColumns",
-            classes: "client",
-            fit: true,
+            kind: "FittableRows",
             components: [
                 {
-                    name: "detail",
-                    classes: "detail",
-                    components: [
-                        {
-                            name: "preview",
-                            classes: "preview",
-                            spotlight: true,
-                            components: [{name: "play", classes: "play-icon"}]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            components: [
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "SD",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						components: [
-                            							{
-                                                            content: "$",
-                                                            classes: "moon-pre-text"
-                                                        },
-                            							{
-                                                            content: "3",
-                                                            classes: "moon-large-text"
-                                                        },
-                            							{
-                                                            content: "99",
-                                                            classes: "moon-superscript"
-                                                        }
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {style: "width: 11%;"},
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "HD",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						components: [
-                            							{
-                                                            content: "$",
-                                                            classes: "moon-pre-text"
-                                                        },
-                            							{
-                                                            content: "6",
-                                                            classes: "moon-large-text"
-                                                        },
-                            							{
-                                                            content: "99",
-                                                            classes: "moon-superscript"
-                                                        }
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {style: "width: 11%;"},
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "3D",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						components: [
-                            							{
-                                                            content: "$",
-                                                            classes: "moon-pre-text"
-                                                        },
-                            							{
-                                                            content: "7",
-                                                            classes: "moon-large-text"
-                                                        },
-                            							{
-                                                            content: "99",
-                                                            classes: "moon-superscript"
-                                                        }
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
+                    name: "movie", kind: "enyo.Image", style: "width: 600px; height: 320px;"
                 },
                 {
-                    classes: "info",
+                    kind: "HFlexBox",
                     components: [
-                        {
-                            kind: "FittableColumns",
-                            components: [
-                                {
-                                    kind: "FittableRows",
-                                    style: "width: 30%;",
-                                    components: [
-                                        {
-                                            kind: "moon.Divider",
-                                            classes: "divider",
-                                            content: "Rating"
-                                        },
-                                        {
-                                            tag: "b",
-                                            classes: "big",
-                                            content: "PG-13"
-                                        }
-                                    ]
-                                },
-                                {style: "width: 5%;"},
-                                {
-                                    kind: "FittableRows",
-                                    style: "width: 30%;",
-                                    components: [
-                                        {
-                                            kind: "moon.Divider",
-                                            classes: "divider",
-                                            content: "Release Date"
-                                        },
-                                        {
-                                            tag: "b",
-                                            classes: "big",
-                                            content: "2013"
-                                        }
-                                    ]
-                                },
-                                {style: "width: 5%;"},
-                                {
-                                    kind: "FittableRows",
-                                    style: "width: 30%;",
-                                    components: [
-                                        {
-                                            kind: "moon.Divider",
-                                            classes: "divider",
-                                            content: "Running Time"
-                                        },
-                                        {
-                                            kind: "FittableColumns",
-                                            components: [
-                                                {
-                                                    tag: "b",
-                                                    classes: "big",
-                                                    content: "122"
-                                                },
-                                                {
-                                                    content: "min",
-                                                    classes: "sub"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            kind: "moon.Divider",
-                            classes: "synopsis-divider",
-                            content: "Synopsis"
-                        },
-                        {
-                            classes: "content",
-                            components: [
-                                {
-                                    allowHtml: true,
-                                    content: "<b>Starring: </b>Actor Name, Actor N" +
-                                             "ame, and Actor Name"
-                                },
-                                {tag: "br"},
-                                {
-                                    content: "Pixar genius reigns in this funny ro" +
-                                             "mantic comedy, which stars a robot w" +
-                                             "ho says absolutely nothing for a ful" +
-                                             "l 25 minutes yet somehow completely " +
-                                             "transfixes and endears himself to th" +
-                                             "e audience within the first few minu" +
-                                             "tes of the film. As the last robot l" +
-                                             "eft on earth, Wall-E (voiced by Ben " +
-                                             "Burtt) is one small robot--with a bi" +
-                                             "g, big heart--who holds the future o" +
-                                             "f earth and mankind squarely in the " +
-                                             "palm of his metal hand. He's outlast" +
-                                             "ed all the \"Waste Allocation Load L" +
-                                             "ifter Earth-Class\" robots that were" +
-                                             " assigned some 700 years ago to clea" +
-                                             "n up the environmental mess that man" +
-                                             " made of earth while man vacationed " +
-                                             "aboard the luxury spaceship Axiom."
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    fit: true,
-                    components: [
-                        {
-                            kind: "moon.Divider",
-                            classes: "more-divider",
-                            content: "More"
-                        },
-                        {kind: "Group", components: [
-                            {kind: "moon.SelectableItem", content: "Trailers"},
-                            {kind: "moon.SelectableItem", content: "Also Watched"},
-                            {kind: "moon.SelectableItem", content: "Recommendations"},
-                            {kind: "moon.SelectableItem", content: "Reviews"},
-                            {kind: "moon.SelectableItem", content: "Cast"}
+                        {flex: true, components: [
+                            {content: "SD"},
+                            {name: "valueSD"}
+                        ]},
+                        {flex: true, components: [
+                            {content: "HD"},
+                            {name: "valueHD"}
+                        ]},
+                        {flex: true, components: [
+                            {content: "3D"},
+                            {name: "value3D"}
                         ]}
                     ]
                 }
             ]
+        },
+        {
+            kind: "FittableRows",
+            fit: true,
+            components: [
+                {
+                    kind: "HFlexBox",
+                    // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
+                    style: "height: 100px;",
+                    components: [
+                        {flex: true, components: [
+                            {kind: "moon.Divider", content: "Rating"},
+                            {name: "rating"}
+                        ]},
+                        {flex: true, components: [
+                            {kind: "moon.Divider", content: "Release Date"},
+                            {name: "releaseDate"}
+                        ]},
+                        {flex: true, components: [
+                            {kind: "moon.Divider", content: "Running Time"},
+                            {name: "duration"}
+                        ]}
+                    ]
+                },
+                {tag: "br"},
+                {kind: "moon.Divider", content: "Synopsis"},
+                {name: "synopsisHeader", allowHtml: true},
+                {tag: "br"},
+                {name:"synopsisScroller", kind: "moon.Scroller", horizontal:"hidden", fit: true, components: [
+                    {name: "synopsisBody"}
+                ]}
+            ]
+        },
+        {
+            kind: "FittableRows",
+            style: "width: 25%;",
+            components: [
+                {kind: "moon.Divider", classes: "moon-video-detail-more", content: "More"},
+                {kind: "Group", components: [
+                    {kind: "moon.SelectableItem", content: "Trailers", spotlight: true},
+                    {kind: "moon.SelectableItem", content: "Also Watched", spotlight: true},
+                    {kind: "moon.SelectableItem", content: "Recommendations", spotlight: true},
+                    {kind: "moon.SelectableItem", content: "Reviews", spotlight: true},
+                    {kind: "moon.SelectableItem", content: "Cast", spotlight: true}
+                ]}
+            ]
         }
-    ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        var w = this.$.detail.getBounds().width;
-        var h = Math.round(w * 353 / 627);
-        this.$.preview.setBounds({width: w, height: h});
-        
-        w = Math.round((w - 168) * 0.5);
-        h = Math.round((h - 168) * 0.5);
-        this.$.play.setStyle("margin: " + h + "px 0px 0px " + w + "px;");
-    }
+     ],
+    bindings: [
+        {from: ".controller.posterUrl", to: "$.movie.src"},
+        {from: ".controller.rating", to: "$.rating.content"},
+        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
+        {from: ".controller.duration", to: "$.duration.content"},
+        {from: ".controller.valueSD", to: "$.valueSD.content"},
+        {from: ".controller.valueHD", to: "$.valueHD.content"},
+        {from: ".controller.value3D", to: "$.value3D.content"},
+        {from: ".controller.synopsisHeader", to: "$.synopsisHeader.content"},
+        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        posterUrl: "http://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG",
+        rating: "PG-13",
+        releaseDate: "2013",
+        duration: "122",
+        valueSD: "$3.99",
+        valueHD: "$6.99",
+        value3D: "$7.99",
+        synopsisHeader: "<b>Starring: </b>Actor Name, Actor Name, and Actor Name",
+        synopsisBody: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
+    });
+
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.video.DetailWideSample",
+                    controller: ".app.controllers.movieController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "movieController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+            }
+        ]
+    });
 });

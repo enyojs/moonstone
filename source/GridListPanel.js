@@ -13,11 +13,11 @@ enyo.kind({
 		onItemClicked : ""
 	},
 
-	fadeIn : function(){ 
+	fadeIn : function(){
 		this.$.client.applyStyle("visibility","hidden");
 		this.$.client.applyStyle("opacity",0);
 
-		setTimeout( enyo.bind(this, function(){ 
+		setTimeout( enyo.bind(this, function(){
 			this.$.client.applyStyle("visibility","visible");
 			this.$.client.applyStyle("opacity",1);
 		}), 300 );
@@ -41,20 +41,20 @@ enyo.kind({
 						],
 						touch:true,
 						fit:true
-					}					
+					}
 				]}
 			]}
 		]}
 	],
 
-	// header setting 
+	// header setting
 	setHeader : function(pObj){
 		this.$.index.setContent("0" + pObj.index);
 		this.$.title.setContent(pObj.title);
 	},
 
-	// client setting 
-	setClient : function(pObj){	
+	// client setting
+	setClient : function(pObj){
 		this.itemData = pObj.data;
 		this.$.gridlist.setStyle("height:" + (window.innerHeight- 150) + "px");
 

@@ -1,49 +1,5 @@
-.livetv-background {
-    background-image: url("assets/livetv-background.png");
-    background-size: 100% 100%;
-}
-
-.moon-music-main-menu {
-    margin: 0px 20px 20px 20px;
-}
-
-.moon-header {
-    color: #ffffff;
-    height: 400px;
-    border-bottom: 6px solid #ffffff;
-    overflow: hidden;
-    min-width: 532px;
-    position: relative;
-}
-
-.moon-header-title-above {
-    font-size: 36px;
-    font-weight: bold;
-    line-height: 36px;
-    padding: 58px 0px 5px 0px;
-    margin: 0px;
-    width: 30px;
-    border-bottom: 1px solid #ffffff;
-}
-
-.moon-music-main-menu .menu {
-    color: #ffffff;
-    width: 15%;
-    padding: 20px 0px 0px 0px;
-}
-
-.moon-music-main-menu .item {
-    color: #ffffff;
-}
-
-.moon-music-main-menu .content {
-    padding: 10px 0px 0px 0px;
-}
-
-.moon-music-main-menu .branding {
-    display: table-cell;
-	background: #666666;
-    color: #ffffff;
-    text-align: center;
-    vertical-align:middle;
-}
+/*
+    Sample-specific CSS would go here, but to make your
+    application easier to maintain, you should try to
+    minimize the use of custom CSS.
+*/

@@ -1,0 +1,50 @@
+/* CalendarPicker.css */
+.moon-calendar-picker {
+	display: inline-block;
+}
+.moon-calendar-picker-block {
+	display: inline-block;
+}
+.moon-calendar-picker-simplepicker .picker-content {
+	font-size: 36pt;
+	font-weight: bold;
+}
+.moon-calendar-picker .picker-button {
+	margin: 2px 0px;
+	font-size: 48pt;
+}
+.moon-calendar-picker-dates {
+	margin: 30px 0px 0px 0px;
+}
+.moon-calendar-picker-week {
+	margin-top: 7px;
+	margin-bottom: 7px;
+	left: 0px; right: 0px;
+	white-space: nowrap;
+}
+.moon-calendar-picker-date {
+	width: @moon-picker-button-width;
+	min-width: @moon-picker-button-width;	
+	height: @moon-picker-button-width;
+	line-height: @moon-picker-button-width;
+	border: 0px;
+	border-radius: @moon-button-border-radius;
+	font-weight: normal;
+	font-size: 20pt;
+	background: inherit;
+	color: @moon-dark-gray;
+	padding: 0px;
+	margin: 0 2.26%;
+	text-align: center;
+	vertical-align: middle; 
+}
+.moon-calendar-picker-date.spotlight {
+	border: @moon-button-border-width solid @moon-spotlight-border-color;
+	background: @moon-spotlight-border-color;
+}
+.moon-calendar-picker-date.active {
+	background-color: @moon-spotlight-border-color;
+}
+.moon-calendar-picker-date-shadow {
+	color: #A2A2A2;
+}

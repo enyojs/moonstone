@@ -3,7 +3,7 @@
 	_moon.Panel_ is the default kind for controls created inside a
 	<a href="#moon.Panels">moon.Panels</a> container.  Typically, a _moon.Panels_
 	will contain several instances of _moon.Panel_.
-	
+
 	The built-in features of _moon.Panel_ include a header and a FittableRows
 	layout for the main body content.
 */
@@ -27,9 +27,9 @@ enyo.kind({
 		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
 	},
-	
+
 	//* @protected
-	
+
 	spotlight: "container",
 	fit : true,
 	classes: "moon-panel",
@@ -41,7 +41,7 @@ enyo.kind({
 	],
 	headerComponents: [],
 	isBreadcrumb: false,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		this.$.header.createComponents(this.headerComponents);
@@ -65,12 +65,12 @@ enyo.kind({
 		this.layoutKind = "FittableRowsLayout";
 		this.inherited(arguments);
 	},
-	
+
 	//* @public
-	
+
 	autoNumberChanged: function() {
-		if (this.getAutoNumber() == true && this.container) {
-			this.setTitleAbove(this.clientIndexInContainer() + 1);
+		if (this.getAutoNumber() === true && this.container) {
+			this.setTitleAbove(this.indexInContainer() + 1);
 		}
 	},
 	//* Updates _this.header_ when _title_ changes.
@@ -84,6 +84,10 @@ enyo.kind({
 	//* Updates _this.header_ when _titleBelow_ changes.
 	titleBelowChanged: function() {
 		this.$.header.setTitleBelow(this.getTitleBelow());
+	},
+	//* Get _this.header_ to update panel header dynamically.
+	getHeader: function() {
+		return this.$.header;
 	},
 	shrinkPanel: function() {
 		this.$.animator.newAnimation({
@@ -124,7 +128,7 @@ enyo.kind({
 				}]
 			}
 		});
-		
+
 		this.$.header.animateCollapse();
 		this.$.animator.play("preTransition");
 	},
@@ -159,8 +163,7 @@ enyo.kind({
 						"opacity" : "1"
 					}
 				}],
-				100: [
-				{
+				100: [{
 					control: this.$.panelBody,
 					properties: {
 						"height" : "auto"
@@ -168,13 +171,13 @@ enyo.kind({
 				}]
 			}
 		});
-		
+
 		this.$.header.animateExpand();
 		this.$.animator.play("postTransition");
 	},
-	
+
 	//* @protected
-	
+
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
@@ -183,15 +186,15 @@ enyo.kind({
 		this.isBreadcrumb = false;
 		this.doPostTransitionComplete();
 	},
-	preTransition: function(inFromIndex, inToIndex) {
-		if (this.container && !this.isBreadcrumb && this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+	preTransition: function(inFromIndex, inToIndex, options) {
+		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;
 		}
 		return false;
 	},
-	postTransition: function(inFromIndex, inToIndex) {
-		if (this.container && this.isBreadcrumb && !this.container.layout.isBreadcrumb(this.clientIndexInContainer(), inToIndex)) {
+	postTransition: function(inFromIndex, inToIndex, options) {
+		if (this.container && this.isBreadcrumb && !options.isBreadcrumb) {
 			this.growPanel();
 			return true;
 		}
@@ -199,12 +202,12 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "preTransition":
-				this.preTransitionComplete();
-				break;
-			case "postTransition":
-				this.postTransitionComplete();
-				break;
+		case "preTransition":
+			this.preTransitionComplete();
+			break;
+		case "postTransition":
+			this.postTransitionComplete();
+			break;
 		}
 	}
 });
