@@ -8,6 +8,7 @@
 .moon {
 	font-family: @moon-font-family;
 	font-size: @moon-text-size;
+	color: @moon-light-text-color;
 }
 
 .enyo-locale-non-latin .moon,
@@ -143,3 +144,16 @@
 .moon-light-gray * {
 	color: @moon-dark-gray;
 }
+
+.moon-hspacing > * {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 @moon-grid-gutter-width/2;
+}
+.moon-hspacing > :first-child {
+	margin-left: 0;
+}
+.moon-hspacing > :last-child {
+	margin-right: 0;
+}
+

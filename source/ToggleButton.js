@@ -8,7 +8,6 @@
 enyo.kind({
 	name: "moon.ToggleButton",
 	kind: "moon.Button",
-
 	published: {
 		//* to indicate that this is the active button of the group, false otherwise.
 		active: false,
@@ -27,11 +26,11 @@ enyo.kind({
 	},
 	events: {
 		/**
- 			Fires when the user changes the value of the toggle button,	but not
- 			when the value is changed programmatically.
+			Fires when the user changes the value of the toggle button,	but not
+			when the value is changed programmatically.
 
- 			_inEvent.value_ contains the value of the toggle button.
- 		*/
+			_inEvent.value_ contains the value of the toggle button.
+		*/
 		onChange: ""
 	},
 	//* @protected
@@ -90,7 +89,7 @@ enyo.kind({
 		}
 	},
 	tap: function() {
- 		this.updateValue(!this.value);
+		this.updateValue(!this.value);
 	},
 	dragstart: function(inSenser, inEvent) {
 		if (inEvent.horizontal) {

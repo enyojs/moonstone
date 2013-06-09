@@ -1,12 +1,10 @@
 enyo.depends(
 	"sample.css",
-	"PanelsSample.js",
-	"PanelsSample.css",
 	"SimplePickerSample.js",
 	"SimpleIntegerPickerSample.js",
 	"GridListSample.js",
-	"CheckboxSample.js",
-	"CheckboxSample.css",
+	"CheckboxItemSample.js",
+	"CheckboxItemSample.css",
 	"RadioItemSample.js",
 	"RadioItemSample.css",
 	"ExpandablePickerSample.js",
@@ -46,6 +44,7 @@ enyo.depends(
 	"ImageItemSample.js",
 	"ImageItemSample.css",
 	"SpinnerSample.js",
+	"SpinnerSample.css",
 	"ItemSample.css",
 	"ItemSample.js",
 	"HeaderSample.js",
@@ -55,6 +54,7 @@ enyo.depends(
 	"AccordionSample.css",
 	"AccordionSample.js",
 	"PopupSample.js",
+	"DialogSample.js",
 	"TooltipSample.css",
 	"TooltipSample.js",
 	"IconButtonSample.js",
@@ -70,5 +70,7 @@ enyo.depends(
 	"PanelsWithCardArrangerSample.js",
 	"PanelsWithCardArrangerSample.css",
 	"PanelsWithCarouselArrangerSample.js",
-	"PanelsWithCarouselArrangerSample.css"
+	"PanelsWithCarouselArrangerSample.css",
+	"ToggleItemSample.css",
+	"ToggleItemSample.js"
 );
