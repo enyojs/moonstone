@@ -1,7 +1,6 @@
 enyo.kind({
     name: "moon.sample.PanelsWithCardArrangerSample",
-    classes: "enyo-fit moon",
-    fit: true,
+    classes: "moon enyo-unselectable enyo-fit",
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", arrangerKind: "CardArranger", classes: "enyo-fit", components: [

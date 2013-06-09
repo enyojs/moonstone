@@ -1,6 +1,6 @@
-.moon .moon-button-sample-wrapper .moon-button-caption-decorator,
-.moon .moon-button-sample-group button,
-.moon .moon-button-sample-wrapper > button {
+.moon-button-sample-wrapper .moon-button-caption-decorator,
+.moon-button-sample-group button,
+.moon-button-sample-wrapper > button {
 	margin: 20px;
 }
 

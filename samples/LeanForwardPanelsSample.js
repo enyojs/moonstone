@@ -1,6 +1,6 @@
 enyo.kind({
     name: "moon.sample.LeanForwardPanelsSample",
-    classes: "moon",
+	classes: "moon enyo-unselectable enyo-fit",
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
