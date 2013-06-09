@@ -41,9 +41,9 @@ enyo.kind({
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.time && inEvent.value){
+		if (this.$.result && inEvent.value){
 			var timeArray = inEvent.value.toTimeString().split(":");
-			this.$.time.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
+			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}
 	}
 });

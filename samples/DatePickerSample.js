@@ -41,8 +41,8 @@ enyo.kind({
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.date && inEvent.value){
-			this.$.date.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+		if (this.$.result && inEvent.value){
+			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
 	}
 });
