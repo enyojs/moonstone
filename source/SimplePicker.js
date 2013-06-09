@@ -97,16 +97,18 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Find max width of all children
-		var width = 0;
-		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-			width = Math.max(width, c$[i].getBounds().width);
+		if (this.getAbsoluteShowing()) {
+			var width = 0;
+			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+				width = Math.max(width, c$[i].getBounds().width);
+			}
+			this.$.client.setBounds({width:width});
+			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+				c$[i].setBounds({width:width});
+			}
+			this.$.client.reflow();
+			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
-		this.$.client.setBounds({width:width});
-		for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-			c$[i].setBounds({width:width});
-		}
-		this.$.client.reflow();
-		this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 
 		// Make sure selected item is in sync after Panels reflow, which may have
 		// followed an item being added/removed
