@@ -25,29 +25,30 @@
 */
 enyo.kind({
 	name: "moon.Drawers",
-	kind:"enyo.Control",
+	kind: "enyo.Control",
 	classes: "moon-drawers",
 	published: {
 		drawers: null
 	},
 	handlers: {
 		onActivate: "drawerActivated",
+		onDeactivate: "drawerDeactivated",
 		onSpotlightDown:"spotDown",
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"closeContainer", classes: "moon-drawers-close-container", spotlight:true, ontap: "closeDrawer", showing: false, components: [
+		{name: "closeContainer", classes: "moon-drawers-close-container", spotlight:true, ontap: "closeDrawer", showing: false, components: [
 			{classes: "moon-drawers-close-handle", components: [
 				{name: "closeText", tag: "p", content: "CLOSE", classes: "moon-drawers-close-handle-text"}
 			]}
 		]},
-		{name:"handleContainer", spotlight:'container', classes:"moon-drawers-handle-container"},
-		{name:"drawers", classes:"moon-drawers-drawer-container"},
+		{name: "handleContainer", spotlight:'container', classes:"moon-drawers-handle-container"},
+		{name: "drawers", classes:"moon-drawers-drawer-container"},
 		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.$.drawers.createComponents(this.drawers, {owner:this.owner});
+		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
 		this.setupHandles();
 		enyo.Spotlight.spot(this.$.client);
 	},
@@ -56,7 +57,7 @@ enyo.kind({
 		for (var index in this.drawers){
 			handles.push(this.drawers[index].handle);
 		}
-		this.$.handleContainer.createComponents(handles, {owner:this});
+		this.$.handleContainer.createComponents(handles, {kind: "moon.DrawerHandle", owner:this});
 		for (index in handles) {
 			this.$.handleContainer.getControls()[index].addClass('moon-drawers-handle');
 			this.$.handleContainer.getControls()[index].tap = this.bindSafely(this.handleTapped);
@@ -107,6 +108,9 @@ enyo.kind({
 				return true;
 			}
 		}
+	},
+	drawerDeactivated: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this.$.handleContainer);
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
