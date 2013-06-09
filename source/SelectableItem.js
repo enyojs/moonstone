@@ -1,3 +1,13 @@
+/**
+	_moon.SelectableItem_ is a moon.Item which can be selected
+	with Moonstone styling applied. 
+
+	When item is selected, it has narrow underline at the bottom.
+
+	If item is used in group, only one item can be in selected state
+	at one time.
+*/
+
 enyo.kind({
 	name: "moon.SelectableItem",
 	kind: "moon.Item",

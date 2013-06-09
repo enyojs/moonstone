@@ -1,3 +1,7 @@
+/**
+	_moon.Item_ is a control that can display simple text and have focus 
+	with Moonstone styling applied.
+*/
 enyo.kind({
 	name: "moon.Item",
 	classes: "moon-item",

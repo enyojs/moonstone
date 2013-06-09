@@ -1,3 +1,36 @@
+/**
+	_moon.BreadcrumbArranger_ is an <a href="#enyo.Arranger">enyo.Arranger</a>
+	that displays the active control, along with some number of breadcrumb on the
+	right side. And this is the default arranger of always viewing and activity 
+	pattern, so you don't need to specify the arranger when using moon.Panel with
+	these pattern. 
+
+	The breadcrumb indicates the path of sequential panels you already see.
+
+	Transitions between arrangements are handled by sliding the new control	in
+	from the right. If the width of the old control(s) can fit within the container,
+	they will slide to the left. If not, the old control(s) will collapse to the left.
+
+	The control's child components may be of any kind; by default, they are
+	instances of _moon.Panel_.
+
+		{name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
+            {title: "First", components: [
+				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
+				{kind: "moon.Item", content: "Item Two"},
+				{kind: "moon.Item", content: "Item Three"},
+				{kind: "moon.Item", content: "Item Four"},
+				{kind: "moon.Item", content: "Item Five"}
+			]},
+            {title: "Second", joinToPrev: true, components: [
+				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
+				{kind: "moon.Item", content: "Item Two"},
+				{kind: "moon.Item", content: "Item Three"},
+				{kind: "moon.Item", content: "Item Four"},
+				{kind: "moon.Item", content: "Item Five"}
+			]}
+		]}
+*/
 enyo.kind({
 	name: "moon.BreadcrumbArranger",
 	kind: "enyo.DockRightArranger",

@@ -1,3 +1,11 @@
+/**
+	_moon.CalendarPicker_ is a control that displays month at the top and days at the bottom
+	with Moonstone styling applied.
+	
+	To choose day, tap on left/right button at the header and each day button.
+
+	{kind: "moon.CalendarPicker", content: "Calendar Title"}
+*/
 enyo.kind({
 	name: "moon.CalendarPickerDate",
 	kind: "enyo.Button",
