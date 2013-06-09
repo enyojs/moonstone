@@ -1161,7 +1161,7 @@ PageControl's use of IconButtons
 }
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
-  padding: 27px 21px;
+  display: inline-block;
 }
 .moon-scroll-picker {
   height: 102px;
