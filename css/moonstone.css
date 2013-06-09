@@ -24,6 +24,8 @@
 /* @moon-spotlight-border-width + @moon-spotlight-padding-left */
 /* Button */
 /* ---------------------------------------*/
+/* CalendarPicker */
+/* ---------------------------------------*/
 /* Input */
 /* ---------------------------------------*/
 /* Pickers */
@@ -182,8 +184,7 @@
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans Medium";
-  font-size: 26px;
-  color: #4b4b4b;
+  font-size: 40px;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -418,35 +419,6 @@
 .moon-checkbox .moon-overlay.off {
   opacity: 0;
 }
-/* Toggle.css */
-.moon-checkbox.moon-toggle-text {
-  line-height: 36px;
-  text-align: left;
-  text-transform: uppercase;
-  background: inherit;
-  opacity: 1;
-  background: transparent none no-repeat 0 0;
-  position: relative;
-}
-.moon-checkbox.moon-toggle-text[disabled] {
-  opacity: 0.4;
-}
-.moon-checkbox.moon-toggle-text[checked] {
-  background: transparent none no-repeat 0px 0px;
-}
-.moon-checkbox.moon-toggle-text .moon-overlay {
-  background: transparent;
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #ffb80d;
-}
-.moon-toggle-text-text {
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #A9A9A9;
-}
 .moon-divider {
   font-size: 20px;
   line-height: 20px;
@@ -456,6 +428,35 @@
   padding: 0px 0px 6px 0px;
   text-transform: uppercase;
   font-weight: bold;
+}
+/* Toggle.css */
+.moon-checkbox.moon-toggle-button {
+  line-height: 36px;
+  text-align: left;
+  text-transform: uppercase;
+  background: inherit;
+  opacity: 1;
+  background: transparent none no-repeat 0 0;
+  position: relative;
+}
+.moon-checkbox.moon-toggle-button[disabled] {
+  opacity: 0.4;
+}
+.moon-checkbox.moon-toggle-button[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-checkbox.moon-toggle-button .moon-overlay {
+  background: transparent;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  color: #ffb80d;
+}
+.moon-toggle-button-text {
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  color: #A9A9A9;
 }
 .moon-checkbox-item {
   display: block;
@@ -490,44 +491,29 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
-/* Toggle.css */
-.moon-button.moon-toggle-button {
-  text-align: center;
-  text-transform: uppercase;
-  position: relative;
-}
-.moon-toggle-button.moon-overlay {
-  border: 5px solid #A2A2A2;
-}
-.moon-toggle-button-text {
-  position: relative;
-  right: 0px;
-  text-align: center;
-  color: #A9A9A9;
-}
-.moon-toggle-item {
+.moon-labeled-toggle-button {
   display: block;
   position: relative;
 }
-.moon-toggle-item .moon-toggle-item-label-wrapper {
+.moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
   height: 24px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, #ffffff 75px);
   padding: 2px 0px 0px 0px;
 }
-.moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
+.moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 69px, #ffffff 84px);
 }
-.moon-toggle-item .moon-toggle-item-label {
+.moon-labeled-toggle-button .moon-labeled-toggle-button-label {
   float: left;
   white-space: nowrap;
 }
-.moon-toggle-item .moon-toggle-item-text {
+.moon-labeled-toggle-button .moon-toggle-button-text {
   margin-top: -1px;
 }
-.moon-toggle-item.disabled .moon-toggle-item-text {
+.moon-labeled-toggle-button.disabled .moon-toggle-button-text {
   color: inherit;
 }
-.moon-toggle-item.disabled .moon-toggle-item {
+.moon-labeled-toggle-button.disabled .moon-toggle-button {
   opacity: 1;
 }
 /* Item.css */
@@ -536,7 +522,7 @@
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
-  border-width: 0 0;
+  border-left-width: 0px;
   border-left-color: transparent;
   border-left-style: solid;
   font-size: 26px;
@@ -575,19 +561,19 @@
   border-width: 0px;
 }
 .moon-item.top.spotlight:not(.overlay) {
-  border-top-width: 16px;
+  border-width: 16px 0px 0px;
   margin-bottom: -16px;
 }
 .moon-item.bottom.spotlight:not(.overlay) {
-  border-bottom-width: 16px;
+  border-width: 0px 0px 16px;
   margin-top: -16px;
 }
 .moon-item.left.spotlight:not(.overlay) {
-  border-left-width: 16px;
+  border-width: 0px 0px 0px 16px;
   padding-left: 4px;
 }
 .moon-item.right.spotlight:not(.overlay) {
-  border-right-width: 16px;
+  border-width: 0px 16px 0px 0px;
   margin-left: -16px;
 }
 .moon-item.top.spotlight > .moon-item-overlay,
@@ -923,7 +909,7 @@
   font-size: 20px;
   padding: 0px;
   border-bottom: 1px solid #aaa;
-  margin-bottom: 45px;
+  margin-bottom: 1px;
 }
 .moon-expandable-integer-picker-current-value {
   font-size: 20px;
@@ -1175,7 +1161,6 @@ PageControl's use of IconButtons
 }
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
-  padding: 27px 21px;
   display: inline-block;
 }
 .moon-scroll-picker {
@@ -1993,11 +1978,13 @@ body .enyo-fit.panels-50-percent-scrim,
 /* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
+  width: 580px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
 .moon-calendar-picker-simplepicker .picker-content {
+  width: 500px;
   font-size: 36pt;
   font-weight: bold;
 }
@@ -2007,6 +1994,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
+  width: 580px;
 }
 .moon-calendar-picker-week {
   margin-top: 7px;
@@ -2027,7 +2015,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
-  margin: 0 2.26%;
+  margin: 0 auto;
   text-align: center;
   vertical-align: middle;
 }
@@ -2334,15 +2322,4 @@ p.moon-drawers-close-handle-text {
 }
 .moon-light-gray * {
   color: #4b4b4b;
-}
-.moon-hspacing > * {
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 5px;
-}
-.moon-hspacing > :first-child {
-  margin-left: 0;
-}
-.moon-hspacing > :last-child {
-  margin-right: 0;
 }
