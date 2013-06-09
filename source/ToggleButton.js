@@ -35,11 +35,6 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-toggle-button",
-	handlers: {
-		ondragstart: "dragstart",
-		ondrag: "drag",
-		ondragfinish: "dragfinish"
-	},
 	components: [
 		{name: "contentOn", classes: "moon-toggle-button-text"},
 		{name: "contentOff", classes: "moon-toggle-button-text"}
@@ -61,24 +56,28 @@ enyo.kind({
 		this.$.contentOff.setShowing(!this.value);
 		this.setActive(this.value);
 	},
-	valueChanged: function() {
-		this.updateVisualState();
-		this.doChange({value: this.value});
+	contentChanged: function() {
+		this.onContentChanged();
+		this.offContentChanged();
 	},
 	activeChanged: function() {
 		this.setValue(this.active);
 		this.bubble("onActivate");
 	},
-	labelSeperatorChanged: function() {
-		this.onContentChanged();
-		this.offContentChanged();	
+	valueChanged: function() {
 		this.updateVisualState();
+		this.doChange({value: this.value});
 	},
 	onContentChanged: function() {
 		this.$.contentOn.setContent((this.content || "") + (this.labelSeperator || " ") + (this.onContent || ""));
 	}, 
 	offContentChanged: function() {
 		this.$.contentOff.setContent((this.content || "") + (this.labelSeperator || " ") + (this.offContent || ""));
+	},
+	labelSeperatorChanged: function() {
+		this.onContentChanged();
+		this.offContentChanged();	
+		this.updateVisualState();
 	},
 	disabledChanged: function() {
 		this.setAttribute("disabled", this.disabled);
@@ -90,29 +89,5 @@ enyo.kind({
 	},
 	tap: function() {
 		this.updateValue(!this.value);
-	},
-	dragstart: function(inSenser, inEvent) {
-		if (inEvent.horizontal) {
-			inEvent.preventDefault();
-			this.dragging = true;
-			this.dragged = false;
-			return true;
-		}
-	},
-	drag: function(inSender, inEvnet) {
-		if (this.dragging) {
-			var d = inEvent.dx;
-			if (Math.abs(d) > 10) {
-				this.updateValue(d > 0);
-				this.dragged = true;
-			}
-			return true;
-		}
-	},
-	dragfinish: function(inSender, inEvent) {
-		this.dragging = false;
-		if (this.dragged) {
-			inEvent.preventTap();
-		}
 	}
 });

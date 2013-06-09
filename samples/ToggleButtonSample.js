@@ -41,7 +41,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name: "console", classes: "moon-toggle-button-sample-console moon-dark-gray"}
+		{name: "console", classes: "moon-toggle-button-sample-console"}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		var str = '"'+inSender.content+'" ';
