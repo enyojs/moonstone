@@ -29,6 +29,18 @@ enyo.kind({
 		//* The state of the checkbox
 		checked: false
 	},
+	events: {
+		/** 
+			Fires when the control was either checked or unchecked.
+
+			_inEvent.checked_ indicates the current state of the control
+
+			_inEvent.toggledControl_ holds a reference to the CheckboxItem that toggled 
+			(note: the originator of this event is actually the moon.Checkbox contained
+			within the CheckboxItem, so use this property to reference the CheckboxItem)
+		*/
+		onActivate: ""
+	},
 	//* @protected
 	classes: "moon-checkbox-item",
 	spotlight: true,
