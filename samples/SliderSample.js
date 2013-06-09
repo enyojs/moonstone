@@ -27,11 +27,11 @@ enyo.kind({
 			
 			{classes: "checkbox-sample-wrapper", components: [
 				{name: "animateSetting", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Animated", onActivate: "animateActivate"},
-				{name: "showStatus", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"},
-			]},
-		
-			{name:"result", content:"No slider moved yet."}
-		]}
+				{name: "showStatus", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
+			]}		
+		]},
+		{kind:"moon.Divider", content:"Result"},
+		{name:"result", content:"No slider moved yet."}
 	],
 	//* @protected
 	changeValue: function(inSender, inEvent) {
@@ -50,7 +50,7 @@ enyo.kind({
 		this.changeValue();
 	},
 	sliderChanging: function(inSender, inEvent) {
-		this.$.result.setContent(inSender.name + " changing: " + Math.round(inSender.getValue()));
+		this.$.result.setContent(inSender.name + " changing: " + Math.round(inEvent.value));
 	},
 	sliderChanged: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + Math.round(inSender.getValue()) + ".");
