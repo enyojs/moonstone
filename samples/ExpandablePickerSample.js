@@ -1,11 +1,9 @@
 enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
-	kind: "FittableRows",
-	style: "margin:20px;",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Scroller", fit:true, components: [
+		{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 			{classes: "moon-6h", components: [
 				{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", components: [
 					{content: "English"},

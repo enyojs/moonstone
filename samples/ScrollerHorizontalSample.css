@@ -4,11 +4,6 @@
 	display:block;
 	border:1px solid gray;
 	white-space:nowrap;
-	background-color: #ccc;
-}
-
-.moon-scroller-sample-horizontal-wrapper {
-	margin: 20px;
 }
 
 .moon-scroller-sample-divider {

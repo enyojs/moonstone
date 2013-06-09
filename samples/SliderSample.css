@@ -1,10 +1,5 @@
-
-.moon-slider-sample .moon-divider {
-	margin-top: 20px;
-}
-
-.moon-slider-sample .moon-progress-bar {
-	margin: 45px;
+.moon-slider-sample-wrapper > button {
+	margin: 20px;
 }
 
 .moon-slider-sample .slider-sample-input-decorator .moon-input {

@@ -7,6 +7,8 @@
 /* LESS file.                                                               */
 
 /* Moonraker default parameters defined here */
+/* App */
+/* ---------------------------------------*/
 /* Colors */
 /* ---------------------------------------*/
 /* Font */
@@ -23,8 +25,6 @@
 /* ---------------------------------------*/
 /* @moon-spotlight-border-width + @moon-spotlight-padding-left */
 /* Button */
-/* ---------------------------------------*/
-/* CalendarPicker */
 /* ---------------------------------------*/
 /* Input */
 /* ---------------------------------------*/
@@ -161,30 +161,33 @@
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  width: 170px;
+  height: 170px;
 }
 .moon-2v {
-  width: 350px;
+  height: 350px;
 }
 .moon-3v {
-  width: 530px;
+  height: 530px;
 }
 .moon-4v {
-  width: 710px;
+  height: 710px;
 }
 .moon-5v {
-  width: 890px;
+  height: 890px;
 }
 .moon-6v {
-  width: 1070px;
+  height: 1070px;
 }
 .moon-7v {
-  width: 1250px;
+  height: 1250px;
 }
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans Medium";
-  font-size: 40px;
+  font-size: 26px;
+  padding: 20px;
+  color: #4b4b4b;
+  background-color: #ededed;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -522,7 +525,7 @@
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
-  border-left-width: 0px;
+  border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
   font-size: 26px;
@@ -561,19 +564,19 @@
   border-width: 0px;
 }
 .moon-item.top.spotlight:not(.overlay) {
-  border-width: 16px 0px 0px;
+  border-top-width: 16px;
   margin-bottom: -16px;
 }
 .moon-item.bottom.spotlight:not(.overlay) {
-  border-width: 0px 0px 16px;
+  border-bottom-width: 16px;
   margin-top: -16px;
 }
 .moon-item.left.spotlight:not(.overlay) {
-  border-width: 0px 0px 0px 16px;
+  border-left-width: 16px;
   padding-left: 4px;
 }
 .moon-item.right.spotlight:not(.overlay) {
-  border-width: 0px 16px 0px 0px;
+  border-right-width: 16px;
   margin-left: -16px;
 }
 .moon-item.top.spotlight > .moon-item-overlay,
@@ -909,7 +912,7 @@
   font-size: 20px;
   padding: 0px;
   border-bottom: 1px solid #aaa;
-  margin-bottom: 1px;
+  margin-bottom: 45px;
 }
 .moon-expandable-integer-picker-current-value {
   font-size: 20px;
@@ -1161,6 +1164,7 @@ PageControl's use of IconButtons
 }
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
+  padding: 27px 21px;
   display: inline-block;
 }
 .moon-scroll-picker {
@@ -1246,7 +1250,7 @@ PageControl's use of IconButtons
   left: 33%;
 }
 .up-arrow {
-  border-color: transparent transparent #cccccc transparent;
+  border-color: transparent transparent #ededed transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1294,7 +1298,7 @@ PageControl's use of IconButtons
   left: 12%;
 }
 .down-arrow {
-  border-color: #cccccc transparent transparent transparent;
+  border-color: #ededed transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1440,7 +1444,7 @@ PageControl's use of IconButtons
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
-  margin: 10px 20px;
+  margin: 50px 20px;
   height: 4px;
   background-color: #323232;
   min-width: 128px;
@@ -1766,7 +1770,7 @@ PageControl's use of IconButtons
 .moon-list-actions-close {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: #cccccc;
+  background-color: #ededed;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -1960,7 +1964,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
-  border-color: transparent transparent #cccccc transparent;
+  border-color: transparent transparent #ededed transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -13px;
@@ -1969,7 +1973,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
-  border-color: #cccccc transparent transparent transparent;
+  border-color: #ededed transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -5px;
@@ -1978,13 +1982,11 @@ body .enyo-fit.panels-50-percent-scrim,
 /* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
-  width: 580px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
 .moon-calendar-picker-simplepicker .picker-content {
-  width: 500px;
   font-size: 36pt;
   font-weight: bold;
 }
@@ -1994,7 +1996,6 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
-  width: 580px;
 }
 .moon-calendar-picker-week {
   margin-top: 7px;
@@ -2015,7 +2016,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
-  margin: 0 auto;
+  margin: 0 2.26%;
   text-align: center;
   vertical-align: middle;
 }
@@ -2311,15 +2312,26 @@ p.moon-drawers-close-handle-text {
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
-  color: #cccccc;
+  color: #ededed;
 }
 .moon-dark-gray * {
-  color: #cccccc;
+  color: #ededed;
 }
 .moon-light-gray {
-  background-color: #cccccc;
+  background-color: #ededed;
   color: #4b4b4b;
 }
 .moon-light-gray * {
   color: #4b4b4b;
+}
+.moon-hspacing > * {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 5px;
+}
+.moon-hspacing > :first-child {
+  margin-left: 0;
+}
+.moon-hspacing > :last-child {
+  margin-right: 0;
 }

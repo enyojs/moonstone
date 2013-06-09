@@ -3,15 +3,8 @@
 	text-transform: none;
 }
 
-.moon-input-sample {
-	background: #eaeaea;
-}
-
 .moon-input-sample .moon-input-decorator {
 	margin: 20px;
-}
-.moon-input-sample {
-	padding:20px;
 }
 
 .moon-input-sample-result {
