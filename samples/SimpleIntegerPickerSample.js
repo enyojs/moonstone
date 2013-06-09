@@ -1,7 +1,6 @@
 enyo.kind({
 	name: "moon.sample.SimpleIntegerPickerSample",
-	fit: true,
-	classes:"moon moon-sample-padded enyo-unselectable",
+	classes:"moon enyo-unselectable enyo-fit",
 	components:[
 		{kind:"enyo.Spotlight"},
 		{kind: "moon.Divider", content:"Picker 1: Animated"},

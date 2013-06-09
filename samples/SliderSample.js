@@ -1,10 +1,10 @@
 enyo.kind({
-	name: "moon.sample.SliderSample",
 	kind: "FittableRows",
-	classes: "moon enyo-unselectable moon-slider-sample moon-sample-padded enyo-fit",
+	name: "moon.sample.SliderSample",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Scroller", fit: true, components: [
+		{fit: true, components: [
 		
 			{kind: "moon.Divider", content: "Slider 1: Default"},
 			{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
@@ -18,17 +18,19 @@ enyo.kind({
 			{kind: "moon.Divider", content:"Slider 3: Disabled"},
 			{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
 			
-			{kind: "moon.InputDecorator", classes: "slider-sample-input-decorator", components: [
-				{name: "input", kind: "moon.Input", value: 20}
+			{classes: "moon-hspacing", style:"vertical-align:center;", components: [
+				{kind: "moon.InputDecorator", classes: "slider-sample-input-decorator", components: [
+					{name: "input", kind: "moon.Input", value: 20}
+				]},
+				{kind: "moon.Button", content:"Set", ontap:"changeValue"},
+				{kind: "moon.Button", content:"-", ontap:"decValue"},
+				{kind: "moon.Button", content:"+", ontap:"incValue"}
 			]},
-			{kind: "moon.Button", content:"Set", ontap:"changeValue"},
-			{kind: "moon.Button", content:"-", ontap:"decValue"},
-			{kind: "moon.Button", content:"+", ontap:"incValue"},
 			
 			{classes: "checkbox-sample-wrapper", components: [
 				{name: "animateSetting", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Animated", onActivate: "animateActivate"},
 				{name: "showStatus", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
-			]}		
+			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},
 		{name:"result", content:"No slider moved yet."}

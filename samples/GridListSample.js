@@ -1,12 +1,12 @@
 enyo.kind({
 	name: "moon.sample.GridListSample",
-	classes: "moon moon-sample enyo-fit",
-	kind: "FittableRows",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{
 			name: "gridlist",
 			kind: "moon.GridList",
+			classes: "enyo-fill",
 			onSetupItem: "setupItem",
 			toggleSelected: true,
 			itemWidth: 140,
@@ -14,8 +14,7 @@ enyo.kind({
 			itemSpacing: 100,
 			components: [
 				{name: "item", kind: "moon.GridList.ImageItem"}
-			],
-			fit: true
+			]
 		}
 	],
 	create: function() {
