@@ -1,9 +1,13 @@
 enyo.kind({
 	name: "moon.sample.IntegerScrollPickerSample",
+	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.IntegerScrollPicker", value: 2013, min: 1900, max: 2100, onChange: "changed"},
+		{fit:true, components: [
+			{kind: "moon.Divider", content: "Integer Picker"},
+			{kind: "moon.IntegerScrollPicker", value: 2013, min: 1900, max: 2100, onChange: "changed"}
+		]},
 		{kind: "moon.Divider", content: "Result"},
 		{name: "value", content: "No change yet"}
 	],
