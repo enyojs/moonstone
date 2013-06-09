@@ -1,35 +1,38 @@
 enyo.kind({
+	kind: "FittableRows",
 	name: "moon.sample.SliderSample",
 	classes: "moon enyo-unselectable enyo-fit",
-	kind: "moon.Scroller",
-	horizontal: "hidden",
 	components: [
-		{kind: "enyo.Spotlight"},
-		{kind: "moon.Scroller", fit: true, components: [
-		
-			{kind: "moon.Divider", content: "Slider 1: Default"},
-			{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
-		
-			{kind: "moon.Divider", content:"Slider 2: not locked bar"},
-			{classes: "checkbox-sample-wrapper", components: [
-				{name:"lockBar", kind: "moon.ToggleItem", checked: false, content: "lock bar", onchange: "lockbarChanged"}
-			]},
-			{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging: "sliderChanging", onChange: "sliderChanged"},
-		
-			{kind: "moon.Divider", content:"Slider 3: Disabled"},
-			{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
+		{kind: "moon.Scroller", fit:true, horizontal: "hidden", components: [
+			{kind: "enyo.Spotlight"},
+			{kind: "moon.Scroller", fit: true, components: [
 			
-			{kind: "moon.InputDecorator", classes: "slider-sample-input-decorator", components: [
-				{name: "input", kind: "moon.Input", value: 20}
-			]},
-			{kind: "moon.Button", content:"Set", ontap:"changeValue"},
-			{kind: "moon.Button", content:"-", ontap:"decValue"},
-			{kind: "moon.Button", content:"+", ontap:"incValue"},
+				{kind: "moon.Divider", content: "Slider 1: Default"},
+				{kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 			
-			{classes: "checkbox-sample-wrapper", components: [
-				{name: "animateSetting", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Animated", onActivate: "animateActivate"},
-				{name: "showStatus", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
-			]}		
+				{kind: "moon.Divider", content:"Slider 2: not locked bar"},
+				{classes: "checkbox-sample-wrapper", components: [
+					{name:"lockBar", kind: "moon.ToggleItem", checked: false, content: "lock bar", onchange: "lockbarChanged"}
+				]},
+				{name: "slider2", kind: "moon.Slider", lockBar: false, value: 75, bgProgress: 65, progress: 30, onChanging: "sliderChanging", onChange: "sliderChanged"},
+			
+				{kind: "moon.Divider", content:"Slider 3: Disabled"},
+				{name: "disabledSlider", kind: "moon.Slider", value: 50, disabled: true, onChanging:"sliderChanging", onChange:"sliderChanged"},
+				
+				{classes: "moon-hspacing", style:"vertical-align:center;", components: [
+					{kind: "moon.InputDecorator", classes: "slider-sample-input-decorator", components: [
+						{name: "input", kind: "moon.Input", value: 20}
+					]},
+					{kind: "moon.Button", content:"Set", ontap:"changeValue"},
+					{kind: "moon.Button", content:"-", ontap:"decValue"},
+					{kind: "moon.Button", content:"+", ontap:"incValue"}
+				]},
+				
+				{classes: "checkbox-sample-wrapper", components: [
+					{name: "animateSetting", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Animated", onActivate: "animateActivate"},
+					{name: "showStatus", kind: "moon.CheckboxItem", classes: "shortened-checkbox", checked: true, content: "Show Status Bubble", onActivate: "changeStatusBubble"}
+				]}
+			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},
 		{name:"result", content:"No slider moved yet."}
