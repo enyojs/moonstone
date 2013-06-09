@@ -31,8 +31,8 @@
 		]},
 		{"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
 		{"name": "Panels", "samples": [
-			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysOnPanelsSample"},
-			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/LeanForwardPanelsSample"},
+			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
+			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
 			{"name": "Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
 			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"}
 		]},
