@@ -11,6 +11,6 @@ enyo.kind({
 		{classes: "moon-labeled-toggle-button-label-wrapper", components: [
 			{name: "label", classes: "moon-labeled-toggle-button-label"}
 		]},
-		{name: "input", kind: "moon.ToggleButton", spotlight: false}
+		{name: "input", kind: "moon.ToggleText", spotlight: false}
 	]
 });

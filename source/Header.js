@@ -28,7 +28,7 @@ enyo.kind({
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
-		
+
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
 		this.animProps = {
 			"height" : myStyle["height"],
@@ -43,7 +43,7 @@ enyo.kind({
 		this.$.titleAbove.animProps = {
 			"width" : titleAboveStyle["width"]
 		};
-		
+
 		this.$.animator.newAnimation({
 			name: "collapse",
 			duration: 800,
@@ -115,7 +115,7 @@ enyo.kind({
 						"max-width" : "30px"
 					}
 				}],
-				
+
 			}
 		});
 		this.$.animator.play("collapse");
@@ -192,7 +192,7 @@ enyo.kind({
 						"opacity" : "1"
 					}
 				}]
-				
+
 			}
 		});
 		this.$.animator.play("expand");
