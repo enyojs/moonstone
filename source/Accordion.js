@@ -1,3 +1,38 @@
+/**
+	_moon.Accordion_ is an <a href="#moon.ExpandableListItem">moon.ExpandableListItem</a> with 
+	arrow button on the right side of header and additional margin on the left of item list. 
+
+	To open/close drawer, tap on the header text or navigate (via 5-way) back to the top of the drawer.
+
+	The control's child components may be of any kind; by default, they are
+	instances of _moon.Item_.
+
+        {kind: "moon.Accordion", content: "This is an accordion", components: [
+            {content: "Item One"},
+            {content: "Item Two"}
+        ]},
+        {kind: "moon.Accordion", content: "This is another accordion", components: [
+            {content: "Item Three"},
+            {content: "Item Four"}
+        ]}
+
+	In case of accordion is used in group, then only one accordion can be opened at the same time.
+
+		{kind:"Group", highlander:true, components: [
+			{kind: "moon.Accordion",  active: true, content: "This is a grouped accordion", components: [
+				{content: "Item One"},
+				{content: "Item Two"}
+			]},
+			{kind: "moon.Accordion", content: "This is another grouped accordion", components: [
+				{content: "Item Three"},
+				{content: "Item Four"}
+			]},
+			{kind: "moon.Accordion", content: "This is another grouped accordion", components: [
+				{content: "Item Five"},
+				{content: "Item Six"}
+			]},
+		]}
+*/
 enyo.kind({
 	name: "moon.Accordion",
 	kind: "moon.ExpandableListItem",
