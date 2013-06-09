@@ -24,12 +24,12 @@
                 {"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
                 {"name": "List Horizontal", "path":"$lib/moonstone/samples/ListHorizontalSample"},
                 {"name": "List Vertical", "path":"$lib/moonstone/samples/ListVerticalSample"},
-				{"name": "Panels", "samples": [
-	                {"name": "Panels Always On", "path":"$lib/moonstone/samples/AlwaysOnPanelsSample"},
-	                {"name": "Panels Lean Forward", "path":"$lib/moonstone/samples/LeanForwardPanelsSample"},
+		{"name": "Panels", "samples": [
+	                {"name": "Panels Always Viewing", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
+	                {"name": "Panels Activity", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
 	                {"name": "Panels Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
 	                {"name": "Panels Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"}
-				]},
+		]},
                 {"name": "Popup", "path":"$lib/moonstone/samples/PopupSample", "css":"sample"},
                 {"name": "Progress Bar", "path":"$lib/moonstone/samples/ProgressSample"},
                 {"name": "Radio Item", "path":"$lib/moonstone/samples/RadioItemSample"},
