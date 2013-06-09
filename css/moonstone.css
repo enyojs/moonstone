@@ -7,8 +7,6 @@
 /* LESS file.                                                               */
 
 /* Moonraker default parameters defined here */
-/* App */
-/* ---------------------------------------*/
 /* Colors */
 /* ---------------------------------------*/
 /* Font */
@@ -161,33 +159,31 @@
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  height: 170px;
+  width: 170px;
 }
 .moon-2v {
-  height: 350px;
+  width: 350px;
 }
 .moon-3v {
-  height: 530px;
+  width: 530px;
 }
 .moon-4v {
-  height: 710px;
+  width: 710px;
 }
 .moon-5v {
-  height: 890px;
+  width: 890px;
 }
 .moon-6v {
-  height: 1070px;
+  width: 1070px;
 }
 .moon-7v {
-  height: 1250px;
+  width: 1250px;
 }
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans Medium";
   font-size: 26px;
-  padding: 20px;
   color: #4b4b4b;
-  background-color: #ededed;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -422,6 +418,35 @@
 .moon-checkbox .moon-overlay.off {
   opacity: 0;
 }
+/* Toggle.css */
+.moon-checkbox.moon-toggle-text {
+  line-height: 36px;
+  text-align: left;
+  text-transform: uppercase;
+  background: inherit;
+  opacity: 1;
+  background: transparent none no-repeat 0 0;
+  position: relative;
+}
+.moon-checkbox.moon-toggle-text[disabled] {
+  opacity: 0.4;
+}
+.moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-checkbox.moon-toggle-text .moon-overlay {
+  background: transparent;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  color: #ffb80d;
+}
+.moon-toggle-text-text {
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  color: #A9A9A9;
+}
 .moon-divider {
   font-size: 20px;
   line-height: 20px;
@@ -431,35 +456,6 @@
   padding: 0px 0px 6px 0px;
   text-transform: uppercase;
   font-weight: bold;
-}
-/* Toggle.css */
-.moon-checkbox.moon-toggle-button {
-  line-height: 36px;
-  text-align: left;
-  text-transform: uppercase;
-  background: inherit;
-  opacity: 1;
-  background: transparent none no-repeat 0 0;
-  position: relative;
-}
-.moon-checkbox.moon-toggle-button[disabled] {
-  opacity: 0.4;
-}
-.moon-checkbox.moon-toggle-button[checked] {
-  background: transparent none no-repeat 0px 0px;
-}
-.moon-checkbox.moon-toggle-button .moon-overlay {
-  background: transparent;
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #ffb80d;
-}
-.moon-toggle-button-text {
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #A9A9A9;
 }
 .moon-checkbox-item {
   display: block;
@@ -494,29 +490,44 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
-.moon-labeled-toggle-button {
+/* Toggle.css */
+.moon-button.moon-toggle-button {
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+}
+.moon-toggle-button.moon-overlay {
+  border: 5px solid #A2A2A2;
+}
+.moon-toggle-button-text {
+  position: relative;
+  right: 0px;
+  text-align: center;
+  color: #A9A9A9;
+}
+.moon-toggle-item {
   display: block;
   position: relative;
 }
-.moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
+.moon-toggle-item .moon-toggle-item-label-wrapper {
   height: 24px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, #ffffff 75px);
   padding: 2px 0px 0px 0px;
 }
-.moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
+.moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 69px, #ffffff 84px);
 }
-.moon-labeled-toggle-button .moon-labeled-toggle-button-label {
+.moon-toggle-item .moon-toggle-item-label {
   float: left;
   white-space: nowrap;
 }
-.moon-labeled-toggle-button .moon-toggle-button-text {
+.moon-toggle-item .moon-toggle-item-text {
   margin-top: -1px;
 }
-.moon-labeled-toggle-button.disabled .moon-toggle-button-text {
+.moon-toggle-item.disabled .moon-toggle-item-text {
   color: inherit;
 }
-.moon-labeled-toggle-button.disabled .moon-toggle-button {
+.moon-toggle-item.disabled .moon-toggle-item {
   opacity: 1;
 }
 /* Item.css */
@@ -1250,7 +1261,7 @@ PageControl's use of IconButtons
   left: 33%;
 }
 .up-arrow {
-  border-color: transparent transparent #ededed transparent;
+  border-color: transparent transparent #cccccc transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1298,7 +1309,7 @@ PageControl's use of IconButtons
   left: 12%;
 }
 .down-arrow {
-  border-color: #ededed transparent transparent transparent;
+  border-color: #cccccc transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1444,7 +1455,7 @@ PageControl's use of IconButtons
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
-  margin: 50px 20px;
+  margin: 10px 20px;
   height: 4px;
   background-color: #323232;
   min-width: 128px;
@@ -1770,7 +1781,7 @@ PageControl's use of IconButtons
 .moon-list-actions-close {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: #ededed;
+  background-color: #cccccc;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -1964,7 +1975,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
-  border-color: transparent transparent #ededed transparent;
+  border-color: transparent transparent #cccccc transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -13px;
@@ -1973,7 +1984,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
-  border-color: #ededed transparent transparent transparent;
+  border-color: #cccccc transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -5px;
@@ -2312,13 +2323,13 @@ p.moon-drawers-close-handle-text {
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
-  color: #ededed;
+  color: #cccccc;
 }
 .moon-dark-gray * {
-  color: #ededed;
+  color: #cccccc;
 }
 .moon-light-gray {
-  background-color: #ededed;
+  background-color: #cccccc;
   color: #4b4b4b;
 }
 .moon-light-gray * {
