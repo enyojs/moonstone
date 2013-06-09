@@ -28,7 +28,7 @@ enyo.kind({
 		{name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
 				{name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
-				{classes: "moon-list-actions-client-container", components: [
+				{classes: "moon-list-actions-client-container moon-dark-gray", components: [
 					{name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
 						{name:"listActionsContainer", classes:"moon-list-actions-container", onRequestScrollIntoView:"scrollIntoView"}
 					]}

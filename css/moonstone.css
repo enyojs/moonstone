@@ -1438,9 +1438,6 @@ PageControl's use of IconButtons
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
-.moon-input-decorator.moon-focused {
-  box-shadow: 0px 20px 0px #ffb80d;
-}
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
