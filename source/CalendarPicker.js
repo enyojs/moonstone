@@ -7,7 +7,6 @@ enyo.kind({
 		value: null,
 		color: 0
 	},
-
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-picker-date-shadow");
@@ -15,7 +14,6 @@ enyo.kind({
 			this.removeClass("moon-calendar-picker-date-shadow");
 		}
 	},
-
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
 	}
@@ -26,18 +24,15 @@ enyo.kind({
 	classes: "moon-calendar-picker-week",
 	days: [],
 	colors: [],
-
 	create: function() {
 		this.inherited(arguments);
 		this.setupLayout();
 	},
-
 	setupLayout: function() {
 		for (var i = 0; i < 7; i++) {
 			this.createComponent({kind: "moon.CalendarPickerDate"});
 		}
 	},
-
 	fillDate: function(days, colors) {
 		this.days = days;
 		this.colors = colors;
@@ -107,7 +102,6 @@ enyo.kind({
 			this.locale = enyo.g11n.currentLocale().getLocale();
 		}
 		this.initDefaults();
-	//	this.noneTextChanged();
 	},
 	initDefaults: function() {
 		//Attempt to use the g11n lib (assuming that it is loaded)
@@ -222,8 +216,6 @@ enyo.kind({
 			}
 			calendarWeeks[i].fillDate(days, colors);
 		}
-	},
-	parseDate: function(ordering) {
 	},
 	/**
 		Updates calendar when value of DatePicker changes.
