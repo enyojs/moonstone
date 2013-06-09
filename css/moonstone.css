@@ -184,7 +184,8 @@
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans Medium";
-  font-size: 40px;
+  font-size: 26px;
+  color: #4b4b4b;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -419,6 +420,35 @@
 .moon-checkbox .moon-overlay.off {
   opacity: 0;
 }
+/* Toggle.css */
+.moon-checkbox.moon-toggle-text {
+  line-height: 36px;
+  text-align: left;
+  text-transform: uppercase;
+  background: inherit;
+  opacity: 1;
+  background: transparent none no-repeat 0 0;
+  position: relative;
+}
+.moon-checkbox.moon-toggle-text[disabled] {
+  opacity: 0.4;
+}
+.moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-checkbox.moon-toggle-text .moon-overlay {
+  background: transparent;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  color: #ffb80d;
+}
+.moon-toggle-text-text {
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  color: #A9A9A9;
+}
 .moon-divider {
   font-size: 20px;
   line-height: 20px;
@@ -477,35 +507,6 @@
   text-align: center;
   color: #A9A9A9;
 }
-/* Toggle.css */
-.moon-checkbox.moon-toggle-text {
-  line-height: 36px;
-  text-align: left;
-  text-transform: uppercase;
-  background: inherit;
-  opacity: 1;
-  background: transparent none no-repeat 0 0;
-  position: relative;
-}
-.moon-checkbox.moon-toggle-text[disabled] {
-  opacity: 0.4;
-}
-.moon-checkbox.moon-toggle-text[checked] {
-  background: transparent none no-repeat 0px 0px;
-}
-.moon-checkbox.moon-toggle-text .moon-overlay {
-  background: transparent;
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #ffb80d;
-}
-.moon-toggle-text-text {
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #A9A9A9;
-}
 .moon-toggle-item {
   display: block;
   position: relative;
@@ -537,7 +538,7 @@
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
-  border-left-width: 0px;
+  border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
   font-size: 26px;
@@ -576,19 +577,19 @@
   border-width: 0px;
 }
 .moon-item.top.spotlight:not(.overlay) {
-  border-width: 16px 0px 0px;
+  border-top-width: 16px;
   margin-bottom: -16px;
 }
 .moon-item.bottom.spotlight:not(.overlay) {
-  border-width: 0px 0px 16px;
+  border-bottom-width: 16px;
   margin-top: -16px;
 }
 .moon-item.left.spotlight:not(.overlay) {
-  border-width: 0px 0px 0px 16px;
+  border-left-width: 16px;
   padding-left: 4px;
 }
 .moon-item.right.spotlight:not(.overlay) {
-  border-width: 0px 16px 0px 0px;
+  border-right-width: 16px;
   margin-left: -16px;
 }
 .moon-item.top.spotlight > .moon-item-overlay,
@@ -924,7 +925,7 @@
   font-size: 20px;
   padding: 0px;
   border-bottom: 1px solid #aaa;
-  margin-bottom: 1px;
+  margin-bottom: 45px;
 }
 .moon-expandable-integer-picker-current-value {
   font-size: 20px;
@@ -1177,6 +1178,7 @@ PageControl's use of IconButtons
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
   padding: 27px 21px;
+  display: inline-block;
 }
 .moon-scroll-picker {
   height: 102px;
@@ -2337,4 +2339,15 @@ p.moon-drawers-close-handle-text {
 }
 .moon-light-gray * {
   color: #4b4b4b;
+}
+.moon-hspacing > * {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 5px;
+}
+.moon-hspacing > :first-child {
+  margin-left: 0;
+}
+.moon-hspacing > :last-child {
+  margin-right: 0;
 }
