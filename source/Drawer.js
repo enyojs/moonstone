@@ -23,7 +23,7 @@
 enyo.kind({
 	name: "moon.Drawer",
 	kind:"enyo.Control",
-	classes: "moon-drawer",
+	classes: "moon-drawer moon-dark-gray",
 	published: {
 		controlDrawerComponents: null,
 		handle: null,
@@ -31,10 +31,11 @@ enyo.kind({
 		controlsOpen: false
 	},
 	events: {
-		onActivate: ""
+		onActivate: "",
+		onDeactivate: ""
 	},
 	components: [
-		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container'},
+		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container', classes: "moon-light-gray"},
 		{name: "controlDrawer", kind: "enyo.Drawer", spotlight: 'container'}
 	],
 	create: function() {
@@ -80,6 +81,8 @@ enyo.kind({
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
 			enyo.Spotlight.spot(this.$.controlDrawer);
+		} else {
+			this.doDeactivate();
 		}
 	},
 	resizeDrawers: function() {
