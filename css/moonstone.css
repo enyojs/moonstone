@@ -24,8 +24,6 @@
 /* @moon-spotlight-border-width + @moon-spotlight-padding-left */
 /* Button */
 /* ---------------------------------------*/
-/* CalendarPicker */
-/* ---------------------------------------*/
 /* Input */
 /* ---------------------------------------*/
 /* Pickers */
@@ -1995,13 +1993,11 @@ body .enyo-fit.panels-50-percent-scrim,
 /* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
-  width: 580px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
 .moon-calendar-picker-simplepicker .picker-content {
-  width: 500px;
   font-size: 36pt;
   font-weight: bold;
 }
@@ -2011,7 +2007,6 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
-  width: 580px;
 }
 .moon-calendar-picker-week {
   margin-top: 7px;
@@ -2032,7 +2027,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
-  margin: 0 auto;
+  margin: 0 2.26%;
   text-align: center;
   vertical-align: middle;
 }

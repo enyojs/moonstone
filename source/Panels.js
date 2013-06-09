@@ -16,7 +16,7 @@ enyo.kind({
 			transitions have finished.
 		*/
 		transitionReady: false,
-		pattern: "activity"			// none, activity(default), alwayson
+		pattern: "activity"			// none, activity(default), alwaysviewing
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -30,7 +30,7 @@ enyo.kind({
 	defaultKind: "moon.Panel",
 	draggable: false,
 	panelCoverRatio: 1,				// 0 ~ 1
-	showFirstBreadcrumb: false,		// none: false, activity: true, alwayson: false
+	showFirstBreadcrumb: false,		// none: false, activity: true, alwaysviewing: false
 	arrangerKind: "moon.BreadcrumbArranger",
 
 	/************ PROTECTED **********/
@@ -113,6 +113,12 @@ enyo.kind({
 			return true;
 		}
 		return false;
+	},
+	next: function() {
+		var nextIndex = this.clamp(this.index+1);
+		if (nextIndex != this.getIndex()) {
+			this.setIndex(nextIndex);
+		}
 	},
 	// Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(oSender, oEvent) {
@@ -279,7 +285,7 @@ enyo.kind({
 		switch (this.pattern) {
 		case "none":
 			break;
-		case "alwayson":
+		case "alwaysviewing":
 			this.addClass("panels-50-percent-scrim");
 			break;
 		case "activity":

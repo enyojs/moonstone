@@ -52,7 +52,7 @@ enyo.kind({
 	},
 	rangeChanged: function() {
 		for (var i=this.min; i<=this.max; i++) {
-			this.createComponent({content: i.toString()});
+			this.createComponent({content: i.toString()}).render();
 		}
 		this.reflow();
 	},
