@@ -6,10 +6,8 @@
 	"samples": [
 		{"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},	
 		{"name": "Button", "path":"$lib/moonstone/samples/ButtonSample"},
-		{"name": "Calendar", "path":"$lib/moonstone/samples/CalendarPickerSample"},
 		{"name": "Contextual Popup", "path":"$lib/moonstone/samples/ContextualPopupSample"},
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
-		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
 		{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
 		{"name": "Input", "path":"$lib/moonstone/samples/InputSample"},
