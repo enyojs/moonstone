@@ -1,7 +1,6 @@
 /**
 	_moon.DataList_ is an <a href="#enyo.DataList">enyo.DataList</a> with Moonstone
-	styling applied. The color of the list may be customized by specifying a
-	background color.
+	styling applied and has moon.Scroller as it's defalut scroller.
 */
 
 enyo.kind({

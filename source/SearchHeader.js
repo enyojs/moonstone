@@ -1,3 +1,7 @@
+/**
+    _moon.SearchHeader_ is a control that have narrow title and search box area
+    with Moonstone styling applied..
+*/
 enyo.kind({
     //* @public
     name: "moon.SearchHeader",

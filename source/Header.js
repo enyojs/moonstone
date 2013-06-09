@@ -1,3 +1,7 @@
+/**
+	_moon.Header_ is a control that have big title and additional control area 
+	with Moonstone styling applied..
+*/
 enyo.kind({
 	name: "moon.Header",
 	classes: "moon-header moon-header-font",

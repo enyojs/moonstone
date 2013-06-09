@@ -1,9 +1,6 @@
 /**
-	_moon.Popup_ is an [enyo.Popup](http://enyojs.com/api/#enyo.Popup)
+	_moon.Popup_ is an <a href="#enyo.Popup">enyo.Popup</a>
 	which is positioned at the bottom, full size width.
-
-	Todo:
-		- Spotlight support
 */
 enyo.kind({
 	name: "moon.Popup",
