@@ -1,240 +1,118 @@
 enyo.kind({
     name: "moon.sample.video.DetailNarrowSample2",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-video-detail",
-    fit: true,
-    spotlight: false,
+    layoutKind: "FittableColumnsLayout",
     title: "Movie Name",
     titleAbove: "03",
     headerComponents: [
-        {
-            classes: "header",
-            components: [
-                {kind: "moon.IconButton", src: "assets/icon-download.png"},
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-favorite.png",
-                    classes: "right-button"
-                },
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-next.png",
-                    classes: "right-button"
-                }
-            ]
-        }
+        {kind: "moon.IconButton", src: "assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
     components: [
         {kind: "enyo.Spotlight"},
         {
-            kind: "FittableColumns",
-            classes: "client",
-            fit: true,
+            kind: "FittableRows",
             components: [
                 {
-                    name: "detail",
-                    classes: "detail",
+                    name: "movie", kind: "enyo.Image", style: "width: 600px; height: 320px;"
+                },
+                {
+                    kind: "HFlexBox",
                     components: [
-                        {
-                            name: "preview",
-                            classes: "preview",
-                            spotlight: true,
-                            components: [{name: "play", classes: "play-icon"}]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "info",
-                            components: [
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "FittableRows",
-                                            classes: "group",
-                                            components: [
-                                                {
-                                                    kind: "moon.Divider",
-                                                    classes: "divider",
-                                                    content: "Rating"
-                                                },
-                                                {
-                                                    tag: "b",
-                                                    classes: "big",
-                                                    content: "PG-13"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "SD",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						components: [
-                            							{
-                                                            content: "$",
-                                                            classes: "moon-pre-text"
-                                                        },
-                            							{
-                                                            content: "3",
-                                                            classes: "moon-large-text"
-                                                        },
-                            							{
-                                                            content: "99",
-                                                            classes: "moon-superscript"
-                                                        }
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {style: "width: 11%;"},
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "FittableRows",
-                                            classes: "group",
-                                            components: [
-                                                {
-                                                    kind: "moon.Divider",
-                                                    classes: "divider",
-                                                    content: "Release Date"
-                                                },
-                                                {
-                                                    tag: "b",
-                                                    classes: "big",
-                                                    content: "2013"
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "HD",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						components: [
-                            							{
-                                                            content: "$",
-                                                            classes: "moon-pre-text"
-                                                        },
-                            							{
-                                                            content: "6",
-                                                            classes: "moon-large-text"
-                                                        },
-                            							{
-                                                            content: "99",
-                                                            classes: "moon-superscript"
-                                                        }
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {style: "width: 11%;"},
-                                {
-                                    style: "width: 26%;",
-                                    components: [
-                                        {
-                                            kind: "FittableColumns",
-                                            classes: "group",
-                                            components: [
-                                                {
-                                                    kind: "FittableRows",
-                                                    fit: true,
-                                                    components: [
-                                                        {
-                                                            kind: "moon.Divider",
-                                                            classes: "divider",
-                                                            content: "Running Time"
-                                                        },
-                                                        {
-                                                            kind: "FittableColumns",
-                                                            components: [
-                                                                {
-                                                                    tag: "b",
-                                                                    classes: "big",
-                                                                    content: "122"
-                                                                },
-                                                                {
-                                                                    content: "min",
-                                                                    classes: "sub"
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            kind: "moon.CaptionDecorator",
-                                            side: "top",
-                                            content: "3D",
-                                            components: [
-                            					{
-                            						kind: "moon.Button",
-                            						components: [
-                            							{
-                                                            content: "$",
-                                                            classes: "moon-pre-text"
-                                                        },
-                            							{
-                                                            content: "7",
-                                                            classes: "moon-large-text"
-                                                        },
-                            							{
-                                                            content: "99",
-                                                            classes: "moon-superscript"
-                                                        }
-                            						]
-                            					}
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
+                        {flex: true, components: [
+                            {kind: "moon.Divider", content: "Rating"},
+                            {name: "rating"}
+                        ]},
+                        {flex: true, components: [
+                            {kind: "moon.Divider", content: "Release Date"},
+                            {name: "releaseDate"}
+                        ]},
+                        {flex: true, components: [
+                            {kind: "moon.Divider", content: "Running Time"},
+                            {name: "duration"}
+                        ]}
                     ]
                 },
                 {
-                    fit: true,
+                    kind: "HFlexBox",
                     components: [
-                        {
-                            kind: "moon.Divider",
-                            classes: "more-divider",
-                            content: "More"
-                        },
-                        {kind: "Group", components: [
-                            {kind: "moon.SelectableItem", content: "Synopsis"},
-                            {kind: "moon.SelectableItem", content: "Trailers"},
-                            {kind: "moon.SelectableItem", content: "Also Watched"},
-                            {kind: "moon.SelectableItem", content: "Recommendations"},
-                            {kind: "moon.SelectableItem", content: "Reviews"},
-                            {kind: "moon.SelectableItem", content: "Cast"}
+                        {flex: true, components: [
+                            {content: "SD"},
+                            {name: "valueSD"}
+                        ]},
+                        {flex: true, components: [
+                            {content: "HD"},
+                            {name: "valueHD"}
+                        ]},
+                        {flex: true, components: [
+                            {content: "3D"},
+                            {name: "value3D"}
                         ]}
                     ]
                 }
             ]
+        },
+        {
+            name: "more",
+            fit: true,
+            components: [
+                {kind: "moon.Divider", content: "More"},
+                {kind: "Group", components: [
+                    {kind: "moon.SelectableItem", content: "Synopsis"},
+                    {kind: "moon.SelectableItem", content: "Trailers"},
+                    {kind: "moon.SelectableItem", content: "Also Watched"},
+                    {kind: "moon.SelectableItem", content: "Recommendations"},
+                    {kind: "moon.SelectableItem", content: "Reviews"},
+                    {kind: "moon.SelectableItem", content: "Cast"}
+                ]}
+            ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        var w = this.$.detail.getBounds().width;
-        var h = Math.round(w * 353 / 627);
-        this.$.preview.setBounds({width: w, height: h});
-        
-        w = Math.round((w - 168) * 0.5);
-        h = Math.round((h - 168) * 0.5);
-        this.$.play.setStyle("margin: " + h + "px 0px 0px " + w + "px;");
-    }
+    bindings: [
+        {from: ".controller.posterUrl", to: "$.movie.src"},
+        {from: ".controller.rating", to: "$.rating.content"},
+        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
+        {from: ".controller.duration", to: "$.duration.content"},
+        {from: ".controller.valueSD", to: "$.valueSD.content"},
+        {from: ".controller.valueHD", to: "$.valueHD.content"},
+        {from: ".controller.value3D", to: "$.value3D.content"}
+    ]
+});
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        posterUrl: "http://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG",
+        rating: "PG-13",
+        releaseDate: "2013",
+        duration: "122",
+        valueSD: "$3.99",
+        valueHD: "$6.99",
+        value3D: "$7.99"
+    });
+
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.video.DetailNarrowSample2",
+                    controller: ".app.controllers.movieController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "movieController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+            }
+        ]
+    });
 });

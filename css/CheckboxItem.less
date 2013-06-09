@@ -1,0 +1,32 @@
+.moon-checkbox-item {
+	display: block;
+	position:relative;
+	margin-bottom: 33px;
+}
+.moon-checkbox-item .moon-checkbox-item-label-wrapper {
+	height: @moon-item-line-height;
+	min-height: (@moon-item-font-size * .78);
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, white 50px);
+	padding: 2px 0px 0px 0px;
+}
+.moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent (@moon-no-spotlight-padding-right + 35), white (@moon-no-spotlight-padding-right + 60));
+}
+.moon-checkbox-item .moon-checkbox-item-label {
+	float: left;
+	white-space: nowrap;
+}
+.moon-checkbox-item .moon-checkbox {
+	position:absolute;
+	top:0px;
+	right:0px;
+	margin-top: -1px;
+}
+.moon-checkbox-item .moon-checkbox[checked] {
+	background-color:transparent;
+}
+.moon-checkbox-item.disabled, .moon-checkbox-item .moon-checkbox[disabled] {
+	cursor: default;
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}

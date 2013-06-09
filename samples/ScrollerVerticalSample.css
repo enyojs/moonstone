@@ -1,9 +1,6 @@
 
 .moon-scroller-vertical-sample-scroller {
-	display:block;
 	border:1px solid gray;
-	margin:20px;
-	height:500px;
 }
 .moon-scroller-vertical-sample-scroller.spotlight {
 	border:2px solid orange;

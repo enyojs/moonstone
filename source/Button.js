@@ -11,7 +11,7 @@
 enyo.kind({
 	name		: 'moon.Button',
 	kind		: 'enyo.Button',
-	classes		: 'moon-button enyo-unselectable',
+	classes		: 'moon-button moon-header-font enyo-unselectable',
 	spotlight	: true,
 
 	handlers: {

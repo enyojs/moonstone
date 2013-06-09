@@ -25,20 +25,23 @@
 */
 
 enyo.kind({
-	name		: 'moon.InputDecorator',
-	kind		: 'enyo.ToolDecorator',
-	tag			: 'label',
-	classes		: 'moon-input-decorator',
-	spotlight	: true,
-	handlers	: {
-		onDisabledChange	: 'onDisabledChange',
-		onfocus				: 'onFocus',
-		onblur				: 'onBlur',
-		onSpotlightSelect	: 'onSpotlightSelect',
-		onSpotlightLeft		: 'onSpotlightLeft',
-		onSpotlightRight	: 'onSpotlightRight',
-		onSpotlightUp		: 'onSpotlightUp',
-		onSpotlightDown		: 'onSpotlightDown'
+	name              : 'moon.InputDecorator',
+	kind              : 'enyo.ToolDecorator',
+	tag               : 'label',
+	classes           : 'moon-input-decorator',
+	spotlight         : true,
+	spotlightDecorate : false,
+
+	handlers : {
+		onDisabledChange  : 'onDisabledChange',
+		onfocus           : 'onFocus',
+		onblur            : 'onBlur',
+		onSpotlightSelect : 'onSpotlightSelect',
+		onSpotlightBlur   : 'onSpotlightBlur',
+		onSpotlightLeft   : 'onSpotlightLeft',
+		onSpotlightRight  : 'onSpotlightRight',
+		onSpotlightUp     : 'onSpotlightUp',
+		onSpotlightDown   : 'onSpotlightDown'
 	},
 
 	//* @protected
@@ -105,10 +108,12 @@ enyo.kind({
 
 	onFocus: function(oSender, oEvent) {
 		enyo.Spotlight.spot(this);
+		enyo.Spotlight.disablePointerMode();
 		this.updateFocus(true);
 	},
 
 	onBlur: function() {
+		enyo.Spotlight.enablePointerMode();
 		this.updateFocus(false);
 	},
 
@@ -121,18 +126,26 @@ enyo.kind({
 
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
+		this.focus();
 		if (oInput && oInput.hasFocus()) {
-			oEvent.allowDomDefault();		// Allow keydown to bubble
-			return true;					// Prevent onSpotlightLeft to bubble
+			oEvent.allowDomDefault();            // Allow keydown to bubble
+			return true;                         // Prevent onSpotlightLeft to bubble
 		}
+	},
+
+	onSpotlightBlur: function(oSender, oEvent) {
+		this.blur();
 	},
 
 	onSpotlightLeft: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.left) {
 			if (oInput.left()) {
-				oEvent.allowDomDefault();		// Allow keydown to bubble
-				return true;					// Prevent onSpotlightLeft to bubble
+				oEvent.allowDomDefault();       // Allow keydown to bubble
+				return true;                    // Prevent onSpotlightLeft to bubble
+			} else {
+				this.blur();
+				oInput.blur();
 			}
 		}
 	},
@@ -141,8 +154,11 @@ enyo.kind({
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.right) {
 			if (oInput.right()) {
-				oEvent.allowDomDefault();		// Allow keydown to bubble
-				return true;					// Prevent onSpotlightLeft to bubble
+				oEvent.allowDomDefault();       // Allow keydown to bubble
+				return true;                    // Prevent onSpotlightLeft to bubble
+			} else {
+				this.onBlur();
+				oInput.blur();
 			}
 		}
 	},
@@ -151,8 +167,11 @@ enyo.kind({
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.up) {
 			if (oInput.up()) {
-				oEvent.allowDomDefault();		// Allow keydown to bubble
-				return true;					// Prevent onSpotlightLeft to bubble
+				oEvent.allowDomDefault();       // Allow keydown to bubble
+				return true;                    // Prevent onSpotlightLeft to bubble
+			} else {
+				this.blur();
+				oInput.blur();
 			}
 		}
 	},
@@ -161,8 +180,11 @@ enyo.kind({
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.down) {
 			if (oInput.down()) {
-				oEvent.allowDomDefault();		// Allow keydown to bubble
-				return true;					// Prevent onSpotlightLeft to bubble
+				oEvent.allowDomDefault();       // Allow keydown to bubble
+				return true;                    // Prevent onSpotlightLeft to bubble
+			} else {
+				this.blur();
+				oInput.blur();
 			}
 		}
 	}
