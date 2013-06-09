@@ -1,6 +1,6 @@
 enyo.kind({
 	name: 'moon.sample.ScrollerHorizontalSample',
-	classes: "moon enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	components:[
 		{kind: 'enyo.Spotlight'},
 		{classes: "moon-scroller-sample-horizontal-wrapper", components: [

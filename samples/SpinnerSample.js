@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.SpinnerSample",
-	classes: "moon moon-sample-padded enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "moon.Divider", content: "Dark Spinner"},
 		{classes: "moon-dark-gray moon-spinner-sample-container", components: [

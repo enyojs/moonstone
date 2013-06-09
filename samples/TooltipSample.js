@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.sample.TooltipSample",
 	kind: "FittableRows",
-	classes: "enyo enyo-fit moon moon-tooltip-sample enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name:"buttonContainer", kind:"FittableRows", classes:"enyo-fit", components:[
