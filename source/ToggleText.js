@@ -6,7 +6,7 @@
 */
 
 enyo.kind({
-	name: "moon.ToggleButton",
+	name: "moon.ToggleText",
 	kind: "moon.Checkbox",
 	published: {
 		//* Label for toggle button's "on" state

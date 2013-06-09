@@ -4,43 +4,57 @@
 	"ns": "moon.sample",
 	"loadPackages": "$lib/moonstone $lib/moonstone/samples $lib/spotlight",
 	"samples": [
-                {"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},	
-        		{"name": "Button", "path":"$lib/moonstone/samples/ButtonSample"},
-                {"name": "Calendar", "path":"$lib/moonstone/samples/CalendarPickerSample"},
-                {"name": "Checkbox", "path":"$lib/moonstone/samples/CheckboxSample"},
-                {"name": "Contextual Popup", "path":"$lib/moonstone/samples/ContextualPopupSample"},
-                {"name": "Date Picker", "path":"$lib/moonstone/samples/DatePickerSample"},
-                {"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
-                {"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
-                {"name": "Expandable Picker", "path":"$lib/moonstone/samples/ExpandablePickerSample"},
-                {"name": "Grid List", "path":"$lib/moonstone/samples/GridListSample"},
-                {"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
-                {"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
-                {"name": "Image Item", "path":"$lib/moonstone/samples/ImageItemSample"},
-                {"name": "Input", "path":"$lib/moonstone/samples/InputSample"},
-                {"name": "Integer Scroll Picker", "path":"$lib/moonstone/samples/IntegerScrollPickerSample"},
-                {"name": "Item", "path":"$lib/moonstone/samples/ItemSample"},
-                {"name": "Labeled Text Item", "path":"$lib/moonstone/samples/LabeledTextItemSample"},
-                {"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
-                {"name": "List Horizontal", "path":"$lib/moonstone/samples/ListHorizontalSample"},
-                {"name": "List Vertical", "path":"$lib/moonstone/samples/ListVerticalSample"},
-		{"name": "Panels", "samples": [
-	                {"name": "Panels Always Viewing", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
-	                {"name": "Panels Activity", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
-	                {"name": "Panels Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
-	                {"name": "Panels Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"}
+		{"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},	
+		{"name": "Button", "path":"$lib/moonstone/samples/ButtonSample"},
+		{"name": "Calendar", "path":"$lib/moonstone/samples/CalendarPickerSample"},
+		{"name": "Contextual Popup", "path":"$lib/moonstone/samples/ContextualPopupSample"},
+		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
+		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
+		{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
+		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
+		{"name": "Input", "path":"$lib/moonstone/samples/InputSample"},
+		{"name": "Items", "samples": [
+			{"name": "Item", "path":"$lib/moonstone/samples/ItemSample"},
+			{"name": "Selectable Item", "path":"$lib/moonstone/samples/SelectableItemSample"},
+			{"name": "Radio Item", "path":"$lib/moonstone/samples/RadioItemSample"},
+			{"name": "Checkbox Item", "path":"$lib/moonstone/samples/CheckboxItemSample"},
+			{"name": "Toggle Item", "path":"$lib/moonstone/samples/ToggleItemSample"}
 		]},
-                {"name": "Popup", "path":"$lib/moonstone/samples/PopupSample", "css":"sample"},
-                {"name": "Progress Bar", "path":"$lib/moonstone/samples/ProgressSample"},
-                {"name": "Radio Item", "path":"$lib/moonstone/samples/RadioItemSample"},
-                {"name": "Scroller 2d", "path":"$lib/moonstone/samples/Scroller2dSample"},
-                {"name": "Scroller Horizontal", "path":"$lib/moonstone/samples/ScrollerHorizontalSample"},
-                {"name": "Scroller Vertical", "path":"$lib/moonstone/samples/ScrollerVerticalSample"},
-                {"name": "Selectable Item", "path":"$lib/moonstone/samples/SelectableItemSample"},
-        		{"name": "Simple Picker", "path":"$lib/moonstone/samples/SimplePickerSample", "css":"sample"},
-                {"name": "Slider", "path":"$lib/moonstone/samples/SliderSample", "css":"sample"},
-                {"name": "Spinner", "path":"$lib/moonstone/samples/SpinnerSample", "css":"sample"},
-                {"name": "Time Picker", "path":"$lib/moonstone/samples/TimePickerSample", "css":"sample"},
-                {"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"}
+		{"name": "List", "samples": [
+			{"name": "Horizontal List", "path":"$lib/moonstone/samples/ListHorizontalSample"},
+			{"name": "Vertical List", "path":"$lib/moonstone/samples/ListVerticalSample"},
+			{"name": "Grid List", "path":"$lib/moonstone/samples/GridListSample"},
+			{"name": "List Items", "samples": [
+				{"name": "Labeled Text Item", "path":"$lib/moonstone/samples/LabeledTextItemSample"},
+				{"name": "Image Item", "path":"$lib/moonstone/samples/ImageItemSample"}
+			]}
+		]},
+		{"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
+		{"name": "Panels", "samples": [
+			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
+			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
+			{"name": "Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
+			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"}
+		]},
+		{"name": "Pickers", "samples": [
+			{"name": "Expandable Picker", "path":"$lib/moonstone/samples/ExpandablePickerSample"},
+			{"name": "Simple Picker", "path":"$lib/moonstone/samples/SimplePickerSample", "css":"sample"},
+			{"name": "Date Picker", "path":"$lib/moonstone/samples/DatePickerSample"},
+			{"name": "Time Picker", "path":"$lib/moonstone/samples/TimePickerSample", "css":"sample"},
+			{"name": "Integer Picker", "path":"$lib/moonstone/samples/IntegerScrollPickerSample"}
+		]},
+		{"name": "Popups", "samples": [
+			{"name": "Basic Popup", "path":"$lib/moonstone/samples/PopupSample", "css":"sample"},
+			{"name": "Dialog Popup", "path":"$lib/moonstone/samples/DialogSample", "css":"sample"}
+		]},
+		{"name": "Progress Bar", "path":"$lib/moonstone/samples/ProgressSample"},
+		{"name": "Scroller", "samples": [
+			{"name": "Horizontal Scroller", "path":"$lib/moonstone/samples/ScrollerHorizontalSample"},
+			{"name": "Vertical Scroller", "path":"$lib/moonstone/samples/ScrollerVerticalSample"},
+			{"name": "2D Scroller", "path":"$lib/moonstone/samples/Scroller2dSample"}
+		]},
+		{"name": "Slider", "path":"$lib/moonstone/samples/SliderSample"},
+		{"name": "Spinner", "path":"$lib/moonstone/samples/SpinnerSample"},
+		{"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"}
 	]
 }
