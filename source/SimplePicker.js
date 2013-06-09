@@ -101,6 +101,9 @@ enyo.kind({
 		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
 			width = Math.max(width, c$[i].getBounds().width);
 		}
+		if(0 === width) {
+			return;
+		}
 		this.$.client.setBounds({width:width});
 		for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
 			c$[i].setBounds({width:width});
