@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: 'moon.Scroller', horizontal: "hidden", classes: "enyo-fill", touch: true, components: [
+		{kind: 'moon.Scroller', classes: "enyo-fill", components: [
 			{
 				components: [
 					{kind: "moon.Divider", content: "Left-aligned", spotlight: true},

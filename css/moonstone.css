@@ -187,6 +187,7 @@
   font-size: 26px;
   padding: 20px;
   color: #4b4b4b;
+  background-color: #ededed;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -1249,7 +1250,7 @@ PageControl's use of IconButtons
   left: 33%;
 }
 .up-arrow {
-  border-color: transparent transparent #cccccc transparent;
+  border-color: transparent transparent #ededed transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1297,7 +1298,7 @@ PageControl's use of IconButtons
   left: 12%;
 }
 .down-arrow {
-  border-color: #cccccc transparent transparent transparent;
+  border-color: #ededed transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1443,7 +1444,7 @@ PageControl's use of IconButtons
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
-  margin: 10px 20px;
+  margin: 50px 20px;
   height: 4px;
   background-color: #323232;
   min-width: 128px;
@@ -1769,7 +1770,7 @@ PageControl's use of IconButtons
 .moon-list-actions-close {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: #cccccc;
+  background-color: #ededed;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -1963,7 +1964,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
-  border-color: transparent transparent #cccccc transparent;
+  border-color: transparent transparent #ededed transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -13px;
@@ -1972,7 +1973,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
-  border-color: #cccccc transparent transparent transparent;
+  border-color: #ededed transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -5px;
@@ -2311,13 +2312,13 @@ p.moon-drawers-close-handle-text {
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
-  color: #cccccc;
+  color: #ededed;
 }
 .moon-dark-gray * {
-  color: #cccccc;
+  color: #ededed;
 }
 .moon-light-gray {
-  background-color: #cccccc;
+  background-color: #ededed;
   color: #4b4b4b;
 }
 .moon-light-gray * {

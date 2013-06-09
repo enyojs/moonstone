@@ -4,7 +4,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, touch: true, components: [
+		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-hspacing", controlClasses:"moon-4h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "Selectable Items"},

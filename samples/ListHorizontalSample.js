@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.ListHorizontalSample",
-	classes: "moon enyo-unselectable enyo-fit list-sample",
+	classes: "moon enyo-unselectable enyo-fit",
 	published: {
 		index: 0,
 		pageSize: 3
