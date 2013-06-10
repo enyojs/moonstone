@@ -1,3 +1,41 @@
+enyo.kind({
+    name: "moon.MovieImageItem",
+    classes: "moon-movie-list-item moon-3h moon-2v",
+    spotlight: true,
+    published: {
+        option: {
+            src: "",
+            caption: ""
+        }
+    },
+    handlers: {
+        onSpotlightFocused: "focused",
+        onSpotlightBlur: "released"
+    },
+    components: [
+        {name: "caption", classes: "moon-movie-list-item-text"}
+    ],
+    create: function() {
+        this.inherited(arguments);
+        this.optionChanged();
+    },
+    getCaption: function() {
+        return this.$.caption;
+    },
+    optionChanged: function(inOld) {
+        this.applyStyle("background-image", 'url(' + this.option.src + ')');
+        this.$.caption.setContent(this.option.caption);
+    },
+    focused: function() {
+        this.$.caption.addClass("spotlight");
+        return true;
+    },
+    released: function() {
+        this.$.caption.removeClass("spotlight");
+        return true;
+    }
+});
+
 // Sample view
 
 enyo.kind({
@@ -17,17 +55,33 @@ enyo.kind({
             ]
         },
         {
-            name: "contentList",            
-            kind: "enyo.DataList",
             fit: true,
+            layoutkind: "FittableRowsLayout", 
             components: [
-                {kind: "moon.ImageItem", bindFrom: "imgSrc", bindTo: "source"}
-            ]
-        }
+            {
+                name: "contentList",            
+                kind: "enyo.DataGridList",
+                fit: true,
+                components: [
+                    {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
+                ]
+            },
+            {
+                name: "buttonList",
+                kind: "enyo.DataGridList",
+                layoutkind: "FittableRowsLayout",
+                components: [
+                    {kind: "moon.IconButton", bindFrom: "iconSrc", bindTo: "src", bindFrom: "content"},
+                    {kind: "moon.Button", bindFrom: "content", bindTo: "content"}
+                ]
+            }
+        ]}
+        
     ],
     bindings: [
         {from: ".controller.menus", to: "$.menuList.controller"},
-        {from: ".controller.contents", to: "$.contentList.controller"}
+        {from: ".controller.contents", to: "$.contentList.controller"},
+        {from: ".controller.buttons", to: "$.buttonList.controller"}
     ]
  });
 
@@ -42,11 +96,15 @@ enyo.ready(function(){
             {menuItem: "Search"}
         ]),
         contents: new enyo.Collection([
-            {imgSrc: "assets/default-movie-vertical.png"},
-            {imgSrc: "assets/default-movie-vertical.png"},
-            {imgSrc: "assets/default-movie-vertical.png"},
-            {imgSrc: "assets/default-movie-vertical.png"}            
+            {itemOption: {src: "assets/default-movie-vertical.png"}},
+            {itemOption: {src: "assets/default-movie-vertical.png"}},
+            {itemOption: {src: "assets/default-movie-vertical.png"}},
+            {itemOption: {src: "assets/default-movie-vertical.png"}}
         ]),
+        buttons: new enyo.Collection([
+            {iconSrc: "assets/icon-like.png", content: "LIKE"},
+            {iconSrc: "", content: "SHARE"}
+        ])
     });
 
 //  Application to render sample
