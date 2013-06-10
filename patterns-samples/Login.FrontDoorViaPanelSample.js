@@ -27,7 +27,7 @@ enyo.kind({
                             {
                                 name: "email",
                                 kind: "moon.Input",
-                                onchange: "emailChanged",
+                                onchange: "emailChanged"
                             }
                         ]
                     }
@@ -42,9 +42,10 @@ enyo.kind({
                                 name: "password",
                                 kind: "moon.Input",
                                 onchange: "passwordChanged",
+                                type: "password"
                             }
                         ]
-                    },
+                    }
                 ]},
                 {
                     layoutKind: 'HFlexLayout',
