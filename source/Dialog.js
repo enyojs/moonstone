@@ -1,6 +1,6 @@
 /**
-	_moon.Dialog_ is an <a href="#moon.Popup">moon.Popup</a> which has title, message and
-	additional control area with Moonstone styling applied.
+	_moon.Dialog_ is a <a href="#moon.Popup">moon.Popup</a> with a title, a
+	message, and an area for additional controls.
 */
 enyo.kind({
 	name: "moon.Dialog",
