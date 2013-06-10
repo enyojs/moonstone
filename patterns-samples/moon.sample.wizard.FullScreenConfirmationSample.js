@@ -4,9 +4,8 @@ enyo.kind({
     classes: "moon-wizard-sample enyo-fit",
     layoutKind: "FittableRowsLayout",
     events: {
-        onWizardStepChanged: ""
-    },
-
+        onWizardStepChanged: "",
+    },       
     components: [
         {     
             spotlight: true, 
@@ -52,15 +51,19 @@ enyo.kind({
         var collection = this.controller.get("wizContainer");
         this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle")); 
         this.$.headline.set("content", collection.at(idx).get("instruction")); 
+        return true;
     },
     rendered: function() {
         this.inherited(arguments);
         this.initialSetting(); 
+        return true;
     },
     prevTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"previous"});
+        return true;
     },
     doneTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"done"});
+        return true;
     }
 });

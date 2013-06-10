@@ -1,19 +1,18 @@
 enyo.kind({
     name: "moon.sample.wizard.FullScreenSample",
-    classes: "moon",
+    kind: "moon.Panels",
+    arrangerKind: "CarouselArranger",
+    classes: "moon enyo-unselectable enyo-fit",
     handlers: {
-        onWizardStepChanged: "wizardStepChanged"
+        onWizardStepChanged: "wizardStepChanged",
     },
     components: [
-        {name: "wizpanels", kind: "moon.Panels", arrangerKind: "CarouselArranger", classes: "enyo-fill", 
-            components: [
-                {name: "introPage", kind: "moon.sample.wizard.FullScreenIntroSample"},
-                {name: "stepPage1", kind: "moon.sample.wizard.FullScreenStepSample"},
-                {name: "stepPage2", kind: "moon.sample.wizard.FullScreenStepSample"},
-                {name: "stepPage3", kind: "moon.sample.wizard.FullScreenStepSample"},
-                {name: "stepPage4", kind: "moon.sample.wizard.FullScreenStepSample"},
-                {name: "confirmPage", kind: "moon.sample.wizard.FullScreenConfirmationSample"}  
-        ]}
+        {name: "introPage", kind: "moon.sample.wizard.FullScreenIntroSample"},
+        {name: "stepPage1", kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "stepPage2", kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "stepPage3", kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "stepPage4", kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "confirmPage", kind: "moon.sample.wizard.FullScreenConfirmationSample"}  
     ],
     bindings: [
         {from: ".controller", to: ".$.introPage.controller"},
@@ -23,15 +22,15 @@ enyo.kind({
         {from: ".controller", to: ".$.stepPage4.controller"},
         {from: ".controller", to: ".$.confirmPage.controller"}
     ],
-    wizardStepChanged: function (sender, event) {
-        var cmd = event.cmd;
-        var n = this.$.wizpanels.getPanelIndex(event.originator);
-        switch(cmd){
+    wizardStepChanged: function(iSender, iEvent) {
+        var cmd = iEvent.cmd;
+        console.log(cmd);
+        switch(cmd) {
             case "previous":
-                this.$.wizpanels.previous();
+                this.previous();
                 break; 
             case "next":
-                this.$.wizpanels.next();
+                this.next();
                 break;
             case "done":
                 // TODO : done routine
@@ -41,7 +40,11 @@ enyo.kind({
                 break;
             default:
         }
-        console.log(cmd);
+        return true;
+    },
+    onTap: function(oSender, oEvent) {
+        //* override from panels
+        // no action for Carosel Arranger using button
         return true;
     }
 });

@@ -5,7 +5,7 @@ enyo.kind({
     layoutKind: "FittableRowsLayout",
     events: {
         onWizardStepChanged: ""
-    },
+    },      
     components: [
         {  
             spotlight: true,
@@ -49,18 +49,23 @@ enyo.kind({
         this.$.imgmenu.set("src", collection.at(idx).get("imgsrc")); 
         this.$.headline.set("content", collection.at(idx).get("instruction")); 
         this.$.detail.set("content", collection.at(idx).get("detail")); 
+        return true;
     },
     rendered: function() {
         this.inherited(arguments);
         this.initialSetting();
+        return true;
     },
     prevTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"previous"});
+        return true;
     },
     postTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"next"});
+        return true;
     },
     cancleTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"cancle"});
+        return true;
     }
 });

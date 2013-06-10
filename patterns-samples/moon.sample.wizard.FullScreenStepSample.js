@@ -12,7 +12,7 @@ enyo.kind({
     },
     events: {
         onWizardStepChanged: ""
-    },
+    },      
     components: [
         {   
             spotlight: true,
@@ -65,30 +65,35 @@ enyo.kind({
         {from: ".controller.title", to: ".title"}            
     ],
     initialSetting: function() {
-        var idx = this.$.header.getTitleAbove()-1; // need to exchange
+        var idx = this.$.header.getTitleAbove()-1;
         var collection = this.controller.get("wizContainer");
         this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));    
         this.$.headline.set("content", collection.at(idx).get("instruction")); 
-        this.$.detail.set("content", collection.at(idx).get("detail"));      
+        this.$.detail.set("content", collection.at(idx).get("detail"));    
+        return true;  
     },
     rendered: function() {
         this.inherited(arguments);
         this.initialSetting();
+        return true;
     },
     prevTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"previous"});
+        return true;
     },
     postTap: function(inSender, inEvent) {
-        var idx = this.$.header.getTitleAbove()-2; // need to exchange
+        var idx = this.$.header.getTitleAbove()-2;
         var collection = this.controller.get("wizResults");
         this.setProcessed(true);
         collection.at(idx).set("result", this.getSelectedText());
         collection.at(idx).set("processed", "[TRUE]");
         this.doWizardStepChanged({cmd:"next"});
+        return true;
     },
     cancleTap: function(inSender, inEvent) {
         this.doWizardStepChanged({cmd:"cancle"});
-    },    
+        return true;
+    },
     inputChanged: function(inSender, inEvent) {
         var result1 = this.$.intext1.getValue();
         var result2 = this.$.check1.getChecked();
@@ -103,5 +108,6 @@ enyo.kind({
         result += result5 + ", ";
         result += result6;
         this.setSelectedText(result);
+        return true;
     }
 });
