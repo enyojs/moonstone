@@ -68,6 +68,74 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "moon.Divider",
+                    "kind": "moon.Divider",
+                    "description": "A divider",
+                    "config": {
+                        "kind": "moon.Divider",
+                        "content": "Divider"
+                    }
+                },
+                {
+                    "name": "moon.Header",
+                    "kind": "moon.Header",
+                    "description": "A simple header",
+                    "config": {
+                        "kind": "moon.Header",
+                        "content": "Simple Header"
+                    }
+                },
+                {
+                    "name": "moon.Header (Captioned)",
+                    "kind": "moon.Header",
+                    "description": "A captioned header",
+                    "config": {
+                        "kind": "moon.Header",
+                        "content": "Captioned Header",
+                        "titleAbove": "02",
+                        "titleBelow": "Sub Header"
+                    }
+                },
+                {
+                    "name": "moon.Input",
+                    "kind": "moon.Input",
+                    "description": "A test input",
+                    "config": {
+                        "name": "moon.Input",
+                        "kind": "moon.InputDecorator",
+                        "components": [{
+                            "kind": "moon.Input",
+                            "placeholder": "Text Input"
+                        }]
+                    }
+                },
+                {
+                    "name": "moon.RichText",
+                    "kind": "moon.RichText",
+                    "description": "A rich test",
+                    "config": {
+                        "name": "moon.RichText",
+                        "kind": "moon.InputDecorator",
+                        "components": [{
+                            "kind": "moon.RichText",
+                            "placeholder": "Rich Text"
+                        }]
+                    }
+                },
+                {
+                    "name": "moon.TextArea",
+                    "kind": "moon.TextArea",
+                    "description": "A text area",
+                    "config": {
+                        "name": "moon.TextArea",
+                        "kind": "moon.InputDecorator",
+                        "components": [{
+                            "kind": "moon.TextArea",
+                            "placeholder": "Text Area"
+                        }]
+                    }
                 }
             ]
         }
