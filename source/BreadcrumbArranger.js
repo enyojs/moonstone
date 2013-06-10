@@ -1,28 +1,30 @@
 /**
 	_moon.BreadcrumbArranger_ is an <a href="#enyo.Arranger">enyo.Arranger</a>
-	that displays the active control, along with some number of breadcrumb on the
-	right side. And this is the default arranger of always viewing and activity 
-	pattern, so you don't need to specify the arranger when using moon.Panel with
-	these pattern. 
+	that displays the active control, along with some number of breadcrumbs on the
+	right side. This is the default arranger for both the "Always Viewing" and
+	"Activity" patterns; if you are using <a href="#moon.Panel">moon.Panel</a>
+	with either of these patterns, you don't need to specify an arranger
+	explicitly. 
 
-	The breadcrumb indicates the path of sequential panels you already see.
+	The breadcrumbs reflect the sequence of panels you have already seen.
 
 	Transitions between arrangements are handled by sliding the new control	in
-	from the right. If the width of the old control(s) can fit within the container,
-	they will slide to the left. If not, the old control(s) will collapse to the left.
+	from the right. If the old control(s) can fit within the width of the
+	container, they will slide to the left; if not, the old control(s) will
+	collapse to the left.
 
 	The control's child components may be of any kind; by default, they are
 	instances of _moon.Panel_.
 
 		{name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
-            {title: "First", components: [
+			{title: "First", components: [
 				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
 				{kind: "moon.Item", content: "Item Two"},
 				{kind: "moon.Item", content: "Item Three"},
 				{kind: "moon.Item", content: "Item Four"},
 				{kind: "moon.Item", content: "Item Five"}
 			]},
-            {title: "Second", joinToPrev: true, components: [
+			{title: "Second", joinToPrev: true, components: [
 				{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
 				{kind: "moon.Item", content: "Item Two"},
 				{kind: "moon.Item", content: "Item Three"},
@@ -42,7 +44,7 @@ enyo.kind({
 			joinedPanels,
 			i;
 
-		// Setup default widths for each panel
+		// Set up default widths for each panel
 		for (i = 0; i < panels.length; i++) {
 			// If panels have already been stretched, unstretch them before doing calculations
 			if (panels[i].actualWidth) {
@@ -325,7 +327,7 @@ enyo.kind({
 		}
 		return leftMargin;
 	},
-	//* Set bounds for each panel to fit it vertically
+	//* Sets bounds for each panel to fit vertically.
 	applyVerticalFit: function() {
 		var panels = this.container.getPanels(),
 			padding = this.getContainerPadding();
