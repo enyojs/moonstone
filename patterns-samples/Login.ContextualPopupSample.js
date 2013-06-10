@@ -36,6 +36,26 @@ enyo.kind({
     }
 });
 
+enyo.kind({
+    name: "moon.ContextualLoginPopup",
+    kind: "moon.ContextualPopup",
+    classes: "moon-5h moon-3v",
+    components: [
+        {kind: "moon.Divider", content: "Log in to Service"},
+        {kind: "moon.InputDecorator", spotlight: true, components: [
+            {kind: "moon.Input", placeholder: "E-mail", onchange:""}
+        ]},
+        {kind: "moon.InputDecorator", spotlight: true, components: [
+            {kind: "moon.Input", placeholder: "Password", onchange:""}
+        ]},
+        {content: "Log in setting Menu"},
+        {kind: "moon.Button", content: "Log in"},
+        {content: "or Connected with"},
+        {kind: "moon.Button", content: "FACEBOOK"},
+        {kind: "moon.Button", content: "TWITTER"}
+    ]
+});
+
 // Sample view
 
 enyo.kind({
@@ -69,10 +89,12 @@ enyo.kind({
             {
                 name: "buttonList",
                 kind: "enyo.DataGridList",
-                layoutkind: "FittableRowsLayout",
+                //layoutkind: "FittableRowsLayout",
                 components: [
-                    {kind: "moon.IconButton", bindFrom: "iconSrc", bindTo: "src", bindFrom: "content"},
-                    {kind: "moon.Button", bindFrom: "content", bindTo: "content"}
+                    {kind: "moon.ContextualPopupDecorator", components: [
+                        {bindFrom: "content", bindTo: "content"},
+                        {kind: "moon.ContextualLoginPopup"}
+                    ]},
                 ]
             }
         ]}
