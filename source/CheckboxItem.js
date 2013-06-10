@@ -1,8 +1,8 @@
 /**
 	_moon.CheckboxItem_ is a control that combines a
 	<a href="#moon.Checkbox">moon.Checkbox</a> with a text label. The label text
-	may be set via the _content_ property. The state of the Checkbox may be
-	retrieved by interrogating the _checked_ property.
+	may be set via the _content_ property. The state of the checkbox may be
+	retrieved by querying the _checked_ property.
 
 		{kind: "moon.CheckboxItem", content: "San Francisco", onchange: "checkedChanged"}
 
@@ -12,8 +12,8 @@
 
 	You may place _moon.CheckboxItem_ objects inside an
 	<a href="#enyo.Group">enyo.Group</a> to create a group of checkboxes in which
-	only one checkbox may be chosen at a time (similar to how a Radio Item group
-	behaves):
+	only one checkbox may be chosen at a time (similar to how a RadioItemGroup
+	works):
 
 		{kind: "Group", components: [
 			{kind: "moon.CheckboxItem", content: "New York"},
@@ -30,15 +30,16 @@ enyo.kind({
 		checked: false
 	},
 	events: {
-		/** 
-			Fires when the control was either checked or unchecked.
+/** 
+    Fires when the control is either checked or unchecked.
 
-			_inEvent.checked_ indicates the current state of the control
+    _inEvent.checked_ indicates whether the checkbox is currently checked.
 
-			_inEvent.toggledControl_ holds a reference to the CheckboxItem that toggled 
-			(note: the originator of this event is actually the moon.Checkbox contained
-			within the CheckboxItem, so use this property to reference the CheckboxItem)
-		*/
+    _inEvent.toggledControl_ contains a reference to the CheckboxItem whose
+    state toggled. (Note that the originator of this event is actually the
+    _moon.Checkbox_ contained within the CheckboxItem, so use this property to
+    reference the CheckboxItem.)
+*/
 		onActivate: ""
 	},
 	//* @protected
