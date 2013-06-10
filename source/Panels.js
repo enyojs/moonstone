@@ -107,7 +107,9 @@ enyo.kind({
 		var n = this.getPanelIndex(oEvent.originator);
 
 		if (n != -1 && n != this.getIndex()) {
-			this.setIndex(n);
+			if(this.arrangerKind != "CarouselArranger"){
+				this.setIndex(n);	
+			}
 			enyo.Spotlight.setLast5WayControl(oEvent.originator);
 			enyo.Spotlight.setPointerMode(false);
 			return true;
