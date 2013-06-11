@@ -1,13 +1,16 @@
 /**
-	_moon.DatePicker_ is a control that can display or pick day, month and year.
+	_moon.DatePicker_ is a control that can be used to display--or allow the
+	selection of--a day, month, and year.
 
-	To initialize the picker to a particular date, set the _value_ property to
-	that standard JavaScript Date object:
+		{
+			kind: "moon.DatePicker",
+			noneText: "Pick a Date",
+			content: "Date",
+			onChange: "changed"
+		}
 
-		{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", onChange: "changed"}
-
-	The picker may be changed programmatically by modifying the published
-	properties _value_ in the normal manner, by calling _set()_.
+	Set the _value_ property to a standard JavaScript Date object to initialize
+	the picker, or to change it programmatically at runtime.
 */
 enyo.kind({
 	name: "moon.DatePicker",
@@ -25,7 +28,8 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		//* Handler for _onChange_ events coming from constituent controls (day and month)
+		//* Handler for _onChange_ events coming from constituent controls (_day_,
+		//* _month_, and _year_)
 		onChange: "updateDate"
 	},
 	published: {
@@ -44,8 +48,8 @@ enyo.kind({
 		maxYear: 2099,
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
-			is passed to _setValue()_, the control is updated to reflect the new
-			value. _getValue()_ returns a Date object.
+			is passed to _set("value")_, the control is updated to reflect the new
+			value. _get("value")_ returns a Date object.
 		*/
 		value: null
 	},
