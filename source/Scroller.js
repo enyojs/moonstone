@@ -47,6 +47,7 @@ enyo.kind({
 		onPageRelease			: "holdHandler",
 		onPaginate				: "paginate"
 	},
+	//* TODO - any way to do this without so much DOM???
 	pagingControls: [
 		{name: "wrapper", classes: "enyo-fit", kind: "FittableRows", isChrome: true, components: [
 			{name: "vWrapper", kind: "FittableColumns", fit: true, classes: "moon-scroller-chrome", isChrome: true, components: [
