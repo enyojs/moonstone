@@ -1,17 +1,54 @@
 enyo.kind({
-    name: "moon.sample.wizard.FullScreenSample",
-    kind: "moon.Panels",
-    arrangerKind: "CarouselArranger",
-    classes: "moon enyo-unselectable enyo-fit",
+	name: "Sample.Wizard.Panels",
+	kind: "moon.Panels",
+	defaultKind: "Sample.Wizard.Panel",
+	arrangerKind: "CarouselArranger",
+	classes: "moon enyo-unselectable enyo-fit",
     handlers: {
-        onWizardStepChanged: "wizardStepChanged",
+		onNext: "next",
+		onPrevious: "previous",
+		onCancel: "goCancel"
     },
+	goCancel: function() {
+		this.log("Cancel");
+		return true;
+	}
+})
+
+enyo.kind({
+	name: "Sample.Wizard.Panel",
+	kind: "moon.Panel",
+	classes: "moon-wizard-sample enyo-fit",
+    published: {
+        selectedText: "",
+        processed: false,
+    },
+    events: {
+		onNext: "",
+		onPrevious: "",
+		onCancel: ""
+    },
+    bindings: [
+        {from: ".controller.title", to: ".title"}         
+    ],
+    rendered: function() {
+        this.inherited(arguments);
+        this.initialSetting();
+    },
+    initialSetting: function() {
+    	// Stub
+    }
+});
+
+enyo.kind({
+    name: "moon.sample.wizard.FullScreenSample",
+    kind: "Sample.Wizard.Panels",
     components: [
-        {name: "introPage", kind: "moon.sample.wizard.FullScreenIntroSample"},
-        {name: "stepPage1", kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "stepPage2", kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "stepPage3", kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "stepPage4", kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "introPage",   kind: "moon.sample.wizard.FullScreenIntroSample"},
+        {name: "stepPage1",   kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "stepPage2",   kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "stepPage3",   kind: "moon.sample.wizard.FullScreenStepSample"},
+        {name: "stepPage4",   kind: "moon.sample.wizard.FullScreenStepSample"},
         {name: "confirmPage", kind: "moon.sample.wizard.FullScreenConfirmationSample"}  
     ],
     bindings: [
@@ -22,32 +59,13 @@ enyo.kind({
         {from: ".controller", to: ".$.stepPage4.controller"},
         {from: ".controller", to: ".$.confirmPage.controller"}
     ],
-    wizardStepChanged: function(iSender, iEvent) {
-        var cmd = iEvent.cmd;
-        console.log(cmd);
-        switch(cmd) {
-            case "previous":
-                this.previous();
-                break; 
-            case "next":
-                this.next();
-                break;
-            case "done":
-                // TODO : done routine
-                break;
-            case "cancle":
-                // TODO : cancle routine
-                break;
-            default:
-        }
-        return true;
-    },
     onTap: function(oSender, oEvent) {
         //* override from panels
         // no action for Carosel Arranger using button
         return true;
     }
 });
+
 enyo.ready(function(){
     var wizardModel = new enyo.Model({
             title: "Wizard Title",
@@ -106,7 +124,8 @@ enyo.ready(function(){
             ])
         }
     );
-    app = new enyo.Application({
+	
+    var app = new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
             components: [

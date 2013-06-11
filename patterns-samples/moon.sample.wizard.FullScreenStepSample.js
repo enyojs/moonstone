@@ -1,113 +1,65 @@
 enyo.kind({
     name: "moon.sample.wizard.FullScreenStepSample",
-    kind: "moon.Panel",
-    classes: "moon-wizard-sample enyo-fit",
-    layoutKind: "FittableRowsLayout",
-    published:{
-        selectedText: "",
-        processed: false,
-    },
-    handlers: {
-        onchange: "inputChanged"
-    },
-    events: {
-        onWizardStepChanged: ""
-    },      
+    kind: "Sample.Wizard.Panel",
     components: [
-        {   
-            spotlight: true,
-            components: [              
-                {name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "postTap", content: "Next"},
-                {name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "prevTap", content: "Previous"}
-            ]
-        },
-        {
-            fit: true,
-            components: [
-                {
-                    name: "wizardview",
-                    classes: "step-window",
-                    components: [
-                        {name: "headline", classes: "wizard-instruction"},
-                        {                            
-                            components: [
-                                {name: "indeco1", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
-                                    {name: "intext1", kind: "moon.Input", placeholder: "INPUT FIELD 01"}
-                                ]},
-                                {name: "check1", kind: "moon.CheckboxItem", classes: "wizard-check-inline", content: "OPTION 1"},
-                                {name: "check2", kind: "moon.CheckboxItem", classes: "wizard-check-inline",content: "OPTION 2"}
-                            ]
-                        },
-                        {name: "indeco2", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
-                            {name: "intext2", kind: "moon.Input", placeholder: "INPUT FIELD 02"}
-                        ]},
-                        {tag: "br"},
-                        {tag: "br"},
-                        {
-                            components: [
-                                {name: "detail", classes: "wizard-instruction"},
-                                {name: "indeco3", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
-                                    {name: "intext3", kind: "moon.Input", placeholder: "INPUT FIELD 03"}
-                                ]},
-                                {tag:"br"},
-                                {name: "indeco4", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
-                                    {name: "intext4", kind: "moon.Input", placeholder: "INPUT FIELD 04"}
-                                ]}
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {name: "cancle", kind: "moon.Button", classes: "wizard-button-bottom", ontap: "cancleTap", content: "Cancle"}
-    ],
-    bindings: [
-        {from: ".controller.title", to: ".title"}            
+		{kind: "moon.Scroller", fit: true, components: [
+		
+			{classes: "wizard-nav-button-container", style: "position:absolute; top:0; right:0;", components: [
+				{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", content: "Previous"},
+				{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "goNext", content: "Next"}
+			]},
+			
+			{components: [
+	            {name: "headline", classes: "wizard-instruction"},
+				
+	            {classes: "wizard-block-row", components: [
+					{name: "indeco1", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
+						{name: "intext1", kind: "moon.Input", placeholder: "INPUT FIELD 01"}
+					]},
+					{name: "check1", kind: "moon.CheckboxItem", classes: "wizard-check-inline", content: "OPTION 1"},
+					{name: "check2", kind: "moon.CheckboxItem", classes: "wizard-check-inline",content: "OPTION 2"}
+				]},
+				
+				{classes: "wizard-block-row", components: [
+					{name: "indeco2", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
+						{name: "intext2", kind: "moon.Input", placeholder: "INPUT FIELD 02"}
+					]},
+					{name: "detail", classes: "wizard-input-description"}
+				]},
+				
+				{classes: "wizard-block-row", components: [
+					{name: "indeco3", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
+						{name: "intext3", kind: "moon.Input", placeholder: "INPUT FIELD 03"}
+					]},
+				]},
+				
+				{classes: "wizard-block-row", components: [
+					{name: "indeco4", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
+						{name: "intext4", kind: "moon.Input", placeholder: "INPUT FIELD 04"}
+					]}
+				]}
+			    
+			]},
+			
+			{name: "cancel", kind: "moon.Button", classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
+			
+		]}
     ],
     initialSetting: function() {
         var idx = this.$.header.getTitleAbove()-1;
         var collection = this.controller.get("wizContainer");
+		
         this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));    
         this.$.headline.set("content", collection.at(idx).get("instruction")); 
         this.$.detail.set("content", collection.at(idx).get("detail"));    
-        return true;  
     },
-    rendered: function() {
-        this.inherited(arguments);
-        this.initialSetting();
-        return true;
-    },
-    prevTap: function(inSender, inEvent) {
-        this.doWizardStepChanged({cmd:"previous"});
-        return true;
-    },
-    postTap: function(inSender, inEvent) {
+	goNext: function(inSender, inEvent) {
         var idx = this.$.header.getTitleAbove()-2;
         var collection = this.controller.get("wizResults");
         this.setProcessed(true);
         collection.at(idx).set("result", this.getSelectedText());
         collection.at(idx).set("processed", "[TRUE]");
-        this.doWizardStepChanged({cmd:"next"});
+        this.doNext();
         return true;
-    },
-    cancleTap: function(inSender, inEvent) {
-        this.doWizardStepChanged({cmd:"cancle"});
-        return true;
-    },
-    inputChanged: function(inSender, inEvent) {
-        var result1 = this.$.intext1.getValue();
-        var result2 = this.$.check1.getChecked();
-        var result3 = this.$.check2.getChecked();
-        var result4 = this.$.intext2.getValue();
-        var result5 = this.$.intext3.getValue();
-        var result6 = this.$.intext4.getValue();
-        var result = result1 + ", ";
-        result += result2 + ", ";
-        result += result3 + ", ";
-        result += result4 + ", ";
-        result += result5 + ", ";
-        result += result6;
-        this.setSelectedText(result);
-        return true;
-    }
+	}
 });
