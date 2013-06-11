@@ -48,6 +48,7 @@ enyo.kind({
         {kind: "moon.InputDecorator", spotlight: true, components: [
             {kind: "moon.Input", placeholder: "Password", onchange:""}
         ]},
+        //{kind: "moon.CheckboxItem", content: "Log in setting Menu", checked: true, onchange: ""},
         {content: "Log in setting Menu"},
         {kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
         {content: "or Connected with"},
@@ -91,14 +92,14 @@ enyo.kind({
                 layoutkind: "FittableRowsLayout",
                 components: [
                     {kind: "moon.ContextualPopupDecorator", components: [
-                        {kind: "moon.ContextualPopupButton", components: [
+                        {kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
                             {tag: "img", attributes: {src: "assets/icon-half-like.png"}},
                             {content: "LIKE"}
                         ]},                        
                         {kind: "moon.ContextualLoginPopup"}
                     ]},
                     {kind: "moon.ContextualPopupDecorator", components: [
-                        {content: "SHARE"},
+                        {classes: "moon-2h", content: "SHARE"},
                         {kind: "moon.ContextualLoginPopup"}
                     ]},
                 ]
