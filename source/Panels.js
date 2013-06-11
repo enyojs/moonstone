@@ -15,7 +15,8 @@ enyo.kind({
 			otherwise, the transition should be delayed until some internal
 			transitions have finished.
 		*/
-		transitionReady: false
+		transitionReady: false,
+		pattern: "activity"			// none, activity(default), alwaysviewing
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -28,15 +29,20 @@ enyo.kind({
 	},
 	defaultKind: "moon.Panel",
 	draggable: false,
+	panelCoverRatio: 1,				// 0 ~ 1
+	showFirstBreadcrumb: false,		// none: false, activity: true, alwaysviewing: false
+	arrangerKind: "moon.BreadcrumbArranger",
 
 	/************ PROTECTED **********/
 
 	create: function(oSender, oEvent) {
+		this._applyPattern();
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
 		}
 	},
+
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
@@ -83,6 +89,20 @@ enyo.kind({
 			panels[panels.length - 1].destroy();
 		}
 	},
+	replacePanel: function(index, inInfo, inMoreInfo) {
+		var panels = this.getPanels(),
+			oPanel = null;
+
+		if (panels.length > index) {
+			panels[index].destroy();
+			if (panels.length > index) {
+				inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+			}
+		}
+		oPanel = this.createComponent(inInfo, inMoreInfo);
+		oPanel.render();
+		this.resized();
+	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 
@@ -93,6 +113,12 @@ enyo.kind({
 			return true;
 		}
 		return false;
+	},
+	next: function() {
+		var nextIndex = this.clamp(this.index+1);
+		if (nextIndex != this.getIndex()) {
+			this.setIndex(nextIndex);
+		}
 	},
 	// Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(oSender, oEvent) {
@@ -183,10 +209,13 @@ enyo.kind({
 		_preTransitionWaitList_.
 	*/
 	triggerPanelPreTransitions: function() {
-		var panels = this.getPanels();
+		var panels = this.getPanels(),
+			options = {};
+
 		this.preTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex)) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex, options)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
@@ -215,10 +244,12 @@ enyo.kind({
 	},
 
 	triggerPanelPostTransitions: function() {
-		var panels = this.getPanels();
+		var panels = this.getPanels(),
+			options = {};
 		this.postTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex)) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex, options)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}
@@ -242,5 +273,25 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		// TODO - something here?
+	},
+	getTransitionOptions: function(fromIndex, toIndex) {
+		if (this.layout.getTransitionOptions) {
+			return this.layout.getTransitionOptions(fromIndex, toIndex);
+		} else {
+			return {};
+		}
+	},
+	_applyPattern: function() {
+		switch (this.pattern) {
+		case "none":
+			break;
+		case "alwaysviewing":
+			this.addClass("panels-50-percent-scrim");
+			break;
+		case "activity":
+			/* falls through */
+		default:
+			this.showFirstBreadcrumb = true;
+		}
 	}
 });

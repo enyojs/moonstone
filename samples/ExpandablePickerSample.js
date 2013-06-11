@@ -1,38 +1,37 @@
 enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
-	style: "margin:20px;",
-	classes: "moon enyo-unselectable",
-	fit: true,
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{components: [
-			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: false, content: "Menu Language", defaultKind: "moon.LabeledToggleButton", classes: "moon-expandable-picker-wrapper", components: [
-				{content: "English"},
-				{content: "Spanish"},
-				{content: "French"},
-				{content: "German"},
-				{content: "Italian"},
-				{content: "Japanese"}
-			]},
-			{kind: "moon.ExpandablePicker", content: "Key Lock", classes: "moon-expandable-picker-wrapper", components: [
-				{content: "On", active: true},
-				{content: "Off"}
-			]},
-			{kind: "moon.ExpandablePicker", content: "ISM Method", classes: "moon-expandable-picker-wrapper", components: [
-				{content: "Normal"},
-				{content: "Orbiter", active: true}
-			]},
-			{kind: "moon.ExpandableListItem", content: "This is an expandable list item", components: [
-				{content: "Item One"},
-				{content: "Item Two"}
-			]},
-			{kind: "moon.ExpandableListItem", content: "This is another expandable list item", components: [
-				{content: "Item Three"},
-				{content: "Item Four"}
-			]},
-			{kind: "moon.ExpandableListItem", disabled: true, content: "This is a disabled list item", components: [
-				{content: "Item Three"},
-				{content: "Item Four"}
+		{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
+			{classes: "moon-6h", components: [
+				{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", components: [
+					{content: "English"},
+					{content: "Spanish"},
+					{content: "French"},
+					{content: "German"},
+					{content: "Italian"},
+					{content: "Japanese"}
+				]},
+				{kind: "moon.ExpandablePicker", content: "Pre-selected Picker", components: [
+					{content: "On", active: true},
+					{content: "Off"}
+				]},
+				{kind: "moon.ExpandablePicker", content: "Non-auto-collapsing", autoCollapse: false, components: [
+					{content: "Item 1"},
+					{content: "Item 2", active: true},
+					{content: "Item 3"}
+				]},
+				{kind: "moon.ExpandablePicker", disabled:true, content:"Disabled Picker", components: [
+					{content: "Item 1"},
+					{content: "Item 2", active: true},
+					{content: "Item 3"}
+				]},
+				{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", 
+				classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"},
+
+				{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", 
+				classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"}
 			]}
 		]}
 	]

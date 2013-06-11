@@ -22,7 +22,7 @@ enyo.kind({
 		//* if true, show controls for starting and stopping video playback
 		showControls: false,
 		//* if true, video will automatically start
-		autoplay: true,
+		autoplay: false,
 		//* if true, restart video playback from beginning when finished
 		loop: false,
 		//* (webOS only) if true, stretch the video to fill the entire window
@@ -30,8 +30,13 @@ enyo.kind({
 		width: 640,
 		height: 360
 	},
+	events: {
+		//* inEvent.paused 
+		onUpdate: ""
+	},
 	//* @protected
 	tag: "video",
+	paused: true,
 	create: function() {
 		this.inherited(arguments);
 		this.srcChanged();
@@ -39,6 +44,7 @@ enyo.kind({
 		this.showControlsChanged();
 		this.autoplayChanged();
 		this.loopChanged();
+		this.paused = !this.autoplay;
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -47,7 +53,7 @@ enyo.kind({
 		this.heightChanged();
 
 		enyo.makeBubble(this, "timeupdate");
-
+		
 		// delayed until here because we need the node to be created 
 		// to modify this property
 		// this.fitToWindowChanged();
@@ -58,7 +64,7 @@ enyo.kind({
 		// HTML5 spec says that if you change src after page is loaded, 
 		// you need to call load() to load the new data
 		if (this.hasNode()) {
-			this.node.load();
+			this.node.load();	// not called
 		}
 	},
 	widthChanged: function() {
@@ -104,14 +110,20 @@ enyo.kind({
 		// }
 	}, 
 	//* @public
+	isPaused: function() {
+		if (this.hasNode()) {
+			return this.node.paused;
+		}
+	},
 	//* Play the video
 	play: function() {
 		if (this.hasNode()) {
 			if (!this.node.paused) {
-				this.node.currentTime = 0;
+				this.node.pause();
 			} else {
 				this.node.play();
 			}
+			this.doUpdate({paused: this.node.paused});
 		}
 	},
 	//* Pause the video
@@ -131,6 +143,7 @@ enyo.kind({
 	setCurrentTime: function(inTime) {
 		if ((typeof inTime === 'number') && this.hasNode()) {
 			this.node.currentTime = inTime;
+			this.doUpdate({paused: this.node.paused});
 		}
 	},
 	getDuration: function() {
@@ -138,5 +151,25 @@ enyo.kind({
 			return this.node.duration;
 		}
 		return 0;
+	},
+	rewind: function() {
+		if (this.hasNode()) {
+			return this.node.currentTime-=this.node.duration/20;
+		}
+	},
+	jumpBack: function() {
+		if (this.hasNode()) {
+			return this.node.currentTime-=this.node.duration/5;
+		}
+	},
+	fastForward: function() {
+		if (this.hasNode()) {
+			return this.node.currentTime+=this.node.duration/20;
+		}
+	},
+	jumpForward: function() {
+		if (this.hasNode()) {
+			return this.node.currentTime+=this.node.duration/5;
+		}
 	}
 });

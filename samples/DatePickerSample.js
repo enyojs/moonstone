@@ -1,49 +1,48 @@
 enyo.kind({
 	name: "moon.sample.DatePickerSample",
-	kind:"FittableRows",
-	style: "margin:20px;",
-	classes: "moon enyo-unselectable",
-	fit: true,
-	handlers: {
-		onChange: "changed"
-	},
+	kind: "FittableRows",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
-			{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: $L("Choose Locale"), classes: "moon-expandable-picker-wrapper", onChange:"pickerHandler", components: [
-				{content: 'en_us', active:true},
-				{content: 'en_ca'},
-				{content: 'en_ie'},
-				{content: 'en_gb'},
-				{content: 'en_mx'},
-				{content: 'de_de'},
-				{content: 'fr_fr'},
-				{content: 'fr_ca'},
-				{content: 'it_it'},
-				{content: 'es_es'},
-				{content: 'es_mx'},
-				{content: 'es_us'}
-			]},
-			{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date", classes: "moon-date-picker-wrapper"},
-			{name:"date", style:"font-size:0.35em;font-family:PreludeWGL Light"},
-			{kind: "moon.DatePicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date", classes: "moon-date-picker-wrapper"}
-		]}
+		{kind: 'moon.Scroller', fit:true, components: [
+			{kind: "moon.DatePicker", name:"picker", noneText: "Pick a Date", content: "Date", onChange: "changed"},
+			{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date"},
+			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+				{content: 'en-US', active:true},
+				{content: 'en-CA'},
+				{content: 'en-IE'},
+				{content: 'en-GB'},
+				{content: 'en-MX'},
+				{content: 'de-DE'},
+				{content: 'fr-FR'},
+				{content: 'fr-CA'},
+				{content: 'it-IT'},
+				{content: 'es-ES'},
+				{content: 'es-MX'},
+				{content: 'es-US'}
+			]}
+		]},
+		{kind: "moon.Divider", content:"Result"},
+		{name: "result", content: "No change yet"}
 	],
 	create: function(){
 		this.inherited(arguments);
-		// setTimeout(enyo.bind(this, function(){
-		//	this.$.datePicker.setValue(new Date('1-29-13'));
-		// }),1000)
+		var selected = this.$.langPicker.getSelected();
+		if (selected) {
+			this.$.picker.setLocale(selected.content);
+			this.$.disabledPicker.setLocale(selected.content);
+		}
 	},
 	pickerHandler: function(inSender, inEvent){
-		if (enyo.g11n) {
-			this.$.datePicker.setLocale(inEvent.selected.content);
+		if (ilib) {
+			this.$.picker.setLocale(inEvent.selected.content);
+			this.$.disabledPicker.setLocale(inEvent.selected.content);
 		}
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.date){
-			this.$.date.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
+		if (this.$.result && inEvent.value){
+			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
 	}
 });

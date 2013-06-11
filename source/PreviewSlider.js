@@ -12,7 +12,7 @@
 enyo.kind({
 	name: "moon.PreviewSlider",
 	kind: "moon.Slider",
-	// classes: "moon-slider",
+	//classes: "moon-preview-slider",
 	// spotlight: true,
 	published: {
 		//* enyo.Video object
@@ -49,7 +49,7 @@ enyo.kind({
 	// 	]}
 	// ],
 	popupComponents: [
-		{kind: "enyo.Popup", name: "popup", classes: "moon-preview-slider-popup above", captureEvents:false, components: [
+		{kind: "enyo.Popup", name: "popup", classes: "moon-preview-slider-popup above", captureEvents: false, components: [
 			{tag: "canvas", name: "drawing", attributes: { width: 340, height: 270 }},
 			{name: "popupLabel", showing: false}
 		]},
@@ -59,6 +59,7 @@ enyo.kind({
 		this.inherited(arguments);
 		
 		this.videoChanged();
+		this.popupColor = "#323232";
 		// this.$.popupLabel.hide();
 		// this.$.popup.
 		// this.$.drawing.setAttribute("width", 320);
@@ -206,6 +207,7 @@ enyo.kind({
 	// },
 	dragstart: function(inSender, inEvent) {
 		if (this.video !== null && this.video.hasNode()) {
+			this.paused = this.video.isPaused();
 			this.video.pause();
 
 			var b = this.video.getBounds();
@@ -243,7 +245,7 @@ enyo.kind({
 		if (this.video !== null) {
 			// var bs = this.video.container.$.bgScreen;
 			var bs = this.$.bgScreen;
-			this.video.play();
+			if (!this.paused) this.video.play();
 			bs.setShowing(false);
 		}
 	},
@@ -304,6 +306,7 @@ enyo.kind({
 		ctx.arcTo(1, 1, 1, hbc, r);
 		ctx.lineTo(1, h);
 		ctx.fill();
+		return false;
 	},
 
 	// changeDelayMS: 50,

@@ -73,10 +73,19 @@ enyo.kind({
 	animatingTo: null,
 	create: function() {
 		this.inherited(arguments);
+		if (typeof ilib !== "undefined") {
+			this._nf = new ilib.NumFmt({type: "percentage"});
+		}
 		this.createComponents(this.moreComponents);
 		this.createComponents(this.popupComponents);
 		this.initValue();
 		this.disabledChanged();
+	},
+	destroy: function() {
+		if (this._nf) {
+			delete this._nf;
+		}
+		this.inherited(arguments);
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -124,7 +133,16 @@ enyo.kind({
 	updateKnobPosition: function(inPercent) {
 		this.$.knob.applyStyle("left", inPercent + "%");
 		this.$.popup.applyStyle("left", inPercent + "%");
-		this.$.popupLabel.setContent( Math.round(inPercent) + "%" );
+
+		var label = "";
+		if (typeof ilib !== "undefined") {
+			label = this._nf.format(Math.round(inPercent));
+		}
+		else {
+			label = Math.round(inPercent) + "%";
+		}
+		this.$.popupLabel.setContent(label);
+
 		this.updatePopupPosition();
 	},
 	updatePopupPosition: function() {
@@ -263,8 +281,12 @@ enyo.kind({
 		if (this.dragging) {
 			return true;
 		} else {
-			this.$.knob && this.$.knob.removeClass("spotselect");
-			this.$.popup && this.$.popup.hide();
+			if (this.$.knob) {
+				this.$.knob.removeClass("spotselect");
+			}
+			if (this.$.popup) {
+				this.$.popup.hide();
+			}
 			this.selected = false;
 		}
 	},

@@ -20,7 +20,7 @@ enyo.kind({
 
 	published: {
 		// all, email, only text, text/number (no special chars)
-		fieldType: 'numeric' 
+		fieldType: 'numeric'
 	},
 
 	//* @protected
@@ -45,11 +45,11 @@ enyo.kind({
 		}
 		return true;
 	},
-	
+
 	up: function() {
 		return false;
 	},
-	
+
 	down: function() {
 		return false;
 	}
