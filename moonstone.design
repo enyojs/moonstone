@@ -136,6 +136,113 @@
                             "placeholder": "Text Area"
                         }]
                     }
+                },
+                {
+                    "name": "moon.Item",
+                    "kind": "moon.Item",
+                    "description": "An item",
+                    "config": {
+                        "kind": "moon.Item",
+                        "content": "Item"
+                    }
+                },
+                {
+                    "name": "moon.LabeledTextItem",
+                    "kind": "moon.LabeledTextItem",
+                    "description": "A labeled text item",
+                    "config": {
+                        "kind": "moon.LabeledTextItem",
+                        "label": "Text Title",
+                        "text": "This is a labeled text item. This is an example for the text contents."
+                    }
+                },
+                {
+                    "name": "moon.RadioItemGroup",
+                    "kind": "moon.RadioItemGroup",
+                    "config": {
+                        "name": "moon.RadioItemGroup",
+                        "kind": "moon.RadioItemGroup",
+                        "components": [
+                            {"content": "Option 1"},
+                            {"content": "Option 2"},
+                            {"content": "Option 3"}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.SelectableItem",
+                    "kind": "moon.SelectableItem",
+                    "config": {
+                        "kind": "moon.SelectableItem",
+                        "content": "Selectable Item"
+                    }
+                },
+                {
+                    "name": "moon.SimpleIntegerPicker",
+                    "kind": "moon.SimpleIntegerPicker",
+                    "description": "A simple integer picker",
+                    "config": {
+                        "name": "moon.SimpleIntegerPicker",
+                        "kind": "moon.SimpleIntegerPicker",
+                        "value": 3,
+                        "min": 1,
+                        "max": 10,
+                        "step": 1,
+                        "unit": "sec"
+                    }
+                },
+                {
+                    "name": "moon.Slider",
+                    "kind": "moon.Slider",
+                    "description": "A simple slider",
+                    "config": {
+                        "name": "moon.Slider",
+                        "kind": "moon.Slider",
+                        "value": 25,
+                        "bgProgress": 35
+                    }
+                },
+                {
+                    "name": "moon.Spinner",
+                    "kind": "moon.Spinner",
+                    "description": "A spinner",
+                    "config": {
+                        "name": "moon.Spinner",
+                        "kind": "moon.Spinner"
+                    }
+                },
+                {
+                    "name": "moon.TimePicker",
+                    "kind": "moon.TimePicker",
+                    "description": "A time picker",
+                    "config": {
+                        "name": "Time Picker",
+                        "kind": "moon.TimePicker",
+                        "content": "Time"
+                    }
+                },
+                {
+                    "name": "moon.ToggleItem",
+                    "kind": "moon.ToggleItem",
+                    "description": "A toggle item",
+                    "config": {
+                        "name": "moon.ToggleItem",
+                        "kind": "moon.ToggleItem",
+                        "content": "Toggle Option"
+                    }
+                },
+                {
+                    "name": "moon.ToggleItem (Grouped)",
+                    "kind": "moon.ToggleItem",
+                    "description": "A group toggle item",
+                    "config": {
+                        "kind": "Group",
+                        "components": [
+                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 1", "checked": true},
+                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 2"},
+                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 3"}
+                        ]
+                    }
                 }
             ]
         }
