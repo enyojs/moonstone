@@ -92,7 +92,7 @@ enyo.kind({
                 components: [
                     {kind: "moon.ContextualPopupDecorator", components: [
                         {kind: "moon.ContextualPopupButton", components: [
-                            {tag: "img", attributes: {src: "assets/icon-like.png"}},
+                            {tag: "img", attributes: {src: "assets/icon-half-like.png"}},
                             {content: "LIKE"}
                         ]},                        
                         {kind: "moon.ContextualLoginPopup"}
