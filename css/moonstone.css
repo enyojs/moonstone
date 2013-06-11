@@ -1041,42 +1041,65 @@
 }
 /* Scroller Page Controls */
 .moon-paging-button {
-  position: absolute;
-  z-index: 150;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0px 0px;
+  line-height: 42px;
+  font-weight: normal;
+  color: #4b4b4b;
+  font-family: "Miso";
+  vertical-align: middle;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  /*
+	width: @moon-picker-button-width;
+	height: @moon-picker-button-width;
+	line-height: @moon-picker-button-width;
+	border-radius: @moon-picker-button-width/2;
+	*/
+
 }
-.moon-paging-button.top {
-  top: 0px;
-  background-image: url(../images/upArrow.png);
+.moon-paging-button.top,
+.moon-paging-button.bottom {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
 }
+/*
 .moon-paging-button.top.spotlight {
-  background-position: 0px -84px;
+	background-position: 0px -84px;
 }
 .moon-paging-button.right {
-  right: 0px;
-  background-image: url(../images/rightArrow.png);
+	background-image:url(../images/rightArrow.png);
 }
 .moon-paging-button.right.spotlight {
-  background-position: 0px -84px;
+	background-position: 0px -84px;
 }
 .moon-paging-button.bottom {
-  bottom: 0px;
-  background-image: url(../images/downArrow.png);
-  background-position: 0px -84px;
+	background-image:url(../images/downArrow.png);
+	background-position: 0px -84px;
 }
 .moon-paging-button.bottom.spotlight {
-  background-position: 0px 0px;
+	background-position: 0px 0px;
 }
 .moon-paging-button.left {
-  left: 0px;
-  background-image: url(../images/leftArrow.png);
+	background-image:url(../images/leftArrow.png);
 }
 .moon-paging-button.left.spotlight {
-  background-position: 0px -84px;
+	background-position: 0px -84px;
 }
-/* Icon.css */
+.moon-icon-button.moon-paging-button.active,
+.moon-icon-button.moon-paging-button.pressed,
+.moon-icon-button.moon-paging-button.spotlight.pressed,
+.moon-icon-button.moon-paging-button.spotlight:active {
+	background-position: 0 -42px;
+	border: 4px solid transparent;
+	background-color: transparent;
+}
+
+
+*//* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
   width: 42px;
@@ -1115,23 +1138,6 @@
 }
 .moon-icon-button.spotlight {
   background-color: #ffb80d;
-}
-/*
-fixme: The following exists only to temporarily 
-preserve the current behavior of the
-PageControl's use of IconButtons
-*/
-.moon-icon-button.moon-paging-button {
-  border: 4px solid transparent;
-  background-color: transparent;
-}
-.moon-icon-button.moon-paging-button.active,
-.moon-icon-button.moon-paging-button.pressed,
-.moon-icon-button.moon-paging-button.spotlight.pressed,
-.moon-icon-button.moon-paging-button.spotlight:active {
-  background-position: 0 -42px;
-  border: 4px solid transparent;
-  background-color: transparent;
 }
 .moon-integer-picker {
   display: inline-block;
@@ -2305,6 +2311,38 @@ p.moon-drawers-close-handle-text {
 .moon-tooltip .moon-tooltip-label.right-arrow {
   position: absolute;
   right: 0px;
+}
+.moon .enyo-fittable-columns-layout > .moon-scroll-wrapper {
+  overflow: hidden;
+  margin: 0px;
+}
+.moon .enyo-fittable-columns-layout > .moon-scroller-chrome,
+.moon .enyo-fittable-rows-layout > .moon-scroller-chrome {
+  margin: 0px;
+}
+.moon .enyo-fittable-columns-layout > .moon-scroll-wrapper > * {
+  white-space: nowrap;
+}
+.moon-scroller-v-column {
+  width: 50px;
+}
+.moon-scroller-h-column {
+  height: 50px;
+}
+.moon-scroller-paging-wrapper {
+  width: 50px;
+  height: 50px;
+}
+.moon-scroller-thumb-container {
+  position: relative;
+}
+.moon-scroller .enyo-vthumb {
+  width: 10px;
+  margin: 0px 19px;
+}
+.moon-scroller .enyo-hthumb {
+  height: 10px;
+  margin: 19px 0px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {

@@ -5,7 +5,7 @@ enyo.kind({
 		{kind: 'enyo.Spotlight'},
 		{classes: "moon-scroller-sample-horizontal-wrapper", components: [
 			{kind: "moon.Divider", content: "Item Spotlight (default-style)", classes: "moon-scroller-sample-divider"},
-			{kind: 'moon.Scroller', vertical: "hidden", spotlight: "container", name: "scroller1",
+			{kind: 'moon.Scroller', vertical: "hidden", name: "scroller1",
 				classes: 'moon-scroller-sample-horizontal',
 				components: [
 					{kind: "moon.Item", classes:"moon-scroller-sample-item enyo"},

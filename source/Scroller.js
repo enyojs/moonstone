@@ -21,6 +21,7 @@ enyo.kind({
 	kind:      "enyo.Scroller",
 	spotlight: "container",
 	touch:     true,
+	classes:   "moon-scroller",
 	published: {
 		//* Percentage of scroller client area to jump when paging
 		pageRatio: 0.7,
@@ -46,27 +47,116 @@ enyo.kind({
 		onPageRelease			: "holdHandler",
 		onPaginate				: "paginate"
 	},
+	//* TODO - any way to do this without so much DOM???
+	pagingControls: [
+		{name: "wrapper", classes: "enyo-fit", kind: "FittableRows", isChrome: true, components: [
+			{name: "vWrapper", kind: "FittableColumns", fit: true, classes: "moon-scroller-chrome", isChrome: true, components: [
+				{name: "strategyWrapper", classes: "moon-scroll-wrapper moon-scroller-chrome", fit: true, isChrome: true},
+				{name: "vControls", kind: "FittableRows", classes: "moon-scroller-chrome moon-scroller-v-column", components: [
+					{classes: "moon-scroller-chrome moon-scroller-paging-wrapper", components: [
+						{name: "pageUpControl", kind: "moon.PagingControl", side: "top", content: ">", showing: false},
+					]},
+					{name: "vthumbContainer", fit: true, classes: "moon-scroller-chrome moon-scroller-thumb-container", isChrome: true, components: [
+						{name: "vthumb", kind: "moon.ScrollThumb", axis: "v", showing: false},
+					]},
+					{classes: "moon-scroller-chrome moon-scroller-paging-wrapper", components: [
+						{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom", content: "<", showing: false},
+					]}
+				]}
+			]},
+			{name: "hControls", kind: "FittableColumns", classes: "moon-scroller-chrome moon-scroller-h-column", components: [
+				{classes: "moon-scroller-chrome moon-scroller-paging-wrapper", components: [
+					{name: "pageLeftControl", kind: "moon.PagingControl", side: "left", content: "<", showing: false},
+				]},
+				{name: "hthumbContainer", fit: true, classes: "moon-scroller-chrome moon-scroller-thumb-container", isChrome: true, components: [
+					{name: "hthumb", kind: "moon.ScrollThumb", axis: "h", showing: false},
+				]},
+				{classes: "moon-scroller-chrome moon-scroller-paging-wrapper", components: [
+					{name: "pageRightControl", kind: "moon.PagingControl", side: "right", content: ">", showing: false},
+				]},
+				{name: "vPadBox", classes: "moon-scroller-chrome moon-scroller-paging-wrapper"}
+			]}
+		]}
+	],
+	//* If true, the pointer is currently hovering over this control
+	hovering: false,
+	
 	initComponents: function() {
 		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
+		this.createComponent({kind: "Signals", onSpotlightModeChanged: "showHidePageControls"});
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.scrollTo(this.scrollLeft); //workaround for page control issue GF-2728
-		var sb = this.$.strategy.scrollBounds;
+		
+		var sb = this.$.strategy._getScrollBounds();
+		
+		// Workaround for page control issue GF-2728
+		this.scrollTo(this.scrollLeft);
+		
 		this.$.strategy.setPageSize(this.getVertical() !== "hidden" ? sb.clientHeight*this.pageRatio : sb.clientWidth*this.pageRatio);
+		
+		this.setThumbSizeRatio();
+		
+		// TODO - why do we need a timeout here?? Race condition!
+		setTimeout(enyo.bind(this, function() { this.showHidePageControls(); }), 50);
+	},
+	//* Override _strategyKindChanged()_ to allow for insertion of paging controls
+	strategyKindChanged: function() {
+		// Destroy existing strategy
+		if (this.$.strategy) {
+			this.$.strategy.destroy();
+			this.controlParent = null;
+		}
+		
+		// Create paging controls
+		this.createPagingControls();
+		
+		this.controlParent = this.$.strategyWrapper;
+		
+		// note: createComponents automatically updates controlParent.
+		this.createStrategy();
+		if (this.hasNode()) {
+			this.render();
+		}
+	},
+	//* Create paging controls, scrollbars, and the client node wrapper
+	createPagingControls: function() {
+		this.createComponents(this.pagingControls);
+	},
+	//* Pass hthumb and vthumb references down to strategy
+	createStrategy: function() {
+		this.createComponents([{name: "strategy", maxHeight: this.maxHeight,
+			kind: this.strategyKind, thumb: this.thumb,
+			preventDragPropagation: this.preventDragPropagation,
+			overscroll:this.touchOverscroll, isChrome: true,
+			hthumb: this.$.hthumb, vthumb: this.$.vthumb}]);
+	},
+	//* On resize, update thumb ratio and show/hide page control columns
+	resizeHandler: function() {
+		this.inherited(arguments);
+		this.setThumbSizeRatio();
+		this.showHidePageControls();
+	},
+	/**
+		Because the thumb columns are a fixed size that impacts the scrollbounds, capture
+		the differenceand use in thumb rendering math.
+	*/
+	setThumbSizeRatio: function() {
+		var scrollBounds = this.$.strategy._getScrollBounds();
+		
+		this.$.vthumb.setSizeRatio(this.$.vthumbContainer.getBounds().height/scrollBounds.clientHeight);
+		this.$.hthumb.setSizeRatio(this.$.hthumbContainer.getBounds().width/scrollBounds.clientWidth);
 	},
 	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
 	leave: function() {
-		this.$.strategy.leave();
+		this.hovering = false;
+		this.showHidePageControls();
 	},
 	//* On mouse move, shows/hides page controls.
 	mousemove: function() {
-		this.$.strategy.mousemove();
-	},
-	scrollStart: function() {
-		this.$.strategy.scrollStart();
-		this.inherited(arguments);
+		this.hovering = true;
+		this.showHidePageControls();
 	},
 	holdHandler: function(inSender, inEvent) {
 		this.$.strategy.holdHandler(inSender, inEvent);
@@ -83,14 +173,12 @@ enyo.kind({
 		}
 
 		if ((!this.$.strategy.isInView(inEvent.originator.hasNode())) && (!enyo.Spotlight.getPointerMode())) {
-			this.$.strategy.updateScrollBounds();
 			this.animateToControl(inEvent.originator);
 		}
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
-			this.$.strategy.updateScrollBounds();
 			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
 		}
 		return true;
@@ -103,7 +191,7 @@ enyo.kind({
 	animateToControl: function(inControl, inScrollFullPage) {
 		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
 			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this),
-			scrollBounds   = this.$.strategy.scrollBounds,
+			scrollBounds   = this.$.strategy._getScrollBounds(),
 			offsetTop      = controlBounds.top - absoluteBounds.top,
 			offsetLeft     = controlBounds.left - absoluteBounds.left,
 			offsetHeight   = controlBounds.height,
@@ -200,5 +288,72 @@ enyo.kind({
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x,y);
 		}
+	},
+	
+	
+	
+	//* Paging control logic
+	
+	//* Show/hide individual page controls as appropriate.
+	showHidePageControls: function() {
+		/*
+			If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
+			If not hovering and set to hide on leave, hide pagination controls.
+		*/
+		if ((!enyo.Spotlight.getPointerMode() && this.getHidePagingOnKey()) || (this.getHidePagingOnLeave() && !this.hovering)) {
+			this.hidePageControls();
+			return;
+		}
+		
+		var sb = this.$.strategy._getScrollBounds(),
+			showHorizontal = (this.getHorizontal() !== "hidden" && sb.clientWidth < sb.width),
+			showVertical   = (this.getVertical()   !== "hidden" && sb.clientHeight < sb.height),
+			s
+		;
+		
+		if (showHorizontal) {
+			s = this.getScrollLeft();
+			this.$.pageLeftControl.setShowing(s > 0);
+			this.$.pageRightControl.setShowing(s < sb.maxLeft);
+			this.$.hControls.show();
+		} else {
+			this.$.pageLeftControl.hide();
+			this.$.pageRightControl.hide();
+			this.$.hControls.hide();
+		}
+
+		if (showVertical) {
+			s = this.getScrollTop();
+			this.$.pageUpControl.setShowing(s > 0);
+			this.$.pageDownControl.setShowing(s < sb.maxTop);
+			this.$.vControls.show();
+			this.$.vPadBox.show();
+		} else {
+			this.$.pageUpControl.hide();
+			this.$.pageDownControl.hide();
+			this.$.vControls.hide();
+			this.$.vPadBox.hide();
+		}
+		
+		// TODO - why do we need all of these reflows?!?!
+		this.$.wrapper.reflow(); // fixes v
+		this.$.vControls.reflow(); // fixes v
+		this.$.hControls.reflow(); // fixes h
+		this.$.vWrapper.reflow(); // fixes h
+	},
+	//* Hides pagination controls.
+	hidePageControls: function() {
+		this.$.pageLeftControl.hide();
+		this.$.pageRightControl.hide();
+		this.$.pageUpControl.hide();
+		this.$.pageDownControl.hide();
+	},
+	//* Facade for _strategy.getHorizontal()_
+	getHorizontal: function() {
+		return this.$.strategy.getHorizontal();
+	},
+	//* Facade for _strategy.getVertical()_
+	getVertical: function() {
+		return this.$.strategy.getVertical();
 	}
 });

@@ -1,11 +1,17 @@
 .moon-scroller-sample-2d-scroller {
-	border:1px solid gray;
-}
-.moon-scroller-sample-2d-scroller.spotlight {
-	border:2px solid orange;
+	display: block;
+	border: 1px solid gray;
 }
 
 .moon-scroller-sample-2d-scroller .moon-button {
-	position:absolute;
-	margin:10px;
+	position: absolute;
+	display: block;
+	margin: 10px;
+	border: 1px solid red;
+	background: #eee;
+}
+
+.moon-scroller-sample-2d-scroller .moon-button.spotlight {
+	border-color: orange;
+	background: #ffbb33;
 }
