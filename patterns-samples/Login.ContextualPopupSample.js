@@ -49,10 +49,10 @@ enyo.kind({
             {kind: "moon.Input", placeholder: "Password", onchange:""}
         ]},
         {content: "Log in setting Menu"},
-        {kind: "moon.Button", content: "Log in"},
+        {kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
         {content: "or Connected with"},
-        {kind: "moon.Button", content: "FACEBOOK"},
-        {kind: "moon.Button", content: "TWITTER"}
+        {kind: "moon.Button", classes: "moon-light-gray", content: "FACEBOOK"},
+        {kind: "moon.Button", classes: "moon-light-gray", content: "TWITTER"}
     ]
 });
 
@@ -83,16 +83,22 @@ enyo.kind({
                 kind: "enyo.DataGridList",
                 fit: true,
                 components: [
-                    {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
+                    {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"},                    
                 ]
             },
             {
                 name: "buttonList",
-                kind: "enyo.DataGridList",
-                //layoutkind: "FittableRowsLayout",
+                layoutkind: "FittableRowsLayout",
                 components: [
                     {kind: "moon.ContextualPopupDecorator", components: [
-                        {bindFrom: "content", bindTo: "content"},
+                        {kind: "moon.ContextualPopupButton", components: [
+                            {tag: "img", attributes: {src: "assets/icon-like.png"}},
+                            {content: "LIKE"}
+                        ]},                        
+                        {kind: "moon.ContextualLoginPopup"}
+                    ]},
+                    {kind: "moon.ContextualPopupDecorator", components: [
+                        {content: "SHARE"},
                         {kind: "moon.ContextualLoginPopup"}
                     ]},
                 ]
@@ -102,8 +108,7 @@ enyo.kind({
     ],
     bindings: [
         {from: ".controller.menus", to: "$.menuList.controller"},
-        {from: ".controller.contents", to: "$.contentList.controller"},
-        {from: ".controller.buttons", to: "$.buttonList.controller"}
+        {from: ".controller.contents", to: "$.contentList.controller"}
     ]
  });
 
@@ -122,10 +127,6 @@ enyo.ready(function(){
             {itemOption: {src: "assets/default-movie-vertical.png"}},
             {itemOption: {src: "assets/default-movie-vertical.png"}},
             {itemOption: {src: "assets/default-movie-vertical.png"}}
-        ]),
-        buttons: new enyo.Collection([
-            {iconSrc: "assets/icon-like.png", content: "LIKE"},
-            {iconSrc: "", content: "SHARE"}
         ])
     });
 
