@@ -1,0 +1,61 @@
+.moon-wizard-popup-sample {
+    background-color: transparent;
+}
+
+.wizard-button-top {
+    float:right;
+    background-color: #CCCCCC;
+    display:inline;
+    margin-left:20px;   
+}
+
+.wizard-button-bottom {
+    float: left;
+    background-color: #CCCCCC;
+    margin: 0px;
+}
+
+.wizard-hide {
+    display: none;
+}
+
+.info-window {
+    margin: 150px 5px 10px;
+}
+
+.step-window {
+    margin: 20px;
+    padding: 20px;
+}
+
+.confirm-window {
+    margin: 5px;
+    padding: 100px 0px 0px 40px;
+}
+
+.wizard-instruction {
+    padding: 0px 40px 40px 20px;
+}
+
+.wizard-instruction-detail {
+    padding: 0px 40px 20px 20px;
+}
+
+.wizard-input-decorator {
+    margin: 20px 5px;
+}
+
+.wizard-check-inline {
+    width: 220px;
+    margin: 30px 0px 0px 30px;
+    padding: 0px 0px 0px 20px;
+    display:inline-block;
+}
+
+.wizard-datalist-wrapper {
+    padding: 20px 0px 0px 60px;
+}
+
+.wizard-datalist-wrapper .wizard-datalist {
+    padding: 20px 0px 20px 0px;
+}
