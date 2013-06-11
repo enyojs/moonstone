@@ -41,22 +41,22 @@ enyo.kind({
 		} else if (!this.pos.left) {
 			this.pos.left = sb.left;
 		}
-		
+
 		switch (inEvent.originator.side) {
-			case "left":
-				this.pos.left = this.pos.left - this.pageSize;
-				break;
-			case "top":
-				this.pos.top = this.pos.top - this.pageSize;
-				break;
-			case "right":
-				this.pos.left = this.pos.left + this.pageSize;
-				break;
-			case "bottom":
-				this.pos.top = this.pos.top + this.pageSize;
-				break;
+		case "left":
+			this.pos.left = this.pos.left - this.pageSize;
+			break;
+		case "top":
+			this.pos.top = this.pos.top - this.pageSize;
+			break;
+		case "right":
+			this.pos.left = this.pos.left + this.pageSize;
+			break;
+		case "bottom":
+			this.pos.top = this.pos.top + this.pageSize;
+			break;
 		}
-		
+
 		if (this.pos[orientV ? "top" : "left"] > (orientV ? sb.maxTop : sb.maxLeft)) {
 			this.pos.left = orientV ? sb.left:sb.maxLeft;
 			this.pos.top = orientV ? sb.maxTop:sb.top;
@@ -67,13 +67,13 @@ enyo.kind({
 			this.pos.left = orientV ? sb.left:this.pos.left;
 			this.pos.top = orientV ? this.pos.top:sb.top;
 		}
-		
+
 		this.scrollTo(this.pos.left, this.pos.top);
 	},
 	//* Override to use _this.parent_ rather than _this.container_ as reference node (no longer the same node)
 	_getScrollBounds: function() {
 		var s = this.getScrollSize(),
-			cn = this.parent.hasNode()
+			cn = this.parent.hasNode(),
 			b = {
 				left: this.getScrollLeft(),
 				top: this.getScrollTop(),
@@ -83,15 +83,15 @@ enyo.kind({
 				width: s.width
 			}
 		;
-		
+
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
-		
+
 		return b;
 	},
-	
+
 	//* Overridden thumb logic
-	
+
 	//* Show thumbs then hide after 0.5 seconds
 	alertThumbs: function() {
 		this.showThumbs();
