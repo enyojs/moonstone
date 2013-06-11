@@ -36,10 +36,8 @@ enyo.kind({
 
 		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, onChange: "changed"}
 
-	To initialize the picker (or to change it programmatically at runtime), set
-	its _value_ property to a standard JavaScript Date object, i.e.:
-
-		set("value", <Date object>);
+	Set the _value_ property to a standard JavaScript Date object to initialize
+	the picker, or to change it programmatically at runtime.
 */
 enyo.kind({
 	name: "moon.TimePicker",
@@ -72,8 +70,8 @@ enyo.kind({
 		locale: "en-US",
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
-			is passed to _setValue()_, the control is updated to reflect the new
-			value. _getValue()_ returns a Date object.
+			is passed to _set("value")_, the control is updated to reflect the new
+			value. _get("value")_ returns a Date object.
 		*/
 		value: null,
 		/**
