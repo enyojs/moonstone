@@ -1,24 +1,5 @@
-.gray-background {
-    background: #eaeaea;
-}
-
-.moon-music-main-menu {
-    margin: 0px 20px 20px 20px;
-}
-
-.moon-music-main-menu .menu {
-    width: 15%;
-    padding: 10px 0px 0px 0px;
-}
-
-.moon-music-main-menu .content {
-    padding: 2px 0px 0px 0px;
-}
-
-.moon-music-main-menu .branding {
-    display: table-cell;
-	background: #666666;
-    color: #ffffff;
-    text-align: center;
-    vertical-align:middle;
-}
+/*
+    Sample-specific CSS would go here, but to make your
+    application easier to maintain, you should try to
+    minimize the use of custom CSS.
+*/

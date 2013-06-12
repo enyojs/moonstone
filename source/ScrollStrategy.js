@@ -1,6 +1,9 @@
 /**
-	_moon.ScrollStrategy_ inherits from _enyo.TouchScrollStrategy_ and whose main
-	purpose is to handle scroller paging for _moon.Scroller_ & _moon.List_.
+	_moon.ScrollStrategy_ inherits from
+	<a href="#enyo.TouchScrollStrategy">enyo.TouchScrollStrategy</a>. Its main
+	purpose is to handle scroller paging for
+	<a href="#moon.Scroller">moon.Scroller</a> and
+	<a href="#moon.List">moon.List</a>.
 */
 enyo.kind({
 	name: "moon.ScrollStrategy",
@@ -11,9 +14,10 @@ enyo.kind({
 	handlers: {
 		onscrollstart: "scrollStart"
 	},
-	/** 
-		Keeps track of desired scroll position on pagination since ScrollMath doesn't keep it. 
-		Tracking horizontal & vertical for Scroller which can move both ways in one instance.
+	/**
+		Keeps track of desired scroll position on pagination since ScrollMath
+		doesn't. Tracks Scroller's horizontal and vertical positions (which can
+		change simultaneously in one instance).
 	*/
 	pos: {top: null, left: null},
 	//* Pagination buttons
@@ -23,7 +27,7 @@ enyo.kind({
 		{name: "pageUpControl", kind: "moon.PagingControl", side: "top", showing: false},
 		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom", showing: false}
 	],
-	//* If true, the pointer is currently hovering over this control
+	//* True if pointer is currently hovering over this control
 	hovering: false,
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
@@ -31,7 +35,7 @@ enyo.kind({
 	initComponents: function() {
 		this.createPageControls();
 		this.inherited(arguments);
-		this.createComponents([{kind: "Signals", onSpotlightModeChanged: "showHidePageControls"}]);		
+		this.createComponents([{kind: "Signals", onSpotlightModeChanged: "showHidePageControls"}]);
 	},
 	//* Creates _this.pageControls_ as chrome components.
 	createPageControls: function() {
@@ -150,28 +154,28 @@ enyo.kind({
 	},
 	autoScroll: function(inEvent){
 		var sb = this.getScrollBounds(),
-		orientV = this.vertical != "hidden" && 
-				  (inEvent.originator.side == "top" || 
-				  inEvent.originator.side == "bottom");
-	
+		orientV = this.vertical != "hidden" &&
+				(inEvent.originator.side == "top" ||
+				inEvent.originator.side == "bottom");
+
 		if (orientV && !this.pos.top) {
 			this.pos.top = sb.top;
 		} else if (!this.pos.left) {
-			this.pos.left = sb.left;			
+			this.pos.left = sb.left;
 		}
 		switch (inEvent.originator.side) {
-			case "left": 
-				this.pos.left = this.pos.left - this.pageSize;
-				break;			
-			case "top":
-				this.pos.top = this.pos.top - this.pageSize;
-				break;
-			case "right":
-				this.pos.left = this.pos.left + this.pageSize;
-				break;			
-			case "bottom":
-				this.pos.top = this.pos.top + this.pageSize;
-				break;
+		case "left":
+			this.pos.left = this.pos.left - this.pageSize;
+			break;
+		case "top":
+			this.pos.top = this.pos.top - this.pageSize;
+			break;
+		case "right":
+			this.pos.left = this.pos.left + this.pageSize;
+			break;
+		case "bottom":
+			this.pos.top = this.pos.top + this.pageSize;
+			break;
 		}
 		if (this.pos[orientV ? "top" : "left"] > (orientV ? sb.maxTop : sb.maxLeft)) {
 			this.pos.left = orientV ? sb.left:sb.maxLeft;

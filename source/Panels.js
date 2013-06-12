@@ -15,7 +15,12 @@ enyo.kind({
 			otherwise, the transition should be delayed until some internal
 			transitions have finished.
 		*/
-		transitionReady: false
+		transitionReady: false,
+		/**
+			Current design pattern. Valid values are "none", "activity" (default), and
+			"alwaysviewing".
+		*/
+		pattern: "activity"			
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -28,15 +33,19 @@ enyo.kind({
 	},
 	defaultKind: "moon.Panel",
 	draggable: false,
+	panelCoverRatio: 1,				// 0 ~ 1
+	showFirstBreadcrumb: false,		// none: false, activity: true, alwaysviewing: false
+	arrangerKind: "moon.BreadcrumbArranger",
 
-	/************ PROTECTED **********/
-
+	//* @protected
 	create: function(oSender, oEvent) {
+		this._applyPattern();
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
 		}
 	},
+
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
@@ -46,10 +55,9 @@ enyo.kind({
 		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
 	},
 
-	/************ PUBLIC *************/
-
-	//* Create a panel on top of the stack and increment index to
-	//* select that component.
+	//* @public
+	//* Creates a panel on top of the stack and increments index to select that
+	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = this.createComponent(inInfo, inMoreInfo);
@@ -59,8 +67,8 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Create multiple panels on top of the stack and update index to
-	//* select the last component.
+	//* Creates multiple panels on top of the stack and updates index to select
+	//* the last one created.
 	pushPanels: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
@@ -74,7 +82,7 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanels;
 	},
-	//* Destroys panels the have an index greater or equal to _inIndex_
+	//* Destroys panels whose index is greater than or equal to _inIndex_.
 	popPanels: function(inIndex) {
 		var panels = this.getPanels();
 		inIndex = inIndex || panels.length - 1;
@@ -82,6 +90,20 @@ enyo.kind({
 		while (panels.length > inIndex && inIndex >= 0) {
 			panels[panels.length - 1].destroy();
 		}
+	},
+	replacePanel: function(index, inInfo, inMoreInfo) {
+		var panels = this.getPanels(),
+			oPanel = null;
+
+		if (panels.length > index) {
+			panels[index].destroy();
+			if (panels.length > index) {
+				inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+			}
+		}
+		oPanel = this.createComponent(inInfo, inMoreInfo);
+		oPanel.render();
+		this.resized();
 	},
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
@@ -93,6 +115,12 @@ enyo.kind({
 			return true;
 		}
 		return false;
+	},
+	next: function() {
+		var nextIndex = this.clamp(this.index+1);
+		if (nextIndex != this.getIndex()) {
+			this.setIndex(nextIndex);
+		}
 	},
 	// Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(oSender, oEvent) {
@@ -183,10 +211,13 @@ enyo.kind({
 		_preTransitionWaitList_.
 	*/
 	triggerPanelPreTransitions: function() {
-		var panels = this.getPanels();
+		var panels = this.getPanels(),
+			options = {};
+
 		this.preTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex)) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex, options)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
@@ -215,10 +246,12 @@ enyo.kind({
 	},
 
 	triggerPanelPostTransitions: function() {
-		var panels = this.getPanels();
+		var panels = this.getPanels(),
+			options = {};
 		this.postTransitionWaitlist = [];
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex)) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex, options)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}
@@ -242,5 +275,25 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		// TODO - something here?
+	},
+	getTransitionOptions: function(fromIndex, toIndex) {
+		if (this.layout.getTransitionOptions) {
+			return this.layout.getTransitionOptions(fromIndex, toIndex);
+		} else {
+			return {};
+		}
+	},
+	_applyPattern: function() {
+		switch (this.pattern) {
+		case "none":
+			break;
+		case "alwaysviewing":
+			this.addClass("panels-50-percent-scrim");
+			break;
+		case "activity":
+			/* falls through */
+		default:
+			this.showFirstBreadcrumb = true;
+		}
 	}
 });
