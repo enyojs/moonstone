@@ -1,7 +1,15 @@
-.moon-slider-sample {
-	background: #eaeaea;
-	padding: 25px;
-}
-.moon-slider-sample .moon-slider-sample-wrapper > button {
+.moon-slider-sample-wrapper > button {
 	margin: 20px;
+}
+
+.moon-slider-sample .slider-sample-input-decorator .moon-input {
+	text-align: center;
+}
+
+.moon-slider-sample .increment-checkbox {
+	display: inline-block;
+}
+
+.moon-slider-sample .checkbox-sample-wrapper {
+	width: 400px;
 }

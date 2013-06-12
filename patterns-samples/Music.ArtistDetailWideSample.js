@@ -1,174 +1,126 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.music.ArtistDetailWideSample",
     kind: "moon.Panel",
-	classes: "enyo-unselectable moon moon-music-artist-detail",
-    fit: true,
-    spotlight: false,
-    title: "Artist",
     titleAbove: "04",
+    title: "Artist",
     titleBelow: "Artist Name",
+    layoutKind: "FittableColumnsLayout",
     headerComponents: [
-        {
-            classes: "header",
-            components: [
-                {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                {
-                    kind: "moon.IconButton",
-                    src: "assets/icon-next.png",
-                    classes: "right-button"
-                }
-            ]
-        }
+        {kind: "moon.IconButton", src: "assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
     components: [
-        {kind: "enyo.Spotlight"},
         {
-            kind: "FittableColumns",
-            classes: "client",
-            fit: true,
+            classes: "moon-5h",
             components: [
                 {
-                    name: "detail",
-                    kind: "FittableRows",
-                    classes: "detail",
+                    name: "artistImage",
+                    kind: "enyo.Image",
+                    style: "width: 350px; height: 350px;",
+                },
+                {
+                    kind: "moon.Table",
+                    classes: "enyo-table-fit",
                     components: [
                         {
-                            name: "music",
-                            classes: "preview",
-                            spotlight: true,
-                            components: [{name: "play", classes: "play-icon"}]
-                        },
-                        {
-                            kind: "FittableColumns",
-                            classes: "info",
                             components: [
-                                {classes: "title", content: "Organized"},
-                                {classes: "content", content: "5 April 2013"}
+                                {content: "Organized"},
+                                {name: "organized"}
                             ]
                         },
                         {
-                            kind: "FittableColumns",
-                            classes: "info",
                             components: [
-                                {classes: "title", content: "Debut"},
-                                {classes: "content", content: "5 April 2013"}
+                                {content: "Debut"},
+                                {name: "debut"}
                             ]
                         },
                         {
-                            kind: "FittableColumns",
-                            classes: "info",
                             components: [
-                                {classes: "title", content: "Type"},
-                                {classes: "content", content: "Solo"}
+                                {content: "Type"},
+                                {name: "type"}
                             ]
                         }
                     ]
-                },
+                }
+            ]
+        },
+        {
+            kind: "FittableRows",
+            fit: true,
+            components: [
+                {kind: "moon.Divider", content: "Bio"},
                 {
-                    classes: "bio",
-                    kind: "FittableRows",
-                    components: [
-                        {kind: "moon.Divider", classes: "devider", content: "Bio"},
-                        {
-                            classes: "content",
-                            content: "Jon Arryn, the Hand of the King, is dead. Ki" +
-                                     "ng Robert Baratheon plans to ask his oldest " +
-                                     "friend, Eddard Stark, to take Jon's place. A" +
-                                     "cross the sea, Viserys Targaryen plans to we" +
-                                     "d his sister to a nomadic warlord in exchang" +
-                                     "e for an army. Jon Arryn, the Hand of the Ki" +
-                                     "ng, is dead. King Robert Baratheon plans to " +
-                                     "ask his oldest friend, Eddard Stark, to take" +
-                                     " Jon's place. Across the sea, Viserys Targar" +
-                                     "yen plans to wed his sister to a nomadic war" +
-                                     "lord in exchange for an army. Jon Arryn, the" +
-                                     " Hand of"
-                        }
-                    ]
-                },
-                {
-                    classes: "related",
+                    kind: "moon.Scroller", 
+                    horizontal: "hidden",
                     fit: true,
                     components: [
+                        {name: "bio", allowHtml: true}
+                    ]
+                }
+            ]
+        },
+        {
+            kind: "FittableRows",
+            classes: "moon-6h",
+            components: [
+                {kind: "moon.Divider", content: "Related Artists"},
+                {
+                    name: "relatedArtists",
+                    kind: "enyo.DataGridList",
+                    components: [
                         {
-                            kind: "moon.Divider",
-                            classes: "devider",
-                            content: "Related Artists"
-                        },
-                        {
-                            kind: "FittableColumns",
-                            components: [
-                    			{
-                                    classes: "left-item",
-                                    spotlight: true,
-                                    components: [
-                                        {
-                                            tag: "img",
-                                            src: "assets/blank.png",
-                                            classes: "focus"
-                                        }
-                                    ]
-                                },
-                    			{
-                                    classes: "center-item",
-                                    spotlight: true,
-                                    components: [
-                                        {
-                                            tag: "img",
-                                            src: "assets/blank.png",
-                                            classes: "focus"
-                                        }
-                                    ]
-                                },
-                                {
-                                    classes: "right-item",
-                                    spotlight: true,
-                                    components: [
-                                        {
-                                            tag: "img",
-                                            src: "assets/blank.png",
-                                            classes: "focus"
-                                        }
-                                    ]
-                                }
-                    		]
-                        },
-                        {
-                            kind: "moon.Divider",
-                            classes: "second-devider",
-                            content: "Top 10 Tracks"
-                        },
-                        {
-                            name: "list",
-                            kind: "moon.List",
-                            style: "height: 300px;",
-                            count: 10,
-                            multiSelect: false,
-                            onSetupItem: "setupItem",
+                            kind: "enyo.Image",
+                            style: "width: 130px; height: 130px;",
+                            bindFrom: "relatedUrl",
+                            bindTo: "src"
+                        }
+                    ]
+                },
+                {kind: "moon.Divider", content: "Top 10 Tracks"},
+                {
+                    name: "trackInfo",
+                    kind: "moon.DataList",
+                    scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+                    fit: true,
+                    components: [
+            			{
+                            kind: "moon.Item",
                             components: [
                                 {
-                                    kind: "enyo.FittableColumns",
-                                    classes: "item",
-                                    fit: true,
+                                    kind: "enyo.Table",
                                     components: [
                                         {
-                                            name: "preview",
-                                            fit: true,
-                                            classes: "preview",
-                                            components: [{classes: "play-icon"}]
-                                        },
-                                        {style: "display: table-cell; width: 20px;"},
-                                        {
-                                            classes: "heading",
                                             components: [
-                                                {name: "track"},
                                                 {
-                                                    name: "artist",
-                                                    classes: "small-content"
+                                                    components: [
+                                                        {
+                                                            kind: "enyo.Image", 
+                                                            bindFrom: "coverUrl", 
+                                                            bindTo: "src"
+                                                        }
+                                                    ],
+                                                    attributes: {rowspan: "4"}
                                                 },
                                                 {
-                                                    name: "time",
-                                                    classes: "small-content"
+                                                    bindFrom: "track"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindFrom: "artist", 
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindFrom: "duration", 
+                                                    classes: "moon-superscript"
                                                 }
                                             ]
                                         }
@@ -176,34 +128,80 @@ enyo.kind({
                                 }
                             ]
                         }
-                    ]
+            		]
                 }
             ]
         }
     ],
-    
-    rendered: function() {
-        this.inherited(arguments);
-        this.resizeHandler();
-    },
-    
-    resizeHandler: function() {
-        var d = this.$.detail.getBounds().width;
-        this.$.music.setBounds({width: d, height: d});
+    bindings: [
+        {from: ".controller.artist", to: "$.artist.content"},
+        {from: ".controller.artistImageUrl", to: "$.artistImage.src"},
+        {from: ".controller.organized", to: "$.organized.content"},
+        {from: ".controller.debut", to: "$.debut.content"},
+        {from: ".controller.type", to: "$.type.content"},
+        {from: ".controller.bio", to: "$.bio.content"},
+        {from: ".controller.related", to: "$.relatedArtists.controller"},
+        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+    ]
+});
+
+
+// Sample model
+
+enyo.ready(function(){
+    var sampleModel = new enyo.Model({
+        artist: "Paul McCartney",
+        artistImageUrl: "assets/default-music-big.png",
+        organized: "5 April 2013",
+        debut: "5 April 1973",
+        type: "Solo",
+        bio: "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of",
+        related: new enyo.Collection([
+            {relatedUrl: "assets/default-music.png"},
+            {relatedUrl: "assets/default-music.png"},
+            {relatedUrl: "assets/default-music.png"}
+        ]),
+        tracks: new enyo.Collection([
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"}
+        ])
         
-        d = Math.round((d - 168) * 0.5);
-        this.$.play.setStyle("margin: " + d + "px 0px 0px " + d + "px;");
-        
-        d = this.getAbsoluteBounds().height;
-        d -= this.$.list.getAbsoluteBounds().top + 20;
-        this.$.list.setBounds({height: d});
-    },
-    
-    setupItem: function(inSender, inEvent) {
-        var url = "assets/default-music.png";
-		this.$.preview.setStyle("background-image: url(" + url + ");");
-		this.$.track.setContent("Track Name");
-		this.$.artist.setContent("Artist Name");
-		this.$.time.setContent("3:40");
-	}
+    });
+ 
+//  Application to render sample
+
+    new enyo.Application({
+        view: {
+            classes: "enyo-unselectable moon",
+            components: [
+                {kind: "enyo.Spotlight"},
+                {
+                    kind: "moon.sample.music.ArtistDetailWideSample",
+                    controller: ".app.controllers.artistController",
+                    classes: "enyo-fit"
+                }
+            ]
+        },
+        controllers: [
+            {
+                name: "artistController",
+                kind: "enyo.ModelController",
+                model: sampleModel,
+                changeTrackName: function(inSender, inEvent) {
+                    inSender.parent.controller.set("name", "We are the Champions");
+                }
+            }
+        ]
+    });
 });

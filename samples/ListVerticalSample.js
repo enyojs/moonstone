@@ -1,13 +1,14 @@
 enyo.kind({
 	name: "moon.sample.ListVerticalSample",
-	classes: "list-sample enyo-fit enyo-unselectable",
+	classes: "moon enyo-unselectable enyo-fit",
 	published: {
 		index: 0,
 		pageSize: 3
 	},
 	components: [
 		{kind: 'enyo.Spotlight'},
-		{name: "list", kind: "moon.List", spotlight: true, orient:"v", count: 2000, multiSelect: false, classes: "enyo-fit list-vertical-controls-sample-list moon-list-vertical-sample",
+		{name: "list", kind: "moon.List", spotlight: true, orient:"v", count: 2000, multiSelect: false, 
+			classes: "enyo-fit list-vertical-controls-sample-list moon-list-vertical-sample",
 			onSetupItem: "setupItem", components: [
 			{name: "item", classes: "list-vertical-sample-item enyo-border-box", components: [
 				{name: "index", classes: "list-sample-index"},
