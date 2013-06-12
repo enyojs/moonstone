@@ -9,13 +9,8 @@
 			onChange: "changed"
 		}
 
-	To initialize the picker to a particular date, set its _value_ property to
-	a standard JavaScript Date object.
-
-
-
-	The picker may be changed programmatically by modifying the published
-	property _value_ in the normal manner, by calling _set()_.
+	Set the _value_ property to a standard JavaScript Date object to initialize
+	the picker, or to change it programmatically at runtime.
 */
 enyo.kind({
 	name: "moon.DatePicker",
@@ -53,8 +48,8 @@ enyo.kind({
 		maxYear: 2099,
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
-			is passed to _setValue()_, the control is updated to reflect the new
-			value. _getValue()_ returns a Date object.
+			is passed to _set("value")_, the control is updated to reflect the new
+			value. _get("value")_ returns a Date object.
 		*/
 		value: null
 	},

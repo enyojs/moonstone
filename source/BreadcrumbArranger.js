@@ -6,12 +6,11 @@
 	with either of these patterns, you don't need to specify an arranger
 	explicitly. 
 
-	The breadcrumbs reflect the sequence of panels you have already seen.
+	The breadcrumbs reflect the sequence of panels that the user has already seen.
 
 	Transitions between arrangements are handled by sliding the new control	in
-	from the right. If the old control(s) can fit within the width of the
-	container, they will slide to the left; if not, the old control(s) will
-	collapse to the left.
+	from the right. If the old controls can fit within the width of the	container,
+	they will slide to the left; if not, they will collapse to the left.
 
 	The control's child components may be of any kind; by default, they are
 	instances of _moon.Panel_.

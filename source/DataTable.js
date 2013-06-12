@@ -1,5 +1,6 @@
 /**
-    _moon.DataTable_ adds Moonstone styling to _enyo.DataTable_.
+	_moon.DataTable_ is an <a href="#enyo.DataTable">enyo.DataTable</a> with
+	Moonstone visual styling applied.
 */
 enyo.kind({
     name: "moon.DataTable",

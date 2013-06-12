@@ -1,39 +1,11 @@
 /**
-	_moon.ExpandablePicker_, which extends
+	_moon.ExpandableIntegerPicker_, which extends
 	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
-	picker menu that solicits a choice from the user. The picker's child
-	components, which are instances of <a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>
-	by default, provide the options for the picker.
+	picker menu that prompts the user to make a selection from a range of
+	integer-based options.
 
-		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
-			{content: "San Francisco"},
-			{content: "Boston"},
-			{content: "Tokyo"}
-		]}
-
-	The currently selected item is available in the picker's _selected_ property
-	and may be accessed in the normal manner, by calling _get("selected")_ and
-	_set("selected", &lt;value&gt;)_. Similarly, the index of the current selection is
-	available in _selectedIndex_.
-
-	The _onChange_ event is fired when the selected item changes, and contains the
-	following properties:
-
-		{
-			selected: [object Object],	// Reference to selected item
-			content: "San Francisco",	// Content of selected item
-			index: 1					// Index of selected item
-		}
-
-	The picker options may be modified programmatically in the standard manner, by
-	calling _createComponent().render()_ or _destroy()_.
-
-		// Add new items to picker
-		this.$.expandablePicker.createComponent({"New York"}).render();
-		this.$.expandablePicker.createComponent({"London"}).render();
-
-		// Remove currently selected item from picker
-		this.$.expandablePicker.getSelected().destroy();
+	The value of the currently selected item is available in the picker's _value_
+	property, while the content of the item is available in _content_.
 
 	When the picker is minimized, the content of the currently selected item is
 	displayed as subtext below the picker label.
@@ -46,11 +18,9 @@ enyo.kind({
 		/**
 			Fires when the currently selected item changes.
 
-			_inEvent.selected_ contains a reference to the currently selected item.
+			_inEvent.value_ contains the value of the currently selected item.
 
 			_inEvent.content_ contains the content of the currently selected item.
-
-			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: ""
 	},
