@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.wizard.FullScreenConfirmationSample",
+    name: "moon.sample.wizard.ConfirmationSample",
     kind: "Sample.Wizard.Panel",
     components: [
 		{kind: "moon.Scroller", fit: true, components: [

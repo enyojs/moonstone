@@ -44,12 +44,12 @@ enyo.kind({
     name: "moon.sample.wizard.FullScreenSample",
     kind: "Sample.Wizard.Panels",
     components: [
-        {name: "introPage",   kind: "moon.sample.wizard.FullScreenIntroSample"},
-        {name: "stepPage1",   kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "stepPage2",   kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "stepPage3",   kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "stepPage4",   kind: "moon.sample.wizard.FullScreenStepSample"},
-        {name: "confirmPage", kind: "moon.sample.wizard.FullScreenConfirmationSample"}  
+        {name: "introPage",   kind: "moon.sample.wizard.IntroSample"},
+        {name: "stepPage1",   kind: "moon.sample.wizard.StepSample"},
+        {name: "stepPage2",   kind: "moon.sample.wizard.StepSample"},
+        {name: "stepPage3",   kind: "moon.sample.wizard.StepSample"},
+        {name: "stepPage4",   kind: "moon.sample.wizard.StepSample"},
+        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmationSample"}  
     ],
     bindings: [
         {from: ".controller", to: ".$.introPage.controller"},
@@ -117,10 +117,12 @@ enyo.ready(function(){
                 }
             ]),
             wizResults: new enyo.Collection([
+                {step: "STEP TITLE 01 : ", result: " -- ", processed: "[FALSE]"},
                 {step: "STEP TITLE 02 : ", result: " -- ", processed: "[FALSE]"},
                 {step: "STEP TITLE 03 : ", result: " -- ", processed: "[FALSE]"},
                 {step: "STEP TITLE 04 : ", result: " -- ", processed: "[FALSE]"},
-                {step: "STEP TITLE 05 : ", result: " -- ", processed: "[FALSE]"}
+                {step: "STEP TITLE 05 : ", result: " -- ", processed: "[FALSE]"},
+                {step: "STEP TITLE 06 : ", result: " -- ", processed: "[FALSE]"}
             ])
         }
     );

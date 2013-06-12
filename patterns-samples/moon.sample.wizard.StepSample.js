@@ -1,6 +1,9 @@
 enyo.kind({
-    name: "moon.sample.wizard.FullScreenStepSample",
+    name: "moon.sample.wizard.StepSample",
     kind: "Sample.Wizard.Panel",
+    handlers: {
+        onchange: "inputChanged"
+    },
     components: [
 		{kind: "moon.Scroller", fit: true, components: [
 		
@@ -54,12 +57,28 @@ enyo.kind({
         this.$.detail.set("content", collection.at(idx).get("detail"));    
     },
 	goNext: function(inSender, inEvent) {
-        var idx = this.$.header.getTitleAbove()-2;
+        var idx = this.$.header.getTitleAbove()-1;
         var collection = this.controller.get("wizResults");
         this.setProcessed(true);
         collection.at(idx).set("result", this.getSelectedText());
         collection.at(idx).set("processed", "[TRUE]");
         this.doNext();
         return true;
-	}
+	},
+    inputChanged: function(inSender, inEvent) {
+        var result1 = this.$.intext1.getValue();
+        var result2 = this.$.check1.getChecked();
+        var result3 = this.$.check2.getChecked();
+        var result4 = this.$.intext2.getValue();
+        var result5 = this.$.intext3.getValue();
+        var result6 = this.$.intext4.getValue();
+        var result = result1 + ", ";
+        result += result2 + ", ";
+        result += result3 + ", ";
+        result += result4 + ", ";
+        result += result5 + ", ";
+        result += result6;
+        this.setSelectedText(result);
+        return true;
+    }
 });
