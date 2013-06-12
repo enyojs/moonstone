@@ -56,7 +56,7 @@ enyo.kind({
 });
 
 enyo.kind({
-    name: "moon.sample.wizard.FullScreenSample",
+    name: "moon.sample.wizard.ActionMenuSample",
     kind: "Sample.Wizard.Panels",
     components: [
         {name: "introPage",   kind: "moon.sample.wizard.IntroSample"},
@@ -176,7 +176,7 @@ enyo.ready(function(){
             components: [
                 {kind: "enyo.Spotlight"},
                 {
-                    kind: "moon.sample.wizard.FullScreenSample",
+                    kind: "moon.sample.wizard.ActionMenuSample",
                     controller: ".app.controllers.WizardController",
                     classes: "enyo-fit"
                 }
