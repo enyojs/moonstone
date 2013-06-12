@@ -16,7 +16,11 @@ enyo.kind({
 			transitions have finished.
 		*/
 		transitionReady: false,
-		pattern: "activity"			// none, activity(default), alwaysviewing
+		/**
+			Current design pattern. Valid values are "none", "activity" (default), and
+			"alwaysviewing".
+		*/
+		pattern: "activity"			
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -33,8 +37,7 @@ enyo.kind({
 	showFirstBreadcrumb: false,		// none: false, activity: true, alwaysviewing: false
 	arrangerKind: "moon.BreadcrumbArranger",
 
-	/************ PROTECTED **********/
-
+	//* @protected
 	create: function(oSender, oEvent) {
 		this._applyPattern();
 		this.inherited(arguments);
@@ -52,10 +55,9 @@ enyo.kind({
 		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
 	},
 
-	/************ PUBLIC *************/
-
-	//* Create a panel on top of the stack and increment index to
-	//* select that component.
+	//* @public
+	//* Creates a panel on top of the stack and increments index to select that
+	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = this.createComponent(inInfo, inMoreInfo);
@@ -65,8 +67,8 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Create multiple panels on top of the stack and update index to
-	//* select the last component.
+	//* Creates multiple panels on top of the stack and updates index to select
+	//* the last one created.
 	pushPanels: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
@@ -80,7 +82,7 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanels;
 	},
-	//* Destroys panels the have an index greater or equal to _inIndex_
+	//* Destroys panels whose index is greater than or equal to _inIndex_.
 	popPanels: function(inIndex) {
 		var panels = this.getPanels();
 		inIndex = inIndex || panels.length - 1;

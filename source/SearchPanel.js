@@ -1,8 +1,7 @@
 /**
-	_moon.SearchPanel is the default kind for controls.
-
-	The built-in features of _moon.SearchPanel include a search header and a FittableRows
-	layout for the main body content.
+	_moon.SearchPanel_ extends <a href="#moon.Panel">moon.Panel</a>, providing a
+	convenient, ready-made panel for use in search scenarios. Its features include
+	a search header and a	FittableRows layout for the main body content.
 */
 
 enyo.kind({
