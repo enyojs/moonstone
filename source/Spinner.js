@@ -9,7 +9,7 @@
 	Typically, a spinner is shown to indicate activity and hidden to indicate
 	that the activity has ended. The animation automatically starts when the
 	spinner is shown. If you wish, you may control the animation directly by
-	calling the *start*, *stop*, and *toggle* methods.
+	calling the _start()_, _stop()_, and _toggle()_ methods.
 */
 enyo.kind({
 	name: "moon.Spinner",

@@ -1,6 +1,9 @@
 /**
-	_moon.ScrollStrategy_ inherits from _enyo.TouchScrollStrategy_ and whose main
-	purpose is to handle scroller paging for _moon.Scroller_ & _moon.List_.
+	_moon.ScrollStrategy_ inherits from
+	<a href="#enyo.TouchScrollStrategy">enyo.TouchScrollStrategy</a>. Its main
+	purpose is to handle scroller paging for
+	<a href="#moon.Scroller">moon.Scroller</a> and
+	<a href="#moon.List">moon.List</a>.
 */
 enyo.kind({
 	name: "moon.ScrollStrategy",
@@ -12,8 +15,9 @@ enyo.kind({
 		onscrollstart: "scrollStart"
 	},
 	/**
-		Keeps track of desired scroll position on pagination since ScrollMath doesn't keep it.
-		Tracking horizontal & vertical for Scroller which can move both ways in one instance.
+		Keeps track of desired scroll position on pagination since ScrollMath
+		doesn't. Tracks Scroller's horizontal and vertical positions (which can
+		change simultaneously in one instance).
 	*/
 	pos: {top: null, left: null},
 	//* Pagination buttons
@@ -23,7 +27,7 @@ enyo.kind({
 		{name: "pageUpControl", kind: "moon.PagingControl", side: "top", showing: false},
 		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom", showing: false}
 	],
-	//* If true, the pointer is currently hovering over this control
+	//* True if pointer is currently hovering over this control
 	hovering: false,
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},

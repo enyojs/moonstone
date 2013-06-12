@@ -1,6 +1,6 @@
 /**
-    _moon.SearchHeader_ is a control that have narrow title and search box area
-    with Moonstone styling applied..
+	_moon.SearchHeader_ extends <a href="#moon.Header">moon.Header</a>, combining
+	a search box with a narrow title.
 */
 enyo.kind({
     //* @public
