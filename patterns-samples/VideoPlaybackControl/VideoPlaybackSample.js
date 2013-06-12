@@ -16,17 +16,22 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../SlideshowControl/assets/fit-icon.png", classes: "moon-video-playback-controller-button"},
 				{kind: "moon.IconButton", src: "../SlideshowControl/assets/share_icon.png", classes: "moon-video-playback-controller-button"},
 			],
-		    // infoComponents: [
-		    // 	{
-		    // 		kind: "moon.VideoPlayerInfo",
-		    // 		titleAbove: "xyz",
-		    // 		title: "Main title",
-		    // 		titleBelow: "foo",
-		    // 		components: [
-		    // 			{kind: "moon.VideoPlayerBadge", content:"3D", background:"red"}
-		    // 		]
-		    // 	}
-		    // ]
+		    infoComponents: [
+		    	{
+					kind: "moon.VideoPlayerInfo", 
+					fit: true, 
+					datetime: "CURRENT DATE & TIME", 
+					showname: "SHOW NAME", 
+					channel: "CHANNEL - AIR DATE & TIME SLOT", 
+					synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+					components: [
+						{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
+						{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
+						{content: "3D", classes: "moon-videoplayer-info-icon"},
+						{content: "REC 00:00", classes: "moon-videoplayer-info-icon moon-videoplayer-info-redicon"}
+					]
+		    	}
+		    ]
 		}
     ]
 });
