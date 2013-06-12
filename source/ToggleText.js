@@ -15,9 +15,9 @@ enyo.kind({
 		offContent: $L("off")
 	},
 	//* @protected
-	classes: "moon-toggle-button",
+	classes: "moon-toggle-text",
 	components: [
-		{name: "label", classes: "moon-toggle-button-text"}
+		{name: "label", classes: "moon-toggle-text-text"}
 	],
 	create: function() {
 		this.inherited(arguments);

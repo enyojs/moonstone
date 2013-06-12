@@ -433,7 +433,7 @@
   font-weight: bold;
 }
 /* Toggle.css */
-.moon-checkbox.moon-toggle-button {
+.moon-checkbox.moon-toggle-text {
   line-height: 36px;
   text-align: left;
   text-transform: uppercase;
@@ -442,20 +442,20 @@
   background: transparent none no-repeat 0 0;
   position: relative;
 }
-.moon-checkbox.moon-toggle-button[disabled] {
+.moon-checkbox.moon-toggle-text[disabled] {
   opacity: 0.4;
 }
-.moon-checkbox.moon-toggle-button[checked] {
+.moon-checkbox.moon-toggle-text[checked] {
   background: transparent none no-repeat 0px 0px;
 }
-.moon-checkbox.moon-toggle-button .moon-overlay {
+.moon-checkbox.moon-toggle-text .moon-overlay {
   background: transparent;
   position: absolute;
   right: 0px;
   text-align: right;
   color: #ffb80d;
 }
-.moon-toggle-button-text {
+.moon-toggle-text-text {
   position: absolute;
   right: 0px;
   text-align: right;
@@ -510,13 +510,13 @@
   float: left;
   white-space: nowrap;
 }
-.moon-labeled-toggle-button .moon-toggle-button-text {
+.moon-labeled-toggle-button .moon-toggle-text-text {
   margin-top: -1px;
 }
-.moon-labeled-toggle-button.disabled .moon-toggle-button-text {
+.moon-labeled-toggle-button.disabled .moon-toggle-text-text {
   color: inherit;
 }
-.moon-labeled-toggle-button.disabled .moon-toggle-button {
+.moon-labeled-toggle-button.disabled .moon-toggle-text {
   opacity: 1;
 }
 /* Item.css */
