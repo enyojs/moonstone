@@ -36,7 +36,6 @@ enyo.kind({
 	},
 	//* @protected
 	tag: "video",
-	paused: true,
 	create: function() {
 		this.inherited(arguments);
 		this.srcChanged();
@@ -44,7 +43,6 @@ enyo.kind({
 		this.showControlsChanged();
 		this.autoplayChanged();
 		this.loopChanged();
-		this.paused = !this.autoplay;
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -72,12 +70,6 @@ enyo.kind({
 	},
 	heightChanged: function() {
 		this.setAttribute("height", this.height + "px");
-		// var n = this.hasNode();
-		// if (n) {
-		// 	var or = n.videoWidth / n.videoHeight;
-		// 	var tr = this.width / this.height;
-		// 	enyo.dom.transform(this.$.video, {scaleY: or/tr});
-		// }
 	},
 	posterChanged: function() {
 		if (this.poster) {
@@ -101,13 +93,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		
-		// var mediaPlayerUrl = this.node.getAttribute("x-palm-media-control");
-		// if (mediaPlayerUrl) { 
-		// 	this.$.mediad.call(
-		// 		{ args: (this.fitToWindow ? [ "VIDEO_FIT" ] : [ "VIDEO_FILL" ]) }, 
-		// 		{ service: mediaPlayerUrl,  method: "setFitMode" });
-		// }
 	}, 
 	//* @public
 	isPaused: function() {

@@ -1,3 +1,4 @@
+
 enyo.kind({
     name: "moon.sample.VideoPlaybackSample",
     classes: "moon enyo-fit enyo-unselectable",
@@ -5,15 +6,20 @@ enyo.kind({
     components: [
         {kind: "enyo.Spotlight"},
 		{
-			kind: "moon.VideoPlayback", 
-			width: 1280/3, 
-			height: 720/3, 
+			kind: "moon.VideoPlayback", 			
 			jumpIncrement: "20%",
-			src: "http://www.w3schools.com/html/mov_bbb.mp4",
+			xsrc: "http://www.w3schools.com/html/mov_bbb.mp4",
+			src: "../../../video.mp4",
 			components: [
-				{kind: "moon.IconButton", src: "../SlideshowControl/assets/favorite_icon.png", classes: "moon-video-playback-controller-button"},
-				{kind: "moon.IconButton", src: "../SlideshowControl/assets/fit-icon.png", classes: "moon-video-playback-controller-button"},
-				{kind: "moon.IconButton", src: "../SlideshowControl/assets/share_icon.png", classes: "moon-video-playback-controller-button"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"}
 			],
 		    infoComponents: [
 		    	{

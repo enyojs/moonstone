@@ -43,20 +43,20 @@ enyo.kind({
 		{name: "playbackControl", layoutKind: "FittableRowsLayout", classes: "moon-video-playback-bottom", components: [
 			{name: "controls", layoutKind: "FittableColumnsLayout", fit: true, components: [
 				{components: [
-					{name: "leftPremiumPlaceHolder", kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_previous.png",  classes: "moon-video-playback-controller-button"},
+					{name: "leftPremiumPlaceHolder", kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
 				]},
 				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-playback-controller", components: [
 					{name: "trickPlay", layoutKind: "FittableColumnsLayout", noStretch: true, classes: "enyo-center", components: [
-						{kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_previous.png", ontap: "jumpBackHandler", classes: "moon-video-playback-controller-button"},
-						{kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_previous.png", ontap: "rewindHandler", classes: "moon-video-playback-controller-button"},
-						{name:"playpause", mode: "pause", kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_play.png", ontap: "playpauseHandler", classes: "moon-video-playback-controller-button"},
-						{kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_next.png", ontap: "fastForwardHandler", classes: "moon-video-playback-controller-button"},
-						{kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_next.png", ontap: "jumpForwardHandler", classes: "moon-video-playback-controller-button"}
+						{kind: "moon.IconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler", classes: "moon-video-playback-controller-button"},
+						{kind: "moon.IconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler", classes: "moon-video-playback-controller-button"},
+						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-play.png", ontap: "playpauseHandler"},
+						{kind: "moon.IconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler", classes: "moon-video-playback-controller-button"},
+						{kind: "moon.IconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler", classes: "moon-video-playback-controller-button"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
 				{components: [
-					{name: "more", kind: "moon.IconButton", src: "../SlideshowControl/assets/icon_previous.png",  ontap: "tapHandler", classes: "moon-video-playback-controller-button"}
+					{name: "more", kind: "moon.IconButton", src: "assets/icon-Extend.png",  ontap: "tapHandler", classes: "moon-video-playback-controller-button"}
 				]}
 			]},
 			{classes: "moon-video-playback-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
@@ -78,7 +78,7 @@ enyo.kind({
         this.inherited(arguments);
 		// this.hideLayer();
 	},
-	createTools: function() {
+	createTools: function() {	
 		this.createComponents(this.controlTools);
 	},
 	createVideoInfo: function() {
@@ -118,9 +118,11 @@ enyo.kind({
 	tapHandler: function(inSender, inEvent) {
 		var index = this.$.controller.getIndex();
 		if (index === 0) {
+			inEvent.originator.setSrc("assets/icon-Shrink.png");
 			this.$.controller.next();
 		}
 		else {
+			inEvent.originator.setSrc("assets/icon-Extend.png");
 			this.$.controller.previous();
 		}
 	},
@@ -145,11 +147,11 @@ enyo.kind({
 		this.$.video.jumpForward();
 	},
 	onUpdateHandler: function(inSender, inEvent) {
-		if (inEvent.paused) {
-			this.$.playpause.setSrc("../SlideshowControl/assets/icon_play.png");
+		if (this.$.video.isPaused()) {
+			this.$.playpause.setSrc("assets/icon-play.png");
 		}
 		else {
-			this.$.playpause.setSrc("../SlideshowControl/assets/icon_pause.png");
+			this.$.playpause.setSrc("assets/icon-pause.png");
 		}
 		return true;
 	},
