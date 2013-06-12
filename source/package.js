@@ -50,6 +50,7 @@ enyo.depends(
 	"Table.js",
 	"DataTable.js",
 	"MoonScrollStrategy.js",
+	"Thumb.js",
 	"SearchPanel.js",
 	"SearchHeader.js",
 	"Popup.js",
