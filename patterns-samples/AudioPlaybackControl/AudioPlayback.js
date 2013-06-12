@@ -1,231 +1,123 @@
 /**
-	_moon.AudioPlayback_
+	_moon.AudioPlayback_ is meant to be used with <a href="#moon.Drawers">moon.Drawers</a>.
+	This extends <a href="#moon.Drawer">moon.Drawer</a> by adding  an audio playback control
+	and playlist for the imported audio.
+
+	{kind:"moon.Drawers", drawers:[
+		{
+			kind: "moon.AudioPlayback",
+			handle: {
+				kind: "moon.DrawerHandle",
+				marquee: true
+			}
+		}
+	],
+	components: [
+		{content: "Page Content"}
+	]}
 */
+
 enyo.kind({
 	name: "moon.AudioPlayback",
-	classes: "",
-	published: {
-		audioFiles: []
-	},
+	kind: "moon.Drawer",
 	//* @protected
-	index: 0,
-	tools: [
-		{kind: "moon.AudioPlaybackControl", name: "audioPlaybackControl"},
-		{kind: "moon.AudioPlaybackDrawer", name: "drawerControl"},
-		{name: "client"}
-	],
+	classes: "moon-audio-playback",
+	open: false,
+	controlsOpen: false,
 	handlers: {
-		onToggleUnderDrawer: "toggleUnderDrawer"
+		onAudioEnd: "audioEnd"
 	},
-	initComponents: function() {
-		this.createChrome(this.tools);
-		this.$.drawerControl.createComponents(this.drawerComponents);
-		this.inherited(arguments);
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.initAudio(this.index);
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.audioFilesChanged();
-		this.$.audioPlaybackControl.updateTrackInfo(this.audioFiles, this.index);
-	},
-	audioFilesChanged: function() {
-		this.$.audioPlaybackControl.updateAudioFiles(this.audioFiles, this.index);
-	},
-	toggleUnderDrawer: function() {
-		
-		var v = !this.$.drawerControl.$.drawer.open;
-		if (v) {
-			// FIXME: Added since we shouldn't call this in rendered(). Seems like overkill after first use
-			this.resizeDrawer();
-		}
-		
-		this.$.audioPlaybackControl.addRemoveClass("extended", v);
-		this.$.drawerControl.$.drawer.spotlight = v;
-		this.$.drawerControl.$.drawer.setOpen(v);
-		
-		return true;
-	},
-	calcViewportSize: function() {
-		if (window.innerWidth) {
-			return {
-				width: window.innerWidth,
-				height: window.innerHeight
-			};
-		} else {
-			var e = document.documentElement;
-			return {
-				width: e.offsetWidth,
-				height: e.offsetHeight
-			};
-		}
-	},
-	resizeDrawer: function(inProps) {
-		var a = this.calcViewportSize();
-		var b = this.$.audioPlaybackControl.getBounds();
-		this.waterfallDown("onResizeDrawer", {
-			height: a.height - b.height
-		});
-	},
-	resizeHandler: function() {
-		this.inherited(arguments);
-		this.resizeDrawer();
-	},
-	initAudio: function(inIndex) {
-		this.$.audioPlaybackControl.setSrc(this.audioFiles[inIndex]);
-	},
+	audioTracks: [],
+	index: null,
+	controlDrawerComponents:[],
+	playheadJob: null,
+	queueList: null,
 	//* @public
-	togglePlay: function() {
-		this.$.audioPlaybackControl.togglePlay();
-	},
-	next: function() {
-		this.$.audioPlaybackControl.playNext();
-	},
-	previous: function() {
-		this.$.audioPlaybackControl.playPrevious();
-	},
-	seekTo: function(inValue) {
-		this.$.audioPlaybackControl.seekTo(inValue);
-	},
-	playIndex: function(inIndex) {
-		this.$.audioPlaybackControl.playIndex(inIndex);
-	}
-});
-
-
-
-
-/**
-	_moon.AudioPlaybackControl_
-*/
-enyo.kind({
-	name: "moon.AudioPlaybackControl",
-	classes: "moon-audio-playback-control",
-	//* @protected
-	spotlight: true,
-	handlers: {
-		onSpotlightFocused: "focused",
-		onPlayerExtended: "playerExtended"
-	},
 	published: {
-		src: "",
 		repeat: false
 	},
-	audioFiles: [],
-	index: 0,
-	components: [
-		{name: "sound", kind: "moon.Sound", onEnd: "audioEnd"},
-		// mini view
-		{classes: "moon-audio-playback-mini", spotlight: false, components: [
-			{name: "trackLabel", content: "Track Name by Artist Name", classes: "moon-audio-playback-label-mini"},
-			{name: "sliderContainerMini", classes: "moon-audio-playback-container mini", components: [
-				{kind: "moon.AudioPlaybackSlider", name: "sliderMini", classes: "moon-audio-playback-slider mini", value: 0, disabled: true}
-			]},
-			{name: "playTimeMini", content: "0:00/0:00", classes: "moon-audio-playback-playtime mini"},
-			{content: "icons", style: "moon-audio-playback-icons mini"},
-			{name: "trackCount", content: "()", classes: "moon-audio-playback-count mini"}
-		]},
-
-
-		// main view
-		{classes: "moon-audio-playback-main", components: [
+	//* @protected
+	audioComponents: [
+		{name: "sound", kind: "enyo.Audio"},
+		{kind: "FittableColumns", classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", classes: "moon-audio-playback-track-icon"},
-			{classes: "moon-audio-playback-track-info", components: [
-				{name: "trackName", content: "Track Name", classes: "moon-audio-playback-track"},
-				{name: "artistName", content: "Artist Name", classes: "moon-audio-playback-artist"}
-			]},
-			{kind: "moon.IconButton", classes: "moon-audio-playback-icon-button", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
-			{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-playback-icon-button", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
-			{kind: "moon.IconButton", classes: "moon-audio-playback-icon-button", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
-			{name: "sliderContainer", classes: "moon-audio-playback-container", components: [
-				{kind: "moon.AudioPlaybackSlider", name: "sliderMain", classes: "moon-audio-playback-slider", value: 0, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
-			]},
-			{name: "playTimeMain", classes: "moon-audio-playback-playtime main", content: "0:00/0:00"},
-			{kind: "moon.IconButton", classes: "moon-audio-playback-icon-button", src: "assets/icon-album.png", ontap: "toggleDrawer"},
-			{kind: "moon.ContextualPopupDecorator", style: "vertical-align:top;", components: [
-				{kind: "moon.IconButton", classes: "moon-audio-playback-icon-button", src: "assets/icon-list.png"},
-				{kind: "moon.ContextualPopup", style: "width:200px;height:200px;", components: [
-					{content: "Contextual popup content"}
+			{classes: "moon-audio-play-controls", fit: true, components: [
+				{kind: "FittableColumns", classes: "moon-audio-top", components: [
+					{classes: "moon-audio-track-info", components: [
+						{name: "trackName", content: "Track Name", classes: "moon-audio-playback-track"},
+						{name: "artistName", content: "Artist Name", classes: "moon-audio-playback-artist"}
+					]},
+					{classes: "moon-audio-control-buttons", fit: true, components: [
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
+						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button left", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "assets/icon-album.png", ontap: "toggleTrackDrawer"}
+					]}
+				]},
+				{kind: "FittableColumns", classes: "", components: [
+					{name: "playTime1", classes: "moon-audio-play-time left", content: "0:00"},
+					{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
+						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
+					]},
+					{name: "playTime2", classes: "moon-audio-play-time right", content: "0:00"}
 				]}
 			]}
 		]}
 	],
+	initComponents: function() {
+		this.components = [{kind: "moon.AudioPlaybackQueue"}];
+		this.inherited(arguments);
+		this.components = null;
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
+	},
 	rendered: function() {
 		this.inherited(arguments);
 	},
-	focused: function() {
-		this.addClass("spotlight");
+	toggleTrackDrawer: function() {
+		this.$.client.setDrawerProps({height:this.calcDrawerHeight()});
+		this.$.client.render();
+		this.$.client.setOpen(!this.$.client.getOpen());
 	},
-	toggleDrawer: function() {
-		this.bubble("onToggleUnderDrawer");
-	},
-	_play: function() {
-		this.$.sound.play();
-		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
-		this.updateTrackInfo(this.audioFiles, this.index);
-		this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 1000);
-	},
-	_pause: function() {
-		this.$.sound.pause();
-		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+	endPlayheadJob: function() {
 		clearInterval(this.playheadJob);
 		this.playheadJob = null;
 	},
-	togglePlay: function() {
-		if (this.$.sound.isPlaying) {
-			this._pause();
+	audioEnd: function() {
+		if ((this.index === (this.audioTracks.length-1)) && (!this.repeat)) {
+			this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 		} else {
-			this._play();
+			this.playNext();
 		}
 	},
-	playNext: function() {
-		if (this.$.sound.isPlaying) {
-			this.$.sound.pause();
-		} else {
-			this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
-		}
-		if (this.audioFiles.length > (this.index + 1)) {
-			this.index++;
-		} else {
+	updateTrackCount: function() {
+		var l = this.audioTracks.length;
+		if (l === 1) {
 			this.index = 0;
+			this.updateTrackIndex(this.index);
 		}
-		this.setSrc(this.audioFiles[this.index]);
-		this.$.sound.play();
-		this.updateTrackInfo(this.audioFiles, this.index);
 	},
-	playPrevious: function() {
-		if (this.$.sound.isPlaying) {
-			this.$.sound.pause();
-		} else {
-			this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
-		}
-		if (this.index === 0) {
-			this.index = this.audioFiles.length - 1;
-		} else {
-			this.index--;
-		}
-		this.setSrc(this.audioFiles[this.index]);
-		this.$.sound.play();
-		this.updateTrackInfo(this.audioFiles, this.index);
+	updateTrackIndex: function(inIndex) {
+		var a = this.audioTracks[inIndex];
+		this.$.trackName.setContent(a.trackName);
+		this.$.artistName.setContent(a.artistName);
+		this.$.sound.setSrc(a.src);
+		this.updatePlayTime("0:00", "0:00");
+		this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
 	},
-	playIndex: function(inIndex) {
-		this.$.sound.pause();
-		this.index = inIndex;
-		this.setSrc(this.audioFiles[this.index]);
-		this.$.sound.play();
-		this.updateTrackInfo(this.audioFiles, this.index);
-	},
-	seekTo: function(inValue) {
-		this.$.sound.seekTo(inValue);
-	},
-	sliderChanging: function(inSender, inEvent) {
+	updatePlayhead: function() {
 		var totalTime = this.$.sound.getDuration();
-		var currentTime = (totalTime / 100) * inEvent.value;
-		this.updatePlayTime(this.toReadableTime(currentTime) + "/" + this.toReadableTime(totalTime));
-		this.seekTo(currentTime);
-		this.$.sliderMini.setValue(inEvent.value);
+		var currentTime = this.$.sound.getCurrentTime();
+		var playheadPos = (currentTime * 100) / totalTime;
+		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
+		this.$.slider.updateKnobPosition(playheadPos);
+		this.$.slider.setProgress(playheadPos);
+	},
+	updatePlayTime: function(inStart, inEnd) {
+		this.$.playTime1.setContent(inStart);
+		this.$.playTime2.setContent(inEnd);
 	},
 	toReadableTime: function(inValue) {
 		var minutes = Math.floor(inValue / 60).toString();
@@ -237,61 +129,129 @@ enyo.kind({
 		}
 		return minutes + ":" + seconds;
 	},
-	updateDuration: function(inSender, inEvent) {
+	sliderChanging: function(inSender, inEvent) {
 		var totalTime = this.$.sound.getDuration();
-		var s = "0:00" + "/" + this.toReadableTime(totalTime);
-		this.updatePlayTime(s);
+		var currentTime = (totalTime / 100) * inEvent.value;
+		this.$.playTime.setContent(this.toReadableTime(currentTime) + "/" + this.toReadableTime(totalTime));
+		this.$.sound.seekTo(currentTime);
 	},
-	updatePlayTime: function(inValue) {
-		this.$.playTimeMini.setContent(inValue);
-		this.$.playTimeMain.setContent(inValue);
+	//* @public
+	togglePlay: function() {
+		this.$.sound.isPlaying ? this.pause() : this.play();
 	},
-	updateTrackInfo: function(inSender, inIndex) {
-		this.updateDuration();
-
-		// update mini view
-		this.$.trackLabel.setContent(inSender[inIndex].trackName + " by " + inSender[inIndex].artistName);
-		this.$.trackCount.setContent("(" + inSender.length + ")");
-
-		// update main view
-		this.$.trackIcon.applyStyle("background-image", "url(" + enyo.path.rewrite(inSender[inIndex].iconSrc) + ")");
-		this.$.trackName.setContent(inSender[inIndex].trackName);
-		this.$.artistName.setContent(inSender[inIndex].artistName);
-	},
-	srcChanged: function(inSender, inAudio) {
-		this.$.sound.setSrc(inAudio.src);
-	},
-	updateAudioFiles: function(inAudio, inIndex) {
-		this.audioFiles = inAudio;
-		this.index = inIndex;
-	},
-	audioEnd: function() {
-		if ((this.index === (this.audioFiles.length-1)) && (!this.repeat)) {
-			this.togglePlay();
-		} else {
-			this.playNext();
+	play: function() {
+		this.$.sound.play();
+		if (this.playheadJob === null) {
+			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 500);
 		}
+		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
 	},
-	updatePlayhead: function() {
-		var totalTime = this.$.sound.getDuration();
-		var currentTime = this.$.sound.getCurrentTime();
-		var playheadPos = (currentTime * 100) / totalTime;
-		this.updatePlayTime(this.toReadableTime(currentTime) + "/" + this.toReadableTime(totalTime));
-		this.$.sliderMain.updateKnobPosition(playheadPos);
-		this.$.sliderMini.updateKnobPosition(playheadPos);
+	pause: function() {
+		this.$.sound.pause();
+		this.endPlayheadJob();
+		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+	},
+	playPrevious: function() {
+		this.index = (this.index === 0) ? this.audioTracks.length - 1 : this.index - 1;
+		this.updateTrackIndex(this.index);
+		this.play();
+	},
+	playNext: function() {
+		this.index = (this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0;
+		this.updateTrackIndex(this.index);
+		this.play();
+	},
+	playAtIndex: function(inIndex) {
+		this.index = (this.audioTracks.length > inIndex) ? inIndex : 0;
+		this.updateTrackIndex(this.index);
+		this.play();
+	},
+	addAudioTrack: function(inSrc, inTrack, inArtist, inAlbum, inDuration) {
+		var a = {
+			src: inSrc,
+			trackName: inTrack,
+			artistName: inArtist,
+			albumName: inAlbum,
+			duration: inDuration
+		};
+		this.audioTracks[this.audioTracks.length] = a;
+		this.updateTrackCount();
+		this.waterfall("onAddAudio", {tracks: this.audioTracks});
 	}
 });
 
 
 enyo.kind({
-	name: "moon.AudioPlaybackDrawer",
-	tools: [
-		{name: "drawer", kind: "moon.FullScreenDrawer", spotlight: false, components: [
-			{name: "client"}
-		]}
-	],
-	initComponents: function() {
-		this.createChrome(this.tools);
+	//* @protected
+	name: "moon.AudioPlaybackQueue",
+	kind: "FittableRows",
+	classes: "enyo-fit moon-audio-playback-queue",
+    handlers: {
+    	onAddAudio: "addAudio"
+    },
+    components: [
+    	{kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks"},
+		{
+			kind: "moon.List",
+			name: "list",
+			classes: "list-sample-contacts-list enyo-unselectable",
+			fit: true,
+			multiSelect: false,
+			onSetupItem: "setupItem",
+			components: [
+				{name: "item", kind: "moon.AudioListItem", classes: "moon-audio-queue-list enyo-border-box", onRemove: "removeTap"}
+			]
+		}
+    ],
+    tracks: [],
+    create: function() {
 		this.inherited(arguments);
+		this.parent.applyStyle("height", "100%");
+    },
+    rendered: function() {
+		this.inherited(arguments);
+    },
+    addAudio: function(inSender, inEvent) {
+		var i = this.$.list.getCount() + 1;
+		this.tracks = inEvent.tracks;
+		this.$.list.setCount( i );
+		this.$.list.reset();
+		this.$.queueHeader.setTitleBelow(i + " Tracks");
+    },
+	setupItem: function(inSender, inEvent) {
+		var i = inEvent.index;
+		var t = this.tracks[i];
+		var item = {artistName: t.artistName, trackName: t.trackName, src: "", albumName: t.albumName, duration: t.duration};
+		this.$.item.setTrack(item);
+		this.$.item.setSelected(inSender.isSelected(i));
+		return true;
+	}
+});
+
+enyo.kind({
+	name: "moon.AudioListItem",
+	events: {
+		onRemove: ""
+	},
+	components: [
+		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-album-art"},
+		{components: [
+			{name: "trackName"},
+			{name: "artistName"}
+		]}
+		//{name: "remove", kind: "moon.IconButton", classes: "audio-queue-list-remove", src: "assets/remove-icon.png", ontap: "removeTap", spotlight: false}
+	],
+	setTrack: function(inAudio) {
+		this.$.trackName.setContent(inAudio.trackName);
+		this.$.artistName.setContent(inAudio.artistName + " - " + inAudio.albumName);
+		this.$.albumArt.setSrc(inAudio.src);
+	},
+	setSelected: function(inSelected) {
+		this.addRemoveClass("moon-audio-queue-list-selected", inSelected);
+		//this.$.remove.applyStyle("display", inSelected ? "inline-block" : "none");
+	},
+	removeTap: function(inSender, inEvent) {
+		this.doRemove(inEvent);
+		return true;
 	}
 });

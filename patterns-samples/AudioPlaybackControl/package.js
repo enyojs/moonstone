@@ -1,11 +1,7 @@
 enyo.depends(
+	"Audio.js",
 	"AudioPlayback.css",
 	"AudioPlaybackSample.css",
-	"Music.TrackOneColumnWideSample.css",
-	"Sound.js",
-	"FullScreenDrawer.js",
-	"AudioPlaybackSlider.js",
-	"Music.TrackOneColumnWideSample.js",
 	"AudioPlayback.js",
 	"AudioPlaybackSample.js"
 );

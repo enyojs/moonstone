@@ -1,8 +1,8 @@
 /**
-	_moon.Sound_
+	_enyo.Audio_
 */
 enyo.kind({
-	name: "moon.Sound",
+	name: "enyo.Audio",
 	tag: "audio",
 	published: {
 		/** URL of the sound file to play, can be relative to the application HTML file */
@@ -12,7 +12,7 @@ enyo.kind({
 		preload: true
 	},
 	events: {
-		onEnd: ""
+		onAudioEnd: ""
 	},
 	//* @protected
 	handlers: {
@@ -59,7 +59,8 @@ enyo.kind({
 		}
 	},
 	ended: function() {
-		this.doEnd();
+		this.isPlaying = false;
+		this.doAudioEnd();
 	},
 	getCurrentTime: function() {
 		if (this.hasNode()) {
