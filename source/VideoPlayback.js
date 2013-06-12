@@ -16,17 +16,11 @@ enyo.kind({
 		src: "",
 		width: 640,
 		height: 360,
-		autoCloseTimeout: 2
-	},
-	events: {
-	// 	//* Fires when bar position is set. The _value_ property contains the
-	// 	//* new position.
-	// 	onChange: "",
+		autoCloseTimeout: 2,
+		infoComponents: [],	// defining component block for Video Details
 	},
 	//* @protected
 	handlers: {
-	// 	ondragstart: "dragstart",
-	// 	onSpotlightFocus: "spotFocus",
 		onUpdate: "onUpdateHandler",
 		onmove: "onMoveHandler",
 		ontap: "checkShowHide",
@@ -38,23 +32,10 @@ enyo.kind({
 		ondrag: "checkShowHide"
 	},
 	autoCloseTimer: null,
-	components: [
+	controlTools: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-playback-video", ontimeupdate:"timeupdate"},
 		{name: "videoInfoHeader", layoutKind: "FittableColumnsLayout", classes: "moon-video-playback-header", components: [
-			{
-				kind: "moon.VideoPlayerInfo", 
-				fit: true, 
-				datetime: "CURRENT DATE & TIME", 
-				showname: "SHOW NAME", 
-				channel: "CHANNEL - AIR DATE & TIME SLOT", 
-				synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
-				components: [
-					{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
-					{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
-					{content: "3D", classes: "moon-videoplayer-info-icon"},
-					{content: "REC 00:00", classes: "moon-videoplayer-info-icon moon-videoplayer-info-redicon"}
-				]
-			},
+			{name: "videoInfo", fit: true, classes: "moon-video-playback-detail"},
 			{name: "feedbackHeader", classes: "moon-video-playback-feedback", components: [
 				{name: "feedback", classes: "moon-video-playback-feedback-icon"}
 			]}
@@ -90,8 +71,20 @@ enyo.kind({
 		this.heightChanged();
 	},
 	initComponents: function() {
-		this.inherited(arguments);
+		this.createTools();
+		this.createVideoInfo();
+		this.controlParentName = "client";
+		this.discoverControlParent();
+        this.inherited(arguments);
 		// this.hideLayer();
+	},
+	createTools: function() {
+		this.createComponents(this.controlTools);
+	},
+	createVideoInfo: function() {
+		this.controlParentName = "videoInfo";
+		this.discoverControlParent();
+		this.createComponents(this.infoComponents);
 	},
 	srcChanged: function() {
 		if (typeof this.src === "string" && this.src.length > 0) {
@@ -178,9 +171,9 @@ enyo.kind({
 			this.resized();
 		}
 		this.resetAutoCloseTimer();
-		this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-				this.hideLayer();
-			}), this.getAutoCloseTimeout() * 1000);
+		// this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
+		// 		this.hideLayer();
+		// 	}), this.getAutoCloseTimeout() * 1000);
 		return true;
 	},
 	checkShowHide: function(inSender, inEvent) {
@@ -188,9 +181,9 @@ enyo.kind({
 			this.hideLayer();
 		} else {
 			this.resetAutoCloseTimer();
-			this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-					this.hideLayer();
-				}), this.getAutoCloseTimeout() * 1000);
+			// this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
+			// 		this.hideLayer();
+			// 	}), this.getAutoCloseTimeout() * 1000);
 		}
 	},
 	resetAutoCloseTimer: function() {

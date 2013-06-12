@@ -9,7 +9,6 @@ enyo.kind({
 			width: 1280/3, 
 			height: 720/3, 
 			jumpIncrement: "20%",
-
 			src: "http://www.w3schools.com/html/mov_bbb.mp4",
 			components: [
 				{kind: "moon.IconButton", src: "../SlideshowControl/assets/favorite_icon.png", classes: "moon-video-playback-controller-button"},
@@ -19,7 +18,6 @@ enyo.kind({
 		    infoComponents: [
 		    	{
 					kind: "moon.VideoPlayerInfo", 
-					fit: true, 
 					datetime: "CURRENT DATE & TIME", 
 					showname: "SHOW NAME", 
 					channel: "CHANNEL - AIR DATE & TIME SLOT", 

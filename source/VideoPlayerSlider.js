@@ -12,7 +12,7 @@
 enyo.kind({
 	name: "moon.VideoPlayerSlider",
 	kind: "moon.Slider",
-	//classes: "moon-videoplayer-slider",
+	classes: "moon-videoplayer-slider",
 	// spotlight: true,
 	published: {
 		//* enyo.Video object
