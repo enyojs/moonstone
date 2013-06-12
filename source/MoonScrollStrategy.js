@@ -20,12 +20,26 @@ enyo.kind({
 		change simultaneously in one instance).
 	*/
 	pos: {top: null, left: null},
+	tools: [
+		{kind: "ScrollMath", onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"},
+	],
 	//* Pagination buttons
 	pageControls: [
 		{name: "pageLeftControl", kind: "moon.PagingControl", side: "left", showing: false},
 		{name: "pageRightControl", kind: "moon.PagingControl", side: "right", showing: false},
 		{name: "pageUpControl", kind: "moon.PagingControl", side: "top", showing: false},
 		{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom", showing: false}
+	],
+	components: [
+		{style: "position:absolute; left: 0; right: 50px; top: 0; bottom: 50px; overflow:hidden;", components: [
+			{name: "client", classes: "enyo-touch-scroller"},
+		]},
+		{name: "hThumbContainer", style:"position:absolute; right: 0px; top: 0px; bottom: 50px; width: 50px; background: #a3b4c5;", components: [
+			{name: "vthumb", kind: "moon.ScrollThumb", axis: "v", showing: false}
+		]},
+		{style:"position:absolute; left: 0; right: 0px; bottom: 0px;  height: 50px; background: #a3b4c5;", components: [
+			{name: "hthumb", kind: "moon.ScrollThumb", axis: "h", showing: false}
+		]}
 	],
 	//* True if pointer is currently hovering over this control
 	hovering: false,
@@ -151,6 +165,20 @@ enyo.kind({
 		if (inEvent.type == "pagerelease" || inEvent.type == "pagehold") {
 			this.pos = {top:null, left:null};
 		}
+	},
+	_getScrollBounds: function() {
+		var s = this.getScrollSize(), cn = this.scrollNode;
+		var b = {
+			left: this.getScrollLeft(),
+			top: this.getScrollTop(),
+			clientHeight: cn ? cn.clientHeight : 0,
+			clientWidth: cn ? cn.clientWidth : 0,
+			height: s.height,
+			width: s.width
+		};
+		b.maxLeft = Math.max(0, b.width - b.clientWidth);
+		b.maxTop = Math.max(0, b.height - b.clientHeight);
+		return b;
 	},
 	autoScroll: function(inEvent){
 		var sb = this.getScrollBounds(),
