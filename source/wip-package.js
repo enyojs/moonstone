@@ -9,5 +9,9 @@ enyo.depends(
 	"CalendarPicker.js",
 	"DrawerHandle.js",
 	"Drawer.js",
-	"Drawers.js"
+	"Drawers.js",
+	"Video.js",
+	"VideoPlayerInfo.js",
+	"VideoPlayback.js",
+	"VideoPlayerSlider.js"
 );
