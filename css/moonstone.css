@@ -2236,6 +2236,7 @@ p.moon-drawers-close-handle-text {
 .moon-drawers-handle-container {
   position: absolute;
   top: 0px;
+  left: 0px;
   z-index: 100000;
   width: 100%;
   text-align: right;
