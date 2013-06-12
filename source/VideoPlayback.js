@@ -40,23 +40,21 @@ enyo.kind({
 				{name: "feedback", classes: "moon-video-playback-feedback-icon"}
 			]}
 		]},
-		{name: "playbackControl", layoutKind: "FittableRowsLayout", classes: "moon-video-playback-bottom", components: [
-			{name: "controls", layoutKind: "FittableColumnsLayout", fit: true, components: [
-				{components: [
-					{name: "leftPremiumPlaceHolder", kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
-				]},
+		{name: "playbackControl", classes: "moon-video-playback-bottom", components: [
+			{name: "controls", layoutKind: "FittableColumnsLayout", classes: "moon-video-playback-controls", components: [
+				{name: "leftPremiumPlaceHolder", style: "width: 80px; height:80px;"},
 				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-playback-controller", components: [
 					{name: "trickPlay", layoutKind: "FittableColumnsLayout", noStretch: true, classes: "enyo-center", components: [
-						{kind: "moon.IconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler", classes: "moon-video-playback-controller-button"},
-						{kind: "moon.IconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler", classes: "moon-video-playback-controller-button"},
+						{kind: "moon.BoxIconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler"},
+						{kind: "moon.BoxIconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler"},
 						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-play.png", ontap: "playpauseHandler"},
-						{kind: "moon.IconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler", classes: "moon-video-playback-controller-button"},
-						{kind: "moon.IconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler", classes: "moon-video-playback-controller-button"}
+						{kind: "moon.BoxIconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler"},
+						{kind: "moon.BoxIconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
-				{components: [
-					{name: "more", kind: "moon.IconButton", src: "assets/icon-Extend.png",  ontap: "tapHandler", classes: "moon-video-playback-controller-button"}
+				{name: "rightPremiumPlaceHolder", components: [
+					{name: "more", kind: "moon.BoxIconButton", src: "assets/icon-Extend.png", ontap: "tapHandler"}
 				]}
 			]},
 			{classes: "moon-video-playback-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
@@ -73,18 +71,28 @@ enyo.kind({
 	initComponents: function() {
 		this.createTools();
 		this.createVideoInfo();
+		if (this.components.length <= 2) {
+			this.$.rightPremiumPlaceHolder.deleteComponents();
+			this.$.leftPremiumPlaceHolder.createComponents(this.components[0], {owner: this});
+			if (this.components.length == 2) {
+				this.$.rightPremiumPlaceHolder.createComponents(this.components[1], {owner: this});
+			}
+		}
+		if (this.components.length > 2) {
+			this.$.leftPremiumPlaceHolder.createComponents(this.components.splice(0,1), {owner: this});
+		}
 		this.controlParentName = "client";
 		this.discoverControlParent();
         this.inherited(arguments);
 		// this.hideLayer();
 	},
 	createTools: function() {	
-		this.createComponents(this.controlTools);
+		this.createComponents(this.controlTools, {owner: this});
 	},
 	createVideoInfo: function() {
 		this.controlParentName = "videoInfo";
 		this.discoverControlParent();
-		this.createComponents(this.infoComponents);
+		this.createComponents(this.infoComponents, {owner: this});
 	},
 	srcChanged: function() {
 		if (typeof this.src === "string" && this.src.length > 0) {

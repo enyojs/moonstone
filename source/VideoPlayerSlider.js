@@ -18,6 +18,10 @@ enyo.kind({
 		//* enyo.Video object
 		video: null
 	},
+	handlers: {
+		onenter: "onEnterSlider", 
+		onleave: "onLeaveSlider"
+	},
 	popupComponents: [
 		{kind: "enyo.Popup", name: "popup", classes: "moon-videoplayer-slider-popup ", captureEvents: false, components: [
 			{tag: "canvas", name: "drawing", attributes: { width: 340, height: 270 }},
@@ -26,9 +30,9 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		
 		this.videoChanged();
 		this.popupColor = "#323232";
+		this.$.knob.setShowing(false);
 	},
 	videoChanged: function() {
 		if (this.video !== null && this.video.container) {
@@ -148,5 +152,15 @@ enyo.kind({
 		ctx.lineTo(1, h);
 		ctx.fill();
 		return false;
-	}
+	},
+	onEnterSlider: function(inSender, inEvent) {
+		if (!this.dragging && this.$.knob.hasNode()) {
+			this.$.knob.show();
+		}
+	},
+	onLeaveSlider: function(inSender, inEvent) {
+		if (!this.dragging && this.$.knob.hasNode()) {
+			this.$.knob.setShowing(false);
+		}
+	},
 });

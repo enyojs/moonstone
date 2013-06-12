@@ -11,6 +11,7 @@ enyo.kind({
 			xsrc: "http://www.w3schools.com/html/mov_bbb.mp4",
 			src: "../../../video.mp4",
 			components: [
+				{kind: "moon.BoxIconButton", src: "assets/icon-Premium-Placeholder.png", ontap: "onTap"},
 				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
