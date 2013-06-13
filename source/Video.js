@@ -104,7 +104,7 @@ enyo.kind({
 	//* Play the video
 	play: function() {
 		if (this.hasNode()) {
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 			if (!this.node.paused) {
 				this.node.pause();
@@ -117,7 +117,7 @@ enyo.kind({
 	//* Pause the video
 	pause: function() {
 		if (this.hasNode()) {
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 			this.node.pause();
 		}
@@ -151,14 +151,14 @@ enyo.kind({
 	jumpStart: function() {
 		if (this.hasNode()) {
 			this.pause();
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 			this.node.currentTime = 0;
 		}
 	},
 	jumpBack: function() {
 		if (this.hasNode()) {
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 			this.node.currentTime-=30;
 		}
@@ -168,7 +168,7 @@ enyo.kind({
 			if (this.step && this.step < 4) {
 				this.step *= 2;
 			} else {
-				this.clearStep();
+				this._clearStep();
 			}
 			this.node.pause();
 			this._cancelRequest();
@@ -180,7 +180,7 @@ enyo.kind({
 			if (this.step && this.step < 4) {
 				this.step *= 2;
 			} else {
-				this.clearStep();
+				this._clearStep();
 			}
 			this.node.pause();
 			this._cancelRequest();
@@ -189,7 +189,7 @@ enyo.kind({
 	},
 	jumpForward: function() {
 		if (this.hasNode()) {
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 			this.node.currentTime+=30;
 		}
@@ -197,7 +197,7 @@ enyo.kind({
 	jumpEnd: function() {
 		if (this.hasNode()) {
 			this.pause();
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 			this.node.currentTime = this.node.duration;
 			
@@ -210,13 +210,15 @@ enyo.kind({
 		if (this.node.currentTime > 0) {
 			this.node.currentTime -= this.step;
 			this._requestRewind();
+			this._direction = "rewind";
 		} else {
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
 		}
 	},
 	_cancelRequest: function() {
 		enyo.cancelRequestAnimationFrame(this.job);
+		this.job = null;
 	},
 	_requestFastForward: function() {
 		this.job = enyo.requestAnimationFrame(enyo.bind(this, this._fastForward));
@@ -225,12 +227,14 @@ enyo.kind({
 		if (this.node.currentTime < this.node.duration) {
 			this.node.currentTime += this.step;
 			this._requestFastForward();
+			this._direction = "forward";
 		} else {
-			this.clearStep();
+			this._clearStep();
 			this._cancelRequest();
+			this._direction = "";
 		}
 	},
-	clearStep: function() {
+	_clearStep: function() {
 		this.step = this.defaultStep;
 	}
 });

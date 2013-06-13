@@ -15,8 +15,7 @@
 	Example:
 
 		{
-			kind: "moon.VideoPlayback",  
-			jumpIncrement: "20%",
+			kind: "moon.VideoPlayback",
 			src: "http://www.w3schools.com/html/mov_bbb.mp4",
 			components: [
 				// Custom icons for app-specific features
@@ -60,7 +59,6 @@ enyo.kind({
 		//* Components to be rendered into the top info bar.  This would typically include a _moon.VidePlayerInfo_ kind.
 		infoComponents: []
 	},
-	//* @protected
 	handlers: {
 		onUpdate: "onUpdateHandler",
 		onmove: "onMoveHandler",
@@ -69,9 +67,9 @@ enyo.kind({
 		onSpotlightUp: "onTapHandler",
 		onSpotlightLeft: "onTapHandler",
 		onSpotlightRight: "onTapHandler",
-		onSpotlightDown: "onTapHandler",
 		ondrag: "onTapHandler"
 	},
+	//* @protected
 	autoCloseTimer: null,
 	holdPulseThreadhold: 300,
 	controlTools: [
@@ -238,25 +236,14 @@ enyo.kind({
 		if (bDirty == true) {
 			this.resized();
 		}
-		this.resetAutoCloseTimer();
-		this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-				this.hideLayer();
-			}), this.getAutoCloseTimeout() * 1000);
+		this.setAutoCloseTimer();
 		return true;
 	},
 	onTapHandler: function(inSender, inEvent) {
 		if (inSender.name == "video") {
 			this.hideLayer();
 		} else {
-			this.resetAutoCloseTimer();
-			this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-					this.hideLayer();
-				}), this.getAutoCloseTimeout() * 1000);
-		}
-	},
-	resetAutoCloseTimer: function() {
-		if (this.autoCloseTimer != null) {
-			clearTimeout(this.autoCloseTimer);
+			this.setAutoCloseTimer();
 		}
 	},
 	onEnterSlider: function(inSender, inEvent) {
@@ -279,6 +266,16 @@ enyo.kind({
 		if (inEvent.holdTime > this.holdPulseThreadhold) {
 			this.$.video.jumpEnd();
 		}
+	},
+	setAutoCloseTimer: function(inSender, inEvent) {
+		this.resetAutoCloseTimer();
+		this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
+				this.hideLayer();
+			}), this.getAutoCloseTimeout() * 1000);
+	},
+	resetAutoCloseTimer: function() {
+		if (this.autoCloseTimer != null) {
+			clearTimeout(this.autoCloseTimer);
+		}
 	}
-
 });

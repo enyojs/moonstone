@@ -13,7 +13,7 @@ enyo.kind({
 	name: "moon.VideoPlayerSlider",
 	kind: "moon.Slider",
 	classes: "moon-videoplayer-slider",
-	// spotlight: true,
+	// spotlight: "container",
 	published: {
 		//* enyo.Video object
 		video: null
@@ -31,8 +31,6 @@ enyo.kind({
 			{name: "popupLabel", classes: "moon-videoplayer-slider-popup-label"}
 		]}
 	],
-	previewWidth: 300,
-	previewHeight: 200,
 	create: function() {
 		this.inherited(arguments);
 		this.videoChanged();
