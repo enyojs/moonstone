@@ -55,23 +55,28 @@ enyo.kind({
 		//* Height of video player, in pixels
 		height: 360,
 		//* Time for video player controls to hide after the pointer stops moving (in seconds)
-		autoCloseTimeout: 2,
-		//* Components to be rendered into the top info bar.  This would typically include a _moon.VidePlayerInfo_ kind.
-		infoComponents: []
+		autoCloseTimeout: 4
 	},
 	handlers: {
 		onUpdate: "onUpdateHandler",
 		onmove: "onMoveHandler",
-		ontap: "onTapHandler",
-		onSpotlightDown: "onTapHandler",
-		onSpotlightUp: "onTapHandler",
-		onSpotlightLeft: "onTapHandler",
-		onSpotlightRight: "onTapHandler",
-		ondrag: "onTapHandler"
+		ontap: "checkHideLayer",
+		onSpotlightDown: "checkHideLayer",
+		onSpotlightUp: "checkHideLayer",
+		onSpotlightLeft: "checkHideLayer",
+		onSpotlightRight: "checkHideLayer",
+		ondrag: "checkHideLayer"
 	},
+
+	//* @public
+
+	//* Components to be rendered into the top info bar.  This would typically include a _moon.VidePlayerInfo_ kind.
+	infoComponents: [],
+
 	//* @protected
-	autoCloseTimer: null,
-	holdPulseThreadhold: 300,
+	
+	_autoCloseTimer: null,
+	_holdPulseThreadhold: 300,
 	controlTools: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-playback-video", ontimeupdate:"timeupdate"},
 		{name: "videoInfoHeader", layoutKind: "FittableColumnsLayout", classes: "moon-video-playback-header", components: [
@@ -94,7 +99,7 @@ enyo.kind({
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
 				{name: "rightPremiumPlaceHolder", components: [
-					{name: "more", kind: "moon.BoxIconButton", src: "assets/icon-Extend.png", ontap: "tapHandler"}
+					{name: "more", kind: "moon.BoxIconButton", src: "assets/icon-Extend.png", ontap: "moreButtonTapped"}
 				]}
 			]},
 			{classes: "moon-video-playback-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
@@ -112,19 +117,20 @@ enyo.kind({
 		this.createTools();
 		this.createVideoInfo();
 		if (this.components.length <= 2) {
-			this.$.rightPremiumPlaceHolder.deleteComponents();
-			this.$.leftPremiumPlaceHolder.createComponents(this.components[0], {owner: this});
-			if (this.components.length == 2) {
-				this.$.rightPremiumPlaceHolder.createComponents(this.components[1], {owner: this});
+			this.$.more.destroy();
+			this.$.leftPremiumPlaceHolder.createComponent(this.components[0], {owner: this});
+			this.components.splice(0,1);
+			if (this.components.length == 1) {
+				this.$.rightPremiumPlaceHolder.createComponent(this.components[0], {owner: this});
+				this.components.splice(0,1);
 			}
-		}
-		if (this.components.length > 2) {
+		} else {
 			this.$.leftPremiumPlaceHolder.createComponents(this.components.splice(0,1), {owner: this});
 		}
 		this.controlParentName = "client";
 		this.discoverControlParent();
         this.inherited(arguments);
-		this.hideLayer();
+		this._hideLayer();
 	},
 	createTools: function() {	
 		this.createComponents(this.controlTools, {owner: this});
@@ -176,10 +182,19 @@ enyo.kind({
 		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
 		return true;
 	},
-
-	//* @public
-
-	tapHandler: function(inSender, inEvent) {
+	getVideoInfoArea: function(inSender, inEvent) {
+		return this.$.videoInfo;
+	},
+	getLeftControlArea: function(inSender, inEvent) {
+		return this.$.leftPremiumPlaceHolder;
+	},
+	getRightControlArea: function(inSender, inEvent) {
+		return this.$.rightPremiumPlaceHolder;
+	},
+	getMoreControlsArea: function(inSender, inEvent) {
+		return this.$.client;
+	},
+	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controller.getIndex();
 		if (index === 0) {
 			inEvent.originator.setSrc("assets/icon-Shrink.png");
@@ -190,24 +205,24 @@ enyo.kind({
 			this.$.controller.previous();
 		}
 	},
-	playpauseHandler: function(inSender, inEvnet) {
-		if (this.$.video.isPaused()) {
+	playpauseHandler: function(inSender, inEvent) {
+		if (this.$.video.isPaused() == true) {
 			this.$.video.play();
 		}
 		else {
-			this.$.video.play();
+			this.$.video.pause();
 		}
 	},
-	rewindHandler: function(inSender, inEvnet) {
+	rewindHandler: function(inSender, inEvent) {
 		this.$.video.rewind();
 	},
-	jumpBackHandler: function(inSender, inEvnet) {
+	jumpBackHandler: function(inSender, inEvent) {
 		this.$.video.jumpBack();
 	},
-	fastForwardHandler: function(inSender, inEvnet) {
+	fastForwardHandler: function(inSender, inEvent) {
 		this.$.video.fastForward();
 	},
-	jumpForwardHandler: function(inSender, inEvnet) {
+	jumpForwardHandler: function(inSender, inEvent) {
 		this.$.video.jumpForward();
 	},
 	onUpdateHandler: function(inSender, inEvent) {
@@ -218,10 +233,6 @@ enyo.kind({
 			this.$.playpause.setSrc("assets/icon-pause.png");
 		}
 		return true;
-	},
-	hideLayer: function(inSender, inEvent) {
-		this.$.videoInfoHeader.setShowing(false);
-		this.$.playbackControl.setShowing(false);
 	},
 	onMoveHandler: function(inSender, inEvent) {
 		var bDirty = false;
@@ -236,14 +247,14 @@ enyo.kind({
 		if (bDirty == true) {
 			this.resized();
 		}
-		this.setAutoCloseTimer();
+		this._setAutoCloseTimer();
 		return true;
 	},
-	onTapHandler: function(inSender, inEvent) {
+	checkHideLayer: function(inSender, inEvent) {
 		if (inSender.name == "video") {
-			this.hideLayer();
+			this._hideLayer();
 		} else {
-			this.setAutoCloseTimer();
+			this._setAutoCloseTimer();
 		}
 	},
 	onEnterSlider: function(inSender, inEvent) {
@@ -258,24 +269,30 @@ enyo.kind({
 		}
 	},
 	onHoldPulseBackHandler: function(inSender, inEvent) {
-		if (inEvent.holdTime > this.holdPulseThreadhold) {
-			this.$.video.jumpStart();
+		if (inEvent.holdTime > this._holdPulseThreadhold) {
+			this.$.video.holdJumpStart = true;
+			inEvent.cancelHold = true
 		}
 	},
 	onHoldPulseForwardHandler: function(inSender, inEvent) {
-		if (inEvent.holdTime > this.holdPulseThreadhold) {
-			this.$.video.jumpEnd();
+		if (inEvent.holdTime > this._holdPulseThreadhold) {
+			this.$.video.holdJumpEnd = true;
+			inEvent.cancelHold = true
 		}
 	},
-	setAutoCloseTimer: function(inSender, inEvent) {
-		this.resetAutoCloseTimer();
-		this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-				this.hideLayer();
+	_hideLayer: function(inSender, inEvent) {
+		this.$.videoInfoHeader.setShowing(false);
+		this.$.playbackControl.setShowing(false);
+	},
+	_setAutoCloseTimer: function(inSender, inEvent) {
+		this._resetAutoCloseTimer();
+		this._autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
+				this._hideLayer();
 			}), this.getAutoCloseTimeout() * 1000);
 	},
-	resetAutoCloseTimer: function() {
-		if (this.autoCloseTimer != null) {
-			clearTimeout(this.autoCloseTimer);
+	_resetAutoCloseTimer: function() {
+		if (this._autoCloseTimer != null) {
+			clearTimeout(this._autoCloseTimer);
 		}
 	}
 });

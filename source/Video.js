@@ -36,7 +36,8 @@ enyo.kind({
 	},
 	//* @protected
 	tag: "video",
-	defaultStep: 1,
+	_defaultStep: 0.2,
+	_direction: "",
 	create: function() {
 		this.inherited(arguments);
 		this.srcChanged();
@@ -150,17 +151,25 @@ enyo.kind({
 	},
 	jumpStart: function() {
 		if (this.hasNode()) {
-			this.pause();
-			this._clearStep();
 			this._cancelRequest();
+			this._clearStep();
 			this.node.currentTime = 0;
+			this.node.pause();
 		}
 	},
 	jumpBack: function() {
 		if (this.hasNode()) {
-			this._clearStep();
-			this._cancelRequest();
-			this.node.currentTime-=30;
+			if (this.holdJumpStart == true) {
+				this.holdJumpStart = false;
+				this.jumpStart();
+			} else {
+				this._cancelRequest();
+				this._clearStep();
+				this.node.currentTime -= 30;
+				if (this.isPaused() == true || this._direction != "") {
+					this.play();
+				}
+			}
 		}
 	},
 	rewind: function() {
@@ -189,18 +198,25 @@ enyo.kind({
 	},
 	jumpForward: function() {
 		if (this.hasNode()) {
-			this._clearStep();
-			this._cancelRequest();
-			this.node.currentTime+=30;
+			if (this.holdJumpEnd == true) {
+				this.holdJumpEnd = false;
+				this.jumpEnd();
+			} else {
+				this._cancelRequest();
+				this._clearStep();
+				this.node.currentTime += 30;
+				if (this.isPaused() == true || this._direction != "") {
+					this.play();
+				}
+			}
 		}
 	},
 	jumpEnd: function() {
 		if (this.hasNode()) {
-			this.pause();
-			this._clearStep();
 			this._cancelRequest();
+			this._clearStep();
+			this.node.pause();
 			this.node.currentTime = this.node.duration;
-			
 		}
 	},
 	_requestRewind: function() {
@@ -212,13 +228,14 @@ enyo.kind({
 			this._requestRewind();
 			this._direction = "rewind";
 		} else {
-			this._clearStep();
 			this._cancelRequest();
+			this._clearStep();
 		}
 	},
 	_cancelRequest: function() {
 		enyo.cancelRequestAnimationFrame(this.job);
 		this.job = null;
+		this._direction = "";
 	},
 	_requestFastForward: function() {
 		this.job = enyo.requestAnimationFrame(enyo.bind(this, this._fastForward));
@@ -235,6 +252,6 @@ enyo.kind({
 		}
 	},
 	_clearStep: function() {
-		this.step = this.defaultStep;
+		this.step = this._defaultStep;
 	}
 });

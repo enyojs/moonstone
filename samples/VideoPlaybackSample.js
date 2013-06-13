@@ -8,10 +8,10 @@ enyo.kind({
 		{
 			kind: "moon.VideoPlayback",	
 			/* Needs long video file for testing */
-			src: "http://media.w3.org/2010/05/sintel/trailer.mp4",
+			xsrc: "http://media.w3.org/2010/05/sintel/trailer.mp4",
 			xsrc: "http://www.w3schools.com/html/mov_bbb.mp4",
 			xsrc: "../../../video.mp4",
-			xsrc: "../../voice-E15.mp4",
+			src: "../../voice-E15.mp4",
 			components: [
 				{kind: "moon.BoxIconButton", src: "assets/icon-Premium-Placeholder.png", ontap: "onTap"},
 				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},
