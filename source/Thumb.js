@@ -5,7 +5,7 @@ enyo.kind({
 		sizeRatio: 1
 	},
 	update: function(inStrategy) {
-		if (this.showing) {
+		if (this.showing && this.scrollBounds) {
 			var d = this.dimension, o = this.offset;
 			var bd = this.scrollBounds[this.sizeDimension], sbd = this.scrollBounds[d];
 			var overs = 0, overp = 0, over = 0;
@@ -56,4 +56,14 @@ enyo.kind({
 			}
 		}
 	},
+
+	//* Override show to give fade effect
+	show: function() {
+		this.cancelDelayHide();
+		this.removeClass("hidden");
+	},
+	//* Override show to give fade effect
+	hide: function() {
+		this.addClass("hidden");
+	}
 });
