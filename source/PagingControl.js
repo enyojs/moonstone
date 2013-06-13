@@ -31,29 +31,16 @@ enyo.kind({
 	//* Sets this control's CSS class based on its _side_ value.
 	sideChanged: function() {
 		var s = this.getSide();
-		if (s === "top") {
-			this.addClass("top");
-		} else {
-			this.removeClass("top");
-		}
-		if (s === "right") {
-			this.addClass("right");
-		} else {
-			this.removeClass("right");
-		}
-		if (s === "bottom") {
-			this.addClass("bottom");
-		} else {
-			this.removeClass("bottom");
-		}
-		if (s === "left") {
-			this.addClass("left");
-		} else {
-			this.removeClass("left");
-		}
+		this.addRemoveClass("top",    (s === "top"));
+		this.addRemoveClass("right",  (s === "right"));
+		this.addRemoveClass("bottom", (s === "bottom"));
+		this.addRemoveClass("left",   (s === "left"));
 	},
 	//* Bubbles a _paginate_ event when button is tapped.
 	tap: function() {
+		if (this.hasClass("hidden")) {
+			return true;
+		}
 		this.doPaginate({side: this.getSide()});
 	},
 	//* Overrides default focused handling to make sure scroller doesn't scroll to
@@ -64,6 +51,9 @@ enyo.kind({
 		implementation in drag.js is that holdPulseDelay is global and we need a custom rate here.
 	**/
 	beginHold: function(e) {
+		if (this.hasClass("hidden")) {
+			return true;
+		}
 		this.holdStart = enyo.now();
 		this.holdJob = setInterval(this.bindSafely("sendHoldPulse", e), this.holdPulseDelay);
 	},
