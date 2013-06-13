@@ -1432,6 +1432,10 @@
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
+.moon-input-decorator.moon-focused {
+  border: 5px solid #ffb80d;
+  background-color: lightyellow;
+}
 /* ProgressBar.css */
 .moon-progress-bar {
   position: relative;
