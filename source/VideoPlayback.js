@@ -92,7 +92,7 @@ enyo.kind({
 					{name: "trickPlay", layoutKind: "FittableColumnsLayout", noStretch: true, classes: "enyo-center", components: [
 						{kind: "moon.BoxIconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler", onholdpulse: "onHoldPulseBackHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler"},
-						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-play.png", ontap: "playpauseHandler"},
+						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-Play.png", ontap: "playpauseHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler", onholdpulse: "onHoldPulseForwardHandler"}
 					]},
@@ -228,10 +228,10 @@ enyo.kind({
 	},
 	onUpdateHandler: function(inSender, inEvent) {
 		if (this.$.video.isPaused()) {
-			this.$.playpause.setSrc("assets/icon-play.png");
+			this.$.playpause.setSrc("assets/icon-Play.png");
 		}
 		else {
-			this.$.playpause.setSrc("assets/icon-pause.png");
+			this.$.playpause.setSrc("assets/icon-Pause.png");
 		}
 		return true;
 	},
