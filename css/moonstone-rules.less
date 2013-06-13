@@ -8,6 +8,9 @@
 .moon {
 	font-family: @moon-font-family;
 	font-size: @moon-text-size;
+	padding: @moon-app-keepout;
+	color: @moon-light-text-color;
+	background-color: @moon-light-gray;
 }
 
 .enyo-locale-non-latin .moon,
@@ -75,11 +78,13 @@
 
 /* Individual widget CSS */
 @import "SimplePicker.less";
+@import "SimpleIntegerPicker.less";
 @import "Checkbox.less";
 @import "Divider.less";
-@import "ToggleButton.less";
 @import "CheckboxItem.less";
+@import "ToggleText.less";
 @import "ToggleItem.less";
+@import "ToggleButton.less";
 @import "Item.less";
 @import "SelectableItem.less";
 @import "Button.less";
@@ -90,6 +95,7 @@
 @import "RadioItemGroup.less";
 @import "ExpandableListItem.less";
 @import "ExpandablePicker.less";
+@import "ExpandableIntegerPicker.less";
 @import "Header.less";
 @import "GridList.less";
 @import "PagingControl.less";
@@ -112,6 +118,7 @@
 @import "ImageItem.less";
 @import "Spinner.less";
 @import "Panel.less";
+@import "Panels.less";
 @import "Accordion.less";
 @import "CalendarPicker.less";
 @import "Table.less";
@@ -123,6 +130,7 @@
 @import "Popup.less";
 @import "Dialog.less";
 @import "Tooltip.less";
+@import "Scroller.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
@@ -139,3 +147,16 @@
 .moon-light-gray * {
 	color: @moon-dark-gray;
 }
+
+.moon-hspacing > * {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 @moon-grid-gutter-width/2;
+}
+.moon-hspacing > :first-child {
+	margin-left: 0;
+}
+.moon-hspacing > :last-child {
+	margin-right: 0;
+}
+

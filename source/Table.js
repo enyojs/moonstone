@@ -1,5 +1,6 @@
 /**
-    _moon.Table_ adds Moonstone styling to _enyo.Table_.
+	_moon.Table_ extends <a href="#enyo.Table">enyo.Table</a>, adding Moonstone
+	visual styling.
 */
 enyo.kind({
     name: "moon.Table",
@@ -9,7 +10,8 @@ enyo.kind({
 });
 
 /**
-    _moon.TableRow_ adds Moonstone styling to _enyo.TableRow_.
+	_moon.TableRow_ extends <a href="#enyo.TableRow">enyo.TableRow</a>, adding
+	Moonstone visual styling.
 */
 enyo.kind({
     name: "moon.TableRow",
@@ -19,7 +21,8 @@ enyo.kind({
 });
 
 /**
-    _moon.TableCell_ adds Moonstone styling to _enyo.TableCell_.
+	_moon.TableCell_ extends <a href="#enyo.TableCell">enyo.TableCell</a>, adding
+	Moonstone visual styling.
 */
 enyo.kind({
     name: "moon.TableCell",

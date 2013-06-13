@@ -1,15 +1,12 @@
 enyo.kind({
 	name: "moon.sample.ImageItemSample",
-	classes: "moon enyo-unselectable",
-	layoutKind: "enyo.FittableColumnsLayout",
-	style: "padding: 20px;",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
+		{kind: 'moon.Scroller', classes: "enyo-fill", components: [
 			{
-				style: "width: 600px;",
 				components: [
-					{kind: "moon.Divider", content: "Left-aligned"},
+					{kind: "moon.Divider", content: "Left-aligned", spotlight: true},
 					{
 						components: [
 							{
@@ -34,9 +31,8 @@ enyo.kind({
 					}
 				]
 			},
-			{style: "padding: 20px;"},
+			{tag: "br"},
 			{
-				fit: true,
 				components: [
 					{kind: "moon.Divider", content: "Right-aligned"},
 					{

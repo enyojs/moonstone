@@ -1,6 +1,6 @@
 /**
 	_moon.ToggleItem_ is a control that combines a
-	<a href="#moon.ToggleButton">moon.ToggleButton</a> with a text label.
+	<a href="#moon.ToggleText">moon.ToggleText</a> with a text label.
 */
 enyo.kind({
 	name: "moon.ToggleItem",
@@ -11,6 +11,6 @@ enyo.kind({
 		{classes: "moon-labeled-toggle-button-label-wrapper", components: [
 			{name: "label", classes: "moon-labeled-toggle-button-label"}
 		]},
-		{name: "input", kind: "moon.ToggleButton", spotlight: false}
+		{name: "input", kind: "moon.ToggleText", spotlight: false}
 	]
 });

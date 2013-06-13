@@ -42,18 +42,17 @@ enyo.kind({
 		onleave					: "leave",
 		onmousemove				: "mousemove",
 		onPageHold				: "holdHandler",
-		onPageHoldPulse			: "holdHandler",		
+		onPageHoldPulse			: "holdHandler",
 		onPageRelease			: "holdHandler",
-		onPaginate				: "paginate"		
+		onPaginate				: "paginate"
 	},
 	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy",		
+		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
 	},
-	rendered: function() {				
+	rendered: function() {
 		this.inherited(arguments);
-		this.scrollTo(this.scrollLeft); //workaround for page control issue GF-2728		
-		var sb = this.$.strategy.scrollBounds;		
+		var sb = this.$.strategy.getScrollBounds();
 		this.$.strategy.setPageSize(this.getVertical() !== "hidden" ? sb.clientHeight*this.pageRatio : sb.clientWidth*this.pageRatio);
 	},
 	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
@@ -63,10 +62,6 @@ enyo.kind({
 	//* On mouse move, shows/hides page controls.
 	mousemove: function() {
 		this.$.strategy.mousemove();
-	},
-	scrollStart: function() {
-		this.$.strategy.scrollStart();
-		this.inherited(arguments);		
 	},
 	holdHandler: function(inSender, inEvent) {
 		this.$.strategy.holdHandler(inSender, inEvent);
@@ -83,14 +78,12 @@ enyo.kind({
 		}
 
 		if ((!this.$.strategy.isInView(inEvent.originator.hasNode())) && (!enyo.Spotlight.getPointerMode())) {
-			this.$.strategy.updateScrollBounds();
 			this.animateToControl(inEvent.originator);
 		}
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
-			this.$.strategy.updateScrollBounds();
 			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
 		}
 		return true;
@@ -103,7 +96,7 @@ enyo.kind({
 	animateToControl: function(inControl, inScrollFullPage) {
 		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
 			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this),
-			scrollBounds   = this.$.strategy.scrollBounds,
+			scrollBounds   = this.$.strategy.getScrollBounds(),
 			offsetTop      = controlBounds.top - absoluteBounds.top,
 			offsetLeft     = controlBounds.left - absoluteBounds.left,
 			offsetHeight   = controlBounds.height,
@@ -111,7 +104,8 @@ enyo.kind({
 			xDir,
 			yDir,
 			x,
-			y;
+			y
+		;
 
 		// Allow local inScrollFullPage param to override scroller property
 		inScrollFullPage = (typeof inScrollFullPage === "undefined") ? this.getScrollFullPage() : inScrollFullPage;

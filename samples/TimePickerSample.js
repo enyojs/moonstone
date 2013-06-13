@@ -1,16 +1,13 @@
 enyo.kind({
 	name: "moon.sample.TimePickerSample",
-	style: "margin:20px;",
-	kind:"FittableRows",
-	classes: "moon enyo-unselectable",
-	fit: true,
-	handlers: {
-		onChange: "changed"
-	},
+	kind: "FittableRows",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
-			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Choose Locale", classes: "moon-expandable-picker-wrapper", onChange:"pickerHandler", components: [
+		{kind: 'moon.Scroller', fit:true, components: [
+			{kind: "moon.TimePicker", name:"picker", content: "Time", meridiemEnable: true, onChange: "changed"},
+			{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
+			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 				{content: 'en-US', active:true},
 				{content: 'en-CA'},
 				{content: 'en-IE'},
@@ -23,33 +20,30 @@ enyo.kind({
 				{content: 'es-ES'},
 				{content: 'es-MX'},
 				{content: 'es-US'}
-			]},
-			{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, classes: "moon-date-picker-wrapper"},
-			{name:"time", style:"font-size:0.35em;font-family:MuseoSans Light"},
-			{kind: "moon.TimePicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time", classes: "moon-date-picker-wrapper"}
-		]}
+			]}
+		]},
+		{kind: "moon.Divider", content:"Result"},
+		{name: "result", content: "No change yet"}
 	],
 	create: function(){
 		this.inherited(arguments);
 		var selected = this.$.langPicker.getSelected();
 		if (selected) {
-			for (var i in this.$) {
-				if (this.$[i].kind == "moon.TimePicker") {
-					this.$[i].setLocale(selected.content);
-				}
-			}
+			this.$.picker.setLocale(selected.content);
+			this.$.disabledPicker.setLocale(selected.content);
 		}
 	},
 	pickerHandler: function(inSender, inEvent){
 		if (ilib) {
-			this.$.timePicker.setLocale(inEvent.selected.content);;
+			this.$.picker.setLocale(inEvent.selected.content);
+			this.$.disabledPicker.setLocale(inEvent.selected.content);
 		}
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		if (this.$.time){
+		if (this.$.result && inEvent.value){
 			var timeArray = inEvent.value.toTimeString().split(":");
-			this.$.time.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
+			this.$.result.setContent(inEvent.name + " changed to " + timeArray[0] + ":" + timeArray[1]);
 		}
 	}
 });

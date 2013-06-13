@@ -1,3 +1,17 @@
+/**
+	_moon.DatePicker_ is a control that can be used to display--or allow the
+	selection of--a day, month, and year.
+
+		{
+			kind: "moon.DatePicker",
+			noneText: "Pick a Date",
+			content: "Date",
+			onChange: "changed"
+		}
+
+	Set the _value_ property to a standard JavaScript Date object to initialize
+	the picker, or to change it programmatically at runtime.
+*/
 enyo.kind({
 	name: "moon.DatePicker",
 	kind: "moon.ExpandableListItem",
@@ -14,7 +28,8 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		//* Handler for _onChange_ events coming from constituent controls (day and month)
+		//* Handler for _onChange_ events coming from constituent controls (_day_,
+		//* _month_, and _year_)
 		onChange: "updateDate"
 	},
 	published: {
@@ -33,8 +48,8 @@ enyo.kind({
 		maxYear: 2099,
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
-			is passed to _setValue()_, the control is updated to reflect the new
-			value. _getValue()_ returns a Date object.
+			is passed to _set("value")_, the control is updated to reflect the new
+			value. _get("value")_ returns a Date object.
 		*/
 		value: null
 	},
@@ -61,38 +76,38 @@ enyo.kind({
 		}
 
 		this.value = this.value || new Date();
-		this.setupPickers(this._tf ? this._tf.getDateComponents() : "mdy");
+		this.setupPickers(this._tf ? this._tf.getTemplate() : "mdy");
 		this.noneTextChanged();
 	},
 	setupPickers: function(ordering) {
-		var orderingArr = ordering.split("");
+		var orderingArr = ordering.toLowerCase().split("");
+		var doneArr = [];
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			switch (o) {
-			case 'd':
-				this.createComponent(
-					{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1,
-						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
-				break;
-			case 'm':
-				this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
-				break;
-			case 'y':
-				this.createComponent({kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear});
-				break;
-			default:
-				break;
+			if (doneArr.indexOf(o) < 0) {
+				switch (o) {
+				case 'd':
+					this.createComponent(
+						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1,
+							max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
+					break;
+				case 'm':
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
+					break;
+				case 'y':
+					this.createComponent({kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear});
+					break;
+				default:
+					break;
+				}
+				doneArr.push(o);
 			}
 		}
 	},
 	parseDate: function() {
 		if (this._tf) {
-			var df = new ilib.DateFmt({
-				length: 'long',
-				locale: new ilib.Locale(this.locale)
-			});
-			return df.format(new ilib.Date.GregDate(this.value));
+			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 		} else {
 			return this.getAbbrMonths()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
@@ -123,7 +138,9 @@ enyo.kind({
 		this.$.day.setValue(this.value.getDate());
 
 		this.$.currentValue.setContent(this.parseDate());
-		this.doChange({name:this.name, value:this.value});
+		if (this.value) {
+			this.doChange({name:this.name, value:this.value});
+		}
 	},
 	//* If no item is selected, uses _this.noneText_ as current value.
 	noneTextChanged: function() {

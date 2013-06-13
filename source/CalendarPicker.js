@@ -1,3 +1,12 @@
+/**
+	_moon.CalendarPicker_ is a control that displays a monthly calendar, with the
+	month name at the top and a grid of days, grouped into rows by week, below.
+	
+	The header buttons are used to navigate to the desired month; the desired day
+	is selected by tapping on it.
+
+	{kind: "moon.CalendarPicker", content: "Calendar Title"}
+*/
 enyo.kind({
 	name: "moon.CalendarPickerDate",
 	kind: "enyo.Button",
@@ -7,7 +16,6 @@ enyo.kind({
 		value: null,
 		color: 0
 	},
-
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-picker-date-shadow");
@@ -15,7 +23,6 @@ enyo.kind({
 			this.removeClass("moon-calendar-picker-date-shadow");
 		}
 	},
-
 	valueChanged: function() {
 		this.setContent(this.value.getDate());
 	}
@@ -26,18 +33,15 @@ enyo.kind({
 	classes: "moon-calendar-picker-week",
 	days: [],
 	colors: [],
-
 	create: function() {
 		this.inherited(arguments);
 		this.setupLayout();
 	},
-
 	setupLayout: function() {
-		for (var i = 0; i < 7; i++) {		
+		for (var i = 0; i < 7; i++) {
 			this.createComponent({kind: "moon.CalendarPickerDate"});
 		}
 	},
-
 	fillDate: function(days, colors) {
 		this.days = days;
 		this.colors = colors;
@@ -66,7 +70,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap", 
+		ontap: "doTap",
 		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
@@ -98,7 +102,7 @@ enyo.kind({
 		colorArray: []
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicmoon-calendar-picker-block"},
+		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
 		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-picker-dates"}
 	],
 	create: function() {
@@ -107,7 +111,6 @@ enyo.kind({
 			this.locale = enyo.g11n.currentLocale().getLocale();
 		}
 		this.initDefaults();
-	//	this.noneTextChanged();
 	},
 	initDefaults: function() {
 		//Attempt to use the g11n lib (assuming that it is loaded)
@@ -136,11 +139,10 @@ enyo.kind({
 		var months = this.months;
 		/*Todo: Follwing statement violates encapsulation -david.um */
 		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
-		this.$.simplePicker.$.client.addClass("picker-content");
 		this.$.simplePicker.$.buttonRight.addClass("picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
-				{content: months[i]}
+				{content: months[i], classes: "picker-content"}
 			);
 		}
 	},
@@ -224,10 +226,8 @@ enyo.kind({
 			calendarWeeks[i].fillDate(days, colors);
 		}
 	},
-	parseDate: function(ordering) {
-	},
 	/**
-		Updates calendar when value of DatePicker changes. 
+		Updates calendar when value of DatePicker changes.
 	*/
 	updateCalendar: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
@@ -258,7 +258,7 @@ enyo.kind({
 		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
 			var newValue = inEvent.originator.value,
 				oldValue = this.getValue();
-			
+
 			if (newValue.getFullYear() > oldValue.getFullYear()) {
 				this.$.simplePicker.setSelectedIndex(0);
 			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
@@ -267,8 +267,8 @@ enyo.kind({
 				this.$.simplePicker.next();
 			} else if (newValue.getMonth() < oldValue.getMonth()) {
 				this.$.simplePicker.previous();
-			}								
-		} 
+			}
+		}
 		return true;
 	},
 	valueChanged: function(inOld) {

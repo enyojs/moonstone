@@ -12,7 +12,7 @@ enyo.kind({
 		autoCollapse: false,
 		/**
 			List of actions to be displayed
-		*/		
+		*/
 		listActions: [],
 		iconSrc: ""
 	},
@@ -25,11 +25,11 @@ enyo.kind({
 	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes:"moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
-	    {name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [			
+		{name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
-        	    {name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
-				{classes: "moon-list-actions-client-container", components: [
-				    {name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
+				{name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close", ontap:"expandContract", onSpotlightSelect: "expandContract"},
+				{classes: "moon-list-actions-client-container moon-dark-gray", components: [
+					{name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
 						{name:"listActionsContainer", classes:"moon-list-actions-container", onRequestScrollIntoView:"scrollIntoView"}
 					]}
 				]}
@@ -38,7 +38,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.openChanged();		
+		this.openChanged();
 		this.listActionsChanged();
 		this.$.activator.setSrc(this.iconSrc);
 	},
@@ -49,7 +49,7 @@ enyo.kind({
 		this.$.listActions.resized();
 	},
 	listActionsChanged: function() {
-		for (option in this.listActions) {
+		for (var option in this.listActions) {
 			this.$.listActionsContainer.createComponents([
 				{
 					classes: "moon-list-actions-menu",
@@ -64,31 +64,31 @@ enyo.kind({
 		drawer is open, closes drawer and highlights the activating control.
 	*/
 	expandContract: function(inSender, inEvent) {
-	    if (inSender.name === inEvent.originator.name) {
-	        if (this.disabled) {
-    			return true;
-    		}
-    		if(!this.getOpen()) {
+		if (inSender.name === inEvent.originator.name) {
+			if (this.disabled) {
+				return true;
+			}
+			if(!this.getOpen()) {
 				this.configurePopup();
-    			this.setOpen(true);
-    			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
-    		} else {
-    			this.setOpen(false);
+				this.setOpen(true);
+				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
+			} else {
+				this.setOpen(false);
 				enyo.Spotlight.spot(this.$.activator);
 				this.$.closeButton.undepress(); //why is this needed?
-    		}
-    		this.resetScrollers();
-    		return true;
-	    }
-	    return false;
+			}
+			this.resetScrollers();
+			return true;
+		}
+		return false;
 
 	},
 	configurePopup: function() {
-		var clientRect = this.parent.parent.hasNode().getBoundingClientRect(); 
+		var clientRect = this.parent.parent.hasNode().getBoundingClientRect();
 		this.$.drawerPopup.applyStyle('width', clientRect.width + "px");
 		this.$.drawerPopup.applyStyle('height', clientRect.height + "px");
-	    this.$.drawerPopup.setShowing(true);
-		this.$.drawerPopup.applyStyle('left', (clientRect.left - this.hasNode().getBoundingClientRect().left)  + "px");	
+		this.$.drawerPopup.setShowing(true);
+		this.$.drawerPopup.applyStyle('left', (clientRect.left - this.hasNode().getBoundingClientRect().left)  + "px");
 		this.$.drawerPopup.applyStyle('top', (clientRect.top - this.hasNode().getBoundingClientRect().top)  + "px");
 	},
 	//* Updates _this.$.drawer.open_ and redraws drawer when _this.open_ changes.
@@ -100,16 +100,16 @@ enyo.kind({
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			//decorate the event with the control's group action name
 			var controls = this.$.listActionsContainer.getControls();
-			for (index in controls) {
+			for (var index in controls) {
 				if (enyo.Spotlight.Util.isChild(controls[index], inEvent.toggledControl)) {
 					inEvent.action = controls[index].action;
 					break;
 				}
 			}
-			
+
 			if (this.autoCollapse) {
 				setTimeout(enyo.bind(this, function() {
-					this.setOpen(false);					
+					this.setOpen(false);
 					this.resetScrollers();
 					enyo.Spotlight.spot(this.$.activator);
 				}), 300);
@@ -122,7 +122,7 @@ enyo.kind({
 			this.$.listActions.scrollTo(0,0);
 			//reset focus to the first item in the main scroller
 			var child = enyo.Spotlight.getFirstChild(this.$.listActions);
-			enyo.Spotlight.Decorator.Container.setLastFocusedChild(child, enyo.Spotlight.getFirstChild(child));			
+			enyo.Spotlight.Decorator.Container.setLastFocusedChild(child, enyo.Spotlight.getFirstChild(child));
 		} else {
 			var optionGroup = this.$.listActionsContainer.getControls();
 			for (var i=0;i<optionGroup.length;i++) {
@@ -131,7 +131,7 @@ enyo.kind({
 					if (controls[j].kind == "moon.Scroller") {
 						controls[j].scrollTo(0,0);
 						//reset focus to the first item in each scroller
-						enyo.Spotlight.Decorator.Container.setLastFocusedChild(controls[j], 
+						enyo.Spotlight.Decorator.Container.setLastFocusedChild(controls[j],
 							enyo.Spotlight.getFirstChild(controls[j]));
 					}
 				}
@@ -139,7 +139,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Bubbles the _requestScrollIntoView_ event each time the drawer animates. 
+		Bubbles the _requestScrollIntoView_ event each time the drawer animates.
 		This makes for a smoother expansion animation when inside a scroller, as the
 		height of the scroller changes with the drawer's expansion.
 	*/
@@ -193,10 +193,10 @@ enyo.kind({
 					for (j=0;j<controls.length;j++) {
 						if (controls[j].kind == "moon.Scroller") {
 							//make the scroller the height of the drawer scroller - the items "heading" height - heading bottom margin height
-							controls[j].applyStyle("max-height", (this.$.listActions.hasNode().getBoundingClientRect().height 
-							- controls[0].hasNode().getBoundingClientRect().height 
-							- parseInt(controls[0].getComputedStyleValue('margin-bottom').replace('px'))) 
-							+ "px");							
+							controls[j].applyStyle("max-height", (this.$.listActions.hasNode().getBoundingClientRect().height
+							- controls[0].hasNode().getBoundingClientRect().height
+							- parseInt(controls[0].getComputedStyleValue('margin-bottom'), 10))
+							+ "px");
 						}
 					}
 				}
@@ -220,7 +220,7 @@ enyo.kind({
 				return true;
 			}
 		}
-		
+
 		if (inEvent.originator == this.$.closeButton) {
 			return true;
 		}
@@ -239,7 +239,7 @@ enyo.kind({
 				return true;
 			}
 		}
-		
+
 		if (inEvent.originator == this.$.closeButton) {
 			return true;
 		}
@@ -274,7 +274,7 @@ enyo.kind({
 			var listActionItems = this.$.listActionsContainer.getControls();
 			var last = listActionItems[listActionItems.length-1];
 			if (enyo.Spotlight.Util.isChild(last, inEvent.originator)) {
-				enyo.Spotlight.spot(this.$.closeButton);				
+				enyo.Spotlight.spot(this.$.closeButton);
 			}
 		}
 	},
@@ -287,7 +287,7 @@ enyo.kind({
 		if (!this.stacked) {
 			return true;
 		}
-	}	
+	}
 });
 
 

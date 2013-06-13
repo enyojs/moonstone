@@ -1,11 +1,11 @@
 enyo.kind({
 	name: "moon.sample.InputSample",
 	kind:"FittableRows",
-	classes: "moon moon-sample moon-input-sample",
+	classes: "moon enyo-unselectable enyo-fit moon-input-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Inputs"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, classes:"moon-input-sample-scroller", components: [
+		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, components: [
 			{kind: "moon.InputDecorator", spotlight: true, components: [
 				{kind: "moon.Input", placeholder: "JUST TYPE", onchange:"inputChanged"}
 			]},
