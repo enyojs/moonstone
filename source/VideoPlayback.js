@@ -1,23 +1,64 @@
 
 /**
-	_moon.VideoPlayback_ is a control that 
+	_moon.VideoPlayback_ is a control that wraps an _enyo.Video_ HTML5 video player to provide 
+	moonstone-styled standard transport controls, optional app-specific controls, and an 
+	information bar for video information and player feedback.
 
-		{kind: "moon.Slider", value: 30}
+	Client components added to the _components_ block should generally be limited to type 
+	_moon.BoxIconButton_, which are into the video player's transport control area.  If more than 
+	two are provided, they will be rendered onto an "overflow" screen which is reached via
+	a button that appears at the right of the controls.
+
+	The _infoComponents_ block is rendered into the top info bar.  A standard _moon.VidePlayerInfo_
+	control is provided for default styling of information in the info bar.
+
+	Example:
+
+		{
+			kind: "moon.VideoPlayback",  
+			jumpIncrement: "20%",
+			src: "http://www.w3schools.com/html/mov_bbb.mp4",
+			components: [
+				// Custom icons for app-specific features
+				{kind: "moon.BoxIconButton", src: "assets/feature1.png", ontap: "feature1"},
+				{kind: "moon.BoxIconButton", src: "assets/feature2.png", ontap: "feature2"},
+				{kind: "moon.BoxIconButton", src: "assets/feature3.png", ontap: "feature3"}
+			],
+			infoComponents: [
+				{
+					kind: "moon.VideoPlayerInfo", 
+					datetime: "CURRENT DATE & TIME", 
+					showname: "SHOW NAME", 
+					channel: "CHANNEL - AIR DATE & TIME SLOT", 
+					synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+					components: [
+						{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
+						{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
+						{content: "3D", classes: "moon-videoplayer-info-icon"},
+						{content: "REC 00:00", classes: "moon-videoplayer-info-icon moon-videoplayer-info-redicon"}
+					]
+				}
+			]
+		}
 
 */
+
 enyo.kind({
 	name: "moon.VideoPlayback",
 	kind: "enyo.Control",
 	classes: "moon-video-playback",
 	spotlight: true,
 	published: {
-		//* Position of slider, expressed as an integer between 0 and 100,
-		//* inclusive
+		//* HTML5 video source URL
 		src: "",
+		//* Width of video player, in pixels
 		width: 640,
+		//* Height of video player, in pixels
 		height: 360,
+		//* Time for video player controls to hide after the pointer stops moving (in seconds)
 		autoCloseTimeout: 2,
-		infoComponents: [],	// defining component block for Video Details
+		//* Components to be rendered into the top info bar.  This would typically include a _moon.VidePlayerInfo_ kind.
+		infoComponents: []
 	},
 	//* @protected
 	handlers: {
