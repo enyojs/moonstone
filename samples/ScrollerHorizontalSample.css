@@ -4,6 +4,7 @@
 	display:block;
 	border:1px solid gray;
 	white-space:nowrap;
+	height: 170px;
 }
 
 .moon-scroller-sample-divider {
