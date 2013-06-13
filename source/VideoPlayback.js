@@ -142,8 +142,9 @@ enyo.kind({
 	},
 	srcChanged: function() {
 		if (typeof this.src === "string" && this.src.length > 0) {
-			this.$.video.setSrc(this.src);
-
+			if (this.$.video) {
+				this.$.video.setSrc(this.src);
+			}
 			var p = this.controlParent;
 			this.controlParent = undefined;
 			this.$.slider.setVideo(this.$.video);
@@ -165,14 +166,14 @@ enyo.kind({
 		// Fixme : how to handle more than 1 buffer (buf_length > 1)
 		var bufferdRange = inSender.getBufferedTimeRange();
 		var buf_length = bufferdRange.length;
-		var buf_start = bufferdRange.start(0);
-		var buf_end = bufferdRange.end(0);
-		var buf = (buf_end - buf_start) / inSender.getDuration() * 100;
+		// var buf_start = bufferdRange.start(0);
+		// var buf_end = bufferdRange.end(0);
+		// var buf = (buf_end - buf_start) / inSender.getDuration() * 100;
 
 		// update slider positon
 		if (!this.$.slider.dragging) {
 			this.$.slider.setValue(val);
-			this.$.slider.setBgProgress(buf);
+			// this.$.slider.setBgProgress(buf);
 		}
 
 		// update play/pause icon

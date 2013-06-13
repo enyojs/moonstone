@@ -38,6 +38,7 @@ enyo.kind({
 	tag: "video",
 	_defaultStep: 0.2,
 	_direction: "",
+	playbackrate: 1,
 	create: function() {
 		this.inherited(arguments);
 		this.srcChanged();
@@ -182,10 +183,25 @@ enyo.kind({
 			this.node.pause();
 			this._cancelRequest();
 			this._requestRewind();
+			this.log(this.node.seeking);
 		}
 	},
 	fastForward: function() {
 		if (this.hasNode()) {
+			// switch (this.playbackrate) {
+			// 	case 2:
+			// 	this.playbackrate = 4; break;
+			// 	case 4:
+			// 	this.playbackrate = 16; break;
+			// 	case 16:
+			// 	this.playbackrate = 60; break;
+			// 	case 60:
+			// 	this.playbackrate = 300; break;
+			// 	default:
+			// 	this.playbackrate = 2;
+			// }
+			// this.node.playbackRate = this.playbackrate;
+
 			if (this.step && this.step < 4) {
 				this.step *= 2;
 			} else {
@@ -253,5 +269,6 @@ enyo.kind({
 	},
 	_clearStep: function() {
 		this.step = this._defaultStep;
+		this.node.playbackRate = this.playbackrate = 1;
 	}
 });
