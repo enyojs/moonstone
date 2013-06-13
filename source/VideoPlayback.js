@@ -23,15 +23,16 @@ enyo.kind({
 	handlers: {
 		onUpdate: "onUpdateHandler",
 		onmove: "onMoveHandler",
-		ontap: "checkShowHide",
-		onSpotlightDown: "checkShowHide",
-		onSpotlightUp: "checkShowHide",
-		onSpotlightLeft: "checkShowHide",
-		onSpotlightRight: "checkShowHide",
-		onSpotlightDown: "checkShowHide",
-		ondrag: "checkShowHide"
+		ontap: "onTapHandler",
+		onSpotlightDown: "onTapHandler",
+		onSpotlightUp: "onTapHandler",
+		onSpotlightLeft: "onTapHandler",
+		onSpotlightRight: "onTapHandler",
+		onSpotlightDown: "onTapHandler",
+		ondrag: "onTapHandler"
 	},
 	autoCloseTimer: null,
+	holdPulseThreadhold: 300,
 	controlTools: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-playback-video", ontimeupdate:"timeupdate"},
 		{name: "videoInfoHeader", layoutKind: "FittableColumnsLayout", classes: "moon-video-playback-header", components: [
@@ -45,11 +46,11 @@ enyo.kind({
 				{name: "leftPremiumPlaceHolder", style: "width: 80px; height:80px;"},
 				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-playback-controller", components: [
 					{name: "trickPlay", layoutKind: "FittableColumnsLayout", noStretch: true, classes: "enyo-center", components: [
-						{kind: "moon.BoxIconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler"},
+						{kind: "moon.BoxIconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler", onholdpulse: "onHoldPulseBackHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler"},
 						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-play.png", ontap: "playpauseHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler"},
-						{kind: "moon.BoxIconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler"}
+						{kind: "moon.BoxIconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler", onholdpulse: "onHoldPulseForwardHandler"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
@@ -84,7 +85,7 @@ enyo.kind({
 		this.controlParentName = "client";
 		this.discoverControlParent();
         this.inherited(arguments);
-		// this.hideLayer();
+		this.hideLayer();
 	},
 	createTools: function() {	
 		this.createComponents(this.controlTools, {owner: this});
@@ -115,9 +116,25 @@ enyo.kind({
 	},
 	timeupdate: function(inSender, inEvent) {
 		var val = (inSender.getCurrentTime() / inSender.getDuration())*100;
+		
+		// Fixme : how to handle more than 1 buffer (buf_length > 1)
+		var bufferdRange = inSender.getBufferedTimeRange();
+		var buf_length = bufferdRange.length;
+		var buf_start = bufferdRange.start(0);
+		var buf_end = bufferdRange.end(0);
+		var buf = (buf_end - buf_start) / inSender.getDuration() * 100;
+
+		// update slider positon
 		if (!this.$.slider.dragging) {
 			this.$.slider.setValue(val);
+			this.$.slider.setBgProgress(buf);
 		}
+
+		// update play/pause icon
+		this.onUpdateHandler();
+
+		var curTime = new Date(inSender.getCurrentTime()*1000);
+		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
 		return true;
 	},
 
@@ -181,19 +198,19 @@ enyo.kind({
 			this.resized();
 		}
 		this.resetAutoCloseTimer();
-		// this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-		// 		this.hideLayer();
-		// 	}), this.getAutoCloseTimeout() * 1000);
+		this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
+				this.hideLayer();
+			}), this.getAutoCloseTimeout() * 1000);
 		return true;
 	},
-	checkShowHide: function(inSender, inEvent) {
+	onTapHandler: function(inSender, inEvent) {
 		if (inSender.name == "video") {
 			this.hideLayer();
 		} else {
 			this.resetAutoCloseTimer();
-			// this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
-			// 		this.hideLayer();
-			// 	}), this.getAutoCloseTimeout() * 1000);
+			this.autoCloseTimer = setTimeout(enyo.bind(this, function() { 			
+					this.hideLayer();
+				}), this.getAutoCloseTimeout() * 1000);
 		}
 	},
 	resetAutoCloseTimer: function() {
@@ -201,12 +218,26 @@ enyo.kind({
 			clearTimeout(this.autoCloseTimer);
 		}
 	},
-	onEnterSlider: function() {
-		this.$.controls.setShowing(false);
+	onEnterSlider: function(inSender, inEvent) {
+		if (!this.$.slider.dragging) {
+			this.$.controls.setShowing(false);
+		}
 	},
-	onLeaveSlider: function() {
-		this.$.controls.show();
-		this.$.controls.resized();
+	onLeaveSlider: function(inSender, inEvent) {
+		if (!this.$.slider.dragging) {
+			this.$.controls.show();
+			this.$.controls.resized();
+		}
+	},
+	onHoldPulseBackHandler: function(inSender, inEvent) {
+		if (inEvent.holdTime > this.holdPulseThreadhold) {
+			this.$.video.jumpStart();
+		}
+	},
+	onHoldPulseForwardHandler: function(inSender, inEvent) {
+		if (inEvent.holdTime > this.holdPulseThreadhold) {
+			this.$.video.jumpEnd();
+		}
 	}
 
 });

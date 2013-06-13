@@ -36,6 +36,7 @@ enyo.kind({
 	},
 	//* @protected
 	tag: "video",
+	defaultStep: 1,
 	create: function() {
 		this.inherited(arguments);
 		this.srcChanged();
@@ -103,7 +104,8 @@ enyo.kind({
 	//* Play the video
 	play: function() {
 		if (this.hasNode()) {
-			this.node.playbackRate = 1;
+			this.clearStep();
+			this._cancelRequest();
 			if (!this.node.paused) {
 				this.node.pause();
 			} else {
@@ -115,6 +117,8 @@ enyo.kind({
 	//* Pause the video
 	pause: function() {
 		if (this.hasNode()) {
+			this.clearStep();
+			this._cancelRequest();
 			this.node.pause();
 		}
 	},
@@ -122,6 +126,13 @@ enyo.kind({
 	getCurrentTime: function() {
 		if (this.hasNode()) {
 			return this.node.currentTime;
+		}
+		return 0;
+	},
+	//* Return buffered time ranges
+	getBufferedTimeRange: function() {
+		if (this.hasNode()) {
+			return this.node.buffered;
 		}
 		return 0;
 	},
@@ -137,64 +148,89 @@ enyo.kind({
 		}
 		return 0;
 	},
+	jumpStart: function() {
+		if (this.hasNode()) {
+			this.pause();
+			this.clearStep();
+			this._cancelRequest();
+			this.node.currentTime = 0;
+		}
+	},
 	jumpBack: function() {
 		if (this.hasNode()) {
-			this.node.playbackRate = 1;
-			return this.node.currentTime=0;
+			this.clearStep();
+			this._cancelRequest();
+			this.node.currentTime-=30;
 		}
 	},
 	rewind: function() {
 		if (this.hasNode()) {
-			var newPlaybackRate = 0;
-			switch(this.node.playbackRate) {
-				case -4:
-				newPlaybackRate = -15; break;
-				case -15:
-				newPlaybackRate = -60; break;
-				case -60:
-				newPlaybackRate = -300; break;
-				case -300:
-				newPlaybackRate = -1; break;
-				default:
-				newPlaybackRate = -4;
+			if (this.step && this.step < 4) {
+				this.step *= 2;
+			} else {
+				this.clearStep();
 			}
-			this.log(newPlaybackRate);
-			return this.node.playbackRate=newPlaybackRate;
+			this.node.pause();
+			this._cancelRequest();
+			this._requestRewind();
 		}
 	},
 	fastForward: function() {
 		if (this.hasNode()) {
-			var newPlaybackRate = 0;
-			switch(this.node.playbackRate) {
-				// case 2:
-				// newPlaybackRate = 4; break;
-				// case 4:
-				// newPlaybackRate = 8; break;
-				// case 8:
-				// newPlaybackRate = 16; break;
-				// case 16:
-				// newPlaybackRate = 4; break;
-				// default:
-				// newPlaybackRate = 2;
-				case 4:
-				newPlaybackRate = 15; break;
-				case 15:
-				newPlaybackRate = 60; break;
-				case 60:
-				newPlaybackRate = 300; break;
-				case 300:
-				newPlaybackRate = 1; break;
-				default:
-				newPlaybackRate = 4;
+			if (this.step && this.step < 4) {
+				this.step *= 2;
+			} else {
+				this.clearStep();
 			}
-			this.log(newPlaybackRate);
-			return this.node.playbackRate=newPlaybackRate;
+			this.node.pause();
+			this._cancelRequest();
+			this._requestFastForward();
 		}
 	},
 	jumpForward: function() {
 		if (this.hasNode()) {
-			this.node.playbackRate = 1;
-			return this.node.currentTime=this.node.duration;
+			this.clearStep();
+			this._cancelRequest();
+			this.node.currentTime+=30;
 		}
+	},
+	jumpEnd: function() {
+		if (this.hasNode()) {
+			this.pause();
+			this.clearStep();
+			this._cancelRequest();
+			this.node.currentTime = this.node.duration;
+			
+		}
+	},
+	_requestRewind: function() {
+		this.job = enyo.requestAnimationFrame(enyo.bind(this, this._rewind));
+	},
+	_rewind: function() {
+		if (this.node.currentTime > 0) {
+			this.node.currentTime -= this.step;
+			this._requestRewind();
+		} else {
+			this.clearStep();
+			this._cancelRequest();
+		}
+	},
+	_cancelRequest: function() {
+		enyo.cancelRequestAnimationFrame(this.job);
+	},
+	_requestFastForward: function() {
+		this.job = enyo.requestAnimationFrame(enyo.bind(this, this._fastForward));
+	},
+	_fastForward: function() {
+		if (this.node.currentTime < this.node.duration) {
+			this.node.currentTime += this.step;
+			this._requestFastForward();
+		} else {
+			this.clearStep();
+			this._cancelRequest();
+		}
+	},
+	clearStep: function() {
+		this.step = this.defaultStep;
 	}
 });

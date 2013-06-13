@@ -1,52 +1,20 @@
+@moon-videoplayer-slider-knob-width: 56px;
+@moon-videoplayer-slider-knob-height: 56px;
+
+@moon-videoplayer-slider-canvas-width: 300px;
+@moon-videoplayer-slider-canvas-height: 200px;
+@moon-videoplayer-slider-canvas-label-height: 10px;
+
+@moon-videoplayer-slider-canvas-popup-height: @moon-videoplayer-slider-canvas-height + @moon-videoplayer-slider-canvas-label-height + @moon-grid-gutter-height;
+
 .moon-videoplayer-slider {
 	position: relative;
 }
 
-.moon-videoplayer-slider-popup {
-	position: absolute;
-	display: block;
-	z-index: 20;
-	left: 100px;
-	top: 0px;
-	width: 340px;
-	height: 270px;
-	padding-left: 0px;
-	background-color: rgba(0,0,0,0.5);
-}
-
-
-
-
-/*
-.moon-slider-popup {
-
-	background-color: rgba(0,0,0,0.5);
-}
-
-.moon-slider-popup-label {
-
-	background-color: rgba(0,0,0,0.5);
-}
-*/
-
-
-.moon-videoplayer-slider-popup {
-
-	top: -310px;
-	padding-left: 10px;
-}
-
-/*.moon-slider-popup-flip-h {
-	transform: rotateY(180deg);
-	-webkit-transform: rotateY(180deg);
-	-moz-transform: rotateY(180deg);
-}*/
-
 .moon-videoplayer-screen {
 	position: absolute;
-/*	margin-top: 0px;
-	margin-left: 0px;*/
-	/*z-index: -1;*/
+	margin-top: 0px;
+	margin-left: 0px;
 }
 
 
@@ -56,20 +24,27 @@
 
 
 
-.moon-slider-popup {
+.moon-videoplayer-slider .moon-videoplayer-slider-popup {
 	position: absolute;
 	display: block;
 	z-index: 20;
 	left: 100px;
 	top: 0px;
-	width: 62px;
-	height: 52px;
-	padding-left: 0px;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: @moon-videoplayer-slider-canvas-popup-height;
+	padding: 10px;
+	background-color: rgba(0,0,0,0.5);
 }
-.moon-slider-popup-label {
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-canvas {
+	top: 5px;
+	left: 5px;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: @moon-videoplayer-slider-canvas-height;
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-label {
 	position: absolute;
-	top: 2px;
-	width: 60px;
+	top: @moon-videoplayer-slider-canvas-height;
+	width: @moon-videoplayer-slider-canvas-width;
 	height: 45px;
 	white-space: nowrap;
 	font-family: @moon-alt-font-family;
@@ -79,19 +54,19 @@
 	vertical-align: middle;
 	font-size: @moon-pre-text-size;
 }
-.enyo-locale-non-latin .moon-slider-popup-label {
+.moon-videoplayer-slider .enyo-locale-non-latin .moon-videoplayer-slider-popup-label {
 	font-family: @moon-non-latin-font-family;
 }
-.moon-slider-popup.above {
-	top: -90px;
-	padding-left: 10px;
+
+.moon-videoplayer-slider .moon-videoplayer-slider-popup.above {
+	top: -(@moon-videoplayer-slider-canvas-popup-height + @moon-videoplayer-slider-knob-height);
+	
 }
-.moon-slider-popup-flip-h {
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-flip-h {
 	transform: rotateY(180deg);
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
 }
-
 
 
 
@@ -104,8 +79,8 @@
 	background-color: rgba(0,212,179,1);
 }
 
-.moon-videoplayer-slider  > .moon-slider-knob,
-.moon-videoplayer-slider  > .moon-slider-knob.disabled:active:hover {
+.moon-videoplayer-slider > .moon-slider-knob,
+.moon-videoplayer-slider > .moon-slider-knob.disabled:active:hover {
 	background-color: rgba(0,212,179,1);
 }
 
@@ -137,9 +112,9 @@
 }
 
 .moon-video-playback .moon-slider.spotlight > .moon-slider-knob {
-	height: 56px;
-	width: 56px;
-	border-radius: 28px;
+	height: @moon-videoplayer-slider-knob-height;
+	width: @moon-videoplayer-slider-knob-width;
+	border-radius: @moon-videoplayer-slider-knob-width/2;
 	margin: -30px -29px;
 	background-color: rgba(0,212,179,1);
 }

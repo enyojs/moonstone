@@ -6,10 +6,12 @@ enyo.kind({
     components: [
         {kind: "enyo.Spotlight"},
 		{
-			kind: "moon.VideoPlayback", 			
+			kind: "moon.VideoPlayback",	
 			jumpIncrement: "20%",
-			xsrc: "http://www.w3schools.com/html/mov_bbb.mp4",
-			src: "../../../video.mp4",
+			/* Needs long video file for testing */
+			src: "http://www.w3schools.com/html/mov_bbb.mp4",
+			xsrc: "../../../video.mp4",
+			xsrc: "../../../voice-E15.mp4",
 			components: [
 				{kind: "moon.BoxIconButton", src: "assets/icon-Premium-Placeholder.png", ontap: "onTap"},
 				{kind: "moon.BoxIconButton", src: "assets/icon-placeholder.png"},

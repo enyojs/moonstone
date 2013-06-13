@@ -22,12 +22,17 @@ enyo.kind({
 		onenter: "onEnterSlider", 
 		onleave: "onLeaveSlider"
 	},
-	popupComponents: [
-		{kind: "enyo.Popup", name: "popup", classes: "moon-videoplayer-slider-popup ", captureEvents: false, components: [
-			{tag: "canvas", name: "drawing", attributes: { width: 340, height: 270 }},
-			{name: "popupLabel", showing: false}
+	moreComponents: [
+		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
+		{classes: "moon-slider-taparea"},
+		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
+		{kind: "enyo.Popup", name: "popup", classes: "moon-videoplayer-slider-popup above", components: [
+			{tag: "canvas", name: "drawing", classes: "moon-videoplayer-slider-popup-canvas"},
+			{name: "popupLabel", classes: "moon-videoplayer-slider-popup-label"}
 		]}
 	],
+	previewWidth: 300,
+	previewHeight: 200,
 	create: function() {
 		this.inherited(arguments);
 		this.videoChanged();
@@ -48,16 +53,50 @@ enyo.kind({
 	},
 
 	//* @public
-	
+	updateKnobPosition: function(inPercent) {
+		this.$.knob.applyStyle("left", inPercent + "%");
+		this.$.popup.applyStyle("left", inPercent + "%");
+
+		var label = null;
+		if (this.video) { 
+			var curTime = new Date(this.video.getCurrentTime()*1000);
+			label = curTime.getMinutes() + ':' + curTime.getSeconds(); 
+		}
+		this.$.popupLabel.setContent(label);
+
+		this.updatePopupPosition();
+	},
 	updatePopupPosition: function() {
 		var inControl = this.$.popup;
 		if (!inControl.hasNode().getBoundingClientRect) {
 			return;
 		}
-		this.inherited(arguments);
+		
+		// canvas bounds
+		var db = this.$.drawing.hasNode().getBoundingClientRect();
 		var ctx = this.$.drawing.hasNode().getContext("2d");
+
+		// popup bounds
+		var pb = inControl.hasNode().getBoundingClientRect();
+		// container bounds
+		var cb = this.container.hasNode().getBoundingClientRect();
+		// knob bounds
+		var kb = this.$.knob.hasNode().getBoundingClientRect();
+
+		// draw video preview thumbnail
 		if (this.video !== null) {
-			ctx.drawImage(this.video.hasNode() , 10, 10, 320, 240);
+			ctx.drawImage(this.video.hasNode(), 0, 0, db.width, db.height);
+		}
+		
+		// when the popup's left edge is out of the window, adjust to the left
+		if ( (kb.left  - pb.width/2) < cb.left ) {
+			inControl.applyStyle("left", (kb.left - (kb.width/2)) + "px");
+		} else 
+		// when the popup's right edge is out of the window, adjust to the left
+		if ( (kb.left + (kb.width) + pb.width/2) > cb.right ) {
+			inControl.applyStyle("left", (kb.left - (kb.width/2) - pb.width) + "px");
+		} else {
+			inControl.applyStyle("left", (kb.left - (kb.width/2) - pb.width/2) + "px");
 		}
 	},
 	dragstart: function(inSender, inEvent) {
@@ -66,15 +105,14 @@ enyo.kind({
 			this.video.pause();
 
 			var b = this.video.getBounds();
-			// var bs = this.video.container.$.bgScreen;
 			var bs = this.$.bgScreen;
-			// this.log(bs);
+			
 			bs.setAttribute("width", b.width);
 			bs.setAttribute("height", b.height);
 			bs.setBounds(b);
 	
 			var ctx = bs.hasNode().getContext("2d");
-			ctx.drawImage(this.video.hasNode() , 0, 0, b.width, b.height);
+			ctx.drawImage(this.video.hasNode(), 0, 0, b.width, b.height);
 
 			bs.setShowing(true);
 		}
@@ -98,7 +136,6 @@ enyo.kind({
 		this.inherited(arguments);
 
 		if (this.video !== null) {
-			// var bs = this.video.container.$.bgScreen;
 			var bs = this.$.bgScreen;
 			if (!this.paused) this.video.play();
 			bs.setShowing(false);
@@ -123,35 +160,13 @@ enyo.kind({
 	showKnobStatus: function(inSender, inEvent) {
 		if (!this.noPopup && this.video !== null) {
 			var ctx = this.$.drawing.hasNode().getContext("2d");
-			ctx.drawImage(this.video.hasNode() , 10, 10, 320, 240);
+			var db = this.$.drawing.hasNode().getBoundingClientRect();
+			ctx.drawImage(this.video.hasNode() , 0, 0, db.width, db.height);
 		}
 		this.inherited(arguments);
 	},
 	drawToCanvas: function(bgColor) {
-		var h = 270; // height total
-		var hb = h - 10; // height bubble
-		var hbc = (hb-1)/2; // height of bubble's center
-		var w = 340; // width total
-		var wre = 46; // width's right edge
-		var wle = 16; // width's left edge
-		var r = 20; // radius
-
-		var ctx = this.$.drawing.hasNode().getContext("2d");
-
-		// Set styles. Default color is knob's color
-		ctx.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
-
-		// Draw shape with arrow on bottom-left
-		ctx.moveTo(1, h);
-		ctx.arcTo(1, hb, 39, hb, 8);
-		ctx.lineTo(wre, hb);
-		ctx.arcTo(w, hb, w, hbc, r);
-		ctx.arcTo(w, 1, wre, 1, r);
-		ctx.lineTo(wle, 1);
-		ctx.arcTo(1, 1, 1, hbc, r);
-		ctx.lineTo(1, h);
-		ctx.fill();
-		return false;
+		return true;
 	},
 	onEnterSlider: function(inSender, inEvent) {
 		if (!this.dragging && this.$.knob.hasNode()) {
