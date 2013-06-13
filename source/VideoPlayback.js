@@ -55,7 +55,12 @@ enyo.kind({
 		//* Height of video player, in pixels
 		height: 360,
 		//* Time for video player controls to hide after the pointer stops moving (in seconds)
-		autoCloseTimeout: 4
+		autoCloseTimeout: 4,
+		// WIP by JCKIM
+		currPos: 0,
+		currTime: 0,
+		duration: 0,
+		paused: false
 	},
 	handlers: {
 		onUpdate: "onUpdateHandler",
@@ -92,7 +97,7 @@ enyo.kind({
 					{name: "trickPlay", layoutKind: "FittableColumnsLayout", noStretch: true, classes: "enyo-center", components: [
 						{kind: "moon.BoxIconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler", onholdpulse: "onHoldPulseBackHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler"},
-						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-play.png", ontap: "playpauseHandler"},
+						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-Play.png", ontap: "playpauseHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler"},
 						{kind: "moon.BoxIconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler", onholdpulse: "onHoldPulseForwardHandler"}
 					]},
@@ -181,6 +186,12 @@ enyo.kind({
 
 		var curTime = new Date(inSender.getCurrentTime()*1000);
 		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
+
+		// WIP by JCKIM
+		this.setCurrPos(val);
+		this.setCurrTime(inSender.getCurrentTime());
+		this.setDuration(inSender.getDuration());	
+
 		return true;
 	},
 	getVideoInfoArea: function(inSender, inEvent) {
@@ -228,11 +239,13 @@ enyo.kind({
 	},
 	onUpdateHandler: function(inSender, inEvent) {
 		if (this.$.video.isPaused()) {
-			this.$.playpause.setSrc("assets/icon-play.png");
+			this.$.playpause.setSrc("assets/icon-Play.png");
 		}
 		else {
-			this.$.playpause.setSrc("assets/icon-pause.png");
+			this.$.playpause.setSrc("assets/icon-Pause.png");
 		}
+		// WIP by JCKIM
+		this.setPaused(this.$.video.isPaused());
 		return true;
 	},
 	onMoveHandler: function(inSender, inEvent) {

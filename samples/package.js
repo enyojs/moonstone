@@ -69,5 +69,6 @@ enyo.depends(
 	"PanelsWithCarouselArrangerSample.css",
 	"ToggleItemSample.css",
 	"ToggleItemSample.js",
-	"VideoPlaybackSample.js"
+	"VideoPlaybackSample.js",
+	"VideoPlaybackInlineSample.js"
 );
