@@ -9,8 +9,10 @@ enyo.kind({
 	name: "moon.ScrollStrategy",
 	kind: "enyo.TouchScrollStrategy",
 	published: {
+		//* Distance in px to travel each paging control button click
 		pageSize: 50
 	},
+	//@protected
 	handlers: {
 		onscrollstart: "scrollStart"
 	},
@@ -22,12 +24,12 @@ enyo.kind({
 	pos: {top: null, left: null},
 	//* Override _tools_ to remove thumbs
 	tools: [
-		{kind: "ScrollMath", onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"},
+		{kind: "ScrollMath", onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"}
 	],
 	//* Override _components_ to add thumbs and scrollbars
 	components: [
 		{name: "clientWrapper", classes: "moon-scroller-client-wrapper", components: [
-			{name: "client", classes: "enyo-touch-scroller"},
+			{name: "client", classes: "enyo-touch-scroller"}
 		]},
 		{name: "vColumn", classes: "moon-scroller-v-column", components: [
 			{name: "pageUpControl", kind: "moon.PagingControl", classes: "hidden", side: "top", content: "<"},
