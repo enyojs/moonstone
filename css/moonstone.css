@@ -2306,6 +2306,203 @@ p.moon-drawers-close-handle-text {
   position: absolute;
   right: 0px;
 }
+.moon-videoplayer-info {
+  position: relative;
+  height: 100%;
+}
+.moon-videoplayer-info > * {
+  padding: 15px;
+}
+.moon-videoplayer-info-datetime {
+  font-size: 24px;
+}
+.moon-videoplayer-info-showname {
+  font-size: 48px;
+}
+.moon-videoplayer-info-channel {
+  font-size: 18px;
+}
+.moon-videoplayer-info-synopsys {
+  font-size: 18px;
+}
+.moon-videoplayer-info-client {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.moon-videoplayer-info-icon {
+  background-color: white;
+  color: black;
+  border-radius: 3px;
+  text-align: center;
+  float: left;
+  padding: 7px;
+  margin: 5px;
+  font-size: 12px;
+}
+.moon-videoplayer-info-redicon {
+  background-color: red;
+  color: white;
+}
+.moon-videoplayer-slider {
+  position: relative;
+}
+.moon-videoplayer-screen {
+  position: absolute;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup {
+  position: absolute;
+  display: block;
+  z-index: 20;
+  left: 100px;
+  top: 0px;
+  width: 300px;
+  height: 220px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-canvas {
+  top: 5px;
+  left: 5px;
+  width: 300px;
+  height: 200px;
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-label {
+  position: absolute;
+  top: 200px;
+  width: 300px;
+  height: 45px;
+  white-space: nowrap;
+  font-family: "Miso";
+  color: #fff;
+  text-align: center;
+  line-height: 45px;
+  vertical-align: middle;
+  font-size: 24px;
+}
+.moon-videoplayer-slider .enyo-locale-non-latin .moon-videoplayer-slider-popup-label {
+  font-family: "LG Display";
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup.above {
+  top: -276px;
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-flip-h {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+}
+.moon-videoplayer-slider .moon-slider-knob,
+.moon-videoplayer-slider .moon-slider-knob.disabled:active:hover {
+  position: relative;
+  background-color: #00d4b3;
+}
+.moon-videoplayer-slider > .moon-slider-knob,
+.moon-videoplayer-slider > .moon-slider-knob.disabled:active:hover {
+  background-color: #00d4b3;
+}
+.moon-video-playback > .moon-slider-knob.active,
+.moon-video-playback > .moon-slider-knob.spotselect,
+.moon-video-playback > .moon-slider-knob:active:hover {
+  background-color: #00d4b3;
+}
+.moon-video-playback .moon-progress-bar {
+  position: relative;
+  margin: 50px 20px;
+  height: 4px;
+  background-color: #323232;
+  min-width: 128px;
+}
+.moon-video-playback .moon-progress-bg-bar {
+  background-color: #7d7d7d;
+}
+.moon-video-playback .moon-progress-bar-bar {
+  background-color: #00d4b3;
+  margin-top: -4px;
+}
+.moon-video-playback .moon-slider.spotlight > .moon-progress-bar-bar {
+  background-color: #00d4b3;
+}
+.moon-video-playback .moon-slider.spotlight > .moon-slider-knob {
+  height: 56px;
+  width: 56px;
+  border-radius: 28px;
+  margin: -30px -29px;
+  background-color: #00d4b3;
+}
+.moon-video-playback {
+  position: relative;
+  padding: 0px;
+  vertical-align: middle;
+}
+.moon-video-playback-video {
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.moon-video-playback-caption-display {
+  text-align: center;
+  position: absolute;
+}
+.moon-video-playback-caption {
+  display: block;
+  text-align: center;
+}
+.moon-video-playback-header {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  top: 0px;
+  z-index: 2;
+}
+.moon-video-playback-header > * {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+.moon-video-playback-feedback {
+  position: relative;
+  height: 100%;
+  width: 200px;
+}
+.moon-video-playback-feedback-icon {
+  font-size: 50px;
+  text-align: center;
+  margin-top: 70px;
+}
+.moon-video-playback-bottom {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.moon-video-playback-controls {
+  height: 90px;
+}
+.moon-video-playback-controller > * {
+  width: 100%;
+}
+.moon-video-playback-slider-container {
+  padding: 0px 20px;
+}
+.moon-box-icon-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 0px;
+  border: 0px;
+  background-color: transparent;
+}
+.moon-box-icon-button.active,
+.moon-box-icon-button.spotlight,
+.moon-box-icon-button.spotlight.pressed,
+.moon-box-icon-button.spotlight:active {
+  background-position: 0 -80px;
+  border: 0px;
+  background-color: transparent;
+}
 .moon-scroller-client-wrapper {
   position: absolute;
   overflow: hidden;
