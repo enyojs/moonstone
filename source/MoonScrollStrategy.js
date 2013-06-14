@@ -83,6 +83,7 @@ enyo.kind({
 			this.showHideScrollColumns(true);
 		}
 		this.setThumbSizeRatio();
+		this.updatePageSize();
 	},
 	/**
 		Because the thumb columns are a fixed size that impacts the scrollbounds, capture
