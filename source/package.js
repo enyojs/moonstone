@@ -7,6 +7,7 @@ enyo.depends(
 	"SimpleIntegerPicker.js",
 	"GridList.js",
 	"GridListImageItem.js",
+	"MoonGridFlyweightRepeater.js",
 	"Checkbox.js",
 	"CheckboxItem.js",
 	"ToggleText.js",
