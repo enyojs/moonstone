@@ -4,7 +4,6 @@ enyo.kind({
     titleAbove: "01",
     title: "Main Menu",
     components: [
-        {kind: "enyo.Spotlight"},
         {
             name: "menuList",
             kind: "enyo.DataList",
@@ -37,7 +36,7 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                // {kind: "enyo.Spotlight"},
+                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.video.MainMenuNarrowSample",
                     controller: ".app.controllers.movieController",
