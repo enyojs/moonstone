@@ -1,17 +1,13 @@
 .moon-scroller-client-wrapper {
-	position: absolute;
-	overflow: hidden;
-	left: 0px;
-	right: 0px;
-	top: 0px;
-	bottom: 0px;
+	box-sizing: border-box;
+	height: 100%;
 }
 
 .moon-scroller-client-wrapper.v-scroll-enabled {
-	right: 50px;
+	padding-right: 50px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-	bottom: 50px;
+	padding-bottom: 50px;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled.h-scroll-enabled {
 }
