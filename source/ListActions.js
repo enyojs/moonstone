@@ -157,9 +157,9 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		//don't refresh while animating
+		this.configurePopup();
 		if (!this.$.drawer.$.animator.isAnimating()){
 			this.refresh();
-			this.$.listActions.render();
 		}
 	},
 	refresh: function() {
@@ -180,7 +180,7 @@ enyo.kind({
 					controls = optionGroup[i].getControls();
 					for (j=0;j<controls.length;j++) {
 						if (controls[j].kind == "moon.Scroller") {
-							controls[j].applyStyle("max-height", "none");
+							controls[j].applyStyle("height", "none");
 						}
 					}
 				}
@@ -193,7 +193,7 @@ enyo.kind({
 					for (j=0;j<controls.length;j++) {
 						if (controls[j].kind == "moon.Scroller") {
 							//make the scroller the height of the drawer scroller - the items "heading" height - heading bottom margin height
-							controls[j].applyStyle("max-height", (this.$.listActions.hasNode().getBoundingClientRect().height
+							controls[j].applyStyle("height", (this.$.listActions.hasNode().getBoundingClientRect().height
 							- controls[0].hasNode().getBoundingClientRect().height
 							- parseInt(controls[0].getComputedStyleValue('margin-bottom'), 10))
 							+ "px");
