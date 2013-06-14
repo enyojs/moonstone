@@ -1,15 +1,15 @@
 /**
-A control that allows you to play video.  This component is an abstraction of HTML 5 Video.
+	_enyo.Video_ is a control that allows you to play video. It is an
+	abstraction of HTML 5 Video.
 
-Initialize a video component as follows:
+	Initialize a video component as follows:
 
-	{kind: "Video", src: "http://www.w3schools.com/html/movie.mp4"}
+		{kind: "Video", src: "http://www.w3schools.com/html/movie.mp4"}
 	
-To play a video, do this:
+	To play a video, call `this.$.video.play()`.
 
-	this.$.video.play();
-
-You can get a reference to the actual HTML 5 Video element via <code>this.$.video.hasNode()</code>.
+	To get a reference to the actual HTML 5 Video element, call
+	`this.$.video.hasNode()`.
 */
 enyo.kind({
 	name: "enyo.Video",
