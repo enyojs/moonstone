@@ -6,7 +6,6 @@ enyo.kind({
         ontap: "onTap"
     },
     components: [
-        //{kind: "enyo.Spotlight"},
         {kind: "moon.Divider", content: "Wizard Popup Sample"},
         {classes: "moon-hspacing", components: [
             {kind: "moon.Button", content: "Wizard Popup", ontap: "showPopup", popup: "wizPopup"}
@@ -19,14 +18,14 @@ enyo.kind({
         {from: ".controller", to: ".$.wizardSample.controller"}
     ],
     showPopup: function(inSender) {
+        this.hidePopup();
         var p = this.$[inSender.popup];
         if (p) {
             p.show();
         }
     },
-    onTap: function(inSender, inEvent) {
-        if(this.$.wizardSample.getShowing())
-            this.$.wizardSample.setIndex(0);
+    hidePopup: function() {
+        this.$.wizPopup.hide();
     }
 });
 
@@ -114,39 +113,6 @@ enyo.kind({
         this.$.stepPage3.$.header.addClass("wizard-hide");
         this.$.stepPage4.$.header.addClass("wizard-hide");
         this.$.confirmPage.$.header.addClass("wizard-hide");
-    },
-    onTap: function(oSender, oEvent) {
-        //* override from panels
-        // no action for Carosel Arranger using button
-        var target = oEvent.dispatchTarget.kind;
-        switch(target)
-        {
-            case "moon.Item":
-                var collection = this.controller.get("wizResults");
-                var cmd = oEvent.dispatchTarget.content;
-                for (var idx in collection) {
-                    if(cmd == collection.at(idx).get("step"))
-                    {
-                        this.setIndex(idx);
-                        this.closeListAction(oSender.name);
-                        return true;
-                    }
-                }
-                break;
-            case "moon.Button":
-                this.closeListAction(oSender.name);
-                break;
-
-        }
-        return true;
-    },
-    closeListAction: function(sender) {
-        var p = this.$[sender].$.header.$.wizListAction;
-        if(p.getOpen())
-        {
-            p.setOpen(false);
-            enyo.Spotlight.spot(p.$.activator);
-        }    
     }
 });
 
