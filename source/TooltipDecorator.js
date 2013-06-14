@@ -1,5 +1,5 @@
 /**
-	A control that activates an <a href="#moon.Tooltip">moon.Tooltip</a>. It
+	A control that activates a <a href="#moon.Tooltip">moon.Tooltip</a>. It
 	surrounds a control such as a button and displays the tooltip when the
 	control generates an _onEnter_ event:
 
@@ -8,7 +8,7 @@
 			{kind: "moon.Tooltip", content: "I'm a tooltip for a button."}
 		]}
 
-	Here's an example with an <a href="#moon.Input">moon.Input</a> control and a
+	Here's an example with a <a href="#moon.Input">moon.Input</a> control and a
 	decorator around the input:
 
 		{kind: "moon.TooltipDecorator", components: [

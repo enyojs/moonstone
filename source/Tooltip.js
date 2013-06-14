@@ -1,6 +1,6 @@
 /**
 	_moon.Tooltip_ is a kind of <a href="#moon.Popup">moon.Popup</a> that works
-	with an	<a href="#moon.TooltipDecorator">moon.TooltipDecorator</a>. It
+	with a <a href="#moon.TooltipDecorator">moon.TooltipDecorator</a>. It
 	automatically displays a tooltip when the user hovers over the decorator.
 	The tooltip is positioned around the decorator where there is available
 	window space.
@@ -10,7 +10,7 @@
 			{kind: "moon.Tooltip", content: "I'm a tooltip for a button."}
 		]}
 
-	You may manually display the tooltip by calling its _show_ method.
+	You may force the tooltip to appear by calling its _show()_ method.
 */
 
 enyo.kind({

@@ -1,11 +1,12 @@
 /**
-	_moon.SelectableItem_ is a moon.Item which can be selected
-	with Moonstone styling applied. 
+	_moon.SelectableItem_ is a <a href="#moon.Item">moon.Item</a> with a flag to
+	track selection state.  It is especially useful within the context of the
+	<a href="#enyo.Group">Enyo Group API</a>. 
 
-	When item is selected, it has narrow underline at the bottom.
+	When selected, the item appears as underlined.
 
-	If item is used in group, only one item can be in selected state
-	at one time.
+	If multiple SelectableItems are used in a group, only one of them may be in
+	the selected state at a given time.
 */
 
 enyo.kind({
@@ -18,7 +19,7 @@ enyo.kind({
 		onActivate: ""
 	},
 	handlers: {
-		// prevents double bubbling of _onchange_ in IE
+		// Prevents double bubbling of _onchange_ in IE.
 		onclick: ""
 	},
 	published: {

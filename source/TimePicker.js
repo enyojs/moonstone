@@ -31,15 +31,13 @@ enyo.kind({
 });
 
 /**
-	_moon.TimePicker_ is a control that can display or pick hour, minute and am/pm.
-
-	To initialize the picker to a particular time, set the _value_ property to
-	that standard JavaScript Date object:
+	_moon.TimePicker_ is a control that can display--or allow the selection of--a
+	time expressed as an hour, minute, and am/pm.
 
 		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, onChange: "changed"}
 
-	The picker may be changed programmatically by modifying the published
-	properties _value_ in the normal manner, by calling _set()_.
+	Set the _value_ property to a standard JavaScript Date object to initialize
+	the picker, or to change it programmatically at runtime.
 */
 enyo.kind({
 	name: "moon.TimePicker",
@@ -72,8 +70,8 @@ enyo.kind({
 		locale: "en-US",
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
-			is passed to _setValue()_, the control is updated to reflect the new
-			value. _getValue()_ returns a Date object.
+			is passed to _set("value")_, the control is updated to reflect the new
+			value. _get("value")_ returns a Date object.
 		*/
 		value: null,
 		/**
