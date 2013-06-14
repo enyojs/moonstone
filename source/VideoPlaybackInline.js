@@ -33,8 +33,17 @@ enyo.kind({
 			style: "position: absolute; bottom: 0px; left: 0px; width: 80px; height:80px; background-color: transparent; z-index: 5;",
 		},
 		{
-			name: "textBox",
 			style: "position: absolute; bottom: 20px; left: 100px; background-color: transparent; color: white; font-size: 32px; z-index: 5;",
+			components: [
+				{
+					name: "currTime",
+					style: "display:inline"
+				},
+				{
+					name: "totalTime",
+					style: "display:inline"
+				}
+			]			
 		},
 		{
 			name: "progressStatus", 
@@ -47,17 +56,14 @@ enyo.kind({
 			style: "position: absolute; bottom: 0px; right: 0px; width: 80px; height:80px; background-color: transparent; z-index: 5;",
 		}
 	],
-	textBoxUpdate: function() {
-		var cu = Math.floor(this.getCurrentTime());
-		var du = Math.floor(this.getDuration());
-		this.$.textBox.setContent(cu+"/"+du);
-	},
-	currTimeChanged: function() {
-		this.textBoxUpdate();
+	currentTimeChanged: function() {
+		var cur = new Date(this.getCurrentTime()*1000);
+		this.$.currTime.setContent(cur.getMinutes() + ':' + cur.getSeconds()); 
 		return true;
 	},
 	durationChanged: function() {
-		this.textBoxUpdate();
+		var dur = new Date(this.getDuration()*1000);
+		this.$.totalTime.setContent('/'+ dur.getMinutes() + ':' + dur.getSeconds()); 
 		return true;
 	},
 	PlayPause: function(inSender, inEvent)
