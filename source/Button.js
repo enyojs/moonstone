@@ -20,7 +20,7 @@ enyo.kind({
 		*/
 		small: false,
 	},
-	classes: 'moon-button enyo-unselectable',
+	classes: 'moon-button moon-header-font enyo-unselectable',
 	spotlight: true,
 	handlers: {
 		//* onSpotlightSelect, simulate mousedown
