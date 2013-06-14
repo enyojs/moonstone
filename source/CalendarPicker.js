@@ -1,8 +1,9 @@
 /**
-	_moon.CalendarPicker_ is a control that displays month at the top and days at the bottom
-	with Moonstone styling applied.
+	_moon.CalendarPicker_ is a control that displays a monthly calendar, with the
+	month name at the top and a grid of days, grouped into rows by week, below.
 	
-	To choose day, tap on left/right button at the header and each day button.
+	The header buttons are used to navigate to the desired month; the desired day
+	is selected by tapping on it.
 
 	{kind: "moon.CalendarPicker", content: "Calendar Title"}
 */

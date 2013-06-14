@@ -10,7 +10,8 @@ enyo.kind({
 	classes: "moon-contextual-popup",
 	handlers: {
 		onRequestShowPopup: "requestShow",
-		onRequestHidePopup: "requestHide"
+		onRequestHidePopup: "requestHide",
+		onActivate: "decorateActivateEvent"
 	},
 	floating:true,
 	//layout parameters
@@ -30,6 +31,9 @@ enyo.kind({
 	requestHide: function(inSender, inEvent) {
 		this.hide();
 		return true;
+	},
+	decorateActivateEvent: function(inSender, inEvent) {
+		inEvent.sentFromPopup = this;
 	},
 	getPageOffset: function(inNode) {
 		// getBoundingClientRect returns top/left values which are relative to the viewport and not absolute

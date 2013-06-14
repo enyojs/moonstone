@@ -1,23 +1,23 @@
 /**
-	_moon.ToggleButton_, which extends <a href="#moon.Checkbox">moon.Checkbox</a>,
-	is a control that looks like a switch with labels for two states, an "on"
-	state and an "off" state.  When the ToggleButton is tapped, it switches its
-	state and fires an _onChange_ event.
+	_moon.ToggleText_, which extends <a href="#moon.Checkbox">moon.Checkbox</a>,
+	is a control that looks like a switch with labels for an "on" state and an
+	"off" state.  When the ToggleText is tapped, it switches its state and fires
+	an _onChange_ event.
 */
 
 enyo.kind({
 	name: "moon.ToggleText",
 	kind: "moon.Checkbox",
 	published: {
-		//* Label for toggle button's "on" state
+		//* Text label for the "on" state
 		onContent: $L("on"),
-		//* Label for toggle button's "off" state
+		//* Text label for the "off" state
 		offContent: $L("off")
 	},
 	//* @protected
-	classes: "moon-toggle-button",
+	classes: "moon-toggle-text",
 	components: [
-		{name: "label", classes: "moon-toggle-button-text"}
+		{name: "label", classes: "moon-toggle-text-text"}
 	],
 	create: function() {
 		this.inherited(arguments);

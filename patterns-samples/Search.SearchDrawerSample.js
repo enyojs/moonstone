@@ -5,7 +5,6 @@ enyo.kind({
     classes: "enyo-fit moon drawer-sample",
     fit: true,
     components: [
-        {kind: "enyo.Spotlight"},
 		{kind:"moon.Drawers", drawers:[
 				{name:"searchDrawer", kind:"moon.Drawer",
 					handle: {kind:"moon.DrawerHandle", content:"SEARCH"},

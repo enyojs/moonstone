@@ -1,15 +1,15 @@
 enyo.kind({
 	name: "moon.sample.DrawerSample",
 	classes: "moon enyo-unselectable enyo-fit",
-    components: [
-        {kind: "enyo.Spotlight"},
+	components: [
+		{kind: "enyo.Spotlight"},
 		{
 			name: "drawers",
 			kind: "moon.Drawers",
 			drawers:[
 				{
-					name: "partialDrawer", 
-					open: false, 
+					name: "partialDrawer",
+					open: false,
 					controlsOpen: false,
 					handle: {name: "handleButton", content: "Partial drawer", marquee: true},
 					components: [
@@ -23,7 +23,7 @@ enyo.kind({
 					]
 				},
 				{
-					name: "searchDrawer", 
+					name: "searchDrawer",
 					handle: {content: "Full drawer"},
 					components: [
 						{kind: "moon.Header", title: "Full Drawer"},
@@ -33,19 +33,19 @@ enyo.kind({
 				}
 			],
 			components: [
-		        {
-		        	name: "panels", 
-		        	kind: "moon.Panels",
-		        	classes: "enyo-fit",
-		        	components: [
-				        {title: "First", components: [
+				{
+					name: "panels",
+					kind: "moon.Panels",
+					classes: "enyo-fit",
+					components: [
+						{title: "First", components: [
 							{kind: "moon.Item", content: "Item One"},
 							{kind: "moon.Item", content: "Item Two"},
 							{kind: "moon.Item", content: "Item Three"},
 							{kind: "moon.Item", content: "Item Four"},
 							{kind: "moon.Item", content: "Item Five"}
 						]},
-			            {title: "Second", components: [
+						{title: "Second", components: [
 							{kind: "moon.Item", content: "Item One"},
 							{kind: "moon.Item", content: "Item Two"},
 							{kind: "moon.Item", content: "Item Three"},
@@ -56,7 +56,7 @@ enyo.kind({
 				}
 			]
 		}
-    ],
+	],
 	openMainDrawer: function() {
 		this.$.partialDrawer.setOpen(true);
 	},

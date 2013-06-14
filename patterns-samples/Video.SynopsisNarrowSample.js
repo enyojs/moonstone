@@ -4,7 +4,6 @@ enyo.kind({
     title: "Synopsis",
     titleAbove: "04",
     components: [
-        {kind: "enyo.Spotlight"},
         {
             kind: "FittableRows",
             components: [
@@ -59,6 +58,7 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
+                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.video.SynopsisNarrowSample",
                     controller: ".app.controllers.movieController",

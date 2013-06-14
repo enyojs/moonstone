@@ -77,7 +77,7 @@ enyo.kind({
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
-			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
+			onSpotlightFocus: "headerFocus", ontap: "expandContract"
 		},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", highlander: true},
@@ -102,12 +102,14 @@ enyo.kind({
 			index = -1;
 
 		for(var i=0;i<controls.length;i++) {
+			controls[i].silence();
 			if(controls[i] === selected) {
 				controls[i].setChecked(true);
 				index = i;
 			} else {
 				controls[i].setChecked(false);
 			}
+			controls[i].unsilence();
 		}
 
 		if(index > -1 && selected !== inOldValue) {

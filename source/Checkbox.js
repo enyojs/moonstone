@@ -36,8 +36,9 @@ enyo.kind({
 			}
 
 			this.bubble("onchange");
+		} else {
+			return true;
 		}
-		return !this.disabled;
 	},
 	dragstart: function() {
 		// Override enyo.Input dragstart handler, to allow drags to propagate for Checkbox
