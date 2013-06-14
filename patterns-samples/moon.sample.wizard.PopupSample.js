@@ -113,6 +113,10 @@ enyo.kind({
         this.$.stepPage3.$.header.addClass("wizard-hide");
         this.$.stepPage4.$.header.addClass("wizard-hide");
         this.$.confirmPage.$.header.addClass("wizard-hide");
+    },
+    onTap: function(oSender, oEvent) {
+        //* override from panels
+        return true;
     }
 });
 
