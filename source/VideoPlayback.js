@@ -55,7 +55,12 @@ enyo.kind({
 		//* Height of video player, in pixels
 		height: 360,
 		//* Time for video player controls to hide after the pointer stops moving (in seconds)
-		autoCloseTimeout: 4
+		autoCloseTimeout: 4,
+		// WIP by JCKIM
+		currentPosition: 0,
+		currentTime: 0,
+		duration: 0,
+		paused: false
 	},
 	handlers: {
 		onUpdate: "onUpdateHandler",
@@ -181,6 +186,11 @@ enyo.kind({
 
 		var curTime = new Date(inSender.getCurrentTime()*1000);
 		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
+
+		this.setCurrentPosition(val);
+		this.setCurrentTime(inSender.getCurrentTime());
+		this.setDuration(inSender.getDuration());	
+
 		return true;
 	},
 	getVideoInfoArea: function(inSender, inEvent) {
@@ -233,6 +243,7 @@ enyo.kind({
 		else {
 			this.$.playpause.setSrc("assets/icon-Pause.png");
 		}
+		this.setPaused(this.$.video.isPaused());
 		return true;
 	},
 	onMoveHandler: function(inSender, inEvent) {
