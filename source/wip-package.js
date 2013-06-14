@@ -14,5 +14,6 @@ enyo.depends(
 	"Video.js",
 	"VideoPlayerInfo.js",
 	"VideoPlayer.js",
-	"VideoPlayerSlider.js"
+	"VideoPlayerSlider.js",
+	"VideoInlineControl.js"
 );
