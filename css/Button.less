@@ -17,25 +17,30 @@
 	color: @moon-light-text-color;
 }
 
-.moon-button.small{
+.moon-button.small {
   max-height: @moon-button-small-height;
+  min-height: @moon-button-small-height;
   min-width: @moon-button-small-height;
   padding: 13px 22px 13px 22px;
+  line-height: 20px;
+  position: relative;
+  overflow: visible;
 }
 
-.small-decorator{
-  display: inline-block;
-  cursor: pointer;
-  border-radius: @moon-button-border-radius;
-  border: @moon-button-small-border-width solid transparent;
+.small-button-tap-area {
+	position: absolute;
+	top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+	bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+	left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
+	right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 }
 
-.small-decorator:active .moon-button,
 .moon-button.active,
 .moon-button.pressed,
 .moon-button:active,
 .moon-button.spotlight.pressed,
-.moon-button.spotlight:active
+.moon-button.spotlight:active,
+.moon-button.small.spotlight.pressed
 {
 	border: @moon-button-border-width solid @moon-spotlight-border-color;
 	background-color: @moon-button-background-color;

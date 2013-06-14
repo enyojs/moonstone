@@ -496,23 +496,28 @@
   text-transform: uppercase;
   color: #4b4b4b;
 }
-.moon-button.small{
+.moon-button.small {
   max-height: 60px;
-  min-width: 60px;  
+  min-height: 60px;
+  min-width: 60px;
   padding: 13px 22px 13px 22px;
+  line-height: 20px;
+  position: relative;
+  overflow: visible;
 }
-.small-decorator{
-  display: inline-block;
-  cursor: pointer;
-  border-radius: 9999px;
-  border: 9px solid transparent;
+.small-button-tap-area {
+  position: absolute;
+  top: -14px;
+  bottom: -14px;
+  left: -14px;
+  right: -14px;
 }
-.small-decorator:active .moon-button,
 .moon-button.active,
 .moon-button.pressed,
 .moon-button:active,
 .moon-button.spotlight.pressed,
-.moon-button.spotlight:active {
+.moon-button.spotlight:active,
+.moon-button.small.spotlight.pressed {
   border: 5px solid #ffb80d;
   background-color: #ffffff;
 }
@@ -773,9 +778,6 @@
   padding: 0px;
   line-height: 14px;
   font-weight: normal;
-}
-.moon-expandable-picker-help-text {
-  color: gray;
 }
 .moon-header {
   color: #4b4b4b;
@@ -1397,6 +1399,23 @@ PageControl's use of IconButtons
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
   cursor: default;
+}
+/*ContextualPopupButton.css*/
+.contextual-popup-button {
+  background-image: url(../images/contextual-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.spotlight {
+  background-image: url(../images/contextual-arrow-spotlight.png);
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 50px;
+}
+.contextual-popup-button.pressed,
+.contextual-popup-button:active {
+  background-image: url(../images/contextual-arrow.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {

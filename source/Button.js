@@ -9,86 +9,57 @@
 */
 
 enyo.kind({
-	name		: 'moon.Button',
-	kind		: 'enyo.Button',
-	published	: {
+	name: 'moon.Button',
+	kind: 'enyo.Button',
+	published: {
 		/**
-			_small_ is a parameter to indicates the size of button.
+			_small_ is a parameter which indicates the size of button.
 			If it has true value, diameter of this button is 60px.
 			However, the tap-target for button still has 78px, so it has
 			invisible DOM which wrap this small button to provide wider tap zone.
 
 		*/
-		small	: false,
+		small: false,
 	},
-	targetLayer	: "",
-	classes		: 'moon-button enyo-unselectable',
-	spotlight	: true,
-
+	classes: 'moon-button enyo-unselectable',
+	spotlight: true,
 	handlers: {
+		//* onSpotlightSelect, simulate mousedown
 		onSpotlightSelect	: 'depress',
+		//* onSpotlightKeyUp, simulate mouseup
 		onSpotlightKeyUp	: 'undepress'
 	},
-
+	//* On create, update based on _this.small_
 	create: function() {
 		this.inherited(arguments);
-		this.smallChanged();
+		this.updateSmall();
 	},
-
+	//* Add _pressed_ css class
 	depress: function() {
 		this.addClass('pressed');
 	},
-
+	//* Remove _pressed_ css class
 	undepress: function() {
 		this.removeClass('pressed');
 	},
-
-	smallChanged: function() {
-		this.addRemoveClass('small', this.small);
-		if(this.small) {
-			this.targetLayer = new moon.TargetLayer({addBefore: this, owner: this.owner});			
+	//* If _this.small_ is true, add a child that increases the tap area
+	updateSmall: function() {
+		if (this.$.tapArea) {
+			this.$.tapArea.destroy();
+			this.$.client.destroy();
+		}
+		
+		if (this.small) {
+			this.addClass('small');
+			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
+			this.createComponent({name: "client", content: this.getContent()});
+		} else {
+			this.removeClass('small');
 		}
 	},
-
-	rendered: function() {
-		if(this.small) {
-			if (!this.targetLayer.hasNode()) {
-				this.targetLayer.render(this.parent.node);
-			}
-			this.appendNodeToParent(this.targetLayer.node);
-			/**
-				for event propagation from button to target Tap
-			*/
-			this.setContainer(this.targetLayer);
-		}	
-		this.inherited(arguments);
+	//* When _this.small_ changes, update and rerender
+	smallChanged: function() {
+		this.updateSmall();
+		this.render();
 	},
 });
-
-enyo.kind({
-	name: "moon.TargetLayer",
-	classes: "small-decorator",
-	spotlight	: true,
-
-	handlers: {
-		onenter	: 'enter',
-		onleave	: 'leave'
-	},
-
-	render: function(node) {
-		if (node) {
-			this.parentNode = node;	
-		}		
-		return this.inherited(arguments);
-	},
-
-	enter: function(inSender, inEvent) {
-		this.controls[0].addClass("spotlight");
-		return true;
-	},
-
-	leave: function(inSender, inEvent) {
-		this.controls[0].removeClass("spotlight");
-		return true;
-	}
-})

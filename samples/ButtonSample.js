@@ -14,11 +14,23 @@ enyo.kind({
 				{kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
+				
+				{kind: "moon.Divider", content: "Small Buttons:"},
+				{name: "smallButtonOne", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
+				{name: "smallButtonTwo", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
+				{name: "smallButtonThree", kind: "moon.Button", small: true, disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
+				{name: "smallButtonFour", kind: "moon.Button", small: true, content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
+				{classes: "tap-area-check-container", components: [
+					{kind: "moon.LabeledToggleButton", content: "Show Tap Area", onActivate: "test"}
+				]},
+				{tag: "br"},
+				
 				{kind: "moon.Divider", content: "Themed Buttons:"},
 				{kind: "moon.Button", classes: "moon-dark-gray", content: "Dark", ontap: "buttonTapped"},
 				{kind: "moon.Button", classes: "moon-light-gray", content: "Light", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
+				
 				{kind: "moon.Divider", content: "Captioned Buttons:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
 					{kind: "moon.Button", content: "A", ontap: "buttonTapped"}
@@ -34,6 +46,7 @@ enyo.kind({
 				]},
 				{tag: "br"},
 				{tag: "br"},
+				
 				{kind: "moon.Divider", content: "Buttons with components:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Rent DVD", components: [
 					{
@@ -99,5 +112,18 @@ enyo.kind({
 		str += inSender.getActive() ? 'selected' : 'unselected';
 		str += '.';
 		this.$.console.setContent(str);
+	},
+	test: function(inSender, inEvent) {
+		if (inEvent.checked) {
+			this.$.smallButtonOne.addClass("visible-tap-area");
+			this.$.smallButtonTwo.addClass("visible-tap-area");
+			this.$.smallButtonThree.addClass("visible-tap-area");
+			this.$.smallButtonFour.addClass("visible-tap-area");
+		} else {
+			this.$.smallButtonOne.removeClass("visible-tap-area");
+			this.$.smallButtonTwo.removeClass("visible-tap-area");
+			this.$.smallButtonThree.removeClass("visible-tap-area");
+			this.$.smallButtonFour.removeClass("visible-tap-area");
+		}
 	}
 });
