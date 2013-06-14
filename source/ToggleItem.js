@@ -6,10 +6,10 @@ enyo.kind({
 	name: "moon.ToggleItem",
 	kind: "moon.CheckboxItem",
 	//* @protected
-	classes: "moon-labeled-toggle-button",
+	classes: "moon-toggle-item",
 	components: [
-		{classes: "moon-labeled-toggle-button-label-wrapper", components: [
-			{name: "label", classes: "moon-labeled-toggle-button-label"}
+		{classes: "moon-toggle-item-label-wrapper", components: [
+			{name: "label", classes: "moon-toggle-item-label"}
 		]},
 		{name: "input", kind: "moon.ToggleText", spotlight: false}
 	]

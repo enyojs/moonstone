@@ -473,7 +473,6 @@
   background: inherit;
   opacity: 1;
   background: transparent none no-repeat 0 0;
-  position: relative;
 }
 .moon-checkbox.moon-toggle-text[disabled] {
   opacity: 0.4;
@@ -487,6 +486,8 @@
   right: 0px;
   text-align: right;
   color: #ffb80d;
+  height: auto;
+  width: auto;
 }
 .moon-toggle-text-text {
   position: absolute;
@@ -494,29 +495,26 @@
   text-align: right;
   color: #A9A9A9;
 }
-.moon-labeled-toggle-button {
+.moon-toggle-item {
   display: block;
   position: relative;
 }
-.moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
+.moon-toggle-item .moon-toggle-item-label-wrapper {
   height: 24px;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, #ffffff 75px);
   padding: 2px 0px 0px 0px;
 }
-.moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
+.moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 69px, #ffffff 84px);
 }
-.moon-labeled-toggle-button .moon-labeled-toggle-button-label {
+.moon-toggle-item .moon-toggle-item-label {
   float: left;
   white-space: nowrap;
 }
-.moon-labeled-toggle-button .moon-toggle-text-text {
-  margin-top: -1px;
-}
-.moon-labeled-toggle-button.disabled .moon-toggle-text-text {
+.moon-toggle-item.disabled .moon-toggle-text-text {
   color: inherit;
 }
-.moon-labeled-toggle-button.disabled .moon-toggle-text {
+.moon-toggle-item.disabled .moon-toggle-text {
   opacity: 1;
 }
 /* Toggle.css */
@@ -633,11 +631,31 @@
   margin: 0px;
   color: #4b4b4b;
 }
+.moon-dark-gray .moon-button {
+  color: #4b4b4b;
+}
+.moon-button.small {
+  max-height: 60px;
+  min-height: 60px;
+  min-width: 60px;
+  padding: 13px 22px 13px 22px;
+  line-height: 20px;
+  position: relative;
+  overflow: visible;
+}
+.small-button-tap-area {
+  position: absolute;
+  top: -14px;
+  bottom: -14px;
+  left: -14px;
+  right: -14px;
+}
 .moon-button.active,
 .moon-button.pressed,
 .moon-button:active,
 .moon-button.spotlight.pressed,
-.moon-button.spotlight:active {
+.moon-button.spotlight:active,
+.moon-button.small.spotlight.pressed {
   border: 5px solid #ffb80d;
   background-color: #ffffff;
 }
@@ -1061,10 +1079,8 @@
   text-align: center;
   line-height: 40px;
   background: transparent;
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
   opacity: 1;
+  font-family: "Miso";
 }
 .moon-icon-button.moon-paging-button.hidden {
   opacity: 0;
@@ -2504,44 +2520,54 @@ p.moon-drawers-close-handle-text {
   background-color: transparent;
 }
 .moon-scroller-client-wrapper {
-  position: absolute;
-  overflow: hidden;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  box-sizing: border-box;
+  height: 100%;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-  right: 50px;
+  padding-right: 50px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-  bottom: 50px;
+  padding-bottom: 50px;
 }
-.moon-scroller-v-column {
-  position: absolute;
-  width: 50px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  display: none;
-}
-.moon-scroller-v-column.v-scroll-enabled {
-  display: block;
-}
-.moon-scroller-v-column.h-scroll-enabled {
-  bottom: 50px;
-}
+/* Default states for horizontal and vertical scrollbars */
+.moon-scroller-v-column,
 .moon-scroller-h-column {
   position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -webkit-transition: opacity 0.1s linear;
+}
+/* Toggle opacity with .visible class */
+.moon-scroller-v-column.visible,
+.moon-scroller-h-column.visible {
+  opacity: 1;
+}
+/* Toggle opacity when enabled */
+.moon-scroller-v-column.v-scroll-enabled,
+.moon-scroller-h-column.h-scroll-enabled {
+  visibility: visible;
+}
+/* Default position for vertical scrollbar */
+.moon-scroller-v-column {
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 50px;
+}
+/* Default position for horizontal scrollbar */
+.moon-scroller-h-column {
   left: 0px;
   right: 0px;
   bottom: 0px;
   height: 50px;
-  display: none;
 }
-.moon-scroller-h-column.h-scroll-enabled {
-  display: block;
+/* Shorten vertical column when horizontal column is enabled */
+.moon-scroller-v-column.h-scroll-enabled {
+  bottom: 50px;
 }
+/* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
   right: 50px;
 }

@@ -38,7 +38,7 @@ enyo.kind({
 					components: [
 					    {kind: "moon.Divider", content:"Category"},
 					    {kind: "moon.Scroller", horizontal: "hidden", components: [
-					        {content:"Action", kind:"moon.Toggleitem"},
+					        {content:"Action", kind:"moon.ToggleItem"},
 					        {content:"Comedy", kind:"moon.ToggleItem"},
 					        {content:"Drama", kind:"moon.ToggleItem"}
 					    ]}
