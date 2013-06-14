@@ -71,7 +71,6 @@ enyo.kind({
 	},
 	tap: function(inSender, inEvent) {
 		this.waterfallDown("ontap", inEvent, inSender);
-		return true;
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
 		inEvent.toggledControl = this;

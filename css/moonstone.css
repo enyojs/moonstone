@@ -2510,12 +2510,12 @@ p.moon-drawers-close-handle-text {
   height: 80px;
   bottom: 0px;
   left: 0px;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .moon-video-inline-control-play-pause {
   position: absolute;
   width: 80px;
-  height:80px;
+  height: 80px;
   bottom: 0px;
   left: 0px;
   background-color: transparent;
@@ -2526,7 +2526,7 @@ p.moon-drawers-close-handle-text {
   bottom: 0px;
   right: 0px;
   width: 80px;
-  height:80px;
+  height: 80px;
   background-color: transparent;
   z-index: 5;
 }
@@ -2544,7 +2544,7 @@ p.moon-drawers-close-handle-text {
   bottom: 0px;
   left: 0px;
   width: 0%;
-  height:80px;
+  height: 80px;
   background-color: #00d4b3;
   z-index: 2;
 }
