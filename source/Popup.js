@@ -1,6 +1,6 @@
 /**
-	_moon.Popup_ is an <a href="#enyo.Popup">enyo.Popup</a>
-	which is positioned at the bottom, full size width.
+	_moon.Popup_ is an <a href="#enyo.Popup">enyo.Popup</a> that appears at the
+	bottom of the screen and takes up the full screen width.
 */
 enyo.kind({
 	name: "moon.Popup",
@@ -14,11 +14,12 @@ enyo.kind({
 
 	//* @protected
 	
-	//* Set _this.downEvent_ on _onSpotlightSelect_ event
+	//* Sets _this.downEvent_ on _onSpotlightSelect_ event.
 	spotSelect: function(inSender, inEvent) {
 		this.downEvent = inEvent;
 	},
-	//* If _this.downEvent_ is set to a spotlight event, skip normal popup _tap()_ code
+	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
+	//* _tap()_ code.
 	tap: function(inSender, inEvent) {
 		if (this.downEvent.type !== "onSpotlightSelect") {
 			return this.inherited(arguments);

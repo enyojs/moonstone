@@ -4,7 +4,7 @@
 
 		{kind: "moon.ProgressBar", progress: 10}
 
-	To animate progress changes, call the _animateProgressTo_ method:
+	To animate progress changes, call the _animateProgressTo()_ method:
 
 		this.$.progressBar.animateProgressTo(50);
 
@@ -29,9 +29,9 @@ enyo.kind({
 		max: 100,
 		//* CSS classes to apply to progress bar
 		barClasses: "",
-		//* Value increment that a sliders can be "snapped to" in either direction
+		//* Sliders may "snap" to multiples of this value in either direction
 		increment: 0,
-		//* Progress completed of background
+		//* Completion percentage for background process
 		bgProgress: 0
 	},
 	events: {

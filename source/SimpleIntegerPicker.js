@@ -1,40 +1,12 @@
 /**
-	_moon.SimpleIntegerPicker_ is a control that solicits a choice from the user by
-	cycling through a list of options. The picker's child components, typically
-	simple <a href="#enyo.Control">enyo.Control</a> objects with text content,
-	become the options for the picker.
-
-		{kind:"moon.SimpleIntegerPicker", onChange:"changed", selectedIndex:1, components: [
-			{content:"San Francisco"},
-			{content:"Boston"},
-			{content:"Tokyo"}
-		]}
+	_moon.SimpleIntegerPicker_ is a control that prompts the user to make a
+	selection from a range of integer-based options.
 
 	The picker may be changed programmatically by calling _previous()_ or
-	_next()_, or by modifying the _selectedIndex_ published property by calling
-	_set("selectedIndex", &lt;value&gt;)_.
+	_next()_, or by modifying the published property _value_.
 
-	The _onChange_ event is fired when the selected item changes, and contains the
-	following	properties:
-
-		{
-			selected: [object Object],	// Reference to selected item
-			content: "San Francisco",	// Content of selected item
-			index: 1					// Index of selected item
-		}
-
-	The picker options may be modified programmatically in the standard manner, by
-	calling	_createComponent().render()_ or _destroy()_.  Note that _reflow()_
-	must be called after components are added or removed:
-
-		// Add new items to picker
-		this.$.picker.createComponent({"New York"}).render();
-		this.$.picker.createComponent({"London"}).render();
-		this.$.picker.reflow();
-
-		// Remove currently selected item from picker
-		this.$.picker.getSelected().destroy();
-		this.$.picker.reflow();
+	The _onChange_ event, fired when the selected item changes, contains the
+	_value_ and _content_ properties.
 */
 enyo.kind({
 	name: "moon.SimpleIntegerPicker",
@@ -44,13 +16,19 @@ enyo.kind({
 		/**
 			Fires when the currently selected item changes.
 
-			_inEvent.selected_ contains a reference to the currently selected item.
+			_inEvent.value_ contains the value of the currently selected item.
 
 			_inEvent.content_ contains the content of the currently selected item.
-
-			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: "",
+		/**
+			Fires in response to Return keypress while the picker has focus in
+			Spotlight 5-way mode.
+
+			_inEvent.value_ contains the value of the currently selected item.
+
+			_inEvent.content_ contains the content of the currently selected item.
+		*/
 		onSelect: ""
 	},
 	handlers: {
