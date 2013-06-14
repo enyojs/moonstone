@@ -38,10 +38,10 @@ enyo.kind({
 	},
 	//* Bubbles a _paginate_ event when button is tapped.
 	tap: function() {
-		if (this.hasClass("hidden")) {
-			return true;
+		if (!this.hasClass("hidden")) {
+			this.doPaginate({side: this.getSide()});
 		}
-		this.doPaginate({side: this.getSide()});
+		return true;
 	},
 	//* Overrides default focused handling to make sure scroller doesn't scroll to
 	//* this button.

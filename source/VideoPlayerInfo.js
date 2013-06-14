@@ -1,15 +1,16 @@
 /**
-	_moon.VideoPlayerInfo_ is a control that display various video information using a
-	standard layout.  For use within the _infoComponents_ block of _moon.VideoPlayer_.
+	_moon.VideoPlayerInfo_ is a control that displays various information about a
+	video using a standard layout. It is intended for use within the
+	_infoComponents_ block of _moon.VideoPlayer_.
 
-	Sample:
+	Example:
 
 		{
 			kind: "moon.VideoPlayerInfo", 
 			datetime: "CURRENT DATE & TIME", 
 			showname: "SHOW NAME", 
 			channel: "CHANNEL - AIR DATE & TIME SLOT", 
-			synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+			synopsys: "SHORT SYNOPSIS OF THE CURRENT SHOW",
 			components: [
 				{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
 				{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
@@ -24,13 +25,13 @@ enyo.kind({
 	classes: "moon-videoplayer-info",
 	//@public
 	published: {
-		//* Field for displaying date/time information about the current video
+		//* Date/time information for the current video
 		datetime: "date & time",
-		//* Field for displaying the name of the current video
+		//* Name of the current video
 		showname: "show name",
-		//* Field for displaying the channel of the current video
+		//* Channel of the current video
 		channel: "channel",
-		//* Field for displaying the synopsis of the current video
+		//* Synopsis of the current video
 		synopsys: "synopsys"
 	},
 	//@protected

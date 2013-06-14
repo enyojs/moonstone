@@ -1,7 +1,6 @@
 /**
-	_moon.VideoPlayerSlider_ is a control that presents a range of selection options in the
-	form of a horizontal slider with a control knob. The knob may be tapped and
-	dragged to the desired location.
+	_moon.VideoPlayerSlider_ extends <a href="#moon.Slider">moon.Slider</a>,
+	adding specialized behavior related to video playback.
 
 		{kind: "moon.VideoPlayerSlider", value: 30}
 
