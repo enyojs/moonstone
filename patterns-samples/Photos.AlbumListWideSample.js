@@ -4,26 +4,10 @@ enyo.kind({
 	titleAbove: "01",
 	title: "Albums",
 	classes: "photos-album",
-	imageList: [
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"}
-	],
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "FittableColumns", style: "height:550px;", components: [				
-			{kind : "moon.Scroller", style: "width: 20%;", horizontal: "hidden", touch: true, components:[
+		{kind: "FittableColumns", components: [				
+			{kind : "moon.Scroller", classes: "moon-7h", horizontal: "hidden", touch: true, components:[
 				{
 					kind: "moon.ImageItem", 
 					source: "assets/album.png", 
@@ -48,14 +32,24 @@ enyo.kind({
 					kind: "moon.ImageItem", 
 					source: "assets/album.png", 
 					label: "ALBUM NAME", 
-				}
+				},
+				{
+					kind: "moon.ImageItem", 
+					source: "assets/album.png", 
+					label: "ALBUM NAME", 
+				},
+				{
+					kind: "moon.ImageItem", 
+					source: "assets/album.png", 
+					label: "ALBUM NAME", 
+				},
 			]},
-			{kind : "moon.Scroller", style: "height:550px;", fit: true, touch: true, components:[
+			{kind : "moon.Scroller", fit: true, touch: true, components:[
 				{
 					name: "gridlist",
 					kind: "moon.GridList",
+					classes: "enyo-fill",
 					onSetupItem: "setupGridItem",
-					touch: true,
 					itemWidth: 270,
 					itemHeight: 202,
 					itemSpacing: 20,
@@ -69,16 +63,12 @@ enyo.kind({
 	
 	rendered: function() {
 		this.inherited(arguments);
-		this.$.gridlist.show(this.imageList.length);
+		this.$.gridlist.show(20);
 	},
 
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		var gridItem = this.imageList[i];
-		if (!gridItem.src) {
-			return;
-		}
-		this.$.gridItem.setSource(gridItem.src);
+		this.$.gridItem.setSource("assets/album.png");
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
 	},
 });
