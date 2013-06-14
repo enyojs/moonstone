@@ -1,16 +1,19 @@
 
 /**
-	_moon.VideoPlayer_ is a control that wraps an _enyo.Video_ HTML5 video player to provide 
-	moonstone-styled standard transport controls, optional app-specific controls, and an 
-	information bar for video information and player feedback.
+	_moon.VideoPlayer_ is a control that wraps an	<a href="#enyo.Video">enyo.Video</a>
+	HTML5 video player to provide Moonstone-styled standard transport controls,
+	optional app-specific controls, and an information bar for video information
+	and player feedback.
 
-	Client components added to the _components_ block should generally be limited to type 
-	_moon.BoxIconButton_, which are into the video player's transport control area.  If more than 
-	two are provided, they will be rendered onto an "overflow" screen which is reached via
-	a button that appears at the right of the controls.
+	Client components added to the _components_ block are rendered into the video
+	player's transport control area, and should generally be limited to instances
+	of _moon.BoxIconButton_. If more than two are specified, they will be rendered
+	into an "overflow" screen, reached by activating a button to the right of the
+	controls.
 
-	The _infoComponents_ block is rendered into the top info bar.  A standard _moon.VidePlayerInfo_
-	control is provided for default styling of information in the info bar.
+	The _infoComponents_ block is rendered into the top info bar.  A standard
+	_moon.VideoPlayerInfo_ control provides default styling for information in the
+	bar.
 
 	Example:
 
@@ -54,7 +57,8 @@ enyo.kind({
 		width: 640,
 		//* Height of video player, in pixels
 		height: 360,
-		//* Time for video player controls to hide after the pointer stops moving (in seconds)
+		//* Number of seconds after the pointer stops moving when the video player
+		//* controls will automatically hide  
 		autoCloseTimeout: 4
 	},
 	handlers: {
@@ -70,7 +74,8 @@ enyo.kind({
 
 	//* @public
 
-	//* Components to be rendered into the top info bar.  This would typically include a _moon.VidePlayerInfo_ kind.
+	//* Components to be rendered into the top info bar.  This typically includes
+	//* a _moon.VideoPlayerInfo_ kind.
 	infoComponents: [],
 
 	//* @protected
@@ -142,7 +147,7 @@ enyo.kind({
 	},
 
 	//* @public
-	//* Called then video source is changed
+	//* Responds to change in video source.
 	srcChanged: function() {
 		if (typeof this.src === "string" && this.src.length > 0) {
 			if (this.$.video) {
@@ -155,17 +160,17 @@ enyo.kind({
 
 		}
 	},
-	//* Called then video width is changed
+	//* Responds to change in video width.
 	widthChanged: function() {
 		this.$.video.setWidth(this.width);
 		this.$.video.setAttribute("width", this.width + "px");
 	},
-	//* Called then video height is changed
+	//* Responds to change in video height.
 	heightChanged: function() {
 		this.$.video.setHeight(this.height);
 		this.$.video.setAttribute("height", this.height + "px");
 	},
-	//* Called then video time is need to be changed
+	//* Updates the video time.
 	timeupdate: function(inSender, inEvent) {
 		var val = (inSender.getCurrentTime() / inSender.getDuration())*100;
 		
@@ -189,19 +194,19 @@ enyo.kind({
 		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
 		return true;
 	},
-	//* Get access to the video info control
+	//* Returns a reference to the video info control.
 	getVideoInfoArea: function(inSender, inEvent) {
 		return this.$.videoInfo;
 	},
-	//* Get access to the left 'primium' control
+	//* Returns a reference to the left 'premium' control.
 	getLeftControlArea: function(inSender, inEvent) {
 		return this.$.leftPremiumPlaceHolder;
 	},
-	//* Get access to the right 'primium' control
+	//* Returns a reference to the right 'premium' control.
 	getRightControlArea: function(inSender, inEvent) {
 		return this.$.rightPremiumPlaceHolder;
 	},
-	//* Get access to the 'more' icon button
+	//* Returns a reference to the 'more' icon button.
 	getMoreControlsArea: function(inSender, inEvent) {
 		return this.$.client;
 	},
