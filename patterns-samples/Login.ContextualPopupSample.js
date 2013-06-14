@@ -67,43 +67,45 @@ enyo.kind({
     title: "Main Menu",
     components: [
         {kind: "enyo.Spotlight"},
-        {
-            name: "menuList",
-            kind: "enyo.DataList",
-            style: "width: 300px;",
-            components: [
-                {bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
-            ]
-        },
-        {
-            fit: true,
-            layoutkind: "FittableRowsLayout", 
-            components: [
-            {
-                name: "contentList",            
-                kind: "enyo.DataGridList",
-                fit: true,
-                components: [
-                    {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"},                    
-                ]
-            },
-            {
-                name: "buttonList",
-                layoutkind: "FittableRowsLayout",
-                components: [
-                    {kind: "moon.ContextualPopupDecorator", components: [
-                        {kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
-                            {tag: "img", attributes: {src: "assets/icon-half-like.png"}},
-                            {content: "LIKE"}
-                        ]},                        
-                        {kind: "moon.ContextualLoginPopup"}
-                    ]},
-                    {kind: "moon.ContextualPopupDecorator", components: [
-                        {classes: "moon-2h", content: "SHARE"},
-                        {kind: "moon.ContextualLoginPopup"}
-                    ]},
-                ]
-            }
+		{kind: "moon.Scroller", components: [
+	        {
+	            name: "menuList",
+	            kind: "enyo.DataList",
+	            style: "width: 300px;",
+	            components: [
+	                {bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
+	            ]
+	        },
+	        {
+	            fit: true,
+	            layoutkind: "FittableRowsLayout", 
+	            components: [
+	            {
+	                name: "contentList",            
+	                kind: "enyo.DataGridList",
+	                fit: true,
+	                components: [
+	                    {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"},                    
+	                ]
+	            },
+	            {
+	                name: "buttonList",
+	                layoutkind: "FittableRowsLayout",
+	                components: [
+	                    {kind: "moon.ContextualPopupDecorator", components: [
+	                        {kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
+	                            {tag: "img", attributes: {src: "assets/icon-half-like.png"}},
+	                            {content: "LIKE"}
+	                        ]},                        
+	                        {kind: "moon.ContextualLoginPopup"}
+	                    ]},
+	                    {kind: "moon.ContextualPopupDecorator", components: [
+	                        {classes: "moon-2h", content: "SHARE"},
+	                        {kind: "moon.ContextualLoginPopup"}
+	                    ]},
+	                ]
+	            }
+			]}
         ]}
         
     ],

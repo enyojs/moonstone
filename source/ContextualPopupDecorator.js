@@ -22,13 +22,18 @@ enyo.kind({
 	defaultKind: "moon.ContextualPopupButton",
 	//* @protected
 	// selection on ios prevents tap events, so avoid.
-	classes: "moon-contextual-popup-decorator enyo-unselectable",
+	classes: "moon-contextual-popup-decorator moon enyo-unselectable",
 	handlers: {
 		onActivate: "activated",
 		onHide: "popupHidden",
 		onSpotlightBlur: "spotBlur"
 	},
 	activated: function(inSender, inEvent) {
+		// Don't process activate events that came from inside this decorator
+		if (inEvent.sentFromPopup && inEvent.sentFromPopup.isDescendantOf(this)) {
+			return;
+		}
+		
 		this.requestHidePopup();
 		if (inEvent.originator.active) {
 			this.popupActive = true;
