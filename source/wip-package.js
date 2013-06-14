@@ -13,6 +13,6 @@ enyo.depends(
 	"BoxIconButton.js",
 	"Video.js",
 	"VideoPlayerInfo.js",
-	"VideoPlayback.js",
+	"VideoPlayer.js",
 	"VideoPlayerSlider.js"
 );

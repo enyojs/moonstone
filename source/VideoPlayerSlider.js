@@ -22,6 +22,7 @@ enyo.kind({
 		onenter: "onEnterSlider", 
 		onleave: "onLeaveSlider"
 	},
+	//* @protected
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
 		{classes: "moon-slider-taparea"},
@@ -50,7 +51,7 @@ enyo.kind({
 		}
 	},
 
-	//* @public
+	
 	updateKnobPosition: function(inPercent) {
 		this.$.knob.applyStyle("left", inPercent + "%");
 		this.$.popup.applyStyle("left", inPercent + "%");
@@ -85,8 +86,8 @@ enyo.kind({
 		if (this.video !== null) {
 			ctx.drawImage(this.video.hasNode(), 0, 0, db.width, db.height);
 		}
-		
-		// when the popup's left edge is out of the window, adjust to the left
+
+		// when the popup's left edge is out of the window, adjust to the right
 		if ( (kb.left  - pb.width/2) < cb.left ) {
 			inControl.applyStyle("left", (kb.left - (kb.width/2)) + "px");
 		} else 
@@ -152,9 +153,6 @@ enyo.kind({
 			this.video.setCurrentTime(t);
 		}
 	},
-	//* @public
-
-	//* @protected
 	showKnobStatus: function(inSender, inEvent) {
 		if (!this.noPopup && this.video !== null) {
 			var ctx = this.$.drawing.hasNode().getContext("2d");

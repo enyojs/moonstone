@@ -1,6 +1,6 @@
 
 /**
-	_moon.VideoPlayback_ is a control that wraps an _enyo.Video_ HTML5 video player to provide 
+	_moon.VideoPlayer_ is a control that wraps an _enyo.Video_ HTML5 video player to provide 
 	moonstone-styled standard transport controls, optional app-specific controls, and an 
 	information bar for video information and player feedback.
 
@@ -15,7 +15,7 @@
 	Example:
 
 		{
-			kind: "moon.VideoPlayback",
+			kind: "moon.VideoPlayer",
 			src: "http://www.w3schools.com/html/mov_bbb.mp4",
 			components: [
 				// Custom icons for app-specific features
@@ -43,10 +43,10 @@
 */
 
 enyo.kind({
-	name: "moon.VideoPlayback",
+	name: "moon.VideoPlayer",
 	kind: "enyo.Control",
-	classes: "moon-video-playback",
-	spotlight: true,
+	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
+	classes: "moon-video-player", 
 	published: {
 		//* HTML5 video source URL
 		src: "",
@@ -78,32 +78,32 @@ enyo.kind({
 	_autoCloseTimer: null,
 	_holdPulseThreadhold: 300,
 	controlTools: [
-		{name: "video", kind: "enyo.Video", classes: "moon-video-playback-video", ontimeupdate:"timeupdate"},
-		{name: "videoInfoHeader", layoutKind: "FittableColumnsLayout", classes: "moon-video-playback-header", components: [
-			{name: "videoInfo", fit: true, classes: "moon-video-playback-detail"},
-			{name: "feedbackHeader", classes: "moon-video-playback-feedback", components: [
-				{name: "feedback", classes: "moon-video-playback-feedback-icon"}
+		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video", ontimeupdate:"timeupdate"},
+		{name: "videoInfoHeader", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-header", components: [
+			{name: "videoInfo", fit: true, classes: "moon-video-player-detail"},
+			{name: "feedbackHeader", classes: "moon-video-player-feedback", components: [
+				{name: "feedback", classes: "moon-video-player-feedback-icon"}
 			]}
 		]},
-		{name: "playbackControl", classes: "moon-video-playback-bottom", components: [
-			{name: "controls", layoutKind: "FittableColumnsLayout", classes: "moon-video-playback-controls", components: [
+		{name: "playerControl", classes: "moon-video-player-bottom", components: [
+			{name: "controls", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-controls", components: [
 				{name: "leftPremiumPlaceHolder", style: "width: 80px; height:80px;"},
-				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-playback-controller", components: [
+				{name: "controller", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 					{name: "trickPlay", layoutKind: "FittableColumnsLayout", noStretch: true, classes: "enyo-center", components: [
-						{kind: "moon.BoxIconButton", src: "assets/icon-JumpBack.png", ontap: "jumpBackHandler", onholdpulse: "onHoldPulseBackHandler"},
-						{kind: "moon.BoxIconButton", src: "assets/icon-Rewind.png", ontap: "rewindHandler"},
-						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "assets/icon-Play.png", ontap: "playpauseHandler"},
-						{kind: "moon.BoxIconButton", src: "assets/icon-FastForward.png", ontap: "fastForwardHandler"},
-						{kind: "moon.BoxIconButton", src: "assets/icon-JumpForward.png", ontap: "jumpForwardHandler", onholdpulse: "onHoldPulseForwardHandler"}
+						{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-jumpback.png", ontap: "jumpBackHandler", onholdpulse: "onHoldPulseBackHandler"},
+						{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-rewind.png", ontap: "rewindHandler"},
+						{name: "playpause", mode: "pause", kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-play.png", ontap: "playpauseHandler"},
+						{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForwardHandler"},
+						{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-jumpforward.png", ontap: "jumpForwardHandler", onholdpulse: "onHoldPulseForwardHandler"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
 				{name: "rightPremiumPlaceHolder", components: [
-					{name: "more", kind: "moon.BoxIconButton", src: "assets/icon-Extend.png", ontap: "moreButtonTapped"}
+					{name: "more", kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-extend.png", ontap: "moreButtonTapped"}
 				]}
 			]},
-			{classes: "moon-video-playback-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
-				{name: "slider", kind: "moon.VideoPlayerSlider", classes:"moon-video-playback-slider"}
+			{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
+				{name: "slider", kind: "moon.VideoPlayerSlider", classes:"moon-video-player-slider"}
 			]}
 		]}
 	],
@@ -140,6 +140,9 @@ enyo.kind({
 		this.discoverControlParent();
 		this.createComponents(this.infoComponents, {owner: this});
 	},
+
+	//* @public
+	//* Called then video source is changed
 	srcChanged: function() {
 		if (typeof this.src === "string" && this.src.length > 0) {
 			if (this.$.video) {
@@ -152,14 +155,17 @@ enyo.kind({
 
 		}
 	},
+	//* Called then video width is changed
 	widthChanged: function() {
 		this.$.video.setWidth(this.width);
 		this.$.video.setAttribute("width", this.width + "px");
 	},
+	//* Called then video height is changed
 	heightChanged: function() {
 		this.$.video.setHeight(this.height);
 		this.$.video.setAttribute("height", this.height + "px");
 	},
+	//* Called then video time is need to be changed
 	timeupdate: function(inSender, inEvent) {
 		var val = (inSender.getCurrentTime() / inSender.getDuration())*100;
 		
@@ -183,26 +189,32 @@ enyo.kind({
 		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
 		return true;
 	},
+	//* Get access to the video info control
 	getVideoInfoArea: function(inSender, inEvent) {
 		return this.$.videoInfo;
 	},
+	//* Get access to the left 'primium' control
 	getLeftControlArea: function(inSender, inEvent) {
 		return this.$.leftPremiumPlaceHolder;
 	},
+	//* Get access to the right 'primium' control
 	getRightControlArea: function(inSender, inEvent) {
 		return this.$.rightPremiumPlaceHolder;
 	},
+	//* Get access to the 'more' icon button
 	getMoreControlsArea: function(inSender, inEvent) {
 		return this.$.client;
 	},
+	
+	//* @protected
 	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controller.getIndex();
 		if (index === 0) {
-			inEvent.originator.setSrc("assets/icon-Shrink.png");
+			inEvent.originator.setSrc("$lib/moonstone/images/icon-shrink.png");
 			this.$.controller.next();
 		}
 		else {
-			inEvent.originator.setSrc("assets/icon-Extend.png");
+			inEvent.originator.setSrc("$lib/moonstone/images/icon-extend.png");
 			this.$.controller.previous();
 		}
 	},
@@ -228,10 +240,10 @@ enyo.kind({
 	},
 	onUpdateHandler: function(inSender, inEvent) {
 		if (this.$.video.isPaused()) {
-			this.$.playpause.setSrc("assets/icon-Play.png");
+			this.$.playpause.setSrc("$lib/moonstone/images/icon-play.png");
 		}
 		else {
-			this.$.playpause.setSrc("assets/icon-Pause.png");
+			this.$.playpause.setSrc("$lib/moonstone/images/icon-pause.png");
 		}
 		return true;
 	},
@@ -241,8 +253,8 @@ enyo.kind({
 			this.$.videoInfoHeader.show();
 			bDirty = true;
 		}
-		if (this.$.playbackControl.getShowing() == false) {
-			this.$.playbackControl.show();
+		if (this.$.playerControl.getShowing() == false) {
+			this.$.playerControl.show();
 			bDirty = true;
 		}
 		if (bDirty == true) {
@@ -271,19 +283,20 @@ enyo.kind({
 	},
 	onHoldPulseBackHandler: function(inSender, inEvent) {
 		if (inEvent.holdTime > this._holdPulseThreadhold) {
-			this.$.video.holdJumpStart = true;
+			// fixme: ugly hacking to prevent repeated call
+			this.$.video.holdJumpToStart = true;
 			inEvent.cancelHold = true
 		}
 	},
 	onHoldPulseForwardHandler: function(inSender, inEvent) {
 		if (inEvent.holdTime > this._holdPulseThreadhold) {
-			this.$.video.holdJumpEnd = true;
+			this.$.video.holdJumpToEnd = true;
 			inEvent.cancelHold = true
 		}
 	},
 	_hideLayer: function(inSender, inEvent) {
 		this.$.videoInfoHeader.setShowing(false);
-		this.$.playbackControl.setShowing(false);
+		this.$.playerControl.setShowing(false);
 	},
 	_setAutoCloseTimer: function(inSender, inEvent) {
 		this._resetAutoCloseTimer();

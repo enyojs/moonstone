@@ -19,11 +19,11 @@ enyo.kind({
 		src: "",
 		//* source of image file to show when video isn't available
 		poster: "",
-		//* if true, show controls for starting and stopping video playback
+		//* if true, show controls for starting and stopping video player
 		showControls: false,
 		//* if true, video will automatically start
 		autoplay: false,
-		//* if true, restart video playback from beginning when finished
+		//* if true, restart video player from beginning when finished
 		loop: false,
 		//* (webOS only) if true, stretch the video to fill the entire window
 		fitToWindow: false,
@@ -34,11 +34,11 @@ enyo.kind({
 		//* inEvent.paused 
 		onUpdate: ""
 	},
-	//* @protected
 	tag: "video",
+	//* @protected
 	_defaultStep: 0.2,
 	_direction: "",
-	playbackrate: 1,
+	_playerrate: 1,
 	create: function() {
 		this.inherited(arguments);
 		this.srcChanged();
@@ -124,7 +124,7 @@ enyo.kind({
 			this.node.pause();
 		}
 	},
-	//* Return current playback position in the video (in seconds)
+	//* Return current player position in the video (in seconds)
 	getCurrentTime: function() {
 		if (this.hasNode()) {
 			return this.node.currentTime;
@@ -138,19 +138,21 @@ enyo.kind({
 		}
 		return 0;
 	},
-	//* Set current playback position in the video (in seconds)
+	//* Set current player position in the video (in seconds)
 	setCurrentTime: function(inTime) {
 		if ((typeof inTime === 'number') && this.hasNode()) {
 			this.node.currentTime = inTime;
 		}
 	},
+	//* Get play duration in the video (in seconds)
 	getDuration: function() {
 		if (this.hasNode()) {
 			return this.node.duration;
 		}
 		return 0;
 	},
-	jumpStart: function() {
+	//* Jump to the beginning
+	jumpToStart: function() {
 		if (this.hasNode()) {
 			this._cancelRequest();
 			this._clearStep();
@@ -158,11 +160,12 @@ enyo.kind({
 			this.node.pause();
 		}
 	},
+	//* Jump backward n sec
 	jumpBack: function() {
 		if (this.hasNode()) {
-			if (this.holdJumpStart == true) {
-				this.holdJumpStart = false;
-				this.jumpStart();
+			if (this.holdJumpToStart == true) {
+				this.holdJumpToStart = false;
+				this.jumpToStart();
 			} else {
 				this._cancelRequest();
 				this._clearStep();
@@ -173,6 +176,7 @@ enyo.kind({
 			}
 		}
 	},
+	//* Move backward by 4x, 15x, 60x, 300x of speed
 	rewind: function() {
 		if (this.hasNode()) {
 			if (this.step && this.step < 4) {
@@ -183,24 +187,26 @@ enyo.kind({
 			this.node.pause();
 			this._cancelRequest();
 			this._requestRewind();
-			this.log(this.node.seeking);
 		}
 	},
+	//* Move forward by 4x, 15x, 60x, 300x of speed
 	fastForward: function() {
 		if (this.hasNode()) {
-			// switch (this.playbackrate) {
+
+			// Fixme : _playerrate should work for FF and Rewind
+			// switch (this._playerrate) {
 			// 	case 2:
-			// 	this.playbackrate = 4; break;
+			// 	this._playerrate = 4; break;
 			// 	case 4:
-			// 	this.playbackrate = 16; break;
+			// 	this._playerrate = 16; break;
 			// 	case 16:
-			// 	this.playbackrate = 60; break;
+			// 	this._playerrate = 60; break;
 			// 	case 60:
-			// 	this.playbackrate = 300; break;
+			// 	this._playerrate = 300; break;
 			// 	default:
-			// 	this.playbackrate = 2;
+			// 	this._playerrate = 2;
 			// }
-			// this.node.playbackRate = this.playbackrate;
+			// this.node.playerRate = this._playerrate;
 
 			if (this.step && this.step < 4) {
 				this.step *= 2;
@@ -212,11 +218,12 @@ enyo.kind({
 			this._requestFastForward();
 		}
 	},
+	//* Jump Forward n sec
 	jumpForward: function() {
 		if (this.hasNode()) {
-			if (this.holdJumpEnd == true) {
-				this.holdJumpEnd = false;
-				this.jumpEnd();
+			if (this.holdJumpToEnd == true) {
+				this.holdJumpToEnd = false;
+				this.jumpToEnd();
 			} else {
 				this._cancelRequest();
 				this._clearStep();
@@ -227,7 +234,8 @@ enyo.kind({
 			}
 		}
 	},
-	jumpEnd: function() {
+	//* Jump to the end of video
+	jumpToEnd: function() {
 		if (this.hasNode()) {
 			this._cancelRequest();
 			this._clearStep();
@@ -235,6 +243,7 @@ enyo.kind({
 			this.node.currentTime = this.node.duration;
 		}
 	},
+	//* @protected
 	_requestRewind: function() {
 		this.job = enyo.requestAnimationFrame(enyo.bind(this, this._rewind));
 	},
@@ -269,6 +278,6 @@ enyo.kind({
 	},
 	_clearStep: function() {
 		this.step = this._defaultStep;
-		this.node.playbackRate = this.playbackrate = 1;
+		this.node.playerRate = this._playerrate = 1;
 	}
 });

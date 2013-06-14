@@ -36,8 +36,8 @@ enyo.kind({
 	//@protected
 	components: [
 		{components: [
-			{name: "datetime", classes: "moon-videoplayer-info-datetime"},
-			{name: "showname", classes: "moon-videoplayer-info-showname"},
+			{name: "datetime", classes: "moon-header-font moon-videoplayer-info-datetime"},
+			{name: "showname", classes: "moon-header-font moon-videoplayer-info-showname"},
 			{name: "channel", classes: "moon-videoplayer-info-channel"},
 			{name: "synopsys", classes: "moon-videoplayer-info-synopsys"}
 		]},
