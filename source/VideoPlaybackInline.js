@@ -1,9 +1,7 @@
 enyo.kind({
 	name: "moon.VideoPlaybackInline",
-	style:"position: absolute; \
-			width: 100%; height: 80px; bottom: 0px; left: 0px; \
-			margin: 0px; \
-			background-color: rgba(0,0,0,0.5);",
+	classes: "moon-video-playback-inline",
+	style: "margin: 0px; padding: 0px",
 	published: {
 		//* Current status of video play
 		paused : true,
@@ -20,42 +18,19 @@ enyo.kind({
 		onPlay: "",
 		onPause: "",
 		onFullScreen: "",
-		//* Fires when currPosAnimator bar finishes animating to a position.
 		onAnimateCurrPosFinish: ""
 	},
 	components: [
 		{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-		{
-			name: "playpause",
-			kind: "moon.BoxIconButton", 
-			src: "assets/icon-Play.png",
-			ontap: "PlayPause",
-			style: "position: absolute; bottom: 0px; left: 0px; width: 80px; height:80px; background-color: transparent; z-index: 5;",
-		},
-		{
-			style: "position: absolute; bottom: 20px; left: 100px; background-color: transparent; color: white; font-size: 32px; z-index: 5;",
-			components: [
-				{
-					name: "currTime",
-					style: "display:inline"
-				},
-				{
-					name: "totalTime",
-					style: "display:inline"
-				}
-			]			
-		},
-		{
-			name: "progressStatus", 
-			style: "position: absolute; bottom: 0px; left: 0px; width: 0%; height:80px; background-color: #00d4b3; z-index: 2;",
-		},
-		{
-			kind: "moon.BoxIconButton",
-			src: "assets/icon-FullScreenButton.png",
-			ontap: "doFullScreen",
-			style: "position: absolute; bottom: 0px; right: 0px; width: 80px; height:80px; background-color: transparent; z-index: 5;",
-		}
+		{name: "playpause", kind: "moon.BoxIconButton", src: "assets/icon-Play.png", ontap: "PlayPause", classes: "moon-video-playback-inline-play-pause" },
+		{classes: "moon-video-playback-inline-text", components: [
+				{name: "currTime", style: "display:inline"},
+				{name: "totalTime", style: "display:inline"}
+		]},
+		{name: "progressStatus", classes: "moon-video-playback-inline-progress"},
+		{kind: "moon.BoxIconButton", src: "assets/icon-FullScreenButton.png", ontap: "doFullScreen", classes: "moon-video-playback-inline-fullscreen"}
 	],
+	//* @protected
 	currentTimeChanged: function() {
 		var cur = new Date(this.getCurrentTime()*1000);
 		this.$.currTime.setContent(cur.getMinutes() + ':' + cur.getSeconds()); 
@@ -68,8 +43,7 @@ enyo.kind({
 	},
 	PlayPause: function(inSender, inEvent)
 	{
-		if(this.getPaused())
-		{
+		if(this.getPaused()) {
 			this.doPlay();
 		} else {	
 			this.doPause();	
@@ -89,14 +63,10 @@ enyo.kind({
 	currentPositionChanged: function() {
 		var pos = this.getCurrentPosition();
 		var diff = Math.abs(pos - this.getOldPosition());
-		if(diff >= 0.69) {
-			this.animateProgressTo(pos);
-		}
+		this.animateProgressTo(pos);
 		this.setOldPosition(pos);
 		return true;
 	},
-	//* @public
-	//* Animates current video position to the given value.
 	animateProgressTo: function(inValue) {
 		this.$.currPosAnimator.play({
 			startValue: this.oldPosition,
@@ -105,7 +75,6 @@ enyo.kind({
 		});
 		return true;
 	},
-	//* @protected
 	currPosAnimatorStep: function(inSender) {
 		this.$.progressStatus.applyStyle("width", inSender.value + "%");		
 		return true;
