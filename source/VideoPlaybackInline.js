@@ -88,7 +88,10 @@ enyo.kind({
 	},
 	currentPositionChanged: function() {
 		var pos = this.getCurrentPosition();
-		this.animateProgressTo(pos);
+		var diff = Math.abs(pos - this.getOldPosition());
+		if(diff >= 0.69) {
+			this.animateProgressTo(pos);
+		}
 		this.setOldPosition(pos);
 		return true;
 	},
