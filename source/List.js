@@ -26,13 +26,13 @@ enyo.kind({
 		onmousemove: "mousemove",
 		onPaginate: "paginate",
 		onPageHold: "holdHandler",
-		onPageHoldPulse: "holdHandler",		
-		onPageRelease: "holdHandler"		
+		onPageHoldPulse: "holdHandler",
+		onPageRelease: "holdHandler"
 	},
 	touch: true,
 	spotlight: true,
 	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy",
+		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
 	},
 	rendered: function() {
@@ -47,14 +47,10 @@ enyo.kind({
 	mousemove: function() {
 		this.$.strategy.mousemove();
 	},
-	scrollStart: function() {
-		this.$.strategy.scrollStart();
-		this.inherited(arguments);		
-	},	
 	holdHandler: function(inSender, inEvent) {
 		//Create a job to prevent pagination on tap if the intention is to auto scroll on hold
 		if (inEvent.type == 'pagehold') {
-			this.startJob('preventPaginate', this.bindSafely(function(){this.preventPaginate = true}), 200);
+			this.startJob('preventPaginate', this.bindSafely(function(){this.preventPaginate = true;}), 200);
 		} else if (inEvent.type == 'pagerelease') {
 			this.stopJob('preventPaginate');
 		}
@@ -63,7 +59,7 @@ enyo.kind({
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){
-			this.stopJob('preventPaginate');			
+			this.stopJob('preventPaginate');
 			this.preventPaginate = false;
 			return;
 		}
@@ -81,7 +77,7 @@ enyo.kind({
 	//* Scrolls one page backward, lining up with the appropriate node.
 	pageBack: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnBack().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
-			sb = this.$.strategy.scrollBounds,
+			sb = this.$.strategy.getScrollBounds(),
 			node,
 			pageDelta,
 			threshold = this.orientV ? sb.top : sb.left;
@@ -103,7 +99,7 @@ enyo.kind({
 	//* Scrolls one page forward, lining up with the appropriate node.
 	pageForward: function() {
 		var i = this.$.generator.hasNode().querySelector('#' + this.findBoundingPageOnForward().id + " div[data-enyo-index]").getAttribute("data-enyo-index", 10),
-			sb = this.$.strategy.scrollBounds,
+			sb = this.$.strategy.getScrollBounds(),
 			node,
 			nodeEdge,
 			threshold = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth;
@@ -123,7 +119,7 @@ enyo.kind({
 	},
 	//* Finds page at one clientHeight/Width before the current top/left position.
 	findBoundingPageOnBack: function() {
-		var sb = this.$.strategy.scrollBounds,
+		var sb = this.$.strategy.getScrollBounds(),
 			coordinate = this.orientV ? sb.top - sb.clientHeight : sb.left - sb.clientWidth,
 			pageInfo = this.positionToPageInfo(coordinate);
 
@@ -131,7 +127,7 @@ enyo.kind({
 	},
 	//* Finds page at one clientHeight/Width after the current top/left position.
 	findBoundingPageOnForward: function() {
-		var sb = this.$.strategy.scrollBounds,
+		var sb = this.$.strategy.getScrollBounds(),
 			coordinate = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth,
 			pageInfo = this.positionToPageInfo(coordinate);
 
@@ -139,7 +135,7 @@ enyo.kind({
 	},
 	//* Scrolls to a given node in the list.
 	animateToNode: function(inNode, inLazy) {
-		var sb = this.$.strategy.scrollBounds,
+		var sb = this.$.strategy.getScrollBounds(),
 			st = this.getStrategy(),
 			b = {
 				height: inNode.offsetHeight,

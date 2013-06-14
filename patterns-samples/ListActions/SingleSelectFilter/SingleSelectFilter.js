@@ -21,11 +21,11 @@ enyo.kind({
 					    {kind: "moon.Divider", content:"Filter"},
 					    {kind: "moon.Scroller", components: [
 							{kind: "Group", components: [
-						        {content:"New Releases", kind:"moon.LabeledCheckbox"},
-						        {content:"Most Popular", kind:"moon.LabeledCheckbox"},
-						        {content:"Action & Adventure", kind:"moon.LabeledCheckbox"},
-						        {content:"Comedy", kind:"moon.LabeledCheckbox"},
-						        {content:"Drama", kind:"moon.LabeledCheckbox"}
+						        {content:"New Releases", kind:"moon.CheckboxItem"},
+						        {content:"Most Popular", kind:"moon.CheckboxItem"},
+						        {content:"Action & Adventure", kind:"moon.CheckboxItem"},
+						        {content:"Comedy", kind:"moon.CheckboxItem"},
+						        {content:"Drama", kind:"moon.CheckboxItem"}
 							]}
 					    ]}
 					]}		

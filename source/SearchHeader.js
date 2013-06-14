@@ -1,3 +1,7 @@
+/**
+	_moon.SearchHeader_ extends <a href="#moon.Header">moon.Header</a>, combining
+	a search box with a narrow title.
+*/
 enyo.kind({
     //* @public
     name: "moon.SearchHeader",

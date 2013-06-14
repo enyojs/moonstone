@@ -17,7 +17,6 @@ enyo.kind({
 			If it has true value, diameter of this button is 60px.
 			However, the tap-target for button still has 78px, so it has
 			invisible DOM which wrap this small button to provide wider tap zone.
-
 		*/
 		small: false,
 	},

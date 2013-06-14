@@ -1,0 +1,83 @@
+.moon-scroller-client-wrapper {
+	position: absolute;
+	overflow: hidden;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+
+.moon-scroller-client-wrapper.v-scroll-enabled {
+	right: 50px;
+}
+.moon-scroller-client-wrapper.h-scroll-enabled {
+	bottom: 50px;
+}
+.moon-scroller-client-wrapper.v-scroll-enabled.h-scroll-enabled {
+}
+
+.moon-scroller-v-column {
+	position:absolute;
+	width: 50px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	display: none;
+}
+
+.moon-scroller-v-column.v-scroll-enabled {
+	display: block;
+}
+.moon-scroller-v-column.h-scroll-enabled {
+	bottom: 50px;
+}
+
+.moon-scroller-h-column {
+	position:absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 50px;
+	display: none;
+}
+.moon-scroller-h-column.h-scroll-enabled {
+	display: block;
+}
+.moon-scroller-h-column.v-scroll-enabled {
+	right: 50px;
+}
+
+.moon-scroller-thumb-container {
+	position:absolute;
+}
+.moon-scroller-hthumb-container {
+	left: 50px;
+	right: 50px;
+	bottom: 0px;
+	height: 50px;
+}
+.moon-scroller-vthumb-container {
+	top: 50px;
+	bottom: 50px;
+	right: 0px;
+	width: 50px;
+}
+
+.moon-scroller-hthumb,
+.moon-scroller-vthumb {
+	transition: opacity 0.1s linear;
+	-moz-transition: opacity 0.1s linear;
+	-webkit-transition: opacity 0.1s linear;
+}
+.moon-scroller-hthumb {
+	height: 4px;
+	bottom: 23px;
+}
+.moon-scroller-vthumb {
+	width: 4px;
+	right: 23px;
+}
+.moon-scroller-hthumb.hidden,
+.moon-scroller-vthumb.hidden {
+	opacity: 0;
+}

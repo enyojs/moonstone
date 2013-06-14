@@ -1,0 +1,25 @@
+.moon-labeled-toggle-button {
+	display: block;
+	position:relative;
+}
+.moon-labeled-toggle-button .moon-labeled-toggle-button-label-wrapper {
+	height: 24px;
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, white 75px);
+	padding: 2px 0px 0px 0px;
+}
+.moon-labeled-toggle-button.spotlight .moon-labeled-toggle-button-label-wrapper {
+	-webkit-mask-image: -webkit-linear-gradient(right, transparent (@moon-no-spotlight-padding-right + 45), white (@moon-no-spotlight-padding-right + 60));
+}
+.moon-labeled-toggle-button .moon-labeled-toggle-button-label {
+	float: left;
+	white-space: nowrap;
+}
+.moon-labeled-toggle-button .moon-toggle-text-text {
+	margin-top: -1px;
+}
+.moon-labeled-toggle-button.disabled .moon-toggle-text-text {
+	color: inherit;
+}
+.moon-labeled-toggle-button.disabled .moon-toggle-text {
+	opacity: 1;
+}

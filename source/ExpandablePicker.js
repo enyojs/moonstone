@@ -2,7 +2,7 @@
 	_moon.ExpandablePicker_, which extends
 	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
 	picker menu that solicits a choice from the user. The picker's child
-	components, which are instances of <a href="#moon.LabeledCheckbox">moon.LabeledCheckbox</a>
+	components, which are instances of <a href="#moon.CheckboxItem">moon.CheckboxItem</a>
 	by default, provide the options for the picker.
 
 		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
@@ -62,10 +62,15 @@ enyo.kind({
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
 		//* Text to be display when the drawer is opened
-		helpText: ""
+		helpText: "",
+		/**
+			If true, the drawer automatically closes when the user makes a selection; 
+			if false, the user must select/tap the header to close the drawer
+		*/
+		autoCollapse: true
 	},
 	//* @protected
-	defaultKind: "moon.LabeledCheckbox",
+	defaultKind: "moon.CheckboxItem",
 	handlers: {
 		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
@@ -77,7 +82,7 @@ enyo.kind({
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", highlander: true},
 			{name: "helpText", classes: "moon-expandable-picker-help-text"}
-		]},		
+		]},
 		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
 		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
 	],
@@ -87,6 +92,7 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.noneTextChanged();
 		this.helpTextChanged();
+		this.openChanged();
 	},
 	//* When the _selected_ control changes, updates _checked_ values
 	//* appropriately and fires an _onChange_ event.
@@ -96,18 +102,22 @@ enyo.kind({
 			index = -1;
 
 		for(var i=0;i<controls.length;i++) {
+			controls[i].silence();
 			if(controls[i] === selected) {
 				controls[i].setChecked(true);
 				index = i;
 			} else {
 				controls[i].setChecked(false);
 			}
+			controls[i].unsilence();
 		}
 
 		if(index > -1 && selected !== inOldValue) {
 			this.setSelectedIndex(index);
 			this.$.currentValue.setContent(selected.getContent());
-			this.fireChangeEvent();
+			if(this.hasNode()) {
+				this.fireChangeEvent();
+			}
 		}
 	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the
@@ -130,13 +140,13 @@ enyo.kind({
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
+		this.$.currentValue.setShowing(!this.open);
+		this.$.bottom.setShowing(this.open);
 	},
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
-		this.inherited(arguments);
 		this.$.helpText.setContent(this.helpText);
-		this.$.helpText.setShowing(!!this.helpText);	
+		this.$.helpText.setShowing(!!this.helpText);
 	},
 	/*
 		When the picker is initialized, looks for any items with an _active:true_

@@ -2,7 +2,8 @@
     "globals": {
         "enyo": false,
         "$L": false,
-        "moon": false
+        "moon": false,
+        "ilib": false
     },
     "evil": false,
     "regexdash": true,

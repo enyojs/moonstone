@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.sample.ProgressSample",
-	classes: "moon enyo-unselectable moon-progress-sample",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Progress Bars"},
@@ -18,7 +18,7 @@ enyo.kind({
 		{tag: "br"},
 		{tag: "br"},
 		{style: "width:240px;", components: [
-			{name: "animateSetting", kind: "moon.LabeledCheckbox", checked: true, content: "Animated"}
+			{name: "animateSetting", kind: "moon.CheckboxItem", checked: true, content: "Animated"}
 		]}
 	],
 	changeValue: function(inSender, inEvent) {

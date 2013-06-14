@@ -1,11 +1,10 @@
 enyo.kind({
 	name: "moon.sample.ButtonSample",
-	fit: true,
 	kind:"FittableRows",
-	classes: "moon enyo-unselectable moon-button-sample",
+	classes: "moon enyo-unselectable enyo-fit moon-button-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
+		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{kind: "moon.Button", content: "B", ontap: "buttonTapped"},
@@ -20,9 +19,8 @@ enyo.kind({
 				{name: "smallButtonTwo", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
 				{name: "smallButtonThree", kind: "moon.Button", small: true, disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{name: "smallButtonFour", kind: "moon.Button", small: true, content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
-				{classes: "tap-area-check-container", components: [
-					{kind: "moon.LabeledToggleButton", content: "Show Tap Area", onActivate: "test"}
-				]},
+				{kind: "moon.ToggleItem", classes: "tap-area-toggle-container", content: "Show Tap Area", onActivate: "test"},
+				{tag: "br"},
 				{tag: "br"},
 				
 				{kind: "moon.Divider", content: "Themed Buttons:"},
@@ -51,6 +49,7 @@ enyo.kind({
 				{kind: "moon.CaptionDecorator", side: "top", content: "Rent DVD", components: [
 					{
 						kind: "moon.Button",
+						content: "A",
 						ontap: "buttonTapped",
 						components: [
 							{content: "$", classes: "moon-pre-text"},
@@ -105,7 +104,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name: "console", classes: "moon-button-sample-console"}
+		{name: "console", classes: "moon-button-sample-console moon-dark-gray"}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		var str = '"'+inSender.content+'" ';
