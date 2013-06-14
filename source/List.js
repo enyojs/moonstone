@@ -21,40 +21,11 @@ enyo.kind({
 		pageSize: null
 	},
 	//* @protected
-	handlers: {
-		onleave: "leave",
-		onmousemove: "mousemove",
-		onPaginate: "paginate",
-		onPageHold: "holdHandler",
-		onPageHoldPulse: "holdHandler",
-		onPageRelease: "holdHandler"
-	},
 	touch: true,
 	spotlight: true,
 	initComponents: function() {
 		this.strategyKind = "moon.ScrollStrategy";
 		this.inherited(arguments);
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.$.strategy.setPageSize(this.pageSize ? this.pageSize : this.rowSize);
-	},
-	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
-	leave: function() {
-		this.$.strategy.leave();
-	},
-	//* On mouse move, shows/hides page controls.
-	mousemove: function() {
-		this.$.strategy.mousemove();
-	},
-	holdHandler: function(inSender, inEvent) {
-		//Create a job to prevent pagination on tap if the intention is to auto scroll on hold
-		if (inEvent.type == 'pagehold') {
-			this.startJob('preventPaginate', this.bindSafely(function(){this.preventPaginate = true;}), 200);
-		} else if (inEvent.type == 'pagerelease') {
-			this.stopJob('preventPaginate');
-		}
-		this.$.strategy.holdHandler(inSender, inEvent);
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
