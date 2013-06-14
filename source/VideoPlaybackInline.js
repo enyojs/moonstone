@@ -9,6 +9,8 @@ enyo.kind({
 		paused : true,
 		//* Current position of video progress
 		currentPosition: 0,
+		//* Old position of video progress
+		oldPosition: 0,
 		//* Current time of video
 		currentTime: 0,
 		//* Total duration of video
@@ -18,6 +20,8 @@ enyo.kind({
 		onPlay: "",
 		onPause: "",
 		onFullScreen: "",
+		//* Fires when currPosAnimator bar finishes animating to a position.
+		onAnimateCurrPosFinish: ""
 	},
 	components: [
 		{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
@@ -43,16 +47,18 @@ enyo.kind({
 			style: "position: absolute; bottom: 0px; right: 0px; width: 80px; height:80px; background-color: transparent; z-index: 5;",
 		}
 	],
-	currTimeChanged: function() {
-		this.textBoxUpdate();
-	},
-	durationChanged: function() {
-		this.textBoxUpdate();
-	},
 	textBoxUpdate: function() {
 		var cu = Math.floor(this.getCurrentTime());
 		var du = Math.floor(this.getDuration());
 		this.$.textBox.setContent(cu+"/"+du);
+	},
+	currTimeChanged: function() {
+		this.textBoxUpdate();
+		return true;
+	},
+	durationChanged: function() {
+		this.textBoxUpdate();
+		return true;
 	},
 	PlayPause: function(inSender, inEvent)
 	{
@@ -62,6 +68,7 @@ enyo.kind({
 		} else {	
 			this.doPause();	
 		}
+		return true;
 	},
 	pausedChanged: function() 
 	{
@@ -74,6 +81,28 @@ enyo.kind({
 		return true;
 	},
 	currentPositionChanged: function() {
-		this.$.progressStatus.applyStyle("width", this.getCurrentPosition() + "%");		
+		var pos = this.getCurrentPosition();
+		this.animateProgressTo(pos);
+		this.setOldPosition(pos);
+		return true;
+	},
+	//* @public
+	//* Animates current video position to the given value.
+	animateProgressTo: function(inValue) {
+		this.$.currPosAnimator.play({
+			startValue: this.oldPosition,
+			endValue: inValue,
+			node: this.hasNode()
+		});
+		return true;
+	},
+	//* @protected
+	currPosAnimatorStep: function(inSender) {
+		this.$.progressStatus.applyStyle("width", inSender.value + "%");		
+		return true;
+	},
+	currPosAnimatorComplete: function(inSender) {
+		this.doAnimateCurrPosFinish(inSender);
+		return true;
 	}
 });
