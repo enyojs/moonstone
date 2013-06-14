@@ -3,7 +3,7 @@ enyo.kind({
 	kind: "enyo.GridFlyWeightRepeater",
 	//* Override to use strategy's _clientWrapper_ node.
 	_generateChildHtmlEqualSizedItems: function() {
-		var cw = this.owner.$.strategy.$.clientContainer.hasNode().clientWidth;
+		var cw = this.owner.getScrollBounds().clientWidth;
 		var cl = this.$.client, ht = "";
 		var itemWidthPercent = 0, itemScaledWidth = this.itemWidth, itemScaledHeight = this.itemHeight;
 		if (this.itemFluidWidth) {
