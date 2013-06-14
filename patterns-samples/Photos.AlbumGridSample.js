@@ -1,7 +1,7 @@
 	enyo.kind({
     name: "moon.sample.photos.AlbumGridSample",
 	kind: "moon.Panel",
-	classes: "moon enyo-fit",
+	classes: "moon enyo-fit enyo-unselectable",
 	titleAbove: "01",
 	title: "Main Menu",
 	components: [	

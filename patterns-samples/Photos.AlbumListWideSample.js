@@ -3,61 +3,60 @@ enyo.kind({
 	kind: "moon.Panel",
 	titleAbove: "01",
 	title: "Albums",
-	classes: "photos-album",
+	classes: "photos-album enyo-fit",
+	layoutKind: "FittableColumnsLayout",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "FittableColumns", components: [				
-			{kind : "moon.Scroller", classes: "moon-7h", horizontal: "hidden", touch: true, components:[
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-				{
-					kind: "moon.ImageItem", 
-					source: "assets/album.png", 
-					label: "ALBUM NAME", 
-				},
-			]},
-			{kind : "moon.Scroller", fit: true, touch: true, components:[
-				{
-					name: "gridlist",
-					kind: "moon.GridList",
-					classes: "enyo-fill",
-					onSetupItem: "setupGridItem",
-					itemWidth: 270,
-					itemHeight: 202,
-					itemSpacing: 20,
-					components: [
-						{name: "gridItem", kind: "moon.GridList.ImageItem"}
-					]
-				}
-			]}
+		{kind : "moon.Scroller", classes: "moon-7h", horizontal: "hidden", touch: true, components:[
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+			{
+				kind: "moon.ImageItem", 
+				source: "assets/album.png", 
+				label: "ALBUM NAME", 
+			},
+		]},
+		{kind : "moon.Scroller", fit: true, touch: true, components:[
+			{
+				name: "gridlist",
+				kind: "moon.GridList",
+				classes: "enyo-fill",
+				onSetupItem: "setupGridItem",
+				itemWidth: 270,
+				itemHeight: 202,
+				itemSpacing: 20,
+				components: [
+					{name: "gridItem", kind: "moon.GridList.ImageItem"}
+				]
+			}
 		]}
 	],
 	
