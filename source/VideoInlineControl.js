@@ -1,3 +1,7 @@
+/**
+	_moon.VideoInlineControl_ is a protected kind used inside of _moon.VideoPlayer_, to provide controls for the 
+	inline (non-full screen) video player.
+*/
 enyo.kind({
 	name: "moon.VideoInlineControl",
 	classes: "moon-video-inline-control",
@@ -12,7 +16,7 @@ enyo.kind({
 		//* Current time of video
 		currentTime: 0,
 		//* Total duration of video
-		duration: 0,
+		duration: 0
 	},
 	events: {
 		onPlay: "",
@@ -22,10 +26,10 @@ enyo.kind({
 	},
 	components: [
 		{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-		{name: "playpause", kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-play.png", ontap: "PlayPause", classes: "moon-video-inline-control-play-pause" },
+		{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-play.png", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 		{classes: "moon-video-inline-control-text", components: [
-				{name: "currTime", style: "display:inline"},
-				{name: "totalTime", style: "display:inline"}
+			{name: "currTime", style: "display:inline"},
+			{name: "totalTime", style: "display:inline"}
 		]},
 		{name: "progressStatus", classes: "moon-video-inline-control-progress"},
 		{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-fullscreenbutton.png", ontap: "doFullScreen", classes: "moon-video-inline-control-fullscreen"}
@@ -41,7 +45,7 @@ enyo.kind({
 		this.$.totalTime.setContent('/'+ dur.getMinutes() + ':' + dur.getSeconds()); 
 		return true;
 	},
-	PlayPause: function(inSender, inEvent)
+	playPause: function(inSender, inEvent)
 	{
 		if(this.getPaused()) {
 			this.doPlay();
