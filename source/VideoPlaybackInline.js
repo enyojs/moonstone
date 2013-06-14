@@ -1,16 +1,17 @@
 enyo.kind({
 	name: "moon.VideoPlaybackInline",
 	style:"position: absolute; \
-		   width: 100%; height: 80px; bottom: 0px; left: 0px; \
-		   margin: 0px; \
-		   background-color: rgba(0,0,0,0.5);",
+			width: 100%; height: 80px; bottom: 0px; left: 0px; \
+			margin: 0px; \
+			background-color: rgba(0,0,0,0.5);",
 	published: {
 		//* Current status of video play
 		paused : true,
 		//* Current position of video progress
-		currPos: 0,
-		progress: 0,
-		currTime: 0,
+		currentPosition: 0,
+		//* Current time of video
+		currentTime: 0,
+		//* Total duration of video
 		duration: 0,
 	},
 	events: {
@@ -49,7 +50,7 @@ enyo.kind({
 		this.textBoxUpdate();
 	},
 	textBoxUpdate: function() {
-		var cu = Math.floor(this.getCurrTime());
+		var cu = Math.floor(this.getCurrentTime());
 		var du = Math.floor(this.getDuration());
 		this.$.textBox.setContent(cu+"/"+du);
 	},
@@ -72,7 +73,7 @@ enyo.kind({
 		}
 		return true;
 	},
-	currPosChanged: function() {
-		this.$.progressStatus.applyStyle("width", this.getCurrPos() + "%");		
+	currentPositionChanged: function() {
+		this.$.progressStatus.applyStyle("width", this.getCurrentPosition() + "%");		
 	}
 });

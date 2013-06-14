@@ -57,8 +57,8 @@ enyo.kind({
 		//* Time for video player controls to hide after the pointer stops moving (in seconds)
 		autoCloseTimeout: 4,
 		// WIP by JCKIM
-		currPos: 0,
-		currTime: 0,
+		currentPosition: 0,
+		currentTime: 0,
 		duration: 0,
 		paused: false
 	},
@@ -187,9 +187,8 @@ enyo.kind({
 		var curTime = new Date(inSender.getCurrentTime()*1000);
 		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
 
-		// WIP by JCKIM
-		this.setCurrPos(val);
-		this.setCurrTime(inSender.getCurrentTime());
+		this.setCurrentPosition(val);
+		this.setCurrentTime(inSender.getCurrentTime());
 		this.setDuration(inSender.getDuration());	
 
 		return true;
@@ -244,7 +243,6 @@ enyo.kind({
 		else {
 			this.$.playpause.setSrc("assets/icon-Pause.png");
 		}
-		// WIP by JCKIM
 		this.setPaused(this.$.video.isPaused());
 		return true;
 	},
