@@ -51,14 +51,24 @@ enyo.kind({
 		if (this.small) {
 			this.addClass('small');
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
-			this.createComponent({name: "client", content: this.getContent()});
+			this.createComponent({name: "client"});
 		} else {
 			this.removeClass('small');
 		}
+		
+		this.contentChanged();
 	},
 	//* When _this.small_ changes, update and rerender
 	smallChanged: function() {
 		this.updateSmall();
 		this.render();
 	},
+	//* Override content changed to handle potential child components
+	contentChanged: function() {
+		if (this.$.client) {
+			this.$.client.setContent(this.getContent());
+		} else {
+			this.inherited(arguments);
+		}
+	}
 });
