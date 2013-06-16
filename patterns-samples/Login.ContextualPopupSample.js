@@ -61,53 +61,52 @@ enyo.kind({
 
 enyo.kind({
     name: "moon.sample.login.ContextualPopupSample",
-    kind: "moon.Panel",
-    layoutKind: "FittableColumnsLayout",
-    titleAbove: "01",
-    title: "Main Menu",
+    kind: "moon.Panels",
     components: [
-        {kind: "enyo.Spotlight"},
-		{kind: "moon.Scroller", components: [
-	        {
-	            name: "menuList",
-	            kind: "enyo.DataList",
-	            style: "width: 300px;",
-	            components: [
-	                {bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
-	            ]
-	        },
-	        {
-	            fit: true,
-	            layoutkind: "FittableRowsLayout", 
-	            components: [
-	            {
-	                name: "contentList",            
-	                kind: "enyo.DataGridList",
-	                fit: true,
-	                components: [
-	                    {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"},                    
-	                ]
-	            },
-	            {
-	                name: "buttonList",
-	                layoutkind: "FittableRowsLayout",
-	                components: [
-	                    {kind: "moon.ContextualPopupDecorator", components: [
-	                        {kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
-	                            {tag: "img", attributes: {src: "assets/icon-half-like.png"}},
-	                            {content: "LIKE"}
-	                        ]},                        
-	                        {kind: "moon.ContextualLoginPopup"}
-	                    ]},
-	                    {kind: "moon.ContextualPopupDecorator", components: [
-	                        {classes: "moon-2h", content: "SHARE"},
-	                        {kind: "moon.ContextualLoginPopup"}
-	                    ]},
-	                ]
-	            }
-			]}
-        ]}
-        
+		{
+            title: "Main Menu", 
+            components: [
+                {
+                    name: "menuList",
+                    kind: "enyo.DataList",
+                    scrollerOptions: { kind:"moon.Scroller"},
+                    components: [
+                        {bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
+                    ]
+                }
+            ]
+        },
+        {
+            joinToPrev: true,
+            layoutkind: "FittableRowsLayout", 
+            components: [
+                {
+                    name: "contentList",            
+                    kind: "enyo.DataGridList",
+                    components: [
+                        {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"},                    
+                    ]
+                },
+                {
+                    name: "buttonList",
+                    layoutkind: "FittableRowsLayout",
+                    fit: true,
+                    components: [
+                        {kind: "moon.ContextualPopupDecorator", components: [
+                            {kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
+                                {tag: "img", attributes: {src: "assets/icon-half-like.png"}},
+                                {content: "LIKE"}
+                            ]},                        
+                            {kind: "moon.ContextualLoginPopup"}
+                        ]},
+                        {kind: "moon.ContextualPopupDecorator", components: [
+                            {classes: "moon-2h", content: "SHARE"},
+                            {kind: "moon.ContextualLoginPopup"}
+                        ]},
+                    ]
+                }
+            ]
+        }
     ],
     bindings: [
         {from: ".controller.menus", to: "$.menuList.controller"},
@@ -139,6 +138,7 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
+                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.login.ContextualPopupSample",
                     controller: ".app.controllers.movieController",
@@ -157,4 +157,4 @@ enyo.ready(function(){
             }
         ]
     });
-});
+})
