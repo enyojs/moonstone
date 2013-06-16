@@ -32,7 +32,9 @@ enyo.kind({
 		*/
 		animate: true,
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
-		noPopup: false
+		noPopup: false,
+		//* If true, show popup value as a percentage
+		showPercentage: true
 	},
 	events: {
 		//* Fires when bar position is set. The _value_ property contains the
@@ -91,7 +93,7 @@ enyo.kind({
 	},
 	//* Prep value at create time
 	initValue: function() {
-		this.updateKnobPosition(this.calcPercent(this.getValue()));
+		this.updateKnobPosition(this.getValue());
 		if (this.lockBar) {
 			this.setProgress(this.getValue());
 		}
@@ -112,7 +114,7 @@ enyo.kind({
 		}
 
 		this.value = v;
-		this.updateKnobPosition(this.calcPercent(this.value));
+		this.updateKnobPosition(v);
 
 		if (this.lockBar) {
 			this.setProgress(this.value);
@@ -123,19 +125,25 @@ enyo.kind({
 	getValue: function() {
 		return (this.animatingTo !== null) ? this.animatingTo : this.value;
 	},
-	updateKnobPosition: function(inPercent) {
-		this.$.knob.applyStyle("left", inPercent + "%");
-		this.$.popup.applyStyle("left", inPercent + "%");
+	updateKnobPosition: function(inValue) {
+		var percent = this.calcPercent(inValue),
+			knobValue = (this.showPercentage) ? percent : inValue,
+			label
+		;
+		
+		this.$.knob.applyStyle("left", percent + "%");
+		this.$.popup.applyStyle("left", percent + "%");
 
-		var label = "";
 		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(inPercent));
+			label = this._nf.format(Math.round(knobValue));
+		} else {
+			label = Math.round(knobValue);
+			if (this.showPercentage) {
+				label += "%";
+			}
 		}
-		else {
-			label = Math.round(inPercent) + "%";
-		}
+		
 		this.$.popupLabel.setContent(label);
-
 		this.updatePopupPosition();
 	},
 	updatePopupPosition: function() {
@@ -181,9 +189,8 @@ enyo.kind({
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
 			v = this.clampValue(this.min, this.max, v);
-			var p = this.calcPercent(v);
 
-			this.updateKnobPosition(p);
+			this.updateKnobPosition(v);
 
 			if (this.lockBar) {
 				this.setProgress(v);
@@ -231,10 +238,9 @@ enyo.kind({
 	},
 	//* @protected
 	animatorStep: function(inSender) {
-		var v = this.clampValue(this.min, this.max, inSender.value),
-			p = this.calcPercent(v);
+		var v = this.clampValue(this.min, this.max, inSender.value);
 
-		this.updateKnobPosition(p);
+		this.updateKnobPosition(v);
 
 		if (this.lockBar) {
 			this.setProgress(v);
