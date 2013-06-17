@@ -10,5 +10,9 @@
 enyo.kind({
 	name: "moon.ContextualPopupButton",
 	kind: "moon.Button",
-	classes: "contextual-popup-button"
+	classes: "contextual-popup-button",
+	//* @protected
+	published: {
+		keepOpen: true
+	}
 });

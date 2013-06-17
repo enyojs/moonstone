@@ -47,10 +47,11 @@ enyo.kind({
 		if (this.activator) {
 			this.activator.setActive(false);
 			this.activator.removeClass("active");
+			this.activator.removeClass("pressed");
 		}
 	},
 	spotBlur: function(inSender, inEvent) {
-		if ((this.activator !== undefined) && (this.popupActive) && (!enyo.Spotlight.getPointerMode())) {
+		if ((this.activator !== undefined) && (!this.activator.getKeepOpen()) && (this.popupActive) && (!enyo.Spotlight.getPointerMode())) {
 			this.requestHidePopup();
 		}
 	},
