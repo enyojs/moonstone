@@ -32,7 +32,11 @@ enyo.kind({
 		*/
 		animate: true,
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
-		noPopup: false
+		noPopup: false,
+		//* When true, you can move the knob past the _bgProgress_
+		pastBgProgress: false,
+		//* When true, you can see elastic effect when drag knob past the _bgProgress_
+		elasticEffect: false
 	},
 	events: {
 		//* Fires when bar position is set. The _value_ property contains the
@@ -89,14 +93,20 @@ enyo.kind({
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
 	},
+	calcPastBgProgress: function(value) {
+		var max = (this.pastBgProgress == true) ? this.max : this.bgProgress;
+		return this.clampValue(this.min, max, this.getValue());
+	},
 	//* Prep value at create time
 	initValue: function() {
+		this.value = this.calcPastBgProgress(this.value);
 		this.updateKnobPosition(this.calcPercent(this.getValue()));
 		if (this.lockBar) {
 			this.setProgress(this.getValue());
 		}
 	},
 	setValue: function(inValue) {
+		inValue = this.calcPastBgProgress(inValue);
 		if (this.animate) {
 			this.animateTo(this.getValue(), inValue);
 		} else {
@@ -104,7 +114,7 @@ enyo.kind({
 		}
 	},
 	_setValue: function(inValue) {
-		var v = this.clampValue(this.min, this.max, inValue);
+		var v = this.calcPastBgProgress(inValue);
 
 		// If no change, return
 		if (v === this.value) {
@@ -178,11 +188,22 @@ enyo.kind({
 	},
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
-			var v = this.calcKnobPosition(inEvent);
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			v = this.clampValue(this.min, this.max, v);
-			var p = this.calcPercent(v);
+			var v = this.calcKnobPosition(inEvent), 
+				ev = 0;
 
+			v = (this.increment) ? this.calcIncrement(v) : v;
+
+			emax = (this.pastBgProgress == true) ? this.max : this.bgProgress;
+			ev = emax + (v-emax)*0.4;
+
+			this.targetValue = v = this.clampValue(this.min, emax, v);
+			if (this.elasticEffect == true) {
+				this.elasticValue = (emax > v) ? v : ev;
+			} else {
+				this.elasticValue = this.targetValue;				
+			}
+
+			var p = this.calcPercent(this.elasticValue);
 			this.updateKnobPosition(p);
 
 			if (this.lockBar) {
@@ -198,9 +219,11 @@ enyo.kind({
 		if (this.disabled) {
 			return;	// return nothing
 		}
-		var v = this.calcKnobPosition(inEvent);
-		v = (this.increment) ? this.calcIncrement(v) : v;
-		this._setValue(v);
+		//var v = this.calcKnobPosition(inEvent);
+		// v = (this.increment) ? this.calcIncrement(v) : v;
+		// this._setValue(v);
+		var v = (this.increment) ? this.calcIncrement(this.targetValue) : this.targetValue;
+		this.animateTo(this.elasticValue, v);
 
 		this.dragging = false;
 
@@ -231,7 +254,9 @@ enyo.kind({
 	},
 	//* @protected
 	animatorStep: function(inSender) {
-		var v = this.clampValue(this.min, this.max, inSender.value),
+		var //max = (this.pastBgProgress == true) ? this.max : this.bgProgress,
+			//v = this.clampValue(this.min, max, inSender.value),
+			v = inSender.value,
 			p = this.calcPercent(v);
 
 		this.updateKnobPosition(p);
