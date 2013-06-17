@@ -8,7 +8,8 @@ enyo.kind({
 	name: "moon.ToggleButton",
 	kind: "moon.Button",
 	published: {
-		//* to indicate that this is the active button of the group, false otherwise.
+		//* If true, indicates that this is the active button of the group;
+		//* otherwise, false
 		active: false,
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
@@ -17,7 +18,7 @@ enyo.kind({
 		onContent: $L("On"),
 		//* Label for toggle button's "off" state
 		offContent: $L("Off"),
-		//* Label for seperator
+		//* Label for separator
 		labelSeperator: $L(":"), 
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
