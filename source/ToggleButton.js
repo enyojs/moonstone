@@ -1,8 +1,7 @@
 /**
 	_moon.ToggleButton_, which extends <a href="#moon.Button">moon.Button</a>,
-	is a control that looks like a switch with labels for two states, an "on"
-	state and an "off" state.  When the ToggleButton is tapped, it switches its
-	state and fires an _onChange_ event.
+	is a button with two states, "on" and "off".  When the ToggleButton is tapped,
+	it switches its state and fires an _onChange_ event.
 */
 
 enyo.kind({
