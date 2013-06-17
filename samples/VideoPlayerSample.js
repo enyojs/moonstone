@@ -15,7 +15,7 @@ enyo.kind({
 			xsrc: "../../video.mp4",
 			xsrc: "../../voice-E15.mp4",
 			components: [
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png", ontap: "onTap"},
+				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
@@ -42,8 +42,5 @@ enyo.kind({
 				}
 			]
 		}
-	],
-	onTap: function(inSender, inEvent) {
-		// fixme: Event should be catched in here
-	}
+	]
 });
