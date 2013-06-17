@@ -48,7 +48,6 @@ enyo.kind({
         {kind: "moon.InputDecorator", spotlight: true, components: [
             {kind: "moon.Input", placeholder: "Password", onchange:""}
         ]},
-        //{kind: "moon.CheckboxItem", content: "Log in setting Menu", checked: true, onchange: ""},
         {content: "Log in setting Menu"},
         {kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
         {content: "or Connected with"},
@@ -81,10 +80,10 @@ enyo.kind({
             layoutkind: "FittableRowsLayout", 
             components: [
                 {
-                    name: "contentList",            
+                    name: "contentList",
                     kind: "enyo.DataGridList",
                     components: [
-                        {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"},                    
+                        {kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
                     ]
                 },
                 {
@@ -102,7 +101,7 @@ enyo.kind({
                         {kind: "moon.ContextualPopupDecorator", components: [
                             {classes: "moon-2h", content: "SHARE"},
                             {kind: "moon.ContextualLoginPopup"}
-                        ]},
+                        ]}
                     ]
                 }
             ]
@@ -157,4 +156,4 @@ enyo.ready(function(){
             }
         ]
     });
-})
+});
