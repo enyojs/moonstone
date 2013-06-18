@@ -195,11 +195,11 @@ enyo.kind({
         if (this.dragging) {
             var v = this.calcKnobPosition(inEvent);
             
-            if (this.constraint == true) {
+            if (this.constraint === true) {
                 v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
-                ev = this.bgProgress + (v-this.bgProgress)*0.4;
+                var ev = this.bgProgress + (v-this.bgProgress)*0.4;
                 v = this.clampValue(this.min, this.bgProgress, v);
-                this.elasticFrom = (this.elasticEffect == false || this.bgProgress > v) ? v : ev;
+                this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
                 this.elasticTo = v;
             } else {
                 v = (this.increment) ? this.calcIncrement(v) : v;
@@ -224,13 +224,13 @@ enyo.kind({
             return; // return nothing
         }
         var v = this.elasticTo;
-        if (this.constraint == true) {
-        	v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
-        	this.animateTo(this.elasticFrom, v);
+        if (this.constraint === true) {
+            v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
+            this.animateTo(this.elasticFrom, v);
         } else {
-        	var v = this.calcKnobPosition(inEvent);
-        	v = (this.increment) ? this.calcIncrement(v) : v;	
-        	this._setValue(v);
+            v = this.calcKnobPosition(inEvent);
+            v = (this.increment) ? this.calcIncrement(v) : v;	
+            this._setValue(v);
         }
 
         this.dragging = false;
@@ -252,7 +252,7 @@ enyo.kind({
     //* @public
     //* Animates to the given value.
     animateTo: function(inStartValue, inEndValue) {
-    	inEndValue = this.clampValue(this.min, this.max, inEndValue); // Moved from animatorStep
+        inEndValue = this.clampValue(this.min, this.max, inEndValue); // Moved from animatorStep
         this.animatingTo = inEndValue;
 
         this.$.animator.play({
