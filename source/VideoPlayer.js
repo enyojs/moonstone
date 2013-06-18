@@ -86,9 +86,11 @@ enyo.kind({
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video", ontimeupdate:"timeupdate"},
 		{name: "videoInfoHeader", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-header", components: [
 			{name: "videoInfo", fit: true, classes: "moon-video-player-detail"},
-			{name: "feedbackHeader", classes: "moon-video-player-feedback", components: [
-				{name: "feedback", classes: "moon-video-player-feedback-icon"}
-			]}
+			// WIP by JCKIm
+			// {name: "feedbackHeader", classes: "moon-video-player-feedback", components: [
+			// 	{name: "feedback", classes: "moon-video-player-feedback-icon"}
+			// ]}
+			{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 		]},
 		{name: "playerControl", classes: "moon-video-player-bottom", components: [
 			{name: "controls", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-controls", components: [
@@ -191,7 +193,9 @@ enyo.kind({
 		this.onUpdateHandler();
 
 		var curTime = new Date(inSender.getCurrentTime()*1000);
-		this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
+
+		// // this.$.feedback.setContent(curTime.getMinutes() + ':' + curTime.getSeconds()); 
+		this.$.feedbackHeader.feedback("time", curTime.getMinutes() + ':' + curTime.getSeconds()); // WIP by JCKIM
 		return true;
 	},
 	//* Returns a reference to the video info control.
@@ -224,6 +228,7 @@ enyo.kind({
 		}
 	},
 	playpauseHandler: function(inSender, inEvent) {
+		this.$.feedbackHeader.feedback("play", !this.$.video.isPaused(), inSender.src); // WIP by JCKIM
 		if (this.$.video.isPaused() == true) {
 			this.$.video.play();
 		}
@@ -233,15 +238,19 @@ enyo.kind({
 	},
 	rewindHandler: function(inSender, inEvent) {
 		this.$.video.rewind();
+		this.$.feedbackHeader.feedback("rewind", this.$.video.step, inSender.src); // WIP by JCKIM
 	},
 	jumpBackHandler: function(inSender, inEvent) {
 		this.$.video.jumpBack();
+		this.$.feedbackHeader.feedback("jumpBack", this.$.video.isPaused(), inSender.src); // WIP by JCKIM
 	},
 	fastForwardHandler: function(inSender, inEvent) {
 		this.$.video.fastForward();
+		this.$.feedbackHeader.feedback("fastForward", this.$.video.step, inSender.src); // WIP by JCKIM
 	},
 	jumpForwardHandler: function(inSender, inEvent) {
 		this.$.video.jumpForward();
+		this.$.feedbackHeader.feedback("jumpForward", this.$.video.isPaused(), inSender.src); // WIP by JCKIM
 	},
 	onUpdateHandler: function(inSender, inEvent) {
 		if (this.$.video.isPaused()) {
