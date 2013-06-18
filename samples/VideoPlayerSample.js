@@ -10,7 +10,7 @@ enyo.kind({
 			kind: "moon.VideoPlayer",	
 			src: "http://media.w3.org/2010/05/video/movie_300.mp4",
 			components: [
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png", ontap: "onTap"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
@@ -37,5 +37,8 @@ enyo.kind({
 				}
 			]
 		}
-	]
+	],
+	onTap: function() {
+		this.log("Tapped");
+	}
 });
