@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.sample.wizard.StepSample",
+	name: "moon.sample.wizard.StepPageSample",
 	kind: "Sample.Wizard.Panel",
 	layoutKind: "FittableRowsLayout",
 	handlers: {
