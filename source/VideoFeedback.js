@@ -113,6 +113,7 @@ enyo.kind({
 	
 	_resetAutoTimer: function() {
 		if (this._autoTimer != null) {
+			clearTimeout(this._autoTimer);
 		}
 	}
 });
