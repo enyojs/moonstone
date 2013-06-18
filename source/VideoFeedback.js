@@ -109,7 +109,6 @@ enyo.kind({
 				this._timeoutHandler();
 			}), this.getAutoTimeout() * 1000);
 		this.setShowFeedback(true);
-		this.log();
 	},
 	
 	_resetAutoTimer: function() {
