@@ -2547,6 +2547,21 @@ p.moon-drawers-close-handle-text {
   background-color: #00d4b3;
   z-index: 2;
 }
+.moon-video-feedback-wrapper {
+  padding-top: 50px;
+}
+.moon-video-feedback-text {
+  height: 65px;
+  margin-top: 12px;
+  font-family: "Miso";
+  font-size: 50px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.moon-video-feedback-icon {
+  margin: 0px;
+  padding: 0px;
+}
 .moon-box-icon-button {
   width: 80px;
   height: 80px;
