@@ -51,7 +51,7 @@ enyo.kind({
 		if (this.small) {
 			this.addClass('small');
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
-			this.createComponent({name: "client"});
+			this.createComponent({name: "client", classes: "small-button-client"});
 		} else {
 			this.removeClass('small');
 		}

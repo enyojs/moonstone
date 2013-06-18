@@ -643,7 +643,7 @@
   position: relative;
   overflow: visible;
 }
-.small-button-tap-area {
+.moon-button.small > .small-button-tap-area {
   position: absolute;
   top: -14px;
   bottom: -14px;
