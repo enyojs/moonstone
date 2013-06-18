@@ -188,8 +188,6 @@ enyo.kind({
 		// update play/pause icon
 		this.onUpdateHandler();
 
-		var curTime = new Date(inSender.getCurrentTime()*1000);
-		this.$.feedbackHeader.feedback("time", curTime.getMinutes() + ':' + curTime.getSeconds());
 		return true;
 	},
 	//* Returns a reference to the video info control.
