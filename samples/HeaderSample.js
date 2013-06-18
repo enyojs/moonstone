@@ -3,6 +3,6 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit moon-hspacing",
 	components: [
 		{kind: "moon.Header", content: "Simple Header", classes:"moon-10h"},
-		{kind: "moon.Header", content: "Captioned Header", titleAbove: "02", titleBelow: "Sub Header", classes:"moon-10h"}
+		{kind: "moon.Header", content: "Captioned Header", titleAbove: "02", titleBelow: "Sub-Header", classes:"moon-10h"}
 	]
 });

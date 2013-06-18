@@ -10,8 +10,8 @@ enyo.kind({
 					{content:"Item 1"},
 					{content:"Item 2"},
 					{content:"Item 3"},
-					{content:"Item 4"},
-					{content:"Item 5"}
+					// {content:"Item 4"},
+					// {content:"Item 5"}
 				]
 			}
 		]},
@@ -68,7 +68,7 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; bottom: 0px;", components: [
 			{content: "Press Me"},
-			{kind: "moon.ContextualPopup", classes: "moon-2h",
+			{kind: "moon.ContextualPopup", classes: "moon-3h",
 				components: [
 					{content:"testing 1"},
 					{content:"testing 2"},
