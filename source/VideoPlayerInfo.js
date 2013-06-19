@@ -10,7 +10,7 @@
 			datetime: "CURRENT DATE & TIME", 
 			showname: "SHOW NAME", 
 			channel: "CHANNEL - AIR DATE & TIME SLOT", 
-			synopsys: "SHORT SYNOPSIS OF THE CURRENT SHOW",
+			synopsis: "SHORT SYNOPSIS OF THE CURRENT SHOW",
 			components: [
 				{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
 				{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
@@ -32,7 +32,7 @@ enyo.kind({
 		//* Channel of the current video
 		channel: "channel",
 		//* Synopsis of the current video
-		synopsys: "synopsys"
+		synopsis: "synopsis"
 	},
 	//@protected
 	components: [
@@ -40,7 +40,7 @@ enyo.kind({
 			{name: "datetime", classes: "moon-header-font moon-videoplayer-info-datetime"},
 			{name: "showname", classes: "moon-header-font moon-videoplayer-info-showname"},
 			{name: "channel", classes: "moon-videoplayer-info-channel"},
-			{name: "synopsys", classes: "moon-videoplayer-info-synopsys"}
+			{name: "synopsis", classes: "moon-videoplayer-info-synopsis"}
 		]},
 		{name: "client", classes: "moon-videoplayer-info-client"}
 	],
@@ -49,7 +49,7 @@ enyo.kind({
 		this.datetimeChanged();
 		this.shownameChanged();
 		this.channelChanged();
-		this.synopsysChanged();
+		this.synopsisChanged();
 	},
 	datetimeChanged: function() {
 		this.$.datetime.setContent(this.datetime);
@@ -60,7 +60,7 @@ enyo.kind({
 	channelChanged: function() {
 		this.$.channel.setContent(this.channel);
 	},
-	synopsysChanged: function() {
-		this.$.synopsys.setContent(this.synopsys);
+	synopsisChanged: function() {
+		this.$.synopsis.setContent(this.synopsis);
 	}
 });

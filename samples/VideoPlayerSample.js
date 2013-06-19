@@ -27,7 +27,7 @@ enyo.kind({
 					datetime: "June 13 & 2:15", 
 					showname: "Voice of Korea", 
 					channel: "Mnet - AIR DATE & TIME SLOT", 
-					synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+					synopsis: "SHORT SYNOPSIS ABOUT THE CURRENT SHOW",
 					components: [
 						{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
 						{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
