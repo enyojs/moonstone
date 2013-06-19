@@ -38,7 +38,7 @@ enyo.kind({
     handlers: {
         onNext: "next",
         onPrevious: "previous",
-        onCancel: "goCancel",
+        onCancel: "goCancel"
     },
     goCancel: function() {
         this.log("Cancel");
@@ -52,12 +52,12 @@ enyo.kind({
     classes: "moon-wizard-sample enyo-fit",
     published: {
         selectedText: "",
-        processed: false,
+        processed: false
     },
     events: {
         onNext: "",
         onPrevious: "",
-        onCancel: "",
+        onCancel: ""
     },
     headerComponents: [
         {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"./assets/icon-list.png",
@@ -70,12 +70,12 @@ enyo.kind({
                         {classes: "wizard-listaction-text", bindFrom: "processed", bindTo: "content"}
                     ]}
                 ]
-            }]
-        }    
+            }
+        ]}    
     ],
     bindings: [
         {from: ".controller.title", to: ".title"},
-        {from: ".controller.wizResults", to: ".$.header.$.wizListAction.$.listActionsContainer.$.wizList.controller"},
+        {from: ".controller.wizResults", to: ".$.header.$.wizListAction.$.listActionsContainer.$.wizList.controller"}
     ],
     rendered: function() {
         this.inherited(arguments);
@@ -90,12 +90,12 @@ enyo.kind({
     name: "moon.sample.wizard.PopupSample",
     kind: "Sample.Wizard.Panels",
     components: [
-        {name: "introPage", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.IntroSample"},
-        {name: "stepPage1", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepSample"},
-        {name: "stepPage2", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepSample"},
-        {name: "stepPage3", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepSample"},
-        {name: "stepPage4", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepSample"},
-        {name: "confirmPage", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.ConfirmationSample"}  
+        {name: "introPage", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.IntroPageSample"},
+        {name: "stepPage1", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage2", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage3", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage4", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.StepPageSample"},
+        {name: "confirmPage", classes: "moon-wizard-popup-sample", kind: "moon.sample.wizard.ConfirmPageSample"}  
     ],
     bindings: [
         {from: ".controller", to: ".$.introPage.controller"},
@@ -180,6 +180,7 @@ enyo.ready(function(){
             ])
         }
     );
+
     app = new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
