@@ -2350,6 +2350,27 @@ p.moon-drawers-close-handle-text {
   height: 100%;
   width: 100%;
 }
+/* Scrim.css */
+.moon-scrim {
+  z-index: 1;
+  /*
+		note: by using pointer-events we allow tapping on scrim
+		while it is fading out; however, this requires any showing classes
+		to set pointer events to auto or scrim will not function as expected.
+	*/
+
+  pointer-events: none;
+}
+.moon-scrim.moon-scrim-translucent {
+  pointer-events: auto;
+  background-color: #000000;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+.moon-scrim.moon-scrim-transparent {
+  pointer-events: auto;
+  background: transparent;
+}
 /* Popup.css */
 .moon-popup {
   position: absolute;
