@@ -39,13 +39,12 @@ enyo.kind({
 
 	//* @protected
 	create: function(oSender, oEvent) {
-		this._applyPattern();
 		this.inherited(arguments);
+		this._applyPattern();
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
 		}
 	},
-
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
 		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
@@ -56,6 +55,13 @@ enyo.kind({
 	},
 
 	//* @public
+	/**
+		Returns an array of contained panels.
+		Subclasses can override this if they don't want the arranger to layout all of their children
+	*/
+	getPanels: function() {
+		return this.getClientControls();
+	},
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
@@ -288,7 +294,21 @@ enyo.kind({
 		case "none":
 			break;
 		case "alwaysviewing":
-			this.addClass("panels-50-percent-scrim");
+			this.createChrome([
+				{
+					name: "leftBackground",
+					kind: enyo.Control,
+					isChrome: true,
+					classes: "panels-50-percent-left-scrim"
+				},
+				{
+					name: "rightBackground",
+					kind: enyo.Control,
+					isChrome: true,
+					classes: "panels-50-percent-right-scrim"
+				}
+			]);
+			this.panelCoverRatio = 0.5;
 			break;
 		case "activity":
 			/* falls through */
