@@ -1424,7 +1424,7 @@
   color: #7d7d7d;
 }
 /* InputDecorator.css */
-.moon-input-decorator {
+.moon-input-decorator:not(.moon-search-input-decorator) {
   margin: 0px;
   padding: 8px 35px 12px 35px;
   border-radius: 29px;
@@ -1442,13 +1442,13 @@
   /* Firefox 4+, Chrome, IE 9+ */
 
 }
-.moon-input-decorator.spotlight {
+.moon-input-decorator:not(.moon-search-input-decorator).spotlight {
   border: 5px solid #ffb80d;
 }
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
-.moon-input-decorator.moon-focused {
+.moon-input-decorator:not(.moon-search-input-decorator).moon-focused {
   border: 5px solid #a2a2a2;
 }
 /* ProgressBar.css */
@@ -2086,44 +2086,28 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
 }
-.moon-searchheader {
-  height: 96px;
-  margin-bottom: 49px;
+.moon-search-input-decorator {
+  margin: 0px;
+  padding: 2px 0px 0px;
+  background-color: transparent;
 }
-.moon-searchheader-title-above {
-  font-size: 26px;
+.moon-search-header > .moon-search-input-decorator > .moon-input {
+  padding: 0px 0px 0px 4px;
+  width: 95%;
+  font-family: "Miso";
+  font-size: 100px;
   font-weight: bold;
-  line-height: 26px;
-  padding: 0px;
-  margin: 54px 0px 7px 1px;
-  width: 30px;
-  border-bottom: 0px solid #4b4b4b;
+  line-height: 100px;
+  height: 100px;
+  color: #4b4b4b;
+  display: block;
+  border-left-width: 0px;
+  border-left-style: solid;
+  border-color: transparent;
 }
-.moon-searchheader-title {
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 36px;
-  text-transform: uppercase;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 6px 0px;
-}
-.moon-searchheader-title-below {
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 18px;
-  min-height: 18px;
-  padding: 0px 0px 0px 0px;
-  margin: 18px;
-}
-.moon-searchheader-container {
-  position: absolute;
-  top: 0px;
-}
-.moon-searchheader-search-left {
-  width: 210px;
-}
-.moon-searchheader-search-right {
-  width: 219px;
+.moon-search-header > .moon-search-input-decorator.spotlight > .moon-input {
+  border-left-width: 4px;
+  border-color: #ffb80d;
 }
 .moon-drawer-handle {
   height: auto;
