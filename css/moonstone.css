@@ -70,7 +70,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-300.otf") format("opentype");
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -87,13 +87,13 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700.otf") format("opentype");
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700Italic.otf") format("opentype");
+  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
   font-style: italic;
 }
 @font-face {
@@ -910,8 +910,7 @@
 }
 /* TODO: Change the bar color and position on spotlight - unfortunately, the way we have implemented the bar today, it's not easy to change this via css - rethink design! */
 .spotlight.moon-button-bar {
-  /* background-color: @moon-spotlight-border-color; */
-
+  background-color: #ffb80d;
   transition: left 0.1s linear;
   -webkit-transition: left 0.1s linear;
   -moz-transition: left 0.1s linear;
@@ -1237,7 +1236,6 @@
 }
 .moon-integer-picker {
   display: inline-block;
-  font-size: 14px;
   overflow: hidden;
   cursor: pointer;
   padding: 0px 10px;
@@ -2127,7 +2125,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-calendar-picker .picker-button {
   margin: 2px 0px;
-  font-size: 48pt;
+  font-size: 64px;
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
@@ -2147,7 +2145,7 @@ body .enyo-fit.panels-50-percent-scrim,
   border: 0px;
   border-radius: 9999px;
   font-weight: normal;
-  font-size: 20pt;
+  font-size: 28px;
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
