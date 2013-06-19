@@ -79,11 +79,10 @@ enyo.kind({
 	spotlightSelect: function(inSender, inEvent) {
 		if(inSender === this) {
 			this.expandContract(inSender, inEvent);
-			return true;
 		}
 	},
 	//* If closed, opens drawer and highlights first spottable child.
-	expandContract: function() {
+	expandContract: function(inSender, inEvent) {
 		if (this.disabled) {
 			return true;
 		}
@@ -93,7 +92,6 @@ enyo.kind({
 		} else {
 			this.setOpen(false);
 		}
-		return true;
 	},
 	//* Closes drawer if drawer is currently open,
 	//* and event was sent via keypress (i.e., it has a direction).

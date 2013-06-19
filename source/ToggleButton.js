@@ -1,15 +1,15 @@
 /**
 	_moon.ToggleButton_, which extends <a href="#moon.Button">moon.Button</a>,
-	is a control that looks like a switch with labels for two states, an "on"
-	state and an "off" state.  When the ToggleButton is tapped, it switches its
-	state and fires an _onChange_ event.
+	is a button with two states, "on" and "off".  When the ToggleButton is tapped,
+	it switches its state and fires an _onChange_ event.
 */
 
 enyo.kind({
 	name: "moon.ToggleButton",
 	kind: "moon.Button",
 	published: {
-		//* to indicate that this is the active button of the group, false otherwise.
+		//* If true, indicates that this is the active button of the group;
+		//* otherwise, false
 		active: false,
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
@@ -18,7 +18,7 @@ enyo.kind({
 		onContent: $L("On"),
 		//* Label for toggle button's "off" state
 		offContent: $L("Off"),
-		//* Label for seperator
+		//* Label for separator
 		labelSeperator: $L(":"), 
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events

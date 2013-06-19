@@ -26,7 +26,7 @@ enyo.kind({
 	},
 	components: [
 		{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-		{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-play.png", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+		{name: "playpause", kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-play.png", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 		{classes: "moon-video-inline-control-text", components: [
 			{name: "currTime", style: "display:inline"},
 			{name: "totalTime", style: "display:inline"}

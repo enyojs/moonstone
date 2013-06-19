@@ -111,7 +111,6 @@ enyo.kind({
 	resized: function() {
 		if (!this.preventResize){
 			this.$.client.resized();
-			enyo.log();
 			this.preventResize = true;
 		}
 	}

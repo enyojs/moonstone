@@ -25,6 +25,11 @@
 	text-transform: uppercase;
 }
 
+.enyo-locale-right-to-left .moon
+{
+   direction:rtl;
+}
+
 .enyo-locale-non-latin .moon-header-font {
 	font-family: @moon-non-latin-font-family;
 }
@@ -127,6 +132,7 @@
 @import "DrawerHandle.less";
 @import "Drawer.less";
 @import "Drawers.less";
+@import "Scrim.less";
 @import "Popup.less";
 @import "Dialog.less";
 @import "Tooltip.less";
@@ -162,7 +168,15 @@
 .moon-hspacing > :first-child {
 	margin-left: 0;
 }
+.enyo-locale-right-to-left .moon-hspacing > :first-child {
+	margin-left: @moon-grid-gutter-width/2;
+	margin-right: 0;
+}
 .moon-hspacing > :last-child {
 	margin-right: 0;
+}
+.enyo-locale-right-to-left .moon-hspacing > :last-child {
+	margin-right: @moon-grid-gutter-width/2;
+	margin-left: 0;
 }
 
