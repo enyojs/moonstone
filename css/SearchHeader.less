@@ -2,6 +2,10 @@
 	margin: 0px;
 	padding: 2px 0px 0px;
 	background-color: transparent;
+
+	border-left-width: 0px;
+	border-left-style: solid;
+	border-color: transparent;
 }
 .moon-search-header > .moon-search-input-decorator > .moon-input {
 	padding: 0px 0px 0px 4px;
@@ -13,12 +17,12 @@
 	height: @moon-header-text-size;
 	color: @moon-dark-gray;
 	display: block;
-
-	border-left-width: 0px;
-	border-left-style: solid;
-	border-color: transparent;
 }
-.moon-search-header > .moon-search-input-decorator.spotlight > .moon-input {
+.moon-search-header > .moon-search-input-decorator.spotlight{
 	border-left-width: 4px;
 	border-color: @moon-orange;
+}
+.moon-search-header > .moon-search-input-decorator.moon-focused {
+	background-color: transparent;
+	border-left-width: 0px;
 }

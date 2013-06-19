@@ -2090,6 +2090,9 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 0px;
   padding: 2px 0px 0px;
   background-color: transparent;
+  border-left-width: 0px;
+  border-left-style: solid;
+  border-color: transparent;
 }
 .moon-search-header > .moon-search-input-decorator > .moon-input {
   padding: 0px 0px 0px 4px;
@@ -2101,13 +2104,14 @@ body .enyo-fit.panels-50-percent-scrim,
   height: 100px;
   color: #4b4b4b;
   display: block;
-  border-left-width: 0px;
-  border-left-style: solid;
-  border-color: transparent;
 }
-.moon-search-header > .moon-search-input-decorator.spotlight > .moon-input {
+.moon-search-header > .moon-search-input-decorator.spotlight {
   border-left-width: 4px;
   border-color: #ffb80d;
+}
+.moon-search-header > .moon-search-input-decorator.moon-focused {
+  background-color: transparent;
+  border-left-width: 0px;
 }
 .moon-drawer-handle {
   height: auto;
