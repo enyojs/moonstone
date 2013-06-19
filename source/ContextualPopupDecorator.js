@@ -51,7 +51,7 @@ enyo.kind({
 		}
 	},
 	spotBlur: function(inSender, inEvent) {
-		if ((this.activator !== undefined) && (!this.activator.getKeepOpen()) && (this.popupActive) && (!enyo.Spotlight.getPointerMode())) {
+		if ((this.activator !== undefined) && (!this.activator.keepOpen) && (this.popupActive) && (!enyo.Spotlight.getPointerMode())) {
 			this.requestHidePopup();
 		}
 	},

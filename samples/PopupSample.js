@@ -26,11 +26,12 @@ enyo.kind({
 			]}
 		]}
 	],
+	popupActivator: null,
 	showPopup: function(inSender) {
+		this.popupActivator = enyo.Spotlight.getCurrent();
 		this.hidePopups();
 		var p = this.$[inSender.popup];
 		if (p) {
-			p.activator = inSender.name;
 			p.show();
 		}
 	},
@@ -43,7 +44,7 @@ enyo.kind({
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
 	},
 	popupHidden: function(inSender, inEvent) {
-		var a = this.$[inSender.activator];
+		var a = this.popupActivator;
 		enyo.Spotlight.spot(a);
 		a.removeClass("pressed");
 	}

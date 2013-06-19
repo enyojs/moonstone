@@ -19,9 +19,12 @@ enyo.kind({
 		onSpotlightSelect: "spotSelect"
 	},
 	published: {
-		spotlight: "container",
-		spotlightModal: false
+		//* When true, spotlight cannot leave constraints of _moon.Popup_ unless explicitly closed
+		spotlightModal: false,
+		//* When false, closeButton is hidden. When true, it is shown. When "auto", it is shown when spotlightModal:true
+		showCloseButton: "auto"
 	},
+	spotlight: "container",
 	//* @protected
 	_spotlight: null,
 	floating:true,
@@ -32,6 +35,16 @@ enyo.kind({
 	longPopup:200, //popups longer than this value are considered long (for layout purposes)
 	horizBuffer:16, //do not allow horizontal flush popups past spec'd amount of buffer space on left/right screen edge
 	activator: null,
+	tools: [
+		{name: "client"},
+		{name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+	],
+	//* Creates chrome
+	initComponents: function() {
+		this.createChrome(this.tools);
+		this.inherited(arguments);
+	},
+	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
 		this.activator = inEvent.activator;
@@ -40,12 +53,8 @@ enyo.kind({
 			this.activatorOffset = this.getPageOffset(n);
 		}
 		this.show();
-		this.configureSpotlightModal();
+		this.configCloseButton();
 		this.configSpotlightBehavior(true);
-		return true;
-	},
-	requestHide: function(inSender, inEvent) {
-		this.hide();
 		return true;
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
@@ -80,7 +89,6 @@ enyo.kind({
 	},
 	//* Renders _moon.ContextualPopup_ and creates needed _moon.Button_ component.
 	render: function() {
-		this.createComponent({name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false});
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
 	},
@@ -89,9 +97,10 @@ enyo.kind({
 		this.$.closeButton.removeClass("pressed");
 		this.hide();
 	},
-	configureSpotlightModal: function() {
-		if (this.spotlightModal) {
-			this.activator.setKeepOpen(true);
+	//* Determine whether to display closeButton
+	configCloseButton: function() {
+		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+			this.activator.keepOpen = true;
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
 		} else {
@@ -99,20 +108,27 @@ enyo.kind({
 			this.$.closeButton.spotlight = false;
 		}
 	},
+	//* Spotlight the first spottable control, if possible
 	configSpotlightBehavior: function(spotChild) {
 		if (enyo.Spotlight.getChildren(this).length > 0) {
 			if (spotChild) enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
 		} else if (!this.spotlightModal) {
-			this.activator.setKeepOpen(false);
+			this.activator.keepOpen = false;
 			this.spotlight = false;
 		}
 	},
+	//* When _this.spotlight_ changes
 	spotlightChanged: function() {
 		this._spotlight = this.spotlight;
 		this.configSpotlightBehavior(false);
 	},
+	//* When _this.spotlightModal_ changes
 	spotlightModalChanged: function() {
-		this.configureSpotlightModal();
+		this.configCloseButton();
+	},
+	//* When _this.showCloseButton_ changes
+	showCloseButtonChanged: function() {
+		this.configCloseButton();
 	},
 	spotSelect: function(inSender, inEvent) {
 		this.downEvent = inEvent;

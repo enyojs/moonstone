@@ -17,26 +17,42 @@ enyo.kind({
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight"
 	},
-	//* @public
 	published: {
-		spotlightModal: false
+		/**
+			Determines whether a scrim will appear when the dialog is modal.
+			Note that modal scrims are transparent, so you won't see them.
+		*/
+		scrimWhenModal: true,
+		//* Determines whether or not to display a scrim. Only displays scrims
+		//* when floating.
+		scrim: true,
+		/**
+			Optional class name to apply to the scrim. Be aware that the scrim
+			is a singleton and you will be modifying the scrim instance used for
+			other popups.
+		*/
+		scrimClassName: "",
+		//* When true, spotlight cannot leave constraints of _moon.Popup_ unless explicitly closed
+		spotlightModal: false,
+		//* When false, closeButton is hidden. When true, it is shown. When "auto", it is shown when spotlightModal:true
+		showCloseButton: "auto"
 	},
-
 	//* @protected
-	//* Renders _moon.Popup_ and creates needed _moon.Button_ component.
+	tools: [
+		{name: "client"},
+		{name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+	],
+	statics: { count: 0 },
+	defaultZ: 120,
+	//* Creates chrome
+	initComponents: function() {
+		this.createChrome(this.tools);
+		this.inherited(arguments);
+	},
+	//* Renders _moon.Popup_ and creates needed _moon.Button_ component
 	render: function() {
-		this.createComponent({name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false});
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
-	},
-	spotlightModalChanged: function() {
-		if (this.spotlightModal) {
-			this.$.closeButton.show();
-			this.$.closeButton.spotlight = true;
-		} else {
-			this.$.closeButton.hide();
-			this.$.closeButton.spotlight = false;
-		}
 	},
 	//* Sets _this.downEvent_ on _onSpotlightSelect_ event.
 	spotSelect: function(inSender, inEvent) {
@@ -49,12 +65,39 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
-	//* If _this.showing_ changes, perform spotlight-specific tasks
-	showingChanged: function() {	
+	//* Determine whether to display closeButton
+	configCloseButton: function() {
+		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+			this.$.closeButton.show();
+			this.$.closeButton.spotlight = true;
+		} else {
+			this.$.closeButton.hide();
+			this.$.closeButton.spotlight = false;
+		}
+	},
+	//* If _this.spotlightModal_ changes
+	spotlightModalChanged: function() {
+		this.configCloseButton();
+	},
+	//* If _this.showCloseButton_ changes
+	showCloseButtonChanged: function() {
+		this.configCloseButton();
+	},
+	showingChanged: function() {
+		if(this.showing) {
+			moon.Popup.count++;
+			this.applyZIndex();
+		}
+		else {
+			if(moon.Popup.count > 0) {
+				moon.Popup.count--;
+			}
+		}
+		this.showHideScrim(this.showing);
 		this.inherited(arguments);
 		if (this.showing) {
 			this.spotlight = this._spotlight;
-			this.spotlightModalChanged();
+			this.configCloseButton();
 			var spottableChildren = enyo.Spotlight.getChildren(this).length;
 			if (spottableChildren === 0) {
 				this.spotlight = false;
@@ -63,6 +106,51 @@ enyo.kind({
 			}
 		}
 	},
+	showHideScrim: function(inShow) {
+		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
+			var scrim = this.getScrim();
+			if (inShow) {
+				// move scrim to just under the popup to obscure rest of screen
+				var i = this.getScrimZIndex();
+				this._scrimZ = i;
+				scrim.showAtZIndex(i);
+			} else {
+				scrim.hideAtZIndex(this._scrimZ);
+			}
+			enyo.call(scrim, "addRemoveClass", [this.scrimClassName, scrim.showing]);
+		}
+	},
+	getScrimZIndex: function() {
+		// Position scrim directly below popup
+		return this.findZIndex()-1;
+	},
+	getScrim: function() {
+		// show a transparent scrim for modal popups if scrimWhenModal is true
+		// if scrim is true, then show a regular scrim.
+		if (this.modal && this.scrimWhenModal && !this.scrim) {
+			return moon.scrimTransparent.make();
+		}
+		return moon.scrim.make();
+	},
+	applyZIndex: function() {
+		// Adjust the zIndex so that popups will properly stack on each other.
+		this._zIndex = moon.Popup.count * 2 + this.findZIndex() + 1;
+		// leave room for scrim
+		this.applyStyle("z-index", this._zIndex);
+	},
+	findZIndex: function() {
+		// a default z value
+		var z = this.defaultZ;
+		if (this._zIndex) {
+			z = this._zIndex;
+		} else if (this.hasNode()) {
+			// Re-use existing zIndex if it has one
+			z = Number(enyo.dom.getComputedStyleValue(this.node, "z-index")) || z;
+		}
+		this._zIndex = z;
+		return this._zIndex;
+	},
+	//* Removes focus style from closeButton & hides _moon.Popup_ 
 	closePopup: function(inSender, inEvent) {
 		this.$.closeButton.removeClass("pressed");
 		this.spotlight = false;

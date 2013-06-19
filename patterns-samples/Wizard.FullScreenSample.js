@@ -7,13 +7,13 @@ enyo.kind({
     handlers: {
 		onNext: "next",
 		onPrevious: "previous",
-		onCancel: "goCancel",
+		onCancel: "goCancel"
     },
 	goCancel: function() {
 		this.log("Cancel");
 		return true;
 	}
-})
+});
 
 enyo.kind({
 	name: "Sample.Wizard.Panel",
@@ -21,30 +21,15 @@ enyo.kind({
 	classes: "moon-wizard-sample enyo-fit",
     published: {
         selectedText: "",
-        processed: false,
+        processed: false
     },
     events: {
 		onNext: "",
 		onPrevious: "",
-		onCancel: "",
+		onCancel: ""
     },
-    headerComponents: [
-        {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"./assets/icon-list.png",
-            listActions: [
-            {                    
-                components: [
-                    {kind: "moon.Divider", content:"Category"},
-                    {name: "wizList", kind: "moon.DataList", components: [
-                        {kind:"moon.Item", classes: "wizard-listaction-item", bindFrom: "step", bindTo: "content"},
-                        {classes: "wizard-listaction-text", bindFrom: "processed", bindTo: "content"}
-                    ]}
-                ]
-            }]
-        }    
-    ],
     bindings: [
-        {from: ".controller.title", to: ".title"},
-        {from: ".controller.wizResults", to: ".$.header.$.wizListAction.$.listActionsContainer.$.wizList.controller"},
+        {from: ".controller.title", to: ".title"}         
     ],
     rendered: function() {
         this.inherited(arguments);
@@ -56,15 +41,15 @@ enyo.kind({
 });
 
 enyo.kind({
-    name: "moon.sample.wizard.ActionMenuSample",
+    name: "moon.sample.wizard.FullScreenSample",
     kind: "Sample.Wizard.Panels",
     components: [
-        {name: "introPage",   kind: "moon.sample.wizard.IntroSample"},
-        {name: "stepPage1",   kind: "moon.sample.wizard.StepSample"},
-        {name: "stepPage2",   kind: "moon.sample.wizard.StepSample"},
-        {name: "stepPage3",   kind: "moon.sample.wizard.StepSample"},
-        {name: "stepPage4",   kind: "moon.sample.wizard.StepSample"},
-        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmationSample"}  
+        {name: "introPage",   kind: "moon.sample.wizard.IntroPageSample"},
+        {name: "stepPage1",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage2",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage3",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage4",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"}  
     ],
     bindings: [
         {from: ".controller", to: ".$.introPage.controller"},
@@ -77,35 +62,7 @@ enyo.kind({
     onTap: function(oSender, oEvent) {
         //* override from panels
         // no action for Carosel Arranger using button
-        var target = oEvent.dispatchTarget.kind;
-        switch(target)
-        {
-            case "moon.Item":
-                var collection = this.controller.get("wizResults");
-                var cmd = oEvent.dispatchTarget.content;
-                for (var idx in collection) {
-                    if(cmd == collection.at(idx).get("step"))
-                    {
-                        this.setIndex(idx);
-                        this.closeListAction(oSender.name);
-                        return true;
-                    }
-                }
-                break;
-            case "moon.Button":
-                this.closeListAction(oSender.name);
-                break;
-
-        }
         return true;
-    },
-    closeListAction: function(sender) {
-        var p = this.$[sender].$.header.$.wizListAction;
-        if(p.getOpen())
-        {
-            p.setOpen(false);
-            enyo.Spotlight.spot(p.$.activator);
-        }    
     }
 });
 
@@ -160,12 +117,12 @@ enyo.ready(function(){
                 }
             ]),
             wizResults: new enyo.Collection([
-                {step: "STEP TITLE 01", result: "-", processed: "[FALSE]"},
-                {step: "STEP TITLE 02", result: "-", processed: "[FALSE]"},
-                {step: "STEP TITLE 03", result: "-", processed: "[FALSE]"},
-                {step: "STEP TITLE 04", result: "-", processed: "[FALSE]"},
-                {step: "STEP TITLE 05", result: "-", processed: "[FALSE]"},
-                {step: "STEP TITLE 06", result: "-", processed: "[FALSE]"}
+                {step: "STEP TITLE 01 : ", result: " -- ", processed: "[FALSE]"},
+                {step: "STEP TITLE 02 : ", result: " -- ", processed: "[FALSE]"},
+                {step: "STEP TITLE 03 : ", result: " -- ", processed: "[FALSE]"},
+                {step: "STEP TITLE 04 : ", result: " -- ", processed: "[FALSE]"},
+                {step: "STEP TITLE 05 : ", result: " -- ", processed: "[FALSE]"},
+                {step: "STEP TITLE 06 : ", result: " -- ", processed: "[FALSE]"}
             ])
         }
     );
@@ -176,7 +133,7 @@ enyo.ready(function(){
             components: [
                 {kind: "enyo.Spotlight"},
                 {
-                    kind: "moon.sample.wizard.ActionMenuSample",
+                    kind: "moon.sample.wizard.FullScreenSample",
                     controller: ".app.controllers.WizardController",
                     classes: "enyo-fit"
                 }
