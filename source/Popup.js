@@ -19,7 +19,7 @@ enyo.kind({
 		scrimWhenModal: true,
 		//* Determines whether or not to display a scrim. Only displays scrims
 		//* when floating.
-		scrim: false,
+		scrim: true,
 		/**
 			Optional class name to apply to the scrim. Be aware that the scrim
 			is a singleton and you will be modifying the scrim instance used for
