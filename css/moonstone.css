@@ -2087,8 +2087,8 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 5px 5px 5px 5px;
 }
 .moon-search-input-decorator {
-  margin: 0px;
-  padding: 2px 0px 0px;
+  margin: 2px 0px 0px;
+  padding: 0px;
   background-color: transparent;
   border-left-width: 0px;
   border-left-style: solid;
