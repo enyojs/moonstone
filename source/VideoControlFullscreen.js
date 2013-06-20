@@ -6,7 +6,10 @@ enyo.kind({
 	published: {
 		visible: false,
 		autoCloseTimeout: 4000,
-		jumpHoldTimeout: 2000
+		jumpHoldTimeout: 2000,
+		knobClasses: "",
+		barClasses: "",
+		bgBarClasses: ""
 	},
 	handlers: {
 		onenter: "enter",
@@ -19,7 +22,7 @@ enyo.kind({
 					{name: "videoDateTime", classes: "moon-header-font moon-videoplayer-info-datetime"},
 					{name: "videoTitle", classes: "moon-header-font moon-video-player-info-showname"},
 					{name: "videoChannel", classes: "moon-video-player-info-channel"},
-					{name: "videoDescription", classes: "moon-video-player-info-description"},
+					{name: "videoDescription", classes: "moon-video-player-info-description"}
 				]},
 				{classes: "moon-video-player-settings-info", components: [
 					{content: "SUB ENGLISH", classes: "moon-video-player-info-icon"},
@@ -55,7 +58,7 @@ enyo.kind({
 			]},
 			
 			{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
-				{name: "slider", kind: "moon.VideoTransportSlider", popupColor: "#323232", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"}
+				{name: "slider", kind: "moon.VideoTransportSlider", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"}
 			]}
 		]},
 		
@@ -65,6 +68,12 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.visibleChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.knobClassesChanged();
+		this.barClassesChanged();
+		this.bgBarClassesChanged();
 	},
 	//* Update layout to support the number of components that are passed in
 	initComponents: function() {
@@ -119,7 +128,15 @@ enyo.kind({
 	videoDescriptionChanged: function() {
 		this.$.videoDescription.setContent(this.getVideoDescription());
 	},
-	
+	knobClassesChanged: function() {
+		this.$.slider.setKnobClasses(this.getKnobClasses());
+	},
+	barClassesChanged: function() {
+		this.$.slider.setBarClasses(this.getBarClasses());
+	},
+	bgBarClassesChanged: function() {
+		this.$.slider.setBgBarClasses(this.getBgBarClasses());
+	},
 	
 	//* Toggle play based on _this.playing_
 	playPause: function(inSender, inEvent) {

@@ -29,7 +29,7 @@ enyo.kind({
 		onRequestJumpToEnd: "",
 		onToggleFullscreen: "",
 		onRequestTimeChange: "",
-		onFullScreen: "",
+		onFullScreen: ""
 	},
 	handlers: {
 		onTimeupdate: "handleTimeUpdate",

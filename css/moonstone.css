@@ -2602,7 +2602,11 @@ p.moon-drawers-close-handle-text {
   margin: 30px 20px 10px;
 }
 .moon-video-fullscreen-control .moon-progress-bar {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #4b4b4b4b;
+}
+/* -- Buffered progress bar (bg bar) -- */
+.moon-video-fullscreen-control .moon-progress-bg-bar {
+  background-color: #66666666;
 }
 /* -- Knob -- */
 .moon-video-fullscreen-control .moon-slider-knob,
@@ -2616,7 +2620,6 @@ p.moon-drawers-close-handle-text {
   width: 56px;
   border-radius: 28px;
   margin: -32px -29px;
-  background-color: #00d4b3;
 }
 .moon-video-fullscreen-control .moon-slider-knob {
   transition: opacity 0.1s linear;
@@ -2672,17 +2675,6 @@ p.moon-drawers-close-handle-text {
   transform: rotateY(0deg);
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
-}
-/* -- Buffered progress bar (bg bar) -- */
-.moon-video-player .moon-progress-bg-bar {
-  background-color: rgba(0, 212, 179, 0.5);
-  transition: width 1s linear;
-  -webkit-transition: width 1s linear;
-  -moz-transition: width 1s linear;
-}
-.moon-video-player .moon-progress-bar-bar,
-.moon-video-player .spotlight .moon-progress-bar-bar {
-  background-color: #00d4b3;
 }
 /* ---- Header info styling ---- */
 .moon-video-player-header {

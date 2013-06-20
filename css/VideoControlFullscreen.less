@@ -75,7 +75,12 @@
 	margin: 30px 20px 10px;
 }
 .moon-video-fullscreen-control .moon-progress-bar {
-	background-color: rgba(0,0,0,0.4);
+	background-color: #4b4b4b4b;
+}
+
+/* -- Buffered progress bar (bg bar) -- */
+.moon-video-fullscreen-control .moon-progress-bg-bar {
+	background-color: #66666666;
 }
 
 /* -- Knob -- */
@@ -90,7 +95,6 @@
 	width: @moon-videoplayer-slider-knob-width;
 	border-radius: @moon-videoplayer-slider-knob-width/2;
 	margin: -32px -29px;
-	background-color: rgba(0,212,179,1);
 }
 
 .moon-video-fullscreen-control .moon-slider-knob {
@@ -150,17 +154,6 @@
 	-moz-transform: rotateY(0deg);
 }
 
-/* -- Buffered progress bar (bg bar) -- */
-.moon-video-player .moon-progress-bg-bar {
-	background-color: rgba(0,212,179,0.5);
-	transition: width 1s linear;
-	-webkit-transition: width 1s linear;
-	-moz-transition: width 1s linear;
-}
-.moon-video-player .moon-progress-bar-bar,
-.moon-video-player .spotlight .moon-progress-bar-bar {
-	background-color: rgba(0,212,179,1);
-}
 
 
 /* ---- Header info styling ---- */

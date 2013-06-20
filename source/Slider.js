@@ -22,6 +22,8 @@ enyo.kind({
 		lockBar: true,
 		//* If true, tapping on bar will change current position
 		tappable: true,
+		//* CSS classes to apply to knob
+		knobClasses: "",
 		//* Color of value popup
 		popupColor: "#ffb80d",
 		//* When true, button is shown as disabled and does not generate tap events
@@ -74,6 +76,7 @@ enyo.kind({
 		}
 		this.createComponents(this.moreComponents);
 		this.disabledChanged();
+		this.knobClassesChanged();
 	},
 	destroy: function() {
 		if (this._nf) {
@@ -91,6 +94,10 @@ enyo.kind({
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
+	},
+	knobClassesChanged: function(inOld) {
+		this.$.knob.removeClass(inOld);
+		this.$.knob.addClass(this.knobClasses);
 	},
 	//* Update _this.$.drawing_ width attribute
 	canvasWidthChanged: function() {

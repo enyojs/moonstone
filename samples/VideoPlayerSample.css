@@ -1,0 +1,19 @@
+/** Example of how to override Classes */
+
+.moon-videoplayer-sample-knob {
+	background-color: red;
+}
+.moon-slider.spotlight .moon-videoplayer-sample-knob {
+	background-color: red;
+}
+
+.moon-videoplayer-sample-progressbar {
+	background-color: red;
+}
+.moon-slider.spotlight .moon-videoplayer-sample-progressbar {
+	background-color: red;
+}
+
+.moon-videoplayer-sample-bgprogressbar {
+	background-color: blue;
+}

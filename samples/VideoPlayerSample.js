@@ -6,7 +6,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "player", kind: "moon.VideoPlayer", style: "width: 600px;",
-			src: "http://media.w3.org/2010/05/video/movie_300.ogv",
+			src: "http://media.w3.org/2010/05/bunny/movie.ogv",
 			videoDateTime: new Date(),
 			videoTitle: "Voice of Korea",
 			videoChannel: "Mnet - Air date & time slot",
@@ -15,6 +15,10 @@ enyo.kind({
 			videoDisplayMode: "Cinema",
 			video3d: true,
 			videoTimeRecorded: "00:00",
+			//* You can override default classes for each control */
+			// knobClasses: "moon-videoplayer-sample-knob",
+			// barClasses: "moon-videoplayer-sample-progressbar",
+			// bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
