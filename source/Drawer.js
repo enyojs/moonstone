@@ -54,12 +54,14 @@ enyo.kind({
 		}
 	},
 	calcDrawerHeight: function() {
-		var parentClientRect = this.parent.parent.hasNode().getBoundingClientRect();
+		//BAD - grabbing height from parent & even a specific parent child control! However this drawer kind
+		//is only meant to be used with this parent (currently) & there's some tricky rendering order...so what to replace with?
+		var clientHeight = this.parent.parent.hasNode().getBoundingClientRect().height;
+		clientHeight -= this.parent.parent.$.activator.hasNode().getBoundingClientRect().height;
 		if (this.controlDrawerComponents == null) {
-			return parentClientRect.height;
+			return clientHeight;
 		} else {
-			var controlDrawerRect = this.$.controlDrawer.hasNode().getBoundingClientRect();
-			return (parentClientRect.height - controlDrawerRect.height);
+			return (clientHeight - this.$.controlDrawer.hasNode().getBoundingClientRect().height);
 		}
 	},
 	toggleDrawer: function() {
@@ -75,11 +77,14 @@ enyo.kind({
 		if (this.open) {
 			this.doActivate();
 			enyo.Spotlight.spot(this.$.client);
+		} else {
+			this.doDeactivate();
 		}
 	},
 	controlsOpenChanged: function() {
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
+			this.doActivate();			
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
 			this.doDeactivate();
