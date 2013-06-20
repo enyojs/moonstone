@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.sample.wizard.ConfirmationSample",
+	name: "moon.sample.wizard.ConfirmPageSample",
 	kind: "Sample.Wizard.Panel",
 	components: [
 		{classes: "wizard-nav-button-container", components: [
