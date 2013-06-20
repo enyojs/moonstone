@@ -21,18 +21,27 @@ enyo.kind({
 		poster: "",
 		//* if true, show controls for starting and stopping video player
 		showControls: false,
+		/**
+			This value determines if/how the video object should preload. Possible values:
+				auto: preload the video data as soon as possible.
+				metadata: preload only the video metadata.
+				none: do not preload any video data.
+		*/
+		preload: "metadata",
 		//* if true, video will automatically start
 		autoplay: false,
 		//* if true, restart video player from beginning when finished
 		loop: false,
 		//* (webOS only) if true, stretch the video to fill the entire window
 		fitToWindow: false,
-		width: 640,
-		height: 360
+		//* Video aspect ratio in the format _width:height_
+		aspectRatio: null
 	},
-	events: {
-		//* inEvent.paused 
-		onUpdate: ""
+	handlers: {
+		//* Catch video _loadedmetadata_ event
+		onloadedmetadata: "metadataLoaded",
+		//* Decorate _timeupdate_ event
+		onTimeupdate: "decorateTimeUpdate"
 	},
 	tag: "video",
 	//* @protected
@@ -44,20 +53,13 @@ enyo.kind({
 		this.srcChanged();
 		this.posterChanged();
 		this.showControlsChanged();
+		this.preloadChanged();
 		this.autoplayChanged();
 		this.loopChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
-
-		this.widthChanged();
-		this.heightChanged();
-
-		enyo.makeBubble(this, "timeupdate");
-		
-		// delayed until here because we need the node to be created 
-		// to modify this property
-		// this.fitToWindowChanged();
+		this.hookupVideoEvents();
 	},
 	srcChanged: function() {
 		var path = enyo.path.rewrite(this.src);
@@ -67,12 +69,6 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.node.load();	// not called
 		}
-	},
-	widthChanged: function() {
-		this.setAttribute("width", this.width + "px");
-	},
-	heightChanged: function() {
-		this.setAttribute("height", this.height + "px");
 	},
 	posterChanged: function() {
 		if (this.poster) {
@@ -86,6 +82,9 @@ enyo.kind({
 	showControlsChanged: function() {
 		this.setAttribute("controls", this.showControls ? "controls" : null);
 	},
+	preloadChanged: function() {
+		this.setAttribute("preload", this.preload ? this.preload : null);
+	},
 	autoplayChanged: function() {
 		this.setAttribute("autoplay", this.autoplay ? "autoplay" : null);
 	},
@@ -96,7 +95,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-	}, 
+	},
 	//* @public
 	isPaused: function() {
 		if (this.hasNode()) {
@@ -113,7 +112,7 @@ enyo.kind({
 			} else {
 				this.node.play();
 			}
-			this.doUpdate({paused: this.node.paused});
+			// this.doUpdate({paused: this.node.paused});
 		}
 	},
 	//* Pause the video
@@ -279,5 +278,45 @@ enyo.kind({
 	_clearStep: function() {
 		this.step = this._defaultStep;
 		this.node.playerRate = this._playerrate = 1;
+	},
+	//* When we get the video metadata, update _this.aspectRatio_
+	metadataLoaded: function(inSender, inEvent) {
+		var node = this.hasNode();
+		if (!node || !node.videoWidth || !node.videoHeight) {
+			return;
+		}
+		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
+	},
+	decorateTimeUpdate: function(inSender, inEvent) {
+		// this.log(inSender, inEvent);
+		//TODO - make this work
+	},
+	//* Add all html5 video events
+	hookupVideoEvents: function() {
+		enyo.makeBubble(this,
+			"loadstart",
+			"emptied",
+			"canplaythrough",
+			"ended",
+			"ratechange",
+			"progress",
+			"stalled",
+			"playing",
+			"durationchange",
+			"volumechange",
+			"suspend",
+			"loadedmetadata",
+			"waiting",
+			"timeupdate",
+			"abort",
+			"loadeddata",
+			"seeking",
+			"play",
+			"error",
+			"canplay",
+			"seeked",
+			"pause"
+		);
 	}
 });
+

@@ -1,0 +1,228 @@
+@moon-videoplayer-slider-knob-width: 56px;
+@moon-videoplayer-slider-knob-height: 56px;
+
+@moon-videoplayer-slider-canvas-width: 300px;
+@moon-videoplayer-slider-canvas-height: 200px;
+@moon-videoplayer-slider-canvas-label-height: 40px;
+
+@moon-videoplayer-slider-canvas-popup-height: @moon-videoplayer-slider-canvas-height + @moon-videoplayer-slider-canvas-label-height + @moon-grid-gutter-height;
+
+.moon-video-fullscreen-control {
+	opacity: 0;
+	transition: opacity 0.1s linear;
+	-webkit-transition: opacity 0.1s linear;
+	-moz-transition: opacity 0.1s linear;
+	display: none;
+}
+
+.fullscreen .moon-video-fullscreen-control {
+	display: block;
+}
+
+.moon-video-fullscreen-control.visible {
+	opacity: 1;
+}
+
+/* BG Canvas */
+.moon-video-player-screen {
+	width: 100%;
+	height: 100%;
+}
+
+/* --- Controls --- */
+.moon-video-player-bottom {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	z-index: 2;
+	background-color: rgba(0,0,0,0.5);
+}
+.moon-video-player-controls {
+	height: 90px;
+}
+.moon-video-player-controller > * {
+	width: 100%;
+}
+.moon-video-fullscreen-control .moon-icon-button {
+	width: 80px;
+	height: 80px;
+	border-radius: 0px;
+	border: 0px;
+	background-color: transparent;
+	background-position: 0px 0px;
+}
+.moon-video-fullscreen-control .moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon-button.spotlight,
+.moon-video-fullscreen-control .moon-icon-button.spotlight.pressed,
+.moon-video-fullscreen-control .moon-icon-button.spotlight:active {
+	background-position: 0 -80px;
+	border: 0px;
+	background-color: transparent;
+}
+
+.moon-video-fullscreen-control .premium-placeholder {
+	width: 80px;
+	height: 80px;
+	padding-top: 5px;
+}
+
+/* ---- Slider styling ---- */
+.moon-video-fullscreen-control .moon-video-player-slider-container {
+	padding: 0px 20px;
+	height: 60px;
+}
+.moon-video-fullscreen-control .moon-video-player-slider-container > * {
+	margin: 30px 20px 10px;
+}
+.moon-video-fullscreen-control .moon-progress-bar {
+	background-color: rgba(0,0,0,0.4);
+}
+
+/* -- Knob -- */
+.moon-video-fullscreen-control .moon-slider-knob,
+.moon-video-fullscreen-control .moon-slider-knob.disabled:active:hover,
+.moon-video-fullscreen-control .moon-slider-knob.active,
+.moon-video-fullscreen-control .moon-slider-knob.spotselect,
+.moon-video-fullscreen-control .moon-slider-knob:active:hover,
+.moon-video-fullscreen-control .spotlight .moon-slider-knob,
+.moon-video-fullscreen-control .spotlight .moon-slider-knob.disabled:active:hover {
+	height: @moon-videoplayer-slider-knob-height;
+	width: @moon-videoplayer-slider-knob-width;
+	border-radius: @moon-videoplayer-slider-knob-width/2;
+	margin: -32px -29px;
+	background-color: rgba(0,212,179,1);
+}
+
+.moon-video-fullscreen-control .moon-slider-knob {
+	transition: opacity 0.1s linear;
+	-webkit-transition: opacity 0.1s linear;
+	-moz-transition: opacity 0.1s linear;
+	opacity: 0;
+}
+.moon-video-fullscreen-control .spotlight .moon-slider-knob,
+.moon-video-fullscreen-control .spotlight .moon-slider-knob.disabled:active:hover {
+	opacity: 1;
+}
+
+/* -- Popup -- */
+.moon-video-fullscreen-control .moon-slider-popup {
+	position: absolute;
+	display: block;
+	z-index: 20;
+	left: 100px;
+	top: 0px;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: @moon-videoplayer-slider-canvas-popup-height;
+	padding: 0px;
+	background-color: rgba(0,0,0,0.5);
+}
+.moon-video-fullscreen-control .moon-slider-popup.above {
+	top: -(@moon-videoplayer-slider-canvas-popup-height + @moon-videoplayer-slider-knob-height);
+}
+.moon-video-fullscreen-control .moon-slider-popup canvas {
+	width: @moon-videoplayer-slider-canvas-width;
+	height: @moon-videoplayer-slider-canvas-height;
+	z-index: 10;
+}
+.moon-video-fullscreen-control .moon-slider-popup-label {
+	position: absolute;
+	top: @moon-videoplayer-slider-canvas-height;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: 45px;
+	white-space: nowrap;
+	font-family: @moon-alt-font-family;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+	vertical-align: middle;
+	font-size: @moon-pre-text-size;
+}
+.moon-video-fullscreen-control .enyo-locale-non-latin .moon-slider-popup-label {
+	font-family: @moon-non-latin-font-family;
+}
+.moon-video-fullscreen-control .moon-slider-popup.above .moon-slider-popup-label {
+	top: auto;
+	bottom: 0px;
+}
+.moon-video-fullscreen-control .moon-slider-popup-flip-h {
+	transform: rotateY(0deg);
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+}
+
+/* -- Buffered progress bar (bg bar) -- */
+.moon-video-player .moon-progress-bg-bar {
+	background-color: rgba(0,212,179,0.5);
+	transition: width 1s linear;
+	-webkit-transition: width 1s linear;
+	-moz-transition: width 1s linear;
+}
+.moon-video-player .moon-progress-bar-bar,
+.moon-video-player .spotlight .moon-progress-bar-bar {
+	background-color: rgba(0,212,179,1);
+}
+
+
+/* ---- Header info styling ---- */
+.moon-video-player-header {
+	position: absolute;
+	width: 100%;
+	height: 200px;
+	top: 0px;
+	z-index: 2;
+}
+.moon-video-player-header > * {
+	background-color: rgba(0,0,0,0.5);
+	color: white;
+}
+.moon-video-player-info {
+	position: relative;
+	overflow: hidden;
+	padding: 15px;
+}
+.moon-video-player-info .moon-video-player-description-info {
+	height: 100%;
+}
+.moon-video-player-info-datetime {
+	font-size: @moon-superscript-text-size;
+}
+.moon-video-player-info-showname {
+	font-size: @moon-large-text-size;
+}
+.moon-video-player-info-channel {
+	font-size: @moon-header-sub-text-size;
+}
+.moon-video-player-info-synopsys {
+	font-size: @moon-header-sub-text-size;
+}
+.moon-video-player-settings-info {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 15px;
+}
+.moon-video-player-info-icon {
+	background-color: white;
+	color: black;
+	border-radius: 3px;
+	text-align: center;
+	float: left;
+	padding: 7px;
+	margin: 5px;
+	font-size: 12px;
+}
+.moon-video-player-info-redicon {
+	background-color: red;
+	color: white;
+}
+/* Feedback area */
+.moon-video-player-feedback {
+	position: relative;
+	height: 100%;
+	width: 200px;
+}
+.moon-video-player-feedback-icon {
+	font-size: 50px;
+	text-align: center;
+	margin-top: 70px;
+}

@@ -32,7 +32,9 @@ enyo.kind({
 		*/
 		animate: true,
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
-		noPopup: false
+		noPopup: false,
+		popupWidth: 62,
+		popupHeight: 52
 	},
 	events: {
 		//* Fires when bar position is set. The _value_ property contains the
@@ -57,10 +59,10 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{classes: "moon-slider-taparea"},
+		{name: "tapArea", classes: "moon-slider-taparea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
+			{tag: "canvas", name: "drawing"},
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
 		]}
 	],
@@ -71,7 +73,6 @@ enyo.kind({
 			this._nf = new ilib.NumFmt({type: "percentage"});
 		}
 		this.createComponents(this.moreComponents);
-		this.initValue();
 		this.disabledChanged();
 	},
 	destroy: function() {
@@ -82,12 +83,22 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.canvasWidthChanged();
+		this.canvasHeightChanged();
 		this.drawToCanvas(this.popupColor);
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
+	},
+	//* Update _this.$.drawing_ width attribute
+	canvasWidthChanged: function() {
+		this.$.drawing.setAttribute("width", this.getPopupWidth());
+	},
+	//* Update _this.$.drawing_ height attribute
+	canvasHeightChanged: function() {
+		this.$.drawing.setAttribute("height", this.getPopupHeight());
 	},
 	//* Prep value at create time
 	initValue: function() {

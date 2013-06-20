@@ -2546,14 +2546,11 @@ p.moon-drawers-close-handle-text {
 }
 .moon-video-player {
   position: relative;
-  padding: 0px;
-  vertical-align: middle;
+  display: inline-block;
 }
 .moon-video-player-video {
-  text-align: center;
-  top: 0px;
-  left: 0px;
-  width: 100%;
+  display: block;
+  margin: 0px auto;
   height: 100%;
 }
 .moon-video-player-caption-display {
@@ -2601,6 +2598,27 @@ p.moon-drawers-close-handle-text {
 .moon-video-player-slider-container {
   padding: 0px 20px;
 }
+/* Fullscreen CSS */
+:-webkit-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+}
+:-moz-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+}
+:-ms-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+}
+:-o-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+}
+:full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+}
 .moon-video-inline-control {
   position: absolute;
   width: 100%;
@@ -2609,13 +2627,12 @@ p.moon-drawers-close-handle-text {
   left: 0px;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.moon-video-inline-control-play-pause {
+.moon-video-player .moon-icon-button.moon-video-inline-control-play-pause {
   position: absolute;
   width: 80px;
   height: 80px;
   bottom: 0px;
   left: 0px;
-  background-color: transparent;
   z-index: 5;
 }
 .moon-video-inline-control-fullscreen {
@@ -2644,18 +2661,22 @@ p.moon-drawers-close-handle-text {
   height: 80px;
   background-color: #00d4b3;
   z-index: 2;
+  transition: width 0.1s linear;
+  -webkit-transition: width 0.1s linear;
+  -moz-transition: width 0.1s linear;
 }
-.moon-box-icon-button {
+.moon-video-inline-control .moon-icon-button {
   width: 80px;
   height: 80px;
   border-radius: 0px;
   border: 0px;
   background-color: transparent;
+  background-position: 0px 0px;
 }
-.moon-box-icon-button.active,
-.moon-box-icon-button.spotlight,
-.moon-box-icon-button.spotlight.pressed,
-.moon-box-icon-button.spotlight:active {
+.moon-video-inline-control .moon-icon-button.active,
+.moon-video-inline-control .moon-icon-button.spotlight,
+.moon-video-inline-control .moon-icon-button.spotlight.pressed,
+.moon-video-inline-control .moon-icon-button.spotlight:active {
   background-position: 0 -80px;
   border: 0px;
   background-color: transparent;
