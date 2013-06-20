@@ -1,11 +1,197 @@
 {
     "palette": [
         {
+            "name" : "moonstone(view)",
+            "items" : [
+                {
+                    "name": "Music.TrackDetailNarrowSampleView",
+                    "kind": "Music.TrackDetailNarrowSampleView",
+                    "config": {
+                        "viewTemplate": true,
+                        "data": {
+                            "name": "moon.sample.music.TrackDetailNarrowSample",
+                            "kind": "moon.Panel",
+                            "title": "Track Name",
+                            "titleAbove": "03",
+                            "titleBelow": "Artist Name",
+                            "layoutKind": "FittableColumnsLayout",
+                            "headerComponents": [
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-album.png"},
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-download.png"},
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-like.png"},
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-next.png"}
+                            ],
+                            "bindings": [
+                                {"from": ".controller.coverUrl", "to": "$.image.src"},
+                                {"from": ".controller.released", "to": "$.released.content"},
+                                {"from": ".controller.genre", "to": "$.genre.content"}
+                            ],
+                            "components": [
+
+                            ]
+                        },
+                        "components": [                            
+                            {   
+                                "kind" : "enyo.Table",
+                                "classes": "moon-5h",
+                                "components" : [
+                                    {
+                                        "components": [
+                                            {
+                                                "components": [
+                                                    {
+                                                        "name": "image",
+                                                        "kind": "enyo.Image",
+                                                        "style": "width: 350px; height: 350px;"
+                                                    }
+                                                ],
+                                                "attributes": {"colspan": "2"}
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "components": [
+                                            {"content": "Released"},
+                                            {"name": "released"}
+                                        ]
+                                    },
+                                    {
+                                        "components": [
+                                            {"content": "Genre"},
+                                            {"name": "genre"}
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "fit": true,
+                                "components": [
+                                    {
+                                        "kind": "moon.Divider", 
+                                        "content": "More"
+                                    },
+                                    {
+                                        "kind": "Group", 
+                                        "components": [
+                                            {"kind": "moon.SelectableItem", "content": "Lyrics"},
+                                            {"kind": "moon.SelectableItem", "content": "Artist"},
+                                            {"kind": "moon.SelectableItem", "content": "Album"},
+                                            {"kind": "moon.SelectableItem", "content": "Similar Track"},
+                                            {"kind": "moon.SelectableItem", "content": "Related Videos"}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]                                           
+                    }                   
+                },
+                {
+                    "name": "Music.TrackDetailWideSampleView",
+                    "kind": "Music.TrackDetailWideSampleView",
+                    "config": {
+                        "viewTemplate": true,
+                        "data": {
+                            "name": "moon.sample.music.TrackDetailWideSample",
+                            "kind": "moon.Panel",
+                            "title": "Track Name",
+                            "titleAbove": "03",
+                            "titleBelow": "Artist Name",
+                            "layoutKind": "FittableColumnsLayout",
+                            "headerComponents": [
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-album.png"},
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-download.png"},
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-like.png"},
+                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-next.png"}
+                            ],
+                            "bindings": [
+                                {"from": ".controller.coverUrl", "to": "$.image.src"},
+                                {"from": ".controller.lyrics", "to": "$.lyrics.content"},
+                                {"from": ".controller.released", "to": "$.released.content"},
+                                {"from": ".controller.genre", "to": "$.genre.content"}
+                            ],
+                            "components": [
+                            
+                            ]
+                        },
+                        "components": [                            
+                            {
+                                "kind": "enyo.Table",
+                                "classes": "moon-5h",
+                                "components": [
+                                    {
+                                        "components": [
+                                            {
+                                                "components": [
+                                                    {
+                                                        "name": "image",
+                                                        "kind": "enyo.Image",
+                                                        "style": "width: 350px; height: 350px;"
+                                                    }
+                                                ],
+                                                "attributes": {"colspan": "2"}
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "components": [
+                                            {"content": "Released"},
+                                            {"name": "released"}
+                                        ]
+                                    },
+                                    {
+                                        "components": [
+                                            {"content": "Genre"},
+                                            {"name": "genre"}
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "kind": "FittableRows",
+                                "fit": true,
+                                "components": [
+                                    {"kind": "moon.Divider", "content": "Lyrics"},
+                                    {
+                                        "kind": "moon.Scroller",
+                                        "fit": true,
+                                        "components": [
+                                            {
+                                                "allowHtml": true,
+                                                "name": "lyrics"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "kind": "FittableRows",
+                                "classes": "moon-5h",
+                                "components": [
+                                    {"kind": "moon.Divider", "content": "More"},
+                                    {
+                                        "kind": "Group", 
+                                        "fit": true,
+                                        "components": [
+                                            {"kind": "moon.SelectableItem", "content": "Artist"},
+                                            {"kind": "moon.SelectableItem", "content": "Album"},
+                                            {"kind": "moon.SelectableItem", "content": "Similar Track"},
+                                            {"kind": "moon.SelectableItem", "content": "Related Videos"}
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]                                           
+                    }                                     
+                }
+            ]
+        },
+        {
             "name": "moonstone",
             "items": [
                 {
                     "name": "moon.Accordion",
                     "kind": "moon.Accordion",
+
                     "description": "An accordion component",
                     "config": {
                         "kind": "moon.Accordion",
