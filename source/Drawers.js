@@ -2,9 +2,9 @@
 	_moon.Drawers_ is a container kind for a set of <a href="#moon.Drawer">moon.Drawers</a> and
 	client content. It accepts an array of a href="#moon.Drawer">moon.Drawers</a> and will
 	position the drawer's <a href="#moon.DrawerHandle">moon.DrawerHandles</a>
-	at the top right of the view. When they are selected they will open their corresponding
-	<a href="#moon.Drawer">moon.Drawer's</a> main drawer or control drawer depending on it's
-	configuration.
+	at the top center of the view in a small drawer (aka the dresser). When they are selected they 
+	will open their corresponding <a href="#moon.Drawer">moon.Drawer's</a> main drawer or control 
+	drawer depending on it's configuration.
 
 	The control's child components may be of any kind.
 
@@ -28,11 +28,13 @@ enyo.kind({
 	kind: "enyo.Control",
 	classes: "moon-drawers",
 	published: {
+		//* Set with an array of moon.Drawer components		
 		drawers: null
 	},
 	handlers: {
+		//* Handlers to udpate the activator when the state of contained drawers changes
 		onActivate: "drawerActivated",
-		onDeactivate: "drawerDeactivated",
+		onDeactivate: "drawerDeactivated",		
 		onSpotlightDown:"spotDown",
 		onSpotlightUp:"spotUp"
 	},
@@ -53,6 +55,12 @@ enyo.kind({
 		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
 		this.setupHandles();
 		enyo.Spotlight.spot(this.$.client);
+	},
+	rendered: function() {
+	    this.inherited(arguments);
+	    var dh = this.hasNode().getBoundingClientRect().height;
+	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	setupHandles: function() {
 		var handles = [];
@@ -149,10 +157,9 @@ enyo.kind({
 		if (this.$.handleContainer.$.animator.isAnimating()){
 			return true;
 		}
-		var drawers = this.$.drawers.getControls();
-		for (var index in drawers){
-			drawers[index].resizeDrawers();
-		}
+	    var dh = this.hasNode().getBoundingClientRect().height;
+	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
 		this.setNubArrowUp(false);
 	},
 	spotUp: function(inSender, inEvent) {
