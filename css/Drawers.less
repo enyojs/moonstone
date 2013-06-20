@@ -1,80 +1,111 @@
+/* Drawers.css */
 .moon-drawers {
+	position:relative;
 	height:100%;
 	width:100%;
 }
 
-.moon-drawers-close-container {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	z-index: 100001;
-	height: 42px;
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
+.moon-drawers-handles {
+	background-color: @moon-dark-gray;
 	text-align:center;
+	padding:10px 0;
 }
-
-.moon-drawers-close-handle {
-	height: auto;
-	margin-left: auto;
-	margin-top: 17px;
-	clear: none;
-	width: 100px;
-	padding: 5px 0px 0px;
-	border-top-width: 5px;
-	border-top-style: solid;
-	margin-right: auto;
-	position: relative;
-	top: 0px;
-	left: 0px;
-}
-
-.spotlight .moon-drawers-close-handle {
-	border-top-color: @moon-spotlight-border-color;
-}
-
-.moon-drawers-close-handle-text {
-	margin: 0px;
-	clear: none;
-	min-height: 0px;
-	min-width: 0em;
-	padding: 0px;
-	max-width: 100%;
-}
-
-p.moon-drawers-close-handle-text {
-	font-size: @moon-superscript-text-size;
-	width: 100%;
-	height: 16px;
-	color:@moon-light-text-color;
-	text-align: center;
-	font-weight: bold;
-	line-height: 16px;
-	word-wrap: break-word;
-}
-
-.spotlight p.moon-drawers-close-handle-text {
-	color: @moon-orange;
-}
-
-.moon-drawers-handle-container {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	z-index: 100000;
+	
+.moon-drawers-activator {
+	position:absolute;
 	width:100%;
-	text-align:right;
-	padding:10px 10px 0 0;
+	height:10px;	
+	background-color:@moon-dark-gray;
+	z-index: 100;
+}
+
+.moon-drawers-activator-nub {
+	position:relative;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:-5px;	
+	border-bottom-left-radius:25px;
+	border-bottom-right-radius:25px;	
+	height:10px;
+	width:20px;
+	background-color:@moon-dark-gray;
+	top:100%;
+}
+
+.moon-drawers-activator-nub .down {
+	position:absolute;
+	border-color: white transparent transparent transparent;
+	border-style: solid;
+	border-width: 5px;
+	height:0;
+	width:0;
+	left:5px;
+	top:0px;
+}
+
+.moon-drawers-activator-nub .down::after {
+    content: '';
+	position:absolute;
+	border-color: @moon-dark-gray transparent transparent transparent;	
+	border-style: solid;
+	border-width: 5px;
+	bottom:-2px;
+	left:-5px;
+}
+
+.moon-drawers-activator-nub .up {
+	position:absolute;
+	border-color: transparent transparent white transparent;
+	border-style: solid;
+	border-width: 5px;
+	height:0;
+	width:0;
+	left:5px;
+	top:-6px;
+}
+
+.moon-drawers-activator-nub .up::after {
+    content: '';
+	position:absolute;
+	border-color: transparent transparent @moon-dark-gray transparent;	
+	border-style: solid;
+	border-width: 5px;
+	bottom:-8px;
+	left:-5px;
+}
+
+.moon-drawers-activator.spotlight {
+	background-color:@moon-spotlight-border-color;
+}
+
+.spotlight .moon-drawers-activator-nub {
+	background-color:@moon-spotlight-border-color;
+}
+
+.spotlight .moon-drawers-activator-nub .down {
+	border-color: white transparent transparent transparent;
+}
+
+.spotlight .moon-drawers-activator-nub .down::after {
+	border-color: @moon-spotlight-border-color transparent transparent transparent;	
+}
+
+.spotlight .moon-drawers-activator-nub .up {
+	border-color: transparent transparent white transparent;
+}
+
+.spotlight .moon-drawers-activator-nub .up::after {
+	border-color: transparent transparent @moon-spotlight-border-color transparent;	
 }
 
 .moon-drawers-handle {
 	display:inline-block;
+	vertical-align:top;
 }
 
 .moon-drawers-drawer-container {
-	z-index:100000;
 	position:relative;
+	padding:10px 0;
 }
 
 .moon-drawers-client {
