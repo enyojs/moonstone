@@ -107,7 +107,7 @@ enyo.kind({
 	//* @public
 	//* Toggle fullscreen on/off
 	toggleFullscreen: function(inSender, inEvent) {
-		if (this.getFullscreen()) {
+		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
 			this.requestFullscreen();
@@ -155,7 +155,7 @@ enyo.kind({
 
 	//* Add _fullscreen_ css class when in fullscreen mode
 	fullscreenChanged: function() {
-		this.addRemoveClass("fullscreen", this.getFullscreen());
+		this.addRemoveClass("fullscreen", this.isFullscreen());
 	},
 	//* Responds to change in video source.
 	srcChanged: function() {
