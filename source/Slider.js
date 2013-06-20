@@ -34,7 +34,7 @@ enyo.kind({
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
 		noPopup: false,
 		//* When false, you can move the knob past the _bgProgress_
-		constraint: false,
+		constrainToBgProgress: false,
 		//* When true, you can see elastic effect when drag knob past the _bgProgress_
 		elasticEffect: false
 	},
@@ -93,13 +93,13 @@ enyo.kind({
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
 	},
-	//* Called only when constraint option true
+	//* Called only when constrainToBgProgress option true
 	calcConstrainedIncrement: function(inValue) {
 		return (Math.floor(inValue / this.increment) * this.increment);
 	},
 	//* Prep value at create time
 	initValue: function() {
-		if (this.constraint) {
+		if (this.constrainToBgProgress) {
 			this.value = this.clampValue(this.min, this.bgProgress, this.value);
 			this.value = (this.increment) ? this.calcConstrainedIncrement(this.value) : this.value;
 		}
@@ -109,7 +109,7 @@ enyo.kind({
 		}
 	},
 	setValue: function(inValue) {
-		if (this.constraint) {
+		if (this.constrainToBgProgress) {
 			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
 		}
@@ -195,7 +195,7 @@ enyo.kind({
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 			
-			if (this.constraint === true) {
+			if (this.constrainToBgProgress === true) {
 				v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
 				var ev = this.bgProgress + (v-this.bgProgress)*0.4;
 				v = this.clampValue(this.min, this.bgProgress, v);
@@ -224,7 +224,7 @@ enyo.kind({
 			return; // return nothing
 		}
 		var v = this.elasticTo;
-		if (this.constraint === true) {
+		if (this.constrainToBgProgress === true) {
 			v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
 			this.animateTo(this.elasticFrom, v);
 		} else {
