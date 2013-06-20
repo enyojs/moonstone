@@ -6,7 +6,7 @@
 /* minifier to fall back to using CSS files in place of the same-name       */
 /* LESS file.                                                               */
 
-/* Moonraker default parameters defined here */
+/* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
 /* Colors */
@@ -40,7 +40,7 @@
 /* ---------------------------------------*/
 /* Grid Dimensions */
 /* ---------------------------------------*/
-/* Moonraker rules defined here */
+/* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
 @font-face {
@@ -702,12 +702,21 @@
   left: -14px;
   right: -14px;
 }
+/*
+	IE8 can't handle these selectors in tandem:
+	.moon-button.active, .moon-button:active:not([disabled]) {
+
+	the effect is as if .moon-button.active doesn't exist
+*/
 .moon-button.active,
 .moon-button.pressed,
-.moon-button:active,
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active,
 .moon-button.small.spotlight.pressed {
+  border: 5px solid #ffb80d;
+  background-color: #ffffff;
+}
+.moon-button:active:hover:not([disabled]) {
   border: 5px solid #ffb80d;
   background-color: #ffffff;
 }
