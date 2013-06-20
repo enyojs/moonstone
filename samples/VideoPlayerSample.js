@@ -15,10 +15,6 @@ enyo.kind({
 			videoDisplayMode: "Cinema",
 			video3d: true,
 			videoTimeRecorded: "00:00",
-			//* You can override default classes for each control */
-			// knobClasses: "moon-videoplayer-sample-knob",
-			// barClasses: "moon-videoplayer-sample-progressbar",
-			// bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},

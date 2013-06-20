@@ -6,10 +6,7 @@ enyo.kind({
 	published: {
 		visible: false,
 		autoCloseTimeout: 4000,
-		jumpHoldTimeout: 2000,
-		knobClasses: "",
-		barClasses: "",
-		bgBarClasses: ""
+		jumpHoldTimeout: 2000
 	},
 	handlers: {
 		onenter: "enter",
@@ -43,11 +40,11 @@ enyo.kind({
 				
 				{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 					{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-						{name: "jumpBack", 		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png", 	ondown: "jumpBackDown", onholdpulse: "jumpBackPulseThrottle", onup: "jumpBackUp"},
-						{name: "rewind", 		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png", 		ontap: "rewind"},
-						{name: "playPause",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png", 		ontap: "playPause", mode: "pause"},
-						{name: "fastForward", 	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
-						{name: "jumpForward", 	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", ondown: "jumpForwardDown", onholdpulse: "jumpForwardPulseThrottle", onup: "jumpForwardUp"}
+						{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	ondown: "jumpBackDown", onholdpulse: "jumpBackPulseThrottle", onup: "jumpBackUp"},
+						{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		ontap: "rewind"},
+						{name: "playPause",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",		ontap: "playPause", mode: "pause"},
+						{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
+						{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", ondown: "jumpForwardDown", onholdpulse: "jumpForwardPulseThrottle", onup: "jumpForwardUp"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
@@ -58,7 +55,20 @@ enyo.kind({
 			]},
 			
 			{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
-				{name: "slider", kind: "moon.VideoTransportSlider", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"}
+				{
+					name: "slider", 
+					kind: "moon.VideoTransportSlider", 
+					
+					/* Example: You can add barClasses, bgBarClasses, knobClasses properties on slider control here */
+					// knobClasses: "moon-videoplayer-sample-knob",
+					// barClasses: "moon-videoplayer-sample-progressbar",
+					// bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
+					/* --------------------------------------------------- */
+
+					onSeekStart: "sliderSeekStart", 
+					onSeek: "sliderSeek", 
+					onSeekFinish: "sliderSeekFinish"
+				}
 			]}
 		]},
 		
@@ -68,12 +78,6 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.visibleChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.knobClassesChanged();
-		this.barClassesChanged();
-		this.bgBarClassesChanged();
 	},
 	//* Update layout to support the number of components that are passed in
 	initComponents: function() {
@@ -127,15 +131,6 @@ enyo.kind({
 	},
 	videoDescriptionChanged: function() {
 		this.$.videoDescription.setContent(this.getVideoDescription());
-	},
-	knobClassesChanged: function() {
-		this.$.slider.setKnobClasses(this.getKnobClasses());
-	},
-	barClassesChanged: function() {
-		this.$.slider.setBarClasses(this.getBarClasses());
-	},
-	bgBarClassesChanged: function() {
-		this.$.slider.setBgBarClasses(this.getBgBarClasses());
 	},
 	
 	//* Toggle play based on _this.playing_

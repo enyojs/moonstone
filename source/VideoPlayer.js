@@ -36,12 +36,6 @@ enyo.kind({
 		src: "",
 		//* Video aspect ratio, set as width:height
 		aspectRatio: "16:9",
-		//* CSS classes to apply to knob
-		knobClasses: "", 
-		//* CSS classes to apply to progress bar
-		barClasses: "",
-		//* CSS classes to apply to bg progress bar
-		bgBarClasses: "",
 		
 		videoDateTime: new Date(),
 		videoTitle: "",
@@ -87,12 +81,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.srcChanged();
 		this.setupPlayerControlBindings();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.knobClassesChanged();
-		this.barClassesChanged();
-		this.bgBarClassesChanged();
 	},
 	//* Return _this._playerControls_
 	getPlayerControls: function() {
@@ -174,15 +162,6 @@ enyo.kind({
 		if (typeof this.src === "string" && this.src.length > 0 && this.$.video) {
 			this.$.video.setSrc(this.src);
 		}
-	},
-	knobClassesChanged: function() {
-		this.$.fullscreenControls.setKnobClasses(this.knobClasses);
-	},
-	barClassesChanged: function() {
-		this.$.fullscreenControls.setBarClasses(this.barClasses);
-	},
-	bgBarClassesChanged: function() {
-		this.$.fullscreenControls.setBgBarClasses(this.bgBarClasses);
 	},
 
 	//* Updates the video time.
