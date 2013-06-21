@@ -1,12 +1,11 @@
 .moon-drawer-handle {
     height: auto;
     margin-left: auto;
-    margin-top: 17px;
     clear: none;
-    width: 100px;
-    padding: 5px 0px 0px;
-    border-top-width: 5px;
-    border-top-style: solid;
+    padding: 0px 0px 3px;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color:transparent;
     margin-right: 20px;
     position: relative;
     top: 0px;
@@ -14,7 +13,7 @@
 }
 
 .moon-drawer-handle.spotlight {
-    border-top-color:@moon-spotlight-border-color;
+    border-bottom-color:@moon-spotlight-border-color;
 }
 
 .moon-drawer-handle-text {
@@ -27,18 +26,14 @@
 }
 
 p.moon-drawer-handle-text {
-    font-size:@moon-superscript-text-size;
+    font-size:@moon-header-sub-text-size;
     width: 100%;
     height: 16px;
-	color:@moon-light-text-color;
+	color: white;
     text-align: center;
     font-weight: bold;
     line-height: 16px;
     word-wrap: break-word;
-}
-
-.spotlight p.moon-drawer-handle-text {
-    color: @moon-spotlight-border-color;
 }
 
 .moon-drawer-handle-text.marquee {
