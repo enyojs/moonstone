@@ -37,14 +37,6 @@ enyo.kind({
 		//* Video aspect ratio, set as width:height
 		aspectRatio: "16:9",
 		
-		videoDateTime: new Date(),
-		videoTitle: "",
-		videoChannel: "",
-		videoDescription: "",
-		videoSubtitleLanguage: null,
-		videoDisplayMode: "Cinema",
-		video3d: false,
-		videoTimeRecorded: null
 	},
 	handlers: {
 		onRequestPlay: "play",
@@ -59,7 +51,14 @@ enyo.kind({
 		onToggleFullscreen: "toggleFullscreen"
 	},
     bindings: [],
-	//* @public
+	defaultInfoOptions: {
+		videoDateTime: new Date(),
+		videoTitle: "Voice of Korea",
+		videoDescription: "Description about the current show"
+	},
+	infoOptions: {},
+	playerControls: [],
+	
 	//* @protected
 
 	_isPlaying: false,
@@ -68,43 +67,45 @@ enyo.kind({
 	controlParentName: "fullscreenControls",
 	
 	components: [
-		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
+		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video", isChrome: true,
 			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onplay: "_play", onpause: "_pause"
-		},
-		{name: "playerControlsContainer", components: [
-			{name: "inlineControls", kind: "moon.VideoControl.Inline"},
-			{name: "fullscreenControls", kind: "moon.VideoControl.Fullscreen"}
-		]}
+		}
 	],
 	
 	create: function() {
 		this.inherited(arguments);
+		this.createVideoPlayerControls();
+		this.initializeInfoOptions();
 		this.srcChanged();
 		this.setupPlayerControlBindings();
 	},
-	//* Return _this._playerControls_
-	getPlayerControls: function() {
-		return this.$.playerControlsContainer.children;
+	createVideoPlayerControls: function() {
+		this.createComponents(this.playerControls)
 	},
-	//* Setup bindings from this to all of _this.playerControls_
-	setupPlayerControlBindings: function() {
-		var controls = this.getPlayerControls(),
-			controlName,
-			i
-		;
-		for (i = 0; i < controls.length; i++) {
-			controlName = controls[i].name;
-			this.bindings.push({from: ".videoDateTime", 		to: ".$." + controlName + ".videoDateTime"});
-			this.bindings.push({from: ".videoTitle", 			to: ".$." + controlName + ".videoTitle"});
-			this.bindings.push({from: ".videoChannel", 			to: ".$." + controlName + ".videoChannel"});
-			this.bindings.push({from: ".videoDescription", 		to: ".$." + controlName + ".videoDescription"});
-			this.bindings.push({from: ".videoSubtitleLanguage", to: ".$." + controlName + ".videoSubtitleLanguage"});
-			this.bindings.push({from: ".videoDisplayMode", 		to: ".$." + controlName + ".videoDisplayMode"});
-			this.bindings.push({from: ".video3d", 				to: ".$." + controlName + ".video3d"});
-			this.bindings.push({from: ".videoTimeRecorded", 	to: ".$." + controlName + ".videoTimeRecorded"});
+	//* Mix _this.defaultInfoOptions_ and _this.infoOptions_
+	initializeInfoOptions: function() {
+		this.infoOptions = enyo.mixin(this.defaultInfoOptions, this.infoOptions);
+		// TODO - there must be a better way to prep these to work with bindings...
+		for (var prop in this.infoOptions) {
+			this[prop] = this.infoOptions[prop];
 		}
 	},
+	//* Return _this._playerControls_
+	getPlayerControls: function() {
+		return this.getClientControls();
+	},
+	//* Setup bindings for _this.infoOptions_ on all of _this.playerControls_
+	setupPlayerControlBindings: function() {
+		var controls = this.getPlayerControls(), i, j;
+		for (i = 0; i < controls.length; i++) {
+			for (prop in this.infoOptions) {
+				this.bindings.push({from: "." + prop, to: ".$." + controls[i].name + "." + prop});
+			}
+		}
+	},
+	
 	//* @public
+	
 	//* Toggle fullscreen on/off
 	toggleFullscreen: function(inSender, inEvent) {
 		if (this.isFullscreen()) {
@@ -153,10 +154,6 @@ enyo.kind({
 
 	//* @protected
 
-	//* Add _fullscreen_ css class when in fullscreen mode
-	fullscreenChanged: function() {
-		this.addRemoveClass("fullscreen", this.isFullscreen());
-	},
 	//* Responds to change in video source.
 	srcChanged: function() {
 		if (typeof this.src === "string" && this.src.length > 0 && this.$.video) {

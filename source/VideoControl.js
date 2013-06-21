@@ -11,12 +11,7 @@ enyo.kind({
 		// Properties passed through from player
 		videoDateTime: null,
 		videoTitle: "",
-		videoChannel: "",
-		videoDescription: "",
-		videoSubtitleLanguage: null,
-		videoDisplayMode: "",
-		video3d: null,
-		videoTimeRecorded: null
+		videoDescription: ""
 	},
 	events: {
 		onRequestPlay: "",

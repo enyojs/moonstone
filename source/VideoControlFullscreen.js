@@ -6,7 +6,16 @@ enyo.kind({
 	published: {
 		visible: false,
 		autoCloseTimeout: 4000,
-		jumpHoldTimeout: 2000
+		jumpHoldTimeout: 2000,
+		
+		videoDateTime: new Date(),
+		videoTitle: "",
+		videoChannel: "",
+		videoDescription: "",
+		videoSubtitleLanguage: null,
+		videoDisplayMode: "Cinema",
+		video3d: false,
+		videoTimeRecorded: null
 	},
 	handlers: {
 		onenter: "enter",

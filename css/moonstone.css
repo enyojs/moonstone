@@ -2506,7 +2506,23 @@ p.moon-drawer-handle-text {
   position: relative;
   display: block;
 }
-.fullscreen .moon-video-inline-control {
+/* ---- Fullscreen style ---- */
+:-webkit-full-screen.moon-video-player .moon-video-inline-control {
+  display: none;
+}
+:-moz-full-screen.moon-video-player .moon-video-inline-control {
+  display: none;
+}
+:-ms-full-screen.moon-video-player .moon-video-inline-control {
+  display: none;
+}
+:-o-full-screen.moon-video-player .moon-video-inline-control {
+  display: none;
+}
+:-full-screen.moon-video-player .moon-video-inline-control {
+  display: none;
+}
+body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
   display: none;
 }
 .moon-video-player .moon-icon-button.moon-video-inline-control-play-pause {
@@ -2566,10 +2582,6 @@ p.moon-drawer-handle-text {
   border: 0px;
   background-color: transparent;
 }
-/* ---- Fullscreen style ---- */
-.moon-video-player.fullscreen .moon-video-inline-control {
-  display: none;
-}
 .moon-video-fullscreen-control {
   opacity: 0;
   transition: opacity 0.1s linear;
@@ -2577,7 +2589,23 @@ p.moon-drawer-handle-text {
   -moz-transition: opacity 0.1s linear;
   display: none;
 }
-.fullscreen .moon-video-fullscreen-control {
+/* ---- Fullscreen style ---- */
+:-webkit-full-screen.moon-video-player .moon-video-fullscreen-control {
+  display: block;
+}
+:-moz-full-screen.moon-video-player .moon-video-fullscreen-control {
+  display: block;
+}
+:-ms-full-screen.moon-video-player .moon-video-fullscreen-control {
+  display: block;
+}
+:-o-full-screen.moon-video-player .moon-video-fullscreen-control {
+  display: block;
+}
+:-full-screen.moon-video-player .moon-video-fullscreen-control {
+  display: block;
+}
+body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   display: block;
 }
 .moon-video-fullscreen-control.visible {
