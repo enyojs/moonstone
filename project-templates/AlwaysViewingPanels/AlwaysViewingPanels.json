@@ -1,0 +1,23 @@
+{
+"template": [
+  {
+    "id": "bootplate-moonstone-AlwaysViewingPanels",
+    "zipfiles": [
+      {
+        "url": "bootplate-moonstone.zip",
+        "alternateUrl": "http://enyojs.com/webos/bootplate-moonstone.zip",
+        "prefixToRemove": "bootplate"
+      },
+      {
+        "url": "webos-app-config.zip",
+        "alternateUrl": "http://enyojs.com/webos/webos-app-config.zip"
+      },
+      {
+        "url": "template-AlwaysViewingPanels.zip",
+        "alternateUrl": "http://enyojs.com/webos/template-AlwaysViewingPanels.zip"
+      }
+    ],
+    "description": "Moonstone AlwaysViewingPanels"
+  }
+]
+}
