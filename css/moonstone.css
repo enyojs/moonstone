@@ -725,12 +725,21 @@
   left: -14px;
   right: -14px;
 }
+/*
+	IE8 can't handle these selectors in tandem:
+	.moon-button.active, .moon-button:active:not([disabled]) {
+
+	the effect is as if .moon-button.active doesn't exist
+*/
 .moon-button.active,
 .moon-button.pressed,
-.moon-button:active,
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active,
 .moon-button.small.spotlight.pressed {
+  border: 5px solid #ffb80d;
+  background-color: #ffffff;
+}
+.moon-button:active:hover:not([disabled]) {
   border: 5px solid #ffb80d;
   background-color: #ffffff;
 }
@@ -2279,19 +2288,18 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-drawer-handle {
   height: auto;
   margin-left: auto;
-  margin-top: 17px;
   clear: none;
-  width: 100px;
-  padding: 5px 0px 0px;
-  border-top-width: 5px;
-  border-top-style: solid;
+  padding: 0px 0px 3px;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
   margin-right: 20px;
   position: relative;
   top: 0px;
   left: 0px;
 }
 .moon-drawer-handle.spotlight {
-  border-top-color: #ffb80d;
+  border-bottom-color: #ffb80d;
 }
 .moon-drawer-handle-text {
   margin: 0px;
@@ -2302,16 +2310,13 @@ body .enyo-fit.panels-50-percent-scrim,
   max-width: 100%;
 }
 p.moon-drawer-handle-text {
-  font-size: 24px;
+  font-size: 18px;
   width: 100%;
   height: 16px;
-  color: #4b4b4b;
+  color: white;
   text-align: center;
   line-height: 16px;
   word-wrap: break-word;
-}
-.spotlight p.moon-drawer-handle-text {
-  color: #ffb80d;
 }
 .moon-drawer-handle-text.marquee {
   white-space: nowrap;
@@ -2328,74 +2333,99 @@ p.moon-drawer-handle-text {
   marquee-speed: 3px;
   marquee-style: scroll;
 }
+/* Drawers.css */
 .moon-drawers {
+  position: relative;
   height: 100%;
   width: 100%;
 }
-.moon-drawers-close-container {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 100001;
-  height: 42px;
-  padding: 0px;
-  margin: 0px;
-  width: 100%;
+.moon-drawers-handles {
+  background-color: #4b4b4b;
   text-align: center;
+  padding: 10px 0;
 }
-.moon-drawers-close-handle {
-  height: auto;
-  margin-left: auto;
-  margin-top: 17px;
-  clear: none;
-  width: 100px;
-  padding: 5px 0px 0px;
-  border-top-width: 5px;
-  border-top-style: solid;
-  margin-right: auto;
+.moon-drawers-activator {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  background-color: #4b4b4b;
+  z-index: 100;
+}
+.moon-drawers-activator-nub {
   position: relative;
-  top: 0px;
-  left: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -5px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  height: 10px;
+  width: 20px;
+  background-color: #4b4b4b;
+  top: 100%;
 }
-.spotlight .moon-drawers-close-handle {
-  border-top-color: #ffb80d;
-}
-.moon-drawers-close-handle-text {
-  margin: 0px;
-  clear: none;
-  min-height: 0px;
-  min-width: 0em;
-  padding: 0px;
-  max-width: 100%;
-}
-p.moon-drawers-close-handle-text {
-  font-size: 24px;
-  width: 100%;
-  height: 16px;
-  color: #4b4b4b;
-  text-align: center;
-  font-weight: bold;
-  line-height: 16px;
-  word-wrap: break-word;
-}
-.spotlight p.moon-drawers-close-handle-text {
-  color: #ffb80d;
-}
-.moon-drawers-handle-container {
+.moon-drawers-activator-nub .down {
   position: absolute;
+  border-color: white transparent transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+  height: 0;
+  width: 0;
+  left: 5px;
   top: 0px;
-  left: 0px;
-  z-index: 100000;
-  width: 100%;
-  text-align: right;
-  padding: 10px 10px 0 0;
+}
+.moon-drawers-activator-nub .down::after {
+  content: '';
+  position: absolute;
+  border-color: #4b4b4b transparent transparent transparent;
+  border-style: solid;
+  border-width: 5px;
+  bottom: -2px;
+  left: -5px;
+}
+.moon-drawers-activator-nub .up {
+  position: absolute;
+  border-color: transparent transparent white transparent;
+  border-style: solid;
+  border-width: 5px;
+  height: 0;
+  width: 0;
+  left: 5px;
+  top: -6px;
+}
+.moon-drawers-activator-nub .up::after {
+  content: '';
+  position: absolute;
+  border-color: transparent transparent #4b4b4b transparent;
+  border-style: solid;
+  border-width: 5px;
+  bottom: -8px;
+  left: -5px;
+}
+.moon-drawers-activator.spotlight {
+  background-color: #ffb80d;
+}
+.spotlight .moon-drawers-activator-nub {
+  background-color: #ffb80d;
+}
+.spotlight .moon-drawers-activator-nub .down {
+  border-color: white transparent transparent transparent;
+}
+.spotlight .moon-drawers-activator-nub .down::after {
+  border-color: #ffb80d transparent transparent transparent;
+}
+.spotlight .moon-drawers-activator-nub .up {
+  border-color: transparent transparent white transparent;
+}
+.spotlight .moon-drawers-activator-nub .up::after {
+  border-color: transparent transparent #ffb80d transparent;
 }
 .moon-drawers-handle {
   display: inline-block;
+  vertical-align: top;
 }
 .moon-drawers-drawer-container {
-  z-index: 100000;
   position: relative;
+  padding: 10px 0;
 }
 .moon-drawers-client {
   position: relative;
