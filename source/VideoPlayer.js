@@ -35,7 +35,7 @@ enyo.kind({
 		//* HTML5 video source URL
 		src: "",
 		//* Video aspect ratio, set as width:height
-		aspectRatio: "16:9",
+		aspectRatio: "16:9"
 		
 	},
 	handlers: {
@@ -68,7 +68,8 @@ enyo.kind({
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video", isChrome: true,
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onplay: "_play", onpause: "_pause"
+			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", 
+			onplay: "_play", onpause: "_pause", onprogress: "_progress"
 		}
 	],
 	
@@ -80,7 +81,7 @@ enyo.kind({
 		this.setupPlayerControlBindings();
 	},
 	createVideoPlayerControls: function() {
-		this.createComponents(this.playerControls)
+		this.createComponents(this.playerControls);
 	},
 	//* Mix _this.defaultInfoOptions_ and _this.infoOptions_
 	initializeInfoOptions: function() {
@@ -96,9 +97,9 @@ enyo.kind({
 	},
 	//* Setup bindings for _this.infoOptions_ on all of _this.playerControls_
 	setupPlayerControlBindings: function() {
-		var controls = this.getPlayerControls(), i, j;
+		var controls = this.getPlayerControls(), i;
 		for (i = 0; i < controls.length; i++) {
-			for (prop in this.infoOptions) {
+			for (var prop in this.infoOptions) {
 				this.bindings.push({from: "." + prop, to: ".$." + controls[i].name + "." + prop});
 			}
 		}
@@ -116,35 +117,35 @@ enyo.kind({
 	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
-		this.$.video.play();
+		this.$.video.setCommand("play");
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
-		this.$.video.pause();
+		this.$.video.setCommand("pause");
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
-		this.$.video.rewind();
+		this.$.video.setCommand("rewind");
 	},
 	//* Facade _this.$.video.jumpToStart_
 	jumpToStart: function(inSender, inEvent) {
-		this.$.video.jumpToStart();
+		this.$.video.setCommand("jumpToStart");
 	},
 	//* Facade _this.$.video.jumpBack_
 	jumpBack: function(inSender, inEvent) {
-		this.$.video.jumpBack();
+		this.$.video.setCommand("jumpBack");
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
-		this.$.video.fastForward();
+		this.$.video.setCommand("fastForward");
 	},
 	//* Facade _this.$.video.jumpToEnd_
 	jumpToEnd: function(inSender, inEvent) {
-		this.$.video.jumpToEnd();
+		this.$.video.setCommand("jumpToEnd");
 	},
 	//* Facade _this.$.video.jumpForward_
 	jumpForward: function(inSender, inEvent) {
-		this.$.video.jumpForward();
+		this.$.video.setCommand("jumpForward");
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {
@@ -204,6 +205,9 @@ enyo.kind({
 	_pause: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.playStateChanged();
+	},
+	_progress: function(inSender, inEvent) {
+		this.waterfall("onBufferStateChanged", {timeStamp: inEvent.timeStamp});
 	},
 	playStateChanged: function() {
 		this.addRemoveClass("playing", this._isPlaying);
