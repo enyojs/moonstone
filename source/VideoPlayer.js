@@ -113,40 +113,48 @@ enyo.kind({
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
 		this.$.video.setCommand("play");
+		this.waterfall("onFeedback", {cmd: "play", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
 		this.$.video.setCommand("pause");
+		this.waterfall("onFeedback", {cmd: "pause", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
 		this.$.video.setCommand("rewind");
+		this.waterfall("onFeedback", {cmd: "rewind", param: this.$.video.step, imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.jumpToStart_
 	jumpToStart: function(inSender, inEvent) {
 		this.$.video.setCommand("jumpToStart");
+		this.waterfall("onFeedback", {cmd: "jumpToStart", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.jumpBack_
 	jumpBack: function(inSender, inEvent) {
 		this.$.video.setCommand("jumpBack");
+		this.waterfall("onFeedback", {cmd: "jumpBack", param: this.$.video.isPaused(), imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
 		this.$.video.setCommand("fastForward");
+		this.log(this.$.video.step);
+		this.waterfall("onFeedback", {cmd: "fastForward", param: this.$.video.step, imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.jumpToEnd_
 	jumpToEnd: function(inSender, inEvent) {
 		this.$.video.setCommand("jumpToEnd");
+		this.waterfall("onFeedback", {cmd: "jumpToEnd", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.jumpForward_
 	jumpForward: function(inSender, inEvent) {
 		this.$.video.setCommand("jumpForward");
+		this.waterfall("onFeedback", {cmd: "jumpForward", param: this.$.video.isPaused(), imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {
 		this.$.video.setCurrentTime(inValue);
 	},
-
 
 	//* @protected
 

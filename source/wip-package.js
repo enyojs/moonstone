@@ -16,5 +16,6 @@ enyo.depends(
 	"VideoTransportSlider.js",
 	"VideoControl.js",
 	"VideoControlInline.js",
-	"VideoControlFullscreen.js"
+	"VideoControlFullscreen.js",
+	"VideoFeedback.js"
 );

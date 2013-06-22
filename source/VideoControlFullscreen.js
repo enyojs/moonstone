@@ -36,9 +36,7 @@ enyo.kind({
 					{content: "REC 00:00", classes: "moon-video-player-info-icon moon-video-player-info-redicon"}
 				]}
 			]},
-			{name: "feedbackHeader", classes: "moon-video-player-feedback", components: [
-				{name: "feedback", classes: "moon-video-player-feedback-icon"}
-			]}
+			{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 		]},
 		
 		{name: "playerControl", classes: "moon-video-player-bottom", components: [
@@ -112,7 +110,8 @@ enyo.kind({
 	},
 	currentTimeChanged: function() {
 		var cur = new Date(this.getCurrentTime()*1000);
-		this.$.feedback.setContent(this.formatTime(cur.getMinutes(), cur.getSeconds()));
+	//	this.$.feedback.setContent(this.formatTime(cur.getMinutes(), cur.getSeconds()));
+		this.doRequestTimeChange({param: this.formatTime(cur.getMinutes(), cur.getSeconds())});
 		this.updatePosition();
 	},
 	durationChanged: function() {
@@ -135,19 +134,19 @@ enyo.kind({
 	//* Toggle play based on _this.playing_
 	playPause: function(inSender, inEvent) {
 		if(this.getPlaying()) {
-			this.doRequestPause();
+			this.doRequestPause(inSender);
 		} else {
-			this.doRequestPlay();
+			this.doRequestPlay(inSender);
 		}
 		return true;
 	},
 	//* When rewind button is pressed, bubble _onRewind_ event
 	rewind: function(inSender, inEvent) {
-		this.doRequestRewind(inEvent);
+		this.doRequestRewind(inSender);
 	},
 	//* When fastForward button is pressed, bubble _onFastForward_ event
 	fastForward: function(inSender, inEvent) {
-		this.doRequestFastForward(inEvent);
+		this.doRequestFastForward(inSender);
 	},
 	
 	jumpBackPulses: 0,
@@ -168,11 +167,11 @@ enyo.kind({
 	},
 	jumpToStart: function(inSender, inEvent) {
 		this.jumpedToStart = true;
-		this.doRequestJumpToStart(inEvent);
+		this.doRequestJumpToStart(inSender);
 	},
 	jumpBackUp: function(inSender, inEvent) {
 		if (!this.jumpedToStart) {
-			this.doRequestJumpBack();
+			this.doRequestJumpBack(inSender);
 		}
 		this.jumpedToStart = false;
 	},
@@ -194,11 +193,11 @@ enyo.kind({
 	},
 	jumpToEnd: function(inSender, inEvent) {
 		this.jumpedToEnd = true;
-		this.doRequestJumpToEnd(inEvent);
+		this.doRequestJumpToEnd(inSender);
 	},
 	jumpForwardUp: function(inSender, inEvent) {
 		if (!this.jumpedToEnd) {
-			this.doRequestJumpForward();
+			this.doRequestJumpForward(inSender);
 		}
 		this.jumpedToEnd = false;
 	},
