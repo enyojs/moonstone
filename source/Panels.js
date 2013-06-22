@@ -174,7 +174,6 @@ enyo.kind({
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 
 		if (!this._hadFocus()) {
-			this.log("Focused: ", this.getActive().id);
 			enyo.Spotlight.spot(this.getActive());
 		}
 
