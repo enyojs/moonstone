@@ -12,65 +12,89 @@ enyo.kind({
 		//* Boolean flag for showing status of feedback information
 		showFeedback: false
 	},
+	handlers: {
+		onFeedback: "feedback"
+	},
 	//* @protected
 	_autoTimer: null,
 	components: [
 		{classes: "moon-video-feedback-wrapper", components: [
 			{name: "feedText", classes: "moon-video-feedback-text"},
-			{name: "feedIcon", kind: "moon.BoxIconButton", classes: "moon-video-feedback-icon", spotlight: false}
+			{name: "feedIcon", kind: "moon.IconButton", classes: "moon-video-feedback-icon", spotlight: false}
 		]}
 	],
 	//* @public
-	feedback: function(cmd, param, src) {
-		if(cmd=="time") {
-			this.cmdTimeInfo(param);
-			return true;
-		}
-		var msg = cmd;
-		switch(msg)
-		{
-		case "play":
-			if(param === true) {
-				msg = "pause";
-			} 
-			this.configuration(src, 10, 0, "left");
-			break;
-		case "live":
-			this.configuration(null, 50, 0, null);
-			break;
-		case "livepause":
-			this.configuration(src, 10, 0, "left");
-			break;
-		case "rewind":
-			msg = param*10+"x";
-			this.configuration(src, 0, 25, "right");
-			break;
-		case "fastForward":
-			msg = param*10+"x";
-			this.configuration(src, 25, 0, "left");
-			break;
-		case "jumpBack":
-			msg = 30 + " sec";
-			this.configuration(src, 0, 5, "right");
-			break;
-		case "jumpForward":
-			msg = 30 + " sec";
-			this.configuration(src, 0, 0, "left");
-			break;
-		case "rewindpaused":
-			msg = "N/A";
-			break;
-		case "forwardpaused":
-			msg = "N/A";
-			break;
-		}
-		this.$.feedText.setContent(msg);
+	feedback: function(inSender, inEvent) {
+		var msg = inEvent.cmd;
+		var param = inEvent.param;
+		var src = inEvent.imgsrc;
+		var timer = true;
+
 		if(!this.$.feedIcon.getShowing()) {
 			this.$.feedIcon.setShowing(true);
 			this.$.feedText.setShowing(true);
 		}
-		this._setAutoTimer();
 
+		switch(msg)
+		{
+		case "play":
+			if(param === "live") {
+				msg = "live";
+			}
+			this.configuration(src, 30, 0, "left");
+			break;
+		case "pause":
+			timer = false;
+			if(param === "live") {
+				msg = "00:00:00";
+			}
+			this.configuration(src, 20, 0, "left");
+			break;
+		case "rewind":
+			timer = false;
+			msg = param*10+"x";
+			this.configuration(src, 0, 35, "right");
+			break;
+		case "fastForward":
+			timer = false;
+			msg = param*10+"x";
+			this.configuration(src, 35, 0, "left");
+			break;
+		case "jumpBack":
+			if(param === true) { // when paused
+				timer = false;
+				msg = "<||";
+				src = "";
+			} else {
+				msg = 30 + "sec";
+			}
+			this.configuration(src, 0, 15, "right");
+			break;
+		case "jumpForward":
+			if(param === true) { // when paused
+				timer = false;
+				msg = "||>";
+				src = "";
+			} else {
+				msg = 30 + "sec";
+			}
+			this.configuration(src, 15, 0, "left");
+			break;
+		// after long press Not Implemented yet
+		case "jumpLive":
+			break;
+		case "jumpNext":
+			break;
+		case "jumpPrev":
+			break;
+		}
+
+		this.$.feedText.setContent(msg);
+		if(timer) {
+			this._setAutoTimer();
+		} else {
+			this._resetAutoTimer();
+		}
 		return true;
 	},
 	//* @protected

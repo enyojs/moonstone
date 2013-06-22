@@ -107,7 +107,8 @@ enyo.kind({
 	//* @public
 	//* Toggle fullscreen on/off
 	toggleFullscreen: function(inSender, inEvent) {
-		if (this.isFullscreen()) {
+	//	if (this.isFullscreen()) {
+		if (this.getFullscreen()) {
 			this.cancelFullscreen();
 		} else {
 			this.requestFullscreen();
@@ -116,46 +117,54 @@ enyo.kind({
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
 		this.$.video.play();
+		this.waterfall("onFeedback", {cmd: "play", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
 		this.$.video.pause();
+		this.waterfall("onFeedback", {cmd: "pause", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
 		this.$.video.rewind();
-	},
-	//* Facade _this.$.video.jumpToStart_
-	jumpToStart: function(inSender, inEvent) {
-		this.$.video.jumpToStart();
-	},
-	//* Facade _this.$.video.jumpBack_
-	jumpBack: function(inSender, inEvent) {
-		this.$.video.jumpBack();
+		this.waterfall("onFeedback", {cmd: "rewind", param: this.$.video.step, imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
 		this.$.video.fastForward();
+		this.waterfall("onFeedback", {cmd: "fastForward", param: this.$.video.step, imgsrc: inEvent.src});
 	},
-	//* Facade _this.$.video.jumpToEnd_
-	jumpToEnd: function(inSender, inEvent) {
-		this.$.video.jumpToEnd();
+	//* Facade _this.$.video.jumpBack_
+	jumpBack: function(inSender, inEvent) {
+		this.$.video.jumpBack();
+		this.waterfall("onFeedback", {cmd: "jumpBack", param: this.$.video.isPaused(), imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.jumpForward_
 	jumpForward: function(inSender, inEvent) {
 		this.$.video.jumpForward();
+		this.waterfall("onFeedback", {cmd: "jumpForward", param: this.$.video.isPaused(), imgsrc: inEvent.src});
+	},
+	//* Facade _this.$.video.jumpToStart_
+	jumpToStart: function(inSender, inEvent) {
+		this.$.video.jumpToStart();
+		this.waterfall("onFeedback", {cmd: "jumpToStart", param: "", imgsrc: inEvent.src});
+	},
+	//* Facade _this.$.video.jumpToEnd_
+	jumpToEnd: function(inSender, inEvent) {
+		this.$.video.jumpToEnd();
+		this.waterfall("onFeedback", {cmd: "jumpToEnd", param: "", imgsrc: inEvent.src});
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {
 		this.$.video.setCurrentTime(inValue);
 	},
 
-
 	//* @protected
 
 	//* Add _fullscreen_ css class when in fullscreen mode
 	fullscreenChanged: function() {
-		this.addRemoveClass("fullscreen", this.isFullscreen());
+	//	this.addRemoveClass("fullscreen", this.isFullscreen());
+		this.addRemoveClass("fullscreen", this.getFullscreen());
 	},
 	//* Responds to change in video source.
 	srcChanged: function() {
