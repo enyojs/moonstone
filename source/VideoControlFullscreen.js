@@ -75,26 +75,28 @@ enyo.kind({
 		this.visibleChanged();
 	},
 	//* Update layout to support the number of components that are passed in
-	initComponents: function() {
+	rendered: function() {
 		this.inherited(arguments);
-		this.log(this.components);
+		
+		var components = this.$.client.children;
+		
 		// No components - destroy more button
-		if (!this.components) {
+		if (!components) {
 			this.$.moreButton.destroy();
 		
 		// One or two components - destroy more button and utilize left/right premium placeholders
-		} else if (this.components.length <= 2) {
+		} else if (components.length <= 2) {
 			this.$.moreButton.destroy();
-			this.$.leftPremiumPlaceHolder.createComponent(this.components[0], {owner: this});
-			this.components.splice(0,1);
-			if (this.components.length == 1) {
-				this.$.rightPremiumPlaceHolder.createComponent(this.components[0], {owner: this});
-				this.components.splice(0,1);
+			this.$.leftPremiumPlaceHolder.createComponent(components[0], {owner: this});
+			components.splice(0,1);
+			if (components.length == 1) {
+				this.$.rightPremiumPlaceHolder.createComponent(components[0], {owner: this});
+				components.splice(0,1);
 			}
 		
 		// More than two components - use extra panel, with left premium plaeholder for first component
 		} else {
-			this.$.leftPremiumPlaceHolder.createComponents(this.components.splice(0,1), {owner: this});
+			this.$.leftPremiumPlaceHolder.createComponents(components.splice(0,1), {owner: this});
 		}
 	},
 	
