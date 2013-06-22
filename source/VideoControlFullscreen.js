@@ -7,7 +7,6 @@ enyo.kind({
 		visible: false,
 		autoCloseTimeout: 4000,
 		jumpHoldTimeout: 2000,
-		
 		videoDateTime: new Date(),
 		videoTitle: "",
 		videoChannel: "",
@@ -78,6 +77,7 @@ enyo.kind({
 	//* Update layout to support the number of components that are passed in
 	initComponents: function() {
 		this.inherited(arguments);
+		this.log(this.components);
 		// No components - destroy more button
 		if (!this.components) {
 			this.$.moreButton.destroy();

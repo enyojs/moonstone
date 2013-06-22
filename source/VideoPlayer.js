@@ -51,56 +51,51 @@ enyo.kind({
 		onToggleFullscreen: "toggleFullscreen"
 	},
     bindings: [],
-	defaultInfoOptions: {
-		videoDateTime: new Date(),
-		videoTitle: "Voice of Korea",
-		videoDescription: "Description about the current show"
-	},
-	infoOptions: {},
-	playerControls: [],
 	
 	//* @protected
 
 	_isPlaying: false,
 	_autoCloseTimer: null,
 	_holdPulseThreadhold: 300,
-	controlParentName: "fullscreenControls",
+	_playerControls: [],
 	
 	components: [
-		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video", isChrome: true,
+		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onplay: "_play", onpause: "_pause"
-		}
+		},
+		{name: "client", kind: "moon.VideoControl.Fullscreen", playerControl: true},
+		{kind: "moon.VideoControl.Inline", playerControl: true}
 	],
 	
 	create: function() {
 		this.inherited(arguments);
-		this.createVideoPlayerControls();
-		this.initializeInfoOptions();
 		this.srcChanged();
 		this.setupPlayerControlBindings();
 	},
-	createVideoPlayerControls: function() {
-		this.createComponents(this.playerControls)
-	},
-	//* Mix _this.defaultInfoOptions_ and _this.infoOptions_
-	initializeInfoOptions: function() {
-		this.infoOptions = enyo.mixin(this.defaultInfoOptions, this.infoOptions);
-		// TODO - there must be a better way to prep these to work with bindings...
-		for (var prop in this.infoOptions) {
-			this[prop] = this.infoOptions[prop];
-		}
-	},
 	//* Return _this._playerControls_
 	getPlayerControls: function() {
-		return this.getClientControls();
+		var controls = this.children,
+			returnControls = []
+		;
+		for (i = 0; i < controls.length; i++) {
+			if (controls[i].playerControl) {
+				returnControls.push(controls[i]);
+			}
+		}
+		return returnControls;
 	},
-	//* Setup bindings for _this.infoOptions_ on all of _this.playerControls_
+	//* Setup bindings for all player controls
 	setupPlayerControlBindings: function() {
 		var controls = this.getPlayerControls(), i, j;
 		for (i = 0; i < controls.length; i++) {
-			for (prop in this.infoOptions) {
-				this.bindings.push({from: "." + prop, to: ".$." + controls[i].name + "." + prop});
-			}
+			this.bindings.push({from: ".videoDateTime", 		to: ".$." + controls[i].name + ".videoDateTime"});
+			this.bindings.push({from: ".videoTitle", 			to: ".$." + controls[i].name + ".videoTitle"});
+			this.bindings.push({from: ".videoDescription", 		to: ".$." + controls[i].name + ".videoDescription"});
+			this.bindings.push({from: ".videoChannel", 			to: ".$." + controls[i].name + ".videoChannel"});
+			this.bindings.push({from: ".videoSubtitleLanguage", to: ".$." + controls[i].name + ".videoSubtitleLanguage"});
+			this.bindings.push({from: ".videoDisplayMode", 		to: ".$." + controls[i].name + ".videoDisplayMode"});
+			this.bindings.push({from: ".videoTimeRecorded", 	to: ".$." + controls[i].name + ".videoTimeRecorded"});
+			this.bindings.push({from: ".video3d", 				to: ".$." + controls[i].name + ".video3d"});
 		}
 	},
 	
