@@ -1,6 +1,7 @@
 enyo.kind({
     name: "moon.sample.AlwaysViewingPanelsSample",
     classes: "moon enyo-fit",
+    style: "background: url(../patterns-samples/assets/livetv-background.png);",
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
@@ -9,7 +10,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
-				{kind: "moon.Item", content: "Item Five", ontap: "next"}
+				{kind: "moon.Item", content: "Move out", ontap: "enter"}
 			]},
             {title: "Second", joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
@@ -52,11 +53,14 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
-			]},
-        ]},
+			]}
+		]}
     ],
     next: function(inSender, inEvent) {
-    	this.$.panels.next();
-    	return true;
+		this.$.panels.next();
+		return true;
+    },
+    enter: function(inSender, inEvent) {
+		this.$.panels.hideToLeft();
     }
 });

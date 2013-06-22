@@ -20,7 +20,7 @@ enyo.kind({
 			Current design pattern. Valid values are "none", "activity" (default), and
 			"alwaysviewing".
 		*/
-		pattern: "activity"			
+		pattern: "activity"		
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -40,10 +40,14 @@ enyo.kind({
 	//* @protected
 	create: function(oSender, oEvent) {
 		this.inherited(arguments);
-		this._applyPattern();
 		for (var n=0; n<this.getPanels().length; n++) {
 			this.getPanels()[n].spotlight = 'container';
+			this.getPanels()[n].parent = this;
 		}
+	},
+	initComponents: function() {
+		this._applyPattern();
+		this.inherited(arguments);
 	},
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
@@ -115,7 +119,7 @@ enyo.kind({
 		var n = this.getPanelIndex(oEvent.originator);
 
 		if (n != -1 && n != this.getIndex()) {
-			this.setIndex(n);	
+			this.setIndex(n);
 			enyo.Spotlight.setLast5WayControl(oEvent.originator);
 			enyo.Spotlight.setPointerMode(false);
 			return true;
@@ -140,6 +144,10 @@ enyo.kind({
 			if (nIndex > 0) {
 				this.setIndex(nIndex - 1);
 				return true;
+			} else {
+				if (this.pattern == "alwaysviewing") {
+					this.hide();
+				}
 			}
 			this._focusLeave('onSpotlightLeft');
 			break;
@@ -161,10 +169,12 @@ enyo.kind({
 	},
 
 	onSpotlightFocused: function(oSender, oEvent) {
+
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 
 		if (!this._hadFocus()) {
+			this.log("Focused: ", this.getActive().id);
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -234,7 +244,8 @@ enyo.kind({
 		}
 	},
 	panelPreTransitionComplete: function(inSender, inEvent) {
-		var index = this.getPanels().indexOf(inSender);
+		var index = this.getPanels().indexOf(inEvent.originator);
+
 		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
 			if (this.preTransitionWaitlist[i] === index) {
 				this.preTransitionWaitlist.splice(i,1);
@@ -267,7 +278,8 @@ enyo.kind({
 		}
 	},
 	panelPostTransitionComplete: function(inSender, inEvent) {
-		var index = this.getPanels().indexOf(inSender);
+		var index = this.getPanels().indexOf(inEvent.originator);
+
 		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
 			if (this.postTransitionWaitlist[i] === index) {
 				this.postTransitionWaitlist.splice(i,1);
@@ -296,16 +308,32 @@ enyo.kind({
 		case "alwaysviewing":
 			this.createChrome([
 				{
-					name: "leftBackground",
+					name: "backgroundScrim",
 					kind: enyo.Control,
-					isChrome: true,
-					classes: "panels-50-percent-left-scrim"
+					classes: "moon-panels-background-scrim",
+					components: [
+						{
+							name: "spotable",
+							kind: enyo.Control,
+							classes: "moon-panels-spot",
+							isChrome: true,
+							onenter: "show"
+						}
+					]
 				},
 				{
-					name: "rightBackground",
+					name: "client",
 					kind: enyo.Control,
-					isChrome: true,
-					classes: "panels-50-percent-right-scrim"
+					classes: "enyo-fill enyo-arranger moon-panels-client",
+					ontap: "hide",
+					components: [
+						{
+							name: "panelScrim",
+							kind: enyo.Control,
+							classes: "moon-panels-panel-scrim",
+							isChrome: true
+						}
+					]
 				}
 			]);
 			this.panelCoverRatio = 0.5;
@@ -315,5 +343,29 @@ enyo.kind({
 		default:
 			this.showFirstBreadcrumb = true;
 		}
+	},
+	show: function() {
+		this._clearTransition();
+		this.$.backgroundScrim.addRemoveClass("on", true);
+		enyo.job(this.id + "hide", this.bindSafely("_show"), 0.3);
+		return true;
+	},
+	_show: function() {
+		this.$.client.addClass("show");
+	},
+	hide: function() {
+		this._clearTransition();
+		this.$.client.addRemoveClass("right", true);
+		return true;
+	},
+	hideToLeft: function() {
+		this._clearTransition();
+		this.$.client.addRemoveClass("left", true);
+	},
+	_clearTransition: function() {
+		this.$.backgroundScrim.addRemoveClass("on", false);
+		this.$.client.addRemoveClass("left", false);
+		this.$.client.addRemoveClass("right", false);
+		this.$.client.addRemoveClass("show", false);
 	}
 });

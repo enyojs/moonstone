@@ -70,7 +70,7 @@ enyo.kind({
 
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
-			this.setTitleAbove(this.indexInContainer() + 1);
+			this.setTitleAbove(this.clientIndexInContainer() + 1);
 		}
 	},
 	//* Updates _this.header_ when _title_ changes.
@@ -179,15 +179,18 @@ enyo.kind({
 	//* @protected
 
 	preTransitionComplete: function() {
+		this.log("called");
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
 	},
 	postTransitionComplete: function() {
+		this.log("called");
 		this.isBreadcrumb = false;
 		this.doPostTransitionComplete();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
 		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
+			this.log("called");
 			this.shrinkPanel();
 			return true;
 		}
@@ -195,6 +198,7 @@ enyo.kind({
 	},
 	postTransition: function(inFromIndex, inToIndex, options) {
 		if (this.container && this.isBreadcrumb && !options.isBreadcrumb) {
+			this.log("called");
 			this.growPanel();
 			return true;
 		}
