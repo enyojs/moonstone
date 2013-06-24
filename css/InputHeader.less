@@ -1,15 +1,14 @@
 .moon-input-header-input-decorator {
+	overflow: hidden;
+	width: 100%;
+	height: @moon-header-text-size;
 	margin: 2px 0px 0px;
 	padding: 0px;
 	background-color: transparent;
-
-	border-left-width: 0px;
-	border-left-style: solid;
-	border-color: transparent;
 }
 .moon-input-header > .moon-input-header-input-decorator > .moon-input {
-	padding: 0px 0px 0px 4px;
-	width: 95%;
+	padding: 0px;
+	width: 100%;
 	font-family: @moon-alt-font-family;
 	font-size: @moon-header-text-size;
 	font-weight: bold;
@@ -18,11 +17,22 @@
 	color: @moon-dark-gray;
 	display: block;
 }
-.moon-input-header > .moon-input-header-input-decorator.spotlight{
-	border-left-width: 4px;
-	border-color: @moon-orange;
+.moon-input-header > .moon-input-header-input-decorator.spotlight > .moon-input {
+	color: @moon-orange;
 }
-.moon-input-header > .moon-input-header-input-decorator.moon-focused {
-	background-color: transparent;
-	border-left-width: 0px;
+.moon-input-header > .moon-input-header-input-decorator.moon-focused > .moon-input {
+}
+
+.moon-input-header-overlay {
+	position:relative; 
+	top:-@moon-header-text-size; 
+	left:0; 
+	width: 100%;
+	padding: 0px;
+	pointer-events:none; 
+	font-family: @moon-alt-font-family;
+	font-size: @moon-header-text-size;
+	font-weight: bold;
+	height: @moon-header-text-size;
+	color: @moon-dark-gray;
 }

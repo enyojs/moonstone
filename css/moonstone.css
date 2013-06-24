@@ -2087,16 +2087,16 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 5px 5px 5px 5px;
 }
 .moon-input-header-input-decorator {
+  overflow: hidden;
+  width: 100%;
+  height: 100px;
   margin: 2px 0px 0px;
   padding: 0px;
   background-color: transparent;
-  border-left-width: 0px;
-  border-left-style: solid;
-  border-color: transparent;
 }
 .moon-input-header > .moon-input-header-input-decorator > .moon-input {
-  padding: 0px 0px 0px 4px;
-  width: 95%;
+  padding: 0px;
+  width: 100%;
   font-family: "Miso";
   font-size: 100px;
   font-weight: bold;
@@ -2105,13 +2105,21 @@ body .enyo-fit.panels-50-percent-scrim,
   color: #4b4b4b;
   display: block;
 }
-.moon-input-header > .moon-input-header-input-decorator.spotlight {
-  border-left-width: 4px;
-  border-color: #ffb80d;
+.moon-input-header > .moon-input-header-input-decorator.spotlight > .moon-input {
+  color: #ffb80d;
 }
-.moon-input-header > .moon-input-header-input-decorator.moon-focused {
-  background-color: transparent;
-  border-left-width: 0px;
+.moon-input-header-overlay {
+  position: relative;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  padding: 0px;
+  pointer-events: none;
+  font-family: "Miso";
+  font-size: 100px;
+  font-weight: bold;
+  height: 100px;
+  color: #4b4b4b;
 }
 .moon-drawer-handle {
   height: auto;
