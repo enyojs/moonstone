@@ -10,12 +10,11 @@ enyo.kind({
         {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
     components: [
-        {kind: "enyo.Spotlight"},
         {
             kind: "FittableRows",
             components: [
                 {
-                    name: "movie", kind: "enyo.Image", style: "width: 600px; height: 320px;"
+                    name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
                 },
                 {
                     kind: "HFlexBox",
@@ -100,7 +99,7 @@ enyo.kind({
 
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
-        posterUrl: "http://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG",
+        posterUrl: "http://placehold.it/390x350",
         rating: "PG-13",
         releaseDate: "2013",
         duration: "122",

@@ -109,7 +109,7 @@ enyo.kind({
 		var n = this.getPanelIndex(oEvent.originator);
 
 		if (n != -1 && n != this.getIndex()) {
-			this.setIndex(n);
+			this.setIndex(n);	
 			enyo.Spotlight.setLast5WayControl(oEvent.originator);
 			enyo.Spotlight.setPointerMode(false);
 			return true;

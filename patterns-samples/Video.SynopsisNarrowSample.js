@@ -4,7 +4,6 @@ enyo.kind({
     title: "Synopsis",
     titleAbove: "04",
     components: [
-        {kind: "enyo.Spotlight"},
         {
             kind: "FittableRows",
             components: [
@@ -12,21 +11,21 @@ enyo.kind({
                 {
                     components: [
                         {
-                            name: "sysnopsisHead",
+                            name: "synopsisHead",
                             allowHtml: true,
                             content: "<b>Starring: </b>Actor Name, Actor Name, and" +
                                      " Actor Name"
                         },
                         {tag: "br"},
-                        {name: "sysnopsisBody"}
+                        {name: "synopsisBody"}
                     ]
                 }
             ]
         }
     ],
     bindings: [
-        {from: ".controller.sysnopsisHead", to: "$.sysnopsisHead.content"},
-        {from: ".controller.sysnopsisBody", to: "$.sysnopsisBody.content"}
+        {from: ".controller.synopsisHead", to: "$.synopsisHead.content"},
+        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
     ]
 });
 
@@ -34,9 +33,9 @@ enyo.kind({
 
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
-        sysnopsisHead: "<b>Starring: </b>Actor Name, Actor Name, and" +
+        synopsisHead: "<b>Starring: </b>Actor Name, Actor Name, and" +
                     " Actor Name",
-        sysnopsisBody: "Pixar genius reigns in this funny romantic c" +
+        synopsisBody: "Pixar genius reigns in this funny romantic c" +
                      "omedy, which stars a robot who says absolute" +
                      "ly nothing for a full 25 minutes yet somehow" +
                      " completely transfixes and endears himself t" +
@@ -59,6 +58,7 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
+                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.video.SynopsisNarrowSample",
                     controller: ".app.controllers.movieController",

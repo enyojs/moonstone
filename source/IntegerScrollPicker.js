@@ -199,5 +199,9 @@ enyo.kind({
 		if (x !== this.$.scroller.getScrollLeft() || y !== this.$.scroller.getScrollTop()) {
 			this.$.scroller.scrollTo(x,y);
 		}
+	},
+	//* Silently scrolls to the _inValue_ y-position without animating
+	setScrollTop: function(inValue) {
+		this.$.scroller.setScrollTop(inValue);
 	}
 });

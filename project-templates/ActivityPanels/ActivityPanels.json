@@ -1,0 +1,23 @@
+{
+"template": [
+  {
+    "id": "bootplate-moonstone-ActivityPanels",
+    "zipfiles": [
+      {
+        "url": "bootplate-moonstone.zip",
+        "alternateUrl": "http://enyojs.com/webos/bootplate-moonstone.zip",
+        "prefixToRemove": "bootplate"
+      },
+      {
+        "url": "webos-app-config.zip",
+        "alternateUrl": "http://enyojs.com/webos/webos-app-config.zip"
+      },
+      {
+        "url": "template-ActivityPanels.zip",
+        "alternateUrl": "http://enyojs.com/webos/template-ActivityPanels.zip"
+      }
+    ],
+    "description": "Moonstone ActivityPanels"
+  }
+]
+}

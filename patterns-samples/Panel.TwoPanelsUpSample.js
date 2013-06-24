@@ -36,12 +36,12 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.sample.panel.TwoPanelsUpSample",
+	classes: "moon",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{
-			name: "panels", 
-			kind: "moon.Panels", 
-			arrangerKind: "moon.LeanForwardArranger", 
+			name: "panels",
+			kind: "moon.Panels",
 			classes: "enyo-fit",
 			components: [
 				{title: "Menu", components: [

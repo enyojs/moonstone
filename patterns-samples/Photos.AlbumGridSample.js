@@ -1,39 +1,34 @@
 	enyo.kind({
     name: "moon.sample.photos.AlbumGridSample",
 	kind: "moon.Panel",
+	classes: "moon enyo-fit enyo-unselectable",
 	titleAbove: "01",
 	title: "Main Menu",
-	classes: "photos-album album-grid-sample",
-	imgList: [
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"}
-	],
 	components: [	
 		{kind: "enyo.Spotlight"},
-		{
-			name: "gridlist",
-			kind: "moon.GridList",
-			fit: true,
-			count: 4,
-			onSetupItem: "setupGridItem",
-			touch: true,
-			itemWidth: 374,
-			itemHeight: 267,
-			itemSpacing: 30,
-			components: [
-				{name: "gridItem", kind: "moon.GridList.ImageItem"}
-			]
-		}
+		{kind: "moon.Scroller", fit: true, touch: true, components:[
+			{
+				name: "gridlist",
+				kind: "moon.GridList",
+				classes: "enyo-fill",
+				onSetupItem: "setupGridItem",
+				itemWidth: 374,
+				itemHeight: 267,
+				itemSpacing: 30,
+				components: [
+					{name: "gridItem", kind: "moon.GridList.ImageItem"}
+				]
+			}
+		]}
 	],
+
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.gridlist.show(20);
+	},
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		var gridItem = this.imgList[i];
-		if (!gridItem.src) {
-			return;
-		}
-		this.$.gridItem.setSource(gridItem.src);
+		this.$.gridItem.setSource("assets/album.png");
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
+	}
 });
