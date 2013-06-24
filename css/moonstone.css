@@ -1074,6 +1074,13 @@
 .moon-header-client > * {
   margin-left: 10px;
 }
+/* Small header styling */
+.moon-small-header {
+  height: 250px;
+}
+.moon-small-header .moon-header-title-above {
+  display: none;
+}
 /*
 	Put anything you reference with "url()" in ../assets/
 	This way, you can minify your application, and just remove the "source" folder for production

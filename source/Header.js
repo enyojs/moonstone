@@ -12,7 +12,9 @@ enyo.kind({
 		//* Text above the header
 		titleAbove: '',
 		//* Text below the header
-		titleBelow: ''
+		titleBelow: '',
+		//* If true, the moon-small-header css class will be applied to this header
+		small: false
 	},
 	components: [
 		{name: "titleAbove", classes: "moon-header-title-above"},
@@ -23,6 +25,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.smallChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
@@ -200,6 +203,11 @@ enyo.kind({
 			}
 		});
 		this.$.animator.play("expand");
+	},
+	//* @protected
+	smallChanged: function() {
+		this.log(this.getSmall());
+		this.addRemoveClass("moon-small-header", this.getSmall());
 	},
 	//* @protected
 	titleChanged: function() {
