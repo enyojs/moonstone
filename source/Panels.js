@@ -44,6 +44,8 @@ enyo.kind({
 	arrangerKind: "moon.BreadcrumbArranger",
 
 	//* @protected
+	_transitionCommand: "",
+
 	create: function(oSender, oEvent) {
 		this.inherited(arguments);
 		for (var n=0; n<this.getPanels().length; n++) {
@@ -54,6 +56,10 @@ enyo.kind({
 	initComponents: function() {
 		this._applyPattern();
 		this.inherited(arguments);
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.client.hide();
 	},
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
@@ -66,12 +72,23 @@ enyo.kind({
 
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
-
-		if (n != -1 && n != this.getIndex()) {
-			this.setIndex(n);
-			enyo.Spotlight.setLast5WayControl(oEvent.originator);
-			enyo.Spotlight.setPointerMode(false);
-			return true;
+		if (n == -1) {
+			// Tapped on other than panel
+			if (this.pattern === "alwaysviewing" && this.$.client.showing === true) {
+				this.hide();
+				return true;
+			}
+		} else {
+			// Tapped on panel
+			if (n != this.getIndex()) {
+				// Tapped on not current panel
+				this.setIndex(n);
+				enyo.Spotlight.setLast5WayControl(oEvent.originator);
+				enyo.Spotlight.setPointerMode(false);
+				return true;
+			} else {
+				// Tapped on current panel
+			}
 		}
 		return false;
 	},
@@ -178,7 +195,6 @@ enyo.kind({
 					name: "client",
 					kind: enyo.Control,
 					classes: "enyo-fill enyo-arranger moon-panels-client",
-					ontap: "hide",
 					components: [
 						{
 							name: "panelScrim",
@@ -202,27 +218,29 @@ enyo.kind({
 		if (inSender === this.$.client) {
 			switch (this._transitionCommand) {
 			case "show":
+				this._transitionCommand = "";
 				this.doShowFinished(inEvent);
 				break;
 			case "hide":
+				this._transitionCommand = "";
+				this.$.client.hide();
 				this.doHideFinished(inEvent);
 				break;
 			case "hideLeft":
+				this._transitionCommand = "";
+				this.$.client.hide();
+				this.$.client.addRemoveClass("show", false);
+				this.$.client.addRemoveClass("left", false);
 				this.doHideLeftFinished(inEvent);
 				break;
 			default:
-				// not handled
+				// other transition inside of panels
 			}
 		}
 	},
-	_clearTransition: function() {
-		this.$.backgroundScrim.addRemoveClass("on", false);
-		this.$.client.addRemoveClass("left", false);
-		this.$.client.addRemoveClass("right", false);
-		this.$.client.addRemoveClass("show", false);
-	},
 	_show: function() {
-		this.$.client.addClass("show");
+		this.$.backgroundScrim.addRemoveClass("on", true);
+		this.$.client.addRemoveClass("show", true);
 	},
 
 	// Called when focus leaves one of the panels.
@@ -240,6 +258,7 @@ enyo.kind({
 			} else {
 				if (this.pattern == "alwaysviewing") {
 					this.hide();
+					return true;
 				}
 			}
 			this._focusLeave('onSpotlightLeft');
@@ -262,11 +281,11 @@ enyo.kind({
 	},
 
 	onSpotlightFocused: function(oSender, oEvent) {
-
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 
-		if (!this._hadFocus()) {
+		// Check if child of panels or panels itself is last spotted control
+		if (!this._hadFocus() || this === enyo.Spotlight.getLastControl()) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -332,10 +351,12 @@ enyo.kind({
 		this.resized();
 	},
 	//* Advance panel index by 1 until index is reached to the last. */
-	next: function() {
-		var nextIndex = this.clamp(this.index+1);
-		if (nextIndex != this.getIndex()) {
-			this.setIndex(nextIndex);
+	next: function(oControl) {
+		var index = this.getPanelIndex(oControl);
+		this.setIndex(index);
+		index = this.clamp(index+1);
+		if (index != this.getIndex()) {
+			this.setIndex(index);
 		}
 	},
 
@@ -344,7 +365,8 @@ enyo.kind({
 		var oPanel = null;
 
 		while (oControl.parent) {
-			if (oControl.parent === this) {
+			// Parent of a panel can be a client or a panels.
+			if (oControl.parent === this.$.client || oControl.parent === this) {
 				oPanel = oControl;
 				break;
 			}
@@ -382,23 +404,25 @@ enyo.kind({
 	},
 	//* Show panals with transition from right */
 	show: function() {
+		if (this._transitionCommand !== "") {return;}
 		this._transitionCommand = "show";
-		this._clearTransition();
-		this.$.backgroundScrim.addRemoveClass("on", true);
-		enyo.job(this.id + "hide", this.bindSafely("_show"), 0.3);
+		this.$.client.show();
+		enyo.job(this.id + "showhide", this.bindSafely("_show"), 50);
 		return true;
 	},
 	//* Hide panals with transition to right */
 	hide: function() {
+		if (this._transitionCommand !== "") {return;}
 		this._transitionCommand = "hide";
-		this._clearTransition();
-		this.$.client.addRemoveClass("right", true);
+		this.$.backgroundScrim.addRemoveClass("on", false);
+		this.$.client.addRemoveClass("show", false);
 		return true;
 	},
 	//* Hide panals with transition to left */
 	hideToLeft: function() {
+		if (this._transitionCommand !== "") {return;}
 		this._transitionCommand = "hideLeft";
-		this._clearTransition();
+		this.$.backgroundScrim.addRemoveClass("on", false);
 		this.$.client.addRemoveClass("left", true);
 	}
 });
