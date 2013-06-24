@@ -2805,6 +2805,21 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   text-align: center;
   margin-top: 70px;
 }
+.moon-video-feedback-wrapper {
+  padding-top: 50px;
+}
+.moon-video-feedback-text {
+  height: 65px;
+  margin-top: 12px;
+  font-family: "Miso";
+  font-size: 50px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.moon-video-feedback-icon {
+  margin: 0px;
+  padding: 0px;
+}
 .moon-scroller-client-wrapper {
   box-sizing: border-box;
   height: 100%;

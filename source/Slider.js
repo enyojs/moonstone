@@ -34,7 +34,11 @@ enyo.kind({
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
 		noPopup: false,
 		popupWidth: 62,
-		popupHeight: 52
+		popupHeight: 52,
+		//* When false, you can move the knob past the _bgProgress_
+		constrainToBgProgress: false,
+		//* When true, you can see elastic effect when drag knob past the _bgProgress_
+		elasticEffect: false
 	},
 	events: {
 		//* Fires when bar position is set. The _value_ property contains the
@@ -100,14 +104,26 @@ enyo.kind({
 	canvasHeightChanged: function() {
 		this.$.drawing.setAttribute("height", this.getPopupHeight());
 	},
+	//* Called only when constrainToBgProgress option true
+	calcConstrainedIncrement: function(inValue) {
+		return (Math.floor(inValue / this.increment) * this.increment);
+	},
 	//* Prep value at create time
 	initValue: function() {
+		if (this.constrainToBgProgress) {
+			this.value = this.clampValue(this.min, this.bgProgress, this.value);
+			this.value = (this.increment) ? this.calcConstrainedIncrement(this.value) : this.value;
+		}
 		this.updateKnobPosition(this.calcPercent(this.getValue()));
 		if (this.lockBar) {
 			this.setProgress(this.getValue());
 		}
 	},
 	setValue: function(inValue) {
+		if (this.constrainToBgProgress) {
+			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
+			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
+		}
 		if (this.animate) {
 			this.animateTo(this.getValue(), inValue);
 		} else {
@@ -176,9 +192,8 @@ enyo.kind({
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
-			return;	// return nothing
+			return; // return nothing
 		}
-
 		if (inEvent.horizontal) {
 			inEvent.preventDefault();
 			this.dragging = true;
@@ -190,10 +205,20 @@ enyo.kind({
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			v = this.clampValue(this.min, this.max, v);
-			var p = this.calcPercent(v);
+			
+			if (this.constrainToBgProgress === true) {
+				v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
+				var ev = this.bgProgress + (v-this.bgProgress)*0.4;
+				v = this.clampValue(this.min, this.bgProgress, v);
+				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
+				this.elasticTo = v;
+			} else {
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				v = this.clampValue(this.min, this.max, v);
+				this.elasticFrom = this.elasticTo = v;
+			}
 
+			var p = this.calcPercent(this.elasticFrom);
 			this.updateKnobPosition(p);
 
 			if (this.lockBar) {
@@ -207,11 +232,17 @@ enyo.kind({
 	},
 	dragfinish: function(inSender, inEvent) {
 		if (this.disabled) {
-			return;	// return nothing
+			return; // return nothing
 		}
-		var v = this.calcKnobPosition(inEvent);
-		v = (this.increment) ? this.calcIncrement(v) : v;
-		this._setValue(v);
+		var v = this.elasticTo;
+		if (this.constrainToBgProgress === true) {
+			v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
+			this.animateTo(this.elasticFrom, v);
+		} else {
+			v = this.calcKnobPosition(inEvent);
+			v = (this.increment) ? this.calcIncrement(v) : v;	
+			this._setValue(v);
+		}
 
 		this.dragging = false;
 
@@ -232,6 +263,7 @@ enyo.kind({
 	//* @public
 	//* Animates to the given value.
 	animateTo: function(inStartValue, inEndValue) {
+		inEndValue = this.clampValue(this.min, this.max, inEndValue); // Moved from animatorStep
 		this.animatingTo = inEndValue;
 
 		this.$.animator.play({
@@ -242,7 +274,8 @@ enyo.kind({
 	},
 	//* @protected
 	animatorStep: function(inSender) {
-		var v = this.clampValue(this.min, this.max, inSender.value),
+		//var v = this.clampValue(this.min, this.max, inSender.value), // clamp is done on call animateTo
+		var	v = inSender.value,
 			p = this.calcPercent(v);
 
 		this.updateKnobPosition(p);

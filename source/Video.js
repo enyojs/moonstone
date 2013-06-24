@@ -16,7 +16,7 @@ enyo.kind({
 	kind: enyo.Control,
 	published: {
 		//* control command like jumpToStart, jumpBackward, rewind, play, pause, fastForward, jumpForward, jumpToEnd
-		command: "",
+		//command: "",
 		//* source URL of the video file, can be relative to the application's HTML file
 		src: "",
 		//* source of image file to show when video isn't available
@@ -99,6 +99,7 @@ enyo.kind({
 	},
 	autoplayChanged: function() {
 		this.setAttribute("autoplay", this.autoplay ? "autoplay" : null);
+		this._prevCommand = this.autoplay ? "play" : "pause";
 	},
 	loopChanged: function() {
 		this.setAttribute("loop", this.loop ? "loop" : null);
@@ -109,86 +110,179 @@ enyo.kind({
 		}
 	},
 	//* @public
-	setCommand: function(inNew) {
-		var inOld = this.cmd;
-		this.cmd = inNew;
-
+	play: function() {
 		if (!this.hasNode()) {return;}
-
-		if (inOld != "play" && inNew == "play") {
+		if (this._prevCommand != "play") {
 			this.setPlaybackRate(1);
 			this.node.play();
 		}
-		if (inOld != "pause" && inNew == "pause") {
-			if (inOld == "play") {
+		this._prevCommand = "play";
+	},
+	pause: function() {
+		if (!this.hasNode()) {return;}
+		if (this._prevCommand != "pause") {
+			if (this._prevCommand == "play") {
 				this.setPlaybackRate(1);
 				this.node.pause();
 			} else {
 				// to fix playbutton while doing other than play
-				this.setCmd("play");
+				this.play();
 			}
 		}
-		if (inNew == "fastForward") {
-			switch (inOld) {
-			case "pause":
-				this.selectPlaybackRateArray("slowForward");
-				this._speedIndex = 0;
-				this.node.play();
-				break;
-			case "fastForward":
-				this._speedIndex++;
-				break;
-			default:
-				this.selectPlaybackRateArray("fastForward");
-				this._speedIndex = 0;
-			}
-			this._playbackRate = this.clampPlaybackRate(this._speedIndex);
-			this.setPlaybackRate(this._playbackRate);
-		}
-		if (inNew == "rewind") {
-			switch (inOld) {
-			case "pause":
-				this.selectPlaybackRateArray("slowRewind");
-				this._speedIndex = 0;
-				this.node.play();
-				break;
-			case "rewind":
-				this._speedIndex++;
-				break;
-			default:
-				this.selectPlaybackRateArray("rewind");
-				this._speedIndex = 0;
-			}
-			this._playbackRate = this.clampPlaybackRate(this._speedIndex);
-			this.setPlaybackRate(this._playbackRate);
-		}
-		if (inNew == "jumpBackward") {
-			this.setPlaybackRate(1);
-			this.node.currentTime -= this.jumpSec;
-			// to fix playbutton while doing other than play
-			if (inOld == "play") {
-				this.setCmd("play");
-			}
-		}
-		if (inNew == "jumpForward") {
-			this.setPlaybackRate(1);
-			this.node.currentTime += this.jumpSec;
-			// to fix playbutton while doing other than play
-			if (inOld == "play") {
-				this.setCmd("play");
-			}
-		}
-		if (inNew == "jumpToStart") {
-			this.setPlaybackRate(1);
-			this.node.pause();
-			this.node.currentTime = 0;
-		}
-		if (inNew == "jumpToEnd") {
-			this.setPlaybackRate(1);
-			this.node.pause();
-			this.node.currentTime = this.node.duration;
-		}
+		this._prevCommand = "pause";
 	},
+	fastForward: function() {
+		if (!this.hasNode()) {return;}
+		switch (this._prevCommand) {
+		case "pause":
+			this.selectPlaybackRateArray("slowForward");
+			this._speedIndex = 0;
+			this.node.play();
+			break;
+		case "fastForward":
+			this._speedIndex++;
+			break;
+		default:
+			this.selectPlaybackRateArray("fastForward");
+			this._speedIndex = 0;
+		}
+		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
+		this.setPlaybackRate(this._playbackRate);
+		this._prevCommand = "fastForward";
+	},
+	rewind: function() {
+		if (!this.hasNode()) {return;}
+		switch (this._prevCommand) {
+		case "pause":
+			this.selectPlaybackRateArray("slowRewind");
+			this._speedIndex = 0;
+			this.node.play();
+			break;
+		case "rewind":
+			this._speedIndex++;
+			break;
+		default:
+			this.selectPlaybackRateArray("rewind");
+			this._speedIndex = 0;
+		}
+		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
+		this.setPlaybackRate(this._playbackRate);
+		this._prevCommand = "rewind";
+	},
+	jumpBackward: function() {
+		if (!this.hasNode()) {return;}
+		this.setPlaybackRate(1);
+		this.node.currentTime -= this.jumpSec;
+		// to fix playbutton while doing other than play
+		if (this._prevCommand == "play") {
+			this.play();
+		}
+		this._prevCommand = "jumpBackward";
+	},
+	jumpForward: function() {
+		if (!this.hasNode()) {return;}
+		this.setPlaybackRate(1);
+		this.node.currentTime += this.jumpSec;
+		// to fix playbutton while doing other than play
+		if (this._prevCommand == "play") {
+			this.play();
+		}
+		this._prevCommand = "jumpForward";
+	},
+	jumpToStart: function() {
+		if (!this.hasNode()) {return;}
+		this.setPlaybackRate(1);
+		this.node.pause();
+		this.node.currentTime = 0;
+		this._prevCommand = "jumpToStart";
+	},
+	jumpToEnd: function() {
+		if (!this.hasNode()) {return;}
+		this.setPlaybackRate(1);
+		this.node.pause();
+		this.node.currentTime = this.node.duration;
+		this._prevCommand = "jumpToEnd";
+	},
+	// setCommand: function(inNew) {
+	// 	var inOld = this.command;
+	// 	this.command = inNew;
+
+	// 	if (!this.hasNode()) {return;}
+
+	// 	if (inOld != "play" && inNew == "play") {
+	// 		this.setPlaybackRate(1);
+	// 		this.node.play();
+	// 	}
+	// 	if (inOld != "pause" && inNew == "pause") {
+	// 		if (inOld == "play") {
+	// 			this.setPlaybackRate(1);
+	// 			this.node.pause();
+	// 		} else {
+	// 			// to fix playbutton while doing other than play
+	// 			this.setCmd("play");
+	// 		}
+	// 	}
+	// 	if (inNew == "fastForward") {
+	// 		switch (inOld) {
+	// 		case "pause":
+	// 			this.selectPlaybackRateArray("slowForward");
+	// 			this._speedIndex = 0;
+	// 			this.node.play();
+	// 			break;
+	// 		case "fastForward":
+	// 			this._speedIndex++;
+	// 			break;
+	// 		default:
+	// 			this.selectPlaybackRateArray("fastForward");
+	// 			this._speedIndex = 0;
+	// 		}
+	// 		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
+	// 		this.setPlaybackRate(this._playbackRate);
+	// 	}
+	// 	if (inNew == "rewind") {
+	// 		switch (inOld) {
+	// 		case "pause":
+	// 			this.selectPlaybackRateArray("slowRewind");
+	// 			this._speedIndex = 0;
+	// 			this.node.play();
+	// 			break;
+	// 		case "rewind":
+	// 			this._speedIndex++;
+	// 			break;
+	// 		default:
+	// 			this.selectPlaybackRateArray("rewind");
+	// 			this._speedIndex = 0;
+	// 		}
+	// 		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
+	// 		this.setPlaybackRate(this._playbackRate);
+	// 	}
+	// 	if (inNew == "jumpBackward") {
+	// 		this.setPlaybackRate(1);
+	// 		this.node.currentTime -= this.jumpSec;
+	// 		// to fix playbutton while doing other than play
+	// 		if (inOld == "play") {
+	// 			this.setCmd("play");
+	// 		}
+	// 	}
+	// 	if (inNew == "jumpForward") {
+	// 		this.setPlaybackRate(1);
+	// 		this.node.currentTime += this.jumpSec;
+	// 		// to fix playbutton while doing other than play
+	// 		if (inOld == "play") {
+	// 			this.setCmd("play");
+	// 		}
+	// 	}
+	// 	if (inNew == "jumpToStart") {
+	// 		this.setPlaybackRate(1);
+	// 		this.node.pause();
+	// 		this.node.currentTime = 0;
+	// 	}
+	// 	if (inNew == "jumpToEnd") {
+	// 		this.setPlaybackRate(1);
+	// 		this.node.pause();
+	// 		this.node.currentTime = this.node.duration;
+	// 	}
+	// },
 	selectPlaybackRateArray: function(cmd) {
 		this._playbackRateArray = this._playbackRateHash[cmd];
 	},
