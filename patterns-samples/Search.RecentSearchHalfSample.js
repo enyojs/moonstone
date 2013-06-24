@@ -1,6 +1,6 @@
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
-    kind: "moon.SearchPanel",
+    kind: "moon.InputPanel",
 	classes: "moon-search",
     handlers: {
         onSearch: ""

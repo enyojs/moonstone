@@ -1,16 +1,16 @@
 /**
-	_moon.SearchHeader_ extends <a href="#moon.Header">moon.Header</a>
+	_moon.InputHeader_ extends <a href="#moon.Header">moon.Header</a>
 	using moon.Input instead of enyo.Control for a title.
 */
 enyo.kind({
 	//* @public
-	name: "moon.SearchHeader",
+	name: "moon.InputHeader",
 	kind: "moon.Header",
 	events: {
 		/** 
 			Fires when typing a text in a moon.Input for a title
 
-			_inEvent.keyword_ contains the title of moon.SearchHeader
+			_inEvent.keyword_ contains the title of moon.InputHeader
 			which is the text in a moon.Input
 		*/
 		"onSearch": ""
