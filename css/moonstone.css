@@ -1496,7 +1496,6 @@
   line-height: 20px;
   height: 20px;
   color: #4b4b4b;
-  text-transform: uppercase;
 }
 .moon-input-decorator.moon-focused .moon-input {
   cursor: text;
