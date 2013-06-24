@@ -16,10 +16,10 @@ enyo.kind({
 		"onSearch": ""
 	},
 	//* @protected
-	classes: "moon-header moon-search-header",
+	classes: "moon-header moon-input-header",
 	components: [
 		{name: "titleAbove", classes: "moon-header-title-above"},
-		{kind: "moon.InputDecorator", classes: 'moon-search-input-decorator', components: [
+		{kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
 			{name: "title", kind: "moon.Input", oninput: "search", placeholder: "Search", classes: "moon-header-title"}
 		]},
 		{name: "titleBelow", kind: "moon.Item", spotlight: false, classes: "moon-header-title-below"},

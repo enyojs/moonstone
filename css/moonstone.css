@@ -1424,7 +1424,7 @@
   color: #7d7d7d;
 }
 /* InputDecorator.css */
-.moon-input-decorator:not(.moon-search-input-decorator) {
+.moon-input-decorator:not(.moon-input-header-input-decorator) {
   margin: 0px;
   padding: 8px 35px 12px 35px;
   border-radius: 29px;
@@ -1442,13 +1442,13 @@
   /* Firefox 4+, Chrome, IE 9+ */
 
 }
-.moon-input-decorator:not(.moon-search-input-decorator).spotlight {
+.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
   border: 5px solid #ffb80d;
 }
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
-.moon-input-decorator:not(.moon-search-input-decorator).moon-focused {
+.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
   border: 5px solid #a2a2a2;
 }
 /* ProgressBar.css */
@@ -2086,7 +2086,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
 }
-.moon-search-input-decorator {
+.moon-input-header-input-decorator {
   margin: 2px 0px 0px;
   padding: 0px;
   background-color: transparent;
@@ -2094,7 +2094,7 @@ body .enyo-fit.panels-50-percent-scrim,
   border-left-style: solid;
   border-color: transparent;
 }
-.moon-search-header > .moon-search-input-decorator > .moon-input {
+.moon-input-header > .moon-input-header-input-decorator > .moon-input {
   padding: 0px 0px 0px 4px;
   width: 95%;
   font-family: "Miso";
@@ -2105,11 +2105,11 @@ body .enyo-fit.panels-50-percent-scrim,
   color: #4b4b4b;
   display: block;
 }
-.moon-search-header > .moon-search-input-decorator.spotlight {
+.moon-input-header > .moon-input-header-input-decorator.spotlight {
   border-left-width: 4px;
   border-color: #ffb80d;
 }
-.moon-search-header > .moon-search-input-decorator.moon-focused {
+.moon-input-header > .moon-input-header-input-decorator.moon-focused {
   background-color: transparent;
   border-left-width: 0px;
 }
