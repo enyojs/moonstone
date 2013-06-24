@@ -206,7 +206,6 @@ enyo.kind({
 	},
 	//* @protected
 	smallChanged: function() {
-		this.log(this.getSmall());
 		this.addRemoveClass("moon-small-header", this.getSmall());
 	},
 	//* @protected

@@ -33,6 +33,8 @@ enyo.kind({
 		*/
 		scrollFullPage: false
 	},
+	//* Allow scroll events to propagate
+	preventScrollPropagation: false,
 	//* @protected
 	initComponents: function() {
 		this.strategyKind = "moon.ScrollStrategy";

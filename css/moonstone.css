@@ -1029,6 +1029,9 @@
   overflow: hidden;
   min-width: 532px;
   position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
 }
 .moon-header-title-above.no-border {
   border: none;

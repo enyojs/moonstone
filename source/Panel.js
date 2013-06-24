@@ -17,17 +17,24 @@ enyo.kind({
 		titleAbove: "",
 		//* Facade for the header's _titleBelow_ property
 		titleBelow: "",
-		//* If true, the header's _titleAbove_ property is automatically populated
-		//* with the panel number
+		/**
+			If true, the header's _titleAbove_ property is automatically populated
+			with the panel index
+		*/
 		autoNumber: true,
 		//* Facade for the header's _small_ property
-		smallHeader: false
+		smallHeader: false,
+		//* If true, collapse the header when the panel body is scrolled down
+		collapsingHeader: false
     },
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
 		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
+	},
+	handlers: {
+		onScroll: "scroll"
 	},
 
 	//* @protected
@@ -67,6 +74,41 @@ enyo.kind({
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 		this.layoutKind = "FittableRowsLayout";
 		this.inherited(arguments);
+	},
+	
+	scroll: function(inSender, inEvent) {
+		var originatingScroller = inEvent.originator.container.container;
+		// TODO - find a better check here
+		if (this.collapsingHeader &&
+			originatingScroller.vertical &&
+			originatingScroller.parent === this.$.panelBody &&
+			originatingScroller.indexInContainer() === 2) {
+				if (inEvent.originator.y < 0) {
+					this.collapseHeader(inEvent.originator.y);
+				} else {
+					this.expandHeader(inEvent.originator.y);
+				}
+		}
+	},
+	collapseHeader: function(inY) {
+		var height = (this.smallHeader) ? 180 : 270,
+			currentHeight = this.$.header.getBounds().height
+		;
+		
+		if (currentHeight !== height) {
+			this.$.header.applyStyle("height", height+"px");
+			this.resized();
+		}
+	},
+	expandHeader: function(inY) {
+		var height = (this.smallHeader) ? 250 : 400;
+			currentHeight = this.$.header.getBounds().height
+		;
+		
+		if (currentHeight !== height) {
+			this.$.header.applyStyle("height", height+"px");
+			this.resized();
+		}
 	},
 
 	//* @public
@@ -192,6 +234,7 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.isBreadcrumb = false;
 		this.doPostTransitionComplete();
+		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
 		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
@@ -208,6 +251,7 @@ enyo.kind({
 		return false;
 	},
 	animationComplete: function(inSender, inEvent) {
+		this.log();
 		switch (inEvent.animation.name) {
 		case "preTransition":
 			this.preTransitionComplete();
