@@ -155,23 +155,24 @@ enyo.kind({
 
 	//* Toggle play based on _this.playing_
 	playPause: function(inSender, inEvent) {
-		this.sendFeedback(inSender.src);
+		var src = inSender.src;
 		if(this.getPlaying()) {
 			this.doRequestPause();
 		} else {
 			this.doRequestPlay();
 		}
+		this.sendFeedback(src);
 		return true;
 	},
 	//* When rewind button is pressed, bubble _onRewind_ event
 	rewind: function(inSender, inEvent) {
-		this.sendFeedback(inSender.src);
 		this.doRequestRewind(inSender);
+		this.sendFeedback(inSender.src);
 	},
 	//* When fastForward button is pressed, bubble _onFastForward_ event
 	fastForward: function(inSender, inEvent) {
-		this.sendFeedback(inSender.src);
 		this.doRequestFastForward(inSender);
+		this.sendFeedback(inSender.src);
 	},
 	
 	_holdPulseThreadhold: 400,
@@ -203,12 +204,14 @@ enyo.kind({
 	jumpBackward: function(inSender, inEvent) {
 		if (!inSender._holding) {
 			this.doRequestJumpBackward();
+			this.sendFeedback(inSender.src);
 		}
 		inSender._holding = false;
 	},
 	jumpForward: function(inSender, inEvent) {
 		if (!inSender._holding) {
 			this.doRequestJumpForward();
+			this.sendFeedback(inSender.src);
 		}
 		inSender._holding = false;
 	},

@@ -26,7 +26,7 @@ enyo.kind({
 	//* @public
 	feedback: function(inSender, inEvent) {
 		var msg = inEvent.command;
-		var playbackRate = inEvent.playbackRate;
+		var playbackRate = Math.abs(inEvent.playbackRate);
 		var param = inEvent.param;
 		var src = inEvent.imgsrc;
 		var timer = true;
@@ -53,15 +53,15 @@ enyo.kind({
 			break;
 		case "rewind":
 			timer = false;
-			msg = param*10+"x";
+			msg = playbackRate+"x";
 			this.configuration(src, 0, 35, "right");
 			break;
 		case "fastForward":
 			timer = false;
-			msg = param*10+"x";
+			msg =playbackRate+"x";
 			this.configuration(src, 35, 0, "left");
 			break;
-		case "jumpBack":
+		case "jumpBackward":
 			if(param === true) { // when paused
 				timer = false;
 				msg = "<||";
