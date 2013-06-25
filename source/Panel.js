@@ -253,14 +253,13 @@ enyo.kind({
 		return false;
 	},
 	animationComplete: function(inSender, inEvent) {
-		this.log();
 		switch (inEvent.animation.name) {
-		case "preTransition":
-			this.preTransitionComplete();
-			break;
-		case "postTransition":
-			this.postTransitionComplete();
-			break;
+			case "preTransition":
+				this.preTransitionComplete();
+				break;
+			case "postTransition":
+				this.postTransitionComplete();
+				break;
 		}
 	}
 });
