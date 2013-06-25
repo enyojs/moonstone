@@ -131,7 +131,6 @@ enyo.kind({
 		this.$.videoDescription.setContent(this.getVideoDescription());
 	},
 	sendFeedback: function(src) {
-		this.log(src);
 		this.waterfall("onFeedback", {
 			command: this.getCommand(),
 			playbackRate: this.getPlaybackRate(),
