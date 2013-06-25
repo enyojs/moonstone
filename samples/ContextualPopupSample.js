@@ -9,9 +9,7 @@ enyo.kind({
 				components: [
 					{content:"Item 1"},
 					{content:"Item 2"},
-					{content:"Item 3"},
-					{content:"Item 4"},
-					{content:"Item 5"}
+					{content:"Item 3"}
 				]
 			}
 		]},
@@ -71,11 +69,6 @@ enyo.kind({
 			{kind: "moon.ContextualPopup", name: "buttonPopup", classes: "moon-6h moon-2v", spotlightModal: true,
 				components: [
 					{kind: "Scroller", horizontal: "auto", touch: true, thumb: false, classes: "enyo-fill", components: [
-						{tag: "br"},
-						{content: "This is a contextual popup with spottable controls,<br />using a spotlightModal:true property.", allowHtml: true},
-						{tag: "br"},
-						{content: "Spotlight restricts 5-way focus to the popup, and action must be taken to close the popup."},
-						{tag: "br"},
 						{kind: "moon.Button", content: "Button"},
 						{kind: "moon.ToggleButton", content: "SpotlightModal", active: true, ontap: "buttonToggled"},
 						{tag: "br"},
@@ -92,11 +85,6 @@ enyo.kind({
 			{kind: "moon.ContextualPopup", classes: "moon-6h moon-2v", style: "height:270px;",
 				components: [
 					{kind: "Scroller", horizontal: "auto", touch: true, thumb: false, classes: "enyo-fill", components: [
-						{tag: "br"},
-						{content: "This is a contextual popup with spottable controls, using<br />a default spotlightModal:false property.", allowHtml: true},
-						{tag: "br"},
-						{content: "The popup remains active as long as you navigate within it. When you navigate outside of the popup, the popup will close."},
-						{tag: "br"},
 						{kind: "moon.Button", content: "Button 1"},
 						{kind: "moon.Button", content: "Button 2"},
 						{kind: "moon.Button", content: "Button 3"}
