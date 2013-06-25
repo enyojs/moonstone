@@ -37,7 +37,9 @@ enyo.kind({
 		//* Video aspect ratio in the format _width:height_
 		aspectRatio: null,
 		//* jump forward or backward time in seconds
-		jumpSec: 30
+		jumpSec: 30,
+		//* set video playbackRate
+		playbackRate: 1
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
@@ -55,7 +57,7 @@ enyo.kind({
 	},
 	_playbackRateArray: null,
 	_speedIndex: 0,
-	_playbackRate: 1,
+	
 
 	create: function() {
 		this.inherited(arguments);
@@ -196,7 +198,7 @@ enyo.kind({
 	setPlaybackRate: function(playbackRate) {
 		if (this.hasNode()) {
 			// Do playbackRate if platform support otherwise try moving currentTime tric
-			this.node.playbackRate = this._playbackRate = playbackRate;
+			this.node.playbackRate = this.playbackRate = playbackRate;
 		}
 	},
 	isPaused: function() {

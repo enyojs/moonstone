@@ -40,7 +40,8 @@ enyo.kind({
 		duration: 0
 	},
 	handlers: {
-		onRequestTimeChange: "timeChange"
+		onRequestTimeChange: "timeChange",
+		onSpotlightKeyUp: "showFSControls"
 	},
     bindings: [],
 	
@@ -48,8 +49,6 @@ enyo.kind({
 
 	_isPlaying: false,
 	_autoCloseTimer: null,
-	_holdPulseThreadhold: 300,
-	_playerControls: [],
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
@@ -70,11 +69,11 @@ enyo.kind({
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-							{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	onholdpulse: "onHoldPulseBackHandler", ontap: "jumpBackward"},
+							{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
 							{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		ontap: "rewind"},
 							{name: "fsPlayPause", kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",			ontap: "playPause"},
 							{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
-							{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", onholdpulse: "onHoldPulseForwardHandler", ontap: "jumpForward"}
+							{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 					]},
@@ -155,6 +154,7 @@ enyo.kind({
 	//* Set _visible_ to _false_ on mouseleave
 	mousemove: function(inSender, inEvent) {
 		this.showFSControls();
+		this.resetAutoCloseTimer();
 	},
 	//* Set _this.visible_ to true and clear hide job
 	showFSControls: function() {
@@ -173,59 +173,57 @@ enyo.kind({
 	//* Toggle play based on _this.playing_
 	playPause: function(inSender, inEvent) {
 		if (this._isPlaying) {
-			this.pause();
-			this.sendFeedback("pause", inSender.src);
+			this.pause(inSender, inEvent);
 		} else {
-			this.play();
-			this.sendFeedback("play", inSender.src);
+			this.play(inSender, inEvent);
 		}
-		
-		this.updatePlayPauseButtons();
 		return true;
 	},
 	onHoldPulseBackHandler: function(inSender, inEvent) {
 		if (inEvent.holdTime > this._holdPulseThreadhold) {
-			if (this._sentHold !== true) {
-				this.jumpToStart();
-				this._sentHold = true;
+			if (inSender._sentHold !== true) {
+				this.jumpToStart(inSender, inEvent);
+				inSender._sentHold = true;
 				return true;	
 			}
 		} else {
-			this._holding = true;
-			this._sentHold = false;
+			inSender._holding = true;
+			inSender._sentHold = false;
 		}
 	},
 	onHoldPulseForwardHandler: function(inSender, inEvent) {
 		if (inEvent.holdTime > this._holdPulseThreadhold) {
-			if (this._sentHold !== true) {
-				this.jumpToEnd();
-				this._sentHold = true;
+			if (inSender._sentHold !== true) {
+				this.jumpToEnd(inSender, inEvent);
+				inSender._sentHold = true;
 				return true;	
 			}
 		} else {
-			this._holding = true;
-			this._sentHold = false;
+			inSender._holding = true;
+			inSender._sentHold = false;
 		}
 	},
-	jumpBackward: function(inSender, inEvent) {
-		if (!this._holding) {
-			this.jumpBackward();
-			this.sendFeedback(inSender.src);
+	onjumpBackward: function(inSender, inEvent) {
+		if (!inSender._holding) {
+			this.jumpBackward(inSender, inEvent);
 		}
-		this._holding = false;
+		inSender._holding = false;
 	},
-	jumpForward: function(inSender, inEvent) {
-		if (!this._holding) {
-			this.jumpForward();
-			this.sendFeedback(inSender.src);
+	onjumpForward: function(inSender, inEvent) {
+		if (!inSender._holding) {
+			this.jumpForward(inSender, inEvent);
 		}
-		this._holding = false;
+		inSender._holding = false;
 	},
-	sendFeedback: function(inCmd, inSrc) {
-		this.log("sending", inCmd, inSrc);
+	sendFeedback: function(inCmd, inSrc, inParam) {
+		var playbackRate = this.$.video.getPlaybackRate(),
+			inParam = inParam || "";
+
 		this.$.feedbackHeader.feedback({
 			command: inCmd,
-			imgsrc: inSrc
+			imgsrc: inSrc,
+			param: inParam,
+			playbackRate: playbackRate
 		});
 	},
 	
@@ -306,37 +304,61 @@ enyo.kind({
 	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
+		var src = inSender.src;
 		this._isPlaying = true;
 		this.$.video.play();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("play", src);
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
+		var src = inSender.src;
 		this._isPlaying = false;
 		this.$.video.pause();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("pause", src);
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
+		this._isPlaying = false;
 		this.$.video.rewind();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("rewind", inSender.src);
 	},
 	//* Facade _this.$.video.jumpToStart_
 	jumpToStart: function(inSender, inEvent) {
+		this._isPlaying = false;
 		this.$.video.jumpToStart();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("jumpToStart", inSender.src);
 	},
 	//* Facade _this.$.video.jumpBackward_
 	jumpBackward: function(inSender, inEvent) {
+		this._isPlaying = true;
 		this.$.video.jumpBackward();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("jumpBackward", inSender.src);
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
+		this._isPlaying = false;
 		this.$.video.fastForward();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("fastForward", inSender.src);
 	},
 	//* Facade _this.$.video.jumpToEnd_
 	jumpToEnd: function(inSender, inEvent) {
+		this._isPlaying = false;
 		this.$.video.jumpToEnd();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("jumpToEnd", inSender.src);
 	},
 	//* Facade _this.$.video.jumpForward_
 	jumpForward: function(inSender, inEvent) {
+		this._isPlaying = true;
 		this.$.video.jumpForward();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("jumpForward", inSender.src);
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {
