@@ -1312,6 +1312,9 @@
 .moon-icon-button.moon-paging-button.left {
   left: 0px;
 }
+.moon-icon-button.moon-paging-button.hover:hover {
+  background-color: #ffb80d;
+}
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {

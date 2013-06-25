@@ -74,6 +74,7 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 		this.updatePageSize();
+		this.updateSpotlgithPagingControls();
 	},
 	//* Onresize, update thumb ratio and show/hide scroll columns
 	resizeHandler: function() {
@@ -84,6 +85,17 @@ enyo.kind({
 		}
 		this.setThumbSizeRatio();
 		this.updatePageSize();
+	},
+	updateSpotlgithPagingControls: function() {
+		enyo.forEach([
+			this.$.pageLeftControl, 
+			this.$.pageRightControl, 
+			this.$.pageUpControl, 
+			this.$.pageDownControl
+		], function(c) {
+			c.spotlight = this.container.spotlightPagingControls;
+			c.addRemoveClass("hover", !this.container.spotlightPagingControls);
+		}, this);
 	},
 	/**
 		Because the thumb columns are a fixed size that impacts the scrollbounds, capture
