@@ -17,6 +17,8 @@ enyo.kind({
 	published: {
 		//* source URL of the video file, can be relative to the application's HTML file
 		src: "",
+		//* Specify multiple sources for the same video file
+		sourceComponents: null,
 		//* source of image file to show when video isn't available
 		poster: "",
 		//* if true, show controls for starting and stopping video player
@@ -57,11 +59,9 @@ enyo.kind({
 	},
 	_playbackRateArray: null,
 	_speedIndex: 0,
-	
 
 	create: function() {
 		this.inherited(arguments);
-		this.srcChanged();
 		this.posterChanged();
 		this.showControlsChanged();
 		this.preloadChanged();
@@ -72,15 +72,57 @@ enyo.kind({
 		this.inherited(arguments);
 		this.hookupVideoEvents();
 	},
-	srcChanged: function() {
-		if (this.src === "") {return;}
-		var path = enyo.path.rewrite(this.src);
-		this.setAttribute("src", path);
-		// HTML5 spec says that if you change src after page is loaded, 
-		// you need to call load() to load the new data
+	updateSource: function() {
+		var src = this.src,
+			rewrittenSrc
+		;
+		
+		this.log(this.src);
+		
+		if (!src || src === "") {
+			this.addSources();
+		
+		} else {
+			rewrittenSrc = enyo.path.rewrite(src);
+			
+			// Don't reset to the same value
+			if (this.getAttribute("src") === rewrittenSrc) {
+				return;
+			}
+			
+			this.setAttribute("src", rewrittenSrc);
+		}
+		
+		// HTML5 spec says that if you change src after page is loaded, you
+		// need to call load() to load the new data
 		if (this.hasNode()) {
 			this.node.load();	// not called
 		}
+	},
+	//* Add _<source>_ tags for each sources specified in _this.sources_
+	addSources: function() {
+		var sources = this.getSourceComponents();
+		
+		if (!sources || sources.length == 0) {
+			return;
+		}
+		
+		// Wipe out any previous sources
+		this.destroyClientControls();
+		
+		// Add a source tag for each source
+		for (i = 0; i < sources.length; i++) {
+			this.createComponent(enyo.mixin(sources[i], {tag: "source"}));
+		}
+		
+		// Rerender
+		this.render();
+	},
+	srcChanged: function() {
+		this.updateSource();
+	},
+	sourceComponentsChanged: function() {
+		this.updateSource();
 	},
 	posterChanged: function() {
 		if (this.poster) {

@@ -34,6 +34,8 @@ enyo.kind({
 	published: {
 		//* HTML5 video source URL
 		src: "",
+		//* Array for setting multiple sources for the same video
+		sources: null,
 		//* Video aspect ratio, set as width:height
 		aspectRatio: "16:9",
 		autoCloseTimeout: 3000,
@@ -104,9 +106,13 @@ enyo.kind({
 	],
 	
 	create: function() {
+		this.setupVideoBindings();
 		this.inherited(arguments);
-		this.srcChanged();
 		this.createInfoControls();
+	},
+	setupVideoBindings: function() {
+		this.bindings.push({from: ".src", to: "$.video.src"});
+		this.bindings.push({from: ".sourceComponents", to: "$.video.sourceComponents"});
 	},
 	createInfoControls: function() {
 		this.$.videoInfo.createComponents(this.infoComponents);
@@ -154,7 +160,6 @@ enyo.kind({
 	//* Set _visible_ to _false_ on mouseleave
 	mousemove: function(inSender, inEvent) {
 		this.showFSControls();
-		this.resetAutoCloseTimer();
 	},
 	//* Set _this.visible_ to true and clear hide job
 	showFSControls: function() {
@@ -366,13 +371,6 @@ enyo.kind({
 	},
 
 	//* @protected
-
-	//* Responds to change in video source.
-	srcChanged: function() {
-		if (typeof this.src === "string" && this.src.length > 0 && this.$.video) {
-			this.$.video.setSrc(this.src);
-		}
-	},
 	
 	//* Updates the video time.
 	timeUpdate: function(inSender, inEvent) {
