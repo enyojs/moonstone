@@ -45,9 +45,7 @@ enyo.kind({
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
-		onloadedmetadata: "metadataLoaded",
-		//* Decorate _timeupdate_ event
-		onTimeupdate: "decorateTimeUpdate"
+		onloadedmetadata: "metadataLoaded"
 	},
 	tag: "video",
 	//* @protected
@@ -72,12 +70,11 @@ enyo.kind({
 		this.inherited(arguments);
 		this.hookupVideoEvents();
 	},
+	//* If _src_ property is set, set that to source. Otherwise create _<source>_ children
 	updateSource: function() {
 		var src = this.src,
 			rewrittenSrc
 		;
-		
-		this.log(this.src);
 		
 		if (!src || src === "") {
 			this.addSources();
@@ -153,58 +150,82 @@ enyo.kind({
 	},
 	//* @public
 	play: function() {
-		if (!this.hasNode()) {return;}
+		if (!this.hasNode()) {
+			return;
+		}
+		
 		this.setPlaybackRate(1);
 		this.node.play();
 		this._prevCommand = "play";
 	},
 	pause: function() {
-		if (!this.hasNode()) {return;}
+		if (!this.hasNode()) {
+			return;
+		}
+		
 		this.setPlaybackRate(1);
 		this.node.pause();
 		this._prevCommand = "pause";
 	},
 	fastForward: function() {
-		if (!this.hasNode()) {return;}
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
 		switch (this._prevCommand) {
-		case "pause":
-			this.selectPlaybackRateArray("slowForward");
-			this._speedIndex = 0;
-			this.node.play();
-			break;
-		case "fastForward":
-			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
-			break;
-		default:
-			this.selectPlaybackRateArray("fastForward");
-			this._speedIndex = 0;
+			case "pause":
+				this.selectPlaybackRateArray("slowForward");
+				this._speedIndex = 0;
+				node.play();
+				break;
+			case "fastForward":
+				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+				break;
+			default:
+				this.selectPlaybackRateArray("fastForward");
+				this._speedIndex = 0;
+				break;
 		}
 		
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 		this._prevCommand = "fastForward";
 	},
 	rewind: function() {
-		if (!this.hasNode()) {return;}
-		switch (this._prevCommand) {
-		case "pause":
-			this.selectPlaybackRateArray("slowRewind");
-			this._speedIndex = 0;
-			this.node.play();
-			break;
-		case "rewind":
-			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
-			break;
-		default:
-			this.selectPlaybackRateArray("rewind");
-			this._speedIndex = 0;
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
 		}
+		
+		switch (this._prevCommand) {
+			case "pause":
+				this.selectPlaybackRateArray("slowRewind");
+				this._speedIndex = 0;
+				node.play();
+				break;
+			case "rewind":
+				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+				break;
+			default:
+				this.selectPlaybackRateArray("rewind");
+				this._speedIndex = 0;
+				break;
+		}
+		
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 		this._prevCommand = "rewind";
 	},
 	jumpBackward: function() {
-		if (!this.hasNode()) {return;}
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
 		this.setPlaybackRate(1);
-		this.node.currentTime -= this.jumpSec;
+		node.currentTime -= this.jumpSec;
 		this._prevCommand = "jumpBackward";
 	},
 	jumpForward: function() {
@@ -231,38 +252,43 @@ enyo.kind({
 		this._playbackRateArray = this._playbackRateHash[cmd];
 	},
 	clampPlaybackRate: function(index) {
-		if (!this._playbackRateArray) {return;}
+		if (!this._playbackRateArray) {
+			return;
+		}
+		
 		return index % this._playbackRateArray.length;
 	},
 	selectPlaybackRate: function(index) {
 		return this._playbackRateArray[index];
 	},
-	setPlaybackRate: function(playbackRate) {
-		if (this.hasNode()) {
-			// Do playbackRate if platform support otherwise try moving currentTime tric
-			this.node.playbackRate = this.playbackRate = playbackRate;
+	setPlaybackRate: function(inPlaybackRate) {
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
+		// Stop rewind (if happenning)
+		this.stopRewindJob();
+		
+		// Do playbackRate if platform support otherwise try moving currentTime tric
+		node.playbackRate = this.playbackRate = inPlaybackRate;
+		
+		if (inPlaybackRate < 0) {
+			this.beginRewind();
 		}
 	},
+	//* Return true if currently in paused state
 	isPaused: function() {
-		if (this.hasNode()) {
-			return this.node.paused;
-		}
-		return true;
+		return this.hasNode() ? this.hasNode().paused : true;
 	},
-	
 	//* Return current player position in the video (in seconds)
 	getCurrentTime: function() {
-		if (this.hasNode()) {
-			return this.node.currentTime;
-		}
-		return 0;
+		return this.hasNode() ? this.hasNode().currentTime : 0;
 	},
 	//* Return buffered time ranges
 	getBufferedTimeRange: function() {
-		if (this.hasNode()) {
-			return this.node.buffered;
-		}
-		return 0;
+		return this.hasNode() ? this.hasNode().buffered : 0;
 	},
 	//* Set current player position in the video (in seconds)
 	setCurrentTime: function(inTime) {
@@ -272,10 +298,35 @@ enyo.kind({
 	},
 	//* Get play duration in the video (in seconds)
 	getDuration: function() {
-		if (this.hasNode()) {
-			return this.node.duration;
-		}
-		return 0;
+		return this.hasNode() ? this.hasNode().duration : 0;
+	},
+	
+	//* @protected
+
+	//* Custom rewind functionality until browsers support negative playback rate
+	beginRewind: function() {
+		this.node.pause();
+		this.startRewindJob();
+	},
+	//* Calculate the time that has elapsed since 
+	_rewind: function() {
+		var now = enyo.now(),
+			distance = now - this.rewindBeginTime,
+			adjustedDistance = Math.abs(distance * this.playbackRate) / 1000,
+			newTime = this.getCurrentTime() - adjustedDistance
+		;
+		
+		this.setCurrentTime(newTime)
+		this.startRewindJob();
+	},
+	//* Start rewind job
+	startRewindJob: function() {
+		this.rewindBeginTime = enyo.now();
+		enyo.job(this.id + "rewind", this.bindSafely("_rewind"), 100);
+	},
+	//* Stop rewind job
+	stopRewindJob: function() {
+		enyo.job.stop(this.id + "rewind");
 	},
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
@@ -284,10 +335,6 @@ enyo.kind({
 			return;
 		}
 		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
-	},
-	decorateTimeUpdate: function(inSender, inEvent) {
-		// this.log(inSender, inEvent);
-		//TODO - make this work
 	},
 	//* Add all html5 video events
 	hookupVideoEvents: function() {
