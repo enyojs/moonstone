@@ -2624,6 +2624,40 @@ p.moon-drawer-handle-text {
   position: absolute;
   right: 0px;
 }
+.moon-videoplayer-slider .moon-videoplayer-slider-popup {
+  position: absolute;
+  display: block;
+  z-index: 20;
+  left: 100px;
+  top: 0px;
+  width: 300px;
+  height: 250px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-canvas {
+  top: 5px;
+  left: 5px;
+  width: 300px;
+  height: 200px;
+  z-index: 10;
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-label {
+  position: absolute;
+  top: 200px;
+  width: 300px;
+  height: 45px;
+  white-space: nowrap;
+  font-family: "Miso";
+  color: #fff;
+  text-align: center;
+  line-height: 45px;
+  vertical-align: middle;
+  font-size: 24px;
+}
+.moon-videoplayer-slider .enyo-locale-non-latin .moon-videoplayer-slider-popup-label {
+  font-family: "LG Display";
+}
 .moon-video-player {
   position: relative;
   display: inline-block;
