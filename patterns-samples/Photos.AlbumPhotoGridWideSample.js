@@ -22,10 +22,10 @@ enyo.kind({
 	],
 
 	headerComponents: [
-		{kind: "moon.IconButton", src: "assets/icon-round-extend.png"},
-		{kind: "moon.IconButton", src: "assets/icon-round-share.png"},
-		{kind: "moon.IconButton", src: "assets/icon-round-download.png"},
-		{kind: "moon.IconButton", src: "assets/icon-round-delete.png"}
+		{kind: "moon.IconButton", src: "assets/icon-extend.png"},
+		{kind: "moon.IconButton", src: "assets/icon-next.png"},
+		{kind: "moon.IconButton", src: "assets/icon-download.png"},
+		{kind: "moon.IconButton", src: "assets/trash-can-icon.png"}
 	],
 	
 	rendered: function() {
