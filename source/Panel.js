@@ -52,6 +52,7 @@ enyo.kind({
 	],
 	headerComponents: [],
 	isBreadcrumb: false,
+	isCollapsed: false,
 
 	create: function() {
 		this.inherited(arguments);
@@ -95,24 +96,16 @@ enyo.kind({
 			this.resized();
 		}
 	},
-	collapseHeader: function(inY) {
-		var height = (this.smallHeader) ? 180 : 270,
-			currentHeight = this.$.header.getBounds().height
-		;
-		
-		if (currentHeight !== height) {
-			// this.$.header.applyStyle("height", height+"px");
+	collapseHeader: function() {
+		if (!this.isCollapsed) {
 			this.$.header.collapseToSmall();
+			this.isCollapsed = true;
 		}
 	},
-	expandHeader: function(inY) {
-		var height = (this.smallHeader) ? 250 : 400;
-			currentHeight = this.$.header.getBounds().height
-		;
-		
-		if (currentHeight !== height) {
+	expandHeader: function() {
+		if (this.isCollapsed) {
 			this.$.header.expandToLarge();
-			//this.$.header.applyStyle("height", height+"px");
+			this.isCollapsed = false;
 		}
 	},
 
