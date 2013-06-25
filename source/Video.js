@@ -15,8 +15,6 @@ enyo.kind({
 	name: "enyo.Video",
 	kind: enyo.Control,
 	published: {
-		//* control command like jumpToStart, jumpBackward, rewind, play, pause, fastForward, jumpForward, jumpToEnd
-		//command: "",
 		//* source URL of the video file, can be relative to the application's HTML file
 		src: "",
 		//* source of image file to show when video isn't available
@@ -140,14 +138,14 @@ enyo.kind({
 			this.node.play();
 			break;
 		case "fastForward":
-			this._speedIndex++;
+			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
 			break;
 		default:
 			this.selectPlaybackRateArray("fastForward");
 			this._speedIndex = 0;
 		}
-		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
-		this.setPlaybackRate(this._playbackRate);
+		
+		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 		this._prevCommand = "fastForward";
 	},
 	rewind: function() {
@@ -159,14 +157,13 @@ enyo.kind({
 			this.node.play();
 			break;
 		case "rewind":
-			this._speedIndex++;
+			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
 			break;
 		default:
 			this.selectPlaybackRateArray("rewind");
 			this._speedIndex = 0;
 		}
-		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
-		this.setPlaybackRate(this._playbackRate);
+		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 		this._prevCommand = "rewind";
 	},
 	jumpBackward: function() {
@@ -175,7 +172,7 @@ enyo.kind({
 		this.node.currentTime -= this.jumpSec;
 		// to fix playbutton while doing other than play
 		if (this._prevCommand == "play") {
-			this.play();
+			this.node.play();
 		}
 		this._prevCommand = "jumpBackward";
 	},
@@ -185,7 +182,7 @@ enyo.kind({
 		this.node.currentTime += this.jumpSec;
 		// to fix playbutton while doing other than play
 		if (this._prevCommand == "play") {
-			this.play();
+			this.node.play();
 		}
 		this._prevCommand = "jumpForward";
 	},
@@ -203,104 +200,27 @@ enyo.kind({
 		this.node.currentTime = this.node.duration;
 		this._prevCommand = "jumpToEnd";
 	},
-	// setCommand: function(inNew) {
-	// 	var inOld = this.command;
-	// 	this.command = inNew;
-
-	// 	if (!this.hasNode()) {return;}
-
-	// 	if (inOld != "play" && inNew == "play") {
-	// 		this.setPlaybackRate(1);
-	// 		this.node.play();
-	// 	}
-	// 	if (inOld != "pause" && inNew == "pause") {
-	// 		if (inOld == "play") {
-	// 			this.setPlaybackRate(1);
-	// 			this.node.pause();
-	// 		} else {
-	// 			// to fix playbutton while doing other than play
-	// 			this.setCmd("play");
-	// 		}
-	// 	}
-	// 	if (inNew == "fastForward") {
-	// 		switch (inOld) {
-	// 		case "pause":
-	// 			this.selectPlaybackRateArray("slowForward");
-	// 			this._speedIndex = 0;
-	// 			this.node.play();
-	// 			break;
-	// 		case "fastForward":
-	// 			this._speedIndex++;
-	// 			break;
-	// 		default:
-	// 			this.selectPlaybackRateArray("fastForward");
-	// 			this._speedIndex = 0;
-	// 		}
-	// 		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
-	// 		this.setPlaybackRate(this._playbackRate);
-	// 	}
-	// 	if (inNew == "rewind") {
-	// 		switch (inOld) {
-	// 		case "pause":
-	// 			this.selectPlaybackRateArray("slowRewind");
-	// 			this._speedIndex = 0;
-	// 			this.node.play();
-	// 			break;
-	// 		case "rewind":
-	// 			this._speedIndex++;
-	// 			break;
-	// 		default:
-	// 			this.selectPlaybackRateArray("rewind");
-	// 			this._speedIndex = 0;
-	// 		}
-	// 		this._playbackRate = this.clampPlaybackRate(this._speedIndex);
-	// 		this.setPlaybackRate(this._playbackRate);
-	// 	}
-	// 	if (inNew == "jumpBackward") {
-	// 		this.setPlaybackRate(1);
-	// 		this.node.currentTime -= this.jumpSec;
-	// 		// to fix playbutton while doing other than play
-	// 		if (inOld == "play") {
-	// 			this.setCmd("play");
-	// 		}
-	// 	}
-	// 	if (inNew == "jumpForward") {
-	// 		this.setPlaybackRate(1);
-	// 		this.node.currentTime += this.jumpSec;
-	// 		// to fix playbutton while doing other than play
-	// 		if (inOld == "play") {
-	// 			this.setCmd("play");
-	// 		}
-	// 	}
-	// 	if (inNew == "jumpToStart") {
-	// 		this.setPlaybackRate(1);
-	// 		this.node.pause();
-	// 		this.node.currentTime = 0;
-	// 	}
-	// 	if (inNew == "jumpToEnd") {
-	// 		this.setPlaybackRate(1);
-	// 		this.node.pause();
-	// 		this.node.currentTime = this.node.duration;
-	// 	}
-	// },
 	selectPlaybackRateArray: function(cmd) {
 		this._playbackRateArray = this._playbackRateHash[cmd];
 	},
 	clampPlaybackRate: function(index) {
 		if (!this._playbackRateArray) {return;}
-		return this._playbackRateArray[index % this._playbackRateArray.length];
+		return index % this._playbackRateArray.length;
+	},
+	selectPlaybackRate: function(index) {
+		return this._playbackRateArray[index];
 	},
 	setPlaybackRate: function(playbackRate) {
 		if (this.hasNode()) {
-			this.log(playbackRate);
 			// Do playbackRate if platform support otherwise try moving currentTime tric
-			this.node.playbackRate = playbackRate;
+			this.node.playbackRate = this._playbackRate = playbackRate;
 		}
 	},
 	isPaused: function() {
 		if (this.hasNode()) {
 			return this.node.paused;
 		}
+		return true;
 	},
 	
 	//* Return current player position in the video (in seconds)

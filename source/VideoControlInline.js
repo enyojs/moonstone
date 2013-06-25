@@ -19,11 +19,11 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.playingChanged();
+		this.commandChanged();
 	},
-	playingChanged: function() {
+	commandChanged: function() {
 		var src = "$lib/moonstone/images/";
-		src += (this.getPlaying()) ? "icon-pause.png" : "icon-play.png";
+		src += this.getPlaying() ? "icon-pause.png" : "icon-play.png";
 		this.$.playPause.setSrc(src);
 	},
 	currentTimeChanged: function() {

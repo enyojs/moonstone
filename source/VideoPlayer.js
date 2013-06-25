@@ -43,7 +43,7 @@ enyo.kind({
 		onRequestPause: "pause",
 		onRequestRewind: "rewind",
 		onRequestFastForward: "fastForward",
-		onRequestJumpBack: "jumpBack",
+		onRequestJumpBackward: "jumpBackward",
 		onRequestJumpForward: "jumpForward",
 		onRequestJumpToStart: "jumpToStart",
 		onRequestJumpToEnd: "jumpToEnd",
@@ -61,8 +61,7 @@ enyo.kind({
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded",
-			onplay: "_play", onpause: "_pause", onprogress: "_progress"
+			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress"
 		},
 		{name: "client", kind: "moon.VideoControl.Fullscreen", playerControl: true},
 		{kind: "moon.VideoControl.Inline", playerControl: true}
@@ -113,43 +112,42 @@ enyo.kind({
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
 		this.$.video.play();
-		this.waterfall("onFeedback", {cmd: "play", param: "", imgsrc: inEvent.src});
+		this.playStateChanged("play");
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
 		this.$.video.pause();
-		this.waterfall("onFeedback", {cmd: "pause", param: "", imgsrc: inEvent.src});
+		this.playStateChanged("pause");
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
 		this.$.video.rewind();
-		this.waterfall("onFeedback", {cmd: "rewind", param: this.$.video.step, imgsrc: inEvent.src});
+		this.playStateChanged("rewind");
 	},
 	//* Facade _this.$.video.jumpToStart_
 	jumpToStart: function(inSender, inEvent) {
 		this.$.video.jumpToStart();
-		this.waterfall("onFeedback", {cmd: "jumpToStart", param: "", imgsrc: inEvent.src});
+		this.playStateChanged("jumpToStart");
 	},
-	//* Facade _this.$.video.jumpBack_
-	jumpBack: function(inSender, inEvent) {
-		this.$.video.jumpBack();
-		this.waterfall("onFeedback", {cmd: "jumpBack", param: this.$.video.isPaused(), imgsrc: inEvent.src});
+	//* Facade _this.$.video.jumpBackward_
+	jumpBackward: function(inSender, inEvent) {
+		this.$.video.jumpBackward();
+		this.playStateChanged("jumpBackward");
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
 		this.$.video.fastForward();
-		this.log(this.$.video.step);
-		this.waterfall("onFeedback", {cmd: "fastForward", param: this.$.video.step, imgsrc: inEvent.src});
+		this.playStateChanged("fastForward");
 	},
 	//* Facade _this.$.video.jumpToEnd_
 	jumpToEnd: function(inSender, inEvent) {
 		this.$.video.jumpToEnd();
-		this.waterfall("onFeedback", {cmd: "jumpToEnd", param: "", imgsrc: inEvent.src});
+		this.playStateChanged("jumpToEnd");
 	},
 	//* Facade _this.$.video.jumpForward_
 	jumpForward: function(inSender, inEvent) {
 		this.$.video.jumpForward();
-		this.waterfall("onFeedback", {cmd: "jumpForward", param: this.$.video.isPaused(), imgsrc: inEvent.src});
+		this.playStateChanged("jumpForward");
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {
@@ -201,19 +199,16 @@ enyo.kind({
 
 	///////// VIDEO EVENT HANDLERS /////////
 
-	_play: function(inSender, inEvent) {
-		this._isPlaying = true;
-		this.playStateChanged();
-	},
-	_pause: function(inSender, inEvent) {
-		this._isPlaying = false;
-		this.playStateChanged();
-	},
+
 	_progress: function(inSender, inEvent) {
 		this.waterfall("onBufferStateChanged", {timeStamp: inEvent.timeStamp});
 	},
-	playStateChanged: function() {
-		this.addRemoveClass("playing", this._isPlaying);
-		this.waterfall("onPlayStateChanged", {playing: this._isPlaying});
+	playStateChanged: function(command) {
+		this._isPlaying = (command === "play") ? true : false;
+		this.waterfall("onPlayStateChanged", {
+			playing: this._isPlaying, 
+			command: command, 
+			playbackRate: this.$.video._playbackRate
+		});
 	}
 });

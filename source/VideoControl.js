@@ -4,6 +4,8 @@ enyo.kind({
 	kind: "enyo.Control",
 	published: {
 		playing: false,
+		command: "pause",
+		playbackRate: 0,
 		//* Current time of video
 		currentTime: 0,
 		//* Total duration of video
@@ -18,13 +20,13 @@ enyo.kind({
 		onRequestPause: "",
 		onRequestRewind: "",
 		onRequestFastForward: "",
-		onRequestJumpBack: "",
+		onRequestJumpBackward: "",
 		onRequestJumpForward: "",
 		onRequestJumpToStart: "",
 		onRequestJumpToEnd: "",
 		onToggleFullscreen: "",
 		onRequestTimeChange: "",
-		onFullScreen: "",
+		onFullScreen: ""
 	},
 	handlers: {
 		onTimeupdate: "handleTimeUpdate",
@@ -34,9 +36,11 @@ enyo.kind({
 	//* @protected
 	
 	bindings: [],
-	//* _onPlayStateChanged_ update _this.playing_
+	//* _onPlayStateChanged_ update _this.playing_ and _this.command_
 	handlePlayStateChanged: function(inSender, inEvent) {
 		this.setPlaying(inEvent.playing);
+		this.setCommand(inEvent.command);
+		this.setPlaybackRate(inEvent.playbackRate);
 	},
 	//* Update _this.duration_ and _this.currentTime_
 	handleTimeUpdate: function(inSender, inEvent) {

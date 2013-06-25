@@ -5,8 +5,7 @@ enyo.kind({
 	classes: "moon-video-fullscreen-control enyo-fit",
 	published: {
 		visible: false,
-		autoCloseTimeout: 4000,
-		jumpHoldTimeout: 2000,
+		autoCloseTimeout: 3000,
 		videoDateTime: new Date(),
 		videoTitle: "",
 		videoChannel: "",
@@ -17,8 +16,10 @@ enyo.kind({
 		videoTimeRecorded: null
 	},
 	handlers: {
+		ontap: "closeControls",
 		onenter: "enter",
-		onleave: "leave"
+		onleave: "leave",
+		onPlayStateChanged: "handlePlayStateChanged"
 	},
 	components: [
 		{name: "videoInfoHeader", kind: "FittableColumns", classes: "moon-video-player-header", components: [
@@ -27,7 +28,7 @@ enyo.kind({
 					{name: "videoDateTime", classes: "moon-header-font moon-videoplayer-info-datetime"},
 					{name: "videoTitle", classes: "moon-header-font moon-video-player-info-showname"},
 					{name: "videoChannel", classes: "moon-video-player-info-channel"},
-					{name: "videoDescription", classes: "moon-video-player-info-description"},
+					{name: "videoDescription", classes: "moon-video-player-info-description"}
 				]},
 				{classes: "moon-video-player-settings-info", components: [
 					{content: "SUB ENGLISH", classes: "moon-video-player-info-icon"},
@@ -46,11 +47,11 @@ enyo.kind({
 				
 				{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 					{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-						{name: "jumpBack", 		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png", 	ondown: "jumpBackDown", onholdpulse: "jumpBackPulseThrottle", onup: "jumpBackUp"},
-						{name: "rewind", 		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png", 		ontap: "rewind"},
-						{name: "playPause",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png", 		ontap: "playPause", mode: "pause"},
-						{name: "fastForward", 	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
-						{name: "jumpForward", 	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", ondown: "jumpForwardDown", onholdpulse: "jumpForwardPulseThrottle", onup: "jumpForwardUp"}
+						{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	onholdpulse: "onHoldPulseBackHandler", ontap: "jumpBackward"},
+						{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		ontap: "rewind"},
+						{name: "playPause",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",		ontap: "playPause"},
+						{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
+						{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", onholdpulse: "onHoldPulseForwardHandler", ontap: "jumpForward"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
@@ -71,6 +72,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.visibleChanged();
+		this.commandChanged();
 	},
 	//* Update layout to support the number of components that are passed in
 	rendered: function() {
@@ -98,14 +100,13 @@ enyo.kind({
 		}
 	},
 	
-	
 	//* Add a _visible_ css class when _this.visible_ changes
 	visibleChanged: function() {
 		this.addRemoveClass("visible", this.getVisible());
 	},
-	playingChanged: function() {
+	commandChanged: function() {
 		var src = "$lib/moonstone/images/";
-		src += (this.getPlaying()) ? "icon-pause.png" : "icon-play.png";
+		src += this.getPlaying() ? "icon-pause.png" : "icon-play.png";
 		this.$.playPause.setSrc(src);
 	},
 	currentTimeChanged: function() {
@@ -129,78 +130,90 @@ enyo.kind({
 	videoDescriptionChanged: function() {
 		this.$.videoDescription.setContent(this.getVideoDescription());
 	},
-	
-	
+	sendFeedback: function(src) {
+		this.log(src);
+		this.waterfall("onFeedback", {
+			command: this.getCommand(),
+			playbackRate: this.getPlaybackRate(),
+			imgsrc: src
+		});
+	},
+	onEnterSlider: function(inSender, inEvent) {
+		this.$.controls.hide();
+	},
+	onLeaveSlider: function(inSender, inEvent) {
+		this.$.controls.show();
+	},
+	closeControls: function(inSender, inEvent) {
+		if (inSender.name == "client") {
+			if (this.getVisible()) {
+				this.hideMe();
+			} else {
+				this.showMe();
+			}
+		}
+	},
+
 	//* Toggle play based on _this.playing_
 	playPause: function(inSender, inEvent) {
+		this.sendFeedback(inSender.src);
 		if(this.getPlaying()) {
-			this.doRequestPause(inSender);
+			this.doRequestPause();
 		} else {
-			this.doRequestPlay(inSender);
+			this.doRequestPlay();
 		}
 		return true;
 	},
 	//* When rewind button is pressed, bubble _onRewind_ event
 	rewind: function(inSender, inEvent) {
+		this.sendFeedback(inSender.src);
 		this.doRequestRewind(inSender);
 	},
 	//* When fastForward button is pressed, bubble _onFastForward_ event
 	fastForward: function(inSender, inEvent) {
+		this.sendFeedback(inSender.src);
 		this.doRequestFastForward(inSender);
 	},
 	
-	jumpBackPulses: 0,
-	jumpBackPulseThreshold: 4,
-	jumpedToStart: false,
-	jumpBackDown: function(inSender, inEvent) {
-		this.jumpBackPulses = 0;
-		this.jumpedToStart = false;
-	},
-	jumpBackPulseThrottle: function(inSender, inEvent) {
-		this.throttleJob("jumpPulse", this.bindSafely("jumpBackPulse"), 500);
-	},
-	jumpBackPulse: function() {
-		if (this.jumpBackPulses === this.jumpBackPulseThreshold && !this.jumpedToStart) {
-			this.jumpToStart();
+	_holdPulseThreadhold: 400,
+	_holding: false,
+	onHoldPulseBackHandler: function(inSender, inEvent) {
+		if (inEvent.holdTime > this._holdPulseThreadhold) {
+			if (inSender._sentHold !== true) {
+				this.doRequestJumpToStart();
+				inSender._sentHold = true;
+				return true;	
+			}
+		} else {
+			inSender._holding = true;
+			inSender._sentHold = false;
 		}
-		this.jumpBackPulses++;
 	},
-	jumpToStart: function(inSender, inEvent) {
-		this.jumpedToStart = true;
-		this.doRequestJumpToStart(inSender);
-	},
-	jumpBackUp: function(inSender, inEvent) {
-		if (!this.jumpedToStart) {
-			this.doRequestJumpBack(inSender);
+	onHoldPulseForwardHandler: function(inSender, inEvent) {
+		if (inEvent.holdTime > this._holdPulseThreadhold) {
+			if (inSender._sentHold !== true) {
+				this.doRequestJumpToEnd();
+				inSender._sentHold = true;
+				return true;	
+			}
+		} else {
+			inSender._holding = true;
+			inSender._sentHold = false;
 		}
-		this.jumpedToStart = false;
 	},
-	jumpForwardPulses: 0,
-	jumpForwardPulseThreshold: 4,
-	jumpedToEnd: false,
-	jumpForwardDown: function(inSender, inEvent) {
-		this.jumpForwardPulses = 0;
-		this.jumpedToEnd = false;
-	},
-	jumpForwardPulseThrottle: function(inSender, inEvent) {
-		this.throttleJob("jumpPulse", this.bindSafely("jumpForwardPulse"), 500);
-	},
-	jumpForwardPulse: function() {
-		if (this.jumpForwardPulses === this.jumpForwardPulseThreshold && !this.jumpedToEnd) {
-			this.jumpToEnd();
+	jumpBackward: function(inSender, inEvent) {
+		if (!inSender._holding) {
+			this.doRequestJumpBackward();
 		}
-		this.jumpForwardPulses++;
+		inSender._holding = false;
 	},
-	jumpToEnd: function(inSender, inEvent) {
-		this.jumpedToEnd = true;
-		this.doRequestJumpToEnd(inSender);
-	},
-	jumpForwardUp: function(inSender, inEvent) {
-		if (!this.jumpedToEnd) {
-			this.doRequestJumpForward(inSender);
+	jumpForward: function(inSender, inEvent) {
+		if (!inSender._holding) {
+			this.doRequestJumpForward();
 		}
-		this.jumpedToEnd = false;
+		inSender._holding = false;
 	},
+
 	//* Programatically update slider position to match _this.currentTime_/_this.duration_
 	updatePosition: function() {
 		if (this.$.slider.dragging) {

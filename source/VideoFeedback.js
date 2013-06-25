@@ -25,7 +25,8 @@ enyo.kind({
 	],
 	//* @public
 	feedback: function(inSender, inEvent) {
-		var msg = inEvent.cmd;
+		var msg = inEvent.command;
+		var playbackRate = inEvent.playbackRate;
 		var param = inEvent.param;
 		var src = inEvent.imgsrc;
 		var timer = true;
