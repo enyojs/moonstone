@@ -1,13 +1,34 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
+.moon-videoplayer-slider .moon-videoplayer-slider-popup {
+	position: absolute;
+	display: block;
+	z-index: 20;
+	left: 100px;
+	top: 0px;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: @moon-videoplayer-slider-canvas-popup-height;
+	padding: 10px;
+	background-color: rgba(0,0,0,0.5);
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-canvas {
+	top: 5px;
+	left: 5px;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: @moon-videoplayer-slider-canvas-height;
+	z-index: 10;
+}
+.moon-videoplayer-slider .moon-videoplayer-slider-popup-label {
+	position: absolute;
+	top: @moon-videoplayer-slider-canvas-height;
+	width: @moon-videoplayer-slider-canvas-width;
+	height: 45px;
+	white-space: nowrap;
+	font-family: @moon-alt-font-family;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+	vertical-align: middle;
+	font-size: @moon-button-small-font-size;
+}
+.moon-videoplayer-slider .enyo-locale-non-latin .moon-videoplayer-slider-popup-label {
+	font-family: @moon-non-latin-font-family;
+}
