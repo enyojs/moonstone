@@ -14,7 +14,9 @@ enyo.kind({
 			videoDisplayMode: "Cinema",
 			videoTimeRecorded: "00:00",
 			video3d: true,
-			src: "http://media.w3.org/2010/05/video/movie_300.ogv",
+			src: "http://media.w3.org/2010/05/bunny/movie.ogv",
+			//src: "http://media.w3.org/2010/05/bunny/movie_hd.ogv",
+			// src: "http://media.w3.org/2010/05/video/movie_300.ogv",
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
@@ -28,5 +30,6 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
 			]
 		}
-	]
-});
+		]
+	}
+);
