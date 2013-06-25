@@ -64,7 +64,7 @@ enyo.kind({
 				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 			]},
 			
-			{name: "playerControl", classes: "moon-video-player-bottom", components: [
+			{name: "playerControl", classes: "moon-video-player-bottom", onSpotlightDown: "onEnterSlider", components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
 			
 					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder"},
@@ -85,7 +85,7 @@ enyo.kind({
 					]}
 				]},
 			
-				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
+				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", onSpotlightUp: "onLeaveSlider", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", popupColor: "#323232", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"}
 				]}
 			]},
@@ -131,16 +131,16 @@ enyo.kind({
 		// One or two components - destroy more button and utilize left/right premium placeholders
 		} else if (components.length <= 2) {
 			this.$.moreButton.destroy();
-			this.$.leftPremiumPlaceHolder.createComponent(components[0], {owner: this});
+			this.$.leftPremiumPlaceHolder.createComponent(components[0], {owner: this.owner});
 			components.splice(0,1);
 			if (components.length == 1) {
-				this.$.rightPremiumPlaceHolder.createComponent(components[0], {owner: this});
+				this.$.rightPremiumPlaceHolder.createComponent(components[0], {owner: this.owner});
 				components.splice(0,1);
 			}
 		
 		// More than two components - use extra panel, with left premium plaeholder for first component
 		} else {
-			this.$.leftPremiumPlaceHolder.createComponents(components.splice(0,1), {owner: this});
+			this.$.leftPremiumPlaceHolder.createComponents(components.splice(0,1), {owner: this.owner});
 		}
 	},
 	
