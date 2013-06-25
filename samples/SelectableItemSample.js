@@ -1,33 +1,43 @@
 enyo.kind({
 	name: "moon.sample.SelectableItemSample",
-	classes: "moon enyo-unselectable",
-	layoutKind: "enyo.FittableColumnsLayout",
+	kind:"FittableRows",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: 'scroller', kind: 'moon.Scroller', fit: true, touch: true, components: [
-			{
-				fit: true,
-				style: "padding: 20px",
-				components: [
-					{kind: "moon.Divider", content: "SelectableItems Without Group"},
-					{
-						components: [
-							{kind: "moon.SelectableItem", content: "Item 1", spotlight: true},
-							{kind: "moon.SelectableItem", content: "Item 2", spotlight: true},
-							{kind: "moon.SelectableItem", content: "Item 3", spotlight: true},
-							{kind: "moon.SelectableItem", content: "Item 4", spotlight: true}
-						]
-					},
-					{kind: "moon.Divider", content: "SelectableItems With Group"},
-					{kind: "Group", components: [
-						{kind: "moon.SelectableItem", content: "Option 1"},
-						{kind: "moon.SelectableItem", content: "Option 2", checked: true},
+		{kind: 'moon.Scroller', fit: true, components: [
+			{classes: "moon-hspacing", controlClasses:"moon-4h", components: [
+				{classes: "moon-hspacing", components: [
+					{kind: "moon.Divider", content: "Selectable Items"},
+					{kind: "moon.SelectableItem", content: "Option 1", checked: true, onActivate: "itemChanged"},
+					{kind: "moon.SelectableItem", content: "Option 2", onActivate: "itemChanged"},
+					{kind: "moon.SelectableItem", disabled: true, content: "Disabled", onActivate: "itemChanged"},
+					{kind: "moon.SelectableItem", content: "Option 4", checked: true, onActivate: "itemChanged"},
+					{kind: "moon.SelectableItem", content: "Option 5", onActivate: "itemChanged"}
+				]},
+				{components: [
+					{kind: "moon.Divider", content: "Selectable Item Group"},
+					{kind: "Group", onActivate: "groupChanged", components: [
+						{kind: "moon.SelectableItem", content: "Group Option 1"},
+						{kind: "moon.SelectableItem", content: "Group Option 2", checked: true},
 						{kind: "moon.SelectableItem", disabled: true, content: "Disabled"},
-						{kind: "moon.SelectableItem", content: "Option 4"},
-						{kind: "moon.SelectableItem", content: "Option 5"}
+						{kind: "moon.SelectableItem", content: "Group Option 4"},
+						{kind: "moon.SelectableItem", content: "Group Option 5"}
 					]}
-				]
-			}
+				]}
+			]}
+		]},
+		{components: [
+			{kind:"moon.Divider", content:"Result"},
+			{name:"result", content:"Nothing selected"}
 		]}
-	]
+	],
+	itemChanged: function(inSender, inEvent) {
+		this.$.result.setContent(inSender.getContent() + " was " + (inSender.getActive() ? " selected." : "deselected."));
+	},
+	groupChanged: function(inSender, inEvent) {
+		if (inEvent.originator.getActive()) {
+			var selected = inEvent.originator.getContent();
+			this.$.result.setContent(selected + " was selected.");
+		}
+	}
 });

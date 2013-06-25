@@ -1,9 +1,6 @@
 enyo.kind({
     name: "moon.MovieImageItem",
-    /* TODO: moon-1v should be inserted at classes after fixing moon-1v value 
-        from "width: 170px;" to "height: 170px;" */
-    classes: "moon-movie-list-item moon-3h",
-    style: "height: 170px;",
+    classes: "moon-movie-list-item moon-3h moon-1v",
     spotlight: true,
     published: {
         option: {

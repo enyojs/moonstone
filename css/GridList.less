@@ -31,8 +31,7 @@
 	height: 100%;
 }
 .moon-gridlist-imageitem .caption, .moon-gridlist-imageitem .sub-caption {
-	font-family: @moon-gridlist-font-family;
-	font-weight: normal;
+	font-weight: bold;
 	font-size: 12px;
 	text-align: center;
 	height: 20px;
@@ -59,8 +58,22 @@
 	padding-left: 25px !important;
 	margin-right: -25px !important;
 }
+
+.enyo-locale-right-to-left  .moon-gridlist-imageitem.spotlight {
+	padding-right: 25px !important;
+	margin-right: 25px !important;
+        padding-left:0px !important;
+}
+
 .moon-gridlist-imageitem.spotlight.selected {
 	background: @moon-spotlight-border-color !important;
 	padding-left: 28px !important;
 	margin-right: -25px !important;
+}
+
+.enyo-locale-right-to-left .moon-gridlist-imageitem.spotlight.selected {
+	background: @moon-spotlight-border-color !important;
+	padding-right: 28px !important;
+	margin-right:  25px !important;
+ 	padding-left:0px !important;
 }

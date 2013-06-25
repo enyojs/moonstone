@@ -1,20 +1,25 @@
 enyo.kind({
 	name: "moon.sample.IconButtonSample",
-	fit: true,
-	classes: "moon enyo-unselectable moon-icon-button-sample",
+	kind: "FittableRows",
+	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{classes: "moon-icon-button-sample-wrapper moon-icon-button-sample-group", components: [
+		{fit:true, components: [
 			{kind: "moon.Divider", content: "Icon Buttons:"},
-			{kind: "moon.IconButton", src: "assets/icon-button-enyo-logo.png", ontap: "buttonTapped"},
-			{kind: "moon.IconButton", src: "assets/icon-button-enyo-logo.png", ontap: "buttonTapped"},
+			{classes: "moon-hspacing", components: [
+				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
+				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"}
+			]},
 			{tag: "br"},
 			{tag: "br"},
 			{kind: "moon.Divider", content: "Disabled Icon Buttons:"},
-			{kind: "moon.IconButton", src: "assets/icon-button-enyo-logo.png", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.IconButton", src: "assets/icon-button-enyo-logo.png", ontap: "buttonTapped", disabled: true}
+			{classes: "moon-hspacing", components: [
+				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
+				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true}
+			]}
 		]},
-		{name: "console", classes: "moon-icon-button-sample-console"}
+		{kind: "moon.Divider", content: "Result"},
+		{name: "console", content: "No changes yet"}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		var str = '"'+inSender.name+'" ';

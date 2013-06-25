@@ -28,8 +28,10 @@ enyo.kind({
 	//* @protected
 	spotlight: true,
 	handlers: {
-		onSpotlightSelect: "spotFocus",
-		onSpotlightFocused: "spotFocused"
+		//* onSpotlightSelect, simulate mousedown
+		onSpotlightSelect: "depress",
+		//* onSpotlightKeyUp, simulate mouseup
+		onSpotlightKeyUp: "undepress"
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -44,10 +46,12 @@ enyo.kind({
 	activeChanged: function() {
 		this.bubble("onActivate");
 	},
-	spotFocus: function() {
+	//* Add _pressed_ css class
+	depress: function() {
 		this.addClass("pressed");
 	},
-	spotFocused: function() {
-		this.removeClass("pressed");
+	//* Remove _pressed_ css class
+	undepress: function() {
+		this.removeClass('pressed');
 	}
 });

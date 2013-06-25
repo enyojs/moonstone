@@ -1,8 +1,7 @@
 enyo.kind({
     name: "moon.sample.photos.AlbumListNarrowSample",
     kind : "moon.Panel",
-    classes: "moon enyo-unselectable photos-album",
-    fit: true,
+    classes : "moon enyo-fit",
     title : "ALBUMS",
     titleAbove : "01",
     titleBelow : "",
@@ -11,50 +10,39 @@ enyo.kind({
         {kind: "enyo.Spotlight"},
 */
         {
-            kind : "FittableRows",
-            fit : true,
+
+            kind : "moon.Scroller",
+            classes: "enyo-fill",
+            horizontal : "hidden",
+            touch : true,
             components : [
                 {
-                    kind : "moon.Scroller",
-                    fit: true,
-                    //style : "width:400px;height:600px;",
-                    horizontal : "hidden",
-                    touch : true,
-                    components : [
-                        {
-                            components : [
-                                {
-                                    kind : "sample.photo.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png",
-                                },
-                                {
-                                    kind : "sample.photo.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.photo.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.photo.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                },
-                                {
-                                    kind : "sample.photo.AlbumListItem",
-                                    source: "./assets/default-movie.png",
-                                    bgSource : "./assets/bg-movie.png"
-                                }
-                            ]
-                        }
-                    ]
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png",
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
+                },
+                {
+                    kind : "sample.photo.AlbumListItem",
+                    source: "./assets/default-movie.png",
+                    bgSource : "./assets/bg-movie.png"
                 }
             ]
         }
-
     ]
 });
 

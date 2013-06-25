@@ -1,26 +1,10 @@
 enyo.kind({
     name: "moon.sample.photos.PhotoGridSample",
 	kind: "moon.Panel",
-	classes: "moon enyo-unselectable photos-album",
+	classes: "moon enyo-fit",
 	titleAbove: "02",
 	title: "Album Name",
 	titleBelow: "97 Photos",
-	imageList: [
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"},
-		{src: "assets/album.png"}
-	],
 	components: [	
 /** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
@@ -28,9 +12,8 @@ enyo.kind({
 		{
 			name: "gridlist",
 			kind: "moon.GridList",
-			fit: true,
+			classes: "enyo-fill",
 			onSetupItem: "setupGridItem",
-			touch: true,
 			itemWidth: 270,
 			itemHeight: 202,
 			itemSpacing: 20,
@@ -49,16 +32,12 @@ enyo.kind({
 	
 	rendered: function() {
 		this.inherited(arguments);
-		this.$.gridlist.show(this.imageList.length);
+		this.$.gridlist.show(30);
 	},
 
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		var gridItem = this.imageList[i];
-		if (!gridItem.src) {
-			return;
-		}
-		this.$.gridItem.setSource(gridItem.src);
+		this.$.gridItem.setSource("assets/album.png");
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
 	},
 });

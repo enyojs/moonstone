@@ -25,12 +25,6 @@ enyo.kind({
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
-		/**
-			If true, the drawer automatically closes when the user navigates to the
-			top of the control; if false, the user must select/tap the header to close
-			the drawer
-		*/
-		autoCollapse: true
 	},
 	//* @protected
 	classes: "moon-expandable-list-item",
@@ -81,15 +75,14 @@ enyo.kind({
 			}
 		}
 	},
-	//* Calls _expandContract()_ if _select_ event came from header. 
+	//* Calls _expandContract()_ if _select_ event came from header.
 	spotlightSelect: function(inSender, inEvent) {
 		if(inSender === this) {
 			this.expandContract(inSender, inEvent);
-			return true;
 		}
 	},
 	//* If closed, opens drawer and highlights first spottable child.
-	expandContract: function() {
+	expandContract: function(inSender, inEvent) {
 		if (this.disabled) {
 			return true;
 		}
@@ -99,12 +92,11 @@ enyo.kind({
 		} else {
 			this.setOpen(false);
 		}
-		return true;
 	},
-	//* Closes drawer if drawer is currently open, _autoCollapse_ is set to true,
+	//* Closes drawer if drawer is currently open,
 	//* and event was sent via keypress (i.e., it has a direction).
 	headerFocus: function(inSender, inEvent) {
-		if(this.getOpen() && this.getAutoCollapse() && inEvent && inEvent.dir && inEvent.dir === "UP") {
+		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
 			this.setOpen(false);
 			enyo.Spotlight.spot(this);
 			this.$.header.removeClass("spotlight");	//<--- TODO - why do we need this here?

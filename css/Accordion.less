@@ -5,6 +5,9 @@
 	overflow: hidden;
 	margin-bottom:45px;	
 }
+.enyo-locale-right-to-left .moon-accordion {
+	padding: 0px 0px 0px 16px;
+}
 
 .moon-accordion.spotlight {
 	transition: border-width 0.1s linear, padding 0.1s linear;
@@ -24,11 +27,19 @@
 	border-left-width: 0px;
 	padding-right: 16px;
 }
+.enyo-locale-right-to-left .moon-accordion.open.spotlight {
+	padding-right: 0px;
+	padding-left: 16px;
+}
 
 .moon-accordion-header {
 	display:inline-block;
 	padding-right:24px;
 	margin-bottom:0px;	
+}
+.enyo-locale-right-to-left .moon-accordion-header {
+	padding-right:0px;
+	padding-left:24px;
 }
 
 .moon-accordion.open.spotlight .moon-accordion-header {
@@ -56,6 +67,7 @@
 .moon-accordion-arrow {
 	position:relative;
 	display:inline-block;
+	font-family: @moon-alt-font-family;
 }
 
 .moon-accordion-arrow.up {
@@ -78,7 +90,7 @@
 .moon-accordion-arrow.up::after {
     content: '';
 	position:absolute;
-	border-color: transparent transparent white transparent;	
+	border-color: transparent transparent @moon-light-gray transparent;	
 	border-style: solid;
 	border-width: 10px;
 	bottom:-13px;
@@ -88,7 +100,7 @@
 .moon-accordion-arrow.down::after {
     content: '';
 	position:absolute;
-	border-color: white transparent transparent transparent;	
+	border-color: @moon-light-gray transparent transparent transparent;	
 	border-style: solid;
 	border-width: 10px;
 	bottom:-5px;

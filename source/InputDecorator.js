@@ -31,7 +31,7 @@ enyo.kind({
 	classes           : 'moon-input-decorator',
 	spotlight         : true,
 	spotlightDecorate : false,
-	
+
 	handlers : {
 		onDisabledChange  : 'onDisabledChange',
 		onfocus           : 'onFocus',
@@ -108,12 +108,12 @@ enyo.kind({
 
 	onFocus: function(oSender, oEvent) {
 		enyo.Spotlight.spot(this);
-		enyo.Spotlight.disablePointerMode();
+		// enyo.Spotlight.disablePointerMode();
 		this.updateFocus(true);
 	},
 
 	onBlur: function() {
-		enyo.Spotlight.enablePointerMode();
+		// enyo.Spotlight.enablePointerMode();
 		this.updateFocus(false);
 	},
 
@@ -126,15 +126,19 @@ enyo.kind({
 
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
+		var textArea = oInput instanceof moon.TextArea;
+		if (textArea && !oInput.hasFocus() && (oEvent.keyCode === 13)) {
+			this.focus();
+			return false;
+		}
 		this.focus();
 		if (oInput && oInput.hasFocus()) {
 			oEvent.allowDomDefault();            // Allow keydown to bubble
 			return true;                         // Prevent onSpotlightLeft to bubble
 		}
 	},
-	
+
 	onSpotlightBlur: function(oSender, oEvent) {
-		var oInput = this.getInputControl();
 		this.blur();
 	},
 
@@ -147,7 +151,7 @@ enyo.kind({
 			} else {
 				this.blur();
 				oInput.blur();
-			} 
+			}
 		}
 	},
 

@@ -1,12 +1,16 @@
 /* IntegerScrollPicker.css */
+.moon-scroll-picker-container {
+	padding: 27px 21px;
+	display: inline-block;
+}
 .moon-scroll-picker {
-	height:40px;
+	height:102px;
 	border-top-width:30px;
 	border-top-style: solid;
 	border-top-color:transparent;	
 	border-bottom-width:25px;
 	border-bottom-style: solid;
-	border-bottom-color:white;		
+	border-bottom-color:transparent;		
 	border-radius:24px;	
 }
 
@@ -19,11 +23,12 @@
 .moon-scroll-picker-item {
 	white-space:nowrap;
 	padding-top:5px;
-	height:49px;
+	height:97px;
+	line-height:97px;
+	vertical-align:middle;
 	text-align:center;
 	background:transparent;
-	font-size: @moon-sub-text-size;
-	font-family: @moon-font-family;
+	font-size: 15px;
 }
 
 .moon-scroll-picker-overlay-container-top {
@@ -57,7 +62,7 @@
 .moon-scroll-picker-overlay-container-bottom {
 	position:relative;	
 	z-index:1;
-	top:45px;
+	top:107px;
 }
 
 .moon-scroll-picker-overlay-bottom {
@@ -91,7 +96,7 @@
 }
 
 .up-arrow {
-	border-color: transparent transparent white transparent;
+	border-color: transparent transparent @moon-light-gray transparent;
 	border-style: solid;
 	border-width: 10px;
 	height:0;
@@ -99,6 +104,16 @@
 	position:absolute;
 	bottom:-19px;
 	left:-5px;
+}
+
+.up-arrow > .taparea,
+.down-arrow > .taparea {
+	position: absolute;
+	height: 78px;
+	width: 78px;
+	top: -40px;
+	left: -40px;
+	background-color: transparent;
 }
 
 .up-arrow-container.spotlight .up-arrow {
@@ -131,12 +146,16 @@
 .down-arrow-container {
 	position:relative;
 	z-index:10;
-	top:75px;
+	top:137px;
 	left:12%;
 }
 
+.enyo-locale-right-to-left .down-arrow-container {
+	right:12%;
+	left:0%;
+}
 .down-arrow {
-	border-color: white transparent transparent transparent;
+	border-color: @moon-light-gray transparent transparent transparent;
 	border-style: solid;
 	border-width: 10px;
 	height:0;
@@ -149,6 +168,10 @@
 	border-width: 8px;
 	bottom:-18px;
 	left:2px;	
+}
+.enyo-locale-right-to-left .down-arrow-container.selected .down-arrow {
+	 right:0px;
+  	left: auto;	
 }
 
 .down-arrow-container.spotlight .down-arrow {
@@ -170,3 +193,10 @@
 	bottom:-21px;
 	left:2px;
 }
+
+
+ .enyo-locale-right-to-left .down-arrow-container.selected .down-arrow-border {
+  	right:0px;
+ 	 left: auto;
+}
+

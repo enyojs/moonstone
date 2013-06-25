@@ -63,9 +63,9 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, name:"buttonLeft"},
+		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, defaultSpotlightRight: 'buttonRight', name:"buttonLeft"},
 		{kind:"enyo.Panels", classes:"moon-simple-picker-client", controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true, name:"buttonRight"}
+		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true, defaultSpotlightLeft: 'buttonLeft', name:"buttonRight"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -95,18 +95,20 @@ enyo.kind({
 	},
 	reflow: function() {
 		this.inherited(arguments);
-		
+
 		// Find max width of all children
-		var width = 0;
-		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-			width = Math.max(width, c$[i].getBounds().width);
+		if (this.getAbsoluteShowing()) {
+			var width = 0;
+			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+				width = Math.max(width, c$[i].getBounds().width);
+			}
+			this.$.client.setBounds({width:width});
+			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+				c$[i].setBounds({width:width});
+			}
+			this.$.client.reflow();
+			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
-		this.$.client.setBounds({width:width});
-		for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-			c$[i].setBounds({width:width});
-		}
-		this.$.client.reflow();
-		this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 
 		// Make sure selected item is in sync after Panels reflow, which may have
 		// followed an item being added/removed
@@ -151,6 +153,10 @@ enyo.kind({
 		if ((this.selectedIndex !== null) && (this.selectedIndex != this.$.client.getIndex())) {
 			this.$.client.setIndex(this.selectedIndex);
 		}
+	},
+	//* Facade _getClientControls()_ to return client controls inside of _this.client_
+	getClientControls: function() {
+		return this.$.client.getClientControls();
 	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.
