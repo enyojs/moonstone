@@ -106,7 +106,6 @@ enyo.kind({
 		this.inherited(arguments);
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
-			this.activator.destroy();
 			this.spotlight = this._spotlight;
 			this.configCloseButton();
 			var spottableChildren = enyo.Spotlight.getChildren(this).length;
