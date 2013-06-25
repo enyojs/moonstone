@@ -44,15 +44,24 @@ enyo.kind({
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
+	activator: null,
 	//* Creates chrome
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
 	},
-	//* Renders _moon.Popup_ and creates needed _moon.Button_ component
+	//* Renders _moon.Popup_, extending enyo.Popup
 	render: function() {
+		this.allowHtmlChanged();
+		this.contentChanged();
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
+	},
+	contentChanged: function() {
+		this.$.client.setContent(this.content);
+	},
+	allowHtmlChanged: function() {
+		this.$.client.setAllowHtml(this.allowHtml);
 	},
 	//* Sets _this.downEvent_ on _onSpotlightSelect_ event.
 	spotSelect: function(inSender, inEvent) {
@@ -96,6 +105,8 @@ enyo.kind({
 		this.showHideScrim(this.showing);
 		this.inherited(arguments);
 		if (this.showing) {
+			this.activator = enyo.Spotlight.getCurrent();
+			this.activator.destroy();
 			this.spotlight = this._spotlight;
 			this.configCloseButton();
 			var spottableChildren = enyo.Spotlight.getChildren(this).length;
@@ -165,6 +176,18 @@ enyo.kind({
 			if (this.spotlightModal) {
 				return true;
 			} else {
+				// Attempt to identify and re-spot the activator if present
+				var a = this.activator;
+				if (a.destroyed === undefined) {
+					enyo.Spotlight.spot(a);
+					if (a instanceof moon.Button) {
+						a.removeClass("pressed");
+					}
+				} else {
+					// As a failsafe, attempt to spot the container if no activator is present
+					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
+				}
+				this.activator = null;
 				this.spotlight = false;
 				this.hide();
 			}

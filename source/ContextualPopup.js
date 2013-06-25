@@ -87,8 +87,10 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
-	//* Renders _moon.ContextualPopup_ and creates needed _moon.Button_ component.
+	//* Renders _moon.ContextualPopup_, extending _enyo.Popup_
 	render: function() {
+		this.allowHtmlChanged();
+		this.contentChanged();
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
 	},
@@ -107,6 +109,12 @@ enyo.kind({
 			this.$.closeButton.hide();
 			this.$.closeButton.spotlight = false;
 		}
+	},
+	contentChanged: function() {
+		this.$.client.setContent(this.content);
+	},
+	allowHtmlChanged: function() {
+		this.$.client.setAllowHtml(this.allowHtml);
 	},
 	//* Spotlight the first spottable control, if possible
 	configSpotlightBehavior: function(spotChild) {
