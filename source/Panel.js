@@ -17,6 +17,8 @@ enyo.kind({
 		titleAbove: "",
 		//* Facade for the header's _titleBelow_ property
 		titleBelow: "",
+		//* Facade for the header's _subTitleBelow_ property
+		subTitleBelow: "",
 		/**
 			If true, the header's _titleAbove_ property is automatically populated
 			with the panel index
@@ -58,6 +60,7 @@ enyo.kind({
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
+		this.subTitleBelowChanged();
 		this.smallHeaderChanged();
 	},
 	initComponents: function() {
@@ -117,7 +120,9 @@ enyo.kind({
 
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
-			this.setTitleAbove(this.indexInContainer() + 1);
+			var n = this.indexInContainer() + 1;
+			n = ((n < 10) ? "0" : "") + n;
+			this.setTitleAbove(n);
 		}
 	},
 	//* Updates _this.header_ when _title_ changes.
@@ -131,6 +136,10 @@ enyo.kind({
 	//* Updates _this.header_ when _titleBelow_ changes.
 	titleBelowChanged: function() {
 		this.$.header.setTitleBelow(this.getTitleBelow());
+	},
+	//* Updates _this.header_ when _subTitleBelow_ changes.
+	subTitleBelowChanged: function() {
+		this.$.header.setSubTitleBelow(this.getSubTitleBelow());
 	},
 	//* Updates _this.header_ when _smallHeader_ changes.
 	smallHeaderChanged: function() {

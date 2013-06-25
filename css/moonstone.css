@@ -1124,6 +1124,7 @@
 .moon-header {
   color: #4b4b4b;
   height: 400px;
+  border-top: 2px solid #4b4b4b;
   border-bottom: 6px solid #4b4b4b;
   overflow: hidden;
   min-width: 532px;
@@ -1140,7 +1141,7 @@
   font-size: 36px;
   font-weight: normal;
   line-height: 36px;
-  padding: 58px 0px 5px 0px;
+  padding: 20px 0px 5px 0px;
   margin: 0px;
   width: 30px;
 }
@@ -1152,7 +1153,7 @@
   letter-spacing: -0.05em;
   line-height: 90px;
   padding: 19px 0px 0px 0px;
-  margin: 0px 0px 40px -8px;
+  margin: 0px 0px 40px 0px;
   white-space: nowrap;
 }
 .moon-header-title-below {
@@ -1163,7 +1164,17 @@
   letter-spacing: -0.04em;
   line-height: 28px;
   min-height: 28px;
-  text-transform: capitalize;
+  padding: 6px 0px 6px 0px;
+  margin: 0px;
+}
+.moon-header-sub-title-below {
+  font-family: "MuseoSans 300";
+  font-size: 25px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  line-height: 25px;
+  min-height: 25px;
   padding: 6px 0px 6px 0px;
   margin: 0px;
 }

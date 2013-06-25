@@ -1,6 +1,7 @@
 .moon-header {
 	color: @moon-font-color-light;
 	height: 400px;
+	border-top: 2px solid @moon-font-color-light;
 	border-bottom: 6px solid @moon-font-color-light;
 	overflow: hidden;
 	min-width: 532px;
@@ -18,7 +19,7 @@
 	font-size: @moon-header-super-text-size;
 	font-weight: normal;
 	line-height: @moon-header-super-text-size;
-	padding: 58px 0px 5px 0px;
+	padding: 20px 0px 5px 0px;
 	margin: 0px;
 	width: 30px;
 }
@@ -26,14 +27,20 @@
 	.moon-header-text;
 	line-height: 90px;
 	padding: 19px 0px 0px 0px;
-	margin: 0px 0px 40px -8px;
+	margin: 0px 0px 40px 0px;
 	white-space: nowrap;
 }
 .moon-header-title-below {
 	.moon-sub-header-text;
 	line-height: @moon-sub-header-font-size;
 	min-height:  @moon-sub-header-font-size;
-	text-transform: capitalize;
+	padding: 6px 0px 6px 0px;
+	margin: 0px;
+}
+.moon-header-sub-title-below {
+	.moon-body-text;
+	line-height: @moon-body-font-size;
+	min-height:  @moon-body-font-size;
 	padding: 6px 0px 6px 0px;
 	margin: 0px;
 }

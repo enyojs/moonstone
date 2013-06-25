@@ -4,8 +4,7 @@
 */
 enyo.kind({
 	name: "moon.Header",
-	classes: "moon-header moon-header-font",
-	style: "overflow: visible;",
+	classes: "moon-header",
 	published: {
 		//* Title of the header
 		title: '',
@@ -13,13 +12,16 @@ enyo.kind({
 		titleAbove: '',
 		//* Text below the header
 		titleBelow: '',
+		//* Sub-text below the header
+		subTitleBelow: '',
 		//* If true, the moon-small-header css class will be applied to this header
 		small: false
 	},
 	components: [
-		{name: "titleAbove", classes: "moon-header-title-above"},
-		{name: "title", classes: "moon-header-title"},
-		{name: "titleBelow", kind: "moon.Item", spotlight: false, classes: "moon-header-title-below"},
+		{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
+		{name: "title", classes: "moon-header-font moon-header-title"},
+		{name: "titleBelow", classes: "moon-header-title-below"},
+		{name: "subTitleBelow", classes: "moon-header-sub-title-below"},
 		{name: "client", classes: "moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -29,6 +31,7 @@ enyo.kind({
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
+		this.subTitleBelowChanged();
 	},
 	//* @public
 	collapseToSmall: function() {
@@ -219,7 +222,7 @@ enyo.kind({
 						"border-bottom-width" : "0px",
 						"opacity" : "1",
 						"height" : "36px",
-						"padding-top" : "58px",
+						"padding-top" : "20px",
 						"padding-bottom" : "5px"
 					}
 				}],
@@ -227,7 +230,7 @@ enyo.kind({
 					control: this,
 					properties: {
 						"height" : "100px",
-						"border-bottom-width" : "1px",
+						"border-bottom-width" : "0px",
 						"width" : "current",
 						"min-width" : "current",
 						"max-width" : "current"
@@ -250,9 +253,9 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "30px",
-						"min-width" : "30px",
-						"max-width" : "30px"
+						"width" : "160px",
+						"min-width" : "160px",
+						"max-width" : "160px"
 					}
 				}],
 
@@ -346,8 +349,13 @@ enyo.kind({
 		this.addRemoveClass("moon-small-header", this.getSmall());
 	},
 	//* @protected
-	titleChanged: function() {
+	contentChanged: function() {
 		this.$.title.setContent(this.title || this.content);
+	},
+	//* @protected
+	// For backward-compatibility with original API
+	titleChanged: function() {
+		this.contentChanged();
 	},
 	//* @protected
 	titleAboveChanged: function() {
@@ -357,6 +365,10 @@ enyo.kind({
 	//* @protected
 	titleBelowChanged: function() {
 		this.$.titleBelow.setContent(this.titleBelow || '');
+	},
+	//* @protected
+	subTitleBelowChanged: function() {
+		this.$.subTitleBelow.setContent(this.subTitleBelow || '');
 	},
 	//* @protected
 	animationComplete: function(inSender, inEvent) {
