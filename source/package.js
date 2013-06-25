@@ -54,6 +54,7 @@ enyo.depends(
 	"Thumb.js",
 	"SearchPanel.js",
 	"SearchHeader.js",
+	"Scrim.js",
 	"Popup.js",
 	"Dialog.js",
 	"TooltipDecorator.js",

@@ -6,6 +6,7 @@
 }
 
 .moon-radio-item-group .moon-button {
+	.moon-sub-header-text;
 	display: inline-block;
 	border-width: 0px;
 	background-color: transparent;
@@ -13,13 +14,11 @@
 	white-space: nowrap;
 	overflow: hidden;
 	cursor: pointer;
-	font-size: @moon-large-text-size;
-	font-weight: bold;
 	line-height: 30px;
 	color: @moon-font-color-light;
 	margin: 0px 37px 33px 0px;
 	padding: 3px 0px 2px 0px;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	min-width: 0px;
 }
 
@@ -32,6 +31,10 @@
 	border-left: 21px solid @moon-spotlight-border-color;
 }
 
+.enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
+	border-right: 21px solid @moon-spotlight-border-color;
+	border-left:0px;
+}
 .moon-button-bar {
 	position: absolute;
 	top: 37px;
@@ -42,7 +45,7 @@
 }
 /* TODO: Change the bar color and position on spotlight - unfortunately, the way we have implemented the bar today, it's not easy to change this via css - rethink design! */
 .spotlight.moon-button-bar {
-	/* background-color: @moon-spotlight-border-color; */
+	background-color: @moon-spotlight-border-color;
 	transition: left 0.1s linear;
 	-webkit-transition: left 0.1s linear;
 	-moz-transition: left 0.1s linear;
@@ -50,5 +53,4 @@
 	left: 23px;
 }
 .moon-radio-item-group .moon-button.spotlight {
-	// margin-right: 41px;
 }

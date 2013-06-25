@@ -154,6 +154,10 @@ enyo.kind({
 			this.$.client.setIndex(this.selectedIndex);
 		}
 	},
+	//* Facade _getClientControls()_ to return client controls inside of _this.client_
+	getClientControls: function() {
+		return this.$.client.getClientControls();
+	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {

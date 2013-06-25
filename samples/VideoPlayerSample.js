@@ -8,12 +8,7 @@ enyo.kind({
 		{
 			name: "player",
 			kind: "moon.VideoPlayer",	
-			/* Needs long video file for testing */
 			src: "http://media.w3.org/2010/05/video/movie_300.mp4",
-			xsrc: "http://media.w3.org/2010/05/sintel/trailer.mp4",
-			xsrc: "http://www.w3schools.com/html/mov_bbb.mp4",
-			xsrc: "../../video.mp4",
-			xsrc: "../../voice-E15.mp4",
 			components: [
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png", ontap: "onTap"},
 				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
@@ -32,7 +27,7 @@ enyo.kind({
 					datetime: "June 13 & 2:15", 
 					showname: "Voice of Korea", 
 					channel: "Mnet - AIR DATE & TIME SLOT", 
-					synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+					synopsis: "SHORT SYNOPSIS ABOUT THE CURRENT SHOW",
 					components: [
 						{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
 						{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
@@ -43,7 +38,7 @@ enyo.kind({
 			]
 		}
 	],
-	onTap: function(inSender, inEvent) {
-		// fixme: Event should be catched in here
+	onTap: function() {
+		this.log("Tapped");
 	}
 });

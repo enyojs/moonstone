@@ -28,7 +28,6 @@
 	vertical-align:middle;
 	text-align:center;
 	background:transparent;
-	font-size: 15px;
 }
 
 .moon-scroll-picker-overlay-container-top {
@@ -150,6 +149,10 @@
 	left:12%;
 }
 
+.enyo-locale-right-to-left .down-arrow-container {
+	right:12%;
+	left:0%;
+}
 .down-arrow {
 	border-color: @moon-light-gray transparent transparent transparent;
 	border-style: solid;
@@ -164,6 +167,10 @@
 	border-width: 8px;
 	bottom:-18px;
 	left:2px;	
+}
+.enyo-locale-right-to-left .down-arrow-container.selected .down-arrow {
+	 right:0px;
+  	left: auto;	
 }
 
 .down-arrow-container.spotlight .down-arrow {
@@ -185,3 +192,10 @@
 	bottom:-21px;
 	left:2px;
 }
+
+
+ .enyo-locale-right-to-left .down-arrow-container.selected .down-arrow-border {
+  	right:0px;
+ 	 left: auto;
+}
+

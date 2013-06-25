@@ -32,7 +32,7 @@
 					datetime: "CURRENT DATE & TIME", 
 					showname: "SHOW NAME", 
 					channel: "CHANNEL - AIR DATE & TIME SLOT", 
-					synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+					synopsis: "SHORT SYNOPSIS ABOUT THE CURRENT SHOW",
 					components: [
 						{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
 						{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
@@ -123,14 +123,14 @@ enyo.kind({
 		this.createVideoInfo();
 		if (this.components.length <= 2) {
 			this.$.more.destroy();
-			this.$.leftPremiumPlaceHolder.createComponent(this.components[0], {owner: this});
+			this.$.leftPremiumPlaceHolder.createComponent(this.components[0], {owner: this.owner});
 			this.components.splice(0,1);
 			if (this.components.length == 1) {
-				this.$.rightPremiumPlaceHolder.createComponent(this.components[0], {owner: this});
+				this.$.rightPremiumPlaceHolder.createComponent(this.components[0], {owner: this.owner});
 				this.components.splice(0,1);
 			}
 		} else {
-			this.$.leftPremiumPlaceHolder.createComponents(this.components.splice(0,1), {owner: this});
+			this.$.leftPremiumPlaceHolder.createComponents(this.components.splice(0,1), {owner: this.owner});
 		}
 		this.controlParentName = "client";
 		this.discoverControlParent();

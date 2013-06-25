@@ -5,6 +5,9 @@
 	overflow: hidden;
 	margin-bottom:45px;	
 }
+.enyo-locale-right-to-left .moon-accordion {
+	padding: 0px 0px 0px 16px;
+}
 
 .moon-accordion.spotlight {
 	transition: border-width 0.1s linear, padding 0.1s linear;
@@ -24,11 +27,19 @@
 	border-left-width: 0px;
 	padding-right: 16px;
 }
+.enyo-locale-right-to-left .moon-accordion.open.spotlight {
+	padding-right: 0px;
+	padding-left: 16px;
+}
 
 .moon-accordion-header {
 	display:inline-block;
 	padding-right:24px;
 	margin-bottom:0px;	
+}
+.enyo-locale-right-to-left .moon-accordion-header {
+	padding-right:0px;
+	padding-left:24px;
 }
 
 .moon-accordion.open.spotlight .moon-accordion-header {
@@ -43,8 +54,8 @@
 	padding-right:0px;
 }
 
-.moon-accordion-client{
-	margin-left:40px;
+.moon-accordion-client .moon-item {
+	.moon-body-text;
 }
 
 .moon-accordion-bottom {
@@ -95,3 +106,4 @@
 	bottom:-5px;
 	left:-10px;
 }
+
