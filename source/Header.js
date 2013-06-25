@@ -31,6 +31,127 @@ enyo.kind({
 		this.titleBelowChanged();
 	},
 	//* @public
+	collapseToSmall: function() {
+		if (this.collapsed) {
+			return;
+		}
+		
+		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
+		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
+		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
+
+		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
+		this.animProps = {
+			"height" : myStyle["height"]
+			//"border" : myStyle["border-bottom-width"],
+			//"width"  : myStyle["width"]
+		};
+		this.$.titleAbove.animProps = {
+			"height" : titleAboveStyle["height"],
+			"padding-top" : titleAboveStyle["padding-top"],
+			"padding-bottom" : titleAboveStyle["padding-bottom"],
+			"opacity" : titleAboveStyle["opacity"],
+			"overflow" : titleAboveStyle["overflow"]
+		};
+
+		this.$.animator.newAnimation({
+			name: "collapseToSmall",
+			duration: 200,
+			timingFunction: "linear",
+			keyframes: {
+				0: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : "current",
+						"padding-top" : "current",
+						"padding-bottom" : "current",
+						"overflow" : "hidden"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : "current"
+					}
+				}],
+				70: [{
+					control: this.$.titleAbove,
+					properties: {
+						"opacity" : "current"
+					}
+				}],
+				100: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : "0px",
+						"padding-top" : "0px",
+						"padding-bottom" : "0px",
+						"opacity" : "0"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : "250px"
+					}
+				}]
+
+			}
+		});
+		this.$.animator.play("collapseToSmall");
+		this.collapsed = true;
+	},
+	expandToLarge: function() {
+		if (!this.collapsed) {
+			return;
+		}
+		
+		this.$.animator.newAnimation({
+			name: "expandToLarge",
+			duration: 200,
+			timingFunction: "linear",
+			keyframes: {
+				0: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : "current",
+						"padding-top" : "current",
+						"padding-bottom" : "current",
+						"opacity" : "current"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : "current"
+					}
+				}],
+				30: [{
+					control: this.$.titleAbove,
+					properties: {
+						"opacity" : this.$.titleAbove.animProps.opacity
+					}
+				}],
+				100: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : this.$.titleAbove.animProps.height,
+						"padding-top" : this.$.titleAbove.animProps["padding-top"],
+						"padding-bottom" : this.$.titleAbove.animProps["padding-bottom"],
+						"overflow" : this.$.titleAbove.animProps.overflow
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : this.animProps.height
+					}
+				}]
+			}
+		});
+		this.$.animator.play("expandToLarge");
+		this.collapsed = false;
+	},
 	animateCollapse: function() {
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());

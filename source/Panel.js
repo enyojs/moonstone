@@ -34,11 +34,11 @@ enyo.kind({
 		onPostTransitionComplete: ""
 	},
 	handlers: {
-		onScroll: "scroll"
+		onScroll: "scroll",
+		onScrollStop: "scrollStop"
 	},
 
 	//* @protected
-
 	spotlight: "container",
 	fit : true,
 	classes: "moon-panel",
@@ -77,17 +77,19 @@ enyo.kind({
 	},
 	
 	scroll: function(inSender, inEvent) {
-		var originatingScroller = inEvent.originator.container.container;
-		// TODO - find a better check here
-		if (this.collapsingHeader &&
-			originatingScroller.vertical &&
-			originatingScroller.parent === this.$.panelBody &&
-			originatingScroller.indexInContainer() === 2) {
-				if (inEvent.originator.y < 0) {
-					this.collapseHeader(inEvent.originator.y);
-				} else {
-					this.expandHeader(inEvent.originator.y);
-				}
+		if (this.collapsingHeader && !this.smallHeader) {
+			if (inEvent.originator.y < 0) {
+				this.collapseHeader(inEvent.originator.y);
+			} else {
+				this.expandHeader(inEvent.originator.y);
+			}
+		}
+		
+		this.resized();
+	},
+	scrollStop: function(inSender, inEvent) {
+		if (this.collapsingHeader && !this.smallHeader) {
+			this.resized();
 		}
 	},
 	collapseHeader: function(inY) {
@@ -96,8 +98,8 @@ enyo.kind({
 		;
 		
 		if (currentHeight !== height) {
-			this.$.header.applyStyle("height", height+"px");
-			this.resized();
+			// this.$.header.applyStyle("height", height+"px");
+			this.$.header.collapseToSmall();
 		}
 	},
 	expandHeader: function(inY) {
@@ -106,8 +108,8 @@ enyo.kind({
 		;
 		
 		if (currentHeight !== height) {
-			this.$.header.applyStyle("height", height+"px");
-			this.resized();
+			this.$.header.expandToLarge();
+			//this.$.header.applyStyle("height", height+"px");
 		}
 	},
 

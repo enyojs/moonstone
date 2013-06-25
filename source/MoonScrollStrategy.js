@@ -411,6 +411,12 @@ enyo.kind({
 	scrollMathStop: function() {
 		this.inherited(arguments);
 		this.showHidePageControls();
+		
+		// TODO - fix this error condition -> scroll strategy and scroll math are out of sync!
+		var diff = Math.round(this.$.scrollMath.y) * -1 - this.getScrollTop();
+		if (diff != 0) {
+			this.scrollTo(this.getScrollLeft(), this.getScrollTop() + diff);
+		}
 	},
 	//* Animate on mousewheel events
 	mousewheel: function(inSender, inEvent) {
