@@ -1,35 +1,39 @@
+.moon-slider .moon-slider-indicator-wrapper {
+	width: 20%; 
+	height: 100px;
+	top: -50px;
+	position: absolute;
+}
 
-.moon-videoplayer-slider .moon-videoplayer-slider-popup {
-	position: absolute;
-	display: block;
-	z-index: 20;
-	left: 100px;
-	top: 0px;
-	width: @moon-videoplayer-slider-canvas-width;
-	height: @moon-videoplayer-slider-canvas-popup-height;
-	padding: 10px;
-	background-color: rgba(0,0,0,0.5);
+.moon-slider-indicator-wrapper.start {
+	left: 0px;
 }
-.moon-videoplayer-slider .moon-videoplayer-slider-popup-canvas {
-	top: 5px;
-	left: 5px;
-	width: @moon-videoplayer-slider-canvas-width;
-	height: @moon-videoplayer-slider-canvas-height;
-	z-index: 10;
+
+.moon-slider-indicator-wrapper.end {
+	right: 0px;
 }
-.moon-videoplayer-slider .moon-videoplayer-slider-popup-label {
+
+.moon-slider-indicator-wrapper .moon-indicator-bar {
 	position: absolute;
-	top: @moon-videoplayer-slider-canvas-height;
-	width: @moon-videoplayer-slider-canvas-width;
-	height: 45px;
-	white-space: nowrap;
-	font-family: @moon-alt-font-family;
-	color: #fff;
+	left: 49.5%;
+	top: 42%;
+	width: 1%; 
+	height: 20%;
+	background-color: white;
+	z-index: 1;
+}
+
+.moon-slider-indicator-wrapper .moon-indicator-text {
+	position: absolute;
+	width: 100%; 
+	height: 18px;
+	top: 62%;
+	font-size: 18px;
+	color: white;
 	text-align: center;
-	line-height: 45px;
-	vertical-align: middle;
-	font-size: @moon-button-small-font-size;
+	z-index: 1;
 }
-.moon-videoplayer-slider .enyo-locale-non-latin .moon-videoplayer-slider-popup-label {
-	font-family: @moon-non-latin-font-family;
+
+.moon-slider-indicator-wrapper .hide {
+	display: none;
 }

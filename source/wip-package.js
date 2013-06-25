@@ -13,8 +13,5 @@ enyo.depends(
 	"Video.js",
 	"VideoPlayer.js",
 	"VideoTransportSlider.js",
-	"VideoControl.js",
-	"VideoControlInline.js",
-	"VideoControlFullscreen.js",
 	"VideoFeedback.js"
 );
