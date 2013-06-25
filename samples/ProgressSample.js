@@ -10,7 +10,7 @@ enyo.kind({
 		{kind: "moon.ProgressBar", progress: 50, barClasses: "moon-sample-red"},
 		{tag: "br"},
 		{kind: "moon.InputDecorator", style: "margin-right:10px;", components: [
-			{kind: "moon.Input", placeholder: "Value", style: "width:50px;"}
+			{kind: "moon.Input", placeholder: "Value"}
 		]},
 		{kind: "moon.Button", content:"Set", classes:"moon-sample-spaced-button", ontap: "changeValue"},
 		{kind: "moon.Button", content:"-", classes:"moon-sample-spaced-button", ontap: "decValue"},
