@@ -83,9 +83,9 @@ enyo.kind({
 	scroll: function(inSender, inEvent) {
 		if (this.collapsingHeader && !this.smallHeader) {
 			if (inEvent.originator.y < 0) {
-				this.collapseHeader(inEvent.originator.y);
+				this.collapseHeader();
 			} else {
-				this.expandHeader(inEvent.originator.y);
+				this.expandHeader();
 			}
 		}
 		
