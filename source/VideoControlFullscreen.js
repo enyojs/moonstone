@@ -19,7 +19,8 @@ enyo.kind({
 		ontap: "closeControls",
 		onenter: "enter",
 		onleave: "leave",
-		onPlayStateChanged: "handlePlayStateChanged"
+		onPlayStateChanged: "handlePlayStateChanged",
+		onSpotlightKeyUp: "spotlightKeyUp"
 	},
 	components: [
 		{name: "videoInfoHeader", kind: "FittableColumns", classes: "moon-video-player-header", components: [
@@ -47,11 +48,11 @@ enyo.kind({
 				
 				{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 					{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-						{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	onholdpulse: "onHoldPulseBackHandler", ontap: "jumpBackward"},
+						{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	onkeydown: "onBackwardDown", onkeyup: "onBackwardUp", onholdpulse: "onHoldPulseBackHandler", ontap: "jumpBackward"},
 						{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		ontap: "rewind"},
 						{name: "playPause",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",		ontap: "playPause"},
 						{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
-						{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", onholdpulse: "onHoldPulseForwardHandler", ontap: "jumpForward"}
+						{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", onkeydown: "onForwardDown", onkeyup: "onForwardUp", onholdpulse: "onHoldPulseForwardHandler", ontap: "jumpForward"}
 					]},
 					{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 				]},
@@ -99,7 +100,48 @@ enyo.kind({
 			this.$.leftPremiumPlaceHolder.createComponents(components.splice(0,1), {owner: this});
 		}
 	},
-	
+	spotlightKeyUp: function(inSender, inEvent) {
+		if (!this.getVisible()) {
+			this.showMe();
+		}
+	},
+	onBackwardDown: function(inSender, inEvent) {
+		this._Keydown = true;
+		this._Fired = false;
+		enyo.job(this.id + "jumpToStart", this.bindSafely("requestJumpToStart"), this._holdPulseThreadhold);
+		this.log("onBackwardDown");
+	},
+	onBackwardUp: function(inSender, inEvent) {
+		this._Keydown = false;
+		enyo.job.stop(this.id + "jumpToStart");
+		if (!this._Fired) {
+			this.log("doRequestJumpBackward");
+			this.doRequestJumpBackward();
+		}
+		this.log("onBackwardUp");
+	},
+	requestJumpToStart: function(inSender, inEvent) {
+		this._Fired = true;
+		this.doRequestJumpToStart();
+	},
+	onForwardDown: function(inSender, inEvent) {
+		this._Keydown = true;
+		this._Fired = false;
+		enyo.job(this.id + "jumpToEnd", this.bindSafely("requestJumpToEnd"), this._holdPulseThreadhold);
+		this.log("onForwardDown");
+	},
+	onForwardUp: function(inSender, inEvent) {
+		this._Keydown = false;
+		enyo.job.stop(this.id + "jumpToEnd");
+		if (!this._Fired) {
+			this.log("doRequestJumpForward");
+			this.doRequestJumpForward();
+		}
+		this.log("onForwardUp");
+	},
+	requestJumpToEnd: function(inSender, inEvent) {
+		this.doRequestJumpToEnd();
+	},
 	//* Add a _visible_ css class when _this.visible_ changes
 	visibleChanged: function() {
 		this.addRemoveClass("visible", this.getVisible());
@@ -177,10 +219,13 @@ enyo.kind({
 	_holdPulseThreadhold: 400,
 	_holding: false,
 	onHoldPulseBackHandler: function(inSender, inEvent) {
+		if (this._Keydown) {return true;}
+		this.log("onHoldPulseBackHandler");
 		if (inEvent.holdTime > this._holdPulseThreadhold) {
 			if (inSender._sentHold !== true) {
 				this.doRequestJumpToStart();
 				inSender._sentHold = true;
+				this.sendFeedback(inSender.src);
 				return true;	
 			}
 		} else {
@@ -189,10 +234,14 @@ enyo.kind({
 		}
 	},
 	onHoldPulseForwardHandler: function(inSender, inEvent) {
+		if (this._Keydown) {return true;}
+		this.log("onHoldPulseForwardHandler");
 		if (inEvent.holdTime > this._holdPulseThreadhold) {
 			if (inSender._sentHold !== true) {
+				this.log("onHoldPulseForwardHandler");
 				this.doRequestJumpToEnd();
 				inSender._sentHold = true;
+				this.sendFeedback(inSender.src);
 				return true;	
 			}
 		} else {
@@ -201,14 +250,19 @@ enyo.kind({
 		}
 	},
 	jumpBackward: function(inSender, inEvent) {
+		if (this._Keydown) {return true;}
 		if (!inSender._holding) {
+			this.log("jumpBackward");
 			this.doRequestJumpBackward();
+			this.sendFeedback(inSender.src);
 		}
 		inSender._holding = false;
 	},
 	jumpForward: function(inSender, inEvent) {
+		if (this._Keydown) {return true;}
 		if (!inSender._holding) {
 			this.doRequestJumpForward();
+			this.sendFeedback(inSender.src);
 		}
 		inSender._holding = false;
 	},
@@ -237,6 +291,7 @@ enyo.kind({
 	showMe: function() {
 		this.setVisible(true);
 		this.resetAutoCloseTimer();
+		this.resized();
 	},
 	//* Set _this.visible_ to false
 	hideMe: function() {

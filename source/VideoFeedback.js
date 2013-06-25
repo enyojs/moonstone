@@ -61,7 +61,7 @@ enyo.kind({
 			msg = param*10+"x";
 			this.configuration(src, 35, 0, "left");
 			break;
-		case "jumpBack":
+		case "jumpBackward":
 			if(param === true) { // when paused
 				timer = false;
 				msg = "<||";

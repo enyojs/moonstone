@@ -48,7 +48,30 @@ enyo.kind({
 		onRequestJumpToStart: "jumpToStart",
 		onRequestJumpToEnd: "jumpToEnd",
 		onRequestTimeChange: "timeChange",
-		onToggleFullscreen: "toggleFullscreen"
+		onToggleFullscreen: "toggleFullscreen",
+
+		onloadstart:	"videoEventHandler",
+		onemptied:	"videoEventHandler",
+		oncanplaythrough:	"videoEventHandler",
+		onended:	"videoEventHandler",
+		onratechange:	"videoEventHandler",
+		onprogress:	"videoEventHandler",
+		onstalled:	"videoEventHandler",
+		onplaying:	"videoEventHandler",
+		ondurationchange:	"videoEventHandler",
+		onvolumechange:	"videoEventHandler",
+		onsuspend:	"videoEventHandler",
+		onloadedmetadata:	"videoEventHandler",
+		onwaiting:	"videoEventHandler",
+		ontimeupdate:	"videoEventHandler",
+		onabort:	"videoEventHandler",
+		onloadeddata:	"videoEventHandler",
+		onseeking:	"videoEventHandler",
+		onplay:	"videoEventHandler",
+		onerror:	"videoEventHandler",
+		oncanplay:	"videoEventHandler",
+		onseeked:	"videoEventHandler",
+		onpause:	"videoEventHandler"
 	},
     bindings: [],
 	
@@ -72,12 +95,16 @@ enyo.kind({
 		this.srcChanged();
 		this.setupPlayerControlBindings();
 	},
+	videoEventHandler: function(inSender, inEvent) {
+		// To see video event uncomment below
+		//this.log(inEvent.type, inEvent.timeStamp);
+	},
 	//* Return _this._playerControls_
 	getPlayerControls: function() {
 		var controls = this.children,
 			returnControls = []
 		;
-		for (i = 0; i < controls.length; i++) {
+		for (var i = 0; i < controls.length; i++) {
 			if (controls[i].playerControl) {
 				returnControls.push(controls[i]);
 			}
@@ -86,8 +113,8 @@ enyo.kind({
 	},
 	//* Setup bindings for all player controls
 	setupPlayerControlBindings: function() {
-		var controls = this.getPlayerControls(), i;
-		for (i = 0; i < controls.length; i++) {
+		var controls = this.getPlayerControls();
+		for (var i = 0; i < controls.length; i++) {
 			this.bindings.push({from: ".videoDateTime", 		to: ".$." + controls[i].name + ".videoDateTime"});
 			this.bindings.push({from: ".videoTitle", 			to: ".$." + controls[i].name + ".videoTitle"});
 			this.bindings.push({from: ".videoDescription", 		to: ".$." + controls[i].name + ".videoDescription"});
@@ -170,6 +197,7 @@ enyo.kind({
 	//* Called when video successfully loads video metadata
 	metadataLoaded: function(inSender, inEvent) {
 		this.updateAspectRatio();
+		this.resized();
 	},
 	//* Respond to _onRequestTimeChange_ event by setting current video time
 	timeChange: function(inSender, inEvent) {
@@ -201,10 +229,10 @@ enyo.kind({
 
 
 	_progress: function(inSender, inEvent) {
-		this.waterfall("onBufferStateChanged", {timeStamp: inEvent.timeStamp});
+		this.waterfall("onBufferStateChanged", inEvent);
 	},
 	playStateChanged: function(command) {
-		this._isPlaying = (command === "play") ? true : false;
+		this._isPlaying = (command === "play" || command === "jumpForward" || command === "jumpBackward") ? true : false;
 		this.waterfall("onPlayStateChanged", {
 			playing: this._isPlaying, 
 			command: command, 

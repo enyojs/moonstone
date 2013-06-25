@@ -15,7 +15,8 @@ enyo.kind({
 	popupHeight: 200,
 	handlers: {
 		onTimeupdate: "timeUpdate",
-		ondown: "down"
+		ondown: "down",
+		onBufferStateChanged: "progressUpdate"
 	},
 	events: {
 		onSeekStart: "",
@@ -66,6 +67,9 @@ enyo.kind({
 		this.updateBufferedProgress(inEvent.srcElement);
 		this.triggerCanvasUpdate(inEvent.srcElement);
 	},
+	progressUpdate: function(inSender, inEvent) {
+		this.updateBufferedProgress(inEvent.srcElement);
+	},
 	//* Update _this.bgProgress_ to reflect video buffered progress
 	updateBufferedProgress: function(inNode) {
 		var bufferData = inNode.buffered,
@@ -83,7 +87,7 @@ enyo.kind({
 		}
 		
 		bufferedPercentage = highestBufferPoint * 100 / inNode.duration;
-		this.setBgProgress(bufferedPercentage)
+		this.setBgProgress(bufferedPercentage);
 	},
 	//* Kickoff canvas update when video time changes
 	triggerCanvasUpdate: function(inNode) {

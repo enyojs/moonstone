@@ -110,23 +110,14 @@ enyo.kind({
 	//* @public
 	play: function() {
 		if (!this.hasNode()) {return;}
-		if (this._prevCommand != "play") {
-			this.setPlaybackRate(1);
-			this.node.play();
-		}
+		this.setPlaybackRate(1);
+		this.node.play();
 		this._prevCommand = "play";
 	},
 	pause: function() {
 		if (!this.hasNode()) {return;}
-		if (this._prevCommand != "pause") {
-			if (this._prevCommand == "play") {
-				this.setPlaybackRate(1);
-				this.node.pause();
-			} else {
-				// to fix playbutton while doing other than play
-				this.play();
-			}
-		}
+		this.setPlaybackRate(1);
+		this.node.pause();
 		this._prevCommand = "pause";
 	},
 	fastForward: function() {
@@ -170,20 +161,12 @@ enyo.kind({
 		if (!this.hasNode()) {return;}
 		this.setPlaybackRate(1);
 		this.node.currentTime -= this.jumpSec;
-		// to fix playbutton while doing other than play
-		if (this._prevCommand == "play") {
-			this.node.play();
-		}
 		this._prevCommand = "jumpBackward";
 	},
 	jumpForward: function() {
 		if (!this.hasNode()) {return;}
 		this.setPlaybackRate(1);
 		this.node.currentTime += this.jumpSec;
-		// to fix playbutton while doing other than play
-		if (this._prevCommand == "play") {
-			this.node.play();
-		}
 		this._prevCommand = "jumpForward";
 	},
 	jumpToStart: function() {
