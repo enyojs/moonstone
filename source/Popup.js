@@ -163,8 +163,24 @@ enyo.kind({
 	//* Removes focus style from closeButton & hides _moon.Popup_ 
 	closePopup: function(inSender, inEvent) {
 		this.$.closeButton.removeClass("pressed");
+		this.respotActivator();
 		this.spotlight = false;
 		this.hide();
+	},
+	//* Attempts to respot the _this.activator_ when _moon.Popup_ is hidden
+	respotActivator: function() {
+		var a = this.activator;
+		// Attempt to identify and re-spot the activator if present
+		if (a.destroyed === undefined) {
+			enyo.Spotlight.spot(a);
+			if (a instanceof moon.Button) {
+				a.removeClass("pressed");
+			}
+		} else {
+			// As a failsafe, attempt to spot the container if no activator is present
+			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
+		}
+		this.activator = null;
 	},
 	/**
 		Check whether to allow spotlight to move to any given direction.
@@ -175,18 +191,7 @@ enyo.kind({
 			if (this.spotlightModal) {
 				return true;
 			} else {
-				// Attempt to identify and re-spot the activator if present
-				var a = this.activator;
-				if (a.destroyed === undefined) {
-					enyo.Spotlight.spot(a);
-					if (a instanceof moon.Button) {
-						a.removeClass("pressed");
-					}
-				} else {
-					// As a failsafe, attempt to spot the container if no activator is present
-					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
-				}
-				this.activator = null;
+				this.respotActivator();
 				this.spotlight = false;
 				this.hide();
 			}
