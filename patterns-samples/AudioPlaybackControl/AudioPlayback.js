@@ -55,11 +55,11 @@ enyo.kind({
 					]}
 				]},
 				{kind: "FittableColumns", classes: "", components: [
-					{name: "playTime1", classes: "moon-audio-play-time left", content: "0:00"},
+					{name: "timePlayed", classes: "moon-audio-play-time left", content: "0:00"},
 					{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
 						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
 					]},
-					{name: "playTime2", classes: "moon-audio-play-time right", content: "0:00"}
+					{name: "timeRemaining", classes: "moon-audio-play-time right", content: "0:00"}
 				]}
 			]}
 		]}
@@ -77,8 +77,6 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	toggleTrackDrawer: function() {
-		this.$.client.setDrawerProps({height:this.calcDrawerHeight()});
-		this.$.client.render();
 		this.$.client.setOpen(!this.$.client.getOpen());
 	},
 	endPlayheadJob: function() {
@@ -116,8 +114,8 @@ enyo.kind({
 		this.$.slider.setProgress(playheadPos);
 	},
 	updatePlayTime: function(inStart, inEnd) {
-		this.$.playTime1.setContent(inStart);
-		this.$.playTime2.setContent(inEnd);
+		this.$.timePlayed.setContent(inStart);
+		this.$.timeRemaining.setContent(inEnd);
 	},
 	toReadableTime: function(inValue) {
 		var minutes = Math.floor(inValue / 60).toString();
@@ -132,7 +130,7 @@ enyo.kind({
 	sliderChanging: function(inSender, inEvent) {
 		var totalTime = this.$.sound.getDuration();
 		var currentTime = (totalTime / 100) * inEvent.value;
-		this.$.playTime.setContent(this.toReadableTime(currentTime) + "/" + this.toReadableTime(totalTime));
+		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
 		this.$.sound.seekTo(currentTime);
 	},
 	//* @public
