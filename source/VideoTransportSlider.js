@@ -248,7 +248,6 @@ enyo.kind({
 	},
 	//* When the time updates, update buffered progress and canvas
 	timeUpdate: function(inSender, inEvent) {
-		this.updateBufferedProgress(inEvent.srcElement);
 		this.triggerCanvasUpdate(inEvent.srcElement);
 	},
 	//* Update _this.bgProgress_ to reflect video buffered progress
@@ -257,15 +256,21 @@ enyo.kind({
 			numberOfBuffers = bufferData.length,
 			bufferedPercentage = 0,
 			highestBufferPoint = 0,
+			duration = inNode.duration || 0,
 			endPoint = 0,
 			i
 		;
+		
+		if (duration === 0) {
+			return;
+		}
+		
 		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
 		for (i = 0; i < numberOfBuffers; i++) {
 			endPoint = bufferData.end(i);
 			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
 		}
-		bufferedPercentage = highestBufferPoint * 100 / inNode.duration ;
+		bufferedPercentage = highestBufferPoint * 100 / inNode.duration;
 		this.setBgProgress(bufferedPercentage);
 	},
 	//* Kickoff canvas update when video time changes
@@ -285,8 +290,4 @@ enyo.kind({
 		// draw video preview thumbnail
 		ctx.drawImage(inNode, 0, 0, db.width, db.height);
 	}
-	//* @public 
-	// Developer API
-	// Set Time -> 0~100
-
 });

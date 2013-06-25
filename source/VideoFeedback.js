@@ -12,9 +12,6 @@ enyo.kind({
 		//* Boolean flag for showing status of feedback information
 		showFeedback: false
 	},
-	handlers: {
-		onFeedback: "feedback"
-	},
 	//* @protected
 	_autoTimer: null,
 	components: [
@@ -24,70 +21,69 @@ enyo.kind({
 		]}
 	],
 	//* @public
-	feedback: function(inSender, inEvent) {
-		var msg = inEvent.command;
-		var playbackRate = Math.abs(inEvent.playbackRate);
-		var param = inEvent.param;
-		var src = inEvent.imgsrc;
+	feedback: function(inFeedbackData) {
+		var msg = inFeedbackData.command;
+		var playbackRate = Math.abs(inFeedbackData.playbackRate);
+		var param = inFeedbackData.param;
+		var src = inFeedbackData.imgsrc;
 		var timer = true;
 
-		if(!this.$.feedIcon.getShowing()) {
+		if (!this.$.feedIcon.getShowing()) {
 			this.$.feedIcon.setShowing(true);
 			this.$.feedText.setShowing(true);
 		}
 
-		switch(msg)
-		{
-		case "play":
-			if(param === "live") {
-				msg = "live";
-			}
-			this.configuration(src, 30, 0, "left");
-			break;
-		case "pause":
-			timer = false;
-			if(param === "live") {
-				msg = "00:00:00";
-			}
-			this.configuration(src, 20, 0, "left");
-			break;
-		case "rewind":
-			timer = false;
-			msg = playbackRate+"x";
-			this.configuration(src, 0, 35, "right");
-			break;
-		case "fastForward":
-			timer = false;
-			msg =playbackRate+"x";
-			this.configuration(src, 35, 0, "left");
-			break;
-		case "jumpBackward":
-			if(param === true) { // when paused
+		switch (msg) {
+			case "play":
+				if (param === "live") {
+					msg = "live";
+				}
+				this.configuration(src, 30, 0, "left");
+				break;
+			case "pause":
 				timer = false;
-				msg = "<||";
-				src = "";
-			} else {
-				msg = 30 + "sec";
-			}
-			this.configuration(src, 0, 15, "right");
-			break;
-		case "jumpForward":
-			if(param === true) { // when paused
+				if (param === "live") {
+					msg = "00:00:00";
+				}
+				this.configuration(src, 20, 0, "left");
+				break;
+			case "rewind":
 				timer = false;
-				msg = "||>";
-				src = "";
-			} else {
-				msg = 30 + "sec";
-			}
-			this.configuration(src, 15, 0, "left");
-			break;
-		// after long press Not Implemented yet
-		case "jumpLive":
-			break;
-		case "jumpNext":
-			break;
-		case "jumpPrev":
-			break;
+				msg = playbackRate+"x";
+				this.configuration(src, 0, 35, "right");
+				break;
+			case "fastForward":
+				timer = false;
+				msg =playbackRate+"x";
+				this.configuration(src, 35, 0, "left");
+				break;
+			case "jumpBackward":
+				if (param === true) { // when paused
+					timer = false;
+					msg = "<||";
+					src = "";
+				} else {
+					msg = 30 + "sec";
+				}
+				this.configuration(src, 0, 15, "right");
+				break;
+			case "jumpForward":
+				if (param === true) { // when paused
+					timer = false;
+					msg = "||>";
+					src = "";
+				} else {
+					msg = 30 + "sec";
+				}
+				this.configuration(src, 15, 0, "left");
+				break;
+			
+			// after long press Not Implemented yet
+			case "jumpLive":
+			case "jumpNext":
+			case "jumpPrev":
+			default:
+				break;
 		}
 
 		this.$.feedText.setContent(msg);
