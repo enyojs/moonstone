@@ -59,7 +59,7 @@ enyo.kind({
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "closeControls", onmousemove: "mousemove", components: [
 		
-			{name: "videoInfoHeader", kind: "FittableColumns", classes: "moon-video-player-header", components: [
+			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, classes: "moon-video-player-header", components: [
 				{name: "videoInfo", fit: true, classes: "moon-video-player-info"},
 				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 			]},
@@ -71,11 +71,11 @@ enyo.kind({
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-							{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
-							{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		ontap: "rewind"},
-							{name: "fsPlayPause", kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",			ontap: "playPause"},
-							{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", ontap: "fastForward"},
-							{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+							{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
+							{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		classes: "moon-video-player-control-button", ontap: "rewind"},
+							{name: "fsPlayPause", kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",			classes: "moon-video-player-control-button", ontap: "playPause"},
+							{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", classes: "moon-video-player-control-button", ontap: "fastForward"},
+							{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 					]},
@@ -86,7 +86,10 @@ enyo.kind({
 				]},
 			
 				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", onSpotlightUp: "onLeaveSlider", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", popupColor: "#323232", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"}
+					{name: "slider", kind: "moon.VideoTransportSlider", 
+						knobClasses: "moon-videoplayer-sample-knob", barClasses: "moon-videoplayer-sample-progressbar", bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
+						onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"
+					}
 				]}
 			]},
 		

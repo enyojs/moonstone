@@ -54,8 +54,10 @@ enyo.kind({
 			{name: "endTickText", classes: "moon-indicator-text", content: "01:00 PM"}
 		]},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{tag: "canvas", name: "drawing"},
-			{name: "popupLabel", classes: "moon-slider-popup-label"}
+			{classes: "moon-slider-popup-wrapper", components: [
+				{tag: "canvas", name: "drawing", classes: "moon-slider-popup-canvas"},
+				{name: "popupLabel", classes: "moon-slider-popup-label"}
+			]}
 		]}
 	],
 	//* @protected
