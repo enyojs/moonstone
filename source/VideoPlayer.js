@@ -223,13 +223,12 @@ enyo.kind({
 		}
 		inSender._holding = false;
 	},
-	sendFeedback: function(inCmd, inSrc, inParam) {
+	sendFeedback: function(inCmd, inParam) {
 		var playbackRate = this.$.video.getPlaybackRate(),
 			inParam = inParam || "";
 
 		this.$.feedbackHeader.feedback({
 			command: inCmd,
-			imgsrc: inSrc,
 			param: inParam,
 			playbackRate: playbackRate
 		});
@@ -312,61 +311,59 @@ enyo.kind({
 	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
-		var src = inSender.src;
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("play", src);
+		this.sendFeedback("play");
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
-		var src = inSender.src;
 		this._isPlaying = false;
 		this.$.video.pause();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("pause", src);
+		this.sendFeedback("pause");
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.rewind();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("rewind", inSender.src);
+		this.sendFeedback("rewind");
 	},
 	//* Facade _this.$.video.jumpToStart_
 	jumpToStart: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.jumpToStart();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpToStart", inSender.src);
+		this.sendFeedback("jumpToStart");
 	},
 	//* Facade _this.$.video.jumpBackward_
 	jumpBackward: function(inSender, inEvent) {
 		this._isPlaying = true;
 		this.$.video.jumpBackward();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpBackward", inSender.src);
+		this.sendFeedback("jumpBackward");
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.fastForward();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("fastForward", inSender.src);
+		this.sendFeedback("fastForward");
 	},
 	//* Facade _this.$.video.jumpToEnd_
 	jumpToEnd: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.jumpToEnd();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpToEnd", inSender.src);
+		this.sendFeedback("jumpToEnd");
 	},
 	//* Facade _this.$.video.jumpForward_
 	jumpForward: function(inSender, inEvent) {
 		this._isPlaying = true;
 		this.$.video.jumpForward();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpForward", inSender.src);
+		this.sendFeedback("jumpForward");
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {

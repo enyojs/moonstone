@@ -10,7 +10,15 @@ enyo.kind({
 		//* Timeout duration for disapearing feedback information 
 		autoTimeout: 3,
 		//* Boolean flag for showing status of feedback information
-		showFeedback: false
+		showFeedback: false,
+
+		imagePath: "$lib/moonstone/images/",
+		jumpBackImg: "icon-jumpback.png",
+		rewindImg: "icon-rewind.png",
+		playImg: "icon-play.png",
+		pauseImg: "icon-pause.png",
+		fastForwardImg: "icon-fastforward.png",
+		jumpForwardImg: "icon-jumpforward.png"
 	},
 	//* @protected
 	_autoTimer: null,
@@ -25,7 +33,7 @@ enyo.kind({
 		var msg = inFeedbackData.command;
 		var playbackRate = Math.abs(inFeedbackData.playbackRate);
 		var param = inFeedbackData.param;
-		var src = inFeedbackData.imgsrc;
+		//var src = inFeedbackData.imgsrc;
 		var timer = true;
 
 		if (!this.$.feedIcon.getShowing()) {
@@ -34,56 +42,54 @@ enyo.kind({
 		}
 
 		switch (msg) {
-			case "play":
-				if (param === "live") {
-					msg = "live";
-				}
-				this.configuration(src, 30, 0, "left");
-				break;
-			case "pause":
+		case "play":
+			if (param === "live") {
+				msg = "live";
+			}
+			this.configuration(this.imagePath+this.playImg, 30, 0, "left");
+			break;
+		case "pause":
+			timer = false;
+			if (param === "live") {
+				msg = "00:00:00";
+			}
+			this.configuration(this.imagePath+this.pauseImg, 20, 0, "left");
+			break;
+		case "rewind":
+			timer = false;
+			msg = playbackRate+"x";
+			this.configuration(this.imagePath+this.rewindImg, 0, 35, "right");
+			break;
+		case "fastForward":
+			timer = false;
+			msg =playbackRate+"x";
+			this.configuration(this.imagePath+this.fastForwardImg, 35, 0, "left");
+			break;
+		case "jumpBackward":
+			if (param === true) { // when paused
 				timer = false;
-				if (param === "live") {
-					msg = "00:00:00";
-				}
-				this.configuration(src, 20, 0, "left");
-				break;
-			case "rewind":
+				msg = "<||";
+			} else {
+				msg = 30 + "sec";
+			}
+			this.configuration(this.imagePath+this.jumpBackImg, 0, 15, "right");
+			break;
+		case "jumpForward":
+			if (param === true) { // when paused
 				timer = false;
-				msg = playbackRate+"x";
-				this.configuration(src, 0, 35, "right");
-				break;
-			case "fastForward":
-				timer = false;
-				msg =playbackRate+"x";
-				this.configuration(src, 35, 0, "left");
-				break;
-			case "jumpBackward":
-				if (param === true) { // when paused
-					timer = false;
-					msg = "<||";
-					src = "";
-				} else {
-					msg = 30 + "sec";
-				}
-				this.configuration(src, 0, 15, "right");
-				break;
-			case "jumpForward":
-				if (param === true) { // when paused
-					timer = false;
-					msg = "||>";
-					src = "";
-				} else {
-					msg = 30 + "sec";
-				}
-				this.configuration(src, 15, 0, "left");
-				break;
-			
-			// after long press Not Implemented yet
-			case "jumpLive":
-			case "jumpNext":
-			case "jumpPrev":
-			default:
-				break;
+				msg = "||>";
+			} else {
+				msg = 30 + "sec";
+			}
+			this.configuration(this.imagePath+this.jumpForwardImg, 15, 0, "left");
+			break;
+		
+		// after long press Not Implemented yet
+		case "jumpLive":
+		case "jumpNext":
+		case "jumpPrev":
+		default:
+			break;
 		}
 
 		this.$.feedText.setContent(msg);
