@@ -1,3 +1,5 @@
+// Sample View
+
 enyo.kind({
     name: "moon.sample.photos.AlbumListItem",
     classes: "sample-album-list-item",
