@@ -6,7 +6,7 @@ enyo.kind({
 		{kind:"enyo.Spotlight"},
 		{kind:"moon.Scroller", fit:true, components: [
 			{kind: "moon.Divider", content:"Picker 1: Animated"},
-			{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
+			{kind:"moon.SimplePicker", name:"picker1", wrap: true, onChange:"changed", components: [
 				{content:"San Francisco"},
 				{content:"Boston"},
 				{content:"Tokyo"}
