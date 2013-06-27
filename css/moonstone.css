@@ -32,6 +32,7 @@
 /* ---------------------------------------*/
 /* Items */
 /* ---------------------------------------*/
+/* Divider */
 /* Breadcrumb */
 /* ---------------------------------------*/
 /* Spinner */
@@ -201,7 +202,7 @@
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
@@ -241,6 +242,9 @@
   padding-left: 8px;
   padding-right: 0px;
 }
+.moon-divider-border {
+  border-bottom: 2px solid #b5b5b5;
+}
 .moon-superscript {
   font-size: 24px;
   vertical-align: top;
@@ -271,21 +275,21 @@
 }
 .moon-sub-header-text {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
 }
 .moon-divider-text {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -355,12 +359,12 @@
 }
 .moon-simple-integer-picker {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 22px;
+  line-height: 22px;
   position: relative;
   display: table-cell;
   vertical-align: middle;
@@ -394,12 +398,12 @@
 }
 .moon-simple-integer-picker-item {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 22px;
+  line-height: 22px;
   display: table;
   white-space: nowrap;
   text-align: center;
@@ -494,15 +498,15 @@
 }
 .moon-divider {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
-  line-height: 20px;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #b5b5b5;
+  line-height: 22px;
   color: #4b4b4b;
-  border-bottom: 1px solid #b5b5b5;
-  margin: 0px 0px 37px 0px;
-  padding: 0px 0px 6px 0px;
+  margin: 0px 0px 27px 0px;
+  padding: 0px 0px 5px 0px;
   text-transform: capitalize;
 }
 .moon-checkbox-item {
@@ -511,10 +515,8 @@
   margin-bottom: 33px;
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 30px;
-  min-height: 21.84px;
+  height: 1.08em;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
-  padding: 2px 0px 0px 0px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   -webkit-mask-image: -webkit-linear-gradient(left, transparent 40px, #ffffff 50px);
@@ -586,8 +588,11 @@
   display: block;
   position: relative;
 }
+.moon-toggle-item.moon-item {
+  margin-bottom: 16px;
+}
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 30px;
+  height: 1.08em;
   -webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, #ffffff 75px);
   padding: 2px 0px 0px 0px;
 }
@@ -608,7 +613,7 @@
   float: right;
 }
 .moon-toggle-item .moon-toggle-text-text {
-  margin-top: -1px;
+  margin-top: 2px;
 }
 .moon-toggle-item.disabled .moon-toggle-text-text {
   color: inherit;
@@ -633,7 +638,7 @@
 /* Item.css */
 .moon-item {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -644,9 +649,9 @@
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 30px;
+  line-height: 1.08em;
   color: #4b4b4b;
-  margin: 0px 0px 32px 0px;
+  margin: 0px 0px 26px 0px;
   padding: 2px 0px 0px 0px;
   vertical-align: top;
   position: relative;
@@ -659,7 +664,7 @@
 .moon-item.spotlight {
   border-style: solid;
   border-color: #ffb80d;
-  line-height: 30px;
+  line-height: 1.08em;
 }
 .moon-item-overlay {
   transition: height 0.1s linear, width 0.1s linear;
@@ -747,7 +752,7 @@
   letter-spacing: normal;
   max-height: 106px;
   border-radius: 9999px;
-  line-height: 30px;
+  line-height: 1em;
   background-color: #ffffff;
   border: 5px solid transparent;
   cursor: pointer;
@@ -772,7 +777,7 @@
   min-height: 60px;
   min-width: 60px;
   padding: 13px 22px 13px 22px;
-  line-height: 20px;
+  line-height: 0.84em;
   position: relative;
   overflow: visible;
 }
@@ -863,7 +868,7 @@
 }
 .moon-breadcrumb-decorator.instantOn .moon-breadcrumb-wrapper .moon-breadcrumb {
   font-size: 24px;
-  line-height: 24px;
+  line-height: 1em;
   color: #fff;
   display: inline-block;
   margin-right: 20px;
@@ -876,10 +881,10 @@
 }
 .moon-button-caption-decorator .moon-caption {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   display: inline-block;
 }
 .moon-button-caption-decorator .moon-caption.left,
@@ -923,7 +928,7 @@
 /* Radio Item */
 .moon-radio-item {
   border-radius: 0px;
-  line-height: 25px;
+  line-height: 1em;
   text-align: left;
 }
 .enyo-locale-right-to-left .moon-radio-item {
@@ -946,7 +951,7 @@
 }
 .moon-radio-item-group .moon-button {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -957,7 +962,7 @@
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
-  line-height: 30px;
+  line-height: 1em;
   color: #4b4b4b;
   margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
@@ -1052,9 +1057,9 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-picker-header {
-  line-height: 28px;
+  line-height: 1em;
   padding: 0px;
-  margin: 0px 0px 10px 0px;
+  margin: 0px 0px 4px 0px;
   transition: all 0.1s linear;
   -webkit-transition: all 0.1s linear;
   -moz-transition: all 0.1s linear;
@@ -1062,20 +1067,20 @@
 }
 .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
-  padding: 0px;
-  border-bottom: 1px solid #aaa;
-  margin-bottom: 45px;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #b5b5b5;
+  padding-bottom: 2px;
+  margin-bottom: 27px;
 }
 .moon-expandable-picker-current-value {
-  font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-family: "MuseoSans 300";
+  font-size: 26px;
   font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.04em;
+  font-style: normal;
+  letter-spacing: -0.04em;
   color: #4B4B4B;
   margin: 0px;
   padding: 0px;
@@ -1096,7 +1101,7 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-integer-picker-header {
-  line-height: 28px;
+  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 10px 0px;
   transition: all 0.1s linear;
@@ -1106,23 +1111,22 @@
 }
 .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #b5b5b5;
   padding: 0px;
-  border-bottom: 1px solid #aaa;
   margin-bottom: 45px;
 }
 .moon-expandable-integer-picker-current-value {
-  font-family: "MuseoSans 700";
-  font-size: 20px;
-  font-style: italic;
-  letter-spacing: 0.04em;
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
   margin: 0px;
   padding: 0px;
-  line-height: 14px;
-  font-weight: normal;
 }
 .moon-header {
   color: #4b4b4b;
@@ -1143,7 +1147,7 @@
 .moon-header-title-above {
   font-size: 36px;
   font-weight: normal;
-  line-height: 36px;
+  line-height: 1em;
   padding: 10px 0px 10px 0px;
   margin: 0px;
   width: 30px;
@@ -1154,30 +1158,30 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
-  line-height: 90px;
+  line-height: 0.643em;
   padding: 19px 0px 0px 0px;
   margin: 0px 0px 30px 0px;
   white-space: nowrap;
 }
 .moon-header-title-below {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  line-height: 28px;
-  min-height: 28px;
+  line-height: 1em;
+  min-height: 30px;
   padding: 6px 0px 10px 0px;
   margin: 0px;
 }
 .moon-header-sub-title-below {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  line-height: 25px;
-  min-height: 25px;
+  line-height: 26px;
+  min-height: 26px;
   padding: 6px 0px 6px 0px;
   margin: 0px;
 }
@@ -1244,8 +1248,8 @@
   font-weight: bold;
   font-size: 12px;
   text-align: center;
-  height: 20px;
-  line-height: 20px;
+  height: 1.67em;
+  line-height: 1.67em;
   text-transform: uppercase;
   z-index: 10;
   padding: 0px;
@@ -1259,8 +1263,8 @@
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #A2A2A2;
-  line-height: 15px;
-  height: 15px;
+  line-height: 1.25em;
+  height: 1.25em;
   vertical-align: bottom;
 }
 .moon-gridlist-imageitem.spotlight {
@@ -1289,7 +1293,7 @@
   position: absolute;
   z-index: 150;
   text-align: center;
-  line-height: 40px;
+  line-height: 1.34em;
   background: transparent;
   opacity: 1;
   font-family: "Miso";
@@ -1360,10 +1364,10 @@
 }
 .moon-integer-picker {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   display: inline-block;
   overflow: hidden;
   cursor: pointer;
@@ -1381,10 +1385,10 @@
 }
 .moon-integer-picker-item {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
   background: white;
 }
@@ -1394,7 +1398,6 @@
 }
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
-  padding: 27px 21px;
   display: inline-block;
 }
 .moon-scroll-picker {
@@ -1405,7 +1408,7 @@
   border-bottom-width: 25px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 24px;
+  border-radius: 40px;
 }
 .moon-scroll-picker.spotlight {
   border-top-color: #ffb80d;
@@ -1445,6 +1448,7 @@
   border-top-style: solid;
   border-top-color: #ffb80d;
   bottom: -56px;
+  overflow: hidden;
 }
 .moon-scroll-picker-overlay-container-bottom {
   position: relative;
@@ -1476,7 +1480,8 @@
   position: relative;
   z-index: 10;
   top: 3px;
-  left: 33%;
+  left: 50%;
+  margin-left: -5px;
 }
 .up-arrow {
   border-color: transparent transparent #ededed transparent;
@@ -1524,7 +1529,8 @@
   position: relative;
   z-index: 10;
   top: 137px;
-  left: 12%;
+  left: 50%;
+  margin-left: -10px;
 }
 .enyo-locale-right-to-left .down-arrow-container {
   right: 12%;
@@ -1584,7 +1590,7 @@
 .moon-item.moon-date-picker-header {
   line-height: 0.85em;
   padding: 0px;
-  margin: 0px;
+  margin: 0px 0px 7px 0px;
   transition: all 0.1s linear;
   -webkit-transition: all 0.1s linear;
   -moz-transition: all 0.1s linear;
@@ -1592,20 +1598,20 @@
 }
 .moon-date-picker.open .moon-date-picker-header {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #b5b5b5;
   padding: 0px;
   line-height: 1.2em;
-  border-bottom: 1px solid #aaa;
 }
 .moon-date-picker-client {
-  padding-top: 10px;
+  padding-top: 20px;
 }
 .moon-date-picker-current-value {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -1614,25 +1620,22 @@
 }
 .moon-date-picker-day {
   padding-right: 40px;
-  width: 25px;
+  width: 60px;
 }
 .moon-date-picker-month {
   padding-right: 40px;
-  width: 25px;
+  width: 60px;
 }
 .moon-date-picker-year {
-  width: 35px;
+  width: 80px;
 }
-.moon-date-picker-year .up-arrow-container {
-  left: 37%;
-}
-.moon-date-picker-year .down-arrow-container {
-  left: 23%;
+.moon-date-picker-month.moon-date-picker-year {
+  width: 60px;
 }
 /* Input.css */
 .moon-input {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -1664,10 +1667,10 @@
 /* InputDecorator.css */
 .moon-input-decorator {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   margin: 0px;
   padding: 8px 35px 8px 35px;
   border-radius: 29px;
@@ -1767,7 +1770,7 @@
   white-space: nowrap;
   color: #fff;
   text-align: center;
-  line-height: 45px;
+  line-height: 1.5em;
   vertical-align: middle;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
@@ -1791,7 +1794,7 @@
 /* RichText.css */
 .moon-richtext {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -1845,7 +1848,7 @@
 .moon-contextual-popup,
 .enyo.moon-contextual-popup {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -1985,10 +1988,11 @@
 /* TextArea.css */
 .moon-textarea {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
+  line-height: 1.5em;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -1999,6 +2003,7 @@
   /* need >=50px for scrollbar to be usable on mac */
 
   min-height: 50px;
+  height: 4.5em;
   min-width: 100px;
 }
 .moon-input-decorator > .moon-textarea {
@@ -2054,7 +2059,7 @@
 }
 .moon-list-actions-close::after {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -2094,7 +2099,7 @@
 }
 .moon-labeledtextitem .label {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -2105,12 +2110,12 @@
 }
 .moon-labeledtextitem .text {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  line-height: 35px;
+  line-height: 1.5em;
   text-transform: none;
   margin: 0px;
   padding: 0px;
@@ -2185,7 +2190,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 0px;
   border-color: #ffb80d;
   overflow: hidden;
-  margin-bottom: 45px;
+  margin-bottom: 16px;
 }
 .enyo-locale-right-to-left .moon-accordion {
   padding: 0px 0px 0px 16px;
@@ -2234,15 +2239,20 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-accordion-client .moon-item {
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
+  margin-bottom: 14px;
+}
+.moon-accordion-client .moon-item:first-child {
+  margin-top: 10px;
 }
 .moon-accordion-bottom {
   margin: 0px;
   padding: 0px;
   height: 0px;
+  margin-bottom: 10px;
 }
 .moon-accordion-arrow {
   position: relative;
@@ -2254,6 +2264,7 @@ body .enyo-fit.panels-50-percent-scrim,
   border-color: transparent transparent #666666 transparent;
   border-style: solid;
   border-width: 10px;
+  margin-bottom: 10px;
 }
 .moon-accordion-arrow.down {
   top: 5px;
@@ -2285,6 +2296,7 @@ body .enyo-fit.panels-50-percent-scrim,
 /* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
+  text-align: center;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2305,7 +2317,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-calendar-picker-date {
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
@@ -2318,7 +2330,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background: inherit;
   color: #4b4b4b;
   padding: 0px;
-  margin: 0 2.26%;
+  margin: 10px;
   text-align: center;
   vertical-align: middle;
 }
@@ -2386,7 +2398,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-searchheader-title-above {
   font-size: 36px;
   font-weight: bold;
-  line-height: 36px;
+  line-height: 1em;
   padding: 0px;
   margin: 54px 0px 7px 1px;
   width: 30px;
@@ -2395,7 +2407,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-searchheader-title {
   font-size: 36px;
   font-weight: bold;
-  line-height: 36px;
+  line-height: 1em;
   text-transform: uppercase;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 6px 0px;
@@ -2403,7 +2415,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-searchheader-title-below {
   font-size: 18px;
   font-weight: normal;
-  line-height: 18px;
+  line-height: 1em;
   min-height: 18px;
   padding: 0px 0px 0px 0px;
   margin: 18px;
@@ -2448,7 +2460,7 @@ p.moon-drawer-handle-text {
   height: 16px;
   color: white;
   text-align: center;
-  line-height: 16px;
+  line-height: 0.9em;
   word-wrap: break-word;
 }
 .moon-drawer-handle-text.marquee {
@@ -2626,7 +2638,7 @@ p.moon-drawer-handle-text {
   margin-bottom: 40px;
 }
 .moon-dialog-message {
-  font-size: 28px;
+  font-size: 30px;
 }
 .moon-dialog-client > * {
   margin-left: 10px;

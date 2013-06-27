@@ -55,6 +55,10 @@
 	padding-right: @moon-spotlight-padding-right;
 }
 
+.moon-divider-border {
+	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
+}
+
 .moon-superscript {
 	font-size: @moon-superscript-text-size;
 	vertical-align: top;
@@ -91,6 +95,9 @@
 	font-weight: @moon-sub-header-font-weight;
 	font-style: @moon-sub-header-font-style;
 	letter-spacing: @moon-sub-header-letter-spacing;
+	// line-height: @moon-sub-header-line-height; 
+	//for spotlight reasons, cannot set line-height according to spec
+	// have to use margin to achieve same appearance
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
@@ -105,6 +112,7 @@
 	font-weight: @moon-body-font-weight;
 	font-style: @moon-body-font-style;
 	letter-spacing: @moon-body-letter-spacing;
+	// line-height: @moon-body-line-height;
 }
 .moon-large-button-text {
 	font-family: @moon-button-font-family;
@@ -151,6 +159,7 @@
 @import "IntegerPicker.less";
 @import "IntegerScrollPicker.less";
 @import "DatePicker.less";
+@import "TimePicker.less";
 @import "Input.less";
 @import "InputDecorator.less";
 @import "ProgressBar.less";
