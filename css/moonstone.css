@@ -2594,6 +2594,32 @@ p.moon-drawer-handle-text {
   padding: 40px;
   box-sizing: border-box;
 }
+.moon-popup-close {
+  border-radius: 9999px;
+  line-height: 24px;
+  background-color: #ededed;
+  border: 5px solid transparent;
+  float: right;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0px 0px 0px 0px;
+  margin: 10px 10px 0px 10px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+.moon-popup-close.spotlight {
+  background: #ffb80d;
+}
+.moon-popup-close::after {
+  content: "\2716";
+  font-size: 25px;
+  position: relative;
+  top: 1px;
+  left: 0px;
+  color: #4b4b4b;
+}
 /* Dialog.css */
 .moon-dialog-title {
   font-size: 82px;
