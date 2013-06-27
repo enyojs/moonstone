@@ -1,3 +1,5 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.photos.PhotoGridSample",
     kind: "moon.Panel",
@@ -7,10 +9,10 @@ enyo.kind({
     titleBelow: "97 Photos",
 
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-list.png"},
-        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-list.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
 
     components: [
@@ -52,16 +54,16 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menus: new enyo.Collection([
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"},
-            {imgSrc: "./assets/default-movie.png"}
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"},
+            {imgSrc: "../assets/default-movie.png"}
         ])        
     });
 
