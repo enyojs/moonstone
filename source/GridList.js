@@ -34,6 +34,7 @@ enyo.kind({
     kind: "enyo.GridList",
     classes: "moon-gridlist",
     spotlight: true,
+    noDefer: true,
     itemSpacing: 64,
     itemMinWidth: 180,
     itemMinHeight: 180,
@@ -110,10 +111,10 @@ enyo.kind({
 			b.left += n.offsetLeft - marginExtents.left + marginExtents.right;
 			n = n.offsetParent;
 		}
-		
+
 		var xDir = (this.isInViewX(inNode)) ? 0 : b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
 		var yDir = (this.isInViewY(inNode)) ? 0 : b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
-		
+
 		var y = (yDir === 0) ? sb.top :
 			(inLazy)
 				?	(yDir === 1)
@@ -127,7 +128,7 @@ enyo.kind({
 					?	b.left + b.width - sb.clientWidth
 					:	b.left
 				:	Math.min(sb.maxLeft, b.left);
-		
+
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x,y);
