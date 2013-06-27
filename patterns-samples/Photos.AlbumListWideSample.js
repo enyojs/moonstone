@@ -1,4 +1,4 @@
-// Sample View
+// Sample view
 
 enyo.kind({
     name: "moon.sample.photos.AlbumListItem",

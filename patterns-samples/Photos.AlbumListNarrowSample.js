@@ -1,4 +1,4 @@
-// Sample View
+// Sample view
 
 enyo.kind({
     name: "moon.sample.photos.AlbumListItem",
@@ -91,7 +91,7 @@ enyo.ready(function(){
             {option: {source: "./assets/default-movie.png", bgSource: "./assets/bg-movie.png", title: "Album Name"}},
             {option: {source: "./assets/default-movie.png", bgSource: "./assets/bg-movie.png", title: "Album Name"}},
             {option: {source: "./assets/default-movie.png", bgSource: "./assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "./assets/default-movie.png", bgSource: "./assets/bg-movie.png", title: "Album Name"}}            
+            {option: {source: "./assets/default-movie.png", bgSource: "./assets/bg-movie.png", title: "Album Name"}}
         ])
     });
 
