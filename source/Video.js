@@ -45,14 +45,19 @@ enyo.kind({
 	},
 	events: {
 		onFastforward: "",
+		onSlowforward: "",
 		onRewind: "",
+		onSlowrewind: "",
 		onJumpForward: "",
-		onJumpBackward: ""
+		onJumpBackward: "",
+		onPlay: ""
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
 		onloadedmetadata: "metadataLoaded",
-		ontimeupdate: "timeupdate"
+		ontimeupdate: "timeupdate",
+		onratechange: "ratechange",
+		onplay: "_play"
 	},
 	tag: "video",
 	//* @protected
@@ -289,7 +294,6 @@ enyo.kind({
 	},
 	setPlaybackRate: function(inPlaybackRate) {
 		var node = this.hasNode(),
-			pbRateArray,
 			pbNumber
 		;
 		
@@ -303,9 +307,7 @@ enyo.kind({
 		// Make sure inPlaybackRate is a string
 		this.playbackRate = inPlaybackRate = String(inPlaybackRate);
 		
-		// Calc number value of inPlaybackRate (support for fractions)
-		pbRateArray = String(inPlaybackRate).split("/");
-		pbNumber = (pbRateArray.length > 1) ? parseInt(pbRateArray[0], 10) / parseInt(pbRateArray[1], 10) : parseInt(inPlaybackRate, 10);
+		pbNumber = this.calcNumberValueOfPlaybackRate(inPlaybackRate);
 		
 		// Set native playback rate
 		node.playbackRate = pbNumber;
@@ -348,8 +350,7 @@ enyo.kind({
 	_rewind: function() {
 		var now = enyo.now(),
 			distance = now - this.rewindBeginTime,
-			pbRateArray = String(this.playbackRate).split("/"),
-			pbRate = pbRateArray.length > 1 ? pbRateArray[0] / pbRateArray[1] : pbRateArray[0],
+			pbRate = this.calcNumberValueOfPlaybackRate(this.playbackRate),
 			adjustedDistance = Math.abs(distance * pbRate) / 1000,
 			newTime = this.getCurrentTime() - adjustedDistance
 		;
@@ -365,6 +366,11 @@ enyo.kind({
 	//* Stop rewind job
 	stopRewindJob: function() {
 		enyo.job.stop(this.id + "rewind");
+	},
+	// Calc number value of inPlaybackRate (support for fractions)
+	calcNumberValueOfPlaybackRate: function(inPlaybackRate) {
+		var pbArray = String(inPlaybackRate).split("/");
+		return (pbArray.length > 1) ? parseInt(pbArray[0], 10) / parseInt(pbArray[1], 10) : parseInt(inPlaybackRate, 10);
 	},
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
@@ -382,13 +388,30 @@ enyo.kind({
 		}
 		
 		inEvent = enyo.mixin(inEvent, this.createEventData());
+	},
+	ratechange: function(inSender, inEvent) {
+		var node = this.hasNode(),
+			pbNumber
+		;
 		
-		if (this.node.playbackRate == 1) {
+		if (!node) {
 			return;
-		} else if (this.node.playbackRate > 0) {
+		}
+		
+		inEvent = enyo.mixin(inEvent, this.createEventData());
+		
+		pbNumber = this.calcNumberValueOfPlaybackRate(inEvent.playbackRate);
+		
+		if (pbNumber > 0 && pbNumber < 1) {
+			this.doSlowforward(inEvent);
+		} else if (pbNumber > 1) {
 			this.doFastforward(inEvent);
-		} else if (this.node.playbackRate < 0) {
+		} else if (pbNumber < 0 && pbNumber > -1) {
+			this.doSlowrewind(inEvent);
+		} else if (pbNumber < -1) {
 			this.doRewind(inEvent);
+		} else if (pbNumber == 1) {
+			this.doPlay(inEvent);
 		}
 	},
 	createEventData: function() {
@@ -405,6 +428,20 @@ enyo.kind({
 			playbackRate: this.getPlaybackRate()
 		};
 		
+	},
+	//* Emit _onPlay_ event (to normalize enyo-generated _onPlay_ events)
+	_play: function(inSender, inEvent) {
+		var node = this.hasNode(),
+			pbNumber
+		;
+		
+		if (!node) {
+			return;
+		}
+		
+		inEvent = enyo.mixin(inEvent, this.createEventData());
+		
+		this.doPlay(inEvent);
 	},
 	//* Add all html5 video events
 	hookupVideoEvents: function() {
