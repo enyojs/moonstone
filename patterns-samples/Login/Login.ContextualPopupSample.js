@@ -75,7 +75,7 @@ enyo.kind({
                 {name: "buttonList", layoutkind: "FittableRowsLayout", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
 						{kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
-							{tag: "img", attributes: {src: "assets/icon-half-like.png"}},
+							{tag: "img", attributes: {src: "../assets/icon-half-like.png"}},
 							{content: "LIKE"}
 						]},
 						{kind: "moon.ContextualLoginPopup"}

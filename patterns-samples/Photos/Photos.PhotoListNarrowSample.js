@@ -21,7 +21,7 @@ enyo.kind({
                             scrollerOptions: {horizontal: "hidden", thumb: false},
                             style: "width: 300px;",
                             components: [
-                                {kind: "moon.ImageItem", bindFrom: "imgSrc", bindTo: "src"}
+                                {kind: "moon.ImageItem", bindFrom: "imgSrc", bindTo: "source"}
                             ]
                         }
                     ]

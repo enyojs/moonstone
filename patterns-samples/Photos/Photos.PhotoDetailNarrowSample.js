@@ -10,9 +10,9 @@ enyo.kind({
     titleBelow: "2013-04-08",
     
     headerComponents : [
-        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
 
     components: [
@@ -32,7 +32,7 @@ enyo.kind({
 
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
-        src: "./../assets/default-movie.png"
+        src: "../assets/default-movie.png"
     });
 
 //  Application to render sample
