@@ -11,8 +11,22 @@ enyo.kind({
 	handlers: {
 		onRequestShowPopup: "requestShow",
 		onRequestHidePopup: "requestHide",
-		onActivate: "decorateActivateEvent"
+		onActivate: "decorateActivateEvent",
+		onSpotlightUp: "spotlightUp",
+		onSpotlightDown: "spotlightDown",
+		onSpotlightLeft: "spotlightLeft",
+		onSpotlightRight: "spotlightRight",
+		onSpotlightSelect: "spotSelect"
 	},
+	published: {
+		//* When true, spotlight cannot leave constraints of _moon.Popup_ unless explicitly closed
+		spotlightModal: false,
+		//* When false, closeButton is hidden. When true, it is shown. When "auto", it is shown when spotlightModal:true
+		showCloseButton: "auto"
+	},
+	spotlight: "container",
+	//* @protected
+	_spotlight: null,
 	floating:true,
 	//layout parameters
 	vertFlushMargin:0, //vertical flush layout margin
@@ -20,16 +34,27 @@ enyo.kind({
 	widePopup:200, //popups wider than this value are considered wide (for layout purposes)
 	longPopup:200, //popups longer than this value are considered long (for layout purposes)
 	horizBuffer:16, //do not allow horizontal flush popups past spec'd amount of buffer space on left/right screen edge
+	activator: null,
+	tools: [
+		{name: "client"},
+		{name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+	],
+	//* Creates chrome
+	initComponents: function() {
+		this.createChrome(this.tools);
+		this.inherited(arguments);
+	},
+	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
+		this.activator = inEvent.activator;
+		this.spotlight = this._spotlight;
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
 		this.show();
-		return true;
-	},
-	requestHide: function(inSender, inEvent) {
-		this.hide();
+		this.configCloseButton();
+		this.configSpotlightBehavior(true);
 		return true;
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
@@ -45,5 +70,117 @@ enyo.kind({
 		var rWidth = (r.width === undefined) ? (r.right - r.left) : r.width;
 
 		return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth};
+	},
+	/**
+		When hitting Esc to dismiss the popup
+	*/
+	keydown: function(inSender, inEvent) {
+		if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
+			enyo.Spotlight.spot(this.activator);
+			this.hide();
+		}
+	},
+	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
+	//* _tap()_ code.
+	tap: function(inSender, inEvent) {
+		if (this.downEvent.type !== "onSpotlightSelect") {
+			return this.inherited(arguments);
+		}
+	},
+	//* Renders _moon.ContextualPopup_, extending _enyo.Popup_
+	render: function() {
+		this.allowHtmlChanged();
+		this.contentChanged();
+		this.inherited(arguments);
+		this._spotlight = this.spotlight;
+	},
+	closePopup: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this.activator);
+		this.$.closeButton.removeClass("pressed");
+		this.hide();
+	},
+	//* Determine whether to display closeButton
+	configCloseButton: function() {
+		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+			this.activator.keepOpen = true;
+			this.$.closeButton.show();
+			this.$.closeButton.spotlight = true;
+		} else {
+			this.$.closeButton.hide();
+			this.$.closeButton.spotlight = false;
+		}
+	},
+	contentChanged: function() {
+		this.$.client.setContent(this.content);
+	},
+	allowHtmlChanged: function() {
+		this.$.client.setAllowHtml(this.allowHtml);
+	},
+	//* Spotlight the first spottable control, if possible
+	configSpotlightBehavior: function(spotChild) {
+		if (enyo.Spotlight.getChildren(this).length > 0) {
+			if (spotChild) enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+		} else if (!this.spotlightModal) {
+			this.activator.keepOpen = false;
+			this.spotlight = false;
+		}
+	},
+	//* When _this.spotlight_ changes
+	spotlightChanged: function() {
+		this._spotlight = this.spotlight;
+		this.configSpotlightBehavior(false);
+	},
+	//* When _this.spotlightModal_ changes
+	spotlightModalChanged: function() {
+		this.configCloseButton();
+	},
+	//* When _this.showCloseButton_ changes
+	showCloseButtonChanged: function() {
+		this.configCloseButton();
+	},
+	spotSelect: function(inSender, inEvent) {
+		this.downEvent = inEvent;
+	},
+	/**
+		Check whether to allow spotlight to move to any given direction.
+	*/
+	spotChecker: function(inDirection) {
+		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
+		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
+			if (this.spotlightModal) {
+				return true;
+			} else {
+				enyo.Spotlight.spot(this.activator);
+				this.hide();
+			}
+		}
+	},
+	/**
+		When spotlight reaches top edge of popup, prevents user from
+		continuing further.
+	*/
+	spotlightUp: function(inSender, inEvent) {
+		return this.spotChecker("UP");
+	},
+	/**
+		When spotlight reaches bottom edge of popup, prevents user from
+		continuing further.
+	*/
+	spotlightDown: function(inSender, inEvent) {
+		return this.spotChecker("DOWN");
+	},
+	/**
+		When spotlight reaches left edge of popup, prevents user from
+		continuing further.
+	*/
+	spotlightLeft: function(inSender, inEvent) {
+		return this.spotChecker("LEFT");
+	},
+	/**
+		When spotlight reaches right edge of popup, prevents user from
+		continuing further.
+	*/
+	spotlightRight: function(inSender, inEvent) {
+		return this.spotChecker("RIGHT");
 	}
 });
