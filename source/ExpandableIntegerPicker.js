@@ -41,7 +41,7 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.SimpleIntegerPicker",
 	handlers: {
-		// spotlightFocus: "activated",
+		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
 	},
 	components: [
@@ -94,6 +94,7 @@ enyo.kind({
 		if (this.isRendered) {
 			setTimeout(function() {
 				_this.setOpen(false);
+				_this.active = false;
 				enyo.Spotlight.spot(_this);
 			}, 300);
 		}
@@ -101,11 +102,19 @@ enyo.kind({
 	changeHandler: function(inSender, inEvent) {
 		this.updateContent();
 	},
+	//* Capture onActivate events to prevent bubbling
+	activated: function(inSender, inEvent) {
+		//* Prevent bubbling if _inEvent.originator_ is not an instance of _this.kind_
+		var eli = inEvent.originator instanceof moon.ExpandableListItem;
+		if (!eli) {
+			return true;
+		}
+	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({
 			value: this.value,
-			content: this.content,
+			content: this.content
 		});
 	},
 	resized: function() {
