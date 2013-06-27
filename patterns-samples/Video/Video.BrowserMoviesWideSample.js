@@ -72,6 +72,7 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         albums: new enyo.Collection([
+<<<<<<< HEAD:patterns-samples/Video/Video.BrowserMoviesWideSample.js
             {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
             {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
             {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
@@ -82,6 +83,18 @@ enyo.ready(function(){
             {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
             {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
             {option: {src: "../assets/default-music.png", caption: "Movie Name"}}
+=======
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "assets/default-music.png", caption: "Movie Name"}}
+>>>>>>> master:patterns-samples/Video.BrowserMoviesWideSample.js
         ])
     });
 
