@@ -1,0 +1,118 @@
+.gray-background {
+    background: #eaeaea;
+}
+
+.moon-video-browsermovies {
+    position: absolute;
+    top: 42px;
+    left: 0px;
+    margin: 0px 20px 20px 20px;
+    width: 100%;
+}
+
+.moon-video-browsermovie-header-button {
+    margin: 0px 0px 5px 0px;
+}
+
+.moon-video-browsermovies-container {
+    margin: 28px 0px 0px 0px;
+}
+
+.moon-video-browsermovies-item {
+    margin: 0px 0px 10px 0px;
+	transition: all 0.1s linear;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+}
+
+.moon-video-browsermovies-item-image {
+    width: 230px;
+    height: 130px;
+    margin: 0px 12px 0px 0px;
+}
+
+.moon-video-browsermovies-item-label {
+    font-size: 20px;
+    border-top:1px solid #cccccc;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.moon-video-browsermovies > .moon-panel-body {
+    overflow: visible;
+}
+
+.moon-video-browsermovies .moon-gridlist-imageitem {
+    margin-top: 0px;
+}
+
+.moon-video-browsermovies .moon-gridlist-imageitem.spotlight {
+  padding: 0px 0px 25px 0px !important;
+  margin: -25px 0px 0px 0px !important;
+}
+.moon-video-browsermovies .moon-gridlist-imageitem.spotlight.selected {
+  padding: 0px 0px 28px 0px !important;
+  margin: -25px 0px 0px 0px !important;
+}
+/* drawer */
+.moon-drawer-search {
+  top: 42px;
+  z-index: 5;
+}
+/* close button for a drawer */
+.moon-header-close-container {
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+    height: 42px;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+.moon-header-close-box {
+    height: auto;
+    margin-left: auto;
+    margin-top: 17px;
+    clear: none;
+    width: 100px;
+    padding: 5px 0px 0px;
+    border-top-width: 3px;
+    border-top-color: #CCCCCC;
+    border-top-style: solid;
+    margin-right: auto;
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+.moon-header-close-box.spotlight {
+    border-top-color: #ffb80d;
+}
+.moon-header-close-content {
+    margin: 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0em;
+    padding: 0px;
+    max-width: 100%;
+}
+p.moon-header-close-content {
+    font-size: 16px;
+    color: #CCCCCC;
+    width: 100%;
+    height: 16px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 16px;
+    word-wrap: break-word;
+}
+.spotlight p.moon-header-close-content {
+    color: #ffb80d;
+}
+img.moon-header-close-content {
+    float: left;
+    height: auto;
+    margin: 0 0 0 40%;
+    max-width: 100%;
+    width: auto;
+}
