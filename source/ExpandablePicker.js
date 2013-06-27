@@ -169,7 +169,8 @@ enyo.kind({
 	//* When an item is chosen, marks it as checked and closes the picker.
 	activated: function(inSender, inEvent) {
 		var index = this.getClientControls().indexOf(inEvent.toggledControl),
-			_this = this;
+			_this = this,
+			eli = inEvent.originator instanceof moon.ExpandableListItem;
 
 		if(inEvent.checked && index > -1) {
 			this.setSelected(inEvent.toggledControl);
@@ -177,9 +178,14 @@ enyo.kind({
 			if(this.getAutoCollapse() && this.isRendered) {
 				setTimeout(function() {
 					_this.setOpen(false);
+					_this.active = false;
 					enyo.Spotlight.spot(_this);
 				}, 300);
 			}
+		}
+		//* Prevent bubbling if _inEvent.originator_ is not an instance of _this.kind_
+		if (!eli) {
+			return true;
 		}
 	},
 	//* Fires an _onChange_ event.

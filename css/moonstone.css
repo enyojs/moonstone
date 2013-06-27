@@ -969,13 +969,16 @@
   text-transform: capitalize;
   min-width: 0px;
 }
-.moon-radio-item-group .moon-button.spotlight {
+.moon-radio-item-group .moon-button.spotlight,
+.moon-radio-item-group .moon-button.spotlight:active {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   padding-left: 4px;
+  border: none;
   border-left: 21px solid #ffb80d;
+  background-color: transparent;
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
   border-right: 21px solid #ffb80d;
@@ -1127,8 +1130,8 @@
 }
 .moon-header {
   color: #4b4b4b;
-  height: 400px;
-  border-top: 2px solid #4b4b4b;
+  height: 380px;
+  border-top: 1px solid #4b4b4b;
   border-bottom: 6px solid #4b4b4b;
   overflow: hidden;
   min-width: 532px;
@@ -1145,7 +1148,7 @@
   font-size: 36px;
   font-weight: normal;
   line-height: 1em;
-  padding: 20px 0px 5px 0px;
+  padding: 10px 0px 10px 0px;
   margin: 0px;
   width: 30px;
 }
@@ -1157,7 +1160,7 @@
   letter-spacing: -0.05em;
   line-height: 0.643em;
   padding: 19px 0px 0px 0px;
-  margin: 0px 0px 40px 0px;
+  margin: 0px 0px 30px 0px;
   white-space: nowrap;
 }
 .moon-header-title-below {
@@ -1168,7 +1171,7 @@
   letter-spacing: -0.04em;
   line-height: 1em;
   min-height: 30px;
-  padding: 6px 0px 6px 0px;
+  padding: 6px 0px 10px 0px;
   margin: 0px;
 }
 .moon-header-sub-title-below {
@@ -2603,6 +2606,32 @@ p.moon-drawer-handle-text {
   padding: 40px;
   box-sizing: border-box;
 }
+.moon-popup-close {
+  border-radius: 9999px;
+  line-height: 24px;
+  background-color: #ededed;
+  border: 5px solid transparent;
+  float: right;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0px 0px 0px 0px;
+  margin: 10px 10px 0px 10px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+.moon-popup-close.spotlight {
+  background: #ffb80d;
+}
+.moon-popup-close::after {
+  content: "\2716";
+  font-size: 25px;
+  position: relative;
+  top: 1px;
+  left: 0px;
+  color: #4b4b4b;
+}
 /* Dialog.css */
 .moon-dialog-title {
   font-size: 82px;
@@ -2648,20 +2677,22 @@ p.moon-drawer-handle-text {
 .moon-tooltip.above.left-arrow {
   background-image: url('../images/tooltip-nubs/top-left.png');
   background-position: left bottom;
+  left: 35%;
 }
 .moon-tooltip.above.right-arrow {
   background-image: url('../images/tooltip-nubs/top-right.png');
   background-position: right bottom;
-  right: 0px;
+  right: 50%;
 }
 .moon-tooltip.below.left-arrow {
   background-image: url('../images/tooltip-nubs/bottom-left.png');
   background-position: left top;
+  left: 35%;
 }
 .moon-tooltip.below.right-arrow {
   background-image: url('../images/tooltip-nubs/bottom-right.png');
   background-position: right top;
-  right: 0px;
+  right: 50%;
 }
 .moon-tooltip .moon-tooltip-label.right-arrow {
   position: absolute;
