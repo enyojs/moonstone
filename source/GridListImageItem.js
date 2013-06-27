@@ -1,6 +1,6 @@
 /**
-	_moon.GridList.ImageItem_ extends
-	<a href="#enyo.GridList.ImageItem">enyo.GridList.ImageItem</a>, adding
+	_moon.GridListImageItem_ extends
+	<a href="#enyo.GridListImageItem">enyo.GridListImageItem</a>, adding
 	Moonstone-specific configuration, styling, decorators, and Spotlight/focus-state
 	management.
 
@@ -10,7 +10,7 @@
 */
 
 enyo.kind({
-    name: "moon.GridList.ImageItem",
-    kind: "enyo.GridList.ImageItem",
+    name: "moon.GridListImageItem",
+    kind: "enyo.GridListImageItem",
     classes: "moon-gridlist-item moon-gridlist-imageitem"
 });

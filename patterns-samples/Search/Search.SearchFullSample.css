@@ -1,4 +1,4 @@
-/* enyo.DataGridList.TitleImageItem */
+/* enyo.TitleImageItem */
 .enyo-gridlist-titleimageitem > .caption {
     position: relative;
     top: -20px;
@@ -37,7 +37,7 @@
   overflow: hidden;
   vertical-align: bottom;
 }
-/* moon.DataGridList.TitleImageItem */
+/* moon.TitleImageItem */
 .moon-gridlist-titleimageitem.spotlight > .caption {
   background: #ffb80d !important;
 }

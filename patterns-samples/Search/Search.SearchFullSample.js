@@ -1,8 +1,8 @@
-// enyo.DataGridList.ImageItem
+// enyo.DataGridListImageItem
 
 enyo.kind({
-    name: "enyo.DataGridList.TitleImageItem",
-    kind: "enyo.GridList.ImageItem",
+    name: "enyo.TitleImageItem",
+    kind: "enyo.GridListImageItem",
     classes: "enyo-gridlist-titleimageitem",
     components:[
         {name: 'image', bindFrom: "image", bindTo: "src", kind: 'enyo.Image'},
@@ -10,11 +10,11 @@ enyo.kind({
     ]
 });
 
-// moon.DataGridList.TitleImageItem
+// moon.TitleImageItem
 
 enyo.kind({
-    name: "moon.DataGridList.TitleImageItem",
-    kind: "enyo.DataGridList.TitleImageItem",
+    name: "moon.TitleImageItem",
+    kind: "enyo.TitleImageItem",
     spotlight: true,
     classes: "moon-gridlist-titleimageitem"
 });
@@ -39,57 +39,57 @@ enyo.kind({
     components: [
         {name: "recentResult", kind: "moon.Scroller", fit: true, components: [
             {style: "display: inline-block; float: left; width: 438px;", components: [
-                {name: "title1", kind: "moon.Item"},          
+                {name: "title1", kind: "moon.Item"},
                 {components: [
                     {name: "recentSearchResults1", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
-                {name: "title2", kind: "moon.Item"},          
+                {name: "title2", kind: "moon.Item"},
                 {components: [
                     {name: "recentSearchResults2", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
-                {name: "title3", kind: "moon.Item"},          
+                {name: "title3", kind: "moon.Item"},
                 {components: [
                     {name: "recentSearchResults3", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
-                {name: "title4", kind: "moon.Item"},          
+                {name: "title4", kind: "moon.Item"},
                 {components: [
                     {name: "recentSearchResults4", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
-                {name: "title5", kind: "moon.Item"},          
+                {name: "title5", kind: "moon.Item"},
                 {components: [
                     {name: "recentSearchResults5", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
-                {name: "title6", kind: "moon.Item"},          
+                {name: "title6", kind: "moon.Item"},
                 {components: [
                     {name: "recentSearchResults6", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.DataGridList.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
                     ]}
                 ]}
             ]}
         ]},
         {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
             {
-                kind: "moon.DataGridList.TitleImageItem",
+                kind: "moon.TitleImageItem",
                 style: "height: 126px; width: 126px; margin: 10px;",
                 spotlightPosition:"bottom"
             }
