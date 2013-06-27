@@ -1,7 +1,7 @@
 /**
 	_moon.ExpandableInput_, which extends
 	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
-	input that prompts the user to input a text.
+	input that prompts the user to input text.
 */
 enyo.kind({
 	name: "moon.ExpandableInput",
@@ -9,14 +9,14 @@ enyo.kind({
 	classes: "moon-expandable-input",
 	events: {
 		/**
-			Fires when the currently text changes.
+			Fires when the current text changes.
 
 			_inEvent.value_ contains the value of the input.
 		*/
 		onChange: ""
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no text is inputed
+		//* Text to be displayed in the _currentValue_ control if no text is input
 		placeholder: "",
 		//* Initial value
 		value: ""
@@ -55,7 +55,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.clientInput.setValue(this.value);
 		this.placeholderChanged();
-		this.updateContent();
 		this.openChanged();
 	},
 	initComponents: function() {
@@ -64,20 +63,19 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	updateContent: function() {
-		// all texts in the input removed
+		// no input text
 		if(this.$.clientInput.value == "") {
 			this.$.currentValue.setContent(this.placeholder);
 		// text changed
 		} else if(this.$.clientInput.value !== this.value) {
 			this.setValue(this.$.clientInput.value);
-			this.$.currentValue.setContent(this.value);
 			this.fireChangeEvent();
 		// update the content of currentValue
 		} else if(this.value != this.$.currentValue.content) {
 			this.$.currentValue.setContent(this.value);
 		}
 	},
-	//* When _this.value_ changes, update and rerender
+	//* When _this.value_ changes, update the value and content
 	valueChanged: function(inOld) {
 		this.$.clientInput.setValue(this.value);
 		this.updateContent();
@@ -108,7 +106,7 @@ enyo.kind({
 			enyo.Spotlight.spot(this.$.client);
 		}
 	},
-	//* focus moon.Input when input decorator get focus
+	//* focus moon.Input when input decorator gets focus
 	inputFocus: function(inSender, inEvent) {
 		if(inEvent.dir == "DOWN") {
 			this.$.clientInput.focus();
