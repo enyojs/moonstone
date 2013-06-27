@@ -11,12 +11,10 @@
 enyo.kind({
 	name: "moon.VideoTransportSlider",
 	kind: "moon.Slider",
-	classes: "moon-slider moon-video-player-slider",
+	classes: "moon-slider moon-video-transport-slider",
 	//* @protected
 	popupWidth: 300,
 	popupHeight: 200,
-	scaleFactor: 1,
-	dummyAction: false,
 	published: {
 		//** This is start point of slider 
 		rangeStart: 0,
@@ -29,12 +27,17 @@ enyo.kind({
 		endTickPos: 90,
 		//** This flag control the indicator in the Video Transport Slider
 		showTickText: true,
-		showTickBar: true
+		showTickBar: true,
+		//** Length of Dummy area, current unit is pixel for video slider, Not percentage
+		dummyAreaPixel: 120,
+		//** This is time option for slider expression between both side of time-indicator
+		absoluteTime: false
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
 		ondown: "down",
-		onBufferStateChanged: "progressUpdate"
+		onBufferStateChanged: "progressUpdate",
+		onresize: "resizeHandler"
 	},
 	events: {
 		onSeekStart: "",
@@ -47,11 +50,11 @@ enyo.kind({
 		{style: "z-index: 3;", name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
 		{classes: "moon-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-indicator-bar"},
-			{name: "beginTickText", classes: "moon-indicator-text", content: "00:00 PM"}
+			{name: "beginTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
 		{classes: "moon-slider-indicator-wrapper end", components: [
 			{name: "endTickBar", classes: "moon-indicator-bar"},
-			{name: "endTickText", classes: "moon-indicator-text", content: "01:00 PM"}
+			{name: "endTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
 			{classes: "moon-slider-popup-wrapper", components: [
@@ -63,17 +66,29 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.initVideoSlider();
-	},
-	initVideoSlider: function() {
-		this.setRangeStart(this.getBeginTickPos());
-		this.setRangeEnd(this.getEndTickPos());
-		this.rangeStartChanged();
-		this.rangeEndChanged();
 		this.showTickTextChanged();
 		this.showTickBarChanged();
 		this.setConstrainToBgProgress(true);
 		this.setElasticEffect(false);
+		this.updateSliderRange(true);
+	},
+	resizeHandler: function() {
+		this.inherited(arguments);
+		this.updateSliderRange(true);
+	},
+	updateSliderRange: function(fullScreenMode) {
+		if(fullScreenMode)
+		{	// This should be updated !! 
+			// 40px is only for current redline
+			var width = window.innerWidth-40; 
+			this.beginTickPos = (this.dummyAreaPixel/width)*100;
+			this.endTickPos = ((width-this.dummyAreaPixel)/width)*100;
+		}
+		this.setRangeStart(this.beginTickPos);
+		this.setRangeEnd(this.endTickPos);
+		this.rangeStartChanged();
+		this.rangeEndChanged();
+		this.updateKnobPosition(this.getValue());
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
@@ -83,43 +98,41 @@ enyo.kind({
 		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
 		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
 	},
-	updateScale: function() {
-		this.scaleFactor= (this.rangeEnd-this.rangeStart)/100;
-	},
 	setRangeStart: function(inValue) {
 		if(this.getSyncTick() === true) {
 			this.rangeStart = this.beginTickPos;
 		} else {
-			this.rangeStart = inValue;
+			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
+			this.rangeStart = v;
 		}
 	},
 	setRangeEnd: function(inValue) {
 		if(this.getSyncTick()) {
 			this.rangeEnd = this.endTickPos;
 		} else {
-			this.rangeEnd = inValue;
+			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
+			this.rangeEnd = v;
 		}
+	},
+	rangeStartChanged: function() {
+		this.updateOwnProperty();
+		this.$.bgbar.applyStyle("margin-left", this.rangeStart + "%");
+		this.$.bar.applyStyle("margin-left", this.rangeStart + "%");
+	},
+	rangeEndChanged: function() {
+		this.updateOwnProperty();
+	},
+	absoluteTimeChanged: function() {
+
+	},
+	//** hiden variable, scaleFactor is generated when create this
+	updateScale: function() {
+		this.scaleFactor = (this.rangeEnd-this.rangeStart)/100;
 	},
 	updateOwnProperty: function() {
 		this.updateScale();
 		this.bgProgressChanged();
 		this.progressChanged();
-	},
-	rangeStartChanged: function() {
-		if((this.rangeEnd -this.rangeStart) < 1) {
-			this.setRangeStart(this.rangeEnd - 1);
-			return true;
-		}
-		this.$.bgbar.applyStyle("margin-left", this.rangeStart + "%");
-		this.$.bar.applyStyle("margin-left", this.rangeStart + "%");
-		this.updateOwnProperty();
-	},
-	rangeEndChanged: function() {
-		if((this.rangeEnd - this.getRangeStart()) < 1) {
-			this.setRangeEnd(this.getRangeStart()+1);
-			return true;
-		}
-		this.updateOwnProperty();
 	},
 	calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * this.scaleFactor * 100;
@@ -137,8 +150,9 @@ enyo.kind({
 		else {
 			label = Math.round(v) + "%";
 		}
-		// have to change video time
-		this.$.popupLabel.setContent(label);
+		if(this.currentTime !== undefined) {
+			this.$.popupLabel.setContent(this.formatTime(this.currentTime));
+		}
 		this.updatePopupPosition();
 	},
 	inverseToSlider: function(iValue) {
@@ -249,9 +263,14 @@ enyo.kind({
 	sendSeekEvent: function(inValue) {
 		this.doSeek({value: inValue});
 	},
-	//* When the time updates, update buffered progress and canvas
+	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
 	timeUpdate: function(inSender, inEvent) {
 		this.triggerCanvasUpdate(inEvent.srcElement);
+		this._currentTime = inSender._currentTime;
+		this._duration = inSender._duration;
+		this.currentTime = new Date(this._currentTime * 1000);
+		this.duration = new Date(this._duration * 1000);
+		this.$.endTickText.setContent(this.formatTime(this.duration));
 	},
 	progressUpdate: function(inSender, inEvent) {
 		this.updateBufferedProgress(inEvent.srcElement);
@@ -295,5 +314,15 @@ enyo.kind({
 		;
 		// draw video preview thumbnail
 		ctx.drawImage(inNode, 0, 0, db.width, db.height);
+	},
+	//* Properly format time
+	formatTime: function(inValue) {
+		var inMinutes = this._formatTime(inValue.getMinutes());
+		var inSeconds = this._formatTime(inValue.getSeconds());
+		return inMinutes + ":" + inSeconds;
+	},
+	//* Format time helper
+	_formatTime: function(inValue) {
+		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	}
 });

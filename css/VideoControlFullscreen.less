@@ -86,14 +86,11 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 
 /* ---- Slider styling ---- */
 .moon-video-fullscreen-control .moon-video-player-slider-container {
-	padding: 0px 20px;
-	height: 60px;
+	padding: 0px;
+	height: 76px;
 }
 .moon-video-fullscreen-control .moon-video-player-slider-container > * {
-	margin: 30px 20px 10px;
-}
-.moon-video-fullscreen-control .moon-progress-bar {
-	background-color: rgba(0,0,0,0.4);
+	margin: 30px 0px 10px;
 }
 
 /* -- Knob -- */
@@ -166,7 +163,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-video-fullscreen-control .moon-slider-popup.above .moon-slider-popup-label {
 	top: auto;
-	bottom: 0px;
+	bottom: 15px;
 }
 .moon-video-fullscreen-control .moon-slider-popup-flip-h {
 	transform: rotateY(0deg);
@@ -282,15 +279,21 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
     See: moon.VideoControl.Fullscreen
 */
 
-.moon-slider .moon-videoplayer-sample-knob {
+.moon-videoplayer-sample-slider {
+  background-color: #4b4b4b;
+  height: 6px;	
+}
+.moon-video-transport-slider .moon-videoplayer-sample-knob {
   background-color: #69cdff;
 }
 .moon-slider.spotlight .moon-videoplayer-sample-knob {
   background-color: #69cdff;
 }
 
-.moon-slider .moon-videoplayer-sample-progressbar {
+.moon-video-transport-slider .moon-videoplayer-sample-progressbar {
   background-color: #69cdff;
+  height: 6px;
+  margin-top: -6px;
 }
 .moon-slider.spotlight .moon-videoplayer-sample-progressbar {
   background-color: #69cdff;
@@ -298,6 +301,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 
 .moon-slider .moon-videoplayer-sample-bgprogressbar {
   background-color: #7d7d7d;
+  height: 6px;
 }
 
 .moon-video-player-control-button {
