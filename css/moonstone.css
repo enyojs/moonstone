@@ -964,13 +964,16 @@
   text-transform: capitalize;
   min-width: 0px;
 }
-.moon-radio-item-group .moon-button.spotlight {
+.moon-radio-item-group .moon-button.spotlight,
+.moon-radio-item-group .moon-button.spotlight:active {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   padding-left: 4px;
+  border: none;
   border-left: 21px solid #ffb80d;
+  background-color: transparent;
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
   border-right: 21px solid #ffb80d;
