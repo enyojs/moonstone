@@ -1,31 +1,16 @@
-.photos-album {
-  margin: 20px 50px 20px 50px;
+.moon-album-list-item {
+    width : 200px;
+    height : 150px;
+    display: block;
+    clear: both;
+    margin : 40px 0 80px 0;
+    padding-right: 40px;
 }
 
-.album-grid-sample {
-  float: right;
-  width: 50%;
-}
+.moon-album-list-item .front-image {
+    margin: -25px 0 0 25px;
+} 
 
-.photos-album .moon-imageitem {
-  height: 93px;
-}
-
-.photos-album .moon-imageitem img {
-  width: 131px;
-  height: 93px;
-  margin: 0px 20px 0px 0px;
-}
-
-.album-grid-sample .moon-gridlist-imageitem {
-	margin-top: 0px;
-}
-
-.album-grid-sample .moon-gridlist-imageitem.spotlight {
-  padding: 0px 0px 25px 0px !important;
-  margin: -25px 0px 0px 0px !important;
-}
-.album-grid-sample .moon-gridlist-imageitem.spotlight.selected {
-  padding: 0px 0px 28px 0px !important;
-  margin: -25px 0px 0px 0px !important;
+.moon-album-list-item .back-image {
+    margin: -215px 0 0 0;
 }

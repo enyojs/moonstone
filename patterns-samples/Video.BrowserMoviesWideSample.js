@@ -61,7 +61,7 @@ enyo.kind({
         }
     ],   
     bindings: [
-        {from: ".controller.albums", to: "$.movieList.controller"},
+        {from: ".controller.albums", to: "$.movieList.controller"}
     ]
 });
 
@@ -80,7 +80,7 @@ enyo.ready(function(){
             {option: {src: "assets/default-music.png", caption: "Movie Name"}},
             {option: {src: "assets/default-music.png", caption: "Movie Name"}},
             {option: {src: "assets/default-music.png", caption: "Movie Name"}}
-        ]),
+        ])
     });
 
 //  Application to render sample

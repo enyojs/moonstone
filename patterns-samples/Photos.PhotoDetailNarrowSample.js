@@ -1,3 +1,5 @@
+// Sample view
+
 enyo.kind({
     name: "moon.sample.photos.PhotoDetailNarrowSample",
     kind: "moon.Panel",
@@ -8,18 +10,17 @@ enyo.kind({
     titleBelow: "2013-04-08",
     
     headerComponents : [
-        {kind: "moon.IconButton", style: "border:none;", src: "assets/icon-favorite.png"},
-        {kind: "moon.IconButton", style: "border:none;", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", style: "border:none;", src: "assets/icon-next.png"},
+        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "assets/icon-next.png"}
     ],
 
     components: [
         {
             name: "photoDetail",
             kind: "enyo.Image",
-            src: "",
-            //ontap: "changImage",
-            style: "width:600px;height:400px;"
+            classes: "moon-8h moon-3v",
+            src: ""            
         }
     ],
     bindings: [
@@ -52,10 +53,7 @@ enyo.ready(function(){
             {
                 name: "photoController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
-                changImage: function(inSender, inEvent) {
-                    
-                }
+                model: sampleModel
             }
         ]
     });

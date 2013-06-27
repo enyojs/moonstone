@@ -71,7 +71,7 @@ enyo.kind({
         }
     ],
     bindings: [
-    {from: ".controller.result", to: "$.resultInfo.controller"}
+        {from: ".controller.result", to: "$.resultInfo.controller"}
     ]
 });
 
