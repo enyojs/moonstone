@@ -90,7 +90,6 @@ enyo.kind({
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.preventResize = false;
 		this.$.currentValue.setShowing(!this.open);
 		this.$.bottom.setShowing(this.open);
 	},
