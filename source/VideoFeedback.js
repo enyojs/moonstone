@@ -15,7 +15,9 @@ enyo.kind({
 		playImg: 		"icon-play.png",
 		pauseImg: 		"icon-pause.png",
 		fastForwardImg: "icon-fastforward.png",
-		jumpForwardImg: "icon-jumpforward.png"
+		jumpForwardImg: "icon-jumpforward.png",
+		pauseBackImg: 	"icon-pauseplaybackward.png",
+		pauseForwardImg:"icon-pauseplayforward.png"
 	},
 	//* @protected
 	showingFeedback: false,
@@ -36,49 +38,49 @@ enyo.kind({
 		inParams = inParams || {};
 		
 		switch (inMessage) {
-			case "Play":
-				inRightSrc = enyo.path.rewrite(this.imagePath + this.playImg);
-				break;
-				
-			case "Pause":
-				inRightSrc = enyo.path.rewrite(this.imagePath + this.pauseImg);
-				break;
-				
-			case "Rewind":
-				inMessage = inParams.playbackRate + "x";
-				inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
-				break;
-				
-			case "Slowrewind":
-				inMessage = inParams.playbackRate + "x";
-				inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
-				break;
-				
-			case "Fastforward":
-				inMessage = inParams.playbackRate + "x";
-				inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
-				break;
-				
-			case "Slowforward":
-				inMessage = inParams.playbackRate + "x";
-				inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
-				break;
-				
-			case "JumpBackward":
-				inMessage = inParams.jumpSize + " sec";
-				inLeftSrc = enyo.path.rewrite(this.imagePath + this.jumpBackImg);
-				break;
-				
-			case "JumpForward":
-				inMessage = inParams.jumpSize + " sec";
-				inRightSrc = enyo.path.rewrite(this.imagePath + this.jumpForwardImg);
-				break;
+		case "Play":
+			inRightSrc = enyo.path.rewrite(this.imagePath + this.playImg);
+			break;
 			
-			// If the user sends in a custom message, block other messages until it's hidden
-			default:
-				customMessage = true;
-				this.showingFeedback = true;
-				break;
+		case "Pause":
+			inRightSrc = enyo.path.rewrite(this.imagePath + this.pauseImg);
+			break;
+			
+		case "Rewind":
+			inMessage = Math.abs(inParams.playbackRate) + "x";
+			inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
+			break;
+			
+		case "Slowrewind":
+			inMessage = inParams.playbackRate + "x";
+			inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
+			break;
+			
+		case "Fastforward":
+			inMessage = Math.abs(inParams.playbackRate) + "x";
+			inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
+			break;
+			
+		case "Slowforward":
+			inMessage = inParams.playbackRate + "x";
+			inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
+			break;
+			
+		case "JumpBackward":
+			inMessage = inParams.jumpSize + " sec";
+			inLeftSrc = enyo.path.rewrite(this.imagePath + this.jumpBackImg);
+			break;
+			
+		case "JumpForward":
+			inMessage = inParams.jumpSize + " sec";
+			inRightSrc = enyo.path.rewrite(this.imagePath + this.jumpForwardImg);
+			break;
+		
+		// If the user sends in a custom message, block other messages until it's hidden
+		default:
+			customMessage = true;
+			this.showingFeedback = true;
+			break;
 		}
 		
 		// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
