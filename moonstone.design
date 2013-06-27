@@ -6,30 +6,12 @@
                 {
                     "name": "Music.TrackDetailNarrowSampleView",
                     "kind": "Music.TrackDetailNarrowSampleView",
+                    "options": {
+                        "isPluginAction": true
+                    },
                     "config": {
-                        "viewTemplate": true,
-                        "data": {
-                            "name": "moon.sample.music.TrackDetailNarrowSample",
-                            "kind": "moon.Panel",
-                            "title": "Track Name",
-                            "titleAbove": "03",
-                            "titleBelow": "Artist Name",
-                            "layoutKind": "FittableColumnsLayout",
-                            "headerComponents": [
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-album.png"},
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-download.png"},
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-like.png"},
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-next.png"}
-                            ],
-                            "bindings": [
-                                {"from": ".controller.coverUrl", "to": "$.image.src"},
-                                {"from": ".controller.released", "to": "$.released.content"},
-                                {"from": ".controller.genre", "to": "$.genre.content"}
-                            ],
-                            "components": [
-
-                            ]
-                        },
+                        "name": "Music.TrackDetailNarrowSampleView",
+                        "kind": "moon.Panel",
                         "components": [                            
                             {   
                                 "kind" : "enyo.Table",
@@ -88,31 +70,13 @@
                 {
                     "name": "Music.TrackDetailWideSampleView",
                     "kind": "Music.TrackDetailWideSampleView",
+                    "options": {
+                        "isPluginAction": true
+                    },
                     "config": {
-                        "viewTemplate": true,
-                        "data": {
-                            "name": "moon.sample.music.TrackDetailWideSample",
-                            "kind": "moon.Panel",
-                            "title": "Track Name",
-                            "titleAbove": "03",
-                            "titleBelow": "Artist Name",
-                            "layoutKind": "FittableColumnsLayout",
-                            "headerComponents": [
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-album.png"},
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-download.png"},
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-like.png"},
-                                {"kind": "moon.IconButton", "src": "$lib/moonstone/patterns-samples/assets/icon-next.png"}
-                            ],
-                            "bindings": [
-                                {"from": ".controller.coverUrl", "to": "$.image.src"},
-                                {"from": ".controller.lyrics", "to": "$.lyrics.content"},
-                                {"from": ".controller.released", "to": "$.released.content"},
-                                {"from": ".controller.genre", "to": "$.genre.content"}
-                            ],
-                            "components": [
-                            
-                            ]
-                        },
+                        "name": "Music.TrackDetailWideSampleView",
+                        "kind": "moon.Panel",
+                        "layoutKind": "FittableColumnsLayout",
                         "components": [                            
                             {
                                 "kind": "enyo.Table",
@@ -191,7 +155,9 @@
                 {
                     "name": "moon.Accordion",
                     "kind": "moon.Accordion",
-
+                    "options": {
+                        "isView": true
+                    },
                     "description": "An accordion component",
                     "config": {
                         "kind": "moon.Accordion",
