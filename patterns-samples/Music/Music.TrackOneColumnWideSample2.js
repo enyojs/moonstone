@@ -7,8 +7,8 @@ enyo.kind({
     title: "Browser Tracks",
     titleBelow: "15 Tracks",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "assets/icon-list.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-list.png"}
     ],
     components: [
         {
@@ -72,7 +72,7 @@ enyo.kind({
                                             bindFrom: "time"
                                         }
                                     ]
-                                },
+                                }
                             ]
                         }
                     ]
@@ -90,22 +90,22 @@ enyo.kind({
 enyo.ready(function (){
     var sampleModel = new enyo.Model({
         track: new enyo.Collection([
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"}
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", album: "Album name", time: "3:40"}
         ])
     });
 
@@ -120,7 +120,7 @@ enyo.ready(function (){
                     kind: "moon.sample.music.TrackOneColumnWideSample2",
                     controller: ".app.controllers.trackController",
                     classes: "enyo-fit",
-                    style: "background-image: url(assets/livetv-background.png); background-size: 100% 100%;"
+                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
                 }
             ]
         },

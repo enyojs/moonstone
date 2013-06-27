@@ -1,4 +1,4 @@
-	enyo.kind({
+enyo.kind({
     name: "moon.sample.photos.AlbumGridSample",
 	kind: "moon.Panel",
 	classes: "moon enyo-fit enyo-unselectable",
@@ -28,7 +28,7 @@
 	},
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		this.$.gridItem.setSource("assets/album.png");
+		this.$.gridItem.setSource("../assets/album.png");
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
 	}
 });

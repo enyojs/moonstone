@@ -10,8 +10,8 @@ enyo.kind({
     headerComponents: [
         {
             components: [
-                {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                {kind: "moon.IconButton", src: "assets/icon-next.png"}
+                {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-next.png"}
             ]
         }
     ],
@@ -110,22 +110,22 @@ enyo.ready(function(){
         debutDate: "5 April 1973",
         type: "Solo",
         tracks: new enyo.Collection([
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", name: "Track Name", duration: "3:40"}
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"}
         ]),
-        artistImageUrl: "assets/default-music-big.png"
+        artistImageUrl: "../assets/default-music-big.png"
     });
  
 //  Application to render sample

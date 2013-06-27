@@ -42,7 +42,7 @@ enyo.kind({
     titleAbove: "02",
     title: "Browser Movies",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-list.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-list.png"}
     ],
     components: [
 /** If you want to use this template alone with spotlight, remove this comment out.
@@ -63,7 +63,7 @@ enyo.kind({
         }
     ],   
     bindings: [
-        {from: ".controller.albums", to: "$.movieList.controller"},
+        {from: ".controller.albums", to: "$.movieList.controller"}
     ]
 });
 
@@ -72,17 +72,17 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         albums: new enyo.Collection([
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}},
-            {option: {src: "assets/default-music.png", caption: "Movie Name"}}
-        ]),
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}},
+            {option: {src: "../assets/default-music.png", caption: "Movie Name"}}
+        ])
     });
 
 //  Application to render sample

@@ -8,10 +8,10 @@ enyo.kind({
     titleBelow: "ALBUM TITLE(ARTISTS)",
     layoutKind: "FittableColumnsLayout",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {
@@ -20,7 +20,7 @@ enyo.kind({
                 {
                     name: "cover",
                     kind: "enyo.Image",
-                    style: "width: 350px; height: 350px;",
+                    style: "width: 350px; height: 350px;"
                 },
                 {
                     kind: "moon.Table",
@@ -102,7 +102,7 @@ enyo.ready(function() {
             {number: "16", name: "We Will Rock You", duration: "2:01"},
             {number: "17", name: "We Are the Champions", duration: "2:59"}
         ]),
-        coverUrl: "assets/default-music-big.png"
+        coverUrl: "../assets/default-music-big.png"
     });
     
 //  Application to render sample

@@ -4,22 +4,22 @@ enyo.kind({
     kind: "",
     //* @protected
     imgList: [
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},
-        {src: "assets/album.png", name: "MOVIE NAME"},                
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"},
+        {src: "../assets/album.png", name: "MOVIE NAME"}
     ],    
     headerComponents: [
         {classes: "moon-video-browsermovie-header-button", components: [
-            {kind: "moon.IconButton", src: "assets/icon-list.png"}
+            {kind: "moon.IconButton", src: "../assets/icon-list.png"}
         ]}
     ],
     components: [
@@ -28,7 +28,7 @@ enyo.kind({
         {classes: "moon-header-close-container", ontap:"activateDrawer", components: [
             {classes: "moon-header-close-box", spotlight: true, components: [
                 {name: "closeText", tag: "p", content: "CLOSE", showing: false, classes: "moon-header-close-content text"},
-                {name: "searchIcon", tag: "img", src:"../samples/assets/search-input-search.png", classes: "moon-header-close-content img"}
+                {name: "searchIcon", tag: "img", src:"../samples/../assets/search-input-search.png", classes: "moon-header-close-content img"}
             ]}
         ]},
         {name: "drawer", kind: "enyo.Drawer", open: false, classes: "moon-drawer-search", components: [
@@ -75,5 +75,5 @@ enyo.kind({
             this.$.closeText.setShowing(false);
             this.$.searchIcon.setShowing(true);
         }
-    },
+    }
 });

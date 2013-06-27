@@ -9,40 +9,40 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind : "moon.Scroller", classes: "moon-7h", horizontal: "hidden", touch: true, components:[
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
 			},
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
 			},
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
 			},
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
 			},
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
 			},
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
 			},
 			{
-				kind: "moon.ImageItem", 
-				source: "assets/album.png", 
-				label: "ALBUM NAME", 
-			},
+				kind: "moon.ImageItem",
+				source: "../assets/album.png",
+				label: "ALBUM NAME"
+			}
 		]},
 		{kind : "moon.Scroller", fit: true, touch: true, components:[
 			{
@@ -67,7 +67,7 @@ enyo.kind({
 
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		this.$.gridItem.setSource("assets/album.png");
+		this.$.gridItem.setSource("../assets/album.png");
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
+	}
 });

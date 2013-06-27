@@ -115,7 +115,7 @@ enyo.ready(function(){
                     controller: ".app.controllers.loginFrontDoorViaPanelController",
                     classes: "enyo-fit"
                 }
-            ],
+            ]
         },
         controllers: [
             {
@@ -123,7 +123,7 @@ enyo.ready(function(){
                 kind: "enyo.ModelController",
                 model: sampleModel,
                 selectApp: function(inSender, inEvent) {
-                    inSender.parent.controller.set("text", "We are the Champions")
+                    inSender.parent.controller.set("text", "We are the Champions");
                 }
             }
         ]

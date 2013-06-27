@@ -8,8 +8,8 @@ enyo.kind({
     titleBelow: "Artist Name",
     layoutKind: "FittableColumnsLayout",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {
@@ -151,30 +151,30 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         artist: "Paul McCartney",
-        artistImageUrl: "assets/default-music-big.png",
+        artistImageUrl: "../assets/default-music-big.png",
         organized: "5 April 2013",
         debut: "5 April 1973",
         type: "Solo",
         bio: "Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of the King, is dead. King Robert Baratheon plans to ask his oldest friend, Eddard Stark, to take Jon's place. Across the sea, Viserys Targaryen plans to wed his sister to a nomadic warlord in exchange for an army. Jon Arryn, the Hand of",
         related: new enyo.Collection([
-            {relatedUrl: "assets/default-music.png"},
-            {relatedUrl: "assets/default-music.png"},
-            {relatedUrl: "assets/default-music.png"}
+            {relatedUrl: "../assets/default-music.png"},
+            {relatedUrl: "../assets/default-music.png"},
+            {relatedUrl: "../assets/default-music.png"}
         ]),
         tracks: new enyo.Collection([
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"}
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"}
         ])
         
     });

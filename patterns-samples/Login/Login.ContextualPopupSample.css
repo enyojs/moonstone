@@ -6,11 +6,11 @@
 
 .moon-movie-list-item {
     float: left;
-    margin: 0px 6px 6px 0px;
+    margin: 0 6px 6px 0;
     clear: none;
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     display: block;
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -20,11 +20,11 @@
 .moon-movie-list-item-text {
     position:absolute;
     width: 100%;
-    bottom: 0px;
+    bottom: 0;
     height: 24px;
     color: white;
-    font-size: 20px;
-    padding: 0px 3px;
+    font-size: 20;
+    padding: 0 3px;
     background-color: #4b4b4b;
 }
 

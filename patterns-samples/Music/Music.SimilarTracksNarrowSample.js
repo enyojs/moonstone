@@ -7,8 +7,8 @@ enyo.kind({
     titleAbove: "04",
     titleBelow: "10 Tracks",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {
@@ -58,12 +58,12 @@ enyo.kind({
                                             classes: "moon-superscript"
                                         }
                                     ]
-                                },
+                                }
                             ]
                         }
                     ]
                 }
-    		]
+            ]
         }
     ],
     bindings: [
@@ -76,40 +76,40 @@ enyo.kind({
 enyo.ready(function (){
     var sampleModel = new enyo.Model({
         track: new enyo.Collection([
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
-            {coverUrl: "assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"}
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"},
+            {coverUrl: "../assets/default-music.png", track: "Track name", artist: "Artist name", time: "3:40"}
         ])
     });
 

@@ -5,9 +5,9 @@ enyo.kind({
     title: "Movie Name",
     titleAbove: "03",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {

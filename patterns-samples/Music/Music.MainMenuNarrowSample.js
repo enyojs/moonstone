@@ -11,7 +11,7 @@ enyo.kind({
             kind: "moon.DataList",
             name: "menus",
             components: [
-                {kind: "moon.Item", ontap: "onTap", bindFrom: "name"}
+                {kind: "moon.Item", bindFrom: "name"}
             ]
         }
     ],
@@ -23,7 +23,7 @@ enyo.kind({
 // Sample model
 
 enyo.ready(function(){
-    var sampleModel0 = new enyo.Model({
+    var sampleModel = new enyo.Model({
         menu: new enyo.Collection([
             {name: "Browser video", open: "enyo.BrowseVideo", options: {}},
             {name: "Browser photos", open: "enyo.BrowsePhotos", options: {}},
@@ -42,7 +42,7 @@ enyo.ready(function(){
                     kind: "moon.sample.music.MainMenuNarrowSample",
                     controller: ".app.controllers.menuController",
                     classes: "enyo-fit",
-                    style: "background-image: url(assets/livetv-background.png); background-size: 100% 100%;"
+                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
                 }
             ]
         },
@@ -50,10 +50,7 @@ enyo.ready(function(){
             {
                 name: "menuController", 
                 kind: "enyo.ModelController",
-                model: sampleModel0,
-                onTap: function(inSender, inEvent) {
-                    console.log("on Menu Tap: " + inEvent.originator.name);
-                }
+                model: sampleModel
             }
         ]
     });

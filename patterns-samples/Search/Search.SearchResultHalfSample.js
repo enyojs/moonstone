@@ -50,7 +50,7 @@ enyo.kind({
             {style: "width: 500px", components: [
                 {layoutKind: 'HFlexLayout', components: [
                     {kind: "moon.Input", placeholder: "Search term", flex: true, onchange: "inputChanged"},
-                    {kind: "Image", src: "../samples/assets/search-input-search.png"}
+                    {kind: "Image", src: "../../samples/assets/search-input-search.png"}
                 ]}
             ]}
         ]}
@@ -71,7 +71,7 @@ enyo.kind({
         }
     ],
     bindings: [
-    {from: ".controller.result", to: "$.resultInfo.controller"}
+        {from: ".controller.result", to: "$.resultInfo.controller"}
     ]
 });
 
@@ -80,33 +80,33 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         result: new enyo.Collection([
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "./assets/default-movie.png", caption: "Person name"}}
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
+            {option: {src: "../assets/default-movie.png", caption: "Person name"}}
         ])
     });
  

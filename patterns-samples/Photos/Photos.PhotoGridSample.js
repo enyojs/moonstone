@@ -24,10 +24,10 @@ enyo.kind({
 	],
 
 	headerComponents: [
-		{kind: "moon.IconButton", src: "assets/icon-round-extend.png"},
-		{kind: "moon.IconButton", src: "assets/icon-round-share.png"},
-		{kind: "moon.IconButton", src: "assets/icon-round-download.png"},
-		{kind: "moon.IconButton", src: "assets/icon-round-delete.png"}
+		{kind: "moon.IconButton", src: "../assets/icon-round-extend.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-round-share.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-round-download.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-round-delete.png"}
 	],
 	
 	rendered: function() {
@@ -37,7 +37,7 @@ enyo.kind({
 
 	setupGridItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		this.$.gridItem.setSource("assets/album.png");
+		this.$.gridItem.setSource("../assets/album.png");
 		this.$.gridItem.setSelected(this.$.gridlist.isSelected(i));
-	},
+	}
 });

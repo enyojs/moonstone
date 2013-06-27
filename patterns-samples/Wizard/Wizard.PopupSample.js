@@ -60,7 +60,7 @@ enyo.kind({
         onCancel: ""
     },
     headerComponents: [
-        {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"./assets/icon-list.png",
+        {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"../assets/icon-list.png",
             listActions: [
             {                    
                 components: [
@@ -127,7 +127,7 @@ enyo.ready(function(){
                 {
                     id: "01",
                     subtitle: "STEP TITLE 01",
-                    imgsrc: "assets/album.PNG",
+                    imgsrc: "../assets/album.PNG",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE",
                     detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet ipsum tortor,a       \
                              hendrerit urna. Integer eget faucibus purus. Nunc non arcu turpis, venenatis aliquam neque. In \

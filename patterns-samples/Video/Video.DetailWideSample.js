@@ -5,9 +5,9 @@ enyo.kind({
     title: "Movie Name",
     titleAbove: "03",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {
@@ -81,7 +81,7 @@ enyo.kind({
                 ]}
             ]
         }
-     ],
+    ],
     bindings: [
         {from: ".controller.posterUrl", to: "$.movie.src"},
         {from: ".controller.rating", to: "$.rating.content"},
@@ -128,7 +128,7 @@ enyo.ready(function(){
             {
                 name: "movieController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

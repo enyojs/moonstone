@@ -6,9 +6,9 @@ enyo.kind({
     titleAbove: "03",
     titleBelow:  "2013-04-08",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-favorite.png"},
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {
@@ -21,7 +21,7 @@ enyo.kind({
                         {
                             kind: "enyo.Image", 
                             classes: "enyo-fill",
-                            src: "assets/default-movie.png",
+                            src: "../assets/default-movie.png"
                         }
                     ]
                 },
@@ -37,7 +37,7 @@ enyo.kind({
                                 {name: "button-desc", content: "DESCRIPTION"},
                                 {name: "button-comments", content: "COMMENTS(98)"},
                                 {name: "button-likes", content: "LIKES(387)"},
-                                {name: "button-albums", content: "ALBUMS(5)"},
+                                {name: "button-albums", content: "ALBUMS(5)"}
                             ]
                         },
                         {kind: "moon.Divider", classes: "divider"},
@@ -145,22 +145,21 @@ enyo.ready(function(){
             {picUrl: "http://placehold.it/300x250", username: "user name", date: "Aril, 8th, 2013", description: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet."},
             {picUrl: "http://placehold.it/300x250", username: "user name", date: "Aril, 8th, 2013", description: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet."},
             {picUrl: "http://placehold.it/300x250", username: "user name", date: "Aril, 8th, 2013", description: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet."}
-            ]),
+        ]),
         likes: new enyo.Collection([
             {picUrl: "http://placehold.it/300x250", username: "user name"},
             {picUrl: "http://placehold.it/300x250", username: "user name"},
             {picUrl: "http://placehold.it/300x250", username: "user name"},
             {picUrl: "http://placehold.it/300x250", username: "user name"},
-            {picUrl: "http://placehold.it/300x250", username: "user name"},
-            ]),
+            {picUrl: "http://placehold.it/300x250", username: "user name"}
+        ]),
         albums: new enyo.Collection([
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
-            {picUrl: "http://placehold.it/300x250", albumname: "album name"},
-            ]),
-        
+            {picUrl: "http://placehold.it/300x250", albumname: "album name"}
+        ])        
     });
 
 //  Application to render sample
@@ -181,10 +180,7 @@ enyo.ready(function(){
             {
                 name: "photoController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
-                changImage: function(inSender, inEvent) {
-                    
-                }
+                model: sampleModel
             }
         ]
     });

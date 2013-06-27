@@ -17,10 +17,10 @@ enyo.kind({
                     components: [
                         {kind: "moon.RadioItemGroup", components: [
                             {classes: "radio-button", content: "SUGGESTED SEARCH"},
-                            {classes: "radio-button", content: "RECENT SEARCHES"},
+                            {classes: "radio-button", content: "RECENT SEARCHES"}
                         ]},               
-                        {kind: "moon.IconButton", classes: "icon-button-right", src: "assets/trash-can-icon.png"}
-                    ],
+                        {kind: "moon.IconButton", classes: "icon-button-right", src: "../assets/trash-can-icon.png"}
+                    ]
                 },
                 { kind : "moon.Divider", classes : "divider" },
                 {
@@ -42,7 +42,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.listItems", to: "$.searchList.controller"},
+        {from: ".controller.listItems", to: "$.searchList.controller"}
     ]
 });
 
@@ -50,13 +50,13 @@ enyo.kind({
 enyo.ready(function(){
     var menuModel = new enyo.Model({
         listItems: new enyo.Collection([
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"},
-           {title: "RECENT SEARCH", imgSrc: "assets/album.png"}
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"},
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"},
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"},
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"},
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"},
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"},
+            {title: "RECENT SEARCH", imgSrc: "../assets/album.png"}
         ])
     });
 

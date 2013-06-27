@@ -5,24 +5,27 @@ enyo.kind({
     classes: "enyo-fit moon drawer-sample",
     fit: true,
     components: [
-		{kind:"moon.Drawers", drawers:[
+		{
+            kind:"moon.Drawers", 
+            drawers:[
 				{name:"searchDrawer", kind:"moon.Drawer",
 					handle: {kind:"moon.DrawerHandle", content:"SEARCH"},
 					components:[{name: "drawer", kind: "moon.sample.search.SearchDrawer"}]
 				}
 			],
-			components: [
-				{
-				    kind: "moon.Panel",
-					classes: "enyo-fit", 
-				    //* @protected
-				    title: "Empty",
-				    style: "background-color: #EAEAEA;",
-				    headerComponents: [
-				        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px;", src: "assets/trash-can-icon.png"}
-				    ]
-				}
-		]}	
+            components: [
+                {
+                    kind: "moon.Panel",
+                    classes: "enyo-fit", 
+                    //* @protected
+                    title: "Empty",
+                    style: "background-color: #EAEAEA;",
+                    headerComponents: [
+                        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px;", src: "../assets/trash-can-icon.png"}
+                    ]
+                }
+            ]
+        }
     ],
     bindings: [
         {from: ".controller.title1", to: "$.drawer.$.title1.content"},
@@ -123,7 +126,7 @@ enyo.kind({
     search: function(inSender, inEvent) {
         // console.log("[moon.SearchPanel] onSearch Event - search keyword : " + inEvent.keyword);
 
-        if(inEvent.keyword != "") {
+        if(inEvent.keyword !== "") {
             this.$.recentResult.setShowing(false);
             this.$.instantSearchResults.setShowing(true);
         } else {
@@ -165,56 +168,56 @@ enyo.ready(function(){
         title5: "RECENT SEARCH5",
         title6: "RECENT SEARCH6",
         recentSearchResults1: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults2: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults3: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults4: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults5: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults6: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         instantSearchResults: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image:"./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image:"../assets/default-movie.png"}
         ])
     });
 
@@ -230,13 +233,13 @@ enyo.ready(function(){
                     controller: ".app.controllers.searchDrawerController",
                     classes: "enyo-fit"
                 }
-            ],
+            ]
         },
         controllers: [
             {
                 name: "searchDrawerController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

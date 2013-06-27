@@ -1,8 +1,7 @@
 enyo.kind({
     name: "moon.sample.photos.PhotoListNarrowSample",
     kind : "moon.Panel",
-    classes: "moon enyo-unselectable enyo-fit",
-    classes : "photo-album",
+    classes: "moon enyo-unselectable enyo-fit photo-album",
     title : "ALBUM",
     titleAbove : "02",
     titleBelow : "97 Photos",
@@ -19,23 +18,23 @@ enyo.kind({
                     components : [
                         {
                             kind: "moon.ImageItem",
-                            source: "./assets/default-movie.png",
-                            label : "Description comes here",
+                            source: "../assets/default-movie.png",
+                            label : "Description comes here"
                         },
                         {
                             kind: "moon.ImageItem",
-                            source: "./assets/default-movie.png",
-                            label : "Description comes here",
+                            source: "../assets/default-movie.png",
+                            label : "Description comes here"
                         },
                         {
                             kind: "moon.ImageItem",
-                            source: "./assets/default-movie.png",
-                            label : "Description comes here",
+                            source: "../assets/default-movie.png",
+                            label : "Description comes here"
                         },
                         {
                             kind: "moon.ImageItem",
-                            source: "./assets/default-movie.png",
-                            label : "Description comes here",
+                            source: "../assets/default-movie.png",
+                            label : "Description comes here"
                         }
                     ]
                 }

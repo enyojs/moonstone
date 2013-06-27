@@ -10,10 +10,10 @@ enyo.kind({
     headerComponents: [
         {
             components: [
-                {kind: "moon.IconButton", src: "assets/icon-album.png"},
-                {kind: "moon.IconButton", src: "assets/icon-download.png"},
-                {kind: "moon.IconButton", src: "assets/icon-like.png"},
-                {kind: "moon.IconButton", src: "assets/icon-next.png"}
+                {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-next.png"}
             ]
         }
     ],
@@ -29,7 +29,7 @@ enyo.kind({
                                 {
                                     name: "image",
                                     kind: "enyo.Image",
-                                    style: "width: 350px; height: 350px;",
+                                    style: "width: 350px; height: 350px;"
                                 }
                             ],
                             attributes: {colspan: "2"}
@@ -41,7 +41,7 @@ enyo.kind({
                         {
                             components: [
                                 {
-                                   kind: "moon.Divider", 
+                                    kind: "moon.Divider", 
                                     content: "Track Info" 
                                 }
                             ],
@@ -108,7 +108,7 @@ enyo.kind({
 
 enyo.ready(function() {
     var sampleModel = new enyo.Model({
-        coverUrl: "assets/default-music-big.png",
+        coverUrl: "../assets/default-music-big.png",
         released: "5 April 2013",
         artist: "Name",
         album: "New",
@@ -126,7 +126,7 @@ enyo.ready(function() {
                     kind: "moon.sample.music.TrackDetailNarrowSample2",
                     controller: ".app.controllers.trackController",
                     classes: "enyo-fit",
-                    style: "background-image: url(assets/livetv-background.png); background-size: 100% 100%;"
+                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
                 }
             ]
         },

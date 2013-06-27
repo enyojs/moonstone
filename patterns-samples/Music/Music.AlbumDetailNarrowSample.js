@@ -40,7 +40,7 @@ enyo.kind({
                                 {name: "genreRow", components: [
                                     {content: "Genre"},
                                     {name: "genre"}
-                                ]},
+                                ]}
                             ]
                         }
                     ]
@@ -60,7 +60,7 @@ enyo.kind({
                                     ontap: "changeTrackName",
                                     components: [
                                         {
-                                            bindFrom: "number",
+                                            bindFrom: "number"
                                         },
                                         {
                                             bindFrom: "name"
@@ -78,8 +78,8 @@ enyo.kind({
         }
     ],
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     bindings: [
         {from: ".controller.artist", to: "$.artist.content"},

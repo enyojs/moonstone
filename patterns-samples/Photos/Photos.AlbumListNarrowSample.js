@@ -18,28 +18,28 @@ enyo.kind({
             components : [
                 {
                     kind : "sample.photo.AlbumListItem",
-                    source: "./assets/default-movie.png",
-                    bgSource : "./assets/bg-movie.png",
+                    source: "../assets/default-movie.png",
+                    bgSource : "../assets/bg-movie.png"
                 },
                 {
                     kind : "sample.photo.AlbumListItem",
-                    source: "./assets/default-movie.png",
-                    bgSource : "./assets/bg-movie.png"
+                    source: "../assets/default-movie.png",
+                    bgSource : "../assets/bg-movie.png"
                 },
                 {
                     kind : "sample.photo.AlbumListItem",
-                    source: "./assets/default-movie.png",
-                    bgSource : "./assets/bg-movie.png"
+                    source: "../assets/default-movie.png",
+                    bgSource : "../assets/bg-movie.png"
                 },
                 {
                     kind : "sample.photo.AlbumListItem",
-                    source: "./assets/default-movie.png",
-                    bgSource : "./assets/bg-movie.png"
+                    source: "../assets/default-movie.png",
+                    bgSource : "../assets/bg-movie.png"
                 },
                 {
                     kind : "sample.photo.AlbumListItem",
-                    source: "./assets/default-movie.png",
-                    bgSource : "./assets/bg-movie.png"
+                    source: "../assets/default-movie.png",
+                    bgSource : "../assets/bg-movie.png"
                 }
             ]
         }
@@ -64,25 +64,25 @@ enyo.kind({
                                 {
                                     name : "image",
                                     kind : "enyo.Image",
-                                    classes : "back-image",
+                                    classes : "back-image"
                                 }
                             ]
-                        },
+                        }
                     ]
                 },
                 {
                     name : "title",
                     classes : "title-text",
-                    style : "margin-left : 10px",
+                    style : "margin-left : 10px"
                 }
             ]
         }
     ],
 
     published: {
-        source: '',
-        bgSource : '',
-        title : '',
+        source: "",
+        bgSource : "",
+        title : ""
     },
 
     create: function() {
@@ -92,15 +92,15 @@ enyo.kind({
     },
 
     sourceChanged: function() {
-        if (!this.source || this.source === '') {
+        if (!this.source || this.source === "") {
             return;
         }
-        this.$.image.setAttribute('src', this.source);
-        this.$.bgImage.setAttribute('src', this.bgSource);
+        this.$.image.setAttribute("src", this.source);
+        this.$.bgImage.setAttribute("src", this.bgSource);
     },
 
     textChanged : function(){
-        if (!this.title || this.title === '') {
+        if (!this.title || this.title === "") {
             return;
         }
         this.$.title.content = this.title;

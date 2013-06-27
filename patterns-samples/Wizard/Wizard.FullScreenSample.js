@@ -73,7 +73,7 @@ enyo.ready(function(){
                 {
                     id: "01",
                     subtitle: "Step Title 1",
-                    imgsrc: "assets/album.PNG",
+                    imgsrc: "../assets/album.PNG",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE",
                     detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet ipsum tortor,a       \
                              hendrerit urna. Integer eget faucibus purus. Nunc non arcu turpis, venenatis aliquam neque. In \

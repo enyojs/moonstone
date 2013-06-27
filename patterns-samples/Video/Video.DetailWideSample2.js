@@ -4,14 +4,14 @@ enyo.kind({
     title: "Movie Name",
     titleAbove: "03",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-favorite.png", classes: "moon-video-detail-header-button-right"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png", classes: "moon-video-detail-header-button-right"}
     ],
     components: [
         {kind: "FittableColumns", classes: "enyo-fit", noStretch: true, components: [
             {
-                name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v",
+                name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
             },
             {
                 kind: "FittableRows",
@@ -104,7 +104,7 @@ enyo.ready(function(){
             {
                 name: "movieController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

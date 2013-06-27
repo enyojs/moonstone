@@ -34,7 +34,7 @@ enyo.kind({
     spotlight: false,
     style: "background-color: #EAEAEA;",
     headerComponents: [
-        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px", src: "assets/trash-can-icon.png"}
+        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px", src: ".../assets/trash-can-icon.png"}
     ],
     components: [
         {name: "recentResult", kind: "moon.Scroller", fit: true, components: [
@@ -116,7 +116,7 @@ enyo.kind({
     search: function(inSender, inEvent) {
         // console.log("[moon.SearchPanel] onSearch Event - search keyword : " + inEvent.keyword);
 
-        if(inEvent.keyword != "") {
+        if(inEvent.keyword !== "") {
             this.$.recentResult.setShowing(false);
             this.$.instantSearchResults.setShowing(true);
         } else {
@@ -137,56 +137,56 @@ enyo.ready(function(){
         title5: "RECENT SEARCH5",
         title6: "RECENT SEARCH6",
         recentSearchResults1: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults2: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults3: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults4: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults5: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         recentSearchResults6: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"}
         ]),
         instantSearchResults: new enyo.Collection([
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image: "./assets/default-movie.png"},
-            {text: "RESULT", image:"./assets/default-movie.png"}
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image: "../assets/default-movie.png"},
+            {text: "RESULT", image:"../assets/default-movie.png"}
         ])
     });
 
@@ -202,13 +202,13 @@ enyo.ready(function(){
                     controller: ".app.controllers.searchFullController",
                     classes: "enyo-fit"
                 }
-            ],
+            ]
         },
         controllers: [
             {
                 name: "searchFullController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

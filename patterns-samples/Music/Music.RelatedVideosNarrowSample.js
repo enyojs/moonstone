@@ -64,17 +64,17 @@ enyo.kind({
 enyo.ready(function (){
     var sampleModel = new enyo.Model({
         videos: new enyo.Collection([
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"},
-            {coverUrl: "assets/default-movie.png", title: "video title", time: "3:40"}
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"},
+            {coverUrl: "../assets/default-movie.png", title: "video title", time: "3:40"}
         ])
     });
 

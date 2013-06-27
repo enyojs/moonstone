@@ -8,10 +8,10 @@ enyo.kind({
     titleBelow: "Artist Name",
     layoutKind: "FittableColumnsLayout",
     headerComponents: [
-        {kind: "moon.IconButton", src: "assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "assets/icon-next.png"}
+        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     components: [
         {
@@ -25,7 +25,7 @@ enyo.kind({
                                 {
                                     name: "image",
                                     kind: "enyo.Image",
-                                    style: "width: 350px; height: 350px;",
+                                    style: "width: 350px; height: 350px;"
                                 }
                             ],
                             attributes: {colspan: "2"}
@@ -77,7 +77,7 @@ enyo.kind({
 
 enyo.ready(function() {
     var sampleModel = new enyo.Model({
-        coverUrl: "assets/default-music-big.png",
+        coverUrl: "../assets/default-music-big.png",
         released: "5 April 2013",
         genre: "Ballad"
     });
