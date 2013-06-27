@@ -13,6 +13,8 @@
 	-webkit-transition: opacity 0.1s linear;
 	-moz-transition: opacity 0.1s linear;
 	display: none;
+	margin: 20px;
+	box-sizing: border-box;
 }
 
 /* ---- Fullscreen style ---- */
@@ -51,7 +53,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 	width: 100%;
 	bottom: 0px;
 	z-index: 2;
-	background-color: rgba(0,0,0,0.5);
+	background-color: rgba(0,0,0,0);
 }
 .moon-video-player-controls {
 	height: 90px;
@@ -189,7 +191,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .moon-video-player-header {
 	position: absolute;
 	width: 100%;
-	margin-top: 20px;
 	top: 0px;
 	z-index: 2;
 	font-family: @moon-font-family;
@@ -204,7 +205,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 	position: relative;
 	overflow: hidden;
 	padding: 15px;
-	margin-left: 20px;
 }
 .moon-video-player-info .moon-video-player-description-info {
 	height: 100%;
