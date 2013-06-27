@@ -66,7 +66,7 @@ enyo.kind({
 				this.$.bar.applyStyle("width", activeItem.contentWidth + "px");
 				// IE8 doesn't return getBoundingClientRect().width, so we calculate from right/left. Who cares ... it's IE8 ... I know
 				//var differential = activeItem.hasNode().getBoundingClientRect().width - activeItem.contentWidth;
-				differential = (activeItem.hasNode().getBoundingClientRect().right - activeItem.hasNode().getBoundingClientRect().left) - activeItem.contentWidth - 25;
+				differential = (activeItem.hasNode().getBoundingClientRect().right - activeItem.hasNode().getBoundingClientRect().left) - activeItem.contentWidth - 60;
 				//adjusting for 25 extra pixels added to make room for spotlight focus
 				xPos = this.getCSSProperty(activeItem, "offsetLeft", false) + (differential / 2);
 			}
