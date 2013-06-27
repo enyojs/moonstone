@@ -6,7 +6,7 @@
 enyo.kind({
 	name: "moon.ExpandableInput",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-expandable-integer-input",
+	classes: "moon-expandable-input",
 	events: {
 		/**
 			Fires when the currently text changes.
@@ -26,7 +26,7 @@ enyo.kind({
 		{
 			name: "header", kind: "moon.Item", spotlight: true,
 			onSpotlightFocus: "headerFocus", onSpotlightSelect: "expandDrawer", ontap: "expandDrawer",
-			classes: "moon-expandable-integer-input-header"
+			classes: "moon-expandable-input-header"
 		},
 		{
 			name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [{
@@ -45,7 +45,7 @@ enyo.kind({
 		},
 		{
 			name: "currentValue", kind: "moon.Item", ontap: "expandDrawer", spotlight: false, content: "",
-			classes: "moon-expandable-integer-input-current-value"
+			classes: "moon-expandable-input-current-value"
 		},
 		{	
 			name: "bottom", kind: "enyo.Control", onSpotlightFocus: "spotlightFocusBottom", spotlight: true

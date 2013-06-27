@@ -2979,18 +2979,18 @@ p.moon-drawer-handle-text {
 .moon-scroller-vthumb.hidden {
   opacity: 0;
 }
-.moon-expandable-integer-input {
+.moon-expandable-input {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   cursor: pointer;
 }
-.moon-expandable-integer-input.spotlight {
+.moon-expandable-input.spotlight {
   padding: 0px 0px 0px 4px;
   border-left: 16px solid #ffb80d;
 }
-.moon-item.moon-expandable-integer-input-header {
+.moon-item.moon-expandable-input-header {
   line-height: 28px;
   padding: 0px;
   margin: 0px 0px 10px 0px;
@@ -2999,7 +2999,7 @@ p.moon-drawer-handle-text {
   -moz-transition: all 0.1s linear;
   -o-transition: all 0.1s linear;
 }
-.moon-expandable-integer-input.open .moon-expandable-integer-input-header {
+.moon-expandable-input.open .moon-expandable-input-header {
   font-family: "MuseoSans 700";
   font-size: 20px;
   font-weight: normal;
@@ -3008,7 +3008,7 @@ p.moon-drawer-handle-text {
   padding: 0px;
   border-bottom: 1px solid #aaa;
 }
-.moon-expandable-integer-input-current-value {
+.moon-expandable-input-current-value {
   font-family: "MuseoSans 700";
   font-size: 20px;
   font-style: italic;
