@@ -49,7 +49,17 @@ enyo.kind({
 				inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
 				break;
 				
+			case "Slowrewind":
+				inMessage = inParams.playbackRate + "x";
+				inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
+				break;
+				
 			case "Fastforward":
+				inMessage = inParams.playbackRate + "x";
+				inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
+				break;
+				
+			case "Slowforward":
 				inMessage = inParams.playbackRate + "x";
 				inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
 				break;

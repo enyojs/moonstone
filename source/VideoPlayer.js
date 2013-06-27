@@ -54,8 +54,9 @@ enyo.kind({
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress", onplay: "_play", onpause: "_pause", onFastforward: "_fastforward",
-			onRewind: "_rewind", onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward"
+			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause",
+			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
+			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
 		},
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "closeControls", onmousemove: "mousemove", components: [
@@ -450,13 +451,24 @@ enyo.kind({
 		this.sendFeedback("Play");
 	},
 	_pause: function(inSender, inEvent) {
+		// Don't send pause feedback if we are rewinding
+		if (inEvent.srcElement.playbackRate < 0) {
+			return;
+		}
+		
 		this.sendFeedback("Pause", {}, true);
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
 	},
+	_slowforward: function(inSender, inEvent) {
+		this.sendFeedback("Slowforward", {playbackRate: inEvent.playbackRate}, true);
+	},
 	_rewind: function(inSender, inEvent) {
 		this.sendFeedback("Rewind", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_slowrewind: function(inSender, inEvent) {
+		this.sendFeedback("Slowrewind", {playbackRate: inEvent.playbackRate}, true);
 	},
 	_jumpForward: function(inSender, inEvent) {
 		this.sendFeedback("JumpForward", {jumpSize: inEvent.jumpSize}, false);
