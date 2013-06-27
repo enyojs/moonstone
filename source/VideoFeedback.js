@@ -107,7 +107,6 @@ enyo.kind({
 	
 	//* Start job that will hide this control
 	setAutoTimer: function() {
-		this.log("SETTING TIMER");
 		this.hideJob = enyo.job(this.id + "hide", this.bindSafely("hideFeedback"), this.getAutoTimeoutMS());
 	},
 	//* Clear job that will hide this control
