@@ -54,7 +54,8 @@ enyo.kind({
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress"
+			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress", onplay: "_play", onpause: "_pause", onFastforward: "_fastforward",
+			onRewind: "_rewind", onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward"
 		},
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "closeControls", onmousemove: "mousemove", components: [
@@ -223,15 +224,9 @@ enyo.kind({
 		}
 		inSender._holding = false;
 	},
-	sendFeedback: function(inCmd, inParam) {
-		var playbackRate = this.$.video.getPlaybackRate(),
-			inParam = inParam || "";
-
-		this.$.feedbackHeader.feedback({
-			command: inCmd,
-			param: inParam,
-			playbackRate: playbackRate
-		});
+	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
+		inParams = inParams || {};
+		this.$.feedbackHeader.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
 	},
 	
 	////// Slider event handling //////
@@ -314,21 +309,18 @@ enyo.kind({
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("play");
 	},
 	//* Facade _this.$.video.pause_
 	pause: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.pause();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("pause");
 	},
 	//* Facade _this.$.video.rewind_
 	rewind: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.rewind();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("rewind");
 	},
 	//* Facade _this.$.video.jumpToStart_
 	jumpToStart: function(inSender, inEvent) {
@@ -342,14 +334,12 @@ enyo.kind({
 		this._isPlaying = true;
 		this.$.video.jumpBackward();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpBackward");
 	},
 	//* Facade _this.$.video.fastForward_
 	fastForward: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.fastForward();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("fastForward");
 	},
 	//* Facade _this.$.video.jumpToEnd_
 	jumpToEnd: function(inSender, inEvent) {
@@ -363,7 +353,6 @@ enyo.kind({
 		this._isPlaying = true;
 		this.$.video.jumpForward();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpForward");
 	},
 	//* Facade _this.$.video.setCurrentTime_
 	setCurrentTime: function(inValue) {
@@ -372,27 +361,6 @@ enyo.kind({
 
 	//* @protected
 	
-	//* Updates the video time.
-	timeUpdate: function(inSender, inEvent) {
-		//* Update _this.duration_ and _this.currentTime_
-		if (!inEvent && inEvent.srcElement) {
-			return;
-		}
-		
-		this._duration = inEvent.srcElement.duration;
-		this._currentTime = inEvent.srcElement.currentTime;
-		
-		var cur = new Date(this._currentTime * 1000);
-	//	this.$.feedback.setContent(this.formatTime(cur.getMinutes(), cur.getSeconds()));
-		this.updatePosition();
-		
-		this.waterfall("onTimeupdate", inEvent);
-	},
-	//* Called when video successfully loads video metadata
-	metadataLoaded: function(inSender, inEvent) {
-		this.updateAspectRatio();
-		this.resized();
-	},
 	//* Respond to _onRequestTimeChange_ event by setting current video time
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
@@ -456,9 +424,45 @@ enyo.kind({
 
 	///////// VIDEO EVENT HANDLERS /////////
 
-
+	//* Updates the video time.
+	timeUpdate: function(inSender, inEvent) {
+		//* Update _this.duration_ and _this.currentTime_
+		if (!inEvent && inEvent.srcElement) {
+			return;
+		}
+		
+		this._duration = inEvent.duration;
+		this._currentTime = inEvent.currentTime;
+		
+		this.updatePosition();
+		
+		this.waterfall("onTimeupdate", inEvent);
+	},
+	//* Called when video successfully loads video metadata
+	metadataLoaded: function(inSender, inEvent) {
+		this.updateAspectRatio();
+		this.resized();
+	},
 	_progress: function(inSender, inEvent) {
 		this.$.slider.updateBufferedProgress(inEvent.srcElement);
+	},
+	_play: function(inSender, inEvent) {
+		this.sendFeedback("Play");
+	},
+	_pause: function(inSender, inEvent) {
+		this.sendFeedback("Pause", {}, true);
+	},
+	_fastforward: function(inSender, inEvent) {
+		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_rewind: function(inSender, inEvent) {
+		this.sendFeedback("Rewind", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_jumpForward: function(inSender, inEvent) {
+		this.sendFeedback("JumpForward", {jumpSize: inEvent.jumpSize}, false);
+	},
+	_jumpBackward: function(inSender, inEvent) {
+		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, true);
 	}
 });
 

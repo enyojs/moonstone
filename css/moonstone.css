@@ -2992,7 +2992,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   font-family: "MuseoSans 300";
   font-size: 28px;
   line-height: 30px;
-  overflow: auto;
   white-space: normal;
   max-width: 1200px;
   margin-bottom: 64px;
@@ -3057,20 +3056,32 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   height: 168px;
   margin-left: 20px;
   margin-right: 20px;
+  opacity: 1;
+  transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -webkit-transition: opacity 0.1s linear;
+}
+.moon-video-player-feedback.hidden {
+  opacity: 0;
 }
 .moon-video-feedback-wrapper {
-  height: 168px;
-  padding-top: 64px;
+  height: 124px;
+  padding: 44px 0px 0px;
+  text-align: center;
 }
 .moon-video-feedback-text {
-  font-family: "Miso";
-  font-size: 40px;
   text-transform: uppercase;
+  display: inline-block;
+  height: 80px;
+  line-height: 80px;
+  vertical-align: bottom;
+  min-width: 80px;
 }
-.moon-video-feedback-icon {
-  margin: 0px;
-  padding: 0px;
-  margin-top: -18px;
+.moon-video-feedback-icon-left,
+.moon-video-feedback-icon-right {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
 }
 .moon-scroller-client-wrapper {
   box-sizing: border-box;

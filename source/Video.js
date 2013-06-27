@@ -43,17 +43,24 @@ enyo.kind({
 		//* set video playbackRate
 		playbackRate: 1
 	},
+	events: {
+		onFastforward: "",
+		onRewind: "",
+		onJumpForward: "",
+		onJumpBackward: ""
+	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
-		onloadedmetadata: "metadataLoaded"
+		onloadedmetadata: "metadataLoaded",
+		ontimeupdate: "timeupdate"
 	},
 	tag: "video",
 	//* @protected
 	_playbackRateHash: {
-		fastForward: [4, 15, 60, 300],
-		rewind: [-4, -15, -60, -300],
-		slowForward: [1/15, 1/4],
-		slowRewind: [-1/4, -1]
+		fastForward: ["4", "15", "60", "300"],
+		rewind: ["-4", "-15", "-60", "-300"],
+		slowForward: ["1/15", "1/4"],
+		slowRewind: ["-1/4", "-1"]
 	},
 	_playbackRateArray: null,
 	_speedIndex: 0,
@@ -227,25 +234,44 @@ enyo.kind({
 		this.setPlaybackRate(1);
 		node.currentTime -= this.jumpSec;
 		this._prevCommand = "jumpBackward";
+		
+		this.doJumpBackward(enyo.mixin(this.createEventData(), {jumpSize: this.jumpSec}));
 	},
 	jumpForward: function() {
-		if (!this.hasNode()) {return;}
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
 		this.setPlaybackRate(1);
-		this.node.currentTime += this.jumpSec;
+		node.currentTime += this.jumpSec;
 		this._prevCommand = "jumpForward";
+		
+		this.doJumpForward(enyo.mixin(this.createEventData(), {jumpSize: this.jumpSec}));
 	},
 	jumpToStart: function() {
-		if (!this.hasNode()) {return;}
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
 		this.setPlaybackRate(1);
-		this.node.pause();
-		this.node.currentTime = 0;
+		node.pause();
+		node.currentTime = 0;
 		this._prevCommand = "jumpToStart";
 	},
 	jumpToEnd: function() {
-		if (!this.hasNode()) {return;}
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
 		this.setPlaybackRate(1);
-		this.node.pause();
-		this.node.currentTime = this.node.duration;
+		node.pause();
+		node.currentTime = this.node.duration;
 		this._prevCommand = "jumpToEnd";
 	},
 	selectPlaybackRateArray: function(cmd) {
@@ -262,7 +288,10 @@ enyo.kind({
 		return this._playbackRateArray[index];
 	},
 	setPlaybackRate: function(inPlaybackRate) {
-		var node = this.hasNode();
+		var node = this.hasNode(),
+			pbRateArray,
+			pbNumber
+		;
 		
 		if (!node) {
 			return;
@@ -271,10 +300,17 @@ enyo.kind({
 		// Stop rewind (if happenning)
 		this.stopRewindJob();
 		
-		// Do playbackRate if platform support otherwise try moving currentTime tric
-		node.playbackRate = this.playbackRate = inPlaybackRate;
+		// Make sure inPlaybackRate is a string
+		this.playbackRate = inPlaybackRate = String(inPlaybackRate);
 		
-		if (inPlaybackRate < 0) {
+		// Calc number value of inPlaybackRate (support for fractions)
+		pbRateArray = String(inPlaybackRate).split("/");
+		pbNumber = (pbRateArray.length > 1) ? parseInt(pbRateArray[0], 10) / parseInt(pbRateArray[1], 10) : parseInt(inPlaybackRate, 10);
+		
+		// Set native playback rate
+		node.playbackRate = pbNumber;
+		
+		if (pbNumber < 0) {
 			this.beginRewind();
 		}
 	},
@@ -312,7 +348,9 @@ enyo.kind({
 	_rewind: function() {
 		var now = enyo.now(),
 			distance = now - this.rewindBeginTime,
-			adjustedDistance = Math.abs(distance * this.playbackRate) / 1000,
+			pbRateArray = String(this.playbackRate).split("/"),
+			pbRate = pbRateArray.length > 1 ? pbRateArray[0] / pbRateArray[1] : pbRateArray[0],
+			adjustedDistance = Math.abs(distance * pbRate) / 1000,
 			newTime = this.getCurrentTime() - adjustedDistance
 		;
 		
@@ -335,6 +373,38 @@ enyo.kind({
 			return;
 		}
 		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
+	},
+	timeupdate: function(inSender, inEvent) {
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
+		inEvent = enyo.mixin(inEvent, this.createEventData());
+		
+		if (this.node.playbackRate == 1) {
+			return;
+		} else if (this.node.playbackRate > 0) {
+			this.doFastforward(inEvent);
+		} else if (this.node.playbackRate < 0) {
+			this.doRewind(inEvent);
+		}
+	},
+	createEventData: function() {
+		var node = this.hasNode();
+		
+		if (!node) {
+			return {};
+		}
+		
+		return {
+			srcElement: node,
+			duration: node.duration,
+			currentTime: node.currentTime,
+			playbackRate: this.getPlaybackRate()
+		};
+		
 	},
 	//* Add all html5 video events
 	hookupVideoEvents: function() {

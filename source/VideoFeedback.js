@@ -5,142 +5,129 @@
 enyo.kind({
 	name: "moon.VideoFeedback",
 	kind: "enyo.Control",
-	classes: "moon-video-player-feedback",
+	classes: "moon-video-player-feedback hidden",
 	published: {
-		//* Timeout duration for disapearing feedback information 
-		autoTimeout: 3,
-		//* Boolean flag for showing status of feedback information
-		showFeedback: false,
-
-		imagePath: "$lib/moonstone/images/",
-		jumpBackImg: "icon-jumpback.png",
-		rewindImg: "icon-rewind.png",
-		playImg: "icon-play.png",
-		pauseImg: "icon-pause.png",
+		//* Timeout duration for disapearing feedback information (in milliseconds)
+		autoTimeoutMS: 	2000,
+		imagePath: 		"$lib/moonstone/images/",
+		jumpBackImg: 	"icon-jumpback.png",
+		rewindImg: 		"icon-rewind.png",
+		playImg: 		"icon-play.png",
+		pauseImg: 		"icon-pause.png",
 		fastForwardImg: "icon-fastforward.png",
 		jumpForwardImg: "icon-jumpforward.png"
 	},
 	//* @protected
+	showingFeedback: false,
 	_autoTimer: null,
 	components: [
 		{classes: "moon-video-feedback-wrapper", components: [
-			{name: "feedText", classes: "moon-video-feedback-text"},
-			{name: "feedIcon", kind: "moon.IconButton", classes: "moon-video-feedback-icon", spotlight: false}
+			{name: "leftIcon",  classes: "moon-video-feedback-icon-left",  allowHtml: true, content: "&nbsp;", showing: false},
+			{name: "feedText",  classes: "moon-video-feedback-text"},
+			{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
 		]}
 	],
+	
 	//* @public
-	feedback: function(inFeedbackData) {
-		var msg = inFeedbackData.command;
-		var playbackRate = Math.abs(inFeedbackData.playbackRate);
-		var param = inFeedbackData.param;
-		//var src = inFeedbackData.imgsrc;
-		var timer = true;
-
-		if (!this.$.feedIcon.getShowing()) {
-			this.$.feedIcon.setShowing(true);
-			this.$.feedText.setShowing(true);
-		}
-
-		switch (msg) {
-		case "play":
-			if (param === "live") {
-				msg = "live";
-			}
-			this.configuration(this.imagePath+this.playImg, 30, 0, "left");
-			break;
-		case "pause":
-			timer = false;
-			if (param === "live") {
-				msg = "00:00:00";
-			}
-			this.configuration(this.imagePath+this.pauseImg, 20, 0, "left");
-			break;
-		case "rewind":
-			timer = false;
-			msg = playbackRate+"x";
-			this.configuration(this.imagePath+this.rewindImg, 0, 35, "right");
-			break;
-		case "fastForward":
-			timer = false;
-			msg =playbackRate+"x";
-			this.configuration(this.imagePath+this.fastForwardImg, 35, 0, "left");
-			break;
-		case "jumpBackward":
-			if (param === true) { // when paused
-				timer = false;
-				msg = "<||";
-			} else {
-				msg = 30 + "sec";
-			}
-			this.configuration(this.imagePath+this.jumpBackImg, 0, 15, "right");
-			break;
-		case "jumpForward":
-			if (param === true) { // when paused
-				timer = false;
-				msg = "||>";
-			} else {
-				msg = 30 + "sec";
-			}
-			this.configuration(this.imagePath+this.jumpForwardImg, 15, 0, "left");
-			break;
+	
+	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
+		var customMessage = false;
+		inMessage = inMessage || "";
+		inParams = inParams || {};
 		
-		// after long press Not Implemented yet
-		case "jumpLive":
-		case "jumpNext":
-		case "jumpPrev":
-		default:
-			break;
+		switch (inMessage) {
+			case "Play":
+				inRightSrc = enyo.path.rewrite(this.imagePath + this.playImg);
+				break;
+				
+			case "Pause":
+				inRightSrc = enyo.path.rewrite(this.imagePath + this.pauseImg);
+				break;
+				
+			case "Rewind":
+				inMessage = inParams.playbackRate + "x";
+				inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
+				break;
+				
+			case "Fastforward":
+				inMessage = inParams.playbackRate + "x";
+				inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
+				break;
+				
+			case "JumpBackward":
+				inMessage = inParams.jumpSize + " sec";
+				inLeftSrc = enyo.path.rewrite(this.imagePath + this.jumpBackImg);
+				break;
+				
+			case "JumpForward":
+				inMessage = inParams.jumpSize + " sec";
+				inRightSrc = enyo.path.rewrite(this.imagePath + this.jumpForwardImg);
+				break;
+			
+			// If the user sends in a custom message, block other messages until it's hidden
+			default:
+				customMessage = true;
+				this.showingFeedback = true;
+				break;
+		}
+		
+		// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
+		if (!customMessage && this.showingFeedback) {
+			return;
 		}
 
-		this.$.feedText.setContent(msg);
-		if(timer) {
-			this._setAutoTimer();
+		// Set content as _inMessage_
+		this.$.feedText.setContent(inMessage);
+
+		// Show output controls
+		this.showFeedback();
+		
+		// Show icons as appropriate
+		this.updateIcons(inLeftSrc, inRightSrc);
+
+		//* Don't setup hide timer if _inPersistShowing_ is true
+		if (inPersistShowing) {
+			this.resetAutoTimer();
 		} else {
-			this._resetAutoTimer();
+			this.setAutoTimer();
 		}
-		return true;
-	},
-	//* @protected
-	configuration: function(src, left, right, option) {
-		this.$.feedIcon.setSrc(src);
-		this.$.feedIcon.applyStyle("float", option);
-		this.$.feedText.applyStyle("float", option);
-		this.$.feedText.applyStyle("padding-left", left + "px");
-		this.$.feedText.applyStyle("padding-right", right + "px");
 	},
 
-	cmdTimeInfo: function(param) {
-		if(!this.getShowFeedback()) {
-			this.$.feedText.setContent(param);
-			if(!this.$.feedText.getShowing()) {
-				this.$.feedText.setShowing(true);
-			}
-			if(this.$.feedIcon.getShowing()) {
-				this.$.feedIcon.setShowing(false);
-			}
-			this.configuration(null, 50, 0, null);
-		}	
-		return true;	
+	//* Show this control
+	showFeedback: function() {
+		this.removeClass("hidden");
 	},
-
-	_timeoutHandler: function() {
-		this.setShowFeedback(false);
-		this.$.feedText.setShowing(false);
-		this.$.feedIcon.setShowing(false);
-	},
-
-	_setAutoTimer: function() {
-		this._resetAutoTimer();
-		this._autoTimer = setTimeout(enyo.bind(this, 
-			function() {
-				this._timeoutHandler();
-			}), this.getAutoTimeout() * 1000);
-		this.setShowFeedback(true);
+	//* Hide this control and set _this.showingFeedback_ to _false_
+	hideFeedback: function() {
+		this.addClass("hidden");
+		this.showingFeedback = false;
 	},
 	
-	_resetAutoTimer: function() {
-		if (this._autoTimer != null) {
-			clearTimeout(this._autoTimer);
+	//* @protected
+	
+	//* Start job that will hide this control
+	setAutoTimer: function() {
+		this.log("SETTING TIMER");
+		this.hideJob = enyo.job(this.id + "hide", this.bindSafely("hideFeedback"), this.getAutoTimeoutMS());
+	},
+	//* Clear job that will hide this control
+	resetAutoTimer: function() {
+		enyo.job.stop(this.id + "hide");
+	},
+	//* Show/hide icons and set sources
+	updateIcons: function(inLeftSrc, inRightSrc) {
+		if (inLeftSrc) {
+			this.$.leftIcon.show();
+			this.$.leftIcon.applyStyle("background-image", "url(" + inLeftSrc + ")");
+		} else {
+			this.$.leftIcon.hide();
+		}
+		
+		if (inRightSrc) {
+			this.$.rightIcon.show();
+			this.$.rightIcon.applyStyle("background-image", "url(" + inRightSrc + ")");
+		} else {
+			this.$.rightIcon.hide();
 		}
 	}
 });
