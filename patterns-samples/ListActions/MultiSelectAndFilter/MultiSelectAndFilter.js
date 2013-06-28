@@ -47,7 +47,7 @@ enyo.kind({
 								        {content:"Drama", kind:"moon.CheckboxItem"}
 									]}
 							    ]}
-							]						
+							]
 						}
 					]}
 				]},
@@ -55,10 +55,10 @@ enyo.kind({
 					name: "gridlist", kind: "moon.GridList", fit:true, classes:"grid-list", count:20,
 					toggleSelected: true, itemWidth: 150, itemHeight: 200, itemSpacing: 20, onSetupItem: "setupItem",
 					components: [
-						{name: "item", kind: "moon.GridList.ImageItem"}
+						{name: "item", kind: "moon.GridListImageItem"}
 					]
 				}
-			]}			
+			]}
 		]}
 	],
 	setupItem: function(inSender, inEvent) {
@@ -71,7 +71,7 @@ enyo.kind({
 			var subtitle = "";
 			switch (inEvent.action) {
 				case "sort": {
-					this.sortAction = inEvent.toggledControl.getContent();					
+					this.sortAction = inEvent.toggledControl.getContent();
 					subtitle = inEvent.toggledControl.getContent();
 					if (this.filterAction) {
 						subtitle += " / " + this.filterAction;

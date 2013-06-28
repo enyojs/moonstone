@@ -46,7 +46,7 @@ img.drawer-close-content {
     margin: 0 0 0 40%;
 }
 /* result items */
-/* enyo.DataGridList.TitleImageItem */
+/* enyo.TitleImageItem */
 .enyo-gridlist-titleimageitem > .caption {
     position: relative;
     top: -20px;
@@ -85,7 +85,7 @@ img.drawer-close-content {
   overflow: hidden;
   vertical-align: bottom;
 }
-/* moon.DataGridList.TitleImageItem */
+/* moon.TitleImageItem */
 .moon-gridlist-titleimageitem.spotlight > .caption {
   background: #ffb80d !important;
 }
