@@ -3017,7 +3017,7 @@ p.moon-drawer-handle-text {
   padding: 0px;
   line-height: 14px;
   font-weight: normal;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
