@@ -189,6 +189,9 @@ enyo.kind({
 			}
 		}));
 	},
+	handleAtIndex: function(inIndex) {
+		return this.$.handles.getControls()[inIndex];
+	},
 	spotUp: function(inSender, inEvent) {
 		if (inEvent.originator == this.$.activator && !this.$.handleContainer.getOpen()) {
 			return true;
