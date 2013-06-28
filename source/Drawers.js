@@ -39,7 +39,7 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"handleContainer", kind:"enyo.Drawer", spotlight:'container', open:false, components:[
+		{name:"handleContainer", kind:"enyo.Drawer", spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-drawers-handles"}
 		]},
 		{name:"activator", classes:"moon-drawers-activator", spotlight:true, ontap:"activatorHandler", components:[
@@ -48,20 +48,35 @@ enyo.kind({
 			]}
 		]},
 		{name: "drawers", classes:"moon-drawers-drawer-container"},		
-		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}
+		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}	
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
 		this.setupHandles();
-		enyo.Spotlight.spot(this.$.client);
 	},
 	rendered: function() {
 	    this.inherited(arguments);
-	    var dh = this.hasNode().getBoundingClientRect().height;
+		this.resizeDresser();
+	    var dh = document.body.getBoundingClientRect().height;
 	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
 	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
+	resizeDresser: function() {
+		var client = this.hasNode().getBoundingClientRect();
+
+		this.$.activator.applyStyle('left', -client.left+'px');
+		this.$.activator.applyStyle('top',-client.top+'px');
+		this.$.activator.applyStyle('width',document.body.getBoundingClientRect().width + "px");
+
+		this.$.handleContainer.applyStyle('left', -client.left+'px');
+		this.$.handleContainer.applyStyle('top',(-client.top-5)+'px');
+		this.$.handleContainer.applyStyle('width',document.body.getBoundingClientRect().width + "px");
+		
+		this.$.drawers.applyStyle('left', -client.left+'px');
+		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
+		this.$.drawers.applyStyle('width',document.body.getBoundingClientRect().width + "px");
+	},	
 	setupHandles: function() {
 		var handles = [];
 		for (var index in this.drawers){
@@ -82,7 +97,7 @@ enyo.kind({
 			} else {
 				this.$.handleContainer.setOpen(!this.$.handleContainer.getOpen());				
 			}
-			this.setNubArrowUp(false);
+			this.updateActivator(false);
 		}
 	},
 	handleTapped: function(inSender, inEvent) {
@@ -137,7 +152,7 @@ enyo.kind({
 		for (var index in drawers)
 		{
 			if (drawers[index] == inEvent.originator) {
-				this.setNubArrowUp(true);
+				this.updateActivator(true);
 				return true;
 			}
 		}
@@ -145,27 +160,46 @@ enyo.kind({
 	drawerDeactivated: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this.$.activator);
 		if (!inEvent.originator.getOpen() && !inEvent.originator.getControlsOpen()) {
-			this.setNubArrowUp(false);
+			this.updateActivator(false);
 		}
 	},
-	setNubArrowUp: function(up) {
+	updateActivator: function(up) {
 		this.$.nubArrow.addRemoveClass("up",up);
 		this.$.nubArrow.addRemoveClass("down",!up);
+		if (!up) {
+			this.$.activator.addRemoveClass("drawer-open", false);			
+		}
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
 		if (this.$.handleContainer.$.animator.isAnimating()){
 			return true;
 		}
-	    var dh = this.hasNode().getBoundingClientRect().height;
+		this.resizeDresser();		
+	    var dh = document.body.getBoundingClientRect().height;
 	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
 	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
-		this.setNubArrowUp(false);
+		this.updateActivator(false);
+	},
+	//Updates the activator's style only when it is not animating so that there are no visual artifacts
+	resizeHandleContainer: function(inSender, inEvent) {
+		enyo.asyncMethod(inEvent.delegate.bindSafely(function(){
+			if (!this.$.animator.isAnimating()) {
+				this.parent.$.activator.addRemoveClass("drawer-open", this.parent.drawerOpen() ? true : false);
+			}
+		}));
 	},
 	spotUp: function(inSender, inEvent) {
 		if (inEvent.originator == this.$.activator && !this.$.handleContainer.getOpen()) {
 			return true;
 		}
+		
+		//this specifically handles an up event from moon.Panels, but it is potentially too strict
+		if (inEvent.originator.kind == "moon.Panels" && enyo.Spotlight.Util.isChild(this.$.client,inEvent.originator)) {
+			enyo.Spotlight.spot(this.$.activator);
+			return true;
+		}
+		
 		//if at the top of a drawer then move focus to the activator
 		var drawers = this.$.drawers.getControls();
 		for (var index in drawers) {
@@ -196,7 +230,7 @@ enyo.kind({
 				}
 			}
 			//spot the client area if no drawers are open
-			enyo.Spotlight.spot(this.$.client);
+			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.client));
 			return true;
 		}
 

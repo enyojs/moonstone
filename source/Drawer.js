@@ -45,7 +45,7 @@ enyo.kind({
 		onDrawersResized: "drawersResized"
 	},
 	components: [
-		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container', classes: "moon-light-gray"},
+		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container', classes: "moon-dark-gray"},
 		{name: "controlDrawer", kind: "enyo.Drawer", spotlight: 'container'}
 	],
 	create: function() {
