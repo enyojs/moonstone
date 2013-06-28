@@ -63,13 +63,13 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	updateContent: function() {
-		// no input text
-		if(this.$.clientInput.value == "") {
-			this.$.currentValue.setContent(this.placeholder);
 		// text changed
-		} else if(this.$.clientInput.value !== this.value) {
+		if(this.value !== this.$.clientInput.value) {
 			this.setValue(this.$.clientInput.value);
 			this.fireChangeEvent();
+		// no input text
+		} else if(this.value == "") {
+			this.$.currentValue.setContent(this.placeholder);
 		// update the content of currentValue
 		} else if(this.value != this.$.currentValue.content) {
 			this.$.currentValue.setContent(this.value);
