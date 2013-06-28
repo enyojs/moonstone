@@ -50,8 +50,9 @@ enyo.kind({
 	changeItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		var val = parseInt(this.$.input.getValue(),10);
-		if (isNaN(val)) {
-			this.$.result.setContent(picker.name + " value must be an integer between 0-" + picker.getControls().length);
+		var len = picker.getClientControls().length - 1;
+		if (isNaN(val) || val < 0 || val > len) {
+			this.$.result.setContent(picker.name + " value must be an integer between 0-" + len);
 		} else {
 			picker.setSelectedIndex(val);
 		}
