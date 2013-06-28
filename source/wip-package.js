@@ -12,6 +12,7 @@ enyo.depends(
 	"Drawers.js",
 	"Video.js",
 	"VideoPlayer.js",
+	"VideoInfoHeader.js",
 	"VideoTransportSlider.js",
 	"VideoFeedback.js"
 );
