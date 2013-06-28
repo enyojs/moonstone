@@ -106,9 +106,19 @@ enyo.kind({
 			enyo.Spotlight.spot(this.$.client);
 		}
 	},
+	//* When closing drawer via keypress with "UP" direction, update value
+	headerFocus: function(inSender, inEvent) {
+		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
+			this.updateContent();
+			this.inherited(arguments);
+			return true;
+		} else if(!this.getOpen()) {
+			this.inherited(arguments);
+		}
+	},
 	//* focus moon.Input when input decorator gets focus
 	inputFocus: function(inSender, inEvent) {
-		if(inEvent.dir == "DOWN") {
+		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir == "DOWN") {
 			this.$.clientInput.focus();
 			enyo.Spotlight.spot(this.$.client);
 		}
