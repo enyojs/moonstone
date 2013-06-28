@@ -5,9 +5,9 @@ enyo.kind({
 	components: [
 		{name: "player", kind: "moon.VideoPlayer",
 			sourceComponents: [
-			{src: "http://media.w3.org/2010/05/sintel/trailer.mp4",  type: "video/mp4"},
-			{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"},
-			{src: "http://media.w3.org/2010/05/sintel/trailer.ogv",  type: "video/ogg"}
+				{src: "http://media.w3.org/2010/05/sintel/trailer.mp4",  type: "video/mp4"},
+				{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"},
+				{src: "http://media.w3.org/2010/05/sintel/trailer.ogv",  type: "video/ogg"}
 			],
 			infoComponents: [
 				{classes: "moon-video-player-description-info", components: [
@@ -33,9 +33,8 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fullscreenbutton.png", ontap: "closeFullscreen"}
 			]
-		}]
-	}
-);
+		}
+	]
+});

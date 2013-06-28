@@ -2,7 +2,9 @@ enyo.kind({
 	name: "moon.sample.PanelsVideoPlayerSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	published: {
-		server: "http://media.w3.org/2010/05/sintel/",
+		// server: "http://media.w3.org/2010/05/sintel/",
+		server: "http://10.195.248.113:8080/files/",
+		// server: "http://192.168.56.101/files/",
 		fileName: "trailer",
 		fileExt: "mp4"
 	},
@@ -25,9 +27,9 @@ enyo.kind({
 					{kind: "moon.Item", style: "float: right;", content: "Capture", ontap: "next"},
 					{kind: "moon.Divider", style: "margin-top:40px", content:"Select Video Format"},
 					{name:"pickerExt", kind:"moon.SimplePicker", onChange:"changed", components: [
-						{content:"mp4"},
+						{content:"mp4"}/*,
 						{content:"webm"},
-						{content:"ogv"}
+						{content:"ogv"}*/
 					]}
 				]}
 			]},
@@ -47,7 +49,7 @@ enyo.kind({
 		return true;
 	},
 	webCounter: function(inSender, inEvent) {
-		this.setServer("http://media.w3.org/2010/05/video/");
+		// this.setServer("http://media.w3.org/2010/05/video/");
 		this.setFileName("movie_300");
 		this.setFileExt("mp4");
 		this.$.pickerExt.setSelectedIndex(0);
@@ -55,7 +57,7 @@ enyo.kind({
 		return true;
 	},
 	webMovieBunny: function(inSender, inEvent) {
-		this.setServer("http://media.w3.org/2010/05/bunny/");
+		// this.setServer("http://media.w3.org/2010/05/bunny/");
 		this.setFileName("movie");
 		this.setFileExt("mp4");
 		this.$.pickerExt.setSelectedIndex(0);
@@ -63,7 +65,7 @@ enyo.kind({
 		return true;
 	},
 	webMovieSintel: function(inSender, inEvent) {
-		this.setServer("http://media.w3.org/2010/05/sintel/");
+		// this.setServer("http://media.w3.org/2010/05/sintel/");
 		this.setFileName("trailer");
 		this.setFileExt("mp4");
 		this.$.pickerExt.setSelectedIndex(0);
@@ -80,8 +82,18 @@ enyo.kind({
 		this.$.videoSampler.$.player.$.video.setAutoplay(true);
 	},
 	requestFullScreen: function(inSender, inEvent) {
-		if(inEvent.originator.ontap=="toggleFullscreen" && !this.resizeFix) {
+		if(inEvent.originator.ontap=="closeFullscreen") {
+			if(this.$.videoSampler.$.player.getFullScreen()) {	
+				this.$.videoSampler.$.player.$.video.applyStyle("width", "720px");
+				this.$.panels.applyStyle("opacity", 1);	
+				this.applyStyle("background-color", "#ededed");
+				this.$.videoSampler.$.player.toggleFullscreen();
+			} 
+		}
+		if(inEvent.originator.ontap=="toggleFullscreen") {
 			this.$.videoSampler.$.player.$.video.applyStyle("width", "auto");
+			this.$.panels.applyStyle("opacity", 0);	
+			this.applyStyle("background-color", "black");			
 		}
 	},
 	updateCanvas: function(inNode) {

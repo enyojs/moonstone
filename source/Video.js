@@ -69,7 +69,7 @@ enyo.kind({
 	},
 	_playbackRateArray: null,
 	_speedIndex: 0,
-
+	
 	create: function() {
 		this.inherited(arguments);
 		this.posterChanged();

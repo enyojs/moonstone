@@ -2985,7 +2985,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   color: #ffffff;
   text-align: center;
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
 }
 .moon-video-fullscreen-control .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
@@ -3017,7 +3017,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   top: 0px;
   z-index: 2;
   font-family: "MuseoSans 700";
-  font-size: 28px;
+  font-size: 30px;
   letter-spacing: -0.04em;
   color: #ffffff;
 }
@@ -3052,7 +3052,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-video-player-info-channel {
   font-family: "MuseoSans Medium";
-  font-size: 28px;
+  font-size: 30px;
   font-kerning: 10;
   -webkit-font-kerning: 10;
   -o-font-kerning: 10;
@@ -3062,7 +3062,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-video-player-info-synopsys {
   font-family: "MuseoSans 300";
-  font-size: 28px;
+  font-size: 30px;
   line-height: 30px;
   white-space: normal;
   max-width: 1200px;
@@ -3080,14 +3080,14 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   right: 0px;
   margin: 15px;
   font-family: "MuseoSans 300";
-  font-size: 25px;
+  font-size: 26px;
   line-height: 30px;
   text-transform: uppercase;
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans Medium";
-  font-size: 28px;
-  line-height: 28px;
+  font-size: 30px;
+  line-height: 30px;
   background-color: #ffffff;
   color: #000000;
   border-radius: 5px;
@@ -3268,18 +3268,18 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-expandable-input.open .moon-expandable-input-header {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   padding: 0px;
   border-bottom: 1px solid #aaa;
 }
 .moon-expandable-input-current-value {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 22px;
   font-style: italic;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   margin: 0px;
   padding: 0px;
   line-height: 14px;

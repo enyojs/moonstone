@@ -68,8 +68,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.showTickTextChanged();
 		this.showTickBarChanged();
-		this.setConstrainToBgProgress(true);
-		this.setElasticEffect(false);
 		this.updateSliderRange(true);
 	},
 	resizeHandler: function() {

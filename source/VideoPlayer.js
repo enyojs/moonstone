@@ -30,7 +30,7 @@ enyo.kind({
 	name: "moon.VideoPlayer",
 	kind: "enyo.Control",
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
-	classes: "moon-video-player", 
+	classes: "moon-video-player enyo-unselectable", 
 	published: {
 		//* HTML5 video source URL
 		src: "",
@@ -39,7 +39,9 @@ enyo.kind({
 		//* Video aspect ratio, set as width:height
 		aspectRatio: "16:9",
 		autoCloseTimeout: 3000,
-		duration: 0
+		duration: 0,
+		//* Full Screen
+		fullScreen: false
 	},
 	handlers: {
 		onRequestTimeChange: "timeChange",
@@ -299,11 +301,13 @@ enyo.kind({
 	
 	//* Toggle fullscreen on/off
 	toggleFullscreen: function(inSender, inEvent) {
-		if (this.isFullscreen()) {
+	//	if (this.isFullscreen()) {
+		if (this.fullScreen) {
 			this.cancelFullscreen();
 		} else {
 			this.requestFullscreen();
 		}
+		this.fullScreen = !this.fullScreen;
 	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
