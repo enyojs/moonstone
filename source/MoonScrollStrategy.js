@@ -74,7 +74,7 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 		this.updatePageSize();
-		this.updateSpotlgithPagingControls();
+		this.updateSpotlightPagingControls();
 	},
 	//* Onresize, update thumb ratio and show/hide scroll columns
 	resizeHandler: function() {
@@ -86,7 +86,7 @@ enyo.kind({
 		this.setThumbSizeRatio();
 		this.updatePageSize();
 	},
-	updateSpotlgithPagingControls: function() {
+	updateSpotlightPagingControls: function() {
 		enyo.forEach([
 			this.$.pageLeftControl, 
 			this.$.pageRightControl, 
