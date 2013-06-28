@@ -58,5 +58,6 @@ enyo.depends(
 	"Popup.js",
 	"Dialog.js",
 	"TooltipDecorator.js",
-	"Tooltip.js"
+	"Tooltip.js",
+	"ExpandableInput.js"
 );
