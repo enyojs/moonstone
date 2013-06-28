@@ -2478,6 +2478,9 @@ p.moon-drawer-handle-text {
   marquee-speed: 3px;
   marquee-style: scroll;
 }
+.moon-drawer-client {
+  padding: 20px;
+}
 /* Drawers.css */
 .moon-drawers {
   position: relative;

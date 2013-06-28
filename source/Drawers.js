@@ -63,19 +63,19 @@ enyo.kind({
 	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	resizeDresser: function() {
-		var client = this.hasNode().getBoundingClientRect();
+		var client = this.getBounds();
 
 		this.$.activator.applyStyle('left', -client.left+'px');
 		this.$.activator.applyStyle('top',-client.top+'px');
-		this.$.activator.applyStyle('width',document.body.getBoundingClientRect().width + "px");
+		this.$.activator.applyStyle('width',enyo.dom.getWindowWidth() + "px");
 
 		this.$.handleContainer.applyStyle('left', -client.left+'px');
 		this.$.handleContainer.applyStyle('top',(-client.top-5)+'px');
-		this.$.handleContainer.applyStyle('width',document.body.getBoundingClientRect().width + "px");
+		this.$.handleContainer.applyStyle('width',enyo.dom.getWindowWidth() + "px");
 		
 		this.$.drawers.applyStyle('left', -client.left+'px');
 		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
-		this.$.drawers.applyStyle('width',document.body.getBoundingClientRect().width + "px");
+		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
 	},	
 	setupHandles: function() {
 		var handles = [];
