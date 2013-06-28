@@ -49,7 +49,12 @@ enyo.kind({
 	},
 	changeItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
-		picker.setSelectedIndex(parseInt(this.$.input.getValue(),10));
+		var val = parseInt(this.$.input.getValue(),10);
+		if (isNaN(val)) {
+			this.$.result.setContent(picker.name + " value must be an integer between 0-" + picker.getControls().length);
+		} else {
+			picker.setSelectedIndex(val);
+		}
 	},
 	addItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
