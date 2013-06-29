@@ -233,10 +233,17 @@ enyo.kind({
 	////// Slider event handling //////
 	
 	onEnterSlider: function(inSender, inEvent) {
-		this.$.controls.hide();
+		enyo.job(this.id + "_hideControls", this.bindSafely("hideControls"), 800);
 	},
 	onLeaveSlider: function(inSender, inEvent) {
-		this.$.controls.show();
+		enyo.job.stop(this.id + "_hideControls");
+		this.showControls();
+	},
+	hideControls: function() {
+		this.$.controls.addClass("hidden");
+	},
+	showControls: function() {
+		this.$.controls.removeClass("hidden");
 	},
 	
 	//* When seeking starts, pause video
