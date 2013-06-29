@@ -45,7 +45,8 @@ enyo.kind({
 	},
 	handlers: {
 		onRequestTimeChange: "timeChange",
-		onSpotlightKeyUp: "showFSControls"
+		onSpotlightKeyUp: "showFSControls",
+		onRequestToggleFullscreen: "toggleFullscreen"
 	},
     bindings: [],
 	
@@ -108,7 +109,7 @@ enyo.kind({
 				{name: "totalTime", content: "00:00"}
 			]},
 			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fullscreenbutton.png", ontap: "toggleFullscreen", classes: "moon-video-inline-control-fullscreen"}
+			{kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]}
 	],
 	
@@ -124,30 +125,27 @@ enyo.kind({
 	createInfoControls: function() {
 		this.$.videoInfo.createComponents(this.infoComponents);
 	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.setupButtonCarousel();
-	},
-	setupButtonCarousel: function() {
-		var components = this.components;
-		
-		// No components - destroy more button
-		if (!components) {
-			this.$.moreButton.destroy();
-		
-		// One or two components - destroy more button and utilize left/right premium placeholders
-		} else if (components.length <= 2) {
-			this.$.moreButton.destroy();
-			this.$.leftPremiumPlaceHolder.createComponent(components[0], {owner: this.owner});
-			components.splice(0,1);
-			if (components.length == 1) {
-				this.$.rightPremiumPlaceHolder.createComponent(components[0], {owner: this.owner});
-				components.splice(0,1);
+	createClientComponents: function(inComponents) {
+		if (!this._buttonsSetup) {
+			this._buttonsSetup = true;
+			if (!inComponents) {
+				// No components - destroy more button
+				this.$.moreButton.destroy();			
+			} else if (inComponents.length <= 2) {
+				// One or two components - destroy more button and utilize left/right premium placeholders
+				this.$.moreButton.destroy();
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
+				if (inComponents.length == 1) {
+					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
+				}
+			} else {
+				// More than two components - use extra panel, with left premium plaeholder for first component
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
 			}
-		
-		// More than two components - use extra panel, with left premium plaeholder for first component
+			// Create the rest of the components in the client (panels)
+			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
 		} else {
-			this.$.leftPremiumPlaceHolder.createComponents(components.splice(0,1), {owner: this.owner});
+			this.inherited(arguments);
 		}
 	},
 	

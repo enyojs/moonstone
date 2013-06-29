@@ -4,15 +4,21 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
-			{kind: "moon.Panel", title: "Intro", components: [
+			{kind: "moon.Panel", title: "Video", components: [
 				{kind: "moon.Divider", content: "Select video content"},
 				{kind: "Group", style: "margin-top: 20px;", onActivate: "groupChanged", components: [
 					{kind: "moon.SelectableItem", content: "Counter", onchange: "webCounter", checked: true}, 
 					{kind: "moon.SelectableItem", content: "Bunny", onchange: "webMovieBunny"},
 					{kind: "moon.SelectableItem", content: "Sintel", onchange: "webMovieSintel"}
+				]},
+				{kind: "moon.Divider", style: "margin-top:40px", content:"Select Video Format"},
+				{name:"pickerExt", kind:"moon.SimplePicker", onChange:"changed", components: [
+					{content:"mp4"},
+					{content:"webm"},
+					{content:"ogv"}
 				]}
 			]},
-			{kind: "moon.Panel", joinToPrev: true, title: "Workspace", layoutKind: "FittableColumnsLayout", components: [
+			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", components: [
 				{
 					components: [
 						{name: "player", kind: "moon.VideoPlayer", style: "width: 720px;",
@@ -43,6 +49,7 @@ enyo.kind({
 							],
 							components: [
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+								{kind: "moon.VideoFullscreenToggleButton"},
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
@@ -50,58 +57,51 @@ enyo.kind({
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fullscreenbutton.png", ontap: "closeFullscreen"}
+								{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
 							]
 						}
 					]
 				},
 				{fit: true, layoutKind: "FittableRowsLayout", components: [
-					{kind: "moon.Item", style: "float: right;", content: "Capture", ontap: "next"},
-					{kind: "moon.Divider", style: "margin-top:40px", content:"Select Video Format"},
-					{name:"pickerExt", kind:"moon.SimplePicker", onChange:"changed", components: [
-						{content:"mp4"},
-						{content:"webm"},
-						{content:"ogv"}
-					]}
+					{kind: "moon.Item", style: "float: right;", content: "Capture", ontap: "next"}
 				]}
-				]},
-				{kind: "moon.Panel", title: "Result", components: [
-					{tag: "canvas", name: "capture"}
-				]}
+			]},
+			{kind: "moon.Panel", title: "Capture to Canvas", components: [
+				{tag: "canvas", name: "capture"}
 			]}
-		],
-		next: function(inSender, inEvent) {
+		]}
+	],
+	next: function(inSender, inEvent) {
+		try {
 			this.updateCanvas();
-			this.$.panels.next();
-			return true;
-		},
-		webCounter: function(inSender, inEvent) {
-			this.$.pickerExt.setSelectedIndex(0);
-			return true;
-		},
-		webMovieBunny: function(inSender, inEvent) {
-			this.$.pickerExt.setSelectedIndex(0);
-			return true;
-		},
-		webMovieSintel: function(inSender, inEvent) {
-			this.$.pickerExt.setSelectedIndex(0);
-			return true;
-		},
-		changed: function(inSender, inEvent) {
-			// this.$.player.setSrc(this.$.player.sources[7]);
-		},
-		closeFullscreen: function(inSender, inEvent) {
-			this.$.player.toggleFullscreen(inSender, inEvent);
-		},
-		updateCanvas: function() {
-			var drawingNode = this.$.capture.hasNode();
-			var videoNode = this.$.player.$.video.hasNode();
-			var ctx = drawingNode.getContext("2d");
-			var vdb = videoNode.getBoundingClientRect();
-			this.$.capture.applyStyle("width", vdb.width+"px");
-			this.$.capture.applyStyle("height", vdb.height+"px");
-			ctx.drawImage(videoNode, 0, 0, 300, 150);
+		} catch (e) {
+			enyo.warn(e);
 		}
+		this.$.panels.next();
+		return true;
+	},
+	webCounter: function(inSender, inEvent) {
+		this.$.pickerExt.setSelectedIndex(0);
+		return true;
+	},
+	webMovieBunny: function(inSender, inEvent) {
+		this.$.pickerExt.setSelectedIndex(0);
+		return true;
+	},
+	webMovieSintel: function(inSender, inEvent) {
+		this.$.pickerExt.setSelectedIndex(0);
+		return true;
+	},
+	changed: function(inSender, inEvent) {
+		// this.$.player.setSrc(this.$.player.sources[7]);
+	},
+	updateCanvas: function() {
+		var drawingNode = this.$.capture.hasNode();
+		var videoNode = this.$.player.$.video.hasNode();
+		var ctx = drawingNode.getContext("2d");
+		var vdb = videoNode.getBoundingClientRect();
+		this.$.capture.applyStyle("width", vdb.width+"px");
+		this.$.capture.applyStyle("height", vdb.height+"px");
+		ctx.drawImage(videoNode, 0, 0, 300, 150);
 	}
-); 
+}); 
