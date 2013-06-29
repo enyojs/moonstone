@@ -17,15 +17,15 @@ enyo.kind({
 					components: [
 						{name: "player", kind: "moon.VideoPlayer", style: "width: 720px;",
 							sourceComponents: [
-								{src: "http://10.195.248.113:8080/files/movie_300.mp4",  type: "video/mp4"},
-								{src: "http://10.195.248.113:8080/files/movie_300.webm", type: "video/webm"},
-								{src: "http://10.195.248.113:8080/files/movie_300.ogv",  type: "video/ogg"},
-								{src: "http://10.195.248.113:8080/files/movie.mp4",  type: "video/mp4"},
-								{src: "http://10.195.248.113:8080/files/movie.webm", type: "video/webm"},
-								{src: "http://10.195.248.113:8080/files/movie.ogv",  type: "video/ogg"},
-								{src: "http://10.195.248.113:8080/files/trailer.mp4",  type: "video/mp4"},
-								{src: "http://10.195.248.113:8080/files/trailer.webm", type: "video/webm"},
-								{src: "http://10.195.248.113:8080/files/trailer.ogv",  type: "video/ogg"}
+								{src: "http://media.w3.org/2010/05/video/movie_300.mp4",  type: "video/mp4"},
+								{src: "http://media.w3.org/2010/05/video/movie_300.webm", type: "video/webm"},
+								{src: "http://media.w3.org/2010/05/video/movie_300.ogv",  type: "video/ogg"},
+								{src: "http://media.w3.org/2010/05/bunny/movie.mp4",  type: "video/mp4"},
+								{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"},
+								{src: "http://media.w3.org/2010/05/bunny/movie.ogv",  type: "video/ogg"},
+								{src: "http://media.w3.org/2010/05/sintel/trailer.mp4",  type: "video/mp4"},
+								{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"},
+								{src: "http://media.w3.org/2010/05/sintel/trailer.ogv",  type: "video/ogg"}
 							],
 							infoComponents: [
 								{
