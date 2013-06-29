@@ -77,6 +77,15 @@ enyo.kind({
 		this.preloadChanged();
 		this.autoplayChanged();
 		this.loopChanged();
+		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
+		this.disableTransform(this);
+	},
+	disableTransform: function(control) {
+		control.preventTransform = true;
+		control.preventAccelerate = true;
+		if (control.parent) {
+			this.disableTransform(control.parent);
+		}
 	},
 	rendered: function() {
 		this.inherited(arguments);
