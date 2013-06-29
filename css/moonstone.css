@@ -2736,6 +2736,7 @@ p.moon-drawer-handle-text {
 .moon-video-player {
   position: relative;
   display: inline-block;
+  background-color: black;
 }
 .moon-video-player-video {
   display: block;

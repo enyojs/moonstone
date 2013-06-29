@@ -309,6 +309,17 @@ enyo.kind({
 		}
 		this.fullScreen = !this.fullScreen;
 	},
+	cancelFullscreen: function() {
+		var appNode = document.body.firstChild;
+		appNode.style.opacity = this.appOpacity;
+		this.inherited(arguments);
+	},
+	requestFullscreen: function() {
+		var appNode = document.body.firstChild;
+		this.appOpacity = appNode.style.opacity;
+		appNode.style.opacity = 0;
+		this.inherited(arguments);
+	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
 		this._isPlaying = true;
