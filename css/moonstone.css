@@ -2855,6 +2855,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
   display: none;
   margin: 20px;
   box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 /* ---- Fullscreen style ---- */
 :-webkit-full-screen.moon-video-player .moon-video-fullscreen-control {
