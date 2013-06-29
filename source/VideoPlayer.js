@@ -310,12 +310,17 @@ enyo.kind({
 		this.fullScreen = !this.fullScreen;
 	},
 	cancelFullscreen: function() {
-		var appNode = document.body.firstChild;
+		var appBody = document.body;
+		var appNode = appBody.firstChild;
+		appBody.style.backgroundColor = this.BgColor;
 		appNode.style.opacity = this.appOpacity;
 		this.inherited(arguments);
 	},
 	requestFullscreen: function() {
-		var appNode = document.body.firstChild;
+		var appBody = document.body;
+		this.BgColor = appBody.style.backgroundColor;
+		appBody.style.backgroundColor = "black";
+		var appNode = appBody.firstChild;
 		this.appOpacity = appNode.style.opacity;
 		appNode.style.opacity = 0;
 		this.inherited(arguments);
