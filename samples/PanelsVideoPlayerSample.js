@@ -6,7 +6,7 @@ enyo.kind({
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
 			{kind: "moon.Panel", title: "Video", components: [
 				{kind: "moon.Divider", content: "Select video content"},
-				{kind: "Group", style: "margin-top: 20px;", onActivate: "groupChanged", components: [
+				{name: "vidContents", kind: "Group", style: "margin-top: 20px;", onActivate: "groupChanged", components: [
 					{kind: "moon.SelectableItem", content: "Counter", onchange: "webCounter", checked: true}, 
 					{kind: "moon.SelectableItem", content: "Bunny", onchange: "webMovieBunny"},
 					{kind: "moon.SelectableItem", content: "Sintel", onchange: "webMovieSintel"}
@@ -20,6 +20,7 @@ enyo.kind({
 			]},
 			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", components: [
 				{
+					fit: true, 
 					components: [
 						{name: "player", kind: "moon.VideoPlayer", style: "width: 720px;",
 							sourceComponents: [
@@ -27,7 +28,7 @@ enyo.kind({
 								{src: "http://media.w3.org/2010/05/video/movie_300.webm", type: "video/webm"},
 								{src: "http://media.w3.org/2010/05/video/movie_300.ogv",  type: "video/ogg"},
 								{src: "http://media.w3.org/2010/05/bunny/movie.mp4",  type: "video/mp4"},
-								{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"},
+								{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}, // doesn't exist on Server
 								{src: "http://media.w3.org/2010/05/bunny/movie.ogv",  type: "video/ogg"},
 								{src: "http://media.w3.org/2010/05/sintel/trailer.mp4",  type: "video/mp4"},
 								{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"},
@@ -62,7 +63,7 @@ enyo.kind({
 						}
 					]
 				},
-				{fit: true, layoutKind: "FittableRowsLayout", components: [
+				{layoutKind: "FittableRowsLayout", components: [
 					{kind: "moon.Item", style: "float: right;", content: "Capture", ontap: "next"}
 				]}
 			]},
@@ -81,19 +82,32 @@ enyo.kind({
 		return true;
 	},
 	webCounter: function(inSender, inEvent) {
+		this.videoIndex = 0;
 		this.$.pickerExt.setSelectedIndex(0);
+		this.movieChange();
 		return true;
 	},
 	webMovieBunny: function(inSender, inEvent) {
+		this.videoIndex = 3;
 		this.$.pickerExt.setSelectedIndex(0);
+		this.movieChange();
 		return true;
 	},
 	webMovieSintel: function(inSender, inEvent) {
+		this.videoIndex = 6;
 		this.$.pickerExt.setSelectedIndex(0);
+		this.movieChange();
 		return true;
 	},
 	changed: function(inSender, inEvent) {
-		// this.$.player.setSrc(this.$.player.sources[7]);
+		if(!this.videoIndex) {
+			this.videoIndex = 0;
+		}
+		this.movieChange();
+	},
+	movieChange: function() {
+		var idx = this.videoIndex + this.$.pickerExt.getSelectedIndex();
+		this.$.player.sourceComponentsSelect(idx);
 	},
 	updateCanvas: function() {
 		var drawingNode = this.$.capture.hasNode();

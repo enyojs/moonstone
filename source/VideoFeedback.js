@@ -9,19 +9,20 @@ enyo.kind({
 	published: {
 		//* Timeout duration for disapearing feedback information (in milliseconds)
 		autoTimeoutMS: 	2000,
-		imagePath: 		"$lib/moonstone/images/",
-		jumpBackImg: 	"icon-jumpback.png",
-		rewindImg: 		"icon-rewind.png",
-		playImg: 		"icon-play.png",
-		pauseImg: 		"icon-pause.png",
-		fastForwardImg: "icon-fastforward.png",
-		jumpForwardImg: "icon-jumpforward.png",
-		pauseBackImg: 	"icon-pauseplaybackward.png",
-		pauseForwardImg:"icon-pauseplayforward.png"
 	},
 	//* @protected
-	showingFeedback: false,
+	_showingFeedback: false,
+	_imagePath: 		"$lib/moonstone/images/",
+	_jumpBackImg: 		"icon-jumpback.png",
+	_rewindImg: 		"icon-rewind.png",
+	_playImg: 			"icon-play.png",
+	_pauseImg: 			"icon-pause.png",
+	_fastForwardImg: 	"icon-fastforward.png",
+	_jumpForwardImg: 	"icon-jumpforward.png",
+	_pauseBackImg: 		"icon-pauseplaybackward.png",
+	_pauseForwardImg: 	"icon-pauseplayforward.png",
 	_autoTimer: null,
+
 	components: [
 		{classes: "moon-video-feedback-wrapper", components: [
 			{name: "leftIcon",  classes: "moon-video-feedback-icon-left",  allowHtml: true, content: "&nbsp;", showing: false},
@@ -39,41 +40,41 @@ enyo.kind({
 		
 		switch (inMessage) {
 		case "Play":
-			inRightSrc = enyo.path.rewrite(this.imagePath + this.playImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._playImg);
 			break;
 			
 		case "Pause":
-			inRightSrc = enyo.path.rewrite(this.imagePath + this.pauseImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseImg);
 			break;
 			
 		case "Rewind":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
-			inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
+			inLeftSrc = enyo.path.rewrite(this._imagePath + this._rewindImg);
 			break;
 			
 		case "Slowrewind":
 			inMessage = inParams.playbackRate + "x";
-			inLeftSrc = enyo.path.rewrite(this.imagePath + this.rewindImg);
+			inLeftSrc = enyo.path.rewrite(this._imagePath + this._rewindImg);
 			break;
 			
 		case "Fastforward":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
-			inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._fastForwardImg);
 			break;
 			
 		case "Slowforward":
 			inMessage = inParams.playbackRate + "x";
-			inRightSrc = enyo.path.rewrite(this.imagePath + this.fastForwardImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._fastForwardImg);
 			break;
 			
 		case "JumpBackward":
 			inMessage = inParams.jumpSize + " sec";
-			inLeftSrc = enyo.path.rewrite(this.imagePath + this.jumpBackImg);
+			inLeftSrc = enyo.path.rewrite(this._imagePath + this._jumpBackImg);
 			break;
 			
 		case "JumpForward":
 			inMessage = inParams.jumpSize + " sec";
-			inRightSrc = enyo.path.rewrite(this.imagePath + this.jumpForwardImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._jumpForwardImg);
 			break;
 		
 		// If the user sends in a custom message, block other messages until it's hidden

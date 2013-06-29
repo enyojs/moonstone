@@ -46,7 +46,8 @@ enyo.kind({
 	handlers: {
 		onRequestTimeChange: "timeChange",
 		onSpotlightKeyUp: "showFSControls",
-		onRequestToggleFullscreen: "toggleFullscreen"
+		onRequestToggleFullscreen: "toggleFullscreen",
+		onresize: "resizeHandler"
 	},
     bindings: [],
 	
@@ -117,6 +118,11 @@ enyo.kind({
 		this.setupVideoBindings();
 		this.inherited(arguments);
 		this.createInfoControls();
+	},
+	resizeHandler: function() {
+		var node = this.$.video.hasNode();
+		var rect = node.getBoundingClientRect();
+		this.applyStyle("width", rect.width + "px");
 	},
 	setupVideoBindings: function() {
 		this.bindings.push({from: ".src", to: "$.video.src"});
@@ -306,6 +312,7 @@ enyo.kind({
 			this.requestFullscreen();
 		}
 		this.fullScreen = !this.fullScreen;
+		if(this._isPlaying)this.play(); // FIXME LATER
 	},
 	cancelFullscreen: function() {
 		var appBody = document.body;
@@ -317,7 +324,7 @@ enyo.kind({
 	requestFullscreen: function() {
 		var appBody = document.body;
 		this.BgColor = appBody.style.backgroundColor;
-		appBody.style.backgroundColor = "black";
+		appBody.style.backgroundColor = "#000000";
 		var appNode = appBody.firstChild;
 		this.appOpacity = appNode.style.opacity;
 		appNode.style.opacity = 0;
@@ -440,7 +447,14 @@ enyo.kind({
 			this.$.controlsContainer.previous();
 		}
 	},
-
+	//* Video Source Change
+	sourceComponentsSelect: function(nIndex) {
+		(this.headAttached)? this.sourceComponents.shift():this.headAttached = true;
+		this.sourceComponents.unshift(this.sourceComponents[nIndex]);
+		this.$.video.sourceComponentsChanged();
+		if(this._isPlaying)this.pause(); // FIXME LATER
+		return this.sourceComponents[0]; 
+	},
 	///////// VIDEO EVENT HANDLERS /////////
 
 	//* Updates the video time.
