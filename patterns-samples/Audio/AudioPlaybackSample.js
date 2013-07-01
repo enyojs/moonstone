@@ -59,7 +59,7 @@ enyo.kind({
     ],
     components: [
         {classes: "sample-audio-item", components: [
-            {classes: "sample-audio-item-image", style: "background-image: url(assets/default-music.png);", components: [
+            {classes: "sample-audio-item-image", style: "background-image: url(../assets/default-music.png);", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 0, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},
@@ -69,7 +69,7 @@ enyo.kind({
             {classes: "sample-audio-item-label-right", content: "0:15"}
         ]},
         {classes: "sample-audio-item", components: [
-            {classes: "sample-audio-item-image", style: "background-image: url(assets/default-music.png);", components: [
+            {classes: "sample-audio-item-image", style: "background-image: url(../assets/default-music.png);", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 1, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},

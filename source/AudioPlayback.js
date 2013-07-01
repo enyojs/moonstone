@@ -104,7 +104,7 @@ enyo.kind({
 		this.$.artistName.setContent(a.artistName);
 		this.$.audio.setSrc(a.src);
 		this.updatePlayTime("0:00", "0:00");
-		this.$.trackIcon.applyStyle("background-image", "url(assets/default-music.png)");
+		this.$.trackIcon.applyStyle("background-image", "url(../assets/default-music.png)");
 		// moon.Drawer needs a method for updating marquee content
 		this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
 	},
