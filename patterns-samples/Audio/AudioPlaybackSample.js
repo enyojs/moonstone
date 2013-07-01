@@ -47,36 +47,36 @@ enyo.kind({
 enyo.kind({
     name: "moon.sample.audioPlayback.pageContent",
     kind: "moon.Panel",
-	classes: "moon moon-music-trackonecolumn",
+	classes: "moon",
     title: "Browse Tracks",
     titleAbove: "02",
     titleBelow: "2 Tracks",
     headerComponents: [
 		{components: [
-			{kind: "moon.IconButton", src: "assets/icon-album.png", classes: "moon-music-header-button"},
-			{kind: "moon.IconButton", src: "assets/icon-list.png", classes: "moon-music-header-button-right"}
+			{kind: "moon.IconButton", src: "../assets/icon-album.png"},
+			{kind: "moon.IconButton", src: "../assets/icon-list.png"}
 		]}
     ],
     components: [
-        {classes: "moon-music-item",components: [
-            {classes: "moon-music-item-image", style: "background-image: url(assets/default-music.png);", components: [
-				{classes: "moon-play-icon", ontap: "playIndex", trackIndex: 0, spotlight: true}
+        {classes: "sample-audio-item", components: [
+            {classes: "sample-audio-item-image", style: "background-image: url(assets/default-music.png);", components: [
+				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 0, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},
-            {classes: "moon-music-item-label", components: [{classes: "moon-music-item-label-content", content: "Thunderstorm"}]},
-            {classes: "moon-music-item-label", components: [{classes: "moon-music-item-label-content", content: "Sound Effects"}]},
-            {classes: "moon-music-item-label", components: [{classes: "moon-music-item-label-content", content: "Album"}]},
-            {classes: "moon-music-item-label-right", content: "0:15"}
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Thunderstorm"}]},
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Sound Effects"}]},
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Album"}]},
+            {classes: "sample-audio-item-label-right", content: "0:15"}
         ]},
-        {kind: "enyo.FittableColumns", classes: "moon-music-item", components: [
-            {classes: "moon-music-item-image", style: "background-image: url(assets/default-music.png);", components: [
-				{classes: "moon-play-icon", ontap: "playIndex", trackIndex: 1, spotlight: true}
+        {classes: "sample-audio-item", components: [
+            {classes: "sample-audio-item-image", style: "background-image: url(assets/default-music.png);", components: [
+				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 1, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},
-            {classes: "moon-music-item-label", components: [{classes: "moon-music-item-label-content", content: "Rainfall"}]},
-            {classes: "moon-music-item-label", components: [{classes: "moon-music-item-label-content", content: "Sound Effects"}]},
-            {classes: "moon-music-item-label", components: [{classes: "moon-music-item-label-content", content: "Album"}]},
-            {classes: "moon-music-item-label-right", content: "1:09"}
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Rainfall"}]},
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Sound Effects"}]},
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Album"}]},
+            {classes: "sample-audio-item-label-right", content: "1:09"}
         ]}
     ],
     playIndex: function(inSender, inEvent) {
