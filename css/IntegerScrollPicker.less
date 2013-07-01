@@ -1,6 +1,5 @@
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
-	padding: 27px 21px;
 	display: inline-block;
 }
 .moon-scroll-picker {
@@ -11,7 +10,7 @@
 	border-bottom-width:25px;
 	border-bottom-style: solid;
 	border-bottom-color:transparent;		
-	border-radius:24px;	
+	border-radius:40px;	
 }
 
 .moon-scroll-picker.spotlight {
@@ -28,7 +27,6 @@
 	vertical-align:middle;
 	text-align:center;
 	background:transparent;
-	font-size: 15px;
 }
 
 .moon-scroll-picker-overlay-container-top {
@@ -57,6 +55,7 @@
 	border-top-style: solid;
 	border-top-color: @moon-spotlight-border-color;
   	bottom:-56px;
+	overflow: hidden;
 }
 
 .moon-scroll-picker-overlay-container-bottom {
@@ -92,7 +91,9 @@
 	position:relative;
 	z-index:10;
 	top:3px;
-	left:33%;
+	left:50%;
+	margin-left: -5px;
+
 }
 
 .up-arrow {
@@ -147,7 +148,8 @@
 	position:relative;
 	z-index:10;
 	top:137px;
-	left:12%;
+	left:50%;
+	margin-left: -10px;
 }
 
 .enyo-locale-right-to-left .down-arrow-container {

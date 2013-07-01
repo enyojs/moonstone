@@ -34,8 +34,8 @@
 	background: @moon-spotlight-border-color;
 }
 .moon-list-actions-close::after {
+	.moon-body-text;
 	content:"\2716";
-	font-size:25px;
 	position: relative;
 	top: 3px;
 	left:1px;
@@ -54,4 +54,18 @@
 	vertical-align:top;
 	margin:2px;	
 	width: 300px;
+}
+.moon-list-actions .moon-item,
+.moon-list-actions .moon-divider,
+{
+	font-family: @moon-font-family;
+	text-transform: capitalize;			
+}
+.moon-list-actions .moon-divider {
+	border-bottom: 1px solid @moon-light-gray;	
+}		
+.moon-list-actions .moon-expandable-picker-current-value 
+{
+	font-family: @moon-font-family-light;
+	text-transform: capitalize;		
 }

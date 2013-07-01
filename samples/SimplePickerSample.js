@@ -6,7 +6,7 @@ enyo.kind({
 		{kind:"enyo.Spotlight"},
 		{kind:"moon.Scroller", fit:true, components: [
 			{kind: "moon.Divider", content:"Picker 1: Animated"},
-			{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
+			{kind:"moon.SimplePicker", name:"picker1", wrap: true, onChange:"changed", components: [
 				{content:"San Francisco"},
 				{content:"Boston"},
 				{content:"Tokyo"}
@@ -49,7 +49,13 @@ enyo.kind({
 	},
 	changeItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
-		picker.setSelectedIndex(parseInt(this.$.input.getValue(),10));
+		var val = parseInt(this.$.input.getValue(),10);
+		var len = picker.getClientControls().length - 1;
+		if (isNaN(val) || val < 0 || val > len) {
+			this.$.result.setContent(picker.name + " value must be an integer between 0-" + len);
+		} else {
+			picker.setSelectedIndex(val);
+		}
 	},
 	addItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];

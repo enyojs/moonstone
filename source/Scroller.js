@@ -31,8 +31,12 @@ enyo.kind({
 			If true, when scrolling to focused child controls, the scroller will
 			scroll as far as possible, until its edge meets the next item's edge
 		*/
-		scrollFullPage: false
+		scrollFullPage: false,
+		//* If true, paging controls are spotlightable (in 5-way mode)
+		spotlightPagingControls: false
 	},
+	//* Allow scroll events to propagate
+	preventScrollPropagation: false,
 	//* @protected
 	initComponents: function() {
 		this.strategyKind = "moon.ScrollStrategy";

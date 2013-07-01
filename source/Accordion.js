@@ -18,10 +18,10 @@
 			{content: "Item Four"}
 		]}
 
-	When multiple Accordions are used in a group, only one may be open at	a given
+	When multiple Accordions are used in a group, only one may be open at a given
 	time.
 
-		{kind:"Group", highlander:true, components: [
+		{kind: "Group", highlander: true, components: [
 			{kind: "moon.Accordion",  active: true, content: "This is a grouped accordion", components: [
 				{content: "Item One"},
 				{content: "Item Two"}
@@ -33,7 +33,7 @@
 			{kind: "moon.Accordion", content: "This is yet another grouped accordion", components: [
 				{content: "Item Five"},
 				{content: "Item Six"}
-			]},
+			]}
 		]}
 */
 enyo.kind({
@@ -41,8 +41,6 @@ enyo.kind({
 	kind: "moon.ExpandableListItem",
 	classes: "moon-accordion",
 	published: {
-		//* True if the item is currently selected
-		active: false,
 		/**
 			If true, the drawer automatically closes when the user navigates to the
 			top of the control; if false, the user must select/tap the header to close
@@ -59,27 +57,6 @@ enyo.kind({
 		]}
 	],
 	//* @protected
-	rendered: function() {
-		this.inherited(arguments);
-		this.setActive(this.open);
-	},
-	activeChanged: function() {
-		this.bubble("onActivate");
-		this.setOpen(this.active);
-	},
-	expandContract: function() {
-		if (this.disabled) {
-			return true;
-		}
-		if(!this.getOpen()) {
-			this.setActive(true);
-			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
-		} else {
-			this.active = false;
-			this.setOpen(false);
-		}
-		return true;
-	},
 	openChanged: function() {
 		this.setArrow(this.open);
 		this.inherited(arguments);

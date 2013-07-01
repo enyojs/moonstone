@@ -1,11 +1,11 @@
 {
-"template": [
+"source": [
   {
     "id": "bootplate-moonstone-AlwaysViewingPanels",
-    "zipfiles": [
+    "files": [
       {
-        "url": "bootplate-moonstone.zip",
-        "alternateUrl": "http://enyojs.com/webos/bootplate-moonstone.zip",
+        "url": "templates/bootplate-moonstone.zip",
+        "alternateUrl": "http://nebula.lgsvl.com/templates/bootplate-moonstone.zip",
         "prefixToRemove": "bootplate"
       },
       {
@@ -13,8 +13,8 @@
         "alternateUrl": "http://enyojs.com/webos/webos-app-config.zip"
       },
       {
-        "url": "template-AlwaysViewingPanels.zip",
-        "alternateUrl": "http://enyojs.com/webos/template-AlwaysViewingPanels.zip"
+        "url": "templates/template-AlwaysViewingPanels.zip",
+        "alternateUrl": "http://nebula.lgsvl.com/templates/template-AlwaysViewingPanels.zip"
       }
     ],
     "description": "Moonstone AlwaysViewingPanels"
