@@ -6,6 +6,7 @@
 	"at your own risk".
 */
 enyo.depends(
+	"AudioPlayback.js",
 	"CalendarPicker.js",
 	"DrawerHandle.js",
 	"Drawer.js",
