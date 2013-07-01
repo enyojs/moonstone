@@ -36,8 +36,7 @@ enyo.kind({
 		onPostTransitionComplete: ""
 	},
 	handlers: {
-		onScroll: "scroll",
-		onScrollStop: "scrollStop"
+		onScroll: "scroll"
 	},
 
 	//* @protected
@@ -79,7 +78,7 @@ enyo.kind({
 		this.layoutKind = "FittableRowsLayout";
 		this.inherited(arguments);
 	},
-	
+
 	scroll: function(inSender, inEvent) {
 		if (this.collapsingHeader && !this.smallHeader) {
 			if (inEvent.originator.y < 0) {
@@ -88,24 +87,19 @@ enyo.kind({
 				this.expandHeader();
 			}
 		}
-		
-		this.resized();
-	},
-	scrollStop: function(inSender, inEvent) {
-		if (this.collapsingHeader && !this.smallHeader) {
-			this.resized();
-		}
 	},
 	collapseHeader: function() {
 		if (!this.isCollapsed) {
 			this.$.header.collapseToSmall();
 			this.isCollapsed = true;
+			this.resized();
 		}
 	},
 	expandHeader: function() {
 		if (this.isCollapsed) {
 			this.$.header.expandToLarge();
 			this.isCollapsed = false;
+			this.resized();
 		}
 	},
 
