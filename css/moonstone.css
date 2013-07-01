@@ -206,7 +206,7 @@
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
-  background-color: #ededed;
+  background-color: #ffffff;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -1484,7 +1484,7 @@
   margin-left: -5px;
 }
 .up-arrow {
-  border-color: transparent transparent #ededed transparent;
+  border-color: transparent transparent #ffffff transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -1537,7 +1537,7 @@
   left: 0%;
 }
 .down-arrow {
-  border-color: #ededed transparent transparent transparent;
+  border-color: #ffffff transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   height: 0;
@@ -2047,7 +2047,7 @@
 .moon-list-actions-close {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: #ededed;
+  background-color: #ffffff;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -2089,6 +2089,9 @@
 .moon-list-actions .moon-divider {
   font-family: "MuseoSans 700";
   text-transform: capitalize;
+}
+.moon-list-actions .moon-divider {
+  border-bottom: 1px solid #ffffff;
 }
 .moon-list-actions .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
@@ -2280,7 +2283,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
-  border-color: transparent transparent #ededed transparent;
+  border-color: transparent transparent #ffffff transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -13px;
@@ -2289,7 +2292,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
-  border-color: #ededed transparent transparent transparent;
+  border-color: #ffffff transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -5px;
@@ -3291,13 +3294,13 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
-  color: #ededed;
+  color: #ffffff;
 }
 .moon-dark-gray * {
-  color: #ededed;
+  color: #ffffff;
 }
 .moon-light-gray {
-  background-color: #ededed;
+  background-color: #ffffff;
   color: #4b4b4b;
 }
 .moon-light-gray * {
