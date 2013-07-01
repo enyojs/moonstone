@@ -206,7 +206,7 @@
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
-  background-color: #ededed;
+  background-color: #ffffff;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -1823,7 +1823,7 @@
 }
 /*for popups on the left of the activator*/
 .right.horizontal {
-  margin-left: -21px;
+  margin-left: -31px;
 }
 /*for popups on the right of the activator*/
 .left.horizontal {
@@ -1841,8 +1841,9 @@
 /*horizontally centered nub*/
 .moon-contextual-popup.vertical::after {
   position: absolute;
-  left: 45%;
+  left: 50%;
   margin-top: -4px;
+  margin-left: -23px;
   width: 46px;
   height: 36px;
   background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
@@ -1855,7 +1856,7 @@
 /*nub near horizontal right*/
 .moon-contextual-popup.vertical.left::after {
   left: 100%;
-  margin-left: -55px;
+  margin-left: -75px;
 }
 /*downward facing nub*/
 .moon-contextual-popup.vertical.above::after {
@@ -1889,10 +1890,11 @@
 /*vertically centered nub for popups on left of activator*/
 .moon-contextual-popup.right::after {
   left: 100%;
-  top: 47%;
+  top: 50%;
   width: 36px;
   height: 46px;
   margin-left: -4px;
+  margin-top: -23px;
   background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
 }
 /*nub near vertical top for popups on left of activator*/
@@ -1987,7 +1989,7 @@
 .moon-list-actions-close {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: #ededed;
+  background-color: #ffffff;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -2029,6 +2031,9 @@
 .moon-list-actions .moon-divider {
   font-family: "MuseoSans 700";
   text-transform: capitalize;
+}
+.moon-list-actions .moon-divider {
+  border-bottom: 1px solid #ffffff;
 }
 .moon-list-actions .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
@@ -2220,7 +2225,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.up::after {
   content: '';
   position: absolute;
-  border-color: transparent transparent #ededed transparent;
+  border-color: transparent transparent #ffffff transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -13px;
@@ -2229,7 +2234,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow.down::after {
   content: '';
   position: absolute;
-  border-color: #ededed transparent transparent transparent;
+  border-color: #ffffff transparent transparent transparent;
   border-style: solid;
   border-width: 10px;
   bottom: -5px;
@@ -3231,13 +3236,13 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
-  color: #ededed;
+  color: #ffffff;
 }
 .moon-dark-gray * {
-  color: #ededed;
+  color: #ffffff;
 }
 .moon-light-gray {
-  background-color: #ededed;
+  background-color: #ffffff;
   color: #4b4b4b;
 }
 .moon-light-gray * {
