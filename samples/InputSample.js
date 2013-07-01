@@ -36,7 +36,6 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.TextArea", placeholder: "JUST TYPE", onchange:"inputChanged"},
-				{kind: "Image", src: "assets/search-input-search.png"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.TextArea", disabled: true, placeholder: "Disabled input", onchange:"inputChanged"}
