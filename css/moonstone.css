@@ -1430,24 +1430,24 @@
 }
 .moon-scroll-picker-overlay-top {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
   border-radius: 9999px;
-  border-top-width: 30px;
+  border-top-width: 40px;
   border-top-style: solid;
   border-top-color: rgba(0, 0, 0, 0.13);
 }
 .moon-scroll-picker-overlay-top-border {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
   border-radius: 9999px;
-  border-top-width: 30px;
+  border-top-width: 40px;
   border-top-style: solid;
   border-top-color: #ffb80d;
-  bottom: -56px;
+  bottom: -86px;
   overflow: hidden;
 }
 .moon-scroll-picker-overlay-container-bottom {
@@ -1457,21 +1457,22 @@
 }
 .moon-scroll-picker-overlay-bottom {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
   border-radius: 9999px;
-  border-bottom-width: 30px;
+  border-bottom-width: 40px;
   border-bottom-style: solid;
   border-bottom-color: rgba(0, 0, 0, 0.13);
+  bottom: -50px;
 }
 .moon-scroll-picker-overlay-bottom-border {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
   border-radius: 9999px;
-  border-bottom-width: 30px;
+  border-bottom-width: 40px;
   border-bottom-style: solid;
   border-bottom-color: #ffb80d;
   bottom: -44px;
