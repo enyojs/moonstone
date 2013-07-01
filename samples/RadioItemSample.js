@@ -10,7 +10,7 @@ enyo.kind({
 			{content: "Hippopotamus"}
 		]},
 		{tag: "br"},{tag: "br"},{tag: "br"},
-		{kind: "moon.Divider", content:"Disabled Radio Items"},
+		{kind: "moon.Divider", content:"Deactivated Radio Items"},
 		{name: "disabledButton", kind: "moon.RadioItemGroup", disabled: true, onActivate: "buttonActivated", components: [
 			{content: "Whale", disabled: true},
 			{content: "Shark"},

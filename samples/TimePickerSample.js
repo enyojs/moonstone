@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit:true, components: [
 			{kind: "moon.TimePicker", name:"picker", content: "Time", meridiemEnable: true, onChange: "changed"},
-			{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
+			{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Deactivated Time Picker", content: "Deactivated Time"},
 			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 				{content: 'en-US', active:true},
 				{content: 'en-CA'},

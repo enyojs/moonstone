@@ -17,7 +17,7 @@ enyo.kind({
 				{kind: "moon.Input", type:"password", placeholder: "Enter password", onchange:"inputChanged"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.Input", disabled: true, value: "Disabled input"}
+				{kind: "moon.Input", disabled: true, value: "Deactivated input"}
 			]},
 			{kind: "moon.Divider", content: "RichTexts"},
 			{kind: "moon.InputDecorator", components: [
@@ -28,7 +28,7 @@ enyo.kind({
 				{kind: "Image", src: "assets/search-input-search.png"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Disabled input", onchange:"inputChanged"}
+				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Deactivated input", onchange:"inputChanged"}
 			]},
 			{kind: "moon.Divider", content: "TextAreas"},
 			{kind: "moon.InputDecorator", components: [
@@ -38,7 +38,7 @@ enyo.kind({
 				{kind: "moon.TextArea", placeholder: "JUST TYPE", onchange:"inputChanged"},
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.TextArea", disabled: true, placeholder: "Disabled input", onchange:"inputChanged"}
+				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated input", onchange:"inputChanged"}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result", classes: "moon-input-sample-result"},

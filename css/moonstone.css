@@ -206,7 +206,7 @@
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
-  background-color: #ffffff;
+  background-color: #ededed;
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin input,
@@ -811,8 +811,7 @@
 }
 .moon-button[disabled] {
   cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  color: #b3b3b3;
 }
 .moon-breadcrumb {
   color: #4b4b4b;
@@ -968,6 +967,10 @@
   padding: 3px 0px 2px 0px;
   text-transform: capitalize;
   min-width: 0px;
+}
+.moon-radio-item-group .moon-button[disabled] {
+  cursor: default;
+  color: #b3b3b3;
 }
 .moon-radio-item-group .moon-button.spotlight,
 .moon-radio-item-group .moon-button.spotlight:active {
@@ -1990,7 +1993,7 @@
 .moon-list-actions-close {
   border-radius: 9999px;
   line-height: 24px;
-  background-color: #ffffff;
+  background-color: #ededed;
   border: 5px solid transparent;
   float: right;
   width: 40px;
@@ -2034,7 +2037,7 @@
   text-transform: capitalize;
 }
 .moon-list-actions .moon-divider {
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid white;
 }
 .moon-list-actions .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
@@ -3343,13 +3346,13 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
-  color: #ffffff;
+  color: #ededed;
 }
 .moon-dark-gray * {
-  color: #ffffff;
+  color: white;
 }
 .moon-light-gray {
-  background-color: #ffffff;
+  background-color: #ededed;
   color: #4b4b4b;
 }
 .moon-light-gray * {
