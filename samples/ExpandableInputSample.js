@@ -11,7 +11,7 @@ enyo.kind({
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
 				placeholder: "Placeholder", value: "Text"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				disabled:true, value: "Disabled Input"},
+				disabled:true, value: "Deactivated Input"},
 				{name: "console", classes: "moon-input-sample-console", content: "Input: "},
 			]}
 		]}
