@@ -7,12 +7,14 @@ enyo.kind({
 			{classes: "moon-6h", components: [
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				placeholder: "Placeholder"},
+				noneText: "noneText"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				placeholder: "Placeholder", value: "Text"},
+				noneText: "noneText", placeholder: "Placeholder"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				disabled:true, value: "Disabled Input"},
-				{name: "console", classes: "moon-input-sample-console", content: "Input: "},
+				noneText: "noneText", placeholder: "Placeholder", value: "Text"},
+				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
+				noneText: "noneText", disabled:true, value: "Disabled Input"},
+				{name: "console", classes: "moon-input-sample-console", content: "Input: "}
 			]}
 		]}
 	],
