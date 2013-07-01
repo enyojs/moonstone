@@ -51,7 +51,7 @@ enyo.kind({
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
 			ontap: "expandContract", onSpotlightSelect: "expandContract"},
-		{name:"arrow", classes:"moon-accordion-arrow"},
+		{name:"arrow", classes:"moon-accordion-arrow", spotlight: false},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", classes: "moon-accordion-client"}
 		]}
