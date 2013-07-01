@@ -1408,7 +1408,7 @@
   border-bottom-width: 25px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 40px;
+  border-radius: 9999px;
 }
 .moon-scroll-picker.spotlight {
   border-top-color: #ffb80d;
@@ -1433,7 +1433,7 @@
   height: 20px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
+  border-radius: 9999px;
   border-top-width: 30px;
   border-top-style: solid;
   border-top-color: rgba(0, 0, 0, 0.13);
@@ -1443,7 +1443,7 @@
   height: 20px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
+  border-radius: 9999px;
   border-top-width: 30px;
   border-top-style: solid;
   border-top-color: #ffb80d;
@@ -1460,7 +1460,7 @@
   height: 20px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
+  border-radius: 9999px;
   border-bottom-width: 30px;
   border-bottom-style: solid;
   border-bottom-color: rgba(0, 0, 0, 0.13);
@@ -1470,7 +1470,7 @@
   height: 20px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
+  border-radius: 9999px;
   border-bottom-width: 30px;
   border-bottom-style: solid;
   border-bottom-color: #ffb80d;
@@ -1481,17 +1481,13 @@
   z-index: 10;
   top: 3px;
   left: 50%;
-  margin-left: -5px;
+  margin-left: -15px;
 }
 .up-arrow {
-  border-color: transparent transparent #ffffff transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
+  height: 29px;
+  width: 29px;
+  background: url(../images/carat-large-up.png) 0 0 no-repeat;
   position: absolute;
-  bottom: -19px;
-  left: -5px;
 }
 .up-arrow > .taparea,
 .down-arrow > .taparea {
@@ -1502,78 +1498,24 @@
   left: -40px;
   background-color: transparent;
 }
-.up-arrow-container.spotlight .up-arrow {
-  border-color: transparent transparent #ffb80d transparent;
-}
 .up-arrow-container.selected .up-arrow {
-  border-width: 8px;
-  left: -3px;
-  bottom: -16px;
-}
-.up-arrow-border {
-  border-color: transparent transparent #666666 transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  bottom: -16px;
-  left: -5px;
-}
-.up-arrow-container.selected .up-arrow-border {
-  border-width: 8px;
-  left: -3px;
-  bottom: -13px;
+  background-image: url(../images/carat-small-up1.png);
 }
 .down-arrow-container {
   position: relative;
   z-index: 10;
-  top: 137px;
+  top: 128px;
   left: 50%;
-  margin-left: -10px;
-}
-.enyo-locale-right-to-left .down-arrow-container {
-  right: 12%;
-  left: 0%;
+  margin-left: -15px;
 }
 .down-arrow {
-  border-color: #ffffff transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
+  height: 29px;
+  width: 29px;
+  background: url(../images/carat-large-down.png) 0 0 no-repeat;
   position: absolute;
-  bottom: -19px;
 }
 .down-arrow-container.selected .down-arrow {
-  border-width: 8px;
-  bottom: -18px;
-  left: 2px;
-}
-.enyo-locale-right-to-left .down-arrow-container.selected .down-arrow {
-  right: 0px;
-  left: auto;
-}
-.down-arrow-container.spotlight .down-arrow {
-  border-color: #ffb80d transparent transparent transparent;
-}
-.down-arrow-border {
-  border-color: #666666 transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  bottom: -22px;
-}
-.down-arrow-container.selected .down-arrow-border {
-  border-width: 8px;
-  bottom: -21px;
-  left: 2px;
-}
-.enyo-locale-right-to-left .down-arrow-container.selected .down-arrow-border {
-  right: 0px;
-  left: auto;
+  background-image: url(../images/carat-small-down1.png);
 }
 /* DatePicker.css */
 .moon-date-picker {
