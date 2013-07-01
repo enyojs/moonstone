@@ -2166,7 +2166,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-accordion-header {
   display: inline-block;
-  padding-right: 24px;
+  padding-right: 22px;
   margin-bottom: 0px;
 }
 .enyo-locale-right-to-left .moon-accordion-header {
@@ -2204,41 +2204,16 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow {
   position: relative;
   display: inline-block;
-  font-family: "Miso";
-}
-.moon-accordion-arrow.up {
-  top: -5px;
-  border-color: transparent transparent #666666 transparent;
-  border-style: solid;
-  border-width: 10px;
-  margin-bottom: 10px;
-}
-.moon-accordion-arrow.down {
-  top: 5px;
-  border-color: #666666 transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
+  width: 17px;
+  height: 11px;
+  margin-top: 15px;
   margin-bottom: 0px;
 }
-.moon-accordion-arrow.up::after {
-  content: '';
-  position: absolute;
-  border-color: transparent transparent #ffffff transparent;
-  border-style: solid;
-  border-width: 10px;
-  bottom: -13px;
-  left: -10px;
+.moon-accordion-arrow.up {
+  background: url(../images/carat-small-up.png) 0 0 no-repeat;
 }
-.moon-accordion-arrow.down::after {
-  content: '';
-  position: absolute;
-  border-color: #ffffff transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  bottom: -5px;
-  left: -10px;
+.moon-accordion-arrow.down {
+  background: url(../images/carat-small-down.png) 0 0 no-repeat;
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
