@@ -21,7 +21,7 @@ enyo.kind({
 				{content:"Custom IMAP"}
 			]},
 			{tag:"br"},{tag:"br"},
-			{kind: "moon.Divider", content:"Picker 3: Disabled"},
+			{kind: "moon.Divider", content:"Picker 3: Deactivated"},
 			{kind:"moon.SimplePicker", name:"picker3", disabled: true, components: [
 				{content:"Enyo"},
 				{content:"Sencha"}

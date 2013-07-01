@@ -23,7 +23,7 @@ enyo.kind({
 					{content: "Item 2", active: true},
 					{content: "Item 3"}
 				]},
-				{kind: "moon.ExpandablePicker", disabled:true, content:"Disabled Picker", components: [
+				{kind: "moon.ExpandablePicker", disabled:true, content:"Deactivated Picker", components: [
 					{content: "Item 1"},
 					{content: "Item 2", active: true},
 					{content: "Item 3"}
@@ -38,7 +38,7 @@ enyo.kind({
 					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", 
 					classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"},
 
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", 
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Deactivated Integer Picker", 
 					classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"}
 				]}
 			]}
