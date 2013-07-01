@@ -38,7 +38,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "This is an item 10"},
 				{kind: "moon.Item", content: "This is an item 11"},
 				{kind: "moon.Item", content: "This is an item 12"},
-				{kind: "moon.Button", content: "Test Button"},
+				{kind: "moon.Button", content: "Test Button", style: "margin-bottom: 28px;"},
 				{kind: "moon.Item", content: "This is an item 13"},
 				{kind: "moon.Item", content: "This is an item 14"},
 				{kind: "moon.ExpandableListItem", content: "This is an expandable list item", components: [
