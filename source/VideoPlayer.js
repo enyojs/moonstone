@@ -40,8 +40,6 @@ enyo.kind({
 		aspectRatio: "16:9",
 		autoCloseTimeout: 3000,
 		duration: 0,
-		//* Full Screen
-		fullScreen: false
 	},
 	handlers: {
 		onRequestTimeChange: "timeChange",
@@ -305,29 +303,31 @@ enyo.kind({
 	
 	//* Toggle fullscreen on/off
 	toggleFullscreen: function(inSender, inEvent) {
-	//	if (this.isFullscreen()) {
-		if (this.fullScreen) {
+		var curr = this.$.video.getCurrentTime();
+
+		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
 			this.requestFullscreen();
 		}
-		this.fullScreen = !this.fullScreen;
-		if(this._isPlaying)this.play(); // FIXME LATER
+		if(this._isPlaying) {
+			this.$.video.setCurrentTime(curr);
+			this.play();
+		}
 	},
 	cancelFullscreen: function() {
-		var appBody = document.body;
-		var appNode = appBody.firstChild;
-		appBody.style.backgroundColor = this.BgColor;
-		appNode.style.opacity = this.appOpacity;
+		if (!enyo.fullscreen.nativeSupport()) {	
+			var appNode = document.body.firstChild;
+			appNode.style.display = appNode.appDisplay;
+		}
 		this.inherited(arguments);
 	},
 	requestFullscreen: function() {
-		var appBody = document.body;
-		this.BgColor = appBody.style.backgroundColor;
-		appBody.style.backgroundColor = "#000000";
-		var appNode = appBody.firstChild;
-		this.appOpacity = appNode.style.opacity;
-		appNode.style.opacity = 0;
+		if (!enyo.fullscreen.nativeSupport()) {
+			var appNode = document.body.firstChild;
+			appNode.appDisplay = appNode.style.display;
+			appNode.style.display = "none";
+		}
 		this.inherited(arguments);
 	},
 	//* Facade _this.$.video.play_
