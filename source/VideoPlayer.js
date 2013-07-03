@@ -45,7 +45,8 @@ enyo.kind({
 		onRequestTimeChange: "timeChange",
 		onSpotlightKeyUp: "showFSControls",
 		onRequestToggleFullscreen: "toggleFullscreen",
-		onresize: "resizeHandler"
+		onresize: "resizeHandler",
+		oncanplay: "canPlayHandler"
 	},
     bindings: [],
 	
@@ -74,14 +75,15 @@ enyo.kind({
 					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
-						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
+						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center",
+							preventTransform: true, preventAccelerate: true, components: [
 							{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
 							{name: "rewind",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-rewind.png",		classes: "moon-video-player-control-button", ontap: "rewind"},
 							{name: "fsPlayPause", kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png",			classes: "moon-video-player-control-button", ontap: "playPause"},
 							{name: "fastForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fastforward.png", classes: "moon-video-player-control-button", ontap: "fastForward"},
 							{name: "jumpForward",	kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpforward.png", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 						]},
-						{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
+						{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true, preventTransform: true, preventAccelerate: true}
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "premium-placeholder", components: [
@@ -153,7 +155,6 @@ enyo.kind({
 		}
 	},
 	
-	
 	///// Fullscreen controls /////
 	
 
@@ -198,7 +199,7 @@ enyo.kind({
 			if (inSender._sentHold !== true) {
 				this.jumpToStart(inSender, inEvent);
 				inSender._sentHold = true;
-				return true;	
+				return true;
 			}
 		} else {
 			inSender._holding = true;
@@ -303,35 +304,42 @@ enyo.kind({
 	
 	//* Toggle fullscreen on/off
 	toggleFullscreen: function(inSender, inEvent) {
-		var curr = this.$.video.getCurrentTime();
-
+		if (!enyo.fullscreen.nativeSupport()) {	
+			this.currTimeTransit = this.$.video.getCurrentTime();
+			this.transitScreen = true;
+		}
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
 			this.requestFullscreen();
 		}
-		if(this._isPlaying) {
-			this.$.video.setCurrentTime(curr);
-			this.play();
+		if(this.transitScreen) {
+			this.$.video.updateSource();
 		}
 	},
 	cancelFullscreen: function() {
 		if (!enyo.fullscreen.nativeSupport()) {	
-			var appNode = document.body.firstChild;
-			appNode.style.display = appNode.appDisplay;
+			var appBody = document.body;
+			var appNode = appBody.firstChild;
+			appBody.style.backgroundColor = this.appBodyColor;
+			appNode.style.display = this.appDisplay;
 		}
 		this.inherited(arguments);
 	},
 	requestFullscreen: function() {
 		if (!enyo.fullscreen.nativeSupport()) {
-			var appNode = document.body.firstChild;
-			appNode.appDisplay = appNode.style.display;
+			var appBody = document.body;
+			var appNode = appBody.firstChild;
+			this.appBodyColor = appBody.style.backgroundColor;
+			this.appDisplay = appNode.style.display;
+			appBody.style.backgroundColor = "black";
 			appNode.style.display = "none";
 		}
 		this.inherited(arguments);
 	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
+		this.currTimeSync = true;
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
@@ -463,7 +471,7 @@ enyo.kind({
 		if (!inEvent && inEvent.srcElement) {
 			return;
 		}
-		
+
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
 		
@@ -476,6 +484,12 @@ enyo.kind({
 		this.updateAspectRatio();
 		this.resized();
 	},
+	canPlayHandler: function(inSender, inEvent) {
+		if(this.transitScreen) {
+			this.transitScreen = false;
+			this.play();
+		}
+	},
 	_progress: function(inSender, inEvent) {
 		this.$.slider.updateBufferedProgress(inEvent.srcElement);
 	},
@@ -487,7 +501,6 @@ enyo.kind({
 		if (inEvent.srcElement.playbackRate < 0) {
 			return;
 		}
-		
 		this.sendFeedback("Pause", {}, true);
 	},
 	_fastforward: function(inSender, inEvent) {
