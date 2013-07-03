@@ -1,49 +1,42 @@
 
 enyo.kind({
 	name: "moon.sample.VideoPlayerSample",
-	classes: "enyo-fit enyo-unselectable",
+	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{
-			name: "player",
-			kind: "moon.VideoPlayer",	
-			/* Needs long video file for testing */
-			src: "http://media.w3.org/2010/05/video/movie_300.mp4",
-			xsrc: "http://media.w3.org/2010/05/sintel/trailer.mp4",
-			xsrc: "http://www.w3schools.com/html/mov_bbb.mp4",
-			xsrc: "../../video.mp4",
-			xsrc: "../../voice-E15.mp4",
-			components: [
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png", ontap: "onTap"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.BoxIconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
+		{name: "player", kind: "moon.VideoPlayer",
+			sourceComponents: [
+				{src: "http://media.w3.org/2010/05/sintel/trailer.mp4",  type: "video/mp4"},
+				{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"},
+				{src: "http://media.w3.org/2010/05/sintel/trailer.ogv",  type: "video/ogg"}
 			],
 			infoComponents: [
 				{
-					kind: "moon.VideoPlayerInfo", 
-					datetime: "June 13 & 2:15", 
-					showname: "Voice of Korea", 
-					channel: "Mnet - AIR DATE & TIME SLOT", 
-					synopsys: "SHORT SYNOPSYS ABOUT THE CURRENT SHOW",
+					kind: "moon.VideoInfoHeader",
+					aboveTitle: new Date(),
+					title: "Breaking Bad - Live Free Or Die",
+					subTitle: "AMC (301) 7:00 PM - 8:00 PM",
+					description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
 					components: [
-						{content: "SUB ENGLISH", classes: "moon-videoplayer-info-icon"},
-						{content: "CINEMA", classes: "moon-videoplayer-info-icon"},
-						{content: "3D", classes: "moon-videoplayer-info-icon"},
-						{content: "REC 00:00", classes: "moon-videoplayer-info-icon moon-videoplayer-info-redicon"}
+						{content: "3D"},
+						{content: "Live"},					
+						{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 					]
 				}
+			],
+			components: [
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
 			]
 		}
-	],
-	onTap: function(inSender, inEvent) {
-		// fixme: Event should be catched in here
-	}
+	]
 });

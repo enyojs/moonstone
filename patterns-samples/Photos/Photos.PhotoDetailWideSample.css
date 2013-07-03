@@ -1,0 +1,28 @@
+.photo-detail {
+	margin: 20px 50px 20px 50px;	
+}
+
+.photo-detail .header-icon {
+	margin : 0px 0px 10px 20px;
+}
+
+.photo-detail .divider {
+	height : 5px;
+	margin : 0px 0px 0px 0px;
+}
+
+.photo-detail .main-photo {
+	margin : 10px 10px 10px 10px;
+	width:100%; 
+}
+
+.photo-detail .radio-button {
+	width:140px;
+	font-size: 21px; 
+	margin : 0px 10px 0px 0px;
+}
+
+.photo-panels {
+	width : 600px;
+	height : 480px;
+}

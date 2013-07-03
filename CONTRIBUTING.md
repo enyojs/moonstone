@@ -11,7 +11,7 @@ and contributing to the [Enyo community gallery](http://enyojs.com/gallery).
 
 ## Modifications to CSS
 
-Moonraker CSS is defined using parameterized LESS files.  Whenever you make changes to LESS files in Moonraker, you'll also need to re-generate and check-in the top-level .css file as well, to maintain backward-compatibility for environments that don't wish to use LESS.
+Moonstone CSS is defined using parameterized LESS files.  Whenever you make changes to LESS files in Moonstone, you'll also need to re-generate and check-in the top-level .css file as well, to maintain backward-compatibility for environments that don't wish to use LESS.
 
 You can re-generate the top-level moonstone.css file as follows:
 

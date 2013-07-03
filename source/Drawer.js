@@ -25,41 +25,52 @@ enyo.kind({
 	kind:"enyo.Control",
 	classes: "moon-drawer moon-dark-gray",
 	published: {
+		//* Use for components that are to be placed in the control drawer
 		controlDrawerComponents: null,
+		//* The moon.DrawerHandle
 		handle: null,
+		//* The visibility state of the main drawer
 		open: false,
+		//* The visibility state of the control drawer
 		controlsOpen: false
 	},
 	events: {
+		//* Fires when the the main or control drawers are activated or deactived.
 		onActivate: "",
 		onDeactivate: ""
 	},
+	handlers: {
+		//* Handlers for initial rendering & resizing to size drawers to full screen
+		onDrawersRendered: "drawersRendered",
+		onDrawersResized: "drawersResized"
+	},
 	components: [
-		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container', classes: "moon-light-gray"},
+		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container'},
 		{name: "controlDrawer", kind: "enyo.Drawer", spotlight: 'container'}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
+		this.$.client.$.client.addClass('moon-drawer-client');
+		this.$.controlDrawer.$.client.addClass('moon-drawer-client');
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.$.client.setDrawerProps({height:this.calcDrawerHeight()});
+	drawersRendered: function(inSender, inEvent) {
+		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});
 		this.openChanged();
-		//Since the controlDrawer was showing initially (which we need to be able to get the height)
-		//we now force it to hide (if it is set to not be open) so that there isn't an animation on startup
 		if (!this.controlsOpen) {
 			this.$.controlDrawer.open = this.controlsOpen;
 			this.$.controlDrawer.$.client.setShowing(this.controlsOpen);
 		}
 	},
-	calcDrawerHeight: function() {
-		var parentClientRect = this.parent.parent.hasNode().getBoundingClientRect();
+	calcDrawerHeight: function(drawersHeight, activatorHeight) {
+		var clientHeight = drawersHeight;
+		var activatorHeight = activatorHeight;
+
+		clientHeight -= activatorHeight;
 		if (this.controlDrawerComponents == null) {
-			return parentClientRect.height;
+			return clientHeight;
 		} else {
-			var controlDrawerRect = this.$.controlDrawer.hasNode().getBoundingClientRect();
-			return (parentClientRect.height - controlDrawerRect.height);
+			return (clientHeight - this.$.controlDrawer.hasNode().getBoundingClientRect().height);
 		}
 	},
 	toggleDrawer: function() {
@@ -75,19 +86,22 @@ enyo.kind({
 		if (this.open) {
 			this.doActivate();
 			enyo.Spotlight.spot(this.$.client);
+		} else {
+			this.doDeactivate();
 		}
 	},
 	controlsOpenChanged: function() {
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
+			this.doActivate();			
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
 			this.doDeactivate();
 		}
 	},
-	resizeDrawers: function() {
+	drawersResized: function(inSender, inEvent) {
 		this.$.controlDrawer.$.client.setShowing(true);
-		this.$.client.setDrawerProps({height:this.calcDrawerHeight()});
+		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});
 		this.$.controlDrawer.$.client.setShowing(false);
 		this.$.client.render();
 		this.$.controlDrawer.render();

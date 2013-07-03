@@ -74,6 +74,7 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 		this.updatePageSize();
+		this.updateSpotlightPagingControls();
 	},
 	//* Onresize, update thumb ratio and show/hide scroll columns
 	resizeHandler: function() {
@@ -84,6 +85,17 @@ enyo.kind({
 		}
 		this.setThumbSizeRatio();
 		this.updatePageSize();
+	},
+	updateSpotlightPagingControls: function() {
+		enyo.forEach([
+			this.$.pageLeftControl, 
+			this.$.pageRightControl, 
+			this.$.pageUpControl, 
+			this.$.pageDownControl
+		], function(c) {
+			c.spotlight = this.container.spotlightPagingControls;
+			c.addRemoveClass("hover", !this.container.spotlightPagingControls);
+		}, this);
 	},
 	/**
 		Because the thumb columns are a fixed size that impacts the scrollbounds, capture
@@ -411,6 +423,12 @@ enyo.kind({
 	scrollMathStop: function() {
 		this.inherited(arguments);
 		this.showHidePageControls();
+		
+		// TODO - fix this error condition -> scroll strategy and scroll math are out of sync!
+		var diff = Math.round(this.$.scrollMath.y) * -1 - this.getScrollTop();
+		if (diff != 0) {
+			this.scrollTo(this.getScrollLeft(), this.getScrollTop() + diff);
+		}
 	},
 	//* Animate on mousewheel events
 	mousewheel: function(inSender, inEvent) {

@@ -34,8 +34,8 @@
 	font-weight: bold;
 	font-size: 12px;
 	text-align: center;
-	height: 20px;
-	line-height: 20px;
+	height: 1.67em;
+	line-height: 1.67em;
 	text-transform: uppercase;
 	z-index: 10;
 	padding: 0px;
@@ -49,8 +49,8 @@
 }
 .moon-gridlist-imageitem .sub-caption {
 	color: #A2A2A2;
-	line-height: 15px;
-	height: 15px;
+	line-height: 1.25em;
+	height: 1.25em;
 	vertical-align: bottom;
 }
 .moon-gridlist-imageitem.spotlight {
@@ -58,8 +58,22 @@
 	padding-left: 25px !important;
 	margin-right: -25px !important;
 }
+
+.enyo-locale-right-to-left  .moon-gridlist-imageitem.spotlight {
+	padding-right: 25px !important;
+	margin-right: 25px !important;
+        padding-left:0px !important;
+}
+
 .moon-gridlist-imageitem.spotlight.selected {
 	background: @moon-spotlight-border-color !important;
 	padding-left: 28px !important;
 	margin-right: -25px !important;
+}
+
+.enyo-locale-right-to-left .moon-gridlist-imageitem.spotlight.selected {
+	background: @moon-spotlight-border-color !important;
+	padding-right: 28px !important;
+	margin-right:  25px !important;
+ 	padding-left:0px !important;
 }

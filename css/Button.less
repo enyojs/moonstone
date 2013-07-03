@@ -1,9 +1,9 @@
 /* Button */
 .moon-button {
+	.moon-large-button-text;
 	max-height: 106px;
 	border-radius: @moon-button-border-radius;
-	line-height: @moon-button-text-size;
-	font-size: @moon-button-text-size;
+	line-height: 1em;
 	background-color: @moon-button-background-color;
 	border: @moon-button-border-width solid transparent;
 	cursor: pointer;
@@ -20,16 +20,17 @@
 }
 
 .moon-button.small {
+  .moon-small-button-text;
   max-height: @moon-button-small-height;
   min-height: @moon-button-small-height;
   min-width: @moon-button-small-height;
   padding: 13px 22px 13px 22px;
-  line-height: 20px;
+  line-height: 0.84em;
   position: relative;
   overflow: visible;
 }
 
-.small-button-tap-area {
+.moon-button.small > .small-button-tap-area {
 	position: absolute;
 	top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 	bottom: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
@@ -37,13 +38,23 @@
 	right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 }
 
+/*
+	IE8 can't handle these selectors in tandem:
+	.moon-button.active, .moon-button:active:not([disabled]) {
+
+	the effect is as if .moon-button.active doesn't exist
+*/
 .moon-button.active,
 .moon-button.pressed,
-.moon-button:active,
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active,
 .moon-button.small.spotlight.pressed
 {
+	border: @moon-button-border-width solid @moon-spotlight-border-color;
+	background-color: @moon-button-background-color;
+}
+
+.moon-button:active:hover:not([disabled]) {
 	border: @moon-button-border-width solid @moon-spotlight-border-color;
 	background-color: @moon-button-background-color;
 }
@@ -54,6 +65,5 @@
 
 .moon-button[disabled] {
 	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
+	color: @moon-button-disabled-color;
 }

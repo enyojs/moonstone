@@ -18,6 +18,24 @@
 			{content: "Bolivia"},
 			{content: "Brazil"}
 		]}
+
+	When multiple ExpandableListItems are used in a group, only one may be open at a given
+	time.
+
+		{kind: "Group", highlander: true, components: [
+			{kind: "moon.ExpandableListItem",  active: true, content: "This is a grouped ExpandableListItem", components: [
+				{content: "Item One"},
+				{content: "Item Two"}
+			]},
+			{kind: "moon.ExpandableListItem", content: "This is another grouped ExpandableListItem", components: [
+				{content: "Item Three"},
+				{content: "Item Four"}
+			]},
+			{kind: "moon.ExpandableListItem", content: "This is yet another grouped ExpandableListItem", components: [
+				{content: "Item Five"},
+				{content: "Item Six"}
+			]}
+		]}
 */
 enyo.kind({
 	name: "moon.ExpandableListItem",
@@ -25,6 +43,8 @@ enyo.kind({
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
+		//* True if the item is currently selected
+		active: false
 	},
 	//* @protected
 	classes: "moon-expandable-list-item",
@@ -50,6 +70,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.setActive(this.open);
 		this.isRendered = true;
 	},
 	//* Facade for header content
@@ -75,6 +96,10 @@ enyo.kind({
 			}
 		}
 	},
+	activeChanged: function() {
+		this.bubble("onActivate");
+		this.setOpen(this.active);
+	},
 	//* Calls _expandContract()_ if _select_ event came from header.
 	spotlightSelect: function(inSender, inEvent) {
 		if(inSender === this) {
@@ -87,11 +112,13 @@ enyo.kind({
 			return true;
 		}
 		if(!this.getOpen()) {
-			this.setOpen(true);
+			this.setActive(true);
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
+			this.active = false;
 			this.setOpen(false);
 		}
+		return true;
 	},
 	//* Closes drawer if drawer is currently open,
 	//* and event was sent via keypress (i.e., it has a direction).
