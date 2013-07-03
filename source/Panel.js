@@ -172,6 +172,12 @@ enyo.kind({
 					properties: {
 						"width" : "200px"
 					}
+				}],
+				125: [{
+					control: this.$.panelBody,
+					properties: {
+						"display" : "none"
+					}
 				}]
 			}
 		});
@@ -189,6 +195,12 @@ enyo.kind({
 					control: this,
 					properties: {
 						"width" : "current"
+					}
+				},
+				{
+					control: this.$.panelBody,
+					properties: {
+						"display" : "block"
 					}
 				}],
 				25: [{
@@ -250,12 +262,12 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "preTransition":
-				this.preTransitionComplete();
-				break;
-			case "postTransition":
-				this.postTransitionComplete();
-				break;
+		case "preTransition":
+			this.preTransitionComplete();
+			break;
+		case "postTransition":
+			this.postTransitionComplete();
+			break;
 		}
 	}
 });
