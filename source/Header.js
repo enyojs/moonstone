@@ -230,6 +230,8 @@ enyo.kind({
 					control: this,
 					properties: {
 						"height" : "100px",
+						"min-height" : "100px",
+						"max-height" : "current",
 						"border-bottom-width" : "0px",
 						"width" : "current",
 						"min-width" : "current",
@@ -258,6 +260,12 @@ enyo.kind({
 						"max-width" : "160px"
 					}
 				}],
+				125: [{
+					control: this,
+					properties: {
+						"height" : "auto"
+					}
+				}]
 
 			}
 		});
@@ -285,7 +293,7 @@ enyo.kind({
 						"border-bottom-width" : "current",
 						"width" : this.animProps["width"],
 						"min-width" : this.animProps["width"],
-						"max-width" : this.animProps["width"],
+						"max-width" : this.animProps["width"]
 					}
 				},
 				{
