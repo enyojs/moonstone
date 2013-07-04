@@ -45,7 +45,7 @@ enyo.kind({
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
 	panelTools : [
-		{name: "header", kind: "moon.Header"},
+		{name: "header", kind: "moon.Header", onComplete:"headerAnimationComplete"},
 		{name: "panelBody", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -255,6 +255,16 @@ enyo.kind({
 				break;
 			case "postTransition":
 				this.postTransitionComplete();
+				break;
+		}
+	},
+	headerAnimationComplete: function(inSender, inEvent) {
+		switch (inEvent.animation.name) {
+			case "collapseToSmall":
+			case "expandToLarge":
+				// FIXME: It would be better to call this during the animation so it resizes
+				// smoothly, but that's not possible with CSS transitions; it will jump now
+				this.resized();
 				break;
 		}
 	}
