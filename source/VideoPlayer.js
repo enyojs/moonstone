@@ -30,7 +30,7 @@ enyo.kind({
 	name: "moon.VideoPlayer",
 	kind: "enyo.Control",
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
-	classes: "moon-video-player", 
+	classes: "moon-video-player enyo-unselectable", 
 	published: {
 		//* HTML5 video source URL
 		src: "",
@@ -39,11 +39,13 @@ enyo.kind({
 		//* Video aspect ratio, set as width:height
 		aspectRatio: "16:9",
 		autoCloseTimeout: 3000,
-		duration: 0
+		duration: 0,
 	},
 	handlers: {
 		onRequestTimeChange: "timeChange",
-		onSpotlightKeyUp: "showFSControls"
+		onSpotlightKeyUp: "showFSControls",
+		onRequestToggleFullscreen: "toggleFullscreen",
+		onresize: "resizeHandler"
 	},
     bindings: [],
 	
@@ -106,8 +108,9 @@ enyo.kind({
 				{name: "totalTime", content: "00:00"}
 			]},
 			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
-			{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-fullscreenbutton.png", ontap: "toggleFullscreen", classes: "moon-video-inline-control-fullscreen"}
-		]}
+			{kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
+		]},
+		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
 	
 	create: function() {
@@ -115,40 +118,54 @@ enyo.kind({
 		this.inherited(arguments);
 		this.createInfoControls();
 	},
+	resizeHandler: function() {
+		this.inherited(arguments);
+		var node = this.$.video.hasNode();
+		var rect = node.getBoundingClientRect();
+		this.applyStyle("width", rect.width + "px");
+	},
 	setupVideoBindings: function() {
-		this.bindings.push({from: ".src", to: "$.video.src"});
 		this.bindings.push({from: ".sourceComponents", to: "$.video.sourceComponents"});
+	},
+	//* Override default _enyo.Control_ behavior
+	setSrc: function(inSrc) {
+		this.src = inSrc;
+		this.srcChanged();
+	},
+	//* Override default _enyo.Control_ behavior
+	getSrc: function() {
+		return this.src;
+	},
+	srcChanged: function() {
+		this.pause();
+		this.$.video.setSrc(this.getSrc());
 	},
 	createInfoControls: function() {
 		this.$.videoInfo.createComponents(this.infoComponents);
 	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.setupButtonCarousel();
-	},
-	setupButtonCarousel: function() {
-		var components = this.components;
-		
-		// No components - destroy more button
-		if (!components) {
-			this.$.moreButton.destroy();
-		
-		// One or two components - destroy more button and utilize left/right premium placeholders
-		} else if (components.length <= 2) {
-			this.$.moreButton.destroy();
-			this.$.leftPremiumPlaceHolder.createComponent(components[0], {owner: this.owner});
-			components.splice(0,1);
-			if (components.length == 1) {
-				this.$.rightPremiumPlaceHolder.createComponent(components[0], {owner: this.owner});
-				components.splice(0,1);
+	createClientComponents: function(inComponents) {
+		if (!this._buttonsSetup) {
+			this._buttonsSetup = true;
+			if (!inComponents) {
+				// No components - destroy more button
+				this.$.moreButton.destroy();			
+			} else if (inComponents.length <= 2) {
+				// One or two components - destroy more button and utilize left/right premium placeholders
+				this.$.moreButton.destroy();
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
+				if (inComponents.length == 1) {
+					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
+				}
+			} else {
+				// More than two components - use extra panel, with left premium plaeholder for first component
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
 			}
-		
-		// More than two components - use extra panel, with left premium plaeholder for first component
+			// Create the rest of the components in the client (panels)
+			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
 		} else {
-			this.$.leftPremiumPlaceHolder.createComponents(components.splice(0,1), {owner: this.owner});
+			this.inherited(arguments);
 		}
 	},
-	
 	
 	///// Fullscreen controls /////
 	
@@ -194,7 +211,7 @@ enyo.kind({
 			if (inSender._sentHold !== true) {
 				this.jumpToStart(inSender, inEvent);
 				inSender._sentHold = true;
-				return true;	
+				return true;
 			}
 		} else {
 			inSender._holding = true;
@@ -305,8 +322,13 @@ enyo.kind({
 			this.requestFullscreen();
 		}
 	},
+
+	fullscreenChanged: function(inSender, inEvent) {
+		this.resized();
+	},
 	//* Facade _this.$.video.play_
 	play: function(inSender, inEvent) {
+		this.currTimeSync = true;
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
@@ -431,7 +453,7 @@ enyo.kind({
 		if (!inEvent && inEvent.srcElement) {
 			return;
 		}
-		
+
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
 		
@@ -443,6 +465,13 @@ enyo.kind({
 	metadataLoaded: function(inSender, inEvent) {
 		this.updateAspectRatio();
 		this.resized();
+
+		this._duration = inEvent.duration;
+		this._currentTime = inEvent.currentTime;
+		
+		this.updatePosition();
+		
+		this.waterfall("onTimeupdate", inEvent);
 	},
 	_progress: function(inSender, inEvent) {
 		this.$.slider.updateBufferedProgress(inEvent.srcElement);
@@ -455,7 +484,6 @@ enyo.kind({
 		if (inEvent.srcElement.playbackRate < 0) {
 			return;
 		}
-		
 		this.sendFeedback("Pause", {}, true);
 	},
 	_fastforward: function(inSender, inEvent) {

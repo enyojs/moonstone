@@ -26,7 +26,7 @@ enyo.kind({
 				}
 			],
 			components: [
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
+				{kind: "moon.VideoFullscreenToggleButton"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
