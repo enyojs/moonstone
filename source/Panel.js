@@ -92,14 +92,12 @@ enyo.kind({
 		if (!this.isCollapsed) {
 			this.$.header.collapseToSmall();
 			this.isCollapsed = true;
-			this.resized();
 		}
 	},
 	expandHeader: function() {
 		if (this.isCollapsed) {
 			this.$.header.expandToLarge();
 			this.isCollapsed = false;
-			this.resized();
 		}
 	},
 
