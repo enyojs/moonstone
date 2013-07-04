@@ -3310,6 +3310,13 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   -o-transition: border-width 0.1s linear, padding 0.1s linear;
   cursor: pointer;
 }
+.moon-expandable-input .moon-input-decorator {
+  width: 100%;
+  box-sizing: border-box;
+}
+.moon-expandable-input .moon-input {
+  width: 100%;
+}
 .moon-expandable-input.spotlight {
   padding: 0px 0px 0px 4px;
   border-left: 16px solid #ffb80d;
