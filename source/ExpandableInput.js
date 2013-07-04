@@ -112,6 +112,21 @@ enyo.kind({
 			enyo.Spotlight.spot(this.$.client);
 		}
 	},
+	//* If closed, opens drawer and highlights first spottable child.
+	expandContract: function(inSender, inEvent) {
+		if (this.disabled) {
+			return true;
+		}
+		if(!this.getOpen()) {
+			this.setActive(true);
+			this.$.client.onFocus();
+			this.$.client.focus();
+			//enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+		} else {
+			this.setActive(false);
+		}
+		return true;
+	},
 	//* When closing drawer via keypress with "UP" direction, update value
 	headerFocus: function(inSender, inEvent) {
 		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {

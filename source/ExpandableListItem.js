@@ -115,8 +115,7 @@ enyo.kind({
 			this.setActive(true);
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
-			this.active = false;
-			this.setOpen(false);
+			this.setActive(false);
 		}
 		return true;
 	},
@@ -124,7 +123,7 @@ enyo.kind({
 	//* and event was sent via keypress (i.e., it has a direction).
 	headerFocus: function(inSender, inEvent) {
 		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
-			this.setOpen(false);
+			this.setActive(false);
 			enyo.Spotlight.spot(this);
 			this.$.header.removeClass("spotlight");	//<--- TODO - why do we need this here?
 			return true;
