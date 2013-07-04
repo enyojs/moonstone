@@ -121,7 +121,6 @@ enyo.kind({
 			this.setActive(true);
 			this.$.client.onFocus();
 			this.$.client.focus();
-			//enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
 			this.setActive(false);
 		}
