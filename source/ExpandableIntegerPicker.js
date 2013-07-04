@@ -41,7 +41,7 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.SimpleIntegerPicker",
 	handlers: {
-		// spotlightFocus: "activated",
+		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
 	},
 	components: [
@@ -49,8 +49,7 @@ enyo.kind({
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", classes:"moon-expandable-integer-picker-drawer"},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-integer-picker-current-value", ontap: "expandContract", content: ""},
-		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
+		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-integer-picker-current-value", ontap: "expandContract", content: ""}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -75,6 +74,16 @@ enyo.kind({
 			this.fireChangeEvent();
 		}
 	},
+	activeChanged: function() {
+		if (this.active) {
+			// enyo.Group's highlander logic actually prevents an item from being
+			// de-activated once it's been activated; that's not exactly the logic
+			// we want for ExpandablePicker, so we only notify the group when an
+			// item is activated, not when it's de-activated. 
+			this.bubble("onActivate");
+		}
+		this.setOpen(this.active);
+	},
 	//* If there is no selected item, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
 		if(this.$.client.getValue() == -1) {
@@ -86,7 +95,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.preventResize = false;
 		this.$.currentValue.setShowing(!this.open);
-		this.$.bottom.setShowing(this.open);
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
 	selectHandler: function(inSender, inEvent) {
@@ -94,6 +102,7 @@ enyo.kind({
 		if (this.isRendered) {
 			setTimeout(function() {
 				_this.setOpen(false);
+				_this.active = false;
 				enyo.Spotlight.spot(_this);
 			}, 300);
 		}
@@ -101,11 +110,19 @@ enyo.kind({
 	changeHandler: function(inSender, inEvent) {
 		this.updateContent();
 	},
+	//* Capture onActivate events to prevent bubbling
+	activated: function(inSender, inEvent) {
+		//* Prevent bubbling if _inEvent.originator_ is not an instance of _this.kind_
+		var eli = inEvent.originator instanceof moon.ExpandableListItem;
+		if (!eli) {
+			return true;
+		}
+	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({
 			value: this.value,
-			content: this.content,
+			content: this.content
 		});
 	},
 	resized: function() {

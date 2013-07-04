@@ -18,8 +18,10 @@ enyo.kind({
 						{kind: "moon.Item", content: "Item Two"}
 					],
 					controlDrawerComponents: [
-						{kind: "moon.Button", content: "Open More", ontap: "openMainDrawer"},
-						{kind: "moon.Button", content: "Close", ontap: "closePartialDrawer"}
+						{classes:"moon-hspacing", components: [
+							{kind: "moon.Button", content: "Open More", ontap: "openMainDrawer"},
+							{kind: "moon.Button", content: "Close", ontap: "closePartialDrawer"}
+						]}
 					]
 				},
 				{

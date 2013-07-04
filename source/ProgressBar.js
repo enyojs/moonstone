@@ -29,6 +29,8 @@ enyo.kind({
 		max: 100,
 		//* CSS classes to apply to progress bar
 		barClasses: "",
+		//* CSS classes to apply to bg progress bar
+		bgBarClasses: "",
 		//* Sliders may "snap" to multiples of this value in either direction
 		increment: 0,
 		//* Completion percentage for background process
@@ -48,11 +50,16 @@ enyo.kind({
 		this.inherited(arguments);
 		this.progressChanged();
 		this.barClassesChanged();
+		this.bgBarClassesChanged();
 		this.bgProgressChanged();
 	},
 	barClassesChanged: function(inOld) {
 		this.$.bar.removeClass(inOld);
 		this.$.bar.addClass(this.barClasses);
+	},
+	bgBarClassesChanged: function(inOld) {
+		this.$.bgbar.removeClass(inOld);
+		this.$.bgbar.addClass(this.bgBarClasses);
 	},
 	bgProgressChanged: function() {
 		this.bgProgress = this.clampValue(this.min, this.max, this.bgProgress);

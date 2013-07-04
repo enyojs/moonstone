@@ -19,9 +19,9 @@ enyo.kind({
             {classes: "moon-searchheader-search-left"},
             {kind: "moon.InputDecorator", layoutKind: "FittableColumnsLayout", fit: true, components: [
                 {name: "searchInput", kind: "moon.Input", oninput: "search", fit: true, placeholder: "Search term"},
-                {kind: "Image", src: "../samples/assets/search-input-search.png", style: "width: 20px;height:20px;margin-left:10px;"}
+                {kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png", style: "width: 20px;height:20px;margin-left:10px;"}
             ]},
-            {classes: "moon-searchheader-search-right"},
+            {classes: "moon-searchheader-search-right"}
         ]},
         {name: "client", classes: "moon-header-client"},
         {name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}

@@ -13,7 +13,7 @@ enyo.kind({
 			itemHeight: 180,
 			itemSpacing: 100,
 			components: [
-				{name: "item", kind: "moon.GridList.ImageItem"}
+				{name: "item", kind: "moon.GridListImageItem"}
 			]
 		}
 	],

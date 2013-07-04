@@ -22,6 +22,8 @@ enyo.kind({
 		lockBar: true,
 		//* If true, tapping on bar will change current position
 		tappable: true,
+		//* CSS classes to apply to knob
+		knobClasses: "",
 		//* Color of value popup
 		popupColor: "#ffb80d",
 		//* When true, button is shown as disabled and does not generate tap events
@@ -32,7 +34,19 @@ enyo.kind({
 		*/
 		animate: true,
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
-		noPopup: false
+		noPopup: false,
+		//* When true, popup will display a percentage value (rather than the absolute value)
+		showPercentage: true,
+		//* Popup width in pixels
+		popupWidth: 62,
+		//* Popup height in pixels
+		popupHeight: 52,
+		//* When false, you can move the knob past the _bgProgress_
+		constrainToBgProgress: false,
+		//* When true, you can see elastic effect when drag knob past the _bgProgress_
+		elasticEffect: false,
+		//* Custom popup content (ignored if null)
+		popupContent: null
 	},
 	events: {
 		//* Fires when bar position is set. The _value_ property contains the
@@ -57,22 +71,39 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{classes: "moon-slider-taparea"},
+		{name: "tapArea", classes: "moon-slider-taparea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
-		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{tag: "canvas", name: "drawing", attributes: { width: 62, height: 52 }},
+		{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
+			{tag: "canvas", name: "drawing"},
 			{name: "popupLabel", classes: "moon-slider-popup-label"}
 		]}
 	],
 	animatingTo: null,
+	
+	//* @public
+	
+	//* Animates to the given value.
+	animateTo: function(inStartValue, inEndValue) {
+		inEndValue = this.clampValue(this.min, this.max, inEndValue); // Moved from animatorStep
+		this.animatingTo = inEndValue;
+
+		this.$.animator.play({
+			startValue: inStartValue,
+			endValue: inEndValue,
+			node: this.hasNode()
+		});
+	},
+	
+	//* @protected
+	
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
 			this._nf = new ilib.NumFmt({type: "percentage"});
 		}
 		this.createComponents(this.moreComponents);
-		this.initValue();
 		this.disabledChanged();
+		this.knobClassesChanged();
 	},
 	destroy: function() {
 		if (this._nf) {
@@ -82,6 +113,8 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.canvasWidthChanged();
+		this.canvasHeightChanged();
 		this.drawToCanvas(this.popupColor);
 	},
 	disabledChanged: function() {
@@ -89,14 +122,51 @@ enyo.kind({
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
 	},
+	knobClassesChanged: function(inOld) {
+		this.$.knob.removeClass(inOld);
+		this.$.knob.addClass(this.knobClasses);
+	},
+	//* Update _this.$.drawing_ width attribute
+	canvasWidthChanged: function() {
+		this.$.drawing.setAttribute("width", this.getPopupWidth());
+	},
+	//* Update _this.$.drawing_ height attribute
+	canvasHeightChanged: function() {
+		this.$.drawing.setAttribute("height", this.getPopupHeight());
+	},
+	//* Update popup color
+	popupColorChanged: function() {
+		this.drawToCanvas(this.popupColor);
+	},
+	//* Update the popup content
+	popupContentChanged: function() {
+		var content = this.getPopupContent();
+		if (content !== null) {
+			this.$.popupLabel.setContent(content);
+		}
+	},
+	//* Called only when constrainToBgProgress option true
+	calcConstrainedIncrement: function(inValue) {
+		return (Math.floor(inValue / this.increment) * this.increment);
+	},
 	//* Prep value at create time
 	initValue: function() {
-		this.updateKnobPosition(this.calcPercent(this.getValue()));
+		if (this.constrainToBgProgress) {
+			this.value = this.clampValue(this.min, this.bgProgress, this.value);
+			this.value = (this.increment) ? this.calcConstrainedIncrement(this.value) : this.value;
+		}
+
+		this.updateKnobPosition(this.getValue());
+
 		if (this.lockBar) {
 			this.setProgress(this.getValue());
 		}
 	},
 	setValue: function(inValue) {
+		if (this.constrainToBgProgress) {
+			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
+			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
+		}
 		if (this.animate) {
 			this.animateTo(this.getValue(), inValue);
 		} else {
@@ -110,9 +180,9 @@ enyo.kind({
 		if (v === this.value) {
 			return;
 		}
-
+		
 		this.value = v;
-		this.updateKnobPosition(this.calcPercent(this.value));
+		this.updateKnobPosition(v);
 
 		if (this.lockBar) {
 			this.setProgress(this.value);
@@ -123,20 +193,31 @@ enyo.kind({
 	getValue: function() {
 		return (this.animatingTo !== null) ? this.animatingTo : this.value;
 	},
-	updateKnobPosition: function(inPercent) {
-		this.$.knob.applyStyle("left", inPercent + "%");
-		this.$.popup.applyStyle("left", inPercent + "%");
-
-		var label = "";
-		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(inPercent));
-		}
-		else {
-			label = Math.round(inPercent) + "%";
-		}
-		this.$.popupLabel.setContent(label);
-
+	updateKnobPosition: function(inValue) {
+		var percent = this.calcPercent(inValue),
+			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue,
+			label
+		;
+		
+		this.$.knob.applyStyle("left", percent + "%");
+		this.$.popup.applyStyle("left", percent + "%");
+		
+		this.updatePopupLabel(knobValue);
 		this.updatePopupPosition();
+	},
+	updatePopupLabel: function(inKnobValue) {
+		var label = this.getPopupContent();
+		label = (label === null) ? this.calcPopupLabel(inKnobValue) : label;
+		this.$.popupLabel.setContent(label);
+	},
+	calcPopupLabel: function(inKnobValue) {
+		var label = (typeof ilib !== "undefined") ? this._nf.format(Math.round(inKnobValue)) : Math.round(inKnobValue);
+		
+		if (this.showPercentage) {
+			label += "%";
+		}
+		
+		return label;
 	},
 	updatePopupPosition: function() {
 		var inControl = this.$.popup;
@@ -165,9 +246,8 @@ enyo.kind({
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
-			return;	// return nothing
+			return; // return nothing
 		}
-
 		if (inEvent.horizontal) {
 			inEvent.preventDefault();
 			this.dragging = true;
@@ -178,12 +258,21 @@ enyo.kind({
 	},
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
-			var v = this.calcKnobPosition(inEvent);
-			v = (this.increment) ? this.calcIncrement(v) : v;
-			v = this.clampValue(this.min, this.max, v);
-			var p = this.calcPercent(v);
-
-			this.updateKnobPosition(p);
+			var v = this.calcKnobPosition(inEvent), ev;
+			
+			if (this.constrainToBgProgress === true) {
+				v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
+				ev = this.bgProgress + (v-this.bgProgress)*0.4;
+				v = this.clampValue(this.min, this.bgProgress, v);
+				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
+				this.elasticTo = v;
+			} else {
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				v = this.clampValue(this.min, this.max, v);
+				this.elasticFrom = this.elasticTo = v;
+			}
+			
+			this.updateKnobPosition(this.elasticFrom);
 
 			if (this.lockBar) {
 				this.setProgress(v);
@@ -196,11 +285,17 @@ enyo.kind({
 	},
 	dragfinish: function(inSender, inEvent) {
 		if (this.disabled) {
-			return;	// return nothing
+			return; // return nothing
 		}
-		var v = this.calcKnobPosition(inEvent);
-		v = (this.increment) ? this.calcIncrement(v) : v;
-		this._setValue(v);
+		var v = this.elasticTo;
+		if (this.constrainToBgProgress === true) {
+			v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
+			this.animateTo(this.elasticFrom, v);
+		} else {
+			v = this.calcKnobPosition(inEvent);
+			v = (this.increment) ? this.calcIncrement(v) : v;	
+			this._setValue(v);
+		}
 
 		this.dragging = false;
 
@@ -218,23 +313,10 @@ enyo.kind({
 			return true;
 		}
 	},
-	//* @public
-	//* Animates to the given value.
-	animateTo: function(inStartValue, inEndValue) {
-		this.animatingTo = inEndValue;
-
-		this.$.animator.play({
-			startValue: inStartValue,
-			endValue: inEndValue,
-			node: this.hasNode()
-		});
-	},
-	//* @protected
 	animatorStep: function(inSender) {
-		var v = this.clampValue(this.min, this.max, inSender.value),
-			p = this.calcPercent(v);
+		var	v = inSender.value;
 
-		this.updateKnobPosition(p);
+		this.updateKnobPosition(v);
 
 		if (this.lockBar) {
 			this.setProgress(v);
@@ -301,10 +383,10 @@ enyo.kind({
 		}
 	},
 	drawToCanvas: function(bgColor) {
-		var h = 51; // height total
+		var h = this.getPopupHeight() - 1; // height total
 		var hb = h - 4; // height bubble
 		var hbc = (hb-1)/2; // height of bubble's center
-		var w = 61; // width total
+		var w = this.getPopupWidth() - 1; // width total
 		var wre = 46; // width's right edge
 		var wle = 16; // width's left edge
 		var r = 20; // radius
