@@ -10,6 +10,7 @@ enyo.depends(
 	"DrawerHandle.js",
 	"Drawer.js",
 	"Drawers.js",
+	"AudioPlayback.js",
 	"Video.js",
 	"VideoPlayer.js",
 	"VideoInfoHeader.js",

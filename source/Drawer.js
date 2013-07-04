@@ -45,12 +45,14 @@ enyo.kind({
 		onDrawersResized: "drawersResized"
 	},
 	components: [
-		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container', classes: "moon-light-gray"},
+		{name: "client", kind: "moon.FullScreenDrawer", spotlight: 'container'},
 		{name: "controlDrawer", kind: "enyo.Drawer", spotlight: 'container'}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
+		this.$.client.$.client.addClass('moon-drawer-client');
+		this.$.controlDrawer.$.client.addClass('moon-drawer-client');
 	},
 	drawersRendered: function(inSender, inEvent) {
 		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});

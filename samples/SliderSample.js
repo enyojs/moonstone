@@ -9,8 +9,14 @@ enyo.kind({
 			{kind: "moon.Divider", content: "Slider 1: Default"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 		
-			{kind: "moon.Divider", content:"Slider 2: Disabled"},
-			{kind: "moon.Slider", value: 50, disabled: true},
+			{kind: "moon.Divider", content:"Slider 2: Deactivated"},
+			{name: "slider2", kind: "moon.Slider", value: 50, disabled: true},
+			
+			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
+			{name: "slider3", kind: "moon.Slider", classes: "rgb-sample-slider",
+				popupColor: "rgb(0, 0, 25)", popupWidth: 180, value: 25, bgProgress: 150, min: 0, max: 255,
+				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
+			},
 
 			{kind: "moon.Divider", content:"Option Properties"},
 			{classes: "moon-hspacing", components: [
@@ -24,12 +30,13 @@ enyo.kind({
 			]},
 
 			{components: [
-				{name: "lockBarSetting", kind: "moon.ToggleItem", checked: false, content: "lock bar", onchange: "changeLockbar"},
-				{name: "animateSetting", kind: "moon.ToggleItem", checked: true, content: "Animated", onchange: "animateActivate"},
-				{name: "noPopupSetting", kind: "moon.ToggleItem", checked: false, content: "No Status Bubble on Dragging", onchange: "changeStatusBubble"},
-				{name: "tapableSetting", kind: "moon.ToggleItem", checked: true, content: "Tapable", onchange: "changeTapable"},
-				{name: "constrainSetting", kind: "moon.ToggleItem", checked: false, content: "Constrain to BgProgress", onchange: "changeConstrain"},
-				{name: "elasticSetting", kind: "moon.ToggleItem", checked: false, content: "Elastic Effect", onchange: "changeElastic"}
+				{name: "lockBarSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Lock Bar", 		onchange: "changeLockbar"},
+				{name: "animateSetting", 		kind: "moon.ToggleItem", checked: true,		content: "Animated", 		onchange: "animateActivate"},
+				{name: "noPopupSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Hide Popup", 		onchange: "changeStatusBubble"},
+				{name: "tapableSetting", 		kind: "moon.ToggleItem", checked: true, 	content: "Tapable", 		onchange: "changeTapable"},
+				{name: "constrainSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Constrain to BG", onchange: "changeConstrain"},
+				{name: "elasticSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Elastic Effect", 	onchange: "changeElastic"},
+				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true, 	content: "Show Percentage", onchange: "changePercentage"}
 			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},
@@ -43,6 +50,10 @@ enyo.kind({
 		this.changeTapable();
 		this.changeConstrain();
 		this.changeElastic();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.updateSlider3Popup(this.$.slider3.getValue());
 	},
 	//* @protected
 	changeValue: function(inSender, inEvent) {
@@ -67,6 +78,22 @@ enyo.kind({
 	},
 	sliderChanged: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + Math.round(inSender.getValue()) + ".");
+	},
+	customChanging: function(inSender, inEvent) {
+		this.updateSlider3Popup(inEvent.value);
+		this.sliderChanging(inSender, inEvent);
+	},
+	customChanged: function(inSender, inEvent) {
+		this.updateSlider3Popup(inSender.getValue());
+		this.sliderChanged(inSender, inEvent);
+	},
+	customAnimateFinish: function(inSender, inEvent) {
+		this.updateSlider3Popup(inEvent.value);
+	},
+	updateSlider3Popup: function(inValue) {
+		var color = "rgb(0, 0, " + Math.round(inValue) + ")";
+		this.$.slider3.setPopupContent(color);
+		this.$.slider3.setPopupColor(color);
 	},
 	changeLockbar: function(inSender, inEvent) {
 		var ck = this.$.lockBarSetting.getChecked();
@@ -124,6 +151,16 @@ enyo.kind({
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
 				this.$[i].setElasticEffect(ck);
+			}
+		}
+		return true;
+	},
+	changePercentage: function(inSender, inEvent) {
+		var ck = this.$.showPercentageSetting.getChecked();
+
+		for (var i in this.$) {
+			if (this.$[i].kind == "moon.Slider") {
+				this.$[i].setShowPercentage(ck);
 			}
 		}
 		return true;

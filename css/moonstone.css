@@ -811,8 +811,7 @@
 }
 .moon-button[disabled] {
   cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  color: #b3b3b3;
 }
 .moon-breadcrumb {
   color: #4b4b4b;
@@ -968,6 +967,10 @@
   padding: 3px 0px 2px 0px;
   text-transform: capitalize;
   min-width: 0px;
+}
+.moon-radio-item-group .moon-button[disabled] {
+  cursor: default;
+  color: #b3b3b3;
 }
 .moon-radio-item-group .moon-button.spotlight,
 .moon-radio-item-group .moon-button.spotlight:active {
@@ -1408,7 +1411,7 @@
   border-bottom-width: 25px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 40px;
+  border-radius: 9999px;
 }
 .moon-scroll-picker.spotlight {
   border-top-color: #ffb80d;
@@ -1430,24 +1433,24 @@
 }
 .moon-scroll-picker-overlay-top {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
-  border-top-width: 30px;
+  border-radius: 9999px;
+  border-top-width: 40px;
   border-top-style: solid;
   border-top-color: rgba(0, 0, 0, 0.13);
 }
 .moon-scroll-picker-overlay-top-border {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
-  border-top-width: 30px;
+  border-radius: 9999px;
+  border-top-width: 40px;
   border-top-style: solid;
   border-top-color: #ffb80d;
-  bottom: -56px;
+  bottom: -86px;
   overflow: hidden;
 }
 .moon-scroll-picker-overlay-container-bottom {
@@ -1457,21 +1460,22 @@
 }
 .moon-scroll-picker-overlay-bottom {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
-  border-bottom-width: 30px;
+  border-radius: 9999px;
+  border-bottom-width: 40px;
   border-bottom-style: solid;
   border-bottom-color: rgba(0, 0, 0, 0.13);
+  bottom: -50px;
 }
 .moon-scroll-picker-overlay-bottom-border {
   position: absolute;
-  height: 20px;
+  height: 40px;
   width: 100%;
   border-width: 10px;
-  border-radius: 24px;
-  border-bottom-width: 30px;
+  border-radius: 9999px;
+  border-bottom-width: 40px;
   border-bottom-style: solid;
   border-bottom-color: #ffb80d;
   bottom: -44px;
@@ -1481,17 +1485,13 @@
   z-index: 10;
   top: 3px;
   left: 50%;
-  margin-left: -5px;
+  margin-left: -15px;
 }
 .up-arrow {
-  border-color: transparent transparent #ededed transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
+  height: 29px;
+  width: 29px;
+  background: url(../images/carat-large-up.png) 0 0 no-repeat;
   position: absolute;
-  bottom: -19px;
-  left: -5px;
 }
 .up-arrow > .taparea,
 .down-arrow > .taparea {
@@ -1502,78 +1502,24 @@
   left: -40px;
   background-color: transparent;
 }
-.up-arrow-container.spotlight .up-arrow {
-  border-color: transparent transparent #ffb80d transparent;
-}
 .up-arrow-container.selected .up-arrow {
-  border-width: 8px;
-  left: -3px;
-  bottom: -16px;
-}
-.up-arrow-border {
-  border-color: transparent transparent #666666 transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  bottom: -16px;
-  left: -5px;
-}
-.up-arrow-container.selected .up-arrow-border {
-  border-width: 8px;
-  left: -3px;
-  bottom: -13px;
+  background-image: url(../images/carat-small-up1.png);
 }
 .down-arrow-container {
   position: relative;
   z-index: 10;
-  top: 137px;
+  top: 128px;
   left: 50%;
-  margin-left: -10px;
-}
-.enyo-locale-right-to-left .down-arrow-container {
-  right: 12%;
-  left: 0%;
+  margin-left: -15px;
 }
 .down-arrow {
-  border-color: #ededed transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
+  height: 29px;
+  width: 29px;
+  background: url(../images/carat-large-down.png) 0 0 no-repeat;
   position: absolute;
-  bottom: -19px;
 }
 .down-arrow-container.selected .down-arrow {
-  border-width: 8px;
-  bottom: -18px;
-  left: 2px;
-}
-.enyo-locale-right-to-left .down-arrow-container.selected .down-arrow {
-  right: 0px;
-  left: auto;
-}
-.down-arrow-container.spotlight .down-arrow {
-  border-color: #ffb80d transparent transparent transparent;
-}
-.down-arrow-border {
-  border-color: #666666 transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
-  position: absolute;
-  bottom: -22px;
-}
-.down-arrow-container.selected .down-arrow-border {
-  border-width: 8px;
-  bottom: -21px;
-  left: 2px;
-}
-.enyo-locale-right-to-left .down-arrow-container.selected .down-arrow-border {
-  right: 0px;
-  left: auto;
+  background-image: url(../images/carat-small-down1.png);
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -1881,7 +1827,7 @@
 }
 /*for popups on the left of the activator*/
 .right.horizontal {
-  margin-left: -21px;
+  margin-left: -31px;
 }
 /*for popups on the right of the activator*/
 .left.horizontal {
@@ -1899,8 +1845,9 @@
 /*horizontally centered nub*/
 .moon-contextual-popup.vertical::after {
   position: absolute;
-  left: 45%;
+  left: 50%;
   margin-top: -4px;
+  margin-left: -23px;
   width: 46px;
   height: 36px;
   background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
@@ -1913,7 +1860,7 @@
 /*nub near horizontal right*/
 .moon-contextual-popup.vertical.left::after {
   left: 100%;
-  margin-left: -55px;
+  margin-left: -75px;
 }
 /*downward facing nub*/
 .moon-contextual-popup.vertical.above::after {
@@ -1947,10 +1894,11 @@
 /*vertically centered nub for popups on left of activator*/
 .moon-contextual-popup.right::after {
   left: 100%;
-  top: 47%;
+  top: 50%;
   width: 36px;
   height: 46px;
   margin-left: -4px;
+  margin-top: -23px;
   background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
 }
 /*nub near vertical top for popups on left of activator*/
@@ -2088,6 +2036,9 @@
   font-family: "MuseoSans 700";
   text-transform: capitalize;
 }
+.moon-list-actions .moon-divider {
+  border-bottom: 1px solid white;
+}
 .moon-list-actions .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
   text-transform: capitalize;
@@ -2219,7 +2170,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-accordion-header {
   display: inline-block;
-  padding-right: 24px;
+  padding-right: 22px;
   margin-bottom: 0px;
 }
 .enyo-locale-right-to-left .moon-accordion-header {
@@ -2257,41 +2208,16 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-accordion-arrow {
   position: relative;
   display: inline-block;
-  font-family: "Miso";
-}
-.moon-accordion-arrow.up {
-  top: -5px;
-  border-color: transparent transparent #666666 transparent;
-  border-style: solid;
-  border-width: 10px;
-  margin-bottom: 10px;
-}
-.moon-accordion-arrow.down {
-  top: 5px;
-  border-color: #666666 transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  height: 0;
-  width: 0;
+  width: 17px;
+  height: 11px;
+  margin-top: 15px;
   margin-bottom: 0px;
 }
-.moon-accordion-arrow.up::after {
-  content: '';
-  position: absolute;
-  border-color: transparent transparent #ededed transparent;
-  border-style: solid;
-  border-width: 10px;
-  bottom: -13px;
-  left: -10px;
+.moon-accordion-arrow.up {
+  background: url(../images/carat-small-up.png) 0 0 no-repeat;
 }
-.moon-accordion-arrow.down::after {
-  content: '';
-  position: absolute;
-  border-color: #ededed transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  bottom: -5px;
-  left: -10px;
+.moon-accordion-arrow.down {
+  background: url(../images/carat-small-down.png) 0 0 no-repeat;
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
@@ -2478,6 +2404,9 @@ p.moon-drawer-handle-text {
   marquee-speed: 3px;
   marquee-style: scroll;
 }
+.moon-drawer-client {
+  padding: 20px;
+}
 /* Drawers.css */
 .moon-drawers {
   position: relative;
@@ -2490,7 +2419,7 @@ p.moon-drawer-handle-text {
   padding: 10px 0;
 }
 .moon-drawers-activator {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 10px;
   background-color: #4b4b4b;
@@ -2546,6 +2475,20 @@ p.moon-drawer-handle-text {
   bottom: -8px;
   left: -5px;
 }
+/* The activator & nub are white when a drawer is open */
+.moon-drawers-activator.drawer-open {
+  background-color: white;
+}
+.drawer-open .moon-drawers-activator-nub {
+  background-color: white;
+}
+.drawer-open .moon-drawers-activator-nub .up {
+  border-color: transparent transparent #4b4b4b transparent;
+}
+.drawer-open .moon-drawers-activator-nub .up::after {
+  border-color: transparent transparent white transparent;
+}
+/* Activator is spotlight focused */
 .moon-drawers-activator.spotlight {
   background-color: #ffb80d;
 }
@@ -2697,6 +2640,120 @@ p.moon-drawer-handle-text {
 .moon-tooltip .moon-tooltip-label.right-arrow {
   position: absolute;
   right: 0px;
+}
+/* AudioPlayback.css */
+.moon-audio-playback {
+  background-color: #333;
+  font-size: 30px;
+}
+.moon-audio-playback-controls {
+  height: 140px;
+}
+.moon-audio-playback-track-icon {
+  position: relative;
+  top: 6px;
+  left: 4px;
+  width: 128px;
+  height: 128px;
+  background: transparent url() no-repeat 0px 0px;
+  display: inline-block;
+}
+.moon-audio-playback-playtime {
+  font-size: 20px;
+}
+.moon-audio-track-info,
+.moon-audio-control-buttons > * {
+  display: inline-block;
+  top: 6px;
+}
+.moon-audio-play-time {
+  width: 80px;
+  font-size: 20px;
+  padding-top: 10px;
+}
+.moon-audio-play-time.left {
+  text-align: left;
+}
+.moon-audio-play-time.right {
+  text-align: right;
+}
+.moon-audio-track-count.right {
+  float: right;
+}
+.moon-audio-track-info {
+  width: 40%;
+}
+.moon-audio-top {
+  height: 65px;
+  padding-top: 15px;
+}
+/* AudioPlayback styles for IconButton */
+.moon-audio-icon-button {
+  background-color: gray;
+  margin: 8px 4px;
+}
+.moon-audio-icon-button.left {
+  float: left;
+}
+.moon-audio-icon-button.right {
+  float: right;
+}
+/* AudioPlayback styles for Slider */
+.moon-audio-slider-container {
+  padding-top: 10px;
+}
+.moon-audio-slider.spotlight > .moon-slider-knob {
+  background-color: #ffb80d;
+}
+.moon-audio-slider > .moon-slider-knob,
+.moon-audio-slider > .moon-slider-knob.disabled:active:hover {
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  margin: -17px -16px;
+  background-color: gray;
+}
+.moon-audio-slider > .moon-slider-knob.active,
+.moon-audio-slider > .moon-slider-knob.spotselect,
+.moon-audio-slider > .moon-slider-knob:active:hover {
+  height: 34px;
+  width: 34px;
+  border-radius: 17px;
+  margin: -19px -18px;
+  background-color: #ffb80d;
+}
+.moon-audio-slider.moon-progress-bar {
+  background-color: #CCC;
+  margin: 0px;
+  top: 10px;
+}
+.moon-audio-slider > .moon-progress-bar-bar {
+  background-color: #666;
+}
+/* AudioPlayback styles for queue */
+.moon-audio-playback-queue {
+  margin: 0px 40px;
+}
+/* AudioPlayback styles for queue list items */
+.moon-audio-queue-list {
+  height: 100px;
+  padding: 12px 16px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.moon-audio-queue-list-selected {
+  background-color: #999;
+  border-color: #666;
+}
+.moon-audio-queue-list > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.moon-audio-queue-album-art {
+  width: 80px;
+  height: 80px;
+  background: transparent url() no-repeat 0px 0px;
+  padding-right: 10px;
 }
 .moon-slider .moon-slider-indicator-wrapper {
   width: 240px;
@@ -3299,7 +3356,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   color: #ededed;
 }
 .moon-dark-gray * {
-  color: #ededed;
+  color: white;
 }
 .moon-light-gray {
   background-color: #ededed;
