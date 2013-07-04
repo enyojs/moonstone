@@ -4,15 +4,12 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
-			{classes: "moon-6h", components: [
-				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput"},
-				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				placeholder: "Placeholder"},
-				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				placeholder: "Placeholder", value: "Text"},
-				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "ExpandableInput",
-				disabled:true, value: "Deactivated Input"},
-				{name: "console", classes: "moon-input-sample-console", content: "Input: "},
+			{classes: "moon-7h", components: [
+				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input", noneText: "No Input"},
+				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input with Placeholder", noneText: "No Input", placeholder: "Placeholder"},
+				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input with Value", noneText: "No Input", placeholder: "Placeholder", value: "Text"},
+				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Disabled Input", noneText: "No Input", disabled:true, value: "I am disabled."},
+				{name: "console", classes: "moon-input-sample-console", content: "Input:"},
 			]}
 		]}
 	],

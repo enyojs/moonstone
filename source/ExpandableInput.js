@@ -16,7 +16,9 @@ enyo.kind({
 		onChange: ""
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no text is input
+		//* Text to be displayed in the _currentValue_ control if no item is currently selected
+		noneText: "",
+		//* Text to be displayed in the input if no text is input
 		placeholder: "",
 		//* Initial value
 		value: ""
@@ -38,7 +40,7 @@ enyo.kind({
 				components: [
 					{
 						name: "clientInput",
-						kind: "moon.Input",
+						kind: "moon.Input"
 					}
 				]}
 			]
@@ -55,6 +57,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.clientInput.setValue(this.value);
 		this.placeholderChanged();
+		this.noneTextChanged();
 		this.openChanged();
 	},
 	initComponents: function() {
@@ -69,7 +72,7 @@ enyo.kind({
 			this.fireChangeEvent();
 		// no input text
 		} else if(this.value == "") {
-			this.$.currentValue.setContent(this.placeholder);
+			this.$.currentValue.setContent(this.noneText);
 		// update the content of currentValue
 		} else if(this.value != this.$.currentValue.content) {
 			this.$.currentValue.setContent(this.value);
@@ -81,9 +84,12 @@ enyo.kind({
 		this.updateContent();
 	},
 	//* If there is no value, uses _this.placeholder_ as current text.
+	noneTextChanged: function() {
+		this.updateContent();
+	},
+	//* If there is no value, uses _this.placeholder_ as the placeholder of the input
 	placeholderChanged: function() {
 		this.$.clientInput.setPlaceholder(this.placeholder);
-		this.updateContent();
 	},
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
@@ -105,6 +111,20 @@ enyo.kind({
 			this.$.clientInput.focus();
 			enyo.Spotlight.spot(this.$.client);
 		}
+	},
+	//* If closed, opens drawer and highlights first spottable child.
+	expandContract: function(inSender, inEvent) {
+		if (this.disabled) {
+			return true;
+		}
+		if(!this.getOpen()) {
+			this.setActive(true);
+			this.$.client.onFocus();
+			this.$.client.focus();
+		} else {
+			this.setActive(false);
+		}
+		return true;
 	},
 	//* When closing drawer via keypress with "UP" direction, update value
 	headerFocus: function(inSender, inEvent) {
