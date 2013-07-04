@@ -7,5 +7,6 @@
 */
 enyo.depends(
 	"CalendarPicker.js",
-	"AudioPlayback.js"
+	"AudioPlayback.js",
+	"HighlightText.js"
 );
