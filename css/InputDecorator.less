@@ -1,5 +1,5 @@
 /* InputDecorator.css */
-.moon-input-decorator {
+.moon-input-decorator:not(.moon-input-header-input-decorator) {
 	.moon-divider-text;
 	margin: 0px;
 	padding: 8px 35px 8px 35px;
@@ -13,12 +13,12 @@
 	-webkit-background-clip: padding;  /* Safari */
 	background-clip: padding-box;      /* Firefox 4+, Chrome, IE 9+ */
 }
-.moon-input-decorator.spotlight {
+.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
 	border: @moon-input-border-width solid @moon-spotlight-border-color;
 }
 .moon-input-decorator.moon-disabled {
 	opacity: 0.4;
 }
-.moon-input-decorator.moon-focused {
+.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
 	border: @moon-input-border-width solid @moon-active-border-color;
 }

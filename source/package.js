@@ -53,7 +53,7 @@ enyo.depends(
 	"MoonScrollStrategy.js",
 	"Thumb.js",
 	"SearchPanel.js",
-	"SearchHeader.js",
+	"InputHeader.js",
 	"Scrim.js",
 	"Popup.js",
 	"Dialog.js",

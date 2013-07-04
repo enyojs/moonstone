@@ -1611,7 +1611,7 @@
   color: #7d7d7d;
 }
 /* InputDecorator.css */
-.moon-input-decorator {
+.moon-input-decorator:not(.moon-input-header-input-decorator) {
   font-family: "MuseoSans 700";
   font-size: 22px;
   font-weight: normal;
@@ -1633,13 +1633,13 @@
   /* Firefox 4+, Chrome, IE 9+ */
 
 }
-.moon-input-decorator.spotlight {
+.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
   border: 5px solid #ffb80d;
 }
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
-.moon-input-decorator.moon-focused {
+.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
   border: 5px solid #a2a2a2;
 }
 /* ProgressBar.css */
@@ -2317,44 +2317,36 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
 }
-.moon-searchheader {
-  height: 96px;
-  margin-bottom: 49px;
-}
-.moon-searchheader-title-above {
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 1em;
+.moon-input-header-input-decorator {
+  margin: -1px 0px 0px;
   padding: 0px;
-  margin: 54px 0px 7px 1px;
-  width: 30px;
-  border-bottom: 0px solid #4b4b4b;
+  border: 0px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
 }
-.moon-searchheader-title {
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 1em;
-  text-transform: uppercase;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 6px 0px;
-}
-.moon-searchheader-title-below {
-  font-size: 18px;
+.moon-input-header > .moon-input-header-input-decorator > .moon-input {
+  font-family: "Miso";
+  font-size: 140px;
   font-weight: normal;
-  line-height: 1em;
-  min-height: 18px;
-  padding: 0px 0px 0px 0px;
-  margin: 18px;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  margin: 0px;
+  padding: 0px;
+  width: 92%;
+  height: 140px;
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 140px;
+  color: #4b4b4b;
 }
-.moon-searchheader-container {
-  position: absolute;
-  top: 0px;
+.moon-input-header > .moon-input-header-input-decorator > img {
+  width: 8%;
+  box-sizing: border-box;
+  display: none;
 }
-.moon-searchheader-search-left {
-  width: 210px;
-}
-.moon-searchheader-search-right {
-  width: 219px;
+.moon-input-header > .moon-input-header-input-decorator.spotlight > img {
+  display: inline-block;
 }
 .moon-drawer-handle {
   height: auto;
