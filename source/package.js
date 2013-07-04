@@ -59,5 +59,14 @@ enyo.depends(
 	"Dialog.js",
 	"TooltipDecorator.js",
 	"Tooltip.js",
-	"ExpandableInput.js"
+	"ExpandableInput.js",
+	"Video.js",
+	"VideoPlayer.js",
+	"VideoInfoHeader.js",
+	"VideoTransportSlider.js",
+	"VideoFeedback.js",
+	"VideoFullscreenToggleButton.js",
+	"DrawerHandle.js",
+	"Drawer.js",
+	"Drawers.js"
 );

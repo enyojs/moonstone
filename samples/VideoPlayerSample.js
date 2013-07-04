@@ -5,12 +5,7 @@ enyo.kind({
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: "player", kind: "moon.VideoPlayer",
-			sourceComponents: [
-				{src: "http://media.w3.org/2010/05/sintel/trailer.mp4",  type: "video/mp4"},
-				{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"},
-				{src: "http://media.w3.org/2010/05/sintel/trailer.ogv",  type: "video/ogg"}
-			],
+		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", style:"width:400px;", 
 			infoComponents: [
 				{
 					kind: "moon.VideoInfoHeader",
