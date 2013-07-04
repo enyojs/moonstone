@@ -51,7 +51,8 @@ enyo.kind({
 	spotlight: false,
 	defaultKind: "moon.Item",
 	handlers: {
-		onSpotlightSelect: "spotlightSelect"
+		onSpotlightSelect: "spotlightSelect",
+		onSpotlightDown: "spotlightDown"
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
@@ -59,8 +60,7 @@ enyo.kind({
 		},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group"}
-		]},
-		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
+		]}
 	],
 	//* Used to prevent events from firing during initialization
 	isRendered: false,
@@ -131,16 +131,13 @@ enyo.kind({
 			enyo.Spotlight.spot(this);
 		}
 	},
-	//* Prevents user from continuing downward when Spotlight reaches the bottom
-	//* of the item.
-	spotlightFocusBottom: function(inSender, inEvent) {
-		var s = enyo.Spotlight.getSiblings(this.$.bottom);
-		var nextItem = s.siblings[s.selfPosition-1];
-		if(nextItem) {
-			enyo.Spotlight.spot(nextItem);
+	//* Check for the last item in the client area, and prevent 5-way focus movement
+	//* below it, per UX specs
+	spotlightDown: function(inSender, inEvent) {
+		var c = enyo.Spotlight.getChildren(this.$.client);
+		if (c.length && inEvent.originator == c[c.length-1]) {
 			return true;
 		}
-		return true;
 	},
 	/**
 		Bubbles the _requestScrollIntoView_ event every time the drawer animates.
