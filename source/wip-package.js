@@ -15,5 +15,6 @@ enyo.depends(
 	"VideoPlayer.js",
 	"VideoInfoHeader.js",
 	"VideoTransportSlider.js",
-	"VideoFeedback.js"
+	"VideoFeedback.js",
+	"VideoFullscreenToggleButton.js"
 );

@@ -69,7 +69,7 @@ enyo.kind({
 	},
 	_playbackRateArray: null,
 	_speedIndex: 0,
-
+	
 	create: function() {
 		this.inherited(arguments);
 		this.posterChanged();
@@ -77,61 +77,19 @@ enyo.kind({
 		this.preloadChanged();
 		this.autoplayChanged();
 		this.loopChanged();
+		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
+		this.disableTransform(this);
+	},
+	disableTransform: function(control) {
+		control.preventTransform = true;
+		control.preventAccelerate = true;
+		if (control.parent) {
+			this.disableTransform(control.parent);
+		}
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.hookupVideoEvents();
-	},
-	//* If _src_ property is set, set that to source. Otherwise create _<source>_ children
-	updateSource: function() {
-		var src = this.src,
-			rewrittenSrc
-		;
-		
-		if (!src || src === "") {
-			this.addSources();
-		
-		} else {
-			rewrittenSrc = enyo.path.rewrite(src);
-			
-			// Don't reset to the same value
-			if (this.getAttribute("src") === rewrittenSrc) {
-				return;
-			}
-			
-			this.setAttribute("src", rewrittenSrc);
-		}
-		
-		// HTML5 spec says that if you change src after page is loaded, you
-		// need to call load() to load the new data
-		if (this.hasNode()) {
-			this.node.load();	// not called
-		}
-	},
-	//* Add _<source>_ tags for each sources specified in _this.sources_
-	addSources: function() {
-		var sources = this.getSourceComponents();
-		
-		if (!sources || sources.length == 0) {
-			return;
-		}
-		
-		// Wipe out any previous sources
-		this.destroyClientControls();
-		
-		// Add a source tag for each source
-		for (i = 0; i < sources.length; i++) {
-			this.createComponent(enyo.mixin(sources[i], {tag: "source"}));
-		}
-		
-		// Rerender
-		this.render();
-	},
-	srcChanged: function() {
-		this.updateSource();
-	},
-	sourceComponentsChanged: function() {
-		this.updateSource();
 	},
 	posterChanged: function() {
 		if (this.poster) {
@@ -159,6 +117,9 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
+	},
+	srcChanged: function() {
+		this.inherited(arguments);
 	},
 	//* @public
 	play: function() {
@@ -375,10 +336,13 @@ enyo.kind({
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
 		var node = this.hasNode();
+
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
+
 		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
+		inEvent = enyo.mixin(inEvent, this.createEventData());
 	},
 	timeupdate: function(inSender, inEvent) {
 		var node = this.hasNode();
