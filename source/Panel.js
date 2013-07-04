@@ -172,12 +172,6 @@ enyo.kind({
 					properties: {
 						"width" : "200px"
 					}
-				}],
-				125: [{
-					control: this.$.panelBody,
-					properties: {
-						"display" : "none"
-					}
 				}]
 			}
 		});
@@ -195,12 +189,6 @@ enyo.kind({
 					control: this,
 					properties: {
 						"width" : "current"
-					}
-				},
-				{
-					control: this.$.panelBody,
-					properties: {
-						"display" : "block"
 					}
 				}],
 				25: [{
