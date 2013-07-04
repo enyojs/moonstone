@@ -4,25 +4,22 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Dialog"},
-		{kind: "moon.Button", content: "Basic Dialog", ontap: "showPopup", popup: "basicPopup"},
+		{kind: "moon.Button", content: "Basic Dialog", ontap: "showDialog"},
 		{
-			name: "basicPopup", 
+			name: "dialog", 
 			kind: "moon.Dialog", 
 			title: "You've been watching TV very long time.", 
-			message: "Perhaps it is time to take a break and get some fresh air. There is a nice coffe shop around the corner", 
+			message: "Perhaps it is time to take a break and get some fresh air. There is a nice coffee shop around the corner", 
 			components: [
-				{kind: "moon.Button", content: "Go get a coffee", ontap: "onTap"},
-				{kind: "moon.Button", content: "Keep watching TV", ontap: "onTap"}
+				{kind: "moon.Button", content: "Go get a coffee", ontap: "hideDialog"},
+				{kind: "moon.Button", content: "Keep watching TV", ontap: "hideDialog"}
 			]
 		}
 	],
-	showPopup: function(inSender) {
-		var p = this.$[inSender.popup];
-		if (p) {
-			p.show();
-		}
+	showDialog: function(inSender) {
+		this.$.dialog.show();
 	},
-	onTap: function(inSender, inEvent) {
-		this.$.basicPopup.hide();
+	hideDialog: function(inSender, inEvent) {
+		this.$.dialog.hide();
 	}
 });

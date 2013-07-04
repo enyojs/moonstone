@@ -64,5 +64,8 @@ enyo.kind({
 	setArrow: function(open) {
 		this.$.arrow.addRemoveClass('up', open);
 		this.$.arrow.addRemoveClass('down', !open);
-	}
+	},
+	// Override default spotlight down behavior of ExpandableListItem which prevents
+	// focusing off of the last control
+	spotlightDown: enyo.nop
 });

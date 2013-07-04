@@ -83,8 +83,7 @@ enyo.kind({
 			{name: "client", kind: "Group", highlander: true},
 			{name: "helpText", classes: "moon-expandable-picker-help-text"}
 		]},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""},
-		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
+		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -120,6 +119,16 @@ enyo.kind({
 			}
 		}
 	},
+	activeChanged: function() {
+		if (this.active) {
+			// enyo.Group's highlander logic actually prevents an item from being
+			// de-activated once it's been activated; that's not exactly the logic
+			// we want for ExpandablePicker, so we only notify the group when an
+			// item is activated, not when it's de-activated. 
+			this.bubble("onActivate");
+		}
+		this.setOpen(this.active);
+	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the
 	//* appropriate control.
 	selectedIndexChanged: function() {
@@ -141,7 +150,6 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.open);
-		this.$.bottom.setShowing(this.open);
 	},
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
