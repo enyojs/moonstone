@@ -48,9 +48,6 @@ enyo.kind({
 		{
 			name: "currentValue", kind: "moon.Item", ontap: "expandDrawer", spotlight: false, content: "",
 			classes: "moon-expandable-input-current-value"
-		},
-		{	
-			name: "bottom", kind: "enyo.Control", onSpotlightFocus: "spotlightFocusBottom", spotlight: true
 		}
 	],
 	create: function() {
@@ -95,16 +92,13 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.open);
-		this.$.bottom.setShowing(this.open);
 	},
 	//* expand a drawer, focus or blur moon.Input
 	expandDrawer: function(inSender, inEvent) {
-		var open = null;
 		this.updateContent();
 		this.expandContract();
 
-		open = this.getOpen();
-		if(!open) {
+		if(!this.getOpen()) {
 			this.blur();
 			this.$.clientInput.blur();
 		} else {
@@ -141,6 +135,13 @@ enyo.kind({
 		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir == "DOWN") {
 			this.$.clientInput.focus();
 			enyo.Spotlight.spot(this.$.client);
+		}
+	},
+	//* Check for the last item in the client area, and prevent 5-way focus movement
+	//* below it, per UX specs
+	spotlightDown: function(inSender, inEvent) {
+		if (inEvent.originator == this.$.client) {
+			return true;
 		}
 	},
 	//* Fires an _onChange_ event.
