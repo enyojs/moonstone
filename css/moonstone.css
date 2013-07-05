@@ -2332,7 +2332,7 @@ body .enyo-fit.panels-50-percent-scrim,
   font-style: normal;
   letter-spacing: -0.05em;
   margin: 0px;
-  padding: 0px;
+  padding-left: 1px;
   width: 92%;
   height: 140px;
   display: inline-block;
