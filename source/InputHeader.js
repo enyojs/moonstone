@@ -6,15 +6,6 @@ enyo.kind({
 	//* @public
 	name: "moon.InputHeader",
 	kind: "moon.Header",
-	events: {
-		/** 
-			Fires when typing a text in a moon.Input for a title
-
-			_inEvent.keyword_ contains the title of moon.InputHeader
-			which is the text in a moon.Input
-		*/
-		"onSearch": ""
-	},
 	//* @protected
 	classes: "moon-header moon-input-header",
 	components: [
@@ -38,11 +29,7 @@ enyo.kind({
 			this.$.title.setPlaceholder(placeHolder);
 		}
 	},
-	//* To override contentChanged function in Header.js
+	//* To override contentChanged function in Header.js because input don't need a content property
 	contentChanged: function() {
-	},
-	//* If user type a text in moon.Input, "onSearch" evnet  will be fired.
-	inputChanged: function() {
-		this.doSearch({"keyword": this.$.title.getValue()});
 	}
 });
