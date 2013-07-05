@@ -94,12 +94,12 @@ enyo.kind({
 		if (typeof ilib !== "undefined") {
 			this.locale = ilib.getLocale();
 		}
-		this.initDefaults();
+		this.initDefaults("local");
 	},
-	initDefaults: function() {
+	initDefaults: function(tz) {
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({locale:this.locale, type: "time", timezone:"local"});
+			this._tf = new ilib.DateFmt({locale:this.locale, type: "time", timezone: tz.id || "local"});
 			this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
 		}
 
@@ -239,7 +239,7 @@ enyo.kind({
 	},
 	refresh: function(){
 		this.destroyClientControls();
-		this.initDefaults();
+		this.initDefaults(new ilib.TimeZone({locale: this.locale}));
 		this.render();
 	}
 });
