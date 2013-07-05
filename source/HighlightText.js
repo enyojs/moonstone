@@ -14,20 +14,20 @@
 		this.waterfall("offHighlight");
 */
 enyo.kind({
-	name: "moon.HighlightText",
-	published: {
-        content: ""
-	},
-	handlers: {
-		onHighlight: "onHighlightHandler",
+    name: "moon.HighlightText",
+    published: {
+        content: "",
+        highlightClasses: "moon-highlight-text-highlighted"
+    },
+    handlers: {
+        onHighlight: "onHighlightHandler",
         offHighlight: "offHighlightHandler"
-	},
-	//* @protected
-	create: function() {
-		this.inherited(arguments);
+    },
+    //* @protected
+    create: function() {
+        this.inherited(arguments);
         this._content = this.content;
-        this.allowHtml = true;
-	},
+    },
     setContent:function(inValue) {
         this.inherited(arguments);
         this._content = inValue;
@@ -39,17 +39,30 @@ enyo.kind({
     getContent:function() {
         return this._content;   
     },
-	onHighlightHandler: function(inSender, inEvent) {
-		var hlt = inEvent.highlight;
-		var ort  = this.getContent();
-        var sIdx = ort.indexOf(hlt);
-        if(sIdx !== -1) {
-            var text = ort.slice(0, sIdx) + "<span class=\"moon-highlight-text-highlighted\">" + ort.slice(sIdx, sIdx+hlt.length) + "</span>" + ort.slice(sIdx+hlt.length, ort.length);
-            this._setContent(text);
+    onHighlightHandler: function(inSender, inEvent) {
+        this.allowHtml = true;
+        var output = "",
+            hlt = inEvent.highlight,
+            ort = this.getContent(),
+            eIdx = ort.length,
+            sIdx = 0
+        ;
+        while(sIdx !== -1) {
+            sIdx = ort.search(hlt);
+            if(sIdx !== -1) {
+                output += ort.slice(0, sIdx) + "<span class=" + this.highlightClasses + ">";
+                output += ort.slice(sIdx, sIdx+hlt.length) + "</span>";
+                sIdx = sIdx+hlt.length;
+                ort = ort.slice(sIdx, eIdx);
+            }
         }
+        output += ort;
+        this._setContent(output);
+        
         return true;
-	},
+    },
     offHighlightHandler: function(inSender, inEvent) {
+        this.allowHtml = false;
         this.setContent(this._content);
         this.render();
         return true;
