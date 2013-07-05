@@ -2333,7 +2333,6 @@ body .enyo-fit.panels-50-percent-scrim,
   letter-spacing: -0.05em;
   margin: 0px;
   padding-left: 1px;
-  width: 92%;
   height: 140px;
   display: inline-block;
   box-sizing: border-box;
@@ -2341,7 +2340,7 @@ body .enyo-fit.panels-50-percent-scrim,
   color: #4b4b4b;
 }
 .moon-input-header > .moon-input-header-input-decorator > img {
-  width: 8%;
+  width: 66px;
   box-sizing: border-box;
   display: none;
 }

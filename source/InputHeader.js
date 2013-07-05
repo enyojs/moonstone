@@ -10,8 +10,8 @@ enyo.kind({
 	classes: "moon-header moon-input-header",
 	components: [
 		{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-		{kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
-			{name: "title", kind: "moon.Input", classes: "moon-header-font moon-header-title"},
+		{kind: "moon.InputDecorator", layoutKind: "FittableColumnsLayout", classes: 'moon-input-header-input-decorator', components: [
+			{name: "title", kind: "moon.Input", fit: true, classes: "moon-header-font moon-header-title"},
 			{kind: "Image", src: "$lib/moonstone/images/InAppSearch_SearchIcon.png"}
 		]},
 		{name: "titleBelow", classes: "moon-header-title-below"},
