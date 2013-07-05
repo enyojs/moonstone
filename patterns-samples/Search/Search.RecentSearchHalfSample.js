@@ -3,7 +3,7 @@ enyo.kind({
     kind: "moon.InputPanel",
 	classes: "moon-search",
     handlers: {
-        onSearch: ""
+        "onInputChanged": "onInputChanged"
     },
     titleAbove: "02",
     title: "SEARCH",
