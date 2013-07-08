@@ -37,7 +37,9 @@ enyo.kind({
 	events: {
 		//* Fires when the the main or control drawers are activated or deactived.
 		onActivate: "",
-		onDeactivate: ""
+		onDeactivate: "",
+		onExpand: "",
+		onCollapse: ""
 	},
 	handlers: {
 		//* Handlers for initial rendering & resizing to size drawers to full screen
@@ -64,7 +66,6 @@ enyo.kind({
 	},
 	calcDrawerHeight: function(drawersHeight, activatorHeight) {
 		var clientHeight = drawersHeight;
-		var activatorHeight = activatorHeight;
 
 		clientHeight -= activatorHeight;
 		if (this.controlDrawerComponents == null) {
@@ -85,18 +86,22 @@ enyo.kind({
 		this.$.client.setOpen(this.open);
 		if (this.open) {
 			this.doActivate();
+			this.doExpand();
 			enyo.Spotlight.spot(this.$.client);
 		} else {
 			this.doDeactivate();
+			this.doCollapse();
 		}
 	},
 	controlsOpenChanged: function() {
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
-			this.doActivate();			
+			this.doActivate();
+			this.doExpand();	
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
 			this.doDeactivate();
+			this.doCollapse();
 		}
 	},
 	drawersResized: function(inSender, inEvent) {
