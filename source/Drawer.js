@@ -64,7 +64,6 @@ enyo.kind({
 	},
 	calcDrawerHeight: function(drawersHeight, activatorHeight) {
 		var clientHeight = drawersHeight;
-		var activatorHeight = activatorHeight;
 
 		clientHeight -= activatorHeight;
 		if (this.controlDrawerComponents == null) {

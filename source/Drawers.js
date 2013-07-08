@@ -56,11 +56,11 @@ enyo.kind({
 		this.setupHandles();
 	},
 	rendered: function() {
-	    this.inherited(arguments);
+		this.inherited(arguments);
 		this.resizeDresser();
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	resizeDresser: function() {
 		var client = this.getBounds();
@@ -101,7 +101,7 @@ enyo.kind({
 		}
 	},
 	handleTapped: function(inSender, inEvent) {
-		this.openDrawer(inEvent.originator)
+		this.openDrawer(inEvent.originator);
 		return true;
 	},
 	openDrawer: function(drawer) {
@@ -176,9 +176,9 @@ enyo.kind({
 			return true;
 		}
 		this.resizeDresser();		
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
 		this.updateActivator(false);
 	},
 	//Updates the activator's style only when it is not animating so that there are no visual artifacts
