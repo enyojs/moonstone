@@ -38,7 +38,7 @@ enyo.kind({
 		if (this.collapsed) {
 			return;
 		}
-		
+
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
@@ -108,7 +108,7 @@ enyo.kind({
 		if (!this.collapsed) {
 			return;
 		}
-		
+
 		this.$.animator.newAnimation({
 			name: "expandToLarge",
 			duration: 200,

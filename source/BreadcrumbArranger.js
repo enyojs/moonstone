@@ -4,7 +4,7 @@
 	right side. This is the default arranger for both the "Always Viewing" and
 	"Activity" patterns; if you are using <a href="#moon.Panel">moon.Panel</a>
 	with either of these patterns, you don't need to specify an arranger
-	explicitly. 
+	explicitly.
 
 	The breadcrumbs reflect the sequence of panels that the user has already seen.
 
