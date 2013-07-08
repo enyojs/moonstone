@@ -26,12 +26,19 @@ enyo.kind({
 	//* @protected
 	components: [
 		{
-			name: "header", kind: "moon.Item", spotlight: true,
-			onSpotlightFocus: "headerFocus", onSpotlightSelect: "expandDrawer", ontap: "expandDrawer",
+			name: "header",
+			kind: "moon.Item",
+			spotlight: true,
+			onSpotlightFocus: "headerFocus",
+			onSpotlightSelect: "expandDrawer",
+			ontap: "expandDrawer",
 			classes: "moon-expandable-input-header"
 		},
 		{
-			name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [{
+			name: "drawer",
+			kind: "enyo.Drawer",
+			onStep: "drawerAnimationStep",
+			components: [{
 				name: "client",
 				kind: "moon.InputDecorator",
 				onSpotlightFocus: "inputFocus",
@@ -42,11 +49,15 @@ enyo.kind({
 						name: "clientInput",
 						kind: "moon.Input"
 					}
-				]}
-			]
+				]
+			}]
 		},
 		{
-			name: "currentValue", kind: "moon.Item", ontap: "expandDrawer", spotlight: false, content: "",
+			name: "currentValue",
+			kind: "moon.Item",
+			ontap: "expandDrawer",
+			spotlight: false,
+			content: "",
 			classes: "moon-expandable-input-current-value"
 		}
 	],
@@ -68,7 +79,7 @@ enyo.kind({
 			this.setValue(this.$.clientInput.value);
 			this.fireChangeEvent();
 		// no input text
-		} else if(this.value == "") {
+		} else if(this.value === "") {
 			this.$.currentValue.setContent(this.noneText);
 		// update the content of currentValue
 		} else if(this.value != this.$.currentValue.content) {

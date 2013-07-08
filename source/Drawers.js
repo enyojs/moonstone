@@ -101,15 +101,15 @@ enyo.kind({
 		}
 	},
 	handleTapped: function(inSender, inEvent) {
-		this.openDrawer(inEvent.originator)
+		this.openDrawer(inEvent.originator);
 		return true;
 	},
 	openDrawer: function(drawer) {
 		var handles = this.$.handles.getControls();
 		for (var index in handles)
 		{
-			if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index],drawer)) {
-				var drawer = this.$.drawers.getControls()[index];
+			if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index], drawer)) {
+				drawer = this.$.drawers.getControls()[index];
 				drawer.toggleDrawer();
 				this.$.handleContainer.setOpen(false);
 				return;
@@ -238,6 +238,7 @@ enyo.kind({
 		}
 
 		//if at the bottom a drawer then stop them from going further
+		var kids;
 		for (index in drawers) {
 			//when the main drawer is open
 			if (drawers[index].getOpen()) {
@@ -246,13 +247,13 @@ enyo.kind({
 					if (drawers[index].controlDrawerComponents !== null && drawers[index].getControlsOpen()) {
 						enyo.Spotlight.spot(drawers[index].$.controlDrawer);
 					} else {
-						var kids = enyo.Spotlight.getChildren(drawers[index].$.client);
+						kids = enyo.Spotlight.getChildren(drawers[index].$.client);
 						enyo.Spotlight.spot(kids[kids.length-1]);
 					}
 					return true;
 				//if from the control drawer & it was the last spottable item, respot it
 				} else if (drawers[index].$.controlDrawer == inEvent.originator) {
-					var kids = enyo.Spotlight.getChildren(drawers[index].$.controlDrawer);
+					kids = enyo.Spotlight.getChildren(drawers[index].$.controlDrawer);
 					enyo.Spotlight.spot(kids[kids.length-1]);
 					return true;
 				}

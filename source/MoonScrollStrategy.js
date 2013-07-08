@@ -273,18 +273,18 @@ enyo.kind({
 		}
 
 		switch (inEvent.originator.side) {
-			case "left":
-				this.pos.left = this.pos.left - this.hPageSize;
-				break;
-			case "top":
-				this.pos.top = this.pos.top - this.vPageSize;
-				break;
-			case "right":
-				this.pos.left = this.pos.left + this.hPageSize;
-				break;
-			case "bottom":
-				this.pos.top = this.pos.top + this.vPageSize;
-				break;
+		case "left":
+			this.pos.left = this.pos.left - this.hPageSize;
+			break;
+		case "top":
+			this.pos.top = this.pos.top - this.vPageSize;
+			break;
+		case "right":
+			this.pos.left = this.pos.left + this.hPageSize;
+			break;
+		case "bottom":
+			this.pos.top = this.pos.top + this.vPageSize;
+			break;
 		}
 
 		if (this.pos[orientV ? "top" : "left"] > (orientV ? sb.maxTop : sb.maxLeft)) {
@@ -411,10 +411,6 @@ enyo.kind({
 			this.scrollTo(x,y);
 		}
 	},
-	scrollToNodex: function(inNode, inAlignWithTop) {
-		this.log(inControl);
-		this.log(inAlignWithTop);
-	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY || inY === 0 ? inY : null);
@@ -426,7 +422,7 @@ enyo.kind({
 
 		// TODO - fix this error condition -> scroll strategy and scroll math are out of sync!
 		var diff = Math.round(this.$.scrollMath.y) * -1 - this.getScrollTop();
-		if (diff != 0) {
+		if (diff !== 0) {
 			this.scrollTo(this.getScrollLeft(), this.getScrollTop() + diff);
 		}
 	},
