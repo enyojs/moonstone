@@ -1405,6 +1405,7 @@
 }
 .moon-scroll-picker {
   height: 102px;
+  min-width: 60px;
   border-top-width: 30px;
   border-top-style: solid;
   border-top-color: transparent;
@@ -1412,6 +1413,9 @@
   border-bottom-style: solid;
   border-bottom-color: transparent;
   border-radius: 9999px;
+  border-top-color: #ffb80d;
+  border-bottom-color: #ffb80d;
+  background: #ffb80d;
 }
 .moon-scroll-picker.spotlight {
   border-top-color: #ffb80d;
@@ -1420,9 +1424,11 @@
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
-  padding-top: 5px;
-  height: 97px;
-  line-height: 97px;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-bottom: 2px;
+  height: 102px;
+  line-height: 102px;
   vertical-align: middle;
   text-align: center;
   background: transparent;
