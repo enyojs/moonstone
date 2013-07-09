@@ -19,9 +19,16 @@ enyo.kind({
 		onSpotlightSelect: "spotSelect"
 	},
 	published: {
-		//* When true, spotlight cannot leave constraints of _moon.Popup_ unless explicitly closed
+		/**
+			When true, spotlight cannot leave the constraints of the _moon.Popup_
+			unless it is explicitly closed.
+		*/
 		spotlightModal: false,
-		//* When false, closeButton is hidden. When true, it is shown. When "auto", it is shown when spotlightModal:true
+		/**
+			When false, _closeButton_ is hidden; when true, it is shown. When
+			_showCloseButton_ is set to "auto" (the default), _closeButton_ is shown
+			when _spotlightModal_ is true.
+		*/
 		showCloseButton: "auto"
 	},
 	spotlight: "container",
@@ -39,12 +46,12 @@ enyo.kind({
 		{name: "client"},
 		{name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
-	//* Creates chrome
+	//* Creates chrome.
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
 	},
-	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_
+	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
 		this.activator = inEvent.activator;
@@ -72,7 +79,7 @@ enyo.kind({
 		return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth};
 	},
 	/**
-		When hitting Esc to dismiss the popup
+		Dismisses popup if Escape keypress is detected.
 	*/
 	keydown: function(inSender, inEvent) {
 		if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
@@ -87,7 +94,7 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
-	//* Renders _moon.ContextualPopup_, extending _enyo.Popup_
+	//* Renders the contextual popup.
 	render: function() {
 		this.allowHtmlChanged();
 		this.contentChanged();
@@ -99,7 +106,7 @@ enyo.kind({
 		this.$.closeButton.removeClass("pressed");
 		this.hide();
 	},
-	//* Determine whether to display closeButton
+	//* Determines whether to display _closeButton_.
 	configCloseButton: function() {
 		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
 			this.activator.keepOpen = true;
@@ -116,7 +123,7 @@ enyo.kind({
 	allowHtmlChanged: function() {
 		this.$.client.setAllowHtml(this.allowHtml);
 	},
-	//* Spotlight the first spottable control, if possible
+	//* Spotlights the first spottable control, if possible.
 	configSpotlightBehavior: function(spotChild) {
 		if (enyo.Spotlight.getChildren(this).length > 0) {
 			if (spotChild) enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
@@ -125,16 +132,16 @@ enyo.kind({
 			this.spotlight = false;
 		}
 	},
-	//* When _this.spotlight_ changes
+	//* Called when _this.spotlight_ changes.
 	spotlightChanged: function() {
 		this._spotlight = this.spotlight;
 		this.configSpotlightBehavior(false);
 	},
-	//* When _this.spotlightModal_ changes
+	//* Called when _this.spotlightModal_ changes.
 	spotlightModalChanged: function() {
 		this.configCloseButton();
 	},
-	//* When _this.showCloseButton_ changes
+	//* Called when _this.showCloseButton_ changes.
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
@@ -142,7 +149,7 @@ enyo.kind({
 		this.downEvent = inEvent;
 	},
 	/**
-		Check whether to allow spotlight to move to any given direction.
+		Checks whether to allow spotlight to move in a given direction.
 	*/
 	spotChecker: function(inDirection) {
 		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
