@@ -1,47 +1,56 @@
 /**
-	_moon.Drawer_ is meant to be used with <a href="#moon.Drawers">moon.Drawers</a> and consists of
-	two drawers, plus a <a href="#moon.DrawerHandle">moon.DrawerHandle</a>. The main drawer
-	is populated with any child components it is constructed with, the second (optional)
-	drawer is populated with components passed into the controlDrawerComponents property. If no
-	controlDrawerComponents are given then the main drawer will take up the full containing view, otherwise
-	it will take up the amount of space left by the containing view minus the controlDrawerComponents height.
-	When the toggleDrawer function is called it will open the controlDrawer if controlDrawerComponents exist,
-	otherwise it will open the main drawer.
+    _moon.Drawer_, a control designed for use with <a href="#moon.Drawers">moon.Drawers</a>,
+    consists of two drawers and a <a href="#moon.DrawerHandle">moon.DrawerHandle</a>.
+    The main drawer is populated with any child components that are specified in
+    the constructor; the optional second drawer (_controlDrawer_) is populated
+    with components passed into the _controlDrawerComponents_ property.
 
-	The control's child components may be of any kind.
+    If the second drawer has no components, the main drawer will take up the full
+    height of the containing view; otherwise, its height will be equal to the
+    height of the containing view minus the height of the _controlDrawerComponents_.
 
-	{name:"musicDrawer", kind: "moon.Drawer",
-		handle: {kind:"moon.DrawerHandle", content:"Handle"},
-		components: [
-			{content:"Drawer Content"}
-		],
-		controlDrawerComponents: [
-			{content:"Controls"}
-		]}
-	}
+    A call to _toggleDrawer()_ will open the _controlDrawer_ if
+    _controlDrawerComponents_ is non-empty; otherwise, it will open the main
+    drawer.
+
+    The control's child components may be of any kind.
+
+        {
+            name: "musicDrawer",
+            kind: "moon.Drawer",
+            handle: {kind: "moon.DrawerHandle", content: "Handle"},
+            components: [
+                {content: "Drawer Content"}
+            ],
+            controlDrawerComponents: [
+                {content: "Controls"}
+            ]
+        }
 */
 enyo.kind({
 	name: "moon.Drawer",
 	kind:"enyo.Control",
 	classes: "moon-drawer moon-dark-gray",
 	published: {
-		//* Use for components that are to be placed in the control drawer
+		//* Components that are to be placed in the control drawer
 		controlDrawerComponents: null,
-		//* The moon.DrawerHandle
+		//* Typically set to an instance of _moon.DrawerHandle_
 		handle: null,
-		//* The visibility state of the main drawer
+		//* Visibility state of the main drawer
 		open: false,
-		//* The visibility state of the control drawer
+		//* Visibility state of the control drawer
 		controlsOpen: false
 	},
 	events: {
-		//* Fires when the the main or control drawers are activated or deactived.
+		//* Fires when either the main drawer or the control drawer is activated.
 		onActivate: "",
+		//* Fires when either the main drawer or the control drawer is deactivated.
 		onDeactivate: ""
 	},
 	handlers: {
-		//* Handlers for initial rendering & resizing to size drawers to full screen
+		//* Handler for initial rendering event
 		onDrawersRendered: "drawersRendered",
+		//* Handler for initial resizing event to size drawers to full screen
 		onDrawersResized: "drawersResized"
 	},
 	components: [
@@ -110,7 +119,10 @@ enyo.kind({
 	}
 });
 
-//Allows for a full screen drawer w/out content that fill the client area full screen
+/**
+    _moon.FullScreenDrawer_ is a content-free drawer that fills the client's
+    full screen area.
+*/
 enyo.kind({
 	name: "moon.FullScreenDrawer",
 	kind: "enyo.Drawer",
