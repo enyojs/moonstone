@@ -1953,6 +1953,7 @@
   min-height: 50px;
   height: 4.5em;
   min-width: 100px;
+  color: #4b4b4b;
 }
 .moon-input-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
