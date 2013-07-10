@@ -1,38 +1,46 @@
 /**
-	_moon.Drawers_ is a container kind for a set of <a href="#moon.Drawer">moon.Drawers</a> and
-	client content. It accepts an array of a href="#moon.Drawer">moon.Drawers</a> and will
-	position the drawer's <a href="#moon.DrawerHandle">moon.DrawerHandles</a>
-	at the top center of the view in a small drawer (aka the dresser). When they are selected they 
-	will open their corresponding <a href="#moon.Drawer">moon.Drawer's</a> main drawer or control 
-	drawer depending on it's configuration.
+    _moon.Drawers_ is a container kind designed to hold a set of
+    <a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
+    _drawers_ property accepts an array of _moon.Drawer_ controls. The
+    associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
+    their own small drawer, centered at the top of the "dresser"--the region
+    containing the array of Drawer controls and the activator nub.
 
-	The control's child components may be of any kind.
+    When a handle is selected, it opens the corresponding Drawer object's main
+    drawer or control drawer, depending on how the Drawer object is configured.
 
-	{kind:"moon.Drawers", drawers:[
-		{name:"musicDrawer", kind: "moon.Drawer",
-			handle: {kind:"moon.DrawerHandle", content:"Handle"},
-			components: [
-				{content:"Drawer Content"}
-			],
-			controlDrawerComponents: [
-				{content:"Controls"}
-			]}
-		]},
-		components: [
-			{content: "Content Area"}
-		]
-	}
+    The control's child components may be of any kind.
+
+        {
+            kind: "moon.Drawers",
+            drawers: [
+                {
+                    name: "musicDrawer",
+                    kind: "moon.Drawer",
+                    handle: {kind: "moon.DrawerHandle", content: "Handle"},
+                    components: [
+                        {content: "Drawer Content"}
+                    ],
+                    controlDrawerComponents: [
+                        {content: "Controls"}
+                    ]
+                }
+            ],
+            components: [
+                {content: "Content Area"}
+            ]
+        }
 */
 enyo.kind({
 	name: "moon.Drawers",
 	kind: "enyo.Control",
 	classes: "moon-drawers",
 	published: {
-		//* Set with an array of moon.Drawer components		
+		//* Populate with an array of _moon.Drawer_ components		
 		drawers: null
 	},
 	handlers: {
-		//* Handlers to udpate the activator when the state of contained drawers changes
+		//* Handlers to update the activator when the state of the contained drawers changes
 		onActivate: "drawerActivated",
 		onDeactivate: "drawerDeactivated",		
 		onSpotlightDown:"spotDown",
