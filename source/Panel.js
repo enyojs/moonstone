@@ -27,7 +27,9 @@ enyo.kind({
 		//* Facade for the header's _small_ property
 		smallHeader: false,
 		//* If true, collapse the header when the panel body is scrolled down
-		collapsingHeader: false
+		collapsingHeader: false,
+		//* Facade for the Title's _allowHtml_ property
+		allowHtmlTitle: false 
     },
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -62,6 +64,7 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.smallHeaderChanged();
+		this.allowHtmlTitleChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -129,6 +132,11 @@ enyo.kind({
 	//* Updates _this.header_ when _smallHeader_ changes.
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.getSmallHeader());
+	},
+	//* Updates _this.header_ when _allowHtmlHeader_ changes.
+	allowHtmlTitleChanged: function() {
+		this.$.header.$.title.allowHtml = this.getAllowHtmlTitle();
+		this.$.header.$.title.render();
 	},
 	//* Get _this.header_ to update panel header dynamically.
 	getHeader: function() {
