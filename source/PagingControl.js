@@ -13,6 +13,7 @@ enyo.kind({
 	downTime: 0,
 	initialDelta: 1,
 	delta: 0,
+	maxDelta: 100,
 	handlers: {
 		onSpotlightFocused: "noop",
 		ontap: "tap",
@@ -72,7 +73,7 @@ enyo.kind({
 			this.job = enyo.requestAnimationFrame(fn);
 			
 			t = (enyo.now() - t0)/1000;
-			this.delta = this.delta + (0.1 * Math.pow(t, 1.1));
+			this.delta = Math.min(this.maxDelta, this.delta + (0.1 * Math.pow(t, 1.1)));
 			
 			this.doPaginateScroll({scrollDelta: this.delta});
 		});
