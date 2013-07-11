@@ -26,7 +26,7 @@ enyo.kind({
 		autoNumber: true,
 		//* Facade for the header's _small_ property
 		smallHeader: false,
-		//* If true, collapse the header when the panel body is scrolled down
+		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false
     },
 	events : {
@@ -72,7 +72,7 @@ enyo.kind({
 	createTools: function() {
 		this.createComponents(this.panelTools);
 	},
-	//* Force layout kind changes to apply to _this.$.panelBody_
+	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 		this.layoutKind = "FittableRowsLayout";
@@ -130,7 +130,7 @@ enyo.kind({
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.getSmallHeader());
 	},
-	//* Get _this.header_ to update panel header dynamically.
+	//* Updates panel header dynamically.
 	getHeader: function() {
 		return this.$.header;
 	},
