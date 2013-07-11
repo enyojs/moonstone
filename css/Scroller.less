@@ -1,6 +1,11 @@
 .moon-scroller-client-wrapper {
 	box-sizing: border-box;
-	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	overflow: hidden;
 }
 
 /* CSS for moon.ScrollStrategy */
@@ -25,12 +30,10 @@
 }
 
 .moon-scroller-client-wrapper.v-scroll-enabled {
-	padding-right: 50px;
+	right: 50px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-	padding-bottom: 50px;
-}
-.moon-scroller-client-wrapper.v-scroll-enabled.h-scroll-enabled {
+	bottom: 50px;
 }
 
 /* Default states for horizontal and vertical scrollbars */
