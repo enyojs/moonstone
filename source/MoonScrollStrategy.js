@@ -9,11 +9,20 @@ enyo.kind({
 	name: "moon.ScrollStrategy",
 	kind: "enyo.TouchScrollStrategy",
 	published: {
-		//* Vertical distance in px to travel each paging control button click
+		/**
+			Vertical distance (in pixels) to travel for each click of the paging
+			control button
+		*/
 		vPageSize: 50,
-		//* Horizontal distance in px to travel each paging control button click
+		/**
+			Horizontal distance (in pixels) to travel for each click of the paging
+			control button
+		*/
 		hPageSize: 50,
-		//* Percentage of scroller client area to jump when paging (larger numbers yield faster scrolling)
+		/**
+			Percentage of scroller client area to jump when paging (larger numbers
+			yield faster scrolling)
+		*/
 		pageRatio: 0.7
 	},
 	//@protected
@@ -30,14 +39,14 @@ enyo.kind({
 		onSpotlightBlur			: "blur"
 	},
 	/**
-		Keeps track of desired scroll position on pagination since ScrollMath
-		doesn't. Tracks Scroller's horizontal and vertical positions (which can
-		change simultaneously in one instance).
+		Keeps track of desired scroll position on pagination since _ScrollMath_
+		doesn't. Tracks Scroller's horizontal and vertical positions (which may
+		change simultaneously).
 	*/
 	pos: {top: null, left: null},
 	//* True if pointer is currently hovering over this control
 	hovering: false,
-	
+
 	//* Override _tools_ to remove thumbs
 	tools: [
 		{kind: "ScrollMath", onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"}
@@ -66,8 +75,9 @@ enyo.kind({
 	],
 	
 	/**
-		Call super-super-inherited (skip TouchScrollStrategy's _rendered()_ function) to avoid
-		thumb flicker at render time. Then show/hide page controls.
+		Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s)
+		_rendered()_ function to avoid thumb flicker at render time. Then
+		shows or hides page controls.
 	*/
 	rendered: function() {
 		enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
@@ -76,7 +86,7 @@ enyo.kind({
 		this.updatePageSize();
 		this.updateSpotlightPagingControls();
 	},
-	//* Onresize, update thumb ratio and show/hide scroll columns
+	//* On resize, updates thumb ratio and shows or hides scroll columns.
 	resizeHandler: function() {
 		this.inherited(arguments);
 		this.enableDisableScrollColumns();
@@ -98,8 +108,8 @@ enyo.kind({
 		}, this);
 	},
 	/**
-		Because the thumb columns are a fixed size that impacts the scrollbounds, capture
-		the differenceand use in thumb rendering math.
+		Because the thumb columns are a fixed size that impacts the scrollbounds,
+		captures the difference for use in thumb rendering math.
 	*/
 	setThumbSizeRatio: function() {
 		var scrollBounds = this.getScrollBounds();
@@ -120,7 +130,7 @@ enyo.kind({
 		this.showHidePageControls();
 		this.showHideScrollColumns(true);
 	},
-	//* On leave, sets _this.hovering_ to false and shows/hides pagination controls.
+	//* On leave, sets _this.hovering_ to false and shows or hides pagination controls.
 	leave: function() {
 		this.hovering = false;
 		this.showHideScrollColumns(false);
@@ -131,7 +141,7 @@ enyo.kind({
 			this.pos = {top:null, left:null};
 		}
 	},
-	//* Handles _paginate_ event sent from PagingControl buttons.
+	//* Handles _paginate_ event sent from _PagingControl_ buttons.
 	paginate: function(inSender, inEvent) {
 		this.showHidePageControls();
 		this.autoScroll(inEvent);
@@ -157,7 +167,7 @@ enyo.kind({
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.showHidePageControls();
 	},
-	//* Shows/hides pagination controls as appropriate.
+	//* Shows or hides pagination controls, as appropriate.
 	showHidePageControls: function(inSender, inEvent) {
 		/*
 			If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
@@ -179,13 +189,13 @@ enyo.kind({
 		this.$.pageLeftControl.addRemoveClass("hidden", (left <= 0));
 		this.$.pageRightControl.addRemoveClass("hidden", (left >= sb.maxLeft));
 	},
-	//* Enable/disable scroll columns
+	//* Enables or disables scroll columns.
 	enableDisableScrollColumns: function(inScrollBounds) {
 		inScrollBounds = inScrollBounds || this.getScrollBounds();
 		this.enableDisableVerticalScrollControls(this.showVertical(inScrollBounds));
 		this.enableDisableHorizontalScrollControls(this.showHorizontal(inScrollBounds));
 	},
-	//* Enable/disable vertical scroll column
+	//* Enables or disables vertical scroll column.
 	enableDisableVerticalScrollControls: function(inEnabled) {
 		if (inEnabled) {
 			this.$.clientContainer.addClass("v-scroll-enabled");
@@ -197,7 +207,7 @@ enyo.kind({
 			this.$.hColumn.removeClass("v-scroll-enabled");
 		}
 	},
-	//* Enable/disable horizontal scroll column
+	//* Enables or disables horizontal scroll column.
 	enableDisableHorizontalScrollControls: function(inEnabled) {
 		if (inEnabled) {
 			this.$.clientContainer.addClass("h-scroll-enabled");
@@ -209,29 +219,32 @@ enyo.kind({
 			this.$.hColumn.removeClass("h-scroll-enabled");
 		}
 	},
-	//* Show/hide scroll columns
+	//* Shows or hides scroll columns.
 	showHideScrollColumns: function(inShow) {
 		this.showHideVerticalScrollColumns(inShow);
 		this.showHideHorizontalScrollColumns(inShow);
 	},
-	//* Show/hide vertical scroll column
+	//* Shows or hides vertical scroll columns.
 	showHideVerticalScrollColumns: function(inShow) {
 		this.$.vColumn.addRemoveClass("visible", inShow);
 	},
-	//* Show/hide horizontal scroll column
+	//* Shows or hides horizontal scroll columns.
 	showHideHorizontalScrollColumns: function(inShow) {
 		this.$.hColumn.addRemoveClass("visible", inShow);
 	},
-	//* Return whether page controls should be shown at all for this scroller
+	/**
+		Returns boolean indicating whether page controls should be shown at all for
+		this scroller.
+	*/
 	shouldShowPageControls: function() {
 		return (enyo.Spotlight.getPointerMode() && this.hovering);
 	},
-	//* Determine if we should be showing the vertical scroll column
+	//* Determines whether we should be showing the vertical scroll column.
 	showVertical: function(inScrollBounds) {
 		inScrollBounds = inScrollBounds || this.getScrollBounds();
 		return (this.getVertical()   !== "hidden" && inScrollBounds.height > inScrollBounds.clientHeight);
 	},
-	//* Determine if we should be showing the horizontal scroll column
+	//* Determines whether we should be showing the horizontal scroll column.
 	showHorizontal: function(inScrollBounds) {
 		inScrollBounds = inScrollBounds || this.getScrollBounds();
 		return (this.getHorizontal() !== "hidden" && inScrollBounds.width  > inScrollBounds.clientWidth);
@@ -246,7 +259,7 @@ enyo.kind({
 	getScrollBounds: function() {
 		return this._getScrollBounds();
 	},
-	//* Override __getScrollBounds()_ to update _cn_ to be _this.scrollNode_
+	//* Overrides _getScrollBounds()_, updating _cn_ to be _this.scrollNode_.
 	_getScrollBounds: function() {
 		var s = this.getScrollSize(), cn = this.scrollNode;
 		var b = {
@@ -415,11 +428,11 @@ enyo.kind({
 		this.log(inControl);
 		this.log(inAlignWithTop);
 	},
-	//* Scrolls to specific x/y positions within the scroll area.
+	//* Scrolls to a specific (x, y) position within the scroll area.
 	scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY || inY === 0 ? inY : null);
 	},
-	//* Show/hide page controls on _scrollMathStop_
+	//* Shows or hides page controls in response to _onScrollStop_ event.
 	scrollMathStop: function() {
 		this.inherited(arguments);
 		this.showHidePageControls();
@@ -430,7 +443,7 @@ enyo.kind({
 			this.scrollTo(this.getScrollLeft(), this.getScrollTop() + diff);
 		}
 	},
-	//* Animate on mousewheel events
+	//* Animates on mousewheel events.
 	mousewheel: function(inSender, inEvent) {
 		if (this.dragging || !this.useMouseWheel) {
 			return;
