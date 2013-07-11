@@ -64,11 +64,17 @@ enyo.kind({
 	*/
 	rendered: function() {
 		enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
+		this.setupBounds();
+		this.updateSpotlightPagingControls();
+	},
+	resizeHandler: function() {
+		this.setupBounds();
+	},
+	setupBounds: function() {
 		this.calcBoundaries();
 		this.syncScrollMath();
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
-		this.updateSpotlightPagingControls();
 	},
 	
 	//* @public
@@ -198,38 +204,43 @@ enyo.kind({
 		switch (side) {
 			case "left":
 				val = this.scrollLeft - delta;
-				this.setScrollLeft(val);
-				
 				// When we hit the left, bounce and end scrolling
 				if (val <= -this.$.scrollMath.leftBoundary) {
-					this.$.pageLeftControl.endHold();
+					this.setScrollLeft(-this.$.scrollMath.leftBoundary);
+					this.$.pageLeftControl.hitBoundary();
+				} else {
+					this.setScrollLeft(val);
 				}
 				break;
 			case "top":
 				val = this.scrollTop - delta;
-				this.setScrollTop(val);
-				
 				// When we hit the top, bounce and end scrolling
 				if (val <= -this.$.scrollMath.topBoundary) {
-					this.$.pageUpControl.endHold();
+					this.setScrollTop(-this.$.scrollMath.topBoundary);
+					this.$.pageUpControl.hitBoundary();
+				} else {
+					this.setScrollTop(val);
 				}
 				break;
 			case "right":
 				val = this.scrollLeft + delta;
-				this.setScrollLeft(val);
-				
 				// When we hit the right, bounce and end scrolling
 				if (val >= -this.$.scrollMath.rightBoundary) {
-					this.$.pageRightControl.endHold();
+					this.setScrollLeft(-this.$.scrollMath.rightBoundary);
+					this.$.pageRightControl.hitBoundary();
+				} else {
+					this.setScrollLeft(val);
 				}
+				
 				break;
 			case "bottom":
 				val = this.scrollTop + delta;
-				this.setScrollTop(val);
-				
 				// When we hit the bottom, bounce and end scrolling
 				if (val >= -this.$.scrollMath.bottomBoundary) {
-					this.$.pageDownControl.endHold();
+					this.setScrollTop(-this.$.scrollMath.bottomBoundary);
+					this.$.pageDownControl.hitBoundary();
+				} else {
+					this.setScrollTop(val);
 				}
 				break;
 		}
@@ -237,10 +248,6 @@ enyo.kind({
 		return true;
 	},
 	
-	reflow: function() {
-		this.inherited(arguments);
-		this.enableDisableScrollColumns();
-	},
 	//* Scroll to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		inX = (inX) ? -1 * inX : null;

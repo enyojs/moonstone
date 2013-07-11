@@ -10,10 +10,6 @@ enyo.kind({
 	published: {
 		side: null
 	},
-	downTime: 0,
-	initialDelta: 1,
-	delta: 0,
-	maxDelta: 100,
 	handlers: {
 		onSpotlightFocused: "noop",
 		ontap: "tap",
@@ -26,10 +22,28 @@ enyo.kind({
 		onPaginate: "",
 		onPaginateScroll: ""
 	},
+
+	downTime: 0,
+	initialDelta: 1,
+	delta: 0,
+	maxDelta: 100,
+	bumpDeltaMultiplier: 3,
+	
 	create: function() {
 		this.inherited(arguments);
 		this.sideChanged();
 	},
+	
+	//* @public
+	
+	hitBoundary: function() {
+		this.stopHoldJob();
+		this.downTime = null;
+		this.doPaginate({scrollDelta: this.delta * this.bumpDeltaMultiplier});
+	},
+	
+	//* @protected
+	
 	//* Set this control's CSS class based on its _side_ value.
 	sideChanged: function() {
 		var s = this.getSide();
@@ -43,7 +57,7 @@ enyo.kind({
 			return;
 		}
 		
-		this.downTime = enyo.now();
+		this.downTime = enyo.bench();
 		this.delta = this.initialDelta;
 	},
 	hold: function(inSender, inEvent) {
@@ -65,14 +79,14 @@ enyo.kind({
 	startHoldJob: function() {
 		this.stopHoldJob();
 		
-		var t0 = enyo.now(),
+		var t0 = enyo.bench(),
 			t = 0
 		;
 		
 		var fn = this.bindSafely(function() {
 			this.job = enyo.requestAnimationFrame(fn);
 			
-			t = (enyo.now() - t0)/1000;
+			t = (enyo.bench() - t0)/1000;
 			this.delta = Math.min(this.maxDelta, this.delta + (0.1 * Math.pow(t, 1.1)));
 			
 			this.doPaginateScroll({scrollDelta: this.delta});
@@ -85,7 +99,7 @@ enyo.kind({
 	},
 	sendPaginateEvent: function() {
 		var tapThreshold = 200,
-			timeElapsed = enyo.now() - this.downTime,
+			timeElapsed = enyo.bench() - this.downTime,
 			delta = this.delta * 15
 		;
 		
