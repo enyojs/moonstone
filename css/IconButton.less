@@ -1,19 +1,25 @@
 /* IconButton.css */
 .moon-icon-button {
- 	width: 42px;
-	height: 42px;
-	border-radius: 25px;
+ 	width: @moon-icon-size;
+	height: @moon-icon-size;
+	border-radius: @moon-icon-button-size/2;
 	background-color: #fff;
+	padding: 5px;
+	background-position: 5px 5px;
 	border: 4px solid transparent;
 }
-.moon-icon-button.active,
-.moon-icon-button.pressed,
-.moon-icon-button.spotlight.pressed,
-.moon-icon-button.spotlight:active {
-	background-position: 0 -42px;
+.moon-icon.moon-icon-button.active,
+.moon-icon.moon-icon-button.pressed,
+.moon-icon.moon-icon-button.spotlight.pressed,
+.moon-icon.moon-icon-button.spotlight:active {
+	background-position: 5px 5-@moon-icon-size;
 	border: 4px solid #ffb80d;
 	background-color: #ffffff;
 }
 .moon-icon-button.spotlight {
 	background-color: #ffb80d;
+}
+
+.moon-icon-button.moon-icon.disabled:active:hover {
+	background-position: 5px 5px;
 }

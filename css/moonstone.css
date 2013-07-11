@@ -1350,20 +1350,25 @@
 .moon-icon-button {
   width: 42px;
   height: 42px;
-  border-radius: 25px;
+  border-radius: 30px;
   background-color: #fff;
+  padding: 5px;
+  background-position: 5px 5px;
   border: 4px solid transparent;
 }
-.moon-icon-button.active,
-.moon-icon-button.pressed,
-.moon-icon-button.spotlight.pressed,
-.moon-icon-button.spotlight:active {
-  background-position: 0 -42px;
+.moon-icon.moon-icon-button.active,
+.moon-icon.moon-icon-button.pressed,
+.moon-icon.moon-icon-button.spotlight.pressed,
+.moon-icon.moon-icon-button.spotlight:active {
+  background-position: 5px -37px;
   border: 4px solid #ffb80d;
   background-color: #ffffff;
 }
 .moon-icon-button.spotlight {
   background-color: #ffb80d;
+}
+.moon-icon-button.moon-icon.disabled:active:hover {
+  background-position: 5px 5px;
 }
 .moon-integer-picker {
   font-family: "MuseoSans 700";
@@ -3226,10 +3231,10 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   height: 100%;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-  padding-right: 50px;
+  padding-right: 60px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 }
 /* Default states for horizontal and vertical scrollbars */
 .moon-scroller-v-column,
@@ -3256,37 +3261,37 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   top: 0px;
   bottom: 0px;
   right: 0px;
-  width: 50px;
+  width: 60px;
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
   left: 0px;
   right: 0px;
   bottom: 0px;
-  height: 50px;
+  height: 60px;
 }
 /* Shorten vertical column when horizontal column is enabled */
 .moon-scroller-v-column.h-scroll-enabled {
-  bottom: 50px;
+  bottom: 60px;
 }
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
-  right: 50px;
+  right: 60px;
 }
 .moon-scroller-thumb-container {
   position: absolute;
 }
 .moon-scroller-hthumb-container {
-  left: 50px;
-  right: 50px;
+  left: 60px;
+  right: 60px;
   bottom: 0px;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroller-vthumb-container {
-  top: 50px;
-  bottom: 50px;
+  top: 60px;
+  bottom: 60px;
   right: 0px;
-  width: 50px;
+  width: 60px;
 }
 .moon-scroller-hthumb,
 .moon-scroller-vthumb {
@@ -3296,11 +3301,11 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-scroller-hthumb {
   height: 4px;
-  bottom: 23px;
+  bottom: 28px;
 }
 .moon-scroller-vthumb {
   width: 4px;
-  right: 23px;
+  right: 28px;
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {
