@@ -29,13 +29,13 @@ enyo.kind({
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		/**
-			When true, knob and progress move with animation by clicking left/right
-			direction key or by tapping the bar.
+			When true, knob and progress move with animation when left/right direction
+			key is pressed or bar is tapped
 		*/
 		animate: true,
 		//* When false, the slider's popup bubble is displayed when slider is adjusted
 		noPopup: false,
-		//* When true, popup will display a percentage value (rather than the absolute value)
+		//* When true, popup displays a percentage value (rather than the absolute value)
 		showPercentage: true,
 		//* Popup width in pixels
 		popupWidth: 62,
@@ -43,7 +43,10 @@ enyo.kind({
 		popupHeight: 52,
 		//* When false, you can move the knob past the _bgProgress_
 		constrainToBgProgress: false,
-		//* When true, you can see elastic effect when drag knob past the _bgProgress_
+		/**
+			When true, an elastic visual effect is seen when the knob is dragged past
+			the _bgProgress_.
+		*/
 		elasticEffect: false,
 		//* Custom popup content (ignored if null)
 		popupContent: null
@@ -126,30 +129,30 @@ enyo.kind({
 		this.$.knob.removeClass(inOld);
 		this.$.knob.addClass(this.knobClasses);
 	},
-	//* Update _this.$.drawing_ width attribute
+	//* Updates _width_ attribute of _this.$.drawing_.
 	canvasWidthChanged: function() {
 		this.$.drawing.setAttribute("width", this.getPopupWidth());
 	},
-	//* Update _this.$.drawing_ height attribute
+	//* Updates _height_ attribute of _this.$.drawing_.
 	canvasHeightChanged: function() {
 		this.$.drawing.setAttribute("height", this.getPopupHeight());
 	},
-	//* Update popup color
+	//* Updates popup color.
 	popupColorChanged: function() {
 		this.drawToCanvas(this.popupColor);
 	},
-	//* Update the popup content
+	//* Updates the popup content.
 	popupContentChanged: function() {
 		var content = this.getPopupContent();
 		if (content !== null) {
 			this.$.popupLabel.setContent(content);
 		}
 	},
-	//* Called only when constrainToBgProgress option true
+	//* Called only when _constrainToBgProgress_ is true.
 	calcConstrainedIncrement: function(inValue) {
 		return (Math.floor(inValue / this.increment) * this.increment);
 	},
-	//* Prep value at create time
+	//* Initializes _value_ at creation time.
 	initValue: function() {
 		if (this.constrainToBgProgress) {
 			this.value = this.clampValue(this.min, this.bgProgress, this.value);

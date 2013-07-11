@@ -32,9 +32,16 @@ enyo.kind({
 			other popups.
 		*/
 		scrimClassName: "",
-		//* When true, spotlight cannot leave constraints of _moon.Popup_ unless explicitly closed
+		/**
+			When true, spotlight cannot leave the constraints of the _moon.Popup_
+			unless it is explicitly closed.
+		*/
 		spotlightModal: false,
-		//* When false, closeButton is hidden. When true, it is shown. When "auto", it is shown when spotlightModal:true
+		/**
+			When false, _closeButton_ is hidden; when true, it is shown. When
+			_showCloseButton_ is set to "auto" (the default), _closeButton_ is shown
+			when _spotlightModal_ is true.
+		*/
 		showCloseButton: "auto"
 	},
 	//* @protected

@@ -2,9 +2,6 @@
 	_moon.Scroller_ extends <a href="#enyo.Scroller">enyo.Scroller</a>, adding
 	support for 5-way focus (Spotlight) and pagination buttons.
 
-	For the time being, _moon.Scroller_ requires a _strategyKind_ of
-	_TouchScrollStrategy_.
-
 	_moon.Scroller_ responds to the _onSpotlightFocused_ event by scrolling the
 	event originator into view. This ensures that 5-way (Spotlight) focused
 	controls are always in view.
@@ -34,7 +31,7 @@ enyo.kind({
 		//* If true, paging controls are spotlightable (in 5-way mode)
 		spotlightPagingControls: false
 	},
-	//* Allow scroll events to propagate
+	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
 	strategyKind: "moon.ScrollStrategy"

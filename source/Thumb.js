@@ -89,12 +89,12 @@ enyo.kind({
 		;
 	},
 
-	//* Override show to give fade effect
+	//* Override _show()_ to give fade effect.
 	show: function() {
 		this.cancelDelayHide();
 		this.removeClass("hidden");
 	},
-	//* Override show to give fade effect
+	//* Hides the control.
 	hide: function() {
 		this.addClass("hidden");
 	}

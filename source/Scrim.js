@@ -1,6 +1,6 @@
 ﻿/**
 	_moon.Scrim_ provides an overlay that will prevent taps from propagating to
-	the controls that it covers.  A scrim may be "floating" or "non-floating". A
+	the controls that it covers. A scrim may be "floating" or "non-floating". A
 	floating scrim will fill the entire viewport, while a non-floating scrim
 	will be constrained	by the dimensions of its container.
 
@@ -9,19 +9,19 @@
 	_"pointer-events: auto"_ in its style properties.
 
 	You may specify the z-index at which you want the scrim to appear by calling
-	_showAtZIndex_; if you do so, you must call _hideAtZIndex_ with the same
+	_showAtZIndex()_; if you do so, you must call _hideAtZIndex()_ with the same
 	value to hide the scrim.
 */
 
 enyo.kind({
 	name: "moon.Scrim",
-	//* Current visibility state of scrim
+	//* Current visibility state of the scrim
 	showing: false,
 	classes: "moon-scrim enyo-fit",
 	/**
-		If true, scrim is rendered in a floating layer outside of other
-		controls. This can be used to guarantee that the scrim will be shown
-		on top of other controls.
+		If true, the scrim is rendered in a floating layer outside of other
+		controls. This can be used to guarantee that the scrim will be shown on top
+		of other controls.
 	*/
 	floating: false,
 	//* @protected
@@ -50,8 +50,8 @@ enyo.kind({
 		enyo.remove(inControl, this.zStack);
 	},
 	//* @public
-	//* Shows scrim at the specified z-index. Note: If you use _showAtZIndex_,
-	//* you must call _hideAtZIndex_ to properly unwind the z-index stack.
+	//* Shows scrim at the specified z-index. Note: If you use _showAtZIndex()_,
+	//* you must call _hideAtZIndex()_ to properly unwind the z-index stack.
 	showAtZIndex: function(inZIndex) {
 		this.addZIndex(inZIndex);
 		if (inZIndex !== undefined) {
@@ -83,7 +83,7 @@ enyo.kind({
 //* @protected
 //
 // Scrim singleton exposing a subset of Scrim API;
-// is replaced with a proper enyo.Scrim instance.
+// it is replaced with a proper _enyo.Scrim_ instance.
 //
 enyo.kind({
 	name: "moon.scrimSingleton",
