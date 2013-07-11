@@ -3241,9 +3241,9 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 /* CSS for moon.ScrollStrategy */
 .matrix-scroll-client {
-  display: inline-block;
   width: auto;
   height: auto;
+  overflow: visible;
 }
 .matrix3dsurface {
   -webkit-transform-origin: center center;
