@@ -1,13 +1,18 @@
 /**
-	_moon.VideoFeedback_ is a protected kind used inside of _moon.VideoPlayer_, to provide feedback informations 
-	of video contorls and status.
+	_moon.VideoFeedback_ is a control used by
+	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>
+	to display feedback in response to input from video playback controls.  It may
+	also be used to display custom messages.
 */
 enyo.kind({
 	name: "moon.VideoFeedback",
 	kind: "enyo.Control",
 	classes: "moon-video-player-feedback hidden",
 	published: {
-		//* Timeout duration for disapearing feedback information (in milliseconds)
+		/**
+			Length of time (in milliseconds) after which the on-screen feedback will
+			automatically disapear
+		*/
 		autoTimeoutMS: 	2000,
 	},
 	//* @protected
@@ -106,11 +111,11 @@ enyo.kind({
 		}
 	},
 
-	//* Show this control
+	//* Shows this control.
 	showFeedback: function() {
 		this.removeClass("hidden");
 	},
-	//* Hide this control and set _this.showingFeedback_ to _false_
+	//* Hides this control and sets _this.showingFeedback_ to false.
 	hideFeedback: function() {
 		this.addClass("hidden");
 		this.showingFeedback = false;
@@ -118,15 +123,15 @@ enyo.kind({
 	
 	//* @protected
 	
-	//* Start job that will hide this control
+	//* Starts job that will hide this control.
 	setAutoTimer: function() {
 		this.hideJob = enyo.job(this.id + "hide", this.bindSafely("hideFeedback"), this.getAutoTimeoutMS());
 	},
-	//* Clear job that will hide this control
+	//* Clears job that will hide this control.
 	resetAutoTimer: function() {
 		enyo.job.stop(this.id + "hide");
 	},
-	//* Show/hide icons and set sources
+	//* Shows or hides icons and sets sources.
 	updateIcons: function(inLeftSrc, inRightSrc) {
 		if (inLeftSrc) {
 			this.$.leftIcon.show();
