@@ -69,7 +69,6 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 		this.updateSpotlightPagingControls();
-		this.log(this._getScrollBounds());
 	},
 	
 	//* @public
@@ -238,6 +237,10 @@ enyo.kind({
 		return true;
 	},
 	
+	reflow: function() {
+		this.inherited(arguments);
+		this.enableDisableScrollColumns();
+	},
 	//* Scroll to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		inX = (inX) ? -1 * inX : null;
@@ -411,7 +414,7 @@ enyo.kind({
 	//* Determines whether we should be showing the vertical scroll column.
 	showVertical: function(inScrollBounds) {
 		inScrollBounds = inScrollBounds || this.getScrollBounds();
-		return (this.getVertical()   !== "hidden" && inScrollBounds.maxTop > 0);
+		return (this.getVertical() !== "hidden" && inScrollBounds.maxTop > 0);
 	},
 	//* Determines whether we should be showing the horizontal scroll column.
 	showHorizontal: function(inScrollBounds) {
