@@ -1296,28 +1296,37 @@
   position: absolute;
   z-index: 150;
   text-align: center;
-  line-height: 1.34em;
+  line-height: 42px;
   background: transparent;
   opacity: 1;
   font-family: "Miso";
+  transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -webkit-transform: translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.hidden {
   opacity: 0;
 }
 .moon-icon-button.moon-paging-button.top {
   top: 0px;
-  transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.right {
   right: 0px;
 }
 .moon-icon-button.moon-paging-button.bottom {
   bottom: 0px;
-  transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
   left: 0px;
@@ -3225,6 +3234,25 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   box-sizing: border-box;
   height: 100%;
 }
+/* CSS for moon.ScrollStrategy */
+.matrix-scroll-client {
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+.matrix3dsurface {
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: flat;
+  transform-style: flat;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  -webkit-user-select: none;
+}
 .moon-scroller-client-wrapper.v-scroll-enabled {
   padding-right: 50px;
 }
@@ -3240,6 +3268,11 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   transition: opacity 0.1s linear;
   -moz-transition: opacity 0.1s linear;
   -webkit-transition: opacity 0.1s linear;
+  transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -webkit-transform: translateZ(1px);
 }
 /* Toggle opacity with .visible class */
 .moon-scroller-v-column.visible,

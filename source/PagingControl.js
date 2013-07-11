@@ -8,27 +8,28 @@ enyo.kind({
 	classes: "moon-paging-button",
 	spotlight: true,
 	published: {
-		side: null,
-		holdPulseDelay: 40
+		side: null
 	},
+	downTime: 0,
+	initialDelta: 1,
+	delta: 0,
 	handlers: {
 		onSpotlightFocused: "noop",
 		ontap: "tap",
-		ondown: "beginHold",
-		onup: "cancelHold",
-		onleave: "cancelHold"
+		ondown: "down",
+		onup: "endHold",
+		onleave: "endHold",
+		onhold: "hold"
 	},
 	events: {
 		onPaginate: "",
-		onPageHold: "",
-		onPageHoldPulse: "",
-		onPageRelease: ""
+		onPaginateScroll: ""
 	},
 	create: function() {
 		this.inherited(arguments);
 		this.sideChanged();
 	},
-	//* Sets this control's CSS class based on its _side_ value.
+	//* Set this control's CSS class based on its _side_ value.
 	sideChanged: function() {
 		var s = this.getSide();
 		this.addRemoveClass("top",    (s === "top"));
@@ -36,46 +37,63 @@ enyo.kind({
 		this.addRemoveClass("bottom", (s === "bottom"));
 		this.addRemoveClass("left",   (s === "left"));
 	},
-	//* Bubbles a _paginate_ event when button is tapped.
-	tap: function() {
-		if (!this.hasClass("hidden")) {
-			this.doPaginate({side: this.getSide()});
-		}
-		return true;
-	},
-	//* Overrides default focused handling to make sure scroller doesn't scroll to
-	//* this button.
-	noop: function() { return true; },
-	/**
-		Handle auto page scrolling on hold events. Main reason we don't use the existing mouse hold
-		implementation in drag.js is that holdPulseDelay is global and we need a custom rate here.
-	**/
-	beginHold: function(e) {
+	down: function(inSender, inEvent) {
 		if (this.hasClass("hidden")) {
-			return true;
+			return;
 		}
-		this.holdStart = enyo.now();
-		this.holdJob = setInterval(this.bindSafely("sendHoldPulse", e), this.holdPulseDelay);
+		
+		this.downTime = enyo.now();
+		this.delta = this.initialDelta;
 	},
-	cancelHold: function() {
-		clearInterval(this.holdJob);
-		this.holdJob = null;
-		if (this.sentHold) {
-			this.sentHold = false;
-			this.sendRelease();
+	hold: function(inSender, inEvent) {
+		if (this.hasClass("hidden")) {
+			return;
 		}
+
+		this.startHoldJob();
 	},
-	sendHoldPulse: function() {
-		if (!this.sentHold) {
-			this.sentHold = true;
-			this.sendHold();
+	endHold: function(inSender, inEvent) {
+		if (!this.downTime) {
+			return;
 		}
-		this.doPageHoldPulse({type:"pageholdpulse", preventDefault:enyo.gesture.preventDefault});
+		
+		this.stopHoldJob();
+		this.sendPaginateEvent();
+		this.downTime = null;
 	},
-	sendHold: function() {
-		this.doPageHold({type:"pagehold"});
+	startHoldJob: function() {
+		this.stopHoldJob();
+		
+		var t0 = enyo.now(),
+			t = 0
+		;
+		
+		var fn = this.bindSafely(function() {
+			this.job = enyo.requestAnimationFrame(fn);
+			
+			t = (enyo.now() - t0)/1000;
+			this.delta = this.delta + (0.1 * Math.pow(t, 1.1));
+			
+			this.doPaginateScroll({scrollDelta: this.delta});
+		});
+		
+		this.job = enyo.requestAnimationFrame(fn);
 	},
-	sendRelease: function() {
-		this.doPageRelease({type:"pagerelease", preventDefault:enyo.gesture.preventDefault});
-	}
+	stopHoldJob: function() {
+		this.job = enyo.cancelRequestAnimationFrame(this.job);
+	},
+	sendPaginateEvent: function() {
+		var tapThreshold = 200,
+			timeElapsed = enyo.now() - this.downTime,
+			delta = this.delta * 15
+		;
+		
+		if (timeElapsed <= tapThreshold) {
+			delta *= 5;
+		}
+		
+		this.doPaginate({scrollDelta: delta});
+	},
+	//* Override default focused handling to make sure scroller doesn't scroll to this button.
+	noop: function() { return true; }
 });

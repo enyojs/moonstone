@@ -20,7 +20,6 @@ enyo.kind({
 	name:      "moon.Scroller",
 	kind:      "enyo.Scroller",
 	spotlight: "container",
-	touch:     true,
 	published: {
 		//* If true, paging controls are hidden if a key is pressed (5-way mode)
 		hidePagingOnKey: true,
@@ -37,9 +36,7 @@ enyo.kind({
 	},
 	//* Allow scroll events to propagate
 	preventScrollPropagation: false,
+	//* Default to moon.ScrollStrategy
+	strategyKind: "moon.ScrollStrategy"
 	//* @protected
-	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy";
-		this.inherited(arguments);
-	}
 });

@@ -3,6 +3,27 @@
 	height: 100%;
 }
 
+/* CSS for moon.ScrollStrategy */
+.matrix-scroll-client {
+	display: inline-block;
+	width: auto;
+	height: auto;
+}
+
+.matrix3dsurface {
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: flat;
+    transform-style: flat;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    -webkit-user-select: none;
+}
+
 .moon-scroller-client-wrapper.v-scroll-enabled {
 	padding-right: 50px;
 }
@@ -21,6 +42,12 @@
 	transition: opacity 0.1s linear;
 	-moz-transition: opacity 0.1s linear;
 	-webkit-transition: opacity 0.1s linear;
+	
+	transform: translateZ(1px);
+	-o-transform: translateZ(1px);
+	-ms-transform: translateZ(1px);
+	-moz-transform: translateZ(1px);
+	-webkit-transform: translateZ(1px);
 }
 /* Toggle opacity with .visible class */
 .moon-scroller-v-column.visible,
