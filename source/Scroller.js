@@ -35,7 +35,7 @@ enyo.kind({
 		//* If true, paging controls are spotlightable (in 5-way mode)
 		spotlightPagingControls: false
 	},
-	//* Allow scroll events to propagate
+	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* @protected
 	initComponents: function() {

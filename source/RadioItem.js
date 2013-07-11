@@ -1,5 +1,5 @@
 /**
-	_moon.RadioItem_ is a modified <a href="#enyo.Button">enyo.Button</a>
+	_moon.RadioItem_ is a modified <a href="#moon.Button">moon.Button</a>
 	control designed to be used inside a
 	<a href="#moon.RadioItemGroup">moon.RadioItemGroup</a>.
 
