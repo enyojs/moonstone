@@ -63,8 +63,8 @@ enyo.kind({
 		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting (only valid when ilib is loaded). 
-			May be set after control creation, in which case the control will be 
+			Current locale used for formatting (only valid when ilib is loaded).
+			May be set after control creation, in which case the control will be
 			updated to reflect the new value.
 		*/
 		locale: "en-US",

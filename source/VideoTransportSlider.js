@@ -16,13 +16,13 @@ enyo.kind({
 	popupWidth: 300,
 	popupHeight: 200,
 	published: {
-		//** This is start point of slider 
+		//** This is start point of slider
 		rangeStart: 0,
 		//** This is end point of slider
 		rangeEnd: 100,
-		//** This flag decide the slider draw  
+		//** This flag decide the slider draw
 		syncTick: true,
-		//** Tick position decide the margin areas in both side 
+		//** Tick position decide the margin areas in both side
 		beginTickPos: 10,
 		endTickPos: 90,
 		//** This flag control the indicator in the Video Transport Slider
@@ -76,9 +76,9 @@ enyo.kind({
 	},
 	updateSliderRange: function(fullScreenMode) {
 		if(fullScreenMode)
-		{	// This should be updated !! 
+		{	// This should be updated !!
 			// 40px is only for current redline
-			var width = window.innerWidth-40; 
+			var width = window.innerWidth-40;
 			this.beginTickPos = (this.dummyAreaPixel/width)*100;
 			this.endTickPos = ((width-this.dummyAreaPixel)/width)*100;
 		}
@@ -253,7 +253,7 @@ enyo.kind({
 			this.doSeekFinish({value: v});
 		}
 		this.$.knob.removeClass("active");
-		this.dummyAction = false; 
+		this.dummyAction = false;
 		this.dragging = false;
 		return true;
 	},
@@ -261,7 +261,7 @@ enyo.kind({
 	sendSeekEvent: function(inValue) {
 		this.doSeek({value: inValue});
 	},
-	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
+	//* When the time updates, update buffered progress, canvas, video currentTime and duration
 	timeUpdate: function(inSender, inEvent) {
 		this.triggerCanvasUpdate(inEvent.srcElement);
 		this._currentTime = inSender._currentTime;
@@ -283,11 +283,11 @@ enyo.kind({
 			endPoint = 0,
 			i
 		;
-		
+
 		if (duration === 0) {
 			return;
 		}
-		
+
 		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
 		for (i = 0; i < numberOfBuffers; i++) {
 			endPoint = bufferData.end(i);

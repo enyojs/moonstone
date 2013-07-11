@@ -37,12 +37,12 @@ enyo.kind({
 	pos: {top: null, left: null},
 	//* True if pointer is currently hovering over this control
 	hovering: false,
-	
+
 	//* Override _tools_ to remove thumbs
 	tools: [
 		{kind: "ScrollMath", onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"}
 	],
-	
+
 	//* Override _components_ to add thumbs and scrollbars
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
@@ -64,7 +64,7 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
 	],
-	
+
 	/**
 		Call super-super-inherited (skip TouchScrollStrategy's _rendered()_ function) to avoid
 		thumb flicker at render time. Then show/hide page controls.
@@ -88,9 +88,9 @@ enyo.kind({
 	},
 	updateSpotlightPagingControls: function() {
 		enyo.forEach([
-			this.$.pageLeftControl, 
-			this.$.pageRightControl, 
-			this.$.pageUpControl, 
+			this.$.pageLeftControl,
+			this.$.pageRightControl,
+			this.$.pageUpControl,
 			this.$.pageDownControl
 		], function(c) {
 			c.spotlight = this.container.spotlightPagingControls;
@@ -149,7 +149,7 @@ enyo.kind({
 		if (inEvent.originator === this) {
 			return;
 		}
-		
+
 		if ((!this.isInView(inEvent.originator.hasNode())) && (!enyo.Spotlight.getPointerMode())) {
 			this.animateToControl(inEvent.originator);
 		}
@@ -167,15 +167,15 @@ enyo.kind({
 			this.hidePageControls();
 			return;
 		}
-		
+
 		var sb = this.getScrollBounds(),
 			top = this.getScrollTop(),
 			left = this.getScrollLeft()
 		;
-			
+
 		this.$.pageUpControl.addRemoveClass("hidden", (top <= 0));
 		this.$.pageDownControl.addRemoveClass("hidden", (top >= sb.maxTop));
-		
+
 		this.$.pageLeftControl.addRemoveClass("hidden", (left <= 0));
 		this.$.pageRightControl.addRemoveClass("hidden", (left >= sb.maxLeft));
 	},
@@ -271,22 +271,22 @@ enyo.kind({
 		} else if (!this.pos.left) {
 			this.pos.left = sb.left;
 		}
-		
+
 		switch (inEvent.originator.side) {
-			case "left":
-				this.pos.left = this.pos.left - this.hPageSize;
-				break;
-			case "top":
-				this.pos.top = this.pos.top - this.vPageSize;
-				break;
-			case "right":
-				this.pos.left = this.pos.left + this.hPageSize;
-				break;
-			case "bottom":
-				this.pos.top = this.pos.top + this.vPageSize;
-				break;
+		case "left":
+			this.pos.left = this.pos.left - this.hPageSize;
+			break;
+		case "top":
+			this.pos.top = this.pos.top - this.vPageSize;
+			break;
+		case "right":
+			this.pos.left = this.pos.left + this.hPageSize;
+			break;
+		case "bottom":
+			this.pos.top = this.pos.top + this.vPageSize;
+			break;
 		}
-		
+
 		if (this.pos[orientV ? "top" : "left"] > (orientV ? sb.maxTop : sb.maxLeft)) {
 			this.pos.left = orientV ? sb.left:sb.maxLeft;
 			this.pos.top = orientV ? sb.maxTop:sb.top;
@@ -297,7 +297,7 @@ enyo.kind({
 			this.pos.left = orientV ? sb.left:this.pos.left;
 			this.pos.top = orientV ? this.pos.top:sb.top;
 		}
-		
+
 		this.scrollTo(this.pos.left, this.pos.top);
 	},
 	/**
@@ -401,7 +401,7 @@ enyo.kind({
 			}
 			break;
 		}
-		
+
 		// Make sure we have our thumbs visible
 		this.showHidePageControls();
 		this.showHideScrollColumns(true);
@@ -411,10 +411,6 @@ enyo.kind({
 			this.scrollTo(x,y);
 		}
 	},
-	scrollToNodex: function(inNode, inAlignWithTop) {
-		this.log(inControl);
-		this.log(inAlignWithTop);
-	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY || inY === 0 ? inY : null);
@@ -423,10 +419,10 @@ enyo.kind({
 	scrollMathStop: function() {
 		this.inherited(arguments);
 		this.showHidePageControls();
-		
+
 		// TODO - fix this error condition -> scroll strategy and scroll math are out of sync!
 		var diff = Math.round(this.$.scrollMath.y) * -1 - this.getScrollTop();
-		if (diff != 0) {
+		if (diff !== 0) {
 			this.scrollTo(this.getScrollLeft(), this.getScrollTop() + diff);
 		}
 	},
@@ -435,19 +431,19 @@ enyo.kind({
 		if (this.dragging || !this.useMouseWheel) {
 			return;
 		}
-		
+
 		var dy = this.vertical ? inEvent.wheelDeltaY || inEvent.wheelDelta: 0,
 			top = this.getScrollTop()
 		;
-		
+
 		this.calcBoundaries();
 		this.syncScrollMath();
 		this.stabilize();
-		
+
 		if ((dy > 0 && top > 0) || (dy < 0 && top < this.getScrollBounds().maxTop)) {
 			this.scrollTo(this.getScrollLeft(), (top - dy));
 		}
-		
+
 		inEvent.preventDefault();
 		return true;
 	},

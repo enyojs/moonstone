@@ -138,7 +138,11 @@ enyo.kind({
 	},
 	//* @public
 	togglePlay: function() {
-		this.$.audio.getPaused() ? this.play() : this.pause();
+		if (this.$.audio.getPaused()) {
+			this.play();
+		} else {
+			this.pause();
+		}
 	},
 	play: function() {
 		this.$.audio.play();

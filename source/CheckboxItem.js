@@ -30,7 +30,7 @@ enyo.kind({
 		checked: false
 	},
 	events: {
-/** 
+/**
     Fires when the control is either checked or unchecked.
 
     _inEvent.checked_ indicates whether the checkbox is currently checked.

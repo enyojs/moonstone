@@ -64,7 +64,7 @@ enyo.kind({
 		//* Text to be display when the drawer is opened
 		helpText: "",
 		/**
-			If true, the drawer automatically closes when the user makes a selection; 
+			If true, the drawer automatically closes when the user makes a selection;
 			if false, the user must select/tap the header to close the drawer
 		*/
 		autoCollapse: true
@@ -124,7 +124,7 @@ enyo.kind({
 			// enyo.Group's highlander logic actually prevents an item from being
 			// de-activated once it's been activated; that's not exactly the logic
 			// we want for ExpandablePicker, so we only notify the group when an
-			// item is activated, not when it's de-activated. 
+			// item is activated, not when it's de-activated.
 			this.bubble("onActivate");
 		}
 		this.setOpen(this.active);

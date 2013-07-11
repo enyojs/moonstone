@@ -1,48 +1,48 @@
 /**
-    _moon.Drawers_ is a container kind designed to hold a set of
-    <a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
-    _drawers_ property accepts an array of _moon.Drawer_ controls. The
-    associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
-    their own small drawer, centered at the top of the "dresser"--the region
-    containing the array of Drawer controls and the activator nub.
+	_moon.Drawers_ is a container kind designed to hold a set of
+	<a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
+	_drawers_ property accepts an array of _moon.Drawer_ controls. The
+	associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
+	their own small drawer, centered at the top of the "dresser"--the region
+	containing the array of Drawer controls and the activator nub.
 
-    When a handle is selected, it opens the corresponding Drawer object's main
-    drawer or control drawer, depending on how the Drawer object is configured.
+	When a handle is selected, it opens the corresponding Drawer object's main
+	drawer or control drawer, depending on how the Drawer object is configured.
 
-    The control's child components may be of any kind.
+	The control's child components may be of any kind.
 
-        {
-            kind: "moon.Drawers",
-            drawers: [
-                {
-                    name: "musicDrawer",
-                    kind: "moon.Drawer",
-                    handle: {kind: "moon.DrawerHandle", content: "Handle"},
-                    components: [
-                        {content: "Drawer Content"}
-                    ],
-                    controlDrawerComponents: [
-                        {content: "Controls"}
-                    ]
-                }
-            ],
-            components: [
-                {content: "Content Area"}
-            ]
-        }
+		{
+			kind: "moon.Drawers",
+			drawers: [
+				{
+					name: "musicDrawer",
+					kind: "moon.Drawer",
+					handle: {kind: "moon.DrawerHandle", content: "Handle"},
+					components: [
+						{content: "Drawer Content"}
+					],
+					controlDrawerComponents: [
+						{content: "Controls"}
+					]
+				}
+			],
+			components: [
+				{content: "Content Area"}
+			]
+		}
 */
 enyo.kind({
 	name: "moon.Drawers",
 	kind: "enyo.Control",
 	classes: "moon-drawers",
 	published: {
-		//* Populate with an array of _moon.Drawer_ components		
+		//* Populate with an array of _moon.Drawer_ components
 		drawers: null
 	},
 	handlers: {
 		//* Handlers to update the activator when the state of the contained drawers changes
 		onActivate: "drawerActivated",
-		onDeactivate: "drawerDeactivated",		
+		onDeactivate: "drawerDeactivated",
 		onSpotlightDown:"spotDown",
 		onSpotlightUp:"spotUp"
 	},
@@ -55,8 +55,8 @@ enyo.kind({
 				{name:"nubArrow", classes:"down"}
 			]}
 		]},
-		{name: "drawers", classes:"moon-drawers-drawer-container"},		
-		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}	
+		{name: "drawers", classes:"moon-drawers-drawer-container"},
+		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -64,11 +64,11 @@ enyo.kind({
 		this.setupHandles();
 	},
 	rendered: function() {
-	    this.inherited(arguments);
+		this.inherited(arguments);
 		this.resizeDresser();
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	resizeDresser: function() {
 		var client = this.getBounds();
@@ -80,11 +80,11 @@ enyo.kind({
 		this.$.handleContainer.applyStyle('left', -client.left+'px');
 		this.$.handleContainer.applyStyle('top',(-client.top-5)+'px');
 		this.$.handleContainer.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-		
+
 		this.$.drawers.applyStyle('left', -client.left+'px');
 		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
 		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-	},	
+	},
 	setupHandles: function() {
 		var handles = [];
 		for (var index in this.drawers){
@@ -103,29 +103,29 @@ enyo.kind({
 			if (this.$.handles.getControls().length == 1) {
 				this.openDrawer(this.$.handles.getControls()[0]);
 			} else {
-				this.$.handleContainer.setOpen(!this.$.handleContainer.getOpen());				
+				this.$.handleContainer.setOpen(!this.$.handleContainer.getOpen());
 			}
 			this.updateActivator(false);
 		}
 	},
 	handleTapped: function(inSender, inEvent) {
-		this.openDrawer(inEvent.originator)
+		this.openDrawer(inEvent.originator);
 		return true;
 	},
 	openDrawer: function(drawer) {
 		var handles = this.$.handles.getControls();
 		for (var index in handles)
 		{
-			if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index],drawer)) {
-				var drawer = this.$.drawers.getControls()[index];
+			if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index], drawer)) {
+				drawer = this.$.drawers.getControls()[index];
 				drawer.toggleDrawer();
 				this.$.handleContainer.setOpen(false);
 				return;
 			}
-		}		
+		}
 	},
 	drawerOpen: function() {
-		var drawers = this.$.drawers.getControls();		
+		var drawers = this.$.drawers.getControls();
 		for (var index in drawers){
 			if (drawers[index].getOpen() || drawers[index].getControlsOpen()) {
 				return true;
@@ -144,7 +144,7 @@ enyo.kind({
 					enyo.Spotlight.spot(this.$.activator);
 				}
 			} else if (drawers[index].getControlsOpen()) {
-				drawers[index].setControlsOpen(false);				
+				drawers[index].setControlsOpen(false);
 			}
 		}
 	},
@@ -175,7 +175,7 @@ enyo.kind({
 		this.$.nubArrow.addRemoveClass("up",up);
 		this.$.nubArrow.addRemoveClass("down",!up);
 		if (!up) {
-			this.$.activator.addRemoveClass("drawer-open", false);			
+			this.$.activator.addRemoveClass("drawer-open", false);
 		}
 	},
 	resizeHandler: function() {
@@ -183,10 +183,10 @@ enyo.kind({
 		if (this.$.handleContainer.$.animator.isAnimating()){
 			return true;
 		}
-		this.resizeDresser();		
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+		this.resizeDresser();
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
 		this.updateActivator(false);
 	},
 	//Updates the activator's style only when it is not animating so that there are no visual artifacts
@@ -204,13 +204,13 @@ enyo.kind({
 		if (inEvent.originator == this.$.activator && !this.$.handleContainer.getOpen()) {
 			return true;
 		}
-		
+
 		//this specifically handles an up event from moon.Panels, but it is potentially too strict
 		if (inEvent.originator.kind == "moon.Panels" && enyo.Spotlight.Util.isChild(this.$.client,inEvent.originator)) {
 			enyo.Spotlight.spot(this.$.activator);
 			return true;
 		}
-		
+
 		//if at the top of a drawer then move focus to the activator
 		var drawers = this.$.drawers.getControls();
 		for (var index in drawers) {
@@ -246,6 +246,7 @@ enyo.kind({
 		}
 
 		//if at the bottom a drawer then stop them from going further
+		var kids;
 		for (index in drawers) {
 			//when the main drawer is open
 			if (drawers[index].getOpen()) {
@@ -254,13 +255,13 @@ enyo.kind({
 					if (drawers[index].controlDrawerComponents !== null && drawers[index].getControlsOpen()) {
 						enyo.Spotlight.spot(drawers[index].$.controlDrawer);
 					} else {
-						var kids = enyo.Spotlight.getChildren(drawers[index].$.client);
+						kids = enyo.Spotlight.getChildren(drawers[index].$.client);
 						enyo.Spotlight.spot(kids[kids.length-1]);
 					}
 					return true;
 				//if from the control drawer & it was the last spottable item, respot it
 				} else if (drawers[index].$.controlDrawer == inEvent.originator) {
-					var kids = enyo.Spotlight.getChildren(drawers[index].$.controlDrawer);
+					kids = enyo.Spotlight.getChildren(drawers[index].$.controlDrawer);
 					enyo.Spotlight.spot(kids[kids.length-1]);
 					return true;
 				}
