@@ -26,7 +26,9 @@ enyo.kind({
 		//* _onSpotlightSelect_ simulates _mousedown_.
 		onSpotlightSelect	: 'depress',
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
-		onSpotlightKeyUp	: 'undepress'
+		onSpotlightKeyUp	: 'undepress',
+		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
+		onSpotlightFocused	: "spotFocused"
 	},
 	//* On creation, updates based on value of _this.small_.
 	create: function() {
@@ -36,6 +38,11 @@ enyo.kind({
 	//* Adds _pressed_ CSS class.
 	depress: function() {
 		this.addClass('pressed');
+	},
+	//* Bubble _requestScrollIntoView_ event
+	spotFocused: function() {
+		this.bubble("onRequestScrollIntoView", {side: "top"});
+		return true;
 	},
 	//* Removes _pressed_ CSS class.
 	undepress: function() {

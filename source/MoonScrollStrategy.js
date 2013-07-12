@@ -331,7 +331,6 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
-		this.log();
 		if (!enyo.Spotlight.getPointerMode()) {
 			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
 		}
