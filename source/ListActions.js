@@ -26,7 +26,7 @@ enyo.kind({
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes:"moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 		{name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
-			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onEnd: "drawerAnimationEnd", open:false, components: [
+			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onDrawerAnimationEnd: "drawerAnimationEnd", open:false, components: [
 				{name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close moon-dark-gray", ontap:"expandContract", onSpotlightSelect: "expandContract"},
 				{classes: "moon-list-actions-client-container moon-dark-gray", components: [
 					{name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
