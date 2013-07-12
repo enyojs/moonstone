@@ -149,7 +149,7 @@ enyo.kind({
 		}
 		
 		if (this.showHorizontal()) {
-			delta = ("wheelDeltaX" in inEvent) ? inEvent.wheelDeltaX : inEvent.wheelDeltaY;
+			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
 			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
 		}
 		
