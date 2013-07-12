@@ -21,7 +21,6 @@ enyo.kind({
 		paginationScrollMultiplier: 5
 	},
 	handlers: {
-		onSpotlightFocused		: "spotFocused",
 		onRequestScrollIntoView	: "requestScrollIntoView",
 		onenter					: "enter",
 		onleave					: "leave"
@@ -332,21 +331,11 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
+		this.log();
 		if (!enyo.Spotlight.getPointerMode()) {
 			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
 		}
 		return true;
-	},
-	//* Scrolls a child component into view if it bubbles an _onSpotlightFocused_
-	//* event (and it is not already in view).
-	spotFocused: function(inSender, inEvent) {
-		if (inEvent.originator === this) {
-			return;
-		}
-		
-		if ((!this.isInView(inEvent.originator.hasNode())) && (!enyo.Spotlight.getPointerMode())) {
-			this.animateToControl(inEvent.originator);
-		}
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.showHidePageControls();
