@@ -75,9 +75,6 @@ enyo.kind({
 		onChange: "updateCalendar"
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is
-		//* currently selected
-		noneText: "",
 		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
@@ -97,7 +94,6 @@ enyo.kind({
 		*/
 		maxWeeks: 6,
 		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-		//days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 		dateArray: [],
 		colorArray: []
 	},
@@ -125,21 +121,11 @@ enyo.kind({
 		this.valueChanged();
 	},
 	/**
-		Sets up days of the week from first day to last day.
-		Initially, SUN is the first day and SAT is the last day.
-	*/
-	setupDays: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.day.setContent(this.days[index]);
-	},
-	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
-		/*Todo: Follwing statement violates encapsulation -david.um */
-		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
-		this.$.simplePicker.$.buttonRight.addClass("picker-button");
+		this.$.simplePicker.addClass("moon-calendar-picker-button");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i], classes: "picker-content"}
