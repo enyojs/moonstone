@@ -226,11 +226,11 @@ enyo.kind({
 	setMonth: function(newMonth) {
 		var value = this.value,
 			newValue,
-			newMonthLength = this.monthLength(value.getFullYear(), newMonth);
+			newMonthLength = this.monthLength(value.getFullYear(), newMonth - 1);
 		if(newMonthLength < value.getDate()) {
-			newValue = new Date(value.getFullYear(), newMonth, newMonthLength);
+			newValue = new Date(value.getFullYear(), newMonth - 1, newMonthLength);
 		} else {
-			newValue = new Date(value.getFullYear(), newMonth, value.getDate());
+			newValue = new Date(value.getFullYear(), newMonth - 1, value.getDate());
 		}
 		this.setValue(newValue);
 	},

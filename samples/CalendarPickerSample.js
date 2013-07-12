@@ -32,7 +32,7 @@ enyo.kind({
 	},
 	setMonth: function(inSender, inEvent) {
 		if(this.$.monthInput.getValue() > 0 && this.$.monthInput.getValue() < 13) {
-			this.$.calendar.setMonth(parseInt(this.$.monthInput.getValue() - 1, 10));
+			this.$.calendar.setMonth(parseInt(this.$.monthInput.getValue(), 10));
 		} else {
 			this.$.result.setContent("Please input value between 1 to 12");
 		}
