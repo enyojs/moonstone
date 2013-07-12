@@ -70,7 +70,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap",
+		ontap: "selectDate",
 		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "updateCalendar"
 	},
@@ -226,6 +226,50 @@ enyo.kind({
 			calendarWeeks[i].fillDate(days, colors);
 		}
 	},
+	setYear: function(newYear) {
+		var value = this.value,
+			newValue,
+			newMonthLength = this.monthLength(newYear, value.getMonth());
+		if(newMonthLength < value.getDate()) {
+			newValue = new Date(newYear, value.getMonth(), newMonthLength);
+		} else {
+			newValue = new Date(newYear, value.getMonth(), value.getDate());
+		}
+		this.setValue(newValue);
+	},
+	setMonth: function(newMonth) {
+		var value = this.value,
+			newValue,
+			newMonthLength = this.monthLength(value.getFullYear(), newMonth);
+		if(newMonthLength < value.getDate()) {
+			newValue = new Date(value.getFullYear(), newMonth, newMonthLength);
+		} else {
+			newValue = new Date(value.getFullYear(), newMonth, value.getDate());
+		}
+		this.setValue(newValue);
+	},
+	setDate: function(newDate) {
+		var value = this.value,
+			newValue,
+			monthLength = this.monthLength(value.getFullYear(), value.getMonth());
+		if(monthLength < newDate) {
+			newValue = new Date(value.getFullYear(), value.getMonth(), monthLength);
+		} else {
+			newValue = new Date(value.getFullYear(), value.getMonth(), newDate);
+		}
+		this.setValue(newValue);
+	},
+	selectDate: function(inSender, inEvent) {
+		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
+			var newValue = inEvent.originator.value;
+			this.setValue(newValue);
+		}		
+		return true;
+	},
+	// Returns number of days in a particular month/year.
+	monthLength: function(inYear, inMonth) {
+		return 32 - new Date(inYear, inMonth, 32).getDate();
+	},
 	/**
 		Updates calendar when value of DatePicker changes.
 	*/
@@ -247,34 +291,19 @@ enyo.kind({
 		}
 		return true;
 	},
-	// Returns number of days in a particular month/year.
-	monthLength: function(inYear, inMonth) {
-		return 32 - new Date(inYear, inMonth, 32).getDate();
-	},
-	/**
-		Updates DatePicker to reflect the selected CalendarDate.
-	*/
-	doTap: function(inSender, inEvent) {
-		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
-			var newValue = inEvent.originator.value,
-				oldValue = this.getValue();
-
-			if (newValue.getFullYear() > oldValue.getFullYear()) {
-				this.$.simplePicker.setSelectedIndex(0);
-			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
-				this.$.simplePicker.setSelectedIndex(11);
-			} else if (newValue.getMonth() > oldValue.getMonth()) {
-				this.$.simplePicker.next();
-			} else if (newValue.getMonth() < oldValue.getMonth()) {
-				this.$.simplePicker.previous();
-			}
-		}
-		return true;
+	updatePicker: function(value) {
+		this.$.simplePicker.setSelectedIndex(value);
 	},
 	valueChanged: function(inOld) {
+		if(inOld) {
+			this.updatePicker(this.value.getMonth());
+		}
 		this.setupCalendar();
 		this.fillDate();
 		this.$.dates.render();
+		if (this.value) {
+			this.doChange({value: this.value});
+		}
 	},
 	localeChanged: function() {
 		this.refresh();
