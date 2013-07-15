@@ -2243,15 +2243,9 @@ body .enyo-fit.panels-50-percent-scrim,
   white-space: nowrap;
 }
 .moon-calendar-picker-date {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
   width: 40px;
   min-width: 40px;
   height: 40px;
-  line-height: 40px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -2260,13 +2254,6 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 10px;
   text-align: center;
   vertical-align: middle;
-}
-.moon-calendar-picker-date.spotlight {
-  border: 1px solid #ffb80d;
-  background: #ffb80d;
-}
-.moon-calendar-picker-date.active {
-  background-color: #ffb80d;
 }
 .moon-calendar-picker-date-shadow {
   color: #A2A2A2;
