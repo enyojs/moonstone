@@ -7,7 +7,7 @@
                     "name": "Music.TrackDetailNarrowSampleView",
                     "kind": "Music.TrackDetailNarrowSampleView",
                     "options": {
-                        "isPluginAction": true
+                        "isViewTemplate": true
                     },
                     "config": {
                         "name": "Music.TrackDetailNarrowSampleView",
@@ -71,7 +71,7 @@
                     "name": "Music.TrackDetailWideSampleView",
                     "kind": "Music.TrackDetailWideSampleView",
                     "options": {
-                        "isPluginAction": true
+                        "isViewTemplate": true
                     },
                     "config": {
                         "name": "Music.TrackDetailWideSampleView",
