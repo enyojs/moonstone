@@ -112,7 +112,7 @@ enyo.ready(function(){
             {
                 name: "movieController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

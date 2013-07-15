@@ -158,7 +158,7 @@ enyo.kind({
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({
-			value:this.value,
+			value: this.value
 		});
 	}
 });

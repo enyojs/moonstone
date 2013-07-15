@@ -25,5 +25,5 @@ enyo.kind({
 		this.$.imgmenu.set("src", collection.at(idx).get("imgsrc"));
 		this.$.headline.set("content", collection.at(idx).get("instruction"));
 		this.$.detail.set("content", collection.at(idx).get("detail"));
-	},
+	}
 });

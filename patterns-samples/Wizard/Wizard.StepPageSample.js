@@ -33,7 +33,7 @@ enyo.kind({
 			{classes: "wizard-block-row", components: [
 				{name: "indeco3", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
 					{name: "intext3", kind: "moon.Input", placeholder: "INPUT FIELD 03"}
-				]},
+				]}
 			]},
 
 			{classes: "wizard-block-row", components: [

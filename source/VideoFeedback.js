@@ -13,7 +13,7 @@ enyo.kind({
 			Length of time (in milliseconds) after which the on-screen feedback will
 			automatically disapear
 		*/
-		autoTimeoutMS:  2000,
+		autoTimeoutMS:  2000
 	},
 	//* @protected
 	_showingFeedback: false,

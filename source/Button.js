@@ -18,7 +18,7 @@ enyo.kind({
 			However, the button's tap target still has a diameter of 78px, so there is
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
-		small: false,
+		small: false
 	},
 	classes: 'moon-button moon-header-font enyo-unselectable',
 	spotlight: true,

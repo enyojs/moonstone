@@ -11,7 +11,7 @@ enyo.kind({
 			components: [
 				{
 					kind: "moon.Divider",
-					content: "SETTINGS CATEGORY",
+					content: "SETTINGS CATEGORY"
 				},
 				{
 					kind: "FittableColumns",

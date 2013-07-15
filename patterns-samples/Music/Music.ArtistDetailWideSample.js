@@ -18,7 +18,7 @@ enyo.kind({
 				{
 					name: "artistImage",
 					kind: "enyo.Image",
-					style: "width: 350px; height: 350px;",
+					style: "width: 350px; height: 350px;"
 				},
 				{
 					kind: "moon.Table",

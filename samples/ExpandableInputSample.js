@@ -9,7 +9,7 @@ enyo.kind({
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input with Placeholder", noneText: "No Input", placeholder: "Placeholder"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input with Value", noneText: "No Input", placeholder: "Placeholder", value: "Text"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Disabled Input", noneText: "No Input", disabled:true, value: "I am disabled."},
-				{name: "console", classes: "moon-input-sample-console", content: "Input:"},
+				{name: "console", classes: "moon-input-sample-console", content: "Input:"}
 			]}
 		]}
 	],

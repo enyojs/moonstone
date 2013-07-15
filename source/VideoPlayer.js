@@ -39,7 +39,7 @@ enyo.kind({
 		//* Video aspect ratio, specified as _"width:height"_
 		aspectRatio: "16:9",
 		autoCloseTimeout: 3000,
-		duration: 0,
+		duration: 0
 	},
 	handlers: {
 		onRequestTimeChange: "timeChange",

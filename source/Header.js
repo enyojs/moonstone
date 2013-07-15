@@ -256,7 +256,7 @@ enyo.kind({
 						"min-width" : "160px",
 						"max-width" : "160px"
 					}
-				}],
+				}]
 
 			}
 		});
@@ -284,7 +284,7 @@ enyo.kind({
 						"border-bottom-width" : "current",
 						"width" : this.animProps["width"],
 						"min-width" : this.animProps["width"],
-						"max-width" : this.animProps["width"],
+						"max-width" : this.animProps["width"]
 					}
 				},
 				{
