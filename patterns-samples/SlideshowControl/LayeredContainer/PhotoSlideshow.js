@@ -48,13 +48,13 @@ enyo.kind({
 		delete this.preloadImage;
 		this.inherited(arguments);
 	},
-    initComponents: function() {
-    	this.createTools();
+	initComponents: function() {
+		this.createTools();
 		this.controlParentName = "slideControl";
 		this.discoverControlParent();
-        this.inherited(arguments);
-    },
-    createTools: function() {
+		this.inherited(arguments);
+	},
+	createTools: function() {
 		this.createComponents(this.slideTools);
 	},
 	imageSelected: function(inSender, inEvent) {
@@ -168,13 +168,13 @@ enyo.kind({
 		this.thumbHeightChanged();
 		this.index = 0;
 	},
-    initComponents: function() {
-    	this.createTools();
+	initComponents: function() {
+		this.createTools();
 		this.controlParentName = "left";
 		this.discoverControlParent();
-        this.inherited(arguments);
-    },
-    createTools: function() {
+		this.inherited(arguments);
+	},
+	createTools: function() {
 		this.createComponents(this.controlTools);
 	},
 	setupItem: function(inSender, inEvent) {

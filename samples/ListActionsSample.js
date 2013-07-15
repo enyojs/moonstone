@@ -7,56 +7,56 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
-		    {kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
+			{kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
 				{
 					action: "category",
 					components: [
-					    {kind: "moon.Divider", content:"Category"},
-					    {kind: "moon.Scroller", horizontal: "hidden", components: [
-					        {content:"Action", kind:"moon.CheckboxItem", checked:true},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"}
-					    ]}
+						{kind: "moon.Divider", content:"Category"},
+						{kind: "moon.Scroller", horizontal: "hidden", components: [
+							{content:"Action", kind:"moon.CheckboxItem", checked:true},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"}
+						]}
 					]
 				},
 				{
 					components: [
-					    {kind: "moon.Divider", content:"Category"},
-					    {kind: "moon.Scroller", horizontal: "hidden", components: [
-					        {content:"Action", kind:"moon.ToggleItem"},
-					        {content:"Comedy", kind:"moon.ToggleItem"},
-					        {content:"Drama", kind:"moon.ToggleItem"}
-					    ]}
+						{kind: "moon.Divider", content:"Category"},
+						{kind: "moon.Scroller", horizontal: "hidden", components: [
+							{content:"Action", kind:"moon.ToggleItem"},
+							{content:"Comedy", kind:"moon.ToggleItem"},
+							{content:"Drama", kind:"moon.ToggleItem"}
+						]}
 					],
 				},
 				{
 					action: "menu-language",
 					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected",
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem",
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
+						{kind: "moon.ExpandablePicker", noneText: "No Language Selected",
+						autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem",
+						classes: "moon-expandable-picker-wrapper", components: [
+							{content: "English"},
+							{content: "Spanish"},
+							{content: "French"},
+							{content: "German"},
+							{content: "Italian"},
+							{content: "Japanese"}
+						]}
 					]
 				}
 			]},
@@ -64,45 +64,45 @@ enyo.kind({
 				{
 					action: "category",
 					components: [
-					    {kind: "moon.Divider", content:"Category"},
-					    {kind: "moon.Scroller", horizontal: "hidden", components: [
-					        {content:"Action", kind:"moon.CheckboxItem", checked:true},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"},
-					        {content:"Drama", kind:"moon.CheckboxItem"},
-					        {content:"Action", kind:"moon.CheckboxItem"},
-					        {content:"Comedy", kind:"moon.CheckboxItem"}
-					    ]}
+						{kind: "moon.Divider", content:"Category"},
+						{kind: "moon.Scroller", horizontal: "hidden", components: [
+							{content:"Action", kind:"moon.CheckboxItem", checked:true},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"},
+							{content:"Drama", kind:"moon.CheckboxItem"},
+							{content:"Action", kind:"moon.CheckboxItem"},
+							{content:"Comedy", kind:"moon.CheckboxItem"}
+						]}
 					]
 				},
 				{
 					components: [
-					    {kind: "moon.Divider", content:"Category"},
-					    {kind: "moon.Scroller", horizontal: "hidden", components: [
-					        {content:"Action", kind:"moon.ToggleItem"},
-					        {content:"Comedy", kind:"moon.ToggleItem"},
-					        {content:"Drama", kind:"moon.ToggleItem"}
-					    ]}
+						{kind: "moon.Divider", content:"Category"},
+						{kind: "moon.Scroller", horizontal: "hidden", components: [
+							{content:"Action", kind:"moon.ToggleItem"},
+							{content:"Comedy", kind:"moon.ToggleItem"},
+							{content:"Drama", kind:"moon.ToggleItem"}
+						]}
 					],
 				},
 				{
 					action: "menu-language",
 					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected",
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem",
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
+						{kind: "moon.ExpandablePicker", noneText: "No Language Selected",
+						autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem",
+						classes: "moon-expandable-picker-wrapper", components: [
+							{content: "English"},
+							{content: "Spanish"},
+							{content: "French"},
+							{content: "German"},
+							{content: "Italian"},
+							{content: "Japanese"}
+						]}
 					]
 				}
 			]}

@@ -16,18 +16,18 @@ enyo.kind({
 		]},
 		{classes:"right-panel", components:[
 			{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-			    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
+				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
-					    {kind: "moon.Divider", content:"Filter"},
-					    {kind: "moon.Scroller", components: [
+						{kind: "moon.Divider", content:"Filter"},
+						{kind: "moon.Scroller", components: [
 							{kind: "Group", components: [
-						        {content:"New Releases", kind:"moon.CheckboxItem"},
-						        {content:"Most Popular", kind:"moon.CheckboxItem"},
-						        {content:"Action & Adventure", kind:"moon.CheckboxItem"},
-						        {content:"Comedy", kind:"moon.CheckboxItem"},
-						        {content:"Drama", kind:"moon.CheckboxItem"}
+								{content:"New Releases", kind:"moon.CheckboxItem"},
+								{content:"Most Popular", kind:"moon.CheckboxItem"},
+								{content:"Action & Adventure", kind:"moon.CheckboxItem"},
+								{content:"Comedy", kind:"moon.CheckboxItem"},
+								{content:"Drama", kind:"moon.CheckboxItem"}
 							]}
-					    ]}
+						]}
 					]}
 				]}
 			]},
@@ -43,8 +43,8 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
 		// var item = this.results[i];
-		 this.$.item.setSource("../assets/movieImage.jpg");
-		 this.$.item.setSelected(this.$.gridlist.isSelected(i));
+		this.$.item.setSource("../assets/movieImage.jpg");
+		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	},
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {

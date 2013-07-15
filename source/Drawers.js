@@ -1,35 +1,35 @@
 /**
-    _moon.Drawers_ is a container kind designed to hold a set of
-    <a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
-    _drawers_ property accepts an array of _moon.Drawer_ controls. The
-    associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
-    their own small drawer, centered at the top of the "dresser"--the region
-    containing the array of Drawer controls and the activator nub.
+	_moon.Drawers_ is a container kind designed to hold a set of
+	<a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
+	_drawers_ property accepts an array of _moon.Drawer_ controls. The
+	associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
+	their own small drawer, centered at the top of the "dresser"--the region
+	containing the array of Drawer controls and the activator nub.
 
-    When a handle is selected, it opens the corresponding Drawer object's main
-    drawer or control drawer, depending on how the Drawer object is configured.
+	When a handle is selected, it opens the corresponding Drawer object's main
+	drawer or control drawer, depending on how the Drawer object is configured.
 
-    The control's child components may be of any kind.
+	The control's child components may be of any kind.
 
-        {
-            kind: "moon.Drawers",
-            drawers: [
-                {
-                    name: "musicDrawer",
-                    kind: "moon.Drawer",
-                    handle: {kind: "moon.DrawerHandle", content: "Handle"},
-                    components: [
-                        {content: "Drawer Content"}
-                    ],
-                    controlDrawerComponents: [
-                        {content: "Controls"}
-                    ]
-                }
-            ],
-            components: [
-                {content: "Content Area"}
-            ]
-        }
+		{
+			kind: "moon.Drawers",
+			drawers: [
+				{
+					name: "musicDrawer",
+					kind: "moon.Drawer",
+					handle: {kind: "moon.DrawerHandle", content: "Handle"},
+					components: [
+						{content: "Drawer Content"}
+					],
+					controlDrawerComponents: [
+						{content: "Controls"}
+					]
+				}
+			],
+			components: [
+				{content: "Content Area"}
+			]
+		}
 */
 enyo.kind({
 	name: "moon.Drawers",
@@ -64,11 +64,11 @@ enyo.kind({
 		this.setupHandles();
 	},
 	rendered: function() {
-	    this.inherited(arguments);
+		this.inherited(arguments);
 		this.resizeDresser();
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	resizeDresser: function() {
 		var client = this.getBounds();
@@ -184,9 +184,9 @@ enyo.kind({
 			return true;
 		}
 		this.resizeDresser();
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
 		this.updateActivator(false);
 	},
 	//Updates the activator's style only when it is not animating so that there are no visual artifacts

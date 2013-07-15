@@ -16,18 +16,18 @@ enyo.kind({
 		]},
 		{classes:"right-panel", components:[
 			{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-			    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
+				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
-					    {kind: "moon.Divider", content:"Filter"},
-					    {kind: "moon.Scroller", components: [
+						{kind: "moon.Divider", content:"Filter"},
+						{kind: "moon.Scroller", components: [
 							{kind: "Group", components: [
-						        {content:"New Releases", kind:"moon.CheckboxItem"},
-						        {content:"Most Popular", kind:"moon.CheckboxItem"},
-						        {content:"Action & Adventure", kind:"moon.CheckboxItem"},
-						        {content:"Comedy", kind:"moon.CheckboxItem"},
-						        {content:"Drama", kind:"moon.CheckboxItem"}
+								{content:"New Releases", kind:"moon.CheckboxItem"},
+								{content:"Most Popular", kind:"moon.CheckboxItem"},
+								{content:"Action & Adventure", kind:"moon.CheckboxItem"},
+								{content:"Comedy", kind:"moon.CheckboxItem"},
+								{content:"Drama", kind:"moon.CheckboxItem"}
 							]}
-					    ]}
+						]}
 					]}
 				]},
 				{kind: "moon.IconButton", classes: "delete-button", src: "../assets/trash-can-icon.png", ontap: "deleteActivated"}

@@ -13,19 +13,19 @@ enyo.kind({
 			Length of time (in milliseconds) after which the on-screen feedback will
 			automatically disapear
 		*/
-		autoTimeoutMS: 	2000,
+		autoTimeoutMS:  2000,
 	},
 	//* @protected
 	_showingFeedback: false,
-	_imagePath: 		"$lib/moonstone/images/",
-	_jumpBackImg: 		"icon-jumpback.png",
-	_rewindImg: 		"icon-rewind.png",
-	_playImg: 			"icon-play.png",
-	_pauseImg: 			"icon-pause.png",
-	_fastForwardImg: 	"icon-fastforward.png",
-	_jumpForwardImg: 	"icon-jumpforward.png",
-	_pauseBackImg: 		"icon-pauseplaybackward.png",
-	_pauseForwardImg: 	"icon-pauseplayforward.png",
+	_imagePath:         "$lib/moonstone/images/",
+	_jumpBackImg:       "icon-jumpback.png",
+	_rewindImg:         "icon-rewind.png",
+	_playImg:           "icon-play.png",
+	_pauseImg:          "icon-pause.png",
+	_fastForwardImg:    "icon-fastforward.png",
+	_jumpForwardImg:    "icon-jumpforward.png",
+	_pauseBackImg:      "icon-pauseplaybackward.png",
+	_pauseForwardImg:   "icon-pauseplayforward.png",
 	_autoTimer: null,
 
 	components: [

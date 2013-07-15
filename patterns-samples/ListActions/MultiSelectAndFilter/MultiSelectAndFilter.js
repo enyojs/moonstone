@@ -21,32 +21,32 @@ enyo.kind({
 		{classes:"right-panel", components:[
 			{kind:"FittableRows", components:[
 				{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-				    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
+					{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
 						{
 							action: "sort",
 							components: [
 								{kind: "moon.Divider", content:"Sort"},
-							    {kind: "moon.Scroller", components: [
+								{kind: "moon.Scroller", components: [
 									{kind: "Group", components: [
-								        {content:"Alpha (A-Z)", kind:"moon.CheckboxItem"},
-								        {content:"Release Date (New - Old)", kind:"moon.CheckboxItem"}
+										{content:"Alpha (A-Z)", kind:"moon.CheckboxItem"},
+										{content:"Release Date (New - Old)", kind:"moon.CheckboxItem"}
 									]}
-							    ]}
+								]}
 							]
 						},
 						{
 							action: "filter",
 							components: [
-							    {kind: "moon.Divider", content:"Filter"},
-							    {kind: "moon.Scroller", components: [
+								{kind: "moon.Divider", content:"Filter"},
+								{kind: "moon.Scroller", components: [
 									{kind: "Group", components: [
-								        {content:"New Releases", kind:"moon.CheckboxItem"},
-								        {content:"Most Popular", kind:"moon.CheckboxItem"},
-								        {content:"Action & Adventure", kind:"moon.CheckboxItem"},
-								        {content:"Comedy", kind:"moon.CheckboxItem"},
-								        {content:"Drama", kind:"moon.CheckboxItem"}
+										{content:"New Releases", kind:"moon.CheckboxItem"},
+										{content:"Most Popular", kind:"moon.CheckboxItem"},
+										{content:"Action & Adventure", kind:"moon.CheckboxItem"},
+										{content:"Comedy", kind:"moon.CheckboxItem"},
+										{content:"Drama", kind:"moon.CheckboxItem"}
 									]}
-							    ]}
+								]}
 							]
 						}
 					]}
@@ -63,8 +63,8 @@ enyo.kind({
 	],
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		 this.$.item.setSource("../assets/movieImage.jpg");
-		 this.$.item.setSelected(this.$.gridlist.isSelected(i));
+		this.$.item.setSource("../assets/movieImage.jpg");
+		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	},
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
