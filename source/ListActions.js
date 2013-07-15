@@ -156,8 +156,11 @@ enyo.kind({
 		this.setActive(this.getOpen());
 	},
 	resizeHandler: function() {
+		//If drawer is collapsed, do not resize popup
+		if (this.getOpen()) {
+			this.configurePopup();
+		}
 		//don't refresh while animating
-		this.configurePopup();
 		if (!this.$.drawer.$.animator.isAnimating()){
 			this.refresh();
 		}
