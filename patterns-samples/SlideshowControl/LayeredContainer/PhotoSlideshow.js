@@ -153,14 +153,32 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler", classes: "big-icon-button"}
 			]},
 			{flex: true, components: [
-				{name:"speed", kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "SLIDESHOW SPEED",
-			classes: "moon-photo-slideshow-control-picker-wrapper", value: 3, min: 1, max: 15, unit: "sec", autoCollapse: true}
+				{
+					name:"speed",
+					kind: "moon.ExpandableIntegerPicker",
+					noneText: "Not Selected",
+					autoCollapse: true,
+					content: "SLIDESHOW SPEED",
+					classes: "moon-photo-slideshow-control-picker-wrapper",
+					value: 3,
+					min: 1,
+					max: 15,
+					unit: "sec"
+				}
 			]}
 		]},
-		{name: "list", kind: "moon.List", classes: "moon-photo-slideshow-control-list", orient:"h", multiSelect: false, spotlight: true, onSetupItem: "setupItem", onSpotlightSelect: "itemSelectHandler",
+		{
+			name: "list",
+			kind: "moon.List",
+			classes: "moon-photo-slideshow-control-list",
+			orient: "h",
+			multiSelect: false,
+			spotlight: true,
+			onSetupItem: "setupItem",
+			onSpotlightSelect: "itemSelectHandler",
 			components: [
-				{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"
-			}]
+				{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"}
+			]
 		}
 	],
 	create: function() {

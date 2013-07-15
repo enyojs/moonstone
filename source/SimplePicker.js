@@ -148,7 +148,7 @@ enyo.kind({
 		this.$.client.setAnimate(this.animate);
 	},
 	wrapChanged: function() {
-			this.$.client.setWrap(this.wrap);
+		this.$.client.setWrap(this.wrap);
 	},
 	selectedChanged: function(inOld) {
 		if (this.selected != this.$.client.getActive()) {

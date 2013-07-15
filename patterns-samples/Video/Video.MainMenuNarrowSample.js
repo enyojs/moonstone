@@ -15,7 +15,7 @@ enyo.kind({
     bindings: [
         {from: ".controller.menus", to: "$.menuList.controller"}
     ]
- });
+});
 
 
 // Sample model

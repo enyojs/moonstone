@@ -26,12 +26,19 @@ enyo.kind({
 	//* @protected
 	components: [
 		{
-			name: "header", kind: "moon.Item", spotlight: true,
-			onSpotlightFocus: "headerFocus", onSpotlightSelect: "expandDrawer", ontap: "expandDrawer",
+			name: "header",
+			kind: "moon.Item",
+			spotlight: true,
+			onSpotlightFocus: "headerFocus",
+			onSpotlightSelect: "expandDrawer",
+			ontap: "expandDrawer",
 			classes: "moon-expandable-input-header"
 		},
 		{
-			name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [{
+			name: "drawer",
+			kind: "enyo.Drawer",
+			onStep: "drawerAnimationStep",
+			components: [{
 				name: "client",
 				kind: "moon.InputDecorator",
 				onSpotlightFocus: "inputFocus",
@@ -42,11 +49,15 @@ enyo.kind({
 						name: "clientInput",
 						kind: "moon.Input"
 					}
-				]}
-			]
+				]
+			}]
 		},
 		{
-			name: "currentValue", kind: "moon.Item", ontap: "expandDrawer", spotlight: false, content: "",
+			name: "currentValue",
+			kind: "moon.Item",
+			ontap: "expandDrawer",
+			spotlight: false,
+			content: "",
 			classes: "moon-expandable-input-current-value"
 		}
 	],

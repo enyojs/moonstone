@@ -3,7 +3,9 @@ enyo.kind({
 	classes: "enyo-fit moon",
 	components: [
 		{
-			kind: "enyo.FittableColumns", noStretch: true, components: [
+			kind: "enyo.FittableColumns",
+			noStretch: true,
+			components: [
 				{name: "client", fit: true},
 				{kind: "Button", content: "Stop", ontap: "toggle", style: "width: 4em;"},
 			]

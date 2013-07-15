@@ -33,7 +33,11 @@ enyo.kind({
 				{kind: "moon.IconButton", classes: "delete-button", src: "../assets/trash-can-icon.png", ontap: "deleteActivated"}
 			]},
 			{
-				name: "list", kind: "moon.List", classes:"list", count:20, onSetupItem: "setupItem",
+				name: "list",
+				kind: "moon.List",
+				classes:"list",
+				count:20,
+				onSetupItem: "setupItem",
 				components: [
 					{name:"item", kind: "ListItem"}
 				]
@@ -48,11 +52,11 @@ enyo.kind({
 	},
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
-			this.$.header.setTitleBelow(inEvent.toggledControl.getContent())
+			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
 		}
 	},
 	deleteActivated: function(inSender, inEvent) {
-		console.log('delete activated');
+		enyo.log('delete activated');
 	}
 });
 
