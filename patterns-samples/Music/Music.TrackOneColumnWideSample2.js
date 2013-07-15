@@ -12,7 +12,7 @@ enyo.kind({
     ],
     components: [
         {
-            kind:"moon.Scroller", 
+            kind:"moon.Scroller",
             horizontal: "hidden",
             fit: true,
             components: [
@@ -28,9 +28,9 @@ enyo.kind({
                                             kind: "moon.Item",
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    kind: "enyo.Image",
                                                     classes: "moon-music-small-image",
-                                                    bindFrom: "coverUrl", 
+                                                    bindFrom: "coverUrl",
                                                     bindTo: "src"
                                                 }
                                             ]

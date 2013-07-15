@@ -60,11 +60,11 @@ enyo.kind({
 	name: "ListItem",
 	classes:"list-item",
 	components: [
-		{tag:"img", src:"../assets/movieImage.jpg", classes:"item-image"},	
+		{tag:"img", src:"../assets/movieImage.jpg", classes:"item-image"},
 		{classes:"item-info", components:[
 			{name:"title", classes:"item-title"},
 			{name:"date", classes:"item-date"},
-			{name:"time", classes:"item-time"}			
+			{name:"time", classes:"item-time"}
 		]}
 	]
 });

@@ -35,10 +35,10 @@ enyo.kind({
 						{content: "On", active: true},
 						{content: "Off"}
 					]},
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", 
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker",
 					classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"},
 
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Deactivated Integer Picker", 
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Deactivated Integer Picker",
 					classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"}
 				]}
 			]}

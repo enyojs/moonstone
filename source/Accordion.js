@@ -1,7 +1,7 @@
 /**
 	_moon.Accordion_ is a <a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>
 	with an arrow button to the right of the header and additional margin space to
-	the left of the item list. 
+	the left of the item list.
 
 	To open or close the drawer, tap on the header text or navigate (via 5-way)
 	back to the top of the drawer.

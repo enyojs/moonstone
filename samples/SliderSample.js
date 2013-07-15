@@ -5,13 +5,13 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", fit: true, components: [
-		
+
 			{kind: "moon.Divider", content: "Slider 1: Default"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
-		
+
 			{kind: "moon.Divider", content:"Slider 2: Deactivated"},
 			{name: "slider2", kind: "moon.Slider", value: 50, disabled: true},
-			
+
 			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
 			{name: "slider3", kind: "moon.Slider", classes: "rgb-sample-slider",
 				popupColor: "rgb(0, 0, 25)", popupWidth: 180, value: 25, bgProgress: 150, min: 0, max: 255,

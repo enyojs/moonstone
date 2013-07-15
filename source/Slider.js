@@ -82,9 +82,9 @@ enyo.kind({
 		]}
 	],
 	animatingTo: null,
-	
+
 	//* @public
-	
+
 	//* Animates to the given value.
 	animateTo: function(inStartValue, inEndValue) {
 		inEndValue = this.clampValue(this.min, this.max, inEndValue); // Moved from animatorStep
@@ -96,9 +96,9 @@ enyo.kind({
 			node: this.hasNode()
 		});
 	},
-	
+
 	//* @protected
-	
+
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -183,7 +183,7 @@ enyo.kind({
 		if (v === this.value) {
 			return;
 		}
-		
+
 		this.value = v;
 		this.updateKnobPosition(v);
 
@@ -201,10 +201,10 @@ enyo.kind({
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue,
 			label
 		;
-		
+
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.applyStyle("left", percent + "%");
-		
+
 		this.updatePopupLabel(knobValue);
 		this.updatePopupPosition();
 	},
@@ -215,11 +215,11 @@ enyo.kind({
 	},
 	calcPopupLabel: function(inKnobValue) {
 		var label = (typeof ilib !== "undefined") ? this._nf.format(Math.round(inKnobValue)) : Math.round(inKnobValue);
-		
+
 		if (this.showPercentage) {
 			label += "%";
 		}
-		
+
 		return label;
 	},
 	updatePopupPosition: function() {
@@ -262,7 +262,7 @@ enyo.kind({
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent), ev;
-			
+
 			if (this.constrainToBgProgress === true) {
 				v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
 				ev = this.bgProgress + (v-this.bgProgress)*0.4;
@@ -274,7 +274,7 @@ enyo.kind({
 				v = this.clampValue(this.min, this.max, v);
 				this.elasticFrom = this.elasticTo = v;
 			}
-			
+
 			this.updateKnobPosition(this.elasticFrom);
 
 			if (this.lockBar) {
@@ -296,7 +296,7 @@ enyo.kind({
 			this.animateTo(this.elasticFrom, v);
 		} else {
 			v = this.calcKnobPosition(inEvent);
-			v = (this.increment) ? this.calcIncrement(v) : v;	
+			v = (this.increment) ? this.calcIncrement(v) : v;
 			this._setValue(v);
 		}
 

@@ -4,7 +4,7 @@ enyo.kind({
     name: "moon.sample.music.AlbumDetailWideSample",
     kind: "moon.Panel",
     titleAbove: "04",
-    title: "Album",    
+    title: "Album",
     titleBelow: "ALBUM TITLE(ARTISTS)",
     layoutKind: "FittableColumnsLayout",
     headerComponents: [
@@ -40,7 +40,7 @@ enyo.kind({
         },
         {
             kind: "FittableRows",
-            fit:true, 
+            fit:true,
             components: [
                 {kind: "moon.Divider", content: "Top 11 Tracks"},
                 {
@@ -60,7 +60,7 @@ enyo.kind({
                                         {bindFrom: "number"},
                                         {bindFrom: "name"},
                                         {bindFrom: "duration"}
-                                    ]                                        
+                                    ]
                                 }
                             ]
                         }
@@ -104,7 +104,7 @@ enyo.ready(function() {
         ]),
         coverUrl: "../assets/default-music-big.png"
     });
-    
+
 //  Application to render sample
 
     new enyo.Application({

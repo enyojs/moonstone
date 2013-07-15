@@ -30,7 +30,7 @@ enyo.kind({
 	name: "moon.VideoPlayer",
 	kind: "enyo.Control",
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
-	classes: "moon-video-player enyo-unselectable", 
+	classes: "moon-video-player enyo-unselectable",
 	published: {
 		//* URL of HTML5 video
 		src: "",
@@ -48,12 +48,12 @@ enyo.kind({
 		onresize: "resizeHandler"
 	},
     bindings: [],
-	
+
 	//* @protected
 
 	_isPlaying: false,
 	_autoCloseTimer: null,
-	
+
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause",
@@ -62,17 +62,17 @@ enyo.kind({
 		},
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "closeControls", onmousemove: "mousemove", components: [
-		
+
 			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, classes: "moon-video-player-header", components: [
 				{name: "videoInfo", fit: true, classes: "moon-video-player-info"},
 				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 			]},
-			
+
 			{name: "playerControl", classes: "moon-video-player-bottom", onSpotlightDown: "onEnterSlider", components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
-			
+
 					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder"},
-				
+
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
 							{name: "jumpBack",		kind: "moon.IconButton", src: "$lib/moonstone/images/icon-jumpback.png",	classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
@@ -83,12 +83,12 @@ enyo.kind({
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "enyo-center", noStretch: true}
 					]},
-				
+
 					{name: "rightPremiumPlaceHolder", classes: "premium-placeholder", components: [
 						{name: "moreButton", kind: "moon.IconButton", src: "$lib/moonstone/images/icon-extend.png", ontap: "moreButtonTapped"}
 					]}
 				]},
-			
+
 				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", onSpotlightUp: "onLeaveSlider", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-videoplayer-sample-slider",
 						knobClasses: "moon-videoplayer-sample-knob", barClasses: "moon-videoplayer-sample-progressbar", bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
@@ -96,7 +96,7 @@ enyo.kind({
 					}
 				]}
 			]},
-		
+
 			{name:"bgScreen", kind: "moon.VideoPauseCanvas", classes: "moon-video-player-screen enyo-fit", showing: false}
 		]},
 		//* Inline controls
@@ -112,7 +112,7 @@ enyo.kind({
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
-	
+
 	create: function() {
 		this.setupVideoBindings();
 		this.inherited(arguments);
@@ -148,7 +148,7 @@ enyo.kind({
 			this._buttonsSetup = true;
 			if (!inComponents) {
 				// No components - destroy more button
-				this.$.moreButton.destroy();			
+				this.$.moreButton.destroy();
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.destroy();
@@ -166,9 +166,9 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-	
+
 	///// Fullscreen controls /////
-	
+
 
 	_holdPulseThreadhold: 400,
 	_holding: false,
@@ -223,7 +223,7 @@ enyo.kind({
 			if (inSender._sentHold !== true) {
 				this.jumpToEnd(inSender, inEvent);
 				inSender._sentHold = true;
-				return true;	
+				return true;
 			}
 		} else {
 			inSender._holding = true;
@@ -246,16 +246,16 @@ enyo.kind({
 		inParams = inParams || {};
 		this.$.feedbackHeader.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
 	},
-	
+
 	////// Slider event handling //////
-	
+
 	onEnterSlider: function(inSender, inEvent) {
 		this.$.controls.hide();
 	},
 	onLeaveSlider: function(inSender, inEvent) {
 		this.$.controls.show();
 	},
-	
+
 	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
 		this.pause();
@@ -282,25 +282,25 @@ enyo.kind({
 		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.slider.setValue(percentComplete);
 	},
-	
-	
-	
-	
-	
+
+
+
+
+
 	////// BG Screen //////
-	
+
 	showBGScreen: function() {
 		this.$.bgScreen.show();
 	},
 	hideBGScreen: function() {
 		this.$.bgScreen.hide();
 	},
-	
-	
-	
-	
+
+
+
+
 	///// Inline controls /////
-	
+
 	updateInlinePosition: function() {
 		var currentTimeFloat = this._currentTime * 1000,
 			percentComplete = Math.round(currentTimeFloat / this._duration) / 10,
@@ -311,9 +311,9 @@ enyo.kind({
 		this.$.currTime.setContent(this.formatTime(currentTimeDate.getMinutes(), currentTimeDate.getSeconds()));
 		this.$.totalTime.setContent("/" + this.formatTime(durationDate.getMinutes(), durationDate.getSeconds()));
 	},
-	
+
 	//* @public
-	
+
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
 		if (this.isFullscreen()) {
@@ -383,7 +383,7 @@ enyo.kind({
 	},
 
 	//* @protected
-	
+
 	//* Responds to _onRequestTimeChange_ event by setting current video time.
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
@@ -394,11 +394,11 @@ enyo.kind({
 			videoAspectRatio = this.$.video.getAspectRatio().split(":"),
 			ratio = 1
 		;
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		// If height but no width defined, update width based on aspect ratio
 		if (node.style.height && !node.style.width) {
 			ratio = videoAspectRatio[0] / videoAspectRatio[1];
@@ -438,7 +438,7 @@ enyo.kind({
 		var index = this.$.controlsContainer.getIndex(),
 			src = "$lib/moonstone/images/"
 		;
-		
+
 		if (index === 0) {
 			this.$.moreButton.setSrc(src + "icon-shrink.png");
 			this.$.controlsContainer.next();
@@ -459,9 +459,9 @@ enyo.kind({
 
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
-		
+
 		this.updatePosition();
-		
+
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	//* Called when video successfully loads video metadata.
@@ -471,9 +471,9 @@ enyo.kind({
 
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
-		
+
 		this.updatePosition();
-		
+
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	_progress: function(inSender, inEvent) {

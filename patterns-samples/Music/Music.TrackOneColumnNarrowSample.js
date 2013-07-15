@@ -29,8 +29,8 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
-                                                    bindFrom: "coverUrl", 
+                                                    kind: "enyo.Image",
+                                                    bindFrom: "coverUrl",
                                                     bindTo: "src"
                                                 }
                                             ],
@@ -40,7 +40,7 @@ enyo.kind({
                                             bindFrom: "track"
                                         },
                                         {
-                                            bindFrom: "time", 
+                                            bindFrom: "time",
                                             attributes: {rowspan: "2"}
                                         }
                                     ]
@@ -48,7 +48,7 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "artist", 
+                                            bindFrom: "artist",
                                             classes: "moon-superscript"
                                         }
                                     ]

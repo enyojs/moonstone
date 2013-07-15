@@ -18,7 +18,7 @@ enyo.kind({
 						    kind: "moon.Item",
 						    ontap: "changeItemName",
 						    bindFrom: "name",
-						    bindTo: "content" 
+						    bindTo: "content"
 						}
 					]
 				}

@@ -10,7 +10,7 @@ enyo.kind({
 			var bd = this.scrollBounds[this.sizeDimension], sbd = this.scrollBounds[d];
 			var overs = 0, overp = 0, over = 0;
 			var ratio = this.getSizeRatio();
-			
+
 			if (bd >= sbd) {
 				this.hide();
 				return;
@@ -27,10 +27,10 @@ enyo.kind({
 			s = Math.max(this.minSize, s);
 			var p = Math.floor((bdc * sbo / sbd) + overp);
 			p = Math.max(0, Math.min(bdc - this.minSize, p));
-			
+
 			p *= ratio;
 			s *= ratio;
-			
+
 			// apply thumb styling
 			this.needed = s < bd;
 			if (this.needed && this.hasNode()) {

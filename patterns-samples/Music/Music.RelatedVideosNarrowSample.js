@@ -26,9 +26,9 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    kind: "enyo.Image",
                                                     style: "width: 170px; height: 126px; padding-right: 30px;",
-                                                    bindFrom: "coverUrl", 
+                                                    bindFrom: "coverUrl",
                                                     bindTo: "src"
                                                 }
                                             ],
@@ -42,7 +42,7 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "time", 
+                                            bindFrom: "time",
                                             classes: "moon-superscript"
                                         }
                                     ]
@@ -53,7 +53,7 @@ enyo.kind({
                 }
             ]
         }
-    ], 
+    ],
     bindings: [
         {from: ".controller.videos", to: "$.videoInfo.controller"}
     ]

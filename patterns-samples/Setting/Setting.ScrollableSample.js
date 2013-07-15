@@ -6,11 +6,11 @@ enyo.kind({
 	//* @protected
     title: "SETTINGS CATEGORY",
 	components: [
-        { 
+        {
         	kind : "FittableRows",
         	components: [
     			{
-                    kind: "moon.Divider", 
+                    kind: "moon.Divider",
                     content: "SETTINGS CATEGORY",
                 },
                 {
@@ -84,7 +84,7 @@ enyo.kind({
                     ]
                 },
                 {
-                    kind: "moon.Divider", 
+                    kind: "moon.Divider",
                     content: "SETTINGS CATEGORY2"
                 },
                 {
@@ -177,10 +177,10 @@ enyo.kind({
 enyo.ready(function(){
 	var settingModel = new enyo.Model({
 		picker: new enyo.Collection([
-            {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}            
+            {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}
         ]),
         picker2: new enyo.Collection([
-            {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}            
+            {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}
         ]),
 		item: "ITEM",
 		pickers: new enyo.Collection([
@@ -210,7 +210,7 @@ enyo.ready(function(){
             {
                 name: "settingCategoryController",
                 kind: "enyo.ModelController",
-                model: settingModel               
+                model: settingModel
             }
         ]
     });

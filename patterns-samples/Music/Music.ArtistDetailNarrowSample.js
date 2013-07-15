@@ -64,8 +64,8 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
-                                                    bindFrom: "coverUrl", 
+                                                    kind: "enyo.Image",
+                                                    bindFrom: "coverUrl",
                                                     bindTo: "src"
                                                 }
                                             ],
@@ -79,7 +79,7 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "duration", 
+                                            bindFrom: "duration",
                                             classes: "moon-superscript"
                                         }
                                     ]
@@ -127,7 +127,7 @@ enyo.ready(function(){
         ]),
         artistImageUrl: "../assets/default-music-big.png"
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({

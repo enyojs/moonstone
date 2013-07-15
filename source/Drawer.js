@@ -102,7 +102,7 @@ enyo.kind({
 	controlsOpenChanged: function() {
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
-			this.doActivate();			
+			this.doActivate();
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
 			this.doDeactivate();

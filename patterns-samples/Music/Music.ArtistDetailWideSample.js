@@ -52,7 +52,7 @@ enyo.kind({
             components: [
                 {kind: "moon.Divider", content: "Bio"},
                 {
-                    kind: "moon.Scroller", 
+                    kind: "moon.Scroller",
                     horizontal: "hidden",
                     fit: true,
                     components: [
@@ -96,8 +96,8 @@ enyo.kind({
                                                 {
                                                     components: [
                                                         {
-                                                            kind: "enyo.Image", 
-                                                            bindFrom: "coverUrl", 
+                                                            kind: "enyo.Image",
+                                                            bindFrom: "coverUrl",
                                                             bindTo: "src"
                                                         }
                                                     ],
@@ -111,7 +111,7 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    bindFrom: "artist", 
+                                                    bindFrom: "artist",
                                                     classes: "moon-superscript"
                                                 }
                                             ]
@@ -119,7 +119,7 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    bindFrom: "duration", 
+                                                    bindFrom: "duration",
                                                     classes: "moon-superscript"
                                                 }
                                             ]
@@ -176,9 +176,9 @@ enyo.ready(function(){
             {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"},
             {coverUrl: "../assets/default-music.png", track: "track name", artist: "artist name", duration: "3:40"}
         ])
-        
+
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({

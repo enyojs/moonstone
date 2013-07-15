@@ -5,7 +5,7 @@ enyo.kind({
     published: {
         option: {
             src: "",
-            caption: ""    
+            caption: ""
         }
     },
     handlers: {
@@ -47,7 +47,7 @@ enyo.kind({
     components: [
 /** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
-*/        
+*/
         {
             name: "movieList",
             /* TODO: enyo.DataGridList should be changed to moon.DataGridList to support scroll */
@@ -61,7 +61,7 @@ enyo.kind({
                 }
             ]
         }
-    ],   
+    ],
     bindings: [
         {from: ".controller.albums", to: "$.movieList.controller"}
     ]

@@ -9,7 +9,7 @@ enyo.kind({
     components: [
         {
             kind: "FittableColumns",
- 
+
             components: [
                 {
                     name: "eMail",
@@ -39,7 +39,7 @@ enyo.kind({
     bindings: [
         {from: ".controller.eMail", to: "$.eMail.content"},
         {from: ".controller.signOutButton", to: "$.signOutButton.content"},
-        {from: ".controller.autoSign", to: "$.autoSign.content"},     
+        {from: ".controller.autoSign", to: "$.autoSign.content"},
         {from: ".controller.help", to: "$.help.content"},
         {from: ".controller.createAccountButton", to: "$.createAccountButton.content"}
     ]
@@ -50,7 +50,7 @@ enyo.ready(function(){
 	var accountModel = new enyo.Model({
 		eMail: "hancuna@naver.com",
 		signOutButton: "Sign out",
-		autoSign: "Auto Sign in",		
+		autoSign: "Auto Sign in",
 		help: "Create your account to: " +
 			  "Keep up with your favorite channels" +
 			  "Save videos  to watch later, watch recommendations just for you, or" +

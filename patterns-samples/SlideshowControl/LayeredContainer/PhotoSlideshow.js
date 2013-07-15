@@ -24,18 +24,18 @@ enyo.kind({
 	//* @protected
 
 	slideTools: [
-		{	
-			name:"photo", 
-			kind:"SimpleImageCarousel", 
-			classes: "moon-photo-slideshow-image", 
-			onImageSelected: "imageSelected", 
+		{
+			name:"photo",
+			kind:"SimpleImageCarousel",
+			classes: "moon-photo-slideshow-image",
+			onImageSelected: "imageSelected",
 			ontap: "tapHandler"
 		},
-		{	name: "slideControl", 
-			kind: "moon.PhotoSlideshowControl", 
-			onClose: "closeHandler", 
-			onChangeSlide: "changeSlideHandler", 
-			onStartSlideshow: "startSlideshowHandler", 
+		{	name: "slideControl",
+			kind: "moon.PhotoSlideshowControl",
+			onClose: "closeHandler",
+			onChangeSlide: "changeSlideHandler",
+			onStartSlideshow: "startSlideshowHandler",
 			onCompleteSlideshow: "completeSlideshowHandler"
 		}
 	],

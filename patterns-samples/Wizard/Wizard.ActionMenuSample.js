@@ -31,7 +31,7 @@ enyo.kind({
     headerComponents: [
         {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"../assets/icon-list.png",
             listActions: [
-            {                    
+            {
                 components: [
                     {kind: "moon.Divider", content:"Category"},
                     {name: "wizList", kind: "moon.DataList", components: [
@@ -40,7 +40,7 @@ enyo.kind({
                     ]}
                 ]
             }
-        ]}    
+        ]}
     ],
     bindings: [
         {from: ".controller.title", to: ".title"},
@@ -64,7 +64,7 @@ enyo.kind({
         {name: "stepPage2",   kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage3",   kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage4",   kind: "moon.sample.wizard.StepPageSample"},
-        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"} 
+        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"}
     ],
     bindings: [
         {from: ".controller", to: ".$.introPage.controller"},
@@ -104,7 +104,7 @@ enyo.kind({
         {
             p.setOpen(false);
             enyo.Spotlight.spot(p.$.activator);
-        }    
+        }
     }
 });
 
@@ -122,35 +122,35 @@ enyo.ready(function(){
                              pulvinar lectus at orci fringilla eget consectetur arcu vulputate. Nullam sodales dui eu tellus\
                              interdum vel volutpat velit semper."
                 },
-                {   
+                {
                     id: "02",
                     subtitle: "Step Title 2",
                     imgsrc: "",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE 2",
                     detail: "INPUT FIELD DESCRIPTION GOES HERE 2"
                 },
-                {   
+                {
                     id: "03",
                     subtitle: "Step Title 3",
                     imgsrc: "",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE 3",
                     detail: "INPUT FIELD DESCRIPTION GOES HERE 3"
                 },
-                {   
+                {
                     id: "04",
                     subtitle: "Step Title 4",
                     imgsrc: "",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE 4",
                     detail: "INPUT FIELD DESCRIPTION GOES HERE 4"
                 },
-                {   
+                {
                     id: "05",
                     subtitle: "Step Title 5",
                     imgsrc: "",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE 5",
                     detail: "INPUT FIELD DESCRIPTION GOES HERE 5"
                 },
-                {   
+                {
                     id: "06",
                     subtitle: "Step Title 6",
                     imgsrc: "",
@@ -168,7 +168,7 @@ enyo.ready(function(){
             ])
         }
     );
-	
+
     var app = new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
@@ -181,12 +181,12 @@ enyo.ready(function(){
                 }
             ]
         },
-        controllers: [      
+        controllers: [
             {
                 name: "WizardController",
                 kind: "enyo.ModelController",
                 model: wizardModel
             }
         ]
-    }); 
+    });
 });

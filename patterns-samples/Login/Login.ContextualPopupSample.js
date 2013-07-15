@@ -88,7 +88,7 @@ enyo.kind({
             ]}
 		]}
     ],
-    
+
     bindings: [
         {from: ".controller.menus", to: "$.menuList.controller"},
         {from: ".controller.contents", to: "$.contentList.controller"}

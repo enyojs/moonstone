@@ -15,7 +15,7 @@ enyo.kind({
 					kind: "moon.ExpandablePicker",
 					bindFrom: "name",
 					bindTo: "content",
-					noneText: "VALUE",	
+					noneText: "VALUE",
 					components: [
 					    {
 					    	bindFrom: "value1",

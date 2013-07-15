@@ -6,7 +6,7 @@ enyo.kind({
 			{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", content: "Previous"},
 			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "doneTap", content: "Done"}
 		]},
-		
+
 		{kind: "FittableColumns", components: [
 			{name: "headline", classes: "wizard-instruction"},
 			{name: "resultList", kind: "moon.DataList", classes: "wizard-datalist-wrapper", components: [

@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
-			
+
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{name: "B Button", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 				{name: "Button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
@@ -14,7 +14,7 @@ enyo.kind({
 				{name: "Long Button", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Small Buttons:"},
 				{name: "Small B Button", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
 				{name: "Small Button", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
@@ -23,13 +23,13 @@ enyo.kind({
 				{kind: "moon.ToggleItem", classes: "tap-area-toggle-container", content: "Show Tap Area", onActivate: "showSmallButtonTapArea"},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Themed Buttons:"},
 				{name: "Dark Button", kind: "moon.Button", classes: "moon-dark-gray", content: "Dark", ontap: "buttonTapped"},
 				{name: "Light Button", kind: "moon.Button", classes: "moon-light-gray", content: "Light", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Captioned Buttons:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
 					{name: "Captioned Button A", kind: "moon.Button", content: "A", ontap: "buttonTapped"}
@@ -45,7 +45,7 @@ enyo.kind({
 				]},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Buttons with components:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Rent DVD", components: [
 					{name: "$0.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
@@ -77,7 +77,7 @@ enyo.kind({
 				]},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Grouped Buttons:"},
 				{kind: "enyo.Group", classes: "moon-button-sample-group", components: [
 					{name: "Apple Button", kind: "moon.Button", content: "Apple", ontap: "buttonTapped"},

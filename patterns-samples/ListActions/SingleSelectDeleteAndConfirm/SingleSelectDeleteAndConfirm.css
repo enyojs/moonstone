@@ -1,5 +1,5 @@
 .single-select-delete-and-confirm-pattern {
-	background: url(../assets/the-lorax-pic08.jpg) no-repeat; 
+	background: url(../assets/the-lorax-pic08.jpg) no-repeat;
 	background-size:cover;
 }
 
@@ -72,7 +72,7 @@
 
 .item-image {
 	width:150px;
-	height:90px;	
+	height:90px;
 }
 
 .item-info {
@@ -81,7 +81,7 @@
 	display:inline-block;
 	vertical-align:top;
 	color:white;
-	font-size:0.8em;		
+	font-size:0.8em;
 }
 
 .item-title {
@@ -98,5 +98,5 @@
 	margin-left:5px;
 	font-size:0.6em;
 	display:inline-block;
-	vertical-align:top;	
+	vertical-align:top;
 }

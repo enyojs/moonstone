@@ -3,13 +3,13 @@
 enyo.kind({
     name: "moon.sample.photo.AlbumListItem",
     classes: "moon-album-list-item moon-3h moon-1v",
-    
+
     published: {
         option: {
             src: "",
             bgSrc: "",
             caption: ""
-        }        
+        }
     },
 
     components:[
@@ -59,9 +59,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components: [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components: [
                         {
@@ -101,7 +101,7 @@ enyo.ready(function(){
             {imgOption: {src: "../assets/default-movie.png", bgSrc: "../assets/bg-movie.png", caption: "Album Name"}},
             {imgOption: {src: "../assets/default-movie.png", bgSrc: "../assets/bg-movie.png", caption: "Album Name"}},
             {imgOption: {src: "../assets/default-movie.png", bgSrc: "../assets/bg-movie.png", caption: "Album Name"}}
-        ])        
+        ])
     });
 
 //  Application to render sample

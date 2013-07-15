@@ -63,7 +63,7 @@ enyo.ready(function(){
         },
         controllers: [
             {
-                name: "menuController", 
+                name: "menuController",
                 kind: "enyo.ModelController",
                 model: sampleModel
             }

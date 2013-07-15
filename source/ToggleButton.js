@@ -19,7 +19,7 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: $L("Off"),
 		//* Label for separator
-		labelSeparator: $L(":"), 
+		labelSeparator: $L(":"),
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false
@@ -70,13 +70,13 @@ enyo.kind({
 	},
 	onContentChanged: function() {
 		this.$.contentOn.setContent((this.content || "") + (this.labelSeparator || " ") + (this.onContent || ""));
-	}, 
+	},
 	offContentChanged: function() {
 		this.$.contentOff.setContent((this.content || "") + (this.labelSeparator || " ") + (this.offContent || ""));
 	},
 	labelSeparatorChanged: function() {
 		this.onContentChanged();
-		this.offContentChanged();	
+		this.offContentChanged();
 		this.updateVisualState();
 	},
 	disabledChanged: function() {

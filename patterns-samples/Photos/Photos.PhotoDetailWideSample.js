@@ -19,7 +19,7 @@ enyo.kind({
                     fit: true,
                     components: [
                         {
-                            kind: "enyo.Image", 
+                            kind: "enyo.Image",
                             classes: "enyo-fill",
                             src: "../assets/default-movie.png"
                         }
@@ -30,9 +30,9 @@ enyo.kind({
                     classes: "moon-13h",
                     components: [
                         {
-                            kind: "moon.RadioItemGroup", 
+                            kind: "moon.RadioItemGroup",
                             classes: "enyo-tool-decorator",
-                            onActivate: "buttonActivated", 
+                            onActivate: "buttonActivated",
                             components: [
                                 {name: "button-desc", content: "DESCRIPTION"},
                                 {name: "button-comments", content: "COMMENTS(98)"},
@@ -41,7 +41,7 @@ enyo.kind({
                             ]
                         },
                         {kind: "moon.Divider", classes: "divider"},
-                        { 
+                        {
                             name: "panels",
                             fit: true,
                             kind: "enyo.Panels",
@@ -58,7 +58,7 @@ enyo.kind({
                                     components: [
                                         {style: "clear:both;", components: [
                                             {
-                                                kind: "enyo.Image", 
+                                                kind: "enyo.Image",
                                                 classes: "moon-3h moon-1v",
                                                 bindFrom: "picUrl",
                                                 bindTo: "src",
@@ -76,7 +76,7 @@ enyo.kind({
                                     components: [
                                         {style: "clear:both;", components: [
                                             {
-                                                kind: "enyo.Image", 
+                                                kind: "enyo.Image",
                                                 classes: "moon-3h moon-1v",
                                                 bindFrom: "picUrl",
                                                 bindTo: "src",
@@ -92,7 +92,7 @@ enyo.kind({
                                     components: [
                                         {style: "clear:both;", components: [
                                             {
-                                                kind: "enyo.Image", 
+                                                kind: "enyo.Image",
                                                 classes: "moon-3h moon-1v",
                                                 bindFrom: "picUrl",
                                                 bindTo: "src",
@@ -104,7 +104,7 @@ enyo.kind({
                                 }
                             ]
                         }
-                    ]                   
+                    ]
                 }
             ]
         }
@@ -129,7 +129,7 @@ enyo.kind({
                 this.$.panels.setIndex(2);
             } else if(tName=="button-albums"){
                 this.$.panels.setIndex(3);
-            }        
+            }
         }
     }
 });
@@ -159,7 +159,7 @@ enyo.ready(function(){
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"}
-        ])        
+        ])
     });
 
 //  Application to render sample

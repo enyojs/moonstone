@@ -17,7 +17,7 @@ enyo.kind({
         {
             classes: "moon-5h",
             components: [
-                {            
+                {
                     name: "image",
                     kind: "enyo.Image",
                     style: "width: 350px; height: 350px;"
@@ -123,5 +123,5 @@ enyo.ready(function() {
                 model: sampleModel
             }
         ]
-    });  
+    });
 });

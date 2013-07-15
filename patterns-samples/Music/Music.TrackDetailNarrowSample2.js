@@ -41,8 +41,8 @@ enyo.kind({
                         {
                             components: [
                                 {
-                                    kind: "moon.Divider", 
-                                    content: "Track Info" 
+                                    kind: "moon.Divider",
+                                    content: "Track Info"
                                 }
                             ],
                             attributes: {colspan: "2"}
@@ -79,11 +79,11 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    kind: "moon.Divider", 
+                    kind: "moon.Divider",
                     content: "More"
                 },
                 {
-                    kind: "Group", 
+                    kind: "Group",
                     components: [
                         {kind: "moon.SelectableItem", content: "Lyrics"},
                         {kind: "moon.SelectableItem", content: "Artist"},

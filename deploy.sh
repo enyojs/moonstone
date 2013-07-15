@@ -15,6 +15,6 @@ EOF
 else
 	mkdir -p $TARGET/images/
 	cp -r $SOURCE/images/*.* $TARGET/images/
-	mkdir -p $TARGET/fonts/	
-	cp -r $SOURCE/fonts/* $TARGET/fonts/	
+	mkdir -p $TARGET/fonts/
+	cp -r $SOURCE/fonts/* $TARGET/fonts/
 fi

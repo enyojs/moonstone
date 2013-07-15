@@ -6,7 +6,7 @@ enyo.kind({
 	//* @protected
     title: "SETTINGS CATEGORY",
 	components: [
-        { 
+        {
             kind: "FittableColumns",
             components: [
                 {
@@ -72,8 +72,8 @@ enyo.kind({
                             ]
                         }
                     ]
-                }  
-            ]  
+                }
+            ]
         }
     ],
 	bindings: [
@@ -119,7 +119,7 @@ enyo.ready(function(){
                 name: "settingCategoryController",
                 kind: "enyo.ModelController",
                 model: settingModel
-            }       
+            }
         ]
     });
 });

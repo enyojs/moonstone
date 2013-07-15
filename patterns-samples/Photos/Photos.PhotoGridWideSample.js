@@ -20,9 +20,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components: [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components: [
                         {
@@ -64,7 +64,7 @@ enyo.ready(function(){
             {imgSrc: "../assets/default-movie.png"},
             {imgSrc: "../assets/default-movie.png"},
             {imgSrc: "../assets/default-movie.png"}
-        ])        
+        ])
     });
 
 //  Application to render sample

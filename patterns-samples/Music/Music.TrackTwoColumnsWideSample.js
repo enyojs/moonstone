@@ -29,9 +29,9 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    kind: "enyo.Image",
                                                     classes: "moon-music-small-image",
-                                                    bindFrom: "coverUrl", 
+                                                    bindFrom: "coverUrl",
                                                     bindTo: "src"
                                                 }
                                             ],
@@ -41,7 +41,7 @@ enyo.kind({
                                             style: "height: 35px; width: 300px;"
                                         },
                                         {
-                                            bindFrom: "time", 
+                                            bindFrom: "time",
                                             attributes: {rowspan: "3"},
                                             style: "width: 200px"
                                         }
@@ -57,7 +57,7 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "artist", 
+                                            bindFrom: "artist",
                                             classes: "moon-superscript"
                                         }
                                     ]
