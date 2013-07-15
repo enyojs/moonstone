@@ -129,10 +129,10 @@ enyo.ready(function(){
                     subtitle: "STEP TITLE 01",
                     imgsrc: "../assets/album.PNG",
                     instruction: "INSTRUCTIONAL TEXT GOES HERE",
-                    detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet ipsum tortor,a       \
-                             hendrerit urna. Integer eget faucibus purus. Nunc non arcu turpis, venenatis aliquam neque. In \
-                             pulvinar lectus at orci fringilla eget consectetur arcu vulputate. Nullam sodales dui eu tellus\
-                             interdum vel volutpat velit semper."
+                    detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet ipsum tortor,a " +
+                            "hendrerit urna. Integer eget faucibus purus. Nunc non arcu turpis, venenatis aliquam neque. In " +
+                            "pulvinar lectus at orci fringilla eget consectetur arcu vulputate. Nullam sodales dui eu tellus" +
+                            "interdum vel volutpat velit semper."
                 },
                 {
                     id: "02",
@@ -181,7 +181,7 @@ enyo.ready(function(){
         }
     );
 
-    app = new enyo.Application({
+    new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
             components: [

@@ -198,9 +198,7 @@ enyo.kind({
 	},
 	updateKnobPosition: function(inValue) {
 		var percent = this.calcPercent(inValue),
-			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue,
-			label
-		;
+			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue;
 
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.applyStyle("left", percent + "%");

@@ -79,7 +79,7 @@ enyo.kind({
 			this.setValue(this.$.clientInput.value);
 			this.fireChangeEvent();
 		// no input text
-		} else if(this.value == "") {
+		} else if(this.value === "") {
 			this.$.currentValue.setContent(this.noneText);
 		// update the content of currentValue
 		} else if(this.value != this.$.currentValue.content) {

@@ -96,7 +96,7 @@ enyo.kind({
 	},
 	pushNextPanel: function(inImageIndex, inDirection) {
 		var next;
-		var before = undefined;
+		var before;
 		if (inDirection === "next") {
 			next = inImageIndex + 1;
 			if (next >= this.count) {

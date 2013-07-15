@@ -169,7 +169,7 @@ enyo.ready(function(){
 		}
 	);
 
-	var app = new enyo.Application({
+	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [

@@ -117,7 +117,7 @@ enyo.kind({
 			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
 
 			//log the optional action property
-			this.$.console.setContent("Action: " + (inEvent.action ? inEvent.action : "no action name provided"))
+			this.$.console.setContent("Action: " + (inEvent.action ? inEvent.action : "no action name provided"));
 		}
 
 		//log the active state of the ListAction drawer

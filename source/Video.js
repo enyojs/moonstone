@@ -316,7 +316,7 @@ enyo.kind({
 			newTime = this.getCurrentTime() - adjustedDistance
 		;
 
-		this.setCurrentTime(newTime)
+		this.setCurrentTime(newTime);
 		this.startRewindJob();
 	},
 	//* Start rewind job
@@ -395,9 +395,7 @@ enyo.kind({
 	},
 	//* Emit _onPlay_ event (to normalize enyo-generated _onPlay_ events)
 	_play: function(inSender, inEvent) {
-		var node = this.hasNode(),
-			pbNumber
-		;
+		var node = this.hasNode();
 
 		if (!node) {
 			return;

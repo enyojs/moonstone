@@ -425,7 +425,7 @@ enyo.kind({
 		}
 	},
 	scrollToNodex: function(inNode, inAlignWithTop) {
-		this.log(inControl);
+		this.log(inNode);
 		this.log(inAlignWithTop);
 	},
 	//* Scrolls to a specific (x, y) position within the scroll area.
@@ -439,7 +439,7 @@ enyo.kind({
 
 		// TODO - fix this error condition -> scroll strategy and scroll math are out of sync!
 		var diff = Math.round(this.$.scrollMath.y) * -1 - this.getScrollTop();
-		if (diff != 0) {
+		if (diff !== 0) {
 			this.scrollTo(this.getScrollLeft(), this.getScrollTop() + diff);
 		}
 	},

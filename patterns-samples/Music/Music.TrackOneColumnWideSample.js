@@ -154,7 +154,7 @@ enyo.ready(function (){
                 changeName: function(inSender, inEvent) {
                     /** Todo: find the way how to access active datalist row */
                     //inSender.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.controller.set("track", "Good track");
-                    var controller = inEvent.originator.controller || inEvent.originator.parent.controller;
+                    //var controller = inEvent.originator.controller || inEvent.originator.parent.controller;
                 }
             }
         ]
