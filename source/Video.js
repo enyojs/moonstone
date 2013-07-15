@@ -148,18 +148,18 @@ enyo.kind({
 		}
 
 		switch (this._prevCommand) {
-			case "pause":
-				this.selectPlaybackRateArray("slowForward");
-				this._speedIndex = 0;
-				node.play();
-				break;
-			case "fastForward":
-				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
-				break;
-			default:
-				this.selectPlaybackRateArray("fastForward");
-				this._speedIndex = 0;
-				break;
+		case "pause":
+			this.selectPlaybackRateArray("slowForward");
+			this._speedIndex = 0;
+			node.play();
+			break;
+		case "fastForward":
+			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+			break;
+		default:
+			this.selectPlaybackRateArray("fastForward");
+			this._speedIndex = 0;
+			break;
 		}
 
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
@@ -173,18 +173,18 @@ enyo.kind({
 		}
 
 		switch (this._prevCommand) {
-			case "pause":
-				this.selectPlaybackRateArray("slowRewind");
-				this._speedIndex = 0;
-				node.play();
-				break;
-			case "rewind":
-				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
-				break;
-			default:
-				this.selectPlaybackRateArray("rewind");
-				this._speedIndex = 0;
-				break;
+		case "pause":
+			this.selectPlaybackRateArray("slowRewind");
+			this._speedIndex = 0;
+			node.play();
+			break;
+		case "rewind":
+			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+			break;
+		default:
+			this.selectPlaybackRateArray("rewind");
+			this._speedIndex = 0;
+			break;
 		}
 
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));

@@ -286,18 +286,18 @@ enyo.kind({
 		}
 
 		switch (inEvent.originator.side) {
-			case "left":
-				this.pos.left = this.pos.left - this.hPageSize;
-				break;
-			case "top":
-				this.pos.top = this.pos.top - this.vPageSize;
-				break;
-			case "right":
-				this.pos.left = this.pos.left + this.hPageSize;
-				break;
-			case "bottom":
-				this.pos.top = this.pos.top + this.vPageSize;
-				break;
+		case "left":
+			this.pos.left = this.pos.left - this.hPageSize;
+			break;
+		case "top":
+			this.pos.top = this.pos.top - this.vPageSize;
+			break;
+		case "right":
+			this.pos.left = this.pos.left + this.hPageSize;
+			break;
+		case "bottom":
+			this.pos.top = this.pos.top + this.vPageSize;
+			break;
 		}
 
 		if (this.pos[orientV ? "top" : "left"] > (orientV ? sb.maxTop : sb.maxLeft)) {

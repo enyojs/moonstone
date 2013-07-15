@@ -71,24 +71,22 @@ enyo.kind({
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			var subtitle = "";
 			switch (inEvent.action) {
-				case "sort": {
-					this.sortAction = inEvent.toggledControl.getContent();
-					subtitle = inEvent.toggledControl.getContent();
-					if (this.filterAction) {
-						subtitle += " / " + this.filterAction;
-					}
-					this.$.header.setTitleBelow(subtitle);
+			case "sort":
+				this.sortAction = inEvent.toggledControl.getContent();
+				subtitle = inEvent.toggledControl.getContent();
+				if (this.filterAction) {
+					subtitle += " / " + this.filterAction;
 				}
+				this.$.header.setTitleBelow(subtitle);
 				break;
-				case "filter": {
-					this.filterAction = inEvent.toggledControl.getContent();
-					if (this.sortAction) {
-						subtitle = this.sortAction + " / " + this.filterAction;
-					} else {
-						subtitle = this.filterAction;
-					}
-					this.$.header.setTitleBelow(subtitle);
+			case "filter":
+				this.filterAction = inEvent.toggledControl.getContent();
+				if (this.sortAction) {
+					subtitle = this.sortAction + " / " + this.filterAction;
+				} else {
+					subtitle = this.filterAction;
 				}
+				this.$.header.setTitleBelow(subtitle);
 				break;
 			}
 		}
