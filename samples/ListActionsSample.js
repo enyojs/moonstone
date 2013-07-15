@@ -42,7 +42,7 @@ enyo.kind({
 							{content:"Comedy", kind:"moon.ToggleItem"},
 							{content:"Drama", kind:"moon.ToggleItem"}
 						]}
-					],
+					]
 				},
 				{
 					action: "menu-language",
@@ -88,7 +88,7 @@ enyo.kind({
 							{content:"Comedy", kind:"moon.ToggleItem"},
 							{content:"Drama", kind:"moon.ToggleItem"}
 						]}
-					],
+					]
 				},
 				{
 					action: "menu-language",

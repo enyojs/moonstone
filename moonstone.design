@@ -1,250 +1,402 @@
 {
-    "palette": [
-        {
-            "name": "moonstone",
-            "items": [
-                {
-                    "name": "moon.Accordion",
-                    "kind": "moon.Accordion",
-                    "description": "An accordion component",
-                    "config": {
-                        "kind": "moon.Accordion",
-                        "open": true,
-                        "content": "Accordion",
-                        "components": [
-                            {"kind": "moon.Item", "content": "Item 1"},
-                            {"kind": "moon.Item", "content": "Item 2"},
-                            {"kind": "moon.Item", "content": "Item 3"}
-                        ]
-                    }
-                },
-                {
-                    "name": "moon.Button",
-                    "kind": "moon.Button",
-                    "description": "A button component",
-                    "config": {
-                        "kind": "moon.Button",
-                        "content": "Button"
-                    }
-                },
-                {
-                    "name": "moon.CheckboxItem",
-                    "kind": "moon.CheckboxItem",
-                    "description": "A single checkbox item",
-                    "config": {
-                        "kind": "moon.CheckboxItem",
-                        "content": "Option",
-                        "checked": true
-                    }
-                },
-                {
-                    "name": "moon.CheckboxItem (Grouped)",
-                    "kind": "Group",
-                    "description": "A group checkbox item",
-                    "config": {
-                        "kind": "Group",
-                        "components": [
-                            {"kind": "moon.CheckboxItem", "content": "Option 1"},
-                            {"kind": "moon.CheckboxItem", "content": "Option 2", "checked": true},
-                            {"kind": "moon.CheckboxItem", "content": "Option 3"}
-                        ]
-                    }
-                },
-                {
-                    "name": "moon.ContextualPopup",
-                    "kind": "moon.ContextualPopupDecorator",
-                    "description": "A contextual Popup",
-                    "config": {
-                        "kind": "moon.ContextualPopupDecorator",
-                        "components": [
-                            {"content": "ContextualPopup"},
-                            {
-                                "kind": "moon.ContextualPopup",
-                                "components": [
-                                    {"content": "Item 1"},
-                                    {"content": "Item 2"},
-                                    {"content": "Item 3"}
-                                ]
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "moon.Divider",
-                    "kind": "moon.Divider",
-                    "description": "A divider",
-                    "config": {
-                        "kind": "moon.Divider",
-                        "content": "Divider"
-                    }
-                },
-                {
-                    "name": "moon.Header",
-                    "kind": "moon.Header",
-                    "description": "A simple header",
-                    "config": {
-                        "kind": "moon.Header",
-                        "content": "Simple Header"
-                    }
-                },
-                {
-                    "name": "moon.Header (Captioned)",
-                    "kind": "moon.Header",
-                    "description": "A captioned header",
-                    "config": {
-                        "kind": "moon.Header",
-                        "content": "Captioned Header",
-                        "titleAbove": "02",
-                        "titleBelow": "Sub Header"
-                    }
-                },
-                {
-                    "name": "moon.Input",
-                    "kind": "moon.Input",
-                    "description": "A test input",
-                    "config": {
-                        "name": "moon.Input",
-                        "kind": "moon.InputDecorator",
-                        "components": [{
-                            "kind": "moon.Input",
-                            "placeholder": "Text Input"
-                        }]
-                    }
-                },
-                {
-                    "name": "moon.RichText",
-                    "kind": "moon.RichText",
-                    "description": "A rich test",
-                    "config": {
-                        "name": "moon.RichText",
-                        "kind": "moon.InputDecorator",
-                        "components": [{
-                            "kind": "moon.RichText",
-                            "placeholder": "Rich Text"
-                        }]
-                    }
-                },
-                {
-                    "name": "moon.TextArea",
-                    "kind": "moon.TextArea",
-                    "description": "A text area",
-                    "config": {
-                        "name": "moon.TextArea",
-                        "kind": "moon.InputDecorator",
-                        "components": [{
-                            "kind": "moon.TextArea",
-                            "placeholder": "Text Area"
-                        }]
-                    }
-                },
-                {
-                    "name": "moon.Item",
-                    "kind": "moon.Item",
-                    "description": "An item",
-                    "config": {
-                        "kind": "moon.Item",
-                        "content": "Item"
-                    }
-                },
-                {
-                    "name": "moon.LabeledTextItem",
-                    "kind": "moon.LabeledTextItem",
-                    "description": "A labeled text item",
-                    "config": {
-                        "kind": "moon.LabeledTextItem",
-                        "label": "Text Title",
-                        "text": "This is a labeled text item. This is an example for the text contents."
-                    }
-                },
-                {
-                    "name": "moon.RadioItemGroup",
-                    "kind": "moon.RadioItemGroup",
-                    "config": {
-                        "name": "moon.RadioItemGroup",
-                        "kind": "moon.RadioItemGroup",
-                        "components": [
-                            {"content": "Option 1"},
-                            {"content": "Option 2"},
-                            {"content": "Option 3"}
-                        ]
-                    }
-                },
-                {
-                    "name": "moon.SelectableItem",
-                    "kind": "moon.SelectableItem",
-                    "config": {
-                        "kind": "moon.SelectableItem",
-                        "content": "Selectable Item"
-                    }
-                },
-                {
-                    "name": "moon.SimpleIntegerPicker",
-                    "kind": "moon.SimpleIntegerPicker",
-                    "description": "A simple integer picker",
-                    "config": {
-                        "name": "moon.SimpleIntegerPicker",
-                        "kind": "moon.SimpleIntegerPicker",
-                        "value": 3,
-                        "min": 1,
-                        "max": 10,
-                        "step": 1,
-                        "unit": "sec"
-                    }
-                },
-                {
-                    "name": "moon.Slider",
-                    "kind": "moon.Slider",
-                    "description": "A simple slider",
-                    "config": {
-                        "name": "moon.Slider",
-                        "kind": "moon.Slider",
-                        "value": 25,
-                        "bgProgress": 35
-                    }
-                },
-                {
-                    "name": "moon.Spinner",
-                    "kind": "moon.Spinner",
-                    "description": "A spinner",
-                    "config": {
-                        "name": "moon.Spinner",
-                        "kind": "moon.Spinner"
-                    }
-                },
-                {
-                    "name": "moon.TimePicker",
-                    "kind": "moon.TimePicker",
-                    "description": "A time picker",
-                    "config": {
-                        "name": "Time Picker",
-                        "kind": "moon.TimePicker",
-                        "content": "Time"
-                    }
-                },
-                {
-                    "name": "moon.ToggleItem",
-                    "kind": "moon.ToggleItem",
-                    "description": "A toggle item",
-                    "config": {
-                        "name": "moon.ToggleItem",
-                        "kind": "moon.ToggleItem",
-                        "content": "Toggle Option"
-                    }
-                },
-                {
-                    "name": "moon.ToggleItem (Grouped)",
-                    "kind": "moon.ToggleItem",
-                    "description": "A group toggle item",
-                    "config": {
-                        "kind": "Group",
-                        "components": [
-                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 1", "checked": true},
-                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 2"},
-                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 3"}
-                        ]
-                    }
-                }
-            ]
-        }
-    ]
+	"palette": [
+		{
+			"name" : "moonstone(view)",
+			"items" : [
+				{
+					"name": "Music.TrackDetailNarrowSampleView",
+					"kind": "Music.TrackDetailNarrowSampleView",
+					"options": {
+						"isViewTemplate": true
+					},
+					"config": {
+						"name": "Music.TrackDetailNarrowSampleView",
+						"kind": "moon.Panel",
+						"components": [
+							{
+								"kind" : "enyo.Table",
+								"classes": "moon-5h",
+								"components" : [
+									{
+										"components": [
+											{
+												"components": [
+													{
+														"name": "image",
+														"kind": "enyo.Image",
+														"style": "width: 350px; height: 350px;"
+													}
+												],
+												"attributes": {"colspan": "2"}
+											}
+										]
+									},
+									{
+										"components": [
+											{"content": "Released"},
+											{"name": "released"}
+										]
+									},
+									{
+										"components": [
+											{"content": "Genre"},
+											{"name": "genre"}
+										]
+									}
+								]
+							},
+							{
+								"fit": true,
+								"components": [
+									{
+										"kind": "moon.Divider",
+										"content": "More"
+									},
+									{
+										"kind": "Group",
+										"components": [
+											{"kind": "moon.SelectableItem", "content": "Lyrics"},
+											{"kind": "moon.SelectableItem", "content": "Artist"},
+											{"kind": "moon.SelectableItem", "content": "Album"},
+											{"kind": "moon.SelectableItem", "content": "Similar Track"},
+											{"kind": "moon.SelectableItem", "content": "Related Videos"}
+										]
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name": "Music.TrackDetailWideSampleView",
+					"kind": "Music.TrackDetailWideSampleView",
+					"options": {
+						"isViewTemplate": true
+					},
+					"config": {
+						"name": "Music.TrackDetailWideSampleView",
+						"kind": "moon.Panel",
+						"layoutKind": "FittableColumnsLayout",
+						"components": [
+							{
+								"kind": "enyo.Table",
+								"classes": "moon-5h",
+								"components": [
+									{
+										"components": [
+											{
+												"components": [
+													{
+														"name": "image",
+														"kind": "enyo.Image",
+														"style": "width: 350px; height: 350px;"
+													}
+												],
+												"attributes": {"colspan": "2"}
+											}
+										]
+									},
+									{
+										"components": [
+											{"content": "Released"},
+											{"name": "released"}
+										]
+									},
+									{
+										"components": [
+											{"content": "Genre"},
+											{"name": "genre"}
+										]
+									}
+								]
+							},
+							{
+								"kind": "FittableRows",
+								"fit": true,
+								"components": [
+									{"kind": "moon.Divider", "content": "Lyrics"},
+									{
+										"kind": "moon.Scroller",
+										"fit": true,
+										"components": [
+											{
+												"allowHtml": true,
+												"name": "lyrics"
+											}
+										]
+									}
+								]
+							},
+							{
+								"kind": "FittableRows",
+								"classes": "moon-5h",
+								"components": [
+									{"kind": "moon.Divider", "content": "More"},
+									{
+										"kind": "Group",
+										"fit": true,
+										"components": [
+											{"kind": "moon.SelectableItem", "content": "Artist"},
+											{"kind": "moon.SelectableItem", "content": "Album"},
+											{"kind": "moon.SelectableItem", "content": "Similar Track"},
+											{"kind": "moon.SelectableItem", "content": "Related Videos"}
+										]
+									}
+								]
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "moonstone",
+			"items": [
+				{
+					"name": "moon.Accordion",
+					"kind": "moon.Accordion",
+					"options": {
+						"isView": true
+					},
+					"description": "An accordion component",
+					"config": {
+						"kind": "moon.Accordion",
+						"open": true,
+						"content": "Accordion",
+						"components": [
+							{"kind": "moon.Item", "content": "Item 1"},
+							{"kind": "moon.Item", "content": "Item 2"},
+							{"kind": "moon.Item", "content": "Item 3"}
+						]
+					}
+				},
+				{
+					"name": "moon.Button",
+					"kind": "moon.Button",
+					"description": "A button component",
+					"config": {
+						"kind": "moon.Button",
+						"content": "Button"
+					}
+				},
+				{
+					"name": "moon.CheckboxItem",
+					"kind": "moon.CheckboxItem",
+					"description": "A single checkbox item",
+					"config": {
+						"kind": "moon.CheckboxItem",
+						"content": "Option",
+						"checked": true
+					}
+				},
+				{
+					"name": "moon.CheckboxItem (Grouped)",
+					"kind": "Group",
+					"description": "A group checkbox item",
+					"config": {
+						"kind": "Group",
+						"components": [
+							{"kind": "moon.CheckboxItem", "content": "Option 1"},
+							{"kind": "moon.CheckboxItem", "content": "Option 2", "checked": true},
+							{"kind": "moon.CheckboxItem", "content": "Option 3"}
+						]
+					}
+				},
+				{
+					"name": "moon.ContextualPopup",
+					"kind": "moon.ContextualPopupDecorator",
+					"description": "A contextual Popup",
+					"config": {
+						"kind": "moon.ContextualPopupDecorator",
+						"components": [
+							{"content": "ContextualPopup"},
+							{
+								"kind": "moon.ContextualPopup",
+								"components": [
+									{"content": "Item 1"},
+									{"content": "Item 2"},
+									{"content": "Item 3"}
+								]
+							}
+						]
+					}
+				},
+				{
+					"name": "moon.Divider",
+					"kind": "moon.Divider",
+					"description": "A divider",
+					"config": {
+						"kind": "moon.Divider",
+						"content": "Divider"
+					}
+				},
+				{
+					"name": "moon.Header",
+					"kind": "moon.Header",
+					"description": "A simple header",
+					"config": {
+						"kind": "moon.Header",
+						"content": "Simple Header"
+					}
+				},
+				{
+					"name": "moon.Header (Captioned)",
+					"kind": "moon.Header",
+					"description": "A captioned header",
+					"config": {
+						"kind": "moon.Header",
+						"content": "Captioned Header",
+						"titleAbove": "02",
+						"titleBelow": "Sub Header"
+					}
+				},
+				{
+					"name": "moon.Input",
+					"kind": "moon.Input",
+					"description": "A test input",
+					"config": {
+						"name": "moon.Input",
+						"kind": "moon.InputDecorator",
+						"components": [{
+							"kind": "moon.Input",
+							"placeholder": "Text Input"
+						}]
+					}
+				},
+				{
+					"name": "moon.RichText",
+					"kind": "moon.RichText",
+					"description": "A rich test",
+					"config": {
+						"name": "moon.RichText",
+						"kind": "moon.InputDecorator",
+						"components": [{
+							"kind": "moon.RichText",
+							"placeholder": "Rich Text"
+						}]
+					}
+				},
+				{
+					"name": "moon.TextArea",
+					"kind": "moon.TextArea",
+					"description": "A text area",
+					"config": {
+						"name": "moon.TextArea",
+						"kind": "moon.InputDecorator",
+						"components": [{
+							"kind": "moon.TextArea",
+							"placeholder": "Text Area"
+						}]
+					}
+				},
+				{
+					"name": "moon.Item",
+					"kind": "moon.Item",
+					"description": "An item",
+					"config": {
+						"kind": "moon.Item",
+						"content": "Item"
+					}
+				},
+				{
+					"name": "moon.LabeledTextItem",
+					"kind": "moon.LabeledTextItem",
+					"description": "A labeled text item",
+					"config": {
+						"kind": "moon.LabeledTextItem",
+						"label": "Text Title",
+						"text": "This is a labeled text item. This is an example for the text contents."
+					}
+				},
+				{
+					"name": "moon.RadioItemGroup",
+					"kind": "moon.RadioItemGroup",
+					"config": {
+						"name": "moon.RadioItemGroup",
+						"kind": "moon.RadioItemGroup",
+						"components": [
+							{"content": "Option 1"},
+							{"content": "Option 2"},
+							{"content": "Option 3"}
+						]
+					}
+				},
+				{
+					"name": "moon.SelectableItem",
+					"kind": "moon.SelectableItem",
+					"config": {
+						"kind": "moon.SelectableItem",
+						"content": "Selectable Item"
+					}
+				},
+				{
+					"name": "moon.SimpleIntegerPicker",
+					"kind": "moon.SimpleIntegerPicker",
+					"description": "A simple integer picker",
+					"config": {
+						"name": "moon.SimpleIntegerPicker",
+						"kind": "moon.SimpleIntegerPicker",
+						"value": 3,
+						"min": 1,
+						"max": 10,
+						"step": 1,
+						"unit": "sec"
+					}
+				},
+				{
+					"name": "moon.Slider",
+					"kind": "moon.Slider",
+					"description": "A simple slider",
+					"config": {
+						"name": "moon.Slider",
+						"kind": "moon.Slider",
+						"value": 25,
+						"bgProgress": 35
+					}
+				},
+				{
+					"name": "moon.Spinner",
+					"kind": "moon.Spinner",
+					"description": "A spinner",
+					"config": {
+						"name": "moon.Spinner",
+						"kind": "moon.Spinner"
+					}
+				},
+				{
+					"name": "moon.TimePicker",
+					"kind": "moon.TimePicker",
+					"description": "A time picker",
+					"config": {
+						"name": "Time Picker",
+						"kind": "moon.TimePicker",
+						"content": "Time"
+					}
+				},
+				{
+					"name": "moon.ToggleItem",
+					"kind": "moon.ToggleItem",
+					"description": "A toggle item",
+					"config": {
+						"name": "moon.ToggleItem",
+						"kind": "moon.ToggleItem",
+						"content": "Toggle Option"
+					}
+				},
+				{
+					"name": "moon.ToggleItem (Grouped)",
+					"kind": "moon.ToggleItem",
+					"description": "A group toggle item",
+					"config": {
+						"kind": "Group",
+						"components": [
+							{"kind": "moon.ToggleItem", "content": "Group Toggle Option 1", "checked": true},
+							{"kind": "moon.ToggleItem", "content": "Group Toggle Option 2"},
+							{"kind": "moon.ToggleItem", "content": "Group Toggle Option 3"}
+						]
+					}
+				}
+			]
+		}
+	]
 }
