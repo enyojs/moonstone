@@ -24,7 +24,8 @@ enyo.kind({
 enyo.kind({
     //* @public
     name: "moon.sample.search.SearchFullSample",
-    kind: "moon.InputPanel",
+    kind: "moon.Panel",
+    headerOption: {kind:"moon.InputHeader"},
     handlers: {
         "onInputChanged": "onInputChanged"
     },
