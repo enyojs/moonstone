@@ -44,6 +44,5 @@ enyo.kind({
 	scrollToControl: function(inControl, inScrollFullPage) {
 		this.$.strategy.animateToControl(inControl, inScrollFullPage);
 	}
-	
 	//* @protected
 });
