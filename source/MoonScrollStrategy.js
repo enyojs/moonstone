@@ -1,14 +1,11 @@
 /**
-	_enyo.TouchScrollStrategy_ is a helper kind for implementing a touch-based
-	scroller. It integrates the scrolling simulation provided by
-	<a href="#enyo.ScrollMath">enyo.ScrollMath</a> into an
-	<a href="#enyo.Scroller">enyo.Scroller</a>.
-
-	_enyo.TouchScrollStrategy_ is not typically created in application code.
-	Instead, it is specified as the value of the `strategyKind` property of an
-	`enyo.Scroller` or <a href="#enyo.List">enyo.List</a>, or is used by the
-	framework implicitly.
+	_moon.ScrollStrategy_ inherits from
+	<a href="#enyo.TouchScrollStrategy">enyo.TouchScrollStrategy</a>. Its main
+	purpose is to handle scroller paging for
+	<a href="#moon.Scroller">moon.Scroller</a> and
+	<a href="#moon.List">moon.List</a>.
 */
+
 enyo.kind({
 	name: "moon.ScrollStrategy",
 	kind: "enyo.TouchScrollStrategy",
