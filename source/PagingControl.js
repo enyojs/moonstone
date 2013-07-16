@@ -24,7 +24,7 @@ enyo.kind({
 	},
 
 	downTime: 0,
-	initialDelta: 1,
+	initialDelta: 2.5,
 	delta: 0,
 	maxDelta: 100,
 	bumpDeltaMultiplier: 3,
