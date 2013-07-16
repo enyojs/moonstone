@@ -2248,6 +2248,7 @@ body .enyo-fit.panels-50-percent-scrim,
   width: 40px;
   min-width: 40px;
   height: 40px;
+  line-height: 40px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -3316,6 +3317,49 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   line-height: 14px;
   font-weight: normal;
   margin-bottom: 8px;
+}
+/* FormCheckbox.css */
+.moon-formcheckbox-item {
+  display: block;
+  height: 37px;
+  position: relative;
+  margin-bottom: 33px;
+}
+.moon-formcheckbox-item .moon-checkbox {
+  position: absolute;
+  top: 0px;
+  width: 37px;
+  height: 37px;
+  margin-top: 2px;
+  border-radius: 20px;
+  border: 0px;
+  background-color: #999999;
+  background-position: 3px 8px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
+  right: 0px;
+}
+.moon-formcheckbox-item .moon-checkbox .moon-overlay {
+  background: transparent url(../images/checkbox.png) no-repeat 3px -29px;
+}
+.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  height: 37px;
+  margin: 0px 0px 0px 47px;
+  padding: 0px 10px 0px 10px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  margin: 0px 47px 0px 0px;
+}
+.moon-formcheckbox-item.spotlight .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  background-color: #ffb80d;
+}
+.moon-formcheckbox-item .moon-formcheckbox-item-label {
+  float: left;
+  white-space: nowrap;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item-label {
+  float: right;
+  white-space: nowrap;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
