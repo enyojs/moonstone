@@ -14,13 +14,6 @@
 	background-color: @moon-light-gray;
 }
 
-.enyo-locale-non-latin .moon,
-.enyo-locale-non-latin input,
-.enyo-locale-non-latin textarea,
-.enyo-locale-non-latin button {
-	font-family: @moon-non-latin-font-family;
-}
-
 .moon-header-font {
 	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
@@ -29,10 +22,6 @@
 .enyo-locale-right-to-left .moon
 {
    direction:rtl;
-}
-
-.enyo-locale-non-latin .moon-header-font {
-	font-family: @moon-non-latin-font-family;
 }
 
 .moon-no-border {
@@ -128,6 +117,27 @@
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
 }
+
+.enyo-locale-non-latin {
+	.moon input, 
+	.moon textarea, 
+	.moon button,
+	.moon-header-font,
+	.moon-superscript,
+	.moon-pre-text,
+	.moon-large-text,
+	.moon-header-text,
+	.moon-sub-header-text,
+	.moon-divider-text,
+	.moon-body-text,
+	.moon-large-button-text,
+	.moon-small-button-text {
+		font-family: @moon-non-latin-font-family;
+	}
+}
+
+
+
 /* LESS pre-calculations */
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
