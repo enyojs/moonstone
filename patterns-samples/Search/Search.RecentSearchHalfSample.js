@@ -1,9 +1,9 @@
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
-    kind: "moon.SearchPanel",
+    kind: "moon.InputPanel",
 	classes: "moon-search",
     handlers: {
-        onSearch: ""
+        "onInputChanged": "onInputChanged"
     },
     titleAbove: "02",
     title: "SEARCH",
