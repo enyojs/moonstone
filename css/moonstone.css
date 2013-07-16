@@ -332,12 +332,12 @@
   vertical-align: middle;
   font-family: "Miso";
 }
-.moon-calendar-picker-button {
-  margin: 2px 0px;
-  font-size: 64px;
-}
 .moon-simple-picker-button.spotlight {
   background: #ffb80d;
+}
+.moon-simple-picker-button-bold {
+  margin: 2px 0px;
+  font-size: 64px;
 }
 .moon-simple-picker-client {
   padding: 0px;

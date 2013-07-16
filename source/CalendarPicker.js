@@ -125,7 +125,7 @@ enyo.kind({
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
-		this.$.simplePicker.addClass("moon-calendar-picker-button");
+		this.$.simplePicker.addClass("moon-simple-picker-button-bold");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i], classes: "picker-content"}
