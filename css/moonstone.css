@@ -3347,6 +3347,21 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   margin: 0px 0px 0px 47px;
   padding: 0px 10px 0px 10px;
 }
+.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label.marquee {
+  white-space: nowrap;
+  overflow-x: -webkit-marquee;
+  -webkit-marquee-direction: left;
+  -webkit-marquee-increment: 2px;
+  -webkit-marquee-repetition: infinite;
+  -webkit-marquee-speed: 3px;
+  -webkit-marquee-style: scroll;
+  overflow-x: marquee;
+  marquee-direction: left;
+  marquee-increment: 2px;
+  marquee-repetition: infinite;
+  marquee-speed: 3px;
+  marquee-style: scroll;
+}
 .enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
   margin: 0px 47px 0px 0px;
 }
