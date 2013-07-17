@@ -81,7 +81,7 @@ enyo.kind({
 	isScrolling: function() {
 		return this.$.scrollMath.isScrolling();
 	},
-	//* Whether or not the scroller is in overscrolling
+	//* Whether or not the scroller is in an overscrolling state
 	isOverscrolling: function() {
 		return this.$.scrollMath.isInOverScroll();
 	},
@@ -108,7 +108,7 @@ enyo.kind({
 		m.setScrollY(-inTop);
 		m.stabilize();
 	},
-	//* Scroll to specific x/y positions within the scroll area.
+	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
 		this.stop();
 		this._scrollTo(inX, inY);
@@ -116,7 +116,7 @@ enyo.kind({
 	
 	//* @protected
 	
-	//* Override TouchScrollStrategy default maxHeightChanged	
+	//* Overrides default _maxHeightChanged()_ method from _TouchScrollStrategy_. 	
 	maxHeightChanged: function() {
 		// content should cover scroller at a minimum if there's no max-height.
 		this.$.client.applyStyle("min-height", this.maxHeight ? null : "100%");
@@ -126,21 +126,21 @@ enyo.kind({
 	
 	// Event handling
 	
-	//* Disable dragging
+	//* Disables dragging.
 	shouldDrag: function(inSender, inEvent) { return true; },
-	//* On hold, stop scrolling
+	//* On _hold_, stops scrolling.
 	hold: function(inSender, inEvent) {
 		if (!this.isPageControl(inEvent.originator)) {
 			this.inherited(arguments);
 		}
 	},
-	//* On down, stop scrolling
+	//* On _down_, stops scrolling.
 	down: function(inSender, inEvent) {
 		if (!this.isPageControl(inEvent.originator) && this.isScrolling() && !this.isOverscrolling()) {
 			this.stop();
 		}
 	},
-	//* On mousewheel, scroll a fixed amount
+	//* On _mousewheel_, scrolls a fixed amount.
 	mousewheel: function(inSender, inEvent) {
 		var x = null,
 			y = null,
@@ -161,18 +161,18 @@ enyo.kind({
 		inEvent.preventDefault();
 		return true;
 	},
-	//* On enter, set _this.hovering_ to true and show pagination controls.
+	//* On _enter_, sets _this.hovering_ to true and shows pagination controls.
 	enter: function() {
 		this.hovering = true;
 		this.showHidePageControls();
 		this.showHideScrollColumns(true);
 	},
-	//* On leave, set _this.hovering_ to false and hide pagination controls.
+	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
 	leave: function() {
 		this.hovering = false;
 		this.showHideScrollColumns(false);
 	},
-	//* Handle _paginate_ event sent from PagingControl buttons.
+	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		var scrollDelta = inEvent.scrollDelta * this.paginationPageMultiplier,
 			side = inEvent.originator.side,
@@ -199,7 +199,7 @@ enyo.kind({
 		
 		return true;
 	},
-	//* Handle _paginateScroll_ event sent from PagingControl buttons.
+	//* Handles _paginateScroll_ event sent from PagingControl buttons.
 	paginateScroll: function(inSender, inEvent) {
 		if (!inEvent || !inEvent.scrollDelta) {
 			return;
@@ -271,11 +271,11 @@ enyo.kind({
 	
 	
 	
-	//* Scroll to specific x/y positions within the scroll area.
+	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY);
 	},
-	//* Return true if _inControl_ is one of four page controls
+	//* Returns true if _inControl_ is one of four page controls.
 	isPageControl: function(inControl) {
 		return (
 			inControl === this.$.pageUpControl ||
