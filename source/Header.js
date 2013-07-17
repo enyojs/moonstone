@@ -155,10 +155,11 @@ enyo.kind({
 		this.$.animator.play("expandToLarge");
 		this.collapsed = false;
 	},
-	animateCollapse: function() {
+	animateCollapse: function(inWidth) {
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
+		inWidth = inWidth || 160;
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
 		this.animProps = {
@@ -178,7 +179,7 @@ enyo.kind({
 			"padding-top" : titleAboveStyle["padding-top"],
 			"padding-bottom" : titleAboveStyle["padding-bottom"]
 		};
-
+		
 		this.$.animator.newAnimation({
 			name: "collapse",
 			duration: 800,
@@ -253,9 +254,9 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "160px",
-						"min-width" : "160px",
-						"max-width" : "160px"
+						"width" : inWidth + "px",
+						"min-width" : inWidth + "px",
+						"max-width" : inWidth + "px"
 					}
 				}],
 
