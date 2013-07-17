@@ -172,13 +172,13 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "200px"
+						"width" : this.container.layout.breadcrumbWidth + "px"
 					}
 				}]
 			}
 		});
 
-		this.$.header.animateCollapse();
+		this.$.header.animateCollapse(this.container.layout.breadcrumbWidth);
 		this.$.animator.play("preTransition");
 	},
 	growPanel: function() {
@@ -196,7 +196,7 @@ enyo.kind({
 				25: [{
 					control: this,
 					properties: {
-						"width" : this.actualWidth+"px"
+						"width" : this.actualWidth + "px"
 					}
 				},
 				{
