@@ -10,6 +10,8 @@ enyo.kind({
 		{
 			name: "pickersInfo",
 			kind: "moon.DataList",
+			scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+			fit: true,
 			components: [
 				{
 					kind: "moon.ExpandablePicker",
