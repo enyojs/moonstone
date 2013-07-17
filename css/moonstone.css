@@ -3230,13 +3230,10 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   width: 80px;
   height: 80px;
 }
-.moon-scroller-client-wrapper {
+.moon-scroller-client-wrapper,
+.moon-scroller-viewport {
   box-sizing: border-box;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+  height: 100%;
   overflow: hidden;
 }
 /* CSS for moon.ScrollStrategy */
@@ -3259,10 +3256,10 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-  right: 50px;
+  padding-right: 50px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-  bottom: 50px;
+  padding-bottom: 50px;
 }
 /* Default states for horizontal and vertical scrollbars */
 .moon-scroller-v-column,

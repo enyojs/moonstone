@@ -28,7 +28,9 @@ enyo.kind({
 	],
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
-			{name: "client", classes: "enyo-touch-scroller matrix-scroll-client matrix3dsurface"}
+			{name: "viewport", classes:"moon-scroller-viewport", components: [
+				{name: "client", classes: "enyo-touch-scroller matrix-scroll-client matrix3dsurface"}
+			]}
 		]},
 		{name: "vColumn", classes: "moon-scroller-v-column", components: [
 			{name: "pageUpControl", kind: "moon.PagingControl", classes: "hidden", side: "top", content: "<", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
@@ -114,7 +116,13 @@ enyo.kind({
 	
 	//* @protected
 	
-	
+	//* Override TouchScrollStrategy default maxHeightChanged	
+	maxHeightChanged: function() {
+		// content should cover scroller at a minimum if there's no max-height.
+		this.$.client.applyStyle("min-height", this.maxHeight ? null : "100%");
+		this.$.client.applyStyle("max-height", this.maxHeight);
+		this.$.clientContainer.addRemoveClass("enyo-scrollee-fit", !this.maxHeight);
+	},
 	
 	// Event handling
 	
