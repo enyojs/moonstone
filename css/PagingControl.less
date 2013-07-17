@@ -1,30 +1,39 @@
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
 	position:absolute;
-	z-index:150;
+	z-index: 150;
 	text-align: center;
-	line-height: 1.34em;
+	line-height: 42px;
 	background: transparent;
 	opacity: 1;
 	font-family: @moon-alt-font-family;
+	transform: translateZ(1px);
+	-o-transform: translateZ(1px);
+	-ms-transform: translateZ(1px);
+	-moz-transform: translateZ(1px);
+	-webkit-transform: translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.hidden {
 	opacity: 0;
 }
 .moon-icon-button.moon-paging-button.top {
 	top: 0px;
-	transform: rotate(90deg);
-	-ms-transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg) translateZ(1px);
+	-o-transform: rotate(90deg) translateZ(1px);
+	-ms-transform: rotate(90deg) translateZ(1px);
+	-moz-transform: rotate(90deg) translateZ(1px);
+	-webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.right {
 	right: 0px;
 }
 .moon-icon-button.moon-paging-button.bottom {
 	bottom: 0px;
-	transform: rotate(90deg);
-	-ms-transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg) translateZ(1px);
+	-o-transform: rotate(90deg) translateZ(1px);
+	-ms-transform: rotate(90deg) translateZ(1px);
+	-moz-transform: rotate(90deg) translateZ(1px);
+	-webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
 	left: 0px;
