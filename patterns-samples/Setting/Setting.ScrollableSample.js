@@ -55,7 +55,7 @@ enyo.kind({
                                 {
                                     name: "picker",
                                     kind: "moon.DataList",
-                                    scrollerOptions: "false",        
+                                    scrollerOptions: "false",
                                     components: [
                                         {
                                             kind: "moon.ExpandablePicker",
@@ -97,7 +97,7 @@ enyo.kind({
                                 {
                                     name: "picker2Info",
                                     kind: "moon.DataList",
-                                    scrollerOptions: "false",       
+                                    scrollerOptions: "false",
                                     components: [
                                         {
                                             kind: "moon.ExpandablePicker",
@@ -134,7 +134,7 @@ enyo.kind({
                                 {
                                     name: "picker2",
                                     kind: "moon.DataList",
-                                    scrollerOptions: "false",  
+                                    scrollerOptions: "false",
                                     components: [
                                         {
                                             kind: "moon.ExpandablePicker",
