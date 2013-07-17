@@ -1373,49 +1373,6 @@
   margin-right: 25px !important;
   padding-left: 0px !important;
 }
-/* Scroller Page Controls */
-.moon-icon-button.moon-paging-button {
-  position: absolute;
-  z-index: 150;
-  text-align: center;
-  line-height: 42px;
-  background: transparent;
-  opacity: 1;
-  font-family: "Miso";
-  transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  -ms-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -webkit-transform: translateZ(1px);
-}
-.moon-icon-button.moon-paging-button.hidden {
-  opacity: 0;
-}
-.moon-icon-button.moon-paging-button.top {
-  top: 0px;
-  transform: rotate(90deg) translateZ(1px);
-  -o-transform: rotate(90deg) translateZ(1px);
-  -ms-transform: rotate(90deg) translateZ(1px);
-  -moz-transform: rotate(90deg) translateZ(1px);
-  -webkit-transform: rotate(90deg) translateZ(1px);
-}
-.moon-icon-button.moon-paging-button.right {
-  right: 0px;
-}
-.moon-icon-button.moon-paging-button.bottom {
-  bottom: 0px;
-  transform: rotate(90deg) translateZ(1px);
-  -o-transform: rotate(90deg) translateZ(1px);
-  -ms-transform: rotate(90deg) translateZ(1px);
-  -moz-transform: rotate(90deg) translateZ(1px);
-  -webkit-transform: rotate(90deg) translateZ(1px);
-}
-.moon-icon-button.moon-paging-button.left {
-  left: 0px;
-}
-.moon-icon-button.moon-paging-button.hover:hover {
-  background-color: #ffb80d;
-}
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
@@ -1445,16 +1402,70 @@
   background-color: #fff;
   border: 4px solid transparent;
 }
-.moon-icon-button.active,
-.moon-icon-button.pressed,
-.moon-icon-button.spotlight.pressed,
-.moon-icon-button.spotlight:active {
-  background-position: 0 -42px;
+.moon-icon.moon-icon-button.active,
+.moon-icon.moon-icon-button.pressed,
+.moon-icon.moon-icon-button.spotlight.pressed,
+.moon-icon.moon-icon-button.spotlight:active {
+  background-position: 0px -42px;
   border: 4px solid #ffb80d;
   background-color: #ffffff;
 }
 .moon-icon-button.spotlight {
   background-color: #ffb80d;
+}
+/* Scroller Page Controls */
+.moon-icon-button.moon-paging-button {
+  position: absolute;
+  z-index: 150;
+  background: transparent url(../images/carat-large-up.png) no-repeat 7px 6px;
+  opacity: 1;
+  transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -webkit-transform: translateZ(1px);
+}
+.moon-icon-button.moon-paging-button.hidden {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+.moon-icon-button.moon-paging-button.top {
+  top: 0px;
+}
+.moon-icon-button.moon-paging-button.right {
+  right: 0px;
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
+}
+.moon-icon-button.moon-paging-button.bottom {
+  bottom: 0px;
+  transform: rotate(180deg) translateZ(1px);
+  -o-transform: rotate(180deg) translateZ(1px);
+  -ms-transform: rotate(180deg) translateZ(1px);
+  -moz-transform: rotate(180deg) translateZ(1px);
+  -webkit-transform: rotate(180deg) translateZ(1px);
+}
+.moon-icon-button.moon-paging-button.left {
+  left: 0px;
+  transform: rotate(270deg) translateZ(1px);
+  -o-transform: rotate(270deg) translateZ(1px);
+  -ms-transform: rotate(270deg) translateZ(1px);
+  -moz-transform: rotate(270deg) translateZ(1px);
+  -webkit-transform: rotate(270deg) translateZ(1px);
+}
+.moon-icon-button.moon-paging-button.hover:hover {
+  background-color: #ffb80d;
+}
+.moon-icon-button.moon-paging-button.hidden.hover:hover {
+  background-color: transparent;
+}
+.moon-paging-button.moon-icon.moon-icon-button.active,
+.moon-paging-button.moon-icon.moon-icon-button:active:hover,
+.moon-paging-button.moon-icon-toggle.active {
+  background-position: 7px 6px;
 }
 .moon-integer-picker {
   font-family: "MuseoSans 700";
@@ -2339,6 +2350,7 @@ body .enyo-fit.panels-50-percent-scrim,
   width: 40px;
   min-width: 40px;
   height: 40px;
+  line-height: 40px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
