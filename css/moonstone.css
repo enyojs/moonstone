@@ -46,8 +46,21 @@
 /* ----- MISO ------ */
 @font-face {
   font-family: "Miso";
+  src: local("LG Display-Regular");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Miso";
   src: local("☺"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
+  font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "Miso";
+  src: local("LG Display-Regular");
+  font-weight: bold;
   font-style: normal;
 }
 @font-face {
@@ -55,23 +68,51 @@
   src: local("☺"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "Miso";
+  src: local("LG Display-Regular");
+  font-weight: 100;
+  font-style: normal;
 }
 @font-face {
   font-family: "Miso";
   src: local("☺"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
+  unicode-range: U+00-FF;
 }
 /* ----- Museo Sans ------ */
+@font-face {
+  font-family: "MuseoSans Light";
+  src: local("LG Display-Regular");
+  font-weight: normal;
+  font-style: normal;
+}
 @font-face {
   font-family: "MuseoSans Light";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-100.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans 300";
+  src: local("LG Display-Regular");
+  font-weight: 300;
+  font-style: normal;
 }
 @font-face {
   font-family: "MuseoSans 300";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans Medium";
+  src: local("LG Display-Regular");
   font-weight: normal;
   font-style: normal;
 }
@@ -80,38 +121,73 @@
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans Medium Italic";
+  src: local("LG Display-Regular");
+  font-style: italic;
 }
 @font-face {
   font-family: "MuseoSans Medium Italic";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
   font-style: italic;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans 700";
+  src: local("LG Display-Regular");
+  font-weight: 700;
+  font-style: normal;
 }
 @font-face {
   font-family: "MuseoSans 700";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans 700";
+  src: local("LG Display-Regular");
+  font-weight: 700;
+  font-style: italic;
 }
 @font-face {
   font-family: "MuseoSans 700";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
   font-style: italic;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans Bold";
+  src: local("LG Display-Regular");
+  font-weight: bold;
+  font-style: normal;
 }
 @font-face {
   font-family: "MuseoSans Bold";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  unicode-range: U+00-FF;
+}
+@font-face {
+  font-family: "MuseoSans Bold Italic";
+  src: local("LG Display-Regular");
+  font-weight: bold;
+  font-style: italic;
 }
 @font-face {
   font-family: "MuseoSans Bold Italic";
   src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
   font-style: italic;
+  unicode-range: U+00-FF;
 }
 /* ----- LG Display ------ */
 @font-face {
   font-family: "LG Display";
-  src: local("☺"), url("LG_Display.ttf") format("truetype");
+  src: local("LG Display-Regular");
   font-weight: normal;
   font-style: normal;
 }
@@ -208,21 +284,12 @@
   color: #4b4b4b;
   background-color: #ededed;
 }
-.enyo-locale-non-latin .moon,
-.enyo-locale-non-latin input,
-.enyo-locale-non-latin textarea,
-.enyo-locale-non-latin button {
-  font-family: "LG Display";
-}
 .moon-header-font {
   font-family: "Miso";
   text-transform: uppercase;
 }
 .enyo-locale-right-to-left .moon {
   direction: rtl;
-}
-.enyo-locale-non-latin .moon-header-font {
-  font-family: "LG Display";
 }
 .moon-no-border {
   transition: border-width 0.1s linear, padding 0.1s linear;
@@ -307,6 +374,21 @@
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
+}
+.enyo-locale-non-latin .moon input,
+.enyo-locale-non-latin .moon textarea,
+.enyo-locale-non-latin .moon button,
+.enyo-locale-non-latin .moon-header-font,
+.enyo-locale-non-latin .moon-superscript,
+.enyo-locale-non-latin .moon-pre-text,
+.enyo-locale-non-latin .moon-large-text,
+.enyo-locale-non-latin .moon-header-text,
+.enyo-locale-non-latin .moon-sub-header-text,
+.enyo-locale-non-latin .moon-divider-text,
+.enyo-locale-non-latin .moon-body-text,
+.enyo-locale-non-latin .moon-large-button-text,
+.enyo-locale-non-latin .moon-small-button-text {
+  font-family: "LG Display";
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
@@ -1296,28 +1378,37 @@
   position: absolute;
   z-index: 150;
   text-align: center;
-  line-height: 1.34em;
+  line-height: 42px;
   background: transparent;
   opacity: 1;
   font-family: "Miso";
+  transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -webkit-transform: translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.hidden {
   opacity: 0;
 }
 .moon-icon-button.moon-paging-button.top {
   top: 0px;
-  transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.right {
   right: 0px;
 }
 .moon-icon-button.moon-paging-button.bottom {
   bottom: 0px;
-  transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
   left: 0px;
@@ -1619,7 +1710,7 @@
   color: #7d7d7d;
 }
 /* InputDecorator.css */
-.moon-input-decorator {
+.moon-input-decorator:not(.moon-input-header-input-decorator) {
   font-family: "MuseoSans 700";
   font-size: 22px;
   font-weight: normal;
@@ -1638,13 +1729,13 @@
   /* Firefox 4+, Chrome, IE 9+ */
 
 }
-.moon-input-decorator.spotlight {
+.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
   border: 5px solid #ffb80d;
 }
 .moon-input-decorator.moon-disabled {
   opacity: 0.4;
 }
-.moon-input-decorator.moon-focused {
+.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
   border: 5px solid #a2a2a2;
 }
 /* ProgressBar.css */
@@ -1804,7 +1895,9 @@
   font-style: normal;
   letter-spacing: -0.04em;
   min-height: 100px;
+  max-height: 80%;
   min-width: 100px;
+  max-width: 790px;
   border-radius: 16px;
   border: 12px solid rgba(140, 140, 140, 0.1);
   color: #4b4b4b;
@@ -2248,15 +2341,9 @@ body .enyo-fit.panels-50-percent-scrim,
   white-space: nowrap;
 }
 .moon-calendar-picker-date {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
   width: 40px;
   min-width: 40px;
   height: 40px;
-  line-height: 40px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -2265,13 +2352,6 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 10px;
   text-align: center;
   vertical-align: middle;
-}
-.moon-calendar-picker-date.spotlight {
-  border: 1px solid #ffb80d;
-  background: #ffb80d;
-}
-.moon-calendar-picker-date.active {
-  background-color: #ffb80d;
 }
 .moon-calendar-picker-date-shadow {
   color: #A2A2A2;
@@ -2323,44 +2403,35 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon .enyo-fittable-columns-layout > * {
   margin: 5px 5px 5px 5px;
 }
-.moon-searchheader {
-  height: 96px;
-  margin-bottom: 49px;
-}
-.moon-searchheader-title-above {
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 1em;
+.moon-input-header-input-decorator {
+  margin: -1px 0px 0px;
   padding: 0px;
-  margin: 54px 0px 7px 1px;
-  width: 30px;
-  border-bottom: 0px solid #4b4b4b;
+  border: 0px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: transparent;
 }
-.moon-searchheader-title {
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 1em;
-  text-transform: uppercase;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 6px 0px;
-}
-.moon-searchheader-title-below {
-  font-size: 18px;
+.moon-input-header > .moon-input-header-input-decorator > .moon-input {
+  font-family: "Miso";
+  font-size: 140px;
   font-weight: normal;
-  line-height: 1em;
-  min-height: 18px;
-  padding: 0px 0px 0px 0px;
-  margin: 18px;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  margin: 0px;
+  padding-left: 1px;
+  height: 140px;
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 140px;
+  color: #4b4b4b;
 }
-.moon-searchheader-container {
-  position: absolute;
-  top: 0px;
+.moon-input-header > .moon-input-header-input-decorator > img {
+  width: 66px;
+  box-sizing: border-box;
+  display: none;
 }
-.moon-searchheader-search-left {
-  width: 210px;
-}
-.moon-searchheader-search-right {
-  width: 219px;
+.moon-input-header > .moon-input-header-input-decorator.spotlight > img {
+  display: inline-block;
 }
 .moon-drawer-handle {
   height: auto;
@@ -2427,7 +2498,7 @@ p.moon-drawer-handle-text {
 .moon-drawers-activator {
   position: relative;
   width: 100%;
-  height: 10px;
+  height: 20px;
   background-color: #4b4b4b;
   z-index: 100;
 }
@@ -2436,50 +2507,25 @@ p.moon-drawer-handle-text {
   margin-left: auto;
   margin-right: auto;
   margin-top: -5px;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  height: 10px;
-  width: 20px;
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+  height: 18px;
+  width: 36px;
   background-color: #4b4b4b;
-  top: 100%;
+  top: 10px;
+}
+.moon-drawers-activator-nub .nub-arrow {
+  position: absolute;
+  width: 18px;
+  height: 11px;
+  left: 9px;
+  top: -3px;
 }
 .moon-drawers-activator-nub .down {
-  position: absolute;
-  border-color: white transparent transparent transparent;
-  border-style: solid;
-  border-width: 5px;
-  height: 0;
-  width: 0;
-  left: 5px;
-  top: 0px;
-}
-.moon-drawers-activator-nub .down::after {
-  content: '';
-  position: absolute;
-  border-color: #4b4b4b transparent transparent transparent;
-  border-style: solid;
-  border-width: 5px;
-  bottom: -2px;
-  left: -5px;
+  background: url(../images/carat-small-down-white.png) 0 0 no-repeat;
 }
 .moon-drawers-activator-nub .up {
-  position: absolute;
-  border-color: transparent transparent white transparent;
-  border-style: solid;
-  border-width: 5px;
-  height: 0;
-  width: 0;
-  left: 5px;
-  top: -6px;
-}
-.moon-drawers-activator-nub .up::after {
-  content: '';
-  position: absolute;
-  border-color: transparent transparent #4b4b4b transparent;
-  border-style: solid;
-  border-width: 5px;
-  bottom: -8px;
-  left: -5px;
+  background: url(../images/carat-small-up-black.png) 0 0 no-repeat;
 }
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
@@ -3226,9 +3272,30 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   width: 80px;
   height: 80px;
 }
-.moon-scroller-client-wrapper {
+.moon-scroller-client-wrapper,
+.moon-scroller-viewport {
   box-sizing: border-box;
   height: 100%;
+  overflow: hidden;
+}
+/* CSS for moon.ScrollStrategy */
+.matrix-scroll-client {
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+.matrix3dsurface {
+  -webkit-transform-origin: center center;
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: flat;
+  transform-style: flat;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
   padding-right: 60px;
@@ -3245,6 +3312,11 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   transition: opacity 0.1s linear;
   -moz-transition: opacity 0.1s linear;
   -webkit-transition: opacity 0.1s linear;
+  transform: translateZ(1px);
+  -o-transform: translateZ(1px);
+  -ms-transform: translateZ(1px);
+  -moz-transform: translateZ(1px);
+  -webkit-transform: translateZ(1px);
 }
 /* Toggle opacity with .visible class */
 .moon-scroller-v-column.visible,

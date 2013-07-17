@@ -7,9 +7,9 @@
 
 	Client components added to the _components_ block are rendered into the video
 	player's transport control area, and should generally be limited to instances
-	of _moon.IconButton. If more than two are specified, they will be rendered
-	into an "overflow" screen, reached by activating a button to the right of the
-	controls.
+	of <a href="#moon.IconButton">moon.IconButton</a>. If more than two are
+	specified, they will be rendered into an "overflow" screen, reached by
+	activating a button to the right of the controls.
 
 	Example:
 
@@ -32,11 +32,11 @@ enyo.kind({
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
 	classes: "moon-video-player enyo-unselectable", 
 	published: {
-		//* HTML5 video source URL
+		//* URL of HTML5 video
 		src: "",
 		//* Array for setting multiple sources for the same video
 		sources: null,
-		//* Video aspect ratio, set as width:height
+		//* Video aspect ratio, specified as _"width:height"_
 		aspectRatio: "16:9",
 		autoCloseTimeout: 3000,
 		duration: 0,
@@ -127,12 +127,12 @@ enyo.kind({
 	setupVideoBindings: function() {
 		this.bindings.push({from: ".sourceComponents", to: "$.video.sourceComponents"});
 	},
-	//* Override default _enyo.Control_ behavior
+	//* Overrides default _enyo.Control_ behavior.
 	setSrc: function(inSrc) {
 		this.src = inSrc;
 		this.srcChanged();
 	},
-	//* Override default _enyo.Control_ behavior
+	//* Overrides default _enyo.Control_ behavior.
 	getSrc: function() {
 		return this.src;
 	},
@@ -179,25 +179,25 @@ enyo.kind({
 			this.hideFSControls();
 		}
 	},
-	//* Set _visible_ to _false_ on mouseleave
+	//* Sets _visible_ to false on _mouseleave_.
 	mousemove: function(inSender, inEvent) {
 		this.showFSControls();
 	},
-	//* Set _this.visible_ to true and clear hide job
+	//* Sets _this.visible_ to true and clears hide job.
 	showFSControls: function() {
 		this.$.fullscreenControl.addClass("visible");
 		enyo.job(this.id + "hide", this.bindSafely("hideFSControls"), this.getAutoCloseTimeout());
 	},
-	//* Set _this.visible_ to false
+	//* Sets _this.visible_ to false.
 	hideFSControls: function() {
 		this.$.fullscreenControl.removeClass("visible");
 		this.resetAutoCloseTimer();
 	},
-	//* Clear auto-close timer
+	//* Clears auto-close timer.
 	resetAutoCloseTimer: function() {
 		enyo.job.stop(this.id + "hide");
 	},
-	//* Toggle play based on _this.playing_
+	//* Toggles play/pause state based on _this.playing_.
 	playPause: function(inSender, inEvent) {
 		if (this._isPlaying) {
 			this.pause(inSender, inEvent);
@@ -256,25 +256,25 @@ enyo.kind({
 		this.$.controls.show();
 	},
 	
-	//* When seeking starts, pause video
+	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
 		this.pause();
 		this.showBGScreen();
 		return true;
 	},
-	//* When seeking completes, play video
+	//* When seeking completes, play video.
 	sliderSeekFinish: function(inSender, inEvent) {
 		this.play();
 		this.hideBGScreen();
 		return true;
 	},
-	//* When seeking, set video time
+	//* When seeking, set video time.
 	sliderSeek: function(inSender, inEvent) {
 		var time = this._duration * inEvent.value / 100;
 		this.setCurrentTime(time);
 		return true;
 	},
-	//* Programatically update slider position to match _this.currentTime_/_this.duration_
+	//* Programatically updates slider position to match _this.currentTime_/_this.duration_.
 	updateFullscreenPosition: function() {
 		if (this.$.slider.dragging) {
 			return;
@@ -314,7 +314,7 @@ enyo.kind({
 	
 	//* @public
 	
-	//* Toggle fullscreen on/off
+	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();
@@ -326,69 +326,69 @@ enyo.kind({
 	fullscreenChanged: function(inSender, inEvent) {
 		this.resized();
 	},
-	//* Facade _this.$.video.play_
+	//* Facades _this.$.video.play()_.
 	play: function(inSender, inEvent) {
 		this.currTimeSync = true;
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
 	},
-	//* Facade _this.$.video.pause_
+	//* Facades _this.$.video.pause()_.
 	pause: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.pause();
 		this.updatePlayPauseButtons();
 	},
-	//* Facade _this.$.video.rewind_
+	//* Facades _this.$.video.rewind()_.
 	rewind: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.rewind();
 		this.updatePlayPauseButtons();
 	},
-	//* Facade _this.$.video.jumpToStart_
+	//* Facades _this.$.video.jumpToStart()_.
 	jumpToStart: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.jumpToStart();
 		this.updatePlayPauseButtons();
 		this.sendFeedback("jumpToStart");
 	},
-	//* Facade _this.$.video.jumpBackward_
+	//* Facades _this.$.video.jumpBackward()_.
 	jumpBackward: function(inSender, inEvent) {
 		this._isPlaying = true;
 		this.$.video.jumpBackward();
 		this.updatePlayPauseButtons();
 	},
-	//* Facade _this.$.video.fastForward_
+	//* Facades _this.$.video.fastForward()_.
 	fastForward: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.fastForward();
 		this.updatePlayPauseButtons();
 	},
-	//* Facade _this.$.video.jumpToEnd_
+	//* Facades _this.$.video.jumpToEnd()_.
 	jumpToEnd: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.jumpToEnd();
 		this.updatePlayPauseButtons();
 		this.sendFeedback("jumpToEnd");
 	},
-	//* Facade _this.$.video.jumpForward_
+	//* Facades _this.$.video.jumpForward()_.
 	jumpForward: function(inSender, inEvent) {
 		this._isPlaying = true;
 		this.$.video.jumpForward();
 		this.updatePlayPauseButtons();
 	},
-	//* Facade _this.$.video.setCurrentTime_
+	//* Facades _this.$.video.setCurrentTime()_.
 	setCurrentTime: function(inValue) {
 		this.$.video.setCurrentTime(inValue);
 	},
 
 	//* @protected
 	
-	//* Respond to _onRequestTimeChange_ event by setting current video time
+	//* Responds to _onRequestTimeChange_ event by setting current video time.
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
 	},
-	//* Update the height/width based on the video's aspect ratio
+	//* Updates the height/width based on the video's aspect ratio.
 	updateAspectRatio: function() {
 		var node = this.hasNode(),
 			videoAspectRatio = this.$.video.getAspectRatio().split(":"),
@@ -413,7 +413,7 @@ enyo.kind({
 		this.updateFullscreenPosition();
 		this.updateInlinePosition();
 	},
-	//* Properly format time
+	//* Properly formats time.
 	formatTime: function(inMinutes, inSeconds) {
 		inMinutes = this._formatTime(inMinutes);
 		inSeconds = this._formatTime(inSeconds);
@@ -423,14 +423,17 @@ enyo.kind({
 	_formatTime: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
-	//* Switch play/pause buttons as appropriate
+	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
 		var src = "$lib/moonstone/images/";
 		src += this._isPlaying ? "icon-pause.png" : "icon-play.png";
 		this.$.fsPlayPause.setSrc(src);
 		this.$.ilPlayPause.setSrc(src);
 	},
-	//* When moreButton is tapped, toggle visibility of player controls and extra functionality
+	/**
+		When _moreButton_ is tapped, toggles visibility of player controls and
+		extra functionality.
+	*/
 	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controlsContainer.getIndex(),
 			src = "$lib/moonstone/images/"
@@ -461,7 +464,7 @@ enyo.kind({
 		
 		this.waterfall("onTimeupdate", inEvent);
 	},
-	//* Called when video successfully loads video metadata
+	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
 		this.updateAspectRatio();
 		this.resized();

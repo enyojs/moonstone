@@ -1,6 +1,7 @@
 /**
 	_moon.VideoInfoHeader_ is a control that displays various information about a
-	video. It is intended for use within the _infoComponents_ block of _moon.VideoPlayer_.
+	video. It is designed to be used within the _infoComponents_ block of a
+	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
 
 	Example:
 

@@ -20,13 +20,10 @@ enyo.kind({
 		//* Amount to scroll when a paging control is tapped. By default set to the row size.
 		pageSize: null
 	},
+	//* Default to moon.ScrollStrategy
+	strategyKind: "moon.ScrollStrategy",
 	//* @protected
-	touch: true,
 	spotlight: true,
-	initComponents: function() {
-		this.strategyKind = "moon.ScrollStrategy";
-		this.inherited(arguments);
-	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){

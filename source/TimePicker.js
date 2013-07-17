@@ -32,7 +32,8 @@ enyo.kind({
 
 /**
 	_moon.TimePicker_ is a control that can display--or allow the selection of--a
-	time expressed as an hour, minute, and am/pm.
+	time expressed in hours and minutes, with an optional meridiem indicator
+	("am" or "pm").
 
 		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, onChange: "changed"}
 
@@ -55,7 +56,10 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		//* Handler for _onChange_ events coming from constituent controls (hour)
+		/**
+			Handler for _onChange_ events coming from constituent controls (e.g.,
+			_hour_)
+		*/
 		onChange: "updateTime"
 	},
 	published: {
@@ -63,7 +67,7 @@ enyo.kind({
 		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting (only valid when ilib is loaded). 
+			Current locale used for formatting (only valid when _ilib_ is loaded). 
 			May be set after control creation, in which case the control will be 
 			updated to reflect the new value.
 		*/
@@ -75,8 +79,8 @@ enyo.kind({
 		*/
 		value: null,
 		/**
-			When true, the picker uses a 12-hour clock (this value is ignored when ilib
-			is loaded, since the meridiem will be set by the current locale)
+			When true, the picker uses a 12-hour clock. (This value is ignored when
+			_ilib_ is loaded, since the meridiem will be set by the current locale.)
 		*/
 		meridiemEnable: false
 	},
@@ -211,7 +215,7 @@ enyo.kind({
 			this.$.currentValue.setContent(this.parseTime());
 		}
 	},
-	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
+	//* When _this.open_ changes, shows or hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
