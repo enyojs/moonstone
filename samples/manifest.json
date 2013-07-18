@@ -9,6 +9,7 @@
 		{"name": "Contextual Popup", "path":"$lib/moonstone/samples/ContextualPopupSample"},
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
 		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
+		{"name": "FormCheckbox", "path":"$lib/moonstone/samples/FormCheckboxSample"},
 		{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
 		{"name": "Inputs", "samples": [
