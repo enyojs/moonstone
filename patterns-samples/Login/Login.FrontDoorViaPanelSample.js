@@ -5,8 +5,7 @@ enyo.kind({
     name: "moon.sample.login.FrontDoorViaPanelSample",
     kind: "moon.Panel",
     //* @protected
-    allowHtmlTitle: true,
-    title: "3<sup>rd</sup> PARTY APP NAME",
+    title: "3rd PARTY APP NAME",
     components: [
         {kind: "FittableColumns", components: [
             {name: "appInfo", kind: "enyo.DataRepeater", components: [
