@@ -18,10 +18,12 @@ enyo.kind({
 		small: false
 	},
 	components: [
-		{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-		{name: "title", classes: "moon-header-font moon-header-title"},
-		{name: "titleBelow", classes: "moon-header-title-below"},
-		{name: "subTitleBelow", classes: "moon-header-sub-title-below"},
+		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
+			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
+			{name: "title", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-header-font moon-header-title"},
+			{name: "titleBelow", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-header-title-below"},
+			{name: "subTitleBelow", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-header-sub-title-below"}
+		]},
 		{name: "client", classes: "moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -32,6 +34,10 @@ enyo.kind({
 		this.titleAboveChanged();
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.$.texts.startMarquee();
 	},
 	//* @public
 	collapseToSmall: function() {

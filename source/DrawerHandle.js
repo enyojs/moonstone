@@ -23,22 +23,15 @@ enyo.kind({
 	name: "moon.DrawerHandle",
 	kind:"enyo.Control",
 	classes: "moon-drawer-handle",
+	mixins: ["moon.MarqueeSupport"],
 	spotlight:true,
-	published: {
-		//* If true, the handle's content is highlighted
-		marquee: false
-	},
 	components: [
-		{name:"handleContent", tag: "p", classes: "moon-drawer-handle-text moon-drawer-handle-text"}
+		{name:"handleContent", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-drawer-handle-text"}
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.marqueeChanged();
 	},
 	contentChanged: function() {
 		this.$.handleContent.setContent(this.getContent());
-	},
-	marqueeChanged: function() {
-		this.$.handleContent.addRemoveClass("marquee",this.marquee);
 	}
 });

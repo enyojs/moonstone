@@ -5,6 +5,7 @@
 enyo.kind({
 	name: "moon.Item",
 	classes: "moon-item",
+	mixins: ["moon.MarqueeSupport"],
 	spotlight: true,
 	handlers: {
 		onSpotlightFocused: "spotlightFocused"
@@ -32,6 +33,9 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
+		if (!this.components) {
+			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText", clipInsidePadding: true});
+		}
 		this.spotlightConfig();
 	},
 	rendered: function() {
@@ -70,11 +74,18 @@ enyo.kind({
 		this.removeClass(inOld);
 		this.addClass(this.spotlightPosition);
 	},
-	disabledChanged: function() {
+	disabledChanged: function(inOld) {
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	spotlightFocused: function(inSender, inEvent) {
 		this.bubble("onRequestScrollIntoView", {side: "top"});
 		return true;
+	},
+	contentChanged: function(inOld) {
+		if (this.$.marqueeText) {
+			this.$.marqueeText.setContent(this.content);
+		} else {
+			this.inherited(arguments);
+		}
 	}
 });

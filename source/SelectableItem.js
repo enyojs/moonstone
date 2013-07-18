@@ -29,32 +29,23 @@ enyo.kind({
 		//* the group
 		active: false
 	},
-	tools: [
-		{name: "textUnderline", tag: "span"}
-	],
-	initComponents: function() {
-		var content = this.getContent();
-		this.createChrome(this.tools);
-		this.$.textUnderline.setContent(content);
-		this.inherited(arguments);
-	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
 	},
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
-			this.$.textUnderline.addRemoveClass("moon-overlay", this.getActive());
+			this.$.marqueeText.addRemoveClass("moon-overlay", this.getActive());
 			this.bubble("onchange");
 		}
 		return !this.disabled;
 	},
 	selectedChanged: function() {
-		this.$.textUnderline.removeClass("moon-overlay");
+		this.$.marqueeText.removeClass("moon-overlay");
 		this.setNodeProperty("selected", this.selected);
 		this.setAttribute("selected", this.selected ? "selected" : "");
 		this.setActive(this.selected);
-		this.$.textUnderline.addRemoveClass("moon-underline", this.selected);
+		this.$.marqueeText.addRemoveClass("moon-underline", this.selected);
 		this.render();
 	},
 	/**

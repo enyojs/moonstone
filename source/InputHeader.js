@@ -19,7 +19,7 @@ enyo.kind({
 	classes: "moon-header moon-input-header",
 	components: [
 		{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-		{kind: "moon.InputDecorator", layoutKind: "FittableColumnsLayout", classes: 'moon-input-header-input-decorator', components: [
+		{kind: "moon.InputDecorator", noStretch: true, layoutKind: "FittableColumnsLayout", classes: 'moon-input-header-input-decorator', components: [
 			{name: "title", kind: "moon.Input", onchange: "inputChanged", fit: true, classes: "moon-header-font moon-header-title"},
 			{kind: "Image", src: "$lib/moonstone/images/InAppSearch_SearchIcon.png"}
 		]},
