@@ -1,9 +1,10 @@
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
-    kind: "moon.SearchPanel",
-	classes: "moon-search",
+    kind: "moon.Panel",
+    headerOption: {kind:"moon.InputHeader"},
+    classes: "moon-search",
     handlers: {
-        onSearch: ""
+        "onInputChanged": "onInputChanged"
     },
     titleAbove: "02",
     title: "SEARCH",
@@ -45,7 +46,6 @@ enyo.kind({
         {from: ".controller.listItems", to: "$.searchList.controller"}
     ]
 });
-
 // Settings Main Menu Model
 enyo.ready(function(){
     var menuModel = new enyo.Model({

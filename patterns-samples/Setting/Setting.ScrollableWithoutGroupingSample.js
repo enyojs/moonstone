@@ -6,76 +6,80 @@ enyo.kind({
 	//* @protected
 	title: "SETTINGS CATEGORY",
 	components: [
-		{
-			kind: "FittableColumns",
-			components: [
-				{
-					kind: "FittableRows",
-					classes: "moon-settings-category",
-					components: [
-						{
-							name: "pickerInfo",
-							kind: "moon.DataList",
-							components: [
-								{
-									kind: "moon.ExpandablePicker",
-									bindFrom: "name",
-									bindTo: "content",
-									components: [
-										{
-											bindFrom: "value1",
-											bindTo: "content"
-										},
-										{
-											bindFrom: "value2",
-											bindTo: "content"
-										},
-										{
-											bindFrom: "value3",
-											bindTo: "content"
-										}
-									],
-									noneText: "VALUE"
-								}
-							]
-						}
-					]
-				},
-				{
-					kind: "FittableRows",
-					classes: "moon-settings-category",
-					components: [
-						{
-							name: "picker2Info",
-							kind: "moon.DataList",
-							components: [
-								{
-									kind: "moon.ExpandablePicker",
-									bindFrom: "name",
-									bindTo: "content",
-									components: [
-										{
-											bindFrom: "value1",
-											bindTo: "content"
-										},
-										{
-											bindFrom: "value2",
-											bindTo: "content"
-										},
-										{
-											bindFrom: "value3",
-											bindTo: "content"
-										}
-									],
-									noneText: "VALUE"
-								}
-							]
-						}
-					]
-				}
-			]
-		}
-	],
+        { 
+            kind: "FittableColumns",
+            components: [
+                {
+                    kind: "FittableRows",
+                    classes: "moon-settings-category",
+                    components: [
+                        {
+                            name: "pickerInfo",
+                            kind: "moon.DataList",
+                            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+                            fit: true,            
+                            components: [
+                                {
+                                    kind: "moon.ExpandablePicker",
+                                    bindFrom: "name",
+                                    bindTo: "content",
+                                    components: [
+                                        {
+                                            bindFrom: "value1",
+                                            bindTo: "content"
+                                        },
+                                        {
+                                            bindFrom: "value2",
+                                            bindTo: "content"
+                                        },
+                                        {
+                                            bindFrom: "value3",
+                                            bindTo: "content"
+                                        }
+                                    ],
+                                    noneText: "VALUE"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    kind: "FittableRows",
+                    classes: "moon-settings-category",
+                    components: [
+                        {
+                            name: "picker2Info",
+                            kind: "moon.DataList",
+                            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+                            fit: true,            
+                            components: [
+                                {
+                                    kind: "moon.ExpandablePicker",
+                                    bindFrom: "name",
+                                    bindTo: "content",
+                                    components: [
+                                        {
+                                            bindFrom: "value1",
+                                            bindTo: "content"
+                                        },
+                                        {
+                                            bindFrom: "value2",
+                                            bindTo: "content"
+                                        },
+                                        {
+                                            bindFrom: "value3",
+                                            bindTo: "content"
+                                        }
+                                    ],
+                                    noneText: "VALUE"
+                                }
+                            ]
+                        }
+                    ]
+                }  
+            ]  
+        }
+    ],
 	bindings: [
 		{from: ".controller.pickers",to: "$.pickerInfo.controller"},
 		{from: ".controller.pickers2",to: "$.picker2Info.controller"}

@@ -44,6 +44,7 @@ enyo.kind({
 	fit : true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
+	headerOption: null,
 	panelTools : [
 		{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
 		{name: "panelBody", fit: true, classes: "moon-panel-body"},
@@ -70,6 +71,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	createTools: function() {
+		var $pts = enyo.clone(this.get("panelTools"));
+		var $h = enyo.clone(this.get("headerOption") || {});
+		enyo.mixin($pts[0], $h);
 		this.createComponents(this.panelTools);
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
@@ -168,13 +172,13 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "200px"
+						"width" : this.container.layout.breadcrumbWidth + "px"
 					}
 				}]
 			}
 		});
 
-		this.$.header.animateCollapse();
+		this.$.header.animateCollapse(this.container.layout.breadcrumbWidth);
 		this.$.animator.play("preTransition");
 	},
 	growPanel: function() {
@@ -192,7 +196,7 @@ enyo.kind({
 				25: [{
 					control: this,
 					properties: {
-						"width" : this.actualWidth+"px"
+						"width" : this.actualWidth + "px"
 					}
 				},
 				{

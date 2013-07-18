@@ -52,7 +52,7 @@ enyo.kind({
 		]},
 		{name:"activator", classes:"moon-drawers-activator", spotlight:true, ontap:"activatorHandler", components:[
 			{classes:"moon-drawers-activator-nub", components:[
-				{name:"nubArrow", classes:"down"}
+				{name:"nubArrow", classes:"nub-arrow down"}
 			]}
 		]},
 		{name: "drawers", classes:"moon-drawers-drawer-container"},

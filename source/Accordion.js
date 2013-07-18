@@ -49,9 +49,8 @@ enyo.kind({
 		autoCollapse: false
 	},
 	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
+		{name: "header", kind: "moon.Item", classes: "moon-accordion-header moon-accordion-arrow", spotlight: true,
 			ontap: "expandContract", onSpotlightSelect: "expandContract"},
-		{name:"arrow", classes:"moon-accordion-arrow", spotlight: false},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", classes: "moon-accordion-client"}
 		]}
@@ -62,8 +61,8 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	setArrow: function(open) {
-		this.$.arrow.addRemoveClass('up', open);
-		this.$.arrow.addRemoveClass('down', !open);
+		this.$.header.addRemoveClass('up', open);
+		this.$.header.addRemoveClass('down', !open);
 	},
 	// Override default spotlight down behavior of ExpandableListItem which prevents
 	// focusing off of the last control
