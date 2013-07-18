@@ -22,6 +22,9 @@ enyo.kind({
 		*/
 		pattern: "activity"			
 	},
+	events: {
+		onPanelTransitionFinish		: ''
+	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
@@ -243,6 +246,7 @@ enyo.kind({
 	preTransitionComplete: function() {
 		this.transitionReady = true;
 		this.setIndex(this.transitionIndex);
+		this.waterfallDown("onPanelPreTransitionFinished");
 	},
 
 	triggerPanelPostTransitions: function() {
@@ -274,7 +278,8 @@ enyo.kind({
 		}
 	},
 	postTransitionComplete: function() {
-		// TODO - something here?
+		this.doPanelTransitionFinish();
+		this.waterfallDown("onPanelPostTransitionFinished");
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		if (this.layout.getTransitionOptions) {

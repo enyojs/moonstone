@@ -36,7 +36,8 @@ enyo.kind({
 		onPostTransitionComplete: ""
 	},
 	handlers: {
-		onScroll: "scroll"
+		onScroll: "scroll",
+		onPanelPostTransitionFinished: "startMarquee"
 	},
 
 	//* @protected
@@ -226,7 +227,9 @@ enyo.kind({
 	},
 
 	//* @protected
-
+	startMarquee: function() {
+		this.$.header.startMarquee();
+	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
@@ -238,6 +241,7 @@ enyo.kind({
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
 		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
+			this.$.header.stopMarquee();
 			this.shrinkPanel();
 			return true;
 		}

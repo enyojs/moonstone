@@ -37,7 +37,13 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.startMarquee();
+	},
+	startMarquee: function() {
 		this.$.texts.startMarquee();
+	},
+	stopMarquee: function() {
+		this.$.texts.stopMarquee();
 	},
 	//* @public
 	collapseToSmall: function() {
