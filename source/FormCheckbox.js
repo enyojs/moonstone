@@ -4,7 +4,7 @@
 	may be set via the _content_ property. The state of the checkbox may be
 	retrieved by querying the _checked_ property.
 
-		{kind: "moon.FormCheckbox", content: "San Francisco", marquee: true, onchange: "checkedChanged"}
+		{kind: "moon.FormCheckbox", content: "San Francisco", onchange: "checkedChanged"}
 
 		checkedChanged: function(inSender, inEvent) {
 			var checked = inSender.get("checked");
@@ -27,9 +27,7 @@ enyo.kind({
 	kind: "moon.Item",
 	published: {
 		//* The state of the checkbox
-		checked: false,
-		//* If true, the text in FormCheckbox will be scrolled
-		marquee: false
+		checked: false
 	},
 	events: {
 /** 
@@ -60,7 +58,6 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.setSpotlightPosition("");
-		this.marqueeChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -75,9 +72,6 @@ enyo.kind({
 	},
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());
-	},
-	marqueeChanged: function() {
-		this.$.label.addRemoveClass("marquee",this.marquee);
 	},
 	tap: function(inSender, inEvent) {
 		this.waterfallDown("ontap", inEvent, inSender);

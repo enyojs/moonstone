@@ -12,7 +12,7 @@ enyo.kind({
 					{kind: "moon.FormCheckbox", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.FormCheckbox", disabled: true, content: "Deactivated", onchange: "itemChanged"},
 					{kind: "moon.FormCheckbox", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.FormCheckbox", content: "This is a verrry long option 5", marquee: true, onchange: "itemChanged"}
+					{kind: "moon.FormCheckbox", content: "This is a verrry long option 5", onchange: "itemChanged"}
 				]},
 				{classes: "enyo-locale-right-to-left", components: [
 					{kind: "moon.Divider", content: "FormCheckbox Items (locale: right-to-left)"},
@@ -20,7 +20,7 @@ enyo.kind({
 					{kind: "moon.FormCheckbox", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.FormCheckbox", disabled: true, content: "Deactivated", onchange: "itemChanged"},
 					{kind: "moon.FormCheckbox", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.FormCheckbox", content: "This is a verrry long option 5", marquee: true, onchange: "itemChanged"}
+					{kind: "moon.FormCheckbox", content: "This is a verrry long option 5", onchange: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "FormCheckbox Item (Group)"},
