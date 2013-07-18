@@ -20,45 +20,32 @@ enyo.kind({
     name: "moon.HighlightText",
     published: {
         content: "",
-        highlight: "",
+        highlight: false,
         highlightClasses: "moon-highlight-text-highlighted"
     },
     handlers: {
         onHighlight: "onHighlightHandler",
-        offHighlight: "offHighlightHandler"
+        onUnHighlight: "unHighlightHandler"
     },
-    //* @protected
     create: function() {
         this.inherited(arguments);
         this._content = this.content;
     },
+    //* @public
     setContent: function(inValue) {
         this.inherited(arguments);
         this._content = inValue;
     },
-    _setContent: function(inValue) {
-        this.content = inValue;
-        this.contentChanged();
-    },
     getContent:function() {
         return this._content;   
     },
-    highlightChanged: function(inValue) {
-        if(inValue==="") {
-            this.highlightBlur();
-        } else {
-            this.highlightOver(inValue);
-        }
+    //* @protected
+    highlightBlur: function() {
+        this.allowHtml = false;
+        this.setContent(this._content);
+        this.render();
     },
-    onHighlightHandler: function(inSender, inEvent) {
-        this.highlightOver(inEvent.highlight);
-        return true;
-    },
-    offHighlightHandler: function(inSender, inEvent) {
-        this.highlightBlur();
-        return true;
-    },
-    //* @public
+    //* @protected
     highlightOver: function(inText) {
         this.allowHtml = true;
         var output = "",
@@ -79,9 +66,27 @@ enyo.kind({
         output += ort;
         this._setContent(output);
     },
-    highlightBlur: function() {
-        this.allowHtml = false;
-        this.setContent(this._content);
-        this.render();
+    //* @protected
+    highlightChanged: function() {
+        if(this.highlight===false || this.highlight ==="") {
+            this.highlightBlur();
+        } else {
+            this.highlightOver(this.highlight);
+        }
+    },
+    //* @protected
+    _setContent: function(inValue) {
+        this.content = inValue;
+        this.contentChanged();
+    },
+    //* @protected
+    onHighlightHandler: function(inSender, inEvent) {
+        this.setHighlight(inEvent.highlight);
+        return true;
+    },
+    //* @protected
+    unHighlightHandler: function(inSender, inEvent) {
+        this.setHighlight(false);
+        return true;
     }
 });
