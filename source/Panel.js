@@ -27,7 +27,9 @@ enyo.kind({
 		//* Facade for the header's _small_ property
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
-		collapsingHeader: false
+		collapsingHeader: false,
+		//* Title's _allowHtml_ property
+		allowHtmlTitle: false 
     },
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -63,6 +65,7 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.smallHeaderChanged();
+		this.allowHtmlControl();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -227,6 +230,10 @@ enyo.kind({
 
 	//* @protected
 
+	allowHtmlControl: function() {
+		// this.$.header.$.title.allowHtml = this.getAllowHtmlTitle();
+		this.$.header.$.title.setAllowHtml(this.allowHtmlTitle);
+	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
