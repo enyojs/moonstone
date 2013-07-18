@@ -22,7 +22,7 @@ enyo.kind({
                 }
             ]
         },
-    	{
+		{
 			name: "autoSign",
 			classes:"moon-settings-auto-sign",
 			kind: "moon.ToggleItem"

@@ -7,7 +7,7 @@ enyo.kind({
 	name: "moon.InputHeader",
 	kind: "moon.Header",
 	events: {
-		/** 
+		/**
 			Fires when pressing a enter key  in a moon.Input for a title
 
 			_inEvent.keyword_ contains the title of moon.InputHeader
@@ -30,11 +30,11 @@ enyo.kind({
 	],
 
 	//* @public
-	
+
 	//* If _this.tiitle_ changed, the placeHolder value of a moon.Input will be updated
 	titleChanged: function() {
 		var placeHolder = this.title || this.content;
-		if(placeHolder != "") {
+		if(placeHolder !== "") {
 			this.$.title.setPlaceholder(placeHolder);
 		}
 	},

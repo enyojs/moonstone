@@ -5,7 +5,7 @@ enyo.kind({
 		sizeRatio: 1
 	},
 	classes: "matrix3dsurface",
-	
+
 	create: function() {
 		this.inherited(arguments);
 		var v = this.axis == "v";
@@ -72,20 +72,20 @@ enyo.kind({
 	},
 	generateMatrix: function(inPosition) {
 		var x = 0, y = 0;
-		
+
 		if (this.axis === "v") {
 			y = inPosition;
 		} else {
 			x = inPosition;
 		}
-		
+
 		return (this.accel)
-			? 	"1, 	    0, 	   0,  0, " +
-				"0, 	    1, 	   0,  0, " + 
-				"0, 	    0, 	   1,  0, " +
-				 x + ", " + y + ", 1,  1"
-			
-			: 	"1, 0, 0, 1, " + x + ", " + y
+			?   "1,         0,     0,  0, "
+			+   "0,         1,     0,  0, "
+			+   "0,         0,     1,  0, "
+			+    x + ", " + y + ", 1,  1"
+
+			:   "1, 0, 0, 1, " + x + ", " + y
 		;
 	},
 
