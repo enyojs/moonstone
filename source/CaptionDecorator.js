@@ -8,8 +8,13 @@
 */
 enyo.kind({
 	name: "moon.CaptionDecorator",
+	handlers: {
+		onSpotlightFocus:"spotFocus",
+		onSpotlightBlur:"spotBlur",
+	},
 	published: {
-		side: "top"
+		side: "top",
+		showOnFocus: false
 	},
 	//* @protected
 	classes: "moon enyo-unselectable moon-button-caption-decorator",
@@ -31,9 +36,22 @@ enyo.kind({
 		this.$.bottomCaption.canGenerate = (side === "bottom");
 		this.$.leftCaption.canGenerate = (side === "left");
 		this.$.client.setClasses("moon-caption-client "+side);
+		if (this.getShowOnFocus()) {
+			this.$[this.getSide()+"Caption"].applyStyle("opacity", 0);
+		}
 		this.render();
 	},
 	contentChanged: function() {
 		this.$[this.getSide()+"Caption"].setContent(this.getContent());
+	},
+	spotFocus: function () {
+		if (this.getShowOnFocus()) {
+			this.$[this.getSide()+"Caption"].applyStyle("opacity", 1);
+		}
+	},
+	spotBlur: function () {
+		if (this.getShowOnFocus()) {
+			this.$[this.getSide()+"Caption"].applyStyle("opacity", 0);
+		}
 	}
 });
