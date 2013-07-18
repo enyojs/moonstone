@@ -3319,12 +3319,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   margin-bottom: 8px;
 }
 /* FormCheckbox.css */
-.moon-formcheckbox-item {
-  display: block;
-  height: 37px;
-  position: relative;
-  margin-bottom: 33px;
-}
 .moon-formcheckbox-item .moon-checkbox {
   position: absolute;
   top: 0px;
@@ -3343,23 +3337,10 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   background: transparent url(../images/checkbox.png) no-repeat 3px -29px;
 }
 .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-  height: 37px;
   margin: 0px 0px 0px 47px;
-  padding: 0px 10px 0px 10px;
 }
 .enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
   margin: 0px 47px 0px 0px;
-}
-.moon-formcheckbox-item.spotlight .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-  background-color: #ffb80d;
-}
-.moon-formcheckbox-item .moon-formcheckbox-item-label {
-  float: left;
-  white-space: nowrap;
-}
-.enyo-locale-right-to-left .moon-formcheckbox-item-label {
-  float: right;
-  white-space: nowrap;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {

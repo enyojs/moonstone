@@ -52,7 +52,7 @@ enyo.kind({
 	components: [
 		{classes: "moon-formcheckbox-item-label-wrapper", components: [
 			{name: "input", kind: "moon.Checkbox", spotlight: false},
-			{name: "label", classes: "moon-formcheckbox-item-label"}
+			{name: "label", kind: "moon.Item", classes: "moon-formcheckbox-item-label"}
 		]}
 	],
 	create: function() {
