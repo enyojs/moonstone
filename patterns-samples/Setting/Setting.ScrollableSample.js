@@ -2,14 +2,13 @@
 enyo.kind({
     //* @public
     name: "moon.sample.setting.ScrollableSample",
-	kind: "moon.Panel",
-	//* @protected
+    kind: "moon.Panel",
+    //* @protected
     title: "SETTINGS CATEGORY",
-	components: [
-        { 
-        	kind : "FittableRows",
-        	components: [
-    			{
+    components: [
+        {kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components:[
+            {kind : "FittableRows", components: [
+                {
                     kind: "moon.Divider", 
                     content: "SETTINGS CATEGORY",
                 },
@@ -23,6 +22,7 @@ enyo.kind({
                                 {
                                     name: "pickerInfo",
                                     kind: "moon.DataList",
+                                    scrollerOptions: "false",
                                     components: [
                                         {
                                             kind: "moon.ExpandablePicker",
@@ -97,6 +97,7 @@ enyo.kind({
                                 {
                                     name: "picker2Info",
                                     kind: "moon.DataList",
+                                    scrollerOptions: "false",
                                     components: [
                                         {
                                             kind: "moon.ExpandablePicker",
@@ -161,13 +162,13 @@ enyo.kind({
                         }
                     ]
                 }
-        	]
-   	 	}
+            ]}
+        ]}
     ],
-	bindings: [
-		{from: ".controller.picker", to: "$.picker.controller"},
+    bindings: [
+        {from: ".controller.picker", to: "$.picker.controller"},
         {from: ".controller.picker2", to: "$.picker2.controller"},
-		{from: ".controller.item", to: "$.item.content"},
+        {from: ".controller.item", to: "$.item.content"},
         {from: ".controller.pickers", to: "$.pickerInfo.controller"},
         {from: ".controller.pickers2", to: "$.picker2Info.controller"}
     ]
@@ -175,32 +176,32 @@ enyo.kind({
 
 //Settings Settings Menu Model
 enyo.ready(function(){
-	var settingModel = new enyo.Model({
-		picker: new enyo.Collection([
+    var settingModel = new enyo.Model({
+        picker: new enyo.Collection([
             {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}            
         ]),
         picker2: new enyo.Collection([
             {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}            
         ]),
-		item: "ITEM",
-		pickers: new enyo.Collection([
-			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
+        item: "ITEM",
+        pickers: new enyo.Collection([
+            {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
             {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}
-		]),
-		pickers2: new enyo.Collection([
+        ]),
+        pickers2: new enyo.Collection([
             {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
             {name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}
         ])
-	});
+    });
 
 //  Application to render sample
-	new enyo.Application({
+    new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
             components: [
                 {kind: "enyo.Spotlight"},
                 {
-                	kind: "moon.sample.setting.ScrollableSample",
+                    kind: "moon.sample.setting.ScrollableSample",
                     controller: ".app.controllers.settingCategoryController",
                     classes: "enyo-fit"
                 }

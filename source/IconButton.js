@@ -6,7 +6,7 @@
 	<a href="#moon.Icon">moon.Icon</a> inside a	<a href="#moon.Button">moon.Button</a>.
 
 	The image associated with the _src_ property of the IconButton is assumed
-	to be 32x64-pixel strip, with the top half showing the button's normal state
+	to be a 32x64-pixel strip, with the top half showing the button's normal state
 	and the bottom half showing its state when hovered-over or active.
 
 	For more information, see the documentation on
@@ -28,9 +28,9 @@ enyo.kind({
 	//* @protected
 	spotlight: true,
 	handlers: {
-		//* onSpotlightSelect, simulate mousedown
+		//* onSpotlightSelect simulates mousedown
 		onSpotlightSelect: "depress",
-		//* onSpotlightKeyUp, simulate mouseup
+		//* onSpotlightKeyUp simulates mouseup
 		onSpotlightKeyUp: "undepress"
 	},
 	rendered: function() {
@@ -46,11 +46,11 @@ enyo.kind({
 	activeChanged: function() {
 		this.bubble("onActivate");
 	},
-	//* Add _pressed_ css class
+	//* Adds _pressed_ CSS class.
 	depress: function() {
 		this.addClass("pressed");
 	},
-	//* Remove _pressed_ css class
+	//* Removes _pressed_ CSS class.
 	undepress: function() {
 		this.removeClass('pressed');
 	}

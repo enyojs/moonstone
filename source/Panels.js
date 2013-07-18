@@ -17,8 +17,8 @@ enyo.kind({
 		*/
 		transitionReady: false,
 		/**
-			Current design pattern. Valid values are "none", "activity" (default), and
-			"alwaysviewing".
+			The current design pattern; valid values are "none", "activity" (default),
+			and "alwaysviewing".
 		*/
 		pattern: "activity"			
 	},

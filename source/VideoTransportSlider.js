@@ -86,7 +86,6 @@ enyo.kind({
 		this.setRangeEnd(this.endTickPos);
 		this.rangeStartChanged();
 		this.rangeEndChanged();
-		this.updateKnobPosition(this.getValue());
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
@@ -120,9 +119,6 @@ enyo.kind({
 	rangeEndChanged: function() {
 		this.updateOwnProperty();
 	},
-	absoluteTimeChanged: function() {
-
-	},
 	//** hiden variable, scaleFactor is generated when create this
 	updateScale: function() {
 		this.scaleFactor = (this.rangeEnd-this.rangeStart)/100;
@@ -136,7 +132,7 @@ enyo.kind({
 		return this.calcRatio(inValue) * this.scaleFactor * 100;
 	},
 	updateKnobPosition: function(inPercent) {
-		var v = inPercent/this.scaleFactor;
+		var v = this.calcPercent(inPercent)/this.scaleFactor;
 		var slider = this.inverseToSlider(v);
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.applyStyle("left", slider + "%");
@@ -212,8 +208,7 @@ enyo.kind({
 					this.elasticFrom = this.elasticTo = v;
 				}
 
-				var p = this.calcPercent(this.elasticFrom);
-				this.updateKnobPosition(p);
+				this.updateKnobPosition(this.elasticFrom);
 
 				if (this.lockBar) {
 					this.setProgress(v);

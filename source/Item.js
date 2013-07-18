@@ -14,10 +14,10 @@ enyo.kind({
 		//* events
 		disabled: false,
 		//* The relative position of the spotlight;
-		//* valid values are "locale-default", "left", "right", "top", and "bottom"
+		//* valid values are "locale-default", "left", "right", "top", and "bottom".
 		//* The locale-specific setting selects either left or right, depending on the
-		//* default text-direction of the current locale, when enyo-ilib is loaded
-		//* (defaults to left if enyo-ilib is not loaded)
+		//* default text-direction of the current locale provided by _enyo-ilib_
+		//* (defaults to left if _enyo-ilib_ is not loaded).
 		spotlightPosition: "locale-default",
 		//* The behavior of the spotlight
 		spotlightOverlay: false
