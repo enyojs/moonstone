@@ -28,6 +28,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.sideChanged();
+		this.showOnFocusChanged();
 	},
 	sideChanged: function() {
 		var side = this.getSide();
@@ -36,10 +37,12 @@ enyo.kind({
 		this.$.bottomCaption.canGenerate = (side === "bottom");
 		this.$.leftCaption.canGenerate = (side === "left");
 		this.$.client.setClasses("moon-caption-client "+side);
-		if (this.getShowOnFocus()) {
-			this.$[this.getSide()+"Caption"].applyStyle("opacity", 0);
+		if (this.hasNode()) {
+			this.render();
 		}
-		this.render();
+	},
+	showOnFocusChanged: function() {
+		this.$[this.getSide()+"Caption"].applyStyle("opacity", this.getShowOnFocus() ? 0 : 1);
 	},
 	contentChanged: function() {
 		this.$[this.getSide()+"Caption"].setContent(this.getContent());
