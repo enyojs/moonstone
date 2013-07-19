@@ -10,7 +10,7 @@ enyo.kind({
 					{content: "Item One"},
 					{content: "Item Two"}
 				]},
-				{kind: "moon.Accordion", content: "This is another accordion", components: [
+				{kind: "moon.Accordion", content: "Pre-expanded accordion", active:true, components: [
 					{content: "Item Three"},
 					{content: "Item Four"}
 				]}
