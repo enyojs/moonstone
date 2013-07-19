@@ -49,9 +49,10 @@ enyo.kind({
 
 	create: function(oSender, oEvent) {
 		this.inherited(arguments);
-		for (var n=0; n<this.getPanels().length; n++) {
-			this.getPanels()[n].spotlight = 'container';
-			this.getPanels()[n].parent = this;
+		var panels = this.getPanels();
+		for (var n=0; n<panels.length; n++) {
+			panels[n].spotlight = 'container';
+			panels[n].parent = this;
 		}
 	},
 	initComponents: function() {
@@ -179,6 +180,8 @@ enyo.kind({
 		case "none":
 			break;
 		case "alwaysviewing":
+			this.addClass('moon-dark-gray');
+			this.applyStyle("background-color", "inherit");
 			this.createChrome([
 				{
 					name: "backgroundScrim",
@@ -273,10 +276,7 @@ enyo.kind({
 		case 'RIGHT':
 			if (nIndex < this.getPanels().length - 1) {
 				this.setIndex(nIndex + 1);
-				this.log("RIGHT with set index");
 				return true;
-			} else {
-				this.log("RIGHT without set index");
 			}
 			this._focusLeave('onSpotlightRight');
 			break;
@@ -291,6 +291,7 @@ enyo.kind({
 	},
 	onSpotlightRight: function(oSender, oEvent) {
 		if (oEvent.originator !== this) { return false; }
+		// Show panels when moon.Panels got spot and user enter right key.
 		this.show();
 	},
 	onSpotlightFocused: function(oSender, oEvent) {
