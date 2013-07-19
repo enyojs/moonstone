@@ -228,7 +228,7 @@ enyo.kind({
 
 	//* @protected
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		if(inEvent.active <= inEvent.index) {
+		if(inEvent.active >= inEvent.index) {
 			this.$.header.startMarquee();
 		} else {
 			this.$.header.stopMarquee();
@@ -244,8 +244,8 @@ enyo.kind({
 		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
+		this.$.header.stopMarquee();
 		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
-			this.$.header.stopMarquee();
 			this.shrinkPanel();
 			return true;
 		}

@@ -29,7 +29,17 @@ enyo.kind({
 					{content: "Item Five"},
 					{content: "Item Six"}
 				]}
-			]}
+			]},
+			{components: [
+				{kind: "moon.Accordion", content: "This is an lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
+					{content: "Looooooooooooooooooooooooooooooooooooong Item One"},
+					{content: "Loooooooooooooooooooooooooooooong Item Two"}
+				]},
+				{kind: "moon.Accordion", content: "This is another lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
+					{content: "Looooooooooooooooooooooooooooooooooooong Item Three"},
+					{content: "Loooooooooooooooooooooooooooooong Item Four"}
+				]}
+			]},
 		]}
 	]
 });

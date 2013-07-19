@@ -4,21 +4,21 @@ enyo.kind({
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
-            {title: "First", components: [
+            {title: "First Panel with long title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Second", joinToPrev: true, components: [
+            {title: "Second Panel with long title", joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Third", components: [
+            {title: "Third Panel with long title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
