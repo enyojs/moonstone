@@ -26,7 +26,7 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	spotlight:true,
 	components: [
-		{name:"handleContent", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-drawer-handle-text"}
+		{name:"handleContent", kind: "moon.MarqueeText", classes: "moon-drawer-handle-text"}
 	],
 	create: function() {
 		this.inherited(arguments);

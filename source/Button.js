@@ -62,7 +62,7 @@ enyo.kind({
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
 			if (this.marquee && !(this.components && this.components.length > 0)) {
 				this.createComponent({name: "client", classes: "button-client", 
-					kind:"moon.MarqueeText", clipInsidePadding: true, isChrome: true
+					kind:"moon.MarqueeText", isChrome: true
 				});
 			} else {
 				this.createComponent({name: "client", classes: "small-button-client"});
@@ -71,7 +71,7 @@ enyo.kind({
 			this.removeClass('small');
 			if (this.marquee && !(this.components && this.components.length > 0)) {
 				this.createComponent({name: "client", classes: "button-client", 
-					kind:"moon.MarqueeText", clipInsidePadding: true, isChrome: true
+					kind:"moon.MarqueeText", isChrome: true
 				});
 			}
 		}

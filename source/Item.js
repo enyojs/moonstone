@@ -34,7 +34,7 @@ enyo.kind({
 	initComponents: function() {
 		this.inherited(arguments);
 		if (!this.components) {
-			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText", clipInsidePadding: true});
+			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
 		}
 		this.spotlightConfig();
 	},

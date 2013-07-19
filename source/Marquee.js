@@ -22,10 +22,10 @@
 
 		enyo.kind({
 			name: "moon.MarqueeButton",
-			kind: "onyx.Button",
+			kind: "enyo.Button",
 			mixins: ["moon.MarqueeSupport"],
 			components: [
-				{kind:"moon.MarqueeText", clipInsidePadding: true}
+				{kind:"moon.MarqueeText"}
 			],
 			contentChanged: function() {
 				this.$.marqueeText.setContent(this.content);
@@ -34,11 +34,15 @@
 */
 enyo.kind({
 	name: "moon.MarqueeText",
-	classes: "moon-marquee-text",
 	published: {
-		marqueeSpeed: 60,  // px per sec
+		//* Speed of marquee animation, in pixels per second
+		marqueeSpeed: 60,
+		//* Time that marquee will pause at the end of the animation, before resetting to the start
 		marqueePause: 1000,
-		clipInsidePadding: false,
+		//* Whether this control should clip itself inside its parent's padding.  If false, the parent
+		//* control must have 'overflow:hidden' set, and the marquee text will clip at the parent's border
+		clipInsidePadding: true,
+		//* When disabled, marqueeing will not occur
 		disabled: false
 	},
 	events: {
@@ -52,14 +56,12 @@ enyo.kind({
 		onRequestMarqueeStop: "stopMarquee",
 		onwebkitAnimationEnd: "animationEnded"
 	},
-	create: function() {
+	initComponents: function() {
 		this.inherited(arguments);
+		this.addClass(this.clipInsidePadding ? "moon-marquee-clip" : "moon-marquee-text");
 		if (this.clipInsidePadding) {
-			this.removeClass("moon-marquee-text");
-			this.addClass("moon-marquee-clip");
 			this.createChrome([{name:"client", classes:"moon-marquee-text"}]);
 			this.marqueeControl = this.$.client;
-			this.contentChanged();
 		} else {
 			this.marqueeControl = this;
 		}
@@ -193,6 +195,3 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	style: "overflow: hidden;"
 });
-
-// Fixme: Add normalized animation event on dispatcher.js and remove below code
-enyo.dispatcher.listen(document, "webkitAnimationEnd");

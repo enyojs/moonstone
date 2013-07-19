@@ -20,9 +20,9 @@ enyo.kind({
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
 			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-			{name: "title", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-header-font moon-header-title"},
-			{name: "titleBelow", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-header-title-below"},
-			{name: "subTitleBelow", kind: "moon.MarqueeText", clipInsidePadding: true, classes: "moon-header-sub-title-below"}
+			{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"},
+			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
+			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
 		]},
 		{name: "client", classes: "moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}

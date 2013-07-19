@@ -88,7 +88,6 @@ enyo.kind({
 			inOpts = inOpts || {};
 			inOpts.container = this.$.client;
 			inOpts.kind = "moon.MarqueeText";
-			inOpts.clipInsidePadding = true;
 		}
 		return inherited.call(this, inC, inOpts);
 	},
@@ -98,7 +97,6 @@ enyo.kind({
 			inOpts = inOpts || {};
 			inOpts.container = this.$.client;
 			inOpts.kind = "moon.MarqueeText";
-			inOpts.clipInsidePadding = true;
 		}
 		return inherited.call(this, inC, inOpts);
 	},
