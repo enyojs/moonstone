@@ -75,5 +75,10 @@ enyo.depends(
 	"ExpandableInputSample.js",
 	"FormCheckboxSample.js",
 	"FontSample.js",
-	"FontSample.css"
+	"FontSample.css",
+	"CalendarPickerSample.js",
+	"HeaderAutoCollapsingSample.js",
+	"InputHeaderSample.js",
+	"ToggleButtonSample.css",
+	"ToggleButtonSample.js"
 );
