@@ -223,6 +223,10 @@
 	color: @moon-dark-gray;
 }
 
+/* Standard horizontal spacing */
+.moon-hspacing {
+	white-space: nowrap;
+}
 .moon-hspacing > * {
 	display: inline-block;
 	vertical-align: top;
@@ -243,3 +247,14 @@
 	margin-left: 0;
 }
 
+/* Standard vertical spacing */
+.moon-vspacing > * {
+	display: block;
+	margin: @moon-grid-gutter-width/2 0;
+}
+.moon-vspacing > :first-child {
+	margin-top: 0;
+}
+.moon-vspacing > :last-child {
+	margin-bottom: 0;
+}

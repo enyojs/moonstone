@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.sample.ObjectActionsSample",
+	name: "moon.sample.ObjectActionHorizontalTypeSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {
 		ontap: "ontap"
@@ -9,9 +9,9 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Object Action: horizontal Type Sample"},
 		{kind: 'moon.Scroller', fit: true, components: [
-			{kind: "Repeater", count:20, classes: "moon-objaction-repeater-sample", components: [
-				{kind: "moon.ObjectActionDecorator", type: "horizontal", components: [
-					{kind: "moon.Item", style: "margin-bottom:0;", components:[
+			{kind: "Repeater", count:20,  classes:"moon-5h", components: [
+				{kind: "moon.ObjectActionDecorator", orientation: "horizontal", components: [
+					{kind: "moon.Item", style:"margin-bottom:0;", components:[
 						{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
 					]}
 				], actionComponents: [

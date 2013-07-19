@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.sample.ObjectActionsSample",
+	name: "moon.sample.ObjectActionVerticalTypeSample",
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {
@@ -8,22 +8,23 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Object Action: vertical Type Sample"},
-		{kind: "Repeater", fit: true, count:10, components: [
-			{
-				kind: "moon.ObjectActionDecorator", 
-				classes: "moon-objaction-v-sample",
-				type: "vertical",
-				components: [
-					{kind: "moon.Item", spotlightPosition: "bottom", components: [
-						{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
-					]}
-				],
-				actionComponents: [
-					{kind: "moon.Button", name: "Play", small: true, content: "PLAY", classes: "moon-objaction-v-button-sample"},
-					{kind: "moon.Button", name: "Favorite", small: true, content: "FAVORITE", classes: "moon-objaction-v-button-sample"},
-					{kind: "moon.Button", name: "Share", small: true, content: "SHARE", classes: "moon-objaction-v-button-sample"}
-				]
-			}
+		{kind: "moon.Scroller", fit:true, components: [
+			{kind: "Repeater", count:20, classes:"moon-hspacing", components: [
+				{
+					kind: "moon.ObjectActionDecorator", 
+					orientation: "vertical",
+					components: [
+						{kind: "moon.Item", spotlightPosition: "bottom", components: [
+							{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
+						]}
+					],
+					actionComponents: [
+						{kind: "moon.Button", name: "Play", small: true, content: "PLAY"},
+						{kind: "moon.Button", name: "Favorite", small: true, content: "FAVORITE"},
+						{kind: "moon.Button", name: "Share", small: true, content: "SHARE"}
+					]
+				}
+			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
 		{name: "result", allowHtml: true, content: "No item tapped yet."}

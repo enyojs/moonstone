@@ -31,7 +31,9 @@ enyo.kind({
 		//* onSpotlightSelect simulates mousedown
 		onSpotlightSelect: "depress",
 		//* onSpotlightKeyUp simulates mouseup
-		onSpotlightKeyUp: "undepress"
+		onSpotlightKeyUp: "undepress",
+		//* used to request it is in view in scrollers
+		onSpotlightFocused: "spotlightFocused"
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -53,5 +55,8 @@ enyo.kind({
 	//* Removes _pressed_ CSS class.
 	undepress: function() {
 		this.removeClass('pressed');
+	},
+	spotlightFocused: function(inSender, inEvent) {
+		this.bubble("onRequestScrollIntoView", {side: "top"});
 	}
 });

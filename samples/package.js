@@ -72,6 +72,10 @@ enyo.depends(
 	"VideoPlayerSample.js",
 	"PanelsVideoPlayerSample.js",
 	"DrawerSample.js",
+	"ObjectActionHorizontalTypeSample.js",
+	"ObjectActionHorizontalTypeSample.css",
+	"ObjectActionVerticalTypeSample.js",
+	"ObjectActionVerticalTypeSample.css",
 	"ExpandableInputSample.js",
 	"FontSample.js",
 	"FontSample.css"
