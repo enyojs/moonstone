@@ -854,6 +854,7 @@
   box-sizing: border-box;
   max-width: 100%;
   display: inline-block;
+  border-bottom: 4px solid transparent;
 }
 .moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
