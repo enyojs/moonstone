@@ -66,7 +66,6 @@ enyo.kind({
 	isRendered: false,
 	create: function() {
 		this.inherited(arguments);
-		this.activeChanged();
 		this.openChanged();
 	},
 	rendered: function() {
