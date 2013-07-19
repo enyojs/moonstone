@@ -1270,6 +1270,7 @@
   transition: height 0.2s linear;
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
 .moon-header-title-above.no-border {
   border: none;
