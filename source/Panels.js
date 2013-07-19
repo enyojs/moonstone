@@ -23,7 +23,9 @@ enyo.kind({
 		pattern: "activity"			
 	},
 	events: {
-		onPanelTransitionFinish		: ''
+		// Fired when panel transition finished
+		// inEvent.activeIndex: active index
+		onPanelsPostTransitionFinished: ''
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -242,6 +244,7 @@ enyo.kind({
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
+		return true;
 	},
 	preTransitionComplete: function() {
 		this.transitionReady = true;
@@ -276,10 +279,15 @@ enyo.kind({
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
+		return true;
 	},
 	postTransitionComplete: function() {
-		this.doPanelTransitionFinish();
-		this.waterfallDown("onPanelPostTransitionFinished");
+		var activeIndex = this.getIndex(), active;
+		// parent and child of panels can get event
+		this.doPanelsPostTransitionFinished({active: activeIndex});
+		for (var i = 0; i < this.getPanels().length; i++) {
+			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
+		}
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		if (this.layout.getTransitionOptions) {

@@ -28,7 +28,7 @@ enyo.kind({
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false
-    },
+	},
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
@@ -37,7 +37,7 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		onPanelPostTransitionFinished: "startMarquee"
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
 	},
 
 	//* @protected
@@ -227,8 +227,12 @@ enyo.kind({
 	},
 
 	//* @protected
-	startMarquee: function() {
-		this.$.header.startMarquee();
+	panelsTransitionFinishHandler: function(inSender, inEvent) {
+		if(inEvent.active <= inEvent.index) {
+			this.$.header.startMarquee();
+		} else {
+			this.$.header.stopMarquee();
+		}
 	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
