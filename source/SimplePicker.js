@@ -59,12 +59,14 @@ enyo.kind({
 		//* When true, picker transitions animate left/right
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
-		disabled: false
+		disabled: false,
+		//* When true, picker will wrap around from last item to first
+		wrap: false
 	},
 	//* @protected
 	components: [
 		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, defaultSpotlightRight: 'buttonRight', name:"buttonLeft"},
-		{kind:"enyo.Panels", classes:"moon-simple-picker-client", controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
+		{kind:"enyo.Panels", classes:"moon-simple-picker-client", narrowFit:false, controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
 		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true, defaultSpotlightLeft: 'buttonLeft', name:"buttonRight"}
 	],
 	create: function() {
@@ -72,6 +74,7 @@ enyo.kind({
 		this.animateChanged();
 		this.selectedIndexChanged();
 		this.disabledChanged();
+		this.wrapChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -143,6 +146,9 @@ enyo.kind({
 	},
 	animateChanged: function() {
 		this.$.client.setAnimate(this.animate);
+	},
+	wrapChanged: function() {
+			this.$.client.setWrap(this.wrap);
 	},
 	selectedChanged: function(inOld) {
 		if (this.selected != this.$.client.getActive()) {

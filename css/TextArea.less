@@ -1,5 +1,7 @@
 /* TextArea.css */
 .moon-textarea {
+	.moon-body-text;
+	line-height: @moon-body-line-height;
 	margin: 0px;
 	padding: 0px;
 	border: none;
@@ -7,11 +9,11 @@
 	cursor: pointer;
 	background: transparent;
 	box-shadow: none;
-	font-size: @moon-sub-text-size;
-	font-family: @moon-sub-font-family;
 	/* need >=50px for scrollbar to be usable on mac */
 	min-height: 50px;
+	height: 3 * @moon-body-line-height;
 	min-width: 100px;
+	color: @moon-input-font-color;
 }
 .moon-input-decorator > .moon-textarea {
 	/* Remove scrollbars and resize handle */

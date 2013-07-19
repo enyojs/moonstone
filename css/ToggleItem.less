@@ -2,8 +2,11 @@
 	display: block;
 	position:relative;
 }
+.moon-toggle-item.moon-item {
+	margin-bottom: 16px;
+}
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-	height: 24px;
+	height: @moon-item-line-height;
 	-webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, white 75px);
 	padding: 2px 0px 0px 0px;
 }
@@ -29,7 +32,7 @@
 }
 
 .moon-toggle-item .moon-toggle-text-text {
-	margin-top: -1px;
+	margin-top: 2px;
 }
 .moon-toggle-item.disabled .moon-toggle-text-text {
 	color: inherit;

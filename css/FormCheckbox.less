@@ -1,0 +1,25 @@
+/* FormCheckbox.css */
+
+.moon-formcheckbox-item .moon-checkbox {
+	position: absolute;
+	top: 0px;
+	width: @moon-formcheckbox-width;
+	height: @moon-formcheckbox-image-height;
+	margin-top: 2px;
+	border-radius: 20px;
+	border: 0px;
+	background-color: #999999;
+	background-position: 3px 8px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
+	right: 0px;
+}
+.moon-formcheckbox-item .moon-checkbox .moon-overlay {
+	background: transparent @moon-checkbox-image no-repeat 3px -29px;
+}
+.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+	margin: 0px 0px 0px @moon-formcheckbox-width-with-padding;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+	margin: 0px @moon-formcheckbox-width-with-padding 0px 0px;
+}

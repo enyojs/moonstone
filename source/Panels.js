@@ -17,8 +17,8 @@ enyo.kind({
 		*/
 		transitionReady: false,
 		/**
-			Current design pattern. Valid values are "none", "activity" (default), and
-			"alwaysviewing".
+			The current design pattern; valid values are "none", "activity" (default),
+			and "alwaysviewing".
 		*/
 		pattern: "activity"		
 	},
@@ -31,11 +31,12 @@ enyo.kind({
 		onSpotlightFocused			: 'onSpotlightFocused',
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
+		onSpotlightRight			: 'onSpotlightRight',
 		ontap						: 'onTap',
 		onTransitionFinish			: 'transitionFinish',
 		onPreTransitionComplete		: 'panelPreTransitionComplete',
 		onPostTransitionComplete	: 'panelPostTransitionComplete',
-		ontransitionend				: 'onTransitionFinish'
+		ontransitionend				: 'cssTransitionEnded'
 	},
 	defaultKind: "moon.Panel",
 	draggable: false,
@@ -60,6 +61,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.$.client.hide();
+		enyo.Spotlight.spot(this);
 	},
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
@@ -76,6 +78,7 @@ enyo.kind({
 			// Tapped on other than panel
 			if (this.pattern === "alwaysviewing" && this.$.client.showing === true) {
 				this.hide();
+				enyo.Spotlight.spot(this);
 				return true;
 			}
 		} else {
@@ -186,6 +189,7 @@ enyo.kind({
 							name: "spotable",
 							kind: enyo.Control,
 							classes: "moon-panels-spot",
+							style: "z-index: 10; background-color: red",
 							isChrome: true,
 							onenter: "show"
 						}
@@ -214,17 +218,19 @@ enyo.kind({
 		}
 	},
 
-	onTransitionFinish: function(inSender, inEvent) {
+	cssTransitionEnded: function(inSender, inEvent) {
 		if (inSender === this.$.client) {
 			switch (this._transitionCommand) {
 			case "show":
 				this._transitionCommand = "";
 				this.doShowFinished(inEvent);
+				enyo.Spotlight.spot(this.getActive());
 				break;
 			case "hide":
 				this._transitionCommand = "";
 				this.$.client.hide();
 				this.doHideFinished(inEvent);
+				enyo.Spotlight.spot(this);
 				break;
 			case "hideLeft":
 				this._transitionCommand = "";
@@ -232,6 +238,7 @@ enyo.kind({
 				this.$.client.addRemoveClass("show", false);
 				this.$.client.addRemoveClass("left", false);
 				this.doHideLeftFinished(inEvent);
+				enyo.Spotlight.spot(this);
 				break;
 			default:
 				// other transition inside of panels
@@ -266,7 +273,10 @@ enyo.kind({
 		case 'RIGHT':
 			if (nIndex < this.getPanels().length - 1) {
 				this.setIndex(nIndex + 1);
+				this.log("RIGHT with set index");
 				return true;
+			} else {
+				this.log("RIGHT without set index");
 			}
 			this._focusLeave('onSpotlightRight');
 			break;
@@ -279,7 +289,10 @@ enyo.kind({
 		}
 		return true;
 	},
-
+	onSpotlightRight: function(oSender, oEvent) {
+		if (oEvent.originator !== this) { return false; }
+		this.show();
+	},
 	onSpotlightFocused: function(oSender, oEvent) {
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }

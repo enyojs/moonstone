@@ -1,5 +1,5 @@
 /**
-	_moon.RadioItem_ is a modified <a href="#enyo.Button">enyo.Button</a>
+	_moon.RadioItem_ is a modified <a href="#moon.Button">moon.Button</a>
 	control designed to be used inside a
 	<a href="#moon.RadioItemGroup">moon.RadioItemGroup</a>.
 
@@ -22,7 +22,7 @@ enyo.kind({
 		this.contentWidth = this.getBounds().width;
 		// Resize the button to fit RadioItem kerning state
 		//25 extra pixels to make room for spotlight focus
-		this.applyStyle("width", this.contentWidth + 25 + "px");
+		this.applyStyle("width", this.contentWidth + 60 + "px");
 	},
 	focus: function(inSender, inEvent) {
 		this.bubble(inSender, inEvent);

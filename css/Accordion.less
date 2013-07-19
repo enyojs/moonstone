@@ -3,7 +3,7 @@
 	margin: 0px;
 	border-color: @moon-orange;
 	overflow: hidden;
-	margin-bottom:45px;	
+	margin-bottom:16px;	
 }
 .enyo-locale-right-to-left .moon-accordion {
 	padding: 0px 0px 0px 16px;
@@ -34,7 +34,7 @@
 
 .moon-accordion-header {
 	display:inline-block;
-	padding-right:24px;
+	padding-right:39px;
 	margin-bottom:0px;	
 }
 .enyo-locale-right-to-left .moon-accordion-header {
@@ -54,55 +54,26 @@
 	padding-right:0px;
 }
 
-.moon-accordion-client{
-	margin-left:40px;
+.moon-accordion-client .moon-item {
+	.moon-body-text;
+	margin-bottom: 14px;
+}
+
+.moon-accordion-client .moon-item:first-child {
+	margin-top: 10px;
 }
 
 .moon-accordion-bottom {
 	margin:0px;
 	padding:0px;
 	height:0px;
-}
-
-.moon-accordion-arrow {
-	position:relative;
-	display:inline-block;
-	font-family: @moon-alt-font-family;
+	margin-bottom: 10px;
 }
 
 .moon-accordion-arrow.up {
-	top: -5px;	
-	border-color: transparent transparent #666666 transparent;	
-	border-style: solid;
-	border-width: 10px;
+	background: url(../images/carat-small-up.png) right center no-repeat;
 }
 
 .moon-accordion-arrow.down {
-	top: 5px;	
-	border-color: #666666 transparent transparent transparent;
-	border-style: solid;
-	border-width: 10px;
-	height:0;
-	width:0;
-	margin-bottom:0px;	
-}
-
-.moon-accordion-arrow.up::after {
-    content: '';
-	position:absolute;
-	border-color: transparent transparent @moon-light-gray transparent;	
-	border-style: solid;
-	border-width: 10px;
-	bottom:-13px;
-	left:-10px;
-}
-
-.moon-accordion-arrow.down::after {
-    content: '';
-	position:absolute;
-	border-color: @moon-light-gray transparent transparent transparent;	
-	border-style: solid;
-	border-width: 10px;
-	bottom:-5px;
-	left:-10px;
+	background: url(../images/carat-small-down.png) right center no-repeat;
 }

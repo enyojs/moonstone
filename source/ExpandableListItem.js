@@ -18,6 +18,24 @@
 			{content: "Bolivia"},
 			{content: "Brazil"}
 		]}
+
+	When multiple ExpandableListItems are used in a group, only one may be open at a given
+	time.
+
+		{kind: "Group", highlander: true, components: [
+			{kind: "moon.ExpandableListItem",  active: true, content: "This is a grouped ExpandableListItem", components: [
+				{content: "Item One"},
+				{content: "Item Two"}
+			]},
+			{kind: "moon.ExpandableListItem", content: "This is another grouped ExpandableListItem", components: [
+				{content: "Item Three"},
+				{content: "Item Four"}
+			]},
+			{kind: "moon.ExpandableListItem", content: "This is yet another grouped ExpandableListItem", components: [
+				{content: "Item Five"},
+				{content: "Item Six"}
+			]}
+		]}
 */
 enyo.kind({
 	name: "moon.ExpandableListItem",
@@ -25,13 +43,16 @@ enyo.kind({
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
+		//* True if the item is currently selected
+		active: false
 	},
 	//* @protected
 	classes: "moon-expandable-list-item",
 	spotlight: false,
 	defaultKind: "moon.Item",
 	handlers: {
-		onSpotlightSelect: "spotlightSelect"
+		onSpotlightSelect: "spotlightSelect",
+		onSpotlightDown: "spotlightDown"
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
@@ -39,8 +60,7 @@ enyo.kind({
 		},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group"}
-		]},
-		{name: "bottom", kind: "enyo.Control", spotlight: true, onSpotlightFocus: "spotlightFocusBottom"}
+		]}
 	],
 	//* Used to prevent events from firing during initialization
 	isRendered: false,
@@ -50,6 +70,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.setActive(this.open);
 		this.isRendered = true;
 	},
 	//* Facade for header content
@@ -75,6 +96,10 @@ enyo.kind({
 			}
 		}
 	},
+	activeChanged: function() {
+		this.bubble("onActivate");
+		this.setOpen(this.active);
+	},
 	//* Calls _expandContract()_ if _select_ event came from header.
 	spotlightSelect: function(inSender, inEvent) {
 		if(inSender === this) {
@@ -87,17 +112,18 @@ enyo.kind({
 			return true;
 		}
 		if(!this.getOpen()) {
-			this.setOpen(true);
+			this.setActive(true);
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
-			this.setOpen(false);
+			this.setActive(false);
 		}
+		return true;
 	},
 	//* Closes drawer if drawer is currently open,
 	//* and event was sent via keypress (i.e., it has a direction).
 	headerFocus: function(inSender, inEvent) {
 		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
-			this.setOpen(false);
+			this.setActive(false);
 			enyo.Spotlight.spot(this);
 			this.$.header.removeClass("spotlight");	//<--- TODO - why do we need this here?
 			return true;
@@ -105,16 +131,13 @@ enyo.kind({
 			enyo.Spotlight.spot(this);
 		}
 	},
-	//* Prevents user from continuing downward when Spotlight reaches the bottom
-	//* of the item.
-	spotlightFocusBottom: function(inSender, inEvent) {
-		var s = enyo.Spotlight.getSiblings(this.$.bottom);
-		var nextItem = s.siblings[s.selfPosition-1];
-		if(nextItem) {
-			enyo.Spotlight.spot(nextItem);
+	//* Check for the last item in the client area, and prevent 5-way focus movement
+	//* below it, per UX specs
+	spotlightDown: function(inSender, inEvent) {
+		var c = enyo.Spotlight.getChildren(this.$.client);
+		if (c.length && inEvent.originator == c[c.length-1]) {
 			return true;
 		}
-		return true;
 	},
 	/**
 		Bubbles the _requestScrollIntoView_ event every time the drawer animates.

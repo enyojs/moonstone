@@ -4,34 +4,162 @@
 */
 enyo.kind({
 	name: "moon.Header",
-	classes: "moon-header moon-header-font",
-	style: "overflow: visible;",
+	classes: "moon-header",
 	published: {
 		//* Title of the header
 		title: '',
 		//* Text above the header
 		titleAbove: '',
 		//* Text below the header
-		titleBelow: ''
+		titleBelow: '',
+		//* Sub-text below the header
+		subTitleBelow: '',
+		//* If true, the moon-small-header css class will be applied to this header
+		small: false
 	},
 	components: [
-		{name: "titleAbove", classes: "moon-header-title-above"},
-		{name: "title", classes: "moon-header-title"},
-		{name: "titleBelow", kind: "moon.Item", spotlight: false, classes: "moon-header-title-below"},
+		{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
+		{name: "title", classes: "moon-header-font moon-header-title"},
+		{name: "titleBelow", classes: "moon-header-title-below"},
+		{name: "subTitleBelow", classes: "moon-header-sub-title-below"},
 		{name: "client", classes: "moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.smallChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
+		this.subTitleBelowChanged();
 	},
 	//* @public
-	animateCollapse: function() {
+	collapseToSmall: function() {
+		if (this.collapsed) {
+			return;
+		}
+		
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
+
+		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
+		this.animProps = {
+			"height" : myStyle["height"]
+			//"border" : myStyle["border-bottom-width"],
+			//"width"  : myStyle["width"]
+		};
+		this.$.titleAbove.animProps = {
+			"height" : titleAboveStyle["height"],
+			"padding-top" : titleAboveStyle["padding-top"],
+			"padding-bottom" : titleAboveStyle["padding-bottom"],
+			"opacity" : titleAboveStyle["opacity"],
+			"overflow" : titleAboveStyle["overflow"]
+		};
+
+		this.$.animator.newAnimation({
+			name: "collapseToSmall",
+			duration: 200,
+			timingFunction: "linear",
+			keyframes: {
+				0: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : "current",
+						"padding-top" : "current",
+						"padding-bottom" : "current",
+						"overflow" : "hidden"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : "current"
+					}
+				}],
+				70: [{
+					control: this.$.titleAbove,
+					properties: {
+						"opacity" : "current"
+					}
+				}],
+				100: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : "0px",
+						"padding-top" : "0px",
+						"padding-bottom" : "0px",
+						"opacity" : "0"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : "250px"
+					}
+				}]
+
+			}
+		});
+		this.$.animator.play("collapseToSmall");
+		this.collapsed = true;
+	},
+	expandToLarge: function() {
+		if (!this.collapsed) {
+			return;
+		}
+		
+		this.$.animator.newAnimation({
+			name: "expandToLarge",
+			duration: 200,
+			timingFunction: "linear",
+			keyframes: {
+				0: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : "current",
+						"padding-top" : "current",
+						"padding-bottom" : "current",
+						"opacity" : "current"
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : "current"
+					}
+				}],
+				30: [{
+					control: this.$.titleAbove,
+					properties: {
+						"opacity" : this.$.titleAbove.animProps.opacity
+					}
+				}],
+				100: [{
+					control: this.$.titleAbove,
+					properties: {
+						"height" : this.$.titleAbove.animProps.height,
+						"padding-top" : this.$.titleAbove.animProps["padding-top"],
+						"padding-bottom" : this.$.titleAbove.animProps["padding-bottom"],
+						"overflow" : this.$.titleAbove.animProps.overflow
+					}
+				},
+				{
+					control: this,
+					properties: {
+						"height" : this.animProps.height
+					}
+				}]
+			}
+		});
+		this.$.animator.play("expandToLarge");
+		this.collapsed = false;
+	},
+	animateCollapse: function(inWidth) {
+		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
+		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
+		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
+		inWidth = inWidth || 160;
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
 		this.animProps = {
@@ -45,9 +173,13 @@ enyo.kind({
 			"padding" : titleStyle["padding"]
 		};
 		this.$.titleAbove.animProps = {
-			"width" : titleAboveStyle["width"]
+			"width" : titleAboveStyle["width"],
+			"opacity" : titleAboveStyle["opacity"],
+			"height" : titleAboveStyle["height"],
+			"padding-top" : titleAboveStyle["padding-top"],
+			"padding-bottom" : titleAboveStyle["padding-bottom"]
 		};
-
+		
 		this.$.animator.newAnimation({
 			name: "collapse",
 			duration: 800,
@@ -78,20 +210,28 @@ enyo.kind({
 				30: [{
 					control: this.$.titleAbove,
 					properties: {
-						"border-bottom-width" : "current"
+						"border-bottom-width" : "current",
+						"opacity" : "current",
+						"height" : "current",
+						"padding-top" : "current",
+						"padding-bottom" : "current"
 					}
 				}],
 				40: [{
 					control: this.$.titleAbove,
 					properties: {
-						"border-bottom-width" : "0px"
+						"border-bottom-width" : "0px",
+						"opacity" : "1",
+						"height" : "36px",
+						"padding-top" : "20px",
+						"padding-bottom" : "5px"
 					}
 				}],
 				50: [{
 					control: this,
 					properties: {
 						"height" : "100px",
-						"border-bottom-width" : "1px",
+						"border-bottom-width" : "0px",
 						"width" : "current",
 						"min-width" : "current",
 						"max-width" : "current"
@@ -114,9 +254,9 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "30px",
-						"min-width" : "30px",
-						"max-width" : "30px"
+						"width" : inWidth + "px",
+						"min-width" : inWidth + "px",
+						"max-width" : inWidth + "px"
 					}
 				}],
 
@@ -172,7 +312,11 @@ enyo.kind({
 				70: [{
 					control: this.$.titleAbove,
 					properties: {
-						"border-bottom-width" : "1px"
+						"border-bottom-width" : "1px",
+						"opacity" : this.$.titleAbove.animProps["opacity"],
+						"height" : this.$.titleAbove.animProps["height"],
+						"padding-top" : this.$.titleAbove.animProps["padding-top"],
+						"padding-bottom" : this.$.titleAbove.animProps["padding-bottom"]
 					}
 				}],
 				100: [{
@@ -202,8 +346,17 @@ enyo.kind({
 		this.$.animator.play("expand");
 	},
 	//* @protected
-	titleChanged: function() {
+	smallChanged: function() {
+		this.addRemoveClass("moon-small-header", this.getSmall());
+	},
+	//* @protected
+	contentChanged: function() {
 		this.$.title.setContent(this.title || this.content);
+	},
+	//* @protected
+	// For backward-compatibility with original API
+	titleChanged: function() {
+		this.contentChanged();
 	},
 	//* @protected
 	titleAboveChanged: function() {
@@ -213,6 +366,10 @@ enyo.kind({
 	//* @protected
 	titleBelowChanged: function() {
 		this.$.titleBelow.setContent(this.titleBelow || '');
+	},
+	//* @protected
+	subTitleBelowChanged: function() {
+		this.$.subTitleBelow.setContent(this.subTitleBelow || '');
 	},
 	//* @protected
 	animationComplete: function(inSender, inEvent) {

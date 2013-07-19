@@ -10,7 +10,7 @@ enyo.kind({
 		title: "",
 		message: ""
 	},
-	components: [
+	tools: [
 		{name: "title", classes: "moon-header-font moon-dialog-title"},
 		{
 			layoutKind: "FittableColumnsLayout",

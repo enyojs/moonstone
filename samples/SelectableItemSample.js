@@ -10,7 +10,7 @@ enyo.kind({
 					{kind: "moon.Divider", content: "Selectable Items"},
 					{kind: "moon.SelectableItem", content: "Option 1", checked: true, onActivate: "itemChanged"},
 					{kind: "moon.SelectableItem", content: "Option 2", onActivate: "itemChanged"},
-					{kind: "moon.SelectableItem", disabled: true, content: "Disabled", onActivate: "itemChanged"},
+					{kind: "moon.SelectableItem", disabled: true, content: "Deactivated", onActivate: "itemChanged"},
 					{kind: "moon.SelectableItem", content: "Option 4", checked: true, onActivate: "itemChanged"},
 					{kind: "moon.SelectableItem", content: "Option 5", onActivate: "itemChanged"}
 				]},
@@ -19,7 +19,7 @@ enyo.kind({
 					{kind: "Group", onActivate: "groupChanged", components: [
 						{kind: "moon.SelectableItem", content: "Group Option 1"},
 						{kind: "moon.SelectableItem", content: "Group Option 2", checked: true},
-						{kind: "moon.SelectableItem", disabled: true, content: "Disabled"},
+						{kind: "moon.SelectableItem", disabled: true, content: "Deactivated"},
 						{kind: "moon.SelectableItem", content: "Group Option 4"},
 						{kind: "moon.SelectableItem", content: "Group Option 5"}
 					]}

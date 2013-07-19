@@ -1,9 +1,9 @@
 /* Button */
 .moon-button {
+	.moon-large-button-text;
 	max-height: 106px;
 	border-radius: @moon-button-border-radius;
-	line-height: @moon-button-text-size;
-	font-size: @moon-button-text-size;
+	line-height: 1em;
 	background-color: @moon-button-background-color;
 	border: @moon-button-border-width solid transparent;
 	cursor: pointer;
@@ -20,11 +20,12 @@
 }
 
 .moon-button.small {
+  .moon-small-button-text;
   max-height: @moon-button-small-height;
   min-height: @moon-button-small-height;
   min-width: @moon-button-small-height;
   padding: 13px 22px 13px 22px;
-  line-height: 20px;
+  line-height: 0.84em;
   position: relative;
   overflow: visible;
 }
@@ -64,6 +65,5 @@
 
 .moon-button[disabled] {
 	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
+	color: @moon-button-disabled-color;
 }
