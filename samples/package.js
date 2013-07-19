@@ -77,6 +77,7 @@ enyo.depends(
 	"ObjectActionVerticalTypeSample.js",
 	"ObjectActionVerticalTypeSample.css",
 	"ExpandableInputSample.js",
+	"FormCheckboxSample.js",
 	"FontSample.js",
 	"FontSample.css"
 );

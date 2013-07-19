@@ -2277,7 +2277,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-accordion-header {
   display: inline-block;
-  padding-right: 22px;
+  padding-right: 39px;
   margin-bottom: 0px;
 }
 .enyo-locale-right-to-left .moon-accordion-header {
@@ -2312,19 +2312,11 @@ body .enyo-fit.panels-50-percent-scrim,
   height: 0px;
   margin-bottom: 10px;
 }
-.moon-accordion-arrow {
-  position: relative;
-  display: inline-block;
-  width: 17px;
-  height: 11px;
-  margin-top: 15px;
-  margin-bottom: 0px;
-}
 .moon-accordion-arrow.up {
-  background: url(../images/carat-small-up.png) 0 0 no-repeat;
+  background: url(../images/carat-small-up.png) right center no-repeat;
 }
 .moon-accordion-arrow.down {
-  background: url(../images/carat-small-down.png) 0 0 no-repeat;
+  background: url(../images/carat-small-down.png) right center no-repeat;
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
@@ -3446,7 +3438,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-objaction-action-vertical {
   opacity: 0;
-  white-space: nowrap;
   text-align: center;
 }
 .moon-objectaction-stretch.moon-objaction-action-vertical > * {
@@ -3457,6 +3448,30 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   white-space: nowrap;
   display: table-cell;
   vertical-align: middle;
+}
+/* FormCheckbox.css */
+.moon-formcheckbox-item .moon-checkbox {
+  position: absolute;
+  top: 0px;
+  width: 37px;
+  height: 37px;
+  margin-top: 2px;
+  border-radius: 20px;
+  border: 0px;
+  background-color: #999999;
+  background-position: 3px 8px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
+  right: 0px;
+}
+.moon-formcheckbox-item .moon-checkbox .moon-overlay {
+  background: transparent url(../images/checkbox.png) no-repeat 3px -29px;
+}
+.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  margin: 0px 0px 0px 47px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  margin: 0px 47px 0px 0px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
