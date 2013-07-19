@@ -28,6 +28,11 @@ enyo.kind({
 					{content: "Item 2", active: true},
 					{content: "Item 3"}
 				]},
+				{kind: "moon.ExpandablePicker", content: "Pre-expanded picker", open: true, components: [
+					{content: "Item 1"},
+					{content: "Item 2", active: true},
+					{content: "Item 3"}
+				]},
 				{tag: "br"},
 				{kind: "moon.Divider", content: "In Group", style: "color: #999;"},
 				{kind: "enyo.Group", highlander: true, components: [

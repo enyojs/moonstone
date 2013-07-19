@@ -41,7 +41,8 @@ enyo.kind({
 	name: "moon.ExpandableListItem",
 	kind: "moon.Item",
 	published: {
-		//* If true, the drawer is expanded, showing this item's contents
+		//* If true, the drawer is expanded, showing this item's contents.  Use this property
+		//* to set the initial state of the item (rather than active).
 		open: false,
 		//* True if the item is currently selected
 		active: false
