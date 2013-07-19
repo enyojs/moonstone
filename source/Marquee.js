@@ -64,12 +64,6 @@ enyo.kind({
 			this.marqueeControl = this;
 		}
 	},
-	rendered: function() {
-		this.inherited(arguments);
-	},
-	reflow: function() {
-		this.inherited(arguments);
-	},
 	//*@public
 	startMarquee: function() {
 		this.calcMarqueeDistance();
@@ -80,7 +74,7 @@ enyo.kind({
 		}
 	},
 	stopMarquee: function(inSender, inEvent) {
-		this.stopJob("marquee" + this.id);
+		this.stopJob(this.id);
 		this.marqueeControl.applyStyle("left", 0);
 		this.marqueeControl.removeClass("moon-marquee");
 		this.marqueeRequested = false;
@@ -91,7 +85,9 @@ enyo.kind({
 	contentChanged: function() {
 		if (this.$.client) {
 			this.$.client.setContent(this.content);
-		}
+		} else {
+            this.inherited(arguments);
+        }
 	},
 	calcMarqueeDistance: function() {
 		return this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
@@ -110,7 +106,7 @@ enyo.kind({
         return true;
 	},
 	animationEnded: function(inSender, inEvent) {
-		this.startJob("marquee" + this.id, enyo.bind(this, this.stopMarquee), this.marqueePause);
+		this.startJob(this.id, enyo.bind(this, this.stopMarquee), this.marqueePause);
         return true;
 	}
 });
@@ -142,13 +138,13 @@ enyo.createMixin({
 		});
 		if (this.marqueeWaitList.length > 0) {
 			this.marqueeActive = true;
-			this.startJob("marquee" + this.id, enyo.bind(this, function() {
+			this.startJob(this.id, enyo.bind(this, function() {
 				this.waterfall("onRequestMarqueeStart");
 			}), this.marqueeDelay);
 		}
 	},
 	stopMarquee: function() {
-		this.stopJob("marquee" + this.id);
+		this.stopJob(this.id);
 		this.marqueeActive = false;
 		this.waterfall("onRequestMarqueeStop");
 	},
@@ -180,13 +176,12 @@ enyo.createMixin({
 		return true;
 	},
 	_marqueeStartHold: function() {
-		this.startJob("marquee" + this.id, enyo.bind(this, this.startMarquee), this.marqueeHold);
+		this.startJob(this.id, enyo.bind(this, this.startMarquee), this.marqueeHold);
 	},
 	_marqueeResize: function(inSender, inEvent) {
 		if (this.marqueeOnSpotlight === false) {
-			this.stopJob("marquee" + this.id);
-			this.startJob("marquee" + this.id, enyo.bind(this, function() {
-				this.stopMarquee();
+			this.stopJob(this.id);
+			this.startJob(this.id, enyo.bind(this, function() {
 				this.startMarquee();
 			}), 400);
 		}

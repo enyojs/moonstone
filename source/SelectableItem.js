@@ -13,7 +13,6 @@ enyo.kind({
 	name: "moon.SelectableItem",
 	kind: "moon.Item",
 	classes: "moon-selectableItem",
-	spotlight: true,
 	events: {
 	//* Fires when the SelectableItem is tapped.
 		onActivate: ""
@@ -29,23 +28,26 @@ enyo.kind({
 		//* the group
 		active: false
 	},
+	components: [	// This client allow underline to fit the content
+		{name: "client", classes: "moon-selectableItem-item"}
+	],
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
 	},
 	tap: function(inSender, e) {
 		if (!this.disabled) {
 			this.setActive(!this.getActive());
-			this.$.marqueeText.addRemoveClass("moon-overlay", this.getActive());
+			this.$.client.addRemoveClass("moon-overlay", this.getActive());
 			this.bubble("onchange");
 		}
 		return !this.disabled;
 	},
 	selectedChanged: function() {
-		this.$.marqueeText.removeClass("moon-overlay");
+		this.$.client.removeClass("moon-overlay");
 		this.setNodeProperty("selected", this.selected);
 		this.setAttribute("selected", this.selected ? "selected" : "");
 		this.setActive(this.selected);
-		this.$.marqueeText.addRemoveClass("moon-underline", this.selected);
+		this.$.client.addRemoveClass("moon-underline", this.selected);
 		this.render();
 	},
 	/**
