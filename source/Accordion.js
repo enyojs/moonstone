@@ -49,21 +49,43 @@ enyo.kind({
 		autoCollapse: false
 	},
 	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-accordion-header", spotlight: true,
+		{name: "header", kind: "moon.Item", classes: "moon-accordion-header moon-accordion-arrow", spotlight: true,
 			ontap: "expandContract", onSpotlightSelect: "expandContract"},
-		{name:"arrow", classes:"moon-accordion-arrow", spotlight: false},
 		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", classes: "moon-accordion-client"}
 		]}
 	],
 	//* @protected
+	rendered: function() {
+		this.inherited(arguments);
+		this.cacheWidth();  // Fixme: Need to move this to FontLoaded event to calculate exact width.
+	},
+	cacheWidth: function() {
+		this._headerWidth = this.$.header.getBounds().width;
+		this._headerPadding = parseInt(this.$.header.getComputedStyleValue("padding-right"));
+		this.resizeHandler();
+	},
 	openChanged: function() {
 		this.setArrow(this.open);
 		this.inherited(arguments);
 	},
 	setArrow: function(open) {
-		this.$.arrow.addRemoveClass('up', open);
-		this.$.arrow.addRemoveClass('down', !open);
+		this.$.header.addRemoveClass('up', open);
+		this.$.header.addRemoveClass('down', !open);
+	},
+	resizeHandler: function(inSender, inEvent) {
+		this.inherited(arguments);
+		var controlWidth = this.getBounds().width,
+			newHeaderWidth = 0;
+
+		if (this._headerWidth < controlWidth) {
+			newHeaderWidth = this._headerWidth - this._headerPadding;
+		} else {
+			newHeaderWidth = controlWidth - this._headerPadding;
+		}
+
+		this.$.header.applyStyle("width", newHeaderWidth + "px");
+		return true;
 	},
 	// Override default spotlight down behavior of ExpandableListItem which prevents
 	// focusing off of the last control

@@ -100,7 +100,7 @@ enyo.kind({
 		enyo.mixin(this, inEvent);
 		this.calcMarqueeDistance();
 		if (!this.disabled && this.marqueeDistance > 0) {
-			this.doMarqueeStarted();
+			this.doMarqueeStarted({marqueeDistance: this.marqueeDistance});
 		}
 		this.marqueeRequested = true;
         return true;
