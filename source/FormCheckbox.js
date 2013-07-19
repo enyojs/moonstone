@@ -44,7 +44,7 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-formcheckbox-item",
-	spotlight: true,
+	spotlight: false,
 	handlers: {
 		ontap: "tap",
 		onActivate: "decorateActivateEvent"
