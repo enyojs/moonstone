@@ -10,6 +10,7 @@
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
 		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
 		{"name": "Fonts", "path":"$lib/moonstone/samples/FontSample"},
+		{"name": "Form Checkbox", "path":"$lib/moonstone/samples/FormCheckboxSample"},
 		{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
 		{"name": "Inputs", "samples": [
