@@ -73,5 +73,7 @@ enyo.depends(
 	"PanelsVideoPlayerSample.js",
 	"DrawerSample.js",
 	"ExpandableInputSample.js",
-	"FormCheckbox.js"
+	"FormCheckboxSample.js",
+	"FontSample.js",
+	"FontSample.css"
 );

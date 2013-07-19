@@ -9,7 +9,6 @@ enyo.kind({
     components: [
         {
             kind: "FittableColumns",
- 
             components: [
                 {
                     name: "eMail",
