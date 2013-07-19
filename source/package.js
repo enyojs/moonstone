@@ -67,5 +67,6 @@ enyo.depends(
 	"VideoFullscreenToggleButton.js",
 	"DrawerHandle.js",
 	"Drawer.js",
-	"Drawers.js"
+	"Drawers.js",
+	"FormCheckbox.js"
 );
