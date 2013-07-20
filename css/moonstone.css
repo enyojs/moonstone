@@ -41,6 +41,8 @@
 /* ---------------------------------------*/
 /* Grid Dimensions */
 /* ---------------------------------------*/
+/* ObjectActionDecorator */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -3463,6 +3465,24 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   margin: 0px;
   padding: 0px;
 }
+/* ObjectActionDecorator */
+.moon-objaction-client {
+  width: 100%;
+  display: table-cell;
+}
+.moon-objaction-action-vertical {
+  opacity: 0;
+  text-align: center;
+}
+.moon-objectaction-stretch.moon-objaction-action-vertical > * {
+  width: 100%;
+}
+.moon-objaction-action-horizontal {
+  opacity: 0;
+  white-space: nowrap;
+  display: table-cell;
+  vertical-align: middle;
+}
 /* FormCheckbox.css */
 .moon-formcheckbox-item .moon-checkbox {
   position: absolute;
@@ -3502,6 +3522,10 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .moon-light-gray * {
   color: #4b4b4b;
 }
+/* Standard horizontal spacing */
+.moon-hspacing {
+  white-space: nowrap;
+}
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: top;
@@ -3520,4 +3544,15 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
   margin-right: 5px;
   margin-left: 0;
+}
+/* Standard vertical spacing */
+.moon-vspacing > * {
+  display: block;
+  margin: 5px 0;
+}
+.moon-vspacing > :first-child {
+  margin-top: 0;
+}
+.moon-vspacing > :last-child {
+  margin-bottom: 0;
 }

@@ -69,5 +69,6 @@ enyo.depends(
 	"DrawerHandle.js",
 	"Drawer.js",
 	"Drawers.js",
+	"ObjectActionDecorator.js",
 	"FormCheckbox.js"
 );
