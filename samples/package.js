@@ -76,7 +76,6 @@ enyo.depends(
 	"FormCheckboxSample.js",
 	"FontSample.js",
 	"FontSample.css",
-	"CalendarPickerSample.js",
 	"HeaderAutoCollapsingSample.js",
 	"InputHeaderSample.js",
 	"ToggleButtonSample.css",
