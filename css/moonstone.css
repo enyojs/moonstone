@@ -2464,7 +2464,7 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
   background-color: transparent;
 }
-.moon-input-header > .moon-input-header-input-decorator > .moon-input {
+.moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Miso";
   font-size: 140px;
   font-weight: normal;
@@ -2478,12 +2478,12 @@ body .enyo-fit.panels-50-percent-scrim,
   line-height: 140px;
   color: #4b4b4b;
 }
-.moon-input-header > .moon-input-header-input-decorator > img {
+.moon-input-header .moon-input-header-input-decorator > img {
   width: 66px;
   box-sizing: border-box;
   display: none;
 }
-.moon-input-header > .moon-input-header-input-decorator.spotlight > img {
+.moon-input-header .moon-input-header-input-decorator.spotlight > img {
   display: inline-block;
 }
 .moon-drawer-handle {
