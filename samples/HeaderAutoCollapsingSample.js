@@ -10,7 +10,7 @@ enyo.kind({
 			], components: [
 				{kind:"moon.Scroller", fit:true, components: [
 					{kind:"enyo.Repeater", count:50, onSetupItem:"setupItem", components: [
-						{kind:"moon.Item"}
+						{kind:"moon.Item", ontap:"next"}
 					]}
 				]}
 			]},
@@ -20,7 +20,7 @@ enyo.kind({
 			], components: [
 				{kind:"moon.Scroller", fit:true, components: [
 					{kind:"enyo.Repeater", count:50, onSetupItem:"setupItem", components: [
-						{kind:"moon.Item"}
+						{kind:"moon.Item", ontap:"next"}
 					]}
 				]}
 			]},
