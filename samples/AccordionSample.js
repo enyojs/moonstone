@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: 'moon.Scroller', classes: "enyo-fill", components: [		
+		{kind: 'moon.Scroller', classes: "enyo-fill moon-8h", components: [		
 			{kind: "moon.Divider", content: "Not In Group"},
 			{components: [
 				{kind: "moon.Accordion", content: "This is an accordion", components: [
@@ -13,6 +13,10 @@ enyo.kind({
 				{kind: "moon.Accordion", content: "This is another accordion", components: [
 					{content: "Item Three"},
 					{content: "Item Four"}
+				]},
+				{kind: "moon.Accordion", content: "This is an lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
+					{content: "Looooooooooooooooooooooooooooooooooooong Item One"},
+					{content: "Loooooooooooooooooooooooooooooong Item Two"}
 				]}
 			]},
 			{kind: "moon.Divider", content: "In Group"},
@@ -28,12 +32,6 @@ enyo.kind({
 				{kind: "moon.Accordion", content: "This is another grouped accordion", components: [
 					{content: "Item Five"},
 					{content: "Item Six"}
-				]}
-			]},
-			{components: [
-				{kind: "moon.Accordion", content: "This is an lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
-					{content: "Looooooooooooooooooooooooooooooooooooong Item One"},
-					{content: "Loooooooooooooooooooooooooooooong Item Two"}
 				]},
 				{kind: "moon.Accordion", content: "This is another lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
 					{content: "Looooooooooooooooooooooooooooooooooooong Item Three"},
