@@ -30,8 +30,7 @@ enyo.kind({
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
 		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
-		onSpotlightFocused	: "spotFocused",
-		ontap				: "decorateTapEvent"
+		onSpotlightFocused	: "spotFocused"
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
@@ -91,8 +90,5 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 		}
-	},
-	decorateTapEvent: function(inSender, inEvent) {
-		inEvent.originator = this;
 	}
 });

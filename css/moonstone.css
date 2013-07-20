@@ -1344,7 +1344,7 @@
 }
 /* Small header styling */
 .moon-small-header {
-  height: 250px;
+  height: 260px;
 }
 .moon-small-header .moon-header-title-above {
   height: 0;
@@ -1958,9 +1958,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   min-height: 100px;
-  max-height: 80%;
   min-width: 100px;
-  max-width: 790px;
   border-radius: 16px;
   border: 12px solid rgba(140, 140, 140, 0.1);
   color: #4b4b4b;
@@ -2464,7 +2462,7 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
   background-color: transparent;
 }
-.moon-input-header > .moon-input-header-input-decorator > .moon-input {
+.moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Miso";
   font-size: 140px;
   font-weight: normal;
@@ -2478,12 +2476,12 @@ body .enyo-fit.panels-50-percent-scrim,
   line-height: 140px;
   color: #4b4b4b;
 }
-.moon-input-header > .moon-input-header-input-decorator > img {
+.moon-input-header .moon-input-header-input-decorator > img {
   width: 66px;
   box-sizing: border-box;
   display: none;
 }
-.moon-input-header > .moon-input-header-input-decorator.spotlight > img {
+.moon-input-header .moon-input-header-input-decorator.spotlight > img {
   display: inline-block;
 }
 .moon-drawer-handle {
