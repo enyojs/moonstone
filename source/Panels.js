@@ -282,7 +282,7 @@ enyo.kind({
 		return true;
 	},
 	postTransitionComplete: function() {
-		var activeIndex = this.getIndex(), active;
+		var activeIndex = this.getIndex();
 		// parent and child of panels can get event
 		this.doPanelsPostTransitionFinished({active: activeIndex});
 		for (var i = 0; i < this.getPanels().length; i++) {

@@ -38,13 +38,14 @@ enyo.kind({
 					components:[
 						{content:"testing 1"},
 						{content:"testing 2"}
-					]}
-				]
+					]
+				}]
 			}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 45%;", components: [
 			{content:"Long Button with truncation"},
-			{kind: "moon.ContextualPopup",
+			{
+				kind: "moon.ContextualPopup",
 				components: [
 					{content:"testing 1"},
 					{content:"testing 2"},

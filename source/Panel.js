@@ -37,7 +37,7 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
 	},
 
 	//* @protected

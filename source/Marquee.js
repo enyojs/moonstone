@@ -1,6 +1,6 @@
 /**
 	_moon.MarqueeText_ is a base text control that can do marquee animation.
-	In case of _moon.MarqueeText_ is used inside of _moon.MarqueeDecorator_, 
+	In case of _moon.MarqueeText_ is used inside of _moon.MarqueeDecorator_,
 	_moon.MarqueeDecorator_ syncronize each marquee's start timing and user
 	can programatically start marquee by using _startMarquee()_ function.
 
@@ -17,7 +17,7 @@
 			}
 		});
 
-	Developers can easily extend control to have marquee feature by using 
+	Developers can easily extend control to have marquee feature by using
 	MarqueeSupport mixin inside of the control.
 
 		enyo.kind({
@@ -92,7 +92,8 @@ enyo.kind({
         }
 	},
 	calcMarqueeDistance: function() {
-		return this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
+		this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
+		return this.marqueeDistance;
 	},
 	requestMarquee: function(inSender, inEvent) {
 		enyo.mixin(this, inEvent);
@@ -135,7 +136,7 @@ enyo.createMixin({
 	startMarquee: function() {
 		this.marqueeWaitList = [];
 		this.waterfall("onRequestMarquee", {
-			marqueePause: this.marqueePause, 
+			marqueePause: this.marqueePause,
 			marqueeSpeed: this.marqueeSpeed
 		});
 		if (this.marqueeWaitList.length > 0) {

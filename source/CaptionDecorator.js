@@ -10,7 +10,7 @@ enyo.kind({
 	name: "moon.CaptionDecorator",
 	handlers: {
 		onSpotlightFocus:"spotFocus",
-		onSpotlightBlur:"spotBlur",
+		onSpotlightBlur:"spotBlur"
 	},
 	published: {
 		side: "top",

@@ -190,7 +190,7 @@ enyo.kind({
 			"padding-top" : titleAboveStyle["padding-top"],
 			"padding-bottom" : titleAboveStyle["padding-bottom"]
 		};
-		
+
 		this.$.animator.newAnimation({
 			name: "collapse",
 			duration: 800,
@@ -297,7 +297,7 @@ enyo.kind({
 						"border-bottom-width" : "current",
 						"width" : this.breadcrumbAnimProps["width"],
 						"min-width" : this.breadcrumbAnimProps["width"],
-						"max-width" : this.breadcrumbAnimProps["width"],
+						"max-width" : this.breadcrumbAnimProps["width"]
 					}
 				},
 				{
