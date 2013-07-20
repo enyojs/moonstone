@@ -140,6 +140,7 @@ enyo.kind({
 		return this.$.header;
 	},
 	shrinkPanel: function() {
+		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		this.$.animator.newAnimation({
 			name: "preTransition",
 			duration: 800,
@@ -173,13 +174,13 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : this.container.layout.breadcrumbWidth + "px"
+						"width" : breadcrumbWidth + "px"
 					}
 				}]
 			}
 		});
 
-		this.$.header.animateCollapse(this.container.layout.breadcrumbWidth);
+		this.$.header.animateCollapse(breadcrumbWidth);
 		this.$.animator.play("preTransition");
 	},
 	growPanel: function() {
