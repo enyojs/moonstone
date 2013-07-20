@@ -2427,10 +2427,10 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-input-header > .moon-input-header-input-decorator > img {
   width: 66px;
   box-sizing: border-box;
-  display: none;
+  opacity: 0;
 }
 .moon-input-header > .moon-input-header-input-decorator.spotlight > img {
-  display: inline-block;
+  opacity: 1;
 }
 .moon-drawer-handle {
   height: auto;
