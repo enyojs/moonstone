@@ -887,7 +887,7 @@
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
-  min-width: 95px;
+  min-width: 105px;
   padding: 29px 22px 29px 22px;
   margin: 0px;
   color: #4b4b4b;
@@ -1024,8 +1024,8 @@
 }
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
-  height: 95px;
-  line-height: 95px;
+  height: 105px;
+  line-height: 105px;
 }
 .moon-button-caption-decorator .moon-caption.left {
   float: left;
