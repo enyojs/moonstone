@@ -3454,15 +3454,14 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   border-bottom: 1px solid #aaa;
 }
 .moon-expandable-input-current-value {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-style: italic;
-  letter-spacing: 0.05em;
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4B4B4B;
   margin: 0px;
   padding: 0px;
-  line-height: 14px;
-  font-weight: normal;
-  margin-bottom: 8px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
