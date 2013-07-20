@@ -149,5 +149,18 @@ enyo.kind({
 		this.doChange({
 			value:this.value,
 		});
+	},
+	//*@protected
+	_marqueeSpotlightFocus: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.startMarquee();
+			this.$.currentValue.startMarquee();
+		}
+	},
+	_marqueeSpotlightBlur: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.stopMarquee();
+			this.$.currentValue.stopMarquee();
+		}
 	}
 });

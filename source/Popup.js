@@ -83,6 +83,7 @@ enyo.kind({
 	},
 	//* Determine whether to display closeButton
 	configCloseButton: function() {
+		if (!this.$.closeButton) {return;}
 		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
@@ -169,7 +170,9 @@ enyo.kind({
 	},
 	//* Removes focus style from closeButton & hides _moon.Popup_ 
 	closePopup: function(inSender, inEvent) {
-		this.$.closeButton.removeClass("pressed");
+		if (this.$.closeButton) {
+			this.$.closeButton.removeClass("pressed");
+		}
 		this.respotActivator();
 		this.spotlight = false;
 		this.hide();

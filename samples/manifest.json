@@ -43,6 +43,10 @@
 			{"name": "Video Player", "path":"$lib/moonstone/samples/VideoPlayerSample"},
 			{"name": "Video Player in Panels", "path":"$lib/moonstone/samples/PanelsVideoPlayerSample"}
 		]},
+		{"name": "Object Actions", "samples": [
+			{"name": "Horizontal Object Actions", "path":"$lib/moonstone/samples/ObjectActionHorizontalTypeSample"},
+			{"name": "Vertical Object Actions", "path":"$lib/moonstone/samples/ObjectActionVerticalTypeSample"}
+		]},
 		{"name": "Panels", "samples": [
 			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
 			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/ActivityPanelsSample"},

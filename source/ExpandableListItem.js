@@ -41,7 +41,8 @@ enyo.kind({
 	name: "moon.ExpandableListItem",
 	kind: "moon.Item",
 	published: {
-		//* If true, the drawer is expanded, showing this item's contents
+		//* If true, the drawer is expanded, showing this item's contents.  Use this property
+		//* to set the initial state of the item (rather than active).
 		open: false,
 		//* True if the item is currently selected
 		active: false
@@ -67,6 +68,12 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.openChanged();
+	},
+	initComponents: function() {
+		this.inherited(arguments);
+		if (this.$.marqueeText) {
+			this.$.marqueeText.destroy();	// Marquee on header
+		}
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -146,5 +153,16 @@ enyo.kind({
 	*/
 	drawerAnimationStep: function() {
 		this.bubble("onRequestScrollIntoView");
+	},
+	//*@protected
+	_marqueeSpotlightFocus: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.startMarquee();
+		}
+	},
+	_marqueeSpotlightBlur: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.stopMarquee();
+		}
 	}
 });
