@@ -18,10 +18,12 @@ enyo.kind({
 		small: false
 	},
 	components: [
-		{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-		{name: "title", classes: "moon-header-font moon-header-title"},
-		{name: "titleBelow", classes: "moon-header-title-below"},
-		{name: "subTitleBelow", classes: "moon-header-sub-title-below"},
+		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
+			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
+			{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"},
+			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
+			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
+		]},
 		{name: "client", classes: "moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -33,6 +35,16 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.startMarquee();
+	},
+	startMarquee: function() {
+		this.$.texts.startMarquee();
+	},
+	stopMarquee: function() {
+		this.$.texts.stopMarquee();
+	},
 	//* @public
 	collapseToSmall: function() {
 		if (this.collapsed) {
@@ -43,12 +55,12 @@ enyo.kind({
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
-		this.animProps = {
+		this.smallAnimProps = {
 			"height" : myStyle["height"]
 			//"border" : myStyle["border-bottom-width"],
 			//"width"  : myStyle["width"]
 		};
-		this.$.titleAbove.animProps = {
+		this.$.titleAbove.smallAnimProps = {
 			"height" : titleAboveStyle["height"],
 			"padding-top" : titleAboveStyle["padding-top"],
 			"padding-bottom" : titleAboveStyle["padding-bottom"],
@@ -94,7 +106,7 @@ enyo.kind({
 				{
 					control: this,
 					properties: {
-						"height" : "250px"
+						"height" : "260px"
 					}
 				}]
 
@@ -131,22 +143,22 @@ enyo.kind({
 				30: [{
 					control: this.$.titleAbove,
 					properties: {
-						"opacity" : this.$.titleAbove.animProps.opacity
+						"opacity" : this.$.titleAbove.smallAnimProps.opacity
 					}
 				}],
 				100: [{
 					control: this.$.titleAbove,
 					properties: {
-						"height" : this.$.titleAbove.animProps.height,
-						"padding-top" : this.$.titleAbove.animProps["padding-top"],
-						"padding-bottom" : this.$.titleAbove.animProps["padding-bottom"],
-						"overflow" : this.$.titleAbove.animProps.overflow
+						"height" : this.$.titleAbove.smallAnimProps.height,
+						"padding-top" : this.$.titleAbove.smallAnimProps["padding-top"],
+						"padding-bottom" : this.$.titleAbove.smallAnimProps["padding-bottom"],
+						"overflow" : this.$.titleAbove.smallAnimProps.overflow
 					}
 				},
 				{
 					control: this,
 					properties: {
-						"height" : this.animProps.height
+						"height" : this.smallAnimProps.height
 					}
 				}]
 			}
@@ -161,17 +173,17 @@ enyo.kind({
 		inWidth = inWidth || 160;
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
-		this.animProps = {
+		this.breadcrumbAnimProps = {
 			"height" : myStyle["height"],
 			"border" : myStyle["border-bottom-width"],
 			"width"  : myStyle["width"]
 		};
-		this.$.title.animProps = {
+		this.$.title.breadcrumbAnimProps = {
 			"font-size" : titleStyle["font-size"],
 			"line-height" : titleStyle["line-height"],
 			"padding" : titleStyle["padding"]
 		};
-		this.$.titleAbove.animProps = {
+		this.$.titleAbove.breadcrumbAnimProps = {
 			"width" : titleAboveStyle["width"],
 			"opacity" : titleAboveStyle["opacity"],
 			"height" : titleAboveStyle["height"],
@@ -222,8 +234,8 @@ enyo.kind({
 						"border-bottom-width" : "0px",
 						"opacity" : "1",
 						"height" : "36px",
-						"padding-top" : "20px",
-						"padding-bottom" : "5px"
+						"padding-top" : "10px",
+						"padding-bottom" : "10px"
 					}
 				}],
 				50: [{
@@ -283,9 +295,9 @@ enyo.kind({
 					properties: {
 						"height" : "current",
 						"border-bottom-width" : "current",
-						"width" : this.animProps["width"],
-						"min-width" : this.animProps["width"],
-						"max-width" : this.animProps["width"]
+						"width" : this.breadcrumbAnimProps["width"],
+						"min-width" : this.breadcrumbAnimProps["width"],
+						"max-width" : this.breadcrumbAnimProps["width"],
 					}
 				},
 				{
@@ -312,25 +324,25 @@ enyo.kind({
 					control: this.$.titleAbove,
 					properties: {
 						"border-bottom-width" : "1px",
-						"opacity" : this.$.titleAbove.animProps["opacity"],
-						"height" : this.$.titleAbove.animProps["height"],
-						"padding-top" : this.$.titleAbove.animProps["padding-top"],
-						"padding-bottom" : this.$.titleAbove.animProps["padding-bottom"]
+						"opacity" : this.$.titleAbove.breadcrumbAnimProps["opacity"],
+						"height" : this.$.titleAbove.breadcrumbAnimProps["height"],
+						"padding-top" : this.$.titleAbove.breadcrumbAnimProps["padding-top"],
+						"padding-bottom" : this.$.titleAbove.breadcrumbAnimProps["padding-bottom"]
 					}
 				}],
 				100: [{
 					control: this,
 					properties: {
-						"height" : this.animProps["height"],
-						"border-bottom-width" : this.animProps["border-bottom-width"]
+						"height" : this.breadcrumbAnimProps["height"],
+						"border-bottom-width" : this.breadcrumbAnimProps["border-bottom-width"]
 					}
 				},
 				{
 					control: this.$.title,
 					properties: {
-						"font-size" : this.$.title.animProps["font-size"],
-						"line-height" : this.$.title.animProps["line-height"],
-						"padding" : this.$.title.animProps["padding"]
+						"font-size" : this.$.title.breadcrumbAnimProps["font-size"],
+						"line-height" : this.$.title.breadcrumbAnimProps["line-height"],
+						"padding" : this.$.title.breadcrumbAnimProps["padding"]
 					}
 				},
 				{

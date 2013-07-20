@@ -1,8 +1,4 @@
 /* Remove default uppercase text-transform for this sample */
-.moon-input {
-	text-transform: none;
-}
-
 .moon-input-sample .moon-input-decorator {
 	margin: 20px;
 }

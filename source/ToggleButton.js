@@ -35,16 +35,15 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-toggle-button",
-	components: [
-		{name: "contentOn", classes: "moon-toggle-button-text"},
-		{name: "contentOff", classes: "moon-toggle-button-text"}
-	],
 	create: function() {
 		this.inherited(arguments);
 		this.value = Boolean(this.value || this.active);
-		this.onContentChanged();
-		this.offContentChanged();
+		this.updateContent();
 		this.disabledChanged();
+	},
+	initComponents: function() {
+		this.inherited(arguments);
+		this.$.client.addClass("moon-toggle-button-text");
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -52,32 +51,28 @@ enyo.kind({
 	},
 	updateVisualState: function() {
 		this.addRemoveClass("moon-overlay", this.value);
-		this.$.contentOn.setShowing(this.value);
-		this.$.contentOff.setShowing(!this.value);
 		this.setActive(this.value);
 	},
 	contentChanged: function() {
-		this.onContentChanged();
-		this.offContentChanged();
+		this.updateContent();
 	},
 	activeChanged: function() {
 		this.setValue(this.active);
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
+		this.updateContent();
 		this.updateVisualState();
 		this.doChange({value: this.value});
 	},
 	onContentChanged: function() {
-		this.$.contentOn.setContent((this.content || "") + (this.labelSeparator || " ") + (this.onContent || ""));
-	},
+		this.updateContent();
+	}, 
 	offContentChanged: function() {
-		this.$.contentOff.setContent((this.content || "") + (this.labelSeparator || " ") + (this.offContent || ""));
+		this.updateContent();
 	},
 	labelSeparatorChanged: function() {
-		this.onContentChanged();
-		this.offContentChanged();
-		this.updateVisualState();
+		this.updateContent();
 	},
 	disabledChanged: function() {
 		this.setAttribute("disabled", this.disabled);
@@ -89,5 +84,11 @@ enyo.kind({
 	},
 	tap: function() {
 		this.updateValue(!this.value);
+	},
+	updateContent: function() {
+		this._postfix = (this.value) ? this.onContent : this.offContent;
+		if (this.$.client) {
+			this.$.client.setContent((this.content || "") + (this.labelSeparator || " ") + (this._postfix || ""));
+		}
 	}
 });

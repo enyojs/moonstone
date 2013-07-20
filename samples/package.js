@@ -72,7 +72,16 @@ enyo.depends(
 	"VideoPlayerSample.js",
 	"PanelsVideoPlayerSample.js",
 	"DrawerSample.js",
+	"ObjectActionHorizontalTypeSample.js",
+	"ObjectActionHorizontalTypeSample.css",
+	"ObjectActionVerticalTypeSample.js",
+	"ObjectActionVerticalTypeSample.css",
 	"ExpandableInputSample.js",
+	"FormCheckboxSample.js",
 	"FontSample.js",
-	"FontSample.css"
+	"FontSample.css",
+	"HeaderAutoCollapsingSample.js",
+	"InputHeaderSample.js",
+	"ToggleButtonSample.css",
+	"ToggleButtonSample.js"
 );

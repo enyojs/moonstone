@@ -15,10 +15,14 @@
 	margin: 0px;
 	color: @moon-light-text-color;
 }
-.moon-dark-gray .moon-button {
+.moon-dark-gray .moon-button * {
 	color: @moon-light-text-color;
 }
-
+.moon-button > .button-client {
+	width: 100%;
+	max-width: 250px;
+	padding: 5px 0px 0px 0px;
+}
 .moon-button.small {
   .moon-small-button-text;
   max-height: @moon-button-small-height;
@@ -29,7 +33,9 @@
   position: relative;
   overflow: visible;
 }
-
+.moon-button.small > .button-client {
+  padding: 0px 0px 0px 0px;
+}
 .moon-button.small > .small-button-tap-area {
 	position: absolute;
 	top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);

@@ -50,9 +50,7 @@ enyo.kind({
 		onActivate: "decorateActivateEvent"
 	},
 	components: [
-		{classes: "moon-checkbox-item-label-wrapper", components: [
-			{name: "label", classes: "moon-checkbox-item-label"}
-		]},
+		{classes: "moon-checkbox-item-label-wrapper", name: "client"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
 	rendered: function() {
@@ -62,9 +60,6 @@ enyo.kind({
 	disabledChanged: function() {
 		this.inherited(arguments);
 		this.$.input.setDisabled(this.disabled);
-	},
-	contentChanged: function() {
-		this.$.label.setContent(this.getContent());
 	},
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());

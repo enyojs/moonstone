@@ -56,6 +56,9 @@ enyo.kind({
 		]}
 	],
 	//* @protected
+	rendered: function() {
+		this.inherited(arguments);
+	},
 	openChanged: function() {
 		this.setArrow(this.open);
 		this.inherited(arguments);

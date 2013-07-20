@@ -23,6 +23,16 @@ enyo.kind({
 						{kind: "moon.SelectableItem", content: "Group Option 4"},
 						{kind: "moon.SelectableItem", content: "Group Option 5"}
 					]}
+				]},
+				{components: [
+					{kind: "Group", onActivate: "groupChanged", components: [
+						{kind: "moon.Divider", content: "Selectable Items with long text truncation"},
+						{kind: "moon.SelectableItem", content: "Option 1 with long text truncation", checked: true, onActivate: "itemChanged"},
+						{kind: "moon.SelectableItem", content: "Option 2 with long text truncation", onActivate: "itemChanged"},
+						{kind: "moon.SelectableItem", disabled: true, content: "Deactivated", onActivate: "itemChanged"},
+						{kind: "moon.SelectableItem", content: "Option 4 with long text truncation", checked: true, onActivate: "itemChanged"},
+						{kind: "moon.SelectableItem", content: "Option 5 with long text truncation", onActivate: "itemChanged"}
+					]}
 				]}
 			]}
 		]},

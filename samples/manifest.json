@@ -10,14 +10,20 @@
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
 		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
 		{"name": "Fonts", "path":"$lib/moonstone/samples/FontSample"},
-		{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
+		{"name": "Form Checkbox", "path":"$lib/moonstone/samples/FormCheckboxSample"},
+		{"name": "Headers", "samples": [
+			{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
+			{"name": "Input Header", "path":"$lib/moonstone/samples/InputHeaderSample"},
+			{"name": "Auto-collapsing Header", "path":"$lib/moonstone/samples/HeaderAutoCollapsingSample"}
+		]},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
 		{"name": "Inputs", "samples": [
-			{"name": "Inputs", "path":"$lib/moonstone/samples/InputSample"},
-			{"name": "Expandable Input", "path":"$lib/moonstone/samples/ExpandableInputSample"}
+			{"name": "Basic Inputs", "path":"$lib/moonstone/samples/InputSample"},
+			{"name": "Expandable Input", "path":"$lib/moonstone/samples/ExpandableInputSample"},
+			{"name": "Input Header", "path":"$lib/moonstone/samples/InputHeaderSample"}
 		]},
 		{"name": "Items", "samples": [
-			{"name": "Item", "path":"$lib/moonstone/samples/ItemSample"},
+			{"name": "Basic Item", "path":"$lib/moonstone/samples/ItemSample"},
 			{"name": "Selectable Item", "path":"$lib/moonstone/samples/SelectableItemSample"},
 			{"name": "Radio Item", "path":"$lib/moonstone/samples/RadioItemSample"},
 			{"name": "Checkbox Item", "path":"$lib/moonstone/samples/CheckboxItemSample"},
@@ -36,6 +42,10 @@
 		{"name": "Media", "samples": [
 			{"name": "Video Player", "path":"$lib/moonstone/samples/VideoPlayerSample"},
 			{"name": "Video Player in Panels", "path":"$lib/moonstone/samples/PanelsVideoPlayerSample"}
+		]},
+		{"name": "Object Actions", "samples": [
+			{"name": "Horizontal Object Actions", "path":"$lib/moonstone/samples/ObjectActionHorizontalTypeSample"},
+			{"name": "Vertical Object Actions", "path":"$lib/moonstone/samples/ObjectActionVerticalTypeSample"}
 		]},
 		{"name": "Panels", "samples": [
 			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
