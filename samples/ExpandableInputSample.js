@@ -4,7 +4,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
-			{classes: "moon-7h", components: [
+			{classes: "moon-6h", components: [
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input", noneText: "No Input"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input with Placeholder", noneText: "No Input", placeholder: "Placeholder"},
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input with Value", noneText: "No Input", placeholder: "Placeholder", value: "Text"},
