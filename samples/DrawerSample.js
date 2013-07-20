@@ -11,7 +11,7 @@ enyo.kind({
 					name: "partialDrawer",
 					open: false,
 					controlsOpen: false,
-					handle: {name: "handleButton", content: "Partial drawer", marquee: true},
+					handle: {name: "handleButton", content: "Partial drawer with long text truncation", marquee: true},
 					components: [
 						{kind: "moon.Header", title: "Partial Drawer"},
 						{kind: "moon.Item", content: "Item One"},

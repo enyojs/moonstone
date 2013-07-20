@@ -4,5 +4,16 @@
 */
 enyo.kind({
 	name: "moon.Divider",
-	classes: "moon-divider"
+	classes: "moon-divider",
+	mixins: ["moon.MarqueeSupport"],
+	marqueeOnSpotlight: false,
+	components: [
+		{name: "marqueeText", kind:"moon.MarqueeText"}
+	],
+	rendered: function() {
+		this.startMarquee();
+	},
+	contentChanged: function() {
+		this.$.marqueeText.setContent(this.content);
+	}
 });
