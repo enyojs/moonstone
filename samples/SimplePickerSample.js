@@ -7,9 +7,9 @@ enyo.kind({
 		{kind:"moon.Scroller", fit:true, components: [
 			{kind: "moon.Divider", content:"Picker 1: Animated"},
 			{kind:"moon.SimplePicker", name:"picker1", wrap: true, onChange:"changed", components: [
-				{content:"San Francisco"},
-				{content:"Boston"},
-				{content:"Tokyo"}
+				{content:"San Francisco Airport Terminal Gate 1"},
+				{content:"Boston Airport Terminal Gate 2"},
+				{content:"Tokyo Airport Terminal Gate 3"}
 			]},
 			{tag:"br"},{tag:"br"},
 			{kind: "moon.Divider", content:"Picker 2: Non-animated"},

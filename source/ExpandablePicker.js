@@ -203,5 +203,18 @@ enyo.kind({
 			content: this.getSelected().getContent(),
 			index: this.getSelectedIndex()
 		});
+	},
+	//*@protected
+	_marqueeSpotlightFocus: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.startMarquee();
+			this.$.currentValue.startMarquee();
+		}
+	},
+	_marqueeSpotlightBlur: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.stopMarquee();
+			this.$.currentValue.stopMarquee();
+		}
 	}
 });

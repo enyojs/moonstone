@@ -39,6 +39,7 @@
 enyo.kind({
 	name: "moon.SimplePicker",
 	classes: "moon-simple-picker",
+	mixins: ["moon.MarqueeSupport"],
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -74,6 +75,7 @@ enyo.kind({
 		this.animateChanged();
 		this.selectedIndexChanged();
 		this.disabledChanged();
+		this.updateMarqueeDisable();
 		this.wrapChanged();
 	},
 	rendered: function() {
@@ -85,6 +87,7 @@ enyo.kind({
 		if (this.$.client) {
 			inOpts = inOpts || {};
 			inOpts.container = this.$.client;
+			inOpts.kind = "moon.MarqueeText";
 		}
 		return inherited.call(this, inC, inOpts);
 	},
@@ -93,6 +96,7 @@ enyo.kind({
 		if (this.$.client) {
 			inOpts = inOpts || {};
 			inOpts.container = this.$.client;
+			inOpts.kind = "moon.MarqueeText";
 		}
 		return inherited.call(this, inC, inOpts);
 	},
@@ -103,7 +107,9 @@ enyo.kind({
 		if (this.getAbsoluteShowing()) {
 			var width = 0;
 			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
+				if (c$[i].hasNode()) {
+					width = Math.max(width, c$[i].hasNode().scrollWidth);
+				}
 			}
 			this.$.client.setBounds({width:width});
 			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
@@ -158,6 +164,16 @@ enyo.kind({
 	selectedIndexChanged: function(inOld) {
 		if ((this.selectedIndex !== null) && (this.selectedIndex != this.$.client.getIndex())) {
 			this.$.client.setIndex(this.selectedIndex);
+			this.updateMarqueeDisable();
+		}
+	},
+	updateMarqueeDisable: function() {
+		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+			if (i == this.$.client.getIndex()) {
+				c$[i].disabled = false;
+			} else {
+				c$[i].disabled = true;
+			}
 		}
 	},
 	//* Facade _getClientControls()_ to return client controls inside of _this.client_
@@ -168,10 +184,20 @@ enyo.kind({
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
 		this.$.client.previous();
+		this.updateMarqueeDisable();
+		this._marqueeSpotlightFocus();
 	},
 	//* @public
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
 		this.$.client.next();
+		this.updateMarqueeDisable();
+		this._marqueeSpotlightFocus();
+	},
+	showingChanged: function() {
+		this.inherited(arguments);
+		if(this.showing && this.generated) {
+			this.reflow();
+		}
 	}
 });

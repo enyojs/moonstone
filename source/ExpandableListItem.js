@@ -69,6 +69,12 @@ enyo.kind({
 		this.inherited(arguments);
 		this.openChanged();
 	},
+	initComponents: function() {
+		this.inherited(arguments);
+		if (this.$.marqueeText) {
+			this.$.marqueeText.destroy();	// Marquee on header
+		}
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.setActive(this.open);
@@ -147,5 +153,16 @@ enyo.kind({
 	*/
 	drawerAnimationStep: function() {
 		this.bubble("onRequestScrollIntoView");
+	},
+	//*@protected
+	_marqueeSpotlightFocus: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.startMarquee();
+		}
+	},
+	_marqueeSpotlightBlur: function(inSender, inEvent) {
+		if (inSender === this) {
+			this.$.header.stopMarquee();
+		}
 	}
 });
