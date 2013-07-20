@@ -11,6 +11,7 @@
 enyo.kind({
 	name: 'moon.Button',
 	kind: 'enyo.Button',
+	mixins: ["moon.MarqueeSupport"],
 	published: {
 		/**
 			A parameter indicating the size of the button.
@@ -19,6 +20,7 @@ enyo.kind({
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
 		small: false,
+		marquee: true
 	},
 	classes: 'moon-button moon-header-font enyo-unselectable',
 	spotlight: true,
@@ -28,12 +30,13 @@ enyo.kind({
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
 		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
-		onSpotlightFocused	: "spotFocused"
+		onSpotlightFocused	: "spotFocused",
+		ontap				: "decorateTapEvent"
 	},
 	//* On creation, updates based on value of _this.small_.
-	create: function() {
-		this.inherited(arguments);
+	initComponents: function() {
 		this.updateSmall();
+		this.inherited(arguments);
 	},
 	//* Adds _pressed_ CSS class.
 	depress: function() {
@@ -58,9 +61,20 @@ enyo.kind({
 		if (this.small) {
 			this.addClass('small');
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
-			this.createComponent({name: "client", classes: "small-button-client"});
+			if (this.marquee && !(this.components && this.components.length > 0)) {
+				this.createComponent({name: "client", classes: "button-client", 
+					kind:"moon.MarqueeText", isChrome: true
+				});
+			} else {
+				this.createComponent({name: "client", classes: "small-button-client"});
+			}
 		} else {
 			this.removeClass('small');
+			if (this.marquee && !(this.components && this.components.length > 0)) {
+				this.createComponent({name: "client", classes: "button-client", 
+					kind:"moon.MarqueeText", isChrome: true
+				});
+			}
 		}
 		
 		this.contentChanged();
@@ -77,5 +91,8 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 		}
+	},
+	decorateTapEvent: function(inSender, inEvent) {
+		inEvent.originator = this;
 	}
 });

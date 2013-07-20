@@ -41,6 +41,8 @@
 /* ---------------------------------------*/
 /* Grid Dimensions */
 /* ---------------------------------------*/
+/* ObjectActionDecorator */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -392,6 +394,29 @@
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
+.moon-marquee-text {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.moon-marquee.moon-marquee-text {
+  display: inline-block;
+  width: auto;
+  -webkit-animation-name: marquee;
+  -webkit-animation-timing-function: linear;
+}
+.moon-marquee-clip {
+  overflow: hidden;
+  width: 100%;
+}
+@-webkit-keyframes marquee {
+  0% {
+    left: 0;
+  }
+}
 .moon-simple-picker {
   display: inline-block;
 }
@@ -408,8 +433,8 @@
   border: 0px;
   background: inherit;
   color: #4b4b4b;
-  padding: 0px;
-  margin: 0px;
+  padding: 4px 0 0 0;
+  margin: 0;
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
@@ -431,7 +456,7 @@
   text-align: center;
   padding: 0px;
   width: auto;
-  margin: 2px 0px 0px 0px;
+  max-width: 250px;
 }
 .moon-simple-picker.disabled,
 .moon-simple-picker-button[disabled] {
@@ -585,11 +610,13 @@
   font-style: italic;
   letter-spacing: 0.05em;
   border-bottom: 2px solid #b5b5b5;
-  line-height: 22px;
   color: #4b4b4b;
   margin: 0px 0px 27px 0px;
-  padding: 0px 0px 5px 0px;
   text-transform: capitalize;
+}
+.moon-divider .moon-marquee-text {
+  line-height: 22px;
+  padding: 0px 0px 5px 0px;
 }
 .moon-checkbox-item {
   display: block;
@@ -598,20 +625,24 @@
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.08em;
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 40px, #ffffff 50px);
+  min-height: 23.400000000000002px;
+  margin-right: 50px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(left, transparent 40px, #ffffff 50px);
+  margin-left: 50px;
+  margin-right: 0;
 }
 .moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 59px, #ffffff 84px);
+  margin-right: 66px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(left, transparent 59px, #ffffff 84px);
+  margin-left: 50px;
+  margin-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
+  height: 1.08em;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -673,19 +704,24 @@
 .moon-toggle-item.moon-item {
   margin-bottom: 16px;
 }
+.moon-toggle-item .moon-checkbox {
+  width: 53px;
+}
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   height: 1.08em;
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 50px, #ffffff 75px);
   padding: 2px 0px 0px 0px;
+  margin-right: 55px;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(left, transparent 50px, #ffffff 75px);
+  padding: 0px 0px 0px 60px;
+  margin-right: 0px;
 }
 .moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(right, transparent 69px, #ffffff 84px);
+  margin-right: 75px;
 }
 .enyo-locale-right-to-left .moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
-  -webkit-mask-image: -webkit-linear-gradient(left, transparent 69px, #ffffff 84px);
+  padding: 0px 0px 0px 60px;
+  margin-right: 0px;
 }
 .moon-toggle-item .moon-toggle-item-label {
   float: left;
@@ -696,6 +732,9 @@
 }
 .moon-toggle-item .moon-toggle-text-text {
   margin-top: 2px;
+}
+.enyo-locale-right-to-left .moon-toggle-item .moon-toggle-text-text {
+  text-align: left;
 }
 .moon-toggle-item.disabled .moon-toggle-text-text {
   color: inherit;
@@ -716,6 +755,7 @@
   position: relative;
   right: 0px;
   text-align: center;
+  max-width: 250px;
 }
 /* Item.css */
 .moon-item {
@@ -812,6 +852,12 @@
   width: 16px;
 }
 /* SelectableItem.css */
+.moon-selectableItem .moon-selectableItem-item {
+  box-sizing: border-box;
+  max-width: 100%;
+  display: inline-block;
+  border-bottom: 4px solid transparent;
+}
 .moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
   border-bottom: 4px solid #A2A2A2;
@@ -846,8 +892,13 @@
   margin: 0px;
   color: #4b4b4b;
 }
-.moon-dark-gray .moon-button {
+.moon-dark-gray .moon-button * {
   color: #4b4b4b;
+}
+.moon-button > .button-client {
+  width: 100%;
+  max-width: 250px;
+  padding: 5px 0px 0px 0px;
 }
 .moon-button.small {
   font-family: "Miso";
@@ -862,6 +913,9 @@
   line-height: 0.84em;
   position: relative;
   overflow: visible;
+}
+.moon-button.small > .button-client {
+  padding: 0px 0px 0px 0px;
 }
 .moon-button.small > .small-button-tap-area {
   position: absolute;
@@ -1224,6 +1278,7 @@
   transition: height 0.2s linear;
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
 .moon-header-title-above.no-border {
   border: none;
@@ -1243,6 +1298,8 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
+}
+.moon-header-title .moon-marquee-text {
   line-height: 0.643em;
   padding: 19px 0px 0px 0px;
   margin: 0px 0px 30px 0px;
@@ -2080,16 +2137,12 @@
   position: relative;
   display: inline-block;
   overflow: visible;
-  margin-left: 15px;
 }
 .moon-list-actions-drawer-popup {
   position: absolute;
   top: 0px;
   left: 0px;
   overflow: hidden;
-}
-.moon-list-actions-activator {
-  margin-bottom: 10px;
 }
 .moon-list-actions-client-container {
   background-color: white;
@@ -2277,13 +2330,13 @@ body .enyo-fit.panels-50-percent-scrim,
   display: inline-block;
   padding-right: 39px;
   margin-bottom: 0px;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 .enyo-locale-right-to-left .moon-accordion-header {
   padding-right: 0px;
-  padding-left: 24px;
 }
 .moon-accordion.open.spotlight .moon-accordion-header {
-  float: left;
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
   -moz-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -2407,6 +2460,7 @@ body .enyo-fit.panels-50-percent-scrim,
   padding: 0px;
   border: 0px;
   width: 100%;
+  height: 140px;
   box-sizing: border-box;
   background-color: transparent;
 }
@@ -2444,6 +2498,7 @@ body .enyo-fit.panels-50-percent-scrim,
   position: relative;
   top: 0px;
   left: 0px;
+  max-width: 250px;
 }
 .moon-drawer-handle.spotlight {
   border-bottom-color: #ffb80d;
@@ -2455,30 +2510,12 @@ body .enyo-fit.panels-50-percent-scrim,
   min-width: 0em;
   padding: 0px;
   max-width: 100%;
-}
-p.moon-drawer-handle-text {
   font-size: 18px;
-  width: 100%;
   height: 16px;
   color: white;
   text-align: center;
   line-height: 0.9em;
   word-wrap: break-word;
-}
-.moon-drawer-handle-text.marquee {
-  white-space: nowrap;
-  overflow-x: -webkit-marquee;
-  -webkit-marquee-direction: left;
-  -webkit-marquee-increment: 2px;
-  -webkit-marquee-repetition: infinite;
-  -webkit-marquee-speed: 3px;
-  -webkit-marquee-style: scroll;
-  overflow-x: marquee;
-  marquee-direction: left;
-  marquee-increment: 2px;
-  marquee-repetition: infinite;
-  marquee-speed: 3px;
-  marquee-style: scroll;
 }
 .moon-drawer-client {
   padding: 20px;
@@ -3419,15 +3456,56 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   border-bottom: 1px solid #aaa;
 }
 .moon-expandable-input-current-value {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-style: italic;
-  letter-spacing: 0.05em;
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4B4B4B;
   margin: 0px;
   padding: 0px;
-  line-height: 14px;
-  font-weight: normal;
-  margin-bottom: 8px;
+}
+/* ObjectActionDecorator */
+.moon-objaction-client {
+  width: 100%;
+  display: table-cell;
+}
+.moon-objaction-action-vertical {
+  opacity: 0;
+  text-align: center;
+}
+.moon-objectaction-stretch.moon-objaction-action-vertical > * {
+  width: 100%;
+}
+.moon-objaction-action-horizontal {
+  opacity: 0;
+  white-space: nowrap;
+  display: table-cell;
+  vertical-align: middle;
+}
+/* FormCheckbox.css */
+.moon-formcheckbox-item .moon-checkbox {
+  position: absolute;
+  top: 0px;
+  width: 37px;
+  height: 37px;
+  margin-top: 2px;
+  border-radius: 20px;
+  border: 0px;
+  background-color: #999999;
+  background-position: 3px 8px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
+  right: 0px;
+}
+.moon-formcheckbox-item .moon-checkbox .moon-overlay {
+  background: transparent url(../images/checkbox.png) no-repeat 3px -29px;
+}
+.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  margin: 0px 0px 0px 47px;
+}
+.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
+  margin: 0px 47px 0px 0px;
 }
 .moon-highlight-text-highlighted {
   color: #ffb80d;
@@ -3447,6 +3525,10 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .moon-light-gray * {
   color: #4b4b4b;
 }
+/* Standard horizontal spacing */
+.moon-hspacing {
+  white-space: nowrap;
+}
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: top;
@@ -3465,4 +3547,15 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
   margin-right: 5px;
   margin-left: 0;
+}
+/* Standard vertical spacing */
+.moon-vspacing > * {
+  display: block;
+  margin: 5px 0;
+}
+.moon-vspacing > :first-child {
+  margin-top: 0;
+}
+.moon-vspacing > :last-child {
+  margin-bottom: 0;
 }

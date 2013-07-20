@@ -10,6 +10,7 @@
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
 		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
 		{"name": "Fonts", "path":"$lib/moonstone/samples/FontSample"},
+		{"name": "Form Checkbox", "path":"$lib/moonstone/samples/FormCheckboxSample"},
 		{"name": "Header", "path":"$lib/moonstone/samples/HeaderSample"},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
 		{"name": "Inputs", "samples": [
@@ -36,6 +37,10 @@
 		{"name": "Media", "samples": [
 			{"name": "Video Player", "path":"$lib/moonstone/samples/VideoPlayerSample"},
 			{"name": "Video Player in Panels", "path":"$lib/moonstone/samples/PanelsVideoPlayerSample"}
+		]},
+		{"name": "Object Actions", "samples": [
+			{"name": "Horizontal Object Actions", "path":"$lib/moonstone/samples/ObjectActionHorizontalTypeSample"},
+			{"name": "Vertical Object Actions", "path":"$lib/moonstone/samples/ObjectActionVerticalTypeSample"}
 		]},
 		{"name": "Panels", "samples": [
 			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
