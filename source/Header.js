@@ -182,14 +182,12 @@ enyo.kind({
 		this.$.title.animProps = {
 			"font-size" : titleStyle["font-size"],
 			"line-height" : titleStyle["line-height"],
-			"padding" : titleStyle["padding"]
+			"padding-top" : titleStyle["padding-top"]
 		};
 		this.$.titleAbove.animProps = {
 			"width" : titleAboveStyle["width"],
 			"opacity" : titleAboveStyle["opacity"],
-			"height" : titleAboveStyle["height"],
-			"padding-top" : titleAboveStyle["padding-top"],
-			"padding-bottom" : titleAboveStyle["padding-bottom"]
+			"height" : titleAboveStyle["height"]
 		};
 		
 		this.$.animator.newAnimation({
@@ -210,7 +208,7 @@ enyo.kind({
 					properties: {
 						"font-size" : "current",
 						"line-height" : "current",
-						"padding" : "current"
+						"padding-top" : "current"
 					}
 				},
 				{
@@ -224,9 +222,7 @@ enyo.kind({
 					properties: {
 						"border-bottom-width" : "current",
 						"opacity" : "current",
-						"height" : "current",
-						"padding-top" : "current",
-						"padding-bottom" : "current"
+						"height" : "current"
 					}
 				}],
 				40: [{
@@ -234,15 +230,13 @@ enyo.kind({
 					properties: {
 						"border-bottom-width" : "0px",
 						"opacity" : "1",
-						"height" : "36px",
-						"padding-top" : "20px",
-						"padding-bottom" : "5px"
+						"height" : "36px"
 					}
 				}],
 				50: [{
 					control: this,
 					properties: {
-						"height" : "100px",
+						"height" : "150px",
 						"border-bottom-width" : "0px",
 						"width" : "current",
 						"min-width" : "current",
@@ -254,7 +248,7 @@ enyo.kind({
 					properties: {
 						"font-size" : "36px",
 						"line-height" : "48px",
-						"padding" : "0px"
+						"padding-top" : "20px"
 					}
 				},
 				{
@@ -306,7 +300,7 @@ enyo.kind({
 					properties: {
 						"font-size" : "current",
 						"line-height" : "current",
-						"padding" : "current"
+						"padding-top" : "current"
 					}
 				},
 				{
@@ -326,9 +320,7 @@ enyo.kind({
 					properties: {
 						"border-bottom-width" : "1px",
 						"opacity" : this.$.titleAbove.animProps["opacity"],
-						"height" : this.$.titleAbove.animProps["height"],
-						"padding-top" : this.$.titleAbove.animProps["padding-top"],
-						"padding-bottom" : this.$.titleAbove.animProps["padding-bottom"]
+						"height" : this.$.titleAbove.animProps["height"]
 					}
 				}],
 				100: [{
@@ -343,7 +335,7 @@ enyo.kind({
 					properties: {
 						"font-size" : this.$.title.animProps["font-size"],
 						"line-height" : this.$.title.animProps["line-height"],
-						"padding" : this.$.title.animProps["padding"]
+						"padding-top" : this.$.title.animProps["padding-top"]
 					}
 				},
 				{
