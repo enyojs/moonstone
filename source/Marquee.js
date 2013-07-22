@@ -43,7 +43,9 @@ enyo.kind({
 		//* control must have 'overflow:hidden' set, and the marquee text will clip at the parent's border
 		clipInsidePadding: true,
 		//* When disabled, marqueeing will not occur
-		disabled: false
+		disabled: false,
+		//* _allowHtml_ property of Marquee text
+		allowHtmlText: false
 	},
 	events: {
 		onMarqueeStarted:"",
@@ -84,6 +86,11 @@ enyo.kind({
         return true;
 	},
 	//*@protected
+	allowHtmlTextChanged: function() {
+		if(this.marqueeControl) {
+			this.marqueeControl.setAllowHtml(this.allowHtmlText);
+		}
+	},
 	contentChanged: function() {
 		if (this.$.client) {
 			this.$.client.setContent(this.content);
