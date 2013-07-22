@@ -107,6 +107,9 @@ enyo.kind({
 			this.locale = enyo.g11n.currentLocale().getLocale();
 		}
 		this.initDefaults();
+		this.setupSimplePicker();		
+		this.setupLayout();
+		this.setupCalendar();
 	},
 	initDefaults: function() {
 		//Attempt to use the g11n lib (assuming that it is loaded)
@@ -114,11 +117,7 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.value = this.value || new Date();
-		this.setupSimplePicker();
-		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
-		this.setupLayout();
-		this.valueChanged();
+		this.value = this.value || new Date();			
 	},
 	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
@@ -131,6 +130,7 @@ enyo.kind({
 				{content: months[i], classes: "picker-content"}
 			);
 		}
+		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
 	},
 	/**
 		Sets up the layout for a calendar.
@@ -199,6 +199,7 @@ enyo.kind({
 		}
 
 		this.setupNextMonth(monthLength);
+		this.fillDate();
 	},
 	fillDate: function() {
 		var calendarWeeks =this.$.dates.getControls();
@@ -285,7 +286,6 @@ enyo.kind({
 			this.updatePicker(this.value.getMonth());
 		}
 		this.setupCalendar();
-		this.fillDate();
 		this.$.dates.render();
 		if (this.value) {
 			this.doChange({value: this.value});
