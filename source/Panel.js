@@ -27,7 +27,9 @@ enyo.kind({
 		//* Facade for the header's _small_ property
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
-		collapsingHeader: false
+		collapsingHeader: false,
+		//* Title's _allowHtml_ property
+		allowHtmlTitle: false
 	},
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -37,7 +39,7 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
 	},
 
 	//* @protected
@@ -64,6 +66,7 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.smallHeaderChanged();
+		this.allowHtmlControl();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -228,6 +231,9 @@ enyo.kind({
 	},
 
 	//* @protected
+	allowHtmlControl: function() {
+		this.$.header.$.title.setAllowHtmlText(this.allowHtmlTitle);
+	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		if(inEvent.active >= inEvent.index) {
 			this.$.header.startMarquee();
