@@ -4,7 +4,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "FittableColumns", components: [
-			{kind: "moon.CalendarPicker", name: "calendar", content: "Calendar", onChange: "changed", classes: "moon-date-picker-wrapper"},
+			{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed", classes: "moon-date-picker-wrapper"},
 			{kind: "FittableRows", fit: true, components: [
 				{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
 				{kind: "moon.Divider"},
