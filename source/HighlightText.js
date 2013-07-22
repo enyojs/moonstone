@@ -1,18 +1,22 @@
 /** 
-	_moon.HighlightText_ is a control that displays an highlighted text. 
-	Identified string or chracter in content can be highlighted by onHighlight event.
-	if content don't have any identical string, there is no change in display. 
+	_moon.HighlightText_ is a control that displays highlighted text. In response
+	to an `onHighlight` event, it will highlight a specified string if that string
+	is found within the control's content.
 
-		{kind: "moon.HighlightText", content: "Hello World!"}
+	For example, let's say we have the following control:
+	
+		{kind: "moon.HighlightText", name: "myHT", content: "Hello World!"}
 
-	Examples) 
+	In response to the event
 
-	_moon.HighlightText_ get event like below, then the "Hello" is highlighted.
 		this.waterfall("onHighlight", {highlight: "Hello"}); 
 
-	_moon.HighlightText_ get event like below, then the highlighted text is disapeared.
-		this.waterfall("offHighlight");
+	the word "Hello" will be highlighted.
 
+	The highlighting will be turned off in response to an `offHighlight` event,
+	e.g.:
+
+		this.waterfall("offHighlight");
 */
 enyo.kind({
     name: "moon.HighlightText",

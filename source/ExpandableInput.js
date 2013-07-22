@@ -1,7 +1,7 @@
 /**
 	_moon.ExpandableInput_, which extends
 	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
-	input that prompts the user to input text.
+	input that prompts the user to enter text.
 */
 enyo.kind({
 	name: "moon.ExpandableInput",
@@ -18,7 +18,7 @@ enyo.kind({
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
-		//* Text to be displayed in the input if no text is input
+		//* Text to be displayed in the input if no text has been entered
 		placeholder: "",
 		//* Initial value
 		value: ""
@@ -75,16 +75,21 @@ enyo.kind({
 			this.$.currentValue.setContent(this.value);
 		}
 	},
-	//* When _this.value_ changes, update the value and content
+	//* Updates _value_ and _content_ when _this.value_ changes. 
 	valueChanged: function(inOld) {
 		this.$.clientInput.setValue(this.value);
 		this.updateContent();
 	},
-	//* If there is no value, uses _this.placeholder_ as current text.
+	/**
+		Uses _this.placeholder_ as placeholder content if none has been specified.
+	*/
 	noneTextChanged: function() {
 		this.updateContent();
 	},
-	//* If there is no value, uses _this.placeholder_ as the placeholder of the input
+	/**
+		Uses _this.placeholder_ as placeholder value for the input if no value has
+		been specified.
+	*/
 	placeholderChanged: function() {
 		this.$.clientInput.setPlaceholder(this.placeholder);
 	},
@@ -93,7 +98,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.open);
 	},
-	//* expand a drawer, focus or blur moon.Input
+	//* Expands a drawer, focusing or blurring the _moon.Input_.
 	expandDrawer: function(inSender, inEvent) {
 		this.updateContent();
 		this.expandContract();
@@ -106,7 +111,7 @@ enyo.kind({
 			enyo.Spotlight.spot(this.$.client);
 		}
 	},
-	//* If closed, opens drawer and highlights first spottable child.
+	//* If drawer is closed, opens it and highlights first spottable child.
 	expandContract: function(inSender, inEvent) {
 		if (this.disabled) {
 			return true;
@@ -120,7 +125,7 @@ enyo.kind({
 		}
 		return true;
 	},
-	//* When closing drawer via keypress with "UP" direction, update value
+	//* Updates _value_ when drawer is closed via "UP" direction keypress.
 	headerFocus: function(inSender, inEvent) {
 		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
 			this.updateContent();
@@ -130,15 +135,17 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-	//* focus moon.Input when input decorator gets focus
+	//* Focuses the _moon.Input_ when the input decorator receives focus.
 	inputFocus: function(inSender, inEvent) {
 		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir == "DOWN") {
 			this.$.clientInput.focus();
 			enyo.Spotlight.spot(this.$.client);
 		}
 	},
-	//* Check for the last item in the client area, and prevent 5-way focus movement
-	//* below it, per UX specs
+	/**
+		Checks for the last item in the client area and prevents 5-way focus
+		from moving below it, per UX specs.
+	*/
 	spotlightDown: function(inSender, inEvent) {
 		if (inEvent.originator == this.$.client) {
 			return true;

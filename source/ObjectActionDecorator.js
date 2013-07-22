@@ -1,10 +1,11 @@
 /**
-	_moon.ObjectActionDecorator is a decorator that wraps a spotlight-able component, and when
-	focused, will reveal additional components allowing the user to take an action on the focused
-	object.
+	_moon.ObjectActionDecorator_ is a decorator that wraps a spotlightable object.
+	When the object is focused, additional controls are displayed, allowing the
+	user to act on the object.
 
-	The Decorator supports two orientations: vertical, with object actions placed below the wrapped 
-	components, and horizontal, with object actions placed next to the components.
+	The decorator supports two orientations: vertical, with object actions placed
+	below the wrapped	components, and horizontal, with object actions placed next
+	to the components.
 
 	Vertical example:
 
@@ -33,11 +34,16 @@ enyo.kind({
 		onleave: "leave"
 	},
 	published: {
-		//* Orientation of object actions in relation to components.  _vertical_ places object actions
-		//* below the components and _horizontal_ places object action components next to the components.
+		/**
+			Orientation of object actions in relation to focused components.
+			_vertical_ places the object actions below the components, while
+			_horizontal_ places them next to the components.
+		*/
 		orientation: 'vertical',
-		//* Only in _orientation: 'vertical'_ mode, _noStretch: true_ causes object actions to be stretched
-		//* to the width of the components above.
+		/**
+			When _orientation_ is _vertical_, setting _noStretch: true_ causes the
+			object actions to be stretched to fit the width of the components above.
+		*/
 		noStretch: false
 	},
 	components: [
