@@ -138,8 +138,9 @@ enyo.kind({
 				dates[i].setValue(new Date(thisYear, prevMonth, datesOfPrevMonth - dayOfLastDate + i));
 				dates[i].setColor(1);
 			}
+			return i;
 		}
-		return dayOfLastDate + 1;
+		return 0;		
 	},
 	/**
 		Sets up the last week of this month.
@@ -158,7 +159,7 @@ enyo.kind({
 			dates[startIndex + i].setColor(1);
 		}
 	},
-	updateDates: function(ordering) {
+	updateDates: function() {
 		var datesOfPrevMonth = this.updatePrevMonth();
 
 		var thisYear = this.value.getFullYear(),
@@ -169,7 +170,7 @@ enyo.kind({
 			dates[datesOfPrevMonth + i].setValue(new Date(thisYear, thisMonth, i + 1));
 			dates[datesOfPrevMonth + i].setColor(0);
 		}
-
+		this.$.dates.setActive(dates[datesOfPrevMonth - 1 + this.value.getDate()]);
 		this.updateNextMonth(datesOfPrevMonth + monthLength);
 	},
 	setYear: function(newYear) {
