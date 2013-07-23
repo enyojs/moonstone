@@ -29,7 +29,7 @@ enyo.kind({
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
 		//* Title's _allowHtml_ property
-		allowHtmlTitle: false
+		allowHtmlHeader: false
 	},
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -66,7 +66,7 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.smallHeaderChanged();
-		this.allowHtmlControl();
+		this.allowHtmlHeaderChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -137,6 +137,11 @@ enyo.kind({
 	//* Updates _this.header_ when _smallHeader_ changes.
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.getSmallHeader());
+	},
+	allowHtmlHeaderChanged: function() {
+		this.$.header.$.title.setAllowHtmlText(this.allowHtmlHeader);
+		this.$.header.$.titleBelow.setAllowHtmlText(this.allowHtmlHeader);
+		this.$.header.$.subTitleBelow.setAllowHtmlText(this.allowHtmlHeader);
 	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
@@ -231,9 +236,6 @@ enyo.kind({
 	},
 
 	//* @protected
-	allowHtmlControl: function() {
-		this.$.header.$.title.setAllowHtmlText(this.allowHtmlTitle);
-	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		if(inEvent.active >= inEvent.index) {
 			this.$.header.startMarquee();
