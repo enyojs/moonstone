@@ -2,18 +2,13 @@
 .moon-calendar-picker {
 	display: inline-block;
 	text-align: center;
+	width: (@moon-picker-button-width * 7) + (10 * 7) * 2;
 }
 .moon-calendar-picker-block {
 	display: inline-block;
 }
 .moon-calendar-picker-dates {
 	margin: 30px 0px 0px 0px;
-}
-.moon-calendar-picker-week {
-	margin-top: 7px;
-	margin-bottom: 7px;
-	left: 0px; right: 0px;
-	white-space: nowrap;
 }
 .moon-calendar-picker-date {
 	.moon-sub-header-text;
@@ -33,6 +28,10 @@
 .moon-calendar-picker-date.spotlight {
 	border: @moon-button-border-width - 4 solid @moon-spotlight-border-color;
 	background: @moon-spotlight-border-color;
+}
+.moon-calendar-picker-button {
+	margin: 2px 0px;
+	font-size: @moon-picker-button-font-size;
 }
 .moon-calendar-picker-date.active {
 	background-color: @moon-spotlight-border-color;
