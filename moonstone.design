@@ -395,6 +395,132 @@
                             {"kind": "moon.ToggleItem", "content": "Group Toggle Option 3"}
                         ]
                     }
+                },
+                {
+                    "name": "moon.DatePicker",
+                    "kind": "moon.DatePicker",
+                    "description": "A date picker",
+                    "config": {
+                        "kind": "moon.DatePicker",
+                        "content": "Date"
+                    }
+                },
+                {
+                    "name": "moon.Drawers",
+                    "kind": "moon.Drawers",
+                    "description": "Drawers",
+                    "config": {
+                        "kind": "moon.Drawers",
+                        "drawers": [{
+                            "kind": "moon.Drawer",
+                            "handle": {"kind": "moon.DrawerHandle", "content": "Handle"},
+                            "components": [{"content" : "Drawer Content"}],
+                            "controlDrawerComponents" : [{"content": "Controls"}]
+                        }]
+                    }
+                },
+                {
+                    "name": "moon.GridList",
+                    "kind": "moon.GridList",
+                    "description": "A grid list",
+                    "config": {
+                        "kind": "moon.GridList",
+                        "components": [
+                            {"name": "item", "kind": "moon.GridListImageItem"}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.IconButton",
+                    "kind": "moon.IconButton",
+                    "description": "A icon button",
+                    "config": {
+                        "kind": "moon.IconButton",
+                        "src": "lib/moonstone/images/checkbox.png"
+                    }
+                },
+                {
+                    "name": "moon.ImageItem",
+                    "kind": "moon.ImageItem",
+                    "description": "A image item",
+                    "config": {
+                        "kind": "moon.ImageItem",
+                        "source": "lib/moonstone/images/enyo-icon.png",
+                        "label": "Image Item",
+                        "text" : "This is a image item. This is an example for the text contents."
+                    }
+                },
+                {
+                    "name": "moon.IntegerScrollPicker",
+                    "kind": "moon.IntegerScrollPicker",
+                    "description": "A integer scroll picker",
+                    "config": {
+                        "kind": "moon.IntegerScrollPicker",
+                        "value": 1,
+                        "min": 1,
+                        "max": 10
+                    }
+                },
+                {
+                    "name": "moon.Popup",
+                    "kind": "moon.Popup",
+                    "description": "A popup",
+                    "config": {
+                        "kind": "moon.Popup",
+                        "content": "Popup..."
+                    }
+                },
+                {
+                    "name": "moon.ProgressBar",
+                    "kind": "moon.ProgressBar",
+                    "description": "A progress bar",
+                    "config": {
+                        "kind": "moon.ProgressBar",
+                        "progress": "25"
+                    }
+                },
+                {
+                    "name": "moon.Scroller",
+                    "kind": "moon.Scroller",
+                    "description": "A scroller",
+                    "config": {
+                        "kind": "moon.Scroller"
+                    }
+                },
+                {
+                    "name": "moon.ExpandablePicker",
+                    "kind": "moon.ExpandablePicker",
+                    "description": "A expandable picker",
+                    "config": {
+                        "kind": "moon.ExpandablePicker",
+                        "content": "Expandable Picker",
+                        "autoCollapse": true,
+                        "components": [
+                            {"content": "On", "active":true},
+                            {"content": "Off"}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.SimplePicker",
+                    "kind": "moon.SimplePicker",
+                    "description": "A simple picker",
+                    "config": {
+                        "kind": "moon.SimplePicker",
+                        "components": [
+                            {"content": "On"},
+                            {"content": "Off"}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.Tooltip",
+                    "kind": "moon.Tooltip",
+                    "description": "A tooltip",
+                    "config": {
+                        "kind": "moon.Tooltip",
+                        "content": "I'm a tooltip"
+                    }
                 }
             ]
         }
