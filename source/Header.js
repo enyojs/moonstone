@@ -259,8 +259,8 @@ enyo.kind({
 						"min-width" : "160px",
 						"max-width" : "160px"
 					}
-				}],
-				125: [{
+				},
+				{
 					control: this,
 					properties: {
 						"height" : "auto"
