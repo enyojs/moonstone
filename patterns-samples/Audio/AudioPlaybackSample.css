@@ -38,8 +38,8 @@
 }
 
 .sample-audio-item-image {
-  width: 126px;
-  height: 126px;
+  min-width: 126px;
+  min-height: 126px;
   display: table-cell;
   background-repeat: no-repeat;
 }
