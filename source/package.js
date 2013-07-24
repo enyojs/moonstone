@@ -71,5 +71,6 @@ enyo.depends(
 	"Drawers.js",
 	"HighlightText.js",
 	"ObjectActionDecorator.js",
-	"FormCheckbox.js"
+	"FormCheckbox.js",
+	"DataGridList.js"
 );
