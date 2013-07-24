@@ -17,6 +17,10 @@ enyo.kind({
 	kind: "enyo.RichText",
 	//* @protected
 	classes: "moon-richtext",
+	events: {
+		//* Fires when the input text is changing
+		onChanging: ""
+	},
 	create: function() {
 		this.inherited(arguments);
 		this.disabledChanged();
@@ -67,5 +71,11 @@ enyo.kind({
 	},
 	down: function(inEvent) {
 		return this.right();
+	},
+	valueChanged: function() {
+		this.inherited(arguments);
+		if (this.get("value")) {
+			this.doChanging();
+		}
 	}
 });

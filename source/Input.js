@@ -18,6 +18,11 @@ enyo.kind({
 	kind	: 'enyo.Input',
 	classes	: 'moon-input',
 
+	events: {
+		//* Fires when the input text is changing
+		onChanging: ""
+	},
+
 	published: {
 		// all, email, only text, text/number (no special chars)
 		fieldType: 'numeric'
@@ -52,6 +57,12 @@ enyo.kind({
 
 	down: function() {
 		return false;
-	}
+	},
 
+	valueChanged: function() {
+		this.inherited(arguments);
+		if (this.value) {
+			this.doChanging();
+		}
+	}
 });

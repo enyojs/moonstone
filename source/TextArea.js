@@ -16,6 +16,10 @@ enyo.kind({
 	name: "moon.TextArea",
 	kind: "enyo.TextArea",
 	classes: "moon-textarea",
+	events: {
+		//* Fires when the text area is changing
+		onChanging: ""
+	},
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
@@ -38,5 +42,11 @@ enyo.kind({
 	},
 	down: function(inEvent) {
 		return this.right(inEvent);
+	},
+	valueChanged: function() {
+		this.inherited(arguments);
+		if (this.value) {
+			this.doChanging();
+		}
 	}
 });
