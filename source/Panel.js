@@ -28,7 +28,7 @@ enyo.kind({
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false
-    },
+	},
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
@@ -36,7 +36,8 @@ enyo.kind({
 		onPostTransitionComplete: ""
 	},
 	handlers: {
-		onScroll: "scroll"
+		onScroll: "scroll",
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
 	},
 
 	//* @protected
@@ -139,6 +140,7 @@ enyo.kind({
 		return this.$.header;
 	},
 	shrinkPanel: function() {
+		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		this.$.animator.newAnimation({
 			name: "preTransition",
 			duration: 800,
@@ -172,13 +174,13 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : this.container.layout.breadcrumbWidth + "px"
+						"width" : breadcrumbWidth + "px"
 					}
 				}]
 			}
 		});
 
-		this.$.header.animateCollapse(this.container.layout.breadcrumbWidth);
+		this.$.header.animateCollapse(breadcrumbWidth);
 		this.$.animator.play("preTransition");
 	},
 	growPanel: function() {
@@ -226,7 +228,13 @@ enyo.kind({
 	},
 
 	//* @protected
-
+	panelsTransitionFinishHandler: function(inSender, inEvent) {
+		if(inEvent.active >= inEvent.index) {
+			this.$.header.startMarquee();
+		} else {
+			this.$.header.stopMarquee();
+		}
+	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
@@ -237,6 +245,7 @@ enyo.kind({
 		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
+		this.$.header.stopMarquee();
 		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;

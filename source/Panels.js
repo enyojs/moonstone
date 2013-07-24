@@ -23,9 +23,15 @@ enyo.kind({
 		pattern: "activity"		
 	},
 	events: {
+		// Fired when panels transition by show is finished
 		onShowFinished: "",
+		// Fired when panels transition by hide is finished
 		onHideFinished: "",
-		onHideLeftFinished: ""
+		// Fired when panels transition by hideToLeft is finished
+		onHideToLeftFinished: "",
+		// Fired when panel transition by setIndex is finished 
+		// inEvent.activeIndex: active index
+		onPanelsPostTransitionFinished: ''
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -196,13 +202,11 @@ enyo.kind({
 					name: "backgroundScrim",
 					kind: enyo.Control,
 					classes: "moon-panels-background-scrim",
-					isChrome: true,
 					components: [
 						{
 							name: "spotable",
 							kind: enyo.Control,
 							classes: "moon-panels-spot",
-							isChrome: true,
 							onenter: "show"
 						}
 					]
@@ -211,13 +215,11 @@ enyo.kind({
 					name: "client",
 					kind: enyo.Control,
 					classes: "enyo-fill enyo-arranger moon-panels-client",
-					isChrome: true,
 					components: [
 						{
 							name: "panelScrim",
 							kind: enyo.Control,
-							classes: "moon-panels-panel-scrim",
-							isChrome: true
+							classes: "moon-panels-panel-scrim"
 						}
 					]
 				}
@@ -232,7 +234,7 @@ enyo.kind({
 	},
 
 	cssTransitionEnded: function(inSender, inEvent) {
-		if (inSender === this.$.client) {
+		if (inEvent.originator === this.$.client) {
 			switch (this._transitionCommand) {
 			case "show":
 				this._transitionCommand = "";
@@ -245,12 +247,12 @@ enyo.kind({
 				this.doHideFinished(inEvent);
 				enyo.Spotlight.spot(this);
 				break;
-			case "hideLeft":
+			case "hideToLeft":
 				this._transitionCommand = "";
 				this.$.client.hide();
 				this.$.client.addRemoveClass("show", false);
 				this.$.client.addRemoveClass("left", false);
-				this.doHideLeftFinished(inEvent);
+				this.doHideToLeftFinished(inEvent);
 				enyo.Spotlight.spot(this);
 				break;
 			default:
@@ -427,6 +429,84 @@ enyo.kind({
 			this.triggerPanelPreTransitions();
 		}
 	},
+	/**
+		If any panel has a pre-transition, pushes the panel's index to
+		_preTransitionWaitList_.
+	*/
+	triggerPanelPreTransitions: function() {
+		var panels = this.getPanels(),
+			options = {};
+
+		this.preTransitionWaitlist = [];
+		for(var i = 0, panel; (panel = panels[i]); i++) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.preTransition && panel.preTransition(this.fromIndex, this.toIndex, options)) {
+				this.preTransitionWaitlist.push(i);
+			}
+		}
+
+		if (this.preTransitionWaitlist.length === 0) {
+			this.transitionReady = true;
+			this.setIndex(this.transitionIndex);
+		}
+	},
+	panelPreTransitionComplete: function(inSender, inEvent) {
+		var index = this.getPanels().indexOf(inEvent.originator);
+		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
+			if (this.preTransitionWaitlist[i] === index) {
+				this.preTransitionWaitlist.splice(i,1);
+				break;
+			}
+		}
+
+		if (this.preTransitionWaitlist.length === 0) {
+			this.preTransitionComplete();
+		}
+		return true;
+	},
+	preTransitionComplete: function() {
+		this.transitionReady = true;
+		this.setIndex(this.transitionIndex);
+		this.waterfallDown("onPanelPreTransitionFinished");
+	},
+
+	triggerPanelPostTransitions: function() {
+		var panels = this.getPanels(),
+			options = {};
+		this.postTransitionWaitlist = [];
+		for(var i = 0, panel; (panel = panels[i]); i++) {
+			options = this.getTransitionOptions(i, this.toIndex);
+			if (panel.postTransition && panel.postTransition(this.fromIndex, this.toIndex, options)) {
+				this.postTransitionWaitlist.push(i);
+			}
+		}
+
+		if (this.postTransitionWaitlist.length === 0) {
+			this.postTransitionComplete();
+		}
+	},
+	panelPostTransitionComplete: function(inSender, inEvent) {
+		var index = this.getPanels().indexOf(inEvent.originator);
+		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
+			if (this.postTransitionWaitlist[i] === index) {
+				this.postTransitionWaitlist.splice(i,1);
+				break;
+			}
+		}
+
+		if (this.postTransitionWaitlist.length === 0) {
+			this.postTransitionComplete();
+		}
+		return true;
+	},
+	postTransitionComplete: function() {
+		var activeIndex = this.getIndex(), active;
+		// parent and child of panels can get event
+		this.doPanelsPostTransitionFinished({active: activeIndex});
+		for (var i = 0; i < this.getPanels().length; i++) {
+			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
+		}
+	},
 	//* Show panals with transition from right */
 	show: function() {
 		if (this._transitionCommand !== "") {return false;}
@@ -446,7 +526,7 @@ enyo.kind({
 	//* Hide panals with transition to left */
 	hideToLeft: function() {
 		if (this._transitionCommand !== "") {return false;}
-		this._transitionCommand = "hideLeft";
+		this._transitionCommand = "hideToLeft";
 		this.$.backgroundScrim.addRemoveClass("on", false);
 		this.$.client.addRemoveClass("left", true);
 		return true;
