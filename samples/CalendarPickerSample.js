@@ -1,25 +1,28 @@
 enyo.kind({
 	name: "moon.sample.CalendarPickerSample",
 	classes: "moon enyo-unselectable enyo-fit",
+	kind: "FittableRows",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "FittableColumns", components: [
-			{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed", classes: "moon-date-picker-wrapper"},
-			{kind: "FittableRows", fit: true, components: [
-				{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
-				{kind: "moon.Divider"},
-				{kind: "moon.InputDecorator", components: [
-					{kind: "moon.Input", name: "yearInput", content: "Year"}
-				]},
-				{kind: "moon.Button", small: true, content: "Set", ontap: "setYear"},
-				{kind: "moon.InputDecorator", components: [
-					{kind: "moon.Input", name: "monthInput", content: "Month"}
-				]},
-				{kind: "moon.Button", small: true, content: "Set", ontap: "setMonth"},
-				{kind: "moon.InputDecorator", components: [
-					{kind: "moon.Input", name: "dateInput", content: "Date"}
-				]},
-				{kind: "moon.Button", small: true, content: "Set", ontap: "setDate"}
+		{kind: "moon.Scroller", fit:true, components: [
+			{kind: "FittableColumns", components: [
+				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed", classes: "moon-date-picker-wrapper"},
+				{kind: "FittableRows", fit: true, components: [
+					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
+					{kind: "moon.Divider"},
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", name: "yearInput", content: "Year"}
+					]},
+					{kind: "moon.Button", small: true, content: "Set", ontap: "setYear"},
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", name: "monthInput", content: "Month"}
+					]},
+					{kind: "moon.Button", small: true, content: "Set", ontap: "setMonth"},
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", name: "dateInput", content: "Date"}
+					]},
+					{kind: "moon.Button", small: true, content: "Set", ontap: "setDate"}
+				]}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
@@ -27,8 +30,8 @@ enyo.kind({
 	],
 	setYear: function(inSender, inEvent) {
 		if(this.$.yearInput.getValue()) {
-			this.$.calendar.setYear(this.$.yearInput.getValue());	
-		}		
+			this.$.calendar.setYear(this.$.yearInput.getValue());
+		}
 	},
 	setMonth: function(inSender, inEvent) {
 		if(this.$.monthInput.getValue() > 0 && this.$.monthInput.getValue() < 13) {
