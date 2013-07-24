@@ -46,7 +46,7 @@ enyo.kind({
             {kind: "moon.Input", placeholder: "E-mail", onchange:""}
         ]},
         {kind: "moon.InputDecorator", spotlight: true, components: [
-            {kind: "moon.Input", placeholder: "Password", onchange:""}
+            {kind: "moon.Input", type:"password", placeholder: "Password", onchange:""}
         ]},
         {content: "Log in setting Menu"},
         {kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
