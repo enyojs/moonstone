@@ -47,22 +47,33 @@ enyo.kind({
 	//* @protected
 	_transitionCommand: "",
 
-	create: function(oSender, oEvent) {
-		this.inherited(arguments);
-		var panels = this.getPanels();
-		for (var n=0; n<panels.length; n++) {
-			panels[n].spotlight = 'container';
-			panels[n].parent = this;
-		}
-	},
 	initComponents: function() {
 		this._applyPattern();
 		this.inherited(arguments);
 	},
+	createComponents: function(inC, inOpts) {
+		var inherited = this.createComponents._inherited;
+		if (inC && !inOpts.isChrome) {
+			for (var n=0; n<inC.length; n++) {
+				if (!(inC[n].isChrome)) {
+					inC[n].spotlight = 'container';
+				}
+			}
+		}
+		return inherited.call(this, inC, inOpts);
+	},
+	createComponent: function(inC, inOpts) {
+		var inherited = this.createComponent._inherited;
+		if (inC && !inC.isChrome && !inOpts.isChrome) {
+			inC.spotlight = 'container';
+		}
+		return inherited.call(this, inC, inOpts);
+	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.$.client.hide();
-		enyo.Spotlight.spot(this);
+		if (this.pattern === "alwaysviewing") {
+			this.$.client.hide();
+		}
 	},
 	// Returns true if the last spotted control was a child of this Panels.
 	_hadFocus: function() {
@@ -76,11 +87,10 @@ enyo.kind({
 	onTap: function(oSender, oEvent) {
 		var n = this.getPanelIndex(oEvent.originator);
 		if (n == -1) {
-			// Tapped on other than panel
+			// Tapped on other than panel (Scrim, etc)
 			if (this.pattern === "alwaysviewing" && this.$.client.showing === true) {
 				this.hide();
 				enyo.Spotlight.spot(this);
-				return true;
 			}
 		} else {
 			// Tapped on panel
@@ -89,7 +99,6 @@ enyo.kind({
 				this.setIndex(n);
 				enyo.Spotlight.setLast5WayControl(oEvent.originator);
 				enyo.Spotlight.setPointerMode(false);
-				return true;
 			} else {
 				// Tapped on current panel
 			}
@@ -187,12 +196,12 @@ enyo.kind({
 					name: "backgroundScrim",
 					kind: enyo.Control,
 					classes: "moon-panels-background-scrim",
+					isChrome: true,
 					components: [
 						{
 							name: "spotable",
 							kind: enyo.Control,
 							classes: "moon-panels-spot",
-							style: "z-index: 10; background-color: red",
 							isChrome: true,
 							onenter: "show"
 						}
@@ -202,6 +211,7 @@ enyo.kind({
 					name: "client",
 					kind: enyo.Control,
 					classes: "enyo-fill enyo-arranger moon-panels-client",
+					isChrome: true,
 					components: [
 						{
 							name: "panelScrim",
@@ -256,7 +266,7 @@ enyo.kind({
 	// Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(oSender, oEvent) {
 		if (oEvent.originator != this.getActive())	{ return false; }
-		if (enyo.Spotlight.getPointerMode())		{ return true; }
+		if (enyo.Spotlight.getPointerMode())		{ return false; }
 
 		var nIndex = this.getIndex();
 
@@ -292,14 +302,16 @@ enyo.kind({
 	onSpotlightRight: function(oSender, oEvent) {
 		if (oEvent.originator !== this) { return false; }
 		// Show panels when moon.Panels got spot and user enter right key.
-		this.show();
+		if (this.pattern === "alwaysviewing" && !this._hadFocus()) {
+			this.show();
+		}
 	},
 	onSpotlightFocused: function(oSender, oEvent) {
 		if (oEvent.originator !== this) { return false; }
 		if (enyo.Spotlight.getPointerMode()) { return false; }
 
-		// Check if child of panels or panels itself is last spotted control
-		if (!this._hadFocus() || this === enyo.Spotlight.getLastControl()) {
+		// Check if child of panels is last spotted control
+		if (!this._hadFocus()) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -407,7 +419,6 @@ enyo.kind({
 
 		if (this.transitionReady) {
 			this.inherited(arguments);
-			this.getActive().spotlight = 'container';
 			enyo.Spotlight.spot(this.getActive());
 			this.setTransitionReady(false);
 			this.triggerPanelPostTransitions();
@@ -418,7 +429,7 @@ enyo.kind({
 	},
 	//* Show panals with transition from right */
 	show: function() {
-		if (this._transitionCommand !== "") {return;}
+		if (this._transitionCommand !== "") {return false;}
 		this._transitionCommand = "show";
 		this.$.client.show();
 		enyo.job(this.id + "showhide", this.bindSafely("_show"), 50);
@@ -426,7 +437,7 @@ enyo.kind({
 	},
 	//* Hide panals with transition to right */
 	hide: function() {
-		if (this._transitionCommand !== "") {return;}
+		if (this._transitionCommand !== "") {return false;}
 		this._transitionCommand = "hide";
 		this.$.backgroundScrim.addRemoveClass("on", false);
 		this.$.client.addRemoveClass("show", false);
@@ -434,9 +445,10 @@ enyo.kind({
 	},
 	//* Hide panals with transition to left */
 	hideToLeft: function() {
-		if (this._transitionCommand !== "") {return;}
+		if (this._transitionCommand !== "") {return false;}
 		this._transitionCommand = "hideLeft";
 		this.$.backgroundScrim.addRemoveClass("on", false);
 		this.$.client.addRemoveClass("left", true);
+		return true;
 	}
 });
