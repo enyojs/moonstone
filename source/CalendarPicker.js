@@ -70,13 +70,7 @@ enyo.kind({
 	},
 	components: [
 		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
-		{
-			name: "dates",
-			kind: "enyo.Group",
-			layoutKind: 'enyo.FlexLayout',
-			flexStretch: true,
-			flexBias: 'row'
-		}
+		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -113,9 +107,7 @@ enyo.kind({
 	setupCalendar: function() {
 		if (!this.$.dates.controls.length) {
 			for (var i = 1; i <= this.maxWeeks * 7; i++) {
-				this.$.dates.createComponent({
-					kind: "moon.CalendarPickerDate"
-				});
+				this.$.dates.createComponent({kind: "moon.CalendarPickerDate"});
 			}
 		}
 	},
@@ -247,7 +239,7 @@ enyo.kind({
 		if (this.value) {
 			this.doChange({value: this.value});
 		}
-	},
+	},	
 	localeChanged: function() {
 		this.refresh();
 	},
