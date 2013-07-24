@@ -61,6 +61,7 @@ enyo.kind({
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.createComponent({content:this.$.input.getValue()}).render();
 		picker.reflow();
+		this.$.result.setContent("'" + this.$.input.getValue() + "' is added to picker" + this.$.which.getSelectedIndex()+1);
 	},
 	destroyItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
