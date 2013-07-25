@@ -406,20 +406,6 @@
                     }
                 },
                 {
-                    "name": "moon.Drawers",
-                    "kind": "moon.Drawers",
-                    "description": "Drawers",
-                    "config": {
-                        "kind": "moon.Drawers",
-                        "drawers": [{
-                            "kind": "moon.Drawer",
-                            "handle": {"kind": "moon.DrawerHandle", "content": "Handle"},
-                            "components": [{"content" : "Drawer Content"}],
-                            "controlDrawerComponents" : [{"content": "Controls"}]
-                        }]
-                    }
-                },
-                {
                     "name": "moon.GridList",
                     "kind": "moon.GridList",
                     "description": "A grid list",
