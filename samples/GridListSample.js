@@ -9,9 +9,9 @@ enyo.kind({
 			classes: "enyo-fill",
 			onSetupItem: "setupItem",
 			toggleSelected: true,
-			itemWidth: 280,
-			itemHeight: 180,
-			itemSpacing: 100,
+			itemWidth: 200,
+			itemHeight: 200,
+			itemSpacing: 50,
 			components: [
 				{name: "item", kind: "moon.GridListImageItem"}
 			]
