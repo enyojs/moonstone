@@ -42,10 +42,10 @@ enyo.kind({
     classes: "moon-5h moon-3v",
     components: [
         {kind: "moon.Divider", content: "Log in to Service"},
-        {kind: "moon.InputDecorator", spotlight: true, components: [
+        {kind: "moon.InputDecorator", spotlight: true, classes: "moon-h-fill", components: [
             {kind: "moon.Input", placeholder: "E-mail", onchange:""}
         ]},
-        {kind: "moon.InputDecorator", spotlight: true, components: [
+        {kind: "moon.InputDecorator", spotlight: true, classes: "moon-h-fill", components: [
             {kind: "moon.Input", type:"password", placeholder: "Password", onchange:""}
         ]},
         {content: "Log in setting Menu"},

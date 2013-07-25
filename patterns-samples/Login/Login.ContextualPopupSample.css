@@ -32,3 +32,8 @@
   color: black;
   background-color: #ffb80d;
 }
+
+.moon-h-fill {
+    width: 100%;
+    box-sizing: border-box;
+}
