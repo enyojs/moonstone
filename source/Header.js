@@ -53,6 +53,8 @@ enyo.kind({
 		
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
+		var titleBelowStyle = enyo.dom.getComputedStyle(this.$.titleBelow.hasNode());
+		var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
@@ -68,6 +70,17 @@ enyo.kind({
 			"opacity" : titleAboveStyle["opacity"],
 			"overflow" : titleAboveStyle["overflow"]
 		};
+		this.$.title.smallAnimProps = {
+			"left" : titleStyle["left"],
+			"bottom" : titleStyle["bottom"]
+		};
+		this.$.titleBelow.smallAnimProps = {
+			"bottom" : titleBelowStyle["bottom"]
+		};
+		this.$.subTitleBelow.smallAnimProps = {
+			"bottom" : subTitleBelowStyle["bottom"]
+		};
+		
 
 		this.$.animator.newAnimation({
 			name: "collapseToSmall",
@@ -77,10 +90,25 @@ enyo.kind({
 				0: [{
 					control: this.$.titleAbove,
 					properties: {
-						"height" : "current",
-						"padding-top" : "current",
-						"padding-bottom" : "current",
-						"overflow" : "hidden"
+					}
+				},
+				{
+					control: this.$.title,
+					properties: {
+						"bottom" : "current",
+						"left" : "current"
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"bottom" : "current"
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"bottom" : "current"
 					}
 				},
 				{
@@ -92,25 +120,38 @@ enyo.kind({
 				70: [{
 					control: this.$.titleAbove,
 					properties: {
-						"opacity" : "current"
 					}
 				}],
 				100: [{
 					control: this.$.titleAbove,
 					properties: {
-						"height" : "0px",
-						"padding-top" : "0px",
-						"padding-bottom" : "0px",
-						"opacity" : "0"
+					}
+				},
+				{
+					control: this.$.title,
+					properties: {
+						"bottom" : "76px",
+						"left" : "50px"
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"bottom" : "92px"
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"bottom" : "96px"
 					}
 				},
 				{
 					control: this,
 					properties: {
-						"height" : "260px"
+						"height" : "240px"
 					}
 				}]
-
 			}
 		});
 		this.$.animator.play("collapseToSmall");
@@ -129,10 +170,25 @@ enyo.kind({
 				0: [{
 					control: this.$.titleAbove,
 					properties: {
-						"height" : "current",
-						"padding-top" : "current",
-						"padding-bottom" : "current",
-						"opacity" : "current"
+					}
+				},
+				{
+					control: this.$.title,
+					properties: {
+						"bottom" : "current",
+						"left" : "current"
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"bottom" : "current"
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"bottom" : "current"
 					}
 				},
 				{
@@ -144,16 +200,30 @@ enyo.kind({
 				30: [{
 					control: this.$.titleAbove,
 					properties: {
-						"opacity" : this.$.titleAbove.smallAnimProps.opacity
 					}
 				}],
 				100: [{
 					control: this.$.titleAbove,
 					properties: {
-						"height" : this.$.titleAbove.smallAnimProps.height,
-						"padding-top" : this.$.titleAbove.smallAnimProps["padding-top"],
-						"padding-bottom" : this.$.titleAbove.smallAnimProps["padding-bottom"],
-						"overflow" : this.$.titleAbove.smallAnimProps.overflow
+					}
+				},
+				{
+					control: this.$.title,
+					properties: {
+						"bottom" : this.$.title.smallAnimProps.bottom,
+						"left" : this.$.title.smallAnimProps.left
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"bottom" : this.$.titleBelow.smallAnimProps.bottom
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"bottom" : this.$.subTitleBelow.smallAnimProps.bottom
 					}
 				},
 				{
