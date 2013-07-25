@@ -68,7 +68,8 @@ enyo.kind({
                 {kind: "moon.Divider", content: "Related Artists"},
                 {
                     name: "relatedArtists",
-                    kind: "enyo.DataGridList",
+                    kind: "moon.DataGridList",
+					style: "height: 156px;",
                     components: [
                         {
                             kind: "enyo.Image",
@@ -82,7 +83,6 @@ enyo.kind({
                 {
                     name: "trackInfo",
                     kind: "moon.DataList",
-                    scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
                     fit: true,
                     components: [
             			{
