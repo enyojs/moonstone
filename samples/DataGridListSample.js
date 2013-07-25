@@ -1,6 +1,6 @@
 enyo.kind({
-	name: "MoonGridListSampleView",
-	classes: "moon",
+	name: "moon.sample.DataGridListSample",
+	classes: "moon enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "gridList", spacing: 20, minWidth: 180, minHeight: 240, kind: "moon.DataGridList", components: [
@@ -11,26 +11,15 @@ enyo.kind({
 				bindFrom: ".text",
 				bindTo: ".caption"
 			}
-		], controller: ".app.controllers.items"}
-	]
-});
-
-enyo.kind({
-	name: "MoonGridListSample",
-	kind: "enyo.Application",
-	controllers: [
-		{name: "items", kind: "enyo.Collection"}
+		]}
 	],
-	view: "MoonGridListSampleView",
-	start: function () {
+	create: function () {
 		this.inherited(arguments);
+		var c = new enyo.Collection();
 		for (var $i=0, r$=[]; r$.length<500; ++$i) {
 			r$.push({text: "Item " + $i});
 		}
-		this.controllers.items.add(r$);
-	}
-});
-
-enyo.ready(function () {
-	new MoonGridListSample({name: "app"});
+		c.add(r$);
+		this.$.gridList.set("controller", c);
+	}	
 });
