@@ -624,7 +624,7 @@
   margin-bottom: 33px;
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.08em;
+  height: 1.12em;
   min-height: 23.400000000000002px;
   margin-right: 50px;
 }
@@ -642,7 +642,7 @@
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
-  height: 1.08em;
+  height: 1.12em;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -708,7 +708,7 @@
   width: 53px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.08em;
+  height: 1.12em;
   padding: 2px 0px 0px 0px;
   margin-right: 55px;
 }
@@ -771,7 +771,7 @@
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.08em;
+  line-height: 1.12em;
   color: #4b4b4b;
   margin: 0px 0px 26px 0px;
   padding: 2px 0px 0px 0px;
@@ -786,7 +786,7 @@
 .moon-item.spotlight {
   border-style: solid;
   border-color: #ffb80d;
-  line-height: 1.08em;
+  line-height: 1.12em;
 }
 .moon-item-overlay {
   transition: height 0.1s linear, width 0.1s linear;
@@ -1240,7 +1240,6 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-integer-picker-header {
-  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 10px 0px;
   transition: all 0.1s linear;
