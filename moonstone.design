@@ -419,19 +419,19 @@
                 {
                     "name": "moon.IconButton",
                     "kind": "moon.IconButton",
-                    "description": "A icon button",
+                    "description": "An icon button",
                     "config": {
                         "kind": "moon.IconButton",
-                        "src": "lib/moonstone/images/checkbox.png"
+                        "src": "$lib/moonstone/images/checkbox.png"
                     }
                 },
                 {
                     "name": "moon.ImageItem",
                     "kind": "moon.ImageItem",
-                    "description": "A image item",
+                    "description": "An image item",
                     "config": {
                         "kind": "moon.ImageItem",
-                        "source": "lib/moonstone/images/enyo-icon.png",
+                        "source": "$lib/moonstone/images/enyo-icon.png",
                         "label": "Image Item",
                         "text" : "This is a image item. This is an example for the text contents."
                     }
@@ -439,7 +439,7 @@
                 {
                     "name": "moon.IntegerScrollPicker",
                     "kind": "moon.IntegerScrollPicker",
-                    "description": "A integer scroll picker",
+                    "description": "An integer scroll picker",
                     "config": {
                         "kind": "moon.IntegerScrollPicker",
                         "value": 1,
@@ -476,7 +476,7 @@
                 {
                     "name": "moon.ExpandablePicker",
                     "kind": "moon.ExpandablePicker",
-                    "description": "A expandable picker",
+                    "description": "An expandable picker",
                     "config": {
                         "kind": "moon.ExpandablePicker",
                         "content": "Expandable Picker",
