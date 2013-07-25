@@ -112,7 +112,7 @@ enyo.kind({
 		var totalTime = this.$.audio.getDuration();
 		var currentTime = this.$.audio.getCurrentTime();
 		var playheadPos = (currentTime * 100) / totalTime;
-		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
+		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(isNaN(totalTime) ? 0 : totalTime));
 		this.$.slider.updateKnobPosition(playheadPos);
 		this.$.slider.setProgress(playheadPos);
 	},
