@@ -5,6 +5,7 @@
 enyo.kind({
 	name: "moon.Item",
 	classes: "moon-item",
+	mixins: ["moon.MarqueeSupport"],
 	spotlight: true,
 	handlers: {
 		onSpotlightFocused: "spotlightFocused"
@@ -14,10 +15,10 @@ enyo.kind({
 		//* events
 		disabled: false,
 		//* The relative position of the spotlight;
-		//* valid values are "locale-default", "left", "right", "top", and "bottom"
+		//* valid values are "locale-default", "left", "right", "top", and "bottom".
 		//* The locale-specific setting selects either left or right, depending on the
-		//* default text-direction of the current locale, when enyo-ilib is loaded
-		//* (defaults to left if enyo-ilib is not loaded)
+		//* default text-direction of the current locale provided by _enyo-ilib_
+		//* (defaults to left if _enyo-ilib_ is not loaded).
 		spotlightPosition: "locale-default",
 		//* The behavior of the spotlight
 		spotlightOverlay: false
@@ -32,6 +33,9 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
+		if (!this.components) {
+			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
+		}
 		this.spotlightConfig();
 	},
 	rendered: function() {
@@ -70,11 +74,18 @@ enyo.kind({
 		this.removeClass(inOld);
 		this.addClass(this.spotlightPosition);
 	},
-	disabledChanged: function() {
+	disabledChanged: function(inOld) {
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	spotlightFocused: function(inSender, inEvent) {
 		this.bubble("onRequestScrollIntoView", {side: "top"});
 		return true;
+	},
+	contentChanged: function(inOld) {
+		if (this.$.marqueeText) {
+			this.$.marqueeText.setContent(this.content);
+		} else {
+			this.inherited(arguments);
+		}
 	}
 });

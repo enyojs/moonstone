@@ -7,7 +7,7 @@ enyo.kind({
 		{name: "testSelectButton", kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
 			{content: "Cat"},
 			{content: "Dog"},
-			{content: "Hippopotamus"}
+			{content: "Hippopotamus truncation"}
 		]},
 		{tag: "br"},{tag: "br"},{tag: "br"},
 		{kind: "moon.Divider", content:"Deactivated Radio Items"},

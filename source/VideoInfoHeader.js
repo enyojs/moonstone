@@ -1,6 +1,7 @@
 /**
 	_moon.VideoInfoHeader_ is a control that displays various information about a
-	video. It is intended for use within the _infoComponents_ block of _moon.VideoPlayer_.
+	video. It is designed to be used within the _infoComponents_ block of a
+	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
 
 	Example:
 
@@ -51,7 +52,11 @@ enyo.kind({
 	}
 });
 
-//* A simple kind for video info badges.
+/**
+    _moon.VideoInfoHeaderBadge_ is a simple kind used to display a badge
+    containing video info.  It is the default kind for components added to
+    _moon.VideoInfoHeader_.
+*/
 enyo.kind({
 	name: "moon.VideoInfoHeaderBadge",
 	kind: "enyo.Control",

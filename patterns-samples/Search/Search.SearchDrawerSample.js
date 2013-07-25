@@ -49,9 +49,10 @@ enyo.kind({
 enyo.kind({
     //* @public
     name: "moon.sample.search.SearchDrawer",
-    kind: "moon.SearchPanel",
+    kind: "moon.Panel",
+    headerOption: {kind:"moon.InputHeader"},
     handlers: {
-        "onSearch": "search"
+        "onInputChanged": "onInputChanged"
     },
     //* @protected
     fit: true,
@@ -123,9 +124,7 @@ enyo.kind({
 
     //* @public
 
-    search: function(inSender, inEvent) {
-        // console.log("[moon.SearchPanel] onSearch Event - search keyword : " + inEvent.keyword);
-
+    onInputChanged: function(inSender, inEvent) {
         if(inEvent.keyword !== "") {
             this.$.recentResult.setShowing(false);
             this.$.instantSearchResults.setShowing(true);

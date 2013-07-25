@@ -8,9 +8,7 @@ enyo.kind({
 	//* @protected
 	classes: "moon-toggle-item",
 	components: [
-		{classes: "moon-toggle-item-label-wrapper", components: [
-			{name: "label", classes: "moon-toggle-item-label"}
-		]},
+		{classes: "moon-toggle-item-label-wrapper", name: "client"},
 		{name: "input", kind: "moon.ToggleText", spotlight: false}
 	]
 });

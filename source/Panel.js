@@ -26,9 +26,9 @@ enyo.kind({
 		autoNumber: true,
 		//* Facade for the header's _small_ property
 		smallHeader: false,
-		//* If true, collapse the header when the panel body is scrolled down
+		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false
-    },
+	},
 	events : {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
@@ -36,7 +36,8 @@ enyo.kind({
 		onPostTransitionComplete: ""
 	},
 	handlers: {
-		onScroll: "scroll"
+		onScroll: "scroll",
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
 	},
 
 	//* @protected
@@ -44,8 +45,9 @@ enyo.kind({
 	fit : true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
+	headerOption: null,
 	panelTools : [
-		{name: "header", kind: "moon.Header", onComplete:"headerAnimationComplete"},
+		{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
 		{name: "panelBody", fit: true, classes: "moon-panel-body"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -55,7 +57,7 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		this.$.header.createComponents(this.headerComponents);
+		this.$.header.createComponents(this.headerComponents, {owner: this});
 		this.autoNumberChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
@@ -70,9 +72,12 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	createTools: function() {
+		var $pts = enyo.clone(this.get("panelTools"));
+		var $h = enyo.clone(this.get("headerOption") || {});
+		enyo.mixin($pts[0], $h);
 		this.createComponents(this.panelTools);
 	},
-	//* Force layout kind changes to apply to _this.$.panelBody_
+	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 		this.layoutKind = "FittableRowsLayout";
@@ -130,11 +135,12 @@ enyo.kind({
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.getSmallHeader());
 	},
-	//* Get _this.header_ to update panel header dynamically.
+	//* Updates panel header dynamically.
 	getHeader: function() {
 		return this.$.header;
 	},
 	shrinkPanel: function() {
+		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		this.$.animator.newAnimation({
 			name: "preTransition",
 			duration: 800,
@@ -168,13 +174,13 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"width" : "200px"
+						"width" : breadcrumbWidth + "px"
 					}
 				}]
 			}
 		});
 
-		this.$.header.animateCollapse();
+		this.$.header.animateCollapse(breadcrumbWidth);
 		this.$.animator.play("preTransition");
 	},
 	growPanel: function() {
@@ -192,7 +198,7 @@ enyo.kind({
 				25: [{
 					control: this,
 					properties: {
-						"width" : this.actualWidth+"px"
+						"width" : this.actualWidth + "px"
 					}
 				},
 				{
@@ -222,7 +228,13 @@ enyo.kind({
 	},
 
 	//* @protected
-
+	panelsTransitionFinishHandler: function(inSender, inEvent) {
+		if(inEvent.active >= inEvent.index) {
+			this.$.header.startMarquee();
+		} else {
+			this.$.header.stopMarquee();
+		}
+	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
@@ -233,6 +245,7 @@ enyo.kind({
 		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
+		this.$.header.stopMarquee();
 		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;
@@ -248,22 +261,22 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "preTransition":
-				this.preTransitionComplete();
-				break;
-			case "postTransition":
-				this.postTransitionComplete();
-				break;
+		case "preTransition":
+			this.preTransitionComplete();
+			break;
+		case "postTransition":
+			this.postTransitionComplete();
+			break;
 		}
 	},
 	headerAnimationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "collapseToSmall":
-			case "expandToLarge":
-				// FIXME: It would be better to call this during the animation so it resizes
-				// smoothly, but that's not possible with CSS transitions; it will jump now
-				this.resized();
-				break;
+		case "collapseToSmall":
+		case "expandToLarge":
+			// FIXME: It would be better to call this during the animation so it resizes
+			// smoothly, but that's not possible with CSS transitions; it will jump now
+			this.resized();
+			break;
 		}
 	}
 });

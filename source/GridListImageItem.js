@@ -12,5 +12,12 @@
 enyo.kind({
     name: "moon.GridListImageItem",
     kind: "enyo.GridListImageItem",
-    classes: "moon-gridlist-item moon-gridlist-imageitem"
+	spotlight: true,
+    classes: "moon-gridlist-item moon-gridlist-imageitem",
+	handlers: {
+		onSpotlightFocus: "focused"
+	},
+	focused: function () {
+		this.bubble("onRequestScrollIntoView");
+	}
 });

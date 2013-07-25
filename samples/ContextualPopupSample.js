@@ -29,7 +29,7 @@ enyo.kind({
 			}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 45%;", components: [
-			{content:"Long"},
+			{content:"Long Button with truncation"},
 			{kind: "moon.ContextualPopup",
 				components: [
 					{content:"testing 1"},

@@ -32,9 +32,16 @@ enyo.kind({
 			other popups.
 		*/
 		scrimClassName: "",
-		//* When true, spotlight cannot leave constraints of _moon.Popup_ unless explicitly closed
+		/**
+			When true, spotlight cannot leave the constraints of the _moon.Popup_
+			unless it is explicitly closed.
+		*/
 		spotlightModal: false,
-		//* When false, closeButton is hidden. When true, it is shown. When "auto", it is shown when spotlightModal:true
+		/**
+			When false, _closeButton_ is hidden; when true, it is shown. When
+			_showCloseButton_ is set to "auto" (the default), _closeButton_ is shown
+			when _spotlightModal_ is true.
+		*/
 		showCloseButton: "auto"
 	},
 	//* @protected
@@ -76,6 +83,7 @@ enyo.kind({
 	},
 	//* Determine whether to display closeButton
 	configCloseButton: function() {
+		if (!this.$.closeButton) {return;}
 		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
@@ -162,7 +170,9 @@ enyo.kind({
 	},
 	//* Removes focus style from closeButton & hides _moon.Popup_ 
 	closePopup: function(inSender, inEvent) {
-		this.$.closeButton.removeClass("pressed");
+		if (this.$.closeButton) {
+			this.$.closeButton.removeClass("pressed");
+		}
 		this.respotActivator();
 		this.spotlight = false;
 		this.hide();

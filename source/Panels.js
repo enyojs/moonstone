@@ -17,10 +17,15 @@ enyo.kind({
 		*/
 		transitionReady: false,
 		/**
-			Current design pattern. Valid values are "none", "activity" (default), and
-			"alwaysviewing".
+			The current design pattern; valid values are "none", "activity" (default),
+			and "alwaysviewing".
 		*/
 		pattern: "activity"			
+	},
+	events: {
+		// Fired when panel transition finished
+		// inEvent.activeIndex: active index
+		onPanelsPostTransitionFinished: ''
 	},
 	handlers: {
 		onSpotlightFocused			: 'onSpotlightFocused',
@@ -239,10 +244,12 @@ enyo.kind({
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
+		return true;
 	},
 	preTransitionComplete: function() {
 		this.transitionReady = true;
 		this.setIndex(this.transitionIndex);
+		this.waterfallDown("onPanelPreTransitionFinished");
 	},
 
 	triggerPanelPostTransitions: function() {
@@ -272,9 +279,15 @@ enyo.kind({
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
+		return true;
 	},
 	postTransitionComplete: function() {
-		// TODO - something here?
+		var activeIndex = this.getIndex(), active;
+		// parent and child of panels can get event
+		this.doPanelsPostTransitionFinished({active: activeIndex});
+		for (var i = 0; i < this.getPanels().length; i++) {
+			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
+		}
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		if (this.layout.getTransitionOptions) {

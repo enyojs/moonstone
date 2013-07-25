@@ -23,7 +23,17 @@ enyo.kind({
 					{content: "Item 2", active: true},
 					{content: "Item 3"}
 				]},
+				{kind: "moon.ExpandablePicker", noneText: "Nothing selected with loooooooooooooooooooooooooong text truncation", content: "Expandable Picker with looooooooooooooooooooooooooong text truncation", components: [
+					{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 1"},
+					{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 2"},
+					{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 3"}
+				]},
 				{kind: "moon.ExpandablePicker", disabled:true, content:"Deactivated Picker", components: [
+					{content: "Item 1"},
+					{content: "Item 2", active: true},
+					{content: "Item 3"}
+				]},
+				{kind: "moon.ExpandablePicker", content: "Pre-expanded picker", open: true, components: [
 					{content: "Item 1"},
 					{content: "Item 2", active: true},
 					{content: "Item 3"}

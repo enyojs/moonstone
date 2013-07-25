@@ -1,4 +1,5 @@
 enyo.depends(
+	"Marquee.js",
 	"Button.js",
 	"CaptionDecorator.js",
 	"Item.js",
@@ -52,8 +53,7 @@ enyo.depends(
 	"DataTable.js",
 	"MoonScrollStrategy.js",
 	"Thumb.js",
-	"SearchPanel.js",
-	"SearchHeader.js",
+	"InputHeader.js",
 	"Scrim.js",
 	"Popup.js",
 	"Dialog.js",
@@ -68,5 +68,9 @@ enyo.depends(
 	"VideoFullscreenToggleButton.js",
 	"DrawerHandle.js",
 	"Drawer.js",
-	"Drawers.js"
+	"Drawers.js",
+	"HighlightText.js",
+	"ObjectActionDecorator.js",
+	"FormCheckbox.js",
+	"DataGridList.js"
 );
