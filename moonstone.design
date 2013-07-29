@@ -507,6 +507,89 @@
                         "kind": "moon.Tooltip",
                         "content": "I'm a tooltip"
                     }
+                },
+                {
+                     "name" : "moon.AlwaysViewingPanels",
+                     "kind" : "moon.AlwaysViewingPanels",
+                     "description" : "A Always Viewing Panels",
+                     "config" : {
+                         "name": "AlwaysViewingPanels",
+                     	 "kind" : "moon.Panels",
+                     	 "pattern": "alwaysviewing",
+                     	 "classes": "enyo-fit",
+                     	 "components":[
+                     	 	{"title": "First Panel", "titleBelow": "Sub-title", "subTitleBelow": "Sub-sub title", "components": [
+                     	 		{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+                     	 	]},
+                     	 	{"title": "Second Panel with super long title", "titleBelow": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", 
+                     	 	   "subTitleBelow": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat", "components": [
+					{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+				]}                     	 	
+                     	 ]
+                     }
+                },
+                {
+                     "name" : "moon.ActivityPanels",
+                     "kind" : "moon.ActivityPanels",
+                     "description" : "A Activity Panels",
+                     "config" : {
+                         "name": "ActivityPanels",
+                     	 "kind" : "moon.Panels",
+                     	 "pattern": "activity",
+                     	 "classes": "enyo-fit",
+                     	 "components":[
+                     	 	{"title": "First Panel", "titleBelow": "Sub-title", "subTitleBelow": "Sub-sub title", "components": [
+                     	 		{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+                     	 	]},
+                     	 	{"title": "Second Panel with super long title", "classes": "moon-6h",
+			            	"titleBelow": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			            	"subTitleBelow": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+			            	"joinToPrev": true, "components": [
+					{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+				]} ,
+				{"title": "Third Panel with long title", "titleBelow":"Sub-title", "subTitleBelow":"Sub-sub title", "components": [
+					{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+				]}
+                     	 ]
+                     }
+                },
+                {
+                     "name" : "moon.CardArranger",
+                     "kind" : "moon.CardArranger",
+                     "description" : "A Card Arranger",
+                     "config" : {
+                         "name": "CardArranger",
+                     	 "kind" : "moon.Panels",
+                     	 "arrangerKind": "CardArranger",
+                     	 "classes": "enyo-fit",
+                     	 "components":[
+                     	 	{"title": "First", "components": [
+                     	 		{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+                     	 	]},
+                     	 	{"title": "Second", "joinToPrev": true ,"components": [
+					{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+				]}
+                     	 ]
+                     }
+                },
+                {
+                     "name" : "moon.CarouselArranger",
+                     "kind" : "moon.CarouselArranger",
+                     "description" : "A Carousel Arranger",
+                     "config" : {
+                         "name": "CarouselArranger",
+                     	 "kind" : "moon.Panels",
+                     	 "arrangerKind": "CarouselArranger",
+                     	 "classes": "enyo-fit full",
+                     	 "components":[
+                     	 	{"title": "First", "components": [
+                     	 		{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+                     	 	]},
+                     	 	{"title": "Second", "joinToPrev": true ,"components": [
+					{"kind": "moon.Item", "content": "Item One", "ontap": "next"}
+				]}
+                     	 ]
+                     }
                 }
             ]
         }
