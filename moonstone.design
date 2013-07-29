@@ -507,6 +507,35 @@
                         "kind": "moon.Tooltip",
                         "content": "I'm a tooltip"
                     }
+                },
+                {
+                    "name": "moon.ListActions",
+                    "kind": "moon.ListActions",
+                    "description": "ListActions",
+                    "config": {
+                        "kind": "moon.ListActions",
+                        "iconSrc": "",
+                        "listActions": [
+                            {"components": [
+                                {"kind": "moon.CheckboxItem", "content": "item1", "checked": true},
+                                {"kind": "moon.CheckboxItem", "content": "item2"}
+                            ]}
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.List",
+                    "kind": "moon.List",
+                    "description": "A horizontal list",
+                    "config": {
+                        "kind": "moon.List",
+                        "orient": "h",
+                        "multiSelect": false,
+                        "spotlight": true,
+                        "components": [
+                            {"name": "item"}
+                        ]
+                    }
                 }
             ]
         }
