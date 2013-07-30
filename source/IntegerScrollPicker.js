@@ -169,7 +169,7 @@ enyo.kind({
 	},
 	//* Scrolls to a given node in the list.
 	animateToNode: function(inNode) {
-		if(inNode) {
+		if(!inNode) {
 			return;
 		}
 		
