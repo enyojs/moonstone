@@ -65,7 +65,9 @@ enyo.kind({
 		this.$.input.setChecked(this.getChecked());
 	},
 	tap: function(inSender, inEvent) {
-		this.waterfallDown("ontap", inEvent, inSender);
+		if (inSender != this.$.input) {
+			this.waterfallDown("ontap", inEvent, inSender);
+		}
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
 		inEvent.toggledControl = this;
