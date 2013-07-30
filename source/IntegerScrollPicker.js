@@ -169,6 +169,10 @@ enyo.kind({
 	},
 	//* Scrolls to a given node in the list.
 	animateToNode: function(inNode) {
+		if(inNode) {
+			return;
+		}
+		
 		var sb = this.scrollBounds,
 			st = this.$.scroller.getStrategy(),
 			b = {
