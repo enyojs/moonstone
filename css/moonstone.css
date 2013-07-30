@@ -43,6 +43,8 @@
 /* ---------------------------------------*/
 /* ObjectActionDecorator */
 /* ---------------------------------------*/
+/* Carat */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -624,7 +626,7 @@
   margin-bottom: 33px;
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.08em;
+  height: 1.12em;
   min-height: 23.400000000000002px;
   margin-right: 50px;
 }
@@ -642,7 +644,7 @@
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
-  height: 1.08em;
+  height: 1.12em;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -708,7 +710,7 @@
   width: 53px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.08em;
+  height: 1.12em;
   padding: 2px 0px 0px 0px;
   margin-right: 55px;
 }
@@ -771,7 +773,7 @@
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.08em;
+  line-height: 1.12em;
   color: #4b4b4b;
   margin: 0px 0px 26px 0px;
   padding: 2px 0px 0px 0px;
@@ -786,7 +788,7 @@
 .moon-item.spotlight {
   border-style: solid;
   border-color: #ffb80d;
-  line-height: 1.08em;
+  line-height: 1.12em;
 }
 .moon-item-overlay {
   transition: height 0.1s linear, width 0.1s linear;
@@ -1240,7 +1242,6 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-integer-picker-header {
-  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 10px 0px;
   transition: all 0.1s linear;
@@ -1368,31 +1369,21 @@
   -o-transition: padding 0.1s linear;
   width: 100%;
   height: 100%;
-  /* GF-1438 Moon: Grid - Entire item should scroll into view - offset the caption height so that item scrolls fully into view on spotlight focus state change */
-
-  margin-top: -30px;
   overflow: visible;
+  background-clip: padding-box;
+  border: 5px solid rgba(0, 0, 0, 0);
 }
 .moon-gridlist-imageitem.selected {
+  border: 5px solid #ffb80d;
   background: #ffb80d;
-  padding: 3px;
-  /*Offset the right and bottom padding by adding negative top and left margin*/
-
-  margin-left: -3px;
-  margin-top: -33px;
-}
-.moon-gridlist-imageitem img {
-  width: 100%;
-  height: 100%;
 }
 .moon-gridlist-imageitem .caption,
 .moon-gridlist-imageitem .sub-caption {
   font-weight: bold;
-  font-size: 12px;
+  font-size: 20px;
   text-align: center;
   height: 1.67em;
   line-height: 1.67em;
-  text-transform: uppercase;
   z-index: 10;
   padding: 0px;
   margin: 0px;
@@ -1410,19 +1401,13 @@
   vertical-align: bottom;
 }
 .moon-gridlist-imageitem.spotlight {
-  background: #ffb80d !important;
-  padding-left: 25px !important;
-  margin-right: -25px !important;
+  border: 5px solid #ffb80d;
+  background-color: #ffb80d;
 }
 .enyo-locale-right-to-left .moon-gridlist-imageitem.spotlight {
   padding-right: 25px !important;
   margin-right: 25px !important;
   padding-left: 0px !important;
-}
-.moon-gridlist-imageitem.spotlight.selected {
-  background: #ffb80d !important;
-  padding-left: 28px !important;
-  margin-right: -25px !important;
 }
 .enyo-locale-right-to-left .moon-gridlist-imageitem.spotlight.selected {
   background: #ffb80d !important;
@@ -1474,7 +1459,7 @@
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background: transparent url(../images/carat-large-up.png) no-repeat 7px 6px;
+  background: transparent url(../images/carat-black-large-up-icon.png) no-repeat 7px 6px;
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -1652,7 +1637,7 @@
 .up-arrow {
   height: 29px;
   width: 29px;
-  background: url(../images/carat-large-up.png) 0 0 no-repeat;
+  background: url(../images/carat-black-large-up-icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .up-arrow > .taparea,
@@ -1665,7 +1650,7 @@
   background-color: transparent;
 }
 .up-arrow-container.selected .up-arrow {
-  background-image: url(../images/carat-small-up1.png);
+  background-image: url(../images/carat-black-small-up-icon.png);
 }
 .down-arrow-container {
   position: relative;
@@ -1677,11 +1662,11 @@
 .down-arrow {
   height: 29px;
   width: 29px;
-  background: url(../images/carat-large-down.png) 0 0 no-repeat;
+  background: url(../images/carat-black-large-down-icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .down-arrow-container.selected .down-arrow {
-  background-image: url(../images/carat-small-down1.png);
+  background-image: url(../images/carat-black-small-down-icon.png);
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -2362,10 +2347,10 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 10px;
 }
 .moon-accordion-arrow.up {
-  background: url(../images/carat-small-up.png) right center no-repeat;
+  background: url(../images/carat-black-small-up-image.png) right center no-repeat;
 }
 .moon-accordion-arrow.down {
-  background: url(../images/carat-small-down.png) right center no-repeat;
+  background: url(../images/carat-black-small-down-image.png) right center no-repeat;
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
@@ -2556,10 +2541,10 @@ body .enyo-fit.panels-50-percent-scrim,
   top: -3px;
 }
 .moon-drawers-activator-nub .down {
-  background: url(../images/carat-small-down-white.png) 0 0 no-repeat;
+  background: url(../images/carat-white-small-down-image.png) 0 0 no-repeat;
 }
 .moon-drawers-activator-nub .up {
-  background: url(../images/carat-small-up-black.png) 0 0 no-repeat;
+  background: url(../images/carat-black-small-up-image.png) 0 0 no-repeat;
 }
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {

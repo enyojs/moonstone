@@ -56,56 +56,56 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "moon.sample.wizard.ActionMenuSample",
-	kind: "Sample.Wizard.Panels",
-	components: [
-		{name: "introPage",   kind: "moon.sample.wizard.IntroPageSample"},
-		{name: "stepPage1",   kind: "moon.sample.wizard.StepPageSample"},
-		{name: "stepPage2",   kind: "moon.sample.wizard.StepPageSample"},
-		{name: "stepPage3",   kind: "moon.sample.wizard.StepPageSample"},
-		{name: "stepPage4",   kind: "moon.sample.wizard.StepPageSample"},
-		{name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"}
-	],
-	bindings: [
-		{from: ".controller", to: ".$.introPage.controller"},
-		{from: ".controller", to: ".$.stepPage1.controller"},
-		{from: ".controller", to: ".$.stepPage2.controller"},
-		{from: ".controller", to: ".$.stepPage3.controller"},
-		{from: ".controller", to: ".$.stepPage4.controller"},
-		{from: ".controller", to: ".$.confirmPage.controller"}
-	],
-	onTap: function(oSender, oEvent) {
-		//* override from panels
-		// no action for Carosel Arranger using button
-		var target = oEvent.dispatchTarget.kind;
-		switch(target)
-		{
-		case "moon.Item":
-			var collection = this.controller.get("wizResults");
-			var cmd = oEvent.dispatchTarget.content;
-			for (var idx in collection) {
-				if(cmd == collection.at(idx).get("step"))
-				{
-					this.setIndex(idx);
-					this.closeListAction(oSender.name);
-					return true;
-				}
-			}
-			break;
-		case "moon.Button":
-			this.closeListAction(oSender.name);
-			break;
-		}
-		return true;
-	},
-	closeListAction: function(sender) {
-		var p = this.$[sender].$.header.$.wizListAction;
-		if(p.getOpen())
-		{
-			p.setOpen(false);
-			enyo.Spotlight.spot(p.$.activator);
-		}
-	}
+    name: "moon.sample.wizard.ActionMenuSample",
+    kind: "Sample.Wizard.Panels",
+    components: [
+        {name: "introPage",   kind: "moon.sample.wizard.IntroPageSample"},
+        {name: "stepPage1",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage2",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage3",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "stepPage4",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"} 
+    ],
+    bindings: [
+        {from: ".controller", to: ".$.introPage.controller"},
+        {from: ".controller", to: ".$.stepPage1.controller"},
+        {from: ".controller", to: ".$.stepPage2.controller"},
+        {from: ".controller", to: ".$.stepPage3.controller"},
+        {from: ".controller", to: ".$.stepPage4.controller"},
+        {from: ".controller", to: ".$.confirmPage.controller"}
+    ],
+    onTap: function(oSender, oEvent) {
+        //* override from panels
+        // no action for Carosel Arranger using button
+        var target = oEvent.dispatchTarget ? oEvent.dispatchTarget.kind : undefined;
+        switch(target)
+        {
+        case "moon.Item":
+            var collection = this.controller.get("wizResults");
+            var cmd = oEvent.dispatchTarget.content;
+            for (var idx in collection) {
+                if(cmd == collection.at(idx).get("step"))
+                {
+                    this.setIndex(idx);
+                    this.closeListAction(oSender.name);
+                    return true;
+                }
+            }
+            break;
+        case "moon.Button":
+            this.closeListAction(oSender.name);
+            break;
+        }
+        return true;
+    },
+    closeListAction: function(sender) {
+        var p = this.$[sender].$.header.$.wizListAction;
+        if(p.getOpen())
+        {
+            p.setOpen(false);
+            enyo.Spotlight.spot(p.$.activator);
+        }    
+    }
 });
 
 enyo.ready(function(){

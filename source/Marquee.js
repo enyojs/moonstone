@@ -1,8 +1,8 @@
 /**
-	_moon.MarqueeText_ is a base text control that can do marquee animation.
-	In case of _moon.MarqueeText_ is used inside of _moon.MarqueeDecorator_,
-	_moon.MarqueeDecorator_ syncronize each marquee's start timing and user
-	can programatically start marquee by using _startMarquee()_ function.
+	_moon.MarqueeText_ is a basic text control that supports marquee animation.
+	When _moon.MarqueeText_ objects are used inside a _moon.MarqueeDecorator_,
+	the	decorator synchronizes their start times; the user may start a marquee
+	programmatically by calling _startMarquee()_.
 
 		enyo.kind({
 			name: "moon.Header",
@@ -17,8 +17,7 @@
 			}
 		});
 
-	Developers can easily extend control to have marquee feature by using
-	MarqueeSupport mixin inside of the control.
+	To add the marquee feature to a kind, simply use the MarqueeSupport mixin:
 
 		enyo.kind({
 			name: "moon.MarqueeButton",
@@ -37,12 +36,18 @@ enyo.kind({
 	published: {
 		//* Speed of marquee animation, in pixels per second
 		marqueeSpeed: 60,
-		//* Time that marquee will pause at the end of the animation, before resetting to the start
+		/**
+			Time in milliseconds that the marquee will pause at the end of the
+			animation, before resetting to the beginning
+		*/
 		marqueePause: 1000,
-		//* Whether this control should clip itself inside its parent's padding.  If false, the parent
-		//* control must have 'overflow:hidden' set, and the marquee text will clip at the parent's border
+		/**
+			Whether this control should clip itself inside its parent's padding. If
+			false, the parent control must have 'overflow:hidden' set, and the marquee
+			text will clip at the parent's border.
+		*/
 		clipInsidePadding: true,
-		//* When disabled, marqueeing will not occur
+		//* When true, marqueeing will not occur
 		disabled: false
 	},
 	events: {

@@ -45,6 +45,21 @@ enyo.kind({
 	events: {
 		ontap: "tap"
 	},
+	initComponents: function() {
+		// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
+		// if spotlight is applied on any template controls
+		this._removeSpotlight(this.components);
+		this.inherited(arguments);
+	},
+	_removeSpotlight: function (components) {
+		for (var i=0; i<components.length; i++) {
+			var c = components[i];
+			c.spotlight = false;
+			if (c.components) {
+				this._removeSpotlight(c.components);
+			}
+		}
+	},
 	tap: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
 	},

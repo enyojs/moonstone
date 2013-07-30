@@ -57,8 +57,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	onTap: function(inSender, inEvent) {
-		if (inEvent.originator.nextPanel) {
-			this.$.panels.replacePanel(this.$.panels.getIndex()+1, {kind: inEvent.originator.nextPanel, joinToPrev: true});
+		if (inSender.nextPanel) {
+			this.$.panels.setIndex(this.$.panels.getPanelIndex(inSender));
+			this.$.panels.replacePanel(this.$.panels.getIndex()+1, {kind: inSender.nextPanel, joinToPrev: true});
 			this.$.panels.next();
 		}
 	}

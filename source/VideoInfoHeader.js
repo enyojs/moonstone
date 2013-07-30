@@ -52,7 +52,11 @@ enyo.kind({
 	}
 });
 
-//* A simple kind for video info badges.
+/**
+    _moon.VideoInfoHeaderBadge_ is a simple kind used to display a badge
+    containing video info.  It is the default kind for components added to
+    _moon.VideoInfoHeader_.
+*/
 enyo.kind({
 	name: "moon.VideoInfoHeaderBadge",
 	kind: "enyo.Control",

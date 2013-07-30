@@ -39,20 +39,24 @@ enyo.kind({
 enyo.kind({
 	name: "moon.ContextualLoginPopup",
 	kind: "moon.ContextualPopup",
-	classes: "moon-5h moon-3v",
 	components: [
-		{kind: "moon.Divider", content: "Log in to Service"},
-		{kind: "moon.InputDecorator", spotlight: true, components: [
-			{kind: "moon.Input", placeholder: "E-mail", onchange:""}
-		]},
-		{kind: "moon.InputDecorator", spotlight: true, components: [
-			{kind: "moon.Input", placeholder: "Password", onchange:""}
-		]},
-		{content: "Log in setting Menu"},
-		{kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
-		{content: "or Connected with"},
-		{kind: "moon.Button", classes: "moon-light-gray", content: "FACEBOOK"},
-		{kind: "moon.Button", classes: "moon-light-gray", content: "TWITTER"}
+		{
+			classes: "moon-5h moon-3v", // Do not define size on ContextualPopup directly.
+			components: [
+				{kind: "moon.Divider", content: "Log in to Service"},
+				{kind: "moon.InputDecorator", spotlight: true, components: [
+					{kind: "moon.Input", placeholder: "E-mail", onchange:""}
+				]},
+				{kind: "moon.InputDecorator", spotlight: true, components: [
+					{kind: "moon.Input", type:"password", placeholder: "Password", onchange:""}
+				]},
+				{content: "Log in setting Menu"},
+				{kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
+				{content: "or Connected with"},
+				{kind: "moon.Button", classes: "moon-light-gray", content: "FACEBOOK"},
+				{kind: "moon.Button", classes: "moon-light-gray", content: "TWITTER"}
+			]
+		}
 	]
 });
 
@@ -88,12 +92,12 @@ enyo.kind({
 			]}
 		]}
 	],
-
+	
 	bindings: [
 		{from: ".controller.menus", to: "$.menuList.controller"},
 		{from: ".controller.contents", to: "$.contentList.controller"}
 	]
-});
+ });
 
 // Sample model
 

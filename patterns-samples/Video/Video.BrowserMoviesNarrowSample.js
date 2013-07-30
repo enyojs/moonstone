@@ -13,9 +13,7 @@ enyo.kind({
     ],
 
     components: [
-/** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
-*/
         {
             kind : "moon.Scroller",
             fit: true,

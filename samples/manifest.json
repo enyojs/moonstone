@@ -36,7 +36,8 @@
 			{"name": "List Items", "samples": [
 				{"name": "Labeled Text Item", "path":"$lib/moonstone/samples/LabeledTextItemSample"},
 				{"name": "Image Item", "path":"$lib/moonstone/samples/ImageItemSample"}
-			]}
+			]},
+			{"name": "Data Grid List", "path":"$lib/moonstone/samples/DataGridListSample", "css":"sample"}
 		]},
 		{"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
 		{"name": "Media", "samples": [

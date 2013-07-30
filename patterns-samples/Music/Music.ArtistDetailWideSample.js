@@ -1,148 +1,148 @@
 // Sample view
 
 enyo.kind({
-	name: "moon.sample.music.ArtistDetailWideSample",
-	kind: "moon.Panel",
-	titleAbove: "04",
-	title: "Artist",
-	titleBelow: "Artist Name",
-	layoutKind: "FittableColumnsLayout",
-	headerComponents: [
-		{kind: "moon.IconButton", src: "../assets/icon-like.png"},
-		{kind: "moon.IconButton", src: "../assets/icon-next.png"}
-	],
-	components: [
-		{
-			classes: "moon-5h",
-			components: [
-				{
-					name: "artistImage",
-					kind: "enyo.Image",
-					style: "width: 350px; height: 350px;"
-				},
-				{
-					kind: "moon.Table",
-					classes: "enyo-table-fit",
-					components: [
-						{
-							components: [
-								{content: "Organized"},
-								{name: "organized"}
-							]
-						},
-						{
-							components: [
-								{content: "Debut"},
-								{name: "debut"}
-							]
-						},
-						{
-							components: [
-								{content: "Type"},
-								{name: "type"}
-							]
-						}
-					]
-				}
-			]
-		},
-		{
-			kind: "FittableRows",
-			fit: true,
-			components: [
-				{kind: "moon.Divider", content: "Bio"},
-				{
-					kind: "moon.Scroller",
-					horizontal: "hidden",
-					fit: true,
-					components: [
-						{name: "bio", allowHtml: true}
-					]
-				}
-			]
-		},
-		{
-			kind: "FittableRows",
-			classes: "moon-6h",
-			components: [
-				{kind: "moon.Divider", content: "Related Artists"},
-				{
-					name: "relatedArtists",
-					kind: "enyo.DataGridList",
-					components: [
-						{
-							kind: "enyo.Image",
-							style: "width: 130px; height: 130px;",
-							bindFrom: "relatedUrl",
-							bindTo: "src"
-						}
-					]
-				},
-				{kind: "moon.Divider", content: "Top 10 Tracks"},
-				{
-					name: "trackInfo",
-					kind: "moon.DataList",
-					scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-					fit: true,
-					components: [
-						{
-							kind: "moon.Item",
-							components: [
-								{
-									kind: "enyo.Table",
-									components: [
-										{
-											components: [
-												{
-													components: [
-														{
-															kind: "enyo.Image",
-															bindFrom: "coverUrl",
-															bindTo: "src"
-														}
-													],
-													attributes: {rowspan: "4"}
-												},
-												{
-													bindFrom: "track"
-												}
-											]
-										},
-										{
-											components: [
-												{
-													bindFrom: "artist",
-													classes: "moon-superscript"
-												}
-											]
-										},
-										{
-											components: [
-												{
-													bindFrom: "duration",
-													classes: "moon-superscript"
-												}
-											]
-										}
-									]
-								}
-							]
-						}
-					]
-				}
-			]
-		}
-	],
-	bindings: [
-		{from: ".controller.artist", to: "$.artist.content"},
-		{from: ".controller.artistImageUrl", to: "$.artistImage.src"},
-		{from: ".controller.organized", to: "$.organized.content"},
-		{from: ".controller.debut", to: "$.debut.content"},
-		{from: ".controller.type", to: "$.type.content"},
-		{from: ".controller.bio", to: "$.bio.content"},
-		{from: ".controller.related", to: "$.relatedArtists.controller"},
-		{from: ".controller.tracks", to: "$.trackInfo.controller"}
-	]
+    name: "moon.sample.music.ArtistDetailWideSample",
+    kind: "moon.Panel",
+    titleAbove: "04",
+    title: "Artist",
+    titleBelow: "Artist Name",
+    layoutKind: "FittableColumnsLayout",
+    headerComponents: [
+        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
+    ],
+    components: [
+        {
+            classes: "moon-5h",
+            components: [
+                {
+                    name: "artistImage",
+                    kind: "enyo.Image",
+                    style: "width: 350px; height: 350px;",
+                },
+                {
+                    kind: "moon.Table",
+                    classes: "enyo-table-fit",
+                    components: [
+                        {
+                            components: [
+                                {content: "Organized"},
+                                {name: "organized"}
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Debut"},
+                                {name: "debut"}
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Type"},
+                                {name: "type"}
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            kind: "FittableRows",
+            fit: true,
+            components: [
+                {kind: "moon.Divider", content: "Bio"},
+                {
+                    kind: "moon.Scroller", 
+                    horizontal: "hidden",
+                    fit: true,
+                    components: [
+                        {name: "bio", allowHtml: true}
+                    ]
+                }
+            ]
+        },
+        {
+            kind: "FittableRows",
+            classes: "moon-6h",
+            components: [
+                {kind: "moon.Divider", content: "Related Artists"},
+                {
+                    name: "relatedArtists",
+                    kind: "moon.DataGridList",
+					style: "height: 156px;",
+                    components: [
+                        {
+                            kind: "enyo.Image",
+                            style: "width: 130px; height: 130px;",
+                            bindFrom: "relatedUrl",
+                            bindTo: "src"
+                        }
+                    ]
+                },
+                {kind: "moon.Divider", content: "Top 10 Tracks"},
+                {
+                    name: "trackInfo",
+                    kind: "moon.DataList",
+                    fit: true,
+                    components: [
+            			{
+                            kind: "moon.Item",
+                            components: [
+                                {
+                                    kind: "enyo.Table",
+                                    components: [
+                                        {
+                                            components: [
+                                                {
+                                                    components: [
+                                                        {
+                                                            kind: "enyo.Image", 
+                                                            bindFrom: "coverUrl", 
+                                                            bindTo: "src"
+                                                        }
+                                                    ],
+                                                    attributes: {rowspan: "4"}
+                                                },
+                                                {
+                                                    bindFrom: "track"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindFrom: "artist", 
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindFrom: "duration", 
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+            		]
+                }
+            ]
+        }
+    ],
+    bindings: [
+        {from: ".controller.artist", to: "$.artist.content"},
+        {from: ".controller.artistImageUrl", to: "$.artistImage.src"},
+        {from: ".controller.organized", to: "$.organized.content"},
+        {from: ".controller.debut", to: "$.debut.content"},
+        {from: ".controller.type", to: "$.type.content"},
+        {from: ".controller.bio", to: "$.bio.content"},
+        {from: ".controller.related", to: "$.relatedArtists.controller"},
+        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+    ]
 });
 
 

@@ -27,15 +27,7 @@ enyo.kind({
 			}
 			if (this.itemSpacing >= 0) {
 				cl.addStyles("margin-top:" + this.itemSpacing + "px; margin-left:" + this.itemSpacing + "px;");
-				if (i % this.itemsPerRow == this.itemsPerRow-1) {
-					cl.addStyles("margin-right:" + this.itemSpacing + "px;");
-				} else {
-					cl.addStyles("margin-right: 0px;");
-				}
-				// Add bottom margin for items in last row
-				if (i >= this.count-this.itemsPerRow) {
-					cl.addStyles("margin-bottom:" + this.itemSpacing + "px;");
-				}
+				cl.addStyles("margin-bottom:" + this.itemSpacing + "px;");
 			}
 			ht += cl.generateHtml();
 			cl.teardownRender();
