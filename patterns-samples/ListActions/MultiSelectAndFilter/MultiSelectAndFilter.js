@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.pattern.MultiSelectAndFilter",
-	fit: true,
-	kind:"FittableRows",
+	flex: true,
+	kind:"VFlexBox",
 	classes: "multi-select-and-filter-pattern moon",
 	published: {
 		sortAction: null,
@@ -19,7 +19,7 @@ enyo.kind({
 			]}
 		]},
 		{classes:"right-panel", components:[
-			{kind:"FittableRows", components:[
+			{kind:"VFlexBox", components:[
 				{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
 				    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
 						{
@@ -52,7 +52,7 @@ enyo.kind({
 					]}
 				]},
 				{
-					name: "gridlist", kind: "moon.GridList", fit:true, classes:"grid-list", count:20,
+					name: "gridlist", kind: "moon.GridList", flex:true, classes:"grid-list", count:20,
 					toggleSelected: true, itemWidth: 150, itemHeight: 200, itemSpacing: 20, onSetupItem: "setupItem",
 					components: [
 						{name: "item", kind: "moon.GridListImageItem"}

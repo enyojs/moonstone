@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.pattern.SingleSelectFilter",
-	fit: true,
-	kind:"FittableRows",
+	flex: true,
+	kind:"VFlexBox",
 	classes: "single-select-filter-pattern moon",
 	handlers: {
 		onActivate: "activateHandler"

@@ -26,7 +26,7 @@ enyo.kind({
         {
             kind:"moon.Scroller", 
             horizontal: "hidden",
-            fit: true,
+            flex: true,
             components: [
                 {
                     name: "trackList",

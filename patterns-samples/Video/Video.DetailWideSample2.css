@@ -3,3 +3,8 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
+
+.moon-sample-video-detailwidesample2 .middle-column .data {
+	margin-bottom: 20px;
+	height: 100px;
+}

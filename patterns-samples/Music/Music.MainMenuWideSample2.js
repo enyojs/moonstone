@@ -9,8 +9,8 @@ enyo.kind({
     classes: "livetv-background",
     components: [
         {
-            kind: "FittableColumns",
-            fit: true,
+            kind: "HFlexBox",
+            flex: true,
             components: [
                 {
                     kind: "moon.DataList",
@@ -23,7 +23,7 @@ enyo.kind({
                 {
                     kind: "enyo.VCenter",
                     content: "branding",
-                    fit: true,
+                    flex: true,
                     classes: "moon-dark-gray",
                     style: "text-align: center"
                 }

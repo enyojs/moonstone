@@ -12,11 +12,11 @@ enyo.kind({
     ],
     components: [
         {
-            kind: "FittableColumns",
-            fit: true,
+            kind: "HFlexBox",
+            flex: true,
             components: [
                 {
-                    fit: true,
+                    flex: true,
                     components: [
                         {
                             kind: "enyo.Image", 
@@ -26,8 +26,9 @@ enyo.kind({
                     ]
                 },
                 {
-                    kind: "FittableRows",
+                    kind: "VFlexBox",
                     classes: "moon-13h",
+					style: "margin: 5px 20px",
                     components: [
                         {
                             kind: "moon.RadioItemGroup", 
@@ -43,7 +44,7 @@ enyo.kind({
                         {kind: "moon.Divider", classes: "divider"},
                         { 
                             name: "panels",
-                            fit: true,
+                            flex: true,
                             kind: "enyo.Panels",
                             components: [
                                 {

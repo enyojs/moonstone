@@ -6,7 +6,7 @@ enyo.kind({
     title: "Track Name",
     titleAbove: "03",
     titleBelow: "",
-    layoutKind: "FittableColumnsLayout",
+    layoutKind: "HFlexLayout",
     headerComponents: [
         {
             components: [
@@ -76,7 +76,7 @@ enyo.kind({
             ]
         },
         {
-            fit: true,
+            flex: true,
             components: [
                 {
                     kind: "moon.Divider", 

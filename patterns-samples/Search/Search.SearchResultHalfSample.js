@@ -48,9 +48,9 @@ enyo.kind({
         /* Fixme: moon.Panel needs interface to change Header, Body, Tools area size */
         {kind: "moon.InputDecorator", components: [
             {style: "width: 500px", components: [
-                {layoutKind: 'HFlexLayout', components: [
+                {layoutKind: 'HFlexLayout', flexStretch: false, components: [
                     {kind: "moon.Input", placeholder: "Search term", flex: true, onchange: "inputChanged"},
-                    {kind: "Image", src: "../../samples/assets/search-input-search.png"}
+                    {kind: "Image", src: "../../samples/assets/search-input-search.png", style: "margin-top: 5px"}
                 ]}
             ]}
         ]}

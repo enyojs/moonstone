@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.pattern.SingleSelectDeleteAndConfirm",
-	fit: true,
-	kind:"FittableRows",
+	flex: true,
+	kind:"VFlexBox",
 	classes: "single-select-delete-and-confirm-pattern moon",
 	handlers: {
 		onActivate: "activateHandler"

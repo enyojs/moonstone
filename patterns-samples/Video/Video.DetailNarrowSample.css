@@ -3,3 +3,15 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
+
+.moon-sample-video-detailnarrowsample .left-column {
+	width: 600px;
+}
+
+.moon-sample-video-detailnarrowsample .right-column {
+	/* flexible width */
+}
+	.moon-sample-video-detailnarrowsample .right-column .synopsis-header {
+		margin-bottom: 50px;
+	}
+	

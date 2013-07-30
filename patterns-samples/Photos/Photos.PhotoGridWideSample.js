@@ -17,8 +17,8 @@ enyo.kind({
 
     components: [
         {
-            kind: "FittableRows",
-            fit: true,
+            kind: "VFlexBox",
+            flex: true,
             components: [
                 {                   
                     kind: "moon.Scroller",

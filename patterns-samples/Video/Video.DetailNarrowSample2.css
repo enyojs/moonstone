@@ -3,3 +3,7 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
+
+.moon-sample-video-detailnarrowsample2 .left-column {
+	width: 600px;
+}

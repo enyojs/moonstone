@@ -11,7 +11,7 @@ enyo.kind({
             name: "videoInfo",
             kind: "moon.DataList",
             scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-            fit: true,
+            flex: true,
             components: [
                 {
                     kind: "moon.Item",

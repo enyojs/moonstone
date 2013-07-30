@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "moon.sample.wizard.StepPageSample",
 	kind: "Sample.Wizard.Panel",
-	layoutKind: "FittableRowsLayout",
+	layoutKind: "VFlexLayout",
 	handlers: {
 		onchange: "inputChanged"
 	},
@@ -11,7 +11,7 @@ enyo.kind({
 			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "goNext", content: "Next"}
 		]},
 		
-		{fit: true, components: [
+		{flex: true, components: [
 			{name: "headline", classes: "wizard-input-description"},
 
 			{classes: "wizard-block-row", components: [

@@ -9,7 +9,7 @@ enyo.kind({
     components: [
         {
             kind: "moon.Scroller", 
-            fit: true,
+            flex: true,
             components: [
                 {name: "lyrics", allowHtml: true}
             ]

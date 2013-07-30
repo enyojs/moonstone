@@ -368,7 +368,9 @@ enyo.kind({
 	},
 	//* @protected
 	subTitleBelowChanged: function() {
-		this.$.subTitleBelow.setContent(this.subTitleBelow || '');
+		if (typeof this.$.subTitleBelow != 'undefined') {
+			this.$.subTitleBelow.setContent(this.subTitleBelow || '');
+		}
 	},
 	//* @protected
 	animationComplete: function(inSender, inEvent) {

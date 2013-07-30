@@ -6,7 +6,7 @@ enyo.kind({
     title: "Track Name",
     titleAbove: "03",
     titleBelow: "Artist Name",
-    layoutKind: "FittableColumnsLayout",
+    layoutKind: "HFlexLayout",
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-album.png"},
         {kind: "moon.IconButton", src: "../assets/icon-download.png"},
@@ -47,13 +47,13 @@ enyo.kind({
             ]
         },
         {
-            kind: "FittableRows",
-            fit: true,
+            kind: "VFlexBox",
+            flex: true,
             components: [
                 {kind: "moon.Divider", content: "Lyrics"},
                 {
                     kind: "moon.Scroller",
-                    fit: true,
+                    flex: true,
                     components: [
                         {
                             allowHtml: true,
@@ -64,13 +64,13 @@ enyo.kind({
             ]
         },
         {
-            kind: "FittableRows",
+            kind: "VFlexBox",
             classes: "moon-5h",
             components: [
                 {kind: "moon.Divider", content: "More"},
                 {
                     kind: "Group", 
-                    fit: true,
+                    flex: true,
                     components: [
                         {kind: "moon.SelectableItem", content: "Artist"},
                         {kind: "moon.SelectableItem", content: "Album"},

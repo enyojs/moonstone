@@ -15,7 +15,7 @@ enyo.kind({
             name: "trackList",
             kind: "moon.DataList",
             scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-            fit: true,
+            flex: true,
             components: [
                 {
                     kind: "moon.Item",

@@ -68,11 +68,11 @@ enyo.kind({
 			]}
 		]},
         {joinToPrev: true, components: [
-			{kind: "moon.Scroller", fit: true, components: [
+			{kind: "moon.Scroller", flex: true, components: [
                 {name: "contentList", kind: "enyo.DataGridList", components: [
 					{kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
 				]},
-                {name: "buttonList", layoutkind: "FittableRowsLayout", components: [
+                {name: "buttonList", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
 						{kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
 							{tag: "img", attributes: {src: "../assets/icon-half-like.png"}},

@@ -11,3 +11,7 @@
 .moon-margin-left-right {
     margin-right: 20px;
 }
+
+.moon-input-decorator-flex {
+	height: 60px;
+}

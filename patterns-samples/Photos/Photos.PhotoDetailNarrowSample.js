@@ -4,7 +4,7 @@ enyo.kind({
     name: "moon.sample.photos.PhotoDetailNarrowSample",
     kind: "moon.Panel",
     classes: "photo-detail",
-    fit: true,
+    flex: true,
     title: "PHOTO NAME",
     titleAbove: "03",
     titleBelow: "2013-04-08",

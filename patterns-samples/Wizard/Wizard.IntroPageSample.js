@@ -1,15 +1,15 @@
 enyo.kind({
 	name: "moon.sample.wizard.IntroPageSample",
 	kind: "Sample.Wizard.Panel",
-	layoutKind: "FittableRowsLayout",
+	layoutKind: "VFlexLayout",
 	components: [
 		{classes: "wizard-nav-button-container", components: [
 			{kind: "moon.Button", classes: "wizard-button-top", ontap: "doNext", content: "Next"}
 		]},
 			
-		{fit:true, kind: "FittableColumns", components: [
+		{flex:true, kind: "HFlexLayout", components: [
 			{name: "imgmenu", kind: "enyo.Image", style:"width:480px;height:320px;padding-right:30px"},
-			{fit: true, components: [
+			{flex: true, components: [
 				{name: "headline", classes: "wizard-instruction"},
 				{name: "detail", classes: "wizard-instruction-detail"}
 			]}

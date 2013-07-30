@@ -6,7 +6,7 @@ enyo.kind({
     title: "Track Name",
     titleAbove: "03",
     titleBelow: "Artist Name",
-    layoutKind: "FittableColumnsLayout",
+    layoutKind: "HFlexLayout",
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-album.png"},
         {kind: "moon.IconButton", src: "../assets/icon-download.png"},
@@ -47,7 +47,7 @@ enyo.kind({
             ]
         },
         {
-            fit: true,
+            flex: true,
             components: [
                 {
                     kind: "moon.Divider", 

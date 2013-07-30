@@ -3,7 +3,7 @@ enyo.kind({
     //* @public
     name: "moon.sample.search.SearchDrawerSample",
     classes: "enyo-fit moon drawer-sample",
-    fit: true,
+    flex: true,
     components: [
 		{
             kind:"moon.Drawers",
@@ -54,7 +54,7 @@ enyo.kind({
         "onSearch": "search"
     },
     //* @protected
-    fit: true,
+    flex: true,
     title: "Search",
     spotlight: false,
     style: "background-color: #EAEAEA;",
@@ -62,7 +62,7 @@ enyo.kind({
         {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px", src: "assets/trash-can-icon.png"}
     ],
     components: [
-        {name: "recentResult", kind: "moon.Scroller", fit: true, components: [
+        {name: "recentResult", kind: "moon.Scroller", flex: true, components: [
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title1", kind: "moon.Item"},
                 {components: [

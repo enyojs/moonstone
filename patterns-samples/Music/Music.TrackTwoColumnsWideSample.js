@@ -13,7 +13,7 @@ enyo.kind({
             name: "trackList",
             /** Todo: Change enyo.DataGridList to moon.DataGridList */
             kind: "enyo.DataGridList",
-            fit: true,
+            flex: true,
             components: [
                 {
                     kind: "moon.Item",

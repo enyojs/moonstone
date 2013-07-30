@@ -3,3 +3,17 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
+
+.moon-sample-music-ArtistDetailNarrowSample {
+}
+	.moon-sample-music-ArtistDetailNarrowSample .artist-info {
+		height: 200px;
+		margin: 5px 20px;
+	}
+		.moon-sample-music-ArtistDetailNarrowSample .artist-info .top {
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+		.moon-sample-music-ArtistDetailNarrowSample .artist-info .bottom {
+			height: 200px;
+		}

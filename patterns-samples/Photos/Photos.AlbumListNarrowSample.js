@@ -15,7 +15,7 @@ enyo.kind({
 
     components:[
         {
-            kind: "FittableColumns",
+            kind: "HFlexBox",
             components: [
                 {
                     components: [

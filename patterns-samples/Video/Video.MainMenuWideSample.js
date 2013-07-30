@@ -1,7 +1,7 @@
 enyo.kind({
     name: "moon.sample.video.MainMenuWideSample",
     kind: "moon.Panel",
-    layoutKind: "FittableColumnsLayout",
+    layoutKind: "HFlexLayout",
     titleAbove: "01",
     title: "Main Menu",
     components: [
@@ -14,7 +14,7 @@ enyo.kind({
             ]
         },
         {
-            fit: true,
+            flex: true,
             classes: "moon-dark-gray",
             content: "branding"
         }

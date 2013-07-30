@@ -7,8 +7,8 @@ enyo.kind({
     titleBelow: "97 Photos",
     components: [
         {
-            kind: "FittableRows",
-            fit: true,
+            kind: "VFlexBox",
+            flex: true,
             components : [
                 {                   
                     kind: "moon.Scroller",

@@ -15,7 +15,7 @@ enyo.kind({
 
     components:[
         {
-            kind: "FittableColumns",
+            kind: "HFlexBox",
             components: [
                 {
                     components: [
@@ -60,7 +60,7 @@ enyo.kind({
 enyo.kind({
     name: "moon.sample.photos.AlbumListWideSample",
     kind: "moon.Panel",
-    layoutKind: "FittableColumnsLayout",
+    layoutKind: "HFlexLayout",
     titleAbove: "01",
     title: "ALBUMS",
     titleBelow: "",
@@ -82,7 +82,7 @@ enyo.kind({
             name: "albumList",
             kind: "enyo.DataGridList",
             scrollerOptions: {horizontal: "hidden", thumb: false},
-            fit: true,
+            flex: true,
             components: [
                 {
                     kind: "enyo.Image",
