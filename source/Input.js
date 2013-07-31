@@ -53,5 +53,4 @@ enyo.kind({
 	down: function() {
 		return false;
 	}
-
 });
