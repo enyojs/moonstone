@@ -200,8 +200,8 @@ enyo.kind({
 		this.setValue(newValue);
 	},
 	selectDate: function(inSender, inEvent) {
-		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
-			var newValue = inEvent.originator.value;
+		if (inEvent.originator.owner.kind == "moon.CalendarPickerDate") {
+			var newValue = inEvent.originator.owner.value;
 			this.setValue(newValue);
 		}		
 		return true;
