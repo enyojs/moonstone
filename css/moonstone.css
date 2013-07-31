@@ -444,6 +444,10 @@
 .moon-simple-picker-button.spotlight {
   background: #ffb80d;
 }
+.moon-simple-picker-button-bold {
+  margin: 2px 0px;
+  font-size: 64px;
+}
 .moon-simple-picker-client {
   padding: 0px;
   margin: 0px;
@@ -2356,28 +2360,17 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
+  width: 616px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar-picker .picker-button {
-  margin: 2px 0px;
-  font-size: 64px;
-}
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
 }
-.moon-calendar-picker-week {
-  margin-top: 7px;
-  margin-bottom: 7px;
-  left: 0px;
-  right: 0px;
-  white-space: nowrap;
-}
 .moon-calendar-picker-date {
-  width: 40px;
-  min-width: 40px;
-  height: 40px;
+  width: 60px;
+  min-width: 60px;
   line-height: 40px;
   border: 0px;
   border-radius: 9999px;
