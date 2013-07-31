@@ -33,7 +33,7 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
-		if (!this.components) {
+		if (!this.getComponents().length) {
 			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
 		}
 		this.spotlightConfig();
