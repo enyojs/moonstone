@@ -1,15 +1,36 @@
-.moon-scroller-client-wrapper {
+.moon-scroller-client-wrapper,
+.moon-scroller-viewport {
 	box-sizing: border-box;
 	height: 100%;
+	overflow: hidden;
+}
+
+/* CSS for moon.ScrollStrategy */
+.matrix-scroll-client {
+	width: auto;
+	height: auto;
+	overflow: visible;
+}
+
+.matrix3dsurface {
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: flat;
+    transform-style: flat;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+    -webkit-user-select: none;
 }
 
 .moon-scroller-client-wrapper.v-scroll-enabled {
-	padding-right: 50px;
+	padding-right:  @moon-icon-button-size;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-	padding-bottom: 50px;
-}
-.moon-scroller-client-wrapper.v-scroll-enabled.h-scroll-enabled {
+	padding-bottom:  @moon-icon-button-size;
 }
 
 /* Default states for horizontal and vertical scrollbars */
@@ -21,6 +42,12 @@
 	transition: opacity 0.1s linear;
 	-moz-transition: opacity 0.1s linear;
 	-webkit-transition: opacity 0.1s linear;
+	
+	transform: translateZ(1px);
+	-o-transform: translateZ(1px);
+	-ms-transform: translateZ(1px);
+	-moz-transform: translateZ(1px);
+	-webkit-transform: translateZ(1px);
 }
 /* Toggle opacity with .visible class */
 .moon-scroller-v-column.visible,
@@ -37,38 +64,38 @@
 	top: 0px;
 	bottom: 0px;
 	right: 0px;
-	width: 50px;
+	width:  @moon-icon-button-size;
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	height: 50px;
+	height:  @moon-icon-button-size;
 }
 /* Shorten vertical column when horizontal column is enabled */
 .moon-scroller-v-column.h-scroll-enabled {
-	bottom: 50px;
+	bottom:  @moon-icon-button-size;
 }
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
-	right: 50px;
+	right:  @moon-icon-button-size;
 }
 
 .moon-scroller-thumb-container {
 	position:absolute;
 }
 .moon-scroller-hthumb-container {
-	left: 50px;
-	right: 50px;
+	left:  @moon-icon-button-size;
+	right:  @moon-icon-button-size;
 	bottom: 0px;
-	height: 50px;
+	height:  @moon-icon-button-size;
 }
 .moon-scroller-vthumb-container {
-	top: 50px;
-	bottom: 50px;
+	top:  @moon-icon-button-size;
+	bottom:  @moon-icon-button-size;
 	right: 0px;
-	width: 50px;
+	width:  @moon-icon-button-size;
 }
 
 .moon-scroller-hthumb,
@@ -79,11 +106,11 @@
 }
 .moon-scroller-hthumb {
 	height: 4px;
-	bottom: 23px;
+	bottom:  @moon-icon-button-size/2 - 2;
 }
 .moon-scroller-vthumb {
 	width: 4px;
-	right: 23px;
+	right:  @moon-icon-button-size/2 - 2;
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {

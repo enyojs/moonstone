@@ -3,6 +3,7 @@ enyo.depends(
 	"SimplePickerSample.js",
 	"SimpleIntegerPickerSample.js",
 	"GridListSample.js",
+	"DataGridListSample.js",
 	"CheckboxItemSample.js",
 	"CheckboxItemSample.css",
 	"RadioItemSample.js",
@@ -72,5 +73,16 @@ enyo.depends(
 	"VideoPlayerSample.js",
 	"PanelsVideoPlayerSample.js",
 	"DrawerSample.js",
-	"ExpandableInputSample.js"
+	"ObjectActionHorizontalTypeSample.js",
+	"ObjectActionHorizontalTypeSample.css",
+	"ObjectActionVerticalTypeSample.js",
+	"ObjectActionVerticalTypeSample.css",
+	"ExpandableInputSample.js",
+	"FormCheckboxSample.js",
+	"FontSample.js",
+	"FontSample.css",
+	"HeaderAutoCollapsingSample.js",
+	"InputHeaderSample.js",
+	"ToggleButtonSample.css",
+	"ToggleButtonSample.js"
 );

@@ -14,13 +14,6 @@
 	background-color: @moon-light-gray;
 }
 
-.enyo-locale-non-latin .moon,
-.enyo-locale-non-latin input,
-.enyo-locale-non-latin textarea,
-.enyo-locale-non-latin button {
-	font-family: @moon-non-latin-font-family;
-}
-
 .moon-header-font {
 	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
@@ -29,10 +22,6 @@
 .enyo-locale-right-to-left .moon
 {
    direction:rtl;
-}
-
-.enyo-locale-non-latin .moon-header-font {
-	font-family: @moon-non-latin-font-family;
 }
 
 .moon-no-border {
@@ -128,10 +117,32 @@
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
 }
+
+.enyo-locale-non-latin {
+	.moon input, 
+	.moon textarea, 
+	.moon button,
+	.moon-header-font,
+	.moon-superscript,
+	.moon-pre-text,
+	.moon-large-text,
+	.moon-header-text,
+	.moon-sub-header-text,
+	.moon-divider-text,
+	.moon-body-text,
+	.moon-large-button-text,
+	.moon-small-button-text {
+		font-family: @moon-non-latin-font-family;
+	}
+}
+
+
+
 /* LESS pre-calculations */
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
 /* Individual widget CSS */
+@import "Marquee.less";
 @import "SimplePicker.less";
 @import "SimpleIntegerPicker.less";
 @import "Checkbox.less";
@@ -153,9 +164,9 @@
 @import "ExpandableIntegerPicker.less";
 @import "Header.less";
 @import "GridList.less";
-@import "PagingControl.less";
 @import "Icon.less";
 @import "IconButton.less";
+@import "PagingControl.less";
 @import "IntegerPicker.less";
 @import "IntegerScrollPicker.less";
 @import "DatePicker.less";
@@ -179,7 +190,7 @@
 @import "CalendarPicker.less";
 @import "Table.less";
 @import "FittableLayout.less";
-@import "SearchHeader.less";
+@import "InputHeader.less";
 @import "DrawerHandle.less";
 @import "Drawer.less";
 @import "Drawers.less";
@@ -195,6 +206,9 @@
 @import "VideoFeedback.less";
 @import "Scroller.less";
 @import "ExpandableInput.less";
+@import "HighlightText.less";
+@import "ObjectActionDecorator.less";
+@import "FormCheckbox.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
@@ -212,6 +226,10 @@
 	color: @moon-dark-gray;
 }
 
+/* Standard horizontal spacing */
+.moon-hspacing {
+	white-space: nowrap;
+}
 .moon-hspacing > * {
 	display: inline-block;
 	vertical-align: top;
@@ -232,3 +250,14 @@
 	margin-left: 0;
 }
 
+/* Standard vertical spacing */
+.moon-vspacing > * {
+	display: block;
+	margin: @moon-grid-gutter-width/2 0;
+}
+.moon-vspacing > :first-child {
+	margin-top: 0;
+}
+.moon-vspacing > :last-child {
+	margin-bottom: 0;
+}

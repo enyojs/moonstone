@@ -50,9 +50,7 @@ enyo.kind({
 		onActivate: "decorateActivateEvent"
 	},
 	components: [
-		{classes: "moon-checkbox-item-label-wrapper", components: [
-			{name: "label", classes: "moon-checkbox-item-label"}
-		]},
+		{classes: "moon-checkbox-item-label-wrapper", name: "client"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
 	rendered: function() {
@@ -63,14 +61,13 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.input.setDisabled(this.disabled);
 	},
-	contentChanged: function() {
-		this.$.label.setContent(this.getContent());
-	},
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());
 	},
 	tap: function(inSender, inEvent) {
-		this.waterfallDown("ontap", inEvent, inSender);
+		if (inSender != this.$.input) {
+			this.waterfallDown("ontap", inEvent, inSender);
+		}
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
 		inEvent.toggledControl = this;

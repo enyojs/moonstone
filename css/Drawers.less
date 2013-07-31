@@ -14,7 +14,7 @@
 .moon-drawers-activator {
 	position:relative;
 	width:100%;
-	height:10px;	
+	height:20px;	
 	background-color:@moon-dark-gray;
 	z-index: 100;
 }
@@ -24,55 +24,32 @@
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:-5px;	
-	border-bottom-left-radius:25px;
-	border-bottom-right-radius:25px;	
-	height:10px;
-	width:20px;
+	border-bottom-left-radius:26px;
+	border-bottom-right-radius: 26px;	
+	height:18px;
+	width:36px;
 	background-color:@moon-dark-gray;
-	top:100%;
+	top:10px;
 }
+
+
+.moon-drawers-activator-nub .nub-arrow {
+	position:absolute;
+	width: 18px;
+	height: 11px;
+	left: 9px;
+	top: -3px;
+}
+
 
 .moon-drawers-activator-nub .down {
-	position:absolute;
-	border-color: white transparent transparent transparent;
-	border-style: solid;
-	border-width: 5px;
-	height:0;
-	width:0;
-	left:5px;
-	top:0px;
-}
-
-.moon-drawers-activator-nub .down::after {
-    content: '';
-	position:absolute;
-	border-color: @moon-dark-gray transparent transparent transparent;	
-	border-style: solid;
-	border-width: 5px;
-	bottom:-2px;
-	left:-5px;
+	background: @moon-carat-white-small-down-image 0 0 no-repeat;	
 }
 
 .moon-drawers-activator-nub .up {
-	position:absolute;
-	border-color: transparent transparent white transparent;
-	border-style: solid;
-	border-width: 5px;
-	height:0;
-	width:0;
-	left:5px;
-	top:-6px;
+	background: @moon-carat-black-small-up-image 0 0 no-repeat;	
 }
 
-.moon-drawers-activator-nub .up::after {
-    content: '';
-	position:absolute;
-	border-color: transparent transparent @moon-dark-gray transparent;	
-	border-style: solid;
-	border-width: 5px;
-	bottom:-8px;
-	left:-5px;
-}
 
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {

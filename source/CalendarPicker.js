@@ -9,9 +9,10 @@
 */
 enyo.kind({
 	name: "moon.CalendarPickerDate",
-	kind: "enyo.Button",
+	kind: "moon.Button",
+	small: true,
+	marquee: false,
 	classes: "moon-calendar-picker-date enyo-unselectable",
-	spotlight: true,
 	published: {
 		value: null,
 		color: 0

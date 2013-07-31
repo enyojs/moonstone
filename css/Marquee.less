@@ -1,0 +1,25 @@
+.moon-marquee-text {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.moon-marquee.moon-marquee-text {
+    display: inline-block;
+    width: auto;
+    -webkit-animation-name: marquee;
+    -webkit-animation-timing-function: linear;
+}
+
+.moon-marquee-clip {
+    overflow: hidden;
+    width: 100%;
+}
+
+@-webkit-keyframes marquee
+{
+    0%      { left:0; }
+}
