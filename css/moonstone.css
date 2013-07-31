@@ -43,7 +43,7 @@
 /* ---------------------------------------*/
 /* ObjectActionDecorator */
 /* ---------------------------------------*/
-/* Carat */
+/* Caret */
 /* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
@@ -1463,7 +1463,7 @@
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background: transparent url(../images/carat-black-large-up-icon.png) no-repeat 7px 6px;
+  background: transparent url(../images/caret-black-large-up-icon.png) no-repeat 7px 6px;
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -1641,7 +1641,7 @@
 .up-arrow {
   height: 29px;
   width: 29px;
-  background: url(../images/carat-black-large-up-icon.png) 0 0 no-repeat;
+  background: url(../images/caret-black-large-up-icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .up-arrow > .taparea,
@@ -1654,7 +1654,7 @@
   background-color: transparent;
 }
 .up-arrow-container.selected .up-arrow {
-  background-image: url(../images/carat-black-small-up-icon.png);
+  background-image: url(../images/caret-black-small-up-icon.png);
 }
 .down-arrow-container {
   position: relative;
@@ -1666,11 +1666,11 @@
 .down-arrow {
   height: 29px;
   width: 29px;
-  background: url(../images/carat-black-large-down-icon.png) 0 0 no-repeat;
+  background: url(../images/caret-black-large-down-icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .down-arrow-container.selected .down-arrow {
-  background-image: url(../images/carat-black-small-down-icon.png);
+  background-image: url(../images/caret-black-small-down-icon.png);
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -2351,16 +2351,16 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 10px;
 }
 .moon-accordion-arrow.up {
-  background: url(../images/carat-black-small-up-image.png) right center no-repeat;
+  background: url(../images/caret-black-small-up-image.png) right center no-repeat;
 }
 .moon-accordion-arrow.down {
-  background: url(../images/carat-black-small-down-image.png) right center no-repeat;
+  background: url(../images/caret-black-small-down-image.png) right center no-repeat;
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 616px;
+  width: 420px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2369,7 +2369,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-  width: 60px;
+  witdh: 60px;
   min-width: 60px;
   line-height: 40px;
   border: 0px;
@@ -2534,10 +2534,10 @@ body .enyo-fit.panels-50-percent-scrim,
   top: -3px;
 }
 .moon-drawers-activator-nub .down {
-  background: url(../images/carat-white-small-down-image.png) 0 0 no-repeat;
+  background: url(../images/caret-white-small-down-image.png) 0 0 no-repeat;
 }
 .moon-drawers-activator-nub .up {
-  background: url(../images/carat-black-small-up-image.png) 0 0 no-repeat;
+  background: url(../images/caret-black-small-up-image.png) 0 0 no-repeat;
 }
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
