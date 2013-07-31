@@ -1,8 +1,8 @@
 {
     "palette": [
         {
-            "name" : "moonstone(view)",
-            "items" : [
+            "name": "moonstone(view)",
+            "items": [
                 {
                     "name": "Music.TrackDetailNarrowSampleView",
                     "kind": "Music.TrackDetailNarrowSampleView",
@@ -12,72 +12,7 @@
                     "config": {
                         "name": "Music.TrackDetailNarrowSampleView",
                         "kind": "moon.Panel",
-                        "components": [                            
-                            {   
-                                "kind" : "enyo.Table",
-                                "classes": "moon-5h",
-                                "components" : [
-                                    {
-                                        "components": [
-                                            {
-                                                "components": [
-                                                    {
-                                                        "name": "image",
-                                                        "kind": "enyo.Image",
-                                                        "style": "width: 350px; height: 350px;"
-                                                    }
-                                                ],
-                                                "attributes": {"colspan": "2"}
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "components": [
-                                            {"content": "Released"},
-                                            {"name": "released"}
-                                        ]
-                                    },
-                                    {
-                                        "components": [
-                                            {"content": "Genre"},
-                                            {"name": "genre"}
-                                        ]
-                                    }
-                                ]
-                            },
-                            {
-                                "fit": true,
-                                "components": [
-                                    {
-                                        "kind": "moon.Divider", 
-                                        "content": "More"
-                                    },
-                                    {
-                                        "kind": "Group", 
-                                        "components": [
-                                            {"kind": "moon.SelectableItem", "content": "Lyrics"},
-                                            {"kind": "moon.SelectableItem", "content": "Artist"},
-                                            {"kind": "moon.SelectableItem", "content": "Album"},
-                                            {"kind": "moon.SelectableItem", "content": "Similar Track"},
-                                            {"kind": "moon.SelectableItem", "content": "Related Videos"}
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]                                           
-                    }                   
-                },
-                {
-                    "name": "Music.TrackDetailWideSampleView",
-                    "kind": "Music.TrackDetailWideSampleView",
-                    "options": {
-                        "isViewTemplate": true
-                    },
-                    "config": {
-                        "name": "Music.TrackDetailWideSampleView",
-                        "kind": "moon.Panel",
-                        "layoutKind": "FittableColumnsLayout",
-                        "components": [                            
+                        "components": [
                             {
                                 "kind": "enyo.Table",
                                 "classes": "moon-5h",
@@ -92,20 +27,120 @@
                                                         "style": "width: 350px; height: 350px;"
                                                     }
                                                 ],
-                                                "attributes": {"colspan": "2"}
+                                                "attributes": {
+                                                    "colspan": "2"
+                                                }
                                             }
                                         ]
                                     },
                                     {
                                         "components": [
-                                            {"content": "Released"},
-                                            {"name": "released"}
+                                            {
+                                                "content": "Released"
+                                            },
+                                            {
+                                                "name": "released"
+                                            }
                                         ]
                                     },
                                     {
                                         "components": [
-                                            {"content": "Genre"},
-                                            {"name": "genre"}
+                                            {
+                                                "content": "Genre"
+                                            },
+                                            {
+                                                "name": "genre"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "fit": true,
+                                "components": [
+                                    {
+                                        "kind": "moon.Divider",
+                                        "content": "More"
+                                    },
+                                    {
+                                        "kind": "Group",
+                                        "components": [
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Lyrics"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Artist"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Album"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Similar Track"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Related Videos"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "Music.TrackDetailWideSampleView",
+                    "kind": "Music.TrackDetailWideSampleView",
+                    "options": {
+                        "isViewTemplate": true
+                    },
+                    "config": {
+                        "name": "Music.TrackDetailWideSampleView",
+                        "kind": "moon.Panel",
+                        "layoutKind": "FittableColumnsLayout",
+                        "components": [
+                            {
+                                "kind": "enyo.Table",
+                                "classes": "moon-5h",
+                                "components": [
+                                    {
+                                        "components": [
+                                            {
+                                                "components": [
+                                                    {
+                                                        "name": "image",
+                                                        "kind": "enyo.Image",
+                                                        "style": "width: 350px; height: 350px;"
+                                                    }
+                                                ],
+                                                "attributes": {
+                                                    "colspan": "2"
+                                                }
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "components": [
+                                            {
+                                                "content": "Released"
+                                            },
+                                            {
+                                                "name": "released"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "components": [
+                                            {
+                                                "content": "Genre"
+                                            },
+                                            {
+                                                "name": "genre"
+                                            }
                                         ]
                                     }
                                 ]
@@ -114,7 +149,10 @@
                                 "kind": "FittableRows",
                                 "fit": true,
                                 "components": [
-                                    {"kind": "moon.Divider", "content": "Lyrics"},
+                                    {
+                                        "kind": "moon.Divider",
+                                        "content": "Lyrics"
+                                    },
                                     {
                                         "kind": "moon.Scroller",
                                         "fit": true,
@@ -131,21 +169,36 @@
                                 "kind": "FittableRows",
                                 "classes": "moon-5h",
                                 "components": [
-                                    {"kind": "moon.Divider", "content": "More"},
                                     {
-                                        "kind": "Group", 
+                                        "kind": "moon.Divider",
+                                        "content": "More"
+                                    },
+                                    {
+                                        "kind": "Group",
                                         "fit": true,
                                         "components": [
-                                            {"kind": "moon.SelectableItem", "content": "Artist"},
-                                            {"kind": "moon.SelectableItem", "content": "Album"},
-                                            {"kind": "moon.SelectableItem", "content": "Similar Track"},
-                                            {"kind": "moon.SelectableItem", "content": "Related Videos"}
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Artist"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Album"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Similar Track"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Related Videos"
+                                            }
                                         ]
                                     }
                                 ]
                             }
-                        ]                                           
-                    }                                     
+                        ]
+                    }
                 }
             ]
         },
@@ -164,9 +217,18 @@
                         "open": true,
                         "content": "Accordion",
                         "components": [
-                            {"kind": "moon.Item", "content": "Item 1"},
-                            {"kind": "moon.Item", "content": "Item 2"},
-                            {"kind": "moon.Item", "content": "Item 3"}
+                            {
+                                "kind": "moon.Item",
+                                "content": "Item 1"
+                            },
+                            {
+                                "kind": "moon.Item",
+                                "content": "Item 2"
+                            },
+                            {
+                                "kind": "moon.Item",
+                                "content": "Item 3"
+                            }
                         ]
                     }
                 },
@@ -196,9 +258,19 @@
                     "config": {
                         "kind": "Group",
                         "components": [
-                            {"kind": "moon.CheckboxItem", "content": "Option 1"},
-                            {"kind": "moon.CheckboxItem", "content": "Option 2", "checked": true},
-                            {"kind": "moon.CheckboxItem", "content": "Option 3"}
+                            {
+                                "kind": "moon.CheckboxItem",
+                                "content": "Option 1"
+                            },
+                            {
+                                "kind": "moon.CheckboxItem",
+                                "content": "Option 2",
+                                "checked": true
+                            },
+                            {
+                                "kind": "moon.CheckboxItem",
+                                "content": "Option 3"
+                            }
                         ]
                     }
                 },
@@ -209,13 +281,21 @@
                     "config": {
                         "kind": "moon.ContextualPopupDecorator",
                         "components": [
-                            {"content": "ContextualPopup"},
+                            {
+                                "content": "ContextualPopup"
+                            },
                             {
                                 "kind": "moon.ContextualPopup",
                                 "components": [
-                                    {"content": "Item 1"},
-                                    {"content": "Item 2"},
-                                    {"content": "Item 3"}
+                                    {
+                                        "content": "Item 1"
+                                    },
+                                    {
+                                        "content": "Item 2"
+                                    },
+                                    {
+                                        "content": "Item 3"
+                                    }
                                 ]
                             }
                         ]
@@ -257,10 +337,12 @@
                     "config": {
                         "name": "moon.Input",
                         "kind": "moon.InputDecorator",
-                        "components": [{
-                            "kind": "moon.Input",
-                            "placeholder": "Text Input"
-                        }]
+                        "components": [
+                            {
+                                "kind": "moon.Input",
+                                "placeholder": "Text Input"
+                            }
+                        ]
                     }
                 },
                 {
@@ -270,10 +352,12 @@
                     "config": {
                         "name": "moon.RichText",
                         "kind": "moon.InputDecorator",
-                        "components": [{
-                            "kind": "moon.RichText",
-                            "placeholder": "Rich Text"
-                        }]
+                        "components": [
+                            {
+                                "kind": "moon.RichText",
+                                "placeholder": "Rich Text"
+                            }
+                        ]
                     }
                 },
                 {
@@ -283,10 +367,12 @@
                     "config": {
                         "name": "moon.TextArea",
                         "kind": "moon.InputDecorator",
-                        "components": [{
-                            "kind": "moon.TextArea",
-                            "placeholder": "Text Area"
-                        }]
+                        "components": [
+                            {
+                                "kind": "moon.TextArea",
+                                "placeholder": "Text Area"
+                            }
+                        ]
                     }
                 },
                 {
@@ -315,9 +401,15 @@
                         "name": "moon.RadioItemGroup",
                         "kind": "moon.RadioItemGroup",
                         "components": [
-                            {"content": "Option 1"},
-                            {"content": "Option 2"},
-                            {"content": "Option 3"}
+                            {
+                                "content": "Option 1"
+                            },
+                            {
+                                "content": "Option 2"
+                            },
+                            {
+                                "content": "Option 3"
+                            }
                         ]
                     }
                 },
@@ -390,9 +482,339 @@
                     "config": {
                         "kind": "Group",
                         "components": [
-                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 1", "checked": true},
-                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 2"},
-                            {"kind": "moon.ToggleItem", "content": "Group Toggle Option 3"}
+                            {
+                                "kind": "moon.ToggleItem",
+                                "content": "Group Toggle Option 1",
+                                "checked": true
+                            },
+                            {
+                                "kind": "moon.ToggleItem",
+                                "content": "Group Toggle Option 2"
+                            },
+                            {
+                                "kind": "moon.ToggleItem",
+                                "content": "Group Toggle Option 3"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.DatePicker",
+                    "kind": "moon.DatePicker",
+                    "description": "A date picker",
+                    "config": {
+                        "kind": "moon.DatePicker",
+                        "content": "Date"
+                    }
+                },
+                {
+                    "name": "moon.GridList",
+                    "kind": "moon.GridList",
+                    "description": "A grid list",
+                    "config": {
+                        "kind": "moon.GridList",
+                        "components": [
+                            {
+                                "name": "item",
+                                "kind": "moon.GridListImageItem"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.IconButton",
+                    "kind": "moon.IconButton",
+                    "description": "An icon button",
+                    "config": {
+                        "kind": "moon.IconButton",
+                        "src": "$lib/moonstone/images/checkbox.png"
+                    }
+                },
+                {
+                    "name": "moon.ImageItem",
+                    "kind": "moon.ImageItem",
+                    "description": "An image item",
+                    "config": {
+                        "kind": "moon.ImageItem",
+                        "source": "$lib/moonstone/images/enyo-icon.png",
+                        "label": "Image Item",
+                        "text": "This is a image item. This is an example for the text contents."
+                    }
+                },
+                {
+                    "name": "moon.IntegerScrollPicker",
+                    "kind": "moon.IntegerScrollPicker",
+                    "description": "An integer scroll picker",
+                    "config": {
+                        "kind": "moon.IntegerScrollPicker",
+                        "value": 1,
+                        "min": 1,
+                        "max": 10
+                    }
+                },
+                {
+                    "name": "moon.Popup",
+                    "kind": "moon.Popup",
+                    "description": "A popup",
+                    "config": {
+                        "kind": "moon.Popup",
+                        "content": "Popup..."
+                    }
+                },
+                {
+                    "name": "moon.ProgressBar",
+                    "kind": "moon.ProgressBar",
+                    "description": "A progress bar",
+                    "config": {
+                        "kind": "moon.ProgressBar",
+                        "progress": "25"
+                    }
+                },
+                {
+                    "name": "moon.Scroller",
+                    "kind": "moon.Scroller",
+                    "description": "A scroller",
+                    "config": {
+                        "kind": "moon.Scroller"
+                    }
+                },
+                {
+                    "name": "moon.ExpandablePicker",
+                    "kind": "moon.ExpandablePicker",
+                    "description": "An expandable picker",
+                    "config": {
+                        "kind": "moon.ExpandablePicker",
+                        "content": "Expandable Picker",
+                        "autoCollapse": true,
+                        "components": [
+                            {
+                                "content": "On",
+                                "active": true
+                            },
+                            {
+                                "content": "Off"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.SimplePicker",
+                    "kind": "moon.SimplePicker",
+                    "description": "A simple picker",
+                    "config": {
+                        "kind": "moon.SimplePicker",
+                        "components": [
+                            {
+                                "content": "On"
+                            },
+                            {
+                                "content": "Off"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.Tooltip",
+                    "kind": "moon.Tooltip",
+                    "description": "A tooltip",
+                    "config": {
+                        "kind": "moon.Tooltip",
+                        "content": "I'm a tooltip"
+                    }
+                },
+                {
+                    "name": "moon.ListActions",
+                    "kind": "moon.ListActions",
+                    "description": "ListActions",
+                    "config": {
+                        "kind": "moon.ListActions",
+                        "iconSrc": "",
+                        "listActions": [
+                            {
+                                "components": [
+                                    {
+                                        "kind": "moon.CheckboxItem",
+                                        "content": "item1",
+                                        "checked": true
+                                    },
+                                    {
+                                        "kind": "moon.CheckboxItem",
+                                        "content": "item2"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.List",
+                    "kind": "moon.List",
+                    "description": "A horizontal list",
+                    "config": {
+                        "kind": "moon.List",
+                        "orient": "h",
+                        "multiSelect": false,
+                        "spotlight": true,
+                        "components": [
+                            {
+                                "name": "item"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.AlwaysViewingPanels",
+                    "kind": "moon.AlwaysViewingPanels",
+                    "description": "An Always Viewing Panels",
+                    "config": {
+                        "name": "AlwaysViewingPanels",
+                        "kind": "moon.Panels",
+                        "pattern": "alwaysviewing",
+                        "classes": "enyo-fit",
+                        "components": [
+                            {
+                                "title": "First Panel",
+                                "titleBelow": "Sub-title",
+                                "subTitleBelow": "Sub-sub title",
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Second Panel with super long title",
+                                "titleBelow": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                "subTitleBelow": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.ActivityPanels",
+                    "kind": "moon.ActivityPanels",
+                    "description": "An Activity Panels",
+                    "config": {
+                        "name": "ActivityPanels",
+                        "kind": "moon.Panels",
+                        "pattern": "activity",
+                        "classes": "enyo-fit",
+                        "components": [
+                            {
+                                "title": "First Panel",
+                                "titleBelow": "Sub-title",
+                                "subTitleBelow": "Sub-sub title",
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Second Panel with super long title",
+                                "classes": "moon-6h",
+                                "titleBelow": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                                "subTitleBelow": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                                "joinToPrev": true,
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Third Panel with long title",
+                                "titleBelow": "Sub-title",
+                                "subTitleBelow": "Sub-sub title",
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.CardArranger",
+                    "kind": "moon.CardArranger",
+                    "description": "A Card Arranger",
+                    "config": {
+                        "name": "CardArranger",
+                        "kind": "moon.Panels",
+                        "arrangerKind": "CardArranger",
+                        "classes": "enyo-fit",
+                        "components": [
+                            {
+                                "title": "First",
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Second",
+                                "joinToPrev": true,
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "moon.CarouselArranger",
+                    "kind": "moon.CarouselArranger",
+                    "description": "A Carousel Arranger",
+                    "config": {
+                        "name": "CarouselArranger",
+                        "kind": "moon.Panels",
+                        "arrangerKind": "CarouselArranger",
+                        "classes": "enyo-fit full",
+                        "components": [
+                            {
+                                "title": "First",
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Second",
+                                "joinToPrev": true,
+                                "components": [
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One",
+                                        "ontap": "next"
+                                    }
+                                ]
+                            }
                         ]
                     }
                 }

@@ -3,6 +3,7 @@ enyo.depends(
 	"SimplePickerSample.js",
 	"SimpleIntegerPickerSample.js",
 	"GridListSample.js",
+	"DataGridListSample.js",
 	"CheckboxItemSample.js",
 	"CheckboxItemSample.css",
 	"RadioItemSample.js",

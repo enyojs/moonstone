@@ -77,7 +77,7 @@ enyo.kind({
     onTap: function(oSender, oEvent) {
         //* override from panels
         // no action for Carosel Arranger using button
-        var target = oEvent.dispatchTarget.kind;
+        var target = oEvent.dispatchTarget ? oEvent.dispatchTarget.kind : undefined;
         switch(target)
         {
         case "moon.Item":
