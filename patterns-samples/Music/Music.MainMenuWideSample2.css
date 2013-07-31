@@ -3,3 +3,7 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
+
+.moon .moon-header, .moon .moon-panel-body, .moon .moon-item {
+    color: white;
+}
