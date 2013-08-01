@@ -16,7 +16,7 @@ enyo.kind({
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight",
-		onRequestScrollIntoView: "preventEventBubble"
+		onRequestScrollIntoView: "_preventEventBubble"
 	},
 	published: {
 		/**
