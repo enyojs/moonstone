@@ -1,11 +1,10 @@
 /**
     _moon.DrawerHandle_ is a control designed for use with
-    <a href="#moon.Drawer">moon.Drawer</a> and <a href="#moon.Drawers">moon.Drawers</a>.
-    It provides a stylized label that may be used in combination with the
-    aforementioned controls to activate a corresponding drawer.
+    [moon.Drawer](#moon.Drawer) and [moon.Drawers](#moon.Drawers). It provides a
+    stylized label that may be used to activate a corresponding drawer.
 
-    It includes a _marquee_ property, which will highlight the handle's content
-    if set to true.
+    _moon.DrawerHandle_ includes a _marquee_ property, which, if set to true,
+    will apply a marquee animation to the handle's content.
 
         {
             name: "musicDrawer",
