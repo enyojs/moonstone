@@ -8,7 +8,7 @@ enyo.kind({
 			{kind: "moon.Divider", content:"Picker 1: Animated"},
 			{kind:"moon.SimplePicker", name:"picker1", wrap: true, onChange:"changed", components: [
 				{content:"San Francisco Airport Terminal Gate 1"},
-				{content:"Boston Airport Terminal Gate 2"},
+				{content:"Boston Airport Terminal Gate 2", active: true},
 				{content:"Tokyo Airport Terminal Gate 3"}
 			]},
 			{tag:"br"},{tag:"br"},
@@ -16,7 +16,7 @@ enyo.kind({
 			{kind:"moon.SimplePicker", name:"picker2", animate:false, onChange:"changed", components: [
 				{content:"Hotmail"},
 				{content:"GMail"},
-				{content:"Yahoo Mail"},
+				{content:"Yahoo Mail", active: true},
 				{content:"AOL Mail"},
 				{content:"Custom IMAP"}
 			]},
