@@ -269,6 +269,7 @@ enyo.kind({
 	},	
 	localeChanged: function() {
 		this.refresh();
+		this.doChange({value: this.value});
 	},
 	refresh: function(){
 		this.destroyClientControls();
