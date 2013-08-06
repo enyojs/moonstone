@@ -17,6 +17,9 @@ enyo.kind({
 		//* If true, the moon-small-header css class will be applied to this header
 		small: false
 	},
+	events: {
+		onHeaderExpandAnimationComplete: ""
+	},
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
 			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
@@ -386,6 +389,13 @@ enyo.kind({
 	//* @protected
 	animationComplete: function(inSender, inEvent) {
 		// Do something?
+		switch (inEvent.animation.name) {
+		case "collapse":
+			break;
+		case "expand":
+			this.doHeaderExpandAnimationComplete();
+			break;
+		}
 	}
 });
 

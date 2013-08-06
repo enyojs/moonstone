@@ -38,6 +38,7 @@ enyo.kind({
 	handlers: {
 		onScroll: "scroll",
 		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
+		onHeaderExpandAnimationComplete: "headerExpandAnimationComplete"
 	},
 
 	//* @protected
@@ -246,11 +247,24 @@ enyo.kind({
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
 		this.$.header.stopMarquee();
-		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
+
+		if (!options.isBreadcrumb) return false;
+
+		var shrinkAnimate = this.$.animator.getAnimation('preTransition') || {},
+			growAnimate = this.$.animator.getAnimation('postTransition') || {};
+
+		if (shrinkAnimate.state === "playing") {
+			return false;
+		} else if (growAnimate.state === "playing") {
+			this.headerCompleteHandler = enyo.bind(this, function () {
+				this.$.animator.completeAnimation(growAnimate);
+				this.shrinkPanel();
+			});
+			return true;
+		} else if (this.container && !this.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;
 		}
-		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex, options) {
 		if (this.container && this.isBreadcrumb && !options.isBreadcrumb) {
@@ -277,6 +291,12 @@ enyo.kind({
 			// smoothly, but that's not possible with CSS transitions; it will jump now
 			this.resized();
 			break;
+		}
+	},
+	headerExpandAnimationComplete: function (inSender, inEvent) {
+		if (this.headerCompleteHandler) {
+			this.headerCompleteHandler();
+			this.headerCompleteHandler = null;
 		}
 	}
 });
