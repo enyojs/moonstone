@@ -62,6 +62,10 @@ enyo.kind({
 		*/
 		value: null,
 		/**
+			The day of week that starts weeks in current locale.
+		*/
+		firstDayOfWeek: null,
+		/**
 			The maximum number of weeks to display in a screen.
 			If this value is greater than 9, dates two months in the future may be
 			shown. Unexpected input may result in errors.
@@ -83,14 +87,13 @@ enyo.kind({
 		this.setupSimplePicker();
 		this.setupCalendar();
 		this.initDefaults();
-		this.setupDays(this.days);
 	},
 	initDefaults: function() {
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({locale:this.locale});
 			var localeInfo = new ilib.LocaleInfo(this.locale);
-			this.firstDayOfWeek = localeInfo.getFirstDayOfWeek();			
+			this.setFirstDayOfWeek(localeInfo.getFirstDayOfWeek());			
 		}
 
 		this.setValue(this.value || new Date());			
@@ -258,6 +261,10 @@ enyo.kind({
 		}
 		return true;
 	},
+	localeChanged: function() {
+		this.refresh();
+		this.doChange({value: this.value});
+	},
 	valueChanged: function(inOld) {
 		if (this.$.simplePicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.simplePicker.setSelectedIndex(this.value.getMonth());
@@ -267,9 +274,18 @@ enyo.kind({
 			this.doChange({value: this.value});
 		}
 	},	
-	localeChanged: function() {
-		this.refresh();
-		this.doChange({value: this.value});
+	firstDayOfWeekChanged: function() {
+		this.$.days.destroyClientControls();
+		var days = [];
+		for(var i = 0; i < 7; i++) {
+			var index = i + this.firstDayOfWeek;
+			if(index > 6) {
+				index -= 7;
+			}
+			days.push(ilib.data.sysres["EEE" + index]);
+		}
+		this.days = days;
+		this.setupDays(this.days);
 	},
 	refresh: function(){
 		this.destroyClientControls();
