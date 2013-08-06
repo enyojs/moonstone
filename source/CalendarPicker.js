@@ -67,10 +67,12 @@ enyo.kind({
 			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
-		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
 		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
+		{name: "days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
@@ -79,6 +81,7 @@ enyo.kind({
 			this.locale = ilib.getLocale();
 		}
 		this.setupSimplePicker();
+		this.setupDays(this.days);
 		this.setupCalendar();
 		this.initDefaults();
 	},
@@ -89,6 +92,20 @@ enyo.kind({
 		}
 
 		this.setValue(this.value || new Date());			
+	},
+	/**
+		Sets up days of the week from first day to last day.
+		Initially, SUN is the first day and SAT is the last day.
+	*/
+	setupDays: function(days) {
+		for(var i = 0; i < days.length; i++) {
+			this.$.days.createComponent({
+				kind: "moon.Button", 
+				classes: "moon-calendar-picker-day",
+				disabled: true, 
+				content: this.days[i]
+			});
+		}		
 	},
 	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
