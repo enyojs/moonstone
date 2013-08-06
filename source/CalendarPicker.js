@@ -81,14 +81,16 @@ enyo.kind({
 			this.locale = ilib.getLocale();
 		}
 		this.setupSimplePicker();
-		this.setupDays(this.days);
 		this.setupCalendar();
 		this.initDefaults();
+		this.setupDays(this.days);
 	},
 	initDefaults: function() {
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({locale:this.locale});
+			var localeInfo = new ilib.LocaleInfo(this.locale);
+			this.firstDayOfWeek = localeInfo.getFirstDayOfWeek();			
 		}
 
 		this.setValue(this.value || new Date());			
@@ -103,7 +105,7 @@ enyo.kind({
 				kind: "moon.Button", 
 				classes: "moon-calendar-picker-day",
 				disabled: true, 
-				content: this.days[i]
+				content: days[i]
 			});
 		}		
 	},
