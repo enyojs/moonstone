@@ -9,7 +9,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
-				{kind: "moon.Item", content: "Item Five", ontap: "next"}
+				{kind: "moon.Item", content: "Move out", ontap: "enter"}
 			]},
             {title: "Second Panel with super long title",
             	titleBelow: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -57,9 +57,12 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]}
 		]}
-    ],
-    next: function(inSender, inEvent) {
-    	this.$.panels.next();
-    	return true;
-    }
+	],
+	next: function(inSender, inEvent) {
+		this.$.panels.next(inSender);
+		return true;
+	},
+	enter: function(inSender, inEvent) {
+		this.$.panels.hideToLeft();
+	}
 });

@@ -110,7 +110,7 @@ enyo.kind({
 
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
-			var n = this.indexInContainer() + 1;
+			var n = this.clientIndexInContainer() + 1;
 			n = ((n < 10) ? "0" : "") + n;
 			this.setTitleAbove(n);
 		}

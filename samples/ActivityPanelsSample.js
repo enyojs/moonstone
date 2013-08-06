@@ -56,10 +56,10 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]}
-        ]}
-    ],
-    next: function(inSender, inEvent) {
-    	this.$.panels.next();
-    	return true;
-    }
+		]}
+	],
+	next: function(inSender, inEvent) {
+		this.$.panels.next(inSender);
+		return true;
+	}
 });

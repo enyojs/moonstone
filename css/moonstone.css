@@ -2275,11 +2275,42 @@
   overflow: hidden;
   position: relative;
 }
-body .enyo-fit.panels-50-percent-scrim,
-.panels-50-percent-scrim {
+.moon-panels-background-scrim {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.moon-panels-background-scrim.on {
+  opacity: 0.2;
+}
+.moon-panels-panel-scrim {
+  position: absolute;
   left: 50%;
-  overflow: visible;
-  background-color: rgba(100, 100, 100, 0.5);
+  width: 50%;
+  height: 100%;
+  background-color: black;
+}
+.moon-panels-spot {
+  position: absolute;
+  right: 0px;
+  width: 20px;
+  height: 100%;
+  opacity: 0;
+}
+.moon-panels-client {
+  left: 100%;
+  transition: left 0.5s ease-in-out;
+}
+.moon-panels-client.show {
+  left: 0;
+}
+.moon-panels-client.left {
+  left: -100%;
+  transition: left 0.3s ease-in-out;
 }
 .moon-accordion {
   padding: 0px 16px 0px 0px;
