@@ -75,17 +75,17 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		if (enyo.g11n) {
-			this.locale = enyo.g11n.currentLocale().getLocale();
+		if (typeof ilib !== "undefined") {
+			this.locale = ilib.getLocale();
 		}
 		this.setupSimplePicker();
 		this.setupCalendar();
 		this.initDefaults();
 	},
 	initDefaults: function() {
-		//Attempt to use the g11n lib (assuming that it is loaded)
-		if (enyo.g11n) {
-			this._tf = new enyo.g11n.Fmts({locale:this.locale});
+		//Attempt to use the ilib lib (assuming that it is loaded)
+		if (typeof ilib !== "undefined") {
+			this._tf = new ilib.DateFmt({locale:this.locale});
 		}
 
 		this.setValue(this.value || new Date());			
