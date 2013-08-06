@@ -10,20 +10,21 @@ enyo.kind({
 				{kind: "FittableRows", fit: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
 					{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
-						{content: 'en-US', active:true},
-						{content: 'th-TH'},	//Thailand
-						{content: 'en-CA'},	//Canada
-						{content: 'ko-KR'}, //Korea
-						{content: 'en-IE'},
-						{content: 'en-GB'},
-						{content: 'en-MX'},
-						{content: 'de-DE'},
-						{content: 'fr-FR'},
-						{content: 'fr-CA'},
-						{content: 'it-IT'},
-						{content: 'es-ES'},
-						{content: 'es-MX'},
-						{content: 'es-US'}
+						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
+						//{content: "th-TH"},	//Thailand
+						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
+						{content: "und-KR"}, //Korea, firstDayOfWeek: 0
+						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
+						{content: "und-AG"}, //Antigua and Barbuda, firstDayOfWeek: 0
+						{content: "und-CA"},//Canada, firstDayOfWeek: 0
+						{content: "en-GB"},
+						{content: "en-MX"},
+						{content: "de-DE"},
+						{content: "fr-FR"},
+						{content: "fr-CA"},
+						{content: "it-IT"},
+						{content: "es-ES"},
+						{content: "es-MX"}
 					]},
 					{kind: "moon.Divider"},
 					{kind: "moon.InputDecorator", components: [
