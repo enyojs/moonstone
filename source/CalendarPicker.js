@@ -131,6 +131,13 @@ enyo.kind({
 			}
 		}
 	},
+	parseDate: function() {
+		if (this._tf) {
+			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+		} else {
+			return this.months[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
+		}
+	},
 	/**
 		Sets up the first week of this month.
 		Before the first day of this month, days from the previous month will be
