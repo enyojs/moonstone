@@ -9,6 +9,21 @@ enyo.kind({
 				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed"},
 				{kind: "FittableRows", fit: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
+					{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
+						{content: 'en-US', active:true},
+						{content: 'th-TH'},	//Thailand
+						{content: 'en-CA'},	//Canada
+						{content: 'en-IE'},
+						{content: 'en-GB'},
+						{content: 'en-MX'},
+						{content: 'de-DE'},
+						{content: 'fr-FR'},
+						{content: 'fr-CA'},
+						{content: 'it-IT'},
+						{content: 'es-ES'},
+						{content: 'es-MX'},
+						{content: 'es-US'}
+					]},
 					{kind: "moon.Divider"},
 					{kind: "moon.InputDecorator", components: [
 						{kind: "moon.Input", name: "yearInput", content: "Year"}
@@ -45,6 +60,12 @@ enyo.kind({
 			this.$.calendar.setDate(this.$.dateInput.getValue());
 		}		
 	},
+	setLocale: function(inSender, inEvent){
+		if (ilib) {
+			this.$.calendar.setLocale(inEvent.selected.content);
+		}
+		return true;
+	},
 	pickDate: function(inSender, inEvent) {
 		if (inEvent.value){
 			this.$.calendar.setValue(inEvent.value);
@@ -52,7 +73,7 @@ enyo.kind({
 	},
 	changed: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
-			this.$.result.setContent("Current Date" + " changed to " + inEvent.value.toDateString());
+			this.$.result.setContent("Current Date" + " changed to " + inEvent.originator.parseDate());
 		}
 	}
 });
