@@ -28,6 +28,7 @@
 .moon-header-title {
 	.moon-header-text;
 	position: relative;
+	-webkit-transform: translate(0px,-20px);
 }
 .moon-header-title .moon-marquee-text {
 	line-height: 0.643em;
@@ -41,6 +42,7 @@
 	padding: 6px 0px 6px 0px;
 	margin: 0px;
 	position: relative;
+	-webkit-transform: translate(0px,25px);
 }
 .moon-header-sub-title-below {
 	.moon-body-text;
@@ -49,6 +51,7 @@
 	padding: 6px 0px 6px 0px;
 	margin: 0px;
 	position: relative;
+	-webkit-transform: translate(0px,25px);
 }
 .enyo-locale-non-latin .moon-header-title-below {
 	font-family: @moon-non-latin-font-family;
@@ -70,16 +73,13 @@
 .moon-small-header {
 	height: 240px;
 }
-.moon-small-header .moon-header-title-above {
-	display: inline-block;
-	vertical-align: top;
-}
 .moon-small-header .moon-header-title {
-	display: inline-block;
-	// margin-top: -20px;
-	margin-left: 20px;
-	height: 155px;
+	bottom: 56px;
+	left: 50px;
 }
 .moon-small-header .moon-header-title-below {
-	padding-bottom: 5px;
+	bottom: 112px;
+}
+.moon-small-header .moon-header-sub-title-below {
+	bottom: 116px;
 }

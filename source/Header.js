@@ -130,20 +130,20 @@ enyo.kind({
 				{
 					control: this.$.title,
 					properties: {
-						"bottom" : "76px",
+						"bottom" : "56px",
 						"left" : "50px"
 					}
 				},
 				{
 					control: this.$.titleBelow,
 					properties: {
-						"bottom" : "92px"
+						"bottom" : "112px"
 					}
 				},
 				{
 					control: this.$.subTitleBelow,
 					properties: {
-						"bottom" : "96px"
+						"bottom" : "116px"
 					}
 				},
 				{
@@ -210,26 +210,26 @@ enyo.kind({
 				{
 					control: this.$.title,
 					properties: {
-						"bottom" : this.$.title.smallAnimProps.bottom,
-						"left" : this.$.title.smallAnimProps.left
+						"bottom" : "0px",
+						"left" : "0px"
 					}
 				},
 				{
 					control: this.$.titleBelow,
 					properties: {
-						"bottom" : this.$.titleBelow.smallAnimProps.bottom
+						"bottom" : "0px"
 					}
 				},
 				{
 					control: this.$.subTitleBelow,
 					properties: {
-						"bottom" : this.$.subTitleBelow.smallAnimProps.bottom
+						"bottom" : "0px"
 					}
 				},
 				{
 					control: this,
 					properties: {
-						"height" : this.smallAnimProps.height
+						"height" : "380px"
 					}
 				}]
 			}
