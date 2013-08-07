@@ -75,7 +75,7 @@ enyo.kind({
 	},
 	changed: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
-			this.$.result.setContent("Current Date" + " changed to " + inEvent.originator.parseDate());
+			this.$.result.setContent("Current Date" + " changed to " + inEvent.originator.parseDate() + " " + ilib.data.sysres["EEEE" + inEvent.originator.value.getDay()]);
 		}
 	}
 });

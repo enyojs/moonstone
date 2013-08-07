@@ -63,8 +63,9 @@ enyo.kind({
 		value: null,
 		/**
 			The day of week that starts weeks in current locale.
+			As a default, Sunday is the first day of week.
 		*/
-		firstDayOfWeek: null,
+		firstDayOfWeek: 0,
 		/**
 			The maximum number of weeks to display in a screen.
 			If this value is greater than 9, dates two months in the future may be
@@ -89,14 +90,13 @@ enyo.kind({
 		this.initDefaults();
 	},
 	initDefaults: function() {
+		this.setValue(this.value || new Date());
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({locale:this.locale});
 			var localeInfo = new ilib.LocaleInfo(this.locale);
 			this.setFirstDayOfWeek(localeInfo.getFirstDayOfWeek());			
-		}
-
-		this.setValue(this.value || new Date());			
+		}	
 	},
 	/**
 		Sets up days of the week from first day to last day.
@@ -152,8 +152,11 @@ enyo.kind({
 		dt.setDate(0);
 		var thisYear = dt.getFullYear(),
 			datesOfPrevMonth = dt.getDate(),
-			dayOfLastDate = dt.getDay(),
+			dayOfLastDate = dt.getDay() - this.firstDayOfWeek,
 			prevMonth = dt.getMonth();
+		if (dayOfLastDate < 0) {
+			dayOfLastDate += 7;
+		}
 		if (dayOfLastDate !== 6) {
 			var dates = this.$.dates.getControls();
 			for (var i = 0; i <= dayOfLastDate; i++) {
@@ -286,6 +289,7 @@ enyo.kind({
 		}
 		this.days = days;
 		this.setupDays(this.days);
+		this.updateDates();
 	},
 	refresh: function(){
 		this.destroyClientControls();
