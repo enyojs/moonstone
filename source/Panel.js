@@ -47,8 +47,10 @@ enyo.kind({
 	layoutKind: "FittableRowsLayout",
 	headerOption: null,
 	panelTools : [
-		{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
-		{name: "panelBody", fit: true, classes: "moon-panel-body"},
+		{name: "contentWrapper", classes: "moon-panel-content-wrapper", components: [
+			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
+			{name: "panelBody", fit: true, classes: "moon-panel-body"}
+		]},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerComponents: [],
@@ -76,6 +78,22 @@ enyo.kind({
 		var $h = enyo.clone(this.get("headerOption") || {});
 		enyo.mixin($pts[0], $h);
 		this.createComponents(this.panelTools);
+	},
+	//* On reflow, update _this.$.contentWrapper_ bounds
+	reflow: function() {
+		this.inherited(arguments);
+		this.updateWrapperSize();
+	},
+	//* Update _this.$.contentWrapper_ to have the height/width of _this_
+	updateWrapperSize: function() {
+		var node = this.hasNode();
+		
+		if (!node) {
+			return;
+		}
+		
+		this.$.contentWrapper.applyStyle("width", node.offsetWidth + "px");
+		this.$.contentWrapper.applyStyle("height", node.offsetHeight + "px");
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
@@ -140,32 +158,48 @@ enyo.kind({
 		return this.$.header;
 	},
 	shrinkPanel: function() {
-		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
+		this.getInitAnimationValues();
+		this.shrinkingHeightAnimation();
+	},
+	growPanel: function() {
+		this.growingWidthAnimation();
+	},
+	//* @protected
+	getInitAnimationValues: function() {
+		var node = this.hasNode();
+		this.initialHeight = node.offsetHeight + "px";
+		this.initialWidth = node.offsetWidth + "px";
+	},
+	shrinkingHeightAnimation: function() {
 		this.$.animator.newAnimation({
-			name: "preTransition",
-			duration: 800,
-			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+			name: "shrinkHeight",
+			duration: 500,
+			timingFunction: "cubic-bezier(.68, .4, .6, 1.6)",
 			keyframes: {
 				0: [{
-					control: this.$.panelBody,
+					control: this,
 					properties: {
 						"height" : "current"
 					}
 				}],
-				25: [{
-					control: this.$.panelBody,
+				100: [{
+					control: this,
 					properties: {
-						"opacity" : "1"
+						"height"  : "160px"
 					}
-				}],
-				50: [{
-					control: this.$.panelBody,
-					properties: {
-						"height"  : "0px",
-						"opacity" : "0"
-					}
-				},
-				{
+				}]
+			}
+		});
+		this.$.animator.play("shrinkHeight");
+	},
+	shrinkingWidthAnimation: function() {
+		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
+		this.$.animator.newAnimation({
+			name: "shrinkWidth",
+			duration: 300,
+			timingFunction: "cubic-bezier(.68, .4, .6, 1.2)",
+			keyframes: {
+				0: [{
 					control: this,
 					properties: {
 						"width" : "current"
@@ -179,55 +213,52 @@ enyo.kind({
 				}]
 			}
 		});
-
-		this.$.header.animateCollapse(breadcrumbWidth);
-		this.$.animator.play("preTransition");
+		this.$.animator.play("shrinkWidth");
 	},
-	growPanel: function() {
+	growingHeightAnimation: function() {
 		this.$.animator.newAnimation({
-			name: "postTransition",
-			duration: 800,
-			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+			name: "growHeight",
+			duration: 300,
+			timingFunction: "cubic-bezier(0.25, -0.1, .83, .67)",
 			keyframes: {
 				0: [{
 					control: this,
 					properties: {
-						"width" : "current"
-					}
-				}],
-				25: [{
-					control: this,
-					properties: {
-						"width" : this.actualWidth + "px"
-					}
-				},
-				{
-					control: this.$.panelBody,
-					properties: {
-						"height"  : "current",
-						"opacity" : "current"
-					}
-				}],
-				75: [{
-					control: this.$.panelBody,
-					properties: {
-						"opacity" : "1"
+						"height"  : "current"
 					}
 				}],
 				100: [{
-					control: this.$.panelBody,
+					control: this,
 					properties: {
-						"height" : "auto"
+						"height" : this.initialHeight
 					}
 				}]
 			}
 		});
-
-		this.$.header.animateExpand();
-		this.$.animator.play("postTransition");
+		this.$.animator.play("growHeight");
 	},
-
-	//* @protected
+	growingWidthAnimation: function() {
+		this.$.animator.newAnimation({
+			name: "growWidth",
+			duration: 300,
+			timingFunction: "cubic-bezier(.25,.1,.25,1)",
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"width"  : "current"
+					}
+				}],
+				100: [{
+					control: this,
+					properties: {
+						"width" : this.initialWidth
+					}
+				}]
+			}
+		});
+		this.$.animator.play("growWidth");
+	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		if(inEvent.active >= inEvent.index) {
 			this.$.header.startMarquee();
@@ -246,14 +277,14 @@ enyo.kind({
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
 		this.$.header.stopMarquee();
-		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
+		if (inFromIndex < inToIndex && this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;
 		}
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex, options) {
-		if (this.container && this.isBreadcrumb && !options.isBreadcrumb) {
+		if (inFromIndex > inToIndex && this.container && this.isBreadcrumb && !options.isBreadcrumb) {
 			this.growPanel();
 			return true;
 		}
@@ -261,12 +292,18 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-		case "preTransition":
-			this.preTransitionComplete();
-			break;
-		case "postTransition":
-			this.postTransitionComplete();
-			break;
+			case "shrinkHeight":
+				this.shrinkingWidthAnimation();
+				return true;
+			case "shrinkWidth":
+				this.preTransitionComplete();
+				return true;
+			case "growWidth":
+				this.growingHeightAnimation();
+				return true;
+			case "growHeight":
+				this.postTransitionComplete();
+				return true;
 		}
 	},
 	headerAnimationComplete: function(inSender, inEvent) {
