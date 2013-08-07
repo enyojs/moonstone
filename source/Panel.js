@@ -9,7 +9,7 @@
 */
 
 enyo.kind({
-	name : "moon.Panel",
+	name: "moon.Panel",
 	published: {
 		//* Facade for the header's _title_ property
 		title: "",
@@ -29,7 +29,7 @@ enyo.kind({
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false
 	},
-	events : {
+	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
 		//* Fires when this panel has completed its post-arrangement transition.
@@ -42,16 +42,17 @@ enyo.kind({
 
 	//* @protected
 	spotlight: "container",
-	fit : true,
+	fit: true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
 	headerOption: null,
 	panelTools : [
 		{name: "contentWrapper", classes: "moon-panel-content-wrapper", components: [
 			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
+			{name: "miniHeader", content: "Mini header", showing: false, style: "position: absolute; top: 94px; left: 10px; height: 60px; width: 160px; line-height: 28px; font-size: 26px;"},
 			{name: "panelBody", fit: true, classes: "moon-panel-body"}
 		]},
-		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}
 	],
 	headerComponents: [],
 	isBreadcrumb: false,
@@ -136,6 +137,7 @@ enyo.kind({
 	//* Updates _this.header_ when _title_ changes.
 	titleChanged: function() {
 		this.$.header.setTitle(this.getTitle());
+		this.$.miniHeader.setContent(this.getTitle());
 	},
 	//* Updates _this.header_ when _titleAbove_ changes.
 	titleAboveChanged: function() {
@@ -158,10 +160,12 @@ enyo.kind({
 		return this.$.header;
 	},
 	shrinkPanel: function() {
+		this.showingSmallHeader = false;
 		this.getInitAnimationValues();
 		this.shrinkingHeightAnimation();
 	},
 	growPanel: function() {
+		this.showingSmallHeader = true;
 		this.growingWidthAnimation();
 	},
 	//* @protected
@@ -218,8 +222,8 @@ enyo.kind({
 	growingHeightAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "growHeight",
-			duration: 300,
-			timingFunction: "cubic-bezier(0.25, -0.1, .83, .67)",
+			duration: 400,
+			timingFunction: "cubic-bezier(.6, -.8, .6, 1.2)",
 			keyframes: {
 				0: [{
 					control: this,
@@ -290,6 +294,13 @@ enyo.kind({
 		}
 		return false;
 	},
+	animationStep: function(inSender, inEvent) {
+		if (inEvent.animation.name === "shrinkHeight" && inEvent.animation.percentElapsed >= 75 && !this.showingSmallHeader) {
+			this.showSmallHeader();
+		} else if (inEvent.animation.name === "growHeight" && inEvent.animation.timeElapsed >= 20 && this.showingSmallHeader) {
+			this.hideSmallHeader();
+		}
+	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
 			case "shrinkHeight":
@@ -305,6 +316,16 @@ enyo.kind({
 				this.postTransitionComplete();
 				return true;
 		}
+	},
+	showSmallHeader: function() {
+		this.$.miniHeader.setShowing(true);
+		this.$.header.addClass("hidden-title");
+		this.showingSmallHeader = true;
+	},
+	hideSmallHeader: function() {
+		this.$.miniHeader.setShowing(false);
+		this.$.header.removeClass("hidden-title");
+		this.showingSmallHeader = false;
 	},
 	headerAnimationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {

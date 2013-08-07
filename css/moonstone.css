@@ -1358,6 +1358,11 @@
   overflow: hidden;
   opacity: 0;
 }
+.hidden-title .moon-header-title,
+.hidden-title .moon-header-title-below,
+.hidden-title .moon-header-sub-title-below {
+  opacity: 0;
+}
 /*
 	Put anything you reference with "url()" in ../assets/
 	This way, you can minify your application, and just remove the "source" folder for production
