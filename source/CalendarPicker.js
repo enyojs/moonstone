@@ -83,7 +83,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
-			this.locale = ilib.getLocale();
+			this.locale = this.locale || ilib.getLocale();
 		}
 		this.setupSimplePicker();
 		this.setupCalendar();
