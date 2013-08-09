@@ -71,6 +71,9 @@ enyo.kind({
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
+		this.refreshScrollState();
+	},
+	refreshScrollState: function() {
 		this.updateScrollBounds();
 		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
@@ -203,5 +206,8 @@ enyo.kind({
 	//* Silently scrolls to the _inValue_ y-position without animating
 	setScrollTop: function(inValue) {
 		this.$.scroller.setScrollTop(inValue);
+	},
+	stabilize: function() {
+		this.$.scroller.stabilize();
 	}
 });
