@@ -239,7 +239,8 @@ enyo.kind({
 				}
 			}
 		}
-	},	closePicker: function(inSender, inEvent) {
+	},
+	closePicker: function(inSender, inEvent) {
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
 		if (inEvent.type == "onSpotlightSelect" ||
 			this.$.client.children[0].id == inEvent.originator.id) {
