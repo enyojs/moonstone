@@ -97,7 +97,7 @@ enyo.kind({
 		}
 	},
 	addItem: function(inSender, inEvent) {
-		if (!this.$.input.getValue()) {
+		if (!this.$.addInput.getValue()) {
 			this.$.result.setContent("Please insert content value.");
 			return;
 		}
