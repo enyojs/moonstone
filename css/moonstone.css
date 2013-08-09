@@ -1419,6 +1419,9 @@
   margin-right: 25px !important;
   padding-left: 0px !important;
 }
+.moon-gridlist .enyo-gridlist-row:last-child {
+  margin-bottom: 50px;
+}
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
