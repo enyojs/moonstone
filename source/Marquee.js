@@ -78,14 +78,23 @@ enyo.kind({
 	startMarquee: function() {
 		this.calcMarqueeDistance();
 		if (!this.disabled && this.marqueeDistance > 0) {
-			this.marqueeControl.applyStyle("left", -this.marqueeDistance + "px");
+			var xPos = (0-this.marqueeDistance) + "px";
+			if (enyo.dom.canTransform()) {
+				enyo.dom.transform(this.marqueeControl, {translateX: xPos});
+			} else {
+				this.marqueeControl.applyStyle("left", xPos);
+			}
 			this.marqueeControl.applyStyle("-webkit-animation-duration", this.marqueeDistance/this.marqueeSpeed + "s");
 			this.marqueeControl.addClass("moon-marquee");
 		}
 	},
 	stopMarquee: function(inSender, inEvent) {
 		this.stopJob(this.id);
-		this.marqueeControl.applyStyle("left", 0);
+		if (enyo.dom.canTransform()) {
+			enyo.dom.transform(this.marqueeControl, {translateX: 0});
+		} else {
+			this.marqueeControl.applyStyle("left", 0);
+		}
 		this.marqueeControl.removeClass("moon-marquee");
 		this.marqueeRequested = false;
 		this.doMarqueeEnded();
