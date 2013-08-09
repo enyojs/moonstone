@@ -21,10 +21,10 @@ enyo.kind({
 			]},
 			{kind: "moon.Divider", content: "RichTexts"},
 			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.RichText", placeholder: "Enter text here", oninput:"inputChanged"}
+				{kind: "moon.RichText", placeholder: "Enter text here", oninput:"inputChanged", ontap: "tapRichText"}
 			]},
 			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.RichText", style: "width: 240px;", placeholder: "JUST TYPE", oninput:"inputChanged"},
+				{kind: "moon.RichText", style: "width: 240px;", placeholder: "JUST TYPE", oninput:"inputChanged", ontap: "tapRichText"},
 				{kind: "Image", src: "assets/search-input-search.png"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
@@ -35,7 +35,7 @@ enyo.kind({
 				{kind: "moon.TextArea", placeholder: "Enter text here", oninput:"inputChanged"}
 			]},
 			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.TextArea", placeholder: "JUST TYPE", oninput:"inputChanged"},
+				{kind: "moon.TextArea", placeholder: "JUST TYPE", oninput:"inputChanged"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated input", oninput:"inputChanged"}
@@ -56,7 +56,21 @@ enyo.kind({
 			]}
 		]}
 	],
+	rendered: function() {
+		this.$.richText.setValue(this.$.richText.placeholder);
+		this.$.richText2.setValue(this.$.richText2.placeholder);
+		this.$.richText3.setValue(this.$.richText3.placeholder);
+	},
 	inputChanged: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inSender.getValue());
+	},
+	tapRichText: function(inSender, inEvent) {
+		if(inEvent.originator.placeholder) {
+			inEvent.originator.placeholder = null;
+			inEvent.originator.setValue("");
+			return true;
+		} else {
+			return true;
+		}		
 	}
 });
