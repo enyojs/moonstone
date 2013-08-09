@@ -1,0 +1,74 @@
+.mobile.moon-slider-taparea {
+	position: absolute;
+	top: -14px;
+	height: 32px;
+	width: 100%;
+}
+.mobile.moon-slider-knob,
+.mobile.moon-slider-knob.disabled:active:hover {
+	position: relative;
+	height: 56px;
+	width: 56px;
+	border-radius: 28px;
+	margin: -30px -29px;
+	background-color: #69cdff;
+}
+.mobile.moon-slider-knob.active,
+.mobile.moon-slider-knob.spotselect,
+.mobile.moon-slider-knob:active:hover {
+	height: 84px;
+	width: 84px;
+	border-radius: 42px;
+	margin: -42px -44px;
+}
+.mobile.moon-slider.spotlight > .moon-progress-bar-bar {
+	background-color: #ffb80d;
+}
+.mobile.moon-slider.spotlight > .moon-slider-knob {
+	background-color: #ffb80d;
+}
+.mobile.moon-slider.disabled {
+	cursor: default;
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}
+.mobile.moon-slider-popup {
+	position: absolute;
+	display: block;
+	z-index: 20;
+	left: 100px;
+	top: 0px;
+	width: 62px;
+	height: 52px;
+	padding-left: 0px;
+}
+.mobile.moon-slider-popup-label {
+	.moon-large-button-text;
+	position: absolute;
+	top: 2px;
+	width: 60px;
+	height: 45px;
+	white-space: nowrap;
+	color: #fff;
+	text-align: center;
+	line-height: 1.5em;
+	vertical-align: middle;
+}
+.mobile.enyo-locale-non-latin .moon-slider-popup-label {
+	font-family: @moon-non-latin-font-family;
+}
+.mobile.moon-slider-popup.above {
+	top: -90px;
+	padding-left: 10px;
+}
+.mobile.moon-slider-popup-flip-h {
+	transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+.mobile.moon-slider-focus {
+	background-color: #ffb80d;
+}
+.mobile.moon-slider-nofocus {
+	background-color: #69cdff;
+}

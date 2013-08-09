@@ -1,0 +1,28 @@
+/* Input.css */
+.mobile.moon-input {
+	.moon-body-text;
+	margin: 0px;
+	padding: 0px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background: transparent;
+	box-shadow: none;
+	color: @moon-input-font-color;
+}
+.mobile.moon-input-decorator.moon-focused .moon-input {
+	cursor: text;
+}
+.mobile.moon-input-decorator.moon-disabled .moon-input {
+	cursor: default;
+}
+.mobile.moon-input-decorator > input::-webkit-input-placeholder {
+	color: #7d7d7d;
+}
+.mobile.moon-input-decorator > input:-moz-placeholder {
+	color: #7d7d7d;
+}
+/* IE10 */
+.mobile.moon-input-decorator > input:-ms-input-placeholder {
+	color: #7d7d7d;
+}

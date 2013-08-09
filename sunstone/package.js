@@ -1,4 +1,4 @@
 enyo.depends(
-	"css",
+	"css/1080x1920",
 	"source"
 );
