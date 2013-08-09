@@ -39,6 +39,7 @@ enyo.kind({
 		if (ilib) {
 			this.$.picker.setLocale(inEvent.selected.content);
 			this.$.disabledPicker.setLocale(inEvent.selected.content);
+			this.$.result.setContent("locale is changed to " + inEvent.selected.content);
 		}
 		return true;
 	},
