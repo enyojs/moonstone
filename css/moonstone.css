@@ -444,6 +444,10 @@
 .moon-simple-picker-button.spotlight {
   background: #ffb80d;
 }
+.moon-simple-picker-button-bold {
+  margin: 2px 0px;
+  font-size: 64px;
+}
 .moon-simple-picker-client {
   padding: 0px;
   margin: 0px;
@@ -626,7 +630,7 @@
   margin-bottom: 33px;
 }
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.08em;
+  height: 1.12em;
   min-height: 23.400000000000002px;
   margin-right: 50px;
 }
@@ -644,7 +648,7 @@
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
-  height: 1.08em;
+  height: 1.12em;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -710,7 +714,7 @@
   width: 53px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.08em;
+  height: 1.12em;
   padding: 2px 0px 0px 0px;
   margin-right: 55px;
 }
@@ -773,7 +777,7 @@
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.08em;
+  line-height: 1.12em;
   color: #4b4b4b;
   margin: 0px 0px 26px 0px;
   padding: 2px 0px 0px 0px;
@@ -788,7 +792,7 @@
 .moon-item.spotlight {
   border-style: solid;
   border-color: #ffb80d;
-  line-height: 1.08em;
+  line-height: 1.12em;
 }
 .moon-item-overlay {
   transition: height 0.1s linear, width 0.1s linear;
@@ -1099,7 +1103,7 @@
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
-  line-height: 1em;
+  line-height: normal;
   color: #4b4b4b;
   margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
@@ -1127,7 +1131,7 @@
 }
 .moon-button-bar {
   position: absolute;
-  top: 37px;
+  top: 44px;
   left: 0px;
   height: 4px;
   width: 0px;
@@ -1242,7 +1246,6 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-integer-picker-header {
-  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 10px 0px;
   transition: all 0.1s linear;
@@ -2360,28 +2363,17 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
+  width: 420px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar-picker .picker-button {
-  margin: 2px 0px;
-  font-size: 64px;
-}
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
 }
-.moon-calendar-picker-week {
-  margin-top: 7px;
-  margin-bottom: 7px;
-  left: 0px;
-  right: 0px;
-  white-space: nowrap;
-}
 .moon-calendar-picker-date {
-  width: 40px;
-  min-width: 40px;
-  height: 40px;
+  witdh: 60px;
+  min-width: 60px;
   line-height: 40px;
   border: 0px;
   border-radius: 9999px;

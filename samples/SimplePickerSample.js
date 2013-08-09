@@ -58,6 +58,10 @@ enyo.kind({
 		}
 	},
 	addItem: function(inSender, inEvent) {
+		if (!this.$.input.getValue()) {
+			this.$.result.setContent("Please insert content value.");
+			return;
+		}
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.createComponent({content:this.$.input.getValue()}).render();
 		picker.reflow();

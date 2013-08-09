@@ -1,8 +1,9 @@
 /**
 	_moon.MarqueeText_ is a basic text control that supports marquee animation.
-	When _moon.MarqueeText_ objects are used inside a _moon.MarqueeDecorator_,
-	the	decorator synchronizes their start times; the user may start a marquee
-	programmatically by calling _startMarquee()_.
+	When _moon.MarqueeText_ objects are used inside a
+	[moon.MarqueeDecorator](#moon.MarqueeDecorator), the decorator synchronizes
+	their start times; the user may start a marquee programmatically by calling
+	_startMarquee()_.
 
 		enyo.kind({
 			name: "moon.Header",
@@ -43,12 +44,14 @@ enyo.kind({
 		marqueePause: 1000,
 		/**
 			Whether this control should clip itself inside its parent's padding. If
-			false, the parent control must have 'overflow:hidden' set, and the marquee
+			false, the parent control must have _overflow: hidden_ set, and the marquee
 			text will clip at the parent's border.
 		*/
 		clipInsidePadding: true,
 		//* When true, marqueeing will not occur
-		disabled: false
+		disabled: false,
+		//* _allowHtml_ property of Marquee text
+		allowHtmlText: false
 	},
 	events: {
 		onMarqueeStarted:"",
@@ -88,7 +91,12 @@ enyo.kind({
 		this.doMarqueeEnded();
         return true;
 	},
-	//*@protected
+	//*@protected 
+	allowHtmlTextChanged: function() {
+		if(this.marqueeControl) {
+			this.marqueeControl.setAllowHtml(this.allowHtmlText);
+		}
+	},
 	contentChanged: function() {
 		if (this.$.client) {
 			this.$.client.setContent(this.content);
