@@ -7,9 +7,9 @@ enyo.kind({
 			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "doneTap", content: "Done"}
 		]},
 		
-		{kind: "FittableColumns", components: [
+		{kind: "FittableRows", fit: true, components: [
 			{name: "headline", classes: "wizard-instruction"},
-			{name: "resultList", kind: "moon.DataList", classes: "wizard-datalist-wrapper", components: [
+			{name: "resultList", fit: true, kind: "moon.DataList", classes: "wizard-datalist-wrapper", components: [
 				{classes: "wizard-datalist", components: [
 					{style: "display: inline-block", bindFrom: "step", bindTo: "content"},
 					{style: "display: inline-block", bindFrom: "result", bindTo: "content"},
