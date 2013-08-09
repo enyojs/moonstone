@@ -417,6 +417,10 @@
 @-webkit-keyframes marquee {
   0% {
     left: 0;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -o-transform: translateX(0);
   }
 }
 .moon-simple-picker {
@@ -1270,7 +1274,6 @@
   border-top: 1px solid #4b4b4b;
   border-bottom: 6px solid #4b4b4b;
   overflow: hidden;
-  min-width: 532px;
   position: relative;
   transition: height 0.2s linear;
   -webkit-transition: height 0.2s linear;
@@ -1348,6 +1351,11 @@
   padding-top: 0px;
   padding-bottom: 0px;
   overflow: hidden;
+  opacity: 0;
+}
+.hidden-title .moon-header-title,
+.hidden-title .moon-header-title-below,
+.hidden-title .moon-header-sub-title-below {
   opacity: 0;
 }
 /*
@@ -2262,12 +2270,33 @@
   background: url(../images/spinner-light.gif) no-repeat 0 0;
 }
 .moon-panel {
+  -webkit-transform: scale3d(1, 1, 1);
   overflow: hidden;
-  padding: 10px;
+  padding: 0;
+  margin: 0;
+}
+.moon-panel-content-wrapper {
+  -webkit-transform: scale3d(1, 1, 1);
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
 }
 .moon-panel-body {
   overflow: hidden;
   position: relative;
+}
+.moon-panel-miniheader {
+  position: absolute;
+  top: 94px;
+  left: 10px;
+  height: 60px;
+  width: 160px;
+  line-height: 28px;
+  font-size: 26px;
 }
 body .enyo-fit.panels-50-percent-scrim,
 .panels-50-percent-scrim {
@@ -2354,7 +2383,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 420px;
+  width: 616px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2363,7 +2392,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-  witdh: 60px;
+  width: 60px;
   min-width: 60px;
   line-height: 40px;
   border: 0px;
