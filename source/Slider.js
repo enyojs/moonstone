@@ -166,6 +166,7 @@ enyo.kind({
 		}
 	},
 	setValue: function(inValue) {
+		if (this.value === inValue) {return false;}
 		if (this.constrainToBgProgress) {
 			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
