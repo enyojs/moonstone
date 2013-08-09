@@ -47,7 +47,7 @@ enyo.kind({
 	layoutKind: "FittableRowsLayout",
 	headerOption: null,
 	panelTools : [
-		{name: "contentWrapper", classes: "moon-panel-content-wrapper", components: [
+		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
 			{name: "miniHeader", content: "Mini header", showing: false, style: "position: absolute; top: 94px; left: 10px; height: 60px; width: 160px; line-height: 28px; font-size: 26px;"},
 			{name: "panelBody", fit: true, classes: "moon-panel-body"}
@@ -99,7 +99,6 @@ enyo.kind({
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
-		this.layoutKind = "FittableRowsLayout";
 		this.inherited(arguments);
 	},
 
