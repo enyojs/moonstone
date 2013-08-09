@@ -43,7 +43,7 @@
 /* ---------------------------------------*/
 /* ObjectActionDecorator */
 /* ---------------------------------------*/
-/* Carat */
+/* Caret */
 /* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
@@ -1205,10 +1205,6 @@
   line-height: 1em;
   padding: 0px;
   margin: 0px 0px 4px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "MuseoSans 700";
@@ -1248,10 +1244,6 @@
 .moon-item.moon-expandable-integer-picker-header {
   padding: 0px;
   margin: 0px 0px 10px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
   font-family: "MuseoSans 700";
@@ -1423,6 +1415,9 @@
   margin-right: 25px !important;
   padding-left: 0px !important;
 }
+.moon-gridlist .enyo-gridlist-row:last-child {
+  margin-bottom: 50px;
+}
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
@@ -1467,7 +1462,7 @@
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background: transparent url(../images/carat-black-large-up-icon.png) no-repeat 7px 6px;
+  background: transparent url(../images/caret-black-large-up-icon.png) no-repeat 7px 6px;
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -1645,7 +1640,7 @@
 .up-arrow {
   height: 29px;
   width: 29px;
-  background: url(../images/carat-black-large-up-icon.png) 0 0 no-repeat;
+  background: url(../images/caret-black-large-up-icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .up-arrow > .taparea,
@@ -1658,7 +1653,7 @@
   background-color: transparent;
 }
 .up-arrow-container.selected .up-arrow {
-  background-image: url(../images/carat-black-small-up-icon.png);
+  background-image: url(../images/caret-black-small-up-icon.png);
 }
 .down-arrow-container {
   position: relative;
@@ -1670,11 +1665,11 @@
 .down-arrow {
   height: 29px;
   width: 29px;
-  background: url(../images/carat-black-large-down-icon.png) 0 0 no-repeat;
+  background: url(../images/caret-black-large-down-icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .down-arrow-container.selected .down-arrow {
-  background-image: url(../images/carat-black-small-down-icon.png);
+  background-image: url(../images/caret-black-small-down-icon.png);
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -1692,10 +1687,6 @@
   line-height: 0.85em;
   padding: 0px;
   margin: 0px 0px 7px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-date-picker.open .moon-date-picker-header {
   font-family: "MuseoSans 700";
@@ -1747,6 +1738,9 @@
   cursor: pointer;
   background: transparent;
   box-shadow: none;
+  color: #4b4b4b;
+}
+.moon-dark-gray .moon-input {
   color: #4b4b4b;
 }
 .moon-input-decorator.moon-focused .moon-input {
@@ -2367,10 +2361,10 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 10px;
 }
 .moon-accordion-arrow.up {
-  background: url(../images/carat-black-small-up-image.png) right center no-repeat;
+  background: url(../images/caret-black-small-up-image.png) right center no-repeat;
 }
 .moon-accordion-arrow.down {
-  background: url(../images/carat-black-small-down-image.png) right center no-repeat;
+  background: url(../images/caret-black-small-down-image.png) right center no-repeat;
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
@@ -2550,10 +2544,10 @@ body .enyo-fit.panels-50-percent-scrim,
   top: -3px;
 }
 .moon-drawers-activator-nub .down {
-  background: url(../images/carat-white-small-down-image.png) 0 0 no-repeat;
+  background: url(../images/caret-white-small-down-image.png) 0 0 no-repeat;
 }
 .moon-drawers-activator-nub .up {
-  background: url(../images/carat-black-small-up-image.png) 0 0 no-repeat;
+  background: url(../images/caret-black-small-up-image.png) 0 0 no-repeat;
 }
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
@@ -3433,10 +3427,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   line-height: 28px;
   padding: 0px;
   margin: 0px 0px 10px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-expandable-input.open .moon-expandable-input-header {
   font-family: "MuseoSans 700";

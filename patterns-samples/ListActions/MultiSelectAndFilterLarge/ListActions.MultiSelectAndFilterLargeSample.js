@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.pattern.MultiSelectAndFilterLarge",
+	name: "moon.sample.listactions.MultiSelectAndFilterLargeSample",
 	fit: true,
 	kind:"FittableRows",
 	classes: "multi-select-and-filter-large-pattern moon",

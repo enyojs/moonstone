@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.sample.AudioPlayback",
+	name: "moon.sample.audio.AudioPlaybackSample",
 	classes: "enyo-unselectable moon sample-audio-playback",
 	audioFiles: [
 		{src: "http://www.universal-soundbank.com/mp3/sounds/700.mp3", trackName: "Thunderstorm", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:15"},

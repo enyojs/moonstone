@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.pattern.SingleSelectDeleteAndConfirm",
+	name: "moon.sample.listactions.SingleSelectDeleteAndConfirmSample",
 	fit: true,
 	kind:"FittableRows",
 	classes: "single-select-delete-and-confirm-pattern moon",
@@ -16,18 +16,18 @@ enyo.kind({
 		]},
 		{classes:"right-panel", components:[
 			{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-			    {kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
+				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
-					    {kind: "moon.Divider", content:"Filter"},
-					    {kind: "moon.Scroller", components: [
+						{kind: "moon.Divider", content:"Filter"},
+						{kind: "moon.Scroller", components: [
 							{kind: "Group", components: [
-						        {content:"New Releases", kind:"moon.CheckboxItem"},
-						        {content:"Most Popular", kind:"moon.CheckboxItem"},
-						        {content:"Action & Adventure", kind:"moon.CheckboxItem"},
-						        {content:"Comedy", kind:"moon.CheckboxItem"},
-						        {content:"Drama", kind:"moon.CheckboxItem"}
+								{content:"New Releases", kind:"moon.CheckboxItem"},
+								{content:"Most Popular", kind:"moon.CheckboxItem"},
+								{content:"Action & Adventure", kind:"moon.CheckboxItem"},
+								{content:"Comedy", kind:"moon.CheckboxItem"},
+								{content:"Drama", kind:"moon.CheckboxItem"}
 							]}
-					    ]}
+						]}
 					]}
 				]},
 				{kind: "moon.IconButton", classes: "delete-button", src: "../assets/trash-can-icon.png", ontap: "deleteActivated"}
@@ -48,11 +48,11 @@ enyo.kind({
 	},
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
-			this.$.header.setTitleBelow(inEvent.toggledControl.getContent())
+			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
 		}
 	},
 	deleteActivated: function(inSender, inEvent) {
-		console.log('delete activated');
+		this.log("delete activated");
 	}
 });
 
