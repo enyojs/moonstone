@@ -86,6 +86,7 @@ enyo.kind({
 			this.locale = this.locale || ilib.getLocale();
 		}
 		this.setupSimplePicker();
+		this.setupDays(this.days);
 		this.setupCalendar();
 		this.initDefaults();
 	},
@@ -96,7 +97,7 @@ enyo.kind({
 			this._tf = new ilib.DateFmt({locale:this.locale});
 			var localeInfo = new ilib.LocaleInfo(this.locale);
 			this.setFirstDayOfWeek(localeInfo.getFirstDayOfWeek());			
-		}	
+		} 
 	},
 	/**
 		Sets up days of the week from first day to last day.
