@@ -1205,10 +1205,6 @@
   line-height: 1em;
   padding: 0px;
   margin: 0px 0px 4px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "MuseoSans 700";
@@ -1248,10 +1244,6 @@
 .moon-item.moon-expandable-integer-picker-header {
   padding: 0px;
   margin: 0px 0px 10px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
   font-family: "MuseoSans 700";
@@ -1688,10 +1680,6 @@
   line-height: 0.85em;
   padding: 0px;
   margin: 0px 0px 7px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-date-picker.open .moon-date-picker-header {
   font-family: "MuseoSans 700";
@@ -3417,10 +3405,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   line-height: 28px;
   padding: 0px;
   margin: 0px 0px 10px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
 }
 .moon-expandable-input.open .moon-expandable-input-header {
   font-family: "MuseoSans 700";
