@@ -1736,6 +1736,9 @@
   box-shadow: none;
   color: #4b4b4b;
 }
+.moon-dark-gray .moon-input {
+  color: #4b4b4b;
+}
 .moon-input-decorator.moon-focused .moon-input {
   cursor: text;
 }
