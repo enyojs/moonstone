@@ -40,25 +40,29 @@ enyo.kind({
 					kind: "moon.Panels",
 					classes: "enyo-fit",
 					components: [
-						{title: "First", components: [
-							{kind: "moon.Item", content: "Item One"},
-							{kind: "moon.Item", content: "Item Two"},
-							{kind: "moon.Item", content: "Item Three"},
-							{kind: "moon.Item", content: "Item Four"},
-							{kind: "moon.Item", content: "Item Five"}
+						{title: "First", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]},
-						{title: "Second", components: [
-							{kind: "moon.Item", content: "Item One"},
-							{kind: "moon.Item", content: "Item Two"},
-							{kind: "moon.Item", content: "Item Three"},
-							{kind: "moon.Item", content: "Item Four"},
-							{kind: "moon.Item", content: "Item Five"}
+						{title: "Second", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]}
 					]
 				}
 			]
 		}
 	],
+	next: function(inSender, inEvent) {
+		this.$.panels.next();
+		return true;
+	},
 	openMainDrawer: function() {
 		this.$.partialDrawer.setOpen(true);
 	},
