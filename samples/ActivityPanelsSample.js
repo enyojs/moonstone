@@ -11,9 +11,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-			{title: "Second Panel with extra long title", classes: "moon-7h",
-				titleBelow: "Lorem ipsum dolor",
-				subTitleBelow: "Ut enim ad minim veniam",
+			{title: "Second Panel", classes: "moon-7h",
 				joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
@@ -21,7 +19,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-			{title: "Third Panel with long title", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Third Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
