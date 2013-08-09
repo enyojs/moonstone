@@ -184,7 +184,7 @@ enyo.kind({
 	shrinkingHeightAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "shrinkHeight",
-			duration: 1000,
+			duration: 750,
 			timingFunction: "cubic-bezier(.68, .4, .6, 1.6)",
 			keyframes: {
 				0: [{
@@ -207,7 +207,7 @@ enyo.kind({
 		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		this.$.animator.newAnimation({
 			name: "shrinkWidth",
-			duration: 450,
+			duration: 225,
 			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
 			keyframes: {
 				0: [{
@@ -229,7 +229,7 @@ enyo.kind({
 	growingHeightAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "growHeight",
-			duration: 1000,
+			duration: 750,
 			timingFunction: "cubic-bezier(.6, -.8, .6, 1.2)",
 			keyframes: {
 				0: [{
@@ -251,7 +251,7 @@ enyo.kind({
 	growingWidthAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "growWidth",
-			duration: 450,
+			duration: 225,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
 				0: [{
