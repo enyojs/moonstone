@@ -51,7 +51,7 @@ enyo.kind({
 	panelTools : [
 		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
-			{name: "miniHeader", content: "Mini header", showing: false, style: "position: absolute; top: 94px; left: 10px; height: 60px; width: 160px; line-height: 28px; font-size: 26px;"},
+			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-miniheader", content: "Mini header", showing: false},
 			{name: "panelBody", fit: true, classes: "moon-panel-body"}
 		]},
 		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}
@@ -91,11 +91,11 @@ enyo.kind({
 	//* Update _this.$.contentWrapper_ to have the height/width of _this_
 	updateWrapperSize: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		this.$.contentWrapper.applyStyle("width", node.offsetWidth + "px");
 		this.$.contentWrapper.applyStyle("height", node.offsetHeight + "px");
 	},
@@ -272,9 +272,9 @@ enyo.kind({
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		if(inEvent.active >= inEvent.index) {
-			this.$.header.startMarquee();
+			this.$.miniHeader.startMarquee();
 		} else {
-			this.$.header.stopMarquee();
+			this.$.miniHeader.stopMarquee();
 		}
 	},
 	preTransitionComplete: function() {
@@ -287,7 +287,7 @@ enyo.kind({
 		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
-		this.$.header.stopMarquee();
+		this.$.miniHeader.stopMarquee();
 		if (inFromIndex < inToIndex && this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
 			return true;
@@ -310,18 +310,18 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "shrinkHeight":
-				this.shrinkingWidthAnimation();
-				return true;
-			case "shrinkWidth":
-				this.preTransitionComplete();
-				return true;
-			case "growWidth":
-				this.growingHeightAnimation();
-				return true;
-			case "growHeight":
-				this.postTransitionComplete();
-				return true;
+		case "shrinkHeight":
+			this.shrinkingWidthAnimation();
+			return true;
+		case "shrinkWidth":
+			this.preTransitionComplete();
+			return true;
+		case "growWidth":
+			this.growingHeightAnimation();
+			return true;
+		case "growHeight":
+			this.postTransitionComplete();
+			return true;
 		}
 	},
 	showSmallHeader: function() {

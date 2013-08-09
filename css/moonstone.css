@@ -1,11 +1,3 @@
-/* WARNING: This is a generated file for backward-compatibility.  Most      */
-/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
-/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
-/* is commented out in your debug.html, and run deploy.sh/bat using the     */
-/* '-c' flag to disable LESS compilation.  This will force the loader and   */
-/* minifier to fall back to using CSS files in place of the same-name       */
-/* LESS file.                                                               */
-
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
@@ -2285,6 +2277,15 @@
   overflow: hidden;
   position: relative;
 }
+.moon-panel-miniheader {
+  position: absolute;
+  top: 94px;
+  left: 10px;
+  height: 60px;
+  width: 160px;
+  line-height: 28px;
+  font-size: 26px;
+}
 body .enyo-fit.panels-50-percent-scrim,
 .panels-50-percent-scrim {
   left: 50%;
@@ -2370,7 +2371,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 420px;
+  width: 616px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
