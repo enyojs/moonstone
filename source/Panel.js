@@ -271,11 +271,16 @@ enyo.kind({
 		this.$.animator.play("growWidth");
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		if(inEvent.active >= inEvent.index) {
+		// run miniHeader marquee when we're collapsed
+		if(this.showingSmallHeader) {
 			this.$.miniHeader.startMarquee();
 		} else {
 			this.$.miniHeader.stopMarquee();
+			if (inEvent.active == inEvent.index) {
+				this.$.header.startMarquee();
+			}
 		}
+		return true;
 	},
 	preTransitionComplete: function() {
 		this.isBreadcrumb = true;
@@ -287,6 +292,7 @@ enyo.kind({
 		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
+		this.$.header.stopMarquee();
 		this.$.miniHeader.stopMarquee();
 		if (inFromIndex < inToIndex && this.container && !this.isBreadcrumb && options.isBreadcrumb) {
 			this.shrinkPanel();
@@ -307,6 +313,7 @@ enyo.kind({
 		} else if (inEvent.animation.name === "growHeight" && inEvent.animation.percentElapsed >= 20 && this.showingSmallHeader) {
 			this.hideSmallHeader();
 		}
+		return true;
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
