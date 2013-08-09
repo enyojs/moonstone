@@ -184,7 +184,7 @@ enyo.kind({
 	shrinkingHeightAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "shrinkHeight",
-			duration: 500,
+			duration: 1000,
 			timingFunction: "cubic-bezier(.68, .4, .6, 1.6)",
 			keyframes: {
 				0: [{
@@ -207,8 +207,8 @@ enyo.kind({
 		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		this.$.animator.newAnimation({
 			name: "shrinkWidth",
-			duration: 300,
-			timingFunction: "cubic-bezier(.68, .4, .6, 1.2)",
+			duration: 450,
+			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
 			keyframes: {
 				0: [{
 					control: this,
@@ -229,7 +229,7 @@ enyo.kind({
 	growingHeightAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "growHeight",
-			duration: 400,
+			duration: 1000,
 			timingFunction: "cubic-bezier(.6, -.8, .6, 1.2)",
 			keyframes: {
 				0: [{
@@ -251,7 +251,7 @@ enyo.kind({
 	growingWidthAnimation: function() {
 		this.$.animator.newAnimation({
 			name: "growWidth",
-			duration: 300,
+			duration: 450,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
 				0: [{
@@ -304,7 +304,7 @@ enyo.kind({
 	animationStep: function(inSender, inEvent) {
 		if (inEvent.animation.name === "shrinkHeight" && inEvent.animation.percentElapsed >= 75 && !this.showingSmallHeader) {
 			this.showSmallHeader();
-		} else if (inEvent.animation.name === "growHeight" && inEvent.animation.timeElapsed >= 20 && this.showingSmallHeader) {
+		} else if (inEvent.animation.name === "growHeight" && inEvent.animation.percentElapsed >= 20 && this.showingSmallHeader) {
 			this.hideSmallHeader();
 		}
 	},
