@@ -5,13 +5,15 @@ enyo.kind({
 	components:[
 		{kind:"enyo.Spotlight"},
 		{kind:"moon.Scroller", fit:true, components: [
+
 			{kind: "moon.Divider", content:"Picker 1: Animated"},
-			{kind:"moon.SimplePicker", name:"picker1", wrap: true, onChange:"changed", components: [
+			{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
 				{content:"San Francisco Airport Terminal Gate 1"},
 				{content:"Boston Airport Terminal Gate 2"},
 				{content:"Tokyo Airport Terminal Gate 3"}
 			]},
 			{tag:"br"},{tag:"br"},
+
 			{kind: "moon.Divider", content:"Picker 2: Non-animated"},
 			{kind:"moon.SimplePicker", name:"picker2", animate:false, onChange:"changed", components: [
 				{content:"Hotmail"},
@@ -21,23 +23,60 @@ enyo.kind({
 				{content:"Custom IMAP"}
 			]},
 			{tag:"br"},{tag:"br"},
-			{kind: "moon.Divider", content:"Picker 3: Deactivated"},
-			{kind:"moon.SimplePicker", name:"picker3", disabled: true, components: [
+
+			{kind: "moon.Divider", content:"Picker 3: Wrapping"},
+			{kind:"moon.SimplePicker", name:"picker3", animate:false, wrap:true, onChange:"changed", components: [
+				{content:"Mars"},
+				{content:"Venus"},
+				{content:"Earth"},
+				{content:"Mercury"},
+				{content:"Jupiter"},
+				{content:"Saturn"},
+				{content:"Uranus"},
+				{content:"Neptune"},
+				{content:"Pluto"}
+			]},
+			{tag:"br"},{tag:"br"},
+
+			{kind: "moon.Divider", content:"Picker 4: Disabled"},
+			{kind:"moon.SimplePicker", name:"picker4", disabled: true, components: [
 				{content:"Enyo"},
 				{content:"Sencha"}
 			]},
 			{tag:"br"},{tag:"br"},
-			{tag:"br"},
-			{kind:"moon.SimplePicker", name:"which", components: [
-				{content:"Picker 1"},
-				{content:"Picker 2"}
-			]},
-			{kind:"moon.InputDecorator", components: [
-				{kind:"moon.Input", name:"input"}
-			]},
-			{kind:"moon.Button", content:"Change", spotlight:true, ontap:"changeItem"},
-			{kind:"moon.Button", content:"Add", spotlight:true, ontap:"addItem"},
-			{kind:"moon.Button", content:"Delete", spotlight:true, ontap:"destroyItem"}
+
+			{classes:"moon-hspacing", components: [
+				{components: [
+					{kind:"moon.Divider", content:"Modify picker:"},
+					{kind:"moon.SimplePicker", name:"which", components: [
+						{content:"1"},
+						{content:"2"},
+						{content:"3"}
+					]}
+				]},
+				{components: [
+					{kind:"moon.Divider", content:"Add item:"},
+					{classes:"moon-hspacing", components: [
+						{kind:"moon.InputDecorator", components: [
+							{kind:"moon.Input", name:"addInput", placeholder:"content", classes:"moon-2h"}
+						]},
+						{kind:"moon.Button", content:"Add", small:true, ontap:"addItem"}
+					]}
+				]},
+				{components: [
+					{kind:"moon.Divider", content:"Set index:"},
+					{classes:"moon-hspacing", components: [
+						{kind:"moon.InputDecorator", components: [
+							{kind:"moon.Input", name:"changeInput", placeholder:"index", classes:"moon-1h"}
+						]},
+						{kind:"moon.Button", content:"Go", small:true, ontap:"changeItem"}
+					]}
+				]},
+				{components: [
+					{kind:"moon.Divider", content:"Delete current item:"},
+					{kind:"moon.Button", content:"Delete", small:true, ontap:"destroyItem"}
+				]}
+			]}
 		]},
 		{components: [
 			{kind: "moon.Divider", content:"Result"},
@@ -49,7 +88,7 @@ enyo.kind({
 	},
 	changeItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
-		var val = parseInt(this.$.input.getValue(),10);
+		var val = parseInt(this.$.changeInput.getValue(),10);
 		var len = picker.getClientControls().length - 1;
 		if (isNaN(val) || val < 0 || val > len) {
 			this.$.result.setContent(picker.name + " value must be an integer between 0-" + len);
@@ -59,9 +98,9 @@ enyo.kind({
 	},
 	addItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
-		picker.createComponent({content:this.$.input.getValue()}).render();
+		picker.createComponent({content:this.$.addInput.getValue()}).render();
 		picker.reflow();
-		this.$.result.setContent("'" + this.$.input.getValue() + "' is added to picker" + this.$.which.getSelectedIndex()+1);
+		this.$.result.setContent("'" + this.$.addInput.getValue() + "' is added to picker" + this.$.which.getSelectedIndex()+1);
 	},
 	destroyItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
