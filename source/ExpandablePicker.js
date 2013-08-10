@@ -79,7 +79,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract"
 		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
+		{name: "drawer", kind: "enyo.Drawer", onDrawerAnimationStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group", highlander: true},
 			{name: "helpText", classes: "moon-expandable-picker-help-text"}
 		]},

@@ -60,7 +60,7 @@ enyo.kind({
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
 			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
 		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
+		{name: "drawer", kind: "enyo.Drawer", onDrawerAnimationStep: "drawerAnimationStep", components: [
 			{name: "client", kind: "Group"}
 		]}
 	],
@@ -157,14 +157,24 @@ enyo.kind({
 		the height of the scroller changes with the drawer's expansion.
 	*/
 	drawerAnimationStep: function() {
-		// TODO: This never gets called -- looks like we aren't getting onStep events
 		this.bubble("onRequestScrollIntoView");
 	},
 	//*@protected
 	drawerAnimationEnd: function() {
-		this.log();
 		if(this.getOpen()) {
-			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+			// Reason for below code: to outmanoeuvre racing condition in two simultaneous animations
+			// Questions => Lex || Cole.
+			// BEGIN manoeuvre
+			// Prevent preventing of bubbling of onSpotlightFocus when drawer child is spotted
+			this.silence();                                                           // No events bubbled from subtree of "this" from here on
+			var oFirstSpottableChild = enyo.Spotlight.getFirstChild(this.$.drawer);   // Get first spottable drawer element (Should that not be selected?)
+			enyo.Spotlight.spot(oFirstSpottableChild);                                // Spot that item
+			this.unsilence();                                                         // Stop preventing event bubbling
+			
+			// Recover from silencing the onSpotlightFocus above
+			enyo.Spotlight.unspot(this);                                              // Remove focus from header
+			oFirstSpottableChild.bubble('onSpotlightFocus');                          // Bubble the focus event uninterrupted, yay!
+			// END manoeuvre
 		}
 		this.applyStyle("transition", null);
 	},
