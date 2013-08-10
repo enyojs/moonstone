@@ -66,9 +66,9 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, defaultSpotlightRight: 'buttonRight', name:"buttonLeft"},
+		{kind:"enyo.Button", classes:"moon-simple-picker-button left", ontap:"previous", spotlight:true, defaultSpotlightRight: 'buttonRight', name:"buttonLeft"},
 		{kind:"enyo.Panels", classes:"moon-simple-picker-client", narrowFit:false, controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true, defaultSpotlightLeft: 'buttonLeft', name:"buttonRight"}
+		{kind:"enyo.Button", classes:"moon-simple-picker-button right", ontap:"next", spotlight:true, defaultSpotlightLeft: 'buttonLeft', name:"buttonRight"}
 	],
 	create: function() {
 		this.inherited(arguments);
