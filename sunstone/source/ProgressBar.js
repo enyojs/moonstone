@@ -17,6 +17,7 @@
 	<a href="https://github.com/enyojs/moonstone/wiki/Progress-Indicators">Progress Indicators</a>
 	in the Enyo Developer Guide.
 */
+// test
 enyo.kind({
 	name: "sun.ProgressBar",
 	kind: "moon.ProgressBar",
