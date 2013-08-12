@@ -108,7 +108,13 @@ enyo.kind({
 	},
 	parseDate: function() {
 		if (this._tf) {
-			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			return this._tf.format(new ilib.Date.GregDate({
+				year: this.value.getFullYear(),
+				month: this.value.getMonth() + 1,
+				day: this.value.getDate(),
+				timezone:"UTC"
+			}));
+			
 		} else {
 			return this.getAbbrMonths()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
