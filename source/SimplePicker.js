@@ -145,6 +145,25 @@ enyo.kind({
 				index: this.selected && this.selectedIndex
 			});
 		}
+		var selectedIndex = this.getSelectedIndex();
+		if (this.$.client.controls.length == 1) {
+			this.disableArrow(0);
+			this.disableArrow(2);
+		} else if (selectedIndex === 0) {
+			this.disableArrow(0);
+		} else if (selectedIndex == this.$.client.controls.length - 1) {
+			this.disableArrow(2);
+		} else {
+			this.controls[0].setDisabled(false);
+			this.controls[2].setDisabled(false);
+			this.controls[0].setContent("<");
+			this.controls[2].setContent(">");
+		}		
+	},
+	disableArrow: function(arrowIndex) {
+		this.controls[arrowIndex].setDisabled(true);
+		this.controls[arrowIndex].removeClass("spotlight");
+		this.controls[arrowIndex].setContent("");
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -155,7 +174,7 @@ enyo.kind({
 		this.$.client.setAnimate(this.animate);
 	},
 	wrapChanged: function() {
-			this.$.client.setWrap(this.wrap);
+		this.$.client.setWrap(this.wrap);
 	},
 	selectedChanged: function(inOld) {
 		if (this.selected != this.$.client.getActive()) {
