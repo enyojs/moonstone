@@ -627,7 +627,7 @@
                             },
                             {
                                 "kind": "moon.Tooltip",
-                                "content": "I'm a tooltip."
+                                "content": "I'm a tooltip"
                             }
                         ]
                     }
