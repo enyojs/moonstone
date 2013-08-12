@@ -404,3 +404,92 @@
   margin: 0px;
   padding: 0px;
 }
+
+/* ToggleButton.css */
+.sun-toggle-button {
+  display: inline-block;
+  line-height: 100px;
+  min-width: 200px;
+  /* */
+  /* border-radius: @sun-togglebutton-border-radius; */
+  border-radius: 60px;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.4);
+  /* background: @sun-togglebutton-background @sun-togglebutton-gradient repeat-x bottom; */
+  /* background: #8bba3d url("../images/gradient-invert.png") repeat-x bottom; */
+  background: #ff3333;
+  background-size: auto 100%;
+  /* label */
+  /* color: @sun-togglebutton-text-color; */
+  color: #ffffff;
+  font-family: "Miso";
+  /* font-size: @sun-togglebutton-font-size; */
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  overflow: nowrap;
+}
+.sun-toggle-button.off {
+  /* background-color: @sun-togglebutton-off-background !important; */
+  background-color: #b1b1b1 !important;
+}
+.sun-toggle-button-knob {
+  display: inline-block;
+  line-height: 60px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  margin: 20px;
+  /* border-radius: @sun-togglebutton-border-radius; */
+  border-radius: 30px;
+  /* background: @sun-togglebutton-knob-background @sun-togglebutton-knob-gradient repeat-x; */
+  /* background: #f6f6f6 url("../images/gradient.png") repeat-x; */
+  /* background: #f6f6f6; */
+  background-size: auto 100%;
+  /* label */
+  /* color: @sun-togglebutton-text-color; */
+  font-family: "Miso";
+  /* font-size: @sun-togglebutton-font-size; */
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  overflow: nowrap;
+}
+.sun-toggle-button .sun-toggle-button-knob {
+  box-shadow: -1px 0px 4px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  color: #b1b1b1;
+  float: right;
+}
+.sun-toggle-button.off .sun-toggle-button-knob {
+  box-shadow: 1px 0px 4px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  background: #ff3333;
+  color: #ffffff;
+  float: left;
+}
+.sun-toggle-button.disabled,
+.sun-icon-button.disabled {
+  /* opacity: @sun-disabled-opacity; */
+  opacity: 0.4;
+  /* filter: alpha(opacity=@sun-disabled-opacity-ie); */
+  filter: alpha(opacity=40);
+}
+.sun-toggle-button-content {
+  min-width: 32px;
+  padding: 0 6px;
+}
+.sun-toggle-button-content.empty,
+.sun-toggle-button-knob-content.empty {
+  padding: 0;
+}
+.sun-toggle-button-content.off,
+.sun-toggle-button-knob-content.off {
+  margin-right: 30px;
+  margin-left: 0px;
+  float: right;
+}
+.sun-toggle-button-content.on,
+.sun-toggle-button-knob-content.on {
+  margin-left: 30px;
+  margin-right: 0px;
+  float: left;
+}
