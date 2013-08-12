@@ -10,5 +10,6 @@ enyo.depends(
 	"Slider.js",
 	"CardOverlayArranger.js",
 	"ToggleButton.js",
-	"InputHeader.js"
+	"InputHeader.js",
+	"TimePicker.js"
 );

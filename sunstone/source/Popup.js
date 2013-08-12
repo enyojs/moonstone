@@ -5,5 +5,10 @@
 enyo.kind({
 	name: "sun.Popup",
 	kind: "moon.Popup",
-	classes: "sun"
+	classes: "sun",
+	tap: function(inSender, inEvent) {
+		if (this.downEvent && this.downEvent.type !== "onSpotlightSelect") {
+			return this.inherited(arguments);
+		}
+	},
 });
