@@ -657,17 +657,18 @@
                     }
                 },
                 {
-                    "name": "moon.List",
+                    "name": "moon.List (Horizontal)",
                     "kind": "moon.List",
                     "description": "A horizontal list",
                     "config": {
                         "kind": "moon.List",
                         "orient": "h",
-                        "multiSelect": false,
-                        "spotlight": true,
+                        "count": 10,
                         "components": [
                             {
-                                "name": "item"
+                                "name": "item",
+                                "style": "border: solid; width:200px;",
+                                "content": "Sample"
                             }
                         ]
                     }
