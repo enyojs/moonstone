@@ -19,11 +19,11 @@ enyo.kind({
                         {kind: "moon.Item", bindFrom: "name"}
                     ]
                 }
-            ],
-            bindings: [
-                {from: ".controller.menu", to: "$.menus.controller"}
             ]
         }
+    ],
+    bindings: [
+        {from: ".controller.menu", to: "$.menus.controller"}
     ]
 });
 

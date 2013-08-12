@@ -2,82 +2,89 @@
 
 enyo.kind({
     name: "moon.sample.music.TrackDetailWideSample2",
-    kind: "moon.Panel",
-    title: "Track Name",
-    titleAbove: "03",
-    titleBelow: "",
-    layoutKind: "FittableColumnsLayout",
-    headerComponents: [
-        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
-    ],
+    kind: "moon.Panels",
+    pattern: "alwaysviewing",
+    classes: "moon-dark-gray",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
     components: [
         {
-            classes: "moon-5h",
-            components: [
-                {            
-                    name: "image",
-                    kind: "enyo.Image",
-                    style: "width: 350px; height: 350px;"
-                }
-            ]
-        },
-        {
-            kind: "enyo.Table",
-            fit: true,
+            kind: "moon.Panel",
+            title: "Track Name",
+            titleAbove: "03",
+            titleBelow: "",
+            layoutKind: "FittableColumnsLayout",
+            headerComponents: [
+                {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-next.png"}
+            ],
             components: [
                 {
+                    classes: "moon-5h",
                     components: [
-                        {
-                            components: [
-                                {
-                                    kind: "moon.Divider",
-                                    content: "Track Info"
-                                }
-                            ],
-                            attributes: {colspan: 2}
+                        {            
+                            name: "image",
+                            kind: "enyo.Image",
+                            style: "width: 350px; height: 350px;"
                         }
                     ]
                 },
                 {
+                    kind: "enyo.Table",
+                    fit: true,
                     components: [
-                        {content: "Released"},
-                        {name: "released"}
+                        {
+                            components: [
+                                {
+                                    components: [
+                                        {
+                                            kind: "moon.Divider",
+                                            content: "Track Info"
+                                        }
+                                    ],
+                                    attributes: {colspan: 2}
+                                }
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Released"},
+                                {name: "released"}
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Artist"},
+                                {name: "artist"}
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Album"},
+                                {name: "album"}
+                            ]
+                        },
+                        {
+                            components: [
+                                {content: "Genre"},
+                                {name: "genre"}
+                            ]
+                        }
                     ]
                 },
                 {
+                    classes: "moon-5h",
                     components: [
-                        {content: "Artist"},
-                        {name: "artist"}
-                    ]
-                },
-                {
-                    components: [
-                        {content: "Album"},
-                        {name: "album"}
-                    ]
-                },
-                {
-                    components: [
-                        {content: "Genre"},
-                        {name: "genre"}
+                        {kind: "moon.Divider", classes: "moon-music-detail-more", content: "More"},
+                        {kind: "Group", components: [
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Lyrics", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Artist", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Album", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Similar Track", spotlight: true},
+                            {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Related Videos", spotlight: true}
+                        ]}
                     ]
                 }
-            ]
-        },
-        {
-            classes: "moon-5h",
-            components: [
-                {kind: "moon.Divider", classes: "moon-music-detail-more", content: "More"},
-                {kind: "Group", components: [
-                    {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Lyrics", spotlight: true},
-                    {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Artist", spotlight: true},
-                    {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Album", spotlight: true},
-                    {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Similar Track", spotlight: true},
-                    {kind: "moon.SelectableItem", classes: "moon-music-item", content: "Related Videos", spotlight: true}
-                ]}
             ]
         }
     ],
@@ -106,13 +113,13 @@ enyo.ready(function() {
     new enyo.Application({
         view: {
             classes: "enyo-undelectable moon",
+            style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
                 {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackDetailWideSample2",
                     controller: ".app.controllers.trackController",
-                    classes: "enyo-fit",
-                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
+                    classes: "enyo-fit"
                 }
             ]
         },
