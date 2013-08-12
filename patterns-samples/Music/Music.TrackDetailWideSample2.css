@@ -3,7 +3,3 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-
-table tr:first-child {
-    height: 29px;
-}
