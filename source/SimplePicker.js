@@ -54,11 +54,11 @@ enyo.kind({
 	},
 	published: {
 		//* Reference to currently selected item, if any
-		selected:"",
+		selected: "",
 		//* Index of currently selected item, if any
-		selectedIndex:null,
+		selectedIndex: null,
 		//* When true, picker transitions animate left/right
-		animate:true,
+		animate: true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		//* When true, picker will wrap around from last item to first
@@ -66,9 +66,9 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:"<", ontap:"previous", spotlight:true, defaultSpotlightRight: 'buttonRight', name:"buttonLeft"},
-		{kind:"enyo.Panels", classes:"moon-simple-picker-client", narrowFit:false, controlClasses:"moon-simple-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client", onTransitionFinish:"transitionFinished"},
-		{kind:"enyo.Button", classes:"moon-simple-picker-button", content:">", ontap:"next", spotlight:true, defaultSpotlightLeft: 'buttonLeft', name:"buttonRight"}
+		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-picker-button", content: "<", ontap: "previous", spotlight: true, defaultSpotlightRight: 'buttonRight'},
+		{name: "client", kind: "enyo.Panels", arrangerKind: "CarouselArranger", classes: "moon-simple-picker-client", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button", content: ">", ontap: "next", spotlight: true, defaultSpotlightLeft: 'buttonLeft'}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -103,21 +103,32 @@ enyo.kind({
 	},
 	reflow: function() {
 		this.inherited(arguments);
+		
+		var maxHeight = 0,
+			maxWidth = 0,
+			panels,
+			panel,
+			i;
 
-		// Find max width of all children
+		// Find max width/height of all children
 		if (this.getAbsoluteShowing()) {
-			var width = 0;
-			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				if (c$[i].hasNode()) {
-					width = Math.max(width, c$[i].hasNode().scrollWidth);
+			panels = this.$.client.getPanels();
+			
+			for (i = 0; (panel = panels[i]); i++) {
+				if (panel.hasNode()) {
+					bounds = panel.getBounds();
+					maxWidth = Math.max(maxWidth, bounds.width);
+					maxHeight = Math.max(maxHeight, bounds.height);
 				}
 			}
-			this.$.client.setBounds({width:width});
-			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				c$[i].setBounds({width:width});
+			
+			this.$.client.setBounds({width: maxWidth, height: maxHeight});
+			
+			for (i = 0; (panel = panels[i]); i++) {
+				panel.setBounds({width: maxWidth, height: maxHeight});
 			}
+			
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
 
 		// Make sure selected item is in sync after Panels reflow, which may have
@@ -127,6 +138,8 @@ enyo.kind({
 			this.setSelectedIndex(this.$.client.getIndex());
 			this.fireChangedEvent();
 		}
+		
+		this.showHideNavButtons();
 	},
 	transitionFinished: function(inSender, inEvent) {
 		var fp = (this.getSelected() === this.$.client.getActive()); // false positive
@@ -138,32 +151,52 @@ enyo.kind({
 		return true;
 	},
 	fireChangedEvent: function() {
-		if (this._rendered) {
-			this.doChange({
-				selected: this.selected,
-				content: this.selected && this.selected.content,
-				index: this.selected && this.selectedIndex
-			});
+		if (!this._rendered) {
+			return;
 		}
-		var selectedIndex = this.getSelectedIndex();
-		if (this.$.client.controls.length == 1) {
-			this.disableArrow(0);
-			this.disableArrow(2);
-		} else if (selectedIndex === 0) {
-			this.disableArrow(0);
-		} else if (selectedIndex == this.$.client.controls.length - 1) {
-			this.disableArrow(2);
-		} else {
-			this.controls[0].setDisabled(false);
-			this.controls[2].setDisabled(false);
-			this.controls[0].setContent("<");
-			this.controls[2].setContent(">");
-		}		
+		
+		this.doChange({
+			selected: 	this.selected,
+			content: 	this.selected && this.selected.content,
+			index: 		this.selected && this.selectedIndex
+		});
 	},
-	disableArrow: function(arrowIndex) {
-		this.controls[arrowIndex].setDisabled(true);
-		this.controls[arrowIndex].removeClass("spotlight");
-		this.controls[arrowIndex].setContent("");
+	//* Show/hide prev/next buttons based on current index
+	showHideNavButtons: function() {
+		var index = this.getSelectedIndex(),
+			maxIndex = this.$.client.getClientControls().length - 1;
+		
+		// Always show buttons if _this.wrap_ is _true_
+		if (this.wrap) {
+			this.showNavButton(this.$.buttonLeft);
+			this.showNavButton(this.$.buttonRight);
+		// If we have one or less options, always show no buttons
+		} else if (maxIndex <= 0) {
+			this.hideNavButton(this.$.buttonLeft);
+			this.hideNavButton(this.$.buttonRight);
+		// If we are on the first option, hide the left button
+		} else if (index <= 0) {
+			this.hideNavButton(this.$.buttonLeft);
+			this.showNavButton(this.$.buttonRight);
+		// If we are on the last item, hide the right button
+		} else if (index >= maxIndex) {
+			this.showNavButton(this.$.buttonLeft);
+			this.hideNavButton(this.$.buttonRight);
+		// Otherwise show both buttons
+		} else {
+			this.showNavButton(this.$.buttonLeft);
+			this.showNavButton(this.$.buttonRight);
+		}
+	},
+	//* Hide _inControl_ and disable spotlight functionality
+	hideNavButton: function(inControl) {
+		inControl.addClass("hidden");
+		inControl.spotlight = false;
+	},
+	//* Show _inControl_ and enable spotlight functionality
+	showNavButton: function(inControl) {
+		inControl.removeClass("hidden");
+		inControl.spotlight = true;
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -176,7 +209,7 @@ enyo.kind({
 	wrapChanged: function() {
 		this.$.client.setWrap(this.wrap);
 	},
-	selectedChanged: function(inOld) {
+	selectedChanged: function() {
 		if (this.selected != this.$.client.getActive()) {
 			this.$.client.setIndex(this.selected.indexInContainer());
 			this.fireChangedEvent();
@@ -198,11 +231,13 @@ enyo.kind({
 			}
 		}
 	},
-	selectedIndexChanged: function(inOld) {
+	selectedIndexChanged: function() {
 		if ((this.selectedIndex !== null) && (this.selectedIndex != this.$.client.getIndex())) {
 			this.$.client.setIndex(this.selectedIndex);
 			this.updateMarqueeDisable();
 		}
+
+		this.showHideNavButtons();
 	},
 	updateMarqueeDisable: function() {
 		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
