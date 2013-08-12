@@ -9,5 +9,6 @@ enyo.depends(
 	"ProgressBar.js",
 	"Slider.js",
 	"CardOverlayArranger.js",
-	"ToggleButton.js"
+	"ToggleButton.js",
+	"InputHeader.js"
 );
