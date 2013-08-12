@@ -618,8 +618,18 @@
                     "kind": "moon.Tooltip",
                     "description": "A tooltip",
                     "config": {
-                        "kind": "moon.Tooltip",
-                        "content": "I'm a tooltip"
+                        "kind": "moon.TooltipDecorator",
+                        "style": "display:inline-block", 
+                        "components": [
+                            {
+                                "kind":  "moon.Button",
+                                "content": "Tooltip"
+                            },
+                            {
+                                "kind": "moon.Tooltip",
+                                "content": "I'm a tooltip."
+                            }
+                        ]
                     }
                 },
                 {
