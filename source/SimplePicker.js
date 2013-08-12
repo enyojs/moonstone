@@ -66,9 +66,9 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-picker-button", content: "<", ontap: "previous", spotlight: true, defaultSpotlightRight: 'buttonRight'},
-		{name: "client", kind: "enyo.Panels", arrangerKind: "CarouselArranger", classes: "moon-simple-picker-client", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button", content: ">", ontap: "next", spotlight: true, defaultSpotlightLeft: 'buttonLeft'}
+		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, defaultSpotlightRight: "buttonRight", ontap: "previous"},
+		{name: "client", 	  kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "next"}
 	],
 	create: function() {
 		this.inherited(arguments);
