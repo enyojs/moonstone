@@ -1,8 +1,8 @@
 enyo.kind({
-	name: "moon.pattern.MultiSelectAndFilterLarge",
+	name: "moon.sample.listactions.MultiSelectAndFilterSample",
 	fit: true,
 	kind:"FittableRows",
-	classes: "multi-select-and-filter-large-pattern moon",
+	classes: "multi-select-and-filter-pattern moon",
 	published: {
 		sortAction: null,
 		filterAction: null
@@ -71,7 +71,6 @@ enyo.kind({
 	],
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		// var item = this.results[i];
 		this.$.item.setSource("../assets/movieImage.jpg");
 		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	},

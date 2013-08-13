@@ -205,11 +205,14 @@ enyo.kind({
 			this.getActive().spotlight = 'container';
 			enyo.Spotlight.spot(this.getActive());
 			this.setTransitionReady(false);
-			this.triggerPanelPostTransitions();
 		} else {
 			this.transitionIndex = inIndex;
 			this.triggerPanelPreTransitions();
 		}
+	},
+	finishTransition: function() {
+		this.triggerPanelPostTransitions();
+		this.inherited(arguments);
 	},
 	/**
 		If any panel has a pre-transition, pushes the panel's index to
@@ -251,7 +254,6 @@ enyo.kind({
 		this.setIndex(this.transitionIndex);
 		this.waterfallDown("onPanelPreTransitionFinished");
 	},
-
 	triggerPanelPostTransitions: function() {
 		var panels = this.getPanels(),
 			options = {};

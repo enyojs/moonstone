@@ -53,7 +53,8 @@ enyo.kind({
 	defaultKind: "moon.Item",
 	handlers: {
 		onSpotlightSelect: "spotlightSelect",
-		onSpotlightDown: "spotlightDown"
+		onSpotlightDown: "spotlightDown",
+		onDrawerAnimationEnd: "drawerAnimationEnd"
 	},
 	components: [
 		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
@@ -67,6 +68,7 @@ enyo.kind({
 	isRendered: false,
 	create: function() {
 		this.inherited(arguments);
+		enyo.dom.accelerate(this, "auto");
 		this.openChanged();
 	},
 	initComponents: function() {
@@ -118,12 +120,15 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
+		this.applyStyle("transition", "none");
 		if(!this.getOpen()) {
 			this.setActive(true);
-			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+			enyo.Spotlight.unspot();
+			//enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
 			this.setActive(false);
 		}
+		//this.applyStyle("transition", null);
 		return true;
 	},
 	//* Closes drawer if drawer is currently open,
@@ -152,9 +157,17 @@ enyo.kind({
 		the height of the scroller changes with the drawer's expansion.
 	*/
 	drawerAnimationStep: function() {
+		// TODO: This never gets called -- looks like we aren't getting onStep events
 		this.bubble("onRequestScrollIntoView");
 	},
 	//*@protected
+	drawerAnimationEnd: function() {
+		this.log();
+		if(this.getOpen()) {
+			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+		}
+		this.applyStyle("transition", null);
+	},
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
 		if (inSender === this) {
 			this.$.header.startMarquee();
@@ -166,3 +179,4 @@ enyo.kind({
 		}
 	}
 });
+

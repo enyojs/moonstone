@@ -144,6 +144,7 @@ enyo.kind({
 			}
 			doneArr.push(o);
 		}
+		this.pickersAreSetUp = true;
 	},
 	parseTime: function() {
 		if (this._tf) {
@@ -218,13 +219,24 @@ enyo.kind({
 	//* When _this.open_ changes, shows or hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
-		//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
-		if (this.$.drawer.getOpen()) {
-			this.$.hour.render();
-			this.$.minute.render();
-			if (this.$.meridiem) {
-				this.$.meridiem.render();
+		var open = this.$.drawer.get("open");
+		this.$.currentValue.setShowing(!open);
+		if (this.pickersAreSetUp) {
+			//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+			if (open) {
+				this.$.hour.refreshScrollState();
+				this.$.minute.refreshScrollState();
+				if (this.$.meridiem) {
+					this.$.meridiem.refreshScrollState();
+				}
+			} else {
+				// If one of the pickers is animating when the drawer closes, it won't display properly
+				// when the drawer reopens, unless we stabilize here
+				this.$.hour.stabilize();
+				this.$.minute.stabilize();
+				if (this.$.meridiem) {
+					this.$.meridiem.stabilize();
+				}
 			}
 		}
 	},

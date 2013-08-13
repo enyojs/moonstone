@@ -27,7 +27,7 @@ enyo.kind({
                 },
                 {
                     kind: "FittableRows",
-                    classes: "moon-13h",
+                    classes: "moon-15h",
                     components: [
                         {
                             kind: "moon.RadioItemGroup",

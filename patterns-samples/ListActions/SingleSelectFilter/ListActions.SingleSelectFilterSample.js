@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.pattern.SingleSelectFilter",
+	name: "moon.sample.listactions.SingleSelectFilterSample",
 	fit: true,
 	kind:"FittableRows",
 	classes: "single-select-filter-pattern moon",
@@ -32,15 +32,8 @@ enyo.kind({
 				]}
 			]},
 			{
-				name: "gridlist",
-				kind: "moon.GridList",
-				classes:"grid-list",
-				count:20,
-				toggleSelected: true,
-				itemWidth: 150,
-				itemHeight: 200,
-				itemSpacing: 20,
-				onSetupItem: "setupItem",
+				name: "gridlist", kind: "moon.GridList", classes: "grid-list", count:20,
+				toggleSelected: true, itemWidth: 150, itemHeight: 200, itemSpacing: 20, onSetupItem: "setupItem",
 				components: [
 					{name: "item", kind: "moon.GridListImageItem"}
 				]

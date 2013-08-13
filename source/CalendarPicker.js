@@ -30,33 +30,6 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "moon.CalendarPickerWeek",
-	classes: "moon-calendar-picker-week",
-	days: [],
-	colors: [],
-	create: function() {
-		this.inherited(arguments);
-		this.setupLayout();
-	},
-	setupLayout: function() {
-		for (var i = 0; i < 7; i++) {
-			this.createComponent({kind: "moon.CalendarPickerDate"});
-		}
-	},
-	fillDate: function(days, colors) {
-		this.days = days;
-		this.colors = colors;
-
-		for (var i = 0; i < this.days.length; i++) {
-			var value = this.days[i],
-				color = this.colors[i];
-			this.controls[i].setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
-			this.controls[i].setColor(color);
-		}
-	}
-});
-
-enyo.kind({
 	name: "moon.CalendarPicker",
 	classes: "moon-calendar-picker",
 	events: {
@@ -71,14 +44,11 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "doTap",
+		ontap: "selectDate",
 		//* Handler for _onChange_ events coming from constituent controls
-		onChange: "updateCalendar"
+		onChange: "updateSimplePicker"
 	},
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is
-		//* currently selected
-		noneText: "",
 		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
@@ -97,20 +67,19 @@ enyo.kind({
 			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
-		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-		//days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-		dateArray: [],
-		colorArray: []
+		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 	},
 	components: [
 		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
-		{name: "dates", kind: "enyo.Group", classes: "moon-calendar-picker-dates"}
+		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		if (enyo.g11n) {
 			this.locale = enyo.g11n.currentLocale().getLocale();
 		}
+		this.setupSimplePicker();
+		this.setupCalendar();
 		this.initDefaults();
 	},
 	initDefaults: function() {
@@ -119,28 +88,14 @@ enyo.kind({
 			this._tf = new enyo.g11n.Fmts({locale:this.locale});
 		}
 
-		this.value = this.value || new Date();
-		this.setupSimplePicker();
-		this.$.simplePicker.setSelectedIndex(this.value.getMonth());
-		this.setupLayout();
-		this.valueChanged();
-	},
-	/**
-		Sets up days of the week from first day to last day.
-		Initially, SUN is the first day and SAT is the last day.
-	*/
-	setupDays: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.$.day.setContent(this.days[index]);
+		this.setValue(this.value || new Date());			
 	},
 	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
 	*/
 	setupSimplePicker: function() {
 		var months = this.months;
-		/*Todo: Follwing statement violates encapsulation -david.um */
-		this.$.simplePicker.$.buttonLeft.addClass("picker-button");
-		this.$.simplePicker.$.buttonRight.addClass("picker-button");
+		this.$.simplePicker.addClass("moon-simple-picker-button-bold");
 		for (var i = 0; i < 12; i++) {
 			this.$.simplePicker.createComponent(
 				{content: months[i], classes: "picker-content"}
@@ -148,15 +103,13 @@ enyo.kind({
 		}
 	},
 	/**
-		Sets up the layout for a calendar.
-		The content of the calendar is not prepared at this time.
+		Compose calendar with number of calendarDate
 	*/
-	setupLayout: function() {
-		for (var i = 0; i < this.maxWeeks; i++) {
-			var days = [];
-			this.$.dates.createComponent(
-				{kind: "moon.CalendarPickerWeek", days: days}
-			);
+	setupCalendar: function() {
+		if (!this.$.dates.controls.length) {
+			for (var i = 1; i <= this.maxWeeks * 7; i++) {
+				this.$.dates.createComponent({kind: "moon.CalendarPickerDate"});
+			}
 		}
 	},
 	/**
@@ -164,119 +117,130 @@ enyo.kind({
 		Before the first day of this month, days from the previous month will be
 		used to fill the calendar.
 	*/
-	setupPrevMonth: function() {
+	updatePrevMonth: function() {
 		var value = this.value;
 		var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 		dt.setDate(0);
 		var thisYear = dt.getFullYear(),
-			daysOfPrevMonth = dt.getDate(),
+			datesOfPrevMonth = dt.getDate(),
 			dayOfLastDate = dt.getDay(),
 			prevMonth = dt.getMonth();
-		var firstDateOfWeek = daysOfPrevMonth - dayOfLastDate;
-		if (dayOfLastDate !== 0) {
-			for (var i = firstDateOfWeek; i <= daysOfPrevMonth; i++) {
-				this.dateArray.push(new Date(thisYear, prevMonth, i));
-				this.colorArray.push(1);
+		if (dayOfLastDate !== 6) {
+			var dates = this.$.dates.getControls();
+			for (var i = 0; i <= dayOfLastDate; i++) {
+				dates[i].setValue(new Date(thisYear, prevMonth, datesOfPrevMonth - dayOfLastDate + i));
+				dates[i].setColor(1);
 			}
+			return i;
 		}
+		return 0;		
 	},
 	/**
 		Sets up the last week of this month.
 		After the last day of this month, days from the next month will be used to
 		fill the calendar.
 	*/
-	setupNextMonth: function(monthLength) {
+	updateNextMonth: function(startIndex) {
 		var value = this.value;
 		var dt = new Date(value.getFullYear(), value.getMonth(), value.getDate());
 		dt.setMonth(dt.getMonth() + 1);
-
 		var thisYear = dt.getFullYear(),
 			nextMonth = dt.getMonth();
-		var offset = this.maxWeeks * 7 - this.dateArray.length + 1;
-		for (var i = 1; i < offset; i++) {
-			this.dateArray.push(new Date(thisYear, nextMonth, i));
-			this.colorArray.push(1);
+		var dates = this.$.dates.getControls();
+		for (var i = 0; i < this.$.dates.controls.length - startIndex; i++) {
+			dates[startIndex + i].setValue(new Date(thisYear, nextMonth, i + 1));
+			dates[startIndex + i].setColor(1);
 		}
 	},
-	setupCalendar: function(ordering) {
-		//* Make empty
-		this.dateArray = [];
-		this.colorArray = [];
-
-		this.setupPrevMonth();
+	updateDates: function() {
+		var datesOfPrevMonth = this.updatePrevMonth();
 
 		var thisYear = this.value.getFullYear(),
 			thisMonth = this.value.getMonth();
 		var	monthLength = this.monthLength(thisYear, thisMonth);
-		for (var i = 1; i <= monthLength; i++) {
-			this.dateArray.push(new Date(thisYear, thisMonth, i));
-			this.colorArray.push(0);
+		var dates = this.$.dates.getControls();
+		for (var i = 0; i < monthLength; i++) {
+			dates[datesOfPrevMonth + i].setValue(new Date(thisYear, thisMonth, i + 1));
+			dates[datesOfPrevMonth + i].setColor(0);
 		}
-
-		this.setupNextMonth(monthLength);
+		this.$.dates.setActive(dates[datesOfPrevMonth - 1 + this.value.getDate()]);
+		this.updateNextMonth(datesOfPrevMonth + monthLength);
 	},
-	fillDate: function() {
-		var calendarWeeks =this.$.dates.getControls();
-		for (var i = 0; i < this.dateArray.length / 7; i++) {
-			var days = [],
-				colors = [];
-			for (var j = 0; j < 7; j++) {
-				days.push(this.dateArray[i * 7 + j]);
-				colors.push(this.colorArray[i * 7 + j]);
-			}
-			calendarWeeks[i].fillDate(days, colors);
+	setYear: function(newYear) {
+		var value = this.value,
+			newValue,
+			newMonthLength = this.monthLength(newYear, value.getMonth());
+		if(newMonthLength < value.getDate()) {
+			newValue = new Date(newYear, value.getMonth(), newMonthLength);
+		} else {
+			newValue = new Date(newYear, value.getMonth(), value.getDate());
 		}
+		this.setValue(newValue);
+	},
+	setMonth: function(newMonth) {
+		var value = this.value,
+			newValue,
+			newMonthLength = this.monthLength(value.getFullYear(), newMonth - 1);
+		if(newMonthLength < value.getDate()) {
+			newValue = new Date(value.getFullYear(), newMonth - 1, newMonthLength);
+		} else {
+			newValue = new Date(value.getFullYear(), newMonth - 1, value.getDate());
+		}
+		this.setValue(newValue);
+	},
+	setDate: function(newDate) {
+		var value = this.value,
+			newValue,
+			monthLength = this.monthLength(value.getFullYear(), value.getMonth());
+		if(monthLength < newDate) {
+			newValue = new Date(value.getFullYear(), value.getMonth(), monthLength);
+		} else {
+			newValue = new Date(value.getFullYear(), value.getMonth(), newDate);
+		}
+		this.setValue(newValue);
+	},
+	selectDate: function(inSender, inEvent) {
+		if (inEvent.originator.owner.kind == "moon.CalendarPickerDate") {
+			var newValue = inEvent.originator.owner.value;
+			this.setValue(newValue);
+		}		
+		return true;
+	},
+	/**
+		Returns number of days in a particular month/year.
+	*/
+	monthLength: function(inYear, inMonth) {
+		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	/**
 		Updates calendar when value of DatePicker changes.
 	*/
-	updateCalendar: function(inSender, inEvent) {
+	updateSimplePicker: function(inSender, inEvent) {
 		//* Avoid onChange events coming from itself
 		if (inEvent && inEvent.originator == this || inEvent.originator.kind == "Selection") {
 			return;
 		}
-		var value = this.value;
-		var year = value.getFullYear(),
+		var value = this.value,
 			month = this.$.simplePicker.getSelectedIndex();
 		//* Determine whether calender need to redraw or not
 		if (month != this.value.getMonth()) {
 			this.setValue(new Date(value.getFullYear(), month, value.getDate()));
 		} else {
-			this.value.setYear(year);
+			this.value.setYear(value.getFullYear());
 			this.value.setMonth(month);
 			this.value.setDate(value.getDate());
 		}
 		return true;
 	},
-	// Returns number of days in a particular month/year.
-	monthLength: function(inYear, inMonth) {
-		return 32 - new Date(inYear, inMonth, 32).getDate();
-	},
-	/**
-		Updates DatePicker to reflect the selected CalendarDate.
-	*/
-	doTap: function(inSender, inEvent) {
-		if (inEvent.originator.kind == "moon.CalendarPickerDate") {
-			var newValue = inEvent.originator.value,
-				oldValue = this.getValue();
-
-			if (newValue.getFullYear() > oldValue.getFullYear()) {
-				this.$.simplePicker.setSelectedIndex(0);
-			} else if (newValue.getFullYear() < oldValue.getFullYear()) {
-				this.$.simplePicker.setSelectedIndex(11);
-			} else if (newValue.getMonth() > oldValue.getMonth()) {
-				this.$.simplePicker.next();
-			} else if (newValue.getMonth() < oldValue.getMonth()) {
-				this.$.simplePicker.previous();
-			}
-		}
-		return true;
-	},
 	valueChanged: function(inOld) {
-		this.setupCalendar();
-		this.fillDate();
-		this.$.dates.render();
-	},
+		if (this.$.simplePicker.getSelectedIndex() != this.value.getMonth()) {
+			this.$.simplePicker.setSelectedIndex(this.value.getMonth());
+		}
+		this.updateDates();
+		if (this.value) {
+			this.doChange({value: this.value});
+		}
+	},	
 	localeChanged: function() {
 		this.refresh();
 	},

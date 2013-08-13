@@ -15,7 +15,8 @@ enyo.kind({
 		onSpotlightUp: "spotlightUp",
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight"
+		onSpotlightRight: "spotlightRight",
+		onRequestScrollIntoView: "_preventEventBubble"
 	},
 	published: {
 		/**
@@ -234,5 +235,9 @@ enyo.kind({
 	*/
 	spotlightRight: function(inSender, inEvent) {
 		return this.spotChecker("RIGHT");
+	},
+	//*@protected
+	_preventEventBubble: function(inSender, inEvent) {
+		return true;
 	}
 });

@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.pattern.SingleSelectDeleteAndConfirm",
+	name: "moon.sample.listactions.SingleSelectDeleteAndConfirmSample",
 	fit: true,
 	kind:"FittableRows",
 	classes: "single-select-delete-and-confirm-pattern moon",
@@ -56,7 +56,7 @@ enyo.kind({
 		}
 	},
 	deleteActivated: function(inSender, inEvent) {
-		enyo.log('delete activated');
+		this.log("delete activated");
 	}
 });
 

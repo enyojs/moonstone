@@ -1,6 +1,5 @@
 /**
-	_moon.VideoFeedback_ is a control used by
-	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>
+	_moon.VideoFeedback_ is a control used by	[moon.VideoPlayer](#moon.VideoPlayer)
 	to display feedback in response to input from video playback controls.  It may
 	also be used to display custom messages.
 */

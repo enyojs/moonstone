@@ -42,8 +42,8 @@ enyo.kind({
 				]}
 			]}
 		]},
-
-		{name: "cancel", kind: "moon.Button", classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
+		
+		{name: "cancel", kind: "moon.Button", small: true, classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
 	],
 	initialSetting: function() {
 		var idx = this.$.header.getTitleAbove()-1;

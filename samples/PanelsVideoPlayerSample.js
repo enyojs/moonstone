@@ -4,7 +4,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
-			{kind: "moon.Panel", title: "Video", components: [
+			{kind: "moon.Panel", title: "Video", classes: "moon-4h", components: [
 				{kind: "moon.Divider", content: "Select video content"},
 				{name: "vidContents", kind: "Group", style: "margin-top: 20px;", components: [
 					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
@@ -12,7 +12,7 @@ enyo.kind({
 					{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"}
 				]}
 			]},
-			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", components: [
+			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", classes: "moon-7h", components: [
 				{
 					fit: true,
 					components: [
@@ -51,7 +51,7 @@ enyo.kind({
 						}
 					]
 				},
-				{layoutKind: "FittableRowsLayout", components: [
+				{layoutKind: "FittableRowsLayout", classes: "moon-7h", components: [
 					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "next"}
 				]}
 			]},

@@ -109,7 +109,8 @@ enyo.kind({
 		this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
 	},
 	updatePlayhead: function() {
-		var totalTime = this.$.audio.getDuration();
+		var duration = this.$.audio.getDuration();
+		var totalTime = isNaN(duration) ? 0 : duration;
 		var currentTime = this.$.audio.getCurrentTime();
 		var playheadPos = (currentTime * 100) / totalTime;
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));

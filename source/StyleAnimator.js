@@ -2,6 +2,7 @@ enyo.kind({
 	name: "StyleAnimator",
 	kind: "Component",
 	events: {
+		onStep: "",
 		onComplete: ""
 	},
 	published: {
@@ -12,7 +13,7 @@ enyo.kind({
 	transitionProperty: enyo.dom.transition,
 	instructions: null,
 	stepInterval: null,
-	stepIntervalMS: 100,
+	stepIntervalMS: 50,
 	startTime: null,
 	animations: null,
 
@@ -309,14 +310,20 @@ enyo.kind({
 			}
 
 			elapsed = now - animation.startTime;
-
+			
+			// If complete, bail
 			if (elapsed > animation.duration) {
 				this.completeAnimation(animation);
+				return;
 			}
 
 			animation.timeElapsed = elapsed;
+			animation.percentElapsed = Math.round(elapsed*100/animation.duration);
 			this.applyTransitions(animation, Math.round((elapsed/animation.duration)*100));
 			playingAnimations = true;
+			
+			// Bubble step event
+			this.doStep({animation: animation});
 		}
 
 		if (!playingAnimations) {
