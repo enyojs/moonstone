@@ -82,22 +82,31 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		if (typeof ilib !== "undefined") {
-			this.locale = this.locale || ilib.getLocale();
-		}
 		this.setupSimplePicker();
-		this.setupDays(this.days);
 		this.setupCalendar();
-		this.initDefaults();
+
+		if (typeof ilib !== "undefined") {
+			this._tf = new ilib.DateFmt({
+				type: "date",	//only format the date component, not the time
+				date: "w",		//'w' is the day of the week
+				length: "short"	//it uses 2 chars to abbreviate properly
+			});	
+
+			this.localeInfo = new ilib.LocaleInfo();
+			this.setLocale(this.localeInfo.locale);
+		} else {
+			this.initDefaults();	
+		}
 	},
 	initDefaults: function() {
 		this.setValue(this.value || new Date());
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({locale:this.locale});
-			var localeInfo = new ilib.LocaleInfo(this.locale);
-			this.setFirstDayOfWeek(localeInfo.getFirstDayOfWeek());			
-		} 
+			var dayOfWeek = this.localeInfo.getFirstDayOfWeek();
+			this.setFirstDayOfWeek(dayOfWeek);
+		} else {
+			this.setupDays(this.days);
+		}
 	},
 	/**
 		Sets up days of the week from first day to last day.
@@ -277,16 +286,24 @@ enyo.kind({
 		if (this.value) {
 			this.doChange({value: this.value});
 		}
-	},	
+	},
+	/** 
+		Sometimes first day of week is channged based on locale changing.
+		In this case, destroy day label and reconsturct it.
+		Create new ilib.Date instance with time of given day, and get Gregorian 
+		date instance that represents the first date of the week.
+			
+	*/
 	firstDayOfWeekChanged: function() {
 		this.$.days.destroyClientControls();
+		
+		var d = ilib.Date.newInstance({unixtime: this.value.getTime()}); 
+		var firstDate = d.onOrBefore(this.firstDayOfWeek);
 		var days = [];
+		var firstTime = firstDate.getTime();	//get unix time
 		for(var i = 0; i < 7; i++) {
-			var index = i + this.firstDayOfWeek;
-			if(index > 6) {
-				index -= 7;
-			}
-			days.push(ilib.data.sysres["EEE" + index]);
+			var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + firstTime});
+			days.push(this._tf.format(date));
 		}
 		this.days = days;
 		this.setupDays(this.days);
