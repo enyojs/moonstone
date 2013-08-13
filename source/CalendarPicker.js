@@ -50,6 +50,10 @@ enyo.kind({
 	},
 	published: {
 		/**
+			ilib locale info instance. It gives information about the paarticular locale.
+		*/
+		ilibLocaleInfo: null,
+		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
 			new value.
@@ -92,8 +96,8 @@ enyo.kind({
 				length: "short"	//it uses 2 chars to abbreviate properly
 			});	
 
-			this.localeInfo = new ilib.LocaleInfo();
-			this.setLocale(this.localeInfo.locale);
+			this.ilibLocaleInfo = new ilib.LocaleInfo();
+			this.setLocale(this.ilibLocaleInfo.locale);
 		} else {
 			this.initDefaults();	
 		}
@@ -102,7 +106,7 @@ enyo.kind({
 		this.setValue(this.value || new Date());
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
-			var dayOfWeek = this.localeInfo.getFirstDayOfWeek();
+			var dayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
 			this.setFirstDayOfWeek(dayOfWeek);
 		} else {
 			this.setupDays(this.days);
@@ -250,9 +254,18 @@ enyo.kind({
 	},
 	/**
 		Returns number of days in a particular month/year.
+		@param inYear 
+		@param inMonth 
+		@return Number of dates in given year and month
 	*/
 	getMonthLength: function(inYear, inMonth) {
-		return 32 - new Date(inYear, inMonth, 32).getDate();
+		if (typeof ilib !== "undefined") {
+			var d = ilib.Date.newInstance({unixtime: this.value.getTime()}); 
+			var cal = ilib.Cal.newInstance({name: d.getCalendar()});
+			return cal.getMonLength(inMonth, inYear);
+		} else {
+			return 32 - new Date(inYear, inMonth, 32).getDate();	
+		}		
 	},
 	/**
 		Updates calendar when value of DatePicker changes.
