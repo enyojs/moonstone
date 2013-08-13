@@ -29,6 +29,7 @@
 enyo.kind({
 	name: "moon.VideoPlayer",
 	kind: "enyo.Control",
+	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
 	classes: "moon-video-player enyo-unselectable", 
 	published: {
@@ -38,14 +39,31 @@ enyo.kind({
 		sources: null,
 		//* Video aspect ratio, specified as _"width:height"_
 		aspectRatio: "16:9",
+		//* Control buttons is hided automatically in this time amount
 		autoCloseTimeout: 3000,
+		//* Video duration
 		duration: 0,
+		//* when false, don't show any fullscreen video control overlays (info or transport) based on up/down/ok event, and hide them if currently visible
+		autoShowOverlay: false,
+		//* when false, don't show the top infoComponents based on up event, and hide them if currently visible
+		autoShowInfo: true,
+		//* when false, don't show the bottom slider/controls based on down event, and hide them if currently visible
+		autoShowControls: true,
+		//* when true, show top infoComponents (no timeout), when false, show only based on autoShow conditions
+		showInfo: false,
+		//* When false, start with fullscreen mode, when true, start with inline mode
+		inline: false
 	},
 	handlers: {
-		onRequestTimeChange: "timeChange",
-		onSpotlightKeyUp: "showFSControls",
-		onRequestToggleFullscreen: "toggleFullscreen",
-		onresize: "resizeHandler"
+		onRequestTimeChange: 'timeChange',
+		onRequestToggleFullscreen: 'toggleFullscreen',
+		onSpotlightFocused: 'spotlightFocused',
+		onSpotlightUp: 'spotlightUpHandler',
+		onSpotlightDown: 'spotlightDownHandler',
+		onSpotlightLeft: 'spotlightLeftHandler',
+		onSpotlightRight: 'spotlightRightHandler',
+		onSpotlightSelect: 'spotlightSelectHandler', 
+		onresize: 'resizeHandler'
 	},
     bindings: [],
 	
@@ -61,14 +79,14 @@ enyo.kind({
 			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
 		},
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "closeControls", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", components: [
 		
-			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, classes: "moon-video-player-header", components: [
+			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, showing: false, classes: "moon-video-player-header", components: [
 				{name: "videoInfo", fit: true, classes: "moon-video-player-info"},
 				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 			]},
 			
-			{name: "playerControl", classes: "moon-video-player-bottom", onSpotlightDown: "onEnterSlider", components: [
+			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
 			
 					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder"},
@@ -89,18 +107,16 @@ enyo.kind({
 					]}
 				]},
 			
-				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", onSpotlightUp: "onLeaveSlider", components: [
+				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-videoplayer-sample-slider",
 						knobClasses: "moon-videoplayer-sample-knob", barClasses: "moon-videoplayer-sample-progressbar", bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
-						onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish"
+						onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", onChanging: "resetAutoTimeout"
 					}
 				]}
-			]},
-		
-			{name:"bgScreen", kind: "moon.VideoPauseCanvas", classes: "moon-video-player-screen enyo-fit", showing: false}
+			]}
 		]},
 		//* Inline controls
-		{classes: "moon-video-inline-control", components: [
+		{name: "inlineControl", classes: "moon-video-inline-control", components: [
 			{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
 			{name: "ilPlayPause", kind: "moon.IconButton", src: "$lib/moonstone/images/icon-play.png", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 			{classes: "moon-video-inline-control-text", components: [
@@ -117,6 +133,10 @@ enyo.kind({
 		this.setupVideoBindings();
 		this.inherited(arguments);
 		this.createInfoControls();
+		this.inlineChanged();
+		this.showInfoChanged();
+		this.autoShowInfoChanged();
+		this.autoShowControlsChanged();
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
@@ -166,6 +186,85 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
+
+	autoShowOverlayChanged: function() {
+		this.autoShowInfoChanged();
+		this.autoShowControlsChanged();
+	},
+	autoShowInfoChanged: function() {
+		this.$.videoInfoHeader.setShowing((this.autoShowOverlay && this.autoShowInfo));
+	},
+	autoShowControlsChanged: function() {
+		this.$.playerControl.setShowing((this.autoShowOverlay && this.autoShowControls));;
+	},
+	showInfoChanged: function() {
+		this.$.videoInfoHeader.setShowing(this.showInfo);
+	},
+	inlineChanged: function() {
+		// Force fullscreen
+		this.addRemoveClass("enyo-fullscreen enyo-fit", !this.inline);
+		// show hide controls visibility
+		this.$.inlineControl.setShowing(this.inline);
+		this.$.fullscreenControl.setShowing(!this.inline);
+		// show hide full screen button on fullscreen control
+		this.$.leftPremiumPlaceHolder.setShowing(this.inline);
+	},
+	spotlightUpHandler: function(inSender, inEvent) {
+		if (this.isFullscreen() || !this.getInline()) {
+			this.resetAutoTimeout();
+			if (inEvent.originator !== this.$.slider) {
+				this.showFSInfo();
+			}
+		}
+	},
+	spotlightDownHandler: function(inSender, inEvent) {
+		if (this.isFullscreen() || !this.getInline()) {
+			this.resetAutoTimeout();
+			this.log(inEvent.originator.id)
+			if (inEvent.originator === this && !this.$.playerControl.showing) {
+				this.showFSBottomControls();
+				enyo.Spotlight.spot(enyo.Spotlight.getChildren(this)[0]);
+				return true;
+			}
+		}
+	},
+	spotlightLeftHandler: function(inSender, inEvent) {
+		if (this.isFullscreen() || !this.getInline()) {
+			this.resetAutoTimeout();
+			if (!this.$.playerControl.showing) {
+				return true;
+			}
+		}
+	},
+	spotlightRightHandler: function(inSender, inEvent) {
+		if (this.isFullscreen() || !this.getInline()) {
+			this.resetAutoTimeout();
+			if (!this.$.playerControl.showing) {
+				return true;
+			}
+		}
+	},
+	spotlightSelectHandler: function(inSender, inEvent) {
+		if (inEvent.originator !== this) { return false; }
+		if (this.isFullscreen() || !this.getInline()) {
+			if (inEvent.originator === this) {
+				this.showFSInfo();
+				this.showFSBottomControls();
+			}
+			this.resetAutoTimeout();
+			if (!this.$.playerControl.showing) {
+				return true;
+			}
+		}
+	},
+	spotlightFocused: function(inSender, inEvent) {
+		if (inEvent.originator !== this) { return false; }
+		if (enyo.Spotlight.getPointerMode()) { return false; }
+		// This is not described in UX document. But I think it should.
+		this.hideFSControls();
+		return false;
+	},
+
 	
 	///// Fullscreen controls /////
 	
@@ -173,29 +272,49 @@ enyo.kind({
 	_holdPulseThreadhold: 400,
 	_holding: false,
 	_sentHold: false,
-	//* If currently in fullscreen, hide the controls on non-button taps
-	closeControls: function(inSender, inEvent) {
-		if (inEvent.originator === this.$.fullscreenControl) {
-			this.hideFSControls();
-		}
+	//* Sets _this.visible_ to true and clears hide job.
+	showFSControls: function(inSender, inEvent) {
+		this.showFSInfo();
+		this.showFSBottomControls();
 	},
-	//* Sets _visible_ to false on _mouseleave_.
-	mousemove: function(inSender, inEvent) {
-		this.showFSControls();
+	hideFSControls: function() {
+		this.hideFSInfo();
+		this.hideFSBottomControls();
 	},
 	//* Sets _this.visible_ to true and clears hide job.
-	showFSControls: function() {
-		this.$.fullscreenControl.addClass("visible");
-		enyo.job(this.id + "hide", this.bindSafely("hideFSControls"), this.getAutoCloseTimeout());
+	showFSBottomControls: function(inSender, inEvent) {
+		if (this.autoShowOverlay && this.autoShowControls) {
+			this.$.playerControl.setShowing(true);
+			this.$.playerControl.resized();
+		}
 	},
 	//* Sets _this.visible_ to false.
-	hideFSControls: function() {
-		this.$.fullscreenControl.removeClass("visible");
-		this.resetAutoCloseTimer();
+	hideFSBottomControls: function() {
+		this.$.playerControl.setShowing(false);
+		enyo.Spotlight.spot(this);
+		enyo.job.stop(this.id + "bottom_hide");
 	},
-	//* Clears auto-close timer.
-	resetAutoCloseTimer: function() {
-		enyo.job.stop(this.id + "hide");
+	//* Sets _this.visible_ to true and clears hide job.
+	showFSInfo: function() {
+		if (this.autoShowOverlay && this.autoShowInfo) {
+			this.$.videoInfoHeader.setShowing(true);
+		}
+	},
+	//* Sets _this.visible_ to false.
+	hideFSInfo: function() {
+		if (this.showInfo) { return true; }
+		this.$.videoInfoHeader.setShowing(false);
+		enyo.job.stop(this.id + "info_hide");
+	},
+	resetAutoTimeout: function() {
+		this.resetFSInfoTimeout();
+		this.resetFSBottomTimeout();
+	},
+	resetFSInfoTimeout: function() {
+		enyo.job(this.id + "info_hide", this.bindSafely("hideFSInfo"), this.getAutoCloseTimeout());
+	},
+	resetFSBottomTimeout: function() {
+		enyo.job(this.id + "bottom_hide", this.bindSafely("hideFSBottomControls"), this.getAutoCloseTimeout());
 	},
 	//* Toggles play/pause state based on _this.playing_.
 	playPause: function(inSender, inEvent) {
@@ -249,23 +368,14 @@ enyo.kind({
 	
 	////// Slider event handling //////
 	
-	onEnterSlider: function(inSender, inEvent) {
-		this.$.controls.hide();
-	},
-	onLeaveSlider: function(inSender, inEvent) {
-		this.$.controls.show();
-	},
-	
 	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
 		this.pause();
-		this.showBGScreen();
 		return true;
 	},
 	//* When seeking completes, play video.
 	sliderSeekFinish: function(inSender, inEvent) {
 		this.play();
-		this.hideBGScreen();
 		return true;
 	},
 	//* When seeking, set video time.
@@ -282,20 +392,6 @@ enyo.kind({
 		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.slider.setValue(percentComplete);
 	},
-	
-	
-	
-	
-	
-	////// BG Screen //////
-	
-	showBGScreen: function() {
-		this.$.bgScreen.show();
-	},
-	hideBGScreen: function() {
-		this.$.bgScreen.hide();
-	},
-	
 	
 	
 	
@@ -316,14 +412,23 @@ enyo.kind({
 	
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
+		// Fixme: Fullscreen state change stops transition animation. 
+		//      And it breaks full screen button's transition behavior.
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
 			this.requestFullscreen();
 		}
 	},
-
 	fullscreenChanged: function(inSender, inEvent) {
+		this.$.inlineControl.setShowing(!this.isFullscreen());
+		this.$.fullscreenControl.setShowing(this.isFullscreen());
+		if (this.isFullscreen()) {
+			this.showFSControls();
+			this.resetFSInfoTimeout();
+			this.resetFSBottomTimeout();
+		}
+		enyo.Spotlight.spot(enyo.Spotlight.getChildren(this)[0]);
 		this.resized();
 	},
 	//* Facades _this.$.video.play()_.
@@ -383,7 +488,6 @@ enyo.kind({
 	},
 
 	//* @protected
-	
 	//* Responds to _onRequestTimeChange_ event by setting current video time.
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
@@ -508,40 +612,3 @@ enyo.kind({
 		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, true);
 	}
 });
-
-
-enyo.kind({
-	name: "moon.VideoPauseCanvas",
-	kind: "enyo.Control",
-	tag: "canvas",
-	handlers: {
-		onTimeupdate: "timeUpdate"
-	},
-	showingChanged: function() {
-		this.inherited(arguments);
-		if (!this.showing) {
-			this.hasSnapshot = false;
-		}
-	},
-	timeUpdate: function(inSender, inEvent) {
-		if (this.showing && !this.hasSnapshot) {
-			this.updateBoundsAttributes();
-			this.takeSnapshot(inEvent.srcElement);
-		}
-	},
-	takeSnapshot: function(inNode) {
-		var node = this.hasNode(),
-			bounds = node.getBoundingClientRect(),
-			ctx = node.getContext("2d")
-		;
-		// draw video preview thumbnail
-		ctx.drawImage(inNode, 0, 0, bounds.width, bounds.height);
-		this.hasSnapshot = true;
-	},
-	updateBoundsAttributes: function() {
-		var bounds = this.getBounds();
-		this.setAttribute("width", bounds.width);
-		this.setAttribute("height", bounds.height);
-	}
-});
-
