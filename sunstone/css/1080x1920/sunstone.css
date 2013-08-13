@@ -493,3 +493,18 @@
   margin-right: 0px;
   float: left;
 }
+.sun .moon-tooltip-label {
+  background-color: #ff0000;
+}
+.sun .moon-tooltip.above.left-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/top-left.png'); 
+}
+.sun .moon-tooltip.above.right-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/top-right.png');  
+}
+.sun .moon-tooltip.below.left-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/bottom-left.png');  
+}
+.sun .moon-tooltip.below.right-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/bottom-right.png'); 
+}
