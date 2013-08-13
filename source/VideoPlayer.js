@@ -44,7 +44,7 @@ enyo.kind({
 		//* Video duration
 		duration: 0,
 		//* when false, don't show any fullscreen video control overlays (info or transport) based on up/down/ok event, and hide them if currently visible
-		autoShowOverlay: false,
+		autoShowOverlay: true,
 		//* when false, don't show the top infoComponents based on up event, and hide them if currently visible
 		autoShowInfo: true,
 		//* when false, don't show the bottom slider/controls based on down event, and hide them if currently visible
@@ -187,6 +187,7 @@ enyo.kind({
 		}
 	},
 
+
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
 		this.autoShowControlsChanged();
@@ -195,7 +196,7 @@ enyo.kind({
 		this.$.videoInfoHeader.setShowing((this.autoShowOverlay && this.autoShowInfo));
 	},
 	autoShowControlsChanged: function() {
-		this.$.playerControl.setShowing((this.autoShowOverlay && this.autoShowControls));;
+		this.$.playerControl.setShowing((this.autoShowOverlay && this.autoShowControls));
 	},
 	showInfoChanged: function() {
 		this.$.videoInfoHeader.setShowing(this.showInfo);
@@ -220,7 +221,6 @@ enyo.kind({
 	spotlightDownHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {
 			this.resetAutoTimeout();
-			this.log(inEvent.originator.id)
 			if (inEvent.originator === this && !this.$.playerControl.showing) {
 				this.showFSBottomControls();
 				enyo.Spotlight.spot(enyo.Spotlight.getChildren(this)[0]);
