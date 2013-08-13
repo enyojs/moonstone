@@ -128,7 +128,13 @@ enyo.kind({
 		},
 		{kind: "moon.ContextualPopupDecorator", style: "position: absolute; left: 0px; bottom: 0px;", components: [
 			{content: "Spotlight Modal"},
-			{kind: "moon.ContextualPopup", name: "buttonPopup", classes: "moon-6h moon-2v", modal: true, autoDismiss: false, spotlightModal: true,
+			{
+				kind: "moon.ContextualPopup",
+				name: "buttonPopup",
+				classes: "moon-6h moon-2v",
+				modal: true,
+				autoDismiss: false,
+				spotlightModal: true,
 				components: [
 					{kind: "Scroller", horizontal: "auto", touch: true, thumb: false, classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button"},

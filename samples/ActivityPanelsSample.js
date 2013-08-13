@@ -77,5 +77,5 @@ enyo.kind({
 	next5: function(inSender, inEvent) {
 		this.$.panels.setIndex(5);
 		return true;
-	},
+	}
 });
