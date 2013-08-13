@@ -21,7 +21,9 @@ enyo.kind({
 		//* (defaults to left if _enyo-ilib_ is not loaded).
 		spotlightPosition: "locale-default",
 		//* The behavior of the spotlight
-		spotlightOverlay: false
+		spotlightOverlay: false,
+		//* When true, create marquee text
+		marquee: true
 	},
 	//* @protected
 	overlayComponents: [
@@ -33,7 +35,7 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
-		if (!this.getComponents().length) {
+		if (this.marquee) {
 			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
 		}
 		this.spotlightConfig();
