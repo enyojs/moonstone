@@ -199,7 +199,7 @@ enyo.kind({
 
 		var thisYear = this.value.getFullYear(),
 			thisMonth = this.value.getMonth();
-		var	monthLength = this.monthLength(thisYear, thisMonth);
+		var	monthLength = this.getMonthLength(thisYear, thisMonth);
 		var dates = this.$.dates.getControls();
 		for (var i = 0; i < monthLength; i++) {
 			dates[datesOfPrevMonth + i].setValue(new Date(thisYear, thisMonth, i + 1));
@@ -211,7 +211,7 @@ enyo.kind({
 	setYear: function(newYear) {
 		var value = this.value,
 			newValue,
-			newMonthLength = this.monthLength(newYear, value.getMonth());
+			newMonthLength = this.getMonthLength(newYear, value.getMonth());
 		if(newMonthLength < value.getDate()) {
 			newValue = new Date(newYear, value.getMonth(), newMonthLength);
 		} else {
@@ -222,7 +222,7 @@ enyo.kind({
 	setMonth: function(newMonth) {
 		var value = this.value,
 			newValue,
-			newMonthLength = this.monthLength(value.getFullYear(), newMonth - 1);
+			newMonthLength = this.getMonthLength(value.getFullYear(), newMonth - 1);
 		if(newMonthLength < value.getDate()) {
 			newValue = new Date(value.getFullYear(), newMonth - 1, newMonthLength);
 		} else {
@@ -233,7 +233,7 @@ enyo.kind({
 	setDate: function(newDate) {
 		var value = this.value,
 			newValue,
-			monthLength = this.monthLength(value.getFullYear(), value.getMonth());
+			monthLength = this.getMonthLength(value.getFullYear(), value.getMonth());
 		if(monthLength < newDate) {
 			newValue = new Date(value.getFullYear(), value.getMonth(), monthLength);
 		} else {
@@ -251,7 +251,7 @@ enyo.kind({
 	/**
 		Returns number of days in a particular month/year.
 	*/
-	monthLength: function(inYear, inMonth) {
+	getMonthLength: function(inYear, inMonth) {
 		return 32 - new Date(inYear, inMonth, 32).getDate();
 	},
 	/**
