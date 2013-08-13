@@ -493,3 +493,68 @@
   margin-right: 0px;
   float: left;
 }
+.sun .moon-tooltip {
+  z-index: 20;
+  left: 0px;
+  background-repeat: no-repeat;
+  height: 68px;
+}
+.sun .moon-tooltip-label {
+  font-family: "Miso";
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: normal;
+  height: 59px;
+  line-height: 1.97em;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: #fff;
+  text-align: center;
+  padding: 0px 24px;
+  background-color: #ff0000;
+  border-radius: 30px;
+}
+.sun .moon-tooltip.below {
+  top: 100%;
+}
+.sun .moon-tooltip.below > .sun .moon-tooltip-label {
+  margin: 9px 0px 0px;
+}
+.sun .moon-tooltip.above > .sun .moon-tooltip-label {
+  margin: 0px 0px 9px;
+}
+.sun .moon-tooltip.above.left-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/top-left.png');
+  background-position: left bottom;
+  left: 35%;
+}
+.sun .moon-tooltip.above.right-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/top-right.png');
+  background-position: right bottom;
+  right: 50%;
+}
+.sun .moon-tooltip.above.center-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/top-center.png');
+  background-position: center bottom;
+  left: 35%;
+}
+.sun .moon-tooltip.below.left-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/bottom-left.png');
+  background-position: left top;
+  left: 35%;
+}
+.sun .moon-tooltip.below.right-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/bottom-right.png');
+  background-position: right top;
+  right: 50%;
+}
+.sun .moon-tooltip.below.center-arrow {
+  background-image: url('../../images/1080x1920/tooltip-nubs/bottom-center.png');
+  background-position: center top;
+  left: 35%;
+}
+.sun .moon-tooltip .sun .moon-tooltip-label.right-arrow {
+  position: absolute;
+  right: 0px;
+}
