@@ -1,17 +1,23 @@
 /* Button */
+
 .sun .moon-button.active,
 .sun .moon-button.pressed,
 .sun .moon-button.spotlight.pressed,
 .sun .moon-button.spotlight:active,
-.sun .moon-button.small.spotlight.pressed
-{
-	border: @sun-button-border-width solid @sun-spotlight-border-color;
-}
-
+.sun .moon-button.small.spotlight.pressed,
 .sun .moon-button:active:hover:not([disabled]) {
-	border: @sun-button-border-width solid @sun-spotlight-border-color;
+  color: @sun-button-background-color;
+  background: @sun-spotlight-border-color;
+  border: @sun-button-border-width solid @sun-spotlight-border-color;
 }
-
 .sun .moon-button.spotlight {
-	background: @sun-spotlight-border-color;
+  color: @sun-light-gray;
+  background: @sun-button-background-color;
+  border: @sun-button-border-width solid @sun-spotlight-border-color; 
+}
+.sun .moon-button.moon-dark-gray:active:hover:not([disabled]) * {
+  color: @sun-button-background-color;
+}
+.sun .moon-button.moon-dark-gray.spotlight {
+  background: @sun-dark-gray; 
 }
