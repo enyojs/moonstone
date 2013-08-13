@@ -17,6 +17,16 @@ enyo.kind({
 		value: null,
 		color: 0
 	},
+	create: function() {
+		this.inherited(arguments);
+		if (typeof ilib !== "undefined") {
+			this._tf = new ilib.DateFmt({
+				type: "date",	//only format the date component, not the time
+				date: "d",		//'d' is the date of month
+				length: "short"	//it uses 2 chars to abbreviate properly
+			});	
+		}
+	},
 	colorChanged: function(inOld) {
 		if (this.color) {
 			this.addClass("moon-calendar-picker-date-shadow");
@@ -25,7 +35,12 @@ enyo.kind({
 		}
 	},
 	valueChanged: function() {
-		this.setContent(this.value.getDate());
+		if (typeof ilib !== "undefined") {
+			var date = ilib.Date.newInstance({unixtime: (this.value.getDate() - 1) * (24*60*60*1000)});
+			this.setContent(this._tf.format(date));
+		} else {
+			this.setContent(this.value.getDate());
+		}
 	}
 });
 
