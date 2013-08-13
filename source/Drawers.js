@@ -84,6 +84,9 @@ enyo.kind({
 		this.$.drawers.applyStyle('left', -client.left+'px');
 		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
 		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
+
+		//Fix for GF-12211 
+		this.$.client.applyStyle('top', -client.top +'px');
 	},	
 	setupHandles: function() {
 		var handles = [];
