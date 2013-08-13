@@ -303,6 +303,9 @@ enyo.kind({
 		return true;
 	},
 	localeChanged: function() {
+		if (typeof ilib !== "undefined") {
+			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale);
+		}
 		this.refresh();
 		this.doChange({value: this.value});
 	},
