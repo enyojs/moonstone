@@ -1,0 +1,17 @@
+/* Button */
+.mobile.moon-button.active,
+.mobile.moon-button.pressed,
+.mobile.moon-button.spotlight.pressed,
+.mobile.moon-button.spotlight:active,
+.mobile.moon-button.small.spotlight.pressed
+{
+	border: @mobile-button-border-width solid @mobile-spotlight-border-color;
+}
+
+.mobile.moon-button:active:hover:not([disabled]) {
+	border: @mobile-button-border-width solid @mobile-spotlight-border-color;
+}
+
+.mobile.moon-button.spotlight {
+	background: @mobile-spotlight-border-color;
+}
