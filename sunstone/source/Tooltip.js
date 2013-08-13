@@ -20,7 +20,7 @@ enyo.kind({
 			var v = "", h = "";
 
 			// vertical
-			if(this.position.vertical != undefined){
+			if(this.position.vertical != undefined) {
 				v = this.position.vertical;				
 			}
 			else {
@@ -45,7 +45,7 @@ enyo.kind({
 			}			
 
 			// horizontal
-			if(this.position.horizontal != undefined){
+			if(this.position.horizontal != undefined) {
 				h = this.position.horizontal;
 			}
 			else {
