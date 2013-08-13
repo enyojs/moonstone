@@ -508,3 +508,11 @@
 .sun .moon-tooltip.below.right-arrow {
   background-image: url('../../images/1080x1920/tooltip-nubs/bottom-right.png'); 
 }
+/* Spinner.css */
+.sun .moon-spinner,
+.moon-spinner.moon-dark {
+  background: url(../../images/1080x1920/spinner-dark.gif) no-repeat 0 0;
+}
+.sun .moon-spinner.moon-light {
+  background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
+}
