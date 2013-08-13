@@ -323,15 +323,25 @@
 .sun .moon-button.pressed,
 .sun .moon-button.spotlight.pressed,
 .sun .moon-button.spotlight:active,
-.sun .moon-button.small.spotlight.pressed {
-  border: 5px solid #ff0000;
-}
+.sun .moon-button.small.spotlight.pressed,
 .sun .moon-button:active:hover:not([disabled]) {
-  border: 5px solid #ff0000;
+  color: #ffffff;
+  background: #ff2f7d;
+  border: 5px solid #ff2f7d;
 }
-.sun .moon-button.spotlight {
-  background: #ff0000;
+.sun .moon-button.spotlight {  
+  color: #4b4b4b;
+  background: #ffffff;
+  border: 5px solid #ff2f7d;  
 }
+.sun .moon-button.moon-dark-gray:active:hover:not([disabled]) * {
+  color: #ffffff;
+}
+.sun .moon-button.moon-dark-gray.spotlight {
+  background: #404040; 
+}
+
+
 /* Checkbox.css */
 .sun .moon-checkbox {
   cursor: pointer;

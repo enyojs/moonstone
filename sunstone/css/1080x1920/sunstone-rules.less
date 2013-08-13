@@ -156,3 +156,12 @@
 @import "ToggleButton.less";
 @import "Tooltip.less";
 @import "Spinner.less";
+
+/* Put this at the end because we want these to take precedence over others */
+.sun .moon-dark-gray {
+	background-color: @sun-dark-gray;
+	color: @sun-light-gray;
+}
+.sun .moon-dark-gray * {
+	color: #bababa;	
+}
