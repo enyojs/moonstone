@@ -93,7 +93,7 @@ enyo.kind({
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
-		{name: "monthPicker", kind: "moon.SimplePicker", onChange: "updateMonthPicker"},
+		{name: "monthPicker", kind: "moon.SimplePicker", onChange: "selectMonthPicker"},
 		{name: "days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
@@ -168,10 +168,7 @@ enyo.kind({
 			return this.months[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
 	},
-	updateMonthPicker: function(inSender, inEvent) {
-		var month = this.$.monthPicker.getSelectedIndex();
-		this.value.setMonth(month);
-	},
+
 	/**
 		Sets up the first week of this month.
 		Before the first day of this month, days from the previous month will be
@@ -262,12 +259,22 @@ enyo.kind({
 		}
 		this.setValue(newValue);
 	},	
+	/**
+		Select a control in calendar with tapping a date button in calendar
+	*/
 	selectDate: function(inSender, inEvent) {
 		if (inEvent.originator.owner.kind == "moon.CalendarPickerDate") {
 			var newValue = inEvent.originator.owner.value;
 			this.setValue(newValue);
 		}		
 		return true;
+	},
+	/**
+		Select a control in monthPicker using left and right arrow button
+	*/
+	selectMonthPicker: function(inSender, inEvent) {
+		var month = this.$.monthPicker.getSelectedIndex();
+		this.value.setMonth(month);
 	},
 	/**
 		Returns number of days in a particular month/year.
