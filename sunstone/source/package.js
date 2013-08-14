@@ -14,5 +14,6 @@ enyo.depends(
 	"TimePicker.js",
 	"TooltipDecorator.js",
 	"Tooltip.js",
-	"Spinner.js"
+	"Spinner.js",
+	"Scroller.js"
 );
