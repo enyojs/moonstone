@@ -513,10 +513,16 @@
                     "description": "A grid list",
                     "config": {
                         "kind": "moon.GridList",
+                        "itemWidth": 100,
+                        "itemHeight": 100,
+                        "itemSpacing": 50,
+                        "count": 15,
                         "components": [
                             {
-                                "name": "item",
-                                "kind": "moon.GridListImageItem"
+                                "kind": "moon.GridListImageItem",
+                                "source": "$lib/moonstone/images/enyo-icon.png",
+                                "caption": "Sample",
+                                "subCaption": "item"
                             }
                         ]
                     }
@@ -618,8 +624,18 @@
                     "kind": "moon.Tooltip",
                     "description": "A tooltip",
                     "config": {
-                        "kind": "moon.Tooltip",
-                        "content": "I'm a tooltip"
+                        "kind": "moon.TooltipDecorator",
+                        "style": "display:inline-block", 
+                        "components": [
+                            {
+                                "kind":  "moon.Button",
+                                "content": "Tooltip"
+                            },
+                            {
+                                "kind": "moon.Tooltip",
+                                "content": "I'm a tooltip"
+                            }
+                        ]
                     }
                 },
                 {
@@ -647,17 +663,18 @@
                     }
                 },
                 {
-                    "name": "moon.List",
+                    "name": "moon.List (Horizontal)",
                     "kind": "moon.List",
                     "description": "A horizontal list",
                     "config": {
                         "kind": "moon.List",
                         "orient": "h",
-                        "multiSelect": false,
-                        "spotlight": true,
+                        "count": 10,
                         "components": [
                             {
-                                "name": "item"
+                                "name": "item",
+                                "style": "border: solid; width:200px;",
+                                "content": "Sample"
                             }
                         ]
                     }

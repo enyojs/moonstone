@@ -432,21 +432,26 @@
   box-sizing: border-box;
 }
 .moon-simple-picker-button {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 20px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 25px;
   border: 0px;
   background: inherit;
   color: #4b4b4b;
-  padding: 4px 0 0 0;
+  padding: 0;
   margin: 0;
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
+  background: transparent url(../images/caret-black-large-up-icon.png) no-repeat center center;
+}
+.moon-simple-picker-button.hidden {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 .moon-simple-picker-button.spotlight {
-  background: #ffb80d;
+  background-color: #ffb80d;
 }
 .moon-simple-picker-button-bold {
   margin: 2px 0px;
@@ -458,9 +463,8 @@
   border: 0px;
 }
 .moon-simple-picker-item {
-  font-size: 24px;
-  line-height: 40px;
-  height: 40px;
+  line-height: 50px;
+  height: 50px;
   color: #4b4b4b;
   white-space: nowrap;
   text-align: center;
@@ -474,6 +478,22 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
+.moon-simple-picker-button.left {
+  transform: rotate(270deg) translateZ(1px);
+  -o-transform: rotate(270deg) translateZ(1px);
+  -ms-transform: rotate(270deg) translateZ(1px);
+  -moz-transform: rotate(270deg) translateZ(1px);
+  -webkit-transform: rotate(270deg) translateZ(1px);
+  margin-right: 10px;
+}
+.moon-simple-picker-button.right {
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
+  margin-left: 10px;
+}
 .moon-simple-integer-picker {
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -485,8 +505,8 @@
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  height: 40px;
-  border-radius: 20px;
+  height: 50px;
+  border-radius: 25px;
 }
 .moon-simple-integer-picker > * {
   display: inline-block;
@@ -497,9 +517,9 @@
   background: #ffb80d;
 }
 .moon-simple-integer-picker-button {
-  width: 40px;
-  height: 20px;
-  border-radius: 20px;
+  width: 50px;
+  height: 25px;
+  border-radius: 25px;
   border: 0px;
   background: inherit;
   padding: 0px;
@@ -536,51 +556,51 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: 40px;
+  height: 50px;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
-  width: 20px;
+  width: 25px;
   height: 100%;
-  border-width: 20px;
-  border-radius: 20px;
-  border-left-width: 20px;
+  border-width: 25px;
+  border-radius: 25px;
+  border-left-width: 25px;
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
-  width: 20px;
+  width: 25px;
   height: 100%;
-  border-width: 20px;
-  border-radius: 20px;
-  border-left-width: 20px;
+  border-width: 25px;
+  border-radius: 25px;
+  border-left-width: 25px;
   border-left-style: solid;
   border-left-color: #ffb80d;
   left: 6px;
 }
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: 40px;
+  height: 50px;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
-  width: 20px;
+  width: 25px;
   height: 100%;
-  border-width: 20px;
-  border-radius: 20px;
-  border-right-width: 20px;
+  border-width: 25px;
+  border-radius: 25px;
+  border-right-width: 25px;
   border-right-style: solid;
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
-  width: 20px;
+  width: 25px;
   height: 100%;
-  border-width: 20px;
-  border-radius: 20px;
-  border-right-width: 20px;
+  border-width: 25px;
+  border-radius: 25px;
+  border-right-width: 25px;
   border-right-style: solid;
   border-right-color: #ffb80d;
   right: 6px;
@@ -1818,19 +1838,19 @@
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
   position: relative;
-  height: 56px;
-  width: 56px;
-  border-radius: 28px;
-  margin: -30px -29px;
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  margin: -30px;
   background-color: #69cdff;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
 .moon-slider-knob:active:hover {
-  height: 84px;
-  width: 84px;
-  border-radius: 42px;
-  margin: -42px -44px;
+  height: 86px;
+  width: 86px;
+  border-radius: 43px;
+  margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #ffb80d;
@@ -1842,6 +1862,9 @@
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+.moon-progress-bar.moon-slider {
+  margin: 60px 45px;
 }
 .moon-slider-popup {
   position: absolute;
@@ -1861,7 +1884,7 @@
   letter-spacing: normal;
   position: absolute;
   top: 2px;
-  width: 60px;
+  width: 86px;
   height: 45px;
   white-space: nowrap;
   color: #fff;
@@ -2394,7 +2417,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker-date {
   width: 60px;
   min-width: 60px;
-  line-height: 40px;
+  line-height: 50px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -3526,7 +3549,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-hspacing > * {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   margin: 0 5px;
 }
 .moon-hspacing > :first-child {
