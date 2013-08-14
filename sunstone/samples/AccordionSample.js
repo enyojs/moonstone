@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: 'moon.Scroller', classes: "enyo-fill moon-10h", components: [		
+		{kind: "moon.Scroller", classes: "enyo-fill moon-10h", components: [		
 			{kind: "moon.Divider", content: "Not In Group"},
 			{components: [
 				{kind: "sun.Accordion", content: "This is an accordion", components: [
@@ -18,7 +18,7 @@ enyo.kind({
 					{kind: "sun.CheckboxItem", content: "Looooooooooooooooooooooooooooooooooooong Item One"},
 					{kind: "sun.CheckboxItem", content: "Loooooooooooooooooooooooooooooong Item Two"}
 				]}
-			]},
+			]}/*,
 			{kind: "moon.Divider", content: "In Group"},
 			{kind:"Group", highlander:true, components: [
 				{kind: "sun.Accordion", content: "This is a grouped accordion", components: [
@@ -37,7 +37,7 @@ enyo.kind({
 					{content: "Looooooooooooooooooooooooooooooooooooong Item Three"},
 					{content: "Loooooooooooooooooooooooooooooong Item Four"}
 				]}
-			]},
+			]},*/
 		]}
 	]
 });
