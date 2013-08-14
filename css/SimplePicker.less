@@ -16,12 +16,16 @@
 	border: 0px;
 	background: inherit;
 	color: @moon-dark-gray;
-	padding: 4px 0 0 0;
+	padding: 0;
 	margin: 0;
 	text-align: center;
 	vertical-align: middle;
 	font-family: @moon-button-font-family;
 	background: transparent @moon-caret-black-large-up-icon no-repeat center center;
+}
+.moon-simple-picker-button.hidden {
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
 
 .moon-simple-picker-button.spotlight {
