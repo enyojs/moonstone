@@ -2971,7 +2971,6 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: transparent;
 }
 .moon-video-fullscreen-control {
-  margin: 20px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -2983,8 +2982,9 @@ body .enyo-fit.panels-50-percent-scrim,
 /* --- Controls --- */
 .moon-video-player-bottom {
   position: absolute;
-  width: 100%;
-  bottom: 0px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -3061,8 +3061,9 @@ body .enyo-fit.panels-50-percent-scrim,
 /* ---- Header info styling ---- */
 .moon-video-player-header {
   position: absolute;
-  width: 100%;
-  top: 0px;
+  left: 20px;
+  right: 20px;
+  top: 20px;
   z-index: 2;
   font-family: "MuseoSans 700";
   font-size: 30px;
