@@ -1,20 +1,18 @@
 enyo.kind({
 	name: "sun.sample.ProgressSample",
-	classes: "moon enyo-unselectable enyo-fit",
+	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Progress Bars"},
-		{kind: "moon.ProgressBar", progress: 25},
-		{kind: "moon.ProgressBar", progress: 25, bgProgress: 75},
-		{kind: "moon.ProgressBar", progress: 50, barClasses: "moon-sample-green"},
-		{kind: "moon.ProgressBar", progress: 50, barClasses: "moon-sample-red"},
+		{kind: "sun.ProgressBar", progress: 25},
+		{kind: "sun.ProgressBar", progress: 25, bgProgress: 75},
 		{tag: "br"},
-		{kind: "moon.InputDecorator", style: "margin-right:10px;", components: [
-			{kind: "moon.Input", placeholder: "Value"}
+		{kind: "sun.InputDecorator", style: "margin-right:10px;", components: [
+			{kind: "sun.Input", placeholder: "Value"}
 		]},
-		{kind: "moon.Button", content:"Set", classes:"moon-sample-spaced-button", ontap: "changeValue"},
-		{kind: "moon.Button", content:"-", classes:"moon-sample-spaced-button", ontap: "decValue"},
-		{kind: "moon.Button", content:"+", classes:"moon-sample-spaced-button", ontap: "incValue"},
+		{kind: "sun.Button", content:"Set", classes:"moon-sample-spaced-button", ontap: "changeValue"},
+		{kind: "sun.Button", content:"-", classes:"moon-sample-spaced-button", ontap: "decValue"},
+		{kind: "sun.Button", content:"+", classes:"moon-sample-spaced-button", ontap: "incValue"},
 		{tag: "br"},
 		{tag: "br"},
 		{style: "width:240px;", components: [
@@ -23,7 +21,7 @@ enyo.kind({
 	],
 	changeValue: function(inSender, inEvent) {
 		for (var i in this.$) {
-			if (this.$[i].kind == "moon.ProgressBar") {
+			if (this.$[i].kind == "sun.ProgressBar") {
 				if (this.$.animateSetting.getChecked()) {
 					this.$[i].animateProgressTo(this.$.input.getValue());
 				} else {

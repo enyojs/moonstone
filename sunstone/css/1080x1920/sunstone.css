@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -43,6 +51,8 @@
 /* Colors */
 /* ---------------------------------------*/
 /* Font */
+/* ---------------------------------------*/
+/* Icon Sizes */
 /* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
@@ -405,122 +415,33 @@
 .sun .moon-checkbox .moon-overlay.off {
   opacity: 0;
 }
-.sun .moon-expandable-input {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  cursor: pointer;
-}
-.sun .moon-expandable-input .moon-input-decorator {
-  width: 100%;
-  box-sizing: border-box;
-}
-.sun .moon-expandable-input .moon-input {
-  width: 100%;
-}
-.sun .moon-expandable-input.spotlight {
-  padding: 0px 0px 0px 4px;
-  border-left: 16px solid #ffb80d;
-}
-.sun .moon-item.moon-expandable-input-header {
-  line-height: 28px;
-  padding: 0px;
-  margin: 0px 0px 10px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-}
-.sun .moon-expandable-input.open .moon-expandable-input-header {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  padding: 0px;
-  border-bottom: 1px solid #aaa;
-}
-.sun .moon-expandable-input-current-value {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  color: #4B4B4B;
-  margin: 0px;
-  padding: 0px;
-}
 /* IconButton.css */
+.sun .moon-icon-button {
+  width: 122px;
+  height: 122px;
+  border-radius: 66px;
+  border: 5px solid transparent;
+}
 .sun .moon-icon.moon-icon-button.active,
 .sun .moon-icon.moon-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.spotlight:active {
-  border: 4px solid #ff0000;
+  background-position: 0px -122px;
+  color: #ffffff;
+  background-color: #ff2f7d;
+  border: 5px solid #ff2f7d;
 }
 .sun .moon-icon-button.spotlight {
-  background-color: #ff000;
-}
-/* Input.css */
-.sun .moon-input {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: transparent;
-  box-shadow: none;
   color: #4b4b4b;
-}
-.sun .moon-input-decorator.moon-focused .moon-input {
-  cursor: text;
-}
-.sun .moon-input-decorator.moon-disabled .moon-input {
-  cursor: default;
-}
-.sun .moon-input-decorator > input::-webkit-input-placeholder {
-  color: #7d7d7d;
-}
-.sun .moon-input-decorator > input:-moz-placeholder {
-  color: #7d7d7d;
-}
-/* IE10 */
-.sun .moon-input-decorator > input:-ms-input-placeholder {
-  color: #7d7d7d;
+  background: #ffffff;
+  border: 5px solid #ff2f7d;
 }
 /* InputDecorator.css */
-.sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  margin: 0px;
-  padding: 14px 30px 14px 30px;
-  border-radius: 34px;
-  -moz-border-radius: 34px;
-  border: 5px solid transparent;
-  background-color: white;
-  -webkit-background-clip: padding;
-  /* Safari */
-
-  background-clip: padding-box;
-  /* Firefox 4+, Chrome, IE 9+ */
-
-}
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
-  border: 5px solid #ffb80d;
-}
-.sun .moon-input-decorator.moon-disabled {
-  opacity: 0.4;
+  border: 5px solid #ff2f7d;
 }
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
-  border: 5px solid #a2a2a2;
+  border: 5px solid #ff2f7d;
 }
 /* Popup.css */
 .sun .moon-popup {
@@ -557,21 +478,8 @@
   color: #4b4b4b;
 }
 /* ProgressBar.css */
-.sun .moon-progress-bar {
-  position: relative;
-  margin: 50px 20px;
-  height: 4px;
-  background-color: #323232;
-  min-width: 128px;
-}
-.sun .moon-progress-bg-bar {
-  height: 100%;
-  background-color: #7d7d7d;
-}
 .sun .moon-progress-bar-bar {
-  height: 100%;
-  background-color: #69cdff;
-  margin-top: -4px;
+  background-color: #ff2f7d;
 }
 .sun .moon-slider-taparea {
   position: absolute;
@@ -859,6 +767,10 @@
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
+}
+.sun .enyo-thumb {
+  background: #ff2f7d;
+  border: #ff2f7d;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {

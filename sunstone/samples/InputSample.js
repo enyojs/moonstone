@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "sun.sample.InputSample",
 	kind:"FittableRows",
-	classes: "moon enyo-unselectable enyo-fit moon-input-sample",
+	classes: "sun moon enyo-unselectable enyo-fit moon-input-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Inputs"},
