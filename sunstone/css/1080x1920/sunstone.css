@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -501,14 +509,14 @@
   border: 5px solid #a2a2a2;
 }
 /* Popup.css */
-.sun .moon-popup {
+.sun.moon-popup {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 40px;
+  padding: 27px 20px;
   box-sizing: border-box;
 }
-.sun .moon-popup-close {
+.sun.moon-popup-close {
   border-radius: 9999px;
   line-height: 24px;
   background-color: #ededed;
@@ -523,16 +531,38 @@
   right: 0px;
   top: 0px;
 }
-.sun .moon-popup-close.spotlight {
+.sun.moon-popup-close.spotlight {
   background: #ffb80d;
 }
-.sun .moon-popup-close::after {
+.sun.moon-popup-close::after {
   content: "\2716";
   font-size: 25px;
   position: relative;
   top: 1px;
   left: 0px;
   color: #4b4b4b;
+}
+.sun .sun-popupheader {
+  height: 169px;
+  padding: 0px 35px;
+  margin: 0px 0px 20px 0px;
+  border-bottom: 6px solid #a2a2a2;
+}
+.sun .sun-popupheader-title {
+  font-size: 127px;
+  line-height: 127px;
+}
+.sun .sun-popupheader-client {
+  position: absolute;
+  top: 27px;
+  right: 44px;
+}
+.sun .sun-popupheader-client .moon-icon-button {
+  margin-left: 20px;
+}
+.sun .sun-popupfooter {
+  margin: 20px 0px 0px 0px;
+  height: 103px;
 }
 /* ProgressBar.css */
 .sun .moon-progress-bar {
