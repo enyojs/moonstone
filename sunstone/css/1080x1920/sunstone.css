@@ -439,66 +439,12 @@
   background: #ffffff;
   border: 5px solid #ff2f7d;
 }
-/* Input.css */
-.sun .moon-input {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: transparent;
-  box-shadow: none;
-  color: #4b4b4b;
-}
-.sun .moon-input-decorator.moon-focused .moon-input {
-  cursor: text;
-}
-.sun .moon-input-decorator.moon-disabled .moon-input {
-  cursor: default;
-}
-.sun .moon-input-decorator > input::-webkit-input-placeholder {
-  color: #7d7d7d;
-}
-.sun .moon-input-decorator > input:-moz-placeholder {
-  color: #7d7d7d;
-}
-/* IE10 */
-.sun .moon-input-decorator > input:-ms-input-placeholder {
-  color: #7d7d7d;
-}
 /* InputDecorator.css */
-.sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  margin: 0px;
-  padding: 14px 30px 14px 30px;
-  border-radius: 34px;
-  -moz-border-radius: 34px;
-  border: 5px solid transparent;
-  background-color: white;
-  -webkit-background-clip: padding;
-  /* Safari */
-
-  background-clip: padding-box;
-  /* Firefox 4+, Chrome, IE 9+ */
-
-}
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
-  border: 5px solid #ffb80d;
-}
-.sun .moon-input-decorator.moon-disabled {
-  opacity: 0.4;
+  border: 5px solid #ff2f7d;
 }
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
-  border: 5px solid #a2a2a2;
+  border: 5px solid #ff2f7d;
 }
 /* Popup.css */
 .sun .moon-popup {

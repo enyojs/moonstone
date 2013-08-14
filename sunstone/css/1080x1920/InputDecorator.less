@@ -1,21 +1,7 @@
 /* InputDecorator.css */
-.sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
-	.moon-divider-text;
-	margin: 0px;
-	padding: 14px 30px 14px 30px;
-	border-radius: 34px;
-	-moz-border-radius: 34px;
-	border: @moon-input-border-width solid transparent;
-	background-color: white;
-	-webkit-background-clip: padding;  /* Safari */
-	background-clip: padding-box;      /* Firefox 4+, Chrome, IE 9+ */
-}
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
-	border: @moon-input-border-width solid @moon-spotlight-border-color;
-}
-.sun .moon-input-decorator.moon-disabled {
-	opacity: 0.4;
+	border: @moon-input-border-width solid @sun-spotlight-border-color;
 }
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
-	border: @moon-input-border-width solid @moon-active-border-color;
+	border: @moon-input-border-width solid @sun-spotlight-border-color;
 }
