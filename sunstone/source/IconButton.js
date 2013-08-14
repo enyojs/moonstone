@@ -6,6 +6,5 @@
 
 enyo.kind({
 	name: "sun.IconButton",
-	kind: "moon.IconButton",
-	classes: "sun"
+	kind: "moon.IconButton"
 });

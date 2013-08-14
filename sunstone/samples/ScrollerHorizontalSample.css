@@ -1,0 +1,48 @@
+
+.sun-scroller-sample-horizontal {
+	margin:0px;
+	display:block;
+	border:1px solid gray;
+	white-space:nowrap;
+	height: 170px;
+}
+
+.sun-scroller-sample-divider {
+	margin-bottom: 10px;
+}
+
+.sun-scroller-sample-horizontal .sun-scroller-sample-item {
+	width:120px;
+	height:120px;
+	display:inline-block;
+	white-space:normal;
+	/* border-right:1px solid gray; */
+	font-size:0px;
+	margin: 0px 1px 0px 0px;
+	padding: 0px;
+}
+
+.sun-scroller-sample-item.enyo {
+	background: white url(assets/1080x1920/enyo-icon.png) no-repeat center center;
+}
+
+.sun-scroller-sample-item.html5 {
+	background: white url(assets/1080x1920/html5-icon.png) no-repeat center center;
+}
+
+.sun-scroller-sample-item.css3 {
+	background: white url(assets/1080x1920/css3-icon.png) no-repeat center center;
+}
+
+.sun-scroller-sample-horizontal .sun-scroller-sample.spotlight {
+	border: 1px solid orange;
+}
+
+.sun-scroller-sample-horizontal .sun-button {
+	margin: 0px;
+	width: 300px;
+	border: 1px solid red;
+}
+.sun-scroller-sample-horizontal .sun-button.spotlight {
+	background: orange;
+}

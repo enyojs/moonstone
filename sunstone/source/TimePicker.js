@@ -1,3 +1,73 @@
+enyo.kind({
+	name: "sun.IntegerScrollPicker",
+	kind: "moon.IntegerScrollPicker",
+	animateToNode: function(inNode) {
+		// var sb = this.scrollBounds,
+		var sb = this.$.scroller.getStrategy()._getScrollBounds();
+			st = this.$.scroller.getStrategy(),
+			b = {
+				height: inNode.offsetHeight,
+				width: inNode.offsetWidth,
+				top: 0,
+				left: 0
+			},
+			n = inNode;
+
+		if(!st.scrollNode) {
+			return;
+		}
+
+		while (n && n.parentNode && n.id != st.scrollNode.id) {
+			b.top += n.offsetTop;
+			b.left += n.offsetLeft;
+			n = n.parentNode;
+		}
+
+		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
+		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
+
+		var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
+		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
+
+		// If x or y changed, scroll to new position
+		if (x !== this.$.scroller.getScrollLeft() || y !== this.$.scroller.getScrollTop()) {
+			this.$.scroller.scrollTo(x,y);
+		}
+	},
+})
+
+enyo.kind({
+	name: "sun.MeridiemPicker",
+	kind: "sun.IntegerScrollPicker",
+	classes:"moon-date-picker-month",
+	min: 0,
+	max: 1,
+	value: null,
+	published: {
+		meridiems: ["AM","PM"]
+	},
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		this.$.item.setContent(this.meridiems[index]);
+	}
+});
+
+enyo.kind({
+	name: "sun.HourPicker",
+	kind: "sun.IntegerScrollPicker",
+	classes:"moon-date-picker-month",
+	min: 1,
+	max: 24,
+	value: null,
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		if(index > 11) {	//current hour reached meridiem(noon)
+			index -= 12;
+		}
+		this.$.item.setContent(index + this.min);
+	}
+});
+
 /**
 	_sunTimePicker_ is an <a href="#enyo.TimePicker">enyo.TimePicker</a> that appears at the
 	bottom of the screen and takes up the full screen width.
@@ -42,8 +112,14 @@ enyo.kind({
 		*/
 		meridiemEnable: false
 	},
+	style: "padding-left: 40px;",
 	components: [
-		// {kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: 11}
+		{
+			name: "client",
+			layoutKind: "enyo.FlexLayout",
+			flexOrient: "column",
+			flexSpacing: 10
+		}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -73,19 +149,19 @@ enyo.kind({
 				switch (o){
 				case 'h': {
 						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)});
+							this.createComponent({kind:"sun.HourPicker", name:"hour", flexOrient: "column", flex: true, min:1, max:24, value: (this.value.getHours() || 24)});
 						} else {
-							this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
+							this.createComponent({kind:"sun.IntegerScrollPicker", name:"hour", flexOrient: "column", flex: true, classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
 						}
 					}
 					break;
 				case 'm': {
-						this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
+						this.createComponent({kind:"sun.IntegerScrollPicker", name:"minute", flexOrient: "column", flex: true, classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
 					}
 					break;
 				case 'a': {
 						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
+							this.createComponent({kind:"sun.MeridiemPicker", name:"meridiem", flexOrient: "column", flex: true, classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
 						}
 					}
 					break;
@@ -121,7 +197,7 @@ enyo.kind({
 			var hour = this.$.hour.getValue();
 			var minute = this.$.minute.getValue();
 
-			if (inEvent.originator.kind == "moon.MeridiemPicker") {
+			if (inEvent.originator.kind == "sun.MeridiemPicker") {
 				if (hour < 12 && inEvent.originator.value == 1 ) {
 					hour += 12;
 				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
