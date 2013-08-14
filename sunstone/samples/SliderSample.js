@@ -1,7 +1,7 @@
 enyo.kind({
 	kind: "FittableRows",
 	name: "sun.sample.SliderSample",
-	classes: "moon enyo-unselectable enyo-fit",
+	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", fit: true, components: [
@@ -21,18 +21,17 @@ enyo.kind({
 			{kind: "moon.Divider", content:"Option Properties"},
 			{classes: "moon-hspacing", components: [
 				{content: "Value: "},
-				{kind: "moon.InputDecorator", components: [
-					{name: "input", kind: "moon.Input", placeholder: "Value", value: 20}
+				{kind: "sun.InputDecorator", components: [
+					{name: "input", kind: "sun.Input", placeholder: "Value", value: 20}
 				]},
-				{kind: "moon.Button", content:"Set", ontap:"changeValue"},
-				{kind: "moon.Button", content:"-", ontap:"decValue"},
-				{kind: "moon.Button", content:"+", ontap:"incValue"}
+				{kind: "sun.Button", content:"Set", ontap:"changeValue"},
+				{kind: "sun.Button", content:"-", ontap:"decValue"},
+				{kind: "sun.Button", content:"+", ontap:"incValue"}
 			]},
 
 			{components: [
 				{name: "lockBarSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Lock Bar", 		onchange: "changeLockbar"},
-				{name: "animateSetting", 		kind: "moon.ToggleItem", checked: true,		content: "Animated", 		onchange: "animateActivate"},
-				{name: "noPopupSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Hide Popup", 		onchange: "changeStatusBubble"},
+				{name: "animateSetting", 		kind: "moon.ToggleItem", checked: true,		content: "Animated", 		onchange: "animateActivate"},				
 				{name: "tapableSetting", 		kind: "moon.ToggleItem", checked: true, 	content: "Tapable", 		onchange: "changeTapable"},
 				{name: "constrainSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Constrain to BG", onchange: "changeConstrain"},
 				{name: "elasticSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Elastic Effect", 	onchange: "changeElastic"},
@@ -46,7 +45,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.changeLockbar();
 		this.animateActivate();
-		this.changeStatusBubble();
 		this.changeTapable();
 		this.changeConstrain();
 		this.changeElastic();
@@ -111,16 +109,6 @@ enyo.kind({
 		for (var i in this.$) {
 			if (this.$[i].kind == "sun.Slider") {
 				this.$[i].setAnimate(ck);
-			}
-		}
-		return true;
-	},
-	changeStatusBubble: function(inSender, inEvent) {
-		var ck = this.$.noPopupSetting.getChecked();
-
-		for (var i in this.$) {
-			if (this.$[i].kind == "sun.Slider") {
-				this.$[i].setNoPopup(ck);
 			}
 		}
 		return true;
