@@ -444,37 +444,11 @@
   border: 5px solid #ff2f7d;
 }
 /* Popup.css */
-.sun .moon-popup {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 40px;
-  box-sizing: border-box;
+.sun.moon-popup {
+  font-family: "MuseoSans 500";
+  background-color: #d9d9d9;
 }
-.sun .moon-popup-close {
-  border-radius: 9999px;
-  line-height: 24px;
-  background-color: #ededed;
-  border: 5px solid transparent;
-  float: right;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  padding: 0px 0px 0px 0px;
-  margin: 10px 10px 0px 10px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-}
-.sun .moon-popup-close.spotlight {
-  background: #ffb80d;
-}
-.sun .moon-popup-close::after {
-  content: "\2716";
-  font-size: 25px;
-  position: relative;
-  top: 1px;
-  left: 0px;
+.sun.moon-popup.moon-dark-gray * {
   color: #4b4b4b;
 }
 /* ProgressBar.css */
