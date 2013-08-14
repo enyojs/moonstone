@@ -58,7 +58,9 @@ enyo.kind({
 	],
 	headerComponents: [],
 	isBreadcrumb: false,
-	isCollapsed: false,
+	isHeaderCollapsed: false,
+	shrinking: false,
+	growing: false,
 
 	create: function() {
 		this.inherited(arguments);
@@ -87,6 +89,11 @@ enyo.kind({
 	reflow: function() {
 		this.inherited(arguments);
 		this.updateWrapperSize();
+		this.getInitAnimationValues();
+		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
+		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
+		this.growWidthAnimation = this.createGrowingWidthAnimation();
+		this.growHeightAnimation = this.createGrowingHeightAnimation();
 	},
 	//* Update _this.$.contentWrapper_ to have the height/width of _this_
 	updateWrapperSize: function() {
@@ -115,20 +122,18 @@ enyo.kind({
 		}
 	},
 	collapseHeader: function() {
-		if (!this.isCollapsed) {
+		if (!this.isHeaderCollapsed) {
 			this.$.header.collapseToSmall();
-			this.isCollapsed = true;
+			this.isHeaderCollapsed = true;
 		}
 	},
 	expandHeader: function() {
-		if (this.isCollapsed) {
+		if (this.isHeaderCollapsed) {
 			this.$.header.expandToLarge();
-			this.isCollapsed = false;
+			this.isHeaderCollapsed = false;
 		}
 	},
-
-	//* @public
-
+	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
 			var n = this.indexInContainer() + 1;
@@ -157,6 +162,7 @@ enyo.kind({
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.getSmallHeader());
 	},
+	//* Update _allowHtml_ property of header components
 	allowHtmlHeaderChanged: function() {
 		this.$.header.$.title.setAllowHtmlText(this.allowHtmlHeader);
 		this.$.header.$.titleBelow.setAllowHtmlText(this.allowHtmlHeader);
@@ -167,11 +173,14 @@ enyo.kind({
 		return this.$.header;
 	},
 	shrinkPanel: function() {
+		this.growing = false;
+		this.shrinking = true;
 		this.showingSmallHeader = false;
-		this.getInitAnimationValues();
 		this.shrinkingHeightAnimation();
 	},
 	growPanel: function() {
+		this.growing = true;
+		this.shrinking = false;
 		this.showingSmallHeader = true;
 		this.growingWidthAnimation();
 	},
@@ -182,93 +191,27 @@ enyo.kind({
 		this.initialWidth = node.offsetWidth + "px";
 	},
 	shrinkingHeightAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "shrinkHeight",
-			duration: 750,
-			timingFunction: "cubic-bezier(.68, .4, .6, 1.6)",
-			keyframes: {
-				0: [{
-					control: this,
-					properties: {
-						"height" : "current"
-					}
-				}],
-				100: [{
-					control: this,
-					properties: {
-						"height"  : "160px"
-					}
-				}]
-			}
-		});
-		this.$.animator.play("shrinkHeight");
+ 		this.haltAnimations();
+		this.$.animator.play(this.shrinkHeightAnimation.name);
 	},
 	shrinkingWidthAnimation: function() {
-		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
-		this.$.animator.newAnimation({
-			name: "shrinkWidth",
-			duration: 225,
-			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
-			keyframes: {
-				0: [{
-					control: this,
-					properties: {
-						"width" : "current"
-					}
-				}],
-				100: [{
-					control: this,
-					properties: {
-						"width" : breadcrumbWidth + "px"
-					}
-				}]
-			}
-		});
-		this.$.animator.play("shrinkWidth");
+		this.haltAnimations();
+		this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "growHeight",
-			duration: 750,
-			timingFunction: "cubic-bezier(.6, -.8, .6, 1.2)",
-			keyframes: {
-				0: [{
-					control: this,
-					properties: {
-						"height"  : "current"
-					}
-				}],
-				100: [{
-					control: this,
-					properties: {
-						"height" : this.initialHeight
-					}
-				}]
-			}
-		});
-		this.$.animator.play("growHeight");
+ 		this.haltAnimations();
+		this.$.animator.play(this.growHeightAnimation.name);
 	},
 	growingWidthAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "growWidth",
-			duration: 225,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [{
-					control: this,
-					properties: {
-						"width"  : "current"
-					}
-				}],
-				100: [{
-					control: this,
-					properties: {
-						"width" : this.initialWidth
-					}
-				}]
-			}
-		});
-		this.$.animator.play("growWidth");
+		this.haltAnimations();
+		this.$.animator.play(this.growWidthAnimation.name);
+	},
+	haltAnimations: function() {
+		this.$.animator.stop();
+		this.$.animator.pause(this.growWidthAnimation.name);
+		this.$.animator.pause(this.growHeightAnimation.name);
+		this.$.animator.pause(this.shrinkWidthAnimation.name);
+		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		// run miniHeader marquee when we're collapsed
@@ -283,10 +226,12 @@ enyo.kind({
 		return true;
 	},
 	preTransitionComplete: function() {
+		this.shrinking = false;
 		this.isBreadcrumb = true;
 		this.doPreTransitionComplete();
 	},
 	postTransitionComplete: function() {
+		this.growing = false;
 		this.isBreadcrumb = false;
 		this.doPostTransitionComplete();
 		this.resized();
@@ -294,17 +239,20 @@ enyo.kind({
 	preTransition: function(inFromIndex, inToIndex, options) {
 		this.$.header.stopMarquee();
 		this.$.miniHeader.stopMarquee();
-		if (inFromIndex < inToIndex && this.container && !this.isBreadcrumb && options.isBreadcrumb) {
+		
+		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
 			this.shrinkPanel();
 			return true;
 		}
+		
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex, options) {
-		if (inFromIndex > inToIndex && this.container && this.isBreadcrumb && !options.isBreadcrumb) {
+		if (!this.growing && !options.isBreadcrumb && (this.isBreadcrumb || this.shrinking)) {
 			this.growPanel();
 			return true;
 		}
+		
 		return false;
 	},
 	animationStep: function(inSender, inEvent) {
@@ -317,18 +265,18 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-		case "shrinkHeight":
-			this.shrinkingWidthAnimation();
-			return true;
-		case "shrinkWidth":
-			this.preTransitionComplete();
-			return true;
-		case "growWidth":
-			this.growingHeightAnimation();
-			return true;
-		case "growHeight":
-			this.postTransitionComplete();
-			return true;
+			case "shrinkHeight":
+				this.shrinkingWidthAnimation();
+				return true;
+			case "shrinkWidth":
+				this.preTransitionComplete();
+				return true;
+			case "growWidth":
+				this.growingHeightAnimation();
+				return true;
+			case "growHeight":
+				this.postTransitionComplete();
+				return true;
 		}
 	},
 	showSmallHeader: function() {
@@ -350,5 +298,91 @@ enyo.kind({
 			this.resized();
 			break;
 		}
+	},
+	createGrowingWidthAnimation: function() {
+		return this.$.animator.newAnimation({
+			name: "growWidth",
+			duration: 225,
+			timingFunction: "cubic-bezier(.25,.1,.25,1)",
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"width"  : "current"
+					}
+				}],
+				100: [{
+					control: this,
+					properties: {
+						"width" : this.initialWidth
+					}
+				}]
+			}
+		});
+	},
+	createGrowingHeightAnimation: function() {
+		return this.$.animator.newAnimation({
+			name: "growHeight",
+			duration: 400,
+			timingFunction: "cubic-bezier(.6, -.8, .6, 1.2)",
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"height"  : "current"
+					}
+				}],
+				100: [{
+					control: this,
+					properties: {
+						"height" : this.initialHeight
+					}
+				}]
+			}
+		});
+	},
+	createShrinkingWidthAnimation: function() {
+		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
+		return this.$.animator.newAnimation({
+			name: "shrinkWidth",
+			duration: 225,
+			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"width" : "current"
+					}
+				}],
+				100: [{
+					control: this,
+					properties: {
+						"width" : breadcrumbWidth + "px"
+					}
+				}]
+			}
+		});
+	},
+	createShrinkingHeightAnimation: function() {
+		return this.$.animator.newAnimation({
+			name: "shrinkHeight",
+			duration: 500,
+			timingFunction: "cubic-bezier(.68, .4, .6, 1.6)",
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"height"  : "current"
+					}
+				}],
+				100: [{
+					control: this,
+					properties: {
+						"height"  : "160px",
+						"width"   : "300px"
+					}
+				}]
+			}
+		});
 	}
 });
