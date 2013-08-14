@@ -4,18 +4,13 @@
 */
 enyo.kind({
 	name: "sun.Header",
-	kind: "moon.Header",
 	handlers: {ontap: "onComponentTap"},
 	events: {"onHeaderLeftTapped":""},
 	published: {
 		//* Title of the header
 		title: '',
-		//* Text above the header
-		titleAbove: '',
 		//* Text below the header
 		titleBelow: '',
-		//* Sub-text below the header
-		subTitleBelow: '',
 		//* If true, the moon-small-header css class will be applied to this header
 		small: false,
 		//* If true, the moon-left-header css class will be applied to this header
@@ -23,25 +18,46 @@ enyo.kind({
 	},
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-			{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"},
-			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
-			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
+			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
+			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
 		]},
-		{name: "leftIcon", kind: "moon.IconButton", src: "assets/icon-list.png", classes: "sun-left-icon", ontap: "headerLeftTapped"},
-		{name: "client", classes: "moon-header-client"},
-		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "leftIcon", kind: "sun.IconButton", src: "assets/icon-list.png", classes: "sun-left-icon", ontap: "headerLeftTapped"},
+		{name: "client", classes: "sun-header-client"},
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.smallChanged();
 		this.iconLeftChanged();
 		this.titleChanged();
-		this.titleAboveChanged();
 		this.titleBelowChanged();
-		this.subTitleBelowChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.startMarquee();
+	},
+	startMarquee: function() {
+		this.$.texts.startMarquee();
+	},
+	stopMarquee: function() {
+		this.$.texts.stopMarquee();
 	},
 	//* @protected
+	smallChanged: function() {
+		this.addRemoveClass("sun-small-header", this.getSmall());
+	},
+	//* @protected
+	contentChanged: function() {
+		this.$.title.setContent(this.title || this.content);
+	},
+	//* @protected
+	// For backward-compatibility with original API
+	titleChanged: function() {
+		this.contentChanged();
+	},
+	//* @protected
+	titleBelowChanged: function() {
+		this.$.titleBelow.setContent(this.titleBelow || '');
+	},
 	iconLeftChanged: function() {
 		this.addRemoveClass("sun-left-header", this.getIconLeft());
 		if(!this.getIconLeft())

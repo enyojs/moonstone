@@ -8,12 +8,12 @@ enyo.kind({
 		{kind: "moon.Scroller", fit:true, components: [
 			{classes:"moon-hspacing", components: [
 				{kind: "sun.Header", content: "Header", iconLeft: true, components: [
-					{kind: "moon.IconButton", src: "assets/icon-like.png"}
+					{kind: "sun.IconButton", src: "assets/icon-like.png"}
 				]},
 				{kind: "sun.Header", content: "Small Header", small: true, titleBelow: "Sub Header", components: [
-					{kind: "moon.IconButton", src: "assets/icon-like.png"},
-					{kind: "moon.IconButton", src: "assets/icon-like.png"},
-					{kind: "moon.IconButton", src: "assets/icon-like.png"},
+					{kind: "sun.IconButton", src: "assets/icon-like.png"},
+					{kind: "sun.IconButton", src: "assets/icon-like.png"},
+					{kind: "sun.IconButton", src: "assets/icon-like.png"},
 
 				]}
 			]}

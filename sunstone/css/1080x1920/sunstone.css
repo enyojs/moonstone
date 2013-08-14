@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -45,6 +53,7 @@
 /* Font */
 /* ---------------------------------------*/
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* Spotlight */
 /* ---------------------------------------*/
 /* Header */
@@ -52,6 +61,13 @@
 /* Icon Sizes */
 /* ---------------------------------------*/
 /* Spotlight */
+>>>>>>> origin/sunstone
+=======
+/* Icon Sizes */
+/* ---------------------------------------*/
+/* Spotlight */
+/* ---------------------------------------*/
+/* Header */
 >>>>>>> origin/sunstone
 /* ---------------------------------------*/
 /* Button */
@@ -330,19 +346,37 @@
 }
 /* moonstone - LESS pre-calculations */
 /* sunstone - Common classes applicable to multiple controls */
-.sun .moon-header-text {
+.sun-header-text {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 70px;
 }
-.sun .moon-sub-header-text {
+.sun-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
   font-size: 20px;
 }
-.sun .moon-header-font {
+.sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
   font-size: 70px;
 }
-.sun .moon-small-header .moon-header-font {
+.sun-small-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
   font-size: 50px;
 }
-.sun .sun-left-header .moon-header-font {
+.sun-left-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
   padding-left: 60px;
 }
 /* sunstone - LESS pre-calculations */
@@ -460,83 +494,27 @@
 .sun .moon-progress-bar-bar {
   background-color: #ff2f7d;
 }
-.sun .moon-slider-taparea {
-  position: absolute;
-  top: -14px;
-  height: 32px;
-  width: 100%;
-}
+/* Slider.css */
 .sun .moon-slider-knob,
 .sun .moon-slider-knob.disabled:active:hover {
-  position: relative;
-  height: 56px;
-  width: 56px;
-  border-radius: 28px;
-  margin: -30px -29px;
-  background-color: #69cdff;
+  height: 51px;
+  width: 51px;
+  background-color: #ffffff;
+  border: 5px solid #ffffff;
 }
 .sun .moon-slider-knob.active,
 .sun .moon-slider-knob.spotselect,
 .sun .moon-slider-knob:active:hover {
-  height: 84px;
-  width: 84px;
-  border-radius: 42px;
-  margin: -42px -44px;
-}
-.sun .moon-slider.spotlight > .moon-progress-bar-bar {
-  background-color: #ffb80d;
+  height: 79px;
+  width: 79px;
 }
 .sun .moon-slider.spotlight > .moon-slider-knob {
-  background-color: #ffb80d;
+  background-color: #ffffff;
+  border: 5px solid #ff2f7d;
 }
-.sun .moon-slider.disabled {
-  cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-}
-.sun .moon-slider-popup {
-  position: absolute;
-  display: block;
-  z-index: 20;
-  left: 100px;
-  top: 0px;
-  width: 62px;
-  height: 52px;
-  padding-left: 0px;
-}
-.sun .moon-slider-popup-label {
-  font-family: "Miso";
-  font-size: 30px;
-  font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
-  position: absolute;
-  top: 2px;
-  width: 60px;
-  height: 45px;
-  white-space: nowrap;
-  color: #fff;
-  text-align: center;
-  line-height: 1.5em;
-  vertical-align: middle;
-}
-.sun .enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "LG Display";
-}
-.sun .moon-slider-popup.above {
-  top: -90px;
-  padding-left: 10px;
-}
-.sun .moon-slider-popup-flip-h {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-}
-.sun .moon-slider-focus {
-  background-color: #ffb80d;
-}
-.sun .moon-slider-nofocus {
-  background-color: #69cdff;
+.sun .moon-slider.spotlight > .moon-slider-knob:active:hover {
+  background-color: #ff2f7d;
+  border: 5px solid #ff2f7d;
 }
 /* ToggleButton.css */
 .sun-toggle-button {
@@ -666,40 +644,86 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
-.sun .moon-header {
+.sun-header {
   height: 100px;
+  color: #4b4b4b;
   min-width: 500px;
   border-top: 0px;
   border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
-.sun .moon-header-title-above {
-  display: none;
-}
-.sun .moon-header-title {
+.sun-header-title {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 70px;
 }
-.sun .moon-header-title-below {
+.sun-header-title .moon-marquee-text {
+  line-height: 0.643em;
+  padding: 19px 0px 0px 0px;
+  margin: 0px 0px 30px 0px;
+  white-space: nowrap;
+}
+.sun-header-title-below {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
   font-size: 20px;
   min-height: 20px;
   padding: 2px 0px 10px 0px;
   margin: -30px 0px 0px 0px;
 }
-.sun .moon-header-sub-title-below {
-  display: none;
+.sun .enyo-locale-non-latin .sun-header-title-below {
+  font-family: "LG Display";
 }
-.sun .sun-left-icon {
+.sun .moon-header-item {
+  float: right;
+}
+.sun-left-icon {
   position: absolute;
   bottom: 0px;
   margin-bottom: 30px;
 }
-.sun .moon-header-client {
+.sun-header-client {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
   margin-bottom: 30px;
 }
-.sun .moon-header-client > * {
+.sun-header-client > * {
   margin-left: 10px;
 }
-.sun .moon-small-header {
+.sun-left-header {
   height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun-small-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
 .sun .moon-accordion-arrow.up {
   background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
@@ -739,8 +763,8 @@
   padding-right: 0px;
 }
 .sun .enyo-thumb {
-  background: #ff0000;
-  border: #ff0000;
+  background: #ff2f7d;
+  border: #ff2f7d;
 }
 
 /* Put this at the end because we want these to take precedence over others */

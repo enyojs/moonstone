@@ -7,5 +7,5 @@
 enyo.kind({
 	name: "sun.Slider",
 	kind: "moon.Slider",
-	classes: "sun"
+	noPopup: true
 });
