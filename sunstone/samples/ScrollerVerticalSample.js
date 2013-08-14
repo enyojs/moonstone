@@ -1,9 +1,9 @@
 enyo.kind({
-	name: 'sun.sample.ScrollerVerticalSample',
+	name: "sun.sample.ScrollerVerticalSample",
 	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: 'enyo.Spotlight'},
-		{kind: 'sun.Scroller', name: "scroller",  classes: 'sun-scroller-vertical-sample-scroller enyo-fill',
+		{kind: "enyo.Spotlight"},
+		{kind: "sun.Scroller", name: "scroller",  classes: "sun-scroller-vertical-sample-scroller enyo-fill",
 			components: [				
 				{kind: "moon.Item", content: "This is an item 1"},
 				{kind: "moon.Item", content: "This is an item 2"},

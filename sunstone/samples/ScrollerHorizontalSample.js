@@ -1,12 +1,12 @@
 enyo.kind({
-	name: 'sun.sample.ScrollerHorizontalSample',
+	name: "sun.sample.ScrollerHorizontalSample",
 	classes: "sun moon enyo-unselectable enyo-fit",
 	components:[
-		{kind: 'enyo.Spotlight'},
+		{kind: "enyo.Spotlight"},
 		{classes: "sun-scroller-sample-horizontal-wrapper", components: [
 			{kind: "moon.Divider", content: "Item Spotlight (default-style)", classes: "sun-scroller-sample-divider"},
-			{kind: 'sun.Scroller', vertical: "hidden", spotlight: "container", name: "scroller1",			
-				classes: 'sun-scroller-sample-horizontal',
+			{kind: "sun.Scroller", vertical: "hidden", spotlight: "container", name: "scroller1",			
+				classes: "sun-scroller-sample-horizontal",
 				components: [
 					{kind: "moon.Item", classes: "sun-scroller-sample-item enyo"},
 					{kind: "moon.Item", classes: "sun-scroller-sample-item html5"},
@@ -44,8 +44,8 @@ enyo.kind({
 			{tag: "br"},
 			{tag: "br"},
 			{kind: "moon.Divider", content: "Item Spotlight (overlay-style)", classes: "sun-scroller-sample-divider"},
-			{kind: 'sun.Scroller', vertical: "hidden", spotlight: "container", name: "scroller2",
-				classes: 'sun-scroller-sample-horizontal',
+			{kind: "sun.Scroller", vertical: "hidden", spotlight: "container", name: "scroller2",
+				classes: "sun-scroller-sample-horizontal",
 				components: [
 					{kind: "moon.Item", classes: "sun-scroller-sample-item enyo", spotlightOverlay: true, spotlightPosition: "left"},
 					{kind: "moon.Item", classes: "sun-scroller-sample-item html5", spotlightOverlay: true, spotlightPosition: "bottom"},
