@@ -175,6 +175,14 @@ enyo.kind({
 		}
 		return true;
 	},
+	//* If value changes within 5%, not to use animateTo
+	setValue: function(inValue) {
+		if(Math.abs(this.getValue() - inValue) > 5) {
+			this.inherited(arguments);
+		} else {
+			this._setValue(inValue);
+		}
+	},
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
