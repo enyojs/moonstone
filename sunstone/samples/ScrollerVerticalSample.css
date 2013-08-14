@@ -1,0 +1,20 @@
+
+.sun-scroller-vertical-sample-scroller {
+	border:1px solid gray;
+}
+.sun-scroller-vertical-sample-scroller.spotlight {
+	border:2px solid orange;
+}
+
+.sun-scroller-vertical-sample .moon-button {
+	margin:10px;
+	width:300px;
+	border:1px solid red;
+	background:#eee;
+}
+
+.sun-scroller-vertical-sample .moon-button.spotlight {
+	border-color:orange;
+	border-left:16px solid orange;
+	background:#ffbb33;
+}

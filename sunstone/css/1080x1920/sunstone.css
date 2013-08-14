@@ -644,6 +644,11 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
+.sun .enyo-thumb {
+  background: #ff0000;
+  border: #ff0000;
+}
+
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
   background-color: #404040;
