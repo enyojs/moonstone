@@ -416,16 +416,29 @@
   margin: 0px;
   padding: 0px;
 }
-/* IconButton.css */
+
+/* IconButton */
+.sun .moon-icon-button {
+  width: 122px;
+  height: 122px;
+  border-radius: 132px;
+  border: 5px solid transparent;
+}
 .sun .moon-icon.moon-icon-button.active,
 .sun .moon-icon.moon-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.spotlight:active {
-  border: 4px solid #ff0000;
+  background-position: 0px -122px;
+  color: #ffffff;
+  background-color: #ff2f7d;
+  border: 5px solid #ff2f7d;
 }
-.sun .moon-icon-button.spotlight {
-  background-color: #ff000;
+.sun .moon-icon-button.spotlight {  
+  color: #4b4b4b;
+  background: #ffffff;
+  border: 5px solid #ff2f7d;  
 }
+
 /* Input.css */
 .sun .moon-input {
   font-family: "MuseoSans 300";
