@@ -168,7 +168,24 @@ enyo.kind({
 			return this.months[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
 	},
-
+	/**
+		Month name could be various depends on 
+	*/
+	updateMonthPicker: function() {
+		if (typeof ilib !== "undefined") {
+			var fmt = new ilib.DateFmt({
+				type: "date",	//only format the date component, not the time
+				date: "m",		//'m' is the month of year
+				length: "long"	//it uses 2 chars to abbreviate properly
+			});
+			var monthPickerControls = this.$.monthPicker.getClientControls();
+			for (var i = 0; i < 12; i++) {
+				var date = ilib.Date.newInstance({unixtime: i * 31 * (24*60*60*1000)});
+				monthPickerControls[i].setContent(fmt.format(date));
+			}
+		}
+		
+	},
 	/**
 		Sets up the first week of this month.
 		Before the first day of this month, days from the previous month will be
@@ -296,6 +313,7 @@ enyo.kind({
 			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale);
 		}
 		this.refresh();
+		//this.updateMonthPicker();
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
