@@ -1,0 +1,25 @@
+/* Item.css */
+.sun .moon-item-left-spotlight-not-overlay {
+	border-left-width: 0px;
+	border-right-width: 0px;
+	padding-left: 0px;
+}
+.sun .moon-item.left.spotlight:not(.overlay) {
+	.sun .moon-item-left-spotlight-not-overlay;
+}
+.sun .moon-item-right-spotlight-not-overlay {
+	border-right-width: 0px;
+	border-left-width: 0px;
+	padding-right: 0px;
+}
+.sun .moon-item.right.spotlight:not(.overlay) {
+	.sun .moon-item-right-spotlight-not-overlay;
+}
+.sun .moon-item.locale-default.spotlight:not(.overlay) {
+	.sun .moon-item-left-spotlight-not-overlay;
+}
+.sun .enyo-locale-right-to-left {
+	.sun .moon-item.locale-default.spotlight:not(.overlay) {
+		.sun .moon-item-right-spotlight-not-overlay;
+	}
+}

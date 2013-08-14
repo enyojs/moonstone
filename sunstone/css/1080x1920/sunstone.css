@@ -52,15 +52,31 @@
 /* ---------------------------------------*/
 /* Font */
 /* ---------------------------------------*/
+<<<<<<< HEAD
+<<<<<<< HEAD
+/* Spotlight */
+/* ---------------------------------------*/
+/* Header */
+=======
+/* Icon Sizes */
+/* ---------------------------------------*/
+/* Spotlight */
+>>>>>>> origin/sunstone
+=======
 /* Icon Sizes */
 /* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
 /* Header */
+>>>>>>> origin/sunstone
 /* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
+/* CheckboxItem */
+/* ---------------------------------------*/
 /* Spinner */
+/* ---------------------------------------*/
+/* Carat */
 /* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
@@ -389,31 +405,28 @@
 }
 /* Checkbox.css */
 .sun .moon-checkbox {
-  cursor: pointer;
   height: 36px;
   width: 50px;
 }
 .sun .moon-checkbox[checked] {
-  background-image: url(../images/checkbox.png);
-  background-repeat: no-repeat;
-  background-position: 11px 1px;
-}
-.sun .moon-checkbox[disabled] {
-  opacity: 0.4;
+  background-image: url(../../images/1080x1920/checkbox.png);
 }
 .sun .moon-checkbox .moon-overlay {
-  cursor: pointer;
   height: 36px;
   width: 50px;
-  background: transparent url(../images/checkbox.png) no-repeat 10px -36px;
-  opacity: 1;
-  transition: opacity 0.4s linear;
-  -webkit-transition: opacity 0.4s linear;
-  -moz-transition: opacity 0.4s linear;
-  -o-transition: opacity 0.4s linear;
+  background: transparent url(../../images/1080x1920/checkbox.png) no-repeat 10px -36px;
 }
-.sun .moon-checkbox .moon-overlay.off {
-  opacity: 0;
+.sun .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  margin-right: 50px;
+}
+.sun.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  margin-left: 50px;
+}
+.sun.moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  margin-right: 66px;
+}
+.sun.enyo-locale-right-to-left .moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  margin-left: 50px;
 }
 /* IconButton.css */
 .sun .moon-icon-button {
@@ -712,10 +725,48 @@
   -moz-transition: height 0.2s linear;
   max-width: 100%;
 }
+.sun .moon-accordion-arrow.up {
+  background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
+}
+.sun .moon-accordion-arrow.down {
+  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+}
+/* Item.css */
+.sun .moon-item-left-spotlight-not-overlay {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .moon-item.left.spotlight:not(.overlay) {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .moon-item-right-spotlight-not-overlay {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  padding-right: 0px;
+}
+.sun .moon-item.right.spotlight:not(.overlay) {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  padding-right: 0px;
+}
+.sun .moon-item.locale-default.spotlight:not(.overlay) {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .enyo-locale-right-to-left .sun .moon-item.locale-default.spotlight:not(.overlay) {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  padding-right: 0px;
+}
 .sun .enyo-thumb {
   background: #ff2f7d;
   border: #ff2f7d;
 }
+
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
   background-color: #404040;
