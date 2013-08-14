@@ -140,7 +140,21 @@
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
 /* sunstone - Common classes applicable to multiple controls */
-
+.sun .moon-header-text {
+  font-size: @sun-header-text-size;
+}
+.sun .moon-sub-header-text {
+	font-size: @sun-sub-header-font-size;
+}
+.sun .moon-header-font {
+  font-size: @sun-header-font-size;
+}
+.sun .moon-small-header .moon-header-font {
+  font-size: @sun-small-header-font-size;
+}
+.sun .sun-left-header .moon-header-font {
+  padding-left: @sun-header-left-padding;
+}
 /* sunstone - LESS pre-calculations */
 
 /* Individual widget CSS */
@@ -156,6 +170,7 @@
 @import "ToggleButton.less";
 @import "Tooltip.less";
 @import "Spinner.less";
+@import "Header.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {

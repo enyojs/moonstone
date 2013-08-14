@@ -44,6 +44,10 @@
 /* ---------------------------------------*/
 /* Font */
 /* ---------------------------------------*/
+/* Spotlight */
+/* ---------------------------------------*/
+/* Header */
+/* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
 /* Spinner */
@@ -316,6 +320,21 @@
 }
 /* moonstone - LESS pre-calculations */
 /* sunstone - Common classes applicable to multiple controls */
+.sun .moon-header-text {
+  font-size: 70px;
+}
+.sun .moon-sub-header-text {
+  font-size: 20px;
+}
+.sun .moon-header-font {
+  font-size: 70px;
+}
+.sun .moon-small-header .moon-header-font {
+  font-size: 50px;
+}
+.sun .sun-left-header .moon-header-font {
+  padding-left: 60px;
+}
 /* sunstone - LESS pre-calculations */
 /* Individual widget CSS */
 /* Button */
@@ -329,19 +348,17 @@
   background: #ff2f7d;
   border: 5px solid #ff2f7d;
 }
-.sun .moon-button.spotlight {  
+.sun .moon-button.spotlight {
   color: #4b4b4b;
   background: #ffffff;
-  border: 5px solid #ff2f7d;  
+  border: 5px solid #ff2f7d;
 }
 .sun .moon-button.moon-dark-gray:active:hover:not([disabled]) * {
   color: #ffffff;
 }
 .sun .moon-button.moon-dark-gray.spotlight {
-  background: #404040; 
+  background: #404040;
 }
-
-
 /* Checkbox.css */
 .sun .moon-checkbox {
   cursor: pointer;
@@ -743,4 +760,47 @@
 }
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
+}
+.sun .moon-header {
+  height: 100px;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+}
+.sun .moon-header-title-above {
+  display: none;
+}
+.sun .moon-header-title {
+  font-size: 70px;
+}
+.sun .moon-header-title-below {
+  font-size: 20px;
+  min-height: 20px;
+  padding: 2px 0px 10px 0px;
+  margin: -30px 0px 0px 0px;
+}
+.sun .moon-header-sub-title-below {
+  display: none;
+}
+.sun .sun-left-icon {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 30px;
+}
+.sun .moon-header-client {
+  margin-bottom: 30px;
+}
+.sun .moon-header-client > * {
+  margin-left: 10px;
+}
+.sun .moon-small-header {
+  height: 100px;
+}
+/* Put this at the end because we want these to take precedence over others */
+.sun .moon-dark-gray {
+  background-color: #404040;
+  color: #4b4b4b;
+}
+.sun .moon-dark-gray * {
+  color: #bababa;
 }
