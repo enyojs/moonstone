@@ -25,7 +25,7 @@ enyo.kind({
 		//* CSS classes to apply to knob
 		knobClasses: "",
 		//* Color of value popup
-		popupColor: "#ffb80d",
+		popupColor: "#4b4b4b",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		/**
@@ -38,7 +38,7 @@ enyo.kind({
 		//* When true, popup displays a percentage value (rather than the absolute value)
 		showPercentage: true,
 		//* Popup width in pixels
-		popupWidth: 62,
+		popupWidth: 86,
 		//* Popup height in pixels
 		popupHeight: 52,
 		//* When false, you can move the knob past the _bgProgress_
@@ -237,7 +237,7 @@ enyo.kind({
 		var kb = this.$.knob.hasNode().getBoundingClientRect();
 
 		// when the popup's right edge is out of the window, adjust to the left
-		if ( (kb.left + (kb.width/2) + pb.width) > cb.right ) {
+		if ( (kb.left + (kb.width) + pb.width) > cb.right - 30) {
 			inControl.applyStyle("left", (kb.left - pb.width) + "px");
 			hFlip = true;
 		}

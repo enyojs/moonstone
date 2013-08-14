@@ -1834,19 +1834,19 @@
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
   position: relative;
-  height: 56px;
-  width: 56px;
-  border-radius: 28px;
-  margin: -30px -29px;
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  margin: -30px;
   background-color: #69cdff;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
 .moon-slider-knob:active:hover {
-  height: 84px;
-  width: 84px;
-  border-radius: 42px;
-  margin: -42px -44px;
+  height: 86px;
+  width: 86px;
+  border-radius: 43px;
+  margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #ffb80d;
@@ -1858,6 +1858,9 @@
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+.moon-progress-bar.moon-slider {
+  margin: 60px 45px;
 }
 .moon-slider-popup {
   position: absolute;
@@ -1877,7 +1880,7 @@
   letter-spacing: normal;
   position: absolute;
   top: 2px;
-  width: 60px;
+  width: 86px;
   height: 45px;
   white-space: nowrap;
   color: #fff;
@@ -3542,7 +3545,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-hspacing > * {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   margin: 0 5px;
 }
 .moon-hspacing > :first-child {
