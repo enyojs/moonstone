@@ -439,12 +439,16 @@
   border: 0px;
   background: inherit;
   color: #4b4b4b;
-  padding: 4px 0 0 0;
+  padding: 0;
   margin: 0;
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
   background: transparent url(../images/caret-black-large-up-icon.png) no-repeat center center;
+}
+.moon-simple-picker-button.hidden {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 .moon-simple-picker-button.spotlight {
   background-color: #ffb80d;
