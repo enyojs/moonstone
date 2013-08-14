@@ -93,14 +93,14 @@ enyo.kind({
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
-		{name: "simplePicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
+		{name: "monthPicker", kind: "moon.SimplePicker"},
 		{name: "days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.setupSimplePicker();
-		this.setupCalendar();
+		this.initMonthPicker();
+		this.initCalendar();
 
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({
@@ -142,11 +142,11 @@ enyo.kind({
 	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
 	*/
-	setupSimplePicker: function() {
+	initMonthPicker: function() {
 		var months = this.months;
-		this.$.simplePicker.addClass("moon-simple-picker-button-bold");
+		this.$.monthPicker.addClass("moon-simple-picker-button-bold");
 		for (var i = 0; i < 12; i++) {
-			this.$.simplePicker.createComponent(
+			this.$.monthPicker.createComponent(
 				{content: months[i], classes: "picker-content"}
 			);
 		}
@@ -154,7 +154,7 @@ enyo.kind({
 	/**
 		Compose calendar with number of calendarDate
 	*/
-	setupCalendar: function() {
+	initCalendar: function() {
 		if (!this.$.dates.controls.length) {
 			for (var i = 1; i <= this.maxWeeks * 7; i++) {
 				this.$.dates.createComponent({kind: "moon.CalendarPickerDate"});
@@ -257,7 +257,7 @@ enyo.kind({
 			newValue = new Date(value.getFullYear(), value.getMonth(), newDate);
 		}
 		this.setValue(newValue);
-	},
+	},	
 	selectDate: function(inSender, inEvent) {
 		if (inEvent.originator.owner.kind == "moon.CalendarPickerDate") {
 			var newValue = inEvent.originator.owner.value;
@@ -280,26 +280,6 @@ enyo.kind({
 			return 32 - new Date(inYear, inMonth, 32).getDate();	
 		}		
 	},
-	/**
-		Updates calendar when value of DatePicker changes.
-	*/
-	updateSimplePicker: function(inSender, inEvent) {
-		//* Avoid onChange events coming from itself
-		if (inEvent && inEvent.originator == this || inEvent.originator.kind == "Selection") {
-			return;
-		}
-		var value = this.value,
-			month = this.$.simplePicker.getSelectedIndex();
-		//* Determine whether calender need to redraw or not
-		if (month != this.value.getMonth()) {
-			this.setValue(new Date(value.getFullYear(), month, value.getDate()));
-		} else {
-			this.value.setYear(value.getFullYear());
-			this.value.setMonth(month);
-			this.value.setDate(value.getDate());
-		}
-		return true;
-	},
 	localeChanged: function() {
 		if (typeof ilib !== "undefined") {
 			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale);
@@ -308,8 +288,8 @@ enyo.kind({
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
-		if (this.$.simplePicker.getSelectedIndex() != this.value.getMonth()) {
-			this.$.simplePicker.setSelectedIndex(this.value.getMonth());
+		if (this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
+			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}
 		this.updateDates();
 		if (this.value) {
