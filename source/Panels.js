@@ -132,7 +132,7 @@ enyo.kind({
 		if (oEvent.originator != this.getActive())	{ return false; }
 		if (enyo.Spotlight.getPointerMode())		{ return true; }
 
-		var nIndex = this.getIndex();
+		var nIndex = this.transitionIndex || this.getIndex();
 
 		switch (oEvent.direction) {
 		case 'LEFT':
@@ -143,8 +143,16 @@ enyo.kind({
 			this._focusLeave('onSpotlightLeft');
 			break;
 		case 'RIGHT':
-			if (nIndex < this.getPanels().length - 1) {
-				this.setIndex(nIndex + 1);
+			if (nIndex < this.getPanels().length - 1) {				
+				if (this.postTransitionWaitlist && this.postTransitionWaitlist.length > 0) {
+					this.postTransitionCompleteHandler = enyo.bind(this, function () {
+						this.setIndex(nIndex + 1);
+					});
+				} else if (this.preTransitionWaitlist && this.preTransitionWaitlist.length > 0){
+					this._focusLeave('onSpotlightRight');
+				} else {
+					this.setIndex(nIndex + 1);
+				}
 				return true;
 			}
 			this._focusLeave('onSpotlightRight');
@@ -285,6 +293,10 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		var activeIndex = this.getIndex(), active;
+		if (this.postTransitionCompleteHandler) {
+			this.postTransitionCompleteHandler();
+			this.postTransitionCompleteHandler = null;
+		}
 		// parent and child of panels can get event
 		this.doPanelsPostTransitionFinished({active: activeIndex});
 		for (var i = 0; i < this.getPanels().length; i++) {
