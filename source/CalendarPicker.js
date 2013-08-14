@@ -59,9 +59,7 @@ enyo.kind({
 		onChange: ""
 	},
 	handlers: {
-		ontap: "selectDate",
-		//* Handler for _onChange_ events coming from constituent controls
-		onChange: "updateSimplePicker"
+		ontap: "selectDate"
 	},
 	published: {
 		/**

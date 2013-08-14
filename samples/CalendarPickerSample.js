@@ -74,8 +74,16 @@ enyo.kind({
 		}
 	},
 	changed: function(inSender, inEvent) {
+		//* Avoid onChange events coming from itself
+		if (inEvent && inEvent.originator == this.$.calendar || inEvent.originator.kind == "Selection") {
+			return;
+		}
+		var value = this.$.calendar.getValue();
+		this.$.calendar.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+		
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent("Current Date" + " changed to " + inEvent.value.toDateString());
 		}
+		return true;
 	}
 });
