@@ -24,7 +24,7 @@ enyo.kind({
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
 			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
 		]},
-		{name: "client", classes: "moon-header-client"},
+		{name: "client", classes: "moon-hspacing moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	create: function() {
