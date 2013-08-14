@@ -1351,10 +1351,10 @@
 }
 .moon-header-client {
   position: absolute;
-  bottom: 0px;
+  bottom: 10px;
+  left: 0px;
+  right: 0px;
   text-align: right;
-  width: 100%;
-  margin-bottom: 10px;
 }
 .moon-header-left {
   float: left;
