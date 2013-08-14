@@ -15,6 +15,5 @@
 
 enyo.kind({
 	name	: "sun.Input",
-	kind	: "moon.Input",
-	classes	: "sun"
+	kind	: "moon.Input"
 });
