@@ -64,11 +64,11 @@ enyo.kind({
 		this.setupHandles();
 	},
 	rendered: function() {
-	    this.inherited(arguments);
+		this.inherited(arguments);
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 		this.resizeDresser();
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	resizeDresser: function() {
 		var client = this.getBounds();
@@ -84,7 +84,15 @@ enyo.kind({
 		this.$.drawers.applyStyle('left', -client.left+'px');
 		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
 		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-	},	
+
+		this.resizeClient();
+	},
+	resizeClient: function(){
+		var aHeight = this.$.activator.hasNode().getBoundingClientRect().height;
+		var hHeight = this.$.handleContainer.hasNode().getBoundingClientRect().height;
+		var dHeight = this.$.drawers.hasNode().getBoundingClientRect().height;
+		this.$.client.applyStyle('height', (this.getBounds().height - (aHeight + hHeight + dHeight)) + 'px');
+	},
 	setupHandles: function() {
 		var handles = [];
 		for (var index in this.drawers){

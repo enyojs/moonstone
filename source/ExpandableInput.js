@@ -116,6 +116,7 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
+		this.applyStyle("transition", "none");
 		if(!this.getOpen()) {
 			this.setActive(true);
 			this.$.client.onFocus();
@@ -123,6 +124,7 @@ enyo.kind({
 		} else {
 			this.setActive(false);
 		}
+		this.applyStyle("transition", null);
 		return true;
 	},
 	//* Updates _value_ when drawer is closed via "UP" direction keypress.

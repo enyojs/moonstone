@@ -127,12 +127,12 @@ enyo.kind({
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		var textArea = oInput instanceof moon.TextArea;
-		if (textArea && !oInput.hasFocus() && (oEvent.keyCode === 13)) {
+		if (textArea && !oInput.hasFocus() && oEvent && (oEvent.keyCode === 13)) {
 			this.focus();
 			return false;
 		}
 		this.focus();
-		if (oInput && oInput.hasFocus()) {
+		if (oInput && oInput.hasFocus() && oEvent) {
 			oEvent.allowDomDefault();            // Allow keydown to bubble
 			return true;                         // Prevent onSpotlightLeft to bubble
 		}
