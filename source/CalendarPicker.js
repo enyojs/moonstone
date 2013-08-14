@@ -303,7 +303,7 @@ enyo.kind({
 		if (typeof ilib !== "undefined") {
 			var d = ilib.Date.newInstance({unixtime: this.value.getTime()}); 
 			var cal = ilib.Cal.newInstance({name: d.getCalendar()});
-			return cal.getMonLength(inMonth, inYear);
+			return cal.getMonLength(inMonth + 1, inYear);
 		} else {
 			return 32 - new Date(inYear, inMonth, 32).getDate();	
 		}		
