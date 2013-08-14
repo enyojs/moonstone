@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -47,6 +55,8 @@
 /* Icon Sizes */
 /* ---------------------------------------*/
 /* Spotlight */
+/* ---------------------------------------*/
+/* Header */
 /* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
@@ -320,6 +330,39 @@
 }
 /* moonstone - LESS pre-calculations */
 /* sunstone - Common classes applicable to multiple controls */
+.sun-header-text {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 70px;
+}
+.sun-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 20px;
+}
+.sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
+}
+.sun-small-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
+  font-size: 50px;
+}
+.sun-left-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
+  padding-left: 60px;
+}
 /* sunstone - LESS pre-calculations */
 /* Individual widget CSS */
 /* Button */
@@ -644,11 +687,91 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
-.sun .enyo-thumb {
-  background: #ff0000;
-  border: #ff0000;
+.sun-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
-
+.sun-header-title {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 70px;
+}
+.sun-header-title .moon-marquee-text {
+  line-height: 0.643em;
+  padding: 19px 0px 0px 0px;
+  margin: 0px 0px 30px 0px;
+  white-space: nowrap;
+}
+.sun-header-title-below {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 20px;
+  min-height: 20px;
+  padding: 2px 0px 10px 0px;
+  margin: -30px 0px 0px 0px;
+}
+.sun .enyo-locale-non-latin .sun-header-title-below {
+  font-family: "LG Display";
+}
+.sun .moon-header-item {
+  float: right;
+}
+.sun-left-icon {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 30px;
+}
+.sun-header-client {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  margin-bottom: 30px;
+}
+.sun-header-client > * {
+  margin-left: 10px;
+}
+.sun-left-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun-small-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun .enyo-thumb {
+  background: #ff2f7d;
+  border: #ff2f7d;
+}
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
   background-color: #404040;
