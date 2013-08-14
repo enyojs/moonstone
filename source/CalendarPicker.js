@@ -93,7 +93,7 @@ enyo.kind({
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
-		{name: "monthPicker", kind: "moon.SimplePicker"},
+		{name: "monthPicker", kind: "moon.SimplePicker", onChange: "updateMonthPicker"},
 		{name: "days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
@@ -167,6 +167,10 @@ enyo.kind({
 		} else {
 			return this.months[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
+	},
+	updateMonthPicker: function(inSender, inEvent) {
+		var month = this.$.monthPicker.getSelectedIndex();
+		this.value.setMonth(month);
 	},
 	/**
 		Sets up the first week of this month.
