@@ -124,7 +124,6 @@ enyo.kind({
 		} else {
 			this.setActive(false);
 		}
-		return true;
 	},
 	//* Closes drawer if drawer is currently open,
 	//* and event was sent via keypress (i.e., it has a direction).

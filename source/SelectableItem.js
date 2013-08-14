@@ -40,7 +40,6 @@ enyo.kind({
 			this.$.client.addRemoveClass("moon-overlay", this.getActive());
 			this.bubble("onchange");
 		}
-		return !this.disabled;
 	},
 	selectedChanged: function() {
 		this.$.client.removeClass("moon-overlay");
