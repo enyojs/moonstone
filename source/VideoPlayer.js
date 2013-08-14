@@ -270,17 +270,12 @@ enyo.kind({
 	},
 	//* When seeking, set video time.
 	sliderSeek: function(inSender, inEvent) {
-		var time = this._duration * inEvent.value / 100;
-		this.setCurrentTime(time);
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
-	//* Programatically updates slider position to match _this.currentTime_/_this.duration_.
+	//* Programatically updates slider position to match _this.currentTime.
 	updateFullscreenPosition: function() {
-		if (this.$.slider.dragging) {
-			return;
-		}
-		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
-		this.$.slider.setValue(percentComplete);
+		this.$.slider.setValue(this._currentTime);
 	},
 	
 	
@@ -471,7 +466,11 @@ enyo.kind({
 
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
-		
+		this.$.slider.setMin(0);
+		this.$.slider.setMax(this._duration);
+		this.$.slider.setRangeStart(0);
+		this.$.slider.setRangeEnd(this._duration);
+
 		this.updatePosition();
 		
 		this.waterfall("onTimeupdate", inEvent);

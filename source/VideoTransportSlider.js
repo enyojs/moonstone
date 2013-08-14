@@ -12,47 +12,43 @@ enyo.kind({
 	name: "moon.VideoTransportSlider",
 	kind: "moon.Slider",
 	classes: "moon-slider moon-video-transport-slider",
-	//* @protected
-	popupWidth: 300,
-	popupHeight: 200,
 	published: {
 		//** This is start point of slider 
 		rangeStart: 0,
 		//** This is end point of slider
 		rangeEnd: 100,
-		//** This flag decide the slider draw  
-		syncTick: true,
+		//** This flag decide whether using dummy area or not
+		haveDummyArea: false,
 		//** Tick position decide the margin areas in both side 
-		beginTickPos: 10,
-		endTickPos: 90,
 		//** This flag control the indicator in the Video Transport Slider
-		showTickText: true,
 		showTickBar: true,
-		//** Length of Dummy area, current unit is pixel for video slider, Not percentage
-		dummyAreaPixel: 120,
-		//** This is time option for slider expression between both side of time-indicator
-		absoluteTime: false
+		showTickText: true
 	},
+	//* @protected
+	
+	popupWidth: 300,
+	popupHeight: 200,
+
 	handlers: {
-		onTimeupdate: "timeUpdate",
 		ondown: "down",
-		onBufferStateChanged: "progressUpdate",
-		onresize: "resizeHandler"
+		onresize: "resizeHandler",
+		onTimeupdate: "timeUpdate",
+		onBufferStateChanged: "progressUpdate"
 	},
 	events: {
-		onSeekStart: "",
 		onSeek: "",
+		onSeekStart: "",
 		onSeekFinish: ""
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{style: "z-index: 5;", name: "tapArea", classes: "moon-slider-taparea"},
-		{style: "z-index: 3;", name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
-		{classes: "moon-slider-indicator-wrapper start", components: [
+		{name: "tapArea", classes: "moon-slider-taparea video-transport"},
+		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob video-transport"},
+		{name: "leftIndicator", classes: "moon-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-indicator-bar"},
 			{name: "beginTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
-		{classes: "moon-slider-indicator-wrapper end", components: [
+		{name: "rightIndicator", classes: "moon-slider-indicator-wrapper end", components: [
 			{name: "endTickBar", classes: "moon-indicator-bar"},
 			{name: "endTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
@@ -66,91 +62,103 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
+		this.isFixed = false; // Do not change 
 		this.showTickTextChanged();
 		this.showTickBarChanged();
-		this.updateSliderRange(true);
 	},
 	resizeHandler: function() {
-		this.inherited(arguments);
-		this.updateSliderRange(true);
+		this.updateSliderRange(this.isFixed);
 	},
-	updateSliderRange: function(fullScreenMode) {
-		if(fullScreenMode)
-		{	// This should be updated !! 
-			// 40px is only for current redline
+	updateSliderRange: function(fixedShape) {
+		if(fixedShape)
+		{	// Only For VisD
 			var width = window.innerWidth-40; 
+			this.dummyAreaPixel = 120;
 			this.beginTickPos = (this.dummyAreaPixel/width)*100;
 			this.endTickPos = ((width-this.dummyAreaPixel)/width)*100;
+			this.$.leftIndicator.addRemoveClass("rate", false);
+			this.$.rightIndicator.addRemoveClass("rate", false);
+			this.$.leftIndicator.addRemoveClass("pixe", true);
+			this.$.rightIndicator.addRemoveClass("pixe", true);
+		} else {
+			this.beginTickPos = (this.max-this.min)*0.05;
+			this.endTickPos = (this.max-this.min)*0.95;
+			this.$.leftIndicator.addRemoveClass("rate", true);
+			this.$.rightIndicator.addRemoveClass("rate", true);
+			this.$.leftIndicator.addRemoveClass("pixe", false);
+			this.$.rightIndicator.addRemoveClass("pixe", false);
+		}	
+		if(this.haveDummyArea) {
+			this.setRangeStart(this.beginTickPos);
+			this.setRangeEnd(this.endTickPos);
 		}
-		this.setRangeStart(this.beginTickPos);
-		this.setRangeEnd(this.endTickPos);
+		this.updateKnobPosition(this.value);
+	},
+	setRangeStart: function(inValue) {
+		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeStartChanged();
-		this.rangeEndChanged();
+	},
+	setRangeEnd: function(inValue) {
+		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeEndChanged();	
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
 		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
 	},
 	showTickBarChanged: function() {
+		if(this.haveDummyArea) {
+			this.showTickBar = true;
+		}
 		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
 		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
 	},
-	setRangeStart: function(inValue) {
-		if(this.getSyncTick() === true) {
-			this.rangeStart = this.beginTickPos;
-		} else {
-			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
-			this.rangeStart = v;
-		}
-	},
-	setRangeEnd: function(inValue) {
-		if(this.getSyncTick()) {
-			this.rangeEnd = this.endTickPos;
-		} else {
-			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
-			this.rangeEnd = v;
-		}
-	},
 	rangeStartChanged: function() {
-		this.updateOwnProperty();
-		this.$.bgbar.applyStyle("margin-left", this.rangeStart + "%");
-		this.$.bar.applyStyle("margin-left", this.rangeStart + "%");
+		this.updateInternalProperty();
+		var p = this._calcPercent(this.rangeStart);
+		this.$.bar.applyStyle("margin-left", p + "%");
+		this.$.bgbar.applyStyle("margin-left", p + "%");
 	},
 	rangeEndChanged: function() {
-		this.updateOwnProperty();
+		this.updateInternalProperty();
+	},
+	updateInternalProperty: function() {
+		this.updateScale();
+		this.progressChanged();
+		this.bgProgressChanged();
 	},
 	//** hiden variable, scaleFactor is generated when create this
 	updateScale: function() {
-		this.scaleFactor = (this.rangeEnd-this.rangeStart)/100;
+		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	updateOwnProperty: function() {
-		this.updateScale();
-		this.bgProgressChanged();
-		this.progressChanged();
-	},
+	// 
 	calcPercent: function(inValue) {
-		return this.calcRatio(inValue) * this.scaleFactor * 100;
+		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	updateKnobPosition: function(inPercent) {
-		var v = this.calcPercent(inPercent)/this.scaleFactor;
-		var slider = this.inverseToSlider(v);
+	// 
+	_calcPercent: function(inValue) {
+		return this.calcRatio(inValue) * 100;
+	},
+	updateKnobPosition: function(inValue) {
+		var p = this._calcPercent(inValue);
+		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.applyStyle("left", slider + "%");
 
 		var label = "";
 		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(v));
+			label = this._nf.format(Math.round(p));
 		}
 		else {
-			label = Math.round(v) + "%";
+			label = Math.round(p) + "%";
 		}
 		if(this.currentTime !== undefined) {
 			this.$.popupLabel.setContent(this.formatTime(this.currentTime));
 		}
 		this.updatePopupPosition();
 	},
-	inverseToSlider: function(iValue) {
-		var oValue = this.scaleFactor * iValue + this.rangeStart;
+	inverseToSlider: function(inPercent) {
+		var oValue = this.scaleFactor * inPercent + this._calcPercent(this.rangeStart);
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
@@ -158,14 +166,12 @@ enyo.kind({
 		return iValue;
 	},
 	tap: function(inSender, inEvent) {
-		if (this.tappable && !this.disabled) {
-			return true;
-		}
+		return false;
 	},
 	//* If user presses on _this.$.tapArea_, seek to that point
 	down: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
-		if( v < this.beginTickPos || v > this.endTickPos ) {
+		if( this.haveDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			// TODO : action in dummy area
 		} else {
 			if (inSender === this.$.tapArea) {
@@ -178,7 +184,7 @@ enyo.kind({
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
-		if( v < this.beginTickPos || v > this.endTickPos ) {
+		if( this.haveDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			// TODO : action in dummy area
 			this.dummyAction = true;
 		} else {
@@ -186,13 +192,15 @@ enyo.kind({
 			if (dragstart) {
 				this.doSeekStart();
 			}
+			this.dummyAction = false;
 		}
 	},
 	//* If drag, bubble _onSeek_ event, and override parent drag handler
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
-			if(v < this.beginTickPos || v > this.endTickPos ) {
+
+			if(this.haveDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 				// TODO : action in dummy area
 			} else {
 				v = this.transformToVideo(v);
@@ -212,10 +220,9 @@ enyo.kind({
 
 				if (this.lockBar) {
 					this.setProgress(v);
+					this.sendChangingEvent({value: v});
+					this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(v); }), 200);
 				}
-
-				this.sendChangingEvent({value: v});
-				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(v); }), 200);
 			}
 			return true;
 		}
@@ -227,19 +234,20 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-			if(v < this.beginTickPos) {
+			
+			if(this.haveDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}
-			if(v > this.endTickPos ) {
+			if(this.haveDummyArea && v >= this.endTickPos ) {
 				v = this.rangeEnd;
 			}
+			v = this.transformToVideo(v);
 			var z = this.elasticTo;
 			if (this.constrainToBgProgress === true) {
 				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
 				this.animateTo(this.elasticFrom, z);
 				v = z;
 			} else {
-				v = this.transformToVideo(v);
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				this._setValue(v);
 			}
@@ -248,7 +256,7 @@ enyo.kind({
 			this.doSeekFinish({value: v});
 		}
 		this.$.knob.removeClass("active");
-		this.dummyAction = false; 
+		this.dummyAction = false;
 		this.dragging = false;
 		return true;
 	},
