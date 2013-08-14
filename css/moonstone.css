@@ -447,7 +447,8 @@
   background: transparent url(../images/caret-black-large-up-icon.png) no-repeat center center;
 }
 .moon-simple-picker-button.hidden {
-  opacity: 0;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 .moon-simple-picker-button.spotlight {
   background-color: #ffb80d;

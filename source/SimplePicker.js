@@ -191,6 +191,7 @@ enyo.kind({
 	//* Hide _inControl_ and disable spotlight functionality
 	hideNavButton: function(inControl) {
 		inControl.addClass("hidden");
+		enyo.Spotlight.unspot();
 		inControl.spotlight = false;
 	},
 	//* Show _inControl_ and enable spotlight functionality
