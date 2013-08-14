@@ -124,12 +124,9 @@ enyo.kind({
 		if(!this.getOpen()) {
 			this.setActive(true);
 			enyo.Spotlight.unspot();
-			//enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		} else {
 			this.setActive(false);
 		}
-		//this.applyStyle("transition", null);
-		return true;
 	},
 	//* Closes drawer if drawer is currently open,
 	//* and event was sent via keypress (i.e., it has a direction).
