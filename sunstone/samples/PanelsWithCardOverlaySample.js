@@ -2,12 +2,8 @@ enyo.kind({
     name: "sun.sample.PanelsWithCardArrangerSample",
     classes: "moon enyo-fit",    
     handlers: {ontap: "panelChange"},
-    components: [
-        {kind: "enyo.Spotlight"},
-        //{name: "panels", kind: "moon.Panels", arrangerKind: "CardSlideInArranger", classes: "enyo-fit", components: [
-        {name: "panels", kind: "moon.Panels", arrangerKind: "CardOverlayArranger", classes: "enyo-fit", components: [
-        //{name: "panels", kind: "moon.Panels", arrangerKind: "CollapsingArranger", classes: "enyo-fit", components: [
-        //{name: "panels", kind: "moon.Panels", arrangerKind: "CarouselArranger", classes: "enyo-fit", components: [
+    components: [        
+        {name: "panels", kind: "moon.Panels", arrangerKind: "CardOverlayArranger", classes: "enyo-fit", components: [        
             {
             	title: "First", 
             	style: "background-color: red;",
@@ -22,6 +18,7 @@ enyo.kind({
 			        	name: "previous", 
 			        	kind: "moon.IconButton", 
 			        	src: "$lib/moonstone/patterns-samples/assets/icon-download.png", 
+			        	disabled: true,
 			        	ontap: "panelChange"
 			        }
 				],
@@ -163,6 +160,7 @@ enyo.kind({
 			    		name: "next", 
 				    	kind: "moon.IconButton", 
 				    	src: "$lib/moonstone/patterns-samples/assets/icon-next.png", 
+				    	disabled: true,
 				    	ontap: "panelChange"
 			    	},
 			        {
