@@ -1,6 +1,6 @@
 enyo.kind({
     name: "sun.sample.PanelsWithCardArrangerSample",
-    classes: "moon enyo-fit",    
+    classes: "sun moon enyo-fit",    
     handlers: {ontap: "panelChange"},
     components: [        
         {name: "panels", kind: "moon.Panels", arrangerKind: "CardOverlayArranger", classes: "enyo-fit", components: [        
