@@ -140,19 +140,24 @@
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
 /* sunstone - Common classes applicable to multiple controls */
-.sun .moon-header-text {
+.sun-header-text {
+  .moon-header-text;
   font-size: @sun-header-text-size;
 }
-.sun .moon-sub-header-text {
-	font-size: @sun-sub-header-font-size;
+.sun-sub-header-text {
+  .moon-sub-header-text;
+  font-size: @sun-sub-header-font-size;
 }
-.sun .moon-header-font {
+.sun-header-font {
+  .moon-header-font;
   font-size: @sun-header-font-size;
 }
-.sun .moon-small-header .moon-header-font {
+.sun-small-header .sun-header-font {
+  .sun-header-font;
   font-size: @sun-small-header-font-size;
 }
-.sun .sun-left-header .moon-header-font {
+.sun-left-header .sun-header-font {
+  .sun-header-font;
   padding-left: @sun-header-left-padding;
 }
 /* sunstone - LESS pre-calculations */

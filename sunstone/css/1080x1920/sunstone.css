@@ -320,19 +320,37 @@
 }
 /* moonstone - LESS pre-calculations */
 /* sunstone - Common classes applicable to multiple controls */
-.sun .moon-header-text {
+.sun-header-text {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 70px;
 }
-.sun .moon-sub-header-text {
+.sun-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
   font-size: 20px;
 }
-.sun .moon-header-font {
+.sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
   font-size: 70px;
 }
-.sun .moon-small-header .moon-header-font {
+.sun-small-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
   font-size: 50px;
 }
-.sun .sun-left-header .moon-header-font {
+.sun-left-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
   padding-left: 60px;
 }
 /* sunstone - LESS pre-calculations */
@@ -761,40 +779,86 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
-.sun .moon-header {
+.sun-header {
   height: 100px;
+  color: #4b4b4b;
   min-width: 500px;
   border-top: 0px;
   border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
-.sun .moon-header-title-above {
-  display: none;
-}
-.sun .moon-header-title {
+.sun-header-title {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 70px;
 }
-.sun .moon-header-title-below {
+.sun-header-title .moon-marquee-text {
+  line-height: 0.643em;
+  padding: 19px 0px 0px 0px;
+  margin: 0px 0px 30px 0px;
+  white-space: nowrap;
+}
+.sun-header-title-below {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
   font-size: 20px;
   min-height: 20px;
   padding: 2px 0px 10px 0px;
   margin: -30px 0px 0px 0px;
 }
-.sun .moon-header-sub-title-below {
-  display: none;
+.sun .enyo-locale-non-latin .sun-header-title-below {
+  font-family: "LG Display";
 }
-.sun .sun-left-icon {
+.sun .moon-header-item {
+  float: right;
+}
+.sun-left-icon {
   position: absolute;
   bottom: 0px;
   margin-bottom: 30px;
 }
-.sun .moon-header-client {
+.sun-header-client {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
   margin-bottom: 30px;
 }
-.sun .moon-header-client > * {
+.sun-header-client > * {
   margin-left: 10px;
 }
-.sun .moon-small-header {
+.sun-left-header {
   height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun-small-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
