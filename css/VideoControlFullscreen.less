@@ -2,7 +2,6 @@
 @moon-videoplayer-slider-knob-height: 56px;
 
 .moon-video-fullscreen-control {
-	margin: 20px;
 	box-sizing: border-box;
 	background-color: rgba(0,0,0,0.1);
 }
@@ -17,8 +16,9 @@
 /* --- Controls --- */
 .moon-video-player-bottom {
 	position: absolute;
-	width: 100%;
-	bottom: 0px;
+	bottom: 20px;
+	left: 20px;
+	right: 20px;
 	z-index: 2;
 	background-color: rgba(0,0,0,0);
 }
@@ -103,8 +103,9 @@
 /* ---- Header info styling ---- */
 .moon-video-player-header {
 	position: absolute;
-	width: 100%;
-	top: 0px;
+	left: 20px;
+	right: 20px;
+	top: 20px;
 	z-index: 2;
 	font-family: @moon-font-family;
 	font-size: @moon-sub-header-font-size;
