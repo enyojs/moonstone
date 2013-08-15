@@ -17,7 +17,9 @@ enyo.kind({
                     name: "menus",
                     classes: "moon-5h",
                     components: [
-                        {kind: "moon.Item", bindFrom: "name"}
+                        {kind: "moon.Item", bindings: [
+							{from: ".model.name", to: ".content"}
+						]}
                     ]
                 },
                 {
@@ -31,7 +33,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.menu", to: "$.menus.controller"}
+        {from: ".controller.menu", to: ".$.menus.controller"}
     ]
 });
 

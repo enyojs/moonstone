@@ -11,12 +11,14 @@ enyo.kind({
             kind: "moon.DataList",
             name: "menus",
             components: [
-                {kind: "moon.Item", bindFrom: "name"}
+                {kind: "moon.Item", bindings: [
+					{from: ".model.name", to: ".content"}
+				]}
             ]
         }
     ],
     bindings: [
-        {from: ".controller.menu", to: "$.menus.controller"}
+        {from: ".controller.menu", to: ".$.menus.controller"}
     ]
 });
 

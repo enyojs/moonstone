@@ -30,17 +30,22 @@ enyo.kind({
                                             components: [
                                                 {
                                                     kind: "enyo.Image", 
-                                                    bindFrom: "coverUrl", 
-                                                    bindTo: "src"
+													bindings: [
+														{from: ".model.coverUrl", to: ".src"}
+													]
                                                 }
                                             ],
                                             attributes: {rowspan: "2"}
                                         },
                                         {
-                                            bindFrom: "track"
+											bindings: [
+												{from: ".model.track", to: ".content"}
+											]
                                         },
                                         {
-                                            bindFrom: "time", 
+											bindings: [
+												{from: ".model.time", to: ".content"}
+											],
                                             attributes: {rowspan: "2"}
                                         }
                                     ]
@@ -48,7 +53,9 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "artist", 
+                                            bindings: [
+												{from: ".model.artist", to: ".content"}
+											] ,
                                             classes: "moon-superscript"
                                         }
                                     ]
@@ -61,7 +68,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.track", to: "$.trackList.controller"}
+        {from: ".controller.track", to: ".$.trackList.controller"}
     ]
 });
 

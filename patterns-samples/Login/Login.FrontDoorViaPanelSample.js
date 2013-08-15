@@ -79,7 +79,7 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.apps", to: "$.appInfo.controller"}
+        {from: ".controller.apps", to: ".$.appInfo.controller"}
     ],
 
     //* @public

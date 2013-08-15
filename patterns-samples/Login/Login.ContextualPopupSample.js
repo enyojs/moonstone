@@ -68,13 +68,17 @@ enyo.kind({
 	components: [
 		{title: "Main Menu", components: [
 			{name: "menuList", kind: "enyo.DataList", scrollerOptions: { kind:"moon.Scroller"}, components: [
-				{bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
+				{kind: "moon.Item", ontap: "changePanel", bindings: [
+					{from: ".model.menuItem", to: ".content"}
+				]}
 			]}
 		]},
 		{joinToPrev: true, components: [
 			{kind: "moon.Scroller", fit: true, components: [
 				{name: "contentList", kind: "enyo.DataGridList", components: [
-					{kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
+					{kind: "moon.MovieImageItem", bindings: [
+						{from: ".model.itemOption", to: ".option"}
+					]}
 				]},
 				{name: "buttonList", layoutkind: "FittableRowsLayout", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
@@ -94,8 +98,8 @@ enyo.kind({
 	],
 	
 	bindings: [
-		{from: ".controller.menus", to: "$.menuList.controller"},
-		{from: ".controller.contents", to: "$.contentList.controller"}
+		{from: ".controller.menus", to: ".$.menuList.controller"},
+		{from: ".controller.contents", to: ".$.contentList.controller"}
 	]
  });
 

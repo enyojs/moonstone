@@ -31,8 +31,9 @@ enyo.kind({
                                                 {
                                                     kind: "enyo.Image", 
                                                     classes: "moon-music-small-image",
-                                                    bindFrom: "coverUrl", 
-                                                    bindTo: "src"
+		                                            bindings: [
+														{from: ".model.coverUrl", to: ".src"}
+													]
                                                 }
                                             ],
                                             attributes: {rowspan: "3"}
@@ -41,7 +42,9 @@ enyo.kind({
                                             style: "height: 35px; width: 300px;"
                                         },
                                         {
-                                            bindFrom: "time", 
+                                            bindings: [
+												{from: ".model.time", to: ".content"}
+											],
                                             attributes: {rowspan: "3"},
                                             style: "width: 200px"
                                         }
@@ -50,7 +53,9 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "track"
+                                            bindings: [
+												{from: ".model.track", to: ".content"}
+											]
                                         }
                                     ]
                                 },
@@ -70,7 +75,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.track", to: "$.trackList.controller"}
+        {from: ".controller.track", to: ".$.trackList.controller"}
     ]
 });
 
