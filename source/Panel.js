@@ -64,7 +64,12 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		this.$.header.createComponents(this.headerComponents, {owner: this});
+		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
+		if (this.headerComponents) {
+			var hc = enyo.constructorForKind(this.kind).prototype.headerComponents;
+			var hcOwner = (hc == this.headerComponents) ? this : this.getInstanceOwner();
+			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
+		}
 		this.autoNumberChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
