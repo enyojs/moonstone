@@ -431,17 +431,23 @@ enyo.kind({
 		this.$.pageDownControl.addClass("hidden");
 	},
 	_getScrollBounds: function() {
-		var containerBounds = this.$.clientContainer.getBounds(),
-			s = this.getScrollSize(),
-			b = {
-				top: this.getScrollTop(),
-				left: this.getScrollLeft(),
-				clientHeight: containerBounds.height,
-				clientWidth: containerBounds.width,
-				height: s.height,
-				width: s.width
-			}
-		;
+		var paddingExtents = enyo.dom.calcPaddingExtents(this.$.clientContainer.hasNode()),
+			containerBounds = this.$.clientContainer.getBounds(),
+			s,
+			b;
+		
+		containerBounds.width  -= (paddingExtents.left + paddingExtents.right);
+		containerBounds.height -= (paddingExtents.top  + paddingExtents.bottom);
+		
+		s = this.getScrollSize(),
+		b = {
+			top: this.getScrollTop(),
+			left: this.getScrollLeft(),
+			clientHeight: containerBounds.height,
+			clientWidth: containerBounds.width,
+			height: s.height,
+			width: s.width
+		};
 
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
