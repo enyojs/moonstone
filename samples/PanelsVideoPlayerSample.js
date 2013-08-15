@@ -16,7 +16,7 @@ enyo.kind({
 				{
 					fit: true,
 					components: [
-						{name: "player", spotlight: true, kind: "moon.VideoPlayer", style: "width: 640px;",
+						{name: "player", spotlight: true, kind: "moon.VideoPlayer", inline:true, style: "width: 640px;",
 							src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 							infoComponents: [
 								{
