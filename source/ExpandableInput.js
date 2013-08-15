@@ -74,6 +74,7 @@ enyo.kind({
 		} else if(this.value != this.$.currentValue.content) {
 			this.$.currentValue.setContent(this.value);
 		}
+		this.$.currentValue.setShowing(!this.open && (this.$.currentValue.content !== ""));
 	},
 	//* Updates _value_ and _content_ when _this.value_ changes. 
 	valueChanged: function(inOld) {
