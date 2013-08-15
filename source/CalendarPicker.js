@@ -28,11 +28,7 @@ enyo.kind({
 		}
 	},
 	colorChanged: function(inOld) {
-		if (this.color) {
-			this.addClass("moon-calendar-picker-date-shadow");
-		} else {
-			this.removeClass("moon-calendar-picker-date-shadow");
-		}
+		this.addRemoveClass("moon-calendar-picker-date-shadow", this.color);
 	},
 	valueChanged: function() {
 		if (typeof ilib !== "undefined") {
@@ -100,6 +96,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.initMonthPicker();
+		this.initDays();
 		this.initCalendar();
 
 		if (typeof ilib !== "undefined") {
@@ -111,9 +108,8 @@ enyo.kind({
 
 			this.ilibLocaleInfo = new ilib.LocaleInfo();
 			this.setLocale(this.ilibLocaleInfo.locale);
-		} else {
-			this.initDefaults();	
-		}
+		} 
+		this.initDefaults();	
 	},
 	initDefaults: function() {
 		this.setValue(this.value || new Date());
@@ -121,23 +117,8 @@ enyo.kind({
 		if (typeof ilib !== "undefined") {
 			var dayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
 			this.setFirstDayOfWeek(dayOfWeek);
-		} else {
-			this.setupDays(this.days);
-		}
-	},
-	/**
-		Sets up days of the week from first day to last day.
-		Initially, SUN is the first day and SAT is the last day.
-	*/
-	setupDays: function(days) {
-		for(var i = 0; i < days.length; i++) {
-			this.$.days.createComponent({
-				kind: "moon.Button", 
-				classes: "moon-calendar-picker-day",
-				disabled: true, 
-				content: days[i]
-			});
-		}		
+		} 
+		this.updateDays();
 	},
 	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
@@ -150,6 +131,21 @@ enyo.kind({
 				{content: months[i], classes: "picker-content", style: "width: 100px"}
 			);
 		}
+	},
+	/**
+		Initiate days of the week from first day to last day.
+		Initially, SUN is the first day and SAT is the last day of week.
+	*/
+	initDays: function() {
+		var days = this.days;
+		for(var i = 0; i < days.length; i++) {
+			this.$.days.createComponent({
+				kind: "moon.Button", 
+				classes: "moon-calendar-picker-day",
+				disabled: true, 
+				content: days[i]
+			});
+		}		
 	},
 	/**
 		Compose calendar with number of calendarDate
@@ -184,6 +180,16 @@ enyo.kind({
 				var date = ilib.Date.newInstance({unixtime: i * 31 * (24*60*60*1000)});
 				monthPickerControls[i].setContent(fmt.format(date));
 			}
+		}
+	},
+	/**
+		Update days of the week from first day to last day.		
+	*/
+	updateDays: function() {
+		var days = this.days;
+		var daysControls = this.$.days.getClientControls();
+		for(var i = 0; i < days.length; i++) {
+			daysControls[i].setContent(days[i]);
 		}
 	},
 	/**
@@ -313,7 +319,8 @@ enyo.kind({
 			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale);
 		}
 		this.updateMonthPicker();
-		this.refresh();
+		this.initDefaults();
+		//this.refresh();
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
@@ -333,22 +340,19 @@ enyo.kind({
 			
 	*/
 	firstDayOfWeekChanged: function() {
-		this.$.days.destroyClientControls();
-		
 		var d = ilib.Date.newInstance({unixtime: this.value.getTime()}); 
 		var firstDate = d.onOrBefore(this.firstDayOfWeek);
-		var days = [];
 		var firstTime = firstDate.getTime();	//get unix time
+		var days = [];
 		for(var i = 0; i < 7; i++) {
 			var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + firstTime});
 			days.push(this._tf.format(date));
 		}
 		this.days = days;
-		this.setupDays(this.days);
+		this.updateDays();
 		this.updateDates();
 	},
 	refresh: function(){
-		this.destroyClientControls();
 		this.initDefaults();
 		this.render();
 	}
