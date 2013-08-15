@@ -2937,26 +2937,6 @@ body .enyo-fit.panels-50-percent-scrim,
   height: 80px;
   background-color: rgba(0, 0, 0, 0.5);
   position: relative;
-  display: block;
-}
-/* ---- Fullscreen style ---- */
-:-webkit-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-moz-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-ms-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-o-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
-  display: none;
 }
 .moon-video-player .moon-icon-button.moon-video-inline-control-play-pause {
   position: absolute;
@@ -3016,36 +2996,8 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
   background-color: transparent;
 }
 .moon-video-fullscreen-control {
-  opacity: 0;
-  transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  display: none;
-  margin: 20px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.1);
-}
-/* ---- Fullscreen style ---- */
-:-webkit-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-moz-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-ms-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-o-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-.moon-video-fullscreen-control.visible {
-  opacity: 1;
 }
 /* BG Canvas */
 .moon-video-player-screen {
@@ -3055,8 +3007,9 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* --- Controls --- */
 .moon-video-player-bottom {
   position: absolute;
-  width: 100%;
-  bottom: 0px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -3119,56 +3072,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .moon-video-fullscreen-control .spotlight .moon-slider-knob.disabled:active:hover {
   opacity: 1;
 }
-/* -- Popup -- */
-.moon-video-fullscreen-control .moon-slider-popup-wrapper {
-  overflow: hidden;
-  border-radius: 16px;
-  background-color: #000000;
-  width: 300px;
-  height: 250px;
-}
-.moon-video-fullscreen-control .moon-slider-popup {
-  position: absolute;
-  display: block;
-  z-index: 20;
-  top: 0px;
-  left: 100px;
-  padding: 12px;
-  background-color: rgba(0, 0, 0, 0.12);
-  border-radius: 16px;
-  width: 300px;
-  height: 250px;
-}
-.moon-video-fullscreen-control .moon-slider-popup.above {
-  top: -306px;
-}
-.moon-video-fullscreen-control .moon-slider-popup canvas {
-  width: 300px;
-  height: 210px;
-  z-index: 10;
-}
-.moon-video-fullscreen-control .moon-slider-popup-label {
-  position: absolute;
-  top: 210px;
-  width: 300px;
-  height: 40px;
-  color: #ffffff;
-  text-align: center;
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-}
-.moon-video-fullscreen-control .enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "LG Display";
-}
-.moon-video-fullscreen-control .moon-slider-popup.above .moon-slider-popup-label {
-  top: auto;
-  bottom: 15px;
-}
-.moon-video-fullscreen-control .moon-slider-popup-flip-h {
-  transform: rotateY(0deg);
-  -webkit-transform: rotateY(0deg);
-  -moz-transform: rotateY(0deg);
-}
 /* -- Buffered progress bar (bg bar) -- */
 .moon-video-player .moon-progress-bg-bar {
   background-color: rgba(0, 212, 179, 0.5);
@@ -3183,13 +3086,17 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* ---- Header info styling ---- */
 .moon-video-player-header {
   position: absolute;
-  width: 100%;
-  top: 0px;
+  left: 20px;
+  right: 20px;
+  top: 20px;
   z-index: 2;
   font-family: "MuseoSans 700";
   font-size: 30px;
   letter-spacing: -0.04em;
   color: #ffffff;
+}
+.moon-video-player-header.always {
+  display: block;
 }
 .moon-video-player-header > * {
   background-color: rgba(0, 0, 0, 0.5);
