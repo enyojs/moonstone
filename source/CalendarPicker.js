@@ -174,6 +174,7 @@ enyo.kind({
 	updateMonthPicker: function() {
 		if (typeof ilib !== "undefined") {
 			var fmt = new ilib.DateFmt({
+				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "m",		//'m' is the month of year
 				length: "long"	//it uses 2 chars to abbreviate properly
@@ -184,7 +185,6 @@ enyo.kind({
 				monthPickerControls[i].setContent(fmt.format(date));
 			}
 		}
-		
 	},
 	/**
 		Sets up the first week of this month.
@@ -312,8 +312,8 @@ enyo.kind({
 		if (typeof ilib !== "undefined") {
 			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale);
 		}
+		this.updateMonthPicker();
 		this.refresh();
-		//this.updateMonthPicker();
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {

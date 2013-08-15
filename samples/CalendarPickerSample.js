@@ -17,7 +17,7 @@ enyo.kind({
 						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
 						{content: "und-AG"}, //Antigua and Barbuda, firstDayOfWeek: 0
 						{content: "und-CA"},//Canada, firstDayOfWeek: 0
-						{content: "en-GB"},
+						{content: "it-CH"},	//Italian
 						{content: "en-MX"},
 						{content: "de-DE"},
 						{content: "fr-FR"},
