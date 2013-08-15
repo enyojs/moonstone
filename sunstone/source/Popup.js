@@ -10,5 +10,5 @@ enyo.kind({
 		if (this.downEvent && this.downEvent.type !== "onSpotlightSelect") {
 			return this.inherited(arguments);
 		}
-	},
+	}
 });
