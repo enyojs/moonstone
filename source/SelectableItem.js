@@ -31,6 +31,11 @@ enyo.kind({
 	components: [	// This client allow underline to fit the content
 		{name: "client", classes: "moon-selectableItem-item"}
 	],
+	//@protected
+	rendered: function() {
+		this.inherited(arguments);
+		this.selectedChanged();
+	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
 	},
@@ -48,7 +53,6 @@ enyo.kind({
 		this.setAttribute("selected", this.selected ? "selected" : "");
 		this.setActive(this.selected);
 		this.$.client.addRemoveClass("moon-underline", this.selected);
-		this.render();
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called
