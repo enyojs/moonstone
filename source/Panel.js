@@ -64,7 +64,7 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		this.$.header.createComponents(this.headerComponents, {owner: this});
+		this.$.header.createComponents(this.headerComponents, {owner: this.getInstanceOwner()});
 		this.autoNumberChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
