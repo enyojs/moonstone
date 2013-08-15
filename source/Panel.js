@@ -52,7 +52,7 @@ enyo.kind({
 		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
 			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-miniheader", content: "Mini header", showing: false},
-			{name: "panelBody", fit: true, classes: "moon-panel-body"}
+			{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 		]},
 		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}
 	],
