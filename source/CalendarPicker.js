@@ -147,7 +147,7 @@ enyo.kind({
 		this.$.monthPicker.addClass("moon-simple-picker-button-bold");
 		for (var i = 0; i < 12; i++) {
 			this.$.monthPicker.createComponent(
-				{content: months[i], classes: "picker-content"}
+				{content: months[i], classes: "picker-content", style: "width: 100px"}
 			);
 		}
 	},
