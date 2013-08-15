@@ -13,7 +13,7 @@ enyo.kind({
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
 						//{content: "th-TH"},	//Thailand
 						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
-						{content: "und-KR"}, //Korea, firstDayOfWeek: 0
+						{content: "ko-KO"}, //Korea, firstDayOfWeek: 0
 						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
 						{content: "und-AG"}, //Antigua and Barbuda, firstDayOfWeek: 0
 						{content: "und-CA"},//Canada, firstDayOfWeek: 0
