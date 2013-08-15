@@ -13,8 +13,6 @@ enyo.kind({
 	kind: "moon.Slider",
 	classes: "moon-slider moon-video-transport-slider",
 	//* @protected
-	popupWidth: 300,
-	popupHeight: 200,
 	published: {
 		//** This is start point of slider 
 		rangeStart: 0,
@@ -58,7 +56,7 @@ enyo.kind({
 		]},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
 			{classes: "moon-slider-popup-wrapper", components: [
-				{tag: "canvas", name: "drawing", classes: "moon-slider-popup-canvas"},
+				{tag: "canvas", name: "drawing"},
 				{name: "popupLabel", classes: "moon-slider-popup-label"}
 			]}
 		]}
@@ -258,7 +256,6 @@ enyo.kind({
 	},
 	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
 	timeUpdate: function(inSender, inEvent) {
-		this.triggerCanvasUpdate(inEvent.srcElement);
 		this._currentTime = inSender._currentTime;
 		this._duration = inSender._duration;
 		this.currentTime = new Date(this._currentTime * 1000);
@@ -290,23 +287,6 @@ enyo.kind({
 		}
 		bufferedPercentage = highestBufferPoint * 100 / inNode.duration;
 		this.setBgProgress(bufferedPercentage);
-	},
-	//* Kickoff canvas update when video time changes
-	triggerCanvasUpdate: function(inNode) {
-		if (!this.dragging) {
-			return;
-		}
-		// Add delay here to account for pause in dragging
-		setTimeout(enyo.bind(this, function() { this.updateCanvas(inNode); }), 200);
-	},
-	//* Draw copy of _inNode_ to _this.$.drawing_
-	updateCanvas: function(inNode) {
-		var drawingNode = this.$.drawing.hasNode(),
-			db = drawingNode.getBoundingClientRect(),
-			ctx = drawingNode.getContext("2d")
-		;
-		// draw video preview thumbnail
-		ctx.drawImage(inNode, 0, 0, db.width, db.height);
 	},
 	//* Properly format time
 	formatTime: function(inValue) {
