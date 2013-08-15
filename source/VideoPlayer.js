@@ -69,7 +69,7 @@ enyo.kind({
 		//* URL for "rewind" icon
 		rewindIcon: "$lib/moonstone/images/icon-rewind.png",
 		//* URL for "play" icon
-		playIcon: "$lib/moonstone/images/icon-pause.png",
+		playIcon: "$lib/moonstone/images/icon-play.png",
 		//* URL for "pause" icon
 		pauseIcon: "$lib/moonstone/images/icon-pause.png",
 		//* URL for "fast forward" icon
