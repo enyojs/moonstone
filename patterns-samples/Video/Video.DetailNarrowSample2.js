@@ -15,34 +15,33 @@ enyo.kind({
             components: [
                 {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"},
                 {
-                    kind: "HFlexBox",
                     components: [
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Rating"},
                             {name: "rating"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Release Date"},
                             {name: "releaseDate"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Running Time"},
                             {name: "duration"}
                         ]}
                     ]
                 },
                 {
-                    kind: "HFlexBox",
+					kind: "moon.Table",
                     components: [
-                        {flex: true, components: [
+                        {components: [
                             {content: "SD"},
                             {name: "valueSD"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {content: "HD"},
                             {name: "valueHD"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {content: "3D"},
                             {name: "value3D"}
                         ]}

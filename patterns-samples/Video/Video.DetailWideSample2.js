@@ -16,19 +16,16 @@ enyo.kind({
                 fit: true,
                 components: [
                     {
-                        kind: "HFlexBox",
-                        // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
-                        style: "height: 100px;",
                         components: [
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Rating"},
                                 {name: "rating"}
                             ]},
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Release Date"},
                                 {name: "releaseDate"}
                             ]},
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Running Time"},
                                 {name: "duration"}
                             ]}

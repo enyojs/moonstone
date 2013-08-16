@@ -17,17 +17,17 @@ enyo.kind({
                     name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
                 },
                 {
-                    kind: "HFlexBox",
+					kind: "moon.Table",
                     components: [
-                        {flex: true, components: [
+                        {components: [
                             {content: "SD"},
                             {name: "valueSD"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {content: "HD"},
                             {name: "valueHD"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {content: "3D"},
                             {name: "value3D"}
                         ]}
@@ -39,20 +39,17 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components: [
-                {
-                    kind: "HFlexBox",
-                    // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
-                    style: "height: 100px;",
+		        {   
                     components: [
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Rating"},
                             {name: "rating"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Release Date"},
                             {name: "releaseDate"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Running Time"},
                             {name: "duration"}
                         ]}
