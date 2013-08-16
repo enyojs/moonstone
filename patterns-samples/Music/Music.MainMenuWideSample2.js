@@ -29,7 +29,6 @@ enyo.kind({
                             ]
                         },
                         {
-                            kind: "enyo.VCenter",
                             content: "branding",
                             fit: true,
                             classes: "moon-dark-gray",
