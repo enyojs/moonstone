@@ -19,5 +19,6 @@ enyo.depends(
 	"Spinner.js",
 	"Header.js",
 	"Accordion.js",
-	"Scroller.js"
+	"Scroller.js",
+	"Panel.js"
 );
