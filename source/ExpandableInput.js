@@ -74,6 +74,7 @@ enyo.kind({
 		} else if(this.value != this.$.currentValue.content) {
 			this.$.currentValue.setContent(this.value);
 		}
+		this.$.currentValue.setShowing(!this.open && (this.$.currentValue.content !== ""));
 	},
 	//* Updates _value_ and _content_ when _this.value_ changes. 
 	valueChanged: function(inOld) {
@@ -96,7 +97,7 @@ enyo.kind({
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.open);
+		this.$.currentValue.setShowing(!this.open && (this.$.currentValue.content !== ""));
 	},
 	//* Expands a drawer, focusing or blurring the _moon.Input_.
 	expandDrawer: function(inSender, inEvent) {
