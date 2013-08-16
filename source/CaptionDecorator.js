@@ -10,7 +10,7 @@ enyo.kind({
 	name: "moon.CaptionDecorator",
 	handlers: {
 		onSpotlightFocus:"spotFocus",
-		onSpotlightBlur:"spotBlur",
+		onSpotlightBlur:"spotBlur"
 	},
 	published: {
 		side: "top",
@@ -18,6 +18,8 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon enyo-unselectable moon-button-caption-decorator",
+	sideCaptionWidth: null,
+	width: null,
 	components: [
 		{kind: "enyo.Control", name: "leftCaption",   classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
 		{kind: "enyo.Control", name: "topCaption",    classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
@@ -27,6 +29,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		var side = this.getSide();
 		this.sideChanged();
 		this.showOnFocusChanged();
 	},
@@ -42,19 +45,35 @@ enyo.kind({
 		}
 	},
 	showOnFocusChanged: function() {
-		this.$[this.getSide()+"Caption"].applyStyle("opacity", this.getShowOnFocus() ? 0 : 1);
+		if (!this.getShowOnFocus()) return;
+
+		this.$[this.getSide()+"Caption"].applyStyle("visibility", "hidden");
+
+		if (this.getSide() === 'left' || this.getSide() === 'right') {
+			this.$[this.getSide()+"Caption"].addClass("showOnFocus");
+			this.$[this.getSide()+"Caption"].addClass(this.getSide());
+		}
 	},
 	contentChanged: function() {
 		this.$[this.getSide()+"Caption"].setContent(this.getContent());
 	},
+	rendered: function () {
+		this.inherited(arguments);
+		this.sideCaptionWidth = this.$[this.getSide()+"Caption"].getBounds().width;
+		this.width = this.getBounds().width;
+	},
 	spotFocus: function () {
 		if (this.getShowOnFocus()) {
-			this.$[this.getSide()+"Caption"].applyStyle("opacity", 1);
+			this.applyStyle('position', 'relative');
+			var side = this.$[this.getSide()+"Caption"];
+			side.applyStyle("width", this.sideCaptionWidth + "px");
+			side.applyStyle(this.getSide() === 'right' ? "left" : "right", (this.width - 10) + "px");
+			side.applyStyle("visibility", "visible");
 		}
 	},
 	spotBlur: function () {
 		if (this.getShowOnFocus()) {
-			this.$[this.getSide()+"Caption"].applyStyle("opacity", 0);
+			this.$[this.getSide()+"Caption"].applyStyle("visibility", "hidden");
 		}
 	}
 });

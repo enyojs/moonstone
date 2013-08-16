@@ -50,13 +50,13 @@ enyo.kind({
 				{kind: "moon.CaptionDecorator", side: "top", showOnFocus: true, content: "Pow", components: [
 					{name: "showOnFocus Caption A", kind: "moon.Button", content: "A", ontap: "buttonTapped"}
 				]},
-				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom", components: [
+				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom Boom Pow", components: [
 					{name: "showOnFocus Caption B", kind: "moon.Button", content: "B", ontap: "buttonTapped"}
 				]},
 				{kind: "moon.CaptionDecorator", side: "bottom", showOnFocus: true, content: "Crash", components: [
 					{name: "showOnFocus Caption C", kind: "moon.Button", content: "C", ontap: "buttonTapped"}
 				]},
-				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Bang", components: [
+				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Crash Test Bang Bang", components: [
 					{name: "showOnFocus Caption D", kind: "moon.Button", content: "D", ontap: "buttonTapped"}
 				]},
 				{tag: "br"},
