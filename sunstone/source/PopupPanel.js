@@ -63,7 +63,7 @@ enyo.kind({
 	headerOption: null,
 	panelTools : [
 		{name: "header", kind: "sun.PopupHeader"},
-		{name: "panelBody", fit: true},
+		{name: "panelBody", kind: "FittableRows", fit: true},
 		{name: "footer", kind: "sun.footer"}
 	],
 	headerComponents: [],
