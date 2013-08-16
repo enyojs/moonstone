@@ -8,12 +8,14 @@ enyo.kind({
             name: "menuList",
             kind: "enyo.DataList",
             components: [
-                {bindFrom:"menuItem", kind: "moon.Item", ontap: "changePanel"}
+                { kind: "moon.Item", ontap: "changePanel", bindings: [
+                    {from: ".model.menuItem", to: ".content"}
+                ]}
             ]
         }
     ],
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
  });
 

@@ -13,9 +13,7 @@ enyo.kind({
         {
             kind: "FittableRows",
             components: [
-                {
-                    name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"
-                },
+                {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"},
                 {
                     kind: "HFlexBox",
                     components: [
@@ -69,13 +67,13 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.posterUrl", to: "$.movie.src"},
-        {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.duration", to: "$.duration.content"},
-        {from: ".controller.valueSD", to: "$.valueSD.content"},
-        {from: ".controller.valueHD", to: "$.valueHD.content"},
-        {from: ".controller.value3D", to: "$.value3D.content"}
+        {from: ".controller.posterUrl", to: ".$.movie.src"},
+        {from: ".controller.rating", to: ".$.rating.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.duration", to: ".$.duration.content"},
+        {from: ".controller.valueSD", to: ".$.valueSD.content"},
+        {from: ".controller.valueHD", to: ".$.valueHD.content"},
+        {from: ".controller.value3D", to: ".$.value3D.content"}
     ]
 });
 

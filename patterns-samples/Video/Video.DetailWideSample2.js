@@ -10,9 +10,7 @@ enyo.kind({
     ],
     components: [
         {kind: "FittableColumns", classes: "enyo-fit", noStretch: true, components: [
-            {
-                name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
-            },
+            {name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"},
             {
                 kind: "FittableRows",
                 fit: true,
@@ -62,12 +60,12 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.posterUrl", to: "$.movie.src"},
-        {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.duration", to: "$.duration.content"},
-        {from: ".controller.synopsisHeader", to: "$.synopsisHeader.content"},
-        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+        {from: ".controller.posterUrl", to: ".$.movie.src"},
+        {from: ".controller.rating", to: ".$.rating.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.duration", to: ".$.duration.content"},
+        {from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
     ]
 });
 

@@ -55,15 +55,16 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.MovieImageItem",
-                    bindFrom: "option",
-                    bindTo: "option",
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ],                    
                     ontap: "changeName"
                 }
             ]
         }
     ],   
     bindings: [
-        {from: ".controller.albums", to: "$.movieList.controller"}
+        {from: ".controller.albums", to: ".$.movieList.controller"}
     ]
 });
 
