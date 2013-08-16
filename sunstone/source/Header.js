@@ -11,39 +11,23 @@ enyo.kind({
 		title: '',
 		//* Text below the header
 		titleBelow: '',
-		//* If true, the moon-small-header css class will be applied to this header
-		small: false,
 		//* If true, the moon-left-header css class will be applied to this header
 		iconLeft: false		
 	},
+	classes: "sun-header moon-header",
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
 			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
 		]},
-		{name: "leftIcon", kind: "sun.IconButton", src: "assets/icon-list.png", classes: "sun-left-icon", ontap: "headerLeftTapped"},
+		{name: "leftIcon", tag: "img", src: "../images/1080x1920/header_arrow.png", classes: "sun-left-icon", ontap: "headerLeftTapped"},
 		{name: "client", classes: "sun-header-client"},
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.smallChanged();
 		this.iconLeftChanged();
 		this.titleChanged();
 		this.titleBelowChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.startMarquee();
-	},
-	startMarquee: function() {
-		this.$.texts.startMarquee();
-	},
-	stopMarquee: function() {
-		this.$.texts.stopMarquee();
-	},
-	//* @protected
-	smallChanged: function() {
-		this.addRemoveClass("sun-small-header", this.getSmall());
 	},
 	//* @protected
 	contentChanged: function() {
@@ -57,11 +41,13 @@ enyo.kind({
 	//* @protected
 	titleBelowChanged: function() {
 		this.$.titleBelow.setContent(this.titleBelow || '');
+		this.addRemoveClass("sun-two-lines-header", this.titleBelow);
 	},
 	iconLeftChanged: function() {
 		this.addRemoveClass("sun-left-header", this.getIconLeft());
-		if(!this.getIconLeft())
+		if(!this.getIconLeft()) {
 			this.$.leftIcon.hide();
+		}
 	},
 	headerLeftTapped: function() {
 		this.doHeaderLeftTapped();
