@@ -66,6 +66,8 @@
 /* ---------------------------------------*/
 /* Carat */
 /* ---------------------------------------*/
+/* ListItem */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -771,6 +773,70 @@
 }
 .sun .moon-divider .moon-marquee-text {
   line-height: 72px;
+}
+.sun-listitem-item {
+  position: relative;
+  border-bottom: 3px solid silver;
+  margin-left: 20px;
+  margin-right: 20px;
+  overflow: hidden;
+  line-height: 180px;
+  color: #999999;
+}
+.sun-listitem-item:after {
+  content: " ";
+  visiblity: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+.sun-listitem-selected {
+  background-color: #ff2f7d;
+  color: #ffffff;
+}
+.sun-listitem-icon {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+  border: 3px solid red;
+}
+.sun-listitem-subject {
+  font-family: "MuseoSans Medium";
+  font-size: 80px;
+  display: inline-block;
+  vertical-align: middle;
+  left: 60px;
+  right: 30%;
+  width: auto;
+  line-height: normal;
+}
+.sun-listitem-extracontainer {
+  position: absolute;
+  display: inline-block;
+  margin-top: auto;
+  float: right;
+  vertical-align: middle;
+  right: 5px;
+  bottom: 3px;
+  overflow: hidden;
+  max-width: 30%;
+}
+.sun-listitem-extrainfoicon {
+  display: inline-block;
+  clear: both;
+  float: right;
+}
+.sun-listitem-extrainfo {
+  display: inline-block;
+  right: 0;
+  clear: right;
+  float: right;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
