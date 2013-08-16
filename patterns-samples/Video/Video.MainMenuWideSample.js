@@ -10,7 +10,9 @@ enyo.kind({
             kind: "enyo.DataList",
             style: "width: 300px;",
             components: [
-                {bindFrom:"menuItem", kind: "moon.Item", ontap: "changePanel"}
+                {kind: "moon.Item", ontap: "changePanel", bindings: [
+                    {from: ".model.menuItem", to: ".content"}
+                ]}
             ]
         },
         {
@@ -20,7 +22,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
  });
 

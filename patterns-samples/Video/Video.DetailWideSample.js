@@ -83,15 +83,15 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.posterUrl", to: "$.movie.src"},
-        {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.duration", to: "$.duration.content"},
-        {from: ".controller.valueSD", to: "$.valueSD.content"},
-        {from: ".controller.valueHD", to: "$.valueHD.content"},
-        {from: ".controller.value3D", to: "$.value3D.content"},
-        {from: ".controller.synopsisHeader", to: "$.synopsisHeader.content"},
-        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+        {from: ".controller.posterUrl", to: ".$.movie.src"},
+        {from: ".controller.rating", to: ".$.rating.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.duration", to: ".$.duration.content"},
+        {from: ".controller.valueSD", to: ".$.valueSD.content"},
+        {from: ".controller.valueHD", to: ".$.valueHD.content"},
+        {from: ".controller.value3D", to: ".$.value3D.content"},
+        {from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
     ]
 });
 
