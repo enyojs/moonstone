@@ -13,8 +13,8 @@ enyo.kind({
 			kind: "sun.PopupPanel",
 			title: "Title", 
 			headerComponents: [
-				{kind: "sun.IconButton", src: "$lib/moonstone/patterns-samples/assets/icon-like.png"},
-				{kind: "sun.IconButton", src: "$lib/moonstone/patterns-samples/assets/icon-next.png"}
+				{kind: "sun.IconButton", small: true, src: "assets/1080x1920/small-icon-close-button.png"},
+				{kind: "sun.IconButton", small: true, src: "assets/1080x1920/small-icon-close-button.png"}
 			],
 			components: [
 				{
