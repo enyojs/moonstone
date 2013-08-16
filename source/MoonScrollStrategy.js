@@ -433,8 +433,6 @@ enyo.kind({
 		this.$.pageDownControl.addClass("hidden");
 	},
 	_getScrollBounds: function() {
-		var vBounds = this.$.vthumbContainer.getBounds(),
-			hBounds = this.$.hthumbContainer.getBounds();
 		var containerBounds = this.$.clientContainer.getBounds(),
 			s = this.getScrollSize(),
 			b = {
@@ -447,8 +445,8 @@ enyo.kind({
 			}
 		;
 
-		b.maxLeft = Math.max(0, b.width - b.clientWidth + vBounds.width);
-		b.maxTop = Math.max(0, b.height - b.clientHeight + hBounds.height);
+		b.maxLeft = Math.max(0, b.width - b.clientWidth);
+		b.maxTop = Math.max(0, b.height - b.clientHeight);
 		
 		enyo.mixin(b, this.getOverScrollBounds());
 		
@@ -464,8 +462,6 @@ enyo.kind({
 	animateToControl: function(inControl, inScrollFullPage) {
 		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
 			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.container),
-			vBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.$.vthumbContainer),
-			hBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.$.hthumbContainer),
 			scrollBounds   = this.getScrollBounds(),
 			offsetTop      = controlBounds.top - absoluteBounds.top,
 			offsetLeft     = controlBounds.left - absoluteBounds.left,
@@ -509,7 +505,7 @@ enyo.kind({
 			if (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) {
 				x = offsetLeft;
 			} else {
-				x = offsetLeft - scrollBounds.clientWidth + offsetWidth + hBounds.right;
+				x = offsetLeft - scrollBounds.clientWidth + offsetWidth;
 				// If nodeStyle exists, add the _marginRight_ to the scroll value.
 				x += enyo.dom.getComputedBoxValue(inControl.hasNode(), "margin", "right");
 			}
@@ -519,7 +515,7 @@ enyo.kind({
 			// is larger than the viewport, scroll to the control's right edge. Otherwise, scroll just
 			// far enough to get the control into view.
 			if (inScrollFullPage || offsetWidth > scrollBounds.clientWidth) {
-				x = offsetLeft - scrollBounds.clientWidth + offsetWidth + hBounds.right;
+				x = offsetLeft - scrollBounds.clientWidth + offsetWidth;
 			} else {
 				x = offsetLeft;
 				// If nodeStyle exists, subtract the _marginLeft_ to the scroll value.
@@ -541,7 +537,7 @@ enyo.kind({
 				// If nodeStyle exists, add the _marginBottom_ to the scroll value.
 				y -= enyo.dom.getComputedBoxValue(inControl.hasNode(), "margin", "top");
 			} else {
-				y = offsetTop - scrollBounds.clientHeight + offsetHeight + vBounds.top;
+				y = offsetTop - scrollBounds.clientHeight + offsetHeight;
 				// If nodeStyle exists, add the _marginBottom_ to the scroll value.
 				y += enyo.dom.getComputedBoxValue(inControl.hasNode(), "margin", "bottom");
 			}
@@ -551,7 +547,7 @@ enyo.kind({
 			// is larger than the viewport, scroll to the control's bottom edge. Otherwise, scroll just
 			// far enough to get the control into view.
 			if (inScrollFullPage || offsetHeight > scrollBounds.clientHeight) {
-				y = offsetTop - scrollBounds.clientHeight + offsetHeight + vBounds.top;
+				y = offsetTop - scrollBounds.clientHeight + offsetHeight;
 			} else {
 				y = offsetTop;
 				// If nodeStyle exists, subtract the _marginTop_ to the scroll value.
