@@ -13,7 +13,7 @@ enyo.kind({
 		//* Increase this value to increase the distance scrolled by the scroll wheel
 		scrollWheelMultiplier: 5,
 		//* Increase this value to increase the distance scrolled by tapping the pagination buttons
-		paginationPageMultiplier: 10,
+		paginationPageMultiplier: 1,
 		//* Increase this value to increase the distance scrolled by holding the pagination buttons
 		paginationScrollMultiplier: 5
 	},
@@ -174,7 +174,9 @@ enyo.kind({
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
-		var scrollDelta = inEvent.scrollDelta * this.paginationPageMultiplier,
+		//Added scroll height as page multiplier can be used for moving page wise,
+		//instead of row wise.
+		var scrollDelta = this.getScrollBounds().clientHeight * this.paginationPageMultiplier,
 			side = inEvent.originator.side,
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
