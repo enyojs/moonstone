@@ -347,7 +347,7 @@ enyo.kind({
 		});
 	},
 	createShrinkingWidthAnimation: function() {
-		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
+		var breadcrumbWidth = (this.container && this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		return this.$.animator.newAnimation({
 			name: "shrinkWidth",
 			duration: 225,

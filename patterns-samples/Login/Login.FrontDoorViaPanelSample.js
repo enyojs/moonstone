@@ -13,8 +13,10 @@ enyo.kind({
                 {
                     kind: "moon.Button",
                     ontap: "selectApp",
-                    bindFrom: "text",
-                    style: "width: 300px;",
+                    bindings: [
+                        {from: ".model.text", to: ".content"}
+                    ],
+                    style: "width: 300px; display:block;",
                     classes: "moon-dark-gray moon-margin-top-bottom"
                 }
             ]},
@@ -79,7 +81,7 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.apps", to: "$.appInfo.controller"}
+        {from: ".controller.apps", to: ".$.appInfo.controller"}
     ],
 
     //* @public
