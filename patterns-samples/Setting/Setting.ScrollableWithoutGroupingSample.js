@@ -5,88 +5,32 @@ enyo.kind({
 	kind: "moon.Panel",
 	//* @protected
     title: "SETTINGS CATEGORY",
+	fit: true,
 	components: [
-        { 
-            kind: "FittableColumns",
-            components: [
-                {
-                    kind: "FittableRows",
-                    classes: "moon-settings-category",
-                    components: [
-                        {
-                            name: "pickerInfo",
-                            kind: "moon.DataList",
-                            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-                            fit: true,            
-                            components: [
-                                {
-                                    kind: "moon.ExpandablePicker",
-                                    bindings: [
-                                        {from: ".model.name", to: ".content"}
-                                    ],
-                                    components: [
-                                        {
-                                            bindings: [
-                                                {from: ".model.value1", to: ".content"}
-                                            ]
-                                        },
-                                        {
-                                            bindings: [
-                                                {from: ".model.value2", to: ".content"}
-                                            ]
-                                        },
-                                        {
-                                            bindings: [
-                                                {from: ".model.value3", to: ".content"}
-                                            ]
-                                        }
-                                    ],
-                                    noneText: "VALUE"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    kind: "FittableRows",
-                    classes: "moon-settings-category",
-                    components: [
-                        {
-                            name: "picker2Info",
-                            kind: "moon.DataList",
-                            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-                            fit: true,            
-                            components: [
-                                {
-                                    kind: "moon.ExpandablePicker",
-                                    bindings: [
-                                        {from: ".model.name", to: ".content"}
-                                    ],
-                                    components: [
-                                        {
-                                            bindings: [
-                                                {from: ".model.value1", to: ".content"}
-                                            ]
-                                        },
-                                        {
-                                            bindings: [
-                                                {from: ".model.value2", to: ".content"}
-                                            ]
-                                        },
-                                        {
-                                            bindings: [
-                                                {from: ".model.value3", to: ".content"}
-                                            ]
-                                        }
-                                    ],
-                                    noneText: "VALUE"
-                                }
-                            ]
-                        }
-                    ]
-                }  
-            ]  
-        }
+		{kind: "FittableColumns", fit: true, components: [
+			{kind: "FittableRows", classes: "moon-settings-category", components: [
+				{kind: "moon.Scroller", fit: true, components: [
+					{name: "pickerInfo", kind: "enyo.DataRepeater", components: [
+						{kind: "moon.ExpandablePicker", bindings: [{from: ".model.name", to: ".content"}], noneText: "None Selected", components: [
+							{bindings: [{from: ".model.value1", to: ".content"}]},
+							{bindings: [{from: ".model.value2", to: ".content"}]},
+							{bindings: [{from: ".model.value3", to: ".content"}]}
+		                ]}
+					]}
+				]}
+			]},
+	        {kind: "FittableRows", classes: "moon-settings-category", components: [
+				{kind: "moon.Scroller", fit: true, components: [
+					{name: "picker2Info", kind: "enyo.DataRepeater", components: [
+						{kind: "moon.ExpandablePicker", bindings: [{from: ".model.name", to: ".content"}], noneText: "None Selected", components: [
+							{bindings: [{from: ".model.value1", to: ".content"}]},
+							{bindings: [{from: ".model.value2", to: ".content"}]},
+							{bindings: [{from: ".model.value3", to: ".content"}]}
+		                ]}
+		            ]}
+				]}
+			]}
+		]}
     ],
 	bindings: [
         {from: ".controller.pickers",to: ".$.pickerInfo.controller"},
