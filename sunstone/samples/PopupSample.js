@@ -8,7 +8,9 @@ enyo.kind({
 		{classes: "moon-hspacing", components: [
 			{kind: "moon.Button", content: "Basic Popup", ontap: "showPopup", popup: "basicPopup"},
 			{kind: "moon.Button", content: "Long Popup", ontap: "showPopup", popup: "longPopup"},
-			{kind: "moon.Button", content: "Button in Popup", ontap: "showPopup", popup: "buttonPopup"}
+			{kind: "moon.Button", content: "Button in Popup", ontap: "showPopup", popup: "buttonPopup"},
+			{kind: "moon.Button", content: "Progress in Popup", ontap: "showPopup", popup: "progressPopup"},
+			{kind: "moon.Button", content: "Spinner in Popup", ontap: "showPopup", popup: "spinnerPopup"}
 		]},
 
 		{name: "basicPopup", kind: "sun.Popup", content: "Popup..."},
@@ -20,6 +22,26 @@ enyo.kind({
 				{kind: "moon.Button", content: "Goodbye"},
 				{kind: "moon.ToggleButton", content: "SpotlightModal", ontap: "buttonToggled"}
 			]}
+		]},
+		{name: "progressPopup", kind: "sun.Popup", components: [
+			{kind: "sun.ProgressBar", progress: 25, bgProgress: 75}
+		]},
+		{name: "spinnerPopup", kind: "sun.Popup", layoutKind: "FittableRowsLayout", components: [
+			{
+				name: "client",
+				layoutKind: "HFlexLayout",
+				fit: true,
+				components: [
+					{flex: true},
+					{
+						classes: "moon-dark-gray sun-spinner-sample-container",
+						components: [
+							{kind: "sun.Spinner"}
+						]
+					},
+					{flex: true}
+				]
+			}
 		]}
 	],
 	popupActivator: null,
