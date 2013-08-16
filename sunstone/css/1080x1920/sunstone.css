@@ -52,23 +52,11 @@
 /* ---------------------------------------*/
 /* Font */
 /* ---------------------------------------*/
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* Spotlight */
-/* ---------------------------------------*/
-/* Header */
-=======
-/* Icon Sizes */
-/* ---------------------------------------*/
-/* Spotlight */
->>>>>>> origin/sunstone
-=======
 /* Icon Sizes */
 /* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
 /* Header */
->>>>>>> origin/sunstone
 /* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
@@ -463,6 +451,28 @@
 }
 .sun.moon-popup.moon-dark-gray * {
   color: #4b4b4b;
+}
+.sun .sun-popupheader {
+  height: 169px;
+  padding: 0px 35px;
+  margin: 0px 0px 20px 0px;
+  border-bottom: 6px solid #a2a2a2;
+}
+.sun .sun-popupheader-title {
+  font-size: 127px;
+  line-height: 127px;
+}
+.sun .sun-popupheader-client {
+  position: absolute;
+  top: 27px;
+  right: 44px;
+}
+.sun .sun-popupheader-client .moon-icon-button {
+  margin-left: 20px;
+}
+.sun .sun-popupfooter {
+  margin: 20px 0px 0px 0px;
+  height: 103px;
 }
 /* ProgressBar.css */
 .sun .moon-progress-bar-bar {

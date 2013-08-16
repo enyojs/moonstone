@@ -113,14 +113,6 @@ enyo.kind({
 		meridiemEnable: false
 	},
 	style: "padding-left: 40px;",
-	components: [
-		{
-			name: "client",
-			layoutKind: "enyo.FlexLayout",
-			flexOrient: "column",
-			flexSpacing: 10
-		}
-	],
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
