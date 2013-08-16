@@ -67,6 +67,8 @@
 /* Carat */
 /* ---------------------------------------*/
 /* Divider */
+/* Input */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -453,6 +455,11 @@
   background-position: 0px -107px;
 }
 /* InputDecorator.css */
+.sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  padding: 14px 30px 14px 30px;
+  border-radius: 66px;
+  -moz-border-radius: 66px;
+}
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
   border: 5px solid #ff2f7d;
 }
@@ -776,6 +783,39 @@
 }
 .sun .moon-divider .moon-marquee-text {
   line-height: 72px;
+}
+/* Input.css */
+.sun .moon-input {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  color: #4b4b4b;
+}
+/* RichText.css */
+.sun .moon-richtext {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  min-height: 96px;
+}
+/* TextArea.css */
+.sun .moon-textarea {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
