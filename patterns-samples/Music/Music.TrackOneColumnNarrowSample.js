@@ -2,61 +2,70 @@
 
 enyo.kind({
     name: "moon.sample.music.TrackOneColumnNarrowSample",
-    kind: "moon.Panel",
-    title: "Browser Tracks",
-    titleAbove: "02",
-    titleBelow: "",
-    headerComponents: [
-        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-list.png"}
-    ],
+    kind: "moon.Panels",
+    pattern: "alwaysviewing",
+    classes: "moon-dark-gray",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
     components: [
         {
-            name: "trackList",
-            kind: "moon.DataList",
-            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-            fit: true,
+            kind: "moon.Panel",
+            title: "Browser Tracks",
+            titleAbove: "02",
+            titleBelow: "",
+            headerComponents: [
+                {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-list.png"}
+            ],
             components: [
                 {
-                    kind: "moon.Item",
-                    ontap: "changeName",
+                    name: "trackList",
+                    kind: "moon.DataList",
+                    scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+                    fit: true,
                     components: [
                         {
-                            kind: "enyo.Table",
+                            kind: "moon.Item",
+                            ontap: "changeName",
                             components: [
                                 {
+                                    kind: "enyo.Table",
                                     components: [
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    components: [
+                                                        {
+		                                                    kind: "enyo.Image", 
+															bindings: [
+																{from: ".model.coverUrl", to: ".src"}
+															]
+
+                                                        }
+                                                    ],
+                                                    attributes: {rowspan: "2"}
+                                                },
+                                                {
 													bindings: [
-														{from: ".model.coverUrl", to: ".src"}
+														{from: ".model.track", to: ".content"}
 													]
+		                                        },
+		                                        {
+													bindings: [
+														{from: ".model.time", to: ".content"}
+													],
+		                                            attributes: {rowspan: "2"}
                                                 }
-                                            ],
-                                            attributes: {rowspan: "2"}
+                                            ]
                                         },
                                         {
-											bindings: [
-												{from: ".model.track", to: ".content"}
-											]
-                                        },
-                                        {
-											bindings: [
-												{from: ".model.time", to: ".content"}
-											],
-                                            attributes: {rowspan: "2"}
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
-                                        {
-                                            bindings: [
-												{from: ".model.artist", to: ".content"}
-											] ,
-                                            classes: "moon-superscript"
+                                            components: [
+                                                {
+		                                            bindings: [
+														{from: ".model.artist", to: ".content"}
+													] ,
+
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -105,13 +114,13 @@ enyo.ready(function (){
     new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
+            style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
                 {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackOneColumnNarrowSample",
                     controller: ".app.controllers.trackController",
-                    classes: "enyo-fit",
-                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
+                    classes: "enyo-fit"
                 }
             ]
         },

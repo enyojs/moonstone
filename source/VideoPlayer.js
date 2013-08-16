@@ -94,10 +94,10 @@ enyo.kind({
 		onresize: 'resizeHandler'
 	},
     bindings: [
-		{from: "jumpBackIcon", to:"$.jumpBack.src"},
-		{from: "rewindIcon", to:"$.rewind.src"},
-		{from: "fastForwardIcon", to:"$.fastForward.src"},
-		{from: "jumpForwardIcon", to:"$.jumpForward.src"}
+		{from: ".jumpBackIcon", 	to:".$.jumpBack.src"},
+		{from: ".rewindIcon", 		to:".$.rewind.src"},
+		{from: ".fastForwardIcon", 	to:".$.fastForward.src"},
+		{from: ".jumpForwardIcon", 	to:".$.jumpForward.src"}
     ],
 	
 	//* @protected
@@ -180,7 +180,7 @@ enyo.kind({
 		this.applyStyle("width", rect.width + "px");
 	},
 	setupVideoBindings: function() {
-		this.bindings.push({from: ".sourceComponents", to: "$.video.sourceComponents"});
+		this.bindings.push({from: ".sourceComponents", to: ".$.video.sourceComponents"});
 	},
 	//* Overrides default _enyo.Control_ behavior.
 	setSrc: function(inSrc) {

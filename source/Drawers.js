@@ -47,7 +47,7 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"handleContainer", kind:"enyo.Drawer", spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", kind:"enyo.Drawer", resizeContainer:false, spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-drawers-handles"}
 		]},
 		{name:"activator", classes:"moon-drawers-activator", spotlight:true, ontap:"activatorHandler", components:[
@@ -188,13 +188,10 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		if (this.$.handleContainer.$.animator.isAnimating()){
-			return true;
-		}
 		this.resizeDresser();		
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
 		this.updateActivator(false);
 	},
 	//Updates the activator's style only when it is not animating so that there are no visual artifacts
