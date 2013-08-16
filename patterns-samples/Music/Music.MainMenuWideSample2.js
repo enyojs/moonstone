@@ -49,9 +49,9 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menu: new enyo.Collection([
-            {name: "Browser video"},
-            {name: "Browser photos"},
-            {name: "Browser music"}
+            {name: "Browse video"},
+            {name: "Browse photos"},
+            {name: "Browse music"}
         ])
     });
 

@@ -9,7 +9,7 @@ enyo.kind({
         {
             kind: "moon.Panel",
             titleAbove: "02",
-            title: "Browser Tracks",
+            title: "Browse Tracks",
             titleBelow: "15 Tracks",
             headerComponents: [
                 {kind: "moon.IconButton", src: "../assets/icon-album.png"},

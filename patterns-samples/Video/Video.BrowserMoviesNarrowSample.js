@@ -3,7 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
     classes: "enyo-unselectable moon moon-video-browsermovies",
     titleAbove: "02",
-    title: "Browser Movies",
+    title: "Browse Movies",
     titleBelow: "37 Movies",
 
     headerComponents: [

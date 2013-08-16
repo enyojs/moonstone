@@ -40,7 +40,7 @@ enyo.kind({
     name: "moon.sample.video.BrowserMoviesWideSample",
     kind: "moon.Panel",
     titleAbove: "02",
-    title: "Browser Movies",
+    title: "Browse Movies",
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-list.png"}
     ],

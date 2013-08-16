@@ -31,8 +31,8 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menus: new enyo.Collection([
-            {menuItem: "Browser Movies"},
-            {menuItem: "Browser TV Shows"},
+            {menuItem: "Browse Movies"},
+            {menuItem: "Browse TV Shows"},
             {menuItem: "Queue"},
             {menuItem: "Search"}
         ])

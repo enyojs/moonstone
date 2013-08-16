@@ -16,7 +16,7 @@ enyo.kind({
                     bindings: [
                         {from: ".model.text", to: ".content"}
                     ],
-                    style: "width: 300px;",
+                    style: "width: 300px; display:block;",
                     classes: "moon-dark-gray moon-margin-top-bottom"
                 }
             ]},
