@@ -9,11 +9,13 @@ enyo.kind({
 		
 		{kind: "FittableRows", fit: true, components: [
 			{name: "headline", classes: "wizard-instruction"},
-			{name: "resultList", fit: true, kind: "moon.DataList", classes: "wizard-datalist-wrapper", components: [
-				{classes: "wizard-datalist", components: [
-					{style: "display: inline-block", bindFrom: "step", bindTo: "content"},
-					{style: "display: inline-block", bindFrom: "result", bindTo: "content"},
-					{style: "display: inline-block", bindFrom: "processed", bindTo: "content"}
+			{kind: "moon.Scroller", fit: true, components: [
+				{name: "resultList", kind: "enyo.DataRepeater", classes: "wizard-datalist-wrapper", components: [
+					{classes: "wizard-datalist", components: [
+						{style: "display: inline-block", bindings: [{from: ".model.step", to: ".content"}]},
+						{style: "display: inline-block", bindings: [{from: ".model.result", to: ".content"}]},
+						{style: "display: inline-block", bindings: [{from: ".model.processed", to: ".content"}]}
+					]}
 				]}
 			]}
 		]}
