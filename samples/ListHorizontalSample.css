@@ -9,7 +9,7 @@
 }
 
 .moon-list-horizontal-sample {
-	height:300px;
+	height:350px;
 }
 
 .list-horizontal-controls-sample-list {
@@ -18,7 +18,9 @@
 }
 
 .list-horizontal-sample-item {
-	border: 1px solid silver;
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
 	padding: 18px;
 	font-size: 18px;
 	width:250px;

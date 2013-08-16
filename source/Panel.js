@@ -9,7 +9,7 @@
 */
 
 enyo.kind({
-	name : "moon.Panel",
+	name: "moon.Panel",
 	published: {
 		//* Facade for the header's _title_ property
 		title: "",
@@ -27,9 +27,11 @@ enyo.kind({
 		//* Facade for the header's _small_ property
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
-		collapsingHeader: false
+		collapsingHeader: false,
+		//* Title's _allowHtml_ property
+		allowHtmlHeader: false
 	},
-	events : {
+	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
 		onPreTransitionComplete: "",
 		//* Fires when this panel has completed its post-arrangement transition.
@@ -37,33 +39,44 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
 	},
 
 	//* @protected
 	spotlight: "container",
-	fit : true,
+	fit: true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
 	headerOption: null,
 	panelTools : [
-		{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
-		{name: "panelBody", fit: true, classes: "moon-panel-body"},
-		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
+			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
+			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-miniheader", content: "Mini header", showing: false},
+			{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
+		]},
+		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}
 	],
 	headerComponents: [],
 	isBreadcrumb: false,
-	isCollapsed: false,
+	isHeaderCollapsed: false,
+	shrinking: false,
+	growing: false,
 
 	create: function() {
 		this.inherited(arguments);
-		this.$.header.createComponents(this.headerComponents, {owner: this});
+		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
+		if (this.headerComponents) {
+			var hc = enyo.constructorForKind(this.kind).prototype.headerComponents;
+			var hcOwner = (hc == this.headerComponents) ? this : this.getInstanceOwner();
+			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
+		}
 		this.autoNumberChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.smallHeaderChanged();
+		this.allowHtmlHeaderChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -77,10 +90,30 @@ enyo.kind({
 		enyo.mixin($pts[0], $h);
 		this.createComponents(this.panelTools);
 	},
+	//* On reflow, update _this.$.contentWrapper_ bounds
+	reflow: function() {
+		this.inherited(arguments);
+		this.updateWrapperSize();
+		this.getInitAnimationValues();
+		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
+		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
+		this.growWidthAnimation = this.createGrowingWidthAnimation();
+		this.growHeightAnimation = this.createGrowingHeightAnimation();
+	},
+	//* Update _this.$.contentWrapper_ to have the height/width of _this_
+	updateWrapperSize: function() {
+		var node = this.hasNode();
+
+		if (!node) {
+			return;
+		}
+
+		this.$.contentWrapper.applyStyle("width", node.offsetWidth + "px");
+		this.$.contentWrapper.applyStyle("height", node.offsetHeight + "px");
+	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
-		this.layoutKind = "FittableRowsLayout";
 		this.inherited(arguments);
 	},
 
@@ -94,20 +127,18 @@ enyo.kind({
 		}
 	},
 	collapseHeader: function() {
-		if (!this.isCollapsed) {
+		if (!this.isHeaderCollapsed) {
 			this.$.header.collapseToSmall();
-			this.isCollapsed = true;
+			this.isHeaderCollapsed = true;
 		}
 	},
 	expandHeader: function() {
-		if (this.isCollapsed) {
+		if (this.isHeaderCollapsed) {
 			this.$.header.expandToLarge();
-			this.isCollapsed = false;
+			this.isHeaderCollapsed = false;
 		}
 	},
-
-	//* @public
-
+	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
 			var n = this.indexInContainer() + 1;
@@ -118,6 +149,7 @@ enyo.kind({
 	//* Updates _this.header_ when _title_ changes.
 	titleChanged: function() {
 		this.$.header.setTitle(this.getTitle());
+		this.$.miniHeader.setContent(this.getTitle());
 	},
 	//* Updates _this.header_ when _titleAbove_ changes.
 	titleAboveChanged: function() {
@@ -135,37 +167,193 @@ enyo.kind({
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.getSmallHeader());
 	},
+	//* Update _allowHtml_ property of header components
+	allowHtmlHeaderChanged: function() {
+		this.$.header.$.title.setAllowHtmlText(this.allowHtmlHeader);
+		this.$.header.$.titleBelow.setAllowHtmlText(this.allowHtmlHeader);
+		this.$.header.$.subTitleBelow.setAllowHtmlText(this.allowHtmlHeader);
+	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
 		return this.$.header;
 	},
 	shrinkPanel: function() {
-		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
-		this.$.animator.newAnimation({
-			name: "preTransition",
-			duration: 800,
-			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+		this.growing = false;
+		this.shrinking = true;
+		this.showingSmallHeader = false;
+		this.shrinkingHeightAnimation();
+	},
+	growPanel: function() {
+		this.growing = true;
+		this.shrinking = false;
+		this.showingSmallHeader = true;
+		this.growingWidthAnimation();
+	},
+	//* @protected
+	getInitAnimationValues: function() {
+		var node = this.hasNode();
+		this.initialHeight = node.offsetHeight + "px";
+		this.initialWidth = node.offsetWidth + "px";
+	},
+	shrinkingHeightAnimation: function() {
+ 		this.haltAnimations();
+		this.$.animator.play(this.shrinkHeightAnimation.name);
+	},
+	shrinkingWidthAnimation: function() {
+		this.haltAnimations();
+		this.$.animator.play(this.shrinkWidthAnimation.name);
+	},
+	growingHeightAnimation: function() {
+ 		this.haltAnimations();
+		this.$.animator.play(this.growHeightAnimation.name);
+	},
+	growingWidthAnimation: function() {
+		this.haltAnimations();
+		this.$.animator.play(this.growWidthAnimation.name);
+	},
+	haltAnimations: function() {
+		this.$.animator.stop();
+		this.$.animator.pause(this.growWidthAnimation.name);
+		this.$.animator.pause(this.growHeightAnimation.name);
+		this.$.animator.pause(this.shrinkWidthAnimation.name);
+		this.$.animator.pause(this.shrinkHeightAnimation.name);
+	},
+	panelsTransitionFinishHandler: function(inSender, inEvent) {
+		// run miniHeader marquee when we're collapsed
+		if(this.showingSmallHeader) {
+			this.$.miniHeader.startMarquee();
+		} else {
+			this.$.miniHeader.stopMarquee();
+			if (inEvent.active == inEvent.index) {
+				this.$.header.startMarquee();
+			}
+		}
+		return true;
+	},
+	preTransitionComplete: function() {
+		this.shrinking = false;
+		this.isBreadcrumb = true;
+		this.doPreTransitionComplete();
+	},
+	postTransitionComplete: function() {
+		this.growing = false;
+		this.isBreadcrumb = false;
+		this.doPostTransitionComplete();
+		this.resized();
+	},
+	preTransition: function(inFromIndex, inToIndex, options) {
+		this.$.header.stopMarquee();
+		this.$.miniHeader.stopMarquee();
+		
+		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
+			this.shrinkPanel();
+			return true;
+		}
+		
+		return false;
+	},
+	postTransition: function(inFromIndex, inToIndex, options) {
+		if (!this.growing && !options.isBreadcrumb && (this.isBreadcrumb || this.shrinking)) {
+			this.growPanel();
+			return true;
+		}
+		
+		return false;
+	},
+	animationStep: function(inSender, inEvent) {
+		if (inEvent.animation.name === "shrinkHeight" && inEvent.animation.percentElapsed >= 75 && !this.showingSmallHeader) {
+			this.showSmallHeader();
+		} else if (inEvent.animation.name === "growHeight" && inEvent.animation.percentElapsed >= 20 && this.showingSmallHeader) {
+			this.hideSmallHeader();
+		}
+		return true;
+	},
+	animationComplete: function(inSender, inEvent) {
+		switch (inEvent.animation.name) {
+			case "shrinkHeight":
+				this.shrinkingWidthAnimation();
+				return true;
+			case "shrinkWidth":
+				this.preTransitionComplete();
+				return true;
+			case "growWidth":
+				this.growingHeightAnimation();
+				return true;
+			case "growHeight":
+				this.postTransitionComplete();
+				return true;
+		}
+	},
+	showSmallHeader: function() {
+		this.$.miniHeader.setShowing(true);
+		this.$.header.addClass("hidden-title");
+		this.showingSmallHeader = true;
+	},
+	hideSmallHeader: function() {
+		this.$.miniHeader.setShowing(false);
+		this.$.header.removeClass("hidden-title");
+		this.showingSmallHeader = false;
+	},
+	headerAnimationComplete: function(inSender, inEvent) {
+		switch (inEvent.animation.name) {
+		case "collapseToSmall":
+		case "expandToLarge":
+			// FIXME: It would be better to call this during the animation so it resizes
+			// smoothly, but that's not possible with CSS transitions; it will jump now
+			this.resized();
+			break;
+		}
+	},
+	createGrowingWidthAnimation: function() {
+		return this.$.animator.newAnimation({
+			name: "growWidth",
+			duration: 225,
+			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
 				0: [{
-					control: this.$.panelBody,
+					control: this,
 					properties: {
-						"height" : "current"
+						"width"  : "current"
 					}
 				}],
-				25: [{
-					control: this.$.panelBody,
+				100: [{
+					control: this,
 					properties: {
-						"opacity" : "1"
+						"width" : this.initialWidth
+					}
+				}]
+			}
+		});
+	},
+	createGrowingHeightAnimation: function() {
+		return this.$.animator.newAnimation({
+			name: "growHeight",
+			duration: 400,
+			timingFunction: "cubic-bezier(.6, -.8, .6, 1.2)",
+			keyframes: {
+				0: [{
+					control: this,
+					properties: {
+						"height"  : "current"
 					}
 				}],
-				50: [{
-					control: this.$.panelBody,
+				100: [{
+					control: this,
 					properties: {
-						"height"  : "0px",
-						"opacity" : "0"
+						"height" : this.initialHeight
 					}
-				},
-				{
+				}]
+			}
+		});
+	},
+	createShrinkingWidthAnimation: function() {
+		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
+		return this.$.animator.newAnimation({
+			name: "shrinkWidth",
+			duration: 225,
+			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
+			keyframes: {
+				0: [{
 					control: this,
 					properties: {
 						"width" : "current"
@@ -179,104 +367,27 @@ enyo.kind({
 				}]
 			}
 		});
-
-		this.$.header.animateCollapse(breadcrumbWidth);
-		this.$.animator.play("preTransition");
 	},
-	growPanel: function() {
-		this.$.animator.newAnimation({
-			name: "postTransition",
-			duration: 800,
-			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
+	createShrinkingHeightAnimation: function() {
+		return this.$.animator.newAnimation({
+			name: "shrinkHeight",
+			duration: 500,
+			timingFunction: "cubic-bezier(.68, .4, .6, 1.6)",
 			keyframes: {
 				0: [{
 					control: this,
 					properties: {
-						"width" : "current"
-					}
-				}],
-				25: [{
-					control: this,
-					properties: {
-						"width" : this.actualWidth + "px"
-					}
-				},
-				{
-					control: this.$.panelBody,
-					properties: {
-						"height"  : "current",
-						"opacity" : "current"
-					}
-				}],
-				75: [{
-					control: this.$.panelBody,
-					properties: {
-						"opacity" : "1"
+						"height"  : "current"
 					}
 				}],
 				100: [{
-					control: this.$.panelBody,
+					control: this,
 					properties: {
-						"height" : "auto"
+						"height"  : "160px",
+						"width"   : "300px"
 					}
 				}]
 			}
 		});
-
-		this.$.header.animateExpand();
-		this.$.animator.play("postTransition");
-	},
-
-	//* @protected
-	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		if(inEvent.active >= inEvent.index) {
-			this.$.header.startMarquee();
-		} else {
-			this.$.header.stopMarquee();
-		}
-	},
-	preTransitionComplete: function() {
-		this.isBreadcrumb = true;
-		this.doPreTransitionComplete();
-	},
-	postTransitionComplete: function() {
-		this.isBreadcrumb = false;
-		this.doPostTransitionComplete();
-		this.resized();
-	},
-	preTransition: function(inFromIndex, inToIndex, options) {
-		this.$.header.stopMarquee();
-		if (this.container && !this.isBreadcrumb && options.isBreadcrumb) {
-			this.shrinkPanel();
-			return true;
-		}
-		return false;
-	},
-	postTransition: function(inFromIndex, inToIndex, options) {
-		if (this.container && this.isBreadcrumb && !options.isBreadcrumb) {
-			this.growPanel();
-			return true;
-		}
-		return false;
-	},
-	animationComplete: function(inSender, inEvent) {
-		switch (inEvent.animation.name) {
-		case "preTransition":
-			this.preTransitionComplete();
-			break;
-		case "postTransition":
-			this.postTransitionComplete();
-			break;
-		}
-	},
-	headerAnimationComplete: function(inSender, inEvent) {
-		switch (inEvent.animation.name) {
-		case "collapseToSmall":
-		case "expandToLarge":
-			// FIXME: It would be better to call this during the animation so it resizes
-			// smoothly, but that's not possible with CSS transitions; it will jump now
-			this.resized();
-			break;
-		}
 	}
 });
