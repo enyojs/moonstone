@@ -631,7 +631,7 @@
   float: left;
 }
 .sun .moon-tooltip-label {
-  background-color: #ff0000;
+  background-color: #ff2f7d;
 }
 .sun .moon-tooltip.above.left-arrow {
   background-image: url('../../images/1080x1920/tooltip-nubs/top-left.png');
