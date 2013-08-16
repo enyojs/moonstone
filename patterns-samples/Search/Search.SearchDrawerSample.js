@@ -28,19 +28,19 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.title1", to: "$.drawer.$.title1.content"},
-        {from: ".controller.title2", to: "$.drawer.$.title2.content"},
-        {from: ".controller.title3", to: "$.drawer.$.title3.content"},
-        {from: ".controller.title4", to: "$.drawer.$.title4.content"},
-        {from: ".controller.title5", to: "$.drawer.$.title5.content"},
-        {from: ".controller.title6", to: "$.drawer.$.title6.content"},
-        {from: ".controller.recentSearchResults1", to: "$.drawer.$.recentSearchResults1.controller"},
-        {from: ".controller.recentSearchResults2", to: "$.drawer.$.recentSearchResults2.controller"},
-        {from: ".controller.recentSearchResults3", to: "$.drawer.$.recentSearchResults3.controller"},
-        {from: ".controller.recentSearchResults4", to: "$.drawer.$.recentSearchResults4.controller"},
-        {from: ".controller.recentSearchResults5", to: "$.drawer.$.recentSearchResults5.controller"},
-        {from: ".controller.recentSearchResults6", to: "$.drawer.$.recentSearchResults6.controller"},
-        {from: ".controller.instantSearchResults", to: "$.drawer.$.instantSearchResults.controller"}
+        {from: ".controller.title1", to: ".$.drawer.$.title1.content"},
+        {from: ".controller.title2", to: ".$.drawer.$.title2.content"},
+        {from: ".controller.title3", to: ".$.drawer.$.title3.content"},
+        {from: ".controller.title4", to: ".$.drawer.$.title4.content"},
+        {from: ".controller.title5", to: ".$.drawer.$.title5.content"},
+        {from: ".controller.title6", to: ".$.drawer.$.title6.content"},
+        {from: ".controller.recentSearchResults1", to: ".$.drawer.$.recentSearchResults1.controller"},
+        {from: ".controller.recentSearchResults2", to: ".$.drawer.$.recentSearchResults2.controller"},
+        {from: ".controller.recentSearchResults3", to: ".$.drawer.$.recentSearchResults3.controller"},
+        {from: ".controller.recentSearchResults4", to: ".$.drawer.$.recentSearchResults4.controller"},
+        {from: ".controller.recentSearchResults5", to: ".$.drawer.$.recentSearchResults5.controller"},
+        {from: ".controller.recentSearchResults6", to: ".$.drawer.$.recentSearchResults6.controller"},
+        {from: ".controller.instantSearchResults", to: ".$.drawer.$.instantSearchResults.controller"}
     ]
 });
 
@@ -142,8 +142,12 @@ enyo.kind({
     kind: "enyo.GridListImageItem",
     classes: "enyo-gridlist-titleimageitem",
     components:[
-        {name: 'image', bindFrom: "image", bindTo: "src", kind: 'enyo.Image'},
-        {name: "text", bindFrom: "text", classes: "caption"}
+        {name: "image", kind: "enyo.Image", bindings: [
+            {from: ".model.image", to: ".src"}
+        ]},
+        {name: "text", bindings: [
+            {from: ".model.text", to: ".caption"}
+        ]}
     ]
 });
 
