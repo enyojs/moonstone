@@ -7,7 +7,7 @@ enyo.kind({
     title: "Settings",
 	components: [
         {kind: "FittableColumns", fit: true, components: [
-			{name: "caterogryInfo", kind: "moon.DataList", fit: true, components: [
+			{name: "categoryInfo", kind: "moon.DataList", fit: true, components: [
 				{kind: "moon.Item", bindings: [
 					{from: ".model.name", to: ".content"}
 				]}
@@ -15,7 +15,7 @@ enyo.kind({
 		]}
     ],
 	bindings: [
-        {from: ".controller.categories", to: ".$.caterogryInfo.controller"}
+        {from: ".controller.categories", to: ".$.categoryInfo.controller"}
     ]
 });
 
@@ -28,7 +28,7 @@ enyo.ready(function(){
 			{name: "SETTINGS CATEGORY 3"},
 			{name: "SETTINGS CATEGORY 4"},
 			{name: "SETTINGS CATEGORY 5"}
-	   ])
+		])
 	});
 
 	//  Application to render sample
