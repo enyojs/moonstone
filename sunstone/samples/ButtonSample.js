@@ -4,7 +4,7 @@ enyo.kind({
 	classes: "sun moon enyo-unselectable enyo-fit moon-button-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: 'moon.Scroller', fit: true, components: [
+		{kind: 'sun.Scroller', fit: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
 			
 				{kind: "moon.Divider", content: "Focus Buttons:"},
