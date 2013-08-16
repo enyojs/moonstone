@@ -6,5 +6,4 @@
 enyo.kind({
 	name: "sun.ExpandableInput",
 	kind: "moon.ExpandableInput",
-	classes: "sun"
 });

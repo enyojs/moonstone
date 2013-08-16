@@ -1,6 +1,7 @@
 enyo.depends(
 	"Button.js",
 	"Checkbox.js",
+	"CheckboxItem.js",
 	"ExpandableInput.js",
 	"IconButton.js",
 	"Input.js",
@@ -15,5 +16,8 @@ enyo.depends(
 	"TimePicker.js",
 	"TooltipDecorator.js",
 	"Tooltip.js",
-	"Spinner.js"
+	"Spinner.js",
+	"Header.js",
+	"Accordion.js",
+	"Scroller.js"
 );

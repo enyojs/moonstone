@@ -25,6 +25,5 @@
 */
 enyo.kind({
 	name    : "sun.InputDecorator",
-	kind    : "moon.InputDecorator",
-	classes	: "sun"
+	kind    : "moon.InputDecorator"
 });

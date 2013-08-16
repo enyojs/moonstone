@@ -20,6 +20,5 @@
 
 enyo.kind({
 	name: "sun.ProgressBar",
-	kind: "moon.ProgressBar",
-	classes: "sun"
+	kind: "moon.ProgressBar"
 });

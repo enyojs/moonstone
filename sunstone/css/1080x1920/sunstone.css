@@ -56,9 +56,15 @@
 /* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
+/* Header */
+/* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
+/* CheckboxItem */
+/* ---------------------------------------*/
 /* Spinner */
+/* ---------------------------------------*/
+/* Carat */
 /* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
@@ -328,6 +334,39 @@
 }
 /* moonstone - LESS pre-calculations */
 /* sunstone - Common classes applicable to multiple controls */
+.sun-header-text {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 70px;
+}
+.sun-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 20px;
+}
+.sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
+}
+.sun-small-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
+  font-size: 50px;
+}
+.sun-left-header .sun-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
+  font-size: 70px;
+  padding-left: 60px;
+}
 /* sunstone - LESS pre-calculations */
 /* Individual widget CSS */
 /* Button */
@@ -354,77 +393,28 @@
 }
 /* Checkbox.css */
 .sun .moon-checkbox {
-  cursor: pointer;
   height: 36px;
   width: 50px;
 }
 .sun .moon-checkbox[checked] {
-  background-image: url(../images/checkbox.png);
-  background-repeat: no-repeat;
-  background-position: 11px 1px;
-}
-.sun .moon-checkbox[disabled] {
-  opacity: 0.4;
+  background-image: url(../../images/1080x1920/checkbox.png);
 }
 .sun .moon-checkbox .moon-overlay {
-  cursor: pointer;
   height: 36px;
   width: 50px;
-  background: transparent url(../images/checkbox.png) no-repeat 10px -36px;
-  opacity: 1;
-  transition: opacity 0.4s linear;
-  -webkit-transition: opacity 0.4s linear;
-  -moz-transition: opacity 0.4s linear;
-  -o-transition: opacity 0.4s linear;
+  background: transparent url(../../images/1080x1920/checkbox.png) no-repeat 10px -36px;
 }
-.sun .moon-checkbox .moon-overlay.off {
-  opacity: 0;
+.sun .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  margin-right: 50px;
 }
-.sun .moon-expandable-input {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  cursor: pointer;
+.sun.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  margin-left: 50px;
 }
-.sun .moon-expandable-input .moon-input-decorator {
-  width: 100%;
-  box-sizing: border-box;
+.sun.moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  margin-right: 66px;
 }
-.sun .moon-expandable-input .moon-input {
-  width: 100%;
-}
-.sun .moon-expandable-input.spotlight {
-  padding: 0px 0px 0px 4px;
-  border-left: 16px solid #ffb80d;
-}
-.sun .moon-item.moon-expandable-input-header {
-  line-height: 28px;
-  padding: 0px;
-  margin: 0px 0px 10px 0px;
-  transition: all 0.1s linear;
-  -webkit-transition: all 0.1s linear;
-  -moz-transition: all 0.1s linear;
-  -o-transition: all 0.1s linear;
-}
-.sun .moon-expandable-input.open .moon-expandable-input-header {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  padding: 0px;
-  border-bottom: 1px solid #aaa;
-}
-.sun .moon-expandable-input-current-value {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  color: #4B4B4B;
-  margin: 0px;
-  padding: 0px;
+.sun.enyo-locale-right-to-left .moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  margin-left: 50px;
 }
 /* IconButton.css */
 .sun .moon-icon-button {
@@ -447,99 +437,19 @@
   background: #ffffff;
   border: 5px solid #ff2f7d;
 }
-/* Input.css */
-.sun .moon-input {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  margin: 0px;
-  padding: 0px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: transparent;
-  box-shadow: none;
-  color: #4b4b4b;
-}
-.sun .moon-input-decorator.moon-focused .moon-input {
-  cursor: text;
-}
-.sun .moon-input-decorator.moon-disabled .moon-input {
-  cursor: default;
-}
-.sun .moon-input-decorator > input::-webkit-input-placeholder {
-  color: #7d7d7d;
-}
-.sun .moon-input-decorator > input:-moz-placeholder {
-  color: #7d7d7d;
-}
-/* IE10 */
-.sun .moon-input-decorator > input:-ms-input-placeholder {
-  color: #7d7d7d;
-}
 /* InputDecorator.css */
-.sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  margin: 0px;
-  padding: 14px 30px 14px 30px;
-  border-radius: 34px;
-  -moz-border-radius: 34px;
-  border: 5px solid transparent;
-  background-color: white;
-  -webkit-background-clip: padding;
-  /* Safari */
-
-  background-clip: padding-box;
-  /* Firefox 4+, Chrome, IE 9+ */
-
-}
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
-  border: 5px solid #ffb80d;
-}
-.sun .moon-input-decorator.moon-disabled {
-  opacity: 0.4;
+  border: 5px solid #ff2f7d;
 }
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
-  border: 5px solid #a2a2a2;
+  border: 5px solid #ff2f7d;
 }
 /* Popup.css */
 .sun.moon-popup {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 27px 20px;
-  box-sizing: border-box;
+  font-family: "MuseoSans 500";
+  background-color: #d9d9d9;
 }
-.sun.moon-popup-close {
-  border-radius: 9999px;
-  line-height: 24px;
-  background-color: #ededed;
-  border: 5px solid transparent;
-  float: right;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  padding: 0px 0px 0px 0px;
-  margin: 10px 10px 0px 10px;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-}
-.sun.moon-popup-close.spotlight {
-  background: #ffb80d;
-}
-.sun.moon-popup-close::after {
-  content: "\2716";
-  font-size: 25px;
-  position: relative;
-  top: 1px;
-  left: 0px;
+.sun.moon-popup.moon-dark-gray * {
   color: #4b4b4b;
 }
 .sun .sun-popupheader {
@@ -565,99 +475,30 @@
   height: 103px;
 }
 /* ProgressBar.css */
-.sun .moon-progress-bar {
-  position: relative;
-  margin: 50px 20px;
-  height: 4px;
-  background-color: #323232;
-  min-width: 128px;
-}
-.sun .moon-progress-bg-bar {
-  height: 100%;
-  background-color: #7d7d7d;
-}
 .sun .moon-progress-bar-bar {
-  height: 100%;
-  background-color: #69cdff;
-  margin-top: -4px;
+  background-color: #ff2f7d;
 }
-.sun .moon-slider-taparea {
-  position: absolute;
-  top: -14px;
-  height: 32px;
-  width: 100%;
-}
+/* Slider.css */
 .sun .moon-slider-knob,
 .sun .moon-slider-knob.disabled:active:hover {
-  position: relative;
-  height: 56px;
-  width: 56px;
-  border-radius: 28px;
-  margin: -30px -29px;
-  background-color: #69cdff;
+  height: 51px;
+  width: 51px;
+  background-color: #ffffff;
+  border: 5px solid #ffffff;
 }
 .sun .moon-slider-knob.active,
 .sun .moon-slider-knob.spotselect,
 .sun .moon-slider-knob:active:hover {
-  height: 84px;
-  width: 84px;
-  border-radius: 42px;
-  margin: -42px -44px;
-}
-.sun .moon-slider.spotlight > .moon-progress-bar-bar {
-  background-color: #ffb80d;
+  height: 79px;
+  width: 79px;
 }
 .sun .moon-slider.spotlight > .moon-slider-knob {
-  background-color: #ffb80d;
+  background-color: #ffffff;
+  border: 5px solid #ff2f7d;
 }
-.sun .moon-slider.disabled {
-  cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-}
-.sun .moon-slider-popup {
-  position: absolute;
-  display: block;
-  z-index: 20;
-  left: 100px;
-  top: 0px;
-  width: 62px;
-  height: 52px;
-  padding-left: 0px;
-}
-.sun .moon-slider-popup-label {
-  font-family: "Miso";
-  font-size: 30px;
-  font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
-  position: absolute;
-  top: 2px;
-  width: 60px;
-  height: 45px;
-  white-space: nowrap;
-  color: #fff;
-  text-align: center;
-  line-height: 1.5em;
-  vertical-align: middle;
-}
-.sun .enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "LG Display";
-}
-.sun .moon-slider-popup.above {
-  top: -90px;
-  padding-left: 10px;
-}
-.sun .moon-slider-popup-flip-h {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-}
-.sun .moon-slider-focus {
-  background-color: #ffb80d;
-}
-.sun .moon-slider-nofocus {
-  background-color: #69cdff;
+.sun .moon-slider.spotlight > .moon-slider-knob:active:hover {
+  background-color: #ff2f7d;
+  border: 5px solid #ff2f7d;
 }
 /* ToggleButton.css */
 .sun-toggle-button {
@@ -787,6 +628,129 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
+.sun-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun-header-title {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 70px;
+}
+.sun-header-title .moon-marquee-text {
+  line-height: 0.643em;
+  padding: 19px 0px 0px 0px;
+  margin: 0px 0px 30px 0px;
+  white-space: nowrap;
+}
+.sun-header-title-below {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  font-size: 20px;
+  min-height: 20px;
+  padding: 2px 0px 10px 0px;
+  margin: -30px 0px 0px 0px;
+}
+.sun .enyo-locale-non-latin .sun-header-title-below {
+  font-family: "LG Display";
+}
+.sun .moon-header-item {
+  float: right;
+}
+.sun-left-icon {
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 30px;
+}
+.sun-header-client {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  margin-bottom: 30px;
+}
+.sun-header-client > * {
+  margin-left: 10px;
+}
+.sun-left-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun-small-header {
+  height: 100px;
+  color: #4b4b4b;
+  min-width: 500px;
+  border-top: 0px;
+  border-bottom: 5px solid #4b4b4b;
+  position: relative;
+  transition: height 0.2s linear;
+  -webkit-transition: height 0.2s linear;
+  -moz-transition: height 0.2s linear;
+  max-width: 100%;
+}
+.sun .moon-accordion-arrow.up {
+  background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
+}
+.sun .moon-accordion-arrow.down {
+  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+}
+/* Item.css */
+.sun .moon-item-left-spotlight-not-overlay {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .moon-item.left.spotlight:not(.overlay) {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .moon-item-right-spotlight-not-overlay {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  padding-right: 0px;
+}
+.sun .moon-item.right.spotlight:not(.overlay) {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  padding-right: 0px;
+}
+.sun .moon-item.locale-default.spotlight:not(.overlay) {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .enyo-locale-right-to-left .sun .moon-item.locale-default.spotlight:not(.overlay) {
+  border-right-width: 0px;
+  border-left-width: 0px;
+  padding-right: 0px;
+}
+.sun .enyo-thumb {
+  background: #ff2f7d;
+  border: #ff2f7d;
+}
+
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
   background-color: #404040;

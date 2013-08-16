@@ -1,27 +1,27 @@
 enyo.kind({
 	name: "sun.sample.CheckboxItemSample",
 	kind:"FittableRows",
-	classes: "moon enyo-unselectable enyo-fit",
+	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes:"moon-hspacing", controlClasses:"moon-4h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Items"},
-					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "Option 2", onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", disabled: true, content: "Deactivated", onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
+					{kind: "sun.CheckboxItem", content: "Option 3", checked: true, onchange: "itemChanged"},
+					{kind: "sun.CheckboxItem", content: "Option 2", onchange: "itemChanged"},
+					{kind: "sun.CheckboxItem", disabled: true, content: "Deactivated", onchange: "itemChanged"},
+					{kind: "sun.CheckboxItem", content: "Option 4", checked: true, onchange: "itemChanged"},
+					{kind: "sun.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Item Group"},
 					{kind: "Group", onActivate: "groupChanged", components: [
-						{kind: "moon.CheckboxItem", content: "Group Option 1"},
-						{kind: "moon.CheckboxItem", content: "Group Option 2", checked: true},
-						{kind: "moon.CheckboxItem", disabled: true, content: "Deactivated"},
-						{kind: "moon.CheckboxItem", content: "Group Option 4"},
-						{kind: "moon.CheckboxItem", content: "Group Option 5"}
+						{kind: "sun.CheckboxItem", content: "Group Option 1"},
+						{kind: "sun.CheckboxItem", content: "Group Option 2", checked: true},
+						{kind: "sun.CheckboxItem", disabled: true, content: "Deactivated"},
+						{kind: "sun.CheckboxItem", content: "Group Option 4"},
+						{kind: "sun.CheckboxItem", content: "Group Option 5"}
 					]}
 				]}
 			]}

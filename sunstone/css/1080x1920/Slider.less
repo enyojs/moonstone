@@ -1,74 +1,22 @@
-.sun .moon-slider-taparea {
-	position: absolute;
-	top: -14px;
-	height: 32px;
-	width: 100%;
-}
+/* Slider.css */
 .sun .moon-slider-knob,
 .sun .moon-slider-knob.disabled:active:hover {
-	position: relative;
-	height: 56px;
-	width: 56px;
-	border-radius: 28px;
-	margin: -30px -29px;
-	background-color: #69cdff;
+  height: 51px;
+  width: 51px;
+  background-color: #ffffff;
+  border: 5px solid #ffffff;
 }
 .sun .moon-slider-knob.active,
 .sun .moon-slider-knob.spotselect,
 .sun .moon-slider-knob:active:hover {
-	height: 84px;
-	width: 84px;
-	border-radius: 42px;
-	margin: -42px -44px;
-}
-.sun .moon-slider.spotlight > .moon-progress-bar-bar {
-	background-color: #ffb80d;
+  height: 79px;
+  width: 79px;
 }
 .sun .moon-slider.spotlight > .moon-slider-knob {
-	background-color: #ffb80d;
+  background-color: #ffffff;
+  border: 5px solid @sun-spotlight-border-color;
 }
-.sun .moon-slider.disabled {
-	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
-}
-.sun .moon-slider-popup {
-	position: absolute;
-	display: block;
-	z-index: 20;
-	left: 100px;
-	top: 0px;
-	width: 62px;
-	height: 52px;
-	padding-left: 0px;
-}
-.sun .moon-slider-popup-label {
-	.moon-large-button-text;
-	position: absolute;
-	top: 2px;
-	width: 60px;
-	height: 45px;
-	white-space: nowrap;
-	color: #fff;
-	text-align: center;
-	line-height: 1.5em;
-	vertical-align: middle;
-}
-.sun .enyo-locale-non-latin .moon-slider-popup-label {
-	font-family: @moon-non-latin-font-family;
-}
-.sun .moon-slider-popup.above {
-	top: -90px;
-	padding-left: 10px;
-}
-.sun .moon-slider-popup-flip-h {
-	transform: rotateY(180deg);
-	-webkit-transform: rotateY(180deg);
-	-moz-transform: rotateY(180deg);
-}
-.sun .moon-slider-focus {
-	background-color: #ffb80d;
-}
-.sun .moon-slider-nofocus {
-	background-color: #69cdff;
+.sun .moon-slider.spotlight > .moon-slider-knob:active:hover {    
+  background-color: @sun-spotlight-border-color;
+  border: 5px solid @sun-spotlight-border-color;
 }
