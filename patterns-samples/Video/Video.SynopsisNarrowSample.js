@@ -26,8 +26,8 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.synopsisHead", to: "$.synopsisHead.content"},
-        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+        {from: ".controller.synopsisHead", to: ".$.synopsisHead.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
     ]
 });
 

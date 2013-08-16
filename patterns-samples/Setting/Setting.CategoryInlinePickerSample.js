@@ -15,21 +15,25 @@ enyo.kind({
 			components: [
 				{
 					kind: "moon.ExpandablePicker",
-					bindFrom: "name",
-					bindTo: "content",
+					bindings: [
+                        {from: ".model.name", to: ".content"}
+                    ],
 					noneText: "VALUE",	
 					components: [
 					    {
-					    	bindFrom: "value1",
-					    	bindTo: "content"
+					    	bindings: [
+		                        {from: ".model.value1", to: ".content"}
+		                    ]
 					    },
 					    {
-					    	bindFrom: "value2",
-					    	bindTo: "content"
+					    	bindings: [
+		                        {from: ".model.value2", to: ".content"}
+		                    ]
 					    },
 					    {
-					    	bindFrom: "value3",
-					    	bindTo: "content"
+					    	bindings: [
+		                        {from: ".model.value3", to: ".content"}
+		                    ]
 					    }
 					]
 				}
@@ -37,7 +41,7 @@ enyo.kind({
 		}
 	],
 	bindings: [
-		{from: ".controller.pickers", to: "$.pickersInfo.controller"}
+		{from: ".controller.pickers", to: ".$.pickersInfo.controller"}
 	]
 });
 
@@ -45,11 +49,11 @@ enyo.kind({
 enyo.ready(function(){
 	var settingModel = new enyo.Model({
 		pickers: new enyo.Collection([
-			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
-			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
-			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
-			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"},
-			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE", value3: "VALUE"}
+			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE2", value3: "VALUE3"},
+			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE2", value3: "VALUE3"},
+			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE2", value3: "VALUE3"},
+			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE2", value3: "VALUE3"},
+			{name: "PICKER NAME", value1: "VALUE", value2: "VALUE2", value3: "VALUE3"}
 
 		])
 	});
