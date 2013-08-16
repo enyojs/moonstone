@@ -36,11 +36,11 @@ enyo.kind({
     	}
     ],
     bindings: [
-        {from: ".controller.eMail", to: "$.eMail.content"},
-        {from: ".controller.signOutButton", to: "$.signOutButton.content"},
-        {from: ".controller.autoSign", to: "$.autoSign.content"},     
-        {from: ".controller.help", to: "$.help.content"},
-        {from: ".controller.createAccountButton", to: "$.createAccountButton.content"}
+        {from: ".controller.eMail", to: ".$.eMail.content"},
+        {from: ".controller.signOutButton", to: ".$.signOutButton.content"},
+        {from: ".controller.autoSign", to: ".$.autoSign.content"},     
+        {from: ".controller.help", to: ".$.help.content"},
+        {from: ".controller.createAccountButton", to: ".$.createAccountButton.content"}
     ]
 });
 
