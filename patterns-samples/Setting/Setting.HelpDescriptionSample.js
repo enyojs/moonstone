@@ -12,18 +12,9 @@ enyo.kind({
             helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
                       "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
             components: [
-                {
-                    name: "p1Value1",
-                    bindFrom: "p1Value1"
-                },
-                {
-                    name: "p1Value2",
-                    bindFrom: "p1Value2"
-                },
-                {
-                    name: "p1Value3",
-                    bindFrom: "p1Value3"
-                }
+                {name: "p1Value1"},
+                {name: "p1Value2"},
+                {name: "p1Value3"}
             ]
         },
         {
@@ -32,36 +23,18 @@ enyo.kind({
             helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
                      "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
             components: [
-                {
-                    name: "p2Value1",
-                    bindFrom: "p2Value1"
-                },
-                {
-                    name: "p2Value2",
-                    bindFrom: "p2Value2"
-                },
-                {
-                    name: "p2Value3",
-                    bindFrom: "p2Value3"
-                }
+                {name: "p2Value1"},
+                {name: "p2Value2"},
+                {name: "p2Value3"}
             ]
         },
         {
             name: "picker3",
             kind: "moon.ExpandablePicker",           
             components: [
-                {
-                    name: "p3Value1",
-                    bindFrom: "p3Value1"
-                },
-                {
-                    name: "p3Value2",
-                    bindFrom: "p3Value2"
-                },
-                {
-                    name: "p3Value3",
-                    bindFrom: "p3Value3"
-                }
+                {name: "p3Value1"},
+                {name: "p3Value2"},
+                {name: "p3Value3"}
             ]
         }
     ],

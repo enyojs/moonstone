@@ -17,7 +17,6 @@ enyo.kind({
                 {
                     name: "signOutButton",
                     kind: "moon.Button",
-                    bindFrom: "signOutButton",
                     classes: "moon-light-gray"
                 }
             ]
@@ -31,7 +30,6 @@ enyo.kind({
     	{
     		name: "createAccountButton",
     		kind: "moon.Button",
-    		bindFrom: "createAccountButton",
     		classes: "moon-light-gray"
     	}
     ],
