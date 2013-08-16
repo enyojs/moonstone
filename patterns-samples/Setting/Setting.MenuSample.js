@@ -17,8 +17,9 @@ enyo.kind({
 						{
 						    kind: "moon.Item",
 						    ontap: "changeItemName",
-						    bindFrom: "name",
-						    bindTo: "content" 
+                            bindings: [
+                                {from: ".model.name", to: ".content"}
+                            ]
 						}
 					]
 				}
@@ -26,7 +27,7 @@ enyo.kind({
         }
     ],
 	bindings: [
-        {from: ".controller.categories", to: "$.caterogryInfo.controller"}
+        {from: ".controller.categories", to: ".$.caterogryInfo.controller"}
     ]
 });
 

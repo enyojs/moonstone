@@ -21,20 +21,24 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "moon.ExpandablePicker",
-                                    bindFrom: "name",
-                                    bindTo: "content",
+                                    bindings: [
+                                        {from: ".model.name", to: ".content"}
+                                    ],
                                     components: [
                                         {
-                                            bindFrom: "value1",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value1", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value2",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value2", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value3",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value3", to: ".content"}
+                                            ]
                                         }
                                     ],
                                     noneText: "VALUE"
@@ -55,20 +59,24 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "moon.ExpandablePicker",
-                                    bindFrom: "name",
-                                    bindTo: "content",
+                                    bindings: [
+                                        {from: ".model.name", to: ".content"}
+                                    ],
                                     components: [
                                         {
-                                            bindFrom: "value1",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value1", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value2",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value2", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value3",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value3", to: ".content"}
+                                            ]
                                         }
                                     ],
                                     noneText: "VALUE"
@@ -81,8 +89,8 @@ enyo.kind({
         }
     ],
 	bindings: [
-        {from: ".controller.pickers",to: "$.pickerInfo.controller"},
-        {from: ".controller.pickers2",to: "$.picker2Info.controller"}
+        {from: ".controller.pickers",to: ".$.pickerInfo.controller"},
+        {from: ".controller.pickers2",to: ".$.picker2Info.controller"}
     ]
 });
 

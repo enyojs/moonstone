@@ -59,8 +59,9 @@ enyo.kind({
                                     components: [
                                         {
                                             kind: "moon.ExpandablePicker",
-                                            bindFrom: "name",
-                                            bindTo: "content",
+                                            bindings: [
+                                                {from: ".model.name", to: ".content"}
+                                            ],
                                             components: [
                                                 {
                                                     bindFrom: "value1",
@@ -166,11 +167,11 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.picker", to: "$.picker.controller"},
-        {from: ".controller.picker2", to: "$.picker2.controller"},
-        {from: ".controller.item", to: "$.item.content"},
-        {from: ".controller.pickers", to: "$.pickerInfo.controller"},
-        {from: ".controller.pickers2", to: "$.picker2Info.controller"}
+        {from: ".controller.picker", to: ".$.picker.controller"},
+        {from: ".controller.picker2", to: ".$.picker2.controller"},
+        {from: ".controller.item", to: ".$.item.content"},
+        {from: ".controller.pickers", to: ".$.pickerInfo.controller"},
+        {from: ".controller.pickers2", to: ".$.picker2Info.controller"}
     ]
 });
 

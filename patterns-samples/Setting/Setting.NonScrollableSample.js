@@ -21,20 +21,24 @@ enyo.kind({
         					components: [
 	        					{
 	        						kind: "moon.ExpandablePicker",
-									bindFrom: "name",
-									bindTo: "content",
+                                    bindings: [
+                                        {from: ".model.name", to: ".content"}
+                                    ],
 									components: [
 									    {
-                                            bindFrom: "value1",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value1", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value2",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value2", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value3",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value3", to: ".content"}
+                                            ]
                                         }
 									],
 									noneText: "VALUE"
@@ -47,7 +51,7 @@ enyo.kind({
         			kind: "FittableRows",
         			classes: "moon-settings-category",
         			components: [
-        				{kind: "moon.Divider", content: "SETTINGS CATEGORY"},
+        				{kind: "moon.Divider", content: "SETTINGS CATEGORY1"},
         				{
         					name: "picker",
         					kind: "moon.DataList",
@@ -55,20 +59,24 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "moon.ExpandablePicker",
-                                    bindFrom: "name",
-                                    bindTo: "content",
+                                    bindings: [
+                                        {from: ".model.name", to: ".content"}
+                                    ],
                                     components: [
                                         {
-                                            bindFrom: "value1",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value1", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value2",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value2", to: ".content"}
+                                            ]
                                         },
                                         {
-                                            bindFrom: "value3",
-                                            bindTo: "content"
+                                            bindings: [
+                                                {from: ".model.value3", to: ".content"}
+                                            ]
                                         }
                                     ],
                                     noneText: "VALUE"
@@ -87,8 +95,9 @@ enyo.kind({
         					components: [
 	        					{
 	        						kind: "moon.CheckboxItem",
-									bindFrom: "name",
-									bindTo: "content"
+									bindings: [
+                                        {from: ".model.name", to: ".content"}
+                                    ]
 								}
         					]
         				}
@@ -98,10 +107,10 @@ enyo.kind({
    	 	}
     ],
 	bindings: [
-		{from: ".controller.picker", to: "$.picker.controller"},
-		{from: ".controller.item", to: "$.item.content"},
-        {from: ".controller.pickers", to: "$.pickerInfo.controller"},
-        {from: ".controller.items", to: "$.itemInfo.controller"}
+		{from: ".controller.picker", to: ".$.picker.controller"},
+		{from: ".controller.item", to: ".$.item.content"},
+        {from: ".controller.pickers", to: ".$.pickerInfo.controller"},
+        {from: ".controller.items", to: ".$.itemInfo.controller"}
     ]
 });
 
