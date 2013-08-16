@@ -348,7 +348,7 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  font-size: 20px;
+  font-size: 80px;
 }
 .sun-header-font {
   font-family: "Miso";
@@ -472,7 +472,6 @@
 }
 .sun .sun-popupfooter {
   margin: 20px 0px 0px 0px;
-  height: 103px;
 }
 /* ProgressBar.css */
 .sun .moon-progress-bar-bar {
@@ -655,13 +654,13 @@
   white-space: nowrap;
 }
 .sun-header-title-below {
-  font-family: "MuseoSans 700";
   font-size: 30px;
+  font-family: "MuseoSans 700";
+  font-size: 80px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  font-size: 20px;
-  min-height: 20px;
+  min-height: 80px;
   padding: 2px 0px 10px 0px;
   margin: -30px 0px 0px 0px;
 }
@@ -709,6 +708,14 @@
   -moz-transition: height 0.2s linear;
   max-width: 100%;
 }
+/* Accordion.css */
+.sun .moon-accordion-client .moon-item {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+}
 .sun .moon-accordion-arrow.up {
   background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
 }
@@ -716,6 +723,14 @@
   background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
 }
 /* Item.css */
+.sun .moon-item {
+  font-size: 30px;
+  font-family: "MuseoSans 700";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+}
 .sun .moon-item-left-spotlight-not-overlay {
   border-left-width: 0px;
   border-right-width: 0px;
@@ -750,7 +765,13 @@
   background: #ff2f7d;
   border: #ff2f7d;
 }
-
+/* devider.css */
+.sun .moon-divider {
+  font-size: 72px;
+}
+.sun .moon-divider .moon-marquee-text {
+  line-height: 72px;
+}
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
   background-color: #404040;
@@ -758,4 +779,21 @@
 }
 .sun .moon-dark-gray * {
   color: #bababa;
+}
+.sun-divider-text {
+  font-size: 72px;
+}
+.sun-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+}
+.sun-body-text {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
 }

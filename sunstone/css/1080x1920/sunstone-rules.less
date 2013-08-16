@@ -166,7 +166,6 @@
 @import "Button.less";
 @import "CheckBox.less";
 @import "CheckBoxItem.less";
-@import "ExpandableInput.less";
 @import "IconButton.less";
 @import "InputDecorator.less";
 @import "Popup.less";
@@ -176,12 +175,10 @@
 @import "Tooltip.less";
 @import "Spinner.less";
 @import "Header.less";
-<<<<<<< HEAD
 @import "Accordion.less";
 @import "Item.less";
-=======
->>>>>>> origin/sunstone
 @import "Scroller.less";
+@import "Divider.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
@@ -190,4 +187,25 @@
 }
 .sun .moon-dark-gray * {
 	color: #bababa;	
+}
+.sun-divider-text {
+	font-size: @sun-divider-font-size;
+}
+.sun-sub-header-text {
+	font-family: @moon-sub-header-font-family;
+	font-size: @sun-sub-header-font-size;
+	font-weight: @moon-sub-header-font-weight;
+	font-style: @moon-sub-header-font-style;
+	letter-spacing: @moon-sub-header-letter-spacing;
+	// line-height: @moon-sub-header-line-height; 
+	//for spotlight reasons, cannot set line-height according to spec
+	// have to use margin to achieve same appearance
+}
+.sun-body-text {
+	font-family: @moon-body-font-family;
+	font-size: @sun-body-font-size;
+	font-weight: @moon-body-font-weight;
+	font-style: @moon-body-font-style;
+	letter-spacing: @moon-body-letter-spacing;
+	// line-height: @moon-body-line-height;
 }
