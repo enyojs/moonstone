@@ -13,7 +13,9 @@ enyo.kind({
                 {
                     kind: "moon.Button",
                     ontap: "selectApp",
-                    bindFrom: "text",
+                    bindings: [
+                        {from: ".model.text", to: ".content"}
+                    ],
                     style: "width: 300px;",
                     classes: "moon-dark-gray moon-margin-top-bottom"
                 }
