@@ -4,7 +4,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit moon-input-header-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Scroller", fit: true, components: [
+		{kind: "sun.Scroller", fit: true, components: [
 			{classes:"moon-hspacing", components: [
 				{kind: "sun.InputHeader", title:"Input Header", titleAbove: "02", titleBelow: "Sub Header", 
 				subTitleBelow: "Sub-sub Header", classes:"moon-10h", oninput:"handleInput", onchange:"handleChange", 
