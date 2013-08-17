@@ -4,19 +4,19 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
-			{kind: "moon.Panel", title: "Video", components: [
+			{kind: "moon.Panel", title: "Video", classes: "moon-4h", components: [
 				{kind: "moon.Divider", content: "Select video content"},
 				{name: "vidContents", kind: "Group", style: "margin-top: 20px;", components: [
-					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"}, 
+					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
 					{kind: "moon.SelectableItem", content: "Bunny", onActivate: "webMovieBunny"},
 					{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"}
 				]}
 			]},
-			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", components: [
+			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", classes: "moon-7h", components: [
 				{
-					fit: true, 
+					fit: true,
 					components: [
-						{name: "player", spotlight: true, kind: "moon.VideoPlayer", style: "width: 640px;",
+						{name: "player", spotlight: true, kind: "moon.VideoPlayer", inline:true, style: "width: 640px;",
 							src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 							infoComponents: [
 								{
@@ -27,7 +27,7 @@ enyo.kind({
 									description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
 									components: [
 										{content: "3D"},
-										{content: "Live"},					
+										{content: "Live"},
 										{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 									]
 								}
@@ -47,7 +47,7 @@ enyo.kind({
 						}
 					]
 				},
-				{layoutKind: "FittableRowsLayout", components: [
+				{layoutKind: "FittableRowsLayout", classes: "moon-7h", components: [
 					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "next"}
 				]}
 			]},
@@ -94,4 +94,4 @@ enyo.kind({
 		this.$.capture.applyStyle("height", vdb.height+"px");
 		ctx.drawImage(videoNode, 0, 0, 300, 150);
 	}
-}); 
+});

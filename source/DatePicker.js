@@ -104,6 +104,7 @@ enyo.kind({
 				doneArr.push(o);
 			}
 		}
+		this.pickersAreSetUp = true;
 	},
 	parseDate: function() {
 		if (this._tf) {
@@ -153,12 +154,21 @@ enyo.kind({
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
-		//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
-		if (this.$.drawer.getOpen()) {
-			this.$.day.render();
-			this.$.month.render();
-			this.$.year.render();
+		var open = this.$.drawer.get("open");
+		this.$.currentValue.setShowing(!open);
+		if (this.pickersAreSetUp) {
+			//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+			if (open) {
+				this.$.day.refreshScrollState();
+				this.$.month.refreshScrollState();
+				this.$.year.refreshScrollState();
+			} else {
+				// If one of the pickers is animating when the drawer closes, it won't display properly
+				// when the drawer reopens, unless we stabilize here
+				this.$.day.stabilize();
+				this.$.month.stabilize();
+				this.$.year.stabilize();
+			}
 		}
 	},
 	closePicker: function(inSender, inEvent) {

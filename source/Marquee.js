@@ -1,8 +1,9 @@
 /**
 	_moon.MarqueeText_ is a basic text control that supports marquee animation.
-	When _moon.MarqueeText_ objects are used inside a _moon.MarqueeDecorator_,
-	the	decorator synchronizes their start times; the user may start a marquee
-	programmatically by calling _startMarquee()_.
+	When _moon.MarqueeText_ objects are used inside a
+	[moon.MarqueeDecorator](#moon.MarqueeDecorator), the decorator synchronizes
+	their start times; the user may start a marquee programmatically by calling
+	_startMarquee()_.
 
 		enyo.kind({
 			name: "moon.Header",
@@ -43,12 +44,14 @@ enyo.kind({
 		marqueePause: 1000,
 		/**
 			Whether this control should clip itself inside its parent's padding. If
-			false, the parent control must have 'overflow:hidden' set, and the marquee
+			false, the parent control must have _overflow: hidden_ set, and the marquee
 			text will clip at the parent's border.
 		*/
 		clipInsidePadding: true,
 		//* When true, marqueeing will not occur
-		disabled: false
+		disabled: false,
+		//* _allowHtml_ property of Marquee text
+		allowHtmlText: false
 	},
 	events: {
 		onMarqueeStarted:"",
@@ -75,20 +78,34 @@ enyo.kind({
 	startMarquee: function() {
 		this.calcMarqueeDistance();
 		if (!this.disabled && this.marqueeDistance > 0) {
-			this.marqueeControl.applyStyle("left", -this.marqueeDistance + "px");
+			var xPos = (0-this.marqueeDistance) + "px";
+			if (enyo.dom.canTransform()) {
+				enyo.dom.transform(this.marqueeControl, {translateX: xPos});
+			} else {
+				this.marqueeControl.applyStyle("left", xPos);
+			}
 			this.marqueeControl.applyStyle("-webkit-animation-duration", this.marqueeDistance/this.marqueeSpeed + "s");
 			this.marqueeControl.addClass("moon-marquee");
 		}
 	},
 	stopMarquee: function(inSender, inEvent) {
 		this.stopJob(this.id);
-		this.marqueeControl.applyStyle("left", 0);
+		if (enyo.dom.canTransform()) {
+			enyo.dom.transform(this.marqueeControl, {translateX: 0});
+		} else {
+			this.marqueeControl.applyStyle("left", 0);
+		}
 		this.marqueeControl.removeClass("moon-marquee");
 		this.marqueeRequested = false;
 		this.doMarqueeEnded();
         return true;
 	},
-	//*@protected
+	//*@protected 
+	allowHtmlTextChanged: function() {
+		if(this.marqueeControl) {
+			this.marqueeControl.setAllowHtml(this.allowHtmlText);
+		}
+	},
 	contentChanged: function() {
 		if (this.$.client) {
 			this.$.client.setContent(this.content);
@@ -118,8 +135,8 @@ enyo.kind({
 	}
 });
 
-enyo.createMixin({
-	name: "moon.MarqueeSupport",
+moon.MarqueeSupport = {
+	name: "MarqueeSupport",
 	//*@protected
 	handlers: {
 		onSpotlightFocus: "_marqueeSpotlightFocus",
@@ -128,14 +145,17 @@ enyo.createMixin({
 		onMarqueeEnded: "_marqueeEnded",
 		onresize: "_marqueeResize"
 	},
-	create: function() {
-		//this.log(this.id);
-		this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
-		this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
-		this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
-		this.marqueePause = (this.marqueePause === undefined) ? 1000 : this.marqueePause;
-		this.marqueeHold = (this.marqueeHold === undefined) ? 5000 : this.marqueeHold;
-	},
+	create: enyo.super(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			//this.log(this.id);
+			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
+			this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
+			this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
+			this.marqueePause = (this.marqueePause === undefined) ? 1000 : this.marqueePause;
+			this.marqueeHold = (this.marqueeHold === undefined) ? 5000 : this.marqueeHold;
+		};
+	}),
 	//*@public
 	startMarquee: function() {
 		this.marqueeWaitList = [];
@@ -193,7 +213,7 @@ enyo.createMixin({
 			}), 400);
 		}
 	}
-});
+};
 
 enyo.kind({
 	name: "moon.MarqueeDecorator",

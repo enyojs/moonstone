@@ -45,17 +45,17 @@ enyo.kind({
 		this.setupBindings();
 	},
 	setupBindings: function() {
-		this.bindings.push({from: ".aboveTitle", 	to: "$.aboveTitle.content"});
-		this.bindings.push({from: ".title", 		to: "$.title.content"});
-		this.bindings.push({from: ".subTitle", 		to: "$.subTitle.content"});
-		this.bindings.push({from: ".description", 	to: "$.description.content"});
+		this.bindings.push({from: ".aboveTitle", 	to: ".$.aboveTitle.content"});
+		this.bindings.push({from: ".title", 		to: ".$.title.content"});
+		this.bindings.push({from: ".subTitle", 		to: ".$.subTitle.content"});
+		this.bindings.push({from: ".description", 	to: ".$.description.content"});
 	}
 });
 
 /**
     _moon.VideoInfoHeaderBadge_ is a simple kind used to display a badge
     containing video info.  It is the default kind for components added to
-    _moon.VideoInfoHeader_.
+    [moon.VideoInfoHeader](#moon.VideoInfoHeader).
 */
 enyo.kind({
 	name: "moon.VideoInfoHeaderBadge",

@@ -3,7 +3,7 @@ enyo.kind({
     kind: "moon.Panel",
     classes: "enyo-unselectable moon moon-video-browsermovies",
     titleAbove: "02",
-    title: "Browser Movies",
+    title: "Browse Movies",
     titleBelow: "37 Movies",
 
     headerComponents: [
@@ -13,9 +13,7 @@ enyo.kind({
     ],    
     
     components: [
-/** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
-*/        
         {
             kind : "moon.Scroller",                    
             fit: true,

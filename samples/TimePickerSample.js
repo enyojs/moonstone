@@ -4,22 +4,24 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: 'moon.Scroller', fit:true, components: [
-			{kind: "moon.TimePicker", name:"picker", content: "Time", meridiemEnable: true, onChange: "changed"},
-			{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Deactivated Time Picker", content: "Deactivated Time"},
-			{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
-				{content: 'en-US', active:true},
-				{content: 'en-CA'},
-				{content: 'en-IE'},
-				{content: 'en-GB'},
-				{content: 'en-MX'},
-				{content: 'de-DE'},
-				{content: 'fr-FR'},
-				{content: 'fr-CA'},
-				{content: 'it-IT'},
-				{content: 'es-ES'},
-				{content: 'es-MX'},
-				{content: 'es-US'}
+		{kind: 'moon.Scroller', fit: true, components: [
+			{classes: "moon-5h", components: [
+				{kind: "moon.TimePicker", name:"picker", content: "Time", meridiemEnable: true, onChange: "changed"},
+				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Deactivated Time Picker", content: "Deactivated Time"},
+				{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+					{content: 'en-US', active: true},
+					{content: 'en-CA'},
+					{content: 'en-IE'},
+					{content: 'en-GB'},
+					{content: 'en-MX'},
+					{content: 'de-DE'},
+					{content: 'fr-FR'},
+					{content: 'fr-CA'},
+					{content: 'it-IT'},
+					{content: 'es-ES'},
+					{content: 'es-MX'},
+					{content: 'es-US'}
+				]}
 			]}
 		]},
 		{kind: "moon.Divider", content:"Result"},
@@ -37,6 +39,7 @@ enyo.kind({
 		if (ilib) {
 			this.$.picker.setLocale(inEvent.selected.content);
 			this.$.disabledPicker.setLocale(inEvent.selected.content);
+			this.$.result.setContent("locale is changed to " + inEvent.selected.content);
 		}
 		return true;
 	},

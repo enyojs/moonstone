@@ -10,10 +10,9 @@
 			var checked = inSender.get("checked");
 		}
 
-	You may place _moon.CheckboxItem_ objects inside an
-	<a href="#enyo.Group">enyo.Group</a> to create a group of checkboxes in which
-	only one may be checked at any given time (similar to how a RadioItemGroup
-	works):
+	You may place _moon.CheckboxItem_ objects inside an [enyo.Group](#enyo.Group)
+	to create a group of checkboxes in which only one may be checked at any given
+	time (similar to how a [RadioItemGroup](#moon.RadioItemGroup)	works):
 
 		{kind: "Group", components: [
 			{kind: "moon.CheckboxItem", content: "New York"},
@@ -65,7 +64,9 @@ enyo.kind({
 		this.$.input.setChecked(this.getChecked());
 	},
 	tap: function(inSender, inEvent) {
-		this.waterfallDown("ontap", inEvent, inSender);
+		if (inSender != this.$.input) {
+			this.waterfallDown("ontap", inEvent, inSender);
+		}
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
 		inEvent.toggledControl = this;

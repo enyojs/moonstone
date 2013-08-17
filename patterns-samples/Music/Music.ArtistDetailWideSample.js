@@ -74,8 +74,9 @@ enyo.kind({
                         {
                             kind: "enyo.Image",
                             style: "width: 130px; height: 130px;",
-                            bindFrom: "relatedUrl",
-                            bindTo: "src"
+                            bindings: [
+                                {from: ".model.relativeUrl", to: ".src"}
+                            ]
                         }
                     ]
                 },
@@ -85,7 +86,7 @@ enyo.kind({
                     kind: "moon.DataList",
                     fit: true,
                     components: [
-            			{
+                		{
                             kind: "moon.Item",
                             components: [
                                 {
@@ -97,21 +98,29 @@ enyo.kind({
                                                     components: [
                                                         {
                                                             kind: "enyo.Image", 
-                                                            bindFrom: "coverUrl", 
-                                                            bindTo: "src"
+                                                            bindings: [{
+                                                                from: ".model.coverUrl",
+                                                                to: ".src"
+                                                            }]
                                                         }
                                                     ],
                                                     attributes: {rowspan: "4"}
                                                 },
                                                 {
-                                                    bindFrom: "track"
+                                                    bindings: [{
+                                                        from: ".model.track",
+                                                        to: ".content"
+                                                    }]
                                                 }
                                             ]
                                         },
                                         {
                                             components: [
                                                 {
-                                                    bindFrom: "artist", 
+                                                    bindings: [{
+                                                        from: ".model.artist",
+                                                        to: ".content"
+                                                    }],
                                                     classes: "moon-superscript"
                                                 }
                                             ]
@@ -119,7 +128,10 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    bindFrom: "duration", 
+                                                    bindings: [{
+                                                        from: ".model.duration",
+                                                        to: ".content"
+                                                    }],
                                                     classes: "moon-superscript"
                                                 }
                                             ]
@@ -134,14 +146,14 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.artist", to: "$.artist.content"},
-        {from: ".controller.artistImageUrl", to: "$.artistImage.src"},
-        {from: ".controller.organized", to: "$.organized.content"},
-        {from: ".controller.debut", to: "$.debut.content"},
-        {from: ".controller.type", to: "$.type.content"},
-        {from: ".controller.bio", to: "$.bio.content"},
-        {from: ".controller.related", to: "$.relatedArtists.controller"},
-        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+        {from: ".controller.artist", to: ".$.artist.content"},
+        {from: ".controller.artistImageUrl", to: ".$.artistImage.src"},
+        {from: ".controller.organized", to: ".$.organized.content"},
+        {from: ".controller.debut", to: ".$.debut.content"},
+        {from: ".controller.type", to: ".$.type.content"},
+        {from: ".controller.bio", to: ".$.bio.content"},
+        {from: ".controller.related", to: ".$.relatedArtists.controller"},
+        {from: ".controller.tracks", to: ".$.trackInfo.controller"}
     ]
 });
 
