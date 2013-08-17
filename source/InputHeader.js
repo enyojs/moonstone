@@ -43,21 +43,17 @@ enyo.kind({
 		{from: ".value", to:".$.title.value", twoWay:true}
 	],
 	classes: "moon-header moon-input-header",
-	components: [
-		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-			{kind: "moon.InputDecorator", noStretch: true, layoutKind: "FittableColumnsLayout", classes: 'moon-input-header-input-decorator', components: [
-				{name: "title", kind: "moon.Input", fit: true, classes: "moon-header-font moon-header-title"},
-				{kind: "Image", src: "$lib/moonstone/images/InAppSearch_SearchIcon.png"}
-			]},
-			{name: "titleBelow", classes: "moon-header-title-below"},
-			{name: "subTitleBelow", classes: "moon-header-sub-title-below"}
-		]},
-		{name: "client", classes: "moon-header-client"},
-		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
-	],
+	componentOverrides: {
+		title: {kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
+			{name: "titleInput", kind: "moon.Input", classes: "moon-header-font moon-header-title"}
+		]}
+	},
 	//* If _this.title_ or _this.content_ changed, the placeHolder value of a moon.Input will be updated
 	contentChanged: function() {
-		this.$.title.setPlaceholder(this.title || this.content);
+		this.$.titleInput.setPlaceholder(this.title || this.content);
+	},
+	allowHtmlChanged: function() {
+		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
+		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
 	}
 });
