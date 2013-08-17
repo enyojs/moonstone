@@ -1359,9 +1359,25 @@
   left: 0px;
   right: 0px;
   text-align: right;
+  /* fallback in case text-align:end isn't supported */
+
+  text-align: end;
+  /* CSS3 for RTL support */
+
+}
+.moon-header-client > * {
+  text-align: left;
+  /* fallback in case text-align:start isn't supported */
+
+  text-align: start;
+  /* CSS3 for RTL support */
+
 }
 .moon-header-left {
   float: left;
+}
+.enyo-locale-right-to-left .moon-header-left {
+  float: right;
 }
 /* Small header styling */
 .moon-small-header {
@@ -2484,7 +2500,6 @@ body .enyo-fit.panels-50-percent-scrim,
   padding: 0px;
   border: 0px;
   width: 100%;
-  height: 140px;
   box-sizing: border-box;
   background-color: transparent;
 }
@@ -2501,6 +2516,7 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
   line-height: 140px;
   color: #4b4b4b;
+  width: 100%;
 }
 .moon-input-header .moon-input-header-input-decorator > img {
   width: 66px;
