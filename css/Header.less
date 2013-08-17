@@ -57,7 +57,8 @@
 	bottom: @moon-grid-gutter-height;
 	left: 0px;
 	right: 0px;
-	text-align: right;
+	text-align: right;	/* fallback in case text-align:end isn't supported */
+	text-align: end;	/* CSS3 for RTL support */
 }
 .moon-header-client > * {
 	text-align: left;	/* fallback in case text-align:start isn't supported */
