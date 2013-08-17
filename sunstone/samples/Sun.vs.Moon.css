@@ -2,6 +2,6 @@
 table {
 	background-color: #ffffff;
 }
-td:nth-of-type(2)>*, td:nth-of-type(3)>*, .moon-divider, .moon-slider, .moon-progress-bar {
+td:nth-of-type(2)>*, td:nth-of-type(3)>*, td .moon-divider, td .moon-slider, td .moon-progress-bar {
 	width: 400px;
 }
