@@ -1,0 +1,34 @@
+{
+	"sourcePath":"../../../..",
+	"name": "Sunstone",
+	"ns": "sun.sample",
+	"loadPackages": "$lib/moonstone/sunstone $lib/moonstone/sunstone/samples",
+	"samples": [
+		{"name": "Patterns", "samples": [
+			{"name": "CardOverlayArranger", "path":"$lib/moonstone/sunstone/samples/PanelsWithCardOverlaySample", "css":"sample"}
+		]},
+		{"name": "Layout & Component", "samples": [
+			{"name": "Header", "path":"$lib/moonstone/sunstone/samples/HeaderSample"}
+		]},
+		{"name": "UI control", "samples": [
+			{"name": "Accordion", "path":"$lib/moonstone/sunstone/samples/AccordionSample"},
+			{"name": "Button", "path":"$lib/moonstone/sunstone/samples/ButtonSample"},
+			{"name": "Progress Bar", "path":"$lib/moonstone/sunstone/samples/ProgressSample"},
+			{"name": "Scroll Horizontal", "path":"$lib/moonstone/sunstone/samples/ScrollerHorizontalSample"},
+			{"name": "Scroll Vertical", "path":"$lib/moonstone/sunstone/samples/ScrollerVerticalSample"},
+			{"name": "Slider", "path":"$lib/moonstone/sunstone/samples/SliderSample"},
+			{"name": "Spinner", "path":"$lib/moonstone/sunstone/samples/SpinnerSample"},
+			{"name": "Text Input", "path":"$lib/moonstone/sunstone/samples/InputSample"},
+			{"name": "Tooltip", "path":"$lib/moonstone/sunstone/samples/TooltipSample"}
+			
+		]},
+		{"name": "Popup", "samples": [
+			{"name": "Basic", "path":"$lib/moonstone/sunstone/samples/PopupSample", "css":"sample"},
+			{"name": "Picker", "path":"$lib/moonstone/sunstone/samples/PopupBasicPickerSample", "css":"sample"},
+			{"name": "Time Picker", "path":"$lib/moonstone/sunstone/samples/PopupTimePicker", "css":"sample"}
+		]},
+		{"name": "Notification", "samples": [
+			
+		]}
+	]
+}
