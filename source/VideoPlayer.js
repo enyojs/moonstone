@@ -65,21 +65,28 @@ enyo.kind({
 		autoHidePopups: true,
 
 		//* URL for "jump back" icon
-		jumpBackIcon: "$lib/moonstone/images/icon-jumpback.png",
+		jumpBackIcon: "$lib/moonstone/images/icon_skipbackward.png",
 		//* URL for "rewind" icon
-		rewindIcon: "$lib/moonstone/images/icon-rewind.png",
+		rewindIcon: "$lib/moonstone/images/icon_backward.png",
 		//* URL for "play" icon
-		playIcon: "$lib/moonstone/images/icon-play.png",
+		playIcon: "$lib/moonstone/images/icon_play.png",
 		//* URL for "pause" icon
-		pauseIcon: "$lib/moonstone/images/icon-pause.png",
+		pauseIcon: "$lib/moonstone/images/icon_pause.png",
 		//* URL for "fast forward" icon
-		fastForwardIcon: "$lib/moonstone/images/icon-fastforward.png",
+		fastForwardIcon: "$lib/moonstone/images/icon_forward.png",
 		//* URL for "jump forward" icon
-		jumpForwardIcon: "$lib/moonstone/images/icon-jumpforward.png",
+		jumpForwardIcon: "$lib/moonstone/images/icon_skipforward.png",
 		//* URL for "more controls" icon
-		moreControlsIcon: "$lib/moonstone/images/icon-extend.png",
+		moreControlsIcon: "$lib/moonstone/images/icon_extend.png",
 		//* URL for "less controls" icon
-		lessControlsIcon: "$lib/moonstone/images/icon-shrink.png"
+		lessControlsIcon: "$lib/moonstone/images/icon_shrink.png",
+
+		//* Knob classes for video player
+		knobClasses: "", 
+		//* Progress bar classes for video player
+		barClasses: "", 
+		//* Background progress bar classes for video player
+		bgBarClasses: ""
 	},
 	handlers: {
 		onRequestTimeChange: 'timeChange',
@@ -94,10 +101,10 @@ enyo.kind({
 		onresize: 'resizeHandler'
 	},
     bindings: [
-		{from: ".jumpBackIcon", 	to:".$.jumpBack.src"},
-		{from: ".rewindIcon", 		to:".$.rewind.src"},
-		{from: ".fastForwardIcon", 	to:".$.fastForward.src"},
-		{from: ".jumpForwardIcon", 	to:".$.jumpForward.src"}
+		{from: ".jumpBackIcon",		to:".$.jumpBack.src"},
+		{from: ".rewindIcon",		to:".$.rewind.src"},
+		{from: ".fastForwardIcon",	to:".$.fastForward.src"},
+		{from: ".jumpForwardIcon",	to:".$.jumpForward.src"}
     ],
 	
 	//* @protected
@@ -114,10 +121,7 @@ enyo.kind({
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
 		
-			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, showing: false, classes: "moon-video-player-header", components: [
-				{name: "videoInfo", fit: true, classes: "moon-video-player-info"},
-				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
-			]},
+			{name: "videoInfoHeader", kind: "FittableColumns", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
@@ -141,8 +145,8 @@ enyo.kind({
 				]},
 			
 				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-videoplayer-sample-slider",
-						knobClasses: "moon-videoplayer-sample-knob", barClasses: "moon-videoplayer-sample-progressbar", bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
+					{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-videoplayer-slider", popupColor: "rgb(255, 255, 255)",
+						knobClasses: "moon-videoplayer-knob", barClasses: "moon-videoplayer-progressbar", bgBarClasses: "moon-videoplayer-bgprogressbar",
 						onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", onChanging: "resetAutoTimeout"
 					}
 				]}
@@ -172,6 +176,18 @@ enyo.kind({
 		this.autoShowControlsChanged();
 		this.autoplayChanged();
 		this.updateMoreButton();
+		this.knobClassesChanged();
+		this.barClassesChanged();
+		this.bgBarClassesChanged();
+	},
+	knobClassesChanged: function(inOld) {
+		this.$.slider.setKnobClasses(this.knobClasses);
+	},
+	barClassesChanged: function(inOld) {
+		this.$.slider.setBarClasses(this.barClasses);
+	},
+	bgBarClassesChanged: function(inOld) {
+		this.$.slider.setBgBarClasses(this.bgBarClasses);
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
@@ -196,7 +212,7 @@ enyo.kind({
 		this.$.video.setSrc(this.getSrc());
 	},
 	createInfoControls: function() {
-		this.$.videoInfo.createComponents(this.infoComponents);
+		this.$.videoInfoHeader.createComponents(this.infoComponents);
 	},
 	createClientComponents: function(inComponents) {
 		if (!this._buttonsSetup) {
@@ -470,7 +486,7 @@ enyo.kind({
 	},
 	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
 		inParams = inParams || {};
-		this.$.feedbackHeader.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
+		//this.$.feedbackHeader.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
 	},
 	
 	////// Slider event handling //////

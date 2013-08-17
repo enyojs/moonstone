@@ -2867,10 +2867,22 @@ body .enyo-fit.panels-50-percent-scrim,
   background: transparent url() no-repeat 0px 0px;
   padding-right: 10px;
 }
+.moon-videoplayer-knob,
+.moon-videoplayer-knob.disabled:active:hover,
+.moon-videoplayer-knob.active,
+.moon-videoplayer-knob.spotselect,
+.moon-videoplayer-knob:active:hover {
+  position: relative;
+  height: 6px;
+  width: 6px;
+  border-radius: 6px;
+  margin: -30px;
+  background-color: #fff;
+}
 .moon-slider .moon-slider-indicator-wrapper {
   width: 240px;
   height: 82px;
-  top: -6px;
+  top: 0;
   position: absolute;
 }
 .moon-slider-indicator-wrapper.start {
@@ -2882,9 +2894,9 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-slider-indicator-wrapper .moon-indicator-bar {
   position: absolute;
   left: 48%;
-  top: 0px;
+  top: 25px;
   width: 6px;
-  height: 18px;
+  height: 30px;
   background-color: #ffffff;
   z-index: 1;
 }
@@ -2892,12 +2904,13 @@ body .enyo-fit.panels-50-percent-scrim,
   position: absolute;
   width: 100%;
   height: 25px;
-  top: 20px;
+  top: 25px;
   font-size: 25px;
   font-family: "MuseoSans 300";
   color: #ffffff;
-  text-align: center;
+  text-align: left;
   z-index: 1;
+  left: 130px;
 }
 .moon-slider-indicator-wrapper .hide {
   display: none;
@@ -3008,9 +3021,9 @@ body .enyo-fit.panels-50-percent-scrim,
 /* --- Controls --- */
 .moon-video-player-bottom {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -3043,11 +3056,14 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 /* ---- Slider styling ---- */
 .moon-video-fullscreen-control .moon-video-player-slider-container {
-  padding: 0px;
-  height: 56px;
+  padding: 90px 0 0 0;
+  height: 80px;
 }
 .moon-video-fullscreen-control .moon-video-player-slider-container > * {
-  margin: 30px 0px 10px;
+  margin: 0 0 0;
+}
+.moon-video-fullscreen-control .moon-slider-popup-label {
+  color: #323232;
 }
 /* -- Knob -- */
 .moon-video-fullscreen-control .moon-slider-knob,
@@ -3057,11 +3073,11 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-video-fullscreen-control .moon-slider-knob:active:hover,
 .moon-video-fullscreen-control .spotlight .moon-slider-knob,
 .moon-video-fullscreen-control .spotlight .moon-slider-knob.disabled:active:hover {
-  height: 56px;
-  width: 56px;
-  border-radius: 28px;
-  margin: -32px -29px;
-  background-color: #00d4b3;
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  margin: -70px -2px;
+  background-color: #ffffff;
 }
 .moon-video-fullscreen-control .moon-slider-knob {
   transition: opacity 0.1s linear;
@@ -3075,133 +3091,59 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 /* -- Buffered progress bar (bg bar) -- */
 .moon-video-player .moon-progress-bg-bar {
-  background-color: rgba(0, 212, 179, 0.5);
+  background-color: #4b4b4b;
   transition: width 1s linear;
   -webkit-transition: width 1s linear;
   -moz-transition: width 1s linear;
+  height: 80px;
 }
 .moon-video-player .moon-progress-bar-bar,
 .moon-video-player .spotlight .moon-progress-bar-bar {
-  background-color: #00d4b3;
+  background-color: #ff2f7d;
+  margin-top: -80px;
+  height: 80px;
 }
 /* ---- Header info styling ---- */
 .moon-video-player-header {
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  top: 20px;
+  width: 100%;
   z-index: 2;
   font-family: "MuseoSans 700";
   font-size: 30px;
   letter-spacing: -0.04em;
   color: #ffffff;
+  padding: 15px 0 0 0;
+}
+.moon-video-player-header.enyo-fittable-columns-layout > * {
+  margin: 0;
 }
 .moon-video-player-header.always {
   display: block;
 }
-.moon-video-player-header > * {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.moon-video-player-info {
-  position: relative;
-  overflow: hidden;
-  padding: 15px;
-}
-.moon-video-player-info .moon-video-player-description-info {
-  height: 100%;
-}
-.moon-video-player-info-datetime {
-  font-size: 36px;
-  font-kerning: 25;
-  -webkit-font-kerning: 25;
-  -o-font-kerning: 25;
-  -moz-font-kerning: 25;
-  margin-bottom: 32px;
-  white-space: nowrap;
-}
-.moon-video-player-info-showname {
-  font-size: 100px;
-  font-kerning: 25;
-  -webkit-font-kerning: 25;
-  -o-font-kerning: 25;
-  -moz-font-kerning: 25;
-  margin-bottom: 64px;
-  white-space: nowrap;
-}
-.moon-video-player-info-channel {
-  font-family: "MuseoSans Medium";
-  font-size: 30px;
-  font-kerning: 10;
-  -webkit-font-kerning: 10;
-  -o-font-kerning: 10;
-  -moz-font-kerning: 10;
-  margin-bottom: 22px;
-  white-space: nowrap;
-}
-.moon-video-player-info-synopsys {
-  font-family: "MuseoSans 300";
-  font-size: 30px;
-  line-height: 30px;
-  white-space: normal;
-  max-width: 1200px;
-  margin-bottom: 64px;
-}
-.moon-video-player-settings-info {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 15px;
-}
-.moon-video-player-rating-info {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  margin: 15px;
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  line-height: 30px;
-  text-transform: uppercase;
-}
-.moon-video-player-info-icon {
-  font-family: "MuseoSans Medium";
-  font-size: 30px;
-  line-height: 30px;
-  background-color: #ffffff;
-  color: #000000;
-  border-radius: 5px;
-  text-align: center;
-  float: left;
-  padding: 7px;
-  margin: 0 5px;
-}
-.moon-video-player-info-redicon {
-  background-color: red;
-  color: #ffffff;
-}
 /** Sample CSS for explaining how to override Slider Classes 
     See: moon.VideoControl.Fullscreen
 */
-.moon-videoplayer-sample-slider {
-  background-color: #4b4b4b;
-  height: 6px;
+.moon-videoplayer-slider {
+  background-color: #323232;
+  height: 80px;
 }
-.moon-video-transport-slider .moon-videoplayer-sample-knob {
+.moon-video-transport-slider .moon-videoplayer-knob {
   background-color: #69cdff;
 }
-.moon-slider.spotlight .moon-videoplayer-sample-knob {
+.moon-slider.spotlight .moon-videoplayer-knob {
   background-color: #69cdff;
 }
-.moon-video-transport-slider .moon-videoplayer-sample-progressbar {
+.moon-video-transport-slider .moon-videoplayer-progressbar {
   background-color: #69cdff;
-  height: 6px;
+  height: 80px;
   margin-top: -6px;
 }
-.moon-slider.spotlight .moon-videoplayer-sample-progressbar {
+.moon-slider.spotlight .moon-videoplayer-progressbar {
   background-color: #69cdff;
+  margin-top: -80px;
 }
-.moon-slider .moon-videoplayer-sample-bgprogressbar {
-  background-color: #7d7d7d;
-  height: 6px;
+.moon-slider .moon-videoplayer-bg-bar {
+  background-color: #4b4b4b;
+  height: 80px;
 }
 .moon-video-player-control-button {
   margin: 0 50px;
@@ -3238,6 +3180,207 @@ body .enyo-fit.panels-50-percent-scrim,
   display: inline-block;
   width: 80px;
   height: 80px;
+}
+.moon-video-info-header {
+  display: inline-block;
+  vertical-align: top;
+}
+.moon-video-player-info-datetime {
+  font-size: 36px;
+  font-kerning: 25;
+  -webkit-font-kerning: 25;
+  -o-font-kerning: 25;
+  -moz-font-kerning: 25;
+  margin-bottom: 32px;
+  white-space: nowrap;
+}
+.moon-video-player-info-showname {
+  font-size: 100px;
+  font-kerning: 25;
+  -webkit-font-kerning: 25;
+  -o-font-kerning: 25;
+  -moz-font-kerning: 25;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+.moon-video-player-info-channel {
+  font-family: "MuseoSans Medium";
+  font-size: 30px;
+  font-kerning: 10;
+  -webkit-font-kerning: 10;
+  -o-font-kerning: 10;
+  -moz-font-kerning: 10;
+  margin-bottom: 22px;
+  white-space: nowrap;
+}
+.moon-video-player-info-synopsys {
+  font-family: "MuseoSans 300";
+  font-size: 30px;
+  line-height: 30px;
+  white-space: normal;
+  max-width: 1200px;
+  margin-bottom: 64px;
+}
+.moon-video-player-settings-info {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 15px;
+}
+.moon-video-player-rating-info {
+  font-family: "MuseoSans 300";
+  font-size: 30px;
+  line-height: 30px;
+  white-space: normal;
+  max-width: 1200px;
+  margin-bottom: 10px;
+}
+.moon-channelinfo {
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+}
+.moon-video-player-channel-info-badges > * {
+  /*float: right;*/
+
+  margin: 3px 5px;
+}
+.moon-video-player-channel-info-no {
+  font-size: 100px;
+  font-kerning: 25;
+  -webkit-font-kerning: 25;
+  -o-font-kerning: 25;
+  -moz-font-kerning: 25;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+.moon-video-player-channel-info-name {
+  font-family: "MuseoSans Medium";
+  font-size: 30px;
+  font-kerning: 10;
+  -webkit-font-kerning: 10;
+  -o-font-kerning: 10;
+  -moz-font-kerning: 10;
+  margin-bottom: 22px;
+  white-space: nowrap;
+}
+.moon-video-player-info-icon {
+  font-family: "MuseoSans Medium";
+  font-size: 10px;
+  line-height: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 5px;
+  text-align: center;
+  padding: 7px;
+  display: inline-block;
+}
+.moon-video-player-info-redicon {
+  background-color: red;
+  color: #ffffff;
+}
+.moon-background-wrapper {
+  position: relative;
+  white-space: nowrap;
+}
+.moon-background-wrapper > * {
+  display: inline-block;
+  vertical-align: top;
+}
+.moon-background-wrapper-client.bg {
+  background-color: black;
+}
+.moon-background-wrapper-client.right {
+  padding-right: 60px;
+}
+.moon-background-wrapper-client.left {
+  padding-left: 60px;
+}
+/* Equal spacing */
+.moon-background-wrapper-client {
+  white-space: nowrap;
+}
+.moon-background-wrapper-client > * {
+  display: inline-block;
+  margin: 0 30px;
+}
+.moon-background-wrapper-client > :first-child {
+  margin-left: 0;
+}
+.moon-background-wrapper-client > :last-child {
+  margin-right: 0;
+}
+.moon-background-wrapper-left {
+  width: 0;
+  height: 0;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  border-left-style: solid;
+  border-left-color: transparent;
+}
+.moon-background-wrapper-left.bg {
+  border-left-color: black;
+}
+.moon-background-wrapper-right {
+  width: 0;
+  height: 0;
+  border-top-style: solid;
+  border-top-color: transparent;
+  border-right-style: solid;
+  border-right-color: transparent;
+}
+.moon-background-wrapper-right.bg {
+  border-right-color: black;
+}
+.moon-clock {
+  display: block;
+  vertical-align: top;
+  width: auto;
+}
+.moon-clock-hour {
+  font-size: 140px;
+  white-space: nowrap;
+  vertical-align: center;
+  display: inline-block;
+}
+.moon-clock-right {
+  display: inline-block;
+}
+.moon-clock-minute {
+  font-size: 65px;
+  white-space: nowrap;
+  vertical-align: bottom;
+  display: inline-block;
+  line-height: 65px;
+}
+.moon-clock-meridian {
+  font-family: "MuseoSans Medium";
+  font-size: 24px;
+  white-space: nowrap;
+  vertical-align: bottom;
+  display: inline-block;
+  text-transform: none;
+  line-height: 45px;
+}
+.moon-clock-month {
+  font-family: "MuseoSans Medium";
+  font-size: 28px;
+  white-space: normal;
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 10px;
+}
+.moon-clock-day {
+  font-family: "MuseoSans Medium";
+  font-size: 28px;
+  white-space: normal;
+  vertical-align: top;
+  display: inline-block;
+}
+.moon-click-divider {
+  height: 2px;
+  width: 100%;
+  background-color: white;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {

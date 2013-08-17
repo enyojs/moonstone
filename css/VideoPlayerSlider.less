@@ -2,10 +2,23 @@
 	
 }
 
+.moon-videoplayer-knob,
+.moon-videoplayer-knob.disabled:active:hover,
+.moon-videoplayer-knob.active,
+.moon-videoplayer-knob.spotselect,
+.moon-videoplayer-knob:active:hover {
+	position: relative;
+	height: 6px;
+	width: 6px;
+	border-radius: 6px;
+	margin: -30px;
+	background-color: #fff;
+}
+
 .moon-slider .moon-slider-indicator-wrapper {
 	width: 240px; 
 	height: 82px;
-	top: -6px;
+	top: 0;
 	position: absolute;
 }
 
@@ -20,9 +33,9 @@
 .moon-slider-indicator-wrapper .moon-indicator-bar {
 	position: absolute;
 	left: 48%;
-	top: 0px;
+	top: 25px;
 	width: 6px; 
-	height: 18px;
+	height: 30px;
 	background-color: #ffffff;
 	z-index: 1;
 }
@@ -31,12 +44,13 @@
 	position: absolute;
 	width: 100%; 
 	height: 25px;
-	top: 20px;
+	top: 25px;
 	font-size: 25px;
 	font-family: "MuseoSans 300";
 	color: #ffffff;
-	text-align: center;
+	text-align: left;
 	z-index: 1;
+	left: 130px;
 }
 
 .moon-slider-indicator-wrapper .hide {

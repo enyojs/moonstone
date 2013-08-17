@@ -1,0 +1,56 @@
+.moon-background-wrapper {
+	position: relative;
+	white-space: nowrap;
+}
+.moon-background-wrapper > * {
+	display: inline-block;
+	vertical-align: top;
+}
+.moon-background-wrapper-client.bg {
+	background-color: black;
+}
+
+.moon-background-wrapper-client.right {
+	padding-right: 60px;
+}
+.moon-background-wrapper-client.left {
+	padding-left: 60px;
+}
+
+/* Equal spacing */
+.moon-background-wrapper-client {
+	white-space: nowrap;
+}
+.moon-background-wrapper-client > * {
+	display: inline-block;
+	margin: 0 30px;
+}
+.moon-background-wrapper-client > :first-child {
+	margin-left: 0;
+}
+.moon-background-wrapper-client > :last-child {
+	margin-right: 0;
+}
+
+.moon-background-wrapper-left {
+	width: 0; height: 0;
+	border-bottom-style: solid;
+	border-bottom-color: transparent;
+	border-left-style: solid;
+	border-left-color: transparent;
+}
+.moon-background-wrapper-left.bg {
+	border-left-color: black;
+}
+.moon-background-wrapper-right {
+	width: 0; height: 0;
+	border-top-style: solid;
+	border-top-color: transparent;
+	border-right-style: solid;
+	border-right-color: transparent;
+}
+.moon-background-wrapper-right.bg {
+	border-right-color: black;
+}
+
+

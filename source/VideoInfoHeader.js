@@ -21,23 +21,19 @@
 enyo.kind({
 	name: "moon.VideoInfoHeader",
 	kind: "enyo.Control",
-	classes: "",
+	classes: "moon-video-info-header",
 	published: {
-		aboveTitle: "",
 		title: "",
 		subTitle: "",
+		rating: "",
 		description: ""
 	},
-	defaultKind: "moon.VideoInfoHeaderBadge",
 	components: [
-		{kind: "enyo.Control", classes: "moon-video-player-description-info", components: [
-			{kind: "enyo.Control", name: "aboveTitle", classes: "moon-header-font moon-video-player-info-datetime"},
-			{kind: "enyo.Control", name: "title", classes: "moon-header-font moon-video-player-info-showname"},
-			{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-channel"},
-			{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-synopsys"}
-		]},
-		{kind: "enyo.Control", name: "client", classes: "moon-video-player-settings-info"},
-		{kind: "enyo.Control", classes: "moon-video-player-rating-info", allowHtml: true, content: "RTV-14<br>VL SC"}
+		{kind: "enyo.Control", name: "title", classes: "moon-header-font moon-video-player-info-showname"},
+		{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-channel"},
+		{kind: "enyo.Control", name: "rating", classes: "moon-video-player-rating-info"},
+		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-synopsys"},
+		{kind: "enyo.Control", name: "client", classes: "moon-video-player-settings-info"}
 	],
 	bindings: [],
 	create: function() {
@@ -45,20 +41,9 @@ enyo.kind({
 		this.setupBindings();
 	},
 	setupBindings: function() {
-		this.bindings.push({from: ".aboveTitle", 	to: ".$.aboveTitle.content"});
-		this.bindings.push({from: ".title", 		to: ".$.title.content"});
-		this.bindings.push({from: ".subTitle", 		to: ".$.subTitle.content"});
-		this.bindings.push({from: ".description", 	to: ".$.description.content"});
+		this.bindings.push({from: ".title",			to: ".$.title.content"});
+		this.bindings.push({from: ".subTitle",		to: ".$.subTitle.content"});
+		this.bindings.push({from: ".rating",		to: ".$.rating.content"});
+		this.bindings.push({from: ".description",	to: ".$.description.content"});
 	}
-});
-
-/**
-    _moon.VideoInfoHeaderBadge_ is a simple kind used to display a badge
-    containing video info.  It is the default kind for components added to
-    [moon.VideoInfoHeader](#moon.VideoInfoHeader).
-*/
-enyo.kind({
-	name: "moon.VideoInfoHeaderBadge",
-	kind: "enyo.Control",
-	classes: "moon-video-player-info-icon"
 });
