@@ -50,12 +50,13 @@ enyo.kind({
 	headerOption: null,
 	panelTools : [
 		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
-			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
+			/* headerTools will be created here */
 			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-miniheader", content: "Mini header", showing: false},
 			{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 		]},
 		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}
 	],
+	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
 	headerComponents: [],
 	isBreadcrumb: false,
 	isHeaderCollapsed: false,
@@ -85,10 +86,13 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	createTools: function() {
-		var $pts = enyo.clone(this.get("panelTools"));
-		var $h = enyo.clone(this.get("headerOption") || {});
-		enyo.mixin($pts[0], $h);
-		this.createComponents(this.panelTools);
+		// Create everythign but the header
+		this.createChrome(this.panelTools);
+		// Special-handling for header, which can have its options modified by the instance
+		var hc = enyo.clone(this.headerConfig || {});
+		hc.addBefore = this.$.miniHeader;
+		enyo.mixin(hc, this.headerOption);
+		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
 	//* On reflow, update _this.$.contentWrapper_ bounds
 	reflow: function() {
@@ -169,9 +173,8 @@ enyo.kind({
 	},
 	//* Update _allowHtml_ property of header components
 	allowHtmlHeaderChanged: function() {
-		this.$.header.$.title.setAllowHtmlText(this.allowHtmlHeader);
-		this.$.header.$.titleBelow.setAllowHtmlText(this.allowHtmlHeader);
-		this.$.header.$.subTitleBelow.setAllowHtmlText(this.allowHtmlHeader);
+
+		this.$.header.setAllowHtml(this.allowHtmlHeader);
 	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
