@@ -1,0 +1,7 @@
+/* Sun.vs.Moon.css */
+table {
+	background-color: #ffffff;
+}
+td:nth-of-type(2)>*, td:nth-of-type(3)>*, .moon-divider, .moon-slider, .moon-progress-bar {
+	width: 400px;
+}

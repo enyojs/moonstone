@@ -29,6 +29,7 @@
 		]},
 		{"name": "Notification", "samples": [
 			
-		]}
+		]},
+		{"name": "Sun vs Moon", "path":"$lib/moonstone/sunstone/samples/Sun.vs.Moon"}
 	]
 }

@@ -27,6 +27,8 @@ enyo.depends(
 	"SliderSample.js",
 	"SpinnerSample.css",
 	"SpinnerSample.js",
+	"Sun.vs.Moon.css",
+	"Sun.vs.Moon.js",
 	"ToggleButtonSample.css",
 	"ToggleButtonSample.js",
 	"TooltipSample.css",
