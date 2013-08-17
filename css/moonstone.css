@@ -339,7 +339,7 @@
 }
 .moon-header-text {
   font-family: "Miso";
-  font-size: 140px;
+  font-size: 126px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
@@ -1306,23 +1306,19 @@
 }
 .moon-header-title-above {
   font-size: 36px;
-  font-weight: normal;
-  line-height: 1em;
-  padding: 10px 0px 10px 0px;
-  margin: 0px;
   width: 30px;
+  margin: 5px 0px 0px 0px;
 }
 .moon-header-title {
   font-family: "Miso";
-  font-size: 140px;
+  font-size: 126px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
+  line-height: 1em;
+  margin: 1px 0px 7px -6px;
 }
 .moon-header-title .moon-marquee-text {
-  line-height: 0.643em;
-  padding: 19px 0px 0px 0px;
-  margin: 0px 0px 30px 0px;
   white-space: nowrap;
 }
 .moon-header-title-below {
@@ -1331,10 +1327,7 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  line-height: 1em;
-  min-height: 30px;
-  padding: 6px 0px 10px 0px;
-  margin: 0px;
+  margin: 0px 0px 9px 0px;
 }
 .moon-header-sub-title-below {
   font-family: "MuseoSans 300";
@@ -1342,10 +1335,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  line-height: 26px;
-  min-height: 26px;
-  padding: 6px 0px 6px 0px;
-  margin: 0px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
   font-family: "LG Display";
@@ -2484,22 +2473,22 @@ body .enyo-fit.panels-50-percent-scrim,
   padding: 0px;
   border: 0px;
   width: 100%;
-  height: 140px;
+  height: 126px;
   box-sizing: border-box;
   background-color: transparent;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Miso";
-  font-size: 140px;
+  font-size: 126px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
   margin: 0px;
   padding-left: 1px;
-  height: 140px;
+  height: 126px;
   display: inline-block;
   box-sizing: border-box;
-  line-height: 140px;
+  line-height: 126px;
   color: #4b4b4b;
 }
 .moon-input-header .moon-input-header-input-decorator > img {
