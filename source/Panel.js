@@ -86,7 +86,7 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	createTools: function() {
-		// Create everythign but the header
+		// Create everything but the header
 		this.createChrome(this.panelTools);
 		// Special-handling for header, which can have its options modified by the instance
 		var hc = enyo.clone(this.headerConfig || {});
