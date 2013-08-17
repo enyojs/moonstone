@@ -11,7 +11,7 @@ enyo.kind({
 			]},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "sun.Input", placeholder: "Search term", oninput:"inputChanged"},
-				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
+				{kind: "Image", src: "assets/1080x1920/search-input-search.png"}
 			]},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "sun.Input", type:"password", placeholder: "Enter password", oninput:"inputChanged"}
@@ -25,7 +25,7 @@ enyo.kind({
 			]},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "moon.RichText", style: "width: 480px;", placeholder: "JUST TYPE", oninput:"inputChanged"},
-				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
+				{kind: "Image", src: "assets/1080x1920/search-input-search.png"}
 			]},
 			{kind: "sun.InputDecorator", disabled: true, components: [
 				{kind: "moon.RichText", disabled: true, style: "width: 480px;", placeholder: "Deactivated input", oninput:"inputChanged"}

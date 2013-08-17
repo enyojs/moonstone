@@ -12,7 +12,7 @@ enyo.depends(
 	"InputHeaderSample.js",
 	"InputSample.css",
 	"InputSample.js",
-	"PanelsWithCardOverlaySample.js",
+	"PanelsWithCardOverlayArrangerSample.js",
 	"PopupBasicPickerSample.js",
 	"PopupSample.js",
 	"PopupTimePicker.js",

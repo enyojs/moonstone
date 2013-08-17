@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "sun.sample.PanelsWithCardOverlaySample",
+	name: "sun.sample.PanelsWithCardOverlayArrangerSample",
 	classes: "sun moon enyo-fit",	
 	handlers: {ontap: "panelChange"},
 	components: [		

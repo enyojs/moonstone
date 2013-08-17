@@ -20,7 +20,7 @@ enyo.kind({
 			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
 		]},
-		{name: "leftIcon", tag: "img", src: "../images/1080x1920/header_arrow.png", classes: "sun-left-icon", ontap: "headerLeftTapped"},
+		{name: "leftIcon", classes: "sun-left-icon", ontap: "headerLeftTapped"},
 		{name: "client", classes: "sun-header-client"},
 	],
 	create: function() {

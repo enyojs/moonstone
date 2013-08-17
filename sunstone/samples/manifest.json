@@ -2,10 +2,10 @@
 	"sourcePath":"../../../..",
 	"name": "Sunstone",
 	"ns": "sun.sample",
-	"loadPackages": "$lib/moonstone/sunstone $lib/moonstone/sunstone/samples",
+	"loadPackages": "$lib/moonstone/sunstone $lib/moonstone/sunstone/samples $lib/layout/flex/source/package.js",
 	"samples": [
 		{"name": "Patterns", "samples": [
-			{"name": "CardOverlayArranger", "path":"$lib/moonstone/sunstone/samples/PanelsWithCardOverlaySample", "css":"sample"}
+			{"name": "CardOverlayArranger", "path":"$lib/moonstone/sunstone/samples/PanelsWithCardOverlayArrangerSample", "css":"sample"}
 		]},
 		{"name": "Layout & Component", "samples": [
 			{"name": "Header", "path":"$lib/moonstone/sunstone/samples/HeaderSample"}
