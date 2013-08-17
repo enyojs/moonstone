@@ -1376,6 +1376,9 @@
 .moon-header-left {
   float: left;
 }
+.enyo-locale-right-to-left .moon-header-left {
+  float: right;
+}
 /* Small header styling */
 .moon-small-header {
   height: 260px;
