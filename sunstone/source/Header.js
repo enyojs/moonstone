@@ -11,8 +11,10 @@ enyo.kind({
 		title: '',
 		//* Text below the header
 		titleBelow: '',
-		//* If true, the moon-left-header css class will be applied to this header
-		iconLeft: false		
+		//* If true, the sun-arrow-header css class will be applied to this header
+		arrowIcon: false,
+		//* If true, onHeaderLeftTapped event won't be generated
+		arrowIconDisable: false
 	},
 	classes: "sun-header moon-header",
 	components: [
@@ -20,12 +22,13 @@ enyo.kind({
 			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
 		]},
-		{name: "leftIcon", classes: "sun-left-icon", ontap: "headerLeftTapped"},
+		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"},
 		{name: "client", classes: "sun-header-client"},
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.iconLeftChanged();
+		this.arrowIconChanged();
+		this.arrowIconDisableChanged();
 		this.titleChanged();
 		this.titleBelowChanged();
 	},
@@ -43,13 +46,24 @@ enyo.kind({
 		this.$.titleBelow.setContent(this.titleBelow || '');
 		this.addRemoveClass("sun-two-lines-header", this.titleBelow);
 	},
-	iconLeftChanged: function() {
-		this.addRemoveClass("sun-left-header", this.getIconLeft());
-		if(!this.getIconLeft()) {
-			this.$.leftIcon.hide();
+	arrowIconChanged: function() {
+		this.addRemoveClass("sun-arrow-header", this.getArrowIcon());
+		if(!this.getArrowIcon()) {
+			this.$.arrowIcon.hide();
+		} else {
+			this.$.arrowIcon.show();
 		}
 	},
+	arrowIconDisableChanged: function() {
+		this.$.arrowIcon.disable = this.getArrowIconDisable();
+	},
 	headerLeftTapped: function() {
+		if(this.getArrowIconDisable() == false) {
 		this.doHeaderLeftTapped();
+
+			return false;
+		} else {
+			return true;
+		}
 	}
 });

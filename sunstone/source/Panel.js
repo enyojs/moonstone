@@ -14,7 +14,11 @@ enyo.kind({
 		//* Facade for the header's _title_ property
 		title: "",
 		//* Facade for the header's _titleBelow_ property
-		titleBelow: ""
+		titleBelow: "",
+		//* If true, the moon-left-header css class will be applied to this header
+		arrowIcon: false,
+		//* If true, onHeaderLeftTapped event won't be generated
+		arrowIconDisable: false
 	},
 	
 	//* @protected
@@ -34,6 +38,8 @@ enyo.kind({
 		this.$.header.createComponents(this.headerComponents, {owner: this});
 		this.titleChanged();
 		this.titleBelowChanged();
+		this.arrowIconChanged();
+		this.arrowIconDisableChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -67,5 +73,11 @@ enyo.kind({
 	//* Updates panel header dynamically.
 	getHeader: function() {
 		return this.$.header;
+	},
+	arrowIconChanged: function() {
+		this.$.header.setArrowIcon(this.getArrowIcon());
+	},
+	arrowIconDisableChanged: function() {
+		this.$.header.setArrowIconDisable(this.getArrowIconDisable());
 	}
 });

@@ -1,26 +1,20 @@
 enyo.kind({
 	name: "sun.sample.PanelsWithCardOverlayArrangerSample",
 	classes: "sun moon enyo-fit",	
-	handlers: {ontap: "panelChange"},
+	handlers: {ontap: "panelChange", onHeaderLeftTapped: "panelChange"},
 	components: [		
 		{name: "panels", kind: "moon.Panels", defaultKind: "sun.Panel", arrangerKind: "CardOverlayArranger", classes: "enyo-fit", components: [		
 			{
 				title: "First", 
 				style: "background-color: red;",
+				arrowIcon: true,
+				arrowIconDisable: true,
 				headerComponents: [
 					{
 						name: "next",
 						kind: "sun.IconButton", 
 						src: "assets/1080x1920/small-icon-close-button.png",
 						small: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png", 
-						small: true,
-						disabled: true,
 						ontap: "panelChange"
 					}
 				],
@@ -35,16 +29,10 @@ enyo.kind({
 			{
 				title: "Second", 
 				style: "background-color: green;",
+				arrowIcon: true,
 				headerComponents: [
 					{
 						name: "next", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png", 
-						small: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
 						kind: "sun.IconButton", 
 						src: "assets/1080x1920/small-icon-close-button.png", 
 						small: true,
@@ -62,16 +50,10 @@ enyo.kind({
 			{
 				title: "Third", 
 				style: "background-color: yellow;",
+				arrowIcon: true,
 				headerComponents: [
 					{
 						name: "next", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png",
-						small: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
 						kind: "sun.IconButton", 
 						src: "assets/1080x1920/small-icon-close-button.png",
 						small: true,
@@ -90,16 +72,10 @@ enyo.kind({
 				title: "Fourth", 
 				joinToPrev: true, 
 				style: "background-color: blue;",
+				arrowIcon: true,
 				headerComponents: [
 					{
 						name: "next", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png",
-						small: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
 						kind: "sun.IconButton", 
 						src: "assets/1080x1920/small-icon-close-button.png",
 						small: true,
@@ -118,16 +94,10 @@ enyo.kind({
 				title: "Fifth",
 				joinToPrev: true,			 	
 				style: "background-color: gray;",
+				arrowIcon: true,
 				headerComponents: [
 					{
 						name: "next", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png",
-						small: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
 						kind: "sun.IconButton", 
 						src: "assets/1080x1920/small-icon-close-button.png",
 						small: true,
@@ -145,16 +115,10 @@ enyo.kind({
 			{
 				title: "Sixth", 
 				style: "background-color: purple;",
+				arrowIcon: true,
 				headerComponents: [
 					{
 						name: "next", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png",
-						small: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
 						kind: "sun.IconButton", 
 						src: "assets/1080x1920/small-icon-close-button.png",
 						small: true,
@@ -173,6 +137,7 @@ enyo.kind({
 				title: "Seventh", 
 				joinToPrev: true, 
 				style: "background-color: olive;",
+				arrowIcon: true,
 				headerComponents: [
 					{
 						name: "next", 
@@ -180,13 +145,6 @@ enyo.kind({
 						src: "assets/1080x1920/small-icon-close-button.png",
 						small: true,
 						disabled: true,
-						ontap: "panelChange"
-					},
-					{
-						name: "previous", 
-						kind: "sun.IconButton", 
-						src: "assets/1080x1920/small-icon-close-button.png",
-						small: true,
 						ontap: "panelChange"
 					}
 				],
@@ -203,7 +161,7 @@ enyo.kind({
 	panelChange: function(inSender, inEvent) {
 		if(inEvent.originator.name =="next")   
 			this.$.panels.next();
-		else if(inEvent.originator.name =="previous")
+		else if(inEvent.originator.name =="arrowIcon")
 			this.$.panels.previous();
 
 		return true;

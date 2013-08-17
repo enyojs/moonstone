@@ -668,7 +668,7 @@
   font-size: 150px;
   padding-left: 20px;
 }
-.sun-left-header .sun-header-title {
+.sun-arrow-header .sun-header-title {
   padding-left: 85px;
 }
 .sun .sun-two-lines-header .sun-header-title {
@@ -684,10 +684,10 @@
   letter-spacing: -0.04em;
   padding-left: 20px;
 }
-.sun-left-header .sun-header-title-below {
+.sun-arrow-header .sun-header-title-below {
   padding-left: 85px;
 }
-.sun-left-icon {
+.sun-arrow-icon {
   position: absolute;
   top: 59px;
   left: 15px;
