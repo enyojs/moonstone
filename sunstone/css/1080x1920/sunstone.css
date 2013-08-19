@@ -785,8 +785,16 @@
   margin-left: 20px;
   margin-right: 20px;
   overflow: hidden;
-  line-height: 180px;
   color: #999999;
+}
+.sun-listitem-item.sun-listitem-singlelined {
+  height: 180px;
+}
+.sun-listitem-item.sun-listitem-doublelined {
+  height: 224px;
+}
+.sun-listitem-item.sun-listitem-triplelined {
+  height: 300px;
 }
 .sun-listitem-item:after {
   content: " ";
@@ -800,48 +808,183 @@
   color: #ffffff;
 }
 .sun-listitem-icon {
-  display: inline-block;
-  margin-right: 5px;
-  vertical-align: middle;
-  border: 3px solid red;
+  position: absolute;
+  left: 40px;
+}
+.sun-listitem-singlelined .sun-listitem-icon {
+  top: 32px;
+}
+.sun-listitem-doublelined .sun-listitem-icon {
+  top: 55px;
+}
+.sun-listitem-triplelined .sun-listitem-icon {
+  top: 90px;
+}
+.sun-listitem-thumbnail {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  left: 38px;
+}
+.sun-listitem-singlelined .sun-listitem-thumbnail {
+  top: 17px;
+}
+.sun-listitem-doublelined .sun-listitem-thumbnail {
+  top: 40px;
+}
+.sun-listitem-triplelined .sun-listitem-thumbnail {
+  top: 75px;
 }
 .sun-listitem-subject {
   font-family: "MuseoSans Medium";
   font-size: 80px;
-  display: inline-block;
-  vertical-align: middle;
-  left: 60px;
-  right: 30%;
-  width: auto;
-  line-height: normal;
-}
-.sun-listitem-extracontainer {
   position: absolute;
-  display: inline-block;
-  margin-top: auto;
-  float: right;
-  vertical-align: middle;
-  right: 5px;
-  bottom: 3px;
-  overflow: hidden;
-  max-width: 30%;
-}
-.sun-listitem-extrainfoicon {
-  display: inline-block;
-  clear: both;
-  float: right;
-}
-.sun-listitem-extrainfo {
-  display: inline-block;
-  right: 0;
-  clear: right;
-  float: right;
-  font-size: 20px;
-  font-weight: normal;
   line-height: normal;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  display: inline-block;
+  right: 40px;
+}
+.sun-listitem-singlelined .sun-listitem-subject {
+  top: 42px;
+  left: 40px;
+}
+.sun-listitem-singlelined.sun-listitem-icon-attached .sun-listitem-subject {
+  left: 178px;
+}
+.sun-listitem-singlelined.sun-listitem-thumbnail-attached .sun-listitem-subject {
+  left: 208px;
+}
+.sun-listitem-doublelined .sun-listitem-subject {
+  top: 20px;
+  left: 40px;
+}
+.sun-listitem-doublelined.sun-listitem-icon-attached .sun-listitem-subject {
+  left: 178px;
+}
+.sun-listitem-doublelined.sun-listitem-thumbnail-attached .sun-listitem-subject {
+  left: 208px;
+}
+.sun-listitem-triplelined .sun-listitem-subject {
+  top: 20px;
+  left: 40px;
+}
+.sun-listitem-triplelined.sun-listitem-icon-attached .sun-listitem-subject {
+  left: 178px;
+}
+.sun-listitem-triplelined.sun-listitem-thumbnail-attached .sun-listitem-subject {
+  left: 208px;
+}
+.sun-listitem-command-attached .sun-listitem-subject {
+  right: 187px;
+}
+.sun-listitem-extrainfo-attached .sun-listitem-subject {
+  right: 340px;
+}
+.sun-listitem-textitem1,
+.sun-listitem-textitem2 {
+  font-family: "MuseoSans 300";
+  font-size: 68px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  position: absolute;
+  display: inline-block;
+  right: 40px;
+}
+.sun-listitem-doublelined .sun-listitem-textitem1 {
+  top: 120px;
+  left: 40px;
+}
+.sun-listitem-doublelined.sun-listitem-icon-attached .sun-listitem-textitem1 {
+  left: 178px;
+}
+.sun-listitem-doublelined.sun-listitem-thumbnail-attached .sun-listitem-textitem1 {
+  left: 208px;
+}
+.sun-listitem-triplelined .sun-listitem-textitem1 {
+  top: 117px;
+  left: 40px;
+}
+.sun-listitem-triplelined.sun-listitem-icon-attached .sun-listitem-textitem1 {
+  left: 178px;
+}
+.sun-listitem-triplelined.sun-listitem-thumbnail-attached .sun-listitem-textitem1 {
+  left: 208px;
+}
+.sun-listitem-triplelined .sun-listitem-textitem2 {
+  top: 202px;
+  left: 40px;
+}
+.sun-listitem-triplelined.sun-listitem-icon-attached .sun-listitem-textitem2 {
+  left: 178px;
+}
+.sun-listitem-triplelined.sun-listitem-thumbnail-attached .sun-listitem-textitem2 {
+  left: 208px;
+}
+.sun-listitem-command-attached .sun-listitem-textitem1 {
+  right: 187px;
+}
+.sun-listitem-extrainfo-attached .sun-listitem-textitem1 {
+  right: 340px;
+}
+.sun-listitem-command-attached .sun-listitem-textitem2 {
+  right: 187px;
+}
+.sun-listitem-extrainfo-attached .sun-listitem-textitem2 {
+  right: 340px;
+}
+.sun-listitem-command {
+  position: absolute;
+  right: 40px;
+}
+.sun-listitem-singlelined .sun-listitem-command {
+  top: 32px;
+}
+.sun-listitem-singlelined.sun-listitem-extrainfo-attached .sun-listitem-command {
+  top: 8px;
+}
+.sun-listitem-doublelined .sun-listitem-command {
+  top: 55px;
+}
+.sun-listitem-doublelined.sun-listitem-extrainfo-attached .sun-listitem-command {
+  top: 32px;
+}
+.sun-listitem-triplelined .sun-listitem-command {
+  top: 90px;
+}
+.sun-listitem-triplelined.sun-listitem-extrainfo-attached .sun-listitem-command {
+  top: 70px;
+}
+.sun-listitem-extrainfo {
+  font-family: "MuseoSans 300";
+  font-size: 50px;
+  position: absolute;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  right: 40px;
+  max-width: 300px;
+}
+.sun-listitem-singlelined .sun-listitem-extrainfo {
+  bottom: 20px;
+}
+.sun-listitem-singlelined.sun-listitem-command-attached .sun-listitem-extrainfo {
+  bottom: 3px;
+}
+.sun-listitem-doublelined .sun-listitem-extrainfo {
+  bottom: 30px;
+}
+.sun-listitem-doublelined.sun-listitem-command-attached .sun-listitem-extrainfo {
+  bottom: 20px;
+}
+.sun-listitem-triplelined .sun-listitem-extrainfo {
+  bottom: 50px;
+}
+.sun-listitem-triplelined.sun-listitem-command-attached .sun-listitem-extrainfo {
+  bottom: 50px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
