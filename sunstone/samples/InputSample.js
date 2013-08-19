@@ -5,13 +5,13 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Inputs"},
-		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, components: [
+		{kind: "sun.Scroller", horizontal: "hidden", fit: true, components: [
 			{kind: "sun.InputDecorator", spotlight: true, components: [
 				{kind: "sun.Input", placeholder: "JUST TYPE", oninput:"inputChanged"}
 			]},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "sun.Input", placeholder: "Search term", oninput:"inputChanged"},
-				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
+				{kind: "Image", src: "assets/1080x1920/search-input-search.png"}
 			]},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "sun.Input", type:"password", placeholder: "Enter password", oninput:"inputChanged"}
@@ -24,11 +24,11 @@ enyo.kind({
 				{kind: "moon.RichText", placeholder: "Enter text here", oninput:"inputChanged"}
 			]},
 			{kind: "sun.InputDecorator", components: [
-				{kind: "moon.RichText", style: "width: 240px;", placeholder: "JUST TYPE", oninput:"inputChanged"},
-				{kind: "Image", src: "$lib/moonstone/samples/assets/search-input-search.png"}
+				{kind: "moon.RichText", style: "width: 480px;", placeholder: "JUST TYPE", oninput:"inputChanged"},
+				{kind: "Image", src: "assets/1080x1920/search-input-search.png"}
 			]},
 			{kind: "sun.InputDecorator", disabled: true, components: [
-				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Deactivated input", oninput:"inputChanged"}
+				{kind: "moon.RichText", disabled: true, style: "width: 480px;", placeholder: "Deactivated input", oninput:"inputChanged"}
 			]},
 			{kind: "moon.Divider", content: "TextAreas"},
 			{kind: "sun.InputDecorator", components: [

@@ -15,7 +15,7 @@ enyo.kind({
 		{kind: "sun.Button", content:"+", classes:"moon-sample-spaced-button", ontap: "incValue"},
 		{tag: "br"},
 		{tag: "br"},
-		{style: "width:240px;", components: [
+		{style: "width:480px;", components: [
 			{name: "animateSetting", kind: "moon.CheckboxItem", checked: true, content: "Animated"}
 		]}
 	],

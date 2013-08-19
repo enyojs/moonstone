@@ -47,7 +47,7 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"handleContainer", kind:"enyo.Drawer", spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", kind:"enyo.Drawer", resizeContainer:false, spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-drawers-handles"}
 		]},
 		{name:"activator", classes:"moon-drawers-activator", spotlight:true, ontap:"activatorHandler", components:[
@@ -64,11 +64,11 @@ enyo.kind({
 		this.setupHandles();
 	},
 	rendered: function() {
-	    this.inherited(arguments);
+		this.inherited(arguments);
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 		this.resizeDresser();
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
 	},
 	resizeDresser: function() {
 		var client = this.getBounds();
@@ -84,7 +84,15 @@ enyo.kind({
 		this.$.drawers.applyStyle('left', -client.left+'px');
 		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
 		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-	},	
+
+		this.resizeClient();
+	},
+	resizeClient: function(){
+		var aHeight = this.$.activator.hasNode().getBoundingClientRect().height;
+		var hHeight = this.$.handleContainer.hasNode().getBoundingClientRect().height;
+		var dHeight = this.$.drawers.hasNode().getBoundingClientRect().height;
+		this.$.client.applyStyle('height', (this.getBounds().height - (aHeight + hHeight + dHeight)) + 'px');
+	},
 	setupHandles: function() {
 		var handles = [];
 		for (var index in this.drawers){
@@ -180,13 +188,10 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		if (this.$.handleContainer.$.animator.isAnimating()){
-			return true;
-		}
 		this.resizeDresser();		
-	    var dh = document.body.getBoundingClientRect().height;
-	    var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-	    this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+		var dh = document.body.getBoundingClientRect().height;
+		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
 		this.updateActivator(false);
 	},
 	//Updates the activator's style only when it is not animating so that there are no visual artifacts

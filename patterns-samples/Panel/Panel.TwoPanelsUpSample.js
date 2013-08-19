@@ -44,7 +44,7 @@ enyo.kind({
 			kind: "moon.Panels",
 			classes: "enyo-fit",
 			components: [
-				{title: "Menu", components: [
+				{title: "Menu", classes:"moon-6h", components: [
 					{kind: "moon.Item", content: "Music", ontap: "onTap", nextPanel: "musicBrowser"},
 					{kind: "moon.Item", content: "Movie", ontap: "onTap", nextPanel: "movieBrowser"},
 					{kind: "moon.Item", content: "Photo", ontap: "onTap", nextPanel: "photoBrowser"}

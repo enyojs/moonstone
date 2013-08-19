@@ -13,38 +13,35 @@ enyo.kind({
         {
             kind: "FittableRows",
             components: [
+                {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"},
                 {
-                    name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"
-                },
-                {
-                    kind: "HFlexBox",
                     components: [
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Rating"},
                             {name: "rating"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Release Date"},
                             {name: "releaseDate"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {kind: "moon.Divider", content: "Running Time"},
                             {name: "duration"}
                         ]}
                     ]
                 },
                 {
-                    kind: "HFlexBox",
+					kind: "moon.Table",
                     components: [
-                        {flex: true, components: [
+                        {components: [
                             {content: "SD"},
                             {name: "valueSD"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {content: "HD"},
                             {name: "valueHD"}
                         ]},
-                        {flex: true, components: [
+                        {components: [
                             {content: "3D"},
                             {name: "value3D"}
                         ]}
@@ -66,15 +63,15 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.posterUrl", to: "$.movie.src"},
-        {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.duration", to: "$.duration.content"},
-        {from: ".controller.valueSD", to: "$.valueSD.content"},
-        {from: ".controller.valueHD", to: "$.valueHD.content"},
-        {from: ".controller.value3D", to: "$.value3D.content"},
-        {from: ".controller.synopsisHeader", to: "$.synopsisHeader.content"},
-        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+        {from: ".controller.posterUrl", to: ".$.movie.src"},
+        {from: ".controller.rating", to: ".$.rating.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.duration", to: ".$.duration.content"},
+        {from: ".controller.valueSD", to: ".$.valueSD.content"},
+        {from: ".controller.valueHD", to: ".$.valueHD.content"},
+        {from: ".controller.value3D", to: ".$.value3D.content"},
+        {from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
     ]
 });
 
@@ -112,7 +109,7 @@ enyo.ready(function(){
             {
                 name: "movieController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

@@ -15,7 +15,7 @@ enyo.kind({
 			]}
 		]},	
 
-		{kind: "moon.Button", classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
+		{kind: "moon.Button", classes: "wizard-button-bottom", small: true, ontap: "doCancel", content: "Cancel"}
 	],
 	initialSetting: function() {
 		var idx = this.$.header.getTitleAbove()-1;

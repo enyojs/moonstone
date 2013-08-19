@@ -69,6 +69,8 @@
 /* ListItem */
 /* ---------------------------------------*/
 /* Divider */
+/* Input */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -80,7 +82,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
+  src: local("??), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -93,7 +95,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
+  src: local("??), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -106,7 +108,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("☺"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
+  src: local("??), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -120,7 +122,7 @@
 }
 @font-face {
   font-family: "MuseoSans Light";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-100.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-100.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -133,7 +135,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -146,7 +148,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-500.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -158,7 +160,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium Italic";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+00-FF;
 }
@@ -170,7 +172,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -183,7 +185,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+00-FF;
 }
@@ -195,7 +197,7 @@
 }
 @font-face {
   font-family: "MuseoSans Bold";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-900.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -208,7 +210,7 @@
 }
 @font-face {
   font-family: "MuseoSans Bold Italic";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
+  src: local("??), url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+00-FF;
 }
@@ -454,7 +456,16 @@
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight:active {
   background-position: 0px -107px;
 }
+.sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
+.moon-icon.moon-icon-button.moon-small-icon-button:active:hover {
+  background-position: 0 -107px;
+}
 /* InputDecorator.css */
+.sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  padding: 14px 30px 14px 30px;
+  border-radius: 66px;
+  -moz-border-radius: 66px;
+}
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
   border: 5px solid #ff2f7d;
 }
@@ -622,7 +633,7 @@
   float: left;
 }
 .sun .moon-tooltip-label {
-  background-color: #ff0000;
+  background-color: #ff2f7d;
 }
 .sun .moon-tooltip.above.left-arrow {
   background-image: url('../../images/1080x1920/tooltip-nubs/top-left.png');
@@ -659,7 +670,7 @@
   font-size: 150px;
   padding-left: 20px;
 }
-.sun-left-header .sun-header-title {
+.sun-arrow-header .sun-header-title {
   padding-left: 85px;
 }
 .sun .sun-two-lines-header .sun-header-title {
@@ -675,13 +686,17 @@
   letter-spacing: -0.04em;
   padding-left: 20px;
 }
-.sun-left-header .sun-header-title-below {
+.sun-arrow-header .sun-header-title-below {
   padding-left: 85px;
 }
-.sun-left-icon {
+.sun-arrow-icon {
   position: absolute;
   top: 59px;
   left: 15px;
+  width: 42px;
+  height: 75px;
+  background-image: url('../../images/1080x1920/header_arrow.png');
+  background-position: left top;
 }
 .sun-header-client {
   position: absolute;
@@ -691,29 +706,6 @@
 .sun-header-client > * {
   margin-left: 30px;
 }
-/*
-
-.sun-header-title-below {
-    .sun-sub-header-text;
-    min-height: @sun-sub-header-font-size;
-    padding: 2px 0px 10px 0px;
-    margin: -30px 0px 0px 0px;
-}
-.sun .enyo-locale-non-latin .sun-header-title-below {
-    font-family: @moon-non-latin-font-family;
-}
-.sun .moon-header-item {
-    float: right;
-}
-
-
-.sun-left-header {
-     .sun-header;
-}
-.sun-small-header {
-    .sun-header;
-}
-*/
 /* Accordion.css */
 .sun .moon-accordion-client .moon-item {
   font-family: "MuseoSans 300";
@@ -985,6 +977,38 @@
 }
 .sun-listitem-triplelined.sun-listitem-command-attached .sun-listitem-extrainfo {
   bottom: 50px;
+/* Input.css */
+.sun .moon-input {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  box-shadow: none;
+  color: #4b4b4b;
+}
+/* RichText.css */
+.sun .moon-richtext {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  min-height: 96px;
+}
+/* TextArea.css */
+.sun .moon-textarea {
+  font-family: "MuseoSans 300";
+  font-size: 80px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {

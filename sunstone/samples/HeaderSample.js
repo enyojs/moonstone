@@ -5,7 +5,7 @@ enyo.kind({
 	classes: "sun moon enyo-unselectable enyo-fit sun-header-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Scroller", fit:true, components: [
+		{kind: "sun.Scroller", fit:true, components: [
 			{classes:"", components: [
 				{kind: "sun.Header", content: "Header", components: [
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
