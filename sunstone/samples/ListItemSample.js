@@ -1,5 +1,5 @@
 enyo.kind({
-    name: "moon.sample.ListItemSample",
+    name: "sun.sample.ListItemSample",
     classes: "sun moon enyo-unselectable enyo-fit",
     listItems: [
         {
