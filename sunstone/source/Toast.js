@@ -1,5 +1,5 @@
 /**
-	_sun.Toast_ is an <a href="#sun.Toast">sun.Toast</a> that appears at the
+	_sun.Toast_ is an <a href="#enyo.Popup">enyo.Popup</a> that appears at the
 	TopMiddle of the screen.
 */
 enyo.kind({
