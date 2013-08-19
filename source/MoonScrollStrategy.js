@@ -174,8 +174,6 @@ enyo.kind({
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
-		//Added scroll height as page multiplier can be used for moving page wise,
-		//instead of row wise.
 		var scrollDelta = this.getScrollBounds().clientHeight * this.paginationPageMultiplier,
 			side = inEvent.originator.side,
 			x = this.getScrollLeft(),
