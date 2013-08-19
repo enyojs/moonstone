@@ -2096,7 +2096,7 @@
 .moon-contextual-popup.left.low::after {
   top: 100%;
   margin-top: -55px;
-  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+  background: transparent url('../images/contextual-popup-nubs/left.png') no-repeat;
 }
 /*flush corners are not implemented currently per HI*/
 /* TextArea.css */
