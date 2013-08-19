@@ -33,3 +33,4 @@ enyo.kind({
 		this.$.buttonToast.hide();
 	}
 });
+

@@ -1,6 +1,6 @@
 /**
-	_sun.Toast_ is an <a href="#moon.Toast">moon.Toast</a> that appears at the
-	bottom of the screen and takes up the full screen width.
+	_sun.Toast_ is an <a href="#sun.Toast">sun.Toast</a> that appears at the
+	TopMiddle of the screen.
 */
 enyo.kind({
 	name: "sun.Toast",
@@ -93,10 +93,11 @@ enyo.kind({
 	},
 	hide: function() {
 		this.inherited(arguments);
-		//clearTimeout(this.timeoutJob);
+		clearTimeout(this.timeoutJob);
 	},
 	show: function() {
 		this.inherited(arguments);
-		//this.timeoutJob = setTimeout(this.bindSafely("hide"), this.hideDelay);
+		this.timeoutJob = setTimeout(this.bindSafely("hide"), this.hideDelay);
 	}
 });
+
