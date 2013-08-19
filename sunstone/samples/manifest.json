@@ -8,7 +8,8 @@
 			{"name": "CardOverlayArranger", "path":"$lib/moonstone/sunstone/samples/PanelsWithCardOverlayArrangerSample", "css":"sample"}
 		]},
 		{"name": "Layout & Component", "samples": [
-			{"name": "Header", "path":"$lib/moonstone/sunstone/samples/HeaderSample"}
+			{"name": "Header", "path":"$lib/moonstone/sunstone/samples/HeaderSample"},
+			{"name": "ListItem", "path":"$lib/moonstone/sunstone/samples/ListItemSample"}
 		]},
 		{"name": "UI control", "samples": [
 			{"name": "Accordion", "path":"$lib/moonstone/sunstone/samples/AccordionSample"},
@@ -25,7 +26,8 @@
 		{"name": "Popup", "samples": [
 			{"name": "Basic", "path":"$lib/moonstone/sunstone/samples/PopupSample", "css":"sample"},
 			{"name": "Picker", "path":"$lib/moonstone/sunstone/samples/PopupBasicPickerSample", "css":"sample"},
-			{"name": "Time Picker", "path":"$lib/moonstone/sunstone/samples/PopupTimePicker", "css":"sample"}
+			{"name": "Time Picker", "path":"$lib/moonstone/sunstone/samples/PopupTimePicker", "css":"sample"},
+			{"name": "Toast", "path":"$lib/moonstone/sunstone/samples/ToastSample", "css":"sample"}
 		]},
 		{"name": "Notification", "samples": [
 			
