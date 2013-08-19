@@ -1,0 +1,21 @@
+.list-vertical-sample-item {
+    border: 1px solid silver;
+    padding: 18px;
+    font-size: 18px;
+    transition: all 0.1s linear;
+    -webkit-transition: all 0.1s linear;
+    -moz-transition: all 0.1s linear;
+    -o-transition: all 0.1s linear;
+}
+
+.list-vertical-controls-sample-list {
+    background-color: white;
+}
+
+.moon-list-vertical-sample .spotlight .list-vertical-sample-item {
+    border-left:16px solid orange;
+}
+
+.debug {
+    border: solid 1px orange;
+}
