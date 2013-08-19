@@ -1014,6 +1014,23 @@
   font-style: normal;
   letter-spacing: -0.04em;
 }
+/* Toast.css */
+.sun-toast {
+  font-family: "MuseoSans 700";
+  font-size: 66pt;
+  position: relative;
+  background-color: #d9d9d9;
+  border: 5px solid #404040;
+  color: #4b4b4b;
+  top: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 97%;
+  padding: 10px;
+  top: 100px;
+  text-align: center;
+  border-radius: 10px;
+}
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
   background-color: #404040;
