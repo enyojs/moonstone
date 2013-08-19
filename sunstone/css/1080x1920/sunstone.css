@@ -764,6 +764,16 @@
   background: #ff2f7d;
   border: #ff2f7d;
 }
+/* Scroller.css */
+.sun .enyo-thumb {
+  background: #999999;
+  border: #999999;
+}
+.sun .enyo-vthumb {
+  top: 6px;
+  right: 5px;
+  width: 10px;
+}
 /* devider.css */
 .sun .moon-divider {
   font-size: 72px;
