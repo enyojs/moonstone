@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content: "Popup Time Picker"},
+		{kind: "sun.Divider", content: "Popup Time Picker"},
 		{classes: "moon-hspacing", components: [
 			{kind: "sun.Button", content: "Button in Popup Time Picker", ontap: "showPopup", popup: "time"}
 		]},

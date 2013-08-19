@@ -22,5 +22,6 @@ enyo.depends(
 	"Accordion.js",
 	"Scroller.js",
     "ListItem.js",
-	"Panel.js"
+	"Panel.js",
+	"Divider.js"
 );

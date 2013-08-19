@@ -4,7 +4,7 @@ enyo.kind({
 	classes: "sun moon enyo-unselectable enyo-fit moon-input-sample",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content: "Inputs"},
+		{kind: "sun.Divider", content: "Inputs"},
 		{kind: "sun.Scroller", horizontal: "hidden", fit: true, components: [
 			{kind: "sun.InputDecorator", spotlight: true, components: [
 				{kind: "sun.Input", placeholder: "JUST TYPE", oninput:"inputChanged"}
@@ -19,7 +19,7 @@ enyo.kind({
 			{kind: "sun.InputDecorator", disabled: true, components: [
 				{kind: "sun.Input", disabled: true, value: "Deactivated input"}
 			]},
-			{kind: "moon.Divider", content: "RichTexts"},
+			{kind: "sun.Divider", content: "RichTexts"},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "moon.RichText", placeholder: "Enter text here", oninput:"inputChanged"}
 			]},
@@ -30,7 +30,7 @@ enyo.kind({
 			{kind: "sun.InputDecorator", disabled: true, components: [
 				{kind: "moon.RichText", disabled: true, style: "width: 480px;", placeholder: "Deactivated input", oninput:"inputChanged"}
 			]},
-			{kind: "moon.Divider", content: "TextAreas"},
+			{kind: "sun.Divider", content: "TextAreas"},
 			{kind: "sun.InputDecorator", components: [
 				{kind: "moon.TextArea", placeholder: "Enter text here", oninput:"inputChanged"}
 			]},
@@ -41,9 +41,9 @@ enyo.kind({
 				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated input", oninput:"inputChanged"}
 			]}
 		]},
-		{kind: "moon.Divider", content: "Result", classes: "moon-input-sample-result"},
+		{kind: "sun.Divider", content: "Result", classes: "moon-input-sample-result"},
 		{name: "console", classes: "moon-input-sample-console", content: "Input: "},
-		{kind: "moon.Divider", content: "Bottom-aligned inputs", classes: "moon-input-sample-result"},
+		{kind: "sun.Divider", content: "Bottom-aligned inputs", classes: "moon-input-sample-result"},
 		{components: [
 			{kind: "sun.InputDecorator", spotlight: true, components: [
 				{kind: "sun.Input", placeholder: "Bottom", oninput:"inputChanged"}

@@ -11,11 +11,11 @@ enyo.kind({
 						{content: "Divider"}
 					]},
 					{classes: "sun", components:[
-						{kind: "moon.Divider", content: "Sunstone"},
+						{kind: "sun.Divider", content: "Sunstone"},
 						{content: "(1080x1920)"}
 					]},
 					{components:[
-						{kind: "moon.Divider", content: "Moonstone"},
+						{kind: "sun.Divider", content: "Moonstone"},
 						{content: "(1920x1080)"}
 					]}
 				]},
@@ -66,7 +66,7 @@ enyo.kind({
 						{kind: "sun.IconButton", src: "assets/1080x1920/icon-close-button.png"}
 					]},
 					{components:[
-						{kind: "moon.IconButton", src: "assets/icon-close-button.png"}
+						{kind: "moon.IconButton", src: "assets/1080x1920/icon-close-button.png"}
 					]}
 				]},
 				{components:[

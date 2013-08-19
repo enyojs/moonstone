@@ -4,7 +4,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "sun.Scroller", classes: "enyo-fill moon-10h", components: [		
-			{kind: "moon.Divider", content: "Not In Group"},
+			{kind: "sun.Divider", content: "Not In Group"},
 			{components: [
 				{kind: "sun.Accordion", content: "This is an accordion", components: [
 					{kind: "sun.CheckboxItem", content: "Item One"},
@@ -19,7 +19,7 @@ enyo.kind({
 					{kind: "sun.CheckboxItem", content: "Loooooooooooooooooooooooooooooong Item Two"}
 				]}
 			]}/*,
-			{kind: "moon.Divider", content: "In Group"},
+			{kind: "sun.Divider", content: "In Group"},
 			{kind:"Group", highlander:true, components: [
 				{kind: "sun.Accordion", content: "This is a grouped accordion", components: [
 					{content: "Item One"},

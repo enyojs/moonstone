@@ -6,19 +6,19 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind: "sun.Scroller", fit: true, components: [
 		
-			{kind: "moon.Divider", content: "Slider 1: Default"},
+			{kind: "sun.Divider", content: "Slider 1: Default"},
 			{name: "slider1", kind: "sun.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 		
-			{kind: "moon.Divider", content:"Slider 2: Deactivated"},
+			{kind: "sun.Divider", content:"Slider 2: Deactivated"},
 			{name: "slider2", kind: "sun.Slider", value: 50, disabled: true},
 			
-			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
+			{kind: "sun.Divider", content: "Slider 3: Custom Popup Content"},
 			{name: "slider3", kind: "sun.Slider", classes: "rgb-sample-slider",
 				popupColor: "rgb(0, 0, 25)", popupWidth: 180, value: 25, bgProgress: 150, min: 0, max: 255,
 				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
 			},
 
-			{kind: "moon.Divider", content:"Option Properties"},
+			{kind: "sun.Divider", content:"Option Properties"},
 			{classes: "moon-hspacing", components: [
 				{content: "Value: "},
 				{kind: "sun.InputDecorator", components: [
@@ -38,7 +38,7 @@ enyo.kind({
 				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true, 	content: "Show Percentage", onchange: "changePercentage"}
 			]}
 		]},
-		{kind:"moon.Divider", content:"Result"},
+		{kind:"sun.Divider", content:"Result"},
 		{name:"result", content:"No slider moved yet."}
 	],
 	create: function() {

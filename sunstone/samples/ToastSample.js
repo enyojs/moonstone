@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "sun moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content: "Toasts"},
+		{kind: "sun.Divider", content: "Toasts"},
 
 		{classes: "moon-hspacing", components: [
 			{kind: "moon.Button", content: "Basic Toast", ontap: "showToast", Toast: "basicToast"},			
@@ -12,7 +12,7 @@ enyo.kind({
 
 		{name: "basicToast", kind: "sun.Toast", content: "Toast..."},
 		{name: "buttonToast", kind: "sun.Toast", components: [
-			{kind: "moon.Divider", content: "Buttons in Toast example"},
+			{kind: "sun.Divider", content: "Buttons in Toast example"},
 			{classes: "moon-hspacing", components: [
 				{kind: "moon.Button", content: "Hello"},
 				{kind: "moon.Button", content: "Goodbye"},

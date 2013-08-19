@@ -4,7 +4,7 @@ enyo.kind({
 	components:[
 		{kind: "enyo.Spotlight"},
 		{classes: "sun-scroller-sample-horizontal-wrapper", components: [
-			{kind: "moon.Divider", content: "Item Spotlight (default-style)", classes: "sun-scroller-sample-divider"},
+			{kind: "sun.Divider", content: "Item Spotlight (default-style)", classes: "sun-scroller-sample-divider"},
 			{kind: "sun.Scroller", vertical: "hidden", spotlight: "container", name: "scroller1",			
 				classes: "sun-scroller-sample-horizontal",
 				components: [
@@ -43,7 +43,7 @@ enyo.kind({
 			]},
 			{tag: "br"},
 			{tag: "br"},
-			{kind: "moon.Divider", content: "Item Spotlight (overlay-style)", classes: "sun-scroller-sample-divider"},
+			{kind: "sun.Divider", content: "Item Spotlight (overlay-style)", classes: "sun-scroller-sample-divider"},
 			{kind: "sun.Scroller", vertical: "hidden", spotlight: "container", name: "scroller2",
 				classes: "sun-scroller-sample-horizontal",
 				components: [
