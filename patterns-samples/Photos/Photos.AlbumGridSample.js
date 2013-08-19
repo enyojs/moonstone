@@ -71,8 +71,9 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "moon.sample.photo.AlbumListItem",
-                                    bindFrom: "imgOption",
-                                    bindTo: "option"
+                                    bindings: [
+										{from: ".model.imgOption", to: ".option"}
+									]
                                 }
                             ]
                         }
@@ -83,7 +84,7 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 

@@ -27,7 +27,7 @@ enyo.kind({
                 },
                 {
                     kind: "FittableRows",
-                    classes: "moon-13h",
+                    classes: "moon-15h",
                     components: [
                         {
                             kind: "moon.RadioItemGroup", 
@@ -60,13 +60,12 @@ enyo.kind({
                                             {
                                                 kind: "enyo.Image", 
                                                 classes: "moon-3h moon-1v",
-                                                bindFrom: "picUrl",
-                                                bindTo: "src",
+												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
-                                            {bindFrom: "username"},
-                                            {bindFrom: "date"},
-                                            {bindFrom: "description"}
+                                            {bindings: [{from: ".model.username", to: ".content"}]},
+                                            {bindings: [{from: ".model.date", to: ".content"}]},
+                                            {bindings: [{from: ".model.description", to: ".content"}]}
                                         ]}
                                     ]
                                 },
@@ -78,11 +77,10 @@ enyo.kind({
                                             {
                                                 kind: "enyo.Image", 
                                                 classes: "moon-3h moon-1v",
-                                                bindFrom: "picUrl",
-                                                bindTo: "src",
+												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
-                                            {bindFrom: "username"}
+                                            {bindings: [{from: ".model.username", to: ".content"}]}
                                         ]}
                                     ]
                                 },
@@ -94,11 +92,11 @@ enyo.kind({
                                             {
                                                 kind: "enyo.Image", 
                                                 classes: "moon-3h moon-1v",
-                                                bindFrom: "picUrl",
-                                                bindTo: "src",
+												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
-                                            {bindFrom: "albumname"}
+                                            {bindings: [{from: ".model.albumname", to: ".content"}]
+}
                                         ]}
                                     ]
                                 }
@@ -111,10 +109,10 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.description", to: "$.description.content"},
-        {from: ".controller.contents", to: "$.contentsList.controller"},
-        {from: ".controller.likes", to: "$.likesList.controller"},
-        {from: ".controller.albums", to: "$.albumsList.controller"}
+        {from: ".controller.description", to: ".$.description.content"},
+        {from: ".controller.contents", to: ".$.contentsList.controller"},
+        {from: ".controller.likes", to: ".$.likesList.controller"},
+        {from: ".controller.albums", to: ".$.albumsList.controller"}
     ],
 
     buttonActivated: function(inSender, inEvent) {
