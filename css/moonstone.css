@@ -3348,24 +3348,6 @@ body .enyo-fit.panels-50-percent-scrim,
   right: 0px;
   width: 50px;
 }
-.moon-scroller-hthumb,
-.moon-scroller-vthumb {
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-}
-.moon-scroller-hthumb {
-  height: 4px;
-  bottom: 23px;
-}
-.moon-scroller-vthumb {
-  width: 4px;
-  right: 23px;
-}
-.moon-scroller-hthumb.hidden,
-.moon-scroller-vthumb.hidden {
-  opacity: 0;
-}
 .moon-expandable-input {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -3474,6 +3456,30 @@ body .enyo-fit.panels-50-percent-scrim,
   left: 50%;
   margin-top: -21px;
   margin-left: -21px;
+}
+.moon-thumb {
+  -webkit-transform-origin: 0px 0px;
+  border: none;
+  background: rgba(50, 50, 50, 0.8);
+  width: 4px;
+  height: 4px;
+  border-radius: 0;
+}
+.moon-scroller-hthumb,
+.moon-scroller-vthumb {
+  transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -webkit-transition: opacity 0.1s linear;
+}
+.moon-scroller-hthumb {
+  bottom: 23px;
+}
+.moon-scroller-vthumb {
+  right: 23px;
+}
+.moon-scroller-hthumb.hidden,
+.moon-scroller-vthumb.hidden {
+  opacity: 0;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
