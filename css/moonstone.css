@@ -11,6 +11,8 @@
 /* ---------------------------------------*/
 /* Colors */
 /* ---------------------------------------*/
+/* Moonstone Dark Theme */
+/* Moonstone Light Theme */
 /* Font */
 /* ---------------------------------------*/
 /* Disabled Opacity */
@@ -1226,7 +1228,6 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-picker-header {
-  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 4px 0px;
 }
