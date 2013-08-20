@@ -50,8 +50,9 @@ enyo.kind({
 			{name: "endTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{classes: "moon-slider-popup-wrapper", components: [
+			{classes: "moon-slider-popup-wrapper video-transport", components: [
 				{tag: "canvas", name: "drawing"},
+				{name: "feedback", kind:"moon.VideoFeedback", style:"opacity:0;"}, // WIP
 				{name: "popupLabel", classes: "moon-slider-popup-label"}
 			]}
 		]}
@@ -61,7 +62,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.showTickTextChanged();
 		this.showTickBarChanged();
-		this.updateSliderRange();
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
@@ -88,6 +88,14 @@ enyo.kind({
 		this.inherited(arguments);
 		this.updateSliderRange();
 	},
+	setRangeStart: function(inValue) {
+		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeStartChanged();
+	},
+	setRangeEnd: function(inValue) {
+		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeEndChanged();	
+	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
 		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
@@ -98,14 +106,6 @@ enyo.kind({
 		}
 		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
 		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
-	},
-	setRangeStart: function(inValue) {
-		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeStartChanged();
-	},
-	setRangeEnd: function(inValue) {
-		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeEndChanged();	
 	},
 	rangeStartChanged: function() {
 		this.updateInternalProperty();
@@ -118,6 +118,7 @@ enyo.kind({
 	},
 	updateInternalProperty: function() {
 		this.updateScale();
+		this.progressChanged();
 		this.bgProgressChanged();
 	},
 	//** hiden variable, scaleFactor is generated when create this

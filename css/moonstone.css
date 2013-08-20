@@ -2923,6 +2923,9 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-slider-indicator-wrapper .hide {
   display: none;
 }
+.moon-slider-popup-wrapper.video-transport {
+  display: inline;
+}
 .moon-video-player {
   position: relative;
   display: inline-block;
