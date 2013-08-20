@@ -135,8 +135,8 @@ enyo.kind({
 	}
 });
 
-enyo.createMixin({
-	name: "moon.MarqueeSupport",
+moon.MarqueeSupport = {
+	name: "MarqueeSupport",
 	//*@protected
 	handlers: {
 		onSpotlightFocus: "_marqueeSpotlightFocus",
@@ -145,14 +145,17 @@ enyo.createMixin({
 		onMarqueeEnded: "_marqueeEnded",
 		onresize: "_marqueeResize"
 	},
-	create: function() {
-		//this.log(this.id);
-		this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
-		this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
-		this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
-		this.marqueePause = (this.marqueePause === undefined) ? 1000 : this.marqueePause;
-		this.marqueeHold = (this.marqueeHold === undefined) ? 5000 : this.marqueeHold;
-	},
+	create: enyo.super(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			//this.log(this.id);
+			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
+			this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
+			this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
+			this.marqueePause = (this.marqueePause === undefined) ? 1000 : this.marqueePause;
+			this.marqueeHold = (this.marqueeHold === undefined) ? 5000 : this.marqueeHold;
+		};
+	}),
 	//*@public
 	startMarquee: function() {
 		this.marqueeWaitList = [];
@@ -210,7 +213,7 @@ enyo.createMixin({
 			}), 400);
 		}
 	}
-});
+};
 
 enyo.kind({
 	name: "moon.MarqueeDecorator",

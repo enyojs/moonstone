@@ -31,9 +31,13 @@ enyo.kind({
 		{kind: "moon.Scroller", fit: true, components: [
 			{name: "trackInfo", kind: "moon.DataTable", style: "width: 100%;", components: [
 				{spotlight: true, ontap: "changeTrackName", components: [
-					{bindFrom: ".number"},
-					{bindFrom: ".name"},
-					{bindFrom: ".duration"}
+					{name: "number"},
+					{name: "name"},
+					{name: "duration"}
+				], bindings: [
+					{from: ".model.number", to: ".$.number.content"},
+					{from: ".model.name", to: ".$.name.content"},
+					{from: ".model.duration", to: ".$.duration.content"}
 				]}
 			]}
 		]}
@@ -43,14 +47,14 @@ enyo.kind({
         {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
     bindings: [
-        {from: ".controller.artist", to: "$.artist.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.genre", to: "$.genre.content"},
-        {from: ".controller.album", to: "$.album.content"},
-        {from: ".controller.coverUrl", to: "$.cover.src"},
+        {from: ".controller.artist", to: ".$.artist.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.genre", to: ".$.genre.content"},
+        {from: ".controller.album", to: ".$.album.content"},
+        {from: ".controller.coverUrl", to: ".$.cover.src"},
 		// NOTE: We are setting our tracks property (which is a collection)
 		// directly to the controller property of the table
-        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+        {from: ".controller.tracks", to: ".$.trackInfo.controller"}
     ]
 });
 

@@ -1,106 +1,108 @@
-// Sample view
 enyo.kind({
 	name: "moon.sample.music.ArtistDetailNarrowSample",
-	kind: "moon.Panel",
-	titleAbove: "04",
-	title: "Artist",
+	classes: "moon enyo-unselectable",
 	controller: ".app.controllers.albumController",
-	headerComponents: [
-		{kind: "moon.IconButton", src: "../assets/icon-like.png"},
-		{kind: "moon.IconButton", src: "../assets/icon-next.png"}
-	],
 	components: [
-		{kind: "enyo.FittableColumns", noStretch: true, components: [
-			{name: "artistImage", kind: "enyo.Image", style: "width: 200px; height: 200px;"},
-			{kind: "enyo.Table", mixins: ["enyo.AutoBindingSupport"], fit: true, components: [
-				{components: [
-					{bindFrom: ".artist", attributes: {colspan: "2"}, style: "font-weight: bold;"}
-				]},
-				{components: [
-					{content: "Organized"},
-					{bindFrom: ".organizedDate"}	
-				]},
-				{components: [
-					{content: "Debut"},
-					{bindFrom: ".debutDate"}
-				]},
-				{components: [
-					{content: "Type"},
-					{bindFrom: ".type"}
-				]}
-			], bindSource: ".controller", controller: ".app.controllers.albumController"}
-		]},
-		{kind: "moon.Divider", content: "Top 10 Tracks"},
-		{name: "trackInfo", kind: "moon.DataList", fit: true, components: [
-			{kind: "moon.Item", components: [
-				{kind: "enyo.Table", components: [
-					{components: [
-						{attributes: {rowspan: "3"}, components: [
-							{kind: "enyo.Image", bindFrom: ".coverUrl", bindTo: ".src"}	
-						]},
-						{bindFrom: ".name"}
+		{kind: "enyo.Spotlight"},
+		{kind: "moon.Panels", classes: "enyo-fit", pattern: "alwaysviewing", components: [
+			{name: "artistPanel", kind: "moon.Panel", classes: "enyo-fit", title: "Artist", headerComponents: [
+				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
+				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
+			], components: [
+				{kind: "enyo.FittableColumns", fit: true, components: [
+					{style: "width: 400px;", components: [
+						{name: "artistImage", kind: "enyo.Image", style: "height: 400px;"},
+						{kind: "moon.Table", components: [
+							{components: [
+								{content: "Organized"},
+								{name: "artistOrganized"}
+							]},
+							{components: [
+								{content: "Debut"},
+								{name: "artistDebut"}
+							]},
+							{components: [
+								{content: "Type"},
+								{name: "artistType"}
+							]}
+						]}
 					]},
-					{components: [
-						{bindFrom: ".duration", classes: "moon-superscript"}	
+					{fit: true, components: [
+						{kind: "enyo.FittableRows", classes: "enyo-fill", components: [
+							{style: "height: 200px;", kind: "enyo.FittableRows", components: [
+								{kind: "moon.Divider", content: "Related Artists"},
+								{name: "relatedArtists", kind: "moon.DataGridList", fit: true, components: [
+									{kind: "moon.GridListImageItem", bindings: [
+										{from: ".model.coverUrl", to: ".source"}
+									]}
+								], minHeight: 100, minWidth: 100, spacing: 10}
+							]},
+							{fit: true, kind: "enyo.FittableRows", components: [
+								{kind: "moon.Divider", content: "Top 10 Tracks"},
+								{name: "trackInfo", fit: true, kind: "moon.DataList", components: [
+									{kind: "moon.Item", style: "height: 100px;", components: [
+										{kind: "moon.Table", style: "height: 100%;", components: [
+											{components: [
+												{components: [
+													{name: "trackCover", kind: "enyo.Image", style: "width: 100px;"}
+												]},
+												{components: [
+													{name: "trackName", style: "font-weight: bold;"},	
+													{content: "Album Name"},
+													{name: "trackDuration"}
+												]}
+											]}
+										]}
+									], bindings: [
+										{from: ".model.coverUrl", to: ".$.trackCover.src"},
+										{from: ".model.trackName", to: ".$.trackName.content"},
+										{from: ".model.trackDuration", to: ".$.trackDuration.content"}
+									]}
+								]}
+							]}
+						]}
 					]}
 				]}
 			]}
 		]}
 	],
-    bindings: [
-        {from: ".controller.artistImageUrl", to: ".$.artistImage.src"},
-		{from: ".controller.tracks", to: ".$.trackInfo.controller"}
-    ]
+	bindings: [
+		{from: ".controller.organizedDate", to: ".$.artistOrganized.content"},
+		{from: ".controller.debutDate", to: ".$.artistDebut.content"},
+		{from: ".controller.type", to: ".$.artistType.content"},
+		{from: ".controller.imageUrl", to: ".$.artistImage.src"},
+		{from: ".controller.tracks", to: ".$.trackInfo.controller"},
+		{from: ".controller.artist", to: ".$.artistPanel.titleBelow"},
+		{from: ".controller.relatedArtists", to: ".$.relatedArtists.controller"}
+	]
 });
 
-// Sample model
 enyo.kind({
-	name: "sample.Model",
-	kind: "enyo.Model",
-	attributes: {
-		tracks: {
-			relation: enyo.toMany()
+	name: "moon.sample.music.ArtistDetailNarrowSampleApplication",
+	kind: "enyo.Application",
+	view: "moon.sample.music.ArtistDetailNarrowSample",
+	controllers: [
+		{name: "albumController", kind: "enyo.ModelController"}
+	],
+	start: function () {
+		this.inherited(arguments);
+		var m = {
+			artist: "Paul McCartney",
+			organizedDate: "5 April 2013",
+			debutDate: "5 April 2013",
+			type: "Solo",
+			imageUrl: "../assets/default-music-big.png",
+			tracks: new enyo.Collection(),
+			relatedArtists: new enyo.Collection()
+		};
+		for (var i=0, r=m.tracks, a=m.relatedArtists; i<13; ++i) {
+			r.add({coverUrl: "../assets/default-music.png", trackName: "Track " + i, trackDuration: i + ":40"});
+			if (a.length < 3) { a.add({coverUrl: "../assets/default-music.png"}); }
 		}
+		this.controllers.albumController.set("model", new enyo.Model(m));
 	}
 });
 
-enyo.ready(function() {
-
-		new enyo.Application({
-			name: "app",
-			view: {
-				classes: "moon",
-				components: [
-					{kind: "enyo.Spotlight"},
-					{kind: "moon.sample.music.ArtistDetailNarrowSample", classes: "enyo-fit", name: "detail"}
-				]
-			},
-			controllers: [
-				{name: "albumController", kind: "enyo.ModelController"}
-			]
-		});
-		app.controllers.albumController.set("model", new sample.Model({
-	        artist: "Paul McCartney",
-	        organizedDate: "5 April 2013",
-	        debutDate: "5 April 1973",
-	        type: "Solo",
-	        tracks: [
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"},
-	            {coverUrl: "../assets/default-music.png", name: "Track Name", duration: "3:40"}
-	        ],
-	        artistImageUrl: "../assets/default-music-big.png"
-		}));
-
+enyo.ready(function () {
+	new moon.sample.music.ArtistDetailNarrowSampleApplication({name: "app"});
 });

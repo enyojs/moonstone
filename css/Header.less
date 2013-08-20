@@ -54,12 +54,22 @@
 }
 .moon-header-client {
 	position: absolute;
-	bottom: 0px;
+	bottom: @moon-grid-gutter-height;
+	left: 0px;
 	right: 0px;
-	margin-bottom: @moon-grid-gutter-height;
+	text-align: right;	/* fallback in case text-align:end isn't supported */
+	text-align: end;	/* CSS3 for RTL support */
 }
 .moon-header-client > * {
-	margin-left: @moon-grid-gutter-width;
+	text-align: left;	/* fallback in case text-align:start isn't supported */
+	text-align: start;	/* CSS3 for RTL support */
+}
+.moon-header-left {
+	float: left;
+}
+
+.enyo-locale-right-to-left .moon-header-left {
+	float: right;
 }
 
 /* Small header styling */
