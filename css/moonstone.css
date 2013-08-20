@@ -1226,7 +1226,6 @@
   border-left: 16px solid #ffb80d;
 }
 .moon-item.moon-expandable-picker-header {
-  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 4px 0px;
 }
@@ -2489,10 +2488,6 @@ body .enyo-fit.panels-50-percent-scrim,
   padding: 0px;
   border: 0px;
   width: 100%;
-<<<<<<< HEAD
-  height: 126px;
-=======
->>>>>>> master
   box-sizing: border-box;
   background-color: transparent;
 }
