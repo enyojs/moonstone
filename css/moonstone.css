@@ -2880,10 +2880,18 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: #fff;
 }
 .moon-slider .moon-slider-indicator-wrapper {
-  width: 240px;
+  width: 12.5%;
   height: 82px;
   top: 0;
   position: absolute;
+}
+.moon-slider-taparea.video-transport {
+  z-index: 100;
+  top: 0px;
+  height: 80px;
+}
+.moon-slider-knob.video-transport {
+  z-index: 50;
 }
 .moon-slider-indicator-wrapper.start {
   left: 0px;
@@ -2910,7 +2918,7 @@ body .enyo-fit.panels-50-percent-scrim,
   color: #ffffff;
   text-align: left;
   z-index: 1;
-  left: 130px;
+  left: 55%;
 }
 .moon-slider-indicator-wrapper .hide {
   display: none;

@@ -506,8 +506,7 @@ enyo.kind({
 	},
 	//* When seeking, set video time.
 	sliderSeek: function(inSender, inEvent) {
-		var time = this._duration * inEvent.value / 100;
-		this.setCurrentTime(time);
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
 	//* Programatically updates slider position to match _this.currentTime_/_this.duration_.
@@ -515,8 +514,7 @@ enyo.kind({
 		if (this.$.slider.dragging) {
 			return;
 		}
-		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
-		this.$.slider.setValue(percentComplete);
+		this.$.slider.setValue(this._currentTime);
 	},
 	
 	
@@ -711,38 +709,16 @@ enyo.kind({
 
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
+		// WIP : initialize slider 
+		this.$.slider.setMin(0);
+		this.$.slider.setMax(this._duration);
 		
 		this.updatePosition();
 		
 		this.waterfall("onTimeupdate", inEvent);
 	},
-	_getBufferedProgress: function(inNode) {
-		var bufferData = inNode.buffered,
-			numberOfBuffers = bufferData.length,
-			highestBufferPoint = 0,
-			duration = inNode.duration || 0,
-			endPoint = 0,
-			i
-		;
-		
-		if (duration === 0) {
-			return;
-		}
-		
-		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
-		for (i = 0; i < numberOfBuffers; i++) {
-			endPoint = bufferData.end(i);
-			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
-		}
-		return highestBufferPoint * 100 / inNode.duration;
-	},
 	_progress: function(inSender, inEvent) {
-		this._bufferedPercentage = this._getBufferedProgress(inEvent.srcElement);
-		if (this.isFullscreen() || !this.getInline()) {
-			this.$.slider.setBgProgress(this._bufferedPercentage); 
-		} else {
-			this.$.bgProgressStatus.applyStyle("width", this._bufferedPercentage + "%");
-		}
+		this.$.slider.updateBufferedProgress(inEvent.srcElement);
 	},
 	_play: function(inSender, inEvent) {
 		this.sendFeedback("Play");
