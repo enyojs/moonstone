@@ -46,10 +46,21 @@
 	background-color: transparent;
 }
 
-.moon-video-fullscreen-control .premium-placeholder {
-	width: 80px;
+.moon-video-fullscreen-control .premium-placeholder-left {
+	width: 160px;
 	height: 80px;
 	padding-top: 5px;
+	padding-left: 80px;
+}
+.moon-video-fullscreen-control .premium-placeholder-right {
+	width: 160px;
+	height: 80px;
+	padding-top: 5px;
+}
+
+
+.moon-video-player-control-client {
+	border-left: 2px solid white;	
 }
 
 /* ---- Slider styling ---- */
@@ -157,6 +168,18 @@
   height: @moon-videoplayer-slider-height;
 }
 
-.moon-video-player-control-button {
-	margin: 0 50px;
+/* Equal spacing on player control buttons */
+.moon-video-fullscreen-control  .enyo-fittable-columns-layout .moon-video-player-control-buttons {
+	white-space: nowrap;
 }
+.moon-video-fullscreen-control  .enyo-fittable-columns-layout .moon-video-player-control-buttons > * {
+	margin: 0 40px;
+}
+.moon-video-fullscreen-control  .enyo-fittable-columns-layout .moon-video-player-control-buttons > :first-child {
+	margin-left: 0;
+}
+.moon-video-fullscreen-control  .enyo-fittable-columns-layout .moon-video-player-control-buttons > :last-child {
+	margin-right: 0;
+}
+
+

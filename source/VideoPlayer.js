@@ -126,20 +126,20 @@ enyo.kind({
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
 			
-					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder"},
+					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder-left"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
-						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
+						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center moon-video-player-control-buttons", components: [
 							{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
 							{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
 							{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
 							{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
 							{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 						]},
-						{name: "client", layoutKind: "FittableColumnsLayout", noStretch: true}
+						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-control-client", noStretch: true}
 					]},
 				
-					{name: "rightPremiumPlaceHolder", classes: "premium-placeholder", components: [
+					{name: "rightPremiumPlaceHolder", classes: "premium-placeholder-right", components: [
 						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
@@ -160,6 +160,7 @@ enyo.kind({
 				{name: "currTime", content: "00:00"},
 				{name: "totalTime", content: "00:00"}
 			]},
+			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
 			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
 			{kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]},
@@ -416,6 +417,8 @@ enyo.kind({
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.$.videoInfoHeader.setShowing(true);
+			//* Fittable remembers the width when it is set showing(false), so we need to resize when it is showing(true) here.
+			this.$.videoInfoHeader.resized();
 		}
 	},
 	//* Sets _this.visible_ to false.
@@ -530,6 +533,9 @@ enyo.kind({
 		this.$.currTime.setContent(this.formatTime(currentTimeDate.getMinutes(), currentTimeDate.getSeconds()));
 		this.$.totalTime.setContent("/" + this.formatTime(durationDate.getMinutes(), durationDate.getSeconds()));
 	},
+
+	//* @private
+	_zoom: '100%',
 	
 	//* @public
 	
@@ -540,6 +546,10 @@ enyo.kind({
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
+			//* Fixed: chrome has bug that do not return proper body width when it is not at zoom 1 in full screen mode
+			//* Fallback routine: detect current browser zoom and set css zoom as the reverse.
+			this._zoom = document.body.style.zoom;
+			document.body.style.zoom = window.innerWidth / window.outerWidth * 100 + "%";
 			this.requestFullscreen();
 		}
 	},
@@ -548,6 +558,8 @@ enyo.kind({
 		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
 			this.showFSControls();
+		} else {
+			document.body.style.zoom = this._zoom;
 		}
 		this.resized();
 	},
@@ -704,8 +716,33 @@ enyo.kind({
 		
 		this.waterfall("onTimeupdate", inEvent);
 	},
+	_getBufferedProgress: function(inNode) {
+		var bufferData = inNode.buffered,
+			numberOfBuffers = bufferData.length,
+			highestBufferPoint = 0,
+			duration = inNode.duration || 0,
+			endPoint = 0,
+			i
+		;
+		
+		if (duration === 0) {
+			return;
+		}
+		
+		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
+		for (i = 0; i < numberOfBuffers; i++) {
+			endPoint = bufferData.end(i);
+			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
+		}
+		return highestBufferPoint * 100 / inNode.duration;
+	},
 	_progress: function(inSender, inEvent) {
-		this.$.slider.updateBufferedProgress(inEvent.srcElement);
+		this._bufferedPercentage = this._getBufferedProgress(inEvent.srcElement);
+		if (this.isFullscreen() || !this.getInline()) {
+			this.$.slider.setBgProgress(this._bufferedPercentage); 
+		} else {
+			this.$.bgProgressStatus.applyStyle("width", this._bufferedPercentage + "%");
+		}
 	},
 	_play: function(inSender, inEvent) {
 		this.sendFeedback("Play");

@@ -21,9 +21,9 @@ enyo.kind({
 					{
 						kind: "moon.VideoInfoHeader",
 						rating: "R - TV 14, V, L, SC",
-						title: "Breaking Bad - Live Free Or Die",
-						subTitle: "AMC (301) 7:00 PM - 8:00 PM",
-						description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire."
+						title: "Downton Abbey",
+						subTitle: "Mon June 21, 7:00 - 8:00pm",
+						description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
 					}
 				]},
 				{kind: "moon.BackgroundWrapper", orient: "right", components: [
