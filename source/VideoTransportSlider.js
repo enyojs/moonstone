@@ -20,16 +20,11 @@ enyo.kind({
 		rangeEnd: 100,
 		//** This flag decide the slider draw  
 		syncTick: true,
-		//** Tick position decide the margin areas in both side 
-		beginTickPos: 10,
-		endTickPos: 90,
+		//** This flag decide whether using dummy area or not
+		showDummyArea: true,
 		//** This flag control the indicator in the Video Transport Slider
 		showTickText: true,
-		showTickBar: true,
-		//** Length of Dummy area, current unit is pixel for video slider, Not percentage
-		dummyAreaPixel: 120,
-		//** This is time option for slider expression between both side of time-indicator
-		absoluteTime: false
+		showTickBar: true
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -44,8 +39,8 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{style: "z-index: 5;", name: "tapArea", classes: "moon-slider-taparea"},
-		{style: "z-index: 3;", name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
+		{name: "tapArea", classes: "moon-slider-taparea video-transport"},
+		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob video-transport"},
 		{classes: "moon-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-indicator-bar"},
 			{name: "beginTickText", classes: "moon-indicator-text", content: "00:00"}
@@ -55,8 +50,9 @@ enyo.kind({
 			{name: "endTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
 		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{classes: "moon-slider-popup-wrapper", components: [
+			{classes: "moon-slider-popup-wrapper video-transport", components: [
 				{tag: "canvas", name: "drawing"},
+				{name: "feedback", kind:"moon.VideoFeedback", style:"opacity:0;"}, // WIP
 				{name: "popupLabel", classes: "moon-slider-popup-label"}
 			]}
 		]}
@@ -66,89 +62,97 @@ enyo.kind({
 		this.inherited(arguments);
 		this.showTickTextChanged();
 		this.showTickBarChanged();
-		this.updateSliderRange(true);
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		this.updateSliderRange(true);
+		this.updateSliderRange();
 	},
-	updateSliderRange: function(fullScreenMode) {
-		if(fullScreenMode)
-		{	// This should be updated !! 
-			// 40px is only for current redline
-			var width = window.innerWidth-40; 
-			this.beginTickPos = (this.dummyAreaPixel/width)*100;
-			this.endTickPos = ((width-this.dummyAreaPixel)/width)*100;
+	updateSliderRange: function() {
+		this.beginTickPos = (this.max-this.min)*0.0625;
+		this.endTickPos = (this.max-this.min)*0.9375;
+		
+		if(this.showDummyArea) {
+			this.setRangeStart(this.beginTickPos);
+			this.setRangeEnd(this.endTickPos);
+		} else {
+			this.setRangeStart(this.min);
+			this.setRangeEnd(this.max);				
 		}
-		this.setRangeStart(this.beginTickPos);
-		this.setRangeEnd(this.endTickPos);
+		this.updateKnobPosition(this.value);
+	},
+	setMin: function() {
+		this.inherited(arguments);
+		this.updateSliderRange();
+	},
+	setMax: function() {
+		this.inherited(arguments);
+		this.updateSliderRange();
+	},
+	setRangeStart: function(inValue) {
+		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeStartChanged();
-		this.rangeEndChanged();
+	},
+	setRangeEnd: function(inValue) {
+		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeEndChanged();	
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
 		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
 	},
 	showTickBarChanged: function() {
+		if(this.showDummyArea) {
+			this.showTickBar = true;
+		}
 		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
 		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
 	},
-	setRangeStart: function(inValue) {
-		if(this.getSyncTick() === true) {
-			this.rangeStart = this.beginTickPos;
-		} else {
-			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
-			this.rangeStart = v;
-		}
-	},
-	setRangeEnd: function(inValue) {
-		if(this.getSyncTick()) {
-			this.rangeEnd = this.endTickPos;
-		} else {
-			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
-			this.rangeEnd = v;
-		}
-	},
 	rangeStartChanged: function() {
-		this.updateOwnProperty();
-		this.$.bgbar.applyStyle("margin-left", this.rangeStart + "%");
-		this.$.bar.applyStyle("margin-left", this.rangeStart + "%");
+		this.updateInternalProperty();
+		var p = this._calcPercent(this.rangeStart);
+		this.$.bar.applyStyle("margin-left", p + "%");
+		this.$.bgbar.applyStyle("margin-left", p + "%");
 	},
 	rangeEndChanged: function() {
-		this.updateOwnProperty();
+		this.updateInternalProperty();
+	},
+	updateInternalProperty: function() {
+		this.updateScale();
+		this.progressChanged();
+		this.bgProgressChanged();
 	},
 	//** hiden variable, scaleFactor is generated when create this
 	updateScale: function() {
-		this.scaleFactor = (this.rangeEnd-this.rangeStart)/100;
+		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	updateOwnProperty: function() {
-		this.updateScale();
-		this.bgProgressChanged();
-		this.progressChanged();
-	},
+	// 
 	calcPercent: function(inValue) {
-		return this.calcRatio(inValue) * this.scaleFactor * 100;
+		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	updateKnobPosition: function(inPercent) {
-		var v = this.calcPercent(inPercent)/this.scaleFactor;
-		var slider = this.inverseToSlider(v);
+	// 
+	_calcPercent: function(inValue) {
+		return this.calcRatio(inValue) * 100;
+	},
+	updateKnobPosition: function(inValue) {
+		var p = this._calcPercent(inValue);
+		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.applyStyle("left", slider + "%");
 
 		var label = "";
 		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(v));
+			label = this._nf.format(Math.round(p));
 		}
 		else {
-			label = Math.round(v) + "%";
+			label = Math.round(p) + "%";
 		}
 		if(this.currentTime !== undefined) {
 			this.$.popupLabel.setContent(this.formatTime(this.currentTime));
 		}
 		this.updatePopupPosition();
 	},
-	inverseToSlider: function(iValue) {
-		var oValue = this.scaleFactor * iValue + this.rangeStart;
+	inverseToSlider: function(inPercent) {
+		var oValue = this.scaleFactor * inPercent + this._calcPercent(this.rangeStart);
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
@@ -156,14 +160,12 @@ enyo.kind({
 		return iValue;
 	},
 	tap: function(inSender, inEvent) {
-		if (this.tappable && !this.disabled) {
-			return true;
-		}
+		return true;
 	},
 	//* If user presses on _this.$.tapArea_, seek to that point
 	down: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
-		if( v < this.beginTickPos || v > this.endTickPos ) {
+		if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			// TODO : action in dummy area
 		} else {
 			if (inSender === this.$.tapArea) {
@@ -176,7 +178,7 @@ enyo.kind({
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
-		if( v < this.beginTickPos || v > this.endTickPos ) {
+		if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			// TODO : action in dummy area
 			this.dummyAction = true;
 		} else {
@@ -184,13 +186,15 @@ enyo.kind({
 			if (dragstart) {
 				this.doSeekStart();
 			}
+			this.dummyAction = false;
 		}
 	},
 	//* If drag, bubble _onSeek_ event, and override parent drag handler
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
-			if(v < this.beginTickPos || v > this.endTickPos ) {
+
+			if(this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 				// TODO : action in dummy area
 			} else {
 				v = this.transformToVideo(v);
@@ -210,10 +214,9 @@ enyo.kind({
 
 				if (this.lockBar) {
 					this.setProgress(v);
+					this.sendChangingEvent({value: v});
+					this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(v); }), 200);
 				}
-
-				this.sendChangingEvent({value: v});
-				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(v); }), 200);
 			}
 			return true;
 		}
@@ -225,19 +228,20 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-			if(v < this.beginTickPos) {
+			
+			if(this.showDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}
-			if(v > this.endTickPos ) {
+			if(this.showDummyArea && v >= this.endTickPos ) {
 				v = this.rangeEnd;
 			}
+			v = this.transformToVideo(v);
 			var z = this.elasticTo;
 			if (this.constrainToBgProgress === true) {
 				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
 				this.animateTo(this.elasticFrom, z);
 				v = z;
 			} else {
-				v = this.transformToVideo(v);
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				this._setValue(v);
 			}
@@ -246,7 +250,7 @@ enyo.kind({
 			this.doSeekFinish({value: v});
 		}
 		this.$.knob.removeClass("active");
-		this.dummyAction = false; 
+		this.dummyAction = false;
 		this.dragging = false;
 		return true;
 	},
@@ -264,6 +268,28 @@ enyo.kind({
 	},
 	progressUpdate: function(inSender, inEvent) {
 		this.updateBufferedProgress(inEvent.srcElement);
+	},
+	//* Update _this.bgProgress_ to reflect video buffered progress
+	updateBufferedProgress: function(inNode) {
+		var bufferData = inNode.buffered,
+			numberOfBuffers = bufferData.length,
+			bufferedPercentage = 0,
+			highestBufferPoint = 0,
+			duration = inNode.duration || 0,
+			endPoint = 0,
+			i
+		;
+
+		if (duration === 0) {
+			return;
+		}
+		
+		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
+		for (i = 0; i < numberOfBuffers; i++) {
+			endPoint = bufferData.end(i);
+			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
+		}
+		this.setBgProgress(highestBufferPoint);
 	},
 	//* Properly format time
 	formatTime: function(inValue) {
