@@ -61,7 +61,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.showTickTextChanged();
 		this.showTickBarChanged();
-		this.updateSliderRange();
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
@@ -88,6 +87,14 @@ enyo.kind({
 		this.inherited(arguments);
 		this.updateSliderRange();
 	},
+	setRangeStart: function(inValue) {
+		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeStartChanged();
+	},
+	setRangeEnd: function(inValue) {
+		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeEndChanged();	
+	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
 		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
@@ -98,14 +105,6 @@ enyo.kind({
 		}
 		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
 		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
-	},
-	setRangeStart: function(inValue) {
-		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeStartChanged();
-	},
-	setRangeEnd: function(inValue) {
-		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeEndChanged();	
 	},
 	rangeStartChanged: function() {
 		this.updateInternalProperty();
@@ -118,6 +117,7 @@ enyo.kind({
 	},
 	updateInternalProperty: function() {
 		this.updateScale();
+		this.progressChanged();
 		this.bgProgressChanged();
 	},
 	//** hiden variable, scaleFactor is generated when create this
