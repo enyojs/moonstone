@@ -103,11 +103,11 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.coverUrl", to: "$.image.src"},
-        {from: ".controller.released", to: "$.released.content"},
-        {from: ".controller.artist", to: "$.artist.content"},
-        {from: ".controller.album", to: "$.album.content"},
-        {from: ".controller.genre", to: "$.genre.content"}
+        {from: ".controller.coverUrl", to: ".$.image.src"},
+        {from: ".controller.released", to: ".$.released.content"},
+        {from: ".controller.artist", to: ".$.artist.content"},
+        {from: ".controller.album", to: ".$.album.content"},
+        {from: ".controller.genre", to: ".$.genre.content"}
     ]
 });
 

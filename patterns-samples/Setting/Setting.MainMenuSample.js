@@ -22,21 +22,20 @@ enyo.kind({
                                 {
         				            kind: "moon.Item",
                                     ontap: "changeItemName",
-        				            bindFrom: "name",
-        				            bindTo: "content"
+                                    bindings: [
+                                        {from: ".model.name", to: ".content"}
+                                    ]
     				            }
                             ]
     				    },
     				    {
                             name: "setting",
-                            kind: "moon.Item",
-                            bindFrom: "setting"
+                            kind: "moon.Item"
                         }
                     ]
                 },
 	            {
     	            name: "contents",
-                    content: "contents",
     	            fit: true,
                     classes: "moon-setting-mainmenu-content"
                 }
@@ -44,9 +43,9 @@ enyo.kind({
         }
     ],
 	bindings: [
-        {from: ".controller.items", to: "$.itemInfo.controller"},
-        {from: ".controller.setting", to: "$.setting.content"},
-        {from: ".controller.contents", to: "$.contents.content"}
+        {from: ".controller.items", to: ".$.itemInfo.controller"},
+        {from: ".controller.setting", to: ".$.setting.content"},
+        {from: ".controller.contents", to: ".$.contents.content"}
     ]
 });
 

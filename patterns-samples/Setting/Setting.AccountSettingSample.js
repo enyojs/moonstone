@@ -17,7 +17,6 @@ enyo.kind({
                 {
                     name: "signOutButton",
                     kind: "moon.Button",
-                    bindFrom: "signOutButton",
                     classes: "moon-light-gray"
                 }
             ]
@@ -31,16 +30,15 @@ enyo.kind({
     	{
     		name: "createAccountButton",
     		kind: "moon.Button",
-    		bindFrom: "createAccountButton",
     		classes: "moon-light-gray"
     	}
     ],
     bindings: [
-        {from: ".controller.eMail", to: "$.eMail.content"},
-        {from: ".controller.signOutButton", to: "$.signOutButton.content"},
-        {from: ".controller.autoSign", to: "$.autoSign.content"},     
-        {from: ".controller.help", to: "$.help.content"},
-        {from: ".controller.createAccountButton", to: "$.createAccountButton.content"}
+        {from: ".controller.eMail", to: ".$.eMail.content"},
+        {from: ".controller.signOutButton", to: ".$.signOutButton.content"},
+        {from: ".controller.autoSign", to: ".$.autoSign.content"},     
+        {from: ".controller.help", to: ".$.help.content"},
+        {from: ".controller.createAccountButton", to: ".$.createAccountButton.content"}
     ]
 });
 

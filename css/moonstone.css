@@ -1348,9 +1348,25 @@
   left: 0px;
   right: 0px;
   text-align: right;
+  /* fallback in case text-align:end isn't supported */
+
+  text-align: end;
+  /* CSS3 for RTL support */
+
+}
+.moon-header-client > * {
+  text-align: left;
+  /* fallback in case text-align:start isn't supported */
+
+  text-align: start;
+  /* CSS3 for RTL support */
+
 }
 .moon-header-left {
   float: left;
+}
+.enyo-locale-right-to-left .moon-header-left {
+  float: right;
 }
 /* Small header styling */
 .moon-small-header {
@@ -2473,7 +2489,10 @@ body .enyo-fit.panels-50-percent-scrim,
   padding: 0px;
   border: 0px;
   width: 100%;
+<<<<<<< HEAD
   height: 126px;
+=======
+>>>>>>> master
   box-sizing: border-box;
   background-color: transparent;
 }
@@ -2490,6 +2509,7 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
   line-height: 126px;
   color: #4b4b4b;
+  width: 100%;
 }
 .moon-input-header .moon-input-header-input-decorator > img {
   width: 66px;
@@ -3321,24 +3341,6 @@ body .enyo-fit.panels-50-percent-scrim,
   right: 0px;
   width: 50px;
 }
-.moon-scroller-hthumb,
-.moon-scroller-vthumb {
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-}
-.moon-scroller-hthumb {
-  height: 4px;
-  bottom: 23px;
-}
-.moon-scroller-vthumb {
-  width: 4px;
-  right: 23px;
-}
-.moon-scroller-hthumb.hidden,
-.moon-scroller-vthumb.hidden {
-  opacity: 0;
-}
 .moon-expandable-input {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -3447,6 +3449,30 @@ body .enyo-fit.panels-50-percent-scrim,
   left: 50%;
   margin-top: -21px;
   margin-left: -21px;
+}
+.moon-thumb {
+  -webkit-transform-origin: 0px 0px;
+  border: none;
+  background: rgba(50, 50, 50, 0.8);
+  width: 4px;
+  height: 4px;
+  border-radius: 0;
+}
+.moon-scroller-hthumb,
+.moon-scroller-vthumb {
+  transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -webkit-transition: opacity 0.1s linear;
+}
+.moon-scroller-hthumb {
+  bottom: 23px;
+}
+.moon-scroller-vthumb {
+  right: 23px;
+}
+.moon-scroller-hthumb.hidden,
+.moon-scroller-vthumb.hidden {
+  opacity: 0;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {

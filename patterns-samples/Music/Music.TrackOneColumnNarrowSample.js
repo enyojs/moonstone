@@ -8,7 +8,7 @@ enyo.kind({
     components: [
         {
             kind: "moon.Panel",
-            title: "Browser Tracks",
+            title: "Browse Tracks",
             titleAbove: "02",
             titleBelow: "",
             headerComponents: [
@@ -34,26 +34,35 @@ enyo.kind({
                                                 {
                                                     components: [
                                                         {
-                                                            kind: "enyo.Image", 
-                                                            bindFrom: "coverUrl", 
-                                                            bindTo: "src"
+		                                                    kind: "enyo.Image", 
+															bindings: [
+																{from: ".model.coverUrl", to: ".src"}
+															]
+
                                                         }
                                                     ],
                                                     attributes: {rowspan: "2"}
                                                 },
                                                 {
-                                                    bindFrom: "track"
-                                                },
-                                                {
-                                                    bindFrom: "time", 
-                                                    attributes: {rowspan: "2"}
+													bindings: [
+														{from: ".model.track", to: ".content"}
+													]
+		                                        },
+		                                        {
+													bindings: [
+														{from: ".model.time", to: ".content"}
+													],
+		                                            attributes: {rowspan: "2"}
                                                 }
                                             ]
                                         },
                                         {
                                             components: [
                                                 {
-                                                    bindFrom: "artist", 
+		                                            bindings: [
+														{from: ".model.artist", to: ".content"}
+													] ,
+
                                                     classes: "moon-superscript"
                                                 }
                                             ]
@@ -68,7 +77,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.track", to: "$.trackList.controller"}
+        {from: ".controller.track", to: ".$.trackList.controller"}
     ]
 });
 

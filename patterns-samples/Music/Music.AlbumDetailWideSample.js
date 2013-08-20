@@ -57,10 +57,15 @@ enyo.kind({
                                     spotlight: true,
                                     ontap: "changeTrackName",
                                     components: [
-                                        {bindFrom: "number"},
-                                        {bindFrom: "name"},
-                                        {bindFrom: "duration"}
-                                    ]                                        
+                                        {name: "number"},
+                                        {name: "name"},
+                                        {name: "duration"}
+                                    ],
+									bindings: [
+										{from: ".model.number", to: ".$.number.content"},
+										{from: ".model.name", to: ".$.name.content"},
+										{from: ".model.duration", to: ".$.duration.content"}
+									]
                                 }
                             ]
                         }
@@ -70,10 +75,10 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.genre", to: "$.genre.content"},
-        {from: ".controller.coverUrl", to: "$.cover.src"},
-        {from: ".controller.tracks", to: "$.trackInfo.controller"}
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.genre", to: ".$.genre.content"},
+        {from: ".controller.coverUrl", to: ".$.cover.src"},
+        {from: ".controller.tracks", to: ".$.trackInfo.controller"}
     ]
 });
 

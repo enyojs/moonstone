@@ -10,27 +10,22 @@ enyo.kind({
     ],
     components: [
         {kind: "FittableColumns", classes: "enyo-fit", noStretch: true, components: [
-            {
-                name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
-            },
+            {name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"},
             {
                 kind: "FittableRows",
                 fit: true,
                 components: [
                     {
-                        kind: "HFlexBox",
-                        // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
-                        style: "height: 100px;",
                         components: [
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Rating"},
                                 {name: "rating"}
                             ]},
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Release Date"},
                                 {name: "releaseDate"}
                             ]},
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Running Time"},
                                 {name: "duration"}
                             ]}
@@ -62,12 +57,12 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.posterUrl", to: "$.movie.src"},
-        {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.duration", to: "$.duration.content"},
-        {from: ".controller.synopsisHeader", to: "$.synopsisHeader.content"},
-        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+        {from: ".controller.posterUrl", to: ".$.movie.src"},
+        {from: ".controller.rating", to: ".$.rating.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.duration", to: ".$.duration.content"},
+        {from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
     ]
 });
 
