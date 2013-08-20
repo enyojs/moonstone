@@ -80,6 +80,12 @@ enyo.kind({
 		moreControlsIcon: "$lib/moonstone/images/icon_extend.png",
 		//* URL for "less controls" icon
 		lessControlsIcon: "$lib/moonstone/images/icon_shrink.png",
+		//* URL for "inline-play" icon
+		inlinePlayIcon: "$lib/moonstone/images/icon_small_play.png",
+		//* URL for "inline-pause" icon
+		inlinePauseIcon: "$lib/moonstone/images/icon_small_pause.png",
+		//* URL for "inline-fullscreen" icon
+		inlineFullscreenIcon: "$lib/moonstone/images/icon_small_fullscreen.png",
 
 		//* Knob classes for video player
 		knobClasses: "", 
@@ -104,7 +110,8 @@ enyo.kind({
 		{from: ".jumpBackIcon",		to:".$.jumpBack.src"},
 		{from: ".rewindIcon",		to:".$.rewind.src"},
 		{from: ".fastForwardIcon",	to:".$.fastForward.src"},
-		{from: ".jumpForwardIcon",	to:".$.jumpForward.src"}
+		{from: ".jumpForwardIcon",	to:".$.jumpForward.src"},
+		{from: ".inlineFullscreenIcon",	to:".$.ilFullscreen.src"}
     ],
 	
 	//* @protected
@@ -155,14 +162,14 @@ enyo.kind({
 		//* Inline controls
 		{name: "inlineControl", classes: "moon-video-inline-control", components: [
 			{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
+			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
 			{classes: "moon-video-inline-control-text", components: [
 				{name: "currTime", content: "00:00"},
 				{name: "totalTime", content: "00:00"}
 			]},
-			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
-			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
-			{kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
+			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
@@ -245,6 +252,12 @@ enyo.kind({
 		this.updatePlayPauseButtons();
 	},
 	pauseIconChanged: function() {
+		this.updatePlayPauseButtons();
+	},
+	inlinePlayIconChanged: function() {
+		this.updatePlayPauseButtons();
+	},
+	inlinePauseIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
 	moreControlsIconChanged: function() {
@@ -661,9 +674,8 @@ enyo.kind({
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
-		var src = this._isPlaying ? this.pauseIcon : this.playIcon;
-		this.$.fsPlayPause.setSrc(src);
-		this.$.ilPlayPause.setSrc(src);
+		this.$.fsPlayPause.setSrc(this._isPlaying ? this.pauseIcon : this.playIcon);
+		this.$.ilPlayPause.setSrc(this._isPlaying ? this.inlinePauseIcon : this.inlinePlayIcon);
 	},
 	/**
 		When _moreButton_ is tapped, toggles visibility of player controls and
