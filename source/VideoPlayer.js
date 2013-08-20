@@ -680,8 +680,6 @@ enyo.kind({
 		this._currentTime = inEvent.currentTime;
 		this.$.slider.setMin(0);
 		this.$.slider.setMax(this._duration);
-		this.$.slider.setRangeStart(0);
-		this.$.slider.setRangeEnd(this._duration);
 
 		this.updatePosition();
 		

@@ -12,43 +12,40 @@ enyo.kind({
 	name: "moon.VideoTransportSlider",
 	kind: "moon.Slider",
 	classes: "moon-slider moon-video-transport-slider",
+	//* @protected
 	published: {
 		//** This is start point of slider 
 		rangeStart: 0,
 		//** This is end point of slider
 		rangeEnd: 100,
+		//** This flag decide the slider draw  
+		syncTick: true,
 		//** This flag decide whether using dummy area or not
-		haveDummyArea: false,
-		//** Tick position decide the margin areas in both side 
+		showDummyArea: true,
 		//** This flag control the indicator in the Video Transport Slider
-		showTickBar: true,
-		showTickText: true
+		showTickText: true,
+		showTickBar: true
 	},
-	//* @protected
-	
-	popupWidth: 300,
-	popupHeight: 200,
-
 	handlers: {
-		ondown: "down",
-		onresize: "resizeHandler",
 		onTimeupdate: "timeUpdate",
-		onBufferStateChanged: "progressUpdate"
+		ondown: "down",
+		onBufferStateChanged: "progressUpdate",
+		onresize: "resizeHandler"
 	},
 	events: {
-		onSeek: "",
 		onSeekStart: "",
+		onSeek: "",
 		onSeekFinish: ""
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
 		{name: "tapArea", classes: "moon-slider-taparea video-transport"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob video-transport"},
-		{name: "leftIndicator", classes: "moon-slider-indicator-wrapper start", components: [
+		{classes: "moon-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-indicator-bar"},
 			{name: "beginTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
-		{name: "rightIndicator", classes: "moon-slider-indicator-wrapper end", components: [
+		{classes: "moon-slider-indicator-wrapper end", components: [
 			{name: "endTickBar", classes: "moon-indicator-bar"},
 			{name: "endTickText", classes: "moon-indicator-text", content: "00:00"}
 		]},
@@ -62,37 +59,45 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.isFixed = false; // Do not change 
 		this.showTickTextChanged();
 		this.showTickBarChanged();
+		this.updateSliderRange();
 	},
 	resizeHandler: function() {
-		this.updateSliderRange(this.isFixed);
+		this.inherited(arguments);
+		this.updateSliderRange();
 	},
-	updateSliderRange: function(fixedShape) {
-		if(fixedShape)
-		{	// Only For VisD
-			var width = window.innerWidth-40; 
-			this.dummyAreaPixel = 120;
-			this.beginTickPos = (this.dummyAreaPixel/width)*100;
-			this.endTickPos = ((width-this.dummyAreaPixel)/width)*100;
-			this.$.leftIndicator.addRemoveClass("rate", false);
-			this.$.rightIndicator.addRemoveClass("rate", false);
-			this.$.leftIndicator.addRemoveClass("pixe", true);
-			this.$.rightIndicator.addRemoveClass("pixe", true);
-		} else {
-			this.beginTickPos = (this.max-this.min)*0.05;
-			this.endTickPos = (this.max-this.min)*0.95;
-			this.$.leftIndicator.addRemoveClass("rate", true);
-			this.$.rightIndicator.addRemoveClass("rate", true);
-			this.$.leftIndicator.addRemoveClass("pixe", false);
-			this.$.rightIndicator.addRemoveClass("pixe", false);
-		}	
-		if(this.haveDummyArea) {
+	updateSliderRange: function() {
+		this.beginTickPos = (this.max-this.min)*0.0625;
+		this.endTickPos = (this.max-this.min)*0.9375;
+		
+		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
 			this.setRangeEnd(this.endTickPos);
+		} else {
+			this.setRangeStart(this.min);
+			this.setRangeEnd(this.max);				
 		}
 		this.updateKnobPosition(this.value);
+	},
+	setMin: function() {
+		this.inherited(arguments);
+		this.updateSliderRange();
+	},
+	setMax: function() {
+		this.inherited(arguments);
+		this.updateSliderRange();
+	},
+	showTickTextChanged: function() {
+		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
+		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
+	},
+	showTickBarChanged: function() {
+		if(this.showDummyArea) {
+			this.showTickBar = true;
+		}
+		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
+		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
 	},
 	setRangeStart: function(inValue) {
 		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
@@ -101,17 +106,6 @@ enyo.kind({
 	setRangeEnd: function(inValue) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeEndChanged();	
-	},
-	showTickTextChanged: function() {
-		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
-		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
-	},
-	showTickBarChanged: function() {
-		if(this.haveDummyArea) {
-			this.showTickBar = true;
-		}
-		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
-		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
 	},
 	rangeStartChanged: function() {
 		this.updateInternalProperty();
@@ -124,7 +118,6 @@ enyo.kind({
 	},
 	updateInternalProperty: function() {
 		this.updateScale();
-		this.progressChanged();
 		this.bgProgressChanged();
 	},
 	//** hiden variable, scaleFactor is generated when create this
@@ -166,12 +159,12 @@ enyo.kind({
 		return iValue;
 	},
 	tap: function(inSender, inEvent) {
-		return false;
+		return true;
 	},
 	//* If user presses on _this.$.tapArea_, seek to that point
 	down: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
-		if( this.haveDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+		if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			// TODO : action in dummy area
 		} else {
 			if (inSender === this.$.tapArea) {
@@ -184,7 +177,7 @@ enyo.kind({
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		var v = this.calcKnobPosition(inEvent);
-		if( this.haveDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+		if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			// TODO : action in dummy area
 			this.dummyAction = true;
 		} else {
@@ -200,7 +193,7 @@ enyo.kind({
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 
-			if(this.haveDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+			if(this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 				// TODO : action in dummy area
 			} else {
 				v = this.transformToVideo(v);
@@ -235,10 +228,10 @@ enyo.kind({
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
 			
-			if(this.haveDummyArea && v <= this.beginTickPos) {
+			if(this.showDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}
-			if(this.haveDummyArea && v >= this.endTickPos ) {
+			if(this.showDummyArea && v >= this.endTickPos ) {
 				v = this.rangeEnd;
 			}
 			v = this.transformToVideo(v);
@@ -285,7 +278,7 @@ enyo.kind({
 			endPoint = 0,
 			i
 		;
-		
+
 		if (duration === 0) {
 			return;
 		}
@@ -295,8 +288,7 @@ enyo.kind({
 			endPoint = bufferData.end(i);
 			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
 		}
-		bufferedPercentage = highestBufferPoint * 100 / inNode.duration;
-		this.setBgProgress(bufferedPercentage);
+		this.setBgProgress(highestBufferPoint);
 	},
 	//* Properly format time
 	formatTime: function(inValue) {
