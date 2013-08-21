@@ -29,7 +29,6 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		var side = this.getSide();
 		this.sideChanged();
 		this.showOnFocusChanged();
 	},
@@ -50,8 +49,7 @@ enyo.kind({
 		this.$[this.getSide()+"Caption"].applyStyle("visibility", "hidden");
 
 		if (this.getSide() === 'left' || this.getSide() === 'right') {
-			this.$[this.getSide()+"Caption"].addClass("showOnFocus");
-			this.$[this.getSide()+"Caption"].addClass(this.getSide());
+			this.$[this.getSide()+"Caption"].addClass("showOnFocus " + this.getSide());
 		}
 	},
 	contentChanged: function() {
@@ -59,8 +57,10 @@ enyo.kind({
 	},
 	rendered: function () {
 		this.inherited(arguments);
-		this.sideCaptionWidth = this.$[this.getSide()+"Caption"].getBounds().width;
-		this.width = this.getBounds().width;
+		if (this.hasNode()) {
+			this.sideCaptionWidth = this.$[this.getSide()+"Caption"].getBounds().width;
+			this.width = this.getBounds().width;
+		}
 	},
 	spotFocus: function () {
 		if (this.getShowOnFocus()) {
