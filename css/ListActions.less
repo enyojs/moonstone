@@ -12,12 +12,12 @@
 }
 .moon-list-actions-client-container {
 	background-color:white;
-	border-top: 6px solid #4b4b4b;
+	border-top: 6px solid @moon-list-actions-border-color;
 }
 .moon-list-actions-close {
 	border-radius: @moon-button-border-radius;
 	line-height: @moon-button-line-height;
-	background-color: @moon-light-gray;
+	background-color: @moon-list-actions-close-bg-color;
 	border: @moon-button-border-width solid transparent;
 	float:right;
 	width:40px;
@@ -58,7 +58,7 @@
 	text-transform: capitalize;			
 }
 .moon-list-actions .moon-divider {
-	border-bottom: 1px solid white;	
+	border-bottom: 1px solid @moon-list-actions-divider-color;	
 }		
 .moon-list-actions .moon-expandable-picker-current-value 
 {

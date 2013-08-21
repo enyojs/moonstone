@@ -17,11 +17,11 @@
 	height: 100%;
 	overflow: visible;
 	background-clip: padding-box;
-	border: 5px solid rgba(0, 0, 0, 0);
+	border: 5px solid @moon-gridlist-item-border-color;
 }
 .moon-gridlist-imageitem.selected {
-	border: 5px solid @moon-orange;
-	background: @moon-orange;
+	border: 5px solid @moon-spotlight-border-color;
+	background: @moon-spotlight-border-color;
 }
 .moon-gridlist-imageitem img {
 }
@@ -34,7 +34,7 @@
 	z-index: 10;
 	padding: 0px;
 	margin: 0px;
-    color: #4B4B4B;
+    color: @moon-gridlist-caption-color;
 	width: 100%;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -42,14 +42,14 @@
 	vertical-align: bottom;
 }
 .moon-gridlist-imageitem .sub-caption {
-	color: #A2A2A2;
+	color: @moon-gridlist-sub-caption-color;
 	line-height: 1.25em;
 	height: 1.25em;
 	vertical-align: bottom;
 }
 .moon-gridlist-imageitem.spotlight {
-	border: 5px solid @moon-orange;
-	background-color: @moon-orange;
+	border: 5px solid @moon-spotlight-border-color;
+	background-color: @moon-spotlight-border-color;
 }
 .enyo-locale-right-to-left  .moon-gridlist-imageitem.spotlight {
 	padding-right: 25px !important;
