@@ -23,5 +23,7 @@ enyo.depends(
 	"Scroller.js",
     "ListItem.js",
 	"Panel.js",
-	"Divider.js"
+	"Divider.js",	
+	"TabItem.js",
+	"TabBar.js"
 );

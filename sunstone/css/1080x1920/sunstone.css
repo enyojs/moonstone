@@ -63,6 +63,10 @@
 /* Divider */
 /* Input */
 /* ---------------------------------------*/
+/* Scroller */
+/* ---------------------------------------*/
+/* Tab */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -753,10 +757,6 @@
   border-left-width: 0px;
   padding-right: 0px;
 }
-.sun .enyo-thumb {
-  background: #ff2f7d;
-  border: #ff2f7d;
-}
 /* Scroller.css */
 .sun .enyo-thumb {
   background: #999999;
@@ -1030,6 +1030,31 @@
   top: 100px;
   text-align: center;
   border-radius: 10px;
+}
+/* TabItem.css */
+.sun-tabItem {
+  height: 150px;
+  display: inline-block;
+}
+.sun-tabItem.moon-item:not(:first-of-type) {
+  border-left: 1px solid gray;
+}
+.sun-tabItem.icon {
+  height: 250px;
+}
+.sun-tabItem.spotlight.none {
+  border-color: gray;
+}
+/* TabBar.css */
+.sun-tabBar {
+  height: 150px;
+  border: 1px solid #999999;
+  margin: 0px;
+  display: block;
+  white-space: nowrap;
+}
+.sun-tabBar.icon {
+  height: 250px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
