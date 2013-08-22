@@ -10,7 +10,7 @@ enyo.kind({
 		{name: "description"}
 	],
 	bindings: [
-		{from: ".controller.Descriptions", to: "$.description.content"}
+		{from: ".controller.Descriptions", to: ".$.description.content"}
 	]
 });
 

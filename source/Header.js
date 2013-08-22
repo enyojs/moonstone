@@ -34,6 +34,7 @@ enyo.kind({
 		this.titleAboveChanged();
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
+		this.allowHtmlChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -44,6 +45,11 @@ enyo.kind({
 	},
 	stopMarquee: function() {
 		this.$.texts.stopMarquee();
+	},
+	allowHtmlChanged: function() {
+		this.$.title.setAllowHtmlText(this.allowHtml);
+		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
+		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
 	},
 	//* @public
 	collapseToSmall: function() {

@@ -71,15 +71,16 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.sample.photos.AlbumListItem",
-                    bindFrom: "option",
-                    bindTo: "option"
-                }
+                    bindings: [
+						{from: ".model.option", to: ".option"}
+					]
+				}
             ]
         }
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 
