@@ -9,28 +9,18 @@
 */
 enyo.kind({
 	name: "moon.RadioItem",
-	kind: "moon.Button",
-	classes: "moon-item moon-radio-item",
-	handlers: {
-		onSpotlightFocus : 'focus',
-		onSpotlightBlur	: 'blur'
-	},
+	kind: "moon.SelectableItem",
+	classes: "moon-radio-item",
+	componentOverrides: {
+		indicator: {kind: "moon.RadioItemIndicator"}
+	}
+});
 
-	//* @protected
-	rendered: function() {
-		this.inherited(arguments);
-		this.contentWidth = this.getBounds().width;
-		// Resize the button to fit RadioItem kerning state
-		//25 extra pixels to make room for spotlight focus
-		this.applyStyle("width", this.contentWidth + 60 + "px");
-	},
-	focus: function(inSender, inEvent) {
-		this.bubble(inSender, inEvent);
-		// return false;
-	},
-	blur: function(inSender, inEvent) {
-		this.bubble(inSender, inEvent);
-		// return false;
-	},
-	contentWidth: 0
+enyo.kind({
+	name: "moon.RadioItemIndicator",
+	kind: "enyo.Control",
+	classes: "moon-radio-item-indicator",
+	components: [
+		{classes: "moon-radio-item-indicator-center-dot"}
+	]
 });

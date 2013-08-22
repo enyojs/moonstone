@@ -641,7 +641,7 @@
   letter-spacing: 0.05em;
   border-bottom: 2px solid #b5b5b5;
   color: #4b4b4b;
-  margin: 0px 0px 27px 0px;
+  margin: 0px 10px 27px 10px;
   text-transform: capitalize;
 }
 .moon-divider .moon-marquee-text {
@@ -653,19 +653,13 @@
   position: relative;
   margin-bottom: 33px;
 }
+/* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.12em;
   min-height: 23.400000000000002px;
   margin-right: 50px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  margin-left: 50px;
-  margin-right: 0;
-}
-.moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
-  margin-right: 66px;
-}
-.enyo-locale-right-to-left .moon-checkbox-item.spotlight .moon-checkbox-item-label-wrapper {
   margin-left: 50px;
   margin-right: 0;
 }
@@ -676,13 +670,13 @@
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
-  white-space: nowrap;
 }
+/* Checkbox */
 .moon-checkbox-item .moon-checkbox {
   position: absolute;
-  top: 0px;
+  top: 10px;
+  left: auto;
   right: 0px;
-  margin-top: -1px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
   left: 0px;
@@ -696,6 +690,31 @@
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+/* Left-handed checkbox */
+/* Label */
+.moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
+  margin-right: 0px;
+  margin-left: 50px;
+}
+.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
+  margin-right: 50px;
+  margin-left: 0px;
+}
+.moon-checkbox-item.left-handed .moon-checkbox-item-label {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label {
+  float: left;
+}
+/* Checkbox */
+.moon-checkbox-item.left-handed .moon-checkbox {
+  left: 0px;
+  right: auto;
+}
+.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
+  left: auto;
+  right: 0px;
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
@@ -794,17 +813,13 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear, margin 0.1s linear;
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
   line-height: 1.12em;
   color: #4b4b4b;
-  margin: 0px 0px 26px 0px;
-  padding: 2px 0px 0px 0px;
+  margin: 10px 0px 10px 0px;
+  padding: 10px;
   vertical-align: top;
   position: relative;
 }
@@ -813,93 +828,30 @@
   opacity: 0.4;
   filter: alpha(opacity=40);
 }
-.moon-item.spotlight {
-  border-style: solid;
-  border-color: #ffb80d;
-  line-height: 1.12em;
-}
-.moon-item-overlay {
-  transition: height 0.1s linear, width 0.1s linear;
-  -webkit-transition: height 0.1s linear, width 0.1s linear;
-  -moz-transition: height 0.1s linear, width 0.1s linear;
-  -o-transition: height 0.1s linear, width 0.1s linear;
-  position: absolute;
-  width: 0px;
-  height: 0px;
-  background-color: #ffb80d;
-}
-.moon-item.locale-default.overlay.spotlight,
-.moon-item.top.overlay.spotlight,
-.moon-item.bottom.overlay.spotlight,
-.moon-item.left.overlay.spotlight,
-.moon-item.right.overlay.spotlight {
-  border-width: 0px;
-}
-.moon-item.top.spotlight:not(.overlay) {
-  border-top-width: 16px;
-  margin-bottom: -16px;
-}
-.moon-item.bottom.spotlight:not(.overlay) {
-  border-bottom-width: 16px;
-  margin-top: -16px;
-}
-.moon-item-left-spotlight-not-overlay {
-  border-left-width: 16px;
-  border-right-width: 0px;
-  padding-left: 4px;
-}
-.moon-item.left.spotlight:not(.overlay) {
-  border-left-width: 16px;
-  border-right-width: 0px;
-  padding-left: 4px;
-}
-.moon-item-right-spotlight-not-overlay {
-  border-right-width: 16px;
-  border-left-width: 0px;
-  padding-right: 4px;
-}
-.moon-item.right.spotlight:not(.overlay) {
-  border-right-width: 16px;
-  border-left-width: 0px;
-  padding-right: 4px;
-}
-.moon-item.locale-default.spotlight:not(.overlay) {
-  border-left-width: 16px;
-  border-right-width: 0px;
-  padding-left: 4px;
-}
-.enyo-locale-right-to-left .moon-item.locale-default.spotlight:not(.overlay) {
-  border-right-width: 16px;
-  border-left-width: 0px;
-  padding-right: 4px;
-}
-.moon-item.top.spotlight > .moon-item-overlay,
-.moon-item.bottom.spotlight > .moon-item-overlay {
-  height: 16px;
-}
-.moon-item.left.spotlight > .moon-item-overlay,
-.moon-item.right.spotlight > .moon-item-overlay {
-  width: 16px;
+.moon-item.spotlight,
+.spotlight .moon-item {
+  background-color: #e63e70;
+  color: #fff;
 }
 /* SelectableItem.css */
-.moon-selectableItem .moon-selectableItem-item {
-  box-sizing: border-box;
+.moon-selectable-item .moon-selectable-item-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #e63e70;
+  margin: 0px 10px 0px 0px;
+  display: none;
+}
+.moon-selectable-item.selected .moon-selectable-item-indicator {
+  display: inline-block;
+}
+.moon-selectable-item.spotlight .moon-selectable-item-indicator {
+  background-color: #fff;
+}
+.moon-selectable-item .moon-selectable-item-client {
   max-width: 100%;
   display: inline-block;
-  border-bottom: 4px solid transparent;
-}
-.moon-selectableItem .moon-underline.moon-overlay {
-  cursor: pointer;
-  border-bottom: 4px solid #A2A2A2;
-  padding: 0px;
-  transition: border-color 0.4s linear;
-  -webkit-transition: border-color 0.4s linear;
-  -moz-transition: border-color 0.4s linear;
-  -o-transition: border-color 0.4s linear;
-}
-.moon-selectableItem .moon-underline {
-  border-bottom: 4px solid #ffb80d;
-  padding-bottom: 5px;
 }
 /* Button */
 .moon-button {
@@ -1092,21 +1044,28 @@
 }
 /* Radio Item */
 .moon-radio-item {
-  border-radius: 0px;
-  line-height: 1em;
-  text-align: left;
+  display: inline-block;
 }
 .enyo-locale-right-to-left .moon-radio-item {
   text-align: right;
 }
-.moon-radio-item.active,
-.moon-radio-item.pressed,
-.moon-radio-item:active,
-.moon-radio-item.spotlight,
-.moon-radio-item.spotlight.pressed,
-.moon-radio-item.spotlight:active,
-.moon-radio-item.active.spotlight {
-  border: none;
+/* Indicator */
+.moon-selectable-item-indicator.moon-radio-item-indicator {
+  display: inline-block;
+  background-color: #fff;
+  position: relative;
+}
+.moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  top: 5px;
+  left: 5px;
+  background-color: #888;
+}
+.moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
+  background-color: #e63e70;
 }
 /* Radio Item */
 .moon-radio-item-group {
@@ -1131,7 +1090,7 @@
   color: #4b4b4b;
   margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
-  text-transform: capitalize;
+  text-transform: none;
   min-width: 0px;
 }
 .moon-radio-item-group .moon-button[disabled] {
@@ -1140,95 +1099,63 @@
 }
 .moon-radio-item-group .moon-button.spotlight,
 .moon-radio-item-group .moon-button.spotlight:active {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  padding-left: 4px;
   border: none;
-  border-left: 21px solid #ffb80d;
-  background-color: transparent;
+  color: #e63e70;
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
   border-right: 21px solid #ffb80d;
   border-left: 0px;
 }
-.moon-button-bar {
-  position: absolute;
-  top: 44px;
-  left: 0px;
-  height: 4px;
-  width: 0px;
-  background-color: #A2A2A2;
-}
-/* TODO: Change the bar color and position on spotlight - unfortunately, the way we have implemented the bar today, it's not easy to change this via css - rethink design! */
-.spotlight.moon-button-bar {
-  background-color: #ffb80d;
-  transition: left 0.1s linear;
-  -webkit-transition: left 0.1s linear;
-  -moz-transition: left 0.1s linear;
-  -o-transition: left 0.1s linear;
-  left: 23px;
-}
-/* ExpandableListItem.css */
+/* ExpandableListItem */
 .moon-expandable-list-item {
-  padding: 0px 16px 0px 0px;
-  margin: 0px;
-  border-color: #ffb80d;
-  overflow: hidden;
-  margin-bottom: 45px;
+  padding: 0px;
 }
-.moon-expandable-list-item.spotlight {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: #ffb80d;
-  border-left-style: solid;
-  padding-right: 0px;
+.moon-expandable-list-item.open {
+  margin-bottom: 10px;
 }
-.moon-expandable-list-item.open.spotlight {
-  transition: none;
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  border-left-width: 0px;
-  padding-right: 16px;
+.moon-expandable-list-item.disabled {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
-.moon-expandable-list-item .moon-expandable-list-item-header {
-  padding-bottom: 0px;
+/* Header Wrapper */
+.moon-expandable-list-item-header-wrapper {
+  padding: 10px;
+}
+.moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
+  padding: 10px 10px 4px 10px;
+  margin-bottom: 10px;
+}
+.moon-expandable-list-item-header-wrapper.spotlight {
+  background-color: #e63e70;
+}
+/* Header */
+.moon-expandable-list-item-header {
+  display: inline-block;
+  padding: 0px 49px 0px 0px;
   margin-bottom: 0px;
+  box-sizing: border-box;
+  max-width: 100%;
 }
-.moon-expandable-list-item.open .moon-expandable-list-item-header {
-  padding-bottom: 20px;
+/* Client Items */
+.moon-expandable-list-item-client .moon-item {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
 }
-.moon-expandable-list-item.open.spotlight .moon-expandable-list-item-header {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: #ffb80d;
-  border-left-style: solid;
-  padding-right: 0px;
-}
-.moon-expandable-picker {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  cursor: pointer;
-  margin-bottom: 45px;
-}
-.moon-expandable-picker.spotlight {
-  padding: 0px 0px 0px 4px;
-  border-left: 16px solid #ffb80d;
-}
-.moon-item.moon-expandable-picker-header {
+/* Header */
+.moon-expandable-picker-header {
   line-height: 1em;
   padding: 0px;
   margin: 0px 0px 4px 0px;
+}
+.moon-expandable-picker-header .moon-item {
+  margin: 0px;
+}
+/* Header - Open */
+.moon-expandable-picker.open .moon-expandable-list-item-header-wrapper {
+  padding-bottom: 0px;
 }
 .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "MuseoSans 700";
@@ -1237,9 +1164,9 @@
   font-style: italic;
   letter-spacing: 0.05em;
   border-bottom: 2px solid #b5b5b5;
-  padding-bottom: 2px;
-  margin-bottom: 27px;
+  margin: 0px;
 }
+/* Current Value */
 .moon-expandable-picker-current-value {
   font-family: "MuseoSans 300";
   font-size: 26px;
@@ -1250,6 +1177,7 @@
   margin: 0px;
   padding: 0px;
 }
+/* Help Text */
 .moon-expandable-picker-help-text {
   color: gray;
 }
@@ -2345,86 +2273,20 @@ body .enyo-fit.panels-50-percent-scrim,
   overflow: visible;
   background-color: rgba(100, 100, 100, 0.5);
 }
-.moon-accordion {
-  padding: 0px 16px 0px 0px;
-  margin: 0px;
-  border-color: #ffb80d;
-  overflow: hidden;
-  margin-bottom: 16px;
+/* Arrow */
+.moon-accordion-arrow {
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-image: url(../images/caret-black-small-down-image.png);
 }
-.enyo-locale-right-to-left .moon-accordion {
-  padding: 0px 0px 0px 16px;
-}
-.moon-accordion.spotlight {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: #ffb80d;
-  border-left-style: solid;
-  padding-right: 0px;
-}
-.moon-accordion.open.spotlight {
-  transition: none;
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  border-left-width: 0px;
-  padding-right: 16px;
-}
-.enyo-locale-right-to-left .moon-accordion.open.spotlight {
-  padding-right: 0px;
-  padding-left: 16px;
-}
-.moon-accordion-header {
-  display: inline-block;
-  padding-right: 39px;
-  margin-bottom: 0px;
-  box-sizing: border-box;
-  max-width: 100%;
-}
-.enyo-locale-right-to-left .moon-accordion-header {
-  padding-right: 0px;
-}
-.moon-accordion.open.spotlight .moon-accordion-header {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: #ffb80d;
-  border-left-style: solid;
-  padding-right: 0px;
-}
-.moon-accordion-client .moon-item {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  margin-bottom: 14px;
-}
-.moon-accordion-client .moon-item:first-child {
-  margin-top: 10px;
-}
-.moon-accordion-bottom {
-  margin: 0px;
-  padding: 0px;
-  height: 0px;
-  margin-bottom: 10px;
-}
-.moon-accordion-arrow.up {
-  background: url(../images/caret-black-small-up-image.png) right center no-repeat;
-}
-.moon-accordion-arrow.down {
-  background: url(../images/caret-black-small-down-image.png) right center no-repeat;
+.open .moon-accordion-arrow {
+  background-image: url(../images/caret-black-small-up-image.png);
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 420px;
+  width: 616px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2433,7 +2295,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-  witdh: 60px;
+  width: 60px;
   min-width: 60px;
   line-height: 50px;
   border: 0px;
@@ -3348,28 +3210,12 @@ body .enyo-fit.panels-50-percent-scrim,
   right: 0px;
   width: 50px;
 }
-.moon-expandable-input {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  cursor: pointer;
-}
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
   box-sizing: border-box;
 }
 .moon-expandable-input .moon-input {
   width: 100%;
-}
-.moon-expandable-input.spotlight {
-  padding: 0px 0px 0px 4px;
-  border-left: 16px solid #ffb80d;
-}
-.moon-item.moon-expandable-input-header {
-  line-height: 28px;
-  padding: 0px;
-  margin: 0px 0px 10px 0px;
 }
 .moon-expandable-input.open .moon-expandable-input-header {
   font-family: "MuseoSans 700";
@@ -3379,16 +3225,6 @@ body .enyo-fit.panels-50-percent-scrim,
   letter-spacing: 0.05em;
   padding: 0px;
   border-bottom: 1px solid #aaa;
-}
-.moon-expandable-input-current-value {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  color: #4B4B4B;
-  margin: 0px;
-  padding: 0px;
 }
 .moon-highlight-text-highlighted {
   color: #ffb80d;
@@ -3503,7 +3339,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 5px;
+  margin: 0;
 }
 .moon-hspacing > :first-child {
   margin-left: 0;

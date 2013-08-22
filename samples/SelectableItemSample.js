@@ -42,6 +42,9 @@ enyo.kind({
 		]}
 	],
 	itemChanged: function(inSender, inEvent) {
+		if (!this.hasNode()) {
+			return;
+		}
 		this.$.result.setContent(inSender.getContent() + " was " + (inSender.getActive() ? " selected." : "deselected."));
 	},
 	groupChanged: function(inSender, inEvent) {
