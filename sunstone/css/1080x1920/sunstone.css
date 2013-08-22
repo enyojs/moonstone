@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -62,6 +70,8 @@
 /* ---------------------------------------*/
 /* Divider */
 /* Input */
+/* ---------------------------------------*/
+/* Scroller */
 /* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
@@ -221,7 +231,7 @@
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
-  background-color: #ededed;
+  background-color: #000000;
 }
 .moon-header-font {
   font-family: "Miso";
@@ -788,10 +798,6 @@
   border-right-width: 0px;
   border-left-width: 0px;
   padding-right: 0px;
-}
-.sun .enyo-thumb {
-  background: #ff2f7d;
-  border: #ff2f7d;
 }
 /* Scroller.css */
 .sun .enyo-thumb {
