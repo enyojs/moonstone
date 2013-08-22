@@ -486,6 +486,9 @@
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.disabled:active:hover {
   background-position: 0 0px;
 }
+.sun .moon-icon.moon-icon-button.moon-loading-icon-button {
+  background-image: url(../../images/1080x1920/spinner-light.gif);
+}
 /* InputDecorator.css */
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
   padding: 14px 30px 14px 30px;
@@ -742,11 +745,11 @@
 }
 .sun-arrow-icon {
   position: absolute;
-  top: 59px;
-  left: 28px;
-  width: 42px;
-  height: 75px;
-  background: url('../../images/1080x1920/header_arrow.png') no-repeat left top;
+  top: 0px;
+  left: -20px;
+  width: 20%;
+  height: 181px;
+  background: url('../../images/1080x1920/header_arrow.png') no-repeat 48px 59px;
 }
 .sun .sun-header .enyo-fittable-columns-layout > .sun-header-client {
   margin-right: 40px;

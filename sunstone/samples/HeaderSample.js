@@ -9,7 +9,7 @@ enyo.kind({
 			{classes:"", components: [
 				{kind: "sun.Header", content: "Header", components: [
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
-					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
+					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, loading: true},
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true}
 				]},
 				{kind: "sun.Header", content: "Header", arrowIcon: true, components: [

@@ -28,6 +28,13 @@ enyo.kind({
 			{classes: "moon-hspacing", components: [
 				{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "buttonTapped", disabled: true},
 				{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "buttonTapped", disabled: true}
+			]},
+			{tag: "br"},
+			{tag: "br"},
+			{kind: "sun.Divider", content: "Loading Samll Icon Buttons:"},
+			{classes: "moon-hspacing", components: [
+				{kind: "sun.IconButton", small: true, ontap: "buttonTapped", loading: true},
+				{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "buttonTapped", loading: true}
 			]}
 		]},
 		{kind: "sun.Divider", content: "Result"},
