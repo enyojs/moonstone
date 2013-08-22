@@ -18,8 +18,6 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon enyo-unselectable moon-button-caption-decorator",
-	sideCaptionWidth: null,
-	width: null,
 	components: [
 		{kind: "enyo.Control", name: "leftCaption",   classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
 		{kind: "enyo.Control", name: "topCaption",    classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
@@ -57,9 +55,10 @@ enyo.kind({
 	},
 	rendered: function () {
 		this.inherited(arguments);
-		if (this.hasNode()) {
+		if (this.getShowOnFocus() && this.hasNode()) {			
+			this.captionWidth = this.getBounds().width;
 			this.sideCaptionWidth = this.$[this.getSide()+"Caption"].getBounds().width;
-			this.width = this.getBounds().width;
+			this.offsetValue = 10;
 		}
 	},
 	spotFocus: function () {
@@ -67,7 +66,7 @@ enyo.kind({
 			this.applyStyle('position', 'relative');
 			var side = this.$[this.getSide()+"Caption"];
 			side.applyStyle("width", this.sideCaptionWidth + "px");
-			side.applyStyle(this.getSide() === 'right' ? "left" : "right", (this.width - 10) + "px");
+			side.applyStyle(this.getSide() === 'right' ? "left" : "right", (this.captionWidth - this.offsetValue) + "px");
 			side.applyStyle("visibility", "visible");
 		}
 	},
