@@ -58,6 +58,7 @@
 {
 	border: @moon-button-border-width solid @moon-spotlight-border-color;
 	background-color: @moon-button-background-color;
+	color: @moon-button-text-color;
 }
 
 .moon-button:active:hover:not([disabled]) {
@@ -67,9 +68,11 @@
 
 .moon-button.spotlight {
 	background: @moon-spotlight-border-color;
+	color: @moon-spotlight-text-color;
 }
 
 .moon-button[disabled] {
 	cursor: default;
-	color: @moon-button-disabled-color;
+	color: @moon-button-disabled-text-color;
+	background-color: @moon-button-disabled-bg-color;
 }
