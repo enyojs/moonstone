@@ -17,7 +17,7 @@ enyo.kind({
         },
         {
             fit: true,
-            classes: "moon-dark-gray",
+            classes: "moon-neutral",
             content: "branding"
         }
     ],
