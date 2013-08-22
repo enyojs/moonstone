@@ -5,8 +5,7 @@
     color: #dddddd;
     height: @sun-header-height;
     border-color: #404040;
-    border-top: 0px;
-    border-bottom: @sun-divider-border-width solid @moon-divider-border-color;
+    border: 0px;
     margin: 0px 20px 1px 20px;
     min-width: 466px;
 }
@@ -49,4 +48,16 @@
 .sun-header-client > * {
     position: relative;
     margin-left: 30px;
+}
+.sun .sun-header .sun-header-loading {
+    position: absolute;
+    top: 181px;
+    left: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 6px;
+    background-color: @moon-divider-border-color;   
+}
+.sun .sun-header .moon-progress-bar-bar {
+    margin-top: -6px;
 }
