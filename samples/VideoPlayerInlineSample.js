@@ -4,7 +4,6 @@ enyo.kind({
 	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample",
 	fit: true,
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", inline:true, classes:"moon-8h", autoplay:true,
 			infoComponents: [
 				{

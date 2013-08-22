@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.PanelsVideoPlayerSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
 			{kind: "moon.Panel", title: "Video", classes: "moon-4h", components: [
 				{kind: "moon.Divider", content: "Select video content"},

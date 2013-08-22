@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.ExpandableInputSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 			{classes: "moon-6h", components: [
 				{kind: "moon.ExpandableInput", onChange:"inputChanged", content: "Input", noneText: "No Input"},

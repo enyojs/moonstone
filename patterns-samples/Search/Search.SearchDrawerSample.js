@@ -230,7 +230,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.search.SearchDrawerSample",
                     controller: ".app.controllers.searchDrawerController",

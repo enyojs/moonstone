@@ -13,7 +13,6 @@ enyo.kind({
     ],    
     
     components: [
-        {kind: "enyo.Spotlight"},
         {
             kind : "moon.Scroller",                    
             fit: true,

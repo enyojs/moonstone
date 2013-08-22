@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.RadioItemSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content:"Radio Items"},
 		{name: "testSelectButton", kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
 			{content: "Cat"},

@@ -112,7 +112,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.login.FrontDoorViaPanelSample",
                     controller: ".app.controllers.loginFrontDoorViaPanelController",

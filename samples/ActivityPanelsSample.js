@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next1"},

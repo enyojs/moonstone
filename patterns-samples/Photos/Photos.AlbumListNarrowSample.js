@@ -102,7 +102,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.AlbumListNarrowSample",
                     controller: ".app.controllers.photoController",

@@ -134,7 +134,6 @@ enyo.ready(function (){
             classes: "enyo-unselectable moon",
             style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackOneColumnWideSample2",
                     controller: ".app.controllers.trackController",

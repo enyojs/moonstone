@@ -45,9 +45,6 @@ enyo.kind({
         {kind: "moon.IconButton", src: "../assets/icon-list.png"}
     ],
     components: [
-/** If you want to use this template alone with spotlight, remove this comment out.
-        {kind: "enyo.Spotlight"},
-*/        
         {
             name: "movieList",
             /* TODO: enyo.DataGridList should be changed to moon.DataGridList to support scroll */

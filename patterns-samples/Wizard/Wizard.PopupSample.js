@@ -189,7 +189,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.PopupSample",                    
                     controller: ".app.controllers.WizardController",

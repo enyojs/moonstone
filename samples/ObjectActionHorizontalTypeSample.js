@@ -6,7 +6,6 @@ enyo.kind({
 	},
 	kind: "FittableRows",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Object Action: horizontal Type Sample"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{kind: "Repeater", count:20,  classes:"moon-5h", components: [

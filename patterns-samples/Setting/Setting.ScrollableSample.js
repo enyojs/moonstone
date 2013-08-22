@@ -101,7 +101,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {kind: "moon.sample.setting.NonScrollableSample", controller: ".app.controllers.settingCategoryController", classes: "enyo-fit"}
             ]
         }

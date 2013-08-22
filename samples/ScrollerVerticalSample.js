@@ -2,7 +2,6 @@ enyo.kind({
 	name: 'moon.sample.ScrollerVerticalSample',
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: 'enyo.Spotlight'},
 		{kind: 'moon.Scroller', classes: 'moon-scroller-vertical-sample-scroller enyo-fill',
 			components: [
 				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [

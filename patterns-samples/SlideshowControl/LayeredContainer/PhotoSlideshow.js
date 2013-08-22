@@ -142,7 +142,6 @@ enyo.kind({
 
 	imageUrls: [],
 	controlTools: [
-		{kind: "enyo.Spotlight"},
 		{layoutKind: 'HFlexLayout', components: [
 			{name:"left", flex: true, kind: "FittableColumns", noStretch: true, classes:"moon-photo-slideshow-control-left-button", components: [
 				{kind: "moon.IconButton", src: "../assets/fit-icon.png", ontap: "closeHandler"}

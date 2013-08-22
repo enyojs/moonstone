@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.DataGridListSample",
 	classes: "moon enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "gridList", spacing: 20, minWidth: 180, minHeight: 240, kind: "moon.DataGridList", components: [
 			{
 				kind: "moon.GridListImageItem",

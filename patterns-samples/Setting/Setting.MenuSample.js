@@ -39,7 +39,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {kind: "moon.sample.setting.MenuSample", controller: ".app.controllers.settingMenuController", classes: "enyo-fit"}
             ]
         }

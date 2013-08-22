@@ -2,7 +2,6 @@ enyo.kind({
     name: "MyApp.MainView",
     classes: "moon enyo-fit",
     components: [
-        {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
             {title: "First", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},

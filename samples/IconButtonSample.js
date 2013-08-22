@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{fit:true, components: [
 			{kind: "moon.Divider", content: "Icon Buttons:"},
 			{classes: "moon-hspacing", components: [

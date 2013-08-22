@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.AccordionSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', classes: "enyo-fill moon-8h", components: [		
 			{kind: "moon.Divider", content: "Not In Group"},
 			{components: [
