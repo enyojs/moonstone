@@ -693,11 +693,17 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
+.sun .sun-header.enyo-fittable-columns-layout > * {
+  margin: 0px;
+}
 .sun .sun-header {
-  height: 186px;
+  color: #dddddd;
+  height: 181px;
+  border-color: #404040;
   border-top: 0px;
   border-bottom: 6px solid #b5b5b5;
   margin: 0px 20px 1px 20px;
+  min-width: 466px;
 }
 .sun .sun-header-title {
   font-family: "Miso";
@@ -706,14 +712,17 @@
   font-style: normal;
   letter-spacing: -0.05em;
   font-size: 150pt;
-  padding-left: 20px;
-  margin-top: -20px;
+  line-height: 141px;
+  overflow: hidden;
+  margin: 0px 0px 0px 27px;
 }
 .sun-arrow-header .sun-header-title {
-  padding-left: 85px;
+  padding-left: 65px;
 }
 .sun .sun-two-lines-header .sun-header-title {
   font-size: 92pt;
+  line-height: 90px;
+  height: 90px;
 }
 .sun .sun-header-title-below {
   font-family: "MuseoSans 700";
@@ -723,26 +732,28 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  padding-left: 20px;
+  padding-left: 27px;
+  color: #999999;
+  height: 68px;
+  overflow: hidden;
 }
 .sun-arrow-header .sun-header-title-below {
-  padding-left: 85px;
+  padding-left: 92px;
 }
 .sun-arrow-icon {
   position: absolute;
   top: 59px;
-  left: 15px;
+  left: 28px;
   width: 42px;
   height: 75px;
-  background-image: url('../../images/1080x1920/header_arrow.png');
-  background-position: left top;
+  background: url('../../images/1080x1920/header_arrow.png') no-repeat left top;
 }
-.sun-header-client {
-  position: absolute;
-  top: 38px;
-  right: 40px;
+.sun .sun-header .enyo-fittable-columns-layout > .sun-header-client {
+  margin-right: 40px;
+  padding: 38px 0px 31px;
 }
 .sun-header-client > * {
+  position: relative;
   margin-left: 30px;
 }
 /* Accordion.css */

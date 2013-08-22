@@ -1,5 +1,16 @@
+.sun-header-sample {
+	background-color: #ededed;
+}
+
 .sun-header-sample .moon-header {
 	disply: block;
 	margin-bottom: 20px;
 }
 
+.sun-header-sample .enyo-touch-scroller > div {
+	padding: 20px;
+}
+
+.sun-header-sample .enyo-touch-scroller > div > * {
+	background-color: #000000;
+}

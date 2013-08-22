@@ -18,12 +18,14 @@ enyo.kind({
 	},
 	classes: "sun-header moon-header",
 	components: [
-		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
-			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
+		{kind: "FittableColumns", components:[
+			{name: "texts", fit: true, components: [
+				{name: "title", classes: "sun-header-font sun-header-title"},
+				{name: "titleBelow", classes: "sun-header-title-below"}
+			]},
+			{name: "client", classes: "sun-header-client"}
 		]},
-		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"},
-		{name: "client", classes: "sun-header-client"},
+		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"}
 	],
 	create: function() {
 		this.inherited(arguments);
