@@ -26,7 +26,9 @@ enyo.kind({
 	kind: "moon.Item",
 	published: {
 		//* The state of the checkbox
-		checked: false
+		checked: false,
+		//* If true, checkbox will be displayed on the left side of the checkbox item
+		leftHanded: false
 	},
 	events: {
 /** 
@@ -52,6 +54,10 @@ enyo.kind({
 		{classes: "moon-checkbox-item-label-wrapper", name: "client"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
+	create: function() {
+		this.inherited(arguments);
+		this.leftHandedChanged();
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.checkedChanged();
@@ -62,6 +68,9 @@ enyo.kind({
 	},
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());
+	},
+	leftHandedChanged: function() {
+		this.addRemoveClass("left-handed", this.getLeftHanded());
 	},
 	tap: function(inSender, inEvent) {
 		if (inSender != this.$.input) {

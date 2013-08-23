@@ -1,20 +1,20 @@
 /* SelectableItem.css */
-.moon-selectableItem .moon-selectableItem-item {
-	box-sizing: border-box;
+.moon-selectable-item .moon-selectable-item-indicator {
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	display: inline-block;
+	background-color: @moon-pink;
+	margin: 0px 10px 0px 0px;
+	display: none;
+}
+.moon-selectable-item.selected .moon-selectable-item-indicator {
+	display: inline-block;
+}
+.moon-selectable-item.spotlight .moon-selectable-item-indicator {
+	background-color: #fff;
+}
+.moon-selectable-item .moon-selectable-item-client {
 	max-width: 100%;
 	display: inline-block;
-  border-bottom: 4px solid transparent;
-}
-.moon-selectableItem .moon-underline.moon-overlay {
-  cursor: pointer;
-  border-bottom:4px solid @moon-underline-overlay-color;
-  padding: 0px;
-  transition: border-color 0.4s linear;
-  -webkit-transition: border-color 0.4s linear;
-  -moz-transition: border-color 0.4s linear;
-  -o-transition: border-color 0.4s linear;
-}
-.moon-selectableItem .moon-underline {
-  border-bottom:4px solid @moon-spotlight-border-color;
-  padding-bottom: 5px;
 }
