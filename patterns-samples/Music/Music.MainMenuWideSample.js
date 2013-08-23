@@ -16,11 +16,12 @@ enyo.kind({
                     name: "menus",
                     classes: "moon-5h",
                     components: [
-                        {kind: "moon.Item", bindFrom: "name"}
+                        {kind: "moon.Item", bindings: [
+							{from: ".model.name", to: ".content"}
+						]}
                     ]
                 },
                 {
-                    kind: "enyo.VCenter",
                     content: "branding",
                     fit: true,
                     classes: "moon-dark-gray",
@@ -30,7 +31,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.menu", to: "$.menus.controller"}
+        {from: ".controller.menu", to: ".$.menus.controller"}
     ]
 });
 
@@ -39,9 +40,9 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menu: new enyo.Collection([
-            {name: "Browser video"},
-            {name: "Browser photos"},
-            {name: "Browser music"}
+            {name: "Browse video"},
+            {name: "Browse photos"},
+            {name: "Browse music"}
         ])
     });
 
