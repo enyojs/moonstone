@@ -17,7 +17,7 @@ enyo.kind({
 				{kind: "sun.Header", Toast: "buttonToast", content: "Header", arrowIcon: true, loading: true, progress: "33", components: [
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
-					{name: "loading", kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, loading: true, ontap: "loadingButtonTapped"}
+					{name: "loading", kind: "sun.LoadingIconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, loading: true, ontap: "loadingButtonTapped"}
 				]},
 				{tag: "br"},
 				

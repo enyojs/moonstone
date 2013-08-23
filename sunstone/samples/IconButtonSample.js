@@ -33,7 +33,7 @@ enyo.kind({
 			{tag: "br"},
 			{kind: "sun.Divider", content: "Loading Samll Icon Buttons:"},
 			{classes: "moon-hspacing", components: [
-				{name: "loading", kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "loadingButtonTapped", loading: false}
+				{name: "loading", kind: "sun.LoadingIconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "loadingButtonTapped", loading: false}
 			]}
 		]},
 		{kind: "sun.Divider", content: "Result"},
