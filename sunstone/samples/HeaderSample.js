@@ -33,6 +33,19 @@ enyo.kind({
 				]},
 				{kind: "sun.Header", content: "Small Header", titleBelow: "Sub Header", arrowIcon: true, components: [
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true}
+				]},
+				{tag: "br"},
+				
+				{kind: "sun.Divider", content: "Input Header"},
+				{kind: "sun.InputHeader", title:"Input Header", oninput:"handleInput", onchange:"handleChange",
+				components: [
+					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
+					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true}
+				]},
+				{kind: "sun.InputHeader", title: "Small Header", titleBelow: "Sub Header", oninput:"handleInput", onchange:"handleChange",
+				components: [
+					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
+					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true}
 				]}
 			]}
 		]},
