@@ -76,8 +76,8 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		this.$.popup.setAutoDismiss(false);
-		this.$.popup.captureEvents = false;
+		this.$.popup.setAutoDismiss(false);		//* Always showing popup
+		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
 		this.$.tapArea.onmousemove = "preview";
 		this.$.tapArea.onenter = "enterTapArea";
 		this.$.tapArea.onleave = "leaveTapArea";
@@ -235,11 +235,13 @@ enyo.kind({
 				// TODO : action in dummy area
 			}
 
-			if (inSender === this.$.tapArea) {
-				v = this.transformToVideo(v);
-				this.sendSeekEvent(v);
+			v = this.transformToVideo(v);
+			this.sendSeekEvent(v);
+
+			if (this.isInPreview()) {
+				//* This will move popup position to playing time when preview move is end
+				this._currentTime = v;
 			}
-			
 			return true;
 		}
 	},

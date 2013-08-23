@@ -2428,7 +2428,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 420px;
+  width: 616px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2437,7 +2437,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-  witdh: 60px;
+  width: 60px;
   min-width: 60px;
   line-height: 50px;
   border: 0px;
@@ -3000,6 +3000,7 @@ body .enyo-fit.panels-50-percent-scrim,
   display: block;
   margin: 0px auto;
   height: 100%;
+  width: 100%;
 }
 /* Fullscreen CSS */
 :-webkit-full-screen.moon-video-player {
@@ -3085,6 +3086,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background-position: 0px 0px;
 }
 .moon-video-inline-control .moon-icon-button.active,
+.moon-video-inline-control .moon-icon-button.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight,
 .moon-video-inline-control .moon-icon-button.spotlight.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight:active {
@@ -3157,6 +3159,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background-position: 0px 0px;
 }
 .moon-video-fullscreen-control .moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon-button.pressed,
 .moon-video-fullscreen-control .moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon-button.spotlight.pressed,
 .moon-video-fullscreen-control .moon-icon-button.spotlight:active {
@@ -3186,15 +3189,6 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 0 0 0;
 }
 /* Feedback area */
-.moon-video-player-feedback {
-  opacity: 1;
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-}
-.moon-video-player-feedback.hidden {
-  opacity: 0;
-}
 .moon-video-feedback-text {
   display: inline-block;
   text-transform: uppercase;
