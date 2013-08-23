@@ -2178,19 +2178,12 @@
   border-top: 6px solid #4b4b4b;
 }
 .moon-list-actions-close {
-  border-radius: 9999px;
-  line-height: 24px;
-  background-color: #ededed;
-  border: 5px solid transparent;
   float: right;
   width: 40px;
   height: 40px;
   min-width: 40px;
   padding: 0px 0px 0px 0px;
   margin: 10px 10px 0px 10px;
-}
-.moon-list-actions-close.spotlight {
-  background: #ffb80d;
 }
 .moon-list-actions-close::after {
   font-family: "MuseoSans 300";
@@ -2201,7 +2194,7 @@
   content: "\2716";
   position: relative;
   top: 3px;
-  left: 1px;
+  left: 10px;
 }
 .moon-list-actions-scroller {
   margin: 0px;
