@@ -6,12 +6,12 @@
 /* minifier to fall back to using CSS files in place of the same-name       */
 /* LESS file.                                                               */
 
+/* Moonstone Light Theme */
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
 /* Colors */
 /* ---------------------------------------*/
-/* Moonstone Light Theme */
 /* Font */
 /* ---------------------------------------*/
 /* Disabled Opacity */
@@ -759,9 +759,6 @@
   display: block;
   position: relative;
 }
-.moon-toggle-item.moon-item {
-  margin-bottom: 16px;
-}
 .moon-toggle-item .moon-checkbox {
   width: 53px;
 }
@@ -1058,6 +1055,9 @@
 /* Radio Item */
 .moon-radio-item {
   display: inline-block;
+}
+.moon-radio-item .moon-selectable-item-client {
+  max-width: 250px;
 }
 .enyo-locale-right-to-left .moon-radio-item {
   text-align: right;
@@ -1636,9 +1636,9 @@
   margin-left: -15px;
 }
 .up-arrow {
-  height: 29px;
-  width: 29px;
-  background: url(../images/caret-black-large-up-icon.png) 0 0 no-repeat;
+  height: 32px;
+  width: 32px;
+  background: url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) 0 0 no-repeat;
   position: absolute;
 }
 .up-arrow > .taparea,
@@ -1650,8 +1650,11 @@
   left: -40px;
   background-color: transparent;
 }
+.up-arrow-container.spotlight .up-arrow {
+  background: url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) 0 -33px no-repeat;
+}
 .up-arrow-container.selected .up-arrow {
-  background-image: url(../images/caret-black-small-up-icon.png);
+  background: url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) 0 -66px no-repeat;
 }
 .down-arrow-container {
   position: relative;
@@ -1661,13 +1664,16 @@
   margin-left: -15px;
 }
 .down-arrow {
-  height: 29px;
-  width: 29px;
-  background: url(../images/caret-black-large-down-icon.png) 0 0 no-repeat;
+  height: 32px;
+  width: 32px;
+  background: url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) 0 0 no-repeat;
   position: absolute;
 }
+.down-arrow-container.spotlight .down-arrow {
+  background: url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) 0 -33px no-repeat;
+}
 .down-arrow-container.selected .down-arrow {
-  background-image: url(../images/caret-black-small-down-icon.png);
+  background: url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) 0 -66px no-repeat;
 }
 /* DatePicker.css */
 .moon-date-picker {
@@ -1681,7 +1687,6 @@
   letter-spacing: 0.05em;
   color: #4b4b4b;
   border-bottom: 2px solid #404040;
-  padding: 0px;
 }
 .moon-date-picker.open .moon-expandable-list-item-header-wrapper .moon-item {
   font-family: "MuseoSans 700";
@@ -1690,6 +1695,12 @@
   font-style: italic;
   letter-spacing: 0.05em;
   color: #4b4b4b;
+}
+.moon-date-picker.open .moon-expandable-list-item-header-wrapper.spotlight .moon-expandable-list-item-header {
+  color: #ffffff;
+}
+.moon-date-picker.open .moon-expandable-list-item-header-wrapper.spotlight {
+  border-bottom-color: #ffffff;
 }
 /* Day */
 .moon-date-picker-day {
@@ -1787,7 +1798,7 @@
 }
 .moon-progress-bar-bar {
   height: 100%;
-  background-color: #69cdff;
+  background-color: #ffffff;
   margin-top: -4px;
 }
 .moon-slider-taparea {
@@ -1803,7 +1814,7 @@
   width: 60px;
   border-radius: 30px;
   margin: -30px;
-  background-color: #69cdff;
+  background-color: #ffffff;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
@@ -1869,7 +1880,7 @@
   background-color: #ff2f7d;
 }
 .moon-slider-nofocus {
-  background-color: #69cdff;
+  background-color: #ffffff;
 }
 /* RichText.css */
 .moon-richtext {
@@ -2306,14 +2317,14 @@ body .enyo-fit.panels-50-percent-scrim,
   background-repeat: no-repeat;
   background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
 }
-.moon-accordion.spotlight .moon-accordion-arrow {
+.moon-accordion .spotlight .moon-accordion-arrow {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
 }
 .moon-accordion.open .moon-accordion-arrow {
   background-image: url(../images/LightTheme_Icons/SmallCarat_up1.png);
 }
-.moon-accordion.open.spotlight .moon-accordion-arrow {
-  background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
+.moon-accordion.open .spotlight .moon-accordion-arrow {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_up2.png);
 }
 /* CalendarPicker.css */
 .moon-calendar-picker {

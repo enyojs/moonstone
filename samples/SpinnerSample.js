@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "moon.Divider", content: "Dark Spinner"},
-		{classes: "moon-dark-gray moon-spinner-sample-container", components: [
+		{classes: "moon-neutral moon-spinner-sample-container", components: [
 			{kind: "moon.Spinner"}
 		]},
 		{kind: "moon.Divider", content: "Light Spinner"},
