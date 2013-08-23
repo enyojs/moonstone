@@ -28,7 +28,7 @@ enyo.kind({
 		//** When true, show tick bar on start and end position
 		showTickBar: true,
 		//** When true, the progress can extend past the hour markers.
-		liveMode: true,
+		liveMode: false,
 		//* CSS classes to apply to bg progressbar
 		bgBarClasses: "moon-video-transport-slider-bg-bar",
 		//* CSS classes to apply to progressbar
@@ -48,14 +48,14 @@ enyo.kind({
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
-		onresize: "resizeHandler",
-		onenter: "showKnob", 
-		onleave: "hideKnob"
+		onresize: "resizeHandler"
 	},
 	events: {
 		onSeekStart: "",
 		onSeek: "",
-		onSeekFinish: ""
+		onSeekFinish: "",
+		onEnterTapArea: "",
+		onLeaveTapArea: ""
 	},
 	tickComponents: [
 		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
@@ -71,11 +71,16 @@ enyo.kind({
 		{name: "feedback", kind:"moon.VideoFeedback"},
 		{name: "popupLabelText"}
 	],
+	_previewMode: false,
+
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		this.$.popup.setAutoDismiss(false);
 		this.$.popup.captureEvents = false;
+		this.$.tapArea.onmousemove = "preview";
+		this.$.tapArea.onenter = "enterTapArea";
+		this.$.tapArea.onleave = "leaveTapArea";
 		//* Extend components
 		this.createTickComponents();
 		this.createPopupLabelComponents();
@@ -88,11 +93,35 @@ enyo.kind({
 	createPopupLabelComponents: function() {
 		this.$.popupLabel.createComponents(this.popupLabelComponents, {owner: this});
 	},
-	showKnob: function(inSender, inEvent) {
+	enterTapArea: function(inSender, inEvent) {
 		this.addClass('visible');
+		this.startPreview();
+		this.doEnterTapArea(inEvent);
 	},
-	hideKnob: function(inSender, inEvent) {
+	leaveTapArea: function(inSender, inEvent) {
 		this.removeClass('visible');
+		this.endPreview();
+		this.doLeaveTapArea(inEvent);
+	},
+	preview: function(inSender, inEvent) {
+		var v = this.calcKnobPosition(inEvent);
+		if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+			return;
+		}
+		v = this.transformToVideo(v);
+		this.currentTime = new Date(v * 1000);
+		this._updateKnobPosition(v);
+	},
+	startPreview: function(inSender, inEvent) {
+		this._previewMode = true;
+	},
+	endPreview: function(inSender, inEvent) {
+		this._previewMode = false;
+		this.currentTime = new Date(this._currentTime * 1000);
+		this._updateKnobPosition(this._currentTime);
+	},
+	isInPreview: function(inSender, inEvent) {
+		return this._previewMode;
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
@@ -169,6 +198,10 @@ enyo.kind({
 		return this.calcRatio(inValue) * 100;
 	},
 	updateKnobPosition: function(inValue) {
+		if (!this.dragging && this.isInPreview()) { return; }
+		this._updateKnobPosition(inValue);
+	},
+	_updateKnobPosition: function(inValue) {
 		var p = this._calcPercent(inValue);
 		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
@@ -216,10 +249,6 @@ enyo.kind({
 			return; // return nothing
 		}
 		if (inEvent.horizontal) {
-			inEvent.preventDefault();
-			this.dragging = true;
-			this.$.knob.addClass("active");
-
 			var v = this.calcKnobPosition(inEvent);
 			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 				// TODO : action in dummy area
@@ -263,7 +292,7 @@ enyo.kind({
 			if (this.lockBar) {
 				this.setProgress(this.elasticFrom);
 				this.sendChangingEvent({value: this.elasticFrom});
-				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(this.elasticFrom); }), 200);
+				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(this.elasticFrom); }), 100);
 			}
 			return true;
 		}
@@ -307,6 +336,7 @@ enyo.kind({
 	},
 	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
 	timeUpdate: function(inSender, inEvent) {
+		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
 		this._duration = inSender._duration;
 		this.currentTime = new Date(this._currentTime * 1000);

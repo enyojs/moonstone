@@ -43,12 +43,12 @@ enyo.kind({
 		//* set video playbackRate
 		playbackRate: 1,
 		//* Hash of playbackRate you can set this hash by
-		//* setPlaybackRateHash({
+		//* playbackRateHash: {
 		//*		fastForward: ["2", "4", "8", "16"],
 		//*		rewind: ["-2", "-4", "-8", "-16"],
 		//*		slowForward: ["1/4", "1/2"],
 		//*		slowRewind: ["-1/2", "-1"]
-		//*	})
+		//*	}
 		playbackRateHash: {
 			fastForward: ["2", "4", "8", "16"],
 			rewind: ["-2", "-4", "-8", "-16"],

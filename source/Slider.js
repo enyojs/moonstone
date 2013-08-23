@@ -80,8 +80,8 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{name: "tapArea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus"},
+		{name: "tapArea"},
 		{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
 			{tag: "canvas", name: "drawing"},
 			{name: "popupLabel"}
@@ -269,7 +269,6 @@ enyo.kind({
 		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
 	},
 	dragstart: function(inSender, inEvent) {
-		this.log();
 		if (this.disabled) {
 			return; // return nothing
 		}
@@ -282,7 +281,6 @@ enyo.kind({
 		}
 	},
 	drag: function(inSender, inEvent) {
-		this.log();
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent), ev;
 			
@@ -310,7 +308,6 @@ enyo.kind({
 		}
 	},
 	dragfinish: function(inSender, inEvent) {
-		this.log();
 		if (this.disabled) {
 			return; // return nothing
 		}

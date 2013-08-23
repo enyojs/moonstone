@@ -5,8 +5,8 @@ enyo.kind({
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", 
-			autoplay: false, infoComponents: [
+		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", autoplay:true,
+			infoComponents: [
 				{kind: "moon.BackgroundWrapper", orient: "left", background: true, fit: true, components: [
 					{
 						kind: "moon.ChannelInfo",

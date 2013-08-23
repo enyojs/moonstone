@@ -66,7 +66,7 @@ enyo.kind({
 		//* When false, remove the progress bar and any additional controls will drop down
 		showProgressBar: true,
 		//* When false, removing the transport controls but keeping the icon button area
-		showPlaybackControls: false,
+		showPlaybackControls: true,
 		//* When true, hides playback controls whenever mouse is hover over slider
 		hideButtonsOnSlider: true,
 
@@ -92,7 +92,20 @@ enyo.kind({
 		//* URL for "inline-pause" icon
 		inlinePauseIcon: "$lib/moonstone/images/icon_small_pause.png",
 		//* URL for "inline-fullscreen" icon
-		inlineFullscreenIcon: "$lib/moonstone/images/icon_small_fullscreen.png"
+		inlineFullscreenIcon: "$lib/moonstone/images/icon_small_fullscreen.png",
+		//* Default hash of playbackRate, you can set this hash by
+		//* playbackRateHash: {
+		//*		fastForward: ["2", "4", "8", "16"],
+		//*		rewind: ["-2", "-4", "-8", "-16"],
+		//*		slowForward: ["1/4", "1/2"],
+		//*		slowRewind: ["-1/2", "-1"]
+		//*	}
+		playbackRateHash: {
+			fastForward: ["2", "4", "8", "16"],
+			rewind: ["-2", "-4", "-8", "-16"],
+			slowForward: ["1/4", "1/2"],
+			slowRewind: ["-1/2", "-1"]
+		}
 	},
 	handlers: {
 		onRequestTimeChange: 'timeChange',
@@ -108,8 +121,8 @@ enyo.kind({
 		onresize: 'resizeHandler'
 	},
     bindings: [
-		{from: ".sourceComponents",			to: ".$.video.sourceComponents"},
-		{from: ".playbackRateHash",			to: ".$.video.playbackRateHash"},
+		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
+		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
 		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
 		{from: ".rewindIcon",				to:".$.rewind.src"},
 		{from: ".fastForwardIcon",			to:".$.fastForward.src"},
@@ -159,7 +172,7 @@ enyo.kind({
 			
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
-						onenter: "onEnterSlider", onleave: "onLeaveSlider"
+						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
 					}
 				]}
 			]}
@@ -555,7 +568,7 @@ enyo.kind({
 	},
 	//* When seeking completes, play video.
 	sliderSeekFinish: function(inSender, inEvent) {
-		if (inEvent.value < this.duration) {
+		if (inEvent.value < this._duration - 1) {
 			this.play();
 		}
 		return true;
