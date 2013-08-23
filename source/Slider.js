@@ -119,6 +119,8 @@ enyo.kind({
 		this.canvasWidthChanged();
 		this.canvasHeightChanged();
 		this.drawToCanvas(this.popupColor);
+		this.initValue();
+		this.$.popup.rtl = this.rtl;
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -158,6 +160,8 @@ enyo.kind({
 			this.value = this.clampValue(this.min, this.bgProgress, this.value);
 			this.value = (this.increment) ? this.calcConstrainedIncrement(this.value) : this.value;
 		}
+		
+		console.log('initValue', this.getValue());
 
 		this.updateKnobPosition(this.getValue());
 
@@ -203,6 +207,8 @@ enyo.kind({
 			label
 		;
 		
+		if (this.rtl) { percent = 100 - percent; }
+		
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.applyStyle("left", percent + "%");
 		
@@ -246,7 +252,9 @@ enyo.kind({
 	},
 	calcKnobPosition: function(inEvent) {
 		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
-		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
+		var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
+		if (this.rtl) { pos = this.max - pos; }
+		return pos;
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
@@ -364,14 +372,20 @@ enyo.kind({
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
 			// If in the process of animating, work from the previously set value
-			var v = this.getValue() - (this.increment || 1);
+			var v = this.rtl
+				? this.getValue() + (this.increment || 1)
+				: this.getValue() - (this.increment || 1);
+				
 			this.setValue(v);
 			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = this.getValue() + (this.increment || 1);
+			var v = this.rtl
+				? this.getValue() - (this.increment || 1)
+				: this.getValue() + (this.increment || 1);
+				
 			this.setValue(v);
 			return true;
 		}
