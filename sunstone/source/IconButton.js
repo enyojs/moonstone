@@ -9,17 +9,27 @@ enyo.kind({
 	kind: "moon.IconButton",
 	published: {
 		//* If true, the moon-small-icon-button css class will be applied to this button
-		small: false,
-		loading: false,
+		small: false
 	},
 	create: function() {
 		this.inherited(arguments);
 		this.smallChanged();
-		this.loadingChanged();
 	},
 	//* @protected
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-icon-button", this.getSmall());
+	}
+});
+
+enyo.kind({
+	name: "sun.LoadingIconButton",
+	kind: "sun.IconButton",
+	published: {
+		loading: false
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.loadingChanged();
 	},
 	loadingChanged: function() {
 		this.addRemoveClass("moon-loading-icon-button", this.getLoading());
