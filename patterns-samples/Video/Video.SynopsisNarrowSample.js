@@ -4,30 +4,30 @@ enyo.kind({
 	title: "Synopsis",
 	titleAbove: "04",
 
-	components: [
-		{
-			kind: "FittableRows",
-			components: [
-				{kind: "moon.Divider", content: "Synopsis"},
-				{
-					components: [
-						{
-							name: "synopsisHead",
-							allowHtml: true,
-							content: "<b>Starring: </b>Actor Name, Actor Name, and" +
-									" Actor Name"
-						},
-						{tag: "br"},
-						{name: "synopsisBody"}
-					]
-				}
-			]
-		}
-	],
-	bindings: [
-		{from: ".controller.synopsisHead", to: "$.synopsisHead.content"},
-		{from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
-	]
+    components: [
+        {
+            kind: "FittableRows",
+            components: [
+                {kind: "moon.Divider", content: "Synopsis"},
+                {
+                    components: [
+                        {
+                            name: "synopsisHead",
+                            allowHtml: true,
+                            content: "<b>Starring: </b>Actor Name, Actor Name, and" +
+                                     " Actor Name"
+                        },
+                        {tag: "br"},
+                        {name: "synopsisBody"}
+                    ]
+                }
+            ]
+        }
+    ],
+    bindings: [
+        {from: ".controller.synopsisHead", to: ".$.synopsisHead.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
+    ]
 });
 
 // Sample model

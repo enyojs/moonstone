@@ -16,7 +16,7 @@ enyo.kind({
     name: "moon.sample.music.TrackOneColumnWideSample",
     kind: "moon.Panel",
     titleAbove: "02",
-    title: "Browser Tracks",
+    title: "Browse Tracks",
     titleBelow: "15 Tracks",
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-album.png"},
@@ -43,8 +43,10 @@ enyo.kind({
                                                 {
                                                     kind: "enyo.Image",
                                                     classes: "moon-music-small-image",
-                                                    bindFrom: "coverUrl",
-                                                    bindTo: "src"
+													bindings: [
+														{from: ".model.coverUrl", to: ".src"}
+													]
+
                                                 }
                                             ]
                                         }
@@ -55,7 +57,9 @@ enyo.kind({
                                         {
                                             kind: "moon.Item",
                                             ontap: "changeName",
-                                            bindFrom: "track"
+											bindings: [
+												{from: ".model.track", to: ".content"}
+											]
                                         }
                                     ]
                                 },
@@ -64,7 +68,9 @@ enyo.kind({
                                         {
                                             kind: "moon.Item",
                                             ontap: "changeName",
-                                            bindFrom: "artist"
+                                            bindings: [
+												{from: ".model.artist", to: ".content"}
+											]
                                         }
                                     ]
                                 },
@@ -73,7 +79,9 @@ enyo.kind({
                                         {
                                             kind: "moon.Item",
                                             ontap: "changeName",
-                                            bindFrom: "album"
+                                            bindings: [
+												{from: ".model.album", to: ".content"}
+											]
                                         }
                                     ]
                                 },
@@ -82,7 +90,9 @@ enyo.kind({
                                         {
                                             kind: "moon.Item",
                                             ontap: "changeName",
-                                            bindFrom: "time"
+                                            bindings: [
+												{from: ".model.time", to: ".content"}
+											]
                                         }
                                     ]
                                 }
@@ -94,7 +104,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.track", to: "$.trackList.controller"}
+        {from: ".controller.track", to: ".$.trackList.controller"}
     ]
 });
 

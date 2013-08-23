@@ -439,12 +439,16 @@
   border: 0px;
   background: inherit;
   color: #4b4b4b;
-  padding: 4px 0 0 0;
+  padding: 0;
   margin: 0;
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
   background: transparent url(../images/caret-black-large-up-icon.png) no-repeat center center;
+}
+.moon-simple-picker-button.hidden {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
 }
 .moon-simple-picker-button.spotlight {
   background-color: #ffb80d;
@@ -1351,12 +1355,29 @@
 }
 .moon-header-client {
   position: absolute;
-  bottom: 0px;
+  bottom: 10px;
+  left: 0px;
   right: 0px;
-  margin-bottom: 10px;
+  text-align: right;
+  /* fallback in case text-align:end isn't supported */
+
+  text-align: end;
+  /* CSS3 for RTL support */
+
 }
 .moon-header-client > * {
-  margin-left: 10px;
+  text-align: left;
+  /* fallback in case text-align:start isn't supported */
+
+  text-align: start;
+  /* CSS3 for RTL support */
+
+}
+.moon-header-left {
+  float: left;
+}
+.enyo-locale-right-to-left .moon-header-left {
+  float: right;
 }
 /* Small header styling */
 .moon-small-header {
@@ -1834,19 +1855,19 @@
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
   position: relative;
-  height: 56px;
-  width: 56px;
-  border-radius: 28px;
-  margin: -30px -29px;
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  margin: -30px;
   background-color: #69cdff;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
 .moon-slider-knob:active:hover {
-  height: 84px;
-  width: 84px;
-  border-radius: 42px;
-  margin: -42px -44px;
+  height: 86px;
+  width: 86px;
+  border-radius: 43px;
+  margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
   background-color: #ffb80d;
@@ -1858,6 +1879,9 @@
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+.moon-progress-bar.moon-slider {
+  margin: 60px 45px;
 }
 .moon-slider-popup {
   position: absolute;
@@ -1877,7 +1901,7 @@
   letter-spacing: normal;
   position: absolute;
   top: 2px;
-  width: 60px;
+  width: 86px;
   height: 45px;
   white-space: nowrap;
   color: #fff;
@@ -2290,6 +2314,7 @@
   overflow: hidden;
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 .moon-panel-content-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
@@ -2399,7 +2424,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 616px;
+  width: 420px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2408,7 +2433,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-  width: 60px;
+  witdh: 60px;
   min-width: 60px;
   line-height: 50px;
   border: 0px;
@@ -2475,7 +2500,6 @@ body .enyo-fit.panels-50-percent-scrim,
   padding: 0px;
   border: 0px;
   width: 100%;
-  height: 140px;
   box-sizing: border-box;
   background-color: transparent;
 }
@@ -2492,6 +2516,7 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
   line-height: 140px;
   color: #4b4b4b;
+  width: 100%;
 }
 .moon-input-header .moon-input-header-input-decorator > img {
   width: 66px;
@@ -2684,7 +2709,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 40px;
 }
 .moon-dialog-message {
-  font-size: 30px;
+  font-size: 24px;
 }
 .moon-dialog-client > * {
   margin-left: 10px;
@@ -2929,26 +2954,6 @@ body .enyo-fit.panels-50-percent-scrim,
   height: 80px;
   background-color: rgba(0, 0, 0, 0.5);
   position: relative;
-  display: block;
-}
-/* ---- Fullscreen style ---- */
-:-webkit-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-moz-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-ms-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-o-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-:-full-screen.moon-video-player .moon-video-inline-control {
-  display: none;
-}
-body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
-  display: none;
 }
 .moon-video-player .moon-icon-button.moon-video-inline-control-play-pause {
   position: absolute;
@@ -3008,36 +3013,8 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
   background-color: transparent;
 }
 .moon-video-fullscreen-control {
-  opacity: 0;
-  transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  display: none;
-  margin: 20px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.1);
-}
-/* ---- Fullscreen style ---- */
-:-webkit-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-moz-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-ms-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-o-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-:-full-screen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
-  display: block;
-}
-.moon-video-fullscreen-control.visible {
-  opacity: 1;
 }
 /* BG Canvas */
 .moon-video-player-screen {
@@ -3047,8 +3024,9 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* --- Controls --- */
 .moon-video-player-bottom {
   position: absolute;
-  width: 100%;
-  bottom: 0px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -3111,56 +3089,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .moon-video-fullscreen-control .spotlight .moon-slider-knob.disabled:active:hover {
   opacity: 1;
 }
-/* -- Popup -- */
-.moon-video-fullscreen-control .moon-slider-popup-wrapper {
-  overflow: hidden;
-  border-radius: 16px;
-  background-color: #000000;
-  width: 300px;
-  height: 250px;
-}
-.moon-video-fullscreen-control .moon-slider-popup {
-  position: absolute;
-  display: block;
-  z-index: 20;
-  top: 0px;
-  left: 100px;
-  padding: 12px;
-  background-color: rgba(0, 0, 0, 0.12);
-  border-radius: 16px;
-  width: 300px;
-  height: 250px;
-}
-.moon-video-fullscreen-control .moon-slider-popup.above {
-  top: -306px;
-}
-.moon-video-fullscreen-control .moon-slider-popup canvas {
-  width: 300px;
-  height: 210px;
-  z-index: 10;
-}
-.moon-video-fullscreen-control .moon-slider-popup-label {
-  position: absolute;
-  top: 210px;
-  width: 300px;
-  height: 40px;
-  color: #ffffff;
-  text-align: center;
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-}
-.moon-video-fullscreen-control .enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "LG Display";
-}
-.moon-video-fullscreen-control .moon-slider-popup.above .moon-slider-popup-label {
-  top: auto;
-  bottom: 15px;
-}
-.moon-video-fullscreen-control .moon-slider-popup-flip-h {
-  transform: rotateY(0deg);
-  -webkit-transform: rotateY(0deg);
-  -moz-transform: rotateY(0deg);
-}
 /* -- Buffered progress bar (bg bar) -- */
 .moon-video-player .moon-progress-bg-bar {
   background-color: rgba(0, 212, 179, 0.5);
@@ -3175,13 +3103,17 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 /* ---- Header info styling ---- */
 .moon-video-player-header {
   position: absolute;
-  width: 100%;
-  top: 0px;
+  left: 20px;
+  right: 20px;
+  top: 20px;
   z-index: 2;
   font-family: "MuseoSans 700";
   font-size: 30px;
   letter-spacing: -0.04em;
   color: #ffffff;
+}
+.moon-video-player-header.always {
+  display: block;
 }
 .moon-video-player-header > * {
   background-color: rgba(0, 0, 0, 0.5);
@@ -3416,24 +3348,6 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
   right: 0px;
   width: 50px;
 }
-.moon-scroller-hthumb,
-.moon-scroller-vthumb {
-  transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-}
-.moon-scroller-hthumb {
-  height: 4px;
-  bottom: 23px;
-}
-.moon-scroller-vthumb {
-  width: 4px;
-  right: 23px;
-}
-.moon-scroller-hthumb.hidden,
-.moon-scroller-vthumb.hidden {
-  opacity: 0;
-}
 .moon-expandable-input {
   transition: border-width 0.1s linear, padding 0.1s linear;
   -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
@@ -3521,6 +3435,52 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 .enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
   margin: 0px 47px 0px 0px;
 }
+.selection-enabled .moon-selection-overlay-support.spotlight .moon-selection-overlay-support-scrim,
+.selection-enabled .moon-selection-overlay-support .spotlight.selected .moon-selection-overlay-support-scrim,
+.selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim {
+  display: block;
+}
+.selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
+  background-position: 0px -42px;
+  border: 4px solid #ffb80d;
+  background-color: #ffffff;
+}
+.moon-selection-overlay-support-scrim {
+  display: none;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.3);
+}
+.moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -21px;
+  margin-left: -21px;
+}
+.moon-thumb {
+  -webkit-transform-origin: 0px 0px;
+  border: none;
+  background: rgba(50, 50, 50, 0.8);
+  width: 4px;
+  height: 4px;
+  border-radius: 0;
+}
+.moon-scroller-hthumb,
+.moon-scroller-vthumb {
+  transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -webkit-transition: opacity 0.1s linear;
+}
+.moon-scroller-hthumb {
+  bottom: 23px;
+}
+.moon-scroller-vthumb {
+  right: 23px;
+}
+.moon-scroller-hthumb.hidden,
+.moon-scroller-vthumb.hidden {
+  opacity: 0;
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
   background-color: #4b4b4b;
@@ -3542,7 +3502,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-fullscreen-control {
 }
 .moon-hspacing > * {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   margin: 0 5px;
 }
 .moon-hspacing > :first-child {

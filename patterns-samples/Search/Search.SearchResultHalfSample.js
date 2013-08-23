@@ -62,16 +62,17 @@ enyo.kind({
             name: "resultInfo",
             components: [
                 {
-                    kind: "moon.SearchResultImageItem",
-                    bindFrom: "option",
-                    bindTo: "option",
+                    kind: "moon.SearchResultImageItem", 
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ], 
                     ontap: "changeName"
                 }
             ]
         }
     ],
     bindings: [
-        {from: ".controller.result", to: "$.resultInfo.controller"}
+        {from: ".controller.result", to: ".$.resultInfo.controller"}
     ]
 });
 

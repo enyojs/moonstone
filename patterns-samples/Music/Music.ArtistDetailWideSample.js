@@ -70,79 +70,91 @@ enyo.kind({
 					name: "relatedArtists",
 					kind: "moon.DataGridList",
 					style: "height: 156px;",
-					components: [
-						{
-							kind: "enyo.Image",
-							style: "width: 130px; height: 130px;",
-							bindFrom: "relatedUrl",
-							bindTo: "src"
-						}
-					]
-				},
-				{kind: "moon.Divider", content: "Top 10 Tracks"},
-				{
-					name: "trackInfo",
-					kind: "moon.DataList",
-					fit: true,
-					components: [
-						{
-							kind: "moon.Item",
-							components: [
-								{
-									kind: "enyo.Table",
-									components: [
-										{
-											components: [
-												{
-													components: [
-														{
-															kind: "enyo.Image",
-															bindFrom: "coverUrl",
-															bindTo: "src"
-														}
-													],
-													attributes: {rowspan: "4"}
-												},
-												{
-													bindFrom: "track"
-												}
-											]
-										},
-										{
-											components: [
-												{
-													bindFrom: "artist",
-													classes: "moon-superscript"
-												}
-											]
-										},
-										{
-											components: [
-												{
-													bindFrom: "duration",
-													classes: "moon-superscript"
-												}
-											]
-										}
-									]
-								}
-							]
-						}
-					]
-				}
-			]
-		}
-	],
-	bindings: [
-		{from: ".controller.artist", to: "$.artist.content"},
-		{from: ".controller.artistImageUrl", to: "$.artistImage.src"},
-		{from: ".controller.organized", to: "$.organized.content"},
-		{from: ".controller.debut", to: "$.debut.content"},
-		{from: ".controller.type", to: "$.type.content"},
-		{from: ".controller.bio", to: "$.bio.content"},
-		{from: ".controller.related", to: "$.relatedArtists.controller"},
-		{from: ".controller.tracks", to: "$.trackInfo.controller"}
-	]
+                    components: [
+                        {
+                            kind: "enyo.Image",
+                            style: "width: 130px; height: 130px;",
+                            bindings: [
+                                {from: ".model.relativeUrl", to: ".src"}
+                            ]
+                        }
+                    ]
+                },
+                {kind: "moon.Divider", content: "Top 10 Tracks"},
+                {
+                    name: "trackInfo",
+                    kind: "moon.DataList",
+                    fit: true,
+                    components: [
+                		{
+                            kind: "moon.Item",
+                            components: [
+                                {
+                                    kind: "enyo.Table",
+                                    components: [
+                                        {
+                                            components: [
+                                                {
+                                                    components: [
+                                                        {
+                                                            kind: "enyo.Image", 
+                                                            bindings: [{
+                                                                from: ".model.coverUrl",
+                                                                to: ".src"
+                                                            }]
+                                                        }
+                                                    ],
+                                                    attributes: {rowspan: "4"}
+                                                },
+                                                {
+                                                    bindings: [{
+                                                        from: ".model.track",
+                                                        to: ".content"
+                                                    }]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindings: [{
+                                                        from: ".model.artist",
+                                                        to: ".content"
+                                                    }],
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            components: [
+                                                {
+                                                    bindings: [{
+                                                        from: ".model.duration",
+                                                        to: ".content"
+                                                    }],
+                                                    classes: "moon-superscript"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+            		]
+                }
+            ]
+        }
+    ],
+    bindings: [
+        {from: ".controller.artist", to: ".$.artist.content"},
+        {from: ".controller.artistImageUrl", to: ".$.artistImage.src"},
+        {from: ".controller.organized", to: ".$.organized.content"},
+        {from: ".controller.debut", to: ".$.debut.content"},
+        {from: ".controller.type", to: ".$.type.content"},
+        {from: ".controller.bio", to: ".$.bio.content"},
+        {from: ".controller.related", to: ".$.relatedArtists.controller"},
+        {from: ".controller.tracks", to: ".$.trackInfo.controller"}
+    ]
 });
 
 

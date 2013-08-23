@@ -45,10 +45,10 @@ enyo.kind({
 		this.setupBindings();
 	},
 	setupBindings: function() {
-		this.bindings.push({from: ".aboveTitle",    to: "$.aboveTitle.content"});
-		this.bindings.push({from: ".title",         to: "$.title.content"});
-		this.bindings.push({from: ".subTitle",      to: "$.subTitle.content"});
-		this.bindings.push({from: ".description",   to: "$.description.content"});
+		this.bindings.push({from: ".aboveTitle", 	to: ".$.aboveTitle.content"});
+		this.bindings.push({from: ".title", 		to: ".$.title.content"});
+		this.bindings.push({from: ".subTitle", 		to: ".$.subTitle.content"});
+		this.bindings.push({from: ".description", 	to: ".$.description.content"});
 	}
 });
 

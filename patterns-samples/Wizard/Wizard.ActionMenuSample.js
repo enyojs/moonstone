@@ -27,32 +27,36 @@ enyo.kind({
 		onNext: "",
 		onPrevious: "",
 		onCancel: ""
-	},
-	headerComponents: [
-		{name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"../assets/icon-list.png",
-			listActions: [
-			{
-				components: [
-					{kind: "moon.Divider", content:"Category"},
-					{name: "wizList", kind: "moon.DataList", components: [
-						{kind:"moon.Item", classes: "wizard-listaction-item", bindFrom: "step", bindTo: "content"},
-						{classes: "wizard-listaction-text", bindFrom: "processed", bindTo: "content"}
-					]}
-				]
-			}
-		]}
-	],
-	bindings: [
-		{from: ".controller.title", to: ".title"},
-		{from: ".controller.wizResults", to: ".$.header.$.wizListAction.$.listActionsContainer.$.wizList.controller"}
-	],
-	rendered: function() {
-		this.inherited(arguments);
-		this.initialSetting();
-	},
-	initialSetting: function() {
-		// Stub
-	}
+    },
+    headerComponents: [
+        {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"../assets/icon-list.png",
+            listActions: [
+            {                    
+                components: [
+                    {kind: "moon.Divider", content:"Category"},
+                    {name: "wizList", kind: "moon.DataList", components: [
+                        {kind:"moon.Item", classes: "wizard-listaction-item", bindings: [
+                            {from: ".model.step", to: ".content"}
+                        ]},
+                        {classes: "wizard-listaction-text", bindings: [
+                            {from: ".model.processed", to: ".content"}
+                        ]}                       
+                    ]}
+                ]
+            }
+        ]}    
+    ],
+    bindings: [
+        {from: ".controller.title", to: ".title"},
+        {from: ".controller.wizResults", to: ".$.wizListAction.$.listActionsContainer.$.wizList.controller"}
+    ],
+    rendered: function() {
+        this.inherited(arguments);
+        this.initialSetting();
+    },
+    initialSetting: function() {
+    // Stub
+    }
 });
 
 enyo.kind({

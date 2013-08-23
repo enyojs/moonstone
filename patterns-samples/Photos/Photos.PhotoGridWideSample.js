@@ -33,8 +33,7 @@ enyo.kind({
                                 {
                                     kind: "enyo.Image",
                                     classes: "moon-3h moon-1v",
-                                    bindFrom: "imgSrc",
-                                    bindTo: "src"
+									bindings: [{from: ".model.imgSrc", to: ".src"}]
                                 }
                             ]
                         }
@@ -45,7 +44,7 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 

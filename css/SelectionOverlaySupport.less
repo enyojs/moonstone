@@ -1,0 +1,26 @@
+.selection-enabled {
+	.moon-selection-overlay-support {
+		&.spotlight, .spotlight.selected, &.selected {
+			.moon-selection-overlay-support-scrim {
+				display: block;
+			}
+		}
+		&.selected {
+			.moon-icon-button {
+				.moon-icon.moon-icon-button.pressed;
+			}
+		}
+	}
+}
+.moon-selection-overlay-support-scrim {
+	display: none;
+	z-index: 100000;
+	background: rgba(0, 0, 0, 0.3);
+	.moon-selection-overlay-support-checkbox {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -@moon-icon-size/2;
+		margin-left: -@moon-icon-size/2;
+	}
+}

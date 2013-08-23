@@ -1,40 +1,42 @@
 enyo.kind({
-	name: "moon.sample.video.MainMenuWideSample",
-	kind: "moon.Panel",
-	layoutKind: "FittableColumnsLayout",
-	titleAbove: "01",
-	title: "Main Menu",
-	components: [
-		{
-			name: "menuList",
-			kind: "enyo.DataList",
-			style: "width: 300px;",
-			components: [
-				{bindFrom:"menuItem", kind: "moon.Item", ontap: "changePanel"}
-			]
-		},
-		{
-			fit: true,
-			classes: "moon-dark-gray",
-			content: "branding"
-		}
-	],
-	bindings: [
-		{from: ".controller.menus", to: "$.menuList.controller"}
-	]
-});
+    name: "moon.sample.video.MainMenuWideSample",
+    kind: "moon.Panel",
+    layoutKind: "FittableColumnsLayout",
+    titleAbove: "01",
+    title: "Main Menu",
+    components: [
+        {
+            name: "menuList",
+            kind: "enyo.DataList",
+            style: "width: 300px;",
+            components: [
+                {kind: "moon.Item", ontap: "changePanel", bindings: [
+                    {from: ".model.menuItem", to: ".content"}
+                ]}
+            ]
+        },
+        {
+            fit: true,
+            classes: "moon-dark-gray",
+            content: "branding"
+        }
+    ],
+    bindings: [
+        {from: ".controller.menus", to: ".$.menuList.controller"}
+    ]
+ });
 
 // Sample model
 
 enyo.ready(function(){
-	var sampleModel = new enyo.Model({
-		menus: new enyo.Collection([
-			{menuItem: "Browser Movies"},
-			{menuItem: "Browser TV Shows"},
-			{menuItem: "Queue"},
-			{menuItem: "Search"}
-		])
-	});
+    var sampleModel = new enyo.Model({
+        menus: new enyo.Collection([
+            {menuItem: "Browse Movies"},
+            {menuItem: "Browse TV Shows"},
+            {menuItem: "Queue"},
+            {menuItem: "Search"}
+        ])
+    });
 
 //  Application to render sample
 

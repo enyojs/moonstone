@@ -8,8 +8,9 @@ enyo.kind({
 				kind: "moon.GridListImageItem",
 				subCaption: "Sub Caption",
 				source: "./assets/default-music.png",
-				bindFrom: ".text",
-				bindTo: ".caption"
+				bindings: [
+					{from: ".model.text", to: ".caption"}
+				]
 			}
 		]}
 	],

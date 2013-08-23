@@ -66,15 +66,19 @@ enyo.kind({
 	name: "moon.sample.login.ContextualPopupSample",
 	kind: "moon.Panels",
 	components: [
-		{title: "Main Menu", components: [
+		{title: "Main Menu", classes:"moon-6h", components: [
 			{name: "menuList", kind: "enyo.DataList", scrollerOptions: { kind:"moon.Scroller"}, components: [
-				{bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
+				{kind: "moon.Item", ontap: "changePanel", bindings: [
+					{from: ".model.menuItem", to: ".content"}
+				]}
 			]}
 		]},
 		{joinToPrev: true, components: [
 			{kind: "moon.Scroller", fit: true, components: [
 				{name: "contentList", kind: "enyo.DataGridList", components: [
-					{kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
+					{kind: "moon.MovieImageItem", bindings: [
+						{from: ".model.itemOption", to: ".option"}
+					]}
 				]},
 				{name: "buttonList", layoutkind: "FittableRowsLayout", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
@@ -94,8 +98,8 @@ enyo.kind({
 	],
 
 	bindings: [
-		{from: ".controller.menus", to: "$.menuList.controller"},
-		{from: ".controller.contents", to: "$.contentList.controller"}
+		{from: ".controller.menus", to: ".$.menuList.controller"},
+		{from: ".controller.contents", to: ".$.contentList.controller"}
 	]
 });
 
@@ -104,8 +108,8 @@ enyo.kind({
 enyo.ready(function(){
 	var sampleModel = new enyo.Model({
 		menus: new enyo.Collection([
-			{menuItem: "Browser Movies"},
-			{menuItem: "Browser TV Shows"},
+			{menuItem: "Browse Movies"},
+			{menuItem: "Browse TV Shows"},
 			{menuItem: "Queue"},
 			{menuItem: "Search"}
 		]),

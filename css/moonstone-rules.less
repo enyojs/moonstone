@@ -209,6 +209,8 @@
 @import "HighlightText.less";
 @import "ObjectActionDecorator.less";
 @import "FormCheckbox.less";
+@import "SelectionOverlaySupport.less";
+@import "Thumb.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .moon-dark-gray {
@@ -232,7 +234,7 @@
 }
 .moon-hspacing > * {
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 	margin: 0 @moon-grid-gutter-width/2;
 }
 .moon-hspacing > :first-child {

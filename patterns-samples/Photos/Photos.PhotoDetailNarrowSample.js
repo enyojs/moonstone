@@ -24,7 +24,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.src", to: "$.photoDetail.src"}
+        {from: ".controller.src", to: ".$.photoDetail.src"}
     ]
 });
 

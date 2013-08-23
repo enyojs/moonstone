@@ -142,7 +142,7 @@ enyo.kind({
 	},
 	//* If there is no selected item, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if(this.getSelected() === null && this.getSelectedIndex() === -1) {
+		if(!this.getSelected() && this.getSelectedIndex() === -1) {
 			this.$.currentValue.setContent(this.getNoneText());
 		}
 	},

@@ -17,7 +17,6 @@ enyo.kind({
                 {
                     name: "signOutButton",
                     kind: "moon.Button",
-                    bindFrom: "signOutButton",
                     classes: "moon-light-gray"
                 }
             ]
@@ -26,22 +25,21 @@ enyo.kind({
 			name: "autoSign",
 			classes:"moon-settings-auto-sign",
 			kind: "moon.ToggleItem"
-		},
-		{name: "help", classes: "moon-settings-content"},
-		{
-			name: "createAccountButton",
-			kind: "moon.Button",
-			bindFrom: "createAccountButton",
-			classes: "moon-light-gray"
-		}
-	],
-	bindings: [
-		{from: ".controller.eMail", to: "$.eMail.content"},
-		{from: ".controller.signOutButton", to: "$.signOutButton.content"},
-		{from: ".controller.autoSign", to: "$.autoSign.content"},
-		{from: ".controller.help", to: "$.help.content"},
-		{from: ".controller.createAccountButton", to: "$.createAccountButton.content"}
-	]
+    	},
+    	{name: "help", classes: "moon-settings-content"},
+    	{
+    		name: "createAccountButton",
+    		kind: "moon.Button",
+    		classes: "moon-light-gray"
+    	}
+    ],
+    bindings: [
+        {from: ".controller.eMail", to: ".$.eMail.content"},
+        {from: ".controller.signOutButton", to: ".$.signOutButton.content"},
+        {from: ".controller.autoSign", to: ".$.autoSign.content"},     
+        {from: ".controller.help", to: ".$.help.content"},
+        {from: ".controller.createAccountButton", to: ".$.createAccountButton.content"}
+    ]
 });
 
 //Account Settings Menu Model

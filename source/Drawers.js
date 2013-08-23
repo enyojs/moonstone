@@ -47,7 +47,7 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"handleContainer", kind:"enyo.Drawer", spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", kind:"enyo.Drawer", resizeContainer:false, spotlight:'container', open:false, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-drawers-handles"}
 		]},
 		{name:"activator", classes:"moon-drawers-activator", spotlight:true, ontap:"activatorHandler", components:[
@@ -65,10 +65,10 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.resizeDresser();
 		var dh = document.body.getBoundingClientRect().height;
 		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
 		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
+		this.resizeDresser();
 	},
 	resizeDresser: function() {
 		var client = this.getBounds();
@@ -84,6 +84,14 @@ enyo.kind({
 		this.$.drawers.applyStyle('left', -client.left+'px');
 		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
 		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
+
+		this.resizeClient();
+	},
+	resizeClient: function(){
+		var aHeight = this.$.activator.hasNode().getBoundingClientRect().height;
+		var hHeight = this.$.handleContainer.hasNode().getBoundingClientRect().height;
+		var dHeight = this.$.drawers.hasNode().getBoundingClientRect().height;
+		this.$.client.applyStyle('height', (this.getBounds().height - (aHeight + hHeight + dHeight)) + 'px');
 	},
 	setupHandles: function() {
 		var handles = [];
@@ -180,10 +188,7 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		if (this.$.handleContainer.$.animator.isAnimating()){
-			return true;
-		}
-		this.resizeDresser();
+		this.resizeDresser();		
 		var dh = document.body.getBoundingClientRect().height;
 		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
 		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});

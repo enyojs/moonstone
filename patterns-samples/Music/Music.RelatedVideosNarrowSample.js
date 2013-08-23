@@ -28,21 +28,26 @@ enyo.kind({
                                                 {
                                                     kind: "enyo.Image",
                                                     style: "width: 170px; height: 126px; padding-right: 30px;",
-                                                    bindFrom: "coverUrl",
-                                                    bindTo: "src"
+													bindings: [
+														{from: ".model.coverUrl", to: ".src"}
+													]
                                                 }
                                             ],
                                             attributes: {rowspan: "2"}
                                         },
                                         {
-                                            bindFrom: "title"
+                                            bindings: [
+												{from: ".model.title", to: ".content"}
+											]
                                         }
                                     ]
                                 },
                                 {
                                     components: [
                                         {
-                                            bindFrom: "time",
+											bindings: [
+												{from: ".model.time", to: ".content"}
+											],
                                             classes: "moon-superscript"
                                         }
                                     ]
@@ -55,7 +60,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.videos", to: "$.videoInfo.controller"}
+        {from: ".controller.videos", to: ".$.videoInfo.controller"}
     ]
 });
 

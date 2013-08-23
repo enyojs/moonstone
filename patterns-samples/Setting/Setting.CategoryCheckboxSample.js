@@ -14,14 +14,15 @@ enyo.kind({
 				{
 					kind: "moon.CheckboxItem",
 					ontap: "changeItemName",
-					bindFrom: "name",
-					bindTo: "content"
+					bindings: [
+                        {from: ".model.name", to: ".content"}
+                    ]
 				}
 			]
 		}
 	],
 	bindings:[
-		{from: ".controller.categories", to: "$.caterogryInfo.controller"}
+		{from: ".controller.categories", to: ".$.caterogryInfo.controller"}
 	]
 });
 

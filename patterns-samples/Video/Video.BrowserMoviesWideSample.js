@@ -40,7 +40,7 @@ enyo.kind({
     name: "moon.sample.video.BrowserMoviesWideSample",
     kind: "moon.Panel",
     titleAbove: "02",
-    title: "Browser Movies",
+    title: "Browse Movies",
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-list.png"}
     ],
@@ -55,15 +55,16 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.MovieImageItem",
-                    bindFrom: "option",
-                    bindTo: "option",
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ],                    
                     ontap: "changeName"
                 }
             ]
         }
     ],
     bindings: [
-        {from: ".controller.albums", to: "$.movieList.controller"}
+        {from: ".controller.albums", to: ".$.movieList.controller"}
     ]
 });
 
