@@ -65,6 +65,8 @@ enyo.kind({
 		autoHidePopups: true,
 		//* When false, remove the progress bar and any additional controls will drop down
 		showProgressBar: true,
+		//* When false, removing the transport controls but keeping the icon button area
+		showPlaybackControls: false,
 		//* When true, hides playback controls whenever mouse is hover over slider
 		hideButtonsOnSlider: true,
 
@@ -107,6 +109,7 @@ enyo.kind({
 	},
     bindings: [
 		{from: ".sourceComponents",			to: ".$.video.sourceComponents"},
+		{from: ".playbackRateHash",			to: ".$.video.playbackRateHash"},
 		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
 		{from: ".rewindIcon",				to:".$.rewind.src"},
 		{from: ".fastForwardIcon",			to:".$.fastForward.src"},
@@ -184,7 +187,19 @@ enyo.kind({
 		this.autoShowControlsChanged();
 		this.autoplayChanged();
 		this.updateMoreButton();
+		this.showPlaybackControlsChanged();
 		this.showProgressBarChanged();
+	},
+	showPlaybackControlsChanged: function(inOld) {
+		this.setShowProgressBar(this.showPlaybackControls);
+		if (!this.showPlaybackControls) {
+			this.$.trickPlay.hide();
+			this.$.moreButton.hide();
+		} else {
+			this.$.trickPlay.show();
+			this.$.moreButton.show();
+		}
+		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
 	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
@@ -404,17 +419,33 @@ enyo.kind({
 			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
 			this.$.playerControl.resized();
-			this.$.controlsContainer.setIndex(0);
-			enyo.Spotlight.spot(this.$.fsPlayPause);
-			// if (this.autoplay) {
-				this.$.slider.showKnobStatus();
+			if (!this.showPlaybackControls) {
+				//* Fixed index
+				this.$.controlsContainer.setIndex(1);
+			}
+			if (this._lastSpottedControl) {
+				//* Don't change spot
+				enyo.Spotlight.spot(this._lastSpottedControl);
+			} else {
+				//* Initial spot
+				if (this.showPlaybackControls) {
+					enyo.Spotlight.spot(this.$.fsPlayPause);
+				} else {
+					var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
+					enyo.Spotlight.spot(oTarget);
+				}
+			}
+			this.$.slider.showKnobStatus();
+			if (this.$.video.isPaused()) {
 				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
-			// }
+			}
 		}
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
+		this._lastSpottedControl = enyo.Spotlight.getCurrent();
+		enyo.Spotlight.spot(this);
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)
 			this.$.playerControl.waterfall("onRequestHide");
@@ -423,7 +454,6 @@ enyo.kind({
 		}
 		this.showScrim(false);
 		this.$.playerControl.setShowing(false);
-		enyo.Spotlight.spot(this);
 	},
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSInfo: function() {
@@ -440,9 +470,7 @@ enyo.kind({
 		}
 	},
 	resetAutoTimeout: function() {
-		
 		if (this.isFullscreen() || !this.getInline()) {
-			this.log();
 			this.startJob("autoHide", this.bindSafely("hideFSControls"), this.getAutoCloseTimeout());
 		}
 	},
