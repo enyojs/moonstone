@@ -23,10 +23,10 @@ enyo.kind({
 			
 			{kind: "sun.Divider", content: "Long label", style: "margin-top: 100px;"},
 			{kind: "sun.TabBar", tabItemComponents: [
-				{kind: "sun.TabItem", content: "very long view1"},
-				{kind: "sun.TabItem", content: "very long view2"},
-				{kind: "sun.TabItem", content: "very long view3"},
-				{kind: "sun.TabItem", content: "very long view4"}
+				{kind: "sun.TabItem", content: "Somebody To Love"},
+				{kind: "sun.TabItem", content: "We Will Rock You VonLichten"},
+				{kind: "sun.TabItem", content: "Hungarian Rhapsody"},
+				{kind: "sun.TabItem", content: "Who Wants To Live Forever"}
 			]}
 		]}		
 	],	

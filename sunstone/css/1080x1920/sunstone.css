@@ -225,7 +225,7 @@
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
-  background-color: #ededed;
+  background-color: #000000;
 }
 .moon-header-font {
   font-family: "Miso";
@@ -1034,6 +1034,7 @@
 /* TabItem.css */
 .sun-tabItem {
   height: 150px;
+  max-width: 432px;
   display: inline-block;
 }
 .sun-tabItem.moon-item:not(:first-of-type) {
@@ -1044,6 +1045,9 @@
 }
 .sun-tabItem.spotlight.none {
   border-color: gray;
+}
+.sun-tabItem .moon-marquee-text {
+  text-overflow: clip;
 }
 /* TabBar.css */
 .sun-tabBar {

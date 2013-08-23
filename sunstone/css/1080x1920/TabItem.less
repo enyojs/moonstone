@@ -1,6 +1,7 @@
 /* TabItem.css */
 .sun-tabItem {
 	height: @sun-tabitem-height;
+	max-width: @sun-resolution-width*(2/5);
 	display: inline-block;
 }
 .sun-tabItem.moon-item:not(:first-of-type) {
@@ -11,4 +12,7 @@
 }
 .sun-tabItem.spotlight.none {
 	border-color: gray;
+}
+.sun-tabItem .moon-marquee-text {
+	text-overflow: clip;
 }
