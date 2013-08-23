@@ -53,7 +53,7 @@ enyo.kind({
 				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom Boom Pow", components: [
 					{name: "showOnFocus Caption B", kind: "moon.Button", content: "B", ontap: "buttonTapped"}
 				]},
-				{kind: "moon.CaptionDecorator", side: "bottom", showOnFocus: true, content: "Crash", components: [
+				{kind: "moon.CaptionDecorator", side: "bottom", showOnFocus: true, content: "Boom Boom Pow", components: [
 					{name: "showOnFocus Caption C", kind: "moon.Button", content: "C", ontap: "buttonTapped"}
 				]},
 				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Crash Test Bang Bang", components: [

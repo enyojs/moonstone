@@ -45,10 +45,7 @@ enyo.kind({
 		if (!this.getShowOnFocus()) return;
 
 		this.$[this.getSide()+"Caption"].applyStyle("visibility", "hidden");
-
-		if (this.getSide() === 'left' || this.getSide() === 'right') {
-			this.$[this.getSide()+"Caption"].addClass("showOnFocus " + this.getSide());
-		}
+		this.$[this.getSide()+"Caption"].addClass("showOnFocus " + this.getSide());
 	},
 	contentChanged: function() {
 		this.$[this.getSide()+"Caption"].setContent(this.getContent());
@@ -56,17 +53,35 @@ enyo.kind({
 	rendered: function () {
 		this.inherited(arguments);
 		if (this.getShowOnFocus() && this.hasNode()) {			
-			this.captionWidth = this.getBounds().width;
-			this.sideCaptionWidth = this.$[this.getSide()+"Caption"].getBounds().width;
-			this.offsetValue = 10;
+			this.captionBounds = this.getBounds();
+			this.sideCaptionBounds = this.$[this.getSide()+"Caption"].getBounds();
+			this.clientBounds = this.$.client.getBounds();
 		}
 	},
 	spotFocus: function () {
 		if (this.getShowOnFocus()) {
+			var side = this.$[this.getSide()+"Caption"],
+				paddingWidth = (this.captionBounds.width - this.clientBounds.width)/2,
+				paddingHeight = (this.captionBounds.height - this.clientBounds.height)/2; 
+
 			this.applyStyle('position', 'relative');
-			var side = this.$[this.getSide()+"Caption"];
-			side.applyStyle("width", this.sideCaptionWidth + "px");
-			side.applyStyle(this.getSide() === 'right' ? "left" : "right", (this.captionWidth - this.offsetValue) + "px");
+
+			switch (this.getSide()) {
+			case "left": 
+				side.applyStyle("left", (this.sideCaptionBounds.width * -1) + "px");
+				break;
+			case "right":
+				side.applyStyle("left", (this.clientBounds.width + paddingWidth) + "px");
+				break;
+			case "top":
+				side.applyStyle("top", (paddingHeight - this.sideCaptionBounds.height)  + "px");
+				side.applyStyle("left", (Math.floor(this.captionBounds.width/2) - Math.floor(this.sideCaptionBounds.width/2)) + "px");
+				break;
+			case "bottom":
+				side.applyStyle("top", this.clientBounds.height + paddingHeight + "px");
+				side.applyStyle("left", (Math.floor(this.captionBounds.width/2) - Math.floor(this.sideCaptionBounds.width/2)) + "px");
+			}
+				
 			side.applyStyle("visibility", "visible");
 		}
 	},
