@@ -44,15 +44,18 @@ enyo.kind({
 	},
 	refreshJob: function() {
 		var d = new Date();
-		this.$.hour.setContent(d.getHours());
-		this.$.minute.setContent(d.getMinutes());
+		this.$.hour.setContent(this._formatNumber(d.getHours()));
+		this.$.minute.setContent(this._formatNumber(d.getMinutes()));
 		if(d.getHours() > 11){
 			this.$.meridian.setContent("pm");
 		} else {
 			this.$.meridian.setContent("am");
 		}
 		this.$.month.setContent(this.months[d.getMonth()]);
-		this.$.day.setContent(d.getUTCDate());
+		this.$.day.setContent(this._formatNumber(d.getUTCDate()));
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
+	},
+	_formatNumber: function(inValue) {
+		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	}
 });

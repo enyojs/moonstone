@@ -15,7 +15,7 @@ enyo.kind({
 						components: [
 							{content: "3D"},
 							{content: "Live"},
-							{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
+							{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 						]
 					},
 					{
@@ -43,5 +43,5 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
 			]
 		}
-	]
+		]
 });

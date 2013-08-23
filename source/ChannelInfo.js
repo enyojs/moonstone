@@ -30,15 +30,10 @@ enyo.kind({
 		{kind: "enyo.Control", name: "channelName", classes: "moon-video-player-channel-info-name"},
 		{kind: "enyo.Control", name: "client", classes: "moon-video-player-channel-info-badges"}
 	],
-	bindings: [],
-	create: function() {
-		this.inherited(arguments);
-		this.setupBindings();
-	},
-	setupBindings: function() {
-		this.bindings.push({from: ".channelNo",		to: ".$.channelNo.content"});
-		this.bindings.push({from: ".channelName",		to: ".$.channelName.content"});
-	}
+	bindings: [
+		{from: ".channelNo",		to: ".$.channelNo.content"},
+		{from: ".channelName",		to: ".$.channelName.content"}
+	]
 });
 
 /**

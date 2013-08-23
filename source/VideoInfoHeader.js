@@ -22,6 +22,7 @@ enyo.kind({
 	name: "moon.VideoInfoHeader",
 	kind: "enyo.Control",
 	classes: "moon-video-info-header",
+	mixins: ["moon.MarqueeSupport"],
 	published: {
 		title: "",
 		subTitle: "",
@@ -29,21 +30,16 @@ enyo.kind({
 		description: ""
 	},
 	components: [
-		{kind: "enyo.Control", name: "title", classes: "moon-header-font moon-video-player-info-showname"},
+		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-showname"},
 		{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-channel"},
 		{kind: "enyo.Control", name: "rating", classes: "moon-video-player-rating-info"},
 		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-synopsys"},
 		{kind: "enyo.Control", name: "client", classes: "moon-video-player-settings-info"}
 	],
-	bindings: [],
-	create: function() {
-		this.inherited(arguments);
-		this.setupBindings();
-	},
-	setupBindings: function() {
-		this.bindings.push({from: ".title",			to: ".$.title.content"});
-		this.bindings.push({from: ".subTitle",		to: ".$.subTitle.content"});
-		this.bindings.push({from: ".rating",		to: ".$.rating.content"});
-		this.bindings.push({from: ".description",	to: ".$.description.content"});
-	}
+	bindings: [
+		{from: ".title",		to: ".$.title.content"},
+		{from: ".subTitle",		to: ".$.subTitle.content"},
+		{from: ".rating",		to: ".$.rating.content"},
+		{from: ".description",	to: ".$.description.content"}
+	]
 });
