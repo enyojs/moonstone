@@ -6,47 +6,47 @@ enyo.kind({
 	//* @protected
 	title: "Main Menu",
 	components:[
-        {
-		  	kind: "FittableColumns",
-		  	fit: true,
-		  	components: [
-        	   {
-                    kind: "FittableRows",
-                    classes: "moon-setting-main-menu .menu",
-                    components: [
-                        {
-                            name: "itemInfo",
-                            kind: "moon.DataList",
-                            fit: true,
-                            components: [
-                                {
-        				            kind: "moon.Item",
-                                    ontap: "changeItemName",
-                                    bindings: [
-                                        {from: ".model.name", to: ".content"}
-                                    ]
-    				            }
-                            ]
-    				    },
-    				    {
-                            name: "setting",
-                            kind: "moon.Item"
-                        }
-                    ]
-                },
-	            {
-    	            name: "contents",
-    	            fit: true,
-                    classes: "moon-setting-mainmenu-content"
-                }
-            ]
-        }
-    ],
+		{
+			kind: "FittableColumns",
+			fit: true,
+			components: [
+				{
+					kind: "FittableRows",
+					classes: "moon-setting-main-menu .menu",
+					components: [
+						{
+							name: "itemInfo",
+							kind: "moon.DataList",
+							fit: true,
+							components: [
+								{
+									kind: "moon.Item",
+									ontap: "changeItemName",
+									bindings: [
+										{from: ".model.name", to: ".content"}
+									]
+								}
+							]
+						},
+						{
+							name: "setting",
+							kind: "moon.Item"
+						}
+					]
+				},
+				{
+					name: "contents",
+					fit: true,
+					classes: "moon-setting-mainmenu-content"
+				}
+			]
+		}
+	],
 	bindings: [
-        {from: ".controller.items", to: ".$.itemInfo.controller"},
-        {from: ".controller.setting", to: ".$.setting.content"},
-        {from: ".controller.contents", to: ".$.contents.content"}
-    ]
+		{from: ".controller.items", to: ".$.itemInfo.controller"},
+		{from: ".controller.setting", to: ".$.setting.content"},
+		{from: ".controller.contents", to: ".$.contents.content"}
+	]
 });
 
 // Settings Main Menu Model

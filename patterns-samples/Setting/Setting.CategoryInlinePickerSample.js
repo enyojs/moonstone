@@ -16,25 +16,25 @@ enyo.kind({
 				{
 					kind: "moon.ExpandablePicker",
 					bindings: [
-                        {from: ".model.name", to: ".content"}
-                    ],
-					noneText: "VALUE",	
+						{from: ".model.name", to: ".content"}
+					],
+					noneText: "VALUE",
 					components: [
-					    {
-					    	bindings: [
-		                        {from: ".model.value1", to: ".content"}
-		                    ]
-					    },
-					    {
-					    	bindings: [
-		                        {from: ".model.value2", to: ".content"}
-		                    ]
-					    },
-					    {
-					    	bindings: [
-		                        {from: ".model.value3", to: ".content"}
-		                    ]
-					    }
+						{
+							bindings: [
+								{from: ".model.value1", to: ".content"}
+							]
+						},
+						{
+							bindings: [
+								{from: ".model.value2", to: ".content"}
+							]
+						},
+						{
+							bindings: [
+								{from: ".model.value3", to: ".content"}
+							]
+						}
 					]
 				}
 			]

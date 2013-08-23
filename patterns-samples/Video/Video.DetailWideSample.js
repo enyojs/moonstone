@@ -1,95 +1,93 @@
 enyo.kind({
-    name: "moon.sample.video.DetailWideSample",
-    kind: "moon.Panel",
-    layoutKind: "FittableColumnsLayout",
-    title: "Movie Name",
-    titleAbove: "03",
-    headerComponents: [
-        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
-    ],
-    components: [
-        {
-            kind: "FittableRows",
-            components: [
-                {
-                    name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
-                },
-                {
+	name: "moon.sample.video.DetailWideSample",
+	kind: "moon.Panel",
+	layoutKind: "FittableColumnsLayout",
+	title: "Movie Name",
+	titleAbove: "03",
+	headerComponents: [
+		{kind: "moon.IconButton", src: "../assets/icon-download.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-next.png"}
+	],
+	components: [
+		{
+			kind: "FittableRows",
+			components: [
+				{ name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v" },
+				{
 					kind: "moon.Table",
-                    components: [
-                        {components: [
-                            {content: "SD"},
-                            {name: "valueSD"}
-                        ]},
-                        {components: [
-                            {content: "HD"},
-                            {name: "valueHD"}
-                        ]},
-                        {components: [
-                            {content: "3D"},
-                            {name: "value3D"}
-                        ]}
-                    ]
-                }
-            ]
-        },
-        {
-            kind: "FittableRows",
-            fit: true,
-            components: [
-		        {   
-                    components: [
-                        {components: [
-                            {kind: "moon.Divider", content: "Rating"},
-                            {name: "rating"}
-                        ]},
-                        {components: [
-                            {kind: "moon.Divider", content: "Release Date"},
-                            {name: "releaseDate"}
-                        ]},
-                        {components: [
-                            {kind: "moon.Divider", content: "Running Time"},
-                            {name: "duration"}
-                        ]}
-                    ]
-                },
-                {tag: "br"},
-                {kind: "moon.Divider", content: "Synopsis"},
-                {name: "synopsisHeader", allowHtml: true},
-                {tag: "br"},
-                {name:"synopsisScroller", kind: "moon.Scroller", horizontal:"hidden", fit: true, components: [
-                    {name: "synopsisBody"}
-                ]}
-            ]
-        },
-        {
-            kind: "FittableRows",
-            style: "width: 25%;",
-            components: [
-                {kind: "moon.Divider", classes: "moon-video-detail-more", content: "More"},
-                {kind: "Group", components: [
-                    {kind: "moon.SelectableItem", content: "Trailers", spotlight: true},
-                    {kind: "moon.SelectableItem", content: "Also Watched", spotlight: true},
-                    {kind: "moon.SelectableItem", content: "Recommendations", spotlight: true},
-                    {kind: "moon.SelectableItem", content: "Reviews", spotlight: true},
-                    {kind: "moon.SelectableItem", content: "Cast", spotlight: true}
-                ]}
-            ]
-        }
-    ],
-    bindings: [
-        {from: ".controller.posterUrl", to: ".$.movie.src"},
-        {from: ".controller.rating", to: ".$.rating.content"},
-        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
-        {from: ".controller.duration", to: ".$.duration.content"},
-        {from: ".controller.valueSD", to: ".$.valueSD.content"},
-        {from: ".controller.valueHD", to: ".$.valueHD.content"},
-        {from: ".controller.value3D", to: ".$.value3D.content"},
-        {from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
-        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
-    ]
+					components: [
+						{components: [
+							{content: "SD"},
+							{name: "valueSD"}
+						]},
+						{components: [
+							{content: "HD"},
+							{name: "valueHD"}
+						]},
+						{components: [
+							{content: "3D"},
+							{name: "value3D"}
+						]}
+					]
+				}
+			]
+		},
+		{
+			kind: "FittableRows",
+			fit: true,
+			components: [
+				{
+					components: [
+						{components: [
+							{kind: "moon.Divider", content: "Rating"},
+							{name: "rating"}
+						]},
+						{components: [
+							{kind: "moon.Divider", content: "Release Date"},
+							{name: "releaseDate"}
+						]},
+						{components: [
+							{kind: "moon.Divider", content: "Running Time"},
+							{name: "duration"}
+						]}
+					]
+				},
+				{tag: "br"},
+				{kind: "moon.Divider", content: "Synopsis"},
+				{name: "synopsisHeader", allowHtml: true},
+				{tag: "br"},
+				{name:"synopsisScroller", kind: "moon.Scroller", horizontal:"hidden", fit: true, components: [
+					{name: "synopsisBody"}
+				]}
+			]
+		},
+		{
+			kind: "FittableRows",
+			style: "width: 25%;",
+			components: [
+				{kind: "moon.Divider", classes: "moon-video-detail-more", content: "More"},
+				{kind: "Group", components: [
+					{kind: "moon.SelectableItem", content: "Trailers", spotlight: true},
+					{kind: "moon.SelectableItem", content: "Also Watched", spotlight: true},
+					{kind: "moon.SelectableItem", content: "Recommendations", spotlight: true},
+					{kind: "moon.SelectableItem", content: "Reviews", spotlight: true},
+					{kind: "moon.SelectableItem", content: "Cast", spotlight: true}
+				]}
+			]
+		}
+	],
+	bindings: [
+		{from: ".controller.posterUrl", to: ".$.movie.src"},
+		{from: ".controller.rating", to: ".$.rating.content"},
+		{from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+		{from: ".controller.duration", to: ".$.duration.content"},
+		{from: ".controller.valueSD", to: ".$.valueSD.content"},
+		{from: ".controller.valueHD", to: ".$.valueHD.content"},
+		{from: ".controller.value3D", to: ".$.value3D.content"},
+		{from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
+		{from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
+	]
 });
 
 // Sample model

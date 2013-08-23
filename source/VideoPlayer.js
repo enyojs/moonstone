@@ -1,6 +1,6 @@
 
 /**
-	_moon.VideoPlayer_ is a control that wraps an	<a href="#enyo.Video">enyo.Video</a>
+	_moon.VideoPlayer_ is a control that wraps an   <a href="#enyo.Video">enyo.Video</a>
 	HTML5 video player to provide Moonstone-styled standard transport controls,
 	optional app-specific controls, and an information bar for video information
 	and player feedback.
@@ -90,16 +90,16 @@ enyo.kind({
 		onSpotlightDown: 'spotlightDownHandler',
 		onSpotlightLeft: 'spotlightLeftHandler',
 		onSpotlightRight: 'spotlightRightHandler',
-		onSpotlightSelect: 'spotlightSelectHandler', 
+		onSpotlightSelect: 'spotlightSelectHandler',
 		onresize: 'resizeHandler'
 	},
-    bindings: [
-		{from: ".jumpBackIcon", 	to:".$.jumpBack.src"},
-		{from: ".rewindIcon", 		to:".$.rewind.src"},
-		{from: ".fastForwardIcon", 	to:".$.fastForward.src"},
-		{from: ".jumpForwardIcon", 	to:".$.jumpForward.src"}
-    ],
-	
+	bindings: [
+		{from: ".jumpBackIcon",     to:".$.jumpBack.src"},
+		{from: ".rewindIcon",       to:".$.rewind.src"},
+		{from: ".fastForwardIcon",  to:".$.fastForward.src"},
+		{from: ".jumpForwardIcon",  to:".$.jumpForward.src"}
+	],
+
 	//* @protected
 
 	_isPlaying: false,
@@ -113,12 +113,12 @@ enyo.kind({
 		},
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
-		
+
 			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, showing: false, classes: "moon-video-player-header", components: [
 				{name: "videoInfo", fit: true, classes: "moon-video-player-info"},
 				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
 			]},
-			
+
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
 
@@ -126,11 +126,11 @@ enyo.kind({
 
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
 						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-							{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
-							{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
-							{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
-							{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
-							{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+							{name: "jumpBack",      kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
+							{name: "rewind",        kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
+							{name: "fsPlayPause",   kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
+							{name: "fastForward",   kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
+							{name: "jumpForward",   kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", noStretch: true}
 					]},
@@ -139,7 +139,7 @@ enyo.kind({
 						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
-			
+
 				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-videoplayer-sample-slider",
 						knobClasses: "moon-videoplayer-sample-knob", barClasses: "moon-videoplayer-sample-progressbar", bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
@@ -204,8 +204,8 @@ enyo.kind({
 			if (!inComponents || inComponents.length === 0) {
 				// No components - destroy more button
 				this.$.leftPremiumPlaceHolder.hide();
-				this.$.rightPremiumPlaceHolder.hide();		
-				this.$.moreButton.hide();			
+				this.$.rightPremiumPlaceHolder.hide();
+				this.$.moreButton.hide();
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.hide();
@@ -336,7 +336,7 @@ enyo.kind({
 		return false;
 	},
 
-	
+
 	///// Fullscreen controls /////
 
 
@@ -404,7 +404,7 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSInfo: function() {
-		if (!this.showInfo) { 
+		if (!this.showInfo) {
 			this.$.videoInfoHeader.setShowing(false);
 		}
 	},
@@ -440,7 +440,7 @@ enyo.kind({
 				if (inSender._sentHold !== true) {
 					this.jumpToEnd(inSender, inEvent);
 					inSender._sentHold = true;
-					return true;	
+					return true;
 				}
 			} else {
 				inSender._holding = true;
@@ -474,7 +474,7 @@ enyo.kind({
 	},
 
 	////// Slider event handling //////
-	
+
 	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
 		this.pause();
@@ -499,9 +499,9 @@ enyo.kind({
 		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.slider.setValue(percentComplete);
 	},
-	
-	
-	
+
+
+
 	///// Inline controls /////
 
 	updateInlinePosition: function() {
@@ -519,7 +519,7 @@ enyo.kind({
 
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
-		// Fixme: Fullscreen state change stops transition animation. 
+		// Fixme: Fullscreen state change stops transition animation.
 		//      And it breaks full screen button's transition behavior.
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();

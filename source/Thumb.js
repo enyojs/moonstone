@@ -5,7 +5,7 @@ enyo.kind({
 		sizeRatio: 1
 	},
 	classes: "moon-thumb matrix3dsurface",
-	
+
 	create: function() {
 		this.inherited(arguments);
 		var v = this.axis == "v";
@@ -42,7 +42,7 @@ enyo.kind({
 
 			p *= ratio;
 			s *= ratio;
-			
+
 			// apply thumb styling if needed
 			this.needed = s < bd;
 			if (this.needed && this.hasNode()) {
@@ -54,7 +54,7 @@ enyo.kind({
 	},
 	generateMatrix: function(inPosition, inSize) {
 		var x, y, w, h, node = this.hasNode();
-		
+
 		if (!node) {
 			x = 0;
 			y = 0;
@@ -70,10 +70,10 @@ enyo.kind({
 		else {
 			x = inPosition;
 			y = 0;
-			w = inSize/node.offsetWidth;;
+			w = inSize/node.offsetWidth;
 			h = 1;
 		}
-		
+
 		return (this.accel) ? this.assemble3dMatrix(x, y, w, h) : this.assemle2dMatrix(x, y, w, h);
 	},
 	assemle2dMatrix: function(inX, inY, inWidth, inHeight) {

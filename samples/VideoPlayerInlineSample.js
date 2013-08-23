@@ -5,7 +5,13 @@ enyo.kind({
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", inline:true, classes:"moon-8h", autoplay:true,
+		{
+			name: "player",
+			kind: "moon.VideoPlayer",
+			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			inline:true,
+			classes:"moon-8h",
+			autoplay:true,
 			infoComponents: [
 				{
 					kind: "moon.VideoInfoHeader",
@@ -15,7 +21,7 @@ enyo.kind({
 					description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
 					components: [
 						{content: "3D"},
-						{content: "Live"},					
+						{content: "Live"},
 						{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 					]
 				}

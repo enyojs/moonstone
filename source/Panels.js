@@ -181,18 +181,18 @@ enyo.kind({
 
 		return -1;
 	},
-	//* 
+	//*
 	setIndex: function(inIndex) {
 		inIndex = this.clamp(inIndex);
-		
+
 		if (this.toIndex !== null) {
 			this.queuedIndex = inIndex;
 			return;
 		}
-		
+
 		this.fromIndex = this.index;
 		this.toIndex = inIndex;
-		
+
 		this.queuedIndex = null;
 		this.triggerPanelPreTransitions(this.fromIndex, this.toIndex);
 	},
@@ -201,7 +201,7 @@ enyo.kind({
 			this.finishTransition();
 			return;
 		}
-		
+
 		var prev = this.get("index");
 		this.index = this.clamp(inIndex);
 		this.notifyObservers("index", prev, inIndex);
@@ -220,23 +220,23 @@ enyo.kind({
 	triggerPanelPreTransitions: function(inFromIndex, inToIndex) {
 		var panels = this.getPanels(),
 			options = {};
-		
+
 		this.preTransitionWaitlist = [];
-		
+
 		for(var i = 0, panel; (panel = panels[i]); i++) {
 			options = this.getTransitionOptions(i, inToIndex);
 			if (panel.preTransition && panel.preTransition(inFromIndex, inToIndex, options)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
-		
+
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
 	},
 	panelPreTransitionComplete: function(inSender, inEvent) {
 		var index = this.getPanels().indexOf(inSender);
-		
+
 		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
 			if (this.preTransitionWaitlist[i] === index) {
 				this.preTransitionWaitlist.splice(i,1);
@@ -247,7 +247,7 @@ enyo.kind({
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
-		
+
 		return true;
 	},
 	//* Called after all pre transitions have been completed. Triggers standard _setIndex_ functionality.
@@ -259,23 +259,23 @@ enyo.kind({
 	triggerPanelPostTransitions: function(inFromIndex, inToIndex) {
 		var panels = this.getPanels(),
 			options = {};
-			
+
 		this.postTransitionWaitlist = [];
-		
+
 		for(var i = 0, panel; (panel = panels[i]); i++) {
 			options = this.getTransitionOptions(i, inToIndex);
 			if (panel.postTransition && panel.postTransition(inFromIndex, inToIndex, options)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}
-		
+
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
 	},
 	panelPostTransitionComplete: function(inSender, inEvent) {
 		var index = this.getPanels().indexOf(inSender);
-		
+
 		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
 			if (this.postTransitionWaitlist[i] === index) {
 				this.postTransitionWaitlist.splice(i,1);
@@ -286,21 +286,21 @@ enyo.kind({
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
-		
+
 		return true;
 	},
 	postTransitionComplete: function() {
-		var activeIndex = this.getIndex(), active;
+		var activeIndex = this.getIndex();
 		this.doPanelsPostTransitionFinished({active: activeIndex});
 		for (var i = 0; i < this.getPanels().length; i++) {
 			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
 		}
-		
+
 		this.finishTransition();
 	},
 	finishTransition: function() {
 		this.inherited(arguments);
-		
+
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}

@@ -1,85 +1,85 @@
 // Sample view
 
 enyo.kind({
-    name: "moon.sample.music.AlbumDetailWideSample",
-    kind: "moon.Panel",
-    titleAbove: "04",
-    title: "Album",    
-    titleBelow: "ALBUM TITLE(ARTISTS)",
-    layoutKind: "FittableColumnsLayout",
-    headerComponents: [
-        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
-    ],
-    components: [
-        {
-            classes: "moon-5h",
-            components: [
-                {
-                    name: "cover",
-                    kind: "enyo.Image",
-                    style: "width: 350px; height: 350px;"
-                },
-                {
-                    kind: "moon.Table",
-                    classes: "enyo-table-fit",
-                    components: [
-                        {components: [
-                            {content: "Released"},
-                            {name: "releaseDate"}
-                        ]},
-                        {components: [
-                            {content: "Genre"},
-                            {name: "genre"}
-                        ]}
-                    ]
-                }
-            ]
-        },
-        {
-            kind: "FittableRows",
-            fit:true, 
-            components: [
-                {kind: "moon.Divider", content: "Top 11 Tracks"},
-                {
-                    kind: "moon.Scroller",
-                    fit: true,
-                    horizontal: "hidden",
-                    components: [
-                        {
-                            name: "trackInfo",
-                            kind: "moon.DataTable",
-                            style: "width: 100%",
-                            components: [
-                                {
-                                    spotlight: true,
-                                    ontap: "changeTrackName",
-                                    components: [
-                                        {name: "number"},
-                                        {name: "name"},
-                                        {name: "duration"}
-                                    ],
+	name: "moon.sample.music.AlbumDetailWideSample",
+	kind: "moon.Panel",
+	titleAbove: "04",
+	title: "Album",
+	titleBelow: "ALBUM TITLE(ARTISTS)",
+	layoutKind: "FittableColumnsLayout",
+	headerComponents: [
+		{kind: "moon.IconButton", src: "../assets/icon-album.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-download.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-like.png"},
+		{kind: "moon.IconButton", src: "../assets/icon-next.png"}
+	],
+	components: [
+		{
+			classes: "moon-5h",
+			components: [
+				{
+					name: "cover",
+					kind: "enyo.Image",
+					style: "width: 350px; height: 350px;"
+				},
+				{
+					kind: "moon.Table",
+					classes: "enyo-table-fit",
+					components: [
+						{components: [
+							{content: "Released"},
+							{name: "releaseDate"}
+						]},
+						{components: [
+							{content: "Genre"},
+							{name: "genre"}
+						]}
+					]
+				}
+			]
+		},
+		{
+			kind: "FittableRows",
+			fit:true,
+			components: [
+				{kind: "moon.Divider", content: "Top 11 Tracks"},
+				{
+					kind: "moon.Scroller",
+					fit: true,
+					horizontal: "hidden",
+					components: [
+						{
+							name: "trackInfo",
+							kind: "moon.DataTable",
+							style: "width: 100%",
+							components: [
+								{
+									spotlight: true,
+									ontap: "changeTrackName",
+									components: [
+										{name: "number"},
+										{name: "name"},
+										{name: "duration"}
+									],
 									bindings: [
 										{from: ".model.number", to: ".$.number.content"},
 										{from: ".model.name", to: ".$.name.content"},
 										{from: ".model.duration", to: ".$.duration.content"}
 									]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-    bindings: [
-        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
-        {from: ".controller.genre", to: ".$.genre.content"},
-        {from: ".controller.coverUrl", to: ".$.cover.src"},
-        {from: ".controller.tracks", to: ".$.trackInfo.controller"}
-    ]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	bindings: [
+		{from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+		{from: ".controller.genre", to: ".$.genre.content"},
+		{from: ".controller.coverUrl", to: ".$.cover.src"},
+		{from: ".controller.tracks", to: ".$.trackInfo.controller"}
+	]
 });
 
 // Sample model

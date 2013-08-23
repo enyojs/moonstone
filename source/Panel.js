@@ -199,7 +199,7 @@ enyo.kind({
 		this.initialWidth = node.offsetWidth + "px";
 	},
 	shrinkingHeightAnimation: function() {
- 		this.haltAnimations();
+		this.haltAnimations();
 		this.$.animator.play(this.shrinkHeightAnimation.name);
 	},
 	shrinkingWidthAnimation: function() {
@@ -207,7 +207,7 @@ enyo.kind({
 		this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
- 		this.haltAnimations();
+		this.haltAnimations();
 		this.$.animator.play(this.growHeightAnimation.name);
 	},
 	growingWidthAnimation: function() {
@@ -247,12 +247,12 @@ enyo.kind({
 	preTransition: function(inFromIndex, inToIndex, options) {
 		this.$.header.stopMarquee();
 		this.$.miniHeader.stopMarquee();
-		
+
 		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
 			this.shrinkPanel();
 			return true;
 		}
-		
+
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex, options) {
@@ -260,7 +260,7 @@ enyo.kind({
 			this.growPanel();
 			return true;
 		}
-		
+
 		return false;
 	},
 	animationStep: function(inSender, inEvent) {
@@ -273,18 +273,18 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "shrinkHeight":
-				this.shrinkingWidthAnimation();
-				return true;
-			case "shrinkWidth":
-				this.preTransitionComplete();
-				return true;
-			case "growWidth":
-				this.growingHeightAnimation();
-				return true;
-			case "growHeight":
-				this.postTransitionComplete();
-				return true;
+		case "shrinkHeight":
+			this.shrinkingWidthAnimation();
+			return true;
+		case "shrinkWidth":
+			this.preTransitionComplete();
+			return true;
+		case "growWidth":
+			this.growingHeightAnimation();
+			return true;
+		case "growHeight":
+			this.postTransitionComplete();
+			return true;
 		}
 	},
 	showSmallHeader: function() {

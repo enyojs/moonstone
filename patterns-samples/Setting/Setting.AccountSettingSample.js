@@ -1,45 +1,45 @@
 //Account Settings Menu View
 enyo.kind({
 	//* @public
-    name: "moon.sample.setting.AccountSettingSample",
-    kind: "moon.Panel",
-    //* @protected
-    title: "ACCOUNT SETTINGS",
-    titleBelow: "Description of Settings Category",
-    components: [
-        {
-            kind: "FittableColumns",
-            components: [
-                {
-                    name: "eMail",
-                    classes: "moon-cetner-item"
-                },
-                {
-                    name: "signOutButton",
-                    kind: "moon.Button",
-                    classes: "moon-light-gray"
-                }
-            ]
-        },
+	name: "moon.sample.setting.AccountSettingSample",
+	kind: "moon.Panel",
+	//* @protected
+	title: "ACCOUNT SETTINGS",
+	titleBelow: "Description of Settings Category",
+	components: [
+		{
+			kind: "FittableColumns",
+			components: [
+				{
+					name: "eMail",
+					classes: "moon-cetner-item"
+				},
+				{
+					name: "signOutButton",
+					kind: "moon.Button",
+					classes: "moon-light-gray"
+				}
+			]
+		},
 		{
 			name: "autoSign",
 			classes:"moon-settings-auto-sign",
 			kind: "moon.ToggleItem"
-    	},
-    	{name: "help", classes: "moon-settings-content"},
-    	{
-    		name: "createAccountButton",
-    		kind: "moon.Button",
-    		classes: "moon-light-gray"
-    	}
-    ],
-    bindings: [
-        {from: ".controller.eMail", to: ".$.eMail.content"},
-        {from: ".controller.signOutButton", to: ".$.signOutButton.content"},
-        {from: ".controller.autoSign", to: ".$.autoSign.content"},     
-        {from: ".controller.help", to: ".$.help.content"},
-        {from: ".controller.createAccountButton", to: ".$.createAccountButton.content"}
-    ]
+		},
+		{name: "help", classes: "moon-settings-content"},
+		{
+			name: "createAccountButton",
+			kind: "moon.Button",
+			classes: "moon-light-gray"
+		}
+	],
+	bindings: [
+		{from: ".controller.eMail", to: ".$.eMail.content"},
+		{from: ".controller.signOutButton", to: ".$.signOutButton.content"},
+		{from: ".controller.autoSign", to: ".$.autoSign.content"},
+		{from: ".controller.help", to: ".$.help.content"},
+		{from: ".controller.createAccountButton", to: ".$.createAccountButton.content"}
+	]
 });
 
 //Account Settings Menu Model
