@@ -120,7 +120,7 @@ enyo.kind({
 		this.canvasHeightChanged();
 		this.drawToCanvas(this.popupColor);
 		this.initValue();
-		this.$.popup.rtl = this.rtl;
+		if (this.rtl) { this.addClass('moon-slider-rtl'); }
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -160,8 +160,6 @@ enyo.kind({
 			this.value = this.clampValue(this.min, this.bgProgress, this.value);
 			this.value = (this.increment) ? this.calcConstrainedIncrement(this.value) : this.value;
 		}
-		
-		console.log('initValue', this.getValue());
 
 		this.updateKnobPosition(this.getValue());
 
@@ -230,6 +228,8 @@ enyo.kind({
 		return label;
 	},
 	updatePopupPosition: function() {
+		if (this.rtl) { return this.updatePopupPositionRTL(); }
+		
 		var inControl = this.$.popup;
 		if (!inControl.hasNode().getBoundingClientRect) {
 			return;
@@ -246,6 +246,26 @@ enyo.kind({
 		if ( (kb.left + (kb.width) + pb.width) > cb.right - 30) {
 			inControl.applyStyle("left", (kb.left - pb.width) + "px");
 			hFlip = true;
+		}
+		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
+		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
+	},
+	updatePopupPositionRTL: function() {
+		var inControl = this.$.popup;
+		if (!inControl.hasNode().getBoundingClientRect) { return; }
+		var hFlip = true;
+		// popup bounds
+		var pb = inControl.hasNode().getBoundingClientRect();
+		// container bounds
+		var cb = this.container.hasNode().getBoundingClientRect();
+		// knob bounds
+		var kb = this.$.knob.hasNode().getBoundingClientRect();
+
+		// when the popup's right edge is out of the window, adjust to the left
+		if (kb.left < 55) {
+			hFlip = false;
+		} else {
+			inControl.applyStyle("left", (kb.left - pb.width) + "px");
 		}
 		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
@@ -351,6 +371,7 @@ enyo.kind({
 		this.$.knob.addRemoveClass("spotselect", !sh);
 		if (!this.noPopup) {
 			this.$.popup.setShowing(!sh);
+			this.updateKnobPosition(this.getValue());
 		}
 		this.selected = !sh;
 
@@ -393,6 +414,7 @@ enyo.kind({
 	showKnobStatus: function(inSender, inEvent) {
 		if ((!this.disabled) && (!this.noPopup)) {
 			this.$.popup.show();
+			this.updateKnobPosition(this.getValue());
 		}
 	},
 	hideKnobStatus: function(inSender, inEvent) {
