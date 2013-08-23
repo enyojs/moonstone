@@ -63,6 +63,10 @@
 /* Divider */
 /* Input */
 /* ---------------------------------------*/
+/* Scroller */
+/* ---------------------------------------*/
+/* DropDown */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- MISO ------ */
@@ -713,50 +717,6 @@
 .sun .moon-accordion-arrow.down {
   background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
 }
-/* Item.css */
-.sun .moon-item {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-family: "MuseoSans 500";
-  font-size: 44pt;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-}
-.sun .moon-item-left-spotlight-not-overlay {
-  border-left-width: 0px;
-  border-right-width: 0px;
-  padding-left: 0px;
-}
-.sun .moon-item.left.spotlight:not(.overlay) {
-  border-left-width: 0px;
-  border-right-width: 0px;
-  padding-left: 0px;
-}
-.sun .moon-item-right-spotlight-not-overlay {
-  border-right-width: 0px;
-  border-left-width: 0px;
-  padding-right: 0px;
-}
-.sun .moon-item.right.spotlight:not(.overlay) {
-  border-right-width: 0px;
-  border-left-width: 0px;
-  padding-right: 0px;
-}
-.sun .moon-item.locale-default.spotlight:not(.overlay) {
-  border-left-width: 0px;
-  border-right-width: 0px;
-  padding-left: 0px;
-}
-.sun .enyo-locale-right-to-left .sun .moon-item.locale-default.spotlight:not(.overlay) {
-  border-right-width: 0px;
-  border-left-width: 0px;
-  padding-right: 0px;
-}
-.sun .enyo-thumb {
-  background: #ff2f7d;
-  border: #ff2f7d;
-}
 /* Scroller.css */
 .sun .enyo-thumb {
   background: #999999;
@@ -1030,6 +990,205 @@
   top: 100px;
   text-align: center;
   border-radius: 10px;
+}
+/*DropDown.css*/
+.sun-drop-down,
+.sun.moon-popup {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  min-height: 100px;
+  max-height: 280px;
+  min-width: 100px;
+  border-radius: 16px;
+  border: 12px solid rgba(140, 140, 140, 0.1);
+  color: #4b4b4b;
+  padding: 20px;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: white;
+}
+/*adjusting base contextual popup positioning*/
+/*for popups above activator*/
+.vertical.above {
+  margin-top: 0px;
+  width: 180px;
+}
+/*for popups below activator*/
+.vertical.below {
+  margin-top: 10px;
+  width: 180px;
+}
+/*for popups on the left of the activator*/
+.right.horizontal {
+  margin-top: 10px;
+  width: 180px;
+}
+/*for popups on the right of the activator*/
+.left.horizontal {
+  margin-top: 10px;
+  width: 180px;
+}
+/*setup the nub*/
+.sun-drop-down::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 46px;
+  height: 36px;
+}
+/*nub positioning*/
+/*horizontally centered nub*/
+.sun-drop-down.vertical::after {
+  position: absolute;
+  left: 50%;
+  margin-top: -4px;
+  margin-left: -23px;
+  width: 46px;
+  height: 36px;
+  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+/*nub near horizontal left*/
+.sun-drop-down.vertical.right::after {
+  left: 0%;
+  margin-left: 20px;
+}
+/*nub near horizontal right*/
+.sun-drop-down.vertical.left::after {
+  left: 100%;
+  margin-left: -75px;
+}
+/*downward facing nub*/
+.sun-drop-down.vertical.above::after {
+  top: 100%;
+  margin-top: -4px;
+  width: 46px;
+  height: 36px;
+  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+.sun-drop-down.vertical.below::after {
+  margin-top: -22px;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.sun.sun-drop-down.vertical.below.right::after {
+  top: 0%;
+  left: 0%;
+  margin-top: -32px;
+  width: 46px;
+  height: 36px;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+.sun-drop-down.vertical.below.left::after {
+  top: 0%;
+  left: 100%;
+  margin-top: -32px;
+  width: 46px;
+  height: 36px;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*nub positioning for left/right popups*/
+/*vertically centered nub for popups on left of activator*/
+.sun-drop-down.right::after {
+  left: 100%;
+  top: 50%;
+  width: 36px;
+  height: 46px;
+  margin-left: -4px;
+  margin-top: -23px;
+  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*nub near vertical top for popups on left of activator*/
+.sun-drop-down.right.high::after {
+  top: 35px;
+  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*nub near vertical bottom for popups on left of activator*/
+.sun-drop-down.right.low::after {
+  top: 100%;
+  margin-top: -55px;
+  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*vertically centered nub for popups on right of activator*/
+.sun-drop-down.left::after {
+  left: 0%;
+  margin-left: -20px;
+  top: 45%;
+  width: 36px;
+  height: 46px;
+  background: transparent url('../images/contextual-popup-nubs/left.png') no-repeat;
+}
+/*nub near vertical top for popups on right of activator*/
+.sun-drop-down.left.high::after {
+  top: 35px;
+  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*nub near vertical bottom for popups on right of activator*/
+.sun-drop-down.left.low::after {
+  top: 100%;
+  margin-top: -55px;
+  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+/*flush corners are not implemented currently per HI*/
+.sun-drop-down .enyo-touch-scroller {
+  max-height: 200px;
+}
+/*DropDownButton.css*/
+.sun-drop-down-button {
+  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+  padding-right: 50px;
+}
+.sun-drop-down-button.down.spotlight {
+  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+  padding-right: 50px;
+  border: 5px solid #ff2f7d;
+}
+.sun-drop-down-button.pressed,
+.sun-drop-down-button.active.up {
+  background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
+}
+.sun-drop-down-button.down {
+  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+}
+/* DropDownDecorator.css */
+.sun-drop-down-decorator {
+  position: relative;
+}
+/* OptionItem.css */
+.sun .moon-item.moon-selectableItem {
+  width: 100%;
+}
+.sun .moon-item.moon-selectableItem.spotlight {
+  line-height: 1.12em;
+}
+.sun .moon-item.locale-default.spotlight:not(.overlay) {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .moon-selectableItem .moon-selectableItem-item {
+  box-sizing: border-box;
+  width: 100%;
+  display: inline-block;
+  border-bottom: 4px solid transparent;
+}
+.sun .moon-selectableItem .moon-underline.moon-overlay {
+  cursor: pointer;
+  border-bottom: 0px solid #A2A2A2;
+  padding: 0px;
+  transition: border-color 0.4s linear;
+  -webkit-transition: border-color 0.4s linear;
+  -moz-transition: border-color 0.4s linear;
+  -o-transition: border-color 0.4s linear;
+}
+.sun .moon-selectableItem .moon-underline {
+  border-bottom: 4px solid #ffb80d;
+  padding-bottom: 5px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {

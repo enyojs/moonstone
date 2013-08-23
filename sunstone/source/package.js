@@ -23,5 +23,9 @@ enyo.depends(
 	"Scroller.js",
     "ListItem.js",
 	"Panel.js",
-	"Divider.js"
+	"Divider.js",
+	"DropDown.js",
+	"DropDownButton.js",
+	"DropDownDecorator.js",
+	"OptionItem.js"
 );
