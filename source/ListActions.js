@@ -18,17 +18,17 @@ enyo.kind({
 	},
 	handlers: {
 		onActivate: "optionSelected",
-		onSpotlightDown:"spotlightDown",
-		onSpotlightUp:"spotlightUp",
-		onSpotlightLeft:"spotlightLeft",
-		onSpotlightRight:"spotlightRight"
+		onSpotlightDown: "spotlightDown",
+		onSpotlightUp: "spotlightUp",
+		onSpotlightLeft: "spotlightLeft",
+		onSpotlightRight: "spotlightRight"
 	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes:"moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 		{name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onDrawerAnimationEnd: "drawerAnimationEnd", open:false, components: [
-				{name:"closeButton", kind: "moon.Button", classes:"moon-list-actions-close moon-dark-gray", marquee: false, ontap:"expandContract", onSpotlightSelect: "expandContract"},
-				{classes: "moon-list-actions-client-container moon-dark-gray", components: [
+				{name:"closeButton", kind: "moon.IconButton", classes:"moon-list-actions-close moon-dark-gray", marquee: false, ontap:"expandContract", onSpotlightSelect: "expandContract"},
+				{name:"listActionsClientContainer", classes: "moon-list-actions-client-container moon-dark-gray", components: [
 					{name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
 						{name:"listActionsContainer", classes:"moon-list-actions-container", onRequestScrollIntoView:"scrollIntoView"}
 					]}
@@ -38,26 +38,23 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.openChanged();
 		this.listActionsChanged();
 		this.$.activator.setSrc(this.iconSrc);
+		this.$.drawer.setOpen(this.getOpen());
 	},
 	rendered: function() {
 		/* Fixme: rendered handler is not called */
 		this.inherited(arguments);
-		var clientRect = this.parent.hasNode().getBoundingClientRect();
-		this.$.listActions.applyStyle('height', clientRect.bottom + "px");
-		this.$.listActions.resized();
+
+		this.refreshListActions();
 	},
 	listActionsChanged: function() {
 		for (var option in this.listActions) {
-			this.$.listActionsContainer.createComponents([
-				{
-					classes: "moon-list-actions-menu",
-					components: this.listActions[option].components,
-					action: this.listActions[option].action ? this.listActions[option].action : ""
-				}
-			]);
+			this.$.listActionsContainer.createComponents([{
+				classes: "moon-list-actions-menu",
+				components: this.listActions[option].components,
+				action: this.listActions[option].action ? this.listActions[option].action : ""
+			}]);
 		}
 	},
 	/**
@@ -69,7 +66,7 @@ enyo.kind({
 			if (this.disabled) {
 				return true;
 			}
-			if(!this.getOpen()) {
+			if (!this.getOpen()) {
 				this.configurePopup();
 				this.setOpen(true);
 				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.listActions));
@@ -85,16 +82,26 @@ enyo.kind({
 
 	},
 	configurePopup: function() {
-		var clientRect = this.parent.parent.hasNode().getBoundingClientRect();
-		this.$.drawerPopup.applyStyle('width', clientRect.width + "px");
-		this.$.drawerPopup.applyStyle('height', clientRect.height + "px");
+		var clientRect =  this.getParentHeaderNode().getBoundingClientRect();
+		var thisNode = this.hasNode().getBoundingClientRect();
+		this.$.drawerPopup.applyStyle('width', Math.ceil(clientRect.width) + "px");
+		this.$.drawerPopup.applyStyle('height', Math.ceil(clientRect.height) + "px");
+		this.$.drawerPopup.applyStyle('left', Math.ceil(clientRect.left - thisNode.left) + "px");
+		this.$.drawerPopup.applyStyle('top', Math.ceil(clientRect.top - thisNode.top) + "px");
 		this.$.drawerPopup.setShowing(true);
-		this.$.drawerPopup.applyStyle('left', (clientRect.left - this.hasNode().getBoundingClientRect().left)  + "px");
-		this.$.drawerPopup.applyStyle('top', (clientRect.top - this.hasNode().getBoundingClientRect().top)  + "px");
+	},
+	getParentHeaderNode: function() {
+		return this.parent.parent.hasNode();
+	},
+	refreshListActions: function() {
+		var node = this.getParentHeaderNode();
+		var listclientTop = this.$.listActionsClientContainer.hasNode().clientTop;
+		this.$.listActions.applyStyle('height', node.clientHeight + node.clientTop - listclientTop + "px");
 	},
 	//* Updates _this.$.drawer.open_ and redraws drawer when _this.open_ changes.
 	openChanged: function() {
 		this.$.drawer.setOpen(this.getOpen());
+		this.refreshListActions();
 		this.refresh();
 	},
 	optionSelected: function(inSender, inEvent) {
@@ -120,17 +127,17 @@ enyo.kind({
 	resetScrollers: function() {
 		//if stacked, scroll to the top of the main drawer scroller; otherwise, scroll to the top of the individual menu scrollers
 		if (this.stacked) {
-			this.$.listActions.scrollTo(0,0);
+			this.$.listActions.scrollTo(0, 0);
 			//reset focus to the first item in the main scroller
 			var child = enyo.Spotlight.getFirstChild(this.$.listActions);
 			enyo.Spotlight.Decorator.Container.setLastFocusedChild(child, enyo.Spotlight.getFirstChild(child));
 		} else {
 			var optionGroup = this.$.listActionsContainer.getControls();
-			for (var i=0;i<optionGroup.length;i++) {
+			for (var i = 0; i < optionGroup.length; i++) {
 				var controls = optionGroup[i].getControls();
-				for (var j=0;j<controls.length;j++) {
+				for (var j = 0; j < controls.length; j++) {
 					if (controls[j].kind == "moon.Scroller") {
-						controls[j].scrollTo(0,0);
+						controls[j].scrollTo(0, 0);
 						//reset focus to the first item in each scroller
 						enyo.Spotlight.Decorator.Container.setLastFocusedChild(controls[j],
 							enyo.Spotlight.getFirstChild(controls[j]));
@@ -147,10 +154,12 @@ enyo.kind({
 	drawerAnimationStep: function() {
 		this.bubble("onRequestScrollIntoView");
 	},
-	drawerAnimationEnd: function() {
+	drawerAnimationEnd: function(inSender, inEvent) {
 		//refresh the list option menus when the drawer opens
-		if (this.$.drawer.hasNode() && this.open) {
+		if (this.$.drawer.hasNode() && this.getOpen()) {
 			this.refresh();
+			this.$.listActions.resized();
+
 		} else {
 			this.$.drawerPopup.setShowing(false);
 		}
@@ -162,49 +171,37 @@ enyo.kind({
 			this.configurePopup();
 		}
 		//don't refresh while animating
-		if (!this.$.drawer.$.animator.isAnimating()){
+		if (!this.$.drawer.$.animator.isAnimating()) {
 			this.refresh();
 		}
 	},
 	refresh: function() {
 		var i, j, controls;
 		if (this.$.drawer.hasNode()) {
-			var br = this.$.drawer.hasNode().getBoundingClientRect();
+			var scrollerBounds = enyo.dom.getBounds(this.$.listActions.hasNode());
+			var optionGroup = this.$.listActionsContainer.getControls();
+			
 			//get the total width of all option menus
 			var width = 0;
-			var optionGroup = this.$.listActionsContainer.getControls();
-			for (i=0;i<optionGroup.length;i++) {
+			for (i = 0; i < optionGroup.length; i++) {
 				width += optionGroup[i].hasNode().getBoundingClientRect().width;
 			}
-
-			//if the option menus don't all fit horizontally, stack them & allow the main drawer scroller to scroll all of them
-			if (width > br.width) {
-				for (i=0;i<optionGroup.length;i++) {
-					optionGroup[i].applyStyle("display","block");
-					controls = optionGroup[i].getControls();
-					for (j=0;j<controls.length;j++) {
-						if (controls[j].kind == "moon.Scroller") {
+			this.stacked = width > scrollerBounds.width;
+			
+			for (i = 0; i < optionGroup.length; i++) {
+				//if the option menus don't all fit horizontally, stack them & allow the main drawer scroller to scroll all of them
+				optionGroup[i].applyStyle("display", (this.stacked ? "block" : "inline-block"));
+				controls = optionGroup[i].getControls();
+				for (j = 0; j < controls.length; j++) {
+					if (controls[j].kind == "moon.Scroller") {
+						if (this.stacked) {
 							controls[j].applyStyle("height", "none");
+						} else {
+							var ctrBounds = enyo.dom.getBounds(controls[j].hasNode());
+							controls[j].applyStyle("height", (scrollerBounds.height - ctrBounds.top) + "px");
 						}
 					}
 				}
-				this.stacked = true;
-			} else {
-				//if all the menus fit horizontally, then adjust their individual scrollers so they self scroll
-				for (i=0;i<optionGroup.length;i++) {
-					optionGroup[i].applyStyle("display","inline-block");
-					controls = optionGroup[i].getControls();
-					for (j=0;j<controls.length;j++) {
-						if (controls[j].kind == "moon.Scroller") {
-							//make the scroller the height of the drawer scroller - the items "heading" height - heading bottom margin height
-							controls[j].applyStyle("height", (this.$.listActions.hasNode().getBoundingClientRect().height
-							- controls[0].hasNode().getBoundingClientRect().height
-							- parseInt(controls[0].getComputedStyleValue('margin-bottom'), 10))
-							+ "px");
-						}
-					}
-				}
-				this.stacked = false;
 			}
 		}
 	},
@@ -215,12 +212,12 @@ enyo.kind({
 	spotlightDown: function(inSender, inEvent) {
 		var s = enyo.Spotlight.getSiblings(inEvent.originator);
 		//prevent navigation past last item, handle stacked & non-stacked cases + close button
-		if (!this.stacked && s.selfPosition == (s.siblings.length-1)) {
+		if (!this.stacked && s.selfPosition == (s.siblings.length - 1)) {
 			return true;
 		} else {
 			var listActionItems = this.$.listActionsContainer.getControls();
-			var last = listActionItems[listActionItems.length-1];
-			if (enyo.Spotlight.Util.isChild(last, inEvent.originator) && s.selfPosition == (s.siblings.length-1)) {
+			var last = listActionItems[listActionItems.length - 1];
+			if (enyo.Spotlight.Util.isChild(last, inEvent.originator) && s.selfPosition == (s.siblings.length - 1)) {
 				return true;
 			}
 		}
@@ -276,7 +273,7 @@ enyo.kind({
 		} else {
 			//if it's coming from the right-most column, then focus the close button
 			var listActionItems = this.$.listActionsContainer.getControls();
-			var last = listActionItems[listActionItems.length-1];
+			var last = listActionItems[listActionItems.length - 1];
 			if (enyo.Spotlight.Util.isChild(last, inEvent.originator)) {
 				enyo.Spotlight.spot(this.$.closeButton);
 			}
