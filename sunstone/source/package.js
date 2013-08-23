@@ -25,5 +25,6 @@ enyo.depends(
 	"Panel.js",
 	"Divider.js",	
 	"TabItem.js",
-	"TabBar.js"
+	"TabBar.js",
+	"TabPanels.js"
 );

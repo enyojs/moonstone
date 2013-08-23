@@ -16,14 +16,21 @@ enyo.kind({
 	spotlightPosition: "none",
 	//spotlightOverlay: true,
 	published: {
+		index: null,
 		src: null,		
 	},	
-	initComponents: function() {
-		
+	initComponents: function() {		
 		if(this.src) {						
 			this.addRemoveClass("icon", true);		
 			this.createComponent({kind: "Image", src: this.src});
 		}
 		this.inherited(arguments);		
-	},	
+	},
+	changeActiveStatus: function(inTrueToActive) {
+		// change status when old and new are not same.
+		if(this.selected != inTrueToActive) {			
+			this.setSelected(inTrueToActive);
+			this.$.client.addRemoveClass("moon-overlay", this.getActive());
+		}		
+	}
 });

@@ -7,20 +7,39 @@ enyo.kind({
 	classes: "sun-tabBar",
 	vertical: "hidden",	
 	published: {
-		withIcon: false,
+		withIcon: false,		
 	},
+
+	//* @protected
+	tabItemComponents: [],
 	components: [
 		{name: "group", kind: "Group"}
 	],
-	tabComponents:[],	
+
+	create: function() {
+		this.inherited(arguments);
+		this.tabItemComponentsChanged();
+	},
 	initComponents: function() {		
 		this.inherited(arguments);
-		for(var i=0; i<this.tabComponents.length; i++){
-			if(this.tabComponents[i].src) {				
+		for(var i=0; i<this.tabItemComponents.length; i++){
+			if(this.tabItemComponents[i].src) {				
 				this.addRemoveClass("icon", true);
 				break;
 			}
 		}		
-		this.$.group.createComponents(this.tabComponents);		
+	},
+	setTabItemComponents: function(inItems) {
+		this.set("tabItemComponents", inItems);		
+	},
+	getTabItemComponents: function() {
+		return this.get("tabItemComponents");		
+	},
+	tabItemComponentsChanged: function() {		
+		this.$.group.destroyClientControls();
+		this.$.group.createComponents(this.get("tabItemComponents"));
+	},
+	changeActiveItem: function(inIndex, inTrueToActive) {		
+		this.$.group.controls[inIndex].changeActiveStatus(inTrueToActive);
 	}
 });
