@@ -350,6 +350,11 @@
   font-size: 150pt;
 }
 .sun-small-header-text {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 92pt;
 }
 .sun-sub-header-text {
@@ -728,6 +733,11 @@
   padding-left: 65px;
 }
 .sun .sun-two-lines-header .sun-header-title {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 92pt;
   line-height: 90px;
   height: 90px;
@@ -1103,6 +1113,50 @@
   top: 100px;
   text-align: center;
   border-radius: 10px;
+}
+/* InputHeader.css */
+.sun .moon-input-header-input-decorator {
+  margin: -39px 0px 0px 0px !important;
+}
+.sun .moon-input-header-input-decorator > .moon-input {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 150pt;
+  height: 150pt;
+  line-height: 150pt;
+  color: #dddddd;
+}
+.sun .sun-two-lines-header .moon-input-header-input-decorator > .moon-input {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 92pt;
+  margin-top: 22px !important;
+  height: 92pt;
+  line-height: 92pt;
+  color: #dddddd;
+}
+.sun .enyo-tool-decorator > * {
+  vertical-align: top;
+  width: 100%;
+}
+.sun .sun-header-title.enyo-fittable-columns-layout .moon-button {
+  position: relative;
+  top: 15px;
+  right: 0px;
+}
+.sun .sun-two-lines-header .sun-header-title.enyo-fittable-columns-layout .moon-button {
+  position: relative;
+  top: 0px;
+  right: 0px;
+}
+.sun .sun-input-header-done-hide {
+  opacity: 0;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
