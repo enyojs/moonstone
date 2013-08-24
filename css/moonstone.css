@@ -2891,6 +2891,9 @@ body .enyo-fit.panels-50-percent-scrim,
   height: 80px;
   background-color: #323232;
 }
+.moon-video-transport-slider .moon-slider-popup.above {
+  padding-left: 0px;
+}
 /* ----- Knob ---- */
 .moon-video-transport-slider-knob,
 .moon-video-transport-slider-knob.disabled:active:hover,
@@ -3168,16 +3171,17 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: transparent;
 }
 /* ---- Equal space margin on fullscreen player control buttons ---- */
-.moon-video-fullscreen-control .enyo-fittable-columns-layout .moon-video-player-control-buttons {
+.moon-video-fullscreen-control .moon-video-player-control-buttons {
   white-space: nowrap;
+  text-align: center;
 }
-.moon-video-fullscreen-control .enyo-fittable-columns-layout .moon-video-player-control-buttons > * {
+.moon-video-fullscreen-control .moon-video-player-control-buttons > * {
   margin: 0 40px;
 }
-.moon-video-fullscreen-control .enyo-fittable-columns-layout .moon-video-player-control-buttons > :first-child {
+.moon-video-fullscreen-control .moon-video-player-control-buttons > :first-child {
   margin-left: 0;
 }
-.moon-video-fullscreen-control .enyo-fittable-columns-layout .moon-video-player-control-buttons > :last-child {
+.moon-video-fullscreen-control .moon-video-player-control-buttons > :last-child {
   margin-right: 0;
 }
 /* ---- Slider container styling ---- */
@@ -3204,6 +3208,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
+  max-width: 600px;
 }
 .moon-video-player-info-datetime {
   font-size: 36px;
@@ -3239,6 +3244,7 @@ body .enyo-fit.panels-50-percent-scrim,
   line-height: 30px;
   white-space: normal;
   max-width: 600px;
+  margin-bottom: 10px;
 }
 .moon-video-player-settings-info {
   position: absolute;
@@ -3299,59 +3305,73 @@ body .enyo-fit.panels-50-percent-scrim,
   color: #ffffff;
 }
 .moon-background-wrapper {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+}
+.moon-background-wrapper-client-content {
   position: relative;
-  white-space: nowrap;
-}
-.moon-background-wrapper > * {
   display: inline-block;
-  vertical-align: top;
 }
-.moon-background-wrapper-client.bg {
+.moon-background-wrapper-client-content.right {
+  float: right;
+}
+.moon-background-wrapper-client-content.bg {
   background-color: black;
 }
-.moon-background-wrapper-client.right {
-  padding-right: 50px;
-  padding-left: 30px;
-}
-.moon-background-wrapper-client.left {
-  padding-left: 50px;
-  padding-right: 30px;
-}
-/* Equal spacing */
-.moon-background-wrapper-client {
-  white-space: nowrap;
-}
-.moon-background-wrapper-client > * {
-  display: inline-block;
-  margin: 0 15px;
-}
-.moon-background-wrapper-client > :first-child {
-  margin-left: 0;
-}
-.moon-background-wrapper-client > :last-child {
-  margin-right: 0;
-}
-.moon-background-wrapper-left {
+.moon-background-wrapper-client-tri {
+  position: absolute;
   width: 0;
   height: 0;
+}
+.left .moon-background-wrapper-client-tri {
+  left: 100%;
+  bottom: 0;
   border-bottom-style: solid;
   border-bottom-color: transparent;
   border-left-style: solid;
   border-left-color: transparent;
+  border-bottom-width: 1000px;
+  border-left-width: 250px;
 }
-.moon-background-wrapper-left.bg {
+.left.bg .moon-background-wrapper-client-tri {
   border-left-color: black;
 }
-.moon-background-wrapper-right {
-  width: 0;
-  height: 0;
+.right .moon-background-wrapper-client-tri {
+  right: 100%;
+  top: 0;
   border-top-style: solid;
   border-top-color: transparent;
   border-right-style: solid;
   border-right-color: transparent;
+  border-top-width: 1000px;
+  border-right-width: 250px;
 }
-.moon-background-wrapper-right.bg {
+.right.bg .moon-background-wrapper-client-tri {
   border-right-color: black;
+}
+/* Decorate video header styling */
+.moon-background-wrapper-client-content.right {
+  padding-right: 50px;
+  padding-left: 30px;
+}
+.moon-background-wrapper-client-content.left {
+  padding-left: 50px;
+  padding-right: 30px;
+}
+/* Make equal spacing */
+.moon-background-wrapper-client-content {
+  white-space: nowrap;
+}
+.moon-background-wrapper-client-content > * {
+  display: inline-block;
+  margin: 0 15px;
+}
+.moon-background-wrapper-client-content.left > :first-child {
+  margin-left: 0;
+}
+.moon-background-wrapper-client-content.right > :first-child {
+  margin-right: 0;
 }
 .moon-clock {
   display: block;
