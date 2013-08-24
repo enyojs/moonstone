@@ -2424,7 +2424,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
-  width: 420px;
+  width: 616px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
@@ -2433,7 +2433,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-  witdh: 60px;
+  width: 60px;
   min-width: 60px;
   line-height: 50px;
   border: 0px;
@@ -2678,16 +2678,7 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
 }
 .moon-popup-close {
-  border-radius: 9999px;
-  line-height: 24px;
-  background-color: #ededed;
-  border: 5px solid transparent;
   float: right;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  padding: 0px 0px 0px 0px;
-  margin: 10px 10px 0px 10px;
   position: absolute;
   right: 0px;
   top: 0px;
@@ -2699,8 +2690,8 @@ body .enyo-fit.panels-50-percent-scrim,
   content: "\2716";
   font-size: 25px;
   position: relative;
-  top: 1px;
-  left: 0px;
+  top: 5px;
+  left: 10px;
   color: #4b4b4b;
 }
 /* Dialog.css */
