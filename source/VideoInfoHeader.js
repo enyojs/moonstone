@@ -23,6 +23,7 @@ enyo.kind({
 	kind: "enyo.Control",
 	classes: "moon-video-info-header",
 	mixins: ["moon.MarqueeSupport"],
+	marqueeOnSpotlight: false,
 	published: {
 		title: "",
 		subTitle: "",

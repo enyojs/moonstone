@@ -22,7 +22,7 @@ enyo.kind({
 					{
 						kind: "moon.VideoInfoHeader",
 						rating: "R - TV 14, V, L, SC",
-						title: "Downton Abbey",
+						title: "Downton Abbey - Extra Title",
 						subTitle: "Mon June 21, 7:00 - 8:00pm",
 						description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
 					}

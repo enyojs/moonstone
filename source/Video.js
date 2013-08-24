@@ -157,22 +157,49 @@ enyo.kind({
 		}
 		
 		switch (this._prevCommand) {
+		case "slowForward":
+			if (this._speedIndex == this._playbackRateArray.length - 1) {
+				// reached to the end of array => go to fastforward
+				this.selectPlaybackRateArray("fastForward");
+				this._speedIndex = 0;
+				this._prevCommand = "fastForward";
+			} else {
+				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+				this._prevCommand = "slowForward";
+			}
+			break;
 		case "pause":
 			this.selectPlaybackRateArray("slowForward");
 			this._speedIndex = 0;
-			node.play();
+			if (this.isPaused()) {
+				node.play();
+			}
+			this._prevCommand = "slowForward";
+			break;
+		case "rewind":
+			var pbNumber = this.calcNumberValueOfPlaybackRate(this.playbackRate);
+			if (pbNumber < 0) {
+				this.selectPlaybackRateArray("slowForward");
+				this._prevCommand = "slowForward";
+			} else {
+				this.selectPlaybackRateArray("fastForward");
+				this._prevCommand = "fastForward";
+			}
+			this._speedIndex = 0;
 			break;
 		case "fastForward":
 			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+			this._prevCommand = "fastForward";
 			break;
 		default:
 			this.selectPlaybackRateArray("fastForward");
 			this._speedIndex = 0;
+			this._prevCommand = "fastForward";
 			break;
 		}
-		
+
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
-		this._prevCommand = "fastForward";
+		
 	},
 	rewind: function() {
 		var node = this.hasNode();
@@ -182,22 +209,38 @@ enyo.kind({
 		}
 		
 		switch (this._prevCommand) {
+		case "slowRewind":
+			if (this._speedIndex == this._playbackRateArray.length - 1) {
+				// reached to the end of array => go to rewind
+				this.selectPlaybackRateArray("rewind");
+				this._speedIndex = 0;
+				this._prevCommand = "rewind";
+			} else {
+				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+				this._prevCommand = "slowRewind";
+			}
+			break;
 		case "pause":
 			this.selectPlaybackRateArray("slowRewind");
 			this._speedIndex = 0;
-			node.play();
+			if (this.isPaused() && this.node.duration > this.node.currentTime) {
+				node.play();
+			}
+			this._prevCommand = "slowRewind";
 			break;
 		case "rewind":
 			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+			this._prevCommand = "rewind";
 			break;
 		default:
 			this.selectPlaybackRateArray("rewind");
 			this._speedIndex = 0;
+			this._prevCommand = "rewind";
 			break;
 		}
+
 		
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
-		this._prevCommand = "rewind";
 	},
 	jumpBackward: function() {
 		var node = this.hasNode();
@@ -383,7 +426,7 @@ enyo.kind({
 			this.doSlowforward(inEvent);
 		} else if (pbNumber > 1) {
 			this.doFastforward(inEvent);
-		} else if (pbNumber < 0 && pbNumber > -1) {
+		} else if (pbNumber < 0 && pbNumber >= -1) {
 			this.doSlowrewind(inEvent);
 		} else if (pbNumber < -1) {
 			this.doRewind(inEvent);
