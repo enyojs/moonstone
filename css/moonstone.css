@@ -3208,7 +3208,7 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 600px;
+  max-width: 1100px;
 }
 .moon-video-player-info-datetime {
   font-size: 36px;
@@ -3244,7 +3244,7 @@ body .enyo-fit.panels-50-percent-scrim,
   line-height: 30px;
   white-space: normal;
   max-width: 600px;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 .moon-video-player-settings-info {
   position: absolute;
