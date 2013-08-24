@@ -6,12 +6,16 @@
 .moon-date-picker.open .moon-expandable-list-item-header-wrapper {
 	.moon-divider-text;
 	.moon-divider-border;
-	padding: 0px;
 }
 .moon-date-picker.open .moon-expandable-list-item-header-wrapper .moon-item {
 	.moon-divider-text;
 }
-
+.moon-date-picker.open .moon-expandable-list-item-header-wrapper.spotlight .moon-expandable-list-item-header {
+	color: @moon-spotlight-text-color;
+}
+.moon-date-picker.open .moon-expandable-list-item-header-wrapper.spotlight {
+	border-bottom-color: @moon-spotlight-text-color;
+}
 /* Day */
 .moon-date-picker-day {
 	padding-right:40px;
