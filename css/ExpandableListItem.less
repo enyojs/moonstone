@@ -1,11 +1,14 @@
 /* ExpandableListItem */
 .moon-expandable-list-item {
 	padding: 0px;
-	margin: 0px 0px 10px;
 }
 .moon-expandable-list-item.disabled {
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
+}
+
+.moon-expandable-list-item-header-wrapper.spotlight .moon-item {
+	.moon-item.spotlight;
 }
 
 /* Header Wrapper */
@@ -14,7 +17,6 @@
 }
 .moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
 	padding: 10px 10px 4px 10px;
-	margin-bottom: 10px;
 }
 .moon-expandable-list-item-header-wrapper.spotlight {
 	background-color: @moon-pink;
@@ -22,8 +24,6 @@
 
 /* Header */
 .moon-expandable-list-item-header {
-	display: inline-block;
-	padding: 0px 49px 0px 0px;
 	margin-bottom: 0px;
 	box-sizing: border-box;
 	max-width: 100%;	

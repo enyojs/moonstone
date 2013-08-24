@@ -27,8 +27,8 @@ enyo.kind({
 	published: {
 		//* The state of the checkbox
 		checked: false,
-		//* If true, checkbox will be displayed on the left side of the checkbox item
-		leftHanded: false
+		//* If true, checkbox will be displayed on the right side of the checkbox item
+		checkboxOnRight: false
 	},
 	events: {
 /** 
@@ -56,7 +56,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.leftHandedChanged();
+		this.checkboxOnRightChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -69,8 +69,8 @@ enyo.kind({
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());
 	},
-	leftHandedChanged: function() {
-		this.addRemoveClass("left-handed", this.getLeftHanded());
+	checkboxOnRightChanged: function() {
+		this.addRemoveClass("left-handed", !this.getCheckboxOnRight());
 	},
 	tap: function(inSender, inEvent) {
 		if (inSender != this.$.input) {

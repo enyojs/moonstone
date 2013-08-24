@@ -15,12 +15,12 @@ enyo.kind({
 					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
 				]},
 				{components: [
-					{kind: "moon.Divider", content: "Left-Handed Checkbox Items"},
-					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, leftHanded: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "Option 2", leftHanded: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", disabled: true, content: "Deactivated", leftHanded: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, leftHanded: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", leftHanded: true, onchange: "itemChanged"}
+					{kind: "moon.Divider", content: "Right-Handed Checkbox Items"},
+					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Option 2", checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", disabled: true, content: "Deactivated", checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", checkboxOnRight: true, onchange: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Item Group"},

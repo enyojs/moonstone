@@ -1,7 +1,6 @@
 .moon-checkbox-item {
 	display: block;
 	position: relative;
-	margin-bottom: 33px;
 }
 
 /* Label */
@@ -26,12 +25,12 @@
 /* Checkbox */
 .moon-checkbox-item .moon-checkbox {
 	position: absolute;
-	top: @moon-item-padding-width;
+	top: @moon-spotlight-outset;
 	left: auto;
-	right: 0px;
+	right: @moon-spotlight-outset;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-	left: 0px;
+	left: @moon-spotlight-outset;
 	right: auto;
 }
 .moon-checkbox-item .moon-checkbox[checked] {

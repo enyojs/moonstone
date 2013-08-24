@@ -2,15 +2,16 @@
 .moon-radio-item {
 	display: inline-block;
 }
-.enyo-locale-right-to-left .moon-radio-item {
-	text-align: right;
-}
-
 /* Indicator */
 .moon-selectable-item-indicator.moon-radio-item-indicator {
 	display: inline-block;
 	background-color: #fff;
-	position: relative;
+	left: @moon-spotlight-outset;
+	top: 15px;
+}
+.enyo-locale-right-to-left .moon-selectable-item-indicator.moon-radio-item-indicator {
+	left: auto;
+	right: @moon-spotlight-outset;
 }
 .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
 	position: absolute;
@@ -23,4 +24,11 @@
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
 	background-color: @moon-pink;
+}
+.moon-radio-item .moon-selectable-item-client {
+	padding-left: 30px;
+}
+.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
+	padding-left: 0;
+	padding-right: 30px;
 }

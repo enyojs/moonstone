@@ -32,7 +32,7 @@ enyo.kind({
 		{name: "indicator", classes: "moon-selectable-item-indicator"},
 		{name: "client", classes: "moon-selectable-item-client"}
 	],
-	create: function() {
+	rendered: function() {
 		this.inherited(arguments);
 		this.activeChanged();
 	},
@@ -49,11 +49,11 @@ enyo.kind({
 	},
 	selectedChanged: function() {
 		var selected = this.getSelected();
+		this.stopMarquee();
 		this.addRemoveClass("selected", selected);
 		this.setNodeProperty("selected", selected);
 		this.setAttribute("selected", selected ? "selected" : "");
 		this.setActive(selected);
-		this.render();
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called

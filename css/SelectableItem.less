@@ -3,10 +3,15 @@
 	width: 20px;
 	height: 20px;
 	border-radius: 10px;
-	display: inline-block;
 	background-color: @moon-pink;
-	margin: 0px 10px 0px 0px;
 	display: none;
+	position: absolute;
+	left: @moon-spotlight-outset;
+	top: 15px;
+}
+.enyo-locale-right-to-left .moon-selectable-item .moon-selectable-item-indicator {
+	left: auto;
+	right: @moon-spotlight-outset;
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator {
 	display: inline-block;
@@ -14,7 +19,10 @@
 .moon-selectable-item.spotlight .moon-selectable-item-indicator {
 	background-color: #fff;
 }
-.moon-selectable-item .moon-selectable-item-client {
-	max-width: 100%;
-	display: inline-block;
+.moon-selectable-item.selected .moon-selectable-item-client {
+	padding-left: 30px;
+}
+.enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
+	padding-left: 0;
+	padding-right: 30px;
 }

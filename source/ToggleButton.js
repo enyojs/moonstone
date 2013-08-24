@@ -19,7 +19,7 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: $L("Off"),
 		//* Label for separator
-		labelSeparator: $L(":"), 
+		labelSeparator: $L(": "), 
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false

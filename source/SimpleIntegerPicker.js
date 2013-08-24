@@ -89,7 +89,7 @@ enyo.kind({
 	},
 	//* Facade for currently active panel
 	getContent: function() {
-		return (this.$.client && this.$.client.hasNode()) ? this.$.client.getActive().getContent() : "";
+		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
 	},
 	
 	//* @protected
@@ -131,7 +131,7 @@ enyo.kind({
 	},
 	//* Quietly update _this.value_ when _this.index_ changes
 	updateValue: function() {
-		this.value = (this.$.client && this.$.client.hasNode()) ? this.$.client.getActive().value : this.value;
+		this.value = (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().value : this.value;
 	},
 	//* On reflow, update the bounds of _this.$.client_
 	reflow: function() {

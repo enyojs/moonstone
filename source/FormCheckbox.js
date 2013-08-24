@@ -24,7 +24,6 @@
  */
 enyo.kind({
 	name: "moon.FormCheckbox",
-	kind: "moon.Item",
 	published: {
 		//* The state of the checkbox
 		checked: false
@@ -44,7 +43,6 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-formcheckbox-item",
-	spotlight: false,
 	handlers: {
 		ontap: "tap",
 		onActivate: "decorateActivateEvent"
@@ -57,7 +55,6 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.setSpotlightPosition("");
 	},
 	rendered: function() {
 		this.inherited(arguments);

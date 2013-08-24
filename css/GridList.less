@@ -6,24 +6,16 @@
 	overflow: visible;
 	background: none;
 }
-.moon-gridlist {
-}
 .moon-gridlist-imageitem {
-	transition: padding 0.1s linear;
-	-webkit-transition: padding 0.1s linear;
-	-moz-transition: padding 0.1s linear;
-	-o-transition: padding 0.1s linear;
 	width: 100%;
 	height: 100%;
 	overflow: visible;
 	background-clip: padding-box;
-	border: 5px solid @moon-gridlist-item-border-color;
+	border: 5px solid transparent;
 }
 .moon-gridlist-imageitem.selected {
 	border: 5px solid @moon-spotlight-border-color;
 	background: @moon-spotlight-border-color;
-}
-.moon-gridlist-imageitem img {
 }
 .moon-gridlist-imageitem .caption, .moon-gridlist-imageitem .sub-caption {
 	font-weight: bold;
@@ -50,19 +42,6 @@
 .moon-gridlist-imageitem.spotlight {
 	border: 5px solid @moon-spotlight-border-color;
 	background-color: @moon-spotlight-border-color;
-}
-.enyo-locale-right-to-left  .moon-gridlist-imageitem.spotlight {
-	padding-right: 25px !important;
-	margin-right: 25px !important;
-	padding-left:0px !important;
-}
-.moon-gridlist-imageitem.spotlight.selected {
-}
-.enyo-locale-right-to-left .moon-gridlist-imageitem.spotlight.selected {
-	background: @moon-spotlight-border-color !important;
-	padding-right: 28px !important;
-	margin-right:  25px !important;
- 	padding-left:0px !important;
 }
 .moon-gridlist .enyo-gridlist-row:last-child {
 	margin-bottom: 5*@moon-grid-gutter-width;

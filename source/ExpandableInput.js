@@ -49,7 +49,9 @@ enyo.kind({
 	
 	// Change handlers
 	valueChanged: function() {
-		this.fireChangeEvent();
+		if (this.generated) {
+			this.fireChangeEvent();
+		}
 	},
 	openChanged: function() {
 		this.inherited(arguments);

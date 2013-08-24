@@ -29,26 +29,6 @@
    direction:rtl;
 }
 
-.moon-no-border {
-	transition: @moon-spotlight-transition;
-	-webkit-transition: @moon-spotlight-transition;
-	-moz-transition: @moon-spotlight-transition;
-	-o-transition: @moon-spotlight-transition;
-	border-left-width: @moon-no-spotlight-border-width;
-	border-left-color: @moon-no-spotlight-border-color;
-	border-left-style: @moon-no-spotlight-border-style;
-	padding-left: @moon-no-spotlight-padding-left;
-	padding-right: @moon-no-spotlight-padding-right;
-}
-
-.moon-border {
-	border-left-width: @moon-spotlight-border-width;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: @moon-spotlight-border-style;
-	padding-left: @moon-spotlight-padding-left;
-	padding-right: @moon-spotlight-padding-right;
-}
-
 .moon-divider-border {
 	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
 }
@@ -197,7 +177,6 @@
 @import "Accordion.less";
 @import "CalendarPicker.less";
 @import "Table.less";
-@import "FittableLayout.less";
 @import "InputHeader.less";
 @import "DrawerHandle.less";
 @import "Drawer.less";
@@ -243,11 +222,31 @@
 .moon-hspacing > * {
 	display: inline-block;
 	vertical-align: middle;
-	margin: 0;
+	margin: 0 @moon-grid-gutter-width/2;
+}
+.moon-hspacing > :first-child {
+	margin-left: 0;
+}
+.enyo-locale-right-to-left .moon-hspacing > :first-child {
+	margin-left: @moon-grid-gutter-width/2;
+	margin-right: 0;
+}
+.moon-hspacing > :last-child {
+	margin-right: 0;
+}
+.enyo-locale-right-to-left .moon-hspacing > :last-child {
+	margin-right: @moon-grid-gutter-width/2;
+	margin-left: 0;
 }
 
 /* Standard vertical spacing */
 .moon-vspacing > * {
 	display: block;
-	margin: 0;
+	margin: @moon-grid-gutter-width/2 0;
+}
+.moon-vspacing > :first-child {
+	margin-top: 0;
+}
+.moon-vspacing > :last-child {
+	margin-bottom: 0;
 }
