@@ -43,13 +43,12 @@
 
 
 .moon-drawers-activator-nub .down {
-	background: @moon-caret-white-small-down-image 0 0 no-repeat;	
+	background: @moon-drawer-down 0 0 no-repeat;	
 }
 
 .moon-drawers-activator-nub .up {
-	background: @moon-caret-black-small-up-image 0 0 no-repeat;	
+	background: @moon-drawer-up 0 0 no-repeat;	
 }
-
 
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
@@ -87,6 +86,7 @@
 
 .spotlight .moon-drawers-activator-nub .up {
 	border-color: transparent transparent white transparent;
+	background-image: @moon-drawer-up-spotlight;
 }
 
 .spotlight .moon-drawers-activator-nub .up::after {

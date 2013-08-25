@@ -15,6 +15,10 @@
 	background: transparent none no-repeat 0px 0px;
 }
 
+.moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
+	background: transparent none no-repeat 0px 0px;
+}
+
 .moon-checkbox.moon-toggle-text .moon-overlay {
 	background: transparent;
 	position: absolute;
@@ -23,6 +27,7 @@
 	color: @moon-checkbox-toggle-text-color;
 	height: auto;
 	width: auto;
+	opacity: 0; // temporarily remove overlay as it's causing problems
 }
 
 .moon-toggle-text-text {
@@ -30,4 +35,8 @@
 	right: 0px;
 	text-align: right;
 	color: @moon-toggle-text-color;
+}
+
+.moon-checkbox-item.spotlight .moon-toggle-text-text {
+	color: @moon-spotlight-text-color;
 }

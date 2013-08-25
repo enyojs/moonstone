@@ -433,7 +433,7 @@
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
-  background: transparent url(../images/caret-black-large-up-icon.png) no-repeat center center;
+  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center center;
 }
 .moon-simple-picker-button.hidden {
   opacity: 0.4;
@@ -441,6 +441,7 @@
 }
 .moon-simple-picker-button.spotlight {
   background-color: #ff2f7d;
+  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
 }
 .moon-simple-picker-button-bold {
   margin: 2px 0px;
@@ -506,6 +507,12 @@
 .moon-simple-integer-picker.spotlight {
   background: #ff2f7d;
 }
+.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
+  color: #ffffff;
+}
+.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
+  color: #ffffff;
+}
 .moon-simple-integer-picker-button {
   width: 50px;
   height: 25px;
@@ -517,6 +524,7 @@
   text-align: center;
   vertical-align: middle;
   z-index: 2;
+  color: #999999;
 }
 .moon-simple-integer-picker-client {
   padding: 0px;
@@ -599,11 +607,11 @@
 /* Checkbox.css */
 .moon-checkbox {
   cursor: pointer;
-  height: 36px;
+  height: 32px;
   width: 50px;
 }
 .moon-checkbox[checked] {
-  background-image: url(../images/checkbox.png);
+  background-image: url(../images/DarkTheme_Icons/Checkmark_Icon.png);
   background-repeat: no-repeat;
   background-position: 11px 1px;
 }
@@ -612,14 +620,15 @@
 }
 .moon-checkbox .moon-overlay {
   cursor: pointer;
-  height: 36px;
+  height: 32px;
   width: 50px;
-  background: transparent url(../images/checkbox.png) no-repeat 10px -36px;
+  background: transparent url(../images/DarkTheme_Icons/Checkmark_Icon.png) no-repeat 10px -32px;
   opacity: 1;
   transition: opacity 0.4s linear;
   -webkit-transition: opacity 0.4s linear;
   -moz-transition: opacity 0.4s linear;
   -o-transition: opacity 0.4s linear;
+  opacity: 0;
 }
 .moon-checkbox .moon-overlay.off {
   opacity: 0;
@@ -668,6 +677,9 @@
   left: auto;
   right: 10px;
 }
+.moon-checkbox-item.spotlight .moon-checkbox[checked] {
+  background-image: url(../images/DarkTheme_Icons/CheckmarkWhite_Icon.png);
+}
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
   left: 10px;
   right: auto;
@@ -712,7 +724,7 @@
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
-  line-height: 39px;
+  line-height: 35px;
   text-align: left;
   text-transform: uppercase;
   background: inherit;
@@ -725,6 +737,9 @@
 .moon-checkbox.moon-toggle-text[checked] {
   background: transparent none no-repeat 0px 0px;
 }
+.moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
 .moon-checkbox.moon-toggle-text .moon-overlay {
   background: transparent;
   position: absolute;
@@ -733,12 +748,16 @@
   color: #ff2f7d;
   height: auto;
   width: auto;
+  opacity: 0;
 }
 .moon-toggle-text-text {
   position: absolute;
   right: 0px;
   text-align: right;
   color: #999999;
+}
+.moon-checkbox-item.spotlight .moon-toggle-text-text {
+  color: #ffffff;
 }
 .moon-toggle-item {
   display: block;
@@ -1174,7 +1193,6 @@
 }
 /* Header */
 .moon-expandable-picker-header {
-  line-height: 1em;
   padding: 0px;
   margin: 0px 0px 4px 0px;
 }
@@ -1453,7 +1471,7 @@
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background: transparent url(../images/caret-black-large-up-icon.png) no-repeat 7px 6px;
+  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat 6px 6px;
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -1495,6 +1513,7 @@
 }
 .moon-icon-button.moon-paging-button.hover:hover {
   background-color: #ff2f7d;
+  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
   background-color: transparent;
@@ -1502,7 +1521,7 @@
 .moon-paging-button.moon-icon.moon-icon-button.active,
 .moon-paging-button.moon-icon.moon-icon-button:active:hover,
 .moon-paging-button.moon-icon-toggle.active {
-  background-position: 7px 6px;
+  background-position: 6px 6px;
 }
 .moon-integer-picker {
   font-family: "MuseoSans 700";
@@ -1683,6 +1702,7 @@
   letter-spacing: 0.05em;
   color: #999999;
   border-bottom: 2px solid #404040;
+  margin-bottom: 10px;
 }
 .moon-date-picker.open .moon-expandable-list-item-header-wrapper .moon-item {
   font-family: "MuseoSans 700";
@@ -1994,7 +2014,7 @@
   margin-left: -23px;
   width: 46px;
   height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Down.png) no-repeat;
 }
 /*nub near horizontal left*/
 .moon-contextual-popup.vertical.right::after {
@@ -2012,11 +2032,11 @@
   margin-top: -4px;
   width: 46px;
   height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Down.png) no-repeat;
 }
 .moon-contextual-popup.vertical.below::after {
   margin-top: -22px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Up.png) no-repeat;
 }
 .moon-contextual-popup.vertical.below.right::after {
   top: 0%;
@@ -2024,7 +2044,7 @@
   margin-top: -32px;
   width: 46px;
   height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Up.png) no-repeat;
 }
 .moon-contextual-popup.vertical.below.left::after {
   top: 0%;
@@ -2032,7 +2052,7 @@
   margin-top: -32px;
   width: 46px;
   height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Up.png) no-repeat;
 }
 /*nub positioning for left/right popups*/
 /*vertically centered nub for popups on left of activator*/
@@ -2043,18 +2063,18 @@
   height: 46px;
   margin-left: -4px;
   margin-top: -23px;
-  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Right.png) no-repeat;
 }
 /*nub near vertical top for popups on left of activator*/
 .moon-contextual-popup.right.high::after {
   top: 35px;
-  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Right.png) no-repeat;
 }
 /*nub near vertical bottom for popups on left of activator*/
 .moon-contextual-popup.right.low::after {
   top: 100%;
   margin-top: -55px;
-  background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Right.png) no-repeat;
 }
 /*vertically centered nub for popups on right of activator*/
 .moon-contextual-popup.left::after {
@@ -2063,18 +2083,18 @@
   top: 45%;
   width: 36px;
   height: 46px;
-  background: transparent url('../images/contextual-popup-nubs/left.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Left.png) no-repeat;
 }
 /*nub near vertical top for popups on right of activator*/
 .moon-contextual-popup.left.high::after {
   top: 35px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Up.png) no-repeat;
 }
 /*nub near vertical bottom for popups on right of activator*/
 .moon-contextual-popup.left.low::after {
   top: 100%;
   margin-top: -55px;
-  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+  background: transparent url(../images/DarkTheme_Icons/ContextualMenu_Down.png) no-repeat;
 }
 /*flush corners are not implemented currently per HI*/
 /* TextArea.css */
@@ -2361,6 +2381,9 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-calendar-picker-date-shadow {
   color: #a2a2a2;
 }
+.moon-calendar-picker .moon-button.small {
+  padding: 0px;
+}
 /* Table.css */
 /*.moon-table {
 	padding-right: 2em;
@@ -2477,10 +2500,10 @@ body .enyo-fit.panels-50-percent-scrim,
   top: -3px;
 }
 .moon-drawers-activator-nub .down {
-  background: url(../images/caret-white-small-down-image.png) 0 0 no-repeat;
+  background: url(../images/DarkTheme_Icons/drawer_down.png) 0 0 no-repeat;
 }
 .moon-drawers-activator-nub .up {
-  background: url(../images/caret-black-small-up-image.png) 0 0 no-repeat;
+  background: url(../images/DarkTheme_Icons/drawer_up_spotlight.png) 0 0 no-repeat;
 }
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
@@ -2490,7 +2513,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: #ffffff;
 }
 .drawer-open .moon-drawers-activator-nub .up {
-  border-color: transparent transparent #404040 transparent;
+  border-color: transparent transparent #ffffff transparent;
 }
 .drawer-open .moon-drawers-activator-nub .up::after {
   border-color: transparent transparent #ffffff transparent;
@@ -2510,6 +2533,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .spotlight .moon-drawers-activator-nub .up {
   border-color: transparent transparent white transparent;
+  background-image: url(../images/DarkTheme_Icons/drawer_up_spotlight.png);
 }
 .spotlight .moon-drawers-activator-nub .up::after {
   border-color: transparent transparent #ff2f7d transparent;
@@ -3283,7 +3307,7 @@ body .enyo-fit.panels-50-percent-scrim,
   height: 50px;
   border-radius: 9999px;
   background-color: #404040;
-  background-position: 10px 15px;
+  background-position: 10px 10px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox[checked] {
   background-color: #404040;
