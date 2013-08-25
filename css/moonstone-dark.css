@@ -675,11 +675,15 @@
 .moon-checkbox-item .moon-checkbox[checked] {
   background-color: transparent;
 }
-.moon-checkbox-item.disabled,
-.moon-checkbox-item .moon-checkbox[disabled] {
+.moon-checkbox-item.disabled {
   cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+.moon-checkbox-item .moon-checkbox[disabled] {
+  cursor: default;
+  opacity: 1;
+  filter: alpha(opacity=100);
 }
 /* Left-handed checkbox */
 /* Label */
@@ -3266,33 +3270,43 @@ body .enyo-fit.panels-50-percent-scrim,
   background: inherit;
 }
 /* FormCheckbox.css */
-.moon-formcheckbox-item {
-  position: relative;
-  margin-bottom: 10px;
+.moon-item.moon-formcheckbox-item {
+  background: none;
+  padding: 0;
+  padding-right: 10px;
 }
-.moon-formcheckbox-item .moon-checkbox {
+.moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
-  left: 10px;
+  top: 2px;
+  right: 0;
   width: 50px;
   height: 50px;
-  margin-top: 2px;
   border-radius: 9999px;
-  border: 0px;
   background-color: #404040;
   background-position: 10px 15px;
 }
-.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
-  left: auto;
-  right: 10px;
+.moon-item.moon-formcheckbox-item .moon-checkbox[checked] {
+  background-color: #404040;
 }
-.moon-formcheckbox-item .moon-checkbox .moon-overlay {
-  background: transparent url(../images/checkbox.png) no-repeat 3px -29px;
+.moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
+  padding: 10px;
 }
-.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-  margin: 0px 0px 0px 70px;
+.moon-item.moon-formcheckbox-item.left-handed {
+  padding-left: 10px;
+  padding-right: 0;
 }
-.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-  margin: 0px 70px 0px 0px;
+.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
+  padding-left: 10px;
+  padding-right: 0;
+}
+.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item.left-handed {
+  padding-left: 0;
+  padding-right: 10px;
+}
+.moon-formcheckbox-item.spotlight .moon-checkbox,
+.moon-formcheckbox-item.spotlight .moon-checkbox[checked],
+.moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  background-color: #ff2f7d;
 }
 .selection-enabled .moon-selection-overlay-support.spotlight .moon-selection-overlay-support-scrim,
 .selection-enabled .moon-selection-overlay-support .spotlight.selected .moon-selection-overlay-support-scrim,

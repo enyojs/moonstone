@@ -1,31 +1,56 @@
 /* FormCheckbox.css */
 
-.moon-formcheckbox-item {
-	position: relative;
-	margin-bottom: 10px;
+.moon-item.moon-formcheckbox-item {
+	background: none;
+	padding: 0;
+	padding-right: @moon-spotlight-outset;
+
+	.moon-checkbox {
+		position: absolute;
+		top: 2px;
+		right: 0;
+		width: @moon-checkbox-width;
+		height: @moon-checkbox-width;
+		border-radius: 9999px;
+		background-color: @moon-form-checkbox-bg-color;
+		background-position: 10px 15px;
+	}
+
+	.moon-checkbox[checked] {
+		background-color: @moon-form-checkbox-bg-color;
+	}
+
+	.moon-checkbox-item-label-wrapper {
+		padding: @moon-spotlight-outset;
+	}
+
+} 
+
+.moon-item.moon-formcheckbox-item.left-handed {
+	padding-left: @moon-spotlight-outset;
+	padding-right: 0;
 }
 
-.moon-formcheckbox-item .moon-checkbox {
-	position: absolute;
-	left: @moon-spotlight-outset;
-	width: @moon-formcheckbox-image-width;
-	height: @moon-formcheckbox-image-height;
-	margin-top: 2px;
-	border-radius: 9999px;
-	border: 0px;
-	background-color: @moon-form-checkbox-bg-color;
-	background-position: 10px 15px;
+.enyo-locale-right-to-left {
+	
+	.moon-item.moon-formcheckbox-item {
+		padding-left: @moon-spotlight-outset;
+		padding-right: 0;
+	}
+
+	.moon-item.moon-formcheckbox-item.left-handed {
+		padding-left: 0;
+		padding-right: @moon-spotlight-outset;
+	}
+
 }
-.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
-	left: auto;
-	right: @moon-spotlight-outset;
-}
-.moon-formcheckbox-item .moon-checkbox .moon-overlay {
-	background: transparent @moon-checkbox-image no-repeat 3px -29px;
-}
-.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-	margin: 0px 0px 0px (@moon-formcheckbox-image-width + @moon-spotlight-outset * 2);
-}
-.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-	margin: 0px (@moon-formcheckbox-image-width + @moon-spotlight-outset * 2) 0px 0px;
+
+.moon-formcheckbox-item.spotlight {
+
+	.moon-checkbox, 
+	.moon-checkbox[checked],
+	.moon-checkbox-item-label-wrapper {
+		background-color: @moon-spotlight-color;
+	}
+
 }
