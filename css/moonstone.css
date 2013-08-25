@@ -3198,6 +3198,7 @@ body .enyo-fit.panels-50-percent-scrim,
   text-transform: uppercase;
   padding-right: 5px;
   padding-left: 5px;
+  color: #ff2f7d;
 }
 .moon-video-feedback-icon-left,
 .moon-video-feedback-icon-right {
@@ -3219,7 +3220,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 32px;
   white-space: nowrap;
 }
-.moon-video-player-info-showname {
+.moon-video-player-info-title {
   font-size: 100px;
   font-kerning: 25;
   -webkit-font-kerning: 25;
@@ -3228,7 +3229,7 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 0;
   white-space: nowrap;
 }
-.moon-video-player-info-channel {
+.moon-video-player-info-subtitle {
   font-family: "MuseoSans Medium";
   font-size: 30px;
   font-kerning: 10;
@@ -3238,7 +3239,15 @@ body .enyo-fit.panels-50-percent-scrim,
   margin-bottom: 22px;
   white-space: nowrap;
 }
-.moon-video-player-info-synopsys {
+.moon-video-player-info-subsubtitle {
+  font-family: "MuseoSans 300";
+  font-size: 30px;
+  line-height: 30px;
+  white-space: normal;
+  max-width: 1200px;
+  margin-bottom: 10px;
+}
+.moon-video-player-info-description {
   font-family: "MuseoSans 300";
   font-size: 30px;
   line-height: 30px;
@@ -3246,19 +3255,11 @@ body .enyo-fit.panels-50-percent-scrim,
   max-width: 600px;
   margin-bottom: 25px;
 }
-.moon-video-player-settings-info {
+.moon-video-player-info-client {
   position: absolute;
   top: 0px;
   right: 0px;
   padding: 15px;
-}
-.moon-video-player-rating-info {
-  font-family: "MuseoSans 300";
-  font-size: 30px;
-  line-height: 30px;
-  white-space: normal;
-  max-width: 1200px;
-  margin-bottom: 10px;
 }
 .moon-channelinfo {
   display: inline-block;
@@ -3290,7 +3291,7 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans Medium";
-  font-size: 10px;
+  font-size: 15px;
   line-height: 10px;
   background-color: #ffffff;
   color: #000000;

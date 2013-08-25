@@ -725,7 +725,7 @@ enyo.kind({
 		if (!node && aspectRatio == "0:0") {
 			return;
 		}
-		
+
 		videoAspectRatio = aspectRatio.split(":");
 		
 		// If height but no width defined, update width based on aspect ratio
@@ -815,6 +815,7 @@ enyo.kind({
 	},
 	dataloaded: function(inSender, inEvent) {
 		this.$.slider.setDisabled(false);
+		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
 		var bufferData = inNode.buffered,

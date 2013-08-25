@@ -27,20 +27,20 @@ enyo.kind({
 	published: {
 		title: "",
 		subTitle: "",
-		rating: "",
+		subSubTitle: "",
 		description: ""
 	},
 	components: [
-		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-showname"},
-		{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-channel"},
-		{kind: "enyo.Control", name: "rating", classes: "moon-video-player-rating-info"},
-		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-synopsys"},
-		{kind: "enyo.Control", name: "client", classes: "moon-video-player-settings-info"}
+		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
+		{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-subtitle"},
+		{kind: "enyo.Control", name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
+		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-description"},
+		{kind: "enyo.Control", name: "client", classes: "moon-video-player-info-client"}
 	],
 	bindings: [
 		{from: ".title",		to: ".$.title.content"},
 		{from: ".subTitle",		to: ".$.subTitle.content"},
-		{from: ".rating",		to: ".$.rating.content"},
+		{from: ".subSubTitle",	to: ".$.subSubTitle.content"},
 		{from: ".description",	to: ".$.description.content"}
 	]
 });
