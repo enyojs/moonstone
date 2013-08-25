@@ -18,8 +18,14 @@ enyo.kind({
 	],
 	initComponents: function() {
 		this.inherited(arguments);
+		this.orientChanged();
+		this.backgroundChanged();
+	},
+	orientChanged: function() {
 		this.$.client.addRemoveClass("right", this.orient != 'left');
 		this.$.client.addRemoveClass("left", this.orient == 'left');
+	},
+	backgroundChanged: function() {
 		this.$.client.addRemoveClass("bg", this.background);
 	}
 });

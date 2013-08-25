@@ -135,7 +135,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		
 		this.setPlaybackRate(1);
 		this.node.play();
 		this._prevCommand = "play";
@@ -144,7 +143,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		
 		this.setPlaybackRate(1);
 		this.node.pause();
 		this._prevCommand = "pause";
@@ -155,7 +153,6 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-		
 		switch (this._prevCommand) {
 		case "slowForward":
 			if (this._speedIndex == this._playbackRateArray.length - 1) {
@@ -207,7 +204,6 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-		
 		switch (this._prevCommand) {
 		case "slowRewind":
 			if (this._speedIndex == this._playbackRateArray.length - 1) {
@@ -319,7 +315,6 @@ enyo.kind({
 		
 		// Make sure inPlaybackRate is a string
 		this.playbackRate = inPlaybackRate = String(inPlaybackRate);
-		
 		pbNumber = this.calcNumberValueOfPlaybackRate(inPlaybackRate);
 		
 		// Set native playback rate
@@ -350,6 +345,14 @@ enyo.kind({
 	//* Get play duration in the video (in seconds)
 	getDuration: function() {
 		return this.hasNode() ? this.hasNode().duration : 0;
+	},
+	//* Get readyState (0~4)
+	getReadyState: function() {
+		return this.hasNode() ? this.hasNode().readyState : -1;
+	},
+	//* Get seeking status
+	getSeeking: function() {
+		return this.hasNode() ? this.hasNode().seeking : -1;
 	},
 	
 	//* @protected
@@ -388,7 +391,7 @@ enyo.kind({
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
 		var node = this.hasNode();
-
+		this.setAspectRatio("0:0");
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
@@ -402,12 +405,7 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-		
 		inEvent = enyo.mixin(inEvent, this.createEventData());
-
-		if (inEvent.currentTime === 0) {
-			this.doStart();
-		}
 	},
 	ratechange: function(inSender, inEvent) {
 		var node = this.hasNode(),
@@ -440,14 +438,15 @@ enyo.kind({
 		if (!node) {
 			return {};
 		}
-		
+		if (node.currentTime === 0) {
+			this.doStart();
+		}
 		return {
 			srcElement: node,
 			duration: node.duration,
 			currentTime: node.currentTime,
 			playbackRate: this.getPlaybackRate()
 		};
-		
 	},
 	//* Emit _onPlay_ event (to normalize enyo-generated _onPlay_ events)
 	_play: function(inSender, inEvent) {

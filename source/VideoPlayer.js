@@ -140,7 +140,7 @@ enyo.kind({
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
+			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
 			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
 			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
 		},
@@ -173,7 +173,7 @@ enyo.kind({
 				]},
 			
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
+					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
 						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
 					}
 				]}
@@ -223,8 +223,9 @@ enyo.kind({
 	resizeHandler: function() {
 		this.inherited(arguments);
 		if (this.isFullscreen()) {
-			//* Fixed: chrome has bug that do not return proper body width when it is not at zoom 1 in full screen mode
-			//* Fallback routine: detect current browser zoom and set css zoom as the reverse.
+			//* Fix: chrome has bug that do not return proper body width when it is not at zoom 1 in full screen mode
+			//* Fallback routine: detect current browser zoom and set css zoom as the reverse. 
+			//* (Not working on Netcast TV, window.outerHeight is null.)
 			document.body.style.zoom = window.innerHeight / window.outerHeight * 100 + "%";
 		}
 	},
@@ -251,7 +252,7 @@ enyo.kind({
 		this.$.videoInfoHeader.createComponents(this.infoComponents);
 	},
 	createClientComponents: function(inComponents) {
-		var componentOption = {name: "leftPremium", defaultSpotlightLeft: "leftPremium", owner: this.owner};
+		var c = null;
 		if (!this._buttonsSetup) {
 			this._buttonsSetup = true;
 			if (!inComponents || inComponents.length === 0) {
@@ -262,13 +263,16 @@ enyo.kind({
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.hide();
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), componentOption);
+				c = this.shiftComponentsWithDefaultName(inComponents, "leftPremiumButton");
+				this.$.leftPremiumPlaceHolder.createComponent(c, {defaultSpotlightLeft: c.name, owner: this.getInstanceOwner()});
 				if (inComponents.length == 1) {
-					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), componentOption);
+					c = this.shiftComponentsWithDefaultName(inComponents, "rightPremiumButton");
+					this.$.rightPremiumPlaceHolder.createComponent(c, {defaultSpotlightRight: c.name, owner: this.getInstanceOwner()});
 				}
 			} else {
 				// More than two components - use extra panel, with left premium plaeholder for first component
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), componentOption);
+				c = this.shiftComponentsWithDefaultName(inComponents, "leftPremiumButton");
+				this.$.leftPremiumPlaceHolder.createComponent(c, {defaultSpotlightLeft: c.name, owner: this.getInstanceOwner()});
 			}
 			// Create the rest of the components in the client (panels)
 			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
@@ -276,7 +280,11 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-
+	shiftComponentsWithDefaultName: function(components, name) {
+		var c = components.shift(); 
+		c.name = c.name ? c.name : "leftPremiumButton";
+		return c;
+	},
 	playIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
@@ -335,6 +343,9 @@ enyo.kind({
 		// show hide controls visibility
 		this.$.inlineControl.setShowing(this.inline);
 		this.$.fullscreenControl.setShowing(!this.inline);
+		if (!this.inline) {
+			this.$.inlineControl.canGenerate = false;
+		}
 	},
 	preventUpEvent: function(inSender, inEvent) {
 		this.showFSInfo();
@@ -572,13 +583,19 @@ enyo.kind({
 	
 	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
+		this._isPausedBeforeDrag = this.$.video.isPaused();
 		this.pause();
 		return true;
 	},
 	//* When seeking completes, play video.
 	sliderSeekFinish: function(inSender, inEvent) {
 		if (inEvent.value < this._duration - 1) {
-			this.play();
+			if (!this._isPausedBeforeDrag) {
+				this.play();
+			} else {
+				this.pause();
+			}
+			this._isPausedBeforeDrag = this.$.video.isPaused();
 		}
 		return true;
 	},
@@ -656,13 +673,8 @@ enyo.kind({
 	//* Facades _this.$.video.jumpToStart()_.
 	jumpToStart: function(inSender, inEvent) {
 		this._isPlaying = false;
-		if ( this.$.video.isPaused() ) {
-			//* Make video able to go futher than the buffer
-			this.$.video.play();
-		}
 		this.$.video.jumpToStart();
 		this.updatePlayPauseButtons();
-		//this.sendFeedback("jumpToStart");
 	},
 	//* Facades _this.$.video.jumpBackward()_.
 	jumpBackward: function(inSender, inEvent) {
@@ -685,7 +697,6 @@ enyo.kind({
 		}
 		this.$.video.jumpToEnd();
 		this.updatePlayPauseButtons();
-		//this.sendFeedback("jumpToEnd");
 	},
 	//* Facades _this.$.video.jumpForward()_.
 	jumpForward: function(inSender, inEvent) {
@@ -706,13 +717,16 @@ enyo.kind({
 	//* Updates the height/width based on the video's aspect ratio.
 	updateAspectRatio: function() {
 		var node = this.hasNode(),
-			videoAspectRatio = this.$.video.getAspectRatio().split(":"),
+			aspectRatio = this.$.video.getAspectRatio(),
+			videoAspectRatio = null,
 			ratio = 1
 		;
 		
-		if (!node) {
+		if (!node && aspectRatio == "0:0") {
 			return;
 		}
+		
+		videoAspectRatio = aspectRatio.split(":");
 		
 		// If height but no width defined, update width based on aspect ratio
 		if (node.style.height && !node.style.width) {
@@ -777,23 +791,30 @@ enyo.kind({
 
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
+
 		this.updatePosition();
-		
+
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
 		this.updateAspectRatio();
 		this.resizePlayer();
+		this.durationUpdate(inSender, inEvent);
+	},
+	durationUpdate: function(inSender, inEvent) {
+		this._duration = this.$.video.getDuration();
+		this._currentTime = this.$.video.getCurrentTime();
 
-		this._duration = inEvent.duration;
-		this._currentTime = inEvent.currentTime;
-		// WIP : initialize slider 
 		this.$.slider.setMin(0);
 		this.$.slider.setMax(this._duration);
+
 		this.updatePosition();
-		
+
 		this.waterfall("onTimeupdate", inEvent);
+	},
+	dataloaded: function(inSender, inEvent) {
+		this.$.slider.setDisabled(false);
 	},
 	_getBufferedProgress: function(inNode) {
 		var bufferData = inNode.buffered,
@@ -813,7 +834,7 @@ enyo.kind({
 			endPoint = bufferData.end(i);
 			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
 		}
-		return {value: highestBufferPoint, percent: highestBufferPoint*100/duration};
+		return {value: highestBufferPoint, percent: highestBufferPoint/duration*100};
 	},
 	//* Get this event on buffering is in progress
 	_progress: function(inSender, inEvent) {

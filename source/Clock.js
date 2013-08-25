@@ -1,20 +1,8 @@
 /**
-	_moon.ChannelInfo_ is a control that displays channel information. 
-	It is designed to be used within the _infoComponents_ block of a
-	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
+	_moon.Clock_ is a control that displays system clock information. 
 
 	Example:
-
-		{
-			kind: "moon.ChennelInfo",
-			no: 36,
-			name: "AMC",
-			components: [
-				{content: "3D"},
-				{content: "Live"},					
-				{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
-			]
-		}
+		{kind:"moon.Clock"}
 */
 enyo.kind({
 	name: "moon.Clock",
@@ -43,19 +31,22 @@ enyo.kind({
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
 	refreshJob: function() {
-		var d = new Date();
-		this.$.hour.setContent(this._formatNumber(d.getHours()));
+		var d = new Date(), 
+			h = d.getHours(),
+			meridian = "am";
+
+		meridian = h > 11 ? "pm" : "am";
+		h = h > 12 ? h-12: h;
+		this.$.hour.setContent(this._formatNumber(h));
 		this.$.minute.setContent(this._formatNumber(d.getMinutes()));
-		if(d.getHours() > 11){
-			this.$.meridian.setContent("pm");
-		} else {
-			this.$.meridian.setContent("am");
-		}
+		this.$.meridian.setContent(meridian);
+
 		this.$.month.setContent(this.months[d.getMonth()]);
 		this.$.day.setContent(this._formatNumber(d.getUTCDate()));
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
 	_formatNumber: function(inValue) {
+		//* Fixme: use ilib
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	}
 });

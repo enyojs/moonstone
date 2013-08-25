@@ -97,12 +97,12 @@ enyo.kind({
 		// If the user sends in a custom message, block other messages until it's hidden
 		default:
 			customMessage = true;
-			this.showingFeedback = true;
+			this._showingFeedback = true;
 			break;
 		}
 		
 		// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
-		if (!customMessage && this.showingFeedback) {
+		if (!customMessage && this._showingFeedback) {
 			return;
 		}
 
@@ -121,6 +121,12 @@ enyo.kind({
 		} else {
 			this.setAutoTimer();
 		}
+		this.inPersistShowing = inPersistShowing;
+	},
+
+	//* When true, means current feedback message has no timeout.
+	isPersistShowing: function() {
+		return this.inPersistShowing;
 	},
 
 	//* Shows this control.
@@ -130,7 +136,7 @@ enyo.kind({
 	//* Hides this control and sets _this.showingFeedback_ to false.
 	hideFeedback: function() {
 		this.setShowing(false);
-		this.showingFeedback = false;
+		this._showingFeedback = false;
 	},
 	
 	//* @protected

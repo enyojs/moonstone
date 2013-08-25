@@ -92,6 +92,7 @@ enyo.kind({
 	},
 	createPopupLabelComponents: function() {
 		this.$.popupLabel.createComponents(this.popupLabelComponents, {owner: this});
+		this.currentTime = new Date(0);
 	},
 	enterTapArea: function(inSender, inEvent) {
 		this.addClass('visible');
@@ -114,11 +115,15 @@ enyo.kind({
 	},
 	startPreview: function(inSender, inEvent) {
 		this._previewMode = true;
+		this.$.feedback.setShowing(false);
 	},
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
 		this.currentTime = new Date(this._currentTime * 1000);
 		this._updateKnobPosition(this._currentTime);
+		if (this.$.feedback.isPersistShowing()) {
+			this.$.feedback.setShowing(true);
+		}
 	},
 	isInPreview: function(inSender, inEvent) {
 		return this._previewMode;
@@ -357,7 +362,9 @@ enyo.kind({
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
-		this.showKnobStatus();
-		this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
+		if (!this.isInPreview()) {
+			this.showKnobStatus();
+			this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
+		}
 	}
 });
