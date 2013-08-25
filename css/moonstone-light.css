@@ -628,7 +628,6 @@
   -webkit-transition: opacity 0.4s linear;
   -moz-transition: opacity 0.4s linear;
   -o-transition: opacity 0.4s linear;
-  opacity: 0;
 }
 .moon-checkbox .moon-overlay.off {
   opacity: 0;
@@ -3304,6 +3303,9 @@ body .enyo-fit.panels-50-percent-scrim,
   border-radius: 9999px;
   background-color: #ffffff;
   background-position: 10px 10px;
+}
+.moon-item.moon-formcheckbox-item .moon-checkbox .moon-overlay {
+  margin-top: 9px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox[checked] {
   background-color: #ffffff;
