@@ -3285,6 +3285,9 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: #404040;
   background-position: 10px 15px;
 }
+.moon-item.moon-formcheckbox-item .moon-checkbox .moon-overlay {
+  margin-top: 14px;
+}
 .moon-item.moon-formcheckbox-item .moon-checkbox[checked] {
   background-color: #404040;
 }
