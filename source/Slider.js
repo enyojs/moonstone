@@ -46,7 +46,7 @@ enyo.kind({
 		//* Popup height in pixels
 		popupHeight: 52,
 		//* Popup offset in pixels
-		popupOffset: 30,
+		popupOffset: 5,
 		//* When false, you can move the knob past the _bgProgress_
 		constrainToBgProgress: false,
 		/**
@@ -80,12 +80,13 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus"},
-		{name: "tapArea"},
-		{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
-			{tag: "canvas", name: "drawing"},
-			{name: "popupLabel"}
-		]}
+		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", components: [
+			{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
+				{tag: "canvas", name: "drawing"},
+				{name: "popupLabel"}
+			]}
+		]},
+		{name: "tapArea"}
 	],
 	animatingTo: null,
 	
@@ -224,10 +225,10 @@ enyo.kind({
 		;
 		
 		this.$.knob.applyStyle("left", percent + "%");
-		this.$.popup.applyStyle("left", percent + "%");
+		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
+		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		
 		this.updatePopupLabel(knobValue);
-		this.updatePopupPosition();
 	},
 	updatePopupLabel: function(inKnobValue) {
 		var label = this.getPopupContent();
@@ -242,27 +243,6 @@ enyo.kind({
 		}
 		
 		return label;
-	},
-	updatePopupPosition: function() {
-		var inControl = this.$.popup;
-		if (!inControl.hasNode().getBoundingClientRect) {
-			return;
-		}
-		var hFlip = false;
-		// popup bounds
-		var pb = inControl.hasNode().getBoundingClientRect();
-		// container bounds
-		var cb = this.container.hasNode().getBoundingClientRect();
-		// knob bounds
-		var kb = this.$.knob.hasNode().getBoundingClientRect();
-
-		// when the popup's right edge is out of the window, adjust to the left
-		if ( (kb.left + (kb.width) + pb.width) > cb.right - 30) {
-			inControl.applyStyle("left", (kb.left - pb.width) + "px");
-			hFlip = true;
-		}
-		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
-		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
 	},
 	calcKnobPosition: function(inEvent) {
 		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;

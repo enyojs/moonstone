@@ -44,7 +44,7 @@ enyo.kind({
 		//** Custom Popup width for video player
 		popupWidth: 200,
 		//* Popup offset in pixels
-		popupOffset: 10
+		popupOffset: 25
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -210,7 +210,8 @@ enyo.kind({
 		var p = this._calcPercent(inValue);
 		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
-		this.$.popup.applyStyle("left", slider + "%");
+		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
+		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
 
 		var label = "";
 		if (typeof ilib !== "undefined") {
@@ -222,7 +223,6 @@ enyo.kind({
 		if(this.currentTime !== undefined) {
 			this.$.popupLabelText.setContent(this.formatTime(this.currentTime));
 		}
-		this.updatePopupPosition();
 	},
 	inverseToSlider: function(inPercent) {
 		var oValue = this.scaleFactor * inPercent + this._calcPercent(this.rangeStart);

@@ -40,11 +40,14 @@
 	position: absolute;
 	display: block;
 	z-index: 20;
-	left: 100px;
+	left: 50%;
 	top: 0px;
 	width: 62px;
 	height: 52px;
-	padding-left: 0px;
+	&.moon-slider-popup-flip-h {
+		left: auto;
+		right: 50%;
+	}
 }
 .moon-slider-popup-label {
 	.moon-large-button-text;
@@ -60,10 +63,6 @@
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
 	font-family: @moon-non-latin-font-family;
-}
-.moon-slider-popup.above {
-	top: -90px;
-	padding-left: 10px;
 }
 .moon-slider-popup-flip-h {
 	transform: rotateY(180deg);

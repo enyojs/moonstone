@@ -1758,7 +1758,7 @@
 }
 .moon-progress-bar-bar {
   height: 100%;
-  background-color: #ffffff;
+  background-color: #ff2f7d;
   position: absolute;
   top: 0;
 }
@@ -1804,11 +1804,14 @@
   position: absolute;
   display: block;
   z-index: 20;
-  left: 100px;
+  left: 50%;
   top: 0px;
   width: 62px;
   height: 52px;
-  padding-left: 0px;
+}
+.moon-slider-popup.moon-slider-popup-flip-h {
+  left: auto;
+  right: 50%;
 }
 .moon-slider-popup-label {
   font-family: "Miso";
@@ -1828,10 +1831,6 @@
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
-}
-.moon-slider-popup.above {
-  top: -90px;
-  padding-left: 10px;
 }
 .moon-slider-popup-flip-h {
   transform: rotateY(180deg);
@@ -2748,17 +2747,14 @@ body .enyo-fit.panels-50-percent-scrim,
   border-radius: 3px;
   margin: -3px;
   top: 20px;
-  background-color: #fff;
 }
 .moon-video-transport-slider-knob {
-  transition: opacity 0.1s linear;
-  -webkit-transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  opacity: 0;
+  background: transparent;
+  color: transparent;
 }
 .moon-video-transport-slider.visible .moon-video-transport-slider-knob,
 .moon-video-transport-slider.visible .moon-video-transport-slider-knob.disabled:active:hover {
-  opacity: 1;
+  background-color: #fff;
 }
 /* ---- Bar ---- */
 .moon-video-transport-slider-bar-bar {
