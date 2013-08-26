@@ -4,7 +4,7 @@ enyo.kind({
     name: "moon.sample.music.TrackOneColumnNarrowSample",
     kind: "moon.Panels",
     pattern: "alwaysviewing",
-    classes: "moon-dark-gray",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
+    classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
     components: [
         {
             kind: "moon.Panel",
