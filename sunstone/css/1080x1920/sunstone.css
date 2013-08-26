@@ -1077,8 +1077,7 @@
   border-radius: 10px;
 }
 /*DropDown.css*/
-.sun-drop-down,
-.sun.moon-popup {
+.sun-drop-down {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
