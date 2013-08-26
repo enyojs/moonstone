@@ -71,7 +71,6 @@ enyo.kind({
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
 	handlers: {
-		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
 	},
 	componentOverrides: {
@@ -80,7 +79,7 @@ enyo.kind({
 			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
 		]},
 		drawer: {components: [
-			{name: "client", kind: "Group", highlander: true},
+			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
 			{name: "helpText", classes: "moon-expandable-picker-help-text"}
 		]}
 	},
@@ -192,9 +191,10 @@ enyo.kind({
 			this.setSelected(inEvent.toggledControl);
 			
 			if (this.getAutoCollapseOnSelect() && this.isRendered) {
-				this.startJob("selectAndClose", this.bindSafely("selectAndClose"), this.selectAndCloseDelayMS);
+				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
 		}
+		return true;
 	},
 	//* Close drawer and select header
 	selectAndClose: function() {

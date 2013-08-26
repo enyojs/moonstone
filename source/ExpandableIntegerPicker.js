@@ -41,7 +41,6 @@ enyo.kind({
 	//* @protected
 	
 	handlers: {
-		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
 	},
 	componentOverrides: {
@@ -50,7 +49,7 @@ enyo.kind({
 			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
 		]},
 		client: {components: [
-			{name: "picker", kind: "moon.SimpleIntegerPicker", onSelect: "toggleActive"}
+			{name: "picker", kind: "moon.SimpleIntegerPicker", onSelect: "toggleActive", onActivate: "activated"}
 		]}
 	},
 	bindings: [
@@ -113,9 +112,9 @@ enyo.kind({
 			enyo.Spotlight.unspot();
 		}
 	},
-	//* Capture onActivate events to prevent bubbling if _inEvent.originator_ is not _this_
+	//* Kill any onActivate events coming from buttons in the SimplePicker
 	activated: function(inSender, inEvent) {
-		return inEvent.originator === this;
+		return true;
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
