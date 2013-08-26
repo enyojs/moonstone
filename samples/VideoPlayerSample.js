@@ -7,7 +7,7 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", autoplay:true,
 			infoComponents: [
-				{kind: "moon.BackgroundWrapper", orient: "left", background: true, fit: true, components: [
+				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 					{
 						kind: "moon.ChannelInfo",
 						channelNo: "13",
@@ -27,7 +27,7 @@ enyo.kind({
 						description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
 					}
 				]},
-				{kind: "moon.BackgroundWrapper", orient: "right", background: true, components: [
+				{kind: "moon.VideoInfoBackground", orient: "right", background: true, components: [
 					{kind:"moon.Clock"}
 				]}
 			],

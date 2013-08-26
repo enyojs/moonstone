@@ -68,7 +68,7 @@ enyo.depends(
 	"VideoFullscreenToggleButton.js",
 	"ChannelInfo.js",
 	"Clock.js",
-	"BackgroundWrapper.js",
+	"VideoInfoBackground.js",
 	"DrawerHandle.js",
 	"Drawer.js",
 	"Drawers.js",

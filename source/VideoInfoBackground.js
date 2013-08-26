@@ -1,10 +1,13 @@
 /**
-	_moon.BackgroundWrapper_ is a control that align. 
-	It is designed to be used within the _infoComponents_ block of a
-	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
+	_moon.VideoInfoBackground is a control that provides a stylized background for components placed in 
+	the _infoComponents_ block of a <a href="#moon.VideoPlayer">moon.VideoPlayer</a>.  It is designed as
+	a decorator, such that it wraps components placed inside with the stylized background.
+
+	Use the _orient_ property to set the orientation ("left" or "right").  
+	See <a href="#moon.VideoPlayer">moon.VideoPlayer</a> for more details.
 */
 enyo.kind({
-	name: "moon.BackgroundWrapper",
+	name: "moon.VideoInfoBackground",
 	kind: "enyo.Control",
 	classes: "moon-background-wrapper",
 	published: {
@@ -13,7 +16,7 @@ enyo.kind({
 	},
 	components: [
 		{name: "client", classes: "moon-background-wrapper-client-content", components: [
-			{classes: "moon-background-wrapper-client-tri", chrome: true}
+			{classes: "moon-background-wrapper-client-tri"}
 		]}
 	],
 	initComponents: function() {
