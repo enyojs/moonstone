@@ -18,5 +18,25 @@ enyo.kind({
 	//* @protected
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-icon-button", this.getSmall());
-	}	
+	}
+});
+
+enyo.kind({
+	name: "sun.LoadingIconButton",
+	kind: "sun.IconButton",
+	published: {
+		loading: false
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.loadingChanged();
+	},
+	loadingChanged: function() {
+		this.addRemoveClass("moon-loading-icon-button", this.getLoading());
+		if(this.getLoading()) {
+			this.applyStyle("background-image","");
+		} else {
+			this.srcChanged();
+		}
+	}
 });

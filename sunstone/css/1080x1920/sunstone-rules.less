@@ -11,7 +11,7 @@
 	letter-spacing: @moon-sub-header-letter-spacing;
 	padding: @moon-app-keepout;
 	color: @moon-light-text-color;
-	background-color: @moon-light-gray;
+	background-color: #000000;
 }
 
 .moon-header-font {
@@ -145,6 +145,7 @@
   font-size: @sun-header-text-size;
 }
 .sun-small-header-text {
+  .moon-header-text;
   font-size: @sun-small-header-text-size;
 }
 .sun-sub-header-text {
@@ -190,6 +191,7 @@
 @import "DropDownButton.less";
 @import "DropDownDecorator.less";
 @import "OptionItem.less";
+@import "InputHeader.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {

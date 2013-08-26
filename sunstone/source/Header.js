@@ -14,16 +14,23 @@ enyo.kind({
 		//* If true, the sun-arrow-header css class will be applied to this header
 		arrowIcon: false,
 		//* If true, onHeaderLeftTapped event won't be generated
-		arrowIconDisable: false
+		arrowIconDisable: false,
+		//* If true, loading bar will be applied to this header
+		loading: false,
+		//* loading bar progress
+		progress: 0
 	},
 	classes: "sun-header moon-header",
 	components: [
-		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
-			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
+		{kind: "FittableColumns", components:[
+			{name: "texts", fit: true, components: [
+				{name: "title", classes: "sun-header-font sun-header-title"},
+				{name: "titleBelow", classes: "sun-header-title-below"}
+			]},
+			{name: "client", classes: "sun-header-client"}
 		]},
 		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"},
-		{name: "client", classes: "sun-header-client"},
+		{name: "loading", kind: "sun.ProgressBar", progress: 0, classes: "sun-header-loading"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -31,6 +38,8 @@ enyo.kind({
 		this.arrowIconDisableChanged();
 		this.titleChanged();
 		this.titleBelowChanged();
+		this.loadingChanged();
+		this.progressChanged();
 	},
 	//* @protected
 	contentChanged: function() {
@@ -56,6 +65,16 @@ enyo.kind({
 	},
 	arrowIconDisableChanged: function() {
 		this.$.arrowIcon.disable = this.getArrowIconDisable();
+	},
+	loadingChanged: function() {
+		this.progressChanged();
+	},
+	progressChanged: function() {
+		if(this.getLoading()) {
+			this.$.loading.setProgress(this.progress);
+		} else {
+			this.$.loading.setProgress(0);
+		}
 	},
 	headerLeftTapped: function() {
 		if(this.getArrowIconDisable() == false) {

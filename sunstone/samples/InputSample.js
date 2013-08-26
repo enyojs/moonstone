@@ -42,19 +42,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "sun.Divider", content: "Result", classes: "moon-input-sample-result"},
-		{name: "console", classes: "moon-input-sample-console", content: "Input: "},
-		{kind: "sun.Divider", content: "Bottom-aligned inputs", classes: "moon-input-sample-result"},
-		{components: [
-			{kind: "sun.InputDecorator", spotlight: true, components: [
-				{kind: "sun.Input", placeholder: "Bottom", oninput:"inputChanged"}
-			]},
-			{kind: "sun.InputDecorator", spotlight: true, components: [
-				{kind: "sun.Input", placeholder: "Aligned", oninput:"inputChanged"}
-			]},
-			{kind: "sun.InputDecorator", spotlight: true, components: [
-				{kind: "sun.Input", placeholder: "Inputs", oninput:"inputChanged"}
-			]}
-		]}
+		{name: "console", classes: "moon-input-sample-console", content: "Input: "}
 	],
 	inputChanged: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inSender.getValue());

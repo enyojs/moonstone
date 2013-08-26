@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -225,7 +233,7 @@
   letter-spacing: -0.04em;
   padding: 20px;
   color: #4b4b4b;
-  background-color: #ededed;
+  background-color: #000000;
 }
 .moon-header-font {
   font-family: "Miso";
@@ -344,6 +352,11 @@
   font-size: 150pt;
 }
 .sun-small-header-text {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 92pt;
 }
 .sun-sub-header-text {
@@ -374,6 +387,20 @@
 /* sunstone - LESS pre-calculations */
 /* Individual widget CSS */
 /* Button */
+.sun .moon-button {
+  font-family: "Miso";
+  font-size: 56px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: normal;
+  max-height: 107px;
+  padding: 20px 22px 20px 22px;
+  min-width: 107px;
+  line-height: 0.84em;
+}
+.sun .moon-button > .button-client {
+  padding: 0px 0px 0px 0px;
+}
 .sun .moon-button.active,
 .sun .moon-button.pressed,
 .sun .moon-button.spotlight.pressed,
@@ -427,6 +454,9 @@
   border-radius: 66px;
   border: 5px solid transparent;
 }
+.sun .moon-icon.moon-icon-button:active:hover {
+  background-position: 0px 0px;
+}
 .sun .moon-icon.moon-icon-button.active,
 .sun .moon-icon.moon-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.spotlight.pressed,
@@ -442,19 +472,35 @@
   border: 5px solid #ff2f7d;
 }
 .sun .moon-icon-button.moon-small-icon-button {
-  width: 107px;
-  height: 107px;
-  border-radius: 53.5px;
+  width: 102px;
+  height: 102px;
+  border-radius: 51px;
 }
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight:active {
-  background-position: 0px -107px;
+  background-position: 0px -102px;
+  color: #ffffff;
+  background-color: #ff2f7d;
+  border: 5px solid #ff2f7d;
 }
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
-.moon-icon.moon-icon-button.moon-small-icon-button:active:hover {
-  background-position: 0 -107px;
+.sun .moon-icon.moon-icon-button.moon-small-icon-button.pressed {
+  background-position: 0 -102px;
+}
+.sun .moon-icon.disabled:active:hover,
+.sun .moon-icon.moon-icon-button.moon-small-icon-button.disabled:active:hover {
+  background-position: 0 0px;
+}
+.sun .moon-icon.moon-icon-button.moon-loading-icon-button {
+  background-image: url(../../images/1080x1920/spinner-light.gif);
+}
+.sun .moon-icon.moon-icon-button.active,
+.sun .moon-icon.moon-icon-button.pressed,
+.sun .moon-icon.moon-icon-button.spotlight.pressed,
+.sun .moon-icon.moon-icon-button.spotlight:active {
+  background-position: 0px;
 }
 /* InputDecorator.css */
 .sun .moon-input-decorator:not(.moon-input-header-input-decorator) {
@@ -498,25 +544,37 @@
   margin: 20px 0px 0px 0px;
 }
 /* ProgressBar.css */
-.sun .moon-progress-bar-bar {
+.moon-progress-bar {
+  height: 12px;
+}
+.moon-progress-bg-bar {
+  height: 100%;
+  background-color: #7d7d7d;
+}
+.moon-progress-bar-bar {
   background-color: #ff2f7d;
+  margin-top: -12px;
 }
 /* Slider.css */
 .sun .moon-slider-knob,
 .sun .moon-slider-knob.disabled:active:hover {
-  height: 51px;
-  width: 51px;
-  background-color: #ffffff;
-  border: 5px solid #ffffff;
+  height: 71px;
+  width: 71px;
+  border-radius: 38px;
+  background-color: #9e9e9e;
+  border: 5px solid #9e9e9e;
+  margin: -45px -39px;
 }
 .sun .moon-slider-knob.active,
 .sun .moon-slider-knob.spotselect,
 .sun .moon-slider-knob:active:hover {
-  height: 79px;
-  width: 79px;
+  height: 83px;
+  width: 83px;
+  border-radius: 44px;
+  margin: -50px -45px;
 }
 .sun .moon-slider.spotlight > .moon-slider-knob {
-  background-color: #ffffff;
+  background-color: #9e9e9e;
   border: 5px solid #ff2f7d;
 }
 .sun .moon-slider.spotlight > .moon-slider-knob:active:hover {
@@ -651,11 +709,16 @@
 .sun .moon-spinner.moon-light {
   background: url(../../images/1080x1920/spinner-light.gif) no-repeat 0 0;
 }
+.sun .sun-header.enyo-fittable-columns-layout > * {
+  margin: 0px;
+}
 .sun .sun-header {
-  height: 186px;
-  border-top: 0px;
-  border-bottom: 6px solid #b5b5b5;
+  color: #dddddd;
+  height: 187px;
+  border-color: #404040;
+  border: 0px;
   margin: 0px 20px 1px 20px;
+  min-width: 466px;
 }
 .sun .sun-header-title {
   font-family: "Miso";
@@ -664,14 +727,22 @@
   font-style: normal;
   letter-spacing: -0.05em;
   font-size: 150pt;
-  padding-left: 20px;
-  margin-top: -20px;
+  line-height: 141px;
+  overflow: hidden;
+  margin: 0px 0px 0px 27px;
 }
 .sun-arrow-header .sun-header-title {
-  padding-left: 85px;
+  padding-left: 65px;
 }
 .sun .sun-two-lines-header .sun-header-title {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
   font-size: 92pt;
+  line-height: 90px;
+  height: 90px;
 }
 .sun .sun-header-title-below {
   font-family: "MuseoSans 700";
@@ -681,27 +752,41 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  padding-left: 20px;
+  padding-left: 27px;
+  color: #999999;
+  height: 68px;
+  overflow: hidden;
 }
 .sun-arrow-header .sun-header-title-below {
-  padding-left: 85px;
+  padding-left: 92px;
 }
 .sun-arrow-icon {
   position: absolute;
-  top: 59px;
-  left: 15px;
-  width: 42px;
-  height: 75px;
-  background-image: url('../../images/1080x1920/header_arrow.png');
-  background-position: left top;
+  top: 0px;
+  left: -20px;
+  width: 20%;
+  height: 181px;
+  background: url('../../images/1080x1920/header_arrow.png') no-repeat 48px 59px;
 }
-.sun-header-client {
-  position: absolute;
-  top: 38px;
-  right: 40px;
+.sun .sun-header .enyo-fittable-columns-layout > .sun-header-client {
+  margin-right: 40px;
+  padding: 38px 0px 31px;
 }
 .sun-header-client > * {
+  position: relative;
   margin-left: 30px;
+}
+.sun .sun-header .sun-header-loading {
+  position: absolute;
+  top: 181px;
+  left: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 6px;
+  background-color: #b5b5b5;
+}
+.sun .sun-header .moon-progress-bar-bar {
+  margin-top: -6px;
 }
 /* Accordion.css */
 .sun .moon-accordion-client .moon-item {
@@ -1189,6 +1274,49 @@
 .sun .moon-selectableItem .moon-underline {
   border-bottom: 4px solid #ffb80d;
   padding-bottom: 5px;
+/* InputHeader.css */
+.sun .moon-input-header-input-decorator {
+  margin: -39px 0px 0px 0px !important;
+}
+.sun .moon-input-header-input-decorator > .moon-input {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 150pt;
+  height: 150pt;
+  line-height: 150pt;
+  color: #dddddd;
+}
+.sun .sun-two-lines-header .moon-input-header-input-decorator > .moon-input {
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  font-size: 92pt;
+  margin-top: 22px !important;
+  height: 92pt;
+  line-height: 92pt;
+  color: #dddddd;
+}
+.sun .enyo-tool-decorator > * {
+  vertical-align: top;
+  width: 100%;
+}
+.sun .sun-header-title.enyo-fittable-columns-layout .moon-button {
+  position: relative;
+  top: 15px;
+  right: 0px;
+}
+.sun .sun-two-lines-header .sun-header-title.enyo-fittable-columns-layout .moon-button {
+  position: relative;
+  top: 0px;
+  right: 0px;
+}
+.sun .sun-input-header-done-hide {
+  opacity: 0;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
