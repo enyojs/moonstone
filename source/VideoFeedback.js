@@ -17,17 +17,17 @@ enyo.kind({
 	//* @protected
 	_showingFeedback: false,
 
-	_imagePath:				"$lib/moonstone/images/",
-	_jumpBackImg:			"IndicatorIcon_JumpBackward.png",
-	_rewindImg:				"IndicatorIcon_Backward.png",
-	_playImg:				"IndicatorIcon_Play.png",
-	_pauseImg:				"IndicatorIcon_Pause.png",
-	_fastForwardImg:		"IndicatorIcon_Forward.png",
-	_jumpForwardImg:		"IndicatorIcon_JumpForward.png",
-	_pauseBackImg:			"IndicatorIcon_PauseBackward.png",
-	_pauseForwardImg:		"IndicatorIcon_PauseForward.png",
-	_pauseJumpBackImg:		"IndicatorIcon_PauseJumpBackward.png",
-	_pauseJumpForwardImg:	"IndicatorIcon_PauseJumpForward.png",
+	_imagePath:				"$lib/moonstone/images/video-player/",
+	_jumpBackImg:			"icon_indicator_jumpbackward.png",
+	_rewindImg:				"icon_indicator_backward.png",
+	_playImg:				"icon_indicator_play.png",
+	_pauseImg:				"icon_indicator_pause.png",
+	_fastForwardImg:		"icon_indicator_forward.png",
+	_jumpForwardImg:		"icon_indicator_jumpforward.png",
+	_pauseBackImg:			"icon_indicator_pausebackward.png",
+	_pauseForwardImg:		"icon_indicator_pauseforward.png",
+	_pauseJumpBackImg:		"icon_indicator_pausejumpbackward.png",
+	_pauseJumpForwardImg:	"icon_indicator_pausejumpforward.png",
 	_autoTimer: null,
 
 	components: [

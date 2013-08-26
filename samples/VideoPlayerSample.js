@@ -32,16 +32,16 @@ enyo.kind({
 				]}
 			],
 			components: [
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 			]
 		}
 	]
