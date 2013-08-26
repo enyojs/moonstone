@@ -29,7 +29,9 @@ enyo.kind({
 		//** Length of Dummy area, current unit is pixel for video slider, Not percentage
 		dummyAreaPixel: 120,
 		//** This is time option for slider expression between both side of time-indicator
-		absoluteTime: false
+		absoluteTime: false,
+		//** threshold value(percentage) for using animation effect on slider progress change
+		smallVariation: 1
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -129,6 +131,12 @@ enyo.kind({
 	calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * this.scaleFactor * 100;
 	},
+	calcVariationRatio: function(inValue) {
+		return (this.value - inValue) / (this.max - this.min);
+	},
+	calcVariationPercent: function(inValue) {
+		return this.calcVariationRatio(inValue) * this.scaleFactor * 100;
+	},
 	updateKnobPosition: function(inPercent) {
 		var v = this.calcPercent(inPercent)/this.scaleFactor;
 		var slider = this.inverseToSlider(v);
@@ -172,6 +180,13 @@ enyo.kind({
 			}
 		}
 		return true;
+	},
+	setValue: function(inValue) {
+		if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
+			this.inherited(arguments);
+		} else {
+			this._setValue(inValue);
+		}
 	},
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
