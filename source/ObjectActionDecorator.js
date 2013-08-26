@@ -13,7 +13,7 @@
 				kind: "moon.ObjectActionDecorator", 
 				orientation: "vertical",
 				components: [
-					{kind: "moon.Item", spotlightPosition: "bottom", components: [
+					{kind: "moon.Item", components: [
 						{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
 					]}
 				],
@@ -27,6 +27,7 @@
 */
 enyo.kind({
 	name: "moon.ObjectActionDecorator",
+	classes: "moon-objaction",
 	handlers: {
 		onSpotlightFocus:"focus",
 		onSpotlightBlur:"blur",
@@ -48,22 +49,18 @@ enyo.kind({
 	},
 	components: [
 		{name:"client", classes: "moon-objaction-client"},
-		{name:"actions"}
+		{name:"actions", classes: "moon-objaction-actions"}
 	],
 	//*@protected
 	orientationChanged: function () {
-		switch(this.getOrientation()){
-		case 'vertical':
-			this.applyStyle('display', 'inline-block');
-			this.$.actions.addClass("moon-objaction-action-vertical moon-vspacing");
-			break;
-		case 'horizontal':
-			this.$.actions.addClass("moon-objaction-action-horizontal moon-hspacing");
-			break;
-		}
+		var vertical = this.getOrientation() == "vertical";
+		this.addRemoveClass("vertical", vertical);
+		this.addRemoveClass("horizontal", !vertical);
+		this.$.actions.addRemoveClass("moon-vspacing", vertical);
+		this.$.actions.addRemoveClass("moon-hspacing", !vertical);
 	},
 	noStretchChanged: function() {
-		this.$.actions.addRemoveClass("moon-objectaction-stretch", !this.noStretch);
+		this.$.actions.addRemoveClass("stretch", !this.noStretch);
 	},
 	initComponents: function() {
 		this.inherited(arguments);

@@ -6,12 +6,13 @@
 }
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
-	position: relative;
+	position: absolute;
 	height: 60px;
 	width: 60px;
 	border-radius: 30px;
 	margin: -30px;
-	background-color: #69cdff;
+	background-color: @moon-slider-knob-bg-color;
+	top: 0;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
@@ -22,10 +23,10 @@
 	margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
-	background-color: #ffb80d;
+	background-color: @moon-slider-spotlight-bar-color;
 }
 .moon-slider.spotlight > .moon-slider-knob {
-	background-color: #ffb80d;
+	background-color: @moon-slider-spotlight-knob-color;
 }
 .moon-slider.disabled {
 	cursor: default;
@@ -39,11 +40,14 @@
 	position: absolute;
 	display: block;
 	z-index: 20;
-	left: 100px;
+	left: 50%;
 	top: 0px;
 	width: 62px;
 	height: 52px;
-	padding-left: 0px;
+	&.moon-slider-popup-flip-h {
+		left: auto;
+		right: 50%;
+	}
 }
 .moon-slider-popup-label {
 	.moon-large-button-text;
@@ -52,7 +56,7 @@
 	width: 86px;
 	height: 45px;
 	white-space: nowrap;
-	color: #fff;
+	color: @moon-slider-popup-text-color;
 	text-align: center;
 	line-height: 1.5em;
 	vertical-align: middle;
@@ -60,18 +64,14 @@
 .enyo-locale-non-latin .moon-slider-popup-label {
 	font-family: @moon-non-latin-font-family;
 }
-.moon-slider-popup.above {
-	top: -90px;
-	padding-left: 10px;
-}
 .moon-slider-popup-flip-h {
 	transform: rotateY(180deg);
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
 }
 .moon-slider-focus {
-	background-color: #ffb80d;
+	background-color: @moon-slider-focus-bg-color;
 }
 .moon-slider-nofocus {
-	background-color: #69cdff;
+	background-color: @moon-slider-nofocus-bg-color;
 }
