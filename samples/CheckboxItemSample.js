@@ -5,7 +5,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes:"moon-hspacing", controlClasses:"moon-4h", components: [
+			{classes:"moon-hspacing", controlClasses:"moon-5h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Items"},
 					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, onchange: "itemChanged"},
@@ -13,6 +13,14 @@ enyo.kind({
 					{kind: "moon.CheckboxItem", disabled: true, content: "Deactivated", onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
+				]},
+				{components: [
+					{kind: "moon.Divider", content: "Right-Handed Checkbox Items"},
+					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Option 2", checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", disabled: true, content: "Deactivated", checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", checkboxOnRight: true, onchange: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Item Group"},

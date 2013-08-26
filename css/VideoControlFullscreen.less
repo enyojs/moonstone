@@ -3,7 +3,7 @@
 
 .moon-video-fullscreen-control {
 	box-sizing: border-box;
-	background-color: rgba(0,0,0,0.1);
+	background-color: @moon-video-player-fullscreen-bg-color;
 }
 
 
@@ -20,7 +20,7 @@
 	left: 20px;
 	right: 20px;
 	z-index: 2;
-	background-color: rgba(0,0,0,0);
+	background-color: @moon-video-player-bottom-bg-color;
 }
 .moon-video-player-controls {
 	height: 90px;
@@ -72,7 +72,7 @@
 	width: @moon-videoplayer-slider-knob-width;
 	border-radius: @moon-videoplayer-slider-knob-width/2;
 	margin: -32px -29px;
-	background-color: rgba(0,212,179,1);
+	background-color: @moon-videoplayer-progress-bar-bg-color;
 }
 
 .moon-video-fullscreen-control .moon-slider-knob {
@@ -89,14 +89,14 @@
 
 /* -- Buffered progress bar (bg bar) -- */
 .moon-video-player .moon-progress-bg-bar {
-	background-color: rgba(0,212,179,0.5);
+	background-color: @moon-videoplayer-buffered-progress-bar-bg-color;
 	transition: width 1s linear;
 	-webkit-transition: width 1s linear;
 	-moz-transition: width 1s linear;
 }
 .moon-video-player .moon-progress-bar-bar,
 .moon-video-player .spotlight .moon-progress-bar-bar {
-	background-color: rgba(0,212,179,1);
+	background-color: @moon-videoplayer-progress-bar-bg-color;
 }
 
 
@@ -110,13 +110,13 @@
 	font-family: @moon-font-family;
 	font-size: @moon-sub-header-font-size;
 	letter-spacing: @moon-sub-header-letter-spacing;
-	color: #ffffff;
+	color: @moon-videoplayer-header-text-color;
 }
 .moon-video-player-header.always {
 	display: block;
 }
 .moon-video-player-header > * {
-	background-color: rgba(0,0,0,0.5);
+	background-color: @moon-videoplayer-header-bg-color;
 }
 .moon-video-player-info {
 	position: relative;
@@ -182,8 +182,8 @@
 	font-family: "MuseoSans Medium";
 	font-size: @moon-sub-header-font-size;
 	line-height: @moon-sub-header-font-size;
-	background-color: #ffffff;
-	color: #000000;
+	background-color: @moon-videoplayer-info-icon-bg-color;
+	color: @moon-videoplayer-info-icon-text-color;
 	border-radius: 5px;
 	text-align: center;
 	float: left;
@@ -191,8 +191,8 @@
 	margin: 0 5px;
 }
 .moon-video-player-info-redicon {
-	background-color: red;
-	color: #ffffff;
+	background-color: @moon-videoplayer-redicon-bg-color;
+	color: @moon-videoplayer-redicon-text-color;
 }
 
 /** Sample CSS for explaining how to override Slider Classes 
@@ -200,27 +200,27 @@
 */
 
 .moon-videoplayer-sample-slider {
-  background-color: #4b4b4b;
+  background-color: @moon-videoplayer-slider-bg-color;
   height: 6px;	
 }
 .moon-video-transport-slider .moon-videoplayer-sample-knob {
-  background-color: #69cdff;
+  background-color: @moon-videoplayer-spotlight-bg-color;
 }
 .moon-slider.spotlight .moon-videoplayer-sample-knob {
-  background-color: #69cdff;
+  background-color: @moon-videoplayer-spotlight-bg-color;
 }
 
 .moon-video-transport-slider .moon-videoplayer-sample-progressbar {
-  background-color: #69cdff;
+  background-color: @moon-videoplayer-spotlight-bg-color;
   height: 6px;
   margin-top: -6px;
 }
 .moon-slider.spotlight .moon-videoplayer-sample-progressbar {
-  background-color: #69cdff;
+  background-color: @moon-videoplayer-spotlight-bg-color;
 }
 
 .moon-slider .moon-videoplayer-sample-bgprogressbar {
-  background-color: #7d7d7d;
+  background-color: @moon-videoplayer-progressbar-bg-color;
   height: 6px;
 }
 

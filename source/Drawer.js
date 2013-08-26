@@ -30,7 +30,7 @@
 enyo.kind({
 	name: "moon.Drawer",
 	kind:"enyo.Control",
-	classes: "moon-drawer moon-dark-gray",
+	classes: "moon-drawer moon-neutral",
 	published: {
 		//* Components that are to be placed in the control drawer
 		controlDrawerComponents: null,
