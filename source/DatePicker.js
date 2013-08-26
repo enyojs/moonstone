@@ -15,7 +15,7 @@
 enyo.kind({
 	name: "moon.DatePicker",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-date-picker",
+	classes: "moon-expandable-picker moon-date-picker",
 	events: {
 		/**
 			Fires when the date changes.
