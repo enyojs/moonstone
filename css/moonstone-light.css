@@ -1365,26 +1365,27 @@
   background-clip: padding-box;
   border: 5px solid transparent;
 }
-.moon-gridlist-imageitem.selected {
-  border: 5px solid #ff2f7d;
-  background: #ff2f7d;
-}
 .moon-gridlist-imageitem .caption,
 .moon-gridlist-imageitem .sub-caption {
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  height: 1.67em;
-  line-height: 1.67em;
-  z-index: 10;
-  padding: 0px;
-  margin: 0px;
-  color: #4b4b4b;
-  width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  vertical-align: bottom;
+}
+.moon-gridlist-imageitem .caption {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4b4b4b;
+}
+.moon-gridlist-imageitem .sub-caption {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4b4b4b;
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #a2a2a2;
@@ -1392,9 +1393,16 @@
   height: 1.25em;
   vertical-align: bottom;
 }
+.moon-gridlist-imageitem.selected,
 .moon-gridlist-imageitem.spotlight {
   border: 5px solid #ff2f7d;
   background-color: #ff2f7d;
+}
+.moon-gridlist-imageitem.selected .caption,
+.moon-gridlist-imageitem.spotlight .caption,
+.moon-gridlist-imageitem.selected .sub-caption,
+.moon-gridlist-imageitem.spotlight .sub-caption {
+  color: #ffffff;
 }
 .moon-gridlist .enyo-gridlist-row:last-child {
   margin-bottom: 50px;

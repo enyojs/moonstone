@@ -12,36 +12,33 @@
 	overflow: visible;
 	background-clip: padding-box;
 	border: 5px solid transparent;
-}
-.moon-gridlist-imageitem.selected {
-	border: 5px solid @moon-spotlight-border-color;
-	background: @moon-spotlight-border-color;
-}
-.moon-gridlist-imageitem .caption, .moon-gridlist-imageitem .sub-caption {
-	font-weight: bold;
-	font-size: 20px;
-	text-align: center;
-	height: 1.67em;
-	line-height: 1.67em;
-	z-index: 10;
-	padding: 0px;
-	margin: 0px;
-    color: @moon-gridlist-caption-color;
-	width: 100%;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	vertical-align: bottom;
-}
-.moon-gridlist-imageitem .sub-caption {
-	color: @moon-gridlist-sub-caption-color;
-	line-height: 1.25em;
-	height: 1.25em;
-	vertical-align: bottom;
-}
-.moon-gridlist-imageitem.spotlight {
-	border: 5px solid @moon-spotlight-border-color;
-	background-color: @moon-spotlight-border-color;
+	.caption, 
+	.sub-caption {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+	.caption {
+		.moon-sub-header-text;
+	}
+	.sub-caption {
+		.moon-body-text;
+	}
+	.sub-caption {
+		color: @moon-gridlist-sub-caption-color;
+		line-height: 1.25em;
+		height: 1.25em;
+		vertical-align: bottom;
+	}
+	&.selected,
+	&.spotlight {
+		border: 5px solid @moon-spotlight-border-color;
+		background-color: @moon-spotlight-border-color;
+		.caption, 
+		.sub-caption {
+			color: @moon-spotlight-text-color;
+		}
+	}
 }
 .moon-gridlist .enyo-gridlist-row:last-child {
 	margin-bottom: 5*@moon-grid-gutter-width;
