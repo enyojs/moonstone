@@ -744,14 +744,11 @@
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   height: 1.12em;
   padding: 2px 0px 0px 0px;
-  margin-right: 55px;
+  margin-right: 65px;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
   padding: 0px 0px 0px 60px;
   margin-right: 0px;
-}
-.moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
-  margin-right: 75px;
 }
 .enyo-locale-right-to-left .moon-toggle-item.spotlight .moon-toggle-item-label-wrapper {
   padding: 0px 0px 0px 60px;
