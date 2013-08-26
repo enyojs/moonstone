@@ -34,6 +34,14 @@ enyo.kind({
 		this.sideChanged();
 		this.showOnFocusChanged();
 	},
+	//* If _this.showOnFocus_ is _true_, reset caption position on reflow
+	reflow: function() {
+		this.inherited(arguments);
+		
+		if (this.getShowOnFocus()) {
+			this.resetCaptionPosition();
+		}
+	},
 	
 	// Change handlers
 	
