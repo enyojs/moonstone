@@ -72,27 +72,27 @@ enyo.kind({
 
 
 		//* URL for "jump back" icon
-		jumpBackIcon: "$lib/moonstone/images/icon_skipbackward.png",
+		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
 		//* URL for "rewind" icon
-		rewindIcon: "$lib/moonstone/images/icon_backward.png",
+		rewindIcon: "$lib/moonstone/images/video-player/icon_backward.png",
 		//* URL for "play" icon
-		playIcon: "$lib/moonstone/images/icon_play.png",
+		playIcon: "$lib/moonstone/images/video-player/icon_play.png",
 		//* URL for "pause" icon
-		pauseIcon: "$lib/moonstone/images/icon_pause.png",
+		pauseIcon: "$lib/moonstone/images/video-player/icon_pause.png",
 		//* URL for "fast forward" icon
-		fastForwardIcon: "$lib/moonstone/images/icon_forward.png",
+		fastForwardIcon: "$lib/moonstone/images/video-player/icon_forward.png",
 		//* URL for "jump forward" icon
-		jumpForwardIcon: "$lib/moonstone/images/icon_skipforward.png",
+		jumpForwardIcon: "$lib/moonstone/images/video-player/icon_skipforward.png",
 		//* URL for "more controls" icon
-		moreControlsIcon: "$lib/moonstone/images/icon_extend.png",
+		moreControlsIcon: "$lib/moonstone/images/video-player/icon_extend.png",
 		//* URL for "less controls" icon
-		lessControlsIcon: "$lib/moonstone/images/icon_shrink.png",
+		lessControlsIcon: "$lib/moonstone/images/video-player/icon_shrink.png",
 		//* URL for "inline-play" icon
-		inlinePlayIcon: "$lib/moonstone/images/icon_small_play.png",
+		inlinePlayIcon: "$lib/moonstone/images/video-player/icon_small_play.png",
 		//* URL for "inline-pause" icon
-		inlinePauseIcon: "$lib/moonstone/images/icon_small_pause.png",
+		inlinePauseIcon: "$lib/moonstone/images/video-player/icon_small_pause.png",
 		//* URL for "inline-fullscreen" icon
-		inlineFullscreenIcon: "$lib/moonstone/images/icon_small_fullscreen.png",
+		inlineFullscreenIcon: "$lib/moonstone/images/video-player/icon_small_fullscreen.png",
 		//* Default hash of playbackRate, you can set this hash by
 		//* playbackRateHash: {
 		//*		fastForward: ["2", "4", "8", "16"],
