@@ -7,7 +7,7 @@ enyo.kind({
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
 				{kind: "moon.DatePicker", name:"picker", noneText: "Pick a Date", content: "Date", onChange: "changed"},
-				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Deactivated Date Picker", content: "Deactivated Date"},
+				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date"},
 				{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: 'en-US', active: true},
 					{content: 'en-CA'},
