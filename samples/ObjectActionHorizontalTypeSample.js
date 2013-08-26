@@ -9,11 +9,9 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Object Action: horizontal Type Sample"},
 		{kind: 'moon.Scroller', fit: true, components: [
-			{kind: "Repeater", count:20,  classes:"moon-5h", components: [
+			{kind: "Repeater", count:20,  xclasses:"moon-5h", components: [
 				{kind: "moon.ObjectActionDecorator", orientation: "horizontal", components: [
-					{kind: "moon.Item", style:"margin-bottom:0;", components:[
-						{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
-					]}
+					{kind: "moon.ImageItem", source: "assets/default-music.png", text:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
 				], actionComponents: [
 					{kind: "moon.IconButton", name: "Icon1"},
 					{kind: "moon.IconButton", name: "Icon2"},

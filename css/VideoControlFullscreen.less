@@ -1,14 +1,14 @@
 /* --- Fullscreen control --- */
 .moon-video-fullscreen-control {
 	box-sizing: border-box;
-	background-color: rgba(0,0,0,0);
+	background-color: @moon-video-player-fullscreen-bg-color;
 	transition: background-color 0.1s linear;
 	-webkit-transition: background-color 0.1s linear;
 	-moz-transition: background-color 0.1s linear;
 }
 .moon-video-fullscreen-control.scrim {
 	box-sizing: border-box;
-	background-color: rgba(0,0,0,0.15);
+	background-color: fadeout(@moon-video-player-fullscreen-bg-color, 85%);
 }
 
 /* ---- Header info styling ---- */
@@ -33,7 +33,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: rgba(0,0,0,0);
+	background-color: @moon-video-player-bottom-bg-color;
 }
 .moon-video-player-controls {
 	height: 90px;
@@ -45,13 +45,13 @@
 	border-left: 2px solid white;	
 }
 .moon-video-player-premium-placeholder-left {
-	width: 160px;
+	width: 110 + (@moon-icon-button-size + 2 * @moon-spotlight-outset);
 	height: 80px;
 	padding-top: 5px;
 	padding-left: 80px;
 }
 .moon-video-player-premium-placeholder-right {
-	width: 160px;
+	width: 110 + (@moon-icon-button-size + 2 * @moon-spotlight-outset);
 	height: 80px;
 	padding-top: 5px;
 }

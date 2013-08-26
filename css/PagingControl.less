@@ -2,13 +2,14 @@
 .moon-icon-button.moon-paging-button {
 	position:absolute;
 	z-index: 150;
-	background: transparent @moon-caret-black-large-up-icon no-repeat 7px 6px;
+	background: transparent @moon-scroller-icon no-repeat 6px 6px;
 	opacity: 1;
 	transform: translateZ(1px);
 	-o-transform: translateZ(1px);
 	-ms-transform: translateZ(1px);
 	-moz-transform: translateZ(1px);
 	-webkit-transform: translateZ(1px);
+	margin: 0;
 }
 .moon-icon-button.moon-paging-button.hidden {
 	opacity: @moon-disabled-opacity;
@@ -43,11 +44,14 @@
 }
 .moon-icon-button.moon-paging-button.hover:hover {
 	.moon-icon-button.spotlight;
+	background-image: @moon-scroller-spotlight;
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
 	background-color: transparent;	
 }
 .moon-paging-button.moon-icon.moon-icon-button.active, .moon-paging-button.moon-icon.moon-icon-button:active:hover, .moon-paging-button.moon-icon-toggle.active
 {
-	background-position: 7px 6px;
+	background-position: 6px 6px;
 }
+
+
