@@ -21,7 +21,7 @@ enyo.kind({
 			{content: "Wide"},
 			{kind: "moon.ContextualPopup", classes: "moon-6h moon-1v",
 				components: [
-					{kind: "Scroller", horizontal:"auto",  touch:true, thumb:false, classes: "enyo-fill", components:[
+					{kind: "moon.Scroller", classes: "enyo-fill", components:[
 						{content:"testing 1"},
 						{content:"testing 2"}
 					]}
