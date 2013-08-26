@@ -9,7 +9,7 @@ enyo.kind({
 	published: {
 		withIcon: false,		
 	},
-
+	touchOverscroll: false,
 	//* @protected
 	tabItemComponents: [],
 	components: [
@@ -39,7 +39,11 @@ enyo.kind({
 		this.$.group.destroyClientControls();
 		this.$.group.createComponents(this.get("tabItemComponents"));
 	},
-	changeActiveItem: function(inIndex, inTrueToActive) {		
-		this.$.group.controls[inIndex].changeActiveStatus(inTrueToActive);
+	changeActiveItem: function(inIndex, inTrueToActive) {	
+		if(this.$.group.controls[inIndex].selected) {
+			//console.log("c[", inIndex, "]", " : ", this.$.group.controls);
+			this.scrollTo(this.$.group.controls[inIndex].node.offsetLeft+4, 0);
+		}
+		this.$.group.controls[inIndex].changeActiveStatus(inTrueToActive);		
 	}
 });

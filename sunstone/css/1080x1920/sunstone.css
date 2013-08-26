@@ -1032,16 +1032,46 @@
   border-radius: 10px;
 }
 /* TabItem.css */
-.sun-tabItem {
+.sun-tabItem.moon-item {
   height: 150px;
   max-width: 432px;
   display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  background-color: #bababa;
+  font-family: "Miso";
+  font-size: 88pt;
+  font-weight: bold;
 }
-.sun-tabItem.moon-item:not(:first-of-type) {
-  border-left: 1px solid gray;
+.sun-tabItem.moon-item.active {
+  background-color: #ff2f7d;
+}
+.sun-tabItem .moon-selectableItem-item {
+  margin: 20px 0px 20px 0px;
+  padding: 0px 40px 0px 40px;
+  height: 110px;
+  border-right: 4px solid #646464;
+  border-bottom: 0px;
+}
+.sun-tabItem .moon-selectableItem-item.moon-underline {
+  border-bottom: 0px;
+}
+.sun-tabItem .moon-selectableItem-item.moon-underline.moon-overlay {
+  border-bottom: 0px;
+  padding: 0px 40px 0px 40px;
+}
+.sun-tabItem.icon .moon-selectableItem-item {
+  margin: 20px 0px 20px 0px;
+  padding: 0px 40px 0px 40px;
+  height: 180px;
+  border-right: 4px solid #646464;
+  border-bottom: 0px;
 }
 .sun-tabItem.icon {
-  height: 250px;
+  height: 220px;
+}
+.sun-tabItem.icon img {
+  height: 100px;
 }
 .sun-tabItem.spotlight.none {
   border-color: gray;
@@ -1052,14 +1082,19 @@
 /* TabBar.css */
 .sun-tabBar {
   height: 150px;
-  border-top: 1px solid #999999;
-  border-bottom: 1px solid #999999;
+  background-color: #bababa;
   margin: 0px;
   display: block;
   white-space: nowrap;
 }
 .sun-tabBar.icon {
-  height: 250px;
+  height: 220px;
+}
+.sun-tabPanels {
+  padding: 0px;
+}
+.sun-tabPanels.enyo-fittable-rows-layout > * {
+  margin: 0px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {

@@ -14,7 +14,7 @@ enyo.kind({
 	//* @protected
 	spotlight: "container",
 	fit : true,
-	classes: "sun-panel",
+	classes: "sun-tabPanels",
 	layoutKind: "FittableRowsLayout",	
 	panelTools : [		
 		//{name: "panelBody", fit: true, classes: "sun-panel-body"},

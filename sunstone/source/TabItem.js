@@ -19,12 +19,13 @@ enyo.kind({
 		index: null,
 		src: null,		
 	},	
-	initComponents: function() {		
+	initComponents: function() {				
+		this.inherited(arguments);
 		if(this.src) {						
 			this.addRemoveClass("icon", true);		
 			this.createComponent({kind: "Image", src: this.src});
 		}
-		this.inherited(arguments);		
+		this.$.marqueeText.disabled = true;		
 	},
 	changeActiveStatus: function(inTrueToActive) {
 		// change status when old and new are not same.
@@ -32,5 +33,5 @@ enyo.kind({
 			this.setSelected(inTrueToActive);
 			this.$.client.addRemoveClass("moon-overlay", this.getActive());
 		}		
-	}
+	},	
 });
