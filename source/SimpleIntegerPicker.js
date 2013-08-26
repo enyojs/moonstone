@@ -105,10 +105,17 @@ enyo.kind({
 	},
 	populateIndexhash: function() {
 		this.indexhash = [];
+		var valueValid = false;
 		
 		for (var i = this.min; i <= this.max; i += this.step) {
 			this.createComponent({content: i + " " + this.unit, value: i});
 			this.indexhash[i] = this.$.client.getPanels().length - 1;
+			if (i == this.value) {
+				valueValid = true;
+			}
+		}
+		if (!valueValid) {
+			this.value = this.min;
 		}
 	},
 	
