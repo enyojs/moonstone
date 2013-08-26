@@ -7,18 +7,28 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", inline:true, classes:"moon-8h", autoplay:true,
 			infoComponents: [
-				{
-					kind: "moon.VideoInfoHeader",
-					aboveTitle: new Date(),
-					title: "Breaking Bad - Live Free Or Die",
-					subTitle: "AMC (301) 7:00 PM - 8:00 PM",
-					description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
-					components: [
-						{content: "3D"},
-						{content: "Live"},					
-						{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
-					]
-				}
+				{kind: "moon.VideoInfoBackground", orient: "left", fit: true, components: [
+					{
+						kind: "moon.ChannelInfo",
+						channelNo: "13",
+						channelName: "AMC",
+						components: [
+							{content: "3D"},
+							{content: "Live"},
+							{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
+						]
+					},
+					{
+						kind: "moon.VideoInfoHeader",
+						title: "Downton Abbey",
+						subTitle: "Mon June 21, 7:00 - 8:00pm",
+						subSubTitle: "R - TV 14, V, L, SC",
+						description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
+					}
+				]},
+				{kind: "moon.VideoInfoBackground", orient: "right", components: [
+					{kind:"moon.Clock"}
+				]}
 			],
 			components: [
 				{kind: "moon.VideoFullscreenToggleButton"},
@@ -33,5 +43,5 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/icon-placeholder.png"}
 			]
 		}
-	]
+		]
 });
