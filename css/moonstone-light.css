@@ -608,7 +608,7 @@
 .moon-checkbox {
   cursor: pointer;
   height: 32px;
-  width: 50px;
+  width: 40px;
 }
 .moon-checkbox[checked] {
   background-image: url(../images/LightTheme_Icons/Checkmark_Icon.png);
@@ -641,10 +641,10 @@
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.12em;
   min-height: 23.400000000000002px;
-  margin-right: 50px;
+  margin-right: 40px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  margin-left: 50px;
+  margin-left: 40px;
   margin-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
@@ -686,10 +686,10 @@
 /* Label */
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
   margin-right: 0px;
-  margin-left: 50px;
+  margin-left: 40px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 50px;
+  margin-right: 40px;
   margin-left: 0px;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label {
@@ -3264,8 +3264,8 @@ body .enyo-fit.panels-50-percent-scrim,
   position: absolute;
   top: 2px;
   right: 0;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 9999px;
   background-color: #ffffff;
   background-position: 10px 10px;
@@ -3361,20 +3361,20 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 .moon-hspacing > :first-child {
   margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 0;
 }
 .moon-hspacing > :last-child {
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-  margin-right: 5px;
+  margin-right: 10px;
   margin-left: 0;
 }
 /* Standard vertical spacing */
