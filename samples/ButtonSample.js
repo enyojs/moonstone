@@ -24,12 +24,6 @@ enyo.kind({
 				{tag: "br"},
 				{tag: "br"},
 				
-				{kind: "moon.Divider", content: "Themed Buttons:"},
-				{name: "Dark Button", kind: "moon.Button", classes: "moon-dark-gray", content: "Dark", ontap: "buttonTapped"},
-				{name: "Light Button", kind: "moon.Button", classes: "moon-light-gray", content: "Light", ontap: "buttonTapped"},
-				{tag: "br"},
-				{tag: "br"},
-				
 				{kind: "moon.Divider", content: "Captioned Buttons:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
 					{name: "Captioned Button A", kind: "moon.Button", content: "A", ontap: "buttonTapped"}
@@ -58,38 +52,6 @@ enyo.kind({
 				]},
 				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Bang", components: [
 					{name: "showOnFocus Caption D", kind: "moon.Button", content: "D", ontap: "buttonTapped"}
-				]},
-				{tag: "br"},
-				{tag: "br"},
-				
-				{kind: "moon.Divider", content: "Buttons with components:"},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Rent DVD", components: [
-					{name: "$0.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "0",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
-				]},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Rent Blu-Ray", components: [
-					{name: "$1.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "1",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
-				]},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Buy DVD", components: [
-					{name: "$5.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "5",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
-				]},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Buy Blu-Ray", components: [
-					{name: "$9.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "9",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
 				]},
 				{tag: "br"},
 				{tag: "br"},

@@ -1,34 +1,15 @@
 .moon-expandable-input {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	cursor:pointer;
 	.moon-input-decorator {
 		width: 100%;
 		box-sizing: border-box;
+		margin-top: @moon-spotlight-outset;
 	}
 	.moon-input {
 		width: 100%;
 	}
 }
-.moon-expandable-input.spotlight {
-	padding:0px 0px 0px 4px;
-	border-left:16px solid @moon-spotlight-border-color;
-}
-.moon-item.moon-expandable-input-header {
-	line-height: 28px;
-	padding: 0px;
-	margin: 0px 0px 10px 0px;
-}
 .moon-expandable-input.open .moon-expandable-input-header {
 	.moon-divider-text;
-	padding: 0px;
-	border-bottom: 1px solid #aaa;
-}
-.moon-expandable-input-current-value {
-	.moon-body-text;
-	color: #4B4B4B;
-	margin: 0px;
+	.moon-divider-border;
 	padding: 0px;
 }
