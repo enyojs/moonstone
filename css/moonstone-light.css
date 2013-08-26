@@ -3379,6 +3379,7 @@ body .enyo-fit.panels-50-percent-scrim,
   width: 100%;
   box-sizing: border-box;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 .moon-expandable-input .moon-input {
   width: 100%;
