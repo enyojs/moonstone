@@ -618,20 +618,6 @@
 .moon-checkbox[disabled] {
   opacity: 0.4;
 }
-.moon-checkbox .moon-overlay {
-  cursor: pointer;
-  height: 32px;
-  width: 50px;
-  background: transparent url(../images/LightTheme_Icons/Checkmark_Icon.png) no-repeat 10px -32px;
-  opacity: 1;
-  transition: opacity 0.4s linear;
-  -webkit-transition: opacity 0.4s linear;
-  -moz-transition: opacity 0.4s linear;
-  -o-transition: opacity 0.4s linear;
-}
-.moon-checkbox .moon-overlay.off {
-  opacity: 0;
-}
 .moon-divider {
   font-family: "MuseoSans 700";
   font-size: 22px;
@@ -738,15 +724,6 @@
 }
 .moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
   background: transparent none no-repeat 0px 0px;
-}
-.moon-checkbox.moon-toggle-text .moon-overlay {
-  background: transparent;
-  position: absolute;
-  right: 0px;
-  text-align: right;
-  color: #ff2f7d;
-  height: auto;
-  width: auto;
 }
 .moon-toggle-text-text {
   position: absolute;
@@ -1690,30 +1667,6 @@
 /* DatePicker.css */
 .moon-date-picker {
   cursor: pointer;
-}
-.moon-date-picker.open .moon-expandable-list-item-header-wrapper {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  color: #4b4b4b;
-  border-bottom: 2px solid #404040;
-  margin-bottom: 10px;
-}
-.moon-date-picker.open .moon-expandable-list-item-header-wrapper .moon-item {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  color: #4b4b4b;
-}
-.moon-date-picker.open .moon-expandable-list-item-header-wrapper.spotlight .moon-expandable-list-item-header {
-  color: #ffffff;
-}
-.moon-date-picker.open .moon-expandable-list-item-header-wrapper.spotlight {
-  border-bottom-color: #ffffff;
 }
 /* Day */
 .moon-date-picker-day {
@@ -3267,25 +3220,39 @@ body .enyo-fit.panels-50-percent-scrim,
   color: #ff2f7d;
 }
 /* ObjectActionDecorator */
-.moon-objaction-client {
-  width: 100%;
-  display: table-cell;
+.moon-objaction.vertical {
+  display: inline-block;
 }
-.moon-objaction-action-vertical {
+.moon-objaction.vertical .moon-objaction-client {
+  padding-bottom: 10px;
+}
+.moon-objaction.vertical .moon-objaction-actions {
   opacity: 0;
   text-align: center;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
-.moon-objectaction-stretch.moon-objaction-action-vertical > * {
+.moon-objaction.vertical .moon-objaction-actions.stretch > * {
   width: 100%;
 }
-.moon-objaction-action-horizontal {
+.moon-objaction.horizontal {
+  display: block;
+}
+.moon-objaction.horizontal .moon-objaction-client {
+  display: table-cell;
+  width: 100%;
+  padding-right: 10px;
+}
+.moon-objaction.horizontal .moon-objaction-actions {
+  display: table-cell;
   opacity: 0;
   white-space: nowrap;
-  display: table-cell;
   vertical-align: middle;
+  padding-right: 10px;
 }
-.moon-objaction-client .moon-item.spotlight {
-  background: inherit;
+.enyo-locale-right-to-left .moon-objaction-client.horizontal .moon-objaction-client {
+  padding-right: auto;
+  padding-left: 10px;
 }
 /* FormCheckbox.css */
 .moon-item.moon-formcheckbox-item {
@@ -3302,9 +3269,6 @@ body .enyo-fit.panels-50-percent-scrim,
   border-radius: 9999px;
   background-color: #ffffff;
   background-position: 10px 10px;
-}
-.moon-item.moon-formcheckbox-item .moon-checkbox .moon-overlay {
-  margin-top: 9px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox[checked] {
   background-color: #ffffff;
@@ -3416,7 +3380,7 @@ body .enyo-fit.panels-50-percent-scrim,
 /* Standard vertical spacing */
 .moon-vspacing > * {
   display: block;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 .moon-vspacing > :first-child {
   margin-top: 0;
