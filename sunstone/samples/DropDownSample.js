@@ -42,7 +42,7 @@ enyo.kind({
 						{content:"Option 6", kind: "sun.OptionItem"},
 						{content:"Option 7", kind: "sun.OptionItem"},
 						{content:"Option 8", kind: "sun.OptionItem"},
-						{content:"Option 9", kind: "sun.OptionItem"},
+						{content:"Option 9", kind: "sun.OptionItem"}
 					]
 				}
 				]

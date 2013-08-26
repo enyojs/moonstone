@@ -1,13 +1,13 @@
 /**
-	_moon.ContextualPopup_ is a popup window control with Moonstone visual styling
+	_sun.DropDown_ is a popup window control with Sunstone visual styling
 	applied.  It extends <a href="#enyo.Popup">enyo.Popup</a> and is designed to
-	be used with <a href="#moon.ContextualPopupDecorator">moon.ContextualPopupDecorator</a>.
+	be used with <a href="#sun.DropDownDecorator">sun.DropDownDecorator</a>.
 */
 enyo.kind({
 	name: "sun.DropDown",
 	kind: "sun.Popup",
-	layoutKind: "ContextualLayout",
 	classes: "sun-drop-down",
+	layoutKind: "ContextualLayout",	
 	handlers: {
 		onRequestShowPopup: "requestShow",
 		onRequestHidePopup: "requestHide",
