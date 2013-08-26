@@ -3435,14 +3435,14 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-item.moon-formcheckbox-item {
   background: none;
   padding: 0;
-  padding-right: 10px;
+  padding-left: 10px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
   top: 2px;
-  right: 0;
-  width: 40px;
-  height: 40px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
   border-radius: 9999px;
   background-color: #ffffff;
   background-position: 10px 10px;
@@ -3452,18 +3452,18 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   padding: 10px;
-}
-.moon-item.moon-formcheckbox-item.left-handed {
-  padding-left: 10px;
-  padding-right: 0;
+  margin-left: 60px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
-  padding-left: 10px;
-  padding-right: 0;
-}
-.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item.left-handed {
   padding-left: 0;
   padding-right: 10px;
+}
+.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
+  margin-left: auto;
+  margin-right: 60px;
+}
+.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox {
+  right: 10px;
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox,
 .moon-formcheckbox-item.spotlight .moon-checkbox[checked],
