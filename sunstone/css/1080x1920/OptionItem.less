@@ -1,0 +1,31 @@
+/* OptionItem.css */
+.sun .moon-item.moon-selectableItem {
+  width: 100%;
+}
+.sun .moon-item.moon-selectableItem.spotlight {
+  line-height: @moon-item-line-height;
+}
+.sun .moon-item.locale-default.spotlight:not(.overlay) {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  padding-left: 0px;
+}
+.sun .moon-selectableItem .moon-selectableItem-item {
+	box-sizing: border-box;
+	width: 100%;
+	display: inline-block;
+  border-bottom: 4px solid transparent;
+}
+.sun .moon-selectableItem .moon-underline.moon-overlay {
+  cursor: pointer;
+  border-bottom:0px solid #A2A2A2;
+  padding: 0px;
+  transition: border-color 0.4s linear;
+  -webkit-transition: border-color 0.4s linear;
+  -moz-transition: border-color 0.4s linear;
+  -o-transition: border-color 0.4s linear;
+}
+.sun .moon-selectableItem .moon-underline {
+  border-bottom:4px solid @moon-orange;
+  padding-bottom: 5px;
+}

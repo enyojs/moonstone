@@ -4,6 +4,8 @@ enyo.depends(
 	"AccordionSample.js",
 	"ButtonSample.css",
 	"ButtonSample.js",
+	"DropDownSample.css",
+	"DropDownSample.js",
 	"HeaderSample.css",
 	"HeaderSample.js",
 	"IconButtonSample.css",
