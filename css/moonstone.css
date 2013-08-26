@@ -1040,9 +1040,11 @@
   background: rgba(0, 0, 0, 0.7);
   padding: 5px;
 }
+/* Caption Decorator */
 .moon-button-caption-decorator {
   display: inline-block;
   vertical-align: top;
+  position: relative;
 }
 .moon-button-caption-decorator .moon-caption {
   font-family: "MuseoSans 700";
@@ -1052,6 +1054,14 @@
   letter-spacing: 0.05em;
   display: inline-block;
 }
+.moon-caption-client {
+  display: inline-block;
+}
+.moon-caption-client > * {
+  display: block;
+  margin: auto;
+}
+/* Caption Decorator - Left/Right Captions */
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
   height: 105px;
@@ -1067,6 +1077,7 @@
   padding-left: 10px;
   text-align: right;
 }
+/* Caption Decorator - Top/Bottom Captions */
 .moon-button-caption-decorator .moon-caption.top,
 .moon-button-caption-decorator .moon-caption.bottom {
   display: block;
@@ -1078,30 +1089,30 @@
 .moon-button-caption-decorator .moon-caption.bottom {
   padding-top: 4px;
 }
-.moon-button-caption-decorator .showOnFocus {
+/* Caption Decorator - Show On Focus Captions */
+.moon-button-caption-decorator.showOnFocus .moon-caption {
   position: absolute;
-  z-index: 10;
+  z-index: 2;
   white-space: nowrap;
-}
-.moon-button-caption-decorator .moon-caption.showOnFocus.left {
   float: none;
-  text-align: right;
+  padding: 0px;
+  margin: 0px;
+  display: none;
 }
-.moon-button-caption-decorator .moon-caption.showOnFocus.right {
-  float: none;
-  text-align: left;
-}
-.moon-caption-client {
-  display: inline-block;
-}
-.moon-caption-client.top,
-.moon-caption-client.bottom {
+.moon-button-caption-decorator.showOnFocus.spotlight .moon-caption {
   display: block;
-  margin: auto;
 }
-.moon-caption-client > * {
-  display: block;
-  margin: auto;
+.moon-button-caption-decorator.showOnFocus .moon-caption.top {
+  margin-bottom: 4px;
+}
+.moon-button-caption-decorator.showOnFocus .moon-caption.right {
+  margin-left: 10px;
+}
+.moon-button-caption-decorator.showOnFocus .moon-caption.bottom {
+  margin-top: 4px;
+}
+.moon-button-caption-decorator.showOnFocus .moon-caption.left {
+  margin-right: 10px;
 }
 /* Radio Item */
 .moon-radio-item {

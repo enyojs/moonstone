@@ -9,85 +9,184 @@
 enyo.kind({
 	name: "moon.CaptionDecorator",
 	handlers: {
-		onSpotlightFocus:"spotFocus",
-		onSpotlightBlur:"spotBlur"
+		onSpotlightFocus: "spotFocus",
+		onSpotlightBlur:  "spotBlur"
 	},
 	published: {
 		side: "top",
 		showOnFocus: false
 	},
 	//* @protected
-	classes: "moon enyo-unselectable moon-button-caption-decorator",
+	captionPositioned: false,
+	classes: "moon moon-button-caption-decorator",
 	components: [
-		{kind: "enyo.Control", name: "leftCaption",   classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
-		{kind: "enyo.Control", name: "topCaption",    classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
-		{kind: "enyo.Control", name: "client",      classes: "moon-caption-client"},
-		{kind: "enyo.Control", name: "rightCaption",  classes: "moon-caption right",  canGenerate: false, content: "Right Caption"},
-		{kind: "enyo.Control", name: "bottomCaption", classes: "moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
+		{kind: "enyo.Control", name: "leftCaption", 	classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
+		{kind: "enyo.Control", name: "topCaption", 		classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
+		{kind: "enyo.Control", name: "client", 			classes: "moon-caption-client"},
+		{kind: "enyo.Control", name: "rightCaption", 	classes: "moon-caption right",  canGenerate: false, content: "Right Caption"},
+		{kind: "enyo.Control", name: "bottomCaption", 	classes: "moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.sideChanged();
 		this.showOnFocusChanged();
 	},
+	
+	// Change handlers
+	
 	sideChanged: function() {
 		var side = this.getSide();
-		this.$.topCaption.canGenerate = (side === "top");
-		this.$.rightCaption.canGenerate = (side === "right");
-		this.$.bottomCaption.canGenerate = (side === "bottom");
-		this.$.leftCaption.canGenerate = (side === "left");
-		this.$.client.setClasses("moon-caption-client "+side);
+		
+		this.$.topCaption.canGenerate = 	(side === "top");
+		this.$.rightCaption.canGenerate = 	(side === "right");
+		this.$.bottomCaption.canGenerate = 	(side === "bottom");
+		this.$.leftCaption.canGenerate = 	(side === "left");
+		
+		// If this control has already been rendered, re-render to update caption side
 		if (this.hasNode()) {
-			this.render();
-		}
+			// If _showOnFocus_ is _true_, reset caption position
+			if (this.getShowOnFocus()) {
+				this.resetCaptionPosition();
+			}
+			// Re-render to display caption on proper side
+ 			this.render();
+ 		}
 	},
 	showOnFocusChanged: function() {
-		if (!this.getShowOnFocus()) return;
-
-		this.$[this.getSide()+"Caption"].applyStyle("visibility", "hidden");
-		this.$[this.getSide()+"Caption"].addClass("showOnFocus " + this.getSide());
+		this.addRemoveClass("showOnFocus", this.getShowOnFocus());
+		
+		// If _showOnFocus_ is _true_, reset caption position
+		if (this.hasNode() && this.getShowOnFocus()) {
+			this.resetCaptionPosition();
+		}
 	},
 	contentChanged: function() {
 		this.$[this.getSide()+"Caption"].setContent(this.getContent());
-	},
-	rendered: function () {
-		this.inherited(arguments);
-		if (this.getShowOnFocus() && this.hasNode()) {			
-			this.captionBounds = this.getBounds();
-			this.sideCaptionBounds = this.$[this.getSide()+"Caption"].getBounds();
-			this.clientBounds = this.$.client.getBounds();
+		
+		// If _showOnFocus_ is _true_, reset caption position
+		if (this.hasNode() && this.getShowOnFocus()) {
+			this.resetCaptionPosition();
 		}
 	},
+	
+	// Event handlers
+	
+	//* Add spotlight class when button is focused, and calculate caption position if required
 	spotFocus: function () {
-		if (this.getShowOnFocus()) {
-			var side = this.$[this.getSide()+"Caption"],
-				paddingWidth = (this.captionBounds.width - this.clientBounds.width)/2,
-				paddingHeight = (this.captionBounds.height - this.clientBounds.height)/2; 
+		this.addClass("spotlight");
+		
+		if (this.hasNode() && this.getShowOnFocus()) {
+			this.positionCaption();
+		}
+	},
+	//* Remove spotlight class when button is blurred
+	spotBlur: function() {
+		this.removeClass("spotlight");
+	},
+	
+	// Caption positioning
+	
+	//* Return current caption control
+	getCaptionControl: function() {
+		return this.$[this.getSide()+"Caption"];
+	},
+	//* Reset cached position values and reposition caption if currently spotted
+	resetCaptionPosition: function() {
+		this.resetCachedBounds();
+		this.captionPositioned = false;
+		
+		if (this.hasNode() && this.hasClass("spotlight")) {
+			this.positionCaption();
+		}
+	},
+	//* Position caption based on the value of _this.side_
+	positionCaption: function() {
+		if (this.captionPositioned) {
+			return;
+		}
 
-			this.applyStyle('position', 'relative');
-
-			switch (this.getSide()) {
-			case "left": 
-				side.applyStyle("left", (this.sideCaptionBounds.width * -1) + "px");
+		var bounds = this.getDecoratorBounds(),
+			clientBounds = this.getClientBounds(),
+			captionBounds = this.getCaptionBounds();
+			
+		switch (this.getSide()) {
+			case "left":
+				this.centerCaptionVertically(bounds, captionBounds);
+				this.positionCaptionAtLeftEdge(bounds, clientBounds, captionBounds);
 				break;
 			case "right":
-				side.applyStyle("left", (this.clientBounds.width + paddingWidth) + "px");
+				this.centerCaptionVertically(bounds, captionBounds);
+				this.positionCaptionAtRightEdge(bounds, clientBounds, captionBounds);
 				break;
 			case "top":
-				side.applyStyle("top", (paddingHeight - this.sideCaptionBounds.height)  + "px");
-				side.applyStyle("left", (Math.floor(this.captionBounds.width/2) - Math.floor(this.sideCaptionBounds.width/2)) + "px");
+				this.centerCaptionHorizontally(bounds, captionBounds);
+				this.positionCaptionAtTopEdge(bounds, clientBounds, captionBounds);
 				break;
 			case "bottom":
-				side.applyStyle("top", this.clientBounds.height + paddingHeight + "px");
-				side.applyStyle("left", (Math.floor(this.captionBounds.width/2) - Math.floor(this.sideCaptionBounds.width/2)) + "px");
-			}
-				
-			side.applyStyle("visibility", "visible");
+				this.centerCaptionHorizontally(bounds, captionBounds);
+				this.positionCaptionAtBottomEdge(bounds, clientBounds, captionBounds);
+				break;
 		}
+		
+		this.captionPositioned = true;
 	},
-	spotBlur: function () {
-		if (this.getShowOnFocus()) {
-			this.$[this.getSide()+"Caption"].applyStyle("visibility", "hidden");
-		}
+	//* Center caption control vertically relative to _this.decoratorBounds.height_
+	centerCaptionVertically: function(inBounds, inCaptionBounds) {
+		this.getCaptionControl().applyStyle("top", ((inBounds.height - inCaptionBounds.height)/2) + "px");
+	},
+	//* Center caption control horizontally relative to _this.decoratorBounds.width_
+	centerCaptionHorizontally: function(inBounds, inCaptionBounds) {
+		this.getCaptionControl().applyStyle("left", ((inBounds.width - inCaptionBounds.width)/2) + "px");
+	},
+	//* Position caption at left edge of _this.$.client_
+	positionCaptionAtLeftEdge: function(inBounds, inClientBounds, inCaptionBounds) {
+		var position = (-1 * inCaptionBounds.width) + ((inBounds.width - inClientBounds.width)/2) - inCaptionBounds.marginRight;
+		this.getCaptionControl().applyStyle("left", position + "px");
+	},
+	//* Position caption at right edge of _this.$.client_
+	positionCaptionAtRightEdge: function(inBounds, inClientBounds, inCaptionBounds) {
+		var position = inBounds.width - ((inBounds.width - inClientBounds.width)/2) + inCaptionBounds.marginLeft;
+		this.getCaptionControl().applyStyle("left", position + "px");
+	},
+	//* Position caption at top edge of _this.$.client_
+	positionCaptionAtTopEdge: function(inBounds, inClientBounds, inCaptionBounds) {
+		var position = (-1 * this.getCaptionBounds().height) + ((inBounds.height - inClientBounds.height)/2) - inCaptionBounds.marginBottom;
+		this.getCaptionControl().applyStyle("top", position + "px");
+	},
+	//* Position caption at bottom edge of _this.$.client_
+	positionCaptionAtBottomEdge: function(inBounds, inClientBounds, inCaptionBounds) {
+		var position = inBounds.height - ((inBounds.height - inClientBounds.height)/2) + inCaptionBounds.marginTop;
+		this.getCaptionControl().applyStyle("top", position + "px");
+	},
+	//* Cache result from _this.getBounds()_ call and save in _this.decoratorBounds_
+	getDecoratorBounds: function() {
+		this.decoratorBounds = this.decoratorBounds || this.getBounds();
+		return this.decoratorBounds;
+	},
+	//* Cache caption bounds and save in _this.captionBounds_
+	getCaptionBounds: function() {
+		this.captionBounds = this.captionBounds || enyo.mixin(this.getCaptionControl().getBounds(), this.getCaptionMarginBounds());
+		return this.captionBounds;
+	},
+	//* Cache client bounds and save in _this.clientBounds_
+	getClientBounds: function() {
+		this.clientBounds = this.clientBounds || this.$.client.getBounds();
+		return this.clientBounds;
+	},
+	//* Clear cached bounds
+	resetCachedBounds: function() {
+		this.clientBounds = null;
+		this.captionBounds = null;
+		this.decoratorBounds = null;
+	},
+	//* Return margins of caption control
+	getCaptionMarginBounds: function() {
+		var margins = enyo.dom.calcMarginExtents(this.getCaptionControl().hasNode());
+		return {
+			marginTop: 		margins.top,
+			marginRight: 	margins.right,
+			marginBottom: 	margins.bottom,
+			marginLeft: 	margins.left
+		};
 	}
 });
