@@ -17,7 +17,7 @@ enyo.kind({
                         {from: ".model.text", to: ".content"}
                     ],
                     style: "width: 300px; display:block;",
-                    classes: "moon-dark-gray moon-margin-top-bottom"
+                    classes: "moon-neutral moon-margin-top-bottom"
                 }
             ]},
             {fit: true, components:[                
@@ -67,13 +67,13 @@ enyo.kind({
                             kind: "moon.Button",
                             content: "Log in",
                             flex: true,
-                            classes: "moon-dark-gray moon-margin-left-right"
+                            classes: "moon-neutral moon-margin-left-right"
                         },
                         {
                             kind: "moon.Button",
                             content: "Registration",
                             flex: true,
-                            classes: "moon-dark-gray"
+                            classes: "moon-neutral"
                         }
                     ]
                 }

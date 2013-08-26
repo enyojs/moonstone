@@ -18,7 +18,10 @@ enyo.kind({
 	},
 	//* @protected
 	captionPositioned: false,
-	classes: "moon moon-button-caption-decorator",
+	clientBounds: null,
+	captionBounds: null,
+	decoratorBounds: null,
+	classes: "moon-button-caption-decorator",
 	components: [
 		{kind: "enyo.Control", name: "leftCaption", 	classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
 		{kind: "enyo.Control", name: "topCaption", 		classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},

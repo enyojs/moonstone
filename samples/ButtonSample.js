@@ -10,7 +10,7 @@ enyo.kind({
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{name: "B Button", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 				{name: "Button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
-				{name: "Disabled Button", kind: "moon.Button", disabled: true, content: "Deactivated Button", ontap: "buttonTapped"},
+				{name: "Disabled Button", kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{name: "Long Button", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
@@ -18,15 +18,9 @@ enyo.kind({
 				{kind: "moon.Divider", content: "Small Buttons:"},
 				{name: "Small B Button", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
 				{name: "Small Button", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
-				{name: "Small Disabled Button", kind: "moon.Button", small: true, disabled: true, content: "Deactivated Button", ontap: "buttonTapped"},
+				{name: "Small Disabled Button", kind: "moon.Button", small: true, disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{name: "Small Long Button", kind: "moon.Button", small: true, content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleItem", classes: "tap-area-toggle-container", content: "Show Tap Area", onActivate: "showSmallButtonTapArea"},
-				{tag: "br"},
-				{tag: "br"},
-				
-				{kind: "moon.Divider", content: "Themed Buttons:"},
-				{name: "Dark Button", kind: "moon.Button", classes: "moon-dark-gray", content: "Dark", ontap: "buttonTapped"},
-				{name: "Light Button", kind: "moon.Button", classes: "moon-light-gray", content: "Light", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
 				
@@ -58,38 +52,6 @@ enyo.kind({
 				]},
 				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Bang", components: [
 					{name: "showOnFocus Caption Left", kind: "moon.Button", content: "Left", ontap: "buttonTapped"}
-				]},
-				{tag: "br"},
-				{tag: "br"},
-				
-				{kind: "moon.Divider", content: "Buttons with components:"},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Rent DVD", components: [
-					{name: "$0.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "0",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
-				]},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Rent Blu-Ray", components: [
-					{name: "$1.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "1",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
-				]},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Buy DVD", components: [
-					{name: "$5.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "5",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
-				]},
-				{kind: "moon.CaptionDecorator", side: "top", content: "Buy Blu-Ray", components: [
-					{name: "$9.99 Button", kind: "moon.Button", ontap: "buttonTapped", components: [
-						{content: "$",  classes: "moon-pre-text"},
-						{content: "9",  classes: "moon-large-text"},
-						{content: "99", classes: "moon-superscript"}
-					]}
 				]},
 				{tag: "br"},
 				{tag: "br"},
