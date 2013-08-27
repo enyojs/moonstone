@@ -24,7 +24,7 @@ enyo.kind({
                 {
                     content: "branding",
                     fit: true,
-                    classes: "moon-dark-gray",
+                    classes: "moon-neutral",
                     style: "text-align: center"
                 }
             ]

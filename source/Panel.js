@@ -51,7 +51,7 @@ enyo.kind({
 	panelTools : [
 		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 			/* headerTools will be created here */
-			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-miniheader", content: "Mini header", showing: false},
+			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-mini-header", content: "Mini header", showing: false},
 			{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 		]},
 		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}

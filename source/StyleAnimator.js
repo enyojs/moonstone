@@ -318,6 +318,8 @@ enyo.kind({
 
 			// If complete, bail
 			if (elapsed > animation.duration) {
+				animation.percentElapsed = 100;
+				this.doStep({animation: animation});
 				this.completeAnimation(animation.name);
 				return;
 			}

@@ -41,7 +41,20 @@ enyo.kind({
 		//* jump forward or backward time in seconds
 		jumpSec: 30,
 		//* set video playbackRate
-		playbackRate: 1
+		playbackRate: 1,
+		//* Hash of playbackRate you can set this hash by
+		//* playbackRateHash: {
+		//*		fastForward: ["2", "4", "8", "16"],
+		//*		rewind: ["-2", "-4", "-8", "-16"],
+		//*		slowForward: ["1/4", "1/2"],
+		//*		slowRewind: ["-1/2", "-1"]
+		//*	}
+		playbackRateHash: {
+			fastForward: ["2", "4", "8", "16"],
+			rewind: ["-2", "-4", "-8", "-16"],
+			slowForward: ["1/4", "1/2", "1"],
+			slowRewind: ["-1/2", "-1"]
+		}
 	},
 	events: {
 		onFastforward: "",
@@ -50,7 +63,8 @@ enyo.kind({
 		onSlowrewind: "",
 		onJumpForward: "",
 		onJumpBackward: "",
-		onPlay: ""
+		onPlay: "",
+		onStart: ""
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
@@ -61,12 +75,7 @@ enyo.kind({
 	},
 	tag: "video",
 	//* @protected
-	_playbackRateHash: {
-		fastForward: ["4", "15", "60", "300"],
-		rewind: ["-4", "-15", "-60", "-300"],
-		slowForward: ["1/15", "1/4"],
-		slowRewind: ["-1/4", "-1"]
-	},
+	
 	_playbackRateArray: null,
 	_speedIndex: 0,
 
@@ -126,7 +135,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
 		this.setPlaybackRate(1);
 		this.node.play();
 		this._prevCommand = "play";
@@ -135,7 +143,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
 		this.setPlaybackRate(1);
 		this.node.pause();
 		this._prevCommand = "pause";
@@ -146,24 +153,50 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-
 		switch (this._prevCommand) {
+		case "slowForward":
+			if (this._speedIndex == this._playbackRateArray.length - 1) {
+				// reached to the end of array => go to fastforward
+				this.selectPlaybackRateArray("fastForward");
+				this._speedIndex = 0;
+				this._prevCommand = "fastForward";
+			} else {
+				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+				this._prevCommand = "slowForward";
+			}
+			break;
 		case "pause":
 			this.selectPlaybackRateArray("slowForward");
 			this._speedIndex = 0;
-			node.play();
+			if (this.isPaused()) {
+				node.play();
+			}
+			this._prevCommand = "slowForward";
+			break;
+		case "rewind":
+			var pbNumber = this.calcNumberValueOfPlaybackRate(this.playbackRate);
+			if (pbNumber < 0) {
+				this.selectPlaybackRateArray("slowForward");
+				this._prevCommand = "slowForward";
+			} else {
+				this.selectPlaybackRateArray("fastForward");
+				this._prevCommand = "fastForward";
+			}
+			this._speedIndex = 0;
 			break;
 		case "fastForward":
 			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+			this._prevCommand = "fastForward";
 			break;
 		default:
 			this.selectPlaybackRateArray("fastForward");
 			this._speedIndex = 0;
+			this._prevCommand = "fastForward";
 			break;
 		}
 
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
-		this._prevCommand = "fastForward";
+		
 	},
 	rewind: function() {
 		var node = this.hasNode();
@@ -171,24 +204,39 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-
 		switch (this._prevCommand) {
+		case "slowRewind":
+			if (this._speedIndex == this._playbackRateArray.length - 1) {
+				// reached to the end of array => go to rewind
+				this.selectPlaybackRateArray("rewind");
+				this._speedIndex = 0;
+				this._prevCommand = "rewind";
+			} else {
+				this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+				this._prevCommand = "slowRewind";
+			}
+			break;
 		case "pause":
 			this.selectPlaybackRateArray("slowRewind");
 			this._speedIndex = 0;
-			node.play();
+			if (this.isPaused() && this.node.duration > this.node.currentTime) {
+				node.play();
+			}
+			this._prevCommand = "slowRewind";
 			break;
 		case "rewind":
 			this._speedIndex = this.clampPlaybackRate(this._speedIndex+1);
+			this._prevCommand = "rewind";
 			break;
 		default:
 			this.selectPlaybackRateArray("rewind");
 			this._speedIndex = 0;
+			this._prevCommand = "rewind";
 			break;
 		}
 
+		
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
-		this._prevCommand = "rewind";
 	},
 	jumpBackward: function() {
 		var node = this.hasNode();
@@ -241,7 +289,7 @@ enyo.kind({
 		this._prevCommand = "jumpToEnd";
 	},
 	selectPlaybackRateArray: function(cmd) {
-		this._playbackRateArray = this._playbackRateHash[cmd];
+		this._playbackRateArray = this.playbackRateHash[cmd];
 	},
 	clampPlaybackRate: function(index) {
 		if (!this._playbackRateArray) {
@@ -267,7 +315,6 @@ enyo.kind({
 
 		// Make sure inPlaybackRate is a string
 		this.playbackRate = inPlaybackRate = String(inPlaybackRate);
-
 		pbNumber = this.calcNumberValueOfPlaybackRate(inPlaybackRate);
 
 		// Set native playback rate
@@ -299,7 +346,15 @@ enyo.kind({
 	getDuration: function() {
 		return this.hasNode() ? this.hasNode().duration : 0;
 	},
-
+	//* Get readyState (0~4)
+	getReadyState: function() {
+		return this.hasNode() ? this.hasNode().readyState : -1;
+	},
+	//* Get seeking status
+	getSeeking: function() {
+		return this.hasNode() ? this.hasNode().seeking : -1;
+	},
+	
 	//* @protected
 
 	//* Custom rewind functionality until browsers support negative playback rate
@@ -315,7 +370,7 @@ enyo.kind({
 			adjustedDistance = Math.abs(distance * pbRate) / 1000,
 			newTime = this.getCurrentTime() - adjustedDistance
 		;
-
+		
 		this.setCurrentTime(newTime);
 		this.startRewindJob();
 	},
@@ -336,7 +391,7 @@ enyo.kind({
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
 		var node = this.hasNode();
-
+		this.setAspectRatio("0:0");
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
@@ -350,7 +405,6 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-
 		inEvent = enyo.mixin(inEvent, this.createEventData());
 	},
 	ratechange: function(inSender, inEvent) {
@@ -370,7 +424,7 @@ enyo.kind({
 			this.doSlowforward(inEvent);
 		} else if (pbNumber > 1) {
 			this.doFastforward(inEvent);
-		} else if (pbNumber < 0 && pbNumber > -1) {
+		} else if (pbNumber < 0 && pbNumber >= -1) {
 			this.doSlowrewind(inEvent);
 		} else if (pbNumber < -1) {
 			this.doRewind(inEvent);
@@ -384,19 +438,20 @@ enyo.kind({
 		if (!node) {
 			return {};
 		}
-
+		if (node.currentTime === 0) {
+			this.doStart();
+		}
 		return {
 			srcElement: node,
 			duration: node.duration,
 			currentTime: node.currentTime,
 			playbackRate: this.getPlaybackRate()
 		};
-
 	},
 	//* Emit _onPlay_ event (to normalize enyo-generated _onPlay_ events)
 	_play: function(inSender, inEvent) {
 		var node = this.hasNode();
-
+		
 		if (!node) {
 			return;
 		}

@@ -18,8 +18,7 @@
 			{content: "Item Four"}
 		]}
 
-	When multiple Accordions are used in a group, only one may be open at a given
-	time.
+	When multiple Accordions are used in a group, only one may be open at a given time.
 
 		{kind: "Group", highlander: true, components: [
 			{kind: "moon.Accordion",  active: true, content: "This is a grouped accordion", components: [
@@ -40,34 +39,17 @@ enyo.kind({
 	name: "moon.Accordion",
 	kind: "moon.ExpandableListItem",
 	classes: "moon-accordion",
-	published: {
-		/**
-			If true, the drawer automatically closes when the user navigates to the
-			top of the control; if false, the user must select/tap the header to close
-			the drawer
-		*/
-		autoCollapse: false
-	},
-	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-accordion-header moon-accordion-arrow", spotlight: true,
-			ontap: "expandContract", onSpotlightSelect: "expandContract"},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", kind: "Group", classes: "moon-accordion-client"}
-		]}
-	],
 	//* @protected
-	rendered: function() {
-		this.inherited(arguments);
+	componentOverrides: {
+		header: {classes: "moon-accordion-arrow"}
 	},
+	//* Facade for drawer
 	openChanged: function() {
-		this.setArrow(this.open);
+		this.updateArrowDirection(this.getOpen());
 		this.inherited(arguments);
 	},
-	setArrow: function(open) {
-		this.$.header.addRemoveClass('up', open);
-		this.$.header.addRemoveClass('down', !open);
-	},
-	// Override default spotlight down behavior of ExpandableListItem which prevents
-	// focusing off of the last control
-	spotlightDown: enyo.nop
+	//* Update arrow direction based on _this.open_
+	updateArrowDirection: function(open) {
+		// this.$.header.addRemoveClass('up', open);
+	}
 });
