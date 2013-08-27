@@ -17,7 +17,7 @@ enyo.kind({
 				{kind: "sun.Header", Toast: "buttonToast", content: "Header", arrowIcon: true, loading: true, progress: "33", components: [
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
 					{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true},
-					{name: "loading", kind: "sun.LoadingIconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, loading: true, ontap: "loadingButtonTapped"}
+					{name: "loading", kind: "sun.LoadingIconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, loading: true}
 				]},
 				{tag: "br"},
 				
@@ -36,6 +36,13 @@ enyo.kind({
 				]},
 				{tag: "br"},
 				
+				{kind: "sun.Divider", content: "Loading Header"},
+				{kind: "sun.LoadingHeader", Toast: "buttonToast", content: "Header", arrowIcon: true, 
+				loading: true, percentage: true, currentValue: 12, totalValue: 50},
+				{kind: "sun.LoadingHeader", Toast: "buttonToast", content: "Header", arrowIcon: true, 
+				loading: true, percentage: false, currentValue: 12, totalValue: 50},
+				{tag: "br"},
+				
 				{kind: "sun.Divider", content: "Input Header"},
 				{kind: "sun.InputHeader", title:"Input Header", oninput:"handleInput", onchange:"handleChange",
 				components: [
@@ -51,11 +58,9 @@ enyo.kind({
 		]},
 		{name: "arrowToast", kind: "sun.Toast", content: "Arrow Icon Tapped!!!"}
 	],
-	loadingButtonTapped: function(inSender, inEvent) {
-		this.$.loading.setLoading(!this.$.loading.getLoading());
-	},
 	arrowTapped: function(inSender, inEvent) {
 		this.$.arrowToast.hide();
 		this.$.arrowToast.show();
+		this.$.loading.setLoading(!this.$.loading.getLoading());
 	}
 });
