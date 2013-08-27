@@ -27,8 +27,8 @@ enyo.kind({
 		{name:"activator", kind: "moon.IconButton", classes:"moon-list-actions-activator", spotlight:true, ontap: "expandContract", onSpotlightSelect: "expandContract"},
 		{name: "drawerPopup", kind: "enyo.Popup", classes:"moon-list-actions-drawer-popup", floating: false, autoDismiss: false, components: [
 			{name: "drawer", kind: "ListActionDrawer", onStep: "drawerAnimationStep", onDrawerAnimationEnd: "drawerAnimationEnd", open:false, components: [
-				{name:"closeButton", kind: "moon.IconButton", classes:"moon-list-actions-close moon-dark-gray", marquee: false, ontap:"expandContract", onSpotlightSelect: "expandContract"},
-				{name:"listActionsClientContainer", classes: "moon-list-actions-client-container moon-dark-gray", components: [
+				{name:"closeButton", kind: "moon.IconButton", classes:"moon-list-actions-close moon-neutral", marquee: false, ontap:"expandContract", onSpotlightSelect: "expandContract"},
+				{classes: "moon-list-actions-client-container moon-neutral", components: [
 					{name:"listActions", kind: "moon.Scroller", classes:"moon-list-actions-scroller", thumb:false, components: [
 						{name:"listActionsContainer", classes:"moon-list-actions-container", onRequestScrollIntoView:"scrollIntoView"}
 					]}
@@ -180,14 +180,14 @@ enyo.kind({
 		if (this.$.drawer.hasNode()) {
 			var scrollerBounds = enyo.dom.getBounds(this.$.listActions.hasNode());
 			var optionGroup = this.$.listActionsContainer.getControls();
-			
+
 			//get the total width of all option menus
 			var width = 0;
 			for (i = 0; i < optionGroup.length; i++) {
 				width += optionGroup[i].hasNode().getBoundingClientRect().width;
 			}
 			this.stacked = width > scrollerBounds.width;
-			
+
 			for (i = 0; i < optionGroup.length; i++) {
 				//if the option menus don't all fit horizontally, stack them & allow the main drawer scroller to scroll all of them
 				optionGroup[i].applyStyle("display", (this.stacked ? "block" : "inline-block"));

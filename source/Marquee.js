@@ -114,7 +114,8 @@ enyo.kind({
         }
 	},
 	calcMarqueeDistance: function() {
-		return this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
+		this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
+		return this.marqueeDistance;
 	},
 	requestMarquee: function(inSender, inEvent) {
 		enyo.mixin(this, inEvent);
@@ -160,7 +161,7 @@ moon.MarqueeSupport = {
 	startMarquee: function() {
 		this.marqueeWaitList = [];
 		this.waterfall("onRequestMarquee", {
-			marqueePause: this.marqueePause, 
+			marqueePause: this.marqueePause,
 			marqueeSpeed: this.marqueeSpeed
 		});
 		if (this.marqueeWaitList.length > 0) {

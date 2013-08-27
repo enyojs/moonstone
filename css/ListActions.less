@@ -3,6 +3,9 @@
 	position:relative;
 	display:inline-block;
 	overflow:visible;
+	.moon-icon-button {
+		margin:0;
+	}
 }
 .moon-list-actions-drawer-popup {
 	position:absolute;
@@ -12,15 +15,19 @@
 }
 .moon-list-actions-client-container {
 	background-color:white;
-	border-top: 6px solid #4b4b4b;
+	border-top: 6px solid @moon-list-actions-border-color;
 }
 .moon-list-actions-close {
-  float: right;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  padding: 0px 0px 0px 0px;
-  margin: 10px 10px 0px 10px;
+	border-radius: @moon-button-border-radius;
+	line-height: @moon-button-line-height;
+	background-color: @moon-list-actions-close-bg-color;
+	border: @moon-button-border-width solid transparent;
+	float:right;
+	width:40px;
+	height:40px;
+	min-width:40px;
+	padding: 0px 0px 0px 0px;
+	margin: 10px 10px 0px 10px;
 }
 .moon-list-actions-close::after {
 	.moon-body-text;
@@ -41,20 +48,20 @@
 .moon-list-actions-menu {
 	display:inline-block;
 	vertical-align:top;
-	margin:2px;	
+	margin:2px;
 	width: 300px;
 }
 .moon-list-actions .moon-item,
 .moon-list-actions .moon-divider,
 {
 	font-family: @moon-font-family;
-	text-transform: capitalize;			
+	text-transform: capitalize;
 }
 .moon-list-actions .moon-divider {
-	border-bottom: 1px solid white;	
-}		
-.moon-list-actions .moon-expandable-picker-current-value 
+	border-bottom: 1px solid @moon-list-actions-divider-color;
+}
+.moon-list-actions .moon-expandable-picker-current-value
 {
 	font-family: @moon-font-family-light;
-	text-transform: capitalize;		
+	text-transform: capitalize;
 }
