@@ -12,7 +12,7 @@ enyo.kind({
 			{tag: "br"},
 			{kind: "moon.Divider", content: "Disabled Icon Buttons:"},
 			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
+			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true}
 		]},
 		{kind: "moon.Divider", content: "Result"},
 		{name: "console", content: "No changes yet"}

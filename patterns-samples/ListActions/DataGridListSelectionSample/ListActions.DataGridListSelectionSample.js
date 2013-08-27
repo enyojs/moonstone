@@ -68,7 +68,7 @@ enyo.kind({
 		this.$.list.controller.remove(this.$.list.get("selected"));
 		this.cancel();
 	},
-	rendered: enyo.super(function (sup) {
+	rendered: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			var c = new enyo.Collection();
