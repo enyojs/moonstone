@@ -52,7 +52,7 @@ enyo.kind({
 							{bindings: [
 								{from: ".model.value3", to: ".content"}
 							]}
-						],
+						]
 					}
 				]},
 				{kind: "moon.Divider", content: "SETTINGS CATEGORY2"},

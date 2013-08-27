@@ -51,7 +51,7 @@ enyo.ready(function(){
 				{
 					kind: "moon.sample.music.MainMenuNarrowSample",
 					controller: ".app.controllers.menuController",
-					classes: "enyo-fit",
+					classes: "enyo-fit"
 				}
 			]
 		},
