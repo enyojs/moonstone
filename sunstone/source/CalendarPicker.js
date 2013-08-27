@@ -66,11 +66,7 @@ enyo.kind({
 			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
-		months: ["January", "Feburary", "March", "April", "May", "Jun", "July", "August", "September", "October", "November", "December"],
-
-		/** 
-
-		*/
+		months: ["January", "Feburary", "March", "April", "May", "Jun", "July", "August", "September", "October", "November", "December"]
 	},
 	components: [
 		{name: "simplePicker", kind: "sun.SimplePicker", classes: "moon-calendar-picker-simplepicker"},
