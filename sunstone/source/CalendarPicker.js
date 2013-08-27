@@ -256,3 +256,4 @@ enyo.kind({
 		this.render();
 	}
 });
+
