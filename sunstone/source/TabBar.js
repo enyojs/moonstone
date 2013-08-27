@@ -6,10 +6,10 @@ enyo.kind({
 	kind: "sun.Scroller",	
 	classes: "sun-tabBar",
 	vertical: "hidden",	
+	touchOverscroll: false,
 	published: {
 		withIcon: false,		
-	},
-	touchOverscroll: false,
+	},	
 	//* @protected
 	tabItemComponents: [],
 	components: [
@@ -31,19 +31,33 @@ enyo.kind({
 	},
 	setTabItemComponents: function(inItems) {
 		this.set("tabItemComponents", inItems);		
-	},
-	getTabItemComponents: function() {
-		return this.get("tabItemComponents");		
-	},
-	tabItemComponentsChanged: function() {		
+	},	
+	tabItemComponentsChanged: function() {	
 		this.$.group.destroyClientControls();
-		this.$.group.createComponents(this.get("tabItemComponents"));
+		// indexing to tab items
+		for(var i in this.tabItemComponents) {			
+			this.tabItemComponents[i].index = i;			
+		}		
+		this.$.group.createComponents(this.tabItemComponents);
 	},
-	changeActiveItem: function(inIndex, inTrueToActive) {	
-		if(this.$.group.controls[inIndex].selected) {
-			//console.log("c[", inIndex, "]", " : ", this.$.group.controls);
-			this.scrollTo(this.$.group.controls[inIndex].node.offsetLeft+4, 0);
+	changeActiveItem: function(inIndex, inTrueToActive) {
+		// scroll to selected item
+		if(this.$.group.controls[inIndex].selected) {			
+			var w = this.$.group.container.node.offsetWidth;
+			var cl = this.$.group.controls[inIndex].node.getBoundingClientRect().left;
+			var cr = this.$.group.controls[inIndex].node.getBoundingClientRect().right;			
+			var ol = this.$.group.controls[inIndex].node.offsetLeft;
+			var ow = this.$.group.controls[inIndex].node.offsetWidth;
+			// left align
+			if(cl < 0) {				
+				this.scrollTo(ol, 0);
+			}
+			// right align
+			else if (cr > w) {
+				this.scrollTo(ol+ow-w, 0);
+			}			
 		}
+		// tab item highlight
 		this.$.group.controls[inIndex].changeActiveStatus(inTrueToActive);		
 	}
 });

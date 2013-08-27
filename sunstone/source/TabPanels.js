@@ -9,15 +9,12 @@
 */
 
 enyo.kind({
-	name : "sun.TabPanels",
-
-	//* @protected
+	name : "sun.TabPanels",	
 	spotlight: "container",
 	fit : true,
 	classes: "sun-tabPanels",
 	layoutKind: "FittableRowsLayout",	
-	panelTools : [		
-		//{name: "panelBody", fit: true, classes: "sun-panel-body"},
+	panelTools : [				
 		{name: "panels", fit: true, kind: "enyo.Panels", arrangerKind: "CardArranger", onTransitionFinish: "transitionFinish"},
 		{name: "tabbar", kind: "sun.TabBar", onActivate: "tabSelect"}
 	],	
@@ -38,10 +35,7 @@ enyo.kind({
 	createTools: function() {				
 		this.createComponents(this.panelTools);
 	},	
-	tabComponentsChanged: function() {
-		for(var i in this.tabComponents) {			
-			this.tabComponents[i].index = i;			
-		}
+	tabComponentsChanged: function() {		
 		this.$.tabbar.setTabItemComponents(this.tabComponents);	
 	},
 	tabSelect: function(inSender, inEvent) {		
@@ -51,7 +45,8 @@ enyo.kind({
 			this.$.panels.setIndex(inEvent.originator.getIndex());
 		}		
 	},
-	transitionFinish: function(inSender, inEvent) {		
-		this.$.tabbar.changeActiveItem(this.$.panels.index, true);		
+	transitionFinish: function(inSender, inEvent) {	
+		//	scroll to selected tab and apply highlight
+		this.$.tabbar.changeActiveItem(this.$.panels.index, true);
 	},
 });

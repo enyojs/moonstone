@@ -15,9 +15,14 @@ enyo.kind({
 	classes: "sun-tabItem",	
 	spotlightPosition: "none",
 	//spotlightOverlay: true,
+	handlers: {
+		ondown: "touchDown",
+		onup: "touchUp",		
+		onleave: "touchUp"
+	},
 	published: {
 		index: null,
-		src: null,		
+		src: null
 	},	
 	initComponents: function() {				
 		this.inherited(arguments);
@@ -25,13 +30,19 @@ enyo.kind({
 			this.addRemoveClass("icon", true);		
 			this.createComponent({kind: "Image", src: this.src});
 		}
-		this.$.marqueeText.disabled = true;		
+		this.$.marqueeText.disabled = true;
 	},
-	changeActiveStatus: function(inTrueToActive) {
-		// change status when old and new are not same.
-		if(this.selected != inTrueToActive) {			
+	changeActiveStatus: function(inTrueToActive) {		
+		if(this.selected != inTrueToActive) {				
 			this.setSelected(inTrueToActive);
+			// add or remove highlight
 			this.$.client.addRemoveClass("moon-overlay", this.getActive());
 		}		
+	},
+	touchDown: function(inSender, inEvent) {
+		inSender.parent.addRemoveClass("touch-down", true);
 	},	
+	touchUp: function(inSender, inEvent) {
+		inSender.parent.addRemoveClass("touch-down", false);
+	}
 });

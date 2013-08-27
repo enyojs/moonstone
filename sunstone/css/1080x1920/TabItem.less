@@ -10,15 +10,23 @@
 	font-size: 88pt;
 	font-weight: bold;
 }
-.sun-tabItem.moon-item.active {
-	background-color: @sun-tabitem-background-color-selected;
-}
 .sun-tabItem .moon-selectableItem-item {
 	margin: 20px 0px 20px 0px;
 	padding: 0px 40px 0px 40px;
-	height: @sun-tabitem-height - 40;
+	height: @sun-tabitem-height - 40px;
 	border-right: 4px solid @sun-tabitem-border-color;
 	border-bottom: 0px;
+}
+.sun-tabItem .moon-marquee-text {
+	text-overflow: clip;
+}
+.sun-tabItem.moon-item.active {	
+	border-bottom: 12px solid @sun-tabitem-background-color-selected;
+	height: @sun-tabitem-height - 12px;
+	transition: border-color 0.4s linear;
+	-webkit-transition: border-color 0.4s linear;
+	-moz-transition: border-color 0.4s linear;
+	-o-transition: border-color 0.4s linear;
 }
 .sun-tabItem .moon-selectableItem-item.moon-underline {
 	border-bottom: 0px;
@@ -27,28 +35,31 @@
 	border-bottom: 0px;
 	padding: 0px 40px 0px 40px;
 }
+.sun-tabItem.spotlight.none:not(.active) {
+	border-color: transparent;
+}
+.sun-tabItem.moon-item.touch-down {
+	background-color: @sun-tabitem-background-color-selected;
+}
 .sun-tabItem.icon .moon-selectableItem-item {
-	margin: 20px 0px 20px 0px;
+	margin: 15px 0px 20px 0px;
 	padding: 0px 40px 0px 40px;
-	height: @sun-tabitem-height-with-icon - 40;
+	height: @sun-tabitem-height-with-icon - 35;
 	border-right: 4px solid @sun-tabitem-border-color;
 	border-bottom: 0px;
-}
-//.sun-tabItem.moon-item:not(:first-of-type) {
-.sun-tabItem.moon-item {
-	//border-left: 4px solid gray;
-	//border-right: 4px solid;
-	//border-color: #646464;
 }
 .sun-tabItem.icon {
 	height: @sun-tabitem-height-with-icon;
 }
-.sun-tabItem.icon img {
-	height: 100px;
+.sun-tabItem.icon img {	
+	position: relative;
+	left: 50px;
+	bottom: 131px;
 }
-.sun-tabItem.spotlight.none {
-	border-color: gray;
+.sun-tabItem.icon .moon-marquee-clip {
+	position: relative;
+	top: 70px;
 }
-.sun-tabItem .moon-marquee-text {
-	text-overflow: clip;
+.sun-tabItem.icon.moon-item.active {		
+	height: @sun-tabitem-height-with-icon - 12px;	
 }
