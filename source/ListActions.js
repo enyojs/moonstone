@@ -106,10 +106,10 @@ enyo.kind({
 			bounds = this.getClientBounds(),
 			styleString = "";
 		
-		styleString += "width: " 	+ Math.ceil(headerBounds.width) 				+ "px; ";
-		styleString += "height: " 	+ Math.ceil(headerBounds.height)				+ "px; ";
-		styleString += "left: " 	+ Math.ceil(headerBounds.left - bounds.left) 	+ "px; ";
-		styleString += "top: " 		+ Math.ceil(headerBounds.top - bounds.top) 		+ "px; ";
+		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
+		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
+		styleString += "left: "		+ Math.ceil(headerBounds.left - bounds.left)	+ "px; ";
+		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
 		
 		this.$.drawerPopup.addStyles(styleString);
 	},
