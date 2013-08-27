@@ -4,7 +4,7 @@
 	"ns": "moon.sample",
 	"loadPackages": "$lib/moonstone $lib/moonstone/samples $lib/spotlight",
 	"samples": [
-		{"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},	
+		{"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},
 		{"name": "Button", "path":"$lib/moonstone/samples/ButtonSample"},
 		{"name": "Contextual Popup", "path":"$lib/moonstone/samples/ContextualPopupSample"},
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},

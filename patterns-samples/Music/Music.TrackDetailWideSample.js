@@ -69,7 +69,7 @@ enyo.kind({
             components: [
                 {kind: "moon.Divider", content: "More"},
                 {
-                    kind: "Group", 
+                    kind: "Group",
                     fit: true,
                     components: [
                         {kind: "moon.SelectableItem", content: "Artist"},

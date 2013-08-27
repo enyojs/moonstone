@@ -169,7 +169,7 @@ enyo.kind({
 		this._zIndex = z;
 		return this._zIndex;
 	},
-	//* Removes focus style from closeButton & hides _moon.Popup_ 
+	//* Removes focus style from closeButton & hides _moon.Popup_
 	closePopup: function(inSender, inEvent) {
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");

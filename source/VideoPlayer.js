@@ -1,6 +1,6 @@
 
 /**
-	_moon.VideoPlayer_ is a control that wraps an	<a href="#enyo.Video">enyo.Video</a>
+	_moon.VideoPlayer_ is a control that wraps an   <a href="#enyo.Video">enyo.Video</a>
 	HTML5 video player to provide Moonstone-styled standard transport controls,
 	optional app-specific controls, and an information bar for video information
 	and player feedback.
@@ -31,7 +31,7 @@ enyo.kind({
 	kind: "enyo.Control",
 	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
-	classes: "moon-video-player enyo-unselectable", 
+	classes: "moon-video-player enyo-unselectable",
 	published: {
 		//* URL of HTML5 video
 		src: "",
@@ -117,7 +117,7 @@ enyo.kind({
 		onSpotlightDown: 'spotlightDownHandler',
 		onSpotlightLeft: 'spotlightLeftHandler',
 		onSpotlightRight: 'spotlightRightHandler',
-		onSpotlightSelect: 'spotlightSelectHandler', 
+		onSpotlightSelect: 'spotlightSelectHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -258,8 +258,8 @@ enyo.kind({
 			if (!inComponents || inComponents.length === 0) {
 				// No components - destroy more button
 				this.$.leftPremiumPlaceHolder.hide();
-				this.$.rightPremiumPlaceHolder.hide();		
-				this.$.moreButton.hide();			
+				this.$.rightPremiumPlaceHolder.hide();
+				this.$.moreButton.hide();
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.hide();
@@ -407,9 +407,9 @@ enyo.kind({
 		return false;
 	},
 
-	
+
 	///// Fullscreen controls /////
-	
+
 
 	_holdPulseThreadhold: 400,
 	_holding: false,
@@ -498,7 +498,7 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSInfo: function() {
-		if (!this.showInfo) { 
+		if (!this.showInfo) {
 			this.$.videoInfoHeader.setShowing(false);
 		}
 	},
@@ -536,7 +536,7 @@ enyo.kind({
 				if (inSender._sentHold !== true) {
 					this.jumpToEnd(inSender, inEvent);
 					inSender._sentHold = true;
-					return true;	
+					return true;
 				}
 			} else {
 				inSender._holding = true;
@@ -578,9 +578,9 @@ enyo.kind({
 		inParams = inParams || {};
 		this.$.slider.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
 	},
-	
+
 	////// Slider event handling //////
-	
+
 	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
 		this._isPausedBeforeDrag = this.$.video.isPaused();
@@ -611,11 +611,11 @@ enyo.kind({
 		}
 		this.$.slider.setValue(this._currentTime);
 	},
-	
-	
-	
+
+
+
 	///// Inline controls /////
-	
+
 	updateInlinePosition: function() {
 		var currentTimeFloat = this._currentTime * 1000,
 			percentComplete = Math.round(currentTimeFloat / this._duration) / 10,
@@ -628,10 +628,10 @@ enyo.kind({
 	},
 
 	//* @public
-	
+
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
-		// Fixme: Fullscreen state change stops transition animation. 
+		// Fixme: Fullscreen state change stops transition animation.
 		//      And it breaks full screen button's transition behavior.
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();

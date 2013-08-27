@@ -85,11 +85,11 @@ enyo.kind({
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
-			
+
 			//log the optional action property
 			this.$.console.setContent("Action: " + (inEvent.action ? inEvent.action : "no action name provided"));
 		}
-		
+
 		//log the active state of the ListAction drawer
 		if (inEvent.originator && inEvent.originator.kind == "moon.ListActions") {
 			this.$.console.setContent("ListActions drawer is now " + (inEvent.originator.active ? "open" : "closed"));

@@ -9,8 +9,8 @@ enyo.kind({
         option: {
             source: "",
             bgSource: "",
-            title: ""    
-        }        
+            title: ""
+        }
     },
 
     components:[

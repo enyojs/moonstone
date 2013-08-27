@@ -56,8 +56,7 @@ enyo.kind({
 		if (this.collapsed) {
 			return;
 		}
-		
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
+
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 
@@ -126,7 +125,7 @@ enyo.kind({
 		if (!this.collapsed) {
 			return;
 		}
-		
+
 		this.$.animator.newAnimation({
 			name: "expandToLarge",
 			duration: 200,
@@ -197,7 +196,7 @@ enyo.kind({
 			"padding-top" : titleAboveStyle["padding-top"],
 			"padding-bottom" : titleAboveStyle["padding-bottom"]
 		};
-		
+
 		this.$.animator.newAnimation({
 			name: "collapse",
 			duration: 800,
@@ -276,7 +275,7 @@ enyo.kind({
 						"min-width" : inWidth + "px",
 						"max-width" : inWidth + "px"
 					}
-				}],
+				}]
 
 			}
 		});
@@ -304,7 +303,7 @@ enyo.kind({
 						"border-bottom-width" : "current",
 						"width" : this.breadcrumbAnimProps["width"],
 						"min-width" : this.breadcrumbAnimProps["width"],
-						"max-width" : this.breadcrumbAnimProps["width"],
+						"max-width" : this.breadcrumbAnimProps["width"]
 					}
 				},
 				{
