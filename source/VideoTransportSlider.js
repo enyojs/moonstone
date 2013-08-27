@@ -15,11 +15,11 @@ enyo.kind({
 	classes: "moon-video-transport-slider",
 	//* @protected
 	published: {
-		//** This is start point of slider 
+		//** This is start point of slider
 		rangeStart: 0,
 		//** This is end point of slider
 		rangeEnd: 100,
-		//** This flag decide the slider draw  
+		//** This flag decide the slider draw
 		syncTick: true,
 		//** This flag decide whether using dummy area or not
 		showDummyArea: true,
@@ -341,7 +341,7 @@ enyo.kind({
 	sendSeekEvent: function(inValue) {
 		this.doSeek({value: inValue});
 	},
-	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
+	//* When the time updates, update buffered progress, canvas, video currentTime and duration
 	timeUpdate: function(inSender, inEvent) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;

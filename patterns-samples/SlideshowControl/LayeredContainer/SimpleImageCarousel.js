@@ -34,14 +34,14 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
-    	for (var i=0; i < 2; i++) {
+		for (var i=0; i < 2; i++) {
 			this.createComponent({
 				name: "container" + i,
 				style: "height:100%; width:100%;"
 			});
 			this.$["container" + i].render();
 		}
-    },
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		if (this.$["container0"].imageIndex === undefined) {
@@ -96,7 +96,7 @@ enyo.kind({
 	},
 	pushNextPanel: function(inImageIndex, inDirection) {
 		var next;
-		var before = undefined;
+		var before;
 		if (inDirection === "next") {
 			next = inImageIndex + 1;
 			if (next >= this.count) {

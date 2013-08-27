@@ -12,7 +12,7 @@ enyo.kind({
 	kind: "moon.Button",
 	classes: "contextual-popup-button",
 	//* @protected
-	//* A flag used by _moon.ContextualPopupDecorator_ to determine what action to take if  
+	//* A flag used by _moon.ContextualPopupDecorator_ to determine what action to take if
 	//* spotlight navigation is attempted outside of _moon.ContextualPopup_
 	keepOpen: true
 });

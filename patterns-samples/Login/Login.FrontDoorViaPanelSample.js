@@ -20,7 +20,7 @@ enyo.kind({
                     classes: "moon-neutral moon-margin-top-bottom"
                 }
             ]},
-            {fit: true, components:[                
+            {fit: true, components:[
                 {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
                     {content: "Email", style: "width: 180px;"},
                     {

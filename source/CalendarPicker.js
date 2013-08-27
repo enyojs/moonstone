@@ -1,7 +1,7 @@
 /**
 	_moon.CalendarPicker_ is a control that displays a monthly calendar, with the
 	month name at the top and a grid of days, grouped into rows by week, below.
-	
+
 	The header buttons are used to navigate to the desired month; the desired day
 	is selected by tapping on it.
 
