@@ -1,79 +1,24 @@
-.moon-accordion{
-	padding: 0px 16px 0px 0px;
-	margin: 0px;
-	border-color: @moon-orange;
-	overflow: hidden;
-	margin-bottom:16px;	
+/* Header */
+.moon-accordion .moon-expandable-list-item-header {
+	display: inline-block;
+	padding: 0px 25px 0px 0px;
 }
-.enyo-locale-right-to-left .moon-accordion {
-	padding: 0px 0px 0px 16px;
+.moon-accordion.moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
+	padding: @moon-spotlight-outset;
 }
 
-.moon-accordion.spotlight {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	border-left-width: 16px;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: solid;
-	padding-right: 0px;
+/* Arrow */
+.moon-accordion .moon-accordion-arrow {
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-image: @moon-small-carat-down1;
 }
-.moon-accordion.open.spotlight {
-	transition: none;
-	-webkit-transition: none;
-	-moz-transition: none;
-	-o-transition: none;
-	border-left-width: 0px;
-	padding-right: 16px;
+.moon-accordion .spotlight .moon-accordion-arrow {
+	background-image: @moon-small-carat-down2;
 }
-.enyo-locale-right-to-left .moon-accordion.open.spotlight {
-	padding-right: 0px;
-	padding-left: 16px;
+.moon-accordion.open .moon-accordion-arrow {
+	background-image: @moon-small-carat-up1;
 }
-
-.moon-accordion-header {
-	display:inline-block;
-	padding-right:39px;
-	margin-bottom:0px;
-	box-sizing:border-box;
-	max-width:100%;	
-}
-.enyo-locale-right-to-left .moon-accordion-header {
-	padding-right:0px;
-}
-
-.moon-accordion.open.spotlight .moon-accordion-header {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	border-left-width: 16px;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: solid;
-	padding-right:0px;
-}
-
-.moon-accordion-client .moon-item {
-	.moon-body-text;
-	margin-bottom: 14px;
-}
-
-.moon-accordion-client .moon-item:first-child {
-	margin-top: 10px;
-}
-
-.moon-accordion-bottom {
-	margin:0px;
-	padding:0px;
-	height:0px;
-	margin-bottom: 10px;
-}
-
-.moon-accordion-arrow.up {
-	background: @moon-carat-black-small-up-image right center no-repeat;
-}
-
-.moon-accordion-arrow.down {
-	background: @moon-carat-black-small-down-image right center no-repeat;
+.moon-accordion.open .spotlight .moon-accordion-arrow {
+	background-image: @moon-small-carat-up2;
 }

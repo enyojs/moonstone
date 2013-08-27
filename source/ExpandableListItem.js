@@ -39,46 +39,55 @@
 */
 enyo.kind({
 	name: "moon.ExpandableListItem",
-	kind: "moon.Item",
 	published: {
-		//* If true, the drawer is expanded, showing this item's contents.  Use this property
-		//* to set the initial state of the item (rather than active).
+		/**
+			If true, the drawer automatically closes when the user navigates to the
+			top of the control. If false, the user must select/tap the header to close
+			the drawer.
+		*/
+		autoCollapse: false,
+		/**
+			If true, the drawer is expanded, showing this item's contents. Use this property
+			to set the initial state of the item (rather than active).
+		*/
 		open: false,
 		//* True if the item is currently selected
-		active: false
+		active: false,
+		//* If true, the user is prevented from spotting off the bottom of the drawer (when open) using five-way controls
+		lockBottom: false,
+		//* When true, item is shown as disabled and does not generate tap events
+		disabled: false
 	},
 	//* @protected
 	classes: "moon-expandable-list-item",
 	spotlight: false,
 	defaultKind: "moon.Item",
 	handlers: {
-		onSpotlightSelect: "spotlightSelect",
-		onSpotlightDown: "spotlightDown"
+		onSpotlightDown: "spotlightDown",
+		onSpotlightFocused: "spotlightFocused",
+		onDrawerAnimationEnd: "drawerAnimationEnd"
 	},
 	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-expandable-list-item-header", spotlight: true,
-			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
-		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", kind: "Group"}
+		{name: "headerWrapper", kind: "enyo.Control", spotlight: true, classes: "moon-expandable-list-item-header-wrapper",
+			onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header"}
+		]},
+		{name: "drawer", kind: "enyo.Drawer", components: [
+			{name: "client", kind: "Group", classes: "moon-expandable-list-item-client"}
 		]}
 	],
-	//* Used to prevent events from firing during initialization
-	isRendered: false,
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
+	],
+	
+	//* @protected
+	
 	create: function() {
 		this.inherited(arguments);
+		enyo.dom.accelerate(this, "auto");
 		this.openChanged();
-	},
-	initComponents: function() {
-		this.inherited(arguments);
-		if (this.$.marqueeText) {
-			this.$.marqueeText.destroy();	// Marquee on header
-		}
-	},
-	rendered: function() {
-		this.inherited(arguments);
 		this.setActive(this.open);
-		this.isRendered = true;
+		this.disabledChanged();
 	},
 	//* Facade for header content
 	contentChanged: function() {
@@ -87,74 +96,60 @@ enyo.kind({
 	//* Facade for drawer
 	openChanged: function() {
 		var open = this.getOpen();
-
 		this.$.drawer.setOpen(open);
-
-		if(open) {
-			this.addClass("open");
-			this.spotlight = false;
-			this.$.header.spotlight = true;
-		} else {
-			this.removeClass("open");
-			this.spotlight = true;
-			this.$.header.spotlight = false;
-			if(this.isRendered) {
-				enyo.Spotlight.spot(this);
-			}
+		this.addRemoveClass("open", open);
+	},
+	disabledChanged: function() {
+		var disabled = this.getDisabled();
+		
+		this.addRemoveClass("disabled", disabled);
+		if (disabled) {
+			this.setOpen(false);
 		}
 	},
 	activeChanged: function() {
 		this.bubble("onActivate");
 		this.setOpen(this.active);
 	},
-	//* Calls _expandContract()_ if _select_ event came from header.
-	spotlightSelect: function(inSender, inEvent) {
-		if(inSender === this) {
-			this.expandContract(inSender, inEvent);
-		}
-	},
 	//* If closed, opens drawer and highlights first spottable child.
 	expandContract: function(inSender, inEvent) {
 		if (this.disabled) {
 			return true;
 		}
-		if(!this.getOpen()) {
-			this.setActive(true);
-			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+		
+		this.toggleActive();
+	},
+	toggleActive: function() {
+		if (this.getOpen()) {
+			this.setActive(false);
 		} else {
+			this.setActive(true);
+			enyo.Spotlight.unspot();
+		}
+	},
+	//* If drawer is currently open, and event was sent via keypress (i.e., it has a direction), process header focus
+	headerFocus: function(inSender, inEvent) {
+		var direction = inEvent && inEvent.dir;
+		if (this.getOpen() && this.getAutoCollapse() && direction === "UP") {
 			this.setActive(false);
 		}
+	},
+	//* Check for the last item in the client area, and prevent 5-way focus movement below it, per UX specs
+	spotlightDown: function(inSender, inEvent) {
+		var children = enyo.Spotlight.getChildren(this.$.client);
+		if (this.getLockBottom() && this.getOpen() && children.length && inEvent.originator == children[children.length - 1]) {
+			return true;
+		}
+	},
+	drawerAnimationEnd: function() {
+		if (this.getOpen()) {
+			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+		}
+	},
+	spotlightFocused: function(inSender, inEvent) {
+		this.bubble("onRequestScrollIntoView", {side: "top"});
 		return true;
 	},
-	//* Closes drawer if drawer is currently open,
-	//* and event was sent via keypress (i.e., it has a direction).
-	headerFocus: function(inSender, inEvent) {
-		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
-			this.setActive(false);
-			enyo.Spotlight.spot(this);
-			this.$.header.removeClass("spotlight");	//<--- TODO - why do we need this here?
-			return true;
-		} else if(!this.getOpen()) {
-			enyo.Spotlight.spot(this);
-		}
-	},
-	//* Check for the last item in the client area, and prevent 5-way focus movement
-	//* below it, per UX specs
-	spotlightDown: function(inSender, inEvent) {
-		var c = enyo.Spotlight.getChildren(this.$.client);
-		if (c.length && inEvent.originator == c[c.length-1]) {
-			return true;
-		}
-	},
-	/**
-		Bubbles the _requestScrollIntoView_ event every time the drawer animates.
-		This makes for a smoother expansion animation when inside of a scroller, as
-		the height of the scroller changes with the drawer's expansion.
-	*/
-	drawerAnimationStep: function() {
-		this.bubble("onRequestScrollIntoView");
-	},
-	//*@protected
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
 		if (inSender === this) {
 			this.$.header.startMarquee();
@@ -166,3 +161,4 @@ enyo.kind({
 		}
 	}
 });
+

@@ -43,7 +43,7 @@ enyo.kind({
 enyo.kind({
 	name: "moon.TimePicker",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-date-picker",
+	classes: "moon-expandable-picker moon-date-picker",
 	events: {
 		/**
 			Fires when the date changes.
@@ -84,15 +84,13 @@ enyo.kind({
 		*/
 		meridiemEnable: false
 	},
-	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-date-picker-header", spotlight: true,
-			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
-		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+	componentOverrides: {
+		headerWrapper: {components: [
+			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
-	],
+		client: {kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+	},
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -144,6 +142,7 @@ enyo.kind({
 			}
 			doneArr.push(o);
 		}
+		this.pickersAreSetUp = true;
 	},
 	parseTime: function() {
 		if (this._tf) {
@@ -218,14 +217,33 @@ enyo.kind({
 	//* When _this.open_ changes, shows or hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.$.drawer.getOpen());
-		//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
-		if (this.$.drawer.getOpen()) {
-			this.$.hour.render();
-			this.$.minute.render();
-			if (this.$.meridiem) {
-				this.$.meridiem.render();
+		var open = this.$.drawer.get("open");
+		this.$.currentValue.setShowing(!open);
+		if (this.pickersAreSetUp) {
+			//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+			if (open) {
+				this.$.hour.refreshScrollState();
+				this.$.minute.refreshScrollState();
+				if (this.$.meridiem) {
+					this.$.meridiem.refreshScrollState();
+				}
+			} else {
+				// If one of the pickers is animating when the drawer closes, it won't display properly
+				// when the drawer reopens, unless we stabilize here
+				this.$.hour.stabilize();
+				this.$.minute.stabilize();
+				if (this.$.meridiem) {
+					this.$.meridiem.stabilize();
+				}
 			}
+		}
+	},
+	toggleActive: function() {
+		if (this.getOpen()) {
+			this.setActive(false);
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		} else {
+			this.setActive(true);
 		}
 	},
 	closePicker: function(inSender, inEvent) {

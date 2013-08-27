@@ -27,7 +27,7 @@ enyo.kind({
 			}
 			if (this.itemSpacing >= 0) {
 				cl.addStyles("margin-top:" + this.itemSpacing + "px; margin-left:" + this.itemSpacing + "px;");
-				cl.addStyles("margin-bottom:" + this.itemSpacing + "px;");
+				cl.addStyles("margin-right: 0px;");
 			}
 			ht += cl.generateHtml();
 			cl.teardownRender();

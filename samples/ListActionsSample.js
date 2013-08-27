@@ -43,21 +43,6 @@ enyo.kind({
 							{content:"Drama", kind:"moon.ToggleItem"}
 						]}
 					]
-				},
-				{
-					action: "menu-language",
-					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", 
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", 
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
-					]
 				}
 			]},
 			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"./assets/icon-list.png", listActions: [
@@ -88,21 +73,6 @@ enyo.kind({
 							{content:"Comedy", kind:"moon.ToggleItem"},
 							{content:"Drama", kind:"moon.ToggleItem"}
 						]}
-					]
-				},
-				{
-					action: "menu-language",
-					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", 
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", 
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
 					]
 				}
 			]}

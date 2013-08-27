@@ -12,11 +12,14 @@
 	display: inline-block;
 	min-width: @moon-button-height;
 	padding: 29px 22px 29px 22px;
-	margin: 0px;
-	color: @moon-light-text-color;
+	margin: 0px @moon-spotlight-outset;
+	color: @moon-button-text-color;
 }
-.moon-dark-gray .moon-button * {
-	color: @moon-light-text-color;
+.moon-neutral .moon-button * {
+	color: @moon-sub-header-text-color;
+}
+.moon-neutral .moon-button.spotlight * {
+	color: @moon-spotlight-text-color;
 }
 .moon-button > .button-client {
 	width: 100%;
@@ -58,6 +61,7 @@
 {
 	border: @moon-button-border-width solid @moon-spotlight-border-color;
 	background-color: @moon-button-background-color;
+	color: @moon-button-text-color;
 }
 
 .moon-button:active:hover:not([disabled]) {
@@ -67,9 +71,11 @@
 
 .moon-button.spotlight {
 	background: @moon-spotlight-border-color;
+	color: @moon-spotlight-text-color;
 }
 
 .moon-button[disabled] {
 	cursor: default;
-	color: @moon-button-disabled-color;
+	color: @moon-button-disabled-text-color;
+	background-color: @moon-button-disabled-bg-color;
 }

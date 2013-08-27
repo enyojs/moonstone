@@ -2,74 +2,92 @@
 
 enyo.kind({
     name: "moon.sample.music.TrackOneColumnWideSample2",
-    kind: "moon.Panel",
-    titleAbove: "02",
-    title: "Browser Tracks",
-    titleBelow: "15 Tracks",
-    headerComponents: [
-        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-list.png"}
-    ],
+    kind: "moon.Panels",
+    pattern: "alwaysviewing",
+    classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
     components: [
         {
-            kind:"moon.Scroller", 
-            horizontal: "hidden",
-            fit: true,
+            kind: "moon.Panel",
+            titleAbove: "02",
+            title: "Browse Tracks",
+            titleBelow: "15 Tracks",
+            headerComponents: [
+                {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+                {kind: "moon.IconButton", src: "../assets/icon-list.png"}
+            ],
             components: [
                 {
-                    name: "trackList",
-                    kind: "moon.DataTable",
+                    kind:"moon.Scroller", 
+                    horizontal: "hidden",
+                    fit: true,
                     components: [
                         {
+                            name: "trackList",
+                            kind: "moon.DataTable",
                             components: [
                                 {
                                     components: [
                                         {
-                                            kind: "moon.Item",
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
-                                                    classes: "moon-music-small-image",
-                                                    bindFrom: "coverUrl", 
-                                                    bindTo: "src"
+                                                    kind: "moon.Item",
+                                                    components: [
+                                                        {
+                                                            kind: "enyo.Image", 
+                                                            classes: "moon-music-small-image",
+				                                            bindings: [
+																{from: ".model.coverUrl", to: ".src"}
+															]
+
+                                                        }
+                                                    ]
                                                 }
                                             ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
+                                        },
                                         {
-                                            kind: "moon.Item",
-                                            ontap: "changeName",
-                                            bindFrom: "track"
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
+                                            components: [
+                                                {
+                                                    kind: "moon.Item",
+                                                    ontap: "changeName",
+		                                            bindings: [
+														{from: ".model.track", to: ".content"}
+													]
+
+                                                }
+                                            ]
+                                        },
                                         {
-                                            kind: "moon.Item",
-                                            ontap: "changeName",
-                                            bindFrom: "artist"
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
+                                            components: [
+                                                {
+                                                    kind: "moon.Item",
+                                                    ontap: "changeName",
+		                                            bindings: [
+														{from: ".model.artist", to: ".content"}
+													]
+                                                }
+                                            ]
+                                        },
                                         {
-                                            kind: "moon.Item",
-                                            ontap: "changeName",
-                                            bindFrom: "album"
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
+                                            components: [
+                                                {
+                                                    kind: "moon.Item",
+                                                    ontap: "changeName",
+		                                            bindings: [
+														{from: ".model.album", to: ".content"}
+													]
+                                                }
+                                            ]
+                                        },
                                         {
-                                            kind: "moon.Item",
-                                            ontap: "changeName",
-                                            bindFrom: "time"
+                                            components: [
+                                                {
+                                                    kind: "moon.Item",
+                                                    ontap: "changeName",
+		                                            bindings: [
+														{from: ".model.time", to: ".content"}
+													]
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -81,7 +99,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.track", to: "$.trackList.controller"}
+        {from: ".controller.track", to: ".$.trackList.controller"}
     ]
 });
 
@@ -114,13 +132,13 @@ enyo.ready(function (){
     new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
+            style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
                 {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackOneColumnWideSample2",
                     controller: ".app.controllers.trackController",
                     classes: "enyo-fit",
-                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
                 }
             ]
         },

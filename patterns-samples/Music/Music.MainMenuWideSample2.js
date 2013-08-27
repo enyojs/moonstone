@@ -2,36 +2,45 @@
 
 enyo.kind({
     name: "moon.sample.music.MainMenuWideSample2",
-    kind: "moon.Panel",
-    titleAbove: "01",
-    title: "Main Menu",
-    titleBelow: "",
-    classes: "livetv-background",
+    kind: "moon.Panels",
+    pattern: "alwaysviewing",
+    classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
     components: [
         {
-            kind: "FittableColumns",
-            fit: true,
+            kind: "moon.Panel",
+            titleAbove: "01",
+            title: "Main Menu",
+            titleBelow: "",
+            classes: "livetv-background",
             components: [
                 {
-                    kind: "moon.DataList",
-                    name: "menus",
-                    classes: "moon-5h",
-                    components: [
-                        {kind: "moon.Item", bindFrom: "name"}
-                    ]
-                },
-                {
-                    kind: "enyo.VCenter",
-                    content: "branding",
+                    kind: "FittableColumns",
                     fit: true,
-                    classes: "moon-dark-gray",
-                    style: "text-align: center"
+                    components: [
+                        {
+                            kind: "moon.DataList",
+                            name: "menus",
+                            classes: "moon-5h",
+                            components: [
+		                        {kind: "moon.Item", bindings: [
+									{from: ".model.name", to: ".content"}
+								]}
+
+                            ]
+                        },
+                        {
+                            content: "branding",
+                            fit: true,
+                            classes: "moon-neutral",
+                            style: "text-align: center"
+                        }
+                    ]
                 }
             ]
         }
     ],
     bindings: [
-        {from: ".controller.menu", to: "$.menus.controller"}
+        {from: ".controller.menu", to: ".$.menus.controller"}
     ]
 });
 
@@ -40,9 +49,9 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menu: new enyo.Collection([
-            {name: "Browser video"},
-            {name: "Browser photos"},
-            {name: "Browser music"}
+            {name: "Browse video"},
+            {name: "Browse photos"},
+            {name: "Browse music"}
         ])
     });
 
@@ -51,13 +60,13 @@ enyo.ready(function(){
     new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
+            style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
                 {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.MainMenuWideSample2",
                     controller: ".app.controllers.menuController",
-                    classes: "enyo-fit",
-                    style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;"
+                    classes: "enyo-fit"
                 }
             ]
         },

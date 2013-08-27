@@ -45,11 +45,8 @@ enyo.kind({
 	events: {
 		/**
 			Fires when the currently selected item changes.
-
 			_inEvent.selected_ contains a reference to the currently selected item.
-
 			_inEvent.content_ contains the content of the currently selected item.
-
 			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: ""
@@ -63,28 +60,29 @@ enyo.kind({
 		noneText: "",
 		//* Text to be display when the drawer is opened
 		helpText: "",
-		/**
-			If true, the drawer automatically closes when the user makes a selection; 
-			if false, the user must select/tap the header to close the drawer
-		*/
-		autoCollapse: true
+		//* If true, auto collapse when an item is selected
+		autoCollapseOnSelect: true
 	},
+	autoCollapse: true,
+	lockBottom: true,
+	
 	//* @protected
+	
 	defaultKind: "moon.CheckboxItem",
+	selectAndCloseDelayMS: 600,
 	handlers: {
-		onActivate: "activated",
 		requestScrollIntoView: "requestScrollIntoView"
 	},
-	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-expandable-picker-header", spotlight: true,
-			onSpotlightFocus: "headerFocus", ontap: "expandContract"
-		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", kind: "Group", highlander: true},
-			{name: "helpText", classes: "moon-expandable-picker-help-text"}
+	componentOverrides: {
+		headerWrapper: {components: [
+			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value", ontap: "expandContract", content: ""}
-	],
+		drawer: {components: [
+			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
+			{name: "helpText", classes: "moon-expandable-picker-help-text"}
+		]}
+	},
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
@@ -93,14 +91,17 @@ enyo.kind({
 		this.helpTextChanged();
 		this.openChanged();
 	},
-	//* When the _selected_ control changes, updates _checked_ values
-	//* appropriately and fires an _onChange_ event.
+	rendered: function() {
+		this.inherited(arguments);
+		this.isRendered = true;
+	},
+	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
 			index = -1;
 
-		for(var i=0;i<controls.length;i++) {
+		for (var i=0;i<controls.length;i++) {
 			controls[i].silence();
 			if(controls[i] === selected) {
 				controls[i].setChecked(true);
@@ -111,7 +112,7 @@ enyo.kind({
 			controls[i].unsilence();
 		}
 
-		if(index > -1 && selected !== inOldValue) {
+		if (index > -1 && selected !== inOldValue) {
 			this.setSelectedIndex(index);
 			this.$.currentValue.setContent(selected.getContent());
 			if(this.hasNode()) {
@@ -120,29 +121,29 @@ enyo.kind({
 		}
 	},
 	activeChanged: function() {
-		if (this.active) {
+		var active = this.getActive();
+		if (active) {
 			// enyo.Group's highlander logic actually prevents an item from being
 			// de-activated once it's been activated; that's not exactly the logic
 			// we want for ExpandablePicker, so we only notify the group when an
 			// item is activated, not when it's de-activated. 
 			this.bubble("onActivate");
 		}
-		this.setOpen(this.active);
+		this.setOpen(active);
 	},
-	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the
-	//* appropriate control.
+	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the appropriate control.
 	selectedIndexChanged: function() {
 		var selected = this.getSelected(),
 			controls = this.getClientControls(),
 			index = this.getSelectedIndex();
 
-		if(controls[index] && controls[index] !== selected) {
+		if (controls[index] && controls[index] !== selected) {
 			this.setSelected(controls[index]);
 		}
 	},
 	//* If there is no selected item, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if(this.getSelected() === null && this.getSelectedIndex() === -1) {
+		if (!this.getSelected() && this.getSelectedIndex() === -1) {
 			this.$.currentValue.setContent(this.getNoneText());
 		}
 	},
@@ -164,37 +165,41 @@ enyo.kind({
 	*/
 	initializeActiveItem: function() {
 		var controls = this.getClientControls();
-		for(var i=0;i<controls.length;i++) {
-			if(controls[i].active) {
-				this.selectedIndex = i;
-				this.selected = controls[i];
-				this.$.currentValue.setContent(controls[i].getContent());
-				controls[i].setChecked(true);
-				return;
+		for (var i=0; i<controls.length; i++) {
+			if (!controls[i].active) {
+				continue;
 			}
+			
+			this.selectedIndex = i;
+			this.selected = controls[i];
+			this.$.currentValue.setContent(controls[i].getContent());
+			controls[i].setChecked(true);
+			return;
 		}
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
 	activated: function(inSender, inEvent) {
-		var index = this.getClientControls().indexOf(inEvent.toggledControl),
-			_this = this,
-			eli = inEvent.originator instanceof moon.ExpandableListItem;
+		var toggledControl = inEvent && inEvent.toggledControl, index;
 
-		if(inEvent.checked && index > -1) {
+		if (!toggledControl) {
+			return;
+		}
+		
+		index = this.getClientControls().indexOf(toggledControl);
+		
+		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
-			// If _autoCollapse_ is set to true and this control is rendered, auto collapse.
-			if(this.getAutoCollapse() && this.isRendered) {
-				setTimeout(function() {
-					_this.setOpen(false);
-					_this.active = false;
-					enyo.Spotlight.spot(_this);
-				}, 300);
+			
+			if (this.getAutoCollapseOnSelect() && this.isRendered) {
+				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
 		}
-		//* Prevent bubbling if _inEvent.originator_ is not an instance of _this.kind_
-		if (!eli) {
-			return true;
-		}
+		return true;
+	},
+	//* Close drawer and select header
+	selectAndClose: function() {
+		this.setActive(false);
+		enyo.Spotlight.spot(this.$.headerWrapper);
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
@@ -204,7 +209,6 @@ enyo.kind({
 			index: this.getSelectedIndex()
 		});
 	},
-	//*@protected
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
 		if (inSender === this) {
 			this.$.header.startMarquee();

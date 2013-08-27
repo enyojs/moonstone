@@ -5,8 +5,12 @@ enyo.kind({
     kind: "enyo.GridListImageItem",
     classes: "enyo-gridlist-titleimageitem",
     components:[
-        {name: 'image', bindFrom: "image", bindTo: "src", kind: 'enyo.Image'},
-        {name: "text", bindFrom: "text", classes: "caption"}
+        {name: "image", kind: "enyo.Image", bindings: [
+            {from: ".model.image", to: ".src"}
+        ]},
+        {name: "text", bindings: [
+            {from: ".model.text", to: ".caption"}
+        ]}
     ]
 });
 
@@ -91,25 +95,24 @@ enyo.kind({
         {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
             {
                 kind: "moon.TitleImageItem",
-                style: "height: 126px; width: 126px; margin: 10px;",
-                spotlightPosition:"bottom"
+                style: "height: 126px; width: 126px; margin: 10px;"
             }
         ]}
     ],
     bindings: [
-        {from: ".controller.title1", to: "$.title1.content"},
-        {from: ".controller.title2", to: "$.title2.content"},
-        {from: ".controller.title3", to: "$.title3.content"},
-        {from: ".controller.title4", to: "$.title4.content"},
-        {from: ".controller.title5", to: "$.title5.content"},
-        {from: ".controller.title6", to: "$.title6.content"},
-        {from: ".controller.recentSearchResults1", to: "$.recentSearchResults1.controller"},
-        {from: ".controller.recentSearchResults2", to: "$.recentSearchResults2.controller"},
-        {from: ".controller.recentSearchResults3", to: "$.recentSearchResults3.controller"},
-        {from: ".controller.recentSearchResults4", to: "$.recentSearchResults4.controller"},
-        {from: ".controller.recentSearchResults5", to: "$.recentSearchResults5.controller"},
-        {from: ".controller.recentSearchResults6", to: "$.recentSearchResults6.controller"},
-        {from: ".controller.instantSearchResults", to: "$.instantSearchResults.controller"}
+        {from: ".controller.title1", to: ".$.title1.content"},
+        {from: ".controller.title2", to: ".$.title2.content"},
+        {from: ".controller.title3", to: ".$.title3.content"},
+        {from: ".controller.title4", to: ".$.title4.content"},
+        {from: ".controller.title5", to: ".$.title5.content"},
+        {from: ".controller.title6", to: ".$.title6.content"},
+        {from: ".controller.recentSearchResults1", to: ".$.recentSearchResults1.controller"},
+        {from: ".controller.recentSearchResults2", to: ".$.recentSearchResults2.controller"},
+        {from: ".controller.recentSearchResults3", to: ".$.recentSearchResults3.controller"},
+        {from: ".controller.recentSearchResults4", to: ".$.recentSearchResults4.controller"},
+        {from: ".controller.recentSearchResults5", to: ".$.recentSearchResults5.controller"},
+        {from: ".controller.recentSearchResults6", to: ".$.recentSearchResults6.controller"},
+        {from: ".controller.instantSearchResults", to: ".$.instantSearchResults.controller"}
     ],
 
     //* @public

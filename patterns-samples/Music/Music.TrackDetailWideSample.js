@@ -82,10 +82,10 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.coverUrl", to: "$.image.src"},
-        {from: ".controller.lyrics", to: "$.lyrics.content"},
-        {from: ".controller.released", to: "$.released.content"},
-        {from: ".controller.genre", to: "$.genre.content"}
+        {from: ".controller.coverUrl", to: ".$.image.src"},
+        {from: ".controller.lyrics", to: ".$.lyrics.content"},
+        {from: ".controller.released", to: ".$.released.content"},
+        {from: ".controller.genre", to: ".$.genre.content"}
     ]
 });
 

@@ -16,7 +16,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.lyrics", to: "$.lyrics.content"}
+        {from: ".controller.lyrics", to: ".$.lyrics.content"}
     ]
 });
 
