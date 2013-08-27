@@ -175,7 +175,7 @@ enyo.kind({
 		if(!inNode) {
 			return;
 		}
-		
+
 		var sb = this.scrollBounds,
 			st = this.$.scroller.getStrategy(),
 			b = {
@@ -211,7 +211,7 @@ enyo.kind({
 	setScrollTop: function(inValue) {
 		this.$.scroller.setScrollTop(inValue);
 	},
- 	//* Ensures scroll position is in bounds.
+	//* Ensures scroll position is in bounds.
 	stabilize: function() {
 		this.$.scroller.stabilize();
 	}
