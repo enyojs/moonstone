@@ -7,20 +7,25 @@
     box-sizing: border-box;
 }
 .moon-popup-close {
-	background-color: @moon-popup-close-bg-color;
+	background: @moon-close-popup-icon;
+	background-repeat: no-repeat;
+	background-position: 0px -@moon-close-image-height;
 	float: right;
 	position: absolute;
 	right: 0px;
-	top: 0px;
+	width: @moon-close-image-width;
+	height: @moon-close-image-height;
+	top: 2px;
 }
 .moon-popup-close.spotlight {
-	background: @moon-popup-close-spotlight-color;
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	background-color: @moon-popup-close-spotlight-color;
 }
-.moon-popup-close::after {
-	content: "\2716";
-	font-size: 25px;
-	position: relative;
-	top: 5px;
-	left: 10px;
-	color: @moon-popup-close-text-color;  
+.moon-icon.moon-popup-close.active,
+.moon-icon.moon-popup-close.pressed,
+.moon-icon.moon-popup-close.spotlight.pressed,
+.moon-icon.moon-popup-close.spotlight:active {
+	background-position: 0px -@moon-close-image-height;
+	background-color: @moon-popup-close-bg-color;
 }
