@@ -4,29 +4,29 @@ enyo.kind({
 	title: "Calendar",
 	events: {		
 		onSaved: "",
-		onClosed: "",
+		onClosed: ""
 	},
 	published: {
-		value: "",
+		value: ""
 	},
 	components: [
 		{name: "scroller", kind: "sun.Scroller", classes: "enyo-fill", components: [
-			{name: "calendar", kind: "sun.CalendarPicker", onChange: "changed"},
-		]},				
+			{name: "calendar", kind: "sun.CalendarPicker", onChange: "changed"}
+		]}				
 	],
 	footerComponents: [
-		{kind: "sun.Button", flexOrient: "column", flex: true, content: "Cancel", ontap: "cancel_clicked"},
-		{kind: "sun.Button", flexOrient: "column", flex: true, content: "OK", ontap: "ok_clicked"}
+		{kind: "sun.Button", flexOrient: "column", flex: true, content: "Cancel", ontap: "cancel_tapped"},
+		{kind: "sun.Button", flexOrient: "column", flex: true, content: "OK", ontap: "ok_tapped"}
 	],			
 	changed: function(inSender, inEvent) {
 		if (inEvent.value){
 			this.value = inEvent.value.toDateString();
 		}
 	},
-	cancel_clicked: function() {
+	cancel_tapped: function() {
 		this.doClosed();
 	},
-	ok_clicked: function() {
+	ok_tapped: function() {
 		this.doSaved({value: this.value});
 	},
 	setYear: function(inNew) {
