@@ -10,14 +10,14 @@ enyo.kind({
 	name: "moon.CaptionDecorator",
 	handlers: {
 		onSpotlightFocus:"spotFocus",
-		onSpotlightBlur:"spotBlur",
+		onSpotlightBlur:"spotBlur"
 	},
 	published: {
 		side: "top",
 		showOnFocus: false
 	},
 	//* @protected
-	classes: "moon enyo-unselectable moon-button-caption-decorator",
+	classes: "moon-button-caption-decorator",
 	components: [
 		{kind: "enyo.Control", name: "leftCaption",   classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
 		{kind: "enyo.Control", name: "topCaption",    classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},

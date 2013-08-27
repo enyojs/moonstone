@@ -42,21 +42,6 @@ enyo.kind({
 							{content:"Drama", kind:"moon.ToggleItem"}
 						]}
 					]
-				},
-				{
-					action: "menu-language",
-					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", 
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", 
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
-					]
 				}
 			]},
 			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"./assets/icon-list.png", listActions: [
@@ -88,21 +73,6 @@ enyo.kind({
 							{content:"Drama", kind:"moon.ToggleItem"}
 						]}
 					]
-				},
-				{
-					action: "menu-language",
-					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", 
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", 
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
-					]
 				}
 			]}
 		]},
@@ -114,11 +84,11 @@ enyo.kind({
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
-			
+
 			//log the optional action property
 			this.$.console.setContent("Action: " + (inEvent.action ? inEvent.action : "no action name provided"));
 		}
-		
+
 		//log the active state of the ListAction drawer
 		if (inEvent.originator && inEvent.originator.kind == "moon.ListActions") {
 			this.$.console.setContent("ListActions drawer is now " + (inEvent.originator.active ? "open" : "closed"));

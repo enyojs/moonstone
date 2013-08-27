@@ -30,7 +30,7 @@
 enyo.kind({
 	name: "moon.Drawer",
 	kind:"enyo.Control",
-	classes: "moon-drawer moon-dark-gray",
+	classes: "moon-drawer moon-neutral",
 	published: {
 		//* Components that are to be placed in the control drawer
 		controlDrawerComponents: null,
@@ -72,10 +72,7 @@ enyo.kind({
 		}
 	},
 	calcDrawerHeight: function(drawersHeight, activatorHeight) {
-		var clientHeight = drawersHeight;
-		var activatorHeight = activatorHeight;
-
-		clientHeight -= activatorHeight;
+		var clientHeight = drawersHeight - activatorHeight;
 		if (this.controlDrawerComponents == null) {
 			return clientHeight;
 		} else {
@@ -102,7 +99,7 @@ enyo.kind({
 	controlsOpenChanged: function() {
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
-			this.doActivate();			
+			this.doActivate();
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
 			this.doDeactivate();

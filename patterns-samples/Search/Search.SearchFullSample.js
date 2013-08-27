@@ -95,8 +95,7 @@ enyo.kind({
         {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
             {
                 kind: "moon.TitleImageItem",
-                style: "height: 126px; width: 126px; margin: 10px;",
-                spotlightPosition:"bottom"
+                style: "height: 126px; width: 126px; margin: 10px;"
             }
         ]}
     ],

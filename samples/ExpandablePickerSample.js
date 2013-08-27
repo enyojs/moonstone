@@ -17,7 +17,7 @@ enyo.kind({
 					{content: "On", active: true},
 					{content: "Off"}
 				]},
-				{kind: "moon.ExpandablePicker", content: "Non-auto-collapsing", autoCollapse: false, components: [
+				{kind: "moon.ExpandablePicker", content: "Non-auto-collapsing", autoCollapseOnSelect: false, components: [
 					{content: "Item 1"},
 					{content: "Item 2", active: true},
 					{content: "Item 3"}
@@ -27,7 +27,7 @@ enyo.kind({
 					{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 2"},
 					{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 3"}
 				]},
-				{kind: "moon.ExpandablePicker", disabled:true, content:"Deactivated Picker", components: [
+				{kind: "moon.ExpandablePicker", disabled:true, content:"Disabled Picker", components: [
 					{content: "Item 1"},
 					{content: "Item 2", active: true},
 					{content: "Item 3"}
@@ -44,10 +44,10 @@ enyo.kind({
 						{content: "On", active: true},
 						{content: "Off"}
 					]},
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", 
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker",
 					classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"},
 
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Deactivated Integer Picker", 
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", 
 					classes: "moon-expandable-picker-wrapper", value: 2, min: 1, max: 15, unit: "sec"}
 				]}
 			]}

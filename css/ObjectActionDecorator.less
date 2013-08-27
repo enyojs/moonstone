@@ -1,18 +1,37 @@
 /* ObjectActionDecorator */
-.moon-objaction-client {
-	width: 100%; 
-	display: @moon-objaction-decorator-display;
+.moon-objaction {
+	&.vertical {
+		display: inline-block;
+		.moon-objaction-client {
+			padding-bottom: @moon-spotlight-outset;
+		}
+		.moon-objaction-actions {
+			opacity: 0; 
+			text-align: center;
+			padding: 0  @moon-spotlight-outset;
+			box-sizing: border-box;
+		}
+		.moon-objaction-actions.stretch > * {
+			width: 100%;
+		}
+	}
+	&.horizontal {
+		display: block;
+		.moon-objaction-client {
+			display: table-cell;
+			width: 100%; 
+			padding-right: @moon-spotlight-outset;
+		}
+		.moon-objaction-actions {
+			display: table-cell;
+			opacity: 0; 
+			white-space: nowrap;
+			vertical-align: middle;
+			padding-right: @moon-spotlight-outset;
+		}
+	}
 }
-.moon-objaction-action-vertical {
-	opacity: 0; 
-	text-align: center;
-}
-.moon-objectaction-stretch.moon-objaction-action-vertical > * {
-	width: 100%;
-}
-.moon-objaction-action-horizontal {
-	opacity: 0; 
-	white-space: nowrap;
-	display: @moon-objaction-decorator-display;
-	vertical-align: middle;
+.enyo-locale-right-to-left .moon-objaction-client.horizontal .moon-objaction-client {
+	padding-right: auto;
+	padding-left: @moon-spotlight-outset;
 }

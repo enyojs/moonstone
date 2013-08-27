@@ -4,13 +4,13 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: "moon.Scroller", fit: true, components: [
-		
-			{kind: "moon.Divider", content: "Slider 1: Default"},
+
+			{kind: "moon.Divider", content: "Slider 1: Default", style: "margin-top:20px;"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
-		
-			{kind: "moon.Divider", content:"Slider 2: Deactivated"},
+
+			{kind: "moon.Divider", content:"Slider 2: Disabled"},
 			{name: "slider2", kind: "moon.Slider", value: 50, disabled: true},
-			
+
 			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
 			{name: "slider3", kind: "moon.Slider", classes: "rgb-sample-slider",
 				popupColor: "rgb(0, 0, 25)", popupWidth: 180, value: 25, bgProgress: 150, min: 0, max: 255,
@@ -23,19 +23,19 @@ enyo.kind({
 				{kind: "moon.InputDecorator", components: [
 					{name: "input", kind: "moon.Input", placeholder: "Value", value: 20}
 				]},
-				{kind: "moon.Button", content:"Set", ontap:"changeValue"},
-				{kind: "moon.Button", content:"-", ontap:"decValue"},
-				{kind: "moon.Button", content:"+", ontap:"incValue"}
+				{kind: "moon.Button", small:true, content:"Set", ontap:"changeValue"},
+				{kind: "moon.Button", small:true, content:"-", ontap:"decValue"},
+				{kind: "moon.Button", small:true, content:"+", ontap:"incValue"}
 			]},
 
 			{components: [
-				{name: "lockBarSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Lock Bar", 		onchange: "changeLockbar"},
-				{name: "animateSetting", 		kind: "moon.ToggleItem", checked: true,		content: "Animated", 		onchange: "animateActivate"},
-				{name: "noPopupSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Hide Popup", 		onchange: "changeStatusBubble"},
-				{name: "tapableSetting", 		kind: "moon.ToggleItem", checked: true, 	content: "Tapable", 		onchange: "changeTapable"},
-				{name: "constrainSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Constrain to BG", onchange: "changeConstrain"},
-				{name: "elasticSetting", 		kind: "moon.ToggleItem", checked: false, 	content: "Elastic Effect", 	onchange: "changeElastic"},
-				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true, 	content: "Show Percentage", onchange: "changePercentage"}
+				{name: "lockBarSetting",        kind: "moon.ToggleItem", checked: true,     content: "Lock Bar",        onchange: "changeLockbar"},
+				{name: "animateSetting",        kind: "moon.ToggleItem", checked: true,     content: "Animated",        onchange: "animateActivate"},
+				{name: "noPopupSetting",        kind: "moon.ToggleItem", checked: false,    content: "Hide Popup",      onchange: "changeStatusBubble"},
+				{name: "tapableSetting",        kind: "moon.ToggleItem", checked: true,     content: "Tapable",         onchange: "changeTapable"},
+				{name: "constrainSetting",      kind: "moon.ToggleItem", checked: false,    content: "Constrain to BG", onchange: "changeConstrain"},
+				{name: "elasticSetting",        kind: "moon.ToggleItem", checked: false,    content: "Elastic Effect",  onchange: "changeElastic"},
+				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true,     content: "Show Percentage", onchange: "changePercentage"}
 			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},

@@ -13,7 +13,7 @@ enyo.kind({
 					kind: "moon.ObjectActionDecorator", 
 					orientation: "vertical",
 					components: [
-						{kind: "moon.Item", spotlightPosition: "bottom", components: [
+						{kind: "moon.Item", components: [
 							{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
 						]}
 					],

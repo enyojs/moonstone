@@ -1,7 +1,7 @@
 // Settings Main Menu View
 enyo.kind({
 	//* @public
-    name: "moon.sample.setting.MenuSample",
+	name: "moon.sample.setting.MenuSample",
 	kind: "moon.Panel",
 	//* @protected
     title: "Settings",
@@ -21,7 +21,7 @@ enyo.kind({
 
 // Settings Main Menu Model
 enyo.ready(function(){
-    var menuModel = new enyo.Model({
+	var menuModel = new enyo.Model({
 		categories: new enyo.Collection([
 			{name: "SETTINGS CATEGORY 1"},
 			{name: "SETTINGS CATEGORY 2"},

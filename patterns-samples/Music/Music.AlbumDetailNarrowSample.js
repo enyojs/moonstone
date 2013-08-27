@@ -121,8 +121,8 @@ enyo.ready(function () {
         ],
         coverUrl: "http://placehold.it/200x200"
     };
-	
-	app = new enyo.Application({
+
+	var app = new enyo.Application({
 		controllers: [
 			{name: "album", kind: "moon.sample.music.AlbumDetailNarrowSampleController"}
 		],
@@ -130,11 +130,10 @@ enyo.ready(function () {
 			name: "moon.sample.music.AlbumDetailNarrowSampleMain",
 			classes: "enyo-unselectable moon",
 			components: [
-						{kind: "moon.sample.music.AlbumDetailNarrowSample", classes: "enyo-fit", controller: ".app.controllers.album"}
+				{kind: "moon.sample.music.AlbumDetailNarrowSample", classes: "enyo-fit", controller: ".app.controllers.album"}
 			]
 		}
 	});
-	
+
 	app.controllers.album.set("model", new moon.sample.music.AlbumModel(mockData));
-	
 });

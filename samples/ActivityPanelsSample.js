@@ -32,21 +32,21 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next4"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next4"}
 			]},
-			{title: "Fifth", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Fifth", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next5"}
 			]},
-			{title: "Sixth", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
-				{kind: "moon.Item", content: "Item One"},
-				{kind: "moon.Item", content: "Item Two"},
-				{kind: "moon.Item", content: "Item Three"},
-				{kind: "moon.Item", content: "Item Four"},
-				{kind: "moon.Item", content: "Item Five"}
+			{title: "Sixth", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+				{kind: "moon.Item", content: "Item One", ontap: "next6"},
+				{kind: "moon.Item", content: "Item Two", ontap: "next6"},
+				{kind: "moon.Item", content: "Item Three", ontap: "next6"},
+				{kind: "moon.Item", content: "Item Four", ontap: "next6"},
+				{kind: "moon.Item", content: "Item Five", ontap: "next6"}
 			]},
-			{title: "Seventh", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Seventh", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One"},
 				{kind: "moon.Item", content: "Item Two"},
 				{kind: "moon.Item", content: "Item Three"},
@@ -66,7 +66,7 @@ enyo.kind({
 		return true;
 	},
 	next3: function(inSender, inEvent) {
-		this.$.panels.setIndex(4);
+		this.$.panels.setIndex(5);
 		return true;
 	},
 	next4: function(inSender, inEvent) {
@@ -74,7 +74,11 @@ enyo.kind({
 		return true;
 	},
 	next5: function(inSender, inEvent) {
-		this.$.panels.setIndex(5);
+		this.$.panels.setIndex(7);
 		return true;
 	},
+	next6: function(inSender, inEvent) {
+		this.$.panels.setIndex(7);
+		return true;
+	}
 });

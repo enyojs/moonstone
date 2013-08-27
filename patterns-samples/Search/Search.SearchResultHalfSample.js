@@ -7,7 +7,7 @@ enyo.kind({
     published: {
         option: {
             src: "",
-            caption: ""    
+            caption: ""
         }
     },
     handlers: {
@@ -110,7 +110,7 @@ enyo.ready(function(){
             {option: {src: "../assets/default-movie.png", caption: "Person name"}}
         ])
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({

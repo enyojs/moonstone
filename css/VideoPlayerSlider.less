@@ -1,44 +1,112 @@
+@moon-video-transport-slider-knob-size: 6px;
+@moon-video-transport-slider-knob-offset: -20px;
+@moon-video-transport-slider-height: 80px;
+
 .moon-video-transport-slider {
+	height: @moon-video-transport-slider-height;
+	background-color: #323232;
+}
+
+.moon-video-transport-slider .moon-slider-popup.above {
+	padding-left: 0px;
+}
+
+
+/* ----- Knob ---- */
+.moon-video-transport-slider-knob,
+.moon-video-transport-slider-knob.disabled:active:hover,
+.moon-video-transport-slider-knob.active,
+.moon-video-transport-slider-knob.spotselect,
+.moon-video-transport-slider-knob:active:hover {
+	position: absolute;
+	height: @moon-video-transport-slider-knob-size;
+	width: @moon-video-transport-slider-knob-size;
+	border-radius: @moon-video-transport-slider-knob-size/2;
+	margin: -@moon-video-transport-slider-knob-size/2;
+	top: @moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset;
+}
+.moon-video-transport-slider-knob {
+	background: transparent;
+	color: transparent;
+}
+.moon-video-transport-slider.visible .moon-video-transport-slider-knob,
+.moon-video-transport-slider.visible .moon-video-transport-slider-knob.disabled:active:hover {
+	background-color: #fff;
+}
+
+/* ---- Bar ---- */
+.moon-video-transport-slider-bar-bar {
+	height: 100%;
+	background-color: #ff2f7d;
+	position: absolute;
+	top: 0;
+}
+.moon-video-transport-slider-bg-bar {
+	height: 100%;
+	background-color: #4b4b4b;
+	position: absolute;
+	top: 0;
+}
+
+.moon-video-transport-slider-taparea {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.moon-video-transport-slider-popup-label {
+	.moon-large-button-text;
+	position: absolute;
+	top: 0;
+	white-space: nowrap;
+	color: #4b4b4b;
+	text-align: center;
 	
 }
-
-.moon-slider .moon-slider-indicator-wrapper {
-	width: 240px; 
-	height: 82px;
-	top: -6px;
-	position: absolute;
+.enyo-locale-non-latin .moon-video-transport-slider-popup-label {
+	font-family: @moon-non-latin-font-family;
+}
+.moon-video-transport-slider-popup-label > * {
+	display: inline-block;
+	padding-top: 5px;
 }
 
-.moon-slider-indicator-wrapper.start {
+.moon-video-transport-slider-indicator-wrapper {
+	width: 12.5%;
+	height: 82px;
+	top: 0;
+	position: absolute;
+}
+.moon-video-transport-slider-indicator-wrapper.start {
 	left: 0px;
 }
-
-.moon-slider-indicator-wrapper.end {
+.moon-video-transport-slider-indicator-wrapper.end {
 	right: 0px;
 }
-
-.moon-slider-indicator-wrapper .moon-indicator-bar {
+.moon-video-transport-slider-indicator-bar-left {
 	position: absolute;
 	left: 48%;
-	top: 0px;
-	width: 6px; 
-	height: 18px;
-	background-color: #ffffff;
-	z-index: 1;
+	top: 25px;
+	width: 2px; 
+	height: 30px;
+	background-color: @moon-indicator-bar-bg-color;
 }
-
-.moon-slider-indicator-wrapper .moon-indicator-text {
+.moon-video-transport-slider-indicator-bar-right {
+	position: absolute;
+	left: 48%;
+	top: 25px;
+	width: 2px; 
+	height: 30px;
+	background-color: #ffffff;
+}
+.moon-video-transport-slider-indicator-text {
 	position: absolute;
 	width: 100%; 
 	height: 25px;
-	top: 20px;
+	top: 25px;
 	font-size: 25px;
 	font-family: "MuseoSans 300";
-	color: #ffffff;
-	text-align: center;
-	z-index: 1;
-}
-
-.moon-slider-indicator-wrapper .hide {
-	display: none;
+	color: @moon-indicator-text-color;
+	text-align: left;
+	left: 55%;
 }

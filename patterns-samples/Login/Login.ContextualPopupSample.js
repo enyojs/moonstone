@@ -96,12 +96,12 @@ enyo.kind({
 			]}
 		]}
 	],
-	
+
 	bindings: [
 		{from: ".controller.menus", to: ".$.menuList.controller"},
 		{from: ".controller.contents", to: ".$.contentList.controller"}
 	]
- });
+});
 
 // Sample model
 
@@ -127,7 +127,7 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-						{
+				{
 					kind: "moon.sample.login.ContextualPopupSample",
 					controller: ".app.controllers.movieController",
 					classes: "enyo-fit"

@@ -10,11 +10,11 @@ enyo.kind({
         {classes: "moon-video-browsermovie-header-button", components: [
             {kind: "moon.IconButton", src: "../assets/icon-list.png"}
         ]}
-    ],    
-    
+    ],
+
     components: [
         {
-            kind : "moon.Scroller",                    
+            kind : "moon.Scroller",
             fit: true,
             touch : true,
             horizontal : "hidden",

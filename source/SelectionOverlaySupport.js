@@ -5,7 +5,7 @@
 
 	The item may define a `selectionScrimIcon` URL to override the default icon.
 
-	Example: 
+	Example:
 
 			{name: "list", selection: false, kind: "moon.DataList", components: [
 				{mixins: ["moon.SelectionOverlaySupport"], selectionScrimIcon:"assets/my-icon.png", kind: "moon.ImageItem", bindings: [
