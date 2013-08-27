@@ -23,9 +23,10 @@ enyo.kind({
 	classes: "sun-header moon-header",
 	components: [
 		{kind: "FittableColumns", components:[
-			{name: "texts", fit: true, components: [
+			{name: "texts", fit: true, classes: "sun-header-container", components: [
 				{name: "title", classes: "sun-header-font sun-header-title"},
-				{name: "titleBelow", classes: "sun-header-title-below"}
+				{name: "titleBelow", classes: "sun-header-title-below"},
+				{name: "mask", classes: "sun-header-title-mask"}
 			]},
 			{name: "client", classes: "sun-header-client"}
 		]},

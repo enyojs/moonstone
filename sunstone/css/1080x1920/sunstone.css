@@ -494,7 +494,13 @@
   background-position: 0 0px;
 }
 .sun .moon-icon.moon-icon-button.moon-loading-icon-button {
-  background-image: url(../../images/1080x1920/spinner-light.gif);
+  background-image: url(../../images/1080x1920/header_loading.png);
+  border-width: 0px;
+  width: 107px;
+  height: 107px;
+}
+.sun .moon-icon.moon-icon-button.moon-loading-icon-button.disabled {
+  opacity: 1.0;
 }
 .sun .moon-icon.moon-icon-button.active,
 .sun .moon-icon.moon-icon-button.pressed,
@@ -729,10 +735,11 @@
   font-size: 150pt;
   line-height: 141px;
   overflow: hidden;
-  margin: 0px 0px 0px 27px;
+  margin: 0px 0px 0px 20px;
 }
 .sun-arrow-header .sun-header-title {
-  padding-left: 65px;
+  padding-left: 70px;
+  margin-left: 15px;
 }
 .sun .sun-two-lines-header .sun-header-title {
   font-family: "Miso";
@@ -752,13 +759,14 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  padding-left: 27px;
+  padding-left: 20px;
   color: #999999;
   height: 68px;
   overflow: hidden;
 }
 .sun-arrow-header .sun-header-title-below {
-  padding-left: 92px;
+  padding-left: 70px;
+  margin-left: 15px;
 }
 .sun-arrow-icon {
   position: absolute;
@@ -772,7 +780,7 @@
   margin-right: 40px;
   padding: 38px 0px 31px;
 }
-.sun-header-client > * {
+.sun-header-client > *:not(:first-child) {
   position: relative;
   margin-left: 30px;
 }
@@ -783,10 +791,28 @@
   margin: 0px;
   width: 100%;
   height: 6px;
-  background-color: #b5b5b5;
+  background-color: #404040;
 }
 .sun .sun-header .moon-progress-bar-bar {
   margin-top: -6px;
+}
+.sun .sun-header .enyo-fittable-columns-layout > * {
+  margin: 0px;
+}
+.sun .sun-header .enyo-fittable-columns-layout > *:first-child {
+  position: relative;
+}
+.sun-header-title-mask {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 90px;
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, transparent), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(left, transparent, #000000);
+  background-image: -moz-linear-gradient(left, transparent, #000000);
+  background-image: -ms-linear-gradient(left, transparent, #000000);
+  background-image: -o-linear-gradient(left, transparent, #000000);
 }
 /* Accordion.css */
 .sun .moon-accordion-client .moon-item {
@@ -1344,5 +1370,5 @@
   letter-spacing: -0.04em;
 }
 .sun-divider-border {
-  border-bottom: 2px solid #b5b5b5;
+  border-bottom: 2px solid #404040;
 }
