@@ -36,6 +36,13 @@ enyo.kind({
 				]},
 				{tag: "br"},
 				
+				{kind: "sun.Divider", content: "Loading Header"},
+				{kind: "sun.LoadingHeader", Toast: "buttonToast", content: "Header", arrowIcon: true, 
+				loading: true, percentage: true, currentValue: 12, totalValue: 50},
+				{kind: "sun.LoadingHeader", Toast: "buttonToast", content: "Header", arrowIcon: true, 
+				loading: true, percentage: false, currentValue: 12, totalValue: 50},
+				{tag: "br"},
+				
 				{kind: "sun.Divider", content: "Input Header"},
 				{kind: "sun.InputHeader", title:"Input Header", oninput:"handleInput", onchange:"handleChange",
 				components: [

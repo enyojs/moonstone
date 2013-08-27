@@ -14,11 +14,7 @@ enyo.kind({
 		//* If true, the sun-arrow-header css class will be applied to this header
 		arrowIcon: false,
 		//* If true, onHeaderLeftTapped event won't be generated
-		arrowIconDisable: false,
-		//* If true, loading bar will be applied to this header
-		loading: false,
-		//* loading bar progress
-		progress: 0
+		arrowIconDisable: false
 	},
 	classes: "sun-header moon-header",
 	components: [
@@ -30,8 +26,7 @@ enyo.kind({
 			]},
 			{name: "client", classes: "sun-header-client"}
 		]},
-		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"},
-		{name: "loading", kind: "sun.ProgressBar", progress: 0, classes: "sun-header-loading"}
+		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -39,8 +34,6 @@ enyo.kind({
 		this.arrowIconDisableChanged();
 		this.titleChanged();
 		this.titleBelowChanged();
-		this.loadingChanged();
-		this.progressChanged();
 	},
 	//* @protected
 	contentChanged: function() {
@@ -58,7 +51,7 @@ enyo.kind({
 	},
 	arrowIconChanged: function() {
 		this.addRemoveClass("sun-arrow-header", this.getArrowIcon());
-		if(!this.getArrowIcon()) {
+		if (!this.getArrowIcon()) {
 			this.$.arrowIcon.hide();
 		} else {
 			this.$.arrowIcon.show();
@@ -67,18 +60,8 @@ enyo.kind({
 	arrowIconDisableChanged: function() {
 		this.$.arrowIcon.disable = this.getArrowIconDisable();
 	},
-	loadingChanged: function() {
-		this.progressChanged();
-	},
-	progressChanged: function() {
-		if(this.getLoading()) {
-			this.$.loading.setProgress(this.progress);
-		} else {
-			this.$.loading.setProgress(0);
-		}
-	},
 	headerLeftTapped: function() {
-		if(this.getArrowIconDisable() == false) {
+		if (this.getArrowIconDisable() == false) {
 		this.doHeaderLeftTapped();
 
 			return false;

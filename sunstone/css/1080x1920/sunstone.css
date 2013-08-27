@@ -720,11 +720,16 @@
 }
 .sun .sun-header {
   color: #dddddd;
-  height: 187px;
+  height: 181px;
   border-color: #404040;
-  border: 0px;
+  border-top: 0px;
+  border-bottom: 6px solid #b5b5b5;
   margin: 0px 20px 1px 20px;
   min-width: 466px;
+}
+.sun .sun-header.sun-loading-header {
+  height: 187px;
+  border: 0px;
 }
 .sun .sun-header-title {
   font-family: "Miso";
@@ -813,6 +818,15 @@
   background-image: -moz-linear-gradient(left, transparent, #000000);
   background-image: -ms-linear-gradient(left, transparent, #000000);
   background-image: -o-linear-gradient(left, transparent, #000000);
+}
+.sun .sun-header .sun-header-loading-info {
+  font-family: "MuseoSans 500";
+  font-size: 48pt;
+  color: #999999;
+  position: absolute;
+  top: 77px;
+  right: 0px;
+  margin-right: 20px;
 }
 /* Accordion.css */
 .sun .moon-accordion-client .moon-item {
@@ -1371,4 +1385,9 @@
 }
 .sun-divider-border {
   border-bottom: 2px solid #404040;
+}
+.sun-header-loading-info-text {
+  font-family: "MuseoSans 500";
+  font-size: 48pt;
+  color: #999999;
 }

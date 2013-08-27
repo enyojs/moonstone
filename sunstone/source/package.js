@@ -27,5 +27,6 @@ enyo.depends(
 	"DropDown.js",
 	"DropDownButton.js",
 	"DropDownDecorator.js",
-	"OptionItem.js"
+	"OptionItem.js",
+	"LoadingHeader.js"
 );

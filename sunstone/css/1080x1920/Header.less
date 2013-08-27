@@ -5,9 +5,14 @@
     color: #dddddd;
     height: @sun-header-height;
     border-color: #404040;
-    border: 0px;
+    border-top: 0px;
+    border-bottom: @sun-divider-border-width solid @moon-divider-border-color;
     margin: 0px 20px 1px 20px;
     min-width: 466px;
+}
+.sun .sun-header.sun-loading-header {
+    height: @sun-header-height + 6px;
+    border: 0px;
 }
 .sun .sun-header-title {
     .sun-header-text;
@@ -75,10 +80,16 @@
     right: 0px;
     height: 100%;
     width: 90px;
-    //background: #FF0000;
     background-image: -webkit-gradient(linear,left top,right top,color-stop(0, transparent),color-stop(1, black));
     background-image: -webkit-linear-gradient(left, transparent, black);
     background-image: -moz-linear-gradient(left, transparent, black);
     background-image: -ms-linear-gradient(left, transparent, black);
     background-image: -o-linear-gradient(left, transparent, black);
+}
+.sun .sun-header .sun-header-loading-info {
+    .sun-header-loading-info-text;
+    position: absolute;
+    top: 77px;
+    right: 0px;
+    margin-right: 20px;
 }
