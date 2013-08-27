@@ -1,5 +1,5 @@
 .photo-detail {
-	margin: 20px 50px 20px 50px;	
+	margin: 20px 50px 20px 50px;
 }
 
 .photo-detail .header-icon {
@@ -13,12 +13,12 @@
 
 .photo-detail .main-photo {
 	margin : 10px 10px 10px 10px;
-	width:100%; 
+	width:100%;
 }
 
 .photo-detail .radio-button {
 	width:140px;
-	font-size: 21px; 
+	font-size: 21px;
 	margin : 0px 10px 0px 0px;
 }
 

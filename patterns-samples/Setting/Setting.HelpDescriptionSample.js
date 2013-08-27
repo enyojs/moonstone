@@ -72,24 +72,24 @@ enyo.ready(function(){
     });
 
 //  Application to render sample
-    new enyo.Application({
-        view: {
-            classes: "enyo-unselectable moon",
-            components: [
-                {kind: "enyo.Spotlight"},
-                {
-                    kind: "moon.sample.setting.HelpDescriptionSample",
-                    controller: ".app.controllers.settingCategoryController",
-                    classes: "enyo-fit"
-                }
-            ]
-        },
-        controllers: [
-            {
-                name: "settingCategoryController",
-                kind: "enyo.ModelController",
-                model: settingModel
-            }
-        ]
-    });
+	new enyo.Application({
+		view: {
+			classes: "enyo-unselectable moon",
+			components: [
+				{kind: "enyo.Spotlight"},
+				{
+					kind: "moon.sample.setting.HelpDescriptionSample",
+					controller: ".app.controllers.settingCategoryController",
+					classes: "enyo-fit"
+				}
+			]
+		},
+		controllers: [
+			{
+				name: "settingCategoryController",
+				kind: "enyo.ModelController",
+				model: settingModel
+			}
+		]
+	});
 });

@@ -7,7 +7,7 @@ enyo.kind({
 	},
 	components: [
 		{kind: 'enyo.Spotlight'},
-		{name: "list", kind: "moon.List", orient:"h", count: 2000, multiSelect: false, spotlight: true, 
+		{name: "list", kind: "moon.List", orient:"h", count: 2000, multiSelect: false, spotlight: true,
 			classes: "enyo-fit list-horizontal-controls-sample-list moon-list-horizontal-sample",
 			onSetupItem: "setupItem", components: [
 			{name: "item", classes: "list-horizontal-sample-item enyo-border-box", components: [

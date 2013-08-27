@@ -6,17 +6,13 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{fit:true, components: [
 			{kind: "moon.Divider", content: "Icon Buttons:"},
-			{classes: "moon-hspacing", components: [
-				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
-				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"}
-			]},
+			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
+			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
 			{tag: "br"},
 			{tag: "br"},
-			{kind: "moon.Divider", content: "Deactivated Icon Buttons:"},
-			{classes: "moon-hspacing", components: [
-				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
-				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true}
-			]}
+			{kind: "moon.Divider", content: "Disabled Icon Buttons:"},
+			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
+			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
 		]},
 		{kind: "moon.Divider", content: "Result"},
 		{name: "console", content: "No changes yet"}

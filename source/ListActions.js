@@ -26,8 +26,8 @@ enyo.kind({
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
 		{name: "drawerPopup", kind: "enyo.Control", classes: "moon-list-actions-drawer-popup", components: [
 			{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, components: [
-				{name: "closeButton", kind: "moon.IconButton", classes: "moon-list-actions-close moon-dark-gray", ontap: "expandContract"},
-				{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-dark-gray", components: [
+				{name: "closeButton", kind: "moon.IconButton", classes: "moon-list-actions-close moon-neutral", ontap: "expandContract"},
+				{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-neutral", components: [
 					{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", onActivate: "optionSelected"}
 				]}
 			]}
@@ -304,7 +304,7 @@ enyo.kind({
 	},
 	classes: "moon-list-actions-drawer",
 	components: [
-		{name: "client", classes: "moon-list-actions-drawer-client moon-dark-gray"},
+		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
 		{name: "animator", kind: "StyleAnimator", onStep: "step", onComplete: "animationComplete"}
 	],
 	rendered: function() {

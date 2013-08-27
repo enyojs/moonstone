@@ -25,7 +25,7 @@
 			this.createComponents([
 				{
 	            	name: "panel", kind: "moon.Panel", style: "width: 500px;", title: "Panel",
-	            	onPreTransitionComplete: "continue", onPostTransitionComplete: "continue",
+	            	onPreTransitionComplete: "nextTest", onPostTransitionComplete: "nextTest",
 	            	components: [
 						{kind: "moon.Item", style: "margin-top:20px;", content: "Item One"},
 						{kind: "moon.Item", content: "Item Two"},
@@ -43,7 +43,7 @@
 		shrink: function() {
 			this.$.panel.shrinkPanel();
 		},
-		continue: function() {
+		nextTest: function() {
 			if (this.running) {
 				if (this.shrinking) {
 					this.grow();
