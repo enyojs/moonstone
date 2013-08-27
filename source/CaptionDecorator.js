@@ -23,11 +23,11 @@ enyo.kind({
 	decoratorBounds: null,
 	classes: "moon-button-caption-decorator",
 	components: [
-		{kind: "enyo.Control", name: "leftCaption", 	classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
-		{kind: "enyo.Control", name: "topCaption", 		classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
-		{kind: "enyo.Control", name: "client", 			classes: "moon-caption-client"},
-		{kind: "enyo.Control", name: "rightCaption", 	classes: "moon-caption right",  canGenerate: false, content: "Right Caption"},
-		{kind: "enyo.Control", name: "bottomCaption", 	classes: "moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
+		{kind: "enyo.Control", name: "leftCaption",     classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
+		{kind: "enyo.Control", name: "topCaption",      classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
+		{kind: "enyo.Control", name: "client",          classes: "moon-caption-client"},
+		{kind: "enyo.Control", name: "rightCaption",    classes: "moon-caption right",  canGenerate: false, content: "Right Caption"},
+		{kind: "enyo.Control", name: "bottomCaption",   classes: "moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -37,22 +37,22 @@ enyo.kind({
 	//* If _this.showOnFocus_ is _true_, reset caption position on reflow
 	reflow: function() {
 		this.inherited(arguments);
-		
+
 		if (this.getShowOnFocus()) {
 			this.resetCaptionPosition();
 		}
 	},
-	
+
 	// Change handlers
-	
+
 	sideChanged: function() {
 		var side = this.getSide();
-		
-		this.$.topCaption.canGenerate = 	(side === "top");
-		this.$.rightCaption.canGenerate = 	(side === "right");
-		this.$.bottomCaption.canGenerate = 	(side === "bottom");
-		this.$.leftCaption.canGenerate = 	(side === "left");
-		
+
+		this.$.topCaption.canGenerate =     (side === "top");
+		this.$.rightCaption.canGenerate =   (side === "right");
+		this.$.bottomCaption.canGenerate =  (side === "bottom");
+		this.$.leftCaption.canGenerate =    (side === "left");
+
 		// If this control has already been rendered, re-render to update caption side
 		if (this.hasNode()) {
 			// If _showOnFocus_ is _true_, reset caption position
@@ -60,12 +60,12 @@ enyo.kind({
 				this.resetCaptionPosition();
 			}
 			// Re-render to display caption on proper side
- 			this.render();
- 		}
+			this.render();
+		}
 	},
 	showOnFocusChanged: function() {
 		this.addRemoveClass("showOnFocus", this.getShowOnFocus());
-		
+
 		// If _showOnFocus_ is _true_, reset caption position
 		if (this.hasNode() && this.getShowOnFocus()) {
 			this.resetCaptionPosition();
@@ -73,19 +73,19 @@ enyo.kind({
 	},
 	contentChanged: function() {
 		this.$[this.getSide()+"Caption"].setContent(this.getContent());
-		
+
 		// If _showOnFocus_ is _true_, reset caption position
 		if (this.hasNode() && this.getShowOnFocus()) {
 			this.resetCaptionPosition();
 		}
 	},
-	
+
 	// Event handlers
-	
+
 	//* Add spotlight class when button is focused, and calculate caption position if required
 	spotFocus: function () {
 		this.addClass("spotlight");
-		
+
 		if (this.hasNode() && this.getShowOnFocus()) {
 			this.positionCaption();
 		}
@@ -94,9 +94,9 @@ enyo.kind({
 	spotBlur: function() {
 		this.removeClass("spotlight");
 	},
-	
+
 	// Caption positioning
-	
+
 	//* Return current caption control
 	getCaptionControl: function() {
 		return this.$[this.getSide()+"Caption"];
@@ -105,7 +105,7 @@ enyo.kind({
 	resetCaptionPosition: function() {
 		this.resetCachedBounds();
 		this.captionPositioned = false;
-		
+
 		if (this.hasNode() && this.hasClass("spotlight")) {
 			this.positionCaption();
 		}
@@ -119,26 +119,26 @@ enyo.kind({
 		var bounds = this.getDecoratorBounds(),
 			clientBounds = this.getClientBounds(),
 			captionBounds = this.getCaptionBounds();
-			
+
 		switch (this.getSide()) {
-			case "left":
-				this.centerCaptionVertically(bounds, captionBounds);
-				this.positionCaptionAtLeftEdge(bounds, clientBounds, captionBounds);
-				break;
-			case "right":
-				this.centerCaptionVertically(bounds, captionBounds);
-				this.positionCaptionAtRightEdge(bounds, clientBounds, captionBounds);
-				break;
-			case "top":
-				this.centerCaptionHorizontally(bounds, captionBounds);
-				this.positionCaptionAtTopEdge(bounds, clientBounds, captionBounds);
-				break;
-			case "bottom":
-				this.centerCaptionHorizontally(bounds, captionBounds);
-				this.positionCaptionAtBottomEdge(bounds, clientBounds, captionBounds);
-				break;
+		case "left":
+			this.centerCaptionVertically(bounds, captionBounds);
+			this.positionCaptionAtLeftEdge(bounds, clientBounds, captionBounds);
+			break;
+		case "right":
+			this.centerCaptionVertically(bounds, captionBounds);
+			this.positionCaptionAtRightEdge(bounds, clientBounds, captionBounds);
+			break;
+		case "top":
+			this.centerCaptionHorizontally(bounds, captionBounds);
+			this.positionCaptionAtTopEdge(bounds, clientBounds, captionBounds);
+			break;
+		case "bottom":
+			this.centerCaptionHorizontally(bounds, captionBounds);
+			this.positionCaptionAtBottomEdge(bounds, clientBounds, captionBounds);
+			break;
 		}
-		
+
 		this.captionPositioned = true;
 	},
 	//* Center caption control vertically relative to _this.decoratorBounds.height_
@@ -194,10 +194,10 @@ enyo.kind({
 	getCaptionMarginBounds: function() {
 		var margins = enyo.dom.calcMarginExtents(this.getCaptionControl().hasNode());
 		return {
-			marginTop: 		margins.top,
-			marginRight: 	margins.right,
-			marginBottom: 	margins.bottom,
-			marginLeft: 	margins.left
+			marginTop:      margins.top,
+			marginRight:    margins.right,
+			marginBottom:   margins.bottom,
+			marginLeft:     margins.left
 		};
 	}
 });

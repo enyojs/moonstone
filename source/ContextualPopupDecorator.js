@@ -33,7 +33,7 @@ enyo.kind({
 		if (inEvent.sentFromPopup && inEvent.sentFromPopup.isDescendantOf(this)) {
 			return;
 		}
-		
+
 		this.requestHidePopup();
 		if (inEvent.originator.active) {
 			this.popupActive = true;

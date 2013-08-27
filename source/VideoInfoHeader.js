@@ -13,7 +13,7 @@
 			description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
 			components: [
 				{content: "3D"},
-				{content: "Live"},					
+				{content: "Live"},
 				{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 			]
 		}
