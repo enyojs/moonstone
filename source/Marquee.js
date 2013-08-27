@@ -100,7 +100,7 @@ enyo.kind({
 		this.doMarqueeEnded();
         return true;
 	},
-	//*@protected 
+	//*@protected
 	allowHtmlTextChanged: function() {
 		if(this.marqueeControl) {
 			this.marqueeControl.setAllowHtml(this.allowHtmlText);
@@ -146,7 +146,7 @@ moon.MarqueeSupport = {
 		onMarqueeEnded: "_marqueeEnded",
 		onresize: "_marqueeResize"
 	},
-	create: enyo.super(function (sup) {
+	create: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
 			//this.log(this.id);

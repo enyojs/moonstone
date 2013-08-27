@@ -19,7 +19,7 @@
 moon.SelectionOverlaySupport = {
 	name: "moon.SelectionOverlaySupport",
 	classes: "moon-selection-overlay-support",
-	create: enyo.super(function (sup) {
+	create: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			this.createChrome(this._selectionScrim);
