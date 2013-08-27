@@ -71,6 +71,8 @@
 /* Divider */
 /* Input */
 /* ---------------------------------------*/
+/* Pickers */
+/* ---------------------------------------*/
 /* Scroller */
 /* ---------------------------------------*/
 /* DropDown */
@@ -422,6 +424,20 @@
 .sun .moon-button.moon-dark-gray.spotlight {
   background: #404040;
 }
+/* CalendarPicker.css */
+.sun .moon-calendar-picker {
+  width: 966px;
+  margin: 0px auto;
+  display: block;
+}
+.sun .moon-calendar-picker-date {
+  font-family: "MuseoSans 700";
+  width: 130px;
+  min-width: 130px;
+  height: 130px;
+  min-height: 130px;
+  margin: 4px;
+}
 /* Checkbox.css */
 .sun .moon-checkbox {
   height: 36px;
@@ -449,9 +465,9 @@
 }
 /* IconButton.css */
 .sun .moon-icon-button {
-  width: 122px;
-  height: 122px;
-  border-radius: 66px;
+  width: 120px;
+  height: 120px;
+  border-radius: 65px;
   border: 5px solid transparent;
 }
 .sun .moon-icon.moon-icon-button:active:hover {
@@ -461,7 +477,7 @@
 .sun .moon-icon.moon-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.spotlight:active {
-  background-position: 0px -122px;
+  background-position: 0px -120px;
   color: #ffffff;
   background-color: #ff2f7d;
   border: 5px solid #ff2f7d;
@@ -472,22 +488,22 @@
   border: 5px solid #ff2f7d;
 }
 .sun .moon-icon-button.moon-small-icon-button {
-  width: 102px;
-  height: 102px;
-  border-radius: 51px;
+  width: 97px;
+  height: 97px;
+  border-radius: 53.5px;
 }
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight:active {
-  background-position: 0px -102px;
+  background-position: 0px -97px;
   color: #ffffff;
   background-color: #ff2f7d;
   border: 5px solid #ff2f7d;
 }
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.pressed {
-  background-position: 0 -102px;
+  background-position: 0 -97px;
 }
 .sun .moon-icon.disabled:active:hover,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.disabled:active:hover {
@@ -504,8 +520,7 @@
 }
 .sun .moon-icon.moon-icon-button.active,
 .sun .moon-icon.moon-icon-button.pressed,
-.sun .moon-icon.moon-icon-button.spotlight.pressed,
-.sun .moon-icon.moon-icon-button.spotlight:active {
+.sun .moon-icon.moon-icon-button.spotlight.pressed {
   background-position: 0px;
 }
 /* InputDecorator.css */
@@ -524,6 +539,7 @@
 .sun.moon-popup {
   font-family: "MuseoSans 500";
   background-color: #d9d9d9;
+  max-height: 90%;
 }
 .sun.moon-popup.moon-dark-gray * {
   color: #4b4b4b;
@@ -823,9 +839,7 @@
   font-family: "MuseoSans 500";
   font-size: 48pt;
   color: #999999;
-  position: absolute;
-  top: 77px;
-  right: 0px;
+  padding-top: 77px;
   margin-right: 20px;
 }
 /* Accordion.css */
@@ -851,6 +865,30 @@
   top: 6px;
   right: 5px;
   width: 10px;
+}
+/* SimplePicker.css */
+.sun-simple-picker > * {
+  display: inline-block;
+  vertical-align: middle;
+  height: 228px;
+}
+.sun .sun-simple-picker-button {
+  background-color: transparent;
+}
+.sun .sun-simple-picker-item {
+  line-height: 228px;
+  height: 228px;
+  width: 630px;
+  max-width: 630px;
+  font-family: "MuseoSans 700";
+  font-size: 80px;
+}
+.sun .sun-simple-picker-button.right {
+  transform: rotate(180deg) translateZ(0px);
+  -o-transform: rotate(180deg) translateZ(0px);
+  -ms-transform: rotate(180deg) translateZ(0px);
+  -moz-transform: rotate(180deg) translateZ(0px);
+  -webkit-transform: rotate(180deg) translateZ(0px);
 }
 /* devider.css */
 .sun .moon-divider {
