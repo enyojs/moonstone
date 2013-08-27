@@ -1,6 +1,11 @@
 /* OptionItem.css */
 .sun .moon-item.moon-selectableItem {
+  font-size: 55px;
+  color: @sun-light-gray;
   width: 100%;
+  padding-left: 15px;
+  margin: 0;
+  line-height: 100px;
 }
 .sun .moon-item.moon-selectableItem.spotlight {
   line-height: @moon-item-line-height;
@@ -8,17 +13,21 @@
 .sun .moon-item.locale-default.spotlight:not(.overlay) {
   border-left-width: 0px;
   border-right-width: 0px;
-  padding-left: 0px;
+  padding-left: 15px;
+  background-color: @sun-red;
+  color: @sun-white;
+  line-height: 100px;
 }
 .sun .moon-selectableItem .moon-selectableItem-item {
 	box-sizing: border-box;
 	width: 100%;
 	display: inline-block;
-  border-bottom: 4px solid transparent;
+  border-bottom: 3px solid @sun-white;
+  padding: 0px;
 }
 .sun .moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
-  border-bottom:0px solid #A2A2A2;
+  border-bottom:3px solid @sun-white;
   padding: 0px;
   transition: border-color 0.4s linear;
   -webkit-transition: border-color 0.4s linear;

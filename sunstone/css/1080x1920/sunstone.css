@@ -1,11 +1,3 @@
-/* WARNING: This is a generated file for backward-compatibility.  Most      */
-/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
-/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
-/* is commented out in your debug.html, and run deploy.sh/bat using the     */
-/* '-c' flag to disable LESS compilation.  This will force the loader and   */
-/* minifier to fall back to using CSS files in place of the same-name       */
-/* LESS file.                                                               */
-
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -790,17 +782,42 @@
 }
 /* Accordion.css */
 .sun .moon-accordion-client .moon-item {
-  font-family: "MuseoSans 300";
-  font-size: 80px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
+  color: #a6a6a6;
+  line-height: normal;
+}
+.sun .moon-accordion-client .moon-item.locale-default.spotlight:not(.overlay) {
+  padding-left: 0px;
+  background-color: transparent;
+  color: #a6a6a6;
+  line-height: normal;
 }
 .sun .moon-accordion-arrow.up {
+  color: #a6a6a6;
+  line-height: normal;
   background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
 }
 .sun .moon-accordion-arrow.down {
+  color: #a6a6a6;
+  line-height: normal;
   background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+}
+.sun .moon-item.locale-default.moon-accordion-arrow.up.spotlight {
+  padding-left: 0px;
+  background-color: transparent;
+  color: #a6a6a6;
+  line-height: normal;
+}
+.sun .moon-item.locale-default.moon-accordion-arrow.down.spotlight {
+  padding-left: 0px;
+  background-color: transparent;
+  color: #a6a6a6;
+  line-height: normal;
+}
+.sun .locale-default.moon-item.moon-expandable-list-item.moon-accordion.spotlight {
+  padding-left: 0px;
+  background-color: transparent;
+  color: #a6a6a6;
+  line-height: normal;
 }
 /* Scroller.css */
 .sun .enyo-thumb {
@@ -1077,19 +1094,12 @@
   border-radius: 10px;
 }
 /*DropDown.css*/
-.sun-drop-down,
-.sun.moon-popup {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  min-height: 100px;
-  max-height: 280px;
-  min-width: 100px;
-  border-radius: 16px;
-  border: 12px solid rgba(140, 140, 140, 0.1);
-  color: #4b4b4b;
+.sun-drop-down {
+  max-height: 580px;
+  min-width: 640px;
+  border-radius: 5px;
+  border: 5px solid rgba(255, 255, 255, 0.25);
+  background-color: #d9d9d9;
   padding: 20px;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
@@ -1097,28 +1107,27 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  background-color: white;
 }
 /*adjusting base contextual popup positioning*/
 /*for popups above activator*/
 .vertical.above {
-  margin-top: 0px;
-  width: 180px;
+  margin-top: -20px;
+  width: 640px;
 }
 /*for popups below activator*/
 .vertical.below {
-  margin-top: 10px;
-  width: 180px;
+  margin-top: 15px;
+  width: 640px;
 }
 /*for popups on the left of the activator*/
 .right.horizontal {
   margin-top: 10px;
-  width: 180px;
+  width: 640px;
 }
 /*for popups on the right of the activator*/
 .left.horizontal {
   margin-top: 10px;
-  width: 180px;
+  width: 640px;
 }
 /*setup the nub*/
 .sun-drop-down::after {
@@ -1153,29 +1162,36 @@
 .sun-drop-down.vertical.above::after {
   top: 100%;
   margin-top: -4px;
-  width: 46px;
-  height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+  width: 0px;
+  height: 0px;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 25px solid #d9d9d9;
 }
 .sun-drop-down.vertical.below::after {
-  margin-top: -22px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  top: -5%;
+  margin-top: 0px;
+  width: 0px;
+  height: 0px;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #d9d9d9;
 }
 .sun.sun-drop-down.vertical.below.right::after {
   top: 0%;
   left: 0%;
-  margin-top: -32px;
-  width: 46px;
-  height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  margin-top: -5px;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #d9d9d9;
 }
 .sun-drop-down.vertical.below.left::after {
-  top: 0%;
+  top: -8%;
   left: 100%;
-  margin-top: -32px;
-  width: 46px;
-  height: 36px;
-  background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+  margin-top: 0px;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 25px solid #d9d9d9;
 }
 /*nub positioning for left/right popups*/
 /*vertically centered nub for popups on left of activator*/
@@ -1221,24 +1237,42 @@
 }
 /*flush corners are not implemented currently per HI*/
 .sun-drop-down .enyo-touch-scroller {
-  max-height: 200px;
+  max-height: 500px;
 }
 /*DropDownButton.css*/
 .sun-drop-down-button {
-  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
-  padding-right: 50px;
+  width: 276px;
+  height: 107px;
+  color: #a6a6a6;
+  background-color: #404040;
+  background-image: url(../../images/1080x1920/btn_down_arrow.png);
+  background-repeat: no-repeat;
+  background-position: 105% -10px;
 }
 .sun-drop-down-button.down.spotlight {
-  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
-  padding-right: 50px;
-  border: 5px solid #ff2f7d;
+  background-color: #bcbcbc;
+  background-image: url(../../images/1080x1920/btn_down_arrow.png);
+  background-repeat: no-repeat;
+  background-position: 105% -10px;
+  padding: 20px 52px 20px 22px;
 }
 .sun-drop-down-button.pressed,
 .sun-drop-down-button.active.up {
-  background: url(../../images/1080x1920/carat-black-small-up-image.png) right center no-repeat;
+  color: #ffffff;
+  background-color: #ff2f7d;
+  background-image: url(../../images/1080x1920/btn_down_arrow.png);
+  background-repeat: no-repeat;
+  background-position: 105% -331px;
+  padding: 20px 52px 20px 22px;
 }
 .sun-drop-down-button.down {
-  background: url(../../images/1080x1920/carat-black-small-down-image.png) right center no-repeat;
+  color: #a6a6a6;
+  background-color: #404040;
+  padding: 20px 52px 20px 22px;
+}
+.sun-drop-down-button.down:disabled {
+  color: #4b4b4b;
+  background-color: #262626;
 }
 /* DropDownDecorator.css */
 .sun-drop-down-decorator {
@@ -1246,7 +1280,12 @@
 }
 /* OptionItem.css */
 .sun .moon-item.moon-selectableItem {
+  font-size: 55px;
+  color: #4b4b4b;
   width: 100%;
+  padding-left: 15px;
+  margin: 0;
+  line-height: 100px;
 }
 .sun .moon-item.moon-selectableItem.spotlight {
   line-height: 1.12em;
@@ -1254,17 +1293,21 @@
 .sun .moon-item.locale-default.spotlight:not(.overlay) {
   border-left-width: 0px;
   border-right-width: 0px;
-  padding-left: 0px;
+  padding-left: 15px;
+  background-color: #ff2f7d;
+  color: #ffffff;
+  line-height: 100px;
 }
 .sun .moon-selectableItem .moon-selectableItem-item {
   box-sizing: border-box;
   width: 100%;
   display: inline-block;
-  border-bottom: 4px solid transparent;
+  border-bottom: 3px solid #ffffff;
+  padding: 0px;
 }
 .sun .moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
-  border-bottom: 0px solid #A2A2A2;
+  border-bottom: 3px solid #ffffff;
   padding: 0px;
   transition: border-color 0.4s linear;
   -webkit-transition: border-color 0.4s linear;
@@ -1274,6 +1317,7 @@
 .sun .moon-selectableItem .moon-underline {
   border-bottom: 4px solid #ffb80d;
   padding-bottom: 5px;
+}
 /* InputHeader.css */
 .sun .moon-input-header-input-decorator {
   margin: -39px 0px 0px 0px !important;

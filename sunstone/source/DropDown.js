@@ -73,7 +73,7 @@ enyo.kind({
 	getPageOffset: function(inNode) {
 		// getBoundingClientRect returns top/left values which are relative to the viewport and not absolute
 		var r = inNode.getBoundingClientRect();
-
+		
 		var pageYOffset = (window.pageYOffset === undefined) ? document.documentElement.scrollTop : window.pageYOffset;
 		var pageXOffset = (window.pageXOffset === undefined) ? document.documentElement.scrollLeft : window.pageXOffset;
 		var rHeight = (r.height === undefined) ? (r.bottom - r.top) : r.height;

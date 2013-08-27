@@ -1,13 +1,10 @@
 /*DropDown.css*/
-.sun-drop-down,
-.sun.moon-popup {
-	.moon-body-text;
-	min-height: 100px;
+.sun-drop-down{
 	max-height: @sun-drop-down-container-max-height;
-	min-width: 100px;
-	border-radius: 16px;
-	border: 12px solid rgba(140,140,140,0.1);
-	color: @moon-dark-gray;
+	min-width: 640px;
+	border-radius: 5px;
+	border: 5px solid rgba(255,255,255,0.25);
+	background-color: @sun-drop-down-popup-bg-color;
 	padding:20px;
 	background-clip:padding-box;
 	-webkit-background-clip:padding-box;
@@ -15,28 +12,28 @@
 	box-sizing: border-box;	
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	background-color:white;	
 }
+
 /*adjusting base contextual popup positioning*/
 /*for popups above activator*/
 .vertical.above {
-  margin-top: 0px;
-  width: 180px;
+  margin-top: -20px;
+  width: 640px;
 }
 /*for popups below activator*/
 .vertical.below {
-    margin-top: 10px;
-	width: 180px;
+    margin-top: 15px;
+	width: 640px;
 }
 /*for popups on the left of the activator*/
 .right.horizontal {
   margin-top: 10px;
-  width: 180px;
+  width: 640px;
 }
 /*for popups on the right of the activator*/
 .left.horizontal {
  margin-top: 10px;
-  width: 180px;
+  width: 640px;
 }
 /*setup the nub*/
 .sun-drop-down::after{
@@ -54,7 +51,7 @@
 	margin-top:-4px;
 	margin-left: -23px;
 	width:46px;
-  height:36px;
+  	height:36px;
 	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
 }
 /*nub near horizontal left*/
@@ -71,30 +68,36 @@
 .sun-drop-down.vertical.above::after {
 	top:100%;
 	margin-top:-4px;
-	width:46px;
-  	height:36px;
-	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+	width: 0px;
+  	height: 0px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-top: 25px solid @sun-drop-down-popup-bg-color;
 }
 .sun-drop-down.vertical.below::after {
-	margin-top:-22px;
-
-	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+	top:-5%;
+	margin-top:0px;
+	width: 0px;
+  	height: 0px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-bottom: 25px solid @sun-drop-down-popup-bg-color;
 }
 .sun.sun-drop-down.vertical.below.right::after {
 	top:0%;
 	left:0%;
-	margin-top:-32px;
-	width:46px;
-  	height:36px;
-	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+	margin-top:-5px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-bottom: 25px solid @sun-drop-down-popup-bg-color;
 }
 .sun-drop-down.vertical.below.left::after {
-	top:0%;
+	top:-8%;
 	left:100%;
-	margin-top:-32px;
-	width:46px;
-  	height:36px;
-	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+	margin-top: 0px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-bottom: 25px solid @sun-drop-down-popup-bg-color;
 }
 /*nub positioning for left/right popups*/
 /*vertically centered nub for popups on left of activator*/
