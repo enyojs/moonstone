@@ -8,7 +8,7 @@ enyo.kind({
     titleBelow: "",
     components: [
         {
-            kind: "moon.Scroller", 
+            kind: "moon.Scroller",
             fit: true,
             components: [
                 {name: "lyrics", allowHtml: true}
@@ -16,7 +16,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.lyrics", to: "$.lyrics.content"}
+        {from: ".controller.lyrics", to: ".$.lyrics.content"}
     ]
 });
 
@@ -26,12 +26,12 @@ enyo.ready(function() {
                 + "Can't see the road or the long white lines "
                 + "Feeling the ground through the pedals in the floor "
                 + "Feeling death pounding at the door</p>"
-                
+
                 + "<p>Windows all open, chaos in my hair "
                 + "Driving me 'round and leaving me there "
                 + "Cover my eyes and we'll die driving blind "
                 + "Cover my trail and we'll leave life behind</p> "
-                
+
                 + "<p>Drive blind, all at once, too much light "
                 + "Captured and frozen, hear no sound "
                 + "Bright flashes penetrate "

@@ -5,7 +5,7 @@
 enyo.kind({
 	name: "moon.Popup",
 	kind: enyo.Popup,
-	classes: "moon moon-dark-gray moon-popup",
+	classes: "moon moon-neutral moon-popup",
 	modal: true,
 	floating: true,
 	_spotlight: null,
@@ -15,7 +15,8 @@ enyo.kind({
 		onSpotlightUp: "spotlightUp",
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight"
+		onSpotlightRight: "spotlightRight",
+		onRequestScrollIntoView: "_preventEventBubble"
 	},
 	published: {
 		/**
@@ -168,7 +169,7 @@ enyo.kind({
 		this._zIndex = z;
 		return this._zIndex;
 	},
-	//* Removes focus style from closeButton & hides _moon.Popup_ 
+	//* Removes focus style from closeButton & hides _moon.Popup_
 	closePopup: function(inSender, inEvent) {
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");
@@ -234,5 +235,9 @@ enyo.kind({
 	*/
 	spotlightRight: function(inSender, inEvent) {
 		return this.spotChecker("RIGHT");
+	},
+	//*@protected
+	_preventEventBubble: function(inSender, inEvent) {
+		return true;
 	}
 });

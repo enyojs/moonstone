@@ -100,9 +100,9 @@
 }
 
 .up-arrow {
-	height:29px;
-	width:29px;
-	background: url(../images/carat-large-up.png) 0 0 no-repeat;
+	height:32px;
+	width:32px;
+	background: @moon-carat-picker-up-icon 0 0 no-repeat;
 	position:absolute;
 }
 
@@ -117,10 +117,11 @@
 }
 
 .up-arrow-container.spotlight .up-arrow {
+	background: @moon-carat-picker-up-icon 0 -33px no-repeat;
 }
 
 .up-arrow-container.selected .up-arrow {	
-	background-image: url(../images/carat-small-up1.png);
+	background: @moon-carat-picker-up-icon 0 -66px no-repeat;
 }
 
 .up-arrow-border {
@@ -141,20 +142,22 @@
 }
 
 .down-arrow {
-	height:29px;
-	width:29px;
-	background: url(../images/carat-large-down.png) 0 0 no-repeat;
+	height:32px;
+	width:32px;
+	background: @moon-carat-picker-down-icon 0 0 no-repeat;
 	position:absolute;
 }
 
-.down-arrow-container.selected .down-arrow {
-	background-image: url(../images/carat-small-down1.png);
-}
 
 .enyo-locale-right-to-left .down-arrow-container.selected .down-arrow {
 }
 
 .down-arrow-container.spotlight .down-arrow {
+	background: @moon-carat-picker-down-icon 0 -33px no-repeat;
+}
+
+.down-arrow-container.selected .down-arrow {
+	background: @moon-carat-picker-down-icon 0 -66px no-repeat;
 }
 
 .down-arrow-border {

@@ -30,23 +30,28 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    kind: "enyo.Image",
                                                     style: "width: 126px; height: 126px;",
-                                                    bindFrom: "coverUrl", 
-                                                    bindTo: "src"
+													bindings: [
+														{from: ".model.coverUrl", to: ".src"}
+													]
                                                 }
                                             ],
                                             attributes: {rowspan: "3"}
                                         },
                                         {
-                                            bindFrom: "track"
+											bindings: [
+												{from: ".model.track", to: ".content"}
+											]
                                         }
                                     ]
                                 },
                                 {
                                     components: [
                                         {
-                                            bindFrom: "artist", 
+											bindings: [
+												{from: ".model.artist", to: ".content"}
+											],
                                             classes: "moon-superscript"
                                         }
                                     ]
@@ -54,7 +59,9 @@ enyo.kind({
                                 {
                                     components: [
                                         {
-                                            bindFrom: "time", 
+											bindings: [
+												{from: ".model.time", to: ".content"}
+											],
                                             classes: "moon-superscript"
                                         }
                                     ]
@@ -67,7 +74,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.track", to: "$.trackList.controller"}
+        {from: ".controller.track", to: ".$.trackList.controller"}
     ]
 });
 

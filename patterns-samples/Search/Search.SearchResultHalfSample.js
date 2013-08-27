@@ -7,7 +7,7 @@ enyo.kind({
     published: {
         option: {
             src: "",
-            caption: ""    
+            caption: ""
         }
     },
     handlers: {
@@ -63,15 +63,16 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.SearchResultImageItem", 
-                    bindFrom: "option", 
-                    bindTo: "option",
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ], 
                     ontap: "changeName"
                 }
             ]
         }
     ],
     bindings: [
-        {from: ".controller.result", to: "$.resultInfo.controller"}
+        {from: ".controller.result", to: ".$.resultInfo.controller"}
     ]
 });
 
@@ -109,7 +110,7 @@ enyo.ready(function(){
             {option: {src: "../assets/default-movie.png", caption: "Person name"}}
         ])
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({

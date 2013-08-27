@@ -9,7 +9,7 @@
     margin: 0px 6px 6px 0px;
     clear: none;
     width: 162px;
-    height: 106px;    
+    height: 106px;
     position: relative;
     top: 0px;
     left: 0px;
@@ -20,7 +20,7 @@
 }
 
 .moon-search-result-item-text {
-    position:absolute; 
+    position:absolute;
     width: 100%;
     bottom: 0px;
     height: 24px;

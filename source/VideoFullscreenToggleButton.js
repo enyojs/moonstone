@@ -7,7 +7,7 @@
 enyo.kind({
 	name: "moon.VideoFullscreenToggleButton",
 	kind: "moon.IconButton",
-	src: "$lib/moonstone/images/icon-fullscreenbutton.png",
+	src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png",
 	events: {
 		/**
 			Fires when the button is tapped, sending request to toggle fullscreen

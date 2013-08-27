@@ -19,7 +19,7 @@ enyo.kind({
                     fit: true,
                     components: [
                         {
-                            kind: "enyo.Image", 
+                            kind: "enyo.Image",
                             classes: "enyo-fill",
                             src: "../assets/default-movie.png"
                         }
@@ -27,12 +27,12 @@ enyo.kind({
                 },
                 {
                     kind: "FittableRows",
-                    classes: "moon-13h",
+                    classes: "moon-15h",
                     components: [
                         {
-                            kind: "moon.RadioItemGroup", 
+                            kind: "moon.RadioItemGroup",
                             classes: "enyo-tool-decorator",
-                            onActivate: "buttonActivated", 
+                            onActivate: "buttonActivated",
                             components: [
                                 {name: "button-desc", content: "DESCRIPTION"},
                                 {name: "button-comments", content: "COMMENTS(98)"},
@@ -41,7 +41,7 @@ enyo.kind({
                             ]
                         },
                         {kind: "moon.Divider", classes: "divider"},
-                        { 
+                        {
                             name: "panels",
                             fit: true,
                             kind: "enyo.Panels",
@@ -58,15 +58,14 @@ enyo.kind({
                                     components: [
                                         {style: "clear:both;", components: [
                                             {
-                                                kind: "enyo.Image", 
+                                                kind: "enyo.Image",
                                                 classes: "moon-3h moon-1v",
-                                                bindFrom: "picUrl",
-                                                bindTo: "src",
+												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
-                                            {bindFrom: "username"},
-                                            {bindFrom: "date"},
-                                            {bindFrom: "description"}
+                                            {bindings: [{from: ".model.username", to: ".content"}]},
+                                            {bindings: [{from: ".model.date", to: ".content"}]},
+                                            {bindings: [{from: ".model.description", to: ".content"}]}
                                         ]}
                                     ]
                                 },
@@ -76,13 +75,12 @@ enyo.kind({
                                     components: [
                                         {style: "clear:both;", components: [
                                             {
-                                                kind: "enyo.Image", 
+                                                kind: "enyo.Image",
                                                 classes: "moon-3h moon-1v",
-                                                bindFrom: "picUrl",
-                                                bindTo: "src",
+												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
-                                            {bindFrom: "username"}
+                                            {bindings: [{from: ".model.username", to: ".content"}]}
                                         ]}
                                     ]
                                 },
@@ -92,29 +90,29 @@ enyo.kind({
                                     components: [
                                         {style: "clear:both;", components: [
                                             {
-                                                kind: "enyo.Image", 
+                                                kind: "enyo.Image",
                                                 classes: "moon-3h moon-1v",
-                                                bindFrom: "picUrl",
-                                                bindTo: "src",
+												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
-                                            {bindFrom: "albumname"}
+                                            {bindings: [{from: ".model.albumname", to: ".content"}]
+}
                                         ]}
                                     ]
                                 }
                             ]
                         }
-                    ]                   
+                    ]
                 }
             ]
         }
     ],
 
     bindings: [
-        {from: ".controller.description", to: "$.description.content"},
-        {from: ".controller.contents", to: "$.contentsList.controller"},
-        {from: ".controller.likes", to: "$.likesList.controller"},
-        {from: ".controller.albums", to: "$.albumsList.controller"}
+        {from: ".controller.description", to: ".$.description.content"},
+        {from: ".controller.contents", to: ".$.contentsList.controller"},
+        {from: ".controller.likes", to: ".$.likesList.controller"},
+        {from: ".controller.albums", to: ".$.albumsList.controller"}
     ],
 
     buttonActivated: function(inSender, inEvent) {
@@ -129,7 +127,7 @@ enyo.kind({
                 this.$.panels.setIndex(2);
             } else if(tName=="button-albums"){
                 this.$.panels.setIndex(3);
-            }        
+            }
         }
     }
 });
@@ -159,7 +157,7 @@ enyo.ready(function(){
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"}
-        ])        
+        ])
     });
 
 //  Application to render sample

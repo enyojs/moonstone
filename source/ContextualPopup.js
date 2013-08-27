@@ -16,7 +16,8 @@ enyo.kind({
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight",
-		onSpotlightSelect: "spotSelect"
+		onSpotlightSelect: "spotSelect",
+		onRequestScrollIntoView: "_preventEventBubble"
 	},
 	published: {
 		/**
@@ -126,7 +127,9 @@ enyo.kind({
 	//* Spotlights the first spottable control, if possible.
 	configSpotlightBehavior: function(spotChild) {
 		if (enyo.Spotlight.getChildren(this).length > 0) {
-			if (spotChild) enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			if (spotChild) {
+				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			}
 		} else if (!this.spotlightModal) {
 			this.activator.keepOpen = false;
 			this.spotlight = false;
@@ -189,5 +192,9 @@ enyo.kind({
 	*/
 	spotlightRight: function(inSender, inEvent) {
 		return this.spotChecker("RIGHT");
+	},
+	//*@protected
+	_preventEventBubble: function(inSender, inEvent) {
+		return true;
 	}
 });

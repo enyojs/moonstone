@@ -14,12 +14,12 @@ enyo.kind({
             layoutKind: "FittableRowsLayout",
             fit: true,
             components: [
-                {                  
+                {
                     components: [
                         {kind: "moon.RadioItemGroup", components: [
                             {classes: "radio-button", content: "SUGGESTED SEARCH"},
                             {classes: "radio-button", content: "RECENT SEARCHES"}
-                        ]},               
+                        ]},
                         {kind: "moon.IconButton", classes: "icon-button-right", src: "../assets/trash-can-icon.png"}
                     ]
                 },
@@ -32,9 +32,15 @@ enyo.kind({
                         {
                             classes: "moon-search-recent-list",
                             components: [
-                                {kind: "moon.Item", style: "display: inline-block", bindFrom: "title"},
-                                {kind: 'enyo.Image', classes: "moon-search-image", bindFrom: "imgSrc", bindTo: "src"},
-                                {kind: 'enyo.Image', classes: "moon-search-image", bindFrom: "imgSrc", bindTo: "src"}
+                                {kind: "moon.Item", style: "display: inline-block", bindings: [
+                                    {from: ".model.title", to: ".content"}
+                                ]},
+                                {kind: 'enyo.Image', classes: "moon-search-image", bindings: [
+                                    {from: ".model.imgSrc", to: ".src"}
+                                ]},
+                                {kind: 'enyo.Image', classes: "moon-search-image", bindings: [
+                                    {from: ".model.imgSrc", to: ".src"}
+                                ]}
                             ]
                         }
                     ]
@@ -43,7 +49,7 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.listItems", to: "$.searchList.controller"}
+        {from: ".controller.listItems", to: ".$.searchList.controller"}
     ]
 });
 // Settings Main Menu Model

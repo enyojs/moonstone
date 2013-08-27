@@ -8,14 +8,16 @@ enyo.kind({
             name: "menuList",
             kind: "enyo.DataList",
             components: [
-                {bindFrom:"menuItem", kind: "moon.Item", ontap: "changePanel"}
+                { kind: "moon.Item", ontap: "changePanel", bindings: [
+                    {from: ".model.menuItem", to: ".content"}
+                ]}
             ]
         }
     ],
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
- });
+});
 
 
 // Sample model
@@ -23,8 +25,8 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menus: new enyo.Collection([
-            {menuItem: "Browser Movies"},
-            {menuItem: "Browser TV Shows"},
+            {menuItem: "Browse Movies"},
+            {menuItem: "Browse TV Shows"},
             {menuItem: "Queue"},
             {menuItem: "Search"}
         ])

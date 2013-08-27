@@ -27,11 +27,11 @@
 		create: function() {
 			this.inherited(arguments);
 			this.createComponents([
-				{name: "box", classes: "a", ontransitionend: "continue"}
+				{name: "box", classes: "a", ontransitionend: "nextTest"}
 			]);
 		},
 		b: false,
-		continue: function() {
+		nextTest: function() {
 			if (this.running) {
 				this.b = !this.b;
 				this.$.box.addRemoveClass("b", this.b);

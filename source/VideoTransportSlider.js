@@ -11,211 +11,295 @@
 enyo.kind({
 	name: "moon.VideoTransportSlider",
 	kind: "moon.Slider",
-	classes: "moon-slider moon-video-transport-slider",
+	spotlight: false,
+	classes: "moon-video-transport-slider",
 	//* @protected
-	popupWidth: 300,
-	popupHeight: 200,
 	published: {
-		//** This is start point of slider 
+		//** This is start point of slider
 		rangeStart: 0,
 		//** This is end point of slider
 		rangeEnd: 100,
-		//** This flag decide the slider draw  
+		//** This flag decide the slider draw
 		syncTick: true,
-		//** Tick position decide the margin areas in both side 
-		beginTickPos: 10,
-		endTickPos: 90,
-		//** This flag control the indicator in the Video Transport Slider
+		//** This flag decide whether using dummy area or not
+		showDummyArea: true,
+		//** When true, show label on start and end position
 		showTickText: true,
+		//** When true, show tick bar on start and end position
 		showTickBar: true,
-		//** Length of Dummy area, current unit is pixel for video slider, Not percentage
-		dummyAreaPixel: 120,
-		//** This is time option for slider expression between both side of time-indicator
-		absoluteTime: false
+		//** When true, the progress can extend past the hour markers.
+		liveMode: false,
+		//* CSS classes to apply to bg progressbar
+		bgBarClasses: "moon-video-transport-slider-bg-bar",
+		//* CSS classes to apply to progressbar
+		barClasses: "moon-video-transport-slider-bar-bar",
+		//* CSS classes to apply to popup label
+		popupLabelClasses: "moon-video-transport-slider-popup-label",
+		//* CSS classes to apply to knob
+		knobClasses: "moon-video-transport-slider-knob",
+		//* CSS classes to apply to tapArea
+		tapAreaClasses: "moon-video-transport-slider-taparea",
+		//* Color of value popup
+		popupColor: "#fff",
+		//** Custom Popup width for video player
+		popupWidth: 200,
+		//* Popup offset in pixels
+		popupOffset: 25
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
-		ondown: "down",
-		onBufferStateChanged: "progressUpdate",
 		onresize: "resizeHandler"
 	},
 	events: {
 		onSeekStart: "",
 		onSeek: "",
-		onSeekFinish: ""
+		onSeekFinish: "",
+		onEnterTapArea: "",
+		onLeaveTapArea: ""
 	},
-	moreComponents: [
-		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
-		{style: "z-index: 5;", name: "tapArea", classes: "moon-slider-taparea"},
-		{style: "z-index: 3;", name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", classes: "moon-slider-knob"},
-		{classes: "moon-slider-indicator-wrapper start", components: [
-			{name: "beginTickBar", classes: "moon-indicator-bar"},
-			{name: "beginTickText", classes: "moon-indicator-text", content: "00:00"}
+	tickComponents: [
+		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
+			{name: "beginTickBar", classes: "moon-video-transport-slider-indicator-bar-left"},
+			{name: "beginTickText", classes: "moon-video-transport-slider-indicator-text", content: "00:00"}
 		]},
-		{classes: "moon-slider-indicator-wrapper end", components: [
-			{name: "endTickBar", classes: "moon-indicator-bar"},
-			{name: "endTickText", classes: "moon-indicator-text", content: "00:00"}
-		]},
-		{kind: "enyo.Popup", name: "popup", classes: "moon-slider-popup above", components: [
-			{classes: "moon-slider-popup-wrapper", components: [
-				{tag: "canvas", name: "drawing", classes: "moon-slider-popup-canvas"},
-				{name: "popupLabel", classes: "moon-slider-popup-label"}
-			]}
+		{classes: "moon-video-transport-slider-indicator-wrapper end", components: [
+			{name: "endTickBar", classes: "moon-video-transport-slider-indicator-bar-right"},
+			{name: "endTickText", classes: "moon-video-transport-slider-indicator-text", content: "00:00"}
 		]}
 	],
+	popupLabelComponents: [
+		{name: "feedback", kind:"moon.VideoFeedback"},
+		{name: "popupLabelText"}
+	],
+	_previewMode: false,
+
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
+		this.$.popup.setAutoDismiss(false);		//* Always showing popup
+		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
+		this.$.tapArea.onmousemove = "preview";
+		this.$.tapArea.onenter = "enterTapArea";
+		this.$.tapArea.onleave = "leaveTapArea";
+		//* Extend components
+		this.createTickComponents();
+		this.createPopupLabelComponents();
 		this.showTickTextChanged();
 		this.showTickBarChanged();
-		this.updateSliderRange(true);
+	},
+	createTickComponents: function() {
+		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
+	},
+	createPopupLabelComponents: function() {
+		this.$.popupLabel.createComponents(this.popupLabelComponents, {owner: this});
+		this.currentTime = new Date(0);
+	},
+	enterTapArea: function(inSender, inEvent) {
+		this.addClass('visible');
+		this.startPreview();
+		this.doEnterTapArea(inEvent);
+	},
+	leaveTapArea: function(inSender, inEvent) {
+		this.removeClass('visible');
+		this.endPreview();
+		this.doLeaveTapArea(inEvent);
+	},
+	preview: function(inSender, inEvent) {
+		var v = this.calcKnobPosition(inEvent);
+		if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+			return;
+		}
+		v = this.transformToVideo(v);
+		this.currentTime = new Date(v * 1000);
+		this._updateKnobPosition(v);
+	},
+	startPreview: function(inSender, inEvent) {
+		this._previewMode = true;
+		this.$.feedback.setShowing(false);
+	},
+	endPreview: function(inSender, inEvent) {
+		this._previewMode = false;
+		this.currentTime = new Date(this._currentTime * 1000);
+		this._updateKnobPosition(this._currentTime);
+		if (this.$.feedback.isPersistShowing()) {
+			this.$.feedback.setShowing(true);
+		}
+	},
+	isInPreview: function(inSender, inEvent) {
+		return this._previewMode;
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		this.updateSliderRange(true);
+		this.updateSliderRange();
 	},
-	updateSliderRange: function(fullScreenMode) {
-		if(fullScreenMode)
-		{	// This should be updated !! 
-			// 40px is only for current redline
-			var width = window.innerWidth-40; 
-			this.beginTickPos = (this.dummyAreaPixel/width)*100;
-			this.endTickPos = ((width-this.dummyAreaPixel)/width)*100;
+	updateSliderRange: function() {
+		this.beginTickPos = (this.max-this.min)*0.0625;
+		this.endTickPos = (this.max-this.min)*0.9375;
+		
+		if(this.showDummyArea) {
+			this.setRangeStart(this.beginTickPos);
+			this.setRangeEnd(this.endTickPos);
+		} else {
+			this.setRangeStart(this.min);
+			this.setRangeEnd(this.max);				
 		}
-		this.setRangeStart(this.beginTickPos);
-		this.setRangeEnd(this.endTickPos);
-		this.rangeStartChanged();
-		this.rangeEndChanged();
+		this.updateKnobPosition(this.value);
 	},
-	showTickTextChanged: function() {
-		this.$.beginTickText.addRemoveClass("hide", !this.getShowTickText());
-		this.$.endTickText.addRemoveClass("hide", !this.getShowTickText());
+	setMin: function() {
+		this.inherited(arguments);
+		this.updateSliderRange();
 	},
-	showTickBarChanged: function() {
-		this.$.beginTickBar.addRemoveClass("hide", !this.getShowTickBar());
-		this.$.endTickBar.addRemoveClass("hide", !this.getShowTickBar());
+	setMax: function() {
+		this.inherited(arguments);
+		this.updateSliderRange();
 	},
 	setRangeStart: function(inValue) {
-		if(this.getSyncTick() === true) {
-			this.rangeStart = this.beginTickPos;
-		} else {
-			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
-			this.rangeStart = v;
-		}
+		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeStartChanged();
 	},
 	setRangeEnd: function(inValue) {
-		if(this.getSyncTick()) {
-			this.rangeEnd = this.endTickPos;
-		} else {
-			var v = this.clampValue(this.beginTickPos, this.endTickPos, inValue);
-			this.rangeEnd = v;
+		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
+		this.rangeEndChanged();	
+	},
+	showTickTextChanged: function() {
+		this.$.beginTickText.setShowing(this.getShowTickText());
+		this.$.endTickText.setShowing(this.getShowTickText());
+	},
+	showTickBarChanged: function() {
+		if(this.showDummyArea) {
+			this.showTickBar = true;
 		}
+		this.$.beginTickBar.setShowing(this.getShowTickBar());
+		this.$.endTickBar.setShowing(this.getShowTickBar());
 	},
 	rangeStartChanged: function() {
-		this.updateOwnProperty();
-		this.$.bgbar.applyStyle("margin-left", this.rangeStart + "%");
-		this.$.bar.applyStyle("margin-left", this.rangeStart + "%");
+		this.updateInternalProperty();
+		var p = this._calcPercent(this.rangeStart), 
+			property = "margin-left";
+		if (this.liveMode) {
+			property = "padding-left";
+		}
+		this.$.bar.applyStyle(property, p + "%");
+		this.$.bgbar.applyStyle(property, p + "%");
 	},
 	rangeEndChanged: function() {
-		this.updateOwnProperty();
+		this.updateInternalProperty();
+	},
+	updateInternalProperty: function() {
+		this.updateScale();
+		this.progressChanged();
+		this.bgProgressChanged();
 	},
 	//** hiden variable, scaleFactor is generated when create this
 	updateScale: function() {
-		this.scaleFactor = (this.rangeEnd-this.rangeStart)/100;
+		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	updateOwnProperty: function() {
-		this.updateScale();
-		this.bgProgressChanged();
-		this.progressChanged();
-	},
+	// 
 	calcPercent: function(inValue) {
-		return this.calcRatio(inValue) * this.scaleFactor * 100;
+		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	updateKnobPosition: function(inPercent) {
-		var v = this.calcPercent(inPercent)/this.scaleFactor;
-		var slider = this.inverseToSlider(v);
+	// 
+	_calcPercent: function(inValue) {
+		return this.calcRatio(inValue) * 100;
+	},
+	updateKnobPosition: function(inValue) {
+		if (!this.dragging && this.isInPreview()) { return; }
+		this._updateKnobPosition(inValue);
+	},
+	_updateKnobPosition: function(inValue) {
+		var p = this._calcPercent(inValue);
+		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
-		this.$.popup.applyStyle("left", slider + "%");
+		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
+		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
 
 		var label = "";
 		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(v));
+			label = this._nf.format(Math.round(p));
 		}
 		else {
-			label = Math.round(v) + "%";
+			label = Math.round(p) + "%";
 		}
 		if(this.currentTime !== undefined) {
-			this.$.popupLabel.setContent(this.formatTime(this.currentTime));
+			this.$.popupLabelText.setContent(this.formatTime(this.currentTime));
 		}
-		this.updatePopupPosition();
 	},
-	inverseToSlider: function(iValue) {
-		var oValue = this.scaleFactor * iValue + this.rangeStart;
+	inverseToSlider: function(inPercent) {
+		var oValue = this.scaleFactor * inPercent + this._calcPercent(this.rangeStart);
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
 		var iValue = (oValue - this.rangeStart) / this.scaleFactor;
 		return iValue;
 	},
+	//* If user presses on _this.$.tapArea_, seek to that point
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
+			var v = this.calcKnobPosition(inEvent);
+			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+				// TODO : action in dummy area
+			}
+
+			v = this.transformToVideo(v);
+			this.sendSeekEvent(v);
+
+			if (this.isInPreview()) {
+				//* This will move popup position to playing time when preview move is end
+				this._currentTime = v;
+			}
 			return true;
 		}
 	},
-	//* If user presses on _this.$.tapArea_, seek to that point
-	down: function(inSender, inEvent) {
-		var v = this.calcKnobPosition(inEvent);
-		if( v < this.beginTickPos || v > this.endTickPos ) {
-			// TODO : action in dummy area
-		} else {
-			if (inSender === this.$.tapArea) {
-				v = this.transformToVideo(v);
-				this.sendSeekEvent(v);
-			}
-		}
-		return true;
-	},
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
-		var v = this.calcKnobPosition(inEvent);
-		if( v < this.beginTickPos || v > this.endTickPos ) {
-			// TODO : action in dummy area
-			this.dummyAction = true;
-		} else {
-			var dragstart = this.inherited(arguments);
-			if (dragstart) {
-				this.doSeekStart();
-			}
+		if (this.disabled) {
+			return; // return nothing
 		}
+		if (inEvent.horizontal) {
+			var v = this.calcKnobPosition(inEvent);
+			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+				// TODO : action in dummy area
+				this.dummyAction = true;
+			} else {
+				var dragstart = this.inherited(arguments);
+				if (dragstart) {
+					this.doSeekStart();
+				}
+				this.dummyAction = false;
+			}
+			return true;
+		}
+		
+		return true;
 	},
 	//* If drag, bubble _onSeek_ event, and override parent drag handler
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
-			if(v < this.beginTickPos || v > this.endTickPos ) {
+
+			if(this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 				// TODO : action in dummy area
+			}
+			//* Default behavior to support elastic effect
+			v = this.transformToVideo(v);
+			if (this.constrainToBgProgress === true) {
+				v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
+				var ev = this.bgProgress + (v-this.bgProgress)*0.4;
+				v = this.clampValue(this.min, this.bgProgress, v);
+				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
+				this.elasticTo = v;
 			} else {
-				v = this.transformToVideo(v);
-				if (this.constrainToBgProgress === true) {
-					v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
-					var ev = this.bgProgress + (v-this.bgProgress)*0.4;
-					v = this.clampValue(this.min, this.bgProgress, v);
-					this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
-					this.elasticTo = v;
-				} else {
-					v = (this.increment) ? this.calcIncrement(v) : v;
-					v = this.clampValue(this.min, this.max, v);
-					this.elasticFrom = this.elasticTo = v;
-				}
+				v = (this.increment) ? this.calcIncrement(v) : v;
+				v = this.clampValue(this.min, this.max, v);
+				this.elasticFrom = this.elasticTo = v;
+			}
 
-				this.updateKnobPosition(this.elasticFrom);
+			this.updateKnobPosition(this.elasticFrom);
 
-				if (this.lockBar) {
-					this.setProgress(v);
-				}
-
-				this.sendChangingEvent({value: v});
-				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(v); }), 200);
+			if (this.lockBar) {
+				this.setProgress(this.elasticFrom);
+				this.sendChangingEvent({value: this.elasticFrom});
+				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(this.elasticFrom); }), 100);
 			}
 			return true;
 		}
@@ -227,28 +311,29 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-			if(v < this.beginTickPos) {
+			
+			if(this.showDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}
-			if(v > this.endTickPos ) {
+			if(this.showDummyArea && v >= this.endTickPos ) {
 				v = this.rangeEnd;
 			}
+			v = this.transformToVideo(v);
 			var z = this.elasticTo;
 			if (this.constrainToBgProgress === true) {
 				z = (this.increment) ? this.calcConstrainedIncrement(z) : z;
 				this.animateTo(this.elasticFrom, z);
 				v = z;
 			} else {
-				v = this.transformToVideo(v);
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				this._setValue(v);
 			}
 			inEvent.preventTap();
-			this.hideKnobStatus();
+			// this.hideKnobStatus();
 			this.doSeekFinish({value: v});
 		}
 		this.$.knob.removeClass("active");
-		this.dummyAction = false; 
+		this.dummyAction = false;
 		this.dragging = false;
 		return true;
 	},
@@ -256,58 +341,16 @@ enyo.kind({
 	sendSeekEvent: function(inValue) {
 		this.doSeek({value: inValue});
 	},
-	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
+	//* When the time updates, update buffered progress, canvas, video currentTime and duration
 	timeUpdate: function(inSender, inEvent) {
-		this.triggerCanvasUpdate(inEvent.srcElement);
+		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
 		this._duration = inSender._duration;
 		this.currentTime = new Date(this._currentTime * 1000);
 		this.duration = new Date(this._duration * 1000);
 		this.$.endTickText.setContent(this.formatTime(this.duration));
 	},
-	progressUpdate: function(inSender, inEvent) {
-		this.updateBufferedProgress(inEvent.srcElement);
-	},
-	//* Update _this.bgProgress_ to reflect video buffered progress
-	updateBufferedProgress: function(inNode) {
-		var bufferData = inNode.buffered,
-			numberOfBuffers = bufferData.length,
-			bufferedPercentage = 0,
-			highestBufferPoint = 0,
-			duration = inNode.duration || 0,
-			endPoint = 0,
-			i
-		;
-		
-		if (duration === 0) {
-			return;
-		}
-		
-		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
-		for (i = 0; i < numberOfBuffers; i++) {
-			endPoint = bufferData.end(i);
-			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
-		}
-		bufferedPercentage = highestBufferPoint * 100 / inNode.duration;
-		this.setBgProgress(bufferedPercentage);
-	},
-	//* Kickoff canvas update when video time changes
-	triggerCanvasUpdate: function(inNode) {
-		if (!this.dragging) {
-			return;
-		}
-		// Add delay here to account for pause in dragging
-		setTimeout(enyo.bind(this, function() { this.updateCanvas(inNode); }), 200);
-	},
-	//* Draw copy of _inNode_ to _this.$.drawing_
-	updateCanvas: function(inNode) {
-		var drawingNode = this.$.drawing.hasNode(),
-			db = drawingNode.getBoundingClientRect(),
-			ctx = drawingNode.getContext("2d")
-		;
-		// draw video preview thumbnail
-		ctx.drawImage(inNode, 0, 0, db.width, db.height);
-	},
+
 	//* Properly format time
 	formatTime: function(inValue) {
 		var inMinutes = this._formatTime(inValue.getMinutes());
@@ -317,5 +360,11 @@ enyo.kind({
 	//* Format time helper
 	_formatTime: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
+	},
+	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
+		if (!this.isInPreview()) {
+			this.showKnobStatus();
+			this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
+		}
 	}
 });
