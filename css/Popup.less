@@ -7,13 +7,14 @@
     box-sizing: border-box;
 }
 .moon-popup-close {
+	background-color: @moon-popup-close-bg-color;
 	float: right;
 	position: absolute;
 	right: 0px;
 	top: 0px;
 }
 .moon-popup-close.spotlight {
-	background: #ffb80d;
+	background: @moon-popup-close-spotlight-color;
 }
 .moon-popup-close::after {
 	content: "\2716";
@@ -21,5 +22,5 @@
 	position: relative;
 	top: 5px;
 	left: 10px;
-	color: #4b4b4b;
+	color: @moon-popup-close-text-color;  
 }

@@ -28,9 +28,9 @@ enyo.kind({
 		//* Maximum progress value (i.e., process complete)
 		max: 100,
 		//* CSS classes to apply to progress bar
-		barClasses: "",
+		barClasses: "moon-progress-bar-bar",
 		//* CSS classes to apply to bg progress bar
-		bgBarClasses: "",
+		bgBarClasses: "moon-progress-bg-bar",
 		//* Sliders may "snap" to multiples of this value in either direction
 		increment: 0,
 		//* Completion percentage for background process
@@ -43,8 +43,8 @@ enyo.kind({
 	//* @protected
 	components: [
 		{name: "progressAnimator", kind: "Animator", onStep: "progressAnimatorStep", onEnd: "progressAnimatorComplete"},
-		{name: "bgbar", classes: "moon-progress-bg-bar"},
-		{name: "bar", classes: "moon-progress-bar-bar"}
+		{name: "bgbar"},
+		{name: "bar"}
 	],
 	create: function() {
 		this.inherited(arguments);

@@ -1,19 +1,40 @@
 /* Radio Item */
 .moon-radio-item {
-	border-radius: 0px;
-	line-height: 1em;
-	text-align: left;
+	display: inline-block;
 }
-.enyo-locale-right-to-left .moon-radio-item{
-	text-align:right;
+.moon-radio-item .moon-selectable-item-client{
+	max-width: 250px;
 }
-.moon-radio-item.active,
-.moon-radio-item.pressed,
-.moon-radio-item:active,
-.moon-radio-item.spotlight,
-.moon-radio-item.spotlight.pressed,
-.moon-radio-item.spotlight:active,
-.moon-radio-item.active.spotlight
-{
-	border:none;
+.enyo-locale-right-to-left .moon-radio-item {
+	text-align: right;
+}
+/* Indicator */
+.moon-selectable-item-indicator.moon-radio-item-indicator {
+	display: inline-block;
+	background-color: #fff;
+	left: @moon-spotlight-outset;
+	top: 15px;
+}
+.enyo-locale-right-to-left .moon-selectable-item-indicator.moon-radio-item-indicator {
+	left: auto;
+	right: @moon-spotlight-outset;
+}
+.moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	top: 5px;
+	left: 5px;
+	background-color: #888;
+}
+.moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
+	background-color: @moon-pink;
+}
+.moon-radio-item .moon-selectable-item-client {
+	padding-left: 30px;
+}
+.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
+	padding-left: 0;
+	padding-right: 30px;
 }

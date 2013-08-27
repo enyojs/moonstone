@@ -1,6 +1,6 @@
 /* AudioPlayback.css */
 .moon-audio-playback {
-	background-color: #333;
+	background-color: @moon-audio-playback-bg-color;
 	font-size: 30px;
 }
 .moon-audio-playback-controls {
@@ -46,7 +46,7 @@
 }
 /* AudioPlayback styles for IconButton */
 .moon-audio-icon-button {
-	background-color: gray;
+	background-color: @moon-audio-icon-button-bg-color;
 	margin: 8px 4px;
 }
 .moon-audio-icon-button.left {
@@ -60,7 +60,7 @@
 	padding-top: 10px;
 }
 .moon-audio-slider.spotlight > .moon-slider-knob {
-	background-color: #ffb80d;
+	background-color: @moon-audio-slider-knob-spotlight-bg-color;
 }
 .moon-audio-slider > .moon-slider-knob,
 .moon-audio-slider > .moon-slider-knob.disabled:active:hover {
@@ -68,7 +68,7 @@
 	width: 30px;
 	border-radius: 15px;
 	margin: -17px -16px;
-	background-color: gray;
+	background-color: @moon-audio-slider-knob-bg-color;
 }
 .moon-audio-slider > .moon-slider-knob.active,
 .moon-audio-slider > .moon-slider-knob.spotselect,
@@ -77,15 +77,15 @@
 	width: 34px;
 	border-radius: 17px;
 	margin: -19px -18px;
-	background-color: #ffb80d;
+	background-color: @moon-audio-slider-knob-bg-color;
 }
 .moon-audio-slider.moon-progress-bar {
-	background-color: #CCC;
+	background-color: @moon-audio-progress-bar-bg-color;
 	margin: 0px;
 	top: 10px;
 }
 .moon-audio-slider > .moon-progress-bar-bar {
-	background-color: #666;
+	background-color: @moon-audio-progress-bar-bar-bg-color;
 }
 /* AudioPlayback styles for queue */
 .moon-audio-playback-queue {
@@ -99,8 +99,8 @@
 	border-bottom: 1px solid transparent;
 }
 .moon-audio-queue-list-selected {
-	background-color: #999;
-	border-color: #666;
+	background-color: @moon-audio-queue-selected-bg-color;
+	border-color: @moon-audio-queue-selected-border-color;
 }
 .moon-audio-queue-list > * {
 	display: inline-block;

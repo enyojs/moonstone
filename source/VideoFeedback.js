@@ -6,33 +6,34 @@
 enyo.kind({
 	name: "moon.VideoFeedback",
 	kind: "enyo.Control",
-	classes: "moon-video-player-feedback hidden",
+	classes: "moon-video-player-feedback",
 	published: {
 		/**
 			Length of time (in milliseconds) after which the on-screen feedback will
 			automatically disapear
 		*/
-		autoTimeoutMS: 	2000,
+		autoTimeoutMS:	2000
 	},
 	//* @protected
 	_showingFeedback: false,
-	_imagePath: 		"$lib/moonstone/images/",
-	_jumpBackImg: 		"icon-jumpback.png",
-	_rewindImg: 		"icon-rewind.png",
-	_playImg: 			"icon-play.png",
-	_pauseImg: 			"icon-pause.png",
-	_fastForwardImg: 	"icon-fastforward.png",
-	_jumpForwardImg: 	"icon-jumpforward.png",
-	_pauseBackImg: 		"icon-pauseplaybackward.png",
-	_pauseForwardImg: 	"icon-pauseplayforward.png",
+
+	_imagePath:				"$lib/moonstone/images/video-player/",
+	_jumpBackImg:			"icon_indicator_jumpbackward.png",
+	_rewindImg:				"icon_indicator_backward.png",
+	_playImg:				"icon_indicator_play.png",
+	_pauseImg:				"icon_indicator_pause.png",
+	_fastForwardImg:		"icon_indicator_forward.png",
+	_jumpForwardImg:		"icon_indicator_jumpforward.png",
+	_pauseBackImg:			"icon_indicator_pausebackward.png",
+	_pauseForwardImg:		"icon_indicator_pauseforward.png",
+	_pauseJumpBackImg:		"icon_indicator_pausejumpbackward.png",
+	_pauseJumpForwardImg:	"icon_indicator_pausejumpforward.png",
 	_autoTimer: null,
 
 	components: [
-		{classes: "moon-video-feedback-wrapper", components: [
-			{name: "leftIcon",  classes: "moon-video-feedback-icon-left",  allowHtml: true, content: "&nbsp;", showing: false},
-			{name: "feedText",  classes: "moon-video-feedback-text"},
-			{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
-		]}
+		{name: "leftIcon",  classes: "moon-video-feedback-icon-left",  allowHtml: true, content: "&nbsp;", showing: false},
+		{name: "feedText",  classes: "moon-video-feedback-text"},
+		{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
 	],
 	
 	//* @public
@@ -58,7 +59,7 @@ enyo.kind({
 			
 		case "Slowrewind":
 			inMessage = inParams.playbackRate + "x";
-			inLeftSrc = enyo.path.rewrite(this._imagePath + this._rewindImg);
+			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseBackImg);
 			break;
 			
 		case "Fastforward":
@@ -68,28 +69,40 @@ enyo.kind({
 			
 		case "Slowforward":
 			inMessage = inParams.playbackRate + "x";
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._fastForwardImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseForwardImg);
 			break;
 			
 		case "JumpBackward":
 			inMessage = inParams.jumpSize + " sec";
-			inLeftSrc = enyo.path.rewrite(this._imagePath + this._jumpBackImg);
+			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
 			
 		case "JumpForward":
 			inMessage = inParams.jumpSize + " sec";
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._jumpForwardImg);
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
 			break;
-		
+
+		case "JumpToStart":
+			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
+			break;
+			
+		case "JumpToEnd":
+			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
+			break;
+
+		case "Stop":
+			inRightSrc = "";
+			break;
+
 		// If the user sends in a custom message, block other messages until it's hidden
 		default:
 			customMessage = true;
-			this.showingFeedback = true;
+			this._showingFeedback = true;
 			break;
 		}
 		
 		// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
-		if (!customMessage && this.showingFeedback) {
+		if (!customMessage && this._showingFeedback) {
 			return;
 		}
 
@@ -108,16 +121,22 @@ enyo.kind({
 		} else {
 			this.setAutoTimer();
 		}
+		this.inPersistShowing = inPersistShowing;
+	},
+
+	//* When true, means current feedback message has no timeout.
+	isPersistShowing: function() {
+		return this.inPersistShowing;
 	},
 
 	//* Shows this control.
 	showFeedback: function() {
-		this.removeClass("hidden");
+		this.setShowing(true);
 	},
 	//* Hides this control and sets _this.showingFeedback_ to false.
 	hideFeedback: function() {
-		this.addClass("hidden");
-		this.showingFeedback = false;
+		this.setShowing(false);
+		this._showingFeedback = false;
 	},
 	
 	//* @protected
