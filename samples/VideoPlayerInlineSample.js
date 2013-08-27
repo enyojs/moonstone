@@ -1,4 +1,3 @@
-
 enyo.kind({
 	name: "moon.sample.VideoPlayerInlineSample",
 	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample",
@@ -49,5 +48,5 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 			]
 		}
-		]
+	]
 });

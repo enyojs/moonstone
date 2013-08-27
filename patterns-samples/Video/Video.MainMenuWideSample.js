@@ -1,30 +1,30 @@
 enyo.kind({
-    name: "moon.sample.video.MainMenuWideSample",
-    kind: "moon.Panel",
-    layoutKind: "FittableColumnsLayout",
-    titleAbove: "01",
-    title: "Main Menu",
-    components: [
-        {
-            name: "menuList",
-            kind: "enyo.DataList",
-            style: "width: 300px;",
-            components: [
-                {kind: "moon.Item", ontap: "changePanel", bindings: [
-                    {from: ".model.menuItem", to: ".content"}
-                ]}
-            ]
-        },
-        {
-            fit: true,
-            classes: "moon-neutral",
-            content: "branding"
-        }
-    ],
-    bindings: [
-        {from: ".controller.menus", to: ".$.menuList.controller"}
-    ]
- });
+	name: "moon.sample.video.MainMenuWideSample",
+	kind: "moon.Panel",
+	layoutKind: "FittableColumnsLayout",
+	titleAbove: "01",
+	title: "Main Menu",
+	components: [
+		{
+			name: "menuList",
+			kind: "enyo.DataList",
+			style: "width: 300px;",
+			components: [
+				{kind: "moon.Item", ontap: "changePanel", bindings: [
+					{from: ".model.menuItem", to: ".content"}
+				]}
+			]
+		},
+		{
+			fit: true,
+			classes: "moon-neutral",
+			content: "branding"
+		}
+	],
+	bindings: [
+		{from: ".controller.menus", to: ".$.menuList.controller"}
+	]
+});
 
 // Sample model
 
