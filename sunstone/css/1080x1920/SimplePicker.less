@@ -1,0 +1,27 @@
+/* SimplePicker.css */
+.sun-simple-picker > * {
+  display: inline-block;
+  vertical-align: middle;
+  height: @sun-picker-button-width;
+}
+
+.sun .sun-simple-picker-button {
+  background-color: transparent;
+}
+
+.sun .sun-simple-picker-item {
+  line-height: @sun-picker-button-width;
+  height: @sun-picker-button-width;
+  width: @sun-picker-width;
+  max-width: @sun-picker-width;
+  font-family: "MuseoSans 700";
+  font-size: @sun-picker-button-font-size;
+}
+
+.sun .sun-simple-picker-button.right {
+  transform: rotate(180deg) translateZ(0px);
+  -o-transform: rotate(180deg) translateZ(0px);
+  -ms-transform: rotate(180deg) translateZ(0px);
+  -moz-transform: rotate(180deg) translateZ(0px);
+  -webkit-transform: rotate(180deg) translateZ(0px);
+}

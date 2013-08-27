@@ -29,6 +29,7 @@
 			{"name": "Picker", "path":"$lib/moonstone/sunstone/samples/PopupBasicPickerSample", "css":"sample"},
 			{"name": "Time Picker", "path":"$lib/moonstone/sunstone/samples/PopupTimePicker", "css":"sample"},
 			{"name": "Toast", "path":"$lib/moonstone/sunstone/samples/ToastSample", "css":"sample"}
+			{"name": "Calendar Picker", "path":"$lib/moonstone/sunstone/samples/CalendarPickerSample", "css":"sample"}
 		]},
 		{"name": "Notification", "samples": [
 			
