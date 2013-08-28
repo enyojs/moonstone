@@ -75,7 +75,7 @@ enyo.kind({
 			this.$.listActions.render();
 		}
 	},
-	//* Create a new list action component based on _inListAction_
+	//* Creates a new list action component based on _inListAction_.
 	createListActionComponent: function(inListAction) {
 		var listActionComponent;
 		
@@ -85,7 +85,10 @@ enyo.kind({
 		
 		return listActionComponent;
 	},
-	//* Add a mixin to each list action menu that decorates activate events with that menu's _action_ property
+	/**
+		Adds a mixin to each list action menu that decorates _activate_ events
+		with the menu's _action_ property.
+	*/
 	addListActionMixin: function(inListAction) {
 		var mixins = inListAction.mixins || [];
 		if (mixins.indexOf("moon.ListActionActivationSupport") === -1) {
@@ -93,7 +96,7 @@ enyo.kind({
 		}
 		return mixins;
 	},
-	//* Toggle _this.open_
+	//* Toggles value of _this.open_.
 	expandContract: function(inSender, inEvent) {
 		if (this.disabled) {
 			return true;
@@ -112,7 +115,7 @@ enyo.kind({
 			this.scrollToTop();
 		}
 	},
-	//* Position _this.$.drawerPopup_ to fill the entire header
+	//* Positions _this.$.drawerPopup_ to fill the entire header.
 	configurePopup: function() {
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
@@ -191,7 +194,7 @@ enyo.kind({
 			
 		}
 	},
-	//* Return the sum width of all of the _inControls_
+	//* Returns the summed width of all controls in _inControls_.
 	calcGroupWidth: function(inControls) {
 		var control, width = 0, i;
 		for (i = 0; (control = inControls[i]); i++) {
