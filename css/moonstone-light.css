@@ -2135,6 +2135,9 @@
   margin: 0px 2px;
   width: 300px;
 }
+.moon-list-actions-menu.full-width {
+  width: 100%;
+}
 /* Drawer */
 .moon-list-actions-drawer {
   position: absolute;

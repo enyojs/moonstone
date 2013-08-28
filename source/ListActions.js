@@ -60,19 +60,30 @@ enyo.kind({
 		}
 	},
 	createListActionComponents: function() {
-		var listAction, listActionComponent,
-			isMultiple = this.listActions.length > 1,
-			i = isMultiple ? this.listActions.length - 1 : 0;
-		for (i; (listAction = this.listActions[i]); isMultiple ? i-- : i++) {
-			listAction.mixins = this.addListActionMixin(listAction);
-			listActionComponent = this.$.listActions.createComponent(listAction);
-			listActionComponent.addClass(isMultiple ? "moon-list-actions-menu-multiple" : "moon-list-actions-menu-single");
-			this.listActionComponents.push(listActionComponent);
+		var listAction, i;
+		
+		for (i = 0; (listAction = this.listActions[i]); i++) {
+			this.listActionComponents.push(this.createListActionComponent(listAction));
+		}
+		
+		// Increase width to 100% if there is only one list action
+		if (this.listActions.length === 1) {
+			this.listActionComponents[0].addClass("full-width");
 		}
 		
 		if (this.hasNode()) {
 			this.$.listActions.render();
 		}
+	},
+	//* Create a new list action component based on _inListAction_
+	createListActionComponent: function(inListAction) {
+		var listActionComponent;
+		
+		inListAction.mixins = this.addListActionMixin(inListAction);
+		listActionComponent = this.$.listActions.createComponent(inListAction);
+		listActionComponent.addClass("moon-list-actions-menu");
+		
+		return listActionComponent;
 	},
 	//* Add a mixin to each list action menu that decorates activate events with that menu's _action_ property
 	addListActionMixin: function(inListAction) {
@@ -278,7 +289,7 @@ enyo.kind({
 		}
 	},
 	getHeaderBounds: function() {
-		this.headerBounds = this.headerBounds || this.getParentClientBound();
+		this.headerBounds = this.headerBounds || this.getParentHeaderNode().getBoundingClientRect(); //this.getParentClientBound();
 		return this.headerBounds;
 	},
 	getClientBounds: function() {
@@ -289,17 +300,8 @@ enyo.kind({
 		this.containerBounds = this.containerBounds || this.$.listActionsClientContainer.getBounds();
 		return this.containerBounds;
 	},
-	getParentClientBound: function() {
-		var pNode = this.parent.parent.hasNode(),
-			pBound = pNode.getBoundingClientRect(),
-			cHeight = pNode.clientHeight + pNode.clientTop,
-			cTop = pBound.top + pNode.clientTop;
-		if (pNode) {
-			return {left: pBound.left , top: cTop, width: pBound.width, height: cHeight};
-		}
-		else {
-			return null;
-		}
+	getParentHeaderNode: function() {
+		return this.parent.parent.hasNode();
 	},
 	resetCachedValues: function() {
 		this.headerBounds = null;
