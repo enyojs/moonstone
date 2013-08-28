@@ -26,21 +26,12 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 45%;", components: [
 			{content: "Wide"},
-			{
-				kind: "moon.ContextualPopup",
-				classes: "moon-6h moon-1v",
-				components: [{
-					kind: "Scroller",
-					horizontal:"auto",
-					touch:true,
-					thumb:false,
-					classes: "enyo-fill",
-					components:[
-						{content:"testing 1"},
-						{content:"testing 2"}
-					]
-				}]
-			}
+			{kind: "moon.ContextualPopup", classes: "moon-6h moon-1v", components: [
+				{kind: "moon.Scroller", classes: "enyo-fill", components:[
+					{content:"testing 1"},
+					{content:"testing 2"}
+				]}
+			]}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 45%;", components: [
 			{content:"Long Button with truncation"},

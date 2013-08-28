@@ -1315,15 +1315,22 @@
   float: right;
 }
 /* Small header styling */
-.moon-small-header {
-  height: 260px;
+.moon-header.moon-small-header {
+  height: 240px;
 }
-.moon-small-header .moon-header-title-above {
-  height: 0;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  overflow: hidden;
-  opacity: 0;
+.moon-small-header .moon-header-title {
+  line-height: 0.96em;
+  position: relative;
+  left: 58px;
+  top: -48px;
+}
+.moon-small-header .moon-header-title-below {
+  position: relative;
+  top: -48px;
+}
+.moon-small-header .moon-header-sub-title-below {
+  position: relative;
+  top: -48px;
 }
 .hidden-title .moon-header-title,
 .hidden-title .moon-header-title-below,
@@ -1893,7 +1900,7 @@
 .moon-contextual-popup-decorator {
   position: relative;
 }
-/*ContextualPopup.css*/
+/* ContextualPopup */
 .moon-contextual-popup,
 .enyo.moon-contextual-popup {
   font-family: "MuseoSans 300";
@@ -1916,127 +1923,104 @@
   -moz-box-sizing: border-box;
   background-color: #686868;
 }
-.enyo-locale-right-to-left .moon-contextual-popup,
-.enyo.moon-contextual-popup {
+.enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
 }
-/*adjusting base contextual popup positioning*/
-/*for popups above activator*/
-.vertical.above {
-  margin-top: -20px;
-}
-/*for popups below activator*/
-.vertical.below {
+/* Vertical Popups */
+/* Vertical Popups that display below their activator */
+.moon-contextual-popup.vertical.below {
   margin-top: 20px;
 }
-/*for popups on the left of the activator*/
-.right.horizontal {
+/* Vertical popups that display above their activator */
+.moon-contextual-popup.vertical.above {
+  margin-top: -20px;
+}
+/* Horizontal Popups */
+/* Horizontal popups that display to the right of their activator */
+.moon-contextual-popup.right.horizontal {
   margin-left: -31px;
 }
-/*for popups on the right of the activator*/
-.left.horizontal {
+/* Horizontal popups that display to the left of their activator */
+.moon-contextual-popup.left.horizontal {
   margin-left: 20px;
 }
-/*setup the nub*/
+/* Nub */
 .moon-contextual-popup::after {
   content: '';
   position: absolute;
-  top: -10px;
   width: 46px;
   height: 36px;
+  background-color: transparent;
+  background-repeat: no-repeat;
 }
-/*nub positioning*/
-/*horizontally centered nub*/
-.moon-contextual-popup.vertical::after {
-  position: absolute;
+/* Up/Down-pointing nubs */
+.moon-contextual-popup.below::after,
+.moon-contextual-popup.above::after {
   left: 50%;
-  margin-top: -4px;
-  margin-left: -23px;
-  width: 46px;
-  height: 36px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Down.png) no-repeat;
 }
-/*nub near horizontal left*/
-.moon-contextual-popup.vertical.right::after {
-  left: 0%;
-  margin-left: 20px;
+.moon-contextual-popup.below::after {
+  top: 0;
+  margin: -36px 0px 0px -23px;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
 }
-/*nub near horizontal right*/
-.moon-contextual-popup.vertical.left::after {
-  left: 100%;
-  margin-left: -75px;
-}
-/*downward facing nub*/
-.moon-contextual-popup.vertical.above::after {
+.moon-contextual-popup.above::after {
   top: 100%;
   margin-top: -4px;
-  width: 46px;
-  height: 36px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Down.png) no-repeat;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Down.png);
 }
-.moon-contextual-popup.vertical.below::after {
-  margin-top: -22px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Up.png) no-repeat;
-}
-.moon-contextual-popup.vertical.below.right::after {
-  top: 0%;
-  left: 0%;
+/* Left/Right-pointing nubs */
+.moon-contextual-popup.left::after,
+.moon-contextual-popup.right::after {
+  top: 50%;
   margin-top: -32px;
-  width: 46px;
-  height: 36px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Up.png) no-repeat;
 }
-.moon-contextual-popup.vertical.below.left::after {
-  top: 0%;
-  left: 100%;
-  margin-top: -32px;
-  width: 46px;
-  height: 36px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Up.png) no-repeat;
-}
-/*nub positioning for left/right popups*/
-/*vertically centered nub for popups on left of activator*/
 .moon-contextual-popup.right::after {
   left: 100%;
-  top: 50%;
-  width: 36px;
-  height: 46px;
-  margin-left: -4px;
-  margin-top: -23px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Right.png) no-repeat;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Right.png);
 }
-/*nub near vertical top for popups on left of activator*/
-.moon-contextual-popup.right.high::after {
-  top: 35px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Right.png) no-repeat;
-}
-/*nub near vertical bottom for popups on left of activator*/
-.moon-contextual-popup.right.low::after {
-  top: 100%;
-  margin-top: -55px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Right.png) no-repeat;
-}
-/*vertically centered nub for popups on right of activator*/
 .moon-contextual-popup.left::after {
   left: 0%;
-  margin-left: -20px;
-  top: 45%;
-  width: 36px;
-  height: 46px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Left.png) no-repeat;
+  margin-left: -46px;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Left.png);
 }
-/*nub near vertical top for popups on right of activator*/
-.moon-contextual-popup.left.high::after {
+/* Low nubs */
+.moon-contextual-popup.left.low::after,
+.moon-contextual-popup.right.low::after {
+  top: 76%;
+}
+/* High nubs */
+.moon-contextual-popup.left.high::after,
+.moon-contextual-popup.right.high::after {
   top: 35px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Up.png) no-repeat;
 }
-/*nub near vertical bottom for popups on right of activator*/
-.moon-contextual-popup.left.low::after {
+/* Bottom right corner nub */
+.moon-contextual-popup.left.above::after {
   top: 100%;
-  margin-top: -55px;
-  background: transparent url(../images/LightTheme_Icons/ContextualMenu_Down.png) no-repeat;
+  left: 90%;
+  margin: 0px 0px 0px -32px;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Down.png);
 }
-/*flush corners are not implemented currently per HI*/
+/* Bottom left corner nub */
+.moon-contextual-popup.right.above::after {
+  top: 100%;
+  left: 10%;
+  margin: 0px;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Down.png);
+}
+/* Top right corner nub */
+.moon-contextual-popup.left.below::after {
+  top: 0%;
+  left: 90%;
+  margin-top: -36px;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
+}
+/* Top left corner nub */
+.moon-contextual-popup.right.below::after {
+  top: 0%;
+  left: 10%;
+  margin-top: -36px;
+  background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
+}
 /* TextArea.css */
 .moon-textarea {
   font-family: "MuseoSans 300";
