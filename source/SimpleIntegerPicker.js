@@ -15,13 +15,17 @@ enyo.kind({
 	events: {
 		/**
 			Fires when the currently selected item changes.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onChange: "",
 		/**
 			Fires in response to Return keypress while the picker has focus in Spotlight 5-way mode.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onSelect: ""
