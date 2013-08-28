@@ -48,5 +48,5 @@ enyo.kind({
 	transitionFinish: function(inSender, inEvent) {	
 		//	scroll to selected tab and apply highlight
 		this.$.tabbar.changeActiveItem(this.$.panels.index, true);
-	},
+	}
 });
