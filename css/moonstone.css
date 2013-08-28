@@ -198,86 +198,125 @@
 /* Import grid classes/mixins */
 /* ------- Horizontal Dimensioning (columns) ------- */
 .moon-1h {
-  width: 70px;
+  width: 60px;
 }
 .moon-2h {
-  width: 150px;
+  width: 140px;
 }
 .moon-3h {
-  width: 230px;
+  width: 220px;
 }
 .moon-4h {
-  width: 310px;
+  width: 300px;
 }
 .moon-5h {
-  width: 390px;
+  width: 380px;
 }
 .moon-6h {
-  width: 470px;
+  width: 460px;
 }
 .moon-7h {
-  width: 550px;
+  width: 540px;
 }
 .moon-8h {
-  width: 630px;
+  width: 620px;
 }
 .moon-9h {
-  width: 710px;
+  width: 700px;
 }
 .moon-10h {
-  width: 790px;
+  width: 780px;
 }
 .moon-11h {
-  width: 870px;
+  width: 860px;
 }
 .moon-12h {
-  width: 950px;
+  width: 940px;
 }
 .moon-13h {
-  width: 1030px;
+  width: 1020px;
 }
 .moon-14h {
-  width: 1110px;
+  width: 1100px;
 }
 .moon-15h {
-  width: 1190px;
+  width: 1180px;
 }
 .moon-16h {
-  width: 1270px;
+  width: 1260px;
 }
 .moon-17h {
-  width: 1350px;
+  width: 1340px;
 }
 .moon-18h {
-  width: 1430px;
+  width: 1420px;
 }
 .moon-19h {
-  width: 1510px;
+  width: 1500px;
 }
 .moon-20h {
-  width: 1590px;
+  width: 1580px;
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  height: 170px;
+  height: 40px;
 }
 .moon-2v {
-  height: 350px;
+  height: 80px;
 }
 .moon-3v {
-  height: 530px;
+  height: 120px;
 }
 .moon-4v {
-  height: 710px;
+  height: 160px;
 }
 .moon-5v {
-  height: 890px;
+  height: 200px;
 }
 .moon-6v {
-  height: 1070px;
+  height: 240px;
 }
 .moon-7v {
-  height: 1250px;
+  height: 280px;
+}
+.moon-8v {
+  height: 320px;
+}
+.moon-9v {
+  height: 360px;
+}
+.moon-10v {
+  height: 400px;
+}
+.moon-11v {
+  height: 440px;
+}
+.moon-12v {
+  height: 480px;
+}
+.moon-13v {
+  height: 520px;
+}
+.moon-14v {
+  height: 560px;
+}
+.moon-15v {
+  height: 600px;
+}
+.moon-16v {
+  height: 640px;
+}
+.moon-17v {
+  height: 680px;
+}
+.moon-18v {
+  height: 720px;
+}
+.moon-19v {
+  height: 760px;
+}
+.moon-20v {
+  height: 800px;
 }
 /* Common classes applicable to multiple controls */
 .moon {
