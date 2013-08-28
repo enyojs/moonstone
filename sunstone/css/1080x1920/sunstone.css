@@ -1306,22 +1306,22 @@
 }
 /*adjusting base contextual popup positioning*/
 /*for popups above activator*/
-.vertical.above {
+.sun-drop-down.vertical.above {
   margin-top: -20px;
   width: 640px;
 }
 /*for popups below activator*/
-.vertical.below {
+.sun-drop-down.vertical.below {
   margin-top: 15px;
   width: 640px;
 }
 /*for popups on the left of the activator*/
-.right.horizontal {
+.sun-drop-down.right.horizontal {
   margin-top: 10px;
   width: 640px;
 }
 /*for popups on the right of the activator*/
-.left.horizontal {
+.sun-drop-down.left.horizontal {
   margin-top: 10px;
   width: 640px;
 }
@@ -1374,9 +1374,9 @@
   border-bottom: 25px solid #d9d9d9;
 }
 .sun.sun-drop-down.vertical.below.right::after {
-  top: 0%;
+  top: -8%;
   left: 0%;
-  margin-top: -5px;
+  margin-top: 0px;
   border-left: 25px solid transparent;
   border-right: 25px solid transparent;
   border-bottom: 25px solid #d9d9d9;
@@ -1475,7 +1475,7 @@
   position: relative;
 }
 /* OptionItem.css */
-.sun .moon-item.moon-selectableItem {
+.sun-drop-down .moon-item.moon-selectableItem {
   font-size: 55px;
   color: #4b4b4b;
   width: 100%;
@@ -1483,10 +1483,10 @@
   margin: 0;
   line-height: 100px;
 }
-.sun .moon-item.moon-selectableItem.spotlight {
+.sun-drop-down .moon-item.moon-selectableItem.spotlight {
   line-height: 1.12em;
 }
-.sun .moon-item.locale-default.spotlight:not(.overlay) {
+.sun-drop-down .moon-item.locale-default.spotlight:not(.overlay) {
   border-left-width: 0px;
   border-right-width: 0px;
   padding-left: 15px;
@@ -1494,14 +1494,14 @@
   color: #ffffff;
   line-height: 100px;
 }
-.sun .moon-selectableItem .moon-selectableItem-item {
+.sun-drop-down .moon-selectableItem .moon-selectableItem-item {
   box-sizing: border-box;
   width: 100%;
   display: inline-block;
   border-bottom: 3px solid #ffffff;
   padding: 0px;
 }
-.sun .moon-selectableItem .moon-underline.moon-overlay {
+.sun-drop-down .moon-selectableItem .moon-underline.moon-overlay {
   cursor: pointer;
   border-bottom: 3px solid #ffffff;
   padding: 0px;
@@ -1510,7 +1510,7 @@
   -moz-transition: border-color 0.4s linear;
   -o-transition: border-color 0.4s linear;
 }
-.sun .moon-selectableItem .moon-underline {
+.sun-drop-down .moon-selectableItem .moon-underline {
   border-bottom: 4px solid #ffb80d;
   padding-bottom: 5px;
 }
