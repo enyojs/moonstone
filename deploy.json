@@ -1,0 +1,5 @@
+{
+	"source": ".",
+	"assets": ["fonts", "images"],
+	"libs": []
+}
