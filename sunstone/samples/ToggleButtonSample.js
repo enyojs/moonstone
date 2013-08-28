@@ -2,7 +2,7 @@ enyo.kind({
 	name: "sun.sample.ToggleButtonSample",
 	classes: "moon moon-sample",
 	components: [
-		{classes: "moon-sample-divider", content: "Toggle Buttons"},
+		{kind: "sun.Divider", content: "Toggle Buttons"},
 		{classes: "moon-sample-tools", components: [
 			{name: "The 1st toggle button", kind:"sun.ToggleButton", onChange:"toggleChanged", value: true},
 			{name: "The 2nd toggle button", kind:"sun.ToggleButton", onChange:"toggleChanged", value: false},
@@ -10,7 +10,7 @@ enyo.kind({
 			{kind:"sun.ToggleButton", onChange:"toggleChanged", value: false, disabled: true}
 		]},
 		{tag: "br"},
-		{classes: "moon-sample-divider", content: "Toggle Buttons Group"},
+		{kind: "sun.Divider", content: "Toggle Buttons Group"},
 		{kind: "Group", classes: "moon-sample-tools group", onActivate:"groupActivated", highlander: true, components: [
 			{kind:"sun.ToggleButton"},
 			{kind:"sun.ToggleButton", value: true},
