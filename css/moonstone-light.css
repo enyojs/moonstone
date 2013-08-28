@@ -325,7 +325,7 @@
 }
 .moon-header-text {
   font-family: "Miso";
-  font-size: 140px;
+  font-size: 126px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
@@ -382,6 +382,10 @@
 .enyo-locale-non-latin .moon-large-button-text,
 .enyo-locale-non-latin .moon-small-button-text {
   font-family: "LG Display";
+}
+.border-box {
+  box-sizing: border-box;
+  -mox-box-sizing: border-box;
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
@@ -1225,8 +1229,10 @@
   padding: 0px;
 }
 .moon-header {
+  box-sizing: border-box;
+  -mox-box-sizing: border-box;
   color: #4b4b4b;
-  height: 380px;
+  height: 360px;
   border-top: 1px solid #4b4b4b;
   border-bottom: 6px solid #4b4b4b;
   overflow: hidden;
@@ -1236,30 +1242,27 @@
   -moz-transition: height 0.2s linear;
   max-width: 100%;
   margin: 10px;
+  padding-top: 8px;
 }
 .moon-header-title-above.no-border {
   border: none;
-  min-height: 36px;
+  min-height: 38.88px;
 }
 .moon-header-title-above {
   font-size: 36px;
-  font-weight: normal;
-  line-height: 1em;
-  padding: 10px 0px 10px 0px;
-  margin: 0px;
+  line-height: 1.08em;
   width: 30px;
 }
 .moon-header-title {
   font-family: "Miso";
-  font-size: 140px;
+  font-size: 126px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
+  line-height: 1.08em;
+  margin-bottom: 8px;
 }
 .moon-header-title .moon-marquee-text {
-  line-height: 0.643em;
-  padding: 19px 0px 0px 0px;
-  margin: 0px 0px 30px 0px;
   white-space: nowrap;
 }
 .moon-header-title-below {
@@ -1269,10 +1272,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  line-height: 1em;
-  min-height: 30px;
-  padding: 6px 0px 10px 0px;
-  margin: 0px;
+  margin-bottom: 8px;
 }
 .moon-header-sub-title-below {
   font-family: "MuseoSans 300";
@@ -1281,10 +1281,6 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  line-height: 26px;
-  min-height: 26px;
-  padding: 6px 0px 6px 0px;
-  margin: 0px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
   font-family: "LG Display";
@@ -2359,16 +2355,16 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Miso";
-  font-size: 140px;
+  font-size: 126px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
   margin: 0px;
   padding-left: 1px;
-  height: 140px;
+  height: 126px;
   display: inline-block;
   box-sizing: border-box;
-  line-height: 140px;
+  line-height: 126px;
   color: #4b4b4b;
   width: 100%;
 }
@@ -2533,21 +2529,27 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
 }
 .moon-popup-close {
+  background: url(../images/LightTheme_Icons/ClosePopup_Icon.png);
+  background-repeat: no-repeat;
+  background-position: 0px -32px;
   float: right;
   position: absolute;
   right: 0px;
-  top: 0px;
+  width: 32px;
+  height: 32px;
+  top: 2px;
 }
 .moon-popup-close.spotlight {
-  background: #ff2f7d;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-color: #ff2f7d;
 }
-.moon-popup-close::after {
-  content: "\2716";
-  font-size: 25px;
-  position: relative;
-  top: 5px;
-  left: 10px;
-  color: #4b4b4b;
+.moon-icon.moon-popup-close.active,
+.moon-icon.moon-popup-close.pressed,
+.moon-icon.moon-popup-close.spotlight.pressed,
+.moon-icon.moon-popup-close.spotlight:active {
+  background-position: 0px -32px;
+  background-color: #ededed;
 }
 /* Dialog.css */
 .moon-dialog-title {
