@@ -1,17 +1,35 @@
 /*DropDownButton.css*/
 .sun-drop-down-button {
-	background: @sun-carat-black-small-down-image right center no-repeat;
-	padding-right: 50px;
+	width: 276px;
+	height: 107px;
+	color: @sun-lighter-gray;
+	background-color: @sun-dark-gray;
+	background-image: @sun-drop-down-down-image;
+	background-repeat: no-repeat;
+	background-position: 105% -10px;
 }
 .sun-drop-down-button.down.spotlight {
-	background: @sun-carat-black-small-down-image right center no-repeat;
-	padding-right: 50px;
-	border: @sun-button-border-width solid @sun-spotlight-border-color; 
+	background-color: @sun-focused-gray;
+	background-image: @sun-drop-down-down-image;
+	background-repeat: no-repeat;
+	background-position: 105% -10px;
+	padding: 20px 52px 20px 22px;
 }
 .sun-drop-down-button.pressed,
 .sun-drop-down-button.active.up {
-	background: @sun-carat-black-small-up-image right center no-repeat;
+	color: @sun-white;
+	background-color: @sun-red;
+	background-image: @sun-drop-down-down-image;
+	background-repeat: no-repeat;
+	background-position: 105% -331px;
+	padding: 20px 52px 20px 22px;
 }
 .sun-drop-down-button.down {
-	background: @sun-carat-black-small-down-image right center no-repeat;
+	color: @sun-lighter-gray;
+	background-color: @sun-dark-gray;
+	padding: 20px 52px 20px 22px;
+}
+.sun-drop-down-button.down:disabled {
+	color: @sun-light-gray;
+	background-color: @sun-disabled-gray;
 }

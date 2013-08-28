@@ -1,5 +1,5 @@
 /**
-	_moon.ContextualPopupButton_ is a <a href="#moon.Button">moon.Button</a> with
+	_sun.DropDownButton_ is a <a href="#sun.Button">sun.Button</a> with
 	additional styling applied.
 
 	For more information, see the documentation on
