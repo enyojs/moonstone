@@ -76,5 +76,7 @@ enyo.depends(
 	"ObjectActionDecorator.js",
 	"FormCheckbox.js",
 	"DataGridList.js",
-	"SelectionOverlaySupport.js"
+	"SelectionOverlaySupport.js",
+	"Image.js",
+	"ImageBadge.js"
 );

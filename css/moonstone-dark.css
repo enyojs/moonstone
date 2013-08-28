@@ -3488,6 +3488,37 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-scroller-vthumb.hidden {
   opacity: 0;
 }
+.moon-image {
+  display: inline-block;
+}
+.moon-image.has-children {
+  position: relative;
+  overflow: hidden;
+}
+.moon-image > img {
+  display: block;
+}
+.moon-image-client {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42px;
+  background: #6d6d6d;
+  padding: 8px;
+  overflow: hidden;
+  display: block;
+}
+.moon-image.show-on-spotlight .moon-image-client {
+  display: none;
+}
+.spotlight .moon-image.show-on-spotlight .moon-image-client {
+  display: block;
+}
+.moon-image-badge {
+  background-position: center center;
+  margin: 0px 4px;
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
   background-color: #555555;
