@@ -1,5 +1,7 @@
 enyo.depends(
 	"Button.js",
+	"CalendarPicker.js",
+	"CalendarPickerPopup.js",
 	"Checkbox.js",
 	"CheckboxItem.js",
 	"ExpandableInput.js",
@@ -27,5 +29,7 @@ enyo.depends(
 	"DropDown.js",
 	"DropDownButton.js",
 	"DropDownDecorator.js",
-	"OptionItem.js"
+	"OptionItem.js",
+	"LoadingHeader.js",
+	"SimplePicker.js"
 );

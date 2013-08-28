@@ -63,6 +63,8 @@
 /* Divider */
 /* Input */
 /* ---------------------------------------*/
+/* Pickers */
+/* ---------------------------------------*/
 /* Scroller */
 /* ---------------------------------------*/
 /* DropDown */
@@ -414,6 +416,20 @@
 .sun .moon-button.moon-dark-gray.spotlight {
   background: #404040;
 }
+/* CalendarPicker.css */
+.sun .moon-calendar-picker {
+  width: 966px;
+  margin: 0px auto;
+  display: block;
+}
+.sun .moon-calendar-picker-date {
+  font-family: "MuseoSans 700";
+  width: 130px;
+  min-width: 130px;
+  height: 130px;
+  min-height: 130px;
+  margin: 4px;
+}
 /* Checkbox.css */
 .sun .moon-checkbox {
   height: 36px;
@@ -441,9 +457,9 @@
 }
 /* IconButton.css */
 .sun .moon-icon-button {
-  width: 122px;
-  height: 122px;
-  border-radius: 66px;
+  width: 120px;
+  height: 120px;
+  border-radius: 65px;
   border: 5px solid transparent;
 }
 .sun .moon-icon.moon-icon-button:active:hover {
@@ -453,7 +469,7 @@
 .sun .moon-icon.moon-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.spotlight:active {
-  background-position: 0px -122px;
+  background-position: 0px -120px;
   color: #ffffff;
   background-color: #ff2f7d;
   border: 5px solid #ff2f7d;
@@ -464,34 +480,39 @@
   border: 5px solid #ff2f7d;
 }
 .sun .moon-icon-button.moon-small-icon-button {
-  width: 102px;
-  height: 102px;
-  border-radius: 51px;
+  width: 97px;
+  height: 97px;
+  border-radius: 53.5px;
 }
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.pressed,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight.pressed,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.spotlight:active {
-  background-position: 0px -102px;
+  background-position: 0px -97px;
   color: #ffffff;
   background-color: #ff2f7d;
   border: 5px solid #ff2f7d;
 }
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.active,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.pressed {
-  background-position: 0 -102px;
+  background-position: 0 -97px;
 }
 .sun .moon-icon.disabled:active:hover,
 .sun .moon-icon.moon-icon-button.moon-small-icon-button.disabled:active:hover {
   background-position: 0 0px;
 }
 .sun .moon-icon.moon-icon-button.moon-loading-icon-button {
-  background-image: url(../../images/1080x1920/spinner-light.gif);
+  background-image: url(../../images/1080x1920/header_loading.png);
+  border-width: 0px;
+  width: 107px;
+  height: 107px;
+}
+.sun .moon-icon.moon-icon-button.moon-loading-icon-button.disabled {
+  opacity: 1.0;
 }
 .sun .moon-icon.moon-icon-button.active,
 .sun .moon-icon.moon-icon-button.pressed,
-.sun .moon-icon.moon-icon-button.spotlight.pressed,
-.sun .moon-icon.moon-icon-button.spotlight:active {
+.sun .moon-icon.moon-icon-button.spotlight.pressed {
   background-position: 0px;
 }
 /* InputDecorator.css */
@@ -510,6 +531,7 @@
 .sun.moon-popup {
   font-family: "MuseoSans 500";
   background-color: #d9d9d9;
+  max-height: 90%;
 }
 .sun.moon-popup.moon-dark-gray * {
   color: #4b4b4b;
@@ -706,11 +728,16 @@
 }
 .sun .sun-header {
   color: #dddddd;
-  height: 187px;
+  height: 181px;
   border-color: #404040;
-  border: 0px;
+  border-top: 0px;
+  border-bottom: 6px solid #b5b5b5;
   margin: 0px 20px 1px 20px;
   min-width: 466px;
+}
+.sun .sun-header.sun-loading-header {
+  height: 187px;
+  border: 0px;
 }
 .sun .sun-header-title {
   font-family: "Miso";
@@ -721,10 +748,11 @@
   font-size: 150pt;
   line-height: 141px;
   overflow: hidden;
-  margin: 0px 0px 0px 27px;
+  margin: 0px 0px 0px 20px;
 }
 .sun-arrow-header .sun-header-title {
-  padding-left: 65px;
+  padding-left: 70px;
+  margin-left: 15px;
 }
 .sun .sun-two-lines-header .sun-header-title {
   font-family: "Miso";
@@ -744,13 +772,14 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
-  padding-left: 27px;
+  padding-left: 20px;
   color: #999999;
   height: 68px;
   overflow: hidden;
 }
 .sun-arrow-header .sun-header-title-below {
-  padding-left: 92px;
+  padding-left: 70px;
+  margin-left: 15px;
 }
 .sun-arrow-icon {
   position: absolute;
@@ -764,7 +793,7 @@
   margin-right: 40px;
   padding: 38px 0px 31px;
 }
-.sun-header-client > * {
+.sun-header-client > *:not(:first-child) {
   position: relative;
   margin-left: 30px;
 }
@@ -775,10 +804,35 @@
   margin: 0px;
   width: 100%;
   height: 6px;
-  background-color: #b5b5b5;
+  background-color: #404040;
 }
 .sun .sun-header .moon-progress-bar-bar {
   margin-top: -6px;
+}
+.sun .sun-header .enyo-fittable-columns-layout > * {
+  margin: 0px;
+}
+.sun .sun-header .enyo-fittable-columns-layout > *:first-child {
+  position: relative;
+}
+.sun-header-title-mask {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 100%;
+  width: 90px;
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, transparent), color-stop(1, #000000));
+  background-image: -webkit-linear-gradient(left, transparent, #000000);
+  background-image: -moz-linear-gradient(left, transparent, #000000);
+  background-image: -ms-linear-gradient(left, transparent, #000000);
+  background-image: -o-linear-gradient(left, transparent, #000000);
+}
+.sun .sun-header .sun-header-loading-info {
+  font-family: "MuseoSans 500";
+  font-size: 48pt;
+  color: #999999;
+  padding-top: 77px;
+  margin-right: 20px;
 }
 /* Accordion.css */
 .sun .moon-accordion-client .moon-item {
@@ -828,6 +882,30 @@
   top: 6px;
   right: 5px;
   width: 10px;
+}
+/* SimplePicker.css */
+.sun-simple-picker > * {
+  display: inline-block;
+  vertical-align: middle;
+  height: 228px;
+}
+.sun .sun-simple-picker-button {
+  background-color: transparent;
+}
+.sun .sun-simple-picker-item {
+  line-height: 228px;
+  height: 228px;
+  width: 630px;
+  max-width: 630px;
+  font-family: "MuseoSans 700";
+  font-size: 80px;
+}
+.sun .sun-simple-picker-button.right {
+  transform: rotate(180deg) translateZ(0px);
+  -o-transform: rotate(180deg) translateZ(0px);
+  -ms-transform: rotate(180deg) translateZ(0px);
+  -moz-transform: rotate(180deg) translateZ(0px);
+  -webkit-transform: rotate(180deg) translateZ(0px);
 }
 /* devider.css */
 .sun .moon-divider {
@@ -1394,5 +1472,10 @@
   letter-spacing: -0.04em;
 }
 .sun-divider-border {
-  border-bottom: 2px solid #b5b5b5;
+  border-bottom: 2px solid #404040;
+}
+.sun-header-loading-info-text {
+  font-family: "MuseoSans 500";
+  font-size: 48pt;
+  color: #999999;
 }

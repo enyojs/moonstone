@@ -168,6 +168,7 @@
 
 /* Individual widget CSS */
 @import "Button.less";
+@import "CalendarPicker.less";
 @import "CheckBox.less";
 @import "CheckBoxItem.less";
 @import "IconButton.less";
@@ -181,6 +182,7 @@
 @import "Header.less";
 @import "Accordion.less";
 @import "Scroller.less";
+@import "SimplePicker.less";
 @import "Divider.less";
 @import "ListItem.less";
 @import "Input.less";
@@ -223,5 +225,10 @@
 	// line-height: @moon-body-line-height;
 }
 .sun-divider-border {
-	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
+	border-bottom: @moon-divider-border-width solid @sun-divider-border-color;
+}
+.sun-header-loading-info-text {
+	font-family: @sun-sub-header-font-family;
+	font-size: @sun-header-loading-info-size;
+	color: @sun-listitem-font-color-text-normal;
 }
