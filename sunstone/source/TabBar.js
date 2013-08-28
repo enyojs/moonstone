@@ -8,7 +8,7 @@ enyo.kind({
 	vertical: "hidden",	
 	touchOverscroll: false,
 	published: {
-		withIcon: false	
+		withIcon: false,		
 	},	
 	//* @protected
 	tabItemComponents: [],

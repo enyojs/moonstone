@@ -13,7 +13,8 @@ enyo.kind({
 	name: "sun.TabItem",
 	kind: "moon.SelectableItem",
 	classes: "sun-tabItem",	
-	spotlightPosition: "none",	
+	spotlightPosition: "none",
+	//spotlightOverlay: true,
 	handlers: {
 		ondown: "touchDown",
 		onup: "touchUp",		
