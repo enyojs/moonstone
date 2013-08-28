@@ -1,3 +1,11 @@
+/* WARNING: This is a generated file for backward-compatibility.  Most      */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
+/* is commented out in your debug.html, and run deploy.sh/bat using the     */
+/* '-c' flag to disable LESS compilation.  This will force the loader and   */
+/* minifier to fall back to using CSS files in place of the same-name       */
+/* LESS file.                                                               */
+
 /* ---------------------------------------*/
 /* Moonstone-mobile default parameters defined here */
 /* App */
@@ -66,6 +74,8 @@
 /* Pickers */
 /* ---------------------------------------*/
 /* Scroller */
+/* ---------------------------------------*/
+/* Tab */
 /* ---------------------------------------*/
 /* DropDown */
 /* ---------------------------------------*/
@@ -1171,6 +1181,88 @@
   text-align: center;
   border-radius: 10px;
 }
+/* TabItem.css */
+.sun-tabItem.moon-item {
+  height: 150px;
+  max-width: 432px;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px;
+  background-color: #bababa;
+  font-family: "Miso";
+  font-size: 88pt;
+  font-weight: bold;
+}
+.sun-tabItem .moon-selectableItem-item {
+  margin: 20px 0px 20px 0px;
+  padding: 0px 40px 0px 40px;
+  height: 110px;
+  border-right: 4px solid #646464;
+  border-bottom: 0px;
+}
+.sun-tabItem .moon-marquee-text {
+  text-overflow: clip;
+}
+.sun-tabItem.moon-item.active {
+  border-bottom: 12px solid #ff2f7d;
+  height: 138px;
+  transition: border-color 0.4s linear;
+  -webkit-transition: border-color 0.4s linear;
+  -moz-transition: border-color 0.4s linear;
+  -o-transition: border-color 0.4s linear;
+}
+.sun-tabItem .moon-selectableItem-item.moon-underline {
+  border-bottom: 0px;
+}
+.sun-tabItem .moon-selectableItem-item.moon-underline.moon-overlay {
+  border-bottom: 0px;
+  padding: 0px 40px 0px 40px;
+}
+.sun-tabItem.spotlight.none:not(.active) {
+  border-color: transparent;
+}
+.sun-tabItem.moon-item.touch-down {
+  background-color: #ff2f7d;
+}
+.sun-tabItem.icon .moon-selectableItem-item {
+  margin: 15px 0px 20px 0px;
+  padding: 0px 40px 0px 40px;
+  height: 185px;
+  border-right: 4px solid #646464;
+  border-bottom: 0px;
+}
+.sun-tabItem.icon {
+  height: 220px;
+}
+.sun-tabItem.icon img {
+  position: relative;
+  left: 50px;
+  bottom: 131px;
+}
+.sun-tabItem.icon .moon-marquee-clip {
+  position: relative;
+  top: 70px;
+}
+.sun-tabItem.icon.moon-item.active {
+  height: 208px;
+}
+/* TabBar.css */
+.sun-tabBar {
+  height: 160px;
+  background-color: #bababa;
+  margin: 0px;
+  display: block;
+  white-space: nowrap;
+}
+.sun-tabBar.icon {
+  height: 230px;
+}
+.sun-tabPanels {
+  padding: 0px;
+}
+.sun-tabPanels.enyo-fittable-rows-layout > * {
+  margin: 0px;
+}
 /*DropDown.css*/
 .sun-drop-down {
   font-family: "MuseoSans 300";
@@ -1179,11 +1271,11 @@
   font-style: normal;
   letter-spacing: -0.04em;
   min-height: 100px;
-  max-height: 280px;
-  min-width: 100px;
-  border-radius: 16px;
-  border: 12px solid rgba(140, 140, 140, 0.1);
-  color: #4b4b4b;
+  max-height: 580px;
+  min-width: 640px;
+  border-radius: 5px;
+  border: 5px solid rgba(255, 255, 255, 0.25);
+  background-color: #d9d9d9;
   padding: 20px;
   background-clip: padding-box;
   -webkit-background-clip: padding-box;
