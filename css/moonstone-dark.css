@@ -2259,6 +2259,7 @@
 .moon-panel-body {
   overflow: hidden;
   position: relative;
+  margin-left: 10px;
 }
 .moon-panel-mini-header {
   position: absolute;
