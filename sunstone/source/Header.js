@@ -62,11 +62,8 @@ enyo.kind({
 	},
 	headerLeftTapped: function() {
 		if (this.getArrowIconDisable() == false) {
-		this.doHeaderLeftTapped();
-
-			return false;
-		} else {
-			return true;
+			this.doHeaderLeftTapped();
 		}
+		return true;
 	}
 });
