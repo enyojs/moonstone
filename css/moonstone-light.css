@@ -3469,7 +3469,7 @@ body .enyo-fit.panels-50-percent-scrim,
   display: block;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-  background-position: 0px -42px;
+  background-position: 0px -32px;
   border: 4px solid #ff2f7d;
   background-color: #ffffff;
 }
@@ -3480,10 +3480,15 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
   position: absolute;
+  width: 32px;
+  height: 32px;
   top: 50%;
   left: 50%;
   margin-top: -21px;
   margin-left: -21px;
+}
+.moon-selection-overlay-support-checkbox.moon-icon.moon-icon-button:active:hover {
+  background-position: 0 -32px;
 }
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;
