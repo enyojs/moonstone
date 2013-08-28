@@ -48,6 +48,7 @@ enyo.kind({
 		unit: "sec"
 	},
 	indexhash: null,
+	firstflow: true,
 
 
 	//* @protected
@@ -61,11 +62,11 @@ enyo.kind({
 			{classes: "moon-scroll-picker-overlay-right"},
 			{classes: "moon-scroll-picker-overlay-right-border"}
 		]},
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button", content: "<", ontap: "previous"},
+		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button", content: ">", ontap: "next"}
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -73,8 +74,6 @@ enyo.kind({
 		{from: ".disabled", to: ".$.buttonRight.disabled"},
 		{from: ".$.client.index",   to: ".index"}
 	],
-
-
 	//* @public
 
 	//* Cycles the selected item to the one before the currently selected item.
@@ -150,12 +149,15 @@ enyo.kind({
 			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
 				width = Math.max(width, c$[i].getBounds().width);
 			}
+			if (this.firstflow) {
+				width += 16; // cushion
+				this.firstflow = false;
+			}
 			this.$.client.setBounds({width:width});
 			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
 				c$[i].setBounds({width:width});
 			}
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
 	},
 	transitionStart: function(inSender, inEvent) {
