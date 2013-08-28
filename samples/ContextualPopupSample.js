@@ -26,19 +26,8 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 45%;", components: [
 			{content: "Wide"},
-<<<<<<< HEAD
-			{kind: "moon.ContextualPopup", classes: "moon-6h moon-1v",
-				components: [
+			{kind: "moon.ContextualPopup", classes: "moon-6h moon-1v", components: [
 					{kind: "moon.Scroller", classes: "enyo-fill", components:[
-=======
-			{
-				kind: "moon.ContextualPopup",
-				classes: "moon-6h moon-1v",
-				components: [{
-					kind: "moon.Scroller",
-					classes: "enyo-fill",
-					components:[
->>>>>>> 68f3a0e5eff11ad0e4874ffcdb89dcc78b845b2e
 						{content:"testing 1"},
 						{content:"testing 2"}
 					]
