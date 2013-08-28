@@ -8,80 +8,43 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
 			{kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
-				{
-					action: "category",
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.CheckboxItem", checked:true},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"}
-						]}
-					]
-				},
-				{
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.ToggleItem"},
-							{content:"Comedy", kind:"moon.ToggleItem"},
-							{content:"Drama", kind:"moon.ToggleItem"}
-						]}
-					]
-				}
-			]},
-			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"./assets/icon-list.png", listActions: [
-				{
-					action: "category",
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.CheckboxItem", checked:true},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"}
-						]}
-					]
-				},
-				{
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.ToggleItem"},
-							{content:"Comedy", kind:"moon.ToggleItem"},
-							{content:"Drama", kind:"moon.ToggleItem"}
-						]}
-					]
-				}
+				{kind: "FittableRows", action: "category", components: [
+					{kind: "moon.Divider", content:"Category"},
+					{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+						{content:"Action", kind:"moon.CheckboxItem", checked:true},
+						{content:"Comedy", kind:"moon.CheckboxItem"},
+						{content:"Drama", kind:"moon.CheckboxItem"},
+						{content:"Action", kind:"moon.CheckboxItem"},
+						{content:"Comedy", kind:"moon.CheckboxItem"},
+						{content:"Drama", kind:"moon.CheckboxItem"},
+						{content:"Action", kind:"moon.CheckboxItem"},
+						{content:"Comedy", kind:"moon.CheckboxItem"},
+						{content:"Drama", kind:"moon.CheckboxItem"},
+						{content:"Action", kind:"moon.CheckboxItem"},
+						{content:"Comedy", kind:"moon.CheckboxItem"},
+						{content:"Drama", kind:"moon.CheckboxItem"},
+						{content:"Action", kind:"moon.CheckboxItem"},
+						{content:"Comedy", kind:"moon.CheckboxItem"},
+						{content:"Drama", kind:"moon.CheckboxItem"},
+						{content:"Action", kind:"moon.CheckboxItem"},
+						{content:"Comedy", kind:"moon.CheckboxItem"},
+						{content:"Drama", kind:"moon.CheckboxItem"}
+					]}
+				]},
+				{kind: "FittableRows", components: [
+					{kind: "moon.Divider", content:"Category"},
+					{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+						{content:"Action", kind:"moon.ToggleItem"},
+						{content:"Comedy", kind:"moon.ToggleItem"},
+						{content:"Drama", kind:"moon.ToggleItem"}
+					]}
+				]}
 			]}
 		]},
 		{tag: "br"},
 		{kind: "moon.Divider", content: "List Action Event"},
 		{name: "console", content: "Event"}
 	],
-	names: [],
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
 			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
