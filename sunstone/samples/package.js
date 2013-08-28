@@ -16,6 +16,7 @@ enyo.depends(
 	"ListItemSample.css",
 	"ListItemSample.js",
 	"PanelsWithCardOverlayArrangerSample.js",
+	"PanelsWithDrawerSample.js",
 	"PopupBasicPickerSample.js",
 	"PopupSample.js",
 	"PopupTimePicker.js",

@@ -23,7 +23,7 @@ enyo.depends(
 	"Header.js",
 	"Accordion.js",
 	"Scroller.js",
-    "ListItem.js",
+	"ListItem.js",
 	"Panel.js",
 	"Divider.js",	
 	"TabItem.js",
@@ -34,5 +34,6 @@ enyo.depends(
 	"DropDownDecorator.js",
 	"OptionItem.js",
 	"LoadingHeader.js",
-	"SimplePicker.js"
+	"SimplePicker.js",
+	"DrawerPanel.js"
 );

@@ -1591,3 +1591,47 @@
   font-size: 48pt;
   color: #999999;
 }
+.sun-panel {
+  -webkit-transform: scale3d(1,1,1);
+  overflow: visible;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background-color: #000000;
+}
+.sun-panel-content-wrapper {
+  -webkit-transform: scale3d(1,1,1);
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100%;
+}
+.sun-panel-body {
+  overflow: hidden;
+  position: relative;
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+}
+.sun-panel-drawer {
+  overflow: visible;
+  position: absolute;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  top: 0 !important;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background-color: rgba(190, 190, 190, 1);
+  font-family: "Miso";
+  font-size: 140px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+}
