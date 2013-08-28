@@ -2529,21 +2529,27 @@ body .enyo-fit.panels-50-percent-scrim,
   box-sizing: border-box;
 }
 .moon-popup-close {
+  background: url(../images/LightTheme_Icons/ClosePopup_Icon.png);
+  background-repeat: no-repeat;
+  background-position: 0px -32px;
   float: right;
   position: absolute;
   right: 0px;
-  top: 0px;
+  width: 32px;
+  height: 32px;
+  top: 2px;
 }
 .moon-popup-close.spotlight {
-  background: #ff2f7d;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-color: #ff2f7d;
 }
-.moon-popup-close::after {
-  content: "\2716";
-  font-size: 25px;
-  position: relative;
-  top: 5px;
-  left: 10px;
-  color: #4b4b4b;
+.moon-icon.moon-popup-close.active,
+.moon-icon.moon-popup-close.pressed,
+.moon-icon.moon-popup-close.spotlight.pressed,
+.moon-icon.moon-popup-close.spotlight:active {
+  background-position: 0px -32px;
+  background-color: #ededed;
 }
 /* Dialog.css */
 .moon-dialog-title {
