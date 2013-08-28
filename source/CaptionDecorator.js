@@ -156,7 +156,7 @@ enyo.kind({
 	},
 	//* Position caption at right edge of _this.$.client_
 	positionCaptionAtRightEdge: function(inBounds, inClientBounds, inCaptionBounds) {
-		var position = inBounds.width - ((inBounds.width - inClientBounds.width)/2) + inCaptionBounds.marginLeft;
+		var position = inBounds.width - ((inBounds.width - inClientBounds.width)/2);
 		this.getCaptionControl().applyStyle("left", position + "px");
 	},
 	//* Position caption at top edge of _this.$.client_
@@ -166,7 +166,7 @@ enyo.kind({
 	},
 	//* Position caption at bottom edge of _this.$.client_
 	positionCaptionAtBottomEdge: function(inBounds, inClientBounds, inCaptionBounds) {
-		var position = inBounds.height - ((inBounds.height - inClientBounds.height)/2) + inCaptionBounds.marginTop;
+		var position = inBounds.height - ((inBounds.height - inClientBounds.height)/2);
 		this.getCaptionControl().applyStyle("top", position + "px");
 	},
 	//* Cache result from _this.getBounds()_ call and save in _this.decoratorBounds_
