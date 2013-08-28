@@ -101,5 +101,5 @@ enyo.ready(function() {
                 model: sampleModel
             }
         ]
-    });  
+    });
 });

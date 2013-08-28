@@ -50,11 +50,11 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    kind: "moon.Divider", 
+                    kind: "moon.Divider",
                     content: "More"
                 },
                 {
-                    kind: "Group", 
+                    kind: "Group",
                     components: [
                         {kind: "moon.SelectableItem", content: "Lyrics"},
                         {kind: "moon.SelectableItem", content: "Artist"},

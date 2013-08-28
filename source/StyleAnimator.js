@@ -41,14 +41,14 @@ enyo.kind({
 			instructions:   inProps.instructions,
 			state:          "paused"
 		};
-		
+
 		this.animations.push(animation);
 
 		return animation;
 	},
 	//* @public
 	reset: function (inName) {
-		var animation = this.getAnimation(inName);
+		this.getAnimation(inName);
 		this._reset(inName);
 	},
 	//* @public
@@ -58,7 +58,7 @@ enyo.kind({
 		if (!animation) {
 			return;
 		}
-		
+
 		animation.startValues = this.findStartValues(inName);
 		this.applyStartValues(animation.startValues);
 		this.cacheStartValues(animation.startValues);
@@ -233,7 +233,7 @@ enyo.kind({
 	},
 	startAnimation: function(inName) {
 		var animation = this.getAnimation(inName);
-		
+
 		this.applyTransitions(inName, 0);
 		animation.state = "playing";
 		animation.timeElapsed = 0;
@@ -308,14 +308,14 @@ enyo.kind({
 			animation,
 			elapsed,
 			i;
-			
+
 		for (i = 0; (animation = this.animations[i]); i++) {
 			if (animation.state === "paused") {
 				continue;
 			}
-			
+
 			elapsed = now - animation.startTime;
-			
+
 			// If complete, bail
 			if (elapsed > animation.duration) {
 				animation.percentElapsed = 100;
@@ -328,7 +328,7 @@ enyo.kind({
 			animation.percentElapsed = Math.round(elapsed*100/animation.duration);
 			this.applyTransitions(animation.name, Math.round((elapsed/animation.duration)*100));
 			playingAnimations = true;
-			
+
 			// Bubble step event
 			this.doStep({animation: animation});
 		}
@@ -340,7 +340,7 @@ enyo.kind({
 	//* @protected
 	completeAnimation: function(inName) {
 		var animation = this.getAnimation(inName);
-		
+
 		this._pause(inName);
 		this._reset(inName);
 		this.doComplete({animation: animation});

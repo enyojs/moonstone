@@ -1,11 +1,16 @@
-
 enyo.kind({
 	name: "moon.sample.VideoPlayerInlineSample",
 	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample",
 	fit: true,
 	components: [
 		{kind: "enyo.Spotlight"},
-		{name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", inline:true, classes:"moon-8h", autoplay:true,
+		{
+			name: "player",
+			kind: "moon.VideoPlayer",
+			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			inline:true,
+			classes:"moon-8h",
+			autoplay:true,
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", fit: true, components: [
 					{
@@ -43,5 +48,5 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 			]
 		}
-		]
+	]
 });

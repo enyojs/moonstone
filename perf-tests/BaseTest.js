@@ -3,9 +3,11 @@ enyo.kind({
 	classes: "enyo-fit moon",
 	components: [
 		{
-			kind: "enyo.FittableColumns", noStretch: true, components: [
+			kind: "enyo.FittableColumns",
+			noStretch: true,
+			components: [
 				{name: "client", fit: true},
-				{kind: "Button", content: "Stop", ontap: "toggle", style: "width: 4em;"},
+				{kind: "Button", content: "Stop", ontap: "toggle", style: "width: 4em;"}
 			]
 		},
 		{name: "meter", kind: "enyo.FPSMeter"}
@@ -18,15 +20,15 @@ enyo.kind({
 		} else {
 			this.running = true;
 			this.$.button.set("content", "Stop");
-			this.continue();
+			this.nextTest();
 		}
 	},
-	continue: function() {
+	nextTest: function() {
 		// Override this in subkinds
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.$.meter.run();
-		this.continue();
+		this.nextTest();
 	}
 });

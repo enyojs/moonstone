@@ -61,7 +61,7 @@ enyo.depends(
 	"TimePickerSample.js",
 	"TimePickerSample.css",
 	"AlwaysViewingPanelsSample.js",
-	"AlwaysViewingPanelsSample.css",	
+	"AlwaysViewingPanelsSample.css",
 	"ActivityPanelsSample.js",
 	"ActivityPanelsSample.css",
 	"PanelsWithCardArrangerSample.js",

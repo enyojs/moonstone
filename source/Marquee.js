@@ -100,7 +100,7 @@ enyo.kind({
 		this.doMarqueeEnded();
         return true;
 	},
-	//*@protected 
+	//*@protected
 	allowHtmlTextChanged: function() {
 		if(this.marqueeControl) {
 			this.marqueeControl.setAllowHtml(this.allowHtmlText);
@@ -114,7 +114,8 @@ enyo.kind({
         }
 	},
 	calcMarqueeDistance: function() {
-		return this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
+		this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
+		return this.marqueeDistance;
 	},
 	requestMarquee: function(inSender, inEvent) {
 		enyo.mixin(this, inEvent);
@@ -145,7 +146,7 @@ moon.MarqueeSupport = {
 		onMarqueeEnded: "_marqueeEnded",
 		onresize: "_marqueeResize"
 	},
-	create: enyo.super(function (sup) {
+	create: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
 			//this.log(this.id);
@@ -160,7 +161,7 @@ moon.MarqueeSupport = {
 	startMarquee: function() {
 		this.marqueeWaitList = [];
 		this.waterfall("onRequestMarquee", {
-			marqueePause: this.marqueePause, 
+			marqueePause: this.marqueePause,
 			marqueeSpeed: this.marqueeSpeed
 		});
 		if (this.marqueeWaitList.length > 0) {
