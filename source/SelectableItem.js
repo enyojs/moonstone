@@ -1,7 +1,7 @@
 /**
 	_moon.SelectableItem_ is a <a href="#moon.Item">moon.Item</a> with a flag to
 	track selection state.  It is especially useful within the context of the
-	<a href="#enyo.Group">Enyo Group API</a>. 
+	<a href="#enyo.Group">Enyo Group API</a>.
 
 	When selected, the item appears as underlined.
 
@@ -12,7 +12,7 @@
 enyo.kind({
 	name: "moon.SelectableItem",
 	kind: "moon.Item",
-	classes: "moon-selectableItem",
+	classes: "moon-selectable-item",
 	events: {
 	//* Fires when the SelectableItem is tapped.
 		onActivate: ""
@@ -28,27 +28,32 @@ enyo.kind({
 		//* the group
 		active: false
 	},
-	components: [	// This client allow underline to fit the content
-		{name: "client", classes: "moon-selectableItem-item"}
+	components: [
+		{name: "indicator", classes: "moon-selectable-item-indicator"},
+		{name: "client", classes: "moon-selectable-item-client"}
 	],
+	rendered: function() {
+		this.inherited(arguments);
+		this.activeChanged();
+	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
 	},
-	tap: function(inSender, e) {
-		if (!this.disabled) {
-			this.setActive(!this.getActive());
-			this.$.client.addRemoveClass("moon-overlay", this.getActive());
-			this.bubble("onchange");
+	tap: function(inSender, inEvent) {
+		if (this.disabled) {
+			return true;
 		}
-		return !this.disabled;
+		
+		this.setActive(!this.getActive());
+		this.bubble("onchange");
 	},
 	selectedChanged: function() {
-		this.$.client.removeClass("moon-overlay");
-		this.setNodeProperty("selected", this.selected);
-		this.setAttribute("selected", this.selected ? "selected" : "");
-		this.setActive(this.selected);
-		this.$.client.addRemoveClass("moon-underline", this.selected);
-		this.render();
+		var selected = this.getSelected();
+		this.stopMarquee();
+		this.addRemoveClass("selected", selected);
+		this.setNodeProperty("selected", selected);
+		this.setAttribute("selected", selected ? "selected" : "");
+		this.setActive(selected);
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called

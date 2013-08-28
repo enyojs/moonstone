@@ -1,38 +1,17 @@
 .moon-video-inline-control {
 	width: 100%;
 	height: 80px;
-	background-color: rgba(0,0,0,0.5);
+	background-color: @moon-video-inline-bg-color;
 	position: relative;
-	display: block;
 }
 
-/* ---- Fullscreen style ---- */
-:-webkit-full-screen.moon-video-player .moon-video-inline-control {
-	display: none;
-}
-:-moz-full-screen.moon-video-player .moon-video-inline-control {
-	display: none;
-}
-:-ms-full-screen.moon-video-player .moon-video-inline-control {
-	display: none;
-}
-:-o-full-screen.moon-video-player .moon-video-inline-control {
-	display: none;
-}
-:-full-screen.moon-video-player .moon-video-inline-control {
-	display: none;
-}
-body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
-	display: none;
-}
 
-.moon-video-player .moon-icon-button.moon-video-inline-control-play-pause {
+.moon-video-inline-control .moon-video-inline-control-play-pause {
 	position: absolute;
 	width: 80px;
-	height:80px;
+	height: 80px;
 	bottom: 0px;
 	left: 0px;
-	z-index: 5;
 }
 
 .moon-video-inline-control-fullscreen {
@@ -40,9 +19,8 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
 	bottom: 0px;
 	right: 0px;
 	width: 80px;
-	height:80px;
+	height: 80px;
 	background-color: transparent;
-	z-index: 5;
 }
 
 .moon-video-inline-control-text {
@@ -50,9 +28,8 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
 	bottom: 20px;
 	left: 100px;
 	background-color: transparent;
-	color: white;
+	color: @moon-video-text-color;
 	font-size: 32px;
-	z-index: 5;
 }
 .moon-video-inline-control-text > * {
 	display: inline;
@@ -63,13 +40,25 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
 	bottom: 0px;
 	left: 0px;
 	width: 0%;
-	height:80px;
-	background-color: #00d4b3;
-	z-index: 2;
+	height: 80px;
+	background-color: @moon-video-progress-bg-color;
 	transition: width 0.1s linear;
 	-webkit-transition: width 0.1s linear;
 	-moz-transition: width 0.1s linear;
 }
+
+.moon-video-inline-control-bgprogress {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 0%;
+	height: 80px;
+	background-color: @moon-video-progress-bgprogress-bg-color;
+	transition: width 0.1s linear;
+	-webkit-transition: width 0.1s linear;
+	-moz-transition: width 0.1s linear;
+}
+
 
 .moon-video-inline-control .moon-icon-button {
 	width: 80px;
@@ -80,6 +69,7 @@ body .enyo-fullscreen.moon-video-player .moon-video-inline-control {
 	background-position: 0px 0px;
 }
 .moon-video-inline-control .moon-icon-button.active,
+.moon-video-inline-control .moon-icon-button.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight,
 .moon-video-inline-control .moon-icon-button.spotlight.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight:active {

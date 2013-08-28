@@ -1,6 +1,6 @@
 enyo.kind({
     name: "moon.sample.AlwaysViewingPanelsSample",
-    classes: "moon enyo-fit",
+    classes: "moon enyo-fit enyo-unselectable",
     components: [
         {kind: "enyo.Spotlight"},
         {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
@@ -11,43 +11,43 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Second Panel",
-            	components: [
+			{title: "Second Panel",
+				components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Third Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
+			{title: "Third Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Fourth", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes:"moon-5h", classes: "moon-7h", components: [
+            {title: "Fourth", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Fifth", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
+			{title: "Fifth", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Sixth", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes:"moon-5h", classes: "moon-7h", components: [
+            {title: "Sixth", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-            {title: "Seventh", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
+			{title: "Seventh", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
@@ -55,9 +55,9 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]}
 		]}
-    ],
-    next: function(inSender, inEvent) {
-    	this.$.panels.next();
-    	return true;
-    }
+	],
+	next: function(inSender, inEvent) {
+		this.$.panels.next();
+		return true;
+	}
 });

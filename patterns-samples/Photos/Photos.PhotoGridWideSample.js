@@ -20,9 +20,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components: [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components: [
                         {
@@ -33,8 +33,7 @@ enyo.kind({
                                 {
                                     kind: "enyo.Image",
                                     classes: "moon-3h moon-1v",
-                                    bindFrom: "imgSrc",
-                                    bindTo: "src"
+									bindings: [{from: ".model.imgSrc", to: ".src"}]
                                 }
                             ]
                         }
@@ -45,7 +44,7 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 
@@ -64,7 +63,7 @@ enyo.ready(function(){
             {imgSrc: "../assets/default-movie.png"},
             {imgSrc: "../assets/default-movie.png"},
             {imgSrc: "../assets/default-movie.png"}
-        ])        
+        ])
     });
 
 //  Application to render sample

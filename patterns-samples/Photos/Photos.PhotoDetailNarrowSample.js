@@ -8,7 +8,7 @@ enyo.kind({
     title: "PHOTO NAME",
     titleAbove: "03",
     titleBelow: "2013-04-08",
-    
+
     headerComponents : [
         {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
         {kind: "moon.IconButton", src: "../assets/icon-download.png"},
@@ -20,11 +20,11 @@ enyo.kind({
             name: "photoDetail",
             kind: "enyo.Image",
             classes: "moon-8h moon-3v",
-            src: ""            
+            src: ""
         }
     ],
     bindings: [
-        {from: ".controller.src", to: "$.photoDetail.src"}
+        {from: ".controller.src", to: ".$.photoDetail.src"}
     ]
 });
 
