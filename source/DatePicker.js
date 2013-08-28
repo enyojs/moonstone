@@ -80,28 +80,54 @@ enyo.kind({
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.toLowerCase().split("");
 		var doneArr = [];
-		var o,f,l;
+		var o,f,l,c;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {
-				switch (o) {
-				case 'd':
-					this.createComponent(
-						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1,
-							max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
-					break;
-				case 'm':
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
-					break;
-				case 'y':
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear});
-					break;
-				default:
-					break;
-				}
+			if (doneArr.indexOf(o) < 0) {				
 				doneArr.push(o);
 			}
 		}
+
+    	for(f = 0, l = doneArr.length; f < l; f++) {
+      		o = doneArr[f];
+      		if (f == 0) {
+        		c = " first";
+      		} else if (f == doneArr.length - 1) {
+        		c = " last";
+      		} else {
+        		c = "";  
+      		}
+
+			switch (o) {
+			case 'd':
+				this.createComponent(
+					{kind:"enyo.Control", name: "dayWrapper", classes: "moon-date-picker-wrap d" + c, components:[
+						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1,
+						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()}
+					]});
+				break;
+			case 'm':
+				this.createComponent(
+					{kind:"enyo.Control", name: "monthWrapper", classes: "moon-date-picker-wrap m" + c, components:[
+						{kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1}
+					]});
+				break;
+			case 'y':
+				this.createComponent(
+					{kind:"enyo.Control", name: "yearWrapper", classes: "moon-date-picker-wrap y" + c, components:[
+						{kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear}
+					]});
+				break;
+			default:
+				break;
+			}
+    	}
+
+    	this.$.dayWrapper.createComponent({ kind:"enyo.Control", content : "day", classes: "moon-date-picker-label"});
+    	this.$.monthWrapper.createComponent({ kind:"enyo.Control", content : "month", style: "display:block;", classes: "moon-date-picker-label"});
+    	this.$.yearWrapper.createComponent({ kind:"enyo.Control", content : "year", style: "display:block;", classes: "moon-date-picker-label"});
+ 
+
 		this.pickersAreSetUp = true;
 	},
 	parseDate: function() {
