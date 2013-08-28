@@ -1315,15 +1315,22 @@
   float: right;
 }
 /* Small header styling */
-.moon-small-header {
-  height: 260px;
+.moon-header.moon-small-header {
+  height: 240px;
 }
-.moon-small-header .moon-header-title-above {
-  height: 0;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  overflow: hidden;
-  opacity: 0;
+.moon-small-header .moon-header-title {
+  line-height: 0.96em;
+  position: relative;
+  left: 58px;
+  top: -48px;
+}
+.moon-small-header .moon-header-title-below {
+  position: relative;
+  top: -48px;
+}
+.moon-small-header .moon-header-sub-title-below {
+  position: relative;
+  top: -48px;
 }
 .hidden-title .moon-header-title,
 .hidden-title .moon-header-title-below,
