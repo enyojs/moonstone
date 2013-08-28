@@ -69,13 +69,13 @@ enyo.kind({
 		this.$.list.controller.remove(this.$.list.get("selected"));
 		this.cancel();
 	},
-	rendered: enyo.super(function (sup) {
+	rendered: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			var c = new enyo.Collection();
 			for (var i=0, r=[]; i<25; ++i) {
 				r.push({coverSource: "../../assets/default-movie.png", title: "MOVIE NAME " + i, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-					"Integer sit amet dolor aliquam, elementum eros eget, lobortis orci. Aliquam ac risus urna. Nullam imperdiet neque sed diam posuere, " + 
+					"Integer sit amet dolor aliquam, elementum eros eget, lobortis orci. Aliquam ac risus urna. Nullam imperdiet neque sed diam posuere, " +
 					"accumsan malesuada erat pellentesque. Sed pretium lobortis magna, ut pellentesque tellus posuere in. Nunc tristique fermentum commodo. " +
 					"Nullam rhoncus elit mi, at laoreet tortor euismod non. Proin at aliquet enim."});
 			}
