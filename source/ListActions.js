@@ -60,12 +60,13 @@ enyo.kind({
 		}
 	},
 	createListActionComponents: function() {
-		var listAction, listActionComponent, i;
-		
-		for (i = 0; (listAction = this.listActions[i]); i++) {
+		var listAction, listActionComponent,
+			isMultiple = this.listActions.length > 1,
+			i = isMultiple ? this.listActions.length - 1 : 0;
+		for (i; (listAction = this.listActions[i]); isMultiple ? i-- : i++) {
 			listAction.mixins = this.addListActionMixin(listAction);
 			listActionComponent = this.$.listActions.createComponent(listAction);
-			listActionComponent.addClass("moon-list-actions-menu");
+			listActionComponent.addClass(isMultiple ? "moon-list-actions-menu-multiple" : "moon-list-actions-menu-single");
 			this.listActionComponents.push(listActionComponent);
 		}
 		
@@ -176,6 +177,7 @@ enyo.kind({
 			if (optionGroup.layoutKind === "FittableRowsLayout") {
 				optionGroup.applyStyle("height", containerHeight + "px");
 			}
+			
 		}
 	},
 	//* Return the sum width of all of the _inControls_
@@ -276,7 +278,7 @@ enyo.kind({
 		}
 	},
 	getHeaderBounds: function() {
-		this.headerBounds = this.headerBounds || this.getParentHeaderNode().getBoundingClientRect();
+		this.headerBounds = this.headerBounds || this.getParentClientBound();
 		return this.headerBounds;
 	},
 	getClientBounds: function() {
@@ -287,8 +289,17 @@ enyo.kind({
 		this.containerBounds = this.containerBounds || this.$.listActionsClientContainer.getBounds();
 		return this.containerBounds;
 	},
-	getParentHeaderNode: function() {
-		return this.parent.parent.hasNode();
+	getParentClientBound: function() {
+		var pNode = this.parent.parent.hasNode(),
+			pBound = pNode.getBoundingClientRect(),
+			cHeight = pNode.clientHeight + pNode.clientTop,
+			cTop = pBound.top + pNode.clientTop;
+		if (pNode) {
+			return {left: pBound.left , top: cTop, width: pBound.width, height: cHeight};
+		}
+		else {
+			return null;
+		}
 	},
 	resetCachedValues: function() {
 		this.headerBounds = null;
