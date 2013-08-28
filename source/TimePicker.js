@@ -116,32 +116,59 @@ enyo.kind({
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {
-				switch (o){
-				case 'h': {
-						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)});
-						} else {
-							this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
-						}
-					}
-					break;
-				case 'm': {
-						this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
-					}
-					break;
-				case 'a': {
-						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
-						}
-					}
-					break;
-				default:
-					break;
-				}
+			if (doneArr.indexOf(o) < 0) {				
+				doneArr.push(o);
 			}
-			doneArr.push(o);
 		}
+
+		for(f = 0, l = doneArr.length; f < l; f++) {
+			o = doneArr[f];
+		
+			switch (o){
+			case 'h': {
+					if (this.meridiemEnable === true) {
+						this.createComponent(
+							{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
+								{kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)}
+							]}
+						);
+					} else {
+						this.createComponent(
+							{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
+								{kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()}
+							]}
+						);
+					}
+				}
+				break;
+			case 'm': {
+					this.createComponent(
+						{kind:"enyo.Control", name: "minWrapper", classes: "moon-date-picker-wrap", components:[
+							{kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()}
+						]}
+					);
+				}
+				break;
+			case 'a': {
+					if (this.meridiemEnable === true) {
+						this.createComponent(
+							{kind:"enyo.Control", name: "meridWrapper", classes: "moon-date-picker-wrap", components:[
+								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 }
+							]}
+						);
+					}
+				}
+				break;
+			default:
+				break;
+			}
+		
+		}
+
+		this.$.hourWrapper.createComponent({ kind:"enyo.Control", content : "hour", classes: "moon-date-picker-label"});
+    	this.$.minWrapper.createComponent({ kind:"enyo.Control", content : "min", style: "display:block;", classes: "moon-date-picker-label"});
+    	this.$.meridWrapper.createComponent({ kind:"enyo.Control", content : "meridiem", style: "display:block;", classes: "moon-date-picker-label"});
+
 		this.pickersAreSetUp = true;
 	},
 	parseTime: function() {
