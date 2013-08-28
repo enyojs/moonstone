@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
-			
+
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{name: "B Button", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 				{name: "Button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
@@ -14,7 +14,7 @@ enyo.kind({
 				{name: "Long Button", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Small Buttons:"},
 				{name: "Small B Button", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
 				{name: "Small Button", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},

@@ -14,12 +14,12 @@ enyo.kind({
             layoutKind: "FittableRowsLayout",
             fit: true,
             components: [
-                {                  
+                {
                     components: [
                         {kind: "moon.RadioItemGroup", components: [
                             {classes: "radio-button", content: "SUGGESTED SEARCH"},
                             {classes: "radio-button", content: "RECENT SEARCHES"}
-                        ]},               
+                        ]},
                         {kind: "moon.IconButton", classes: "icon-button-right", src: "../assets/trash-can-icon.png"}
                     ]
                 },

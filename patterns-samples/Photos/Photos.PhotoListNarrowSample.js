@@ -10,9 +10,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components : [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components : [
                         {
