@@ -24,7 +24,7 @@ GOTO :EOF
 :OK
 
 REM copy assets
-XCOPY %SOURCE%images\*.* %TARGET%\images\ /Q /E
-XCOPY %SOURCE%fonts\* %TARGET%\fonts\ /Q /E
+XCOPY %SOURCE%images %TARGET% /Q /E
+XCOPY %SOURCE%fonts %TARGET% /Q /E
 
 ENDLOCAL

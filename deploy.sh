@@ -10,11 +10,11 @@ if [ x$TARGET = x ]; then
 cat <<EOF
 Must supply target folder parameter, e.g.:
 
-  deploy.bat ../deploy/lib/moonstone
+  deploy.sh ../deploy/lib/moonstone
 EOF
 else
 	mkdir -p $TARGET/images/
-	cp -r $SOURCE/images/*.* $TARGET/images/
+	cp -r $SOURCE/images $TARGET
 	mkdir -p $TARGET/fonts/
-	cp -r $SOURCE/fonts/* $TARGET/fonts/
+	cp -r $SOURCE/fonts $TARGET
 fi
