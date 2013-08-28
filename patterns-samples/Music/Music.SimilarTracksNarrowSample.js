@@ -30,7 +30,7 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    kind: "enyo.Image",
                                                     style: "width: 126px; height: 126px;",
 													bindings: [
 														{from: ".model.coverUrl", to: ".src"}

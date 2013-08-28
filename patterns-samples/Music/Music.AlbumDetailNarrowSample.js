@@ -121,8 +121,8 @@ enyo.ready(function () {
         ],
         coverUrl: "http://placehold.it/200x200"
     };
-	
-	app = new enyo.Application({
+
+	var app = new enyo.Application({
 		controllers: [
 			{name: "album", kind: "moon.sample.music.AlbumDetailNarrowSampleController"}
 		],
@@ -135,7 +135,6 @@ enyo.ready(function () {
 			]
 		}
 	});
-	
+
 	app.controllers.album.set("model", new moon.sample.music.AlbumModel(mockData));
-	
 });

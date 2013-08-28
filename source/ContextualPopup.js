@@ -36,21 +36,35 @@ enyo.kind({
 	//* @protected
 	_spotlight: null,
 	floating:true,
-	//layout parameters
-	vertFlushMargin:0, //vertical flush layout margin
-	horizFlushMargin:0, //horizontal flush layout margin
-	widePopup:200, //popups wider than this value are considered wide (for layout purposes)
-	longPopup:200, //popups longer than this value are considered long (for layout purposes)
-	horizBuffer:16, //do not allow horizontal flush popups past spec'd amount of buffer space on left/right screen edge
+	
+	// Layout parameters
+	
+	//* Vertical flush layout margin
+	vertFlushMargin:0,
+	//* Horizontal flush layout margin
+	horizFlushMargin:0,
+	//* Popups wider than this value are considered wide (for layout purposes)
+	widePopup: 200,
+	//* Popups longer than this value are considered long (for layout purposes)
+	longPopup: 200,
+	//* Do not allow horizontal flush popups past spec'd amount of buffer space on left/right screen edge
+	horizBuffer: 16,
 	activator: null,
 	tools: [
 		{name: "client"},
-		{name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
+	},
+	//* Renders the contextual popup.
+	render: function() {
+		this.allowHtmlChanged();
+		this.contentChanged();
+		this.inherited(arguments);
+		this._spotlight = this.spotlight;
 	},
 	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
@@ -79,9 +93,7 @@ enyo.kind({
 
 		return {top: r.top + pageYOffset, left: r.left + pageXOffset, height: rHeight, width: rWidth};
 	},
-	/**
-		Dismisses popup if Escape keypress is detected.
-	*/
+	//* Dismisses popup if Escape keypress is detected
 	keydown: function(inSender, inEvent) {
 		if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
 			enyo.Spotlight.spot(this.activator);
@@ -94,13 +106,6 @@ enyo.kind({
 		if (this.downEvent.type !== "onSpotlightSelect") {
 			return this.inherited(arguments);
 		}
-	},
-	//* Renders the contextual popup.
-	render: function() {
-		this.allowHtmlChanged();
-		this.contentChanged();
-		this.inherited(arguments);
-		this._spotlight = this.spotlight;
 	},
 	closePopup: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this.activator);
@@ -127,7 +132,9 @@ enyo.kind({
 	//* Spotlights the first spottable control, if possible.
 	configSpotlightBehavior: function(spotChild) {
 		if (enyo.Spotlight.getChildren(this).length > 0) {
-			if (spotChild) enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			if (spotChild) {
+				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			}
 		} else if (!this.spotlightModal) {
 			this.activator.keepOpen = false;
 			this.spotlight = false;
@@ -149,9 +156,7 @@ enyo.kind({
 	spotSelect: function(inSender, inEvent) {
 		this.downEvent = inEvent;
 	},
-	/**
-		Checks whether to allow spotlight to move in a given direction.
-	*/
+	//* Checks whether to allow spotlight to move in a given direction.
 	spotChecker: function(inDirection) {
 		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
 		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
@@ -191,7 +196,6 @@ enyo.kind({
 	spotlightRight: function(inSender, inEvent) {
 		return this.spotChecker("RIGHT");
 	},
-	//*@protected
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
 	}

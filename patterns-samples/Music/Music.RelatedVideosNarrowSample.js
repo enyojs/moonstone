@@ -26,7 +26,7 @@ enyo.kind({
                                         {
                                             components: [
                                                 {
-                                                    kind: "enyo.Image", 
+                                                    kind: "enyo.Image",
                                                     style: "width: 170px; height: 126px; padding-right: 30px;",
 													bindings: [
 														{from: ".model.coverUrl", to: ".src"}
@@ -58,7 +58,7 @@ enyo.kind({
                 }
             ]
         }
-    ], 
+    ],
     bindings: [
         {from: ".controller.videos", to: ".$.videoInfo.controller"}
     ]
