@@ -169,18 +169,18 @@ enyo.kind({
 		;
 
 		switch (side) {
-		case "left":
-			x -= scrollDelta;
-			break;
-		case "top":
-			y -= scrollDelta;
-			break;
-		case "right":
-			x += scrollDelta;
-			break;
-		case "bottom":
-			y += scrollDelta;
-			break;
+			case "left":
+				x -= scrollDelta;
+				break;
+			case "top":
+				y -= scrollDelta;
+				break;
+			case "right":
+				x += scrollDelta;
+				break;
+			case "bottom":
+				y += scrollDelta;
+				break;
 		}
 
 		this._scrollTo(x, y);
@@ -199,47 +199,47 @@ enyo.kind({
 		;
 
 		switch (side) {
-		case "left":
-			val = this.scrollLeft - delta;
-			// When we hit the left, bounce and end scrolling
-			if (val <= -this.$.scrollMath.leftBoundary) {
-				this.setScrollLeft(-this.$.scrollMath.leftBoundary);
-				this.$.pageLeftControl.hitBoundary();
-			} else {
-				this.setScrollLeft(val);
-			}
-			break;
-		case "top":
-			val = this.scrollTop - delta;
-			// When we hit the top, bounce and end scrolling
-			if (val <= -this.$.scrollMath.topBoundary) {
-				this.setScrollTop(-this.$.scrollMath.topBoundary);
-				this.$.pageUpControl.hitBoundary();
-			} else {
-				this.setScrollTop(val);
-			}
-			break;
-		case "right":
-			val = this.scrollLeft + delta;
-			// When we hit the right, bounce and end scrolling
-			if (val >= -this.$.scrollMath.rightBoundary) {
-				this.setScrollLeft(-this.$.scrollMath.rightBoundary);
-				this.$.pageRightControl.hitBoundary();
-			} else {
-				this.setScrollLeft(val);
-			}
+			case "left":
+				val = this.scrollLeft - delta;
+				// When we hit the left, bounce and end scrolling
+				if (val <= -this.$.scrollMath.leftBoundary) {
+					this.setScrollLeft(-this.$.scrollMath.leftBoundary);
+					this.$.pageLeftControl.hitBoundary();
+				} else {
+					this.setScrollLeft(val);
+				}
+				break;
+			case "top":
+				val = this.scrollTop - delta;
+				// When we hit the top, bounce and end scrolling
+				if (val <= -this.$.scrollMath.topBoundary) {
+					this.setScrollTop(-this.$.scrollMath.topBoundary);
+					this.$.pageUpControl.hitBoundary();
+				} else {
+					this.setScrollTop(val);
+				}
+				break;
+			case "right":
+				val = this.scrollLeft + delta;
+				// When we hit the right, bounce and end scrolling
+				if (val >= -this.$.scrollMath.rightBoundary) {
+					this.setScrollLeft(-this.$.scrollMath.rightBoundary);
+					this.$.pageRightControl.hitBoundary();
+				} else {
+					this.setScrollLeft(val);
+				}
 
-			break;
-		case "bottom":
-			val = this.scrollTop + delta;
-			// When we hit the bottom, bounce and end scrolling
-			if (val >= -this.$.scrollMath.bottomBoundary) {
-				this.setScrollTop(-this.$.scrollMath.bottomBoundary);
-				this.$.pageDownControl.hitBoundary();
-			} else {
-				this.setScrollTop(val);
-			}
-			break;
+				break;
+			case "bottom":
+				val = this.scrollTop + delta;
+				// When we hit the bottom, bounce and end scrolling
+				if (val >= -this.$.scrollMath.bottomBoundary) {
+					this.setScrollTop(-this.$.scrollMath.bottomBoundary);
+					this.$.pageDownControl.hitBoundary();
+				} else {
+					this.setScrollTop(val);
+				}
+				break;
 		}
 
 		return true;
