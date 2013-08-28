@@ -18,12 +18,15 @@ enyo.kind({
 	},
 	classes: "sun-header moon-header",
 	components: [
-		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "title", kind: "moon.MarqueeText", classes: "sun-header-font sun-header-title"},
-			{name: "titleBelow", kind: "moon.MarqueeText", classes: "sun-header-title-below"}
+		{kind: "FittableColumns", components:[
+			{name: "texts", fit: true, classes: "sun-header-container", components: [
+				{name: "title", classes: "sun-header-font sun-header-title"},
+				{name: "titleBelow", classes: "sun-header-title-below"},
+				{name: "mask", classes: "sun-header-title-mask"}
+			]},
+			{name: "client", classes: "sun-header-client"}
 		]},
-		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"},
-		{name: "client", classes: "sun-header-client"},
+		{name: "arrowIcon", classes: "sun-arrow-icon", ontap: "headerLeftTapped"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -48,7 +51,7 @@ enyo.kind({
 	},
 	arrowIconChanged: function() {
 		this.addRemoveClass("sun-arrow-header", this.getArrowIcon());
-		if(!this.getArrowIcon()) {
+		if (!this.getArrowIcon()) {
 			this.$.arrowIcon.hide();
 		} else {
 			this.$.arrowIcon.show();
@@ -58,7 +61,7 @@ enyo.kind({
 		this.$.arrowIcon.disable = this.getArrowIconDisable();
 	},
 	headerLeftTapped: function() {
-		if(this.getArrowIconDisable() == false) {
+		if (this.getArrowIconDisable() == false) {
 		this.doHeaderLeftTapped();
 
 			return false;

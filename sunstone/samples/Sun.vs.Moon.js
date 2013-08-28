@@ -66,7 +66,7 @@ enyo.kind({
 						{kind: "sun.IconButton", src: "assets/1080x1920/icon-close-button.png"}
 					]},
 					{components:[
-						{kind: "moon.IconButton", src: "assets/1080x1920/icon-close-button.png"}
+						{kind: "moon.IconButton", src: "assets/1080x1920/icon-list.png", style: "width: 42px; height: 42px;"}
 					]}
 				]},
 				{components:[
@@ -110,7 +110,7 @@ enyo.kind({
 						{kind: "sun.Spinner"}
 					]},
 					{components:[
-						{kind: "moon.Spinner"}
+						{kind: "moon.Spinner", classes: "moon-light"}
 					]}
 				]},
 				{components:[

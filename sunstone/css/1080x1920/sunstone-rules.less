@@ -11,7 +11,7 @@
 	letter-spacing: @moon-sub-header-letter-spacing;
 	padding: @moon-app-keepout;
 	color: @moon-light-text-color;
-	background-color: @moon-light-gray;
+	background-color: #000000;
 }
 
 .moon-header-font {
@@ -145,6 +145,7 @@
   font-size: @sun-header-text-size;
 }
 .sun-small-header-text {
+  .moon-header-text;
   font-size: @sun-small-header-text-size;
 }
 .sun-sub-header-text {
@@ -163,10 +164,12 @@
   .sun-header-font;
   padding-left: @sun-header-left-padding;
 }
+
 /* sunstone - LESS pre-calculations */
 
 /* Individual widget CSS */
 @import "Button.less";
+@import "CalendarPicker.less";
 @import "CheckBox.less";
 @import "CheckBoxItem.less";
 @import "IconButton.less";
@@ -179,14 +182,22 @@
 @import "Spinner.less";
 @import "Header.less";
 @import "Accordion.less";
-@import "Item.less";
 @import "Scroller.less";
+@import "SimplePicker.less";
 @import "Divider.less";
 @import "ListItem.less";
 @import "Input.less";
 @import "RichText.less";
 @import "TextArea.less";
 @import "Toast.less";
+@import "TabItem.less";
+@import "TabBar.less";
+@import "TabPanels.less";
+@import "DropDown.less";
+@import "DropDownButton.less";
+@import "DropDownDecorator.less";
+@import "OptionItem.less";
+@import "InputHeader.less";
 
 /* Put this at the end because we want these to take precedence over others */
 .sun .moon-dark-gray {
@@ -218,5 +229,10 @@
 	// line-height: @moon-body-line-height;
 }
 .sun-divider-border {
-	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
+	border-bottom: @moon-divider-border-width solid @sun-divider-border-color;
+}
+.sun-header-loading-info-text {
+	font-family: @sun-sub-header-font-family;
+	font-size: @sun-header-loading-info-size;
+	color: @sun-listitem-font-color-text-normal;
 }

@@ -1,0 +1,150 @@
+/*DropDown.css*/
+
+.sun-drop-down {
+	.moon-body-text;
+	min-height: 100px;
+	max-height: @sun-drop-down-container-max-height;
+	min-width: 640px;
+	border-radius: 5px;
+	border: 5px solid rgba(255,255,255,0.25);
+	background-color: @sun-drop-down-popup-bg-color;
+	padding:20px;
+	background-clip:padding-box;
+	-webkit-background-clip:padding-box;
+	-moz-background-clip:padding-box;	
+	box-sizing: border-box;	
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+/*adjusting base contextual popup positioning*/
+/*for popups above activator*/
+.vertical.above {
+  margin-top: -20px;
+  width: 640px;
+}
+/*for popups below activator*/
+.vertical.below {
+    margin-top: 15px;
+	width: 640px;
+}
+/*for popups on the left of the activator*/
+.right.horizontal {
+  margin-top: 10px;
+  width: 640px;
+}
+/*for popups on the right of the activator*/
+.left.horizontal {
+ margin-top: 10px;
+  width: 640px;
+}
+/*setup the nub*/
+.sun-drop-down::after{
+  content: '';
+  position: absolute;
+  top: -10px;	
+  width:46px;
+  height:36px;
+}
+/*nub positioning*/
+/*horizontally centered nub*/
+.sun-drop-down.vertical::after {
+	position:absolute;
+ 	left:50%;
+	margin-top:-4px;
+	margin-left: -23px;
+	width:46px;
+  	height:36px;
+	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+/*nub near horizontal left*/
+.sun-drop-down.vertical.right::after {
+	left:0%;
+	margin-left:20px;
+}
+/*nub near horizontal right*/
+.sun-drop-down.vertical.left::after {
+	left:100%;
+	margin-left: -75px;
+}
+/*downward facing nub*/
+.sun-drop-down.vertical.above::after {
+	top:100%;
+	margin-top:-4px;
+	width: 0px;
+  	height: 0px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-top: 25px solid @sun-drop-down-popup-bg-color;
+}
+.sun-drop-down.vertical.below::after {
+	top:-5%;
+	margin-top:0px;
+	width: 0px;
+  	height: 0px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-bottom: 25px solid @sun-drop-down-popup-bg-color;
+}
+.sun.sun-drop-down.vertical.below.right::after {
+	top:0%;
+	left:0%;
+	margin-top:-5px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-bottom: 25px solid @sun-drop-down-popup-bg-color;
+}
+.sun-drop-down.vertical.below.left::after {
+	top:-8%;
+	left:100%;
+	margin-top: 0px;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;	
+	border-bottom: 25px solid @sun-drop-down-popup-bg-color;
+}
+/*nub positioning for left/right popups*/
+/*vertically centered nub for popups on left of activator*/
+.sun-drop-down.right::after {
+	left: 100%;
+	top:50%;
+	width:36px;
+  	height:46px;
+	margin-left:-4px;
+	margin-top: -23px;
+	background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*nub near vertical top for popups on left of activator*/
+.sun-drop-down.right.high::after {
+	top: 35px;
+	background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*nub near vertical bottom for popups on left of activator*/
+.sun-drop-down.right.low::after {
+	top:100%;
+	margin-top: -55px;
+	background: transparent url('../images/contextual-popup-nubs/right.png') no-repeat;
+}
+/*vertically centered nub for popups on right of activator*/
+.sun-drop-down.left::after {
+	left: 0%;
+	margin-left: -20px;
+	top: 45%;
+	width:36px;
+  	height:46px;
+	background: transparent url('../images/contextual-popup-nubs/left.png') no-repeat;
+}
+/*nub near vertical top for popups on right of activator*/
+.sun-drop-down.left.high::after {
+	top: 35px;
+	background: transparent url('../images/contextual-popup-nubs/up.png') no-repeat;
+}
+/*nub near vertical bottom for popups on right of activator*/
+.sun-drop-down.left.low::after {
+	top:100%;
+	margin-top: -55px;
+	background: transparent url('../images/contextual-popup-nubs/down.png') no-repeat;
+}
+/*flush corners are not implemented currently per HI*/
+.sun-drop-down .enyo-touch-scroller {
+	max-height: @sun-drop-down-content-max-height;
+}

@@ -28,6 +28,12 @@ enyo.kind({
 			{classes: "moon-hspacing", components: [
 				{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "buttonTapped", disabled: true},
 				{kind: "sun.IconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "buttonTapped", disabled: true}
+			]},
+			{tag: "br"},
+			{tag: "br"},
+			{kind: "sun.Divider", content: "Loading Samll Icon Buttons:"},
+			{classes: "moon-hspacing", components: [
+				{name: "loading", kind: "sun.LoadingIconButton", src: "assets/1080x1920/small-icon-close-button.png", small: true, ontap: "loadingButtonTapped", loading: false}
 			]}
 		]},
 		{kind: "sun.Divider", content: "Result"},
@@ -38,5 +44,9 @@ enyo.kind({
 		str += inSender.getActive() ? 'selected' : 'unselected';
 		str += '.';
 		this.$.console.setContent(str);
+	},
+	loadingButtonTapped: function(inSender, inEvent) {
+		this.$.loading.setLoading(!this.$.loading.getLoading());
+		this.buttonTapped(inSender, inEvent);
 	}
 });
