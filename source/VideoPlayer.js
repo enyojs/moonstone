@@ -280,11 +280,6 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-	shiftComponentsWithDefaultName: function(components, name) {
-		var c = components.shift(); 
-		c.name = c.name ? c.name : name;
-		return c;
-	},
 	playIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
