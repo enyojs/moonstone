@@ -11,7 +11,7 @@ enyo.kind({
 				{src: "http://placehold.it/42x42&text=Badge", classes: "float-right"}
 			]},
 			{kind: "moon.Image", src: "http://placehold.it/180x240&text=Image+Two", alt: "Image Two", components: [
-				{src: "http://placehold.it/42x42&text=Badge"},
+				{src: "http://placehold.it/42x42&text=Badge"}
 			]},
 			
 			{kind: "moon.Divider", classes: "image-badge-sample-divider", content: "Image Badges - Show on Spotlight:"},
@@ -23,7 +23,7 @@ enyo.kind({
 			]},
 			{kind: "moon.Item", components: [
 				{kind: "moon.Image", src: "http://placehold.it/180x240&text=Image+Two", alt: "Image Two", showBadgesOnSpotlight: true, components: [
-					{src: "http://placehold.it/42x42&text=Badge"},
+					{src: "http://placehold.it/42x42&text=Badge"}
 				]}
 			]}
 		]}
