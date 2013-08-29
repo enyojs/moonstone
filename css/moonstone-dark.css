@@ -2162,9 +2162,6 @@
   overflow: hidden;
   margin: 0px;
 }
-.moon-labeledtextitem.selected {
-  background: #000000;
-}
 /* Label */
 .moon-labeledtextitem .label {
   font-family: "MuseoSans 700";
@@ -2224,9 +2221,6 @@
   float: right;
   margin-right: 0px;
   margin-left: 64px;
-}
-.moon-imageitem.selected {
-  background: #000000;
 }
 /* Spinner.css */
 .moon-spinner,
@@ -2307,6 +2301,18 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-calendar-picker-block {
   display: inline-block;
+}
+.moon-calendar-picker-day {
+  min-width: 60px;
+  line-height: 50px;
+  border: 0px;
+  border-radius: 0px;
+  background: inherit;
+  color: #4b4b4b;
+  padding: 0px;
+  margin: 10px;
+  text-align: center;
+  vertical-align: middle;
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
@@ -3464,6 +3470,16 @@ body .enyo-fit.panels-50-percent-scrim,
   background-position: 0px -42px;
   border: 4px solid #ff2f7d;
   background-color: #404040;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 .moon-selection-overlay-support-scrim {
   display: none;
