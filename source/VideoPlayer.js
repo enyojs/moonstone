@@ -111,12 +111,9 @@ enyo.kind({
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
 		onSpotlightFocus: 'spotlightFocusHandler',
-		onSpotlightFocused: 'spotlightFocused',
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
-		onSpotlightLeft: 'spotlightLeftHandler',
-		onSpotlightRight: 'spotlightRightHandler',
 		onSpotlightSelect: 'spotlightSelectHandler',
 		onresize: 'resizeHandler'
 	},
@@ -204,30 +201,21 @@ enyo.kind({
 		this.updateMoreButton();
 		this.showPlaybackControlsChanged();
 		this.showProgressBarChanged();
+		this.jumpSecChanged();
 	},
 	showPlaybackControlsChanged: function(inOld) {
-		this.setShowProgressBar(this.showPlaybackControls);
 		if (!this.showPlaybackControls) {
 			this.$.trickPlay.hide();
-			this.$.moreButton.hide();
+			if (this.clientComponentsCount>2) {
+				this.$.moreButton.hide();
+			}
 		} else {
 			this.$.trickPlay.show();
-			this.$.moreButton.show();
 		}
 		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
 	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
-	},
-	//* Fixing zoom on full screen
-	resizeHandler: function() {
-		this.inherited(arguments);
-		if (this.isFullscreen()) {
-			//* Fix: chrome has bug that do not return proper body width when it is not at zoom 1 in full screen mode
-			//* Fallback routine: detect current browser zoom and set css zoom as the reverse. 
-			//* (Not working on Netcast TV, window.outerHeight is null.)
-			document.body.style.zoom = window.innerHeight / window.outerHeight * 100 + "%";
-		}
 	},
 	//* Resize player when video size is changed
 	resizePlayer: function() {
@@ -253,19 +241,20 @@ enyo.kind({
 	},
 	createClientComponents: function(inComponents) {
 		var c = null;
+		this.clientComponentsCount = inComponents.length;
 		if (!this._buttonsSetup) {
 			this._buttonsSetup = true;
 			if (!inComponents || inComponents.length === 0) {
 				// No components - destroy more button
 				this.$.leftPremiumPlaceHolder.hide();
-				this.$.rightPremiumPlaceHolder.hide();
-				this.$.moreButton.hide();
+				this.$.rightPremiumPlaceHolder.hide();		
+				this.$.moreButton.hide();			
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.hide();
 				c = this.shiftComponentsWithDefaultName(inComponents, "leftPremiumButton");
 				this.$.leftPremiumPlaceHolder.createComponent(c, {defaultSpotlightLeft: c.name, owner: this.getInstanceOwner()});
-				if (inComponents.length == 1) {
+				if (inComponents.length === 1) {
 					c = this.shiftComponentsWithDefaultName(inComponents, "rightPremiumButton");
 					this.$.rightPremiumPlaceHolder.createComponent(c, {defaultSpotlightRight: c.name, owner: this.getInstanceOwner()});
 				}
@@ -282,7 +271,7 @@ enyo.kind({
 	},
 	shiftComponentsWithDefaultName: function(components, name) {
 		var c = components.shift(); 
-		c.name = c.name ? c.name : "leftPremiumButton";
+		c.name = c.name ? c.name : name;
 		return c;
 	},
 	playIconChanged: function() {
@@ -355,7 +344,7 @@ enyo.kind({
 		return true;
 	},
 	showScrim: function(show) {
-		this.$.fullscreenControl.addRemoveClass('scrim', show);
+		this.$.fullscreenControl.addRemoveClass('scrim', !show);
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {
@@ -366,22 +355,8 @@ enyo.kind({
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {
-			if (inEvent.originator === this && !this.$.playerControl.showing) {
+			if (inEvent.originator === this && !this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
-				return true;
-			}
-		}
-	},
-	spotlightLeftHandler: function(inSender, inEvent) {
-		if (this.isFullscreen() || !this.getInline()) {
-			if (!this.$.playerControl.showing) {
-				return true;
-			}
-		}
-	},
-	spotlightRightHandler: function(inSender, inEvent) {
-		if (this.isFullscreen() || !this.getInline()) {
-			if (!this.$.playerControl.showing) {
 				return true;
 			}
 		}
@@ -397,16 +372,10 @@ enyo.kind({
 	},
 	spotlightFocusHandler: function(inSender, inEvent) {
 		// Avoid changing the focus when the overlay is showing
-		if ((inEvent.originator == this) && (this.isOverlayShowing())) {
+		if ((inEvent.originator === this) && (this.isOverlayShowing())) {
 			return true;
 		}
 	},
-	spotlightFocused: function(inSender, inEvent) {
-		if (inEvent.originator !== this) { return false; }
-		if (enyo.Spotlight.getPointerMode()) { return false; }
-		return false;
-	},
-
 
 	///// Fullscreen controls /////
 
@@ -444,8 +413,10 @@ enyo.kind({
 		this.resetAutoTimeout();
 	},
 	hideFSControls: function() {
-		this.hideFSInfo();
-		this.hideFSBottomControls();
+		if (this.isOverlayShowing()) {
+			this.hideFSInfo();
+			this.hideFSBottomControls();
+		}
 		this.stopJob("autoHide");
 	},
 	//* Sets _this.visible_ to true and clears hide job.
@@ -458,18 +429,15 @@ enyo.kind({
 				//* Fixed index
 				this.$.controlsContainer.setIndex(1);
 			}
-			if (this._lastSpottedControl) {
-				//* Don't change spot
-				enyo.Spotlight.spot(this._lastSpottedControl);
+			
+			//* Initial spot
+			if (this.showPlaybackControls) {
+				enyo.Spotlight.spot(this.$.fsPlayPause);
 			} else {
-				//* Initial spot
-				if (this.showPlaybackControls) {
-					enyo.Spotlight.spot(this.$.fsPlayPause);
-				} else {
-					var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
-					enyo.Spotlight.spot(oTarget);
-				}
+				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
+				enyo.Spotlight.spot(oTarget);
 			}
+			
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
 				this.sendFeedback("Pause");
@@ -479,7 +447,6 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
-		this._lastSpottedControl = enyo.Spotlight.getCurrent();
 		enyo.Spotlight.spot(this);
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)
@@ -631,8 +598,6 @@ enyo.kind({
 
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
-		// Fixme: Fullscreen state change stops transition animation.
-		//      And it breaks full screen button's transition behavior.
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
@@ -645,10 +610,6 @@ enyo.kind({
 		if (this.isFullscreen()) {
 			this.showFSControls();
 			this.$.controlsContainer.resized();
-		} else {
-			//* Fixed: chrome has bug that do not return proper body width when it is not at zoom 1 in full screen mode
-			//* Fallback routine: detect current browser zoom and set css zoom as the reverse.
-			document.body.style.zoom = null;
 		}
 	},
 	//* Facades _this.$.video.play()_.
@@ -798,8 +759,8 @@ enyo.kind({
 	},
 	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
-		this.updateAspectRatio();
-		this.resizePlayer();
+		this.resizePlayer();		// Fixme: Call requestFullscreen before this will break size
+		this.updateAspectRatio();	// Fixme: Support aspect ratio
 		this.durationUpdate(inSender, inEvent);
 	},
 	durationUpdate: function(inSender, inEvent) {
