@@ -19,17 +19,7 @@ enyo.kind({
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.Input", disabled: true, value: "Deactivated input"}
 			]},
-			{kind: "moon.Divider", content: "RichTexts"},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.RichText", placeholder: "Enter text here", oninput:"inputChanged", ontap: "tapRichText"}
-			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.RichText", style: "width: 240px;", placeholder: "JUST TYPE", oninput:"inputChanged", ontap: "tapRichText"},
-				{kind: "Image", src: "assets/search-input-search.png"}
-			]},
-			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Deactivated input", oninput:"inputChanged"}
-			]},
+
 			{kind: "moon.Divider", content: "TextAreas"},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.TextArea", placeholder: "Enter text here", oninput:"inputChanged"}
@@ -39,6 +29,18 @@ enyo.kind({
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated input", oninput:"inputChanged"}
+			]},
+
+			{kind: "moon.Divider", content: "RichTexts"},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.RichText", oninput:"inputChanged"}
+			]},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.RichText", style: "width: 240px;", oninput:"inputChanged"},
+				{kind: "Image", src: "assets/search-input-search.png"}
+			]},
+			{kind: "moon.InputDecorator", disabled: true, components: [
+				{kind: "moon.RichText", disabled: true, style: "width: 240px;"}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result", classes: "moon-input-sample-result"},
@@ -56,21 +58,7 @@ enyo.kind({
 			]}
 		]}
 	],
-	rendered: function() {
-		this.$.richText.setValue(this.$.richText.placeholder);
-		this.$.richText2.setValue(this.$.richText2.placeholder);
-		this.$.richText3.setValue(this.$.richText3.placeholder);
-	},
 	inputChanged: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inSender.getValue());
 	},
-	tapRichText: function(inSender, inEvent) {
-		if(inEvent.originator.placeholder) {
-			inEvent.originator.placeholder = null;
-			inEvent.originator.setValue("");
-			return true;
-		} else {
-			return true;
-		}		
-	}
 });
