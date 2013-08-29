@@ -32,16 +32,10 @@ enyo.kind({
 		{name: "indicator", classes: "moon-selectable-item-indicator"},
 		{name: "client", classes: "moon-selectable-item-client"}
 	],
-<<<<<<< HEAD
 	//@protected
 	rendered: function() {
 		this.inherited(arguments);
 		this.selectedChanged();
-=======
-	rendered: function() {
-		this.inherited(arguments);
-		this.activeChanged();
->>>>>>> master
 	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
@@ -55,20 +49,12 @@ enyo.kind({
 		this.bubble("onchange");
 	},
 	selectedChanged: function() {
-<<<<<<< HEAD
-		this.$.client.removeClass("moon-overlay");
-		this.setNodeProperty("selected", this.selected);
-		this.setAttribute("selected", this.selected ? "selected" : "");
-		this.setActive(this.selected);
-		this.$.client.addRemoveClass("moon-underline", this.selected);
-=======
 		var selected = this.getSelected();
 		this.stopMarquee();
 		this.addRemoveClass("selected", selected);
 		this.setNodeProperty("selected", selected);
 		this.setAttribute("selected", selected ? "selected" : "");
 		this.setActive(selected);
->>>>>>> master
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called
