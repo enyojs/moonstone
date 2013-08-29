@@ -57,7 +57,7 @@ enyo.kind({
 					components: this.listActions[option].components,
 					action: this.listActions[option].action ? this.listActions[option].action : ""
 				}
-			]);
+			], {owner: this.getInstanceOwner()});
 		}
 	},
 	/**
