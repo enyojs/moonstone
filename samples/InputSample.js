@@ -60,5 +60,5 @@ enyo.kind({
 	],
 	inputChanged: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inSender.getValue());
-	},
+	}
 });
