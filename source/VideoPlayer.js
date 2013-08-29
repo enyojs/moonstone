@@ -147,9 +147,9 @@ enyo.kind({
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", onSpotlightUp: "preventUpEvent", onSpotlightDown: "preventDownEvent", ontap: "resetAutoTimeout", components: [
+				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", onSpotlightUp: "showFSInfoWithPreventEvent", onSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
 			
-					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left"},
+					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", onSpotlightLeft: "preventEvent"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", components: [
@@ -158,14 +158,14 @@ enyo.kind({
 								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
 								{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
 								{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
-								{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward", defaultSpotlightRight: "moreButton"}
+								{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
-					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
-						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped", defaultSpotlightRight: "moreButton"}
+					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", onSpotlightRight: "preventEvent", components: [
+						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
 			
@@ -204,24 +204,39 @@ enyo.kind({
 		this.jumpSecChanged();
 	},
 	showPlaybackControlsChanged: function(inOld) {
+		var lastControl = (this.getClientControls().length>0) ? this.getClientControls()[this.getClientControls().length-1] : {};
+		//* Prevent spotlight event for each cases
+		this.resetPreventSpotlight(lastControl);
 		if (!this.showPlaybackControls) {
 			this.$.trickPlay.hide();
-			if (this.clientComponentsCount>2) {
+			if (this.clientComponentsCount === 1) {
+				this.$.leftPremiumPlaceHolder.onSpotlightRight = "preventEvent";
+			} else if (this.clientComponentsCount > 2) {
 				this.$.moreButton.hide();
+				lastControl.defaultSpotlightRight = lastControl.name;
 			}
 		} else {
 			this.$.trickPlay.show();
+			if (this.clientComponentsCount === 0) {
+				this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
+			} else if (this.clientComponentsCount < 2) {
+				this.$.jumpForward.defaultSpotlightRight = "jumpForward";
+			} else if (this.clientComponentsCount === 2) {
+				this.$.jumpForward.defaultSpotlightRight = lastControl.name; // Bug fix: spot goes to more controls
+			} else {
+				this.$.jumpForward.defaultSpotlightRight = "moreButton"; // Bug fix: spot goes to more controls
+			}
 		}
 		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
 	},
+	resetPreventSpotlight: function(lastControl) {
+		this.$.leftPremiumPlaceHolder.onSpotlightRight = null;
+		this.$.jumpBack.defaultSpotlightLeft = null;
+		this.$.jumpForward.defaultSpotlightRight = null;
+		lastControl.defaultSpotlightRight = null;
+	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
-	},
-	//* Resize player when video size is changed
-	resizePlayer: function() {
-		var node = this.$.video.hasNode();
-		var rect = node.getBoundingClientRect();
-		this.applyStyle("width", rect.width + "px");
 	},
 	//* Overrides default _enyo.Control_ behavior.
 	setSrc: function(inSrc) {
@@ -240,7 +255,6 @@ enyo.kind({
 		this.$.videoInfoHeader.createComponents(this.infoComponents);
 	},
 	createClientComponents: function(inComponents) {
-		var c = null;
 		this.clientComponentsCount = inComponents.length;
 		if (!this._buttonsSetup) {
 			this._buttonsSetup = true;
@@ -252,16 +266,13 @@ enyo.kind({
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.hide();
-				c = this.shiftComponentsWithDefaultName(inComponents, "leftPremiumButton");
-				this.$.leftPremiumPlaceHolder.createComponent(c, {defaultSpotlightLeft: c.name, owner: this.getInstanceOwner()});
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 				if (inComponents.length === 1) {
-					c = this.shiftComponentsWithDefaultName(inComponents, "rightPremiumButton");
-					this.$.rightPremiumPlaceHolder.createComponent(c, {defaultSpotlightRight: c.name, owner: this.getInstanceOwner()});
+					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 				}
 			} else {
 				// More than two components - use extra panel, with left premium plaeholder for first component
-				c = this.shiftComponentsWithDefaultName(inComponents, "leftPremiumButton");
-				this.$.leftPremiumPlaceHolder.createComponent(c, {defaultSpotlightLeft: c.name, owner: this.getInstanceOwner()});
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 			}
 			// Create the rest of the components in the client (panels)
 			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
@@ -336,11 +347,11 @@ enyo.kind({
 			this.$.inlineControl.canGenerate = false;
 		}
 	},
-	preventUpEvent: function(inSender, inEvent) {
+	showFSInfoWithPreventEvent: function(inSender, inEvent) {
 		this.showFSInfo();
 		return true;
 	},
-	preventDownEvent: function(inSender, inEvent) {
+	preventEvent: function(inSender, inEvent) {
 		return true;
 	},
 	showScrim: function(show) {
@@ -759,7 +770,6 @@ enyo.kind({
 	},
 	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
-		this.resizePlayer();		// Fixme: Call requestFullscreen before this will break size
 		this.updateAspectRatio();	// Fixme: Support aspect ratio
 		this.durationUpdate(inSender, inEvent);
 	},
