@@ -56,7 +56,7 @@ enyo.kind({
 			this.$.tapArea.destroy();
 			this.$.client.destroy();
 		}
-		
+
 		if (this.small) {
 			this.addClass('small');
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
@@ -75,7 +75,7 @@ enyo.kind({
 				});
 			}
 		}
-		
+
 		this.contentChanged();
 	},
 	//* When _this.small_ changes, updates and rerenders.

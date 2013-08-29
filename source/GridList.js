@@ -49,6 +49,8 @@ enyo.kind({
 		// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
 		// if spotlight is applied on any template controls
 		this._removeSpotlight(this.components);
+		// Create a dummy component to dynamically compute the dimensions of items at run-time (once for each item during sizeupItem) based on the actual content inside the item (only for variable sized items where sizeupItem is called).
+		this.createComponent({name: "_dummy_", allowHtml: true, classes: "enyo-gridlist-dummy", showing: false}, {owner: this});
 		this.inherited(arguments);
 	},
 	_removeSpotlight: function (components) {
@@ -91,8 +93,6 @@ enyo.kind({
 		this.listTools[0] = enyo.clone(this.listTools[0]);
 		this.listTools[0].components = enyo.clone(this.listTools[0].components);
 		var c = this.listTools[0].components;
-		// Create a dummy component to dynamically compute the dimensions of items at run-time (once for each item during sizeupItem) based on the actual content inside the item (only for variable sized items where sizeupItem is called).
-		this.createComponent(new enyo.Component({name: "_dummy_", allowHtml: true, classes: "enyo-gridlist-dummy", showing: false}, {owner: this}));
 		// Override List's listTools array to use GridFlyweightRepeater instead of FlyweightRepeater
 		for (var i=0; i<c.length; i++) {
 			if (c[i].name == 'generator') {

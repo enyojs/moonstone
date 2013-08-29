@@ -24,7 +24,7 @@ enyo.kind({
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
 			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
 		]},
-		{name: "client", classes: "moon-header-client"},
+		{name: "client", classes: "moon-hspacing moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	create: function() {
@@ -34,6 +34,7 @@ enyo.kind({
 		this.titleAboveChanged();
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
+		this.allowHtmlChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -45,13 +46,17 @@ enyo.kind({
 	stopMarquee: function() {
 		this.$.texts.stopMarquee();
 	},
+	allowHtmlChanged: function() {
+		this.$.title.setAllowHtmlText(this.allowHtml);
+		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
+		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
+	},
 	//* @public
 	collapseToSmall: function() {
 		if (this.collapsed) {
 			return;
 		}
-		
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
+
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 
@@ -120,7 +125,7 @@ enyo.kind({
 		if (!this.collapsed) {
 			return;
 		}
-		
+
 		this.$.animator.newAnimation({
 			name: "expandToLarge",
 			duration: 200,
@@ -191,7 +196,7 @@ enyo.kind({
 			"padding-top" : titleAboveStyle["padding-top"],
 			"padding-bottom" : titleAboveStyle["padding-bottom"]
 		};
-		
+
 		this.$.animator.newAnimation({
 			name: "collapse",
 			duration: 800,
@@ -270,7 +275,7 @@ enyo.kind({
 						"min-width" : inWidth + "px",
 						"max-width" : inWidth + "px"
 					}
-				}],
+				}]
 
 			}
 		});
@@ -298,7 +303,7 @@ enyo.kind({
 						"border-bottom-width" : "current",
 						"width" : this.breadcrumbAnimProps["width"],
 						"min-width" : this.breadcrumbAnimProps["width"],
-						"max-width" : this.breadcrumbAnimProps["width"],
+						"max-width" : this.breadcrumbAnimProps["width"]
 					}
 				},
 				{

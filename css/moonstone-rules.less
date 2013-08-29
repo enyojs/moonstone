@@ -10,9 +10,14 @@
 	font-size: @moon-sub-header-font-size;
 	letter-spacing: @moon-sub-header-letter-spacing;
 	padding: @moon-app-keepout;
-	color: @moon-light-text-color;
-	background-color: @moon-light-gray;
+	color: @moon-sub-header-text-color;
+	background-color: @moon-background-color;
 }
+
+.spotlight {
+	color: @moon-spotlight-text-color;
+}
+
 
 .moon-header-font {
 	font-family: @moon-alt-font-family;
@@ -22,26 +27,6 @@
 .enyo-locale-right-to-left .moon
 {
    direction:rtl;
-}
-
-.moon-no-border {
-	transition: @moon-spotlight-transition;
-	-webkit-transition: @moon-spotlight-transition;
-	-moz-transition: @moon-spotlight-transition;
-	-o-transition: @moon-spotlight-transition;
-	border-left-width: @moon-no-spotlight-border-width;
-	border-left-color: @moon-no-spotlight-border-color;
-	border-left-style: @moon-no-spotlight-border-style;
-	padding-left: @moon-no-spotlight-padding-left;
-	padding-right: @moon-no-spotlight-padding-right;
-}
-
-.moon-border {
-	border-left-width: @moon-spotlight-border-width;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: @moon-spotlight-border-style;
-	padding-left: @moon-spotlight-padding-left;
-	padding-right: @moon-spotlight-padding-right;
 }
 
 .moon-divider-border {
@@ -84,6 +69,7 @@
 	font-weight: @moon-sub-header-font-weight;
 	font-style: @moon-sub-header-font-style;
 	letter-spacing: @moon-sub-header-letter-spacing;
+	color: @moon-sub-header-text-color;
 	// line-height: @moon-sub-header-line-height; 
 	//for spotlight reasons, cannot set line-height according to spec
 	// have to use margin to achieve same appearance
@@ -94,6 +80,7 @@
 	font-weight: @moon-divider-font-weight;
 	font-style: @moon-divider-font-style;
 	letter-spacing: @moon-divider-letter-spacing;
+	color: @moon-divider-text-color;
 }
 .moon-body-text {
 	font-family: @moon-body-font-family;
@@ -101,6 +88,7 @@
 	font-weight: @moon-body-font-weight;
 	font-style: @moon-body-font-style;
 	letter-spacing: @moon-body-letter-spacing;
+	color: @moon-body-text-color;
 	// line-height: @moon-body-line-height;
 }
 .moon-large-button-text {
@@ -136,7 +124,10 @@
 	}
 }
 
-
+.border-box {
+	box-sizing: border-box;
+	-mox-box-sizing: border-box;
+}
 
 /* LESS pre-calculations */
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
@@ -189,7 +180,6 @@
 @import "Accordion.less";
 @import "CalendarPicker.less";
 @import "Table.less";
-@import "FittableLayout.less";
 @import "InputHeader.less";
 @import "DrawerHandle.less";
 @import "Drawer.less";
@@ -204,19 +194,25 @@
 @import "VideoControlInline.less";
 @import "VideoControlFullscreen.less";
 @import "VideoFeedback.less";
+@import "VideoInfoHeader.less";
+@import "ChannelInfo.less";
+@import "VideoInfoBackground.less";
+@import "Clock.less";
 @import "Scroller.less";
 @import "ExpandableInput.less";
 @import "HighlightText.less";
 @import "ObjectActionDecorator.less";
 @import "FormCheckbox.less";
+@import "SelectionOverlaySupport.less";
+@import "Thumb.less";
 
 /* Put this at the end because we want these to take precedence over others */
-.moon-dark-gray {
-	background-color: @moon-dark-gray;
-	color: @moon-light-gray;
+.moon-neutral {
+	background-color: @moon-neutral-bg-color;
+	color: @moon-neutral-text-color;
 }
-.moon-dark-gray * {
-	color: white;	
+.moon-neutral * {
+	color: @moon-neutral-child-text-color;	
 }
 .moon-light-gray {
 	background-color: @moon-light-gray;
@@ -232,28 +228,28 @@
 }
 .moon-hspacing > * {
 	display: inline-block;
-	vertical-align: top;
-	margin: 0 @moon-grid-gutter-width/2;
+	vertical-align: middle;
+	margin: 0 @moon-grid-gutter-width;
 }
 .moon-hspacing > :first-child {
 	margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-	margin-left: @moon-grid-gutter-width/2;
+	margin-left: @moon-grid-gutter-width;
 	margin-right: 0;
 }
 .moon-hspacing > :last-child {
 	margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-	margin-right: @moon-grid-gutter-width/2;
+	margin-right: @moon-grid-gutter-width;
 	margin-left: 0;
 }
 
 /* Standard vertical spacing */
 .moon-vspacing > * {
 	display: block;
-	margin: @moon-grid-gutter-width/2 0;
+	margin: @moon-grid-gutter-width 0;
 }
 .moon-vspacing > :first-child {
 	margin-top: 0;

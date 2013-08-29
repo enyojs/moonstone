@@ -17,7 +17,7 @@ enyo.kind({
 				{kind: "moon.Input", type:"password", placeholder: "Enter password", oninput:"inputChanged"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.Input", disabled: true, value: "Deactivated input"}
+				{kind: "moon.Input", disabled: true, value: "Disabled input"}
 			]},
 
 			{kind: "moon.Divider", content: "TextAreas"},

@@ -3,7 +3,9 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components:[
 		{kind: 'enyo.Spotlight'},
-		{kind: 'moon.Scroller', classes: 'moon-scroller-sample-2d-scroller enyo-fill',
+		{
+			kind: 'moon.Scroller',
+			classes: 'moon-scroller-sample-2d-scroller enyo-fill',
 			components: [
 				{style: "width: 2300px; height: 1300px; position: relative;", components: [
 					{kind: "moon.Button", content: "Button 1", style: "top:100px; left:100px;"},

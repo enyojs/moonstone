@@ -4,7 +4,7 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Spotlight"},
 		{kind: "moon.Panels", classes:"enyo-fit", pattern: "Activity", components: [
-			{kind: "moon.Panel", collapsingHeader:true, title:"Scroll Me", titleBelow:"To test the auto-collapsing", subTitleBelow:"Feature of moon.Panel", headerComponents: [
+			{kind: "moon.Panel", classes:"moon-6h", collapsingHeader:true, title:"Scroll Me", titleBelow:"To test the auto-collapsing", subTitleBelow:"Feature of moon.Panel", headerComponents: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
 			], components: [
@@ -14,7 +14,7 @@ enyo.kind({
 					]}
 				]}
 			]},
-			{kind: "moon.Panel", joinToPrev:true, collapsingHeader:true, title:"Me too", titleBelow:"Another header", subTitleBelow:"That collapses on scroll", headerComponents: [
+			{kind: "moon.Panel", classes:"moon-6h", joinToPrev:true, collapsingHeader:true, title:"Me too", titleBelow:"Another header", subTitleBelow:"That collapses on scroll", headerComponents: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
 			], components: [
@@ -24,7 +24,7 @@ enyo.kind({
 					]}
 				]}
 			]},
-			{kind: "moon.Panel", collapsingHeader:true, title:"Yet another", headerComponents: [
+			{kind: "moon.Panel", classes:"moon-6h", collapsingHeader:true, title:"Yet another", headerComponents: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
 			], components: [

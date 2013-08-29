@@ -43,7 +43,7 @@ enyo.kind({
 enyo.kind({
 	name: "moon.TimePicker",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-date-picker",
+	classes: "moon-expandable-picker moon-date-picker",
 	events: {
 		/**
 			Fires when the date changes.
@@ -67,8 +67,8 @@ enyo.kind({
 		//* currently selected
 		noneText: "",
 		/**
-			Current locale used for formatting (only valid when _ilib_ is loaded). 
-			May be set after control creation, in which case the control will be 
+			Current locale used for formatting (only valid when _ilib_ is loaded).
+			May be set after control creation, in which case the control will be
 			updated to reflect the new value.
 		*/
 		locale: "en-US",
@@ -84,15 +84,13 @@ enyo.kind({
 		*/
 		meridiemEnable: false
 	},
-	components: [
-		{name: "header", kind: "moon.Item", classes: "moon-date-picker-header", spotlight: true,
-			onSpotlightFocus: "headerFocus", ontap: "expandContract", onSpotlightSelect: "expandContract"
-		},
-		{name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [
-			{name: "client", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+	componentOverrides: {
+		headerWrapper: {components: [
+			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-date-picker-current-value", ontap: "expandContract", content: ""}
-	],
+		client: {kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+	},
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -238,6 +236,14 @@ enyo.kind({
 					this.$.meridiem.stabilize();
 				}
 			}
+		}
+	},
+	toggleActive: function() {
+		if (this.getOpen()) {
+			this.setActive(false);
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		} else {
+			this.setActive(true);
 		}
 	},
 	closePicker: function(inSender, inEvent) {
