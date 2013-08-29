@@ -153,10 +153,6 @@ enyo.kind({
 			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
 				width = Math.max(width, c$[i].getBounds().width);
 			}
-			if (this.firstflow) {
-				width += 16; // cushion
-				this.firstflow = false;
-			}
 			this.$.client.setBounds({width:width});
 			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
 				c$[i].setBounds({width:width});
