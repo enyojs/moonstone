@@ -165,9 +165,9 @@ enyo.kind({
 		
 		}
 
-		this.$.hourWrapper.createComponent({ kind:"enyo.Control", content : "hour", classes: "moon-date-picker-label"});
-    	this.$.minWrapper.createComponent({ kind:"enyo.Control", content : "min", style: "display:block;", classes: "moon-date-picker-label"});
-    	this.$.meridWrapper.createComponent({ kind:"enyo.Control", content : "meridiem", style: "display:block;", classes: "moon-date-picker-label"});
+		this.$.hourWrapper.createComponent({ kind:"enyo.Control", content : this.hourText ? this.hourText : "hour", classes: "moon-date-picker-label"});
+    	this.$.minWrapper.createComponent({ kind:"enyo.Control", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"});
+    	this.$.meridWrapper.createComponent({ kind:"enyo.Control", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"});
 
 		this.pickersAreSetUp = true;
 	},

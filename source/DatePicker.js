@@ -123,9 +123,9 @@ enyo.kind({
 			}
     	}
 
-    	this.$.dayWrapper.createComponent({ kind:"enyo.Control", content : "day", classes: "moon-date-picker-label"});
-    	this.$.monthWrapper.createComponent({ kind:"enyo.Control", content : "month", style: "display:block;", classes: "moon-date-picker-label"});
-    	this.$.yearWrapper.createComponent({ kind:"enyo.Control", content : "year", style: "display:block;", classes: "moon-date-picker-label"});
+    	this.$.dayWrapper.createComponent({ kind:"enyo.Control", content : this.dayText ? this.dayText : "day", classes: "moon-date-picker-label"});
+    	this.$.monthWrapper.createComponent({ kind:"enyo.Control", content : this.monthText ? this.monthText : "month", style: "display:block;", classes: "moon-date-picker-label"});
+    	this.$.yearWrapper.createComponent({ kind:"enyo.Control", content : this.yearText ? this.yearText : "year", style: "display:block;", classes: "moon-date-picker-label"});
  
 
 		this.pickersAreSetUp = true;
