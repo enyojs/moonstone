@@ -3,19 +3,19 @@ enyo.kind({
     kind: "moon.Panel",
     classes: "enyo-unselectable moon moon-video-browsermovies",
     titleAbove: "02",
-    title: "Browser Movies",
+    title: "Browse Movies",
     titleBelow: "37 Movies",
 
     headerComponents: [
         {classes: "moon-video-browsermovie-header-button", components: [
             {kind: "moon.IconButton", src: "../assets/icon-list.png"}
         ]}
-    ],    
-    
+    ],
+
     components: [
         {kind: "enyo.Spotlight"},
         {
-            kind : "moon.Scroller",                    
+            kind : "moon.Scroller",
             fit: true,
             touch : true,
             horizontal : "hidden",

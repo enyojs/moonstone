@@ -13,18 +13,24 @@ enyo.kind({
 	kind: "enyo.List",
 	classes: "moon-list",
 	published: {
-		//* If true, paging controls are hidden if a key is pressed (5-way mode)
+		//* If true, paging controls are hidden if a key is pressed (in 5-way mode)
 		hidePagingOnKey: true,
 		//* If true, paging controls are hidden if the user's pointer leaves this control
 		hidePagingOnLeave: true,
-		//* Amount to scroll when a paging control is tapped. By default set to the row size.
+		/**
+			Amount to scroll when a paging control is tapped. Set to the row size by
+			default.
+		*/
 		pageSize: null
 	},
-	//* Default to moon.ScrollStrategy
+	/**
+		Default scrolling strategy is _moon.ScrollStrategy_, which extends
+		_enyo.TouchScrollStrategy_.
+	*/
 	strategyKind: "moon.ScrollStrategy",
 	//* @protected
 	spotlight: true,
-	//* Handles _paginate_ event sent from PagingControl buttons.
+	//* Handles _paginate_ event sent by PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){
 			this.stopJob('preventPaginate');

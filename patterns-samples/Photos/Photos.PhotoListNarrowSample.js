@@ -10,9 +10,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components : [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components : [
                         {
@@ -21,7 +21,7 @@ enyo.kind({
                             scrollerOptions: {horizontal: "hidden", thumb: false},
                             style: "width: 300px;",
                             components: [
-                                {kind: "moon.ImageItem", bindFrom: "imgSrc", bindTo: "source"}
+                                {kind: "moon.ImageItem", bindings: [{from: ".model.imgSrc", to: ".source"}]}
                             ]
                         }
                     ]
@@ -31,7 +31,7 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 

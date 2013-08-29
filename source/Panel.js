@@ -50,12 +50,13 @@ enyo.kind({
 	headerOption: null,
 	panelTools : [
 		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
-			{name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete"},
-			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-miniheader", content: "Mini header", showing: false},
-			{name: "panelBody", fit: true, classes: "moon-panel-body"}
+			/* headerTools will be created here */
+			{name: "miniHeader", kind: "moon.MarqueeText", classes: "moon-panel-mini-header", content: "Mini header", showing: false},
+			{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 		]},
 		{name: "animator", kind: "StyleAnimator", onStep: "animationStep", onComplete: "animationComplete"}
 	],
+	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
 	headerComponents: [],
 	isBreadcrumb: false,
 	isHeaderCollapsed: false,
@@ -64,7 +65,12 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		this.$.header.createComponents(this.headerComponents, {owner: this});
+		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
+		if (this.headerComponents) {
+			var hc = enyo.constructorForKind(this.kind).prototype.headerComponents;
+			var hcOwner = (hc == this.headerComponents) ? this : this.getInstanceOwner();
+			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
+		}
 		this.autoNumberChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
@@ -80,10 +86,13 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	createTools: function() {
-		var $pts = enyo.clone(this.get("panelTools"));
-		var $h = enyo.clone(this.get("headerOption") || {});
-		enyo.mixin($pts[0], $h);
-		this.createComponents(this.panelTools);
+		// Create everything but the header
+		this.createChrome(this.panelTools);
+		// Special-handling for header, which can have its options modified by the instance
+		var hc = enyo.clone(this.headerConfig || {});
+		hc.addBefore = this.$.miniHeader;
+		enyo.mixin(hc, this.headerOption);
+		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
 	//* On reflow, update _this.$.contentWrapper_ bounds
 	reflow: function() {
@@ -164,9 +173,8 @@ enyo.kind({
 	},
 	//* Update _allowHtml_ property of header components
 	allowHtmlHeaderChanged: function() {
-		this.$.header.$.title.setAllowHtmlText(this.allowHtmlHeader);
-		this.$.header.$.titleBelow.setAllowHtmlText(this.allowHtmlHeader);
-		this.$.header.$.subTitleBelow.setAllowHtmlText(this.allowHtmlHeader);
+
+		this.$.header.setAllowHtml(this.allowHtmlHeader);
 	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
@@ -191,7 +199,7 @@ enyo.kind({
 		this.initialWidth = node.offsetWidth + "px";
 	},
 	shrinkingHeightAnimation: function() {
- 		this.haltAnimations();
+		this.haltAnimations();
 		this.$.animator.play(this.shrinkHeightAnimation.name);
 	},
 	shrinkingWidthAnimation: function() {
@@ -199,7 +207,7 @@ enyo.kind({
 		this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
- 		this.haltAnimations();
+		this.haltAnimations();
 		this.$.animator.play(this.growHeightAnimation.name);
 	},
 	growingWidthAnimation: function() {
@@ -239,12 +247,12 @@ enyo.kind({
 	preTransition: function(inFromIndex, inToIndex, options) {
 		this.$.header.stopMarquee();
 		this.$.miniHeader.stopMarquee();
-		
+
 		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
 			this.shrinkPanel();
 			return true;
 		}
-		
+
 		return false;
 	},
 	postTransition: function(inFromIndex, inToIndex, options) {
@@ -252,7 +260,7 @@ enyo.kind({
 			this.growPanel();
 			return true;
 		}
-		
+
 		return false;
 	},
 	animationStep: function(inSender, inEvent) {
@@ -265,18 +273,18 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-			case "shrinkHeight":
-				this.shrinkingWidthAnimation();
-				return true;
-			case "shrinkWidth":
-				this.preTransitionComplete();
-				return true;
-			case "growWidth":
-				this.growingHeightAnimation();
-				return true;
-			case "growHeight":
-				this.postTransitionComplete();
-				return true;
+		case "shrinkHeight":
+			this.shrinkingWidthAnimation();
+			return true;
+		case "shrinkWidth":
+			this.preTransitionComplete();
+			return true;
+		case "growWidth":
+			this.growingHeightAnimation();
+			return true;
+		case "growHeight":
+			this.postTransitionComplete();
+			return true;
 		}
 	},
 	showSmallHeader: function() {
@@ -342,7 +350,7 @@ enyo.kind({
 		});
 	},
 	createShrinkingWidthAnimation: function() {
-		var breadcrumbWidth = (this.container.layout && this.container.layout.breadcrumbWidth) || 200;
+		var breadcrumbWidth = (this.container && this.container.layout && this.container.layout.breadcrumbWidth) || 200;
 		return this.$.animator.newAnimation({
 			name: "shrinkWidth",
 			duration: 225,

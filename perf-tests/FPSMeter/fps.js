@@ -53,21 +53,21 @@ if(!transitionPropertyName){
     var vendors = ['ms', 'moz', 'webkit', 'o'];
     for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
         window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-        window.cancelAnimationFrame = 
+        window.cancelAnimationFrame =
           window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
     }
- 
+
     if (!window.requestAnimationFrame)
         window.requestAnimationFrame = function(callback, element) {
             var currTime = new Date().getTime();
             // 16 ms is for a 60fps target
             var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
               timeToCall);
             lastTime = currTime + timeToCall;
             return id;
         };
- 
+
     if (!window.cancelAnimationFrame)
         window.cancelAnimationFrame = function(id) {
             clearTimeout(id);
@@ -133,7 +133,7 @@ var self = window.FPSMeter = {
                         }
                         if (storeInterval) {
                             var evt = document.createEvent("Event");
-                            evt.initEvent("fps",true,true); 
+                            evt.initEvent("fps",true,true);
                             evt.fps = fps;
                             document.dispatchEvent(evt);
                         }
@@ -182,7 +182,7 @@ function GetFloatValueOfAttr (element,attr) {
                       floatValue = value.getFloatValue (CSSPrimitiveValue.CSS_PX);
                   }
             }
-        } 
+        }
         catch (e) {
           // Opera doesn't support the getPropertyCSSValue method
           stringValue = compStyle[attr];

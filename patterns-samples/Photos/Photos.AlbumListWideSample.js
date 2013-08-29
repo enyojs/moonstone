@@ -9,8 +9,8 @@ enyo.kind({
         option: {
             source: "",
             bgSource: "",
-            title: ""    
-        }        
+            title: ""
+        }
     },
 
     components:[
@@ -73,8 +73,9 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.sample.photos.AlbumListItem",
-                    bindFrom: "option",
-                    bindTo: "option"
+					bindings: [
+						{from: ".model.option", to: ".option"}
+					]
                 }
             ]
         },
@@ -87,16 +88,17 @@ enyo.kind({
                 {
                     kind: "enyo.Image",
                     classes: "moon-4h moon-1v",
-                    bindFrom: "imgSrc",
-                    bindTo: "src"
+					bindings: [
+						{from: ".model.imgSrc", to: ".src"}
+					]
                 }
             ]
         }
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"},
-        {from: ".controller.albums", to: "$.albumList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"},
+        {from: ".controller.albums", to: ".$.albumList.controller"}
     ]
 });
 

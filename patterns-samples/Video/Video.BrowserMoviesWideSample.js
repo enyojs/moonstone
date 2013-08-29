@@ -5,7 +5,7 @@ enyo.kind({
     published: {
         option: {
             src: "",
-            caption: ""    
+            caption: ""
         }
     },
     handlers: {
@@ -40,14 +40,14 @@ enyo.kind({
     name: "moon.sample.video.BrowserMoviesWideSample",
     kind: "moon.Panel",
     titleAbove: "02",
-    title: "Browser Movies",
+    title: "Browse Movies",
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-list.png"}
     ],
     components: [
 /** If you want to use this template alone with spotlight, remove this comment out.
         {kind: "enyo.Spotlight"},
-*/        
+*/
         {
             name: "movieList",
             /* TODO: enyo.DataGridList should be changed to moon.DataGridList to support scroll */
@@ -55,15 +55,16 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.MovieImageItem",
-                    bindFrom: "option",
-                    bindTo: "option",
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ],                    
                     ontap: "changeName"
                 }
             ]
         }
-    ],   
+    ],
     bindings: [
-        {from: ".controller.albums", to: "$.movieList.controller"}
+        {from: ".controller.albums", to: ".$.movieList.controller"}
     ]
 });
 
