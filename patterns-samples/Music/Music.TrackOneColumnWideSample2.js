@@ -137,7 +137,7 @@ enyo.ready(function (){
 				{
 					kind: "moon.sample.music.TrackOneColumnWideSample2",
 					controller: ".app.controllers.trackController",
-					classes: "enyo-fit",
+					classes: "enyo-fit"
 				}
 			]
 		},
