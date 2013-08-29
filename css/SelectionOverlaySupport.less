@@ -8,7 +8,6 @@
 		&.selected {
 			.moon-icon-button {
 				.moon-icon.moon-icon-button.pressed;
-				background-position: 0px -@moon-checkbox-image-width;
 			}
 		}
 	}
@@ -19,18 +18,9 @@
 	background: rgba(0, 0, 0, 0.3);
 	.moon-selection-overlay-support-checkbox {
 		position: absolute;
-		width: @moon-checkbox-image-width;
-		height: @moon-checkbox-image-height;		
 		top: 50%;
 		left: 50%;
 		margin-top: -@moon-icon-size/2;
 		margin-left: -@moon-icon-size/2;
-	}
-}
-.moon-selection-overlay-support-checkbox {
-	&.moon-icon {
-		&.moon-icon-button:active:hover {
-			background-position: 0 -@moon-checkbox-image-width;
-		}
 	}
 }
