@@ -3492,6 +3492,28 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-scroller-vthumb.hidden {
   opacity: 0;
 }
+.moon-more-less-decorator.collapse .moon-more-less-decorator-client {
+    display: -webkit-inline-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+.moon-more-less-decorator .moon-more-less-decorator-button {
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 30px;
+  background-image: url(../images/caret-black-small-up-icon.png);
+}
+.moon-more-less-decorator .moon-more-less-decorator-button.spotlight {
+  //TODO : need spotlight icon;
+  //background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
+} 
+.moon-more-less-decorator.collapse .moon-more-less-decorator-button {
+  background-image: url(../images/caret-black-small-down-icon.png);
+}
+.moon-more-less-decorator.collapse .moon-more-less-decorator-button.spotlight {
+  //TODO : need spotlight icon;
+  //background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
   background-color: #555555;
