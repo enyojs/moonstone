@@ -82,7 +82,13 @@ enyo.kind({
 			When true, the picker uses a 12-hour clock. (This value is ignored when
 			_ilib_ is loaded, since the meridiem will be set by the current locale.)
 		*/
-		meridiemEnable: false
+		meridiemEnable: false,
+		//* Optional label for hour
+		hourText: "hour",
+		//* Optional label for minute
+		minuteText: "minute",
+		//* Optional label for meridian
+		meridianText: "meridian",
 	},
 	componentOverrides: {
 		headerWrapper: {components: [
@@ -143,7 +149,7 @@ enyo.kind({
 				break;
 			case 'm': {
 					this.createComponent(
-						{kind:"enyo.Control", name: "minWrapper", classes: "moon-date-picker-wrap", components:[
+						{kind:"enyo.Control", name: "minuteWrapper", classes: "moon-date-picker-wrap", components:[
 							{kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()}
 						]}
 					);
@@ -152,7 +158,7 @@ enyo.kind({
 			case 'a': {
 					if (this.meridiemEnable === true) {
 						this.createComponent(
-							{kind:"enyo.Control", name: "meridWrapper", classes: "moon-date-picker-wrap", components:[
+							{kind:"enyo.Control", name: "meridianWrapper", classes: "moon-date-picker-wrap", components:[
 								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 }
 							]}
 						);
@@ -165,9 +171,9 @@ enyo.kind({
 		
 		}
 
-		this.$.hourWrapper.createComponent({ kind:"enyo.Control", content : this.hourText ? this.hourText : "hour", classes: "moon-date-picker-label"});
-    	this.$.minWrapper.createComponent({ kind:"enyo.Control", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"});
-    	this.$.meridWrapper.createComponent({ kind:"enyo.Control", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"});
+		this.$.hourWrapper.createComponent({ kind:"enyo.Control", name: "hourLabel", content : this.hourText ? this.hourText : "hour", classes: "moon-date-picker-label"}, {owner: this});
+    	this.$.minuteWrapper.createComponent({ kind:"enyo.Control", name: "minuteLabel", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+    	this.$.meridianWrapper.createComponent({ kind:"enyo.Control", name: "meridianLabel", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
 
 		this.pickersAreSetUp = true;
 	},
@@ -290,5 +296,14 @@ enyo.kind({
 		this.destroyClientControls();
 		this.initDefaults(new ilib.TimeZone({locale: this.locale}));
 		this.render();
+	},
+	hourTextChanged: function (inOldvalue, inNewValue) {
+		this.$.hourLabel.setContent(inNewValue);
+	},
+	minuteTextChanged: function (inOldvalue, inNewValue) {
+		this.$.minuteLabel.setContent(inNewValue);
+	},
+	meridianTextChanged: function (inOldvalue, inNewValue) {
+		this.$.meridianLabel.setContent(inNewValue);
 	}
 });

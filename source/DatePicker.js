@@ -46,6 +46,12 @@ enyo.kind({
 		minYear: 1900,
 		//* Optional maximum year value
 		maxYear: 2099,
+		//* Optional label for day
+		dayText: "day",
+		//* Optional label for month
+		monthText: "month",
+		//* Optional label for year
+		yearText: "year",
 		/**
 			The current date as a standard JavaScript Date object. When a Date object
 			is passed to _set("value")_, the control is updated to reflect the new
@@ -123,9 +129,9 @@ enyo.kind({
 			}
     	}
 
-    	this.$.dayWrapper.createComponent({ kind:"enyo.Control", content : this.dayText ? this.dayText : "day", classes: "moon-date-picker-label"});
-    	this.$.monthWrapper.createComponent({ kind:"enyo.Control", content : this.monthText ? this.monthText : "month", style: "display:block;", classes: "moon-date-picker-label"});
-    	this.$.yearWrapper.createComponent({ kind:"enyo.Control", content : this.yearText ? this.yearText : "year", style: "display:block;", classes: "moon-date-picker-label"});
+    	this.$.dayWrapper.createComponent({ kind:"enyo.Control", name: "dayLabel", content : this.dayText ? this.dayText : "day", classes: "moon-date-picker-label"}, {owner: this});
+    	this.$.monthWrapper.createComponent({ kind:"enyo.Control", name: "monthLabel", content : this.monthText ? this.monthText : "month", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+    	this.$.yearWrapper.createComponent({ kind:"enyo.Control", name: "yearLabel", content : this.yearText ? this.yearText : "year", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
  
 
 		this.pickersAreSetUp = true;
@@ -243,5 +249,14 @@ enyo.kind({
 			this.$.header.stopMarquee();
 			this.$.currentValue.stopMarquee();
 		}
+	},
+	yearTextChanged: function (inOldvalue, inNewValue) {
+		this.$.yearLabel.setContent(inNewValue);
+	},
+	monthTextChanged: function (inOldvalue, inNewValue) {
+		this.$.monthLabel.setContent(inNewValue);
+	},
+	dayTextChanged: function (inOldvalue, inNewValue) {
+		this.$.dayLabel.setContent(inNewValue);
 	}
 });
