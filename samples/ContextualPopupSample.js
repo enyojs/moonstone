@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.ContextualPopupSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{
 			kind: "moon.ContextualPopupDecorator",
 			style:"position: absolute; left: 0px; top: 0px;",

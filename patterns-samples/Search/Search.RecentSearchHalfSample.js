@@ -71,7 +71,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.search.RecentSearchHalfSample",
                     controller: ".app.controllers.RecentSearchController",
