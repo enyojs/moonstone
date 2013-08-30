@@ -30,7 +30,8 @@ enyo.kind({
 	kind: "moon.Header",
 	published: {
 		//* The value of the input
-		value:""
+		value:"",
+		placeholder:"just type"
 	},
 	events: {
 		//* Fired on each keypress
@@ -45,12 +46,29 @@ enyo.kind({
 	classes: "moon-header moon-input-header",
 	componentOverrides: {
 		title: {kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
-			{name: "titleInput", kind: "moon.Input", classes: "moon-header-font moon-header-title"}
+			{name: "titleInput", kind: "moon.Input", classes: "moon-header-font moon-header-title", onfocus:"focusHandler", onblur:"blurHandler"}
 		]}
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.placeholderChanged();
 	},
 	//* If _this.title_ or _this.content_ changed, the placeHolder value of a moon.Input will be updated
 	contentChanged: function() {
-		this.$.titleInput.setPlaceholder(this.title || this.content);
+		this.$.titleInput.setValue(this.title || this.content);
+	},
+	placeholderChanged: function() {
+		this.$.titleInput.setPlaceholder(this.placeholder);
+	},
+	focusHandler : function() {
+		if(this.$.titleInput.getValue() === this.title){
+			this.$.titleInput.setValue("");
+		}
+	},
+	blurHandler : function() {
+		if(this.$.titleInput.getValue() === ""){
+			this.$.titleInput.setValue(this.title || this.content);
+		}
 	},
 	allowHtmlChanged: function() {
 		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
