@@ -127,17 +127,21 @@ enyo.kind({
 	_applyPattern: function() {
 		switch (this.pattern) {
 		case "none":
+			this.showFirstBreadcrumb = false;
 			break;
 		case "alwaysviewing":
 			this.addClass('moon-dark-gray moon-panels-fullscreen alwaysviewing');
 			this.createChrome(this.patternTools);
 			this.panelCoverRatio = 0.5;
+			this.showFirstBreadcrumb = false;
 			break;
 		case "activity":
 			this.addClass('moon-dark-gray moon-panels-fullscreen activity');
 			this.createChrome(this.patternTools);
-		default:
 			this.showFirstBreadcrumb = true;
+			break;
+		default:
+			
 		}
 	},
 	onSpotableRight: function(inSender, inEvent) {

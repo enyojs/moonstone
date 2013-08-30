@@ -40,7 +40,6 @@ enyo.kind({
 	size: function() {
 		var containerWidth = this.getContainerWidth(),
 			panels = this.container.getPanels(),
-			joinedPanels,
 			i;
 
 		// Set up default widths for each panel
