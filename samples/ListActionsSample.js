@@ -40,7 +40,7 @@ enyo.kind({
 							{content:"Highest Rated", kind:"moon.ToggleItem"}
 						]}
 					]}
-				]},
+				]}
 			]},
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position:"above", content:"Select Options"},
