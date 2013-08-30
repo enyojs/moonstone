@@ -57,7 +57,6 @@ enyo.kind({
 	name: "moon.sample.panel.CreatePanelSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit",
 			/* 5:9 layout. */
 			onPanelTransitionFinish: 'onPanelsTransit',
