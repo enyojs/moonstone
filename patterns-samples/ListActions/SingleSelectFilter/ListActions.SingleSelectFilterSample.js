@@ -7,9 +7,8 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-
 		{kind: "moon.Panels", classes:"enyo-fit", pattern:"alwaysviewing", components: [
-			{kind:"moon.Panel", title:"Browse Movies", headerComponents: [
+			{name: "panel", kind:"moon.Panel", title:"Browse Movies", headerComponents: [
 				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
 						{kind: "moon.Divider", content:"Filter"},
@@ -25,32 +24,21 @@ enyo.kind({
 					]}
 				]}
 			], components: [
-				{
-					name: "gridlist",
-					kind: "moon.GridList",
-					classes: "grid-list",
-					count:20,
-					toggleSelected: true,
-					itemWidth: 150,
-					itemHeight: 200,
-					itemSpacing: 20,
-					onSetupItem: "setupItem",
-					components: [
-						{name: "item", kind: "moon.GridListImageItem"}
-					]
-				}
+				{name: "gridlist", kind: "moon.GridList", classes: "grid-list", toggleSelected: true, count:20, 
+				itemWidth: 150, itemHeight: 200, itemSpacing: 20, onSetupItem: "setupItem", components: [
+					{name: "item", kind: "moon.GridListImageItem"}
+				]}
 			]}
 		]}
 	],
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		// var item = this.results[i];
 		this.$.item.setSource("../assets/movieImage.jpg");
 		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	},
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
-			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
+			this.$.panel.setTitleBelow(inEvent.toggledControl.getContent());
 		}
 	}
 });
