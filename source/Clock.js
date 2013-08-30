@@ -41,14 +41,7 @@ enyo.kind({
 	refreshChanged: function() {
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
-	refreshJob: function() {
-		var d = new Date(), 
-			h = d.getHours(),
-			date = ilib.Date.newInstance(),
-			meridian = "am";
-
-		meridian = h > 11 ? "pm" : "am";
-		h = h > 12 ? h-12: h;
+	refreshJob: function() {		
 		this.$.hour.setContent(this._getTimeValue("hour"));
 		this.$.minute.setContent(this._getTimeValue("min"));
 		this.$.meridian.setContent(this._getMeridian());
@@ -66,7 +59,7 @@ enyo.kind({
 	},
 	_getMeridian: function () {
 		var meridian = "";
-		if (this._isIlibLoaded()) {
+		/*if (this._isIlibLoaded()) {
 			var fmt = new ilib.DateFmt({ locale: this.ilibLocaleInfo, type: "time", time : "ah" }),
 				ah = fmt.format(ilib.Date.newInstance()),
 				ahArray = (ah) ? ah.split(" ") : [];
@@ -74,7 +67,7 @@ enyo.kind({
 			if (ahArray.length > 0) {
 				meridian = ahArray[0];
 			}
-		}
+		}*/
 		
 		if (meridian === "") {
 			var h = new Date().getHours();
@@ -85,7 +78,7 @@ enyo.kind({
 	},
 	_getDateValue: function (type) {
 		var result = "";
-		if (this._isIlibLoaded()) {
+		/*if (this._isIlibLoaded()) {
 			var fmt = new ilib.DateFmt({ locale: this.ilibLocaleInfo, type: "date", date : "md", length: "long" }),
 				fmtResult = fmt.format(ilib.Date.newInstance()),
 				fmtArray = (fmtResult) ? fmtResult.split(" ") : [];
@@ -93,7 +86,7 @@ enyo.kind({
 			if (fmtArray.length > 0) {
 				result = fmtArray[type === "month" ? 0 : 1];
 			}
-		}
+		}*/
 
 		if (result === "") {
 			result = type === "month"? this.months[new Date().getMonth()] : this._formatNumber(new Date().getUTCDate());
