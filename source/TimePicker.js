@@ -60,7 +60,9 @@ enyo.kind({
 			Handler for _onChange_ events coming from constituent controls (e.g.,
 			_hour_)
 		*/
-		onChange: "updateTime"
+		onChange: "updateTime",
+		//* Handler for _onlocalechange_ events which come from Cordova
+		onlocalechange: "updateLocale"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
@@ -191,6 +193,11 @@ enyo.kind({
 								this.value.getMilliseconds()));
 		}
 		return true;
+	},
+	updateLocale: function(inSender, inEvent) {
+		if(inEvent.localeInfo) {
+			this.setLocale(inEvent.localeInfo);
+		}
 	},
 	valueChanged: function(inOld) {
 		var hour = this.value.getHours();

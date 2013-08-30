@@ -30,7 +30,9 @@ enyo.kind({
 	handlers: {
 		//* Handler for _onChange_ events coming from constituent controls (_day_,
 		//* _month_, and _year_)
-		onChange: "updateDate"
+		onChange: "updateDate",
+		//* Handler for _onlocalechange_ events which come from Cordova
+		onlocalechange: "updateLocale"
 	},
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
@@ -124,6 +126,11 @@ enyo.kind({
 		var maxDays = this.monthLength(year, month);
 		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays));
 		return true;
+	},
+	updateLocale: function(inSender, inEvent) {
+		if(inEvent.localeInfo) {
+			this.setLocale(inEvent.localeInfo);
+		}
 	},
 	valueChanged: function(inOld) {
 		this.$.year.setValue(this.value.getFullYear());
