@@ -10,9 +10,10 @@
 	-webkit-transition: height 0.2s linear;
 	-moz-transition: height 0.2s linear;
 	max-width:100%;
-	margin: @moon-spotlight-outset;
-	padding-top: 8px;
+	padding: 8px @moon-spotlight-outset @moon-spotlight-outset;
 }
+
+/* Title Above */
 .moon-header-title-above.no-border {
 	border: none;
 	min-height: @moon-header-super-text-size * @moon-header-line-height;
@@ -22,6 +23,8 @@
 	line-height: @moon-header-line-height; 
 	width: 30px;
 }
+
+/* Main Title */
 .moon-header-title {
 	.moon-header-text;
 	line-height: @moon-header-line-height;
@@ -30,19 +33,22 @@
 .moon-header-title .moon-marquee-text {
 	white-space: nowrap;
 }
+
+/* Title Below */
 .moon-header-title-below {
 	.moon-sub-header-text;
 	margin-bottom: 8px;
 }
-.moon-header-sub-title-below {
-	.moon-body-text;
-}
 .enyo-locale-non-latin .moon-header-title-below {
 	font-family: @moon-non-latin-font-family;
 }
-.moon-header-item {
-	float: right;
+
+/* Sub Title Below */
+.moon-header-sub-title-below {
+	.moon-body-text;
 }
+
+/* Header Client */
 .moon-header-client {
 	position: absolute;
 	bottom: @moon-grid-gutter-height;
@@ -55,14 +61,9 @@
 	text-align: left;	/* fallback in case text-align:start isn't supported */
 	text-align: start;	/* CSS3 for RTL support */
 }
-.moon-header-left {
-	float: left;
-}
-.enyo-locale-right-to-left .moon-header-left {
-	float: right;
-}
 
-/* Small header styling */
+
+/* Small Header */
 .moon-header.moon-small-header {
 	height: 240px;
 }
@@ -84,4 +85,12 @@
 .hidden-title .moon-header-title-below,
 .hidden-title .moon-header-sub-title-below {
 	opacity: 0;
+}
+
+
+.moon-header-left {
+	float: left;
+}
+.enyo-locale-right-to-left .moon-header-left {
+	float: right;
 }

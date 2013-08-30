@@ -298,6 +298,16 @@ enyo.kind({
 
 		this.finishTransition();
 	},
+	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
+	indexChanged: function() {
+		var activePanel = this.getActive();
+		
+		if (activePanel.isBreadcrumb) {
+			activePanel.removeSpottableBreadcrumbProps();
+		}
+
+		this.inherited(arguments);
+	},
 	finishTransition: function() {
 		this.inherited(arguments);
 
@@ -313,12 +323,14 @@ enyo.kind({
 		case "none":
 			break;
 		case "alwaysviewing":
-			this.addClass("panels-50-percent-scrim");
+			this.addClass("always-viewing-panels panels-50-percent-scrim");
 			break;
 		case "activity":
-			/* falls through */
-		default:
+			this.addClass("activity-panels");
 			this.showFirstBreadcrumb = true;
+			break;
+		default:
+			break;
 		}
 	}
 });
