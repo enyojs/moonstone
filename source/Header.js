@@ -65,7 +65,7 @@ enyo.kind({
 		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")" : "none");
 	},
 	backgroundPositionChanged: function() {
-		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [];
+		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [],
 			posStr = (posArray.length === 0) ? "top right" : (posArray.length === 1) ? posArray[0] + " right" : posArray[0] + " " + posArray[1];
 		this.applyStyle("background-position", posStr);
 	},
