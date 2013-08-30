@@ -2,10 +2,6 @@ enyo.kind({
 	name: "moon.sample.InputHeaderSample",
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-input-header-sample",
-	handlers: {
-		onInputHeaderInput: "handleInput",
-		onInputHeaderChange: "handleChange"
-	},
 	components: [
 		{kind:"moon.Panels", pattern:"activity", fit:true, components: [
 			{
@@ -15,6 +11,8 @@ enyo.kind({
 					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
 				]},
+				onInputHeaderInput: "handleInput",
+				onInputHeaderChange: "handleChange",
 				title:"Input Header",
 				titleAbove: "01",
 				titleBelow: "Sub Header",
@@ -28,6 +26,8 @@ enyo.kind({
 					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}
 				]},
+				onInputHeaderInput: "handleInput",
+				onInputHeaderChange: "handleChange",
 				smallHeader: true,
 				title:"Small Input Header",
 				titleAbove: "02",
