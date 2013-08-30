@@ -3416,6 +3416,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background: none;
   padding: 0;
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
@@ -3431,7 +3432,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: #404040;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
-  padding: 10px;
+  padding: 8px 10px;
   margin-left: 60px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
