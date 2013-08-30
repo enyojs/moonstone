@@ -1,98 +1,108 @@
 /**
-    _moon.ExpandableText is a control that displaying more or less text inline.
+	_moon.ExpandableText_ is a control that allows long bodies of text to be expanded/collapsed.
 
-    {
-        kind: "moon.ExpandableText",
-        collapsed: true,
-        maxLines: 3,
-        content: "At the heart of Enyo is a simple but powerful encapsulation model, which helps you factor application functionality into self-contained building blocks that are easy to reuse and maintain."
-    }
+	Usage:
 
-    the _onChange_ event is fired when the button(more/less) is tapped.
+	{kind: "moon.ExpandableText", collapsed: true, maxLines: 3, content: "I left my heart in San Francisco."}
 
+	Events:
+	
+	The _onChange_ event is fired when the control is expanded/collapsed.
 */
-enyo.kind({
-    name: "moon.ExpandableText",
-    classes: "moon-expandable-text",
-    published: {
-        //* When true, content is collapsed
-        collapsed: true,
-        //* Max line number to show content when it is collapsed.
-        maxLines: 3,
-        //* Button text when content is collapsed
-        moreContent: $L("more"),
-        //* Button text when content is not collapsed
-        lessContent: $L("less")
-    },
-    events: {
-        onChange: ""
-    },
-    components:[
-        {name: "content", classes: "moon-body-text moon-expandable-text-content"},
-        {name: "moreLessButton", kind: "moon.Button", small: true, classes: "moon-expandable-text-button", ontap: "buttonTapped"}
-    ],
-    _lineHeight: "31",
 
-    //*@protected
-    initComponents: function() {
-        this.inherited(arguments);
-        this._updateLineHeight();
-    },
+enyo.kind({
+	name: "moon.ExpandableText",
+	classes: "moon-expandable-text",
+	published: {
+		//* When true, content is collapsed
+		collapsed: true,
+		//* Max line number to show content when it is collapsed.
+		maxLines: 3,
+		//* Button text when content is collapsed
+		moreContent: $L("more"),
+		//* Button text when content is not collapsed
+		lessContent: $L("less")
+	},
+	events: {
+		//* Fired when this control expands/collapses
+		onExpandCollapse: ""
+	},
+	components:[
+		{name: "client", classes: "moon-body-text moon-expandable-text-content"},
+		{name: "collapseButton", kind: "enyo.Control", classes: "moon-item moon-expandable-text-collapse-button", spotlight: true, ontap: "expandContract"}
+	],
+	bindings: [
+		{from: ".content", to: ".$.client.content"},
+		{from: ".buttonContent", to: ".$.collapseButton.content"}
+	],
+	lineHeight: 32,
+
+	//*@protected
     rendered: function() {
         this.inherited(arguments);
-        this._updateButtonVisibility();
-        this.updateCollapsed();
-        this.isRendered = true;
+		this.calcLineHeight();
+		this.collapsedChanged();
     },
-    contentChanged: function() {
-        this.$.content.setContent(this.content);
-        this._updateButtonVisibility();
-    },
-    collapsedChanged: function() {
-        this.updateCollapsed(this.collapsed);
-        this.updateButtonContent();
-        this.doChange({collapsed: this.collapsed});
-    },
+	reflow: function() {
+		this.inherited(arguments);
+		this.updateContentHeight();
+	},
+	resizeHandler: function() {
+		this.updateContentHeight();
+	},
+	lineHeightChanged: function() {
+		this.updateButtonVisibility();
+	},
     maxLinesChanged: function() {
-        this._updateButtonVisibility();
+        this.updateButtonVisibility();
     },
-    moreContentChanged: function() {
-        this.updateButtonContent();
-    },
-    lessContentChanged: function() {
-        this.updateButtonContent();
-    },
-    buttonTapped: function() {
-        this.setCollapsed(!this.collapsed);
-    },
-    updateButtonContent: function() {
-        this.$.moreLessButton.setContent((this.collapsed) ? this.moreContent : this.lessContent);
-    },
-    updateCollapsed: function() {
-        if(this.collapsed) {
-            this.$.content.applyStyle("-webkit-line-clamp", this.maxLines);
-            this.addClass('collapse', this.collapsed);
+	moreContentChanged: function() {
+		this.updateCollapseButtonContent();
+	},
+	lessContentChanged: function() {
+		this.updateCollapseButtonContent();
+	},
+    collapsedChanged: function() {
+        if (this.collapsed) {
+            this.$.client.applyStyle("-webkit-line-clamp", this.maxLines);
+            this.removeClass('expanded');
+			this.set("buttonContent", this.moreContent);
         } else {
-            this.$.content.applyStyle("-webkit-line-clamp", null);
-            this.removeClass('collapse');
-        } 
-    },
-    _updateLineHeight: function() {
-        this.$.content.applyStyle("line-Height", this._lineHeight + "px");  
-    },
-    _updateButtonVisibility: function() {
-        if(this.$.content.hasNode()) {
-            if(this.isRendered) {
-                this.setCollapsed(false);
-            }
-            this.$.moreLessButton.addRemoveClass("hidden", !(this._getContentHeight() > this._calMaxHeight()));
-            this.updateButtonContent();
+            this.$.client.applyStyle("-webkit-line-clamp", null);
+            this.addClass('expanded');
+			this.set("buttonContent", this.lessContent);
         }
     },
-    _calMaxHeight: function() {
-        return this.maxLines * this._lineHeight;
+	//* When _expandContract_ button is tapped, toggle _this.collapsed_ and fire _change_ event
+	expandContract: function() {
+		this.set("collapsed", !this.collapsed);
+		this.doExpandCollapse({collapsed: this.collapsed});
+	},
+	//* Call _reflow()_ when user programatically sets _this.content_
+	setContent: function() {
+		this.inherited(arguments);
+		this.reflow();
+	},
+	updateContentHeight: function() {
+		this.calcContentHeight();
+		this.updateButtonVisibility();
+	},
+    updateButtonVisibility: function() {
+        if (!this.hasNode()) {
+			return;
+		}
+		
+        this.$.collapseButton.addRemoveClass("hidden", (this.contentHeight < this.calcMaxHeight()));
     },
-    _getContentHeight: function() {
-        return this.$.content.hasNode().getBoundingClientRect().height;
+    calcMaxHeight: function() {
+        return this.maxLines * this.lineHeight;
+    },
+	calcLineHeight: function() {
+		var lineHeight = parseInt(enyo.dom.getComputedStyleValue(this.$.client.hasNode(), "line-height"), 10);
+		this.set("lineHeight", (lineHeight > 0) ? lineHeight : null);
+	},
+	//* Calculate height of _this.$.client_. Strangely we have to add 1 px - when clamped the height is one less than line-height.
+    calcContentHeight: function() {
+        this.contentHeight = (this.$.client.hasNode()) ? this.$.client.hasNode().getBoundingClientRect().height + 1 : null;
     }
 });

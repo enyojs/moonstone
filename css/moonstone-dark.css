@@ -353,6 +353,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
 }
 .moon-large-button-text {
   font-family: "Miso";
@@ -1147,6 +1148,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
 }
 .moon-expandable-list-item-client .moon-item.spotlight {
   color: #ffffff;
@@ -1184,6 +1186,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
   color: #999999;
   margin: 0px;
   padding: 0px;
@@ -1226,6 +1229,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
   margin: 0px;
   padding: 0px;
 }
@@ -1282,6 +1286,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
   font-family: "LG Display";
@@ -1374,6 +1379,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #b2b2b2;
@@ -1689,6 +1695,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -1856,6 +1863,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -1911,6 +1919,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
   min-height: 100px;
   min-width: 100px;
   border-radius: 16px;
@@ -2031,7 +2040,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
-  line-height: 1.5em;
+  line-height: 32px;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -2042,7 +2051,7 @@
   /* need >=50px for scrollbar to be usable on mac */
 
   min-height: 50px;
-  height: 4.5em;
+  height: 96px;
   min-width: 100px;
   color: #4b4b4b;
 }
@@ -2101,6 +2110,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #b2b2b2;
+  line-height: 32px;
   content: "\2716";
   position: relative;
   top: 3px;
@@ -2169,7 +2179,7 @@
   letter-spacing: -0.04em;
   color: #b2b2b2;
   color: #999999;
-  line-height: 1.5em;
+  line-height: 32px;
   text-transform: none;
   margin: 0px;
   padding: 0px;
@@ -3492,22 +3502,37 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-expandable-text .moon-expandable-text-content {
   margin: 0 10px;
 }
-.moon-expandable-text.collapse .moon-expandable-text-content {
-    display: -webkit-inline-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
+.moon-expandable-text .moon-expandable-text-content {
+  display: -webkit-inline-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
 }
-.moon-expandable-text .moon-expandable-text-button {
+.moon-expandable-text .moon-item.moon-expandable-text-collapse-button {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #b2b2b2;
+  line-height: 32px;
   float: right;
+  display: inline-block;
+  padding-right: 40px;
   background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 30px;
-  background-image: url(../images/caret-black-small-up-icon.png);
+  background-position: 90% center;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
-.moon-expandable-text.collapse .moon-expandable-text-button {
-  background-image: url(../images/caret-black-small-down-icon.png);
+.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.spotlight {
+  color: #ffffff;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
-.moon-expandable-text .moon-expandable-text-button.hidden {
+.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
+}
+.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button.spotlight {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
+}
+.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.hidden {
   display: none;
 }
 /* Put this at the end because we want these to take precedence over others */
