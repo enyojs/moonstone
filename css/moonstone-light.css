@@ -280,45 +280,6 @@
 .moon-7v {
   height: 280px;
 }
-.moon-8v {
-  height: 320px;
-}
-.moon-9v {
-  height: 360px;
-}
-.moon-10v {
-  height: 400px;
-}
-.moon-11v {
-  height: 440px;
-}
-.moon-12v {
-  height: 480px;
-}
-.moon-13v {
-  height: 520px;
-}
-.moon-14v {
-  height: 560px;
-}
-.moon-15v {
-  height: 600px;
-}
-.moon-16v {
-  height: 640px;
-}
-.moon-17v {
-  height: 680px;
-}
-.moon-18v {
-  height: 720px;
-}
-.moon-19v {
-  height: 760px;
-}
-.moon-20v {
-  height: 800px;
-}
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
@@ -1353,7 +1314,7 @@
 }
 .moon-header-client {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
   left: 0px;
   right: 0px;
   text-align: right;
@@ -1455,7 +1416,7 @@
   color: #ffffff;
 }
 .moon-gridlist .enyo-gridlist-row:last-child {
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 /* Icon.css */
 .moon-icon,
@@ -2601,7 +2562,7 @@ body .enyo-fit.panels-50-percent-scrim,
   font-size: 24px;
 }
 .moon-dialog-client > * {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .moon-tooltip {
   z-index: 20;
@@ -3572,26 +3533,26 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 10px;
+  margin: 0 20px;
 }
 .moon-hspacing > :first-child {
   margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-  margin-left: 10px;
+  margin-left: 20px;
   margin-right: 0;
 }
 .moon-hspacing > :last-child {
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-  margin-right: 10px;
+  margin-right: 20px;
   margin-left: 0;
 }
 /* Standard vertical spacing */
 .moon-vspacing > * {
   display: block;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 .moon-vspacing > :first-child {
   margin-top: 0;
