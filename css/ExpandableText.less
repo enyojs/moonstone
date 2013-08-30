@@ -1,23 +1,35 @@
 /* ExpandableText */
+
 .moon-expandable-text .moon-expandable-text-content {
     margin: 0 @moon-spotlight-outset;
 }
-.moon-expandable-text.collapse .moon-expandable-text-content {
+.moon-expandable-text .moon-expandable-text-content {
     display: -webkit-inline-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
 }
-.moon-expandable-text .moon-expandable-text-button {
-  float: right;
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 30px;
-  background-image: @moon-caret-black-small-up-icon;
+
+.moon-expandable-text .moon-item.moon-expandable-text-collapse-button {
+	.moon-body-text;
+	float: right;
+	display: inline-block;
+	padding-right: 40px;
+	background-repeat: no-repeat;
+	background-position: 90% center;
+	background-image: @moon-expandable-text-down-arrow;
 }
-.moon-expandable-text.collapse .moon-expandable-text-button {
-  background-image: @moon-caret-black-small-down-icon;
-}
-.moon-expandable-text .moon-expandable-text-button.hidden {
-  display: none;
+.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.spotlight {
+	color: @moon-white;
+	background-image: @moon-expandable-text-down-arrow-spotlight;
 }
 
+.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button {
+	background-image: @moon-expandable-text-up-arrow;
+}
+.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button.spotlight {
+	background-image: @moon-expandable-text-up-arrow-spotlight;
+}
+
+.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.hidden {
+	display: none;
+}
