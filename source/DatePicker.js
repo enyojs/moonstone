@@ -89,20 +89,20 @@ enyo.kind({
 		var o,f,l,c;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {				
+			if (doneArr.indexOf(o) < 0) {               
 				doneArr.push(o);
 			}
 		}
 
-    	for(f = 0, l = doneArr.length; f < l; f++) {
-      		o = doneArr[f];
-      		if (f == 0) {
-        		c = " first";
-      		} else if (f == doneArr.length - 1) {
-        		c = " last";
-      		} else {
-        		c = "";  
-      		}
+		for(f = 0, l = doneArr.length; f < l; f++) {
+			o = doneArr[f];
+			if (f === 0) {
+				c = " first";
+			} else if (f == doneArr.length - 1) {
+				c = " last";
+			} else {
+				c = "";  
+			}
 
 			switch (o) {
 			case 'd':
@@ -127,11 +127,11 @@ enyo.kind({
 			default:
 				break;
 			}
-    	}
+		}
 
-    	this.$.dayWrapper.createComponent({ kind:"enyo.Control", name: "dayLabel", content : this.dayText ? this.dayText : "day", classes: "moon-date-picker-label"}, {owner: this});
-    	this.$.monthWrapper.createComponent({ kind:"enyo.Control", name: "monthLabel", content : this.monthText ? this.monthText : "month", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
-    	this.$.yearWrapper.createComponent({ kind:"enyo.Control", name: "yearLabel", content : this.yearText ? this.yearText : "year", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+		this.$.dayWrapper.createComponent({ kind:"enyo.Control", name: "dayLabel", content : this.dayText ? this.dayText : "day", classes: "moon-date-picker-label"}, {owner: this});
+		this.$.monthWrapper.createComponent({ kind:"enyo.Control", name: "monthLabel", content : this.monthText ? this.monthText : "month", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+		this.$.yearWrapper.createComponent({ kind:"enyo.Control", name: "yearLabel", content : this.yearText ? this.yearText : "year", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
  
 
 		this.pickersAreSetUp = true;

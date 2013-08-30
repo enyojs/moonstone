@@ -88,7 +88,7 @@ enyo.kind({
 		//* Optional label for minute
 		minuteText: "minute",
 		//* Optional label for meridian
-		meridianText: "meridian",
+		meridianText: "meridian"
 	},
 	componentOverrides: {
 		headerWrapper: {components: [
@@ -172,8 +172,8 @@ enyo.kind({
 		}
 
 		this.$.hourWrapper.createComponent({ kind:"enyo.Control", name: "hourLabel", content : this.hourText ? this.hourText : "hour", classes: "moon-date-picker-label"}, {owner: this});
-    	this.$.minuteWrapper.createComponent({ kind:"enyo.Control", name: "minuteLabel", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
-    	this.$.meridianWrapper.createComponent({ kind:"enyo.Control", name: "meridianLabel", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+		this.$.minuteWrapper.createComponent({ kind:"enyo.Control", name: "minuteLabel", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+		this.$.meridianWrapper.createComponent({ kind:"enyo.Control", name: "meridianLabel", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
 
 		this.pickersAreSetUp = true;
 	},
