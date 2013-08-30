@@ -11,7 +11,6 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-
 		{kind: "moon.Panels", classes:"enyo-fit", pattern:"activity", components: [
 			{kind:"moon.Panel", title:"Browse Movies", headerComponents: [
 				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[

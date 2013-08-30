@@ -111,6 +111,7 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
+				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.video.DetailWideSample",
 					controller: ".app.controllers.movieController",

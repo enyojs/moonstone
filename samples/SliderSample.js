@@ -3,6 +3,7 @@ enyo.kind({
 	name: "moon.sample.SliderSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", fit: true, components: [
 
 			{kind: "moon.Divider", content: "Slider 1: Default", style: "margin-top:20px;"},
