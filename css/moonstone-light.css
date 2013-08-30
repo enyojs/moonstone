@@ -2266,11 +2266,82 @@
   font-size: 26px;
   color: #4b4b4b;
 }
-body .enyo-fit.panels-50-percent-scrim,
-.panels-50-percent-scrim {
+.moon-panels * {
+  pointer-events: auto;
+}
+.moon-panels-fullscreen {
+  position: absolute;
+  box-sizing: border-box;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+.moon-panels-background-scrim {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
+}
+.moon-panels-background-scrim.on {
+  opacity: 0.2;
+}
+.moon-panels-panel-scrim {
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 100%;
+}
+.moon-panels.activity .moon-panels-panel-scrim {
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+}
+.moon-panels.alwaysviewing .moon-panels-panel-scrim {
   left: 50%;
-  overflow: visible;
-  background-color: rgba(100, 100, 100, 0.5);
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.moon-panels-spotable {
+  position: absolute;
+  height: 100%;
+  right: -10px;
+  width: 1px;
+  left: auto;
+  background: yellow;
+}
+.moon-panels-spot {
+  position: absolute;
+  height: 100%;
+  right: 10px;
+  left: auto;
+  width: 140px;
+  opacity: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #ff2f7d;
+  -webkit-transform: translate3d(120px, 0, 0);
+  transition: -webkit-transform 0.2s ease-in;
+}
+.moon-panels-spotable.gray .moon-panels-spot {
+  background-color: #4b4b4b;
+}
+.moon-panels-spotable.spotlight .moon-panels-spot {
+  background-color: #ff2f7d;
+  background-image: url(../images/LightTheme_Icons/carat-white-left.png);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+.moon-panels-spotable.spotlight.right .moon-panels-spot {
+  background-image: url(../images/LightTheme_Icons/caret-white-right.png);
+}
+.moon-panels-spotable.off .moon-panels-spot {
+  opacity: 0;
+}
+.moon-panels-client {
+  transition: -webkit-transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 /* Header */
 .moon-accordion .moon-expandable-list-item-header {
