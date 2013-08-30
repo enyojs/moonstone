@@ -325,7 +325,14 @@ enyo.kind({
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
-			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+			if (this.showVertical() || this.showHorizontal()) {
+				this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+				return true;
+			} else {
+				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
+				// to allow items in nested scrollers to be scrolled
+				return false;
+			}
 		}
 		return true;
 	},

@@ -14,7 +14,16 @@ enyo.kind({
 			List of actions to be displayed
 		*/
 		listActions: null,
-		iconSrc: ""
+		/**
+			Source URL for icon image
+		*/
+		iconSrc: "",
+		/**
+			By default, list action menus are 300px wide.  To have the menus be porportionally
+			sized within the available space, set to true.  Note, a minimum width of 300px is still
+			respected; if all menus don't fit horizontally, they will be stacked vertically.
+		*/
+		porportionalWidth: false
 	},
 	handlers: {
 		onSpotlightDown: "spotlightDown",
@@ -26,9 +35,9 @@ enyo.kind({
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
 		{name: "drawerPopup", kind: "enyo.Control", classes: "moon-list-actions-drawer-popup", components: [
 			{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, components: [
-				{name: "closeButton", kind: "moon.IconButton", classes: "moon-list-actions-close moon-neutral", ontap: "expandContract"},
+				{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close moon-list-actions-close moon-neutral", ontap: "expandContract"},
 				{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-neutral", components: [
-					{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", onActivate: "optionSelected"}
+					{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", horizontal:"hidden", vertical:"hidden", onActivate: "optionSelected"}
 				]}
 			]}
 		]}
@@ -67,8 +76,12 @@ enyo.kind({
 		}
 		
 		// Increase width to 100% if there is only one list action
-		if (this.listActions.length === 1) {
-			this.listActionComponents[0].addClass("full-width");
+		if (this.porportionalWidth) {
+			this.addClass("porportional-width");
+			var w = 100 / this.listActionComponents.length;
+			for (i=0; i<this.listActionComponents.length; i++) {
+				this.listActionComponents[i].applyStyle("width", w + "%");
+			}
 		}
 		
 		if (this.hasNode()) {
@@ -80,7 +93,7 @@ enyo.kind({
 		var listActionComponent;
 		
 		inListAction.mixins = this.addListActionMixin(inListAction);
-		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner()});
+		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner(), layoutKind:"FittableRowsLayout"});
 		listActionComponent.addClass("moon-list-actions-menu");
 		
 		return listActionComponent;
@@ -106,6 +119,7 @@ enyo.kind({
 		if (this.getOpen()) {
 			this.setOpen(false);
 			enyo.Spotlight.spot(this.$.activator);
+			this.bubble("onRequestUnmuteTooltip");
 		}
 		// If currently closed, resize and show _this.$.drawerPopup_
 		else {
@@ -113,6 +127,7 @@ enyo.kind({
 			this.showHidePopup(true);
 			this.setOpen(true);
 			this.scrollToTop();
+			this.bubble("onRequestMuteTooltip");
 		}
 	},
 	//* Positions _this.$.drawerPopup_ to fill the entire header.
@@ -153,11 +168,8 @@ enyo.kind({
 		this.set("stacked", this.shouldStack());
 	},
 	shouldStack: function() {
-		var optionGroups = this.listActionComponents,
-			headerWidth = this.getHeaderBounds().width,
-			width = this.calcGroupWidth(optionGroups);
-		
-		return width > headerWidth;
+		// Assumption: min-width of all listActionsComponents set to 300px in CSS
+		return this.$.listActions.getBounds().width < (300 * this.listActionComponents.length);
 	},
 	stackedChanged: function() {
 		this.rerenderListActionComponents();
@@ -166,10 +178,12 @@ enyo.kind({
 		if (this.stacked) {
 			this.addClass("stacked");
 			this.stackMeUp();
+			this.$.listActions.setVertical("auto");
 		}
 		else {
 			this.removeClass("stacked");
 			this.unStackMeUp();
+			this.$.listActions.setVertical("hidden");
 		}
 	},
 	stackMeUp: function() {
@@ -187,20 +201,8 @@ enyo.kind({
 		
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
-			
-			if (optionGroup.layoutKind === "FittableRowsLayout") {
-				optionGroup.applyStyle("height", containerHeight + "px");
-			}
-			
+			optionGroup.applyStyle("height", containerHeight + "px");
 		}
-	},
-	//* Returns the summed width of all controls in _inControls_.
-	calcGroupWidth: function(inControls) {
-		var control, width = 0, i;
-		for (i = 0; (control = inControls[i]); i++) {
-			width += control.getBounds().width;
-		}
-		return width;
 	},
 	resizeHandler: function() {
 		this.resetCachedValues();
@@ -292,7 +294,7 @@ enyo.kind({
 		}
 	},
 	getHeaderBounds: function() {
-		this.headerBounds = this.headerBounds || this.getParentHeaderNode().getBoundingClientRect(); //this.getParentClientBound();
+		this.headerBounds = this.headerBounds || this.getParentHeaderNode().getBoundingClientRect();
 		return this.headerBounds;
 	},
 	getClientBounds: function() {
@@ -300,11 +302,16 @@ enyo.kind({
 		return this.clientBounds;
 	},
 	getContainerBounds: function() {
-		this.containerBounds = this.containerBounds || this.$.listActionsClientContainer.getBounds();
+		this.containerBounds = this.containerBounds || this.$.listActions.getBounds();
 		return this.containerBounds;
 	},
-	getParentHeaderNode: function() {
-		return this.parent.parent.hasNode();
+	getParentHeaderNode: function(inParent) {
+		// Walk up the parent tree to find a moon.Header
+		inParent = inParent || this.parent;
+		if (inParent instanceof moon.Header || !inParent.parent) {
+			return inParent.hasNode();
+		} 
+		return this.getParentHeaderNode(inParent.parent);
 	},
 	resetCachedValues: function() {
 		this.headerBounds = null;

@@ -12,48 +12,42 @@
 	top:0px;
 	left:0px;
 	overflow:hidden;
-}
-.moon-list-actions-client-container {
-	background-color: white;
-	margin-top: 60px;
+	z-index: 1;
 }
 
 /* Close button */
-.moon-list-actions-close {
+.moon-icon-button.moon-list-actions-close {
 	position: absolute;
-	right: 0;
+	right: 10px;
+	top: 10px;
 	z-index: 2;
-	margin: 10px;
-	border-radius: @moon-button-border-radius;
-	line-height: @moon-button-line-height;
-	background-color: @moon-list-actions-close-bg-color;
-	border: @moon-button-border-width solid transparent;
-	width:40px;
-	height:40px;
-}
-.moon-list-actions-close::after {
-	.moon-body-text;
-	content:"\2716";
-	position: relative;
-	top: 3px;
-	left:10px;
 }
 
 /* Scroller */
 .moon-list-actions-scroller {
-	margin: 0px;
+	margin: 10px 60px 10px 10px;
 	padding: 0px;
+	z-index: 1;
 }
 
 /* Action menu */
 .moon-list-actions-menu {
 	display: inline-block;
 	vertical-align: top;
-	margin: 0px 2px;	
-	width: 300px;
+	width: 300px;		/* Do not change - used in JS */
+	min-width: 300px;	/* Do not change - used in JS */
+	float: right;
+	box-sizing: border-box;
 }
-.moon-list-actions-menu.full-width {
-	width: 100%;
+.porportional-width.stacked .moon-list-actions-menu {
+	width: 100% !important;
+}
+.stacked .moon-list-actions-menu {
+	margin-top: 20px;
+}
+
+.stacked .moon-list-actions-menu {
+	margin-bottom: 20px;
 }
 
 /* Drawer */

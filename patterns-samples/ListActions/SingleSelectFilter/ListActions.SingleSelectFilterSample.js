@@ -7,18 +7,13 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-		{classes:"left-panel", components:[
-			{classes:"left-panel-content", components:[
-				{content:"01", classes:"left-panel-number"},
-				{content:"MAIN MENU", classes:"left-panel-title"}
-			]}
-		]},
-		{classes:"right-panel", components:[
-			{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
+
+		{kind: "moon.Panels", classes:"enyo-fit", pattern:"alwaysviewing", components: [
+			{kind:"moon.Panel", title:"Browse Movies", headerComponents: [
 				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", autoCollapse:true, listActions:[
 					{components: [
 						{kind: "moon.Divider", content:"Filter"},
-						{kind: "moon.Scroller", components: [
+						{kind: "moon.Scroller", fit:true, components: [
 							{kind: "Group", components: [
 								{content:"New Releases", kind:"moon.CheckboxItem"},
 								{content:"Most Popular", kind:"moon.CheckboxItem"},
@@ -29,21 +24,22 @@ enyo.kind({
 						]}
 					]}
 				]}
-			]},
-			{
-				name: "gridlist",
-				kind: "moon.GridList",
-				classes: "grid-list",
-				count:20,
-				toggleSelected: true,
-				itemWidth: 150,
-				itemHeight: 200,
-				itemSpacing: 20,
-				onSetupItem: "setupItem",
-				components: [
-					{name: "item", kind: "moon.GridListImageItem"}
-				]
-			}
+			], components: [
+				{
+					name: "gridlist",
+					kind: "moon.GridList",
+					classes: "grid-list",
+					count:20,
+					toggleSelected: true,
+					itemWidth: 150,
+					itemHeight: 200,
+					itemSpacing: 20,
+					onSetupItem: "setupItem",
+					components: [
+						{name: "item", kind: "moon.GridListImageItem"}
+					]
+				}
+			]}
 		]}
 	],
 	setupItem: function(inSender, inEvent) {
