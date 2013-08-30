@@ -1403,7 +1403,7 @@
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
-  margin: 0 10px;
+  margin: 9px 14px;
 }
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
@@ -3503,7 +3503,6 @@ body .enyo-fit.panels-50-percent-scrim,
   bottom: 0;
   left: 0;
   right: 0;
-  height: 42px;
   background: #6d6d6d;
   padding: 8px;
   overflow: hidden;
@@ -3517,7 +3516,6 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-image-badge {
   background-position: center center;
-  margin: 0px 4px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
