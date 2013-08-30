@@ -29,7 +29,9 @@ enyo.kind({
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
 		//* Title's _allowHtml_ property
-		allowHtmlHeader: false
+		allowHtmlHeader: false,
+		//* Header options
+		headerOptions: null
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -47,7 +49,7 @@ enyo.kind({
 	fit: true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
-	headerOption: null,
+	headerOption: null, //* Deprecated
 	panelTools : [
 		{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 			/* headerTools will be created here */
@@ -91,7 +93,7 @@ enyo.kind({
 		// Special-handling for header, which can have its options modified by the instance
 		var hc = enyo.clone(this.headerConfig || {});
 		hc.addBefore = this.$.miniHeader;
-		enyo.mixin(hc, this.headerOption);
+		enyo.mixin(hc, this.headerOptions || this.headerOption);
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
 	//* On reflow, update _this.$.contentWrapper_ bounds

@@ -4,7 +4,7 @@
 	The _title_ property will be used as the input placeholder, while the contents of the input
 	can be set/read from the _value_ property.
 
-	Users may catch _oninput_ and _onchange_ events from the embedded input in order to react to usre input.
+	Users may catch _onInputHeaderInput_ and _onInputHeaderChange_ events from the embedded input in order to react to changes.
 
 	Example:
 
@@ -14,9 +14,6 @@
 				titleAbove: "02",
 				titleBelow: "Sub Header",
 				subTitleBelow: "Sub-sub Header",
-				classes:"moon-10h",
-				oninput:"handleInput",
-				onchange:"handleChange",
 				components: [
 					{kind: "moon.IconButton", src: "assets/icon-like.png"},
 					{kind: "moon.IconButton", src: "assets/icon-next.png"}
@@ -30,17 +27,21 @@ enyo.kind({
 	kind: "moon.Header",
 	published: {
 		//* The value of the input
-		value:""
+		value: ""
+	},
+	handlers: {
+		oninput: "handleInput",
+		onchange: "handleChange"
 	},
 	events: {
-		//* Fired on each keypress
-		oninput:"",
-		//* Fired when the user presses enter or blurs the input
-		onchange:""
+		//* Custom input event to allow apps to differentiate between inputs and header inputs
+		onInputHeaderInput: "",
+		//* Custom input change event to allow apps to differentiate between input changes and header input changes
+		onInputHeaderChange: ""
 	},
 	//* @protected
 	bindings: [
-		{from: ".value", to:".$.title.value", twoWay:true}
+		{from: ".value", to: ".$.title.value", twoWay: true}
 	],
 	classes: "moon-header moon-input-header",
 	componentOverrides: {
@@ -48,12 +49,20 @@ enyo.kind({
 			{name: "titleInput", kind: "moon.Input", classes: "moon-header-font moon-header-title"}
 		]}
 	},
-	//* If _this.title_ or _this.content_ changed, the placeHolder value of a moon.Input will be updated
-	contentChanged: function() {
-		this.$.titleInput.setPlaceholder(this.title || this.content);
+	titleChanged: function() {
+		this.$.titleInput.set("placeholder", this.title || this.content);
 	},
+	//* Overload allowHtmlChanged because we have a _moon.Input_ rather than a _moon.MarqueeText_ for _title_
 	allowHtmlChanged: function() {
 		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
 		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
+	},
+	//* Create custom event for _input_ events
+	handleInput: function(inSender, inEvent) {
+		this.doInputHeaderInput(inEvent);
+	},
+	//* Create custom event for _change_ events
+	handleChange: function(inSender, inEvent) {
+		this.doInputHeaderChange(inEvent);
 	}
 });
