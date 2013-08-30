@@ -44,9 +44,7 @@ enyo.kind({
 		//** Custom Popup width for video player
 		popupWidth: 200,
 		//* Popup offset in pixels
-		popupOffset: 25,
-		//** threshold value(percentage) for using animation effect on slider progress change
-		smallVariation: 1
+		popupOffset: 25
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -204,12 +202,6 @@ enyo.kind({
 	_calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * 100;
 	},
-	calcVariationRatio: function(inValue) {
-		return (inValue - this.value) / (this.max - this.min);
-	},
-	calcVariationPercent: function(inValue) {
-		return this.calcVariationRatio(inValue) * 100;
-	},	
 	updateKnobPosition: function(inValue) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._updateKnobPosition(inValue);
@@ -258,13 +250,6 @@ enyo.kind({
 			return true;
 		}
 	},
-	setValue: function(inValue) {
-		if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
-			this.inherited(arguments);
-		} else {
-			this._setValue(inValue);
-		}
-	},	
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
