@@ -329,7 +329,7 @@ enyo.kind({
 		});
 	},
 	createGrowingHeightAnimation: function() {
-		var growingHeight = this.get("owner").hasNode().innerHeight + "px";
+		var growingHeight = this.get("owner").hasNode().offsetHeight + "px";
 		return this.$.animator.newAnimation({
 			name: "growHeight",
 			duration: 400,
