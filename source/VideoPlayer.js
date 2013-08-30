@@ -477,6 +477,7 @@ enyo.kind({
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.$.videoInfoHeader.setShowing(true);
+			this.$.videoInfoHeader.resized();
 		}
 	},
 	//* Sets _this.visible_ to false.
