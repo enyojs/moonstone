@@ -329,6 +329,7 @@ enyo.kind({
 		});
 	},
 	createGrowingHeightAnimation: function() {
+		var growingHeight = this.get("owner").hasNode().offsetHeight + "px";
 		return this.$.animator.newAnimation({
 			name: "growHeight",
 			duration: 400,
@@ -343,7 +344,7 @@ enyo.kind({
 				100: [{
 					control: this,
 					properties: {
-						"height" : this.initialHeight
+						"height" : growingHeight
 					}
 				}]
 			}
