@@ -69,6 +69,8 @@ enyo.kind({
 		showPlaybackControls: true,
 		//* When true, hides playback controls whenever mouse is hover over slider
 		hideButtonsOnSlider: true,
+		//* When true, make slider in disabled status and also will not enable when video dataloaded
+		disableSlider: false,
 
 
 		//* URL for "jump back" icon
@@ -306,6 +308,10 @@ enyo.kind({
 	},
 	jumpSecChanged: function() {
 		this.$.video.setJumpSec(this.jumpSec);
+	},
+	disableSliderChanged: function() {
+		//* this should be be called on create because default slider status should be disabled.
+		this.$.slider.setDisabled(this.disableSlider);
 	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
@@ -791,7 +797,9 @@ enyo.kind({
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	dataloaded: function(inSender, inEvent) {
-		this.$.slider.setDisabled(false);
+		if (!this.disableSlider) {
+			this.$.slider.setDisabled(false);
+		}
 		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
