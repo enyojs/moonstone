@@ -244,12 +244,10 @@ enyo.kind({
 	shrinkingWidthAnimation: function() {
 		this.haltAnimations();
 		
-		// TODO - Skipping width shrink animation
+		// NOTE - Skipping width shrink animation
 		this.preTransitionComplete();
-		return;
-		
-		this.$.breadcrumbBackground.applyStyle("width", "300px");
-		this.$.animator.play(this.shrinkWidthAnimation.name);
+		// this.$.breadcrumbBackground.applyStyle("width", "300px");
+		// this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
 		this.haltAnimations();
@@ -258,11 +256,9 @@ enyo.kind({
 	growingWidthAnimation: function() {
 		this.haltAnimations();
 		
-		// TODO - Skipping width grow animation
+		// NOTE - Skipping width grow animation
 		this.growingHeightAnimation();
-		return;
-		
-		this.$.animator.play(this.growWidthAnimation.name);
+		// this.$.animator.play(this.growWidthAnimation.name);
 	},
 	haltAnimations: function() {
 		this.$.animator.stop();
