@@ -33,7 +33,7 @@ enyo.kind({
 		//* URL of a background image for the header
 		headerBackgroundImage: null,
 		//* Position properties for background image for the header
-		headerBackgroundPosition: "top right"
+		headerBackgroundPosition: "top right",
 		//* Header options
 		headerOptions: null
 	},
@@ -112,13 +112,8 @@ enyo.kind({
 		this.createChrome(this.panelTools);
 		// Special-handling for header, which can have its options modified by the instance
 		var hc = enyo.clone(this.headerConfig || {});
-<<<<<<< HEAD
-		hc.addBefore = this.$.breadcrumbText;
+		hc.addBefore = this.$.panelBody;
 		enyo.mixin(hc, this.headerOption);
-=======
-		hc.addBefore = this.$.miniHeader;
-		enyo.mixin(hc, this.headerOptions || this.headerOption);
->>>>>>> master
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
 	//* On reflow, update _this.$.contentWrapper_ bounds
