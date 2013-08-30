@@ -199,86 +199,86 @@
 /* Import grid classes/mixins */
 /* ------- Horizontal Dimensioning (columns) ------- */
 .moon-1h {
-  width: 70px;
+  width: 60px;
 }
 .moon-2h {
-  width: 150px;
+  width: 140px;
 }
 .moon-3h {
-  width: 230px;
+  width: 220px;
 }
 .moon-4h {
-  width: 310px;
+  width: 300px;
 }
 .moon-5h {
-  width: 390px;
+  width: 380px;
 }
 .moon-6h {
-  width: 470px;
+  width: 460px;
 }
 .moon-7h {
-  width: 550px;
+  width: 540px;
 }
 .moon-8h {
-  width: 630px;
+  width: 620px;
 }
 .moon-9h {
-  width: 710px;
+  width: 700px;
 }
 .moon-10h {
-  width: 790px;
+  width: 780px;
 }
 .moon-11h {
-  width: 870px;
+  width: 860px;
 }
 .moon-12h {
-  width: 950px;
+  width: 940px;
 }
 .moon-13h {
-  width: 1030px;
+  width: 1020px;
 }
 .moon-14h {
-  width: 1110px;
+  width: 1100px;
 }
 .moon-15h {
-  width: 1190px;
+  width: 1180px;
 }
 .moon-16h {
-  width: 1270px;
+  width: 1260px;
 }
 .moon-17h {
-  width: 1350px;
+  width: 1340px;
 }
 .moon-18h {
-  width: 1430px;
+  width: 1420px;
 }
 .moon-19h {
-  width: 1510px;
+  width: 1500px;
 }
 .moon-20h {
-  width: 1590px;
+  width: 1580px;
 }
 /* ------- Vertical Dimensioning (columns) ------- */
 .moon-1v {
-  height: 170px;
+  height: 40px;
 }
 .moon-2v {
-  height: 350px;
+  height: 80px;
 }
 .moon-3v {
-  height: 530px;
+  height: 120px;
 }
 .moon-4v {
-  height: 710px;
+  height: 160px;
 }
 .moon-5v {
-  height: 890px;
+  height: 200px;
 }
 .moon-6v {
-  height: 1070px;
+  height: 240px;
 }
 .moon-7v {
-  height: 1250px;
+  height: 280px;
 }
 /* Common classes applicable to multiple controls */
 .moon {
@@ -977,9 +977,11 @@
   background: rgba(0, 0, 0, 0.7);
   padding: 5px;
 }
+/* Caption Decorator */
 .moon-button-caption-decorator {
   display: inline-block;
   vertical-align: top;
+  position: relative;
 }
 .moon-button-caption-decorator .moon-caption {
   font-family: "MuseoSans 700";
@@ -990,6 +992,14 @@
   color: #999999;
   display: inline-block;
 }
+.moon-caption-client {
+  display: inline-block;
+}
+.moon-caption-client > * {
+  display: block;
+  margin: auto;
+}
+/* Caption Decorator - Left/Right Captions */
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
   height: 105px;
@@ -1005,6 +1015,7 @@
   padding-left: 10px;
   text-align: right;
 }
+/* Caption Decorator - Top/Bottom Captions */
 .moon-button-caption-decorator .moon-caption.top,
 .moon-button-caption-decorator .moon-caption.bottom {
   display: block;
@@ -1016,17 +1027,30 @@
 .moon-button-caption-decorator .moon-caption.bottom {
   padding-top: 4px;
 }
-.moon-caption-client {
-  display: inline-block;
+/* Caption Decorator - Show On Focus Captions */
+.moon-button-caption-decorator.showOnFocus .moon-caption {
+  position: absolute;
+  z-index: 2;
+  white-space: nowrap;
+  float: none;
+  padding: 0px;
+  margin: 0px;
+  display: none;
 }
-.moon-caption-client.top,
-.moon-caption-client.bottom {
+.moon-button-caption-decorator.showOnFocus.spotlight .moon-caption {
   display: block;
-  margin: auto;
 }
-.moon-caption-client > * {
-  display: block;
-  margin: auto;
+.moon-button-caption-decorator.showOnFocus .moon-caption.top {
+  margin-bottom: 4px;
+}
+.moon-button-caption-decorator.showOnFocus .moon-caption.right {
+  margin-left: 10px;
+}
+.moon-button-caption-decorator.showOnFocus .moon-caption.bottom {
+  margin-top: 4px;
+}
+.moon-button-caption-decorator.showOnFocus .moon-caption.left {
+  margin-right: 10px;
 }
 /* Radio Item */
 .moon-radio-item {
@@ -1291,7 +1315,7 @@
 }
 .moon-header-client {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
   left: 0px;
   right: 0px;
   text-align: right;
@@ -1393,7 +1417,7 @@
   color: #ffffff;
 }
 .moon-gridlist .enyo-gridlist-row:last-child {
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 /* Icon.css */
 .moon-icon,
@@ -2140,9 +2164,6 @@
   overflow: hidden;
   margin: 0px;
 }
-.moon-labeledtextitem.selected {
-  background: #000000;
-}
 /* Label */
 .moon-labeledtextitem .label {
   font-family: "MuseoSans 700";
@@ -2202,9 +2223,6 @@
   float: right;
   margin-right: 0px;
   margin-left: 64px;
-}
-.moon-imageitem.selected {
-  background: #000000;
 }
 /* Spinner.css */
 .moon-spinner,
@@ -2353,17 +2371,27 @@
   display: inline-block;
   text-align: center;
   width: 616px;
+  background-color: #555555;
+  border-radius: 16px;
+  margin: 0px 20px;
+  padding: 20px 0px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar-picker-day {
+.moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #999999;
   min-width: 60px;
   line-height: 50px;
   border: 0px;
   border-radius: 0px;
-  background: inherit;
-  color: #4b4b4b;
+  background: transparent;
+  color: #a2a2a2;
   padding: 0px;
   margin: 10px;
   text-align: center;
@@ -2385,11 +2413,37 @@
   text-align: center;
   vertical-align: middle;
 }
-.moon-calendar-picker-date-shadow {
+.moon-calendar-picker-date.moon-button.small {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #999999;
+  color: #ffffff;
+  padding: 0px;
+}
+.moon-calendar-picker-date-shadow.moon-button.small {
   color: #a2a2a2;
 }
-.moon-calendar-picker .moon-button.small {
-  padding: 0px;
+.moon-calendar-picker-date-shadow.moon-button.small.spotlight {
+  color: #ffffff;
+}
+.moon-calendar-picker .moon-simple-picker-item {
+  color: #ffffff;
+}
+.moon-calendar-picker .moon-simple-picker-button {
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+}
+.moon-calendar-picker .moon-simple-picker-button.spotlight {
+  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+}
+.moon-calendar-picker-date.moon-button.small.active,
+.moon-calendar-picker-date.moon-button.small.pressed,
+.moon-calendar-picker-date.moon-button.small.spotlight.pressed,
+.moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
+  color: #ffffff;
+  background-color: #ff2f7d;
 }
 /* Table.css */
 /*.moon-table {
@@ -2619,7 +2673,7 @@
   font-size: 24px;
 }
 .moon-dialog-client > * {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .moon-tooltip {
   z-index: 20;
@@ -3522,6 +3576,16 @@
   background-position: 0px -42px;
   border: 4px solid #ff2f7d;
   background-color: #404040;
+  background-color: #ffffff;
+  border-color: #ffffff;
+}
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 .moon-selection-overlay-support-scrim {
   display: none;
@@ -3581,26 +3645,26 @@
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 10px;
+  margin: 0 20px;
 }
 .moon-hspacing > :first-child {
   margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-  margin-left: 10px;
+  margin-left: 20px;
   margin-right: 0;
 }
 .moon-hspacing > :last-child {
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-  margin-right: 10px;
+  margin-right: 20px;
   margin-left: 0;
 }
 /* Standard vertical spacing */
 .moon-vspacing > * {
   display: block;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 .moon-vspacing > :first-child {
   margin-top: 0;

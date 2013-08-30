@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.DrawerSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{
 			name: "drawers",
 			kind: "moon.Drawers",

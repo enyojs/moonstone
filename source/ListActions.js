@@ -80,7 +80,7 @@ enyo.kind({
 		var listActionComponent;
 		
 		inListAction.mixins = this.addListActionMixin(inListAction);
-		listActionComponent = this.$.listActions.createComponent(inListAction);
+		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner()});
 		listActionComponent.addClass("moon-list-actions-menu");
 		
 		return listActionComponent;

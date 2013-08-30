@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{fit:true, components: [
 			{kind: "moon.Divider", content: "Integer Picker"},
 			{kind: "moon.IntegerScrollPicker", value: 2013, min: 1900, max: 2100, onChange: "changed"}
