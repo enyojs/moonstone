@@ -19,17 +19,7 @@ enyo.kind({
 			{kind: "moon.InputDecorator", disabled: true, components: [
 				{kind: "moon.Input", disabled: true, value: "Disabled input"}
 			]},
-			{kind: "moon.Divider", content: "RichTexts"},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.RichText", placeholder: "Enter text here", oninput:"inputChanged"}
-			]},
-			{kind: "moon.InputDecorator", components: [
-				{kind: "moon.RichText", style: "width: 240px;", placeholder: "JUST TYPE", oninput:"inputChanged"},
-				{kind: "Image", src: "assets/search-input-search.png"}
-			]},
-			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.RichText", disabled: true, style: "width: 240px;", placeholder: "Disabled input", oninput:"inputChanged"}
-			]},
+
 			{kind: "moon.Divider", content: "TextAreas"},
 			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.TextArea", placeholder: "Enter text here", oninput:"inputChanged"}
@@ -38,7 +28,19 @@ enyo.kind({
 				{kind: "moon.TextArea", placeholder: "JUST TYPE", oninput:"inputChanged"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.TextArea", disabled: true, placeholder: "Disabled input", oninput:"inputChanged"}
+				{kind: "moon.TextArea", disabled: true, placeholder: "Deactivated input", oninput:"inputChanged"}
+			]},
+
+			{kind: "moon.Divider", content: "RichTexts"},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.RichText", oninput:"inputChanged"}
+			]},
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.RichText", style: "width: 240px;", oninput:"inputChanged"},
+				{kind: "Image", src: "assets/search-input-search.png"}
+			]},
+			{kind: "moon.InputDecorator", disabled: true, components: [
+				{kind: "moon.RichText", disabled: true, style: "width: 240px;"}
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result", classes: "moon-input-sample-result"},

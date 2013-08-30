@@ -13,16 +13,16 @@ and contributing to the [Enyo community gallery](http://enyojs.com/gallery).
 
 Moonstone CSS is defined using parameterized LESS files.  Whenever you make changes to LESS files in Moonstone, you'll also need to re-generate and check-in the top-level .css file as well, to maintain backward-compatibility for environments that don't wish to use LESS.
 
-You can re-generate the top-level moonstone.css file as follows:
+You can re-generate the top-level moonstone.css and moonstone-light.css file as follows:
 
     cd lib/moonstone/css
-    ../../../enyo/tools/lessc.sh ./package.js
+    ../../../enyo/tools/lessc.sh ./all-package.js
 
 NOTE: Since LESS generates relative URLs, it's important to run the `lessc.sh` script from the moonstone css folder.
 
 Also note you only need to generate the .css file when you're ready to check in your changes.  During development, you can do all your testing modifying just LESS files if you include "less-xyz.min.js" in your app's debug.html file, which compiles the LESS client-side during loading:
 
-    <script src="enyo/tools/minifier/node_modules/less/dist/less-1.3.0e.min.js"></script>
+    <script src="enyo/tools/minifier/node_modules/less/dist/less-1.3.0.min.js"></script>
 
 Additionally, any new controls contributed should follow this basic pattern to ensure proper themability support:
 
@@ -30,6 +30,7 @@ Additionally, any new controls contributed should follow this basic pattern to e
 * Place control's .less file(s) in `lib/moonstone/css`
 * @import .less file(s) into [`lib/moonstone/css/moonstone-rules.less`](https://github.com/enyojs/moonstone/blob/master/css/moonstone-rules.less)
 * Use existing variables from [`lib/moonstone/css/moonstone-variables.less`](https://github.com/enyojs/moonstone/blob/master/css/moonstone-variables.less) in your control's LESS files when available, add any new variables your particular control needs along with their default definitions to moonstone-variables.less.
+* All color-related variables shoudl be separately defined in [`lib/moonstone/css/moonstone-variables-dark.less`](https://github.com/enyojs/moonstone/blob/master/css/moonstone-variables-dark.less) and [`lib/moonstone/css/moonstone-variables-dark.less`](https://github.com/enyojs/moonstone/blob/master/css/moonstone-variables-dark.less), respectively.
 
 Refer to the [UI Theming Guide](https://github.com/enyojs/enyo/wiki/UI-Theming) for more details.
 
