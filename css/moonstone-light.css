@@ -619,7 +619,7 @@
   width: 40px;
 }
 .moon-checkbox[checked] {
-  background-image: url(../images/LightTheme_Icons/Checkmark_Icon.png);
+  background-image: url(../images/LightTheme_Icons/Checkmark_Icon2.png);
   background-repeat: no-repeat;
   background-position: 11px 1px;
 }
@@ -3545,6 +3545,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background: none;
   padding: 0;
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox {
   position: absolute;
@@ -3560,7 +3561,7 @@ body .enyo-fit.panels-50-percent-scrim,
   background-color: #ffffff;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
-  padding: 10px;
+  padding: 8px 10px;
   margin-left: 60px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
