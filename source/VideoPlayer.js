@@ -1,6 +1,6 @@
 
 /**
-	_moon.VideoPlayer_ is a control that wraps an	<a href="#enyo.Video">enyo.Video</a>
+	_moon.VideoPlayer_ is a control that wraps an   <a href="#enyo.Video">enyo.Video</a>
 	HTML5 video player to provide Moonstone-styled standard transport controls,
 	optional app-specific controls, and an information bar for video information
 	and player feedback.
@@ -31,7 +31,7 @@ enyo.kind({
 	kind: "enyo.Control",
 	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
-	classes: "moon-video-player enyo-unselectable", 
+	classes: "moon-video-player enyo-unselectable",
 	published: {
 		//* URL of HTML5 video
 		src: "",
@@ -63,87 +63,115 @@ enyo.kind({
 		jumpStartEnd: false,
 		//* When true, automatically hide popups that were opened from VideoPlayer client controls
 		autoHidePopups: true,
+		//* When false, remove the progress bar and any additional controls will drop down
+		showProgressBar: true,
+		//* When false, removing the transport controls but keeping the icon button area
+		showPlaybackControls: true,
+		//* When true, hides playback controls whenever mouse is hover over slider
+		hideButtonsOnSlider: true,
+
 
 		//* URL for "jump back" icon
-		jumpBackIcon: "$lib/moonstone/images/icon-jumpback.png",
+		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
 		//* URL for "rewind" icon
-		rewindIcon: "$lib/moonstone/images/icon-rewind.png",
+		rewindIcon: "$lib/moonstone/images/video-player/icon_backward.png",
 		//* URL for "play" icon
-		playIcon: "$lib/moonstone/images/icon-play.png",
+		playIcon: "$lib/moonstone/images/video-player/icon_play.png",
 		//* URL for "pause" icon
-		pauseIcon: "$lib/moonstone/images/icon-pause.png",
+		pauseIcon: "$lib/moonstone/images/video-player/icon_pause.png",
 		//* URL for "fast forward" icon
-		fastForwardIcon: "$lib/moonstone/images/icon-fastforward.png",
+		fastForwardIcon: "$lib/moonstone/images/video-player/icon_forward.png",
 		//* URL for "jump forward" icon
-		jumpForwardIcon: "$lib/moonstone/images/icon-jumpforward.png",
+		jumpForwardIcon: "$lib/moonstone/images/video-player/icon_skipforward.png",
 		//* URL for "more controls" icon
-		moreControlsIcon: "$lib/moonstone/images/icon-extend.png",
+		moreControlsIcon: "$lib/moonstone/images/video-player/icon_extend.png",
 		//* URL for "less controls" icon
-		lessControlsIcon: "$lib/moonstone/images/icon-shrink.png"
+		lessControlsIcon: "$lib/moonstone/images/video-player/icon_shrink.png",
+		//* URL for "inline-play" icon
+		inlinePlayIcon: "$lib/moonstone/images/video-player/icon_small_play.png",
+		//* URL for "inline-pause" icon
+		inlinePauseIcon: "$lib/moonstone/images/video-player/icon_small_pause.png",
+		//* URL for "inline-fullscreen" icon
+		inlineFullscreenIcon: "$lib/moonstone/images/video-player/icon_small_fullscreen.png",
+		//* Default hash of playbackRate, you can set this hash by
+		//* playbackRateHash: {
+		//*		fastForward: ["2", "4", "8", "16"],
+		//*		rewind: ["-2", "-4", "-8", "-16"],
+		//*		slowForward: ["1/4", "1/2"],
+		//*		slowRewind: ["-1/2", "-1"]
+		//*	}
+		playbackRateHash: {
+			fastForward: ["2", "4", "8", "16"],
+			rewind: ["-2", "-4", "-8", "-16"],
+			slowForward: ["1/4", "1/2", "1"],
+			slowRewind: ["-1/2", "-1"]
+		}
 	},
 	handlers: {
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
 		onSpotlightFocus: 'spotlightFocusHandler',
-		onSpotlightFocused: 'spotlightFocused',
 		onSpotlightUp: 'spotlightUpHandler',
+		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
-		onSpotlightLeft: 'spotlightLeftHandler',
-		onSpotlightRight: 'spotlightRightHandler',
-		onSpotlightSelect: 'spotlightSelectHandler', 
+		onSpotlightSelect: 'spotlightSelectHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
-		{from: ".jumpBackIcon", 	to:".$.jumpBack.src"},
-		{from: ".rewindIcon", 		to:".$.rewind.src"},
-		{from: ".fastForwardIcon", 	to:".$.fastForward.src"},
-		{from: ".jumpForwardIcon", 	to:".$.jumpForward.src"}
+		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
+		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
+		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
+		{from: ".rewindIcon",				to:".$.rewind.src"},
+		{from: ".fastForwardIcon",			to:".$.fastForward.src"},
+		{from: ".jumpForwardIcon",			to:".$.jumpForward.src"},
+		{from: ".inlineFullscreenIcon",		to:".$.ilFullscreen.src"},
+		{from: ".constrainToBgProgress",	to:".$.slider.constrainToBgProgress"},
+		{from: ".elasticEffect",			to:".$.slider.elasticEffect"}
     ],
 	
 	//* @protected
 
 	_isPlaying: false,
 	_autoCloseTimer: null,
+	_currentTime: 0,
 	
 	components: [
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause",
+			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
 			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
 			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
 		},
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
 		
-			{name: "videoInfoHeader", kind: "FittableColumns", noStretch: true, showing: false, classes: "moon-video-player-header", components: [
-				{name: "videoInfo", fit: true, classes: "moon-video-player-info"},
-				{name: "feedbackHeader", kind: "moon.VideoFeedback"}
-			]},
+			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", components: [
+				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", onSpotlightUp: "showFSInfoWithPreventEvent", onSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
 			
-					{name: "leftPremiumPlaceHolder", classes: "premium-placeholder"},
+					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", onSpotlightLeft: "preventEvent"},
 				
-					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controller", components: [
-						{name: "trickPlay", kind: "FittableColumns", noStretch: true, classes: "enyo-center", components: [
-							{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
-							{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
-							{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
-							{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
-							{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
+						{name: "trickPlay", components: [
+							{classes: "moon-video-player-control-buttons", components: [
+								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
+								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
+								{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
+								{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
+								{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+							]}
 						]},
-						{name: "client", layoutKind: "FittableColumnsLayout", noStretch: true}
+						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
-					{name: "rightPremiumPlaceHolder", classes: "premium-placeholder", components: [
+					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", onSpotlightRight: "preventEvent", components: [
 						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
 			
-				{classes: "moon-video-player-slider-container", onenter: "onEnterSlider", onleave: "onLeaveSlider", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-videoplayer-sample-slider",
-						knobClasses: "moon-videoplayer-sample-knob", barClasses: "moon-videoplayer-sample-progressbar", bgBarClasses: "moon-videoplayer-sample-bgprogressbar",
-						onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", onChanging: "resetAutoTimeout"
+				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
+					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
+						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
 					}
 				]}
 			]}
@@ -151,36 +179,64 @@ enyo.kind({
 		//* Inline controls
 		{name: "inlineControl", classes: "moon-video-inline-control", components: [
 			{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
+			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
 			{classes: "moon-video-inline-control-text", components: [
 				{name: "currTime", content: "00:00"},
 				{name: "totalTime", content: "00:00"}
 			]},
-			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
-			{kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
+			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
-	
 	create: function() {
-		this.setupVideoBindings();
 		this.inherited(arguments);
-		this.showInfoChanged();
 		this.createInfoControls();
 		this.inlineChanged();
+		this.showInfoChanged();
 		this.autoShowInfoChanged();
 		this.autoShowControlsChanged();
 		this.autoplayChanged();
 		this.updateMoreButton();
+		this.showPlaybackControlsChanged();
+		this.showProgressBarChanged();
+		this.jumpSecChanged();
 	},
-	resizeHandler: function() {
-		this.inherited(arguments);
-		var node = this.$.video.hasNode();
-		var rect = node.getBoundingClientRect();
-		this.applyStyle("width", rect.width + "px");
+	showPlaybackControlsChanged: function(inOld) {
+		var lastControl = (this.getClientControls().length>0) ? this.getClientControls()[this.getClientControls().length-1] : {};
+		//* Prevent spotlight event for each cases
+		this.resetPreventSpotlight(lastControl);
+		if (!this.showPlaybackControls) {
+			this.$.trickPlay.hide();
+			if (this.clientComponentsCount === 1) {
+				this.$.leftPremiumPlaceHolder.onSpotlightRight = "preventEvent";
+			} else if (this.clientComponentsCount > 2) {
+				this.$.moreButton.hide();
+				lastControl.defaultSpotlightRight = lastControl.name;
+			}
+		} else {
+			this.$.trickPlay.show();
+			if (this.clientComponentsCount === 0) {
+				this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
+			} else if (this.clientComponentsCount < 2) {
+				this.$.jumpForward.defaultSpotlightRight = "jumpForward";
+			} else if (this.clientComponentsCount === 2) {
+				this.$.jumpForward.defaultSpotlightRight = lastControl.name; // Bug fix: spot goes to more controls
+			} else {
+				this.$.jumpForward.defaultSpotlightRight = "moreButton"; // Bug fix: spot goes to more controls
+			}
+		}
+		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
 	},
-	setupVideoBindings: function() {
-		this.bindings.push({from: ".sourceComponents", to: ".$.video.sourceComponents"});
+	resetPreventSpotlight: function(lastControl) {
+		this.$.leftPremiumPlaceHolder.onSpotlightRight = null;
+		this.$.jumpBack.defaultSpotlightLeft = null;
+		this.$.jumpForward.defaultSpotlightRight = null;
+		lastControl.defaultSpotlightRight = null;
+	},
+	showProgressBarChanged: function(inOld) {
+		this.$.sliderContainer.setShowing(this.showProgressBar);
 	},
 	//* Overrides default _enyo.Control_ behavior.
 	setSrc: function(inSrc) {
@@ -196,9 +252,10 @@ enyo.kind({
 		this.$.video.setSrc(this.getSrc());
 	},
 	createInfoControls: function() {
-		this.$.videoInfo.createComponents(this.infoComponents);
+		this.$.videoInfoHeader.createComponents(this.infoComponents);
 	},
 	createClientComponents: function(inComponents) {
+		this.clientComponentsCount = inComponents.length;
 		if (!this._buttonsSetup) {
 			this._buttonsSetup = true;
 			if (!inComponents || inComponents.length === 0) {
@@ -209,13 +266,13 @@ enyo.kind({
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
 				this.$.moreButton.hide();
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
-				if (inComponents.length == 1) {
-					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+				if (inComponents.length === 1) {
+					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 				}
 			} else {
 				// More than two components - use extra panel, with left premium plaeholder for first component
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.owner});
+				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 			}
 			// Create the rest of the components in the client (panels)
 			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
@@ -223,11 +280,16 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-
 	playIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
 	pauseIconChanged: function() {
+		this.updatePlayPauseButtons();
+	},
+	inlinePlayIconChanged: function() {
+		this.updatePlayPauseButtons();
+	},
+	inlinePauseIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
 	moreControlsIconChanged: function() {
@@ -278,12 +340,20 @@ enyo.kind({
 		this.$.fullscreenControl.setShowing(!this.inline);
 		if (!this.inline) {
 			this.$.inlineControl.canGenerate = false;
-			this.showFSControls();
 		}
+	},
+	showFSInfoWithPreventEvent: function(inSender, inEvent) {
+		this.showFSInfo();
+		return true;
+	},
+	preventEvent: function(inSender, inEvent) {
+		return true;
+	},
+	showScrim: function(show) {
+		this.$.fullscreenControl.addRemoveClass('scrim', !show);
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {
-			this.resetAutoTimeout();
 			if (inEvent.originator !== this.$.slider) {
 				this.showFSInfo();
 			}
@@ -291,25 +361,8 @@ enyo.kind({
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {
-			this.resetAutoTimeout();
-			if (inEvent.originator === this && !this.$.playerControl.showing) {
+			if (inEvent.originator === this && !this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
-				return true;
-			}
-		}
-	},
-	spotlightLeftHandler: function(inSender, inEvent) {
-		if (this.isFullscreen() || !this.getInline()) {
-			this.resetAutoTimeout();
-			if (!this.$.playerControl.showing) {
-				return true;
-			}
-		}
-	},
-	spotlightRightHandler: function(inSender, inEvent) {
-		if (this.isFullscreen() || !this.getInline()) {
-			this.resetAutoTimeout();
-			if (!this.$.playerControl.showing) {
 				return true;
 			}
 		}
@@ -319,26 +372,19 @@ enyo.kind({
 			if (this.isFullscreen() || !this.getInline()) {
 				this.showFSInfo();
 				this.showFSBottomControls();
-				this.resetAutoTimeout();
 				return true;
 			}
 		}
 	},
 	spotlightFocusHandler: function(inSender, inEvent) {
 		// Avoid changing the focus when the overlay is showing
-		if ((inEvent.originator == this) && (this.isOverlayShowing())) {
+		if ((inEvent.originator === this) && (this.isOverlayShowing())) {
 			return true;
 		}
 	},
-	spotlightFocused: function(inSender, inEvent) {
-		if (inEvent.originator !== this) { return false; }
-		if (enyo.Spotlight.getPointerMode()) { return false; }
-		return false;
-	},
 
-	
 	///// Fullscreen controls /////
-	
+
 
 	_holdPulseThreadhold: 400,
 	_holding: false,
@@ -373,28 +419,49 @@ enyo.kind({
 		this.resetAutoTimeout();
 	},
 	hideFSControls: function() {
-		this.hideFSInfo();
-		this.hideFSBottomControls();
+		if (this.isOverlayShowing()) {
+			this.hideFSInfo();
+			this.hideFSBottomControls();
+		}
 		this.stopJob("autoHide");
 	},
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSBottomControls: function(inSender, inEvent) {
 		if (this.autoShowOverlay && this.autoShowControls) {
+			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
 			this.$.playerControl.resized();
-			enyo.Spotlight.spot(this.$.fsPlayPause);
+			if (!this.showPlaybackControls) {
+				//* Fixed index
+				this.$.controlsContainer.setIndex(1);
+			}
+			
+			//* Initial spot
+			if (this.showPlaybackControls) {
+				enyo.Spotlight.spot(this.$.fsPlayPause);
+			} else {
+				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
+				enyo.Spotlight.spot(oTarget);
+			}
+			
+			this.$.slider.showKnobStatus();
+			if (this.$.video.isPaused()) {
+				this.sendFeedback("Pause");
+				this.updateFullscreenPosition();
+			}
 		}
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
+		enyo.Spotlight.spot(this);
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)
 			this.$.playerControl.waterfall("onRequestHide");
 			// Hide moon.ContextualPopups
 			this.$.playerControl.waterfall("onRequestHidePopup");
 		}
+		this.showScrim(false);
 		this.$.playerControl.setShowing(false);
-		enyo.Spotlight.spot(this);
 	},
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSInfo: function() {
@@ -404,12 +471,14 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSInfo: function() {
-		if (!this.showInfo) { 
+		if (!this.showInfo) {
 			this.$.videoInfoHeader.setShowing(false);
 		}
 	},
 	resetAutoTimeout: function() {
-		this.startJob("autoHide", this.bindSafely("hideFSControls"), this.getAutoCloseTimeout());
+		if (this.isFullscreen() || !this.getInline()) {
+			this.startJob("autoHide", this.bindSafely("hideFSControls"), this.getAutoCloseTimeout());
+		}
 	},
 	//* Toggles play/pause state based on _this.playing_.
 	playPause: function(inSender, inEvent) {
@@ -440,12 +509,22 @@ enyo.kind({
 				if (inSender._sentHold !== true) {
 					this.jumpToEnd(inSender, inEvent);
 					inSender._sentHold = true;
-					return true;	
+					return true;
 				}
 			} else {
 				inSender._holding = true;
 				inSender._sentHold = false;
 			}
+		}
+	},
+	onEnterSlider: function(inSender, inEvent) {
+		if (this.hideButtonsOnSlider) {
+			this.$.controls.setShowing(false);
+		}
+	},
+	onLeaveSlider: function(inSender, inEvent) {
+		if (this.hideButtonsOnSlider) {
+			this.$.controls.setShowing(true);
 		}
 	},
 	onjumpBackward: function(inSender, inEvent) {
@@ -470,25 +549,32 @@ enyo.kind({
 	},
 	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
 		inParams = inParams || {};
-		this.$.feedbackHeader.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
+		this.$.slider.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
 	},
-	
+
 	////// Slider event handling //////
-	
+
 	//* When seeking starts, pause video.
 	sliderSeekStart: function(inSender, inEvent) {
+		this._isPausedBeforeDrag = this.$.video.isPaused();
 		this.pause();
 		return true;
 	},
 	//* When seeking completes, play video.
 	sliderSeekFinish: function(inSender, inEvent) {
-		this.play();
+		if (inEvent.value < this._duration - 1) {
+			if (!this._isPausedBeforeDrag) {
+				this.play();
+			} else {
+				this.pause();
+			}
+			this._isPausedBeforeDrag = this.$.video.isPaused();
+		}
 		return true;
 	},
 	//* When seeking, set video time.
 	sliderSeek: function(inSender, inEvent) {
-		var time = this._duration * inEvent.value / 100;
-		this.setCurrentTime(time);
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
 	//* Programatically updates slider position to match _this.currentTime_/_this.duration_.
@@ -496,14 +582,13 @@ enyo.kind({
 		if (this.$.slider.dragging) {
 			return;
 		}
-		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
-		this.$.slider.setValue(percentComplete);
+		this.$.slider.setValue(this._currentTime);
 	},
-	
-	
-	
+
+
+
 	///// Inline controls /////
-	
+
 	updateInlinePosition: function() {
 		var currentTimeFloat = this._currentTime * 1000,
 			percentComplete = Math.round(currentTimeFloat / this._duration) / 10,
@@ -514,13 +599,11 @@ enyo.kind({
 		this.$.currTime.setContent(this.formatTime(currentTimeDate.getMinutes(), currentTimeDate.getSeconds()));
 		this.$.totalTime.setContent("/" + this.formatTime(durationDate.getMinutes(), durationDate.getSeconds()));
 	},
-	
+
 	//* @public
-	
+
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
-		// Fixme: Fullscreen state change stops transition animation. 
-		//      And it breaks full screen button's transition behavior.
 		if (this.isFullscreen()) {
 			this.cancelFullscreen();
 		} else {
@@ -532,8 +615,8 @@ enyo.kind({
 		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
 			this.showFSControls();
+			this.$.controlsContainer.resized();
 		}
-		this.resized();
 	},
 	//* Facades _this.$.video.play()_.
 	play: function(inSender, inEvent) {
@@ -559,7 +642,6 @@ enyo.kind({
 		this._isPlaying = false;
 		this.$.video.jumpToStart();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpToStart");
 	},
 	//* Facades _this.$.video.jumpBackward()_.
 	jumpBackward: function(inSender, inEvent) {
@@ -576,9 +658,12 @@ enyo.kind({
 	//* Facades _this.$.video.jumpToEnd()_.
 	jumpToEnd: function(inSender, inEvent) {
 		this._isPlaying = false;
+		if ( this.$.video.isPaused() ) {
+			//* Make video able to go futher than the buffer
+			this.$.video.play();
+		}
 		this.$.video.jumpToEnd();
 		this.updatePlayPauseButtons();
-		this.sendFeedback("jumpToEnd");
 	},
 	//* Facades _this.$.video.jumpForward()_.
 	jumpForward: function(inSender, inEvent) {
@@ -599,13 +684,16 @@ enyo.kind({
 	//* Updates the height/width based on the video's aspect ratio.
 	updateAspectRatio: function() {
 		var node = this.hasNode(),
-			videoAspectRatio = this.$.video.getAspectRatio().split(":"),
+			aspectRatio = this.$.video.getAspectRatio(),
+			videoAspectRatio = null,
 			ratio = 1
 		;
 		
-		if (!node) {
+		if (!node && aspectRatio == "0:0") {
 			return;
 		}
+
+		videoAspectRatio = aspectRatio.split(":");
 		
 		// If height but no width defined, update width based on aspect ratio
 		if (node.style.height && !node.style.width) {
@@ -633,9 +721,8 @@ enyo.kind({
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
-		var src = this._isPlaying ? this.pauseIcon : this.playIcon;
-		this.$.fsPlayPause.setSrc(src);
-		this.$.ilPlayPause.setSrc(src);
+		this.$.fsPlayPause.setSrc(this._isPlaying ? this.pauseIcon : this.playIcon);
+		this.$.ilPlayPause.setSrc(this._isPlaying ? this.inlinePauseIcon : this.inlinePlayIcon);
 	},
 	/**
 		When _moreButton_ is tapped, toggles visibility of player controls and
@@ -671,25 +758,59 @@ enyo.kind({
 
 		this._duration = inEvent.duration;
 		this._currentTime = inEvent.currentTime;
-		
+
 		this.updatePosition();
-		
+
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
-		this.updateAspectRatio();
-		this.resized();
+		this.updateAspectRatio();	// Fixme: Support aspect ratio
+		this.durationUpdate(inSender, inEvent);
+	},
+	durationUpdate: function(inSender, inEvent) {
+		this._duration = this.$.video.getDuration();
+		this._currentTime = this.$.video.getCurrentTime();
 
-		this._duration = inEvent.duration;
-		this._currentTime = inEvent.currentTime;
-		
+		this.$.slider.setMin(0);
+		this.$.slider.setMax(this._duration);
+
 		this.updatePosition();
-		
+
 		this.waterfall("onTimeupdate", inEvent);
 	},
+	dataloaded: function(inSender, inEvent) {
+		this.$.slider.setDisabled(false);
+		this.durationUpdate(inSender, inEvent);
+	},
+	_getBufferedProgress: function(inNode) {
+		var bufferData = inNode.buffered,
+			numberOfBuffers = bufferData.length,
+			highestBufferPoint = 0,
+			duration = inNode.duration || 0,
+			endPoint = 0,
+			i
+		;
+		
+		if (duration === 0 || isNaN(duration)) {
+			return {value: 0, percent: 0};
+		}
+		
+		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
+		for (i = 0; i < numberOfBuffers; i++) {
+			endPoint = bufferData.end(i);
+			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
+		}
+		return {value: highestBufferPoint, percent: highestBufferPoint/duration*100};
+	},
+	//* Get this event on buffering is in progress
 	_progress: function(inSender, inEvent) {
-		this.$.slider.updateBufferedProgress(inEvent.srcElement);
+		var buffered = this._getBufferedProgress(inEvent.srcElement);
+		if (this.isFullscreen() || !this.getInline()) {
+			this.$.slider.setBgProgress(buffered.value); 
+		} else {
+			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
+		}
 	},
 	_play: function(inSender, inEvent) {
 		this.sendFeedback("Play");
@@ -700,6 +821,14 @@ enyo.kind({
 			return;
 		}
 		this.sendFeedback("Pause", {}, true);
+	},
+	_start: function(inSender, inEvent) {
+		this.sendFeedback("Pause");
+	},
+	_stop: function(inSender, inEvent) {
+		this.pause();
+		this.updatePlayPauseButtons();
+		this.sendFeedback("Stop");
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
@@ -717,6 +846,6 @@ enyo.kind({
 		this.sendFeedback("JumpForward", {jumpSize: inEvent.jumpSize}, false);
 	},
 	_jumpBackward: function(inSender, inEvent) {
-		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, true);
+		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, false);
 	}
 });

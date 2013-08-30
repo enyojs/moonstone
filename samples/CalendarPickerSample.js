@@ -9,6 +9,23 @@ enyo.kind({
 				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed"},
 				{kind: "FittableRows", fit: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
+					{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
+						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
+						//{content: "th-TH"},	//Thailand
+						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
+						{content: "ko-KO"}, //Korea, firstDayOfWeek: 0
+						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
+						{content: "und-AG"}, //Antigua and Barbuda, firstDayOfWeek: 0
+						{content: "und-CA"},//Canada, firstDayOfWeek: 0
+						{content: "it-CH"},	//Italian
+						{content: "en-MX"},
+						{content: "de-DE"},
+						{content: "fr-FR"},
+						{content: "fr-CA"},
+						{content: "it-IT"},
+						{content: "es-ES"},
+						{content: "es-MX"}
+					]},
 					{kind: "moon.Divider"},
 					{kind: "moon.InputDecorator", components: [
 						{kind: "moon.Input", name: "yearInput", content: "Year"}
@@ -45,14 +62,26 @@ enyo.kind({
 			this.$.calendar.setDate(this.$.dateInput.getValue());
 		}		
 	},
+	setLocale: function(inSender, inEvent){
+		if (ilib) {
+			this.$.calendar.setLocale(inEvent.selected.content);
+		}
+		return true;
+	},
 	pickDate: function(inSender, inEvent) {
 		if (inEvent.value){
 			this.$.calendar.setValue(inEvent.value);
 		}
 	},
 	changed: function(inSender, inEvent) {
+		//* Avoid onChange events coming from itself
+		if (inEvent && inEvent.originator == "moon.SimplePicker") {
+			var value = this.$.calendar.getValue();
+			this.$.calendar.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
+		}
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent("Current Date" + " changed to " + inEvent.value.toDateString());
 		}
+		return true;
 	}
 });

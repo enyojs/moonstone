@@ -13,14 +13,14 @@ enyo.kind({
 		//* Increase this value to increase the distance scrolled by the scroll wheel
 		scrollWheelMultiplier: 5,
 		//* Increase this value to increase the distance scrolled by tapping the pagination buttons
-		paginationPageMultiplier: 10,
+		paginationPageMultiplier: 1,
 		//* Increase this value to increase the distance scrolled by holding the pagination buttons
 		paginationScrollMultiplier: 5
 	},
 	handlers: {
-		onRequestScrollIntoView	: "requestScrollIntoView",
-		onenter					: "enter",
-		onleave					: "leave"
+		onRequestScrollIntoView : "requestScrollIntoView",
+		onenter                 : "enter",
+		onleave                 : "leave"
 	},
 	//* @protected
 	tools: [
@@ -162,25 +162,25 @@ enyo.kind({
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
-		var scrollDelta = inEvent.scrollDelta * this.paginationPageMultiplier,
+		var scrollDelta = this.getScrollBounds().clientHeight * this.paginationPageMultiplier,
 			side = inEvent.originator.side,
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
 		;
 
 		switch (side) {
-			case "left":
-				x -= scrollDelta;
-				break;
-			case "top":
-				y -= scrollDelta;
-				break;
-			case "right":
-				x += scrollDelta;
-				break;
-			case "bottom":
-				y += scrollDelta;
-				break;
+		case "left":
+			x -= scrollDelta;
+			break;
+		case "top":
+			y -= scrollDelta;
+			break;
+		case "right":
+			x += scrollDelta;
+			break;
+		case "bottom":
+			y += scrollDelta;
+			break;
 		}
 
 		this._scrollTo(x, y);
@@ -199,47 +199,47 @@ enyo.kind({
 		;
 
 		switch (side) {
-			case "left":
-				val = this.scrollLeft - delta;
-				// When we hit the left, bounce and end scrolling
-				if (val <= -this.$.scrollMath.leftBoundary) {
-					this.setScrollLeft(-this.$.scrollMath.leftBoundary);
-					this.$.pageLeftControl.hitBoundary();
-				} else {
-					this.setScrollLeft(val);
-				}
-				break;
-			case "top":
-				val = this.scrollTop - delta;
-				// When we hit the top, bounce and end scrolling
-				if (val <= -this.$.scrollMath.topBoundary) {
-					this.setScrollTop(-this.$.scrollMath.topBoundary);
-					this.$.pageUpControl.hitBoundary();
-				} else {
-					this.setScrollTop(val);
-				}
-				break;
-			case "right":
-				val = this.scrollLeft + delta;
-				// When we hit the right, bounce and end scrolling
-				if (val >= -this.$.scrollMath.rightBoundary) {
-					this.setScrollLeft(-this.$.scrollMath.rightBoundary);
-					this.$.pageRightControl.hitBoundary();
-				} else {
-					this.setScrollLeft(val);
-				}
+		case "left":
+			val = this.scrollLeft - delta;
+			// When we hit the left, bounce and end scrolling
+			if (val <= -this.$.scrollMath.leftBoundary) {
+				this.setScrollLeft(-this.$.scrollMath.leftBoundary);
+				this.$.pageLeftControl.hitBoundary();
+			} else {
+				this.setScrollLeft(val);
+			}
+			break;
+		case "top":
+			val = this.scrollTop - delta;
+			// When we hit the top, bounce and end scrolling
+			if (val <= -this.$.scrollMath.topBoundary) {
+				this.setScrollTop(-this.$.scrollMath.topBoundary);
+				this.$.pageUpControl.hitBoundary();
+			} else {
+				this.setScrollTop(val);
+			}
+			break;
+		case "right":
+			val = this.scrollLeft + delta;
+			// When we hit the right, bounce and end scrolling
+			if (val >= -this.$.scrollMath.rightBoundary) {
+				this.setScrollLeft(-this.$.scrollMath.rightBoundary);
+				this.$.pageRightControl.hitBoundary();
+			} else {
+				this.setScrollLeft(val);
+			}
 
-				break;
-			case "bottom":
-				val = this.scrollTop + delta;
-				// When we hit the bottom, bounce and end scrolling
-				if (val >= -this.$.scrollMath.bottomBoundary) {
-					this.setScrollTop(-this.$.scrollMath.bottomBoundary);
-					this.$.pageDownControl.hitBoundary();
-				} else {
-					this.setScrollTop(val);
-				}
-				break;
+			break;
+		case "bottom":
+			val = this.scrollTop + delta;
+			// When we hit the bottom, bounce and end scrolling
+			if (val >= -this.$.scrollMath.bottomBoundary) {
+				this.setScrollTop(-this.$.scrollMath.bottomBoundary);
+				this.$.pageDownControl.hitBoundary();
+			} else {
+				this.setScrollTop(val);
+			}
+			break;
 		}
 
 		return true;
@@ -290,12 +290,12 @@ enyo.kind({
 		;
 
 		return (this.accel)
-			? 	"1, 	    0, 	   0,  0, " +
-				"0, 	    1, 	   0,  0, " +
-				"0, 	    0, 	   1,  0, " +
-				 x + ", " + y + ", 1,  1"
+			?   "1,         0,     0,  0, "
+			+	"0,         1,     0,  0, "
+			+	"0,         0,     1,  0, "
+			+    x + ", " + y + ", 1,  1"
 
-			: 	"1, 0, 0, 1, " + x + ", " + y
+			:   "1, 0, 0, 1, " + x + ", " + y
 		;
 	},
 	effectScrollStop: function() { },

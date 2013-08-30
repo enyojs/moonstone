@@ -1,30 +1,38 @@
+/* Labeled Text Item */
 .moon-labeledtextitem {
 	min-width: 336px;
 	height: 194px;
 	overflow: hidden;
+	margin: 0px;
 }
+
+/* Label */
 .moon-labeledtextitem .label {
 	.moon-sub-header-text;
-	color: @moon-font-color-light;
-	border-top: 1px solid #A2A2A2;
+	color: @moon-label-text-color;
+	border-top: 1px solid @moon-label-border-color;
 	margin: 0px 0px 3px 0px;
 	padding: 6px 0px 0px 0px;
 }
+.spotlight.moon-labeledtextitem .label,
+.spotlight .moon-labeledtextitem .label {
+	border-top-color: @moon-white;
+	color: @moon-white;
+}
+
+/* Text */
 .moon-labeledtextitem .text {
 	.moon-body-text;
-	color: @moon-font-color-light;
+	color: @moon-labeled-item-text-color;
 	line-height: @moon-body-line-height;
 	text-transform: none;
 	margin: 0px;
 	padding: 0px;
 }
+.spotlight.moon-labeledtextitem .text,
+.spotlight .moon-labeledtextitem .text {
+	color: @moon-white;
+}
 .enyo-locale-non-latin .moon-labeledtextitem .text {
 	font-family: @moon-non-latin-font-family;
-}
-.moon-labeledtextitem.spotlight {
-	padding-left: 15px;
-	border-left-width: 25px;
-}
-.moon-labeledtextitem.selected {
-	background: #CCCCCC;
 }

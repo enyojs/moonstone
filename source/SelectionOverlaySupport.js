@@ -5,7 +5,7 @@
 
 	The item may define a `selectionScrimIcon` URL to override the default icon.
 
-	Example: 
+	Example:
 
 			{name: "list", selection: false, kind: "moon.DataList", components: [
 				{mixins: ["moon.SelectionOverlaySupport"], selectionScrimIcon:"assets/my-icon.png", kind: "moon.ImageItem", bindings: [
@@ -19,7 +19,7 @@
 moon.SelectionOverlaySupport = {
 	name: "moon.SelectionOverlaySupport",
 	classes: "moon-selection-overlay-support",
-	create: enyo.super(function (sup) {
+	create: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			this.createChrome(this._selectionScrim);

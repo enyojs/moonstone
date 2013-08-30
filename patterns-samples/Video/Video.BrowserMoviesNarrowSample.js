@@ -10,12 +10,12 @@ enyo.kind({
         {classes: "moon-video-browsermovie-header-button", components: [
             {kind: "moon.IconButton", src: "../assets/icon-list.png"}
         ]}
-    ],    
-    
+    ],
+
     components: [
         {kind: "enyo.Spotlight"},
         {
-            kind : "moon.Scroller",                    
+            kind : "moon.Scroller",
             fit: true,
             touch : true,
             horizontal : "hidden",

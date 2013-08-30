@@ -10,7 +10,7 @@ enyo.kind({
 			{name: "deselectAllButton", kind: "moon.Button", small: true, showing: false, classes: "moon-header-left", content: "Deselect All", ontap: "deselectAll"},
 			{name: "cancelButton", kind: "moon.Button", small: true, content: "cancel", showing: false, ontap: "cancel"},
 			{name: "deleteButton", kind: "moon.Button", small: true, content: "delete", showing: false, ontap: "deleteSelected"},
-			{name: "toggleButton", kind: "moon.IconButton", small: true, src: "$lib/moonstone/images/icon-selection.png", showing: true, ontap: "toggleMode"}
+			{name: "toggleButton", kind: "moon.IconButton", small: true, src: "../../assets/trash-can-icon.png", showing: true, ontap: "toggleMode"}
 		], components: [
 			{name: "list", selection: false, kind: "moon.DataGridList", components: [
 				{classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.GridListImageItem", bindings: [
@@ -68,7 +68,7 @@ enyo.kind({
 		this.$.list.controller.remove(this.$.list.get("selected"));
 		this.cancel();
 	},
-	rendered: enyo.super(function (sup) {
+	rendered: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			var c = new enyo.Collection();
