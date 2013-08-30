@@ -132,15 +132,21 @@ enyo.kind({
 	mousewheel: function(inSender, inEvent) {
 		var x = null,
 			y = null,
-			delta = 0
+			delta = 0,
+			showVertical = this.showVertical(),
+			showHorizontal = this.showHorizontal()
 		;
-
-		if (this.showVertical()) {
-			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
-
+		
+		//* If we don't have to scroll, allow mousewheel event to bubble
+		if (!showVertical && !showHorizontal) {
+			return false;
 		}
 
-		if (this.showHorizontal()) {
+		if (showVertical) {
+			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+		}
+
+		if (showHorizontal) {
 			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
 			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
 		}
