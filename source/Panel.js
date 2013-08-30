@@ -29,7 +29,11 @@ enyo.kind({
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
 		//* Title's _allowHtml_ property
-		allowHtmlHeader: false
+		allowHtmlHeader: false,
+		//* URL of a background image for the header
+		headerBackgroundImage: null,
+		//* Position properties for background image for the header
+		headerBackgroundPosition: "top right"
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -67,8 +71,18 @@ enyo.kind({
 	],
 	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
 	bindings: [
-		{from: ".titleAbove", to: ".$.breadcrumbTitleAbove.content"}
+		{from: ".title", to: ".$.header.title"},
+		{from: ".title", to: ".$.breadcrumbText.content"},
+		{from: ".titleAbove", to: ".$.header.titleAbove"},
+		{from: ".titleAbove", to: ".$.breadcrumbTitleAbove.content"},
+		{from: ".titleBelow", to: ".$.header.titleBelow"},
+		{from: ".subTitleBelow", to: ".$.header.subTitleBelow"},
+		{from: ".smallHeader", to: ".$.header.small"},
+		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
+		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
+		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
+	
 	headerComponents: [],
 	isBreadcrumb: false,
 	isHeaderCollapsed: false,
@@ -84,12 +98,6 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
 		}
 		this.autoNumberChanged();
-		this.titleChanged();
-		this.titleAboveChanged();
-		this.titleBelowChanged();
-		this.subTitleBelowChanged();
-		this.smallHeaderChanged();
-		this.allowHtmlHeaderChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -105,10 +113,6 @@ enyo.kind({
 		hc.addBefore = this.$.breadcrumbText;
 		enyo.mixin(hc, this.headerOption);
 		this.$.contentWrapper.createComponent(hc, {owner:this});
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.calcBreadcrumbWidth();
 	},
 	//* On reflow, update _this.$.contentWrapper_ bounds
 	reflow: function() {
@@ -131,13 +135,24 @@ enyo.kind({
 		this.$.contentWrapper.applyStyle("width", node.offsetWidth + "px");
 		this.$.contentWrapper.applyStyle("height", node.offsetHeight + "px");
 	},
-	calcBreadcrumbWidth: function() {
-		this.breadcrumbWidth = (this.container && this.container.layout && this.container.layout.breadcrumbWidth) || 200;
-	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 		this.inherited(arguments);
+	},
+	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
+	autoNumberChanged: function() {
+		if (this.getAutoNumber() === true && this.container) {
+			this.setTitleAbove(this.generateAutoNumber());
+		}
+	},
+	//* When _this.isBreadcrumb_ changes, update spottability
+	isBreadcrumbChanged: function() {
+		if (this.isBreadcrumb) {
+			this.addSpottableBreadcrumbProps();
+		} else {
+			this.removeSpottableBreadcrumbProps();
+		}
 	},
 	handleBreadcrumbTap: function(inSender, inEvent) {
 		if (!this.isBreadcrumb) {
@@ -165,46 +180,9 @@ enyo.kind({
 			this.isHeaderCollapsed = false;
 		}
 	},
-	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
-	autoNumberChanged: function() {
-		if (this.getAutoNumber() === true && this.container) {
-			var n = this.indexInContainer() + 1;
-			n = ((n < 10) ? "0" : "") + n;
-			this.setTitleAbove(n);
-		}
-	},
-	//* Updates _this.header_ when _title_ changes.
-	titleChanged: function() {
-		this.$.header.setTitle(this.getTitle());
-		this.$.breadcrumbText.setContent(this.getTitle());
-	},
-	//* Updates _this.header_ when _titleAbove_ changes.
-	titleAboveChanged: function() {
-		this.$.header.setTitleAbove(this.getTitleAbove());
-	},
-	//* Updates _this.header_ when _titleBelow_ changes.
-	titleBelowChanged: function() {
-		this.$.header.setTitleBelow(this.getTitleBelow());
-	},
-	//* Updates _this.header_ when _subTitleBelow_ changes.
-	subTitleBelowChanged: function() {
-		this.$.header.setSubTitleBelow(this.getSubTitleBelow());
-	},
-	//* Updates _this.header_ when _smallHeader_ changes.
-	smallHeaderChanged: function() {
-		this.$.header.setSmall(this.getSmallHeader());
-	},
-	//* Update _allowHtml_ property of header components
-	allowHtmlHeaderChanged: function() {
-		this.$.header.setAllowHtml(this.allowHtmlHeader);
-	},
-	//* When _this.isBreadcrumb_ changes, update spottability
-	isBreadcrumbChanged: function() {
-		if (this.isBreadcrumb) {
-			this.addSpottableBreadcrumbProps();
-		} else {
-			this.removeSpottableBreadcrumbProps();
-		}
+	generateAutoNumber: function() {
+		var adjustedIndex = this.indexInContainer() + 1;
+		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
 	},
 	addSpottableBreadcrumbProps: function() {
 		this.addClass("moon-panel-breadcrumb");
@@ -244,8 +222,8 @@ enyo.kind({
 	shrinkingWidthAnimation: function() {
 		this.haltAnimations();
 		
-		// NOTE - Skipping width shrink animation
 		this.preTransitionComplete();
+		// NOTE - Skipping width shrink animation
 		// this.$.breadcrumbBackground.applyStyle("width", "300px");
 		// this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
@@ -256,8 +234,8 @@ enyo.kind({
 	growingWidthAnimation: function() {
 		this.haltAnimations();
 		
-		// NOTE - Skipping width grow animation
 		this.growingHeightAnimation();
+		// NOTE - Skipping width grow animation
 		// this.$.animator.play(this.growWidthAnimation.name);
 	},
 	haltAnimations: function() {

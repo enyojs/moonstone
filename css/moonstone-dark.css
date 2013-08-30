@@ -1243,6 +1243,9 @@
   -moz-transition: height 0.2s linear;
   max-width: 100%;
   padding: 8px 10px 10px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: top left;
 }
 /* Title Above */
 .moon-header-title-above.no-border {

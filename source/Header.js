@@ -15,7 +15,15 @@ enyo.kind({
 		//* Sub-text below the header
 		subTitleBelow: '',
 		//* If true, the moon-small-header css class will be applied to this header
-		small: false
+		small: false,
+		//* URL src of a background image
+		backgroundSrc: null,
+		/**
+			Background position, defined as a string in the form of _"vertical horizontal"_,
+			with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
+			If no second property is included, the horizontal value will default to _right_.
+		*/
+		backgroundPosition: "top right"
 	},
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
@@ -35,6 +43,8 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.allowHtmlChanged();
+		this.backgroundSrcChanged();
+		this.backgroundPositionChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -50,6 +60,14 @@ enyo.kind({
 		this.$.title.setAllowHtmlText(this.allowHtml);
 		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
 		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
+	},
+	backgroundSrcChanged: function() {
+		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")" : "none");
+	},
+	backgroundPositionChanged: function() {
+		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [];
+			posStr = (posArray.length === 0) ? "top right" : (posArray.length === 1) ? posArray[0] + " right" : posArray[0] + " " + posArray[1];
+		this.applyStyle("background-position", posStr);
 	},
 	//* @public
 	collapseToSmall: function() {

@@ -11,8 +11,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next1"}
 			]},
-			{title: "Second Panel", classes: "moon-7h",
-				joinToPrev: true, components: [
+			{title: "Second Panel", classes: "moon-7h", joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next2"},
