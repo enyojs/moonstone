@@ -6,6 +6,7 @@ enyo.kind({
 		pageSize: 3
 	},
 	components: [
+		{kind: 'enyo.Spotlight'},
 		{name: "list", kind: "moon.List", spotlight: true, orient:"v", count: 2000, multiSelect: false,
 			classes: "enyo-fit list-vertical-controls-sample-list moon-list-vertical-sample",
 			onSetupItem: "setupItem", components: [

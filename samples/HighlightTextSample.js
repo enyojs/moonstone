@@ -2,6 +2,7 @@ enyo.kind({
 	name: "moon.sample.HighlightTextSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: "moon.Panels", classes:"enyo-fit", controlClasses:"moon-6h", components: [
 			{kind: "moon.Panel", title:"STATIC", titleBelow:"Simple items", subTitleBelow: "Case insensitive",
 			components: [

@@ -130,6 +130,7 @@ enyo.ready(function () {
 			name: "moon.sample.music.AlbumDetailNarrowSampleMain",
 			classes: "enyo-unselectable moon",
 			components: [
+				{kind: "enyo.Spotlight"},
 				{kind: "moon.sample.music.AlbumDetailNarrowSample", classes: "enyo-fit", controller: ".app.controllers.album"}
 			]
 		}

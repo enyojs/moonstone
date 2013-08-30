@@ -11,6 +11,7 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
+		{kind: "enyo.Spotlight"},
 		{classes:"left-panel", components:[
 			{classes:"left-panel-content", components:[
 				{content:"01", classes:"left-panel-number"},

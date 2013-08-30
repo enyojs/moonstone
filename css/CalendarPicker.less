@@ -3,22 +3,17 @@
 	display: inline-block;
 	text-align: center;
 	width: (@moon-button-small-height * 7) + ((14 * 2) * 7);
-	background-color: @moon-neutral-bg-color;
-	border-radius: 16px;
-	margin: 0px 20px;
-	padding: 20px 0px;
 }
 .moon-calendar-picker-block {
 	display: inline-block;
 }
-.moon-calendar-picker-day.moon-button[disabled] {
-	.moon-sub-header-text;
+.moon-calendar-picker-day {
 	min-width: @moon-button-small-height;
 	line-height: @moon-picker-button-width;
 	border: 0px;
 	border-radius: 0px;
-	background: transparent;
-	color: @moon-calendar-picker-date-shadow-color;
+	background: inherit;
+	color: @moon-dark-gray;
 	padding: 0px;
 	margin: 10px;
 	text-align: center;
@@ -40,31 +35,9 @@
 	text-align: center;
 	vertical-align: middle;
 }
-.moon-calendar-picker-date.moon-button.small {
-	.moon-sub-header-text;
-	color: @moon-spotlight-text-color;
-	padding: 0px;
-}
-.moon-calendar-picker-date-shadow.moon-button.small {
+.moon-calendar-picker-date-shadow {
 	color: @moon-calendar-picker-date-shadow-color;
 }
-.moon-calendar-picker-date-shadow.moon-button.small.spotlight {
-	color: @moon-spotlight-text-color;	
+.moon-calendar-picker .moon-button.small {
+	padding: 0px;
 }
-.moon-calendar-picker .moon-simple-picker-item {
-	color: @moon-spotlight-text-color;
-}
-.moon-calendar-picker .moon-simple-picker-button {
-	background-image: @moon-neutral-scroller-icon;
-}
-.moon-calendar-picker .moon-simple-picker-button.spotlight {
-	background-image: @moon-scroller-spotlight;
-}
-.moon-calendar-picker-date.moon-button.small.active,
-.moon-calendar-picker-date.moon-button.small.pressed,
-.moon-calendar-picker-date.moon-button.small.spotlight.pressed,
-.moon-calendar-picker-date.moon-button:active:hover:not([disabled]) 
- {
-	color: @moon-spotlight-text-color;
-	background-color: @moon-spotlight-background-color;
-} 

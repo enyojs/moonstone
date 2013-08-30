@@ -136,7 +136,6 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
 			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
@@ -352,15 +351,6 @@ enyo.kind({
 	},
 	showScrim: function(show) {
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
-	},
-	panelsShown: function(inSender, inEvent) {
-		if ((this.isFullscreen() || !this.getInline()) && this.isOverlayShowing()) {
-			this.hideFSControls();
-			enyo.Spotlight.unspot();
-		}
-	},
-	panelsHidden: function(inSender, inEvent) {
-		enyo.Spotlight.spot(this);
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {

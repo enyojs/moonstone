@@ -5,6 +5,7 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
+		{kind: "enyo.Spotlight"},
 		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
 			{kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
 				{kind: "FittableRows", action: "category", components: [
