@@ -3,7 +3,6 @@ enyo.kind({
 	classes: "moon enyo-unselectable single-select-delete",
 	deleteMode: false,
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panel", kind: "moon.Panel", classes: "enyo-fit", title: "MOVIES", headerComponents: [
 			{name: "multiButton", kind: "moon.ToggleButton", small: true, showing: false, classes: "moon-header-left", content: "Multiple Selection"},
 			{name: "selectAllButton", kind: "moon.Button", small: true, showing: false, classes: "moon-header-left", content: "Select All", ontap: "selectAll"},

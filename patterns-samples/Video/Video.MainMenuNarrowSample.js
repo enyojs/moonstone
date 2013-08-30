@@ -38,7 +38,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.video.MainMenuNarrowSample",
                     controller: ".app.controllers.movieController",

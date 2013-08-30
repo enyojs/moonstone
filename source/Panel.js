@@ -34,6 +34,8 @@ enyo.kind({
 		headerBackgroundImage: null,
 		//* Position properties for background image for the header
 		headerBackgroundPosition: "top right"
+		//* Header options
+		headerOptions: null
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -52,7 +54,7 @@ enyo.kind({
 	fit: true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
-	headerOption: null,
+	headerOption: null, //* Deprecated
 	panelTools : [
 		{name: "viewport", classes: "moon-panel-viewport", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
@@ -110,8 +112,13 @@ enyo.kind({
 		this.createChrome(this.panelTools);
 		// Special-handling for header, which can have its options modified by the instance
 		var hc = enyo.clone(this.headerConfig || {});
+<<<<<<< HEAD
 		hc.addBefore = this.$.breadcrumbText;
 		enyo.mixin(hc, this.headerOption);
+=======
+		hc.addBefore = this.$.miniHeader;
+		enyo.mixin(hc, this.headerOptions || this.headerOption);
+>>>>>>> master
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
 	//* On reflow, update _this.$.contentWrapper_ bounds

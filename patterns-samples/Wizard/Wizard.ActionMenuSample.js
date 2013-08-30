@@ -31,7 +31,7 @@ enyo.kind({
     headerComponents: [
         {name: "wizListAction", ontap:"doListAct", kind: "moon.ListActions", classes: "wizard-listaction", iconSrc:"../assets/icon-list.png",
             listActions: [
-            {                    
+            {
                 components: [
                     {kind: "moon.Divider", content:"Category"},
                     {name: "wizList", kind: "moon.DataList", components: [
@@ -40,11 +40,11 @@ enyo.kind({
                         ]},
                         {classes: "wizard-listaction-text", bindings: [
                             {from: ".model.processed", to: ".content"}
-                        ]}                       
+                        ]}
                     ]}
                 ]
             }
-        ]}    
+        ]}
     ],
     bindings: [
         {from: ".controller.title", to: ".title"},
@@ -68,7 +68,7 @@ enyo.kind({
         {name: "stepPage2",   kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage3",   kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage4",   kind: "moon.sample.wizard.StepPageSample"},
-        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"} 
+        {name: "confirmPage", kind: "moon.sample.wizard.ConfirmPageSample"}
     ],
     bindings: [
         {from: ".controller", to: ".$.introPage.controller"},
@@ -108,7 +108,7 @@ enyo.kind({
         {
             p.setOpen(false);
             enyo.Spotlight.spot(p.$.activator);
-        }    
+        }
     }
 });
 
@@ -177,7 +177,6 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.wizard.ActionMenuSample",
 					controller: ".app.controllers.WizardController",

@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name:"buttonContainer", kind:"FittableRows", classes:"enyo-fit", components:[
 			//Top row of buttons
 			{components:[

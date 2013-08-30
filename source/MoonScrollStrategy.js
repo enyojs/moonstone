@@ -132,15 +132,21 @@ enyo.kind({
 	mousewheel: function(inSender, inEvent) {
 		var x = null,
 			y = null,
-			delta = 0
+			delta = 0,
+			showVertical = this.showVertical(),
+			showHorizontal = this.showHorizontal()
 		;
-
-		if (this.showVertical()) {
-			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
-
+		
+		//* If we don't have to scroll, allow mousewheel event to bubble
+		if (!showVertical && !showHorizontal) {
+			return false;
 		}
 
-		if (this.showHorizontal()) {
+		if (showVertical) {
+			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+		}
+
+		if (showHorizontal) {
 			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
 			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
 		}
@@ -325,7 +331,14 @@ enyo.kind({
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
-			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+			if (this.showVertical() || this.showHorizontal()) {
+				this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+				return true;
+			} else {
+				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
+				// to allow items in nested scrollers to be scrolled
+				return false;
+			}
 		}
 		return true;
 	},
