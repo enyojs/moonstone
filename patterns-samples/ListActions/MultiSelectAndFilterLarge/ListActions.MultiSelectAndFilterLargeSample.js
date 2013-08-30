@@ -12,7 +12,7 @@ enyo.kind({
 	},
 	components: [
 		{kind: "moon.Panels", classes:"enyo-fit", pattern:"activity", components: [
-			{kind:"moon.Panel", title:"Browse Movies", headerComponents: [
+			{name: "panel", kind:"moon.Panel", title:"Browse Movies", headerComponents: [
 				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
 					{
 						action: "sort",
@@ -62,7 +62,6 @@ enyo.kind({
 	],
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
-		// var item = this.results[i];
 		this.$.item.setSource("../assets/movieImage.jpg");
 		this.$.item.setSelected(this.$.gridlist.isSelected(i));
 	},
@@ -76,7 +75,7 @@ enyo.kind({
 				if (this.filterAction) {
 					subtitle += " / " + this.filterAction;
 				}
-				this.$.header.setTitleBelow(subtitle);
+				this.$.panel.setTitleBelow(subtitle);
 				break;
 			case "filter":
 				this.filterAction = inEvent.toggledControl.getContent();
@@ -85,7 +84,7 @@ enyo.kind({
 				} else {
 					subtitle = this.filterAction;
 				}
-				this.$.header.setTitleBelow(subtitle);
+				this.$.panel.setTitleBelow(subtitle);
 				break;
 			}
 		}
