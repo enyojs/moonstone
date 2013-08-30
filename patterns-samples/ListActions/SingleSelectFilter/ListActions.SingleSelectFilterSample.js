@@ -24,8 +24,16 @@ enyo.kind({
 					]}
 				]}
 			], components: [
-				{name: "gridlist", kind: "moon.GridList", classes: "grid-list", toggleSelected: true,
-					count:20, itemWidth: 150, itemHeight: 200, itemSpacing: 20, onSetupItem: "setupItem",
+				{
+					name: "gridlist",
+					kind: "moon.GridList",
+					classes: "grid-list",
+					toggleSelected: true,
+					count:20,
+					itemWidth: 150,
+					itemHeight: 200,
+					itemSpacing: 20,
+					onSetupItem: "setupItem",
 					components: [
 						{name: "item", kind: "moon.GridListImageItem"}
 					]
