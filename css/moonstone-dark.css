@@ -3560,27 +3560,27 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-scroller-vthumb.hidden {
   opacity: 0;
 }
-.moon-more-less-decorator.collapse .moon-more-less-decorator-client {
+/* ExpandableText */
+.moon-expandable-text .moon-expandable-text-content {
+  margin: 0 10px;
+}
+.moon-expandable-text.collapse .moon-expandable-text-content {
     display: -webkit-inline-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
 }
-.moon-more-less-decorator .moon-more-less-decorator-button {
+.moon-expandable-text .moon-expandable-text-button {
+  float: right;
   background-repeat: no-repeat;
   background-position: right center;
   padding-right: 30px;
   background-image: url(../images/caret-black-small-up-icon.png);
 }
-.moon-more-less-decorator .moon-more-less-decorator-button.spotlight {
-  //TODO : need spotlight icon;
-  //background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
-} 
-.moon-more-less-decorator.collapse .moon-more-less-decorator-button {
+.moon-expandable-text.collapse .moon-expandable-text-button {
   background-image: url(../images/caret-black-small-down-icon.png);
 }
-.moon-more-less-decorator.collapse .moon-more-less-decorator-button.spotlight {
-  //TODO : need spotlight icon;
-  //background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
+.moon-expandable-text .moon-expandable-text-button.hidden {
+  display: none;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
