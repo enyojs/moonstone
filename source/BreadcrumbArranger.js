@@ -55,21 +55,21 @@ enyo.kind({
 		}
 
 		// Calculate which panels will be joined
-		this.joinedPanels = this.calculateJoinedPanels(containerWidth);
+		joinedPanels = this.calculateJoinedPanels(containerWidth);
 
 		// Stretch all panels to fit vertically
 		this.applyVerticalFit();
 
 		// Reset panel arrangement positions
-		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, this.joinedPanels);
-		this.adjustTransitionPositionsForJoinedPanels(this.joinedPanels);
+		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, joinedPanels);
+		this.adjustTransitionPositionsForJoinedPanels(joinedPanels);
 
 		// Update individual panel widths to account for _joinedPanels_
-		this.updateWidths(containerWidth, this.joinedPanels);
+		this.updateWidths(containerWidth, joinedPanels);
 		this.applyUpdatedWidths();
 
 		// Calculate _this.breadcrumbPositions_
-		this.calcBreadcrumbPositions(this.joinedPanels);
+		this.calcBreadcrumbPositions(joinedPanels);
 
 		if (this.debug) {
 			enyo.log("transitionPositions:", this.container.transitionPositions);
