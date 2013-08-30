@@ -117,23 +117,23 @@ enyo.kind({
 	//* On reflow, update _this.$.contentWrapper_ bounds
 	reflow: function() {
 		this.inherited(arguments);
-		this.updateWrapperSize();
 		this.getInitAnimationValues();
+		this.updateViewportSize();
 		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
 		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
 		this.growWidthAnimation = this.createGrowingWidthAnimation();
 		this.growHeightAnimation = this.createGrowingHeightAnimation();
 	},
 	//* Update _this.$.contentWrapper_ to have the height/width of _this_
-	updateWrapperSize: function() {
+	updateViewportSize: function() {
 		var node = this.hasNode();
 
-		if (!node) {
+		if (!node || this.isBreadcrumb) {
 			return;
 		}
 
-		this.$.contentWrapper.applyStyle("width", node.offsetWidth + "px");
-		this.$.contentWrapper.applyStyle("height", node.offsetHeight + "px");
+		this.$.viewport.applyStyle("height", this.initialHeight + "px");
+		this.$.viewport.applyStyle("width", this.initialWidth + "px");
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
@@ -185,11 +185,9 @@ enyo.kind({
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
 	},
 	addSpottableBreadcrumbProps: function() {
-		this.addClass("moon-panel-breadcrumb");
 		this.$.breadcrumbBackground.spotlight = true;
 	},
 	removeSpottableBreadcrumbProps: function() {
-		this.removeClass("moon-panel-breadcrumb");
 		this.$.breadcrumbBackground.spotlight = false;
 		this.$.breadcrumbBackground.removeClass("spotlight");
 	},

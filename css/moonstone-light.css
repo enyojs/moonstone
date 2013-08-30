@@ -2281,7 +2281,7 @@
   margin: 0px 10px;
   color: #ffffff;
 }
-.moon-panel.moon-panel-breadcrumb .moon-panel-mini-header-wrapper.spotlight {
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
   background: #ff2f7d;
   color: #ffffff;
 }

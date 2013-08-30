@@ -302,7 +302,7 @@ enyo.kind({
 	indexChanged: function() {
 		var activePanel = this.getActive();
 		
-		if (activePanel.isBreadcrumb) {
+		if (activePanel && activePanel.isBreadcrumb) {
 			activePanel.removeSpottableBreadcrumbProps();
 		}
 
