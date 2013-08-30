@@ -2300,17 +2300,27 @@ body .enyo-fit.panels-50-percent-scrim,
   display: inline-block;
   text-align: center;
   width: 616px;
+  background-color: #555555;
+  border-radius: 16px;
+  margin: 0px 20px;
+  padding: 20px 0px;
 }
 .moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar-picker-day {
+.moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #999999;
   min-width: 60px;
   line-height: 50px;
   border: 0px;
   border-radius: 0px;
-  background: inherit;
-  color: #4b4b4b;
+  background: transparent;
+  color: #a2a2a2;
   padding: 0px;
   margin: 10px;
   text-align: center;
@@ -2332,11 +2342,37 @@ body .enyo-fit.panels-50-percent-scrim,
   text-align: center;
   vertical-align: middle;
 }
-.moon-calendar-picker-date-shadow {
+.moon-calendar-picker-date.moon-button.small {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #999999;
+  color: #ffffff;
+  padding: 0px;
+}
+.moon-calendar-picker-date-shadow.moon-button.small {
   color: #a2a2a2;
 }
-.moon-calendar-picker .moon-button.small {
-  padding: 0px;
+.moon-calendar-picker-date-shadow.moon-button.small.spotlight {
+  color: #ffffff;
+}
+.moon-calendar-picker .moon-simple-picker-item {
+  color: #ffffff;
+}
+.moon-calendar-picker .moon-simple-picker-button {
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+}
+.moon-calendar-picker .moon-simple-picker-button.spotlight {
+  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+}
+.moon-calendar-picker-date.moon-button.small.active,
+.moon-calendar-picker-date.moon-button.small.pressed,
+.moon-calendar-picker-date.moon-button.small.spotlight.pressed,
+.moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
+  color: #ffffff;
+  background-color: #ff2f7d;
 }
 /* Table.css */
 /*.moon-table {
