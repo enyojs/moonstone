@@ -65,7 +65,7 @@ enyo.kind({
             {
                 components: [
                     {kind: "moon.Divider", content:"Category"},
-                    {name: "wizList", kind: "moon.DataList", components: [
+                    {name: "wizList", fit:true, kind: "moon.DataList", components: [
                         {kind:"moon.Item", classes: "wizard-listaction-item", bindings: [
                             {from: ".model.step", to: ".content"}
                         ]},
@@ -189,6 +189,7 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
+                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.PopupSample",
                     controller: ".app.controllers.WizardController",

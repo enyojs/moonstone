@@ -6,7 +6,8 @@
 		enyo.kind({
 			...
 			components: [
-						{
+				{kind: "enyo.Spotlight"},
+				{
 					kind: "moon.GridList",
 					onSetupItem: "setupItem",
 					toggleSelected: true,

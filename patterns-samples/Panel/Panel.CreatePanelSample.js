@@ -12,7 +12,7 @@ enyo.kind({
 				action: "category",
 				components: [
 					{kind: "moon.Divider", content:"Category"},
-					{kind: "moon.Scroller", components: [
+					{kind: "moon.Scroller", fit:true, components: [
 						{content:"Action", kind:"moon.CheckboxItem", checked:true},
 						{content:"Comedy", kind:"moon.CheckboxItem"},
 						{content:"Drama", kind:"moon.CheckboxItem"},
@@ -30,7 +30,7 @@ enyo.kind({
 			{
 				components: [
 					{kind: "moon.Divider", content:"Category"},
-					{kind: "moon.Scroller", horizontal: "hidden", components: [
+					{kind: "moon.Scroller", fit:true, horizontal: "hidden", components: [
 						{content:"Action", kind:"moon.ToggleItem"},
 						{content:"Comedy", kind:"moon.ToggleItem"},
 						{content:"Drama", kind:"moon.ToggleItem"}
@@ -57,6 +57,7 @@ enyo.kind({
 	name: "moon.sample.panel.CreatePanelSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit",
 			/* 5:9 layout. */
 			onPanelTransitionFinish: 'onPanelsTransit',

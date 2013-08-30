@@ -32,10 +32,9 @@ enyo.kind({
 		{name: "indicator", classes: "moon-selectable-item-indicator"},
 		{name: "client", classes: "moon-selectable-item-client"}
 	],
-	//@protected
 	rendered: function() {
 		this.inherited(arguments);
-		this.selectedChanged();
+		this.activeChanged();
 	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;

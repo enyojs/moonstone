@@ -38,6 +38,7 @@ enyo.kind({
 	name: "moon.sample.panel.TwoPanelsUpSample",
 	classes: "moon",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{
 			name: "panels",
 			kind: "moon.Panels",

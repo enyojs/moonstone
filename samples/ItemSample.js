@@ -2,6 +2,7 @@ enyo.kind({
 	name: "moon.sample.ItemSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Item Sample"},
 		{
 			components: [

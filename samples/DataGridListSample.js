@@ -2,6 +2,7 @@ enyo.kind({
 	name: "moon.sample.DataGridListSample",
 	classes: "moon enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{name: "gridList", spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
 			{
 				kind: "moon.GridListImageItem",
@@ -21,5 +22,5 @@ enyo.kind({
 		}
 		c.add(r$);
 		this.$.gridList.set("controller", c);
-	}
+	}	
 });

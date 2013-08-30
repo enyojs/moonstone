@@ -3,6 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-header-sample",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", fit:true, components: [
 			{kind: "moon.Header", content: "Header", titleAbove: "02", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", classes:"moon-10h", components: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
