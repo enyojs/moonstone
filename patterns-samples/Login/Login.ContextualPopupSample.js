@@ -50,7 +50,7 @@ enyo.kind({
 				{kind: "moon.InputDecorator", spotlight: true, components: [
 					{kind: "moon.Input", type:"password", placeholder: "Password", onchange:""}
 				]},
-				{content: "Log in setting Menu"},
+				{content: "Log in setting Menu asdf "},
 				{kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
 				{content: "or Connected with"},
 				{kind: "moon.Button", classes: "moon-light-gray", content: "FACEBOOK"},
@@ -84,12 +84,12 @@ enyo.kind({
 					{kind: "moon.ContextualPopupDecorator", components: [
 						{kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
 							{tag: "img", attributes: {src: "../assets/icon-half-like.png"}},
-							{content: "LIKE"}
+							{content: "Like"}
 						]},
 						{kind: "moon.ContextualLoginPopup"}
 					]},
 					{kind: "moon.ContextualPopupDecorator", components: [
-						{classes: "moon-2h", content: "SHARE"},
+						{classes: "moon-2h", content: "Share"},
 						{kind: "moon.ContextualLoginPopup"}
 					]}
 				]}
