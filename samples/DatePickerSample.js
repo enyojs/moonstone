@@ -3,6 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
 				{kind: "moon.DatePicker", name:"picker", noneText: "Pick a Date", content: "Date", onChange: "changed"},

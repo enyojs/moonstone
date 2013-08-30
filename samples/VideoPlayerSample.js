@@ -4,6 +4,7 @@ enyo.kind({
 	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample",
 	fit: true,
 	components: [
+		{kind: "enyo.Spotlight"},
 		{
 			name: "player",
 			kind: "moon.VideoPlayer",
@@ -15,7 +16,7 @@ enyo.kind({
 						kind: "moon.ChannelInfo",
 						channelNo: "13",
 						channelName: "AMC",
-						classes: "moon-2h",
+						classes: "moon-2h", 
 						components: [
 							{content: "3D"},
 							{content: "Live"},

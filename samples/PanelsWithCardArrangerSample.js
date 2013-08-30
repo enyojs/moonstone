@@ -2,6 +2,7 @@ enyo.kind({
 	name: "moon.sample.PanelsWithCardArrangerSample",
 	classes: "moon enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", arrangerKind: "CardArranger", classes: "enyo-fit", components: [
 			{title: "First", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},

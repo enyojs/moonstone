@@ -9,6 +9,7 @@ enyo.kind({
 		onPlayIndex: "playIndex"
 	},
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind:"moon.Drawers", drawers:[
 			{
 				kind: "moon.AudioPlayback",

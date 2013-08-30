@@ -131,6 +131,7 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
+				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.wizard.FullScreenSample",
 					controller: ".app.controllers.WizardController",

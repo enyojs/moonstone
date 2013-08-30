@@ -2,6 +2,7 @@ enyo.kind({
 	name: "moon.sample.ImageItemSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', classes: "enyo-fill", components: [
 			{
 				components: [

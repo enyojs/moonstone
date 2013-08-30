@@ -2,6 +2,7 @@ enyo.kind({
 	name: 'moon.sample.ScrollerHorizontalSample',
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: 'enyo.Spotlight'},
 		{kind: "moon.Divider", content: "Horizontal Scroller"},
 		{kind: 'moon.Scroller', vertical: "hidden", spotlight: "container", style:"white-space: nowrap;", components: [
 			{kind: "enyo.Repeater", count:"50", components: [

@@ -85,8 +85,8 @@ enyo.kind({
 			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
-		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-		days: ["S","M","T","W","T","F","S"]
+		months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
 		{name: "monthPicker", kind: "moon.SimplePicker", onChange: "selectMonthPicker"},
@@ -125,9 +125,10 @@ enyo.kind({
 	*/
 	initMonthPicker: function() {
 		var months = this.months;
+		this.$.monthPicker.addClass("moon-simple-picker-button-bold");
 		for (var i = 0; i < 12; i++) {
 			this.$.monthPicker.createComponent(
-				{content: months[i], classes: "picker-content", style: "width: 200px"}
+				{content: months[i], classes: "picker-content", style: "width: 100px"}
 			);
 		}
 	},
