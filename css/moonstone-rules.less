@@ -32,6 +32,9 @@
 .moon-divider-border {
 	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
 }
+.moon-neutral-divider-border {
+	border-bottom: @moon-divider-border-width solid @moon-neutral-border-color;
+}
 
 .moon-superscript {
 	font-size: @moon-superscript-text-size;
@@ -229,27 +232,27 @@
 .moon-hspacing > * {
 	display: inline-block;
 	vertical-align: middle;
-	margin: 0 @moon-grid-gutter-width;
+	margin: 0 @moon-grid-gutter-width/2;
 }
 .moon-hspacing > :first-child {
 	margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-	margin-left: @moon-grid-gutter-width;
+	margin-left: @moon-grid-gutter-width/2;
 	margin-right: 0;
 }
 .moon-hspacing > :last-child {
 	margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-	margin-right: @moon-grid-gutter-width;
+	margin-right: @moon-grid-gutter-width/2;
 	margin-left: 0;
 }
 
 /* Standard vertical spacing */
 .moon-vspacing > * {
 	display: block;
-	margin: @moon-grid-gutter-width 0;
+	margin: @moon-grid-gutter-width/2 0;
 }
 .moon-vspacing > :first-child {
 	margin-top: 0;

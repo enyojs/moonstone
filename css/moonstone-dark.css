@@ -302,6 +302,9 @@
 .moon-divider-border {
   border-bottom: 2px solid #404040;
 }
+.moon-neutral-divider-border {
+  border-bottom: 2px solid #ffffff;
+}
 .moon-superscript {
   font-size: 24px;
   vertical-align: top;
@@ -632,6 +635,9 @@
   border-bottom: 2px solid #404040;
   margin: 0px 10px 27px 10px;
   text-transform: capitalize;
+}
+.moon-neutral .moon-divider {
+  border-bottom: 2px solid #ffffff;
 }
 .moon-divider .moon-marquee-text {
   line-height: 22px;
@@ -1236,7 +1242,6 @@
   height: 360px;
   border-top: 1px solid #404040;
   border-bottom: 6px solid #404040;
-  overflow: hidden;
   position: relative;
   transition: height 0.2s linear;
   -webkit-transition: height 0.2s linear;
@@ -2076,50 +2081,40 @@
   top: 0px;
   left: 0px;
   overflow: hidden;
-}
-.moon-list-actions-client-container {
-  background-color: white;
-  margin-top: 60px;
+  z-index: 1;
 }
 /* Close button */
-.moon-list-actions-close {
+.moon-icon-button.moon-list-actions-close {
   position: absolute;
-  right: 0;
+  right: 10px;
+  top: 10px;
   z-index: 2;
-  margin: 10px;
-  border-radius: 9999px;
-  line-height: 24px;
-  background-color: #ededed;
-  border: 5px solid transparent;
-  width: 40px;
-  height: 40px;
-}
-.moon-list-actions-close::after {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
-  color: #b2b2b2;
-  content: "\2716";
-  position: relative;
-  top: 3px;
-  left: 10px;
 }
 /* Scroller */
 .moon-list-actions-scroller {
-  margin: 0px;
+  margin: 10px 60px 10px 10px;
   padding: 0px;
+  z-index: 1;
 }
 /* Action menu */
 .moon-list-actions-menu {
   display: inline-block;
   vertical-align: top;
-  margin: 0px 2px;
   width: 300px;
+  min-width: 300px;
+  /* Do not change - used in JS */
+
+  float: right;
+  box-sizing: border-box;
 }
-.moon-list-actions-menu.full-width {
-  width: 100%;
+.porportional-width.stacked .moon-list-actions-menu {
+  width: 100% !important;
+}
+.stacked .moon-list-actions-menu {
+  margin-top: 20px;
+}
+.stacked .moon-list-actions-menu {
+  margin-bottom: 20px;
 }
 /* Drawer */
 .moon-list-actions-drawer {
@@ -2574,6 +2569,19 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-tooltip.below {
   top: 100%;
+  transform: translateY(5px);
+  -o-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  -webkit-transform: translateY(5px);
+}
+.moon-tooltip.above {
+  top: 100%;
+  transform: translateY(-5px);
+  -o-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  -webkit-transform: translateY(-5px);
 }
 .moon-tooltip.below > .moon-tooltip-label {
   margin: 9px 0px 0px;
@@ -3510,26 +3518,26 @@ body .enyo-fit.panels-50-percent-scrim,
 .moon-hspacing > * {
   display: inline-block;
   vertical-align: middle;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 .moon-hspacing > :first-child {
   margin-left: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :first-child {
-  margin-left: 10px;
+  margin-left: 5px;
   margin-right: 0;
 }
 .moon-hspacing > :last-child {
   margin-right: 0;
 }
 .enyo-locale-right-to-left .moon-hspacing > :last-child {
-  margin-right: 10px;
+  margin-right: 5px;
   margin-left: 0;
 }
 /* Standard vertical spacing */
 .moon-vspacing > * {
   display: block;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .moon-vspacing > :first-child {
   margin-top: 0;
