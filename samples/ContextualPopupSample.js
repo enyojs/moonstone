@@ -10,7 +10,7 @@ enyo.kind({
 				{content: "Average"},
 				{
 					kind: "moon.ContextualPopup",
-					classes: "moon-2h moon-1v",
+					classes: "moon-2h moon-8v",
 					components: [
 						{content:"Item 1"},
 						{content:"Item 2"},
@@ -25,7 +25,7 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 45%;", components: [
 			{content: "Wide"},
-			{kind: "moon.ContextualPopup", classes: "moon-6h moon-1v", components: [
+			{kind: "moon.ContextualPopup", classes: "moon-6h moon-4v", components: [
 				{kind: "moon.Scroller", classes: "enyo-fill", components:[
 					{content:"testing 1"},
 					{content:"testing 2"}
@@ -35,7 +35,7 @@ enyo.kind({
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 45%;", components: [
 			{content:"Long Button with truncation"},
 			{kind: "moon.ContextualPopup", components: [
-				{classes: "moon-3h moon-4v", components: [
+				{classes: "moon-3h moon-16v", components: [
 					{kind: "moon.Scroller", classes: "enyo-fill", components: [
 						{content:"testing 1"},
 						{content:"testing 2"},
@@ -80,7 +80,7 @@ enyo.kind({
 			{
 				kind: "moon.ContextualPopup",
 				name: "buttonPopup",
-				classes: "moon-6h moon-2v",
+				classes: "moon-7h moon-8v",
 				modal: true,
 				autoDismiss: false,
 				spotlightModal: true,
@@ -101,8 +101,7 @@ enyo.kind({
 			{content: "Spottable"},
 			{
 				kind: "moon.ContextualPopup",
-				classes: "moon-6h moon-2v",
-				style: "height:270px;",
+				classes: "moon-8h moon-4v",
 				components: [
 					{kind: "Scroller", horizontal: "auto", touch: true, thumb: false, classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button 1"},

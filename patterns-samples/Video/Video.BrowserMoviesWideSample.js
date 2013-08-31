@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.MovieImageItem",
-	classes: "moon-movie-list-item moon-3h moon-1v",
+	classes: "moon-movie-list-item moon-3h moon-4v",
 	spotlight: true,
 	published: {
 		option: {

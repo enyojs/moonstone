@@ -2661,10 +2661,11 @@ body .enyo-fit.panels-50-percent-scrim,
   background-position: 0px -32px;
   float: right;
   position: absolute;
-  right: 0px;
+  right: 10px;
   width: 32px;
   height: 32px;
-  top: 2px;
+  top: 10px;
+  margin: 0;
 }
 .moon-popup-close.spotlight {
   background-repeat: no-repeat;
