@@ -64,6 +64,8 @@ enyo.depends(
 	"AlwaysViewingPanelsSample.css",
 	"ActivityPanelsSample.js",
 	"ActivityPanelsSample.css",
+	"ActivityPanelsWithVideoSample.js",
+	"ActivityPanelsWithVideoSample.css",
 	"PanelsWithCardArrangerSample.js",
 	"PanelsWithCardArrangerSample.css",
 	"PanelsWithCarouselArrangerSample.js",
