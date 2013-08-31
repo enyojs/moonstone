@@ -10,8 +10,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next"}
 			]},
-			{title: "Second Panel",
-				components: [
+			{title: "Second Panel", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},

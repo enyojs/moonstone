@@ -1275,9 +1275,12 @@
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
-  margin: 10px;
-  padding-top: 8px;
+  padding: 8px 10px 10px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: top left;
 }
+/* Title Above */
 .moon-header-title-above.no-border {
   border: none;
   min-height: 38.88px;
@@ -1287,6 +1290,7 @@
   line-height: 1.08em;
   width: 30px;
 }
+/* Main Title */
 .moon-header-title {
   font-family: "Miso";
   font-size: 126px;
@@ -1299,6 +1303,7 @@
 .moon-header-title .moon-marquee-text {
   white-space: nowrap;
 }
+/* Title Below */
 .moon-header-title-below {
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -1308,6 +1313,10 @@
   color: #999999;
   margin-bottom: 8px;
 }
+.enyo-locale-non-latin .moon-header-title-below {
+  font-family: "LG Display";
+}
+/* Sub Title Below */
 .moon-header-sub-title-below {
   font-family: "MuseoSans 300";
   font-size: 26px;
@@ -1317,12 +1326,7 @@
   color: #b2b2b2;
   line-height: 32px;
 }
-.enyo-locale-non-latin .moon-header-title-below {
-  font-family: "LG Display";
-}
-.moon-header-item {
-  float: right;
-}
+/* Header Client */
 .moon-header-client {
   position: absolute;
   bottom: 10px;
@@ -1343,13 +1347,7 @@
   /* CSS3 for RTL support */
 
 }
-.moon-header-left {
-  float: left;
-}
-.enyo-locale-right-to-left .moon-header-left {
-  float: right;
-}
-/* Small header styling */
+/* Small Header */
 .moon-header.moon-small-header {
   height: 240px;
 }
@@ -1371,6 +1369,12 @@
 .hidden-title .moon-header-title-below,
 .hidden-title .moon-header-sub-title-below {
   opacity: 0;
+}
+.moon-header-left {
+  float: left;
+}
+.enyo-locale-right-to-left .moon-header-left {
+  float: right;
 }
 /*
 	Put anything you reference with "url()" in ../assets/
@@ -2246,29 +2250,80 @@
   margin: 0;
   height: 100%;
 }
+.moon-panel-viewport {
+  -webkit-transform: scale3d(1, 1, 1);
+  overflow: hidden;
+  position: relative;
+}
 .moon-panel-content-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
-  overflow: hidden !important;
-  margin: 0 !important;
   padding: 10px;
-  border: none !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
+  z-index: 2;
+  box-sizing: border-box;
 }
 .moon-panel-body {
   overflow: hidden;
   position: relative;
+  padding-top: 10px;
+}
+/* Breadcrumb */
+.moon-panel-breadcrumb {
+  -webkit-transform: scale3d(1, 1, 1);
+  width: 220px;
+  height: 370px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.moon-panel-breadcrumb-viewport {
+  -webkit-transform: scale3d(1, 1, 1);
+  position: absolute;
+  bottom: 0px;
+  left: 9px;
+  right: 0px;
+  height: 200px;
+  overflow: hidden;
+}
+.moon-panel-mini-header-wrapper {
+  -webkit-transform: scale3d(1, 1, 1);
+  margin: 10px 0 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 360px;
+  width: 100%;
+  padding: 9px 10px 10px;
+  box-sizing: border-box;
+  border-top: 1px solid #ffffff;
 }
 .moon-panel-mini-header {
-  position: absolute;
-  top: 94px;
-  left: 18px;
-  height: 60px;
-  width: 150px;
+  margin-top: 20px;
   line-height: 28px;
   font-size: 26px;
-  color: #999999;
+  color: #ffffff;
+  display: block;
+  overflow: hidden;
+  padding: 0px;
+}
+.moon-panel-mini-header-title-above {
+  font-size: 36px;
+  line-height: 1.08em;
+  width: 30px;
+  font-family: "Miso";
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+  background: #ff2f7d;
+  color: #ffffff;
+}
+/* Activity Panels Overrides */
+.activity-panels .moon-panel-mini-header-wrapper {
+  border-top: 1px solid #404040;
+}
+.activity-panels .moon-panel-mini-header,
+.activity-panels .moon-panel-mini-header-title-above {
+  color: #dddddd;
 }
 body .enyo-fit.panels-50-percent-scrim,
 .panels-50-percent-scrim {
