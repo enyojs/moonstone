@@ -358,6 +358,9 @@
   color: #4b4b4b;
   line-height: 32px;
 }
+.moon-body-text-spacing {
+  margin: 0 10px 40px 10px;
+}
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 30px;

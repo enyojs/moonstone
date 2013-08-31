@@ -79,7 +79,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "List Action Event"},
-		{name: "console", content: "Event"}
+		{kind: "moon.BodyText", name: "console", content: "Event"}
 	],
 	activateHandler: function(inSender, inEvent) {
 		if (inEvent && inEvent.action) {

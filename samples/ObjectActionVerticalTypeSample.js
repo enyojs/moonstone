@@ -26,7 +26,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "result", allowHtml: true, content: "No item tapped yet."}
+		{kind: "moon.BodyText", name: "result", content: "No item tapped yet."}
 	],
 	ontap: function(inSender, inEvent) {
 		this.$.result.setContent(inEvent.originator.name + " tapped.");

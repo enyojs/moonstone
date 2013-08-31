@@ -79,7 +79,7 @@ enyo.kind({
 		]},
 		{components: [
 			{kind: "moon.Divider", content:"Result"},
-			{name:"result", content:"No change yet"}
+			{kind: "moon.BodyText", name:"result", content:"No change yet"}
 		]}
 	],
 	changed: function(inSender, inEvent) {
