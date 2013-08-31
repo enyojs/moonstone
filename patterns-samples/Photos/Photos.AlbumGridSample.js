@@ -2,7 +2,7 @@
 
 enyo.kind({
     name: "moon.sample.photo.AlbumListItem",
-    classes: "moon-album-list-item moon-3h moon-1v",
+    classes: "moon-album-list-item moon-3h moon-4v",
 
     published: {
         option: {
@@ -21,12 +21,12 @@ enyo.kind({
                         {
                             name : "bgImage",
                             kind : "enyo.Image",
-                            classes : "front-image moon-3h moon-1v",
+                            classes : "front-image moon-3h moon-4v",
                             components : [
                                 {
                                     name : "image",
                                     kind : "enyo.Image",
-                                    classes : "back-image moon-3h moon-1v"
+                                    classes : "back-image moon-3h moon-4v"
                                 }
                             ]
                         }

@@ -4,7 +4,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes:"moon-hspacing", controlClasses:"moon-4h", components: [
+			{classes:"moon-hspacing", controlClasses:"moon-6h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "FormCheckbox Items (Default)"},
 					{kind: "moon.FormCheckbox", content: "Option 1", checked: true, onchange: "itemChanged"},
