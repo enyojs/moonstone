@@ -13,7 +13,7 @@ enyo.kind({
 		//* Increase this value to increase the distance scrolled by the scroll wheel
 		scrollWheelMultiplier: 5,
 		//* Increase this value to increase the distance scrolled by tapping the pagination buttons
-		paginationPageMultiplier: 10,
+		paginationPageMultiplier: 1,
 		//* Increase this value to increase the distance scrolled by holding the pagination buttons
 		paginationScrollMultiplier: 5
 	},
@@ -132,15 +132,21 @@ enyo.kind({
 	mousewheel: function(inSender, inEvent) {
 		var x = null,
 			y = null,
-			delta = 0
+			delta = 0,
+			showVertical = this.showVertical(),
+			showHorizontal = this.showHorizontal()
 		;
-
-		if (this.showVertical()) {
-			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
-
+		
+		//* If we don't have to scroll, allow mousewheel event to bubble
+		if (!showVertical && !showHorizontal) {
+			return false;
 		}
 
-		if (this.showHorizontal()) {
+		if (showVertical) {
+			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+		}
+
+		if (showHorizontal) {
 			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
 			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
 		}
@@ -162,7 +168,7 @@ enyo.kind({
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
-		var scrollDelta = inEvent.scrollDelta * this.paginationPageMultiplier,
+		var scrollDelta = this.getScrollBounds().clientHeight * this.paginationPageMultiplier,
 			side = inEvent.originator.side,
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
@@ -325,7 +331,14 @@ enyo.kind({
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
-			this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+			if (this.showVertical() || this.showHorizontal()) {
+				this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+				return true;
+			} else {
+				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
+				// to allow items in nested scrollers to be scrolled
+				return false;
+			}
 		}
 		return true;
 	},

@@ -17,11 +17,23 @@
 	color: @moon-input-header-text-color;
 	width: 100%;
 }
-.moon-input-header .moon-input-header-input-decorator > img {
-	width: 66px;
-	box-sizing: border-box;
-	opacity: 0
+.moon-input-header .moon-input.moon-header-title {
+	position:static;
 }
-.moon-input-header .moon-input-header-input-decorator.spotlight > img {
-	opacity: 1
+.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
+	color: lighter(@moon-header-text-color, 50%);
+}
+.moon-input-header-input-decorator.spotlight .moon-input.moon-header-title::-webkit-input-placeholder {
+	color: @moon-spotlight-text-color;
+}
+.moon-input-header-input-decorator.spotlight > .moon-input {
+	background: @moon-spotlight-background-color;
+	color: white;
+}
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
+	background: none;
+	color: @moon-header-text-color;
+}
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
+	color: @moon-header-text-color;
 }

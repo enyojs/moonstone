@@ -3,7 +3,6 @@ enyo.kind({
 	classes: "moon enyo-unselectable",
 	controller: ".app.controllers.albumController",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Panels", classes: "enyo-fit", pattern: "alwaysviewing", components: [
 			{name: "artistPanel", kind: "moon.Panel", classes: "enyo-fit", title: "Artist", headerComponents: [
 				{kind: "moon.IconButton", src: "../assets/icon-like.png"},

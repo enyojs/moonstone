@@ -27,6 +27,7 @@ enyo.kind({
 	initialDelta: 2.5,
 	delta: 0,
 	maxDelta: 100,
+	tapDelta: 15,
 	bumpDeltaMultiplier: 3,
 	
 	create: function() {
@@ -100,12 +101,7 @@ enyo.kind({
 	sendPaginateEvent: function() {
 		var tapThreshold = 200,
 			timeElapsed = enyo.bench() - this.downTime,
-			delta = this.delta * 15
-		;
-		
-		if (timeElapsed <= tapThreshold) {
-			delta *= 5;
-		}
+			delta = (timeElapsed <= tapThreshold) ? this.tapDelta : this.delta;
 		
 		this.doPaginate({scrollDelta: delta});
 	},

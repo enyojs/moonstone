@@ -17,14 +17,19 @@ enyo.kind({
 	name: "moon.Tooltip",
 	kind: "enyo.Popup",
 	classes: "moon-tooltip below left-arrow",
-	//* If true, tooltip is automatically dismissed when user stops hovering
-	//* over the decorator
-	autoDismiss: false,
-	//* Hovering over the decorator for this length of time (in milliseconds)
-	//* causes the tooltip to appear.
-	showDelay: 500,
-	//* Default _margin-left_ value
-	defaultLeft: 10,
+	published: {
+		//* If true, tooltip is automatically dismissed when user stops hovering
+		//* over the decorator
+		autoDismiss: false,
+		//* Hovering over the decorator for this length of time (in milliseconds)
+		//* causes the tooltip to appear.
+		showDelay: 500,
+		//* Whether to position the tooltip above or below the activator.  Valid values are
+		//* "above", "below", or "auto" to choose the best position based on 
+		position: "auto",
+		//* Default _margin-left_ value
+		defaultLeft: 10
+	},
 	//* @protected
 	handlers: {
 		onRequestShowTooltip: "requestShow",
@@ -45,11 +50,11 @@ enyo.kind({
 		this.$.client.setContent(this.content);
 	},
 	requestShow: function() {
-		this.showJob = setTimeout(this.bindSafely("show"), this.showDelay);
+		this.startJob("showJob", "show", this.showDelay);
 		return true;
 	},
 	cancelShow: function() {
-		clearTimeout(this.showJob);
+		this.stopJob("showJob");
 	},
 	requestHide: function() {
 		this.cancelShow();
@@ -57,8 +62,8 @@ enyo.kind({
 	},
 	showingChanged: function() {
 		this.cancelShow();
-		this.adjustPosition(true);
 		this.inherited(arguments);
+		this.adjustPosition(true);
 	},
 	applyPosition: function(inRect) {
 		var s = "";
@@ -69,16 +74,18 @@ enyo.kind({
 	},
 	adjustPosition: function(belowActivator) {
 		if (this.showing && this.hasNode()) {
+
 			var b = this.node.getBoundingClientRect();
 
 			//when the tooltip bottom goes below the window height move it above the decorator
-			if (b.top + b.height > window.innerHeight) {
-				this.addRemoveClass("below", false);
-				this.addRemoveClass("above", true);
+			if ((b.top + b.height > window.innerHeight) || (this.position == "above")) {
+				this.removeClass("below");
+				this.addClass("above");
 				this.applyStyle("top", -b.height + "px");
-			} else {
-				this.addRemoveClass("above", false);
-				this.addRemoveClass("below", true);
+			} 
+			if ((b.top  < 0) || (this.position == "below")) {
+				this.removeClass("above");
+				this.addClass("below");
 				this.applyStyle("top", "100%");
 			}
 
@@ -98,9 +105,9 @@ enyo.kind({
 			if (b.left + b.width > window.innerWidth){
 				//use the right-arrow
 				this.applyPosition({'margin-left': -b.width});
-				this.addRemoveClass("left-arrow", false);
-				this.addRemoveClass("right-arrow", true);
-				this.$.client.addRemoveClass("right-arrow", true);
+				this.removeClass("left-arrow");
+				this.addClass("right-arrow");
+				this.$.client.addClass("right-arrow");
 			}
 		}
 	},

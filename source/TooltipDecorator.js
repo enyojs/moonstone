@@ -17,6 +17,10 @@
 			]},
 			{kind: "moon.Tooltip", content: "I'm a tooltip for an input."}
 		]}
+
+	Automatic hiding/showing of tooltips can be disabled by calling `mute()` or by
+	bubbling the `onRequestMuteTooltip` event, and re-enabled by calling `unmute()` or
+	by bubbling the `onRequestUnmuteTooltip` event.
 */
 enyo.kind({
 	name: "moon.TooltipDecorator",
@@ -27,7 +31,28 @@ enyo.kind({
 		onenter: "enter",
 		onleave: "leave",
 		onSpotlightFocused: "spotFocused",
-		onSpotlightBlur: "spotBlur"
+		onSpotlightBlur: "spotBlur",
+		onRequestMuteTooltip: "mute",
+		onRequestUnmuteTooltip: "unmute"
+	},
+	published: {
+		//* Determines whether tooltips are automatically shown when the activator is hovered
+		autoShow: true
+	},
+	//* @public
+	//* Causes automatic tooltip showing/hiding to be disabled
+	mute: function() {
+		this.setAutoShow(false);
+	},
+	//* Re-enables automatic tooltip showing/hiding after being muted
+	unmute: function() {
+		this.setAutoShow(true);
+	},
+	//* @protected
+	autoShowChanged: function() {
+		if (!this.autoShow) {
+			this.requestHideTooltip();
+		}
 	},
 	enter: function() {
 		this.requestShowTooltip();
@@ -45,7 +70,9 @@ enyo.kind({
 		this.requestHideTooltip();
 	},
 	requestShowTooltip: function() {
-		this.waterfallDown("onRequestShowTooltip");
+		if (this.autoShow) {
+			this.waterfallDown("onRequestShowTooltip");
+		}
 	},
 	requestHideTooltip: function() {
 		this.waterfallDown("onRequestHideTooltip");

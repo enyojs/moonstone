@@ -15,13 +15,17 @@ enyo.kind({
 	events: {
 		/**
 			Fires when the currently selected item changes.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onChange: "",
 		/**
 			Fires in response to Return keypress while the picker has focus in Spotlight 5-way mode.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onSelect: ""
@@ -48,6 +52,7 @@ enyo.kind({
 		unit: "sec"
 	},
 	indexhash: null,
+	firstflow: true,
 
 
 	//* @protected
@@ -61,11 +66,11 @@ enyo.kind({
 			{classes: "moon-scroll-picker-overlay-right"},
 			{classes: "moon-scroll-picker-overlay-right-border"}
 		]},
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button", content: "<", ontap: "previous"},
+		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button", content: ">", ontap: "next"}
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -73,8 +78,6 @@ enyo.kind({
 		{from: ".disabled", to: ".$.buttonRight.disabled"},
 		{from: ".$.client.index",   to: ".index"}
 	],
-
-
 	//* @public
 
 	//* Cycles the selected item to the one before the currently selected item.
@@ -155,7 +158,6 @@ enyo.kind({
 				c$[i].setBounds({width:width});
 			}
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
 	},
 	transitionStart: function(inSender, inEvent) {
