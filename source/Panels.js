@@ -7,7 +7,6 @@
 enyo.kind({
 	name				: 'moon.Panels',
 	kind				: 'enyo.Panels',
-	spotlight			: true,
 	spotlightDecorate	: false,
 	published: {
 		/**
@@ -25,6 +24,11 @@ enyo.kind({
 		onSpotlightFocused			: 'onSpotlightFocused',
 		onSpotlightContainerEnter	: 'onSpotlightPanelEnter',
 		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
+		onSpotlightLeft				: 'spotlightLeft',
+		onSpotlightRight			: 'spotlightRight',
+		onSpotlightUp				: 'spotlightUp',
+		onSpotlightDown				: 'spotlightDown',
+		defaultSpotlightSelect		: 'spotlightSelect',
 		ontap						: 'onTap',
 		onTransitionFinish			: 'transitionFinish',
 		onPreTransitionComplete		: 'panelPreTransitionComplete',
@@ -53,6 +57,22 @@ enyo.kind({
 
 	_focusLeave: function(s5WayEventType) {
 		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
+	},
+	// Prevent event bubble up when parent of originator is client
+	spotlightLeft: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client) {return true;}
+	},
+	spotlightRight: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client) {return true;}
+	},
+	spotlightUp: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client) {return true;}
+	},
+	spotlightDown: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client) {return true;}
+	},
+	spotlightSelect: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client) {return true;}
 	},
 
 	//* @public
