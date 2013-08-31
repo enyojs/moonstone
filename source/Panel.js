@@ -136,6 +136,8 @@ enyo.kind({
 
 		this.$.viewport.applyStyle("height", this.initialHeight + "px");
 		this.$.viewport.applyStyle("width", this.initialWidth + "px");
+		this.$.contentWrapper.applyStyle("height", this.initialHeight + "px");
+		this.$.contentWrapper.applyStyle("width", this.initialWidth + "px");
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {

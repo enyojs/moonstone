@@ -2250,15 +2250,17 @@
   -webkit-transform: scale3d(1, 1, 1);
   padding: 10px;
   z-index: 2;
+  box-sizing: border-box;
 }
 .moon-panel-body {
   overflow: hidden;
   position: relative;
+  padding-top: 10px;
 }
 /* Breadcrumb */
 .moon-panel-breadcrumb {
   -webkit-transform: scale3d(1, 1, 1);
-  width: 170px;
+  width: 280px;
   height: 370px;
   position: absolute;
   top: 0px;
@@ -2268,7 +2270,7 @@
   -webkit-transform: scale3d(1, 1, 1);
   position: absolute;
   bottom: 0px;
-  left: 0px;
+  left: 9px;
   right: 0px;
   height: 200px;
   overflow: hidden;
@@ -2280,17 +2282,16 @@
   bottom: 0;
   left: 0;
   height: 360px;
-  width: 300px;
+  width: 100%;
   padding: 9px 10px 10px;
   box-sizing: border-box;
   border-top: 1px solid #ffffff;
 }
 .moon-panel-mini-header {
-  margin: 20px 0px 0px 10px;
+  margin-top: 20px;
   line-height: 28px;
   font-size: 26px;
   color: #ffffff;
-  width: 170px;
   display: block;
   overflow: hidden;
   padding: 0px;
@@ -2301,7 +2302,6 @@
   width: 30px;
   font-family: "Miso";
   text-transform: uppercase;
-  margin: 0px 10px;
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight {
@@ -2467,6 +2467,14 @@ body .enyo-fit.panels-50-percent-scrim,
 }
 .moon-input-header .moon-input-header-input-decorator.spotlight > img {
   opacity: 1;
+}
+.moon-input-header-input-decorator.spotlight > .moon-input {
+  background: #ff2f7d;
+  color: white;
+}
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
+  background: none;
+  color: #4b4b4b;
 }
 .moon-drawer-handle {
   height: auto;

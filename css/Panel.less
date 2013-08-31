@@ -14,16 +14,18 @@
 	-webkit-transform: scale3d(1,1,1);
 	padding: @moon-spotlight-outset;
 	z-index: 2;
+	box-sizing: border-box;
 }
 .moon-panel-body {
 	overflow: hidden;
 	position: relative;
+	padding-top: 10px;
 }
 
 /* Breadcrumb */
 .moon-panel-breadcrumb {
 	-webkit-transform: scale3d(1,1,1);
-	width: 170px;
+	width: 280px;
 	height: 370px;
 	position: absolute;
 	top: 0px;
@@ -33,7 +35,7 @@
 	-webkit-transform: scale3d(1,1,1);
 	position: absolute;
 	bottom: 0px;
-	left: 0px;
+	left: 9px;
 	right: 0px;
 	height: 200px;
 	overflow: hidden;
@@ -45,17 +47,16 @@
 	bottom: 0;
 	left: 0;
 	height: 360px;
-	width: 300px;
+	width: 100%;
 	padding: 9px @moon-spotlight-outset @moon-spotlight-outset;
 	box-sizing: border-box;
 	border-top: 1px solid @moon-white;
 }
 .moon-panel-mini-header {
-	margin: 20px 0px 0px 10px;
+	margin-top: 20px;
 	line-height: 28px;
 	font-size: 26px;
 	color: @moon-white;
-	width: 170px;
 	display: block;
 	overflow: hidden;
 	padding: 0px;
@@ -63,7 +64,6 @@
 .moon-panel-mini-header-title-above {
 	.moon-header-title-above;
 	.moon-header-font;
-	margin: 0px @moon-spotlight-outset;
 	color: @moon-white;
 }
 
