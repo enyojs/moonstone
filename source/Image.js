@@ -30,6 +30,7 @@ enyo.kind({
 		showBadgesOnSpotlight: false
 	},
 	defaultKind: "moon.ImageBadge",
+	//*@protected
 	components: [
 		{name: "image", kind: "enyo.Image"},
 		{name: "client", kind: "enyo.Control", canGenerate: false, classes: "moon-image-client"}
