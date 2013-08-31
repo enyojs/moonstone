@@ -78,5 +78,6 @@ enyo.depends(
 	"DataGridList.js",
 	"SelectionOverlaySupport.js",
 	"Image.js",
-	"ImageBadge.js"
+	"ImageBadge.js",
+	"ExpandableText.js"
 );

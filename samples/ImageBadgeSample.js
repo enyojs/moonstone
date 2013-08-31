@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit image-badge-sample",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", fit: true, components: [
 			{kind: "moon.Divider", content: "Image Badges:"},
 			{kind: "moon.Image", src: "http://placehold.it/240x360&text=Image+One", alt: "Image One", components: [

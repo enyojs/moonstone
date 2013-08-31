@@ -197,7 +197,6 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.music.ArtistDetailWideSample",
 					controller: ".app.controllers.artistController",

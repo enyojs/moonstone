@@ -395,7 +395,7 @@ enyo.kind({
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
-
+		// Fixme: Do not reach to this code on TV
 		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
 		inEvent = enyo.mixin(inEvent, this.createEventData());
 	},

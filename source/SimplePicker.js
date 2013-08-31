@@ -121,7 +121,7 @@ enyo.kind({
 					maxHeight = Math.max(maxHeight, bounds.height);
 				}
 			}
-
+			maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
 			this.$.client.setBounds({width: maxWidth, height: maxHeight});
 
 			for (i = 0; (panel = panels[i]); i++) {

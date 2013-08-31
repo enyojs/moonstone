@@ -83,11 +83,10 @@ enyo.ready(function(){
 
 //  Application to render sample
 
-	new enyo.Application({
+    new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.video.DetailWideSample2",
 					controller: ".app.controllers.movieController",

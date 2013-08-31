@@ -90,5 +90,7 @@ enyo.depends(
 	"ToggleButtonSample.css",
 	"ToggleButtonSample.js",
 	"ImageBadgeSample.js",
-	"ImageBadgeSample.css"
+	"ImageBadgeSample.css",
+	"ExpandableTextSample.js",
+	"ExpandableTextSample.css"
 );

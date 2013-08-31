@@ -11,46 +11,39 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-		{kind: "enyo.Spotlight"},
-		{classes:"left-panel", components:[
-			{classes:"left-panel-content", components:[
-				{content:"01", classes:"left-panel-number"},
-				{content:"MAIN MENU", classes:"left-panel-title"}
-			]}
-		]},
-		{classes:"right-panel", components:[
-			{kind:"FittableRows", components:[
-				{name: "header", kind:"moon.Header", title: "Browse Movies", titleAbove: "03", components: [
-					{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
-						{
-							action: "sort",
-							components: [
-								{kind: "moon.Divider", content:"Sort"},
-								{kind: "moon.Scroller", components: [
-									{kind: "Group", components: [
-										{content:"Alpha (A-Z)", kind:"moon.CheckboxItem"},
-										{content:"Release Date (New - Old)", kind:"moon.CheckboxItem"}
-									]}
+
+		{kind: "moon.Panels", classes:"enyo-fit", pattern:"alwaysviewing", components: [
+			{name: "panel", kind:"moon.Panel", title:"Browse Movies", headerComponents: [
+				{kind: "moon.ListActions", iconSrc:"../../../images/list-actions-activator.png", listActions:[
+					{
+						action: "sort",
+						components: [
+							{kind: "moon.Divider", content:"Sort"},
+							{kind: "moon.Scroller", fit:true,components: [
+								{kind: "Group", components: [
+									{content:"Alpha (A-Z)", kind:"moon.CheckboxItem"},
+									{content:"Release Date (New - Old)", kind:"moon.CheckboxItem"}
 								]}
-							]
-						},
-						{
-							action: "filter",
-							components: [
-								{kind: "moon.Divider", content:"Filter"},
-								{kind: "moon.Scroller", components: [
-									{kind: "Group", components: [
-										{content:"New Releases", kind:"moon.CheckboxItem"},
-										{content:"Most Popular", kind:"moon.CheckboxItem"},
-										{content:"Action & Adventure", kind:"moon.CheckboxItem"},
-										{content:"Comedy", kind:"moon.CheckboxItem"},
-										{content:"Drama", kind:"moon.CheckboxItem"}
-									]}
+							]}
+						]
+					},
+					{
+						action: "filter",
+						components: [
+							{kind: "moon.Divider", content:"Filter"},
+							{kind: "moon.Scroller", fit:true, components: [
+								{kind: "Group", components: [
+									{content:"New Releases", kind:"moon.CheckboxItem"},
+									{content:"Most Popular", kind:"moon.CheckboxItem"},
+									{content:"Action & Adventure", kind:"moon.CheckboxItem"},
+									{content:"Comedy", kind:"moon.CheckboxItem"},
+									{content:"Drama", kind:"moon.CheckboxItem"}
 								]}
-							]
-						}
-					]}
-				]},
+							]}
+						]
+					}
+				]}
+			], components: [
 				{
 					name: "gridlist",
 					kind: "moon.GridList",
@@ -84,7 +77,7 @@ enyo.kind({
 				if (this.filterAction) {
 					subtitle += " / " + this.filterAction;
 				}
-				this.$.header.setTitleBelow(subtitle);
+				this.$.panel.setTitleBelow(subtitle);
 				break;
 			case "filter":
 				this.filterAction = inEvent.toggledControl.getContent();
@@ -93,7 +86,7 @@ enyo.kind({
 				} else {
 					subtitle = this.filterAction;
 				}
-				this.$.header.setTitleBelow(subtitle);
+				this.$.panel.setTitleBelow(subtitle);
 				break;
 			}
 		}
