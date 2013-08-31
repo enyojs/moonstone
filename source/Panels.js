@@ -28,7 +28,6 @@ enyo.kind({
 		onSpotlightRight			: 'spotlightRight',
 		onSpotlightUp				: 'spotlightUp',
 		onSpotlightDown				: 'spotlightDown',
-		defaultSpotlightSelect		: 'spotlightSelect',
 		ontap						: 'onTap',
 		onTransitionFinish			: 'transitionFinish',
 		onPreTransitionComplete		: 'panelPreTransitionComplete',
@@ -60,19 +59,24 @@ enyo.kind({
 	},
 	// Prevent event bubble up when parent of originator is client
 	spotlightLeft: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client) {return true;}
+		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+			if (this.spotlight === true || this.getIndex() > 0) { return true; }
+		}
 	},
 	spotlightRight: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client) {return true;}
+		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+			if (this.spotlight === true || this.getIndex() < this.getPanels().length - 1) {return true;}
+		}
 	},
 	spotlightUp: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client) {return true;}
+		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+			if (this.spotlight === true) {return true;}
+		}
 	},
 	spotlightDown: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client) {return true;}
-	},
-	spotlightSelect: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client) {return true;}
+		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+			if (this.spotlight === true) {return true;}
+		}
 	},
 
 	//* @public
