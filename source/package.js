@@ -77,5 +77,7 @@ enyo.depends(
 	"FormCheckbox.js",
 	"DataGridList.js",
 	"SelectionOverlaySupport.js",
+	"Image.js",
+	"ImageBadge.js",
 	"ExpandableText.js"
 );
