@@ -194,6 +194,7 @@ enyo.kind({
 		this.toIndex = inIndex;
 
 		this.queuedIndex = null;
+		enyo.Spotlight.mute(this);
 		this.triggerPanelPreTransitions(this.fromIndex, this.toIndex);
 	},
 	_setIndex: function(inIndex) {
@@ -314,6 +315,7 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
+		enyo.Spotlight.unmute(this);
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		return this.layout.getTransitionOptions && this.layout.getTransitionOptions(fromIndex, toIndex) || {};
