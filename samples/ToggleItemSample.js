@@ -27,7 +27,7 @@ enyo.kind({
 		]},
 		{components: [
 			{kind:"moon.Divider", content:"Result"},
-			{name:"result", content:"Nothing selected"}
+			{kind:"moon.BodyText", name:"result", content:"Nothing selected"}
 		]}
 	],
 	itemChanged: function(inSender, inEvent) {

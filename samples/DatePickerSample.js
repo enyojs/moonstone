@@ -24,7 +24,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content:"Result"},
-		{name: "result", content: "No change yet"}
+		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
 	create: function(){
 		this.inherited(arguments);

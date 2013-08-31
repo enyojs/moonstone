@@ -10,13 +10,7 @@ enyo.kind({
 				{kind: "moon.ToggleButton", content: "Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
-				{tag: "br"},
-				{tag: "br"},
-				{kind: "moon.Divider", content: "Themed Buttons:"},
-				{kind: "moon.ToggleButton", classes: "moon-dark-gray", content: "Dark", ontap: "buttonTapped"},
-				{kind: "moon.ToggleButton", classes: "moon-light-gray", content: "Light", ontap: "buttonTapped"},
-				{tag: "br"},
-				{tag: "br"},
+				{classes: "moon-1v"},
 				{kind: "moon.Divider", content: "Captioned Buttons:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
 					{kind: "moon.ToggleButton", content: "A", ontap: "buttonTapped"}
@@ -30,8 +24,7 @@ enyo.kind({
 				{kind: "moon.CaptionDecorator", side: "left", content: "Bang", components: [
 					{kind: "moon.ToggleButton", content: "D", ontap: "buttonTapped"}
 				]},
-				{tag: "br"},
-				{tag: "br"},
+				{classes: "moon-1v"},
 				{kind: "moon.Divider", content: "Grouped Buttons:"},
 				{kind: "enyo.Group", classes: "moon-toggle-button-sample-group", components: [
 					{kind: "moon.ToggleButton", content: "Apple", ontap: "buttonTapped"},
@@ -41,7 +34,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "console", classes: "moon-toggle-button-sample-console"}
+		{kind: "moon.BodyText", name: "console", content: "No action yet."}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		var str = '"'+inSender.content+'" ';

@@ -36,7 +36,7 @@ enyo.kind({
 			}
 		]},
 		{kind: "moon.Divider", content: "Result", classes: "moon-input-header-sample-result"},
-		{name: "console", classes: "moon-input-header-sample-console", content: "Input: "}
+		{kind: "moon.BodyText", name: "console", content: "Input: "}
 	],
 	handleInput: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inEvent.originator.getValue());

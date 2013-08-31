@@ -42,7 +42,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "result", content: "No change yet"}
+		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
 	setYear: function(inSender, inEvent) {
 		if(this.$.yearInput.getValue()) {
