@@ -87,7 +87,7 @@ enyo.kind({
             components: [
                 {
                     kind: "enyo.Image",
-                    classes: "moon-4h moon-1v",
+                    classes: "moon-4h moon-4v",
 					bindings: [
 						{from: ".model.imgSrc", to: ".src"}
 					]
