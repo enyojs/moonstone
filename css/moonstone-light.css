@@ -499,8 +499,6 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  font-size: 22px;
-  line-height: 22px;
   position: relative;
   display: table-cell;
   vertical-align: middle;
@@ -523,7 +521,7 @@
 }
 .moon-simple-integer-picker-button {
   width: 50px;
-  height: 25px;
+  height: 50px;
   border-radius: 25px;
   border: 0px;
   background: inherit;
@@ -533,11 +531,13 @@
   vertical-align: middle;
   z-index: 2;
   color: #4b4b4b;
+  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center center;
 }
 .moon-simple-integer-picker-client {
   padding: 0px;
   margin: 0px;
   border: 0px;
+  height: 36px;
 }
 .moon-simple-integer-picker-item {
   font-family: "MuseoSans 700";
@@ -546,12 +546,10 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  font-size: 22px;
-  line-height: 22px;
   display: table;
   white-space: nowrap;
   text-align: center;
-  padding: 0px;
+  padding: 0 8px;
   width: auto;
 }
 .moon-simple-integer-picker.disabled,
@@ -611,6 +609,23 @@
   border-right-style: solid;
   border-right-color: #ff2f7d;
   right: 6px;
+}
+.moon-simple-integer-picker-button.left {
+  transform: rotate(270deg) translateZ(1px);
+  -o-transform: rotate(270deg) translateZ(1px);
+  -ms-transform: rotate(270deg) translateZ(1px);
+  -moz-transform: rotate(270deg) translateZ(1px);
+  -webkit-transform: rotate(270deg) translateZ(1px);
+}
+.moon-simple-integer-picker-button.right {
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
+}
+.spotlight .moon-simple-integer-picker-button {
+  background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
 }
 /* Checkbox.css */
 .moon-checkbox {
