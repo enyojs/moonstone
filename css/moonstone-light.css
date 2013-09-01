@@ -2349,6 +2349,11 @@
   padding: 0;
   overflow: visible;
   -webkit-transform: translate3d(0, 0, 0);
+  pointer-events: none;
+}
+.moon-panels.activity *,
+.moon-panels.always-viewing * {
+  pointer-events: auto;
 }
 /* Scrim */
 .moon-panels-background-scrim {
@@ -2381,8 +2386,8 @@
 .moon-panels-handle {
   position: absolute;
   height: 100%;
-  left: -10px;
-  right: auto;
+  left: auto;
+  right: -130px;
   width: 140px;
   z-index: 100;
   background-repeat: no-repeat;
@@ -2390,19 +2395,21 @@
   background-color: #4b4b4b;
   background-image: url(../images/LightTheme_Icons/carat-white-left.png);
   -webkit-transform: translate3d(0, 0, 0);
-  transition: -webkit-transform 0.2s linear;
+  transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+  opacity: 1;
 }
 .moon-panels-handle.spotlight {
   background-color: #ff2f7d;
   -webkit-transform: translate3d(-130px, 0, 0);
 }
 .moon-panels-handle.right {
-  right: -130px;
-  left: auto;
   background-image: url(../images/LightTheme_Icons/caret-white-right.png);
 }
 .moon-panels-handle.hidden {
   display: none;
+}
+.moon-panels-handle.stashed {
+  opacity: 0;
 }
 /* Header */
 .moon-accordion .moon-expandable-list-item-header {

@@ -44,7 +44,7 @@ enyo.kind({
 			{name: "scrim", classes: "moon-panels-panel-scrim"}
 		]},
 		{name: "showHideHandle", kind: "enyo.Control", spotlight: true, classes: "moon-panels-handle", canGenerate: false,
-			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight"
+			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
 		},
 		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -187,11 +187,21 @@ enyo.kind({
 			return true;
 		}
 	},
+	handleBlur: function() {
+		this.resetHandleAutoHide();
+	},
 	resetHandleAutoHide: function(inSender, inEvent) {
-		this.startJob("autoHide", this.bindSafely("hideHandle"), this.getAutoHideTimeout());
+		this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
 	},
 	stopHandleAutoHide: function(inSender, inEvent) {
 		this.stopJob("autoHide");
+	},
+	stashHandle: function() {
+		this.$.showHideHandle.addClass("stashed");
+	},
+	handleFocus: function() {
+		this.stopHandleAutoHide();
+		this.$.showHideHandle.removeClass("stashed");
 	},
 	//* Show handle without focusing
 	showHandle: function(inSender, inEvent) {
@@ -216,11 +226,14 @@ enyo.kind({
 		}
 	},
 	showAnimationComplete: function() {
+		this.$.showHideHandle.addClass("stashed");
 		this.$.showHideHandle.removeClass("hidden");
 		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
+		this.$.showHideHandle.addClass("stashed");
 		this.$.showHideHandle.removeClass("hidden");
+		this.$.backgroundScrim.hide();
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
@@ -498,7 +511,6 @@ enyo.kind({
 	},
 	//* Hide panels with transition to right
 	_hide: function() {
-		this.$.backgroundScrim.hide();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
@@ -511,10 +523,10 @@ enyo.kind({
 			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
 			keyframes: {
 				0: [
-					{control: this, properties: { "-webkit-transform": "current" }}
+					{control: this.$.client, properties: { "-webkit-transform": "current" }}
 				],
 				100: [
-					{control: this, properties: { "-webkit-transform": "translate3d(0, 0, 0)" }}
+					{control: this.$.client, properties: { "-webkit-transform": "translate3d(0, 0, 0)" }}
 				]
 			}
 		});
@@ -527,10 +539,10 @@ enyo.kind({
 			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
 			keyframes: {
 				0: [
-					{control: this, properties: { "-webkit-transform": "current" }}
+					{control: this.$.client, properties: { "-webkit-transform": "current" }}
 				],
 				100: [
-					{control: this, properties: { "-webkit-transform": "translate3d( " + x + "px, 0, 0)" }}
+					{control: this.$.client, properties: { "-webkit-transform": "translate3d( " + x + "px, 0, 0)" }}
 				]
 			}
 		});
