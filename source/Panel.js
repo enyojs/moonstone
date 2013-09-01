@@ -45,7 +45,6 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		ontap: "handleBreadcrumbTap",
 		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
 	},
 
@@ -61,7 +60,7 @@ enyo.kind({
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 			]}
 		]},
-		{name: "breadcrumb", classes: "moon-panel-breadcrumb", components: [
+		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
 					{name: "breadcrumbTitleAbove", classes: "moon-panel-mini-header-title-above"},
@@ -153,9 +152,7 @@ enyo.kind({
 		}
 	},
 	handleBreadcrumbTap: function(inSender, inEvent) {
-		if (!this.isBreadcrumb) {
-			return;
-		}
+		inEvent.breadcrumbTap = true;
 	},
 	scroll: function(inSender, inEvent) {
 		if (this.collapsingHeader && !this.smallHeader) {
