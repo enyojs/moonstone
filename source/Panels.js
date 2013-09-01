@@ -16,202 +16,57 @@ enyo.kind({
 		*/
 		pattern: "activity",
 		//* Handle is hided automatically in this time amount
-		autoHideTimeout: 4000
+		autoHideTimeout: 4000,
+		//* Possible values: "auto", "true", "false"
+		useHandle: "auto"
 	},
 	events: {
-		// Fired when panels transition by show is finished
-		onShowFinished: "",
-		// Fired when panels transition by hide is finished
-		onHideFinished: "",
 		// Fired when panel transition by setIndex is finished 
 		// inEvent.activeIndex: active index
-		onPanelsPostTransitionFinished: ''
+		onPanelsPostTransitionFinished: "",
+		onHidePanels: ""
 	},
 	handlers: {
-		onSpotlightFocused			: 'onSpotlightFocused',
-		onSpotlightContainerLeave	: 'onSpotlightPanelLeave',
-		ontap						: 'onTap',
-		onTransitionFinish			: 'transitionFinish',
-		onPreTransitionComplete		: 'panelPreTransitionComplete',
-		onPostTransitionComplete	: 'panelPostTransitionComplete',
-		ontransitionend				: 'cssTransitionEnded'
+		ontap:						"onTap",
+		
+		onSpotlightRight:			"spotlightRight",
+		onSpotlightLeft:			"spotlightLeft",
+		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
+		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
+		
+		onTransitionFinish:			"transitionFinish",
+		onPreTransitionComplete:	"panelPreTransitionComplete",
+		onPostTransitionComplete: 	"panelPostTransitionComplete"
 	},
-	patternTools: [
-		{
-			name: "backgroundScrim",
-			kind: enyo.Control,
-			classes: "moon-panels-background-scrim"
+	alwaysViewingTools: [
+		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},
+		{name: "client", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
+			{name: "scrim", classes: "moon-panels-panel-scrim"}
+		]},
+		{name: "showHideHandle", kind: "enyo.Control", spotlight: true, classes: "moon-panels-handle", canGenerate: false,
+			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight"
 		},
-		{
-			name: "client",
-			kind: enyo.Control,
-			classes: "enyo-fill enyo-arranger moon-panels-client",
-			components: [
-				{name: "scrim", classes: "moon-panels-panel-scrim"}
-			]
-		},
-		{
-			name: "spotable",
-			kind: enyo.Control,
-			spotlight: true,
-			classes: "moon-panels-spotable off",
-			ontap: "togglePanelsShowHide",
-			onSpotlightFocused: "onSpotableFocused",
-			onSpotlightBlur: "onSpotableBlur",
-			onSpotlightRight: "onSpotableRight",
-			components: [
-				{name: "spot", classes: "moon-panels-spot"}
-			]
-		}
+		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
+	
 	//* @protected
+	
+	//* Use _moon.Panel_s by default
 	defaultKind: "moon.Panel",
+	//* Disable dragging
 	draggable: false,
-	panelCoverRatio: 1,				// 0 ~ 1
-	showFirstBreadcrumb: false,		// none: false, activity: true, alwaysviewing: false
+	//* 0 ~ 1
+	panelCoverRatio: 1,
+	//* activity: true, alwaysviewing: false
+	showFirstBreadcrumb: false,
+	//* Default to using _moon.BreadcrumbArranger_
 	arrangerKind: "moon.BreadcrumbArranger",
+	//* 
 	queuedIndex: null,
-	showing: false,
-	_transitionCommand: "",
 
-	initComponents: function() {
-		this._applyPattern();
-		this.inherited(arguments);
-	},
-	createComponents: function(inC, inOpts) {
-		var inherited = this.createComponents._inherited;
-		if (inC && !inOpts.isChrome) {
-			for (var n=0; n<inC.length; n++) {
-				if (!(inC[n].isChrome)) {
-					inC[n].spotlight = 'container';
-				}
-			}
-		}
-		return inherited.call(this, inC, inOpts);
-	},
-	createComponent: function(inC, inOpts) {
-		var inherited = this.createComponent._inherited;
-		if (inC && !inC.isChrome && !inOpts.isChrome) {
-			inC.spotlight = 'container';
-		}
-		return inherited.call(this, inC, inOpts);
-	},
-	// Returns true if the last spotted control was a child of this Panels.
-	_hadFocus: function() {
-		return enyo.Spotlight.Util.isChild(this, enyo.Spotlight.getLastControl());
-	},
 
-	_focusLeave: function(s5WayEventType) {
-		enyo.Spotlight.Util.dispatchEvent(s5WayEventType, null, this);
-	},
-
-	onTap: function(oSender, oEvent) {
-		var n = this.getPanelIndex(oEvent.originator);
-		if (n == -1) {
-			// Tapped on other than panel (Scrim, etc)
-			if (this.pattern === "alwaysviewing" && this.openPanels) {
-				this.hide();
-				enyo.Spotlight.spot(this);
-			}
-		} else {
-			// Tapped on panel
-			if (n != this.getIndex()) {
-				// Tapped on not current panel (breadcrumb)
-				this.setIndex(n);
-				enyo.Spotlight.setLast5WayControl(oEvent.originator);
-				enyo.Spotlight.setPointerMode(false);
-			}
-		}
-		return false;
-	},
-	_applyPattern: function() {
-		switch (this.pattern) {
-		case "none":
-			this.showFirstBreadcrumb = false;
-			break;
-		case "alwaysviewing":
-			this.addClass('moon-dark-gray moon-panels-fullscreen alwaysviewing');
-			this.createChrome(this.patternTools);
-			this.panelCoverRatio = 0.5;
-			this.showFirstBreadcrumb = false;
-			break;
-		case "activity":
-			this.addClass('moon-dark-gray moon-panels-fullscreen activity');
-			this.createChrome(this.patternTools);
-			this.showFirstBreadcrumb = true;
-			break;
-		default:
-			
-		}
-	},
-	onSpotableRight: function(inSender, inEvent) {
-		if (this.isOpened()) {
-			return true;
-		}
-	},
-	onSpotableFocused: function(inSender, inEvent) {
-		this.showHandle();
-		this.stopHandleAutoHide();
-	},
-	onSpotableBlur: function(inSender, inEvent) {
-		this.showHandle();
-		this.resetHandleAutoHide();
-	},
-	resetHandleAutoHide: function(inSender, inEvent) {
-		this.startJob("autoHide", this.bindSafely("hideHandle"), this.getAutoHideTimeout());
-	},
-	stopHandleAutoHide: function(inSender, inEvent) {
-		this.stopJob("autoHide");
-	},
-	//* Show handle without focusing
-	showHandle: function(inSender, inEvent) {
-		this.$.spotable.addRemoveClass('off', false);
-	},
-	//* Hide handle 
-	hideHandle: function(inSender, inEvent) {
-		this.$.spotable.addRemoveClass('off', true);
-	},
-	isHandleShowing: function() {
-		return !this.$.spotable.hasClass('off');
-	},
-	isOpened: function() {
-		return this.openPanels;
-	},
-	cssTransitionEnded: function(inSender, inEvent) {
-		if (inEvent.originator === this.$.client) {
-			switch (this._transitionCommand) {
-			case "show":
-				this._transitionCommand = "";
-				this.$.spotable.addRemoveClass("right", true);
-				this.doShowFinished(inEvent);
-				enyo.Spotlight.spot(this.getActive());
-				this.openPanels = true;
-				break;
-			case "hide":
-				this._transitionCommand = "";
-				// this.$.client.hide();
-				this.$.spotable.addRemoveClass("right", false);
-				this.doHideFinished(inEvent);
-				this.openPanels = false;
-				break;
-			default:
-				// other transition inside of panels
-			}
-		}
-		if (inEvent.originator === this.$.spot) {
-			switch (inEvent.propertyName) {
-			case "transform":
-			case "-webkit-transform":
-				this.$.spotable.addRemoveClass("gray", !this.$.spotable.hasClass('spotlight'));
-				break;
-			default:
-				// other transition inside of panels
-			}
-		}
-	},
-	
-	
 	//* @public
+	
 	/**
 		Returns an array of contained panels.
 		Subclasses can override this if they don't want the arranger to layout all of their children
@@ -269,57 +124,158 @@ enyo.kind({
 		oPanel.render();
 		this.resized();
 	},
-	// Called when focus leaves one of the panels.
-	onSpotlightPanelLeave: function(oSender, oEvent) {
-		if (oEvent.originator != this.getActive())	{ return false; }
-		if (enyo.Spotlight.getPointerMode())		{ return true; }
-
-		var nIndex = this.getIndex();
-		switch (oEvent.direction) {
-		case 'LEFT':
-			if (nIndex > 0) {
-				this.setIndex(nIndex - 1);
-				break;
-			} else if (this.toIndex === null && this.openPanels) {
+	
+	
+	//* @protected
+	
+	initComponents: function() {
+		this.applyPattern();
+		this.inherited(arguments);
+		this.initializeShowHideHandle();
+	},
+	onTap: function(oSender, oEvent) {
+		if (oEvent.originator === this.$.showHideHandle) {
+			return;
+		}
+		
+		var n = this.getPanelIndex(oEvent.originator);
+		if (n == -1) {
+			// Tapped on other than panel (Scrim, etc)
+			if (this.pattern === "alwaysviewing" && this.showing) {
 				this.hide();
-				break;
 			}
-			this._focusLeave('onSpotlightLeft');
-			break;
-		case 'RIGHT':
-			if (this.$.spotable && this.layout.joinedPanels[nIndex + 1] === undefined) {
-				enyo.Spotlight.spot(this.$.spotable);
-				break;
-			} else if (nIndex < this.getPanels().length - 1) {
-				this.setIndex(nIndex + 1);
+		} else {
+			// Tapped on panel
+			if (n != this.getIndex()) {
+				// Tapped on not current panel (breadcrumb)
+				this.setIndex(n);
+				enyo.Spotlight.setLast5WayControl(oEvent.originator);
+				enyo.Spotlight.setPointerMode(false);
+			}
+		}
+		return false;
+	},
+	//* Prevent event bubble up when parent of originator is client
+	spotlightLeft: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+			if (this.getIndex() > 0 && this.showing) {
 				return true;
 			}
-			this._focusLeave('onSpotlightRight');
-			break;
-		case 'UP':
-			this._focusLeave('onSpotlightUp');
-			break;
-		case 'DOWN':
-			this._focusLeave('onSpotlightDown');
-			break;
-		}
-		return true;
-	},
-	onSpotlightFocus: function(oSender, oEvent) {
-		if (oEvent.originator === this && this.isHandleShowing() ) { 
-			return true; 
 		}
 	},
-	onSpotlightFocused: function(oSender, oEvent) {
-		if (oEvent.originator !== this) { return false; }
-		if (enyo.Spotlight.getPointerMode()) { return true; }
-
-		// Check if child of panels is last spotted control
-		if (!this._hadFocus()) {
+	//* Prevent event bubble up when parent of originator is client
+	spotlightRight: function(oSender, oEvent) {
+		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+			if (this.getIndex() < this.getPanels().length - 1) {
+				return true;
+			}
+		}
+	},
+	//* Tap on show/hide handle
+	handleTap: function() {
+		enyo.Spotlight.unspot();
+		this.setShowing(!this.showing);
+	},
+	handleSpotLeft: function() {
+		if (this.showing) {
 			enyo.Spotlight.spot(this.getActive());
+			return true;
 		}
-
-		return false;
+	},
+	handleSpotRight: function(inSender, inEvent) {
+		if (this.showing) {
+			return true;
+		}
+	},
+	
+	resetHandleAutoHide: function(inSender, inEvent) {
+		this.startJob("autoHide", this.bindSafely("hideHandle"), this.getAutoHideTimeout());
+	},
+	stopHandleAutoHide: function(inSender, inEvent) {
+		this.stopJob("autoHide");
+	},
+	//* Show handle without focusing
+	showHandle: function(inSender, inEvent) {
+		this.$.showHideHandle.removeClass("off");
+	},
+	//* Hide handle 
+	hideHandle: function(inSender, inEvent) {
+		this.$.showHideHandle.addClass("off");
+	},
+	isHandleShowing: function() {
+		return !this.$.showHideHandle.hasClass("off");
+	},
+	
+	
+	//* Hide/show animation complete
+	animationComplete: function(inSender, inEvent) {
+		switch (inEvent.animation.name) {
+		case "show":
+			this.showAnimationComplete();
+			return true;
+		case "hide":
+			this.hideAnimationComplete();
+			return true;
+		}
+	},
+	showAnimationComplete: function() {
+		this.$.showHideHandle.removeClass("hidden");
+		enyo.Spotlight.spot(this.getActive());
+	},
+	hideAnimationComplete: function() {
+		this.$.showHideHandle.removeClass("hidden");
+	},
+	
+	
+	
+	
+	
+	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
+	//* show handle.
+	onSpotlightPanelEnter: function() {
+		if (!this.showing && this.useHandle) {
+			enyo.Spotlight.spot(this.$.showHideHandle);
+			return true;
+		}
+	},
+	//* Called when focus leaves one of the panels
+	onSpotlightPanelLeave: function(inSender, inEvent) {
+		var direction = inEvent.direction;
+		
+		// Ignore panel leave events that don't come from active panel
+		if (inEvent.originator != this.getActive())	{
+			return false;
+		}
+		
+		// Kill leave events that come from pointer mode
+		if (enyo.Spotlight.getPointerMode()) {
+			return true;
+		}
+		
+		if (direction === "LEFT") {
+			// If leaving to the left and we're not at first panel, go to previous panel
+			if (this.getIndex() > 0) {
+				this.previous();
+				return true;
+			}
+			// If leaving to the left and we are at the first panel, hide panels
+			else if (this.toIndex === null && this.showing) {
+				this.hide();
+				return true;
+			}
+		}
+		else if (direction === "RIGHT") {
+			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
+			if (this.useHandle && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
+				enyo.Spotlight.spot(this.$.showHideHandle);
+				return true;
+			}
+			// If leaving to the right and handle is not enabled, go to next panel
+			else if (this.getIndex() < this.getPanels().length - 1) {
+				this.next();
+				return true;
+			}
+		}
 	},
 	/** Gets index of a panel by its reference. */
 	getPanelIndex: function(oControl) {
@@ -344,7 +300,6 @@ enyo.kind({
 
 		return -1;
 	},
-	//* 
 	setIndex: function(inIndex) {
 		inIndex = this.clamp(inIndex);
 		
@@ -374,6 +329,7 @@ enyo.kind({
 		if (this.$.animator.isAnimating()) {
 			this.$.animator.stop();
 		}
+		
 		this.fraction = 1;
 		this.stepTransition();
 		this.triggerPanelPostTransitions(this.fromIndex, this.toIndex);
@@ -454,12 +410,24 @@ enyo.kind({
 	},
 	postTransitionComplete: function() {
 		var activeIndex = this.getIndex();
+		
 		this.doPanelsPostTransitionFinished({active: activeIndex});
+		
 		for (var i = 0; i < this.getPanels().length; i++) {
 			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
 		}
 		
 		this.finishTransition();
+	},
+	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
+	indexChanged: function() {
+		var activePanel = this.getActive();
+		
+		if (activePanel && activePanel.isBreadcrumb) {
+			activePanel.removeSpottableBreadcrumbProps();
+		}
+
+		this.inherited(arguments);
 	},
 	finishTransition: function() {
 		this.inherited(arguments);
@@ -468,36 +436,117 @@ enyo.kind({
 			this.setIndex(this.queuedIndex);
 		}
 	},
-	togglePanelsShowHide: function() {
-		if (this.openPanels) {
-			this._hidePanels();
-		} else {	
-			this._showPanels();
+	
+	
+	
+	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
+	getShowing: function() {
+		return this.showing;
+	},
+	//* Returns true if this and all parents are showing.
+	getAbsoluteShowing: function() {
+		var b = this.getBounds();
+
+		if ((b.height === 0 && b.width === 0)) {
+			return false;
+		}
+
+		if (this.parent && this.parent.getAbsoluteShowing) {
+			return this.parent.getAbsoluteShowing();
+		} else {
+			return true;
 		}
 	},
 	showingChanged: function() {
-		if (this.showing) {
-			this._showPanels();
-		} else {
-			this._hidePanels();
+		if (this.useHandle) {
+			if (this.showing) {
+				this._show();
+			}
+			else {
+				this._hide();
+			}
+			return;
+		}
+		
+		this.inherited(arguments);
+	},
+	applyPattern: function() {
+		switch (this.pattern) {
+		case "alwaysviewing":
+			this.applyAlwaysViewingPattern();
+			break;
+		case "activity":
+			this.applyActivityPattern();
+			break;
+		default:
+			break;
 		}
 	},
-	//* Show panals with transition from right */
-	_showPanels: function() {
-		this.spotlight = true;
-		this._transitionCommand = "show";
-		this.$.spotable.addRemoveClass("gray", false);
-		this.$.backgroundScrim.addRemoveClass("on", true);
-		enyo.dom.transformValue(this.$.client, "translateX", 0);
+	applyAlwaysViewingPattern: function() {
+		this.addClass('always-viewing');
+		this.panelCoverRatio = 0.5;
+		this.useHandle = (this.useHandle === "auto") ? true : this.useHandle;
+		this.createChrome(this.alwaysViewingTools);
+	},
+	applyActivityPattern: function() {
+		this.addClass('activity');
+		this.showFirstBreadcrumb = true;
+		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
+	},
+	initializeShowHideHandle: function() {
+		if (this.useHandle === true) {
+			this.$.showHideHandle.canGenerate = true;
+		}
+	},
+	//* Show panels with transition from right
+	_show: function() {
+		this.$.backgroundScrim.show();
+		this.$.showHideHandle.addClass("hidden");
+		this.$.showHideHandle.addClass("right");
+		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
 	},
-	//* Hide panals with transition to right */
-	_hidePanels: function() {
-		this.spotlight = false;
-		this._transitionCommand = "hide";
-		this.$.backgroundScrim.addRemoveClass("on", false);
-		enyo.dom.transformValue(this.$.client, "translateX", enyo.dom.getWindowWidth()+15 + "px");
+	//* Hide panels with transition to right
+	_hide: function() {
+		this.$.backgroundScrim.hide();
+		this.$.showHideHandle.addClass("hidden");
+		this.$.showHideHandle.removeClass("right");
+		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
+	},
+	createShowAnimation: function() {
+		return this.$.showHideAnimator.newAnimation({
+			name: "show",
+			duration: 500,
+			timingFunction: "linear",
+			keyframes: {
+				0: [
+					{control: this, properties: { "-webkit-transform": "current" }}
+				],
+				100: [
+					{control: this, properties: { "-webkit-transform": "translate3d(0, 0, 0)" }}
+				]
+			}
+		});
+	},
+	createHideAnimation: function() {
+		var x = this.getOffscreenXPosition();
+		return this.$.showHideAnimator.newAnimation({
+			name: "hide",
+			duration: 500,
+			timingFunction: "linear",
+			keyframes: {
+				0: [
+					{control: this, properties: { "-webkit-transform": "current" }}
+				],
+				100: [
+					{control: this, properties: { "-webkit-transform": "translate3d( " + x + "px, 0, 0)" }}
+				]
+			}
+		});
+	},
+	getOffscreenXPosition: function() {
+		return this.$.client.getBounds().width;
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		return this.layout.getTransitionOptions && this.layout.getTransitionOptions(fromIndex, toIndex) || {};

@@ -18,6 +18,7 @@ enyo.kind({
 					{content: "Loooooooooooooooooooooooooooooong Item Two"}
 				]}
 			]},
+			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "In Group"},
 			{kind:"Group", highlander:true, components: [
 				{kind: "moon.Accordion", content: "This is a grouped accordion", components: [
@@ -35,6 +36,28 @@ enyo.kind({
 				{kind: "moon.Accordion", content: "This is another lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
 					{content: "Looooooooooooooooooooooooooooooooooooong Item Three"},
 					{content: "Loooooooooooooooooooooooooooooong Item Four"}
+				]}
+			]},
+			{classes:"moon-1v"},
+			{kind: "moon.Divider", content: "In Group using Grouped Selectable Items"},
+			{kind: "Group", groupName:"menuItems", components: [
+				{xkind:"Group", groupName:"accordions", highlander:true, components: [
+					{kind: "moon.Accordion", groupName:"accordions", content: "This is a grouped accordion", defaultKind:"moon.SelectableItem", components: [
+						{content: "Item One", groupName:"menuItems"},
+						{content: "Item Two", groupName:"menuItems"}
+					]},
+					{kind: "moon.Accordion", groupName:"accordions", open:true, content: "This is another grouped accordion", defaultKind:"moon.SelectableItem", components: [
+						{content: "Item Three", groupName:"menuItems"},
+						{content: "Item Four", groupName:"menuItems"}
+					]},
+					{kind: "moon.Accordion", groupName:"accordions", content: "This is another grouped accordion", defaultKind:"moon.SelectableItem", components: [
+						{content: "Item Five", groupName:"menuItems"},
+						{content: "Item Six", groupName:"menuItems"}
+					]},
+					{kind: "moon.Accordion", groupName:"accordions", content: "This is another lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", defaultKind:"moon.SelectableItem", components: [
+						{content: "Looooooooooooooooooooooooooooooooooooong Item Three", groupName:"menuItems"},
+						{content: "Loooooooooooooooooooooooooooooong Item Four", groupName:"menuItems"}
+					]}
 				]}
 			]}
 		]}

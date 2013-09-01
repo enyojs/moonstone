@@ -52,7 +52,7 @@ enyo.kind({
 					{kind:"moon.Tooltip", position: "above", content: "Select Options"},
 				
 					//* List actions with proportional width
-					{kind: "moon.ListActions", porportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
+					{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
 						{action: "Cost", components: [
 							{kind: "moon.Divider", content:"Cost"},
 							{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.ToggleItem", fit: true, components: [

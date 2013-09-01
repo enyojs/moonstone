@@ -19,11 +19,11 @@ enyo.kind({
 		*/
 		iconSrc: "",
 		/**
-			By default, list action menus are 300px wide.  To have the menus be porportionally
+			By default, list action menus are 300px wide.  To have the menus be proportionally
 			sized within the available space, set to true.  Note, a minimum width of 300px is still
 			respected; if all menus don't fit horizontally, they will be stacked vertically.
 		*/
-		porportionalWidth: false
+		proportionalWidth: false
 	},
 	handlers: {
 		onSpotlightDown: "spotlightDown",
@@ -76,8 +76,8 @@ enyo.kind({
 		}
 		
 		// Increase width to 100% if there is only one list action
-		if (this.porportionalWidth) {
-			this.addClass("porportional-width");
+		if (this.proportionalWidth) {
+			this.addClass("proportional-width");
 			var w = 100 / this.listActionComponents.length;
 			for (i=0; i<this.listActionComponents.length; i++) {
 				this.listActionComponents[i].applyStyle("width", w + "%");

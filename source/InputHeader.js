@@ -45,7 +45,7 @@ enyo.kind({
 	],
 	classes: "moon-header moon-input-header",
 	componentOverrides: {
-		title: {kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
+		titleWrapper: {kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
 			{name: "titleInput", kind: "moon.Input", classes: "moon-header-font moon-header-title"}
 		]}
 	},
