@@ -36,7 +36,7 @@ enyo.kind({
 		
 		onTransitionFinish:			"transitionFinish",
 		onPreTransitionComplete:	"panelPreTransitionComplete",
-		onPostTransitionComplete: 	"panelPostTransitionComplete"
+		onPostTransitionComplete:	"panelPostTransitionComplete"
 	},
 	showHideTools: [
 		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},

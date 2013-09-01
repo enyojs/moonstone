@@ -144,12 +144,6 @@ enyo.kind({
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 		this.inherited(arguments);
 	},
-	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
-	autoNumberChanged: function() {
-		if (this.getAutoNumber() === true && this.container) {
-			this.setTitleAbove(this.generateAutoNumber());
-		}
-	},
 	//* When _this.isBreadcrumb_ changes, update spottability
 	isBreadcrumbChanged: function() {
 		if (this.isBreadcrumb) {
