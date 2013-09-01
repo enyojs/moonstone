@@ -367,7 +367,6 @@ enyo.kind({
 	},
 	panelsHidden: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
-		this.log("Spotting video player!");
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {

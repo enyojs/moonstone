@@ -38,7 +38,7 @@ enyo.kind({
 		onPreTransitionComplete:	"panelPreTransitionComplete",
 		onPostTransitionComplete: 	"panelPostTransitionComplete"
 	},
-	alwaysViewingTools: [
+	showHideTools: [
 		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},
 		{name: "client", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
 			{name: "scrim", classes: "moon-panels-panel-scrim"}
@@ -486,12 +486,13 @@ enyo.kind({
 		this.addClass('always-viewing');
 		this.panelCoverRatio = 0.5;
 		this.useHandle = (this.useHandle === "auto") ? true : this.useHandle;
-		this.createChrome(this.alwaysViewingTools);
+		this.createChrome(this.showHideTools);
 	},
 	applyActivityPattern: function() {
 		this.addClass('activity');
 		this.showFirstBreadcrumb = true;
 		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
+		this.createChrome(this.showHideTools);
 	},
 	initializeShowHideHandle: function() {
 		if (this.useHandle === true) {
