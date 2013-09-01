@@ -80,5 +80,6 @@ enyo.depends(
 	"SelectionOverlaySupport.js",
 	"Image.js",
 	"ImageBadge.js",
-	"ExpandableText.js"
+	"ExpandableText.js",
+	"BodyText.js"
 );

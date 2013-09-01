@@ -43,14 +43,15 @@ enyo.kind({
 				{kind: "moon.CaptionDecorator", side: "top", showOnFocus: true, content: "Pow", components: [
 					{name: "showOnFocus Caption Top", kind: "moon.Button", content: "Top", ontap: "buttonTapped"}
 				]},
-				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom", components: [
-					{name: "showOnFocus Caption Right", kind: "moon.Button", content: "Right", ontap: "buttonTapped"}
-				]},
 				{kind: "moon.CaptionDecorator", side: "bottom", showOnFocus: true, content: "Crash", components: [
 					{name: "showOnFocus Caption Bottom", kind: "moon.Button", content: "Bottom", ontap: "buttonTapped"}
 				]},
+				{style: "display:inline-block;", classes:"moon-2h"},
 				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Bang", components: [
 					{name: "showOnFocus Caption Left", kind: "moon.Button", content: "Left", ontap: "buttonTapped"}
+				]},
+				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom", components: [
+					{name: "showOnFocus Caption Right", kind: "moon.Button", content: "Right", ontap: "buttonTapped"}
 				]},
 				{tag: "br"},
 				{tag: "br"},
@@ -64,7 +65,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "result", allowHtml: true, content: "No button pressed yet."}
+		{kind: "moon.BodyText", name: "result", allowHtml: true, content: "No button pressed yet."}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		this.$.result.setContent("&quot;" + inSender.name + "&quot; pressed.");
