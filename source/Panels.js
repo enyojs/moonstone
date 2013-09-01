@@ -187,7 +187,6 @@ enyo.kind({
 			return true;
 		}
 	},
-	
 	resetHandleAutoHide: function(inSender, inEvent) {
 		this.startJob("autoHide", this.bindSafely("hideHandle"), this.getAutoHideTimeout());
 	},
@@ -205,8 +204,6 @@ enyo.kind({
 	isHandleShowing: function() {
 		return !this.$.showHideHandle.hasClass("off");
 	},
-	
-	
 	//* Hide/show animation complete
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
@@ -225,11 +222,6 @@ enyo.kind({
 	hideAnimationComplete: function() {
 		this.$.showHideHandle.removeClass("hidden");
 	},
-	
-	
-	
-	
-	
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
 	onSpotlightPanelEnter: function() {
@@ -436,9 +428,6 @@ enyo.kind({
 			this.setIndex(this.queuedIndex);
 		}
 	},
-	
-	
-	
 	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
 	getShowing: function() {
 		return this.showing;
@@ -519,7 +508,7 @@ enyo.kind({
 		return this.$.showHideAnimator.newAnimation({
 			name: "show",
 			duration: 500,
-			timingFunction: "linear",
+			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
 			keyframes: {
 				0: [
 					{control: this, properties: { "-webkit-transform": "current" }}
@@ -535,7 +524,7 @@ enyo.kind({
 		return this.$.showHideAnimator.newAnimation({
 			name: "hide",
 			duration: 500,
-			timingFunction: "linear",
+			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
 			keyframes: {
 				0: [
 					{control: this, properties: { "-webkit-transform": "current" }}

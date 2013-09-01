@@ -35,7 +35,7 @@
 enyo.kind({
 	name: "moon.BreadcrumbArranger",
 	kind: "enyo.DockRightArranger",
-	breadcrumbWidth: 180,
+	breadcrumbWidth: 230,
 	debug: false,
 	size: function() {
 		var containerWidth = this.getContainerWidth(),
