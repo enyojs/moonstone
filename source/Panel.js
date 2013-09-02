@@ -55,11 +55,6 @@ enyo.kind({
 	layoutKind: "FittableRowsLayout",
 	headerOption: null, //* Deprecated
 	panelTools : [
-		{name: "viewport", classes: "moon-panel-viewport", components: [
-			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
-				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
-			]}
-		]},
 		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
@@ -68,6 +63,12 @@ enyo.kind({
 				]}
 			]}
 		]},
+		{name: "viewport", classes: "moon-panel-viewport", components: [
+			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
+				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
+			]}
+		]},
+
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},

@@ -135,8 +135,8 @@ enyo.kind({
 			return;
 		}
 		
-		var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
-		if (n == -1) {
+		var n = this.getPanelIndex(oEvent.originator);
+		if (n == -1 && typeof oEvent.breadcrumbTap === 'undefined') {
 			// Tapped on other than panel (Scrim, etc)
 			if (this.pattern === "alwaysviewing" && this.showing && this.useHandle === true) {
 				this.hide();
