@@ -12,6 +12,8 @@ enyo.depends(
 	"AlwaysViewingPanelsWithVideoSample.js",
 	"ButtonSample.css",
 	"ButtonSample.js",
+	"BodyTextSample.css",
+	"BodyTextSample.js",
 	"CalendarPickerSample.css",
 	"CalendarPickerSample.js",
 	"CheckboxItemSample.css",
