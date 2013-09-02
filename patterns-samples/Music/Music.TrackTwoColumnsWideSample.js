@@ -14,7 +14,7 @@ enyo.kind({
             kind: "moon.DataGridList",
             fit: true,
             minWidth: 180, 
-            minHeight: 240,
+            minHeight: 260,
             components: [
                 {
                     kind: "moon.GridListImageItem",
