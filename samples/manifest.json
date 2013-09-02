@@ -44,8 +44,10 @@
 		]},
 		{"name": "List Actions", "path":"$lib/moonstone/samples/ListActionsSample"},
 		{"name": "Media", "samples": [
-			{"name": "Video Player", "path":"$lib/moonstone/samples/VideoPlayerSample"},
-			{"name": "Video Player in Panels", "path":"$lib/moonstone/samples/PanelsVideoPlayerSample"}
+			{"name": "Fullscreen Video Player", "path":"$lib/moonstone/samples/VideoPlayerSample"},
+			{"name": "Inline Video Player", "path":"$lib/moonstone/samples/PanelsVideoPlayerSample"},
+			{"name": "Always Viewing Panels with Video", "path":"$lib/moonstone/samples/AlwaysViewingPanelsWithVideoSample"},
+			{"name": "Activity Panels with Video", "path":"$lib/moonstone/samples/ActivityPanelsWithVideoSample"}
 		]},
 		{"name": "Object Actions", "samples": [
 			{"name": "Horizontal Object Actions", "path":"$lib/moonstone/samples/ObjectActionHorizontalTypeSample"},
