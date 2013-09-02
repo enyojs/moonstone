@@ -45,7 +45,6 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		ontap: "handleBreadcrumbTap",
 		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
 	},
 
@@ -61,7 +60,7 @@ enyo.kind({
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 			]}
 		]},
-		{name: "breadcrumb", classes: "moon-panel-breadcrumb", components: [
+		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
 					{name: "breadcrumbTitleAbove", classes: "moon-panel-mini-header-title-above"},
@@ -144,12 +143,6 @@ enyo.kind({
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 		this.inherited(arguments);
 	},
-	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
-	autoNumberChanged: function() {
-		if (this.getAutoNumber() === true && this.container) {
-			this.setTitleAbove(this.generateAutoNumber());
-		}
-	},
 	//* When _this.isBreadcrumb_ changes, update spottability
 	isBreadcrumbChanged: function() {
 		if (this.isBreadcrumb) {
@@ -159,9 +152,7 @@ enyo.kind({
 		}
 	},
 	handleBreadcrumbTap: function(inSender, inEvent) {
-		if (!this.isBreadcrumb) {
-			return;
-		}
+		inEvent.breadcrumbTap = true;
 	},
 	scroll: function(inSender, inEvent) {
 		if (this.collapsingHeader && !this.smallHeader) {
@@ -183,6 +174,23 @@ enyo.kind({
 			this.$.header.expandToLarge();
 			this.isHeaderCollapsed = false;
 		}
+	},
+	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
+	autoNumberChanged: function() {
+		if (this.getAutoNumber() === true && this.container) {
+			var n = this.clientIndexInContainer() + 1;
+			n = ((n < 10) ? "0" : "") + n;
+			this.setTitleAbove(n);
+		}
+	},
+	//* Updates _this.header_ when _title_ changes.
+	titleChanged: function() {
+		this.$.header.setTitle(this.getTitle());
+		this.$.miniHeader.setContent(this.getTitle());
+	},
+	//* Updates _this.header_ when _titleAbove_ changes.
+	titleAboveChanged: function() {
+		this.$.header.setTitleAbove(this.getTitleAbove());
 	},
 	generateAutoNumber: function() {
 		var adjustedIndex = this.indexInContainer() + 1;

@@ -2342,11 +2342,77 @@
 .activity-panels .moon-panel-mini-header-title-above {
   color: #4b4b4b;
 }
-body .enyo-fit.panels-50-percent-scrim,
-.panels-50-percent-scrim {
-  left: 50%;
+/* Panels */
+.moon-panels.activity,
+.moon-panels.always-viewing {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 0;
   overflow: visible;
-  background-color: rgba(100, 100, 100, 0.5);
+  -webkit-transform: translate3d(0, 0, 0);
+  pointer-events: none;
+}
+.moon-panels.activity *,
+.moon-panels.always-viewing * {
+  pointer-events: auto;
+}
+/* Scrim */
+.moon-panels-background-scrim {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  pointer-events: none;
+  opacity: 0.2;
+}
+.moon-panels-panel-scrim {
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 100%;
+}
+.moon-panels.activity .moon-panels-panel-scrim {
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+}
+.moon-panels.always-viewing .moon-panels-panel-scrim {
+  left: 50%;
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+/* Show/Hide Handle */
+.moon-panels-handle {
+  position: absolute;
+  height: 100%;
+  left: auto;
+  right: -130px;
+  width: 140px;
+  z-index: 100;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #4b4b4b;
+  background-image: url(../images/LightTheme_Icons/carat-white-left.png);
+  -webkit-transform: translate3d(0, 0, 0);
+  transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
+  opacity: 1;
+}
+.moon-panels-handle.spotlight {
+  background-color: #ff2f7d;
+  -webkit-transform: translate3d(-130px, 0, 0);
+}
+.moon-panels-handle.right {
+  background-image: url(../images/LightTheme_Icons/caret-white-right.png);
+}
+.moon-panels-handle.hidden {
+  display: none;
+}
+.moon-panels-handle.stashed {
+  opacity: 0;
 }
 /* Header */
 .moon-accordion .moon-expandable-list-item-header {

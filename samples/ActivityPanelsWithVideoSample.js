@@ -1,8 +1,44 @@
 enyo.kind({
-	name: "moon.sample.ActivityPanelsSample",
+	name: "moon.sample.ActivityPanelsWithVideoSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fill", style: "z-index: 1000;", components: [
+        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", autoplay: true, infoComponents: [
+			{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
+				{
+					kind: "moon.ChannelInfo",
+					channelNo: "13",
+					channelName: "AMC",
+					classes: "moon-2h", 
+					components: [
+						{content: "3D"},
+						{content: "Live"},
+						{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
+					]
+				},
+				{
+					kind: "moon.VideoInfoHeader",
+					title: "Downton Abbey - Extra Title",
+					subTitle: "Mon June 21, 7:00 - 8:00pm",
+					subSubTitle: "R - TV 14, V, L, SC",
+					description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
+				}
+			]},
+			{kind: "moon.VideoInfoBackground", orient: "right", background: true, components: [
+				{kind:"moon.Clock"}
+			]}
+		], components: [
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
+		]},
+		{name: "panels", kind: "moon.Panels", pattern: "activity", useHandle: true, classes: "enyo-fit", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next1"},
@@ -10,7 +46,8 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next1"}
 			]},
-			{title: "Second Panel", classes: "moon-7h", joinToPrev: true, components: [
+			{title: "Second Panel", classes: "moon-7h",
+				joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next2"},
@@ -38,7 +75,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next5"}
 			]},
-			{title: "Sixth Panel with a very long title", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Sixth", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next6"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next6"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next6"},
