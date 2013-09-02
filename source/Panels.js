@@ -10,11 +10,8 @@ enyo.kind({
 	classes				: 'moon-panels',
 	spotlightDecorate	: false,
 	published: {
-		/**
-			The current design pattern; valid values are "none", "activity" (default),
-			and "alwaysviewing".
-		*/
-		pattern: "activity",
+		//* The current design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
+		pattern: "none",
 		//* Handle is hided automatically in this time amount
 		autoHideTimeout: 4000,
 		//* Possible values: "auto", "true", "false"
@@ -141,7 +138,7 @@ enyo.kind({
 		var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
 		if (n == -1) {
 			// Tapped on other than panel (Scrim, etc)
-			if (this.pattern === "alwaysviewing" && this.showing) {
+			if (this.pattern === "alwaysviewing" && this.showing && this.useHandle === true) {
 				this.hide();
 			}
 		} else {
@@ -264,14 +261,14 @@ enyo.kind({
 				return true;
 			}
 			// If leaving to the left and we are at the first panel, hide panels
-			else if (this.toIndex === null && this.showing) {
+			else if (this.toIndex === null && this.showing && this.useHandle === true) {
 				this.hide();
 				return true;
 			}
 		}
 		else if (direction === "RIGHT") {
 			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
-			if (this.useHandle && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
+			if (this.useHandle && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
 				enyo.Spotlight.spot(this.$.showHideHandle);
 				return true;
 			}
@@ -460,7 +457,7 @@ enyo.kind({
 		}
 	},
 	showingChanged: function() {
-		if (this.useHandle) {
+		if (this.useHandle === true) {
 			if (this.showing) {
 				this._show();
 			}
