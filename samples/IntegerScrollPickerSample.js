@@ -3,13 +3,12 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{fit:true, components: [
 			{kind: "moon.Divider", content: "Integer Picker"},
 			{kind: "moon.IntegerScrollPicker", value: 2013, min: 1900, max: 2100, onChange: "changed"}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "value", content: "No change yet"}
+		{kind: "moon.BodyText", name: "value", content: "No change yet"}
 	],
 	changed: function(inSender, inEvent) {
 		if (this.$.value){

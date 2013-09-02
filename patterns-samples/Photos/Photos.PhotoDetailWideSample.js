@@ -59,7 +59,7 @@ enyo.kind({
                                         {style: "clear:both;", components: [
                                             {
                                                 kind: "enyo.Image",
-                                                classes: "moon-3h moon-1v",
+                                                classes: "moon-3h moon-4v",
 												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
@@ -76,7 +76,7 @@ enyo.kind({
                                         {style: "clear:both;", components: [
                                             {
                                                 kind: "enyo.Image",
-                                                classes: "moon-3h moon-1v",
+                                                classes: "moon-3h moon-4v",
 												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
@@ -91,7 +91,7 @@ enyo.kind({
                                         {style: "clear:both;", components: [
                                             {
                                                 kind: "enyo.Image",
-                                                classes: "moon-3h moon-1v",
+                                                classes: "moon-3h moon-4v",
 												bindings: [{from: ".model.picUrl", to: ".src"}],
                                                 style: "float: left;"
                                             },
@@ -166,7 +166,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.PhotoDetailWideSample",
                     controller: ".app.controllers.photoController",

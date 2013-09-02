@@ -11,7 +11,7 @@ enyo.kind({
             kind: "moon.Scroller",
             fit: true,
             components: [
-                {name: "lyrics", allowHtml: true}
+                {kind:"moon.BodyText", name: "lyrics", allowHtml: true}
             ]
         }
     ],
@@ -42,7 +42,6 @@ enyo.ready(function() {
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.LyricsDetailSample",
                     controller: ".app.controllers.lyricController",

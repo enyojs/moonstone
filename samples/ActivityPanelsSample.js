@@ -2,8 +2,7 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "enyo.Spotlight"},
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fill", style: "z-index: 1000;", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next1"},
@@ -11,8 +10,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next1"}
 			]},
-			{title: "Second Panel", classes: "moon-7h",
-				joinToPrev: true, components: [
+			{title: "Second Panel", classes: "moon-7h", joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next2"},
@@ -40,7 +38,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next5"}
 			]},
-			{title: "Sixth", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Sixth Panel with a very long title", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next6"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next6"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next6"},

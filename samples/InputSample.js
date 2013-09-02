@@ -3,7 +3,6 @@ enyo.kind({
 	kind:"FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-input-sample",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Inputs"},
 		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, components: [
 			{kind: "moon.InputDecorator", spotlight: true, components: [
@@ -44,7 +43,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result", classes: "moon-input-sample-result"},
-		{name: "console", classes: "moon-input-sample-console", content: "Input: "},
+		{kind: "moon.BodyText", name: "console", content: "Input: "},
 		{kind: "moon.Divider", content: "Bottom-aligned inputs", classes: "moon-input-sample-result"},
 		{components: [
 			{kind: "moon.InputDecorator", spotlight: true, components: [

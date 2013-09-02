@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.ProgressSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Progress Bars"},
 		{kind: "moon.ProgressBar", progress: 25},
 		{kind: "moon.ProgressBar", progress: 25, bgProgress: 75},

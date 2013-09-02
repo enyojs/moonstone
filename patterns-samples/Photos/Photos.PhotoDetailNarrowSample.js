@@ -19,7 +19,7 @@ enyo.kind({
         {
             name: "photoDetail",
             kind: "enyo.Image",
-            classes: "moon-8h moon-3v",
+            classes: "moon-8h moon-13v",
             src: ""
         }
     ],
@@ -41,7 +41,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.PhotoDetailNarrowSample",
                     controller: ".app.controllers.photoController",

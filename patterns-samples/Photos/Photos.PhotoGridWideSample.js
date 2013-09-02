@@ -32,7 +32,7 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "enyo.Image",
-                                    classes: "moon-3h moon-1v",
+                                    classes: "moon-3h moon-4v",
 									bindings: [{from: ".model.imgSrc", to: ".src"}]
                                 }
                             ]
@@ -72,7 +72,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.PhotoGridSample",
                     controller: ".app.controllers.photoController",

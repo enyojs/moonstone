@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.PanelsWithCarouselArrangerSample",
 	classes: "moon enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", arrangerKind: "CarouselArranger", classes: "enyo-fit full", components: [
 			{title: "First", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},

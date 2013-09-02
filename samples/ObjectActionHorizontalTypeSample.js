@@ -6,7 +6,6 @@ enyo.kind({
 	},
 	kind: "FittableRows",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Divider", content: "Object Action: horizontal Type Sample"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{kind: "Repeater", count:20,  xclasses:"moon-5h", components: [
@@ -20,7 +19,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "result", allowHtml: true, content: "No item tapped yet."}
+		{kind: "moon.BodyText", name: "result", content: "No item tapped yet."}
 	],
 	ontap: function (inSender, inEvent) {
 		this.$.result.setContent(inEvent.originator.name + " tapped.");

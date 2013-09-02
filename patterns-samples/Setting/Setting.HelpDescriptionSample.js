@@ -6,9 +6,9 @@ enyo.kind({
     //* @protected
     title: "SETTINGS CATEGORY",
     components: [
-        { 
+        {
             name: "picker1",
-            kind: "moon.ExpandablePicker",           
+            kind: "moon.ExpandablePicker",
             helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
                       "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
             components: [
@@ -30,7 +30,7 @@ enyo.kind({
         },
         {
             name: "picker3",
-            kind: "moon.ExpandablePicker",           
+            kind: "moon.ExpandablePicker",
             components: [
                 {name: "p3Value1"},
                 {name: "p3Value2"},
@@ -76,7 +76,6 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.setting.HelpDescriptionSample",
 					controller: ".app.controllers.settingCategoryController",

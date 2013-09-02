@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.MovieImageItem",
-	classes: "moon-movie-list-item moon-3h moon-2v",
+	classes: "moon-movie-list-item moon-3h moon-8v",
 	spotlight: true,
 	published: {
 		option: {
@@ -41,7 +41,7 @@ enyo.kind({
 	kind: "moon.ContextualPopup",
 	components: [
 		{
-			classes: "moon-5h moon-3v", // Do not define size on ContextualPopup directly.
+			classes: "moon-5h moon-13v", // Do not define size on ContextualPopup directly.
 			components: [
 				{kind: "moon.Divider", content: "Log in to Service"},
 				{kind: "moon.InputDecorator", spotlight: true, components: [
@@ -127,7 +127,6 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.login.ContextualPopupSample",
 					controller: ".app.controllers.movieController",

@@ -3,7 +3,6 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	kind: "FittableRows",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Scroller", fit:true, components: [
 			{kind: "FittableColumns", components: [
 				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed"},
@@ -43,7 +42,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "result", content: "No change yet"}
+		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
 	setYear: function(inSender, inEvent) {
 		if(this.$.yearInput.getValue()) {

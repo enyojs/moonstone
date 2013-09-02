@@ -28,6 +28,7 @@ enyo.depends(
 	"PagingControl.js",
 	"IntegerPicker.js",
 	"IntegerScrollPicker.js",
+	"DateTimePickerBase.js",
 	"DatePicker.js",
 	"TimePicker.js",
 	"Input.js",
@@ -76,5 +77,9 @@ enyo.depends(
 	"ObjectActionDecorator.js",
 	"FormCheckbox.js",
 	"DataGridList.js",
-	"SelectionOverlaySupport.js"
+	"SelectionOverlaySupport.js",
+	"Image.js",
+	"ImageBadge.js",
+	"ExpandableText.js",
+	"BodyText.js"
 );

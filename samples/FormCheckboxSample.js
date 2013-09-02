@@ -3,9 +3,8 @@ enyo.kind({
 	kind:"FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes:"moon-hspacing", controlClasses:"moon-4h", components: [
+			{classes:"moon-hspacing", controlClasses:"moon-6h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "FormCheckbox Items (Default)"},
 					{kind: "moon.FormCheckbox", content: "Option 1", checked: true, onchange: "itemChanged"},
@@ -36,7 +35,7 @@ enyo.kind({
 		]},
 		{components: [
 			{kind:"moon.Divider", content:"Result"},
-			{name:"result", content:"Nothing selected"}
+			{kind:"moon.BodyText", name:"result", content:"Nothing selected"}
 		]}
 	],
 	itemChanged: function(inSender, inEvent) {
