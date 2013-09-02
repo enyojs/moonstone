@@ -69,6 +69,8 @@ enyo.kind({
 		showPlaybackControls: true,
 		//* When true, hides playback controls whenever mouse is hover over slider
 		hideButtonsOnSlider: true,
+		//* When true, make slider in disabled status and also will not enable when video dataloaded
+		disableSlider: false,
 
 
 		//* URL for "jump back" icon
@@ -136,6 +138,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
 			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
@@ -306,6 +309,10 @@ enyo.kind({
 	jumpSecChanged: function() {
 		this.$.video.setJumpSec(this.jumpSec);
 	},
+	disableSliderChanged: function() {
+		//* this should be be called on create because default slider status should be disabled.
+		this.$.slider.setDisabled(this.disableSlider);
+	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
 		this.autoShowControlsChanged();
@@ -351,6 +358,15 @@ enyo.kind({
 	},
 	showScrim: function(show) {
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
+	},
+	panelsShown: function(inSender, inEvent) {
+		if ((this.isFullscreen() || !this.getInline()) && this.isOverlayShowing()) {
+			this.hideFSControls();
+			enyo.Spotlight.unspot();
+		}
+	},
+	panelsHidden: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this);
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isFullscreen() || !this.getInline()) {
@@ -467,6 +483,7 @@ enyo.kind({
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.$.videoInfoHeader.setShowing(true);
+			this.$.videoInfoHeader.resized();
 		}
 	},
 	//* Sets _this.visible_ to false.
@@ -780,7 +797,9 @@ enyo.kind({
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	dataloaded: function(inSender, inEvent) {
-		this.$.slider.setDisabled(false);
+		if (!this.disableSlider) {
+			this.$.slider.setDisabled(false);
+		}
 		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
