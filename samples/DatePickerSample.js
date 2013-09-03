@@ -3,13 +3,14 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
 				{kind: "moon.DatePicker", name:"picker", noneText: "Pick a Date", content: "Date", onChange: "changed"},
-				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Deactivated Date Picker", content: "Deactivated Date"},
-				{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
-					{content: 'en-US', active: true},
+				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date"},
+				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+					{content: 'Use Default Locale', active: true},
+					{content: 'en-US'},
+					{content: 'ko-KR'},
 					{content: 'en-CA'},
 					{content: 'en-IE'},
 					{content: 'en-GB'},
@@ -25,21 +26,20 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content:"Result"},
-		{name: "result", content: "No change yet"}
+		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
 	create: function(){
 		this.inherited(arguments);
-		var selected = this.$.langPicker.getSelected();
-		if (selected) {
-			this.$.picker.setLocale(selected.content);
-			this.$.disabledPicker.setLocale(selected.content);
+		if (!ilib) {
+			this.$.localePicker.hide();
+			this.log("iLib not present -- hiding locale picker");
 		}
 	},
 	pickerHandler: function(inSender, inEvent){
-		if (ilib) {
-			this.$.picker.setLocale(inEvent.selected.content);
-			this.$.disabledPicker.setLocale(inEvent.selected.content);
-		}
+		var opt = inEvent.selected.content,
+			val = (opt == "Use Default Locale") ? null : opt;
+		this.$.picker.setLocale(val);
+		this.$.disabledPicker.setLocale(val);
 		return true;
 	},
 	changed: function(inSender, inEvent) {

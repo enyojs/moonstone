@@ -13,12 +13,14 @@ enyo.kind({
                 {
                     kind: "moon.Button",
                     ontap: "selectApp",
-                    bindFrom: "text",
-                    style: "width: 300px;",
-                    classes: "moon-dark-gray moon-margin-top-bottom"
+                    bindings: [
+                        {from: ".model.text", to: ".content"}
+                    ],
+                    style: "width: 300px; display:block;",
+                    classes: "moon-neutral moon-margin-top-bottom"
                 }
             ]},
-            {fit: true, components:[                
+            {fit: true, components:[
                 {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
                     {content: "Email", style: "width: 180px;"},
                     {
@@ -65,13 +67,13 @@ enyo.kind({
                             kind: "moon.Button",
                             content: "Log in",
                             flex: true,
-                            classes: "moon-dark-gray moon-margin-left-right"
+                            classes: "moon-neutral moon-margin-left-right"
                         },
                         {
                             kind: "moon.Button",
                             content: "Registration",
                             flex: true,
-                            classes: "moon-dark-gray"
+                            classes: "moon-neutral"
                         }
                     ]
                 }
@@ -79,7 +81,7 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.apps", to: "$.appInfo.controller"}
+        {from: ".controller.apps", to: ".$.appInfo.controller"}
     ],
 
     //* @public
@@ -110,7 +112,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.login.FrontDoorViaPanelSample",
                     controller: ".app.controllers.loginFrontDoorViaPanelController",

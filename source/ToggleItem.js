@@ -7,6 +7,7 @@ enyo.kind({
 	kind: "moon.CheckboxItem",
 	//* @protected
 	classes: "moon-toggle-item",
+	checkboxOnRight: true,
 	components: [
 		{classes: "moon-toggle-item-label-wrapper", name: "client"},
 		{name: "input", kind: "moon.ToggleText", spotlight: false}

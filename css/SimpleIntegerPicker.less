@@ -1,8 +1,6 @@
 
 .moon-simple-integer-picker {
   .moon-sub-header-text;
-  font-size: @moon-divider-font-size;
-  line-height: @moon-divider-font-size;
   position: relative;
   display: table-cell;
   vertical-align: middle;
@@ -19,10 +17,15 @@
 .moon-simple-integer-picker.spotlight {
   background: @moon-spotlight-border-color;
 }
-
-.moon-simple-integer-picker-button {
+.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
+	color: @moon-spotlight-text-color;
+}
+.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
+	color: @moon-spotlight-text-color;
+}
+.moon-simple-integer-picker-button {	
   width: @moon-picker-button-width;
-  height: @moon-picker-button-width/2;
+  height: @moon-picker-button-width;
   border-radius: @moon-picker-button-width/2;  border: 0px;
   background: inherit;
   padding: 0px;
@@ -30,22 +33,23 @@
   text-align: center;
   vertical-align: middle;
   z-index: 2;
+  color: @moon-sub-header-text-color;
+  background: transparent @moon-scroller-icon no-repeat center center;
 }
 
 .moon-simple-integer-picker-client {
   padding: 0px;
   margin: 0px;
   border: 0px;
+  height: @moon-sub-header-font-size*1.2;
 }
 
 .moon-simple-integer-picker-item {
   .moon-sub-header-text;
-  font-size: @moon-divider-font-size;
-  line-height: @moon-divider-font-size;
   display: table;
   white-space: nowrap;
   text-align: center;
-  padding: 0px;
+  padding: 0 8px;
   width: auto;
 }
 .moon-simple-integer-picker.disabled,
@@ -78,7 +82,7 @@
   border-radius: @moon-picker-button-width/2;
   border-left-width: @moon-picker-button-width/2;
   border-left-style: solid;
-  border-left-color: @moon-orange;
+  border-left-color: @moon-spotlight-border-color;
   left: 6px;
 }
 
@@ -105,6 +109,26 @@
   border-radius: @moon-picker-button-width/2;
   border-right-width: @moon-picker-button-width/2;
   border-right-style: solid;
-  border-right-color: @moon-orange;
+  border-right-color: @moon-spotlight-border-color;
   right: 6px;
+}
+
+.moon-simple-integer-picker-button.left {
+	transform: rotate(270deg) translateZ(1px);
+	-o-transform: rotate(270deg) translateZ(1px);
+	-ms-transform: rotate(270deg) translateZ(1px);
+	-moz-transform: rotate(270deg) translateZ(1px);
+	-webkit-transform: rotate(270deg) translateZ(1px);
+}
+
+.moon-simple-integer-picker-button.right {
+	transform: rotate(90deg) translateZ(1px);
+	-o-transform: rotate(90deg) translateZ(1px);
+	-ms-transform: rotate(90deg) translateZ(1px);
+	-moz-transform: rotate(90deg) translateZ(1px);
+	-webkit-transform: rotate(90deg) translateZ(1px);
+}
+
+.spotlight .moon-simple-integer-picker-button {
+	background-image: @moon-scroller-spotlight;
 }

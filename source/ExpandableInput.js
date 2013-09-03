@@ -10,7 +10,6 @@ enyo.kind({
 	events: {
 		/**
 			Fires when the current text changes.
-
 			_inEvent.value_ contains the value of the input.
 		*/
 		onChange: ""
@@ -23,143 +22,91 @@ enyo.kind({
 		//* Initial value
 		value: ""
 	},
+	autoCollapse: true,
+	lockBottom: true,
+	
 	//* @protected
-	components: [
-		{
-			name: "header", kind: "moon.Item", spotlight: true,
-			onSpotlightFocus: "headerFocus", onSpotlightSelect: "expandDrawer", ontap: "expandDrawer",
-			classes: "moon-expandable-input-header"
-		},
-		{
-			name: "drawer", kind: "enyo.Drawer", onStep: "drawerAnimationStep", components: [{
-				name: "client",
-				kind: "moon.InputDecorator",
-				onSpotlightFocus: "inputFocus",
-				onSpotlightSelect: "expandDrawer",
-				spotlight: true,
-				components: [
-					{
-						name: "clientInput",
-						kind: "moon.Input"
-					}
-				]}
-			]
-		},
-		{
-			name: "currentValue", kind: "moon.Item", ontap: "expandDrawer", spotlight: false, content: "",
-			classes: "moon-expandable-input-current-value"
-		}
+	
+	componentOverrides: {
+		headerWrapper: {components: [
+			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
+			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+		]},
+		client: {name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
+			{name: "clientInput", kind: "moon.Input"}
+		]}
+	},
+	bindings: [
+		{from: ".value", to: ".$.clientInput.value"},
+		{from: ".placeholder", to: ".$.clientInput.placeholder"},
+		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
+		{from: ".currentValueText", to: ".$.currentValue.content"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.$.clientInput.setValue(this.value);
-		this.placeholderChanged();
-		this.noneTextChanged();
-		this.openChanged();
+	computed: {
+		"showCurrentValue": ["open"],
+		"currentValueText": ["value", "noneText"]
 	},
-	initComponents: function() {
-		this.controlParentName = "drawer";
-		this.discoverControlParent();
-		this.inherited(arguments);
-	},
-	updateContent: function() {
-		// text changed
-		if(this.value !== this.$.clientInput.value) {
-			this.setValue(this.$.clientInput.value);
+	
+	// Change handlers
+	valueChanged: function() {
+		if (this.generated) {
 			this.fireChangeEvent();
-		// no input text
-		} else if(this.value == "") {
-			this.$.currentValue.setContent(this.noneText);
-		// update the content of currentValue
-		} else if(this.value != this.$.currentValue.content) {
-			this.$.currentValue.setContent(this.value);
 		}
 	},
-	//* Updates _value_ and _content_ when _this.value_ changes. 
-	valueChanged: function(inOld) {
-		this.$.clientInput.setValue(this.value);
-		this.updateContent();
-	},
-	/**
-		Uses _this.placeholder_ as placeholder content if none has been specified.
-	*/
-	noneTextChanged: function() {
-		this.updateContent();
-	},
-	/**
-		Uses _this.placeholder_ as placeholder value for the input if no value has
-		been specified.
-	*/
-	placeholderChanged: function() {
-		this.$.clientInput.setPlaceholder(this.placeholder);
-	},
-	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
 	openChanged: function() {
 		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.open);
-	},
-	//* Expands a drawer, focusing or blurring the _moon.Input_.
-	expandDrawer: function(inSender, inEvent) {
-		this.updateContent();
-		this.expandContract();
-
-		if(!this.getOpen()) {
-			this.blur();
-			this.$.clientInput.blur();
-		} else {
-			this.$.clientInput.focus();
-			enyo.Spotlight.spot(this.$.client);
+		
+		if (!this.getOpen()) {
+			this.updateValue();
 		}
 	},
-	//* If drawer is closed, opens it and highlights first spottable child.
-	expandContract: function(inSender, inEvent) {
-		if (this.disabled) {
-			return true;
-		}
-		this.applyStyle("transition", "none");
-		if(!this.getOpen()) {
-			this.setActive(true);
-			this.$.client.onFocus();
-			this.$.client.focus();
-		} else {
+	
+	// Computed props
+	showCurrentValue: function() {
+		return !this.open;
+	},
+	currentValueText: function() {
+		return (this.value === "") ? this.noneText : this.value;
+	},
+	toggleActive: function() {
+		if (this.getOpen()) {
 			this.setActive(false);
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		} else {
+			this.setActive(true);
+			this.focusInput();
 		}
-		this.applyStyle("transition", null);
-		return true;
 	},
-	//* Updates _value_ when drawer is closed via "UP" direction keypress.
-	headerFocus: function(inSender, inEvent) {
-		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir === "UP") {
-			this.updateContent();
-			this.inherited(arguments);
-			return true;
-		} else if(!this.getOpen()) {
-			this.inherited(arguments);
-		}
+	//* Set _this.value_ to _this.$.clientInput.value_
+	updateValue: function() {
+		this.setValue(this.$.clientInput.getValue());
 	},
 	//* Focuses the _moon.Input_ when the input decorator receives focus.
 	inputFocus: function(inSender, inEvent) {
-		if(this.getOpen() && inEvent && inEvent.dir && inEvent.dir == "DOWN") {
-			this.$.clientInput.focus();
-			enyo.Spotlight.spot(this.$.client);
+		var direction = inEvent && inEvent.dir;
+		if (this.getOpen() && direction) {
+			this.focusInput();
 		}
 	},
-	/**
-		Checks for the last item in the client area and prevents 5-way focus
-		from moving below it, per UX specs.
-	*/
+	//* If navigating down from the header when the drawer is open, focus on the input field
 	spotlightDown: function(inSender, inEvent) {
-		if (inEvent.originator == this.$.client) {
-			return true;
+		if (inEvent.originator === this.$.headerWrapper && this.getOpen()) {
+			this.focusInput();
 		}
 	},
-	//* Fires an _onChange_ event.
-	fireChangeEvent: function() {
-		this.doChange({
-			value:this.value,
-		});
+	//* Focus on the input field
+	focusInput: function() {
+		this.$.clientInput.focus();
+		enyo.Spotlight.spot(this.$.clientInput);
 	},
-	//*@protected
+	//* If _this.lockBottom_ is _true_, don't allow user to navigate down from the input field
+	inputDown: function(inSender, inEvent) {
+		return this.getLockBottom();
+	},
+	//* Fires an _onChange_ event
+	fireChangeEvent: function() {
+		this.doChange({value: this.value});
+	},
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
 		if (inSender === this) {
 			this.$.header.startMarquee();

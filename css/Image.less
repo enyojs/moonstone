@@ -1,0 +1,30 @@
+.moon-image {
+	display: inline-block;
+}
+.moon-image.has-children {
+	position: relative;
+	overflow: hidden;
+}
+
+.moon-image > img {
+	display: block;
+}
+
+.moon-image-client {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(109, 109, 109, 1);
+	padding: 8px;
+	overflow: hidden;
+	display: block;
+}
+
+.moon-image.show-on-spotlight .moon-image-client {
+	display: none;
+}
+
+.spotlight .moon-image.show-on-spotlight .moon-image-client {
+	display: block;
+}

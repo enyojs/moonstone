@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.MovieImageItem",
-	classes: "moon-movie-list-item moon-3h moon-2v",
+	classes: "moon-movie-list-item moon-3h moon-8v",
 	spotlight: true,
 	published: {
 		option: {
@@ -41,7 +41,7 @@ enyo.kind({
 	kind: "moon.ContextualPopup",
 	components: [
 		{
-			classes: "moon-5h moon-3v", // Do not define size on ContextualPopup directly.
+			classes: "moon-5h moon-13v", // Do not define size on ContextualPopup directly.
 			components: [
 				{kind: "moon.Divider", content: "Log in to Service"},
 				{kind: "moon.InputDecorator", spotlight: true, components: [
@@ -50,7 +50,7 @@ enyo.kind({
 				{kind: "moon.InputDecorator", spotlight: true, components: [
 					{kind: "moon.Input", type:"password", placeholder: "Password", onchange:""}
 				]},
-				{content: "Log in setting Menu"},
+				{content: "Log in setting Menu asdf "},
 				{kind: "moon.Button", classes: "moon-light-gray", content: "Log in"},
 				{content: "or Connected with"},
 				{kind: "moon.Button", classes: "moon-light-gray", content: "FACEBOOK"},
@@ -66,46 +66,50 @@ enyo.kind({
 	name: "moon.sample.login.ContextualPopupSample",
 	kind: "moon.Panels",
 	components: [
-		{title: "Main Menu", components: [
+		{title: "Main Menu", classes:"moon-6h", components: [
 			{name: "menuList", kind: "enyo.DataList", scrollerOptions: { kind:"moon.Scroller"}, components: [
-				{bindFrom: "menuItem", kind: "moon.Item", ontap: "changePanel"}
+				{kind: "moon.Item", ontap: "changePanel", bindings: [
+					{from: ".model.menuItem", to: ".content"}
+				]}
 			]}
 		]},
 		{joinToPrev: true, components: [
 			{kind: "moon.Scroller", fit: true, components: [
 				{name: "contentList", kind: "enyo.DataGridList", components: [
-					{kind: "moon.MovieImageItem", bindFrom: "itemOption", bindTo: "option"}
+					{kind: "moon.MovieImageItem", bindings: [
+						{from: ".model.itemOption", to: ".option"}
+					]}
 				]},
 				{name: "buttonList", layoutkind: "FittableRowsLayout", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
 						{kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
 							{tag: "img", attributes: {src: "../assets/icon-half-like.png"}},
-							{content: "LIKE"}
+							{content: "Like"}
 						]},
 						{kind: "moon.ContextualLoginPopup"}
 					]},
 					{kind: "moon.ContextualPopupDecorator", components: [
-						{classes: "moon-2h", content: "SHARE"},
+						{classes: "moon-2h", content: "Share"},
 						{kind: "moon.ContextualLoginPopup"}
 					]}
 				]}
 			]}
 		]}
 	],
-	
+
 	bindings: [
-		{from: ".controller.menus", to: "$.menuList.controller"},
-		{from: ".controller.contents", to: "$.contentList.controller"}
+		{from: ".controller.menus", to: ".$.menuList.controller"},
+		{from: ".controller.contents", to: ".$.contentList.controller"}
 	]
- });
+});
 
 // Sample model
 
 enyo.ready(function(){
 	var sampleModel = new enyo.Model({
 		menus: new enyo.Collection([
-			{menuItem: "Browser Movies"},
-			{menuItem: "Browser TV Shows"},
+			{menuItem: "Browse Movies"},
+			{menuItem: "Browse TV Shows"},
 			{menuItem: "Queue"},
 			{menuItem: "Search"}
 		]),
@@ -123,7 +127,6 @@ enyo.ready(function(){
 		view: {
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{
 					kind: "moon.sample.login.ContextualPopupSample",
 					controller: ".app.controllers.movieController",

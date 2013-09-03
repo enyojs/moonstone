@@ -2,14 +2,14 @@
 
 enyo.kind({
     name: "moon.sample.photo.AlbumListItem",
-    classes: "moon-album-list-item moon-3h moon-1v",
-    
+    classes: "moon-album-list-item moon-3h moon-4v",
+
     published: {
         option: {
             src: "",
             bgSrc: "",
             caption: ""
-        }        
+        }
     },
 
     components:[
@@ -21,12 +21,12 @@ enyo.kind({
                         {
                             name : "bgImage",
                             kind : "enyo.Image",
-                            classes : "front-image moon-3h moon-1v",
+                            classes : "front-image moon-3h moon-4v",
                             components : [
                                 {
                                     name : "image",
                                     kind : "enyo.Image",
-                                    classes : "back-image moon-3h moon-1v"
+                                    classes : "back-image moon-3h moon-4v"
                                 }
                             ]
                         }
@@ -59,9 +59,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components: [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components: [
                         {
@@ -71,8 +71,9 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "moon.sample.photo.AlbumListItem",
-                                    bindFrom: "imgOption",
-                                    bindTo: "option"
+                                    bindings: [
+										{from: ".model.imgOption", to: ".option"}
+									]
                                 }
                             ]
                         }
@@ -83,7 +84,7 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 
@@ -101,7 +102,7 @@ enyo.ready(function(){
             {imgOption: {src: "../assets/default-movie.png", bgSrc: "../assets/bg-movie.png", caption: "Album Name"}},
             {imgOption: {src: "../assets/default-movie.png", bgSrc: "../assets/bg-movie.png", caption: "Album Name"}},
             {imgOption: {src: "../assets/default-movie.png", bgSrc: "../assets/bg-movie.png", caption: "Album Name"}}
-        ])        
+        ])
     });
 
 //  Application to render sample
@@ -110,7 +111,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.AlbumGridSample",
                     controller: ".app.controllers.photoController",

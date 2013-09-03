@@ -20,9 +20,9 @@ enyo.kind({
             kind: "FittableRows",
             fit: true,
             components: [
-                {                   
+                {
                     kind: "moon.Scroller",
-                    classes: "enyo-fill",                    
+                    classes: "enyo-fill",
                     touch: true,
                     components: [
                         {
@@ -32,9 +32,8 @@ enyo.kind({
                             components: [
                                 {
                                     kind: "enyo.Image",
-                                    classes: "moon-3h moon-1v",
-                                    bindFrom: "imgSrc",
-                                    bindTo: "src"
+                                    classes: "moon-3h moon-4v",
+									bindings: [{from: ".model.imgSrc", to: ".src"}]
                                 }
                             ]
                         }
@@ -45,7 +44,7 @@ enyo.kind({
     ],
 
     bindings: [
-        {from: ".controller.menus", to: "$.menuList.controller"}
+        {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
 });
 
@@ -64,7 +63,7 @@ enyo.ready(function(){
             {imgSrc: "../assets/default-movie.png"},
             {imgSrc: "../assets/default-movie.png"},
             {imgSrc: "../assets/default-movie.png"}
-        ])        
+        ])
     });
 
 //  Application to render sample
@@ -73,7 +72,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.PhotoGridSample",
                     controller: ".app.controllers.photoController",

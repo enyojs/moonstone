@@ -10,14 +10,27 @@
 	line-height: 1.97em;
 	vertical-align: middle;
 	white-space: nowrap;
-	color: #fff;
+	color: @moon-tooltip-text-color;
 	text-align: center;
 	padding: 0px 24px;
-	background-color: #4b4b4b;
+	background-color: @moon-tooltip-bg-color;
 	border-radius: 30px;
 }
 .moon-tooltip.below {
 	top: 100%;
+	transform: translateY(5px);
+	-o-transform: translateY(5px);
+	-ms-transform: translateY(5px);
+	-moz-transform: translateY(5px);
+	-webkit-transform: translateY(5px);
+}
+.moon-tooltip.above {
+	top: 100%;
+	transform: translateY(-5px);
+	-o-transform: translateY(-5px);
+	-ms-transform: translateY(-5px);
+	-moz-transform: translateY(-5px);
+	-webkit-transform: translateY(-5px);
 }
 .moon-tooltip.below > .moon-tooltip-label {
 	margin: 9px 0px 0px;

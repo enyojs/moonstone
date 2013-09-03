@@ -28,6 +28,7 @@ enyo.depends(
 	"PagingControl.js",
 	"IntegerPicker.js",
 	"IntegerScrollPicker.js",
+	"DateTimePickerBase.js",
 	"DatePicker.js",
 	"TimePicker.js",
 	"Input.js",
@@ -66,11 +67,19 @@ enyo.depends(
 	"VideoTransportSlider.js",
 	"VideoFeedback.js",
 	"VideoFullscreenToggleButton.js",
+	"ChannelInfo.js",
+	"Clock.js",
+	"VideoInfoBackground.js",
 	"DrawerHandle.js",
 	"Drawer.js",
 	"Drawers.js",
 	"HighlightText.js",
 	"ObjectActionDecorator.js",
 	"FormCheckbox.js",
-	"DataGridList.js"
+	"DataGridList.js",
+	"SelectionOverlaySupport.js",
+	"Image.js",
+	"ImageBadge.js",
+	"ExpandableText.js",
+	"BodyText.js"
 );

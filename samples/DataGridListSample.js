@@ -2,14 +2,14 @@ enyo.kind({
 	name: "moon.sample.DataGridListSample",
 	classes: "moon enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
-		{name: "gridList", spacing: 20, minWidth: 180, minHeight: 240, kind: "moon.DataGridList", components: [
+		{name: "gridList", spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
 			{
 				kind: "moon.GridListImageItem",
 				subCaption: "Sub Caption",
 				source: "./assets/default-music.png",
-				bindFrom: ".text",
-				bindTo: ".caption"
+				bindings: [
+					{from: ".model.text", to: ".caption"}
+				]
 			}
 		]}
 	],
@@ -21,5 +21,5 @@ enyo.kind({
 		}
 		c.add(r$);
 		this.$.gridList.set("controller", c);
-	}	
+	}
 });

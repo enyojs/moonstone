@@ -7,7 +7,16 @@
 @moon-dark-gray: #4B4B4B;
 @moon-light-gray: #EDEDED;
 @moon-orange: #FFB80D;
-@moon-active-border-color: #A2A2A2;
+@moon-black: #000000;
+@moon-pink: #ff2f7d;
+@moon-white: #ffffff;
+
+@moon-neutral-bg-color: #555555;
+@moon-neutral-text-color: @moon-light-gray;
+@moon-neutral-child-text-color: @moon-white;
+@moon-neutral-scroller-icon: url(../images/DarkTheme_Icons/scroller_icon.png);
+@moon-neutral-border-color: @moon-white;
+
 
 /* Font */
 /* ---------------------------------------*/
@@ -19,16 +28,17 @@
 @moon-header-super-text-size: 36px;
 @moon-header-sub-text-size: 18px;
 @moon-searchheader-text-size: 36px;
-@moon-font-color-light: #4B4B4B;
 @moon-superscript-text-size: 24px;
 @moon-large-text-size: 48px;
 @moon-pre-text-size: 24px;
 
 @moon-header-font-family: "Miso";
 @moon-header-font-weight: normal;
-@moon-header-font-size: 140px;
+@moon-header-font-size: 126px;
 @moon-header-letter-spacing: -0.05em;
 @moon-header-font-style: normal;
+@moon-header-line-height: 1.08em;
+@moon-small-header-line-height: 0.96em;
 
 @moon-sub-header-font-family: "MuseoSans 700";
 @moon-sub-header-font-weight: normal;
@@ -42,7 +52,7 @@
 @moon-body-font-size: 26px;
 @moon-body-letter-spacing: -0.04em;
 @moon-body-font-style: normal;
-@moon-body-line-height: 1.5em;
+@moon-body-line-height: @moon-body-font-size + 6;
 @moon-text-size: @moon-body-font-size;
 
 @moon-divider-font-family: "MuseoSans 700";
@@ -60,7 +70,6 @@
 
 @accordion-sub-menu-line-height: 1.7em;
 
-@moon-light-text-color: @moon-dark-gray;
 
 /* Disabled Opacity */
 /* ---------------------------------------*/
@@ -68,19 +77,20 @@
 
 /* Images */
 /* ---------------------------------------*/
-@moon-checkbox-image: url(../images/checkbox.png);
-@moon-checkbox-image-height: 36px;
-@moon-checkbox-image-width: 36px;
-@moon-checkbox-width: 50px;
+@moon-checkbox-image-height: 32px;
+@moon-checkbox-image-width: 32px;
+@moon-checkbox-width: 40px;
 
-@moon-formcheckbox-width: 37px;
-@moon-formcheckbox-width-with-padding: 47px;
-@moon-formcheckbox-image-height: 37px;
+@moon-formcheckbox-image-width: 50px;
+@moon-formcheckbox-image-height: 50px;
 
 @moon-spinner-light-image: url(../images/spinner-large-light.gif);
 @moon-spinner-dark-image: url(../images/spinner-large-dark.gif);
 @moon-spinner-image-width: 260px;
 @moon-spinner-image-height: 52px;
+
+@moon-close-image-height: 32px;
+@moon-close-image-width: 32px;
 
 /* Icon Sizes */
 /* ---------------------------------------*/
@@ -93,28 +103,10 @@
 
 /* Spotlight */
 /* ---------------------------------------*/
-@moon-spotlight-transition: border-width 0.1s linear, padding 0.1s linear;
-@moon-spotlight-overlay-transition: height 0.1s linear, width 0.1s linear;
-
-@moon-no-spotlight-border-width: 0px;
-@moon-no-spotlight-border-color: transparent;
-@moon-no-spotlight-border-style: solid;
-@moon-no-spotlight-padding-left: 0px;
-@moon-no-spotlight-padding-right: 24px;
-
-@moon-spotlight-border-width: 24px;
-@moon-spotlight-border-color: @moon-orange;
-@moon-spotlight-border-style: solid;
-@moon-spotlight-padding-left: 8px;
-@moon-spotlight-padding-right: 0px;
-
-/* @moon-spotlight-border-width + @moon-spotlight-padding-left */
-@moon-data-table-spotlight-offset: 32px;
+@moon-spotlight-outset: 10px;
 
 /* Button */
 /* ---------------------------------------*/
-@moon-button-background-color: #ffffff;
-@moon-button-disabled-color: #b3b3b3;
 @moon-button-height: 105px;
 @moon-button-small-height: 60px;
 @moon-button-border-width: 5px;
@@ -129,9 +121,8 @@
 /* Input */
 /* ---------------------------------------*/
 @moon-input-border-width: 5px;
-@moon-input-border-color: rgb(234, 234, 234);
 @moon-input-font-size: @moon-body-font-size;
-@moon-input-font-color: @moon-dark-gray;
+
 
 /* Pickers */
 /* ---------------------------------------*/
@@ -146,7 +137,6 @@
 @moon-item-line-height: 1.12em;
 
 /* Divider */
-@moon-divider-border-color: #b5b5b5;
 @moon-divider-border-width: 2px;
 
 /* Breadcrumb */
@@ -164,14 +154,13 @@
 
 /* IntegerScrollPicker */
 /* ---------------------------------------*/
-@moon-shadow-color: rgba(0, 0, 0, 0.13);
 
 /* Grid Dimensions */
 /* ---------------------------------------*/
-@moon-grid-gutter-width: 10px;
-@moon-grid-gutter-height: 10px;
-@moon-grid-column-width: 70px;
-@moon-grid-row-height: 170px;
+@moon-grid-gutter-width: 20px;
+@moon-grid-gutter-height: 0px;
+@moon-grid-column-width: 60px;
+@moon-grid-row-height: 40px;
 
 /* ObjectActionDecorator */
 /* ---------------------------------------*/

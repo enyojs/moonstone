@@ -10,27 +10,22 @@ enyo.kind({
     ],
     components: [
         {kind: "FittableColumns", classes: "enyo-fit", noStretch: true, components: [
-            {
-                name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"
-            },
+            {name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"},
             {
                 kind: "FittableRows",
                 fit: true,
                 components: [
                     {
-                        kind: "HFlexBox",
-                        // TODO: remove this style after scroller is update to handle correctly flex layout's height and width
-                        style: "height: 100px;",
                         components: [
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Rating"},
                                 {name: "rating"}
                             ]},
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Release Date"},
                                 {name: "releaseDate"}
                             ]},
-                            {flex: true, components: [
+                            {components: [
                                 {kind: "moon.Divider", content: "Running Time"},
                                 {name: "duration"}
                             ]}
@@ -62,50 +57,49 @@ enyo.kind({
         ]}
     ],
     bindings: [
-        {from: ".controller.posterUrl", to: "$.movie.src"},
-        {from: ".controller.rating", to: "$.rating.content"},
-        {from: ".controller.releaseDate", to: "$.releaseDate.content"},
-        {from: ".controller.duration", to: "$.duration.content"},
-        {from: ".controller.synopsisHeader", to: "$.synopsisHeader.content"},
-        {from: ".controller.synopsisBody", to: "$.synopsisBody.content"}
+        {from: ".controller.posterUrl", to: ".$.movie.src"},
+        {from: ".controller.rating", to: ".$.rating.content"},
+        {from: ".controller.releaseDate", to: ".$.releaseDate.content"},
+        {from: ".controller.duration", to: ".$.duration.content"},
+        {from: ".controller.synopsisHeader", to: ".$.synopsisHeader.content"},
+        {from: ".controller.synopsisBody", to: ".$.synopsisBody.content"}
     ]
 });
 
 // Sample model
 
 enyo.ready(function(){
-    var sampleModel = new enyo.Model({
-        posterUrl: "http://placehold.it/350x390",
-        rating: "PG-13",
-        releaseDate: "2013",
-        duration: "122",
-        valueSD: "$3.99",
-        valueHD: "$6.99",
-        value3D: "$7.99",
-        synopsisHeader: "<b>Starring: </b>Actor Name, Actor Name, and Actor Name",
-        synopsisBody: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
-    });
+	var sampleModel = new enyo.Model({
+		posterUrl: "http://placehold.it/350x390",
+		rating: "PG-13",
+		releaseDate: "2013",
+		duration: "122",
+		valueSD: "$3.99",
+		valueHD: "$6.99",
+		value3D: "$7.99",
+		synopsisHeader: "<b>Starring: </b>Actor Name, Actor Name, and Actor Name",
+		synopsisBody: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
+	});
 
 //  Application to render sample
 
     new enyo.Application({
-        view: {
-            classes: "enyo-unselectable moon",
-            components: [
-                {kind: "enyo.Spotlight"},
-                {
-                    kind: "moon.sample.video.DetailWideSample2",
-                    controller: ".app.controllers.movieController",
-                    classes: "enyo-fit"
-                }
-            ]
-        },
-        controllers: [
-            {
-                name: "movieController",
-                kind: "enyo.ModelController",
-                model: sampleModel
-            }
-        ]
-    });
+		view: {
+			classes: "enyo-unselectable moon",
+			components: [
+				{
+					kind: "moon.sample.video.DetailWideSample2",
+					controller: ".app.controllers.movieController",
+					classes: "enyo-fit"
+				}
+			]
+		},
+		controllers: [
+			{
+				name: "movieController",
+				kind: "enyo.ModelController",
+				model: sampleModel
+			}
+		]
+	});
 });

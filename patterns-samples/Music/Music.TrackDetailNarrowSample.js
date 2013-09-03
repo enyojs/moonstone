@@ -50,11 +50,11 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    kind: "moon.Divider", 
+                    kind: "moon.Divider",
                     content: "More"
                 },
                 {
-                    kind: "Group", 
+                    kind: "Group",
                     components: [
                         {kind: "moon.SelectableItem", content: "Lyrics"},
                         {kind: "moon.SelectableItem", content: "Artist"},
@@ -67,9 +67,9 @@ enyo.kind({
         }
     ],
     bindings: [
-        {from: ".controller.coverUrl", to: "$.image.src"},
-        {from: ".controller.released", to: "$.released.content"},
-        {from: ".controller.genre", to: "$.genre.content"}
+        {from: ".controller.coverUrl", to: ".$.image.src"},
+        {from: ".controller.released", to: ".$.released.content"},
+        {from: ".controller.genre", to: ".$.genre.content"}
     ]
 });
 
@@ -88,7 +88,6 @@ enyo.ready(function() {
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackDetailNarrowSample",
                     controller: ".app.controllers.trackController",

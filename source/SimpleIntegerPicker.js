@@ -22,8 +22,7 @@ enyo.kind({
 		*/
 		onChange: "",
 		/**
-			Fires in response to Return keypress while the picker has focus in
-			Spotlight 5-way mode.
+			Fires in response to Return keypress while the picker has focus in Spotlight 5-way mode.
 
 			_inEvent.value_ contains the value of the currently selected item.
 
@@ -32,8 +31,6 @@ enyo.kind({
 		onSelect: ""
 	},
 	handlers: {
-		onTransitionStart: "transitionStart",
-		onTransitionFinish:"transitionFinished",
 		onSpotlightSelect: "fireSelectEvent",
 		onSpotlightRight: "next",
 		onSpotlightBlur: "spotlightBlur",
@@ -48,61 +45,105 @@ enyo.kind({
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
-		content: "sec",
 		value: -1,
 		min: 1,
 		max: 9,
 		step: 1,
 		unit: "sec"
 	},
-	indexhash: [],
+	indexhash: null,
+	firstflow: true,
+
+
 	//* @protected
+
 	components: [
-		{name:"leftOverlay", classes:"moon-scroll-picker-overlay-container-left", showing:false, components:[
-			{classes:"moon-scroll-picker-overlay-left"},
-			{classes:"moon-scroll-picker-overlay-left-border"}
+		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
+			{classes: "moon-scroll-picker-overlay-left"},
+			{classes: "moon-scroll-picker-overlay-left-border"}
 		]},
-		{name:"rightOverlay", classes:"moon-scroll-picker-overlay-container-right", showing:false, components:[
-			{classes:"moon-scroll-picker-overlay-right"},
-			{classes:"moon-scroll-picker-overlay-right-border"}
+		{name: "rightOverlay", classes: "moon-scroll-picker-overlay-container-right", showing: false, components:[
+			{classes: "moon-scroll-picker-overlay-right"},
+			{classes: "moon-scroll-picker-overlay-right-border"}
 		]},
-		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:"<", ontap:"previous", name:"buttonLeft"},
-		{kind:"enyo.Panels", classes:"moon-simple-integer-picker-client", controlClasses:"moon-simple-integer-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client"},
-		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:">", ontap:"next", name:"buttonRight"}
+		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
+		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
+			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
+		},
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
+	bindings: [
+		{from: ".animate",  to: ".$.client.animate"},
+		{from: ".disabled", to: ".$.buttonLeft.disabled"},
+		{from: ".disabled", to: ".$.buttonRight.disabled"},
+		{from: ".$.client.index",   to: ".index"}
+	],
+	//* @public
+
+	//* Cycles the selected item to the one before the currently selected item.
+	previous: function() {
+		this.$.client.previous();
+		return true;
+	},
+	//* Cycles the selected item to the one after the currently selected item.
+	next: function() {
+		this.$.client.next();
+		return true;
+	},
+	//* Facade for currently active panel
+	getContent: function() {
+		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
+	},
+
+	//* @protected
+
 	create: function() {
 		this.inherited(arguments);
-		this.populate();
-		this.animateChanged();
-		this.valueChanged();
+		this.populateIndexhash();
 		this.disabledChanged();
 	},
 	rendered: function() {
+		this.valueChanged();
 		this.inherited(arguments);
-		this._rendered = true;
 	},
-	populate: function() {
-		for(var i=this.min; i<=this.max; i=i+this.step) {
+	populateIndexhash: function() {
+		this.indexhash = [];
+		var valueValid = false;
+
+		for (var i = this.min; i <= this.max; i += this.step) {
 			this.createComponent({content: i + " " + this.unit, value: i});
 			this.indexhash[i] = this.$.client.getPanels().length - 1;
+			if (i == this.value) {
+				valueValid = true;
+			}
+		}
+		if (!valueValid) {
+			this.value = this.min;
 		}
 	},
-	createComponents: function(inC, inOpts) {
-		var inherited = this.createComponents._inherited;
-		if (this.$.client) {
-			inOpts = inOpts || {};
-			inOpts.container = this.$.client;
-		}
-		return inherited.call(this, inC, inOpts);
+
+	// Change handlers
+	disabledChanged: function() {
+		this.addRemoveClass("disabled", this.getDisabled());
 	},
-	createComponent: function(inC, inOpts) {
-		var inherited = this.createComponent._inherited;
-		if (this.$.client) {
-			inOpts = inOpts || {};
-			inOpts.container = this.$.client;
+	valueChanged: function(inOld) {
+		if (this.$.client && this.$.client.hasNode()) {
+			this.$.client.setIndex(this.lookupIndex(this.value));
 		}
-		return inherited.call(this, inC, inOpts);
 	},
+	indexChanged: function() {
+		this.updateValue();
+	},
+
+	//* Find appropriate index in _this.$.client_ panels based on _inValue_
+	lookupIndex: function(inValue) {
+		return (this.indexhash && this.indexhash.length > 0) ? this.indexhash[inValue] : -1;
+	},
+	//* Quietly update _this.value_ when _this.index_ changes
+	updateValue: function() {
+		this.value = (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().value : this.value;
+	},
+	//* On reflow, update the bounds of _this.$.client_
 	reflow: function() {
 		this.inherited(arguments);
 
@@ -117,19 +158,7 @@ enyo.kind({
 				c$[i].setBounds({width:width});
 			}
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
-
-		// Make sure selected item is in sync after Panels reflow, which may have
-		// followed an item being added/removed
-		// if (this.value != this.$.client.getActive().value) {
-		//   this.setValue(this.$.client.getActive().value);
-		//   this.fireChangedEvent();
-		// }
-	},
-	hideOverlay: function() {
-		this.$.leftOverlay.setShowing(false);
-		this.$.rightOverlay.setShowing(false);
 	},
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
@@ -137,59 +166,28 @@ enyo.kind({
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
 			this.$.rightOverlay.show();
 		}
+		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-		this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;
-		this.fireChangedEvent();
-		this.hideOverlay();
+		this.fireChangeEvent();
+		this.hideOverlays();
 		return true;
 	},
 	spotlightBlur: function() {
-		this.hideOverlay();
+		this.hideOverlays();
+	},
+	hideOverlays: function() {
+		this.$.leftOverlay.setShowing(false);
+		this.$.rightOverlay.setShowing(false);
 	},
 	fireSelectEvent: function () {
-		if (this._rendered) {
-			var _this = this;
-			this.doSelect({
-				content: _this.content,
-				value: _this.value
-			});
+		if (this.hasNode()) {
+			this.doSelect({content: this.getContent(), value: this.value});
 		}
 	},
-	fireChangedEvent: function() {
-		if (this._rendered) {
-			var _this = this;
-			this.doChange({
-				content: _this.content,
-				value: _this.value
-			});
+	fireChangeEvent: function() {
+		if (this.hasNode()) {
+			this.doChange({content: this.getContent(), value: this.value});
 		}
-	},
-	disabledChanged: function() {
-		this.addRemoveClass("disabled", this.disabled);
-		this.$.buttonLeft.setDisabled(this.disabled);
-		this.$.buttonRight.setDisabled(this.disabled);
-	},
-	animateChanged: function() {
-		this.$.client.setAnimate(this.animate);
-	},
-	valueChanged: function(inOld) {
-		if ((this.$.client.getIndex() != this.indexhash[this.value])) {
-			this.$.client.setIndex(this.indexhash[this.value]);
-			this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-		}
-	},
-	//* @public
-	//* Cycles the selected item to the one before the currently selected item.
-	previous: function() {
-		this.$.client.previous();
-		return true;
-	},
-	//* @public
-	//* Cycles the selected item to the one after the currently selected item.
-	next: function() {
-		this.$.client.next();
-		return true;
 	}
 });

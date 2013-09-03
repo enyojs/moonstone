@@ -3,27 +3,80 @@
 	overflow: hidden;
 	padding: 0;
 	margin: 0;
+	height: 100%;
+}
+.moon-panel-viewport {
+	-webkit-transform: scale3d(1,1,1);
+	overflow: hidden;
+	position: relative;
 }
 .moon-panel-content-wrapper {
 	-webkit-transform: scale3d(1,1,1);
-	overflow: hidden !important;
-	margin: 0 !important;
-	padding: 0 !important;
-	border: none !important;
-	position: absolute !important;
-	top: 0 !important;
-	left: 0 !important;
+	padding: @moon-spotlight-outset;
+	z-index: 2;
+	box-sizing: border-box;
 }
 .moon-panel-body {
 	overflow: hidden;
 	position: relative;
+	padding-top: 10px;
 }
-.moon-panel-miniheader {
+
+/* Breadcrumb */
+.moon-panel-breadcrumb {
+	-webkit-transform: scale3d(1,1,1);
+	width: 220px;
+	height: 370px;
 	position: absolute;
-	top: 94px;
-	left: 10px;
-	height: 60px;
-	width: 160px;
+	top: 0px;
+	left: 0px;
+}
+.moon-panel-breadcrumb-viewport {
+	-webkit-transform: scale3d(1,1,1);
+	position: absolute;
+	bottom: 0px;
+	left: 9px;
+	right: 0px;
+	height: 200px;
+	overflow: hidden;
+}
+.moon-panel-mini-header-wrapper {
+	-webkit-transform: scale3d(1,1,1);
+	margin: @moon-spotlight-outset 0 0;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 360px;
+	width: 100%;
+	padding: 9px @moon-spotlight-outset @moon-spotlight-outset;
+	box-sizing: border-box;
+	border-top: 1px solid @moon-white;
+}
+.moon-panel-mini-header {
+	margin-top: 20px;
 	line-height: 28px;
 	font-size: 26px;
+	color: @moon-white;
+	display: block;
+	overflow: hidden;
+	padding: 0px;
+}
+.moon-panel-mini-header-title-above {
+	.moon-header-title-above;
+	.moon-header-font;
+	color: @moon-white;
+}
+
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+	background: @moon-pink;
+	color: @moon-white;
+}
+
+/* Activity Panels Overrides */
+.activity-panels .moon-panel-mini-header-wrapper {
+	border-top: 1px solid @moon-header-border-color;
+}
+.activity-panels .moon-panel-mini-header,
+.activity-panels .moon-panel-mini-header-title-above {
+	color: @moon-header-text-color;
 }
