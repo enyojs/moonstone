@@ -8,12 +8,31 @@ enyo.kind({
 	min: 0,
 	max: 1,
 	value: null,
+	tf: null,
 	published: {
-		meridiems: ["AM","PM"]
+		meridiems: []
+	},
+	create: function () {
+		this.inherited(arguments);
+		this.setMeridians();
+		this.max = this.meridiems.length - 1;
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.item.setContent(this.meridiems[index]);
+	},
+	setMeridians: function () {
+		if (this.tf) {
+			var sysres = this.tf.sysres; // this gives an ilib.ResBundle object
+			var i = 0;
+			this.meridiems = [];
+			while(sysres.map["a" + i]) {
+				this.meridiems.push(sysres.map["a" + i]);
+				i++;
+			}
+		} else {
+			this.meridiems = ["AM", "PM"];
+		}
 	}
 });
 
@@ -51,18 +70,18 @@ enyo.kind({
 			return {
 				min : 1,
 				max : 24
-			};
+			}
 		} else {
 			if (this.isMeridianEnable()) {
 				return {
 					min : (this.tf.getTimeComponents().indexOf("K") > -1) ? 0 : 1,
 					max : (this.tf.getTimeComponents().indexOf("K") > -1) ? 11 : 12
-				};
+				}
 			} else {
 				return {
 					min : (this.tf.getTimeComponents().indexOf("H") > -1) ? 0 : 1,
 					max : (this.tf.getTimeComponents().indexOf("H") > -1) ? 23 : 24
-				};
+				}
 			}
 		}
 	},
@@ -137,7 +156,7 @@ enyo.kind({
 				if (this.meridiemEnable === true) {
 					this.createComponent(
 						{kind:"enyo.Control", name: "meridianWrapper", classes: "moon-date-picker-wrap", components:[
-							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 }
+							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0, tf: this._tf }
 						]}
 					);
 				}
@@ -189,7 +208,7 @@ enyo.kind({
 			this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
 			this.$.hour.setValue(hour);
 		}
-
+		
 		this.setValue(new Date(this.value.getFullYear(),
 							this.value.getMonth(),
 							this.value.getDate(),
