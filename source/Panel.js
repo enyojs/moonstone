@@ -187,7 +187,6 @@ enyo.kind({
 	//* Updates _this.header_ when _title_ changes.
 	titleChanged: function() {
 		this.$.header.setTitle(this.getTitle());
-		this.$.miniHeader.setContent(this.getTitle());
 	},
 	//* Updates _this.header_ when _titleAbove_ changes.
 	titleAboveChanged: function() {
@@ -232,11 +231,7 @@ enyo.kind({
 	},
 	shrinkingWidthAnimation: function() {
 		this.haltAnimations();
-		
 		this.preTransitionComplete();
-		// NOTE - Skipping width shrink animation
-		// this.$.breadcrumbBackground.applyStyle("width", "300px");
-		// this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
 		this.haltAnimations();
@@ -257,7 +252,7 @@ enyo.kind({
 		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		// run miniHeader marquee when we're collapsed
+		// run breadcrumbText marquee when we're collapsed
 		if(this.showingSmallHeader) {
 			this.$.breadcrumbText.startMarquee();
 		} else {
