@@ -27,12 +27,47 @@ enyo.kind({
 	min: 1,
 	max: 24,
 	value: null,
+	tf: null,
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
 		if(index > 11) {	//current hour reached meridiem(noon)
 			index -= 12;
 		}
-		this.$.item.setContent(index + this.min);
+		this.$.item.setContent(index + this.getHourRange().min);
+	},
+	getValue: function () {
+		// Note that in a 24-hour clock, it should return the value 0 for hour labeled "24"
+		return (!this.isMeridianEnable() && this.value === 24) ? 0 : this.value;
+	},
+	//*@protected
+	/**
+		Hours values returned from the picker should go from 0 to 23, but the labels on the picker items should go either from 0 to 23 or 1 to 24, depending on the locale. 
+		Locales that use the hours format as "k" or "kk" should have labels that go from 1 to 24, and locales that use "H" or "HH" should go from 0 to 23. 
+		Similarly, when the locale uses the format "h" or "hh", the hours go from 1 to 12, and when it uses "K" or "KK", it goes from 0 to 11. 
+		The max and min should be set accordingly.
+	*/
+	getHourRange: function () {
+		if (!this.tf) {
+			return {
+				min : 1,
+				max : 24
+			};
+		} else {
+			if (this.isMeridianEnable()) {
+				return {
+					min : (this.tf.getTimeComponents().indexOf("K") > -1) ? 0 : 1,
+					max : (this.tf.getTimeComponents().indexOf("K") > -1) ? 11 : 12
+				};
+			} else {
+				return {
+					min : (this.tf.getTimeComponents().indexOf("H") > -1) ? 0 : 1,
+					max : (this.tf.getTimeComponents().indexOf("H") > -1) ? 23 : 24
+				};
+			}
+		}
+	},
+	isMeridianEnable: function () {
+		return this.tf && this.tf.getClock() === "12";
 	}
 });
 
@@ -67,7 +102,7 @@ enyo.kind({
 	defaultOrdering: "hma",
 	initILib: function() {
 		this.inherited(arguments);
-		this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
+		this.meridiemEnable = this.isMeridianEnable();
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.toLowerCase().split("");
@@ -84,49 +119,40 @@ enyo.kind({
 			o = doneArr[f];
 		
 			switch (o){
-			case 'h': {
-					if (this.meridiemEnable === true) {
-						this.createComponent(
-							{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)}
-							]}
-						);
-					} else {
-						this.createComponent(
-							{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()}
-							]}
-						);
-					}
-				}
+			case 'h': 
+				this.createComponent(
+					{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
+						{kind:"moon.HourPicker", name:"hour", value: (this.value.getHours() || 24), tf: this._tf}
+					]}
+				);
 				break;
-			case 'm': {
+			case 'm':
+				this.createComponent(
+					{kind:"enyo.Control", name: "minuteWrapper", classes: "moon-date-picker-wrap", components:[
+						{kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()}
+					]}
+				);			
+				break;
+			case 'a':
+				if (this.meridiemEnable === true) {
 					this.createComponent(
-						{kind:"enyo.Control", name: "minuteWrapper", classes: "moon-date-picker-wrap", components:[
-							{kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()}
+						{kind:"enyo.Control", name: "meridianWrapper", classes: "moon-date-picker-wrap", components:[
+							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 }
 						]}
 					);
-				}
-				break;
-			case 'a': {
-					if (this.meridiemEnable === true) {
-						this.createComponent(
-							{kind:"enyo.Control", name: "meridianWrapper", classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 }
-							]}
-						);
-					}
 				}
 				break;
 			default:
 				break;
 			}
-		
 		}
 
 		this.$.hourWrapper.createComponent({ kind:"enyo.Control", name: "hourLabel", content : this.hourText ? this.hourText : "hour", classes: "moon-date-picker-label"}, {owner: this});
 		this.$.minuteWrapper.createComponent({ kind:"enyo.Control", name: "minuteLabel", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
-		this.$.meridianWrapper.createComponent({ kind:"enyo.Control", name: "meridianLabel", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+		
+		if (this.isMeridianEnable()) {
+			this.$.meridianWrapper.createComponent({ kind:"enyo.Control", name: "meridianLabel", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
+		}
 
 		this.inherited(arguments);
 	},
@@ -185,6 +211,10 @@ enyo.kind({
 		this.$.currentValue.setContent(this.formatValue());
 		this.doChange({name:this.name, value:this.value});
 	},
+	//*@protected
+	isMeridianEnable: function () {
+		return this._tf && this._tf.getClock() === "12";
+	},	
 	hourTextChanged: function (inOldvalue, inNewValue) {
 		this.$.hourLabel.setContent(inNewValue);
 	},
