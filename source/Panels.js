@@ -108,13 +108,12 @@ enyo.kind({
 	},
 	//* Destroy right panel and create panel without transition effect. */
 	replacePanel: function(index, inInfo, inMoreInfo) {
-		var panels = this.getPanels(),
-			oPanel = null;
+		var oPanel = null;
 
-		if (panels.length > index) {
-			panels[index].destroy();
-			if (panels.length > index) {
-				inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+		if (this.getPanels().length > index) {
+			this.getPanels()[index].destroy();
+			if (this.getPanels().length > index) {
+				inMoreInfo = enyo.mixin({addBefore: this.getPanels()[index]}, inMoreInfo);
 			}
 		}
 		oPanel = this.createComponent(inInfo, inMoreInfo);
