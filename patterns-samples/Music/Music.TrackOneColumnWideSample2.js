@@ -2,102 +2,103 @@
 
 enyo.kind({
 	name: "moon.sample.music.TrackOneColumnWideSample2",
-	kind: "moon.Panels",
-	pattern: "alwaysviewing",
-	classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
-	components: [
-		{
-			kind: "moon.Panel",
-			titleAbove: "02",
-			title: "Browse Tracks",
-			titleBelow: "15 Tracks",
-			headerComponents: [
-				{kind: "moon.IconButton", src: "../assets/icon-album.png"},
-				{kind: "moon.IconButton", src: "../assets/icon-list.png"}
-			],
-			components: [
-				{
-					kind:"moon.Scroller",
-					horizontal: "hidden",
-					fit: true,
-					components: [
-						{
-							name: "trackList",
-							kind: "moon.DataTable",
-							components: [
-								{
-									components: [
-										{
-											components: [
-												{
-													kind: "moon.Item",
-													components: [
-														{
-															kind: "enyo.Image",
-															classes: "moon-music-small-image",
-															bindings: [
-																{from: ".model.coverUrl", to: ".src"}
-															]
+	components: [{
+		kind: "moon.Panels",
+		pattern: "alwaysviewing",
+		components: [
+			{
+				kind: "moon.Panel",
+				titleAbove: "02",
+				title: "Browse Tracks",
+				titleBelow: "15 Tracks",
+				headerComponents: [
+					{kind: "moon.IconButton", src: "../assets/icon-album.png"},
+					{kind: "moon.IconButton", src: "../assets/icon-list.png"}
+				],
+				components: [
+					{
+						kind:"moon.Scroller",
+						horizontal: "hidden",
+						fit: true,
+						components: [
+							{
+								name: "trackList",
+								kind: "moon.DataTable",
+								components: [
+									{
+										components: [
+											{
+												components: [
+													{
+														kind: "moon.Item",
+														components: [
+															{
+																kind: "enyo.Image",
+																classes: "moon-music-small-image",
+																bindings: [
+																	{from: ".model.coverUrl", to: ".src"}
+																]
 
-														}
-													]
-												}
-											]
-										},
-										{
-											components: [
-												{
-													kind: "moon.Item",
-													ontap: "changeName",
-													bindings: [
-														{from: ".model.track", to: ".content"}
-													]
+															}
+														]
+													}
+												]
+											},
+											{
+												components: [
+													{
+														kind: "moon.Item",
+														ontap: "changeName",
+														bindings: [
+															{from: ".model.track", to: ".content"}
+														]
 
-												}
-											]
-										},
-										{
-											components: [
-												{
-													kind: "moon.Item",
-													ontap: "changeName",
-													bindings: [
-														{from: ".model.artist", to: ".content"}
-													]
-												}
-											]
-										},
-										{
-											components: [
-												{
-													kind: "moon.Item",
-													ontap: "changeName",
-													bindings: [
-														{from: ".model.album", to: ".content"}
-													]
-												}
-											]
-										},
-										{
-											components: [
-												{
-													kind: "moon.Item",
-													ontap: "changeName",
-													bindings: [
-														{from: ".model.time", to: ".content"}
-													]
-												}
-											]
-										}
-									]
-								}
-							]
-						}
-					]
-				}
-			]
-		}
-	],
+													}
+												]
+											},
+											{
+												components: [
+													{
+														kind: "moon.Item",
+														ontap: "changeName",
+														bindings: [
+															{from: ".model.artist", to: ".content"}
+														]
+													}
+												]
+											},
+											{
+												components: [
+													{
+														kind: "moon.Item",
+														ontap: "changeName",
+														bindings: [
+															{from: ".model.album", to: ".content"}
+														]
+													}
+												]
+											},
+											{
+												components: [
+													{
+														kind: "moon.Item",
+														ontap: "changeName",
+														bindings: [
+															{from: ".model.time", to: ".content"}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}],
 	bindings: [
 		{from: ".controller.track", to: ".$.trackList.controller"}
 	]
