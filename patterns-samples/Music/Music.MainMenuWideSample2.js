@@ -2,43 +2,43 @@
 
 enyo.kind({
 	name: "moon.sample.music.MainMenuWideSample2",
-	kind: "moon.Panels",
-	pattern: "alwaysviewing",
-	classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
-	components: [
-		{
-			kind: "moon.Panel",
-			titleAbove: "01",
-			title: "Main Menu",
-			titleBelow: "",
-			classes: "livetv-background",
-			components: [
-				{
-					kind: "FittableColumns",
-					fit: true,
-					components: [
-						{
-							kind: "moon.DataList",
-							name: "menus",
-							classes: "moon-5h",
-							components: [
-								{kind: "moon.Item", bindings: [
-									{from: ".model.name", to: ".content"}
-								]}
+	components: [{
+		kind: "moon.Panels",
+		pattern: "alwaysviewing",
+		components: [
+			{
+				kind: "moon.Panel",
+				titleAbove: "01",
+				title: "Main Menu",
+				titleBelow: "",
+				components: [
+					{
+						kind: "FittableColumns",
+						fit: true,
+						components: [
+							{
+								kind: "moon.DataList",
+								name: "menus",
+								classes: "moon-5h",
+								components: [
+									{kind: "moon.Item", bindings: [
+										{from: ".model.name", to: ".content"}
+									]}
 
-							]
-						},
-						{
-							content: "branding",
-							fit: true,
-							classes: "moon-neutral",
-							style: "text-align: center"
-						}
-					]
-				}
-			]
-		}
-	],
+								]
+							},
+							{
+								content: "branding",
+								fit: true,
+								classes: "moon-neutral",
+								style: "text-align: center"
+							}
+						]
+					}
+				]
+			}
+		]
+	}],
 	bindings: [
 		{from: ".controller.menu", to: ".$.menus.controller"}
 	]
