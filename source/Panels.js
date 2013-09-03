@@ -318,6 +318,7 @@ enyo.kind({
 		this.toIndex = inIndex;
 
 		this.queuedIndex = null;
+		enyo.Spotlight.mute(this);
 		this.triggerPanelPreTransitions(this.fromIndex, this.toIndex);
 	},
 	_setIndex: function(inIndex) {
@@ -441,6 +442,7 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
+		enyo.Spotlight.unmute(this);
 	},
 	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
 	getShowing: function() {
