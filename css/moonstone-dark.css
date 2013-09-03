@@ -2394,7 +2394,7 @@
   position: absolute;
   height: 100%;
   left: auto;
-  right: -130px;
+  right: -120px;
   width: 140px;
   z-index: 100;
   background-repeat: no-repeat;
@@ -2407,7 +2407,7 @@
 }
 .moon-panels-handle.spotlight {
   background-color: #ff2f7d;
-  -webkit-transform: translate3d(-130px, 0, 0);
+  -webkit-transform: translate3d(-120px, 0, 0);
 }
 .moon-panels-handle.right {
   background-image: url(../images/DarkTheme_Icons/caret-white-right.png);
