@@ -84,8 +84,11 @@ enyo.kind({
 	},
 	//* Determine whether to display closeButton
 	configCloseButton: function() {
-		if (!this.$.closeButton) {return;}
-		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+		if (!this.$.closeButton) {
+			return;
+		}
+		
+		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
 		} else {
@@ -102,7 +105,7 @@ enyo.kind({
 		this.configCloseButton();
 	},
 	showingChanged: function() {
-		if(this.showing) {
+		if (this.showing) {
 			moon.Popup.count++;
 			this.applyZIndex();
 		}
@@ -111,8 +114,10 @@ enyo.kind({
 				moon.Popup.count--;
 			}
 		}
+		
 		this.showHideScrim(this.showing);
 		this.inherited(arguments);
+		
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.spotlight = this._spotlight;
