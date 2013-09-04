@@ -1975,7 +1975,7 @@
   min-height: 100px;
   min-width: 100px;
   border-radius: 16px;
-  border: 12px solid #686868;
+  border: 12px solid transparent;
   color: #ffffff;
   padding: 20px;
   background-clip: padding-box;
