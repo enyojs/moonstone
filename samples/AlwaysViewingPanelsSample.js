@@ -2,7 +2,7 @@ enyo.kind({
     name: "moon.sample.AlwaysViewingPanelsSample",
     classes: "moon enyo-fit enyo-unselectable",
     components: [
-        {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
+        {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", useHandle: false, components: [
             {title: "First Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
