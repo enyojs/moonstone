@@ -3295,6 +3295,7 @@
   white-space: nowrap;
 }
 .moon-video-player-info-subsubtitle {
+  display: inline-block;
   font-family: "MuseoSans 300";
   font-size: 30px;
   line-height: 30px;
@@ -3311,10 +3312,12 @@
   margin-bottom: 25px;
 }
 .moon-video-player-info-client {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 15px;
+  display: inline-block;
+  margin: 0 0 10px 20px;
+}
+.moon-video-player-info-client > * {
+  display: inline-block;
+  margin: 0 5px;
 }
 .moon-channelinfo {
   display: inline-block;
