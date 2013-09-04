@@ -33,6 +33,7 @@ enyo.kind({
 	],
 	lineHeight: 32,
 	maxHeight: 96,
+	contentHeight: -1,
 	canCollapse: true,
 	create: function() {
 		this.inherited(arguments);
