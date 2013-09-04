@@ -3766,7 +3766,7 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-collapse-button {
+.moon-expandable-text .moon-item.moon-expandable-text-button {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -3779,19 +3779,19 @@
   padding-right: 40px;
   background-repeat: no-repeat;
   background-position: 90% center;
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
-}
-.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.spotlight {
-  color: #ffffff;
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
-}
-.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
-.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button.spotlight {
+.moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
+  color: #ffffff;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
-.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.hidden {
+.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button.expanded.collapsed {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
   display: none;
 }
 /* Put this at the end because we want these to take precedence over others */
