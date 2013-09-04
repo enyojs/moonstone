@@ -2378,19 +2378,19 @@
 .moon-panels.activity .moon-panels-panel-scrim {
   left: 0;
   width: 100%;
-  background-color: #000000;
+  background-color: #ededed;
 }
 .moon-panels.always-viewing .moon-panels-panel-scrim {
   left: 50%;
   width: 50%;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: #ededed;
 }
 /* Show/Hide Handle */
 .moon-panels-handle {
   position: absolute;
   height: 100%;
   left: auto;
-  right: -130px;
+  right: -120px;
   width: 140px;
   z-index: 100;
   background-repeat: no-repeat;
@@ -2403,7 +2403,7 @@
 }
 .moon-panels-handle.spotlight {
   background-color: #ff2f7d;
-  -webkit-transform: translate3d(-130px, 0, 0);
+  -webkit-transform: translate3d(-120px, 0, 0);
 }
 .moon-panels-handle.right {
   background-image: url(../images/LightTheme_Icons/caret-white-right.png);

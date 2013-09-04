@@ -108,13 +108,12 @@ enyo.kind({
 	},
 	//* Destroy right panel and create panel without transition effect. */
 	replacePanel: function(index, inInfo, inMoreInfo) {
-		var panels = this.getPanels(),
-			oPanel = null;
+		var oPanel = null;
 
-		if (panels.length > index) {
-			panels[index].destroy();
-			if (panels.length > index) {
-				inMoreInfo = enyo.mixin({addBefore: panels[index]}, inMoreInfo);
+		if (this.getPanels().length > index) {
+			this.getPanels()[index].destroy();
+			if (this.getPanels().length > index) {
+				inMoreInfo = enyo.mixin({addBefore: this.getPanels()[index]}, inMoreInfo);
 			}
 		}
 		oPanel = this.createComponent(inInfo, inMoreInfo);
@@ -131,26 +130,24 @@ enyo.kind({
 		this.initializeShowHideHandle();
 	},
 	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle) {
+		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
 			return;
 		}
 		
-		var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
-		if (n == -1) {
-			// Tapped on other than panel (Scrim, etc)
-			if (this.pattern === "alwaysviewing" && this.showing && this.useHandle === true) {
+		if (this.shouldHide(oEvent)) {
+			if (this.showing && this.useHandle === true) {
 				this.hide();
 			}
 		} else {
-			// Tapped on panel
-			if (n != this.getIndex()) {
-				// Tapped on not current panel (breadcrumb)
+			var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
+			// If tapped on not current panel (breadcrumb), go to that panel
+			if (n >= 0 && n !== this.getIndex()) {
 				this.setIndex(n);
-				enyo.Spotlight.setLast5WayControl(oEvent.originator);
-				enyo.Spotlight.setPointerMode(false);
 			}
 		}
-		return false;
+	},
+	shouldHide: function(oEvent) {
+		return (oEvent.originator === this.$.client || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 	},
 	//* Prevent event bubble up when parent of originator is client
 	spotlightLeft: function(oSender, oEvent) {
@@ -301,6 +298,13 @@ enyo.kind({
 		}
 
 		return -1;
+	},
+	isPanel: function(inControl) {
+		for (var n=0; n<this.getPanels().length; n++) {
+			if (this.getPanels()[n] == inControl) {
+				return true;
+			}
+		}
 	},
 	setIndex: function(inIndex) {
 		inIndex = this.clamp(inIndex);
