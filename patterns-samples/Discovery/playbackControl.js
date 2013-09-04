@@ -6,10 +6,7 @@ enyo.kind({
 		{
 			name: "player",
 			kind: "moon.VideoPlayer",
-			rewindIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png", 
-			fastForwardIcon: "$lib/moonstone/images/video-player/icon_skipforward.png",
-			jumpBackIcon: "hidden",
-			jumpForwardIcon: "hidden",
+			showPlaybackControls: false,
 			src: "http://media.w3.org/2010/05/sintel/trailer.mp4",
 			autoplay:true,
 			infoComponents: [
@@ -21,9 +18,18 @@ enyo.kind({
 				]},
 			],
 			components: [
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png"}
+				{name: "sendBackButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png", ontap: "buttonBack"},
+				{name: "thumbNailButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "buttonThumb"}
 			]
 		}
-	]
+	],
+
+	buttonBack: function() {
+        window.open("http://www.google.com", "width=500, height=500", true);
+    },
+
+    buttonThumb: function() {
+    	window.open("http://www.naver.com", "width=500, height=500", true);
+    }
 });
+
