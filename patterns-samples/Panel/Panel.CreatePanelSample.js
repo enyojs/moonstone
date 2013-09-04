@@ -40,11 +40,11 @@ enyo.kind({
 		]}
 	],
 	components:[
-		{name: "firstItem", kind: "moon.Item", content: "Item One", ontap: "next"},
-		{kind: "moon.Item", content: "Item Two", ontap: "next"},
-		{kind: "moon.Item", content: "Item Three", ontap: "next"},
-		{kind: "moon.Item", content: "Item Four", ontap: "next"},
-		{kind: "moon.Item", content: "Item Five", ontap: "next"}
+		{kind: "moon.Item", content: "Item One"},
+		{kind: "moon.Item", content: "Item Two"},
+		{kind: "moon.Item", content: "Item Three"},
+		{kind: "moon.Item", content: "Item Four"},
+		{kind: "moon.Item", content: "Item Five"}
 	],
 	initSpot: function(inSender, inEvent) {
 		if(inEvent.active === inEvent.index) {
@@ -75,13 +75,10 @@ enyo.kind({
 	next: function(inSender, inEvent) {
 		// Example of Current panel drives next panel.
 		// The better way is using static panels and change content only based on item selection.
-		if(this.$.panels.getPanelIndex(inSender) == this.$.panels.getIndex()) {
-			this.$.panels.replacePanel(this.$.panels.getIndex()+1, {
-				kind: 'myPanel',
-				title: inSender.getContent()
-			});
-			this.$.panels.next();
-		}
-		return true;
+		this.$.panels.replacePanel(1, {
+			kind: 'myPanel',
+			title: inSender.getContent()
+		});
+		this.$.panels.next();
 	}
 });

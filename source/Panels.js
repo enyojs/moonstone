@@ -141,37 +141,37 @@ enyo.kind({
 			}
 		}
 	},
-	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
+	onTap: function(inSender, inEvent) {
+		if (inEvent.originator === this.$.showHideHandle || this.pattern === "none") {
 			return;
 		}
 		
-		if (this.shouldHide(oEvent)) {
+		if (this.shouldHide(inEvent)) {
 			if (this.showing && this.useHandle === true) {
 				this.hide();
 			}
 		} else {
-			var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;
+			var n = (inEvent.breadcrumbTap) ? this.getPanelIndex(inEvent.originator) : -1;
 			// If tapped on not current panel (breadcrumb), go to that panel
 			if (n >= 0 && n !== this.getIndex()) {
 				this.setIndex(n);
 			}
 		}
 	},
-	shouldHide: function(oEvent) {
-		return (oEvent.originator === this.$.client || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
+	shouldHide: function(inEvent) {
+		return (inEvent.originator === this.$.client || (inEvent.originator instanceof moon.Panel && this.isPanel(inEvent.originator)));
 	},
 	//* Prevent event bubble up when parent of originator is client
-	spotlightLeft: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+	spotlightLeft: function(inSender, inEvent) {
+		if (inEvent.originator.parent === this.$.client || inEvent.originator.parent === this) {
 			if (this.getIndex() > 0 && this.showing) {
 				return true;
 			}
 		}
 	},
 	//* Prevent event bubble up when parent of originator is client
-	spotlightRight: function(oSender, oEvent) {
-		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
+	spotlightRight: function(inSender, inEvent) {
+		if (inEvent.originator.parent === this.$.client || inEvent.originator.parent === this) {
 			if (this.getIndex() < this.getPanels().length - 1) {
 				return true;
 			}
