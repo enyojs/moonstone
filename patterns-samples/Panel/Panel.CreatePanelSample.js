@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "myPanel",
 	kind: "moon.Panel",
-	defaultSpotlightControl: "first",
+	defaultSpotlightControl: "second",
 	headerComponents:[
 		{kind: "moon.IconButton", src: "../assets/icon-list.png"},
 		{kind: "moon.IconButton", src: "../assets/icon-list.png"},
@@ -39,7 +39,7 @@ enyo.kind({
 	],
 	components:[
 		{kind: "moon.Item", content: "Item One"},
-		{name: "first", kind: "moon.Item", content: "Item Two"},
+		{name: "second", kind: "moon.Item", content: "Item Two"},
 		{kind: "moon.Item", content: "Item Three"},
 		{kind: "moon.Item", content: "Item Four"},
 		{kind: "moon.Item", content: "Item Five"}
