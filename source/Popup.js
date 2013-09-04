@@ -54,17 +54,21 @@ enyo.kind({
 	defaultZ: 120,
 	activator: null,
 	//* Creates chrome
-	initComponents: function() {
-		this.createChrome(this.tools);
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.createChrome(this.tools);
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Renders _moon.Popup_, extending enyo.Popup
-	render: function() {
-		this.allowHtmlChanged();
-		this.contentChanged();
-		this.inherited(arguments);
-		this._spotlight = this.spotlight;
-	},
+	render: enyo.inherit(function(sup) {
+		return function() {
+			this.allowHtmlChanged();
+			this.contentChanged();
+			sup.apply(this, arguments);
+			this._spotlight = this.spotlight;
+		};
+	}),
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
 	},
@@ -77,11 +81,13 @@ enyo.kind({
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
-			return this.inherited(arguments);
-		}
-	},
+	tap: enyo.inherit(function(sup) {
+		return function(inSender, inEvent) {
+			if (this.downEvent.type !== "onSpotlightSelect") {
+				return sup.apply(this, arguments);
+			}
+		};
+	}),
 	//* Determine whether to display closeButton
 	configCloseButton: function() {
 		if (!this.$.closeButton) {return;}
@@ -101,30 +107,32 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	showingChanged: function() {
-		if(this.showing) {
-			moon.Popup.count++;
-			this.applyZIndex();
-		}
-		else {
-			if(moon.Popup.count > 0) {
-				moon.Popup.count--;
+	showingChanged: enyo.inherit(function(sup) {
+		return function() {
+			if(this.showing) {
+				moon.Popup.count++;
+				this.applyZIndex();
 			}
-		}
-		this.showHideScrim(this.showing);
-		this.inherited(arguments);
-		if (this.showing) {
-			this.activator = enyo.Spotlight.getCurrent();
-			this.spotlight = this._spotlight;
-			this.configCloseButton();
-			var spottableChildren = enyo.Spotlight.getChildren(this).length;
-			if (spottableChildren === 0) {
-				this.spotlight = false;
-			} else if ((this.spotlight) && (spottableChildren > 0)) {
-				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			else {
+				if(moon.Popup.count > 0) {
+					moon.Popup.count--;
+				}
 			}
-		}
-	},
+			this.showHideScrim(this.showing);
+			sup.apply(this, arguments);
+			if (this.showing) {
+				this.activator = enyo.Spotlight.getCurrent();
+				this.spotlight = this._spotlight;
+				this.configCloseButton();
+				var spottableChildren = enyo.Spotlight.getChildren(this).length;
+				if (spottableChildren === 0) {
+					this.spotlight = false;
+				} else if ((this.spotlight) && (spottableChildren > 0)) {
+					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+				}
+			}
+		};
+	}),
 	showHideScrim: function(inShow) {
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 			var scrim = this.getScrim();

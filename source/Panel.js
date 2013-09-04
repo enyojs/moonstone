@@ -84,48 +84,56 @@ enyo.kind({
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
-	
+
 	headerComponents: [],
 	isBreadcrumb: false,
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
-	
-	create: function() {
-		this.inherited(arguments);
-		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
-		if (this.headerComponents) {
-			var hc = enyo.constructorForKind(this.kind).prototype.headerComponents;
-			var hcOwner = (hc == this.headerComponents) ? this : this.getInstanceOwner();
-			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
-		}
-		this.autoNumberChanged();
-	},
-	initComponents: function() {
-		this.createTools();
-		this.controlParentName = "panelBody";
-		this.discoverControlParent();
-		this.inherited(arguments);
-	},
-	createTools: function() {
-		// Create everything but the header
-		this.createChrome(this.panelTools);
-		// Special-handling for header, which can have its options modified by the instance
-		var hc = enyo.clone(this.headerConfig || {});
-		hc.addBefore = this.$.panelBody;
-		enyo.mixin(hc, this.headerOptions || this.headerOption);
-		this.$.contentWrapper.createComponent(hc, {owner:this});
-	},
+
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
+			if (this.headerComponents) {
+				var hc = enyo.constructorForKind(this.kind).prototype.headerComponents;
+				var hcOwner = (hc == this.headerComponents) ? this : this.getInstanceOwner();
+				this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
+			}
+			this.autoNumberChanged();
+		};
+	}),
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.createTools();
+			this.controlParentName = "panelBody";
+			this.discoverControlParent();
+			sup.apply(this, arguments);
+		};
+	}),
+	createTools: enyo.inherit(function(sup) {
+		return function() {
+			// Create everything but the header
+			this.createChrome(this.panelTools);
+			// Special-handling for header, which can have its options modified by the instance
+			var hc = enyo.clone(this.headerConfig || {});
+			hc.addBefore = this.$.panelBody;
+			enyo.mixin(hc, this.headerOptions || this.headerOption);
+			this.$.contentWrapper.createComponent(hc, {owner:this});
+		};
+	}),
 	//* On reflow, update _this.$.contentWrapper_ bounds
-	reflow: function() {
-		this.inherited(arguments);
-		this.getInitAnimationValues();
-		this.updateViewportSize();
-		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
-		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
-		this.growWidthAnimation = this.createGrowingWidthAnimation();
-		this.growHeightAnimation = this.createGrowingHeightAnimation();
-	},
+	reflow: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.getInitAnimationValues();
+			this.updateViewportSize();
+			this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
+			this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
+			this.growWidthAnimation = this.createGrowingWidthAnimation();
+			this.growHeightAnimation = this.createGrowingHeightAnimation();
+		};
+	}),
 	//* Update _this.$.contentWrapper_ to have the height/width of _this_
 	updateViewportSize: function() {
 		var node = this.hasNode();
@@ -140,10 +148,12 @@ enyo.kind({
 		this.$.contentWrapper.applyStyle("width", this.initialWidth + "px");
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
-	layoutKindChanged: function() {
-		this.$.panelBody.setLayoutKind(this.getLayoutKind());
-		this.inherited(arguments);
-	},
+	layoutKindChanged: enyo.inherit(function(sup) {
+		return function() {
+			this.$.panelBody.setLayoutKind(this.getLayoutKind());
+			sup.apply(this, arguments);
+		};
+	}),
 	//* When _this.isBreadcrumb_ changes, update spottability
 	isBreadcrumbChanged: function() {
 		if (this.isBreadcrumb) {
@@ -239,7 +249,7 @@ enyo.kind({
 	},
 	growingWidthAnimation: function() {
 		this.haltAnimations();
-		
+
 		this.growingHeightAnimation();
 		// NOTE - Skipping width grow animation
 		// this.$.animator.play(this.growWidthAnimation.name);
@@ -327,7 +337,7 @@ enyo.kind({
 			keyframes: {
 				0: [
 					{control: this.$.viewport, properties: { "width": "current" }}
-					
+
 				],
 				100: [
 					{control: this.$.viewport, properties: { "width": this.initialWidth + "px" }}

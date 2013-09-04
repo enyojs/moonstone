@@ -58,18 +58,22 @@ enyo.kind({
 		{name: "drawers", classes:"moon-drawers-drawer-container"},
 		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
-		this.setupHandles();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		var dh = document.body.getBoundingClientRect().height;
-		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
-		this.resizeDresser();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
+			this.setupHandles();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var dh = document.body.getBoundingClientRect().height;
+			var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+			this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
+			this.resizeDresser();
+		};
+	}),
 	resizeDresser: function() {
 		var client = this.getBounds();
 
@@ -186,14 +190,16 @@ enyo.kind({
 			this.$.activator.addRemoveClass("drawer-open", false);
 		}
 	},
-	resizeHandler: function() {
-		this.inherited(arguments);
-		this.resizeDresser();		
-		var dh = document.body.getBoundingClientRect().height;
-		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
-		this.updateActivator(false);
-	},
+	resizeHandler: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.resizeDresser();
+			var dh = document.body.getBoundingClientRect().height;
+			var ah = this.$.activator.hasNode().getBoundingClientRect().height;
+			this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+			this.updateActivator(false);
+		};
+	}),
 	//Updates the activator's style only when it is not animating so that there are no visual artifacts
 	resizeHandleContainer: function(inSender, inEvent) {
 		enyo.asyncMethod(inEvent.delegate.bindSafely(function(){

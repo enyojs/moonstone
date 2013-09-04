@@ -76,19 +76,21 @@ enyo.kind({
 	_previewMode: false,
 
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		this.$.popup.setAutoDismiss(false);		//* Always showing popup
-		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
-		this.$.tapArea.onmousemove = "preview";
-		this.$.tapArea.onenter = "enterTapArea";
-		this.$.tapArea.onleave = "leaveTapArea";
-		//* Extend components
-		this.createTickComponents();
-		this.createPopupLabelComponents();
-		this.showTickTextChanged();
-		this.showTickBarChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.popup.setAutoDismiss(false);		//* Always showing popup
+			this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
+			this.$.tapArea.onmousemove = "preview";
+			this.$.tapArea.onenter = "enterTapArea";
+			this.$.tapArea.onleave = "leaveTapArea";
+			//* Extend components
+			this.createTickComponents();
+			this.createPopupLabelComponents();
+			this.showTickTextChanged();
+			this.showTickBarChanged();
+		};
+	}),
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
 	},
@@ -130,38 +132,44 @@ enyo.kind({
 	isInPreview: function(inSender, inEvent) {
 		return this._previewMode;
 	},
-	resizeHandler: function() {
-		this.inherited(arguments);
-		this.updateSliderRange();
-	},
+	resizeHandler: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateSliderRange();
+		};
+	}),
 	updateSliderRange: function() {
 		this.beginTickPos = (this.max-this.min)*0.0625;
 		this.endTickPos = (this.max-this.min)*0.9375;
-		
+
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
 			this.setRangeEnd(this.endTickPos);
 		} else {
 			this.setRangeStart(this.min);
-			this.setRangeEnd(this.max);				
+			this.setRangeEnd(this.max);
 		}
 		this.updateKnobPosition(this.value);
 	},
-	setMin: function() {
-		this.inherited(arguments);
-		this.updateSliderRange();
-	},
-	setMax: function() {
-		this.inherited(arguments);
-		this.updateSliderRange();
-	},
+	setMin: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateSliderRange();
+		};
+	}),
+	setMax: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateSliderRange();
+		};
+	}),
 	setRangeStart: function(inValue) {
 		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeStartChanged();
 	},
 	setRangeEnd: function(inValue) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeEndChanged();	
+		this.rangeEndChanged();
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.setShowing(this.getShowTickText());
@@ -176,7 +184,7 @@ enyo.kind({
 	},
 	rangeStartChanged: function() {
 		this.updateInternalProperty();
-		var p = this._calcPercent(this.rangeStart), 
+		var p = this._calcPercent(this.rangeStart),
 			property = "margin-left";
 		if (this.liveMode) {
 			property = "padding-left";
@@ -196,11 +204,11 @@ enyo.kind({
 	updateScale: function() {
 		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	// 
+	//
 	calcPercent: function(inValue) {
 		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	// 
+	//
 	_calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * 100;
 	},
@@ -209,7 +217,7 @@ enyo.kind({
 	},
 	calcVariationPercent: function(inValue) {
 		return this.calcVariationRatio(inValue) * 100;
-	},	
+	},
 	updateKnobPosition: function(inValue) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._updateKnobPosition(inValue);
@@ -258,35 +266,39 @@ enyo.kind({
 			return true;
 		}
 	},
-	setValue: function(inValue) {
-		if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
-			this.inherited(arguments);
-		} else {
-			this._setValue(inValue);
-		}
-	},	
-	//* If dragstart, bubble _onSeekStart_ event
-	dragstart: function(inSender, inEvent) {
-		if (this.disabled) {
-			return; // return nothing
-		}
-		if (inEvent.horizontal) {
-			var v = this.calcKnobPosition(inEvent);
-			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-				this.dummyAction = true;
+	setValue: enyo.inherit(function(sup) {
+		return function(inValue) {
+			if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
+				sup.apply(this, arguments);
 			} else {
-				var dragstart = this.inherited(arguments);
-				if (dragstart) {
-					this.doSeekStart();
-				}
-				this.dummyAction = false;
+				this._setValue(inValue);
 			}
+		};
+	}),
+	//* If dragstart, bubble _onSeekStart_ event
+	dragstart: enyo.inherit(function(sup) {
+		return function(inSender, inEvent) {
+			if (this.disabled) {
+				return; // return nothing
+			}
+			if (inEvent.horizontal) {
+				var v = this.calcKnobPosition(inEvent);
+				if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+					// TODO : action in dummy area
+					this.dummyAction = true;
+				} else {
+					var dragstart = sup.apply(this, arguments);
+					if (dragstart) {
+						this.doSeekStart();
+					}
+					this.dummyAction = false;
+				}
+				return true;
+			}
+
 			return true;
-		}
-		
-		return true;
-	},
+		};
+	}),
 	//* If drag, bubble _onSeek_ event, and override parent drag handler
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
@@ -326,7 +338,7 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-			
+
 			if(this.showDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}

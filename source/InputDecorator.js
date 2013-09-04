@@ -77,21 +77,27 @@ enyo.kind({
 	//* @public
 	/**************************************************/
 
-	create: function() {
-		this.inherited(arguments);
-		this.updateFocus(false);
-		this._oInputControl = this._findInputControl();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateFocus(false);
+			this._oInputControl = this._findInputControl();
+		};
+	}),
 
-	createComponent: function() {
-		this.inherited(arguments);
-		this._oInputControl = this._findInputControl();
-	},
+	createComponent: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._oInputControl = this._findInputControl();
+		};
+	}),
 
-	createComponents: function() {
-		this.inherited(arguments);
-		this._oInputControl = this._findInputControl();
-	},
+	createComponents: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._oInputControl = this._findInputControl();
+		};
+	}),
 
 	updateFocus: function(bFocus) {
 		this.focused = bFocus;

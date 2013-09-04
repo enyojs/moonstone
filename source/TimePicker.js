@@ -59,44 +59,48 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: "time",
 	defaultOrdering: "hma",
-	initILib: function() {
-		this.inherited(arguments);
-		this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
-	},
-	setupPickers: function(ordering) {
-		var orderingArr = ordering.toLowerCase().split("");
-		var doneArr = [];
-		var o,f,l;
-		for(f = 0, l = orderingArr.length; f < l; f++) {
-			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {
-				switch (o){
-				case 'h': {
-						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)});
-						} else {
-							this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
+	initILib: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
+		};
+	}),
+	setupPickers: enyo.inherit(function(sup) {
+		return function(ordering) {
+			var orderingArr = ordering.toLowerCase().split("");
+			var doneArr = [];
+			var o,f,l;
+			for(f = 0, l = orderingArr.length; f < l; f++) {
+				o = orderingArr[f];
+				if (doneArr.indexOf(o) < 0) {
+					switch (o){
+					case 'h': {
+							if (this.meridiemEnable === true) {
+								this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)});
+							} else {
+								this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
+							}
 						}
-					}
-					break;
-				case 'm': {
-						this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
-					}
-					break;
-				case 'a': {
-						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
+						break;
+					case 'm': {
+							this.createComponent({kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()});
 						}
+						break;
+					case 'a': {
+							if (this.meridiemEnable === true) {
+								this.createComponent({kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 });
+							}
+						}
+						break;
+					default:
+						break;
 					}
-					break;
-				default:
-					break;
 				}
+				doneArr.push(o);
 			}
-			doneArr.push(o);
-		}
-		this.inherited(arguments);
-	},
+			sup.apply(this, arguments);
+		};
+	}),
 	formatValue: function() {
 		var dateStr = "";
 		if (this._tf) {

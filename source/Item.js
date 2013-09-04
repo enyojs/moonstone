@@ -19,27 +19,33 @@ enyo.kind({
 	overlayComponents: [
 		{name: "overlay", classes: "moon-item-overlay", addBefore: true}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.disabledChanged();
-	},
-	initComponents: function() {
-		this.inherited(arguments);
-		if (!this.components) {
-			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
-		}
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.disabledChanged();
+		};
+	}),
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (!this.components) {
+				this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
+			}
+		};
+	}),
 	disabledChanged: function(inOld) {
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	spotlightFocused: function(inSender, inEvent) {
 		this.bubble("onRequestScrollIntoView", {side: "top"});
 	},
-	contentChanged: function(inOld) {
-		if (this.$.marqueeText) {
-			this.$.marqueeText.setContent(this.content);
-		} else {
-			this.inherited(arguments);
-		}
-	}
+	contentChanged: enyo.inherit(function(sup) {
+		return function(inOld) {
+			if (this.$.marqueeText) {
+				this.$.marqueeText.setContent(this.content);
+			} else {
+				sup.apply(this, arguments);
+			}
+		};
+	})
 });

@@ -19,7 +19,7 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: $L("Off"),
 		//* Label for separator
-		labelSeparator: $L(": "), 
+		labelSeparator: $L(": "),
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false
@@ -35,20 +35,26 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-toggle-button",
-	create: function() {
-		this.inherited(arguments);
-		this.value = Boolean(this.value || this.active);
-		this.updateContent();
-		this.disabledChanged();
-	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.$.client.addClass("moon-toggle-button-text");
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.updateVisualState();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.value = Boolean(this.value || this.active);
+			this.updateContent();
+			this.disabledChanged();
+		};
+	}),
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.client.addClass("moon-toggle-button-text");
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateVisualState();
+		};
+	}),
 	updateVisualState: function() {
 		this.addRemoveClass("moon-overlay", this.value);
 		this.setActive(this.value);
@@ -67,7 +73,7 @@ enyo.kind({
 	},
 	onContentChanged: function() {
 		this.updateContent();
-	}, 
+	},
 	offContentChanged: function() {
 		this.updateContent();
 	},

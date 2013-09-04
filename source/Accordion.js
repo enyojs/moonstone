@@ -44,10 +44,12 @@ enyo.kind({
 		header: {classes: "moon-accordion-arrow"}
 	},
 	//* Facade for drawer
-	openChanged: function() {
-		this.updateArrowDirection(this.getOpen());
-		this.inherited(arguments);
-	},
+	openChanged: enyo.inherit(function(sup) {
+		return function() {
+			this.updateArrowDirection(this.getOpen());
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Update arrow direction based on _this.open_
 	updateArrowDirection: function(open) {
 		// this.$.header.addRemoveClass('up', open);

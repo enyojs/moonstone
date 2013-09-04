@@ -24,9 +24,9 @@ enyo.kind({
 	},
 	autoCollapse: true,
 	lockBottom: true,
-	
+
 	//* @protected
-	
+
 	componentOverrides: {
 		headerWrapper: {components: [
 			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
@@ -46,21 +46,23 @@ enyo.kind({
 		"showCurrentValue": ["open"],
 		"currentValueText": ["value", "noneText"]
 	},
-	
+
 	// Change handlers
 	valueChanged: function() {
 		if (this.generated) {
 			this.fireChangeEvent();
 		}
 	},
-	openChanged: function() {
-		this.inherited(arguments);
-		
-		if (!this.getOpen()) {
-			this.updateValue();
-		}
-	},
-	
+	openChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+
+			if (!this.getOpen()) {
+				this.updateValue();
+			}
+		};
+	}),
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open;

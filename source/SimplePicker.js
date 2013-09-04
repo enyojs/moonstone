@@ -70,19 +70,23 @@ enyo.kind({
 		{name: "client",      kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "next"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.animateChanged();
-		this.initializeActiveItem();
-		this.selectedIndexChanged();
-		this.disabledChanged();
-		this.updateMarqueeDisable();
-		this.wrapChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this._rendered = true;
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.animateChanged();
+			this.initializeActiveItem();
+			this.selectedIndexChanged();
+			this.disabledChanged();
+			this.updateMarqueeDisable();
+			this.wrapChanged();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._rendered = true;
+		};
+	}),
 	createComponents: function(inC, inOpts) {
 		var inherited = this.createComponents._inherited;
 		if (this.$.client) {
@@ -101,46 +105,48 @@ enyo.kind({
 		}
 		return inherited.call(this, inC, inOpts);
 	},
-	reflow: function() {
-		this.inherited(arguments);
+	reflow: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		var maxHeight = 0,
-			maxWidth = 0,
-			panels,
-			panel,
-			i;
+			var maxHeight = 0,
+				maxWidth = 0,
+				panels,
+				panel,
+				i;
 
-		// Find max width/height of all children
-		if (this.getAbsoluteShowing()) {
-			panels = this.$.client.getPanels();
+			// Find max width/height of all children
+			if (this.getAbsoluteShowing()) {
+				panels = this.$.client.getPanels();
 
-			for (i = 0; (panel = panels[i]); i++) {
-				if (panel.hasNode()) {
-					var bounds = panel.getBounds();
-					maxWidth = Math.max(maxWidth, bounds.width);
-					maxHeight = Math.max(maxHeight, bounds.height);
+				for (i = 0; (panel = panels[i]); i++) {
+					if (panel.hasNode()) {
+						var bounds = panel.getBounds();
+						maxWidth = Math.max(maxWidth, bounds.width);
+						maxHeight = Math.max(maxHeight, bounds.height);
+					}
 				}
+				maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
+				this.$.client.setBounds({width: maxWidth, height: maxHeight});
+
+				for (i = 0; (panel = panels[i]); i++) {
+					panel.setBounds({width: maxWidth, height: maxHeight});
+				}
+
+				this.$.client.reflow();
 			}
-			maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
-			this.$.client.setBounds({width: maxWidth, height: maxHeight});
 
-			for (i = 0; (panel = panels[i]); i++) {
-				panel.setBounds({width: maxWidth, height: maxHeight});
+			// Make sure selected item is in sync after Panels reflow, which may have
+			// followed an item being added/removed
+			if (this.selected != this.$.client.getActive()) {
+				this.setSelected(this.$.client.getActive());
+				this.setSelectedIndex(this.$.client.getIndex());
+				this.fireChangedEvent();
 			}
 
-			this.$.client.reflow();
-		}
-
-		// Make sure selected item is in sync after Panels reflow, which may have
-		// followed an item being added/removed
-		if (this.selected != this.$.client.getActive()) {
-			this.setSelected(this.$.client.getActive());
-			this.setSelectedIndex(this.$.client.getIndex());
-			this.fireChangedEvent();
-		}
-
-		this.showHideNavButtons();
-	},
+			this.showHideNavButtons();
+		};
+	}),
 	transitionFinished: function(inSender, inEvent) {
 		var fp = (this.getSelected() === this.$.client.getActive()); // false positive
 		this.setSelected(this.$.client.getActive());
@@ -267,10 +273,12 @@ enyo.kind({
 		this.updateMarqueeDisable();
 		this._marqueeSpotlightFocus();
 	},
-	showingChanged: function() {
-		this.inherited(arguments);
-		if(this.showing && this.generated) {
-			this.reflow();
-		}
-	}
+	showingChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if(this.showing && this.generated) {
+				this.reflow();
+			}
+		};
+	})
 });

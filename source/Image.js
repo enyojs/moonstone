@@ -6,7 +6,7 @@
 	components, placed inside a container positioned over the image.  The badges are normally persistent,
 	but can be shown/hidden based on spotlight focus as well, using the `showBadgesOnSpotlight` property.
 
-	Example usage: 
+	Example usage:
 
 			{kind: "moon.Image", src: "assets/movie.png", showBadgesOnSpotlight:true, components: [
 				{src: "assets/icon-recommended.png"},
@@ -47,7 +47,7 @@ enyo.kind({
 				this.$.client.canGenerate = true;
 				this.addClass("has-children");
 			}
-			
+
 			this.showBadgesOnSpotlightChanged();
 		};
 	}),

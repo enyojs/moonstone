@@ -46,10 +46,12 @@ enyo.kind({
 		{from: ".open", to: ".$.drawer.open"},
 		{from: ".iconSrc", to: ".$.activator.src"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.listActionsChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.listActionsChanged();
+		};
+	}),
 	listActionsChanged: function() {
 		this.lastActions = this.listActions || [];
 		this.rerenderListActionComponents();
@@ -62,7 +64,7 @@ enyo.kind({
 	},
 	resetListActionComponents: function() {
 		this.listActionComponents = [];
-		
+
 		if (this.hasNode()) {
 			this.$.listActions.destroyClientControls();
 			this.$.listActions.render();
@@ -70,11 +72,11 @@ enyo.kind({
 	},
 	createListActionComponents: function() {
 		var listAction, i;
-		
+
 		for (i = 0; (listAction = this.listActions[i]); i++) {
 			this.listActionComponents.push(this.createListActionComponent(listAction));
 		}
-		
+
 		// Increase width to 100% if there is only one list action
 		if (this.proportionalWidth) {
 			this.addClass("proportional-width");
@@ -83,7 +85,7 @@ enyo.kind({
 				this.listActionComponents[i].applyStyle("width", w + "%");
 			}
 		}
-		
+
 		if (this.hasNode()) {
 			this.$.listActions.render();
 		}
@@ -91,11 +93,11 @@ enyo.kind({
 	//* Creates a new list action component based on _inListAction_.
 	createListActionComponent: function(inListAction) {
 		var listActionComponent;
-		
+
 		inListAction.mixins = this.addListActionMixin(inListAction);
 		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner(), layoutKind:"FittableRowsLayout"});
 		listActionComponent.addClass("moon-list-actions-menu");
-		
+
 		return listActionComponent;
 	},
 	/**
@@ -114,7 +116,7 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
+
 		// If currently open, close and spot _this.$.activator_
 		if (this.getOpen()) {
 			this.setOpen(false);
@@ -135,12 +137,12 @@ enyo.kind({
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
 			styleString = "";
-		
+
 		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
 		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
 		styleString += "left: "		+ Math.ceil(headerBounds.left - bounds.left)	+ "px; ";
 		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
-		
+
 		this.$.drawerPopup.addStyles(styleString);
 	},
 	showHidePopup: function(inShowing) {
@@ -152,7 +154,7 @@ enyo.kind({
 	drawerAnimationEnd: function(inSender, inEvent) {
 		if (this.getOpen()) {
 			this.updateStacking();
-			
+
 			// Notify scroller of resize
 			this.$.listActions.resized();
 		}
@@ -164,7 +166,7 @@ enyo.kind({
 		if (!this.$.drawer.hasNode()) {
 			return;
 		}
-		
+
 		this.set("stacked", this.shouldStack());
 	},
 	shouldStack: function() {
@@ -174,7 +176,7 @@ enyo.kind({
 	stackedChanged: function() {
 		this.rerenderListActionComponents();
 		this.startJob("scrollToTop", "scrollToTop", 500);
-		
+
 		if (this.stacked) {
 			this.addClass("stacked");
 			this.stackMeUp();
@@ -188,7 +190,7 @@ enyo.kind({
 	},
 	stackMeUp: function() {
 		var optionGroup, i;
-	
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "block");
 			optionGroup.applyStyle("height", "none");
@@ -198,7 +200,7 @@ enyo.kind({
 		var containerHeight = this.getContainerBounds().height,
 			optionGroup,
 			i;
-		
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
 			optionGroup.applyStyle("height", containerHeight + "px");
@@ -206,7 +208,7 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.resetCachedValues();
-		
+
 		// If drawer is collapsed, do not resize popup
 		if (this.getOpen()) {
 			this.configurePopup();
@@ -310,7 +312,7 @@ enyo.kind({
 		inParent = inParent || this.parent;
 		if (inParent instanceof moon.Header || !inParent.parent) {
 			return inParent.hasNode();
-		} 
+		}
 		return this.getParentHeaderNode(inParent.parent);
 	},
 	resetCachedValues: function() {
@@ -330,17 +332,19 @@ enyo.kind({
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
 		{name: "animator", kind: "StyleAnimator", onStep: "step", onComplete: "animationComplete"}
 	],
-	rendered: function() {
-		this.inherited(arguments);
-		this.accel = enyo.dom.canAccelerate();
-		this.resetClientPosition();
-		this.openChanged();
-	},
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.accel = enyo.dom.canAccelerate();
+			this.resetClientPosition();
+			this.openChanged();
+		};
+	}),
 	openChanged: function() {
 		if (!this.getShowing()) {
 			this.setShowing(true);
 		}
-		
+
 		if (this.open) {
 			this.playOpenAnimation();
 		} else {

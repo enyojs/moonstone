@@ -21,13 +21,15 @@ enyo.kind({
 	},
 	classes: "moon-icon",
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		if (this.src) {
-			this.srcChanged();
-		}
-		this.disabledChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.src) {
+				this.srcChanged();
+			}
+			this.disabledChanged();
+		};
+	}),
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 	},

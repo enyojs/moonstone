@@ -18,10 +18,12 @@ enyo.kind({
 	animations: null,
 
 	////////// PUBLIC //////////
-	create: function() {
-		this.inherited(arguments);
-		this.animations = [];
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.animations = [];
+		};
+	}),
 	//* @public
 	newAnimation: function(inProps) {
 		if (this.animations && inProps.name && this.getAnimation(inProps.name)) {

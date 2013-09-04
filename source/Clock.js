@@ -1,5 +1,5 @@
 /**
-	_moon.Clock_ is a control that displays system clock information. 
+	_moon.Clock_ is a control that displays system clock information.
 
 	Example:
 		{kind:"moon.Clock"}
@@ -23,15 +23,17 @@ enyo.kind({
 		]}
 	],
 	months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-	create: function() {
-		this.inherited(arguments);
-		this.refreshJob();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.refreshJob();
+		};
+	}),
 	refreshChanged: function() {
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
 	refreshJob: function() {
-		var d = new Date(), 
+		var d = new Date(),
 			h = d.getHours(),
 			meridian = "am";
 

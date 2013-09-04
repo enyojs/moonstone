@@ -65,18 +65,24 @@ enyo.kind({
 			]}
 		]}
 	],
-	initComponents: function() {
-		this.components = [{kind: "moon.AudioPlaybackQueue"}];
-		this.inherited(arguments);
-		this.components = null;
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
-	},
-	rendered: function() {
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.components = [{kind: "moon.AudioPlaybackQueue"}];
+			sup.apply(this, arguments);
+			this.components = null;
+		};
+	}),
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+		};
+	}),
 	toggleTrackDrawer: function() {
 		this.$.client.setOpen(!this.$.client.getOpen());
 	},
@@ -192,10 +198,10 @@ enyo.kind({
 	name: "moon.AudioPlaybackQueue",
 	kind: "FittableRows",
 	classes: "enyo-fit moon-audio-playback-queue",
-    handlers: {
+	handlers: {
 		onAddAudio: "addAudio"
-    },
-    components: [
+	},
+	components: [
 		{kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks"},
 		{
 			kind: "moon.List",
@@ -208,22 +214,26 @@ enyo.kind({
 				{name: "item", kind: "moon.AudioListItem", classes: "moon-audio-queue-list enyo-border-box", onRemove: "removeTap"}
 			]
 		}
-    ],
-    tracks: [],
-    create: function() {
-		this.inherited(arguments);
-		this.parent.applyStyle("height", "100%");
-    },
-    rendered: function() {
-		this.inherited(arguments);
-    },
-    addAudio: function(inSender, inEvent) {
+	],
+	tracks: [],
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.parent.applyStyle("height", "100%");
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+		};
+	}),
+	addAudio: function(inSender, inEvent) {
 		var i = this.$.list.getCount() + 1;
 		this.tracks = inEvent.tracks;
 		this.$.list.setCount( i );
 		this.$.list.reset();
 		this.$.queueHeader.setTitleBelow(i + " Tracks");
-    },
+	},
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;
 		var t = this.tracks[i];

@@ -24,13 +24,15 @@ enyo.kind({
         //* Set to true to align image to right
         imageAlignRight: false
     },
-    create: function() {
-        this.inherited(arguments);
-        this.sourceChanged();
-        this.labelChanged();
-        this.textChanged();
-        this.imageAlignRightChanged();
-    },
+    create: enyo.inherit(function(sup) {
+        return function() {
+            sup.apply(this, arguments);
+            this.sourceChanged();
+            this.labelChanged();
+            this.textChanged();
+            this.imageAlignRightChanged();
+        };
+    }),
     //* @protected
     sourceChanged: function() {
         if (!this.source || this.source === '') {

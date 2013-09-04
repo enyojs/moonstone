@@ -48,13 +48,15 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.transform = enyo.dom.canTransform();
-		this.accel = enyo.dom.canAccelerate();
-		this.container.addClass("enyo-touch-strategy-container");
-		this.translation = this.accel ? "matrix3d" : "matrix";
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.transform = enyo.dom.canTransform();
+			this.accel = enyo.dom.canAccelerate();
+			this.container.addClass("enyo-touch-strategy-container");
+			this.translation = this.accel ? "matrix3d" : "matrix";
+		};
+	}),
 	/**
 		Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s)
 		_rendered()_ function to avoid thumb flicker at render time. Then
@@ -117,11 +119,13 @@ enyo.kind({
 	//* Disables dragging.
 	shouldDrag: function(inSender, inEvent) { return true; },
 	//* On _hold_, stops scrolling.
-	hold: function(inSender, inEvent) {
-		if (!this.isPageControl(inEvent.originator)) {
-			this.inherited(arguments);
-		}
-	},
+	hold: enyo.inherit(function(sup) {
+		return function(inSender, inEvent) {
+			if (!this.isPageControl(inEvent.originator)) {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	//* On _down_, stops scrolling.
 	down: function(inSender, inEvent) {
 		if (!this.isPageControl(inEvent.originator) && this.isScrolling() && !this.isOverscrolling()) {
@@ -136,7 +140,7 @@ enyo.kind({
 			showVertical = this.showVertical(),
 			showHorizontal = this.showHorizontal()
 		;
-		
+
 		//* If we don't have to scroll, allow mousewheel event to bubble
 		if (!showVertical && !showHorizontal) {
 			return false;
@@ -250,17 +254,19 @@ enyo.kind({
 
 		return true;
 	},
-	scrollMathScroll: function() {
-		this.inherited(arguments);
+	scrollMathScroll: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		if (this.hovering) {
-			this.showHidePageControls();
-		} else {
-			this.hidePageControls();
-		}
+			if (this.hovering) {
+				this.showHidePageControls();
+			} else {
+				this.hidePageControls();
+			}
 
-		this.showHideScrollColumns(true);
-	},
+			this.showHideScrollColumns(true);
+		};
+	}),
 
 
 

@@ -79,16 +79,18 @@ enyo.kind({
 	bindings: [
 		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
-	
+
 	//* @protected
-	
-	create: function() {
-		this.inherited(arguments);
-		enyo.dom.accelerate(this, "auto");
-		this.openChanged();
-		this.setActive(this.open);
-		this.disabledChanged();
-	},
+
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			enyo.dom.accelerate(this, "auto");
+			this.openChanged();
+			this.setActive(this.open);
+			this.disabledChanged();
+		};
+	}),
 	//* Facade for header content
 	contentChanged: function() {
 		this.$.header.setContent(this.getContent());
@@ -101,7 +103,7 @@ enyo.kind({
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
-		
+
 		this.addRemoveClass("disabled", disabled);
 		if (disabled) {
 			this.setOpen(false);
@@ -116,7 +118,7 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
+
 		this.toggleActive();
 	},
 	toggleActive: function() {

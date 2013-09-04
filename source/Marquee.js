@@ -64,16 +64,18 @@ enyo.kind({
 		onRequestMarqueeStop: "stopMarquee",
 		onwebkitAnimationEnd: "animationEnded"
 	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.addClass(this.clipInsidePadding ? "moon-marquee-clip" : "moon-marquee-text");
-		if (this.clipInsidePadding) {
-			this.createChrome([{name:"client", classes:"moon-marquee-text"}]);
-			this.marqueeControl = this.$.client;
-		} else {
-			this.marqueeControl = this;
-		}
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.addClass(this.clipInsidePadding ? "moon-marquee-clip" : "moon-marquee-text");
+			if (this.clipInsidePadding) {
+				this.createChrome([{name:"client", classes:"moon-marquee-text"}]);
+				this.marqueeControl = this.$.client;
+			} else {
+				this.marqueeControl = this;
+			}
+		};
+	}),
 	//*@public
 	startMarquee: function() {
 		this.calcMarqueeDistance();
@@ -98,7 +100,7 @@ enyo.kind({
 		this.marqueeControl.removeClass("moon-marquee");
 		this.marqueeRequested = false;
 		this.doMarqueeEnded();
-        return true;
+		return true;
 	},
 	//*@protected
 	allowHtmlTextChanged: function() {
@@ -106,13 +108,15 @@ enyo.kind({
 			this.marqueeControl.setAllowHtml(this.allowHtmlText);
 		}
 	},
-	contentChanged: function() {
-		if (this.$.client) {
-			this.$.client.setContent(this.content);
-		} else {
-            this.inherited(arguments);
-        }
-	},
+	contentChanged: enyo.inherit(function(sup) {
+		return function() {
+			if (this.$.client) {
+				this.$.client.setContent(this.content);
+			} else {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	calcMarqueeDistance: function() {
 		this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
 		return this.marqueeDistance;
@@ -124,15 +128,15 @@ enyo.kind({
 			this.doMarqueeStarted({marqueeDistance: this.marqueeDistance});
 		}
 		this.marqueeRequested = true;
-        return true;
+		return true;
 	},
 	requestStart: function(inSender, inEvent) {
 		this.startMarquee();
-        return true;
+		return true;
 	},
 	animationEnded: function(inSender, inEvent) {
 		this.startJob(this.id, enyo.bind(this, this.stopMarquee), this.marqueePause);
-        return true;
+		return true;
 	}
 });
 

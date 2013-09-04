@@ -37,9 +37,9 @@ enyo.kind({
 		unit: "sec"
 	},
 	lockBottom: true,
-	
+
 	//* @protected
-	
+
 	handlers: {
 		requestScrollIntoView: "requestScrollIntoView"
 	},
@@ -64,20 +64,22 @@ enyo.kind({
 		"showCurrentValue": ["open"],
 		"currentValueText": ["value", "noneText"]
 	},
-	
+
 	// Change handlers
 	valueChanged: function() {
 		this.fireChangeEvent();
 	},
-	openChanged: function() {
-		this.inherited(arguments);
-		
-		if (!this.getOpen()) {
-			this.updateValue();
-		}
-		
-		this.preventResize = false;
-	},
+	openChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+
+			if (!this.getOpen()) {
+				this.updateValue();
+			}
+
+			this.preventResize = false;
+		};
+	}),
 	activeChanged: function() {
 		var active = this.getActive();
 		if (active) {
@@ -89,7 +91,7 @@ enyo.kind({
 		}
 		this.setOpen(active);
 	},
-	
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open;

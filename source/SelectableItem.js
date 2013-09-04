@@ -33,10 +33,12 @@ enyo.kind({
 		{name: "client", classes: "moon-selectable-item-client"}
 	],
 	//@protected
-	rendered: function() {
-		this.inherited(arguments);
-		this.selectedChanged();
-	},
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.selectedChanged();
+		};
+	}),
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
 	},
@@ -44,7 +46,7 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
+
 		this.setActive(!this.getActive());
 		this.bubble("onchange");
 	},

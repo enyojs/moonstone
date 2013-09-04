@@ -1,15 +1,15 @@
-/** 
+/**
 	_moon.HighlightText_ is a control that displays highlighted text. In response
 	to an `onHighlight` event, it will highlight a specified string if that string
 	is found within the control's content.
 
 	For example, let's say we have the following control:
-	
+
 		{kind: "moon.HighlightText", name: "myHT", content: "Hello World!"}
 
 	In response to the event
 
-		this.waterfall("onHighlight", {highlight: "Hello"}); 
+		this.waterfall("onHighlight", {highlight: "Hello"});
 
 	the word "Hello" will be highlighted.
 
@@ -30,10 +30,12 @@ enyo.kind({
         onHighlight: "onHighlightHandler",
         onUnHighlight: "unHighlightHandler"
     },
-    create: function() {
-        this.inherited(arguments);
-        this.highlightChanged();
-    },
+    create: enyo.inherit(function(sup) {
+        return function() {
+            sup.apply(this, arguments);
+            this.highlightChanged();
+        };
+    }),
     //* @protected
     generateInnerHtml: function() {
         if (this.search) {

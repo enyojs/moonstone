@@ -65,9 +65,9 @@ enyo.kind({
 	},
 	autoCollapse: true,
 	lockBottom: true,
-	
+
 	//* @protected
-	
+
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
 	handlers: {
@@ -83,18 +83,22 @@ enyo.kind({
 			{name: "helpText", classes: "moon-expandable-picker-help-text"}
 		]}
 	},
-	create: function() {
-		this.inherited(arguments);
-		this.initializeActiveItem();
-		this.selectedIndexChanged();
-		this.noneTextChanged();
-		this.helpTextChanged();
-		this.openChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.isRendered = true;
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.initializeActiveItem();
+			this.selectedIndexChanged();
+			this.noneTextChanged();
+			this.helpTextChanged();
+			this.openChanged();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.isRendered = true;
+		};
+	}),
 	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
@@ -148,10 +152,12 @@ enyo.kind({
 		}
 	},
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
-	openChanged: function() {
-		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.open);
-	},
+	openChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.currentValue.setShowing(!this.open);
+		};
+	}),
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
 		this.$.helpText.setContent(this.helpText);
@@ -169,7 +175,7 @@ enyo.kind({
 			if (!controls[i].active) {
 				continue;
 			}
-			
+
 			this.selectedIndex = i;
 			this.selected = controls[i];
 			this.$.currentValue.setContent(controls[i].getContent());
@@ -184,12 +190,12 @@ enyo.kind({
 		if (!toggledControl) {
 			return;
 		}
-		
+
 		index = this.getClientControls().indexOf(toggledControl);
-		
+
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
-			
+
 			if (this.getAutoCollapseOnSelect() && this.isRendered) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}

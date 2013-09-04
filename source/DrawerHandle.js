@@ -27,9 +27,6 @@ enyo.kind({
 	components: [
 		{name:"handleContent", kind: "moon.MarqueeText", classes: "moon-drawer-handle-text"}
 	],
-	create: function() {
-		this.inherited(arguments);
-	},
 	contentChanged: function() {
 		this.$.handleContent.setContent(this.getContent());
 	}

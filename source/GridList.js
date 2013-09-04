@@ -44,14 +44,16 @@ enyo.kind({
 	events: {
 		ontap: "tap"
 	},
-	initComponents: function() {
-		// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
-		// if spotlight is applied on any template controls
-		this._removeSpotlight(this.components);
-		// Create a dummy component to dynamically compute the dimensions of items at run-time (once for each item during sizeupItem) based on the actual content inside the item (only for variable sized items where sizeupItem is called).
-		this.createComponent({name: "_dummy_", allowHtml: true, classes: "enyo-gridlist-dummy", showing: false}, {owner: this});
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
+			// if spotlight is applied on any template controls
+			this._removeSpotlight(this.components);
+			// Create a dummy component to dynamically compute the dimensions of items at run-time (once for each item during sizeupItem) based on the actual content inside the item (only for variable sized items where sizeupItem is called).
+			this.createComponent({name: "_dummy_", allowHtml: true, classes: "enyo-gridlist-dummy", showing: false}, {owner: this});
+			sup.apply(this, arguments);
+		};
+	}),
 	_removeSpotlight: function (components) {
 		for (var i=0; i<components.length; i++) {
 			var c = components[i];
