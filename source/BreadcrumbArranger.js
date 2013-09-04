@@ -339,5 +339,28 @@ enyo.kind({
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		return {isBreadcrumb: this.isBreadcrumb(fromIndex, toIndex)};
+	},
+	//* Return _true_ if any panels will move in the transition from _inFromIndex_ to _inToIndex_
+	shouldArrange: function(inFromIndex, inToIndex) {
+		if (!(inFromIndex >= 0 && inToIndex >= 0)) {
+			return;
+		}
+		
+		var transitionPositions = this.container.transitionPositions,
+			panelCount = this.container.getPanels().length,
+			panelIndex,
+			from,
+			to;
+		
+		for (panelIndex = 0; panelIndex < panelCount; panelIndex++) {
+			from = transitionPositions[panelIndex + "." + inFromIndex];
+			to = transitionPositions[panelIndex + "." + inToIndex];
+			
+			if (from !== to) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 });
