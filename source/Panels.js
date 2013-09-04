@@ -58,7 +58,7 @@ enyo.kind({
 	showFirstBreadcrumb: false,
 	//* Default to using _moon.BreadcrumbArranger_
 	arrangerKind: "moon.BreadcrumbArranger",
-	//* 
+	//* Index of panel which is set in the middle of transition
 	queuedIndex: null,
 
 
@@ -425,11 +425,11 @@ enyo.kind({
 		
 		this.doPanelsPostTransitionFinished({active: activeIndex});
 		
+		this.finishTransition();
+
 		for (var i = 0; i < this.getPanels().length; i++) {
 			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
 		}
-		
-		this.finishTransition();
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
 	indexChanged: function() {
