@@ -73,7 +73,7 @@ enyo.kind({
 		return function() {
 			sup.apply(this, arguments);
 
-			if (!this.getOpen()) {
+			if (!this.getOpen() && this.hasNode()) {
 				this.updateValue();
 			}
 

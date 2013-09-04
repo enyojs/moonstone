@@ -90,8 +90,11 @@ enyo.kind({
 	}),
 	//* Determine whether to display closeButton
 	configCloseButton: function() {
-		if (!this.$.closeButton) {return;}
-		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+		if (!this.$.closeButton) {
+			return;
+		}
+
+		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
 		} else {
@@ -109,7 +112,7 @@ enyo.kind({
 	},
 	showingChanged: enyo.inherit(function(sup) {
 		return function() {
-			if(this.showing) {
+			if (this.showing) {
 				moon.Popup.count++;
 				this.applyZIndex();
 			}
@@ -118,8 +121,10 @@ enyo.kind({
 					moon.Popup.count--;
 				}
 			}
+
 			this.showHideScrim(this.showing);
 			sup.apply(this, arguments);
+
 			if (this.showing) {
 				this.activator = enyo.Spotlight.getCurrent();
 				this.spotlight = this._spotlight;
@@ -129,6 +134,19 @@ enyo.kind({
 					this.spotlight = false;
 				} else if ((this.spotlight) && (spottableChildren > 0)) {
 					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+				}
+				this.showHideScrim(this.showing);
+				sup.apply(this, arguments);
+				if (this.showing) {
+					this.activator = enyo.Spotlight.getCurrent();
+					this.spotlight = this._spotlight;
+					this.configCloseButton();
+					spottableChildren = enyo.Spotlight.getChildren(this).length;
+					if (spottableChildren === 0) {
+						this.spotlight = false;
+					} else if ((this.spotlight) && (spottableChildren > 0)) {
+						enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+					}
 				}
 			}
 		};

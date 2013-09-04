@@ -1975,7 +1975,7 @@
   min-height: 100px;
   min-width: 100px;
   border-radius: 16px;
-  border: 12px solid #686868;
+  border: 12px solid transparent;
   color: #ffffff;
   padding: 20px;
   background-clip: padding-box;
@@ -2778,7 +2778,7 @@
   color: #ffffff;
   text-align: center;
   padding: 0px 24px;
-  background-color: #4b4b4b;
+  background-color: #686868;
   border-radius: 30px;
 }
 .moon-tooltip.below {
@@ -2805,22 +2805,22 @@
 }
 .moon-tooltip.above.left-arrow {
   background-image: url('../images/tooltip-nubs/top-left.png');
-  background-position: left bottom;
+  background-position: left 30px;
   left: 35%;
 }
 .moon-tooltip.above.right-arrow {
   background-image: url('../images/tooltip-nubs/top-right.png');
-  background-position: right bottom;
+  background-position: right 30px;
   right: 50%;
 }
 .moon-tooltip.below.left-arrow {
   background-image: url('../images/tooltip-nubs/bottom-left.png');
-  background-position: left top;
+  background-position: left 1px;
   left: 35%;
 }
 .moon-tooltip.below.right-arrow {
   background-image: url('../images/tooltip-nubs/bottom-right.png');
-  background-position: right top;
+  background-position: right 1px;
   right: 50%;
 }
 .moon-tooltip .moon-tooltip-label.right-arrow {
@@ -3291,6 +3291,7 @@
   white-space: nowrap;
 }
 .moon-video-player-info-subsubtitle {
+  display: inline-block;
   font-family: "MuseoSans 300";
   font-size: 30px;
   line-height: 30px;
@@ -3307,10 +3308,12 @@
   margin-bottom: 25px;
 }
 .moon-video-player-info-client {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  padding: 15px;
+  display: inline-block;
+  margin: 0 0 10px 20px;
+}
+.moon-video-player-info-client > * {
+  display: inline-block;
+  margin: 0 5px;
 }
 .moon-channelinfo {
   display: inline-block;

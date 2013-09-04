@@ -23,7 +23,7 @@ enyo.kind({
 	},
 	//*@protected
 	iLibFormatType: "date",
-	defaultOrdering: "ymd",
+	defaultOrdering: "mdy",
 	setupPickers: enyo.inherit(function(sup) {
 		return function(ordering) {
 			var orderingArr = ordering.toLowerCase().split("");
@@ -47,10 +47,9 @@ enyo.kind({
 					default:
 						break;
 					}
-					doneArr.push(o);
 				}
+				sup.apply(this, arguments);
 			}
-			sup.apply(this, arguments);
 		};
 	}),
 	formatValue: function() {

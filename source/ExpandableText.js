@@ -61,10 +61,14 @@ enyo.kind({
 		this.updateButtonVisibility();
 	},
 	moreContentChanged: function() {
-		this.updateCollapseButtonContent();
+		if(this.collapsed) {
+			this.set("buttonContent", this.moreContent);
+		}
 	},
 	lessContentChanged: function() {
-		this.updateCollapseButtonContent();
+		if(!this.collapsed) {
+			this.set("buttonContent", this.lessContent);
+		}
 	},
 	collapsedChanged: function() {
 		if (this.collapsed) {
@@ -97,8 +101,13 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
-		this.$.collapseButton.addRemoveClass("hidden", (this.contentHeight < this.calcMaxHeight()));
+		if(this.contentHeight - 1 > this.calcMaxHeight()) {
+			this.$.collapseButton.removeClass("hidden");
+			this.collapsedChanged();
+		} else {
+			this.$.collapseButton.addClass("hidden");
+			this.set("collapsed", false);
+		}
 	},
 	calcMaxHeight: function() {
 		return this.maxLines * this.lineHeight;
