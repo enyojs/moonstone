@@ -454,7 +454,7 @@ enyo.kind({
 			
 			//* Initial spot
 			if (this.showPlaybackControls) {
-				enyo.Spotlight.spot(this.$.fsPlayPause);
+				enyo.Spotlight.spot(this.$.fsPlay);
 			} else {
 				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
 				enyo.Spotlight.spot(oTarget);
