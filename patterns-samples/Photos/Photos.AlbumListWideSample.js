@@ -4,39 +4,25 @@ enyo.kind({
     name: "moon.sample.photos.AlbumListItem",
     classes: "sample-album-list-item",
     kind: "moon.Item",
-
     published: {
         option: {
             source: "",
-            bgSource: "",
             title: ""
         }
     },
-
     components:[
         {
             kind: "FittableColumns",
             components: [
                 {
                     components: [
-                        {
-                            name: "bgImage",
-                            kind: "enyo.Image",
-                            classes: "front-image",
-                            components: [
-                                {
-                                    name: "image",
-                                    kind: "enyo.Image",
-                                    classes: "back-image"
-                                }
-                            ]
-                        }
+                        {name: "image", kind: "enyo.Image"}
                     ]
                 },
                 {
                     name: "title",
                     classes: "title-text",
-                    style: "margin-left: 10px"
+                    style: "margin-left: 20px"
                 }
             ]
         }
@@ -46,13 +32,11 @@ enyo.kind({
         this.inherited(arguments);
         this.optionChanged();
     },
-
     optionChanged: function() {
         if (!this.option.source || this.source === '') {
             return;
         }
         this.$.image.setAttribute('src', this.option.source);
-        this.$.bgImage.setAttribute('src', this.option.bgSource);
         this.$.title.content = this.option.title;
     }
 });
@@ -67,9 +51,8 @@ enyo.kind({
     components: [
         {
             name: "menuList",
-            kind: "enyo.DataList",
+            kind: "moon.DataList",
             classes: "moon-6h",
-            scrollerOptions: {horizontal: "hidden", thumb: false},
             components: [
                 {
                     kind: "moon.sample.photos.AlbumListItem",
@@ -81,8 +64,7 @@ enyo.kind({
         },
         {
             name: "albumList",
-            kind: "enyo.DataGridList",
-            scrollerOptions: {horizontal: "hidden", thumb: false},
+            kind: "moon.DataGridList",
             fit: true,
             components: [
                 {
@@ -107,10 +89,10 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menus: new enyo.Collection([
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}}
+            {option: {source: "../assets/default-movie.png", title: "Album Name"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name"}}
         ]),
 		albums: new enyo.Collection([
             {imgSrc: "../assets/album.png"},

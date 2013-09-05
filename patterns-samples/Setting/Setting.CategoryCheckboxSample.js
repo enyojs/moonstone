@@ -11,11 +11,16 @@ enyo.kind({
 			name: "caterogryInfo",
 			kind: "moon.DataList",
 			components: [
-				{
-					kind: "moon.CheckboxItem",
-					ontap: "changeItemName",
+				{					
 					bindings: [
-                        {from: ".model.name", to: ".content"}
+                        {from: ".model.name", to: ".$.checkboxItem.content"}
+                    ],
+                    components: [
+						{
+							name: "checkboxItem",
+							kind: "moon.CheckboxItem",
+							ontap: "changeItemName"
+						}
                     ]
 				}
 			]

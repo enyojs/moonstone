@@ -10,8 +10,8 @@ enyo.kind({
         {classes: "moon-hspacing", components: [
             {kind: "moon.Button", content: "Wizard Popup", ontap: "showPopup", popup: "wizPopup"}
         ]},
-        {name: "wizPopup", kind: "moon.Popup", classes: "enyo-fill", style:"height:600px", components: [
-            {name: "wizardSample", kind: "moon.sample.wizard.PopupSample", style:"top:0px;left:0px;height:100%;width: 100%"}
+        {name: "wizPopup", kind: "moon.Popup", style:"height:600px", components: [
+            {name: "wizardSample", kind: "moon.sample.wizard.PopupSample", classes:"enyo-fill"}
         ]}
     ],
     bindings: [
@@ -32,7 +32,7 @@ enyo.kind({
 enyo.kind({
     name: "Sample.Wizard.Panels",
     kind: "moon.Panels",
-    defaultKind: "Sample.Wizard.Panel",
+    pattern: "activity",
     arrangerKind: "CardArranger",
     classes: "enyo-unselectable enyo-fit",
     handlers: {
@@ -49,7 +49,6 @@ enyo.kind({
 enyo.kind({
     name: "Sample.Wizard.Panel",
     kind: "moon.Panel",
-    classes: "moon-wizard-sample enyo-fit",
     published: {
         selectedText: "",
         processed: false
@@ -65,13 +64,14 @@ enyo.kind({
             {
                 components: [
                     {kind: "moon.Divider", content:"Category"},
-                    {name: "wizList", fit:true, kind: "moon.DataList", components: [
-                        {kind:"moon.Item", classes: "wizard-listaction-item", bindings: [
-                            {from: ".model.step", to: ".content"}
-                        ]},
-                        {classes: "wizard-listaction-text", bindings: [
-                            {from: ".model.processed", to: ".content"}
-                        ]}
+                    {name: "wizList", fit:true, kind: "moon.DataList", 
+                    bindings: [
+                        {from: ".model.step", to: ".$.wizardListItem.content"},
+                        {from: ".model.processed", to: ".$.wizardListText.content"}
+                    ],
+                    components: [
+                        {name: "wizardListItem", kind:"moon.Item", classes: "wizard-listaction-item"},
+                        {name: "wizardListText", classes: "wizard-listaction-text"}
                     ]}
                 ]
             }

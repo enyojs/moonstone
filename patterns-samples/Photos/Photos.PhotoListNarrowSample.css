@@ -1,21 +1,12 @@
-.photo-album {
-	margin : 20px 50px 20px 50px;
-}
-
-.photo-album .moon-panel-body {
-	padding-top : 20px;
-}
-
-.photo-album .moon-imageitem {
-	height : 160px;
-}
-
-.photo-album .moon-imageitem img {
+.sample-album-list-item {
 	width : 200px;
-	height : 160px;
-	margin : 0px 20px 0px 0px;
+	height : 150px;
+	display: block;
+	clear: both;
+	margin : 40px 0 80px 0;
 }
 
-.photo-album .moon-labeledtextitem .label {
-	border : none;
+.sample-album-list-item img {
+	width : 200px;
+	height : 150px;
 }

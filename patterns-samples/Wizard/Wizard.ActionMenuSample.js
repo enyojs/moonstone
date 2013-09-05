@@ -1,8 +1,8 @@
 enyo.kind({
 	name: "Sample.Wizard.Panels",
 	kind: "moon.Panels",
-	defaultKind: "Sample.Wizard.Panel",
-	arrangerKind: "CarouselArranger",
+	pattern: "activity",
+	arrangerKind: "CardArranger",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {
 		onNext: "next",
@@ -18,7 +18,6 @@ enyo.kind({
 enyo.kind({
 	name: "Sample.Wizard.Panel",
 	kind: "moon.Panel",
-	classes: "moon-wizard-sample enyo-fit",
 	published: {
 		selectedText: "",
 		processed: false
@@ -33,15 +32,19 @@ enyo.kind({
             listActions: [
             {
                 components: [
-                    {kind: "moon.Divider", content:"Category"},
-                    {name: "wizList", kind: "moon.DataList", components: [
-                        {kind:"moon.Item", classes: "wizard-listaction-item", bindings: [
-                            {from: ".model.step", to: ".content"}
-                        ]},
-                        {classes: "wizard-listaction-text", bindings: [
-                            {from: ".model.processed", to: ".content"}
-                        ]}
-                    ]}
+					{kind: "moon.Divider", content:"Category"},
+					{name: "wizList", kind: "moon.DataList", components: [
+						{
+							bindings: [
+								{from: ".model.step", to: ".$.wizardListItem.content"},
+								{from: ".model.processed", to: ".$.wizardListText.content"}
+							],
+							components: [
+								{name: "wizardListItem", kind:"moon.Item", classes: "wizard-listaction-item"},
+								{name: "wizardListText", classes: "wizard-listaction-text"}
+							]
+						}
+					]}
                 ]
             }
         ]}
@@ -50,6 +53,9 @@ enyo.kind({
         {from: ".controller.title", to: ".title"},
         {from: ".controller.wizResults", to: ".$.wizListAction.$.listActionsContainer.$.wizList.controller"}
     ],
+    create: function() {
+		this.inherited(arguments);
+    },
     rendered: function() {
         this.inherited(arguments);
         this.initialSetting();
@@ -63,8 +69,8 @@ enyo.kind({
     name: "moon.sample.wizard.ActionMenuSample",
     kind: "Sample.Wizard.Panels",
     components: [
-        {name: "introPage",   kind: "moon.sample.wizard.IntroPageSample"},
-        {name: "stepPage1",   kind: "moon.sample.wizard.StepPageSample"},
+        {name: "introPage", kind: "moon.sample.wizard.IntroPageSample"},
+        {name: "stepPage1", kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage2",   kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage3",   kind: "moon.sample.wizard.StepPageSample"},
         {name: "stepPage4",   kind: "moon.sample.wizard.StepPageSample"},
@@ -78,6 +84,9 @@ enyo.kind({
         {from: ".controller", to: ".$.stepPage4.controller"},
         {from: ".controller", to: ".$.confirmPage.controller"}
     ],
+    create: function() {
+		this.inherited(arguments);
+    },
     onTap: function(oSender, oEvent) {
         //* override from panels
         // no action for Carosel Arranger using button

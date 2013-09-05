@@ -31,16 +31,15 @@ enyo.kind({
                     components: [
                         {
                             classes: "moon-search-recent-list",
+                            bindings: [
+                                {from: ".model.title", to: ".$.item.content"},
+                                {from: ".model.imgSrc", to: ".$.image1.src"},
+                                {from: ".model.imgSrc", to: ".$.image2.src"}
+                            ],
                             components: [
-                                {kind: "moon.Item", style: "display: inline-block", bindings: [
-                                    {from: ".model.title", to: ".content"}
-                                ]},
-                                {kind: 'enyo.Image', classes: "moon-search-image", bindings: [
-                                    {from: ".model.imgSrc", to: ".src"}
-                                ]},
-                                {kind: 'enyo.Image', classes: "moon-search-image", bindings: [
-                                    {from: ".model.imgSrc", to: ".src"}
-                                ]}
+                                {kind: "moon.Item", name: "item", style: "display: inline-block" },
+                                {kind: "enyo.Image", name: "image1", classes: "moon-search-image" },
+                                {kind: "enyo.Image", name: "image2", classes: "moon-search-image" }
                             ]
                         }
                     ]
