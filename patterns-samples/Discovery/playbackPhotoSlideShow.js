@@ -143,32 +143,22 @@ enyo.kind({
 	imageUrls: [],
 	controlTools: [
 		{layoutKind: 'HFlexLayout', classes: "discovery-layoutbox", components: [
-			{components: [
-				{classes: "discovery-playbackcontrol-lefttext", content: "CONTENT TITLE"}
-			]},
-			{components: [
-				{name:"playpause", mode: "pause", kind: "moon.IconButton", src: "assets/icon_play.png", ontap: "playHandler", classes: "big-icon-button"}
-			]},
-			{components: [
-				{
-					name:"speed",
-					kind: "moon.ExpandableIntegerPicker",
-					noneText: "Not Selected",
-					autoCollapse: true,
-					content: "Speed",
-					classes: "moon-photo-slideshow-control-picker-wrapper",
-					value: 3,
-					min: 1,
-					max: 15,
-					unit: "sec"
-				}
-			]},
-			{components: [
-				{name: "backward", kind: "moon.Button", content: "Close", ontap: "closeHandler", }
-			]}
-
+			{classes: "discovery-playbackcontrol-lefttext", content: "CONTENT TITLE"},
+			{name:"playpause", mode: "pause", kind: "moon.IconButton", src: "assets/icon_play.png", ontap: "playHandler"},
+			{
+				name:"speed",
+				kind: "moon.ExpandableIntegerPicker",
+				noneText: "Not Selected",
+				autoCollapse: true,
+				content: "Speed",
+				classes: "moon-photo-slideshow-control-picker-wrapper",
+				value: 3,
+				min: 1,
+				max: 15,
+				unit: "sec"
+			},
+			{name: "backward", kind: "moon.Button", small: true, content: "Close", ontap: "closeHandler"}
 		]},
-
 		{
 			name: "list",
 			kind: "moon.List",

@@ -1,7 +1,6 @@
 enyo.kind({
 	name: "Discovery.Sample.Playback",
-	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample slideshow-layered-sample",
-	kind: "Discovery.Components.ImagePlaybackControl",
+	classes: "slideshow-layered-sample enyo-unselectable",
 	fit: true,
 	components: [
 		{
@@ -18,15 +17,32 @@ enyo.kind({
 			],
 			components: [
 				{name: "sendBackButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png", ontap: "buttonBack"},
-				{name: "thumbNailButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "tapHandler" }
+				{name: "sendThumbButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "showPopup", popup: "thumbPop", components: [
+					{name: "thumbPop", kind: "Discovery.Components.ImagePlaybackControl"}
+				]},
 			]
-		}
+		}		
 	],
+
+	popupActivator: null,
+	showPopup: function(inSender) {
+		this.hidePopups();
+		var p = this.$[inSender.popup];
+		if (p) {
+			p.show();
+		}
+	},
+	hidePopups: function() {
+		this.$.thumbPop.hide();
+	},
+
 	buttonBack: function() {
 		window.open("http://www.google.com", "width=500, height=500", true);
 	}
 
 });
+
+
 
 enyo.kind({
 	name: "Discovery.Components.VideoPlaybackControl",
@@ -55,6 +71,10 @@ enyo.kind({
 
 enyo.kind({
 	name: "Discovery.Components.ImagePlaybackControl",
+	classes: "moon enyo-unselectable enyo-fit",
+	kind: "moon.Popup",
+	
+
 	components: [
 		{kind: "moon.Divider", content: "Click Image!"},
 		{
@@ -62,15 +82,14 @@ enyo.kind({
 				{
 					kind: "enyo.Image",
 					src: "http://www.imagebase.net/var/resizes/City-88911873/city%20_9_.jpg",
-					ontap: "tapHandler"
+					ontap: "startImage"
 				}
 			]
 		}
 	],
+
 	// mockup data
 	results: [
-		{width: "500", height: "300", thumb: "http://www.imagebase.net/var/resizes/City-88911873/city%20_9_.jpg",
-			url: "http://www.imagebase.net/var/albums/City-88911873/city%20_9_.jpg"},
 		{width: "400", height: "400", thumb: "http://www.imagebase.net/var/resizes/City-88911873/columns.JPG",
 			url: "http://www.imagebase.net/var/albums/City-88911873/columns.JPG"},
 		{width: "500", height: "500", thumb: "http://www.imagebase.net/var/resizes/City-88911873/city%20_8_.jpg",
@@ -94,15 +113,23 @@ enyo.kind({
 		{width: "300", height: "300", thumb: "http://www.imagebase.net/var/resizes/Nature/grass_003.jpg",
 			url: "http://www.imagebase.net/var/albums/Nature/grass_003.jpg"}
 	],
+
+	// components: [
+	// 	{kind: "moon.Divider", content: "Click me"}
+	// ],
+
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage", index: 0});
+		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage"});
 		this.$.slideShow.setCount(this.results.length);
 		this.$.slideShow.render();
+
 	},
-	tapHandler: function(inSender, inEvent) {
+
+	startImage: function(inSender, inEvent) {
 		this.$.slideShow.requestShow();
 	},
+
 	setupImage: function(inSender, inEvent) {
 		// this is the row we're setting up
 		var i = inEvent.index;
@@ -116,35 +143,3 @@ enyo.kind({
 		return true;
 	}
 });
-
-
-
-// enyo.kind({
-// 	name: "moon.sample.slideshow.PhotoSlideshow",
-// 	kind: "moon.PhotoSlideshow",
-// 	components: [
-// 		//* Custom buttons for left area of slide controller */
-// 		{name: "favorite", kind: "moon.IconButton", src: "../assets/favorite_icon.png", ontap: "favoriteHandler"},
-// 		{kind: "moon.sample.slideshow.SharePopup"}
-// 	],
-// 	favoriteHandler: function(inSender, inEvent) {
-// 		enyo.log("Favorite button is clicked");
-// 		return true;
-// 	}
-// });
-
-// enyo.kind({
-// 	name: "moon.sample.slideshow.SharePopup",
-// 	kind: "moon.ContextualPopupDecorator",
-// 	defaultKind: "moon.IconButton",
-// 	components: [
-// 		{src: "../assets/share_icon.png", ontap: "shareHandler"},
-// 		{kind: "moon.ContextualPopup", components: [
-// 			{content:"Sample component in popup"}
-// 		]}
-// 	],
-// 	shareHandler: function(inSender, inEvent) {
-// 		enyo.log("ShareTo button is clicked");
-// 		return true;
-// 	}
-// });
