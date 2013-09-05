@@ -116,6 +116,7 @@ enyo.kind({
 		this.knobClassesChanged();
 		this.popupLabelClassesChanged();
 		this.tapAreaClassesChanged();
+		this.updateKnobPosition(this.value);
 	},
 	destroy: function() {
 		if (this._nf) {
@@ -228,6 +229,7 @@ enyo.kind({
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		
+		this.updateBarPosition(percent);
 		this.updatePopupLabel(knobValue);
 	},
 	updatePopupLabel: function(inKnobValue) {
