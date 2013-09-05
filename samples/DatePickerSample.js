@@ -30,7 +30,7 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments);
-		if (!ilib) {
+		if (!window.ilib) {
 			this.$.localePicker.hide();
 			this.log("iLib not present -- hiding locale picker");
 		}

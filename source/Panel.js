@@ -55,11 +55,6 @@ enyo.kind({
 	layoutKind: "FittableRowsLayout",
 	headerOption: null, //* Deprecated
 	panelTools : [
-		{name: "viewport", classes: "moon-panel-viewport", components: [
-			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
-				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
-			]}
-		]},
 		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
@@ -68,6 +63,12 @@ enyo.kind({
 				]}
 			]}
 		]},
+		{name: "viewport", classes: "moon-panel-viewport", components: [
+			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
+				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
+			]}
+		]},
+
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
@@ -186,7 +187,6 @@ enyo.kind({
 	//* Updates _this.header_ when _title_ changes.
 	titleChanged: function() {
 		this.$.header.setTitle(this.getTitle());
-		this.$.miniHeader.setContent(this.getTitle());
 	},
 	//* Updates _this.header_ when _titleAbove_ changes.
 	titleAboveChanged: function() {
@@ -231,11 +231,7 @@ enyo.kind({
 	},
 	shrinkingWidthAnimation: function() {
 		this.haltAnimations();
-		
 		this.preTransitionComplete();
-		// NOTE - Skipping width shrink animation
-		// this.$.breadcrumbBackground.applyStyle("width", "300px");
-		// this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
 		this.haltAnimations();
@@ -256,7 +252,7 @@ enyo.kind({
 		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		// run miniHeader marquee when we're collapsed
+		// run breadcrumbText marquee when we're collapsed
 		if(this.showingSmallHeader) {
 			this.$.breadcrumbText.startMarquee();
 		} else {

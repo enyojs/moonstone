@@ -38,7 +38,7 @@ enyo.kind({
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 		]},
-        {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
+        {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", showing: false, components: [
             {title: "First Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},

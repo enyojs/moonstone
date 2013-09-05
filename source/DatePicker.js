@@ -29,7 +29,7 @@ enyo.kind({
 	},
 	//*@protected
 	iLibFormatType: "date",
-	defaultOrdering: "ymd",
+	defaultOrdering: "mdy",
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.toLowerCase().split("");
 		var doneArr = [];
