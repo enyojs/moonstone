@@ -97,14 +97,14 @@ enyo.kind({
 					]},
 					{name: "buttonList", layoutkind: "FittableRowsLayout", components: [
 						{kind: "moon.ContextualPopupDecorator", components: [
-							{kind: "moon.ContextualPopupButton", classes: "moon-2h", components: [
+							{kind: "moon.ContextualPopupButton", classes: "moon-3h", components: [
 								{tag: "img", attributes: {src: "../assets/icon-half-like.png"}},
 								{content: "Like"}
 							]},
 							{kind: "moon.ContextualLoginPopup"}
 						]},
 						{kind: "moon.ContextualPopupDecorator", components: [
-							{classes: "moon-2h", content: "Share"},
+							{classes: "moon-3h", content: "Share"},
 							{kind: "moon.ContextualLoginPopup"}
 						]}
 					]}
