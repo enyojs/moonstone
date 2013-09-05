@@ -46,7 +46,7 @@ enyo.kind({
 		{name: "cancel", kind: "moon.Button", small: true, classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
 	],
 	initialSetting: function() {
-		var idx = this.$.header.getTitleAbove()-1;
+		var idx = this.indexInContainer();
 		var collection = this.controller.get("wizContainer");
 
 		this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));
@@ -54,7 +54,7 @@ enyo.kind({
 		this.$.detail.set("content", collection.at(idx).get("detail"));
 	},
 	goNext: function(inSender, inEvent) {
-		var idx = this.$.header.getTitleAbove()-1;
+		var idx = this.indexInContainer();
 		var collection = this.controller.get("wizResults");
 		this.setProcessed(true);
 		collection.at(idx).set("result", this.getSelectedText());

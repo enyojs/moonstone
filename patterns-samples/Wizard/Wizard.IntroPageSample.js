@@ -18,7 +18,7 @@ enyo.kind({
 		{kind: "moon.Button", classes: "wizard-button-bottom", small: true, ontap: "doCancel", content: "Cancel"}
 	],
 	initialSetting: function() {
-		var idx = this.$.header.getTitleAbove()-1;
+		var idx = this.indexInContainer();
 		var collection = this.controller.get("wizContainer");
 
 		this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));

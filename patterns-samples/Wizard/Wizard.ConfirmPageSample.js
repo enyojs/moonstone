@@ -25,7 +25,7 @@ enyo.kind({
 		{from: ".controller.wizResults", to: ".$.resultList.controller"}
 	],
 	initialSetting: function() {
-		var idx = this.$.header.getTitleAbove()-1;
+		var idx = this.indexInContainer();
 		var collection = this.controller.get("wizContainer");
 		this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));
 		this.$.headline.set("content", collection.at(idx).get("instruction"));
