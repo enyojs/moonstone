@@ -71,7 +71,7 @@ enyo.kind({
 			]},
 			{kind: "moon.Panel", title: "Capture to Canvas", components: [
 				{kind: "moon.Scroller", fit: true, components: [
-					{tag: "canvas", name: "capture"}
+					{tag: "canvas", name: "capture", spotlight: true}
 				]}
 			]}
 		]}

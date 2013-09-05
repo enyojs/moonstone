@@ -7,14 +7,12 @@ enyo.kind({
     titleAbove: "02",
     title: "Album Name",
     titleBelow: "97 Photos",
-
     headerComponents: [
         {kind: "moon.IconButton", src: "../assets/icon-list.png"},
         {kind: "moon.IconButton", src: "../assets/icon-favorite.png"},
         {kind: "moon.IconButton", src: "../assets/icon-download.png"},
         {kind: "moon.IconButton", src: "../assets/icon-next.png"}
     ],
-
     components: [
         {
             kind: "FittableRows",
@@ -42,7 +40,6 @@ enyo.kind({
             ]
         }
     ],
-
     bindings: [
         {from: ".controller.menus", to: ".$.menuList.controller"}
     ]

@@ -18,56 +18,21 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    kind: "moon.Item",
-                    spotlight: true,
-                    ontap: "changeName",
-                    components: [
-                        {
-                            kind: "enyo.Table",
-                            components: [
-                                {
-                                    components: [
-                                        {
-                                            components: [
-                                                {
-                                                    kind: "enyo.Image",
-                                                    style: "width: 126px; height: 126px;",
-													bindings: [
-														{from: ".model.coverUrl", to: ".src"}
-													]
-                                                }
-                                            ],
-                                            attributes: {rowspan: "3"}
-                                        },
-                                        {
-											bindings: [
-												{from: ".model.track", to: ".content"}
-											]
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
-                                        {
-											bindings: [
-												{from: ".model.artist", to: ".content"}
-											],
-                                            classes: "moon-superscript"
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
-                                        {
-											bindings: [
-												{from: ".model.time", to: ".content"}
-											],
-                                            classes: "moon-superscript"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
+                    bindings: [
+                        {from: ".model.coverUrl", to: ".$.enyoImage.src"},
+                        {from: ".model.track", to: ".$.imageTrack.content"},
+                        {from: ".model.artist", to: ".$.imageArtist.content"},
+                        {from: ".model.time", to: ".$.imageTime.content"}
+                    ],
+                    components: [                    
+                        {kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+                            {name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
+                            {components: [
+                                {name: "imageTrack"},
+                                {name: "imageArtist", classes: "moon-superscript"},
+                                {name: "imageTime", classes: "moon-superscript"}
+                            ]}                            
+                        ]}
                     ]
                 }
             ]

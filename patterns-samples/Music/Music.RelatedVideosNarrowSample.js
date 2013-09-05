@@ -14,46 +14,19 @@ enyo.kind({
             fit: true,
             components: [
                 {
-                    kind: "moon.Item",
-                    spotlight: true,
-                    ontap: "changeName",
-                    components: [
-                        {
-                            kind: "enyo.Table",
-                            components: [
-                                {
-                                    components: [
-                                        {
-                                            components: [
-                                                {
-                                                    kind: "enyo.Image",
-                                                    style: "width: 170px; height: 126px; padding-right: 30px;",
-													bindings: [
-														{from: ".model.coverUrl", to: ".src"}
-													]
-                                                }
-                                            ],
-                                            attributes: {rowspan: "2"}
-                                        },
-                                        {
-                                            bindings: [
-												{from: ".model.title", to: ".content"}
-											]
-                                        }
-                                    ]
-                                },
-                                {
-                                    components: [
-                                        {
-											bindings: [
-												{from: ".model.time", to: ".content"}
-											],
-                                            classes: "moon-superscript"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
+                    bindings: [
+                        {from: ".model.coverUrl", to: ".$.enyoImage.src"},
+                        {from: ".model.title", to: ".$.imageTitle.content"},
+                        {from: ".model.time", to: ".$.imageTime.content"}
+                    ],
+                    components: [                    
+                        {kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+                            {name: "enyoImage", kind: "enyo.Image", style: "width: 170px; height: 126px; padding-right: 30px;"},
+                            {components: [
+                                {name: "imageTitle"},
+                                {name: "imageTime", classes: "moon-superscript"}
+                            ]}
+                        ]}
                     ]
                 }
             ]

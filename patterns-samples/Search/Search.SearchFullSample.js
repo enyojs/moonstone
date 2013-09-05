@@ -1,16 +1,20 @@
-// enyo.DataGridListImageItem
+// enyo.TitleImageItem
 
 enyo.kind({
     name: "enyo.TitleImageItem",
     kind: "enyo.GridListImageItem",
     classes: "enyo-gridlist-titleimageitem",
     components:[
-        {name: "image", kind: "enyo.Image", bindings: [
-            {from: ".model.image", to: ".src"}
-        ]},
-        {name: "text", bindings: [
-            {from: ".model.text", to: ".caption"}
-        ]}
+        {
+            bindings: [
+                {from: ".model.image", to: ".$.image.src"},
+                {from: ".model.text", to: ".$.text.caption"}
+            ],
+            components: [
+                {name: "image", kind: "enyo.Image"},
+                {name: "text"}
+            ]
+        }
     ]
 });
 

@@ -10,9 +10,15 @@ enyo.kind({
 			kind: "enyo.DataList",
 			style: "width: 300px;",
 			components: [
-				{kind: "moon.Item", ontap: "changePanel", bindings: [
-					{from: ".model.menuItem", to: ".content"}
-				]}
+				{
+                    bindings: [
+                        {from: ".model.menuItem", to: ".$.videoItem.content"}
+                    ],
+                    components: [
+                        {name: "videoItem", kind: "moon.Item"}
+                    ],
+                    ontap: "changePanel"
+                }
 			]
 		},
 		{
@@ -23,7 +29,10 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".controller.menus", to: ".$.menuList.controller"}
-	]
+	],
+    changePanel: function(inSender, inEvent) {
+        enyo.log("Item: " + inEvent.originator.getContent());
+    }
 });
 
 // Sample model
@@ -55,10 +64,7 @@ enyo.ready(function(){
 			{
 				name: "movieController",
 				kind: "enyo.ModelController",
-				model: sampleModel,
-				changePanel: function(inSender, inEvent) {
-					enyo.log("Item: " + inEvent.originator.parent.controller.model.get("menuItem"));
-				}
+				model: sampleModel
 			}
 		]
 	});
