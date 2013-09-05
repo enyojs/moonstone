@@ -179,7 +179,8 @@ enyo.kind({
 	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
-			var n = this.clientIndexInContainer() + 1;
+			// This gets the index regardless of whether the panel is client or chome
+			var n = this.parent.indexOfChild(this) + 1;
 			n = ((n < 10) ? "0" : "") + n;
 			this.setTitleAbove(n);
 		}
