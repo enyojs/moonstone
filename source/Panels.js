@@ -293,6 +293,10 @@ enyo.kind({
 	setIndex: function(inIndex) {
 		inIndex = this.clamp(inIndex);
 		
+		if (inIndex === this.index) {
+			return;
+		}
+		
 		if (this.toIndex !== null) {
 			this.queuedIndex = inIndex;
 			return;
@@ -321,11 +325,6 @@ enyo.kind({
 		this.completed();
 	},
 	_setIndex: function(inIndex) {
-		if (this.fromIndex === this.toIndex) {
-			this.finishTransition();
-			return;
-		}
-		
 		var prev = this.get("index");
 		this.index = this.clamp(inIndex);
 		this.notifyObservers("index", prev, inIndex);
