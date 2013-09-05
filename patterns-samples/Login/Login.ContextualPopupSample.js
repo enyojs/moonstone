@@ -69,28 +69,26 @@ enyo.kind({
 		pattern: "activity",
 		classes: "enyo-fill",
 		components: [
-			{title: "Main Menu", classes:"moon-6h",			
-				components: [
-					{
-						name: "menuList", 
-						kind: "enyo.DataList", 
-						scrollerOptions: { kind:"moon.Scroller"},
-						components: [
-							{
-								bindings: [
-									{from: ".model.menuItem", to: ".$.panelItem.content"}
-								],
-								components: [
-									{name: "panelItem", kind: "moon.Item", ontap: "changePanel"}
-								]
-							}
-						]
-					}
-				]
-			},
+			{title: "Main Menu", classes:"moon-6h",	components: [
+				{
+					name: "menuList", 
+					kind: "enyo.DataList", 
+					scrollerOptions: { kind:"moon.Scroller"},
+					components: [
+						{
+							bindings: [
+								{from: ".model.menuItem", to: ".$.panelItem.content"}
+							],
+							components: [
+								{name: "panelItem", kind: "moon.Item", ontap: "changePanel"}
+							]
+						}
+					]
+				}
+			]},
 			{joinToPrev: true, components: [
 				{kind: "moon.Scroller", fit: true, components: [
-					{name: "contentList", kind: "enyo.DataGridList", components: [
+					{name: "contentList", kind: "enyo.DataGridList", classes: "moon-3v", components: [
 						{kind: "moon.MovieImageItem", bindings: [
 							{from: ".model.itemOption", to: ".option"}
 						]}
