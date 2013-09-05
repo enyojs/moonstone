@@ -65,6 +65,7 @@ enyo.kind({
 		]},
 		{name: "viewport", classes: "moon-panel-viewport", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
+				/* header will be created here programmatically in createTools after mixing-in headerOptions */
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 			]}
 		]},
@@ -142,7 +143,6 @@ enyo.kind({
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
-		this.inherited(arguments);
 	},
 	//* When _this.isBreadcrumb_ changes, update spottability
 	isBreadcrumbChanged: function() {
@@ -179,7 +179,8 @@ enyo.kind({
 	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
-			var n = this.clientIndexInContainer() + 1;
+			// This gets the index regardless of whether the panel is client or chome
+			var n = this.parent.indexOfChild(this) + 1;
 			n = ((n < 10) ? "0" : "") + n;
 			this.setTitleAbove(n);
 		}

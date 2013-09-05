@@ -40,8 +40,9 @@ enyo.kind({
 	},
 	handleTools: [
 		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},
-		{name: "client", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
-			{name: "scrim", classes: "moon-panels-panel-scrim"}
+		{name: "clientWrapper", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
+			{name: "scrim", classes: "moon-panels-panel-scrim"},
+			{name: "client", tag: null}
 		]},
 		{name: "showHideHandle", kind: "enyo.Control", spotlight: true, classes: "moon-panels-handle hidden", canGenerate: false,
 			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
@@ -67,13 +68,7 @@ enyo.kind({
 
 	//* @public
 	
-	/**
-		Returns an array of contained panels.
-		Subclasses can override this if they don't want the arranger to layout all of their children
-	*/
-	getPanels: function() {
-		return this.getClientControls();
-	},
+
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
@@ -163,7 +158,7 @@ enyo.kind({
 		}
 	},
 	shouldHide: function(oEvent) {
-		return (oEvent.originator === this.$.client || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
+		return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 	},
 	//* Prevent event bubble up when parent of originator is client
 	spotlightLeft: function(oSender, oEvent) {
@@ -215,13 +210,13 @@ enyo.kind({
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
-		if (!this.useHandle) { return; }
+		if (this.useHandle !== true) { return; }
 		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
 	onSpotlightPanelEnter: function() {
-		if (!this.showing && this.useHandle) {
+		if (!this.showing && this.useHandle === true) {
 			enyo.Spotlight.spot(this.$.showHideHandle);
 			return true;
 		}
@@ -254,7 +249,7 @@ enyo.kind({
 		}
 		else if (direction === "RIGHT") {
 			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
-			if (this.useHandle && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
+			if (this.useHandle === true && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
 				enyo.Spotlight.spot(this.$.showHideHandle);
 				return true;
 			}
@@ -488,6 +483,7 @@ enyo.kind({
 			this.applyActivityPattern();
 			break;
 		default:
+			this.useHandle = false;
 			break;
 		}
 	},
@@ -545,7 +541,7 @@ enyo.kind({
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
-		this.$.client.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
+		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
 		this.hideAnimationComplete();
 	},
 	createShowAnimation: function() {
@@ -555,10 +551,10 @@ enyo.kind({
 			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
 			keyframes: {
 				0: [
-					{control: this.$.client, properties: { "-webkit-transform": "current" }}
+					{control: this.$.clientWrapper, properties: { "-webkit-transform": "current" }}
 				],
 				100: [
-					{control: this.$.client, properties: { "-webkit-transform": "translate3d(0, 0, 0)" }}
+					{control: this.$.clientWrapper, properties: { "-webkit-transform": "translate3d(0, 0, 0)" }}
 				]
 			}
 		});
@@ -571,16 +567,16 @@ enyo.kind({
 			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
 			keyframes: {
 				0: [
-					{control: this.$.client, properties: { "-webkit-transform": "current" }}
+					{control: this.$.clientWrapper, properties: { "-webkit-transform": "current" }}
 				],
 				100: [
-					{control: this.$.client, properties: { "-webkit-transform": "translate3d( " + x + "px, 0, 0)" }}
+					{control: this.$.clientWrapper, properties: { "-webkit-transform": "translate3d( " + x + "px, 0, 0)" }}
 				]
 			}
 		});
 	},
 	getOffscreenXPosition: function() {
-		return this.$.client.getBounds().width;
+		return this.$.clientWrapper.getBounds().width;
 	},
 	//* Hide/show animation complete
 	animationComplete: function(inSender, inEvent) {
