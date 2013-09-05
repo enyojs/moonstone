@@ -21,19 +21,19 @@ enyo.kind({
 		handleShowing: true
 	},
 	events: {
-		// Fired when panel transition by setIndex is finished 
+		// Fired when panel transition by setIndex is finished
 		// inEvent.activeIndex: active index
 		onPanelsPostTransitionFinished: "",
 		onHidePanels: ""
 	},
 	handlers: {
 		ontap:						"onTap",
-		
+
 		onSpotlightRight:			"spotlightRight",
 		onSpotlightLeft:			"spotlightLeft",
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
-		
+
 		onTransitionFinish:			"transitionFinish",
 		onPreTransitionComplete:	"panelPreTransitionComplete",
 		onPostTransitionComplete:	"panelPostTransitionComplete"
@@ -49,9 +49,9 @@ enyo.kind({
 		},
 		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
-	
+
 	//* @protected
-	
+
 	//* Use _moon.Panel_s by default
 	defaultKind: "moon.Panel",
 	//* Disable dragging
@@ -67,7 +67,7 @@ enyo.kind({
 
 
 	//* @public
-	
+
 
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
@@ -118,10 +118,10 @@ enyo.kind({
 		oPanel.render();
 		this.resized();
 	},
-	
-	
+
+
 	//* @protected
-	
+
 	initComponents: function() {
 		this.applyPattern();
 		this.inherited(arguments);
@@ -130,7 +130,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		
+
 		// Direct hide if not showing and using handle
 		if (this.useHandle === true) {
 			if (this.showing) {
@@ -144,7 +144,7 @@ enyo.kind({
 		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
 			return;
 		}
-		
+
 		if (this.shouldHide(oEvent)) {
 			if (this.showing && this.useHandle === true) {
 				this.hide();
@@ -224,17 +224,17 @@ enyo.kind({
 	//* Called when focus leaves one of the panels
 	onSpotlightPanelLeave: function(inSender, inEvent) {
 		var direction = inEvent.direction;
-		
+
 		// Ignore panel leave events that don't come from active panel
 		if (inEvent.originator != this.getActive())	{
 			return false;
 		}
-		
+
 		// Kill leave events that come from pointer mode
 		if (enyo.Spotlight.getPointerMode()) {
 			return true;
 		}
-		
+
 		if (direction === "LEFT") {
 			// If leaving to the left and we're not at first panel, go to previous panel
 			if (this.getIndex() > 0) {
@@ -292,21 +292,21 @@ enyo.kind({
 	},
 	setIndex: function(inIndex) {
 		inIndex = this.clamp(inIndex);
-		
+
 		if (inIndex === this.index) {
 			return;
 		}
-		
+
 		if (this.toIndex !== null) {
 			this.queuedIndex = inIndex;
 			return;
 		}
-		
+
 		this.fromIndex = this.index;
 		this.toIndex = inIndex;
 
 		this.queuedIndex = null;
-		
+
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
 			this.triggerPanelPreTransitions(this.fromIndex, this.toIndex);
@@ -334,7 +334,7 @@ enyo.kind({
 		if (this.$.animator.isAnimating()) {
 			this.$.animator.stop();
 		}
-		
+
 		this.fraction = 1;
 		this.stepTransition();
 		this.triggerPanelPostTransitions(this.fromIndex, this.toIndex);
@@ -344,16 +344,16 @@ enyo.kind({
 	triggerPanelPreTransitions: function(inFromIndex, inToIndex) {
 		var panels = this.getPanels(),
 			options = {};
-		
+
 		this.preTransitionWaitlist = [];
-		
+
 		for(var i = 0, panel; (panel = panels[i]); i++) {
 			options = this.getTransitionOptions(i, inToIndex);
 			if (panel.preTransition && panel.preTransition(inFromIndex, inToIndex, options)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
-		
+
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
@@ -371,7 +371,7 @@ enyo.kind({
 		if (this.preTransitionWaitlist.length === 0) {
 			this.preTransitionComplete();
 		}
-		
+
 		return true;
 	},
 	//* Called after all pre transitions have been completed. Triggers standard _setIndex_ functionality.
@@ -382,16 +382,16 @@ enyo.kind({
 	triggerPanelPostTransitions: function(inFromIndex, inToIndex) {
 		var panels = this.getPanels(),
 			options = {};
-			
+
 		this.postTransitionWaitlist = [];
-		
+
 		for(var i = 0, panel; (panel = panels[i]); i++) {
 			options = this.getTransitionOptions(i, inToIndex);
 			if (panel.postTransition && panel.postTransition(inFromIndex, inToIndex, options)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}
-		
+
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
@@ -409,15 +409,15 @@ enyo.kind({
 		if (this.postTransitionWaitlist.length === 0) {
 			this.postTransitionComplete();
 		}
-		
+
 		return true;
 	},
 	postTransitionComplete: function() {
 		var activeIndex = this.getIndex();
-		
+
 		this.doPanelsPostTransitionFinished({active: activeIndex});
-		
-		this.finishTransition();
+
+		this.finishTransition(true);
 
 		for (var i = 0; i < this.getPanels().length; i++) {
 			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
@@ -426,20 +426,20 @@ enyo.kind({
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
 	indexChanged: function() {
 		var activePanel = this.getActive();
-		
+
 		if (activePanel && activePanel.isBreadcrumb) {
 			activePanel.removeSpottableBreadcrumbProps();
 		}
 
 		this.inherited(arguments);
 	},
-	finishTransition: function() {
+	finishTransition: function(sendEvents) {
 		this.inherited(arguments);
-		
+
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
-		
+
 		enyo.Spotlight.spot(this.getActive());
 	},
 	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
@@ -470,7 +470,7 @@ enyo.kind({
 			}
 			return;
 		}
-		
+
 		this.inherited(arguments);
 	},
 	applyPattern: function() {
@@ -508,7 +508,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		
+
 		this.$.backgroundScrim.show();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.addClass("right");
@@ -520,7 +520,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		
+
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
