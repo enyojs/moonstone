@@ -210,13 +210,13 @@ enyo.kind({
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
-		if (!this.useHandle) { return; }
+		if (this.useHandle !== true) { return; }
 		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
 	onSpotlightPanelEnter: function() {
-		if (!this.showing && this.useHandle) {
+		if (!this.showing && this.useHandle === true) {
 			enyo.Spotlight.spot(this.$.showHideHandle);
 			return true;
 		}
@@ -249,7 +249,7 @@ enyo.kind({
 		}
 		else if (direction === "RIGHT") {
 			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
-			if (this.useHandle && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
+			if (this.useHandle === true && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
 				enyo.Spotlight.spot(this.$.showHideHandle);
 				return true;
 			}
