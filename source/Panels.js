@@ -14,8 +14,11 @@ enyo.kind({
 		pattern: "none",
 		//* Handle is hided automatically in this time amount
 		autoHideTimeout: 4000,
-		//* Possible values: "auto", "true", "false"
-		useHandle: "auto"
+		//* When "true", create handle; when "false", not create handle, when "auto" (default), true for alwaysviewing and false for activity;
+		//* This property can be set only at creation time
+		useHandle: "auto",
+		//* When true (default), set do not show handle; when false, show handle
+		handleShowing: true
 	},
 	events: {
 		// Fired when panel transition by setIndex is finished 
@@ -128,6 +131,7 @@ enyo.kind({
 		this.applyPattern();
 		this.inherited(arguments);
 		this.initializeShowHideHandle();
+		this.handleShowingChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -209,16 +213,10 @@ enyo.kind({
 		this.stopHandleAutoHide();
 		this.$.showHideHandle.removeClass("stashed");
 	},
-	//* Show handle without focusing
-	showHandle: function(inSender, inEvent) {
-		this.$.showHideHandle.removeClass("off");
-	},
-	//* Hide handle 
-	hideHandle: function(inSender, inEvent) {
-		this.$.showHideHandle.addClass("off");
-	},
-	isHandleShowing: function() {
-		return !this.$.showHideHandle.hasClass("off");
+	handleShowingChanged: function() {
+		//* show handle only when useHandle is true
+		if (!this.useHandle) { return; }
+		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
@@ -538,7 +536,9 @@ enyo.kind({
 		this.$.backgroundScrim.show();
 		this.$.showHideHandle.addClass("right");
 		this.$.showHideHandle.addClass("stashed");
-		this.$.showHideHandle.removeClass("hidden");
+		if (this.handleShowing) {
+			this.$.showHideHandle.removeClass("hidden");
+		}
 	},
 	//* Set to hide state without animation
 	_directHide: function() {
@@ -595,12 +595,16 @@ enyo.kind({
 	},
 	showAnimationComplete: function() {
 		this.$.showHideHandle.addClass("stashed");
-		this.$.showHideHandle.removeClass("hidden");
+		if (this.handleShowing) {
+			this.$.showHideHandle.removeClass("hidden");
+		}
 		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
 		this.$.showHideHandle.addClass("stashed");
-		this.$.showHideHandle.removeClass("hidden");
+		if (this.handleShowing) {
+			this.$.showHideHandle.removeClass("hidden");
+		}
 		this.$.backgroundScrim.hide();
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
