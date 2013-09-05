@@ -9,17 +9,26 @@ enyo.kind({
     title: "3<sup>rd</sup> PARTY APP NAME",
     components: [
         {kind: "FittableColumns", components: [
-            {name: "appInfo", kind: "enyo.DataRepeater", components: [
-                {
-                    kind: "moon.Button",
-                    ontap: "selectApp",
-                    bindings: [
-                        {from: ".model.text", to: ".content"}
-                    ],
-                    style: "width: 300px; display:block;",
-                    classes: "moon-neutral moon-margin-top-bottom"
-                }
-            ]},
+            {
+                name: "appInfo", 
+                kind: "enyo.DataRepeater",                 
+                components: [
+                    {
+                        bindings: [
+                            {from: ".model.text", to: ".$.panelButton.content"}
+                        ],
+                        components: [
+                            {
+                                name: "panelButton",
+                                kind: "moon.Button",
+                                ontap: "selectApp",
+                                style: "width: 300px; display:block;",
+                                classes: "moon-neutral moon-margin-top-bottom"
+                            }
+                        ]
+                    }
+                ]
+            },
             {fit: true, components:[
                 {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
                     {content: "Email", style: "width: 180px;"},
@@ -51,7 +60,7 @@ enyo.kind({
                     }
                 ]},
                 {
-                    layoutKind: 'HFlexLayout',
+                    layoutKind: 'FittableColumnsLayout',
                     fit: true,
                     classes: "moon-margin-top-bottom",
                     components: [
