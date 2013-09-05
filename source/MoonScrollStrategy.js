@@ -66,12 +66,14 @@ enyo.kind({
 		this.updateSpotlightPagingControls();
 	},
 	resizeHandler: function() {
+		this.resetCachedValues();
 		this.setupBounds();
 	},
 	setupBounds: function() {
 		this.calcBoundaries();
 		this.syncScrollMath();
 		this.enableDisableScrollColumns();
+		this.reCalContainerBounds();
 		this.setThumbSizeRatio();
 	},
 
@@ -325,8 +327,8 @@ enyo.kind({
 	*/
 	setThumbSizeRatio: function() {
 		var scrollBounds = this.getScrollBounds();
-		this.$.vthumb.setSizeRatio(this.$.vthumbContainer.getBounds().height/scrollBounds.clientHeight);
-		this.$.hthumb.setSizeRatio(this.$.hthumbContainer.getBounds().width/scrollBounds.clientWidth);
+		this.$.vthumb.setSizeRatio(this.getVerticalThumbBounds().height/scrollBounds.clientHeight);
+		this.$.hthumb.setSizeRatio(this.getHorizontalThumbBounds().width/scrollBounds.clientWidth);
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
@@ -432,23 +434,16 @@ enyo.kind({
 		this.$.pageDownControl.addClass("hidden");
 	},
 	_getScrollBounds: function() {
-		var paddingExtents = enyo.dom.calcPaddingExtents(this.$.clientContainer.hasNode()),
-			containerBounds = this.$.clientContainer.getBounds(),
-			s,
-			b;
-		
-		containerBounds.width  -= (paddingExtents.left + paddingExtents.right);
-		containerBounds.height -= (paddingExtents.top  + paddingExtents.bottom);
-		
-		s = this.getScrollSize(),
-		b = {
-			top: this.getScrollTop(),
-			left: this.getScrollLeft(),
-			clientHeight: containerBounds.height,
-			clientWidth: containerBounds.width,
-			height: s.height,
-			width: s.width
-		};
+		var containerBounds = this.getContainerBounds(),
+			s = this.getScrollSize(),
+			b = {
+				top: this.getScrollTop(),
+				left: this.getScrollLeft(),
+				clientHeight: containerBounds.height,
+				clientWidth: containerBounds.width,
+				height: s.height,
+				width: s.width
+			};
 
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
@@ -457,7 +452,28 @@ enyo.kind({
 
 		return b;
 	},
-
+	getContainerBounds: function() {
+		this.containerBounds = this.containerBounds || this.$.clientContainer.getBounds();
+		return this.containerBounds;
+	},
+	reCalContainerBounds: function() {
+		if(this.containerBounds) {
+			var paddingExtents = enyo.dom.calcPaddingExtents(this.$.clientContainer.hasNode());
+			this.containerBounds.width  -= (paddingExtents.left + paddingExtents.right);
+			this.containerBounds.height -= (paddingExtents.top  + paddingExtents.bottom);
+		}
+	},
+	getVerticalThumbBounds: function() {
+		return this.vBounds ? this.vBounds : this.$.vthumbContainer.getBounds();
+	},
+	getHorizontalThumbBounds: function() {
+		return this.hBounds ? this.hBounds : this.$.hthumbContainer.getBounds();
+	},
+	resetCachedValues: function() {
+		this.vBounds = null;
+		this.hBounds = null;
+		this.containerBounds = null;
+	},
 
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
