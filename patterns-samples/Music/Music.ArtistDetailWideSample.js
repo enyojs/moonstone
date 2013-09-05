@@ -75,7 +75,7 @@ enyo.kind({
 							kind: "enyo.Image",
 							style: "width: 130px; height: 130px;",
 							bindings: [
-								{from: ".model.relativeUrl", to: ".src"}
+								{from: ".model.relatedUrl", to: ".src"}
 							]
 						}
 					]
