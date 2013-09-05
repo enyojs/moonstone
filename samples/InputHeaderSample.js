@@ -3,7 +3,7 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-input-header-sample",
 	components: [
-		{kind:"moon.Panels", pattern:"activity", fit:true, components: [
+		{kind:"moon.Panels", pattern:"none", fit:true, components: [
 			{
 				kind: "moon.Panel",
 				classes: "moon-8h",

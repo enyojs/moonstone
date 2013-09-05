@@ -72,7 +72,7 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		
-		if (!this.getOpen()) {
+		if (!this.getOpen() && this.hasNode()) {
 			this.updateValue();
 		}
 		

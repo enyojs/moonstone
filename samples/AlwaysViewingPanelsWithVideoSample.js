@@ -38,13 +38,13 @@ enyo.kind({
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 		]},
-        {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", components: [
+        {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", showing: false, components: [
             {title: "First Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
-				{kind: "moon.Item", content: "Item Five", ontap: "next"}
+				{kind: "moon.ToggleItem", content: "Show/Hide Side Handle", checked: true,  onchange: "handleShowingChanged"}
 			]},
 			{title: "Second Panel", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
@@ -93,5 +93,8 @@ enyo.kind({
 	next: function(inSender, inEvent) {
 		this.$.panels.next();
 		return true;
+	},
+	handleShowingChanged: function(inSender, inEvent) {
+		this.$.panels.setHandleShowing(inSender.getChecked());
 	}
 });

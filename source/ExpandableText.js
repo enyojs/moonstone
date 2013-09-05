@@ -38,11 +38,11 @@ enyo.kind({
 	lineHeight: 32,
 
 	//*@protected
-    rendered: function() {
-        this.inherited(arguments);
+	rendered: function() {
+		this.inherited(arguments);
 		this.calcLineHeight();
 		this.collapsedChanged();
-    },
+	},
 	reflow: function() {
 		this.inherited(arguments);
 		this.updateContentHeight();
@@ -53,26 +53,30 @@ enyo.kind({
 	lineHeightChanged: function() {
 		this.updateButtonVisibility();
 	},
-    maxLinesChanged: function() {
-        this.updateButtonVisibility();
-    },
+	maxLinesChanged: function() {
+		this.updateButtonVisibility();
+	},
 	moreContentChanged: function() {
-		this.updateCollapseButtonContent();
+		if(this.collapsed) {
+			this.set("buttonContent", this.moreContent);
+		}
 	},
 	lessContentChanged: function() {
-		this.updateCollapseButtonContent();
-	},
-    collapsedChanged: function() {
-        if (this.collapsed) {
-            this.$.client.applyStyle("-webkit-line-clamp", this.maxLines);
-            this.removeClass('expanded');
-			this.set("buttonContent", this.moreContent);
-        } else {
-            this.$.client.applyStyle("-webkit-line-clamp", null);
-            this.addClass('expanded');
+		if(!this.collapsed) {
 			this.set("buttonContent", this.lessContent);
-        }
-    },
+		}
+	},
+	collapsedChanged: function() {
+		if (this.collapsed) {
+			this.$.client.applyStyle("-webkit-line-clamp", this.maxLines);
+			this.removeClass('expanded');
+			this.set("buttonContent", this.moreContent);
+		} else {
+			this.$.client.applyStyle("-webkit-line-clamp", null);
+			this.addClass('expanded');
+			this.set("buttonContent", this.lessContent);
+		}
+	},
 	//* When _expandContract_ button is tapped, toggle _this.collapsed_ and fire _change_ event
 	expandContract: function() {
 		this.set("collapsed", !this.collapsed);
@@ -87,22 +91,27 @@ enyo.kind({
 		this.calcContentHeight();
 		this.updateButtonVisibility();
 	},
-    updateButtonVisibility: function() {
-        if (!this.hasNode()) {
+	updateButtonVisibility: function() {
+		if (!this.hasNode()) {
 			return;
 		}
-		
-        this.$.collapseButton.addRemoveClass("hidden", (this.contentHeight < this.calcMaxHeight()));
-    },
-    calcMaxHeight: function() {
-        return this.maxLines * this.lineHeight;
-    },
+		if(this.contentHeight - 1 > this.calcMaxHeight()) {
+			this.$.collapseButton.removeClass("hidden");
+			this.collapsedChanged();
+		} else {
+			this.$.collapseButton.addClass("hidden");
+			this.set("collapsed", false);
+		}
+	},
+	calcMaxHeight: function() {
+		return this.maxLines * this.lineHeight;
+	},
 	calcLineHeight: function() {
 		var lineHeight = parseInt(enyo.dom.getComputedStyleValue(this.$.client.hasNode(), "line-height"), 10);
 		this.set("lineHeight", (lineHeight > 0) ? lineHeight : null);
 	},
 	//* Calculate height of _this.$.client_. Strangely we have to add 1 px - when clamped the height is one less than line-height.
-    calcContentHeight: function() {
-        this.contentHeight = (this.$.client.hasNode()) ? this.$.client.hasNode().getBoundingClientRect().height + 1 : null;
-    }
+	calcContentHeight: function() {
+		this.contentHeight = (this.$.client.hasNode()) ? this.$.client.hasNode().getBoundingClientRect().height + 1 : null;
+	}
 });
