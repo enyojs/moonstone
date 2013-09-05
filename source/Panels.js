@@ -14,7 +14,8 @@ enyo.kind({
 		pattern: "none",
 		//* Handle is hided automatically in this time amount
 		autoHideTimeout: 4000,
-		//* When "true", create handle; when "false", not create handle, when "auto" (default), true for alwaysviewing and false for activity; 
+		//* When "true", create handle; when "false", not create handle, when "auto" (default), true for alwaysviewing and false for activity;
+		//* This property can be set only at creation time
 		useHandle: "auto",
 		//* When true (default), set do not show handle; when false, show handle
 		handleShowing: true
