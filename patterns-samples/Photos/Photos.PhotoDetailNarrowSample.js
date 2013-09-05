@@ -19,8 +19,7 @@ enyo.kind({
         {
             name: "photoDetail",
             kind: "enyo.Image",
-            classes: "moon-8h moon-13v",
-            src: ""
+            classes: "moon-8h moon-13v"
         }
     ],
     bindings: [

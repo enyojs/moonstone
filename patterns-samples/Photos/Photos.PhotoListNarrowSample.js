@@ -7,21 +7,23 @@ enyo.kind({
     titleBelow: "97 Photos",
     components: [
         {
-            kind: "FittableRows",
-            fit: true,
+            kind: "moon.Scroller",
+            classes: "enyo-fill",
+            touch: true,
             components : [
                 {
-                    kind: "moon.Scroller",
-                    classes: "enyo-fill",
-                    touch: true,
-                    components : [
+                    name: "menuList",
+                    kind: "moon.DataList",
+                    style: "width: 300px;",                            
+                    components: [
                         {
-                            name: "menuList",
-                            kind: "enyo.DataList",
-                            scrollerOptions: {horizontal: "hidden", thumb: false},
-                            style: "width: 300px;",
+                            kind: "moon.Item", 
+                            classes: "sample-album-list-item", 
+                            bindings: [
+                                {from: ".model.imgSrc", to: ".$.image.src"}
+                            ],
                             components: [
-                                {kind: "moon.ImageItem", bindings: [{from: ".model.imgSrc", to: ".source"}]}
+                                {name: "image", kind: "enyo.Image"}
                             ]
                         }
                     ]
@@ -29,7 +31,6 @@ enyo.kind({
             ]
         }
     ],
-
     bindings: [
         {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
