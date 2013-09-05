@@ -18,14 +18,14 @@ enyo.kind({
 	published: {
 		//* Optional minimum year value
 		minYear: 1900,
-		//* Optional maximum year value
+		//* Optional maximum year value		
+		maxYear: 2099,
 		//* Optional label for day
 		dayText: "day",
 		//* Optional label for month
 		monthText: "month",
 		//* Optional label for year
-		yearText: "year",
-		maxYear: 2099
+		yearText: "year"
 	},
 	//*@protected
 	iLibFormatType: "date",
