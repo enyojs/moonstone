@@ -280,6 +280,63 @@
 .moon-7v {
   height: 280px;
 }
+.moon-8v {
+  height: 320px;
+}
+.moon-9v {
+  height: 360px;
+}
+.moon-10v {
+  height: 400px;
+}
+.moon-11v {
+  height: 440px;
+}
+.moon-12v {
+  height: 480px;
+}
+.moon-13v {
+  height: 520px;
+}
+.moon-14v {
+  height: 560px;
+}
+.moon-15v {
+  height: 600px;
+}
+.moon-16v {
+  height: 640px;
+}
+.moon-17v {
+  height: 680px;
+}
+.moon-18v {
+  height: 720px;
+}
+.moon-19v {
+  height: 760px;
+}
+.moon-20v {
+  height: 800px;
+}
+.moon-21v {
+  height: 840px;
+}
+.moon-22v {
+  height: 880px;
+}
+.moon-23v {
+  height: 920px;
+}
+.moon-24v {
+  height: 960px;
+}
+.moon-25v {
+  height: 1000px;
+}
+.moon-26v {
+  height: 1040px;
+}
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
@@ -2339,12 +2396,16 @@
   color: #ffffff;
 }
 /* Activity Panels Overrides */
-.activity-panels .moon-panel-mini-header-wrapper {
+.moon-panels.activity .moon-panel-mini-header-wrapper {
   border-top: 1px solid #404040;
 }
-.activity-panels .moon-panel-mini-header,
-.activity-panels .moon-panel-mini-header-title-above {
+.moon-panels.activity .moon-panel-mini-header,
+.moon-panels.activity .moon-panel-mini-header-title-above {
   color: #dddddd;
+}
+.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header,
+.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
+  color: #ffffff;
 }
 /* Panels */
 .moon-panels.activity,

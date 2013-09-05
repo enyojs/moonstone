@@ -65,8 +65,8 @@ enyo.kind({
 					}
 					]
 				},
-				{layoutKind: "FittableRowsLayout", classes: "moon-7h", components: [
-					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "next"}
+				{classes: "moon-3h", components: [
+					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
 				]}
 			]},
 			{kind: "moon.Panel", title: "Capture to Canvas", components: [
@@ -76,13 +76,13 @@ enyo.kind({
 			]}
 		]}
 	],
-	next: function(inSender, inEvent) {
+	capture: function(inSender, inEvent) {
 		try {
 			this.updateCanvas();
 		} catch (e) {
 			enyo.warn(e);
 		}
-		this.$.panels.next();
+		this.$.panels.setIndex(2);
 		return true;
 	},
 	webMovieCounter: function(inSender, inEvent) {

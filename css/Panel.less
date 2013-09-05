@@ -73,10 +73,16 @@
 }
 
 /* Activity Panels Overrides */
-.activity-panels .moon-panel-mini-header-wrapper {
+.moon-panels.activity .moon-panel-mini-header-wrapper {
 	border-top: 1px solid @moon-header-border-color;
 }
-.activity-panels .moon-panel-mini-header,
-.activity-panels .moon-panel-mini-header-title-above {
+.moon-panels.activity .moon-panel-mini-header,
+.moon-panels.activity .moon-panel-mini-header-title-above {
 	color: @moon-header-text-color;
+}
+.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight {
+	.moon-panel-mini-header,
+	.moon-panel-mini-header-title-above {
+		color: @moon-white;
+	}
 }
