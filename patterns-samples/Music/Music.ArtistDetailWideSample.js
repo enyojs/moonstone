@@ -72,10 +72,11 @@ enyo.kind({
 					style: "height: 156px;",
 					components: [
 						{
-							kind: "enyo.Image",
-							style: "width: 130px; height: 130px;",
+							components: [
+								{name: "relatedArtistImg", kind: "enyo.Image", style: "width: 130px; height: 130px;"}
+							],
 							bindings: [
-								{from: ".model.relativeUrl", to: ".src"}
+								{from: ".model.relatedUrl", to: ".$.relatedArtistImg.src"}
 							]
 						}
 					]
@@ -96,48 +97,31 @@ enyo.kind({
 											components: [
 												{
 													components: [
-														{
-															kind: "enyo.Image",
-															bindings: [{
-																from: ".model.coverUrl",
-																to: ".src"
-															}]
-														}
+														{name: "coverImg", kind: "enyo.Image"}
 													],
 													attributes: {rowspan: "4"}
 												},
-												{
-													bindings: [{
-														from: ".model.track",
-														to: ".content"
-													}]
-												}
+												{name: "trackTitle"}
 											]
 										},
 										{
 											components: [
-												{
-													bindings: [{
-														from: ".model.artist",
-														to: ".content"
-													}],
-													classes: "moon-superscript"
-												}
+												{name: "artistSuperscript", classes: "moon-superscript"}
 											]
 										},
 										{
 											components: [
-												{
-													bindings: [{
-														from: ".model.duration",
-														to: ".content"
-													}],
-													classes: "moon-superscript"
-												}
+												{name: "durationSuperscript", classes: "moon-superscript"}
 											]
 										}
 									]
 								}
+							],
+							bindings: [
+								{from: ".model.coverUrl", to: ".$.coverImg.src"},
+								{from: ".model.track", to: ".$.trackTitle.content"},
+								{from: ".model.artist", to: ".$.artistSuperscript.content"},
+								{from: ".model.duration", to: ".$.durationSuperscript.content"}
 							]
 						}
 					]
