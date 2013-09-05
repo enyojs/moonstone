@@ -483,6 +483,7 @@ enyo.kind({
 			this.applyActivityPattern();
 			break;
 		default:
+			this.useHandle = false;
 			break;
 		}
 	},
