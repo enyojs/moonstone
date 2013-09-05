@@ -65,13 +65,14 @@ enyo.kind({
             {
                 components: [
                     {kind: "moon.Divider", content:"Category"},
-                    {name: "wizList", fit:true, kind: "moon.DataList", components: [
-                        {kind:"moon.Item", classes: "wizard-listaction-item", bindings: [
-                            {from: ".model.step", to: ".content"}
-                        ]},
-                        {classes: "wizard-listaction-text", bindings: [
-                            {from: ".model.processed", to: ".content"}
-                        ]}
+                    {name: "wizList", fit:true, kind: "moon.DataList", 
+                    bindings: [
+                        {from: ".model.step", to: ".$.wizardListItem.content"},
+                        {from: ".model.processed", to: ".$.wizardListText.content"}
+                    ],
+                    components: [
+                        {name: "wizardListItem", kind:"moon.Item", classes: "wizard-listaction-item"},
+                        {name: "wizardListText", classes: "wizard-listaction-text"}
                     ]}
                 ]
             }

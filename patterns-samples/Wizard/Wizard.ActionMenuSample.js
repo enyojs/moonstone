@@ -33,15 +33,19 @@ enyo.kind({
             listActions: [
             {
                 components: [
-                    {kind: "moon.Divider", content:"Category"},
-                    {name: "wizList", kind: "moon.DataList", components: [
-                        {kind:"moon.Item", classes: "wizard-listaction-item", bindings: [
-                            {from: ".model.step", to: ".content"}
-                        ]},
-                        {classes: "wizard-listaction-text", bindings: [
-                            {from: ".model.processed", to: ".content"}
-                        ]}
-                    ]}
+					{
+						bindings: [
+							{from: ".model.step", to: ".$.wizardListItem.content"},
+							{from: ".model.processed", to: ".$.wizardListText.content"}
+						],
+						components: [
+							{kind: "moon.Divider", content:"Category"},
+							{name: "wizList", kind: "moon.DataList", components: [
+								{name: "wizardListItem", kind:"moon.Item", classes: "wizard-listaction-item"},
+								{name: "wizardListText", classes: "wizard-listaction-text"}
+							]}
+						]
+					}
                 ]
             }
         ]}
