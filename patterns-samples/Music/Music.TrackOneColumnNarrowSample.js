@@ -23,52 +23,21 @@ enyo.kind({
 						fit: true,
 						components: [
 							{
-								kind: "moon.Item",
-								ontap: "changeName",
-								components: [
-									{
-										kind: "enyo.Table",
-										components: [
-											{
-												components: [
-													{
-														components: [
-															{
-																kind: "enyo.Image",
-																bindings: [
-																	{from: ".model.coverUrl", to: ".src"}
-																]
-
-															}
-														],
-														attributes: {rowspan: "2"}
-													},
-													{
-														bindings: [
-															{from: ".model.track", to: ".content"}
-														]
-													},
-													{
-														bindings: [
-															{from: ".model.time", to: ".content"}
-														],
-														attributes: {rowspan: "2"}
-													}
-												]
-											},
-											{
-												components: [
-													{
-														bindings: [
-															{from: ".model.artist", to: ".content"}
-														] ,
-
-														classes: "moon-superscript"
-													}
-												]
-											}
-										]
-									}
+								bindings: [
+									{from: ".model.coverUrl", to: ".$.enyoImage.src"},
+									{from: ".model.track", to: ".$.imageTrack.content"},
+									{from: ".model.artist", to: ".$.imageArtist.content"},
+									{from: ".model.time", to: ".$.imageTime.content"}
+								],
+								components: [                    
+									{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+										{name: "enyoImage", kind: "enyo.Image"},
+										{components: [
+											{name: "imageTrack"},
+											{name: "imageArtist", classes: "moon-superscript"}
+										]},
+										{name: "imageTime"}
+									]}
 								]
 							}
 						]
