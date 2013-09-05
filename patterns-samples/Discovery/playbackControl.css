@@ -2,11 +2,6 @@
 	display: none;
 }
 
-.slideshow-layered-sample {
-	background-color: gray;
-	padding: 20px;
-}
-
 .moon-photo-slideshow {
 	position: absolute;
 	z-index: 10;
@@ -57,15 +52,6 @@
 	height: 202px;	/* 160 + 16 * 2 + 10 */
 }
 
-.moon-photo-slideshow-control-left-button {
-	text-align: center;
-	margin-bottom: 20px;
-}
-
-.moon-photo-slideshow-control-left-button > * {
-	margin-right: 20px;
-	box-sizing: content-box;
-}
 
 .moon-photo-slideshow-control-middle-button {
 	text-align: center;
@@ -86,20 +72,6 @@
 	height: 100px;
 
 }
-
-.discovery-playbackcontrol-lefttext {
-	left: 100px;
-}
-
-.moon-photo-slideshow-control-picker-wrapper {
-
-}
-
-.discovery-playbackcontrol-closebutton {
-
-}
-
-
 
 /* TODO: remove bellowing css class after creating moon.ImageButton */
 .moon-photo-slideshow-control-middle-button .big-icon-button{

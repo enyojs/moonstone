@@ -15,25 +15,20 @@ enyo.kind({
 					}
 				]}
 			],
+
 			components: [
 				{name: "sendBackButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png", ontap: "buttonBack"},
-				{name: "sendThumbButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "showPopup", popup: "thumbPop", components: [
-					{name: "thumbPop", kind: "Discovery.Components.ImagePlaybackControl"}
-				]},
+				{name: "sendThumbButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "showPopup",  
+					components: [
+						{name: "thumbPop", kind: "Discovery.Components.ImagePlaybackControl"}
+					]
+				}
 			]
 		}		
 	],
 
-	popupActivator: null,
 	showPopup: function(inSender) {
-		this.hidePopups();
-		var p = this.$[inSender.popup];
-		if (p) {
-			p.show();
-		}
-	},
-	hidePopups: function() {
-		this.$.thumbPop.hide();
+		this.$.thumbPop.show();
 	},
 
 	buttonBack: function() {
@@ -72,21 +67,12 @@ enyo.kind({
 enyo.kind({
 	name: "Discovery.Components.ImagePlaybackControl",
 	classes: "moon enyo-unselectable enyo-fit",
-	kind: "moon.Popup",
-	
+	kind: "moon.Popup", 
 
-	components: [
-		{kind: "moon.Divider", content: "Click Image!"},
-		{
-			components: [
-				{
-					kind: "enyo.Image",
-					src: "http://www.imagebase.net/var/resizes/City-88911873/city%20_9_.jpg",
-					ontap: "startImage"
-				}
-			]
-		}
-	],
+	handlers: {
+		"onActivate" : "tapHandler"
+	},
+
 
 	// mockup data
 	results: [
@@ -114,19 +100,15 @@ enyo.kind({
 			url: "http://www.imagebase.net/var/albums/Nature/grass_003.jpg"}
 	],
 
-	// components: [
-	// 	{kind: "moon.Divider", content: "Click me"}
-	// ],
 
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage"});
+		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage", index: 3});
 		this.$.slideShow.setCount(this.results.length);
 		this.$.slideShow.render();
-
 	},
 
-	startImage: function(inSender, inEvent) {
+	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow();
 	},
 

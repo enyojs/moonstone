@@ -32,7 +32,7 @@ enyo.kind({
 			ontap: "tapHandler"
 		},
 		{	name: "slideControl",
-			kind: "discovery.PhotoSlideshowControl",
+			kind: "moon.PhotoSlideshowControl",
 			onClose: "closeHandler",
 			onChangeSlide: "changeSlideHandler",
 			onStartSlideshow: "startSlideshowHandler",
@@ -106,8 +106,9 @@ enyo.kind({
 	}
 });
 
+
 enyo.kind({
-	name: "discovery.PhotoSlideshowControl",
+	name: "moon.PhotoSlideshowControl",
 	kind: "enyo.Slideable",
 	classes: "moon-photo-slideshow-control",
 	axis: "v",
@@ -143,7 +144,10 @@ enyo.kind({
 	imageUrls: [],
 	controlTools: [
 		{layoutKind: 'HFlexLayout', classes: "discovery-layoutbox", components: [
-			{classes: "discovery-playbackcontrol-lefttext", content: "CONTENT TITLE"},
+
+
+
+			{content: "CONTENT TITLE"},
 			{name:"playpause", mode: "pause", kind: "moon.IconButton", src: "assets/icon_play.png", ontap: "playHandler"},
 			{
 				name:"speed",
@@ -157,8 +161,9 @@ enyo.kind({
 				max: 15,
 				unit: "sec"
 			},
-			{name: "backward", kind: "moon.Button", small: true, content: "Close", ontap: "closeHandler"}
+			{name:"left", kind: "moon.Button", small: true, content: "Close", ontap: "closeHandler"}
 		]},
+
 		{
 			name: "list",
 			kind: "moon.List",

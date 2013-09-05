@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "discovery.SimpleImageCarousel",
-	kind: enyo.Panels,
+	kind: "enyo.Panels",
 	arrangerKind: "enyo.CarouselArranger",
 	/**
 		The default scale value to be applied to each ImageView. Can be "auto",
