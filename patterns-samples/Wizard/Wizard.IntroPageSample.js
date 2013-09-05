@@ -19,7 +19,7 @@ enyo.kind({
 	],
 	initialSetting: function() {
 		var idx = this.indexInContainer();
-		var collection = this.controller.get("wizContainer");
+		var collection = this.controller.wizContainer;
 
 		this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));
 		this.$.imgmenu.set("src", collection.at(idx).get("imgsrc"));

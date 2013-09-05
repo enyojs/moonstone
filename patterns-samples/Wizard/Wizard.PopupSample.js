@@ -32,7 +32,7 @@ enyo.kind({
 enyo.kind({
     name: "Sample.Wizard.Panels",
     kind: "moon.Panels",
-    defaultKind: "Sample.Wizard.Panel",
+    pattern: "activity",
     arrangerKind: "CardArranger",
     classes: "enyo-unselectable enyo-fit",
     handlers: {
@@ -49,7 +49,6 @@ enyo.kind({
 enyo.kind({
     name: "Sample.Wizard.Panel",
     kind: "moon.Panel",
-    classes: "moon-wizard-sample enyo-fit",
     published: {
         selectedText: "",
         processed: false
