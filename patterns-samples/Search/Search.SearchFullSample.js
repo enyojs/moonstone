@@ -1,106 +1,81 @@
-// enyo.TitleImageItem
-
-enyo.kind({
-    name: "enyo.TitleImageItem",
-    kind: "enyo.GridListImageItem",
-    classes: "enyo-gridlist-titleimageitem",
-    components:[
-        {
-            bindings: [
-                {from: ".model.image", to: ".$.image.src"},
-                {from: ".model.text", to: ".$.text.caption"}
-            ],
-            components: [
-                {name: "image", kind: "enyo.Image"},
-                {name: "text"}
-            ]
-        }
-    ]
-});
-
-// moon.TitleImageItem
-
-enyo.kind({
-    name: "moon.TitleImageItem",
-    kind: "enyo.TitleImageItem",
-    spotlight: true,
-    classes: "moon-gridlist-titleimageitem"
-});
-
-// Search.SearchFullSample
-
+// Search.SearchDrawer
 enyo.kind({
     //* @public
     name: "moon.sample.search.SearchFullSample",
     kind: "moon.Panel",
-    headerOption: {kind:"moon.InputHeader"},
+    controller: ".app.controllers.searchDrawerController",
+    headerOptions: {kind: "moon.InputHeader", components: [
+        {kind: "moon.IconButton", src: "../assets/trash-can-icon.png"}
+    ]},
     handlers: {
-        "onInputChanged": "onInputChanged"
+        "onInputHeaderInput": "onInputChanged"
     },
+
     //* @protected
-    fit: true,
-    title: "Search",
     spotlight: false,
-    style: "background-color: #EAEAEA;",
-    headerComponents: [
-        {kind: "moon.IconButton", style: "margin: 0px 0px 10px 15px", src: ".../assets/trash-can-icon.png"}
-    ],
+
     components: [
-        {name: "recentResult", kind: "moon.Scroller", fit: true, components: [
+        {name: "recentResult", kind: "moon.Scroller", components: [
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title1", kind: "moon.Item"},
-                {components: [
-                    {name: "recentSearchResults1", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                {name: "recentSearchResults1", kind: "enyo.DataGridList", classes: "result-height", components: [
+                    {kind: "moon.GridListImageItem", bindings: [
+                        {from: ".model.image", to: ".source"},
+                        {from: ".model.text", to: ".caption"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title2", kind: "moon.Item"},
-                {components: [
-                    {name: "recentSearchResults2", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                {name: "recentSearchResults2", kind: "enyo.DataGridList", classes: "result-height", components: [
+                    {kind: "moon.GridListImageItem", bindings: [
+                        {from: ".model.image", to: ".source"},
+                        {from: ".model.text", to: ".caption"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title3", kind: "moon.Item"},
-                {components: [
-                    {name: "recentSearchResults3", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                {name: "recentSearchResults3", kind: "enyo.DataGridList", classes: "result-height", components: [
+                    {kind: "moon.GridListImageItem", bindings: [
+                        {from: ".model.image", to: ".source"},
+                        {from: ".model.text", to: ".caption"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title4", kind: "moon.Item"},
-                {components: [
-                    {name: "recentSearchResults4", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                {name: "recentSearchResults4", kind: "enyo.DataGridList", classes: "result-height", components: [
+                    {kind: "moon.GridListImageItem", bindings: [
+                        {from: ".model.image", to: ".source"},
+                        {from: ".model.text", to: ".caption"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title5", kind: "moon.Item"},
-                {components: [
-                    {name: "recentSearchResults5", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                {name: "recentSearchResults5", kind: "enyo.DataGridList", classes: "result-height", components: [
+                    {kind: "moon.GridListImageItem", bindings: [
+                        {from: ".model.image", to: ".source"},
+                        {from: ".model.text", to: ".caption"}
                     ]}
                 ]}
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title6", kind: "moon.Item"},
-                {components: [
-                    {name: "recentSearchResults6", kind: "enyo.DataGridList", components: [
-                        {kind: "moon.TitleImageItem", style: "height: 126px; width: 126px; margin: 10px;"}
+                {name: "recentSearchResults6", kind: "enyo.DataGridList", classes: "result-height", components: [
+                    {kind: "moon.GridListImageItem", bindings: [
+                        {from: ".model.image", to: ".source"},
+                        {from: ".model.text", to: ".caption"}
                     ]}
                 ]}
             ]}
         ]},
         {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
-            {
-                kind: "moon.TitleImageItem",
-                style: "height: 126px; width: 126px; margin: 10px;"
-            }
+            {kind: "moon.GridListImageItem", bindings: [
+                {from: ".model.image", to: ".source"},
+                {from: ".model.text", to: ".caption"}
+            ]}
         ]}
     ],
     bindings: [
@@ -120,9 +95,8 @@ enyo.kind({
     ],
 
     //* @public
-
     onInputChanged: function(inSender, inEvent) {
-        if(inEvent.keyword !== "") {
+        if(inEvent.originator.getValue() !== "") {
             this.$.recentResult.setShowing(false);
             this.$.instantSearchResults.setShowing(true);
         } else {
@@ -204,14 +178,13 @@ enyo.ready(function(){
             components: [
                 {
                     kind: "moon.sample.search.SearchFullSample",
-                    controller: ".app.controllers.searchFullController",
                     classes: "enyo-fit"
                 }
             ]
         },
         controllers: [
             {
-                name: "searchFullController",
+                name: "searchDrawerController",
                 kind: "enyo.ModelController",
                 model: sampleModel
             }
