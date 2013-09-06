@@ -88,8 +88,7 @@ enyo.kind({
 		this.$.slideControl.toggleMinMax();
 	},
 	closeHandler: function(inSender, inEvent) {
-		this.requestHide();
-		return true;
+		// this.requestHide();
 	},
 	changeSlideHandler: function(inSender, inEvent) {
 		this.imageIndex = inEvent.index;

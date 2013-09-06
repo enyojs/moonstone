@@ -2,11 +2,16 @@ enyo.kind({
 	name: "Discovery.Sample.Playback",
 	classes: "slideshow-layered-sample enyo-unselectable",
 	fit: true,
+	handlers: {
+		"onPrevious" : "previousHandler",
+		"onFoward" : "fowardHandler"
+	},
 	components: [
 		{
 			name: "player",
 			kind: "Discovery.Components.VideoPlaybackControl",
-			src: "http://media.w3.org/2010/05/sintel/trailer.mp4",
+			// src: "http://media.w3.org/2010/05/sintel/trailer.mp4",
+			src: "http://10.170.42.166/files/movie.mp4", // On JCKIM's laptop
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 					{
@@ -15,26 +20,27 @@ enyo.kind({
 					}
 				]}
 			],
-
 			components: [
 				{name: "sendBackButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png", ontap: "buttonBack"},
-				{name: "sendThumbButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "showPopup",  
-					components: [
-						{name: "thumbPop", kind: "Discovery.Components.ImagePlaybackControl"}
-					]
-				}
+				{name: "sendThumbButton", kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon_shrink.png", ontap: "showPopup"}
 			]
-		}		
+		},
+		{name: "thumbPop", kind: "Discovery.Components.ImagePlaybackControl"}		
 	],
-
 	showPopup: function(inSender) {
 		this.$.thumbPop.show();
 	},
-
 	buttonBack: function() {
-		window.open("http://www.google.com", "width=500, height=500", true);
+		//window.open("http://www.google.com", "width=500, height=500", true);
+	},
+	previousHandler: function(inSender, inResponse) {
+		this.log(inResponse);
+		this.$.player.setSrc("http://10.170.42.166/files/movie.mp4"); // On JCKIM's laptop
+	},
+	fowardHandler: function(inSender, inResponse) {
+		this.log(inResponse);	
+		this.$.player.setSrc("http://10.170.42.166/files/trailer.mp4"); // On JCKIM's laptop
 	}
-
 });
 
 
@@ -43,6 +49,10 @@ enyo.kind({
 	name: "Discovery.Components.VideoPlaybackControl",
 	kind: "moon.VideoPlayer",
 	autoplay:true,
+	events: {
+		onPrevious: "",
+		onFoward: ""
+	},
 	create: function() {
 		this.inherited(arguments);		
 		// ICON 변경
@@ -55,25 +65,24 @@ enyo.kind({
 	rewind: function() {
 		// this.inherited(arguments);
 		this.log("Child call only");
+		this.doPrevious();
 	},
 	// override parent's function
 	fastForward: function() {
 		// this.inherited(arguments);
 		this.log("Child call only");
+		this.doFoward();
 	}
-
 });
 
 enyo.kind({
 	name: "Discovery.Components.ImagePlaybackControl",
 	classes: "moon enyo-unselectable enyo-fit",
 	kind: "moon.Popup", 
-
 	handlers: {
-		"onActivate" : "tapHandler"
+		"onActivate" : "tapHandler",
+		"onClose" : "closeHandler"
 	},
-
-
 	// mockup data
 	results: [
 		{width: "400", height: "400", thumb: "http://www.imagebase.net/var/resizes/City-88911873/columns.JPG",
@@ -99,19 +108,21 @@ enyo.kind({
 		{width: "300", height: "300", thumb: "http://www.imagebase.net/var/resizes/Nature/grass_003.jpg",
 			url: "http://www.imagebase.net/var/albums/Nature/grass_003.jpg"}
 	],
-
-
 	create: function() {
 		this.inherited(arguments);
 		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage", index: 3});
 		this.$.slideShow.setCount(this.results.length);
 		this.$.slideShow.render();
 	},
-
+	closeHandler: function() {
+		// Bubble up from slideShow
+		this.closePopup();
+		// delete this;
+		return true;
+	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow();
 	},
-
 	setupImage: function(inSender, inEvent) {
 		// this is the row we're setting up
 		var i = inEvent.index;
