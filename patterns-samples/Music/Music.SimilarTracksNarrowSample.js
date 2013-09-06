@@ -1,8 +1,8 @@
 // Sample View
 
 enyo.kind({
-    name: "moon.sample.music.SimilarTracksNarrowSample",
-    kind: "moon.Panels",
+	name: "moon.sample.music.SimilarTracksNarrowSample",
+	kind: "moon.Panels",
 	pattern: "alwaysviewing",
 	useHandle: false,
 	components: [
