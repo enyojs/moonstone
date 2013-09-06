@@ -8,7 +8,7 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	components: [
-		{name: "marqueeText", kind:"moon.MarqueeText"}
+		{name: "marqueeText", kind:"moon.MarqueeText", classes:"moon-divider-text"}
 	],
 	rendered: function() {
 		this.startMarquee();

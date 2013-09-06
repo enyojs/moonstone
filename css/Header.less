@@ -18,11 +18,8 @@
 /* Title Above */
 .moon-header-title-above.no-border {
 	border: none;
-	min-height: @moon-header-super-text-size * @moon-header-line-height;
 }
 .moon-header-title-above {
-	font-size: @moon-header-super-text-size;
-	line-height: @moon-header-line-height; 
 	width: 30px;
 }
 
@@ -31,6 +28,9 @@
 	.moon-header-text;
 	line-height: @moon-header-line-height;
 	margin-bottom: 8px;
+}
+.enyo-locale-non-latin .moon-header-title {
+	.enyo-locale-non-latin .moon-header-text;
 }
 .moon-header-title .moon-marquee-text {
 	white-space: nowrap;
@@ -42,12 +42,15 @@
 	margin-bottom: 8px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
-	font-family: @moon-non-latin-font-family;
+	.enyo-locale-non-latin .moon-sub-header-text;
 }
 
 /* Sub Title Below */
 .moon-header-sub-title-below {
 	.moon-body-text;
+}
+.enyo-locale-non-latin .moon-header-sub-title-below {
+	.enyo-locale-non-latin .moon-body-text;
 }
 
 /* Header Client */
