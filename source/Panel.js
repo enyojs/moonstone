@@ -58,8 +58,8 @@ enyo.kind({
 		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
-					{name: "breadcrumbTitleAbove", classes: "moon-panel-mini-header-title-above"},
-					{name: "breadcrumbText", kind: "moon.MarqueeText", classes: "moon-panel-mini-header"}
+					{name: "breadcrumbTitleAbove", classes: "moon-super-header-text moon-panel-mini-header-title-above"},
+					{name: "breadcrumbText", kind: "moon.MarqueeText", classes: "moon-sub-header-text moon-panel-mini-header"}
 				]}
 			]}
 		]},
