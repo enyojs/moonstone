@@ -22,7 +22,7 @@ enyo.kind({
 		small: false,
 		marquee: true
 	},
-	classes: 'moon-button moon-header-font enyo-unselectable',
+	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
 	handlers: {
 		//* _onSpotlightSelect_ simulates _mousedown_.
@@ -59,6 +59,7 @@ enyo.kind({
 
 		if (this.small) {
 			this.addClass('small');
+			this.addClass('moon-small-button-text');
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
 			if (this.marquee && !(this.components && this.components.length > 0)) {
 				this.createComponent({name: "client", classes: "button-client", 
@@ -69,6 +70,7 @@ enyo.kind({
 			}
 		} else {
 			this.removeClass('small');
+			this.removeClass('moon-small-button-text');
 			if (this.marquee && !(this.components && this.components.length > 0)) {
 				this.createComponent({name: "client", classes: "button-client", 
 					kind:"moon.MarqueeText", isChrome: true
