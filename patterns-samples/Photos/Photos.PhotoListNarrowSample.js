@@ -6,13 +6,11 @@ enyo.kind({
 	components: [
 		{title: "ALBUM", titleAbove: "02", titleBelow: "97 Photos", components: [
 			{name: "menuList", kind: "moon.DataList", fit: true, components: [
-				{kind: "moon.Item", classes: "sample-album-list-item",
-					bindings: [
-						{from: ".model.imgSrc", to: ".$.image.src"}
-					], components: [
-						{name: "image", kind: "enyo.Image"}
-					]
-				}
+				{kind: "moon.Item", classes: "sample-album-list-item", bindings: [
+					{from: ".model.imgSrc", to: ".$.image.src"}
+				], components: [
+					{name: "image", kind: "enyo.Image"}
+				]}
 			]}
 		]}
 	],

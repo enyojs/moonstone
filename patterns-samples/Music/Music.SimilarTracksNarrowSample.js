@@ -6,7 +6,10 @@ enyo.kind({
 	pattern: "alwaysviewing",
 	useHandle: false,
 	components: [
-		{title: "Similar Tracks", titleAbove: "04", titleBelow: "10 Tracks",
+		{
+			title: "Similar Tracks", 
+			titleAbove: "04", 
+			titleBelow: "10 Tracks",
 			headerComponents: [
 				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
 				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
