@@ -29,15 +29,18 @@ enyo.kind({
 								{from: ".model.time", to: ".$.imageTime.content"}
 							],
 							components: [                    
-								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", classes: "moon-hspacing", components: [
 									{name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
-									{components: [
-										{name: "imageTrack"},
+									{classes: "moon-header-font", components: [
+										{name: "imageTrack", classes: "moon-large-button-text"},
 										{name: "imageArtist", classes: "moon-superscript"},
 										{name: "imageTime", classes: "moon-superscript"}
 									]}                            
 								]}
-							]
+							],
+							changeName: function(inSender, inEvent) {
+								inSender.parent.model.set("track", "Good track");
+							}
 						}
 					]
 				}
@@ -84,10 +87,7 @@ enyo.ready(function (){
             {
                 name: "trackController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
-                changeName: function(inSender, inEvent) {
-                    inSender.parent.controller.set("track", "Good track");
-                }
+                model: sampleModel
             }
         ]
     });
