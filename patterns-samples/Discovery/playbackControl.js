@@ -120,6 +120,10 @@ enyo.kind({
 		// delete this;
 		return true;
 	},
+	show: function() {
+		this.inherited(arguments);
+		this.$.slideShow.show();
+	},
 	tapHandler: function(inSender, inEvent) {
 		this.$.slideShow.requestShow();
 	},
