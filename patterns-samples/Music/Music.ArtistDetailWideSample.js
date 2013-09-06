@@ -13,7 +13,8 @@ enyo.kind({
 	],
 	components: [
 		{
-			classes: "moon-5h",
+			kind: "moon.Scroller",
+			classes: "moon-6h",
 			components: [
 				{
 					name: "artistImage",

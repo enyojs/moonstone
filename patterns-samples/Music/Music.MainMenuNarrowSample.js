@@ -4,10 +4,9 @@ enyo.kind({
 	name: "moon.sample.music.MainMenuNarrowSample",
 	kind: "moon.Panels",
 	pattern: "alwaysviewing",
-	classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
+	useHandle: true,
 	components: [
 		{
-			kind: "moon.Panel",
 			titleAbove: "01",
 			title: "Main Menu",
 			titleBelow: "",

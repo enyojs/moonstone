@@ -1,8 +1,11 @@
 /* enyo.TitleImageItem */
+.result-height {
+  height: 200px;
+}
 .enyo-gridlist-titleimageitem > .caption {
-    position: relative;
-    top: -20px;
-    background-color: gray;
+	position: relative;
+	top: -20px;
+	background-color: gray;
 }
 .enyo-gridlist-titleimageitem {
   transition: padding 0.1s linear;
