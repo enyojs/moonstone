@@ -1,7 +1,6 @@
 enyo.kind({
 	name: "Sample.Wizard.Panels",
 	kind: "moon.Panels",
-	pattern: "activity",
 	arrangerKind: "CardArranger",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {

@@ -47,7 +47,7 @@ enyo.kind({
 	],
 	initialSetting: function() {
 		var idx = this.indexInContainer();
-		var collection = this.controller.wizContainer;
+		var collection = this.controller.get('wizContainer');
 
 		this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));
 		this.$.headline.set("content", collection.at(idx).get("instruction"));
@@ -55,7 +55,7 @@ enyo.kind({
 	},
 	goNext: function(inSender, inEvent) {
 		var idx = this.indexInContainer();
-		var collection = this.controller.wizResults;
+		var collection = this.controller.get('wizResults');
 		this.setProcessed(true);
 		collection.at(idx).set("result", this.getSelectedText());
 		collection.at(idx).set("processed", "[TRUE]");
