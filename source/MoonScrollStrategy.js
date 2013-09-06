@@ -137,7 +137,7 @@ enyo.kind({
 	mousewheel: function(inSender, inEvent) {
 		this.scrollBounds = this._getScrollBounds();
 		this.setupBounds();
-		
+
 		var x = null,
 			y = null,
 			delta = 0,
@@ -159,7 +159,7 @@ enyo.kind({
 			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
 			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
 		}
-		
+
 		this.scrollTo(x, y);
 		inEvent.preventDefault();
 		this.scrollBounds = null;
@@ -186,7 +186,7 @@ enyo.kind({
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
 		;
-		
+
 		switch (side) {
 		case "left":
 			x -= scrollXDelta;
@@ -272,9 +272,9 @@ enyo.kind({
 			} else {
 				this.hidePageControls();
 			}
-
-		this.showHideScrollColumns(true);
-	},
+			this.showHideScrollColumns(true);
+		};
+	}),
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY);
@@ -447,7 +447,7 @@ enyo.kind({
 		if (this.scrollBounds) {
 			return this.scrollBounds;
 		}
-		
+
 		var containerBounds = this.$.clientContainer.getBounds(),
 			s = this.getScrollSize(),
 			b = {

@@ -25,7 +25,7 @@ enyo.kind({
 		//* Fired when this control expands/collapses
 		onExpandCollapse: ""
 	},
-	
+
 	//*@protected
 	components:[
 		{name: "client", classes: "moon-body-text moon-expandable-text-content"},
@@ -35,17 +35,21 @@ enyo.kind({
 	maxHeight: 96,
 	contentHeight: -1,
 	canCollapse: true,
-	create: function() {
-		this.inherited(arguments);
-		this.moreContentChanged();
-		this.lessContentChanged();
-		this.collapsedChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.moreContentChanged();
+			this.lessContentChanged();
+			this.collapsedChanged();
+		};
+	}),
 	//* Update _this.lineHeight_ after render
-	rendered: function() {
-		this.inherited(arguments);
-		this.calcLineHeight();
-	},
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.calcLineHeight();
+		};
+	}),
 	resizeHandler: function() {
 		this.reflow();
 	},
@@ -60,7 +64,7 @@ enyo.kind({
 	//* Facade to _this.$.client.content_
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
-		
+
 		if (this.hasNode()) {
 			this.reflow();
 		}
@@ -148,10 +152,12 @@ enyo.kind({
 	},
 	classes: "moon-item moon-expandable-text-button",
 	spotlight: true,
-	create: function() {
-		this.inherited(arguments);
-		this.updateContent();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateContent();
+		};
+	}),
 	moreContentChanged: function() {
 		this.updateContent();
 	},
