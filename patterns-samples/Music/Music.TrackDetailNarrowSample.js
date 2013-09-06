@@ -2,72 +2,70 @@
 
 enyo.kind({
     name: "moon.sample.music.TrackDetailNarrowSample",
-    kind: "moon.Panel",
-    title: "Track Name",
-    titleAbove: "03",
-    titleBelow: "Artist Name",
-    layoutKind: "FittableColumnsLayout",
-    headerComponents: [
-        {kind: "moon.IconButton", src: "../assets/icon-album.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-download.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
-        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
-    ],
-    components: [
-        {
-            kind: "enyo.Table",
-            classes: "moon-5h",
-            components: [
-                {
-                    components: [
-                        {
-                            components: [
-                                {
-                                    name: "image",
-                                    kind: "enyo.Image",
-                                    style: "width: 350px; height: 350px;"
-                                }
-                            ],
-                            attributes: {colspan: "2"}
-                        }
-                    ]
-                },
-                {
-                    components: [
-                        {content: "Released"},
-                        {name: "released"}
-                    ]
-                },
-                {
-                    components: [
-                        {content: "Genre"},
-                        {name: "genre"}
-                    ]
-                }
-            ]
-        },
-        {
-            fit: true,
-            components: [
-                {
-                    kind: "moon.Divider",
-                    content: "More"
-                },
-                {
-                    kind: "Group",
-                    components: [
-                        {kind: "moon.SelectableItem", content: "Lyrics"},
-                        {kind: "moon.SelectableItem", content: "Artist"},
-                        {kind: "moon.SelectableItem", content: "Album"},
-                        {kind: "moon.SelectableItem", content: "Similar Track"},
-                        {kind: "moon.SelectableItem", content: "Related Videos"}
-                    ]
-                }
-            ]
-        }
-    ],
+	kind: "moon.Panels",
+	pattern: "alwaysviewing",
+	useHandle: false,
+	components: [
+    	{
+			title: "Track Name",
+			titleAbove: "03",
+			titleBelow: "Artist Name",
+			layoutKind: "FittableColumnsLayout",
+			headerComponents: [
+			    {kind: "moon.IconButton", src: "../assets/icon-album.png"},
+			    {kind: "moon.IconButton", src: "../assets/icon-download.png"},
+			    {kind: "moon.IconButton", src: "../assets/icon-like.png"},
+			    {kind: "moon.IconButton", src: "../assets/icon-next.png"}
+			],
+			components: [
+				{
+					classes: "moon-5h",
+					components: [
+						{
+							name: "cover",
+							kind: "enyo.Image",
+							style: "width: 350px; height: 350px;"
+						},
+						{
+							kind: "moon.Table",
+							classes: "enyo-table-fit",
+							components: [
+								{components: [
+									{content: "Released"},
+									{name: "released"}
+								]},
+								{components: [
+									{content: "Genre"},
+									{name: "genre"}
+								]}
+							]
+						}
+					]
+				},
+			    {
+			        fit: true,
+			        components: [
+			            {
+			                kind: "moon.Divider",
+			                content: "More"
+			            },
+			            {
+			                kind: "Group",
+			                components: [
+			                    {kind: "moon.SelectableItem", content: "Lyrics"},
+			                    {kind: "moon.SelectableItem", content: "Artist"},
+			                    {kind: "moon.SelectableItem", content: "Album"},
+			                    {kind: "moon.SelectableItem", content: "Similar Track"},
+			                    {kind: "moon.SelectableItem", content: "Related Videos"}
+			                ]
+			            }
+			        ]
+			    }
+			]
+		}
+	],
     bindings: [
-        {from: ".controller.coverUrl", to: ".$.image.src"},
+        {from: ".controller.coverUrl", to: ".$.cover.src"},
         {from: ".controller.released", to: ".$.released.content"},
         {from: ".controller.genre", to: ".$.genre.content"}
     ]
