@@ -10,7 +10,7 @@ enyo.kind({
     ],
     components: [
         {kind: "FittableColumns", classes: "enyo-fit", noStretch: true, components: [
-            {name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v"},
+            {name: "movie", kind: "enyo.Image", classes: "moon-5h moon-8v"},
             {
                 kind: "FittableRows",
                 fit: true,

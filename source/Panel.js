@@ -58,13 +58,14 @@ enyo.kind({
 		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
-					{name: "breadcrumbTitleAbove", classes: "moon-panel-mini-header-title-above"},
-					{name: "breadcrumbText", kind: "moon.MarqueeText", classes: "moon-panel-mini-header"}
+					{name: "breadcrumbTitleAbove", classes: "moon-super-header-text moon-panel-mini-header-title-above"},
+					{name: "breadcrumbText", kind: "moon.MarqueeText", classes: "moon-sub-header-text moon-panel-mini-header"}
 				]}
 			]}
 		]},
 		{name: "viewport", classes: "moon-panel-viewport", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
+				/* header will be created here programmatically in createTools after mixing-in headerOptions */
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
 			]}
 		]},
@@ -148,12 +149,9 @@ enyo.kind({
 		this.$.contentWrapper.applyStyle("width", this.initialWidth + "px");
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
-	layoutKindChanged: enyo.inherit(function(sup) {
-		return function() {
-			this.$.panelBody.setLayoutKind(this.getLayoutKind());
-			sup.apply(this, arguments);
-		};
-	}),
+	layoutKindChanged: function() {
+		this.$.panelBody.setLayoutKind(this.getLayoutKind());
+	},
 	//* When _this.isBreadcrumb_ changes, update spottability
 	isBreadcrumbChanged: function() {
 		if (this.isBreadcrumb) {
@@ -189,7 +187,8 @@ enyo.kind({
 	//* Updates _this.titleAbove_ when _this.autoNumber_ changes.
 	autoNumberChanged: function() {
 		if (this.getAutoNumber() === true && this.container) {
-			var n = this.clientIndexInContainer() + 1;
+			// This gets the index regardless of whether the panel is client or chome
+			var n = this.parent.indexOfChild(this) + 1;
 			n = ((n < 10) ? "0" : "") + n;
 			this.setTitleAbove(n);
 		}

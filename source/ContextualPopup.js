@@ -7,7 +7,7 @@ enyo.kind({
 	name: "moon.ContextualPopup",
 	kind: "enyo.Popup",
 	layoutKind: "ContextualLayout",
-	classes: "moon-contextual-popup",
+	classes: "moon-body-text moon-contextual-popup",
 	handlers: {
 		onRequestShowPopup: "requestShow",
 		onRequestHidePopup: "requestHide",

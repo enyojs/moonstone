@@ -44,5 +44,5 @@ enyo.kind({
 enyo.kind({
 	name: "moon.ChannelInfoBadge",
 	kind: "enyo.Control",
-	classes: "moon-video-player-info-icon"
+	classes: "moon-video-badge-text moon-video-player-info-icon"
 });

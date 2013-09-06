@@ -25,7 +25,7 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	spotlight:true,
 	components: [
-		{name:"handleContent", kind: "moon.MarqueeText", classes: "moon-drawer-handle-text"}
+		{name:"handleContent", kind: "moon.MarqueeText", classes: "moon-sub-header-text moon-drawer-handle-text"}
 	],
 	contentChanged: function() {
 		this.$.handleContent.setContent(this.getContent());

@@ -120,6 +120,10 @@ enyo.kind({
 		}
 
 		this.toggleActive();
+		
+		if (this.getActive()) {
+			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
+		}
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
@@ -144,13 +148,13 @@ enyo.kind({
 		}
 	},
 	drawerAnimationEnd: function() {
-		if (this.getOpen()) {
-			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
-		}
-	},
-	spotlightFocused: function(inSender, inEvent) {
 		this.bubble("onRequestScrollIntoView", {side: "top"});
 		return true;
+	},
+	spotlightFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
 	},
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
 		if (inSender === this) {

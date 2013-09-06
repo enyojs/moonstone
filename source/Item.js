@@ -37,7 +37,9 @@ enyo.kind({
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	spotlightFocused: function(inSender, inEvent) {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
 	},
 	contentChanged: enyo.inherit(function(sup) {
 		return function(inOld) {

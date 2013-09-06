@@ -79,12 +79,11 @@ enyo.kind({
 		genre: null,
 		coverUrl: null,
 		price: null,
-		tracks: {
-			// NOTE: We have told the model that this array should be
-			// an enyo.Collection of models so we can bind this property
-			// directly to the controller of the table displaying the data
-			relation: enyo.toMany({})
-		}
+		tracks: null
+	},
+	parse: function(data) {
+		data.tracks = new enyo.Collection(data.tracks);
+		return data;
 	}
 });
 
@@ -135,5 +134,5 @@ enyo.ready(function () {
 		}
 	});
 
-	app.controllers.album.set("model", new moon.sample.music.AlbumModel(mockData));
+	app.controllers.album.set("model", new moon.sample.music.AlbumModel(mockData, {parse:true}));
 });

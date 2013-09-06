@@ -11,12 +11,12 @@ enyo.kind({
 		message: ""
 	},
 	tools: [
-		{name: "title", classes: "moon-header-font moon-dialog-title"},
+		{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
 		{
 			layoutKind: "FittableColumnsLayout",
 			components: [
-				{name: "message", fit: true, classes: "moon-dialog-message"},
-				{name: "client", classes: "moon-dialog-client"}
+				{name: "message", kind:"moon.BodyText", fit: true},
+				{name: "client"}
 			]
 		}
 	],

@@ -27,7 +27,7 @@ enyo.kind({
 	},
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
+			{name: "titleAbove", classes: "moon-super-header-text moon-header-title-above"},
 			{name: "titleWrapper", classes: "moon-header-title-wrapper", components: [
 				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"}
 			]},
