@@ -52,49 +52,29 @@
 	height: 202px;	/* 160 + 16 * 2 + 10 */
 }
 
+.moon-photo-slideshow-control-left-button {
+	margin-left: 2%;
+}
 
 .moon-photo-slideshow-control-middle-button {
-	text-align: center;
-	margin-left: 30%;
-	width: 50px;
+	margin-right: 50px;
 }
 
-.moon-photo-slideshow-control-middle-button > * {
-	margin: 0px 20px 0px 20px;
+.moon-photo-slideshow-control-speed-button {
+	margin-right: 30px;
 }
 
+.moon-photo-slideshow-control-picker-wrapper {
+	width:250px;
+	display:block;
+}
+
+.moon-photo-slideshow-control-close-button {
+	margin-right: 5%;
+}
 
 /* This class is applied and removed during reflow to allow correct height measuring */
 
-
-
 .discovery-layoutbox {
 	height: 100px;
-
-}
-
-/* TODO: remove bellowing css class after creating moon.ImageButton */
-.moon-photo-slideshow-control-middle-button .big-icon-button{
-	width: 75px;
-	height: 75px;
-	margin-left: 1000px;
-	border-radius: 80px;
-	border: 0px;
-	background: transparent;
-}
-/* TODO: remove bellowing css class after creating moon.ImageButton */
-.moon-photo-slideshow-control-middle-button .big-icon-button.active,
-.moon-photo-slideshow-control-middle-button .big-icon-button.spotlight,
-.moon-photo-slideshow-control-middle-button .big-icon-button.spotlight.pressed,
-.moon-photo-slideshow-control-middle-button .big-icon-button.spotlight:active {
-  background-position: 0 -80px;
-  border: 0px;
-  background-color: transparent;
-}
-
-/* TODO: remove bellowing css class after the policy for white string is decided
-   Now, color of moon-item css class is @moon-font-color-light (#4B4B4B) */
-.moon-item,
-.moon-simple-integer-picker-button {
-	color: white;
 }

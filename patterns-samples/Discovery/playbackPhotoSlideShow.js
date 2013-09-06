@@ -142,25 +142,33 @@ enyo.kind({
 
 	imageUrls: [],
 	controlTools: [
-		{layoutKind: 'HFlexLayout', classes: "discovery-layoutbox", components: [
+		{layoutKind: 'HFlexLayout', classes: "discovery-layoutbox", flexStretch: true, flex: true, flexOrient: 'column', components: [
+			{name: "slideTitle", flex: true, kind: "FittableColumns", noStretch: true, classes: "moon-photo-slideshow-control-left-button", components: [
+				{content: "CONTENT TITLE"}
+			]},
+			
+			{classes: "moon-photo-slideshow-control-middle-button", components: [
+				{name:"playpause", mode: "pause"}
+			]},
 
+			{classes: "moon-photo-slideshow-control-speed-button", components: [
+				{
+					name:"speed",
+					kind: "moon.ExpandableIntegerPicker",
+					noneText: "Not Selected",
+					autoCollapse: true,
+					content: "Speed",
+					classes: "moon-photo-slideshow-control-picker-wrapper",
+					value: 1,
+					min: 1,
+					max: 15,
+					unit: "sec"
+				},
+			]},
 
-
-			{content: "CONTENT TITLE"},
-			{name:"playpause", mode: "pause", kind: "moon.IconButton", src: "assets/icon_play.png", ontap: "playHandler"},
-			{
-				name:"speed",
-				kind: "moon.ExpandableIntegerPicker",
-				noneText: "Not Selected",
-				autoCollapse: true,
-				content: "Speed",
-				classes: "moon-photo-slideshow-control-picker-wrapper",
-				value: 3,
-				min: 1,
-				max: 15,
-				unit: "sec"
-			},
-			{name:"left", kind: "moon.Button", small: true, content: "Close", ontap: "closeHandler"}
+			{classes: "moon-photo-slideshow-control-close-button", components: [
+				{name:"left", kind: "moon.Button", small: true, content: "Close", ontap: "closeHandler"}
+			]}
 		]},
 
 		{
@@ -173,7 +181,7 @@ enyo.kind({
 			onSetupItem: "setupItem",
 			onSpotlightSelect: "itemSelectHandler",
 			components: [
-				{name: "item", kind: "enyo.Image", src: "assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"}
+				{name: "item", mode: "pause", kind: "enyo.Image", src: "assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "playHandler"}
 			]
 		}
 	],
@@ -228,9 +236,17 @@ enyo.kind({
 			this.stopSlideshow();
 		}
 		else {
-			this.$.playpause.mode = "play";
-			this.$.playpause.setSrc("assets/icon_pause.png");
 
+			if (inSender.kindName == 'moon.List') {
+				this.index = enyo.Spotlight.Decorator.List._getCurrent(inSender);
+			}
+			else {
+				this.index = inEvent.index;
+			}
+
+			this.doChangeSlide({index: this.index, direction: "none"});
+
+			this.$.playpause.mode = "play";
 			this.index = (this.indexPause) ? this.indexPause : this.index;
 			this.doStartSlideshow({index: this.index});
 			this.startJob("playSlideshow", "displaySlideImage", 0);
@@ -276,7 +292,7 @@ enyo.kind({
 	//* Stop slideshow play when playing slideshow
 	stopSlideshow: function() {
 		this.$.playpause.mode = "pause";
-		this.$.playpause.setSrc("assets/icon_play.png");
+
 		clearTimeout(this.slideJob);
 		delete this.slideJob;
 		delete this.indexPause;
