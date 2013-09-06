@@ -9,30 +9,30 @@
     -webkit-box-orient: vertical;
 }
 
-.moon-expandable-text .moon-item.moon-expandable-text-collapse-button {
+.moon-expandable-text .moon-item.moon-expandable-text-button {
 	.moon-body-text;
 	float: right;
 	display: inline-block;
 	padding-right: 40px;
 	background-repeat: no-repeat;
 	background-position: 90% center;
-	background-image: @moon-expandable-text-down-arrow;
-}
-.enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-collapse-button {
-	.enyo-locale-non-latin .moon-body-text;
-}
-.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.spotlight {
-	color: @moon-white;
-	background-image: @moon-expandable-text-down-arrow-spotlight;
-}
-
-.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button {
 	background-image: @moon-expandable-text-up-arrow;
 }
-.moon-expandable-text.expanded .moon-item.moon-expandable-text-collapse-button.spotlight {
+.enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
+	.enyo-locale-non-latin .moon-body-text;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
+	color: @moon-white;
 	background-image: @moon-expandable-text-up-arrow-spotlight;
 }
 
-.moon-expandable-text .moon-item.moon-expandable-text-collapse-button.hidden {
+.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
+	background-image: @moon-expandable-text-down-arrow;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button.expanded.collapsed {
+	background-image: @moon-expandable-text-down-arrow-spotlight;
+}
+
+.moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
 	display: none;
 }

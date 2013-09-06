@@ -4,7 +4,8 @@ enyo.kind({
 	name: "moon.sample.music.TrackOneColumnWideSample2",
 	components: [{
 		kind: "moon.Panels",
-		pattern: "alwaysviewing",
+		pattern: "activity",
+		useHandle: false,
 		components: [
 			{
 				kind: "moon.Panel",
@@ -40,9 +41,9 @@ enyo.kind({
 												{name: "imageCoverUrl", kind: "enyo.Image", classes: "moon-music-small-image"}
 											]},
 											{components: [
-												{name: "imageTrack", kind: "moon.Item", ontap: "changeName"},
-												{name: "imageArtist", kind: "moon.Item", ontap: "changeName"},
-												{name: "imageAlbum", kind: "moon.Item", ontap: "changeName"}
+												{name: "imageTrack", kind: "moon.Item", style: "display: inline-block;", ontap: "changeName"},
+												{name: "imageArtist", kind: "moon.Item", style: "display: inline-block;", ontap: "changeName"},
+												{name: "imageAlbum", kind: "moon.Item", style: "display: inline-block;", ontap: "changeName"}
 											]},								
 											{name: "imageTime", kind: "moon.Item", ontap: "changeName"}
 										]
