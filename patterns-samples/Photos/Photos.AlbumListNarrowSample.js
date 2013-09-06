@@ -38,25 +38,18 @@ enyo.kind({
 
 enyo.kind({
     name: "moon.sample.photos.AlbumListNarrowSample",
-    kind: "moon.Panel",
-    titleAbove: "01",
-    title: "ALBUMS",
-    titleBelow: "",
-    components: [
-        {
-            name: "menuList",
-            kind: "moon.DataList",
-            components: [
-                {
-                    kind: "moon.sample.photos.AlbumListItem",
-                    bindings: [
-						{from: ".model.option", to: ".option"}
-					]
-				}
-            ]
-        }
-    ],
-
+	kind: "moon.Panels",
+	pattern: "alwaysviewing",
+	useHandle: false,
+	components: [
+		{kind: "moon.Panel", titleAbove: "01", title: "ALBUMS", titleBelow: "", components: [
+			{name: "menuList", kind: "moon.DataList", components: [
+				{kind: "moon.sample.photos.AlbumListItem", bindings: [
+					{from: ".model.option", to: ".option"}
+				]}
+			]}
+		]}
+	],
     bindings: [
         {from: ".controller.menus", to: ".$.menuList.controller"}
     ]
