@@ -6,16 +6,16 @@ enyo.kind({
 	pattern: "alwaysviewing",
 	useHandle: false,
 	components: [
-    	{
+		{
 			title: "Track Name",
 			titleAbove: "03",
 			titleBelow: "Artist Name",
 			layoutKind: "FittableColumnsLayout",
 			headerComponents: [
-			    {kind: "moon.IconButton", src: "../assets/icon-album.png"},
-			    {kind: "moon.IconButton", src: "../assets/icon-download.png"},
-			    {kind: "moon.IconButton", src: "../assets/icon-like.png"},
-			    {kind: "moon.IconButton", src: "../assets/icon-next.png"}
+				{kind: "moon.IconButton", src: "../assets/icon-album.png"},
+				{kind: "moon.IconButton", src: "../assets/icon-download.png"},
+				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
+				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
 			],
 			components: [
 				{
@@ -42,33 +42,27 @@ enyo.kind({
 						}
 					]
 				},
-			    {
-			        fit: true,
-			        components: [
-			            {
-			                kind: "moon.Divider",
-			                content: "More"
-			            },
-			            {
-			                kind: "Group",
-			                components: [
-			                    {kind: "moon.SelectableItem", content: "Lyrics"},
-			                    {kind: "moon.SelectableItem", content: "Artist"},
-			                    {kind: "moon.SelectableItem", content: "Album"},
-			                    {kind: "moon.SelectableItem", content: "Similar Track"},
-			                    {kind: "moon.SelectableItem", content: "Related Videos"}
-			                ]
-			            }
-			        ]
-			    }
+				{
+					fit: true,
+					components: [
+						{kind: "moon.Divider", content: "More"},
+						{kind: "Group", components: [
+							{kind: "moon.SelectableItem", content: "Lyrics"},
+							{kind: "moon.SelectableItem", content: "Artist"},
+							{kind: "moon.SelectableItem", content: "Album"},
+							{kind: "moon.SelectableItem", content: "Similar Track"},
+							{kind: "moon.SelectableItem", content: "Related Videos"}
+						]}
+					]
+				}
 			]
 		}
 	],
-    bindings: [
-        {from: ".controller.coverUrl", to: ".$.cover.src"},
-        {from: ".controller.released", to: ".$.released.content"},
-        {from: ".controller.genre", to: ".$.genre.content"}
-    ]
+	bindings: [
+		{from: ".controller.coverUrl", to: ".$.cover.src"},
+		{from: ".controller.released", to: ".$.released.content"},
+		{from: ".controller.genre", to: ".$.genre.content"}
+	]
 });
 
 // Sample Model

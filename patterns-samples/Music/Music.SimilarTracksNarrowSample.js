@@ -7,43 +7,43 @@ enyo.kind({
 	useHandle: false,
 	components: [
 		{title: "Similar Tracks", titleAbove: "04", titleBelow: "10 Tracks",
-		    headerComponents: [
-		        {kind: "moon.IconButton", src: "../assets/icon-like.png"},
-		        {kind: "moon.IconButton", src: "../assets/icon-next.png"}
-		    ],
-		    components: [
-		        {
-		            name: "trackList",
-		            kind: "moon.DataList",
-		            scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
-		            fit: true,
-		            components: [
-		                {
-		                    bindings: [
-		                        {from: ".model.coverUrl", to: ".$.enyoImage.src"},
-		                        {from: ".model.track", to: ".$.imageTrack.content"},
-		                        {from: ".model.artist", to: ".$.imageArtist.content"},
-		                        {from: ".model.time", to: ".$.imageTime.content"}
-		                    ],
-		                    components: [                    
-		                        {kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
-		                            {name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
-		                            {components: [
-		                                {name: "imageTrack"},
-		                                {name: "imageArtist", classes: "moon-superscript"},
-		                                {name: "imageTime", classes: "moon-superscript"}
-		                            ]}                            
-		                        ]}
-		                    ]
-		                }
-		            ]
-		        }
-		    ]
+			headerComponents: [
+				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
+				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
+			],
+			components: [
+				{
+					name: "trackList",
+					kind: "moon.DataList",
+					scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+					fit: true,
+					components: [
+						{
+							bindings: [
+								{from: ".model.coverUrl", to: ".$.enyoImage.src"},
+								{from: ".model.track", to: ".$.imageTrack.content"},
+								{from: ".model.artist", to: ".$.imageArtist.content"},
+								{from: ".model.time", to: ".$.imageTime.content"}
+							],
+							components: [                    
+								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+									{name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
+									{components: [
+										{name: "imageTrack"},
+										{name: "imageArtist", classes: "moon-superscript"},
+										{name: "imageTime", classes: "moon-superscript"}
+									]}                            
+								]}
+							]
+						}
+					]
+				}
+			]
 		}
 	],
-    bindings: [
-        {from: ".controller.track", to: ".$.trackList.controller"}
-    ]
+	bindings: [
+		{from: ".controller.track", to: ".$.trackList.controller"}
+	]
 });
 
 // Sample model
