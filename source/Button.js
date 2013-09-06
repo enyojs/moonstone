@@ -42,8 +42,10 @@ enyo.kind({
 		this.addClass('pressed');
 	},
 	//* Bubble _requestScrollIntoView_ event
-	spotFocused: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+	spotFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
 		return true;
 	},
 	//* Removes _pressed_ CSS class.
