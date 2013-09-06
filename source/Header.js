@@ -15,12 +15,22 @@ enyo.kind({
 		//* Sub-text below the header
 		subTitleBelow: '',
 		//* If true, the moon-small-header css class will be applied to this header
-		small: false
+		small: false,
+		//* URL src of a background image
+		backgroundSrc: null,
+		/**
+			Background position, defined as a string in the form of _"vertical horizontal"_,
+			with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
+			If no second property is included, the horizontal value will default to _right_.
+		*/
+		backgroundPosition: "top right"
 	},
 	components: [
 		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
-			{name: "titleAbove", classes: "moon-header-font moon-header-title-above"},
-			{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"},
+			{name: "titleAbove", classes: "moon-super-header-text moon-header-title-above"},
+			{name: "titleWrapper", classes: "moon-header-title-wrapper", components: [
+				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"}
+			]},
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
 			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
 		]},
@@ -35,6 +45,8 @@ enyo.kind({
 		this.titleBelowChanged();
 		this.subTitleBelowChanged();
 		this.allowHtmlChanged();
+		this.backgroundSrcChanged();
+		this.backgroundPositionChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -51,13 +63,20 @@ enyo.kind({
 		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
 		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
 	},
+	backgroundSrcChanged: function() {
+		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")" : "none");
+	},
+	backgroundPositionChanged: function() {
+		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [],
+			posStr = (posArray.length === 0) ? "top right" : (posArray.length === 1) ? posArray[0] + " right" : posArray[0] + " " + posArray[1];
+		this.applyStyle("background-position", posStr);
+	},
 	//* @public
 	collapseToSmall: function() {
 		if (this.collapsed) {
 			return;
 		}
-		
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
+
 		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 
@@ -126,7 +145,7 @@ enyo.kind({
 		if (!this.collapsed) {
 			return;
 		}
-		
+
 		this.$.animator.newAnimation({
 			name: "expandToLarge",
 			duration: 200,
@@ -173,196 +192,6 @@ enyo.kind({
 		this.$.animator.play("expandToLarge");
 		this.collapsed = false;
 	},
-	animateCollapse: function(inWidth) {
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
-		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
-		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
-		inWidth = inWidth || 160;
-
-		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
-		this.breadcrumbAnimProps = {
-			"height" : myStyle["height"],
-			"border" : myStyle["border-bottom-width"],
-			"width"  : myStyle["width"]
-		};
-		this.$.title.breadcrumbAnimProps = {
-			"font-size" : titleStyle["font-size"],
-			"line-height" : titleStyle["line-height"],
-			"padding" : titleStyle["padding"]
-		};
-		this.$.titleAbove.breadcrumbAnimProps = {
-			"width" : titleAboveStyle["width"],
-			"opacity" : titleAboveStyle["opacity"],
-			"height" : titleAboveStyle["height"],
-			"padding-top" : titleAboveStyle["padding-top"],
-			"padding-bottom" : titleAboveStyle["padding-bottom"]
-		};
-		
-		this.$.animator.newAnimation({
-			name: "collapse",
-			duration: 800,
-			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
-			keyframes: {
-				0: [{
-					control: this,
-					properties: {
-						"height" : "current",
-						"border-bottom-width" : "current",
-						"background" : "current"
-					}
-				},
-				{
-					control: this.$.title,
-					properties: {
-						"font-size" : "current",
-						"line-height" : "current",
-						"padding" : "current"
-					}
-				},
-				{
-					control: this.$.client,
-					properties: {
-						"opacity" : "current"
-					}
-				}],
-				30: [{
-					control: this.$.titleAbove,
-					properties: {
-						"border-bottom-width" : "current",
-						"opacity" : "current",
-						"height" : "current",
-						"padding-top" : "current",
-						"padding-bottom" : "current"
-					}
-				}],
-				40: [{
-					control: this.$.titleAbove,
-					properties: {
-						"border-bottom-width" : "0px",
-						"opacity" : "1",
-						"height" : "36px",
-						"padding-top" : "10px",
-						"padding-bottom" : "10px"
-					}
-				}],
-				50: [{
-					control: this,
-					properties: {
-						"height" : "100px",
-						"border-bottom-width" : "0px",
-						"width" : "current",
-						"min-width" : "current",
-						"max-width" : "current"
-					}
-				},
-				{
-					control: this.$.title,
-					properties: {
-						"font-size" : "36px",
-						"line-height" : "48px",
-						"padding" : "0px"
-					}
-				},
-				{
-					control: this.$.client,
-					properties: {
-						"opacity" : "0"
-					}
-				}],
-				100: [{
-					control: this,
-					properties: {
-						"width" : inWidth + "px",
-						"min-width" : inWidth + "px",
-						"max-width" : inWidth + "px"
-					}
-				}],
-
-			}
-		});
-		this.$.animator.play("collapse");
-	},
-	//* @public
-	animateExpand: function() {
-		this.$.animator.newAnimation({
-			name: "expand",
-			duration: 500,
-			timingFunction: "cubic-bezier(.42, 0, .16, 1.1)",
-			keyframes: {
-				0: [{
-					control: this,
-					properties: {
-						"width" : "current",
-						"min-width" : "current",
-						"max-width" : "current"
-					}
-				}],
-				50: [{
-					control: this,
-					properties: {
-						"height" : "current",
-						"border-bottom-width" : "current",
-						"width" : this.breadcrumbAnimProps["width"],
-						"min-width" : this.breadcrumbAnimProps["width"],
-						"max-width" : this.breadcrumbAnimProps["width"],
-					}
-				},
-				{
-					control: this.$.title,
-					properties: {
-						"font-size" : "current",
-						"line-height" : "current",
-						"padding" : "current"
-					}
-				},
-				{
-					control: this.$.client,
-					properties: {
-						"opacity" : "current"
-					}
-				}],
-				60: [{
-					control: this.$.titleAbove,
-					properties: {
-						"border-bottom-width" : "current"
-					}
-				}],
-				70: [{
-					control: this.$.titleAbove,
-					properties: {
-						"border-bottom-width" : "1px",
-						"opacity" : this.$.titleAbove.breadcrumbAnimProps["opacity"],
-						"height" : this.$.titleAbove.breadcrumbAnimProps["height"],
-						"padding-top" : this.$.titleAbove.breadcrumbAnimProps["padding-top"],
-						"padding-bottom" : this.$.titleAbove.breadcrumbAnimProps["padding-bottom"]
-					}
-				}],
-				100: [{
-					control: this,
-					properties: {
-						"height" : this.breadcrumbAnimProps["height"],
-						"border-bottom-width" : this.breadcrumbAnimProps["border-bottom-width"]
-					}
-				},
-				{
-					control: this.$.title,
-					properties: {
-						"font-size" : this.$.title.breadcrumbAnimProps["font-size"],
-						"line-height" : this.$.title.breadcrumbAnimProps["line-height"],
-						"padding" : this.$.title.breadcrumbAnimProps["padding"]
-					}
-				},
-				{
-					control: this.$.client,
-					properties: {
-						"opacity" : "1"
-					}
-				}]
-
-			}
-		});
-		this.$.animator.play("expand");
-	},
 	//* @protected
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-header", this.getSmall());
@@ -392,34 +221,5 @@ enyo.kind({
 	//* @protected
 	animationComplete: function(inSender, inEvent) {
 		// Do something?
-	}
-});
-
-enyo.kind({
-	name: "moon.HeaderItem",
-	kind: "moon.Item",
-	classes: "moon-header-item",
-	published: {
-		//* Title of the header item
-		title: '',
-		//* Description of the header item
-		description: ''
-	},
-	components: [
-		{name: "title", classes: "moon-header-item-title"},
-		{name: "description", classes: "moon-header-item-description"}
-	],
-	create: function() {
-		this.inherited(arguments);
-		this.titleChanged();
-		this.descriptionChanged();
-	},
-	//* @protected
-	titleChanged: function() {
-		this.$.title.setContent(this.title);
-	},
-	//* @protected
-	descriptionChanged: function() {
-		this.$.description.setContent(this.description);
 	}
 });

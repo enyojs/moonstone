@@ -35,48 +35,48 @@ enyo.kind({
 		{name: "feedText",  classes: "moon-video-feedback-text"},
 		{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
 	],
-	
+
 	//* @public
-	
+
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		var customMessage = false;
 		inMessage = inMessage || "";
 		inParams = inParams || {};
-		
+
 		switch (inMessage) {
 		case "Play":
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._playImg);
 			break;
-			
+
 		case "Pause":
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseImg);
 			break;
-			
+
 		case "Rewind":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._rewindImg);
 			break;
-			
+
 		case "Slowrewind":
 			inMessage = inParams.playbackRate + "x";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseBackImg);
 			break;
-			
+
 		case "Fastforward":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._fastForwardImg);
 			break;
-			
+
 		case "Slowforward":
 			inMessage = inParams.playbackRate + "x";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseForwardImg);
 			break;
-			
+
 		case "JumpBackward":
 			inMessage = inParams.jumpSize + " sec";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
-			
+
 		case "JumpForward":
 			inMessage = inParams.jumpSize + " sec";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
@@ -100,7 +100,7 @@ enyo.kind({
 			this._showingFeedback = true;
 			break;
 		}
-		
+
 		// Don't show feedback if we are showing custom feedback already, unless this is a new custom message
 		if (!customMessage && this._showingFeedback) {
 			return;
@@ -111,7 +111,7 @@ enyo.kind({
 
 		// Show output controls
 		this.showFeedback();
-		
+
 		// Show icons as appropriate
 		this.updateIcons(inLeftSrc, inRightSrc);
 
@@ -138,9 +138,9 @@ enyo.kind({
 		this.setShowing(false);
 		this._showingFeedback = false;
 	},
-	
+
 	//* @protected
-	
+
 	//* Starts job that will hide this control.
 	setAutoTimer: function() {
 		this.hideJob = enyo.job(this.id + "hide", this.bindSafely("hideFeedback"), this.getAutoTimeoutMS());
@@ -157,7 +157,7 @@ enyo.kind({
 		} else {
 			this.$.leftIcon.hide();
 		}
-		
+
 		if (inRightSrc) {
 			this.$.rightIcon.show();
 			this.$.rightIcon.applyStyle("background-image", "url(" + inRightSrc + ")");

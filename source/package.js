@@ -3,6 +3,7 @@ enyo.depends(
 	"Button.js",
 	"CaptionDecorator.js",
 	"Item.js",
+	"SelectableItem.js",
 	"Panels.js",
 	"SimplePicker.js",
 	"SimpleIntegerPicker.js",
@@ -28,6 +29,7 @@ enyo.depends(
 	"PagingControl.js",
 	"IntegerPicker.js",
 	"IntegerScrollPicker.js",
+	"DateTimePickerBase.js",
 	"DatePicker.js",
 	"TimePicker.js",
 	"Input.js",
@@ -45,7 +47,6 @@ enyo.depends(
 	"LabeledTextItem.js",
 	"ImageItem.js",
 	"Spinner.js",
-	"SelectableItem.js",
 	"Panel.js",
 	"StyleAnimator.js",
 	"Accordion.js",
@@ -76,5 +77,9 @@ enyo.depends(
 	"ObjectActionDecorator.js",
 	"FormCheckbox.js",
 	"DataGridList.js",
-	"SelectionOverlaySupport.js"
+	"SelectionOverlaySupport.js",
+	"Image.js",
+	"ImageBadge.js",
+	"ExpandableText.js",
+	"BodyText.js"
 );

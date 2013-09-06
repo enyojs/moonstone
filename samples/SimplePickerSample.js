@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "FittableRows",
 	classes:"moon moon-sample-padded enyo-unselectable enyo-fit",
 	components:[
-		{kind:"enyo.Spotlight"},
 		{kind:"moon.Scroller", fit:true, components: [
 
 			{kind: "moon.Divider", content:"Picker 1: Animated"},
@@ -80,7 +79,7 @@ enyo.kind({
 		]},
 		{components: [
 			{kind: "moon.Divider", content:"Result"},
-			{name:"result", content:"No change yet"}
+			{kind: "moon.BodyText", name:"result", content:"No change yet"}
 		]}
 	],
 	changed: function(inSender, inEvent) {

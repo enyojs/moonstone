@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.PanelsVideoPlayerSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
 			{kind: "moon.Panel", title: "Video", classes: "moon-4h", components: [
 				{kind: "moon.Divider", content: "Select video content"},
@@ -13,11 +12,19 @@ enyo.kind({
 				]}
 			]},
 			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", classes: "moon-7h", components: [
-				{fit: true, components: [
-					{name: "player", kind: "moon.VideoPlayer", inline:true, style: "width: 640px;",
+				{
+					fit: true,
+					components: [{
+						name: "player",
+						kind: "moon.VideoPlayer",
+						inline:true,
+						style: "width: 640px;",
 						src: "http://media.w3.org/2010/05/bunny/movie.mp4",
-						infoComponents: [
-							{kind: "moon.VideoInfoBackground", orient: "left", fit: true, components: [
+						infoComponents: [{
+							kind: "moon.VideoInfoBackground",
+							orient: "left",
+							fit: true,
+							components: [
 								{
 									kind: "moon.ChannelInfo",
 									channelNo: "13",
@@ -35,11 +42,14 @@ enyo.kind({
 									subSubTitle: "R - TV 14, V, L, SC",
 									description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
 								}
-							]},
-							{kind: "moon.VideoInfoBackground", orient: "right", components: [
+							]
+						}, {
+							kind: "moon.VideoInfoBackground",
+							orient: "right",
+							components: [
 								{kind:"moon.Clock"}
-							]}
-						],
+							]
+						}],
 						components: [
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 							{kind: "moon.VideoFullscreenToggleButton"},
@@ -52,26 +62,27 @@ enyo.kind({
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 						]
-					}]
+					}
+					]
 				},
-				{layoutKind: "FittableRowsLayout", classes: "moon-7h", components: [
-					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "next"}
+				{classes: "moon-3h", components: [
+					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
 				]}
 			]},
 			{kind: "moon.Panel", title: "Capture to Canvas", components: [
 				{kind: "moon.Scroller", fit: true, components: [
-					{tag: "canvas", name: "capture"}
+					{tag: "canvas", name: "capture", spotlight: true}
 				]}
 			]}
 		]}
 	],
-	next: function(inSender, inEvent) {
+	capture: function(inSender, inEvent) {
 		try {
 			this.updateCanvas();
 		} catch (e) {
 			enyo.warn(e);
 		}
-		this.$.panels.next();
+		this.$.panels.setIndex(2);
 		return true;
 	},
 	webMovieCounter: function(inSender, inEvent) {

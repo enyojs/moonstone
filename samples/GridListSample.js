@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.GridListSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{
 			name: "gridlist",
 			kind: "moon.GridList",

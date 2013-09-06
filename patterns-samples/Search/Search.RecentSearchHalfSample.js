@@ -14,12 +14,12 @@ enyo.kind({
             layoutKind: "FittableRowsLayout",
             fit: true,
             components: [
-                {                  
+                {
                     components: [
                         {kind: "moon.RadioItemGroup", components: [
                             {classes: "radio-button", content: "SUGGESTED SEARCH"},
                             {classes: "radio-button", content: "RECENT SEARCHES"}
-                        ]},               
+                        ]},
                         {kind: "moon.IconButton", classes: "icon-button-right", src: "../assets/trash-can-icon.png"}
                     ]
                 },
@@ -31,16 +31,15 @@ enyo.kind({
                     components: [
                         {
                             classes: "moon-search-recent-list",
+                            bindings: [
+                                {from: ".model.title", to: ".$.item.content"},
+                                {from: ".model.imgSrc", to: ".$.image1.src"},
+                                {from: ".model.imgSrc", to: ".$.image2.src"}
+                            ],
                             components: [
-                                {kind: "moon.Item", style: "display: inline-block", bindings: [
-                                    {from: ".model.title", to: ".content"}
-                                ]},
-                                {kind: 'enyo.Image', classes: "moon-search-image", bindings: [
-                                    {from: ".model.imgSrc", to: ".src"}
-                                ]},
-                                {kind: 'enyo.Image', classes: "moon-search-image", bindings: [
-                                    {from: ".model.imgSrc", to: ".src"}
-                                ]}
+                                {kind: "moon.Item", name: "item", style: "display: inline-block" },
+                                {kind: "enyo.Image", name: "image1", classes: "moon-search-image" },
+                                {kind: "enyo.Image", name: "image2", classes: "moon-search-image" }
                             ]
                         }
                     ]
@@ -71,7 +70,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.search.RecentSearchHalfSample",
                     controller: ".app.controllers.RecentSearchController",

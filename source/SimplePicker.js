@@ -67,7 +67,7 @@ enyo.kind({
 	//* @protected
 	components: [
 		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, defaultSpotlightRight: "buttonRight", ontap: "previous"},
-		{name: "client", 	  kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
+		{name: "client",      kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "next"}
 	],
 	create: function() {
@@ -103,7 +103,7 @@ enyo.kind({
 	},
 	reflow: function() {
 		this.inherited(arguments);
-		
+
 		var maxHeight = 0,
 			maxWidth = 0,
 			panels,
@@ -113,21 +113,21 @@ enyo.kind({
 		// Find max width/height of all children
 		if (this.getAbsoluteShowing()) {
 			panels = this.$.client.getPanels();
-			
+
 			for (i = 0; (panel = panels[i]); i++) {
 				if (panel.hasNode()) {
-					bounds = panel.getBounds();
+					var bounds = panel.getBounds();
 					maxWidth = Math.max(maxWidth, bounds.width);
 					maxHeight = Math.max(maxHeight, bounds.height);
 				}
 			}
-			
+			maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
 			this.$.client.setBounds({width: maxWidth, height: maxHeight});
-			
+
 			for (i = 0; (panel = panels[i]); i++) {
 				panel.setBounds({width: maxWidth, height: maxHeight});
 			}
-			
+
 			this.$.client.reflow();
 		}
 
@@ -138,7 +138,7 @@ enyo.kind({
 			this.setSelectedIndex(this.$.client.getIndex());
 			this.fireChangedEvent();
 		}
-		
+
 		this.showHideNavButtons();
 	},
 	transitionFinished: function(inSender, inEvent) {
@@ -154,18 +154,18 @@ enyo.kind({
 		if (!this._rendered) {
 			return;
 		}
-		
+
 		this.doChange({
-			selected: 	this.selected,
-			content: 	this.selected && this.selected.content,
-			index: 		this.selected && this.selectedIndex
+			selected:   this.selected,
+			content:    this.selected && this.selected.content,
+			index:      this.selected && this.selectedIndex
 		});
 	},
 	//* Show/hide prev/next buttons based on current index
 	showHideNavButtons: function() {
 		var index = this.getSelectedIndex(),
 			maxIndex = this.$.client.getClientControls().length - 1;
-		
+
 		// Always show buttons if _this.wrap_ is _true_
 		if (this.wrap) {
 			this.showNavButton(this.$.buttonLeft);

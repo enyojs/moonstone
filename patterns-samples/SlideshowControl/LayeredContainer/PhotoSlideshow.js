@@ -24,18 +24,18 @@ enyo.kind({
 	//* @protected
 
 	slideTools: [
-		{	
-			name:"photo", 
-			kind:"SimpleImageCarousel", 
-			classes: "moon-photo-slideshow-image", 
-			onImageSelected: "imageSelected", 
+		{
+			name:"photo",
+			kind:"SimpleImageCarousel",
+			classes: "moon-photo-slideshow-image",
+			onImageSelected: "imageSelected",
 			ontap: "tapHandler"
 		},
-		{	name: "slideControl", 
-			kind: "moon.PhotoSlideshowControl", 
-			onClose: "closeHandler", 
-			onChangeSlide: "changeSlideHandler", 
-			onStartSlideshow: "startSlideshowHandler", 
+		{	name: "slideControl",
+			kind: "moon.PhotoSlideshowControl",
+			onClose: "closeHandler",
+			onChangeSlide: "changeSlideHandler",
+			onStartSlideshow: "startSlideshowHandler",
 			onCompleteSlideshow: "completeSlideshowHandler"
 		}
 	],
@@ -48,13 +48,13 @@ enyo.kind({
 		delete this.preloadImage;
 		this.inherited(arguments);
 	},
-    initComponents: function() {
-    	this.createTools();
+	initComponents: function() {
+		this.createTools();
 		this.controlParentName = "slideControl";
 		this.discoverControlParent();
-        this.inherited(arguments);
-    },
-    createTools: function() {
+		this.inherited(arguments);
+	},
+	createTools: function() {
 		this.createComponents(this.slideTools);
 	},
 	imageSelected: function(inSender, inEvent) {
@@ -142,8 +142,7 @@ enyo.kind({
 
 	imageUrls: [],
 	controlTools: [
-		{kind: "enyo.Spotlight"},
-		{layoutKind: 'HFlexLayout', components: [
+		{layoutKind: 'HFlexLayout', classes: "moon-photo-slideshow-control-buttons", components: [
 			{name:"left", flex: true, kind: "FittableColumns", noStretch: true, classes:"moon-photo-slideshow-control-left-button", components: [
 				{kind: "moon.IconButton", src: "../assets/fit-icon.png", ontap: "closeHandler"}
 			]},
@@ -153,14 +152,32 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../assets/icon_next.png", ontap: "nextHandler", classes: "big-icon-button"}
 			]},
 			{flex: true, components: [
-				{name:"speed", kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "SLIDESHOW SPEED",
-			classes: "moon-photo-slideshow-control-picker-wrapper", value: 3, min: 1, max: 15, unit: "sec", autoCollapse: true}
+				{
+					name:"speed",
+					kind: "moon.ExpandableIntegerPicker",
+					noneText: "Not Selected",
+					autoCollapse: true,
+					content: "SLIDESHOW SPEED",
+					classes: "moon-photo-slideshow-control-picker-wrapper",
+					value: 3,
+					min: 1,
+					max: 15,
+					unit: "sec"
+				}
 			]}
 		]},
-		{name: "list", kind: "moon.List", classes: "moon-photo-slideshow-control-list", orient:"h", multiSelect: false, spotlight: true, onSetupItem: "setupItem", onSpotlightSelect: "itemSelectHandler",
+		{
+			name: "list",
+			kind: "moon.List",
+			classes: "moon-photo-slideshow-control-list",
+			orient: "h",
+			multiSelect: false,
+			spotlight: true,
+			onSetupItem: "setupItem",
+			onSpotlightSelect: "itemSelectHandler",
 			components: [
-				{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"
-			}]
+				{name: "item", kind: "enyo.Image", src: "../assets/album.png", classes: "moon-photo-slideshow-control-item", ontap: "itemSelectHandler"}
+			]
 		}
 	],
 	create: function() {
@@ -168,13 +185,13 @@ enyo.kind({
 		this.thumbHeightChanged();
 		this.index = 0;
 	},
-    initComponents: function() {
-    	this.createTools();
+	initComponents: function() {
+		this.createTools();
 		this.controlParentName = "left";
 		this.discoverControlParent();
-        this.inherited(arguments);
-    },
-    createTools: function() {
+		this.inherited(arguments);
+	},
+	createTools: function() {
 		this.createComponents(this.controlTools);
 	},
 	setupItem: function(inSender, inEvent) {

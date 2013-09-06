@@ -1,96 +1,92 @@
 enyo.kind({
 	name: "moon.sample.ListActionsSample",
+	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {
 		onActivate: "activateHandler"
 	},
 	components: [
-		{kind: "enyo.Spotlight"},
-		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
-			{kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
-				{
-					action: "category",
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.CheckboxItem", checked:true},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"}
+		{kind: "moon.Scroller", fit: true, components: [
+			{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
+				{kind:"moon.TooltipDecorator", components: [
+					{kind:"moon.Tooltip", position:"above", content:"Sort and Filter"},
+				
+					//* List actions with default width
+					{kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
+						{action: "Genre", components: [
+							{kind: "moon.Divider", content: "Genre"},
+							{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.CheckboxItem", fit: true, components: [
+								{content:"Action", checked: true},
+								{content:"Comedy"},
+								{content:"Drama"},
+								{content:"Action"},
+								{content:"Comedy"},
+								{content:"Drama"},
+								{content:"Action"},
+								{content:"Comedy"},
+								{content:"Drama"},
+								{content:"Action"},
+								{content:"Comedy"},
+								{content:"Drama"},
+								{content:"Action"},
+								{content:"Comedy"},
+								{content:"Drama"},
+								{content:"Action"},
+								{content:"Comedy"},
+								{content:"Drama"}
+							]}
+						]},
+						{action: "SortBy", components: [
+							{kind: "moon.Divider", content:"Sort By"},
+							{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+								{kind: "enyo.Group", highlander: true, defaultKind: "moon.SelectableItem", components: [
+									{content:"Most Recent"},
+									{content:"Recommended"},
+									{content:"Highest Rated"}
+								]}
+							]}
 						]}
-					]
-				},
-				{
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.ToggleItem"},
-							{content:"Comedy", kind:"moon.ToggleItem"},
-							{content:"Drama", kind:"moon.ToggleItem"}
+					]}
+				]},
+				{kind:"moon.TooltipDecorator", components: [
+					{kind:"moon.Tooltip", position: "above", content: "Select Options"},
+				
+					//* List actions with proportional width
+					{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
+						{action: "Cost", components: [
+							{kind: "moon.Divider", content:"Cost"},
+							{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.ToggleItem", fit: true, components: [
+								{content:"$"},
+								{content:"$$"},
+								{content:"$$$"}
+							]}
+						]},
+						{action: "Flavor", components: [
+							{kind: "moon.Divider", content:"Flavor"},
+							{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.CheckboxItem", fit: true, components: [
+								{content:"Spicy", checked: true},
+								{content:"Sweet"},
+								{content:"Sour"},
+								{content:"Salty"},
+								{content:"Savory"},
+								{content:"Bland"},
+								{content:"Umami"},
+								{content:"Bitter"}
+							]}
 						]}
-					]
-				}
-			]},
-			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"./assets/icon-list.png", listActions: [
-				{
-					action: "category",
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.CheckboxItem", checked:true},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"}
-						]}
-					]
-				},
-				{
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.ToggleItem"},
-							{content:"Comedy", kind:"moon.ToggleItem"},
-							{content:"Drama", kind:"moon.ToggleItem"}
-						]}
-					]
-				}
+					]}
+				]}
 			]}
 		]},
-		{tag: "br"},
 		{kind: "moon.Divider", content: "List Action Event"},
-		{name: "console", content: "Event"}
+		{kind: "moon.BodyText", name: "console", content: "Event"}
 	],
-	names: [],
 	activateHandler: function(inSender, inEvent) {
-		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
-			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
-			
-			//log the optional action property
-			this.$.console.setContent("Action: " + (inEvent.action ? inEvent.action : "no action name provided"));
+		if (inEvent && inEvent.action) {
+			this.$.console.setContent("Action: " + inEvent.action);
 		}
 		
-		//log the active state of the ListAction drawer
+		// Log the active state of the ListAction drawer
 		if (inEvent.originator && inEvent.originator.kind == "moon.ListActions") {
 			this.$.console.setContent("ListActions drawer is now " + (inEvent.originator.active ? "open" : "closed"));
 		}

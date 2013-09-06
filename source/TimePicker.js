@@ -1,3 +1,6 @@
+/**
+	_moon.MeridiemPicker is a helper kind used by _moon.TimePicker_.
+*/
 enyo.kind({
 	name: "moon.MeridiemPicker",
 	kind: "moon.IntegerScrollPicker",
@@ -14,6 +17,9 @@ enyo.kind({
 	}
 });
 
+/**
+	_moon.HourPicker is a helper kind used by _moon.TimePicker_.
+*/
 enyo.kind({
 	name: "moon.HourPicker",
 	kind: "moon.IntegerScrollPicker",
@@ -42,73 +48,20 @@ enyo.kind({
 */
 enyo.kind({
 	name: "moon.TimePicker",
-	kind: "moon.ExpandableListItem",
-	classes: "moon-expandable-picker moon-date-picker",
-	events: {
-		/**
-			Fires when the date changes.
-
-			_inEvent.name_ contains the name of this control.
-
-			_inEvent.value_ contains a standard JavaScript Date object representing
-			the current date.
-		*/
-		onChange: ""
-	},
-	handlers: {
-		/**
-			Handler for _onChange_ events coming from constituent controls (e.g.,
-			_hour_)
-		*/
-		onChange: "updateTime"
-	},
+	kind: "moon.DateTimePickerBase",
 	published: {
-		//* Text to be displayed in the _currentValue_ control if no item is
-		//* currently selected
-		noneText: "",
-		/**
-			Current locale used for formatting (only valid when _ilib_ is loaded). 
-			May be set after control creation, in which case the control will be 
-			updated to reflect the new value.
-		*/
-		locale: "en-US",
-		/**
-			The current date as a standard JavaScript Date object. When a Date object
-			is passed to _set("value")_, the control is updated to reflect the new
-			value. _get("value")_ returns a Date object.
-		*/
-		value: null,
 		/**
 			When true, the picker uses a 12-hour clock. (This value is ignored when
 			_ilib_ is loaded, since the meridiem will be set by the current locale.)
 		*/
 		meridiemEnable: false
 	},
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
-		]},
-		client: {kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
-	},
-	create: function() {
+	//*@protected
+	iLibFormatType: "time",
+	defaultOrdering: "hma",
+	initILib: function() {
 		this.inherited(arguments);
-		if (typeof ilib !== "undefined") {
-			this.locale = ilib.getLocale();
-		}
-		this.initDefaults("local");
-	},
-	initDefaults: function(tz) {
-		//Attempt to use the ilib lib (assuming that it is loaded)
-		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({locale:this.locale, type: "time", timezone: tz.id || "local"});
-			this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
-		}
-
-		this.value = this.value || new Date();
-		this.setupPickers(this._tf ? this._tf.getTemplate() : 'hma');
-		this.noneTextChanged();
-		//Initial state for meridiemEnable is false
+		this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.toLowerCase().split("");
@@ -142,14 +95,14 @@ enyo.kind({
 			}
 			doneArr.push(o);
 		}
-		this.pickersAreSetUp = true;
+		this.inherited(arguments);
 	},
-	parseTime: function() {
+	formatValue: function() {
+		var dateStr = "";
 		if (this._tf) {
-			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			dateStr = this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 		}
 		else {
-			var dateStr = "";
 			if (this.meridiemEnable === true && this.value.getHours() > 12) {
 				dateStr += this.value.getHours() - 12;
 			} else {
@@ -157,42 +110,35 @@ enyo.kind({
 			}
 			dateStr += ":" + ("00" + this.value.getMinutes()).slice(-2) + " ";
 			dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : "";
-			return dateStr;
 		}
+		return dateStr;
 	},
-	updateTime: function(inSender, inEvent) {
-		if (inEvent) {
-			//* Avoid onChange events coming from itself
-			if (inEvent.originator == this) {
-				return;
-			}
-			var hour = this.$.hour.getValue();
-			var minute = this.$.minute.getValue();
+	updateValue: function(inSender, inEvent) {
+		var hour = this.$.hour.getValue();
+		var minute = this.$.minute.getValue();
 
-			if (inEvent.originator.kind == "moon.MeridiemPicker") {
-				if (hour < 12 && inEvent.originator.value == 1 ) {
-					hour += 12;
-				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
-					hour -= 12;
-				} else if (hour == 24 && inEvent.originator.value === 1) {
-					hour -= 12;
-				} else if (hour == 12 && inEvent.originator.value === 0) {
-					hour += 12;
-				}
-				this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
-				this.$.hour.setValue(hour);
+		if (inEvent.originator.kind == "moon.MeridiemPicker") {
+			if (hour < 12 && inEvent.originator.value == 1 ) {
+				hour += 12;
+			} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
+				hour -= 12;
+			} else if (hour == 24 && inEvent.originator.value === 1) {
+				hour -= 12;
+			} else if (hour == 12 && inEvent.originator.value === 0) {
+				hour += 12;
 			}
-
-			this.setValue(new Date(this.value.getFullYear(),
-								this.value.getMonth(),
-								this.value.getDate(),
-								hour, minute,
-								this.value.getSeconds(),
-								this.value.getMilliseconds()));
+			this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
+			this.$.hour.setValue(hour);
 		}
-		return true;
+
+		this.setValue(new Date(this.value.getFullYear(),
+							this.value.getMonth(),
+							this.value.getDate(),
+							hour, minute,
+							this.value.getSeconds(),
+							this.value.getMilliseconds()));
 	},
-	valueChanged: function(inOld) {
+	setChildPickers: function(inOld) {
 		var hour = this.value.getHours();
 		if (this.meridiemEnable === true) {
 			this.$.meridiem.setValue(hour > 11 ? 1 : 0);
@@ -203,65 +149,7 @@ enyo.kind({
 		this.$.hour.setValue(hour);
 		this.$.minute.setValue(this.value.getMinutes());
 
-		this.$.currentValue.setContent(this.parseTime());
+		this.$.currentValue.setContent(this.formatValue());
 		this.doChange({name:this.name, value:this.value});
-	},
-	//* If no item is selected, uses _this.noneText_ as current value.
-	noneTextChanged: function() {
-		if(this.value == null) {
-			this.$.currentValue.setContent(this.getNoneText());
-		} else {
-			this.$.currentValue.setContent(this.parseTime());
-		}
-	},
-	//* When _this.open_ changes, shows or hides _this.$.currentValue_.
-	openChanged: function() {
-		this.inherited(arguments);
-		var open = this.$.drawer.get("open");
-		this.$.currentValue.setShowing(!open);
-		if (this.pickersAreSetUp) {
-			//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
-			if (open) {
-				this.$.hour.refreshScrollState();
-				this.$.minute.refreshScrollState();
-				if (this.$.meridiem) {
-					this.$.meridiem.refreshScrollState();
-				}
-			} else {
-				// If one of the pickers is animating when the drawer closes, it won't display properly
-				// when the drawer reopens, unless we stabilize here
-				this.$.hour.stabilize();
-				this.$.minute.stabilize();
-				if (this.$.meridiem) {
-					this.$.meridiem.stabilize();
-				}
-			}
-		}
-	},
-	toggleActive: function() {
-		if (this.getOpen()) {
-			this.setActive(false);
-			enyo.Spotlight.spot(this.$.headerWrapper);
-		} else {
-			this.setActive(true);
-		}
-	},
-	closePicker: function(inSender, inEvent) {
-		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
-		if (inEvent.type == "onSpotlightSelect" ||
-			this.$.client.children[0].id == inEvent.originator.id) {
-			this.updateTime();
-			this.expandContract();
-			this.noneTextChanged();
-			return true;
-		}
-	},
-	localeChanged: function() {
-		this.refresh();
-	},
-	refresh: function(){
-		this.destroyClientControls();
-		this.initDefaults(new ilib.TimeZone({locale: this.locale}));
-		this.render();
 	}
 });

@@ -13,7 +13,7 @@
 			description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
 			components: [
 				{content: "3D"},
-				{content: "Live"},					
+				{content: "Live"},
 				{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 			]
 		}
@@ -34,8 +34,8 @@ enyo.kind({
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
 		{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-subtitle"},
 		{kind: "enyo.Control", name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
-		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-description"},
-		{kind: "enyo.Control", name: "client", classes: "moon-video-player-info-client"}
+		{kind: "enyo.Control", name: "client", classes: "moon-video-player-info-client"},
+		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-description"}
 	],
 	bindings: [
 		{from: ".title",		to: ".$.title.content"},

@@ -1,7 +1,7 @@
 /**
 	_moon.SelectableItem_ is a <a href="#moon.Item">moon.Item</a> with a flag to
 	track selection state.  It is especially useful within the context of the
-	<a href="#enyo.Group">Enyo Group API</a>. 
+	<a href="#enyo.Group">Enyo Group API</a>.
 
 	When selected, the item appears as underlined.
 
@@ -32,9 +32,10 @@ enyo.kind({
 		{name: "indicator", classes: "moon-selectable-item-indicator"},
 		{name: "client", classes: "moon-selectable-item-client"}
 	],
+	//@protected
 	rendered: function() {
 		this.inherited(arguments);
-		this.activeChanged();
+		this.selectedChanged();
 	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;

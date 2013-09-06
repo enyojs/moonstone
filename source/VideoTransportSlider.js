@@ -15,11 +15,11 @@ enyo.kind({
 	classes: "moon-video-transport-slider",
 	//* @protected
 	published: {
-		//** This is start point of slider 
+		//** This is start point of slider
 		rangeStart: 0,
 		//** This is end point of slider
 		rangeEnd: 100,
-		//** This flag decide the slider draw  
+		//** This flag decide the slider draw
 		syncTick: true,
 		//** This flag decide whether using dummy area or not
 		showDummyArea: true,
@@ -44,7 +44,9 @@ enyo.kind({
 		//** Custom Popup width for video player
 		popupWidth: 200,
 		//* Popup offset in pixels
-		popupOffset: 25
+		popupOffset: 25,
+		//** threshold value(percentage) for using animation effect on slider progress change
+		smallVariation: 1
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -202,6 +204,12 @@ enyo.kind({
 	_calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * 100;
 	},
+	calcVariationRatio: function(inValue) {
+		return (inValue - this.value) / (this.max - this.min);
+	},
+	calcVariationPercent: function(inValue) {
+		return this.calcVariationRatio(inValue) * 100;
+	},	
 	updateKnobPosition: function(inValue) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._updateKnobPosition(inValue);
@@ -250,6 +258,13 @@ enyo.kind({
 			return true;
 		}
 	},
+	setValue: function(inValue) {
+		if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
+			this.inherited(arguments);
+		} else {
+			this._setValue(inValue);
+		}
+	},	
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
@@ -341,7 +356,7 @@ enyo.kind({
 	sendSeekEvent: function(inValue) {
 		this.doSeek({value: inValue});
 	},
-	//* When the time updates, update buffered progress, canvas, video currentTime and duration 
+	//* When the time updates, update buffered progress, canvas, video currentTime and duration
 	timeUpdate: function(inSender, inEvent) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;

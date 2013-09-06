@@ -7,7 +7,7 @@
 .moon-tooltip-label {
 	.moon-large-button-text;
 	height: 59px;
-	line-height: 1.97em;
+	line-height: 2.2em;
 	vertical-align: middle;
 	white-space: nowrap;
 	color: @moon-tooltip-text-color;
@@ -16,8 +16,24 @@
 	background-color: @moon-tooltip-bg-color;
 	border-radius: 30px;
 }
+.enyo-locale-non-latin .moon-tooltip-label {
+	.enyo-locale-non-latin .moon-small-button-text;
+}
 .moon-tooltip.below {
 	top: 100%;
+	transform: translateY(5px);
+	-o-transform: translateY(5px);
+	-ms-transform: translateY(5px);
+	-moz-transform: translateY(5px);
+	-webkit-transform: translateY(5px);
+}
+.moon-tooltip.above {
+	top: 100%;
+	transform: translateY(-5px);
+	-o-transform: translateY(-5px);
+	-ms-transform: translateY(-5px);
+	-moz-transform: translateY(-5px);
+	-webkit-transform: translateY(-5px);
 }
 .moon-tooltip.below > .moon-tooltip-label {
 	margin: 9px 0px 0px;
@@ -27,22 +43,22 @@
 }
 .moon-tooltip.above.left-arrow {
 	background-image: url('../images/tooltip-nubs/top-left.png');
-	background-position: left bottom;
+	background-position: left 30px;
 	left: 35%;
 }
 .moon-tooltip.above.right-arrow {
 	background-image: url('../images/tooltip-nubs/top-right.png');
-	background-position: right bottom;
+	background-position: right 30px;
 	right: 50%;
 }
 .moon-tooltip.below.left-arrow {
 	background-image: url('../images/tooltip-nubs/bottom-left.png');
-	background-position: left top;
+	background-position: left 1px;
 	left: 35%;
 }
 .moon-tooltip.below.right-arrow {
 	background-image: url('../images/tooltip-nubs/bottom-right.png');
-	background-position: right top;
+	background-position: right 1px;
 	right: 50%;
 }
 .moon-tooltip .moon-tooltip-label.right-arrow {

@@ -3,10 +3,9 @@ enyo.kind({
 	kind:"FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-button-sample",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-button-sample-wrapper", components: [
-			
+
 				{kind: "moon.Divider", content: "Focus Buttons:"},
 				{name: "B Button", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 				{name: "Button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
@@ -14,7 +13,7 @@ enyo.kind({
 				{name: "Long Button", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
-				
+
 				{kind: "moon.Divider", content: "Small Buttons:"},
 				{name: "Small B Button", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
 				{name: "Small Button", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
@@ -42,16 +41,17 @@ enyo.kind({
 
 				{kind: "moon.Divider", content: "Captioned Buttons with showOnFocus option:"},
 				{kind: "moon.CaptionDecorator", side: "top", showOnFocus: true, content: "Pow", components: [
-					{name: "showOnFocus Caption A", kind: "moon.Button", content: "A", ontap: "buttonTapped"}
-				]},
-				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom", components: [
-					{name: "showOnFocus Caption B", kind: "moon.Button", content: "B", ontap: "buttonTapped"}
+					{name: "showOnFocus Caption Top", kind: "moon.Button", content: "Top", ontap: "buttonTapped"}
 				]},
 				{kind: "moon.CaptionDecorator", side: "bottom", showOnFocus: true, content: "Crash", components: [
-					{name: "showOnFocus Caption C", kind: "moon.Button", content: "C", ontap: "buttonTapped"}
+					{name: "showOnFocus Caption Bottom", kind: "moon.Button", content: "Bottom", ontap: "buttonTapped"}
 				]},
+				{style: "display:inline-block;", classes:"moon-2h"},
 				{kind: "moon.CaptionDecorator", side: "left", showOnFocus: true, content: "Bang", components: [
-					{name: "showOnFocus Caption D", kind: "moon.Button", content: "D", ontap: "buttonTapped"}
+					{name: "showOnFocus Caption Left", kind: "moon.Button", content: "Left", ontap: "buttonTapped"}
+				]},
+				{kind: "moon.CaptionDecorator", side: "right", showOnFocus: true, content: "Boom", components: [
+					{name: "showOnFocus Caption Right", kind: "moon.Button", content: "Right", ontap: "buttonTapped"}
 				]},
 				{tag: "br"},
 				{tag: "br"},
@@ -65,7 +65,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
-		{name: "result", allowHtml: true, content: "No button pressed yet."}
+		{kind: "moon.BodyText", name: "result", allowHtml: true, content: "No button pressed yet."}
 	],
 	buttonTapped: function(inSender, inEvent) {
 		this.$.result.setContent("&quot;" + inSender.name + "&quot; pressed.");

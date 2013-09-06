@@ -48,7 +48,7 @@ enyo.kind({
 	//* @protected
 	tools: [
 		{name: "client"},
-		{name: "closeButton", kind: "moon.Button", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
@@ -84,8 +84,11 @@ enyo.kind({
 	},
 	//* Determine whether to display closeButton
 	configCloseButton: function() {
-		if (!this.$.closeButton) {return;}
-		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+		if (!this.$.closeButton) {
+			return;
+		}
+		
+		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
 		} else {
@@ -102,7 +105,7 @@ enyo.kind({
 		this.configCloseButton();
 	},
 	showingChanged: function() {
-		if(this.showing) {
+		if (this.showing) {
 			moon.Popup.count++;
 			this.applyZIndex();
 		}
@@ -111,8 +114,10 @@ enyo.kind({
 				moon.Popup.count--;
 			}
 		}
+		
 		this.showHideScrim(this.showing);
 		this.inherited(arguments);
+		
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.spotlight = this._spotlight;
@@ -169,7 +174,7 @@ enyo.kind({
 		this._zIndex = z;
 		return this._zIndex;
 	},
-	//* Removes focus style from closeButton & hides _moon.Popup_ 
+	//* Removes focus style from closeButton & hides _moon.Popup_
 	closePopup: function(inSender, inEvent) {
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");

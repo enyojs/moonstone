@@ -3,13 +3,14 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
 				{kind: "moon.TimePicker", name:"picker", content: "Time", meridiemEnable: true, onChange: "changed"},
 				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
-				{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
-					{content: 'en-US', active: true},
+				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+					{content: "Use Default Locale", active: true},
+					{content: 'en-US'},
+					{content: 'ko-KR'},
 					{content: 'en-CA'},
 					{content: 'en-IE'},
 					{content: 'en-GB'},
@@ -29,18 +30,17 @@ enyo.kind({
 	],
 	create: function(){
 		this.inherited(arguments);
-		var selected = this.$.langPicker.getSelected();
-		if (selected) {
-			this.$.picker.setLocale(selected.content);
-			this.$.disabledPicker.setLocale(selected.content);
+		if (!window.ilib) {
+			this.$.localePicker.hide();
+			this.log("iLib not present -- hiding locale picker");
 		}
 	},
 	pickerHandler: function(inSender, inEvent){
-		if (ilib) {
-			this.$.picker.setLocale(inEvent.selected.content);
-			this.$.disabledPicker.setLocale(inEvent.selected.content);
-			this.$.result.setContent("locale is changed to " + inEvent.selected.content);
-		}
+		var opt = inEvent.selected.content,
+			val = (opt == "Use Default Locale") ? null : opt;
+		this.$.picker.setLocale(val);
+		this.$.disabledPicker.setLocale(val);
+		this.$.result.setContent("locale changed to " + opt);
 		return true;
 	},
 	changed: function(inSender, inEvent) {

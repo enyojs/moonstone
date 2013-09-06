@@ -5,7 +5,7 @@
 	Initialize a video component as follows:
 
 		{kind: "Video", src: "http://www.w3schools.com/html/movie.mp4"}
-	
+
 	To play a video, call `this.$.video.play()`.
 
 	To get a reference to the actual HTML 5 Video element, call
@@ -78,7 +78,7 @@ enyo.kind({
 	
 	_playbackRateArray: null,
 	_speedIndex: 0,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		this.posterChanged();
@@ -122,7 +122,7 @@ enyo.kind({
 	loopChanged: function() {
 		this.setAttribute("loop", this.loop ? "loop" : null);
 	},
-	fitToWindowChanged: function() { 
+	fitToWindowChanged: function() {
 		if (!this.hasNode()) {
 			return;
 		}
@@ -149,7 +149,7 @@ enyo.kind({
 	},
 	fastForward: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
@@ -200,7 +200,7 @@ enyo.kind({
 	},
 	rewind: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
@@ -240,37 +240,37 @@ enyo.kind({
 	},
 	jumpBackward: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		this.setPlaybackRate(1);
 		node.currentTime -= this.jumpSec;
 		this._prevCommand = "jumpBackward";
-		
+
 		this.doJumpBackward(enyo.mixin(this.createEventData(), {jumpSize: this.jumpSec}));
 	},
 	jumpForward: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		this.setPlaybackRate(1);
 		node.currentTime += this.jumpSec;
 		this._prevCommand = "jumpForward";
-		
+
 		this.doJumpForward(enyo.mixin(this.createEventData(), {jumpSize: this.jumpSec}));
 	},
 	jumpToStart: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		this.setPlaybackRate(1);
 		node.pause();
 		node.currentTime = 0;
@@ -278,11 +278,11 @@ enyo.kind({
 	},
 	jumpToEnd: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		this.setPlaybackRate(1);
 		node.pause();
 		node.currentTime = this.node.duration;
@@ -295,7 +295,7 @@ enyo.kind({
 		if (!this._playbackRateArray) {
 			return;
 		}
-		
+
 		return index % this._playbackRateArray.length;
 	},
 	selectPlaybackRate: function(index) {
@@ -305,23 +305,26 @@ enyo.kind({
 		var node = this.hasNode(),
 			pbNumber
 		;
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		// Stop rewind (if happenning)
 		this.stopRewindJob();
-		
+
 		// Make sure inPlaybackRate is a string
 		this.playbackRate = inPlaybackRate = String(inPlaybackRate);
 		pbNumber = this.calcNumberValueOfPlaybackRate(inPlaybackRate);
-		
+
 		// Set native playback rate
 		node.playbackRate = pbNumber;
-		
-		if (pbNumber < 0) {
-			this.beginRewind();
+
+		if (!(enyo.platform.webos || window.PalmSystem)) {
+			// For supporting cross browser behavior
+			if (pbNumber < 0) {
+				this.beginRewind();
+			}
 		}
 	},
 	//* Return true if currently in paused state
@@ -362,7 +365,7 @@ enyo.kind({
 		this.node.pause();
 		this.startRewindJob();
 	},
-	//* Calculate the time that has elapsed since 
+	//* Calculate the time that has elapsed since
 	_rewind: function() {
 		var now = enyo.now(),
 			distance = now - this.rewindBeginTime,
@@ -395,13 +398,13 @@ enyo.kind({
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
-
+		// Fixme: Do not reach to this code on TV
 		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
 		inEvent = enyo.mixin(inEvent, this.createEventData());
 	},
 	timeupdate: function(inSender, inEvent) {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}
@@ -411,15 +414,15 @@ enyo.kind({
 		var node = this.hasNode(),
 			pbNumber
 		;
-		
+
 		if (!node) {
 			return;
 		}
-		
+
 		inEvent = enyo.mixin(inEvent, this.createEventData());
-		
+
 		pbNumber = this.calcNumberValueOfPlaybackRate(inEvent.playbackRate);
-		
+
 		if (pbNumber > 0 && pbNumber < 1) {
 			this.doSlowforward(inEvent);
 		} else if (pbNumber > 1) {
@@ -434,7 +437,7 @@ enyo.kind({
 	},
 	createEventData: function() {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return {};
 		}
@@ -455,9 +458,9 @@ enyo.kind({
 		if (!node) {
 			return;
 		}
-		
+
 		inEvent = enyo.mixin(inEvent, this.createEventData());
-		
+
 		this.doPlay(inEvent);
 	},
 	//* Add all html5 video events

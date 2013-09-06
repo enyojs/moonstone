@@ -14,7 +14,7 @@ enyo.kind({
             kind: "moon.DataGridList",
             fit: true,
             minWidth: 180, 
-            minHeight: 240,
+            minHeight: 260,
             components: [
                 {
                     kind: "moon.GridListImageItem",
@@ -74,7 +74,6 @@ enyo.ready(function (){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackTwoColumnsWideSample",
                     controller: ".app.controllers.trackController",

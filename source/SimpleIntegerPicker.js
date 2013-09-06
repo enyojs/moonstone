@@ -15,13 +15,17 @@ enyo.kind({
 	events: {
 		/**
 			Fires when the currently selected item changes.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onChange: "",
 		/**
 			Fires in response to Return keypress while the picker has focus in Spotlight 5-way mode.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onSelect: ""
@@ -48,10 +52,11 @@ enyo.kind({
 		unit: "sec"
 	},
 	indexhash: null,
-	
-	
+	firstflow: true,
+
+
 	//* @protected
-	
+
 	components: [
 		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
 			{classes: "moon-scroll-picker-overlay-left"},
@@ -61,22 +66,20 @@ enyo.kind({
 			{classes: "moon-scroll-picker-overlay-right"},
 			{classes: "moon-scroll-picker-overlay-right-border"}
 		]},
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button", content: "<", ontap: "previous"},
+		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button", content: ">", ontap: "next"}
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
 	bindings: [
-		{from: ".animate", 	to: ".$.client.animate"},
+		{from: ".animate",  to: ".$.client.animate"},
 		{from: ".disabled", to: ".$.buttonLeft.disabled"},
 		{from: ".disabled", to: ".$.buttonRight.disabled"},
-		{from: ".$.client.index", 	to: ".index"}
+		{from: ".$.client.index",   to: ".index"}
 	],
-
-
 	//* @public
-	
+
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
 		this.$.client.previous();
@@ -91,9 +94,9 @@ enyo.kind({
 	getContent: function() {
 		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
 	},
-	
+
 	//* @protected
-	
+
 	create: function() {
 		this.inherited(arguments);
 		this.populateIndexhash();
@@ -106,7 +109,7 @@ enyo.kind({
 	populateIndexhash: function() {
 		this.indexhash = [];
 		var valueValid = false;
-		
+
 		for (var i = this.min; i <= this.max; i += this.step) {
 			this.createComponent({content: i + " " + this.unit, value: i});
 			this.indexhash[i] = this.$.client.getPanels().length - 1;
@@ -118,7 +121,7 @@ enyo.kind({
 			this.value = this.min;
 		}
 	},
-	
+
 	// Change handlers
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.getDisabled());
@@ -131,10 +134,10 @@ enyo.kind({
 	indexChanged: function() {
 		this.updateValue();
 	},
-	
+
 	//* Find appropriate index in _this.$.client_ panels based on _inValue_
 	lookupIndex: function(inValue) {
-		return (this.indexhash && this.indexhash.length > 0) ? this.indexhash[inValue] : -1
+		return (this.indexhash && this.indexhash.length > 0) ? this.indexhash[inValue] : -1;
 	},
 	//* Quietly update _this.value_ when _this.index_ changes
 	updateValue: function() {
@@ -155,7 +158,6 @@ enyo.kind({
 				c$[i].setBounds({width:width});
 			}
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
 	},
 	transitionStart: function(inSender, inEvent) {

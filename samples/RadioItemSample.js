@@ -1,20 +1,22 @@
 enyo.kind({
 	name: "moon.sample.RadioItemSample",
 	classes: "moon enyo-unselectable enyo-fit",
+	kind: "FittableRows",
 	components: [
-		{kind: "enyo.Spotlight"},
-		{kind: "moon.Divider", content:"Radio Items"},
-		{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
-			{content: "Cat"},
-			{content: "Dog"},
-			{content: "Whale", disabled: true},
-			{content: "Monte Verde Golden Toad"}
+		{fit:true, components: [
+			{kind: "moon.Divider", content:"Radio Items"},
+			{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
+				{content: "Cat"},
+				{content: "Dog"},
+				{content: "Whale", disabled: true},
+				{content: "Monte Verde Golden Toad"}
+			]}
 		]},
-		{name: "result", classes: "moon-sample-result", content: "result"}
+		{kind: "moon.Divider", content:"Result"},
+		{kind: "moon.BodyText", name: "result", content: "No action yet."}
 	],
 	rendered: function() {
 		this.inherited(arguments);
-		this.$.result.setContent("");
 	},
 	buttonActivated: function(inSender, inEvent) {
 		var originator = inEvent.originator,

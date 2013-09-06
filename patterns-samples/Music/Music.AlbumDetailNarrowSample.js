@@ -79,12 +79,11 @@ enyo.kind({
 		genre: null,
 		coverUrl: null,
 		price: null,
-		tracks: {
-			// NOTE: We have told the model that this array should be
-			// an enyo.Collection of models so we can bind this property
-			// directly to the controller of the table displaying the data
-			relation: enyo.toMany({})
-		}
+		tracks: null
+	},
+	parse: function(data) {
+		data.tracks = new enyo.Collection(data.tracks);
+		return data;
 	}
 });
 
@@ -121,8 +120,8 @@ enyo.ready(function () {
         ],
         coverUrl: "http://placehold.it/200x200"
     };
-	
-	app = new enyo.Application({
+
+	var app = new enyo.Application({
 		controllers: [
 			{name: "album", kind: "moon.sample.music.AlbumDetailNarrowSampleController"}
 		],
@@ -130,12 +129,10 @@ enyo.ready(function () {
 			name: "moon.sample.music.AlbumDetailNarrowSampleMain",
 			classes: "enyo-unselectable moon",
 			components: [
-				{kind: "enyo.Spotlight"},
 				{kind: "moon.sample.music.AlbumDetailNarrowSample", classes: "enyo-fit", controller: ".app.controllers.album"}
 			]
 		}
 	});
-	
-	app.controllers.album.set("model", new moon.sample.music.AlbumModel(mockData));
-	
+
+	app.controllers.album.set("model", new moon.sample.music.AlbumModel(mockData, {parse:true}));
 });

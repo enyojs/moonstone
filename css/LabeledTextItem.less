@@ -5,9 +5,6 @@
 	overflow: hidden;
 	margin: 0px;
 }
-.moon-labeledtextitem.selected {
-	background: @moon-item-selected-bg-color;
-}
 
 /* Label */
 .moon-labeledtextitem .label {
@@ -17,6 +14,10 @@
 	margin: 0px 0px 3px 0px;
 	padding: 6px 0px 0px 0px;
 }
+.enyo-locale-non-latin .moon-labeledtextitem .label {
+	.enyo-locale-non-latin .moon-sub-header-text;
+}
+
 .spotlight.moon-labeledtextitem .label,
 .spotlight .moon-labeledtextitem .label {
 	border-top-color: @moon-white;
@@ -31,6 +32,9 @@
 	text-transform: none;
 	margin: 0px;
 	padding: 0px;
+}
+.enyo-locale-non-latin .moon-labeledtextitem .text {
+	.enyo-locale-non-latin .moon-body-text;
 }
 .spotlight.moon-labeledtextitem .text,
 .spotlight .moon-labeledtextitem .text {

@@ -19,7 +19,7 @@ enyo.kind({
                     fit: true,
                     components: [
                         {
-                            kind: "enyo.Image", 
+                            kind: "enyo.Image",
                             classes: "enyo-fill",
                             src: "../assets/default-movie.png"
                         }
@@ -30,18 +30,18 @@ enyo.kind({
                     classes: "moon-15h",
                     components: [
                         {
-                            kind: "moon.RadioItemGroup", 
+                            kind: "moon.RadioItemGroup",
                             classes: "enyo-tool-decorator",
-                            onActivate: "buttonActivated", 
+                            onActivate: "buttonActivated",
                             components: [
-                                {name: "button-desc", content: "DESCRIPTION"},
-                                {name: "button-comments", content: "COMMENTS(98)"},
-                                {name: "button-likes", content: "LIKES(387)"},
-                                {name: "button-albums", content: "ALBUMS(5)"}
+                                {name: "buttonDesc", content: "DESCRIPTION"},
+                                {name: "buttonComments", content: "COMMENTS(98)"},
+                                {name: "buttonLikes", content: "LIKES(387)"},
+                                {name: "buttonAlbums", content: "ALBUMS(5)"}
                             ]
                         },
                         {kind: "moon.Divider", classes: "divider"},
-                        { 
+                        {
                             name: "panels",
                             fit: true,
                             kind: "enyo.Panels",
@@ -56,79 +56,79 @@ enyo.kind({
                                     name: "contentsList",
                                     kind: "moon.DataList",
                                     components: [
-                                        {style: "clear:both;", components: [
-                                            {
-                                                kind: "enyo.Image", 
-                                                classes: "moon-3h moon-1v",
-												bindings: [{from: ".model.picUrl", to: ".src"}],
-                                                style: "float: left;"
-                                            },
-                                            {bindings: [{from: ".model.username", to: ".content"}]},
-                                            {bindings: [{from: ".model.date", to: ".content"}]},
-                                            {bindings: [{from: ".model.description", to: ".content"}]}
-                                        ]}
+                                        {
+                                            kind: "moon.GridListImageItem",
+                                            classes: "moon-3h moon-4v",
+                                            style: "width:300px;float: left;",
+                                            bindings: [
+                                                {from: ".model.username", to: ".caption"},
+                                                {from: ".model.date", to: ".subCaption"},
+                                                {from: ".model.picUrl", to: ".source"}
+                                            ]
+                                        }
                                     ]
                                 },
                                 {
                                     name: "likesList",
                                     kind: "moon.DataList",
                                     components: [
-                                        {style: "clear:both;", components: [
-                                            {
-                                                kind: "enyo.Image", 
-                                                classes: "moon-3h moon-1v",
-												bindings: [{from: ".model.picUrl", to: ".src"}],
-                                                style: "float: left;"
-                                            },
-                                            {bindings: [{from: ".model.username", to: ".content"}]}
-                                        ]}
+                                        {
+                                            kind: "moon.GridListImageItem",
+                                            classes: "moon-3h moon-4v",
+                                            style: "width:300px;float: left;",
+                                            bindings: [
+                                                {from: ".model.username", to: ".caption"},
+                                                {from: ".model.picUrl", to: ".source"}
+                                            ]
+                                        }
                                     ]
                                 },
                                 {
                                     name: "albumsList",
                                     kind: "moon.DataList",
                                     components: [
-                                        {style: "clear:both;", components: [
-                                            {
-                                                kind: "enyo.Image", 
-                                                classes: "moon-3h moon-1v",
-												bindings: [{from: ".model.picUrl", to: ".src"}],
-                                                style: "float: left;"
-                                            },
-                                            {bindings: [{from: ".model.albumname", to: ".content"}]
-}
-                                        ]}
+                                        {
+                                            kind: "moon.GridListImageItem",
+                                            classes: "moon-3h moon-4v",
+                                            style: "width:300px;float: left;",
+                                            bindings: [
+                                                {from: ".model.albumname", to: ".caption"},
+                                                {from: ".model.picUrl", to: ".source"}
+                                            ]
+                                        }
                                     ]
                                 }
                             ]
                         }
-                    ]                   
+                    ]
                 }
             ]
         }
     ],
-
     bindings: [
         {from: ".controller.description", to: ".$.description.content"},
         {from: ".controller.contents", to: ".$.contentsList.controller"},
         {from: ".controller.likes", to: ".$.likesList.controller"},
         {from: ".controller.albums", to: ".$.albumsList.controller"}
     ],
-
     buttonActivated: function(inSender, inEvent) {
         if ((inEvent.originator.getActive()) && (inEvent.originator.kind === "moon.RadioItem")) {
             var tName = inEvent.originator.name;
 
-            if(tName == "button-desc"){
+            if(tName == "buttonDesc"){
                 this.$.panels.setIndex(0);
-            } else if(tName=="button-comments"){
+            } else if(tName=="buttonComments"){
                 this.$.panels.setIndex(1);
-            } else if(tName=="button-likes"){
+            } else if(tName=="buttonLikes"){
                 this.$.panels.setIndex(2);
-            } else if(tName=="button-albums"){
+            } else if(tName=="buttonAlbums"){
                 this.$.panels.setIndex(3);
-            }        
+            }
         }
+    },
+    rendered: function() {
+        this.inherited(arguments);
+        enyo.Spotlight.spot(this.$.buttonDesc);
     }
 });
 
@@ -157,7 +157,7 @@ enyo.ready(function(){
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"},
             {picUrl: "http://placehold.it/300x250", albumname: "album name"}
-        ])        
+        ])
     });
 
 //  Application to render sample
@@ -166,7 +166,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.PhotoDetailWideSample",
                     controller: ".app.controllers.photoController",
