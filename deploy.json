@@ -1,5 +1,5 @@
 {
-	"source": ".",
+	"packagejs": "./package.js",
 	"assets": ["fonts", "images"],
 	"libs": []
 }
