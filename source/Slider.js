@@ -112,11 +112,11 @@ enyo.kind({
 			this._nf = new ilib.NumFmt({type: "percentage"});
 		}
 		this.createComponents(this.moreComponents);
+		this.initValue();
 		this.disabledChanged();
 		this.knobClassesChanged();
 		this.popupLabelClassesChanged();
 		this.tapAreaClassesChanged();
-		this.updateKnobPosition(this.value);
 	},
 	destroy: function() {
 		if (this._nf) {
@@ -229,7 +229,6 @@ enyo.kind({
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		
-		this.updateBarPosition(percent);
 		this.updatePopupLabel(knobValue);
 	},
 	updatePopupLabel: function(inKnobValue) {
