@@ -768,15 +768,11 @@
 }
 .moon-divider {
   border-bottom: 2px solid #404040;
-  margin: 0px 10px 27px 10px;
+  margin: 0px 10px 20px 10px;
   text-transform: capitalize;
 }
 .moon-neutral .moon-divider {
   border-bottom: 2px solid #ffffff;
-}
-.moon-divider .moon-marquee-text {
-  line-height: 1em;
-  padding: 0px 0px 5px 0px;
 }
 .moon-checkbox-item {
   display: block;
@@ -1220,7 +1216,7 @@
 }
 /* Header Wrapper */
 .moon-expandable-list-item-header-wrapper {
-  padding: 10px;
+  padding: 8px 10px;
 }
 .moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
   padding: 10px 10px 4px 10px;
@@ -1284,6 +1280,9 @@
 .enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "LG Display";
   font-size: 28px;
+}
+.moon-expandable-picker.open .moon-item.moon-checkbox-item {
+  margin-bottom: 0px;
 }
 /* Current Value */
 .moon-expandable-picker-current-value {
