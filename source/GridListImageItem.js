@@ -17,7 +17,9 @@ enyo.kind({
 	handlers: {
 		onSpotlightFocus: "focused"
 	},
-	focused: function () {
-		this.bubble("onRequestScrollIntoView");
+	focused: function (inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView");
+		}
 	}
 });

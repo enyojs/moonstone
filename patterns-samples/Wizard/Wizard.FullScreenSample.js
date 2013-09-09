@@ -1,8 +1,7 @@
 enyo.kind({
 	name: "Sample.Wizard.Panels",
 	kind: "moon.Panels",
-	defaultKind: "Sample.Wizard.Panel",
-	arrangerKind: "CarouselArranger",
+	arrangerKind: "CardArranger",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {
 		onNext: "next",
@@ -18,7 +17,6 @@ enyo.kind({
 enyo.kind({
 	name: "Sample.Wizard.Panel",
 	kind: "moon.Panel",
-	classes: "moon-wizard-sample enyo-fit",
 	published: {
 		selectedText: "",
 		processed: false

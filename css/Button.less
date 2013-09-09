@@ -1,6 +1,5 @@
 /* Button */
 .moon-button {
-	.moon-large-button-text;
 	max-height: 106px;
 	border-radius: @moon-button-border-radius;
 	line-height: 1em;
@@ -11,9 +10,12 @@
 	overflow: hidden;
 	display: inline-block;
 	min-width: @moon-button-height;
-	padding: 29px 22px 29px 22px;
+	padding: 29px 22px;
 	margin: 0px @moon-spotlight-outset;
 	color: @moon-button-text-color;
+}
+.enyo-locale-non-latin .moon-button {
+	padding: 24px 22px;
 }
 .moon-neutral .moon-button * {
 	color: @moon-sub-header-text-color;
@@ -27,7 +29,6 @@
 	padding: 5px 0px 0px 0px;
 }
 .moon-button.small {
-  .moon-small-button-text;
   max-height: @moon-button-small-height;
   min-height: @moon-button-small-height;
   min-width: @moon-button-small-height;

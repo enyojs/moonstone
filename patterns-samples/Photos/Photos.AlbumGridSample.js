@@ -6,7 +6,6 @@ enyo.kind({
     classes: "moon enyo-fit enyo-unselectable",
     titleAbove: "01",
     title: "Main Menu",
-
     components: [
         {name: "gridList", spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
             {
@@ -19,7 +18,6 @@ enyo.kind({
             }
         ]}
     ],
-
     bindings: [
         {from: ".controller.albums", to: ".$.gridList.controller"}
     ]
