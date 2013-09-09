@@ -32,7 +32,7 @@ enyo.kind({
 								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", classes: "moon-hspacing", components: [
 									{name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
 									{classes: "moon-header-font", components: [
-										{name: "imageTrack", classes: "moon-large-button-text"},
+										{name: "imageTrack", classes: "moon-super-header-bold-text"},
 										{name: "imageArtist", classes: "moon-superscript"},
 										{name: "imageTime", classes: "moon-superscript"}
 									]}                            
