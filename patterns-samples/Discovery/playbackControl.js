@@ -49,10 +49,12 @@ enyo.kind({
 	name: "Discovery.Components.VideoPlaybackControl",
 	kind: "moon.VideoPlayer",
 	autoplay:true,
+
 	events: {
 		onPrevious: "",
 		onFoward: ""
 	},
+
 	create: function() {
 		this.inherited(arguments);		
 		// ICON 변경
@@ -60,6 +62,7 @@ enyo.kind({
 		this.setFastForwardIcon("$lib/moonstone/images/video-player/icon_skipforward.png");
 		this.$.jumpBack.addRemoveClass("hide", true);
 		this.$.jumpForward.addRemoveClass("hide", true);
+
 	},
 	// override parent's function
 	rewind: function() {
@@ -73,12 +76,14 @@ enyo.kind({
 		this.log("Child call only");
 		this.doFoward();
 	}
+
 });
 
 enyo.kind({
 	name: "Discovery.Components.ImagePlaybackControl",
 	classes: "moon enyo-unselectable enyo-fit",
 	kind: "moon.Popup", 
+
 	handlers: {
 		"onActivate" : "tapHandler",
 		"onClose" : "closeHandler"
@@ -110,7 +115,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage", index: 3});
+		this.createComponent({name: "slideShow", kind:"discovery.PhotoSlideshow", onSetupImage: "setupImage", index: 0});
 		this.$.slideShow.setCount(this.results.length);
 		this.$.slideShow.render();
 	},

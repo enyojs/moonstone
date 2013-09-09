@@ -155,11 +155,11 @@ enyo.kind({
 				{
 					name:"speed",
 					kind: "moon.ExpandableIntegerPicker",
-					noneText: "Not Selected",
+					noneText: "",
 					autoCollapse: true,
 					content: "Speed",
 					classes: "moon-photo-slideshow-control-picker-wrapper",
-					value: 1,
+					value: 2,
 					min: 1,
 					max: 15,
 					unit: "sec"
