@@ -49,6 +49,10 @@
 	-o-transition: all 0.1s linear;
 }
 
+.moon-photo-slideshow-control-buttons {
+	height: 120px;	
+}
+
 .moon-photo-slideshow-control-list {
 	height: 202px;	/* 160 + 16 * 2 + 10 */
 }

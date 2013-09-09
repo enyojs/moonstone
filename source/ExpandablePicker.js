@@ -80,7 +80,7 @@ enyo.kind({
 		]},
 		drawer: {components: [
 			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
-			{name: "helpText", classes: "moon-expandable-picker-help-text"}
+			{name: "helpText", kind:"moon.BodyText", classes: "moon-expandable-picker-help-text"}
 		]}
 	},
 	create: function() {

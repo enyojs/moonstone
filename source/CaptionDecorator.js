@@ -23,11 +23,11 @@ enyo.kind({
 	decoratorBounds: null,
 	classes: "moon-button-caption-decorator",
 	components: [
-		{kind: "enyo.Control", name: "leftCaption",     classes: "moon-caption left",   canGenerate: false, content: "Left Caption"},
-		{kind: "enyo.Control", name: "topCaption",      classes: "moon-caption top",    canGenerate: false, content: "Top Caption"},
-		{kind: "enyo.Control", name: "client",          classes: "moon-caption-client"},
-		{kind: "enyo.Control", name: "rightCaption",    classes: "moon-caption right",  canGenerate: false, content: "Right Caption"},
-		{kind: "enyo.Control", name: "bottomCaption",   classes: "moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
+		{kind: "enyo.Control", name: "leftCaption",     classes: "moon-divider-text moon-caption left",   canGenerate: false, content: "Left Caption"},
+		{kind: "enyo.Control", name: "topCaption",      classes: "moon-divider-text moon-caption top",    canGenerate: false, content: "Top Caption"},
+		{kind: "enyo.Control", name: "client",          classes: "moon-divider-text moon-caption-client"},
+		{kind: "enyo.Control", name: "rightCaption",    classes: "moon-divider-text moon-caption right",  canGenerate: false, content: "Right Caption"},
+		{kind: "enyo.Control", name: "bottomCaption",   classes: "moon-divider-text moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
 	],
 	create: function() {
 		this.inherited(arguments);

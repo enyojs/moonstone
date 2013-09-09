@@ -11,9 +11,9 @@ enyo.kind({
 		{kind: "moon.InputDecorator", style: "margin-right:10px;", components: [
 			{kind: "moon.Input", placeholder: "Value"}
 		]},
-		{kind: "moon.Button", content:"Set", classes:"moon-sample-spaced-button", ontap: "changeValue"},
-		{kind: "moon.Button", content:"-", classes:"moon-sample-spaced-button", ontap: "decValue"},
-		{kind: "moon.Button", content:"+", classes:"moon-sample-spaced-button", ontap: "incValue"},
+		{kind: "moon.Button", content:"Set", small:true, classes:"moon-sample-spaced-button", ontap: "changeValue"},
+		{kind: "moon.Button", content:"-", small:true, classes:"moon-sample-spaced-button", ontap: "decValue"},
+		{kind: "moon.Button", content:"+", small:true, classes:"moon-sample-spaced-button", ontap: "incValue"},
 		{tag: "br"},
 		{tag: "br"},
 		{style: "width:240px;", components: [
