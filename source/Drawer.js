@@ -106,11 +106,12 @@ enyo.kind({
 		}
 	},
 	drawersResized: function(inSender, inEvent) {
-		this.$.controlDrawer.$.client.setShowing(true);
-		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});
-		this.$.controlDrawer.$.client.setShowing(false);
 		this.$.client.render();
 		this.$.controlDrawer.render();
+		this.$.controlDrawer.$.client.setShowing(true);
+		this.$.controlDrawer.$.client.resized();
+		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});
+		this.$.controlDrawer.$.client.setShowing(false);
 		this.setOpen(false);
 		this.setControlsOpen(false);
 	}
