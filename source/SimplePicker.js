@@ -81,6 +81,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
+		this.parentShowing();
 		this._rendered = true;
 	},
 	createComponents: function(inC, inOpts) {
@@ -102,32 +103,10 @@ enyo.kind({
 		return inherited.call(this, inC, inOpts);
 	},
 	reflow: function() {
-		this.inherited(arguments);
-
-		var maxHeight = 0,
-			maxWidth = 0,
-			panels,
-			panel,
-			i;
 
 		// Find max width/height of all children
 		if (this.getAbsoluteShowing()) {
-			panels = this.$.client.getPanels();
-
-			for (i = 0; (panel = panels[i]); i++) {
-				if (panel.hasNode()) {
-					var bounds = panel.getBounds();
-					maxWidth = Math.max(maxWidth, bounds.width);
-					maxHeight = Math.max(maxHeight, bounds.height);
-				}
-			}
-			maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
-			this.$.client.setBounds({width: maxWidth, height: maxHeight});
-
-			for (i = 0; (panel = panels[i]); i++) {
-				panel.setBounds({width: maxWidth, height: maxHeight});
-			}
-
+			this._setPanelBounds();
 			this.$.client.reflow();
 		}
 
@@ -271,6 +250,36 @@ enyo.kind({
 		this.inherited(arguments);
 		if(this.showing && this.generated) {
 			this.reflow();
+		}
+	},
+	parentShowing: function() {
+		//To calculate proper bounds of panel, the parent should be visible.
+		if (!this.getAbsoluteShowing()) {
+			this.parent.show();
+			this._setPanelBounds();
+			this.$.client.reflow();
+			this.parent.hide();
+		}
+	},
+	_setPanelBounds: function() {
+		var maxHeight = 0,
+			maxWidth = 0,
+			panels = this.$.client.getPanels(),
+			panel,
+			i;
+
+		for (i = 0; (panel = panels[i]); i++) {
+			if (panel.hasNode()) {
+				var bounds = panel.getBounds();
+				maxWidth = Math.max(maxWidth, bounds.width);
+				maxHeight = Math.max(maxHeight, bounds.height);
+			}
+		}
+		maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
+
+		this.$.client.setBounds({width: maxWidth, height: maxHeight});
+		for (i = 0; (panel = panels[i]); i++) {
+			panel.setBounds({width: maxWidth, height: maxHeight});
 		}
 	}
 });
