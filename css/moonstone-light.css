@@ -550,10 +550,10 @@
   box-sizing: border-box;
 }
 .moon-simple-picker-button {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 25px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 30px;
   border: 0px;
   background: inherit;
   color: #4b4b4b;
@@ -562,7 +562,7 @@
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
-  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center center;
+  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center 13px;
 }
 .moon-simple-picker-button.hidden {
   opacity: 0.4;
@@ -578,8 +578,8 @@
   border: 0px;
 }
 .moon-simple-picker-item {
-  line-height: 50px;
-  height: 50px;
+  line-height: 60px;
+  height: 60px;
   color: #4b4b4b;
   white-space: nowrap;
   text-align: center;
@@ -619,8 +619,8 @@
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  height: 50px;
-  border-radius: 25px;
+  height: 60px;
+  border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
   font-family: "LG Display";
@@ -641,9 +641,9 @@
   color: #ffffff;
 }
 .moon-simple-integer-picker-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
   border: 0px;
   background: inherit;
   padding: 0px;
@@ -686,51 +686,51 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-left-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-left-width: 30px;
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-left-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-left-width: 30px;
   border-left-style: solid;
   border-left-color: #ff2f7d;
   left: 6px;
 }
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-right-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-right-width: 30px;
   border-right-style: solid;
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-right-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-right-width: 30px;
   border-right-style: solid;
   border-right-color: #ff2f7d;
   right: 6px;
@@ -768,15 +768,11 @@
 }
 .moon-divider {
   border-bottom: 2px solid #404040;
-  margin: 0px 10px 27px 10px;
+  margin: 0px 10px 20px 10px;
   text-transform: capitalize;
 }
 .moon-neutral .moon-divider {
   border-bottom: 2px solid #ffffff;
-}
-.moon-divider .moon-marquee-text {
-  line-height: 1em;
-  padding: 0px 0px 5px 0px;
 }
 .moon-checkbox-item {
   display: block;
@@ -784,7 +780,7 @@
 }
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.12em;
+  height: 1.2em;
   margin-right: 40px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
@@ -794,7 +790,7 @@
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
-  height: 1.12em;
+  height: 1.2em;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -853,7 +849,6 @@
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
-  line-height: 35px;
   text-align: left;
   text-transform: uppercase;
   background: inherit;
@@ -890,16 +885,13 @@
   width: 53px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.12em;
+  height: 1.2em;
   padding: 2px 0px 0px 0px;
   margin-right: 65px;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
   margin-left: 65px;
   margin-right: 0px;
-}
-.moon-toggle-item .moon-toggle-text-text {
-  margin-top: 2px;
 }
 .moon-toggle-item.disabled .moon-toggle-text {
   opacity: 1;
@@ -929,9 +921,10 @@
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.12em;
+  line-height: 1.2em;
   color: #4b4b4b;
-  padding: 10px;
+  padding: 7px 10px;
+  margin-bottom: 10px;
   vertical-align: top;
   position: relative;
 }
@@ -980,15 +973,14 @@
 .moon-button {
   max-height: 106px;
   border-radius: 9999px;
-  line-height: 1em;
   background-color: #ffffff;
   border: 5px solid transparent;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
-  min-width: 105px;
-  padding: 29px 22px;
+  min-width: 85px;
+  padding: 19px 22px;
   margin: 0px 10px;
   color: #4b4b4b;
 }
@@ -1004,14 +996,12 @@
 .moon-button > .button-client {
   width: 100%;
   max-width: 250px;
-  padding: 5px 0px 0px 0px;
 }
 .moon-button.small {
   max-height: 60px;
   min-height: 60px;
   min-width: 60px;
-  padding: 13px 22px 13px 22px;
-  line-height: 0.84em;
+  padding: 10px 22px 10px 22px;
   position: relative;
   overflow: visible;
 }
@@ -1072,8 +1062,8 @@
 /* Caption Decorator - Left/Right Captions */
 .moon-button-caption-decorator .moon-caption.left,
 .moon-button-caption-decorator .moon-caption.right {
-  height: 105px;
-  line-height: 105px;
+  height: 85px;
+  line-height: 85px;
 }
 .moon-button-caption-decorator .moon-caption.left {
   float: left;
@@ -1219,7 +1209,7 @@
 }
 /* Header Wrapper */
 .moon-expandable-list-item-header-wrapper {
-  padding: 10px;
+  padding: 8px 10px;
 }
 .moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
   padding: 10px 10px 4px 10px;
@@ -1261,7 +1251,7 @@
 /* Header */
 .moon-expandable-picker-header {
   padding: 0px;
-  margin: 0px 0px 4px 0px;
+  margin: 0px;
 }
 .moon-expandable-picker-header .moon-item {
   margin: 0px;
@@ -1283,6 +1273,9 @@
 .enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "LG Display";
   font-size: 28px;
+}
+.moon-expandable-picker.open .moon-item.moon-checkbox-item {
+  margin-bottom: 0px;
 }
 /* Current Value */
 .moon-expandable-picker-current-value {
@@ -2575,8 +2568,14 @@
   display: inline-block;
 }
 .moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4b4b4b;
   min-width: 60px;
-  line-height: 50px;
+  line-height: 60px;
   border: 0px;
   border-radius: 0px;
   background: transparent;
@@ -2590,9 +2589,14 @@
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
   width: 60px;
   min-width: 60px;
-  line-height: 50px;
+  line-height: 60px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -2603,6 +2607,12 @@
   vertical-align: middle;
 }
 .moon-calendar-picker-date.moon-button.small {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4b4b4b;
   color: #ffffff;
   padding: 0px;
 }
@@ -2627,6 +2637,7 @@
 .moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
   color: #ffffff;
   background-color: #ff2f7d;
+  border: 0px;
 }
 /* Table.css */
 /*.moon-table {
@@ -2716,7 +2727,6 @@
   max-width: 100%;
   color: #ffffff;
   text-align: center;
-  line-height: 0.9em;
   word-wrap: break-word;
 }
 .moon-drawer-client {
@@ -3498,13 +3508,12 @@
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
   font-size: 15px;
-  line-height: 10px;
   background-color: #ffffff;
   color: #000000;
   border-radius: 5px;
   text-align: center;
   white-space: nowrap;
-  padding: 7px;
+  padding: 3px 7px;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
