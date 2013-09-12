@@ -550,10 +550,10 @@
   box-sizing: border-box;
 }
 .moon-simple-picker-button {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 25px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 30px;
   border: 0px;
   background: inherit;
   color: #999999;
@@ -562,7 +562,7 @@
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
-  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center center;
+  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center 13px;
 }
 .moon-simple-picker-button.hidden {
   opacity: 0.4;
@@ -578,8 +578,8 @@
   border: 0px;
 }
 .moon-simple-picker-item {
-  line-height: 50px;
-  height: 50px;
+  line-height: 60px;
+  height: 60px;
   color: #999999;
   white-space: nowrap;
   text-align: center;
@@ -619,8 +619,8 @@
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  height: 50px;
-  border-radius: 25px;
+  height: 60px;
+  border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
   font-family: "LG Display";
@@ -641,9 +641,9 @@
   color: #ffffff;
 }
 .moon-simple-integer-picker-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
   border: 0px;
   background: inherit;
   padding: 0px;
@@ -686,51 +686,51 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-left-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-left-width: 30px;
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-left-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-left-width: 30px;
   border-left-style: solid;
   border-left-color: #ff2f7d;
   left: 6px;
 }
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-right-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-right-width: 30px;
   border-right-style: solid;
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-right-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-right-width: 30px;
   border-right-style: solid;
   border-right-color: #ff2f7d;
   right: 6px;
@@ -2579,8 +2579,14 @@
   display: inline-block;
 }
 .moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #999999;
   min-width: 60px;
-  line-height: 50px;
+  line-height: 60px;
   border: 0px;
   border-radius: 0px;
   background: transparent;
@@ -2594,9 +2600,15 @@
   margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #999999;
   width: 60px;
   min-width: 60px;
-  line-height: 50px;
+  line-height: 60px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -2631,6 +2643,7 @@
 .moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
   color: #ffffff;
   background-color: #ff2f7d;
+  border: 0px;
 }
 /* Table.css */
 /*.moon-table {
