@@ -65,13 +65,11 @@ enyo.kind({
 		]}
 	],
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-	},
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
 		this.refreshScrollState();
+		this.$.scroller.getStrategy().setInterval(150);
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
@@ -189,7 +187,7 @@ enyo.kind({
 		if(!st.scrollNode) {
 			return;
 		}
-
+		
 		while (n && n.parentNode && n.id != st.scrollNode.id) {
 			b.top += n.offsetTop;
 			b.left += n.offsetLeft;
