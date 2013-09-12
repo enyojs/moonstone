@@ -26,13 +26,22 @@ enyo.kind({
 	classes:"moon-date-picker-month",
 	min: 1,
 	max: 24,
+	zeroToEleven: false,
 	value: null,
 	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		if(index > 11) {	//current hour reached meridiem(noon)
+		var index = inEvent.index,
+			hour;
+			
+		if (index > 11) {	//current hour reached meridiem(noon)
 			index -= 12;
 		}
-		this.$.item.setContent(index + this.min);
+
+		hour = index + this.min;
+		
+		if (this.zeroToEleven) {
+			hour = ('0' + (hour-1)).slice(-2);  // zero padded 0-11 value
+		}
+		this.$.item.setContent(hour);
 	}
 });
 
@@ -57,11 +66,31 @@ enyo.kind({
 		meridiemEnable: false
 	},
 	//*@protected
-	iLibFormatType: "time",
-	defaultOrdering: "hma",
+	iLibFormatType  : "time",
+	defaultOrdering : "hma",
+	zeroToEleven    : false,
+	
 	initILib: function() {
 		this.inherited(arguments);
-		this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
+
+		// Set picker format 12 vs 24 hour clock
+		var li = new ilib.LocaleInfo();
+		var clockPref = li.getClock();
+		this.meridiemEnable = (clockPref == '12');
+		
+		var hourFormatter = new ilib.DateFmt({
+		   type: "time",
+		   time: "h",
+		   clock: clockPref !== "locale" ? clockPref : undefined
+		}); 
+
+		switch (hourFormatter.template) {
+			case 'KK':
+			case 'K' :
+			 	// 0-11 hours instead of 1-12
+				this.zeroToEleven = true;
+				break;
+		}
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.toLowerCase().split("");
@@ -73,7 +102,7 @@ enyo.kind({
 				switch (o){
 				case 'h': {
 						if (this.meridiemEnable === true) {
-							this.createComponent({kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)});
+							this.createComponent({kind:"moon.HourPicker", name:"hour", zeroToEleven: this.zeroToEleven, min: 1, max:24, value: (this.value.getHours() || 24)});
 						} else {
 							this.createComponent({kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()});
 						}
