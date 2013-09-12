@@ -6,12 +6,7 @@ enyo.kind({
 		onchange: "inputChanged"
 	},
 	components: [
-		{classes: "wizard-nav-button-container", style: "position:absolute; top:0; right:0;", components: [
-			{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", content: "Previous"},
-			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "goNext", content: "Next"}
-		]},
-
-		{fit: true, components: [
+		{fit: true, kind: "moon.Scroller", defaultSpotlightUp: "prev", components: [
 			{name: "headline", classes: "wizard-input-description"},
 
 			{classes: "wizard-block-row", components: [
@@ -42,7 +37,10 @@ enyo.kind({
 				]}
 			]}
 		]},
-		
+		{classes: "wizard-nav-button-container moon-hspacing", style: "position:absolute; top:10px; right:0;", components: [
+			{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", defaultSpotlightDown: "check2", content: "Previous"},
+			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "goNext", defaultSpotlightDown: "check2", content: "Next"}
+		]},
 		{name: "cancel", kind: "moon.Button", small: true, classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
 	],
 	initialSetting: function() {

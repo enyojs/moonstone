@@ -3,15 +3,16 @@ enyo.kind({
 	kind: "Sample.Wizard.Panel",
 	layoutKind: "FittableRowsLayout",
 	components: [
-		{classes: "wizard-nav-button-container", components: [
-			{kind: "moon.Button", classes: "wizard-button-top", ontap: "doNext", content: "Next"}
+		{classes: "wizard-nav-button-container moon-hspacing", components: [
+			{name: "next", kind: "moon.Button", ontap: "doNext", content: "Next"}
 		]},
-
-		{fit:true, kind: "FittableColumns", components: [
-			{name: "imgmenu", kind: "enyo.Image", style:"width:480px;height:320px;padding-right:30px"},
-			{fit: true, components: [
-				{name: "headline", classes: "wizard-instruction"},
-				{name: "detail", classes: "wizard-instruction-detail"}
+		{fit:true, kind: "moon.Scroller", components: [
+			{layoutKind: "FittableColumnsLayout", components: [
+				{name: "imgmenu", kind: "enyo.Image", classes: "wizard-intro-image"},
+				{fit: true, components: [
+					{name: "headline", classes: "wizard-instruction"},
+					{name: "detail", classes: "wizard-instruction-detail"}
+				]}
 			]}
 		]},
 

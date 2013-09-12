@@ -2,9 +2,9 @@ enyo.kind({
 	name: "moon.sample.wizard.ConfirmPageSample",
 	kind: "Sample.Wizard.Panel",
 	components: [
-		{classes: "wizard-nav-button-container", components: [
-			{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", content: "Previous"},
-			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "doneTap", content: "Done"}
+		{classes: "wizard-nav-button-container moon-hspacing", components: [
+			{name: "prev", kind: "moon.Button", ontap: "doPrevious", content: "Previous"},
+			{name: "post", kind: "moon.Button", ontap: "doneTap", content: "Done"}
 		]},
 		
 		{kind: "FittableRows", fit: true, components: [
