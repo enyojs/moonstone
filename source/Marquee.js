@@ -34,6 +34,7 @@
 */
 enyo.kind({
 	name: "moon.MarqueeText",
+	classes: "moon-marquee-text",
 	published: {
 		//* Speed of marquee animation, in pixels per second
 		marqueeSpeed: 60,
@@ -57,88 +58,102 @@ enyo.kind({
 		onMarqueeStarted:"",
 		onMarqueeEnded:""
 	},
-	//*@protected
 	handlers: {
 		onRequestMarquee: "requestMarquee",
-		onRequestMarqueeStart: "requestStart",
+		onRequestMarqueeStart: "startMarquee",
 		onRequestMarqueeStop: "stopMarquee",
-		onwebkitAnimationEnd: "animationEnded"
+		ontransitionend: "animationEnded"
 	},
-	initComponents: function() {
+	//* @protected
+	
+	allowHtml: true,
+	
+	create: function() {
 		this.inherited(arguments);
-		this.addClass(this.clipInsidePadding ? "moon-marquee-clip" : "moon-marquee-text");
 		if (this.clipInsidePadding) {
-			this.createChrome([{name:"client", classes:"moon-marquee-text"}]);
-			this.marqueeControl = this.$.client;
-		} else {
-			this.marqueeControl = this;
-		}
-	},
-	//*@public
-	startMarquee: function() {
-		this.calcMarqueeDistance();
-		if (!this.disabled && this.marqueeDistance > 0) {
-			var xPos = (0-this.marqueeDistance) + "px";
-			if (enyo.dom.canTransform()) {
-				enyo.dom.transform(this.marqueeControl, {translateX: xPos});
-			} else {
-				this.marqueeControl.applyStyle("left", xPos);
-			}
-			this.marqueeControl.applyStyle("-webkit-animation-duration", this.marqueeDistance/this.marqueeSpeed + "s");
-			this.marqueeControl.addClass("moon-marquee");
-		}
-	},
-	stopMarquee: function(inSender, inEvent) {
-		this.stopJob(this.id);
-		if (enyo.dom.canTransform()) {
-			enyo.dom.transform(this.marqueeControl, {translateX: 0});
-		} else {
-			this.marqueeControl.applyStyle("left", 0);
-		}
-		this.marqueeControl.removeClass("moon-marquee");
-		this.marqueeRequested = false;
-		this.doMarqueeEnded();
-        return true;
-	},
-	//*@protected
-	allowHtmlTextChanged: function() {
-		if(this.marqueeControl) {
-			this.marqueeControl.setAllowHtml(this.allowHtmlText);
+			this.addClass("moon-marquee-clip");
 		}
 	},
 	contentChanged: function() {
-		if (this.$.client) {
-			this.$.client.setContent(this.content);
-		} else {
-            this.inherited(arguments);
-        }
+		var content = this.allowHtmlText ? this.get("content") : enyo.Control.escapeHtml(this.get("content")),
+			id = this.id + "_marquee_node";
+		this.content = "<div>" + content + "</div>";
+		this.marqueeNode = null;
+		this.inherited(arguments);
 	},
+	
+	//* @public
+	
+	//* Start marquee animation
+	startMarquee: function() {
+		var distance = this.calcMarqueeDistance(),
+			duration = this.calcMarqueeDuration(distance),
+			node = this.getMarqueeNode(),
+			transformProp = enyo.dom.getCssTransformProp(),
+			styleString = enyo.dom.transition + ": " + transformProp + " " + duration + "s linear;  " + transformProp + ": translateX( " + (-1 * distance) + "px);";
+		
+		this.addClass("animate-marquee");
+		
+		if (node) {
+			node.style.cssText = styleString;
+		}
+		
+		this.doMarqueeStarted({marqueeDistance: distance});
+		return true;
+	},
+	//* Stop marquee animation
+	stopMarquee: function(inSender, inEvent) {
+		var node = this.getMarqueeNode();
+		this.stopJob("stopMarquee");
+		this.doMarqueeEnded();
+		
+		this.removeClass("animate-marquee");
+		
+		if (node) {
+			node.style.cssText = "";
+		}
+		return true;
+	},
+	
+	//* @protected
+	
+	//* Return marquee distance based on difference of scrollWidth and clientWidth
 	calcMarqueeDistance: function() {
-		this.marqueeDistance = this.marqueeControl.hasNode().scrollWidth - this.marqueeControl.hasNode().clientWidth;
-		return this.marqueeDistance;
+		var node = this.getMarqueeNode();
+		return node.scrollWidth - node.clientWidth;
+	},
+	//* Return duration based on _inDistance_ and _this.marqueeSpeed_
+	calcMarqueeDuration: function(inDistance) {
+		return inDistance / this.marqueeSpeed;
 	},
 	requestMarquee: function(inSender, inEvent) {
 		enyo.mixin(this, inEvent);
-		this.calcMarqueeDistance();
-		if (!this.disabled && this.marqueeDistance > 0) {
-			this.doMarqueeStarted({marqueeDistance: this.marqueeDistance});
+		var distance = this.calcMarqueeDistance();
+		
+		if (!this.disabled && distance > 0) {
+			this.doMarqueeStarted({marqueeDistance: distance});
 		}
-		this.marqueeRequested = true;
         return true;
 	},
-	requestStart: function(inSender, inEvent) {
-		this.startMarquee();
-        return true;
-	},
+	//* When animation ends, start _this.stopMarquee_ job
 	animationEnded: function(inSender, inEvent) {
-		this.startJob(this.id, enyo.bind(this, this.stopMarquee), this.marqueePause);
+		if (inEvent.originator !== this) {
+			return;
+		}
+		
+		this.startJob("stopMarquee", "stopMarquee", this.marqueePause);
         return true;
+	},
+	getMarqueeNode: function() {
+		this.marqueeNode = this.marqueeNode || this.hasNode().getElementsByTagName("div")[0];
+		return this.marqueeNode;
 	}
 });
 
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
 	//*@protected
+	classes: "moon-marquee-container",
 	handlers: {
 		onSpotlightFocus: "_marqueeSpotlightFocus",
 		onSpotlightBlur: "_marqueeSpotlightBlur",
@@ -149,7 +164,6 @@ moon.MarqueeSupport = {
 	create: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
-			//this.log(this.id);
 			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
 			this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
 			this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
@@ -178,7 +192,14 @@ moon.MarqueeSupport = {
 	},
 	//*@protected
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
-		if (this.marqueeOnSpotlight) {
+		if (!this.marqueeOnSpotlight) {
+			return;
+		}
+		
+		if (this.marqueeCreated) {
+			this.startMarquee();
+		} else {
+			this.marqueeCreated = this.createMarquee();
 			this.startMarquee();
 		}
 	},
@@ -213,6 +234,11 @@ moon.MarqueeSupport = {
 				this.startMarquee();
 			}), 400);
 		}
+	},
+	createMarquee: function() {
+		this.createComponent({name: "marqueeText", kind:"moon.MarqueeText", allowHtmlText: this.allowHtml, content: this.content});
+		this.render();
+		return true;
 	}
 };
 

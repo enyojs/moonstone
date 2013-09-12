@@ -23,12 +23,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.disabledChanged();
 	},
-	initComponents: function() {
-		this.inherited(arguments);
-		if (!this.components) {
-			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
-		}
-	},
 	disabledChanged: function(inOld) {
 		this.addRemoveClass("disabled", this.disabled);
 	},

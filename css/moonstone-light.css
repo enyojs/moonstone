@@ -400,28 +400,26 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.moon-marquee.moon-marquee-text {
-  display: inline-block;
-  width: auto;
-  -webkit-animation-name: marquee;
-  -webkit-animation-timing-function: linear;
+  overflow: hidden;
 }
 .moon-marquee-clip {
   overflow: hidden;
-  width: 100%;
 }
-@-webkit-keyframes marquee {
-  0% {
-    left: 0;
-    transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -o-transform: translateX(0);
-  }
+.moon-marquee-text > div {
+  pointer-events: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.animate-marquee.moon-marquee-text > div {
+  text-overflow: clip;
+  overflow: visible;
+}
+.moon-marquee-container {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .moon-simple-picker {
   display: inline-block;
