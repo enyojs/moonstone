@@ -109,7 +109,7 @@ enyo.kind({
                 ]}
             ]}
         ]},
-        {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
+        {name: "instantSearchResults", kind: "moon.DataGridList", showing: false, components: [
             {kind: "moon.GridListImageItem", bindings: [
                 {from: ".model.image", to: ".source"},
                 {from: ".model.text", to: ".caption"}
