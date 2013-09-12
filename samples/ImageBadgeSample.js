@@ -22,7 +22,7 @@ enyo.kind({
 					{src: "http://placehold.it/42x42&text=Badge", classes: "float-right"}
 				]}
 			]},
-			{kind: "moon.Item", components: [
+			{kind: "moon.Item", classes: "spotlight", components: [
 				{kind: "moon.Image", src: "http://placehold.it/180x240&text=Image+Two", alt: "Image Two", showBadgesOnSpotlight: true, components: [
 					{src: "http://placehold.it/42x42&text=Badge"}
 				]}

@@ -13,3 +13,12 @@
 .image-badge-sample .moon-item {
 	display: inline-block;
 }
+
+.moon-item.spotlight .show-on-spotlight {
+	margin: 0px;
+}
+
+.moon-item.spotlight {
+	margin-bottom: 0px;
+	padding-bottom: 3px;
+}
