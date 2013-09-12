@@ -41,6 +41,7 @@ enyo.kind({
     }
 });
 
+
 enyo.kind({
     name: "moon.sample.photos.AlbumListWideSample",
     kind: "moon.Panel",
@@ -56,23 +57,23 @@ enyo.kind({
             components: [
                 {
                     kind: "moon.sample.photos.AlbumListItem",
-					bindings: [
-						{from: ".model.option", to: ".option"}
-					]
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ]
                 }
             ]
         },
         {
             name: "albumList",
+            minWidth: 136, 
             kind: "moon.DataGridList",
             fit: true,
             components: [
                 {
-                    kind: "enyo.Image",
-                    classes: "moon-4h moon-4v",
-					bindings: [
-						{from: ".model.imgSrc", to: ".src"}
-					]
+                    kind: "moon.GridListImageItem",
+                    bindings: [
+                        {from: ".model.imgSrc", to: ".source"}
+                    ]
                 }
             ]
         }
@@ -94,7 +95,7 @@ enyo.ready(function(){
             {option: {source: "../assets/default-movie.png", title: "Album Name"}},
             {option: {source: "../assets/default-movie.png", title: "Album Name"}}
         ]),
-		albums: new enyo.Collection([
+        albums: new enyo.Collection([
             {imgSrc: "../assets/album.png"},
             {imgSrc: "../assets/album.png"},
             {imgSrc: "../assets/album.png"},
