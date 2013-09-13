@@ -2,6 +2,7 @@ enyo.kind({
 	name: "sun.CalendarPickerPopup",
 	kind: "sun.PopupPanel",
 	title: "Calendar",
+	//* public
 	events: {		
 		onSaved: "",
 		onClosed: ""
