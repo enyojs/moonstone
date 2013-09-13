@@ -105,7 +105,6 @@ enyo.kind({
 	},
 
 	//* @protected
-
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -128,6 +127,7 @@ enyo.kind({
 		this.canvasWidthChanged();
 		this.canvasHeightChanged();
 		this.drawToCanvas(this.popupColor);
+		this._setValue(this.value);
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -187,25 +187,19 @@ enyo.kind({
 			this.setProgress(this.getValue());
 		}
 	},
-	setValue: function(inValue) {
-		if (this.value === inValue) {return false;}
+	valueChanged : function(preValue, inValue){
 		if (this.constrainToBgProgress) {
 			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
-		}
+		}		
 		if (this.animate) {
-			this.animateTo(this.getValue(), inValue);
+			this.animateTo(preValue, inValue);
 		} else {
 			this._setValue(inValue);
 		}
 	},
 	_setValue: function(inValue) {
 		var v = this.clampValue(this.min, this.max, inValue);
-
-		// If no change, return
-		if (v === this.value) {
-			return;
-		}
 
 		this.value = v;
 		this.updateKnobPosition(v);
@@ -313,7 +307,7 @@ enyo.kind({
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this.setValue(v);
+			this.set("value",v);
 			return true;
 		}
 	},
@@ -365,14 +359,14 @@ enyo.kind({
 		if (this.selected) {
 			// If in the process of animating, work from the previously set value
 			var v = this.getValue() - (this.increment || 1);
-			this.setValue(v);
+			this.set("value",v);
 			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
 			var v = this.getValue() + (this.increment || 1);
-			this.setValue(v);
+			this.set("value",v);
 			return true;
 		}
 	},
