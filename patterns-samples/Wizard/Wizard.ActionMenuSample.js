@@ -86,30 +86,30 @@ enyo.kind({
     create: function() {
 		this.inherited(arguments);
     },
-    onTap: function(oSender, oEvent) {
-        //* override from panels
-        // no action for Carosel Arranger using button
-        var target = oEvent.dispatchTarget ? oEvent.dispatchTarget.kind : undefined;
-        switch(target)
-        {
-        case "moon.Item":
-            var collection = this.controller.get("wizResults");
-            var cmd = oEvent.dispatchTarget.content;
-            for (var idx in collection) {
-                if(cmd == collection.at(idx).get("step"))
-                {
-                    this.setIndex(idx);
-                    this.closeListAction(oSender.name);
-                    return true;
-                }
-            }
-            break;
-        case "moon.Button":
-            this.closeListAction(oSender.name);
-            break;
-        }
-        return true;
-    },
+    // onTap: function(oSender, oEvent) {
+    //     //* override from panels
+    //     // no action for Carosel Arranger using button
+    //     var target = oEvent.dispatchTarget ? oEvent.dispatchTarget.kind : undefined;
+    //     switch(target)
+    //     {
+    //     case "moon.Item":
+    //         var collection = this.controller.get("wizResults");
+    //         var cmd = oEvent.dispatchTarget.content;
+    //         for (var idx in collection) {
+    //             if(cmd == collection.at(idx).get("step"))
+    //             {
+    //                 this.setIndex(idx);
+    //                 this.closeListAction(oSender.name);
+    //                 return true;
+    //             }
+    //         }
+    //         break;
+    //     case "moon.Button":
+    //         this.closeListAction(oSender.name);
+    //         break;
+    //     }
+    //     return true;
+    // },
     closeListAction: function(sender) {
         var p = this.$[sender].$.header.$.wizListAction;
         if(p.getOpen())

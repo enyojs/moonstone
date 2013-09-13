@@ -6,9 +6,14 @@ enyo.kind({
 		onchange: "inputChanged"
 	},
 	components: [
-		{fit: true, kind: "moon.Scroller", defaultSpotlightUp: "prev", components: [
-			{name: "headline", classes: "wizard-input-description"},
-
+		{fit:true, kind: "moon.Scroller", horizontal: "hidden", components: [
+			{components: [
+				{name: "headline", classes: "wizard-input-description"},
+				{classes: "wizard-nav-button-container moon-hspacing", components: [
+					{name: "prev", kind: "moon.Button", ontap: "doPrevious", content: "Previous"},
+					{name: "post", kind: "moon.Button", ontap: "goNext", content: "Next"}
+				]}
+			]},
 			{classes: "wizard-block-row", components: [
 				{name: "indeco1", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
 					{name: "intext1", kind: "moon.Input", placeholder: "INPUT FIELD 01"}
@@ -36,10 +41,6 @@ enyo.kind({
 					{name: "intext4", kind: "moon.Input", placeholder: "INPUT FIELD 04"}
 				]}
 			]}
-		]},
-		{classes: "wizard-nav-button-container moon-hspacing", style: "position:absolute; top:10px; right:0;", components: [
-			{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", defaultSpotlightDown: "check2", content: "Previous"},
-			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "goNext", defaultSpotlightDown: "check2", content: "Next"}
 		]},
 		{name: "cancel", kind: "moon.Button", small: true, classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
 	],
