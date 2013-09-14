@@ -78,7 +78,7 @@ enyo.kind({
 		}
 
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
-		var titleWrapperStyle = enyo.dom.getComputedStyle(this.$.titleWrapper.hasNode());		
+		var titleWrapperStyle = enyo.dom.getComputedStyle(this.$.titleWrapper.hasNode());
 		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleBelowStyle = enyo.dom.getComputedStyle(this.$.titleBelow.hasNode());
 		var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
@@ -86,20 +86,20 @@ enyo.kind({
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
 		this.smallAnimProps = {
-			"height" : myStyle["height"]
+			"height": myStyle["height"]
 		};
 		this.$.titleWrapper.smallAnimProps = {
-			"padding-left" : titleWrapperStyle["padding-left"],
-			"top" : titleWrapperStyle["top"]	
+			"padding-left": titleWrapperStyle["padding-left"],
+			"top": titleWrapperStyle["top"]
 		};
 		this.$.title.smallAnimProps = {
-			"line-height" : titleStyle["line-height"]
+			"line-height": titleStyle["line-height"]
 		};
 		this.$.titleBelow.smallAnimProps = {
-			"top" : titleBelowStyle["top"]	
+			"top": titleBelowStyle["top"]
 		};
 		this.$.subTitleBelow.smallAnimProps = {
-			"top" : subTitleBelowStyle ["top"]	
+			"top": subTitleBelowStyle["top"]
 		};
 
 		this.$.animator.newAnimation({
@@ -107,73 +107,61 @@ enyo.kind({
 			duration: 200,
 			timingFunction: "linear",
 			keyframes: {
-				0: [
-				{
+				0: [{
 					control: this,
 					properties: {
-						"height" : "current"
+						"height": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.titleWrapper,
 					properties: {
-						"padding-left" : "current",
-						"top" : "current"
+						"padding-left": "current",
+						"top": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.title,
 					properties: {
-						"line-height" : "current",
+						"line-height": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top" : "current"
+						"top": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top" : "current"
+						"top": "current"
 					}
-				}
-				],
+				}],
 				70: [],
-				100: [
-				{
+				100: [{
 					control: this,
 					properties: {
-						"height" : "260px"
+						"height": "260px"
 					}
-				},
-				{
+				}, {
 					control: this.$.titleWrapper,
 					properties: {
-						"padding-left" : "58px",
-						"top" : "-48px"
+						"padding-left": "58px",
+						"top": "-48px"
 					}
-				},
-				{
+				}, {
 					control: this.$.title,
 					properties: {
-						"line-height" : "0.96em",
+						"line-height": "0.96em"
 					}
-				},
-				{
+				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top" : "-48px"
+						"top": "-48px"
 					}
-				},
-				{
+				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top" : "-48px"
+						"top": "-48px"
 					}
-				}
-				]
+				}]
 
 			}
 		});
@@ -190,78 +178,68 @@ enyo.kind({
 			duration: 200,
 			timingFunction: "linear",
 			keyframes: {
-				0: [
-				{
+				0: [{
 					control: this,
 					properties: {
-						"height" : "current"
+						"height": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.titleWrapper,
 					properties: {
-						"padding-left" : "current",
-						"top" : "current"
+						"padding-left": "current",
+						"top": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.title,
 					properties: {
-						"line-height" : "current",
+						"line-height": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top" : "current"
+						"top": "current"
 					}
-				},
-				{
+				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top" : "current"
+						"top": "current"
 					}
-				}
-				],
+				}],
 				30: [],
-				100: [
-				{
+				100: [{
 					control: this,
 					properties: {
 						"height": this.smallAnimProps.height
 					}
-				}, 
-				{
+				}, {
 					control: this.$.titleWrapper,
 					properties: {
 						"padding-left": this.$.titleWrapper.smallAnimProps["padding-left"],
 						"top": this.$.titleWrapper.smallAnimProps["top"]
 					}
-				}, 
-				{
+				}, {
 					control: this.$.title,
 					properties: {
-						"line-height": this.$.title.smallAnimProps["line-height"],
+						"line-height": this.$.title.smallAnimProps["line-height"]
 					}
-				}, 
-				{
+				}, {
 					control: this.$.titleBelow,
 					properties: {
 						"top": this.$.titleBelow.smallAnimProps["top"]
 					}
-				}, 
-				{
+				}, {
 					control: this.$.subTitleBelow,
 					properties: {
 						"top": this.$.subTitleBelow.smallAnimProps["top"]
 					}
-				}
-				]
+				}]
 			}
 		});
 		this.$.animator.play("expandToLarge");
 		this.collapsed = false;
 	},
+	
+
 	//* @protected
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-header", this.getSmall());
