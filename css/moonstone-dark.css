@@ -527,6 +527,7 @@
   width: auto;
   -webkit-animation-name: marquee;
   -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
 }
 .moon-marquee-clip {
   overflow: hidden;
