@@ -1,4 +1,5 @@
 enyo.depends(
+	"BodyText.js",
 	"Marquee.js",
 	"Button.js",
 	"CaptionDecorator.js",
@@ -80,6 +81,5 @@ enyo.depends(
 	"SelectionOverlaySupport.js",
 	"Image.js",
 	"ImageBadge.js",
-	"ExpandableText.js",
-	"BodyText.js"
+	"ExpandableText.js"
 );
