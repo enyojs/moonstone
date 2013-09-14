@@ -65,11 +65,12 @@ enyo.kind({
 		]}
 	],
 	//* @protected
+	scrollInterval: 65,
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
 		this.refreshScrollState();
-		this.$.scroller.getStrategy().setInterval(150);
+		this.$.scroller.getStrategy().setInterval(this.scrollInterval);
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
