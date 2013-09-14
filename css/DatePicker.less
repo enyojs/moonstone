@@ -1,44 +1,23 @@
 /* DatePicker.css */
-.moon-date-picker {
-	cursor:pointer;
-}
-/* Day */
-.moon-date-picker-day {
+.moon-date-picker-field {
 	margin: 0 auto;
 	width:60px;
 	display: block;
 }
-
-/* Month */
-.moon-date-picker-month {
-	margin: 0 auto;
-	width:60px;
-	display: block;
-}
-
-/* Year */
-.moon-date-picker-year {
-	margin: 0 auto;
+.moon-date-picker-field.year {
 	width:80px;
-	display: block;
 }
 
-.moon-date-picker-client .moon-date-picker-wrap {
-	width:100px;
+.moon-date-picker-wrap {
+	min-width:100px;
 }
 
-.moon-date-picker-client .moon-date-picker-wrap.y.first {
-	padding-left:10px;
+.moon-date-picker-wrap.year {
+	min-width:120px;
 }
 
-.moon-date-picker-client .moon-date-picker-wrap.y.last {
-	padding-left:10px;
-}
-
-.moon-date-picker-client .moon-date-picker-wrap .moon-date-picker-label {
-	.moon-divider-text;
-  	display: block;
+.moon-date-picker-label {
   	text-align:center;
-  	padding: 20px 0 0 0;
-	line-height:1.2em;
+  	padding: 20px @moon-spotlight-outset;
+  	white-space: nowrap;
 }

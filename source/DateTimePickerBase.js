@@ -6,6 +6,7 @@
 enyo.kind({
 	name: "moon.DateTimePickerBase",
 	kind: "moon.ExpandableListItem",
+	defaultKind: "enyo.Control",
 	classes: "moon-expandable-picker moon-date-picker",
 	events: {
 		/**

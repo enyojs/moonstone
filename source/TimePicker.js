@@ -23,7 +23,7 @@ enyo.kind({
 enyo.kind({
 	name: "moon.HourPicker",
 	kind: "moon.IntegerScrollPicker",
-	classes:"moon-date-picker-month",
+	classes:"moon-date-picker-field",
 	min: 1,
 	max: 24,
 	value: null,
@@ -87,14 +87,16 @@ enyo.kind({
 			case 'h': {
 					if (this.meridiemEnable === true) {
 						this.createComponent(
-							{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)}
+							{classes: "moon-date-picker-wrap", components:[
+								{kind: "moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)},
+								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					} else {
 						this.createComponent(
-							{kind:"enyo.Control", name: "hourWrapper", classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-month", min:0, max:23, value: this.value.getHours()}
+							{classes: "moon-date-picker-wrap", components:[
+								{kind: "moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
+								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					}
@@ -102,8 +104,9 @@ enyo.kind({
 				break;
 			case 'm': {
 					this.createComponent(
-						{kind:"enyo.Control", name: "minuteWrapper", classes: "moon-date-picker-wrap", components:[
-							{kind:"moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-month", min:0,max:59, digits: 2, value: this.value.getMinutes()}
+						{classes: "moon-date-picker-wrap", components:[
+							{kind: "moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
+							{name: "minuteLabel", content: this.minuteText || "min", classes: "moon-date-picker-label moon-divider-text"}
 						]}
 					);
 				}
@@ -111,8 +114,9 @@ enyo.kind({
 			case 'a': {
 					if (this.meridiemEnable === true) {
 						this.createComponent(
-							{kind:"enyo.Control", name: "meridianWrapper", classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-year", value: this.value.getHours() > 12 ? 1 : 0 }
+							{classes: "moon-date-picker-wrap", components:[
+								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0 },
+								{name: "meridianLabel", content: this.meridianText || "meridian", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					}
@@ -123,10 +127,6 @@ enyo.kind({
 			}
 		
 		}
-
-		this.$.hourWrapper.createComponent({ kind:"enyo.Control", name: "hourLabel", content : this.hourText ? this.hourText : "hour", classes: "moon-date-picker-label"}, {owner: this});
-		this.$.minuteWrapper.createComponent({ kind:"enyo.Control", name: "minuteLabel", content : this.minuteText ? this.minuteText : "min", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
-		this.$.meridianWrapper.createComponent({ kind:"enyo.Control", name: "meridianLabel", content : this.meridianText ? this.meridianText : "meridian", style: "display:block;", classes: "moon-date-picker-label"}, {owner: this});
 
 		this.inherited(arguments);
 	},
