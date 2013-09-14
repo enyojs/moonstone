@@ -47,9 +47,10 @@ enyo.kind({
 					default:
 						break;
 					}
+					doneArr.push(o);
 				}
-				sup.apply(this, arguments);
 			}
+			sup.apply(this, arguments);
 		};
 	}),
 	formatValue: function() {
