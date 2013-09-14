@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.listactions.MultiSelectAndFilterSample",
 	fit: true,
 	kind:"FittableRows",
-	classes: "multi-select-and-filter-pattern moon",
+	classes: "multi-select-and-filter-pattern moon enyo-unselectable",
 	published: {
 		sortAction: null,
 		filterAction: null
