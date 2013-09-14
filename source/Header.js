@@ -77,21 +77,29 @@ enyo.kind({
 			return;
 		}
 
-		var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
+		var titleWrapperStyle = enyo.dom.getComputedStyle(this.$.titleWrapper.hasNode());		
+		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
+		var titleBelowStyle = enyo.dom.getComputedStyle(this.$.titleBelow.hasNode());
+		var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
+
 
 		// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
 		this.smallAnimProps = {
 			"height" : myStyle["height"]
-			//"border" : myStyle["border-bottom-width"],
-			//"width"  : myStyle["width"]
 		};
-		this.$.titleAbove.smallAnimProps = {
-			"height" : titleAboveStyle["height"],
-			"padding-top" : titleAboveStyle["padding-top"],
-			"padding-bottom" : titleAboveStyle["padding-bottom"],
-			"opacity" : titleAboveStyle["opacity"],
-			"overflow" : titleAboveStyle["overflow"]
+		this.$.titleWrapper.smallAnimProps = {
+			"padding-left" : titleWrapperStyle["padding-left"],
+			"top" : titleWrapperStyle["top"]	
+		};
+		this.$.title.smallAnimProps = {
+			"line-height" : titleStyle["line-height"]
+		};
+		this.$.titleBelow.smallAnimProps = {
+			"top" : titleBelowStyle["top"]	
+		};
+		this.$.subTitleBelow.smallAnimProps = {
+			"top" : subTitleBelowStyle ["top"]	
 		};
 
 		this.$.animator.newAnimation({
@@ -99,42 +107,73 @@ enyo.kind({
 			duration: 200,
 			timingFunction: "linear",
 			keyframes: {
-				0: [{
-					control: this.$.titleAbove,
-					properties: {
-						"height" : "current",
-						"padding-top" : "current",
-						"padding-bottom" : "current",
-						"overflow" : "hidden"
-					}
-				},
+				0: [
 				{
 					control: this,
 					properties: {
 						"height" : "current"
 					}
-				}],
-				70: [{
-					control: this.$.titleAbove,
+				},
+				{
+					control: this.$.titleWrapper,
 					properties: {
-						"opacity" : "current"
-					}
-				}],
-				100: [{
-					control: this.$.titleAbove,
-					properties: {
-						"height" : "0px",
-						"padding-top" : "0px",
-						"padding-bottom" : "0px",
-						"opacity" : "0"
+						"padding-left" : "current",
+						"top" : "current"
 					}
 				},
+				{
+					control: this.$.title,
+					properties: {
+						"line-height" : "current",
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"top" : "current"
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"top" : "current"
+					}
+				}
+				],
+				70: [],
+				100: [
 				{
 					control: this,
 					properties: {
 						"height" : "260px"
 					}
-				}]
+				},
+				{
+					control: this.$.titleWrapper,
+					properties: {
+						"padding-left" : "58px",
+						"top" : "-48px"
+					}
+				},
+				{
+					control: this.$.title,
+					properties: {
+						"line-height" : "0.96em",
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"top" : "-48px"
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"top" : "-48px"
+					}
+				}
+				]
 
 			}
 		});
@@ -151,42 +190,73 @@ enyo.kind({
 			duration: 200,
 			timingFunction: "linear",
 			keyframes: {
-				0: [{
-					control: this.$.titleAbove,
-					properties: {
-						"height" : "current",
-						"padding-top" : "current",
-						"padding-bottom" : "current",
-						"opacity" : "current"
-					}
-				},
+				0: [
 				{
 					control: this,
 					properties: {
 						"height" : "current"
 					}
-				}],
-				30: [{
-					control: this.$.titleAbove,
+				},
+				{
+					control: this.$.titleWrapper,
 					properties: {
-						"opacity" : this.$.titleAbove.smallAnimProps.opacity
-					}
-				}],
-				100: [{
-					control: this.$.titleAbove,
-					properties: {
-						"height" : this.$.titleAbove.smallAnimProps.height,
-						"padding-top" : this.$.titleAbove.smallAnimProps["padding-top"],
-						"padding-bottom" : this.$.titleAbove.smallAnimProps["padding-bottom"],
-						"overflow" : this.$.titleAbove.smallAnimProps.overflow
+						"padding-left" : "current",
+						"top" : "current"
 					}
 				},
 				{
+					control: this.$.title,
+					properties: {
+						"line-height" : "current",
+					}
+				},
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"top" : "current"
+					}
+				},
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"top" : "current"
+					}
+				}
+				],
+				30: [],
+				100: [
+				{
 					control: this,
 					properties: {
-						"height" : this.smallAnimProps.height
+						"height": this.smallAnimProps.height
 					}
-				}]
+				}, 
+				{
+					control: this.$.titleWrapper,
+					properties: {
+						"padding-left": this.$.titleWrapper.smallAnimProps["padding-left"],
+						"top": this.$.titleWrapper.smallAnimProps["top"]
+					}
+				}, 
+				{
+					control: this.$.title,
+					properties: {
+						"line-height": this.$.title.smallAnimProps["line-height"],
+					}
+				}, 
+				{
+					control: this.$.titleBelow,
+					properties: {
+						"top": this.$.titleBelow.smallAnimProps["top"]
+					}
+				}, 
+				{
+					control: this.$.subTitleBelow,
+					properties: {
+						"top": this.$.subTitleBelow.smallAnimProps["top"]
+					}
+				}
+				]
 			}
 		});
 		this.$.animator.play("expandToLarge");

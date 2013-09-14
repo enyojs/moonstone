@@ -1378,6 +1378,9 @@
   width: 30px;
 }
 /* Main Title */
+.moon-header-title-wrapper {
+  position: relative;
+}
 .moon-header-title {
   font-family: "Miso";
   font-size: 126px;
@@ -1397,6 +1400,7 @@
 }
 /* Title Below */
 .moon-header-title-below {
+  position: relative;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
@@ -1411,6 +1415,7 @@
 }
 /* Sub Title Below */
 .moon-header-sub-title-below {
+  position: relative;
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -1429,7 +1434,7 @@
   position: absolute;
   bottom: 10px;
   left: 0px;
-  right: 0px;
+  right: 10px;
   text-align: right;
   /* fallback in case text-align:end isn't supported */
 
@@ -1453,17 +1458,14 @@
   line-height: 0.96em;
 }
 .moon-small-header .moon-header-title-wrapper {
-  position: relative;
   padding-left: 58px;
   box-sizing: border-box;
   top: -48px;
 }
 .moon-small-header .moon-header-title-below {
-  position: relative;
   top: -48px;
 }
 .moon-small-header .moon-header-sub-title-below {
-  position: relative;
   top: -48px;
 }
 .hidden-title .moon-header-title,
