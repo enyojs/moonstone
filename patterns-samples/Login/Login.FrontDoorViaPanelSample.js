@@ -9,72 +9,48 @@ enyo.kind({
     title: "3<sup>rd</sup> PARTY APP NAME",
     components: [
         {kind: "FittableColumns", components: [
-            {name: "appInfo", kind: "enyo.DataRepeater", components: [
-                {
-                    kind: "moon.Button",
-                    ontap: "selectApp",
-                    bindings: [
-                        {from: ".model.text", to: ".content"}
-                    ],
-                    style: "width: 300px; display:block;",
-                    classes: "moon-neutral moon-margin-top-bottom"
-                }
-            ]},
-            {fit: true, components:[
-                {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
-                    {content: "Email", style: "width: 180px;"},
+            {
+                name: "appInfo", 
+                kind: "enyo.DataRepeater",                 
+                components: [
                     {
-                        kind: "moon.InputDecorator",
-                        fit: true,
+                        bindings: [
+                            {from: ".model.text", to: ".$.panelButton.content"}
+                        ],
                         components: [
                             {
-                                name: "email",
-                                kind: "moon.Input",
-                                onchange: "emailChanged"
+                                name: "panelButton",
+                                kind: "moon.Button",
+                                ontap: "selectApp",
+                                style: "width: 300px; display:block;",
+                                classes: "moon-neutral moon-margin-top-bottom"
                             }
                         ]
                     }
+                ]
+            },
+            {fit: true, classes: "moon-vspacing", components:[
+                {kind: "FittableColumns", components:[
+                    {content: "Email", classes: "moon-4h"},
+                    {kind: "moon.InputDecorator", fit: true, components: [
+                        {name: "email", kind: "moon.Input", onchange: "emailChanged"}
+                    ]}
                 ]},
-                {kind: "FittableColumns", classes: "moon-margin-top-bottom", components:[
-                    {content: "Password", style: "width: 180px; margin-bottom: 20px;"},
-                    {
-                        kind: "moon.InputDecorator",
-                        fit: true,
-                        components: [
-                            {
-                                name: "password",
-                                kind: "moon.Input",
-                                onchange: "passwordChanged",
-                                type: "password"
-                            }
-                        ]
-                    }
+                {kind: "FittableColumns", components:[
+                    {content: "Password", classes: "moon-4h"},
+                    {kind: "moon.InputDecorator", fit: true, components: [
+                        {name: "password", kind: "moon.Input", onchange: "passwordChanged", type: "password"}
+                    ]}
                 ]},
                 {
-                    layoutKind: 'HFlexLayout',
+                    kind: "enyo.ToolDecorator",
+                    layoutKind: 'FittableColumnsLayout',
                     fit: true,
-                    classes: "moon-margin-top-bottom",
+                    style: "display:block; text-align: center;",
                     components: [
-                        {style: "width: 250px;", classes: "moon-margin-left-right", components:[
-                            {style: "height: 32px"},
-                            {
-                                kind: "moon.CheckboxItem",
-                                checked: true,
-                                content: "Log in setting"
-                            }
-                        ]},
-                        {
-                            kind: "moon.Button",
-                            content: "Log in",
-                            flex: true,
-                            classes: "moon-neutral moon-margin-left-right"
-                        },
-                        {
-                            kind: "moon.Button",
-                            content: "Registration",
-                            flex: true,
-                            classes: "moon-neutral"
-                        }
+                        {kind: "moon.CheckboxItem", checked: true, content: "Log in setting", style:"display:inline-block;"},
+                        {kind: "moon.Button", content: "Log in", classes: "moon-neutral"},
+                        {kind: "moon.Button", content: "Registration", classes: "moon-neutral"}
                     ]
                 }
             ]}

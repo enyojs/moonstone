@@ -65,6 +65,7 @@
 	font-weight: @moon-header-font-weight;
 	font-style: @moon-header-font-style;
 	letter-spacing: @moon-header-letter-spacing;
+	text-transform: uppercase;
 }
 .moon-sub-header-text {
 	font-family: @moon-sub-header-font-family;
@@ -73,9 +74,21 @@
 	font-style: @moon-sub-header-font-style;
 	letter-spacing: @moon-sub-header-letter-spacing;
 	color: @moon-sub-header-text-color;
-	// line-height: @moon-sub-header-line-height; 
-	//for spotlight reasons, cannot set line-height according to spec
-	// have to use margin to achieve same appearance
+}
+.moon-super-header-text {
+	font-family: @moon-super-header-font-family;
+	font-size: @moon-super-header-font-size;
+	font-weight: @moon-super-header-font-weight;
+	font-style: @moon-super-header-font-style;
+	letter-spacing: @moon-super-header-letter-spacing;
+}
+.moon-popup-header-text {
+	font-family: @moon-popup-header-font-family;
+	font-size: @moon-popup-header-font-size;
+	font-weight: @moon-popup-header-font-weight;
+	font-style: @moon-popup-header-font-style;
+	letter-spacing: @moon-popup-header-letter-spacing;
+	text-transform: uppercase;
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
@@ -103,6 +116,7 @@
 	font-weight: @moon-button-font-weight;
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
+	text-transform: uppercase;
 }
 .moon-small-button-text {
 	font-family: @moon-button-font-family;
@@ -110,26 +124,67 @@
 	font-weight: @moon-button-font-weight;
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
+	text-transform: uppercase;
 }
 
 .enyo-locale-non-latin {
+	.moon, 
 	.moon input, 
 	.moon textarea, 
 	.moon button,
-	.moon-header-font,
 	.moon-superscript,
 	.moon-pre-text,
 	.moon-large-text,
 	.moon-header-text,
+	.moon-header-font,
+	.moon-popup-header-text,
 	.moon-sub-header-text,
+	.moon-super-header-text,
 	.moon-divider-text,
 	.moon-body-text,
 	.moon-large-button-text,
 	.moon-small-button-text {
 		font-family: @moon-non-latin-font-family;
 	}
+	
+	.moon {
+		font-size: @moon-non-latin-sub-header-font-size;
+	}
+	.moon-superscript {
+		font-size: @moon-non-latin-superscript-text-size;
+	}
+	.moon-pre-text {
+		font-size: @moon-non-latin-pre-text-size;
+	}
+	.moon-large-text {
+		font-size: @moon-non-latin-large-text-size;
+	}
+	.moon-header-text {
+		font-size: @moon-non-latin-header-font-size;
+	}
+	.moon-popup-header-text {
+		font-size: @moon-non-latin-popup-header-font-size;
+	}
+	.moon-sub-header-text {
+		font-size: @moon-non-latin-sub-header-font-size;
+	}
+	.moon-super-header-text {
+		font-size: @moon-non-latin-super-header-font-size;
+	}
+	.moon-divider-text {
+		font-size: @moon-non-latin-divider-font-size;
+	}
+	.moon-body-text {
+		font-size: @moon-non-latin-body-font-size;
+		line-height: @moon-non-latin-body-line-height;
+	}
+	.moon-large-button-text {
+		font-size: @moon-non-latin-button-large-font-size;
+	}
+	.moon-small-button-text {
+		font-size: @moon-non-latin-button-small-font-size;
+	}
 }
-
 .border-box {
 	box-sizing: border-box;
 	-mox-box-sizing: border-box;
@@ -151,8 +206,6 @@
 @import "Item.less";
 @import "SelectableItem.less";
 @import "Button.less";
-@import "Breadcrumb.less";
-@import "BreadcrumbDecorator.less";
 @import "CaptionDecorator.less";
 @import "RadioItem.less";
 @import "RadioItemGroup.less";

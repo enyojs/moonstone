@@ -320,8 +320,11 @@ enyo.kind({
 		// Set native playback rate
 		node.playbackRate = pbNumber;
 
-		if (pbNumber < 0) {
-			this.beginRewind();
+		if (!(enyo.platform.webos || window.PalmSystem)) {
+			// For supporting cross browser behavior
+			if (pbNumber < 0) {
+				this.beginRewind();
+			}
 		}
 	},
 	//* Return true if currently in paused state

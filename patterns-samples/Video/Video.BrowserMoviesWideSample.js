@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.MovieImageItem",
-	classes: "moon-movie-list-item moon-3h moon-4v",
+	classes: "moon-3h moon-4v",
 	spotlight: true,
 	published: {
 		option: {
@@ -54,11 +54,17 @@ enyo.kind({
 			kind: "enyo.DataGridList",
 			components: [
 				{
-					kind: "moon.MovieImageItem",
+					classes: "moon-movie-list-item ",
 					bindings: [
-						{from: ".model.option", to: ".option"}
+						{from: ".model.option", to: ".$.movieImageItem.option"}
 					],
-					ontap: "changeName"
+					components: [
+						{
+							name: "movieImageItem",
+							kind: "moon.MovieImageItem",
+							ontap: "changeName"
+						}
+					]					
 				}
 			]
 		}

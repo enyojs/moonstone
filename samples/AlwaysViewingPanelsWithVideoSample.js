@@ -44,7 +44,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Two", ontap: "next"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next"},
-				{kind: "moon.Item", content: "Item Five", ontap: "next"}
+				{kind: "moon.ToggleItem", content: "Show/Hide Side Handle", checked: true,  onchange: "handleShowingChanged"}
 			]},
 			{title: "Second Panel", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next"},
@@ -93,5 +93,8 @@ enyo.kind({
 	next: function(inSender, inEvent) {
 		this.$.panels.next();
 		return true;
+	},
+	handleShowingChanged: function(inSender, inEvent) {
+		this.$.panels.setHandleShowing(inSender.getChecked());
 	}
 });

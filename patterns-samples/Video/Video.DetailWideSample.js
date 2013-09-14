@@ -13,7 +13,7 @@ enyo.kind({
 		{
 			kind: "FittableRows",
 			components: [
-				{ name: "movie", kind: "enyo.Image", classes: "moon-5h moon-2v" },
+				{ name: "movie", kind: "enyo.Image", classes: "moon-5h moon-8v" },
 				{
 					kind: "moon.Table",
 					components: [
