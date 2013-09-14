@@ -15,7 +15,7 @@ enyo.kind({
 					name: "picker1",
 					kind: "moon.ExpandablePicker",
 					helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
-							  "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
+						"Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
 					components: [
 						{name: "p1Value1"},
 						{name: "p1Value2"},
@@ -26,7 +26,7 @@ enyo.kind({
 					name: "picker2",
 					kind: "moon.ExpandablePicker",
 					helpText: "Lorem ipsum dolor sit amet, consec tetur adipisc ing elit." +
-							 "Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
+						"Sed tortor est, vulpuate non adipisc ing eget, semper a nisl. Pellentesque nunc lacus.",
 					components: [
 						{name: "p2Value1"},
 						{name: "p2Value2"},
@@ -78,7 +78,7 @@ enyo.ready(function(){
         p3Value3: "VALUE3"
     });
 
-//  Application to render sample
+	// Application to render sample
 	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
