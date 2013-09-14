@@ -53,7 +53,7 @@ enyo.kind({
 		};
 	}),
 	listActionsChanged: function() {
-		this.lastActions = this.listActions || [];
+		this.listActions = this.listActions || [];
 		this.rerenderListActionComponents();
 	},
 	rerenderListActionComponents: function() {
