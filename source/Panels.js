@@ -64,7 +64,8 @@ enyo.kind({
 	arrangerKind: "moon.BreadcrumbArranger",
 	//* Index of panel which is set in the middle of transition
 	queuedIndex: null,
-
+	//* Duration of transition animation (ms)
+	transitionDuration: 200,
 
 	//* @public
 
@@ -157,6 +158,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.initializeShowHideHandle();
 		this.handleShowingChanged();
+		this.$.animator.setDuration(this.transitionDuration);
 	},
 	rendered: function() {
 		this.inherited(arguments);

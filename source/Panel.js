@@ -60,7 +60,8 @@ enyo.kind({
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
 					{name: "breadcrumbTitleAbove", classes: "moon-super-header-text moon-panel-mini-header-title-above"},
 					{name: "breadcrumbText", kind: "moon.MarqueeText", classes: "moon-sub-header-text moon-panel-mini-header"}
-				]}
+				]},
+				{name: "flyingDivider", classes: "moon-panel-flying-divider"}
 			]}
 		]},
 		{name: "viewport", classes: "moon-panel-viewport", components: [
@@ -139,6 +140,7 @@ enyo.kind({
 		this.$.viewport.applyStyle("width", this.initialWidth + "px");
 		this.$.contentWrapper.applyStyle("height", this.initialHeight + "px");
 		this.$.contentWrapper.applyStyle("width", this.initialWidth + "px");
+		this.$.breadcrumb.applyStyle("width", (this.initialWidth - 10) + "px");
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
@@ -232,7 +234,7 @@ enyo.kind({
 	},
 	shrinkingWidthAnimation: function() {
 		this.haltAnimations();
-		this.preTransitionComplete();
+		this.$.animator.play(this.shrinkWidthAnimation.name);
 	},
 	growingHeightAnimation: function() {
 		this.haltAnimations();
@@ -240,10 +242,7 @@ enyo.kind({
 	},
 	growingWidthAnimation: function() {
 		this.haltAnimations();
-		
-		this.growingHeightAnimation();
-		// NOTE - Skipping width grow animation
-		// this.$.animator.play(this.growWidthAnimation.name);
+		this.$.animator.play(this.growWidthAnimation.name);
 	},
 	haltAnimations: function() {
 		this.$.animator.stop();
@@ -323,15 +322,16 @@ enyo.kind({
 	createGrowingWidthAnimation: function() {
 		return this.$.animator.newAnimation({
 			name: "growWidth",
-			duration: 225,
+			duration: 75,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
 				0: [
-					{control: this.$.viewport, properties: { "width": "current" }}
-					
+					{control: this.$.breadcrumbViewport, properties: { "width": "current" }},
+					{control: this.$.flyingDivider, properties: { "width"  : "current" }}
 				],
 				100: [
-					{control: this.$.viewport, properties: { "width": this.initialWidth + "px" }}
+					{control: this.$.breadcrumbViewport, properties: { "width": this.initialWidth + "px" }},
+					{control: this.$.flyingDivider, properties: { "width"  : "85%" }}
 				]
 			}
 		});
@@ -346,11 +346,13 @@ enyo.kind({
 					{control: this.$.viewport, properties: {"height"  : "0px"}},
 					{control: this.$.breadcrumbViewport, properties: { "height": "current" }}
 				],
-				50: [
-					{control: this.$.breadcrumbViewport, properties: { "height": "0px" }}
+				80: [
+					{control: this.$.breadcrumbViewport, properties: { "height": "0px" }},
+					{control: this.$.flyingDivider, properties: { "-webkit-transform"  : "current" }}
 				],
 				100: [
-					{control: this.$.viewport, properties: {"height" : this.initialHeight + "px"}}
+					{control: this.$.viewport, properties: {"height" : this.initialHeight + "px"}},
+					{control: this.$.flyingDivider, properties: { "-webkit-transform"  : "translate3d(0,0,0)" }}
 				]
 			}
 		});
@@ -358,14 +360,16 @@ enyo.kind({
 	createShrinkingWidthAnimation: function() {
 		return this.$.animator.newAnimation({
 			name: "shrinkWidth",
-			duration: 225,
+			duration: 75,
 			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
 			keyframes: {
 				0: [
-					{control: this.$.breadcrumbBackground, properties: { "width": "current" }}
+					{control: this.$.breadcrumbViewport, properties: { "width": "current" }},
+					{control: this.$.flyingDivider, properties: { "width"  : "current" }}
 				],
 				100: [
-					{control: this.$.breadcrumbBackground, properties: { "width": "current" }}
+					{control: this.$.breadcrumbViewport, properties: { "width": "210px" }},
+					{control: this.$.flyingDivider, properties: { "width"  : "0px" }}
 				]
 			}
 		});
@@ -373,18 +377,24 @@ enyo.kind({
 	createShrinkingHeightAnimation: function() {
 		return this.$.animator.newAnimation({
 			name: "shrinkHeight",
-			duration: 500,
+			duration: 700,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
 				0: [
 					{control: this.$.viewport, properties: { "height"  : "current" }}
 				],
-				50: [
-					{control: this.$.breadcrumbViewport, properties: { "height": "current" }}
+				20: [
+					{control: this.$.viewport, properties: { "height"  : "370px" }},
+					{control: this.$.breadcrumbViewport, properties: { "height": "current" }},
+					{control: this.$.flyingDivider, properties: { "-webkit-transform"  : "translate3d(0,0,0)" }}
+				],
+				30: [
+					{control: this.$.viewport, properties: { "height"  : "0px" }},
+					{control: this.$.breadcrumbViewport, properties: { "height": "370px" }},
+					{control: this.$.flyingDivider, properties: { "-webkit-transform"  : "translate3d(0,-315px,0)" }}
 				],
 				100: [
-					{control: this.$.viewport, properties: { "height"  : "0px" }},
-					{control: this.$.breadcrumbViewport, properties: { "height": "370px" }}
+					{control: this.$.flyingDivider, properties: { "-webkit-transform"  : "translate3d(0,-295px,0)" }}
 				]
 			}
 		});

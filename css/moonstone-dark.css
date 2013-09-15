@@ -360,7 +360,7 @@
   direction: rtl;
 }
 .moon-divider-border {
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #999999;
 }
 .moon-neutral-divider-border {
   border-bottom: 2px solid #ffffff;
@@ -768,7 +768,7 @@
   opacity: 0.4;
 }
 .moon-divider {
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #999999;
   margin: 0px 10px 27px 10px;
   text-transform: capitalize;
 }
@@ -1278,7 +1278,7 @@
   font-style: italic;
   letter-spacing: 0.05em;
   color: #999999;
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #999999;
   margin: 0px;
 }
 .enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
@@ -1330,7 +1330,7 @@
   font-style: italic;
   letter-spacing: 0.05em;
   color: #999999;
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #999999;
   padding: 0px;
   margin-bottom: 45px;
 }
@@ -1359,8 +1359,8 @@
   -moz-box-sizing: border-box;
   color: #dddddd;
   height: 360px;
-  border-top: 1px solid #404040;
-  border-bottom: 6px solid #404040;
+  border-top: 1px solid #999999;
+  border-bottom: 6px solid #999999;
   position: relative;
   transition: height 0.2s linear;
   -webkit-transition: height 0.2s linear;
@@ -2419,11 +2419,11 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
   -webkit-transform: scale3d(1, 1, 1);
-  width: 220px;
   height: 370px;
   position: absolute;
   top: 0px;
   left: 0px;
+  box-sizing: border-box;
 }
 .moon-panel-breadcrumb-viewport {
   -webkit-transform: scale3d(1, 1, 1);
@@ -2431,7 +2431,7 @@
   bottom: 0px;
   left: 9px;
   right: 0px;
-  height: 200px;
+  height: 0px;
   overflow: hidden;
 }
 .moon-panel-mini-header-wrapper {
@@ -2445,6 +2445,15 @@
   padding: 9px 10px 10px;
   box-sizing: border-box;
   border-top: 1px solid #ffffff;
+}
+.moon-panel-flying-divider {
+  -webkit-transform: scale3d(1, 1, 1);
+  position: absolute;
+  background: #999999;
+  height: 5px;
+  width: 85%;
+  top: 100%;
+  margin: 0 5px;
 }
 .moon-panel-mini-header {
   margin-top: 20px;
@@ -2462,7 +2471,7 @@
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel-mini-header-wrapper {
-  border-top: 1px solid #404040;
+  border-top: 1px solid #999999;
 }
 .moon-panels.activity .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-title-above {
@@ -3748,7 +3757,7 @@
   font-style: italic;
   letter-spacing: 0.05em;
   color: #999999;
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #999999;
   padding: 0px;
 }
 .enyo-locale-non-latin .moon-expandable-input.open .moon-expandable-input-header {

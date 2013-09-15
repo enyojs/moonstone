@@ -25,7 +25,6 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
 	-webkit-transform: scale3d(1,1,1);
-	width: 220px;
 	height: 370px;
 	position: absolute;
 	top: 0px;
@@ -37,7 +36,7 @@
 	bottom: 0px;
 	left: 9px;
 	right: 0px;
-	height: 200px;
+	height: 0px;
 	overflow: hidden;
 }
 .moon-panel-mini-header-wrapper {
@@ -51,6 +50,15 @@
 	padding: 9px @moon-spotlight-outset @moon-spotlight-outset;
 	box-sizing: border-box;
 	border-top: 1px solid @moon-white;
+}
+.moon-panel-flying-divider {
+	-webkit-transform: scale3d(1,1,1);
+	position: absolute;
+	background: @moon-header-border-color;
+	height: 5px;
+	width: 85%;
+	top: 100%;
+	margin: 0 5px;
 }
 .moon-panel-mini-header {
 	margin-top: 20px;
