@@ -543,14 +543,17 @@
   }
 }
 .moon-simple-picker {
-  display: inline-block;
-}
-.moon-simple-picker > * {
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
+  width: 100%;
+  max-width: 350px;
   box-sizing: border-box;
+  padding: 0 60px;
+  position: relative;
+  height: 50px;
 }
 .moon-simple-picker-button {
+  position: absolute;
+  top: 0;
   width: 50px;
   height: 50px;
   line-height: 50px;
@@ -573,28 +576,40 @@
   background-color: #ff2f7d;
   background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
 }
-.moon-simple-picker-client {
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
+.moon-simple-picker-client-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
 }
-.moon-simple-picker-item {
+.moon-simple-picker-client {
+  white-space: nowrap;
+}
+.moon-simple-picker-client.animated {
+  -webkit-transition: -webkit-transform ease-out 0.3s;
+  -moz-transition: -moz-transform ease-out 0.3s;
+  -o-transition: -o-transform ease-out 0.3s;
+  transition: transform ease-out 0.3s;
+}
+.moon-simple-picker-client > * {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 100%;
   line-height: 50px;
   height: 50px;
   color: #999999;
   white-space: nowrap;
   text-align: center;
-  padding: 0px;
-  width: auto;
-  max-width: 250px;
 }
-.moon-simple-picker.disabled,
+.moon-simple-picker-client.disabled,
 .moon-simple-picker-button[disabled] {
-  cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+  background-color: transparent;
 }
 .moon-simple-picker-button.left {
+  left: 0;
   transform: rotate(270deg) translateZ(1px);
   -o-transform: rotate(270deg) translateZ(1px);
   -ms-transform: rotate(270deg) translateZ(1px);
@@ -603,6 +618,7 @@
   margin-right: 10px;
 }
 .moon-simple-picker-button.right {
+  right: 0;
   transform: rotate(90deg) translateZ(1px);
   -o-transform: rotate(90deg) translateZ(1px);
   -ms-transform: rotate(90deg) translateZ(1px);

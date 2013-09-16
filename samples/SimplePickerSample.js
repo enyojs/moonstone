@@ -9,7 +9,8 @@ enyo.kind({
 			{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
 				{content:"San Francisco Airport Terminal Gate 1"},
 				{content:"Boston Airport Terminal Gate 2", active: true},
-				{content:"Tokyo Airport Terminal Gate 3"}
+				{content:"Tokyo Airport Terminal Gate 3"},
+				{content:"נמל התעופה בן גוריון טרמינל הבינלאומי"}
 			]},
 			{tag:"br"},{tag:"br"},
 
@@ -44,37 +45,45 @@ enyo.kind({
 			]},
 			{tag:"br"},{tag:"br"},
 
-			{classes:"moon-hspacing", components: [
-				{components: [
-					{kind:"moon.Divider", content:"Modify picker:"},
-					{kind:"moon.SimplePicker", name:"which", components: [
-						{content:"1"},
-						{content:"2"},
-						{content:"3"}
-					]}
-				]},
-				{components: [
-					{kind:"moon.Divider", content:"Add item:"},
-					{classes:"moon-hspacing", components: [
-						{kind:"moon.InputDecorator", components: [
-							{kind:"moon.Input", name:"addInput", placeholder:"content", classes:"moon-2h"}
-						]},
-						{kind:"moon.Button", content:"Add", small:true, ontap:"addItem"}
-					]}
-				]},
-				{components: [
-					{kind:"moon.Divider", content:"Set index:"},
-					{classes:"moon-hspacing", components: [
-						{kind:"moon.InputDecorator", components: [
-							{kind:"moon.Input", name:"changeInput", placeholder:"index", classes:"moon-1h"}
-						]},
-						{kind:"moon.Button", content:"Go", small:true, ontap:"changeItem"}
-					]}
-				]},
-				{components: [
-					{kind:"moon.Divider", content:"Delete current item:"},
-					{kind:"moon.Button", content:"Delete", small:true, ontap:"destroyItem"}
+			{kind: "moon.Divider", content:"Picker 5: Hidden"},
+			{kind:"moon.SimplePicker", name:"picker5", onChange:"changed", showing:false, components: [
+				{content:"San Francisco Airport Terminal Gate 1"},
+				{content:"Boston Airport Terminal Gate 2", active: true},
+				{content:"Tokyo Airport Terminal Gate 3"}
+			]},
+			{kind:"moon.Button", content:"Toggle Showing", small:true, ontap:"toggleShowing"},
+			{tag:"br"},{tag:"br"}
+		]},
+		{classes:"moon-hspacing", components: [
+			{components: [
+				{kind:"moon.Divider", content:"Modify picker:"},
+				{kind:"moon.SimplePicker", name:"which", components: [
+					{content:"1"},
+					{content:"2"},
+					{content:"3"}
 				]}
+			]},
+			{components: [
+				{kind:"moon.Divider", content:"Add item:"},
+				{classes:"moon-hspacing", components: [
+					{kind:"moon.InputDecorator", components: [
+						{kind:"moon.Input", name:"addInput", placeholder:"content", classes:"moon-2h"}
+					]},
+					{kind:"moon.Button", content:"Add", small:true, ontap:"addItem"}
+				]}
+			]},
+			{components: [
+				{kind:"moon.Divider", content:"Set index:"},
+				{classes:"moon-hspacing", components: [
+					{kind:"moon.InputDecorator", components: [
+						{kind:"moon.Input", name:"changeInput", placeholder:"index", classes:"moon-1h"}
+					]},
+					{kind:"moon.Button", content:"Go", small:true, ontap:"changeItem"}
+				]}
+			]},
+			{components: [
+				{kind:"moon.Divider", content:"Delete current item:"},
+				{kind:"moon.Button", content:"Delete", small:true, ontap:"destroyItem"}
 			]}
 		]},
 		{components: [
@@ -82,6 +91,9 @@ enyo.kind({
 			{kind: "moon.BodyText", name:"result", content:"No change yet"}
 		]}
 	],
+	toggleShowing: function() {
+		this.$.picker5.setShowing(!this.$.picker5.showing);
+	},
 	changed: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.index + ")");
 	},
@@ -102,12 +114,10 @@ enyo.kind({
 		}
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.createComponent({content:this.$.addInput.getValue()}).render();
-		picker.reflow();
-		this.$.result.setContent("'" + this.$.addInput.getValue() + "' is added to picker" + this.$.which.getSelectedIndex()+1);
+		this.$.result.setContent("'" + this.$.addInput.getValue() + "' is added to " + picker.name);
 	},
 	destroyItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
 		picker.getSelected().destroy();
-		picker.reflow();
 	}
 });
