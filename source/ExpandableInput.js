@@ -43,7 +43,7 @@ enyo.kind({
 		{from: ".currentValueText", to: ".$.currentValue.content"}
 	],
 	computed: {
-		"showCurrentValue": ["open"],
+		"showCurrentValue": ["open", "value", "noneText"],
 		"currentValueText": ["value", "noneText"]
 	},
 	
@@ -63,7 +63,7 @@ enyo.kind({
 	
 	// Computed props
 	showCurrentValue: function() {
-		return !this.open;
+		return !this.open && this.currentValueText() !== "";
 	},
 	currentValueText: function() {
 		return (this.value === "") ? this.noneText : this.value;
