@@ -985,7 +985,7 @@
   color: #a6a6a6;
 }
 .enyo-locale-non-latin .moon-button {
-  padding: 24px 22px;
+  padding: 15px 22px 16px;
 }
 .moon-neutral .moon-button * {
   color: #999999;
@@ -1001,9 +1001,12 @@
   max-height: 60px;
   min-height: 60px;
   min-width: 60px;
-  padding: 10px 22px 10px 22px;
+  padding: 10px 20px 10px 20px;
   position: relative;
   overflow: visible;
+}
+.enyo-locale-non-latin .moon-button.small {
+  padding: 10px 15px;
 }
 .moon-button.small > .button-client {
   padding: 0px 0px 0px 0px;
@@ -2589,6 +2592,10 @@
   text-align: center;
   vertical-align: middle;
 }
+.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "LG Display";
+  font-size: 30px;
+}
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
 }
@@ -2611,6 +2618,10 @@
   text-align: center;
   vertical-align: middle;
 }
+.enyo-locale-non-latin .moon-calendar-picker-date {
+  font-family: "LG Display";
+  font-size: 30px;
+}
 .moon-calendar-picker-date.moon-button.small {
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -2620,6 +2631,10 @@
   color: #999999;
   color: #ffffff;
   padding: 0px;
+}
+.enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
+  font-family: "LG Display";
+  font-size: 30px;
 }
 .moon-calendar-picker-date-shadow.moon-button.small {
   color: #a2a2a2;
