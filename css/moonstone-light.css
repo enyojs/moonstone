@@ -924,7 +924,6 @@
   line-height: 1.2em;
   color: #4b4b4b;
   padding: 7px 10px;
-  margin-bottom: 10px;
   vertical-align: top;
   position: relative;
 }
@@ -1276,9 +1275,6 @@
 .enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "LG Display";
   font-size: 28px;
-}
-.moon-expandable-picker.open .moon-item.moon-checkbox-item {
-  margin-bottom: 0px;
 }
 /* Current Value */
 .moon-expandable-picker-current-value {
