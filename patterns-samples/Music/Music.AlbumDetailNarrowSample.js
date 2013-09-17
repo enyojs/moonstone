@@ -27,7 +27,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{kind: "moon.Divider", content: "SONGS", classes: "moon-divider"},
+		{kind: "moon.Divider", content: "SONGS", classes: "moon-divider moon-hspacing"},
 		{kind: "moon.Scroller", fit: true, classes: "moon-body-text-spacing", components: [
 			{name: "trackInfo", kind: "moon.DataTable", style: "width: 100%;", components: [
 				{spotlight: true, ontap: "changeTrackName", components: [
