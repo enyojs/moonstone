@@ -7,33 +7,33 @@ enyo.kind({
 	title: "Album",
 	titleBelow: "",
 	components: [
-		{kind: "enyo.FittableColumns", noStretch: true, classes: "moon-hspacing album-sample", components: [
+		{kind: "enyo.FittableColumns", noStretch: true, classes: "moon-hspacing", components: [
 			{name: "cover", kind: "enyo.Image", style: "height: 200px; width: 200px;"},
 			{name: "albumInfo", fit: true, kind: "moon.Table", components: [
 				{components: [
-					{name: "album", attributes: {colspan: "2"}, classes: "moon-header-font moon-super-header-bold-text"}
+					{name: "album", attributes: {colspan: "2"}, classes: "moon-header-font moon-super-header-text"}
 				]},
 				{components: [
-					{content: "Artist", classes: "moon-header-font"},
-					{name: "artist", classes: "moon-super-header-text"}
+					{content: "Artist", classes: "moon-sub-header-text"},
+					{name: "artist", classes: "moon-body-text"}
 				]},
 				{components: [
-					{content: "Released", classes: "moon-header-font"},
-					{name: "releaseDate", classes: "moon-super-header-text"}
+					{content: "Released", classes: "moon-sub-header-text"},
+					{name: "releaseDate", classes: "moon-body-text"}
 				]},
 				{name: "genreRow", components: [
-					{content: "Genre", classes: "moon-header-font"},
-					{name: "genre", classes: "moon-super-header-text"}
+					{content: "Genre", classes: "moon-sub-header-text"},
+					{name: "genre", classes: "moon-body-text"}
 				]}
 			]}
 		]},
-		{kind: "moon.Divider", content: "SONGS", classes: "moon-divider album-sample-tracks"},
-		{kind: "moon.Scroller", fit: true, classes: "album-sample-tracks-listing", components: [
+		{kind: "moon.Divider", content: "SONGS", classes: "moon-divider"},
+		{kind: "moon.Scroller", fit: true, classes: "moon-body-text-spacing", components: [
 			{name: "trackInfo", kind: "moon.DataTable", style: "width: 100%;", components: [
-				{spotlight: true, ontap: "changeTrackName", classes: "moon-header-font", components: [
-					{name: "number", classes: "moon-super-header-bold-text"},
-					{name: "name", classes: "moon-super-header-bold-text"},
-					{name: "duration"}
+				{spotlight: true, ontap: "changeTrackName", components: [
+					{name: "number", classes: "moon-sub-header-text"},
+					{name: "name", classes: "moon-sub-header-text"},
+					{name: "duration", classes: "moon-body-text"}
 				],
 				bindings: [
 					{from: ".model.number", to: ".$.number.content"},

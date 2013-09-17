@@ -3,27 +3,3 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-
-.album-sample {
-	margin-bottom: 40px;
-}
-
-.album-sample-tracks > * {
-  margin-left: 5px;
-}
-
-.album-sample-tracks-listing > * {
-  margin-left: 20px;
-}
-
-/*
-	Used for text with bold header.
-	This could be proposed for integration with moonstone CSS.
-*/
-.moon-super-header-bold-text {
-  font-family: "Miso";
-  font-size: 36px;
-  font-weight: bold;
-  font-style: normal;
-  letter-spacing: -0.05em;
-}
