@@ -56,7 +56,7 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		
-		if (!this.getOpen()) {
+		if (this.generated && !this.getOpen()) {
 			this.updateValue();
 		}
 	},
