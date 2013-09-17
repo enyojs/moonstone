@@ -151,13 +151,11 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		//sup.apply(this, arguments);
 		this.$.scroller.addClass("spotlight");
 		this.$.downArrowContainer.addClass("spotlight");
 		this.$.upArrowContainer.addClass("spotlight");
 	},
 	spotlightBlur: function() {
-		//sup.apply(this, arguments);
 		this.$.scroller.removeClass("spotlight");
 		this.$.downArrowContainer.removeClass("spotlight");
 		this.$.upArrowContainer.removeClass("spotlight");
