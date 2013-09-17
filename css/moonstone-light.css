@@ -3978,6 +3978,9 @@
   vertical-align: middle;
   margin: 0 10px;
 }
+.moon-hspacing.top > * {
+  vertical-align: top;
+}
 .moon-hspacing > :first-child {
   margin-left: 0;
 }
