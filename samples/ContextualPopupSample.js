@@ -20,7 +20,7 @@ enyo.kind({
 			]
 		},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 0px;", components: [
-			{content:"Small"},
+			{content:"Small", small:true},
 			{kind: "moon.ContextualPopup"}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 45%;", components: [
@@ -33,7 +33,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 45%;", components: [
-			{content:"Long Button with truncation"},
+			{content:"Long but Small Button with truncation", small:true},
 			{kind: "moon.ContextualPopup", components: [
 				{classes: "moon-3h moon-16v", components: [
 					{kind: "moon.Scroller", classes: "enyo-fill", components: [
@@ -98,7 +98,7 @@ enyo.kind({
 			}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style: "position: absolute; right: 0px; bottom: 0px;", components: [
-			{content: "Spottable"},
+			{content: "Spottable", small:true},
 			{
 				kind: "moon.ContextualPopup",
 				classes: "moon-8h moon-4v",

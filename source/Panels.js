@@ -118,7 +118,37 @@ enyo.kind({
 		oPanel.render();
 		this.resized();
 	},
+	/** Returns the panel index of a control contained within a panel, or -1 otherwise */
+	getPanelIndex: function(oControl) {
+		var oPanel = null;
 
+		while (oControl.parent) {
+			// Parent of a panel can be a client or a panels.
+			if (oControl.parent === this.$.client || oControl.parent === this) {
+				oPanel = oControl;
+				break;
+			}
+			oControl = oControl.parent;
+		}
+
+		if (oPanel) {
+			for (var n=0; n<this.getPanels().length; n++) {
+				if (this.getPanels()[n] == oPanel) {
+					return n;
+				}
+			}
+		}
+
+		return -1;
+	},
+	/** Returns true if the control is a child panel of this _moon.Panels_ */
+	isPanel: function(inControl) {
+		for (var n=0; n<this.getPanels().length; n++) {
+			if (this.getPanels()[n] == inControl) {
+				return true;
+			}
+		}
+	},
 
 	//* @protected
 
@@ -256,36 +286,6 @@ enyo.kind({
 			// If leaving to the right and handle is not enabled, go to next panel
 			else if (this.getIndex() < this.getPanels().length - 1) {
 				this.next();
-				return true;
-			}
-		}
-	},
-	/** Gets index of a panel by its reference. */
-	getPanelIndex: function(oControl) {
-		var oPanel = null;
-
-		while (oControl.parent) {
-			// Parent of a panel can be a client or a panels.
-			if (oControl.parent === this.$.client || oControl.parent === this) {
-				oPanel = oControl;
-				break;
-			}
-			oControl = oControl.parent;
-		}
-
-		if (oPanel) {
-			for (var n=0; n<this.getPanels().length; n++) {
-				if (this.getPanels()[n] == oPanel) {
-					return n;
-				}
-			}
-		}
-
-		return -1;
-	},
-	isPanel: function(inControl) {
-		for (var n=0; n<this.getPanels().length; n++) {
-			if (this.getPanels()[n] == inControl) {
 				return true;
 			}
 		}
