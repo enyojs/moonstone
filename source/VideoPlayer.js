@@ -130,13 +130,13 @@ enyo.kind({
 		{from: ".constrainToBgProgress",	to:".$.slider.constrainToBgProgress"},
 		{from: ".elasticEffect",			to:".$.slider.elasticEffect"}
     ],
-	
+
 	//* @protected
 
 	_isPlaying: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
-	
+
 	components: [
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
 		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
@@ -146,14 +146,14 @@ enyo.kind({
 		},
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
-		
+
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
-			
+
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", onSpotlightUp: "showFSInfoWithPreventEvent", onSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
-			
+
 					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", onSpotlightLeft: "preventEvent"},
-				
+
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", components: [
 							{classes: "moon-video-player-control-buttons", components: [
@@ -166,14 +166,14 @@ enyo.kind({
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
-				
+
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", onSpotlightRight: "preventEvent", components: [
 						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
-			
+
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
+					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish",
 						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
 					}
 				]}
@@ -193,19 +193,21 @@ enyo.kind({
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.createInfoControls();
-		this.inlineChanged();
-		this.showInfoChanged();
-		this.autoShowInfoChanged();
-		this.autoShowControlsChanged();
-		this.autoplayChanged();
-		this.updateMoreButton();
-		this.showPlaybackControlsChanged();
-		this.showProgressBarChanged();
-		this.jumpSecChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.createInfoControls();
+			this.inlineChanged();
+			this.showInfoChanged();
+			this.autoShowInfoChanged();
+			this.autoShowControlsChanged();
+			this.autoplayChanged();
+			this.updateMoreButton();
+			this.showPlaybackControlsChanged();
+			this.showProgressBarChanged();
+			this.jumpSecChanged();
+		};
+	}),
 	showPlaybackControlsChanged: function(inOld) {
 		var lastControl = (this.getClientControls().length>0) ? this.getClientControls()[this.getClientControls().length-1] : {};
 		//* Prevent spotlight event for each cases
@@ -258,32 +260,31 @@ enyo.kind({
 	createInfoControls: function() {
 		this.$.videoInfoHeader.createComponents(this.infoComponents);
 	},
-	createClientComponents: function(inComponents) {
-		this.clientComponentsCount = (inComponents) ? inComponents.length : 0;
-		if (!this._buttonsSetup) {
-			this._buttonsSetup = true;
-			if (!inComponents || inComponents.length === 0) {
-				// No components - destroy more button
-				this.$.leftPremiumPlaceHolder.hide();
-				this.$.rightPremiumPlaceHolder.hide();		
-				this.$.moreButton.hide();			
-			} else if (inComponents.length <= 2) {
-				// One or two components - destroy more button and utilize left/right premium placeholders
-				this.$.moreButton.hide();
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
-				if (inComponents.length === 1) {
-					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+	createClientComponents: enyo.inherit(function(sup) {
+		return function(inComponents) {
+			this.clientComponentsCount = (inComponents) ? inComponents.length : 0;
+			if (!this._buttonsSetup) {
+				this._buttonsSetup = true;
+				if (!inComponents || inComponents.length === 0) {
+					// No components - destroy more button
+					this.$.leftPremiumPlaceHolder.hide();
+					this.$.rightPremiumPlaceHolder.hide();
+					this.$.moreButton.hide();
+				} else if (inComponents.length <= 2) {
+					// One or two components - destroy more button and utilize left/right premium placeholders
+					this.$.moreButton.hide();
+					this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+					if (inComponents.length === 1) {
+						this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+					}
+					// Create the rest of the components in the client (panels)
+					this.createComponents(inComponents, {owner: this.getInstanceOwner()});
+				} else {
+					sup.apply(this, arguments);
 				}
-			} else {
-				// More than two components - use extra panel, with left premium plaeholder for first component
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 			}
-			// Create the rest of the components in the client (panels)
-			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
-		} else {
-			this.inherited(arguments);
-		}
-	},
+		};
+	}),
 	playIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
@@ -452,7 +453,7 @@ enyo.kind({
 				//* Fixed index
 				this.$.controlsContainer.setIndex(1);
 			}
-			
+
 			//* Initial spot
 			if (this.showPlaybackControls) {
 				enyo.Spotlight.spot(this.$.fsPlayPause);
@@ -460,7 +461,7 @@ enyo.kind({
 				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
 				enyo.Spotlight.spot(oTarget);
 			}
-			
+
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
 				this.sendFeedback("Pause");
@@ -706,13 +707,13 @@ enyo.kind({
 			videoAspectRatio = null,
 			ratio = 1
 		;
-		
+
 		if (!node && aspectRatio == "0:0") {
 			return;
 		}
 
 		videoAspectRatio = aspectRatio.split(":");
-		
+
 		// If height but no width defined, update width based on aspect ratio
 		if (node.style.height && !node.style.width) {
 			ratio = videoAspectRatio[0] / videoAspectRatio[1];
@@ -811,11 +812,11 @@ enyo.kind({
 			endPoint = 0,
 			i
 		;
-		
+
 		if (duration === 0 || isNaN(duration)) {
 			return {value: 0, percent: 0};
 		}
-		
+
 		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
 		for (i = 0; i < numberOfBuffers; i++) {
 			endPoint = bufferData.end(i);
@@ -827,7 +828,7 @@ enyo.kind({
 	_progress: function(inSender, inEvent) {
 		var buffered = this._getBufferedProgress(inEvent.srcElement);
 		if (this.isFullscreen() || !this.getInline()) {
-			this.$.slider.setBgProgress(buffered.value); 
+			this.$.slider.setBgProgress(buffered.value);
 		} else {
 			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
 		}

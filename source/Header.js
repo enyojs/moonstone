@@ -37,21 +37,25 @@ enyo.kind({
 		{name: "client", classes: "moon-hspacing moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.smallChanged();
-		this.titleChanged();
-		this.titleAboveChanged();
-		this.titleBelowChanged();
-		this.subTitleBelowChanged();
-		this.allowHtmlChanged();
-		this.backgroundSrcChanged();
-		this.backgroundPositionChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.startMarquee();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.smallChanged();
+			this.titleChanged();
+			this.titleAboveChanged();
+			this.titleBelowChanged();
+			this.subTitleBelowChanged();
+			this.allowHtmlChanged();
+			this.backgroundSrcChanged();
+			this.backgroundPositionChanged();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.startMarquee();
+		};
+	}),
 	startMarquee: function() {
 		this.$.texts.startMarquee();
 	},

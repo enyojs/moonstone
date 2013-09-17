@@ -39,9 +39,6 @@ enyo.kind({
 		arrangerKind: "moon.IntegerPickerArranger", name:"client", onTransitionFinish:"transitionFinished"}
 	],
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-	},
 	rendered: function() {
 		this.rangeChanged();
 		if (this.value){
@@ -90,20 +87,26 @@ enyo.kind({
 		this.rangeChanged();
 		this.render();
 	},
-	selectedChanged: function(inOld) {
-		this.inherited(arguments);
-		this.value = parseInt(this.selected.content, 10);
-	},
+	selectedChanged: enyo.inherit(function(sup) {
+		return function(inOld) {
+			sup.apply(this, arguments);
+			this.value = parseInt(this.selected.content, 10);
+		};
+	}),
 	//* Overrides _moon.SimplePicker.disabledChanged()_
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 	},
-	previous: function() {
-		this.inherited(arguments);
-		return true;
-	},
-	next: function() {
-		this.inherited(arguments);
-		return true;
-	}
+	previous: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			return true;
+		};
+	}),
+	next: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			return true;
+		};
+	})
 });

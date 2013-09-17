@@ -33,10 +33,12 @@ enyo.kind({
 		onSpotlightFocused	: "spotFocused"
 	},
 	//* On creation, updates based on value of _this.small_.
-	initComponents: function() {
-		this.updateSmall();
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.updateSmall();
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Adds _pressed_ CSS class.
 	depress: function() {
 		this.addClass('pressed');
@@ -64,7 +66,7 @@ enyo.kind({
 			this.addClass('moon-small-button-text');
 			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
 			if (this.marquee && !(this.components && this.components.length > 0)) {
-				this.createComponent({name: "client", classes: "button-client", 
+				this.createComponent({name: "client", classes: "button-client",
 					kind:"moon.MarqueeText", isChrome: true
 				});
 			} else {
@@ -74,7 +76,7 @@ enyo.kind({
 			this.removeClass('small');
 			this.removeClass('moon-small-button-text');
 			if (this.marquee && !(this.components && this.components.length > 0)) {
-				this.createComponent({name: "client", classes: "button-client", 
+				this.createComponent({name: "client", classes: "button-client",
 					kind:"moon.MarqueeText", isChrome: true
 				});
 			}
@@ -88,11 +90,13 @@ enyo.kind({
 		this.render();
 	},
 	//* Override to handle potential child components.
-	contentChanged: function() {
-		if (this.$.client) {
-			this.$.client.setContent(this.getContent());
-		} else {
-			this.inherited(arguments);
-		}
-	}
+	contentChanged: enyo.inherit(function(sup) {
+		return function() {
+			if (this.$.client) {
+				this.$.client.setContent(this.getContent());
+			} else {
+				sup.apply(this, arguments);
+			}
+		};
+	})
 });

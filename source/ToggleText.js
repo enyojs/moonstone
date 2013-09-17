@@ -19,14 +19,18 @@ enyo.kind({
 	components: [
 		{name: "label", classes: "moon-toggle-text-text"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.checkedChanged();
-	},
-	checkedChanged: function() {
-		this.inherited(arguments);
-		this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.checkedChanged();
+		};
+	}),
+	checkedChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
+		};
+	}),
 	shouldDoTransition: function(inChecked) {
 		return true;
 	},

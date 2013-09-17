@@ -17,16 +17,18 @@ enyo.kind({
 		value: null,
 		color: 0
 	},
-	create: function() {
-		this.inherited(arguments);
-		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({
-				type: "date",	//only format the date component, not the time
-				date: "d",		//'d' is the date of month
-				length: "short"	//it uses 2 chars to abbreviate properly
-			});	
-		}
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (typeof ilib !== "undefined") {
+				this._tf = new ilib.DateFmt({
+					type: "date",	//only format the date component, not the time
+					date: "d",		//'d' is the date of month
+					length: "short"	//it uses 2 chars to abbreviate properly
+				});
+			}
+		};
+	}),
 	colorChanged: function(inOld) {
 		this.addRemoveClass("moon-calendar-picker-date-shadow", this.color);
 	},
@@ -93,31 +95,33 @@ enyo.kind({
 		{name: "days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.initMonthPicker();
-		this.initDays();
-		this.initCalendar();
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.initMonthPicker();
+			this.initDays();
+			this.initCalendar();
 
-		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({
-				type: "date",	//only format the date component, not the time
-				date: "w",		//'w' is the day of the week
-				length: "medium"//it uses 3 chars to abbreviate properly
-			});	
+			if (typeof ilib !== "undefined") {
+				this._tf = new ilib.DateFmt({
+					type: "date",	//only format the date component, not the time
+					date: "w",		//'w' is the day of the week
+					length: "medium"//it uses 3 chars to abbreviate properly
+				});
 
-			this.ilibLocaleInfo = new ilib.LocaleInfo();
-			this.setLocale(this.ilibLocaleInfo.locale);
-		} 
-		this.initDefaults();	
-	},
+				this.ilibLocaleInfo = new ilib.LocaleInfo();
+				this.setLocale(this.ilibLocaleInfo.locale);
+			}
+			this.initDefaults();
+		};
+	}),
 	initDefaults: function() {
 		this.setValue(this.value || new Date());
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			var dayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
 			this.setFirstDayOfWeek(dayOfWeek);
-		} 
+		}
 		this.updateDays();
 	},
 	/**
@@ -139,12 +143,12 @@ enyo.kind({
 		var days = this.days;
 		for(var i = 0; i < days.length; i++) {
 			this.$.days.createComponent({
-				kind: "moon.Button", 
+				kind: "moon.Button",
 				classes: "moon-calendar-picker-day",
-				disabled: true, 
+				disabled: true,
 				content: days[i]
 			});
-		}		
+		}
 	},
 	/**
 		Compose calendar with number of calendarDate
@@ -164,7 +168,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Month name could be various depends on 
+		Month name could be various depends on
 	*/
 	updateMonthPicker: function() {
 		if (typeof ilib !== "undefined") {
@@ -182,7 +186,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Update days of the week from first day to last day.		
+		Update days of the week from first day to last day.
 	*/
 	updateDays: function() {
 		var days = this.days;
@@ -215,7 +219,7 @@ enyo.kind({
 			}
 			return i;
 		}
-		return 0;		
+		return 0;
 	},
 	/**
 		Sets up the last week of this month.
@@ -280,7 +284,7 @@ enyo.kind({
 			newValue = new Date(value.getFullYear(), value.getMonth(), newDate);
 		}
 		this.setValue(newValue);
-	},	
+	},
 	/**
 		Select a control in calendar with tapping a date button in calendar
 	*/
@@ -288,7 +292,7 @@ enyo.kind({
 		if (inEvent.originator.owner.kind == "moon.CalendarPickerDate") {
 			var newValue = inEvent.originator.owner.value;
 			this.setValue(newValue);
-		}		
+		}
 		return true;
 	},
 	/**
@@ -300,18 +304,18 @@ enyo.kind({
 	},
 	/**
 		Returns number of days in a particular month/year.
-		@param inYear 
-		@param inMonth 
+		@param inYear
+		@param inMonth
 		@return Number of dates in given year and month
 	*/
 	getMonthLength: function(inYear, inMonth) {
 		if (typeof ilib !== "undefined") {
-			var d = ilib.Date.newInstance({unixtime: this.value.getTime()}); 
+			var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
 			var cal = ilib.Cal.newInstance({name: d.getCalendar()});
 			return cal.getMonLength(inMonth + 1, inYear);
 		} else {
-			return 32 - new Date(inYear, inMonth, 32).getDate();	
-		}		
+			return 32 - new Date(inYear, inMonth, 32).getDate();
+		}
 	},
 	localeChanged: function() {
 		if (typeof ilib !== "undefined") {
@@ -321,7 +325,7 @@ enyo.kind({
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
 				length: "medium"//it uses 3 chars to abbreviate properly
-			});	
+			});
 		}
 		this.updateMonthPicker();
 		this.initDefaults();
@@ -337,15 +341,15 @@ enyo.kind({
 			this.doChange({value: this.value});
 		}
 	},
-	/** 
+	/**
 		Sometimes first day of week is channged based on locale changing.
 		In this case, destroy day label and reconsturct it.
-		Create new ilib.Date instance with time of given day, and get Gregorian 
+		Create new ilib.Date instance with time of given day, and get Gregorian
 		date instance that represents the first date of the week.
-			
+
 	*/
 	firstDayOfWeekChanged: function() {
-		var d = ilib.Date.newInstance({unixtime: this.value.getTime()}); 
+		var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
 		var firstDate = d.onOrBefore(this.firstDayOfWeek);
 		var firstTime = firstDate.getTime();	//get unix time
 		var days = [];

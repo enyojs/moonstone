@@ -18,7 +18,7 @@ enyo.kind({
 	published: {
 		//* Optional minimum year value
 		minYear: 1900,
-		//* Optional maximum year value		
+		//* Optional maximum year value
 		maxYear: 2099,
 		//* Optional label for day
 		dayText: "day",
@@ -30,49 +30,51 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: "date",
 	defaultOrdering: "mdy",
-	setupPickers: function(ordering) {
-		var orderingArr = ordering.toLowerCase().split("");
-		var doneArr = [];
-		var o,f,l;
-		for(f = 0, l = orderingArr.length; f < l; f++) {
-			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {               
-				doneArr.push(o);
+	setupPickers: enyo.inherit(function(sup) {
+		return function(ordering) {
+			var orderingArr = ordering.toLowerCase().split("");
+			var doneArr = [];
+			var o,f,l;
+			for(f = 0, l = orderingArr.length; f < l; f++) {
+				o = orderingArr[f];
+				if (doneArr.indexOf(o) < 0) {
+					doneArr.push(o);
+				}
 			}
-		}
 
-		for(f = 0, l = doneArr.length; f < l; f++) {
-			o = doneArr[f];
+			for(f = 0, l = doneArr.length; f < l; f++) {
+				o = doneArr[f];
 
-			switch (o) {
-			case 'd':
-				this.createComponent(
-					{classes: "moon-date-picker-wrap", components:[
-						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-field", min:1,
-						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()},
-						{name: "dayLabel", content: this.dayText || "day", classes: "moon-date-picker-label moon-divider-text"}
-					]});
-				break;
-			case 'm':
-				this.createComponent(
-					{classes: "moon-date-picker-wrap", components:[
-						{kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-field", min:1, max:12, value:this.value.getMonth()+1},
-						{name: "monthLabel", content: this.monthText || "month", classes: "moon-date-picker-label moon-divider-text"}
-					]});
-				break;
-			case 'y':
-				this.createComponent(
-					{classes: "moon-date-picker-wrap year", components:[
-						{kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear},
-						{name: "yearLabel", content: this.yearText || "year", classes: "moon-date-picker-label moon-divider-text"}
-					]});
-				break;
-			default:
-				break;
+				switch (o) {
+				case 'd':
+					this.createComponent(
+						{classes: "moon-date-picker-wrap", components:[
+							{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-field", min:1,
+							max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()},
+							{name: "dayLabel", content: this.dayText || "day", classes: "moon-date-picker-label moon-divider-text"}
+						]});
+					break;
+				case 'm':
+					this.createComponent(
+						{classes: "moon-date-picker-wrap", components:[
+							{kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-field", min:1, max:12, value:this.value.getMonth()+1},
+							{name: "monthLabel", content: this.monthText || "month", classes: "moon-date-picker-label moon-divider-text"}
+						]});
+					break;
+				case 'y':
+					this.createComponent(
+						{classes: "moon-date-picker-wrap year", components:[
+							{kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear},
+							{name: "yearLabel", content: this.yearText || "year", classes: "moon-date-picker-label moon-divider-text"}
+						]});
+					break;
+				default:
+					break;
+				}
 			}
-		}
-		this.inherited(arguments);
-	},
+			sup.apply(this, arguments);
+		};
+	}),
 	formatValue: function() {
 		if (this._tf) {
 			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));

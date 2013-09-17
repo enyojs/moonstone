@@ -17,21 +17,25 @@ enyo.kind({
 	kind: "enyo.RichText",
 	//* @protected
 	classes: "moon-richtext",
-	create: function() {
-		this.inherited(arguments);
-		this.disabledChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.disabledChanged();
+		};
+	}),
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
 		}
 	},
-	disabledChanged: function() {
-		this.inherited(arguments);
-		if (this.disabled) {
-			this.attributes.contenteditable = false;
-		}
-	},
+	disabledChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.disabled) {
+				this.attributes.contenteditable = false;
+			}
+		};
+	}),
 	left: function() {
 		var sel = this.getSelection();
 		if (sel.rangeCount) {

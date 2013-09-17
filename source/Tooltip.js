@@ -25,7 +25,7 @@ enyo.kind({
 		//* causes the tooltip to appear.
 		showDelay: 500,
 		//* Whether to position the tooltip above or below the activator.  Valid values are
-		//* "above", "below", or "auto" to choose the best position based on 
+		//* "above", "below", or "auto" to choose the best position based on
 		position: "auto",
 		//* Default _margin-left_ value
 		defaultLeft: 10
@@ -38,14 +38,18 @@ enyo.kind({
 	tools: [
 		{name: "client", classes: "moon-tooltip-label moon-header-font"}
 	],
-	initComponents: function() {
-		this.createChrome(this.tools);
-		this.inherited(arguments);
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.contentChanged();
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.createChrome(this.tools);
+			sup.apply(this, arguments);
+		};
+	}),
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.contentChanged();
+		};
+	}),
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
 	},
@@ -56,15 +60,19 @@ enyo.kind({
 	cancelShow: function() {
 		this.stopJob("showJob");
 	},
-	requestHide: function() {
-		this.cancelShow();
-		return this.inherited(arguments);
-	},
-	showingChanged: function() {
-		this.cancelShow();
-		this.inherited(arguments);
-		this.adjustPosition(true);
-	},
+	requestHide: enyo.inherit(function(sup) {
+		return function() {
+			this.cancelShow();
+			return sup.apply(this, arguments);
+		};
+	}),
+	showingChanged: enyo.inherit(function(sup) {
+		return function() {
+			this.cancelShow();
+			sup.apply(this, arguments);
+			this.adjustPosition(true);
+		};
+	}),
 	applyPosition: function(inRect) {
 		var s = "";
 		for (var n in inRect) {
@@ -82,7 +90,7 @@ enyo.kind({
 				this.removeClass("below");
 				this.addClass("above");
 				this.applyStyle("top", -b.height + "px");
-			} 
+			}
 			if ((b.top  < 0) || (this.position == "below")) {
 				this.removeClass("above");
 				this.addClass("below");
@@ -111,14 +119,16 @@ enyo.kind({
 			}
 		}
 	},
-	resizeHandler: function() {
-		//reset the tooltip to align its left edge with the decorator
-		this.applyPosition({"margin-left": this.defaultLeft, "bottom": "auto"});
-		this.addRemoveClass("left-arrow", true);
-		this.addRemoveClass("right-arrow", false);
-		this.applyStyle("top", "100%");
-		this.$.client.addRemoveClass("right-arrow", false);
-		this.adjustPosition(true);
-		this.inherited(arguments);
-	}
+	resizeHandler: enyo.inherit(function(sup) {
+		return function() {
+			//reset the tooltip to align its left edge with the decorator
+			this.applyPosition({"margin-left": this.defaultLeft, "bottom": "auto"});
+			this.addRemoveClass("left-arrow", true);
+			this.addRemoveClass("right-arrow", false);
+			this.applyStyle("top", "100%");
+			this.$.client.addRemoveClass("right-arrow", false);
+			this.adjustPosition(true);
+			sup.apply(this, arguments);
+		};
+	})
 });

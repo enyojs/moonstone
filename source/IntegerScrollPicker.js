@@ -65,14 +65,13 @@ enyo.kind({
 		]}
 	],
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-	},
-	rendered: function(){
-		this.inherited(arguments);
-		this.rangeChanged();
-		this.refreshScrollState();
-	},
+	rendered: enyo.inherit(function(sup) {
+		return function(){
+			sup.apply(this, arguments);
+			this.rangeChanged();
+			this.refreshScrollState();
+		};
+	}),
 	refreshScrollState: function() {
 		this.updateScrollBounds();
 		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
@@ -152,13 +151,11 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		//this.inherited(arguments);
 		this.$.scroller.addClass("spotlight");
 		this.$.downArrowContainer.addClass("spotlight");
 		this.$.upArrowContainer.addClass("spotlight");
 	},
 	spotlightBlur: function() {
-		//this.inherited(arguments);
 		this.$.scroller.removeClass("spotlight");
 		this.$.downArrowContainer.removeClass("spotlight");
 		this.$.upArrowContainer.removeClass("spotlight");

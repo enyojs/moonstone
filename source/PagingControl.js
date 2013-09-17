@@ -29,22 +29,24 @@ enyo.kind({
 	maxDelta: 100,
 	tapDelta: 15,
 	bumpDeltaMultiplier: 3,
-	
-	create: function() {
-		this.inherited(arguments);
-		this.sideChanged();
-	},
-	
+
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.sideChanged();
+		};
+	}),
+
 	//* @public
-	
+
 	hitBoundary: function() {
 		this.stopHoldJob();
 		this.downTime = null;
 		this.doPaginate({scrollDelta: this.delta * this.bumpDeltaMultiplier});
 	},
-	
+
 	//* @protected
-	
+
 	//* Set this control's CSS class based on its _side_ value.
 	sideChanged: function() {
 		var s = this.getSide();
@@ -57,7 +59,7 @@ enyo.kind({
 		if (this.hasClass("hidden")) {
 			return;
 		}
-		
+
 		this.downTime = enyo.bench();
 		this.delta = this.initialDelta;
 	},
@@ -72,27 +74,27 @@ enyo.kind({
 		if (!this.downTime) {
 			return;
 		}
-		
+
 		this.stopHoldJob();
 		this.sendPaginateEvent();
 		this.downTime = null;
 	},
 	startHoldJob: function() {
 		this.stopHoldJob();
-		
+
 		var t0 = enyo.bench(),
 			t = 0
 		;
-		
+
 		var fn = this.bindSafely(function() {
 			this.job = enyo.requestAnimationFrame(fn);
-			
+
 			t = (enyo.bench() - t0)/1000;
 			this.delta = Math.min(this.maxDelta, this.delta + (0.1 * Math.pow(t, 1.1)));
-			
+
 			this.doPaginateScroll({scrollDelta: this.delta});
 		});
-		
+
 		this.job = enyo.requestAnimationFrame(fn);
 	},
 	stopHoldJob: function() {
@@ -102,7 +104,7 @@ enyo.kind({
 		var tapThreshold = 200,
 			timeElapsed = enyo.bench() - this.downTime,
 			delta = (timeElapsed <= tapThreshold) ? this.tapDelta : this.delta;
-		
+
 		this.doPaginate({scrollDelta: delta});
 	},
 	//* Override default focused handling to make sure scroller doesn't scroll to this button.

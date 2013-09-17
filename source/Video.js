@@ -75,20 +75,22 @@ enyo.kind({
 	},
 	tag: "video",
 	//* @protected
-	
+
 	_playbackRateArray: null,
 	_speedIndex: 0,
 
-	create: function() {
-		this.inherited(arguments);
-		this.posterChanged();
-		this.showControlsChanged();
-		this.preloadChanged();
-		this.autoplayChanged();
-		this.loopChanged();
-		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
-		this.disableTransform(this);
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.posterChanged();
+			this.showControlsChanged();
+			this.preloadChanged();
+			this.autoplayChanged();
+			this.loopChanged();
+			// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
+			this.disableTransform(this);
+		};
+	}),
 	disableTransform: function(control) {
 		control.preventTransform = true;
 		control.preventAccelerate = true;
@@ -96,10 +98,12 @@ enyo.kind({
 			this.disableTransform(control.parent);
 		}
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.hookupVideoEvents();
-	},
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.hookupVideoEvents();
+		};
+	}),
 	posterChanged: function() {
 		if (this.poster) {
 			var path = enyo.path.rewrite(this.poster);
@@ -126,9 +130,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-	},
-	srcChanged: function() {
-		this.inherited(arguments);
 	},
 	//* @public
 	play: function() {
@@ -196,7 +197,7 @@ enyo.kind({
 		}
 
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
-		
+
 	},
 	rewind: function() {
 		var node = this.hasNode();
@@ -235,7 +236,7 @@ enyo.kind({
 			break;
 		}
 
-		
+
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 	},
 	jumpBackward: function() {
@@ -357,7 +358,7 @@ enyo.kind({
 	getSeeking: function() {
 		return this.hasNode() ? this.hasNode().seeking : -1;
 	},
-	
+
 	//* @protected
 
 	//* Custom rewind functionality until browsers support negative playback rate
@@ -373,7 +374,7 @@ enyo.kind({
 			adjustedDistance = Math.abs(distance * pbRate) / 1000,
 			newTime = this.getCurrentTime() - adjustedDistance
 		;
-		
+
 		this.setCurrentTime(newTime);
 		this.startRewindJob();
 	},
@@ -454,7 +455,7 @@ enyo.kind({
 	//* Emit _onPlay_ event (to normalize enyo-generated _onPlay_ events)
 	_play: function(inSender, inEvent) {
 		var node = this.hasNode();
-		
+
 		if (!node) {
 			return;
 		}

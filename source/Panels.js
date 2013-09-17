@@ -154,24 +154,28 @@ enyo.kind({
 
 	//* @protected
 
-	initComponents: function() {
-		this.applyPattern();
-		this.inherited(arguments);
-		this.initializeShowHideHandle();
-		this.handleShowingChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.applyPattern();
+			sup.apply(this, arguments);
+			this.initializeShowHideHandle();
+			this.handleShowingChanged();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		// Direct hide if not showing and using handle
-		if (this.useHandle === true) {
-			if (this.showing) {
-				this._directShow();
-			} else {
-				this._directHide();
+			// Direct hide if not showing and using handle
+			if (this.useHandle === true) {
+				if (this.showing) {
+					this._directShow();
+				} else {
+					this._directHide();
+				}
 			}
-		}
-	},
+		};
+	}),
 	onTap: function(oSender, oEvent) {
 		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
 			return;
@@ -426,27 +430,31 @@ enyo.kind({
 		}
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
-	indexChanged: function() {
-		var activePanel = this.getActive();
+	indexChanged: enyo.inherit(function(sup) {
+		return function() {
+			var activePanel = this.getActive();
 
-		if (activePanel && activePanel.isBreadcrumb) {
-			activePanel.removeSpottableBreadcrumbProps();
-		}
+			if (activePanel && activePanel.isBreadcrumb) {
+				activePanel.removeSpottableBreadcrumbProps();
+			}
 
-		this.inherited(arguments);
-	},
-	finishTransition: function(sendEvents) {
-		this.inherited(arguments);
+			sup.apply(this, arguments);
+		};
+	}),
+	finishTransition: enyo.inherit(function(sup) {
+		return function(sendEvents) {
+			sup.apply(this, arguments);
 
-		if (this.queuedIndex !== null) {
-			this.setIndex(this.queuedIndex);
-		}
-		if (this._initialTransition) {
-			this._initialTransition = false;
-		} else {
-			enyo.Spotlight.spot(this.getActive());
-		}
-	},
+			if (this.queuedIndex !== null) {
+				this.setIndex(this.queuedIndex);
+			}
+			if (this._initialTransition) {
+				this._initialTransition = false;
+			} else {
+				enyo.Spotlight.spot(this.getActive());
+			}
+		};
+	}),
 	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
 	getShowing: function() {
 		return this.showing;
@@ -465,19 +473,20 @@ enyo.kind({
 			return true;
 		}
 	},
-	showingChanged: function() {
-		if (this.useHandle === true) {
-			if (this.showing) {
-				this._show();
+	showingChanged: enyo.inherit(function(sup) {
+		return function() {
+			if (this.useHandle === true) {
+				if (this.showing) {
+					this._show();
+				}
+				else {
+					this._hide();
+				}
+				return;
 			}
-			else {
-				this._hide();
-			}
-			return;
-		}
-
-		this.inherited(arguments);
-	},
+			sup.apply(this, arguments);
+		};
+	}),
 	applyPattern: function() {
 		switch (this.pattern) {
 		case "alwaysviewing":

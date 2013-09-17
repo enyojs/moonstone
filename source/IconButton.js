@@ -35,10 +35,12 @@ enyo.kind({
 		//* used to request it is in view in scrollers
 		onSpotlightFocused: "spotlightFocused"
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.activeChanged();
-	},
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.activeChanged();
+		};
+	}),
 	tap: function() {
 		if (this.disabled) {
 			return true;

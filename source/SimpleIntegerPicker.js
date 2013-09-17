@@ -97,15 +97,19 @@ enyo.kind({
 
 	//* @protected
 
-	create: function() {
-		this.inherited(arguments);
-		this.populateIndexhash();
-		this.disabledChanged();
-	},
-	rendered: function() {
-		this.valueChanged();
-		this.inherited(arguments);
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.populateIndexhash();
+			this.disabledChanged();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			this.valueChanged();
+			sup.apply(this, arguments);
+		};
+	}),
 	populateIndexhash: function() {
 		this.indexhash = [];
 		var valueValid = false;
@@ -144,22 +148,24 @@ enyo.kind({
 		this.value = (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().value : this.value;
 	},
 	//* On reflow, update the bounds of _this.$.client_
-	reflow: function() {
-		this.inherited(arguments);
+	reflow: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		// Find max width of all children
-		if (this.getAbsoluteShowing()) {
-			var width = 0;
-			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
+			// Find max width of all children
+			if (this.getAbsoluteShowing()) {
+				var width = 0;
+				for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+					width = Math.max(width, c$[i].getBounds().width);
+				}
+				this.$.client.setBounds({width:width});
+				for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+					c$[i].setBounds({width:width});
+				}
+				this.$.client.reflow();
 			}
-			this.$.client.setBounds({width:width});
-			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				c$[i].setBounds({width:width});
-			}
-			this.$.client.reflow();
-		}
-	},
+		};
+	}),
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
 			this.$.leftOverlay.show();

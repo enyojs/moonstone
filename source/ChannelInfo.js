@@ -1,5 +1,5 @@
 /**
-	_moon.ChannelInfo_ is a control that displays channel information. 
+	_moon.ChannelInfo_ is a control that displays channel information.
 	It is designed to be used within the _infoComponents_ block of a
 	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
 
@@ -11,7 +11,7 @@
 			name: "AMC",
 			components: [
 				{content: "3D"},
-				{content: "Live"},					
+				{content: "Live"},
 				{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 			]
 		}

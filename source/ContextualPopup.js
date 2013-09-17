@@ -36,9 +36,9 @@ enyo.kind({
 	//* @protected
 	_spotlight: null,
 	floating:true,
-	
+
 	// Layout parameters
-	
+
 	//* Vertical flush layout margin
 	vertFlushMargin:0,
 	//* Horizontal flush layout margin
@@ -55,17 +55,21 @@ enyo.kind({
 		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.
-	initComponents: function() {
-		this.createChrome(this.tools);
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function(sup) {
+		return function() {
+			this.createChrome(this.tools);
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Renders the contextual popup.
-	render: function() {
-		this.allowHtmlChanged();
-		this.contentChanged();
-		this.inherited(arguments);
-		this._spotlight = this.spotlight;
-	},
+	render: enyo.inherit(function(sup) {
+		return function() {
+			this.allowHtmlChanged();
+			this.contentChanged();
+			sup.apply(this, arguments);
+			this._spotlight = this.spotlight;
+		};
+	}),
 	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
@@ -102,11 +106,13 @@ enyo.kind({
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
-			return this.inherited(arguments);
-		}
-	},
+	tap: enyo.inherit(function(sup) {
+		return function(inSender, inEvent) {
+			if (this.downEvent.type !== "onSpotlightSelect") {
+				return sup.apply(this, arguments);
+			}
+		};
+	}),
 	closePopup: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this.activator);
 		this.$.closeButton.removeClass("pressed");

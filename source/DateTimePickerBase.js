@@ -33,7 +33,7 @@ enyo.kind({
 			This setting only applies when the iLib library is loaded.
 
 			* When iLib is not present, US English (en-US) formatting is applied.
-			
+
 			* When iLib is present and _locale_ is set to the default value (`null`),
 			the picker uses iLib's current locale (which iLib tries to determine
 			from the system).
@@ -68,11 +68,13 @@ enyo.kind({
 		]},
 		client: {kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
 	},
-	create: function() {
-		this.inherited(arguments);
-		this.createComponent({kind: "enyo.Signals", onlocalechange: "handleLocaleChangeEvent"});
-		this.initDefaults();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.createComponent({kind: "enyo.Signals", onlocalechange: "handleLocaleChangeEvent"});
+			this.initDefaults();
+		};
+	}),
 	initILib: function() {
 		var fmtParams = {
 			type: this.iLibFormatType,
@@ -135,29 +137,31 @@ enyo.kind({
 		}
 	},
 	// When _this.open_ changes, shows/hides _this.$.currentValue_.
-	openChanged: function() {
-		this.inherited(arguments);
-		var open = this.$.drawer.get("open"),
-			pickers = this.pickers,
-			i, p;
-		this.$.currentValue.setShowing(!open);
-		if (pickers) {
-			for (i = 0; i < pickers.length; i++) {
-				p = pickers[i];
-				if (p.getClientControls().length > 0) {
-					p = p.getClientControls()[0];
-				}
-				if (open) {
-					//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
-					p.refreshScrollState();
-				} else {
-					// If one of the pickers is animating when the drawer closes, it won't display properly
-					// when the drawer reopens, unless we stabilize here
-					p.stabilize();
+	openChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var open = this.$.drawer.get("open"),
+				pickers = this.pickers,
+				i, p;
+			this.$.currentValue.setShowing(!open);
+			if (pickers) {
+				for (i = 0; i < pickers.length; i++) {
+					p = pickers[i];
+					if (p.getClientControls().length > 0) {
+						p = p.getClientControls()[0];
+					}
+					if (open) {
+						//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+						p.refreshScrollState();
+					} else {
+						// If one of the pickers is animating when the drawer closes, it won't display properly
+						// when the drawer reopens, unless we stabilize here
+						p.stabilize();
+					}
 				}
 			}
-		}
-	},
+		};
+	}),
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);

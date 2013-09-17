@@ -54,18 +54,24 @@ enyo.kind({
 		{classes: "moon-checkbox-item-label-wrapper", name: "client"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.checkboxOnRightChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.checkedChanged();
-	},
-	disabledChanged: function() {
-		this.inherited(arguments);
-		this.$.input.setDisabled(this.disabled);
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.checkboxOnRightChanged();
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.checkedChanged();
+		};
+	}),
+	disabledChanged: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.input.setDisabled(this.disabled);
+		};
+	}),
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());
 	},

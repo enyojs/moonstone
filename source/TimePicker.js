@@ -65,71 +65,74 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: "time",
 	defaultOrdering: "hma",
-	initILib: function() {
-		this.inherited(arguments);
-		this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
-	},
-	setupPickers: function(ordering) {
-		var orderingArr = ordering.toLowerCase().split("");
-		var doneArr = [];
-		var o,f,l;
-		for(f = 0, l = orderingArr.length; f < l; f++) {
-			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {				
-				doneArr.push(o);
+	initILib: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
+		};
+	}),
+	setupPickers: enyo.inherit(function(sup) {
+		return function(ordering) {
+			var orderingArr = ordering.toLowerCase().split("");
+			var doneArr = [];
+			var o,f,l;
+			for(f = 0, l = orderingArr.length; f < l; f++) {
+				o = orderingArr[f];
+				if (doneArr.indexOf(o) < 0) {
+					doneArr.push(o);
+				}
 			}
-		}
 
-		for(f = 0, l = doneArr.length; f < l; f++) {
-			o = doneArr[f];
-		
-			switch (o){
-			case 'h': {
-					if (this.meridiemEnable === true) {
+			for(f = 0, l = doneArr.length; f < l; f++) {
+				o = doneArr[f];
+
+				switch (o){
+				case 'h': {
+						if (this.meridiemEnable === true) {
+							this.createComponent(
+								{classes: "moon-date-picker-wrap", components:[
+									{kind: "moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)},
+									{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+								]}
+							);
+						} else {
+							this.createComponent(
+								{classes: "moon-date-picker-wrap", components:[
+									{kind: "moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
+									{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+								]}
+							);
+						}
+					}
+					break;
+				case 'm': {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)},
-								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
-					} else {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
-								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+								{kind: "moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
+								{name: "minuteLabel", content: this.minuteText || "min", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					}
-				}
-				break;
-			case 'm': {
-					this.createComponent(
-						{classes: "moon-date-picker-wrap", components:[
-							{kind: "moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
-							{name: "minuteLabel", content: this.minuteText || "min", classes: "moon-date-picker-label moon-divider-text"}
-						]}
-					);
-				}
-				break;
-			case 'a': {
-					if (this.meridiemEnable === true) {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0 },
-								{name: "meridianLabel", content: this.meridianText || "meridian", classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
+					break;
+				case 'a': {
+						if (this.meridiemEnable === true) {
+							this.createComponent(
+								{classes: "moon-date-picker-wrap", components:[
+									{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0 },
+									{name: "meridianLabel", content: this.meridianText || "meridian", classes: "moon-date-picker-label moon-divider-text"}
+								]}
+							);
+						}
 					}
+					break;
+				default:
+					break;
 				}
-				break;
-			default:
-				break;
 			}
-		
-		}
 
-		this.inherited(arguments);
-	},
+			sup.apply(this, arguments);
+		};
+	}),
 	formatValue: function() {
 		var dateStr = "";
 		if (this._tf) {

@@ -105,31 +105,36 @@ enyo.kind({
 	},
 
 	//* @protected
-
-	create: function() {
-		this.inherited(arguments);
-		if (typeof ilib !== "undefined") {
-			this._nf = new ilib.NumFmt({type: "percentage"});
-		}
-		this.createComponents(this.moreComponents);
-		this.initValue();
-		this.disabledChanged();
-		this.knobClassesChanged();
-		this.popupLabelClassesChanged();
-		this.tapAreaClassesChanged();
-	},
-	destroy: function() {
-		if (this._nf) {
-			delete this._nf;
-		}
-		this.inherited(arguments);
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.canvasWidthChanged();
-		this.canvasHeightChanged();
-		this.drawToCanvas(this.popupColor);
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (typeof ilib !== "undefined") {
+				this._nf = new ilib.NumFmt({type: "percentage"});
+			}
+			this.createComponents(this.moreComponents);
+			this.initValue();
+			this.disabledChanged();
+			this.knobClassesChanged();
+			this.popupLabelClassesChanged();
+			this.tapAreaClassesChanged();
+		};
+	}),
+	destroy: enyo.inherit(function(sup) {
+		return function() {
+			if (this._nf) {
+				delete this._nf;
+			}
+			sup.apply(this, arguments);
+		};
+	}),
+	rendered: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.canvasWidthChanged();
+			this.canvasHeightChanged();
+			this.drawToCanvas(this.popupColor);
+		};
+	}),
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.knob.addRemoveClass("disabled", this.disabled);
@@ -224,11 +229,11 @@ enyo.kind({
 		var percent = this.calcPercent(inValue),
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue
 		;
-		
+
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
-		
+
 		this.updatePopupLabel(knobValue);
 	},
 	updatePopupLabel: function(inKnobValue) {
@@ -319,7 +324,7 @@ enyo.kind({
 		}
 	},
 	animatorStep: function(inSender) {
-		var	v = inSender.value;
+		var v = inSender.value;
 
 		this.updateKnobPosition(v);
 

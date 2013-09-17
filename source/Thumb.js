@@ -6,17 +6,19 @@ enyo.kind({
 	},
 	classes: "moon-thumb matrix3dsurface",
 
-	create: function() {
-		this.inherited(arguments);
-		var v = this.axis == "v";
-		this.offset = v ? "top" : "left";
-		this.transform = enyo.dom.canTransform();
-		this.accel = enyo.dom.canAccelerate();
-		this.translation = this.accel ? "matrix3d" : "matrix";
-		this.positionMethod = v ? "getScrollTop" : "getScrollLeft";
-		this.sizeDimension = v ? "clientHeight" : "clientWidth";
-		this.addClass("enyo-" + this.axis + "thumb");
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var v = this.axis == "v";
+			this.offset = v ? "top" : "left";
+			this.transform = enyo.dom.canTransform();
+			this.accel = enyo.dom.canAccelerate();
+			this.translation = this.accel ? "matrix3d" : "matrix";
+			this.positionMethod = v ? "getScrollTop" : "getScrollLeft";
+			this.sizeDimension = v ? "clientHeight" : "clientWidth";
+			this.addClass("enyo-" + this.axis + "thumb");
+		};
+	}),
 	update: function(inStrategy) {
 		if (this.showing && this.scrollBounds) {
 			var d = this.dimension;

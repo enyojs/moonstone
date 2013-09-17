@@ -20,11 +20,13 @@ enyo.kind({
 			]
 		}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.titleChanged();
-		this.messageChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.titleChanged();
+			this.messageChanged();
+		};
+	}),
 	titleChanged: function() {
 		this.$.title.setContent(this.title);
 	},

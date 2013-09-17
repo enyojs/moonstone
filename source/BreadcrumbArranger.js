@@ -270,27 +270,29 @@ enyo.kind({
 			}
 		}
 	},
-	start: function() {
-		this.inherited(arguments);
+	start: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		var tp = this.container.transitionPositions;
-		var panels = this.container.getPanels();
-		var panel;
-		var opacity;
-		var hiding = [];
-		for(var i=0;(panel = panels[i]);i++) {
-			opacity = panel.domStyles.opacity;
-			if (tp[i+"."+this.container.toIndex] === 0) {
-				var width = panel.getBounds().width;
-				var nextTp = tp[i+1+"."+this.container.toIndex];
-				if (width > nextTp) {
-					hiding.push(i);
+			var tp = this.container.transitionPositions;
+			var panels = this.container.getPanels();
+			var panel;
+			var opacity;
+			var hiding = [];
+			for(var i=0;(panel = panels[i]);i++) {
+				opacity = panel.domStyles.opacity;
+				if (tp[i+"."+this.container.toIndex] === 0) {
+					var width = panel.getBounds().width;
+					var nextTp = tp[i+1+"."+this.container.toIndex];
+					if (width > nextTp) {
+						hiding.push(i);
+					}
 				}
 			}
-		}
 
-		this.container.hiddenPanels = hiding;
-	},
+			this.container.hiddenPanels = hiding;
+		};
+	}),
 	arrange: function(inC, inName) {
 		var c$ = this.container.getPanels();
 		var s = this.container.clamp(inName);

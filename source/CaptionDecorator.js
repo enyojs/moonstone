@@ -29,19 +29,23 @@ enyo.kind({
 		{kind: "enyo.Control", name: "rightCaption",    classes: "moon-divider-text moon-caption right",  canGenerate: false, content: "Right Caption"},
 		{kind: "enyo.Control", name: "bottomCaption",   classes: "moon-divider-text moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.sideChanged();
-		this.showOnFocusChanged();
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.sideChanged();
+			this.showOnFocusChanged();
+		};
+	}),
 	//* If _this.showOnFocus_ is _true_, reset caption position on reflow
-	reflow: function() {
-		this.inherited(arguments);
+	reflow: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		if (this.getShowOnFocus()) {
-			this.resetCaptionPosition();
-		}
-	},
+			if (this.getShowOnFocus()) {
+				this.resetCaptionPosition();
+			}
+		};
+	}),
 
 	// Change handlers
 

@@ -48,13 +48,15 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.transform = enyo.dom.canTransform();
-		this.accel = enyo.dom.canAccelerate();
-		this.container.addClass("enyo-touch-strategy-container");
-		this.translation = this.accel ? "matrix3d" : "matrix";
-	},
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.transform = enyo.dom.canTransform();
+			this.accel = enyo.dom.canAccelerate();
+			this.container.addClass("enyo-touch-strategy-container");
+			this.translation = this.accel ? "matrix3d" : "matrix";
+		};
+	}),
 	/**
 		Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s)
 		_rendered()_ function to avoid thumb flicker at render time. Then
@@ -119,11 +121,13 @@ enyo.kind({
 	//* Disables dragging.
 	shouldDrag: function(inSender, inEvent) { return true; },
 	//* On _hold_, stops scrolling.
-	hold: function(inSender, inEvent) {
-		if (!this.isPageControl(inEvent.originator)) {
-			this.inherited(arguments);
-		}
-	},
+	hold: enyo.inherit(function(sup) {
+		return function(inSender, inEvent) {
+			if (!this.isPageControl(inEvent.originator)) {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	//* On _down_, stops scrolling.
 	down: function(inSender, inEvent) {
 		if (!this.isPageControl(inEvent.originator) && this.isScrolling() && !this.isOverscrolling()) {
@@ -134,14 +138,14 @@ enyo.kind({
 	mousewheel: function(inSender, inEvent) {
 		this.scrollBounds = this._getScrollBounds();
 		this.setupBounds();
-		
+
 		var x = null,
 			y = null,
 			delta = 0,
 			showVertical = this.showVertical(),
 			showHorizontal = this.showHorizontal()
 		;
-		
+
 		//* If we don't have to scroll, allow mousewheel event to bubble
 		if (!showVertical && !showHorizontal) {
 			this.scrollBounds = null;
@@ -156,7 +160,7 @@ enyo.kind({
 			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
 			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
 		}
-		
+
 		this.scrollTo(x, y);
 		inEvent.preventDefault();
 		this.scrollBounds = null;
@@ -183,7 +187,7 @@ enyo.kind({
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
 		;
-		
+
 		switch (side) {
 		case "left":
 			x -= scrollXDelta;
@@ -260,17 +264,18 @@ enyo.kind({
 
 		return true;
 	},
-	scrollMathScroll: function() {
-		this.inherited(arguments);
+	scrollMathScroll: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		if (this.hovering) {
-			this.showHidePageControls();
-		} else {
-			this.hidePageControls();
-		}
-
-		this.showHideScrollColumns(true);
-	},
+			if (this.hovering) {
+				this.showHidePageControls();
+			} else {
+				this.hidePageControls();
+			}
+			this.showHideScrollColumns(true);
+		};
+	}),
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY);
