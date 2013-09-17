@@ -12,7 +12,7 @@ enyo.kind({
     },
     components:[
         {
-            kind: "FittableColumns",
+            classes: "moon-hspacing top",
             components: [
                 {
                     components: [
@@ -21,8 +21,7 @@ enyo.kind({
                 },
                 {
                     name: "title",
-                    classes: "title-text",
-                    style: "margin-left: 20px"
+                    classes: "title-text"
                 }
             ]
         }
@@ -53,7 +52,7 @@ enyo.kind({
         {
             name: "menuList",
             kind: "moon.DataList",
-            classes: "moon-6h",
+            classes: "moon-7h",
             components: [
                 {
                     kind: "moon.sample.photos.AlbumListItem",
@@ -90,10 +89,10 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menus: new enyo.Collection([
-            {option: {source: "../assets/default-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", title: "Album Name"}}
+            {option: {source: "../assets/default-movie.png", title: "Album Name 1"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name 2"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name 3"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name 4"}}
         ]),
         albums: new enyo.Collection([
             {imgSrc: "../assets/album.png"},
