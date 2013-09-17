@@ -64,6 +64,8 @@ enyo.kind({
 	arrangerKind: "moon.BreadcrumbArranger",
 	//* Index of panel which is set in the middle of transition
 	queuedIndex: null,
+	//* Flag for initial transition
+	_initialTransition: true,
 
 
 	//* @public
@@ -439,8 +441,11 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
-
-		enyo.Spotlight.spot(this.getActive());
+		if (this._initialTransition) {
+			this._initialTransition = false;
+		} else {
+			enyo.Spotlight.spot(this.getActive());
+		}
 	},
 	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
 	getShowing: function() {
