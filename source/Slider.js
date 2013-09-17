@@ -105,7 +105,6 @@ enyo.kind({
 	},
 
 	//* @protected
-
 	create: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
@@ -113,6 +112,7 @@ enyo.kind({
 				this._nf = new ilib.NumFmt({type: "percentage"});
 			}
 			this.createComponents(this.moreComponents);
+			this.initValue();
 			this.disabledChanged();
 			this.knobClassesChanged();
 			this.popupLabelClassesChanged();
@@ -324,7 +324,7 @@ enyo.kind({
 		}
 	},
 	animatorStep: function(inSender) {
-		var	v = inSender.value;
+		var v = inSender.value;
 
 		this.updateKnobPosition(v);
 

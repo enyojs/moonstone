@@ -58,7 +58,7 @@ enyo.kind({
     components: [
         {
             /* Fixme: enyo.DataList should be changed to moon.DataGrid to support scroll */
-            kind: "enyo.DataList",
+            kind: "moon.DataList",
             name: "resultInfo",
             components: [
                 {                  

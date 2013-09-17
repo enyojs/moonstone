@@ -222,10 +222,11 @@ enyo.kind({
 			}
 		} else {
 			this.$.trickPlay.show();
-			if (this.clientComponentsCount === 0) {
-				this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
-			} else if (this.clientComponentsCount < 2) {
+			if (this.clientComponentsCount < 2) {
 				this.$.jumpForward.defaultSpotlightRight = "jumpForward";
+				if (this.clientComponentsCount === 0) {
+					this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
+				}
 			} else if (this.clientComponentsCount === 2) {
 				this.$.jumpForward.defaultSpotlightRight = lastControl.name; // Bug fix: spot goes to more controls
 			} else {
@@ -261,7 +262,7 @@ enyo.kind({
 	},
 	createClientComponents: enyo.inherit(function(sup) {
 		return function(inComponents) {
-			this.clientComponentsCount = inComponents.length;
+			this.clientComponentsCount = (inComponents) ? inComponents.length : 0;
 			if (!this._buttonsSetup) {
 				this._buttonsSetup = true;
 				if (!inComponents || inComponents.length === 0) {
@@ -276,14 +277,11 @@ enyo.kind({
 					if (inComponents.length === 1) {
 						this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 					}
+					// Create the rest of the components in the client (panels)
+					this.createComponents(inComponents, {owner: this.getInstanceOwner()});
 				} else {
-					// More than two components - use extra panel, with left premium plaeholder for first component
-					this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+					sup.apply(this, arguments);
 				}
-				// Create the rest of the components in the client (panels)
-				this.createComponents(inComponents, {owner: this.getInstanceOwner()});
-			} else {
-				sup.apply(this, arguments);
 			}
 		};
 	}),

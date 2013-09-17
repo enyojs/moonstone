@@ -6,6 +6,7 @@
 enyo.kind({
 	name: "moon.DateTimePickerBase",
 	kind: "moon.ExpandableListItem",
+	defaultKind: "enyo.Control",
 	classes: "moon-expandable-picker moon-date-picker",
 	events: {
 		/**
@@ -146,6 +147,9 @@ enyo.kind({
 			if (pickers) {
 				for (i = 0; i < pickers.length; i++) {
 					p = pickers[i];
+					if (p.getClientControls().length > 0) {
+						p = p.getClientControls()[0];
+					}
 					if (open) {
 						//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
 						p.refreshScrollState();
