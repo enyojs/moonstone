@@ -10,10 +10,6 @@ enyo.kind({
 			title: "Similar Tracks", 
 			titleAbove: "04", 
 			titleBelow: "10 Tracks",
-			headerComponents: [
-				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
-				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
-			],
 			components: [
 				{
 					name: "trackList",
@@ -31,10 +27,10 @@ enyo.kind({
 							components: [                    
 								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", classes: "moon-hspacing", components: [
 									{name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
-									{classes: "moon-header-font", components: [
-										{name: "imageTrack", classes: "moon-super-header-bold-text"},
-										{name: "imageArtist", classes: "moon-superscript"},
-										{name: "imageTime", classes: "moon-superscript"}
+									{components: [
+										{name: "imageTrack", classes: "moon-sub-header-text"},
+										{name: "imageArtist", classes: "moon-body-text"},
+										{name: "imageTime", classes: "moon-body-text"}
 									]}                            
 								]}
 							],
