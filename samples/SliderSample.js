@@ -2,6 +2,9 @@ enyo.kind({
 	kind: "FittableRows",
 	name: "moon.sample.SliderSample",
 	classes: "moon enyo-unselectable enyo-fit",
+	bindings: [
+		{from: ".$.slider1.value", to:".$.slider2.value"}
+	],
 	components: [
 		{kind: "moon.Scroller", fit: true, components: [
 
