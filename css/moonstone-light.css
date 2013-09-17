@@ -1823,17 +1823,42 @@
 }
 /* Day */
 .moon-date-picker-day {
-  padding-right: 40px;
+  margin: 0 auto;
   width: 60px;
+  display: block;
 }
 /* Month */
 .moon-date-picker-month {
-  padding-right: 40px;
+  margin: 0 auto;
   width: 60px;
+  display: block;
 }
 /* Year */
 .moon-date-picker-year {
+  margin: 0 auto;
   width: 80px;
+  display: block;
+}
+.moon-date-picker-client .moon-date-picker-wrap {
+  width: 100px;
+}
+.moon-date-picker-client .moon-date-picker-wrap.y.first {
+  padding-left: 10px;
+}
+.moon-date-picker-client .moon-date-picker-wrap.y.last {
+  padding-left: 10px;
+}
+.moon-date-picker-client .moon-date-picker-wrap .moon-date-picker-label {
+  font-family: "MuseoSans 700";
+  font-size: 22px;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  color: #4b4b4b;
+  display: block;
+  text-align: center;
+  padding: 20px 0 0 0;
+  line-height: 1.2em;
 }
 .moon-date-picker-month.moon-date-picker-year {
   width: 60px;
