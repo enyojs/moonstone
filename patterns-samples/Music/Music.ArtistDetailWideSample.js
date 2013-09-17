@@ -30,19 +30,19 @@ enyo.kind({
 							components: [
 								{
 									components: [
-										{content: "Organized", classes: "moon-large-button-text"},
+										{content: "Organized", classes: "moon-sub-header-text"},
 										{name: "organized"}
 									]
 								},
 								{
 									components: [
-										{content: "Debut", classes: "moon-large-button-text"},
+										{content: "Debut", classes: "moon-sub-header-text"},
 										{name: "debut"}
 									]
 								},
 								{
 									components: [
-										{content: "Type", classes: "moon-large-button-text"},
+										{content: "Type", classes: "moon-sub-header-text"},
 										{name: "type"}
 									]
 								}
