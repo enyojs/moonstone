@@ -34,7 +34,7 @@ enyo.kind({
 									{kind: "moon.GridListImageItem", bindings: [
 										{from: ".model.coverUrl", to: ".source"}
 									]}
-								], minHeight: 100, minWidth: 100, spacing: 10}
+								], minHeight: 100, minWidth: 100, spacing: 10, selection:false}
 							]},
 							{fit: true, kind: "enyo.FittableRows", components: [
 								{kind: "moon.Divider", content: "Top 10 Tracks"},
