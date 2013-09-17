@@ -38,7 +38,7 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		inEvent.item.$.item.setContent("Scrolling content " + inEvent.index);
 	},
-	next: function() {
-		this.$.panels.next();
+	next: function(inSender) {
+		this.$.panels.setIndex(this.$.panels.getPanelIndex(inSender)+1);
 	}
 });

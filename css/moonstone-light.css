@@ -510,7 +510,7 @@
 }
 .border-box {
   box-sizing: border-box;
-  -mox-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
@@ -527,6 +527,7 @@
   width: auto;
   -webkit-animation-name: marquee;
   -webkit-animation-timing-function: linear;
+  -webkit-animation-fill-mode: forwards;
 }
 .moon-marquee-clip {
   overflow: hidden;
@@ -550,10 +551,10 @@
   box-sizing: border-box;
 }
 .moon-simple-picker-button {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  border-radius: 25px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 30px;
   border: 0px;
   background: inherit;
   color: #4b4b4b;
@@ -562,7 +563,7 @@
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
-  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center center;
+  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center 13px;
 }
 .moon-simple-picker-button.hidden {
   opacity: 0.4;
@@ -578,8 +579,8 @@
   border: 0px;
 }
 .moon-simple-picker-item {
-  line-height: 50px;
-  height: 50px;
+  line-height: 60px;
+  height: 60px;
   color: #4b4b4b;
   white-space: nowrap;
   text-align: center;
@@ -619,8 +620,8 @@
   position: relative;
   display: table-cell;
   vertical-align: middle;
-  height: 50px;
-  border-radius: 25px;
+  height: 60px;
+  border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
   font-family: "LG Display";
@@ -641,9 +642,9 @@
   color: #ffffff;
 }
 .moon-simple-integer-picker-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
   border: 0px;
   background: inherit;
   padding: 0px;
@@ -686,51 +687,51 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-left-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-left-width: 30px;
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-left-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-left-width: 30px;
   border-left-style: solid;
   border-left-color: #ff2f7d;
   left: 6px;
 }
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: 50px;
+  height: 60px;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-right-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-right-width: 30px;
   border-right-style: solid;
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
-  width: 25px;
+  width: 30px;
   height: 100%;
-  border-width: 25px;
-  border-radius: 25px;
-  border-right-width: 25px;
+  border-width: 30px;
+  border-radius: 30px;
+  border-right-width: 30px;
   border-right-style: solid;
   border-right-color: #ff2f7d;
   right: 6px;
@@ -1354,7 +1355,7 @@
 }
 .moon-header {
   box-sizing: border-box;
-  -mox-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   color: #4b4b4b;
   height: 360px;
   border-top: 1px solid #4b4b4b;
@@ -1817,25 +1818,24 @@
   background: url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) 0 -66px no-repeat;
 }
 /* DatePicker.css */
-.moon-date-picker {
-  cursor: pointer;
-}
-/* Day */
-.moon-date-picker-day {
-  padding-right: 40px;
+.moon-date-picker-field {
+  margin: 0 auto;
   width: 60px;
+  display: block;
 }
-/* Month */
-.moon-date-picker-month {
-  padding-right: 40px;
-  width: 60px;
-}
-/* Year */
-.moon-date-picker-year {
+.moon-date-picker-field.year {
   width: 80px;
 }
-.moon-date-picker-month.moon-date-picker-year {
-  width: 60px;
+.moon-date-picker-wrap {
+  min-width: 100px;
+}
+.moon-date-picker-wrap.year {
+  min-width: 120px;
+}
+.moon-date-picker-label {
+  text-align: center;
+  padding: 20px 10px;
+  white-space: nowrap;
 }
 /* Input.css */
 .moon-input {
@@ -2059,7 +2059,8 @@
   cursor: default;
 }
 /*ContextualPopupButton.css*/
-.contextual-popup-button {
+.contextual-popup-button,
+.contextual-popup-button.small {
   background-image: url(../images/contextual-arrow.png);
   background-repeat: no-repeat;
   background-position: right center;
@@ -2576,7 +2577,7 @@
 }
 .moon-calendar-picker-day.moon-button[disabled] {
   min-width: 60px;
-  line-height: 50px;
+  line-height: 60px;
   border: 0px;
   border-radius: 0px;
   background: transparent;
@@ -2592,7 +2593,7 @@
 .moon-calendar-picker-date {
   width: 60px;
   min-width: 60px;
-  line-height: 50px;
+  line-height: 60px;
   border: 0px;
   border-radius: 9999px;
   background: inherit;
@@ -3976,6 +3977,9 @@
   display: inline-block;
   vertical-align: middle;
   margin: 0 10px;
+}
+.moon-hspacing.top > * {
+  vertical-align: top;
 }
 .moon-hspacing > :first-child {
   margin-left: 0;
