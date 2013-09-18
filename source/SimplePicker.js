@@ -59,7 +59,9 @@ enyo.kind({
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		//* When true, picker will wrap around from last item to first
-		wrap: false
+		wrap: false,
+		//* By default, SimplePicker is an inline-block element; Setting `block: true` makes it a block element
+		block: false
 	},
 	defaultKind:"moon.MarqueeText",
 	//* @protected
@@ -77,6 +79,7 @@ enyo.kind({
 		this.disabledChanged();
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
+		this.blockChanged();
 	},
 	fireChangedEvent: function() {
 		if (!this.generated) {
@@ -88,6 +91,9 @@ enyo.kind({
 			content:    this.selected && this.selected.content,
 			index:      this.selected && this.selectedIndex
 		});
+	},
+	blockChanged: function() {
+		this.addRemoveClass("block", this.block);
 	},
 	//* Show/hide prev/next buttons based on current index
 	showHideNavButtons: function() {
