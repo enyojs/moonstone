@@ -88,6 +88,10 @@ enyo.kind({
 		this.createPopupLabelComponents();
 		this.showTickTextChanged();
 		this.showTickBarChanged();
+
+		if (window.ilib) {
+			this.df = new ilib.DurFmt({length: "medium", style: "clock"});
+		}
 	},
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
@@ -368,9 +372,13 @@ enyo.kind({
 
 	//* Properly format time
 	formatTime: function(inValue) {
-		var inMinutes = this._formatTime(inValue.getMinutes());
-		var inSeconds = this._formatTime(inValue.getSeconds());
-		return inMinutes + ":" + inSeconds;
+		if (this.df) {
+			return this.df.format({minute: inValue.getMinutes(), second: inValue.getSeconds()});
+		} else {
+			var inMinutes = this._formatTime(inValue.getMinutes());
+			var inSeconds = this._formatTime(inValue.getSeconds());
+			return inMinutes + ":" + inSeconds;
+		}
 	},
 	//* Format time helper
 	_formatTime: function(inValue) {

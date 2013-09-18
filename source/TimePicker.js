@@ -56,11 +56,11 @@ enyo.kind({
 		*/
 		meridiemEnable: false,
 		//* Optional label for hour
-		hourText: "hour",
+		hourText: moon.$L("hour"),			// i18n "HOUR" label in moon.TimePicker widget
 		//* Optional label for minute
-		minuteText: "minute",
+		minuteText: moon.$L("minute"),		// i18n "MINUTE" label in moon.TimePicker widget
 		//* Optional label for meridian
-		meridianText: "meridian"
+		meridianText: moon.$L("meridian")	// i18n "MERIDIAN" label in moon.TimePicker widget
 	},
 	//*@protected
 	iLibFormatType: "time",
@@ -89,14 +89,14 @@ enyo.kind({
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
 								{kind: "moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)},
-								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					} else {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
 								{kind: "moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
-								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					}
@@ -106,7 +106,7 @@ enyo.kind({
 					this.createComponent(
 						{classes: "moon-date-picker-wrap", components:[
 							{kind: "moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
-							{name: "minuteLabel", content: this.minuteText || "min", classes: "moon-date-picker-label moon-divider-text"}
+							{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
 						]}
 					);
 				}
@@ -116,7 +116,7 @@ enyo.kind({
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
 								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0 },
-								{name: "meridianLabel", content: this.meridianText || "meridian", classes: "moon-date-picker-label moon-divider-text"}
+								{name: "meridianLabel", content: this.meridianText, classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					}
