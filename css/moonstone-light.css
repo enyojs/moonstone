@@ -2242,13 +2242,6 @@
 .moon-list-actions .moon-icon-button {
   margin: 0;
 }
-.moon-list-actions-drawer-popup {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-  z-index: 1;
-}
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
   position: absolute;
@@ -2276,23 +2269,22 @@
 .proportional-width.stacked .moon-list-actions-menu {
   width: 100% !important;
 }
-.stacked .moon-list-actions-menu {
-  margin-top: 20px;
-}
-.stacked .moon-list-actions-menu {
+.moon-list-actions.stacked .moon-list-actions-menu {
   margin-bottom: 20px;
+  clear: both;
 }
 /* Drawer */
 .moon-list-actions-drawer {
-  position: absolute;
-  top: 0;
-  left: 0;
   overflow: hidden;
+  z-index: 1;
 }
 .moon-list-actions-drawer-client {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+.moon-list-actions.stacked .enyo-fittable-rows-layout > * {
+  height: auto !important;
 }
 /* Labeled Text Item */
 .moon-labeledtextitem {
