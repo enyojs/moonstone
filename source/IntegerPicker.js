@@ -1,14 +1,6 @@
-enyo.kind({
-	name: "moon.IntegerPickerArranger",
-	kind: "enyo.TopBottomArranger",
-	margin: 0
-});
-
-
 /**
-	_moon.IntegerPicker_, a subkind of <a href="#moon.SimplePicker">moon.SimplePicker</a>,
-	is used to display a list of integers ranging from _min_ to _max_, soliciting
-	a choice from the user.
+	_moon.IntegerPicker is a control that displays a list of integers
+	ranging from _min_ to _max_, soliciting a choice from the user.
 
 	To initialize the picker to a particular integer, set the _value_ property to
 	that integer:
@@ -17,93 +9,213 @@ enyo.kind({
 			content: "Choose a Number", min: 0, max: 25, value: 5}
 
 	The picker may be changed programmatically by modifying the published
-	properties _value_, _min_, or _max_ in the normal manner, by calling _set()_.
+	properties _value_,	_min_, or _max_ in the normal manner, by calling _set()_.
 */
 enyo.kind({
 	name: "moon.IntegerPicker",
-	kind: "moon.SimplePicker",
-	classes: "moon-integer-picker",
+	classes: "moon-scroll-picker-container",
 	published: {
-		value: undefined,
+		value: null,
 		min: 0,
-		max: 9
+		max: 9,
+		//* If a number is specified, picker value is displayed as this many
+		//* zero-filled digits
+		digits: null
 	},
 	handlers: {
+		onSpotlightFocus:"spotlightFocus",
+		onSpotlightFocused:"spotlightFocus",
 		onSpotlightUp:"previous",
 		onSpotlightDown:"next",
-		onSpotlightLeft:"left"
+		onSpotlightBlur:"spotlightBlur",
+		onSpotlightScrollUp:"previous",
+		onSpotlightScrollDown:"next"
 	},
-	spotlight: true,
+	events: {
+		onChange: ""
+	},
+	spotlight:true,
+	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
+	scrollBounds: {},
 	components: [
-		{kind:"enyo.Panels", classes:"moon-integer-picker-panels", controlClasses:"moon-integer-picker-item", draggable:true,
-		arrangerKind: "moon.IntegerPickerArranger", name:"client", onTransitionFinish:"transitionFinished"}
+		{name:"topOverlay", classes:"moon-scroll-picker-overlay-container-top", showing:false, components:[
+			{name:"overlayTest", classes:"moon-scroll-picker-overlay-top"},
+			{classes:"moon-scroll-picker-overlay-top-border"}
+		]},
+		{name:"bottomOverlay", classes:"moon-scroll-picker-overlay-container-bottom", showing:false, components:[
+			{classes:"moon-scroll-picker-overlay-bottom"},
+			{classes:"moon-scroll-picker-overlay-bottom-border"}
+		]},
+		{name:"downArrowContainer", classes:"down-arrow-container", components:[
+			{classes:"down-arrow-border"},
+			{name:"downArrow", classes:"down-arrow", ondown:"next", onup:"resetOverlay", onleave:"resetOverlay", components: [
+				{classes: "taparea"}
+			]}
+		]},
+		{name:"upArrowContainer", classes:"up-arrow-container", components:[
+			{classes:"up-arrow-border"},
+			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay", components: [
+				{classes: "taparea"}
+			]}
+		]},
+		{kind: "enyo.Scroller", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
+			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
+				{name: "item", classes:"moon-scroll-picker-item"}
+			]}
+		]}
 	],
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
 	},
-	rendered: function() {
+	rendered: function(){
+		this.inherited(arguments);
 		this.rangeChanged();
-		if (this.value){
-			this.valueChanged();
-		} else {
-			this.value = this.min;
+		this.refreshScrollState();
+	},
+	refreshScrollState: function() {
+		this.updateScrollBounds();
+		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+	},
+	setupItem: function(inSender, inEvent) {
+		var index = inEvent.index;
+		var content = index + this.min;
+		if (this.digits) {
+			content = ("00000000000000000000" + content).slice(-this.digits);
 		}
+		this.$.item.setContent(content);
 	},
 	rangeChanged: function() {
-		for (var i=this.min; i<=this.max; i++) {
-			this.createComponent({content: i.toString()}).render();
-		}
-		this.reflow();
+		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
+		this.$.repeater.setCount(this.max-this.min+1);
+		this.$.repeater.render();
+		//asynchronously scroll to the current node, this works around a potential scrolling glitch
+		enyo.asyncMethod(enyo.bind(this,function(){
+			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		}));
 	},
 	valueChanged: function(inOld) {
-		var controls = this.$.client.getClientControls();
-		var len = controls.length;
-		// Validate our value
-		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
-		for (var i=0; i<len; i++) {
-			if (this.value === parseInt(controls[i].content, 10)) {
-				this.setSelected(controls[i]);
-				break;
-			}
-		}
+		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
-	reflow: function() {
-		this.reflow._inherited._inherited.call(this, arguments);
-		this.$.client.reflow();
-
-		// Make sure selected item is in sync after Panels reflow, which may have
-		// followed an item's being added/removed
-		if (this.selected != this.$.client.getActive()) {
-			this.setSelected(this.$.client.getActive());
-			this.setSelectedIndex(this.$.client.getIndex());
-			this.fireChangedEvent();
-		}
+	//prevent scroller dragging
+	dragstart: function(inSender, inEvent) {
+		return true;
 	},
 	minChanged: function() {
-		this.destroyClientControls();
 		this.rangeChanged();
-		this.render();
 	},
 	maxChanged: function() {
-		this.destroyClientControls();
 		this.rangeChanged();
-		this.render();
 	},
-	selectedChanged: function(inOld) {
-		this.inherited(arguments);
-		this.value = parseInt(this.selected.content, 10);
-	},
-	//* Overrides _moon.SimplePicker.disabledChanged()_
-	disabledChanged: function() {
-		this.addRemoveClass("disabled", this.disabled);
-	},
-	previous: function() {
-		this.inherited(arguments);
+	previous: function(inSender, inEvent) {
+		if (this.value > this.min) {
+			enyo.job.stop("hideTopOverlay");
+			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
+			this.$.topOverlay.show();
+			this.$.upArrowContainer.addClass("selected");
+			if (inEvent.originator != this.$.upArrow) {
+				enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
+			}
+			this.fireChangeEvent();
+		}
 		return true;
 	},
-	next: function() {
-		this.inherited(arguments);
+	next: function(inSender, inEvent) {
+		if (this.value < this.max) {
+			enyo.job.stop("hideBottomOverlay");
+			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
+			this.$.bottomOverlay.show();
+			this.$.downArrowContainer.addClass("selected");
+			if (inEvent.originator != this.$.downArrow) {
+				enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
+			}
+			this.fireChangeEvent();
+		}
 		return true;
+	},
+	hideTopOverlay: function() {
+		this.$.upArrowContainer.removeClass("selected");
+		this.$.topOverlay.setShowing(false);
+	},
+	hideBottomOverlay: function() {
+		this.$.downArrowContainer.removeClass("selected");
+		this.$.bottomOverlay.setShowing(false);
+	},
+	fireChangeEvent: function() {
+		this.doChange({
+			name:this.name,
+			value:this.value
+		});
+	},
+	resetOverlay: function() {
+		this.hideTopOverlay();
+		this.hideBottomOverlay();
+	},
+	spotlightFocus: function() {
+		//this.inherited(arguments);
+		this.$.scroller.addClass("spotlight");
+		this.$.downArrowContainer.addClass("spotlight");
+		this.$.upArrowContainer.addClass("spotlight");
+	},
+	spotlightBlur: function() {
+		//this.inherited(arguments);
+		this.$.scroller.removeClass("spotlight");
+		this.$.downArrowContainer.removeClass("spotlight");
+		this.$.upArrowContainer.removeClass("spotlight");
+		this.hideTopOverlay();
+		this.hideBottomOverlay();
+	},
+	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
+	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
+	updateScrollBounds: function() {
+		this.scrollBounds = this.$.scroller.getStrategy()._getScrollBounds();
+	},
+	//* Scrolls to a given node in the list.
+	animateToNode: function(inNode) {
+		if(!inNode) {
+			return;
+		}
+
+		var sb = this.scrollBounds,
+			st = this.$.scroller.getStrategy(),
+			b = {
+				height: inNode.offsetHeight,
+				width: inNode.offsetWidth,
+				top: 0,
+				left: 0
+			},
+			n = inNode;
+
+		if(!st.scrollNode) {
+			return;
+		}
+
+		while (n && n.parentNode && n.id != st.scrollNode.id) {
+			b.top += n.offsetTop;
+			b.left += n.offsetLeft;
+			n = n.parentNode;
+		}
+
+		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
+		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
+
+		var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
+		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
+
+		// If x or y changed, scroll to new position
+		if (x !== this.$.scroller.getScrollLeft() || y !== this.$.scroller.getScrollTop()) {
+			this.$.scroller.scrollTo(x,y);
+		}
+	},
+	//* Silently scrolls to the _inValue_ y-position without animating
+	setScrollTop: function(inValue) {
+		this.$.scroller.setScrollTop(inValue);
+	},
+	//* Ensures scroll position is in bounds.
+	stabilize: function() {
+		this.$.scroller.stabilize();
 	}
 });
+
+// For backward compatibility
+moon.IntegerScrollPicker = moon.IntegerPicker;

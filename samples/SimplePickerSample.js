@@ -5,27 +5,33 @@ enyo.kind({
 	components:[
 		{kind:"moon.Scroller", fit:true, components: [
 
-			{kind: "moon.Divider", content:"Picker 1: Animated"},
+			{kind: "moon.Divider", content:"Picker 1 & 2: Animated"},
 			{kind:"moon.SimplePicker", name:"picker1", onChange:"changed", components: [
-				{content:"San Francisco Airport Terminal Gate 1"},
-				{content:"Boston Airport Terminal Gate 2", active: true},
+				{content:"San Francisco Airport Terminal Gate 1", active: true},
+				{content:"Boston Airport Terminal Gate 2"},
 				{content:"Tokyo Airport Terminal Gate 3"},
 				{content:"נמל התעופה בן גוריון טרמינל הבינלאומי"}
 			]},
-			{tag:"br"},{tag:"br"},
+			{kind:"moon.SimplePicker", name:"picker2", onChange:"changed", components: [
+				{content:"Level 1"},
+				{content:"Level 2", active: true},
+				{content:"Level 3"},
+				{content:"Level 4"}
+			]},
+			{classes:"moon-1v"},
 
-			{kind: "moon.Divider", content:"Picker 2: Non-animated"},
-			{kind:"moon.SimplePicker", name:"picker2", animate:false, onChange:"changed", components: [
+			{kind: "moon.Divider", content:"Picker 3: Non-animated"},
+			{kind:"moon.SimplePicker", block:true, name:"picker3", animate:false, onChange:"changed", components: [
 				{content:"Hotmail"},
 				{content:"GMail"},
 				{content:"Yahoo Mail", active: true},
 				{content:"AOL Mail"},
 				{content:"Custom IMAP"}
 			]},
-			{tag:"br"},{tag:"br"},
+			{classes:"moon-1v"},
 
-			{kind: "moon.Divider", content:"Picker 3: Wrapping"},
-			{kind:"moon.SimplePicker", name:"picker3", animate:false, wrap:true, onChange:"changed", components: [
+			{kind: "moon.Divider", content:"Picker 4: Wrapping"},
+			{kind:"moon.SimplePicker", block:true, name:"picker4", animate:false, wrap:true, onChange:"changed", components: [
 				{content:"Mars"},
 				{content:"Venus"},
 				{content:"Earth"},
@@ -36,17 +42,17 @@ enyo.kind({
 				{content:"Neptune"},
 				{content:"Pluto"}
 			]},
-			{tag:"br"},{tag:"br"},
+			{classes:"moon-1v"},
 
-			{kind: "moon.Divider", content:"Picker 4: Disabled"},
-			{kind:"moon.SimplePicker", name:"picker4", disabled: true, components: [
+			{kind: "moon.Divider", content:"Picker 5: Disabled"},
+			{kind:"moon.SimplePicker", block:true, name:"picker5", disabled: true, components: [
 				{content:"Enyo"},
 				{content:"Sencha"}
 			]},
-			{tag:"br"},{tag:"br"},
+			{classes:"moon-1v"},
 
-			{kind: "moon.Divider", content:"Picker 5: Hidden"},
-			{kind:"moon.SimplePicker", name:"picker5", onChange:"changed", showing:false, components: [
+			{kind: "moon.Divider", content:"Picker 6: Hidden"},
+			{kind:"moon.SimplePicker", name:"picker6", onChange:"changed", showing:false, components: [
 				{content:"San Francisco Airport Terminal Gate 1"},
 				{content:"Boston Airport Terminal Gate 2", active: true},
 				{content:"Tokyo Airport Terminal Gate 3"}
@@ -60,7 +66,10 @@ enyo.kind({
 				{kind:"moon.SimplePicker", name:"which", components: [
 					{content:"1"},
 					{content:"2"},
-					{content:"3"}
+					{content:"3"},
+					{content:"4"},
+					{content:"5"},
+					{content:"6"}
 				]}
 			]},
 			{components: [
@@ -92,7 +101,7 @@ enyo.kind({
 		]}
 	],
 	toggleShowing: function() {
-		this.$.picker5.setShowing(!this.$.picker5.showing);
+		this.$.picker6.setShowing(!this.$.picker6.showing);
 	},
 	changed: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.index + ")");

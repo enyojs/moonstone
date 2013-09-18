@@ -3,7 +3,7 @@
 */
 enyo.kind({
 	name: "moon.MeridiemPicker",
-	kind: "moon.IntegerScrollPicker",
+	kind: "moon.IntegerPicker",
 	classes:"moon-date-picker-month",
 	min: 0,
 	max: 1,
@@ -22,7 +22,7 @@ enyo.kind({
 */
 enyo.kind({
 	name: "moon.HourPicker",
-	kind: "moon.IntegerScrollPicker",
+	kind: "moon.IntegerPicker",
 	classes:"moon-date-picker-field",
 	min: 1,
 	max: 24,
@@ -95,7 +95,7 @@ enyo.kind({
 					} else {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
+								{kind: "moon.IntegerPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
 								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
@@ -105,7 +105,7 @@ enyo.kind({
 			case 'm': {
 					this.createComponent(
 						{classes: "moon-date-picker-wrap", components:[
-							{kind: "moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
+							{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
 							{name: "minuteLabel", content: this.minuteText || "min", classes: "moon-date-picker-label moon-divider-text"}
 						]}
 					);
