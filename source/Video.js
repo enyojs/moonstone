@@ -64,7 +64,8 @@ enyo.kind({
 		onJumpForward: "",
 		onJumpBackward: "",
 		onPlay: "",
-		onStart: ""
+		onStart: "",
+		onDisableAcceleration: ""
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
@@ -86,19 +87,14 @@ enyo.kind({
 		this.preloadChanged();
 		this.autoplayChanged();
 		this.loopChanged();
-		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
-		this.disableTransform(this);
-	},
-	disableTransform: function(control) {
-		control.preventTransform = true;
-		control.preventAccelerate = true;
-		if (control.parent) {
-			this.disableTransform(control.parent);
-		}
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.hookupVideoEvents();
+		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
+		if (enyo.platform.webos === 4) {
+			this.doDisableAcceleration();
+		}
 	},
 	posterChanged: function() {
 		if (this.poster) {

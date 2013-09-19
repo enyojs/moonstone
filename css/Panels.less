@@ -7,8 +7,10 @@
     height: 100%;
     padding: 0;
 	overflow: visible;
-	-webkit-transform: translate3d(0, 0, 0);
 	pointer-events: none;
+	&.accelerated {
+		-webkit-transform: translate3d(0, 0, 0);
+	}
 }
 
 .moon-panels.activity *,
