@@ -1365,7 +1365,7 @@
 /* Title Above */
 .moon-header-title-above.no-border {
   border: none;
-  height: 43px;
+  height: 1em;
 }
 .moon-header-title-above {
   width: 30px;
