@@ -80,15 +80,20 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Set picker format 12 vs 24 hour clock
-		var li = new ilib.LocaleInfo();
+		var li = new ilib.LocaleInfo(this.locale || undefined);
 		var clockPref = li.getClock();
 		this.meridiemEnable = (clockPref == '12');
 		
-		var hourFormatter = new ilib.DateFmt({
+		var fmtParams = {
 			type: "time",
 			time: "h",
-			clock: clockPref !== "locale" ? clockPref : undefined
-		}); 
+			clock: clockPref !== "locale" ? clockPref : undefined,
+			timezone: "local"
+		};
+		if (this.locale) {
+			fmtParams.locale = this.locale;
+		}
+		var hourFormatter = new ilib.DateFmt(fmtParams); 
 
 		switch (hourFormatter.template) {
 		case 'KK':
@@ -96,6 +101,22 @@ enyo.kind({
 			// 0-11 hours instead of 1-12
 			this.zeroToEleven = true;
 			break;
+		}
+
+		// Get localized meridiem values
+		if (this.meridiemEnable) {
+			fmtParams = {
+				template: "a",
+				clock: clockPref !== "locale" ? clockPref : undefined,
+				timezone: "local"
+			};
+			if (this.locale) {
+				fmtParams.locale = this.locale;
+			}
+			var merFormatter = new ilib.DateFmt(fmtParams);
+			var am = new ilib.Date.GregDate({hour:1});
+			var pm = new ilib.Date.GregDate({hour:13});
+			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
 		}
 	},
 	setupPickers: function(ordering) {
@@ -144,7 +165,7 @@ enyo.kind({
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0 },
+								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
 								{name: "meridianLabel", content: this.meridianText || "meridian", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
