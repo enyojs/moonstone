@@ -41,7 +41,7 @@
 /* ---------------------------------------*/
 /* Spinner */
 /* ---------------------------------------*/
-/* IntegerScrollPicker */
+/* IntegerPicker */
 /* ---------------------------------------*/
 /* Grid Dimensions */
 /* ---------------------------------------*/
@@ -1655,7 +1655,7 @@
 .moon-paging-button.moon-icon-toggle.active {
   background-position: 6px 6px;
 }
-/* IntegerScrollPicker.css */
+/* IntegerPicker.css */
 .moon-scroll-picker-container {
   display: inline-block;
   position: relative;

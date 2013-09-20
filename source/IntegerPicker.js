@@ -1,11 +1,11 @@
 /**
-	_moon.IntegerScrollPicker_ is a control that displays a list of integers
+	_moon.IntegerPicker_ is a control that displays a list of integers
 	ranging from _min_ to _max_, soliciting a choice from the user.
 
 	To initialize the picker to a particular integer, set the _value_ property to
 	that integer:
 
-		{kind: "moon.IntegerScrollPicker", noneText: "None Selected",
+		{kind: "moon.IntegerPicker", noneText: "None Selected",
 			content: "Choose a Number", min: 0, max: 25, value: 5}
 
 	The picker may be changed programmatically by modifying the published

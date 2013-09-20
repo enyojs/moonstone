@@ -548,11 +548,11 @@
                     }
                 },
                 {
-                    "name": "moon.IntegerScrollPicker",
-                    "kind": "moon.IntegerScrollPicker",
+                    "name": "moon.IntegerPicker",
+                    "kind": "moon.IntegerPicker",
                     "description": "An integer scroll picker",
                     "config": {
-                        "kind": "moon.IntegerScrollPicker",
+                        "kind": "moon.IntegerPicker",
                         "value": 1,
                         "min": 1,
                         "max": 10
