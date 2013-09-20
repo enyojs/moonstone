@@ -1432,8 +1432,8 @@
 .moon-header-client {
   position: absolute;
   bottom: 10px;
-  left: 0px;
-  right: 10px;
+  left: 0;
+  right: 0;
   text-align: right;
   /* fallback in case text-align:end isn't supported */
 
