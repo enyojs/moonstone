@@ -224,7 +224,14 @@ enyo.kind({
 			}
 
 			diff = inContainerWidth - totalWidth;
-			panels[i].actualWidth = panels[i].width + diff;
+			//width checking based on joinToPrev flag.
+			if((i+1) <= inJoinedPanels.length-1){
+				if(panels[i+1].joinToPrev){
+					panels[i].actualWidth = panels[i].width ;
+				} else {
+					panels[i].actualWidth = (inJoinedPanels[i+1])? panels[i].width :(panels[i].width + diff);
+				}
+			}
 
 			if (this.debug) {
 				enyo.log(i, panels[i].width, "-->", panels[i].actualWidth);
