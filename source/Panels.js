@@ -76,8 +76,10 @@ enyo.kind({
 	},
 	acceleratedChanged: function() {
 		this.addRemoveClass("accelerated", this.accelerated);
-		this.layout.flow();
-		this.layout.flowArrangement();
+		if (this.generated) {
+			this.layout.flow();
+			this.layout.flowArrangement();
+		}
 	},
 	disableAcceleration: function() {
 		this.set("accelerated", false);

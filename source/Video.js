@@ -87,14 +87,14 @@ enyo.kind({
 		this.preloadChanged();
 		this.autoplayChanged();
 		this.loopChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.hookupVideoEvents();
 		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
 		if (enyo.platform.webos === 4) {
 			this.doDisableAcceleration();
 		}
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.hookupVideoEvents();
 	},
 	posterChanged: function() {
 		if (this.poster) {
