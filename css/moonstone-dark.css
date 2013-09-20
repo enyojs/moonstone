@@ -1772,6 +1772,12 @@
   left: 50%;
   margin-left: -15px;
 }
+.enyo-locale-right-to-left .up-arrow-container {
+  right: 50%;
+  left: auto;
+  margin-right: -15px;
+  margin-left: auto;
+}
 .up-arrow {
   height: 32px;
   width: 32px;
@@ -1799,6 +1805,12 @@
   top: 128px;
   left: 50%;
   margin-left: -15px;
+}
+.enyo-locale-right-to-left .down-arrow-container {
+  right: 50%;
+  left: auto;
+  margin-right: -15px;
+  margin-left: auto;
 }
 .down-arrow {
   height: 32px;
