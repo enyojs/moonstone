@@ -3,8 +3,3 @@
 .moon .moon-toggle-button-sample-wrapper > * {
 	margin: 20px;
 }
-
-.fixed-button.moon-toggle-button {
-	padding-left: 5px;
-	padding-right: 5px;
-}

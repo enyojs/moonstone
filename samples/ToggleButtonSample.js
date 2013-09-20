@@ -6,23 +6,23 @@ enyo.kind({
 		{kind: 'moon.Scroller', fit: true, classes: "enyo-fill", components: [
 			{classes: "moon-toggle-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Focus Buttons:"},
-				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped", classes: "fixed-button"},
+				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{classes: "moon-1v"},
 				{kind: "moon.Divider", content: "Captioned Buttons:"},
 				{kind: "moon.CaptionDecorator", side: "top", content: "Pow", components: [
-					{kind: "moon.ToggleButton", content: "A", ontap: "buttonTapped", classes: "fixed-button"}
+					{kind: "moon.ToggleButton", content: "A", ontap: "buttonTapped"}
 				]},
 				{kind: "moon.CaptionDecorator", side: "right", content: "Boom", components: [
-					{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped",  classes: "fixed-button"}
+					{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"}
 				]},
 				{kind: "moon.CaptionDecorator", side: "bottom", content: "Crash", components: [
-					{kind: "moon.ToggleButton", content: "C", ontap: "buttonTapped",  classes: "fixed-button"}
+					{kind: "moon.ToggleButton", content: "C", ontap: "buttonTapped"}
 				]},
 				{kind: "moon.CaptionDecorator", side: "left", content: "Bang", components: [
-					{kind: "moon.ToggleButton", content: "D", ontap: "buttonTapped", classes: "fixed-button"}
+					{kind: "moon.ToggleButton", content: "D", ontap: "buttonTapped"}
 				]},
 				{classes: "moon-1v"},
 				{kind: "moon.Divider", content: "Grouped Buttons:"},
