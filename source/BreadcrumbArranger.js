@@ -41,7 +41,7 @@ enyo.kind({
 		var containerWidth = this.getContainerWidth(),
 			panels = this.container.getPanels(),
 			i;
-
+			
 		// Set up default widths for each panel
 		for (i = 0; i < panels.length; i++) {
 			// If panels have already been stretched, unstretch them before doing calculations
@@ -65,6 +65,7 @@ enyo.kind({
 
 		// Update individual panel widths to account for _joinedPanels_
 		this.updateWidths(containerWidth, this.joinedPanels);
+		//this.recalculatePanelTransitionPositions(containerWidth, this.joinedPanels);
 		this.applyUpdatedWidths();
 
 		// Calculate _this.breadcrumbPositions_
@@ -176,11 +177,10 @@ enyo.kind({
 			return xPos;
 		}
 	},
-	recalculatePanelTransitionPositions: function(inPanelIndex, inContainerWidth, inJoinedPanels) {
+	recalculatePanelTransitionPositions: function(inContainerWidth, inJoinedPanels) {
 		var panels = this.container.getPanels();
-		for (var i = 0; i < panels.length; i++) {
-			this.container.transitionPositions[inPanelIndex + "." + i] = this.calculateXPos(inPanelIndex, i, inContainerWidth, inJoinedPanels);
-		}
+		this.container.transitionPositions
+			
 	},
 	adjustTransitionPositionsForJoinedPanels: function(inJoinedPanels) {
 		var tp = this.container.transitionPositions,
@@ -222,10 +222,20 @@ enyo.kind({
 					totalWidth += panels[inJoinedPanels[i][j]].width;
 				}
 			}
-
+			
 			diff = inContainerWidth - totalWidth;
-			panels[i].actualWidth = panels[i].width + diff;
-
+			
+			//width checking based on joinToPrev flag.
+			if((i+1) <= inJoinedPanels.length-1)
+            {
+                if(panels[i+1].joinToPrev){
+                    panels[i].actualWidth = panels[i].width ;
+				} else {
+                    panels[i].actualWidth = (inJoinedPanels[i+1])? panels[i].width :(panels[i].width + diff);
+                  }                     
+            }
+			
+			
 			if (this.debug) {
 				enyo.log(i, panels[i].width, "-->", panels[i].actualWidth);
 			}
