@@ -70,6 +70,9 @@ enyo.kind({
 		{name: "client",      kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "next"}
 	],
+	bindings: [
+		{from: ".$.client.index", to: ".selectedIndex"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.animateChanged();
