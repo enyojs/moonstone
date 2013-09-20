@@ -1387,8 +1387,12 @@
 }
 .moon-header-title-above {
   width: 30px;
+  height: 1.2em;
 }
 /* Main Title */
+.moon-header-title-wrapper {
+  position: relative;
+}
 .moon-header-title {
   font-family: "Miso";
   font-size: 126px;
@@ -1408,6 +1412,7 @@
 }
 /* Title Below */
 .moon-header-title-below {
+  position: relative;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
@@ -1422,6 +1427,7 @@
 }
 /* Sub Title Below */
 .moon-header-sub-title-below {
+  position: relative;
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -1439,8 +1445,8 @@
 .moon-header-client {
   position: absolute;
   bottom: 10px;
-  left: 0px;
-  right: 0px;
+  left: 0;
+  right: 0;
   text-align: right;
   /* fallback in case text-align:end isn't supported */
 
@@ -1464,17 +1470,14 @@
   line-height: 0.96em;
 }
 .moon-small-header .moon-header-title-wrapper {
-  position: relative;
   padding-left: 58px;
   box-sizing: border-box;
   top: -48px;
 }
 .moon-small-header .moon-header-title-below {
-  position: relative;
   top: -48px;
 }
 .moon-small-header .moon-header-sub-title-below {
-  position: relative;
   top: -48px;
 }
 .hidden-title .moon-header-title,
@@ -1656,21 +1659,20 @@
 /* IntegerScrollPicker.css */
 .moon-scroll-picker-container {
   display: inline-block;
+  position: relative;
 }
 .moon-scroll-picker {
-  height: 102px;
+  height: 92px;
   min-width: 60px;
   border-top-width: 30px;
   border-top-style: solid;
   border-top-color: transparent;
-  border-bottom-width: 25px;
+  border-bottom-width: 30px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 9999px;
+  border-radius: 30px;
 }
-.moon-scroll-picker.spotlight {
-  border-top-color: #ff2f7d;
-  border-bottom-color: #ff2f7d;
+.spotlight .moon-scroll-picker {
   background: #ff2f7d;
 }
 .moon-scroll-picker-item {
@@ -1678,123 +1680,66 @@
   padding-right: 5px;
   padding-left: 5px;
   padding-bottom: 2px;
-  height: 102px;
-  line-height: 102px;
+  height: 92px;
+  line-height: 92px;
   vertical-align: middle;
   text-align: center;
   background: transparent;
 }
-.moon-scroll-picker-overlay-container-top {
-  position: relative;
+.moon-scroll-picker-overlay-container {
+  position: absolute;
   z-index: 1;
-}
-.moon-scroll-picker-overlay-top {
-  position: absolute;
-  height: 40px;
   width: 100%;
-  border-width: 10px;
-  border-radius: 9999px;
-  border-top-width: 40px;
+  height: 30px;
+}
+.moon-scroll-picker-overlay-container.top {
+  top: 0;
+  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center 6px no-repeat;
+}
+.moon-scroll-picker-overlay-container.bottom {
+  bottom: 0;
+  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -6px no-repeat;
+}
+.spotlight .moon-scroll-picker-overlay-container.top {
+  background-position: center -27px;
+}
+.spotlight .moon-scroll-picker-overlay-container.bottom {
+  background-position: center -39px;
+}
+.moon-scroll-picker-overlay {
+  display: none;
+  position: absolute;
+  height: 35px;
+  width: 100%;
+  border-width: 6px;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+.moon-scroll-picker-overlay.top {
+  top: 0;
   border-top-style: solid;
-  border-top-color: rgba(0, 0, 0, 0.13);
+  border-radius: 30px 30px 0 0;
+  background: #ff2f7d url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
 }
-.moon-scroll-picker-overlay-top-border {
-  position: absolute;
-  height: 40px;
-  width: 100%;
-  border-width: 10px;
-  border-radius: 9999px;
-  border-top-width: 40px;
-  border-top-style: solid;
-  border-top-color: #ff2f7d;
-  bottom: -86px;
-  overflow: hidden;
-}
-.moon-scroll-picker-overlay-container-bottom {
-  position: relative;
-  z-index: 1;
-  top: 107px;
-}
-.moon-scroll-picker-overlay-bottom {
-  position: absolute;
-  height: 40px;
-  width: 100%;
-  border-width: 10px;
-  border-radius: 9999px;
-  border-bottom-width: 40px;
+.moon-scroll-picker-overlay.bottom {
+  bottom: 0;
   border-bottom-style: solid;
-  border-bottom-color: rgba(0, 0, 0, 0.13);
-  bottom: -50px;
+  border-radius: 0 0 30px 30px;
+  background: #ff2f7d url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
 }
-.moon-scroll-picker-overlay-bottom-border {
-  position: absolute;
-  height: 40px;
-  width: 100%;
-  border-width: 10px;
-  border-radius: 9999px;
-  border-bottom-width: 40px;
-  border-bottom-style: solid;
-  border-bottom-color: #ff2f7d;
-  bottom: -44px;
-}
-.up-arrow-container {
-  position: relative;
-  z-index: 10;
-  top: 3px;
-  left: 50%;
-  margin-left: -15px;
-}
-.up-arrow {
-  height: 32px;
-  width: 32px;
-  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) 0 0 no-repeat;
-  position: absolute;
-}
-.up-arrow > .taparea,
-.down-arrow > .taparea {
-  position: absolute;
-  height: 78px;
-  width: 78px;
-  top: -40px;
-  left: -40px;
-  background-color: transparent;
-}
-.up-arrow-container.spotlight .up-arrow {
-  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) 0 -33px no-repeat;
-}
-.up-arrow-container.selected .up-arrow {
-  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) 0 -66px no-repeat;
-}
-.down-arrow-container {
-  position: relative;
-  z-index: 10;
-  top: 128px;
-  left: 50%;
-  margin-left: -15px;
-}
-.down-arrow {
-  height: 32px;
-  width: 32px;
-  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) 0 0 no-repeat;
-  position: absolute;
-}
-.down-arrow-container.spotlight .down-arrow {
-  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) 0 -33px no-repeat;
-}
-.down-arrow-container.selected .down-arrow {
-  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) 0 -66px no-repeat;
-}
-/* DatePicker.css */
-.moon-date-picker-field {
-  margin: 0 auto;
-  width: 60px;
+.moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
   display: block;
 }
-.moon-date-picker-field.year {
-  width: 80px;
+.moon-scroll-picker-taparea {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  bottom: -9px;
+  left: -9px;
 }
+/* DatePicker.css */
 .moon-date-picker-wrap {
   min-width: 100px;
+  text-align: center;
 }
 .moon-date-picker-wrap.year {
   min-width: 120px;

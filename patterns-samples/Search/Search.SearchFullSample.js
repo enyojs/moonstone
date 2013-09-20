@@ -15,7 +15,7 @@ enyo.kind({
     spotlight: false,
 
     components: [
-        {name: "recentResult", kind: "moon.Scroller", components: [
+        {name: "recentResult", kind: "moon.Scroller", fit:true, components: [
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title1", kind: "moon.Item"},
                 {name: "recentSearchResults1", kind: "enyo.DataGridList", classes: "result-height", components: [

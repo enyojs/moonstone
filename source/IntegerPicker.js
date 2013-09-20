@@ -1,11 +1,11 @@
 /**
-	_moon.IntegerPicker is a control that displays a list of integers
+	_moon.IntegerScrollPicker_ is a control that displays a list of integers
 	ranging from _min_ to _max_, soliciting a choice from the user.
 
 	To initialize the picker to a particular integer, set the _value_ property to
 	that integer:
 
-		{kind: "moon.IntegerPicker", noneText: "None Selected",
+		{kind: "moon.IntegerScrollPicker", noneText: "None Selected",
 			content: "Choose a Number", min: 0, max: 25, value: 5}
 
 	The picker may be changed programmatically by modifying the published
@@ -23,8 +23,6 @@ enyo.kind({
 		digits: null
 	},
 	handlers: {
-		onSpotlightFocus:"spotlightFocus",
-		onSpotlightFocused:"spotlightFocus",
 		onSpotlightUp:"previous",
 		onSpotlightDown:"next",
 		onSpotlightBlur:"spotlightBlur",
@@ -38,30 +36,18 @@ enyo.kind({
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"topOverlay", classes:"moon-scroll-picker-overlay-container-top", showing:false, components:[
-			{name:"overlayTest", classes:"moon-scroll-picker-overlay-top"},
-			{classes:"moon-scroll-picker-overlay-top-border"}
-		]},
-		{name:"bottomOverlay", classes:"moon-scroll-picker-overlay-container-bottom", showing:false, components:[
-			{classes:"moon-scroll-picker-overlay-bottom"},
-			{classes:"moon-scroll-picker-overlay-bottom-border"}
-		]},
-		{name:"downArrowContainer", classes:"down-arrow-container", components:[
-			{classes:"down-arrow-border"},
-			{name:"downArrow", classes:"down-arrow", ondown:"next", onup:"resetOverlay", onleave:"resetOverlay", components: [
-				{classes: "taparea"}
-			]}
-		]},
-		{name:"upArrowContainer", classes:"up-arrow-container", components:[
-			{classes:"up-arrow-border"},
-			{name:"upArrow", classes:"up-arrow", ondown:"previous", onup:"resetOverlay", onleave:"resetOverlay", components: [
-				{classes: "taparea"}
-			]}
+		{name:"topOverlay", ondown:"previous", classes:"moon-scroll-picker-overlay-container top", components:[
+			{classes:"moon-scroll-picker-overlay top"},
+			{classes: "moon-scroll-picker-taparea"}
 		]},
 		{kind: "enyo.Scroller", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
 			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
+		]},
+		{name:"bottomOverlay", ondown:"next", classes:"moon-scroll-picker-overlay-container bottom", components:[
+			{classes:"moon-scroll-picker-overlay bottom"},
+			{classes: "moon-scroll-picker-taparea"}
 		]}
 	],
 	//* @protected
@@ -109,12 +95,11 @@ enyo.kind({
 	},
 	previous: function(inSender, inEvent) {
 		if (this.value > this.min) {
-			enyo.job.stop("hideTopOverlay");
+			this.stopJob("hideTopOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
-			this.$.topOverlay.show();
-			this.$.upArrowContainer.addClass("selected");
+			this.$.topOverlay.addClass("selected");
 			if (inEvent.originator != this.$.upArrow) {
-				enyo.job("hideTopOverlay", enyo.bind(this,this.hideTopOverlay), 350);
+				this.startJob("hideTopOverlay", "hideTopOverlay", 350);
 			}
 			this.fireChangeEvent();
 		}
@@ -122,24 +107,21 @@ enyo.kind({
 	},
 	next: function(inSender, inEvent) {
 		if (this.value < this.max) {
-			enyo.job.stop("hideBottomOverlay");
+			this.stopJob("hideBottomOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
-			this.$.bottomOverlay.show();
-			this.$.downArrowContainer.addClass("selected");
+			this.$.bottomOverlay.addClass("selected");
 			if (inEvent.originator != this.$.downArrow) {
-				enyo.job("hideBottomOverlay", enyo.bind(this,this.hideBottomOverlay), 350);
+				this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
 			}
 			this.fireChangeEvent();
 		}
 		return true;
 	},
 	hideTopOverlay: function() {
-		this.$.upArrowContainer.removeClass("selected");
-		this.$.topOverlay.setShowing(false);
+		this.$.topOverlay.removeClass("selected");
 	},
 	hideBottomOverlay: function() {
-		this.$.downArrowContainer.removeClass("selected");
-		this.$.bottomOverlay.setShowing(false);
+		this.$.bottomOverlay.removeClass("selected");
 	},
 	fireChangeEvent: function() {
 		this.doChange({
@@ -152,16 +134,9 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		//this.inherited(arguments);
-		this.$.scroller.addClass("spotlight");
-		this.$.downArrowContainer.addClass("spotlight");
-		this.$.upArrowContainer.addClass("spotlight");
+		this.bubble("onRequestScrollIntoView", {side: "top"});
 	},
 	spotlightBlur: function() {
-		//this.inherited(arguments);
-		this.$.scroller.removeClass("spotlight");
-		this.$.downArrowContainer.removeClass("spotlight");
-		this.$.upArrowContainer.removeClass("spotlight");
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
 	},
