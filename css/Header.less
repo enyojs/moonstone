@@ -24,6 +24,10 @@
 }
 
 /* Main Title */
+.moon-header-title-wrapper {
+	position: relative;
+}
+
 .moon-header-title {
 	.moon-header-text;
 	line-height: @moon-header-line-height;
@@ -38,6 +42,7 @@
 
 /* Title Below */
 .moon-header-title-below {
+	position: relative;
 	.moon-sub-header-text;
 	margin-bottom: 8px;
 }
@@ -47,6 +52,7 @@
 
 /* Sub Title Below */
 .moon-header-sub-title-below {
+	position: relative;
 	.moon-body-text;
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
@@ -57,8 +63,8 @@
 .moon-header-client {
 	position: absolute;
 	bottom: 10px;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 	text-align: right;	/* fallback in case text-align:end isn't supported */
 	text-align: end;	/* CSS3 for RTL support */
 }
@@ -75,19 +81,15 @@
 .moon-small-header .moon-header-title {
 	line-height: @moon-small-header-line-height;
 }
-
 .moon-small-header .moon-header-title-wrapper {
-	position: relative;
 	padding-left: 58px;
 	box-sizing: border-box;
 	top: -48px;
 }
 .moon-small-header .moon-header-title-below {
-	position: relative;
 	top: -48px;
 }
 .moon-small-header .moon-header-sub-title-below {
-	position: relative;
 	top: -48px;
 }
 .hidden-title .moon-header-title,
