@@ -75,6 +75,19 @@ enyo.kind({
 					{kind:"moon.Divider", content:"Delete current item:"},
 					{kind:"moon.Button", content:"Delete", small:true, ontap:"destroyItem"}
 				]}
+			]},
+			{tag:"br"},{tag:"br"},
+			{name:"wrapper", style:"width:300px;height:100%;float:left", components:[
+					{kind:"moon.Button", small:true, content:"Show/Hide Picker", ontap:"showBtn"}
+			]},
+			{name:"pickerParent", showing:false, style:"width:300px;height:100%;float:left", components:[
+				{kind:"moon.SimplePicker", components:[
+					{content:"A"},
+					{content:"B"},
+					{content:"C"},
+					{content:"D"},
+					{content:"E"}
+				]}
 			]}
 		]},
 		{components: [
@@ -82,6 +95,12 @@ enyo.kind({
 			{kind: "moon.BodyText", name:"result", content:"No change yet"}
 		]}
 	],
+	showBtn:function(){
+		if(this.$.pickerParent.showing)
+			this.$.pickerParent.hide();
+		else
+			this.$.pickerParent.show();
+	},
 	changed: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.index + ")");
 	},
