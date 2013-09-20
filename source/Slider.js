@@ -188,14 +188,16 @@ enyo.kind({
 		}
 	},
 	valueChanged : function(preValue, inValue){
-		if (this.constrainToBgProgress) {
-			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
-			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
-		}		
-		if (this.animate) {
-			this.animateTo(preValue, inValue);
-		} else {
-			this._setValue(inValue);
+		if (!this.dragging) {
+			if (this.constrainToBgProgress) {
+				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
+				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
+			}		
+			if (this.animate){			
+				this.animateTo(preValue, inValue);
+			} else {
+				this._setValue(inValue);
+			}			
 		}
 	},
 	_setValue: function(inValue) {
@@ -263,7 +265,7 @@ enyo.kind({
 				ev = this.bgProgress + (v-this.bgProgress)*0.4;
 				v = this.clampValue(this.min, this.bgProgress, v);
 				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
-				this.elasticTo = v;
+				this.elasticTo = v;	
 			} else {
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				v = this.clampValue(this.min, this.max, v);
@@ -271,6 +273,7 @@ enyo.kind({
 			}
 
 			this.updateKnobPosition(this.elasticFrom);
+			this.set("value",this.elasticFrom);
 
 			if (this.lockBar) {
 				this.setProgress(v);
@@ -285,20 +288,19 @@ enyo.kind({
 		if (this.disabled) {
 			return; // return nothing
 		}
+
 		var v = this.elasticTo;
 		if (this.constrainToBgProgress === true) {
 			v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
-			this.animateTo(this.elasticFrom, v);
 		} else {
 			v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this._setValue(v);
 		}
 
 		this.dragging = false;
-
+		this.set("value",v);
+		this.sendChangeEvent({value: this.getValue()});
 		inEvent.preventTap();
-
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
 		return true;
@@ -307,6 +309,7 @@ enyo.kind({
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
+			v = (this.constrainToBgProgress && v>this.bgProgress) ? this.bgProgress : v;
 			this.set("value",v);
 			return true;
 		}
