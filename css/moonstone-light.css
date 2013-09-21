@@ -1382,6 +1382,7 @@
   letter-spacing: -0.05em;
   text-transform: uppercase;
   line-height: normal;
+  max-height: 163.8px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1447,7 +1448,6 @@
 }
 .moon-small-header .moon-header-title {
   line-height: normal;
-  max-height: 163.8px;
 }
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 58px;

@@ -92,9 +92,7 @@ enyo.kind({
 			"padding-left": titleWrapperStyle["padding-left"],
 			"top": titleWrapperStyle["top"]
 		};
-		this.$.title.smallAnimProps = {
-			"line-height": titleStyle["line-height"]
-		};
+		this.$.title.smallAnimProps = {};
 		this.$.titleBelow.smallAnimProps = {
 			"top": titleBelowStyle["top"]
 		};
@@ -120,9 +118,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "current"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -144,22 +140,20 @@ enyo.kind({
 					control: this.$.titleWrapper,
 					properties: {
 						"padding-left": "58px",
-						"top": "-48px"
+						"top": "-44px"
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "0.96em"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top": "-48px"
+						"top": "-44px"
 					}
 				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top": "-48px"
+						"top": "-44px"
 					}
 				}]
 
@@ -191,9 +185,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "current"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -219,9 +211,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": this.$.title.smallAnimProps["line-height"]
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
