@@ -100,7 +100,6 @@ enyo.kind({
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
-		this.stop();
 		this._scrollTo(inX, inY);
 	},
 

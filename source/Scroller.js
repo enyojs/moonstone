@@ -31,6 +31,10 @@ enyo.kind({
 		//* If true, paging controls are spotlightable (in 5-way mode)
 		spotlightPagingControls: false
 	},
+	handlers: {
+		onScrollStart: "mute",
+		onScrollStop: "unmute"
+	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
@@ -43,6 +47,12 @@ enyo.kind({
 	*/
 	scrollToControl: function(inControl, inScrollFullPage) {
 		this.$.strategy.animateToControl(inControl, inScrollFullPage);
-	}
+	},
 	//* @protected
+	mute: function() {
+		enyo.Spotlight.mute(this);
+	},
+	unmute: function() {
+		enyo.Spotlight.unmute(this);
+	}
 });
