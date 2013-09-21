@@ -79,7 +79,6 @@ enyo.kind({
 
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 		var titleWrapperStyle = enyo.dom.getComputedStyle(this.$.titleWrapper.hasNode());
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleBelowStyle = enyo.dom.getComputedStyle(this.$.titleBelow.hasNode());
 		var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
 
