@@ -1358,7 +1358,7 @@
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
-  padding: 8px 10px 10px;
+  padding: 4px 10px 10px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1382,8 +1382,7 @@
   font-style: normal;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  line-height: 1.08em;
-  margin-bottom: 8px;
+  line-height: normal;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1401,7 +1400,6 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #999999;
-  margin-bottom: 8px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
   font-family: "LG Display";
@@ -1449,7 +1447,8 @@
   height: 240px;
 }
 .moon-small-header .moon-header-title {
-  line-height: 0.96em;
+  line-height: normal;
+  max-height: 163.8px;
 }
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 58px;
