@@ -91,8 +91,8 @@ enyo.kind({
 		], components: [
 			{components: [
 				{kind:"moon.Button", small:true, content:"Add Option to Category 1", ontap:"addToStatic"},
-				{kind:"moon.Button", small:true, content:"Add Option to Catagory 2", ontap:"addToRepeater"},
-				{kind:"moon.Button", small:true, content:"Add Option to Catagory 3", ontap:"addToList"},
+				{kind:"moon.Button", small:true, content:"Add Option to Category 2", ontap:"addToRepeater"},
+				{kind:"moon.Button", small:true, content:"Add Option to Category 3", ontap:"addToList"},
 				{classes:"moon-1v"},
 				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"}
 			]},
