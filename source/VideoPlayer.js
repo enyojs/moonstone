@@ -220,10 +220,11 @@ enyo.kind({
 			}
 		} else {
 			this.$.trickPlay.show();
-			if (this.clientComponentsCount === 0) {
-				this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
-			} else if (this.clientComponentsCount < 2) {
+			if (this.clientComponentsCount < 2) {
 				this.$.jumpForward.defaultSpotlightRight = "jumpForward";
+				if (this.clientComponentsCount === 0) {
+					this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
+				}
 			} else if (this.clientComponentsCount === 2) {
 				this.$.jumpForward.defaultSpotlightRight = lastControl.name; // Bug fix: spot goes to more controls
 			} else {
@@ -258,7 +259,7 @@ enyo.kind({
 		this.$.videoInfoHeader.createComponents(this.infoComponents);
 	},
 	createClientComponents: function(inComponents) {
-		this.clientComponentsCount = inComponents.length;
+		this.clientComponentsCount = (inComponents) ? inComponents.length : 0;
 		if (!this._buttonsSetup) {
 			this._buttonsSetup = true;
 			if (!inComponents || inComponents.length === 0) {

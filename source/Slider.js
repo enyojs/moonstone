@@ -112,6 +112,7 @@ enyo.kind({
 			this._nf = new ilib.NumFmt({type: "percentage"});
 		}
 		this.createComponents(this.moreComponents);
+		this.initValue();
 		this.disabledChanged();
 		this.knobClassesChanged();
 		this.popupLabelClassesChanged();
