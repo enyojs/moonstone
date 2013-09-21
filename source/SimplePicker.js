@@ -70,6 +70,9 @@ enyo.kind({
 		{name: "client",      kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "next"}
 	],
+	bindings: [
+		{from: ".$.client.index", to: ".selectedIndex"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.animateChanged();
@@ -135,7 +138,6 @@ enyo.kind({
 		// followed an item being added/removed
 		if (this.selected != this.$.client.getActive()) {
 			this.setSelected(this.$.client.getActive());
-			this.setSelectedIndex(this.$.client.getIndex());
 			this.fireChangedEvent();
 		}
 
@@ -144,7 +146,6 @@ enyo.kind({
 	transitionFinished: function(inSender, inEvent) {
 		var fp = (this.getSelected() === this.$.client.getActive()); // false positive
 		this.setSelected(this.$.client.getActive());
-		this.setSelectedIndex(this.$.client.getIndex());
 		if (!fp) {
 			this.fireChangedEvent();
 		}
