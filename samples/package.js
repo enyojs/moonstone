@@ -20,6 +20,7 @@ enyo.depends(
 	"CheckboxItemSample.js",
 	"ContextualPopupSample.css",
 	"ContextualPopupSample.js",
+	"DataListSample.js",
 	"DataGridListSample.js",
 	"DatePickerSample.css",
 	"DatePickerSample.js",

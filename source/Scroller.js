@@ -29,13 +29,19 @@ enyo.kind({
 		*/
 		scrollFullPage: false,
 		//* If true, paging controls are spotlightable (in 5-way mode)
-		spotlightPagingControls: false
+		spotlightPagingControls: false,
+		//* Relative parameter used to determine scroll speed
+		scrollInterval: 75
 	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
 	strategyKind: "moon.ScrollStrategy",
-	
+
+	bindings: [
+		{from: ".scrollInterval", to:".$.strategy.interval"}
+	],
+
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
@@ -44,5 +50,4 @@ enyo.kind({
 	scrollToControl: function(inControl, inScrollFullPage) {
 		this.$.strategy.animateToControl(inControl, inScrollFullPage);
 	}
-	//* @protected
 });
