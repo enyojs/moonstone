@@ -248,7 +248,10 @@ enyo.kind({
 	],
 	rendered: function() {
 		this.inherited(arguments);
-		this.accel = enyo.dom.canAccelerate();
+		// On webOS TV, 2D matrix transforms seem to perform as well as 3D
+		// for this use case, and avoid a strange "layer ghosting" issue
+		// the first time a drawer is opened.
+		this.accel = enyo.dom.canAccelerate() && !(enyo.platform.webos === 4);
 		this.resetClientPosition();
 		this.setShowing(false);
 	},
@@ -268,7 +271,11 @@ enyo.kind({
 		this.$.animator.play(openAnimation.name);
 	},
 	createOpenAnimation: function() {
-		var matrix = this.generateMatrix(0);
+		// For unknown reasons, a null transform works reliably in Chrome,
+		// whereas a matrix transform setting Y translation to 0 causes a
+		// a strange "layer ghosting" issue the first time a drawer is
+		// opened -- the same issue we see on webOS TV with 3D matrices.
+		var matrix = enyo.platform.chrome ? null : this.generateMatrix(0);
 		return this.$.animator.newAnimation({
 			name: "open",
 			duration: 225,
