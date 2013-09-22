@@ -127,6 +127,9 @@ enyo.kind({
 	},
 	destroyItem: function(inSender, inEvent) {
 		var picker = this.$["picker" + (this.$.which.getSelectedIndex()+1)];
-		picker.getSelected().destroy();
+		var sel = picker.getSelected();
+		if (sel) {
+			sel.destroy();
+		}
 	}
 });

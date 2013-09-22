@@ -148,13 +148,18 @@ enyo.kind({
 
 		this.inherited(arguments);
 
-		if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
-			this.setSelectedIndex(selectedIdx - 1);
-		} else if (selectedIdx == removedIdx) {
-			// Force change handler, since the currently selected item actually changed
-			this.selectedIndexChanged();
+		// If removedIdx is -1, that means that the Control being removed is
+		// not one of our picker items, so we don't need to update our state.
+		// Probably, we're being torn down.
+		if (removedIdx !== -1) {
+			if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
+				this.setSelectedIndex(selectedIdx - 1);
+			} else if (selectedIdx == removedIdx) {
+				// Force change handler, since the currently selected item actually changed
+				this.selectedIndexChanged();
+			}
+			this.showHideNavButtons();
 		}
-		this.showHideNavButtons();
 	},
 	//* Hide _inControl_ and disable spotlight functionality
 	hideNavButton: function(inControl) {
