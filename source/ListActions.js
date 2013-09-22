@@ -251,7 +251,7 @@ enyo.kind({
 		// On webOS TV, 2D matrix transforms seem to perform as well as 3D
 		// for this use case, and avoid a strange "layer ghosting" issue
 		// the first time a drawer is opened.
-		this.accel = enyo.dom.canAccelerate() && !(enyo.platform.webos === 4);
+		this.accel = enyo.dom.canAccelerate() && enyo.platform.webos !== 4;
 		this.resetClientPosition();
 		this.setShowing(false);
 	},
