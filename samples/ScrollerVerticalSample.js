@@ -6,7 +6,7 @@ enyo.kind({
 			kind: 'moon.Scroller',
 			classes: 'moon-scroller-vertical-sample-scroller enyo-fill',
 			components: [
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
+				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
 					{content: "English"},
 					{content: "Spanish"},
 					{content: "French"},
@@ -22,7 +22,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "This is an item 6"},
 				{kind: "moon.Item", content: "This is an item 7"},
 				{kind: "moon.Item", content: "This is an item 8"},
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
+				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
 					{content: "English"},
 					{content: "Spanish"},
 					{content: "French"},
@@ -49,7 +49,7 @@ enyo.kind({
 				]},
 				{kind: "moon.Item", content: "This is an item 15"},
 				{kind: "moon.Item", content: "This is an item 16"},
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
+				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
 					{content: "English"},
 					{content: "Spanish"},
 					{content: "French"},
