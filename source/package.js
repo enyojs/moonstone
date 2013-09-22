@@ -29,7 +29,6 @@ enyo.depends(
 	"DataList.js",
 	"PagingControl.js",
 	"IntegerPicker.js",
-	"IntegerScrollPicker.js",
 	"DateTimePickerBase.js",
 	"DatePicker.js",
 	"TimePicker.js",
