@@ -29,15 +29,36 @@ enyo.kind({
 									{from: ".model.artist", to: ".$.imageArtist.content"},
 									{from: ".model.time", to: ".$.imageTime.content"}
 								],
-								components: [                    
-									{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
-										{name: "enyoImage", kind: "enyo.Image"},
-										{components: [
-											{name: "imageTrack"},
-											{name: "imageArtist", classes: "moon-superscript"}
-										]},
-										{name: "imageTime"}
-									]}
+								components: [
+									{
+										kind: "moon.Item",
+										ontap: "changeName",
+										layoutKind: "FittableColumnsLayout",
+										components: [
+											{
+												components: [
+													{ 
+														classes: "sample-audio-item",
+														components: [
+															{
+																name: "enyoImage",
+																kind: "enyo.Image",
+																classes: "sample-audio-item-image"
+															},
+															{classes: "sample-audio-play-icon", spotlight: true}
+														]
+													}
+												]
+											},
+											{
+												components: [
+													{name: "imageTrack"},
+													{name: "imageArtist", classes: "moon-superscript"}
+												]
+											},
+											{name: "imageTime", style : "float: right;"}
+										]
+									}
 								]
 							}
 						]
