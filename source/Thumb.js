@@ -55,6 +55,13 @@ enyo.kind({
 	generateMatrix: function(inPosition, inSize) {
 		var x, y, w, h, node = this.hasNode();
 
+		// clip position to ends to avoid showing overscroll
+		if (inPosition < 0) {
+			inPosition = 0;
+		} else if (inPosition > inSize) {
+			inPosition = inSize;
+		}
+
 		if (!node) {
 			x = 0;
 			y = 0;
