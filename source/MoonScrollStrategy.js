@@ -135,14 +135,13 @@ enyo.kind({
 	mousewheel: function(inSender, inEvent) {
 		this.scrollBounds = this._getScrollBounds();
 		this.setupBounds();
-		
+
 		var x = null,
 			y = null,
-			delta = 0,
 			showVertical = this.showVertical(),
 			showHorizontal = this.showHorizontal()
 		;
-		
+
 		//* If we don't have to scroll, allow mousewheel event to bubble
 		if (!showVertical && !showHorizontal) {
 			this.scrollBounds = null;
@@ -154,10 +153,14 @@ enyo.kind({
 		}
 
 		if (showHorizontal) {
-			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
-			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
+			if (inEvent.wheelDeltaX) {
+				x = this.scrollLeft + -1 * (inEvent.wheelDeltaX * this.scrollWheelMultiplier);
+			} else if (!showVertical) {
+				// only use vertical wheel for horizontal scrolling when no vertical bars shown
+				x = this.scrollLeft + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+			}
 		}
-		
+
 		this.scrollTo(x, y);
 		inEvent.preventDefault();
 		this.scrollBounds = null;
@@ -184,7 +187,7 @@ enyo.kind({
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
 		;
-		
+
 		switch (side) {
 		case "left":
 			x -= scrollXDelta;
@@ -304,8 +307,8 @@ enyo.kind({
 
 		return (this.accel)
 			?   "1,         0,     0,  0, "
-			+	"0,         1,     0,  0, "
-			+	"0,         0,     1,  0, "
+			+   "0,         1,     0,  0, "
+			+   "0,         0,     1,  0, "
 			+    x + ", " + y + ", 1,  1"
 
 			:   "1, 0, 0, 1, " + x + ", " + y
@@ -429,12 +432,12 @@ enyo.kind({
 	},
 	//* Determines whether we should be showing the vertical scroll column.
 	showVertical: function() {
-		return (this.getVertical() !== "hidden" && 
+		return (this.getVertical() !== "hidden" &&
 				((-1 * this.$.scrollMath.bottomBoundary > 0) || this.container.spotlightPagingControls));
 	},
 	//* Determines whether we should be showing the horizontal scroll column.
 	showHorizontal: function() {
-		return (this.getHorizontal() !== "hidden" && 
+		return (this.getHorizontal() !== "hidden" &&
 				((-1 * this.$.scrollMath.rightBoundary > 0) || this.container.spotlightPagingControls));
 	},
 	//* Hides pagination controls.
