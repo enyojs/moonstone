@@ -77,7 +77,8 @@
 		{"name": "Scroller", "samples": [
 			{"name": "Horizontal Scroller", "path":"$lib/moonstone/samples/ScrollerHorizontalSample"},
 			{"name": "Vertical Scroller", "path":"$lib/moonstone/samples/ScrollerVerticalSample"},
-			{"name": "2D Scroller", "path":"$lib/moonstone/samples/Scroller2dSample"}
+			{"name": "2D Scroller", "path":"$lib/moonstone/samples/Scroller2dSample"},
+			{"name": "Text Scroller", "path":"$lib/moonstone/samples/ScrollerTextSample"}
 		]},
 		{"name": "Slider", "path":"$lib/moonstone/samples/SliderSample"},
 		{"name": "Spinner", "path":"$lib/moonstone/samples/SpinnerSample"},

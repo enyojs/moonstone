@@ -1626,6 +1626,10 @@
   -webkit-transform: translateZ(1px);
   margin: 0;
 }
+.moon-icon-button.moon-paging-button.spotlight {
+  background-color: #ff2f7d;
+  background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
+}
 .moon-icon-button.moon-paging-button.hidden {
   opacity: 0.4;
   filter: alpha(opacity=40);
@@ -1666,7 +1670,8 @@
 }
 .moon-paging-button.moon-icon.moon-icon-button.active,
 .moon-paging-button.moon-icon.moon-icon-button:active:hover,
-.moon-paging-button.moon-icon-toggle.active {
+.moon-paging-button.moon-icon-toggle.active,
+.moon-icon-button.moon-paging-button.spotlight.pressed {
   background-position: 6px 6px;
 }
 /* IntegerPicker.css */
@@ -3614,7 +3619,7 @@
 .moon-scroller-v-column,
 .moon-scroller-h-column {
   position: absolute;
-  visibility: hidden;
+  display: none;
   opacity: 0;
   transition: opacity 0.1s linear;
   -moz-transition: opacity 0.1s linear;
@@ -3633,7 +3638,7 @@
 /* Toggle opacity when enabled */
 .moon-scroller-v-column.v-scroll-enabled,
 .moon-scroller-h-column.h-scroll-enabled {
-  visibility: visible;
+  display: block;
 }
 /* Default position for vertical scrollbar */
 .moon-scroller-v-column {
