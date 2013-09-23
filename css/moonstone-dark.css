@@ -3141,21 +3141,36 @@
   position: static !important;
   display: block !important;
 }
+:-webkit-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
 :-moz-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+}
+:-moz-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
 }
 :-ms-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
 }
+:-ms-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
 :-o-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
 }
+:-o-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+}
+:full-screen.moon-video-player .moon-video-player-video {
+  position: static;
 }
 .moon-video-inline-control {
   position: absolute;
