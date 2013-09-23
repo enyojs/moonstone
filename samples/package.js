@@ -88,6 +88,8 @@ enyo.depends(
 	"ScrollerHorizontalSample.js",
 	"ScrollerVerticalSample.css",
 	"ScrollerVerticalSample.js",
+	"ScrollerTextSample.css",
+	"ScrollerTextSample.js",
 	"SelectableItemSample.css",
 	"SelectableItemSample.js",
 	"SimpleIntegerPickerSample.js",
