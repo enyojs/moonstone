@@ -41,7 +41,7 @@
 /* ---------------------------------------*/
 /* Spinner */
 /* ---------------------------------------*/
-/* IntegerScrollPicker */
+/* IntegerPicker */
 /* ---------------------------------------*/
 /* Grid Dimensions */
 /* ---------------------------------------*/
@@ -544,13 +544,18 @@
 }
 .moon-simple-picker {
   display: inline-block;
-}
-.moon-simple-picker > * {
-  display: inline-block;
-  vertical-align: middle;
+  max-width: 350px;
   box-sizing: border-box;
+  padding: 0 70px;
+  position: relative;
+  height: 60px;
+}
+.moon-simple-picker.block {
+  display: block;
 }
 .moon-simple-picker-button {
+  position: absolute;
+  top: 0;
   width: 60px;
   height: 60px;
   line-height: 60px;
@@ -573,28 +578,40 @@
   background-color: #ff2f7d;
   background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
 }
-.moon-simple-picker-client {
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
+.moon-simple-picker-client-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
 }
-.moon-simple-picker-item {
+.moon-simple-picker-client {
+  white-space: nowrap;
+}
+.moon-simple-picker-client.animated {
+  -webkit-transition: -webkit-transform ease-out 0.3s;
+  -moz-transition: -moz-transform ease-out 0.3s;
+  -o-transition: -o-transform ease-out 0.3s;
+  transition: transform ease-out 0.3s;
+}
+.moon-simple-picker-client > * {
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 100%;
   line-height: 60px;
   height: 60px;
   color: #4b4b4b;
   white-space: nowrap;
   text-align: center;
-  padding: 0px;
-  width: auto;
-  max-width: 250px;
 }
-.moon-simple-picker.disabled,
+.moon-simple-picker-client.disabled,
 .moon-simple-picker-button[disabled] {
-  cursor: default;
   opacity: 0.4;
   filter: alpha(opacity=40);
+  background-color: transparent;
 }
 .moon-simple-picker-button.left {
+  left: 0;
   transform: rotate(270deg) translateZ(1px);
   -o-transform: rotate(270deg) translateZ(1px);
   -ms-transform: rotate(270deg) translateZ(1px);
@@ -603,6 +620,7 @@
   margin-right: 10px;
 }
 .moon-simple-picker-button.right {
+  right: 0;
   transform: rotate(90deg) translateZ(1px);
   -o-transform: rotate(90deg) translateZ(1px);
   -ms-transform: rotate(90deg) translateZ(1px);
@@ -743,12 +761,26 @@
   -moz-transform: rotate(270deg) translateZ(1px);
   -webkit-transform: rotate(270deg) translateZ(1px);
 }
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.left {
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
+}
 .moon-simple-integer-picker-button.right {
   transform: rotate(90deg) translateZ(1px);
   -o-transform: rotate(90deg) translateZ(1px);
   -ms-transform: rotate(90deg) translateZ(1px);
   -moz-transform: rotate(90deg) translateZ(1px);
   -webkit-transform: rotate(90deg) translateZ(1px);
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
+  transform: rotate(270deg) translateZ(1px);
+  -o-transform: rotate(270deg) translateZ(1px);
+  -ms-transform: rotate(270deg) translateZ(1px);
+  -moz-transform: rotate(270deg) translateZ(1px);
+  -webkit-transform: rotate(270deg) translateZ(1px);
 }
 .spotlight .moon-simple-integer-picker-button {
   background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
@@ -1368,6 +1400,7 @@
 }
 .moon-header-title-above {
   width: 30px;
+  height: 1.2em;
 }
 /* Main Title */
 .moon-header-title-wrapper {
@@ -1641,51 +1674,7 @@
 .moon-icon-button.moon-paging-button.spotlight.pressed {
   background-position: 6px 6px;
 }
-.moon-integer-picker {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  color: #4b4b4b;
-  display: inline-block;
-  overflow: hidden;
-  cursor: pointer;
-  padding: 0px 10px;
-}
-.enyo-locale-non-latin .moon-integer-picker {
-  font-family: "LG Display";
-  font-size: 28px;
-}
-.moon-integer-picker.spotlight {
-  transition: border-width 0.1s linear, padding 0.1s linear;
-  -webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-  -moz-transition: border-width 0.1s linear, padding 0.1s linear;
-  -o-transition: border-width 0.1s linear, padding 0.1s linear;
-  border-left-width: 16px;
-  border-left-color: #ff2f7d;
-  border-left-style: solid;
-  padding: 0px 0px 0px 4px;
-}
-.moon-integer-picker-item {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  color: #4b4b4b;
-  white-space: nowrap;
-  background: #ffffff;
-}
-.enyo-locale-non-latin .moon-integer-picker-item {
-  font-family: "LG Display";
-  font-size: 28px;
-}
-.moon-integer-picker-panels {
-  min-height: 40px;
-  min-width: 55px;
-}
-/* IntegerScrollPicker.css */
+/* IntegerPicker.css */
 .moon-scroll-picker-container {
   display: inline-block;
   position: relative;
@@ -2191,13 +2180,6 @@
 .moon-list-actions .moon-icon-button {
   margin: 0;
 }
-.moon-list-actions-drawer-popup {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  overflow: hidden;
-  z-index: 1;
-}
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
   position: absolute;
@@ -2225,23 +2207,22 @@
 .proportional-width.stacked .moon-list-actions-menu {
   width: 100% !important;
 }
-.stacked .moon-list-actions-menu {
-  margin-top: 20px;
-}
-.stacked .moon-list-actions-menu {
+.moon-list-actions.stacked .moon-list-actions-menu {
   margin-bottom: 20px;
+  clear: both;
 }
 /* Drawer */
 .moon-list-actions-drawer {
-  position: absolute;
-  top: 0;
-  left: 0;
   overflow: hidden;
+  z-index: 1;
 }
 .moon-list-actions-drawer-client {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+.moon-list-actions.stacked .enyo-fittable-rows-layout > * {
+  height: auto !important;
 }
 /* Labeled Text Item */
 .moon-labeledtextitem {

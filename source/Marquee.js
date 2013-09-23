@@ -78,7 +78,7 @@ enyo.kind({
 	startMarquee: function() {
 		this.calcMarqueeDistance();
 		if (!this.disabled && this.marqueeDistance > 0) {
-			var xPos = (0-this.marqueeDistance) + "px";
+			var xPos = (this.marqueeDistance * (this.rtl ? 1 : -1)) + "px";
 			if (enyo.dom.canTransform()) {
 				enyo.dom.transform(this.marqueeControl, {translateX: xPos});
 			} else {

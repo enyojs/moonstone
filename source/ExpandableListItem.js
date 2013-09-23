@@ -150,7 +150,7 @@ enyo.kind({
 		return true;
 	},
 	spotlightFocused: function(inSender, inEvent) {
-		if (inEvent.originator === this) {
+		if (inEvent.originator === this.$.headerWrapper) {
 			this.bubble("onRequestScrollIntoView", {side: "top"});
 		}
 	},

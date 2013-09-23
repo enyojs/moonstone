@@ -35,14 +35,27 @@ enyo.kind({
 			scroller contents have no spotlightable controls, such as the case of a 
 			scroller with a long body of text. 
 		*/
-		spotlightPagingControls: false
+		spotlightPagingControls: false,
+		//* Relative parameter used to determine scroll speed
+		scrollInterval: 75
 	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
 	strategyKind: "moon.ScrollStrategy",
+	/**
+		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
+		until the edge of _inControl_ is aligned with the edge of the visible scroll
+		area.
+	*/
+	scrollToControl: function(inControl, inScrollFullPage) {
+		this.$.strategy.animateToControl(inControl, inScrollFullPage);
+	},
 
 	//* @protected
+	bindings: [
+		{from: ".scrollInterval", to:".$.strategy.interval"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.spotlightPagingControlsChanged();
@@ -51,15 +64,5 @@ enyo.kind({
 		// Since spotlightPagingControls is used when there are no focusable
 		// children, turn off container handling in that case.
 		this.spotlight = this.spotlightPagingControls ? false : "container";
-	},
-	
-	/**
-		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
-		until the edge of _inControl_ is aligned with the edge of the visible scroll
-		area.
-	*/
-	scrollToControl: function(inControl, inScrollFullPage) {
-		this.$.strategy.animateToControl(inControl, inScrollFullPage);
 	}
-	//* @protected
 });

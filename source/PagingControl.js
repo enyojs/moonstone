@@ -17,7 +17,8 @@ enyo.kind({
 		ondown: "down",
 		onup: "endHold",
 		onleave: "endHold",
-		onhold: "hold"
+		onhold: "hold",
+		onActivate: "noop"
 	},
 	events: {
 		onPaginate: "",
