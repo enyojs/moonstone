@@ -121,7 +121,6 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.setChildPickers(inOld);
-		this.doChange({name:this.name, value:this.value});
 	},
 	setChildPickers: function(inOld) {
 		// implement in subkind
