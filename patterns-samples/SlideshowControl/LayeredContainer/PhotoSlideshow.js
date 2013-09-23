@@ -242,7 +242,7 @@ enyo.kind({
 	},
 	displaySlideImage: function() {
 		if (this.index < (this.count - 1)) {
-			this.slideJob = setTimeout(enyo.bindSafely(this, function() { this.displaySlideImage(); }), this.$.speed.getValue() * 1000);
+			this.slideJob = this.startJob("playSlideshow", "displaySlideImage", this.$.speed.getValue() * 1000);
 			this.doChangeSlide({index: this.index, direction: "next"});
 			this.index++;
 		}
