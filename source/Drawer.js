@@ -180,5 +180,8 @@ enyo.kind({
 			this.applyStyle("height", inProps.height + "px");
 		}
 		return true;
+	},
+	drawerPropsChanged: function(){
+		this.$.client.applyStyle("height", this.drawerProps.height + "px");
 	}
 });

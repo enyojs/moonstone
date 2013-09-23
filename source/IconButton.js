@@ -33,7 +33,8 @@ enyo.kind({
 		//* onSpotlightKeyUp simulates mouseup
 		onSpotlightKeyUp: "undepress",
 		//* used to request it is in view in scrollers
-		onSpotlightFocused: "spotlightFocused"
+		onSpotlightFocused: "spotlightFocused",
+		onSpotlightBlur: "undepress"
 	},
 	rendered: enyo.inherit(function(sup) {
 		return function() {
