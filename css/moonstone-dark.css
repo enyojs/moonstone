@@ -1900,7 +1900,7 @@
   filter: alpha(opacity=40);
 }
 .moon-progress-bar.moon-slider {
-  margin: 60px 45px;
+  margin: 60px 45px !important;
 }
 .moon-slider-popup {
   position: absolute;
