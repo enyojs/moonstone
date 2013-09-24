@@ -29,7 +29,7 @@ enyo.kind({
 									{from: ".model.artist", to: ".$.imageArtist.content"},
 									{from: ".model.time", to: ".$.imageTime.content"}
 								],
-								components: [                    
+								components: [
 									{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
 										{name: "enyoImage", kind: "enyo.Image"},
 										{components: [
@@ -84,13 +84,13 @@ enyo.ready(function (){
 	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
-			style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
 			components: [
 				{
 					kind: "moon.sample.music.TrackOneColumnNarrowSample",
 					controller: ".app.controllers.trackController",
 					classes: "enyo-fit"
-				}
+				},
+				{kind: "enyo.Image", style: "height:100%; width:100%; z-index: -1", src: enyo.Image.placeholder}
 			]
 		},
 		controllers: [
