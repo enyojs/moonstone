@@ -139,11 +139,14 @@ enyo.kind({
 	
 	components: [
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
-		{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-			ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
-			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
-		},
+		{name: "videoContainer", classes: "moon-video-player-container", components: [
+			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
+				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
+				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
+			}
+		]},
+
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
 		
@@ -628,7 +631,8 @@ enyo.kind({
 			this.requestFullscreen();
 		}
 	},
-	fullscreenChanged: function(inSender, inEvent) {
+	fullscreenChanged: function(inSender, inEvent) { 
+		this.addRemoveClass("inline", !this.isFullscreen());
 		this.$.inlineControl.setShowing(!this.isFullscreen());
 		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
