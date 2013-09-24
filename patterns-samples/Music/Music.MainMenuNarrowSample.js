@@ -44,13 +44,13 @@ enyo.ready(function(){
 	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
-			style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
 			components: [
 				{
 					kind: "moon.sample.music.MainMenuNarrowSample",
 					controller: ".app.controllers.menuController",
 					classes: "enyo-fit"
-				}
+				},
+				{kind: "enyo.Image", style: "height:100%; width:100%; z-index: -1", src: enyo.Image.placeholder}
 			]
 		},
 		controllers: [
