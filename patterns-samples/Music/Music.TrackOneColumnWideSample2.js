@@ -25,17 +25,17 @@ enyo.kind({
 							{
 								name: "trackList",
 								kind: "moon.DataTable",
-								childControllerKind: "Test.Controller",					
+								childControllerKind: "Test.Controller",
 								components: [
 									{
-										kind: "FittableColumns",							
+										kind: "FittableColumns",
 										bindings: [
 											{from: ".model.coverUrl", to: ".$.imageCoverUrl.src"},
 											{from: ".model.track", to: ".$.imageTrack.content"},
 											{from: ".model.artist", to: ".$.imageArtist.content"},
 											{from: ".model.album", to: ".$.imageAlbum.content"},
 											{from: ".model.time", to: ".$.imageTime.content"}
-										],													
+										],
 										components: [
 											{kind: "moon.Item", components: [
 												{name: "imageCoverUrl", kind: "enyo.Image", classes: "moon-music-small-image"}
@@ -44,7 +44,7 @@ enyo.kind({
 												{name: "imageTrack", kind: "moon.Item", style: "display: inline-block;", ontap: "changeName"},
 												{name: "imageArtist", kind: "moon.Item", style: "display: inline-block;", ontap: "changeName"},
 												{name: "imageAlbum", kind: "moon.Item", style: "display: inline-block;", ontap: "changeName"}
-											]},								
+											]},
 											{name: "imageTime", kind: "moon.Item", ontap: "changeName"}
 										]
 									}
@@ -90,7 +90,6 @@ enyo.ready(function (){
 	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
-			style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
 			components: [
 				{
 					kind: "moon.sample.music.TrackOneColumnWideSample2",
