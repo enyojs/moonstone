@@ -636,24 +636,23 @@ enyo.kind({
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
 		if (this.isFullscreen()) {
-			enyo.Spotlight.unspot();
 			this.cancelFullscreen();
-			this.spotlight = false;
 		} else {
 			this.requestFullscreen();
-			this.spotlight = true;
 		}
 	},
 	fullscreenChanged: function(inSender, inEvent) {
 		this.$.inlineControl.setShowing(!this.isFullscreen());
 		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
+			this.spotlight = true;
 			this.showFSControls();
 			this.$.controlsContainer.resized();
 		} else {
-			// Reset the more buttons panel back to default
 			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.stopJob("autoHide");
+			enyo.Spotlight.unspot();
+			this.spotlight = false;
 		}
 	},
 	//* Facades _this.$.video.play()_.
