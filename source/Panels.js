@@ -36,7 +36,8 @@ enyo.kind({
 
 		onTransitionFinish:			"transitionFinish",
 		onPreTransitionComplete:	"panelPreTransitionComplete",
-		onPostTransitionComplete:	"panelPostTransitionComplete"
+		onPostTransitionComplete:	"panelPostTransitionComplete",
+		onDisableAcceleration:		"disableAcceleration"
 	},
 	handleTools: [
 		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},
@@ -67,6 +68,22 @@ enyo.kind({
 	//* Flag for initial transition
 	_initialTransition: true,
 
+	// Disable hardware acceleration upon request
+	// Currently needed to work around a video rendering issue on webOS
+	accelerated: true,
+	observers: {
+		acceleratedChanged: ["accelerated"]
+	},
+	acceleratedChanged: function() {
+		this.addRemoveClass("accelerated", this.accelerated);
+		if (this.generated) {
+			this.layout.flow();
+			this.layout.flowArrangement();
+		}
+	},
+	disableAcceleration: function() {
+		this.set("accelerated", false);
+	},
 
 	//* @public
 
@@ -153,7 +170,10 @@ enyo.kind({
 	},
 
 	//* @protected
-
+	create: function() {
+		this.inherited(arguments);
+		this.acceleratedChanged();
+	},
 	initComponents: function() {
 		this.applyPattern();
 		this.inherited(arguments);

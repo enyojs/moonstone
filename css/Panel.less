@@ -1,17 +1,32 @@
-.moon-panel {
+.moon-panel.accelerated {
 	-webkit-transform: scale3d(1,1,1);
+	.moon-panel-viewport {
+		-webkit-transform: scale3d(1,1,1);
+	}
+	.moon-panel-content-wrapper {
+		-webkit-transform: scale3d(1,1,1);
+	}
+	.moon-panel-breadcrumb {
+		-webkit-transform: scale3d(1,1,1);
+	}
+	.moon-panel-breadcrumb-viewport {
+		-webkit-transform: scale3d(1,1,1);
+	}
+	.moon-panel-mini-header-wrapper {
+		-webkit-transform: scale3d(1,1,1);
+	}
+}
+.moon-panel {
 	overflow: hidden;
 	padding: 0;
 	margin: 0;
 	height: 100%;
 }
 .moon-panel-viewport {
-	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
 	position: relative;
 }
 .moon-panel-content-wrapper {
-	-webkit-transform: scale3d(1,1,1);
 	padding: @moon-spotlight-outset;
 	z-index: 2;
 	box-sizing: border-box;
@@ -24,7 +39,6 @@
 
 /* Breadcrumb */
 .moon-panel-breadcrumb {
-	-webkit-transform: scale3d(1,1,1);
 	width: 220px;
 	height: 370px;
 	position: absolute;
@@ -32,7 +46,6 @@
 	left: 0px;
 }
 .moon-panel-breadcrumb-viewport {
-	-webkit-transform: scale3d(1,1,1);
 	position: absolute;
 	bottom: 0px;
 	left: 9px;
@@ -41,7 +54,6 @@
 	overflow: hidden;
 }
 .moon-panel-mini-header-wrapper {
-	-webkit-transform: scale3d(1,1,1);
 	margin: @moon-spotlight-outset 0 0;
 	position: absolute;
 	bottom: 0;

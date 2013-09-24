@@ -45,7 +45,8 @@ enyo.kind({
 	},
 	handlers: {
 		onScroll: "scroll",
-		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
+		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler",
+		onDisableAcceleration: "disableAcceleration"
 	},
 
 	//* @protected
@@ -91,7 +92,23 @@ enyo.kind({
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
-	
+
+	// Disable hardware acceleration upon request
+	// Currently needed to work around a video rendering issue on webOS
+	accelerated: true,
+	observers: {
+		acceleratedChanged: ["accelerated"]
+	},
+	acceleratedChanged: function() {
+		var acc = this.accelerated;
+		this.addRemoveClass("accelerated", acc);
+		this.preventTransform = !acc;
+		this.preventAccelerate = !acc;
+	},
+	disableAcceleration: function() {
+		this.set("accelerated", false);
+	},
+
 	create: function() {
 		this.inherited(arguments);
 		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
@@ -101,6 +118,7 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
 		}
 		this.autoNumberChanged();
+		this.acceleratedChanged();
 	},
 	initComponents: function() {
 		this.createTools();
