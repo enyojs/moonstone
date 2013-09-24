@@ -103,7 +103,9 @@ enyo.kind({
 		this.disabledChanged();
 	},
 	rendered: function() {
+		this.$.client.setAnimate(false);
 		this.valueChanged();
+		this.$.client.setAnimate(this.animate);
 		this.inherited(arguments);
 	},
 	populateIndexhash: function() {
