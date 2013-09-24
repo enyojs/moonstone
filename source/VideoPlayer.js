@@ -71,6 +71,10 @@ enyo.kind({
 		hideButtonsOnSlider: true,
 		//* When true, make slider in disabled status and also will not enable when video dataloaded
 		disableSlider: false,
+		//* When false, jump forward/back buttons are hidden
+		showJumpControls: true, 
+		//* When false, fast-forward and rewind buttons are hidden
+		showFFRewindControls: true,
 
 
 		//* URL for "jump back" icon
@@ -128,7 +132,11 @@ enyo.kind({
 		{from: ".jumpForwardIcon",			to:".$.jumpForward.src"},
 		{from: ".inlineFullscreenIcon",		to:".$.ilFullscreen.src"},
 		{from: ".constrainToBgProgress",	to:".$.slider.constrainToBgProgress"},
-		{from: ".elasticEffect",			to:".$.slider.elasticEffect"}
+		{from: ".elasticEffect",			to:".$.slider.elasticEffect"},
+		{from: ".showJumpControls",			to:".$.jumpForward.showing"},
+		{from: ".showJumpControls",			to:".$.jumpBack.showing"},
+		{from: ".showFFRewindControls",		to:".$.fastForward.showing"},
+		{from: ".showFFRewindControls",		to:".$.rewind.showing"}
     ],
 	
 	//* @protected
@@ -256,7 +264,7 @@ enyo.kind({
 		this.$.video.setSrc(this.getSrc());
 	},
 	createInfoControls: function() {
-		this.$.videoInfoHeader.createComponents(this.infoComponents);
+		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: this.getInstanceOwner()});
 	},
 	createClientComponents: function(inComponents) {
 		this.clientComponentsCount = (inComponents) ? inComponents.length : 0;
@@ -349,6 +357,7 @@ enyo.kind({
 		if (!this.inline) {
 			this.$.inlineControl.canGenerate = false;
 		}
+		this.spotlight = !this.inline;
 	},
 	showFSInfoWithPreventEvent: function(inSender, inEvent) {
 		this.showFSInfo();
@@ -455,7 +464,11 @@ enyo.kind({
 			
 			//* Initial spot
 			if (this.showPlaybackControls) {
-				enyo.Spotlight.spot(this.$.fsPlayPause);
+				if (this.$.controlsContainer.getIndex() === 0) {
+					enyo.Spotlight.spot(this.$.fsPlayPause);
+				} else {
+					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
+				}
 			} else {
 				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
 				enyo.Spotlight.spot(oTarget);
@@ -623,9 +636,12 @@ enyo.kind({
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
 		if (this.isFullscreen()) {
+			enyo.Spotlight.unspot();
 			this.cancelFullscreen();
+			this.spotlight = false;
 		} else {
 			this.requestFullscreen();
+			this.spotlight = true;
 		}
 	},
 	fullscreenChanged: function(inSender, inEvent) {
@@ -634,6 +650,10 @@ enyo.kind({
 		if (this.isFullscreen()) {
 			this.showFSControls();
 			this.$.controlsContainer.resized();
+		} else {
+			// Reset the more buttons panel back to default
+			enyo.Spotlight.spot(this.$.ilFullscreen);
+			this.stopJob("autoHide");
 		}
 	},
 	//* Facades _this.$.video.play()_.
