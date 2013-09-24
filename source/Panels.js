@@ -441,9 +441,9 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
-		if (this._initialTransition) {
-			this._initialTransition = false;
-		} else {
+		// Don't change focus unless this was an actual transition (indicated
+		// by sendEvents being true
+		if (sendEvents) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 	},
