@@ -85,7 +85,7 @@ enyo.kind({
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", components: [
 			{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
 				{tag: "canvas", name: "drawingLeft", classes: "moon-slider-popup-left"},
-				{name: "popupLabel",classes: "moon-slider-popup-center" },
+				{name: "popupLabel", classes: "moon-slider-popup-center" },
 				{tag: "canvas", name: "drawingRight", classes: "moon-slider-popup-right"}
 			]}
 		]},
@@ -155,16 +155,28 @@ enyo.kind({
 	canvasWidthChanged: function() {
 		this.$.drawingLeft.setAttribute("width", this.getPopupCanvasWidth());
 		this.$.drawingRight.setAttribute("width", this.getPopupCanvasWidth());
+		this.popupWidthChanged();
+	},
+	//* Updates _height_ attribute of _this.$.drawing_.
+	canvasHeightChanged: function() {
+		this.popupHeightChanged();
+	},
+	//* Updates popup Width.
+	popupWidthChanged: function() {
 		if (this.popupWidth != "auto") {
 			this.$.popupLabel.applyStyle("width", this.getPopupWidth() - this.getPopupCanvasWidth()*2 + 'px');
 		}
 	},
-	//* Updates _height_ attribute of _this.$.drawing_.
-	canvasHeightChanged: function() {
+	//* Updates popup Height.
+	popupHeightChanged: function() {
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
 		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 6 + 'px');
 		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
+		this.popupOffsetChanged();
+	},
+	//* Updates popup Offset.
+	popupOffsetChanged: function() {
 		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
 	},
 	//* Updates popup color.
@@ -411,7 +423,7 @@ enyo.kind({
 		ctxLeft.moveTo(1, h);
 		ctxLeft.arcTo(1, hb, 39, hb, 8);
 		ctxLeft.lineTo(wre, hb);
-		ctxLeft.lineTo(wre, 1)
+		ctxLeft.lineTo(wre, 1);
 		ctxLeft.arcTo(1, 1, 1, hbc, r);
 		ctxLeft.lineTo(1, h);
 		ctxLeft.lineTo(1, 51);
@@ -421,9 +433,9 @@ enyo.kind({
 		ctxRight = this.$.drawingRight.hasNode().getContext("2d");
 		ctxRight.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 		ctxRight.moveTo(0, hb);
-		ctxRight.arcTo(wre, hb, wre, hbc, r)
-		ctxRight.arcTo(wre, 1, 0, 1, r)
-		ctxRight.lineTo(0, 0)
+		ctxRight.arcTo(wre, hb, wre, hbc, r);
+		ctxRight.arcTo(wre, 1, 0, 1, r);
+		ctxRight.lineTo(0, 0);
 		ctxRight.fill();
 	},
 
