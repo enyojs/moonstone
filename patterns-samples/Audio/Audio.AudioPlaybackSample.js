@@ -2,8 +2,16 @@ enyo.kind({
 	name: "moon.sample.audio.AudioPlaybackSample",
 	classes: "enyo-unselectable moon sample-audio-playback",
 	audioFiles: [
-		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
-		{src: "http://enyojs.com/_media/engine.mp3", trackName: "Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"}
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "01-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "02-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "03-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "04-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "05-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "06-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "07-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "08-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "09-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "10-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"}
 	],
 	handlers: {
 		onPlayIndex: "playIndex"

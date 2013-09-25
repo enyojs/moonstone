@@ -34,7 +34,12 @@ enyo.kind({
 	queueList: null,
 	//* @public
 	published: {
-		repeat: false
+		repeat: "NONE", //"NONE", "ONE", "ALL"
+		// add by youngMok.
+		shuffle: false
+	},
+	events: {
+		onIndexChanged: ""
 	},
 	//* @protected
 	audioComponents: [
@@ -52,6 +57,9 @@ enyo.kind({
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
 						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button left", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
+						// by youngMok
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", name: "btnShuffle", content: "S", ontap: "toggleShuffleState"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", name: "btnRepeat", content: "R", ontap: "changeRepeatState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackDrawer"}
 					]}
 				]},
@@ -84,11 +92,57 @@ enyo.kind({
 		clearInterval(this.playheadJob);
 		this.playheadJob = null;
 	},
+	// modify by youngMok
 	audioEnd: function() {
-		if ((this.index === (this.audioTracks.length-1)) && (!this.repeat)) {
+		/*if ((this.index === (this.audioTracks.length-1)) && (!this.repeat)) {
 			this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 		} else {
 			this.playNext();
+		}*/
+		if (this.getShuffle()) {
+			switch (this.getRepeat()) {
+			case "NONE" :
+				if( (this.audioTracks.length - 1) <= this.randomIndex ) {
+					this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+					this.lastControlCommand = "PLAY";
+					this.endPlayheadJob();
+					return true;
+				}
+				else {
+					this.setIndex(this.getNextIndexForShuffle());
+					this.updateTrackIndex(this.index);
+					this.play();
+				}
+				break;
+			case "ONE" :
+				this.play();
+				break;
+			case "ALL" :
+				this.setIndex(this.getNextIndexForShuffle());
+				this.updateTrackIndex(this.index);
+				this.play();
+				break;
+			}
+		} else {
+			switch (this.getRepeat()) {
+			case "NONE" :
+				if( this.index === (this.audioTracks.length-1) ){	//last music
+					this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+					this.lastControlCommand = "PLAY";
+					this.endPlayheadJob();
+					return true;
+				}
+				else {
+					this.playNext();
+				}
+				break;
+			case "ONE" :
+				this.play();
+				break;
+			case "ALL" :
+				this.playNext();
+				break;
+			}
 		}
 	},
 	updateTrackCount: function() {
@@ -137,6 +191,144 @@ enyo.kind({
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
 		this.$.audio.seekTo(currentTime);
 	},
+	// add by youngMok.
+	changeRepeatState: function() {
+		var result = "";
+		switch (this.getRepeat()) {
+			case "NONE" :
+				result = this.setRepeat("ONE");
+				this.$.btnRepeat.setContent("1");
+
+				break;
+			case "ONE" :
+				result = this.setRepeat("ALL");
+				this.$.btnRepeat.setContent("all");
+				break;
+			case "ALL" :
+				result = this.setRepeat("NONE");
+				this.$.btnRepeat.setContent("R");
+				break;
+		}
+	},
+	toggleShuffleState: function() {
+		if (this.shuffle) {
+			this.setShuffle(false);
+			this.$.btnShuffle.setContent("S");
+		} else {
+			this.createRandomPlaylist();
+			this.setShuffle(true);
+			this.$.btnShuffle.setContent("S on");
+		}
+	},
+	/*
+		Make randomized playlist.
+	*/
+	createRandomPlaylist: function() {
+		this.randomPlayList = [];
+		for(var i = 0, len = this.audioTracks.length ; i < len ; i++) {
+			this.randomPlayList[i] = i;
+		}
+		this.shuffleArray(this.randomPlayList);
+		this.randomIndex = -1;
+	},
+	/*
+		Make shuffle array for shuffle features.
+	*/
+	shuffleArray: function(inArray) {
+		var len = inArray.length;
+		if(len == 1) {
+			return inArray;
+		}
+
+		var i = Math.floor(len * 1.5);
+		while(i > 0) {
+			var index1 = Math.floor(Math.random() * len);
+			var index2 = Math.floor(Math.random() * len);
+			if(index1 == index2) continue;
+
+			var temp = inArray[index1];
+			inArray[index1] = inArray[index2];
+			inArray[index2] = temp;
+			i--;
+		}
+		return inArray;
+	},
+	getNextIndexForShuffle: function() {
+		if( (this.randomIndex + 1) >= this.audioTracks.length ) {
+			this.randomPlayList = this.addShuffleArray(this.randomPlayList);
+		}
+
+		return this.randomPlayList[++this.randomIndex];
+	},
+	getPreviousIndexForShuffle: function() {
+		var index = 0;
+
+		if( (this.randomIndex - 1) < 0 ) {
+			index = this.randomPlayList[0];
+		}
+		else {
+			index = this.randomPlayList[--this.randomIndex];
+		}
+		this.randomPlayList = this.shuffleArrayWithinRange(this.randomPlayList, this.randomIndex + 1);
+
+		return index;
+	},
+	/*
+		If there are no next shuffle playlist, add shuffle playlist. 
+	*/
+	addShuffleArray: function(inShuffleArray) {
+		var len = this.audioTracks.length;
+		var sparePlayList = new Array();
+		for(var i = 0 ; i < len ; i++){
+			sparePlayList[i] = i;
+		}
+		this.shuffleArray(sparePlayList);
+
+		return inShuffleArray.concat(sparePlayList);
+	},
+	/*
+		shuffle array within range
+	*/
+	shuffleArrayWithinRange: function(inShuffleListArr, inStartNum) {
+		if(inStartNum < 0 || inStartNum > (inShuffleListArr.length - 1)) return false;
+		if(inShuffleListArr.length == 1) return inShuffleListArr;
+		if((inShuffleListArr.length - 1 ) == inStartNum) return inShuffleListArr;
+
+		var shuffleList = inShuffleListArr.slice(inStartNum);
+
+		var len = shuffleList.length;
+		var i = Math.floor(len * 1.5);
+		while(i > 0)
+		{
+			var index1 = Math.floor(Math.random() * len);
+			var index2 = Math.floor(Math.random() * len);
+			if(index1 == index2) continue;
+			var temp = shuffleList[index1];
+			shuffleList[index1] = shuffleList[index2];
+			shuffleList[index2] = temp;
+			i--;
+		}
+
+		return inShuffleListArr.slice(0, inStartNum).concat(shuffleList);
+	},
+	setIndex: function(inIndex) {
+		var previous = this.index;
+		this.index = inIndex;
+		this.indexChanged(previous, inIndex);
+	},
+	indexChanged: function(previous, current) {
+		if(previous !== current) {
+			this.doIndexChanged({"previous": previous, "current": current});
+		}
+	},
+	recomposeAudioTag: function() {
+		if(this.$.audio){
+			var audioParent = this.$.audio.parent;
+			this.$.audio.destroy();
+			audioParent.createComponent({name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"}, {owner: this});
+			this.$.audio.render();
+		}
+	},
 	//* @public
 	togglePlay: function() {
 		if (this.$.audio.getPaused()) {
@@ -151,6 +343,7 @@ enyo.kind({
 			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 500);
 		}
 		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
+		this.lastControlCommand = "PLAY";
 	},
 	pause: function() {
 		this.$.audio.pause();
@@ -158,14 +351,82 @@ enyo.kind({
 		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 	},
 	playPrevious: function() {
-		this.index = (this.index === 0) ? this.audioTracks.length - 1 : this.index - 1;
+		/*this.index = (this.index === 0) ? this.audioTracks.length - 1 : this.index - 1;
 		this.updateTrackIndex(this.index);
-		this.play();
+		this.play();*/
+		this.recomposeAudioTag();
+
+		this.audioTracks[this.index].playingMark = false;
+
+		if(this.shuffle){
+			if( this.getRepeat() === "NONE" ) {
+				this.setIndex(this.getPreviousIndexForShuffle());
+			}
+			else if( this.getRepeat() === "ONE" ) {
+				this.setIndex(this.getPreviousIndexForShuffle());
+			}
+			else if( this.getRepeat() === "ALL" ) {
+				this.setIndex(this.getPreviousIndexForShuffle());
+			}
+		}
+		else{
+			if( this.getRepeat() === "NONE" ) {
+				this.setIndex((this.index === 0) ? this.audioTracks.length - 1 : this.index - 1);
+			}
+			else if( this.getRepeat() === "ONE" ) {
+				this.setIndex((this.index === 0) ? this.audioTracks.length - 1 : this.index - 1);
+			}
+			else if( this.getRepeat() === "ALL" ) {
+				this.setIndex((this.index === 0) ? this.audioTracks.length - 1 : this.index - 1);
+			}
+		}
+
+		this.updateTrackIndex(this.index);
+		this.audioTracks[this.index].playingMark = true;
+		this.waterfall("onRefreshPlaylist", {tracks: this.audioTracks});
+
+		if( this.lastControlCommand === "PLAY" ) {
+			this.play();
+		}
 	},
 	playNext: function() {
-		this.index = (this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0;
+		/*this.index = (this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0;
 		this.updateTrackIndex(this.index);
-		this.play();
+		this.play();*/
+		this.recomposeAudioTag();
+
+		this.audioTracks[this.index].playingMark = false;
+
+		if(this.shuffle){
+			if( this.getRepeat() === "NONE" ) {
+				this.setIndex(this.getNextIndexForShuffle());
+			}
+			else if( this.getRepeat() === "ONE" ) {
+				this.setIndex(this.getNextIndexForShuffle());
+			}
+			else if( this.getRepeat() === "ALL" ) {
+				this.setIndex(this.getNextIndexForShuffle());
+			}
+		}
+		else{
+			if( this.getRepeat() === "NONE" ) {
+				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
+			}
+			else if( this.getRepeat() === "ONE" ) {
+				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
+			}
+			else if( this.getRepeat() === "ALL" ) {
+				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
+			}
+		}
+
+		this.updateTrackIndex(this.index);
+		this.audioTracks[this.index].playingMark = true;
+		this.waterfall("onRefreshPlaylist", {tracks: this.audioTracks});
+
+		if( this.lastControlCommand === "PLAY") {
+			this.play();
+		}
 	},
 	playAtIndex: function(inIndex) {
 		this.index = (this.audioTracks.length > inIndex) ? inIndex : 0;
