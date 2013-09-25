@@ -59,7 +59,7 @@ enyo.kind({
 		{from: ".unit", to: ".$.picker.unit"},
 		{from: ".value", to: ".$.picker.value", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
-		{from: ".currentValueText", to: ".$.currentValue.content"},
+		{from: ".currentValueText", to: ".$.currentValue.content"}
 	],
 	computed: {
 		"showCurrentValue": ["open"],
