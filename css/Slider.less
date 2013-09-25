@@ -39,27 +39,44 @@
 .moon-slider-popup {
 	position: absolute;
 	display: block;
+	vertical-align: top;
+	white-space: nowrap;
+	min-width:100%;
 	z-index: 20;
 	left: 50%;
-	top: 0px;
-	width: 62px;
-	height: 52px;
 	&.moon-slider-popup-flip-h {
 		left: auto;
 		right: 50%;
 	}
 }
+
+.moon-slider-popup-left {
+  position:relative;
+  display:inline-block;
+  margin:0;padding:0;
+}
+
+.moon-slider-popup-center {
+  position:relative;
+  display:inline-block;
+  margin: 1px 0 0 0;
+  padding: 0;
+}
+
+.moon-slider-popup-right {
+  position:relative;
+  display:inline-block;
+  margin:0;padding:0;
+  vertical-align: top;
+}
+
 .moon-slider-popup-label {
 	.moon-large-button-text;
-	position: absolute;
-	top: 2px;
-	width: 86px;
-	height: 45px;
 	white-space: nowrap;
 	color: @moon-slider-popup-text-color;
 	text-align: center;
 	line-height: 1.5em;
-	vertical-align: middle;
+	vertical-align: top;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;

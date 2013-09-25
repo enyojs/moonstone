@@ -41,8 +41,6 @@ enyo.kind({
 		tapAreaClasses: "moon-video-transport-slider-taparea",
 		//* Color of value popup
 		popupColor: "#fff",
-		//** Custom Popup width for video player
-		popupWidth: 200,
 		//* Popup offset in pixels
 		popupOffset: 25,
 		//** threshold value(percentage) for using animation effect on slider progress change
@@ -137,13 +135,13 @@ enyo.kind({
 	updateSliderRange: function() {
 		this.beginTickPos = (this.max-this.min)*0.0625;
 		this.endTickPos = (this.max-this.min)*0.9375;
-		
+
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
 			this.setRangeEnd(this.endTickPos);
 		} else {
 			this.setRangeStart(this.min);
-			this.setRangeEnd(this.max);				
+			this.setRangeEnd(this.max);
 		}
 		this.updateKnobPosition(this.value);
 	},
@@ -161,7 +159,7 @@ enyo.kind({
 	},
 	setRangeEnd: function(inValue) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeEndChanged();	
+		this.rangeEndChanged();
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.setShowing(this.getShowTickText());
@@ -176,7 +174,7 @@ enyo.kind({
 	},
 	rangeStartChanged: function() {
 		this.updateInternalProperty();
-		var p = this._calcPercent(this.rangeStart), 
+		var p = this._calcPercent(this.rangeStart),
 			property = "margin-left";
 		if (this.liveMode) {
 			property = "padding-left";
@@ -196,11 +194,11 @@ enyo.kind({
 	updateScale: function() {
 		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	// 
+	//
 	calcPercent: function(inValue) {
 		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	// 
+	//
 	_calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * 100;
 	},
@@ -209,7 +207,7 @@ enyo.kind({
 	},
 	calcVariationPercent: function(inValue) {
 		return this.calcVariationRatio(inValue) * 100;
-	},	
+	},
 	updateKnobPosition: function(inValue) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._updateKnobPosition(inValue);
@@ -264,7 +262,7 @@ enyo.kind({
 		} else {
 			this._setValue(inValue);
 		}
-	},	
+	},
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
@@ -284,7 +282,7 @@ enyo.kind({
 			}
 			return true;
 		}
-		
+
 		return true;
 	},
 	//* If drag, bubble _onSeek_ event, and override parent drag handler
@@ -326,7 +324,7 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-			
+
 			if(this.showDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}
