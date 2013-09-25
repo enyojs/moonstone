@@ -12,6 +12,7 @@ enyo.kind({
 	kind: "sun.Button",
 	marquee: false,
 	classes: "moon-calendar-picker-date enyo-unselectable",
+	//* public
 	published: {
 		value: null,
 		color: 0
