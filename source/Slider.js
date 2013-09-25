@@ -418,7 +418,7 @@ enyo.kind({
 		ctxLeft.fill();
 
 		// Draw shape with arrow on right
-		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
+		ctxRight = this.$.drawingRight.hasNode().getContext("2d");
 		ctxRight.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r)
