@@ -143,6 +143,13 @@ enyo.kind({
 		this.validate();
 	},
 	triggerRebuild: function() {
+		// We use a job here to avoid rebuilding the picker multiple
+		// times in succession when more than one of the properties it
+		// depends on (min, max, step, unit) change at once. This case
+		// occurs when SimpleIntegerPicker is used inside
+		// ExpandableIntegerPicker, since ExpandableIntegerPicker
+		// facades these properties and therefore sets them all upon
+		// creation.
 		this.startJob("rebuild", this.rebuild, 10);
 	},
 
