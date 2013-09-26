@@ -790,6 +790,7 @@ enyo.kind({
 
 		this.updatePosition();
 
+		delete inEvent.delegate;
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	//* Called when video successfully loads video metadata.
