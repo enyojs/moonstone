@@ -23,7 +23,7 @@ enyo.kind({
 		{from: ".controller.tracks", to: ".$.trackList.controller"}
 	],
 	changeName: function (inSender, inEvent) {
-		inEvent.model.set("track", "Good Track!");
+		this.controller.get("tracks").get(inSender.index).set("track", "Good Track!");
 	}
 });
 
