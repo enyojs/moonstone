@@ -2199,11 +2199,20 @@
   top: 10px;
   z-index: 2;
 }
+.enyo-locale-right-to-left .moon-icon-button.moon-list-actions-close {
+  right: auto;
+  left: 10px;
+}
 /* Scroller */
 .moon-list-actions-scroller {
-  margin: 10px 60px 10px 10px;
+  margin: 10px;
+  margin-right: 60px;
   padding: 0px;
   z-index: 1;
+}
+.enyo-locale-right-to-left .moon-list-actions-scroller {
+  margin-right: 10px;
+  margin-left: 60px;
 }
 /* Action menu */
 .moon-list-actions-menu {
@@ -2215,6 +2224,9 @@
 
   float: right;
   box-sizing: border-box;
+}
+.enyo-locale-right-to-left .moon-list-actions-menu {
+  float: left;
 }
 .proportional-width.stacked .moon-list-actions-menu {
   width: 100% !important;
