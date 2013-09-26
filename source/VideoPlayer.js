@@ -790,6 +790,9 @@ enyo.kind({
 
 		this.updatePosition();
 
+		// TODO: Event handler shouldn't know about event delegates.
+		// Waterfall should handle this automatically.
+		// See https://enyojs.atlassian.net/browse/ENYO-3188
 		delete inEvent.delegate;
 		this.waterfall("onTimeupdate", inEvent);
 	},
