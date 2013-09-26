@@ -417,9 +417,9 @@ enyo.kind({
 		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
 		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
 
-		// Draw shape with arrow on left
 		// Set styles. Default color is knob's color
 		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
+		// Draw shape with arrow on left
 		ctxLeft.moveTo(1, h);
 		ctxLeft.arcTo(1, hb, 39, hb, 8);
 		ctxLeft.lineTo(wre, hb);
@@ -429,9 +429,9 @@ enyo.kind({
 		ctxLeft.lineTo(1, 51);
 		ctxLeft.fill();
 
-		// Draw shape with arrow on right
-		ctxRight = this.$.drawingRight.hasNode().getContext("2d");
+		// Set styles. Default color is knob's color
 		ctxRight.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
+		// Draw shape with arrow on right
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r);
 		ctxRight.arcTo(wre, 1, 0, 1, r);
