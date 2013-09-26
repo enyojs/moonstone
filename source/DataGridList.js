@@ -26,10 +26,9 @@ enyo.kind({
 		updateBounds: enyo.inherit(function (sup) {
 			return function (list) {
 				sup.apply(this, arguments);
-				var w = list.boundsCache.width,
-					b = list.$.scroller.getScrollBounds(),
-					n = list.$.scroller.$.strategy.$.vColumn.hasNode();
-				if (b.height > b.clientHeight) {
+				if (list.$.scroller.$.strategy.showVertical()) {
+					var w = list.boundsCache.width,
+						n = list.$.scroller.$.strategy.$.vColumn.hasNode();
 					list.boundsCache.width = w-n.offsetWidth;
 				}
 			};
