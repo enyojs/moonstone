@@ -391,16 +391,16 @@ enyo.kind({
 		this.$.clientContainer.addRemoveClass("v-scroll-enabled", inEnabled);
 		this.$.vColumn.addRemoveClass("v-scroll-enabled", inEnabled);
 		this.$.hColumn.addRemoveClass("v-scroll-enabled", inEnabled);
-		this.$.pageUpControl.spotlight = inEnabled;
-		this.$.pageDownControl.spotlight = inEnabled;
+		this.$.pageUpControl.spotlight = inEnabled && this.container.spotlightPagingControls;
+		this.$.pageDownControl.spotlight = inEnabled && this.container.spotlightPagingControls;
 	},
 	//* Enables or disables horizontal scroll column.
 	enableDisableHorizontalScrollControls: function(inEnabled) {
 		this.$.clientContainer.addRemoveClass("h-scroll-enabled", inEnabled);
 		this.$.vColumn.addRemoveClass("h-scroll-enabled", inEnabled);
 		this.$.hColumn.addRemoveClass("h-scroll-enabled", inEnabled);
-		this.$.pageLeftControl.spotlight = inEnabled;
-		this.$.pageRightControl.spotlight = inEnabled;
+		this.$.pageLeftControl.spotlight = inEnabled && this.container.spotlightPagingControls;
+		this.$.pageRightControl.spotlight = inEnabled && this.container.spotlightPagingControls;
 	},
 	//* Shows or hides scroll columns.
 	showHideScrollColumns: function(inShow) {
