@@ -41,7 +41,7 @@ enyo.kind({
 	},
 	//* @protected
 	bindings: [
-		{from: ".value", to: ".$.title.value", twoWay: true}
+		{from: ".value", to: ".$.titleInput.value", oneWay: false}
 	],
 	classes: "moon-input-header",
 	componentOverrides: {
