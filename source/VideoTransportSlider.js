@@ -88,13 +88,17 @@ enyo.kind({
 		this.createPopupLabelComponents();
 		this.showTickTextChanged();
 		this.showTickBarChanged();
+
+		if (window.ilib) {
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+		}
 	},
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
 	},
 	createPopupLabelComponents: function() {
 		this.$.popupLabel.createComponents(this.popupLabelComponents, {owner: this});
-		this.currentTime = new Date(0);
+		this.currentTime = 0;
 	},
 	enterTapArea: function(inSender, inEvent) {
 		this.addClass('visible');
@@ -111,9 +115,8 @@ enyo.kind({
 		if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			return;
 		}
-		v = this.transformToVideo(v);
-		this.currentTime = new Date(v * 1000);
-		this._updateKnobPosition(v);
+		this.currentTime = this.transformToVideo(v);
+		this._updateKnobPosition(this.currentTime);
 	},
 	startPreview: function(inSender, inEvent) {
 		this._previewMode = true;
@@ -121,7 +124,7 @@ enyo.kind({
 	},
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
-		this.currentTime = new Date(this._currentTime * 1000);
+		this.currentTime = this._currentTime;
 		this._updateKnobPosition(this._currentTime);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
@@ -220,14 +223,6 @@ enyo.kind({
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
-
-		var label = "";
-		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(p));
-		}
-		else {
-			label = Math.round(p) + "%";
-		}
 		if(this.currentTime !== undefined) {
 			this.$.popupLabelText.setContent(this.formatTime(this.currentTime));
 		}
@@ -361,19 +356,28 @@ enyo.kind({
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
 		this._duration = inSender._duration;
-		this.currentTime = new Date(this._currentTime * 1000);
-		this.duration = new Date(this._duration * 1000);
+		this.currentTime = this._currentTime;
+		this.duration = this._duration;
 		this.$.endTickText.setContent(this.formatTime(this.duration));
 	},
 
 	//* Properly format time
 	formatTime: function(inValue) {
-		var inMinutes = this._formatTime(inValue.getMinutes());
-		var inSeconds = this._formatTime(inValue.getSeconds());
-		return inMinutes + ":" + inSeconds;
+		var hour = Math.floor(inValue / (60*60));
+		var min = Math.floor(inValue / 60);
+		var sec = Math.round(inValue % 60);
+		if (this.durfmt) {
+			var val = {minute: min, second: sec};
+			if (hour) {
+				val.hour = hour;
+			}
+			return this.durfmt.format(val);
+		} else {
+			return (hour ? this.padDigit(hour) + ":" : "") + this.padDigit(min) + ":" + this.padDigit(sec);
+		}
 	},
 	//* Format time helper
-	_formatTime: function(inValue) {
+	padDigit: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
