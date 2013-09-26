@@ -388,27 +388,19 @@ enyo.kind({
 	},
 	//* Enables or disables vertical scroll column.
 	enableDisableVerticalScrollControls: function(inEnabled) {
-		if (inEnabled) {
-			this.$.clientContainer.addClass("v-scroll-enabled");
-			this.$.vColumn.addClass("v-scroll-enabled");
-			this.$.hColumn.addClass("v-scroll-enabled");
-		} else {
-			this.$.clientContainer.removeClass("v-scroll-enabled");
-			this.$.vColumn.removeClass("v-scroll-enabled");
-			this.$.hColumn.removeClass("v-scroll-enabled");
-		}
+		this.$.clientContainer.addRemoveClass("v-scroll-enabled", inEnabled);
+		this.$.vColumn.addRemoveClass("v-scroll-enabled", inEnabled);
+		this.$.hColumn.addRemoveClass("v-scroll-enabled", inEnabled);
+		this.$.pageUpControl.spotlight = inEnabled;
+		this.$.pageDownControl.spotlight = inEnabled;
 	},
 	//* Enables or disables horizontal scroll column.
 	enableDisableHorizontalScrollControls: function(inEnabled) {
-		if (inEnabled) {
-			this.$.clientContainer.addClass("h-scroll-enabled");
-			this.$.vColumn.addClass("h-scroll-enabled");
-			this.$.hColumn.addClass("h-scroll-enabled");
-		} else {
-			this.$.clientContainer.removeClass("h-scroll-enabled");
-			this.$.vColumn.removeClass("h-scroll-enabled");
-			this.$.hColumn.removeClass("h-scroll-enabled");
-		}
+		this.$.clientContainer.addRemoveClass("h-scroll-enabled", inEnabled);
+		this.$.vColumn.addRemoveClass("h-scroll-enabled", inEnabled);
+		this.$.hColumn.addRemoveClass("h-scroll-enabled", inEnabled);
+		this.$.pageLeftControl.spotlight = inEnabled;
+		this.$.pageRightControl.spotlight = inEnabled;
 	},
 	//* Shows or hides scroll columns.
 	showHideScrollColumns: function(inShow) {
@@ -432,13 +424,15 @@ enyo.kind({
 	},
 	//* Determines whether we should be showing the vertical scroll column.
 	showVertical: function() {
-		return (this.getVertical() !== "hidden" &&
-				((-1 * this.$.scrollMath.bottomBoundary > 0) || this.container.spotlightPagingControls));
+		return (this.getVertical() == "scroll" || 
+				(this.getVertical() !== "hidden" &&
+				((-1 * this.$.scrollMath.bottomBoundary > 0) || this.container.spotlightPagingControls)));
 	},
 	//* Determines whether we should be showing the horizontal scroll column.
 	showHorizontal: function() {
-		return (this.getHorizontal() !== "hidden" &&
-				((-1 * this.$.scrollMath.rightBoundary > 0) || this.container.spotlightPagingControls));
+		return (this.getHorizontal() == "scroll" || 
+				(this.getHorizontal() !== "hidden" &&
+				((-1 * this.$.scrollMath.rightBoundary > 0) || this.container.spotlightPagingControls)));
 	},
 	//* Hides pagination controls.
 	hidePageControls: function() {
