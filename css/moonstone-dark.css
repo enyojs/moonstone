@@ -60,7 +60,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
+  src: local("miso-regular"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -73,7 +73,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
+  src: local("miso-bold"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -86,7 +86,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
+  src: local("miso-light"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   unicode-range: U+00-FF;
