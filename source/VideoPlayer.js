@@ -116,11 +116,12 @@ enyo.kind({
 	handlers: {
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
-		onSpotlightFocus: 'spotlightFocusHandler',
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
 		onSpotlightSelect: 'spotlightSelectHandler',
+		onSpotlightLeft: 'spotlightLeftRightHandler',
+		onSpotlightRight: 'spotlightLeftRightHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -141,6 +142,8 @@ enyo.kind({
 	
 	//* @protected
 
+	spotlightModal: true,
+	
 	_isPlaying: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
@@ -158,13 +161,13 @@ enyo.kind({
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", onSpotlightUp: "showFSInfoWithPreventEvent", onSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
+				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", XonSpotlightUp: "showFSInfoWithPreventEvent", XonSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
 			
-					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", onSpotlightLeft: "preventEvent"},
+					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", XonSpotlightLeft: "preventEvent"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", components: [
-							{classes: "moon-video-player-control-buttons", components: [
+							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
 								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
 								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
 								{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
@@ -175,7 +178,7 @@ enyo.kind({
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
-					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", onSpotlightRight: "preventEvent", components: [
+					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", XonSpotlightRight: "preventEvent", components: [
 						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
@@ -215,37 +218,10 @@ enyo.kind({
 		this.jumpSecChanged();
 	},
 	showPlaybackControlsChanged: function(inOld) {
-		var lastControl = (this.getClientControls().length>0) ? this.getClientControls()[this.getClientControls().length-1] : {};
-		//* Prevent spotlight event for each cases
-		this.resetPreventSpotlight(lastControl);
-		if (!this.showPlaybackControls) {
-			this.$.trickPlay.hide();
-			if (this.clientComponentsCount === 1) {
-				this.$.leftPremiumPlaceHolder.onSpotlightRight = "preventEvent";
-			} else if (this.clientComponentsCount > 2) {
-				this.$.moreButton.hide();
-				lastControl.defaultSpotlightRight = lastControl.name;
-			}
-		} else {
-			this.$.trickPlay.show();
-			if (this.clientComponentsCount < 2) {
-				this.$.jumpForward.defaultSpotlightRight = "jumpForward";
-				if (this.clientComponentsCount === 0) {
-					this.$.jumpBack.defaultSpotlightLeft = "jumpBack";
-				}
-			} else if (this.clientComponentsCount === 2) {
-				this.$.jumpForward.defaultSpotlightRight = lastControl.name; // Bug fix: spot goes to more controls
-			} else {
-				this.$.jumpForward.defaultSpotlightRight = "moreButton"; // Bug fix: spot goes to more controls
-			}
-		}
+		this.$.trickPlay.set("showing", this.showPlaybackControls);
+		this.$.moreButton.set("showing", this.showPlaybackControls && this.clientComponentsCount > 2);
+		this.toggleSpotlightForMoreControls(!this.showPlaybackControls);
 		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
-	},
-	resetPreventSpotlight: function(lastControl) {
-		this.$.leftPremiumPlaceHolder.onSpotlightRight = null;
-		this.$.jumpBack.defaultSpotlightLeft = null;
-		this.$.jumpForward.defaultSpotlightRight = null;
-		lastControl.defaultSpotlightRight = null;
 	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
@@ -274,10 +250,8 @@ enyo.kind({
 				// No components - destroy more button
 				this.$.leftPremiumPlaceHolder.hide();
 				this.$.rightPremiumPlaceHolder.hide();		
-				this.$.moreButton.hide();			
 			} else if (inComponents.length <= 2) {
 				// One or two components - destroy more button and utilize left/right premium placeholders
-				this.$.moreButton.hide();
 				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 				if (inComponents.length === 1) {
 					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
@@ -378,33 +352,37 @@ enyo.kind({
 	panelsHidden: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
 	},
+	isLarge: function() {
+		return this.isFullscreen() || !this.get("inline");
+	},
 	spotlightUpHandler: function(inSender, inEvent) {
-		if (this.isFullscreen() || !this.getInline()) {
+		if (this.isLarge()) {
 			if (inEvent.originator !== this.$.slider) {
 				this.showFSInfo();
+			}
+			if (inEvent.originator === this) {
+				return true;
 			}
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		if (this.isFullscreen() || !this.getInline()) {
-			if (inEvent.originator === this && !this.$.playerControl.getShowing()) {
+		this.log("Large: " + this.isLarge());
+		if (inEvent.originator === this && this.isLarge()) {
+			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
-				return true;
 			}
+			return true;
+		}
+	},
+	spotlightLeftRightHandler: function(inSender, inEvent) {
+		if (inEvent.originator === this && this.isFullscreen()) {
+			return true;
 		}
 	},
 	spotlightSelectHandler: function(inSender, inEvent) {
-		if (inEvent.originator == this) {
-			if (this.isFullscreen() || !this.getInline()) {
-				this.showFSInfo();
-				this.showFSBottomControls();
-				return true;
-			}
-		}
-	},
-	spotlightFocusHandler: function(inSender, inEvent) {
-		// Avoid changing the focus when the overlay is showing
-		if ((inEvent.originator === this) && (this.isOverlayShowing())) {
+		if (inEvent.originator == this && this.isLarge()) {
+			this.showFSInfo();
+			this.showFSBottomControls();
 			return true;
 		}
 	},
@@ -642,16 +620,17 @@ enyo.kind({
 		}
 	},
 	fullscreenChanged: function(inSender, inEvent) {
+		enyo.Spotlight.unspot();
 		this.$.inlineControl.setShowing(!this.isFullscreen());
 		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
+			this.$.ilFullscreen.undepress();
 			this.spotlight = true;
 			this.showFSControls();
 			this.$.controlsContainer.resized();
 		} else {
-			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.stopJob("autoHide");
-			enyo.Spotlight.unspot();
+			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.spotlight = false;
 		}
 	},
@@ -769,9 +748,11 @@ enyo.kind({
 		var index = this.$.controlsContainer.getIndex();
 		if (index === 0) {
 			this.$.moreButton.setSrc(this.lessControlsIcon);
+			this.toggleSpotlightForMoreControls(true);
 			this.$.controlsContainer.next();
 		} else {
 			this.$.moreButton.setSrc(this.moreControlsIcon);
+			this.toggleSpotlightForMoreControls(false);
 			this.$.controlsContainer.previous();
 		}
 	},
@@ -781,6 +762,17 @@ enyo.kind({
 			this.$.moreButton.setSrc(this.moreControlsIcon);
 		} else {
 			this.$.moreButton.setSrc(this.lessControlsIcon);
+		}
+	},
+	toggleSpotlightForMoreControls: function(trueOrFalse) {
+		var m = this.$.client.children;
+		var p = this.$.playbackControls.children;
+		this.log(p);
+		for (var i = 0; i < m.length; i++) {
+			m[i].spotlight = trueOrFalse;
+		}
+		for (var j = 0; j < p.length; j++) {
+			p[j].spotlight = !trueOrFalse;
 		}
 	},
 
