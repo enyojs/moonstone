@@ -134,8 +134,14 @@ enyo.kind({
 		
 		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
 		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
-		styleString += (this.rtl ? "right:" : "left: ")	+ Math.ceil(headerBounds.left - bounds.left) + "px; ";
 		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
+
+		if (this.rtl) {
+			styleString += "right: " + Math.ceil(bounds.right - headerBounds.right) + "px; ";
+		}
+		else {
+			styleString += "left: " + Math.ceil(headerBounds.left - bounds.left) + "px; ";
+		}
 		
 		this.$.drawer.addStyles(styleString);
 	},
