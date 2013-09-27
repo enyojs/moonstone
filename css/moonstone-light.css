@@ -1913,15 +1913,34 @@
 .moon-slider-popup {
   position: absolute;
   display: block;
+  white-space: nowrap;
   z-index: 20;
   left: 50%;
-  top: 0px;
-  width: 62px;
-  height: 52px;
 }
 .moon-slider-popup.moon-slider-popup-flip-h {
   left: auto;
   right: 50%;
+}
+.moon-slider-popup-left {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.moon-slider-popup-center {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 1px 0 0 0;
+  padding: 0;
+  z-index: 21;
+}
+.moon-slider-popup-right {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
 }
 .moon-slider-popup-label {
   font-family: "Miso";
@@ -1930,15 +1949,10 @@
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
-  position: absolute;
-  top: 2px;
-  width: 86px;
-  height: 45px;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
   line-height: 1.5em;
-  vertical-align: middle;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
@@ -3085,11 +3099,9 @@
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
-  position: absolute;
-  top: 0;
   white-space: nowrap;
   color: #4b4b4b;
-  text-align: center;
+  vertical-align: top;
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "LG Display";
