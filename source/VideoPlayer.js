@@ -369,7 +369,6 @@ enyo.kind({
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		this.log("Large: " + this.isLarge());
 		if (inEvent.originator === this && this.isLarge()) {
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
@@ -771,7 +770,6 @@ enyo.kind({
 	toggleSpotlightForMoreControls: function(trueOrFalse) {
 		var m = this.$.client.children;
 		var p = this.$.playbackControls.children;
-		this.log(p);
 		for (var i = 0; i < m.length; i++) {
 			m[i].spotlight = trueOrFalse;
 		}
