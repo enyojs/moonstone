@@ -3,7 +3,8 @@ enyo.kind({
 	name: "moon.sample.SliderSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	bindings: [
-		{from: ".$.slider1.value", to:".$.slider2.value"}
+		{from: ".$.slider1.value", to:".$.slider2.value"},
+		{from: ".$.slider1.bgProgress", to: ".$.slider2.bgProgress"}
 	],
 	components: [
 		{kind: "moon.Scroller", fit: true, components: [
@@ -11,8 +12,8 @@ enyo.kind({
 			{kind: "moon.Divider", content: "Slider 1: Default", style: "margin-top:20px;"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 
-			{kind: "moon.Divider", content:"Slider 2: Disabled"},
-			{name: "slider2", kind: "moon.Slider", value: 50, disabled: true},
+			{kind: "moon.Divider", content:"Slider 2: Disabled, Bound to Slider 1"},
+			{name: "slider2", kind: "moon.Slider", disabled: true},
 
 			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
 			{name: "slider3", kind: "moon.Slider", classes: "rgb-sample-slider",
