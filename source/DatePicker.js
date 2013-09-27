@@ -100,9 +100,6 @@ enyo.kind({
 		this.$.day.setValue(this.value.getDate());
 
 		this.$.currentValue.setContent(this.formatValue());
-		if (this.value) {
-			this.doChange({name:this.name, value:this.value});
-		}
 	},
 	getMonthName: function() {
 		return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
