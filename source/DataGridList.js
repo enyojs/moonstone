@@ -6,6 +6,7 @@ enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
 	noDefer: true,
+	allowTransitions: false,
 	scrollerOptions: { kind: "moon.Scroller" }
 });
 //*@protected
