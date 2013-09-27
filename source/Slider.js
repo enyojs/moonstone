@@ -255,49 +255,6 @@ enyo.kind({
 
 		return label;
 	},
-	updatePopupPosition: function() {
-		if (this.rtl) { return this.updatePopupPositionRTL(); }
-		
-		var inControl = this.$.popup;
-		if (!inControl.hasNode().getBoundingClientRect) {
-			return;
-		}
-		var hFlip = false;
-		// popup bounds
-		var pb = inControl.hasNode().getBoundingClientRect();
-		// container bounds
-		var cb = this.container.hasNode().getBoundingClientRect();
-		// knob bounds
-		var kb = this.$.knob.hasNode().getBoundingClientRect();
-
-		// when the popup's right edge is out of the window, adjust to the left
-		if ( (kb.left + (kb.width) + pb.width) > cb.right - 30) {
-			inControl.applyStyle("left", (kb.left - pb.width) + "px");
-			hFlip = true;
-		}
-		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
-		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
-	},
-	updatePopupPositionRTL: function() {
-		var inControl = this.$.popup;
-		if (!inControl.hasNode().getBoundingClientRect) { return; }
-		var hFlip = true;
-		// popup bounds
-		var pb = inControl.hasNode().getBoundingClientRect();
-		// container bounds
-		var cb = this.container.hasNode().getBoundingClientRect();
-		// knob bounds
-		var kb = this.$.knob.hasNode().getBoundingClientRect();
-
-		// when the popup's right edge is out of the window, adjust to the left
-		if (kb.left < 55) {
-			hFlip = false;
-		} else {
-			inControl.applyStyle("left", (kb.left - pb.width) + "px");
-		}
-		inControl.addRemoveClass("moon-slider-popup-flip-h", hFlip);
-		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", hFlip);
-	},
 	calcKnobPosition: function(inEvent) {
 		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
 		var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;

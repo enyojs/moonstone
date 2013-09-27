@@ -48,7 +48,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		if (this.rtl) { this.addClass('moon-progress-bar-rtl'); }
+		this.addRemoveClass("moon-progress-bar-rtl", this.rtl);
 		this.progressChanged();
 		this.barClassesChanged();
 		this.bgBarClassesChanged();
