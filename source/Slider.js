@@ -41,8 +41,7 @@ enyo.kind({
 		noPopup: false,
 		//* When true, popup displays a percentage value (rather than the absolute value)
 		showPercentage: true,
-		//* Popup canvas (left, right) width in pixels
-		popupCanvasWidth: 20,
+
 		//* Popup width in pixels
 		popupWidth: "auto",
 		//* Popup height in pixels
@@ -92,6 +91,8 @@ enyo.kind({
 		{name: "tapArea"}
 	],
 	animatingTo: null,
+	popupLeftCanvasWidth: 20, // Popup left canvas width in pixel
+	popupRightCanvasWidth: 20, // Popup right canvas width in pixel
 
 	//* @public
 
@@ -130,8 +131,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		this.popupColorChanged();
-		this.canvasWidthChanged();
-		this.canvasHeightChanged();
+		this.popupHeightChanged();
 		this.drawToCanvas(this.popupColor);
 	},
 	disabledChanged: function() {
@@ -151,20 +151,15 @@ enyo.kind({
 		this.$.tapArea.removeClass(inOld);
 		this.$.tapArea.addClass(this.tapAreaClasses);
 	},
-	//* Updates _width_ attribute of _this.$.drawing_.
-	canvasWidthChanged: function() {
-		this.$.drawingLeft.setAttribute("width", this.getPopupCanvasWidth());
-		this.$.drawingRight.setAttribute("width", this.getPopupCanvasWidth());
-		this.popupWidthChanged();
-	},
-	//* Updates _height_ attribute of _this.$.drawing_.
-	canvasHeightChanged: function() {
-		this.popupHeightChanged();
+	//* Updates popup Offset.
+	popupOffsetChanged: function() {
+		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
+		this.drawToCanvas(this.popupColor);
 	},
 	//* Updates popup Width.
 	popupWidthChanged: function() {
 		if (this.popupWidth != "auto") {
-			this.$.popupLabel.applyStyle("width", this.getPopupWidth() - this.getPopupCanvasWidth()*2 + 'px');
+			this.$.popupLabel.applyStyle("width", this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) + 'px');
 		}
 	},
 	//* Updates popup Height.
@@ -174,10 +169,6 @@ enyo.kind({
 		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 6 + 'px');
 		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
 		this.popupOffsetChanged();
-	},
-	//* Updates popup Offset.
-	popupOffsetChanged: function() {
-		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
 	},
 	//* Updates popup color.
 	popupColorChanged: function() {
@@ -416,6 +407,9 @@ enyo.kind({
 
 		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
 		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
+
+		this.$.drawingLeft.setAttribute("width", this.popupLeftCanvasWidth);
+		this.$.drawingRight.setAttribute("width", this.popupRightCanvasWidth);
 
 		// Set styles. Default color is knob's color
 		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");

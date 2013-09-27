@@ -39,9 +39,7 @@
 .moon-slider-popup {
 	position: absolute;
 	display: block;
-	vertical-align: top;
 	white-space: nowrap;
-	min-width:100%;
 	z-index: 20;
 	left: 50%;
 	&.moon-slider-popup-flip-h {
@@ -49,25 +47,26 @@
 		right: 50%;
 	}
 }
-
 .moon-slider-popup-left {
-  position:relative;
-  display:inline-block;
-  margin:0;padding:0;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
-
 .moon-slider-popup-center {
   position:relative;
   display:inline-block;
+  vertical-align: top;
   margin: 1px 0 0 0;
   padding: 0;
+  z-index: 21;
 }
-
 .moon-slider-popup-right {
   position:relative;
   display:inline-block;
-  margin:0;padding:0;
   vertical-align: top;
+  margin:0;
+  padding:0;
 }
 
 .moon-slider-popup-label {
@@ -76,7 +75,6 @@
 	color: @moon-slider-popup-text-color;
 	text-align: center;
 	line-height: 1.5em;
-	vertical-align: top;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;
