@@ -356,9 +356,6 @@
   color: #999999;
   background-color: #000000;
 }
-.spotlight {
-  color: #ffffff;
-}
 .moon-header-font {
   font-family: "Miso";
   text-transform: uppercase;
@@ -1705,6 +1702,7 @@
 }
 .spotlight .moon-scroll-picker {
   background: #ff2f7d;
+  color: #ffffff;
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
