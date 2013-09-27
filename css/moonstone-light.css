@@ -1872,6 +1872,10 @@
   position: absolute;
   top: 0;
 }
+/* RTL classes */
+.moon-progress-bar-rtl .moon-progress-bar-bar {
+  float: right;
+}
 .moon-slider-taparea {
   position: absolute;
   top: -14px;
@@ -1916,6 +1920,7 @@
   white-space: nowrap;
   z-index: 20;
   left: 50%;
+  direction: ltr;
 }
 .moon-slider-popup.moon-slider-popup-flip-h {
   left: auto;
