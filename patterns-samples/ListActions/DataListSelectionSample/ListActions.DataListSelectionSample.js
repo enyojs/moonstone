@@ -14,14 +14,14 @@ enyo.kind({
 			{name: "list", selection: false, kind: "moon.DataList", components: [
 				{
 					bindings: [
-						{from: ".model.title", to: ".label"},
-						{from: ".model.description", to: ".text"},
-						{from: ".model.coverSource", to: ".source"}
+						{from: ".model.title", to: ".$.listItem.label"},
+						{from: ".model.description", to: ".$.listItem.text"},
+						{from: ".model.coverSource", to: ".$.listItem.source"}
 					],
 					components: [
-						{classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.ImageItem"}
+						{name: "listItem", classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.ImageItem"}
 					]
-				}				
+				}
 			]}
 		]}
 	],
