@@ -14,7 +14,8 @@ enyo.kind({
 		{src: "http://enyojs.com/_media/engine.mp3", trackName: "10-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"}
 	],
 	handlers: {
-		onPlayIndex: "playIndex"
+		onPlayIndex: "playIndex",
+		onIndexChanged: "indexChanged"
 	},
 	components: [
 		{kind:"moon.Drawers", drawers:[
@@ -22,8 +23,8 @@ enyo.kind({
 				kind: "moon.AudioPlayback",
 				name: "audioPlayback",
 				handle: {
-					kind: "moon.DrawerHandle",
-					marquee: true
+					/*kind: "moon.DrawerHandle",
+					marquee: true*/
 				}
 			}
 		],
@@ -44,6 +45,9 @@ enyo.kind({
 		for (var i=0; i<len; i++) {
 			this.$.audioPlayback.addAudioTrack(a[i].src, a[i].trackName, a[i].artistName, a[i].albumName, a[i].duration);
 		}
+	},
+	indexChanged: function (inSender, inEvent) {
+		
 	},
 	playIndex: function(inSender, inEvent) {
 		this.$.audioPlayback.playAtIndex(inEvent.index);
