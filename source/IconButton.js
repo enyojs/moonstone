@@ -33,7 +33,8 @@ enyo.kind({
 		//* onSpotlightKeyUp simulates mouseup
 		onSpotlightKeyUp: "undepress",
 		//* used to request it is in view in scrollers
-		onSpotlightFocused: "spotlightFocused"
+		onSpotlightFocused: "spotlightFocused",
+		onSpotlightBlur: "undepress"
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -57,6 +58,8 @@ enyo.kind({
 		this.removeClass('pressed');
 	},
 	spotlightFocused: function(inSender, inEvent) {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
 	}
 });

@@ -1,8 +1,11 @@
 .wizard-nav-button-container {
-    text-align: right;
+    display: inline-block;
+    float: right;
 }
-.wizard-nav-button-container > .moon-button {
-    margin: 0px 10px;   
+.wizard-input-description {
+    display: inline-block;
+    min-height: 98px;
+    min-width: 200px;
 }
 .wizard-button-bottom {
     margin-top: 20px;
@@ -25,10 +28,6 @@
 .wizard-block-row {
     display: block;
     margin: 10px 0px;
-}
-.wizard-input-description {
-    margin: 30px 50px 30px 0px;
-    padding: 0px;
 }
 .wizard-datalist-wrapper .wizard-datalist {
     padding: 15px 0px 15px 0px;

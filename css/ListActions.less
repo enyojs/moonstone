@@ -3,65 +3,66 @@
 	position:relative;
 	display:inline-block;
 	overflow:visible;
+	.moon-icon-button {
+		margin:0;
+	}
 }
-.moon-list-actions-drawer-popup {
-	position:absolute;
-	top:0px;
-	left:0px;
-	overflow:hidden;
+/* Close button */
+.moon-icon-button.moon-list-actions-close {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 2;
 }
-.moon-list-actions-client-container {
-	background-color:white;
-	border-top: 6px solid #4b4b4b;
+.enyo-locale-right-to-left .moon-icon-button.moon-list-actions-close {
+	right: auto;
+	left: 10px;
 }
-.moon-list-actions-close {
-	border-radius: @moon-button-border-radius;
-	line-height: @moon-button-line-height;
-	background-color: @moon-light-gray;
-	border: @moon-button-border-width solid transparent;
-	float:right;
-	width:40px;
-	height:40px;
-	min-width:40px;
-	padding: 0px 0px 0px 0px;
-	margin: 10px 10px 0px 10px;
-}
-.moon-list-actions-close.spotlight {
-	background: @moon-spotlight-border-color;
-}
-.moon-list-actions-close::after {
-	.moon-body-text;
-	content:"\2716";
-	position: relative;
-	top: 3px;
-	left:1px;
-}
+
+/* Scroller */
 .moon-list-actions-scroller {
-	margin: 0px;
+	margin: 10px;
+	margin-right: 60px;
 	padding: 0px;
+	z-index: 1;
 }
-.moon-list-actions-container {
-	float:right;
-	margin: 0px;
-	padding: 0px;
+.enyo-locale-right-to-left .moon-list-actions-scroller {
+	margin-right: 10px;
+	margin-left: 60px;
 }
+
+/* Action menu */
 .moon-list-actions-menu {
-	display:inline-block;
-	vertical-align:top;
-	margin:2px;	
-	width: 300px;
+	display: inline-block;
+	vertical-align: top;
+	width: 300px;		/* Do not change - used in JS */
+	min-width: 300px;	/* Do not change - used in JS */
+	float: right;
+	box-sizing: border-box;
 }
-.moon-list-actions .moon-item,
-.moon-list-actions .moon-divider,
-{
-	font-family: @moon-font-family;
-	text-transform: capitalize;			
+.enyo-locale-right-to-left .moon-list-actions-menu {
+	float: left;
 }
-.moon-list-actions .moon-divider {
-	border-bottom: 1px solid white;	
-}		
-.moon-list-actions .moon-expandable-picker-current-value 
-{
-	font-family: @moon-font-family-light;
-	text-transform: capitalize;		
+
+.proportional-width.stacked .moon-list-actions-menu {
+	width: 100% !important;
+}
+.moon-list-actions.stacked .moon-list-actions-menu {
+	margin-bottom: 20px;
+	clear: both;
+}
+
+/* Drawer */
+.moon-list-actions-drawer {
+	overflow: hidden;
+	z-index: 1;
+}
+.moon-list-actions-drawer-client {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.moon-list-actions.stacked .enyo-fittable-rows-layout > * {
+	height: auto !important;	
 }

@@ -4,7 +4,7 @@
 	right side. This is the default arranger for both the "Always Viewing" and
 	"Activity" patterns; if you are using <a href="#moon.Panel">moon.Panel</a>
 	with either of these patterns, you don't need to specify an arranger
-	explicitly. 
+	explicitly.
 
 	The breadcrumbs reflect the sequence of panels that the user has already seen.
 
@@ -35,12 +35,11 @@
 enyo.kind({
 	name: "moon.BreadcrumbArranger",
 	kind: "enyo.DockRightArranger",
-	breadcrumbWidth: 180,
+	breadcrumbWidth: 230,
 	debug: false,
 	size: function() {
 		var containerWidth = this.getContainerWidth(),
 			panels = this.container.getPanels(),
-			joinedPanels,
 			i;
 
 		// Set up default widths for each panel
@@ -55,21 +54,21 @@ enyo.kind({
 		}
 
 		// Calculate which panels will be joined
-		joinedPanels = this.calculateJoinedPanels(containerWidth);
+		this.joinedPanels = this.calculateJoinedPanels(containerWidth);
 
 		// Stretch all panels to fit vertically
 		this.applyVerticalFit();
 
 		// Reset panel arrangement positions
-		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, joinedPanels);
-		this.adjustTransitionPositionsForJoinedPanels(joinedPanels);
+		this.container.transitionPositions = this.calculateTransitionPositions(containerWidth, this.joinedPanels);
+		this.adjustTransitionPositionsForJoinedPanels(this.joinedPanels);
 
 		// Update individual panel widths to account for _joinedPanels_
-		this.updateWidths(containerWidth, joinedPanels);
+		this.updateWidths(containerWidth, this.joinedPanels);
 		this.applyUpdatedWidths();
 
 		// Calculate _this.breadcrumbPositions_
-		this.calcBreadcrumbPositions(joinedPanels);
+		this.calcBreadcrumbPositions(this.joinedPanels);
 
 		if (this.debug) {
 			enyo.log("transitionPositions:", this.container.transitionPositions);
@@ -340,5 +339,28 @@ enyo.kind({
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		return {isBreadcrumb: this.isBreadcrumb(fromIndex, toIndex)};
+	},
+	//* Return _true_ if any panels will move in the transition from _inFromIndex_ to _inToIndex_
+	shouldArrange: function(inFromIndex, inToIndex) {
+		if (!(inFromIndex >= 0 && inToIndex >= 0)) {
+			return;
+		}
+		
+		var transitionPositions = this.container.transitionPositions,
+			panelCount = this.container.getPanels().length,
+			panelIndex,
+			from,
+			to;
+		
+		for (panelIndex = 0; panelIndex < panelCount; panelIndex++) {
+			from = transitionPositions[panelIndex + "." + inFromIndex];
+			to = transitionPositions[panelIndex + "." + inToIndex];
+			
+			if (from !== to) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 });

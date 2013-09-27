@@ -1,20 +1,28 @@
 /* SelectableItem.css */
-.moon-selectableItem .moon-selectableItem-item {
-	box-sizing: border-box;
-	max-width: 100%;
+.moon-selectable-item .moon-selectable-item-indicator {
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: @moon-pink;
+	display: none;
+	position: absolute;
+	left: @moon-spotlight-outset;
+	top: 15px;
+}
+.enyo-locale-right-to-left .moon-selectable-item .moon-selectable-item-indicator {
+	left: auto;
+	right: @moon-spotlight-outset;
+}
+.moon-selectable-item.selected .moon-selectable-item-indicator {
 	display: inline-block;
-  border-bottom: 4px solid transparent;
 }
-.moon-selectableItem .moon-underline.moon-overlay {
-  cursor: pointer;
-  border-bottom:4px solid #A2A2A2;
-  padding: 0px;
-  transition: border-color 0.4s linear;
-  -webkit-transition: border-color 0.4s linear;
-  -moz-transition: border-color 0.4s linear;
-  -o-transition: border-color 0.4s linear;
+.moon-selectable-item.spotlight .moon-selectable-item-indicator {
+	background-color: #fff;
 }
-.moon-selectableItem .moon-underline {
-  border-bottom:4px solid @moon-orange;
-  padding-bottom: 5px;
+.moon-selectable-item.selected .moon-selectable-item-client {
+	padding-left: 30px;
+}
+.enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
+	padding-left: 0;
+	padding-right: 30px;
 }

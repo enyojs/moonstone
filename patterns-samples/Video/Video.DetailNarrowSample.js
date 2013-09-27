@@ -11,39 +11,40 @@ enyo.kind({
     ],
     components: [
         {
-            kind: "FittableRows",
-            components: [
-                {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"},
+            kind:"moon.Scroller",
+            components:[
+                {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-8v"},
                 {
+                    kind:"FittableColumns",
                     components: [
-                        {components: [
+                        {kind:"moon.BodyText", components: [
                             {kind: "moon.Divider", content: "Rating"},
-                            {name: "rating"}
+                            {kind:"moon.BodyText", name: "rating"}
                         ]},
-                        {components: [
+                        {kind:"moon.BodyText", components: [
                             {kind: "moon.Divider", content: "Release Date"},
-                            {name: "releaseDate"}
+                            {kind:"moon.BodyText", name: "releaseDate"}
                         ]},
-                        {components: [
+                        {kind:"moon.BodyText", components: [
                             {kind: "moon.Divider", content: "Running Time"},
-                            {name: "duration"}
+                            {kind:"moon.BodyText", name: "duration"}
                         ]}
                     ]
                 },
                 {
-					kind: "moon.Table",
+                    kind:"FittableColumns",
                     components: [
-                        {components: [
-                            {content: "SD"},
-                            {name: "valueSD"}
+                        {kind: "moon.BodyText", components: [
+                            {content: "SD", style:"text-align: center;"},
+                            {kind:"moon.Button", name: "valueSD"}
                         ]},
-                        {components: [
-                            {content: "HD"},
-                            {name: "valueHD"}
+                        {kind: "moon.BodyText", components: [
+                            {content: "HD", style:"text-align: center;"},
+                            {kind:"moon.Button", name: "valueHD"}
                         ]},
-                        {components: [
-                            {content: "3D"},
-                            {name: "value3D"}
+                        {kind: "moon.BodyText", components: [
+                            {content: "3D", style:"text-align: center;"},
+                            {kind:"moon.Button", name: "value3D"}
                         ]}
                     ]
                 }
@@ -79,17 +80,17 @@ enyo.kind({
 // Sample model
 
 enyo.ready(function(){
-    var sampleModel = new enyo.Model({
-        posterUrl: "http://placehold.it/550x350",
-        rating: "PG-13",
-        releaseDate: "2013",
-        duration: "122",
-        valueSD: "$3.99",
-        valueHD: "$6.99",
-        value3D: "$7.99",
-        synopsisHeader: "<b>Starring: </b>Actor Name, Actor Name, and Actor Name",
-        synopsisBody: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
-    });
+	var sampleModel = new enyo.Model({
+		posterUrl: "http://placehold.it/550x350",
+		rating: "PG-13",
+		releaseDate: "2013",
+		duration: "122",
+		valueSD: "$3.99",
+		valueHD: "$6.99",
+		value3D: "$7.99",
+		synopsisHeader: "<b>Starring: </b>Actor Name, Actor Name, and Actor Name",
+		synopsisBody: "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
+	});
 
 //  Application to render sample
 
@@ -97,7 +98,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.video.DetailNarrowSample",
                     controller: ".app.controllers.movieController",

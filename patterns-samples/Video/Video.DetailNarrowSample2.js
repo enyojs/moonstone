@@ -11,39 +11,40 @@ enyo.kind({
     ],
     components: [
         {
-            kind: "FittableRows",
-            components: [
-                {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-2v"},
+            kind:"moon.Scroller",
+            components:[
+                {name: "movie", kind: "enyo.Image", classes: "moon-7h moon-8v"},
                 {
+                    kind:"FittableColumns",
                     components: [
-                        {components: [
+                        {kind:"moon.BodyText", components: [
                             {kind: "moon.Divider", content: "Rating"},
-                            {name: "rating"}
+                            {kind:"moon.BodyText", name: "rating"}
                         ]},
-                        {components: [
+                        {kind:"moon.BodyText", components: [
                             {kind: "moon.Divider", content: "Release Date"},
-                            {name: "releaseDate"}
+                            {kind:"moon.BodyText", name: "releaseDate"}
                         ]},
-                        {components: [
+                        {kind:"moon.BodyText", components: [
                             {kind: "moon.Divider", content: "Running Time"},
-                            {name: "duration"}
+                            {kind:"moon.BodyText", name: "duration"}
                         ]}
                     ]
                 },
                 {
-					kind: "moon.Table",
+                    kind:"FittableColumns",
                     components: [
-                        {components: [
-                            {content: "SD"},
-                            {name: "valueSD"}
+                        {kind: "moon.BodyText", components: [
+                            {content: "SD", style:"text-align: center;"},
+                            {kind:"moon.Button", name: "valueSD"}
                         ]},
-                        {components: [
-                            {content: "HD"},
-                            {name: "valueHD"}
+                        {kind: "moon.BodyText", components: [
+                            {content: "HD", style:"text-align: center;"},
+                            {kind:"moon.Button", name: "valueHD"}
                         ]},
-                        {components: [
-                            {content: "3D"},
-                            {name: "value3D"}
+                        {kind: "moon.BodyText", components: [
+                            {content: "3D", style:"text-align: center;"},
+                            {kind:"moon.Button", name: "value3D"}
                         ]}
                     ]
                 }
@@ -65,6 +66,7 @@ enyo.kind({
             ]
         }
     ],
+
     bindings: [
         {from: ".controller.posterUrl", to: ".$.movie.src"},
         {from: ".controller.rating", to: ".$.rating.content"},
@@ -95,7 +97,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.video.DetailNarrowSample2",
                     controller: ".app.controllers.movieController",
@@ -107,7 +108,7 @@ enyo.ready(function(){
             {
                 name: "movieController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
+                model: sampleModel
             }
         ]
     });

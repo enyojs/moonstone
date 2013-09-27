@@ -1,47 +1,48 @@
-/* ExpandableListItem.css */
+/* ExpandableListItem */
 .moon-expandable-list-item {
-	padding: 0px 16px 0px 0px;
-	margin: 0px;
-	border-color: @moon-orange;
-	overflow: hidden;
-	margin-bottom: 45px;	
+	padding: 0px;
+}
+.moon-expandable-list-item.disabled {
+	opacity: @moon-disabled-opacity;
+	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
 
-.moon-expandable-list-item.spotlight {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	border-left-width: 16px;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: solid;
-	padding-right: 0px;
-}
-.moon-expandable-list-item.open.spotlight {
-	transition: none;
-	-webkit-transition: none;
-	-moz-transition: none;
-	-o-transition: none;
-	border-left-width: 0px;
-	padding-right: 16px;
+.moon-expandable-list-item-header-wrapper.spotlight .moon-item {
+	.moon-item.spotlight;
 }
 
-.moon-expandable-list-item .moon-expandable-list-item-header {
-	padding-bottom: 0px;
+/* Header Wrapper */
+.moon-expandable-list-item-header-wrapper {
+	padding: 8px @moon-spotlight-outset;
+}
+.moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
+	padding: 10px 10px 4px 10px;
+}
+.moon-expandable-list-item-header-wrapper.spotlight {
+	background-color: @moon-pink;
+}
+
+/* Header */
+.moon-expandable-list-item-header {
 	margin-bottom: 0px;
+	box-sizing: border-box;
+	max-width: 100%;	
+}
+.moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
+	color: @moon-white;
+	border-color: @moon-white;
 }
 
-.moon-expandable-list-item.open .moon-expandable-list-item-header {
-	padding-bottom: 20px;
+/* Client Items */
+.moon-expandable-list-item-client .moon-item {
+	.moon-body-text;
 }
-
-.moon-expandable-list-item.open.spotlight .moon-expandable-list-item-header {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	border-left-width: 16px;
-	border-left-color: @moon-spotlight-border-color;
-	border-left-style: solid;
-	padding-right:0px;
+.enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
+	.enyo-locale-non-latin .moon-body-text;
+}
+.moon-expandable-list-item-client .moon-item.spotlight {
+	color: @moon-white;
+}
+.moon-expandable-list-item-client .moon-item:last-child {
+	margin-bottom: 0px;
 }

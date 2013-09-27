@@ -3,21 +3,25 @@ enyo.kind({
 	classes: "moon enyo-unselectable single-select-delete",
 	deleteMode: false,
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name: "panel", kind: "moon.Panel", classes: "enyo-fit", title: "MOVIES", headerComponents: [
 			{name: "multiButton", kind: "moon.ToggleButton", small: true, showing: false, classes: "moon-header-left", content: "Multiple Selection"},
 			{name: "selectAllButton", kind: "moon.Button", small: true, showing: false, classes: "moon-header-left", content: "Select All", ontap: "selectAll"},
 			{name: "deselectAllButton", kind: "moon.Button", small: true, showing: false, classes: "moon-header-left", content: "Deselect All", ontap: "deselectAll"},
 			{name: "cancelButton", kind: "moon.Button", small: true, content: "cancel", showing: false, ontap: "cancel"},
 			{name: "deleteButton", kind: "moon.Button", small: true, content: "delete", showing: false, ontap: "deleteSelected"},
-			{name: "toggleButton", kind: "moon.IconButton", small: true, src: "$lib/moonstone/images/icon-selection.png", showing: true, ontap: "toggleMode"}
+			{name: "toggleButton", kind: "moon.IconButton", small: true, src: "../../assets/trash-can-icon.png", showing: true, ontap: "toggleMode"}
 		], components: [
 			{name: "list", selection: false, kind: "moon.DataList", components: [
-				{classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.ImageItem", bindings: [
-					{from: ".model.title", to: ".label"},
-					{from: ".model.description", to: ".text"},
-					{from: ".model.coverSource", to: ".source"}
-				]}
+				{
+					bindings: [
+						{from: ".model.title", to: ".$.listItem.label"},
+						{from: ".model.description", to: ".$.listItem.text"},
+						{from: ".model.coverSource", to: ".$.listItem.source"}
+					],
+					components: [
+						{name: "listItem", classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.ImageItem"}
+					]
+				}
 			]}
 		]}
 	],
@@ -69,13 +73,13 @@ enyo.kind({
 		this.$.list.controller.remove(this.$.list.get("selected"));
 		this.cancel();
 	},
-	rendered: enyo.super(function (sup) {
+	rendered: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
 			var c = new enyo.Collection();
 			for (var i=0, r=[]; i<25; ++i) {
 				r.push({coverSource: "../../assets/default-movie.png", title: "MOVIE NAME " + i, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-					"Integer sit amet dolor aliquam, elementum eros eget, lobortis orci. Aliquam ac risus urna. Nullam imperdiet neque sed diam posuere, " + 
+					"Integer sit amet dolor aliquam, elementum eros eget, lobortis orci. Aliquam ac risus urna. Nullam imperdiet neque sed diam posuere, " +
 					"accumsan malesuada erat pellentesque. Sed pretium lobortis magna, ut pellentesque tellus posuere in. Nunc tristique fermentum commodo. " +
 					"Nullam rhoncus elit mi, at laoreet tortor euismod non. Proin at aliquet enim."});
 			}

@@ -3,7 +3,6 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{name:"buttonContainer", kind:"FittableRows", classes:"enyo-fit", components:[
 			//Top row of buttons
 			{components:[
@@ -21,16 +20,16 @@ enyo.kind({
 			{fit:true, style:"padding-top:15%;padding-bottom:15%;", components:[
 				{kind: "moon.TooltipDecorator", style:"display:inline-block", components: [
 					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", style:"width:130px;", placholder: "Just an input..."}
+						{kind: "moon.Input", style:"width:130px;", placeholder: "Above"}
 					]},
-					{kind: "moon.Tooltip", content: "I'm a tooltip for an input."}
+					{kind: "moon.Tooltip", content: "I'm a tooltip for an input.", position: "above"}
 				]},
 
 				{kind: "moon.TooltipDecorator", style:"display:inline-block;float:right", components: [
 					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", style:"width:130px;", placholder: "Just an input..."}
+						{kind: "moon.Input", style:"width:130px;", placeholder: "Below"}
 					]},
-					{kind: "moon.Tooltip", content: "I'm a tooltip for an input."}
+					{kind: "moon.Tooltip", content: "I'm a tooltip for an input.", position: "below"}
 				]}
 			]},
 			//Bottom row of buttons

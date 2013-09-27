@@ -25,12 +25,8 @@
 	font-size: 18px;
 	width:250px;
 	height:300px;
-	transition: all 0.1s linear;
-	-webkit-transition: all 0.1s linear;
-	-moz-transition: all 0.1s linear;
-	-o-transition: all 0.1s linear;
 }
 
 .moon-list-horizontal-sample .spotlight .list-horizontal-sample-item {
-	border-left:16px solid orange;
+	background: #ff2f7d;
 }

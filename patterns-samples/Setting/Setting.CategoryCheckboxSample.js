@@ -1,21 +1,26 @@
 //Settings Settings Menu View
 enyo.kind({
 	//* @public
-    name: "moon.sample.setting.CategoryCheckboxSample",
+	name: "moon.sample.setting.CategoryCheckboxSample",
 	kind: "moon.Panel",
 	//* @protected
-    title: "SETTINGS CATEGORY",
+	title: "SETTINGS CATEGORY",
 	titleBelow: "Description of Setting Category",
 	components: [
 		{
 			name: "caterogryInfo",
 			kind: "moon.DataList",
 			components: [
-				{
-					kind: "moon.CheckboxItem",
-					ontap: "changeItemName",
+				{					
 					bindings: [
-                        {from: ".model.name", to: ".content"}
+                        {from: ".model.name", to: ".$.checkboxItem.content"}
+                    ],
+                    components: [
+						{
+							name: "checkboxItem",
+							kind: "moon.CheckboxItem",
+							ontap: "changeItemName"
+						}
                     ]
 				}
 			]
@@ -42,26 +47,25 @@ enyo.ready(function(){
 
 //  Application to render sample
 	new enyo.Application({
-        view: {
-            classes: "enyo-unselectable moon",
-            components: [
-                {kind: "enyo.Spotlight"},
-                {
-                	kind: "moon.sample.setting.CategoryCheckboxSample",
-                    controller: ".app.controllers.settingCategoryController",
-                    classes: "enyo-fit"
-                }
-            ]
-        },
-        controllers: [
-            {
-                name: "settingCategoryController",
-                kind: "enyo.ModelController",
-                model: settingModel,
-                changeItemName: function(inSender, inEvent){
-                    inSender.parent.controller.set("name", "Changed");
-                }
-            }
-        ]
-    });
+		view: {
+			classes: "enyo-unselectable moon",
+			components: [
+				{
+					kind: "moon.sample.setting.CategoryCheckboxSample",
+					controller: ".app.controllers.settingCategoryController",
+					classes: "enyo-fit"
+				}
+			]
+		},
+		controllers: [
+			{
+				name: "settingCategoryController",
+				kind: "enyo.ModelController",
+				model: settingModel,
+				changeItemName: function(inSender, inEvent){
+					inSender.parent.controller.set("name", "Changed");
+				}
+			}
+		]
+	});
 });

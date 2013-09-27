@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.sample.HeaderAutoCollapsingSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind: "moon.Panels", classes:"enyo-fit", pattern: "Activity", components: [
 			{kind: "moon.Panel", classes:"moon-6h", collapsingHeader:true, title:"Scroll Me", titleBelow:"To test the auto-collapsing", subTitleBelow:"Feature of moon.Panel", headerComponents: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
@@ -39,7 +38,7 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		inEvent.item.$.item.setContent("Scrolling content " + inEvent.index);
 	},
-	next: function() {
-		this.$.panels.next();
+	next: function(inSender) {
+		this.$.panels.setIndex(this.$.panels.getPanelIndex(inSender)+1);
 	}
 });

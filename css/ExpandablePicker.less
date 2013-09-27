@@ -1,36 +1,36 @@
-.moon-expandable-picker {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	cursor:pointer;
-	margin-bottom: 45px;
-}
-.moon-expandable-picker.spotlight {
-	padding:0px 0px 0px 4px;
-	border-left:16px solid @moon-spotlight-border-color;
-}
-
-.moon-item.moon-expandable-picker-header {
-	line-height: 1em;
+/* Header */
+.moon-expandable-picker-header {
 	padding: 0px;
-	margin: 0px 0px 4px 0px;
+	margin: 0px;
 }
-
+.moon-expandable-picker-header .moon-item {
+	margin: 0px;
+}
+/* Header - Open */
+.moon-expandable-picker.open .moon-expandable-list-item-header-wrapper {
+	padding: @moon-spotlight-outset;
+}
 .moon-expandable-picker.open .moon-expandable-picker-header {
 	.moon-divider-text;
 	.moon-divider-border;
-	padding-bottom: 2px;
-	margin-bottom: 27px;
+	margin: 0px;
+}
+.enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
+	.enyo-locale-non-latin .moon-divider-text;
 }
 
+/* Current Value */
 .moon-expandable-picker-current-value {
 	.moon-body-text;
-	color: #4B4B4B;
+	color: @moon-expandable-picker-text-color;
 	margin: 0px;
 	padding: 0px;
 }
+.enyo-locale-non-latin .moon-expandable-picker-current-value {
+	.enyo-locale-non-latin .moon-body-text;
+}
 
+/* Help Text */
 .moon-expandable-picker-help-text {
-  color: gray;
+  color: @moon-help-text-color;
 }

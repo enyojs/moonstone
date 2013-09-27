@@ -69,7 +69,7 @@ enyo.kind({
             components: [
                 {kind: "moon.Divider", content: "More"},
                 {
-                    kind: "Group", 
+                    kind: "Group",
                     fit: true,
                     components: [
                         {kind: "moon.SelectableItem", content: "Artist"},
@@ -115,7 +115,6 @@ enyo.ready(function() {
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.music.TrackDetailWideSample",
                     controller: ".app.controllers.trackController",

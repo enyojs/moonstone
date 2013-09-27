@@ -1,7 +1,7 @@
 enyo.kind({
 	name: "musicBrowser",
 	kind: "moon.Panel",
-	title: "Music Browser", 
+	title: "Music Browser",
 	components: [
 		{kind: "moon.Item", content: "Music Item One"},
 		{kind: "moon.Item", content: "Music Item Two"},
@@ -13,7 +13,7 @@ enyo.kind({
 enyo.kind({
 	name: "movieBrowser",
 	kind: "moon.Panel",
-	title: "Movie Browser", 
+	title: "Movie Browser",
 	components: [
 		{kind: "moon.Item", content: "Movie Item One"},
 		{kind: "moon.Item", content: "Movie Item Two"},
@@ -25,7 +25,7 @@ enyo.kind({
 enyo.kind({
 	name: "photoBrowser",
 	kind: "moon.Panel",
-	title: "Photo Browser", 
+	title: "Photo Browser",
 	components: [
 		{kind: "moon.Item", content: "Photo Item One"},
 		{kind: "moon.Item", content: "Photo Item Two"},
@@ -38,7 +38,6 @@ enyo.kind({
 	name: "moon.sample.panel.TwoPanelsUpSample",
 	classes: "moon",
 	components: [
-		{kind: "enyo.Spotlight"},
 		{
 			name: "panels",
 			kind: "moon.Panels",
@@ -53,15 +52,12 @@ enyo.kind({
 			]
 		}
 	],
-	create: function() {
-		this.inherited(arguments);
-	},
 	onTap: function(inSender, inEvent) {
 		if (inSender.nextPanel) {
-			this.$.panels.setIndex(this.$.panels.getPanelIndex(inSender));
-			this.$.panels.replacePanel(this.$.panels.getIndex()+1, {kind: inSender.nextPanel, joinToPrev: true});
+			this.$.panels.replacePanel(1, {kind: inSender.nextPanel, joinToPrev: true});
 			this.$.panels.next();
 		}
+		return true;	
 	}
 });
 

@@ -6,12 +6,13 @@
 }
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
-	position: relative;
+	position: absolute;
 	height: 60px;
 	width: 60px;
 	border-radius: 30px;
 	margin: -30px;
-	background-color: #69cdff;
+	background-color: @moon-slider-knob-bg-color;
+	top: 0;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
@@ -22,10 +23,10 @@
 	margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
-	background-color: #ffb80d;
+	background-color: @moon-slider-spotlight-bar-color;
 }
 .moon-slider.spotlight > .moon-slider-knob {
-	background-color: #ffb80d;
+	background-color: @moon-slider-spotlight-knob-color;
 }
 .moon-slider.disabled {
 	cursor: default;
@@ -38,31 +39,51 @@
 .moon-slider-popup {
 	position: absolute;
 	display: block;
+	white-space: nowrap;
 	z-index: 20;
-	left: 100px;
-	top: 0px;
-	width: 62px;
-	height: 52px;
-	padding-left: 0px;
+	left: 50%;
+	&.moon-slider-popup-flip-h {
+		left: auto;
+		right: 50%;
+	}
+	direction: ltr;
 }
+.moon-slider-popup-left {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.moon-slider-popup-center {
+  position:relative;
+  display:inline-block;
+  vertical-align: top;
+  margin: 1px 0 0 0;
+  padding: 0;
+  z-index: 21;
+}
+.moon-slider-popup-right {
+  position:relative;
+  display:inline-block;
+  vertical-align: top;
+  margin:0;
+  padding:0;
+}
+
 .moon-slider-popup-label {
 	.moon-large-button-text;
-	position: absolute;
-	top: 2px;
-	width: 86px;
-	height: 45px;
 	white-space: nowrap;
-	color: #fff;
+	color: @moon-slider-popup-text-color;
 	text-align: center;
 	line-height: 1.5em;
-	vertical-align: middle;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
-	font-family: @moon-non-latin-font-family;
+	.enyo-locale-non-latin .moon-large-button-text;
+	font-size: 30px;
 }
-.moon-slider-popup.above {
-	top: -90px;
-	padding-left: 10px;
+
+.enyo-locale-non-latin .moon-slider-popup-label {
+	font-family: @moon-non-latin-font-family;
 }
 .moon-slider-popup-flip-h {
 	transform: rotateY(180deg);
@@ -70,8 +91,8 @@
 	-moz-transform: rotateY(180deg);
 }
 .moon-slider-focus {
-	background-color: #ffb80d;
+	background-color: @moon-slider-focus-bg-color;
 }
 .moon-slider-nofocus {
-	background-color: #69cdff;
+	background-color: @moon-slider-nofocus-bg-color;
 }

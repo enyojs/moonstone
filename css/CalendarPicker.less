@@ -3,26 +3,79 @@
 	display: inline-block;
 	text-align: center;
 	width: (@moon-button-small-height * 7) + ((14 * 2) * 7);
+	background-color: @moon-neutral-bg-color;
+	border-radius: 16px;
+	margin: 0px 20px;
+	padding: 20px 0px;
 }
 .moon-calendar-picker-block {
 	display: inline-block;
+}
+.moon-calendar-picker-day.moon-button[disabled] {
+	.moon-sub-header-text;
+	min-width: @moon-button-small-height;
+	line-height: @moon-picker-button-width;
+	border: 0px;
+	border-radius: 0px;
+	background: transparent;
+	color: @moon-calendar-picker-date-shadow-color;
+	padding: 0px;
+	margin: 10px;
+	text-align: center;
+	vertical-align: middle; 
+}
+.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+	.enyo-locale-non-latin .moon-sub-header-text;
 }
 .moon-calendar-picker-dates {
 	margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
+	.moon-sub-header-text;
 	width: @moon-button-small-height;
 	min-width: @moon-button-small-height;
 	line-height: @moon-picker-button-width;
 	border: 0px;
 	border-radius: @moon-button-border-radius;
 	background: inherit;
-	color: @moon-dark-gray;
+	color: @moon-calendar-picker-date-color;
 	padding: 0px;
 	margin: 10px;
 	text-align: center;
 	vertical-align: middle;
 }
-.moon-calendar-picker-date-shadow {
-	color: #A2A2A2;
+.enyo-locale-non-latin .moon-calendar-picker-date {
+	.enyo-locale-non-latin 	.moon-sub-header-text;
 }
+.moon-calendar-picker-date.moon-button.small {
+	.moon-sub-header-text;
+	color: @moon-spotlight-text-color;
+	padding: 0px;
+}
+.enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
+	.enyo-locale-non-latin 	.moon-sub-header-text;
+}
+.moon-calendar-picker-date-shadow.moon-button.small {
+	color: @moon-calendar-picker-date-shadow-color;
+}
+.moon-calendar-picker-date-shadow.moon-button.small.spotlight {
+	color: @moon-spotlight-text-color;	
+}
+.moon-calendar-picker .moon-simple-picker-item {
+	color: @moon-spotlight-text-color;
+}
+.moon-calendar-picker .moon-simple-picker-button {
+	background-image: @moon-neutral-scroller-icon;
+}
+.moon-calendar-picker .moon-simple-picker-button.spotlight {
+	background-image: @moon-scroller-spotlight;
+}
+.moon-calendar-picker-date.moon-button.small.active,
+.moon-calendar-picker-date.moon-button.small.pressed,
+.moon-calendar-picker-date.moon-button.small.spotlight.pressed,
+.moon-calendar-picker-date.moon-button:active:hover:not([disabled]) 
+ {
+	color: @moon-spotlight-text-color;
+	background-color: @moon-spotlight-background-color;
+	border: 0px;
+} 

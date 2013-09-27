@@ -1,55 +1,15 @@
 /* DatePicker.css */
-.moon-date-picker {
-	transition: border-width 0.1s linear, padding 0.1s linear;
-	-webkit-transition: border-width 0.1s linear, padding 0.1s linear;
-	-moz-transition: border-width 0.1s linear, padding 0.1s linear;
-	-o-transition: border-width 0.1s linear, padding 0.1s linear;
-	cursor:pointer;
-}
-.moon-date-picker.spotlight {
-	padding:0px 0px 0px 4px;
-	border-left:16px solid @moon-spotlight-border-color;
+.moon-date-picker-wrap {
+	min-width:100px;
+	text-align: center;
 }
 
-.moon-item.moon-date-picker-header {
-	line-height:0.85em;
-	padding:0px;
-	margin:0px 0px 7px 0px;
+.moon-date-picker-wrap.year {
+	min-width:120px;
 }
 
-.moon-date-picker.open .moon-date-picker-header {
-	.moon-divider-text;
-	.moon-divider-border;
-	padding:0px;
-	line-height:1.2em;
-}
-
-.moon-date-picker-client {
-	padding-top:20px;
-}
-
-.moon-date-picker-current-value {
-	.moon-body-text;
-	margin:0px;
-	padding:0px;
-}
-
-.moon-date-picker-day {
-	padding-right:40px;
-	width:60px;
-}
-
-.moon-date-picker-month {
-	padding-right:40px;
-	width:60px;
-}
-
-.moon-date-picker-year {
-	width:80px;
-}
-
-.moon-date-picker-year .up-arrow-container {
-}
-
-.moon-date-picker-year .down-arrow-container {
+.moon-date-picker-label {
+  	text-align:center;
+  	padding: 20px @moon-spotlight-outset;
+  	white-space: nowrap;
 }

@@ -4,39 +4,24 @@ enyo.kind({
     name: "moon.sample.photos.AlbumListItem",
     classes: "sample-album-list-item",
     kind: "moon.Item",
-
     published: {
         option: {
             source: "",
-            bgSource: "",
-            title: ""    
-        }        
+            title: ""
+        }
     },
-
     components:[
         {
-            kind: "FittableColumns",
+            classes: "moon-hspacing top",
             components: [
                 {
                     components: [
-                        {
-                            name: "bgImage",
-                            kind: "enyo.Image",
-                            classes: "front-image",
-                            components: [
-                                {
-                                    name: "image",
-                                    kind: "enyo.Image",
-                                    classes: "back-image"
-                                }
-                            ]
-                        }
+                        {name: "image", kind: "enyo.Image"}
                     ]
                 },
                 {
                     name: "title",
-                    classes: "title-text",
-                    style: "margin-left: 10px"
+                    classes: "title-text"
                 }
             ]
         }
@@ -46,16 +31,15 @@ enyo.kind({
         this.inherited(arguments);
         this.optionChanged();
     },
-
     optionChanged: function() {
         if (!this.option.source || this.source === '') {
             return;
         }
         this.$.image.setAttribute('src', this.option.source);
-        this.$.bgImage.setAttribute('src', this.option.bgSource);
         this.$.title.content = this.option.title;
     }
 });
+
 
 enyo.kind({
     name: "moon.sample.photos.AlbumListWideSample",
@@ -67,30 +51,28 @@ enyo.kind({
     components: [
         {
             name: "menuList",
-            kind: "enyo.DataList",
-            classes: "moon-6h",
-            scrollerOptions: {horizontal: "hidden", thumb: false},
+            kind: "moon.DataList",
+            classes: "moon-7h",
             components: [
                 {
                     kind: "moon.sample.photos.AlbumListItem",
-					bindings: [
-						{from: ".model.option", to: ".option"}
-					]
+                    bindings: [
+                        {from: ".model.option", to: ".option"}
+                    ]
                 }
             ]
         },
         {
             name: "albumList",
-            kind: "enyo.DataGridList",
-            scrollerOptions: {horizontal: "hidden", thumb: false},
+            minWidth: 136, 
+            kind: "moon.DataGridList",
             fit: true,
             components: [
                 {
-                    kind: "enyo.Image",
-                    classes: "moon-4h moon-1v",
-					bindings: [
-						{from: ".model.imgSrc", to: ".src"}
-					]
+                    kind: "moon.GridListImageItem",
+                    bindings: [
+                        {from: ".model.imgSrc", to: ".source"}
+                    ]
                 }
             ]
         }
@@ -107,12 +89,12 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         menus: new enyo.Collection([
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}},
-            {option: {source: "../assets/default-movie.png", bgSource: "../assets/bg-movie.png", title: "Album Name"}}
+            {option: {source: "../assets/default-movie.png", title: "Album Name 1"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name 2"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name 3"}},
+            {option: {source: "../assets/default-movie.png", title: "Album Name 4"}}
         ]),
-		albums: new enyo.Collection([
+        albums: new enyo.Collection([
             {imgSrc: "../assets/album.png"},
             {imgSrc: "../assets/album.png"},
             {imgSrc: "../assets/album.png"},
@@ -129,7 +111,6 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.photos.AlbumListWideSample",
                     controller: ".app.controllers.photoController",

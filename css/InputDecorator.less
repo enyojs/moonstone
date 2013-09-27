@@ -6,9 +6,12 @@
 	border-radius: 34px;
 	-moz-border-radius: 34px;
 	border: @moon-input-border-width solid transparent;
-	background-color: white;
+	background-color: @moon-input-decorator-bg-color;
 	-webkit-background-clip: padding;  /* Safari */
 	background-clip: padding-box;      /* Firefox 4+, Chrome, IE 9+ */
+}
+.enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
+	.enyo-locale-non-latin .moon-divider-text;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
 	border: @moon-input-border-width solid @moon-spotlight-border-color;

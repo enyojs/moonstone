@@ -7,7 +7,7 @@ enyo.kind({
     published: {
         option: {
             src: "",
-            caption: ""    
+            caption: ""
         }
     },
     handlers: {
@@ -48,9 +48,9 @@ enyo.kind({
         /* Fixme: moon.Panel needs interface to change Header, Body, Tools area size */
         {kind: "moon.InputDecorator", components: [
             {style: "width: 500px", components: [
-                {layoutKind: 'HFlexLayout', components: [
-                    {kind: "moon.Input", placeholder: "Search term", flex: true, onchange: "inputChanged"},
-                    {kind: "Image", src: "../../samples/assets/search-input-search.png"}
+                {layoutKind: 'FittableColumnsLayout', components: [
+                    {kind: "moon.Input", placeholder: "Search term", fit: true, onchange: "inputChanged"},
+                    {kind: "Image", src: "../../samples/assets/search-input-search.png", classes: "moon-search-result-image"}
                 ]}
             ]}
         ]}
@@ -58,15 +58,18 @@ enyo.kind({
     components: [
         {
             /* Fixme: enyo.DataList should be changed to moon.DataGrid to support scroll */
-            kind: "enyo.DataList",
+            kind: "moon.DataList",
             name: "resultInfo",
             components: [
-                {
-                    kind: "moon.SearchResultImageItem", 
+                {                  
                     bindings: [
-                        {from: ".model.option", to: ".option"}
+                        {from: ".model.option", to: ".$.searchResultImageItem.option"}
                     ], 
-                    ontap: "changeName"
+                    components: [{                   
+                        name: "searchResultImageItem",
+                        kind: "moon.SearchResultImageItem", 
+                        ontap: "changeName"
+                    }]
                 }
             ]
         }
@@ -110,14 +113,13 @@ enyo.ready(function(){
             {option: {src: "../assets/default-movie.png", caption: "Person name"}}
         ])
     });
- 
+
 //  Application to render sample
 
     new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {kind: "enyo.Spotlight"},
                 {
                     kind: "moon.sample.search.RecentSearchHalfSample",
                     controller: ".app.controllers.searchController",

@@ -1,25 +1,52 @@
 /* FormCheckbox.css */
 
-.moon-formcheckbox-item .moon-checkbox {
-	position: absolute;
-	top: 0px;
-	width: @moon-formcheckbox-width;
-	height: @moon-formcheckbox-image-height;
-	margin-top: 2px;
-	border-radius: 20px;
-	border: 0px;
-	background-color: #999999;
-	background-position: 3px 8px;
+.moon-item.moon-formcheckbox-item {
+	background: none;
+	padding: 0;
+	padding-left: @moon-spotlight-outset;
+	margin-bottom: @moon-spotlight-outset;
+
+	.moon-checkbox {
+		position: absolute;
+		top: 2px;
+		left: @moon-spotlight-outset;
+		width: @moon-checkbox-width + @moon-spotlight-outset;
+		height: @moon-checkbox-width + @moon-spotlight-outset;
+		border-radius: 9999px;
+		background-color: @moon-form-checkbox-bg-color;
+		background-position: 10px 10px;
+	}
+
+	.moon-checkbox[checked] {
+		background-color: @moon-form-checkbox-bg-color;
+	}
+
+	.moon-checkbox-item-label-wrapper {
+		padding: 8px 10px;
+		margin-left: @moon-checkbox-width + 2*@moon-spotlight-outset;
+	}
+
+} 
+
+.enyo-locale-right-to-left {
+	.moon-item.moon-formcheckbox-item {
+		padding-left: 0;
+		padding-right: @moon-spotlight-outset;
+		.moon-checkbox-item-label-wrapper {
+			margin-left: auto;
+			margin-right: @moon-checkbox-width + 2*@moon-spotlight-outset;
+		}
+		.moon-checkbox {
+			right: @moon-spotlight-outset;
+		}
+	}
 }
-.enyo-locale-right-to-left .moon-formcheckbox-item .moon-checkbox {
-	right: 0px;
-}
-.moon-formcheckbox-item .moon-checkbox .moon-overlay {
-	background: transparent @moon-checkbox-image no-repeat 3px -29px;
-}
-.moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-	margin: 0px 0px 0px @moon-formcheckbox-width-with-padding;
-}
-.enyo-locale-right-to-left .moon-formcheckbox-item .moon-formcheckbox-item-label-wrapper > .moon-formcheckbox-item-label {
-	margin: 0px @moon-formcheckbox-width-with-padding 0px 0px;
+
+.moon-formcheckbox-item.spotlight {
+	.moon-checkbox, 
+	.moon-checkbox[checked],
+	.moon-checkbox-item-label-wrapper {
+		background-color: @moon-spotlight-color;
+	}
+
 }

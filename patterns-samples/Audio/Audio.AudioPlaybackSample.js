@@ -2,14 +2,13 @@ enyo.kind({
 	name: "moon.sample.audio.AudioPlaybackSample",
 	classes: "enyo-unselectable moon sample-audio-playback",
 	audioFiles: [
-		{src: "http://www.universal-soundbank.com/mp3/sounds/700.mp3", trackName: "Thunderstorm", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:15"},
-		{src: "http://www.universal-soundbank.com/mp3/sounds/9051.mp3", trackName: "Rainfall", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "1:09"}
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"}
 	],
 	handlers: {
 		onPlayIndex: "playIndex"
 	},
 	components: [
-		{kind: "enyo.Spotlight"},
 		{kind:"moon.Drawers", drawers:[
 			{
 				kind: "moon.AudioPlayback",
@@ -63,20 +62,20 @@ enyo.kind({
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 0, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},
-            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Thunderstorm"}]},
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Thunder"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Sound Effects"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Album"}]},
-            {classes: "sample-audio-item-label-right", content: "0:15"}
+            {classes: "sample-audio-item-label-right", content: "0:22"}
         ]},
         {classes: "sample-audio-item", components: [
             {classes: "sample-audio-item-image", style: "background-image: url(../assets/default-music.png);", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 1, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},
-            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Rainfall"}]},
+            {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Engine"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Sound Effects"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Album"}]},
-            {classes: "sample-audio-item-label-right", content: "1:09"}
+            {classes: "sample-audio-item-label-right", content: "0:04"}
         ]}
     ],
     playIndex: function(inSender, inEvent) {

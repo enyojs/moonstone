@@ -22,8 +22,7 @@ enyo.kind({
 		*/
 		onChange: "",
 		/**
-			Fires in response to Return keypress while the picker has focus in
-			Spotlight 5-way mode.
+			Fires in response to Return keypress while the picker has focus in Spotlight 5-way mode.
 
 			_inEvent.value_ contains the value of the currently selected item.
 
@@ -32,8 +31,6 @@ enyo.kind({
 		onSelect: ""
 	},
 	handlers: {
-		onTransitionStart: "transitionStart",
-		onTransitionFinish:"transitionFinished",
 		onSpotlightSelect: "fireSelectEvent",
 		onSpotlightRight: "next",
 		onSpotlightBlur: "spotlightBlur",
@@ -48,61 +45,120 @@ enyo.kind({
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
-		content: "sec",
 		value: -1,
 		min: 1,
 		max: 9,
 		step: 1,
 		unit: "sec"
 	},
-	indexhash: [],
+
 	//* @protected
+	deferInitialization: false,
+	indices: null,
+	values: null,
+
 	components: [
-		{name:"leftOverlay", classes:"moon-scroll-picker-overlay-container-left", showing:false, components:[
-			{classes:"moon-scroll-picker-overlay-left"},
-			{classes:"moon-scroll-picker-overlay-left-border"}
+		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
+			{classes: "moon-scroll-picker-overlay-left"},
+			{classes: "moon-scroll-picker-overlay-left-border"}
 		]},
-		{name:"rightOverlay", classes:"moon-scroll-picker-overlay-container-right", showing:false, components:[
-			{classes:"moon-scroll-picker-overlay-right"},
-			{classes:"moon-scroll-picker-overlay-right-border"}
+		{name: "rightOverlay", classes: "moon-scroll-picker-overlay-container-right", showing: false, components:[
+			{classes: "moon-scroll-picker-overlay-right"},
+			{classes: "moon-scroll-picker-overlay-right-border"}
 		]},
-		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:"<", ontap:"previous", name:"buttonLeft"},
-		{kind:"enyo.Panels", classes:"moon-simple-integer-picker-client", controlClasses:"moon-simple-integer-picker-item", draggable:false, arrangerKind: "CarouselArranger", name:"client"},
-		{kind:"enyo.Button", classes:"moon-simple-integer-picker-button", content:">", ontap:"next", name:"buttonRight"}
+		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
+		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
+			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
+		},
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
+	observers: {
+		triggerRebuild: ["step", "min", "max", "unit"]
+	},
+	bindings: [
+		{from: ".animate",  to: ".$.client.animate"},
+		{from: ".disabled", to: ".$.buttonLeft.disabled"},
+		{from: ".disabled", to: ".$.buttonRight.disabled"},
+		{from: ".value",   to: ".$.client.index", oneWay: false, transform: "sync"}
+	],
+	sync: function(inVal, inOrigin, inBinding) {
+		if (this.values) {
+			return (inOrigin === "source") ? this.indices[inVal] : this.values[inVal];
+		}
+		else {
+			inBinding.stop();
+		}
+	},
+	//* @public
+
+	//* Cycles the selected item to the one before the currently selected item.
+	previous: function() {
+		this.$.client.previous();
+		return true;
+	},
+	//* Cycles the selected item to the one after the currently selected item.
+	next: function() {
+		this.$.client.next();
+		return true;
+	},
+	//* Facade for currently active panel
+	getContent: function() {
+		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
+	},
+
+	//* @protected
+
 	create: function() {
 		this.inherited(arguments);
-		this.populate();
-		this.animateChanged();
-		this.valueChanged();
+		if (!this.deferInitialization) {
+			this.build();
+		}
 		this.disabledChanged();
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this._rendered = true;
-	},
-	populate: function() {
-		for(var i=this.min; i<=this.max; i=i+this.step) {
-			this.createComponent({content: i + " " + this.unit, value: i});
-			this.indexhash[i] = this.$.client.getPanels().length - 1;
+	build: function() {
+		var indices = this.indices = {},
+			values = this.values = [];
+
+		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
+			this.createComponent({content: v + " " + this.unit, value: v});
+			values[i] = v;
+			indices[v] = i;
 		}
 	},
-	createComponents: function(inC, inOpts) {
-		var inherited = this.createComponents._inherited;
-		if (this.$.client) {
-			inOpts = inOpts || {};
-			inOpts.container = this.$.client;
+	validate: function() {
+		var index = this.indices[this.value];
+		if (index) {
+			this.$.client.set("index", index);
 		}
-		return inherited.call(this, inC, inOpts);
-	},
-	createComponent: function(inC, inOpts) {
-		var inherited = this.createComponent._inherited;
-		if (this.$.client) {
-			inOpts = inOpts || {};
-			inOpts.container = this.$.client;
+		else
+		{
+			this.set("value", this.min);
 		}
-		return inherited.call(this, inC, inOpts);
 	},
+	rebuild: function() {
+		this.destroyClientControls();
+		this.build();
+		this.$.client.render();
+		this.reflow();
+		this.validate();
+	},
+	triggerRebuild: function() {
+		// We use a job here to avoid rebuilding the picker multiple
+		// times in succession when more than one of the properties it
+		// depends on (min, max, step, unit) change at once. This case
+		// occurs when SimpleIntegerPicker is used inside
+		// ExpandableIntegerPicker, since ExpandableIntegerPicker
+		// facades these properties and therefore sets them all upon
+		// creation.
+		this.startJob("rebuild", this.rebuild, 10);
+	},
+
+	// Change handlers
+	disabledChanged: function() {
+		this.addRemoveClass("disabled", this.getDisabled());
+	},
+
+	//* On reflow, update the bounds of _this.$.client_
 	reflow: function() {
 		this.inherited(arguments);
 
@@ -117,19 +173,7 @@ enyo.kind({
 				c$[i].setBounds({width:width});
 			}
 			this.$.client.reflow();
-			this.$.client.setBounds({height: this.$.buttonLeft.getBounds().height});
 		}
-
-		// Make sure selected item is in sync after Panels reflow, which may have
-		// followed an item being added/removed
-		// if (this.value != this.$.client.getActive().value) {
-		//   this.setValue(this.$.client.getActive().value);
-		//   this.fireChangedEvent();
-		// }
-	},
-	hideOverlay: function() {
-		this.$.leftOverlay.setShowing(false);
-		this.$.rightOverlay.setShowing(false);
 	},
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
@@ -137,59 +181,28 @@ enyo.kind({
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
 			this.$.rightOverlay.show();
 		}
+		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-		this.value = this.$.client.getPanels()[this.$.client.getIndex()].value;
-		this.fireChangedEvent();
-		this.hideOverlay();
+		this.fireChangeEvent();
+		this.hideOverlays();
 		return true;
 	},
 	spotlightBlur: function() {
-		this.hideOverlay();
+		this.hideOverlays();
+	},
+	hideOverlays: function() {
+		this.$.leftOverlay.setShowing(false);
+		this.$.rightOverlay.setShowing(false);
 	},
 	fireSelectEvent: function () {
-		if (this._rendered) {
-			var _this = this;
-			this.doSelect({
-				content: _this.content,
-				value: _this.value
-			});
+		if (this.hasNode()) {
+			this.doSelect({content: this.getContent(), value: this.value});
 		}
 	},
-	fireChangedEvent: function() {
-		if (this._rendered) {
-			var _this = this;
-			this.doChange({
-				content: _this.content,
-				value: _this.value
-			});
+	fireChangeEvent: function() {
+		if (this.hasNode()) {
+			this.doChange({content: this.getContent(), value: this.value});
 		}
-	},
-	disabledChanged: function() {
-		this.addRemoveClass("disabled", this.disabled);
-		this.$.buttonLeft.setDisabled(this.disabled);
-		this.$.buttonRight.setDisabled(this.disabled);
-	},
-	animateChanged: function() {
-		this.$.client.setAnimate(this.animate);
-	},
-	valueChanged: function(inOld) {
-		if ((this.$.client.getIndex() != this.indexhash[this.value])) {
-			this.$.client.setIndex(this.indexhash[this.value]);
-			this.content = this.$.client.getPanels()[this.$.client.getIndex()].content;
-		}
-	},
-	//* @public
-	//* Cycles the selected item to the one before the currently selected item.
-	previous: function() {
-		this.$.client.previous();
-		return true;
-	},
-	//* @public
-	//* Cycles the selected item to the one after the currently selected item.
-	next: function() {
-		this.$.client.next();
-		return true;
 	}
 });

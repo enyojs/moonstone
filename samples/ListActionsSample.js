@@ -1,128 +1,162 @@
 enyo.kind({
 	name: "moon.sample.ListActionsSample",
+	kind: "moon.Panels",
+	pattern: "activity",
 	classes: "moon enyo-unselectable enyo-fit",
 	handlers: {
 		onActivate: "activateHandler"
 	},
 	components: [
-		{kind: "enyo.Spotlight"},
-		{name: "header", kind:"moon.Header", title: "Header", titleAbove: "03", components: [
-			{kind: "moon.ListActions", iconSrc:"./assets/icon-list.png", listActions: [
-				{
-					action: "category",
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.CheckboxItem", checked:true},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"}
-						]}
-					]
-				},
-				{
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.ToggleItem"},
-							{content:"Comedy", kind:"moon.ToggleItem"},
-							{content:"Drama", kind:"moon.ToggleItem"}
-						]}
-					]
-				},
-				{
-					action: "menu-language",
-					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", 
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", 
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
-					]
-				}
-			]},
-			{kind: "moon.ListActions", autoCollapse:true, iconSrc:"./assets/icon-list.png", listActions: [
-				{
-					action: "category",
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.CheckboxItem", checked:true},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"},
-							{content:"Drama", kind:"moon.CheckboxItem"},
-							{content:"Action", kind:"moon.CheckboxItem"},
-							{content:"Comedy", kind:"moon.CheckboxItem"}
-						]}
-					]
-				},
-				{
-					components: [
-						{kind: "moon.Divider", content:"Category"},
-						{kind: "moon.Scroller", horizontal: "hidden", components: [
-							{content:"Action", kind:"moon.ToggleItem"},
-							{content:"Comedy", kind:"moon.ToggleItem"},
-							{content:"Drama", kind:"moon.ToggleItem"}
-						]}
-					]
-				},
-				{
-					action: "menu-language",
-					components: [
-                        {kind: "moon.ExpandablePicker", noneText: "No Language Selected", 
-                        autoCollapse: true, content: "Menu Langauge", defaultKind: "moon.ToggleItem", 
-                        classes: "moon-expandable-picker-wrapper", components: [
-                            {content: "English"},
-                            {content: "Spanish"},
-                            {content: "French"},
-                            {content: "German"},
-                            {content: "Italian"},
-                            {content: "Japanese"}
-                        ]}
-					]
-				}
-			]}
-		]},
-		{tag: "br"},
-		{kind: "moon.Divider", content: "List Action Event"},
-		{name: "console", content: "Event"}
-	],
-	names: [],
-	activateHandler: function(inSender, inEvent) {
-		if (inEvent.toggledControl && inEvent.toggledControl.checked) {
-			this.$.header.setTitleBelow(inEvent.toggledControl.getContent());
+		{kind:"moon.Panel", title: "List Actions Sample", headerComponents: [
+			{kind:"moon.TooltipDecorator", components: [
+				{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
 			
-			//log the optional action property
-			this.$.console.setContent("Action: " + (inEvent.action ? inEvent.action : "no action name provided"));
+				//* List actions with default width
+				{kind: "moon.ListActions", name:"listActions", iconSrc:"./assets/icon-list.png", listActions: [
+					{action:"category3", components: [
+						{kind: "moon.Divider", content: "Category 3 (DataList)"},
+						{kind: "moon.DataList", name:"list", fit:true, components: [
+							{kind:"moon.CheckboxItem", bindings: [{from:".model.name", to:".content"}]}
+						]}
+					]},
+					{action:"category2", components: [
+						{kind: "moon.Divider", content: "Category 2 (DataRepeater)"},
+						{kind: "enyo.DataRepeater", containerOptions:{kind:"moon.Scroller", classes:"enyo-fill"}, name:"repeater", fit:true, components: [
+							{kind:"moon.ToggleItem", bindings: [{from:".model.name", to:".content"}]}
+						]}
+					]},
+					{action:"category1", components: [
+						{kind: "moon.Divider", content:"Category 1 (Static)"},
+						{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+							{kind: "enyo.Group", name:"group", highlander: true, defaultKind: "moon.SelectableItem", components: [
+								{content:"Just Released"},
+								{content:"Recommended"},
+								{content:"Top Rated"}
+							]}
+						]}
+					]}
+				]}
+			]},
+			{kind:"moon.TooltipDecorator", components: [
+				{kind:"moon.Tooltip", position: "above", content: "Dummy List Actions"},
+			
+				//* List actions with proportional width
+				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
+					{action: "Cost", components: [
+						{kind: "moon.Divider", content:"Cost"},
+						{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.ToggleItem", fit: true, components: [
+							{content:"$"},
+							{content:"$$"},
+							{content:"$$$"}
+						]}
+					]},
+					{action: "Flavor", components: [
+						{kind: "moon.Divider", content:"Flavor"},
+						{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.CheckboxItem", fit: true, components: [
+							{content:"Spicy"},
+							{content:"Sweet"},
+							{content:"Sour"},
+							{content:"Salty", checked: true},
+							{content:"Savory"},
+							{content:"Bland"},
+							{content:"Umami"},
+							{content:"Bitter"}
+						]}
+					]}
+				]}
+			]},
+			{kind:"moon.TooltipDecorator", components: [
+				{kind:"moon.Tooltip", position: "above", content: "Test Auto Collapse"},
+			
+				//* List actions with auto-collapsing
+				{kind: "moon.ListActions", autoCollapse: true, iconSrc: "./assets/icon-list.png", listActions: [
+					{action: "AutoCollapseTest", components: [
+						{kind: "moon.Divider", content:"Try Auto-collapse"},
+						{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+							{kind: "enyo.Group", highlander: true, defaultKind: "moon.CheckboxItem", components: [
+								{content:"Select"},
+								{content:"One"},
+								{content:"To"},
+								{content:"Auto"},
+								{content:"Collapse"},
+								{content:"This"},
+								{content:"List"},
+								{content:"Actions"},
+								{content:"Menu"}
+							]}
+						]}
+					]}
+				]}
+			]}
+		], components: [
+			{components: [
+				{kind:"moon.Button", small:true, content:"Add Option to Category 1", ontap:"addToStatic"},
+				{kind:"moon.Button", small:true, content:"Add Option to Category 2", ontap:"addToRepeater"},
+				{kind:"moon.Button", small:true, content:"Add Option to Category 3", ontap:"addToList"},
+				{classes:"moon-1v"},
+				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"}
+			]},
+			{fit: true},
+			{kind: "moon.Divider", content: "List Action Event"},
+			{kind: "moon.BodyText", name: "console", content: "Event"}
+		]},
+		{kind:"moon.Panel", title: "Header", components: [
+			{kind:"moon.Button", small:true, content:"Go Back", ontap:"toggleBreadcrumb"}
+		]}
+	],
+	activateHandler: function(inSender, inEvent) {
+		if (inEvent && inEvent.action) {
+			if (inEvent.originator instanceof moon.SelectableItem) {
+				this.$.console.setContent(
+					inEvent.action + ": " + 
+					inEvent.originator.getContent() + " was " + 
+					(inEvent.originator.getSelected() ? "selected" : "unselected")
+				);
+			} else {	// moon.CheckboxItem or moon.ToggleItem
+				this.$.console.setContent(
+					inEvent.action + ": " + 
+					inEvent.toggledControl.getContent() + " was " + 
+					(inEvent.originator.getChecked() ? "selected" : "unselected")
+				);
+			}
 		}
 		
-		//log the active state of the ListAction drawer
-		if (inEvent.originator && inEvent.originator.kind == "moon.ListActions") {
-			this.$.console.setContent("ListActions drawer is now " + (inEvent.originator.active ? "open" : "closed"));
+		// Log the active state of the ListAction drawer
+		if (inEvent.originator instanceof moon.ListActions) {
+			this.$.console.setContent(inEvent.originator.name + " is now " + (inEvent.originator.getOpen() ? "open" : "closed"));
 		}
+	},
+	addToStatic: function() {
+		this.optionNumber = (this.optionNumber || 0) + 1;
+		this.$.group.createComponent({content:"Option " + this.optionNumber}).render();
+	},
+	addToList: function() {
+		this.optionNumber = (this.optionNumber || 0) + 1;
+		this.$.list.controller.add({name: "Option " + this.optionNumber});
+	},
+	addToRepeater: function() {
+		this.optionNumber = (this.optionNumber || 0) + 1;
+		this.$.repeater.controller.add({name: "Option " + this.optionNumber});
+	},
+	toggleBreadcrumb: function() {
+		this.setIndex(this.getIndex() > 0 ? 0 : 1);
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.$.list.set("controller", new enyo.Collection([
+			{name: "SAT 1"},
+			{name: "SAT 2"},
+			{name: "SAT 3"},
+			{name: "OTHER S1"},
+			{name: "OTHER S2"}
+		]));
+		this.$.repeater.set("controller", new enyo.Collection([
+			{name: "Comedy"},
+			{name: "Action"},
+			{name: "Drama"},
+			{name: "Family"},
+			{name: "Fantasy"},
+			{name: "Science Fiction"}
+		]));
 	}
 });
