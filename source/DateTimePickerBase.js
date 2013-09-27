@@ -121,7 +121,9 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.setChildPickers(inOld);
-		this.doChange({name:this.name, value:this.value});
+		if (this.value) {
+			this.doChange({name:this.name, value:this.value});
+		}
 	},
 	setChildPickers: function(inOld) {
 		// implement in subkind
@@ -170,7 +172,6 @@ enyo.kind({
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
 		if (inEvent.type == "onSpotlightSelect" ||
 			this.$.client.children[0].id == inEvent.originator.id) {
-			this.updateValue(inSender, inEvent);
 			this.expandContract();
 			this.noneTextChanged();
 			return true;
