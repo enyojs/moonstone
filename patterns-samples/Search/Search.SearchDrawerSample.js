@@ -41,6 +41,7 @@ enyo.kind({
 	//* @public
 	name: "moon.sample.search.SearchDrawer",
     kind: "moon.Panel",
+    title: "Enter Keyword",
     controller: ".app.controllers.searchDrawerController",
     headerOptions: {kind: "moon.InputHeader", components: [
         {kind: "moon.IconButton", src: "../assets/trash-can-icon.png"}
@@ -53,7 +54,7 @@ enyo.kind({
 	spotlight: false,
 
     components: [
-        {name: "recentResult", kind: "moon.Scroller", components: [
+        {name: "recentResult", kind: "moon.Scroller", fit:true, components: [
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title1", kind: "moon.Item"},
                 {name: "recentSearchResults1", kind: "enyo.DataGridList", classes: "result-height", components: [
@@ -109,7 +110,7 @@ enyo.kind({
                 ]}
             ]}
         ]},
-        {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
+        {name: "instantSearchResults", kind: "moon.DataGridList", showing: false, components: [
             {kind: "moon.GridListImageItem", bindings: [
                 {from: ".model.image", to: ".source"},
                 {from: ".model.text", to: ".caption"}

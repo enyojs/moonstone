@@ -11,6 +11,10 @@
 	-webkit-transform: translateZ(1px);
 	margin: 0;
 }
+.moon-icon-button.moon-paging-button.spotlight {
+	.moon-icon-button.spotlight;
+	background-image: @moon-scroller-spotlight;
+}
 .moon-icon-button.moon-paging-button.hidden {
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
@@ -49,7 +53,10 @@
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
 	background-color: transparent;	
 }
-.moon-paging-button.moon-icon.moon-icon-button.active, .moon-paging-button.moon-icon.moon-icon-button:active:hover, .moon-paging-button.moon-icon-toggle.active
+.moon-paging-button.moon-icon.moon-icon-button.active, 
+.moon-paging-button.moon-icon.moon-icon-button:active:hover,
+.moon-paging-button.moon-icon-toggle.active,
+.moon-icon-button.moon-paging-button.spotlight.pressed
 {
 	background-position: 6px 6px;
 }

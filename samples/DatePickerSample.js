@@ -5,9 +5,9 @@ enyo.kind({
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
-				{kind: "moon.DatePicker", name:"picker", noneText: "Pick a Date", content: "Date", onChange: "changed"},
-				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date"},
-				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
+				{kind: "moon.DatePicker", name:"picker", noneText: $L("Pick a Date"), content: "Date", onChange: "changed", yearText: $L("year"), monthText: $L("month"), dayText: $L("day")},
+				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: $L("Disabled Date Picker"), content: "Disabled Date"},
+				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: $L("No Locale Selected"), content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: 'Use Default Locale', active: true},
 					{content: 'en-US'},
 					{content: 'ko-KR'},

@@ -24,17 +24,14 @@
 		}
 
 	The picker options may be modified programmatically in the standard manner, by
-	calling	_createComponent().render()_ or _destroy()_.  Note that _reflow()_
-	must be called after components are added or removed:
+	calling	_createComponent().render()_ or _destroy()_.
 
 		// Add new items to picker
 		this.$.picker.createComponent({"New York"}).render();
 		this.$.picker.createComponent({"London"}).render();
-		this.$.picker.reflow();
 
 		// Remove currently selected item from picker
 		this.$.picker.getSelected().destroy();
-		this.$.picker.reflow();
 */
 enyo.kind({
 	name: "moon.SimplePicker",
@@ -56,102 +53,36 @@ enyo.kind({
 		//* Reference to currently selected item, if any
 		selected: "",
 		//* Index of currently selected item, if any
-		selectedIndex: null,
+		selectedIndex: 0,
 		//* When true, picker transitions animate left/right
 		animate: true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		//* When true, picker will wrap around from last item to first
-		wrap: false
+		wrap: false,
+		//* By default, SimplePicker is an inline-block element; Setting `block: true` makes it a block element
+		block: false
 	},
+	defaultKind:"moon.MarqueeText",
 	//* @protected
 	components: [
-		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, defaultSpotlightRight: "buttonRight", ontap: "previous"},
-		{name: "client",      kind: "enyo.Panels", classes: "moon-simple-picker-client", arrangerKind: "CarouselArranger", narrowFit: false, controlClasses: "moon-simple-picker-item", draggable: false, onTransitionFinish:"transitionFinished"},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "next"}
+		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, defaultSpotlightRight: "buttonRight", ontap: "left"},
+		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
+			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
+		]},
+		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, defaultSpotlightLeft: "buttonLeft", ontap: "right"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.animateChanged();
 		this.initializeActiveItem();
-		this.selectedIndexChanged();
 		this.disabledChanged();
+		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
-		this.wrapChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this._rendered = true;
-	},
-	createComponents: function(inC, inOpts) {
-		var inherited = this.createComponents._inherited;
-		if (this.$.client) {
-			inOpts = inOpts || {};
-			inOpts.container = this.$.client;
-			inOpts.kind = "moon.MarqueeText";
-		}
-		return inherited.call(this, inC, inOpts);
-	},
-	createComponent: function(inC, inOpts) {
-		var inherited = this.createComponent._inherited;
-		if (this.$.client) {
-			inOpts = inOpts || {};
-			inOpts.container = this.$.client;
-			inOpts.kind = "moon.MarqueeText";
-		}
-		return inherited.call(this, inC, inOpts);
-	},
-	reflow: function() {
-		this.inherited(arguments);
-
-		var maxHeight = 0,
-			maxWidth = 0,
-			panels,
-			panel,
-			i;
-
-		// Find max width/height of all children
-		if (this.getAbsoluteShowing()) {
-			panels = this.$.client.getPanels();
-
-			for (i = 0; (panel = panels[i]); i++) {
-				if (panel.hasNode()) {
-					var bounds = panel.getBounds();
-					maxWidth = Math.max(maxWidth, bounds.width);
-					maxHeight = Math.max(maxHeight, bounds.height);
-				}
-			}
-			maxWidth = Math.min(maxWidth + 16, 250); // cushion up to the Marquee max-width of 250
-			this.$.client.setBounds({width: maxWidth, height: maxHeight});
-
-			for (i = 0; (panel = panels[i]); i++) {
-				panel.setBounds({width: maxWidth, height: maxHeight});
-			}
-
-			this.$.client.reflow();
-		}
-
-		// Make sure selected item is in sync after Panels reflow, which may have
-		// followed an item being added/removed
-		if (this.selected != this.$.client.getActive()) {
-			this.setSelected(this.$.client.getActive());
-			this.setSelectedIndex(this.$.client.getIndex());
-			this.fireChangedEvent();
-		}
-
-		this.showHideNavButtons();
-	},
-	transitionFinished: function(inSender, inEvent) {
-		var fp = (this.getSelected() === this.$.client.getActive()); // false positive
-		this.setSelected(this.$.client.getActive());
-		this.setSelectedIndex(this.$.client.getIndex());
-		if (!fp) {
-			this.fireChangedEvent();
-		}
-		return true;
+		this.blockChanged();
 	},
 	fireChangedEvent: function() {
-		if (!this._rendered) {
+		if (!this.generated) {
 			return;
 		}
 
@@ -161,31 +92,73 @@ enyo.kind({
 			index:      this.selected && this.selectedIndex
 		});
 	},
+	blockChanged: function() {
+		this.addRemoveClass("block", this.block);
+	},
 	//* Show/hide prev/next buttons based on current index
 	showHideNavButtons: function() {
 		var index = this.getSelectedIndex(),
-			maxIndex = this.$.client.getClientControls().length - 1;
+			maxIndex = this.getClientControls().length - 1;
+		var prevButton = this.rtl ? this.$.buttonRight : this.$.buttonLeft;
+		var nextButton = this.rtl ? this.$.buttonLeft : this.$.buttonRight;
 
+		if (this.disabled) {
+			this.hideNavButton(prevButton);
+			this.hideNavButton(nextButton);
 		// Always show buttons if _this.wrap_ is _true_
-		if (this.wrap) {
-			this.showNavButton(this.$.buttonLeft);
-			this.showNavButton(this.$.buttonRight);
+		} else if (this.wrap) {
+			this.showNavButton(prevButton);
+			this.showNavButton(nextButton);
 		// If we have one or less options, always show no buttons
 		} else if (maxIndex <= 0) {
-			this.hideNavButton(this.$.buttonLeft);
-			this.hideNavButton(this.$.buttonRight);
+			this.hideNavButton(prevButton);
+			this.hideNavButton(nextButton);
 		// If we are on the first option, hide the left button
 		} else if (index <= 0) {
-			this.hideNavButton(this.$.buttonLeft);
-			this.showNavButton(this.$.buttonRight);
+			this.hideNavButton(prevButton);
+			this.showNavButton(nextButton);
 		// If we are on the last item, hide the right button
 		} else if (index >= maxIndex) {
-			this.showNavButton(this.$.buttonLeft);
-			this.hideNavButton(this.$.buttonRight);
+			this.showNavButton(prevButton);
+			this.hideNavButton(nextButton);
 		// Otherwise show both buttons
 		} else {
-			this.showNavButton(this.$.buttonLeft);
-			this.showNavButton(this.$.buttonRight);
+			this.showNavButton(prevButton);
+			this.showNavButton(nextButton);
+		}
+	},
+	addControl: function(inControl) {
+		this.inherited(arguments);
+		var addedIdx = this.getClientControls().indexOf(inControl);
+		var selectedIdx = this.selectedIndex;
+		if (this.generated) {
+			if ((selectedIdx < 0) || (addedIdx < selectedIdx)) {
+				this.setSelectedIndex(selectedIdx + 1);
+			} else if (selectedIdx == addedIdx) {
+				// Force change handler, since the currently selected item actually changed
+				this.selectedIndexChanged();
+			}
+			this.showHideNavButtons();
+		}
+	},
+	removeControl: function(inControl) {
+		var removedIdx = this.getClientControls().indexOf(inControl);
+		var selectedIdx = this.selectedIndex;
+		var wasLast = (removedIdx == this.getClientControls().length-1);
+
+		this.inherited(arguments);
+
+		// If removedIdx is -1, that means that the Control being removed is
+		// not one of our picker items, so we don't need to update our state.
+		// Probably, we're being torn down.
+		if (removedIdx !== -1) {
+			if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
+				this.setSelectedIndex(selectedIdx - 1);
+			} else if (selectedIdx == removedIdx) {
+				// Force change handler, since the currently selected item actually changed
+				this.selectedIndexChanged();
+			}
+			this.showHideNavButtons();
 		}
 	},
 	//* Hide _inControl_ and disable spotlight functionality
@@ -200,20 +173,18 @@ enyo.kind({
 		inControl.spotlight = true;
 	},
 	disabledChanged: function() {
-		this.addRemoveClass("disabled", this.disabled);
-		this.$.buttonLeft.setDisabled(this.disabled);
-		this.$.buttonRight.setDisabled(this.disabled);
+		this.$.client.addRemoveClass("disabled", this.disabled);
+		if (this.generated) {
+			this.showHideNavButtons();
+		}
 	},
 	animateChanged: function() {
-		this.$.client.setAnimate(this.animate);
-	},
-	wrapChanged: function() {
-		this.$.client.setWrap(this.wrap);
+		this.$.client.addRemoveClass("animated", this.animate);
 	},
 	selectedChanged: function() {
-		if (this.selected != this.$.client.getActive()) {
-			this.$.client.setIndex(this.selected.indexInContainer());
-			this.fireChangedEvent();
+		var idx = this.getClientControls().indexOf(this.selected);
+		if (idx >= 0) {
+			this.setSelectedIndex(idx);
 		}
 	},
 	/*
@@ -233,44 +204,61 @@ enyo.kind({
 		}
 	},
 	selectedIndexChanged: function() {
-		if ((this.selectedIndex !== null) && (this.selectedIndex != this.$.client.getIndex())) {
-			this.$.client.setIndex(this.selectedIndex);
+		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
+		if (this.selectedIndex !== null) {
 			this.updateMarqueeDisable();
 		}
-
+		this.setSelected(this.getClientControls()[this.selectedIndex]);
+		this.fireChangedEvent();
 		this.showHideNavButtons();
 	},
 	updateMarqueeDisable: function() {
-		for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-			if (i == this.$.client.getIndex()) {
+		for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
+			if (i == this.selectedIndex) {
 				c$[i].disabled = false;
 			} else {
 				c$[i].disabled = true;
 			}
 		}
 	},
-	//* Facade _getClientControls()_ to return client controls inside of _this.client_
-	getClientControls: function() {
-		return this.$.client.getClientControls();
+	left: function() {
+		if (this.rtl) {
+			this.next();
+		} else {
+			this.previous();
+		}
+	},
+	right: function() {
+		if (this.rtl) {
+			this.previous();
+		} else {
+			this.next();
+		}
 	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
-		this.$.client.previous();
-		this.updateMarqueeDisable();
-		this._marqueeSpotlightFocus();
+		if (!this.disabled) {
+			var idx = this.selectedIndex - 1;
+			if (idx < 0) {
+				idx = this.wrap ? this.getClientControls().length - 1 : 0;
+			}
+			this.setSelectedIndex(idx);
+			this.updateMarqueeDisable();
+			this._marqueeSpotlightFocus();
+		}
 	},
 	//* @public
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
-		this.$.client.next();
-		this.updateMarqueeDisable();
-		this._marqueeSpotlightFocus();
-	},
-	showingChanged: function() {
-		this.inherited(arguments);
-		if(this.showing && this.generated) {
-			this.reflow();
+		if (!this.disabled) {
+			var idx = this.selectedIndex + 1;
+			if (idx > this.getClientControls().length - 1) {
+				idx = this.wrap ? 0 : this.getClientControls().length - 1;
+			}
+			this.setSelectedIndex(idx);
+			this.updateMarqueeDisable();
+			this._marqueeSpotlightFocus();
 		}
 	}
 });

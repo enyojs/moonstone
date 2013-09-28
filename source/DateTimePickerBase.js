@@ -6,6 +6,7 @@
 enyo.kind({
 	name: "moon.DateTimePickerBase",
 	kind: "moon.ExpandableListItem",
+	defaultKind: "enyo.Control",
 	classes: "moon-expandable-picker moon-date-picker",
 	events: {
 		/**
@@ -120,7 +121,9 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.setChildPickers(inOld);
-		this.doChange({name:this.name, value:this.value});
+		if (this.value) {
+			this.doChange({name:this.name, value:this.value});
+		}
 	},
 	setChildPickers: function(inOld) {
 		// implement in subkind
@@ -143,6 +146,9 @@ enyo.kind({
 		if (pickers) {
 			for (i = 0; i < pickers.length; i++) {
 				p = pickers[i];
+				if (p.getClientControls().length > 0) {
+					p = p.getClientControls()[0];
+				}
 				if (open) {
 					//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
 					p.refreshScrollState();
@@ -166,7 +172,6 @@ enyo.kind({
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
 		if (inEvent.type == "onSpotlightSelect" ||
 			this.$.client.children[0].id == inEvent.originator.id) {
-			this.updateValue(inSender, inEvent);
 			this.expandContract();
 			this.noneTextChanged();
 			return true;

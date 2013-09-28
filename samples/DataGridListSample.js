@@ -15,11 +15,7 @@ enyo.kind({
 	],
 	create: function () {
 		this.inherited(arguments);
-		var c = new enyo.Collection();
-		for (var $i=0, r$=[]; r$.length<500; ++$i) {
-			r$.push({text: "Item " + $i});
-		}
-		c.add(r$);
+		for (var i=0, c=new enyo.Collection(); i<500; ++i) { c.add({text: "Item " + i}); }
 		this.$.gridList.set("controller", c);
 	}
 });

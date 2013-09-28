@@ -14,11 +14,6 @@
 	background-color: @moon-background-color;
 }
 
-.spotlight {
-	color: @moon-spotlight-text-color;
-}
-
-
 .moon-header-font {
 	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
@@ -126,11 +121,16 @@
 	letter-spacing: @moon-button-letter-spacing;
 	text-transform: uppercase;
 }
+.moon-icon-text {
+	font-family: @moon-icon-font-family;
+	font-size: @moon-icon-font-size;
+	color: @moon-icon-color;
+}
 
 .enyo-locale-non-latin {
-	.moon, 
-	.moon input, 
-	.moon textarea, 
+	.moon,
+	.moon input,
+	.moon textarea,
 	.moon button,
 	.moon-superscript,
 	.moon-pre-text,
@@ -146,7 +146,7 @@
 	.moon-small-button-text {
 		font-family: @moon-non-latin-font-family;
 	}
-	
+
 	.moon {
 		font-size: @moon-non-latin-sub-header-font-size;
 	}
@@ -187,7 +187,7 @@
 }
 .border-box {
 	box-sizing: border-box;
-	-mox-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
 
 /* LESS pre-calculations */
@@ -218,7 +218,6 @@
 @import "IconButton.less";
 @import "PagingControl.less";
 @import "IntegerPicker.less";
-@import "IntegerScrollPicker.less";
 @import "DatePicker.less";
 @import "TimePicker.less";
 @import "Input.less";
@@ -274,7 +273,7 @@
 	color: @moon-neutral-text-color;
 }
 .moon-neutral * {
-	color: @moon-neutral-child-text-color;	
+	color: @moon-neutral-child-text-color;
 }
 .moon-light-gray {
 	background-color: @moon-light-gray;
@@ -292,6 +291,9 @@
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0 @moon-grid-gutter-width/2;
+}
+.moon-hspacing.top > * {
+	vertical-align: top;
 }
 .moon-hspacing > :first-child {
 	margin-left: 0;

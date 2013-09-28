@@ -1,4 +1,5 @@
 enyo.depends(
+	"BodyText.js",
 	"Marquee.js",
 	"Button.js",
 	"CaptionDecorator.js",
@@ -28,7 +29,6 @@ enyo.depends(
 	"DataList.js",
 	"PagingControl.js",
 	"IntegerPicker.js",
-	"IntegerScrollPicker.js",
 	"DateTimePickerBase.js",
 	"DatePicker.js",
 	"TimePicker.js",
@@ -80,6 +80,5 @@ enyo.depends(
 	"SelectionOverlaySupport.js",
 	"Image.js",
 	"ImageBadge.js",
-	"ExpandableText.js",
-	"BodyText.js"
+	"ExpandableText.js"
 );

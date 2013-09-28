@@ -28,14 +28,21 @@ enyo.kind({
 			scroll as far as possible, until its edge meets the next item's edge
 		*/
 		scrollFullPage: false,
-		//* If true, paging controls are spotlightable (in 5-way mode)
-		spotlightPagingControls: false
+		/**
+			If true, paging controls are focusable (in 5-way mode).  Normally, this
+			is not required, since the scroller will automatically scroll to ensure
+			most focusable items are in view.  It is intended to be used when the 
+			scroller contents have no spotlightable controls, such as the case of a 
+			scroller with a long body of text. 
+		*/
+		spotlightPagingControls: false,
+		//* Relative parameter used to determine scroll speed
+		scrollInterval: 75
 	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
 	strategyKind: "moon.ScrollStrategy",
-	
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
@@ -43,6 +50,19 @@ enyo.kind({
 	*/
 	scrollToControl: function(inControl, inScrollFullPage) {
 		this.$.strategy.animateToControl(inControl, inScrollFullPage);
-	}
+	},
+
 	//* @protected
+	bindings: [
+		{from: ".scrollInterval", to:".$.strategy.interval"}
+	],
+	create: function() {
+		this.inherited(arguments);
+		this.spotlightPagingControlsChanged();
+	},
+	spotlightPagingControlsChanged: function() {
+		// Since spotlightPagingControls is used when there are no focusable
+		// children, turn off container handling in that case.
+		this.spotlight = this.spotlightPagingControls ? false : "container";
+	}
 });
