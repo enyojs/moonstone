@@ -4,6 +4,11 @@
     minimize the use of custom CSS.
 */
 
+.moon-search-result-image {
+    padding-top: 5px;
+    width: 20px;
+}
+
 .moon-search-result-item {
     float: left;
     margin: 0px 6px 6px 0px;
@@ -30,6 +35,6 @@
 }
 
 .moon-search-result-item-text.spotlight {
-	color: black;
-	background-color: #ffb80d;
+    color: black;
+    background-color: #ffb80d;
 }

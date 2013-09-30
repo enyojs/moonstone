@@ -233,7 +233,6 @@ enyo.kind({
 		this.$.minute.setValue(this.value.getMinutes());
 
 		this.$.currentValue.setContent(this.formatValue());
-		this.doChange({name:this.name, value:this.value});
 	},
 	hourTextChanged: function (inOldvalue, inNewValue) {
 		this.$.hourLabel.setContent(inNewValue);

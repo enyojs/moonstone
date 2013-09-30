@@ -127,7 +127,7 @@ enyo.kind({
 		var months = this.months;
 		for (var i = 0; i < 12; i++) {
 			this.$.monthPicker.createComponent(
-				{content: months[i], classes: "picker-content", style: "width: 200px"}
+				{content: months[i], classes: "picker-content"}
 			);
 		}
 	},

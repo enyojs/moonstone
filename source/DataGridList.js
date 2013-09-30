@@ -6,6 +6,7 @@ enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
 	noDefer: true,
+	allowTransitions: false,
 	scrollerOptions: { kind: "moon.Scroller" }
 });
 //*@protected
@@ -29,7 +30,7 @@ enyo.kind({
 				var w = list.boundsCache.width,
 					b = list.$.scroller.getScrollBounds(),
 					n = list.$.scroller.$.strategy.$.vColumn.hasNode();
-				if (b.height > b.clientHeight) {
+				if (list.$.scroller.getVertical() == "scroll" || (b.height > b.clientHeight)) {
 					list.boundsCache.width = w-n.offsetWidth;
 				}
 			};

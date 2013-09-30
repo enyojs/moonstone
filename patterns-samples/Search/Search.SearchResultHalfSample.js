@@ -49,8 +49,8 @@ enyo.kind({
         {kind: "moon.InputDecorator", components: [
             {style: "width: 500px", components: [
                 {layoutKind: 'FittableColumnsLayout', components: [
-                    {kind: "moon.Input", placeholder: "Search term", flex: true, onchange: "inputChanged"},
-                    {kind: "Image", src: "../../samples/assets/search-input-search.png"}
+                    {kind: "moon.Input", placeholder: "Search term", fit: true, onchange: "inputChanged"},
+                    {kind: "Image", src: "../../samples/assets/search-input-search.png", classes: "moon-search-result-image"}
                 ]}
             ]}
         ]}

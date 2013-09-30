@@ -9,13 +9,13 @@ enyo.kind({
 			]}
 		]}
 	],
-	create: function () {
+	rendered: function () {
 		this.inherited(arguments);
 		var c = new enyo.Collection();
-		for (var $i=0, r$=[]; r$.length<500; ++$i) {
-			r$.push({value: (Math.floor($i/10)%2 === 0), name:"Checkbox Item " + $i});
+		for (var i=0, r=[]; r.length<150; ++i) {
+			r.push({value: (Math.floor(i/10)%2 === 0), name: "Checkbox Item " + i});
 		}
-		c.add(r$);
 		this.$.repeater.set("controller", c);
-	}	
+		c.add(r);
+	}
 });
