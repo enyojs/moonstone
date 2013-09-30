@@ -36,7 +36,7 @@ enyo.kind({
 		this.components = [
 			{
 				kind: "moon.AudioPlaybackQueue", 
-				name: "audioQueue",
+				name: "audioQueue"
 			}
 		];
 		this.inherited(arguments);
@@ -241,19 +241,19 @@ enyo.kind({
 	changeRepeatState: function() {
 		var result = "";
 		switch (this.getRepeat()) {
-			case "NONE" :
-				result = this.setRepeat("ONE");
-				this.$.btnRepeat.setContent("1");
+		case "NONE" :
+			result = this.setRepeat("ONE");
+			this.$.btnRepeat.setContent("1");
 
-				break;
-			case "ONE" :
-				result = this.setRepeat("ALL");
-				this.$.btnRepeat.setContent("all");
-				break;
-			case "ALL" :
-				result = this.setRepeat("NONE");
-				this.$.btnRepeat.setContent("R");
-				break;
+			break;
+		case "ONE" :
+			result = this.setRepeat("ALL");
+			this.$.btnRepeat.setContent("all");
+			break;
+		case "ALL" :
+			result = this.setRepeat("NONE");
+			this.$.btnRepeat.setContent("R");
+			break;
 		}
 	},
 	toggleShuffleState: function() {
@@ -278,17 +278,23 @@ enyo.kind({
 	//* Make shuffle array for shuffle features.
 	shuffleArray: function(inArray) {
 		var len = inArray.length;
-		if(len == 1) {
+		if (len == 1) {
 			return inArray;
 		}
 
-		var i = Math.floor(len * 1.5);
-		while(i > 0) {
-			var index1 = Math.floor(Math.random() * len);
-			var index2 = Math.floor(Math.random() * len);
-			if(index1 == index2) continue;
+		var i = Math.floor(len * 1.5),
+			index1,
+			index2
+			temp;
 
-			var temp = inArray[index1];
+		while (i > 0) {
+			index1 = Math.floor(Math.random() * len);
+			index2 = Math.floor(Math.random() * len);
+			if (index1 == index2) {
+				continue;
+			}
+
+			temp = inArray[index1];
 			inArray[index1] = inArray[index2];
 			inArray[index2] = temp;
 			i--;
@@ -296,7 +302,7 @@ enyo.kind({
 		return inArray;
 	},
 	getNextIndexForShuffle: function() {
-		if( (this.randomIndex + 1) >= this.audioTracks.length ) {
+		if ((this.randomIndex + 1) >= this.audioTracks.length) {
 			this.randomPlayList = this.addShuffleArray(this.randomPlayList);
 		}
 
@@ -317,31 +323,41 @@ enyo.kind({
 	},
 	//* If there are no next shuffle playlist, add shuffle playlist. 
 	addShuffleArray: function(inShuffleArray) {
-		var len = this.audioTracks.length;
-		var sparePlayList = new Array();
-		for(var i = 0 ; i < len ; i++){
+		var len = this.audioTracks.length,
+			sparePlayList = [];
+
+		for (var i = 0 ; i < len ; i++) {
 			sparePlayList[i] = i;
 		}
+
 		this.shuffleArray(sparePlayList);
 
 		return inShuffleArray.concat(sparePlayList);
 	},
 	//* shuffle array within range
 	shuffleArrayWithinRange: function(inShuffleListArr, inStartNum) {
-		if(inStartNum < 0 || inStartNum > (inShuffleListArr.length - 1)) return false;
-		if(inShuffleListArr.length == 1) return inShuffleListArr;
-		if((inShuffleListArr.length - 1 ) == inStartNum) return inShuffleListArr;
+		var shuffleLength = inShuffleListArr.length;
 
-		var shuffleList = inShuffleListArr.slice(inStartNum);
+		if (inStartNum < 0 || inStartNum > (shuffleLength - 1)) { 
+			return false; 
+		} else if (shuffleLength == 1) { 
+			return inShuffleListArr; 
+		} else if ((shuffleLength - 1 ) == inStartNum) { 
+			return inShuffleListArr;
+		}
 
-		var len = shuffleList.length;
-		var i = Math.floor(len * 1.5);
-		while(i > 0)
-		{
-			var index1 = Math.floor(Math.random() * len);
-			var index2 = Math.floor(Math.random() * len);
-			if(index1 == index2) continue;
-			var temp = shuffleList[index1];
+		var shuffleList = inShuffleListArr.slice(inStartNum),
+			len = shuffleList.length,
+			i = Math.floor(len * 1.5),
+			temp,
+			index,
+			index2;
+
+		while (i > 0) {
+			index1 = Math.floor(Math.random() * len);
+			index2 = Math.floor(Math.random() * len);
+			if(index1 == index2) {continue;}
+			temp = shuffleList[index1];
 			shuffleList[index1] = shuffleList[index2];
 			shuffleList[index2] = temp;
 			i--;
@@ -355,12 +371,12 @@ enyo.kind({
 		this.indexChanged(previous, inIndex);
 	},
 	indexChanged: function(previous, current) {
-		if(previous !== current) {
+		if (previous !== current) {
 			this.doIndexChanged({"previous": previous, "current": current});
 		}
 	},
 	recomposeAudioTag: function() {
-		if(this.$.audio){
+		if (this.$.audio) {
 			var audioParent = this.$.audio.parent;
 			this.$.audio.destroy();
 			audioParent.createComponent({name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"}, {owner: this});
@@ -425,7 +441,6 @@ enyo.kind({
 	},
 	playNext: function() {
 		this.recomposeAudioTag();
-
 		this.audioTracks[this.index].playingMark = false;
 
 		if(this.shuffle){
