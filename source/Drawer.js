@@ -102,6 +102,9 @@ enyo.kind({
 			this.doActivate();
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
+			if (this.$.client.getOpen()) {
+				this.$.client.setOpen(false);
+			}
 			this.doDeactivate();
 		}
 	},
