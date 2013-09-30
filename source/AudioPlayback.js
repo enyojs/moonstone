@@ -33,18 +33,13 @@ enyo.kind({
 	},
 	controlDrawerComponents:[],
 	initComponents: function() {
-		this.components = [
-			{
-				kind: "moon.AudioPlaybackQueue", 
-				name: "audioQueue"
-			}
-		];
 		this.inherited(arguments);
-		this.components = null;
+		this.$.controlDrawer.createComponents([{ name: "audioPlayer", kind: "moon.AudioPlayer" }], {owner:this});
+		this.$.client.createComponents([{ name: "audioQueue", kind: "moon.AudioPlaybackQueue" }], {owner:this});
 	},
 	create: function() {
 		this.inherited(arguments);
-		this.$.controlDrawer.createComponents([{ name: "audioPlayer", kind: "moon.AudioPlayer" }], {owner:this});
+		
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -210,10 +205,10 @@ enyo.kind({
 		//this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
 	},
 	updatePlayhead: function() {
-		var duration = this.$.audio.getDuration();
-		var totalTime = isNaN(duration) ? 0 : duration;
-		var currentTime = this.$.audio.getCurrentTime();
-		var playheadPos = (currentTime * 100) / totalTime;
+		var duration = this.$.audio.getDuration(), 
+			totalTime = isNaN(duration) ? 0 : duration,
+			currentTime = this.$.audio.getCurrentTime(),
+			playheadPos = (currentTime * 100) / totalTime;
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
 		this.$.slider.updateKnobPosition(playheadPos);
 		this.$.slider.setProgress(playheadPos);
@@ -223,8 +218,8 @@ enyo.kind({
 		this.$.timeRemaining.setContent(inEnd);
 	},
 	toReadableTime: function(inValue) {
-		var minutes = Math.floor(inValue / 60).toString();
-		var seconds = Math.floor(inValue - minutes * 60).toString();
+		var minutes = Math.floor(inValue / 60).toString(),
+			seconds = Math.floor(inValue - minutes * 60).toString();
 		if (seconds < 10) {
 			seconds = "0" + seconds;
 		} else if (seconds.length === 1) {
@@ -233,8 +228,8 @@ enyo.kind({
 		return minutes + ":" + seconds;
 	},
 	sliderChanging: function(inSender, inEvent) {
-		var totalTime = this.$.audio.getDuration();
-		var currentTime = (totalTime / 100) * inEvent.value;
+		var totalTime = this.$.audio.getDuration(),
+			currentTime = (totalTime / 100) * inEvent.value;
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
 		this.$.audio.seekTo(currentTime);
 	},
@@ -284,7 +279,7 @@ enyo.kind({
 
 		var i = Math.floor(len * 1.5),
 			index1,
-			index2
+			index2,
 			temp;
 
 		while (i > 0) {
@@ -311,10 +306,9 @@ enyo.kind({
 	getPreviousIndexForShuffle: function() {
 		var index = 0;
 
-		if( (this.randomIndex - 1) < 0 ) {
+		if ((this.randomIndex - 1) < 0) {
 			index = this.randomPlayList[0];
-		}
-		else {
+		} else {
 			index = this.randomPlayList[--this.randomIndex];
 		}
 		this.randomPlayList = this.shuffleArrayWithinRange(this.randomPlayList, this.randomIndex + 1);
@@ -350,7 +344,7 @@ enyo.kind({
 			len = shuffleList.length,
 			i = Math.floor(len * 1.5),
 			temp,
-			index,
+			index1,
 			index2;
 
 		while (i > 0) {
@@ -443,7 +437,7 @@ enyo.kind({
 		this.recomposeAudioTag();
 		this.audioTracks[this.index].playingMark = false;
 
-		if(this.shuffle){
+		if (this.shuffle) {
 			if( this.getRepeat() === "NONE" ) {
 				this.setIndex(this.getNextIndexForShuffle());
 			}
@@ -453,8 +447,7 @@ enyo.kind({
 			else if( this.getRepeat() === "ALL" ) {
 				this.setIndex(this.getNextIndexForShuffle());
 			}
-		}
-		else{
+		} else {
 			if( this.getRepeat() === "NONE" ) {
 				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
 			}
@@ -538,7 +531,7 @@ enyo.kind({
     addAudio: function(inSender, inEvent) {
 		this.tracks = inEvent.tracks;
 		this.$.list.controller.add(inEvent.track);
-		var i = this.$.list.length + 1;
+		var i = this.$.list.length;
 		/*this.$.list.setCount( i );
 		this.$.list.reset();*/
 		this.$.queueHeader.setTitleBelow(i + " Tracks");

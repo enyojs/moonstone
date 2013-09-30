@@ -23,8 +23,8 @@ enyo.kind({
 				kind: "moon.AudioPlayback",
 				name: "audioPlayback",
 				handle: {
-					/*kind: "moon.DrawerHandle",
-					marquee: true*/
+					kind: "moon.DrawerHandle",
+					marquee: true
 				}
 			}
 		],
