@@ -37,8 +37,14 @@ enyo.kind({
 		src: "",
 		//* Array for setting multiple sources for the same video
 		sources: null,
-		//* Video aspect ratio, specified as _"width:height"_
-		aspectRatio: "16:9",
+		//* When true, size of the video player is resized after metadata is loaded. Applies only to inline:true mode.
+		autoResize: false,
+		//* Video aspect ratio which is applied after rendered, specified as _"width:height"_. Applies only to inline:true mode.
+		initialAspectRatio: "16:9",
+		//* When true, the width will be applied at render time based on the measured width and the initialAspectRatio property.
+		//* When false, the height will be applied at render time based on the measured width and the initialAspectRatio property.
+		//* This property is ignored when initialAspectRatio is 'none' or falsy value. Applies only to inline:true mode.
+		fixedHeight: false,
 		//* Control buttons is hided automatically in this time amount
 		autoCloseTimeout: 7000,
 		//* Video duration
@@ -220,6 +226,11 @@ enyo.kind({
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
 	},
+	rendered: function() {
+		this.inherited(arguments);
+		//* Change aspect ratio based on initialAspectRatio
+		this.updateAspectRatio(this.initialAspectRatio);
+	},
 	showPlaybackControlsChanged: function(inOld) {
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
 		this.$.moreButton.set("showing", this.showPlaybackControls && this.clientComponentsCount > 2);
@@ -369,7 +380,6 @@ enyo.kind({
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		this.log("Large: " + this.isLarge());
 		if (inEvent.originator === this && this.isLarge()) {
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
@@ -702,27 +712,30 @@ enyo.kind({
 		this.setCurrentTime(inEvent.value);
 	},
 	//* Updates the height/width based on the video's aspect ratio.
-	updateAspectRatio: function() {
-		var node = this.hasNode(),
-			aspectRatio = this.$.video.getAspectRatio(),
-			videoAspectRatio = null,
+	updateAspectRatio: function(aspectRatio) {
+		var videoAspectRatio = null,
+			width = this.getComputedStyleValue('width'),
+			height = this.getComputedStyleValue('height'),
 			ratio = 1
 		;
 		
-		if (!node && aspectRatio == "0:0") {
-			return;
-		}
+		// Case 5: Fixed size provided by user
+		if (!this.inline || aspectRatio == "none" || !aspectRatio) { return; }
 
 		videoAspectRatio = aspectRatio.split(":");
 		
-		// If height but no width defined, update width based on aspect ratio
-		if (node.style.height && !node.style.width) {
+		// If fixedHeight is true, update width based on aspect ratio
+		if (this.fixedHeight) {
+			// Case 2: Automatic resize based on video aspect ratio (fixed height):
+			// Case 4: Fixed aspect ratio provided by user (fixed-height):
 			ratio = videoAspectRatio[0] / videoAspectRatio[1];
-			this.applyStyle("width", ((parseInt(node.style.height, 10) * ratio)) + "px");
-		// If width but no height defined, update height based on aspect ratio
-		} else if (node.style.width && !node.style.height) {
+			this.applyStyle("width", ((parseInt(height, 10) * ratio)) + "px");
+		// If fixedHeight is false, update height based on aspect ratio
+		} else if (!this.fixedHeight) {
+			// Case 1: Automatic resize based on video aspect ratio (fixed width):
+			// Case 3: Fixed aspect ratio provided by user (fixed-width):
 			ratio = videoAspectRatio[1] / videoAspectRatio[0];
-			this.applyStyle("height", ((parseInt(node.style.width, 10) * ratio)) + "px");
+			this.applyStyle("height", ((parseInt(width, 10) * ratio)) + "px");
 		}
 	},
 	updatePosition: function() {
@@ -771,7 +784,6 @@ enyo.kind({
 	toggleSpotlightForMoreControls: function(trueOrFalse) {
 		var m = this.$.client.children;
 		var p = this.$.playbackControls.children;
-		this.log(p);
 		for (var i = 0; i < m.length; i++) {
 			m[i].spotlight = trueOrFalse;
 		}
@@ -802,7 +814,10 @@ enyo.kind({
 	},
 	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
-		this.updateAspectRatio();	// Fixme: Support aspect ratio
+		//* Update aspect ratio based on actual video aspect ratio when autoResize is true.
+		if (this.autoResize && this.$.video) {
+			this.updateAspectRatio(this.$.video.getAspectRatio());
+		}
 		this.durationUpdate(inSender, inEvent);
 	},
 	durationUpdate: function(inSender, inEvent) {
