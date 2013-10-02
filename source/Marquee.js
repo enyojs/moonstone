@@ -214,7 +214,7 @@ moon.MarqueeItem = {
 			return;
 		}
 		
-		this.startJob("stopMarquee", "stopMarquee", this.marqueePause);
+		this.startJob("stopMarquee", "stopMarqueeAnimation", this.marqueePause);
         return true;
 	},
 	//* Return _true_ if this control has enough content that it needs to animate
@@ -235,17 +235,18 @@ moon.MarqueeItem = {
 		return this.marqueeNode;
 	},
 	createMarquee: function() {
-		this.log("creating", this.name);
 		this.createComponent({name: "marqueeText", allowHtml: this.allowHtml, content: this.content});
 		this.render();
 		return true;
 	},
+	//* Generate the CSS text for the marquee animation based on _inDistance_
 	generateAnimationCSSText: function(inDistance) {
 		var duration = this.calcMarqueeDuration(inDistance),
 			transformProp = enyo.dom.getCssTransformProp();
 		
 		return enyo.dom.transition + ": " + transformProp + " " + duration + "s linear; " + transformProp + ": translateX( " + (-1 * inDistance) + "px);";
 	},
+	//* Set the cssText of marquee node to _inCSSString_
 	updateNodeCSSText: function(inCSSString) {
 		var node = this.getMarqueeNode();
 		if (!node) {
