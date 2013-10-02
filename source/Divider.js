@@ -5,15 +5,10 @@
 enyo.kind({
 	name: "moon.Divider",
 	classes: "moon-divider",
-	mixins: ["moon.MarqueeSupport"],
+	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
 	marqueeOnSpotlight: false,
-	components: [
-		{name: "marqueeText", kind:"moon.MarqueeText"}
-	],
 	rendered: function() {
+		this.inherited(arguments);
 		this.startMarquee();
-	},
-	contentChanged: function() {
-		this.$.marqueeText.setContent(this.content);
 	}
 });
