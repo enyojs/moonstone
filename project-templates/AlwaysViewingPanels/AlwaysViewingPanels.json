@@ -3,16 +3,16 @@
   {
     "id": "bootplate-moonstone-AlwaysViewingPanels",
     "type": "template",
+    "description": "Moonstone AlwaysViewingPanels",
+    "deps": ["webos-app-config"],
     "files": [
       {
-        "url": "http://nebula.lgsvl.com/enyojs/templates/bootplate-moonstone.zip",
-        "prefixToRemove": "bootplate"
+        "url": "@PLUGINDIR@/templates/bootplate-moonstone.zip"
       },
       {
-        "url": "http://nebula.lgsvl.com/enyojs/templates/template-AlwaysViewingPanels.zip"
+        "url": "@PLUGINDIR@/templates/template-AlwaysViewingPanels.zip"
       }
-    ],
-    "description": "Moonstone AlwaysViewingPanels"
+    ]
   }
 ]
 }
