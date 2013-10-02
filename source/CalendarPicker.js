@@ -111,7 +111,7 @@ enyo.kind({
 			this._tf = new ilib.DateFmt({
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
-				length: "medium"//it uses 3 chars to abbreviate properly
+				length: "long"//it uses 3 chars to abbreviate properly
 			});
 
 			this.ilibLocaleInfo = new ilib.LocaleInfo();
@@ -344,7 +344,7 @@ enyo.kind({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
-				length: "medium"//it uses 3 chars to abbreviate properly
+				length: "long"//it uses 3 chars to abbreviate properly
 			});
 		}
 		this.updateMonthPicker();

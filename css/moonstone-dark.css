@@ -2547,10 +2547,10 @@
 }
 .moon-calendar-picker-day.moon-divider {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 22px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: -0.04em;
+  font-style: italic;
+  letter-spacing: 0.05em;
   color: #999999;
   width: 60px;
   display: inline-block;
@@ -2561,7 +2561,8 @@
 }
 .enyo-locale-non-latin .moon-calendar-picker-day.moon-divider {
   font-family: "LG Display";
-  font-size: 30px;
+  font-size: 28px;
+  font-size: 22px;
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
