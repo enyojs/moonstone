@@ -397,8 +397,6 @@
 /* LESS pre-calculations */
 /* Individual widget CSS */
 .moon-marquee-text {
-  position: relative;
-  display: inline-block;
   width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;

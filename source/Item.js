@@ -5,7 +5,7 @@
 enyo.kind({
 	name: "moon.Item",
 	classes: "moon-item",
-	mixins: ["moon.MarqueeSupport"],
+	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
 	spotlight: true,
 	handlers: {
 		onSpotlightFocused: "spotlightFocused"
@@ -28,12 +28,5 @@ enyo.kind({
 	},
 	spotlightFocused: function(inSender, inEvent) {
 		this.bubble("onRequestScrollIntoView", {side: "top"});
-	},
-	contentChanged: function(inOld) {
-		if (this.$.marqueeText) {
-			this.$.marqueeText.setContent(this.content);
-		} else {
-			this.inherited(arguments);
-		}
 	}
 });
