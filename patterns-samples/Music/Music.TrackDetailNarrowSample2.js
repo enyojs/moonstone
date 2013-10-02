@@ -7,8 +7,8 @@ enyo.kind({
 	useHandle: false,
 	components: [
 		{
-			title: "Track Name", 
-			titleAbove: "03", 
+			title: "Track Name",
+			titleAbove: "03",
 			titleBelow: "",
 			headerComponents: [
 				{components: [
@@ -89,13 +89,13 @@ enyo.ready(function() {
     new enyo.Application({
         view: {
             classes: "enyo-unselectable moon",
-            style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
                 {
                     kind: "moon.sample.music.TrackDetailNarrowSample2",
                     controller: ".app.controllers.trackController",
                     classes: "enyo-fit"
-                }
+                },
+                {kind: "enyo.Image", style: "height:100%; width:100%; z-index: -1", src: enyo.Image.placeholder}
             ]
         },
         controllers: [

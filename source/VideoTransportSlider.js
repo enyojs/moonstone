@@ -41,8 +41,6 @@ enyo.kind({
 		tapAreaClasses: "moon-video-transport-slider-taparea",
 		//* Color of value popup
 		popupColor: "#fff",
-		//** Custom Popup width for video player
-		popupWidth: 200,
 		//* Popup offset in pixels
 		popupOffset: 25,
 		//** threshold value(percentage) for using animation effect on slider progress change
@@ -88,13 +86,17 @@ enyo.kind({
 		this.createPopupLabelComponents();
 		this.showTickTextChanged();
 		this.showTickBarChanged();
+
+		if (window.ilib) {
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+		}
 	},
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
 	},
 	createPopupLabelComponents: function() {
 		this.$.popupLabel.createComponents(this.popupLabelComponents, {owner: this});
-		this.currentTime = new Date(0);
+		this.currentTime = 0;
 	},
 	enterTapArea: function(inSender, inEvent) {
 		this.addClass('visible');
@@ -111,9 +113,8 @@ enyo.kind({
 		if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 			return;
 		}
-		v = this.transformToVideo(v);
-		this.currentTime = new Date(v * 1000);
-		this._updateKnobPosition(v);
+		this.currentTime = this.transformToVideo(v);
+		this._updateKnobPosition(this.currentTime);
 	},
 	startPreview: function(inSender, inEvent) {
 		this._previewMode = true;
@@ -121,7 +122,7 @@ enyo.kind({
 	},
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
-		this.currentTime = new Date(this._currentTime * 1000);
+		this.currentTime = this._currentTime;
 		this._updateKnobPosition(this._currentTime);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
@@ -137,13 +138,13 @@ enyo.kind({
 	updateSliderRange: function() {
 		this.beginTickPos = (this.max-this.min)*0.0625;
 		this.endTickPos = (this.max-this.min)*0.9375;
-		
+
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
 			this.setRangeEnd(this.endTickPos);
 		} else {
 			this.setRangeStart(this.min);
-			this.setRangeEnd(this.max);				
+			this.setRangeEnd(this.max);
 		}
 		this.updateKnobPosition(this.value);
 	},
@@ -161,7 +162,7 @@ enyo.kind({
 	},
 	setRangeEnd: function(inValue) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
-		this.rangeEndChanged();	
+		this.rangeEndChanged();
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.setShowing(this.getShowTickText());
@@ -176,7 +177,7 @@ enyo.kind({
 	},
 	rangeStartChanged: function() {
 		this.updateInternalProperty();
-		var p = this._calcPercent(this.rangeStart), 
+		var p = this._calcPercent(this.rangeStart),
 			property = "margin-left";
 		if (this.liveMode) {
 			property = "padding-left";
@@ -196,11 +197,11 @@ enyo.kind({
 	updateScale: function() {
 		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	// 
+	//
 	calcPercent: function(inValue) {
 		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	// 
+	//
 	_calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * 100;
 	},
@@ -209,7 +210,7 @@ enyo.kind({
 	},
 	calcVariationPercent: function(inValue) {
 		return this.calcVariationRatio(inValue) * 100;
-	},	
+	},
 	updateKnobPosition: function(inValue) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._updateKnobPosition(inValue);
@@ -220,14 +221,6 @@ enyo.kind({
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
-
-		var label = "";
-		if (typeof ilib !== "undefined") {
-			label = this._nf.format(Math.round(p));
-		}
-		else {
-			label = Math.round(p) + "%";
-		}
 		if(this.currentTime !== undefined) {
 			this.$.popupLabelText.setContent(this.formatTime(this.currentTime));
 		}
@@ -264,7 +257,7 @@ enyo.kind({
 		} else {
 			this._setValue(inValue);
 		}
-	},	
+	},
 	//* If dragstart, bubble _onSeekStart_ event
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
@@ -284,7 +277,7 @@ enyo.kind({
 			}
 			return true;
 		}
-		
+
 		return true;
 	},
 	//* If drag, bubble _onSeek_ event, and override parent drag handler
@@ -326,7 +319,7 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-			
+
 			if(this.showDummyArea && v <= this.beginTickPos) {
 				v = this.rangeStart;
 			}
@@ -361,19 +354,28 @@ enyo.kind({
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
 		this._duration = inSender._duration;
-		this.currentTime = new Date(this._currentTime * 1000);
-		this.duration = new Date(this._duration * 1000);
+		this.currentTime = this._currentTime;
+		this.duration = this._duration;
 		this.$.endTickText.setContent(this.formatTime(this.duration));
 	},
 
 	//* Properly format time
 	formatTime: function(inValue) {
-		var inMinutes = this._formatTime(inValue.getMinutes());
-		var inSeconds = this._formatTime(inValue.getSeconds());
-		return inMinutes + ":" + inSeconds;
+		var hour = Math.floor(inValue / (60*60));
+		var min = Math.floor(inValue / 60);
+		var sec = Math.round(inValue % 60);
+		if (this.durfmt) {
+			var val = {minute: min, second: sec};
+			if (hour) {
+				val.hour = hour;
+			}
+			return this.durfmt.format(val);
+		} else {
+			return (hour ? this.padDigit(hour) + ":" : "") + this.padDigit(min) + ":" + this.padDigit(sec);
+		}
 	},
 	//* Format time helper
-	_formatTime: function(inValue) {
+	padDigit: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {

@@ -13,12 +13,24 @@ enyo.kind({
 		{kind: "moon.IconButton", src: "../assets/icon-download.png"},
 		{kind: "moon.IconButton", src: "../assets/icon-next.png"}
 	],
-	components: [
-		{name: "menuList", kind: "enyo.DataGridList", fit: true, scrollerOptions: {kind: "moon.Scroller", horizontal: "hidden"}, components: [
-			{kind: "enyo.Image", classes: "moon-3h moon-4v", bindings: [{from: ".model.imgSrc", to: ".src"}]}
-		]}
-	],
-	bindings: [
+    components: [
+        {
+            name: "menuList",
+            minWidth: 140,
+            spacing: 10,
+            kind: "moon.DataGridList",
+            fit: true,
+            components: [
+                {
+                    kind: "moon.GridListImageItem",
+                    bindings: [
+                        {from: ".model.imgSrc", to: ".source"}
+                    ]
+                }
+            ]
+        }
+    ],
+    bindings: [
 		{from: ".controller.menus", to: ".$.menuList.controller"}
 	]
 });

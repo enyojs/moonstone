@@ -5,14 +5,35 @@
 enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
-	scrollerOptions: {
-		kind: "moon.Scroller"
-	},
-	getWidth: function (n) {
-		if (n) {
-			return n && n.hasNode()? n.node.offsetWidth: 0;
-		}
-		// arbitrarily account for the scrollbar if it is present
-		return this.hasNode()? this.node.offsetWidth - 50: 0;
-	}
+	noDefer: true,
+	allowTransitions: false,
+	scrollerOptions: { kind: "moon.Scroller" }
 });
+//*@protected
+/**
+	Overload the delegate strategy to incorporate measurements for our scrollers
+	when they are visible.
+*/
+(function (enyo, moon) {
+	var p = moon.DataGridList.delegates.verticalGrid = enyo.clone(enyo.DataGridList.delegates.verticalGrid);
+	enyo.kind.extendMethods(p, {
+		reset: enyo.inherit(function (sup) {
+			return function (list) {
+				sup.apply(this, arguments);
+				this.updateMetrics(list);
+				this.refresh(list);
+			};
+		}),
+		updateBounds: enyo.inherit(function (sup) {
+			return function (list) {
+				sup.apply(this, arguments);
+				var w = list.boundsCache.width,
+					b = list.$.scroller.getScrollBounds(),
+					n = list.$.scroller.$.strategy.$.vColumn.hasNode();
+				if (list.$.scroller.getVertical() == "scroll" || (b.height > b.clientHeight)) {
+					list.boundsCache.width = w-n.offsetWidth;
+				}
+			};
+		})
+	}, true);
+})(enyo, moon);

@@ -51,11 +51,11 @@ enyo.kind({
 		step: 1,
 		unit: "sec"
 	},
-	indexhash: null,
-	firstflow: true,
-
 
 	//* @protected
+	deferInitialization: false,
+	indices: null,
+	values: null,
 
 	components: [
 		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
@@ -72,12 +72,23 @@ enyo.kind({
 		},
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
+	observers: {
+		triggerRebuild: ["step", "min", "max", "unit"]
+	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
 		{from: ".disabled", to: ".$.buttonLeft.disabled"},
 		{from: ".disabled", to: ".$.buttonRight.disabled"},
-		{from: ".$.client.index",   to: ".index"}
+		{from: ".value",   to: ".$.client.index", oneWay: false, transform: "sync"}
 	],
+	sync: function(inVal, inOrigin, inBinding) {
+		if (this.values) {
+			return (inOrigin === "source") ? this.indices[inVal] : this.values[inVal];
+		}
+		else {
+			inBinding.stop();
+		}
+	},
 	//* @public
 
 	//* Cycles the selected item to the one before the currently selected item.
@@ -99,50 +110,54 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		this.populateIndexhash();
+		if (!this.deferInitialization) {
+			this.build();
+		}
 		this.disabledChanged();
 	},
-	rendered: function() {
-		this.valueChanged();
-		this.inherited(arguments);
-	},
-	populateIndexhash: function() {
-		this.indexhash = [];
-		var valueValid = false;
+	build: function() {
+		var indices = this.indices = {},
+			values = this.values = [];
 
-		for (var i = this.min; i <= this.max; i += this.step) {
-			this.createComponent({content: i + " " + this.unit, value: i});
-			this.indexhash[i] = this.$.client.getPanels().length - 1;
-			if (i == this.value) {
-				valueValid = true;
-			}
+		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
+			this.createComponent({content: v + " " + this.unit, value: v});
+			values[i] = v;
+			indices[v] = i;
 		}
-		if (!valueValid) {
-			this.value = this.min;
+	},
+	validate: function() {
+		var index = this.indices[this.value];
+		if (index) {
+			this.$.client.set("index", index);
 		}
+		else
+		{
+			this.set("value", this.min);
+		}
+	},
+	rebuild: function() {
+		this.destroyClientControls();
+		this.build();
+		this.$.client.render();
+		this.reflow();
+		this.validate();
+	},
+	triggerRebuild: function() {
+		// We use a job here to avoid rebuilding the picker multiple
+		// times in succession when more than one of the properties it
+		// depends on (min, max, step, unit) change at once. This case
+		// occurs when SimpleIntegerPicker is used inside
+		// ExpandableIntegerPicker, since ExpandableIntegerPicker
+		// facades these properties and therefore sets them all upon
+		// creation.
+		this.startJob("rebuild", this.rebuild, 10);
 	},
 
 	// Change handlers
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.getDisabled());
 	},
-	valueChanged: function(inOld) {
-		if (this.$.client && this.$.client.hasNode()) {
-			this.$.client.setIndex(this.lookupIndex(this.value));
-		}
-	},
-	indexChanged: function() {
-		this.updateValue();
-	},
 
-	//* Find appropriate index in _this.$.client_ panels based on _inValue_
-	lookupIndex: function(inValue) {
-		return (this.indexhash && this.indexhash.length > 0) ? this.indexhash[inValue] : -1;
-	},
-	//* Quietly update _this.value_ when _this.index_ changes
-	updateValue: function() {
-		this.value = (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().value : this.value;
-	},
 	//* On reflow, update the bounds of _this.$.client_
 	reflow: function() {
 		this.inherited(arguments);

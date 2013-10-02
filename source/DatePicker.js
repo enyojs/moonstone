@@ -18,8 +18,14 @@ enyo.kind({
 	published: {
 		//* Optional minimum year value
 		minYear: 1900,
-		//* Optional maximum year value
-		maxYear: 2099
+		//* Optional maximum year value		
+		maxYear: 2099,
+		//* Optional label for day
+		dayText: "day",
+		//* Optional label for month
+		monthText: "month",
+		//* Optional label for year
+		yearText: "year"
 	},
 	//*@protected
 	iLibFormatType: "date",
@@ -30,23 +36,39 @@ enyo.kind({
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {
-				switch (o) {
-				case 'd':
-					this.createComponent(
-						{kind:"moon.IntegerScrollPicker", name:"day", classes:"moon-date-picker-day", min:1,
-							max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()});
-					break;
-				case 'm':
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"month", classes:"moon-date-picker-month", min:1, max:12, value:this.value.getMonth()+1});
-					break;
-				case 'y':
-					this.createComponent({kind:"moon.IntegerScrollPicker", name:"year", classes:"moon-date-picker-year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear});
-					break;
-				default:
-					break;
-				}
+			if (doneArr.indexOf(o) < 0) {               
 				doneArr.push(o);
+			}
+		}
+
+		for(f = 0, l = doneArr.length; f < l; f++) {
+			o = doneArr[f];
+
+			switch (o) {
+			case 'd':
+				this.createComponent(
+					{classes: "moon-date-picker-wrap", components:[
+						{kind:"moon.IntegerPicker", name:"day", classes:"moon-date-picker-field", min:1,
+						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()},
+						{name: "dayLabel", content: this.dayText || "day", classes: "moon-date-picker-label moon-divider-text"}
+					]});
+				break;
+			case 'm':
+				this.createComponent(
+					{classes: "moon-date-picker-wrap", components:[
+						{kind:"moon.IntegerPicker", name:"month", classes:"moon-date-picker-field", min:1, max:12, value:this.value.getMonth()+1},
+						{name: "monthLabel", content: this.monthText || "month", classes: "moon-date-picker-label moon-divider-text"}
+					]});
+				break;
+			case 'y':
+				this.createComponent(
+					{classes: "moon-date-picker-wrap year", components:[
+						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear},
+						{name: "yearLabel", content: this.yearText || "year", classes: "moon-date-picker-label moon-divider-text"}
+					]});
+				break;
+			default:
+				break;
 			}
 		}
 		this.inherited(arguments);
@@ -78,9 +100,6 @@ enyo.kind({
 		this.$.day.setValue(this.value.getDate());
 
 		this.$.currentValue.setContent(this.formatValue());
-		if (this.value) {
-			this.doChange({name:this.name, value:this.value});
-		}
 	},
 	getMonthName: function() {
 		return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -88,5 +107,14 @@ enyo.kind({
 	//* Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {
 		return 32 - new Date(inYear, inMonth, 32).getDate();
+	},
+	yearTextChanged: function (inOldvalue, inNewValue) {
+		this.$.yearLabel.setContent(inNewValue);
+	},
+	monthTextChanged: function (inOldvalue, inNewValue) {
+		this.$.monthLabel.setContent(inNewValue);
+	},
+	dayTextChanged: function (inOldvalue, inNewValue) {
+		this.$.dayLabel.setContent(inNewValue);
 	}
 });
