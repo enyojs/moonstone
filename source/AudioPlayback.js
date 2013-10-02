@@ -29,8 +29,12 @@ enyo.kind({
 	controlsOpen: false,	
 	handlers: {
 		onToggleTrackList: "toggleTrackDrawer",
-		onAudioTrackAdded: "audioTrackAdded"
+		onAudioTrackAdded: "audioTrackAdded",
+		onDeleteSelected: "deleteSelected"
 	},
+	bindings: [
+		{from: ".$.audioPlayer.controller.model.tracks", to: ".$.audioQueue.trackList"}
+	],
 	controlDrawerComponents:[],
 	initComponents: function() {
 		this.inherited(arguments);
@@ -49,6 +53,10 @@ enyo.kind({
 	},
 	audioTrackAdded: function(inSender, inEvent) {
 		this.waterfall("onAddAudio", {track:inEvent.track});
+		return true;
+	},
+	deleteSelected: function(inSender, inEvent) {
+		this.waterfall("onTrackDeleted", {selected: inEvent.selected});
 		return true;
 	},
 	//* @public
@@ -86,6 +94,39 @@ enyo.kind({
 });
 
 enyo.kind({
+	name: "moon.AudioPlayerController",
+	kind: "enyo.ModelController",
+	create: function () {
+		this.inherited(arguments);
+		this.set("model", new moon.AudioPlayerModel());
+		this.set("tracks", new enyo.Collection());
+	},
+	updateTrackValues: function (attrName, value) {
+    	for (var i = 0, tracks = this.get("tracks"); i < tracks.length; i++) {
+    		tracks.get(i).set(attrName, value);
+    	}
+    },
+    setPlayingIndex: function (idx) {
+		this.updateTrackValues("isPlaying", false);
+		this.get("tracks").get(idx).set("isPlaying", true);
+	},
+    setAudioPaused: function () {
+    	this.updateTrackValues("isPlaying", false);
+    },
+    removeTracks: function (tracks) {
+    	this.get("tracks").remove(tracks);
+    }
+});
+
+enyo.kind({
+	name: "moon.AudioPlayerModel",
+	kind: "enyo.Model",
+	attributes: {
+		tracks: null
+	}
+});
+
+enyo.kind({
 	name: "moon.AudioPlayer",
 	events: {
 		//* Fires when playing index is changed.
@@ -93,7 +134,12 @@ enyo.kind({
 		//* Fires when user clicks track list icon.
 		onToggleTrackList: "",
 		//* Fires when new audio track is added.
-		onAudioTrackAdded: ""
+		onAudioTrackAdded: "",
+		//* Fires when new audio track is paused.
+		onAudioPaused: ""
+	},
+	handlers: {
+		onTrackDeleted: "trackDeleted"
 	},
 	published: {
 		//* repeat playback features. available values are "NONE", "ONE", "ALL".
@@ -102,7 +148,11 @@ enyo.kind({
 		shuffle: false
 	},
 	playheadJob: null,
-	audioTracks: [],
+	create: function () {
+		this.inherited(arguments);
+		this.set("controller", new moon.AudioPlayerController());
+		this.tracks = this.controller.get("tracks");
+	},
 	components: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
 		{kind: "FittableColumns", classes: "moon-audio-playback-controls", spotlight: "container", components: [
@@ -140,17 +190,19 @@ enyo.kind({
 	toggleTrackList: function () {
 		this.doToggleTrackList();
 	},
+	trackDeleted: function (inSender, inEvent) {
+		this.updateTrackIndex(0);
+	},
 	audioEnd: function() {
 		if (this.getShuffle()) {
 			switch (this.getRepeat()) {
 			case "NONE" :
-				if( (this.audioTracks.length - 1) <= this.randomIndex ) {
+				if ((this.tracks.length - 1) <= this.randomIndex) {
 					this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 					this.lastControlCommand = "PLAY";
 					this.endPlayheadJob();
 					return true;
-				}
-				else {
+				} else {
 					this.setIndex(this.getNextIndexForShuffle());
 					this.updateTrackIndex(this.index);
 					this.play();
@@ -168,7 +220,7 @@ enyo.kind({
 		} else {
 			switch (this.getRepeat()) {
 			case "NONE" :
-				if( this.index === (this.audioTracks.length-1) ){	//last music
+				if( this.index === (this.tracks.length - 1) ){	//last music
 					this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 					this.lastControlCommand = "PLAY";
 					this.endPlayheadJob();
@@ -188,17 +240,16 @@ enyo.kind({
 		}
 	},
 	updateTrackCount: function() {
-		var l = this.audioTracks.length;
-		if (l === 1) {
+		if (this.tracks.length === 1) {
 			this.index = 0;
 			this.updateTrackIndex(this.index);
 		}
 	},
 	updateTrackIndex: function(inIndex) {
-		var a = this.audioTracks[inIndex];
-		this.$.trackName.setContent(a.trackName);
-		this.$.artistName.setContent(a.artistName);
-		this.$.audio.setSrc(a.src);
+		var track = this.tracks.get(inIndex);
+		this.$.trackName.setContent(track.get("trackName"));
+		this.$.artistName.setContent(track.get("artistName"));
+		this.$.audio.setSrc(track.get("src"));
 		this.updatePlayTime("0:00", "0:00");
 		this.$.trackIcon.applyStyle("background-image", "url(../assets/default-music.png)");
 		// moon.Drawer needs a method for updating marquee content
@@ -264,7 +315,7 @@ enyo.kind({
 	//* Make randomized playlist.
 	createRandomPlaylist: function() {
 		this.randomPlayList = [];
-		for(var i = 0, len = this.audioTracks.length ; i < len ; i++) {
+		for(var i = 0, len = this.tracks.length ; i < len ; i++) {
 			this.randomPlayList[i] = i;
 		}
 		this.shuffleArray(this.randomPlayList);
@@ -297,7 +348,7 @@ enyo.kind({
 		return inArray;
 	},
 	getNextIndexForShuffle: function() {
-		if ((this.randomIndex + 1) >= this.audioTracks.length) {
+		if ((this.randomIndex + 1) >= this.tracks.length) {
 			this.randomPlayList = this.addShuffleArray(this.randomPlayList);
 		}
 
@@ -317,7 +368,7 @@ enyo.kind({
 	},
 	//* If there are no next shuffle playlist, add shuffle playlist. 
 	addShuffleArray: function(inShuffleArray) {
-		var len = this.audioTracks.length,
+		var len = this.tracks.length,
 			sparePlayList = [];
 
 		for (var i = 0 ; i < len ; i++) {
@@ -360,14 +411,14 @@ enyo.kind({
 		return inShuffleListArr.slice(0, inStartNum).concat(shuffleList);
 	},
 	setIndex: function(inIndex) {
+		inIndex = inIndex || 0;
 		var previous = this.index;
 		this.index = inIndex;
 		this.indexChanged(previous, inIndex);
 	},
 	indexChanged: function(previous, current) {
-		if (previous !== current) {
-			this.doIndexChanged({"previous": previous, "current": current});
-		}
+		this.doIndexChanged({"previous": previous, "current": current});
+		this.controller.setPlayingIndex(current);
 	},
 	recomposeAudioTag: function() {
 		if (this.$.audio) {
@@ -380,6 +431,7 @@ enyo.kind({
 	//* @public
 	togglePlay: function() {
 		if (this.$.audio.getPaused()) {
+			this.setIndex(this.inIndex);
 			this.play();
 		} else {
 			this.pause();
@@ -395,80 +447,69 @@ enyo.kind({
 	},
 	pause: function() {
 		this.$.audio.pause();
+		this.doAudioPaused();
 		this.endPlayheadJob();
 		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+		this.controller.setAudioPaused();
 	},
 	playPrevious: function() {
 		this.recomposeAudioTag();
-		this.audioTracks[this.index].playingMark = false;
 
-		if(this.shuffle){
-			if( this.getRepeat() === "NONE" ) {
+		if (this.shuffle) {
+			if (this.getRepeat() === "NONE") {
+				this.setIndex(this.getPreviousIndexForShuffle());
+			} else if( this.getRepeat() === "ONE" ) {
+				this.setIndex(this.getPreviousIndexForShuffle());
+			} else if( this.getRepeat() === "ALL" ) {
 				this.setIndex(this.getPreviousIndexForShuffle());
 			}
-			else if( this.getRepeat() === "ONE" ) {
-				this.setIndex(this.getPreviousIndexForShuffle());
-			}
-			else if( this.getRepeat() === "ALL" ) {
-				this.setIndex(this.getPreviousIndexForShuffle());
-			}
-		}
-		else{
-			if( this.getRepeat() === "NONE" ) {
-				this.setIndex((this.index === 0) ? this.audioTracks.length - 1 : this.index - 1);
-			}
-			else if( this.getRepeat() === "ONE" ) {
-				this.setIndex((this.index === 0) ? this.audioTracks.length - 1 : this.index - 1);
-			}
-			else if( this.getRepeat() === "ALL" ) {
-				this.setIndex((this.index === 0) ? this.audioTracks.length - 1 : this.index - 1);
+		} else {
+			if (this.getRepeat() === "NONE") {
+				this.setIndex((this.index === 0) ? this.tracks.length - 1 : this.index - 1);
+			} else if (this.getRepeat() === "ONE") {
+				this.setIndex((this.index === 0) ? this.tracks.length - 1 : this.index - 1);
+			} else if (this.getRepeat() === "ALL") {
+				this.setIndex((this.index === 0) ? this.tracks.length - 1 : this.index - 1);
 			}
 		}
 
 		this.updateTrackIndex(this.index);
-		this.audioTracks[this.index].playingMark = true;
-		this.waterfall("onRefreshPlaylist", {tracks: this.audioTracks});
+		this.waterfall("onRefreshPlaylist", {tracks: this.tracks});
 
-		if( this.lastControlCommand === "PLAY" ) {
+		if (this.lastControlCommand === "PLAY") {
 			this.play();
 		}
 	},
 	playNext: function() {
 		this.recomposeAudioTag();
-		this.audioTracks[this.index].playingMark = false;
 
 		if (this.shuffle) {
-			if( this.getRepeat() === "NONE" ) {
+			if (this.getRepeat() === "NONE") {
 				this.setIndex(this.getNextIndexForShuffle());
-			}
-			else if( this.getRepeat() === "ONE" ) {
+			} else if( this.getRepeat() === "ONE" ) {
 				this.setIndex(this.getNextIndexForShuffle());
-			}
-			else if( this.getRepeat() === "ALL" ) {
+			} else if( this.getRepeat() === "ALL" ) {
 				this.setIndex(this.getNextIndexForShuffle());
 			}
 		} else {
-			if( this.getRepeat() === "NONE" ) {
-				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
-			}
-			else if( this.getRepeat() === "ONE" ) {
-				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
-			}
-			else if( this.getRepeat() === "ALL" ) {
-				this.setIndex((this.audioTracks.length > (this.index + 1)) ? this.index + 1 : 0);
+			if (this.getRepeat() === "NONE") {
+				this.setIndex((this.tracks.length > (this.index + 1)) ? this.index + 1 : 0);
+			} else if (this.getRepeat() === "ONE") {
+				this.setIndex((this.tracks.length > (this.index + 1)) ? this.index + 1 : 0);
+			} else if (this.getRepeat() === "ALL") {
+				this.setIndex((this.tracks.length > (this.index + 1)) ? this.index + 1 : 0);
 			}
 		}
 
 		this.updateTrackIndex(this.index);
-		this.audioTracks[this.index].playingMark = true;
-		this.waterfall("onRefreshPlaylist", {tracks: this.audioTracks});
+		this.waterfall("onRefreshPlaylist", {tracks: this.tracks});
 
 		if (this.lastControlCommand === "PLAY") {
 			this.play();
 		}
 	},
 	playAtIndex: function(inIndex) {
-		this.index = (this.audioTracks.length > inIndex) ? inIndex : 0;
+		this.index = (this.tracks.length > inIndex) ? inIndex : 0;
 		this.updateTrackIndex(this.index);
 		this.play();
 	},
@@ -478,9 +519,11 @@ enyo.kind({
 			trackName: inTrack,
 			artistName: inArtist,
 			albumName: inAlbum,
+			isPlaying: false,
+			isSelected: false,
 			duration: inDuration
 		};
-		this.audioTracks[this.audioTracks.length] = track;
+		this.tracks.add(track);
 		this.updateTrackCount();
 		this.doAudioTrackAdded({"track": track});
 	}
@@ -491,21 +534,44 @@ enyo.kind({
 	name: "moon.AudioPlaybackQueue",
 	kind: "FittableRows",
 	classes: "enyo-fit moon-audio-playback-queue",
+	deleteMode: false,
+	events: {
+		onDeleteSelected: ""
+	},
     handlers: {
-		onAddAudio: "addAudio"
+		onAddAudio: "addAudio",
     },
+    bindings: [
+    	{ from: ".trackList", to: ".$.list.controller" },
+    	{ from: ".deleteMode", to: ".$.multiDeleteButton.showing" },
+    	{ from: ".deleteMode", to: ".$.list.multipleSelection" }
+    ],
     components: [
-		{kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks"},
+		{kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
+			components: [
+				{name: "multiDeleteButton", kind: "moon.Button", showing: false, classes: "moon-header-left", content: "Delete Selected", ontap: "deleteSelected"},
+				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "onDeselectAll", showing: false},
+				{name: "selectAll", kind: "moon.Button", content: $L("Select All"), ontap: "onSelectAll", showing: false},
+				{name: "cancel", kind: "moon.Button", content: $L("Cancel"), ontap: "onCancel", showing: false},
+				{name: "confirmDel", kind: "moon.Button", content: $L("Delete"), ontap: "onConfirmDel", showing: false},
+				{name: "moveMode", kind: "moon.Button", content: "ordering list", ontap: "onMoveMode"},
+				{name: "deleteBtn", kind: "moon.ToggleButton", content: "delete", ontap: "updateDeleteMode"}
+			]
+		},
 		{
 			kind: "moon.DataList",
 			name: "list",
 			classes: "list-sample-contacts-list enyo-unselectable",
 			fit: true,
+			multipleSelection: false,
+			ontap: "doSelect",
 			components: [
 				{
 					bindings: [
 						{from: ".model.trackName", to: ".$.audioListItem.trackName" },
-						{from: ".model.artistName", to: ".$.audioListItem.artistName"}
+						{from: ".model.artistName", to: ".$.audioListItem.artistName"},
+						{from: ".model.isPlaying", to: ".$.audioListItem.playingMark"},
+						{from: ".model.isSelected", to: ".$.audioListItem.selectMark"}
 					],
 					components: [
 						{name: "audioListItem", classes: "moon-audio-queue-list enyo-border-box", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.AudioListItem"}
@@ -514,27 +580,36 @@ enyo.kind({
 			]
 		}
     ],
-    tracks: [],
     create: function() {
 		this.inherited(arguments);
 		this.parent.applyStyle("height", "100%");
-		
-		this.$.list.set("controller", new enyo.Collection());
+    },
+    doSelect: function (inSender, inEvent) {
+    	if (!this.deleteMode) {
+    		return;
+    	}
+
+    	for (var i = 0, models = this.$.list.controller; i < models.length; i++) {
+    		models.get(i).set("isSelected", false);
+    	}
+
+    	for (var i = 0, selections = this.$.list.get("selected"); i < selections.length; i++) {
+    		selections[i].set("isSelected", true);
+    	}
+    },
+    deleteSelected: function () {
+    	var selected = this.$.list.get("selected");
+    	this.$.list.controller.remove(selected);
+    	this.doDeleteSelected({ "selected": selected });
     },
     rendered: function() {
 		this.inherited(arguments);
-		/*var c = new enyo.Collection();
-		c.add(this.tracks);
-		this.$.list.set("controller", c);*/
-
+    },
+    updateDeleteMode: function () {
+    	this.set("deleteMode", !this.deleteMode);
     },
     addAudio: function(inSender, inEvent) {
-		this.tracks = inEvent.tracks;
-		this.$.list.controller.add(inEvent.track);
-		var i = this.$.list.length;
-		/*this.$.list.setCount( i );
-		this.$.list.reset();*/
-		this.$.queueHeader.setTitleBelow(i + " Tracks");
+    	this.$.queueHeader.setTitleBelow(this.$.list.length + " Tracks");
     }
 });
 
@@ -542,8 +617,8 @@ enyo.kind({
 	name: "testBinding",
 	kind: enyo.Binding,
 	transform: function (value) {
-		alert(value);
-		return ! value;
+		debugger;
+		return value;
 	}
 });*/
 
@@ -554,14 +629,18 @@ enyo.kind({
 	},
 	bindings: [
 		{from: ".trackName", to: ".$.trackName.content"},
-		{from: ".artistName", to: ".$.artistName.content"}
+		{from: ".artistName", to: ".$.artistName.content"},
+		{from: ".playingMark", to: ".$.playingMark.showing"},
+		{from: ".selectMark", to: ".$.selectMark.showing"}
 	],
 	components: [
 		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-album-art", src: "assets/default-music-sm.png"},
 		{components: [
 			{name: "trackName"},
 			{name: "artistName"}
-		]}
+		]},
+		{name:"playingMark", content: "Playing", style: "margin-left:10px; background:yellow; color:black;"},
+		{name:"selectMark", content: "selected", style: "margin-left:10px; background:yellow; color:black;"}
 	],
 	setTrack: function(inAudio) {
 		this.$.trackName.setContent(inAudio.trackName);
