@@ -3,16 +3,16 @@
   {
     "id": "bootplate-moonstone-ActivityPanels",
     "type": "template",
+    "description": "Moonstone ActivityPanels",
+    "deps": ["webos-app-config"],
     "files": [
       {
-        "url": "http://nebula.lgsvl.com/enyojs/templates/bootplate-moonstone.zip",
-        "prefixToRemove": "bootplate"
+        "url": "@PLUGINDIR@/templates/bootplate-moonstone.zip"
       },
       {
-        "url": "http://nebula.lgsvl.com/enyojs/templates/template-ActivityPanels.zip"
+        "url": "@PLUGINDIR@/templates/template-ActivityPanels.zip"
       }
-    ],
-    "description": "Moonstone ActivityPanels"
+    ]
   }
 ]
 }
