@@ -89,12 +89,14 @@ enyo.kind({
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
+		{name: "yearPicker", kind: "moon.SimplePicker", onChange: "selectYearPicker"},
 		{name: "monthPicker", kind: "moon.SimplePicker", onChange: "selectMonthPicker"},
 		{name: "days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.initYearPicker();
 		this.initMonthPicker();
 		this.initDays();
 		this.initCalendar();
@@ -119,6 +121,17 @@ enyo.kind({
 			this.setFirstDayOfWeek(dayOfWeek);
 		}
 		this.updateDays();
+	},
+	/**
+		Populates SimplePicker with year of the current years, from 1900 to 2200.
+	*/
+	initYearPicker: function() {
+		var months = this.months;
+		for (var i = 1900; i < 2200; i++) {
+			this.$.yearPicker.createComponent(
+				{content: i, classes: "picker-content"}
+			);
+		}
 	},
 	/**
 		Populates SimplePicker with months of the year, from JAN to DEC.
@@ -289,6 +302,13 @@ enyo.kind({
 			this.setValue(newValue);
 		}
 		return true;
+	},
+	/**
+		Select a control in yearPicker using left and right arrow button
+	*/
+	selectYearPicker: function(inSender, inEvent) {
+		var year = this.$.yearPicker.getSelectedIndex();
+		this.value.setYear(year);
 	},
 	/**
 		Select a control in monthPicker using left and right arrow button
