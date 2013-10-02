@@ -85,6 +85,12 @@ enyo.kind({
 			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
+		/**
+			The range of yearPicker to be displayed.
+			Initial value is from 1900 to 2200
+		*/
+		startYear: 1900,
+		endYear: 2200,
 		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
@@ -96,7 +102,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.initYearPicker();
+		this.initYearPicker(this.startYear, this.endYear);
 		this.initMonthPicker();
 		this.initDays();
 		this.initCalendar();
@@ -123,11 +129,10 @@ enyo.kind({
 		this.updateDays();
 	},
 	/**
-		Populates SimplePicker with year of the current years, from 1900 to 2200.
+		Populates SimplePicker with years.
 	*/
-	initYearPicker: function() {
-		var months = this.months;
-		for (var i = 1900; i < 2200; i++) {
+	initYearPicker: function(startYear, endYear) {
+		for (var i = startYear; i <= endYear; i++) {
 			this.$.yearPicker.createComponent(
 				{content: i, classes: "picker-content"}
 			);
