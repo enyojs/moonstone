@@ -521,7 +521,8 @@ enyo.kind({
 			albumName: inAlbum,
 			isPlaying: false,
 			isSelected: false,
-			duration: inDuration
+			duration: inDuration,
+			id: this.tracks.length
 		};
 		this.tracks.add(track);
 		this.updateTrackCount();
@@ -607,6 +608,32 @@ enyo.kind({
     },
     updateDeleteMode: function () {
     	this.set("deleteMode", !this.deleteMode);
+    },
+    changeTrackOrder: function () {
+    	var selected = this.$.list.get("selected");
+    	if (selected && selected.length === 2) {
+    		var newArray = [],
+    			from = selected[0],
+    			to = selected[1],
+    			fromIndex = from.get("id"),
+    			toIndex = to.get("id");
+    		for (var i = 0, id, models = this.$.list.controller; i < models.length; i++) {
+    			id = models.get(i).get("id");
+    			if (id === fromIndex) {
+    				newArray.push(to);
+					continue;
+    			} else if (id === toIndex) {
+    				newArray.push(from);
+    				continue;
+    			}
+    			newArray.push(models.get(i));
+    		}
+
+    		from.set("isSelected", false);
+    		to.set("isSelected", false);
+    		this.$.list.deselectAll();
+    		this.$.list.controller.reset(newArray);
+    	}
     },
     addAudio: function(inSender, inEvent) {
     	this.$.queueHeader.setTitleBelow(this.$.list.length + " Tracks");
