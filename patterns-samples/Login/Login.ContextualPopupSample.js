@@ -88,7 +88,7 @@ enyo.kind({
 			]},
 			{joinToPrev: true, components: [
 				{kind: "moon.Scroller", fit: true, components: [
-					{name: "contentList", kind: "enyo.DataGridList", classes: "moon-3v", components: [
+					{name: "contentList", kind: "enyo.DataGridList", scrollerOptions: { kind:"moon.Scroller"}, classes: "moon-3v", components: [
 						{kind: "moon.MovieImageItem", bindings: [
 							{from: ".model.itemOption", to: ".option"}
 						]}
