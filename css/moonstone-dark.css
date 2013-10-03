@@ -1024,6 +1024,7 @@
   padding: 19px 22px;
   margin: 0px 10px;
   color: #a6a6a6;
+  max-width: 302px;
 }
 .enyo-locale-non-latin .moon-button {
   padding: 15px 22px 16px;
@@ -1033,10 +1034,6 @@
 }
 .moon-neutral .moon-button.spotlight * {
   color: #ffffff;
-}
-.moon-button > .button-client {
-  width: 100%;
-  max-width: 250px;
 }
 .moon-button.small {
   max-height: 60px;
@@ -1048,9 +1045,6 @@
 }
 .enyo-locale-non-latin .moon-button.small {
   padding: 10px 15px;
-}
-.moon-button.small > .button-client {
-  padding: 0px 0px 0px 0px;
 }
 .moon-button.small > .small-button-tap-area {
   position: absolute;
