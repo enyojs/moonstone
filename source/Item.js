@@ -13,7 +13,17 @@ enyo.kind({
 	published: {
 		//* When true, button is shown as disabled and does not generate tap
 		//* events
-		disabled: false
+		disabled: false,
+		//* The relative position of the spotlight;
+		//* valid values are "locale-default", "left", "right", "top", and "bottom".
+		//* The locale-specific setting selects either left or right, depending on the
+		//* default text-direction of the current locale provided by _enyo-ilib_
+		//* (defaults to left if _enyo-ilib_ is not loaded).
+		spotlightPosition: "locale-default",
+		//* The behavior of the spotlight
+		spotlightOverlay: false,
+		//* When true, create marquee text
+		marquee: true
 	},
 	//* @protected
 	overlayComponents: [
@@ -25,7 +35,7 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
-		if (!this.components) {
+		if (this.marquee) {
 			this.createComponent({name: "marqueeText", kind:"moon.MarqueeText"});
 		}
 	},
