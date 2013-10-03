@@ -79,6 +79,7 @@ enyo.kind({
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
 		inEvent.toggledControl = this;
-		inEvent.checked = this.checked = this.$.input.getChecked();
+		this.setChecked(this.$.input.getChecked());
+		inEvent.checked = this.checked;
 	}
 });

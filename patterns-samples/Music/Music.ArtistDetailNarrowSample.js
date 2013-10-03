@@ -3,13 +3,13 @@ enyo.kind({
 	classes: "moon enyo-unselectable",
 	controller: ".app.controllers.albumController",
 	components: [
-		{kind: "moon.Panels", classes: "enyo-fit", pattern: "alwaysviewing", components: [
-			{name: "artistPanel", kind: "moon.Panel", classes: "enyo-fit", title: "Artist", headerComponents: [
+		{kind: "moon.Panels", classes: "enyo-fit", pattern: "alwaysviewing", useHandle: false, components: [
+			{name: "artistPanel", title: "Artist", headerComponents: [
 				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
 				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
 			], components: [
 				{kind: "enyo.FittableColumns", fit: true, components: [
-					{style: "width: 400px;", components: [
+					{kind: "moon.Scroller", classes: "moon-6h", components: [
 						{name: "artistImage", kind: "enyo.Image", style: "height: 400px;"},
 						{kind: "moon.Table", components: [
 							{components: [
@@ -34,7 +34,7 @@ enyo.kind({
 									{kind: "moon.GridListImageItem", bindings: [
 										{from: ".model.coverUrl", to: ".source"}
 									]}
-								], minHeight: 100, minWidth: 100, spacing: 10}
+								], minHeight: 100, minWidth: 100, spacing: 10, selection:false}
 							]},
 							{fit: true, kind: "enyo.FittableRows", components: [
 								{kind: "moon.Divider", content: "Top 10 Tracks"},

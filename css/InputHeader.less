@@ -10,18 +10,22 @@
 	.moon-header-text;
 	margin: 0px;
 	padding-left: 1px;
-	height: @moon-header-font-size;
 	display: inline-block;
 	box-sizing: border-box;
-	line-height: @moon-header-font-size;
+	line-height: 1em;
 	color: @moon-input-header-text-color;
 	width: 100%;
+}
+.enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
+	.enyo-locale-non-latin .moon-header-text;
 }
 .moon-input-header .moon-input.moon-header-title {
 	position:static;
 }
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
 	color: lighter(@moon-header-text-color, 50%);
+	margin-top:15px;
+	line-height: 1.25em;
 }
 .moon-input-header-input-decorator.spotlight .moon-input.moon-header-title::-webkit-input-placeholder {
 	color: @moon-spotlight-text-color;

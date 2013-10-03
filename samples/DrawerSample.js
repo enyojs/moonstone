@@ -18,8 +18,8 @@ enyo.kind({
 					],
 					controlDrawerComponents: [
 						{classes:"moon-hspacing", components: [
-							{kind: "moon.Button", content: "Open More", ontap: "openMainDrawer"},
-							{kind: "moon.Button", content: "Close", ontap: "closePartialDrawer"}
+							{kind: "moon.Button", name: "openMoreButton", content: "Open More", ontap: "openMainDrawer"},
+							{kind: "moon.Button", content: "Close", ontap: "close"}
 						]}
 					]
 				},
@@ -64,8 +64,14 @@ enyo.kind({
 	},
 	openMainDrawer: function() {
 		this.$.partialDrawer.setOpen(true);
+		this.$.openMoreButton.hide();
 	},
-	closePartialDrawer: function() {
-		this.$.partialDrawer.setControlsOpen(false);
+	close: function() {
+		this.$.openMoreButton.show();
+		if (this.$.partialDrawer.getOpen()) {
+			this.$.partialDrawer.setOpen(false);
+		} else {
+			this.$.partialDrawer.setControlsOpen(false);
+		}
 	}
 });

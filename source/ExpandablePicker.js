@@ -80,7 +80,7 @@ enyo.kind({
 		]},
 		drawer: {components: [
 			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
-			{name: "helpText", classes: "moon-expandable-picker-help-text"}
+			{name: "helpText", kind:"moon.BodyText", classes: "moon-expandable-picker-help-text"}
 		]}
 	},
 	create: function() {
@@ -190,7 +190,7 @@ enyo.kind({
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
 			
-			if (this.getAutoCollapseOnSelect() && this.isRendered) {
+			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
 		}

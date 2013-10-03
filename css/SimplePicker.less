@@ -1,14 +1,17 @@
 .moon-simple-picker {
 	display: inline-block;
-}
-
-.moon-simple-picker > * {
-	display: inline-block;
-	vertical-align: middle;
+	max-width: 350px;
 	box-sizing: border-box;
+	padding: 0 @moon-picker-button-width + 10px;
+	position: relative;
+	height: @moon-picker-button-width;
 }
-
+.moon-simple-picker.block {
+	display: block;
+}
 .moon-simple-picker-button {
+	position: absolute;
+	top: 0;
 	width: @moon-picker-button-width;
 	height: @moon-picker-button-width;
 	line-height: @moon-picker-button-width;
@@ -21,7 +24,7 @@
 	text-align: center;
 	vertical-align: middle;
 	font-family: @moon-button-font-family;
-	background: transparent @moon-scroller-icon no-repeat center center;
+	background: transparent @moon-scroller-icon no-repeat center 13px;
 }
 .moon-simple-picker-button.hidden {
 	opacity: @moon-disabled-opacity;
@@ -32,35 +35,40 @@
 	background-color: @moon-spotlight-border-color;
 	background-image: @moon-scroller-spotlight;
 }
-
-.moon-simple-picker-button-bold {
-	margin: 2px 0px;
-	font-size: @moon-picker-button-font-size;
+.moon-simple-picker-client-wrapper {
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+	box-sizing: border-box;
 }
-
 .moon-simple-picker-client {
-	padding: 0px;
-	margin: 0px;
-	border: 0px;
+	white-space: nowrap;
 }
-
-.moon-simple-picker-item {
+.moon-simple-picker-client.animated {
+	-webkit-transition: -webkit-transform ease-out 0.3s;
+	-moz-transition: -moz-transform ease-out 0.3s;
+	-o-transition: -o-transform ease-out 0.3s;
+	transition: transform ease-out 0.3s;
+}
+.moon-simple-picker-client > * {
+	display: inline-block;
+	vertical-align: middle;
+	box-sizing: border-box;
+	width: 100%;
 	line-height: @moon-picker-button-width;
 	height: @moon-picker-button-width;
 	color: @moon-simple-picker-item-text-color;
 	white-space:nowrap; 
 	text-align: center; 
-	padding: 0px;
-	width: auto;
-	max-width: 250px;
 }
-.moon-simple-picker.disabled, .moon-simple-picker-button[disabled] {
-	cursor: default;
+.moon-simple-picker-client.disabled, .moon-simple-picker-button[disabled] {
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
+	background-color: transparent;
 }
 
 .moon-simple-picker-button.left {
+	left: 0;
 	transform: rotate(270deg) translateZ(1px);
 	-o-transform: rotate(270deg) translateZ(1px);
 	-ms-transform: rotate(270deg) translateZ(1px);
@@ -70,6 +78,7 @@
 }
 
 .moon-simple-picker-button.right {
+	right: 0;
 	transform: rotate(90deg) translateZ(1px);
 	-o-transform: rotate(90deg) translateZ(1px);
 	-ms-transform: rotate(90deg) translateZ(1px);

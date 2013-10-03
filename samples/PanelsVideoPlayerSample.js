@@ -7,7 +7,7 @@ enyo.kind({
 				{kind: "moon.Divider", content: "Select video content"},
 				{name: "vidContents", kind: "Group", style: "margin-top: 20px;", components: [
 					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
-					{kind: "moon.SelectableItem", content: "Bunny", onActivate: "webMovieBunny"},
+					{kind: "moon.SelectableItem", selected: true, content: "Bunny", onActivate: "webMovieBunny"},
 					{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"}
 				]}
 			]},
@@ -19,7 +19,6 @@ enyo.kind({
 						kind: "moon.VideoPlayer",
 						inline:true,
 						style: "width: 640px;",
-						src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 						infoComponents: [{
 							kind: "moon.VideoInfoBackground",
 							orient: "left",
@@ -65,24 +64,24 @@ enyo.kind({
 					}
 					]
 				},
-				{layoutKind: "FittableRowsLayout", classes: "moon-7h", components: [
-					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "next"}
+				{classes: "moon-3h", components: [
+					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
 				]}
 			]},
 			{kind: "moon.Panel", title: "Capture to Canvas", components: [
 				{kind: "moon.Scroller", fit: true, components: [
-					{tag: "canvas", name: "capture"}
+					{tag: "canvas", name: "capture", spotlight: true}
 				]}
 			]}
 		]}
 	],
-	next: function(inSender, inEvent) {
+	capture: function(inSender, inEvent) {
 		try {
 			this.updateCanvas();
 		} catch (e) {
 			enyo.warn(e);
 		}
-		this.$.panels.next();
+		this.$.panels.setIndex(2);
 		return true;
 	},
 	webMovieCounter: function(inSender, inEvent) {
@@ -90,18 +89,21 @@ enyo.kind({
 			return;
 		}
 		this.$.player.setSrc("http://media.w3.org/2010/05/video/movie_300.mp4");
+		this.$.videoInfoHeader.setTitle("Ticking Counter Video");
 	},
 	webMovieBunny: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
 		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
+		this.$.videoInfoHeader.setTitle("Bunny Video");
 	},
 	webMovieSintel: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
 		this.$.player.setSrc("http://media.w3.org/2010/05/sintel/trailer.mp4");
+		this.$.videoInfoHeader.setTitle("The Sintel Video");
 	},
 	updateCanvas: function() {
 		var drawingNode = this.$.capture.hasNode();

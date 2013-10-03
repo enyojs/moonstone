@@ -22,7 +22,7 @@ enyo.kind({
 		small: false,
 		marquee: true
 	},
-	classes: 'moon-button moon-header-font enyo-unselectable',
+	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
 	handlers: {
 		//* _onSpotlightSelect_ simulates _mousedown_.
@@ -34,7 +34,10 @@ enyo.kind({
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
-		this.updateSmall();
+		if (this.marquee && !(this.components && this.components.length > 0)) {
+			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
+		}
+		this.smallChanged();
 		this.inherited(arguments);
 	},
 	//* Adds _pressed_ CSS class.
@@ -42,8 +45,10 @@ enyo.kind({
 		this.addClass('pressed');
 	},
 	//* Bubble _requestScrollIntoView_ event
-	spotFocused: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+	spotFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
 		return true;
 	},
 	//* Removes _pressed_ CSS class.
@@ -51,37 +56,23 @@ enyo.kind({
 		this.removeClass('pressed');
 	},
 	//* If _this.small_ is true, adds a child that increases the tap area.
-	updateSmall: function() {
+	smallChanged: function() {
 		if (this.$.tapArea) {
 			this.$.tapArea.destroy();
-			this.$.client.destroy();
 		}
 
 		if (this.small) {
 			this.addClass('small');
-			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
-			if (this.marquee && !(this.components && this.components.length > 0)) {
-				this.createComponent({name: "client", classes: "button-client", 
-					kind:"moon.MarqueeText", isChrome: true
-				});
-			} else {
-				this.createComponent({name: "client", classes: "small-button-client"});
+			this.addClass('moon-small-button-text');
+			var ta = this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
+			if (this.generated) {
+				ta.render();
 			}
 		} else {
 			this.removeClass('small');
-			if (this.marquee && !(this.components && this.components.length > 0)) {
-				this.createComponent({name: "client", classes: "button-client", 
-					kind:"moon.MarqueeText", isChrome: true
-				});
-			}
+			this.removeClass('moon-small-button-text');
 		}
-
 		this.contentChanged();
-	},
-	//* When _this.small_ changes, updates and rerenders.
-	smallChanged: function() {
-		this.updateSmall();
-		this.render();
 	},
 	//* Override to handle potential child components.
 	contentChanged: function() {

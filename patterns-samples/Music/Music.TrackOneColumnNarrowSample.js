@@ -23,52 +23,21 @@ enyo.kind({
 						fit: true,
 						components: [
 							{
-								kind: "moon.Item",
-								ontap: "changeName",
+								bindings: [
+									{from: ".model.coverUrl", to: ".$.enyoImage.src"},
+									{from: ".model.track", to: ".$.imageTrack.content"},
+									{from: ".model.artist", to: ".$.imageArtist.content"},
+									{from: ".model.time", to: ".$.imageTime.content"}
+								],
 								components: [
-									{
-										kind: "enyo.Table",
-										components: [
-											{
-												components: [
-													{
-														components: [
-															{
-																kind: "enyo.Image",
-																bindings: [
-																	{from: ".model.coverUrl", to: ".src"}
-																]
-
-															}
-														],
-														attributes: {rowspan: "2"}
-													},
-													{
-														bindings: [
-															{from: ".model.track", to: ".content"}
-														]
-													},
-													{
-														bindings: [
-															{from: ".model.time", to: ".content"}
-														],
-														attributes: {rowspan: "2"}
-													}
-												]
-											},
-											{
-												components: [
-													{
-														bindings: [
-															{from: ".model.artist", to: ".content"}
-														] ,
-
-														classes: "moon-superscript"
-													}
-												]
-											}
-										]
-									}
+									{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+										{name: "enyoImage", kind: "enyo.Image"},
+										{components: [
+											{name: "imageTrack"},
+											{name: "imageArtist", classes: "moon-superscript"}
+										]},
+										{name: "imageTime"}
+									]}
 								]
 							}
 						]
@@ -115,13 +84,13 @@ enyo.ready(function (){
 	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
-			style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
 			components: [
 				{
 					kind: "moon.sample.music.TrackOneColumnNarrowSample",
 					controller: ".app.controllers.trackController",
 					classes: "enyo-fit"
-				}
+				},
+				{kind: "enyo.Image", style: "height:100%; width:100%; z-index: -1", src: enyo.Image.placeholder}
 			]
 		},
 		controllers: [

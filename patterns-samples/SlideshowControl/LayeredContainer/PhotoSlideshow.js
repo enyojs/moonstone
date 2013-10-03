@@ -142,7 +142,7 @@ enyo.kind({
 
 	imageUrls: [],
 	controlTools: [
-		{layoutKind: 'HFlexLayout', components: [
+		{layoutKind: 'HFlexLayout', classes: "moon-photo-slideshow-control-buttons", components: [
 			{name:"left", flex: true, kind: "FittableColumns", noStretch: true, classes:"moon-photo-slideshow-control-left-button", components: [
 				{kind: "moon.IconButton", src: "../assets/fit-icon.png", ontap: "closeHandler"}
 			]},
@@ -242,7 +242,7 @@ enyo.kind({
 	},
 	displaySlideImage: function() {
 		if (this.index < (this.count - 1)) {
-			this.slideJob = setTimeout(enyo.bind(this, function() { this.displaySlideImage(); }), this.$.speed.getValue() * 1000);
+			this.slideJob = this.startJob("playSlideshow", "displaySlideImage", this.$.speed.getValue() * 1000);
 			this.doChangeSlide({index: this.index, direction: "next"});
 			this.index++;
 		}

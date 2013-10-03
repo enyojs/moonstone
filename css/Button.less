@@ -1,9 +1,7 @@
 /* Button */
 .moon-button {
-	.moon-large-button-text;
 	max-height: 106px;
 	border-radius: @moon-button-border-radius;
-	line-height: 1em;
 	background-color: @moon-button-background-color;
 	border: @moon-button-border-width solid transparent;
 	cursor: pointer;
@@ -11,9 +9,13 @@
 	overflow: hidden;
 	display: inline-block;
 	min-width: @moon-button-height;
-	padding: 29px 22px 29px 22px;
+	padding: 19px 22px;
 	margin: 0px @moon-spotlight-outset;
 	color: @moon-button-text-color;
+	max-width: 302px;
+}
+.enyo-locale-non-latin .moon-button {
+	padding: 15px 22px 16px;
 }
 .moon-neutral .moon-button * {
 	color: @moon-sub-header-text-color;
@@ -21,23 +23,16 @@
 .moon-neutral .moon-button.spotlight * {
 	color: @moon-spotlight-text-color;
 }
-.moon-button > .button-client {
-	width: 100%;
-	max-width: 250px;
-	padding: 5px 0px 0px 0px;
-}
 .moon-button.small {
-  .moon-small-button-text;
   max-height: @moon-button-small-height;
   min-height: @moon-button-small-height;
   min-width: @moon-button-small-height;
-  padding: 13px 22px 13px 22px;
-  line-height: 0.84em;
+  padding: 10px 20px 10px 20px;
   position: relative;
   overflow: visible;
 }
-.moon-button.small > .button-client {
-  padding: 0px 0px 0px 0px;
+.enyo-locale-non-latin .moon-button.small {
+	padding: 10px 15px;
 }
 .moon-button.small > .small-button-tap-area {
 	position: absolute;

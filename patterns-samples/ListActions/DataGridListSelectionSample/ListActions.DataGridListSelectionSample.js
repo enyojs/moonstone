@@ -12,7 +12,7 @@ enyo.kind({
 			{name: "toggleButton", kind: "moon.IconButton", small: true, src: "../../assets/trash-can-icon.png", showing: true, ontap: "toggleMode"}
 		], components: [
 			{name: "list", selection: false, kind: "moon.DataGridList", components: [
-				{classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.GridListImageItem", bindings: [
+				{kind: "moon.GridListImageItem", classes: "single-select-delete-image-item", mixins: ["moon.SelectionOverlaySupport"], bindings: [
 					{from: ".model.title", to: ".caption"},
 					{from: ".model.coverSource", to: ".source"}
 				]}

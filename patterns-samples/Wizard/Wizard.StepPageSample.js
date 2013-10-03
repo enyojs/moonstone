@@ -6,14 +6,14 @@ enyo.kind({
 		onchange: "inputChanged"
 	},
 	components: [
-		{classes: "wizard-nav-button-container", style: "position:absolute; top:0; right:0;", components: [
-			{name: "prev", kind: "moon.Button", classes: "wizard-button-top", ontap: "doPrevious", content: "Previous"},
-			{name: "post", kind: "moon.Button", classes: "wizard-button-top", ontap: "goNext", content: "Next"}
-		]},
-
-		{fit: true, components: [
-			{name: "headline", classes: "wizard-input-description"},
-
+		{fit:true, kind: "moon.Scroller", horizontal: "hidden", components: [
+			{components: [
+				{name: "headline", classes: "wizard-input-description"},
+				{classes: "wizard-nav-button-container moon-hspacing", components: [
+					{name: "prev", kind: "moon.Button", ontap: "doPrevious", content: "Previous"},
+					{name: "post", kind: "moon.Button", ontap: "goNext", content: "Next"}
+				]}
+			]},
 			{classes: "wizard-block-row", components: [
 				{name: "indeco1", kind: "moon.InputDecorator", classes: "wizard-input-decorator", components: [
 					{name: "intext1", kind: "moon.Input", placeholder: "INPUT FIELD 01"}
@@ -42,20 +42,19 @@ enyo.kind({
 				]}
 			]}
 		]},
-		
 		{name: "cancel", kind: "moon.Button", small: true, classes: "wizard-button-bottom", ontap: "doCancel", content: "Cancel"}
 	],
 	initialSetting: function() {
-		var idx = this.$.header.getTitleAbove()-1;
-		var collection = this.controller.get("wizContainer");
+		var idx = this.indexInContainer();
+		var collection = this.controller.get('wizContainer');
 
 		this.$.header.setTitleBelow(collection.at(idx).get("id") + ". " + collection.at(idx).get("subtitle"));
 		this.$.headline.set("content", collection.at(idx).get("instruction"));
 		this.$.detail.set("content", collection.at(idx).get("detail"));
 	},
 	goNext: function(inSender, inEvent) {
-		var idx = this.$.header.getTitleAbove()-1;
-		var collection = this.controller.get("wizResults");
+		var idx = this.indexInContainer();
+		var collection = this.controller.get('wizResults');
 		this.setProcessed(true);
 		collection.at(idx).set("result", this.getSelectedText());
 		collection.at(idx).set("processed", "[TRUE]");

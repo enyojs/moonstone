@@ -2,22 +2,17 @@
 "source": [
   {
     "id": "bootplate-moonstone-ActivityPanels",
+    "type": "template",
+    "description": "Moonstone ActivityPanels",
+    "deps": ["webos-app-config"],
     "files": [
       {
-        "url": "templates/bootplate-moonstone.zip",
-        "alternateUrl": "http://nebula.lgsvl.com/enyojs/templates/bootplate-moonstone.zip",
-        "prefixToRemove": "bootplate"
+        "url": "@PLUGINDIR@/templates/bootplate-moonstone.zip"
       },
       {
-        "url": "webos-app-config.zip",
-        "alternateUrl": "http://enyojs.com/webos/webos-app-config.zip"
-      },
-      {
-        "url": "templates/template-ActivityPanels.zip",
-        "alternateUrl": "http://nebula.lgsvl.com/enyojs/templates/template-ActivityPanels.zip"
+        "url": "@PLUGINDIR@/templates/template-ActivityPanels.zip"
       }
-    ],
-    "description": "Moonstone ActivityPanels"
+    ]
   }
 ]
 }

@@ -54,16 +54,12 @@
 }
 .moon-panel-mini-header {
 	margin-top: 20px;
-	line-height: 28px;
-	font-size: 26px;
 	color: @moon-white;
 	display: block;
 	overflow: hidden;
 	padding: 0px;
 }
 .moon-panel-mini-header-title-above {
-	.moon-header-title-above;
-	.moon-header-font;
 	color: @moon-white;
 }
 
@@ -73,10 +69,16 @@
 }
 
 /* Activity Panels Overrides */
-.activity-panels .moon-panel-mini-header-wrapper {
+.moon-panels.activity .moon-panel-mini-header-wrapper {
 	border-top: 1px solid @moon-header-border-color;
 }
-.activity-panels .moon-panel-mini-header,
-.activity-panels .moon-panel-mini-header-title-above {
+.moon-panels.activity .moon-panel-mini-header,
+.moon-panels.activity .moon-panel-mini-header-title-above {
 	color: @moon-header-text-color;
+}
+.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight {
+	.moon-panel-mini-header,
+	.moon-panel-mini-header-title-above {
+		color: @moon-white;
+	}
 }

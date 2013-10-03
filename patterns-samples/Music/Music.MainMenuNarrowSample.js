@@ -4,10 +4,9 @@ enyo.kind({
 	name: "moon.sample.music.MainMenuNarrowSample",
 	kind: "moon.Panels",
 	pattern: "alwaysviewing",
-	classes: "moon-neutral",  // TODO: this should be applied automatically by moon.Panels for alwaysviewing
+	useHandle: true,
 	components: [
 		{
-			kind: "moon.Panel",
 			titleAbove: "01",
 			title: "Main Menu",
 			titleBelow: "",
@@ -45,13 +44,13 @@ enyo.ready(function(){
 	new enyo.Application({
 		view: {
 			classes: "enyo-unselectable moon",
-			style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
 			components: [
 				{
 					kind: "moon.sample.music.MainMenuNarrowSample",
 					controller: ".app.controllers.menuController",
 					classes: "enyo-fit"
-				}
+				},
+				{kind: "enyo.Image", style: "height:100%; width:100%; z-index: -1", src: enyo.Image.placeholder}
 			]
 		},
 		controllers: [

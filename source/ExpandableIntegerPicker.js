@@ -49,34 +49,26 @@ enyo.kind({
 			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
 		]},
 		client: {components: [
-			{name: "picker", kind: "moon.SimpleIntegerPicker", onSelect: "toggleActive", onActivate: "activated"}
+			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
 		]}
 	},
 	bindings: [
 		{from: ".min", to: ".$.picker.min"},
 		{from: ".max", to: ".$.picker.max"},
+		{from: ".step", to: ".$.picker.step"},
 		{from: ".unit", to: ".$.picker.unit"},
-		{from: ".value", to: ".$.picker.value"},
+		{from: ".value", to: ".$.picker.value", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
 		{from: ".currentValueText", to: ".$.currentValue.content"}
 	],
 	computed: {
 		"showCurrentValue": ["open"],
-		"currentValueText": ["value", "noneText"]
+		"currentValueText": ["value", "unit", "noneText"]
 	},
 	
 	// Change handlers
 	valueChanged: function() {
 		this.fireChangeEvent();
-	},
-	openChanged: function() {
-		this.inherited(arguments);
-		
-		if (!this.getOpen()) {
-			this.updateValue();
-		}
-		
-		this.preventResize = false;
 	},
 	activeChanged: function() {
 		var active = this.getActive();
@@ -119,12 +111,5 @@ enyo.kind({
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({value: this.value, content: this.content});
-	},
-	//* Resize _this.$.picker_
-	resized: function() {
-		if (!this.preventResize) {
-			this.$.picker.resized();
-			this.preventResize = true;
-		}
 	}
 });

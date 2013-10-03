@@ -13,33 +13,39 @@ enyo.kind({
 	],
 	components: [
 		{
-			classes: "moon-5h",
+			kind: "moon.Scroller",
+			classes: "moon-6h",
 			components: [
-				{
-					name: "artistImage",
-					kind: "enyo.Image",
-					style: "width: 350px; height: 350px;"
-				},
-				{
-					kind: "moon.Table",
-					classes: "enyo-table-fit",
+				{ 
+					kind:"moon.BodyText",
 					components: [
 						{
-							components: [
-								{content: "Organized"},
-								{name: "organized"}
-							]
+							name: "artistImage",
+							kind: "enyo.Image",
+							classes: "moon-5h moon-8v"
 						},
 						{
+							kind: "moon.Table",
+							classes: "enyo-table-fit",
 							components: [
-								{content: "Debut"},
-								{name: "debut"}
-							]
-						},
-						{
-							components: [
-								{content: "Type"},
-								{name: "type"}
+								{
+									components: [
+										{content: "Organized", classes: "moon-sub-header-text"},
+										{name: "organized"}
+									]
+								},
+								{
+									components: [
+										{content: "Debut", classes: "moon-sub-header-text"},
+										{name: "debut"}
+									]
+								},
+								{
+									components: [
+										{content: "Type", classes: "moon-sub-header-text"},
+										{name: "type"}
+									]
+								}
 							]
 						}
 					]
@@ -56,7 +62,7 @@ enyo.kind({
 					horizontal: "hidden",
 					fit: true,
 					components: [
-						{name: "bio", allowHtml: true}
+						{name: "bio", kind:"moon.BodyText", allowHtml: true}
 					]
 				}
 			]
@@ -69,15 +75,12 @@ enyo.kind({
 				{
 					name: "relatedArtists",
 					kind: "moon.DataGridList",
-					style: "height: 156px;",
+					classes: "moon-4v",
+					spacing: 10,
 					components: [
-						{
-							kind: "enyo.Image",
-							style: "width: 130px; height: 130px;",
-							bindings: [
-								{from: ".model.relativeUrl", to: ".src"}
-							]
-						}
+						{kind: "moon.GridListImageItem", bindings: [
+							{from: ".model.relatedUrl", to: ".source"}
+						]}
 					]
 				},
 				{kind: "moon.Divider", content: "Top 10 Tracks"},
@@ -87,57 +90,21 @@ enyo.kind({
 					fit: true,
 					components: [
 						{
-							kind: "moon.Item",
+							bindings: [
+								{from: ".model.coverUrl", to: ".$.enyoImage.src"},
+								{from: ".model.title", to: ".$.imageTitle.content"},
+								{from: ".model.artist", to: ".$.imageArtist.content"},
+								{from: ".model.duration", to: ".$.imageDuration.content"}
+							],
 							components: [
-								{
-									kind: "enyo.Table",
-									components: [
-										{
-											components: [
-												{
-													components: [
-														{
-															kind: "enyo.Image",
-															bindings: [{
-																from: ".model.coverUrl",
-																to: ".src"
-															}]
-														}
-													],
-													attributes: {rowspan: "4"}
-												},
-												{
-													bindings: [{
-														from: ".model.track",
-														to: ".content"
-													}]
-												}
-											]
-										},
-										{
-											components: [
-												{
-													bindings: [{
-														from: ".model.artist",
-														to: ".content"
-													}],
-													classes: "moon-superscript"
-												}
-											]
-										},
-										{
-											components: [
-												{
-													bindings: [{
-														from: ".model.duration",
-														to: ".content"
-													}],
-													classes: "moon-superscript"
-												}
-											]
-										}
-									]
-								}
+								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+									{name: "enyoImage", kind: "enyo.Image", style: "width: 170px; height: 126px; padding-right: 30px;"},
+									{components: [
+										{name: "imageTitle"},
+										{name: "imageArtist", classes: "moon-superscript"},
+										{name: "imageDuration", classes: "moon-superscript"}
+									]}
+								]}
 							]
 						}
 					]

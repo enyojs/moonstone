@@ -33,11 +33,11 @@ enyo.kind({
 			]}
 		]},
 		{name: "vColumn", classes: "moon-scroller-v-column", components: [
-			{name: "pageUpControl", kind: "moon.PagingControl", classes: "hidden", side: "top", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
+			{name: "pageUpControl", kind: "moon.PagingControl", side: "top", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
 			{name: "vthumbContainer", classes: "moon-scroller-thumb-container moon-scroller-vthumb-container", components: [
 				{name: "vthumb", kind: "moon.ScrollThumb", classes: "moon-scroller-vthumb hidden", axis: "v"}
 			]},
-			{name: "pageDownControl", kind: "moon.PagingControl", classes: "hidden", side: "bottom", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
+			{name: "pageDownControl", kind: "moon.PagingControl", side: "bottom", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
 		{name: "hColumn", classes: "moon-scroller-h-column", components: [
 			{name: "pageLeftControl", kind: "moon.PagingControl", side: "left", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
@@ -54,6 +54,7 @@ enyo.kind({
 		this.accel = enyo.dom.canAccelerate();
 		this.container.addClass("enyo-touch-strategy-container");
 		this.translation = this.accel ? "matrix3d" : "matrix";
+		this.showHideScrollColumns(this.container.spotlightPagingControls);
 	},
 	/**
 		Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s)
@@ -66,6 +67,7 @@ enyo.kind({
 		this.updateSpotlightPagingControls();
 	},
 	resizeHandler: function() {
+		this.resetCachedValues();
 		this.setupBounds();
 	},
 	setupBounds: function() {
@@ -73,6 +75,7 @@ enyo.kind({
 		this.syncScrollMath();
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
+		this.clampScrollPosition();
 	},
 
 	//* @public
@@ -130,15 +133,18 @@ enyo.kind({
 	},
 	//* On _mousewheel_, scrolls a fixed amount.
 	mousewheel: function(inSender, inEvent) {
+		this.scrollBounds = this._getScrollBounds();
+		this.setupBounds();
+
 		var x = null,
 			y = null,
-			delta = 0,
 			showVertical = this.showVertical(),
 			showHorizontal = this.showHorizontal()
 		;
-		
+
 		//* If we don't have to scroll, allow mousewheel event to bubble
 		if (!showVertical && !showHorizontal) {
+			this.scrollBounds = null;
 			return false;
 		}
 
@@ -147,17 +153,23 @@ enyo.kind({
 		}
 
 		if (showHorizontal) {
-			delta = (!inEvent.wheelDeltaX) ? inEvent.wheelDeltaY : inEvent.wheelDeltaX;
-			x = this.scrollLeft + -1 * (delta * this.scrollWheelMultiplier);
+			if (inEvent.wheelDeltaX) {
+				x = this.scrollLeft + -1 * (inEvent.wheelDeltaX * this.scrollWheelMultiplier);
+			} else if (!showVertical) {
+				// only use vertical wheel for horizontal scrolling when no vertical bars shown
+				x = this.scrollLeft + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+			}
 		}
 
 		this.scrollTo(x, y);
 		inEvent.preventDefault();
+		this.scrollBounds = null;
 		return true;
 	},
 	//* On _enter_, sets _this.hovering_ to true and shows pagination controls.
 	enter: function() {
 		this.hovering = true;
+		this.setupBounds();
 		this.showHidePageControls();
 		this.showHideScrollColumns(true);
 	},
@@ -168,7 +180,9 @@ enyo.kind({
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
-		var scrollDelta = this.getScrollBounds().clientHeight * this.paginationPageMultiplier,
+		var sb = this.getScrollBounds(),
+			scrollYDelta = sb.clientHeight * this.paginationPageMultiplier,
+			scrollXDelta = sb.clientWidth * this.paginationPageMultiplier,
 			side = inEvent.originator.side,
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
@@ -176,16 +190,16 @@ enyo.kind({
 
 		switch (side) {
 		case "left":
-			x -= scrollDelta;
+			x -= scrollXDelta;
 			break;
 		case "top":
-			y -= scrollDelta;
+			y -= scrollYDelta;
 			break;
 		case "right":
-			x += scrollDelta;
+			x += scrollXDelta;
 			break;
 		case "bottom":
-			y += scrollDelta;
+			y += scrollYDelta;
 			break;
 		}
 
@@ -261,10 +275,6 @@ enyo.kind({
 
 		this.showHideScrollColumns(true);
 	},
-
-
-
-
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		this.$.scrollMath.scrollTo(inX, inY);
@@ -297,8 +307,8 @@ enyo.kind({
 
 		return (this.accel)
 			?   "1,         0,     0,  0, "
-			+	"0,         1,     0,  0, "
-			+	"0,         0,     1,  0, "
+			+   "0,         1,     0,  0, "
+			+   "0,         0,     1,  0, "
 			+    x + ", " + y + ", 1,  1"
 
 			:   "1, 0, 0, 1, " + x + ", " + y
@@ -306,8 +316,6 @@ enyo.kind({
 	},
 	effectScrollStop: function() { },
 	effectOverscroll: function() { },
-
-
 	updateSpotlightPagingControls: function() {
 		enyo.forEach([
 			this.$.pageLeftControl,
@@ -325,18 +333,22 @@ enyo.kind({
 	*/
 	setThumbSizeRatio: function() {
 		var scrollBounds = this.getScrollBounds();
-		this.$.vthumb.setSizeRatio(this.$.vthumbContainer.getBounds().height/scrollBounds.clientHeight);
-		this.$.hthumb.setSizeRatio(this.$.hthumbContainer.getBounds().width/scrollBounds.clientWidth);
+		this.$.vthumb.setSizeRatio(this.getVerticalThumbBounds().height/scrollBounds.clientHeight);
+		this.$.hthumb.setSizeRatio(this.getHorizontalThumbBounds().width/scrollBounds.clientWidth);
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+				this.scrollBounds = null;
 				return true;
 			} else {
 				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
 				// to allow items in nested scrollers to be scrolled
+				this.scrollBounds = null;
 				return false;
 			}
 		}
@@ -361,11 +373,13 @@ enyo.kind({
 			m = this.$.scrollMath
 		;
 
-		this.$.pageUpControl.addRemoveClass("hidden", (top <= 0));
-		this.$.pageDownControl.addRemoveClass("hidden", (top >= -1 * m.bottomBoundary));
+		if (!this.container.spotlightPagingControls) {
+			this.$.pageUpControl.addRemoveClass("hidden", (top <= 0));
+			this.$.pageDownControl.addRemoveClass("hidden", (top >= -1 * m.bottomBoundary));
 
-		this.$.pageLeftControl.addRemoveClass("hidden", (left <= 0));
-		this.$.pageRightControl.addRemoveClass("hidden", (left >= -1 * m.rightBoundary));
+			this.$.pageLeftControl.addRemoveClass("hidden", (left <= 0));
+			this.$.pageRightControl.addRemoveClass("hidden", (left >= -1 * m.rightBoundary));
+		}
 	},
 	//* Enables or disables scroll columns.
 	enableDisableScrollColumns: function() {
@@ -374,27 +388,19 @@ enyo.kind({
 	},
 	//* Enables or disables vertical scroll column.
 	enableDisableVerticalScrollControls: function(inEnabled) {
-		if (inEnabled) {
-			this.$.clientContainer.addClass("v-scroll-enabled");
-			this.$.vColumn.addClass("v-scroll-enabled");
-			this.$.hColumn.addClass("v-scroll-enabled");
-		} else {
-			this.$.clientContainer.removeClass("v-scroll-enabled");
-			this.$.vColumn.removeClass("v-scroll-enabled");
-			this.$.hColumn.removeClass("v-scroll-enabled");
-		}
+		this.$.clientContainer.addRemoveClass("v-scroll-enabled", inEnabled);
+		this.$.vColumn.addRemoveClass("v-scroll-enabled", inEnabled);
+		this.$.hColumn.addRemoveClass("v-scroll-enabled", inEnabled);
+		this.$.pageUpControl.spotlight = inEnabled && this.container.spotlightPagingControls;
+		this.$.pageDownControl.spotlight = inEnabled && this.container.spotlightPagingControls;
 	},
 	//* Enables or disables horizontal scroll column.
 	enableDisableHorizontalScrollControls: function(inEnabled) {
-		if (inEnabled) {
-			this.$.clientContainer.addClass("h-scroll-enabled");
-			this.$.vColumn.addClass("h-scroll-enabled");
-			this.$.hColumn.addClass("h-scroll-enabled");
-		} else {
-			this.$.clientContainer.removeClass("h-scroll-enabled");
-			this.$.vColumn.removeClass("h-scroll-enabled");
-			this.$.hColumn.removeClass("h-scroll-enabled");
-		}
+		this.$.clientContainer.addRemoveClass("h-scroll-enabled", inEnabled);
+		this.$.vColumn.addRemoveClass("h-scroll-enabled", inEnabled);
+		this.$.hColumn.addRemoveClass("h-scroll-enabled", inEnabled);
+		this.$.pageLeftControl.spotlight = inEnabled && this.container.spotlightPagingControls;
+		this.$.pageRightControl.spotlight = inEnabled && this.container.spotlightPagingControls;
 	},
 	//* Shows or hides scroll columns.
 	showHideScrollColumns: function(inShow) {
@@ -403,11 +409,11 @@ enyo.kind({
 	},
 	//* Shows or hides vertical scroll columns.
 	showHideVerticalScrollColumns: function(inShow) {
-		this.$.vColumn.addRemoveClass("visible", inShow);
+		this.$.vColumn.addRemoveClass("visible", inShow || this.container.spotlightPagingControls);
 	},
 	//* Shows or hides horizontal scroll columns.
 	showHideHorizontalScrollColumns: function(inShow) {
-		this.$.hColumn.addRemoveClass("visible", inShow);
+		this.$.hColumn.addRemoveClass("visible", inShow || this.container.spotlightPagingControls);
 	},
 	/**
 		Returns boolean indicating whether page controls should be shown at all for
@@ -418,21 +424,30 @@ enyo.kind({
 	},
 	//* Determines whether we should be showing the vertical scroll column.
 	showVertical: function() {
-		return (this.getVertical() !== "hidden" && -1 * this.$.scrollMath.bottomBoundary > 0);
+		return (this.getVertical() == "scroll" || 
+				(this.getVertical() !== "hidden" &&
+				((-1 * this.$.scrollMath.bottomBoundary > 0) || this.container.spotlightPagingControls)));
 	},
 	//* Determines whether we should be showing the horizontal scroll column.
 	showHorizontal: function() {
-		return (this.getHorizontal() !== "hidden" && -1 * this.$.scrollMath.rightBoundary > 0);
+		return (this.getHorizontal() == "scroll" || 
+				(this.getHorizontal() !== "hidden" &&
+				((-1 * this.$.scrollMath.rightBoundary > 0) || this.container.spotlightPagingControls)));
 	},
 	//* Hides pagination controls.
 	hidePageControls: function() {
-		this.$.pageLeftControl.addClass("hidden");
-		this.$.pageRightControl.addClass("hidden");
-		this.$.pageUpControl.addClass("hidden");
-		this.$.pageDownControl.addClass("hidden");
+		if (!this.container.spotlightPagingControls) {
+			this.$.pageLeftControl.addClass("hidden");
+			this.$.pageRightControl.addClass("hidden");
+			this.$.pageUpControl.addClass("hidden");
+			this.$.pageDownControl.addClass("hidden");
+		}
 	},
 	_getScrollBounds: function() {
-		var containerBounds = this.$.clientContainer.getBounds(),
+		if (this.scrollBounds) {
+			return this.scrollBounds;
+		}
+		var containerBounds = this.getContainerBounds(),
 			s = this.getScrollSize(),
 			b = {
 				top: this.getScrollTop(),
@@ -441,8 +456,7 @@ enyo.kind({
 				clientWidth: containerBounds.width,
 				height: s.height,
 				width: s.width
-			}
-		;
+			};
 
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
@@ -451,8 +465,26 @@ enyo.kind({
 
 		return b;
 	},
-
-
+	getContainerBounds: function() {
+		var containerBounds = this.$.clientContainer.getBounds();
+		if(containerBounds) {
+			var paddingExtents = enyo.dom.calcPaddingExtents(this.$.clientContainer.hasNode());
+			containerBounds.width  -= (paddingExtents.left + paddingExtents.right);
+			containerBounds.height -= (paddingExtents.top  + paddingExtents.bottom);
+		}
+		return containerBounds;
+	},
+	getVerticalThumbBounds: function() {
+		return this.vBounds ? this.vBounds : this.$.vthumbContainer.getBounds();
+	},
+	getHorizontalThumbBounds: function() {
+		return this.hBounds ? this.hBounds : this.$.hthumbContainer.getBounds();
+	},
+	resetCachedValues: function() {
+		this.vBounds = null;
+		this.hBounds = null;
+		this.scrollBounds = null;
+	},
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
@@ -559,5 +591,21 @@ enyo.kind({
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x, y);
 		}
+	},
+	clampScrollPosition: function() {
+		var x = this.clampX(),
+			y = this.clampY();
+
+		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
+			this.scrollTo(x, y);
+		}
+	},
+	clampX: function() {
+		var m = this.$.scrollMath;
+		return Math.min(Math.max(this.getScrollLeft(), -1*m.leftBoundary), -1*m.rightBoundary);
+	},
+	clampY: function() {
+		var m = this.$.scrollMath;
+		return Math.min(Math.max(this.getScrollTop(), -1*m.topBoundary), -1*m.bottomBoundary);
 	}
 });

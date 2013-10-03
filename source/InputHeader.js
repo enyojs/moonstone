@@ -41,12 +41,12 @@ enyo.kind({
 	},
 	//* @protected
 	bindings: [
-		{from: ".value", to: ".$.title.value", twoWay: true}
+		{from: ".value", to: ".$.titleInput.value", oneWay: false}
 	],
-	classes: "moon-header moon-input-header",
+	classes: "moon-input-header",
 	componentOverrides: {
 		titleWrapper: {kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
-			{name: "titleInput", kind: "moon.Input", classes: "moon-header-font moon-header-title"}
+			{name: "titleInput", kind: "moon.Input", classes: "moon-header-text moon-header-title"}
 		]}
 	},
 	titleChanged: function() {

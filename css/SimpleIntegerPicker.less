@@ -7,6 +7,9 @@
   height: @moon-picker-button-width;
   border-radius: @moon-picker-button-width/2;
 }
+.enyo-locale-non-latin .moon-simple-integer-picker {
+  .enyo-locale-non-latin .moon-sub-header-text;
+}
 
 .moon-simple-integer-picker > * {
   display: inline-block;
@@ -52,6 +55,10 @@
   padding: 0 8px;
   width: auto;
 }
+.enyo-locale-non-latin .moon-simple-integer-picker-item {
+  .enyo-locale-non-latin .moon-sub-header-text;
+}
+
 .moon-simple-integer-picker.disabled,
 .moon-simple-integer-picker-button[disabled] {
   cursor: default;
@@ -121,12 +128,28 @@
 	-webkit-transform: rotate(270deg) translateZ(1px);
 }
 
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.left {
+	transform: rotate(90deg) translateZ(1px);
+	-o-transform: rotate(90deg) translateZ(1px);
+	-ms-transform: rotate(90deg) translateZ(1px);
+	-moz-transform: rotate(90deg) translateZ(1px);
+	-webkit-transform: rotate(90deg) translateZ(1px);
+}
+
 .moon-simple-integer-picker-button.right {
 	transform: rotate(90deg) translateZ(1px);
 	-o-transform: rotate(90deg) translateZ(1px);
 	-ms-transform: rotate(90deg) translateZ(1px);
 	-moz-transform: rotate(90deg) translateZ(1px);
 	-webkit-transform: rotate(90deg) translateZ(1px);
+}
+
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
+	transform: rotate(270deg) translateZ(1px);
+	-o-transform: rotate(270deg) translateZ(1px);
+	-ms-transform: rotate(270deg) translateZ(1px);
+	-moz-transform: rotate(270deg) translateZ(1px);
+	-webkit-transform: rotate(270deg) translateZ(1px);
 }
 
 .spotlight .moon-simple-integer-picker-button {
