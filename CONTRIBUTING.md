@@ -27,7 +27,7 @@ Also note you only need to generate the .css file when you're ready to check in 
 Alternatively, there is also a "watch" mode for `lessc.sh`, which will automatically re-compile CSS based on any LESS dependency changes:
 
     cd lib/moonstone/css
-    ../../../enyo/tools/lessc.sh -w ./package.js
+    ../../../enyo/tools/lessc.sh -w ./all-package.js
 
 Additionally, any new controls contributed should follow this basic pattern to ensure proper themability support:
 
