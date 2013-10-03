@@ -11,7 +11,7 @@
 enyo.kind({
 	name: 'moon.Button',
 	kind: 'enyo.Button',
-	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
+	mixins: ["moon.MarqueeSupport"],
 	published: {
 		/**
 			A parameter indicating the size of the button.
@@ -19,8 +19,7 @@ enyo.kind({
 			However, the button's tap target still has a diameter of 78px, so there is
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
-		small: false,
-		marquee: true
+		small: false
 	},
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
@@ -34,9 +33,9 @@ enyo.kind({
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
-		// if (this.marquee && !(this.components && this.components.length > 0)) {
-// 			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
-// 		}
+		if (!(this.components && this.components.length > 0)) {
+			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
+		}
 		this.smallChanged();
 		this.inherited(arguments);
 	},
