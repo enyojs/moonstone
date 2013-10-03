@@ -124,7 +124,7 @@ moon.MarqueeSupport = {
 	startMarquee: function() {
 		this._buildMarqueeWaitList();
 		
-		if (this.marqueeWaitList.length == 0) {
+		if (this.marqueeWaitList.length === 0) {
 			return;
 		}
 	
@@ -160,7 +160,7 @@ moon.MarqueeSupport = {
 	//* Begin delayed restart of child marquee animations
 	_marqueeStartHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
-	},
+	}
 };
 
 
