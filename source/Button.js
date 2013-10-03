@@ -11,7 +11,7 @@
 enyo.kind({
 	name: 'moon.Button',
 	kind: 'enyo.Button',
-	mixins: ["moon.MarqueeSupport"],
+	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
 	published: {
 		/**
 			A parameter indicating the size of the button.
@@ -34,9 +34,9 @@ enyo.kind({
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
-		if (this.marquee && !(this.components && this.components.length > 0)) {
-			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
-		}
+		// if (this.marquee && !(this.components && this.components.length > 0)) {
+// 			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
+// 		}
 		this.smallChanged();
 		this.inherited(arguments);
 	},

@@ -536,6 +536,8 @@
   pointer-events: none;
   text-overflow: ellipsis;
   overflow: hidden;
+  width: 100%;
+  display: block;
 }
 .animate-marquee.moon-marquee-text > div {
   text-overflow: clip;
@@ -1015,11 +1017,12 @@
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+  width: auto;
   min-width: 85px;
+  max-width: 302px;
   padding: 19px 22px;
   margin: 0px 10px;
   color: #a6a6a6;
-  max-width: 302px;
 }
 .enyo-locale-non-latin .moon-button {
   padding: 15px 22px 16px;
