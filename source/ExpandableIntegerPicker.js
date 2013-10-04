@@ -43,15 +43,15 @@ enyo.kind({
 	handlers: {
 		requestScrollIntoView: "requestScrollIntoView"
 	},
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		client: {components: [
+		{name: "drawer", kind: "enyo.Drawer", components: [
 			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
 		]}
-	},
+	],
 	bindings: [
 		{from: ".min", to: ".$.picker.min"},
 		{from: ".max", to: ".$.picker.max"},
@@ -59,7 +59,8 @@ enyo.kind({
 		{from: ".unit", to: ".$.picker.unit"},
 		{from: ".value", to: ".$.picker.value", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
-		{from: ".currentValueText", to: ".$.currentValue.content"}
+		{from: ".currentValueText", to: ".$.currentValue.content"},
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
 	computed: {
 		"showCurrentValue": ["open"],
@@ -111,5 +112,8 @@ enyo.kind({
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({value: this.value, content: this.content});
+	},
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
 	}
 });

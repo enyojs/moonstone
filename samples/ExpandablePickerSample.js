@@ -44,11 +44,8 @@ enyo.kind({
 						{content: "On", active: true},
 						{content: "Off"}
 					]},
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker",
-					value: 7, min: 3, max: 15, step: 2, unit: "elephants"},
-
-					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", 
-					value: 2, min: 1, max: 15, unit: "sec"}
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"}
 				]}
 			]}
 		]}
