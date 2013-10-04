@@ -216,16 +216,13 @@ moon.MarqueeItem = {
 			this._marquee_createMarquee();
 		}
 		
-		this.addClass("animate-marquee");
-		this._marquee_updateNodeCSSText(this._marquee_generateAnimationCSSText(distance));
-		
+		this._marquee_addAnimationStyles(distance);
 		return true;
 	},
 	//* Stop marquee animation
 	_marquee_stopAnimation: function(inSender, inEvent) {
 		this.stopJob("stopMarquee");
-		this.removeClass("animate-marquee");
-		this._marquee_updateNodeCSSText("");
+		this._marquee_removeAnimationStyles();
 		this.doMarqueeEnded();
 	},
 	//* When animation ends, start _this.stopMarquee_ job
@@ -262,20 +259,31 @@ moon.MarqueeItem = {
 		this.render();
 		return true;
 	},
-	//* Generate the CSS text for the marquee animation based on _inDistance_
-	_marquee_generateAnimationCSSText: function(inDistance) {
-		var duration = this._marquee_calcDuration(inDistance),
-			transformProp = enyo.dom.getCssTransformProp();
+	_marquee_addAnimationStyles: function(inDistance) {
+		var duration = this._marquee_calcDuration(inDistance);
 		
-		return enyo.dom.transition + ": " + transformProp + " " + duration + "s linear; " + transformProp + ": translateX( " + (-1 * inDistance) + "px);";
+		this.$.marqueeText.addClass("animate-marquee");
+		this.$.marqueeText.applyStyle("transition-duration", duration + "s");
+		this.$.marqueeText.applyStyle("-webkit-transition-duration", duration + "s");
+		
+		// Need this timeout for FF!
+		setTimeout(enyo.bind(this, function() {
+			enyo.dom.transform(this.$.marqueeText, {translateX: (-1 * inDistance) + "px"});
+		}), 100);
 	},
-	//* Set the cssText of marquee node to _inCSSString_
-	_marquee_updateNodeCSSText: function(inCSSString) {
-		var node = this._marquee_getMarqueeNode();
-		if (!node) {
+	_marquee_removeAnimationStyles: function() {
+		if (!this.$.marqueeText) {
 			return;
 		}
-		node.style.cssText = inCSSString;
+		
+		this.$.marqueeText.applyStyle("transition-duration", "0s");
+		this.$.marqueeText.applyStyle("-webkit-transition-duration", "0s");	
+		
+		// Need this timeout for FF!
+		setTimeout(enyo.bind(this, function() {
+			this.$.marqueeText.removeClass("animate-marquee");
+			enyo.dom.transform(this.$.marqueeText, {translateX: null});
+		}), 0);
 	}
 };
 
