@@ -45,12 +45,6 @@ enyo.kind({
 			animation, before resetting to the beginning
 		*/
 		marqueePause: 1000,
-		/**
-			Whether this control should clip itself inside its parent's padding. If
-			false, the parent control must have _overflow: hidden_ set, and the marquee
-			text will clip at the parent's border.
-		*/
-		clipInsidePadding: true,
 		//* When true, marqueeing will not occur
 		disabled: false
 	}
@@ -69,7 +63,6 @@ moon.MarqueeSupport = {
 	
 	//* @protected
 	
-	classes: "moon-marquee-container",
 	handlers: {
 		onSpotlightFocus: "_marqueeSpotlightFocus",
 		onSpotlightBlur: "_marqueeSpotlightBlur",
@@ -83,11 +76,22 @@ moon.MarqueeSupport = {
 		return function() {
 			sup.apply(this, arguments);
 			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
-			this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
-			this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
-			this.marqueePause = (this.marqueePause === undefined) ? 1000 : this.marqueePause;
-			this.marqueeHold  = (this.marqueeHold  === undefined) ? 2000 : this.marqueeHold;
+			this.marqueeSpeed =    (this.marqueeSpeed ===     undefined) ? 60 :    this.marqueeSpeed;
+			this.marqueeDelay =    (this.marqueeDelay ===     undefined) ? 1000 :  this.marqueeDelay;
+			this.marqueePause =    (this.marqueePause ===     undefined) ? 1000 :  this.marqueePause;
+			this.marqueeHold  =    (this.marqueeHold  ===     undefined) ? 2000 :  this.marqueeHold;
+			this.marqueeOnRender = (this.marqueeOnRender  === undefined) ? false : this.marqueeOnRender;
 		};
+	}),
+	//* If _this.marqueeOnRender_ is true, kick off marquee animation
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.log("-", this.marqueeOnRender);
+			if (this.marqueeOnRender) {
+				this.startMarquee();
+			}
+		}
 	}),
 	//* On focus, start child marquees
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
@@ -133,6 +137,7 @@ moon.MarqueeSupport = {
 	},
 	//* Waterfall an _onRequestMarqueeStop_ event to halt all running child marquees
 	stopMarquee: function() {
+		this.log("STOPPING");
 		this.stopJob("marqueeSupportJob");
 		this.marqueeActive = false;
 		this._stopChildMarquees();
@@ -186,7 +191,7 @@ moon.MarqueeItem = {
 	observers: {
 		marqueeContentChanged: ["content"]
 	},
-	classes: "moon-marquee-text",
+	classes: "moon-marquee",
 	//* When the content of this control changes, update the content of _this.$.marqueeText_ (if it exists)
 	marqueeContentChanged: function() {
 		if (this.$.marqueeText) {
@@ -264,7 +269,7 @@ moon.MarqueeItem = {
 	},
 	//* Create a marquee-able div inside of _this_
 	createMarquee: function() {
-		this.createComponent({name: "marqueeText", allowHtml: this.allowHtml, content: this.content});
+		this.createComponent({classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
 		this.render();
 		return true;
 	},

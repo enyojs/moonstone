@@ -6,11 +6,12 @@
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
 	height: @moon-item-line-height;
-	margin-right: @moon-checkbox-width;
+	padding-right: @moon-checkbox-width;
+	box-sizing: border-box;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	margin-left: @moon-checkbox-width;
-	margin-right: 0;
+	padding-left: @moon-checkbox-width;
+	padding-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
 	float: left;
@@ -55,12 +56,12 @@
 
 /* Label */
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: 0px;
-	margin-left: @moon-checkbox-width;
+	padding-right: 0px;
+	padding-left: @moon-checkbox-width;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: @moon-checkbox-width;
-	margin-left: 0px;
+	padding-right: @moon-checkbox-width;
+	padding-left: 0px;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label {
 	float: right;

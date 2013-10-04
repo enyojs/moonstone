@@ -42,6 +42,10 @@
 	left: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 	right: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
 }
+/* Need 100% width for marquee in button */
+.moon-button .moon-marquee {
+	width: 100%;
+}
 
 /*
 	IE8 can't handle these selectors in tandem:
