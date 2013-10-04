@@ -553,7 +553,7 @@ enyo.kind({
 		onTrackOrderChanged: ""
 	},
 	handlers: {
-		onAddAudio: "addAudio",
+		onAddAudio: "addAudio"
 	},
 	bindings: [
 		{ from: ".trackList", to: ".$.list.controller" },
@@ -565,7 +565,8 @@ enyo.kind({
 		{ from: ".moveMode", to: ".$.list.multipleSelection" }
 	],
 	components: [
-		{kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
+		{
+			kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
 			components: [
 				{name: "selectAll", kind: "moon.Button", content: "Select All", classes: "moon-header-left", ontap: "selectAll", showing: false},
 				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "deselectAll", showing: false},
