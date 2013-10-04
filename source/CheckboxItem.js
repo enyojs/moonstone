@@ -35,14 +35,14 @@ enyo.kind({
 	},
 	events: {
 	/**
-	    Fires when the control is either checked or unchecked.
+		Fires when the control is either checked or unchecked.
 
-	    _inEvent.checked_ indicates whether the checkbox is currently checked.
+		_inEvent.checked_ indicates whether the checkbox is currently checked.
 
-	    _inEvent.toggledControl_ contains a reference to the CheckboxItem whose
-	    state toggled. (Note that the originator of this event is actually the
-	    _moon.Checkbox_ contained within the CheckboxItem, so use this property to
-	    reference the CheckboxItem.)
+		_inEvent.toggledControl_ contains a reference to the CheckboxItem whose
+		state toggled. (Note that the originator of this event is actually the
+		_moon.Checkbox_ contained within the CheckboxItem, so use this property to
+		reference the CheckboxItem.)
 	*/
 		onActivate: ""
 	},

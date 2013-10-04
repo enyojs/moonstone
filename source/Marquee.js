@@ -90,7 +90,7 @@ moon.MarqueeSupport = {
 			if (this.marqueeOnRender) {
 				this.startMarquee();
 			}
-		}
+		};
 	}),
 	//* On focus, start child marquees
 	_marqueeSpotlightFocus: function(inSender, inEvent) {

@@ -822,12 +822,11 @@
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.2em;
-  padding-right: 40px;
-  box-sizing: border-box;
+  margin-right: 40px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  padding-left: 40px;
-  padding-right: 0;
+  margin-left: 40px;
+  margin-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
@@ -867,12 +866,12 @@
 /* Left-handed checkbox */
 /* Label */
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  padding-right: 0px;
-  padding-left: 40px;
+  margin-right: 0px;
+  margin-left: 40px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  padding-right: 40px;
-  padding-left: 0px;
+  margin-right: 40px;
+  margin-left: 0px;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label {
   float: right;
