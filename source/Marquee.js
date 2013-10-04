@@ -198,7 +198,7 @@ moon.MarqueeItem = {
 	},
 	//* If this control needs to marquee, let the event originator know
 	requestMarquee: function(inSender, inEvent) {
-		if (!inEvent || !this.shouldAnimate()) {
+		if (!inEvent || !this.shouldMarqueeAnimate()) {
 			return true;
 		}
 		
@@ -214,7 +214,7 @@ moon.MarqueeItem = {
 		var distance = this.calcMarqueeDistance();
 		
 		// If there is no need to animate, return early
-		if (!this.shouldAnimate(distance)) {
+		if (!this.shouldMarqueeAnimate(distance)) {
 			return;
 		}
 		
@@ -224,7 +224,7 @@ moon.MarqueeItem = {
 		}
 		
 		this.addClass("animate-marquee");
-		this.updateNodeCSSText(this.generateAnimationCSSText(distance));
+		this.updateMarqueeNodeCSSText(this.generateMarqueeAnimationCSSText(distance));
 		
 		return true;
 	},
@@ -232,7 +232,7 @@ moon.MarqueeItem = {
 	stopMarqueeAnimation: function(inSender, inEvent) {
 		this.stopJob("stopMarquee");
 		this.removeClass("animate-marquee");
-		this.updateNodeCSSText("");
+		this.updateMarqueeNodeCSSText("");
 
 		this.doMarqueeEnded();
 		return true;
@@ -247,7 +247,7 @@ moon.MarqueeItem = {
         return true;
 	},
 	//* Return _true_ if this control has enough content that it needs to animate
-	shouldAnimate: function(inDistance) {
+	shouldMarqueeAnimate: function(inDistance) {
 		inDistance = (inDistance && inDistance >= 0) ? inDistance : this.calcMarqueeDistance();
 		return (!this.disabled && inDistance > 0);
 	},
@@ -272,14 +272,14 @@ moon.MarqueeItem = {
 		return true;
 	},
 	//* Generate the CSS text for the marquee animation based on _inDistance_
-	generateAnimationCSSText: function(inDistance) {
+	generateMarqueeAnimationCSSText: function(inDistance) {
 		var duration = this.calcMarqueeDuration(inDistance),
 			transformProp = enyo.dom.getCssTransformProp();
 		
 		return enyo.dom.transition + ": " + transformProp + " " + duration + "s linear; " + transformProp + ": translateX( " + (-1 * inDistance) + "px);";
 	},
 	//* Set the cssText of marquee node to _inCSSString_
-	updateNodeCSSText: function(inCSSString) {
+	updateMarqueeNodeCSSText: function(inCSSString) {
 		var node = this.getMarqueeNode();
 		if (!node) {
 			return;
