@@ -30,7 +30,8 @@ enyo.kind({
 	handlers: {
 		onToggleTrackList: "toggleTrackDrawer",
 		onAudioTrackAdded: "audioTrackAdded",
-		onDeleteSelected: "deleteSelected"
+		onDeleteSelected: "deleteSelected",
+		onTrackOrderChanged: "trackOrderChanged"
 	},
 	bindings: [
 		{from: ".$.audioPlayer.controller.model.tracks", to: ".$.audioQueue.trackList"}
@@ -57,6 +58,10 @@ enyo.kind({
 	},
 	deleteSelected: function(inSender, inEvent) {
 		this.waterfall("onTrackDeleted", {selected: inEvent.selected});
+		return true;
+	},
+	trackOrderChanged: function(inSender, inEvent) {
+		this.waterfall("onTrackListChanged", {selected: inEvent.tracks});
 		return true;
 	},
 	//* @public
@@ -102,20 +107,20 @@ enyo.kind({
 		this.set("tracks", new enyo.Collection());
 	},
 	updateTrackValues: function (attrName, value) {
-    	for (var i = 0, tracks = this.get("tracks"); i < tracks.length; i++) {
-    		tracks.get(i).set(attrName, value);
-    	}
-    },
-    setPlayingIndex: function (idx) {
+		for (var i = 0, tracks = this.get("tracks"); i < tracks.length; i++) {
+			tracks.get(i).set(attrName, value);
+		}
+	},
+	setPlayingIndex: function (idx) {
 		this.updateTrackValues("isPlaying", false);
 		this.get("tracks").get(idx).set("isPlaying", true);
 	},
-    setAudioPaused: function () {
-    	this.updateTrackValues("isPlaying", false);
-    },
-    removeTracks: function (tracks) {
-    	this.get("tracks").remove(tracks);
-    }
+	setAudioPaused: function () {
+		this.updateTrackValues("isPlaying", false);
+	},
+	removeTracks: function (tracks) {
+		this.get("tracks").remove(tracks);
+	}
 });
 
 enyo.kind({
@@ -139,7 +144,8 @@ enyo.kind({
 		onAudioPaused: ""
 	},
 	handlers: {
-		onTrackDeleted: "trackDeleted"
+		onTrackDeleted: "trackDeleted",
+		onTrackListChanged: "trackListChanged"
 	},
 	published: {
 		//* repeat playback features. available values are "NONE", "ONE", "ALL".
@@ -191,6 +197,9 @@ enyo.kind({
 		this.doToggleTrackList();
 	},
 	trackDeleted: function (inSender, inEvent) {
+		this.updateTrackIndex(0);
+	},
+	trackListChanged: function (inSender, inEvent) {
 		this.updateTrackIndex(0);
 	},
 	audioEnd: function() {
@@ -535,37 +544,45 @@ enyo.kind({
 	name: "moon.AudioPlaybackQueue",
 	kind: "FittableRows",
 	classes: "enyo-fit moon-audio-playback-queue",
+	moveMode: false,
 	deleteMode: false,
 	events: {
-		onDeleteSelected: ""
+		//* Fires when audio track is deleted from queue list.
+		onDeleteSelected: "",
+		//* Fires when audio player's playing index is changed.
+		onTrackOrderChanged: ""
 	},
-    handlers: {
+	handlers: {
 		onAddAudio: "addAudio",
-    },
-    bindings: [
-    	{ from: ".trackList", to: ".$.list.controller" },
-    	{ from: ".deleteMode", to: ".$.multiDeleteButton.showing" },
-    	{ from: ".deleteMode", to: ".$.list.multipleSelection" }
-    ],
-    components: [
+	},
+	bindings: [
+		{ from: ".trackList", to: ".$.list.controller" },
+		{ from: ".deleteMode", to: ".$.multiDeleteButton.showing" },
+		{ from: ".deleteMode", to: ".$.selectAll.showing" },
+		{ from: ".deleteMode", to: ".$.deselectAll.showing" },
+		{ from: ".deleteMode", to: ".$.cancel.showing" },
+		{ from: ".deleteMode", to: ".$.list.multipleSelection" },
+		{ from: ".moveMode", to: ".$.list.multipleSelection" }
+	],
+	components: [
 		{kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
 			components: [
+				{name: "selectAll", kind: "moon.Button", content: "Select All", classes: "moon-header-left", ontap: "selectAll", showing: false},
+				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "deselectAll", showing: false},
 				{name: "multiDeleteButton", kind: "moon.Button", showing: false, classes: "moon-header-left", content: "Delete Selected", ontap: "deleteSelected"},
-				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "onDeselectAll", showing: false},
-				{name: "selectAll", kind: "moon.Button", content: $L("Select All"), ontap: "onSelectAll", showing: false},
-				{name: "cancel", kind: "moon.Button", content: $L("Cancel"), ontap: "onCancel", showing: false},
+				{name: "cancel", kind: "moon.Button", content: "Cancel", classes: "moon-header-left", ontap: "updateDeleteMode", showing: false},
 				{name: "confirmDel", kind: "moon.Button", content: $L("Delete"), ontap: "onConfirmDel", showing: false},
-				{name: "moveMode", kind: "moon.Button", content: "ordering list", ontap: "onMoveMode"},
-				{name: "deleteBtn", kind: "moon.ToggleButton", content: "delete", ontap: "updateDeleteMode"}
+				{name: "moveBtn", kind: "moon.Button", content: "ordering list", ontap: "updateMoveMode"},
+				{name: "deleteBtn", kind: "moon.Button", content: "delete", ontap: "updateDeleteMode"}
 			]
 		},
 		{
 			kind: "moon.DataList",
 			name: "list",
-			classes: "list-sample-contacts-list enyo-unselectable",
+			classes: "sample-audio-list enyo-unselectable",
 			fit: true,
 			multipleSelection: false,
-			ontap: "doSelect",
+			ontap: "selectItem",
 			components: [
 				{
 					bindings: [
@@ -580,64 +597,78 @@ enyo.kind({
 				}
 			]
 		}
-    ],
-    create: function() {
+	],
+	create: function() {
 		this.inherited(arguments);
 		this.parent.applyStyle("height", "100%");
-    },
-    doSelect: function (inSender, inEvent) {
-    	if (!this.deleteMode) {
-    		return;
-    	}
-
-    	for (var i = 0, models = this.$.list.controller; i < models.length; i++) {
-    		models.get(i).set("isSelected", false);
-    	}
-
-    	for (var i = 0, selections = this.$.list.get("selected"); i < selections.length; i++) {
-    		selections[i].set("isSelected", true);
-    	}
-    },
-    deleteSelected: function () {
-    	var selected = this.$.list.get("selected");
-    	this.$.list.controller.remove(selected);
-    	this.doDeleteSelected({ "selected": selected });
-    },
-    rendered: function() {
+	},
+	deleteSelected: function () {
+		var selected = this.$.list.get("selected");
+		this.$.list.controller.remove(selected);
+		this.doDeleteSelected({ "selected": selected });
+	},
+	rendered: function() {
 		this.inherited(arguments);
-    },
-    updateDeleteMode: function () {
-    	this.set("deleteMode", !this.deleteMode);
-    },
-    changeTrackOrder: function () {
-    	var selected = this.$.list.get("selected");
-    	if (selected && selected.length === 2) {
-    		var newArray = [],
-    			from = selected[0],
-    			to = selected[1],
-    			fromIndex = from.get("id"),
-    			toIndex = to.get("id");
-    		for (var i = 0, id, models = this.$.list.controller; i < models.length; i++) {
-    			id = models.get(i).get("id");
-    			if (id === fromIndex) {
-    				newArray.push(to);
-					continue;
-    			} else if (id === toIndex) {
-    				newArray.push(from);
-    				continue;
-    			}
-    			newArray.push(models.get(i));
-    		}
+	},
+	selectAll: function () {
+		this.$.list.selectAll();
+	},
+	deselectAll: function () {
+		this.$.list.deselectAll();
+	},
+	selectItem: function () {
+		if (this.moveMode) {
+			this.changeTrackOrder();
+		}
+	},
+	updateDeleteMode: function (inSender, inEvent) {
+		if (inEvent.originator.disabled) {
+			return;
+		}
+		this.set("deleteMode", !this.deleteMode);
+		this.$.deleteBtn.setDisabled(this.get("deleteMode"));
+		this.$.moveBtn.setDisabled(this.get("deleteMode"));
 
-    		from.set("isSelected", false);
-    		to.set("isSelected", false);
-    		this.$.list.deselectAll();
-    		this.$.list.controller.reset(newArray);
-    	}
-    },
-    addAudio: function(inSender, inEvent) {
-    	this.$.queueHeader.setTitleBelow(this.$.list.length + " Tracks");
-    }
+		this.$.list.deselectAll();
+	},
+	updateMoveMode: function (inSender, inEvent) {
+		if (inEvent.originator.disabled) {
+			return;
+		}
+		this.set("moveMode", !this.moveMode);
+		this.$.deleteBtn.setDisabled(this.get("moveMode"));
+		this.$.list.deselectAll();
+	},
+	changeTrackOrder: function () {
+		var selected = this.$.list.get("selected");
+		if (selected && selected.length === 2) {
+			var newArray = [],
+				from = selected[0],
+				to = selected[1],
+				fromIndex = from.get("id"),
+				toIndex = to.get("id");
+			for (var i = 0, id, models = this.$.list.controller; i < models.length; i++) {
+				id = models.get(i).get("id");
+				if (id === fromIndex) {
+					newArray.push(to);
+					continue;
+				} else if (id === toIndex) {
+					newArray.push(from);
+					continue;
+				}
+				newArray.push(models.get(i));
+			}
+
+			from.set("isSelected", false);
+			to.set("isSelected", false);
+			this.$.list.deselectAll();
+			this.$.list.controller.reset(newArray);
+		}
+		this.doTrackOrderChanged({tracks: this.$.list.controller.get("tracks")});
+	},
+	addAudio: function(inSender, inEvent) {
+		this.$.queueHeader.setTitleBelow(this.$.list.length + " Tracks");
+	}
 });
 
 /*enyo.kind({
@@ -654,11 +685,11 @@ enyo.kind({
 	events: {
 		onRemove: ""
 	},
+	classes: "sample-audio-list-item",
 	bindings: [
 		{from: ".trackName", to: ".$.trackName.content"},
 		{from: ".artistName", to: ".$.artistName.content"},
-		{from: ".playingMark", to: ".$.playingMark.showing"},
-		{from: ".selectMark", to: ".$.selectMark.showing"}
+		{from: ".playingMark", to: ".$.playingMark.showing"}
 	],
 	components: [
 		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-album-art", src: "assets/default-music-sm.png"},
@@ -666,8 +697,8 @@ enyo.kind({
 			{name: "trackName"},
 			{name: "artistName"}
 		]},
-		{name:"playingMark", content: "Playing", style: "margin-left:10px; background:yellow; color:black;"},
-		{name:"selectMark", content: "selected", style: "margin-left:10px; background:yellow; color:black;"}
+		{name:"playingMark", content: "Playing", classes: "sample-audio-item-playmark"},
+		{name:"selectMark", classes: "sample-audio-item-selectmark", content: "selected"}
 	],
 	setTrack: function(inAudio) {
 		this.$.trackName.setContent(inAudio.trackName);

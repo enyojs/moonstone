@@ -73,3 +73,17 @@
   background-color: #ffffff;
   border: 4px solid #ffb80d;
 }
+.sample-audio-list .sample-audio-list-item .sample-audio-item-playmark {
+  margin-left: 10px; 
+  background: yellow; 
+  color: black;
+}
+.sample-audio-list .sample-audio-list-item .sample-audio-item-selectmark {
+  display: none;
+  margin-left: 10px; 
+  background: yellow; 
+  color: black;
+}
+.sample-audio-list .selected .sample-audio-list-item .sample-audio-item-selectmark{
+  display: inline-block;
+}
