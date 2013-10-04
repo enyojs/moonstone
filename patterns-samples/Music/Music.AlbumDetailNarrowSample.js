@@ -11,7 +11,7 @@ enyo.kind({
 			{name: "cover", kind: "enyo.Image", style: "height: 200px; width: 200px;"},
 			{name: "albumInfo", fit: true, kind: "moon.Table", components: [
 				{components: [
-					{name: "album", attributes: {colspan: "2"}, classes: "moon-header-font moon-super-header-text"}
+					{name: "album", attributes: {colspan: "2"}, classes: "moon-large-text"}
 				]},
 				{components: [
 					{content: "Artist", classes: "moon-sub-header-text"},
