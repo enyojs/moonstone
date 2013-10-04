@@ -1490,6 +1490,10 @@
   box-sizing: border-box;
   top: -48px;
 }
+.enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
+  padding-right: 58px;
+  padding-left: 0;
+}
 .moon-small-header .moon-header-title-below {
   top: -48px;
 }
