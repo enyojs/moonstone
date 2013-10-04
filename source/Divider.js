@@ -7,8 +7,5 @@ enyo.kind({
 	classes: "moon-divider moon-divider-text",
 	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
 	marqueeOnSpotlight: false,
-	rendered: function() {
-		this.inherited(arguments);
-		this.startMarquee();
-	}
+	marqueeOnRender: true
 });
