@@ -87,7 +87,6 @@ moon.MarqueeSupport = {
 	rendered: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
-			this.log("-", this.marqueeOnRender);
 			if (this.marqueeOnRender) {
 				this.startMarquee();
 			}
