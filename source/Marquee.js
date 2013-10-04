@@ -136,7 +136,6 @@ moon.MarqueeSupport = {
 	},
 	//* Waterfall an _onRequestMarqueeStop_ event to halt all running child marquees
 	stopMarquee: function() {
-		this.log("STOPPING");
 		this.stopJob("marqueeSupportJob");
 		this.marqueeActive = false;
 		this._stopChildMarquees();

@@ -71,7 +71,6 @@ enyo.kind({
 		this.checkedChanged();
 	},
 	disabledChanged: function() {
-		this.inherited(arguments);
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.input.setDisabled(this.disabled);
 	},
@@ -97,7 +96,6 @@ enyo.kind({
 		}
 	},
 	contentChanged: function() {
-		this.log(this.name, this.content);
 		this.$.client.setContent(this.getContent());
 	}
 });
