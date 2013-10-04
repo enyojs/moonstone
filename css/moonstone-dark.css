@@ -2562,7 +2562,17 @@
 .enyo-locale-non-latin .moon-calendar-picker-day.moon-divider {
   font-family: "LG Display";
   font-size: 28px;
-  font-size: 22px;
+}
+.moon-calendar-picker-month {
+  float: left;
+  margin: 0px 0px 0px 30px;
+}
+.moon-calendar-picker-year {
+  float: right;
+  margin: 0px 30px 0px 0px;
+}
+.moon-calendar-picker-days {
+  display: inline-block;
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;

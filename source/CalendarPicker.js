@@ -95,9 +95,9 @@ enyo.kind({
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
 	components: [
-		{name: "yearPicker", kind: "moon.SimplePicker", onChange: "selectYearPicker"},
-		{name: "monthPicker", kind: "moon.SimplePicker", onChange: "selectMonthPicker"},
-		{name: "days", kind: "enyo.Group"},
+		{name: "monthPicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-month", onChange: "selectMonthPicker"},
+		{name: "yearPicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-year", onChange: "selectYearPicker"},
+		{name: "days", classes: "moon-calendar-picker-days", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
@@ -181,7 +181,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Month name could be various depends on
+		Month name could be various depends on its locale
 	*/
 	updateMonthPicker: function() {
 		if (typeof ilib !== "undefined") {
@@ -355,6 +355,9 @@ enyo.kind({
 	valueChanged: function(inOld) {
 		if (this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
+		}
+		if (this.$.yearPicker.getSelectedIndex() != this.value.getFullYear()) {
+			this.$.yearPicker.setSelectedIndex(this.value.getFullYear() - this.startYear);
 		}
 		this.updateDates();
 		if (this.value) {
