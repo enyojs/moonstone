@@ -31,7 +31,7 @@ enyo.kind({
 		//* Title's _allowHtml_ property
 		allowHtmlHeader: false,
 		//* URL of a background image for the header
-		headerBackgroundImage: null,
+		headerBackgroundSrc: null,
 		//* Position properties for background image for the header
 		headerBackgroundPosition: "top right",
 		//* Header options
