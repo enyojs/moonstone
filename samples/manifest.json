@@ -20,6 +20,7 @@
 			{"name": "Auto-collapsing Header", "path":"$lib/moonstone/samples/HeaderAutoCollapsingSample"}
 		]},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
+		{"name": "Image Badge", "path":"$lib/moonstone/samples/ImageBadgeSample"},
 		{"name": "Inputs", "samples": [
 			{"name": "Basic Inputs", "path":"$lib/moonstone/samples/InputSample"},
 			{"name": "Expandable Input", "path":"$lib/moonstone/samples/ExpandableInputSample"},
