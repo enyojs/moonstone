@@ -12,7 +12,7 @@ enyo.kind({
 		//* Refresh time in sec.
 		refresh: 1000,
 		//* Manual date. If it is undefined, _moon.Clock_ will use system date.
-		date: undefined,
+		date: undefined
 	},
 	components: [
 		{kind: "enyo.Control", name: "hour", classes: "moon-clock-hour"},
