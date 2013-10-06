@@ -19,8 +19,7 @@ enyo.kind({
 			However, the button's tap target still has a diameter of 78px, so there is
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
-		small: false,
-		marquee: true
+		small: false
 	},
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
@@ -34,7 +33,7 @@ enyo.kind({
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
-		if (this.marquee && !(this.components && this.components.length > 0)) {
+		if (!(this.components && this.components.length > 0)) {
 			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
 		}
 		this.smallChanged();

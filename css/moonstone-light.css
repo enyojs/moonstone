@@ -523,33 +523,38 @@
 }
 /* LESS pre-calculations */
 /* Individual widget CSS */
-.moon-marquee-text {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  overflow: hidden;
+.moon-marquee {
+  width: auto;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
 }
-.moon-marquee.moon-marquee-text {
-  display: inline-block;
+.moon-marquee-text-wrapper {
+  width: 100%;
+  pointer-events: none;
   width: auto;
-  -webkit-animation-name: marquee;
-  -webkit-animation-timing-function: linear;
-  -webkit-animation-fill-mode: forwards;
+  overflow: hidden;
 }
-.moon-marquee-clip {
+.moon-marquee-text {
+  pointer-events: none;
+  text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  transition-property: transform;
+  -moz-transition-property: transform;
+  -webkit-transition-property: -webkit-transform;
+  -o-transition-property: transform;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
 }
-@-webkit-keyframes marquee {
-  0% {
-    left: 0;
-    transform: translateX(0);
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -o-transform: translateX(0);
-  }
+.animate-marquee {
+  text-overflow: clip;
+  overflow: visible;
+}
+.moon-marquee-container {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .moon-simple-picker {
   display: inline-block;
@@ -1020,11 +1025,12 @@
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+  width: auto;
   min-width: 85px;
+  max-width: 302px;
   padding: 19px 22px;
   margin: 0px 10px;
   color: #4b4b4b;
-  max-width: 302px;
 }
 .enyo-locale-non-latin .moon-button {
   padding: 15px 22px 16px;
@@ -1052,6 +1058,10 @@
   bottom: -14px;
   left: -14px;
   right: -14px;
+}
+/* Need 100% width for marquee in button */
+.moon-button .moon-marquee {
+  width: 100%;
 }
 /*
 	IE8 can't handle these selectors in tandem:
