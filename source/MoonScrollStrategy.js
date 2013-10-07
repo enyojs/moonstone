@@ -338,7 +338,7 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
-		if (!enyo.Spotlight.getPointerMode()) {
+		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
@@ -424,13 +424,13 @@ enyo.kind({
 	},
 	//* Determines whether we should be showing the vertical scroll column.
 	showVertical: function() {
-		return (this.getVertical() == "scroll" || 
+		return (this.getVertical() == "scroll" ||
 				(this.getVertical() !== "hidden" &&
 				((-1 * this.$.scrollMath.bottomBoundary > 0) || this.container.spotlightPagingControls)));
 	},
 	//* Determines whether we should be showing the horizontal scroll column.
 	showHorizontal: function() {
-		return (this.getHorizontal() == "scroll" || 
+		return (this.getHorizontal() == "scroll" ||
 				(this.getHorizontal() !== "hidden" &&
 				((-1 * this.$.scrollMath.rightBoundary > 0) || this.container.spotlightPagingControls)));
 	},
