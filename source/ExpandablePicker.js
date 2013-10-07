@@ -65,9 +65,9 @@ enyo.kind({
 	},
 	autoCollapse: true,
 	lockBottom: true,
-	
+
 	//* @protected
-	
+
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
 	handlers: {
@@ -169,7 +169,7 @@ enyo.kind({
 			if (!controls[i].active) {
 				continue;
 			}
-			
+
 			this.selectedIndex = i;
 			this.selected = controls[i];
 			this.$.currentValue.setContent(controls[i].getContent());
@@ -184,12 +184,12 @@ enyo.kind({
 		if (!toggledControl) {
 			return;
 		}
-		
+
 		index = this.getClientControls().indexOf(toggledControl);
-		
+
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
-			
+
 			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
@@ -209,6 +209,27 @@ enyo.kind({
 			index: this.getSelectedIndex()
 		});
 	},
+	destroy: enyo.inherit(function(sup) {
+		return function() {
+			// When the expandablePicker itself is going away, take note so we don't try and do single-picker option
+			// remove logic such as setting some properties to default value when each picker option is destroyed
+			this.destroying = true;
+			sup.apply(this, arguments);
+		};
+	}),
+	removeControl: enyo.inherit(function(sup) {
+		return function(inControl) {
+			// Skip extra work during panel destruction.
+			if (this.destroying) {
+				return sup.apply(this, arguments);
+			}
+			// set currentValue, selected and selectedIndex to defaults value
+			this.setSelected(null);
+			this.setSelectedIndex(-1);
+			this.inherited(arguments);
+			sup.apply(this, arguments);
+		};
+	}),
 	_marqueeSpotlightFocus: function(inSender, inEvent) {
 		if (inSender === this) {
 			this.$.header.startMarquee();

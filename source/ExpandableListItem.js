@@ -79,9 +79,9 @@ enyo.kind({
 	bindings: [
 		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
-	
+
 	//* @protected
-	
+
 	create: function() {
 		this.inherited(arguments);
 		enyo.dom.accelerate(this, "auto");
@@ -101,7 +101,7 @@ enyo.kind({
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
-		
+
 		this.addRemoveClass("disabled", disabled);
 		if (disabled) {
 			this.setOpen(false);
@@ -116,9 +116,9 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
+
 		this.toggleActive();
-		
+
 		if (this.getActive()) {
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		}
