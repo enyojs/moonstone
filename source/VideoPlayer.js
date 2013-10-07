@@ -246,7 +246,8 @@ enyo.kind({
 		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: this.getInstanceOwner()});
 	},
 	createClientComponents: function(inComponents) {
-		this.clientComponentsCount = (inComponents) ? inComponents.length : 0;
+		inComponents = (inComponents) ? enyo.clone(inComponents) : [];
+		this.clientComponentsCount = inComponents.length;
 		if (!this._buttonsSetup) {
 			this._buttonsSetup = true;
 			if (!inComponents || inComponents.length === 0) {
