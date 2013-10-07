@@ -151,9 +151,7 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.open);
-		if(this.getOpen() !== this.getActive()) {
-			this.setActive(this.getOpen());
-		}
+		this.setActive(this.getOpen());
 	},
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
