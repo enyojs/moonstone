@@ -452,7 +452,7 @@ enyo.kind({
 			//* Initial spot
 			if (this.showPlaybackControls) {
 				if (this.$.controlsContainer.getIndex() === 0) {
-					enyo.Spotlight.spot(this.$.fsPlayPause);
+					enyo.Spotlight.spot(this.$.fsPlayPause) || enyo.Spotlight.spot(this.$.fastForward) || enyo.Spotlight.spot(this.$.jumpForward);
 				} else {
 					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
 				}
