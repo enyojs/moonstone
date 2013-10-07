@@ -25,7 +25,7 @@ enyo.kind({
 								{from: ".model.time", to: ".$.imageTime.content"}
 							],
 							components: [                    
-								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", classes: "moon-hspacing", components: [
+								{kind: "moon.Item", ontap: "changeName", classes:"moon-hspacing", components: [
 									{name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
 									{components: [
 										{name: "imageTrack", classes: "moon-sub-header-text"},
