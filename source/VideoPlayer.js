@@ -128,7 +128,7 @@ enyo.kind({
 		onSpotlightRight: 'spotlightLeftRightHandler',
 		onresize: 'resizeHandler'
 	},
-    bindings: [
+	bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
 		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
@@ -144,7 +144,7 @@ enyo.kind({
 		{from: ".showFFRewindControls",		to:".$.rewind.showing"},
 		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
-    ],
+	],
 	
 	//* @protected
 
