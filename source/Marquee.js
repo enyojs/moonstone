@@ -139,7 +139,7 @@ enyo.kind({
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
 	//*@protected
-	handlers: {
+	_marqueeHandlers: {
 		onSpotlightFocus: "_marqueeSpotlightFocus",
 		onSpotlightBlur: "_marqueeSpotlightBlur",
 		onMarqueeStarted: "_marqueeStarted",
@@ -149,12 +149,23 @@ moon.MarqueeSupport = {
 	create: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
-			//this.log(this.id);
 			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
 			this.marqueeSpeed = (this.marqueeSpeed === undefined) ? 60 : this.marqueeSpeed;
 			this.marqueeDelay = (this.marqueeDelay === undefined) ? 1000 : this.marqueeDelay;
 			this.marqueePause = (this.marqueePause === undefined) ? 1000 : this.marqueePause;
 			this.marqueeHold = (this.marqueeHold === undefined) ? 5000 : this.marqueeHold;
+		};
+	}),
+	// Implement our own event handling, to avoid stomping on handlers in the base kind the mixin is being applied to
+	dispatchEvent: enyo.inherit(function (sup) {
+		return function(sEventName, oEvent, oSender) {
+			if (!oEvent.delegate) {
+				var handler = this._marqueeHandlers[sEventName];
+				if (handler && this[handler](oSender, oEvent)) {
+					return true;
+				}
+			}
+			return sup.apply(this, arguments);
 		};
 	}),
 	//*@public

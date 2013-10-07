@@ -29,6 +29,9 @@ enyo.kind({
 		onSpotlightSelect	: 'depress',
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
+		//* Also make sure we remove the pressed class if focus is removed from
+		//* this item before it receives a keyup.
+		onSpotlightBlur		: 'undepress',
 		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
 		onSpotlightFocused	: "spotFocused"
 	},
