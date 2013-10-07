@@ -540,8 +540,14 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  transition-property: transform;
+  -moz-transition-property: transform;
+  -webkit-transition-property: -webkit-transform;
+  -o-transition-property: transform;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
 }
-.animate-marquee .moon-marquee-text {
+.animate-marquee {
   text-overflow: clip;
   overflow: visible;
 }
@@ -1486,6 +1492,10 @@
   padding-left: 58px;
   box-sizing: border-box;
   top: -48px;
+}
+.enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
+  padding-right: 58px;
+  padding-left: 0;
 }
 .moon-small-header .moon-header-title-below {
   top: -48px;
@@ -3947,7 +3957,7 @@
 .moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button.expanded.collapsed {
+.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed.spotlight {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
