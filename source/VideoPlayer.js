@@ -75,6 +75,8 @@ enyo.kind({
 		showJumpControls: true, 
 		//* When false, fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
+		//* When true, slider and trick-play controls are disabled
+		disablePlaybackControls: false,
 
 
 		//* URL for "jump back" icon
@@ -219,6 +221,19 @@ enyo.kind({
 		this.showPlaybackControlsChanged();
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
+		this.disablePlaybackControlsChanged();
+	},
+	disablePlaybackControlsChanged: function() {
+		if(this.disablePlaybackControls) {
+			this.setDisableSlider(this.disablePlaybackControls);
+		} else {
+			this.setDisableSlider(!this.disablePlaybackControls);
+		}
+		this.$.jumpBack.addRemoveClass("disabled", this.disablePlaybackControls);
+		this.$.rewind.addRemoveClass("disabled", this.disablePlaybackControls);
+		this.$.fsPlayPause.addRemoveClass("disabled", this.disablePlaybackControls);
+		this.$.fastForward.addRemoveClass("disabled", this.disablePlaybackControls);
+		this.$.jumpForward.addRemoveClass("disabled", this.disablePlaybackControls);
 	},
 	showPlaybackControlsChanged: function(inOld) {
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
@@ -494,10 +509,14 @@ enyo.kind({
 	},
 	//* Toggles play/pause state based on _this.playing_.
 	playPause: function(inSender, inEvent) {
-		if (this._isPlaying) {
-			this.pause(inSender, inEvent);
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
 		} else {
-			this.play(inSender, inEvent);
+			if (this._isPlaying) {
+				this.pause(inSender, inEvent);
+			} else {
+				this.play(inSender, inEvent);
+			}
 		}
 		return true;
 	},
@@ -540,24 +559,34 @@ enyo.kind({
 		}
 	},
 	onjumpBackward: function(inSender, inEvent) {
-		if (this.jumpStartEnd) {
-			this.jumpToStart(inSender, inEvent);
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
 		} else {
-			if (!inSender._holding) {
-				this.jumpBackward(inSender, inEvent);
+			if (this.jumpStartEnd) {
+				this.jumpToStart(inSender, inEvent);
+			} else {
+				if (!inSender._holding) {
+					this.jumpBackward(inSender, inEvent);
+				}
+				inSender._holding = false;
 			}
-			inSender._holding = false;
 		}
+		return true;
 	},
 	onjumpForward: function(inSender, inEvent) {
-		if (this.jumpStartEnd) {
-			this.jumpToEnd(inSender, inEvent);
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
 		} else {
-			if (!inSender._holding) {
-				this.jumpForward(inSender, inEvent);
+			if (this.jumpStartEnd) {
+				this.jumpToEnd(inSender, inEvent);
+			} else {
+				if (!inSender._holding) {
+					this.jumpForward(inSender, inEvent);
+				}
+				inSender._holding = false;
 			}
-			inSender._holding = false;
 		}
+		return true;
 	},
 	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
 		inParams = inParams || {};
@@ -653,9 +682,14 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.rewind()_.
 	rewind: function(inSender, inEvent) {
-		this._isPlaying = false;
-		this.$.video.rewind();
-		this.updatePlayPauseButtons();
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
+		} else {
+			this._isPlaying = false;
+			this.$.video.rewind();
+			this.updatePlayPauseButtons();
+		}
+		return true;
 	},
 	//* Facades _this.$.video.jumpToStart()_.
 	jumpToStart: function(inSender, inEvent) {
@@ -671,9 +705,14 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.fastForward()_.
 	fastForward: function(inSender, inEvent) {
-		this._isPlaying = false;
-		this.$.video.fastForward();
-		this.updatePlayPauseButtons();
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
+		} else {
+			this._isPlaying = false;
+			this.$.video.fastForward();
+			this.updatePlayPauseButtons();
+		}
+		return true;
 	},
 	//* Facades _this.$.video.jumpToEnd()_.
 	jumpToEnd: function(inSender, inEvent) {

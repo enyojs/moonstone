@@ -9,6 +9,7 @@ enyo.kind({
 			kind: "moon.VideoPlayer",
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 			autoplay:true,
+			disablePlaybackControls: true,
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 					{
