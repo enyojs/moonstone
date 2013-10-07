@@ -75,6 +75,10 @@ enyo.kind({
 		showJumpControls: true, 
 		//* When false, fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
+		//* When false, PlayPause are hidden
+		showPlayPauseControl: true,
+		//* When false, hides video element
+		showVideo: true,
 
 
 		//* URL for "jump back" icon
@@ -137,7 +141,9 @@ enyo.kind({
 		{from: ".showJumpControls",			to:".$.jumpForward.showing"},
 		{from: ".showJumpControls",			to:".$.jumpBack.showing"},
 		{from: ".showFFRewindControls",		to:".$.fastForward.showing"},
-		{from: ".showFFRewindControls",		to:".$.rewind.showing"}
+		{from: ".showFFRewindControls",		to:".$.rewind.showing"},
+		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
+		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
 	
 	//* @protected
