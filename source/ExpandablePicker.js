@@ -65,9 +65,9 @@ enyo.kind({
 	},
 	autoCollapse: true,
 	lockBottom: true,
-	
+
 	//* @protected
-	
+
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
 	handlers: {
@@ -151,6 +151,7 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.open);
+		this.setActive(this.getOpen());
 	},
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
@@ -169,7 +170,7 @@ enyo.kind({
 			if (!controls[i].active) {
 				continue;
 			}
-			
+
 			this.selectedIndex = i;
 			this.selected = controls[i];
 			this.$.currentValue.setContent(controls[i].getContent());
@@ -184,12 +185,12 @@ enyo.kind({
 		if (!toggledControl) {
 			return;
 		}
-		
+
 		index = this.getClientControls().indexOf(toggledControl);
-		
+
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
-			
+
 			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}

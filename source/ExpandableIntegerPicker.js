@@ -81,6 +81,10 @@ enyo.kind({
 		}
 		this.setOpen(active);
 	},
+	openChanged: function() {
+		this.inherited(arguments);
+		this.setActive(this.getOpen());
+	},
 	
 	// Computed props
 	showCurrentValue: function() {
