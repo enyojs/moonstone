@@ -18,7 +18,7 @@ enyo.kind({
 				{name: "Small B Button", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
 				{name: "Small Button", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
 				{name: "Small Disabled Button", kind: "moon.Button", small: true, disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
-				{name: "Small Long Button", kind: "moon.Button", small: true, content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
+				{name: "Small Long Button", kind: "moon.Button", small: true, content: "Loooooooooooooooooooooooong Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleItem", classes: "tap-area-toggle-container", content: "Show Tap Area", onActivate: "showSmallButtonTapArea"},
 				{tag: "br"},
 				{tag: "br"},

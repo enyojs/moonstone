@@ -72,8 +72,7 @@ enyo.kind({
 			{title: "Main Menu", classes:"moon-6h",	components: [
 				{
 					name: "menuList", 
-					kind: "enyo.DataList", 
-					scrollerOptions: { kind:"moon.Scroller"},
+					kind: "moon.DataList", 
 					components: [
 						{
 							bindings: [
@@ -88,12 +87,12 @@ enyo.kind({
 			]},
 			{joinToPrev: true, components: [
 				{kind: "moon.Scroller", fit: true, components: [
-					{name: "contentList", kind: "enyo.DataGridList", classes: "moon-3v", components: [
-						{kind: "moon.MovieImageItem", bindings: [
-							{from: ".model.itemOption", to: ".option"}
-						]}
-					]},
-					{name: "buttonList", layoutkind: "FittableRowsLayout", components: [
+					{classes:"moon-vspacing", components: [
+						{name: "contentList", kind: "enyo.DataGridList", scrollerOptions: { kind:"moon.Scroller"}, classes: "moon-3v", components: [
+							{kind: "moon.MovieImageItem", bindings: [
+								{from: ".model.itemOption", to: ".option"}
+							]}
+						]},
 						{kind: "moon.ContextualPopupDecorator", components: [
 							{kind: "moon.ContextualPopupButton", classes: "moon-3h", components: [
 								{tag: "img", attributes: {src: "../assets/icon-half-like.png"}},
