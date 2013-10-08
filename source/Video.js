@@ -127,6 +127,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	//* @public
+	load: function() {
+		if(this.hasNode()) { this.hasNode().load(); }
+	},
 	play: function() {
 		if (!this.hasNode()) {
 			return;

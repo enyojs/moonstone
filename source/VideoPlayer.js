@@ -337,6 +337,11 @@ enyo.kind({
 		}
 		this.spotlight = !this.inline;
 	},
+	unload: function() {
+		this.$.video.setSrc("");
+		this.$.video.load();
+		this.setAutoplay(false);
+	},
 	showFSInfoWithPreventEvent: function(inSender, inEvent) {
 		this.showFSInfo();
 		return true;
