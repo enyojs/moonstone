@@ -25,6 +25,12 @@ enyo.kind({
 						{content: "es-ES"},
 						{content: "es-MX"}
 					]},
+					{name: "dayLengthPicker", kind: "moon.ExpandablePicker", content: "Choose Lable Length", onChange: "setLength", components: [
+						{content: "short", active: true},
+						{content: "medium"},
+						{content: "long"},
+						{content: "full"}
+					]},
 					{kind: "moon.Divider"},
 					{kind: "moon.InputDecorator", components: [
 						{kind: "moon.Input", name: "yearInput", content: "Year"}
@@ -59,11 +65,17 @@ enyo.kind({
 	setDate: function(inSender, inEvent) {
 		if(this.$.dateInput.getValue()) {
 			this.$.calendar.setDate(this.$.dateInput.getValue());
-		}		
+		}
 	},
 	setLocale: function(inSender, inEvent){
 		if (ilib) {
 			this.$.calendar.setLocale(inEvent.selected.content);
+		}
+		return true;
+	},
+	setLength: function(inSender, inEvent){
+		if (inEvent.content){
+			this.$.calendar.setDayOfWeekLength(inEvent.content);
 		}
 		return true;
 	},

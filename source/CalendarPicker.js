@@ -99,10 +99,11 @@ enyo.kind({
 			The length of character to abbreviate property
 			If we use "short", "medium", long" and "full" to represent it.
 		*/
-		dayOfWeekLength: "long",
-		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+		dayOfWeekLength: "short"
 	},
+	//*@protected
+	months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+	days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
 	components: [
 		{name: "monthPicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-month", onChange: "selectMonthPicker"},
 		{name: "yearPicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-year", onChange: "selectYearPicker"},
