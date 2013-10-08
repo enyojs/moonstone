@@ -8,7 +8,7 @@ enyo.kind({
 				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed"},
 				{kind: "FittableRows", fit: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
-					{name: "langPicker", kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
+					{kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
 						//{content: "th-TH"},	//Thailand
 						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
@@ -25,11 +25,15 @@ enyo.kind({
 						{content: "es-ES"},
 						{content: "es-MX"}
 					]},
-					{name: "dayLengthPicker", kind: "moon.ExpandablePicker", content: "Choose Lable Length", onChange: "setLength", components: [
+					{kind: "moon.ExpandablePicker", content: "Choose Label Length", onChange: "setLabelLength", components: [
 						{content: "short", active: true},
 						{content: "medium"},
 						{content: "long"},
 						{content: "full"}
+					]},
+					{kind: "moon.ExpandablePicker", content: "Choose Label Style", onChange: "setLabelStyle", components: [
+						{content: "button", active: true},
+						{content: "divider"}
 					]},
 					{kind: "moon.Divider"},
 					{kind: "moon.InputDecorator", components: [
@@ -73,9 +77,15 @@ enyo.kind({
 		}
 		return true;
 	},
-	setLength: function(inSender, inEvent){
+	setLabelLength: function(inSender, inEvent){
 		if (inEvent.content){
 			this.$.calendar.setDayOfWeekLength(inEvent.content);
+		}
+		return true;
+	},
+	setLabelStyle: function(inSender, inEvent){
+		if (inEvent.content){
+			this.$.calendar.setDayOfWeekClasses("moon-" + inEvent.content);
 		}
 		return true;
 	},
