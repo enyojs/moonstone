@@ -91,6 +91,10 @@ enyo.kind({
 		*/
 		startYear: 1900,
 		endYear: 2200,
+		/**
+			The class which will decorate day lebels (e.g. moon-divider)
+		*/
+		dayOfWeekClasses: "",
 		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
@@ -158,7 +162,7 @@ enyo.kind({
 		for(var i = 0; i < days.length; i++) {
 			this.$.days.createComponent({
 				kind: "moon.Button",
-				classes: "moon-calendar-picker-day",
+				classes: "moon-calendar-picker-day " + this.dayOfWeekClasses,
 				disabled: true,
 				content: days[i]
 			});
@@ -363,6 +367,16 @@ enyo.kind({
 		this.updateDates();
 		if (this.value) {
 			this.doChange({value: this.value});
+		}
+	},
+	/**
+		When user(or developer) want change style of day label dynamically,
+		it will replace css classes for them.
+	*/
+	dayOfWeekClassesChanged: function() {
+		var days = this.$.days.getClientControls();
+		for (var i = 0; i < days.length; i++) {
+			days[i].setClasses("moon-calendar-picker-day " + this.dayOfWeekClasses);
 		}
 	},
 	/**
