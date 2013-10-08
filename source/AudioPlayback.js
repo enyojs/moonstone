@@ -178,15 +178,16 @@ enyo.kind({
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", name: "btnRepeat", content: "R", ontap: "changeRepeatState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackList"}
 					]}
-				]},
-				{kind: "FittableColumns", classes: "", components: [
-					{name: "timePlayed", classes: "moon-audio-play-time left", content: "0:00"},
-					{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
-						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
-					]},
-					{name: "timeRemaining", classes: "moon-audio-play-time right", content: "0:00"}
 				]}
 			]}
+		]},
+		{kind: "FittableColumns", classes: "", components: [
+			//{name: "timePlayed", classes: "moon-audio-play-time left", content: "0:00"},
+			{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
+				//{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
+				{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-audio-transport-slider", audioMode: true, popupLabelClasses: "moon-audio-transport-slider-popup-label", onSeekStart: "sliderChanging", onSeek: "sliderChanging", onSeekFinish: "sliderChanging"}
+			]}/*,
+			{name: "timeRemaining", classes: "moon-audio-play-time right", content: "0:00"}*/
 		]}
 	],
 	endPlayheadJob: function() {
@@ -261,6 +262,7 @@ enyo.kind({
 		this.$.audio.setSrc(track.get("src"));
 		this.updatePlayTime("0:00", "0:00");
 		this.$.trackIcon.applyStyle("background-image", "url(../assets/default-music.png)");
+
 		// moon.Drawer needs a method for updating marquee content
 		//this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
 	},
@@ -269,13 +271,20 @@ enyo.kind({
 			totalTime = isNaN(duration) ? 0 : duration,
 			currentTime = this.$.audio.getCurrentTime(),
 			playheadPos = (currentTime * 100) / totalTime;
+
+/*		this.$.slider.setMin(0);
+		this.$.slider.setMax(this.$.audio.getDuration());*/
+		this.$.slider.setValue(playheadPos);
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
-		this.$.slider.updateKnobPosition(playheadPos);
-		this.$.slider.setProgress(playheadPos);
+		//this.$.slider.setProgress(playheadPos);
+
+		this.waterfall("onTimeupdate", {"currentTime": currentTime, "duration": duration});
 	},
 	updatePlayTime: function(inStart, inEnd) {
-		this.$.timePlayed.setContent(inStart);
-		this.$.timeRemaining.setContent(inEnd);
+		//this.$.timePlayed.setContent(inStart);
+		this.$.slider.$.beginTickText.setContent(inStart);
+		this.$.slider.$.endTickText.setContent(inEnd);
+		//this.$.timeRemaining.setContent(inEnd);
 	},
 	toReadableTime: function(inValue) {
 		var minutes = Math.floor(inValue / 60).toString(),
@@ -437,6 +446,13 @@ enyo.kind({
 			this.$.audio.render();
 		}
 	},
+	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
+		inParams = inParams || {};
+		if (inMessage === "Play" && !this.lastControlCommand) {
+			inMessage = "";
+		}
+		this.$.slider.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
+	},
 	//* @public
 	togglePlay: function() {
 		if (this.$.audio.getPaused()) {
@@ -449,9 +465,10 @@ enyo.kind({
 	play: function() {
 		this.$.audio.play();
 		if (this.playheadJob === null) {
-			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 500);
+			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 50);
 		}
 		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
+		this.sendFeedback("Play");
 		this.lastControlCommand = "PLAY";
 	},
 	pause: function() {
@@ -460,6 +477,7 @@ enyo.kind({
 		this.endPlayheadJob();
 		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 		this.controller.setAudioPaused();
+		this.sendFeedback("Pause");
 	},
 	playPrevious: function() {
 		this.recomposeAudioTag();
