@@ -95,6 +95,11 @@ enyo.kind({
 			The class which will decorate day lebels (e.g. moon-divider)
 		*/
 		dayOfWeekClasses: "",
+		/**
+			The length of character to abbreviate property
+			If we use "short", "medium", long" and "full" to represent it.
+		*/
+		dayOfWeekLength: "long",
 		months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 		days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 	},
@@ -115,7 +120,7 @@ enyo.kind({
 			this._tf = new ilib.DateFmt({
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
-				length: "long"//it uses 3 chars to abbreviate properly
+				length: this.dayOfWeekLength
 			});
 
 			this.ilibLocaleInfo = new ilib.LocaleInfo();
@@ -194,7 +199,7 @@ enyo.kind({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "m",		//'m' is the month of year
-				length: "long"	//it uses 2 chars to abbreviate properly
+				length: "long"
 			});
 			var monthPickerControls = this.$.monthPicker.getClientControls();
 			for (var i = 0; i < 12; i++) {
@@ -207,11 +212,12 @@ enyo.kind({
 		Update days of the week from first day to last day.
 	*/
 	updateDays: function() {
-		var days = this.days;
 		var daysControls = this.$.days.getClientControls();
-		for(var i = 0; i < days.length; i++) {
-			daysControls[i].setContent(days[i]);
+		for(var i = 0; i < 7; i++) {
+			var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + this._firstTime});
+			daysControls[i].setContent(this._tf.format(date));
 		}
+		this.days = daysControls;
 	},
 	/**
 		Sets up the first week of this month.
@@ -349,12 +355,11 @@ enyo.kind({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
-				length: "long"//it uses 3 chars to abbreviate properly
+				length: this.dayOfWeekLength
 			});
 		}
 		this.updateMonthPicker();
 		this.initDefaults();
-		//this.refresh();
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
@@ -374,10 +379,19 @@ enyo.kind({
 		it will replace css classes for them.
 	*/
 	dayOfWeekClassesChanged: function() {
-		var days = this.$.days.getClientControls();
-		for (var i = 0; i < days.length; i++) {
-			days[i].setClasses("moon-calendar-picker-day " + this.dayOfWeekClasses);
+		var dayControls = this.$.days.getClientControls();
+		for (var i = 0; i < dayControls.length; i++) {
+			dayControls[i].setClasses("moon-calendar-picker-day " + this.dayOfWeekClasses);
 		}
+	},
+	dayOfWeekLengthChanged: function() {
+		this._tf = new ilib.DateFmt({
+			locale: this.locale,
+			type: "date",	//only format the date component, not the time
+			date: "w",		//'w' is the day of the week
+			length: this.dayOfWeekLength
+		});
+		this.updateDays();
 	},
 	/**
 		Sometimes first day of week is channged based on locale changing.
@@ -389,13 +403,7 @@ enyo.kind({
 	firstDayOfWeekChanged: function() {
 		var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
 		var firstDate = d.onOrBefore(this.firstDayOfWeek);
-		var firstTime = firstDate.getTime();	//get unix time
-		var days = [];
-		for(var i = 0; i < 7; i++) {
-			var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + firstTime});
-			days.push(this._tf.format(date));
-		}
-		this.days = days;
+		this._firstTime = firstDate.getTime();	//get unix time
 		this.updateDays();
 		this.updateDates();
 	},
