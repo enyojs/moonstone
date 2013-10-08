@@ -36,8 +36,10 @@ enyo.kind({
 	dateChanged: function() {
 		if(this.date && this.date instanceof Date) {
 			this._timeDiff = this.date.getTime() - Date.now();
-			this.refreshJob();
+		} else {
+			this._timeDiff = 0;
 		}
+		this.refreshJob();
 	},
 	refreshJob: function() {
 		var d = new Date(Date.now() + this._timeDiff),
