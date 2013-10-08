@@ -139,7 +139,7 @@ enyo.kind({
 					control: this.$.titleWrapper,
 					properties: {
 						"padding-left": "58px",
-						"top": "-44px"
+						"top": "-42px"
 					}
 				}, {
 					control: this.$.title,
@@ -147,12 +147,12 @@ enyo.kind({
 				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top": "-44px"
+						"top": "-42px"
 					}
 				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top": "-44px"
+						"top": "-42px"
 					}
 				}]
 
