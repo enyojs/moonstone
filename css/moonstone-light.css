@@ -529,6 +529,9 @@
   white-space: nowrap;
   overflow: hidden;
 }
+.moon-marquee * {
+  white-space: normal;
+}
 .moon-marquee-text-wrapper {
   width: 100%;
   pointer-events: none;
@@ -550,11 +553,6 @@
 .animate-marquee {
   text-overflow: clip;
   overflow: visible;
-}
-.moon-marquee-container {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 .moon-simple-picker {
   display: inline-block;
