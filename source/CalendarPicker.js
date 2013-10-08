@@ -125,8 +125,9 @@ enyo.kind({
 
 			this.ilibLocaleInfo = new ilib.LocaleInfo();
 			this.setLocale(this.ilibLocaleInfo.locale);
+		} else {
+			this.initDefaults();
 		}
-		this.initDefaults();
 	},
 	initDefaults: function() {
 		this.setValue(this.value || new Date());
@@ -134,8 +135,9 @@ enyo.kind({
 		if (typeof ilib !== "undefined") {
 			var dayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
 			this.setFirstDayOfWeek(dayOfWeek);
+		} else {
+			this.updateDays();
 		}
-		this.updateDays();
 	},
 	/**
 		Populates SimplePicker with years.
@@ -406,9 +408,5 @@ enyo.kind({
 		this._firstTime = firstDate.getTime();	//get unix time
 		this.updateDays();
 		this.updateDates();
-	},
-	refresh: function(){
-		this.initDefaults();
-		this.render();
 	}
 });
