@@ -9,11 +9,15 @@
 enyo.kind({
 	name: "moon.CaptionDecorator",
 	handlers: {
+		//* _onSpotlightFocus_ add spotlight on button focused.
 		onSpotlightFocus: "spotFocus",
+		//* _onSpotlightBlur_ Remove spotlight when button is blurred.
 		onSpotlightBlur:  "spotBlur"
 	},
 	published: {
+		//* The position of the caption is defined via _side_ property.
 		side: "top",
+		//* If _showOnFocus_ is _true_, reset caption position.
 		showOnFocus: false
 	},
 	//* @protected
