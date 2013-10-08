@@ -2512,19 +2512,26 @@
   display: inline-block;
   padding-right: 35px;
 }
+.enyo-locale-right-to-left .moon-accordion .moon-expandable-list-item-header {
+  padding-right: auto;
+  padding-left: 35px;
+}
 /* Arrow */
 .moon-accordion .moon-accordion-arrow {
   background-position: right center;
   background-repeat: no-repeat;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
-.moon-accordion .spotlight .moon-accordion-arrow {
+.enyo-locale-right-to-left .moon-accordion .moon-accordion-arrow {
+  background-position: left center;
+}
+.moon-accordion .moon-accordion-arrow.spotlight {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
 .moon-accordion.open .moon-accordion-arrow {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
-.moon-accordion.open .spotlight .moon-accordion-arrow {
+.moon-accordion.open .moon-accordion-arrow.spotlight {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
 /* CalendarPicker.css */
@@ -3928,6 +3935,9 @@
   top: 3px;
 }
 /* ExpandableText */
+.moon-expandable-text {
+  overflow: hidden;
+}
 .moon-expandable-text .moon-expandable-text-content {
   margin: 0 10px;
 }
@@ -3946,15 +3956,23 @@
   line-height: 32px;
   float: right;
   display: inline-block;
-  padding-right: 40px;
+  padding-right: 37px;
   background-repeat: no-repeat;
-  background-position: 90% center;
+  background-position: right center;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
+}
+.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
+  float: left;
 }
 .enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
   font-family: "LG Display";
   font-size: 26px;
   line-height: 32px;
+}
+.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
+  padding-right: 10px;
+  padding-left: 37px;
+  background-position: left center;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
   color: #ffffff;
