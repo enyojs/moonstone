@@ -55,7 +55,7 @@ enyo.kind({
 		this.preload = (this.count < 2) ? this.count : 2;
 		if (this.initIndex > 0 && (this.preload + 1 <= this.count)) {
 			this.preload++;
-			this.createComponent({name: "container2", style: "height:100%; width:100%;"});
+			this.createComponent({name: "container2", style: "height:100%; width:100%;"}).render();
 		}
 
 		for (var i=0; i < this.preload; i++) {
@@ -83,6 +83,7 @@ enyo.kind({
 		if (inEvent.fromIndex === inEvent.toIndex) {
 			return true; //prevent from bubbling if there's no change
 		}
+		this.startTransitionInfo = null;
 	},
 	popPrevPanel: function(inIndex, inDirection) {
 		var prev = (inDirection === "next") ? (inIndex - 2) : (inIndex + 2);
@@ -167,6 +168,7 @@ enyo.kind({
 		this.resized();
 
 		this.doImageSelected({imageIndex: imageIndex});
+		this.finishTransitionInfo = null;
 		return true;
 	},
 	//* @public
@@ -184,7 +186,7 @@ enyo.kind({
 		}
 
 		var imageIndex = this.getPanels()[this.index].imageIndex;
-		if (imageIndex === inIndex || imageIndex > this.count - 1) {
+		if ((inDirection === "none" && imageIndex === inIndex) || imageIndex > this.count - 1) {
 			return false;
 		}
 		if (inDirection === "prev" && this.index === 0) {
