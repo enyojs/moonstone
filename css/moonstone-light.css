@@ -1778,6 +1778,11 @@
   padding: 20px 10px;
   white-space: nowrap;
 }
+/* Don't grey out the header wrapper when disabled (since the parent is also disabled) */
+.moon-date-picker-header-wrapper.disabled {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
 /* Input.css */
 .moon-input {
   font-family: "MuseoSans 300";

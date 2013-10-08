@@ -62,13 +62,16 @@ enyo.kind({
 	iLibFormatType: null, // set in subkind
 	defaultOrdering: null, // set in subkind
 	components: [
-		{name: "headerWrapper", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-date-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", components: [
 			{name: "client", kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
 		]}
+	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
 	create: function() {
 		this.inherited(arguments);
