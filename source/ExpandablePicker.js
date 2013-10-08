@@ -224,8 +224,15 @@ enyo.kind({
 				return sup.apply(this, arguments);
 			}
 			// set currentValue, selected and selectedIndex to defaults value
-			this.setSelected(null);
-			this.setSelectedIndex(-1);
+			if (this.$.currentValue.getContent() === inControl.getContent()) {
+				this.setSelected(null);
+				this.setSelectedIndex(-1);
+				if (this.getNoneText().length) {
+					this.$.currentValue.setContent(this.getNoneText);
+				} else {
+					this.setNoneText("Nothing selected");
+				}
+			}
 			this.inherited(arguments);
 			sup.apply(this, arguments);
 		};
