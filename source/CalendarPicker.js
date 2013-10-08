@@ -157,8 +157,9 @@ enyo.kind({
 		var days = this.days;
 		for(var i = 0; i < days.length; i++) {
 			this.$.days.createComponent({
-				kind: "moon.Divider",
+				kind: "moon.Button",
 				classes: "moon-calendar-picker-day",
+				disabled: true,
 				content: days[i]
 			});
 		}

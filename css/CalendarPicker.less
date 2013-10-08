@@ -16,6 +16,19 @@
 .moon-calendar-picker-block {
 	display: inline-block;
 }
+.moon-calendar-picker-day.moon-button[disabled] {
+	.moon-sub-header-text;
+	min-width: @moon-button-small-height;
+	line-height: @moon-picker-button-width;
+	border: 0px;
+	border-radius: 0px;
+	background: transparent;
+	color: @moon-calendar-picker-date-shadow-color;
+	padding: 0px;
+	margin: 10px;
+	text-align: center;
+	vertical-align: middle;
+}
 .moon-calendar-picker-day.moon-divider {
 	.moon-divider-text;
 	width: @moon-button-small-height;
@@ -24,6 +37,9 @@
 	padding: 0px;
 	text-align: center;
 	vertical-align: middle;
+}
+.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+	.enyo-locale-non-latin .moon-sub-header-text;
 }
 .enyo-locale-non-latin .moon-calendar-picker-day.moon-divider {
 	.enyo-locale-non-latin .moon-divider-text;

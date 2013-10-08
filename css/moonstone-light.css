@@ -2541,6 +2541,24 @@
 .moon-calendar-picker-block {
   display: inline-block;
 }
+.moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  color: #4b4b4b;
+  min-width: 60px;
+  line-height: 60px;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #a2a2a2;
+  padding: 0px;
+  margin: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
 .moon-calendar-picker-day.moon-divider {
   font-family: "MuseoSans 700";
   font-size: 22px;
@@ -2554,6 +2572,10 @@
   padding: 0px;
   text-align: center;
   vertical-align: middle;
+}
+.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+  font-family: "LG Display";
+  font-size: 30px;
 }
 .enyo-locale-non-latin .moon-calendar-picker-day.moon-divider {
   font-family: "LG Display";
