@@ -584,7 +584,10 @@ enyo.kind({
 	],
 	components: [
 		{
-			kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
+			kind: "moon.Header", 
+			name: "queueHeader", 
+			title: "Music Queue", 
+			titleBelow: "2 Tracks",
 			components: [
 				{name: "selectAll", kind: "moon.Button", content: "Select All", classes: "moon-header-left", ontap: "selectAll", showing: false},
 				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "deselectAll", showing: false},
