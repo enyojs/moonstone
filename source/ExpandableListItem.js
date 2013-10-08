@@ -68,8 +68,8 @@ enyo.kind({
 	},
 	components: [
 		{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract", classes: "moon-expandable-list-item-header"},
-		{name: "drawer", kind: "enyo.Drawer", components: [
-			{name: "client", kind: "Group", classes: "moon-expandable-list-item-client"}
+		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
+			{name: "client", kind: "Group", tag: null}
 		]}
 	],
 	bindings: [

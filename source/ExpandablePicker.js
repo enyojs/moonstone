@@ -74,7 +74,7 @@ enyo.kind({
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", components: [
-			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
+			{name: "client", tag: null, kind: "Group", onActivate: "activated", highlander: true},
 			{name: "helpText", kind:"moon.BodyText", canGenerate: false, classes: "moon-expandable-picker-help-text"}
 		]}
 	],
