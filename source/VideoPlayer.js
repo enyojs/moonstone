@@ -79,8 +79,6 @@ enyo.kind({
 		showPlayPauseControl: true,
 		//* When false, hides video element
 		showVideo: true,
-		
-
 		//* URL for "jump back" icon
 		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
 		//* URL for "rewind" icon
@@ -452,7 +450,13 @@ enyo.kind({
 			//* Initial spot
 			if (this.showPlaybackControls) {
 				if (this.$.controlsContainer.getIndex() === 0) {
-					enyo.Spotlight.spot(this.$.fsPlayPause) || enyo.Spotlight.spot(this.$.fastForward) || enyo.Spotlight.spot(this.$.jumpForward);
+					if (enyo.Spotlight.spot(this.$.fsPlayPause) === false) {
+						if(enyo.Spotlight.spot(this.$.fastForward) === false){
+							if(enyo.Spotlight.spot(this.$.jumpForward) === false) {
+								enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
+							}
+						}
+					}	
 				} else {
 					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
 				}
