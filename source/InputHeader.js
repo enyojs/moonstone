@@ -54,8 +54,8 @@ enyo.kind({
 	},
 	//* Overload allowHtmlChanged because we have a _moon.Input_ rather than a _moon.MarqueeText_ for _title_
 	allowHtmlChanged: function() {
-		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
-		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
+		this.$.titleBelow.setAllowHtml(this.allowHtml);
+		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	//* Create custom event for _input_ events
 	handleInput: function(inSender, inEvent) {

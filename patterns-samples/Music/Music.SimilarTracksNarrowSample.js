@@ -10,10 +10,6 @@ enyo.kind({
 			title: "Similar Tracks", 
 			titleAbove: "04", 
 			titleBelow: "10 Tracks",
-			headerComponents: [
-				{kind: "moon.IconButton", src: "../assets/icon-like.png"},
-				{kind: "moon.IconButton", src: "../assets/icon-next.png"}
-			],
 			components: [
 				{
 					name: "trackList",
@@ -29,15 +25,18 @@ enyo.kind({
 								{from: ".model.time", to: ".$.imageTime.content"}
 							],
 							components: [                    
-								{kind: "moon.Item", ontap: "changeName", layoutKind: "FittableColumnsLayout", components: [
+								{kind: "moon.Item", ontap: "changeName", classes:"moon-hspacing", components: [
 									{name: "enyoImage", kind: "enyo.Image", style: "width: 126px; height: 126px;"},
 									{components: [
-										{name: "imageTrack"},
-										{name: "imageArtist", classes: "moon-superscript"},
-										{name: "imageTime", classes: "moon-superscript"}
+										{name: "imageTrack", classes: "moon-sub-header-text"},
+										{name: "imageArtist", classes: "moon-body-text"},
+										{name: "imageTime", classes: "moon-body-text"}
 									]}                            
 								]}
-							]
+							],
+							changeName: function(inSender, inEvent) {
+								inSender.parent.model.set("track", "Good track");
+							}
 						}
 					]
 				}
@@ -84,10 +83,7 @@ enyo.ready(function (){
             {
                 name: "trackController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
-                changeName: function(inSender, inEvent) {
-                    inSender.parent.controller.set("track", "Good track");
-                }
+                model: sampleModel
             }
         ]
     });

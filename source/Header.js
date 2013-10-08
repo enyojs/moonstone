@@ -25,8 +25,11 @@ enyo.kind({
 		*/
 		backgroundPosition: "top right"
 	},
+	mixins: ["moon.MarqueeSupport"],
+	marqueeOnSpotlight: false,
+	marqueeOnRender: true,
 	components: [
-		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
+		{name: "texts", components: [
 			{name: "titleAbove", classes: "moon-super-header-text moon-header-title-above"},
 			{name: "titleWrapper", classes: "moon-header-title-wrapper", components: [
 				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"}
@@ -48,20 +51,10 @@ enyo.kind({
 		this.backgroundSrcChanged();
 		this.backgroundPositionChanged();
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.startMarquee();
-	},
-	startMarquee: function() {
-		this.$.texts.startMarquee();
-	},
-	stopMarquee: function() {
-		this.$.texts.stopMarquee();
-	},
 	allowHtmlChanged: function() {
-		this.$.title.setAllowHtmlText(this.allowHtml);
-		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
-		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
+		this.$.title.setAllowHtml(this.allowHtml);
+		this.$.titleBelow.setAllowHtml(this.allowHtml);
+		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	backgroundSrcChanged: function() {
 		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")" : "none");
