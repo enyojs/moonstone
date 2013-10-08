@@ -29,8 +29,9 @@ enyo.kind({
 			]},
 			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, joinToPrev: true, oninput: "search", components: [
 				{kind: "moon.DataList", fit: true, name:"list", components: [
-					{kind: "moon.Item", bindings: [
-						{from: ".model.text", to:".content"}
+					{kind: "moon.HighlightText", bindings: [
+						{from: ".model.text", to:".content"},
+						{from: ".controller.text", to: ".highlight"}
 					]}
 				]}
 			], title:"SEARCH", titleBelow: "Items in Repeater", subTitleBelow: "Case sensitive"}
@@ -59,7 +60,7 @@ enyo.kind({
 				// is necessary to ensure we are always filtering the entire dataset, otherwise
 				// it will filter against the subset currently set by the filter
 				return (text && this.reset().filter(function (record) {
-					return record.get("text").substring(0, text.length) == text;
+					return record.get("text").indexOf(text) >= 0;
 				})) || true;
 			}
 		});
