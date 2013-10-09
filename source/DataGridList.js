@@ -7,7 +7,7 @@ enyo.kind({
 	kind: "enyo.DataGridList",
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller" }
+	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" }
 });
 //*@protected
 /**
@@ -26,8 +26,10 @@ enyo.kind({
 		reset: enyo.inherit(function (sup) {
 			return function (list) {
 				sup.apply(this, arguments);
-				this.updateBounds(list);
-				list.refresh();
+				if (list.$.scroller.getVertical() != "scroll") {
+					this.updateBounds(list);
+					list.refresh();
+				}
 			};
 		}),
 		updateBounds: enyo.inherit(function (sup) {
