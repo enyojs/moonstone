@@ -347,6 +347,10 @@
 .moon-26v {
   height: 1040px;
 }
+/* Prevent browser's default focus treatment (at least in Chrome) */
+:focus {
+  outline: none;
+}
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
@@ -2702,32 +2706,8 @@
   color: #dddddd;
 }
 .moon-drawer-handle {
-  height: auto;
-  margin-left: auto;
-  clear: none;
-  padding: 0px 0px 3px;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
-  margin-right: 20px;
-  position: relative;
-  top: 0px;
-  left: 0px;
   max-width: 250px;
-}
-.moon-drawer-handle.spotlight {
-  border-bottom-color: #ff2f7d;
-}
-.moon-drawer-handle-text {
-  margin: 0px;
-  clear: none;
-  min-height: 0px;
-  min-width: 0em;
-  padding: 0px;
-  max-width: 100%;
-  color: #ffffff;
-  text-align: center;
-  word-wrap: break-word;
+  text-align: start;
 }
 .moon-drawer-client {
   padding: 20px;
@@ -2739,9 +2719,8 @@
   width: 100%;
 }
 .moon-drawers-handles {
-  background-color: #404040;
   text-align: center;
-  padding: 10px 0;
+  padding: 15px 0 10px;
 }
 .moon-drawers-activator {
   position: relative;
@@ -2958,9 +2937,6 @@
 .moon-audio-playback {
   background-color: #333333;
   font-size: 30px;
-}
-.moon-audio-playback-controls {
-  height: 140px;
 }
 .moon-audio-playback-track-icon {
   position: relative;

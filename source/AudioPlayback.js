@@ -39,7 +39,7 @@ enyo.kind({
 	//* @protected
 	audioComponents: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
-		{kind: "FittableColumns", classes: "moon-audio-playback-controls", spotlight: "container", components: [
+		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
 				{kind: "FittableColumns", classes: "moon-audio-top", components: [
