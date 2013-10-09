@@ -289,7 +289,8 @@ enyo.kind({
 		return this.$.video;
 	},
 	createInfoControls: function() {
-		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: this.getInstanceOwner()});
+		var owner = this.hasOwnProperty("infoComponents") ? this.getInstanceOwner() : this;
+		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: owner});
 	},
 	createClientComponents: function(inComponents) {
 		inComponents = (inComponents) ? enyo.clone(inComponents) : [];
