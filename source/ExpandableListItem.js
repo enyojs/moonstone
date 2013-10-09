@@ -92,7 +92,9 @@ enyo.kind({
 		var open = this.getOpen();
 		this.$.drawer.setOpen(open);
 		this.addRemoveClass("open", open);
-		this.stopHeaderMarquee();
+		if (this.generated) {
+			this.stopHeaderMarquee();
+		}
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
