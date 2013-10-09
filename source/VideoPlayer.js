@@ -337,6 +337,7 @@ enyo.kind({
 		}
 		this.spotlight = !this.inline;
 	},
+	//* Unload the current video source, stopping all playback and buffering.
 	unload: function() {
 		this.$.video.unload();
 		this._resetProgress();

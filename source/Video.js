@@ -132,6 +132,7 @@ enyo.kind({
 	load: function() {
 		if(this.hasNode()) { this.hasNode().load(); }
 	},
+	//* Unload the current video source, stopping all playback and buffering.
 	unload: function() {
 		this.set("src", "");
 		this.load();
