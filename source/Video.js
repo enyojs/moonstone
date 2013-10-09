@@ -390,7 +390,7 @@ enyo.kind({
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
 		var node = this.hasNode();
-		this.setAspectRatio("0:0");
+		this.setAspectRatio("none");
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
