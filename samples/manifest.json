@@ -10,6 +10,7 @@
 			{"name": "Toggle Button", "path":"$lib/moonstone/samples/ToggleButtonSample"},
 			{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"}
 		]},
+		{"name": "Clock", "path":"$lib/moonstone/samples/ClockSample"},
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
 		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
 		{"name": "Fonts", "path":"$lib/moonstone/samples/FontSample"},
