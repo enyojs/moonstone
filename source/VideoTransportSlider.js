@@ -109,12 +109,14 @@ enyo.kind({
 		this.doLeaveTapArea(inEvent);
 	},
 	preview: function(inSender, inEvent) {
-		var v = this.calcKnobPosition(inEvent);
-		if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-			return;
+		if (!this.disabled) {
+			var v = this.calcKnobPosition(inEvent);
+			if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+				return;
+			}
+			this.currentTime = this.transformToVideo(v);
+			this._updateKnobPosition(this.currentTime);
 		}
-		this.currentTime = this.transformToVideo(v);
-		this._updateKnobPosition(this.currentTime);
 	},
 	startPreview: function(inSender, inEvent) {
 		this._previewMode = true;
