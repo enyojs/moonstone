@@ -19,6 +19,14 @@
 	background-color: @moon-background-color;
 }
 
+/* Remove any focus outline */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 .moon-header-font {
 	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
