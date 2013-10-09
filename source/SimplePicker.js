@@ -171,6 +171,8 @@ enyo.kind({
 				}
 				this.showHideNavButtons();
 			}
+		} else {
+			this.inherited(arguments);
 		}
 	},
 	//* Hide _inControl_ and disable spotlight functionality
