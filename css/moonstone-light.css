@@ -347,6 +347,10 @@
 .moon-26v {
   height: 1040px;
 }
+/* Prevent browser's default focus treatment (at least in Chrome) */
+:focus {
+  outline: none;
+}
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
@@ -355,6 +359,13 @@
   padding: 20px;
   color: #4b4b4b;
   background-color: #ededed;
+}
+/* Remove any focus outline */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
 }
 .moon-header-font {
   font-family: "Miso";
@@ -408,7 +419,7 @@
 }
 .moon-super-header-text {
   font-family: "Miso";
-  font-size: 36px;
+  font-size: 32px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.05em;
@@ -502,7 +513,7 @@
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-super-header-text {
-  font-size: 36px;
+  font-size: 32px;
 }
 .enyo-locale-non-latin .moon-divider-text {
   font-size: 28px;
@@ -1386,14 +1397,14 @@
   -moz-box-sizing: border-box;
   color: #4b4b4b;
   height: 360px;
-  border-top: 1px solid #4b4b4b;
+  border-top: 2px solid #4b4b4b;
   border-bottom: 6px solid #4b4b4b;
   position: relative;
   transition: height 0.2s linear;
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
-  padding: 8px 10px 10px;
+  padding: 4px 0px 10px 0px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1417,8 +1428,8 @@
   font-style: normal;
   letter-spacing: -0.05em;
   text-transform: uppercase;
-  line-height: 1.08em;
-  margin-bottom: 8px;
+  line-height: normal;
+  height: 154px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1436,7 +1447,7 @@
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  margin-bottom: 8px;
+  height: 44px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
   font-family: "LG Display";
@@ -1452,6 +1463,7 @@
   letter-spacing: -0.04em;
   color: #4b4b4b;
   line-height: 32px;
+  height: 44px;
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
   font-family: "LG Display";
@@ -1484,22 +1496,25 @@
   height: 240px;
 }
 .moon-small-header .moon-header-title {
-  line-height: 0.96em;
+  line-height: normal;
 }
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 58px;
   box-sizing: border-box;
-  top: -48px;
+  top: -42px;
+  max-height: 140px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
   padding-right: 58px;
   padding-left: 0;
 }
 .moon-small-header .moon-header-title-below {
-  top: -48px;
+  top: -42px;
+  max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-  top: -48px;
+  top: -42px;
+  max-height: 40px;
 }
 .hidden-title .moon-header-title,
 .hidden-title .moon-header-title-below,
@@ -1696,7 +1711,7 @@
   border-bottom-width: 30px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 30px;
+  border-radius: 9999px;
 }
 .spotlight .moon-scroll-picker {
   background: #ff2f7d;
@@ -1744,13 +1759,13 @@
 .moon-scroll-picker-overlay.top {
   top: 0;
   border-top-style: solid;
-  border-radius: 30px 30px 0 0;
+  border-radius: 9999px 9999px 0 0;
   background: #ff2f7d url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay.bottom {
   bottom: 0;
   border-bottom-style: solid;
-  border-radius: 0 0 30px 30px;
+  border-radius: 0 0 9999px 9999px;
   background: #ff2f7d url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
@@ -2543,30 +2558,46 @@
   margin: 0px 20px;
   padding: 20px 0px;
 }
+.moon-calendar-picker .moon-simple-picker {
+  max-width: 250px;
+}
 .moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar-picker-day.moon-button[disabled] {
+.moon-neutral .moon-calendar-picker-day-base {
+  display: inline-block;
+  width: 60px;
+  color: #a2a2a2;
+  margin: 10px;
+}
+.moon-calendar-picker-day {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  min-width: 60px;
-  line-height: 60px;
-  border: 0px;
-  border-radius: 0px;
-  background: transparent;
-  color: #a2a2a2;
-  padding: 0px;
-  margin: 10px;
   text-align: center;
   vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
-.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+.enyo-locale-non-latin .moon-calendar-picker-day {
   font-family: "LG Display";
   font-size: 30px;
+}
+.moon-calendar-picker-month {
+  float: left;
+  margin: 0px 0px 0px 30px;
+}
+.moon-calendar-picker-year {
+  float: right;
+  margin: 0px 30px 0px 0px;
+}
+.moon-calendar-picker-days {
+  display: inline-block;
 }
 .moon-calendar-picker-dates {
   margin: 30px 0px 0px 0px;
@@ -2693,32 +2724,8 @@
   color: #4b4b4b;
 }
 .moon-drawer-handle {
-  height: auto;
-  margin-left: auto;
-  clear: none;
-  padding: 0px 0px 3px;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
-  margin-right: 20px;
-  position: relative;
-  top: 0px;
-  left: 0px;
   max-width: 250px;
-}
-.moon-drawer-handle.spotlight {
-  border-bottom-color: #ff2f7d;
-}
-.moon-drawer-handle-text {
-  margin: 0px;
-  clear: none;
-  min-height: 0px;
-  min-width: 0em;
-  padding: 0px;
-  max-width: 100%;
-  color: #ffffff;
-  text-align: center;
-  word-wrap: break-word;
+  text-align: start;
 }
 .moon-drawer-client {
   padding: 20px;
@@ -2730,9 +2737,8 @@
   width: 100%;
 }
 .moon-drawers-handles {
-  background-color: #4b4b4b;
   text-align: center;
-  padding: 10px 0;
+  padding: 15px 0 10px;
 }
 .moon-drawers-activator {
   position: relative;
@@ -2949,9 +2955,6 @@
 .moon-audio-playback {
   background-color: #333333;
   font-size: 30px;
-}
-.moon-audio-playback-controls {
-  height: 140px;
 }
 .moon-audio-playback-track-icon {
   position: relative;
@@ -3398,7 +3401,7 @@
   max-width: 1100px;
 }
 .moon-video-player-info-datetime {
-  font-size: 36px;
+  font-size: 32px;
   font-kerning: 25;
   -webkit-font-kerning: 25;
   -o-font-kerning: 25;
@@ -3660,8 +3663,6 @@
 .matrix3dsurface {
   -webkit-transform-origin: center center;
   transform-origin: center center;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
   -webkit-transform-style: flat;
   transform-style: flat;
   -webkit-box-sizing: border-box;

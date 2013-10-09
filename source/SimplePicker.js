@@ -65,6 +65,9 @@ enyo.kind({
 	},
 	defaultKind:"moon.MarqueeText",
 	//* @protected
+	handlers: {
+		onSpotlightFocused: "scrollIntoView"
+	},
 	components: [
 		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, defaultSpotlightRight: "buttonRight", ontap: "left"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
@@ -80,6 +83,9 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
 		this.blockChanged();
+	},
+	scrollIntoView: function() {
+		this.bubble("onRequestScrollIntoView");
 	},
 	fireChangedEvent: function() {
 		if (!this.generated) {

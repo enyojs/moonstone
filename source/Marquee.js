@@ -61,7 +61,7 @@ moon.MarqueeSupport = {
 	name: "MarqueeSupport",
 	marqueeOnSpotlight: true,
 	//* @protected
-	handlers: {
+	_marquee_Handlers: {
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
 		onMarqueeEnded: "_marquee_marqueeEnded",
@@ -87,6 +87,17 @@ moon.MarqueeSupport = {
 			if (this.marqueeOnRender) {
 				this.startMarquee();
 			}
+		};
+	}),
+	dispatchEvent: enyo.inherit(function (sup) {
+		return function(sEventName, oEvent, oSender) {
+			if (!oEvent.delegate) {
+				var handler = this._marquee_Handlers[sEventName];
+				if (handler && this[handler](oSender, oEvent)) {
+					return true;
+				}
+			}
+			return sup.apply(this, arguments);
 		};
 	}),
 	//* On focus, start child marquees

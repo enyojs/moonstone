@@ -18,7 +18,7 @@ enyo.kind({
 						name: "player",
 						kind: "moon.VideoPlayer",
 						inline:true,
-						style: "width: 640px;",
+						classes: "moon-8h",
 						infoComponents: [{
 							kind: "moon.VideoInfoBackground",
 							orient: "left",
@@ -61,8 +61,7 @@ enyo.kind({
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 						]
-					}
-					]
+					}]
 				},
 				{classes: "moon-3h", components: [
 					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
@@ -107,7 +106,7 @@ enyo.kind({
 	},
 	updateCanvas: function() {
 		var drawingNode = this.$.capture.hasNode();
-		var videoNode = this.$.player.$.video.hasNode();
+		var videoNode = this.$.player.getVideo().hasNode();
 		var ctx = drawingNode.getContext("2d");
 		var vdb = videoNode.getBoundingClientRect();
 		this.$.capture.applyStyle("width", vdb.width+"px");
