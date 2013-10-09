@@ -37,13 +37,17 @@ enyo.kind({
 		src: "",
 		//* Array for setting multiple sources for the same video
 		sources: null,
-		//* When true, size of the video player is resized after metadata is loaded. Applies only to inline:true mode.
+		//* When true, size of the video player is resized after metadata is loaded, based on the aspectRatio received from
+		//* the metadata. Applies only to inline:true mode.
 		autoResize: false,
-		//* Video aspect ratio which is applied after rendered, specified as _"width:height"_. Applies only to inline:true mode.
-		initialAspectRatio: "16:9",
-		//* When true, the width will be applied at render time based on the measured width and the initialAspectRatio property.
-		//* When false, the height will be applied at render time based on the measured width and the initialAspectRatio property.
-		//* This property is ignored when initialAspectRatio is 'none' or falsy value. Applies only to inline:true mode.
+		//* Video aspect ratio, specified as _"width:height"_, or _"none"_.  When a ratio is specified at render time,
+		//* the player height or width is updated to respect this ratio, depending on whether _fixedHeight_ is true or false.
+		//* If _autoResize_ is true, the _aspectRatio_ will be updated based on the metadata loaded for the current video and
+		//* the player will be resized accordingly.  Applies only to inline:true mode.
+		aspectRatio: "16:9",
+		//* When true, the width will be applied at render time based on the measured width and the aspectRatio property.
+		//* When false, the height will be applied at render time based on the measured width and the aspectRatio property.
+		//* This property is ignored when aspectRatio is 'none' or falsy value. Applies only to inline:true mode.
 		fixedHeight: false,
 		//* Control buttons is hided automatically in this time amount
 		autoCloseTimeout: 7000,
@@ -229,7 +233,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		//* Change aspect ratio based on initialAspectRatio
-		this.updateAspectRatio(this.initialAspectRatio);
+		this.aspectRatioChanged();
 	},
 	showPlaybackControlsChanged: function(inOld) {
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
@@ -252,6 +256,10 @@ enyo.kind({
 	srcChanged: function() {
 		this.pause();
 		this.$.video.setSrc(this.getSrc());
+	},
+	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
+	getVideo: function() {
+		return this.$.video;
 	},
 	createInfoControls: function() {
 		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: this.getInstanceOwner()});
@@ -711,18 +719,22 @@ enyo.kind({
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
 	},
+	//* Refreshes the sizing of the video player
+	resizeHandler: function() {
+		this.aspectRatioChanged();
+	},
 	//* Updates the height/width based on the video's aspect ratio.
-	updateAspectRatio: function(aspectRatio) {
+	aspectRatioChanged: function() {
+		// Case 5: Fixed size provided by user
+		if (!this.inline || this.aspectRatio == "none" || !this.aspectRatio) { return; }
+
 		var videoAspectRatio = null,
 			width = this.getComputedStyleValue('width'),
 			height = this.getComputedStyleValue('height'),
 			ratio = 1
 		;
 		
-		// Case 5: Fixed size provided by user
-		if (!this.inline || aspectRatio == "none" || !aspectRatio) { return; }
-
-		videoAspectRatio = aspectRatio.split(":");
+		videoAspectRatio = this.aspectRatio.split(":");
 		
 		// If fixedHeight is true, update width based on aspect ratio
 		if (this.fixedHeight) {
@@ -816,7 +828,7 @@ enyo.kind({
 	metadataLoaded: function(inSender, inEvent) {
 		//* Update aspect ratio based on actual video aspect ratio when autoResize is true.
 		if (this.autoResize && this.$.video) {
-			this.updateAspectRatio(this.$.video.getAspectRatio());
+			this.setAspectRatio(this.$.video.getAspectRatio());
 		}
 		this.durationUpdate(inSender, inEvent);
 	},
