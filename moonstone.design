@@ -302,6 +302,15 @@
                     }
                 },
                 {
+                    "name": "moon.Drawer",
+                    "kind": "moon.Drawer",
+                    "description": "A drawer",
+                    "config": { 
+                            "kind": "moon.Drawer", 
+                            "content": "A drawer"
+                    }
+                },
+                {
                     "name": "moon.Divider",
                     "kind": "moon.Divider",
                     "description": "A divider",
