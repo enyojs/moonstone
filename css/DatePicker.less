@@ -13,3 +13,9 @@
   	padding: 20px @moon-spotlight-outset;
   	white-space: nowrap;
 }
+
+/* Don't grey out the header wrapper when disabled (since the parent is also disabled) */
+.moon-date-picker-header-wrapper.disabled {
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
