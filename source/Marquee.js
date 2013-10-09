@@ -7,9 +7,9 @@
 */
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
-	marqueeOnSpotlight: true,
 	//* @protected
 	_marquee_Handlers: {
+		onRequestStartMarquee: "_marquee_requestStartMarquee",
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
 		onMarqueeEnded: "_marquee_marqueeEnded",
@@ -48,6 +48,14 @@ moon.MarqueeSupport = {
 			return sup.apply(this, arguments);
 		};
 	}),
+	//* Handle external requests to kick off _marqueeStart_
+	_marquee_requestStartMarquee: function() {
+		if (this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+			return true;
+		}
+	},
 	//* On focus, start child marquees
 	_marquee_spotlightFocus: function(inSender, inEvent) {
 		if (this.marqueeOnSpotlight) {

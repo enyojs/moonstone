@@ -371,6 +371,11 @@ enyo.kind({
 	},
 	showInfoChanged: function() {
 		this.$.videoInfoHeader.setShowing(this.showInfo);
+		
+		if (this.showInfo) {
+			// Kick off any marquees in the video info header
+			this.$.videoInfoHeader.waterfallDown("onRequestStartMarquee");
+		}
 	},
 	inlineChanged: function() {
 		// Force fullscreen
@@ -538,6 +543,9 @@ enyo.kind({
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.$.videoInfoHeader.setShowing(true);
 			this.$.videoInfoHeader.resized();
+			
+			// Kick off any marquees in the video info header
+			this.$.videoInfoHeader.waterfallDown("onRequestStartMarquee");
 		}
 	},
 	//* Sets _this.visible_ to false.
