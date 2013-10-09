@@ -3669,8 +3669,6 @@
 .matrix3dsurface {
   -webkit-transform-origin: center center;
   transform-origin: center center;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
   -webkit-transform-style: flat;
   transform-style: flat;
   -webkit-box-sizing: border-box;
