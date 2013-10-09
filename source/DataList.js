@@ -16,11 +16,17 @@ enyo.kind({
 */
 moon.DataList.delegates.vertical = enyo.clone(moon.DataList.delegates.vertical);
 enyo.kind.extendMethods(moon.DataList.delegates.vertical, {
+	refresh: enyo.inherit(function (sup) {
+		return function (list) {
+			sup.apply(this, arguments);
+			list.$.scroller.resized();
+		};
+	}),
 	reset: enyo.inherit(function (sup) {
 		return function (list) {
 			sup.apply(this, arguments);
 			this.updateBounds(list);
-			this.refresh(list);
+			list.refresh();
 		};
 	}),
 	updateBounds: enyo.inherit(function (sup) {
