@@ -34,7 +34,7 @@ enyo.kind({
 						{from: ".controller.text", to: ".highlight"}
 					]}
 				]}
-			], title:"SEARCH", titleBelow: "Items in Repeater", subTitleBelow: "Case sensitive"}
+			], title:"SEARCH", titleBelow: "Filtered items in DataList", subTitleBelow: "Case sensitive"}
 		]}
 	],
 	bindings: [
