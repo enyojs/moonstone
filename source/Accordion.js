@@ -38,18 +38,9 @@
 enyo.kind({
 	name: "moon.Accordion",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-accordion",
 	//* @protected
+	classes: "moon-accordion",
 	componentOverrides: {
 		header: {classes: "moon-accordion-arrow"}
-	},
-	//* Facade for drawer
-	openChanged: function() {
-		this.updateArrowDirection(this.getOpen());
-		this.inherited(arguments);
-	},
-	//* Update arrow direction based on _this.open_
-	updateArrowDirection: function(open) {
-		// this.$.header.addRemoveClass('up', open);
 	}
 });
