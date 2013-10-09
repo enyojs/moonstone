@@ -7,9 +7,12 @@ enyo.kind({
 	kind: moon.Popup,
 	classes: "moon-dialog",
 	published: {
+		//* Title of the dialog.
 		title: "",
+		//* Message of the dialog.
 		message: ""
 	},
+	//* @protected
 	tools: [
 		{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
 		{
