@@ -227,11 +227,7 @@ enyo.kind({
 			if (this.selected === inControl) {
 				this.setSelected(null);
 				this.setSelectedIndex(-1);
-				if (this.getNoneText().length) {
-					this.$.currentValue.setContent(this.getNoneText());
-				} else {
-					this.setNoneText("Nothing selected");
-				}
+				this.$.currentValue.setContent(this.getNoneText());
 			}
 			this.inherited(arguments);
 			sup.apply(this, arguments);
