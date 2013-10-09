@@ -10,7 +10,9 @@ enyo.kind({
 	classes: "moon-clock moon-header-font",
 	published: {
 		//* Refresh time in sec.
-		refresh: 1000
+		refresh: 1000,
+		//* Manual date. If it is undefined, _moon.Clock_ will use system date.
+		date: undefined
 	},
 	components: [
 		{kind: "enyo.Control", name: "hour", classes: "moon-clock-hour"},
@@ -23,6 +25,7 @@ enyo.kind({
 		]}
 	],
 	months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+	_timeDiff : 0,
 	create: function() {
 		this.inherited(arguments);
 		this.refreshJob();
@@ -30,8 +33,16 @@ enyo.kind({
 	refreshChanged: function() {
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
+	dateChanged: function() {
+		if(this.date && this.date instanceof Date) {
+			this._timeDiff = this.date.getTime() - Date.now();
+		} else {
+			this._timeDiff = 0;
+		}
+		this.refreshJob();
+	},
 	refreshJob: function() {
-		var d = new Date(), 
+		var d = new Date(Date.now() + this._timeDiff),
 			h = d.getHours(),
 			meridian = "am";
 
