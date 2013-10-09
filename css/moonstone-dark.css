@@ -540,9 +540,6 @@ button:focus {
   white-space: nowrap;
   overflow: hidden;
 }
-.moon-marquee * {
-  white-space: normal;
-}
 .moon-marquee-text-wrapper {
   width: 100%;
   pointer-events: none;
@@ -982,6 +979,9 @@ button:focus {
   padding: 7px 10px;
   vertical-align: top;
   position: relative;
+}
+.moon-item.allow-wrap {
+  white-space: normal;
 }
 .enyo-locale-non-latin .moon-item {
   font-family: "LG Display";
