@@ -9,7 +9,7 @@ enyo.kind({
 			kind: "moon.VideoPlayer",
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 			autoplay:true,
-			disablePlaybackControls: true,
+			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 					{
@@ -42,7 +42,7 @@ enyo.kind({
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls", ontap: "togglePlaybackControls"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
@@ -52,6 +52,18 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 			]
-		}
-	]
+		},
+		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [
+			{kind:"moon.Button", content:"OK", ontap:"dismissTapDialog"}
+		]}
+	],
+	bindings: [
+		{from:".$.controlsToggleButton.value", to:".$.player.disablePlaybackControls"}
+	],
+	controlsTapped: function() {
+		this.$.tapDialog.show();
+	},
+	dismissTapDialog: function() {
+		this.$.tapDialog.hide();
+	}
 });

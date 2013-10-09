@@ -32,6 +32,11 @@ enyo.kind({
 	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
 	classes: "moon-video-player enyo-unselectable",
+	events: {
+		//* Bubbled when _disablePlaybackControls_ is true and the user taps one of the controls,
+		//* allowing the controsl to be re-enabled if desired
+		onPlaybackControlsTapped: ""
+	},
 	published: {
 		//* URL of HTML5 video
 		src: "",
@@ -75,7 +80,8 @@ enyo.kind({
 		showJumpControls: true, 
 		//* When false, fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
-		//* When true, slider and trick-play controls are disabled
+		//* When true, slider and playback controls are disabled.  If the user taps the controls,
+		//* the _onPlaybackControlsTapped_ event will be bubbled.
 		disablePlaybackControls: false,
 
 
@@ -115,6 +121,7 @@ enyo.kind({
 			slowRewind: ["-1/2", "-1"]
 		}
 	},
+	//* @protected
 	handlers: {
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
@@ -142,8 +149,6 @@ enyo.kind({
 		{from: ".showFFRewindControls",		to:".$.rewind.showing"}
     ],
 	
-	//* @protected
-
 	spotlightModal: true,
 	
 	_isPlaying: false,
@@ -171,7 +176,7 @@ enyo.kind({
 					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", XonSpotlightLeft: "preventEvent"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
-						{name: "trickPlay", components: [
+						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
 							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
 								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
 								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
@@ -190,7 +195,7 @@ enyo.kind({
 			
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
-						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
+						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider", ontap:"playbackControlsTapped"
 					}
 				]}
 			]}
@@ -224,16 +229,18 @@ enyo.kind({
 		this.disablePlaybackControlsChanged();
 	},
 	disablePlaybackControlsChanged: function() {
-		if(this.disablePlaybackControls) {
-			this.setDisableSlider(this.disablePlaybackControls);
-		} else {
-			this.setDisableSlider(!this.disablePlaybackControls);
+		this.disableSliderChanged();
+		this.$.playbackControls.addRemoveClass("disabled", this.disablePlaybackControls);
+		this.$.jumpBack.setDisabled(this.disablePlaybackControls);
+		this.$.rewind.setDisabled(this.disablePlaybackControls);
+		this.$.fsPlayPause.setDisabled(this.disablePlaybackControls);
+		this.$.fastForward.setDisabled(this.disablePlaybackControls);
+		this.$.jumpForward.setDisabled(this.disablePlaybackControls);
+	},
+	playbackControlsTapped: function() {
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
 		}
-		this.$.jumpBack.addRemoveClass("disabled", this.disablePlaybackControls);
-		this.$.rewind.addRemoveClass("disabled", this.disablePlaybackControls);
-		this.$.fsPlayPause.addRemoveClass("disabled", this.disablePlaybackControls);
-		this.$.fastForward.addRemoveClass("disabled", this.disablePlaybackControls);
-		this.$.jumpForward.addRemoveClass("disabled", this.disablePlaybackControls);
 	},
 	showPlaybackControlsChanged: function(inOld) {
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
@@ -313,7 +320,7 @@ enyo.kind({
 	},
 	disableSliderChanged: function() {
 		//* this should be be called on create because default slider status should be disabled.
-		this.$.slider.setDisabled(this.disableSlider);
+		this.$.slider.setDisabled(this.disableSlider || this.disablePlaybackControls || this._loaded);
 	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
@@ -509,14 +516,10 @@ enyo.kind({
 	},
 	//* Toggles play/pause state based on _this.playing_.
 	playPause: function(inSender, inEvent) {
-		if (this.disablePlaybackControls) {
-			this.bubble("onPlaybackControlsTapped");
+		if (this._isPlaying) {
+			this.pause(inSender, inEvent);
 		} else {
-			if (this._isPlaying) {
-				this.pause(inSender, inEvent);
-			} else {
-				this.play(inSender, inEvent);
-			}
+			this.play(inSender, inEvent);
 		}
 		return true;
 	},
@@ -559,34 +562,24 @@ enyo.kind({
 		}
 	},
 	onjumpBackward: function(inSender, inEvent) {
-		if (this.disablePlaybackControls) {
-			this.bubble("onPlaybackControlsTapped");
+		if (this.jumpStartEnd) {
+			this.jumpToStart(inSender, inEvent);
 		} else {
-			if (this.jumpStartEnd) {
-				this.jumpToStart(inSender, inEvent);
-			} else {
-				if (!inSender._holding) {
-					this.jumpBackward(inSender, inEvent);
-				}
-				inSender._holding = false;
+			if (!inSender._holding) {
+				this.jumpBackward(inSender, inEvent);
 			}
+			inSender._holding = false;
 		}
-		return true;
 	},
 	onjumpForward: function(inSender, inEvent) {
-		if (this.disablePlaybackControls) {
-			this.bubble("onPlaybackControlsTapped");
+		if (this.jumpStartEnd) {
+			this.jumpToEnd(inSender, inEvent);
 		} else {
-			if (this.jumpStartEnd) {
-				this.jumpToEnd(inSender, inEvent);
-			} else {
-				if (!inSender._holding) {
-					this.jumpForward(inSender, inEvent);
-				}
-				inSender._holding = false;
+			if (!inSender._holding) {
+				this.jumpForward(inSender, inEvent);
 			}
+			inSender._holding = false;
 		}
-		return true;
 	},
 	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
 		inParams = inParams || {};
@@ -682,14 +675,9 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.rewind()_.
 	rewind: function(inSender, inEvent) {
-		if (this.disablePlaybackControls) {
-			this.bubble("onPlaybackControlsTapped");
-		} else {
-			this._isPlaying = false;
-			this.$.video.rewind();
-			this.updatePlayPauseButtons();
-		}
-		return true;
+		this._isPlaying = false;
+		this.$.video.rewind();
+		this.updatePlayPauseButtons();
 	},
 	//* Facades _this.$.video.jumpToStart()_.
 	jumpToStart: function(inSender, inEvent) {
@@ -705,14 +693,9 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.fastForward()_.
 	fastForward: function(inSender, inEvent) {
-		if (this.disablePlaybackControls) {
-			this.bubble("onPlaybackControlsTapped");
-		} else {
-			this._isPlaying = false;
-			this.$.video.fastForward();
-			this.updatePlayPauseButtons();
-		}
-		return true;
+		this._isPlaying = false;
+		this.$.video.fastForward();
+		this.updatePlayPauseButtons();
 	},
 	//* Facades _this.$.video.jumpToEnd()_.
 	jumpToEnd: function(inSender, inEvent) {
@@ -855,9 +838,7 @@ enyo.kind({
 		this.waterfall("onTimeupdate", inEvent);
 	},
 	dataloaded: function(inSender, inEvent) {
-		if (!this.disableSlider) {
-			this.$.slider.setDisabled(false);
-		}
+		this.disableSliderChanged();
 		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
