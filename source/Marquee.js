@@ -160,6 +160,7 @@ moon.MarqueeItem = {
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
+			this._marquee_stopAnimation();
 		}
 	},
 	//* If this control needs to marquee, let the event originator know
@@ -212,18 +213,12 @@ moon.MarqueeItem = {
 	},
 	//* Determine how far the marquee needs to scroll
 	_marquee_calcDistance: function() {
-		var node = this._marquee_getMarqueeNode() || this.hasNode(),
-			distance = Math.abs(node.scrollWidth - node.clientWidth);
-		return distance;
+		var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
+		return Math.abs(node.scrollWidth - node.clientWidth);
 	},
 	//* Return duration based on _inDistance_ and _this.marqueeSpeed_
 	_marquee_calcDuration: function(inDistance) {
 		return inDistance / this.marqueeSpeed;
-	},
-	//* Return the marquee-able node
-	_marquee_getMarqueeNode: function() {
-		this.marqueeNode = this.marqueeNode || (this.$.marqueeText ? this.$.marqueeText.hasNode() : null);
-		return this.marqueeNode;
 	},
 	//* Create a marquee-able div inside of _this_
 	_marquee_createMarquee: function() {
