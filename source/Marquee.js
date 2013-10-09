@@ -1,56 +1,4 @@
 /**
-	_moon.MarqueeText_ is a basic text control that supports marquee animation.
-	When _moon.MarqueeText_ objects are used inside a
-	[moon.MarqueeDecorator](#moon.MarqueeDecorator), the decorator synchronizes
-	their start times; the user may start a marquee programmatically by calling
-	_startMarquee()_.
-
-		enyo.kind({
-			name: "moon.Header",
-			mixins: ["moon.MarqueeSupport"],
-			marqueeSpeed: 100,
-			components: [
-				{kind: "moon.MarqueeText", content: "longText+longText"},
-				{kind: "moon.MarqueeText", content: "longText"}
-			],
-			rendered: function() {
-				this.startMarquee();
-			}
-		});
-
-	To add the marquee feature to a kind, simply use the MarqueeSupport mixin:
-
-		enyo.kind({
-			name: "moon.MarqueeButton",
-			kind: "enyo.Button",
-			mixins: ["moon.MarqueeSupport"],
-			components: [
-				{kind:"moon.MarqueeText"}
-			],
-			contentChanged: function() {
-				this.$.marqueeText.setContent(this.content);
-			}
-		});
-*/
-
-
-enyo.kind({
-	name: "moon.MarqueeText",
-	mixins: ["moon.MarqueeItem"],
-	published: {
-		//* Speed of marquee animation, in pixels per second
-		marqueeSpeed: 60,
-		/**
-			Time in milliseconds that the marquee will pause at the end of the
-			animation, before resetting to the beginning
-		*/
-		marqueePause: 1000,
-		//* When true, marqueeing will not occur
-		disabled: false
-	}
-});
-
-/**
 	@public
 
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain multiple marquees
@@ -315,7 +263,58 @@ moon.MarqueeItem = {
 	}
 };
 
-//* @public
+/**
+	_moon.MarqueeText_ is a basic text control that supports marquee animation.
+	When _moon.MarqueeText_ objects are used inside a
+	[moon.MarqueeDecorator](#moon.MarqueeDecorator), the decorator synchronizes
+	their start times; the user may start a marquee programmatically by calling
+	_startMarquee()_.
+
+		enyo.kind({
+			name: "moon.Header",
+			mixins: ["moon.MarqueeSupport"],
+			marqueeSpeed: 100,
+			components: [
+				{kind: "moon.MarqueeText", content: "longText+longText"},
+				{kind: "moon.MarqueeText", content: "longText"}
+			],
+			rendered: function() {
+				this.startMarquee();
+			}
+		});
+
+	To add the marquee feature to a kind, simply use the MarqueeSupport mixin:
+
+		enyo.kind({
+			name: "moon.MarqueeButton",
+			kind: "enyo.Button",
+			mixins: ["moon.MarqueeSupport"],
+			components: [
+				{kind:"moon.MarqueeText"}
+			],
+			contentChanged: function() {
+				this.$.marqueeText.setContent(this.content);
+			}
+		});
+*/
+
+
+enyo.kind({
+	name: "moon.MarqueeText",
+	mixins: ["moon.MarqueeItem"],
+	published: {
+		//* Speed of marquee animation, in pixels per second
+		marqueeSpeed: 60,
+		/**
+			Time in milliseconds that the marquee will pause at the end of the
+			animation, before resetting to the beginning
+		*/
+		marqueePause: 1000,
+		//* When true, marqueeing will not occur
+		disabled: false
+	}
+});
+
 enyo.kind({
 	name: "moon.MarqueeDecorator",
 	//* @protected
