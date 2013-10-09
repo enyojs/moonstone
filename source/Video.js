@@ -124,11 +124,17 @@ enyo.kind({
 		}
 	},
 	srcChanged: function() {
-		this.inherited(arguments);
+		// We override the inherited method from enyo.Control because
+		// it prevents us from setting src to a falsy value.
+		this.setAttribute("src", enyo.path.rewrite(this.src));
 	},
 	//* @public
 	load: function() {
 		if(this.hasNode()) { this.hasNode().load(); }
+	},
+	unload: function() {
+		this.set("src", "");
+		this.load();
 	},
 	play: function() {
 		if (!this.hasNode()) {
