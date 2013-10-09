@@ -251,7 +251,6 @@ enyo.kind({
 			}
 			this.setSelectedIndex(idx);
 			this.updateMarqueeDisable();
-			this._marqueeSpotlightFocus();
 		}
 	},
 	//* @public
@@ -264,7 +263,6 @@ enyo.kind({
 			}
 			this.setSelectedIndex(idx);
 			this.updateMarqueeDisable();
-			this._marqueeSpotlightFocus();
 		}
 	}
 });

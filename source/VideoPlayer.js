@@ -344,7 +344,7 @@ enyo.kind({
 	},
 	disableSliderChanged: function() {
 		//* this should be be called on create because default slider status should be disabled.
-		this.$.slider.setDisabled(this.disableSlider || this.disablePlaybackControls || this._loaded);
+		this.$.slider.setDisabled(this.disableSlider || this.disablePlaybackControls || !this._loaded);
 	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
@@ -382,6 +382,13 @@ enyo.kind({
 			this.$.inlineControl.canGenerate = false;
 		}
 		this.spotlight = !this.inline;
+	},
+	//* Unload the current video source, stopping all playback and buffering.
+	unload: function() {
+		this.$.video.unload();
+		this._resetProgress();
+		this._loaded = false;
+		this.disableSliderChanged();
 	},
 	showFSInfoWithPreventEvent: function(inSender, inEvent) {
 		this.showFSInfo();
@@ -877,7 +884,9 @@ enyo.kind({
 
 		this.waterfall("onTimeupdate", inEvent);
 	},
+	_loaded: false,
 	dataloaded: function(inSender, inEvent) {
+		this._loaded = true;
 		this.disableSliderChanged();
 		this.durationUpdate(inSender, inEvent);
 	},
@@ -908,6 +917,13 @@ enyo.kind({
 			this.$.slider.setBgProgress(buffered.value); 
 		} else {
 			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
+		}
+	},
+	_resetProgress: function() {
+		if (this.isFullscreen() || !this.getInline()) {
+			this.$.slider.setBgProgress(0); 
+		} else {
+			this.$.bgProgressStatus.applyStyle("width", 0);
 		}
 	},
 	_play: function(inSender, inEvent) {
