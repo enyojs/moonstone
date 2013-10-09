@@ -347,6 +347,10 @@
 .moon-26v {
   height: 1040px;
 }
+/* Prevent browser's default focus treatment (at least in Chrome) */
+:focus {
+  outline: none;
+}
 /* Common classes applicable to multiple controls */
 .moon {
   font-family: "MuseoSans 700";
