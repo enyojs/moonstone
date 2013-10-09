@@ -10,7 +10,9 @@ enyo.kind({
 					name: "partialDrawer",
 					open: false,
 					controlsOpen: false,
-					handle: {name: "handleButton", content: "Partial drawer with long text truncation", marquee: true},
+					onActivate: "partialDrawerChanged",
+					onDeactivate: "partialDrawerChanged",
+					handle: {name: "handleButton", content: "Partial drawer with long text truncation"},
 					components: [
 						{kind: "moon.Header", title: "Partial Drawer"},
 						{kind: "moon.Item", content: "Item One"},
@@ -64,14 +66,15 @@ enyo.kind({
 	},
 	openMainDrawer: function() {
 		this.$.partialDrawer.setOpen(true);
-		this.$.openMoreButton.hide();
 	},
 	close: function() {
-		this.$.openMoreButton.show();
 		if (this.$.partialDrawer.getOpen()) {
 			this.$.partialDrawer.setOpen(false);
 		} else {
 			this.$.partialDrawer.setControlsOpen(false);
 		}
+	},
+	partialDrawerChanged: function() {
+		this.$.openMoreButton.setShowing(!this.$.partialDrawer.getOpen());
 	}
 });

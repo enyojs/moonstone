@@ -20,17 +20,6 @@
 */
 enyo.kind({
 	name: "moon.DrawerHandle",
-	kind:"enyo.Control",
-	classes: "moon-drawer-handle",
-	mixins: ["moon.MarqueeSupport"],
-	spotlight:true,
-	components: [
-		{name:"handleContent", kind: "moon.MarqueeText", classes: "moon-sub-header-text moon-drawer-handle-text"}
-	],
-	create: function() {
-		this.inherited(arguments);
-	},
-	contentChanged: function() {
-		this.$.handleContent.setContent(this.getContent());
-	}
+	kind: "moon.Item",
+	classes: "moon-drawer-handle"
 });
