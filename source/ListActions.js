@@ -245,6 +245,7 @@ enyo.kind({
 enyo.kind({
 	name: "moon.ListActionsDrawer",
 	published: {
+		//* _open_ If true, the drawer is expanded, showing this item's contents.
 		open: false
 	},
 	classes: "moon-list-actions-drawer",
