@@ -43,7 +43,8 @@ enyo.kind({
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls", ontap: "togglePlaybackControls"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.Button", content:"Unload", ontap:"unload"},
+				{kind: "moon.Button", content:"Reload", ontap:"load"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
@@ -65,5 +66,11 @@ enyo.kind({
 	},
 	dismissTapDialog: function() {
 		this.$.tapDialog.hide();
+	},
+	unload: function() {
+		this.$.player.unload();
+	},
+	load: function() {
+		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
 	}
 });
