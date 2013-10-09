@@ -85,8 +85,10 @@ enyo.kind({
 		showJumpControls: true, 
 		//* When false, fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
-
-
+		//* When false, PlayPause are hidden
+		showPlayPauseControl: true,
+		//* When false, hides video element
+		showVideo: true,
 		//* URL for "jump back" icon
 		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
 		//* URL for "rewind" icon
@@ -147,7 +149,9 @@ enyo.kind({
 		{from: ".showJumpControls",			to:".$.jumpForward.showing"},
 		{from: ".showJumpControls",			to:".$.jumpBack.showing"},
 		{from: ".showFFRewindControls",		to:".$.fastForward.showing"},
-		{from: ".showFFRewindControls",		to:".$.rewind.showing"}
+		{from: ".showFFRewindControls",		to:".$.rewind.showing"},
+		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
+		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
 	
 	//* @protected
@@ -465,7 +469,13 @@ enyo.kind({
 			//* Initial spot
 			if (this.showPlaybackControls) {
 				if (this.$.controlsContainer.getIndex() === 0) {
-					enyo.Spotlight.spot(this.$.fsPlayPause);
+					if (enyo.Spotlight.spot(this.$.fsPlayPause) === false) {
+						if(enyo.Spotlight.spot(this.$.fastForward) === false){
+							if(enyo.Spotlight.spot(this.$.jumpForward) === false) {
+								enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
+							}
+						}
+					}	
 				} else {
 					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
 				}
