@@ -32,6 +32,11 @@ enyo.kind({
 	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
 	classes: "moon-video-player enyo-unselectable",
+	events: {
+		//* Bubbled when _disablePlaybackControls_ is true and the user taps one of the controls,
+		//* allowing the controsl to be re-enabled if desired
+		onPlaybackControlsTapped: ""
+	},
 	published: {
 		//* URL of HTML5 video
 		src: "",
@@ -85,10 +90,14 @@ enyo.kind({
 		showJumpControls: true, 
 		//* When false, fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
+		//* When true, slider and playback controls are disabled.  If the user taps the controls,
+		//* the _onPlaybackControlsTapped_ event will be bubbled.
+		disablePlaybackControls: false,
 		//* When false, PlayPause are hidden
 		showPlayPauseControl: true,
 		//* When false, hides video element
 		showVideo: true,
+
 		//* URL for "jump back" icon
 		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
 		//* URL for "rewind" icon
@@ -125,6 +134,7 @@ enyo.kind({
 			slowRewind: ["-1/2", "-1"]
 		}
 	},
+	//* @protected
 	handlers: {
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
@@ -154,8 +164,6 @@ enyo.kind({
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
 	
-	//* @protected
-
 	spotlightModal: true,
 	
 	_isPlaying: false,
@@ -183,7 +191,7 @@ enyo.kind({
 					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", XonSpotlightLeft: "preventEvent"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
-						{name: "trickPlay", components: [
+						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
 							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
 								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
 								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
@@ -202,7 +210,7 @@ enyo.kind({
 			
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
-						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
+						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider", ontap:"playbackControlsTapped"
 					}
 				]}
 			]}
@@ -233,6 +241,21 @@ enyo.kind({
 		this.showPlaybackControlsChanged();
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
+		this.disablePlaybackControlsChanged();
+	},
+	disablePlaybackControlsChanged: function() {
+		this.disableSliderChanged();
+		this.$.playbackControls.addRemoveClass("disabled", this.disablePlaybackControls);
+		this.$.jumpBack.setDisabled(this.disablePlaybackControls);
+		this.$.rewind.setDisabled(this.disablePlaybackControls);
+		this.$.fsPlayPause.setDisabled(this.disablePlaybackControls);
+		this.$.fastForward.setDisabled(this.disablePlaybackControls);
+		this.$.jumpForward.setDisabled(this.disablePlaybackControls);
+	},
+	playbackControlsTapped: function() {
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
+		}
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -321,7 +344,7 @@ enyo.kind({
 	},
 	disableSliderChanged: function() {
 		//* this should be be called on create because default slider status should be disabled.
-		this.$.slider.setDisabled(this.disableSlider);
+		this.$.slider.setDisabled(this.disableSlider || this.disablePlaybackControls || !this._loaded);
 	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
@@ -365,6 +388,7 @@ enyo.kind({
 		this.$.video.unload();
 		this._resetProgress();
 		this._loaded = false;
+		this.disableSliderChanged();
 	},
 	showFSInfoWithPreventEvent: function(inSender, inEvent) {
 		this.showFSInfo();
@@ -863,9 +887,7 @@ enyo.kind({
 	_loaded: false,
 	dataloaded: function(inSender, inEvent) {
 		this._loaded = true;
-		if (!this.disableSlider) {
-			this.$.slider.setDisabled(false);
-		}
+		this.disableSliderChanged();
 		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
