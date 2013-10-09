@@ -360,6 +360,12 @@ enyo.kind({
 		}
 		this.spotlight = !this.inline;
 	},
+	//* Unload the current video source, stopping all playback and buffering.
+	unload: function() {
+		this.$.video.unload();
+		this._resetProgress();
+		this._loaded = false;
+	},
 	showFSInfoWithPreventEvent: function(inSender, inEvent) {
 		this.showFSInfo();
 		return true;
@@ -854,7 +860,9 @@ enyo.kind({
 
 		this.waterfall("onTimeupdate", inEvent);
 	},
+	_loaded: false,
 	dataloaded: function(inSender, inEvent) {
+		this._loaded = true;
 		if (!this.disableSlider) {
 			this.$.slider.setDisabled(false);
 		}
@@ -887,6 +895,13 @@ enyo.kind({
 			this.$.slider.setBgProgress(buffered.value); 
 		} else {
 			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
+		}
+	},
+	_resetProgress: function() {
+		if (this.isFullscreen() || !this.getInline()) {
+			this.$.slider.setBgProgress(0); 
+		} else {
+			this.$.bgProgressStatus.applyStyle("width", 0);
 		}
 	},
 	_play: function(inSender, inEvent) {

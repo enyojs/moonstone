@@ -9,7 +9,9 @@ enyo.kind({
 					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
 					{kind: "moon.SelectableItem", selected: true, content: "Bunny", onActivate: "webMovieBunny"},
 					{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"}
-				]}
+				]},
+				{classes: "moon-1v"}, // spacer
+				{kind: "moon.Button", content: "Unload", ontap: "unload"}
 			]},
 			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", classes: "moon-7h", components: [
 				{
@@ -82,6 +84,9 @@ enyo.kind({
 		}
 		this.$.panels.setIndex(2);
 		return true;
+	},
+	unload: function() {
+		this.$.player.unload();
 	},
 	webMovieCounter: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
