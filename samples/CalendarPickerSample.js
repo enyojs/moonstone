@@ -8,7 +8,7 @@ enyo.kind({
 				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed"},
 				{kind: "FittableRows", fit: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
-					{kind: "moon.ExpandablePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
+					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
 						//{content: "th-TH"},	//Thailand
 						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
@@ -25,15 +25,15 @@ enyo.kind({
 						{content: "es-ES"},
 						{content: "es-MX"}
 					]},
-					{kind: "moon.ExpandablePicker", content: "Choose Label Length", onChange: "setLabelLength", components: [
+					{kind: "moon.ExpandablePicker", name:"dowLengthPicker", content: "Choose DOW Label Length", onChange: "setLabelLength", components: [
 						{content: "short", active: true},
 						{content: "medium"},
 						{content: "long"},
 						{content: "full"}
 					]},
-					{kind: "moon.ExpandablePicker", content: "Choose Label Style", onChange: "setLabelStyle", components: [
-						{content: "button", active: true},
-						{content: "divider"}
+					{kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
+						{content: "Default", active: true, className:""},
+						{content: "Divider", className:"moon-divider moon-divider-text"}
 					]},
 					{kind: "moon.Divider"},
 					{kind: "moon.InputDecorator", components: [
@@ -54,6 +54,14 @@ enyo.kind({
 		{kind: "moon.Divider", content: "Result"},
 		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
+	create: function(){
+		this.inherited(arguments);
+		if (!window.ilib) {
+			this.$.localePicker.hide();
+			this.$.dowLengthPicker.hide();
+			this.log("iLib not present -- hiding locale & dow length picker");
+		}
+	},
 	setYear: function(inSender, inEvent) {
 		if(this.$.yearInput.getValue()) {
 			this.$.calendar.setYear(this.$.yearInput.getValue());
@@ -85,7 +93,7 @@ enyo.kind({
 	},
 	setLabelStyle: function(inSender, inEvent){
 		if (inEvent.content){
-			this.$.calendar.setDayOfWeekClasses("moon-" + inEvent.content);
+			this.$.calendar.setDayOfWeekClasses(inEvent.selected.className);
 		}
 		return true;
 	},
@@ -95,14 +103,8 @@ enyo.kind({
 		}
 	},
 	changed: function(inSender, inEvent) {
-		//* Avoid onChange events coming from itself
-		if (inEvent && inEvent.originator == "moon.SimplePicker") {
-			var value = this.$.calendar.getValue();
-			this.$.calendar.setValue(new Date(value.getFullYear(), value.getMonth(), value.getDate()));
-		}
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent("Current Date" + " changed to " + inEvent.value.toDateString());
 		}
-		return true;
 	}
 });

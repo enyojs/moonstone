@@ -356,6 +356,13 @@
   color: #4b4b4b;
   background-color: #ededed;
 }
+/* Remove any focus outline */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
 .moon-header-font {
   font-family: "Miso";
   text-transform: uppercase;
@@ -2541,45 +2548,29 @@
 .moon-calendar-picker-block {
   display: inline-block;
 }
-.moon-calendar-picker-day.moon-button[disabled] {
+.moon-neutral .moon-calendar-picker-day-base {
+  display: inline-block;
+  width: 60px;
+  color: #a2a2a2;
+  margin: 10px;
+}
+.moon-calendar-picker-day {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: -0.04em;
   color: #4b4b4b;
-  min-width: 60px;
-  line-height: 60px;
-  border: 0px;
-  border-radius: 0px;
-  background: transparent;
-  color: #a2a2a2;
-  padding: 0px;
-  margin: 10px;
   text-align: center;
   vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
 }
-.moon-calendar-picker-day.moon-button[disabled].moon-divider {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0.05em;
-  color: #4b4b4b;
-  width: 60px;
-  display: inline-block;
-  color: #a2a2a2;
-  padding: 0px;
-  text-align: center;
-  vertical-align: middle;
-}
-.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+.enyo-locale-non-latin .moon-calendar-picker-day {
   font-family: "LG Display";
   font-size: 30px;
-}
-.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled].moon-divider {
-  font-family: "LG Display";
-  font-size: 28px;
 }
 .moon-calendar-picker-month {
   float: left;

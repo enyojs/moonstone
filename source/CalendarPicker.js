@@ -17,6 +17,9 @@ enyo.kind({
 		value: null,
 		color: 0
 	},
+	events: {
+		onDateSelected:""
+	},
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -37,6 +40,9 @@ enyo.kind({
 		} else {
 			this.setContent(this.value.getDate());
 		}
+	},
+	tap: function() {
+		this.doDateSelected();
 	}
 });
 
@@ -54,9 +60,6 @@ enyo.kind({
 		*/
 		onChange: ""
 	},
-	handlers: {
-		ontap: "selectDate"
-	},
 	published: {
 		/**
 			ilib locale info instance. It gives information about the paarticular locale.
@@ -65,7 +68,7 @@ enyo.kind({
 		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
-			new value.
+			new value.  Only valid if ilib is loaded.
 		*/
 		locale: "",
 		/**
@@ -76,6 +79,7 @@ enyo.kind({
 		value: null,
 		/**
 			The day of week that starts weeks in current locale.
+			Valid values are Sumday (0) through Saturday (6).
 			As a default, Sunday is the first day of week.
 		*/
 		firstDayOfWeek: 0,
@@ -98,16 +102,17 @@ enyo.kind({
 		/**
 			The length of character to abbreviate property
 			If we use "short", "medium", long" and "full" to represent it.
+			Only valid if ilib is loaded.
 		*/
 		dayOfWeekLength: "short"
 	},
 	//*@protected
 	months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-	days: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+	days: ["S","M","T","W","T","F","S"],
 	components: [
 		{name: "monthPicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-month", onChange: "selectMonthPicker"},
 		{name: "yearPicker", kind: "moon.SimplePicker", classes: "moon-calendar-picker-year", onChange: "selectYearPicker"},
-		{name: "days", classes: "moon-calendar-picker-days", kind: "enyo.Group"},
+		{name: "days", classes: "moon-calendar-picker-days moon-neutral", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
 	create: function() {
@@ -134,11 +139,9 @@ enyo.kind({
 		this.setValue(this.value || new Date());
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
-			var dayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
-			this.setFirstDayOfWeek(dayOfWeek);
-		} else {
-			this.updateDays();
+			this.firstDayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
 		}
+		this.firstDayOfWeekChanged();
 	},
 	/**
 		Populates SimplePicker with years.
@@ -166,13 +169,10 @@ enyo.kind({
 		Initially, SUN is the first day and SAT is the last day of week.
 	*/
 	initDays: function() {
-		var days = this.days;
-		for(var i = 0; i < days.length; i++) {
+		for(var i = 0; i < 7; i++) {
 			this.$.days.createComponent({
-				kind: "moon.Button",
-				classes: "moon-calendar-picker-day " + this.dayOfWeekClasses,
-				disabled: true,
-				content: days[i]
+				classes: "moon-calendar-picker-day-base " + (this.dayOfWeekClasses || "moon-calendar-picker-day"),
+				disabled: true
 			});
 		}
 	},
@@ -182,7 +182,7 @@ enyo.kind({
 	initCalendar: function() {
 		if (!this.$.dates.controls.length) {
 			for (var i = 1; i <= this.maxWeeks * 7; i++) {
-				this.$.dates.createComponent({kind: "moon.CalendarPickerDate"});
+				this.$.dates.createComponent({kind: "moon.CalendarPickerDate", onDateSelected:"selectDate"}, {owner:this});
 			}
 		}
 	},
@@ -217,10 +217,14 @@ enyo.kind({
 	updateDays: function() {
 		var daysControls = this.$.days.getClientControls();
 		for(var i = 0; i < 7; i++) {
-			var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + this._firstTime});
-			daysControls[i].setContent(this._tf.format(date));
+			if (typeof ilib !== "undefined") {
+				var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + this._firstTime});
+				var day = this._tf.format(date);
+				daysControls[i].setContent(day);
+			} else {
+				daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
+			}
 		}
-		this.days = daysControls;
 	},
 	/**
 		Sets up the first week of this month.
@@ -280,26 +284,30 @@ enyo.kind({
 		this.updateNextMonth(datesOfPrevMonth + monthLength);
 	},
 	setYear: function(newYear) {
-		var value = this.value,
-			newValue,
-			newMonthLength = this.getMonthLength(newYear, value.getMonth());
-		if(newMonthLength < value.getDate()) {
-			newValue = new Date(newYear, value.getMonth(), newMonthLength);
-		} else {
-			newValue = new Date(newYear, value.getMonth(), value.getDate());
+		if (this.value.getYear() != newYear) {
+			var value = this.value,
+				newValue,
+				newMonthLength = this.getMonthLength(newYear, value.getMonth());
+			if(newMonthLength < value.getDate()) {
+				newValue = new Date(newYear, value.getMonth(), newMonthLength);
+			} else {
+				newValue = new Date(newYear, value.getMonth(), value.getDate());
+			}
+			this.setValue(newValue);
 		}
-		this.setValue(newValue);
 	},
 	setMonth: function(newMonth) {
-		var value = this.value,
-			newValue,
-			newMonthLength = this.getMonthLength(value.getFullYear(), newMonth - 1);
-		if(newMonthLength < value.getDate()) {
-			newValue = new Date(value.getFullYear(), newMonth - 1, newMonthLength);
-		} else {
-			newValue = new Date(value.getFullYear(), newMonth - 1, value.getDate());
+		if (this.value.getMonth() != newMonth) {
+			var value = this.value,
+				newValue,
+				newMonthLength = this.getMonthLength(value.getFullYear(), newMonth - 1);
+			if(newMonthLength < value.getDate()) {
+				newValue = new Date(value.getFullYear(), newMonth, newMonthLength);
+			} else {
+				newValue = new Date(value.getFullYear(), newMonth, value.getDate());
+			}
+			this.setValue(newValue);
 		}
-		this.setValue(newValue);
 	},
 	setDate: function(newDate) {
 		var value = this.value,
@@ -316,25 +324,23 @@ enyo.kind({
 		Select a control in calendar with tapping a date button in calendar
 	*/
 	selectDate: function(inSender, inEvent) {
-		if (inEvent.originator.owner.kind == "moon.CalendarPickerDate") {
-			var newValue = inEvent.originator.owner.value;
-			this.setValue(newValue);
-		}
+		var newValue = inEvent.originator.value;
+		this.setValue(newValue);
 		return true;
 	},
 	/**
 		Select a control in yearPicker using left and right arrow button
 	*/
 	selectYearPicker: function(inSender, inEvent) {
-		var year = this.$.yearPicker.getSelectedIndex();
-		this.value.setYear(year);
+		var year = this.$.yearPicker.getSelected().getContent();
+		this.setYear(year);
 	},
 	/**
 		Select a control in monthPicker using left and right arrow button
 	*/
 	selectMonthPicker: function(inSender, inEvent) {
 		var month = this.$.monthPicker.getSelectedIndex();
-		this.value.setMonth(month);
+		this.setMonth(month);
 	},
 	/**
 		Returns number of days in a particular month/year.
@@ -366,12 +372,12 @@ enyo.kind({
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
-		if (this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
+		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}
-		if (this.$.yearPicker.getSelectedIndex() != this.value.getFullYear()) {
+		if (!this.generated || this.$.yearPicker.getSelected().getContent() != this.value.getFullYear()) {
 			this.$.yearPicker.setSelectedIndex(this.value.getFullYear() - this.startYear);
-		}
+		}			
 		this.updateDates();
 		if (this.value) {
 			this.doChange({value: this.value});
@@ -381,20 +387,23 @@ enyo.kind({
 		When user(or developer) want change style of day label dynamically,
 		it will replace css classes for them.
 	*/
-	dayOfWeekClassesChanged: function() {
+	dayOfWeekClassesChanged: function(inOld) {
 		var dayControls = this.$.days.getClientControls();
 		for (var i = 0; i < dayControls.length; i++) {
-			dayControls[i].setClasses("moon-calendar-picker-day " + this.dayOfWeekClasses);
+			dayControls[i].removeClass(inOld || "moon-calendar-picker-day");	
+			dayControls[i].addClass(this.dayOfWeekClasses || "moon-calendar-picker-day");
 		}
 	},
 	dayOfWeekLengthChanged: function() {
-		this._tf = new ilib.DateFmt({
-			locale: this.locale,
-			type: "date",	//only format the date component, not the time
-			date: "w",		//'w' is the day of the week
-			length: this.dayOfWeekLength
-		});
-		this.updateDays();
+		if (typeof ilib !== "undefined") {
+			this._tf = new ilib.DateFmt({
+				locale: this.locale,
+				type: "date",	//only format the date component, not the time
+				date: "w",		//'w' is the day of the week
+				length: this.dayOfWeekLength
+			});
+			this.updateDays();
+		}
 	},
 	/**
 		Sometimes first day of week is channged based on locale changing.
@@ -404,9 +413,11 @@ enyo.kind({
 
 	*/
 	firstDayOfWeekChanged: function() {
-		var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
-		var firstDate = d.onOrBefore(this.firstDayOfWeek);
-		this._firstTime = firstDate.getTime();	//get unix time
+		if (typeof ilib !== "undefined") {
+			var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
+			var firstDate = d.onOrBefore(this.firstDayOfWeek);
+			this._firstTime = firstDate.getTime();	//get unix time
+		}
 		this.updateDays();
 		this.updateDates();
 	}
