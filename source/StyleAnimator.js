@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "StyleAnimator",
+	name: "enyo.StyleAnimator",
 	kind: "Component",
 	events: {
 		onStep: "",
