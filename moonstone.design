@@ -302,12 +302,74 @@
                     }
                 },
                 {
-                    "name": "moon.Drawer",
-                    "kind": "moon.Drawer",
-                    "description": "A drawer",
+                    "name": "moon.Drawers",
+                    "kind": "moon.Drawers",
+                    "description": "A drawers component",
                     "config": { 
-                            "kind": "moon.Drawer", 
-                            "content": "A drawer"
+                        "kind": "moon.Drawers",
+                        "content": "A drawers component",
+                        "drawers": [
+                            {
+                                "open": false,
+                                "controlsOpen": false,
+                                "handle": {
+                                    "name": "handleButton",
+                                    "content": "Sample partial drawer",
+                                    "marquee": true
+                                },
+                                "components": [
+                                    {
+                                        "kind": "moon.Header",
+                                        "title": "Partial Drawer"
+                                    },
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One"
+                                    },
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item Two"
+                                    }
+                                ],
+                                "controlDrawerComponents": [
+                                    {
+                                        "classes": "moon-hspacing",
+                                        "components": [
+                                            {
+                                                "kind": "moon.Button",
+                                                "content": "Open",
+                                                "ontap": "TODO - Make Functions to open components"
+                                            },
+                                            {
+                                                "kind": "moon.Button",
+                                                "content": "Close",
+                                                "ontap": "TODO - Make Functions to close components"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "handle": {
+                                    "content": "Sample full drawer",
+                                    "marquee": true
+                                },
+                                "components": [
+                                    {
+                                        "kind": "moon.Header",
+                                        "title": "Full Drawer"
+                                    },
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item One"
+                                    },
+                                    {
+                                        "kind": "moon.Item",
+                                        "content": "Item Two"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
                 {
