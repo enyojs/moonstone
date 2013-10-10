@@ -1,7 +1,13 @@
+/**
+	_moon.ScrollThumb_ is used to
+	display a small visual scroll indicator.
+
+*/
 enyo.kind({
 	name: "moon.ScrollThumb",
 	kind: "enyo.ScrollThumb",
 	published: {
+	//* _sizeRatio_ the ratio of size and position of thumb with respect to scroll bounds.
 		sizeRatio: 1
 	},
 	classes: "moon-thumb matrix3dsurface",
