@@ -7,34 +7,35 @@ enyo.kind({
 	title: "Album",
 	titleBelow: "",
 	components: [
-		{kind: "enyo.FittableColumns", noStretch: true, components: [
+		{kind: "enyo.FittableColumns", noStretch: true, classes: "moon-hspacing", components: [
 			{name: "cover", kind: "enyo.Image", style: "height: 200px; width: 200px;"},
 			{name: "albumInfo", fit: true, kind: "moon.Table", components: [
 				{components: [
-					{name: "album", attributes: {colspan: "2"}, style: "font-weight: bold;"}
+					{name: "album", attributes: {colspan: "2"}, classes: "moon-large-text"}
 				]},
 				{components: [
-					{content: "Artist"},
-					{name: "artist"}
+					{content: "Artist", classes: "moon-sub-header-text"},
+					{name: "artist", classes: "moon-body-text"}
 				]},
 				{components: [
-					{content: "Released"},
-					{name: "releaseDate"}
+					{content: "Released", classes: "moon-sub-header-text"},
+					{name: "releaseDate", classes: "moon-body-text"}
 				]},
 				{name: "genreRow", components: [
-					{content: "Genre"},
-					{name: "genre"}
+					{content: "Genre", classes: "moon-sub-header-text"},
+					{name: "genre", classes: "moon-body-text"}
 				]}
 			]}
 		]},
-		{kind: "moon.Divider", content: "SONGS"},
-		{kind: "moon.Scroller", fit: true, components: [
+		{kind: "moon.Divider", content: "SONGS", classes: "moon-divider moon-hspacing"},
+		{kind: "moon.Scroller", fit: true, classes: "moon-body-text-spacing", components: [
 			{name: "trackInfo", kind: "moon.DataTable", style: "width: 100%;", components: [
 				{spotlight: true, ontap: "changeTrackName", components: [
-					{name: "number"},
-					{name: "name"},
-					{name: "duration"}
-				], bindings: [
+					{name: "number", classes: "moon-sub-header-text"},
+					{name: "name", classes: "moon-sub-header-text"},
+					{name: "duration", classes: "moon-body-text"}
+				],
+				bindings: [
 					{from: ".model.number", to: ".$.number.content"},
 					{from: ".model.name", to: ".$.name.content"},
 					{from: ".model.duration", to: ".$.duration.content"}
@@ -55,17 +56,17 @@ enyo.kind({
 		// NOTE: We are setting our tracks property (which is a collection)
 		// directly to the controller property of the table
         {from: ".controller.tracks", to: ".$.trackInfo.controller"}
-    ]
+    ],
+	changeTrackName: function(inSender, inEvent) {
+		inEvent.model.set("name", "We are the Champions");
+	}
 });
 
 // Sample controller
 
 enyo.kind({
     name: "moon.sample.music.AlbumDetailNarrowSampleController",
-    kind: "enyo.ModelController",
-    changeTrackName: function(inSender, inEvent) {
-		inEvent.model.set("name", "We are the Champions");
-    }
+    kind: "enyo.ModelController"
 });
 
 

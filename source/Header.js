@@ -25,8 +25,11 @@ enyo.kind({
 		*/
 		backgroundPosition: "top right"
 	},
+	mixins: ["moon.MarqueeSupport"],
+	marqueeOnSpotlight: false,
+	marqueeOnRender: true,
 	components: [
-		{name: "texts", mixins: ["moon.MarqueeSupport"], marqueeOnSpotlight: false, components: [
+		{name: "texts", components: [
 			{name: "titleAbove", classes: "moon-super-header-text moon-header-title-above"},
 			{name: "titleWrapper", classes: "moon-header-title-wrapper", components: [
 				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"}
@@ -48,20 +51,10 @@ enyo.kind({
 		this.backgroundSrcChanged();
 		this.backgroundPositionChanged();
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.startMarquee();
-	},
-	startMarquee: function() {
-		this.$.texts.startMarquee();
-	},
-	stopMarquee: function() {
-		this.$.texts.stopMarquee();
-	},
 	allowHtmlChanged: function() {
-		this.$.title.setAllowHtmlText(this.allowHtml);
-		this.$.titleBelow.setAllowHtmlText(this.allowHtml);
-		this.$.subTitleBelow.setAllowHtmlText(this.allowHtml);
+		this.$.title.setAllowHtml(this.allowHtml);
+		this.$.titleBelow.setAllowHtml(this.allowHtml);
+		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	backgroundSrcChanged: function() {
 		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")" : "none");
@@ -79,7 +72,6 @@ enyo.kind({
 
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 		var titleWrapperStyle = enyo.dom.getComputedStyle(this.$.titleWrapper.hasNode());
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleBelowStyle = enyo.dom.getComputedStyle(this.$.titleBelow.hasNode());
 		var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
 
@@ -92,9 +84,7 @@ enyo.kind({
 			"padding-left": titleWrapperStyle["padding-left"],
 			"top": titleWrapperStyle["top"]
 		};
-		this.$.title.smallAnimProps = {
-			"line-height": titleStyle["line-height"]
-		};
+		this.$.title.smallAnimProps = {};
 		this.$.titleBelow.smallAnimProps = {
 			"top": titleBelowStyle["top"]
 		};
@@ -120,9 +110,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "current"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -144,22 +132,20 @@ enyo.kind({
 					control: this.$.titleWrapper,
 					properties: {
 						"padding-left": "58px",
-						"top": "-48px"
+						"top": "-42px"
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "0.96em"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top": "-48px"
+						"top": "-42px"
 					}
 				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top": "-48px"
+						"top": "-42px"
 					}
 				}]
 
@@ -191,9 +177,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "current"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -219,9 +203,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": this.$.title.smallAnimProps["line-height"]
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {

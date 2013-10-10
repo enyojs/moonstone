@@ -31,7 +31,7 @@ enyo.kind({
 		//* Title's _allowHtml_ property
 		allowHtmlHeader: false,
 		//* URL of a background image for the header
-		headerBackgroundImage: null,
+		headerBackgroundSrc: null,
 		//* Position properties for background image for the header
 		headerBackgroundPosition: "top right",
 		//* Header options
@@ -59,7 +59,7 @@ enyo.kind({
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
 				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
 					{name: "breadcrumbTitleAbove", classes: "moon-super-header-text moon-panel-mini-header-title-above"},
-					{name: "breadcrumbText", kind: "moon.MarqueeText", classes: "moon-sub-header-text moon-panel-mini-header"}
+					{name: "breadcrumbText", mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-sub-header-text moon-panel-mini-header"}
 				]}
 			]}
 		]},
@@ -96,9 +96,8 @@ enyo.kind({
 		this.inherited(arguments);
 		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
 		if (this.headerComponents) {
-			var hc = enyo.constructorForKind(this.kind).prototype.headerComponents;
-			var hcOwner = (hc == this.headerComponents) ? this : this.getInstanceOwner();
-			this.$.header.createComponents(this.headerComponents, {owner: hcOwner});
+			var owner = this.hasOwnProperty("headerComponents") ? this.getInstanceOwner() : this;
+			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
 	},

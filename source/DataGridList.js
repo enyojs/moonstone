@@ -7,7 +7,7 @@ enyo.kind({
 	kind: "enyo.DataGridList",
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller" }
+	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" }
 });
 //*@protected
 /**
@@ -17,11 +17,19 @@ enyo.kind({
 (function (enyo, moon) {
 	var p = moon.DataGridList.delegates.verticalGrid = enyo.clone(enyo.DataGridList.delegates.verticalGrid);
 	enyo.kind.extendMethods(p, {
+		refresh: enyo.inherit(function (sup) {
+			return function (list) {
+				sup.apply(this, arguments);
+				list.$.scroller.resized();
+			};
+		}),
 		reset: enyo.inherit(function (sup) {
 			return function (list) {
 				sup.apply(this, arguments);
-				this.updateMetrics(list);
-				this.refresh(list);
+				if (list.$.scroller.getVertical() != "scroll") {
+					this.updateBounds(list);
+					list.refresh();
+				}
 			};
 		}),
 		updateBounds: enyo.inherit(function (sup) {

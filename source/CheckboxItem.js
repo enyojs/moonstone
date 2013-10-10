@@ -23,39 +23,47 @@
  */
 enyo.kind({
 	name: "moon.CheckboxItem",
-	kind: "moon.Item",
+	mixins: ["moon.MarqueeSupport"],
 	published: {
 		//* The state of the checkbox
 		checked: false,
 		//* If true, checkbox will be displayed on the right side of the checkbox item
-		checkboxOnRight: false
+		checkboxOnRight: false,
+		//* When true, button is shown as disabled and does not generate tap
+		//* events
+		disabled: false
 	},
 	events: {
-/**
-    Fires when the control is either checked or unchecked.
+	/**
+		Fires when the control is either checked or unchecked.
 
-    _inEvent.checked_ indicates whether the checkbox is currently checked.
+		_inEvent.checked_ indicates whether the checkbox is currently checked.
 
-    _inEvent.toggledControl_ contains a reference to the CheckboxItem whose
-    state toggled. (Note that the originator of this event is actually the
-    _moon.Checkbox_ contained within the CheckboxItem, so use this property to
-    reference the CheckboxItem.)
-*/
+		_inEvent.toggledControl_ contains a reference to the CheckboxItem whose
+		state toggled. (Note that the originator of this event is actually the
+		_moon.Checkbox_ contained within the CheckboxItem, so use this property to
+		reference the CheckboxItem.)
+	*/
 		onActivate: ""
 	},
 	//* @protected
-	classes: "moon-checkbox-item",
+	classes: "moon-item moon-checkbox-item",
 	spotlight: true,
 	handlers: {
 		ontap: "tap",
-		onActivate: "decorateActivateEvent"
+		onActivate: "decorateActivateEvent",
+		onSpotlightFocused: "spotlightFocused"
 	},
+	overlayComponents: [
+		{name: "overlay", classes: "moon-item-overlay", addBefore: true}
+	],
 	components: [
-		{classes: "moon-checkbox-item-label-wrapper", name: "client"},
+		{name: "client", mixins: ["moon.MarqueeItem"], classes: "moon-checkbox-item-label-wrapper"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.disabledChanged();
 		this.checkboxOnRightChanged();
 	},
 	rendered: function() {
@@ -63,7 +71,7 @@ enyo.kind({
 		this.checkedChanged();
 	},
 	disabledChanged: function() {
-		this.inherited(arguments);
+		this.addRemoveClass("disabled", this.disabled);
 		this.$.input.setDisabled(this.disabled);
 	},
 	checkedChanged: function() {
@@ -81,5 +89,13 @@ enyo.kind({
 		inEvent.toggledControl = this;
 		this.setChecked(this.$.input.getChecked());
 		inEvent.checked = this.checked;
+	},
+	spotlightFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
+	},
+	contentChanged: function() {
+		this.$.client.setContent(this.getContent());
 	}
 });

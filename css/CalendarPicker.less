@@ -8,24 +8,40 @@
 	margin: 0px 20px;
 	padding: 20px 0px;
 }
+.moon-calendar-picker .moon-simple-picker {
+	max-width: 250px;
+}
 .moon-calendar-picker-block {
 	display: inline-block;
 }
-.moon-calendar-picker-day.moon-button[disabled] {
-	.moon-sub-header-text;
-	min-width: @moon-button-small-height;
-	line-height: @moon-picker-button-width;
-	border: 0px;
-	border-radius: 0px;
-	background: transparent;
+.moon-neutral .moon-calendar-picker-day-base {
+	display: inline-block;
+	width: @moon-button-small-height;
 	color: @moon-calendar-picker-date-shadow-color;
-	padding: 0px;
 	margin: 10px;
-	text-align: center;
-	vertical-align: middle; 
 }
-.enyo-locale-non-latin .moon-calendar-picker-day.moon-button[disabled] {
+.moon-calendar-picker-day {
+	.moon-sub-header-text;
+	text-align: center;
+	vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+.enyo-locale-non-latin .moon-calendar-picker-day {
 	.enyo-locale-non-latin .moon-sub-header-text;
+}
+.moon-calendar-picker-month {
+	float: left;
+	margin: 0px 0px 0px 30px;
+}
+.moon-calendar-picker-year {
+	float: right;
+	margin: 0px 30px 0px 0px;
+}
+.moon-calendar-picker-days {
+	display: inline-block;
 }
 .moon-calendar-picker-dates {
 	margin: 30px 0px 0px 0px;
@@ -59,7 +75,7 @@
 	color: @moon-calendar-picker-date-shadow-color;
 }
 .moon-calendar-picker-date-shadow.moon-button.small.spotlight {
-	color: @moon-spotlight-text-color;	
+	color: @moon-spotlight-text-color;
 }
 .moon-calendar-picker .moon-simple-picker-item {
 	color: @moon-spotlight-text-color;
@@ -73,9 +89,9 @@
 .moon-calendar-picker-date.moon-button.small.active,
 .moon-calendar-picker-date.moon-button.small.pressed,
 .moon-calendar-picker-date.moon-button.small.spotlight.pressed,
-.moon-calendar-picker-date.moon-button:active:hover:not([disabled]) 
+.moon-calendar-picker-date.moon-button:active:hover:not([disabled])
  {
 	color: @moon-spotlight-text-color;
 	background-color: @moon-spotlight-background-color;
 	border: 0px;
-} 
+}
