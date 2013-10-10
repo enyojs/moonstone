@@ -181,11 +181,11 @@ enyo.kind({
 		]},
 
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", components: [
 		
-			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
+			{name: "videoInfoHeader", showing: false, onmousemove: "mousemove", classes: "moon-video-player-header"},
 			
-			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
+			{name: "playerControl", classes: "moon-video-player-bottom", onmousemove: "mousemove", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", XonSpotlightUp: "showFSInfoWithPreventEvent", XonSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
 			
 					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", XonSpotlightLeft: "preventEvent"},
