@@ -186,9 +186,9 @@ enyo.kind({
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", XonSpotlightUp: "showFSInfoWithPreventEvent", XonSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
+				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
 			
-					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", XonSpotlightLeft: "preventEvent"},
+					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
@@ -203,7 +203,7 @@ enyo.kind({
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
-					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", XonSpotlightRight: "preventEvent", components: [
+					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
 						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
 					]}
 				]},
@@ -394,13 +394,6 @@ enyo.kind({
 		this._resetProgress();
 		this._loaded = false;
 		this.disableSliderChanged();
-	},
-	showFSInfoWithPreventEvent: function(inSender, inEvent) {
-		this.showFSInfo();
-		return true;
-	},
-	preventEvent: function(inSender, inEvent) {
-		return true;
 	},
 	showScrim: function(show) {
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
