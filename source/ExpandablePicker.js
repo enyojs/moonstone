@@ -170,16 +170,14 @@ enyo.kind({
 	removeControl: enyo.inherit(function(sup) {
 		return function(inControl) {
 			// Skip extra work during panel destruction.
-			if (this.destroying) {
-				return sup.apply(this, arguments);
+			if (!this.destroying) {
+				// set currentValue, selected and selectedIndex to defaults value
+				if (this.selected === inControl) {
+					this.setSelected(null);
+					this.setSelectedIndex(-1);
+					this.$.currentValue.setContent(this.getNoneText());
+				}
 			}
-			// set currentValue, selected and selectedIndex to defaults value
-			if (this.selected === inControl) {
-				this.setSelected(null);
-				this.setSelectedIndex(-1);
-				this.$.currentValue.setContent(this.getNoneText());
-			}
-			this.inherited(arguments);
 			sup.apply(this, arguments);
 		};
 	}),
