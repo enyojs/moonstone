@@ -25,9 +25,13 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	published: {
+		//* Title of VideoInfoHeader.
 		title: "",
+		//* Sub-text of VideoInfoHeader.
 		subTitle: "",
+		//* Sub-text of Sub-text of VideoInfoHeader.
 		subSubTitle: "",
+		//* description of VideoInfoHeader.
 		description: ""
 	},
 	components: [
