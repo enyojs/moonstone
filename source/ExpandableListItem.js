@@ -146,7 +146,7 @@ enyo.kind({
 		}
 	},
 	drawerAnimationEnd: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView", {side: "top", scrollInPointerMode:true});
 		return true;
 	},
 	spotlightFocused: function(inSender, inEvent) {
