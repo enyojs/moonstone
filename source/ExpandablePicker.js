@@ -58,31 +58,29 @@ enyo.kind({
 		selectedIndex: -1,
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
-		//* Text to be display when the drawer is opened
-		helpText: "",
+		//* Text to be displayed when the drawer is opened
+		helpText: null,
 		//* If true, auto collapse when an item is selected
 		autoCollapseOnSelect: true
 	},
 	autoCollapse: true,
 	lockBottom: true,
-
 	//* @protected
-
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
-	handlers: {
-		requestScrollIntoView: "requestScrollIntoView"
-	},
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		drawer: {components: [
-			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
-			{name: "helpText", kind:"moon.BodyText", classes: "moon-expandable-picker-help-text"}
+		{name: "drawer", kind: "enyo.Drawer", components: [
+			{name: "client", tag: null, kind: "Group", onActivate: "activated", highlander: true},
+			{name: "helpText", kind:"moon.BodyText", canGenerate: false, classes: "moon-expandable-picker-help-text"}
 		]}
-	},
+	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
@@ -155,8 +153,15 @@ enyo.kind({
 	},
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
+		if (this.helpText !== null && !this.$.helpText.canGenerate) {
+			this.generateHelpText();
+		}
 		this.$.helpText.setContent(this.helpText);
 		this.$.helpText.setShowing(!!this.helpText);
+	},
+	generateHelpText: function() {
+		this.$.helpText.canGenerate = true;
+		this.$.helpText.render();
 	},
 	/*
 		When the picker is initialized, looks for any items with an _active:true_
@@ -210,6 +215,7 @@ enyo.kind({
 			index: this.getSelectedIndex()
 		});
 	},
+<<<<<<< HEAD
 	destroy: enyo.inherit(function(sup) {
 		return function() {
 			// When the expandablePicker itself is going away, take note so we don't try and do single-picker option
@@ -245,5 +251,9 @@ enyo.kind({
 			this.$.header.stopMarquee();
 			this.$.currentValue.stopMarquee();
 		}
+=======
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
+>>>>>>> master
 	}
 });

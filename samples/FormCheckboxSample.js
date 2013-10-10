@@ -4,17 +4,9 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes:"moon-hspacing", controlClasses:"moon-6h", components: [
+			{classes:"moon-hspacing", controlClasses:"moon-5h", components: [
 				{components: [
 					{kind: "moon.Divider", content: "FormCheckbox Items (Default)"},
-					{kind: "moon.FormCheckbox", content: "Option 1", checked: true, onchange: "itemChanged"},
-					{kind: "moon.FormCheckbox", content: "Option 2", onchange: "itemChanged"},
-					{kind: "moon.FormCheckbox", disabled: true, content: "Disabled", onchange: "itemChanged"},
-					{kind: "moon.FormCheckbox", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.FormCheckbox", content: "This is a verrry long option 5", onchange: "itemChanged"}
-				]},
-				{classes: "enyo-locale-right-to-left", components: [
-					{kind: "moon.Divider", content: "FormCheckbox Items (locale: right-to-left)"},
 					{kind: "moon.FormCheckbox", content: "Option 1", checked: true, onchange: "itemChanged"},
 					{kind: "moon.FormCheckbox", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.FormCheckbox", disabled: true, content: "Disabled", onchange: "itemChanged"},

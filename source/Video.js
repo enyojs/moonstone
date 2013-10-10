@@ -124,9 +124,19 @@ enyo.kind({
 		}
 	},
 	srcChanged: function() {
-		this.inherited(arguments);
+		// We override the inherited method from enyo.Control because
+		// it prevents us from setting src to a falsy value.
+		this.setAttribute("src", enyo.path.rewrite(this.src));
 	},
 	//* @public
+	load: function() {
+		if(this.hasNode()) { this.hasNode().load(); }
+	},
+	//* Unload the current video source, stopping all playback and buffering.
+	unload: function() {
+		this.set("src", "");
+		this.load();
+	},
 	play: function() {
 		if (!this.hasNode()) {
 			return;
@@ -390,7 +400,7 @@ enyo.kind({
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
 		var node = this.hasNode();
-		this.setAspectRatio("0:0");
+		this.setAspectRatio("none");
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}

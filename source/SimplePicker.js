@@ -65,6 +65,9 @@ enyo.kind({
 	},
 	defaultKind:"moon.MarqueeText",
 	//* @protected
+	handlers: {
+		onSpotlightFocused: "scrollIntoView"
+	},
 	components: [
 		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, defaultSpotlightRight: "buttonRight", ontap: "left"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
@@ -80,6 +83,9 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
 		this.blockChanged();
+	},
+	scrollIntoView: function() {
+		this.bubble("onRequestScrollIntoView");
 	},
 	fireChangedEvent: function() {
 		if (!this.generated) {
@@ -127,6 +133,10 @@ enyo.kind({
 			this.showNavButton(nextButton);
 		}
 	},
+	destroy: function() {
+		this.destroying = true;
+		this.inherited(arguments);
+	},
 	addControl: function(inControl) {
 		this.inherited(arguments);
 		var addedIdx = this.getClientControls().indexOf(inControl);
@@ -142,23 +152,27 @@ enyo.kind({
 		}
 	},
 	removeControl: function(inControl) {
-		var removedIdx = this.getClientControls().indexOf(inControl);
-		var selectedIdx = this.selectedIndex;
-		var wasLast = (removedIdx == this.getClientControls().length-1);
+		if (!this.destroying) {
+			var removedIdx = this.getClientControls().indexOf(inControl);
+			var selectedIdx = this.selectedIndex;
+			var wasLast = (removedIdx == this.getClientControls().length-1);
 
-		this.inherited(arguments);
+			this.inherited(arguments);
 
-		// If removedIdx is -1, that means that the Control being removed is
-		// not one of our picker items, so we don't need to update our state.
-		// Probably, we're being torn down.
-		if (removedIdx !== -1) {
-			if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
-				this.setSelectedIndex(selectedIdx - 1);
-			} else if (selectedIdx == removedIdx) {
-				// Force change handler, since the currently selected item actually changed
-				this.selectedIndexChanged();
+			// If removedIdx is -1, that means that the Control being removed is
+			// not one of our picker items, so we don't need to update our state.
+			// Probably, we're being torn down.
+			if (removedIdx !== -1) {
+				if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
+					this.setSelectedIndex(selectedIdx - 1);
+				} else if (selectedIdx == removedIdx) {
+					// Force change handler, since the currently selected item actually changed
+					this.selectedIndexChanged();
+				}
+				this.showHideNavButtons();
 			}
-			this.showHideNavButtons();
+		} else {
+			this.inherited(arguments);
 		}
 	},
 	//* Hide _inControl_ and disable spotlight functionality
@@ -245,7 +259,6 @@ enyo.kind({
 			}
 			this.setSelectedIndex(idx);
 			this.updateMarqueeDisable();
-			this._marqueeSpotlightFocus();
 		}
 	},
 	//* @public
@@ -258,7 +271,6 @@ enyo.kind({
 			}
 			this.setSelectedIndex(idx);
 			this.updateMarqueeDisable();
-			this._marqueeSpotlightFocus();
 		}
 	}
 });

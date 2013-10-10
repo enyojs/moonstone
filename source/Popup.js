@@ -187,7 +187,7 @@ enyo.kind({
 	respotActivator: function() {
 		var a = this.activator;
 		// Attempt to identify and re-spot the activator if present
-		if (a.destroyed === undefined) {
+		if (a && a.destroyed === undefined) {
 			enyo.Spotlight.spot(a);
 			if (a instanceof moon.Button) {
 				a.removeClass("pressed");
