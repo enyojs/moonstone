@@ -231,6 +231,9 @@ moon.MarqueeItem = {
 	//* Create a marquee-able div inside of _this_
 	_marquee_createMarquee: function() {
 		this.createComponent({classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
+		// FIXME: When created in DataList, controls don't go through the normal render path that
+		// sets this, but parent.generated==true is required for dynamically rendering new controls
+		this.parent.generated = true;
 		this.render();
 		return true;
 	},
