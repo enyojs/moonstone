@@ -7,9 +7,9 @@
 */
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
-	marqueeOnSpotlight: true,
 	//* @protected
 	_marquee_Handlers: {
+		onRequestStartMarquee: "_marquee_requestStartMarquee",
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
 		onMarqueeEnded: "_marquee_marqueeEnded",
@@ -48,6 +48,14 @@ moon.MarqueeSupport = {
 			return sup.apply(this, arguments);
 		};
 	}),
+	//* Handle external requests to kick off _marqueeStart_
+	_marquee_requestStartMarquee: function() {
+		if (this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+			return true;
+		}
+	},
 	//* On focus, start child marquees
 	_marquee_spotlightFocus: function(inSender, inEvent) {
 		if (this.marqueeOnSpotlight) {
@@ -223,6 +231,9 @@ moon.MarqueeItem = {
 	//* Create a marquee-able div inside of _this_
 	_marquee_createMarquee: function() {
 		this.createComponent({classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
+		// FIXME: When created in DataList, controls don't go through the normal render path that
+		// sets this, but parent.generated==true is required for dynamically rendering new controls
+		this.parent.generated = true;
 		this.render();
 		return true;
 	},
