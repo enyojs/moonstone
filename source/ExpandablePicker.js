@@ -159,6 +159,30 @@ enyo.kind({
 		this.$.helpText.setContent(this.helpText);
 		this.$.helpText.setShowing(!!this.helpText);
 	},
+	destroy: enyo.inherit(function(sup) {
+		return function() {
+			// When the expandablePicker itself is going away, take note so we don't try and do single-picker option
+			// remove logic such as setting some properties to default value when each picker option is destroyed
+			this.destroying = true;
+			sup.apply(this, arguments);
+		};
+	}),
+	removeControl: enyo.inherit(function(sup) {
+		return function(inControl) {
+			// Skip extra work during panel destruction.
+			if (this.destroying) {
+				return sup.apply(this, arguments);
+			}
+			// set currentValue, selected and selectedIndex to defaults value
+			if (this.selected === inControl) {
+				this.setSelected(null);
+				this.setSelectedIndex(-1);
+				this.$.currentValue.setContent(this.getNoneText());
+			}
+			this.inherited(arguments);
+			sup.apply(this, arguments);
+		};
+	}),
 	generateHelpText: function() {
 		this.$.helpText.canGenerate = true;
 		this.$.helpText.render();
