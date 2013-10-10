@@ -88,7 +88,7 @@ enyo.kind({
 		]}
 	],
 	pickerChanged: function(inSender, inEvent) {
-		var value, 
+		var value,
 			picker = inEvent.originator.getContent();
 		if (inEvent.originator instanceof moon.ExpandablePicker) {
 			value = inEvent.originator.getSelected().getContent();
