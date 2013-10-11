@@ -274,19 +274,14 @@ enyo.kind({
 			totalTime = isNaN(duration) ? 0 : duration,
 			currentTime = this.$.audio.getCurrentTime(),
 			playheadPos = (currentTime * 100) / totalTime;
-/*		this.$.slider.setMin(0);
-		this.$.slider.setMax(this.$.audio.getDuration());*/
+
 		this.$.slider.setValue(playheadPos);
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
-		//this.$.slider.setProgress(playheadPos);
-
 		this.waterfall("onTimeupdate", {"currentTime": currentTime, "duration": duration});
 	},
 	updatePlayTime: function(inStart, inEnd) {
-		//this.$.timePlayed.setContent(inStart);
 		this.$.slider.$.beginTickText.setContent(inStart);
 		this.$.slider.$.endTickText.setContent(inEnd);
-		//this.$.timeRemaining.setContent(inEnd);
 	},
 	toReadableTime: function(inValue) {
 		var minutes = Math.floor(inValue / 60).toString(),
@@ -306,22 +301,15 @@ enyo.kind({
 	},
 	changeRepeatState: function() {
 		var result = "";
-
 		switch (this.getRepeat()) {
 		case "NONE" :
 			result = this.setRepeat("ONE");
-			//this.$.btnRepeat.setContent("1");
-			//this.$.btnRepeat.setSrc("assets/repeat-one.png");
 			break;
 		case "ONE" :
 			result = this.setRepeat("ALL");
-			//this.$.btnRepeat.setContent("all");
-			//this.$.btnRepeat.setSrc("assets/repeat-on.png");
 			break;
 		case "ALL" :
 			result = this.setRepeat("NONE");
-			//this.$.btnRepeat.setContent("R");
-			//this.$.btnRepeat.setSrc("assets/repeat-n-f.png");
 			break;
 		}
 
@@ -513,7 +501,6 @@ enyo.kind({
 	},
 	playNext: function() {
 		this.recomposeAudioTag();
-
 		if (this.shuffle) {
 			if (this.getRepeat() === "NONE") {
 				this.setIndex(this.getNextIndexForShuffle());
@@ -591,7 +578,10 @@ enyo.kind({
 	],
 	components: [
 		{
-			kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
+			kind: "moon.Header", 
+			name: "queueHeader", 
+			title: "Music Queue", 
+			titleBelow: "2 Tracks",
 			components: [
 				{name: "selectAll", kind: "moon.Button", content: "Select All", classes: "moon-header-left", ontap: "selectAll", showing: false},
 				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "deselectAll", showing: false},
@@ -705,21 +695,12 @@ enyo.kind({
 	}
 });
 
-/*enyo.kind({
-	name: "testBinding",
-	kind: enyo.Binding,
-	transform: function (value) {
-		debugger;
-		return value;
-	}
-});*/
-
 enyo.kind({
 	name: "moon.AudioListItem",
 	classes: "moon-audio-queue-item",
 	playingMark: null,
 	bindings: [
-		{from: ".albumArt", to: ".$.albumArt.src", transform: "checkAlbumArt"},
+		{from: ".albumArt", to: ".$.albumArt.src"},
 		{from: ".trackName", to: ".$.trackName.content"},
 		{from: ".artistName", to: ".$.artistName.content"}/*,
 		{from: ".playingMark", to: ".$.playingMark.showing"}*/
@@ -733,9 +714,6 @@ enyo.kind({
 		{name:"playingMark", kind: "Image", classes: "moon-audio-item-playmark", src: "assets/playing_mark.png"},
 		{name:"selectMark", classes: "moon-audio-item-selectmark moon-checkbox"}*/
 	],
-	checkAlbumArt: function (value) {
-		return value;
-	},
 	playingMarkChanged: function () {
 		this.addRemoveClass("playing", this.playingMark);
 	}

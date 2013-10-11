@@ -70,17 +70,16 @@ enyo.kind({
     ],
     components: [
         {classes: "sample-audio-item", components: [
-            {classes: "sample-audio-item-image", style: "background-image: url(assets/beatles.jpg);", components: [
+            {classes: "sample-audio-item-image", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 0, spotlight: true}
             ]},
-			/*{style: "display: table-cell; width: 20px;"},*/
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Thunder"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Sound Effects"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Album"}]},
             {classes: "sample-audio-item-label-right", content: "0:22"}
         ]},
         {classes: "sample-audio-item", components: [
-            {classes: "sample-audio-item-image", style: "background-image: url(assets/beatles3.jpg);", components: [
+            {classes: "sample-audio-item-image", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 1, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},
