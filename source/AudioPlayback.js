@@ -448,7 +448,7 @@ enyo.kind({
 	//* @public
 	togglePlay: function() {
 		if (this.$.audio.getPaused()) {
-			this.setIndex(this.inIndex);
+			this.setIndex(this.index);
 			this.play();
 		} else {
 			this.pause();
@@ -493,7 +493,6 @@ enyo.kind({
 		}
 
 		this.updateTrackIndex(this.index);
-		this.waterfall("onRefreshPlaylist", {tracks: this.tracks});
 
 		if (this.lastControlCommand === "PLAY") {
 			this.play();
@@ -520,13 +519,13 @@ enyo.kind({
 		}
 
 		this.updateTrackIndex(this.index);
-		this.waterfall("onRefreshPlaylist", {tracks: this.tracks});
 
 		if (this.lastControlCommand === "PLAY") {
 			this.play();
 		}
 	},
 	playAtIndex: function(inIndex) {
+		this.recomposeAudioTag();
 		this.setIndex((this.tracks.length > inIndex) ? inIndex : 0);
 		this.updateTrackIndex(this.index);
 		this.play();
@@ -602,9 +601,9 @@ enyo.kind({
 			components: [
 				{
 					bindings: [
-						{from: ".model.albumImage", to: ".$.audioListItem.albumArt" },
-						{from: ".model.trackName", to: ".$.audioListItem.trackName" },
-						{from: ".model.artistName", to: ".$.audioListItem.artistName"},
+						{from: ".model.albumImage", to: ".$.audioListItem.$.albumArt.src" },
+						{from: ".model.trackName", to: ".$.audioListItem.$.trackName.content" },
+						{from: ".model.artistName", to: ".$.audioListItem.$.artistName.content"},
 						{from: ".model.isPlaying", to: ".$.audioListItem.playingMark"}
 					],
 					components: [
@@ -699,12 +698,6 @@ enyo.kind({
 	name: "moon.AudioListItem",
 	classes: "moon-audio-queue-item",
 	playingMark: null,
-	bindings: [
-		{from: ".albumArt", to: ".$.albumArt.src"},
-		{from: ".trackName", to: ".$.trackName.content"},
-		{from: ".artistName", to: ".$.artistName.content"}/*,
-		{from: ".playingMark", to: ".$.playingMark.showing"}*/
-	],	
 	components: [
 		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-item-albumArt", src: "assets/default-music-sm.png"},
 		{components: [
