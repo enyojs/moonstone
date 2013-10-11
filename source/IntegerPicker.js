@@ -51,7 +51,7 @@ enyo.kind({
 		]}
 	],
 	//* @protected
-	scrollInterval: 65,
+	scrollInterval: 150,
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
@@ -163,7 +163,7 @@ enyo.kind({
 		if(!st.scrollNode) {
 			return;
 		}
-		
+
 		while (n && n.parentNode && n.id != st.scrollNode.id) {
 			b.top += n.offsetTop;
 			b.left += n.offsetLeft;
