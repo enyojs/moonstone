@@ -2960,8 +2960,9 @@ button:focus {
   position: relative;
   top: 6px;
   left: 4px;
-  width: 128px;
-  height: 128px;
+  width: 114px;
+  height: 114px;
+  margin: 0 10px 10px 0;
   background: transparent url() no-repeat 0px 0px;
   display: inline-block;
 }
@@ -2972,6 +2973,26 @@ button:focus {
 .moon-audio-control-buttons > * {
   display: inline-block;
   top: 6px;
+}
+.shuffle-button {
+  background-image: url(../images/audio-player/shuffle-n-f.png);
+  background-position: -21px -21px;
+}
+.shuffle-button.on {
+  background-image: url(../images/audio-player/shuffle-on.png);
+  background-position: -21px -21px;
+}
+.repeat-button.none {
+  background-image: url(../images/audio-player/repeat-n-f.png);
+  background-position: -21px -21px;
+}
+.repeat-button.one {
+  background-image: url(../images/audio-player/repeat-one.png);
+  background-position: -21px -21px;
+}
+.repeat-button.all {
+  background-image: url(../images/audio-player/repeat-on.png);
+  background-position: -21px -21px;
 }
 .moon-audio-play-time {
   width: 80px;
@@ -3042,25 +3063,45 @@ button:focus {
   margin: 0px 40px;
 }
 /* AudioPlayback styles for queue list items */
-.moon-audio-queue-list {
+.moon-audio-queue-item {
   height: 100px;
   padding: 12px 16px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 }
-.moon-audio-queue-list-selected {
-  background-color: #999999;
-  border-color: #666666;
-}
-.moon-audio-queue-list > * {
+.moon-audio-queue-item > * {
   display: inline-block;
   vertical-align: middle;
 }
-.moon-audio-queue-album-art {
+.moon-audio-queue-item-albumArt {
   width: 80px;
   height: 80px;
   background: transparent url() no-repeat 0px 0px;
   padding-right: 10px;
+}
+/*.moon-audio-queue-item .moon-audio-item-playmark {
+  margin-left: 10px; 
+  color: black;
+}*/
+.moon-audio-queue-item.playing {
+  background-color: #4b4b4b;
+}
+/*.moon-audio-queue-item .moon-audio-item-selectmark {
+  display: none;
+  margin-left: 10px; 
+  color: black;
+  position: absolute;
+  right: 15px;
+  background-image: @moon-checkbox-image;
+  background-repeat: no-repeat;
+  background-position: 11px 1px;
+}*/
+.moon-audio-queue-list.editMode .selected {
+  background-color: #999999;
+  border-color: #666666;
+}
+.moon-audio-queue-list.editMode .selected .moon-audio-queue-item .moon-audio-item-selectmark {
+  display: inline-block;
 }
 .moon-video-transport-slider {
   height: 80px;
@@ -3168,6 +3209,35 @@ button:focus {
   color: #ffffff;
   text-align: left;
   left: 55%;
+}
+.moon-audio-slider-container .moon-video-transport-slider {
+  margin: 0 !important;
+}
+.moon-audio-slider-container .moon-video-transport-slider-popup-label > * {
+  display: inline-block;
+  padding-top: 5px;
+}
+.moon-audio-slider-container .moon-video-transport-slider-popup-label div {
+  color: #4b4b4b;
+}
+.moon-audio-slider-container .moon-progress-bar.moon-video-transport-slider {
+  height: 42px;
+}
+.moon-audio-slider-container .moon-video-transport-slider-indicator-wrapper {
+  height: 42px;
+}
+.moon-audio-slider-container .moon-video-transport-slider-indicator-bar-left {
+  visibility: hidden;
+}
+.moon-audio-slider-container .moon-video-transport-slider-indicator-bar-right {
+  top: 6px;
+}
+.moon-audio-slider-container .moon-video-transport-slider-indicator-wrapper.start .moon-video-transport-slider-indicator-text {
+  top: 6px;
+  left: 5px;
+}
+.moon-audio-slider-container .moon-video-transport-slider-indicator-wrapper.end .moon-video-transport-slider-indicator-text {
+  top: 6px;
 }
 .moon-video-player {
   position: relative;
