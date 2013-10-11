@@ -2068,7 +2068,7 @@ button:focus {
   min-height: 100px;
   min-width: 100px;
   border-radius: 16px;
-  border: 12px solid transparent;
+  border: 5px solid rgba(0, 0, 0, 0.5);
   color: #ffffff;
   padding: 20px;
   background-clip: padding-box;
@@ -2085,16 +2085,16 @@ button:focus {
 /* Vertical Popups */
 /* Vertical Popups that display below their activator */
 .moon-contextual-popup.vertical.below {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 /* Vertical popups that display above their activator */
 .moon-contextual-popup.vertical.above {
-  margin-top: -20px;
+  margin-top: -22px;
 }
 /* Horizontal Popups */
 /* Horizontal popups that display to the right of their activator */
 .moon-contextual-popup.right.horizontal {
-  margin-left: -31px;
+  margin-left: -28px;
 }
 /* Horizontal popups that display to the left of their activator */
 .moon-contextual-popup.left.horizontal {
@@ -2105,7 +2105,7 @@ button:focus {
   content: '';
   position: absolute;
   width: 46px;
-  height: 36px;
+  height: 46px;
   background-color: transparent;
   background-repeat: no-repeat;
 }
@@ -2115,7 +2115,7 @@ button:focus {
   left: 50%;
 }
 .moon-contextual-popup.below::after {
-  top: 0;
+  top: 9px;
   margin: -36px 0px 0px -23px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
 }
@@ -2128,7 +2128,7 @@ button:focus {
 .moon-contextual-popup.left::after,
 .moon-contextual-popup.right::after {
   top: 50%;
-  margin-top: -32px;
+  margin-top: -20px;
 }
 .moon-contextual-popup.right::after {
   left: 100%;
@@ -2136,7 +2136,7 @@ button:focus {
 }
 .moon-contextual-popup.left::after {
   left: 0%;
-  margin-left: -46px;
+  margin-left: -27px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Left.png);
 }
 /* Low nubs */
@@ -2147,7 +2147,7 @@ button:focus {
 /* High nubs */
 .moon-contextual-popup.left.high::after,
 .moon-contextual-popup.right.high::after {
-  top: 35px;
+  top: 50px;
 }
 /* Bottom right corner nub */
 .moon-contextual-popup.left.above::after {
@@ -2172,7 +2172,7 @@ button:focus {
 }
 /* Top left corner nub */
 .moon-contextual-popup.right.below::after {
-  top: 0%;
+  top: 9px;
   left: 10%;
   margin-top: -36px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
