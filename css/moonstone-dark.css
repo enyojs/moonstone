@@ -3627,7 +3627,7 @@ button:focus {
   display: inline-block;
   line-height: 65px;
 }
-.moon-clock-meridian {
+.moon-clock-meridiem {
   font-family: "MuseoSans Medium";
   font-size: 24px;
   white-space: nowrap;
