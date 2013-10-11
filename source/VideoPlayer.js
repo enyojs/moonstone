@@ -281,7 +281,10 @@ enyo.kind({
 		return this.src;
 	},
 	srcChanged: function() {
-		this.pause();
+		if(this.src != this.$.video.getSrc()) {
+			this._isPlaying = this.autoplay? true : false;
+			this.updatePlayPauseButtons();
+		}
 		this.$.video.setSrc(this.getSrc());
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
