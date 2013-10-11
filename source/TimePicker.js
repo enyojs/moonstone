@@ -68,8 +68,8 @@ enyo.kind({
 		hourText: "hour",
 		//* Optional label for minute
 		minuteText: "minute",
-		//* Optional label for meridian
-		meridianText: "meridian"
+		//* Optional label for meridiem
+		meridiemText: "meridiem"
 	},
 	//*@protected
 	iLibFormatType  : "time",
@@ -166,7 +166,7 @@ enyo.kind({
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
 								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
-								{name: "meridianLabel", content: this.meridianText || "meridian", classes: "moon-date-picker-label moon-divider-text"}
+								{name: "meridiemLabel", content: this.meridiemText || "meridiem", classes: "moon-date-picker-label moon-divider-text"}
 							]}
 						);
 					}
@@ -240,7 +240,7 @@ enyo.kind({
 	minuteTextChanged: function (inOldvalue, inNewValue) {
 		this.$.minuteLabel.setContent(inNewValue);
 	},
-	meridianTextChanged: function (inOldvalue, inNewValue) {
-		this.$.meridianLabel.setContent(inNewValue);
+	meridiemTextChanged: function (inOldvalue, inNewValue) {
+		this.$.meridiemLabel.setContent(inNewValue);
 	}
 });
