@@ -18,7 +18,7 @@ enyo.kind({
         {name: "recentResult", kind: "moon.Scroller", fit:true, components: [
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title1", kind: "moon.Item"},
-                {name: "recentSearchResults1", kind: "enyo.DataGridList", classes: "result-height", components: [
+                {name: "recentSearchResults1", kind: "moon.DataGridList", classes: "result-height", components: [
                     {kind: "moon.GridListImageItem", bindings: [
                         {from: ".model.image", to: ".source"},
                         {from: ".model.text", to: ".caption"}
@@ -27,7 +27,7 @@ enyo.kind({
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title2", kind: "moon.Item"},
-                {name: "recentSearchResults2", kind: "enyo.DataGridList", classes: "result-height", components: [
+                {name: "recentSearchResults2", kind: "moon.DataGridList", classes: "result-height", components: [
                     {kind: "moon.GridListImageItem", bindings: [
                         {from: ".model.image", to: ".source"},
                         {from: ".model.text", to: ".caption"}
@@ -36,7 +36,7 @@ enyo.kind({
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title3", kind: "moon.Item"},
-                {name: "recentSearchResults3", kind: "enyo.DataGridList", classes: "result-height", components: [
+                {name: "recentSearchResults3", kind: "moon.DataGridList", classes: "result-height", components: [
                     {kind: "moon.GridListImageItem", bindings: [
                         {from: ".model.image", to: ".source"},
                         {from: ".model.text", to: ".caption"}
@@ -45,7 +45,7 @@ enyo.kind({
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title4", kind: "moon.Item"},
-                {name: "recentSearchResults4", kind: "enyo.DataGridList", classes: "result-height", components: [
+                {name: "recentSearchResults4", kind: "moon.DataGridList", classes: "result-height", components: [
                     {kind: "moon.GridListImageItem", bindings: [
                         {from: ".model.image", to: ".source"},
                         {from: ".model.text", to: ".caption"}
@@ -54,7 +54,7 @@ enyo.kind({
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title5", kind: "moon.Item"},
-                {name: "recentSearchResults5", kind: "enyo.DataGridList", classes: "result-height", components: [
+                {name: "recentSearchResults5", kind: "moon.DataGridList", classes: "result-height", components: [
                     {kind: "moon.GridListImageItem", bindings: [
                         {from: ".model.image", to: ".source"},
                         {from: ".model.text", to: ".caption"}
@@ -63,7 +63,7 @@ enyo.kind({
             ]},
             {style: "display: inline-block; float: left; width: 438px;", components: [
                 {name: "title6", kind: "moon.Item"},
-                {name: "recentSearchResults6", kind: "enyo.DataGridList", classes: "result-height", components: [
+                {name: "recentSearchResults6", kind: "moon.DataGridList", classes: "result-height", components: [
                     {kind: "moon.GridListImageItem", bindings: [
                         {from: ".model.image", to: ".source"},
                         {from: ".model.text", to: ".caption"}
@@ -71,7 +71,7 @@ enyo.kind({
                 ]}
             ]}
         ]},
-        {name: "instantSearchResults", kind: "enyo.DataGridList", showing: false, components: [
+        {name: "instantSearchResults", kind: "moon.DataGridList", showing: false, components: [
             {kind: "moon.GridListImageItem", bindings: [
                 {from: ".model.image", to: ".source"},
                 {from: ".model.text", to: ".caption"}

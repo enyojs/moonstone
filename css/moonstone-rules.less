@@ -4,6 +4,11 @@
 /* Import grid classes/mixins */
 @import "moonstone-grid.less";
 
+/* Prevent browser's default focus treatment (at least in Chrome) */
+:focus {
+	outline: none;
+}
+
 /* Common classes applicable to multiple controls */
 .moon {
 	font-family: @moon-font-family;
@@ -12,6 +17,14 @@
 	padding: @moon-app-keepout;
 	color: @moon-sub-header-text-color;
 	background-color: @moon-background-color;
+}
+
+/* Remove any focus outline */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 .moon-header-font {

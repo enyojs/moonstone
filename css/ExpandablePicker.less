@@ -6,10 +6,12 @@
 .moon-expandable-picker-header .moon-item {
 	margin: 0px;
 }
-/* Header - Open */
-.moon-expandable-picker.open .moon-expandable-list-item-header-wrapper {
-	padding: @moon-spotlight-outset;
+/* Header - Disabled */
+.moon-expandable-picker-header-wrapper.disabled {
+	opacity: 1;
+	filter: alpha(opacity=100);
 }
+/* Header - Open */
 .moon-expandable-picker.open .moon-expandable-picker-header {
 	.moon-divider-text;
 	.moon-divider-border;
@@ -25,6 +27,9 @@
 	color: @moon-expandable-picker-text-color;
 	margin: 0px;
 	padding: 0px;
+}
+.spotlight .moon-expandable-picker-current-value {
+	color: @moon-white;
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
 	.enyo-locale-non-latin .moon-body-text;

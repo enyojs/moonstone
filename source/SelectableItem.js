@@ -30,9 +30,15 @@ enyo.kind({
 	},
 	components: [
 		{name: "indicator", classes: "moon-selectable-item-indicator"},
-		{name: "client", classes: "moon-selectable-item-client"}
+		{name: "client", kind: "moon.MarqueeText", classes: "moon-selectable-item-client"}
 	],
 	//@protected
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.contentChanged();
+		};
+	}),
 	rendered: function() {
 		this.inherited(arguments);
 		this.selectedChanged();
@@ -50,11 +56,11 @@ enyo.kind({
 	},
 	selectedChanged: function() {
 		var selected = this.getSelected();
-		this.stopMarquee();
 		this.addRemoveClass("selected", selected);
 		this.setNodeProperty("selected", selected);
 		this.setAttribute("selected", selected ? "selected" : "");
 		this.setActive(selected);
+		this.stopMarquee();
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called
@@ -65,5 +71,8 @@ enyo.kind({
 		this.active = enyo.isTrue(this.active);
 		this.setSelected(this.active);
 		this.bubble("onActivate");
+	},
+	contentChanged: function() {
+		this.$.client.setContent(this.content);
 	}
 });

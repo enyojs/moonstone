@@ -1,11 +1,11 @@
 enyo.kind({
 	name: "moon.sample.ToggleButtonSample",
-	kind: enyo.FittableRows,
+	kind:"FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: 'moon.Scroller', fit: true, classes: "enyo-fill", components: [
+		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-toggle-button-sample-wrapper", components: [
-				{kind: "moon.Divider", content: "Focus Buttons:"},
+				{kind: "moon.Divider", content: "Toggle Buttons:"},
 				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
