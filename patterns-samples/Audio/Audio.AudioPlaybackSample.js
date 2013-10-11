@@ -2,16 +2,16 @@ enyo.kind({
 	name: "moon.sample.audio.AudioPlaybackSample",
 	classes: "enyo-unselectable moon sample-audio-playback",
 	audioFiles: [
-		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "01-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
-		{src: "assets/brobob.mp3", trackName: "02-brobob", artistName: "Brother bob", albumName: "Sound Effects", duration: "0:04"},
-		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "03-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
-		{src: "http://enyojs.com/_media/engine.mp3", trackName: "04-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
-		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "05-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
-		{src: "http://enyojs.com/_media/engine.mp3", trackName: "06-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
-		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "07-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
-		{src: "http://enyojs.com/_media/engine.mp3", trackName: "08-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"},
-		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "09-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22"},
-		{src: "http://enyojs.com/_media/engine.mp3", trackName: "10-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04"}
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "01-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: ""},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "02-brobob", artistName: "Brother bob", albumName: "Sound Effects", duration: "0:04", albumImage: ""},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "03-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: ""},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "04-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: ""},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "05-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: ""},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "06-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: ""},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "07-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: ""},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "08-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: ""},
+		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "09-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: ""},
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "10-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: ""}
 	],
 	handlers: {
 		onPlayIndex: "playIndex",
@@ -43,7 +43,7 @@ enyo.kind({
 		var a = this.audioFiles;
 		var len = a.length;
 		for (var i=0; i<len; i++) {
-			this.$.audioPlayback.addAudioTrack(a[i].src, a[i].trackName, a[i].artistName, a[i].albumName, a[i].duration);
+			this.$.audioPlayback.addAudioTrack(a[i].src, a[i].trackName, a[i].artistName, a[i].albumName, a[i].duration, a[i].albumImage);
 		}
 	},
 	indexChanged: function (inSender, inEvent) {
@@ -70,17 +70,17 @@ enyo.kind({
     ],
     components: [
         {classes: "sample-audio-item", components: [
-            {classes: "sample-audio-item-image", style: "background-image: url(../assets/default-music.png);", components: [
+            {classes: "sample-audio-item-image", style: "background-image: url(assets/beatles.jpg);", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 0, spotlight: true}
             ]},
-			{style: "display: table-cell; width: 20px;"},
+			/*{style: "display: table-cell; width: 20px;"},*/
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Thunder"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Sound Effects"}]},
             {classes: "sample-audio-item-label", components: [{classes: "sample-audio-item-label-content", content: "Album"}]},
             {classes: "sample-audio-item-label-right", content: "0:22"}
         ]},
         {classes: "sample-audio-item", components: [
-            {classes: "sample-audio-item-image", style: "background-image: url(../assets/default-music.png);", components: [
+            {classes: "sample-audio-item-image", style: "background-image: url(assets/beatles3.jpg);", components: [
 				{classes: "sample-audio-play-icon", ontap: "playIndex", trackIndex: 1, spotlight: true}
             ]},
 			{style: "display: table-cell; width: 20px;"},

@@ -44,7 +44,7 @@ enyo.kind({
 		//* Popup offset in pixels
 		popupOffset: 25,
 		//* This flag for support audio player.
-		audioMode: false,
+		audioPlayerSupport: false,
 		//** threshold value(percentage) for using animation effect on slider progress change
 		smallVariation: 1
 	},
@@ -111,12 +111,14 @@ enyo.kind({
 		this.doLeaveTapArea(inEvent);
 	},
 	preview: function(inSender, inEvent) {
-		var v = this.calcKnobPosition(inEvent);
-		if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-			return;
+		if (!this.disabled) {
+			var v = this.calcKnobPosition(inEvent);
+			if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+				return;
+			}
+			this.currentTime = this.transformToVideo(v);
+			this._updateKnobPosition(this.currentTime);
 		}
-		this.currentTime = this.transformToVideo(v);
-		this._updateKnobPosition(this.currentTime);
 	},
 	startPreview: function(inSender, inEvent) {
 		this._previewMode = true;
@@ -138,8 +140,8 @@ enyo.kind({
 		this.updateSliderRange();
 	},
 	updateSliderRange: function() {
-		this.beginTickPos = this.audioMode? 0 : (this.max-this.min)*0.0625;
-		this.endTickPos = this.audioMode? this.max : (this.max-this.min)*0.9375;
+		this.beginTickPos = this.audioPlayerSupport? 0 : (this.max-this.min)*0.0625;
+		this.endTickPos = this.audioPlayerSupport? this.max : (this.max-this.min)*0.9375;
 
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);

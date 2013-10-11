@@ -31,7 +31,8 @@ enyo.kind({
 		onToggleTrackList: "toggleTrackDrawer",
 		onAudioTrackAdded: "audioTrackAdded",
 		onDeleteSelected: "deleteSelected",
-		onTrackOrderChanged: "trackOrderChanged"
+		onTrackOrderChanged: "trackOrderChanged",
+		onClickItem: "userClickedFromPlayQueue"
 	},
 	bindings: [
 		{from: ".$.audioPlayer.controller.model.tracks", to: ".$.audioQueue.trackList"}
@@ -64,6 +65,10 @@ enyo.kind({
 		this.waterfall("onTrackListChanged", {selected: inEvent.tracks});
 		return true;
 	},
+	userClickedFromPlayQueue: function(inSender, inEvent) {
+		this.playAtIndex(inEvent.index);
+		return true;
+	},
 	//* @public
 	togglePlay: function() {
 		if (this.$.audio.getPaused()) {
@@ -93,8 +98,8 @@ enyo.kind({
 	repeat: function () {
 		this.$.audioPlayer.changeRepeatState();
 	},
-	addAudioTrack: function(inSrc, inTrack, inArtist, inAlbum, inDuration) {
-		this.$.audioPlayer.addAudioTrack(inSrc, inTrack, inArtist, inAlbum, inDuration);
+	addAudioTrack: function(inSrc, inTrack, inArtist, inAlbum, inDuration, inAlbumImage) {
+		this.$.audioPlayer.addAudioTrack(inSrc, inTrack, inArtist, inAlbum, inDuration, inAlbumImage);
 	}
 });
 
@@ -161,8 +166,8 @@ enyo.kind({
 	},
 	components: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
-		{kind: "FittableColumns", classes: "moon-audio-playback-controls", spotlight: "container", components: [
-			{name: "trackIcon", classes: "moon-audio-playback-track-icon"},
+		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
+			{name: "trackIcon", kind: "Image", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
 				{kind: "FittableColumns", classes: "moon-audio-top", components: [
 					{classes: "moon-audio-track-info", components: [
@@ -174,20 +179,17 @@ enyo.kind({
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
 						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button left", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
-						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", name: "btnShuffle", content: "S", ontap: "toggleShuffleState"},
-						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", name: "btnRepeat", content: "R", ontap: "changeRepeatState"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button shuffle-button right", name: "btnShuffle", ontap: "toggleShuffleState"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button repeat-button none right", name: "btnRepeat", ontap: "changeRepeatState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackList"}
 					]}
 				]}
 			]}
 		]},
 		{kind: "FittableColumns", classes: "", components: [
-			//{name: "timePlayed", classes: "moon-audio-play-time left", content: "0:00"},
 			{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
-				//{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
-				{name: "slider", kind: "moon.VideoTransportSlider", classes: "moon-audio-transport-slider", audioMode: true, popupLabelClasses: "moon-audio-transport-slider-popup-label", onSeekStart: "sliderChanging", onSeek: "sliderChanging", onSeekFinish: "sliderChanging"}
-			]}/*,
-			{name: "timeRemaining", classes: "moon-audio-play-time right", content: "0:00"}*/
+				{name: "slider", kind: "moon.VideoTransportSlider", audioPlayerSupport: true, onSeekStart: "sliderChanging", onSeek: "sliderChanging", onSeekFinish: "sliderChanging"}
+			]}
 		]}
 	],
 	endPlayheadJob: function() {
@@ -261,7 +263,8 @@ enyo.kind({
 		this.$.artistName.setContent(track.get("artistName"));
 		this.$.audio.setSrc(track.get("src"));
 		this.updatePlayTime("0:00", "0:00");
-		this.$.trackIcon.applyStyle("background-image", "url(../assets/default-music.png)");
+		//this.$.trackIcon.applyStyle("background-image", "url(" + track.get("albumImage") + ")");
+		this.$.trackIcon.setSrc(track.get("albumImage"));
 
 		// moon.Drawer needs a method for updating marquee content
 		//this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
@@ -271,7 +274,6 @@ enyo.kind({
 			totalTime = isNaN(duration) ? 0 : duration,
 			currentTime = this.$.audio.getCurrentTime(),
 			playheadPos = (currentTime * 100) / totalTime;
-
 /*		this.$.slider.setMin(0);
 		this.$.slider.setMax(this.$.audio.getDuration());*/
 		this.$.slider.setValue(playheadPos);
@@ -304,30 +306,35 @@ enyo.kind({
 	},
 	changeRepeatState: function() {
 		var result = "";
+
 		switch (this.getRepeat()) {
 		case "NONE" :
 			result = this.setRepeat("ONE");
-			this.$.btnRepeat.setContent("1");
-
+			//this.$.btnRepeat.setContent("1");
+			//this.$.btnRepeat.setSrc("assets/repeat-one.png");
 			break;
 		case "ONE" :
 			result = this.setRepeat("ALL");
-			this.$.btnRepeat.setContent("all");
+			//this.$.btnRepeat.setContent("all");
+			//this.$.btnRepeat.setSrc("assets/repeat-on.png");
 			break;
 		case "ALL" :
 			result = this.setRepeat("NONE");
-			this.$.btnRepeat.setContent("R");
+			//this.$.btnRepeat.setContent("R");
+			//this.$.btnRepeat.setSrc("assets/repeat-n-f.png");
 			break;
 		}
+
+		this.$.btnRepeat.addRemoveClass("one", this.getRepeat() === "ONE");
+		this.$.btnRepeat.addRemoveClass("all", this.getRepeat() === "ALL");
+		this.$.btnRepeat.addRemoveClass("none", this.getRepeat() === "NONE");
 	},
-	toggleShuffleState: function() {
+	toggleShuffleState: function() {		
+		this.setShuffle(!this.shuffle);
+		this.$.btnShuffle.addRemoveClass("on", this.shuffle);
+
 		if (this.shuffle) {
-			this.setShuffle(false);
-			this.$.btnShuffle.setContent("S");
-		} else {
 			this.createRandomPlaylist();
-			this.setShuffle(true);
-			this.$.btnShuffle.setContent("S on");
 		}
 	},
 	//* Make randomized playlist.
@@ -432,11 +439,8 @@ enyo.kind({
 		inIndex = inIndex || 0;
 		var previous = this.index;
 		this.index = inIndex;
-		this.indexChanged(previous, inIndex);
-	},
-	indexChanged: function(previous, current) {
-		this.doIndexChanged({"previous": previous, "current": current});
-		this.controller.setPlayingIndex(current);
+		this.controller.setPlayingIndex(this.index);
+		this.doIndexChanged({"previous": previous, "current": this.index});
 	},
 	recomposeAudioTag: function() {
 		if (this.$.audio) {
@@ -536,11 +540,11 @@ enyo.kind({
 		}
 	},
 	playAtIndex: function(inIndex) {
-		this.index = (this.tracks.length > inIndex) ? inIndex : 0;
+		this.setIndex((this.tracks.length > inIndex) ? inIndex : 0);
 		this.updateTrackIndex(this.index);
 		this.play();
 	},
-	addAudioTrack: function(inSrc, inTrack, inArtist, inAlbum, inDuration) {
+	addAudioTrack: function(inSrc, inTrack, inArtist, inAlbum, inDuration, inAlbumImage) {
 		var track = {
 			src: inSrc,
 			trackName: inTrack,
@@ -548,7 +552,8 @@ enyo.kind({
 			albumName: inAlbum,
 			isPlaying: false,
 			isSelected: false,
-			duration: inDuration,
+			duration: inDuration,			
+			albumImage: inAlbumImage,
 			id: this.tracks.length
 		};
 		this.tracks.add(track);
@@ -568,7 +573,9 @@ enyo.kind({
 		//* Fires when audio track is deleted from queue list.
 		onDeleteSelected: "",
 		//* Fires when audio player's playing index is changed.
-		onTrackOrderChanged: ""
+		onTrackOrderChanged: "",
+		//* Fires when user clicked item.
+		onClickItem: ""
 	},
 	handlers: {
 		onAddAudio: "addAudio"
@@ -584,10 +591,7 @@ enyo.kind({
 	],
 	components: [
 		{
-			kind: "moon.Header", 
-			name: "queueHeader", 
-			title: "Music Queue", 
-			titleBelow: "2 Tracks",
+			kind: "moon.Header", name: "queueHeader", title: "Music Queue", titleBelow: "2 Tracks",
 			components: [
 				{name: "selectAll", kind: "moon.Button", content: "Select All", classes: "moon-header-left", ontap: "selectAll", showing: false},
 				{name: "deselectAll", kind: "moon.Button", content: "Deselect All", classes: "moon-header-left", ontap: "deselectAll", showing: false},
@@ -601,20 +605,20 @@ enyo.kind({
 		{
 			kind: "moon.DataList",
 			name: "list",
-			classes: "sample-audio-list enyo-unselectable",
+			classes: "moon-audio-queue-list enyo-unselectable",
 			fit: true,
 			multipleSelection: false,
 			ontap: "selectItem",
 			components: [
 				{
 					bindings: [
+						{from: ".model.albumImage", to: ".$.audioListItem.albumArt" },
 						{from: ".model.trackName", to: ".$.audioListItem.trackName" },
 						{from: ".model.artistName", to: ".$.audioListItem.artistName"},
-						{from: ".model.isPlaying", to: ".$.audioListItem.playingMark"},
-						{from: ".model.isSelected", to: ".$.audioListItem.selectMark"}
+						{from: ".model.isPlaying", to: ".$.audioListItem.playingMark"}
 					],
 					components: [
-						{name: "audioListItem", classes: "moon-audio-queue-list enyo-border-box", mixins: ["moon.SelectionOverlaySupport"], kind: "moon.AudioListItem"}
+						{name: "audioListItem", classes: "enyo-border-box", kind: "moon.AudioListItem"}
 					]
 				}
 			]
@@ -638,7 +642,12 @@ enyo.kind({
 	deselectAll: function () {
 		this.$.list.deselectAll();
 	},
-	selectItem: function () {
+	selectItem: function (inSerder, inEvent) {
+		if (!this.moveMode && !this.deleteMode) {
+			this.doClickItem({ index: this.$.list.get("selected").get("id") });
+			return;
+		}
+
 		if (this.moveMode) {
 			this.changeTrackOrder();
 		}
@@ -651,6 +660,8 @@ enyo.kind({
 		this.$.deleteBtn.setDisabled(this.get("deleteMode"));
 		this.$.moveBtn.setDisabled(this.get("deleteMode"));
 
+		this.$.list.addRemoveClass("editMode", this.get("deleteMode"));
+
 		this.$.list.deselectAll();
 	},
 	updateMoveMode: function (inSender, inEvent) {
@@ -659,6 +670,7 @@ enyo.kind({
 		}
 		this.set("moveMode", !this.moveMode);
 		this.$.deleteBtn.setDisabled(this.get("moveMode"));
+		this.$.list.addRemoveClass("editMode", this.get("moveMode"));
 		this.$.list.deselectAll();
 	},
 	changeTrackOrder: function () {
@@ -704,34 +716,27 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.AudioListItem",
-	events: {
-		onRemove: ""
-	},
-	classes: "sample-audio-list-item",
+	classes: "moon-audio-queue-item",
+	playingMark: null,
 	bindings: [
+		{from: ".albumArt", to: ".$.albumArt.src", transform: "checkAlbumArt"},
 		{from: ".trackName", to: ".$.trackName.content"},
-		{from: ".artistName", to: ".$.artistName.content"},
-		{from: ".playingMark", to: ".$.playingMark.showing"}
-	],
+		{from: ".artistName", to: ".$.artistName.content"}/*,
+		{from: ".playingMark", to: ".$.playingMark.showing"}*/
+	],	
 	components: [
-		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-album-art", src: "assets/default-music-sm.png"},
+		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-item-albumArt", src: "assets/default-music-sm.png"},
 		{components: [
 			{name: "trackName"},
 			{name: "artistName"}
-		]},
-		{name:"playingMark", content: "Playing", classes: "sample-audio-item-playmark"},
-		{name:"selectMark", classes: "sample-audio-item-selectmark", content: "selected"}
+		]}/*,
+		{name:"playingMark", kind: "Image", classes: "moon-audio-item-playmark", src: "assets/playing_mark.png"},
+		{name:"selectMark", classes: "moon-audio-item-selectmark moon-checkbox"}*/
 	],
-	setTrack: function(inAudio) {
-		this.$.trackName.setContent(inAudio.trackName);
-		this.$.artistName.setContent(inAudio.artistName + " - " + inAudio.albumName);
-		this.$.albumArt.setSrc(inAudio.src);
+	checkAlbumArt: function (value) {
+		return value;
 	},
-	setSelected: function(inSelected) {
-		this.addRemoveClass("moon-audio-queue-list-selected", inSelected);
-	},
-	removeTap: function(inSender, inEvent) {
-		this.doRemove(inEvent);
-		return true;
+	playingMarkChanged: function () {
+		this.addRemoveClass("playing", this.playingMark);
 	}
 });
