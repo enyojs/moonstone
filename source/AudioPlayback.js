@@ -575,6 +575,24 @@ enyo.kind({
 		{ from: ".deleteMode", to: ".$.list.multipleSelection" },
 		{ from: ".moveMode", to: ".$.list.multipleSelection" }
 	],
+	defaultBindingsToListItem: [
+		{from: ".model.albumImage", to: ".$.audioListItem.$.albumArt.src" },
+		{from: ".model.trackName", to: ".$.audioListItem.$.trackName.content" },
+		{from: ".model.artistName", to: ".$.audioListItem.$.artistName.content"},
+		{from: ".model.isPlaying", to: ".$.audioListItem.playingMark"}
+	],
+	//* If userQueueItem option is undefined, this format will be used to make queue list item.
+	defaultListItemFormat : {
+		bindings: [
+			{from: ".model.albumImage", to: ".$.audioListItem.$.albumArt.src" },
+			{from: ".model.trackName", to: ".$.audioListItem.$.trackName.content" },
+			{from: ".model.artistName", to: ".$.audioListItem.$.artistName.content"},
+			{from: ".model.isPlaying", to: ".$.audioListItem.playingMark"}
+		],
+		components: [
+			{kind: "moon.AudioListItem", name: "audioListItem", classes: "enyo-border-box"}
+		]
+	},
 	components: [
 		{
 			kind: "moon.Header", 
@@ -590,7 +608,7 @@ enyo.kind({
 				{name: "moveBtn", kind: "moon.Button", content: "ordering list", ontap: "updateMoveMode"},
 				{name: "deleteBtn", kind: "moon.Button", content: "delete", ontap: "updateDeleteMode"}
 			]
-		},
+		}/*,
 		{
 			kind: "moon.DataList",
 			name: "list",
@@ -611,10 +629,24 @@ enyo.kind({
 					]
 				}
 			]
-		}
+		}*/
 	],
 	create: function() {
 		this.inherited(arguments);
+
+		//* moon.DataList need to create after create() since it could be changed by user defined options("userQueueItem"). 
+		this.createComponent({
+			kind: "moon.DataList",
+			name: "list",
+			classes: "moon-audio-queue-list enyo-unselectable",
+			fit: true,
+			multipleSelection: false,
+			ontap: "selectItem",
+			components: [
+				this.userQueueItem ? this.userQueueItem : this.defaultListItemFormat
+			]
+		});
+
 		this.parent.applyStyle("height", "100%");
 	},
 	deleteSelected: function () {
