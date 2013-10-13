@@ -227,7 +227,9 @@ enyo.kind({
 			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]},
-		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
+		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"},
+		{kind: "moon.RemotePlayerControl", onPlay: "_remoteControlPlay", onPause: "_remoteControlPause", onStop: "_remoteControlStop",
+			onFastforward: "_remoteControlFastforward", onRewind: "_remoteControlRewind"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -963,5 +965,25 @@ enyo.kind({
 	},
 	_jumpBackward: function(inSender, inEvent) {
 		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, false);
+	},
+
+	///// IR remote-control trick handler /////
+
+	_remoteControlPlay: function(inSender, inEvent) {
+		this.play(inSender, inEvent);
+	},
+	_remoteControlPause: function(inSender, inEvent) {
+		this.pause(inSender, inEvent);
+	},
+	_remoteControlRewind: function(inSender, inEvent) {
+		this.rewind(inSender, inEvent);
+	},
+	_remoteControlFastForward: function(inSender, inEvent) {
+		this.fastForward(inSender, inEvent);
+	},
+	_remoteControlStop: function(inSender, inEvent) {
+		this.pause(inSender, inEvent);	
+		//TODO : need more action? videoplayer doesn't have stop function. is it correct to call unload?
+		this.unload(inSender, inEvent);	
 	}
 });
