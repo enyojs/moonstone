@@ -132,7 +132,9 @@ enyo.kind({
 			rewind: ["-2", "-4", "-8", "-16"],
 			slowForward: ["1/4", "1/2", "1"],
 			slowRewind: ["-1/2", "-1"]
-		}
+		},
+		//* When true, handle remote control trick play
+		handleRemoteControlKey: true
 	},
 	//* @protected
 	handlers: {
@@ -161,7 +163,8 @@ enyo.kind({
 		{from: ".showFFRewindControls",		to:".$.fastForward.showing"},
 		{from: ".showFFRewindControls",		to:".$.rewind.showing"},
 		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
-		{from: ".showVideo",				to:".$.videoContainer.showing"}
+		{from: ".showVideo",				to:".$.videoContainer.showing"},
+		{from: ".handleRemoteControlKey",   to:".$.remoteControlTrickPlay.handleKeyEvents"}
     ],
 	
 	spotlightModal: true,
@@ -228,7 +231,7 @@ enyo.kind({
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"},
-		{kind: "moon.RemotePlayerControl", onPlay: "_remoteControlPlay", onPause: "_remoteControlPause", onStop: "_remoteControlStop",
+		{name: "remoteControlTrickPlay", kind: "moon.RemotePlayerControl", onPlay: "_remoteControlPlay", onPause: "_remoteControlPause", onStop: "_remoteControlStop",
 			onFastforward: "_remoteControlFastforward", onRewind: "_remoteControlRewind"}
 	],
 	create: function() {
