@@ -248,8 +248,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             },
@@ -262,8 +261,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             },
@@ -274,8 +272,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             }
@@ -298,8 +295,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             },
@@ -310,8 +306,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             }
@@ -350,8 +345,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             },
@@ -361,8 +355,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             }
@@ -383,8 +376,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             },
@@ -394,8 +386,7 @@
                                 "components": [
                                     {
                                         "kind": "moon.Item",
-                                        "content": "Item One",
-                                        "ontap": "next"
+                                        "content": "Item One"
                                     }
                                 ]
                             }
@@ -668,13 +659,7 @@
                         "kind": "moon.ImageItem",
                         "source": "$lib/moonstone/images/enyo-icon.png",
                         "label": "Image Item",
-                        "text": "This is a image item. This is an example for the text contents.",
-                        "bindings": [
-                            {
-                                "from": ".source",
-                                "to": ".$.image.src"
-                            }
-                        ]
+                        "text": "This is a image item. This is an example for the text contents."
                     }
                 },
                 {
