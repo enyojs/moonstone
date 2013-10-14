@@ -313,7 +313,6 @@
                                 "open": false,
                                 "controlsOpen": false,
                                 "handle": {
-                                    "name": "handleButton",
                                     "content": "Sample partial drawer",
                                     "marquee": true
                                 },
