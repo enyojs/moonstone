@@ -346,8 +346,7 @@
                                         "kind": "FittableColumns",
                                         "components": [
                                             {
-                                                "kind": "moon.CalendarPicker",
-                                                "onChange": "changed"
+                                                "kind": "moon.CalendarPicker"
                                             }
                                         ]
                                     }
