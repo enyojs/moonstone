@@ -30,6 +30,11 @@ enyo.kind({
 				{content:"텔레비전"},
 				{content:"M혼I합X된ED"}
 			]},
+			{classes:"moon-body-text", components: [
+				{content:"Body Text"},
+				{content:"텔레비전"},
+				{content:"M혼i합x된ed"}
+			]},
 			{classes:"moon-divider-text", components: [
 				{content:"Divider"},
 				{content:"텔레비전"},
@@ -73,6 +78,11 @@ enyo.kind({
 				{content:"SMALL BUTTON"},
 				{content:"텔레비전"},
 				{content:"M혼I합X된ED"}
+			]},
+			{classes:"moon-body-text", components: [
+				{content:"Body Text"},
+				{content:"텔레비전"},
+				{content:"M혼i합x된ed"}
 			]},
 			{classes:"moon-divider-text", components: [
 				{content:"Divider"},
