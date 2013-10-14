@@ -3065,7 +3065,6 @@ button:focus {
 }
 /* AudioPlayback styles for queue list items */
 .moon-audio-queue-item {
-  height: 100px;
   padding: 12px 16px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
@@ -3084,7 +3083,7 @@ button:focus {
   margin-left: 10px; 
   color: black;
 }*/
-.moon-audio-queue-item.playing {
+.playing .moon-audio-queue-item {
   background-color: #4b4b4b;
 }
 /*.moon-audio-queue-item .moon-audio-item-selectmark {
