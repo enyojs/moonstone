@@ -113,12 +113,12 @@ enyo.kind({
 	},
 	updateTrackValues: function (attrName, value) {
 		for (var i = 0, tracks = this.get("tracks"); i < tracks.length; i++) {
-			tracks.get(i).set(attrName, value);
+			tracks.at(i).set(attrName, value);
 		}
 	},
 	setPlayingIndex: function (idx) {
 		this.updateTrackValues("isPlaying", false);
-		this.get("tracks").get(idx).set("isPlaying", true);
+		this.get("tracks").at(idx).set("isPlaying", true);
 	},
 	setAudioPaused: function () {
 		this.updateTrackValues("isPlaying", false);
@@ -258,7 +258,7 @@ enyo.kind({
 		}
 	},
 	updateTrackIndex: function(inIndex) {
-		var track = this.tracks.get(inIndex);
+		var track = this.tracks.at(inIndex);
 		this.$.trackName.setContent(track.get("trackName"));
 		this.$.artistName.setContent(track.get("artistName"));
 		this.$.audio.setSrc(track.get("src"));
@@ -703,7 +703,7 @@ enyo.kind({
 				fromIndex = from.get("id"),
 				toIndex = to.get("id");
 			for (var i = 0, id, models = this.$.list.controller; i < models.length; i++) {
-				id = models.get(i).get("id");
+				id = models.at(i).get("id");
 				if (id === fromIndex) {
 					newArray.push(to);
 					continue;
@@ -711,7 +711,7 @@ enyo.kind({
 					newArray.push(from);
 					continue;
 				}
-				newArray.push(models.get(i));
+				newArray.push(models.at(i));
 			}
 
 			from.set("isSelected", false);
