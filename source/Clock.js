@@ -18,8 +18,10 @@ enyo.kind({
 		{kind: "enyo.Control", name: "hour", classes: "moon-clock-hour"},
 		{name: "right", classes: "moon-clock-right", components: [
 			{kind: "enyo.Control", name: "minute", classes: "moon-clock-minute"},
+
 			{kind: "enyo.Control", name: "meridiem", classes: "moon-clock-meridiem"},
-			{classes: "moon-click-divider"},
+			{classes: "moon-clock-divider"},
+
 			{kind: "enyo.Control", name: "month", classes: "moon-clock-month"},
 			{kind: "enyo.Control", name: "day", classes: "moon-clock-day"}
 		]}
