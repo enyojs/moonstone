@@ -332,6 +332,31 @@
                     }
                 },
                 {
+                    "name": "moon.CalendarPicker",
+                    "kind": "moon.CalendarPicker",
+                    "description": "A calendarPicker component",
+                    "config": {
+                        "kind": "FittableRows",
+                        "components": [
+                            {
+                                "kind": "moon.Scroller",
+                                "fit": true,
+                                "components": [
+                                    {                                        
+                                        "kind": "FittableColumns",
+                                        "components": [
+                                            {
+                                                "kind": "moon.CalendarPicker",
+                                                "onChange": "changed"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
                     "name": "moon.CardArranger",
                     "kind": "moon.CardArranger",
                     "description": "A Card Arranger",
