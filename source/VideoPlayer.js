@@ -596,7 +596,7 @@ enyo.kind({
 		}
 	},
 	onLeaveSlider: function(inSender, inEvent) {
-		if (this.hideButtonsOnSlider) {
+		if (this.hideButtonsOnSlider && !this.$.slider.dragging) {
 			this.$.controls.setShowing(true);
 		}
 	},
@@ -642,6 +642,9 @@ enyo.kind({
 				this.pause();
 			}
 			this._isPausedBeforeDrag = this.$.video.isPaused();
+		}
+		if (inSender._previewMode === false) {
+			this.$.controls.setShowing(true);
 		}
 		return true;
 	},
