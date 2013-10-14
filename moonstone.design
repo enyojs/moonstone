@@ -927,7 +927,10 @@
                     "kind": "moon.Scroller",
                     "description": "A scroller",
                     "config": {
-                        "kind": "moon.Scroller"
+                        "kind": "moon.Scroller", 
+                        "components": [
+                            {"classes": "nice-padding", "allowHtml": true}
+                        ]
                     }
                 },
                 {
