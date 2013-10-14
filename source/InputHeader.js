@@ -27,7 +27,14 @@ enyo.kind({
 	kind: "moon.Header",
 	published: {
 		//* The value of the input
-		value: ""
+		value: "",
+		//* The text case style of Input Header's Title,
+		//* default "uppercase", other possible values can be "lowercase", "capitalize" or "none"
+		textTransform: "uppercase"
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.textTransformChanged();
 	},
 	handlers: {
 		oninput: "handleInput",
@@ -64,5 +71,9 @@ enyo.kind({
 	//* Create custom event for _change_ events
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
+	},
+	textTransformChanged: function() {
+		this.textTransform.toLowerCase();
+		this.$.titleInput.applyStyle("text-transform", this.textTransform);
 	}
 });
