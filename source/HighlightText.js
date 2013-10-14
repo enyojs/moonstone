@@ -21,9 +21,15 @@
 enyo.kind({
     name: "moon.HighlightText",
     published: {
+        //* control's content.
         content: "",
+        //* on _highlight_ _true_ Highlighting for content will be turned on.
         highlight: false,
+        //* on _caseSensitive_ _true_ highlight the content with exect match of string.
         caseSensitive: false,
+        /** Add _highlightClasses_ to the content when _highlight_ is _true_ 
+            which will highlight the content with some predefined color.
+        **/
         highlightClasses: "moon-highlight-text-highlighted"
     },
     handlers: {

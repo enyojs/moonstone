@@ -9,6 +9,9 @@ enyo.kind({
 	max: 1,
 	value: null,
 	published: {
+		/** If meridiemEnable: false, meridiem is not initialized
+			else if true, Meridiems is set to PM for hour > 11, else to AM
+		**/
 		meridiems: ["AM","PM"]
 	},
 	setupItem: function(inSender, inEvent) {

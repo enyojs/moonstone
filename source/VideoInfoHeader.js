@@ -26,9 +26,13 @@ enyo.kind({
 	marqueeOnSpotlight: false,
 	marqueeOnRender: true,
 	published: {
+		//* Title of VideoInfoHeader.
 		title: "",
+		//* Sub-text of VideoInfoHeader.
 		subTitle: "",
+		//* Sub-text of Sub-text of VideoInfoHeader.
 		subSubTitle: "",
+		//* description of VideoInfoHeader.
 		description: ""
 	},
 	components: [

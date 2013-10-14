@@ -45,10 +45,15 @@ enyo.kind({
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
+		//* Initial value
 		value: -1,
+		//* Minimum value
 		min: 1,
+		//* Maximum value
 		max: 9,
+		//* Amount to increment/decrement by
 		step: 1,
+		//* Unit/label to be appended to the end of the number
 		unit: "sec"
 	},
 

@@ -15,8 +15,11 @@ enyo.kind({
 	name: "moon.IntegerPicker",
 	classes: "moon-scroll-picker-container",
 	published: {
+		//* Initial value for _IntegerPicker_.
 		value: null,
+		//* minimum value for _IntegerPicker_.
 		min: 0,
+		//* maximum value for _IntegerPicker_.
 		max: 9,
 		//* If a number is specified, picker value is displayed as this many
 		//* zero-filled digits
@@ -30,6 +33,9 @@ enyo.kind({
 		onSpotlightScrollDown:"next"
 	},
 	events: {
+		/* Fires when the currently selected item changes.
+			when topOverlay or bottomOverlay are clicked.
+		*/
 		onChange: ""
 	},
 	spotlight:true,

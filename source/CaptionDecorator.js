@@ -13,7 +13,11 @@ enyo.kind({
 		onSpotlightBlur:  "spotBlur"
 	},
 	published: {
+		//* The position of the caption is defined via _side_ property (e.g. top, left, bottom, right).
 		side: "top",
+		/** When _showOnFocus_ is true, the caption is shown only when the item has spotlight focus.
+			Otherwise, the caption is always visible.
+		*/
 		showOnFocus: false
 	},
 	//* @protected
