@@ -85,7 +85,7 @@ enyo.kind({
 				autoDismiss: false,
 				spotlightModal: true,
 				components: [
-					{kind: "Scroller", horizontal: "auto", touch: true, thumb: false, classes: "enyo-fill", components: [
+					{kind: "moon.Scroller", horizontal: "auto", classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button"},
 						{kind: "moon.ToggleButton", content: "SpotlightModal", active: true, ontap: "buttonToggled"},
 						{tag: "br"},
@@ -103,7 +103,7 @@ enyo.kind({
 				kind: "moon.ContextualPopup",
 				classes: "moon-8h moon-4v",
 				components: [
-					{kind: "Scroller", horizontal: "auto", touch: true, thumb: false, classes: "enyo-fill", components: [
+					{kind: "moon.Scroller", horizontal: "auto", classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button 1"},
 						{kind: "moon.Button", content: "Button 2"},
 						{kind: "moon.Button", content: "Button 3"}
