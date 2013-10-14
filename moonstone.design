@@ -745,7 +745,6 @@
                         "multiSelect": false,
                         "components": [
                             {
-                                "name": "item",
                                 "style": "border: solid; width:200px;",
                                 "content": "Sample"
                             }
@@ -764,7 +763,6 @@
                         "multiSelect": false,
                         "components": [
                             {
-                                "name": "item",
                                 "style": "border: solid; width:200px;",
                                 "content": "Sample"
                             }
