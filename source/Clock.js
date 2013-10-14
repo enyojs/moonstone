@@ -18,7 +18,7 @@ enyo.kind({
 		{kind: "enyo.Control", name: "hour", classes: "moon-clock-hour"},
 		{name: "right", classes: "moon-clock-right", components: [
 			{kind: "enyo.Control", name: "minute", classes: "moon-clock-minute"},
-			{kind: "enyo.Control", name: "meridian", classes: "moon-clock-meridian"},
+			{kind: "enyo.Control", name: "meridiem", classes: "moon-clock-meridiem"},
 			{classes: "moon-click-divider"},
 			{kind: "enyo.Control", name: "month", classes: "moon-clock-month"},
 			{kind: "enyo.Control", name: "day", classes: "moon-clock-day"}
@@ -44,13 +44,13 @@ enyo.kind({
 	refreshJob: function() {
 		var d = new Date(Date.now() + this._timeDiff),
 			h = d.getHours(),
-			meridian = "am";
+			meridiem = "am";
 
-		meridian = h > 11 ? "pm" : "am";
+		meridiem = h > 11 ? "pm" : "am";
 		h = h > 12 ? h-12: h;
 		this.$.hour.setContent(this._formatNumber(h));
 		this.$.minute.setContent(this._formatNumber(d.getMinutes()));
-		this.$.meridian.setContent(meridian);
+		this.$.meridiem.setContent(meridiem);
 
 		this.$.month.setContent(this.months[d.getMonth()]);
 		this.$.day.setContent(this._formatNumber(d.getUTCDate()));

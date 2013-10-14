@@ -355,7 +355,7 @@
 .moon {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   padding: 20px;
   color: #999999;
   background-color: #000000;
@@ -414,7 +414,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
 }
 .moon-super-header-text {
@@ -437,7 +437,7 @@ button:focus {
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   color: #999999;
 }
 .moon-body-text {
@@ -445,7 +445,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
 }
@@ -653,7 +653,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   position: relative;
   display: table-cell;
@@ -704,7 +704,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   display: table;
   white-space: nowrap;
@@ -823,6 +823,7 @@ button:focus {
   border-bottom: 2px solid #404040;
   margin: 0px 10px 20px 10px;
   text-transform: capitalize;
+  padding-bottom: 3px;
 }
 .moon-neutral .moon-divider {
   border-bottom: 2px solid #ffffff;
@@ -970,7 +971,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
@@ -1220,7 +1221,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   display: inline-block;
   border-width: 0px;
   background-color: transparent;
@@ -1280,7 +1281,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
 }
@@ -1314,7 +1315,7 @@ button:focus {
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   color: #999999;
   border-bottom: 2px solid #404040;
   margin: 0px;
@@ -1329,7 +1330,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   color: #999999;
@@ -1368,7 +1369,7 @@ button:focus {
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   color: #999999;
   border-bottom: 2px solid #404040;
   padding: 0px;
@@ -1382,7 +1383,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   margin: 0px;
@@ -1446,7 +1447,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   height: 44px;
 }
@@ -1461,7 +1462,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   height: 44px;
@@ -1554,7 +1555,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
 }
 .moon-gridlist-imageitem .sub-caption {
@@ -1562,7 +1563,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
 }
@@ -1803,7 +1804,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   margin: 0px;
@@ -1845,7 +1846,7 @@ button:focus {
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   color: #999999;
   margin: 0px;
   padding: 14px 30px 14px 30px;
@@ -2005,7 +2006,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   margin: 0px;
@@ -2069,7 +2070,7 @@ button:focus {
   min-height: 100px;
   min-width: 100px;
   border-radius: 16px;
-  border: 12px solid transparent;
+  border: 5px solid transparent;
   color: #ffffff;
   padding: 20px;
   background-clip: padding-box;
@@ -2086,16 +2087,16 @@ button:focus {
 /* Vertical Popups */
 /* Vertical Popups that display below their activator */
 .moon-contextual-popup.vertical.below {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 /* Vertical popups that display above their activator */
 .moon-contextual-popup.vertical.above {
-  margin-top: -20px;
+  margin-top: -22px;
 }
 /* Horizontal Popups */
 /* Horizontal popups that display to the right of their activator */
 .moon-contextual-popup.right.horizontal {
-  margin-left: -31px;
+  margin-left: -28px;
 }
 /* Horizontal popups that display to the left of their activator */
 .moon-contextual-popup.left.horizontal {
@@ -2106,7 +2107,7 @@ button:focus {
   content: '';
   position: absolute;
   width: 46px;
-  height: 36px;
+  height: 46px;
   background-color: transparent;
   background-repeat: no-repeat;
 }
@@ -2116,7 +2117,7 @@ button:focus {
   left: 50%;
 }
 .moon-contextual-popup.below::after {
-  top: 0;
+  top: 9px;
   margin: -36px 0px 0px -23px;
   background-image: url(../images/DarkTheme_Icons/ContextualMenu_Up.png);
 }
@@ -2129,7 +2130,7 @@ button:focus {
 .moon-contextual-popup.left::after,
 .moon-contextual-popup.right::after {
   top: 50%;
-  margin-top: -32px;
+  margin-top: -20px;
 }
 .moon-contextual-popup.right::after {
   left: 100%;
@@ -2137,7 +2138,7 @@ button:focus {
 }
 .moon-contextual-popup.left::after {
   left: 0%;
-  margin-left: -46px;
+  margin-left: -27px;
   background-image: url(../images/DarkTheme_Icons/ContextualMenu_Left.png);
 }
 /* Low nubs */
@@ -2148,7 +2149,7 @@ button:focus {
 /* High nubs */
 .moon-contextual-popup.left.high::after,
 .moon-contextual-popup.right.high::after {
-  top: 35px;
+  top: 50px;
 }
 /* Bottom right corner nub */
 .moon-contextual-popup.left.above::after {
@@ -2173,7 +2174,7 @@ button:focus {
 }
 /* Top left corner nub */
 .moon-contextual-popup.right.below::after {
-  top: 0%;
+  top: 9px;
   left: 10%;
   margin-top: -36px;
   background-image: url(../images/DarkTheme_Icons/ContextualMenu_Up.png);
@@ -2184,7 +2185,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   margin: 0px;
@@ -2244,7 +2245,7 @@ button:focus {
 }
 /* Scroller */
 .moon-list-actions-scroller {
-  margin: 10px;
+  margin: 20px;
   margin-right: 60px;
   padding: 0px;
   z-index: 1;
@@ -2300,7 +2301,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   border-top: 1px solid #a2a2a2;
   margin: 0px 0px 3px 0px;
@@ -2321,7 +2322,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   color: #999999;
   line-height: 32px;
@@ -2579,7 +2580,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   text-align: center;
   vertical-align: middle;
@@ -2611,7 +2612,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   width: 60px;
   min-width: 60px;
@@ -2634,7 +2635,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   color: #ffffff;
   padding: 0px;
@@ -2855,7 +2856,7 @@ button:focus {
 .moon-popup-close {
   background: url(../images/DarkTheme_Icons/ClosePopup_Icon.png);
   background-repeat: no-repeat;
-  background-position: 0px -32px;
+  background-position: 0 0;
   float: right;
   position: absolute;
   right: 10px;
@@ -3378,7 +3379,7 @@ button:focus {
   width: 100%;
   font-family: "MuseoSans 700";
   font-size: 30px;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #ffffff;
   padding: 15px 0 0 0;
 }
@@ -3501,7 +3502,7 @@ button:focus {
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #999999;
   color: #ffffff;
   margin-bottom: 22px;
@@ -3517,7 +3518,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   color: #ffffff;
@@ -3537,7 +3538,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   color: #ffffff;
@@ -3697,7 +3698,7 @@ button:focus {
   display: inline-block;
   line-height: 65px;
 }
-.moon-clock-meridian {
+.moon-clock-meridiem {
   font-family: "MuseoSans Medium";
   font-size: 24px;
   white-space: nowrap;
@@ -3831,7 +3832,7 @@ button:focus {
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   color: #999999;
   border-bottom: 2px solid #404040;
   padding: 0px;
@@ -4028,7 +4029,7 @@ button:focus {
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
   float: right;
