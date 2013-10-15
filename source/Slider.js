@@ -411,9 +411,7 @@ enyo.kind({
 	drawToCanvas: function(bgColor) {
 		var h = this.getPopupHeight()+1; // height total
 		var hb = h - 8; // height bubble
-		console.log("height of the bubble is: "+hb);
 		var hbc = (hb)/2; // height of bubble's center
-		console.log("center of the bubble is: "+hbc);
 		var wre = 26; // width's edge
 		var r = 30; // radius
 
@@ -427,8 +425,6 @@ enyo.kind({
 		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 		// Draw shape with arrow on left
 		ctxLeft.moveTo(0, h);
-		//ctxLeft.arcTo(0, hb, 39, hb, 8);
-		//ctxLeft.arc(26, 104, 44.1, 1.1*Math.PI, 1.5*Math.PI, false);
 		ctxLeft.arc(26, 120, 60, 1.35*Math.PI, 1.485*Math.PI, false);
 		ctxLeft.lineTo(wre, hb);
 		ctxLeft.lineTo(wre, 1);

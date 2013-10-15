@@ -3330,6 +3330,7 @@ button:focus {
 }
 .moon-video-player-controls {
   height: 85px;
+  margin-bottom: 30px;
 }
 .moon-video-player-controls-container > * {
   width: 100%;
@@ -3392,17 +3393,20 @@ button:focus {
   margin: 0 0 0 !important;
 }
 /* Feedback area */
+.moon-video-player-feedback {
+  margin-right: 5px;
+}
 .moon-video-feedback-text {
   display: inline-block;
   text-transform: uppercase;
   color: #ff2f7d;
+  margin: 0 5px;
 }
 .moon-video-feedback-icon-left,
 .moon-video-feedback-icon-right {
   display: inline-block;
   width: 33px;
   height: 33px;
-  margin: 0 5px;
 }
 .moon-video-info-header {
   display: inline-block;
@@ -3604,13 +3608,14 @@ button:focus {
   vertical-align: top;
   width: auto;
   height: 360px;
+  color: #ffffff;
 }
 .moon-clock-hour {
   font-size: 126px;
   white-space: nowrap;
   vertical-align: center;
   display: inline-block;
-  margin-right: 5px;
+  margin-right: 10px;
   letter-spacing: -0.05em;
 }
 .moon-clock-right {
@@ -3626,7 +3631,7 @@ button:focus {
   vertical-align: bottom;
   display: inline-block;
   height: 68px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .moon-clock-meridiem {
   font-family: "MuseoSans Medium";
@@ -3635,7 +3640,6 @@ button:focus {
   vertical-align: bottom;
   display: inline-block;
   text-transform: none;
-  line-height: 45px;
 }
 .moon-clock-month {
   font-family: "MuseoSans 300";

@@ -3129,7 +3129,7 @@ button:focus {
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
-  padding-top: 5px;
+  padding-top: 14px;
 }
 .moon-video-transport-slider-indicator-wrapper {
   width: 12.5%;
@@ -3145,7 +3145,7 @@ button:focus {
 }
 .moon-video-transport-slider-indicator-bar-left {
   position: absolute;
-  left: 48%;
+  left: 49.5%;
   top: 25px;
   width: 2px;
   height: 30px;
@@ -3153,7 +3153,7 @@ button:focus {
 }
 .moon-video-transport-slider-indicator-bar-right {
   position: absolute;
-  left: 48%;
+  left: 49.5%;
   top: 25px;
   width: 2px;
   height: 30px;
@@ -3162,10 +3162,11 @@ button:focus {
 .moon-video-transport-slider-indicator-text {
   position: absolute;
   width: 100%;
-  height: 25px;
-  top: 25px;
-  font-size: 25px;
-  font-family: "MuseoSans 300";
+  height: 30px;
+  top: 23px;
+  font-size: 30px;
+  font-family: "Miso";
+  font-weight: bold;
   color: #ffffff;
   text-align: left;
   left: 55%;
@@ -3323,29 +3324,30 @@ button:focus {
   background-color: rgba(0, 0, 0, 0);
 }
 .moon-video-player-controls {
-  height: 90px;
+  height: 85px;
+  margin-bottom: 30px;
 }
 .moon-video-player-controls-container > * {
   width: 100%;
 }
 .moon-video-player-more-controls {
   border-left: 2px solid white;
+  padding-left: 5px;
 }
 .moon-video-player-premium-placeholder-left {
-  width: 180px;
-  height: 80px;
-  padding-top: 5px;
-  padding-left: 80px;
+  width: 200px;
+  height: 85px;
+  padding-left: 90px;
 }
 .moon-video-player-premium-placeholder-right {
-  width: 180px;
-  height: 80px;
-  padding-top: 5px;
+  width: 200px;
+  height: 85px;
+  padding-left: 5px;
 }
 /* --- Buttons --- */
 .moon-video-fullscreen-control .moon-icon-button {
-  width: 80px;
-  height: 80px;
+  width: 85px;
+  height: 85px;
   border-radius: 0;
   border: 0px;
   background-color: transparent;
@@ -3356,7 +3358,7 @@ button:focus {
 .moon-video-fullscreen-control .moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon-button.spotlight.pressed,
 .moon-video-fullscreen-control .moon-icon-button.spotlight:active {
-  background-position: 0 -80px;
+  background-position: 0 -85px;
   border: 0px;
   background-color: transparent;
 }
@@ -3386,12 +3388,14 @@ button:focus {
   margin: 0 0 0 !important;
 }
 /* Feedback area */
+.moon-video-player-feedback {
+  margin-right: 5px;
+}
 .moon-video-feedback-text {
   display: inline-block;
   text-transform: uppercase;
-  padding-right: 5px;
-  padding-left: 5px;
   color: #ff2f7d;
+  margin: 0 5px;
 }
 .moon-video-feedback-icon-left,
 .moon-video-feedback-icon-right {
@@ -3403,22 +3407,16 @@ button:focus {
   display: inline-block;
   vertical-align: top;
   max-width: 1100px;
+  height: 360px;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
-  font-kerning: 25;
-  -webkit-font-kerning: 25;
-  -o-font-kerning: 25;
-  -moz-font-kerning: 25;
   margin-bottom: 32px;
   white-space: nowrap;
 }
 .moon-video-player-info-title {
-  font-size: 100px;
-  font-kerning: 25;
-  -webkit-font-kerning: 25;
-  -o-font-kerning: 25;
-  -moz-font-kerning: 25;
+  font-size: 126px;
+  letter-spacing: -0.05em;
   margin-bottom: 0;
   white-space: nowrap;
 }
@@ -3446,6 +3444,7 @@ button:focus {
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
+  font-style: italic;
   color: #ffffff;
   display: inline-block;
   white-space: normal;
@@ -3491,24 +3490,20 @@ button:focus {
   white-space: normal;
 }
 .moon-video-player-channel-info-badges > * {
-  margin: 3px 5px;
+  margin: 3px 0px 3px 10px;
+}
+.moon-video-player-channel-info-badges > :first-child {
+  margin: 3px 10px;
 }
 .moon-video-player-channel-info-no {
-  font-size: 100px;
-  font-kerning: 25;
-  -webkit-font-kerning: 25;
-  -o-font-kerning: 25;
-  -moz-font-kerning: 25;
+  font-size: 126px;
+  letter-spacing: -0.05em;
   margin-bottom: 0;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  font-kerning: 10;
-  -webkit-font-kerning: 10;
-  -o-font-kerning: 10;
-  -moz-font-kerning: 10;
   margin-bottom: 22px;
   white-space: nowrap;
 }
@@ -3517,21 +3512,22 @@ button:focus {
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
-  font-size: 15px;
+  font-size: 20px;
   background-color: #ffffff;
   color: #000000;
   border-radius: 5px;
   text-align: center;
   white-space: nowrap;
-  padding: 3px 7px;
+  padding: 3px 9px;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
   font-family: "LG Display";
 }
 .moon-video-player-info-redicon {
-  background-color: red;
+  background-color: #ff4a4a;
   color: #ffffff;
+  margin-top: 13px;
 }
 .moon-background-wrapper {
   position: absolute;
@@ -3561,7 +3557,7 @@ button:focus {
   border-left-style: solid;
   border-left-color: transparent;
   border-bottom-width: 1000px;
-  border-left-width: 250px;
+  border-left-width: 170px;
 }
 .left.bg .moon-background-wrapper-client-tri {
   border-left-color: black;
@@ -3574,18 +3570,18 @@ button:focus {
   border-right-style: solid;
   border-right-color: transparent;
   border-top-width: 1000px;
-  border-right-width: 250px;
+  border-right-width: 170px;
 }
 .right.bg .moon-background-wrapper-client-tri {
   border-right-color: black;
 }
 /* Decorate video header styling */
 .moon-background-wrapper-client-content.right {
-  padding-right: 50px;
-  padding-left: 30px;
+  padding-right: 30px;
+  padding-left: 0px;
 }
 .moon-background-wrapper-client-content.left {
-  padding-left: 50px;
+  padding-left: 70px;
   padding-right: 30px;
 }
 /* Make equal spacing */
@@ -3594,7 +3590,7 @@ button:focus {
 }
 .moon-background-wrapper-client-content > * {
   display: inline-block;
-  margin: 0 15px;
+  margin: 0 30px;
 }
 .moon-background-wrapper-client-content.left > :first-child {
   margin-left: 0;
@@ -3606,22 +3602,31 @@ button:focus {
   display: block;
   vertical-align: top;
   width: auto;
+  height: 360px;
+  color: #ffffff;
 }
 .moon-clock-hour {
-  font-size: 140px;
+  font-size: 126px;
   white-space: nowrap;
   vertical-align: center;
   display: inline-block;
+  margin-right: 10px;
+  letter-spacing: -0.05em;
 }
 .moon-clock-right {
   display: inline-block;
+  position: relative;
+  top: 5px;
 }
 .moon-clock-minute {
-  font-size: 65px;
+  font-family: "Miso";
+  font-weight: bold;
+  font-size: 68px;
   white-space: nowrap;
   vertical-align: bottom;
   display: inline-block;
-  line-height: 65px;
+  height: 68px;
+  margin-right: 10px;
 }
 .moon-clock-meridiem {
   font-family: "MuseoSans Medium";
@@ -3630,27 +3635,30 @@ button:focus {
   vertical-align: bottom;
   display: inline-block;
   text-transform: none;
-  line-height: 45px;
 }
 .moon-clock-month {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 300";
   font-size: 28px;
   white-space: normal;
   vertical-align: top;
   display: inline-block;
   margin-right: 10px;
+  text-transform: capitalize;
+  height: 28px;
 }
 .moon-clock-day {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 300";
   font-size: 28px;
   white-space: normal;
   vertical-align: top;
   display: inline-block;
+  height: 28px;
 }
-.moon-click-divider {
+.moon-clock-divider {
   height: 2px;
   width: 100%;
-  background-color: white;
+  margin: 5px 0;
+  background-color: #fff;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
