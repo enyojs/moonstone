@@ -21,7 +21,9 @@ enyo.kind({
 	kind: "enyo.Control",
 	classes: "moon-channelinfo",
 	published: {
+		//* sets the content with the ChannelNo.
 		channelNo: "",
+		//* sets the content with the ChannelName.
 		channelName: ""
 	},
 	defaultKind: "moon.ChannelInfoBadge",
