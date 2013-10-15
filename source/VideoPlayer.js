@@ -282,7 +282,7 @@ enyo.kind({
 	},
 	srcChanged: function() {
 		if(this.src != this.$.video.getSrc()) {
-			this._isPlaying = this.autoplay? true : false;
+			this._isPlaying = Boolean(this.autoplay);
 			this.updatePlayPauseButtons();
 		}
 		this.$.video.setSrc(this.getSrc());
