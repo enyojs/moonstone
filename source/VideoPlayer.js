@@ -643,8 +643,8 @@ enyo.kind({
 			}
 			this._isPausedBeforeDrag = this.$.video.isPaused();
 		}
-		if (inSender._previewMode === false) {
-			this.$.controls.setShowing(true);
+		if (!this.$.slider.isInPreview()) {
+			this.$.controls.show();
 		}
 		return true;
 	},
