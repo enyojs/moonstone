@@ -1,7 +1,9 @@
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
     kind: "moon.Panel",
-    headerOption: {kind:"moon.InputHeader"},
+    headerOption: {kind:"moon.InputHeader", components: [
+        {kind: "moon.IconButton", src: "../assets/trash-can-icon.png"}
+    ]},
     classes: "moon-search",
     handlers: {
         "onInputChanged": "onInputChanged"
@@ -19,11 +21,9 @@ enyo.kind({
                         {kind: "moon.RadioItemGroup", components: [
                             {classes: "radio-button", content: "SUGGESTED SEARCH"},
                             {classes: "radio-button", content: "RECENT SEARCHES"}
-                        ]},
-                        {kind: "moon.IconButton", classes: "icon-button-right", src: "../assets/trash-can-icon.png"}
+                        ]}
                     ]
                 },
-                { kind : "moon.Divider", classes : "divider" },
                 {
                     name: "searchList",
                     kind: "moon.DataList",
