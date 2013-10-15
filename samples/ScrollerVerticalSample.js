@@ -2,67 +2,124 @@ enyo.kind({
 	name: 'moon.sample.ScrollerVerticalSample',
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{
-			kind: 'moon.Scroller',
-			classes: 'moon-scroller-vertical-sample-scroller enyo-fill',
-			components: [
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
-					{content: "English"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"}
-				]},
-				{kind: "moon.Item", content: "This is an item 1"},
-				{kind: "moon.Item", content: "This is an item 2"},
-				{kind: "moon.Item", content: "This is an item 3"},
-				{kind: "moon.Item", content: "This is an item 4"},
-				{kind: "moon.Item", content: "This is an item 5"},
-				{kind: "moon.Item", content: "This is an item 6"},
-				{kind: "moon.Item", content: "This is an item 7"},
-				{kind: "moon.Item", content: "This is an item 8"},
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
-					{content: "English"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"}
-				]},
-				{kind: "moon.Item", content: "This is an item 9"},
-				{kind: "moon.Item", content: "This is an item 10"},
-				{kind: "moon.Item", content: "This is an item 11"},
-				{kind: "moon.Item", content: "This is an item 12"},
-				{kind: "moon.Button", content: "Test Button", style: "margin-bottom: 28px;"},
-				{kind: "moon.Item", content: "This is an item 13"},
-				{kind: "moon.Item", content: "This is an item 14"},
-				{kind: "moon.ExpandableListItem", content: "This is an expandable list item", components: [
-					{content: "Item One"},
-					{content: "Item Two"},
-					{content: "Item Three"}
-				]},
-				{kind: "moon.Item", content: "This is an item 15"},
-				{kind: "moon.Item", content: "This is an item 16"},
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
-					{content: "English"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"}
+		{kind: "moon.Panel", smallHeader:true, title:"Vertical Scroller", headerComponents: [
+			{content:"Spacing: "},
+			{kind: "moon.SimplePicker", name:"spacingPicker", classes:"moon-4h", onChange:"spacingChanged", components: [
+				{content:"default", spacingClass:""},
+				{content:"small", spacingClass:"moon-vspacing-s"},
+				{content:"medium", spacingClass:"moon-vspacing-m"},
+				{content:"large", spacingClass:"moon-vspacing-l"}
+			]}
+		], components: [
+			{ kind: 'moon.Scroller', classes: "enyo-fill", components: [
+				{name:"wrapper", classes:"moon-6h", components: [
+					{kind: "moon.ExpandablePicker", noneText: "Select a language", autoCollapse: true, content: "Expandable Picker", classes: "moon-expandable-picker-wrapper", components: [
+						{content: "English"},
+						{content: "Spanish"},
+						{content: "French"},
+						{content: "German"},
+						{content: "Italian"},
+						{content: "Japanese"}
+					]},
+					{kind: "moon.ExpandableInput", content: "Expandable Input", noneText: "No Input"},
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
+					{kind: "moon.TimePicker", noneText: "Pick a Time", content: "Time Picker"},
+					{kind: "moon.Accordion", content: "Accordion 1", components: [
+						{content: "Item One"},
+						{content: "Item Two"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 2", components: [
+						{content: "Item Three"},
+						{content: "Item Four"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 3", components: [
+						{content: "Item Five"},
+						{content: "Item Six"}
+					]},
+					{kind: "moon.CheckboxItem", content: "Checkbox Item 1"},
+					{kind: "moon.CheckboxItem", content: "Checkbox Item 2"},
+					{kind: "moon.CheckboxItem", content: "Checkbox Item 3"},
+					{kind: "moon.CheckboxItem", content: "Checkbox Item 4 (right)", checkboxOnRight:true},
+					{kind: "moon.CheckboxItem", content: "Checkbox Item 5 (right)", checkboxOnRight:true},
+					{kind: "moon.CheckboxItem", content: "Checkbox Item 6 (right)", checkboxOnRight:true},
+					{kind: "moon.ToggleItem", content: "Toggle Item 1"},
+					{kind: "moon.ToggleItem", content: "Toggle Item 2"},
+					{kind: "moon.ToggleItem", content: "Toggle Item 3"},
+					{kind: "moon.FormCheckbox", content: "Form Checkbox 1"},
+					{kind: "moon.FormCheckbox", content: "Form Checkbox 2"},
+					{kind: "moon.FormCheckbox", content: "Form Checkbox 3"},
+					{kind: "moon.Button", content: "Button 1"}, {tag:"br"},
+					{kind: "moon.Button", content: "Button 2"}, {tag:"br"},
+					{kind: "moon.Button", content: "Button 3"}, {tag:"br"},
+					{kind: "moon.ToggleButton", content: "Toggle Button 1"}, {tag:"br"},
+					{kind: "moon.ToggleButton", content: "Toggle Button 2"}, {tag:"br"},
+					{kind: "moon.ToggleButton", content: "Toggle Button 3"}, {tag:"br"},
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", placeholder: "Input"}
+					]},
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", placeholder: "Input"}
+					]},
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", placeholder: "Input"}
+					]},
+					{kind: "moon.Item", content: "Item 1"},
+					{kind: "moon.Item", content: "Item 2"},
+					{kind: "moon.Item", content: "Item 3"},
+					{kind: "moon.Item", content: "Item 4"},
+					{kind: "moon.Item", content: "Item 5"},
+					{kind: "moon.Item", content: "Item 6"},
+					{kind: "moon.Item", content: "Item 7"},
+					{kind: "moon.Item", content: "Item 8"},
+					{kind: "moon.Item", content: "Item 9"},
+					{kind: "moon.Item", content: "Item 10"},
+					{kind: "moon.Item", content: "Item 11"},
+					{kind: "moon.Item", content: "Item 12"},
+					{kind: "moon.Item", content: "Item 13"},
+					{kind: "moon.Item", content: "Item 14"},
+					{kind: "moon.Item", content: "Item 15"},
+					{kind: "moon.Item", content: "Item 16"},
+					{kind: "moon.Item", content: "Item 17"},
+					{kind: "moon.Item", content: "Item 18"},
+					{kind: "moon.Item", content: "Item 19"},
+					{kind: "moon.Item", content: "Item 20"},
+					{kind: "moon.Item", content: "Item 21"},
+					{kind: "moon.Item", content: "Item 22"},
+					{kind: "moon.ExpandablePicker", noneText: "Select a language", autoCollapse: true, content: "Expandable Picker", classes: "moon-expandable-picker-wrapper", components: [
+						{content: "English"},
+						{content: "Spanish"},
+						{content: "French"},
+						{content: "German"},
+						{content: "Italian"},
+						{content: "Japanese"}
+					]},
+					{kind: "moon.ExpandableInput", content: "Expandable Input", noneText: "No Input"},
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
+					{kind: "moon.TimePicker", noneText: "Pick a Time", content: "Time Picker"},
+					{kind: "moon.Accordion", content: "Accordion 1", components: [
+						{content: "Item One"},
+						{content: "Item Two"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 2", components: [
+						{content: "Item Three"},
+						{content: "Item Four"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 3", components: [
+						{content: "Item Five"},
+						{content: "Item Six"}
+					]}
 				]}
-			]
+			]}
+		]}
+	],
+	spacingChanged: function(inSender, inEvent) {
+		if (this.lastSpacingClass) {
+			this.$.wrapper.removeClass(this.lastSpacingClass);
 		}
-	]
+		var c = inEvent.originator.getSelected().spacingClass;
+		this.$.wrapper.addClass(c);
+		this.lastSpacingClass = c;
+	}
 });

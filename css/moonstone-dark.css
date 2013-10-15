@@ -367,10 +367,6 @@ textarea:focus,
 button:focus {
   outline: none;
 }
-.moon-header-font {
-  font-family: "Miso";
-  text-transform: uppercase;
-}
 .enyo-locale-right-to-left .moon {
   direction: rtl;
 }
@@ -379,6 +375,10 @@ button:focus {
 }
 .moon-neutral-divider-border {
   border-bottom: 2px solid #ffffff;
+}
+.moon-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
 }
 .moon-superscript {
   font-size: 24px;
@@ -809,7 +809,7 @@ button:focus {
 .moon-checkbox {
   cursor: pointer;
   height: 32px;
-  width: 40px;
+  width: 42px;
 }
 .moon-checkbox[checked] {
   background-image: url(../images/DarkTheme_Icons/Checkmark_Icon.png);
@@ -835,10 +835,10 @@ button:focus {
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.2em;
-  margin-right: 40px;
+  margin-right: 42px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  margin-left: 40px;
+  margin-left: 42px;
   margin-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
@@ -880,10 +880,10 @@ button:focus {
 /* Label */
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
   margin-right: 0px;
-  margin-left: 40px;
+  margin-left: 42px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 40px;
+  margin-right: 42px;
   margin-left: 0px;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label {
@@ -1271,6 +1271,12 @@ button:focus {
   opacity: 1;
   filter: alpha(opacity=100);
 }
+.moon-expandable-list-item.open .moon-expandable-list-item-header {
+  margin-bottom: 10px;
+}
+.moon-expandable-list-item.open {
+  padding-bottom: 10px;
+}
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
   color: #ffffff;
   border-color: #ffffff;
@@ -1296,13 +1302,19 @@ button:focus {
 .moon-expandable-list-item-client .moon-item:last-child {
   margin-bottom: 0px;
 }
+.moon-expandable-list-item-client.indented {
+  padding-left: 50px;
+}
 /* Header */
 .moon-expandable-picker-header {
-  padding: 0px;
+  padding-left: 42px;
   margin: 0px;
+  background-position: left top 12px;
+  background-repeat: no-repeat;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
-.moon-expandable-picker-header .moon-item {
-  margin: 0px;
+.spotlight .moon-expandable-picker-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
 /* Header - Disabled */
 .moon-expandable-picker-header-wrapper.disabled {
@@ -1311,18 +1323,10 @@ button:focus {
 }
 /* Header - Open */
 .moon-expandable-picker.open .moon-expandable-picker-header {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0;
-  color: #999999;
-  border-bottom: 2px solid #404040;
-  margin: 0px;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
-.enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
-  font-family: "LG Display";
-  font-size: 28px;
+.moon-expandable-picker.open .spotlight .moon-expandable-picker-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
 /* Current Value */
 .moon-expandable-picker-current-value {
@@ -1335,7 +1339,7 @@ button:focus {
   line-height: 32px;
   color: #999999;
   margin: 0px;
-  padding: 0px;
+  padding-left: 42px;
 }
 .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
@@ -1393,6 +1397,9 @@ button:focus {
   font-family: "LG Display";
   font-size: 26px;
   line-height: 32px;
+}
+.moon-expandable-integer-picker-drawer {
+  padding-left: 50px;
 }
 .moon-header {
   box-sizing: border-box;
@@ -2537,12 +2544,12 @@ button:focus {
 }
 /* Arrow */
 .moon-accordion .moon-accordion-arrow {
-  background-position: right center;
+  background-position: right top 19px;
   background-repeat: no-repeat;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
 .enyo-locale-right-to-left .moon-accordion .moon-accordion-arrow {
-  background-position: left center;
+  background-position: left top 19px;
 }
 .moon-accordion .moon-accordion-arrow.spotlight {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
@@ -3757,20 +3764,6 @@ button:focus {
 .moon-expandable-input .moon-input {
   width: 100%;
 }
-.moon-expandable-input.open .moon-expandable-input-header {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0;
-  color: #999999;
-  border-bottom: 2px solid #404040;
-  padding: 0px;
-}
-.enyo-locale-non-latin .moon-expandable-input.open .moon-expandable-input-header {
-  font-family: "LG Display";
-  font-size: 28px;
-}
 .moon-highlight-text-highlighted {
   color: #ff2f7d;
 }
@@ -3820,8 +3813,8 @@ button:focus {
   position: absolute;
   top: 2px;
   left: 10px;
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   border-radius: 9999px;
   background-color: #404040;
   background-position: 10px 10px;
@@ -3831,7 +3824,7 @@ button:focus {
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   padding: 8px 10px;
-  margin-left: 60px;
+  margin-left: 62px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
   padding-left: 0;
@@ -3839,7 +3832,7 @@ button:focus {
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   margin-left: auto;
-  margin-right: 60px;
+  margin-right: 62px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox {
   right: 10px;
@@ -4010,7 +4003,9 @@ button:focus {
 .moon-light-gray * {
   color: #4b4b4b;
 }
+/* -------------------------- */
 /* Standard horizontal spacing */
+/* -------------------------- */
 .moon-hspacing {
   white-space: nowrap;
 }
@@ -4036,7 +4031,9 @@ button:focus {
   margin-right: 10px;
   margin-left: 0;
 }
+/* -------------------------- */
 /* Standard vertical spacing */
+/* -------------------------- */
 .moon-vspacing > * {
   display: block;
   margin: 10px 0;
@@ -4046,4 +4043,40 @@ button:focus {
 }
 .moon-vspacing > :last-child {
   margin-bottom: 0;
+}
+/* -------------------------- */
+/* Variable vertical spacing  */
+/* -------------------------- */
+.moon-vspacing-s > .moon-item,
+.moon-vspacing-s > .moon-expandable-list-item:not(.open) .moon-item,
+.moon-vspacing-s > .moon-expandable-list-item.open {
+  padding-bottom: 10px;
+}
+.moon-vspacing-s > .moon-button,
+.moon-vspacing-s > .moon-input-decorator,
+.moon-vspacing-s > .moon-formcheckbox-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.moon-vspacing-m > .moon-item,
+.moon-vspacing-m > .moon-expandable-list-item:not(.open) .moon-item,
+.moon-vspacing-m > .moon-expandable-list-item.open {
+  padding-bottom: 20px;
+}
+.moon-vspacing-m > .moon-button,
+.moon-vspacing-m > .moon-input-decorator,
+.moon-vspacing-m > .moon-formcheckbox-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.moon-vspacing-l > .moon-item,
+.moon-vspacing-l > .moon-expandable-list-item:not(.open) .moon-item,
+.moon-vspacing-l > .moon-expandable-list-item.open {
+  padding-bottom: 40px;
+}
+.moon-vspacing-l > .moon-button,
+.moon-vspacing-l > .moon-input-decorator,
+.moon-vspacing-l > .moon-formcheckbox-item {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

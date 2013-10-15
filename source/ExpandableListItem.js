@@ -90,8 +90,8 @@ enyo.kind({
 	//* Facade for drawer
 	openChanged: function() {
 		var open = this.getOpen();
-		this.$.drawer.setOpen(open);
 		this.addRemoveClass("open", open);
+		this.$.drawer.setOpen(open);
 		if (this.generated) {
 			this.stopHeaderMarquee();
 		}
