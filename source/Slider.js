@@ -29,7 +29,7 @@ enyo.kind({
 		//* CSS classes to apply to tapArea
 		tapAreaClasses: "moon-slider-taparea",
 		//* Color of value popup
-		popupColor: "#4b4b4b",
+		popupColor: "#686868",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		/**
@@ -47,7 +47,7 @@ enyo.kind({
 		//* Popup height in pixels
 		popupHeight: 50,
 		//* Popup offset in pixels
-		popupOffset: 5,
+		popupOffset: 8,
 		//* When false, you can move the knob past the _bgProgress_
 		constrainToBgProgress: false,
 		/**
