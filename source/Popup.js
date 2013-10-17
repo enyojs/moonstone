@@ -80,7 +80,7 @@ enyo.kind({
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* _tap()_ code.
 	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
+		if (this.downEvent && this.downEvent.type !== "onSpotlightSelect") {
 			return this.inherited(arguments);
 		}
 	},
@@ -198,7 +198,7 @@ enyo.kind({
 		} else {
 			// As a failsafe, attempt to spot the container if no activator is present
 			if (enyo.Spotlight.getPointerMode()) { enyo.Spotlight.mute(this.activator); }
-			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
 		}
 		this.activator = null;
 	},
