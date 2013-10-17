@@ -57,14 +57,23 @@ enyo.kind({
 		}
 	},
 	events: {
+		//* Fires when playbackrate is changed to poisitive integer(>1).
 		onFastforward: "",
+		//* Fires when playbackrate is changed to value between 0 to 1.
 		onSlowforward: "",
+		//* Fires when playbackrate is changed to negative value(less than -1).
 		onRewind: "",
+		//* Fires when playbackrate is changed to value between 0 to -1.(pbNumber < 0 && pbNumber >= -1)
 		onSlowrewind: "",
+		//* Fires _jumpForward_ method (jumps farward from the currentTime).
 		onJumpForward: "",
+		//* Fires _JumpBackward_ method (jumps backward from the currentTime).
 		onJumpBackward: "",
+		//* Fires when playbackrate is set to 1
 		onPlay: "",
+		//* Fires when EventData is changed.
 		onStart: "",
+		//* Fires when elements are rendered.
 		onDisableTranslation: ""
 	},
 	handlers: {
@@ -127,6 +136,7 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	//* @public
+	//* Initiates playback of the media data.
 	play: function() {
 		if (!this.hasNode()) {
 			return;
@@ -135,6 +145,7 @@ enyo.kind({
 		this.node.play();
 		this._prevCommand = "play";
 	},
+	//* Pauses media playback.
 	pause: function() {
 		if (!this.hasNode()) {
 			return;
@@ -143,6 +154,8 @@ enyo.kind({
 		this.node.pause();
 		this._prevCommand = "pause";
 	},
+	
+	//* changes the speed of play(Increases the play speed or playback rate), by setting selectPlaybackRate of the node
 	fastForward: function() {
 		var node = this.hasNode();
 
@@ -194,6 +207,7 @@ enyo.kind({
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 		
 	},
+	//* changes the speed of play(Increases the play speed or playback rate), by setting selectPlaybackRate of the node
 	rewind: function() {
 		var node = this.hasNode();
 
@@ -234,6 +248,7 @@ enyo.kind({
 		
 		this.setPlaybackRate(this.selectPlaybackRate(this._speedIndex));
 	},
+	//* jumps backward from the currentTime
 	jumpBackward: function() {
 		var node = this.hasNode();
 
@@ -247,6 +262,7 @@ enyo.kind({
 
 		this.doJumpBackward(enyo.mixin(this.createEventData(), {jumpSize: this.jumpSec}));
 	},
+	//* jumps farward from the currentTime
 	jumpForward: function() {
 		var node = this.hasNode();
 
@@ -260,6 +276,7 @@ enyo.kind({
 
 		this.doJumpForward(enyo.mixin(this.createEventData(), {jumpSize: this.jumpSec}));
 	},
+	//* jumps to the beginning of media source, sets the playbackrate to 1 
 	jumpToStart: function() {
 		var node = this.hasNode();
 
@@ -272,6 +289,7 @@ enyo.kind({
 		node.currentTime = 0;
 		this._prevCommand = "jumpToStart";
 	},
+	//* jumps to the end of media, sets the playbackrate to 1 
 	jumpToEnd: function() {
 		var node = this.hasNode();
 
@@ -284,9 +302,12 @@ enyo.kind({
 		node.currentTime = this.node.duration;
 		this._prevCommand = "jumpToEnd";
 	},
+	//* sets the playbackrate type(Fwd,rewind,play..)
 	selectPlaybackRateArray: function(cmd) {
 		this._playbackRateArray = this.playbackRateHash[cmd];
 	},
+
+	//* changes the playbackrate when Farward or rewind is called.
 	clampPlaybackRate: function(index) {
 		if (!this._playbackRateArray) {
 			return;
@@ -294,9 +315,11 @@ enyo.kind({
 
 		return index % this._playbackRateArray.length;
 	},
+	//* returns the playbackrate name by giving index
 	selectPlaybackRate: function(index) {
 		return this._playbackRateArray[index];
 	},
+	//* sets the  playbackrate value by the given inPlaybackRate.
 	setPlaybackRate: function(inPlaybackRate) {
 		var node = this.hasNode(),
 			pbNumber
@@ -398,6 +421,8 @@ enyo.kind({
 		this.setAspectRatio(node.videoWidth/node.videoHeight+":1");
 		inEvent = enyo.mixin(inEvent, this.createEventData());
 	},
+
+	//* Time update from HTML video element
 	timeupdate: function(inSender, inEvent) {
 		var node = this.hasNode();
 
@@ -406,6 +431,7 @@ enyo.kind({
 		}
 		inEvent = enyo.mixin(inEvent, this.createEventData());
 	},
+	//* when play back rate is changed
 	ratechange: function(inSender, inEvent) {
 		var node = this.hasNode(),
 			pbNumber
@@ -431,6 +457,7 @@ enyo.kind({
 			this.doPlay(inEvent);
 		}
 	},
+	//* create media element
 	createEventData: function() {
 		var node = this.hasNode();
 
