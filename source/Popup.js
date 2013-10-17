@@ -8,7 +8,7 @@ enyo.kind({
 	classes: "moon moon-neutral moon-popup",
 	modal: true,
 	floating: true,
-	_spotlight: null,
+	_spotlightOld: null,
 	spotlight: "container",
 	handlers: {
 		onSpotlightKeyDown: "spotlightKeyDown",
@@ -65,7 +65,7 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
+		this._spotlightOld = this.spotlight;
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
@@ -122,7 +122,7 @@ enyo.kind({
 		
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
-			this.spotlight = this._spotlight;
+			this.spotlight = this._spotlightOld;
 			this.configCloseButton();
 			var spottableChildren = enyo.Spotlight.getChildren(this).length;
 			if (spottableChildren === 0) {
