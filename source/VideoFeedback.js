@@ -37,7 +37,15 @@ enyo.kind({
 	],
 
 	//* @public
-
+	/**
+		Updates IconButton image and Slider message with current state and playbackRate
+		when any of the Playback Controls are triggered.
+		(ex. Slider message Play, Pause and  Hash of playbackRate you can set this hash by
+		fastForward: ["2", "4", "8", "16"],
+		rewind: ["-2", "-4", "-8", "-16"],
+		slowForward: ["1/4", "1/2"],
+		slowRewind: ["-1/2", "-1"] with respect to currentTime).
+	*/
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		var customMessage = false;
 		inMessage = inMessage || "";
