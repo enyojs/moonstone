@@ -51,10 +51,15 @@ enyo.kind({
 		onresize: "resizeHandler"
 	},
 	events: {
+		//* _onSeekStart_ event bubbled when slider is dragstart.
 		onSeekStart: "",
+		//* _onSeek_ event bubbled when slider is dragged.
 		onSeek: "",
+		//* _onSeeKFinish_ event bubbled when slider dragfinish.
 		onSeekFinish: "",
+		//* _onEnterTapArea_ event fired when cursor enters slider taparea.
 		onEnterTapArea: "",
+		//* _onLeaveTapArea_ event fired when cursor leaves slider taparea.
 		onLeaveTapArea: ""
 	},
 	tickComponents: [
