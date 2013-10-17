@@ -11,6 +11,7 @@ enyo.kind({
 	_spotlight: null,
 	spotlight: "container",
 	handlers: {
+		onSpotlightKeyDown: "spotlightKeyDown",
 		onSpotlightSelect: "spotSelect",
 		onSpotlightUp: "spotlightUp",
 		onSpotlightDown: "spotlightDown",
@@ -126,6 +127,7 @@ enyo.kind({
 			if (spottableChildren === 0) {
 				this.spotlight = false;
 			} else if ((this.spotlight) && (spottableChildren > 0)) {
+				if (enyo.Spotlight.getPointerMode()) { enyo.Spotlight.mute(this.activator); }
 				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
 			}
 		}
@@ -194,6 +196,7 @@ enyo.kind({
 			}
 		} else {
 			// As a failsafe, attempt to spot the container if no activator is present
+			if (enyo.Spotlight.getPointerMode()) { enyo.Spotlight.mute(this.activator); }
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
 		}
 		this.activator = null;
@@ -212,6 +215,9 @@ enyo.kind({
 				this.hide();
 			}
 		}
+	},
+	spotlightKeyDown: function(inSender, inEvent) {
+		if (enyo.Spotlight.isMuted()) { enyo.Spotlight.unmute(this.activator); return true; }
 	},
 	/**
 		When spotlight reaches top edge of popup, prevents user from
