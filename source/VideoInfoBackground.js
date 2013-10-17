@@ -11,7 +11,9 @@ enyo.kind({
 	kind: "enyo.Control",
 	classes: "moon-background-wrapper",
 	published: {
+		//* _orient_ sets orientation to Video InfoComponents in the background (ex. left, right).
 		orient: "left",
+		//* _background_ If true, it gives background color as black, otherwise will be transparent.
 		background: true
 	},
 	components: [
