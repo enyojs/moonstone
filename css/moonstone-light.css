@@ -1298,8 +1298,11 @@ button:focus {
 }
 /* Header */
 .moon-expandable-picker-header {
-  padding: 0px;
+  padding: 0 0 0 29px;
   margin: 0px;
+  background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
+  background-repeat: no-repeat;
+  background-position: -10px center;
 }
 .moon-expandable-picker-header .moon-item {
   margin: 0px;
@@ -1319,6 +1322,8 @@ button:focus {
   color: #4b4b4b;
   border-bottom: 2px solid #404040;
   margin: 0px;
+  padding: 0px;
+  background-image: none;
 }
 .enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
   font-family: "LG Display";
@@ -1334,10 +1339,13 @@ button:focus {
   line-height: 32px;
   color: #4b4b4b;
   margin: 0px;
-  padding: 0px;
+  padding: 0 0 0 30px;
 }
 .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
+}
+.spotlight .moon-expandable-picker-header {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
   font-family: "LG Display";
@@ -3761,6 +3769,7 @@ button:focus {
   color: #4b4b4b;
   border-bottom: 2px solid #404040;
   padding: 0px;
+  background-image: none;
 }
 .enyo-locale-non-latin .moon-expandable-input.open .moon-expandable-input-header {
   font-family: "LG Display";
