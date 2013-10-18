@@ -1,7 +1,10 @@
 /* Header */
 .moon-expandable-picker-header {
-	padding: 0px;
+	padding: 0 0 0 29px;
 	margin: 0px;
+	background-image: @moon-small-carat-down1;
+	background-repeat: no-repeat;
+	background-position: -10px center;
 }
 .moon-expandable-picker-header .moon-item {
 	margin: 0px;
@@ -16,6 +19,8 @@
 	.moon-divider-text;
 	.moon-divider-border;
 	margin: 0px;
+	padding: 0px;
+	background-image: none;
 }
 .enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
 	.enyo-locale-non-latin .moon-divider-text;
@@ -26,15 +31,17 @@
 	.moon-body-text;
 	color: @moon-expandable-picker-text-color;
 	margin: 0px;
-	padding: 0px;
+	padding: 0 0 0 30px;
 }
 .spotlight .moon-expandable-picker-current-value {
 	color: @moon-white;
 }
+.spotlight .moon-expandable-picker-header {
+	 background-image: @moon-small-carat-down2;
+}
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
 	.enyo-locale-non-latin .moon-body-text;
 }
-
 /* Help Text */
 .moon-expandable-picker-help-text {
   color: @moon-help-text-color;
