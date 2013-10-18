@@ -204,6 +204,9 @@ This can be simply accomplished by defining a second rule that resets the defaul
 
 ```
 
+#### RTL: When CSS isn't enough
+
+There are a few rare cases where JS logic needs to be aware of whether the control is rendered in RTL or LTR.  Rather than sniffing the computed style for `direction` or checking for the `.enyo-locale-right-to-left` class on body (which would be bad for performance), we have added a `rtl` property to the enyo.Control prototype which will also be set to `true`  by `ilib` when applying the `.enyo-locale-right-to-left` class.  enyo.Control sub-kinds can simply check `this.rtl` on their instance to determine whether the control is in RTL or LTR mode.
 
 ## Samples
 
@@ -219,6 +222,42 @@ Guidelines for samples:
 	* `$lib/moonstone/samples/package.js` - for loading the required JS and CSS when running in the sampler
 	* `$lib/moonstone/samples/manifest.json` - to indicate where the sample should be placed in the Sampler menu structure
 	* Its own `MyControlSample.html` file, which loads and renders the sample for standablone testing
+	
+## Testing Samples
+
+Samples should be tested both using their standalone `html` file, as well as in the Enyo 2 Sampler, in all variations described above.
+
+Note, the Enyo 2 Sampler's "extras" menu has options for toggling the non-latin and RTL classes/settings at runtime, which is useful for testing your control in the variations described above.
+
+To get set up to test Moonstone samples in the sampler, run the following next to your `lib` folder:
+
+	git clone git@github.com:enyojs/sampler.git --recursive
+
+Then point your browser here:
+
+	http://<path-to-sampler>/debug.html?addSamples=../lib/moonstone/samples/manifest.json&debug=true&extras=true
+
+From there, you can open the extras menu and toggle those settings on/off.
+
+Alternatively, you can pretty easily just apply these classes this in the inspector like this:
+
+
+```
+// To turn on non-latin (caching previous value, for easy switching):
+var orig = document.body.className; document.body.className += " enyo-locale-non-latin"
+// To turn off non-latin:
+document.body.className = orig;
+```
+
+```
+// To turn on RTL (caching previous value, for easy switching):
+var orig = document.body.className; document.body.className += " enyo-locale-right-to-left"
+
+// To turn off RTL:
+document.body.className = orig;
+```
+
+Note, the above RTL code only sets the CSS class on body; it does not set the `enyo.Control.prototype.rtl` flag, which is needed by a small number of controls to operate properly (Slider, FittableLayout, MarqueeText, etc.).  In this case, you would need to set a breakpoint before the control is rendered to force the `enyo.Control.prototype.rtl` flag to true, so that it is properly rendered in the new mode.
 
 ## Design Metadata
 
