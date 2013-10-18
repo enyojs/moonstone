@@ -29,7 +29,7 @@ enyo.kind({
 		//* CSS classes to apply to tapArea
 		tapAreaClasses: "moon-slider-taparea",
 		//* Color of value popup
-		popupColor: "#4b4b4b",
+		popupColor: "#686868",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		/**
@@ -47,7 +47,7 @@ enyo.kind({
 		//* Popup height in pixels
 		popupHeight: 50,
 		//* Popup offset in pixels
-		popupOffset: 5,
+		popupOffset: 8,
 		//* When false, you can move the knob past the _bgProgress_
 		constrainToBgProgress: false,
 		/**
@@ -81,14 +81,14 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
+		{name: "tapArea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", components: [
 			{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
 				{tag: "canvas", name: "drawingLeft", classes: "moon-slider-popup-left"},
 				{name: "popupLabel", classes: "moon-slider-popup-center" },
 				{tag: "canvas", name: "drawingRight", classes: "moon-slider-popup-right"}
 			]}
-		]},
-		{name: "tapArea"}
+		]}
 	],
 	animatingTo: null,
 	popupLeftCanvasWidth: 20, // Popup left canvas width in pixel

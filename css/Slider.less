@@ -6,6 +6,7 @@
 }
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
+	.border-box;
 	position: absolute;
 	height: 60px;
 	width: 60px;
@@ -27,6 +28,14 @@
 }
 .moon-slider.spotlight > .moon-slider-knob {
 	background-color: @moon-slider-spotlight-knob-color;
+}
+.moon-slider.spotlight > .moon-slider-knob.spotselect {
+	height: 60px;
+	width: 60px;
+	border-radius: 30px;
+	margin: -30px;
+	background-color: @moon-button-background-color;
+	border: @moon-button-border-width solid @moon-spotlight-color;
 }
 .moon-slider.disabled {
 	cursor: default;

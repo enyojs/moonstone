@@ -1910,6 +1910,8 @@ button:focus {
 }
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
   position: absolute;
   height: 60px;
   width: 60px;
@@ -1931,6 +1933,14 @@ button:focus {
 }
 .moon-slider.spotlight > .moon-slider-knob {
   background-color: #ff2f7d;
+}
+.moon-slider.spotlight > .moon-slider-knob.spotselect {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  margin: -30px;
+  background-color: #ffffff;
+  border: 5px solid #ff2f7d;
 }
 .moon-slider.disabled {
   cursor: default;
