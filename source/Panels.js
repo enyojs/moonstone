@@ -234,7 +234,7 @@ enyo.kind({
 		this.stopJob("autoHide");
 	},
 	stashHandle: function() {
-		this.$.showHideHandle.addClass("stashed");
+		this.$.showHideHandle.addRemoveClass("stashed", !this.showing);
 	},
 	handleFocus: function() {
 		this.stopHandleAutoHide();
@@ -515,8 +515,7 @@ enyo.kind({
 		}
 
 		this.$.backgroundScrim.show();
-		this.$.showHideHandle.addClass("hidden");
-		this.$.showHideHandle.addClass("right");
+		this.$.showHideHandle.addClass("right");	
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
 	},
@@ -525,9 +524,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
-		this.$.showHideHandle.addClass("hidden");
-		this.$.showHideHandle.removeClass("right");
+		this.$.showHideHandle.removeClass("right");	
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
 	},
@@ -535,7 +532,6 @@ enyo.kind({
 	_directShow: function() {
 		this.$.backgroundScrim.show();
 		this.$.showHideHandle.addClass("right");
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
@@ -594,7 +590,7 @@ enyo.kind({
 		}
 	},
 	showAnimationComplete: function() {
-		this.$.showHideHandle.addClass("stashed");
+		//this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
