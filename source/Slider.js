@@ -81,14 +81,14 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
+		{name: "tapArea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", components: [
 			{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
 				{tag: "canvas", name: "drawingLeft", classes: "moon-slider-popup-left"},
 				{name: "popupLabel", classes: "moon-slider-popup-center" },
 				{tag: "canvas", name: "drawingRight", classes: "moon-slider-popup-right"}
 			]}
-		]},
-		{name: "tapArea"}
+		]}
 	],
 	animatingTo: null,
 	popupLeftCanvasWidth: 20, // Popup left canvas width in pixel
