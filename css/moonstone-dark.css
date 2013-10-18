@@ -2703,6 +2703,9 @@ button:focus {
   color: #dddddd;
   width: 100%;
 }
+.moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
+  text-transform: none;
+}
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "LG Display";
   font-size: 114px;
@@ -2711,23 +2714,23 @@ button:focus {
   position: static;
 }
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
-  color: lighter(#dddddd, 50%);
+  color: #373737;
   margin-top: 15px;
   line-height: 1.25em;
+  text-transform: uppercase;
 }
-.moon-input-header-input-decorator.spotlight .moon-input.moon-header-title::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
   background: #ff2f7d;
-  color: white;
+  color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
   background: none;
-  color: #dddddd;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
-  color: #dddddd;
+  color: #373737;
 }
 .moon-drawer-handle {
   max-width: 250px;

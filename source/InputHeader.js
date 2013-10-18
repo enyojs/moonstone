@@ -28,13 +28,12 @@ enyo.kind({
 	published: {
 		//* The value of the input
 		value: "",
-		//* The text case style of Input Header's Title,
-		//* default "uppercase", other possible values can be "lowercase", "capitalize" or "none"
-		textTransform: "uppercase"
+		//* When true, inputted text will be displayed in uppercase
+		uppercase: false
 	},
 	create: function() {
 		this.inherited(arguments);
-		this.textTransformChanged();
+		this.uppercaseChanged();
 	},
 	handlers: {
 		oninput: "handleInput",
@@ -72,8 +71,7 @@ enyo.kind({
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
 	},
-	textTransformChanged: function() {
-		this.textTransform.toLowerCase();
-		this.$.titleInput.applyStyle("text-transform", this.textTransform);
+	uppercaseChanged: function() {
+		this.$.titleInput.addRemoveClass("uppercase", this.uppercase);
 	}
 });
