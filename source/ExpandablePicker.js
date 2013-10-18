@@ -227,7 +227,9 @@ enyo.kind({
 	//* Close drawer and select header
 	selectAndClose: function() {
 		this.setActive(false);
-		enyo.Spotlight.spot(this.$.headerWrapper);
+		if (!enyo.Spotlight.getPointerMode()) {
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		}
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {

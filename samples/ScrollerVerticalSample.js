@@ -6,13 +6,13 @@ enyo.kind({
 			{content:"Spacing: "},
 			{kind: "moon.SimplePicker", name:"spacingPicker", classes:"moon-4h", onChange:"spacingChanged", components: [
 				{content:"default", spacingClass:""},
-				{content:"small", spacingClass:"moon-vspacing-s"},
+				{content:"small", spacingClass:"moon-vspacing-s", active:true},
 				{content:"medium", spacingClass:"moon-vspacing-m"},
 				{content:"large", spacingClass:"moon-vspacing-l"}
 			]}
 		], components: [
 			{ kind: 'moon.Scroller', classes: "enyo-fill", components: [
-				{name:"wrapper", classes:"moon-6h", components: [
+				{name:"wrapper", classes:"moon-6h moon-vspacing-s", components: [
 					{kind: "moon.ExpandablePicker", noneText: "Select a language", autoCollapse: true, content: "Expandable Picker", classes: "moon-expandable-picker-wrapper", components: [
 						{content: "English"},
 						{content: "Spanish"},
@@ -25,21 +25,12 @@ enyo.kind({
 					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", content: "Expandable Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
 					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 					{kind: "moon.TimePicker", noneText: "Pick a Time", content: "Time Picker"},
-					{kind: "moon.Accordion", content: "Accordion 1", components: [
-						{content: "Item One"},
-						{content: "Item Two"}
-					]},
-					{kind: "moon.Accordion", content: "Accordion 2", components: [
-						{content: "Item Three"},
-						{content: "Item Four"}
-					]},
-					{kind: "moon.Accordion", content: "Accordion 3", components: [
-						{content: "Item Five"},
-						{content: "Item Six"}
-					]},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 1"},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 2"},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 3"},
+					{kind: "moon.SelectableItem", content: "Selectable Item 1"},
+					{kind: "moon.SelectableItem", content: "Selectable Item 2"},
+					{kind: "moon.SelectableItem", content: "Selectable Item 3"},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 4 (right)", checkboxOnRight:true},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 5 (right)", checkboxOnRight:true},
 					{kind: "moon.CheckboxItem", content: "Checkbox Item 6 (right)", checkboxOnRight:true},
@@ -49,9 +40,13 @@ enyo.kind({
 					{kind: "moon.FormCheckbox", content: "Form Checkbox 1"},
 					{kind: "moon.FormCheckbox", content: "Form Checkbox 2"},
 					{kind: "moon.FormCheckbox", content: "Form Checkbox 3"},
+					{kind: "moon.Item", content: "Item 1"},
+					{kind: "moon.Item", content: "Item 1"},
 					{kind: "moon.Button", content: "Button 1"}, {tag:"br"},
 					{kind: "moon.Button", content: "Button 2"}, {tag:"br"},
 					{kind: "moon.Button", content: "Button 3"}, {tag:"br"},
+					{kind: "moon.Item", content: "Item 1"},
+					{kind: "moon.Item", content: "Item 1"},
 					{kind: "moon.ToggleButton", content: "Toggle Button 1"}, {tag:"br"},
 					{kind: "moon.ToggleButton", content: "Toggle Button 2"}, {tag:"br"},
 					{kind: "moon.ToggleButton", content: "Toggle Button 3"}, {tag:"br"},
@@ -63,6 +58,18 @@ enyo.kind({
 					]},
 					{kind: "moon.InputDecorator", components: [
 						{kind: "moon.Input", placeholder: "Input"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 1", defaultKind:"moon.SelectableItem", components: [
+						{content: "Item One"},
+						{content: "Item Two"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 2", defaultKind:"moon.SelectableItem", components: [
+						{content: "Item Three"},
+						{content: "Item Four"}
+					]},
+					{kind: "moon.Accordion", content: "Accordion 3", defaultKind:"moon.SelectableItem", components: [
+						{content: "Item Five"},
+						{content: "Item Six"}
 					]},
 					{kind: "moon.Item", content: "Item 1"},
 					{kind: "moon.Item", content: "Item 2"},
@@ -114,11 +121,15 @@ enyo.kind({
 			]}
 		]}
 	],
+	create: function() {
+		this.inherited(arguments);
+		this.spacingChanged();
+	},
 	spacingChanged: function(inSender, inEvent) {
 		if (this.lastSpacingClass) {
 			this.$.wrapper.removeClass(this.lastSpacingClass);
 		}
-		var c = inEvent.originator.getSelected().spacingClass;
+		var c = this.$.spacingPicker.getSelected().spacingClass;
 		this.$.wrapper.addClass(c);
 		this.lastSpacingClass = c;
 	}

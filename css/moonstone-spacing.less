@@ -46,7 +46,7 @@
 /* -------------------------- */
 
 .moon-vspacing-mixin(@size) {
-	> .moon-item,
+	> .moon-item:not(.moon-formcheckbox-item),
 	> .moon-expandable-list-item:not(.open) .moon-item,
 	> .moon-expandable-list-item.open {
 		padding-bottom: @size;
@@ -55,7 +55,7 @@
 	> .moon-input-decorator,
 	> .moon-formcheckbox-item {
 		margin-top: @size/2;
-		margin-bottom: @size/2;
+		margin-bottom: @size;
 	}
 }
 

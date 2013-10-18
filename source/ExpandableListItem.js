@@ -116,7 +116,7 @@ enyo.kind({
 
 		this.toggleActive();
 
-		if (this.getActive()) {
+		if (this.getActive() && !enyo.Spotlight.getPointerMode()) {
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		}
 	},
@@ -128,7 +128,6 @@ enyo.kind({
 			this.setActive(false);
 		} else {
 			this.setActive(true);
-			enyo.Spotlight.unspot();
 		}
 	},
 	//* If drawer is currently open, and event was sent via keypress (i.e., it has a direction), process header focus
