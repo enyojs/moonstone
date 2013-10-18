@@ -108,6 +108,11 @@ enyo.kind({
 		});
 	},
 
+	//* Returns true if the slider is currently being dragged
+	isDragging: function() {
+		return this.dragging;
+	},
+
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
