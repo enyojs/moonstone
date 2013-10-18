@@ -1037,7 +1037,7 @@ button:focus {
   padding-left: 10px;
   padding-right: 42px;
 }
-.moon-expandable-picker .moon-selectable-item-indicator {
+.moon-expandable-list-item .moon-selectable-item-indicator {
   top: 15px;
 }
 .moon-expandable-picker .moon-selectable-item-indicator {
