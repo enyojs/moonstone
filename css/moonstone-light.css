@@ -449,6 +449,22 @@ button:focus {
   color: #4b4b4b;
   line-height: 32px;
 }
+.moon-body-text a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .moon-body-text-spacing {
   margin: 0 10px 40px 10px;
 }
@@ -1291,6 +1307,22 @@ button:focus {
   color: #4b4b4b;
   line-height: 32px;
 }
+.moon-expandable-list-item-client .moon-item a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-list-item-client .moon-item a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-list-item-client .moon-item a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-list-item-client .moon-item a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
   font-family: "LG Display";
   font-size: 26px;
@@ -1341,6 +1373,22 @@ button:focus {
   color: #4b4b4b;
   margin: 0px;
   padding: 0px;
+}
+.moon-expandable-picker-current-value a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-picker-current-value a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-picker-current-value a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-picker-current-value a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
@@ -1393,6 +1441,22 @@ button:focus {
   line-height: 32px;
   margin: 0px;
   padding: 0px;
+}
+.moon-expandable-integer-picker-current-value a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-integer-picker-current-value a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-integer-picker-current-value a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-integer-picker-current-value a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
   font-family: "LG Display";
@@ -1471,6 +1535,22 @@ button:focus {
   color: #4b4b4b;
   line-height: 32px;
   height: 44px;
+}
+.moon-header-sub-title-below a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-header-sub-title-below a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-header-sub-title-below a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-header-sub-title-below a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
   font-family: "LG Display";
@@ -1571,6 +1651,22 @@ button:focus {
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
+}
+.moon-gridlist-imageitem .sub-caption a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-gridlist-imageitem .sub-caption a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-gridlist-imageitem .sub-caption a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-gridlist-imageitem .sub-caption a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #a2a2a2;
@@ -1820,6 +1916,22 @@ button:focus {
   box-shadow: none;
   color: #4b4b4b;
 }
+.moon-input a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-input a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-input a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-input a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-input {
   font-family: "LG Display";
   font-size: 26px;
@@ -2033,6 +2145,22 @@ button:focus {
   min-height: 20px;
   min-width: 100px;
 }
+.moon-richtext a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-richtext a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-richtext a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-richtext a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-richtext {
   font-family: "LG Display";
   font-size: 26px;
@@ -2219,6 +2347,22 @@ button:focus {
   min-width: 100px;
   color: #4b4b4b;
 }
+.moon-textarea a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-textarea a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-textarea a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-textarea a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-textarea {
   font-family: "LG Display";
   font-size: 26px;
@@ -2345,6 +2489,22 @@ button:focus {
   text-transform: none;
   margin: 0px;
   padding: 0px;
+}
+.moon-labeledtextitem .text a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-labeledtextitem .text a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-labeledtextitem .text a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-labeledtextitem .text a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
   font-family: "LG Display";
@@ -3475,6 +3635,22 @@ button:focus {
   max-width: 1200px;
   margin-bottom: 10px;
 }
+.moon-video-player-info-subsubtitle a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-subsubtitle a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-subsubtitle a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-subsubtitle a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
   font-family: "LG Display";
   font-size: 26px;
@@ -3492,6 +3668,22 @@ button:focus {
   color: #ffffff;
   white-space: normal;
   margin-bottom: 25px;
+}
+.moon-video-player-info-description a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-description a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-description a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-description a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
   font-family: "LG Display";
@@ -3985,6 +4177,22 @@ button:focus {
   background-repeat: no-repeat;
   background-position: right center;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
   float: left;

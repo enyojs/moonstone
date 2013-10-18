@@ -5,5 +5,6 @@
 
 enyo.kind({
 	name: "moon.BodyText",
-	classes: "moon-body-text moon-body-text-spacing"
+	classes: "moon-body-text moon-body-text-spacing",
+	allowHtml: true
 });
