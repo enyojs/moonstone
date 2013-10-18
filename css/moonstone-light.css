@@ -1059,6 +1059,12 @@ button:focus {
   position: relative;
   overflow: visible;
 }
+.moon-button.min-width {
+  min-width: 180px;
+}
+.moon-button.small.min-width {
+  min-width: 130px;
+}
 .enyo-locale-non-latin .moon-button.small {
   padding: 10px 15px;
 }
@@ -2061,6 +2067,10 @@ button:focus {
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
   position: relative;
+  display: inline-block;
+}
+.moon-contextual-popup-decorator.block {
+  display: block;
 }
 /* ContextualPopup */
 .moon-contextual-popup,
