@@ -58,7 +58,6 @@ enyo.kind({
 		if (inEvent.originator === this) {
 			this.bubble("onRequestScrollIntoView", {side: "top"});
 		}
-		return true;
 	},
 	//* Removes _pressed_ CSS class.
 	undepress: function() {

@@ -2067,6 +2067,10 @@ button:focus {
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
   position: relative;
+  display: inline-block;
+}
+.moon-contextual-popup-decorator.block {
+  display: block;
 }
 /* ContextualPopup */
 .moon-contextual-popup,

@@ -7,8 +7,14 @@ enyo.kind({
 			{classes: "moon-button-sample-wrapper", components: [
 
 				{kind: "moon.Divider", content: "Buttons:"},
-				{name: "A Button", kind: "moon.Button", minWidth: false, content: "A", ontap: "buttonTapped"},
-				{name: "B Button", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
+				{kind: "moon.TooltipDecorator", components: [
+					{name: "A Button", kind: "moon.Button", minWidth: false, content: "A", ontap: "buttonTapped"},
+					{kind: "moon.Tooltip", content:"minWidth: false"}
+				]},
+				{kind: "moon.TooltipDecorator", components: [
+					{name: "B Button", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
+					{kind: "moon.Tooltip", content:"minWidth: true"}
+				]},
 				{name: "Button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
 				{name: "Disabled Button", kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{name: "Long Button", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
