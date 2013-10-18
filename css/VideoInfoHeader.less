@@ -2,7 +2,6 @@
 	display:inline-block; 
 	vertical-align:top;
 	max-width: 1100px;
-	height:360px;
 }
 .moon-video-player-info-datetime {
 	font-size: @moon-super-header-font-size;
@@ -43,6 +42,11 @@
 	color: @moon-white;
 	white-space: normal;
 	margin-bottom: 25px;
+	-webkit-line-clamp: 3;
+	display: -webkit-inline-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	max-height: 96px;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
 	.enyo-locale-non-latin .moon-body-text;
