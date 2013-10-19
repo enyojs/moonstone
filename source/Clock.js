@@ -26,7 +26,7 @@ enyo.kind({
 			{kind: "enyo.Control", name: "day", classes: "moon-clock-day"}
 		]}
 	],
-	months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+	months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 	_timeDiff : 0,
 	create: function() {
 		this.inherited(arguments);

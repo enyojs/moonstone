@@ -3500,9 +3500,12 @@ button:focus {
   margin: 3px 10px;
 }
 .moon-video-player-channel-info-no {
+  font-family: "Miso";
   font-size: 126px;
+  font-weight: normal;
+  font-style: normal;
   letter-spacing: -0.05em;
-  margin-bottom: 0;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
@@ -3606,15 +3609,19 @@ button:focus {
   display: block;
   vertical-align: top;
   width: auto;
-  color: #ffffff;
+  height: 360px;
 }
 .moon-clock-hour {
+  font-family: "Miso";
   font-size: 126px;
-  white-space: nowrap;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
   vertical-align: center;
   display: inline-block;
-  margin-right: 10px;
-  letter-spacing: -0.05em;
+  margin-right: 15px;
+  color: #4b4b4b;
 }
 .moon-clock-right {
   display: inline-block;
@@ -3623,17 +3630,26 @@ button:focus {
 }
 .moon-clock-minute {
   font-family: "Miso";
-  font-weight: bold;
+  font-size: 126px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
   font-size: 68px;
-  white-space: nowrap;
+  color: #4b4b4b;
   vertical-align: bottom;
   display: inline-block;
-  height: 68px;
   margin-right: 10px;
+  line-height: 60px;
 }
 .moon-clock-meridiem {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
   font-size: 24px;
+  color: #4b4b4b;
   white-space: nowrap;
   vertical-align: bottom;
   display: inline-block;
@@ -3641,17 +3657,26 @@ button:focus {
 }
 .moon-clock-month {
   font-family: "MuseoSans 300";
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 32px;
+  color: #4b4b4b;
+  text-transform: capitalize;
   white-space: normal;
   vertical-align: top;
   display: inline-block;
   margin-right: 10px;
-  text-transform: capitalize;
-  height: 28px;
 }
 .moon-clock-day {
   font-family: "MuseoSans 300";
-  font-size: 28px;
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 32px;
+  color: #4b4b4b;
   white-space: normal;
   vertical-align: top;
   display: inline-block;
@@ -3661,7 +3686,7 @@ button:focus {
   height: 2px;
   width: 100%;
   margin: 5px 0;
-  background-color: #fff;
+  background-color: #4b4b4b;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
