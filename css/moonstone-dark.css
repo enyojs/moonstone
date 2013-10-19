@@ -3614,7 +3614,6 @@ button:focus {
   display: block;
   vertical-align: top;
   width: auto;
-  height: 360px;
 }
 .moon-clock-hour {
   font-family: "Miso";
