@@ -160,7 +160,7 @@ enyo.kind({
 		this.tracks = this.controller.get("tracks");
 	},
 	components: [
-		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
+		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded"},
 		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", kind: "Image", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
@@ -190,6 +190,15 @@ enyo.kind({
 	endPlayheadJob: function() {
 		clearInterval(this.playheadJob);
 		this.playheadJob = null;
+	},
+	durationUpdate: function (inSender, inEvent) {
+		this.$.slider.setMin(0);
+		this.$.slider.setMax(this.$.audio.getDuration());
+
+		this.updatePlayTime(this.toReadableTime(0), this.toReadableTime(this.$.audio.getDuration()));
+	},
+	dataloaded: function () {
+		this.durationUpdate();
 	},
 	toggleTrackList: function () {
 		this.doAudioPlayerShowHideQueue();
@@ -261,10 +270,10 @@ enyo.kind({
 		var duration = this.$.audio.getDuration(), 
 			totalTime = isNaN(duration) ? 0 : duration,
 			currentTime = this.$.audio.getCurrentTime(),
-			playheadPos = (currentTime * 100) / totalTime;
+			playheadPos = (currentTime * totalTime) / totalTime;
 
 		this.$.slider.setValue(playheadPos);
-		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
+		//this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
 		this.waterfall("onTimeupdate", {"currentTime": currentTime, "duration": duration});
 	},
 	updatePlayTime: function(inStart, inEnd) {
@@ -283,7 +292,7 @@ enyo.kind({
 	},
 	sliderChanging: function(inSender, inEvent) {
 		var totalTime = this.$.audio.getDuration(),
-			currentTime = (totalTime / 100) * inEvent.value;
+			currentTime = (totalTime / totalTime) * inEvent.value;
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
 		this.$.audio.seekTo(currentTime);
 	},
@@ -422,7 +431,7 @@ enyo.kind({
 		if (this.$.audio) {
 			var audioParent = this.$.audio.parent;
 			this.$.audio.destroy();
-			audioParent.createComponent({name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"}, {owner: this});
+			audioParent.createComponent({name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded"}, {owner: this});
 			this.$.audio.render();
 		}
 	},
