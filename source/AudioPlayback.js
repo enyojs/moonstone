@@ -172,7 +172,7 @@ enyo.kind({
 					{classes: "moon-audio-control-buttons", fit: true, components: [
 						// _src_ property will need to be updated with images from UX
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
-						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button left", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
+						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button playcontrol left", src: "$lib/moonstone/images/video-player/icon_play.png", ontap: "togglePlay"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button shuffle-button right", name: "btnShuffle", ontap: "toggleShuffleState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button repeat-button none right", name: "btnRepeat", ontap: "changeRepeatState"},
@@ -208,7 +208,8 @@ enyo.kind({
 			switch (this.getRepeat()) {
 			case "NONE" :
 				if ((this.tracks.length - 1) <= this.randomIndex) {
-					this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+					//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+					this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 					this.lastControlCommand = "PLAY";
 					this.endPlayheadJob();
 					return true;
@@ -231,7 +232,8 @@ enyo.kind({
 			switch (this.getRepeat()) {
 			case "NONE" :
 				if( this.index === (this.tracks.length - 1) ){	//last music
-					this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+					//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+					this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 					this.lastControlCommand = "PLAY";
 					this.endPlayheadJob();
 					return true;
@@ -456,7 +458,8 @@ enyo.kind({
 		if (this.playheadJob === null) {
 			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 50);
 		}
-		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
+		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
+		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_pause.png");
 		this.sendFeedback("Play");
 		this.lastControlCommand = "PLAY";
 	},
@@ -464,7 +467,8 @@ enyo.kind({
 		this.$.audio.pause();
 		this.doAudioPlayerPaused();
 		this.endPlayheadJob();
-		this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
+		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 		this.controller.setAudioPaused();
 		this.sendFeedback("Pause");
 	},
