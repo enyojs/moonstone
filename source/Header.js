@@ -53,7 +53,7 @@ enyo.kind({
 				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title", canGenerate: false},
 				{name: "inputDecorator", kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', canGenerate: false, components: [
 					{name: "titleInput", kind: "moon.Input", classes: "moon-header-text moon-header-title"}
-				]},
+				]}
 			]},
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
 			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
@@ -79,6 +79,7 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.backgroundSrcChanged();
 		this.backgroundPositionChanged();
+		this.inputModeChanged();
 		this.inputUpperCaseChanged();
 	},
 	allowHtmlChanged: function() {
