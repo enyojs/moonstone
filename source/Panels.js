@@ -590,14 +590,12 @@ enyo.kind({
 		}
 	},
 	showAnimationComplete: function() {
-		//this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
 		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
