@@ -25,53 +25,16 @@ enyo.kind({
 	//* @public
 	name: "moon.InputHeader",
 	kind: "moon.Header",
-	published: {
-		//* The value of the input
-		value: "",
-		//* When true, inputted text will be displayed in uppercase
-		uppercase: false
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.uppercaseChanged();
-	},
-	handlers: {
-		oninput: "handleInput",
-		onchange: "handleChange"
-	},
+	classes: "moon-input-header",
+	inputMode: true,
 	events: {
 		//* Custom input event to allow apps to differentiate between inputs and header inputs
 		onInputHeaderInput: "",
 		//* Custom input change event to allow apps to differentiate between input changes and header input changes
 		onInputHeaderChange: ""
 	},
-	//* @protected
-	bindings: [
-		{from: ".value", to: ".$.titleInput.value", oneWay: false}
-	],
-	classes: "moon-input-header",
-	componentOverrides: {
-		titleWrapper: {kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', components: [
-			{name: "titleInput", kind: "moon.Input", classes: "moon-header-text moon-header-title"}
-		]}
-	},
 	titleChanged: function() {
-		this.$.titleInput.set("placeholder", this.title || this.content);
-	},
-	//* Overload allowHtmlChanged because we have a _moon.Input_ rather than a _moon.MarqueeText_ for _title_
-	allowHtmlChanged: function() {
-		this.$.titleBelow.setAllowHtml(this.allowHtml);
-		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
-	},
-	//* Create custom event for _input_ events
-	handleInput: function(inSender, inEvent) {
-		this.doInputHeaderInput(inEvent);
-	},
-	//* Create custom event for _change_ events
-	handleChange: function(inSender, inEvent) {
-		this.doInputHeaderChange(inEvent);
-	},
-	uppercaseChanged: function() {
-		this.$.titleInput.addRemoveClass("uppercase", this.uppercase);
+		// For backward-compatibility with original API
+		this.$.titleInput.set("placeholder", this.placeholder || this.title || this.content);
 	}
 });
