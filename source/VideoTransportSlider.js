@@ -89,6 +89,7 @@ enyo.kind({
 
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.$.beginTickText.setContent(this.formatTime(0));
 		}
 	},
 	createTickComponents: function() {

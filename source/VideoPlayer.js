@@ -242,6 +242,9 @@ enyo.kind({
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
 		this.disablePlaybackControlsChanged();
+		if (window.ilib) {
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+		}
 	},
 	disablePlaybackControlsChanged: function() {
 		this.disableSliderChanged();
@@ -669,14 +672,10 @@ enyo.kind({
 	///// Inline controls /////
 
 	updateInlinePosition: function() {
-		var currentTimeFloat = this._currentTime * 1000,
-			percentComplete = Math.round(currentTimeFloat / this._duration) / 10,
-			currentTimeDate = new Date(currentTimeFloat),
-			durationDate = new Date(this._duration * 1000)
-		;
+		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
-		this.$.currTime.setContent(this.formatTime(currentTimeDate.getMinutes(), currentTimeDate.getSeconds()));
-		this.$.totalTime.setContent("/" + this.formatTime(durationDate.getMinutes(), durationDate.getSeconds()));
+		this.$.currTime.setContent(this.formatTime(this._currentTime));
+		this.$.totalTime.setContent("/" + this.formatTime(this._duration));
 	},
 
 	//* @public
@@ -803,14 +802,23 @@ enyo.kind({
 		this.updateFullscreenPosition();
 		this.updateInlinePosition();
 	},
-	//* Properly formats time.
-	formatTime: function(inMinutes, inSeconds) {
-		inMinutes = this._formatTime(inMinutes);
-		inSeconds = this._formatTime(inSeconds);
-		return inMinutes + ":" + inSeconds;
+	//* Properly format time
+	formatTime: function(inValue) {
+		var hour = Math.floor(inValue / (60*60));
+		var min = Math.floor(inValue / 60);
+		var sec = Math.round(inValue % 60);
+		if (this.durfmt) {
+			var val = {minute: min, second: sec};
+			if (hour) {
+				val.hour = hour;
+			}
+			return this.durfmt.format(val);
+		} else {
+			return (hour ? this.padDigit(hour) + ":" : "") + this.padDigit(min) + ":" + this.padDigit(sec);
+		}
 	},
 	//* Format time helper
-	_formatTime: function(inValue) {
+	padDigit: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	//* Switches play/pause buttons as appropriate.
