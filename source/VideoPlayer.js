@@ -144,7 +144,9 @@ enyo.kind({
 		onSpotlightSelect: 'spotlightSelectHandler',
 		onSpotlightLeft: 'spotlightLeftRightHandler',
 		onSpotlightRight: 'spotlightLeftRightHandler',
-		onresize: 'resizeHandler'
+		onresize: 'resizeHandler',
+		onSliderLeftTap: "pause",
+		onSliderRightTap: "_stop"
 	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},

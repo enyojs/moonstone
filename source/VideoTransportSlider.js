@@ -55,7 +55,9 @@ enyo.kind({
 		onSeek: "",
 		onSeekFinish: "",
 		onEnterTapArea: "",
-		onLeaveTapArea: ""
+		onLeaveTapArea: "",
+		onSliderLeftTap: "",
+		onSliderRightTap: ""
 	},
 	tickComponents: [
 		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
@@ -124,8 +126,18 @@ enyo.kind({
 	},
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
-		this.currentTime = this._currentTime;
-		this._updateKnobPosition(this._currentTime);
+		if(this._currentTime < 0) {
+			this.currentTime = 0;
+			this.bubble("onSliderLeftTap");
+		}
+		else if(this._currentTime > this.duration) {
+			this.currentTime = this.duration;
+			this.bubble("onSliderRightTap");
+		}
+		else {
+			this.currentTime = this._currentTime;
+		}
+		this._updateKnobPosition(this.currentTime);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
 		}
