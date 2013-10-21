@@ -211,7 +211,9 @@ enyo.kind({
 	//* Tap on show/hide handle
 	handleTap: function() {
 		enyo.Spotlight.unspot();
-		this.setShowing(!this.showing);
+		setTimeout(enyo.bind(this, function() {
+			this.setShowing(!this.showing);
+		}), 300);
 	},
 	handleSpotLeft: function() {
 		if (this.showing) {
@@ -513,7 +515,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
 		this.$.backgroundScrim.show();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.addClass("right");
@@ -525,7 +526,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
