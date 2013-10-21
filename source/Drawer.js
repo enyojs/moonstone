@@ -128,6 +128,9 @@ enyo.kind({
 	},
 	open: false,
 	published: {
+		/** Object that holds the properties of client
+			(ex. drawer properties like height.)
+		**/
 		drawerProps: null
 	},
 	openChanged: function() {
