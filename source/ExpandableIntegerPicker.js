@@ -71,17 +71,6 @@ enyo.kind({
 	valueChanged: function() {
 		this.fireChangeEvent();
 	},
-	activeChanged: function() {
-		var active = this.getActive();
-		if (active) {
-			// enyo.Group's highlander logic actually prevents an item from being
-			// de-activated once it's been activated; that's not exactly the logic
-			// we want for ExpandablePicker, so we only notify the group when an
-			// item is activated, not when it's de-activated.
-			this.bubble("onActivate");
-		}
-		this.setOpen(active);
-	},
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
