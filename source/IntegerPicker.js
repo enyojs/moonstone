@@ -136,7 +136,7 @@ enyo.kind({
 	spotlightBlur: function() {
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
-	},
+	}
 });
 
 // For backward compatibility
