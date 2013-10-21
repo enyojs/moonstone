@@ -1,6 +1,6 @@
 /**
 	_moon.ScrollStrategy_ inherits from
-	<a href="#enyo.TranslateScrollStrategy ">enyo.TranslateScrollStrategy </a>. Its main
+	<a href="#enyo.TranslateScrollStrategy">enyo.TranslateScrollStrategy</a>. Its main
 	purpose is to handle scroller paging for
 	<a href="#moon.Scroller">moon.Scroller</a> and
 	<a href="#moon.List">moon.List</a>.
@@ -8,7 +8,7 @@
 
 enyo.kind({
 	name: "moon.ScrollStrategy",
-	kind: "enyo.TranslateScrollStrategy ",
+	kind: "enyo.TranslateScrollStrategy",
 	published: {
 		//* Increase this value to increase the distance scrolled by the scroll wheel
 		scrollWheelMultiplier: 5,
