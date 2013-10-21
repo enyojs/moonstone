@@ -1,14 +1,14 @@
 /**
-	_moon.CalendarPicker_ is a control that displays a monthly calendar, with the
+	_moon.Calendar_ is a control that displays a monthly calendar, with the
 	month name at the top and a grid of days, grouped into rows by week, below.
 
 	The header buttons are used to navigate to the desired month; the desired day
 	is selected by tapping on it.
 
-	{kind: "moon.CalendarPicker", content: "Calendar Title"}
+	{kind: "moon.Calendar", content: "Calendar Title"}
 */
 enyo.kind({
-	name: "moon.CalendarPickerDate",
+	name: "moon.CalendarDate",
 	kind: "moon.Button",
 	small: true,
 	marquee: false,
@@ -47,7 +47,7 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "moon.CalendarPicker",
+	name: "moon.Calendar",
 	classes: "moon-calendar-picker",
 	events: {
 		/**
@@ -182,7 +182,7 @@ enyo.kind({
 	initCalendar: function() {
 		if (!this.$.dates.controls.length) {
 			for (var i = 1; i <= this.maxWeeks * 7; i++) {
-				this.$.dates.createComponent({kind: "moon.CalendarPickerDate", onDateSelected:"selectDate"}, {owner:this});
+				this.$.dates.createComponent({kind: "moon.CalendarDate", onDateSelected:"selectDate"}, {owner:this});
 			}
 		}
 	},
@@ -377,7 +377,7 @@ enyo.kind({
 		}
 		if (!this.generated || this.$.yearPicker.getSelected().getContent() != this.value.getFullYear()) {
 			this.$.yearPicker.setSelectedIndex(this.value.getFullYear() - this.startYear);
-		}			
+		}
 		this.updateDates();
 		if (this.value) {
 			this.doChange({value: this.value});
@@ -390,7 +390,7 @@ enyo.kind({
 	dayOfWeekClassesChanged: function(inOld) {
 		var dayControls = this.$.days.getClientControls();
 		for (var i = 0; i < dayControls.length; i++) {
-			dayControls[i].removeClass(inOld || "moon-calendar-picker-day");	
+			dayControls[i].removeClass(inOld || "moon-calendar-picker-day");
 			dayControls[i].addClass(this.dayOfWeekClasses || "moon-calendar-picker-day");
 		}
 	},
