@@ -111,10 +111,10 @@ enyo.kind({
 	preview: function(inSender, inEvent) {
 		if (!this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
+			this.currentTime = this.transformToVideo(v);
 			if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
 				return;
 			}
-			this.currentTime = this.transformToVideo(v);
 			this._updateKnobPosition(this.currentTime);
 		}
 	},
@@ -232,6 +232,12 @@ enyo.kind({
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
+		if(this.showDummyArea && oValue > this.endTickPos) {
+			//FIXME : When set same value with rangeEnd on currentTime, video is stuck.  
+			oValue = this.rangeEnd - 1;
+		} else if(this.showDummyArea && oValue < this.beginTickPos) {
+			oValue = this.rangeStart;
+		}
 		var iValue = (oValue - this.rangeStart) / this.scaleFactor;
 		return iValue;
 	},
@@ -240,7 +246,7 @@ enyo.kind({
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
+				return;
 			}
 
 			v = this.transformToVideo(v);
@@ -321,13 +327,6 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-
-			if(this.showDummyArea && v <= this.beginTickPos) {
-				v = this.rangeStart;
-			}
-			if(this.showDummyArea && v >= this.endTickPos ) {
-				v = this.rangeEnd;
-			}
 			v = this.transformToVideo(v);
 			var z = this.elasticTo;
 			if (this.constrainToBgProgress === true) {
