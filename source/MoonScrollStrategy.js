@@ -1,6 +1,6 @@
 /**
 	_moon.ScrollStrategy_ inherits from
-	<a href="#enyo.TouchScrollStrategy">enyo.TouchScrollStrategy</a>. Its main
+	<a href="#enyo.TranslateScrollStrategy">enyo.TranslateScrollStrategy</a>. Its main
 	purpose is to handle scroller paging for
 	<a href="#moon.Scroller">moon.Scroller</a> and
 	<a href="#moon.List">moon.List</a>.
@@ -8,7 +8,7 @@
 
 enyo.kind({
 	name: "moon.ScrollStrategy",
-	kind: "enyo.TouchScrollStrategy",
+	kind: "enyo.TranslateScrollStrategy",
 	published: {
 		//* Increase this value to increase the distance scrolled by the scroll wheel
 		scrollWheelMultiplier: 5,
@@ -57,12 +57,12 @@ enyo.kind({
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
 	},
 	/**
-		Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s)
+		Calls super-super-inherited (i.e., skips _TranslateScrollStrategy_'s)
 		_rendered()_ function to avoid thumb flicker at render time. Then
 		shows or hides page controls.
 	*/
 	rendered: function() {
-		enyo.TouchScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
+		enyo.TranslateScrollStrategy.prototype.rendered._inherited.apply(this, arguments);
 		this.setupBounds();
 		this.updateSpotlightPagingControls();
 	},
@@ -107,7 +107,7 @@ enyo.kind({
 
 	//* @protected
 
-	//* Overrides default _maxHeightChanged()_ method from _TouchScrollStrategy_.
+	//* Overrides default _maxHeightChanged()_ method from _TranslateScrollStrategy_.
 	maxHeightChanged: function() {
 		// content should cover scroller at a minimum if there's no max-height.
 		this.$.client.applyStyle("min-height", this.maxHeight ? null : "100%");
