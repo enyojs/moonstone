@@ -20,7 +20,9 @@ enyo.kind({
 		max: 9,
 		//* If a number is specified, picker value is displayed as this many
 		//* zero-filled digits
-		digits: null
+		digits: null,
+		//**The number of rows to be shown on a given list page segment.
+		itemPerPage: 10
 	},
 	handlers: {
 		onSpotlightUp:"previous",
@@ -40,27 +42,18 @@ enyo.kind({
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
-		{kind: "enyo.Scroller", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
-			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
-				{name: "item", classes:"moon-scroll-picker-item"}
-			]}
+		{name:"listItemSize", classes: "moon-scroll-picker-item-div"},
+		{name:"list", kind: "enyo.List", thumb: false, touch: true, useMouseWheel: false, classes: "moon-scroll-picker", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
+			{name: "item", classes: "moon-scroll-picker-item"}
 		]},
 		{name:"bottomOverlay", ondown:"next", classes:"moon-scroll-picker-overlay-container bottom", components:[
 			{classes:"moon-scroll-picker-overlay bottom"},
 			{classes: "moon-scroll-picker-taparea"}
 		]}
 	],
-	//* @protected
-	scrollInterval: 65,
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
-		this.refreshScrollState();
-		this.$.scroller.getStrategy().setInterval(this.scrollInterval);
-	},
-	refreshScrollState: function() {
-		this.updateScrollBounds();
-		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -72,15 +65,17 @@ enyo.kind({
 	},
 	rangeChanged: function() {
 		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
-		this.$.repeater.setCount(this.max-this.min+1);
-		this.$.repeater.render();
+		this.$.listItemSize.setContent(this.max);
+		this.$.list.setCount(this.max-this.min+1);
+		this.$.list.setRowsPerPage(this.itemPerPage);
+		this.$.list.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch
 		enyo.asyncMethod(enyo.bind(this,function(){
-			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+			this.$.list.scrollToRow(this.value - this.min);
 		}));
 	},
 	valueChanged: function(inOld) {
-		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		this.$.list.scrollToRow(this.value - this.min);
 	},
 	//prevent scroller dragging
 	dragstart: function(inSender, inEvent) {
@@ -92,10 +87,13 @@ enyo.kind({
 	maxChanged: function() {
 		this.rangeChanged();
 	},
+	itemPerPageChanged: function(){
+		this.rangeChanged();
+	},
 	previous: function(inSender, inEvent) {
 		if (this.value > this.min) {
 			this.stopJob("hideTopOverlay");
-			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
+			this.$.list.scrollToRow(--this.value - this.min);
 			this.$.topOverlay.addClass("selected");
 			if (inEvent.originator != this.$.upArrow) {
 				this.startJob("hideTopOverlay", "hideTopOverlay", 350);
@@ -107,7 +105,7 @@ enyo.kind({
 	next: function(inSender, inEvent) {
 		if (this.value < this.max) {
 			this.stopJob("hideBottomOverlay");
-			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
+			this.$.list.scrollToRow(++this.value - this.min);
 			this.$.bottomOverlay.addClass("selected");
 			if (inEvent.originator != this.$.downArrow) {
 				this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
@@ -139,56 +137,6 @@ enyo.kind({
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
 	},
-	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
-	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
-	updateScrollBounds: function() {
-		this.scrollBounds = this.$.scroller.getStrategy()._getScrollBounds();
-	},
-	//* Scrolls to a given node in the list.
-	animateToNode: function(inNode) {
-		if(!inNode) {
-			return;
-		}
-
-		var sb = this.scrollBounds,
-			st = this.$.scroller.getStrategy(),
-			b = {
-				height: inNode.offsetHeight,
-				width: inNode.offsetWidth,
-				top: 0,
-				left: 0
-			},
-			n = inNode;
-
-		if(!st.scrollNode) {
-			return;
-		}
-		
-		while (n && n.parentNode && n.id != st.scrollNode.id) {
-			b.top += n.offsetTop;
-			b.left += n.offsetLeft;
-			n = n.parentNode;
-		}
-
-		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
-		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
-
-		var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
-		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
-
-		// If x or y changed, scroll to new position
-		if (x !== this.$.scroller.getScrollLeft() || y !== this.$.scroller.getScrollTop()) {
-			this.$.scroller.scrollTo(x,y);
-		}
-	},
-	//* Silently scrolls to the _inValue_ y-position without animating
-	setScrollTop: function(inValue) {
-		this.$.scroller.setScrollTop(inValue);
-	},
-	//* Ensures scroll position is in bounds.
-	stabilize: function() {
-		this.$.scroller.stabilize();
-	}
 });
 
 // For backward compatibility

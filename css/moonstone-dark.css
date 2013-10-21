@@ -1730,6 +1730,12 @@ button:focus {
   text-align: center;
   background: transparent;
 }
+.moon-scroll-picker-item-div {
+  padding-right: 5px;
+  padding-left: 5px;
+  height: 0;
+  overflow: hidden;
+}
 .moon-scroll-picker-overlay-container {
   position: absolute;
   z-index: 1;
