@@ -67,7 +67,7 @@
 			{"name": "Simple Picker", "path":"$lib/moonstone/samples/SimplePickerSample", "css":"sample"},
 			{"name": "Date Picker", "path":"$lib/moonstone/samples/DatePickerSample"},
 			{"name": "Time Picker", "path":"$lib/moonstone/samples/TimePickerSample", "css":"sample"},
-			{"name": "Calendar Picker", "path":"$lib/moonstone/samples/CalendarPickerSample"},
+			{"name": "Calendar Picker", "path":"$lib/moonstone/samples/CalendarSample"},
 			{"name": "Integer Picker", "path":"$lib/moonstone/samples/IntegerPickerSample"}
 		]},
 		{"name": "Popups", "samples": [
