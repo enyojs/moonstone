@@ -39,7 +39,14 @@ enyo.kind({
 				{name: "tapableSetting",        kind: "moon.ToggleItem", checked: true,     content: "Tapable",         onchange: "changeTapable"},
 				{name: "constrainSetting",      kind: "moon.ToggleItem", checked: false,    content: "Constrain to BG", onchange: "changeConstrain"},
 				{name: "elasticSetting",        kind: "moon.ToggleItem", checked: false,    content: "Elastic Effect",  onchange: "changeElastic"},
-				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true,     content: "Show Percentage", onchange: "changePercentage"}
+				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true,     content: "Show Percentage", onchange: "changePercentage"},
+				{name: "a",        kind: "moon.ToggleItem", checked: true,     content: "Lock Bar",        onchange: "changeLockbar"},
+				{name: "s",        kind: "moon.ToggleItem", checked: true,     content: "Animated",        onchange: "animateActivate"},
+				{name: "d",        kind: "moon.ToggleItem", checked: false,    content: "Hide Popup",      onchange: "changeStatusBubble"},
+				{name: "f",        kind: "moon.ToggleItem", checked: true,     content: "Tapable",         onchange: "changeTapable"},
+				{name: "g",      kind: "moon.ToggleItem", checked: false,    content: "Constrain to BG", onchange: "changeConstrain"},
+				{name: "h",        kind: "moon.ToggleItem", checked: false,    content: "Elastic Effect",  onchange: "changeElastic"},
+				{name: "j", kind: "moon.ToggleItem", checked: true,     content: "Show Percentage", onchange: "changePercentage"}
 			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},

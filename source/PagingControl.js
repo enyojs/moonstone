@@ -10,19 +10,22 @@ enyo.kind({
 	published: {
 		side: null
 	},
+	events: {
+		onBeginHold: "",
+		onEndHold: "",
+		onPaginate: ""
+	},
 	handlers: {
-		onSpotlightFocused: "noop",
+		// TODO - spotlight events
 		onSpotlightSelect: "depress",
 		onSpotlightKeyUp: "undepress",
-		ondown: "down",
+		ondown: "startHold",
 		onup: "endHold",
 		onleave: "endHold",
 		onhold: "hold",
+		onSpotlightFocused: "noop",
+		onholdpulse: "noop",
 		onActivate: "noop"
-	},
-	events: {
-		onPaginate: "",
-		onPaginateScroll: ""
 	},
 
 	downTime: 0,
@@ -55,21 +58,50 @@ enyo.kind({
 		this.addRemoveClass("bottom", (s === "bottom"));
 		this.addRemoveClass("left",   (s === "left"));
 	},
-	down: function(inSender, inEvent) {
-		if (this.hasClass("hidden")) {
+	startHold: function() {
+		if (!this.processEvents()) {
 			return;
 		}
 		
-		this.downTime = enyo.bench();
-		this.delta = this.initialDelta;
+		this.holding = false;
+		return true;
 	},
 	hold: function(inSender, inEvent) {
-		if (this.hasClass("hidden")) {
+		if (!this.processEvents()) {
 			return;
 		}
-
-		this.startHoldJob();
+		
+		if (this.holding) {
+			return true;
+		}
+		
+		this.holding = true;
+		this.doBeginHold({side: this.getSide()});
+		return false;
 	},
+	endHold: function(inSender, inEvent) {
+		if (!this.processEvents()) {
+			return;
+		}
+		
+		if (this.holding === null) {
+			return false;
+		}
+		else if (this.holding === true) {
+			this.doEndHold({side: this.getSide()});
+		}
+		else if (this.holding === false) {
+			this.doPaginate({side: this.getSide()});
+		}
+		
+		this.holding = null;
+		return true;
+	},
+	processEvents: function() {
+		return !this.hasClass("hidden");
+	},
+	
+	
 	depress: function(inSender, inEvent) {
 		this.inherited(arguments);
 		// keydown events repeat (while mousedown/hold does not); simulate
@@ -88,43 +120,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.downCount = 0;
 		this.endHold(inSender, inEvent);
-	},
-	endHold: function(inSender, inEvent) {
-		if (!this.downTime) {
-			return;
-		}
-		
-		this.stopHoldJob();
-		this.sendPaginateEvent();
-		this.downTime = null;
-	},
-	startHoldJob: function() {
-		this.stopHoldJob();
-		
-		var t0 = enyo.bench(),
-			t = 0
-		;
-		
-		var fn = this.bindSafely(function() {
-			this.job = enyo.requestAnimationFrame(fn);
-			
-			t = (enyo.bench() - t0)/1000;
-			this.delta = Math.min(this.maxDelta, this.delta + (0.1 * Math.pow(t, 1.1)));
-			
-			this.doPaginateScroll({scrollDelta: this.delta});
-		});
-		
-		this.job = enyo.requestAnimationFrame(fn);
-	},
-	stopHoldJob: function() {
-		this.job = enyo.cancelRequestAnimationFrame(this.job);
-	},
-	sendPaginateEvent: function() {
-		var tapThreshold = 200,
-			timeElapsed = enyo.bench() - this.downTime,
-			delta = (timeElapsed <= tapThreshold) ? this.tapDelta : this.delta;
-		
-		this.doPaginate({scrollDelta: delta});
 	},
 	//* Override default focused handling to make sure scroller doesn't scroll to this button.
 	noop: function() { return true; }

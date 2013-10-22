@@ -2,67 +2,21 @@ enyo.kind({
 	name: 'moon.sample.ScrollerVerticalSample',
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{
-			kind: 'moon.Scroller',
-			classes: 'moon-scroller-vertical-sample-scroller enyo-fill',
-			components: [
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
-					{content: "English"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"}
-				]},
-				{kind: "moon.Item", content: "This is an item 1"},
-				{kind: "moon.Item", content: "This is an item 2"},
-				{kind: "moon.Item", content: "This is an item 3"},
-				{kind: "moon.Item", content: "This is an item 4"},
-				{kind: "moon.Item", content: "This is an item 5"},
-				{kind: "moon.Item", content: "This is an item 6"},
-				{kind: "moon.Item", content: "This is an item 7"},
-				{kind: "moon.Item", content: "This is an item 8"},
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
-					{content: "English"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"}
-				]},
-				{kind: "moon.Item", content: "This is an item 9"},
-				{kind: "moon.Item", content: "This is an item 10"},
-				{kind: "moon.Item", content: "This is an item 11"},
-				{kind: "moon.Item", content: "This is an item 12"},
-				{kind: "moon.Button", content: "Test Button", style: "margin-bottom: 28px;"},
-				{kind: "moon.Item", content: "This is an item 13"},
-				{kind: "moon.Item", content: "This is an item 14"},
-				{kind: "moon.ExpandableListItem", content: "This is an expandable list item", components: [
-					{content: "Item One"},
-					{content: "Item Two"},
-					{content: "Item Three"}
-				]},
-				{kind: "moon.Item", content: "This is an item 15"},
-				{kind: "moon.Item", content: "This is an item 16"},
-				{kind: "moon.ExpandablePicker", noneText: "No Language Selected", autoCollapse: true, content: "Menu Language", defaultKind: "moon.ToggleItem", classes: "moon-expandable-picker-wrapper", components: [
-					{content: "English"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"},
-					{content: "Spanish"},
-					{content: "French"},
-					{content: "German"},
-					{content: "Italian"},
-					{content: "Japanese"}
-				]}
-			]
+		{name: "scroller", kind: 'moon.Scroller', classes: 'moon-scroller-vertical-sample-scroller enyo-fill moon-8h', onScrollStart: "start", onScroll: "scroll", onScrollStop: "stop"}
+	],
+	create: function() {
+		this.inherited(arguments);
+		for (var i = 0; i < 300; i++) {
+			this.$.scroller.createComponent({kind: "moon.Item", content: "This is item " + i + "."});
 		}
-	]
+	},
+	start: function(inSender, inEvent) {
+		// this.log();
+	},
+	scroll: function(inSender, inEvent) {
+		// this.log();
+	},
+	stop: function(inSender, inEvent) {
+		// this.log();
+	}
 });
