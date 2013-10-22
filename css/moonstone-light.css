@@ -1035,11 +1035,11 @@ button:focus {
   background-color: #fff;
 }
 .moon-selectable-item.selected .moon-selectable-item-client {
-  padding-left: 30px;
+  padding-left: 32px;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
   padding-left: 0;
-  padding-right: 30px;
+  padding-right: 32px;
 }
 /* Button */
 .moon-button {
@@ -1198,6 +1198,7 @@ button:focus {
 }
 .moon-radio-item .moon-selectable-item-client {
   max-width: 250px;
+  padding: 0 10px 0 32px;
 }
 .enyo-locale-right-to-left .moon-radio-item {
   text-align: right;
@@ -1215,28 +1216,24 @@ button:focus {
 }
 .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  top: 5px;
-  left: 5px;
-  background-color: #888;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  top: 2px;
+  left: 2px;
+  background-color: #4d4d4d;
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   background-color: #ff2f7d;
 }
-.moon-radio-item .moon-selectable-item-client {
-  padding-left: 30px;
-}
 .enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
-  padding-left: 0;
-  padding-right: 30px;
+  padding: 0 32px 0 10px;
 }
 /* Radio Item */
 .moon-radio-item-group {
   position: relative;
-  margin: 0px;
-  padding: 0px;
+  margin: 0 10px;
+  padding: 0;
 }
 .moon-radio-item-group .moon-button {
   font-family: "MuseoSans 700";
@@ -1273,7 +1270,7 @@ button:focus {
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
   border-right: 21px solid #ff2f7d;
-  border-left: 0px;
+  border-left: 0;
 }
 /* ExpandableListItem */
 .moon-expandable-list-item {
