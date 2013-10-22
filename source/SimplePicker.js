@@ -53,7 +53,7 @@ enyo.kind({
 		//* Reference to currently selected item, if any
 		selected: "",
 		//* Index of currently selected item, if any
-		selectedIndex: 0,
+		selectedIndex: null,
 		//* When true, picker transitions animate left/right
 		animate: true,
 		//* When true, button is shown as disabled and does not generate tap events
