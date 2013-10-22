@@ -2559,7 +2559,7 @@ button:focus {
   -webkit-transform: scale3d(1, 1, 1);
   overflow: hidden;
   padding: 0;
-  margin: 0;
+  margin: 20px 20px 0 20px;
   height: 100%;
 }
 .moon-panel-viewport {
