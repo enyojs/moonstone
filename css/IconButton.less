@@ -4,17 +4,19 @@
 	height: @moon-icon-size;
 	border-radius: @moon-icon-button-size/2;
 	background-color: @moon-icon-button-bg-color;
-	border: 4px solid transparent;
+	background-position: center 0;
+	border: 5px solid transparent;
 	margin: 0 @moon-spotlight-outset;
 }
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-icon.moon-icon-button.spotlight:active {
-	background-position: 0px -@moon-icon-size;
-	border: 4px solid @moon-icon-button-active-border-color;
+	background-position: center 0;
+	border: 5px solid @moon-icon-button-active-border-color;
 	background-color: @moon-icon-button-active-bg-color;
 }
 .moon-icon-button.spotlight {
 	background-color: @moon-icon-button-spotlight-bg-color;
+  background-position: center -@moon-icon-size;
 }

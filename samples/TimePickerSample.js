@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
 				{kind: "moon.TimePicker", name:"picker", content: "Time", meridiemEnable: true, onChange: "changed", hourText: $L("hour"), minuteText: $L("minute"), meridiemText: $L("meridiem")},
-				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: $L("Disabled Time Picker"), content: "Disabled Time"},
+				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: $L("Deactivated Time Picker"), content: "Deactivated Time"},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: $L("No Locale Selected"), content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: "Use Default Locale", active: true},
 					{content: 'en-US'},

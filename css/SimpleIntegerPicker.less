@@ -1,4 +1,3 @@
-
 .moon-simple-integer-picker {
   .moon-sub-header-text;
   position: relative;
@@ -29,21 +28,22 @@
 .moon-simple-integer-picker-button {	
   width: @moon-picker-button-width;
   height: @moon-picker-button-width;
-  border-radius: @moon-picker-button-width/2;  border: 0px;
+  border-radius: @moon-picker-button-width/2;  border: 0;
   background: inherit;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   text-align: center;
   vertical-align: middle;
   z-index: 2;
   color: @moon-sub-header-text-color;
-  background: transparent @moon-scroller-icon no-repeat center center;
+  background: transparent @moon-scroller-icon no-repeat center 0;
+ 
 }
 
 .moon-simple-integer-picker-client {
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
+  padding: 0;
+  margin: 0;
+  border: 0;
   height: @moon-sub-header-font-size*1.2;
 }
 
@@ -153,5 +153,5 @@
 }
 
 .spotlight .moon-simple-integer-picker-button {
-	background-image: @moon-scroller-spotlight;
+	background: @moon-scroller-icon no-repeat center -@moon-icon-size;
 }

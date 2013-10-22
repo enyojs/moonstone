@@ -12,7 +12,7 @@ enyo.kind({
 			{kind: "moon.Divider", content: "Slider 1: Default", style: "margin-top:20px;"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 
-			{kind: "moon.Divider", content:"Slider 2: Disabled, Bound to Slider 1"},
+			{kind: "moon.Divider", content:"Slider 2:  Deactivated, Bound to Slider 1"},
 			{name: "slider2", kind: "moon.Slider", disabled: true},
 
 			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},

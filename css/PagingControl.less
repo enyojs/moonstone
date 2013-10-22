@@ -2,7 +2,7 @@
 .moon-icon-button.moon-paging-button {
 	position:absolute;
 	z-index: 150;
-	background: transparent @moon-scroller-icon no-repeat 6px 6px;
+	background: transparent @moon-scroller-icon no-repeat center 0;
 	opacity: 1;
 	transform: translateZ(1px);
 	-o-transform: translateZ(1px);
@@ -13,17 +13,17 @@
 }
 .moon-icon-button.moon-paging-button.spotlight {
 	.moon-icon-button.spotlight;
-	background-image: @moon-scroller-spotlight;
+	background-image: @moon-scroller-icon;
 }
 .moon-icon-button.moon-paging-button.hidden {
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
 .moon-icon-button.moon-paging-button.top {
-	top: 0px;
+	top: 0;
 }
 .moon-icon-button.moon-paging-button.right {
-	right: 0px;
+	right: 0;
 	transform: rotate(90deg) translateZ(1px);
 	-o-transform: rotate(90deg) translateZ(1px);
 	-ms-transform: rotate(90deg) translateZ(1px);
@@ -31,7 +31,7 @@
 	-webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.bottom {
-	bottom: 0px;
+	bottom: 0;
 	transform: rotate(180deg) translateZ(1px);
 	-o-transform: rotate(180deg) translateZ(1px);
 	-ms-transform: rotate(180deg) translateZ(1px);
@@ -39,7 +39,7 @@
 	-webkit-transform: rotate(180deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
-	left: 0px;
+	left: 0;
 	transform: rotate(270deg) translateZ(1px);
 	-o-transform: rotate(270deg) translateZ(1px);
 	-ms-transform: rotate(270deg) translateZ(1px);
@@ -48,17 +48,19 @@
 }
 .moon-icon-button.moon-paging-button.hover:hover {
 	.moon-icon-button.spotlight;
-	background-image: @moon-scroller-spotlight;
+	background-image: @moon-scroller-icon;
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
 	background-color: transparent;	
+  background-image: @moon-scroller-icon;
+  background-position:center 0;
 }
 .moon-paging-button.moon-icon.moon-icon-button.active, 
 .moon-paging-button.moon-icon.moon-icon-button:active:hover,
 .moon-paging-button.moon-icon-toggle.active,
 .moon-icon-button.moon-paging-button.spotlight.pressed
 {
-	background-position: 6px 6px;
+	background-position: center -@moon-icon-size;
 }
 
 
