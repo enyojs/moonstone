@@ -21,7 +21,9 @@ enyo.kind({
 		onActivate: "noop"
 	},
 	events: {
+		//* Fires on reaching boundaries.
 		onPaginate: "",
+		//* Handles _paginateScroll_ event sent from PagingControl buttons.
 		onPaginateScroll: ""
 	},
 
@@ -38,7 +40,7 @@ enyo.kind({
 	},
 	
 	//* @public
-	
+	//* Stops scrolling animation and Paginate event will be triggered with a delta value for bouncing back effect.
 	hitBoundary: function() {
 		this.stopHoldJob();
 		this.downTime = null;
