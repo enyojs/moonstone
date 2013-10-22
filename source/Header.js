@@ -65,6 +65,7 @@ enyo.kind({
 		this.applyStyle("background-position", posStr);
 	},
 	//* @public
+	//* Compresses the header to small,Hides the header contents.
 	collapseToSmall: function() {
 		if (this.collapsed) {
 			return;
@@ -161,6 +162,7 @@ enyo.kind({
 		this.$.animator.play("collapseToSmall");
 		this.collapsed = true;
 	},
+	//* Expands the collapsed header to original size.
 	expandToLarge: function() {
 		if (!this.collapsed) {
 			return;
