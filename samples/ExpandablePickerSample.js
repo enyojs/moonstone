@@ -44,7 +44,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Panel", name:"groupedPanel", onChange:"pickerChanged", title:"Pickers", smallHeader:true, titleBelow:"Grouped", style:"width:50%", components: [
-			{kind: "enyo.Group", tag:null, highlander: true, allowHighlanderDeactivate: true, components: [
+			{kind: "enyo.Group", tag:null, highlander: true, components: [
 				{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 					{style:"max-width: 500px;", components: [
 						{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", components: [

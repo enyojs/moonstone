@@ -105,7 +105,7 @@ enyo.kind({
 		}
 	},
 	activeChanged: function() {
-		this.bubble("onActivate");
+		this.bubble("onActivate", {allowHighlanderDeactivate:true});
 		this.setOpen(this.active);
 	},
 	//* If closed, opens drawer and highlights first spottable child.
