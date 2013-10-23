@@ -27,29 +27,10 @@ enyo.kind({
 		onholdpulse: "noop",
 		onActivate: "noop"
 	},
-
-	downTime: 0,
-	initialDelta: 2.5,
-	delta: 0,
-	maxDelta: 100,
-	tapDelta: 15,
-	bumpDeltaMultiplier: 3,
-	
 	create: function() {
 		this.inherited(arguments);
 		this.sideChanged();
 	},
-	
-	//* @public
-	
-	hitBoundary: function() {
-		this.stopHoldJob();
-		this.downTime = null;
-		this.doPaginate({scrollDelta: this.delta * this.bumpDeltaMultiplier});
-	},
-	
-	//* @protected
-	
 	//* Set this control's CSS class based on its _side_ value.
 	sideChanged: function() {
 		var s = this.getSide();

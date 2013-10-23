@@ -17,7 +17,7 @@ enyo.kind({
 	//* as determined by the passed-in scroll strategy.
 	sync: function(inStrategy, inDuration) {
 		this.scrollBounds = inStrategy._getScrollBounds();
-		this.timingFunction = inStrategy.timingFunction;
+		this.timingFunction = inStrategy.generateTimingFunctionString();
 		this.transitionDuration = inDuration || 0.5;
 		this.update(inStrategy);
 	},
