@@ -3511,6 +3511,11 @@ button:focus {
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
   font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #4b4b4b;
+  color: #000000;
   margin-bottom: 22px;
   white-space: nowrap;
 }
@@ -3519,6 +3524,11 @@ button:focus {
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #4b4b4b;
   font-size: 20px;
   background-color: #ffffff;
   color: #000000;
@@ -3532,7 +3542,7 @@ button:focus {
   font-family: "LG Display";
 }
 .moon-video-player-info-redicon {
-  background-color: #ff4a4a;
+  background-color: #fe4a4b;
   color: #ffffff;
   margin-top: 13px;
 }
