@@ -5,7 +5,7 @@ enyo.kind({
 	components: [
 		{kind: "moon.Divider", content: "Inputs"},
 		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, components: [
-			{kind: "moon.InputDecorator", spotlight: true, components: [
+			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "JUST TYPE", oninput:"inputChanged"}
 			]},
 			{kind: "moon.InputDecorator", components: [
@@ -46,13 +46,13 @@ enyo.kind({
 		{kind: "moon.BodyText", name: "console", content: "Input: "},
 		{kind: "moon.Divider", content: "Bottom-aligned inputs", classes: "moon-input-sample-result"},
 		{components: [
-			{kind: "moon.InputDecorator", spotlight: true, components: [
+			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "Bottom", oninput:"inputChanged"}
 			]},
-			{kind: "moon.InputDecorator", spotlight: true, components: [
+			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "Aligned", oninput:"inputChanged"}
 			]},
-			{kind: "moon.InputDecorator", spotlight: true, components: [
+			{kind: "moon.InputDecorator", components: [
 				{kind: "moon.Input", placeholder: "Inputs", oninput:"inputChanged"}
 			]}
 		]}
