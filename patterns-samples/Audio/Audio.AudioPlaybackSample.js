@@ -25,6 +25,15 @@ enyo.kind({
 				handle: {
 					kind: "moon.DrawerHandle",
 					marquee: true
+				},
+				components: [
+					{kind: "moon.IconButton", content: "1", ontap: "plusValue"},
+					{kind: "moon.IconButton", content: "2", ontap: "plusValue"},
+					{kind: "moon.IconButton", content: "3", ontap: "plusValue"}
+				],
+				plusValue: function (inSender, inEvent) {
+					var icon = inEvent.originator;
+					icon.setContent( parseInt(icon.content) + 1 );
 				}
 			}
 		],

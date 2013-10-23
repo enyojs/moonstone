@@ -42,10 +42,16 @@ enyo.kind({
 		{from: ".$.audioPlayer.controller.model.tracks", to: ".$.audioQueue.trackList"}
 	],
 	controlDrawerComponents:[],
+	clientComponents: [],
 	initComponents: function() {
 		this.inherited(arguments);
-		this.$.controlDrawer.createComponents([{ name: "audioPlayer", kind: "moon.AudioPlayer" }], {owner:this});
+		this.$.controlDrawer.createComponents([{ name: "audioPlayer", kind: "moon.AudioPlayer", components: this.clientComponents }], {owner:this});
 		this.$.client.createComponents([{ name: "audioQueue", kind: "moon.AudioPlaybackQueue", userBindedQueueListItem: this.userBindedQueueListItem }], {owner:this});
+	},
+	createClientComponents: function(inComponents) {
+		if (inComponents.length > 0) {
+			this.clientComponents = inComponents;
+		}
 	},
 	audioPlayerShowHideQueueHandler: function() {
 		this.$.client.setOpen(!this.$.client.getOpen());
@@ -171,9 +177,10 @@ enyo.kind({
 					]},
 					{classes: "moon-audio-control-buttons", fit: true, components: [
 						// _src_ property will need to be updated with images from UX
-						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
-						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button playcontrol left", src: "$lib/moonstone/images/video-player/icon_play.png", ontap: "togglePlay"},
-						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_backward.png", ontap: "playPrevious"},
+						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_play.png", style:"background-size:65px;width:65px;height:65px;margin: 0 45px 0 60px;", ontap: "togglePlay"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_forward.png", ontap: "playNext"},
+						{name: "client", classes: "client-area moon-audio-icon-button right"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button shuffle-button right", name: "btnShuffle", ontap: "toggleShuffleState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button repeat-button none right", name: "btnRepeat", ontap: "changeRepeatState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackList"}
@@ -456,7 +463,7 @@ enyo.kind({
 	play: function() {
 		this.$.audio.play();
 		if (this.playheadJob === null) {
-			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 50);
+			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 10);
 		}
 		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
 		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_pause.png");

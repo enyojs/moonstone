@@ -56,7 +56,7 @@
 	float: right;
 }
 .moon-audio-track-info {
-	width: 40%;
+	width: 35%;
 }
 .moon-audio-top {
 	height: 65px;
@@ -67,14 +67,17 @@
 	background-color: @moon-audio-icon-button-bg-color;
 	margin: 8px 4px;
 }
-.moon-audio-icon-button.playcontrol {
-	background-color: @moon-neutral-bg-color;
-	margin: 8px 4px;
-	height: 75px;
-	width: 75px;
-	border-radius: 0;
+
+.moon-audio-control-item {
+	background-position:0px 0px !important;
+	background-color:transparent !important;
+	border:0 !important;
+	border-radius:0;
+	width:70px;
+	height:70px;
+	margin:0;
 }
-.moon-audio-icon-button.left {
+.moon-audio-control-item.left {
 	float: left;
 }
 .moon-audio-icon-button.right {
@@ -155,4 +158,7 @@
 }
 .moon-audio-queue-list.editMode .selected .moon-audio-queue-item .moon-audio-item-selectmark {
   display: inline-block;
+}
+.client-area {
+	background: transparent;
 }
