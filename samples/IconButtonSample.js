@@ -7,11 +7,16 @@ enyo.kind({
 			{kind: "moon.Divider", content: "Icon Buttons:"},
 			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
 			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
-			{tag: "br"},
-			{tag: "br"},
+			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Disabled Icon Buttons:"},
 			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true}
+			{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
+			{classes:"moon-1v"},
+			{kind: "moon.Divider", content: "Grouped Icon Buttons:"},
+			{kind: "enyo.Group", components: [
+				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
+				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"}
+			]}
 		]},
 		{kind: "moon.Divider", content: "Result"},
 		{kind: "moon.BodyText", name:"console", content: "No changes yet"}

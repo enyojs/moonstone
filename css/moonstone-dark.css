@@ -367,10 +367,6 @@ textarea:focus,
 button:focus {
   outline: none;
 }
-.moon-header-font {
-  font-family: "Miso";
-  text-transform: uppercase;
-}
 .enyo-locale-right-to-left .moon {
   direction: rtl;
 }
@@ -379,6 +375,10 @@ button:focus {
 }
 .moon-neutral-divider-border {
   border-bottom: 2px solid #ffffff;
+}
+.moon-header-font {
+  font-family: "Miso";
+  text-transform: uppercase;
 }
 .moon-superscript {
   font-size: 24px;
@@ -393,6 +393,140 @@ button:focus {
   line-height: 24px;
   margin: 12px 2px 8px 0px;
   padding: 0px;
+}
+.moon-large-text {
+  font-size: 48px;
+  vertical-align: top;
+  height: 48px;
+  margin: 0px;
+  padding: 0px;
+}
+.moon-header-text {
+  font-family: "Miso";
+  font-size: 126px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.moon-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #999999;
+}
+.moon-super-header-text {
+  font-family: "Miso";
+  font-size: 32px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+}
+.moon-popup-header-text {
+  font-family: "Miso";
+  font-size: 73px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.moon-divider-text {
+  font-family: "MuseoSans 700";
+  font-size: 22px;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0;
+  color: #999999;
+}
+.moon-body-text {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #b2b2b2;
+  line-height: 32px;
+}
+.moon-body-text-spacing {
+  margin: 0 10px 40px 10px;
+}
+.moon-large-button-text {
+  font-family: "Miso";
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+.moon-small-button-text {
+  font-family: "Miso";
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+.moon-icon-text {
+  font-family: "Moonstone Icons";
+  font-size: 72px;
+  color: #ffffff;
+}
+.enyo-locale-non-latin .moon,
+.enyo-locale-non-latin .moon input,
+.enyo-locale-non-latin .moon textarea,
+.enyo-locale-non-latin .moon button,
+.enyo-locale-non-latin .moon-superscript,
+.enyo-locale-non-latin .moon-pre-text,
+.enyo-locale-non-latin .moon-large-text,
+.enyo-locale-non-latin .moon-header-text,
+.enyo-locale-non-latin .moon-header-font,
+.enyo-locale-non-latin .moon-popup-header-text,
+.enyo-locale-non-latin .moon-sub-header-text,
+.enyo-locale-non-latin .moon-super-header-text,
+.enyo-locale-non-latin .moon-divider-text,
+.enyo-locale-non-latin .moon-body-text,
+.enyo-locale-non-latin .moon-large-button-text,
+.enyo-locale-non-latin .moon-small-button-text {
+  font-family: "LG Display";
+}
+.enyo-locale-non-latin .moon {
+  font-size: 30px;
+}
+.enyo-locale-non-latin .moon-superscript {
+  font-size: 24px;
+}
+.enyo-locale-non-latin .moon-pre-text {
+  font-size: 24px;
+}
+.enyo-locale-non-latin .moon-large-text {
+  font-size: 48px;
+}
+.enyo-locale-non-latin .moon-header-text {
+  font-size: 114px;
+}
+.enyo-locale-non-latin .moon-popup-header-text {
+  font-size: 65px;
+}
+.enyo-locale-non-latin .moon-sub-header-text {
+  font-size: 30px;
+}
+.enyo-locale-non-latin .moon-super-header-text {
+  font-size: 32px;
+}
+.enyo-locale-non-latin .moon-divider-text {
+  font-size: 28px;
+}
+.enyo-locale-non-latin .moon-body-text {
+  font-size: 26px;
+  line-height: 32px;
+}
+.enyo-locale-non-latin .moon-large-button-text {
+  font-size: 36px;
+}
+.enyo-locale-non-latin .moon-small-button-text {
+  font-size: 27px;
 }
 .moon-large-text {
   font-size: 48px;
@@ -825,12 +959,12 @@ button:focus {
 .moon-checkbox {
   cursor: pointer;
   height: 32px;
-  width: 40px;
+  width: 24px;
 }
 .moon-checkbox[checked] {
   background-image: url(../images/DarkTheme_Icons/Checkmark_Icon.png);
   background-repeat: no-repeat;
-  background-position: 11px 1px;
+  background-position: -5px 1px;
 }
 .moon-checkbox[disabled] {
   opacity: 0.4;
@@ -851,10 +985,10 @@ button:focus {
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   height: 1.2em;
-  margin-right: 40px;
+  margin-right: 32px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  margin-left: 40px;
+  margin-left: 32px;
   margin-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
@@ -892,14 +1026,18 @@ button:focus {
   opacity: 1;
   filter: alpha(opacity=100);
 }
+/* Special treatment inside of ExpandablePicker (checkbox nudged up) */
+.moon-expandable-picker .moon-checkbox-item .moon-checkbox {
+  top: 8px;
+}
 /* Left-handed checkbox */
 /* Label */
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
   margin-right: 0px;
-  margin-left: 40px;
+  margin-left: 32px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 40px;
+  margin-right: 32px;
   margin-left: 0px;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label {
@@ -910,12 +1048,12 @@ button:focus {
 }
 /* Checkbox */
 .moon-checkbox-item.left-handed .moon-checkbox {
-  left: 0px;
+  left: 10px;
   right: auto;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
   left: auto;
-  right: 0px;
+  right: 10px;
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
@@ -993,7 +1131,7 @@ button:focus {
   border-left-style: solid;
   line-height: 1.2em;
   color: #999999;
-  padding: 7px 10px;
+  padding: 10px;
   vertical-align: top;
   position: relative;
 }
@@ -1014,7 +1152,7 @@ button:focus {
   color: #ffffff;
 }
 /* SelectableItem.css */
-.moon-selectable-item .moon-selectable-item-indicator {
+.moon-selectable-item-indicator {
   width: 20px;
   height: 20px;
   border-radius: 10px;
@@ -1022,9 +1160,9 @@ button:focus {
   display: none;
   position: absolute;
   left: 10px;
-  top: 15px;
+  top: 17px;
 }
-.enyo-locale-right-to-left .moon-selectable-item .moon-selectable-item-indicator {
+.enyo-locale-right-to-left .moon-selectable-item-indicator {
   left: auto;
   right: 10px;
 }
@@ -1035,11 +1173,29 @@ button:focus {
   background-color: #fff;
 }
 .moon-selectable-item.selected .moon-selectable-item-client {
-  padding-left: 30px;
+  padding-left: 32px;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
   padding-left: 0;
-  padding-right: 30px;
+  padding-right: 32px;
+}
+/* Special treatment inside of ExpandablePicker (indented, nudged up) */
+.moon-expandable-picker .moon-selectable-item {
+  padding-left: 42px;
+}
+.enyo-locale-right-to-left .moon-expandable-picker .moon-selectable-item {
+  padding-left: 10px;
+  padding-right: 42px;
+}
+.moon-expandable-list-item .moon-selectable-item-indicator {
+  top: 15px;
+}
+.moon-expandable-picker .moon-selectable-item-indicator {
+  left: 42px;
+}
+.enyo-locale-right-to-left .moon-expandable-picker .moon-selectable-item-indicator {
+  left: auto;
+  right: 42px;
 }
 /* Button */
 .moon-button {
@@ -1057,6 +1213,9 @@ button:focus {
   padding: 19px 22px;
   margin: 0px 10px;
   color: #a6a6a6;
+}
+.moon-button > * {
+  text-align: center;
 }
 .enyo-locale-non-latin .moon-button {
   padding: 15px 22px 16px;
@@ -1198,6 +1357,7 @@ button:focus {
 }
 .moon-radio-item .moon-selectable-item-client {
   max-width: 250px;
+  padding: 0 10px 0 32px;
 }
 .enyo-locale-right-to-left .moon-radio-item {
   text-align: right;
@@ -1215,28 +1375,24 @@ button:focus {
 }
 .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  top: 5px;
-  left: 5px;
-  background-color: #888;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  top: 2px;
+  left: 2px;
+  background-color: #4d4d4d;
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   background-color: #ff2f7d;
 }
-.moon-radio-item .moon-selectable-item-client {
-  padding-left: 30px;
-}
 .enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
-  padding-left: 0;
-  padding-right: 30px;
+  padding: 0 32px 0 10px;
 }
 /* Radio Item */
 .moon-radio-item-group {
   position: relative;
-  margin: 0px;
-  padding: 0px;
+  margin: 0 10px;
+  padding: 0;
 }
 .moon-radio-item-group .moon-button {
   font-family: "MuseoSans 700";
@@ -1273,7 +1429,7 @@ button:focus {
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
   border-right: 21px solid #ff2f7d;
-  border-left: 0px;
+  border-left: 0;
 }
 /* ExpandableListItem */
 .moon-expandable-list-item {
@@ -1292,6 +1448,12 @@ button:focus {
 .moon-expandable-list-item-header.disabled {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+.moon-expandable-list-item.open .moon-expandable-list-item-header {
+  margin-bottom: 10px;
+}
+.moon-expandable-list-item.open {
+  padding-bottom: 10px;
 }
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
   color: #ffffff;
@@ -1334,13 +1496,28 @@ button:focus {
 .moon-expandable-list-item-client .moon-item:last-child {
   margin-bottom: 0px;
 }
+.moon-expandable-list-item-client.indented {
+  padding-left: 42px;
+}
+.enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
+  padding-left: 0;
+  padding-right: 42px;
+}
 /* Header */
 .moon-expandable-picker-header {
-  padding: 0px;
+  padding-left: 32px;
   margin: 0px;
+  background-position: left -10px top 12px;
+  background-repeat: no-repeat;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
-.moon-expandable-picker-header .moon-item {
-  margin: 0px;
+.enyo-locale-right-to-left .moon-expandable-picker-header {
+  padding-left: 0;
+  padding-right: 32px;
+  background-position: right -10px top 12px;
+}
+.spotlight .moon-expandable-picker-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
 /* Header - Disabled */
 .moon-expandable-picker-header-wrapper.disabled {
@@ -1349,18 +1526,10 @@ button:focus {
 }
 /* Header - Open */
 .moon-expandable-picker.open .moon-expandable-picker-header {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0;
-  color: #999999;
-  border-bottom: 2px solid #404040;
-  margin: 0px;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
-.enyo-locale-non-latin .moon-expandable-picker.open .moon-expandable-picker-header {
-  font-family: "LG Display";
-  font-size: 28px;
+.moon-expandable-picker.open .spotlight .moon-expandable-picker-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
 /* Current Value */
 .moon-expandable-picker-current-value {
@@ -1373,7 +1542,7 @@ button:focus {
   line-height: 32px;
   color: #999999;
   margin: 0px;
-  padding: 0px;
+  padding-left: 32px;
 }
 .moon-expandable-picker-current-value a:link {
   color: #ff2f7d;
@@ -1390,6 +1559,10 @@ button:focus {
 .moon-expandable-picker-current-value a:active {
   color: #ff2f7d;
   text-decoration: none;
+}
+.enyo-locale-right-to-left .moon-expandable-picker-current-value {
+  padding-left: 0;
+  padding-right: 32px;
 }
 .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
@@ -2683,7 +2856,7 @@ button:focus {
   height: 100%;
   left: auto;
   right: -120px;
-  width: 140px;
+  width: 130px;
   z-index: 100;
   background-repeat: no-repeat;
   background-position: center;
@@ -2712,25 +2885,28 @@ button:focus {
   padding-right: 35px;
 }
 .enyo-locale-right-to-left .moon-accordion .moon-expandable-list-item-header {
-  padding-right: auto;
+  padding-right: 0;
   padding-left: 35px;
+}
+.moon-accordion .moon-accordion-header-wrapper {
+  line-height: 1em;
 }
 /* Arrow */
 .moon-accordion .moon-accordion-arrow {
-  background-position: right center;
+  background-position: right top 11px;
   background-repeat: no-repeat;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
 .enyo-locale-right-to-left .moon-accordion .moon-accordion-arrow {
-  background-position: left center;
+  background-position: left top 11px;
 }
-.moon-accordion .moon-accordion-arrow.spotlight {
+.moon-accordion .spotlight .moon-accordion-arrow {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
 .moon-accordion.open .moon-accordion-arrow {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
-.moon-accordion.open .moon-accordion-arrow.spotlight {
+.moon-accordion.open .spotlight .moon-accordion-arrow {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
 /* Calendar.css */
@@ -2927,7 +3103,7 @@ button:focus {
 }
 .moon-drawers-handles {
   text-align: center;
-  padding: 15px 0 10px;
+  padding: 30px 0 10px;
 }
 .moon-drawers-activator {
   position: relative;
@@ -2941,10 +3117,10 @@ button:focus {
   margin-left: auto;
   margin-right: auto;
   margin-top: -5px;
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
-  height: 18px;
-  width: 36px;
+  border-bottom-left-radius: 36px;
+  border-bottom-right-radius: 36px;
+  height: 36px;
+  width: 60px;
   background-color: #404040;
   top: 10px;
 }
@@ -2952,8 +3128,8 @@ button:focus {
   position: absolute;
   width: 18px;
   height: 11px;
-  left: 9px;
-  top: -3px;
+  left: 21px;
+  top: 10px;
 }
 .moon-drawers-activator-nub .down {
   background: url(../images/DarkTheme_Icons/drawer_down.png) 0 0 no-repeat;
@@ -3972,20 +4148,6 @@ button:focus {
 .moon-expandable-input .moon-input {
   width: 100%;
 }
-.moon-expandable-input.open .moon-expandable-input-header {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0;
-  color: #999999;
-  border-bottom: 2px solid #404040;
-  padding: 0px;
-}
-.enyo-locale-non-latin .moon-expandable-input.open .moon-expandable-input-header {
-  font-family: "LG Display";
-  font-size: 28px;
-}
 .moon-highlight-text-highlighted {
   color: #ff2f7d;
 }
@@ -4035,18 +4197,18 @@ button:focus {
   position: absolute;
   top: 2px;
   left: 10px;
-  width: 50px;
-  height: 50px;
+  width: 42px;
+  height: 42px;
   border-radius: 9999px;
   background-color: #404040;
-  background-position: 10px 10px;
+  background-position: 5px 7px;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox[checked] {
   background-color: #404040;
 }
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   padding: 8px 10px;
-  margin-left: 60px;
+  margin-left: 42px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
   padding-left: 0;
@@ -4054,15 +4216,17 @@ button:focus {
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   margin-left: auto;
-  margin-right: 60px;
+  margin-right: 52px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox {
   right: 10px;
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox,
-.moon-formcheckbox-item.spotlight .moon-checkbox[checked],
-.moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
+.moon-formcheckbox-item.spotlight .moon-checkbox[checked] {
   background-color: #ff2f7d;
+}
+.moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
+  color: #999999;
 }
 .selection-enabled .moon-selection-overlay-support.spotlight .moon-selection-overlay-support-scrim,
 .selection-enabled .moon-selection-overlay-support .spotlight.selected .moon-selection-overlay-support-scrim,
@@ -4241,7 +4405,9 @@ button:focus {
 .moon-light-gray * {
   color: #4b4b4b;
 }
+/* -------------------------- */
 /* Standard horizontal spacing */
+/* -------------------------- */
 .moon-hspacing {
   white-space: nowrap;
 }
@@ -4267,7 +4433,9 @@ button:focus {
   margin-right: 10px;
   margin-left: 0;
 }
+/* -------------------------- */
 /* Standard vertical spacing */
+/* -------------------------- */
 .moon-vspacing > * {
   display: block;
   margin: 10px 0;
@@ -4277,4 +4445,40 @@ button:focus {
 }
 .moon-vspacing > :last-child {
   margin-bottom: 0;
+}
+/* -------------------------- */
+/* Variable vertical spacing  */
+/* -------------------------- */
+.moon-vspacing-s > .moon-item:not(.moon-formcheckbox-item),
+.moon-vspacing-s > .moon-expandable-list-item:not(.open) .moon-item,
+.moon-vspacing-s > .moon-expandable-list-item.open {
+  padding-bottom: 10px;
+}
+.moon-vspacing-s > .moon-button,
+.moon-vspacing-s > .moon-input-decorator,
+.moon-vspacing-s > .moon-formcheckbox-item {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.moon-vspacing-m > .moon-item:not(.moon-formcheckbox-item),
+.moon-vspacing-m > .moon-expandable-list-item:not(.open) .moon-item,
+.moon-vspacing-m > .moon-expandable-list-item.open {
+  padding-bottom: 20px;
+}
+.moon-vspacing-m > .moon-button,
+.moon-vspacing-m > .moon-input-decorator,
+.moon-vspacing-m > .moon-formcheckbox-item {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.moon-vspacing-l > .moon-item:not(.moon-formcheckbox-item),
+.moon-vspacing-l > .moon-expandable-list-item:not(.open) .moon-item,
+.moon-vspacing-l > .moon-expandable-list-item.open {
+  padding-bottom: 40px;
+}
+.moon-vspacing-l > .moon-button,
+.moon-vspacing-l > .moon-input-decorator,
+.moon-vspacing-l > .moon-formcheckbox-item {
+  margin-top: 20px;
+  margin-bottom: 40px;
 }
