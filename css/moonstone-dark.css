@@ -1576,6 +1576,11 @@ button:focus {
   /* CSS3 for RTL support */
 
 }
+.moon-header-client > .moon-button {
+  text-align: center;
+  /* Overrides the text-align property  for button */
+
+}
 /* Small Header */
 .moon-header.moon-small-header {
   height: 240px;
