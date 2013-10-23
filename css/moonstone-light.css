@@ -1058,6 +1058,9 @@ button:focus {
   margin: 0px 10px;
   color: #4b4b4b;
 }
+.moon-button > * {
+  text-align: center;
+}
 .enyo-locale-non-latin .moon-button {
   padding: 15px 22px 16px;
 }

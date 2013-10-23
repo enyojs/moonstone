@@ -66,8 +66,7 @@ enyo.kind({
 		{from: ".inputMode",   to: ".$.title.showing", kind: "enyo.InvertBooleanBinding"},
 		{from: ".inputMode",   to: ".$.inputDecorator.canGenerate"},
 		{from: ".inputMode",   to: ".$.title.canGenerate", kind: "enyo.InvertBooleanBinding"},
-		{from: ".value",       to: ".$.titleInput.value", oneWay: false},
-		{from: ".placeholder", to: ".$.titleInput.placeholder"}
+		{from: ".value",       to: ".$.titleInput.value", oneWay: false}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -81,6 +80,7 @@ enyo.kind({
 		this.backgroundPositionChanged();
 		this.inputModeChanged();
 		this.inputUpperCaseChanged();
+		this.placeholderChanged();
 	},
 	allowHtmlChanged: function() {
 		this.$.title.setAllowHtml(this.allowHtml);
@@ -258,11 +258,17 @@ enyo.kind({
 	//* @protected
 	contentChanged: function() {
 		this.$.title.setContent(this.title || this.content);
+		this.placeholderChanged();
 	},
 	//* @protected
 	// For backward-compatibility with original API
 	titleChanged: function() {
 		this.contentChanged();
+		this.placeholderChanged();
+	},
+	placeholderChanged: function() {
+		// For backward-compatibility with original API
+		this.$.titleInput.set("placeholder", this.placeholder || this.title || this.content);
 	},
 	//* @protected
 	titleAboveChanged: function() {

@@ -26,15 +26,5 @@ enyo.kind({
 	name: "moon.InputHeader",
 	kind: "moon.Header",
 	classes: "moon-input-header",
-	inputMode: true,
-	events: {
-		//* Custom input event to allow apps to differentiate between inputs and header inputs
-		onInputHeaderInput: "",
-		//* Custom input change event to allow apps to differentiate between input changes and header input changes
-		onInputHeaderChange: ""
-	},
-	titleChanged: function() {
-		// For backward-compatibility with original API
-		this.$.titleInput.set("placeholder", this.placeholder || this.title || this.content);
-	}
+	inputMode: true
 });
