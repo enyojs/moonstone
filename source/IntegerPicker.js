@@ -22,7 +22,7 @@ enyo.kind({
 		//* zero-filled digits
 		digits: null,
 		//**The number of rows to be shown on a given list page segment.
-		itemPerPage: 10
+		itemPerPage: 5
 	},
 	handlers: {
 		onSpotlightUp:"previous",
@@ -51,9 +51,12 @@ enyo.kind({
 			{classes: "moon-scroll-picker-taparea"}
 		]}
 	],
+	scrollInterval: 65,
+	itemHeight: 94,
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
+		this.$.list.getStrategy().setInterval(this.scrollInterval);
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -69,13 +72,21 @@ enyo.kind({
 		this.$.list.setCount(this.max-this.min+1);
 		this.$.list.setRowsPerPage(this.itemPerPage);
 		this.$.list.render();
-		//asynchronously scroll to the current node, this works around a potential scrolling glitch
-		enyo.asyncMethod(enyo.bind(this,function(){
-			this.$.list.scrollToRow(this.value - this.min);
-		}));
+		this.scrollToValue(true);
 	},
 	valueChanged: function(inOld) {
-		this.$.list.scrollToRow(this.value - this.min);
+		this.scrollToValue(!this.generated);
+	},
+	scrollToValue: function(inDirect) {
+		var val = (this.value - this.min) * this.itemHeight;
+		if (inDirect) {
+			this.$.list.setScrollTop(val);
+		} else {
+			this.$.list.scrollTo(0, val);
+		}
+	},
+	refreshScrollState: function() {
+		this.scrollToValue(true);
 	},
 	//prevent scroller dragging
 	dragstart: function(inSender, inEvent) {
@@ -93,7 +104,7 @@ enyo.kind({
 	previous: function(inSender, inEvent) {
 		if (this.value > this.min) {
 			this.stopJob("hideTopOverlay");
-			this.$.list.scrollToRow(--this.value - this.min);
+			this.setValue(this.value - 1);
 			this.$.topOverlay.addClass("selected");
 			if (inEvent.originator != this.$.upArrow) {
 				this.startJob("hideTopOverlay", "hideTopOverlay", 350);
@@ -105,7 +116,7 @@ enyo.kind({
 	next: function(inSender, inEvent) {
 		if (this.value < this.max) {
 			this.stopJob("hideBottomOverlay");
-			this.$.list.scrollToRow(++this.value - this.min);
+			this.setValue(this.value + 1);
 			this.$.bottomOverlay.addClass("selected");
 			if (inEvent.originator != this.$.downArrow) {
 				this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
@@ -136,6 +147,10 @@ enyo.kind({
 	spotlightBlur: function() {
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
+	},
+	//* Ensures scroll position is in bounds.
+	stabilize: function() {
+		this.$.list.stabilize();
 	}
 });
 
