@@ -3734,7 +3734,7 @@ button:focus {
   font-style: normal;
   letter-spacing: 0;
   color: #999999;
-  color: #000000;
+  color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
 }
@@ -3899,6 +3899,22 @@ button:focus {
   display: inline-block;
   margin-right: 10px;
 }
+.moon-clock-month a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-month a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-month a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-month a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .moon-clock-day {
   font-family: "MuseoSans 300";
   font-size: 26px;
@@ -3912,6 +3928,22 @@ button:focus {
   vertical-align: top;
   display: inline-block;
   height: 28px;
+}
+.moon-clock-day a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-day a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-day a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-day a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .moon-clock-divider {
   height: 2px;
