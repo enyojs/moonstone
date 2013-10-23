@@ -306,6 +306,6 @@ enyo.kind({
 		this.doInputHeaderChange(inEvent);
 	},
 	inputUpperCaseChanged: function() {
-		this.$.titleInput.addRemoveClass("uppercase", this.uppercase);
+		this.$.titleInput.addRemoveClass("uppercase", this.inputUpperCase);
 	}
 });
