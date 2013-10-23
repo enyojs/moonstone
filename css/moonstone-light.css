@@ -113,7 +113,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
+  src: local("Museo Sans 300"), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -150,7 +150,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
+  src: local("Museo Sans 700"), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+00-FF;
@@ -163,7 +163,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
+  src: local("Museo Sans 700"), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+00-FF;
 }
