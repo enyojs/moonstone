@@ -18,11 +18,6 @@ enyo.kind({
 	kind	: 'enyo.Input',
 	classes	: 'moon-input',
 
-	published: {
-		// all, email, only text, text/number (no special chars)
-		fieldType: 'numeric'
-	},
-
 	//* @protected
 	/**********************************************/
 

@@ -10,9 +10,7 @@
                         "isViewTemplate": true
                     },
                     "config": {
-                        "kind": "moon.Panel",
-                        "components": [
-                            {
+                                "name": "MusicTrackDetailNarrowSampleView",
                                 "kind": "moon.Panels",
                                 "pattern": "alwaysviewing",
                                 "useHandle": false,
@@ -67,9 +65,6 @@
                                     }
                                 ]
                             }
-                            
-                        ]
-                    }
                 },
                 {
                     "name": "Music.TrackDetailWideSampleView",
@@ -78,10 +73,7 @@
                         "isViewTemplate": true
                     },
                     "config": {
-                        "kind": "moon.Panel",
-                        "layoutKind": "FittableColumnsLayout",
-                        "components": [
-                            {
+                                "name": "MusicTrackDetailWideSampleView",
                                 "kind": "moon.Panel",
                                 "title": "Track Name",
                                 "titleAbove": "03",
@@ -158,8 +150,6 @@
                                     }
                                 ]
                             }
-                        ]
-                    }
                 }
             ]
         },

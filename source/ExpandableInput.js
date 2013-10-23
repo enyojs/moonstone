@@ -61,6 +61,7 @@ enyo.kind({
 		
 		if (this.generated && !this.getOpen()) {
 			this.updateValue();
+			this.$.clientInput.blur();
 		}
 	},
 	

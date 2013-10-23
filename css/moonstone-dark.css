@@ -528,6 +528,156 @@ button:focus {
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
 }
+.moon-large-text {
+  font-size: 48px;
+  vertical-align: top;
+  height: 48px;
+  margin: 0px;
+  padding: 0px;
+}
+.moon-header-text {
+  font-family: "Miso";
+  font-size: 126px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.moon-sub-header-text {
+  font-family: "MuseoSans 700";
+  font-size: 30px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #999999;
+}
+.moon-super-header-text {
+  font-family: "Miso";
+  font-size: 32px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+}
+.moon-popup-header-text {
+  font-family: "Miso";
+  font-size: 73px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.moon-divider-text {
+  font-family: "MuseoSans 700";
+  font-size: 22px;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0;
+  color: #999999;
+}
+.moon-body-text {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #b2b2b2;
+  line-height: 32px;
+}
+.moon-body-text a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-body-text-spacing {
+  margin: 0 10px 40px 10px;
+}
+.moon-large-button-text {
+  font-family: "Miso";
+  font-size: 30px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+.moon-small-button-text {
+  font-family: "Miso";
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+.moon-icon-text {
+  font-family: "Moonstone Icons";
+  font-size: 72px;
+  color: #ffffff;
+}
+.enyo-locale-non-latin .moon,
+.enyo-locale-non-latin .moon input,
+.enyo-locale-non-latin .moon textarea,
+.enyo-locale-non-latin .moon button,
+.enyo-locale-non-latin .moon-superscript,
+.enyo-locale-non-latin .moon-pre-text,
+.enyo-locale-non-latin .moon-large-text,
+.enyo-locale-non-latin .moon-header-text,
+.enyo-locale-non-latin .moon-header-font,
+.enyo-locale-non-latin .moon-popup-header-text,
+.enyo-locale-non-latin .moon-sub-header-text,
+.enyo-locale-non-latin .moon-super-header-text,
+.enyo-locale-non-latin .moon-divider-text,
+.enyo-locale-non-latin .moon-body-text,
+.enyo-locale-non-latin .moon-large-button-text,
+.enyo-locale-non-latin .moon-small-button-text {
+  font-family: "LG Display";
+}
+.enyo-locale-non-latin .moon {
+  font-size: 30px;
+}
+.enyo-locale-non-latin .moon-superscript {
+  font-size: 24px;
+}
+.enyo-locale-non-latin .moon-pre-text {
+  font-size: 24px;
+}
+.enyo-locale-non-latin .moon-large-text {
+  font-size: 48px;
+}
+.enyo-locale-non-latin .moon-header-text {
+  font-size: 114px;
+}
+.enyo-locale-non-latin .moon-popup-header-text {
+  font-size: 65px;
+}
+.enyo-locale-non-latin .moon-sub-header-text {
+  font-size: 30px;
+}
+.enyo-locale-non-latin .moon-super-header-text {
+  font-size: 32px;
+}
+.enyo-locale-non-latin .moon-divider-text {
+  font-size: 28px;
+}
+.enyo-locale-non-latin .moon-body-text {
+  font-size: 26px;
+  line-height: 32px;
+}
+.enyo-locale-non-latin .moon-large-button-text {
+  font-size: 36px;
+}
+.enyo-locale-non-latin .moon-small-button-text {
+  font-size: 27px;
+}
 .border-box {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -1023,11 +1173,11 @@ button:focus {
   background-color: #fff;
 }
 .moon-selectable-item.selected .moon-selectable-item-client {
-  padding-left: 30px;
+  padding-left: 32px;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
   padding-left: 0;
-  padding-right: 30px;
+  padding-right: 32px;
 }
 /* Special treatment inside of ExpandablePicker (indented, nudged up) */
 .moon-expandable-picker .moon-selectable-item {
@@ -1080,6 +1230,12 @@ button:focus {
   padding: 10px 20px 10px 20px;
   position: relative;
   overflow: visible;
+}
+.moon-button.min-width {
+  min-width: 180px;
+}
+.moon-button.small.min-width {
+  min-width: 130px;
 }
 .enyo-locale-non-latin .moon-button.small {
   padding: 10px 15px;
@@ -1198,6 +1354,7 @@ button:focus {
 }
 .moon-radio-item .moon-selectable-item-client {
   max-width: 250px;
+  padding: 0 10px 0 32px;
 }
 .enyo-locale-right-to-left .moon-radio-item {
   text-align: right;
@@ -1215,28 +1372,24 @@ button:focus {
 }
 .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  top: 5px;
-  left: 5px;
-  background-color: #888;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  top: 2px;
+  left: 2px;
+  background-color: #4d4d4d;
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   background-color: #ff2f7d;
 }
-.moon-radio-item .moon-selectable-item-client {
-  padding-left: 30px;
-}
 .enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
-  padding-left: 0;
-  padding-right: 30px;
+  padding: 0 32px 0 10px;
 }
 /* Radio Item */
 .moon-radio-item-group {
   position: relative;
-  margin: 0px;
-  padding: 0px;
+  margin: 0 10px;
+  padding: 0;
 }
 .moon-radio-item-group .moon-button {
   font-family: "MuseoSans 700";
@@ -1273,7 +1426,7 @@ button:focus {
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
   border-right: 21px solid #ff2f7d;
-  border-left: 0px;
+  border-left: 0;
 }
 /* ExpandableListItem */
 .moon-expandable-list-item {
@@ -1312,6 +1465,22 @@ button:focus {
   letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
+}
+.moon-expandable-list-item-client .moon-item a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-list-item-client .moon-item a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-list-item-client .moon-item a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-list-item-client .moon-item a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
   font-family: "LG Display";
@@ -1372,6 +1541,22 @@ button:focus {
   margin: 0px;
   padding-left: 32px;
 }
+.moon-expandable-picker-current-value a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-picker-current-value a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-picker-current-value a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-picker-current-value a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-right-to-left .moon-expandable-picker-current-value {
   padding-left: 0;
   padding-right: 32px;
@@ -1427,6 +1612,22 @@ button:focus {
   line-height: 32px;
   margin: 0px;
   padding: 0px;
+}
+.moon-expandable-integer-picker-current-value a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-integer-picker-current-value a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-integer-picker-current-value a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-integer-picker-current-value a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
   font-family: "LG Display";
@@ -1506,6 +1707,22 @@ button:focus {
   line-height: 32px;
   height: 44px;
 }
+.moon-header-sub-title-below a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-header-sub-title-below a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-header-sub-title-below a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-header-sub-title-below a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-header-sub-title-below {
   font-family: "LG Display";
   font-size: 26px;
@@ -1543,7 +1760,7 @@ button:focus {
   padding-left: 58px;
   box-sizing: border-box;
   top: -42px;
-  max-height: 140px;
+  max-height: 154px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
   padding-right: 58px;
@@ -1605,6 +1822,22 @@ button:focus {
   letter-spacing: 0;
   color: #b2b2b2;
   line-height: 32px;
+}
+.moon-gridlist-imageitem .sub-caption a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-gridlist-imageitem .sub-caption a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-gridlist-imageitem .sub-caption a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-gridlist-imageitem .sub-caption a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #b2b2b2;
@@ -1855,6 +2088,22 @@ button:focus {
   box-shadow: none;
   color: #868686;
 }
+.moon-input a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-input a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-input a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-input a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-input {
   font-family: "LG Display";
   font-size: 26px;
@@ -1945,6 +2194,8 @@ button:focus {
 }
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
   position: absolute;
   height: 60px;
   width: 60px;
@@ -1966,6 +2217,14 @@ button:focus {
 }
 .moon-slider.spotlight > .moon-slider-knob {
   background-color: #ff2f7d;
+}
+.moon-slider.spotlight > .moon-slider-knob.spotselect {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  margin: -30px;
+  background-color: #404040;
+  border: 5px solid #ff2f7d;
 }
 .moon-slider.disabled {
   cursor: default;
@@ -2058,6 +2317,22 @@ button:focus {
   min-height: 20px;
   min-width: 100px;
 }
+.moon-richtext a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-richtext a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-richtext a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-richtext a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-richtext {
   font-family: "LG Display";
   font-size: 26px;
@@ -2102,6 +2377,10 @@ button:focus {
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
   position: relative;
+  display: inline-block;
+}
+.moon-contextual-popup-decorator.block {
+  display: block;
 }
 /* ContextualPopup */
 .moon-contextual-popup,
@@ -2241,6 +2520,22 @@ button:focus {
   min-width: 100px;
   color: #4b4b4b;
 }
+.moon-textarea a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-textarea a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-textarea a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-textarea a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-textarea {
   font-family: "LG Display";
   font-size: 26px;
@@ -2368,6 +2663,22 @@ button:focus {
   text-transform: none;
   margin: 0px;
   padding: 0px;
+}
+.moon-labeledtextitem .text a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-labeledtextitem .text a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-labeledtextitem .text a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-labeledtextitem .text a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
   font-family: "LG Display";
@@ -2542,7 +2853,7 @@ button:focus {
   height: 100%;
   left: auto;
   right: -120px;
-  width: 140px;
+  width: 130px;
   z-index: 100;
   background-repeat: no-repeat;
   background-position: center;
@@ -2745,6 +3056,9 @@ button:focus {
   color: #dddddd;
   width: 100%;
 }
+.moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
+  text-transform: none;
+}
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "LG Display";
   font-size: 114px;
@@ -2753,23 +3067,23 @@ button:focus {
   position: static;
 }
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
-  color: lighter(#dddddd, 50%);
+  color: #373737;
   margin-top: 15px;
   line-height: 1.25em;
+  text-transform: uppercase;
 }
-.moon-input-header-input-decorator.spotlight .moon-input.moon-header-title::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
   background: #ff2f7d;
-  color: white;
+  color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
   background: none;
-  color: #dddddd;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
-  color: #dddddd;
+  color: #373737;
 }
 .moon-drawer-handle {
   max-width: 250px;
@@ -2786,7 +3100,7 @@ button:focus {
 }
 .moon-drawers-handles {
   text-align: center;
-  padding: 15px 0 10px;
+  padding: 30px 0 10px;
 }
 .moon-drawers-activator {
   position: relative;
@@ -2800,10 +3114,10 @@ button:focus {
   margin-left: auto;
   margin-right: auto;
   margin-top: -5px;
-  border-bottom-left-radius: 26px;
-  border-bottom-right-radius: 26px;
-  height: 18px;
-  width: 36px;
+  border-bottom-left-radius: 36px;
+  border-bottom-right-radius: 36px;
+  height: 36px;
+  width: 60px;
   background-color: #404040;
   top: 10px;
 }
@@ -2811,8 +3125,8 @@ button:focus {
   position: absolute;
   width: 18px;
   height: 11px;
-  left: 9px;
-  top: -3px;
+  left: 21px;
+  top: 10px;
 }
 .moon-drawers-activator-nub .down {
   background: url(../images/DarkTheme_Icons/drawer_down.png) 0 0 no-repeat;
@@ -3499,6 +3813,22 @@ button:focus {
   max-width: 1200px;
   margin-bottom: 10px;
 }
+.moon-video-player-info-subsubtitle a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-subsubtitle a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-subsubtitle a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-subsubtitle a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
   font-family: "LG Display";
   font-size: 26px;
@@ -3516,6 +3846,22 @@ button:focus {
   color: #ffffff;
   white-space: normal;
   margin-bottom: 25px;
+}
+.moon-video-player-info-description a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-description a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-description a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-player-info-description a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
   font-family: "LG Display";
@@ -3998,6 +4344,22 @@ button:focus {
   background-repeat: no-repeat;
   background-position: right center;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-expandable-text .moon-item.moon-expandable-text-button a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
   float: left;

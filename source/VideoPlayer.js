@@ -281,7 +281,10 @@ enyo.kind({
 		return this.src;
 	},
 	srcChanged: function() {
-		this.pause();
+		if(this.src != this.$.video.getSrc()) {
+			this._isPlaying = this.autoplay;
+			this.updatePlayPauseButtons();
+		}
 		this.$.video.setSrc(this.getSrc());
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
@@ -596,7 +599,7 @@ enyo.kind({
 		}
 	},
 	onLeaveSlider: function(inSender, inEvent) {
-		if (this.hideButtonsOnSlider) {
+		if (this.hideButtonsOnSlider && !this.$.slider.isDragging()) {
 			this.$.controls.setShowing(true);
 		}
 	},
@@ -643,6 +646,9 @@ enyo.kind({
 			}
 			this._isPausedBeforeDrag = this.$.video.isPaused();
 		}
+		if (!this.$.slider.isInPreview()) {
+			this.$.controls.show();
+		}
 		return true;
 	},
 	//* When seeking, set video time.
@@ -652,7 +658,7 @@ enyo.kind({
 	},
 	//* Programatically updates slider position to match _this.currentTime_/_this.duration_.
 	updateFullscreenPosition: function() {
-		if (this.$.slider.dragging) {
+		if (this.$.slider.isDragging()) {
 			return;
 		}
 		this.$.slider.setValue(this._currentTime);
