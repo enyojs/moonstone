@@ -53,7 +53,7 @@ enyo.kind({
 				this.refresh(list);
 				enyo.asyncMethod(function () {
 					list.scrollToIndex(i);
-				})
+				});
 			}
 		},
 		updateBounds: enyo.inherit(function (sup) {
