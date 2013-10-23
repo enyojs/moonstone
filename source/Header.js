@@ -62,10 +62,6 @@ enyo.kind({
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	bindings: [
-		{from: ".inputMode",   to: ".$.inputDecorator.showing"},
-		{from: ".inputMode",   to: ".$.title.showing", kind: "enyo.InvertBooleanBinding"},
-		{from: ".inputMode",   to: ".$.inputDecorator.canGenerate"},
-		{from: ".inputMode",   to: ".$.title.canGenerate", kind: "enyo.InvertBooleanBinding"},
 		{from: ".value",       to: ".$.titleInput.value", oneWay: false}
 	],
 	create: function() {
@@ -289,11 +285,21 @@ enyo.kind({
 	},
 	//* @protected
 	inputModeChanged: function() {
-		if(!this.inputMode && !this.$.title.hasNode()) {
-			this.$.title.render();	
+		this.$.title.canGenerate = !this.inputMode;
+		this.$.title.setShowing(!this.inputMode);
+		this.$.inputDecorator.canGenerate = this.inputMode;
+		this.$.inputDecorator.setShowing(this.inputMode);
+
+		if(!this.inputMode) {
+			if (!this.$.title.hasNode()) {
+				this.$.title.render();	
+			}
+			// Reset marquees when coming back to static text
+			this.stopMarquee();
+			this.startMarquee();
 		}
 		if(this.inputMode && !this.$.inputDecorator.hasNode()) {
-			this.$.inputDecorator.render();	
+			this.$.inputDecorator.render();
 		}
 		this.addRemoveClass("moon-input-header", this.inputMode);
 	},
