@@ -3061,6 +3061,14 @@ button:focus {
   background-color: #000000;
 }
 /* Dialog.css */
+.moon-dialog {
+  overflow: hidden;
+  background: none !important;
+  padding: 0;
+}
+.moon-dialog-wrapper {
+  padding: 40px;
+}
 .moon-dialog-title {
   margin-bottom: 40px;
 }
