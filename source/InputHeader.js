@@ -27,7 +27,13 @@ enyo.kind({
 	kind: "moon.Header",
 	published: {
 		//* The value of the input
-		value: ""
+		value: "",
+		//* When true, inputted text will be displayed in uppercase
+		uppercase: false
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.uppercaseChanged();
 	},
 	handlers: {
 		oninput: "handleInput",
@@ -64,5 +70,8 @@ enyo.kind({
 	//* Create custom event for _change_ events
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
+	},
+	uppercaseChanged: function() {
+		this.$.titleInput.addRemoveClass("uppercase", this.uppercase);
 	}
 });
