@@ -51,7 +51,7 @@ enyo.kind({
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		this.aniCompleteCallback = function () {
 			this.setShowing(false);
-		}
+		};
 	},
 	animationComplete: function (inSender, inEvent) {
 		if (this.aniCompleteCallback) {
