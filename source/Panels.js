@@ -236,9 +236,12 @@ enyo.kind({
 	stashHandle: function() {
 		this.$.showHideHandle.addRemoveClass("stashed", !this.showing);
 	},
-	handleFocus: function() {
+	unstashHandle: function() {
 		this.stopHandleAutoHide();
 		this.$.showHideHandle.removeClass("stashed");
+	},
+	handleFocus: function() {
+		this.unstashHandle();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
@@ -468,9 +471,11 @@ enyo.kind({
 	showingChanged: function() {
 		if (this.useHandle === true) {
 			if (this.showing) {
+				this.unstashHandle();
 				this._show();
 			}
 			else {
+				this.resetHandleAutoHide();
 				this._hide();
 			}
 			return;
