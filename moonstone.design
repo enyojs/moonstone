@@ -10,61 +10,102 @@
                         "isViewTemplate": true
                     },
                     "config": {
-                                "name": "MusicTrackDetailNarrowSampleView",
-                                "kind": "moon.Panels",
-                                "pattern": "alwaysviewing",
-                                "useHandle": false,
-                                "components": [
+                        "name": "MusicTrackDetailNarrowSampleView",
+                        "kind": "moon.Panels",
+                        "pattern": "alwaysviewing",
+                        "useHandle": false,
+                        "components": [
+                            {
+                                "title": "Track Name",
+                                "titleAbove": "03",
+                                "titleBelow": "Artist Name",
+                                "layoutKind": "FittableColumnsLayout",
+                                "headerComponents": [
                                     {
-                                        "title": "Track Name",
-                                        "titleAbove": "03",
-                                        "titleBelow": "Artist Name",
-                                        "layoutKind": "FittableColumnsLayout",
-                                        "headerComponents": [
-                                            {"kind": "moon.IconButton", "src": "../assets/icon-album.png"},
-                                            {"kind": "moon.IconButton", "src": "../assets/icon-download.png"},
-                                            {"kind": "moon.IconButton", "src": "../assets/icon-like.png"},
-                                            {"kind": "moon.IconButton", "src": "../assets/icon-next.png"}
-                                        ],
-                                        "components": [
-                                            {
-                                                "classes": "moon-5h",
-                                                "components": [
-                                                    {
-                                                        "kind": "enyo.Image",
-                                                        "style": "width: 350px; height: 350px;"
+                                        "kind": "moon.IconButton",
+                                        "src": "../assets/icon-album.png"
                                     },
                                     {
-                                                        "kind": "moon.Table",
-                                                        "classes": "enyo-table-fit",
-                                        "components": [
-                                                            {"components": [
-                                                                {"content": "Released"}
-                                                            ]},
-                                                            {"components": [
-                                                                {"content": "Genre"}
-                                                            ]}
-                                        ]
+                                        "kind": "moon.IconButton",
+                                        "src": "../assets/icon-download.png"
+                                    },
+                                    {
+                                        "kind": "moon.IconButton",
+                                        "src": "../assets/icon-like.png"
+                                    },
+                                    {
+                                        "kind": "moon.IconButton",
+                                        "src": "../assets/icon-next.png"
                                     }
-                                ]
-                            },
-                            {
-                                "fit": true,
+                                ],
                                 "components": [
-                                                    {"kind": "moon.Divider", "content": "More"},
-                                                    {"kind": "Group", "components": [
-                                                        {"kind": "moon.SelectableItem", "content": "Lyrics"},
-                                                        {"kind": "moon.SelectableItem", "content": "Artist"},
-                                                        {"kind": "moon.SelectableItem", "content": "Album"},
-                                                        {"kind": "moon.SelectableItem", "content": "Similar Track"},
-                                                        {"kind": "moon.SelectableItem", "content": "Related Videos"}
-                                                    ]}
+                                    {
+                                        "classes": "moon-5h",
+                                        "components": [
+                                            {
+                                                "kind": "enyo.Image",
+                                                "style": "width: 350px; height: 350px;"
+                                            },
+                                            {
+                                                "kind": "moon.Table",
+                                                "classes": "enyo-table-fit",
+                                                "components": [
+                                                    {
+                                                        "components": [
+                                                            {
+                                                                "content": "Released"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "components": [
+                                                            {
+                                                                "content": "Genre"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "fit": true,
+                                        "components": [
+                                            {
+                                                "kind": "moon.Divider",
+                                                "content": "More"
+                                            },
+                                            {
+                                                "kind": "Group",
+                                                "components": [
+                                                    {
+                                                        "kind": "moon.SelectableItem",
+                                                        "content": "Lyrics"
+                                                    },
+                                                    {
+                                                        "kind": "moon.SelectableItem",
+                                                        "content": "Artist"
+                                                    },
+                                                    {
+                                                        "kind": "moon.SelectableItem",
+                                                        "content": "Album"
+                                                    },
+                                                    {
+                                                        "kind": "moon.SelectableItem",
+                                                        "content": "Similar Track"
+                                                    },
+                                                    {
+                                                        "kind": "moon.SelectableItem",
+                                                        "content": "Related Videos"
+                                                    }
                                                 ]
                                             }
                                         ]
                                     }
                                 ]
                             }
+                        ]
+                    }
                 },
                 {
                     "name": "Music.TrackDetailWideSampleView",
@@ -73,20 +114,32 @@
                         "isViewTemplate": true
                     },
                     "config": {
-                                "name": "MusicTrackDetailWideSampleView",
-                                "kind": "moon.Panel",
-                                "title": "Track Name",
-                                "titleAbove": "03",
-                                "titleBelow": "Artist Name",
-                                "layoutKind": "FittableColumnsLayout",
-                                "headerComponents": [
-                                    {"kind": "moon.IconButton", "src": "../assets/icon-album.png"},
-                                    {"kind": "moon.IconButton", "src": "../assets/icon-download.png"},
-                                    {"kind": "moon.IconButton", "src": "../assets/icon-like.png"},
-                                    {"kind": "moon.IconButton", "src": "../assets/icon-next.png"}
-                                ],
-                                "components": [
-                                    {
+                        "name": "MusicTrackDetailWideSampleView",
+                        "kind": "moon.Panel",
+                        "title": "Track Name",
+                        "titleAbove": "03",
+                        "titleBelow": "Artist Name",
+                        "layoutKind": "FittableColumnsLayout",
+                        "headerComponents": [
+                            {
+                                "kind": "moon.IconButton",
+                                "src": "../assets/icon-album.png"
+                            },
+                            {
+                                "kind": "moon.IconButton",
+                                "src": "../assets/icon-download.png"
+                            },
+                            {
+                                "kind": "moon.IconButton",
+                                "src": "../assets/icon-like.png"
+                            },
+                            {
+                                "kind": "moon.IconButton",
+                                "src": "../assets/icon-next.png"
+                            }
+                        ],
+                        "components": [
+                            {
                                 "kind": "enyo.Table",
                                 "classes": "moon-5h",
                                 "components": [
@@ -99,18 +152,24 @@
                                                         "style": "width: 350px; height: 350px;"
                                                     }
                                                 ],
-                                                        "attributes": {"colspan": "2"}
+                                                "attributes": {
+                                                    "colspan": "2"
+                                                }
                                             }
                                         ]
                                     },
                                     {
                                         "components": [
-                                                    {"content": "Released"}
+                                            {
+                                                "content": "Released"
+                                            }
                                         ]
                                     },
                                     {
                                         "components": [
-                                                    {"content": "Genre"}
+                                            {
+                                                "content": "Genre"
+                                            }
                                         ]
                                     }
                                 ]
@@ -119,13 +178,16 @@
                                 "kind": "FittableRows",
                                 "fit": true,
                                 "components": [
-                                            {"kind": "moon.Divider", "content": "Lyrics"},
+                                    {
+                                        "kind": "moon.Divider",
+                                        "content": "Lyrics"
+                                    },
                                     {
                                         "kind": "moon.Scroller",
                                         "fit": true,
                                         "components": [
                                             {
-                                                        "allowHtml": "true"
+                                                "allowHtml": "true"
                                             }
                                         ]
                                     }
@@ -135,21 +197,36 @@
                                 "kind": "FittableRows",
                                 "classes": "moon-5h",
                                 "components": [
-                                            {"kind": "moon.Divider", "content": "More"},
+                                    {
+                                        "kind": "moon.Divider",
+                                        "content": "More"
+                                    },
                                     {
                                         "kind": "Group",
                                         "fit": true,
                                         "components": [
-                                                    {"kind": "moon.SelectableItem", "content": "Artist"},
-                                                    {"kind": "moon.SelectableItem", "content": "Album"},
-                                                    {"kind": "moon.SelectableItem", "content": "Similar Track"},
-                                                    {"kind": "moon.SelectableItem", "content": "Related Videos"}
-                                                ]
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Artist"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Album"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Similar Track"
+                                            },
+                                            {
+                                                "kind": "moon.SelectableItem",
+                                                "content": "Related Videos"
                                             }
                                         ]
                                     }
                                 ]
                             }
+                        ]
+                    }
                 }
             ]
         },
@@ -270,7 +347,7 @@
                     "description": "A body text component",
                     "config": {
                         "kind": "moon.BodyText",
-                        "content": "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."                    
+                        "content": "Pixar genius reigns in this funny romantic comedy, which stars a robot who says absolutely nothing for a full 25 minutes yet somehow completely transfixes and endears himself to the audience within the first few minutes of the film. As the last robot left on earth, Wall-E (voiced by Ben Burtt) is one small robot--with a big, big heart--who holds the future of earth and mankind squarely in the palm of his metal hand. He's outlasted all the \"Waste Allocation Load Lifter Earth-Class\" robots that were assigned some 700 years ago to clean up the environmental mess that man made of earth while man vacationed aboard the luxury spaceship Axiom."
                     }
                 },
                 {
@@ -283,9 +360,9 @@
                     }
                 },
                 {
-                    "name": "moon.CalendarPicker",
-                    "kind": "moon.CalendarPicker",
-                    "description": "A calendarPicker component",
+                    "name": "moon.Calendar",
+                    "kind": "moon.Calendar",
+                    "description": "A Calendar component",
                     "config": {
                         "kind": "FittableRows",
                         "components": [
@@ -293,11 +370,11 @@
                                 "kind": "moon.Scroller",
                                 "fit": true,
                                 "components": [
-                                    {                                        
+                                    {
                                         "kind": "FittableColumns",
                                         "components": [
                                             {
-                                                "kind": "moon.CalendarPicker"
+                                                "kind": "moon.Calendar"
                                             }
                                         ]
                                     }
@@ -486,7 +563,7 @@
                     "name": "moon.Drawers",
                     "kind": "moon.Drawers",
                     "description": "A drawers component",
-                    "config": { 
+                    "config": {
                         "kind": "moon.Drawers",
                         "content": "A drawers component",
                         "drawers": [
@@ -878,9 +955,12 @@
                     "kind": "moon.Scroller",
                     "description": "A scroller",
                     "config": {
-                        "kind": "moon.Scroller", 
+                        "kind": "moon.Scroller",
                         "components": [
-                            {"classes": "nice-padding", "allowHtml": true}
+                            {
+                                "classes": "nice-padding",
+                                "allowHtml": true
+                            }
                         ]
                     }
                 },
@@ -1009,10 +1089,10 @@
                     "description": "A tooltip",
                     "config": {
                         "kind": "moon.TooltipDecorator",
-                        "style": "display:inline-block", 
+                        "style": "display:inline-block",
                         "components": [
                             {
-                                "kind":  "moon.Button",
+                                "kind": "moon.Button",
                                 "content": "Tooltip"
                             },
                             {
@@ -1043,7 +1123,7 @@
                                         "channelName": "AMC",
                                         "classes": "moon-2h",
                                         "components": [
-                                            {   
+                                            {
                                                 "content": "3D"
                                             },
                                             {
@@ -1060,7 +1140,7 @@
                                         "title": "Downton Abbey - Extra Title",
                                         "subTitle": "Mon June 21, 7:00 - 8:00pm",
                                         "subSubTitle": "R - TV 14, V, L, SC",
-                                        "description": "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and", 
+                                        "description": "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and",
                                         "components": [
                                             {
                                                 "content": "Icon 1",
@@ -1084,7 +1164,7 @@
                                 "background": true,
                                 "components": [
                                     {
-                                        "kind":"moon.Clock"
+                                        "kind": "moon.Clock"
                                     }
                                 ]
                             }

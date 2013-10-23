@@ -6,6 +6,5 @@
 	"at your own risk".
 */
 enyo.depends(
-	"CalendarPicker.js",
 	"AudioPlayback.js"
 );

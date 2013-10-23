@@ -2909,7 +2909,7 @@ button:focus {
 .moon-accordion.open .spotlight .moon-accordion-arrow {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
-/* CalendarPicker.css */
+/* Calendar.css */
 .moon-calendar-picker {
   display: inline-block;
   text-align: center;
