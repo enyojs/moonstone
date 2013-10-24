@@ -132,7 +132,9 @@ enyo.kind({
 			rewind: ["-2", "-4", "-8", "-16"],
 			slowForward: ["1/4", "1/2", "1"],
 			slowRewind: ["-1/2", "-1"]
-		}
+		},
+		//* source of image file to show when video isn't available or until the user hits the play button.
+		poster: ""
 	},
 	//* @protected
 	handlers: {
@@ -149,6 +151,7 @@ enyo.kind({
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
+		{from: ".poster",					to:".$.video.poster"},
 		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
 		{from: ".rewindIcon",				to:".$.rewind.src"},
 		{from: ".fastForwardIcon",			to:".$.fastForward.src"},
