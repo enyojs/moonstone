@@ -3,7 +3,7 @@ enyo.kind({
 	kind: "Sample.Wizard.Panel",
 	layoutKind: "FittableRowsLayout",
 	components: [
-		{kind: "moon.Scroller", horizontal: "hidden", components: [
+		{fit: true, kind: "moon.Scroller", horizontal: "hidden", components: [
 			{components: [
 				{classes: "wizard-input-description"},
 				{classes: "wizard-nav-button-container moon-hspacing", components: [
@@ -12,7 +12,7 @@ enyo.kind({
 			]},
 			{layoutKind: "FittableColumnsLayout", components: [
 				{name: "imgmenu", kind: "enyo.Image", classes: "wizard-intro-image"},
-				{fit: true, components: [
+				{components: [
 					{name: "headline", classes: "wizard-instruction"},
 					{name: "detail", classes: "wizard-instruction-detail"}
 				]}
