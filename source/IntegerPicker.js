@@ -57,6 +57,8 @@ enyo.kind({
 		this.rangeChanged();
 		this.refreshScrollState();
 		this.$.scroller.getStrategy().setInterval(this.scrollInterval);
+		this.$.scroller.getStrategy().setFixedTime(false);
+		this.$.scroller.getStrategy().setFrame(3);
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
@@ -163,7 +165,7 @@ enyo.kind({
 		if(!st.scrollNode) {
 			return;
 		}
-		
+
 		while (n && n.parentNode && n.id != st.scrollNode.id) {
 			b.top += n.offsetTop;
 			b.left += n.offsetLeft;
