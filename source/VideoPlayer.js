@@ -216,15 +216,18 @@ enyo.kind({
 			]}
 		]},
 		//* Inline controls
-		{name: "inlineControl", classes: "moon-video-inline-control", components: [
-			{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
-			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
-			{classes: "moon-video-inline-control-text", components: [
-				{name: "currTime", content: "00:00 / 00:00"}
-			]},
-			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
-			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
+		{name: "inlineControl", components: [
+			{name: "videoScrim", classes: "enyo-fit", ontap: "playPause"},
+			{name: "playerInlineControl", classes: "moon-video-inline-control", components: [
+				{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
+				{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
+				{name: "progressStatus", classes: "moon-video-inline-control-progress"},
+				{classes: "moon-video-inline-control-text", components: [
+					{name: "currTime", content: "00:00 / 00:00"}
+				]},
+				{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+				{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
+			]}
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
