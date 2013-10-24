@@ -51,6 +51,12 @@ enyo.kind({
 	scrollToControl: function(inControl, inScrollFullPage) {
 		this.$.strategy.animateToControl(inControl, inScrollFullPage);
 	},
+	addScrollListener: function(inFunction) {
+		this.$.strategy.addScrollListener(inFunction);
+	},
+	setScrollThreshold: function(inScrollThreshold) {
+		this.$.strategy.setScrollThreshold(inScrollThreshold);
+	},
 
 	//* @protected
 	bindings: [

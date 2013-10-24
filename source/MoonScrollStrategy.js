@@ -50,22 +50,35 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls", isChrome: true}
 	],
-	
+	//* Timing functions used for assorted scroll types
 	timingFunction: [0, 0, 1, 1],
-	scrollTimingFunction: [0, 0, 1, 1],
 	holdTimingFunction: [0, 0, 1, 1],
+	scrollTimingFunction: [0, 0, 1, 1],
 	paginateTimingFunction: [.25, .1, .25, 1],
 	stabilizeTimingFunction: [0, .58, .58, 1],
-	mousewheelTimingFunction: [.25, .1, .25, 1],
 	decelerateTimingFunction: [.5, .5, .8, 1],
+	mousewheelTimingFunction: [.25, .1, .25, 1],
+	//* Fraction of the total client height/width to scroll on pagination
 	paginationScrollMultiplier: 0.9,
+	//* Fraction of the total client height/width to scroll during deceleration
 	decelerateScrollMultiplier: 0.4,
+	//* Larger numbers -> faster scroll wheel scrolling
 	scrollWheelMultiplier: 5,
-	accelerationMultiplier: 1.2,
+	//* Duration of mousewheel scroll animations
 	mousewheelDurationMS: 400,
+	//* Multiplier applied to scroll animations when accelerating (bigger -> faster scrolling)
+	accelerationMultiplier: 1.2,
+	//* Time interval to wait during scrolling before accelerating
+	accelerateIntervalMS: 1000,
+	//* Current scroll animation target left position
 	targetLeft: null,
+	//* Current scroll animation target top position
 	targetTop: null,
+	//* If true, scroll animation is currently taking place
 	scrolling: false,
+	
+	scrollListenerCallback: null,
+	scrollThreshold: null,
 	
 	create: function() {
 		this.inherited(arguments);
@@ -74,7 +87,6 @@ enyo.kind({
 		this.transitionProp = enyo.dom.transition;
 		this.container.addClass("enyo-touch-strategy-container");
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
-		strat = this;
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -92,9 +104,8 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 	},
-	//* Override _maxHeightChanged()_
+	//* Override _maxHeightChanged()_. Content should cover scroller at a minimum if there's no max-height.
 	maxHeightChanged: function() {
-		// content should cover scroller at a minimum if there's no max-height.
 		this.$.client.applyStyle("min-height", this.maxHeight ? null : "100%");
 		this.$.client.applyStyle("max-height", this.maxHeight);
 		this.$.clientContainer.addRemoveClass("enyo-scrollee-fit", !this.maxHeight);
@@ -142,10 +153,17 @@ enyo.kind({
 		this.timingFunction = this.scrollTimingFunction;
 		this._scrollTo(inX, inY);
 	},
-	//* Stops current scrolling at current location
+	//* Stops scrolling at current location
 	stop: function(inSilence) {
 		this.stabilize();
 		this._stop(inSilence);
+	},
+	//* Add a function to be called directly rather than bubbling scroll events
+	addScrollListener: function(inFunction) {
+		this.scrollListenerCallback = inFunction;
+	},
+	setScrollThreshold: function(inScrollThreshold) {
+		this.scrollThreshold = inScrollThreshold;
 	},
 	
 
@@ -343,19 +361,39 @@ enyo.kind({
 		var timeElapsed = enyo.bench() - this.scrollStartTime,
 			calculatedPosition;
 		
+		// Stop bubbling scroll events if we've passed total allotted scroll time
 		if (timeElapsed > this.scrollDuration) {
 			return;
 		}
 		
-		this.doScroll();
+		this.syncScrollPosition();
+		this.sendScrollEvent();
 		
-		if (timeElapsed > 1000) {
+		// Optionally accelerate scroll speed
+		if (timeElapsed > this.accelerateIntervalMS) {
 			this.accelerateScrolling(timeElapsed);
 			return;
 		}
 		
-		this.syncScrollPosition();
+		// Kickoff next scroll() call
 		this.startScrollJob();
+	},
+	//* If a listener is set, check threshold, otherwise bubble scroll event
+	sendScrollEvent: function() {
+		if (this.scrollListenerCallback) {
+			this.checkScrollThreshold();
+		} else {
+			this.doScroll();
+		}
+	},
+	checkScrollThreshold: function() {
+		if (this.scrollTop < this.scrollThreshold.top ||
+			this.scrollTop > this.scrollThreshold.bottom ||
+			this.scrollLeft < this.scrollThreshold.left ||
+			this.scrollLeft > this.scrollThreshold.right
+		) {
+			this.scrollListenerCallback(this.getScrollBounds());
+		}
 	},
 	accelerateScrolling: function(inTimeElapsed) {
 		var left = (this.targetLeft === null) ? this.scrollLeft : this.targetLeft,
@@ -412,7 +450,7 @@ enyo.kind({
 	},
 	calcBoundaries: function() {
 		var b = this.getScrollBounds()
-
+		
 		this.topBoundary = 0;
 		this.leftBoundary = 0;
 		this.bottomBoundary = b.maxTop;
