@@ -174,7 +174,7 @@ enyo.kind({
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
+				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
 				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
 			}
@@ -623,9 +623,9 @@ enyo.kind({
 			inSender._holding = false;
 		}
 	},
-	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
+	sendFeedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		inParams = inParams || {};
-		this.$.slider.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
+		this.$.slider.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
 	},
 
 	////// Slider event handling //////
@@ -733,7 +733,6 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.jumpBackward()_.
 	jumpBackward: function(inSender, inEvent) {
-		this._isPlaying = true;
 		this.$.video.jumpBackward();
 		this.updatePlayPauseButtons();
 	},
@@ -755,7 +754,6 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.jumpForward()_.
 	jumpForward: function(inSender, inEvent) {
-		this._isPlaying = true;
 		this.$.video.jumpForward();
 		this.updatePlayPauseButtons();
 	},
@@ -945,13 +943,13 @@ enyo.kind({
 		}
 		this.sendFeedback("Pause", {}, true);
 	},
-	_start: function(inSender, inEvent) {
-		this.sendFeedback("Pause");
-	},
 	_stop: function(inSender, inEvent) {
 		this.pause();
 		this.updatePlayPauseButtons();
 		this.sendFeedback("Stop");
+	},
+	_start: function(inSender, inEvent) {
+		this.sendFeedback(this._isPlaying ? "Play" : "Pause", {}, !this._isPlaying);
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);

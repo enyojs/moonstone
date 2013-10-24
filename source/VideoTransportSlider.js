@@ -112,9 +112,6 @@ enyo.kind({
 		if (!this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			this.currentTime = this.transformToVideo(v);
-			if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				return;
-			}
 			this._updateKnobPosition(this.currentTime);
 		}
 	},
@@ -125,7 +122,7 @@ enyo.kind({
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
 		this.currentTime = this._currentTime;
-		this._updateKnobPosition(this._currentTime);
+		this._updateKnobPosition(this.currentTime);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
 		}
@@ -232,22 +229,18 @@ enyo.kind({
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
-		if(this.showDummyArea && oValue > this.endTickPos) {
-			//FIXME : When set same value with rangeEnd on currentTime, video is stuck.  
-			oValue = this.rangeEnd - 1;
-		} else if(this.showDummyArea && oValue < this.beginTickPos) {
+		if (this.showDummyArea && (oValue < this.beginTickPos)) {
 			oValue = this.rangeStart;
 		}
-		var iValue = (oValue - this.rangeStart) / this.scaleFactor;
-		return iValue;
+		if (this.showDummyArea && (oValue > this.endTickPos)) {
+			oValue = this.rangeEnd;
+		}
+		return (oValue - this.rangeStart) / this.scaleFactor;
 	},
 	//* If user presses on _this.$.tapArea_, seek to that point
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
-			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				return;
-			}
 
 			v = this.transformToVideo(v);
 			this.sendSeekEvent(v);

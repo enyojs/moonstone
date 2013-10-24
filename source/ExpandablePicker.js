@@ -73,7 +73,7 @@ enyo.kind({
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", components: [
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client", components: [
 			{name: "client", tag: null, kind: "Group", onActivate: "activated", highlander: true},
 			{name: "helpText", kind:"moon.BodyText", canGenerate: false, classes: "moon-expandable-picker-help-text"}
 		]}
@@ -227,7 +227,9 @@ enyo.kind({
 	//* Close drawer and select header
 	selectAndClose: function() {
 		this.setActive(false);
-		enyo.Spotlight.spot(this.$.headerWrapper);
+		if (!enyo.Spotlight.getPointerMode()) {
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		}
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {

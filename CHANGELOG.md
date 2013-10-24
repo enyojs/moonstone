@@ -8,3 +8,5 @@ achieve correct popup positioning when wrapping an inline-block element, which i
 case.  When wrapping a block-level element, simply add a "display: block;" to the decorator's inline
 style or CSS class.  Tooltips and ContextualPopups used as components of `moon.Header` are not
 affected, since header children are forced to `display: inline-block` by default.
+
+`moon.CalendarPicker` was renamed to `moon.Calendar`.
