@@ -8,9 +8,11 @@ enyo.kind({
 	classes: "moon moon-neutral moon-popup",
 	modal: true,
 	floating: true,
-	_spotlight: null,
+	_spotlightOld: null,
 	spotlight: "container",
 	handlers: {
+		onSpotlightKeyDown: "spotlightKeyDown",
+		onSpotlightPoint: "spotlightPoint",
 		onSpotlightSelect: "spotSelect",
 		onSpotlightUp: "spotlightUp",
 		onSpotlightDown: "spotlightDown",
@@ -63,7 +65,7 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
+		this._spotlightOld = this.spotlight;
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
@@ -78,7 +80,7 @@ enyo.kind({
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* _tap()_ code.
 	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
+		if (this.downEvent && this.downEvent.type !== "onSpotlightSelect") {
 			return this.inherited(arguments);
 		}
 	},
@@ -120,12 +122,13 @@ enyo.kind({
 		
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
-			this.spotlight = this._spotlight;
+			this.spotlight = this._spotlightOld;
 			this.configCloseButton();
 			var spottableChildren = enyo.Spotlight.getChildren(this).length;
 			if (spottableChildren === 0) {
 				this.spotlight = false;
 			} else if ((this.spotlight) && (spottableChildren > 0)) {
+				if (enyo.Spotlight.getPointerMode()) { enyo.Spotlight.mute(this.activator); }
 				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
 			}
 		}
@@ -194,6 +197,7 @@ enyo.kind({
 			}
 		} else {
 			// As a failsafe, attempt to spot the container if no activator is present
+			if (enyo.Spotlight.getPointerMode()) { enyo.Spotlight.mute(this.activator); }
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
 		}
 		this.activator = null;
@@ -212,6 +216,16 @@ enyo.kind({
 				this.hide();
 			}
 		}
+	},
+	spotlightUnmute: function(inSender, inEvent) {
+		if (enyo.Spotlight.isMuted()) { enyo.Spotlight.unmute(this.activator); return true; }
+		return false;
+	},
+	spotlightPoint: function(inSender, inEvent) {
+		return this.spotlightUnmute();
+	},
+	spotlightKeyDown: function(inSender, inEvent) {
+		return this.spotlightUnmute();
 	},
 	/**
 		When spotlight reaches top edge of popup, prevents user from
