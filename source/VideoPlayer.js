@@ -170,6 +170,7 @@ enyo.kind({
 	spotlightModal: true,
 	
 	_isPlaying: false,
+	_canPlay: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
 	
@@ -179,8 +180,9 @@ enyo.kind({
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
-			}
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", oncanplay: "_setCanPlay", onwaiting: "_waiting"
+			},
+			{name: "spinner", kind: "moon.Spinner", classes: "moon-video-player-spinner", showing: false}
 		]},
 
 		//* Fullscreen controls
@@ -287,8 +289,10 @@ enyo.kind({
 	},
 	srcChanged: function() {
 		if(this.src != this.$.video.getSrc()) {
+			this._canPlay = false;
 			this._isPlaying = this.autoplay;
 			this.updatePlayPauseButtons();
+			this.updateSpinner();
 		}
 		this.$.video.setSrc(this.getSrc());
 	},
@@ -347,6 +351,7 @@ enyo.kind({
 		this.$.video.setAutoplay(this.autoplay);
 		this._isPlaying = this.autoplay;
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	jumpSecChanged: function() {
 		this.$.video.setJumpSec(this.jumpSec);
@@ -402,7 +407,9 @@ enyo.kind({
 		this.$.video.unload();
 		this._resetProgress();
 		this._loaded = false;
+		this._canPlay = false;
 		this.disableSliderChanged();
+		this.updateSpinner();
 	},
 	showScrim: function(show) {
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
@@ -711,35 +718,41 @@ enyo.kind({
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.pause()_.
 	pause: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.pause();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.rewind()_.
 	rewind: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.rewind();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpToStart()_.
 	jumpToStart: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.jumpToStart();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpBackward()_.
 	jumpBackward: function(inSender, inEvent) {
 		this.$.video.jumpBackward();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.fastForward()_.
 	fastForward: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.fastForward();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpToEnd()_.
 	jumpToEnd: function(inSender, inEvent) {
@@ -750,11 +763,13 @@ enyo.kind({
 		}
 		this.$.video.jumpToEnd();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpForward()_.
 	jumpForward: function(inSender, inEvent) {
 		this.$.video.jumpForward();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.setCurrentTime()_.
 	setCurrentTime: function(inValue) {
@@ -824,6 +839,15 @@ enyo.kind({
 	updatePlayPauseButtons: function() {
 		this.$.fsPlayPause.setSrc(this._isPlaying ? this.pauseIcon : this.playIcon);
 		this.$.ilPlayPause.setSrc(this._isPlaying ? this.inlinePauseIcon : this.inlinePlayIcon);
+	},
+	//* Turns on/off spinner as appropriate.
+	updateSpinner: function() {
+		var spinner = this.$.spinner;
+		if (this._loaded && this._isPlaying && !this._canPlay) {
+			spinner.start();
+		} else if (spinner.getShowing()) {
+			spinner.stop();
+		}
 	},
 	/**
 		When _moreButton_ is tapped, toggles visibility of player controls and
@@ -954,6 +978,7 @@ enyo.kind({
 	_stop: function(inSender, inEvent) {
 		this.pause();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 		this.sendFeedback("Stop");
 	},
 	_start: function(inSender, inEvent) {
@@ -976,5 +1001,13 @@ enyo.kind({
 	},
 	_jumpBackward: function(inSender, inEvent) {
 		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, false);
+	},
+	_waiting: function(inSender, inEvent) {
+		this._canPlay = false;
+		this.updateSpinner();
+	},
+	_setCanPlay: function(inSender, inEvent) {
+		this._canPlay = true;
+		this.updateSpinner();
 	}
 });
