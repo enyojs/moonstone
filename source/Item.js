@@ -16,9 +16,6 @@ enyo.kind({
 		disabled: false
 	},
 	//* @protected
-	overlayComponents: [
-		{name: "overlay", classes: "moon-item-overlay", addBefore: true}
-	],
 	create: function() {
 		this.inherited(arguments);
 		this.disabledChanged();

@@ -19,6 +19,10 @@ enyo.kind({
 				{kind: "moon.Button", small:true, content:"aligned", classes:"moon-header-left"},
 				{kind: "moon.Button", small:true, content:"Right"},
 				{kind: "moon.Button", small:true, content:"Aligned"}
+			]},
+			{style:"height:20px;"},
+			{kind: "moon.Header", name:"switchHeader", content: "Switch Input", placeholder:"Input Mode", titleAbove: "03", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", classes:"moon-10h", components: [
+				{kind: "moon.Button", small:true, content:"Switch Mode", ontap : "switchMode"}
 			]}
 		]}
 	],
@@ -33,5 +37,8 @@ enyo.kind({
 	},
 	shareSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setSubTitleBelow("Please share Enyo.");
+	},
+	switchMode: function(inSender, inEvent) {
+		this.$.switchHeader.setInputMode(!this.$.switchHeader.getInputMode());
 	}
 });
