@@ -1,45 +1,23 @@
- /* Import font styles */
-@import "moonstone-fonts.less";
-
-/* Import grid classes/mixins */
-@import "moonstone-grid.less";
-
-/* Prevent browser's default focus treatment (at least in Chrome) */
-:focus {
-	outline: none;
+.moon-header-font {
+	font-family: @moon-alt-font-family;
+	text-transform: uppercase;
 }
 
-/* Common classes applicable to multiple controls */
-.moon {
-	font-family: @moon-font-family;
-	font-size: @moon-sub-header-font-size;
-	letter-spacing: @moon-sub-header-letter-spacing;
-	padding: @moon-app-keepout;
-	color: @moon-sub-header-text-color;
-	background-color: @moon-background-color;
+.moon-superscript {
+	font-size: @moon-superscript-text-size;
+	vertical-align: top;
+	margin: 0px 0px 0px 2px;
+	padding: 0px;
 }
 
-/* Remove any focus outline */
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
+.moon-pre-text {
+	font-size: @moon-pre-text-size;
+	vertical-align: top;
+	height:  @moon-large-text-size;
+	line-height: @moon-pre-text-size;
+	margin: 12px 2px 8px 0px;
+	padding: 0px;
 }
-
-.enyo-locale-right-to-left .moon
-{
-   direction:rtl;
-}
-
-.moon-divider-border {
-	border-bottom: @moon-divider-border-width solid @moon-divider-border-color;
-}
-.moon-neutral-divider-border {
-	border-bottom: @moon-divider-border-width solid @moon-neutral-border-color;
-}
-
-@import "moonstone-text.less";
 
 .moon-large-text {
 	font-size: @moon-large-text-size;
@@ -95,10 +73,6 @@ button:focus {
 	letter-spacing: @moon-body-letter-spacing;
 	color: @moon-body-text-color;
 	line-height: @moon-body-line-height;
-	a:link {color: @moon-spotlight-color; text-decoration:none;}
-	a:visited {color: @moon-spotlight-color; text-decoration:none;}
-	a:hover {color: @moon-spotlight-color; text-decoration:none;}
-	a:active {color: @moon-spotlight-color; text-decoration:none;}
 }
 .moon-body-text-spacing {
 	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
@@ -183,103 +157,3 @@ button:focus {
 		font-size: @moon-non-latin-button-small-font-size;
 	}
 }
-
-.border-box {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-}
-
-/* LESS pre-calculations */
-@moon-disabled-opacity-ie: @moon-disabled-opacity*100;
-
-/* Individual widget CSS */
-@import "Marquee.less";
-@import "SimplePicker.less";
-@import "SimpleIntegerPicker.less";
-@import "Checkbox.less";
-@import "Divider.less";
-@import "CheckboxItem.less";
-@import "ToggleText.less";
-@import "ToggleItem.less";
-@import "ToggleButton.less";
-@import "Item.less";
-@import "SelectableItem.less";
-@import "Button.less";
-@import "CaptionDecorator.less";
-@import "RadioItem.less";
-@import "RadioItemGroup.less";
-@import "ExpandableListItem.less";
-@import "ExpandablePicker.less";
-@import "ExpandableIntegerPicker.less";
-@import "Header.less";
-@import "GridList.less";
-@import "Icon.less";
-@import "IconButton.less";
-@import "PagingControl.less";
-@import "IntegerPicker.less";
-@import "DatePicker.less";
-@import "TimePicker.less";
-@import "Input.less";
-@import "InputDecorator.less";
-@import "ProgressBar.less";
-@import "Slider.less";
-@import "RichText.less";
-@import "ContextualPopupButton.less";
-@import "ContextualPopupDecorator.less";
-@import "ContextualPopup.less";
-@import "TextArea.less";
-@import "ListActions.less";
-@import "LabeledTextItem.less";
-@import "ImageItem.less";
-@import "Spinner.less";
-@import "Panel.less";
-@import "Panels.less";
-@import "Accordion.less";
-@import "Calendar.less";
-@import "Table.less";
-@import "InputHeader.less";
-@import "DrawerHandle.less";
-@import "Drawer.less";
-@import "Drawers.less";
-@import "Scrim.less";
-@import "Popup.less";
-@import "Dialog.less";
-@import "Tooltip.less";
-@import "AudioPlayback.less";
-@import "VideoPlayerSlider.less";
-@import "VideoPlayer.less";
-@import "VideoControlInline.less";
-@import "VideoControlFullscreen.less";
-@import "VideoFeedback.less";
-@import "VideoInfoHeader.less";
-@import "ChannelInfo.less";
-@import "VideoInfoBackground.less";
-@import "Clock.less";
-@import "Scroller.less";
-@import "ExpandableInput.less";
-@import "HighlightText.less";
-@import "ObjectActionDecorator.less";
-@import "FormCheckbox.less";
-@import "SelectionOverlaySupport.less";
-@import "Thumb.less";
-@import "Image.less";
-@import "ImageBadge.less";
-@import "ExpandableText.less";
-
-/* Put this at the end because we want these to take precedence over others */
-.moon-neutral {
-	background-color: @moon-neutral-bg-color;
-	color: @moon-neutral-text-color;
-}
-.moon-neutral * {
-	color: @moon-neutral-child-text-color;
-}
-.moon-light-gray {
-	background-color: @moon-light-gray;
-	color: @moon-dark-gray;
-}
-.moon-light-gray * {
-	color: @moon-dark-gray;
-}
-
-@import "moonstone-spacing.less";
