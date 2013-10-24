@@ -2,9 +2,6 @@ enyo.kind({
 	name: "moon.sample.InputSample",
 	kind:"FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-input-sample",
-	handlers: {
-		onkeydown: 'onKeyDown'
-	},
 	components: [
 		{kind: "moon.Divider", content: "Inputs"},
 		{kind: 'moon.Scroller', horizontal: "hidden", fit: true, components: [
@@ -60,9 +57,6 @@ enyo.kind({
 			]}
 		]}
 	],
-	onKeyDown: function(oSender, oEvent) {
-		console.log('TOP keydown', oEvent.keyCode);
-	},
 	inputChanged: function(inSender, inEvent) {
 		this.$.console.setContent("Input: " + inSender.getValue());
 	}
