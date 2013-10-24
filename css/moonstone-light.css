@@ -3441,6 +3441,7 @@ button:focus {
   border-radius: 3px;
   margin: -3px;
   top: 20px;
+  pointer-events: none;
 }
 .moon-video-transport-slider-knob {
   background: transparent;
