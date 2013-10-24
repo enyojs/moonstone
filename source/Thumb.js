@@ -8,17 +8,17 @@ enyo.kind({
 	position: 0,
 	create: function() {
 		this.inherited(arguments);
-		this.positionProp = (this.axis === "v") ? "scrollTop" : "scrollLeft";
+		this.positionProp = (this.axis === "v") ? "targetTop" : "targetLeft";
+		this.fallbackPositionProp = (this.axis === "v") ? "scrollTop" : "scrollLeft";
 		this.accel = enyo.dom.canAccelerate();
 		this.transformProp = enyo.dom.getCssTransformProp();
 		this.transitionProp = enyo.dom.transition;
 	},
-	//* Syncs the scroll indicator bar to the scroller size and position,
-	//* as determined by the passed-in scroll strategy.
+	//* Syncs the scroll indicator bar to the scroller size and position, as determined by the passed-in scroll strategy.
 	sync: function(inStrategy, inDuration) {
 		this.scrollBounds = inStrategy._getScrollBounds();
 		this.timingFunction = inStrategy.generateTimingFunctionString();
-		this.transitionDuration = inDuration || 0.5;
+		this.transitionDuration = Math.round(100*inDuration/1000)/100 || 0.5;
 		this.update(inStrategy);
 	},
 	update: function(inStrategy) {
@@ -44,15 +44,13 @@ enyo.kind({
 	updatePosition: function(inStrategy) {
 		var scrollBounds = this.scrollBounds[this.sizeDimension],
 			scrollDimension = this.scrollBounds[this.dimension],
-			scrollPosition = inStrategy[this.positionProp],
-			position = Math.max(0, Math.floor(scrollBounds * scrollPosition * this.getSizeRatio() / scrollDimension));
+			scrollPosition = (inStrategy[this.positionProp] !== null) ? inStrategy[this.positionProp] : inStrategy[this.fallbackPositionProp];
 		
-		if (position === this.position) {
-			return;
-		}
+		this.position = Math.max(0, Math.floor(scrollBounds * scrollPosition * this.getSizeRatio() / scrollDimension));
 		
-		this.addStyles(this.generateTransitionStyleString() + this.generateTransformStyleString(position));
-		this.position = position;
+		// Twiddle, then update position asynchronously, or webkit ignores the change
+		this.twiddle();
+		this.startJob("effectPosition", "effectPosition", 0);
 	},
 	show: function() {
 		this.cancelDelayHide();
@@ -61,10 +59,16 @@ enyo.kind({
 	hide: function() {
 		this.addClass("hidden");
 	},
+	twiddle: function() {
+		this.addStyles(this.generateTransformStyleString(this.position-1));
+	},
+	effectPosition: function() {
+		this.addStyles(this.generateTransitionStyleString() + this.generateTransformStyleString(this.position));
+	},
 	generateTransitionStyleString: function() {
 		return this.transitionProp + ": " + this.transformProp + " " + this.transitionDuration + "s " + this.timingFunction + "; ";
 	},
 	generateTransformStyleString: function(inPosition) {
-		return this.transformProp + ": " + this.translation + "("  + inPosition + "px); ";
+		return this.transformProp + ": " + this.translation + "(" + inPosition + "px); ";
 	}
 });

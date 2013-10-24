@@ -3877,6 +3877,9 @@
   width: 4px;
   height: 4px;
   border-radius: 0;
+  transition: transform 10s linear;
+  -moz-transition: -moz-transform 10s linear;
+  -webkit-transition: -webkit-transform 10s linear;
 }
 .moon-scroller-hthumb {
   bottom: 23px;

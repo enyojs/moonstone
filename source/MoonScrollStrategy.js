@@ -50,7 +50,7 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls", isChrome: true}
 	],
-	//* Timing functions used for assorted scroll types
+	//* Bezier iming functions used for different scroll behaviors
 	timingFunction: [0, 0, 1, 1],
 	holdTimingFunction: [0, 0, 1, 1],
 	scrollTimingFunction: [0, 0, 1, 1],
@@ -67,9 +67,9 @@ enyo.kind({
 	//* Duration of mousewheel scroll animations
 	mousewheelDurationMS: 400,
 	//* Multiplier applied to scroll animations when accelerating (bigger -> faster scrolling)
-	accelerationMultiplier: 1.2,
+	accelerationMultiplier: 2,
 	//* Time interval to wait during scrolling before accelerating
-	accelerateIntervalMS: 1000,
+	accelerateIntervalMS: 1500,
 	//* Current scroll animation target left position
 	targetLeft: null,
 	//* Current scroll animation target top position
@@ -179,6 +179,7 @@ enyo.kind({
 	},
 	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
 	leave: function() {
+		return true;
 		this.hovering = false;
 		this.showHideScrollColumns(false);
 	},
@@ -351,7 +352,6 @@ enyo.kind({
 		
 		this.scrolling = false;
 		this.unmuteSpotlight();
-		this.showThumbs(0);
 		this.delayHideThumbs(500);
 		this.showHidePageControls();
 		this.targetLeft = null;
@@ -387,8 +387,8 @@ enyo.kind({
 		}
 	},
 	checkScrollThreshold: function() {
-		if (this.scrollTop < this.scrollThreshold.top ||
-			this.scrollTop > this.scrollThreshold.bottom ||
+		if (this.scrollTop  < this.scrollThreshold.top ||
+			this.scrollTop  > this.scrollThreshold.bottom ||
 			this.scrollLeft < this.scrollThreshold.left ||
 			this.scrollLeft > this.scrollThreshold.right
 		) {
@@ -625,6 +625,14 @@ enyo.kind({
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.minTop = 0;
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
+		
+		if (this.targetLeft !== null) {
+			b.targetLeft = this.targetLeft;
+		}
+		
+		if (this.targetTop !== null) {
+			b.targetTop = this.targetTop;
+		}
 
 		return b;
 	},

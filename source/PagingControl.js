@@ -5,8 +5,6 @@
 enyo.kind({
 	name: "moon.PagingControl",
 	kind: "moon.IconButton",
-	classes: "moon-paging-button",
-	spotlight: true,
 	published: {
 		side: null
 	},
@@ -15,10 +13,10 @@ enyo.kind({
 		onEndHold: "",
 		onPaginate: ""
 	},
+	//* @protected
 	handlers: {
-		// TODO - spotlight events
-		onSpotlightSelect: "depress",
-		onSpotlightKeyUp: "undepress",
+		onSpotlightSelect: "startHold",
+		onSpotlightKeyUp: "endHold",
 		ondown: "startHold",
 		onup: "endHold",
 		onleave: "endHold",
@@ -27,6 +25,8 @@ enyo.kind({
 		onholdpulse: "noop",
 		onActivate: "noop"
 	},
+	classes: "moon-paging-button",
+	spotlight: true,
 	create: function() {
 		this.inherited(arguments);
 		this.sideChanged();
@@ -81,27 +81,5 @@ enyo.kind({
 	processEvents: function() {
 		return !this.hasClass("hidden");
 	},
-	
-	
-	depress: function(inSender, inEvent) {
-		this.inherited(arguments);
-		// keydown events repeat (while mousedown/hold does not); simulate
-		// hold behavior with mouse by catching the second keydown event
-		if (!this.downCount) {
-			this.down();
-			this.downCount = 1;
-		} else {
-			this.downCount++;
-		}
-		if (this.downCount == 2) {
-			this.hold();
-		}
-	},
-	undepress: function(inSender, inEvent) {
-		this.inherited(arguments);
-		this.downCount = 0;
-		this.endHold(inSender, inEvent);
-	},
-	//* Override default focused handling to make sure scroller doesn't scroll to this button.
 	noop: function() { return true; }
 });
