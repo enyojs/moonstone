@@ -3237,8 +3237,25 @@ button:focus {
   background-color: #000000;
 }
 /* Dialog.css */
+.moon-dialog {
+  padding: 24px 40px 40px;
+}
 .moon-dialog-title {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+}
+.moon-dialog-sub-title {
+  font-size: 24px;
+}
+.moon-dialog-content {
+  margin: 0px 0px 0px;
+}
+.moon-dialog-divider {
+  padding-bottom: 0px;
+  border-bottom-width: 2px;
+  margin: 20px 0px 20px;
+}
+.moon-dialog-client {
+  padding: 36px 0px 0px;
 }
 .moon-dialog-client > * {
   margin-left: 20px;
