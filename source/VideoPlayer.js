@@ -221,8 +221,7 @@ enyo.kind({
 			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
 			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
 			{classes: "moon-video-inline-control-text", components: [
-				{name: "currTime", content: "00:00"},
-				{name: "totalTime", content: "00:00"}
+				{name: "currTime", content: "00:00 / 00:00"}
 			]},
 			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
@@ -674,8 +673,7 @@ enyo.kind({
 	updateInlinePosition: function() {
 		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
-		this.$.currTime.setContent(this.formatTime(this._currentTime));
-		this.$.totalTime.setContent("/" + this.formatTime(this._duration));
+		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
 	},
 
 	//* @public
