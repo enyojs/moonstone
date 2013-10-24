@@ -180,9 +180,9 @@ enyo.kind({
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", oncanplay: "_setCanPlay", onwaiting: "_waiting"
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", oncanplay: "_setCanPlay", onwaiting: "_waiting", onerror: "_error"
 			},
-			{name: "spinner", kind: "moon.Spinner", classes: "moon-video-player-spinner", showing: false}
+			{name: "spinner", kind: "moon.Spinner", classes: "moon-video-player-spinner"}
 		]},
 
 		//* Fullscreen controls
@@ -843,7 +843,7 @@ enyo.kind({
 	//* Turns on/off spinner as appropriate.
 	updateSpinner: function() {
 		var spinner = this.$.spinner;
-		if (this._loaded && this._isPlaying && !this._canPlay) {
+		if (this._isPlaying && !this._canPlay) {
 			spinner.start();
 		} else if (spinner.getShowing()) {
 			spinner.stop();
@@ -1009,5 +1009,15 @@ enyo.kind({
 	_setCanPlay: function(inSender, inEvent) {
 		this._canPlay = true;
 		this.updateSpinner();
+	},
+	_error: function(inSender, inEvent) {
+		// Error codes in inEvent.currentTarget.error.code
+		// 1: MEDIA_ERR_ABORTED, 2: MEDIA_ERR_NETWORK, 3: MEDIA_ERR_DECODE, 4: MEDIA_ERR_SRC_NOT_SUPPORTED
+		this._loaded = false;
+		this._isPlaying = false;
+		this._canPlay = false;
+		this.$.currTime.setContent($L("Error"));
+		this.$.totalTime.setContent("");
+		this._stop();
 	}
 });
