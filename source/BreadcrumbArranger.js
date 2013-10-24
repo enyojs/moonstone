@@ -125,6 +125,8 @@ enyo.kind({
 
 				ret[i] = ret[i] || [];
 				ret[i].push(j);
+				panels[i].addClass("joined-right");
+				panels[j].addClass("joined-left");
 			}
 		}
 

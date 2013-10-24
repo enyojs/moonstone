@@ -2,8 +2,10 @@
 	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
 	padding: 0;
-	margin: 20px 20px 0 20px;
 	height: 100%;
+	.moon-header {
+		margin: 0 10px;
+	}
 }
 .moon-panel-viewport {
 	-webkit-transform: scale3d(1,1,1);
@@ -12,9 +14,12 @@
 }
 .moon-panel-content-wrapper {
 	-webkit-transform: scale3d(1,1,1);
-	padding: @moon-spotlight-outset;
+	padding: 20px @moon-spotlight-outset;
 	z-index: 2;
 	box-sizing: border-box;
+}
+.moon-panel.joined-left .moon-panel-content-wrapper {
+	padding-right: 0;
 }
 .moon-panel-body {
 	overflow: hidden;
@@ -35,7 +40,7 @@
 	-webkit-transform: scale3d(1,1,1);
 	position: absolute;
 	bottom: 0px;
-	left: 9px;
+	left: 0px;
 	right: 0px;
 	height: 200px;
 	overflow: hidden;
@@ -45,10 +50,10 @@
 	margin: @moon-spotlight-outset 0 0;
 	position: absolute;
 	bottom: 0;
-	left: 0;
-	height: 360px;
+	left: 20px;
+	height: 350px;
 	width: 100%;
-	padding: 9px @moon-spotlight-outset @moon-spotlight-outset;
+	padding: 4px 0 @moon-spotlight-outset 0;
 	box-sizing: border-box;
 	border-top: 1px solid @moon-white;
 }
