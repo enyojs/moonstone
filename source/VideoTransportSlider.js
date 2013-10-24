@@ -55,9 +55,7 @@ enyo.kind({
 		onSeek: "",
 		onSeekFinish: "",
 		onEnterTapArea: "",
-		onLeaveTapArea: "",
-		onSliderLeftTap: "",
-		onSliderRightTap: ""
+		onLeaveTapArea: ""
 	},
 	tickComponents: [
 		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
@@ -113,9 +111,6 @@ enyo.kind({
 	preview: function(inSender, inEvent) {
 		if (!this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
-			if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				return;
-			}
 			this.currentTime = this.transformToVideo(v);
 			this._updateKnobPosition(this.currentTime);
 		}
@@ -126,17 +121,7 @@ enyo.kind({
 	},
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
-		if(this._currentTime < 0) {
-			this.currentTime = 0;
-			this.bubble("onSliderLeftTap");
-		}
-		else if(this._currentTime > this.duration) {
-			this.currentTime = this.duration;
-			this.bubble("onSliderRightTap");
-		}
-		else {
-			this.currentTime = this._currentTime;
-		}
+		this.currentTime = this._currentTime;
 		this._updateKnobPosition(this.currentTime);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
@@ -244,16 +229,18 @@ enyo.kind({
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
-		var iValue = (oValue - this.rangeStart) / this.scaleFactor;
-		return iValue;
+		if (oValue < this.beginTickPos) {
+			oValue = this.rangeStart;
+		}
+		if (oValue > this.endTickPos) {
+			oValue = this.rangeEnd;
+		}
+		return (oValue - this.rangeStart) / this.scaleFactor;
 	},
 	//* If user presses on _this.$.tapArea_, seek to that point
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
-			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-			}
 
 			v = this.transformToVideo(v);
 			this.sendSeekEvent(v);
@@ -333,13 +320,6 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-
-			if(this.showDummyArea && v <= this.beginTickPos) {
-				v = this.rangeStart;
-			}
-			if(this.showDummyArea && v >= this.endTickPos ) {
-				v = this.rangeEnd;
-			}
 			v = this.transformToVideo(v);
 			var z = this.elasticTo;
 			if (this.constrainToBgProgress === true) {
