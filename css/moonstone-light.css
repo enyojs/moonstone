@@ -3745,6 +3745,9 @@ button:focus {
   margin: 0 0 0 !important;
 }
 /* Feedback area */
+.moon-video-player-feedback {
+  margin-right: 6px;
+}
 .moon-video-feedback-text {
   display: inline-block;
   text-transform: uppercase;
