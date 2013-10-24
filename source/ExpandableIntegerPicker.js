@@ -37,7 +37,8 @@ enyo.kind({
 		unit: "sec"
 	},
 	lockBottom: true,
-	
+	autoCollapse: true,
+
 	//* @protected
 	
 	handlers: {
@@ -48,7 +49,7 @@ enyo.kind({
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", components: [
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
 			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
 		]}
 	],
@@ -103,10 +104,11 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
-			enyo.Spotlight.spot(this.$.headerWrapper);
+			if (!enyo.Spotlight.getPointerMode()) {
+				enyo.Spotlight.spot(this.$.headerWrapper);
+			}
 		} else {
 			this.setActive(true);
-			enyo.Spotlight.unspot();
 		}
 	},
 	//* Kill any onActivate events coming from buttons in the SimplePicker
@@ -119,5 +121,10 @@ enyo.kind({
 	},
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();
+	},
+	spotlightDown: function(inSender, inEvent) {
+		if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
+			return true;
+		}
 	}
 });

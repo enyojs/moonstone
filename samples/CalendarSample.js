@@ -1,11 +1,11 @@
 enyo.kind({
-	name: "moon.sample.CalendarPickerSample",
+	name: "moon.sample.CalendarSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	kind: "FittableRows",
 	components: [
 		{kind: "moon.Scroller", fit:true, components: [
 			{kind: "FittableColumns", components: [
-				{kind: "moon.CalendarPicker", name: "calendar", onChange: "changed"},
+				{kind: "moon.Calendar", name: "calendar", onChange: "changed"},
 				{kind: "FittableRows", fit: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [

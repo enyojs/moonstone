@@ -85,9 +85,6 @@ enyo.kind({
 		if (this.values) {
 			return (inOrigin === "source") ? this.indices[inVal] : this.values[inVal];
 		}
-		else {
-			inBinding.stop();
-		}
 	},
 	//* @public
 

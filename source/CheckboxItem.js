@@ -54,9 +54,6 @@ enyo.kind({
 		onActivate: "decorateActivateEvent",
 		onSpotlightFocused: "spotlightFocused"
 	},
-	overlayComponents: [
-		{name: "overlay", classes: "moon-item-overlay", addBefore: true}
-	],
 	components: [
 		{name: "client", mixins: ["moon.MarqueeItem"], classes: "moon-checkbox-item-label-wrapper"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
