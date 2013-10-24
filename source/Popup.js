@@ -47,7 +47,7 @@ enyo.kind({
 	},
 	//* @protected
 	tools: [
-		{name: "client"},
+		{name: "client", classes: "enyo-fit moon-popup-client"},
 		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
@@ -87,7 +87,7 @@ enyo.kind({
 		if (!this.$.closeButton) {
 			return;
 		}
-		
+
 		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
@@ -114,10 +114,10 @@ enyo.kind({
 				moon.Popup.count--;
 			}
 		}
-		
+
 		this.showHideScrim(this.showing);
 		this.inherited(arguments);
-		
+
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.spotlight = this._spotlight;

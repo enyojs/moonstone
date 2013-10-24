@@ -3207,6 +3207,11 @@ button:focus {
   padding: 40px;
   box-sizing: border-box;
 }
+.moon-popup-client {
+  margin-right: 60px;
+  padding: 0px;
+  z-index: 1;
+}
 .moon-popup-close {
   background: url(../images/LightTheme_Icons/ClosePopup_Icon.png);
   background-repeat: no-repeat;
