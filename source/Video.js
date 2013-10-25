@@ -65,7 +65,8 @@ enyo.kind({
 		onJumpBackward: "",
 		onPlay: "",
 		onStart: "",
-		onDisableTranslation: ""
+		onDisableTranslation: "",
+		onFFBufferEnd: ""
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
@@ -415,6 +416,11 @@ enyo.kind({
 			return;
 		}
 		inEvent = enyo.mixin(inEvent, this.createEventData());
+
+		// Check for playback in fast-forward reaching end of buffer and switch to play mode, update playback control button
+		if((this._prevCommand == "fastForward") && (node.playbackRate > (node.buffered.end(0) - node.currentTime))) {
+			this.doFFBufferEnd();
+		}
 	},
 	ratechange: function(inSender, inEvent) {
 		var node = this.hasNode(),
