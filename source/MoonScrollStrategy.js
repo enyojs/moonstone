@@ -388,7 +388,7 @@ enyo.kind({
 		this.updateBezierPoints();
 	},
 	startScrollJob: function() {
-		this.startJob("scroll", "scroll", 20);
+		this.startJob("scroll", "scroll", 30);
 	},
 	endScrollJob: function() {
 		this.stopJob("scroll");
