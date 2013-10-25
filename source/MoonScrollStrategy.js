@@ -11,7 +11,7 @@ enyo.kind({
 	kind: "enyo.ScrollStrategy",
 	published: {
 		//* Scroll speed in pixels per second
-		scrollSpeed: 100
+		scrollSpeed: 600
 	},
 	events: {
 		//* Fires when scroll action starts.
