@@ -54,10 +54,10 @@ enyo.kind({
 	timingFunction: [0,0,1,1],
 	holdTimingFunction: [0,0,1,1],
 	scrollTimingFunction: [0,0,1,1],
-	paginateTimingFunction: [.35,.66,0,1],
-	stabilizeTimingFunction: [0,.58,.58,1],
-	decelerateTimingFunction: [.5,.5,.8,1],
-	mousewheelTimingFunction: [0,0,.4,1], //[0,0,1,1], //[0,0,.4,1],
+	paginateTimingFunction: [0.35,0.66,0,1],
+	stabilizeTimingFunction: [0,0.58,0.58,1],
+	decelerateTimingFunction: [0.5,0.5,0.8,1],
+	mousewheelTimingFunction: [0,0,0.4,1], //[0,0,1,1], //[0,0,.4,1],
 	//* Fraction of the total client height/width to scroll on pagination
 	paginationScrollMultiplier: 0.9,
 	//* Fraction of the total client height/width to scroll during deceleration
@@ -67,7 +67,7 @@ enyo.kind({
 	//* Duration of mousewheel scroll animations
 	mousewheelDurationMS: 500,
 	//* Multiplier applied to scroll animations when accelerating (bigger -> faster scrolling)
-	accelerationMultiplier: 2,
+	accelerationMultiplier: 1.5,
 	//* Time interval to wait during scrolling before accelerating
 	accelerateIntervalMS: 1500,
 	//* Current scroll animation target left position
@@ -76,7 +76,8 @@ enyo.kind({
 	targetTop: null,
 	//* If true, scroll animation is currently taking place
 	scrolling: false,
-	
+	//* Maximum scroll speed in pixels per second
+	maxScrollSpeed: 1800,
 	scrollListenerCallback: null,
 	scrollThreshold: null,
 	
@@ -87,6 +88,7 @@ enyo.kind({
 		this.transitionProp = enyo.dom.transition;
 		this.container.addClass("enyo-touch-strategy-container");
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
+		this.scrollSpeedChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -109,6 +111,9 @@ enyo.kind({
 		this.$.client.applyStyle("min-height", this.maxHeight ? null : "100%");
 		this.$.client.applyStyle("max-height", this.maxHeight);
 		this.$.clientContainer.addRemoveClass("enyo-scrollee-fit", !this.maxHeight);
+	},
+	scrollSpeedChanged: function() {
+		this.maxScrollSpeed = this.scrollSpeed * 3;
 	},
 
 
@@ -310,7 +315,7 @@ enyo.kind({
 	_scrollTo: function(inX, inY, inDuration, inSilence) {
 		inX = this.clampX(inX);
 		inY = this.clampY(inY);
-		inDuration = inDuration || this.calcDuration(inX, inY);
+		inDuration = this.calcDuration(inX, inY, inDuration);
 		
 		// Only scroll to new positions
 		if (inX === this.scrollLeft && inY === this.scrollTop) {
@@ -336,19 +341,19 @@ enyo.kind({
 		this.scroll();
 	},
 	scroll: function() {
-		var timeElapsed = enyo.bench() - this.scrollStartTime,
-			calculatedPosition;
+		var timeElapsed = enyo.bench() - this.scrollStartTime;
 		
 		// Stop bubbling scroll events if we've passed total allotted scroll time
 		if (timeElapsed > this.scrollDuration) {
 			return;
 		}
 		
-		this.syncScrollPosition();
+		var p = this.calcPositionAtTime(timeElapsed);
+		this.scrollTop = p;
+		//this.syncScrollPosition();
 		this.sendScrollEvent();
 		
 		/*
-		var p = this.calcPositionAtTime(timeElapsed);
 		if (Math.abs(p - this.scrollTop) > 80) {
 			this.log("AHHHH", p, this.scrollTop, p-this.scrollTop);
 		}
@@ -461,7 +466,7 @@ enyo.kind({
 		this.syncScrollPosition();
 		
 		if (!inSilence && this.scrolling) {
-			this.doScroll();
+			this.sendScrollEvent();
 			this.doScrollStop();
 		}
 		
@@ -469,8 +474,11 @@ enyo.kind({
 		this.unmuteSpotlight();
 		this.delayHideThumbs(500);
 		this.showHidePageControls();
+		
 		this.targetLeft = null;
 		this.targetTop = null;
+		this.initialLeft = null;
+		this.initialTop = null;
 	},
 	//* Returns true if _inControl_ is one of four page controls.
 	isPageControl: function(inControl) {
@@ -812,9 +820,10 @@ enyo.kind({
 		
 		return {x: x, y: y};
 	},
-	calcDuration: function(inX, inY) {
-		var delta = Math.max(Math.abs(this.scrollLeft - inX), Math.abs(this.scrollTop - inY));
-		return delta * 1000 / this.scrollSpeed;
+	calcDuration: function(inX, inY, inDuration) {
+		var delta = Math.max(Math.abs(this.scrollLeft - inX), Math.abs(this.scrollTop - inY)),
+			speed = (inDuration) ? delta * 1000 /inDuration : this.scrollSpeed;
+		return delta * 1000 / Math.min(speed, this.maxScrollSpeed);
 	},
 	clampX: function(inX) {
 		return Math.min(Math.max(inX, -this.leftBoundary), -this.rightBoundary);
