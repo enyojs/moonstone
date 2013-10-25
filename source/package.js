@@ -62,7 +62,6 @@ enyo.depends(
 	"TooltipDecorator.js",
 	"Tooltip.js",
 	"ExpandableInput.js",
-	"Video.js",
 	"VideoPlayer.js",
 	"VideoInfoHeader.js",
 	"VideoTransportSlider.js",
