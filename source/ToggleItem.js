@@ -8,8 +8,8 @@ enyo.kind({
 	//* @protected
 	classes: "moon-toggle-item",
 	checkboxOnRight: true,
-	components: [
-		{classes: "moon-toggle-item-label-wrapper", name: "client"},
-		{name: "input", kind: "moon.ToggleText", spotlight: false}
-	]
+	componentOverrides: {
+		client: {classes: "moon-toggle-item-label-wrapper"},
+		input: {kind: "moon.ToggleText", spotlight: false}
+	}
 });

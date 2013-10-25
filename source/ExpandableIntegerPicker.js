@@ -37,32 +37,35 @@ enyo.kind({
 		unit: "sec"
 	},
 	lockBottom: true,
-	
+	autoCollapse: true,
+
 	//* @protected
 	
 	handlers: {
 		requestScrollIntoView: "requestScrollIntoView"
 	},
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		client: {components: [
-			{name: "picker", kind: "moon.SimpleIntegerPicker", onSelect: "toggleActive", onActivate: "activated"}
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
+			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
 		]}
-	},
+	],
 	bindings: [
 		{from: ".min", to: ".$.picker.min"},
 		{from: ".max", to: ".$.picker.max"},
+		{from: ".step", to: ".$.picker.step"},
 		{from: ".unit", to: ".$.picker.unit"},
-		{from: ".value", to: ".$.picker.value"},
+		{from: ".value", to: ".$.picker.value", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
-		{from: ".currentValueText", to: ".$.currentValue.content"}
+		{from: ".currentValueText", to: ".$.currentValue.content"},
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
 	computed: {
 		"showCurrentValue": ["open"],
-		"currentValueText": ["value", "noneText"]
+		"currentValueText": ["value", "unit", "noneText"]
 	},
 	
 	// Change handlers
@@ -71,23 +74,7 @@ enyo.kind({
 	},
 	openChanged: function() {
 		this.inherited(arguments);
-		
-		if (!this.getOpen() && this.hasNode()) {
-			this.updateValue();
-		}
-		
-		this.preventResize = false;
-	},
-	activeChanged: function() {
-		var active = this.getActive();
-		if (active) {
-			// enyo.Group's highlander logic actually prevents an item from being
-			// de-activated once it's been activated; that's not exactly the logic
-			// we want for ExpandablePicker, so we only notify the group when an
-			// item is activated, not when it's de-activated.
-			this.bubble("onActivate");
-		}
-		this.setOpen(active);
+		this.setActive(this.getOpen());
 	},
 	
 	// Computed props
@@ -106,10 +93,11 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
-			enyo.Spotlight.spot(this.$.headerWrapper);
+			if (!enyo.Spotlight.getPointerMode()) {
+				enyo.Spotlight.spot(this.$.headerWrapper);
+			}
 		} else {
 			this.setActive(true);
-			enyo.Spotlight.unspot();
 		}
 	},
 	//* Kill any onActivate events coming from buttons in the SimplePicker
@@ -120,11 +108,12 @@ enyo.kind({
 	fireChangeEvent: function() {
 		this.doChange({value: this.value, content: this.content});
 	},
-	//* Resize _this.$.picker_
-	resized: function() {
-		if (!this.preventResize) {
-			this.$.picker.resized();
-			this.preventResize = true;
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
+	},
+	spotlightDown: function(inSender, inEvent) {
+		if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
+			return true;
 		}
 	}
 });

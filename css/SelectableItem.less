@@ -1,5 +1,5 @@
 /* SelectableItem.css */
-.moon-selectable-item .moon-selectable-item-indicator {
+.moon-selectable-item-indicator {
 	width: 20px;
 	height: 20px;
 	border-radius: 10px;
@@ -7,9 +7,9 @@
 	display: none;
 	position: absolute;
 	left: @moon-spotlight-outset;
-	top: 15px;
+	top: 17px;
 }
-.enyo-locale-right-to-left .moon-selectable-item .moon-selectable-item-indicator {
+.enyo-locale-right-to-left .moon-selectable-item-indicator {
 	left: auto;
 	right: @moon-spotlight-outset;
 }
@@ -20,9 +20,28 @@
 	background-color: #fff;
 }
 .moon-selectable-item.selected .moon-selectable-item-client {
-	padding-left: 30px;
+	padding-left: 32px;
 }
 .enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
 	padding-left: 0;
-	padding-right: 30px;
+	padding-right: 32px;
+}
+
+/* Special treatment inside of ExpandablePicker (indented, nudged up) */
+.moon-expandable-picker .moon-selectable-item {
+	padding-left: @moon-item-indent + @moon-spotlight-outset;
+}
+.enyo-locale-right-to-left .moon-expandable-picker .moon-selectable-item {
+	padding-left: @moon-spotlight-outset;
+	padding-right: @moon-item-indent + @moon-spotlight-outset;
+}
+.moon-expandable-list-item .moon-selectable-item-indicator {
+	top: 15px;
+}
+.moon-expandable-picker .moon-selectable-item-indicator {
+	left: @moon-spotlight-outset + @moon-item-indent;
+}
+.enyo-locale-right-to-left .moon-expandable-picker .moon-selectable-item-indicator {
+	left: auto;
+	right: @moon-spotlight-outset + @moon-item-indent;
 }

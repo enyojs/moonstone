@@ -6,6 +6,7 @@
 }
 .moon-slider-knob,
 .moon-slider-knob.disabled:active:hover {
+	.border-box;
 	position: absolute;
 	height: 60px;
 	width: 60px;
@@ -28,38 +29,62 @@
 .moon-slider.spotlight > .moon-slider-knob {
 	background-color: @moon-slider-spotlight-knob-color;
 }
+.moon-slider.spotlight > .moon-slider-knob.spotselect {
+	height: 60px;
+	width: 60px;
+	border-radius: 30px;
+	margin: -30px;
+	background-color: @moon-button-background-color;
+	border: @moon-button-border-width solid @moon-spotlight-color;
+}
 .moon-slider.disabled {
 	cursor: default;
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
 .moon-progress-bar.moon-slider {
-	margin: 60px 45px;
+	margin: 60px 45px !important;
 }
 .moon-slider-popup {
 	position: absolute;
 	display: block;
+	white-space: nowrap;
 	z-index: 20;
 	left: 50%;
-	top: 0px;
-	width: 62px;
-	height: 52px;
 	&.moon-slider-popup-flip-h {
 		left: auto;
 		right: 50%;
 	}
+	direction: ltr;
 }
+.moon-slider-popup-left {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+.moon-slider-popup-center {
+  position:relative;
+  display:inline-block;
+  vertical-align: top;
+  margin: 1px 0 0 0;
+  padding: 0;
+  z-index: 21;
+}
+.moon-slider-popup-right {
+  position:relative;
+  display:inline-block;
+  vertical-align: top;
+  margin:0;
+  padding:0;
+}
+
 .moon-slider-popup-label {
 	.moon-large-button-text;
-	position: absolute;
-	top: 2px;
-	width: 86px;
-	height: 45px;
 	white-space: nowrap;
 	color: @moon-slider-popup-text-color;
 	text-align: center;
 	line-height: 1.5em;
-	vertical-align: middle;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;

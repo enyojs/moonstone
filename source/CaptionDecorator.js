@@ -23,11 +23,11 @@ enyo.kind({
 	decoratorBounds: null,
 	classes: "moon-button-caption-decorator",
 	components: [
-		{kind: "enyo.Control", name: "leftCaption",     classes: "moon-divider-text moon-caption left",   canGenerate: false, content: "Left Caption"},
-		{kind: "enyo.Control", name: "topCaption",      classes: "moon-divider-text moon-caption top",    canGenerate: false, content: "Top Caption"},
+		{kind: "enyo.Control", name: "leftCaption",     classes: "moon-divider-text moon-caption left",   canGenerate: false},
+		{kind: "enyo.Control", name: "topCaption",      classes: "moon-divider-text moon-caption top",    canGenerate: false},
 		{kind: "enyo.Control", name: "client",          classes: "moon-divider-text moon-caption-client"},
-		{kind: "enyo.Control", name: "rightCaption",    classes: "moon-divider-text moon-caption right",  canGenerate: false, content: "Right Caption"},
-		{kind: "enyo.Control", name: "bottomCaption",   classes: "moon-divider-text moon-caption bottom", canGenerate: false, content: "Bottom Caption"}
+		{kind: "enyo.Control", name: "rightCaption",    classes: "moon-divider-text moon-caption right",  canGenerate: false},
+		{kind: "enyo.Control", name: "bottomCaption",   classes: "moon-divider-text moon-caption bottom", canGenerate: false}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -53,15 +53,15 @@ enyo.kind({
 		this.$.bottomCaption.canGenerate =  (side === "bottom");
 		this.$.leftCaption.canGenerate =    (side === "left");
 
+		// Update the content, including position if needed
+		this.contentChanged();
+
 		// If this control has already been rendered, re-render to update caption side
 		if (this.hasNode()) {
-			// If _showOnFocus_ is _true_, reset caption position
-			if (this.getShowOnFocus()) {
-				this.resetCaptionPosition();
-			}
 			// Re-render to display caption on proper side
 			this.render();
 		}
+
 	},
 	showOnFocusChanged: function() {
 		this.addRemoveClass("showOnFocus", this.getShowOnFocus());

@@ -3,7 +3,15 @@
 	display: inline-block;
 	background-color: @moon-video-player-bg-color;
 }
+.moon-video-player-container {
+	display: block;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
 .moon-video-player-video {
+	position: absolute;
 	display: block;
 	margin: 0px auto;
 	height: 100%;
@@ -14,20 +22,40 @@
 :-webkit-full-screen.moon-video-player {
 	position: static !important;
 	display: block !important;
+
+	.moon-video-player-video {
+		position: static;
+	}
 }
 :-moz-full-screen.moon-video-player {
 	position: static !important;
 	display: block !important;
+
+	.moon-video-player-video {
+		position: static;
+	}
 }
 :-ms-full-screen.moon-video-player {
 	position: static !important;
 	display: block !important;
+
+	.moon-video-player-video {
+		position: static;
+	}
 }
 :-o-full-screen.moon-video-player {
 	position: static !important;
 	display: block !important;
+
+	.moon-video-player-video {
+		position: static;
+	}
 }
 :full-screen.moon-video-player {
 	position: static !important;
 	display: block !important;
+
+	.moon-video-player-video {
+		position: static;
+	}
 }

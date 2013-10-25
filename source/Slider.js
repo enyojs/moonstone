@@ -29,7 +29,7 @@ enyo.kind({
 		//* CSS classes to apply to tapArea
 		tapAreaClasses: "moon-slider-taparea",
 		//* Color of value popup
-		popupColor: "#4b4b4b",
+		popupColor: "#686868",
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		/**
@@ -41,12 +41,13 @@ enyo.kind({
 		noPopup: false,
 		//* When true, popup displays a percentage value (rather than the absolute value)
 		showPercentage: true,
+
 		//* Popup width in pixels
-		popupWidth: 86,
+		popupWidth: "auto",
 		//* Popup height in pixels
-		popupHeight: 52,
+		popupHeight: 50,
 		//* Popup offset in pixels
-		popupOffset: 5,
+		popupOffset: 8,
 		//* When false, you can move the knob past the _bgProgress_
 		constrainToBgProgress: false,
 		/**
@@ -80,15 +81,18 @@ enyo.kind({
 	},
 	moreComponents: [
 		{kind: "Animator", onStep: "animatorStep", onEnd: "animatorComplete"},
+		{name: "tapArea"},
 		{name: "knob", ondown: "showKnobStatus", onup: "hideKnobStatus", components: [
 			{name: "popup", kind: "enyo.Popup", classes: "moon-slider-popup above", components: [
-				{tag: "canvas", name: "drawing"},
-				{name: "popupLabel"}
+				{tag: "canvas", name: "drawingLeft", classes: "moon-slider-popup-left"},
+				{name: "popupLabel", classes: "moon-slider-popup-center" },
+				{tag: "canvas", name: "drawingRight", classes: "moon-slider-popup-right"}
 			]}
-		]},
-		{name: "tapArea"}
+		]}
 	],
 	animatingTo: null,
+	popupLeftCanvasWidth: 20, // Popup left canvas width in pixel
+	popupRightCanvasWidth: 20, // Popup right canvas width in pixel
 
 	//* @public
 
@@ -104,8 +108,12 @@ enyo.kind({
 		});
 	},
 
-	//* @protected
+	//* Returns true if the slider is currently being dragged
+	isDragging: function() {
+		return this.dragging;
+	},
 
+	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -126,9 +134,11 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.canvasWidthChanged();
-		this.canvasHeightChanged();
+		this.popupColorChanged();
+		this.popupHeightChanged();
 		this.drawToCanvas(this.popupColor);
+		this._setValue(this.value);
+		this.addRemoveClass("moon-slider-rtl", this.rtl);
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -147,22 +157,29 @@ enyo.kind({
 		this.$.tapArea.removeClass(inOld);
 		this.$.tapArea.addClass(this.tapAreaClasses);
 	},
-	//* Updates _width_ attribute of _this.$.drawing_.
-	canvasWidthChanged: function() {
-		this.$.drawing.setAttribute("width", this.getPopupWidth());
-		this.$.popupLabel.applyStyle("width", this.getPopupWidth() + 'px');
-		this.$.popup.applyStyle("width", this.getPopupWidth() + 'px');
-	},
-	//* Updates _height_ attribute of _this.$.drawing_.
-	canvasHeightChanged: function() {
-		this.$.drawing.setAttribute("height", this.getPopupHeight());
-		this.$.popupLabel.applyStyle("height", this.getPopupHeight() + 'px');
-		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
+	//* Updates popup Offset.
+	popupOffsetChanged: function() {
 		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
+		this.drawToCanvas(this.popupColor);
+	},
+	//* Updates popup Width.
+	popupWidthChanged: function() {
+		if (this.popupWidth != "auto") {
+			this.$.popupLabel.applyStyle("width", this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) + 'px');
+		}
+	},
+	//* Updates popup Height.
+	popupHeightChanged: function() {
+		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
+		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
+		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 6 + 'px');
+		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
+		this.popupOffsetChanged();
 	},
 	//* Updates popup color.
 	popupColorChanged: function() {
 		this.drawToCanvas(this.popupColor);
+		this.$.popupLabel.applyStyle("background-color", this.popupColor);
 	},
 	//* Updates the popup content.
 	popupContentChanged: function() {
@@ -188,25 +205,21 @@ enyo.kind({
 			this.setProgress(this.getValue());
 		}
 	},
-	setValue: function(inValue) {
-		if (this.value === inValue) {return false;}
-		if (this.constrainToBgProgress) {
-			inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
-			inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
-		}
-		if (this.animate) {
-			this.animateTo(this.getValue(), inValue);
-		} else {
-			this._setValue(inValue);
+	valueChanged : function(preValue, inValue){
+		if (!this.dragging) {
+			if (this.constrainToBgProgress) {
+				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
+				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
+			}		
+			if (this.animate){			
+				this.animateTo(preValue, inValue);
+			} else {
+				this._setValue(inValue);
+			}			
 		}
 	},
 	_setValue: function(inValue) {
 		var v = this.clampValue(this.min, this.max, inValue);
-
-		// If no change, return
-		if (v === this.value) {
-			return;
-		}
 
 		this.value = v;
 		this.updateKnobPosition(v);
@@ -225,10 +238,12 @@ enyo.kind({
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue
 		;
 		
+		if (this.rtl) { percent = 100 - percent; }
+		
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
-		
+
 		this.updatePopupLabel(knobValue);
 	},
 	updatePopupLabel: function(inKnobValue) {
@@ -247,7 +262,9 @@ enyo.kind({
 	},
 	calcKnobPosition: function(inEvent) {
 		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
-		return (x / this.getBounds().width) * (this.max - this.min) + this.min;
+		var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
+		if (this.rtl) { pos = this.max - pos; }
+		return pos;
 	},
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
@@ -270,7 +287,7 @@ enyo.kind({
 				ev = this.bgProgress + (v-this.bgProgress)*0.4;
 				v = this.clampValue(this.min, this.bgProgress, v);
 				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
-				this.elasticTo = v;
+				this.elasticTo = v;	
 			} else {
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				v = this.clampValue(this.min, this.max, v);
@@ -278,6 +295,7 @@ enyo.kind({
 			}
 
 			this.updateKnobPosition(this.elasticFrom);
+			this.set("value",this.elasticFrom);
 
 			if (this.lockBar) {
 				this.setProgress(v);
@@ -292,20 +310,19 @@ enyo.kind({
 		if (this.disabled) {
 			return; // return nothing
 		}
+
 		var v = this.elasticTo;
 		if (this.constrainToBgProgress === true) {
 			v = (this.increment) ? this.calcConstrainedIncrement(v) : v;
-			this.animateTo(this.elasticFrom, v);
 		} else {
 			v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this._setValue(v);
 		}
 
 		this.dragging = false;
-
+		this.set("value",v);
+		this.sendChangeEvent({value: this.getValue()});
 		inEvent.preventTap();
-
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
 		return true;
@@ -314,7 +331,8 @@ enyo.kind({
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
-			this.setValue(v);
+			v = (this.constrainToBgProgress && v>this.bgProgress) ? this.bgProgress : v;
+			this.set("value",v);
 			return true;
 		}
 	},
@@ -344,6 +362,7 @@ enyo.kind({
 		this.$.knob.addRemoveClass("spotselect", !sh);
 		if (!this.noPopup) {
 			this.$.popup.setShowing(!sh);
+			this.updateKnobPosition(this.getValue());
 		}
 		this.selected = !sh;
 
@@ -365,21 +384,28 @@ enyo.kind({
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
 			// If in the process of animating, work from the previously set value
-			var v = this.getValue() - (this.increment || 1);
-			this.setValue(v);
+			var v = this.rtl
+				? this.getValue() + (this.increment || 1)
+				: this.getValue() - (this.increment || 1);
+
+			this.set("value",v);
 			return true;
 		}
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = this.getValue() + (this.increment || 1);
-			this.setValue(v);
+			var v = this.rtl
+				? this.getValue() - (this.increment || 1)
+				: this.getValue() + (this.increment || 1);
+				
+			this.set("value",v);
 			return true;
 		}
 	},
 	showKnobStatus: function(inSender, inEvent) {
 		if ((!this.disabled) && (!this.noPopup)) {
 			this.$.popup.show();
+			this.updateKnobPosition(this.getValue());
 		}
 	},
 	hideKnobStatus: function(inSender, inEvent) {
@@ -391,26 +417,35 @@ enyo.kind({
 		var h = this.getPopupHeight() - 1; // height total
 		var hb = h - 4; // height bubble
 		var hbc = (hb-1)/2; // height of bubble's center
-		var w = this.getPopupWidth() - 1; // width total
-		var wre = 46; // width's right edge
-		var wle = 16; // width's left edge
+		var wre = 20; // width's edge
 		var r = 20; // radius
 
-		var ctx = this.$.drawing.hasNode().getContext("2d");
+		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
+		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
+
+		this.$.drawingLeft.setAttribute("width", this.popupLeftCanvasWidth);
+		this.$.drawingRight.setAttribute("width", this.popupRightCanvasWidth);
 
 		// Set styles. Default color is knob's color
-		ctx.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
+		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
+		// Draw shape with arrow on left
+		ctxLeft.moveTo(1, h);
+		ctxLeft.arcTo(1, hb, 39, hb, 8);
+		ctxLeft.lineTo(wre, hb);
+		ctxLeft.lineTo(wre, 1);
+		ctxLeft.arcTo(1, 1, 1, hbc, r);
+		ctxLeft.lineTo(1, h);
+		ctxLeft.lineTo(1, 51);
+		ctxLeft.fill();
 
-		// Draw shape with arrow on bottom-left
-		ctx.moveTo(1, h);
-		ctx.arcTo(1, hb, 39, hb, 8);
-		ctx.lineTo(wre, hb);
-		ctx.arcTo(w, hb, w, hbc, r);
-		ctx.arcTo(w, 1, wre, 1, r);
-		ctx.lineTo(wle, 1);
-		ctx.arcTo(1, 1, 1, hbc, r);
-		ctx.lineTo(1, h);
-		ctx.fill();
+		// Set styles. Default color is knob's color
+		ctxRight.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
+		// Draw shape with arrow on right
+		ctxRight.moveTo(0, hb);
+		ctxRight.arcTo(wre, hb, wre, hbc, r);
+		ctxRight.arcTo(wre, 1, 0, 1, r);
+		ctxRight.lineTo(0, 0);
+		ctxRight.fill();
 	},
 
 	changeDelayMS: 50,

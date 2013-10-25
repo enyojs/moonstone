@@ -38,18 +38,17 @@
 enyo.kind({
 	name: "moon.Accordion",
 	kind: "moon.ExpandableListItem",
-	classes: "moon-accordion",
 	//* @protected
-	componentOverrides: {
-		header: {classes: "moon-accordion-arrow"}
-	},
-	//* Facade for drawer
-	openChanged: function() {
-		this.updateArrowDirection(this.getOpen());
-		this.inherited(arguments);
-	},
-	//* Update arrow direction based on _this.open_
-	updateArrowDirection: function(open) {
-		// this.$.header.addRemoveClass('up', open);
+	classes: "moon-accordion",
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-accordion-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-accordion-arrow"}
+		]},
+		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
+			{name: "client", kind: "Group", tag: null}
+		]}
+	],
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
 	}
 });

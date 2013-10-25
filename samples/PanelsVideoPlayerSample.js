@@ -7,9 +7,11 @@ enyo.kind({
 				{kind: "moon.Divider", content: "Select video content"},
 				{name: "vidContents", kind: "Group", style: "margin-top: 20px;", components: [
 					{kind: "moon.SelectableItem", content: "Counter", onActivate: "webMovieCounter"},
-					{kind: "moon.SelectableItem", content: "Bunny", onActivate: "webMovieBunny"},
+					{kind: "moon.SelectableItem", selected: true, content: "Bunny", onActivate: "webMovieBunny"},
 					{kind: "moon.SelectableItem", content: "Sintel", onActivate: "webMovieSintel"}
-				]}
+				]},
+				{classes: "moon-1v"}, // spacer
+				{kind: "moon.Button", content: "Unload", ontap: "unload"}
 			]},
 			{kind: "moon.Panel", joinToPrev: true, title: "Player", layoutKind: "FittableColumnsLayout", classes: "moon-7h", components: [
 				{
@@ -18,8 +20,8 @@ enyo.kind({
 						name: "player",
 						kind: "moon.VideoPlayer",
 						inline:true,
-						style: "width: 640px;",
-						src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+						classes: "moon-8h",
+						poster: "assets/video-poster.png",
 						infoComponents: [{
 							kind: "moon.VideoInfoBackground",
 							orient: "left",
@@ -62,8 +64,7 @@ enyo.kind({
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 						]
-					}
-					]
+					}]
 				},
 				{classes: "moon-3h", components: [
 					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
@@ -85,27 +86,33 @@ enyo.kind({
 		this.$.panels.setIndex(2);
 		return true;
 	},
+	unload: function() {
+		this.$.player.unload();
+	},
 	webMovieCounter: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
 		this.$.player.setSrc("http://media.w3.org/2010/05/video/movie_300.mp4");
+		this.$.videoInfoHeader.setTitle("Ticking Counter Video");
 	},
 	webMovieBunny: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
 		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
+		this.$.videoInfoHeader.setTitle("Bunny Video");
 	},
 	webMovieSintel: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
 		this.$.player.setSrc("http://media.w3.org/2010/05/sintel/trailer.mp4");
+		this.$.videoInfoHeader.setTitle("The Sintel Video");
 	},
 	updateCanvas: function() {
 		var drawingNode = this.$.capture.hasNode();
-		var videoNode = this.$.player.$.video.hasNode();
+		var videoNode = this.$.player.getVideo().hasNode();
 		var ctx = drawingNode.getContext("2d");
 		var vdb = videoNode.getBoundingClientRect();
 		this.$.capture.applyStyle("width", vdb.width+"px");

@@ -3,7 +3,7 @@
 */
 enyo.kind({
 	name: "moon.MeridiemPicker",
-	kind: "moon.IntegerScrollPicker",
+	kind: "moon.IntegerPicker",
 	classes:"moon-date-picker-month",
 	min: 0,
 	max: 1,
@@ -22,17 +22,26 @@ enyo.kind({
 */
 enyo.kind({
 	name: "moon.HourPicker",
-	kind: "moon.IntegerScrollPicker",
+	kind: "moon.IntegerPicker",
 	classes:"moon-date-picker-field",
 	min: 1,
 	max: 24,
+	zeroToEleven: false,
 	value: null,
 	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		if(index > 11) {	//current hour reached meridiem(noon)
+		var index = inEvent.index,
+			hour;
+			
+		if (index > 11) {	//current hour reached meridiem(noon)
 			index -= 12;
 		}
-		this.$.item.setContent(index + this.min);
+
+		hour = index + this.min;
+		
+		if (this.zeroToEleven) {
+			hour = ('0' + (hour-1)).slice(-2);  // zero padded 0-11 value
+		}
+		this.$.item.setContent(hour);
 	}
 });
 
@@ -59,15 +68,56 @@ enyo.kind({
 		hourText: moon.$L("hour"),			// i18n "HOUR" label in moon.TimePicker widget
 		//* Optional label for minute
 		minuteText: moon.$L("minute"),		// i18n "MINUTE" label in moon.TimePicker widget
-		//* Optional label for meridian
-		meridianText: moon.$L("meridian")	// i18n "MERIDIAN" label in moon.TimePicker widget
+		//* Optional label for meridiem
+		meridiemText: moon.$L("meridiem")	// i18n "MERIDIAN" label in moon.TimePicker widget
 	},
 	//*@protected
-	iLibFormatType: "time",
-	defaultOrdering: "hma",
+	iLibFormatType  : "time",
+	defaultOrdering : "hma",
+	zeroToEleven    : false,
+	
 	initILib: function() {
 		this.inherited(arguments);
-		this.meridiemEnable = this._tf.getTemplate().indexOf("a") >= 0;
+
+		// Set picker format 12 vs 24 hour clock
+		var li = new ilib.LocaleInfo(this.locale || undefined);
+		var clockPref = li.getClock();
+		this.meridiemEnable = (clockPref == '12');
+		
+		var fmtParams = {
+			type: "time",
+			time: "h",
+			clock: clockPref !== "locale" ? clockPref : undefined,
+			timezone: "local"
+		};
+		if (this.locale) {
+			fmtParams.locale = this.locale;
+		}
+		var hourFormatter = new ilib.DateFmt(fmtParams); 
+
+		switch (hourFormatter.template) {
+		case 'KK':
+		case 'K' :
+			// 0-11 hours instead of 1-12
+			this.zeroToEleven = true;
+			break;
+		}
+
+		// Get localized meridiem values
+		if (this.meridiemEnable) {
+			fmtParams = {
+				template: "a",
+				clock: clockPref !== "locale" ? clockPref : undefined,
+				timezone: "local"
+			};
+			if (this.locale) {
+				fmtParams.locale = this.locale;
+			}
+			var merFormatter = new ilib.DateFmt(fmtParams);
+			var am = new ilib.Date.GregDate({hour:1});
+			var pm = new ilib.Date.GregDate({hour:13});
+			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+		}
 	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.toLowerCase().split("");
@@ -88,15 +138,25 @@ enyo.kind({
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
+<<<<<<< HEAD
 								{kind: "moon.HourPicker", name:"hour", min:1, max:24, value: (this.value.getHours() || 24)},
 								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
+=======
+								{kind: "moon.HourPicker", name:"hour", zeroToEleven: this.zeroToEleven, min:1, max:24, value: (this.value.getHours() || 24)},
+								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+>>>>>>> master
 							]}
 						);
 					} else {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
+<<<<<<< HEAD
 								{kind: "moon.IntegerScrollPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
 								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
+=======
+								{kind: "moon.IntegerPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
+								{name: "hourLabel", content: this.hourText || "hour", classes: "moon-date-picker-label moon-divider-text"}
+>>>>>>> master
 							]}
 						);
 					}
@@ -105,8 +165,13 @@ enyo.kind({
 			case 'm': {
 					this.createComponent(
 						{classes: "moon-date-picker-wrap", components:[
+<<<<<<< HEAD
 							{kind: "moon.IntegerScrollPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
 							{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
+=======
+							{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
+							{name: "minuteLabel", content: this.minuteText || "min", classes: "moon-date-picker-label moon-divider-text"}
+>>>>>>> master
 						]}
 					);
 				}
@@ -115,8 +180,13 @@ enyo.kind({
 					if (this.meridiemEnable === true) {
 						this.createComponent(
 							{classes: "moon-date-picker-wrap", components:[
+<<<<<<< HEAD
 								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0 },
 								{name: "meridianLabel", content: this.meridianText, classes: "moon-date-picker-label moon-divider-text"}
+=======
+								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
+								{name: "meridiemLabel", content: this.meridiemText || "meridiem", classes: "moon-date-picker-label moon-divider-text"}
+>>>>>>> master
 							]}
 						);
 					}
@@ -183,7 +253,6 @@ enyo.kind({
 		this.$.minute.setValue(this.value.getMinutes());
 
 		this.$.currentValue.setContent(this.formatValue());
-		this.doChange({name:this.name, value:this.value});
 	},
 	hourTextChanged: function (inOldvalue, inNewValue) {
 		this.$.hourLabel.setContent(inNewValue);
@@ -191,7 +260,7 @@ enyo.kind({
 	minuteTextChanged: function (inOldvalue, inNewValue) {
 		this.$.minuteLabel.setContent(inNewValue);
 	},
-	meridianTextChanged: function (inOldvalue, inNewValue) {
-		this.$.meridianLabel.setContent(inNewValue);
+	meridiemTextChanged: function (inOldvalue, inNewValue) {
+		this.$.meridiemLabel.setContent(inNewValue);
 	}
 });

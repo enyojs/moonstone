@@ -58,31 +58,29 @@ enyo.kind({
 		selectedIndex: -1,
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
-		//* Text to be display when the drawer is opened
-		helpText: "",
+		//* Text to be displayed when the drawer is opened
+		helpText: null,
 		//* If true, auto collapse when an item is selected
 		autoCollapseOnSelect: true
 	},
 	autoCollapse: true,
 	lockBottom: true,
-	
 	//* @protected
-	
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
-	handlers: {
-		requestScrollIntoView: "requestScrollIntoView"
-	},
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		drawer: {components: [
-			{name: "client", kind: "Group", onActivate: "activated", highlander: true},
-			{name: "helpText", kind:"moon.BodyText", classes: "moon-expandable-picker-help-text"}
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client", components: [
+			{name: "client", tag: null, kind: "Group", onActivate: "activated", highlander: true},
+			{name: "helpText", kind:"moon.BodyText", canGenerate: false, classes: "moon-expandable-picker-help-text"}
 		]}
-	},
+	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.initializeActiveItem();
@@ -120,17 +118,6 @@ enyo.kind({
 			}
 		}
 	},
-	activeChanged: function() {
-		var active = this.getActive();
-		if (active) {
-			// enyo.Group's highlander logic actually prevents an item from being
-			// de-activated once it's been activated; that's not exactly the logic
-			// we want for ExpandablePicker, so we only notify the group when an
-			// item is activated, not when it's de-activated.
-			this.bubble("onActivate");
-		}
-		this.setOpen(active);
-	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the appropriate control.
 	selectedIndexChanged: function() {
 		var selected = this.getSelected(),
@@ -151,11 +138,41 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.$.currentValue.setShowing(!this.open);
+		this.setActive(this.getOpen());
 	},
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
+		if (this.helpText !== null && !this.$.helpText.canGenerate) {
+			this.generateHelpText();
+		}
 		this.$.helpText.setContent(this.helpText);
 		this.$.helpText.setShowing(!!this.helpText);
+	},
+	destroy: enyo.inherit(function(sup) {
+		return function() {
+			// When the expandablePicker itself is going away, take note so we don't try and do single-picker option
+			// remove logic such as setting some properties to default value when each picker option is destroyed
+			this.destroying = true;
+			sup.apply(this, arguments);
+		};
+	}),
+	removeControl: enyo.inherit(function(sup) {
+		return function(inControl) {
+			// Skip extra work during panel destruction.
+			if (!this.destroying) {
+				// set currentValue, selected and selectedIndex to defaults value
+				if (this.selected === inControl) {
+					this.setSelected(null);
+					this.setSelectedIndex(-1);
+					this.$.currentValue.setContent(this.getNoneText());
+				}
+			}
+			sup.apply(this, arguments);
+		};
+	}),
+	generateHelpText: function() {
+		this.$.helpText.canGenerate = true;
+		this.$.helpText.render();
 	},
 	/*
 		When the picker is initialized, looks for any items with an _active:true_
@@ -169,7 +186,7 @@ enyo.kind({
 			if (!controls[i].active) {
 				continue;
 			}
-			
+
 			this.selectedIndex = i;
 			this.selected = controls[i];
 			this.$.currentValue.setContent(controls[i].getContent());
@@ -184,13 +201,13 @@ enyo.kind({
 		if (!toggledControl) {
 			return;
 		}
-		
+
 		index = this.getClientControls().indexOf(toggledControl);
-		
+
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
-			
-			if (this.getAutoCollapseOnSelect() && this.isRendered) {
+
+			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
 		}
@@ -199,7 +216,9 @@ enyo.kind({
 	//* Close drawer and select header
 	selectAndClose: function() {
 		this.setActive(false);
-		enyo.Spotlight.spot(this.$.headerWrapper);
+		if (!enyo.Spotlight.getPointerMode()) {
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		}
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
@@ -209,16 +228,7 @@ enyo.kind({
 			index: this.getSelectedIndex()
 		});
 	},
-	_marqueeSpotlightFocus: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.startMarquee();
-			this.$.currentValue.startMarquee();
-		}
-	},
-	_marqueeSpotlightBlur: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.stopMarquee();
-			this.$.currentValue.stopMarquee();
-		}
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
 	}
 });

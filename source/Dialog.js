@@ -8,25 +8,34 @@ enyo.kind({
 	classes: "moon-dialog",
 	published: {
 		title: "",
+		subTitle: "",
 		message: ""
 	},
 	tools: [
-		{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
 		{
 			layoutKind: "FittableColumnsLayout",
 			components: [
-				{name: "message", kind:"moon.BodyText", fit: true},
-				{name: "client"}
+				{fit: true, components: [
+					{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
+					{name: "subTitle", classes: "moon-dialog-sub-title"}
+				]},
+				{name: "client", classes: "moon-dialog-client"}
 			]
-		}
+		},
+		{kind: "moon.Divider", classes: "moon-dialog-divider"},
+		{name: "message", kind:"moon.BodyText", classes: "moon-dialog-content"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.titleChanged();
+		this.subTitleChanged();
 		this.messageChanged();
 	},
 	titleChanged: function() {
 		this.$.title.setContent(this.title);
+	},
+	subTitleChanged: function() {
+		this.$.subTitle.setContent(this.subTitle);
 	},
 	messageChanged: function() {
 		this.$.message.setContent(this.message);

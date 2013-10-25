@@ -25,20 +25,12 @@ enyo.kind({
 		*/
 		proportionalWidth: false
 	},
-	handlers: {
-		onSpotlightDown: "spotlightDown",
-		onSpotlightUp: "spotlightUp",
-		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight"
-	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
-		{name: "drawerPopup", kind: "enyo.Control", classes: "moon-list-actions-drawer-popup", components: [
-			{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, components: [
-				{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close moon-list-actions-close moon-neutral", ontap: "expandContract"},
-				{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-neutral", components: [
-					{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", horizontal:"hidden", vertical:"hidden", onActivate: "optionSelected"}
-				]}
+		{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, spotlight: "container", spotlightModal:true, components: [
+			{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close moon-list-actions-close moon-neutral", ontap: "expandContract"},
+			{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-neutral", components: [
+				{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", horizontal:"hidden", vertical:"hidden", onActivate: "optionSelected"}
 			]}
 		]}
 	],
@@ -49,28 +41,27 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.listActionsChanged();
+		this.drawerNeedsResize = true;
+	},
+	rendered: function() {
+		// Set the popup size before the drawer rendered is called, so that the drawer
+		// can properly translate itself out of the viewport 
+		this.configurePopup();
+		this.inherited(arguments);
 	},
 	listActionsChanged: function() {
 		this.listActions = this.listActions || [];
-		this.rerenderListActionComponents();
+		this.renderListActionComponents();
 	},
-	rerenderListActionComponents: function() {
+	renderListActionComponents: function() {
 		this.noAutoCollapse = true;
-		this.resetListActionComponents();
 		this.createListActionComponents();
 		this.noAutoCollapse = false;
-	},
-	resetListActionComponents: function() {
-		this.listActionComponents = [];
-		
-		if (this.hasNode()) {
-			this.$.listActions.destroyClientControls();
-			this.$.listActions.render();
-		}
 	},
 	createListActionComponents: function() {
 		var listAction, i;
 		
+		this.listActionComponents = [];
 		for (i = 0; (listAction = this.listActions[i]); i++) {
 			this.listActionComponents.push(this.createListActionComponent(listAction));
 		}
@@ -120,17 +111,22 @@ enyo.kind({
 			this.setOpen(false);
 			enyo.Spotlight.spot(this.$.activator);
 			this.bubble("onRequestUnmuteTooltip");
+			this.setActive(false);
 		}
-		// If currently closed, resize and show _this.$.drawerPopup_
+		// If currently closed, resize and show _this.$.drawer
 		else {
-			this.configurePopup();
-			this.showHidePopup(true);
+			this.$.drawer.show();
+			if (this.drawerNeedsResize) {
+				this.resizeDrawer();
+				this.drawerNeedsResize = false;
+			}
 			this.setOpen(true);
-			this.scrollToTop();
+			enyo.Spotlight.spot(this.$.closeButton);
 			this.bubble("onRequestMuteTooltip");
+			this.setActive(true);
 		}
 	},
-	//* Positions _this.$.drawerPopup_ to fill the entire header.
+	//* Positions _this.$.drawer to fill the entire header.
 	configurePopup: function() {
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
@@ -138,43 +134,37 @@ enyo.kind({
 		
 		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
 		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
-		styleString += "left: "		+ Math.ceil(headerBounds.left - bounds.left)	+ "px; ";
 		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
-		
-		this.$.drawerPopup.addStyles(styleString);
-	},
-	showHidePopup: function(inShowing) {
-		this.$.drawerPopup.setShowing(inShowing);
-	},
-	scrollToTop: function() {
-		this.$.listActions.scrollTo(0, 0);
-	},
-	drawerAnimationEnd: function(inSender, inEvent) {
-		if (this.getOpen()) {
-			this.updateStacking();
-			
-			// Notify scroller of resize
-			this.$.listActions.resized();
+
+		if (this.rtl) {
+			styleString += "right: " + Math.ceil(bounds.right - headerBounds.right) + "px; ";
 		}
 		else {
-			this.showHidePopup(false);
+			styleString += "left: " + Math.ceil(headerBounds.left - bounds.left) + "px; ";
+		}
+		
+		this.$.drawer.addStyles(styleString);
+	},
+	drawerAnimationEnd: function() {
+		if (!this.getOpen()) {
+			this.$.drawer.hide();
+		} else {
+			if (this.resetScroller) {
+				this.$.listActions.scrollTo(0, 0);
+				this.resetScroller = false;
+			}
 		}
 	},
 	updateStacking: function() {
-		if (!this.$.drawer.hasNode()) {
-			return;
+		if (this.$.drawer.hasNode()) {
+			this.set("stacked", this.shouldStack());
 		}
-		
-		this.set("stacked", this.shouldStack());
 	},
 	shouldStack: function() {
 		// Assumption: min-width of all listActionsComponents set to 300px in CSS
 		return this.$.listActions.getBounds().width < (300 * this.listActionComponents.length);
 	},
 	stackedChanged: function() {
-		this.rerenderListActionComponents();
-		this.startJob("scrollToTop", "scrollToTop", 500);
-		
 		if (this.stacked) {
 			this.addClass("stacked");
 			this.stackMeUp();
@@ -185,6 +175,8 @@ enyo.kind({
 			this.unStackMeUp();
 			this.$.listActions.setVertical("hidden");
 		}
+		this.resetScroller = true;
+		this.$.listActions.resized();
 	},
 	stackMeUp: function() {
 		var optionGroup, i;
@@ -206,91 +198,21 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.resetCachedValues();
-		
-		// If drawer is collapsed, do not resize popup
-		if (this.getOpen()) {
-			this.configurePopup();
-		}
 
+		// If drawer is collapsed, resize it the next time it is opened
+		if (this.getOpen()) {
+			this.resizeDrawer();
+		} else {
+			this.drawerNeedsResize = true;
+		}
+	},
+	resizeDrawer: function() {
+		this.configurePopup();
 		this.updateStacking();
 	},
 	optionSelected: function(inSender, inEvent) {
 		if (this.getOpen() && this.autoCollapse && !this.noAutoCollapse) {
 			this.startJob("expandContract", "expandContract", 300);
-		}
-	},
-	/**
-		When spotlight reaches bottom edge of option menu, prevents user from
-		continuing further.
-	*/
-	spotlightDown: function(inSender, inEvent) {
-		var s = enyo.Spotlight.getSiblings(inEvent.originator);
-		//prevent navigation past last item, handle stacked & non-stacked cases + close button
-		if (!this.stacked && s.selfPosition == (s.siblings.length - 1)) {
-			return true;
-		} else {
-			var listActionItems = this.listActionComponents;
-			var last = listActionItems[listActionItems.length - 1];
-			if (enyo.Spotlight.Util.isChild(last, inEvent.originator) && s.selfPosition == (s.siblings.length - 1)) {
-				return true;
-			}
-		}
-
-		if (inEvent.originator == this.$.closeButton) {
-			return true;
-		}
-	},
-	/**
-		When spotlight reaches top edge of option menu, prevents user from
-		continuing further.
-	*/
-	spotlightUp: function(inSender, inEvent) {
-		var s = enyo.Spotlight.getSiblings(inEvent.originator);
-		//if current item is at the top of a menu OR is an expandable picker
-		if (inEvent.originator.kind === "moon.ExpandablePicker" || s.selfPosition === 0) {
-			//if the menus are not stacked OR the current item is the first in the stacked menu overall, close the drawer & focus the activator
-			if (!this.stacked || inEvent.originator == enyo.Spotlight.getFirstChild(this.$.listActionsContainer)) {
-				enyo.Spotlight.spot(this.$.closeButton);
-				return true;
-			}
-		}
-
-		if (inEvent.originator == this.$.closeButton) {
-			return true;
-		}
-	},
-	/**
-		When spotlight reaches left edge of option menu, prevents user from
-		continuing further.
-	*/
-	spotlightLeft: function(inSender, inEvent) {
-		if (this.stacked && inEvent.originator != this.$.closeButton && inEvent.originator != this.$.activator) {
-			return true;
-		} else {
-			//if it's coming from the left-most column, then stop the left event
-			var listActionItems = this.listActionComponents;
-			var first = listActionItems[0];
-			if (enyo.Spotlight.Util.isChild(first, inEvent.originator)) {
-				return true;
-			}
-		}
-	},
-	/**
-		When spotlight reaches right edge of option menu, prevents user from
-		continuing further.
-	*/
-	spotlightRight: function(inSender, inEvent) {
-		if (inEvent.originator == this.$.closeButton) {
-			return true;
-		} else if (this.stacked) {
-			enyo.Spotlight.spot(this.$.closeButton);
-		} else {
-			//if it's coming from the right-most column, then focus the close button
-			var listActionItems = this.listActionComponents;
-			var last = listActionItems[listActionItems.length - 1];
-			if (enyo.Spotlight.Util.isChild(last, inEvent.originator)) {
-				enyo.Spotlight.spot(this.$.closeButton);
-			}
 		}
 	},
 	getHeaderBounds: function() {
@@ -328,43 +250,38 @@ enyo.kind({
 	classes: "moon-list-actions-drawer",
 	components: [
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
-		{name: "animator", kind: "StyleAnimator", onStep: "step", onComplete: "animationComplete"}
+		{name: "animator", kind: "StyleAnimator", onStep: "step"}
 	],
 	rendered: function() {
 		this.inherited(arguments);
-		this.accel = enyo.dom.canAccelerate();
+		// On webOS TV, 2D matrix transforms seem to perform as well as 3D
+		// for this use case, and avoid a strange "layer ghosting" issue
+		// the first time a drawer is opened.
+		this.accel = enyo.dom.canAccelerate() && enyo.platform.webos !== 4;
 		this.resetClientPosition();
-		this.openChanged();
+		this.setShowing(false);
 	},
 	openChanged: function() {
-		if (!this.getShowing()) {
-			this.setShowing(true);
-		}
-		
 		if (this.open) {
 			this.playOpenAnimation();
 		} else {
 			this.playCloseAnimation();
 		}
 	},
-	animationComplete: function() {
-		if (!this.open) {
-			this.setShowing(false);
-			this.resetClientPosition(0);
-		}
-	},
-	resetClientPosition: function(inHeight) {
-		inHeight = inHeight || this.getBounds().height;
-		var matrix = this.generateMatrix(inHeight);
+	resetClientPosition: function() {
+		var matrix = this.generateMatrix(this.getBounds().height);
 		this.$.client.applyStyle("-webkit-transform", matrix);
 	},
 	playOpenAnimation: function() {
 		var openAnimation = this.createOpenAnimation();
-		this.resetClientPosition();
 		this.$.animator.play(openAnimation.name);
 	},
 	createOpenAnimation: function() {
-		var matrix = this.generateMatrix(0);
+		// For unknown reasons, a null transform works reliably in Chrome,
+		// whereas a matrix transform setting Y translation to 0 causes a
+		// a strange "layer ghosting" issue the first time a drawer is
+		// opened -- the same issue we see on webOS TV with 3D matrices.
+		var matrix = enyo.platform.chrome ? null : this.generateMatrix(0);
 		return this.$.animator.newAnimation({
 			name: "open",
 			duration: 225,

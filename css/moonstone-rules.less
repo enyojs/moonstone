@@ -4,6 +4,11 @@
 /* Import grid classes/mixins */
 @import "moonstone-grid.less";
 
+/* Prevent browser's default focus treatment (at least in Chrome) */
+:focus {
+	outline: none;
+}
+
 /* Common classes applicable to multiple controls */
 .moon {
 	font-family: @moon-font-family;
@@ -14,14 +19,12 @@
 	background-color: @moon-background-color;
 }
 
-.spotlight {
-	color: @moon-spotlight-text-color;
-}
-
-
-.moon-header-font {
-	font-family: @moon-alt-font-family;
-	text-transform: uppercase;
+/* Remove any focus outline */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 .enyo-locale-right-to-left .moon
@@ -36,21 +39,7 @@
 	border-bottom: @moon-divider-border-width solid @moon-neutral-border-color;
 }
 
-.moon-superscript {
-	font-size: @moon-superscript-text-size;
-	vertical-align: top;
-	margin: 0px 0px 0px 2px;
-	padding: 0px;
-}
-
-.moon-pre-text {
-	font-size: @moon-pre-text-size;
-	vertical-align: top;
-	height:  @moon-large-text-size;
-	line-height: @moon-pre-text-size;
-	margin: 12px 2px 8px 0px;
-	padding: 0px;
-}
+@import "moonstone-text.less";
 
 .moon-large-text {
 	font-size: @moon-large-text-size;
@@ -106,6 +95,10 @@
 	letter-spacing: @moon-body-letter-spacing;
 	color: @moon-body-text-color;
 	line-height: @moon-body-line-height;
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
 }
 .moon-body-text-spacing {
 	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
@@ -125,6 +118,11 @@
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
 	text-transform: uppercase;
+}
+.moon-icon-text {
+	font-family: @moon-icon-font-family;
+	font-size: @moon-icon-font-size;
+	color: @moon-icon-color;
 }
 
 .enyo-locale-non-latin {
@@ -185,6 +183,7 @@
 		font-size: @moon-non-latin-button-small-font-size;
 	}
 }
+
 .border-box {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -218,7 +217,6 @@
 @import "IconButton.less";
 @import "PagingControl.less";
 @import "IntegerPicker.less";
-@import "IntegerScrollPicker.less";
 @import "DatePicker.less";
 @import "TimePicker.less";
 @import "Input.less";
@@ -237,7 +235,7 @@
 @import "Panel.less";
 @import "Panels.less";
 @import "Accordion.less";
-@import "CalendarPicker.less";
+@import "Calendar.less";
 @import "Table.less";
 @import "InputHeader.less";
 @import "DrawerHandle.less";
@@ -284,41 +282,4 @@
 	color: @moon-dark-gray;
 }
 
-/* Standard horizontal spacing */
-.moon-hspacing {
-	white-space: nowrap;
-}
-.moon-hspacing > * {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 @moon-grid-gutter-width/2;
-}
-.moon-hspacing.top > * {
-	vertical-align: top;
-}
-.moon-hspacing > :first-child {
-	margin-left: 0;
-}
-.enyo-locale-right-to-left .moon-hspacing > :first-child {
-	margin-left: @moon-grid-gutter-width/2;
-	margin-right: 0;
-}
-.moon-hspacing > :last-child {
-	margin-right: 0;
-}
-.enyo-locale-right-to-left .moon-hspacing > :last-child {
-	margin-right: @moon-grid-gutter-width/2;
-	margin-left: 0;
-}
-
-/* Standard vertical spacing */
-.moon-vspacing > * {
-	display: block;
-	margin: @moon-grid-gutter-width/2 0;
-}
-.moon-vspacing > :first-child {
-	margin-top: 0;
-}
-.moon-vspacing > :last-child {
-	margin-bottom: 0;
-}
+@import "moonstone-spacing.less";

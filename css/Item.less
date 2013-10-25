@@ -6,10 +6,14 @@
 	border-left-style: solid;
 	line-height: @moon-item-line-height;
 	color: @moon-font-color-light;
-	padding: 7px @moon-spotlight-outset;
+	padding: @moon-spotlight-outset;
 	vertical-align: top;
 	position: relative;
 }
+.moon-item.allow-wrap {
+	white-space: normal;
+}
+
 .enyo-locale-non-latin .moon-item {
 	.enyo-locale-non-latin .moon-sub-header-text;
 }

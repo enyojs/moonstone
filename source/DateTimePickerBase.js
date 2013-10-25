@@ -61,13 +61,18 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: null, // set in subkind
 	defaultOrdering: null, // set in subkind
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-date-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		client: {kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
-	},
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
+			{name: "client", kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
+		]}
+	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.createComponent({kind: "enyo.Signals", onlocalechange: "handleLocaleChangeEvent"});
@@ -121,7 +126,9 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.setChildPickers(inOld);
-		this.doChange({name:this.name, value:this.value});
+		if (this.value) {
+			this.doChange({name:this.name, value:this.value});
+		}
 	},
 	setChildPickers: function(inOld) {
 		// implement in subkind
@@ -170,7 +177,6 @@ enyo.kind({
 		//* If select/enter is pressed on any date picker item or the left key is pressed on the first item, close the drawer
 		if (inEvent.type == "onSpotlightSelect" ||
 			this.$.client.children[0].id == inEvent.originator.id) {
-			this.updateValue(inSender, inEvent);
 			this.expandContract();
 			this.noneTextChanged();
 			return true;
@@ -201,16 +207,7 @@ enyo.kind({
 		this.initDefaults();
 		this.render();
 	},
-	_marqueeSpotlightFocus: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.startMarquee();
-			this.$.currentValue.startMarquee();
-		}
-	},
-	_marqueeSpotlightBlur: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.stopMarquee();
-			this.$.currentValue.stopMarquee();
-		}
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
 	}
 });

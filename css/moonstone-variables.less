@@ -28,7 +28,7 @@
 @moon-pre-text-size:           24px;
 @moon-popup-header-font-size:  73px;
 @moon-sub-header-font-size:    30px;
-@moon-super-header-font-size:  36px;
+@moon-super-header-font-size:  32px;
 @moon-body-font-size:          26px;
 @moon-divider-font-size:       22px;
 @moon-button-large-font-size:  30px;
@@ -40,7 +40,7 @@
 @moon-non-latin-pre-text-size:          24px;
 @moon-non-latin-popup-header-font-size: 65px;
 @moon-non-latin-sub-header-font-size:   30px;
-@moon-non-latin-super-header-font-size: 36px;
+@moon-non-latin-super-header-font-size: 32px;
 @moon-non-latin-body-font-size:         26px;
 @moon-non-latin-divider-font-size:      28px;
 @moon-non-latin-button-large-font-size: 36px;
@@ -59,18 +59,18 @@
 @moon-header-font-weight: normal;
 @moon-header-letter-spacing: -0.05em;
 @moon-header-font-style: normal;
-@moon-header-line-height: 1.08em;
-@moon-small-header-line-height: 0.96em;
+@moon-header-line-height: normal;
+@moon-small-header-line-height: normal;
 
 @moon-popup-header-font-family: "Miso";
 @moon-popup-header-font-weight: normal;
 @moon-popup-header-letter-spacing: -0.05em;
 @moon-popup-header-font-style: normal;
-@moon-popup-header-line-height: 1.08em;
+@moon-popup-header-line-height: normal;
 
 @moon-sub-header-font-family: "MuseoSans 700";
 @moon-sub-header-font-weight: normal;
-@moon-sub-header-letter-spacing: -0.04em;
+@moon-sub-header-letter-spacing: 0;
 @moon-sub-header-font-style: normal;
 @moon-sub-header-line-height: 2em;
 
@@ -78,11 +78,11 @@
 @moon-super-header-font-weight: normal;
 @moon-super-header-letter-spacing: -0.05em;
 @moon-super-header-font-style: normal;
-@moon-super-header-line-height: 1.08em;
+@moon-super-header-line-height: normal;
 
 @moon-body-font-family: "MuseoSans 300";
 @moon-body-font-weight: normal;
-@moon-body-letter-spacing: -0.04em;
+@moon-body-letter-spacing: 0;
 @moon-body-font-style: normal;
 /* Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement */
 @moon-body-line-height: @moon-body-font-size + 6;
@@ -91,12 +91,15 @@
 @moon-divider-font-family: "MuseoSans 700";
 @moon-divider-font-weight: normal;
 @moon-divider-font-style: italic;
-@moon-divider-letter-spacing: 0.05em;
+@moon-divider-letter-spacing: 0;
 
 @moon-button-font-family: "Miso";
 @moon-button-font-weight: bold;
 @moon-button-font-style: normal;
 @moon-button-letter-spacing: normal;
+
+@moon-icon-font-family: "Moonstone Icons";
+@moon-icon-font-size: 72px;
 
 @accordion-sub-menu-line-height: 1.7em;
 
@@ -108,8 +111,8 @@
 /* Images */
 /* ---------------------------------------*/
 @moon-checkbox-image-height: 32px;
-@moon-checkbox-image-width: 32px;
-@moon-checkbox-width: 40px;
+@moon-checkbox-image-width: 24px;
+@moon-checkbox-width: 32px;
 
 @moon-formcheckbox-image-width: 50px;
 @moon-formcheckbox-image-height: 50px;
@@ -144,6 +147,8 @@
 @moon-button-small-tap-area-height: 78px;
 @moon-button-large-text-size: 30px;
 @moon-button-small-text-size: 24px;
+@moon-button-large-min-width: 180px;
+@moon-button-small-min-width: 130px;
 
 
 /* Input */
@@ -160,6 +165,7 @@
 /* Items */
 /* ---------------------------------------*/
 @moon-item-line-height: 1.2em;
+@moon-item-indent: 32px;
 
 /* Divider */
 @moon-divider-border-width: 2px;
@@ -177,8 +183,12 @@
 @moon-spinner-large-dark-image: url(../images/spinner-large-dark.gif);
 @moon-spinner-large-light-image: url(../images/spinner-large-light.gif);
 
-/* IntegerScrollPicker */
+/* IntegerPicker */
 /* ---------------------------------------*/
+@moon-integer-picker-radius: 9999px;
+@moon-integer-picker-height: 92px;
+@moon-integer-picker-overlay-height: 30px;
+@moon-integer-picker-shadow-width: 6px;
 
 /* Grid Dimensions */
 /* ---------------------------------------*/

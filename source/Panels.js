@@ -234,11 +234,14 @@ enyo.kind({
 		this.stopJob("autoHide");
 	},
 	stashHandle: function() {
-		this.$.showHideHandle.addClass("stashed");
+		this.$.showHideHandle.addRemoveClass("stashed", !this.showing);
 	},
-	handleFocus: function() {
+	unstashHandle: function() {
 		this.stopHandleAutoHide();
 		this.$.showHideHandle.removeClass("stashed");
+	},
+	handleFocus: function() {
+		this.unstashHandle();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
@@ -441,9 +444,9 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
-		if (this._initialTransition) {
-			this._initialTransition = false;
-		} else {
+		// Don't change focus unless this was an actual transition (indicated
+		// by sendEvents being true
+		if (sendEvents) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 	},
@@ -468,9 +471,11 @@ enyo.kind({
 	showingChanged: function() {
 		if (this.useHandle === true) {
 			if (this.showing) {
+				this.unstashHandle();
 				this._show();
 			}
 			else {
+				this.resetHandleAutoHide();
 				this._hide();
 			}
 			return;
@@ -515,8 +520,7 @@ enyo.kind({
 		}
 
 		this.$.backgroundScrim.show();
-		this.$.showHideHandle.addClass("hidden");
-		this.$.showHideHandle.addClass("right");
+		this.$.showHideHandle.addClass("right");	
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
 	},
@@ -525,9 +529,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
-		this.$.showHideHandle.addClass("hidden");
-		this.$.showHideHandle.removeClass("right");
+		this.$.showHideHandle.removeClass("right");	
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
 	},
@@ -535,7 +537,6 @@ enyo.kind({
 	_directShow: function() {
 		this.$.backgroundScrim.show();
 		this.$.showHideHandle.addClass("right");
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
@@ -594,14 +595,12 @@ enyo.kind({
 		}
 	},
 	showAnimationComplete: function() {
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
 		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}

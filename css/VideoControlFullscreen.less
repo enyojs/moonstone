@@ -60,7 +60,7 @@
 .moon-video-fullscreen-control .moon-icon-button {
 	width: 80px;
 	height: 80px;
-	border-radius: 0px;
+	border-radius: 0;
 	border: 0px;
 	background-color: transparent;
 	background-position: 0px 0px;
@@ -73,6 +73,10 @@
 	background-position: 0 -80px;
 	border: 0px;
 	background-color: transparent;
+}
+
+.moon-video-player-control-buttons.disabled {
+	pointer-events: none;
 }
 
 /* ---- Equal space margin on fullscreen player control buttons ---- */
@@ -96,5 +100,5 @@
 	height: 80px;
 }
 .moon-video-player-slider-container .moon-slider {
-	margin: 0 0 0;
+	margin: 0 0 0 !important;
 }

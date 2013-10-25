@@ -1,17 +1,24 @@
 /* Header */
 .moon-accordion .moon-expandable-list-item-header {
 	display: inline-block;
-	padding: 0px 25px 0px 0px;
+	padding-right: @moon-spotlight-outset + 25;
 }
-.moon-accordion.moon-expandable-list-item.open .moon-expandable-list-item-header-wrapper {
-	padding: @moon-spotlight-outset;
+.enyo-locale-right-to-left .moon-accordion .moon-expandable-list-item-header {
+	padding-right: 0;
+	padding-left: @moon-spotlight-outset + 25;
+}
+.moon-accordion .moon-accordion-header-wrapper {
+	line-height: 1em;
 }
 
 /* Arrow */
 .moon-accordion .moon-accordion-arrow {
-	background-position: right center;
+	background-position: right top 11px;
 	background-repeat: no-repeat;
 	background-image: @moon-small-carat-down1;
+}
+.enyo-locale-right-to-left .moon-accordion .moon-accordion-arrow {
+	background-position: left top 11px;
 }
 .moon-accordion .spotlight .moon-accordion-arrow {
 	background-image: @moon-small-carat-down2;

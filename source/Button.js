@@ -20,7 +20,12 @@ enyo.kind({
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
 		small: false,
-		marquee: true
+		/**
+			A parameter indicating the min-Width of the button.
+			If true, the min-width shoule be set 180px wide, (The small button is set 130px)
+			When false, thie min-width should be the current @moon-button-height (forcing it no smaller than a circle)
+		*/
+		minWidth: true
 	},
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
@@ -29,12 +34,19 @@ enyo.kind({
 		onSpotlightSelect	: 'depress',
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
+		//* Also make sure we remove the pressed class if focus is removed from
+		//* this item before it receives a keyup.
+		onSpotlightBlur		: 'undepress',
 		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
 		onSpotlightFocused	: "spotFocused"
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
-		this.updateSmall();
+		if (!(this.components && this.components.length > 0)) {
+			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
+		}
+		this.smallChanged();
+		this.minWidthChanged();
 		this.inherited(arguments);
 	},
 	//* Adds _pressed_ CSS class.
@@ -46,46 +58,29 @@ enyo.kind({
 		if (inEvent.originator === this) {
 			this.bubble("onRequestScrollIntoView", {side: "top"});
 		}
-		return true;
 	},
 	//* Removes _pressed_ CSS class.
 	undepress: function() {
 		this.removeClass('pressed');
 	},
 	//* If _this.small_ is true, adds a child that increases the tap area.
-	updateSmall: function() {
+	smallChanged: function() {
 		if (this.$.tapArea) {
 			this.$.tapArea.destroy();
-			this.$.client.destroy();
 		}
 
 		if (this.small) {
 			this.addClass('small');
 			this.addClass('moon-small-button-text');
-			this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
-			if (this.marquee && !(this.components && this.components.length > 0)) {
-				this.createComponent({name: "client", classes: "button-client", 
-					kind:"moon.MarqueeText", isChrome: true
-				});
-			} else {
-				this.createComponent({name: "client", classes: "small-button-client"});
+			var ta = this.createComponent({name: "tapArea", classes: "small-button-tap-area", isChrome: true});
+			if (this.generated) {
+				ta.render();
 			}
 		} else {
 			this.removeClass('small');
 			this.removeClass('moon-small-button-text');
-			if (this.marquee && !(this.components && this.components.length > 0)) {
-				this.createComponent({name: "client", classes: "button-client", 
-					kind:"moon.MarqueeText", isChrome: true
-				});
-			}
 		}
-
 		this.contentChanged();
-	},
-	//* When _this.small_ changes, updates and rerenders.
-	smallChanged: function() {
-		this.updateSmall();
-		this.render();
 	},
 	//* Override to handle potential child components.
 	contentChanged: function() {
@@ -93,6 +88,13 @@ enyo.kind({
 			this.$.client.setContent(this.getContent());
 		} else {
 			this.inherited(arguments);
+		}
+	},
+	minWidthChanged: function() {
+		if (this.minWidth) {
+			this.addClass('min-width');
+		} else {
+			this.removeClass('min-width');
 		}
 	}
 });

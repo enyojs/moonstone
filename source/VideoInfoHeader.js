@@ -24,6 +24,7 @@ enyo.kind({
 	classes: "moon-video-info-header",
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
+	marqueeOnRender: true,
 	published: {
 		title: "",
 		subTitle: "",

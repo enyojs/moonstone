@@ -1,15 +1,7 @@
 /* DatePicker.css */
-.moon-date-picker-field {
-	margin: 0 auto;
-	width:60px;
-	display: block;
-}
-.moon-date-picker-field.year {
-	width:80px;
-}
-
 .moon-date-picker-wrap {
 	min-width:100px;
+	text-align: center;
 }
 
 .moon-date-picker-wrap.year {
@@ -20,4 +12,10 @@
   	text-align:center;
   	padding: 20px @moon-spotlight-outset;
   	white-space: nowrap;
+}
+
+/* Don't grey out the header wrapper when disabled (since the parent is also disabled) */
+.moon-date-picker-header-wrapper.disabled {
+	opacity: 1;
+	filter: alpha(opacity=100);
 }

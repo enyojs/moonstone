@@ -5,7 +5,7 @@ enyo.kind({
     components: [{
         kind: "moon.Panels",
         pattern: "activity",
-		useHandle: false,
+        useHandle: false,
         components: [
             {
                 kind: "moon.Panel",
@@ -86,7 +86,6 @@ enyo.ready(function() {
     new enyo.Application({
         view: {
             classes: "enyo-undelectable moon",
-            style: "background-image: url(../assets/livetv-background.png); background-size: 100% 100%;",
             components: [
                 {
                     kind: "moon.sample.music.TrackDetailWideSample2",

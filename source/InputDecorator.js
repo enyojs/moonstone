@@ -36,6 +36,7 @@ enyo.kind({
 		onDisabledChange  : 'onDisabledChange',
 		onfocus           : 'onFocus',
 		onblur            : 'onBlur',
+		onSpotlightFocus  : 'onSpotlightFocus',
 		onSpotlightSelect : 'onSpotlightSelect',
 		onSpotlightBlur   : 'onSpotlightBlur',
 		onSpotlightLeft   : 'onSpotlightLeft',
@@ -123,6 +124,10 @@ enyo.kind({
 
 	// Spotlight Event handlers:
 	/**************************************************/
+
+	onSpotlightFocus: function() {
+		this.bubble("onRequestScrollIntoView", {side: "top"});
+	},
 
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();

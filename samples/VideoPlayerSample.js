@@ -8,7 +8,9 @@ enyo.kind({
 			name: "player",
 			kind: "moon.VideoPlayer",
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			poster: "assets/video-poster.png",
 			autoplay:true,
+			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 					{
@@ -41,8 +43,9 @@ enyo.kind({
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls", ontap: "togglePlaybackControls"},
+				{kind: "moon.Button", content:"Unload", ontap:"unload"},
+				{kind: "moon.Button", content:"Reload", ontap:"load"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
@@ -51,6 +54,24 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 			]
-		}
-	]
+		},
+		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [
+			{kind:"moon.Button", content:"OK", ontap:"dismissTapDialog"}
+		]}
+	],
+	bindings: [
+		{from:".$.controlsToggleButton.value", to:".$.player.disablePlaybackControls"}
+	],
+	controlsTapped: function() {
+		this.$.tapDialog.show();
+	},
+	dismissTapDialog: function() {
+		this.$.tapDialog.hide();
+	},
+	unload: function() {
+		this.$.player.unload();
+	},
+	load: function() {
+		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
+	}
 });

@@ -64,7 +64,8 @@ enyo.kind({
 		onJumpForward: "",
 		onJumpBackward: "",
 		onPlay: "",
-		onStart: ""
+		onStart: "",
+		onDisableTranslation: ""
 	},
 	handlers: {
 		//* Catch video _loadedmetadata_ event
@@ -86,19 +87,14 @@ enyo.kind({
 		this.preloadChanged();
 		this.autoplayChanged();
 		this.loopChanged();
-		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
-		this.disableTransform(this);
-	},
-	disableTransform: function(control) {
-		control.preventTransform = true;
-		control.preventAccelerate = true;
-		if (control.parent) {
-			this.disableTransform(control.parent);
-		}
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.hookupVideoEvents();
+		// FIXME: transforms and HW acceleration (applied by panels) currently kills video on webOS
+		if (true || enyo.platform.webos === 4) {
+			this.doDisableTranslation();
+		}
 	},
 	posterChanged: function() {
 		if (this.poster) {
@@ -128,9 +124,19 @@ enyo.kind({
 		}
 	},
 	srcChanged: function() {
-		this.inherited(arguments);
+		// We override the inherited method from enyo.Control because
+		// it prevents us from setting src to a falsy value.
+		this.setAttribute("src", enyo.path.rewrite(this.src));
 	},
 	//* @public
+	load: function() {
+		if(this.hasNode()) { this.hasNode().load(); }
+	},
+	//* Unload the current video source, stopping all playback and buffering.
+	unload: function() {
+		this.set("src", "");
+		this.load();
+	},
 	play: function() {
 		if (!this.hasNode()) {
 			return;
@@ -394,7 +400,7 @@ enyo.kind({
 	//* When we get the video metadata, update _this.aspectRatio_
 	metadataLoaded: function(inSender, inEvent) {
 		var node = this.hasNode();
-		this.setAspectRatio("0:0");
+		this.setAspectRatio("none");
 		if (!node || !node.videoWidth || !node.videoHeight) {
 			return;
 		}
