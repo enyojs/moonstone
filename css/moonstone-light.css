@@ -1968,19 +1968,15 @@ button:focus {
 }
 .moon-icon-handi:after {
   content: "\0F000C";
-  content: "H";
 }
 .moon-icon-handi.small:after {
   content: "\0F000D";
-  content: "h";
 }
 .moon-icon-gear:after {
   content: "\0F000F";
-  content: "G";
 }
 .moon-icon-gear.small:after {
   content: "\0F000E";
-  content: "g";
 }
 /* IconButton.css */
 .moon-icon-button {
