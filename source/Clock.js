@@ -51,8 +51,7 @@ enyo.kind({
 		this.$.hour.setContent(this._formatNumber(h));
 		this.$.minute.setContent(this._formatNumber(d.getMinutes()));
 		this.$.meridiem.setContent(meridiem);
-
-		this.$.month.setContent(this.months[d.getMonth()] || "00");
+		this.$.month.setContent(this.months[d.getMonth()] || " ");
 		this.$.day.setContent(this._formatNumber(d.getUTCDate()));
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
