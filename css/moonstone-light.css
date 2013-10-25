@@ -8,6 +8,7 @@
 
 /* Moonstone colors defined here */
 /* Moonstone Light Theme */
+/* header colors -change to one color #4b4b4b */
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
@@ -1648,7 +1649,7 @@ button:focus {
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
-  padding: 4px 0px 10px 0px;
+  padding: 0 0 10px 0px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1659,7 +1660,8 @@ button:focus {
 }
 .moon-header-title-above {
   width: 30px;
-  height: 1.2em;
+  height: 1em;
+  margin-top: 5px;
 }
 /* Main Title */
 .moon-header-title-wrapper {
@@ -1673,7 +1675,7 @@ button:focus {
   letter-spacing: -0.05em;
   text-transform: uppercase;
   line-height: normal;
-  height: 154px;
+  height: 150px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1733,7 +1735,7 @@ button:focus {
 /* Header Client */
 .moon-header-client {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 0;
   right: 0;
   text-align: right;
@@ -1760,25 +1762,22 @@ button:focus {
 .moon-header.moon-small-header {
   height: 240px;
 }
+.moon-small-header .moon-header-title-above {
+  display: none;
+}
 .moon-small-header .moon-header-title {
   line-height: normal;
 }
 .moon-small-header .moon-header-title-wrapper {
-  padding-left: 58px;
   box-sizing: border-box;
-  top: -42px;
-  max-height: 154px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
-  padding-right: 58px;
-  padding-left: 0;
+  padding-right: 0;
 }
 .moon-small-header .moon-header-title-below {
-  top: -42px;
   max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-  top: -42px;
   max-height: 40px;
 }
 .hidden-title .moon-header-title,
@@ -2780,25 +2779,27 @@ button:focus {
   width: 100%;
   padding: 9px 10px 10px;
   box-sizing: border-box;
-  border-top: 1px solid #ffffff;
+  border-top: 2px solid #4b4b4b;
 }
 .moon-panel-mini-header {
-  margin-top: 20px;
-  color: #ffffff;
+  margin-top: 15px;
+  color: #4b4b4b;
   display: block;
   overflow: hidden;
   padding: 0px;
 }
-.moon-panel-mini-header-title-above {
+.spotlight .moon-panel-mini-header {
   color: #ffffff;
 }
-.moon-panel .moon-panel-mini-header-wrapper.spotlight {
-  background: #ff2f7d;
+.moon-panel-mini-header-title-above {
+  color: #4b4b4b;
+}
+.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel-mini-header-wrapper {
-  border-top: 1px solid #4b4b4b;
+  border-top: 2px solid #4b4b4b;
 }
 .moon-panels.activity .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-title-above {
@@ -2807,6 +2808,11 @@ button:focus {
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
+}
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+  background: #ff2f7d;
+  color: #ffffff;
+  border-top: 2px solid #ffffff;
 }
 /* Panels */
 .moon-panels.activity,
