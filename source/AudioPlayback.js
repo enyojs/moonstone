@@ -166,7 +166,9 @@ enyo.kind({
 		this.tracks = this.controller.get("tracks");
 	},
 	components: [
-		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded"},
+		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded",
+			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
+			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"},
 		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", kind: "Image", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
@@ -177,9 +179,11 @@ enyo.kind({
 					]},
 					{classes: "moon-audio-control-buttons", fit: true, components: [
 						// _src_ property will need to be updated with images from UX
-						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_backward.png", ontap: "playPrevious"},
-						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_play.png", style:"background-size:65px;width:65px;height:65px;margin: 0 45px 0 60px;", ontap: "togglePlay"},
-						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_forward.png", ontap: "playNext"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_skipbackward.png", ontap: "playPrevious"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_backward.png", ontap: "rewind"},
+						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_play.png", style:"background-size:65px;width:65px;height:65px;margin: 0 40px 0 55px;", ontap: "togglePlay"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_forward.png", ontap: "fastForward"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_skipforward.png", ontap: "playNext"},
 						{name: "client", classes: "client-area moon-audio-icon-button right"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button shuffle-button right", name: "btnShuffle", ontap: "toggleShuffleState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button repeat-button none right", name: "btnRepeat", ontap: "changeRepeatState"},
@@ -446,9 +450,9 @@ enyo.kind({
 	},
 	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
 		inParams = inParams || {};
-		if (inMessage === "Play" && !this.lastControlCommand) {
+		/*if (inMessage === "Play" && !this.lastControlCommand) {
 			inMessage = "";
-		}
+		}*/
 		this.$.slider.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
 	},
 	//* @public
@@ -478,6 +482,17 @@ enyo.kind({
 		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 		this.controller.setAudioPaused();
 		this.sendFeedback("Pause");
+	},
+	//* Facades _this.$.video.fastForward()_.
+	fastForward: function(inSender, inEvent) {
+		//this._isPlaying = false;
+		//this.$.audio.fastForward();
+		this.$.audio.fastForward();
+		//this.updatePlayPauseButtons();
+	},
+	//* Facades _this.$.video.rewind()_.
+	rewind: function(inSender, inEvent) {
+		this.$.audio.rewind();
 	},
 	playPrevious: function() {
 		this.recomposeAudioTag();
@@ -565,6 +580,24 @@ enyo.kind({
 		}
 		this.tracks.add(track);
 		this.updateTrackCount();
+	},
+	_fastforward: function(inSender, inEvent) {
+		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_slowforward: function(inSender, inEvent) {
+		this.sendFeedback("Slowforward", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_rewind: function(inSender, inEvent) {
+		this.sendFeedback("Rewind", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_slowrewind: function(inSender, inEvent) {
+		this.sendFeedback("Slowrewind", {playbackRate: inEvent.playbackRate}, true);
+	},
+	_jumpForward: function(inSender, inEvent) {
+		this.sendFeedback("JumpForward", {jumpSize: inEvent.jumpSize}, false);
+	},
+	_jumpBackward: function(inSender, inEvent) {
+		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, false);
 	}
 });
 
