@@ -11,7 +11,7 @@ enyo.kind({
 	kind: "enyo.ScrollStrategy",
 	published: {
 		//* Scroll speed in pixels per second
-		scrollSpeed: 800
+		scrollSpeed: 100
 	},
 	events: {
 		//* Fires when scroll action starts.
@@ -77,7 +77,7 @@ enyo.kind({
 	//* If true, scroll animation is currently taking place
 	scrolling: false,
 	//* Maximum scroll speed in pixels per second
-	maxScrollSpeed: 2400,
+	maxScrollSpeed: null,
 	scrollListenerCallback: null,
 	scrollThreshold: null,
 	
@@ -113,7 +113,7 @@ enyo.kind({
 		this.$.clientContainer.addRemoveClass("enyo-scrollee-fit", !this.maxHeight);
 	},
 	scrollSpeedChanged: function() {
-		this.maxScrollSpeed = this.scrollSpeed * 3;
+		this.maxScrollSpeed = this.maxScrollSpeed || this.scrollSpeed * 3;
 	},
 
 
@@ -352,7 +352,7 @@ enyo.kind({
 		this.sendScrollEvent();
 		
 		// Optionally accelerate scroll speed
-		if (timeElapsed > this.accelerateIntervalMS) {
+		if (!this.maxSpeedReached && timeElapsed > this.accelerateIntervalMS) {
 			this.accelerateScrolling(timeElapsed);
 			return;
 		}
@@ -476,6 +476,7 @@ enyo.kind({
 		this.targetTop = null;
 		this.initialLeft = null;
 		this.initialTop = null;
+		this.maxSpeedReached = false;
 	},
 	//* Returns true if _inControl_ is one of four page controls.
 	isPageControl: function(inControl) {
@@ -809,7 +810,13 @@ enyo.kind({
 	calcDuration: function(inX, inY, inDuration) {
 		var delta = Math.max(Math.abs(this.scrollLeft - inX), Math.abs(this.scrollTop - inY)),
 			speed = (inDuration) ? delta * 1000 /inDuration : this.scrollSpeed;
-		return delta * 1000 / Math.min(speed, this.maxScrollSpeed);
+		
+		if (speed > this.maxScrollSpeed) {
+			this.maxSpeedReached = true;
+			speed = this.maxScrollSpeed;
+		}
+		
+		return delta * 1000 / speed;
 	},
 	clampX: function(inX) {
 		return Math.min(Math.max(inX, -this.leftBoundary), -this.rightBoundary);
