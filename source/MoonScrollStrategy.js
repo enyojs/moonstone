@@ -11,7 +11,7 @@ enyo.kind({
 	kind: "enyo.ScrollStrategy",
 	published: {
 		//* Scroll speed in pixels per second
-		scrollSpeed: 600
+		scrollSpeed: 800
 	},
 	events: {
 		//* Fires when scroll action starts.
@@ -77,7 +77,7 @@ enyo.kind({
 	//* If true, scroll animation is currently taking place
 	scrolling: false,
 	//* Maximum scroll speed in pixels per second
-	maxScrollSpeed: 1800,
+	maxScrollSpeed: 2400,
 	scrollListenerCallback: null,
 	scrollThreshold: null,
 	
@@ -708,7 +708,6 @@ enyo.kind({
 			offsetLeft     = controlBounds.left - absoluteBounds.left,
 			offsetHeight   = controlBounds.height,
 			offsetWidth    = controlBounds.width,
-			duration,
 			xDir,
 			yDir,
 			x,
