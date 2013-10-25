@@ -51,7 +51,7 @@ enyo.kind({
 		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls", isChrome: true}
 	],
 	//* Bezier iming functions used for different scroll behaviors
-	timingFunction: [0,0,1,1],
+	timingFunction: null,
 	holdTimingFunction: [0,0,1,1],
 	scrollTimingFunction: [0,0,1,1],
 	paginateTimingFunction: [0.35,0.66,0,1],
@@ -348,22 +348,14 @@ enyo.kind({
 			return;
 		}
 		
-		var p = this.calcPositionAtTime(timeElapsed);
-		this.scrollTop = p;
-		//this.syncScrollPosition();
+		this.syncScrollPosition(timeElapsed);
 		this.sendScrollEvent();
 		
-		/*
-		if (Math.abs(p - this.scrollTop) > 80) {
-			this.log("AHHHH", p, this.scrollTop, p-this.scrollTop);
-		}
-		*/
-		
 		// Optionally accelerate scroll speed
-		// if (timeElapsed > this.accelerateIntervalMS) {
-		//	this.accelerateScrolling(timeElapsed);
-		//	return;
-		//}
+		if (timeElapsed > this.accelerateIntervalMS) {
+			this.accelerateScrolling(timeElapsed);
+			return;
+		}
 		
 		// Kickoff next scroll() call
 		this.startScrollJob();
@@ -448,12 +440,15 @@ enyo.kind({
 			y: ( (1 - t) * d.y) + (t * e.y)
 		};
 	},
-	calcPositionAtTime: function(timeElapsed) {
+	estimateCurrentPosition: function(timeElapsed) {
 		var pctComplete = Math.round((1 - (this.scrollDuration - timeElapsed)/this.scrollDuration) * 100),
 			distanceToTimeRatio = this.lookupBezierDistancePercentageAtTime(pctComplete)/100,
-			distance = this.targetTop - this.initialTop;
+			distanceX = this.targetLeft - this.initialLeft,
+			distanceY = this.targetTop - this.initialTop,
+			x = this.initialLeft + distanceToTimeRatio * distanceX,
+			y = this.initialTop + distanceToTimeRatio * distanceY;
 		
-		return this.initialTop + distanceToTimeRatio * distance;
+		return {x: x, y: y};
 	},
 	lookupBezierDistancePercentageAtTime: function(inTime) {
 		return  (inTime >= 100) ? 100 :
@@ -504,8 +499,8 @@ enyo.kind({
 		this.effectScrollStop();
 	},
 	//* This is heavy as it interrogates the DOM - only call when absolutely necessary!
-	syncScrollPosition: function() {
-		var currentPosition = this.calcCurrentPosition();
+	syncScrollPosition: function(inTimeElapsed) {
+		var currentPosition = (inTimeElapsed) ? this.estimateCurrentPosition(inTimeElapsed) : this.calcCurrentPosition();
 		this.scrollLeft = currentPosition.x;
 		this.scrollTop = currentPosition.y;
 	},
@@ -803,17 +798,7 @@ enyo.kind({
 			break;
 		}
 		
-		x = this.clampX(x);
-		y = this.clampY(y);
-		
-		// Only scroll to new positions
-		if (x === this.scrollLeft && y === this.scrollTop) {
-			return;
-		}
-		
-		duration = this.calcDuration(x, y);
-		this.effectScroll(x, y, duration);
-		this.start();
+		this._scrollTo(x, y);
 	},
 	calcCurrentPosition: function() {
 		var style = enyo.dom.getComputedStyleValue(this.calcScrollNode(), this.transformProp).split("(")[1].split(")")[0],
