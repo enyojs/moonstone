@@ -360,10 +360,10 @@ enyo.kind({
 		*/
 		
 		// Optionally accelerate scroll speed
-		if (timeElapsed > this.accelerateIntervalMS) {
-			this.accelerateScrolling(timeElapsed);
-			return;
-		}
+		// if (timeElapsed > this.accelerateIntervalMS) {
+		//	this.accelerateScrolling(timeElapsed);
+		//	return;
+		//}
 		
 		// Kickoff next scroll() call
 		this.startScrollJob();
@@ -492,7 +492,7 @@ enyo.kind({
 		);
 	},
 	calcBoundaries: function() {
-		var b = this.getScrollBounds()
+		var b = this.getScrollBounds();
 		
 		this.topBoundary = 0;
 		this.leftBoundary = 0;
