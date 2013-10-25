@@ -385,7 +385,6 @@ enyo.kind({
 		this.twiddleThumbs();
 		this.stop(true);
 		this._scrollTo(left, top, duration, true);
-		this.updateBezierPoints();
 	},
 	startScrollJob: function() {
 		this.startJob("scroll", "scroll", 30);
