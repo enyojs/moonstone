@@ -466,7 +466,9 @@ enyo.kind({
 		this.syncScrollPosition();
 		
 		if (!inSilence && this.scrolling) {
-			this.sendScrollEvent();
+			if (!this.scrollListenerCallback) {
+				this.doScroll();
+			}
 			this.doScrollStop();
 		}
 		
