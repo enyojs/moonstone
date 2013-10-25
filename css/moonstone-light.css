@@ -3028,8 +3028,12 @@ button:focus {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 40px;
+  padding: 0px;
   box-sizing: border-box;
+  background: none !important;
+}
+.moon-popup .moon-popup-childwrapper {
+  padding: 40px;
 }
 .moon-popup-close {
   background: url(../images/LightTheme_Icons/ClosePopup_Icon.png);
@@ -3056,14 +3060,6 @@ button:focus {
   background-color: #ededed;
 }
 /* Dialog.css */
-.moon-dialog {
-  overflow: hidden;
-  background: none !important;
-  padding: 0;
-}
-.moon-dialog-wrapper {
-  padding: 40px;
-}
 .moon-dialog-title {
   margin-bottom: 40px;
 }

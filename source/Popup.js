@@ -9,6 +9,9 @@ enyo.kind({
 	modal: true,
 	floating: true,
 	_spotlight: null,
+	_applyAnimation: false,
+	_animateComponent: null,
+	_bounds: null,
 	spotlight: "container",
 	handlers: {
 		onSpotlightSelect: "spotSelect",
@@ -55,8 +58,18 @@ enyo.kind({
 	activator: null,
 	//* Creates chrome
 	initComponents: function() {
-		this.createChrome(this.tools);
+		this.createComponent({ name: "childwrapper", classes: "moon-neutral moon-popup-childwrapper", owner: this });
+		this.$.childwrapper.createComponents(this.tools, {owner: this});
 		this.inherited(arguments);
+	},
+	create: function () {
+		this.inherited(arguments);
+		this._applyAnimation = this.animate;
+		if (this._applyAnimation) {
+			this._animateComponent = this.children[0];
+			this._animateComponent.applyStyle("position", "relative");
+			this._animateComponent.applyStyle(enyo.dom.transition, "-webkit-transform 0.4s ease");
+		}
 	},
 	//* Renders _moon.Popup_, extending enyo.Popup
 	render: function() {
@@ -64,6 +77,9 @@ enyo.kind({
 		this.contentChanged();
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
+	},
+	rendered: function () {
+		this.inherited(arguments);
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
@@ -244,5 +260,43 @@ enyo.kind({
 	//*@protected
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
+	},
+	//* override : Not to apply display:"none" when animate:true.
+	syncDisplayToShowing: function() {
+		var ds = this.domStyles;
+		if (this.showing) {
+			// note: only show a node if it's actually hidden;
+			// this way, we prevent overriding the value of domStyles.display
+			if (ds.display == "none") {
+				this.applyStyle("display", this._displayStyle || "");
+			}
+		} else {
+			// cache the previous showing value of display
+			// note: we could use a class to hide a node, but then
+			// hide would not override a setting of display: none in style,
+			// which seems bad.
+			this._displayStyle = (ds.display == "none" ? "" : ds.display);
+			if (!this._applyAnimation) {
+				this.applyStyle("display", "none");
+			}
+		}
+	},
+	//*@public
+	show: function () {
+		this.inherited(arguments);
+		if (this._applyAnimation) {
+			if (!this._bounds) { // occurs at only first time.
+				this._bounds = this.getBounds();
+				this._animateComponent.applyStyle("top", this._bounds.height + "px");
+			}
+			
+			enyo.dom.transform(this._animateComponent, {translateY: (this._bounds.height * -1) + "px"});
+		}
+	},
+	hide: function () {
+		if (this._applyAnimation) {
+			enyo.dom.transform(this._animateComponent, {translateY: 0 + "px"});	
+		}
+		this.inherited(arguments);
 	}
 });
