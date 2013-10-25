@@ -320,8 +320,8 @@ enyo.kind({
 		this.muteSpotlight();
 		
 		// Needed for calculating cubic bezier delta w/o dom query
-		this.initialScrollLeft = this.scrollLeft;
-		this.initialScrollTop = this.scrollTop;
+		this.initialLeft = this.scrollLeft;
+		this.initialTop = this.scrollTop;
 		
 		// Go scroll
 		this.effectScroll(inX, inY, inDuration);
@@ -346,6 +346,7 @@ enyo.kind({
 		
 		this.syncScrollPosition();
 		this.sendScrollEvent();
+		
 		/*
 		var p = this.calcPositionAtTime(timeElapsed);
 		if (Math.abs(p - this.scrollTop) > 80) {
@@ -371,10 +372,10 @@ enyo.kind({
 		}
 	},
 	checkScrollThreshold: function() {
-		if (this.scrollTop  < this.scrollThreshold.top ||
-			this.scrollTop  > this.scrollThreshold.bottom ||
-			this.scrollLeft < this.scrollThreshold.left ||
-			this.scrollLeft > this.scrollThreshold.right
+		if (this.yDir === -1 && this.scrollTop  < this.scrollThreshold.top ||
+			this.yDir ===  1 && this.scrollTop  > this.scrollThreshold.bottom ||
+			this.xDir === -1 && this.scrollLeft < this.scrollThreshold.left ||
+			this.xDir ===  1 && this.scrollLeft > this.scrollThreshold.right
 		) {
 			this.scrollListenerCallback(this.getScrollBounds());
 		}
@@ -445,9 +446,9 @@ enyo.kind({
 	calcPositionAtTime: function(timeElapsed) {
 		var pctComplete = Math.round((1 - (this.scrollDuration - timeElapsed)/this.scrollDuration) * 100),
 			distanceToTimeRatio = this.lookupBezierDistancePercentageAtTime(pctComplete)/100,
-			distance = this.targetTop - this.initialScrollTop;
+			distance = this.targetTop - this.initialTop;
 		
-		return this.initialScrollTop + distanceToTimeRatio * distance;
+		return this.initialTop + distanceToTimeRatio * distance;
 	},
 	lookupBezierDistancePercentageAtTime: function(inTime) {
 		return  (inTime >= 100) ? 100 :
@@ -502,6 +503,8 @@ enyo.kind({
 		this.scrollDuration = inDuration;
 		this.targetLeft = inX;
 		this.targetTop = inY;
+		this.xDir = (this.targetLeft < this.initialLeft) ? -1 : (this.targetLeft > this.initialLeft) ? 1 : 0;
+		this.yDir = (this.targetTop < this.initialTop) ? -1 : (this.targetTop > this.initialTop) ? 1 : 0;
 		this.$.client.addStyles(this.generateTransitionStyleString(inDuration/1000) + this.generateTransformStyleString(inX, inY));
 		this.showThumbs(inDuration);
 		this.scrollStartTime = enyo.bench();
@@ -652,23 +655,15 @@ enyo.kind({
 				clientHeight: containerBounds.height,
 				clientWidth: containerBounds.width,
 				height: s.height,
-				width: s.width
+				width: s.width,
+				xDir: this.xDir,
+				yDir: this.yDir
 			};
 		
 		b.minLeft = 0;
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.minTop = 0;
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
-		
-		if (this.targetLeft !== null) {
-			b.targetLeft = this.targetLeft;
-			b.xDir = this.targetLeft > this.scrollLeft ? 1 : this.scrollLeft > this.targetLeft ? -1 : 0;
-		}
-		
-		if (this.targetTop !== null) {
-			b.targetTop = this.targetTop;
-			b.yDir = this.targetTop > this.scrollTop ? 1 : this.scrollTop > this.targetTop ? -1 : 0;
-		}
 
 		return b;
 	},
