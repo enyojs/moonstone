@@ -4,8 +4,13 @@ enyo.kind({
 	published: {
 		sizeRatio: 1
 	},
+	//* @protected
 	classes: "moon-thumb matrix3dsurface",
 	position: 0,
+	scrollBounds: null,
+	timingFunction: "linear",
+	transitionDuration: 0.5,
+	defaultTransitionDuration: 0.5,
 	create: function() {
 		this.inherited(arguments);
 		this.positionProp = (this.axis === "v") ? "targetTop" : "targetLeft";
@@ -18,7 +23,7 @@ enyo.kind({
 	sync: function(inStrategy, inDuration) {
 		this.scrollBounds = inStrategy._getScrollBounds();
 		this.timingFunction = inStrategy.generateTimingFunctionString();
-		this.transitionDuration = Math.round(100*inDuration/1000)/100 || 0.5;
+		this.transitionDuration = Math.round(100*inDuration/1000)/100 || this.defaultTransitionDuration;
 		this.update(inStrategy);
 	},
 	update: function(inStrategy) {
@@ -47,10 +52,7 @@ enyo.kind({
 			scrollPosition = (inStrategy[this.positionProp] !== null) ? inStrategy[this.positionProp] : inStrategy[this.fallbackPositionProp];
 		
 		this.position = Math.max(0, Math.floor(scrollBounds * scrollPosition * this.getSizeRatio() / scrollDimension));
-		
-		// Twiddle, then update position asynchronously, or webkit ignores the change
-		this.twiddle();
-		this.startJob("effectPosition", "effectPosition", 0);
+		this.effectPosition();
 	},
 	show: function() {
 		this.cancelDelayHide();

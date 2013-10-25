@@ -11,7 +11,7 @@ enyo.kind({
 	kind: "enyo.ScrollStrategy",
 	published: {
 		//* Scroll speed in pixels per second
-		scrollSpeed: 1200
+		scrollSpeed: 600
 	},
 	events: {
 		//* Fires when scroll action starts.
@@ -51,21 +51,21 @@ enyo.kind({
 		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls", isChrome: true}
 	],
 	//* Bezier iming functions used for different scroll behaviors
-	timingFunction: [0, 0, 1, 1],
-	holdTimingFunction: [0, 0, 1, 1],
-	scrollTimingFunction: [0, 0, 1, 1],
-	paginateTimingFunction: [.25, .1, .25, 1],
-	stabilizeTimingFunction: [0, .58, .58, 1],
-	decelerateTimingFunction: [.5, .5, .8, 1],
-	mousewheelTimingFunction: [.25, .1, .25, 1],
+	timingFunction: [0,0,1,1],
+	holdTimingFunction: [0,0,1,1],
+	scrollTimingFunction: [0,0,1,1],
+	paginateTimingFunction: [.35,.66,0,1],
+	stabilizeTimingFunction: [0,.58,.58,1],
+	decelerateTimingFunction: [.5,.5,.8,1],
+	mousewheelTimingFunction: [0,0,.4,1], //[0,0,1,1], //[0,0,.4,1],
 	//* Fraction of the total client height/width to scroll on pagination
 	paginationScrollMultiplier: 0.9,
 	//* Fraction of the total client height/width to scroll during deceleration
 	decelerateScrollMultiplier: 0.4,
-	//* Larger numbers -> faster scroll wheel scrolling
-	scrollWheelMultiplier: 5,
+	//* Larger numbers -> faster mousewheel scrolling
+	mouseWheelMultiplier: 4,
 	//* Duration of mousewheel scroll animations
-	mousewheelDurationMS: 400,
+	mousewheelDurationMS: 500,
 	//* Multiplier applied to scroll animations when accelerating (bigger -> faster scrolling)
 	accelerationMultiplier: 2,
 	//* Time interval to wait during scrolling before accelerating
@@ -150,7 +150,7 @@ enyo.kind({
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
-		this.timingFunction = this.scrollTimingFunction;
+		this.set("timingFunction", this.scrollTimingFunction);
 		this._scrollTo(inX, inY);
 	},
 	//* Stops scrolling at current location
@@ -179,7 +179,6 @@ enyo.kind({
 	},
 	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
 	leave: function() {
-		return true;
 		this.hovering = false;
 		this.showHideScrollColumns(false);
 	},
@@ -208,13 +207,13 @@ enyo.kind({
 			dx = inEvent.wheelDeltaX || delta;
 		}
 		
-		dx *= this.scrollWheelMultiplier;
-		dy *= this.scrollWheelMultiplier;
+		dx *= this.mouseWheelMultiplier;
+		dy *= this.mouseWheelMultiplier;
 		
 		x = this.scrollLeft - dx;
 		y = this.scrollTop - dy;
-		
-		this.timingFunction = this.mousewheelTimingFunction;
+
+		this.set("timingFunction", this.mousewheelTimingFunction);
 		this._scrollTo(x, y, this.mousewheelDurationMS);
 		this.scrollBounds = null;
 		
@@ -224,25 +223,24 @@ enyo.kind({
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		var x = this.scrollLeft,
-			y = this.scrollTop,
-			paginationDistance = this.getScrollBounds().clientWidth * this.paginationScrollMultiplier;
+			y = this.scrollTop;
 		
 		switch (inEvent.side) {
 		case "left":
-			x = this.scrollLeft - paginationDistance;
+			x = this.scrollLeft - this.getScrollBounds().clientWidth * this.paginationScrollMultiplier;
 			break;
 		case "right":
-			x = this.scrollLeft + paginationDistance;
+			x = this.scrollLeft + this.getScrollBounds().clientWidth * this.paginationScrollMultiplier;
 			break;
 		case "top":
-			y = this.scrollTop - paginationDistance;
+			y = this.scrollTop - this.getScrollBounds().clientHeight * this.paginationScrollMultiplier;
 			break;
 		case "bottom":
-			y = this.scrollTop + paginationDistance;
+			y = this.scrollTop + this.getScrollBounds().clientHeight * this.paginationScrollMultiplier;
 			break;
 		}
 		
-		this.timingFunction = this.paginateTimingFunction;
+		this.set("timingFunction", this.paginateTimingFunction);
 		this._scrollTo(x, y);
 		return true;
 	},
@@ -268,7 +266,7 @@ enyo.kind({
 			break;
 		}
 		
-		this.timingFunction = this.holdTimingFunction;
+		this.set("timingFunction", this.holdTimingFunction);
 		this._scrollTo(x, y);
 		this.scrollBounds = null;
 		return true;
@@ -276,25 +274,24 @@ enyo.kind({
 	//* End the press-and-hold scroll sequence
 	endPaginateHold: function(inSender, inEvent) {
 		var x = this.scrollLeft,
-			y = this.scrollTop,
-			decelerationDistance = this.getScrollBounds().clientWidth * this.decelerateScrollMultiplier;
-	
+			y = this.scrollTop;
+		
 		switch (inEvent.side) {
 		case "left":
-			x = this.scrollLeft - decelerationDistance;
+			x = this.scrollLeft - this.getScrollBounds().clientWidth * this.decelerateScrollMultiplier;
 			break;
 		case "right":
-			x = this.scrollLeft + decelerationDistance;
+			x = this.scrollLeft + this.getScrollBounds().clientWidth * this.decelerateScrollMultiplier;
 			break;
 		case "top":
-			y = this.scrollTop - decelerationDistance;
+			y = this.scrollTop - this.getScrollBounds().clientHeight * this.decelerateScrollMultiplier;
 			break;
 		case "bottom":
-			y = this.scrollTop + decelerationDistance;
+			y = this.scrollTop + this.getScrollBounds().clientHeight * this.decelerateScrollMultiplier;
 			break;
 		}
-	
-		this.timingFunction = this.decelerateTimingFunction;
+		
+		this.set("timingFunction", this.decelerateTimingFunction);
 		this._scrollTo(x, y);
 		return true;
 	},
@@ -323,14 +320,11 @@ enyo.kind({
 		this.muteSpotlight();
 		
 		// Needed for calculating cubic bezier delta w/o dom query
-		// this.initialScrollLeft = this.scrollLeft;
-		// this.initialScrollTop = this.scrollTop;
+		this.initialScrollLeft = this.scrollLeft;
+		this.initialScrollTop = this.scrollTop;
 		
-		this.targetLeft = inX;
-		this.targetTop = inY;
-		
+		// Go scroll
 		this.effectScroll(inX, inY, inDuration);
-		
 		this.start(inSilence);
 	},
 	start: function(inSilence) {
@@ -340,22 +334,6 @@ enyo.kind({
 		}
 		
 		this.scroll();
-	},
-	_stop: function(inSilence) {
-		this.endScrollJob();
-		this.syncScrollPosition();
-		
-		if (!inSilence && this.scrolling) {
-			this.doScroll();
-			this.doScrollStop();
-		}
-		
-		this.scrolling = false;
-		this.unmuteSpotlight();
-		this.delayHideThumbs(500);
-		this.showHidePageControls();
-		this.targetLeft = null;
-		this.targetTop = null;
 	},
 	scroll: function() {
 		var timeElapsed = enyo.bench() - this.scrollStartTime,
@@ -368,6 +346,12 @@ enyo.kind({
 		
 		this.syncScrollPosition();
 		this.sendScrollEvent();
+		/*
+		var p = this.calcPositionAtTime(timeElapsed);
+		if (Math.abs(p - this.scrollTop) > 80) {
+			this.log("AHHHH", p, this.scrollTop, p-this.scrollTop);
+		}
+		*/
 		
 		// Optionally accelerate scroll speed
 		if (timeElapsed > this.accelerateIntervalMS) {
@@ -400,44 +384,92 @@ enyo.kind({
 			top = (this.targetTop === null) ? this.scrollTop : this.targetTop,
 			duration = (this.scrollDuration - inTimeElapsed)/this.accelerationMultiplier;
 		
+		this.twiddleThumbs();
 		this.stop(true);
 		this._scrollTo(left, top, duration, true);
+		this.updateBezierPoints();
 	},
 	startScrollJob: function() {
-		this.startJob("scroll", "scroll", 100);
+		this.startJob("scroll", "scroll", 20);
 	},
 	endScrollJob: function() {
 		this.stopJob("scroll");
 	},
-	test: function(inTime) {
-		var percentComplete = inTime / this.scrollDuration;
-		var progress = this.getBezierXAsFunctionOfTime(percentComplete);
-		
-		var top = Math.round((this.initialScrollTop + (this.scrollTop - this.initialScrollTop) * progress)*100)/100;
-		var left = Math.round((this.initialScrollLeft + (this.scrollLeft - this.initialScrollLeft) * progress)*100)/100;
-		
-		var calculatedPosition = this.calcCurrentPosition();
-		var delta = top - calculatedPosition.y
-		this.log(top, calculatedPosition.y, "(", delta, ")");
-		// this.log(Math.round(100*percentComplete)/100, "::", Math.round(100*top)/100, ",", Math.round(100*calculatedPosition.y)/100), "--", Math.round(100*delta)/100;
+	timingFunctionChanged: function() {
+		this.updateBezierPoints();
 	},
-	getBezierXAsFunctionOfTime: function(t) {
+	updateBezierPoints: function() {
 		var curvePoints = [
-			{x: 0, y: 0},
-			{x: this.timingFunction[0], y: this.timingFunction[1]},
-			{x: this.timingFunction[2], y: this.timingFunction[3]},
-			{x: 1, y: 1}
-		];
-		var x = this.calcPointOnBezier(t, [curvePoints[0].x, curvePoints[1].x, curvePoints[2].x, curvePoints[3].x]);
-		var y = this.calcPointOnBezier(t, [curvePoints[0].y, curvePoints[1].y, curvePoints[2].y, curvePoints[3].y]);
-		this.log(t, ":::", x, y);
-		return y;
+				{x: 0, y: 0},
+				{x: this.timingFunction[0], y: this.timingFunction[1]},
+				{x: this.timingFunction[2], y: this.timingFunction[3]},
+				{x: 1, y: 1}
+			],
+			point, x, y, i;
+		
+		this.bezierPoints = [];
+		
+		for (i = 0; i <= 1; i+= 0.01) {
+			point = this.casteljausAlgorithm(i, curvePoints);
+			x = Math.round(point.x*100);
+			y = Math.round(point.y*100);
+			this.bezierPoints[x] = y;
+		}
 	},
-	calcPointOnBezier: function(t, curvePoints) {
-		return	Math.pow((1-t),3) * curvePoints[0] +
-				3 * Math.pow((1-t),2) * t * curvePoints[1] +
-				3 * (1-t) * Math.pow(t,2) * curvePoints[2] +
-				Math.pow(t,3) * curvePoints[3];
+	casteljausAlgorithm: function(t, p) {
+		var a = {
+				x: ((1 - t) * p[0].x) + (t * p[1].x),
+				y: ((1 - t) * p[0].y) + (t * p[1].y)
+			},
+			b = {
+				x: ((1 - t) * p[1].x) + (t * p[2].x),
+				y: ((1 - t) * p[1].y) + (t * p[2].y)
+			},
+			c = {
+				x: ((1 - t) * p[2].x) + (t * p[3].x),
+				y: ((1 - t) * p[2].y) + (t * p[3].y)
+			},
+			d = {
+				x: ((1 - t) * a.x) + (t * b.x),
+				y: ((1 - t) * a.y) + (t * b.y)
+			},
+			e = {
+				x: ((1 - t) * b.x) + (t * c.x),
+				y: ((1 - t) * b.y) + (t * c.y)
+			};
+		return {
+			x: ( (1 - t) * d.x) + (t * e.x),
+			y: ( (1 - t) * d.y) + (t * e.y)
+		};
+	},
+	calcPositionAtTime: function(timeElapsed) {
+		var pctComplete = Math.round((1 - (this.scrollDuration - timeElapsed)/this.scrollDuration) * 100),
+			distanceToTimeRatio = this.lookupBezierDistancePercentageAtTime(pctComplete)/100,
+			distance = this.targetTop - this.initialScrollTop;
+		
+		return this.initialScrollTop + distanceToTimeRatio * distance;
+	},
+	lookupBezierDistancePercentageAtTime: function(inTime) {
+		return  (inTime >= 100) ? 100 :
+				(inTime <= 0) ? 0 :
+				(typeof this.bezierPoints[inTime] === "undefined") ? this.lookupBezierDistancePercentageAtTime(++inTime) :
+				this.bezierPoints[inTime];
+	},
+	_stop: function(inSilence) {
+		this.endScrollJob();
+		this.syncScrollPosition();
+		
+		if (!inSilence && this.scrolling) {
+			this.doScroll();
+			this.doScrollStop();
+		}
+		
+		this.scrolling = false;
+		this.unmuteSpotlight();
+		this.delayHideThumbs(500);
+		this.showHidePageControls();
+		this.targetLeft = null;
+		this.targetTop = null;
 	},
 	//* Returns true if _inControl_ is one of four page controls.
 	isPageControl: function(inControl) {
@@ -468,9 +500,11 @@ enyo.kind({
 	},
 	effectScroll: function(inX, inY, inDuration) {
 		this.scrollDuration = inDuration;
-		this.scrollStartTime = enyo.bench();
+		this.targetLeft = inX;
+		this.targetTop = inY;
 		this.$.client.addStyles(this.generateTransitionStyleString(inDuration/1000) + this.generateTransformStyleString(inX, inY));
 		this.showThumbs(inDuration);
+		this.scrollStartTime = enyo.bench();
 	},
 	effectScrollStop: function() {
 		this.$.client.addStyles(this.transitionProp + ": " + this.transformProp + " 0s linear; " + this.generateTransformStyleString(this.scrollLeft, this.scrollTop));
@@ -628,10 +662,12 @@ enyo.kind({
 		
 		if (this.targetLeft !== null) {
 			b.targetLeft = this.targetLeft;
+			b.xDir = this.targetLeft > this.scrollLeft ? 1 : this.scrollLeft > this.targetLeft ? -1 : 0;
 		}
 		
 		if (this.targetTop !== null) {
 			b.targetTop = this.targetTop;
+			b.yDir = this.targetTop > this.scrollTop ? 1 : this.scrollTop > this.targetTop ? -1 : 0;
 		}
 
 		return b;
@@ -824,6 +860,15 @@ enyo.kind({
 		}
 		if (this.showVertical()) {
 			this.$.vthumb.delayHide(inDelay);
+		}
+	},
+	//* Move thumbs by 1px to force the css to update
+	twiddleThumbs: function() {
+		if (this.showHorizontal()) {
+			this.$.hthumb.twiddle();
+		}
+		if (this.showVertical()) {
+			this.$.vthumb.twiddle();
 		}
 	}
 });
