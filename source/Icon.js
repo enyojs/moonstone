@@ -35,15 +35,14 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		// if (this.src) {
-		// 	this.srcChanged();
-		// }
+		if (this.src) {
+			this.srcChanged();
+		}
 		if (this.icon) {
 			this.iconChanged();
 		}
 		this.smallChanged();
 		this.disabledChanged();
-		// console.log('Icon',this.icon, this.getIconClass());
 	},
 	getIconClass: function(inIconName) {
 		return "moon-icon-" + (inIconName || this.icon);
@@ -61,28 +60,16 @@ enyo.kind({
 		this.addClass(this.getIconClass());
 	},
 	smallChanged: function() {
-		// console.log('smallChanged',this.small);
 		if (this.$.tapArea) {
 			this.$.tapArea.destroy();
 		}
 
 		if (this.small) {
-			// this.addClass("small");
-			// this.addClass("moon-small-button-text");
 			var ta = this.createComponent({name: "tapArea", classes: "small-icon-tap-area", isChrome: true});
 			if (this.generated) {
 				ta.render();
 			}
-			// console.log('tapArea',ta);
-		// } else {
-		// 	this.removeClass("small");
-		// 	this.removeClass("moon-small-button-text");
 		}
-		// console.log('smallChanged',this.small);
-		// this.contentChanged();
 		this.addRemoveClass("small", this.small);
-	// },
-	// smallChanged: function() {
-	// 	this.addRemoveClass("small", this.small);
 	}
 });
