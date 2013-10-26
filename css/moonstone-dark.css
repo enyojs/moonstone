@@ -3213,8 +3213,16 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 40px;
+  padding: 0px;
   box-sizing: border-box;
+  background: none !important;
+}
+.moon-popup-childwrapper {
+  position: relative;
+  padding: 40px;
+}
+.moon-popup .moon-popup-childwrapper.animate {
+  -webkit-transition: -webkit-transform 0.4s ease;
 }
 .moon-popup-close {
   background: url(../images/DarkTheme_Icons/ClosePopup_Icon.png);
@@ -3241,7 +3249,7 @@
   background-color: #000000;
 }
 /* Dialog.css */
-.moon-dialog {
+.moon-dialog .moon-popup-childwrapper {
   padding: 24px 40px 40px;
 }
 .moon-dialog-title {
