@@ -362,13 +362,6 @@
   color: #999999;
   background-color: #000000;
 }
-/* Remove any focus outline */
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-  outline: none;
-}
 .moon-header-font {
   font-family: "Miso";
   text-transform: uppercase;
@@ -3269,6 +3262,7 @@ button:focus {
   border-radius: 3px;
   margin: -3px;
   top: 20px;
+  pointer-events: none;
 }
 .moon-video-transport-slider-knob {
   background: transparent;
@@ -3311,12 +3305,12 @@ button:focus {
   font-family: "LG Display";
   font-size: 36px;
 }
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label {
-  font-family: "LG Display";
-}
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
   padding-top: 14px;
+}
+.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
+  padding-top: 9px;
 }
 .moon-video-transport-slider-indicator-wrapper {
   width: 12.5%;
@@ -3357,6 +3351,9 @@ button:focus {
   color: #ffffff;
   text-align: left;
   left: 55%;
+}
+.enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
+  font-family: "LG Display";
 }
 .moon-video-player {
   position: relative;
@@ -3589,6 +3586,12 @@ button:focus {
   display: inline-block;
   width: 33px;
   height: 33px;
+  vertical-align: middle;
+  margin-bottom: 4px;
+}
+.enyo-locale-non-latin .moon-video-feedback-icon-left,
+.enyo-locale-non-latin .moon-video-feedback-icon-right {
+  margin-bottom: 8px;
 }
 .moon-video-info-header {
   display: inline-block;

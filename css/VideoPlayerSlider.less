@@ -24,6 +24,7 @@
 	border-radius: @moon-video-transport-slider-knob-size/2;
 	margin: -@moon-video-transport-slider-knob-size/2;
 	top: @moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset;
+	pointer-events: none;
 }
 .moon-video-transport-slider-knob {
 	background: transparent;
@@ -63,12 +64,12 @@
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;
 }
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label {
-	font-family: @moon-non-latin-font-family;
-}
 .moon-video-transport-slider-popup-label > * {
 	display: inline-block;
 	padding-top: 14px;
+}
+.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
+	padding-top: 9px;
 }
 
 .moon-video-transport-slider-indicator-wrapper {
@@ -105,9 +106,12 @@
 	height: 30px;
 	top: 23px;
 	font-size: 30px;
-	font-family: "Miso";
+	font-family: @moon-header-font-family;
 	font-weight:bold;
 	color: @moon-indicator-text-color;
 	text-align: left;
 	left: 55%;
+}
+.enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
+	font-family: @moon-non-latin-font-family;
 }
