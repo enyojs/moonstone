@@ -1657,8 +1657,8 @@
 .moon-header.full-bleed {
   padding-left: 20px;
   padding-right: 20px;
-  border-top: 0;
-  border-bottom: 0;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
 }
 /* Title Above */
 .moon-header-title-above.no-border {
