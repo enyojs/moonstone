@@ -174,7 +174,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -228,8 +228,7 @@ enyo.kind({
 			]},
 			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
-		]},
-		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
+		]}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -654,6 +653,7 @@ enyo.kind({
 		if (!this.$.slider.isInPreview()) {
 			this.$.controls.show();
 		}
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
 	//* When seeking, set video time.
