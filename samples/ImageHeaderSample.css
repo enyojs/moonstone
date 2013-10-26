@@ -1,0 +1,14 @@
+.moon-header.moon-image-header-sample{
+	padding:15px 20px 10px;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.moon-image-header-sample *{
+	color:#545454;
+}
+
+.moon-image-header-sample .moon-header-client{
+	margin-right:20px;
+}
+
