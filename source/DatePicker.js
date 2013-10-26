@@ -25,7 +25,7 @@ enyo.kind({
 		//* Optional label for month
 		monthText: moon.$L("month"),	// i18n "MONTH" label in moon.DatePicker widget
 		//* Optional label for year
-		yearText: moon.$("year")		// i18n "YEAR" label in moon.DatePicker widget
+		yearText: moon.$L("year")		// i18n "YEAR" label in moon.DatePicker widget
 	},
 	//*@protected
 	iLibFormatType: "date",

@@ -11,7 +11,7 @@
 			};
 			lfunc.rb = new ilib.ResBundle({
 				loadParams: {
-					root: "$lib/moonstone"
+					root: "$lib/moonstone/resources"
 				}
 			});
 			return lfunc;
