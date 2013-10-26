@@ -30,6 +30,8 @@
 /* ---------------------------------------*/
 /* Button */
 /* ---------------------------------------*/
+/* Header */
+/* ---------------------------------------*/
 /* Input */
 /* ---------------------------------------*/
 /* Pickers */
@@ -1654,6 +1656,12 @@ button:focus {
   background-repeat: no-repeat;
   background-position: top left;
 }
+.moon-header.full-bleed {
+  padding-left: 20px;
+  padding-right: 20px;
+  border-top: 0;
+  border-bottom: 0;
+}
 /* Title Above */
 .moon-header-title-above.no-border {
   border: none;
@@ -1743,6 +1751,10 @@ button:focus {
   text-align: end;
   /* CSS3 for RTL support */
 
+}
+.full-bleed .moon-header-client {
+  left: 20px;
+  right: 20px;
 }
 .moon-header-client > * {
   text-align: left;

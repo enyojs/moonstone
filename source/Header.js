@@ -24,6 +24,9 @@ enyo.kind({
 			If no second property is included, the horizontal value will default to _right_.
 		*/
 		backgroundPosition: "top right",
+		//* When using a full-bleed background image, set this property to true to indent
+		//* the header text/controls and remove the header lines
+		fullBleedBackground: false,
 		//* If true, title will be an input
 		inputMode: false,
 		//* Text to display when the input is empty
@@ -62,7 +65,7 @@ enyo.kind({
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
 	bindings: [
-		{from: ".value",       to: ".$.titleInput.value", oneWay: false}
+		{from: ".value", to: ".$.titleInput.value", oneWay: false}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -77,6 +80,7 @@ enyo.kind({
 		this.inputModeChanged();
 		this.inputUpperCaseChanged();
 		this.placeholderChanged();
+		this.fullBleedBackgroundChanged();
 	},
 	allowHtmlChanged: function() {
 		this.$.title.setAllowHtml(this.allowHtml);
@@ -90,6 +94,9 @@ enyo.kind({
 		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [],
 			posStr = (posArray.length === 0) ? "top right" : (posArray.length === 1) ? posArray[0] + " right" : posArray[0] + " " + posArray[1];
 		this.applyStyle("background-position", posStr);
+	},
+	fullBleedBackgroundChanged: function() {
+		this.addRemoveClass("full-bleed", this.fullBleedBackground);
 	},
 	//* @public
 	collapseToSmall: function() {
