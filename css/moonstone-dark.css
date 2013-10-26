@@ -1890,17 +1890,38 @@
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
-  width: 42px;
-  height: 42px;
+  width: 45px;
+  height: 45px;
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
   margin: 9px 14px;
+  font-family: Moonstone, "Moonstone Icons";
+  font-size: 90px;
+  line-height: 45px;
+  text-align: center;
+}
+.moon-icon.small,
+.moon-icon-toggle.small {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  font-size: 64px;
+  line-height: 32px;
+}
+.moon-icon.small > .small-icon-tap-area,
+.moon-icon-toggle.small > .small-icon-tap-area {
+  position: absolute;
+  top: -14px;
+  bottom: -14px;
+  left: -14px;
+  right: -14px;
 }
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-  background-position: 0 -42px;
+  background-position: 0 -75px;
+  color: #ffffff;
 }
 .moon-icon.disabled {
   opacity: 0.4;
@@ -1911,23 +1932,41 @@
 }
 /* IconButton.css */
 .moon-icon-button {
-  width: 42px;
-  height: 42px;
-  border-radius: 25px;
+  box-sizing: border-box;
+  width: 85px;
+  height: 85px;
+  border-radius: 42.5px;
   background-color: #404040;
-  border: 4px solid transparent;
+  background-size: 75px 150px;
+  border: 5px solid transparent;
   margin: 0 10px;
+  line-height: 75px;
+}
+.moon-icon-button.small {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-size: 50px 100px;
+  line-height: 50px;
+}
+.moon-icon-button.spotlight {
+  background-color: #ff2f7d;
+  color: #ffffff;
 }
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-icon.moon-icon-button.spotlight:active {
-  background-position: 0px -42px;
-  border: 4px solid #ff2f7d;
+  background-position: 0px -75px;
+  border: 5px solid #ff2f7d;
   background-color: #404040;
+  color: #ffffff;
 }
-.moon-icon-button.spotlight {
-  background-color: #ff2f7d;
+.moon-icon.moon-icon-button.active.small,
+.moon-icon.moon-icon-button.pressed.small,
+.moon-icon.moon-icon-button.spotlight.pressed.small,
+.moon-icon.moon-icon-button.spotlight:active.small {
+  background-position: 0px -50px;
 }
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
@@ -1944,6 +1983,7 @@
 }
 .moon-icon-button.moon-paging-button.spotlight {
   background-color: #ff2f7d;
+  color: #ffffff;
   background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
 }
 .moon-icon-button.moon-paging-button.hidden {
@@ -1979,6 +2019,7 @@
 }
 .moon-icon-button.moon-paging-button.hover:hover {
   background-color: #ff2f7d;
+  color: #ffffff;
   background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
@@ -3747,12 +3788,12 @@
   padding-left: 5px;
 }
 .moon-video-player-premium-placeholder-left {
-  width: 200px;
+  width: 235px;
   height: 85px;
   padding-left: 90px;
 }
 .moon-video-player-premium-placeholder-right {
-  width: 200px;
+  width: 235px;
   height: 85px;
   padding-left: 5px;
 }
@@ -4206,10 +4247,10 @@
   -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-  padding-right: 50px;
+  padding-right: 85px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
-  padding-bottom: 50px;
+  padding-bottom: 85px;
 }
 /* Default states for horizontal and vertical scrollbars */
 .moon-scroller-v-column,
@@ -4241,37 +4282,37 @@
   top: 0px;
   bottom: 0px;
   right: 0px;
-  width: 50px;
+  width: 85px;
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
   left: 0px;
   right: 0px;
   bottom: 0px;
-  height: 50px;
+  height: 85px;
 }
 /* Shorten vertical column when horizontal column is enabled */
 .moon-scroller-v-column.h-scroll-enabled {
-  bottom: 50px;
+  bottom: 85px;
 }
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
-  right: 50px;
+  right: 85px;
 }
 .moon-scroller-thumb-container {
   position: absolute;
 }
 .moon-scroller-hthumb-container {
-  left: 50px;
-  right: 50px;
+  left: 85px;
+  right: 85px;
   bottom: 0px;
-  height: 50px;
+  height: 85px;
 }
 .moon-scroller-vthumb-container {
-  top: 50px;
-  bottom: 50px;
+  top: 85px;
+  bottom: 85px;
   right: 0px;
-  width: 50px;
+  width: 85px;
 }
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
@@ -4368,11 +4409,15 @@
   display: block;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-  background-position: 0px -42px;
-  border: 4px solid #ff2f7d;
+  background-position: 0px -75px;
+  border: 5px solid #ff2f7d;
   background-color: #404040;
+  color: #ffffff;
   background-color: #ffffff;
   border-color: #ffffff;
+}
+.selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.small {
+  background-position: 0px -50px;
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
@@ -4391,8 +4436,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -21px;
-  margin-left: -21px;
+  margin-top: -22.5px;
+  margin-left: -22.5px;
 }
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;
@@ -4409,10 +4454,10 @@
   -webkit-transition: opacity 0.1s linear;
 }
 .moon-scroller-hthumb {
-  bottom: 23px;
+  bottom: 40.5px;
 }
 .moon-scroller-vthumb {
-  right: 23px;
+  right: 40.5px;
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {
