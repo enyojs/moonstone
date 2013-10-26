@@ -3033,7 +3033,11 @@ button:focus {
   background: none !important;
 }
 .moon-popup .moon-popup-childwrapper {
+  position: relative;
   padding: 40px;
+}
+.moon-popup .moon-popup-childwrapper.animate {
+  -webkit-transition: -webkit-transform 0.4s ease;
 }
 .moon-popup-close {
   background: url(../images/LightTheme_Icons/ClosePopup_Icon.png);

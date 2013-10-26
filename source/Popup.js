@@ -9,8 +9,6 @@ enyo.kind({
 	modal: true,
 	floating: true,
 	_spotlight: null,
-	_applyAnimation: false,
-	_animateComponent: null,
 	_bounds: null,
 	spotlight: "container",
 	handlers: {
@@ -19,7 +17,8 @@ enyo.kind({
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight",
-		onRequestScrollIntoView: "_preventEventBubble"
+		onRequestScrollIntoView: "_preventEventBubble",
+		ontransitionend: "animationEnd"
 	},
 	published: {
 		/**
@@ -46,7 +45,9 @@ enyo.kind({
 			_showCloseButton_ is set to "auto" (the default), _closeButton_ is shown
 			when _spotlightModal_ is true.
 		*/
-		showCloseButton: "auto"
+		showCloseButton: "auto",
+		//* When true, popups will animate on/off screen
+		animate: true
 	},
 	//* @protected
 	tools: [
@@ -64,11 +65,16 @@ enyo.kind({
 	},
 	create: function () {
 		this.inherited(arguments);
-		this._applyAnimation = this.animate;
-		if (this._applyAnimation) {
-			this._animateComponent = this.children[0];
-			this._animateComponent.applyStyle("position", "relative");
-			this._animateComponent.applyStyle(enyo.dom.transition, "-webkit-transform 0.4s ease");
+		this.animateChanged();
+	},
+	animateChanged: function() {
+		if (this.animate) {
+			this.animateShow();			
+		}
+		this.$.childwrapper.addRemoveClass("animate", this.animate);
+		if (!this.animate) {
+			this.$.childwrapper.applyStyle("top", null);
+			enyo.dom.transform(this.$.childwrapper, {translateY: null});
 		}
 	},
 	//* Renders _moon.Popup_, extending enyo.Popup
@@ -94,7 +100,7 @@ enyo.kind({
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* _tap()_ code.
 	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
+		if (!this.downEvent || (this.downEvent.type !== "onSpotlightSelect")) {
 			return this.inherited(arguments);
 		}
 	},
@@ -129,11 +135,28 @@ enyo.kind({
 			if(moon.Popup.count > 0) {
 				moon.Popup.count--;
 			}
+			if (this.generated) {
+				this.respotActivator();
+			}
+		}
+
+		if (this.animate) {
+			if (this.showing) {
+				this.inherited(arguments);
+				this.animateShow();
+				this.animationEnd = enyo.nop;
+			} else {
+				this.animateHide();
+				var args = arguments;
+				this.animationEnd = enyo.bind(this, function() {
+					this.inherited(args);
+				});
+			}
+		} else {
+			this.inherited(arguments);
 		}
 		
 		this.showHideScrim(this.showing);
-		this.inherited(arguments);
-		
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.spotlight = this._spotlight;
@@ -144,6 +167,14 @@ enyo.kind({
 			} else if ((this.spotlight) && (spottableChildren > 0)) {
 				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
 			}
+		}
+	},
+	getShowing: function() {
+		//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
+		if (this.animate) {
+			return this.showing;
+		} else {
+			this.inherited(arguments);
 		}
 	},
 	showHideScrim: function(inShow) {
@@ -195,7 +226,6 @@ enyo.kind({
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");
 		}
-		this.respotActivator();
 		this.spotlight = false;
 		this.hide();
 	},
@@ -261,42 +291,16 @@ enyo.kind({
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
 	},
-	//* override : Not to apply display:"none" when animate:true.
-	syncDisplayToShowing: function() {
-		var ds = this.domStyles;
-		if (this.showing) {
-			// note: only show a node if it's actually hidden;
-			// this way, we prevent overriding the value of domStyles.display
-			if (ds.display == "none") {
-				this.applyStyle("display", this._displayStyle || "");
-			}
-		} else {
-			// cache the previous showing value of display
-			// note: we could use a class to hide a node, but then
-			// hide would not override a setting of display: none in style,
-			// which seems bad.
-			this._displayStyle = (ds.display == "none" ? "" : ds.display);
-			if (!this._applyAnimation) {
-				this.applyStyle("display", "none");
-			}
-		}
+	animateShow: function () {
+		this._bounds = this.getBounds();
+		this.$.childwrapper.applyStyle("top", this._bounds.height + "px");
+		enyo.dom.transform(this.$.childwrapper, {translateY: -this._bounds.height + "px"});
 	},
-	//*@public
-	show: function () {
-		this.inherited(arguments);
-		if (this._applyAnimation) {
-			if (!this._bounds) { // occurs at only first time.
-				this._bounds = this.getBounds();
-				this._animateComponent.applyStyle("top", this._bounds.height + "px");
-			}
-			
-			enyo.dom.transform(this._animateComponent, {translateY: (this._bounds.height * -1) + "px"});
+	animateHide: function () {
+		if (this._bounds) {
+			var prevHeight = this._bounds.height;
+			this._bounds = this.getBounds();
+			enyo.dom.transform(this.$.childwrapper, {translateY: this._bounds.height - prevHeight + "px"});	
 		}
-	},
-	hide: function () {
-		if (this._applyAnimation) {
-			enyo.dom.transform(this._animateComponent, {translateY: 0 + "px"});	
-		}
-		this.inherited(arguments);
 	}
 });
