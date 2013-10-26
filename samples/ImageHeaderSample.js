@@ -7,12 +7,11 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeBig"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareBig"}
 			]}
-	],
-	likeBig: function(inSender, inEvent) {
+	    ],
+	    likeBig: function(inSender, inEvent) {
 		this.$.imageHeader.setSubTitleBelow("Thanks for liking Enyo.");
-	},
-	shareBig: function(inSender, inEvent) {
+	    },
+	    shareBig: function(inSender, inEvent) {
 		this.$.imageHeader.setSubTitleBelow("Please share Enyo.");
-	}
-
-});
+	    }
+    });
