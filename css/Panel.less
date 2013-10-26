@@ -50,27 +50,29 @@
 	width: 100%;
 	padding: 9px @moon-spotlight-outset @moon-spotlight-outset;
 	box-sizing: border-box;
-	border-top: 1px solid @moon-white;
+	border-top: 2px solid @moon-header-border-color;
 }
 .moon-panel-mini-header {
-	margin-top: 20px;
-	color: @moon-white;
+	margin-top: 15px;
+	color: @moon-header-text-color;
 	display: block;
 	overflow: hidden;
 	padding: 0px;
 }
+.spotlight .moon-panel-mini-header{
+  color:@moon-spotlight-text-color;
+}
 .moon-panel-mini-header-title-above {
-	color: @moon-white;
+	color: @moon-header-text-color;
+}
+.spotlight .moon-panel-mini-header-title-above {
+  color: @moon-spotlight-text-color;
 }
 
-.moon-panel .moon-panel-mini-header-wrapper.spotlight {
-	background: @moon-pink;
-	color: @moon-white;
-}
 
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel-mini-header-wrapper {
-	border-top: 1px solid @moon-header-border-color;
+	border-top: 2px solid @moon-header-border-color;
 }
 .moon-panels.activity .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-title-above {
@@ -82,3 +84,10 @@
 		color: @moon-white;
 	}
 }
+
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+  background: @moon-pink;
+  color: @moon-spotlight-text-color;
+    border-top: 2px solid @moon-white;
+}
+
