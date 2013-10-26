@@ -44,7 +44,9 @@ enyo.kind({
 		//* Popup offset in pixels
 		popupOffset: 25,
 		//** threshold value(percentage) for using animation effect on slider progress change
-		smallVariation: 1
+		smallVariation: 1,
+			//* Popup height in pixels
+		popupHeight: 67
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
