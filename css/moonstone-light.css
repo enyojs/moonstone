@@ -2735,14 +2735,17 @@
   height: 73px;
   min-width: 73px;
   display: inline-block;
-  background: #000000 url(../images/spinner.gif) no-repeat 7px 7px;
+  background: #ffffff url(../images/spinner.gif) no-repeat 7px 7px;
   color: #ffffff;
   line-height: 73px;
   margin: 0 10px;
 }
 .moon-spinner.content {
-  padding-left: 73px;
+  padding-left: 85px;
   padding-right: 40px;
+  height: 85px;
+  line-height: 85px;
+  background-position: 13px 13px;
 }
 .moon-panel {
   -webkit-transform: scale3d(1, 1, 1);
