@@ -3023,6 +3023,9 @@ button:focus {
   background-color: #ff2f7d;
   border: 0px;
 }
+.moon-calendar-picker .moon-simple-picker-client > * {
+  color: #ffffff;
+}
 /* Table.css */
 /*.moon-table {
 	padding-right: 2em;
