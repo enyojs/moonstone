@@ -13,3 +13,6 @@ affected, since header children are forced to `display: inline-block` by default
 
 `moon.Popup` and `moon.Dialog` now animate on/off screen by default.  To prevent this behavior, set
 `animate:false`.
+
+`moon.Input` now has an optional `dismissOnEnter` flag, which will blur the input (and dismiss the
+VKB, if present) when the Enter key is pressed.
