@@ -176,7 +176,7 @@ enyo.kind({
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", ontap: "videoTapped"
 			}
 		]},
 
@@ -216,18 +216,15 @@ enyo.kind({
 			]}
 		]},
 		//* Inline controls
-		{name: "inlineControl", components: [
-			{name: "videoScrim", classes: "enyo-fit", ontap: "playPause"},
-			{name: "playerInlineControl", classes: "moon-video-inline-control", components: [
-				{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
-				{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
-				{name: "progressStatus", classes: "moon-video-inline-control-progress"},
-				{classes: "moon-video-inline-control-text", components: [
-					{name: "currTime", content: "00:00 / 00:00"}
-				]},
-				{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
-				{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
-			]}
+		{name: "inlineControl", classes: "moon-video-inline-control", components: [
+			{name: "currPosAnimator", kind: "Animator", onStep: "currPosAnimatorStep", onEnd: "currPosAnimatorComplete"},
+			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
+			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
+			{classes: "moon-video-inline-control-text", components: [
+				{name: "currTime", content: "00:00 / 00:00"}
+			]},
+			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
+			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]},
 		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
 	],
@@ -677,6 +674,11 @@ enyo.kind({
 		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
 		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
+	},
+	videoTapped: function() {
+		if (this.getInline() && !this.isFullscreen()) {
+			this.playPause();
+		}
 	},
 
 	//* @public
