@@ -179,7 +179,7 @@ enyo.kind({
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", ontap: "videoTapped"
 			}
 		]},
 
@@ -677,6 +677,11 @@ enyo.kind({
 		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
 		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
+	},
+	videoTapped: function() {
+		if (this.getInline() && !this.isFullscreen()) {
+			this.playPause();
+		}
 	},
 
 	//* @public
