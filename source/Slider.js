@@ -45,7 +45,7 @@ enyo.kind({
 		//* Popup width in pixels
 		popupWidth: "auto",
 		//* Popup height in pixels
-		popupHeight: 50,
+		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
 		//* When false, you can move the knob past the _bgProgress_
@@ -91,8 +91,8 @@ enyo.kind({
 		]}
 	],
 	animatingTo: null,
-	popupLeftCanvasWidth: 20, // Popup left canvas width in pixel
-	popupRightCanvasWidth: 20, // Popup right canvas width in pixel
+	popupLeftCanvasWidth: 26, // Popup left canvas width in pixel
+	popupRightCanvasWidth: 26, // Popup right canvas width in pixel
 
 	//* @public
 
@@ -172,7 +172,7 @@ enyo.kind({
 	popupHeightChanged: function() {
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
-		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 6 + 'px');
+		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 8 + 'px');
 		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
 		this.popupOffsetChanged();
 	},
@@ -414,11 +414,11 @@ enyo.kind({
 		}
 	},
 	drawToCanvas: function(bgColor) {
-		var h = this.getPopupHeight() - 1; // height total
-		var hb = h - 4; // height bubble
-		var hbc = (hb-1)/2; // height of bubble's center
-		var wre = 20; // width's edge
-		var r = 20; // radius
+		var h = this.getPopupHeight()+1; // height total
+		var hb = h - 8; // height bubble
+		var hbc = (hb)/2; // height of bubble's center
+		var wre = 26; // width's edge
+		var r = 30; // radius
 
 		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
 		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
@@ -429,13 +429,13 @@ enyo.kind({
 		// Set styles. Default color is knob's color
 		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 		// Draw shape with arrow on left
-		ctxLeft.moveTo(1, h);
-		ctxLeft.arcTo(1, hb, 39, hb, 8);
+		ctxLeft.moveTo(0, h);
+		ctxLeft.arc(26, 120, 60, 1.35*Math.PI, 1.485*Math.PI, false);
 		ctxLeft.lineTo(wre, hb);
 		ctxLeft.lineTo(wre, 1);
-		ctxLeft.arcTo(1, 1, 1, hbc, r);
-		ctxLeft.lineTo(1, h);
-		ctxLeft.lineTo(1, 51);
+		ctxLeft.arcTo(0, 1, 0, hbc, r);
+		ctxLeft.lineTo(0, h);
+		ctxLeft.lineTo(0, 51);
 		ctxLeft.fill();
 
 		// Set styles. Default color is knob's color
@@ -443,6 +443,7 @@ enyo.kind({
 		// Draw shape with arrow on right
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r);
+		
 		ctxRight.arcTo(wre, 1, 0, 1, r);
 		ctxRight.lineTo(0, 0);
 		ctxRight.fill();

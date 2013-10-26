@@ -80,11 +80,13 @@ enyo.kind({
 	},
 	showSmallButtonTapArea: function(inSender, inEvent) {
 		if (inEvent.checked) {
+			this.$["Small A Button"].addClass("visible-tap-area");
 			this.$["Small B Button"].addClass("visible-tap-area");
 			this.$["Small Button"].addClass("visible-tap-area");
 			this.$["Small Disabled Button"].addClass("visible-tap-area");
 			this.$["Small Long Button"].addClass("visible-tap-area");
 		} else {
+			this.$["Small A Button"].removeClass("visible-tap-area");
 			this.$["Small B Button"].removeClass("visible-tap-area");
 			this.$["Small Button"].removeClass("visible-tap-area");
 			this.$["Small Disabled Button"].removeClass("visible-tap-area");
