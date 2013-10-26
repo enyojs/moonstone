@@ -110,11 +110,13 @@ enyo.kind({
 	onFocus: function(oSender, oEvent) {
 		enyo.Spotlight.spot(this);
 		// enyo.Spotlight.disablePointerMode();
+		enyo.Spotlight.freeze();
 		this.updateFocus(true);
 	},
 
 	onBlur: function() {
 		// enyo.Spotlight.enablePointerMode();
+		enyo.Spotlight.unfreeze();
 		this.updateFocus(false);
 	},
 
