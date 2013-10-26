@@ -51,14 +51,13 @@ enyo.kind({
 		]}
 	],
 	//* @protected
-	scrollInterval: 65,
+	scrollFrame: 3, // parameter that determines scroll math simulation speed
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
 		this.refreshScrollState();
-		this.$.scroller.getStrategy().setInterval(this.scrollInterval);
 		this.$.scroller.getStrategy().setFixedTime(false);
-		this.$.scroller.getStrategy().setFrame(3);
+		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
