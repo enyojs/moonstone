@@ -8,6 +8,7 @@ enyo.kind({
 			name: "player",
 			kind: "moon.VideoPlayer",
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			poster: "assets/video-poster.png",
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [

@@ -8,8 +8,8 @@ enyo.kind({
 	],
 	components: [
 		{kind: "moon.Scroller", fit: true, components: [
-
-			{kind: "moon.Divider", content: "Slider 1: Default", style: "margin-top:20px;"},
+			{classes:"moon-1v"},
+			{kind: "moon.Divider", content: "Slider 1: Default"},
 			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 
 			{kind: "moon.Divider", content:"Slider 2: Disabled, Bound to Slider 1"},

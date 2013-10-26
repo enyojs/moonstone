@@ -17,6 +17,12 @@
 	opacity: 1;
 	filter: alpha(opacity=100);
 }
+.moon-expandable-list-item.open .moon-expandable-list-item-header {
+	margin-bottom: 10px;
+}
+.moon-expandable-list-item.open {
+	padding-bottom: 10px;
+}
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
 	color: @moon-white;
 	border-color: @moon-white;
@@ -34,4 +40,11 @@
 }
 .moon-expandable-list-item-client .moon-item:last-child {
 	margin-bottom: 0px;
+}
+.moon-expandable-list-item-client.indented {
+	padding-left: @moon-item-indent + @moon-spotlight-outset;
+}
+.enyo-locale-right-to-left .moon-expandable-list-item-client.indented {
+	padding-left: 0;
+	padding-right: @moon-item-indent + @moon-spotlight-outset;
 }
