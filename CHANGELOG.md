@@ -10,3 +10,6 @@ style or CSS class.  Tooltips and ContextualPopups used as components of `moon.H
 affected, since header children are forced to `display: inline-block` by default.
 
 `moon.CalendarPicker` was renamed to `moon.Calendar`.
+
+`moon.Popup` and `moon.Dialog` now animate on/off screen by default.  To prevent this behavior, set
+`animate:false`.

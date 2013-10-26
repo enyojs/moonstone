@@ -653,6 +653,7 @@ enyo.kind({
 		if (!this.$.slider.isInPreview()) {
 			this.$.controls.show();
 		}
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
 	//* When seeking, set video time.
