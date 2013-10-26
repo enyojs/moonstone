@@ -144,6 +144,9 @@ enyo.kind({
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.knob.addRemoveClass("disabled", this.disabled);
 		this.setTappable(!this.disabled);
+		if (this.disabled) {
+			this.hideKnobStatus();
+		}
 	},
 	knobClassesChanged: function(inOld) {
 		this.$.knob.removeClass(inOld);

@@ -100,9 +100,11 @@ enyo.kind({
 		this.currentTime = 0;
 	},
 	enterTapArea: function(inSender, inEvent) {
-		this.addClass('visible');
-		this.startPreview();
-		this.doEnterTapArea(inEvent);
+		if (!this.disabled) {
+			this.addClass('visible');
+			this.startPreview();
+			this.doEnterTapArea(inEvent);
+		}
 	},
 	leaveTapArea: function(inSender, inEvent) {
 		this.removeClass('visible');

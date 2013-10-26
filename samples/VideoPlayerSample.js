@@ -72,6 +72,7 @@ enyo.kind({
 		this.$.player.unload();
 	},
 	load: function() {
+		this.$.player.unload();
 		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
 	}
 });

@@ -5,6 +5,9 @@
 	optional app-specific controls, and an information bar for video information
 	and player feedback.
 
+	All of the standard HTML5 media events bubbled from _enyo.Video_ will also bubble
+	from this control.
+
 	Client components added to the _components_ block are rendered into the video
 	player's transport control area, and should generally be limited to instances
 	of <a href="#moon.IconButton">moon.IconButton</a>. If more than two are
@@ -93,6 +96,9 @@ enyo.kind({
 		//* When true, slider and playback controls are disabled.  If the user taps the controls,
 		//* the _onPlaybackControlsTapped_ event will be bubbled.
 		disablePlaybackControls: false,
+		//* When true, playback controls are only active when the video player has a vaid source URL
+		//* and no error has occurred during video loading
+		disablePlaybackControlsOnUnload: true,
 		//* When false, PlayPause are hidden
 		showPlayPauseControl: true,
 		//* When false, hides video element
@@ -245,19 +251,36 @@ enyo.kind({
 		this.showPlaybackControlsChanged();
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
-		this.disablePlaybackControlsChanged();
+		this.updatePlaybackControlState();
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
 		}
 	},
 	disablePlaybackControlsChanged: function() {
-		this.disableSliderChanged();
-		this.$.playbackControls.addRemoveClass("disabled", this.disablePlaybackControls);
-		this.$.jumpBack.setDisabled(this.disablePlaybackControls);
-		this.$.rewind.setDisabled(this.disablePlaybackControls);
-		this.$.fsPlayPause.setDisabled(this.disablePlaybackControls);
-		this.$.fastForward.setDisabled(this.disablePlaybackControls);
-		this.$.jumpForward.setDisabled(this.disablePlaybackControls);
+		this.updatePlaybackControlState();
+	},
+	disablePlaybackControlsOnUnloadChanged: function() {
+		this.updatePlaybackControlState();
+	},
+	updatePlaybackControlState: function() {
+		var disabled = this.disablePlaybackControls || 
+			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+		this.updateSliderState();
+		this.$.playbackControls.addRemoveClass("disabled", disabled);
+		this.$.jumpBack.setDisabled(disabled);
+		this.$.rewind.setDisabled(disabled);
+		this.$.fsPlayPause.setDisabled(disabled);
+		this.$.fastForward.setDisabled(disabled);
+		this.$.jumpForward.setDisabled(disabled);
+		this.$.ilPlayPause.setDisabled(disabled);
+		var currentSpot = enyo.Spotlight.getCurrent();
+		if (currentSpot && currentSpot.disabled) {
+			if (this.isFullscreen() || !this.getInline()) {
+				this.spotFSBottomControls();
+			} else {
+				enyo.Spotlight.spot(this.$.ilFullscreen);
+			}
+		}
 	},
 	playbackControlsTapped: function() {
 		if (this.disablePlaybackControls) {
@@ -279,21 +302,17 @@ enyo.kind({
 		this.$.sliderContainer.setShowing(this.showProgressBar);
 	},
 	//* Overrides default _enyo.Control_ behavior.
-	setSrc: function(inSrc) {
-		this.src = inSrc;
-		this.srcChanged();
-	},
-	//* Overrides default _enyo.Control_ behavior.
 	getSrc: function() {
 		return this.src;
 	},
 	srcChanged: function() {
-		if(this.src != this.$.video.getSrc()) {
-			this._canPlay = false;
-			this._isPlaying = this.autoplay;
-			this.updatePlayPauseButtons();
-			this.updateSpinner();
-		}
+		this._canPlay = false;
+		this._isPlaying = this.autoplay;
+		this._errorCode = null;
+		this.updatePlayPauseButtons();
+		this.updateSpinner();
+		this.updatePlaybackControlState();
+		this._resetTime();
 		this.$.video.setSrc(this.getSrc());
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
@@ -357,8 +376,16 @@ enyo.kind({
 		this.$.video.setJumpSec(this.jumpSec);
 	},
 	disableSliderChanged: function() {
+		this.updateSliderState();
+	},
+	updateSliderState: function() {
 		//* this should be be called on create because default slider status should be disabled.
-		this.$.slider.setDisabled(this.disableSlider || this.disablePlaybackControls || !this._loaded);
+		var disabled = 
+			this.disableSlider || 
+			this.disablePlaybackControls || 
+			!this._loaded || 
+			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+		this.$.slider.setDisabled(disabled);
 	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
@@ -405,10 +432,13 @@ enyo.kind({
 	//* Unload the current video source, stopping all playback and buffering.
 	unload: function() {
 		this.$.video.unload();
-		this._resetProgress();
+		this._resetTime();
 		this._loaded = false;
+		this._isPlaying = false;
 		this._canPlay = false;
-		this.disableSliderChanged();
+		this._errorCode = null;
+		this.src = null;
+		this.updatePlaybackControlState();
 		this.updateSpinner();
 	},
 	showScrim: function(show) {
@@ -511,28 +541,31 @@ enyo.kind({
 			}
 			
 			//* Initial spot
-			if (this.showPlaybackControls) {
-				if (this.$.controlsContainer.getIndex() === 0) {
-					if (enyo.Spotlight.spot(this.$.fsPlayPause) === false) {
-						if(enyo.Spotlight.spot(this.$.fastForward) === false){
-							if(enyo.Spotlight.spot(this.$.jumpForward) === false) {
-								enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
-							}
-						}
-					}	
-				} else {
-					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
-				}
-			} else {
-				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
-				enyo.Spotlight.spot(oTarget);
-			}
+			this.spotFSBottomControls();
 			
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
 				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
 			}
+		}
+	},
+	spotFSBottomControls: function() {
+		if (this.showPlaybackControls) {
+			if (this.$.controlsContainer.getIndex() === 0) {
+				if (enyo.Spotlight.spot(this.$.fsPlayPause) === false) {
+					if(enyo.Spotlight.spot(this.$.fastForward) === false){
+						if(enyo.Spotlight.spot(this.$.jumpForward) === false) {
+							enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
+						}
+					}
+				}	
+			} else {
+				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
+			}
+		} else {
+			var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
+			enyo.Spotlight.spot(oTarget);
 		}
 	},
 	//* Sets _this.visible_ to false.
@@ -681,7 +714,7 @@ enyo.kind({
 	///// Inline controls /////
 
 	updateInlinePosition: function() {
-		var percentComplete = Math.round(this._currentTime * 1000 / this._duration) / 10;
+		var percentComplete = this._duration ? Math.round(this._currentTime * 1000 / this._duration) / 10 : 0;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
 		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
 	},
@@ -843,7 +876,7 @@ enyo.kind({
 	//* Turns on/off spinner as appropriate.
 	updateSpinner: function() {
 		var spinner = this.$.spinner;
-		if (this._isPlaying && !this._canPlay) {
+		if (this._isPlaying && !this._canPlay && !this._errorCode) {
 			spinner.start();
 		} else if (spinner.getShowing()) {
 			spinner.stop();
@@ -926,7 +959,7 @@ enyo.kind({
 	_loaded: false,
 	dataloaded: function(inSender, inEvent) {
 		this._loaded = true;
-		this.disableSliderChanged();
+		this.updateSliderState();
 		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
@@ -958,12 +991,12 @@ enyo.kind({
 			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
 		}
 	},
-	_resetProgress: function() {
-		if (this.isFullscreen() || !this.getInline()) {
-			this.$.slider.setBgProgress(0); 
-		} else {
-			this.$.bgProgressStatus.applyStyle("width", 0);
-		}
+	_resetTime: function() {
+		this._currentTime = 0;
+		this._duration = 0;
+		this.updatePosition();
+		this.$.slider.setBgProgress(0);
+		this.$.bgProgressStatus.applyStyle("width", 0);
 	},
 	_play: function(inSender, inEvent) {
 		this.sendFeedback("Play");
@@ -1013,11 +1046,13 @@ enyo.kind({
 	_error: function(inSender, inEvent) {
 		// Error codes in inEvent.currentTarget.error.code
 		// 1: MEDIA_ERR_ABORTED, 2: MEDIA_ERR_NETWORK, 3: MEDIA_ERR_DECODE, 4: MEDIA_ERR_SRC_NOT_SUPPORTED
+		this._errorCode = inEvent.currentTarget.error.code;
 		this._loaded = false;
 		this._isPlaying = false;
 		this._canPlay = false;
 		this.$.currTime.setContent($L("Error"));
-		this.$.totalTime.setContent("");
 		this._stop();
+		this.updateSpinner();
+		this.updatePlaybackControlState();
 	}
 });
