@@ -2730,15 +2730,19 @@
   margin-left: 64px;
 }
 /* Spinner.css */
-.moon-spinner,
-.moon-spinner.moon-dark {
-  width: 52px;
-  height: 52px;
+.moon-spinner {
+  border-radius: 73px;
+  height: 73px;
+  min-width: 73px;
   display: inline-block;
-  background: url(../images/spinner-dark.gif) no-repeat 0 0;
+  background: #000000 url(../images/spinner.gif) no-repeat 7px 7px;
+  color: #ffffff;
+  line-height: 73px;
+  margin: 0 10px;
 }
-.moon-spinner.moon-light {
-  background: url(../images/spinner-light.gif) no-repeat 0 0;
+.moon-spinner.content {
+  padding-left: 73px;
+  padding-right: 40px;
 }
 .moon-panel {
   -webkit-transform: scale3d(1, 1, 1);
