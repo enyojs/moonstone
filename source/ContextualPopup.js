@@ -52,7 +52,7 @@ enyo.kind({
 	activator: null,
 	tools: [
 		{name: "client"},
-		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.
 	initComponents: function() {
