@@ -38,9 +38,14 @@ enyo.kind({
 						{content: "Item 3"}
 					]},
 					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+<<<<<<< HEAD
 					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 					{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"}
+=======
+					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Deactivated Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
+					{tag: "br"}
+>>>>>>> origin/GF-42322-brookepeterson
 				]}
 			]}
 		]},
@@ -81,9 +86,14 @@ enyo.kind({
 							{content: "Item 3"}
 						]},
 						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
+<<<<<<< HEAD
 						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 						{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 						{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"}
+=======
+						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Deactivated Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
+						{tag: "br"}
+>>>>>>> origin/GF-42322-brookepeterson
 					]}
 				]}
 			]}

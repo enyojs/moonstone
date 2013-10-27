@@ -44,7 +44,7 @@ enyo.kind({
 			]},
 			{classes:"moon-1v"},
 
-			{kind: "moon.Divider", content:"Picker 5: Disabled"},
+			{kind: "moon.Divider", content:"Picker 5: Deactivated"},
 			{kind:"moon.SimplePicker", block:true, name:"picker5", disabled: true, components: [
 				{content:"Enyo"},
 				{content:"Sencha"}

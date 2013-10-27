@@ -16,7 +16,7 @@
 	height: @moon-picker-button-width;
 	line-height: @moon-picker-button-width;
 	border-radius: @moon-picker-button-width/2;
-	border: 0px;
+	border: 0;
 	background: inherit;
 	color: @moon-simple-picker-button-text-color;
 	padding: 0;
@@ -24,7 +24,7 @@
 	text-align: center;
 	vertical-align: middle;
 	font-family: @moon-button-font-family;
-	background: transparent @moon-scroller-icon no-repeat center 13px;
+	background: transparent @moon-scroller-icon no-repeat center 5px;
 }
 .moon-simple-picker-button.hidden {
 	opacity: @moon-disabled-opacity;
@@ -33,7 +33,8 @@
 
 .moon-simple-picker-button.spotlight {
 	background-color: @moon-spotlight-border-color;
-	background-image: @moon-scroller-spotlight;
+	background-image: @moon-scroller-icon;
+	background-position:center -45px;
 }
 .moon-simple-picker-client-wrapper {
 	width: 100%;

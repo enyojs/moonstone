@@ -4,6 +4,7 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{fit:true, components: [
+<<<<<<< HEAD
 			{kind: "moon.Divider", content: "Font-based Icon Buttons:"},
 			{kind: "moon.IconButton", icon: "drawer", small: false, ontap: "buttonTapped"},
 			{kind: "moon.IconButton", icon: "zoom", small: false, ontap: "buttonTapped"},
@@ -29,6 +30,16 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "assets/icon-list.png", ontap: "buttonTapped"},
 				{kind: "moon.IconButton", src: "assets/icon-album.png", ontap: "buttonTapped"}
 			]}
+=======
+			{kind: "moon.Divider", content: "Icon Buttons:"},
+			{kind: "moon.IconButton", src: "./assets/icon-list.png", ontap: "buttonTapped"},
+			{kind: "moon.IconButton", src: "./assets/icon-list.png", ontap: "buttonTapped"},
+			{tag: "br"},
+			{tag: "br"},
+			{kind: "moon.Divider", content: "Deactivated Icon Buttons:"},
+			{kind: "moon.IconButton", src: "./assets/icon-list.png", ontap: "buttonTapped", disabled: true},
+			{kind: "moon.IconButton", src: "./assets/icon-list.png", ontap: "buttonTapped", disabled: true}
+>>>>>>> origin/GF-42322-brookepeterson
 		]},
 		{kind: "moon.Divider", content: "Result"},
 		{kind: "moon.BodyText", name:"console", content: "No changes yet"}

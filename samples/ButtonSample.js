@@ -16,7 +16,7 @@ enyo.kind({
 					{kind: "moon.Tooltip", content:"minWidth: true"}
 				]},
 				{name: "Button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
-				{name: "Disabled Button", kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
+				{name: "Deactivated Button", kind: "moon.Button", disabled: true, content: "Deactivated Button", ontap: "buttonTapped"},
 				{name: "Long Button", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{tag: "br"},
 				{tag: "br"},
@@ -25,7 +25,7 @@ enyo.kind({
 				{name: "Small A Button", kind: "moon.Button", small: true, minWidth: false, content: "A", ontap: "buttonTapped"},
 				{name: "Small B Button", kind: "moon.Button", small: true, content: "B", ontap: "buttonTapped"},
 				{name: "Small Button", kind: "moon.Button", small: true, content: "Button", ontap: "buttonTapped"},
-				{name: "Small Disabled Button", kind: "moon.Button", small: true, disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
+				{name: "Small Deactivated Button", kind: "moon.Button", small: true, disabled: true, content: "Deactivated Button", ontap: "buttonTapped"},
 				{name: "Small Long Button", kind: "moon.Button", small: true, content: "Loooooooooooooooooooooooong Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleItem", classes: "tap-area-toggle-container", content: "Show Tap Area", onActivate: "showSmallButtonTapArea"},
 				{tag: "br"},
@@ -83,13 +83,13 @@ enyo.kind({
 			this.$["Small A Button"].addClass("visible-tap-area");
 			this.$["Small B Button"].addClass("visible-tap-area");
 			this.$["Small Button"].addClass("visible-tap-area");
-			this.$["Small Disabled Button"].addClass("visible-tap-area");
+			this.$["Small Deactivated Button"].addClass("visible-tap-area");
 			this.$["Small Long Button"].addClass("visible-tap-area");
 		} else {
 			this.$["Small A Button"].removeClass("visible-tap-area");
 			this.$["Small B Button"].removeClass("visible-tap-area");
 			this.$["Small Button"].removeClass("visible-tap-area");
-			this.$["Small Disabled Button"].removeClass("visible-tap-area");
+			this.$["Small Deactivated Button"].removeClass("visible-tap-area");
 			this.$["Small Long Button"].removeClass("visible-tap-area");
 		}
 	}

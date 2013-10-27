@@ -18,8 +18,6 @@
 /* Font Sizes */
 /* Other Font Properties */
 /* Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement */
-/* Disabled Opacity */
-/* ---------------------------------------*/
 /* Images */
 /* ---------------------------------------*/
 /* Icon Sizes */
@@ -731,7 +729,7 @@
   height: 60px;
   line-height: 60px;
   border-radius: 30px;
-  border: 0px;
+  border: 0;
   background: inherit;
   color: #999999;
   padding: 0;
@@ -739,15 +737,16 @@
   text-align: center;
   vertical-align: middle;
   font-family: "Miso";
-  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center 13px;
+  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center 5px;
 }
 .moon-simple-picker-button.hidden {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .moon-simple-picker-button.spotlight {
   background-color: #ff2f7d;
-  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+  background-position: center -45px;
 }
 .moon-simple-picker-client-wrapper {
   width: 100%;
@@ -777,8 +776,8 @@
 }
 .moon-simple-picker-client.disabled,
 .moon-simple-picker-button[disabled] {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
   background-color: transparent;
 }
 .moon-simple-picker-button.left {
@@ -834,20 +833,20 @@
   width: 60px;
   height: 60px;
   border-radius: 30px;
-  border: 0px;
+  border: 0;
   background: inherit;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   text-align: center;
   vertical-align: middle;
   z-index: 2;
   color: #999999;
-  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center center;
+  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center 0;
 }
 .moon-simple-integer-picker-client {
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
+  padding: 0;
+  margin: 0;
+  border: 0;
   height: 36px;
 }
 .moon-simple-integer-picker-item {
@@ -870,8 +869,8 @@
 .moon-simple-integer-picker.disabled,
 .moon-simple-integer-picker-button[disabled] {
   cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
@@ -954,7 +953,7 @@
   -webkit-transform: rotate(270deg) translateZ(1px);
 }
 .spotlight .moon-simple-integer-picker-button {
-  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+  background: url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center -50px;
 }
 /* Checkbox.css */
 .moon-checkbox {
@@ -968,7 +967,7 @@
   background-position: -5px 1px;
 }
 .moon-checkbox[disabled] {
-  opacity: 0.4;
+  opacity: 0.6;
 }
 .moon-divider {
   border-bottom: 2px solid #404040;
@@ -1019,8 +1018,8 @@
 }
 .moon-checkbox-item.disabled {
   cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .moon-checkbox-item .moon-checkbox[disabled] {
   cursor: default;
@@ -1145,8 +1144,8 @@
 }
 .moon-item.disabled {
   cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .moon-item.spotlight {
   background-color: #ff2f7d;
@@ -1437,8 +1436,8 @@
   padding: 0px;
 }
 .moon-expandable-list-item.disabled {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 /* Header */
 .moon-expandable-list-item-header {
@@ -1890,8 +1889,14 @@
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
+<<<<<<< HEAD
   width: 45px;
   height: 45px;
+=======
+  width: 50px;
+  height: 50px;
+  background-position: center 0;
+>>>>>>> origin/GF-42322-brookepeterson
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
@@ -1920,24 +1925,74 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
+<<<<<<< HEAD
   background-position: 0 -75px;
   color: #ffffff;
+=======
+  background-position: center -50px;
+>>>>>>> origin/GF-42322-brookepeterson
 }
 .moon-icon.disabled {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .moon-icon.disabled:active:hover {
-  background-position: 0 0px;
+  background-position: center 0;
+}
+/* moonstone-icons.css */
+/* Font icon, name-to-character definitions */
+.moon-icon-drawer:after {
+  content: "\0F0000";
+}
+.moon-icon-arrowlargeup:after {
+  content: "\0F0002";
+}
+.moon-icon-arrowlargedown:after {
+  content: "\0F0001";
+}
+.moon-icon-arrowlargeleft:after {
+  content: "\0F0003";
+}
+.moon-icon-arrowlargeright:after {
+  content: "\0F0004";
+}
+.moon-icon-arrowsmallup:after {
+  content: "\0F0005";
+}
+.moon-icon-arrowsmalldown:after {
+  content: "\0F0006";
+}
+.moon-icon-arrowsmallleft:after {
+  content: "\0F0007";
+}
+.moon-icon-arrowsmallright:after {
+  content: "\0F0008";
+}
+.moon-icon-closex:after {
+  content: "\0F0009";
+}
+.moon-icon-check:after {
+  content: "\0F000A";
+}
+.moon-icon-search:after {
+  content: "\0F000B";
 }
 /* IconButton.css */
 .moon-icon-button {
+<<<<<<< HEAD
   box-sizing: border-box;
   width: 85px;
   height: 85px;
   border-radius: 42.5px;
   background-color: #404040;
   background-size: 75px 150px;
+=======
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: #404040;
+  background-position: center 0;
+>>>>>>> origin/GF-42322-brookepeterson
   border: 5px solid transparent;
   margin: 0 10px;
   line-height: 75px;
@@ -1957,22 +2012,36 @@
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-icon.moon-icon-button.spotlight:active {
+<<<<<<< HEAD
   background-position: 0px -75px;
+=======
+  background-position: center 0;
+>>>>>>> origin/GF-42322-brookepeterson
   border: 5px solid #ff2f7d;
   background-color: #404040;
   color: #ffffff;
 }
+<<<<<<< HEAD
 .moon-icon.moon-icon-button.active.small,
 .moon-icon.moon-icon-button.pressed.small,
 .moon-icon.moon-icon-button.spotlight.pressed.small,
 .moon-icon.moon-icon-button.spotlight:active.small {
   background-position: 0px -50px;
+=======
+.moon-icon-button.spotlight {
+  background-color: #ff2f7d;
+  background-position: center -50px;
+>>>>>>> origin/GF-42322-brookepeterson
 }
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat 6px 6px;
+<<<<<<< Updated upstream
+  background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center 0;
+=======
+  background-color: transparent;
+>>>>>>> Stashed changes
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -1983,18 +2052,23 @@
 }
 .moon-icon-button.moon-paging-button.spotlight {
   background-color: #ff2f7d;
+<<<<<<< HEAD
   color: #ffffff;
   background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+=======
+  background-position: center -50px;
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+>>>>>>> origin/GF-42322-brookepeterson
 }
 .moon-icon-button.moon-paging-button.hidden {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .moon-icon-button.moon-paging-button.top {
-  top: 0px;
+  top: 0;
 }
 .moon-icon-button.moon-paging-button.right {
-  right: 0px;
+  right: 0;
   transform: rotate(90deg) translateZ(1px);
   -o-transform: rotate(90deg) translateZ(1px);
   -ms-transform: rotate(90deg) translateZ(1px);
@@ -2002,7 +2076,7 @@
   -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.bottom {
-  bottom: 0px;
+  bottom: 0;
   transform: rotate(180deg) translateZ(1px);
   -o-transform: rotate(180deg) translateZ(1px);
   -ms-transform: rotate(180deg) translateZ(1px);
@@ -2010,7 +2084,7 @@
   -webkit-transform: rotate(180deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
-  left: 0px;
+  left: 0;
   transform: rotate(270deg) translateZ(1px);
   -o-transform: rotate(270deg) translateZ(1px);
   -ms-transform: rotate(270deg) translateZ(1px);
@@ -2019,18 +2093,31 @@
 }
 .moon-icon-button.moon-paging-button.hover:hover {
   background-color: #ff2f7d;
+<<<<<<< HEAD
   color: #ffffff;
+<<<<<<< Updated upstream
   background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+=======
+  background-position: center -50px;
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+>>>>>>> origin/GF-42322-brookepeterson
+=======
+>>>>>>> Stashed changes
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
   background-color: transparent;
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+  background-position: center 0;
 }
+<<<<<<< Updated upstream
 .moon-paging-button.moon-icon.moon-icon-button.active,
 .moon-paging-button.moon-icon.moon-icon-button:active:hover,
 .moon-paging-button.moon-icon-toggle.active,
 .moon-icon-button.moon-paging-button.spotlight.pressed {
-  background-position: 6px 6px;
+  background-position: center -50px;
 }
+=======
+>>>>>>> Stashed changes
 /* IntegerPicker.css */
 .moon-scroll-picker-container {
   display: inline-block;
@@ -2288,8 +2375,8 @@
 }
 .moon-slider.disabled {
   cursor: default;
-  opacity: 0.4;
-  filter: alpha(opacity=40);
+  opacity: 0.6;
+  filter: alpha(opacity=60);
 }
 .moon-progress-bar.moon-slider {
   margin: 60px 45px !important;
@@ -3068,9 +3155,11 @@
 }
 .moon-calendar-picker .moon-simple-picker-button {
   background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+  background-position: center 5px;
 }
 .moon-calendar-picker .moon-simple-picker-button.spotlight {
-  background-image: url(../images/DarkTheme_Icons/scroller_spotlight.png);
+  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
+  background-position: center -45px;
 }
 .moon-calendar-picker-date.moon-button.small.active,
 .moon-calendar-picker-date.moon-button.small.pressed,
@@ -3686,15 +3775,16 @@
 }
 .moon-video-inline-control .moon-video-inline-control-play-pause {
   position: absolute;
-  bottom: 14px;
+  bottom: 10px;
   left: 10px;
 }
 .moon-video-inline-control-fullscreen {
   position: absolute;
-  bottom: 14px;
+  bottom: 10px;
   right: 10px;
 }
 .moon-video-inline-control-text {
+  font-family: "Miso";
   position: absolute;
   bottom: 20px;
   left: 100px;
@@ -3735,11 +3825,11 @@
 .moon-video-inline-control .moon-icon-button.spotlight.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight:active {
   background-color: #fff;
-  background-position: 0px -42px;
+  background-position: 0px -50px;
 }
 .moon-video-inline-control .moon-icon-button.spotlight {
   background-color: #fff;
-  background-position: 0px -42px;
+  background-position: 0px -50px;
 }
 /* --- Fullscreen control --- */
 .moon-video-fullscreen-control {
@@ -3788,14 +3878,30 @@
   padding-left: 5px;
 }
 .moon-video-player-premium-placeholder-left {
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   width: 235px;
+=======
+  width: 210px;
+>>>>>>> Stashed changes
   height: 85px;
   padding-left: 90px;
 }
 .moon-video-player-premium-placeholder-right {
-  width: 235px;
+  width: 210px;
   height: 85px;
   padding-left: 5px;
+=======
+  width: 190px;
+  height: 80px;
+  padding-top: 5px;
+  padding-left: 80px;
+}
+.moon-video-player-premium-placeholder-right {
+  width: 190px;
+  height: 80px;
+  padding-top: 5px;
+>>>>>>> origin/GF-42322-brookepeterson
 }
 /* --- Buttons --- */
 .moon-video-fullscreen-control .moon-icon-button {
@@ -4247,10 +4353,24 @@
   -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   padding-right: 85px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
   padding-bottom: 85px;
+=======
+  padding-right: 60px;
+}
+.moon-scroller-client-wrapper.h-scroll-enabled {
+  padding-bottom: 60px;
+>>>>>>> origin/GF-42322-brookepeterson
+=======
+  padding-right: 60px;
+}
+.moon-scroller-client-wrapper.h-scroll-enabled {
+  padding-bottom: 60px;
+>>>>>>> Stashed changes
 }
 /* Default states for horizontal and vertical scrollbars */
 .moon-scroller-v-column,
@@ -4282,37 +4402,87 @@
   top: 0px;
   bottom: 0px;
   right: 0px;
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   width: 85px;
+=======
+  width: 60px;
+>>>>>>> origin/GF-42322-brookepeterson
+=======
+  width: 60px;
+>>>>>>> Stashed changes
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
   left: 0px;
   right: 0px;
   bottom: 0px;
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   height: 85px;
+=======
+  height: 60px;
+>>>>>>> Stashed changes
 }
 /* Shorten vertical column when horizontal column is enabled */
 .moon-scroller-v-column.h-scroll-enabled {
-  bottom: 85px;
+  bottom: 60px;
 }
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
+<<<<<<< Updated upstream
   right: 85px;
+=======
+  height: 60px;
+}
+/* Shorten vertical column when horizontal column is enabled */
+.moon-scroller-v-column.h-scroll-enabled {
+  bottom: 60px;
+}
+/* Shorten horizontal column when vertical column is enabled */
+.moon-scroller-h-column.v-scroll-enabled {
+  right: 60px;
+>>>>>>> origin/GF-42322-brookepeterson
+=======
+  right: 60px;
+>>>>>>> Stashed changes
 }
 .moon-scroller-thumb-container {
   position: absolute;
 }
 .moon-scroller-hthumb-container {
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   left: 85px;
   right: 85px;
+=======
+  left: 60px;
+  right: 60px;
+>>>>>>> Stashed changes
   bottom: 0px;
-  height: 85px;
+  height: 60px;
 }
 .moon-scroller-vthumb-container {
-  top: 85px;
-  bottom: 85px;
+  top: 60px;
+  bottom: 60px;
   right: 0px;
+<<<<<<< Updated upstream
   width: 85px;
+=======
+  left: 60px;
+  right: 60px;
+  bottom: 0px;
+  height: 60px;
+}
+.moon-scroller-vthumb-container {
+  top: 60px;
+  bottom: 60px;
+  right: 0px;
+  width: 60px;
+>>>>>>> origin/GF-42322-brookepeterson
+=======
+  width: 60px;
+>>>>>>> Stashed changes
 }
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
@@ -4409,7 +4579,11 @@
   display: block;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
+<<<<<<< HEAD
   background-position: 0px -75px;
+=======
+  background-position: center 0;
+>>>>>>> origin/GF-42322-brookepeterson
   border: 5px solid #ff2f7d;
   background-color: #404040;
   color: #ffffff;
@@ -4436,8 +4610,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
+<<<<<<< HEAD
   margin-top: -22.5px;
   margin-left: -22.5px;
+=======
+  margin-top: -25px;
+  margin-left: -25px;
+>>>>>>> origin/GF-42322-brookepeterson
 }
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;
@@ -4454,10 +4633,24 @@
   -webkit-transition: opacity 0.1s linear;
 }
 .moon-scroller-hthumb {
+<<<<<<< Updated upstream
+<<<<<<< HEAD
   bottom: 40.5px;
 }
 .moon-scroller-vthumb {
   right: 40.5px;
+=======
+  bottom: 28px;
+}
+.moon-scroller-vthumb {
+  right: 28px;
+>>>>>>> origin/GF-42322-brookepeterson
+=======
+  bottom: 28px;
+}
+.moon-scroller-vthumb {
+  right: 28px;
+>>>>>>> Stashed changes
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {

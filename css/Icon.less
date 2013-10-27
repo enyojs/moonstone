@@ -2,6 +2,7 @@
 .moon-icon, .moon-icon-toggle {
 	width: @moon-icon-size;
 	height: @moon-icon-size;
+	background-position: center 0;
 	background-repeat: no-repeat;
 	display: inline-block;
 	vertical-align: middle;
@@ -30,7 +31,7 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-	background-position: 0 -(@moon-icon-button-size - (@moon-button-border-width * 2));
+	background-position: center -(@moon-icon-button-size - (@moon-button-border-width * 2));
 	color: @moon-spotlight-text-color;
 }
 
@@ -40,5 +41,5 @@
 }
 
 .moon-icon.disabled:active:hover {
-	background-position: 0 0px;
+	background-position: center 0;
 }
