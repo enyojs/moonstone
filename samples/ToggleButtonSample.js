@@ -8,7 +8,7 @@ enyo.kind({
 				{kind: "moon.Divider", content: "Toggle Buttons:"},
 				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Button", ontap: "buttonTapped"},
-				{kind: "moon.ToggleButton", disabled: true, content: "Deactivated Button", ontap: "buttonTapped"},
+				{kind: "moon.ToggleButton", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{classes: "moon-1v"},
 				{kind: "moon.Divider", content: "Captioned Buttons:"},

@@ -8,7 +8,6 @@ enyo.kind({
 	classes: "moon-paging-button",
 	spotlight: true,
 	published: {
-		icon: "arrowlargeup",
 		side: null
 	},
 	handlers: {

@@ -22,7 +22,7 @@ enyo.kind({
 				{kind: "moon.Input", placeholder: "Dismiss on Enter", dismissOnEnter:true, oninput:"handleInput", onchange:"handleChange"}
 			]},
 			{kind: "moon.InputDecorator", disabled: true, components: [
-				{kind: "moon.Input", disabled: true, value: "Deactivated input"}
+				{kind: "moon.Input", disabled: true, value: "Disabled input"}
 			]},
 
 			{kind: "moon.Divider", content: "TextAreas"},

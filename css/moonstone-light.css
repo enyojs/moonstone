@@ -1888,14 +1888,9 @@
 /* Icon.css */
 .moon-icon,
 .moon-icon-toggle {
-<<<<<<< HEAD
   width: 45px;
   height: 45px;
-=======
-  width: 50px;
-  height: 50px;
   background-position: center 0;
->>>>>>> origin/GF-42322-brookepeterson
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
@@ -1924,12 +1919,8 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-<<<<<<< HEAD
-  background-position: 0 -75px;
+  background-position: center -75px;
   color: #ffffff;
-=======
-  background-position: center -50px;
->>>>>>> origin/GF-42322-brookepeterson
 }
 .moon-icon.disabled {
   opacity: 0.6;
@@ -1978,21 +1969,14 @@
 }
 /* IconButton.css */
 .moon-icon-button {
-<<<<<<< HEAD
   box-sizing: border-box;
   width: 85px;
   height: 85px;
   border-radius: 42.5px;
   background-color: #ffffff;
   background-size: 75px 150px;
-=======
-  width: 50px;
-  height: 50px;
-  border-radius: 30px;
-  background-color: #ffffff;
-  background-position: center 0;
->>>>>>> origin/GF-42322-brookepeterson
   border: 5px solid transparent;
+  background-position: center 0;
   margin: 0 10px;
   line-height: 75px;
 }
@@ -2011,36 +1995,29 @@
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-icon.moon-icon-button.spotlight:active {
-<<<<<<< HEAD
-  background-position: 0px -75px;
-=======
-  background-position: center 0;
->>>>>>> origin/GF-42322-brookepeterson
+  background-position: center -75px;
   border: 5px solid #ff2f7d;
   background-color: #ffffff;
   color: #ffffff;
 }
-<<<<<<< HEAD
 .moon-icon.moon-icon-button.active.small,
 .moon-icon.moon-icon-button.pressed.small,
 .moon-icon.moon-icon-button.spotlight.pressed.small,
 .moon-icon.moon-icon-button.spotlight:active.small {
-  background-position: 0px -50px;
-=======
+  background-position: center -50px;
+}
 .moon-icon-button.spotlight {
   background-color: #ff2f7d;
+  background-position: center -75px;
+}
+.moon-icon-button.spotlight.small {
   background-position: center -50px;
->>>>>>> origin/GF-42322-brookepeterson
 }
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-<<<<<<< Updated upstream
-  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center 0;
-=======
-  background-color: transparent;
->>>>>>> Stashed changes
+  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat 6px 6px;
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -2050,24 +2027,23 @@
   margin: 0;
 }
 .moon-icon-button.moon-paging-button.spotlight {
-  background-color: #ff2f7d;
-<<<<<<< HEAD
   color: #ffffff;
+  background-color: #ff2f7d;
+  background-position: center -75px;
   background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
-=======
+}
+.moon-icon-button.moon-paging-button.spotlight.small {
   background-position: center -50px;
-  background-image: url(../images/LightTheme_Icons/scroller_icon.png);
->>>>>>> origin/GF-42322-brookepeterson
 }
 .moon-icon-button.moon-paging-button.hidden {
   opacity: 0.6;
   filter: alpha(opacity=60);
 }
 .moon-icon-button.moon-paging-button.top {
-  top: 0;
+  top: 0px;
 }
 .moon-icon-button.moon-paging-button.right {
-  right: 0;
+  right: 0px;
   transform: rotate(90deg) translateZ(1px);
   -o-transform: rotate(90deg) translateZ(1px);
   -ms-transform: rotate(90deg) translateZ(1px);
@@ -2075,7 +2051,7 @@
   -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.bottom {
-  bottom: 0;
+  bottom: 0px;
   transform: rotate(180deg) translateZ(1px);
   -o-transform: rotate(180deg) translateZ(1px);
   -ms-transform: rotate(180deg) translateZ(1px);
@@ -2083,7 +2059,7 @@
   -webkit-transform: rotate(180deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
-  left: 0;
+  left: 0px;
   transform: rotate(270deg) translateZ(1px);
   -o-transform: rotate(270deg) translateZ(1px);
   -ms-transform: rotate(270deg) translateZ(1px);
@@ -2091,32 +2067,23 @@
   -webkit-transform: rotate(270deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.hover:hover {
-  background-color: #ff2f7d;
-<<<<<<< HEAD
   color: #ffffff;
-<<<<<<< Updated upstream
+  background-color: #ff2f7d;
+  background-position: center -75px;
   background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
-=======
+}
+.moon-icon-button.moon-paging-button.hover:hover.small {
   background-position: center -50px;
-  background-image: url(../images/LightTheme_Icons/scroller_icon.png);
->>>>>>> origin/GF-42322-brookepeterson
-=======
->>>>>>> Stashed changes
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
   background-color: transparent;
-  background-image: url(../images/LightTheme_Icons/scroller_icon.png);
-  background-position: center 0;
 }
-<<<<<<< Updated upstream
 .moon-paging-button.moon-icon.moon-icon-button.active,
 .moon-paging-button.moon-icon.moon-icon-button:active:hover,
 .moon-paging-button.moon-icon-toggle.active,
 .moon-icon-button.moon-paging-button.spotlight.pressed {
-  background-position: center -50px;
+  background-position: 6px 6px;
 }
-=======
->>>>>>> Stashed changes
 /* IntegerPicker.css */
 .moon-scroll-picker-container {
   display: inline-block;
@@ -3873,12 +3840,7 @@
   padding-left: 5px;
 }
 .moon-video-player-premium-placeholder-left {
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-  width: 235px;
-=======
   width: 210px;
->>>>>>> Stashed changes
   height: 85px;
   padding-left: 90px;
 }
@@ -3886,17 +3848,6 @@
   width: 210px;
   height: 85px;
   padding-left: 5px;
-=======
-  width: 190px;
-  height: 80px;
-  padding-top: 5px;
-  padding-left: 80px;
-}
-.moon-video-player-premium-placeholder-right {
-  width: 190px;
-  height: 80px;
-  padding-top: 5px;
->>>>>>> origin/GF-42322-brookepeterson
 }
 /* --- Buttons --- */
 .moon-video-fullscreen-control .moon-icon-button {
@@ -4345,24 +4296,10 @@
   -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-  padding-right: 85px;
-}
-.moon-scroller-client-wrapper.h-scroll-enabled {
-  padding-bottom: 85px;
-=======
   padding-right: 60px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
   padding-bottom: 60px;
->>>>>>> origin/GF-42322-brookepeterson
-=======
-  padding-right: 60px;
-}
-.moon-scroller-client-wrapper.h-scroll-enabled {
-  padding-bottom: 60px;
->>>>>>> Stashed changes
 }
 /* Default states for horizontal and vertical scrollbars */
 .moon-scroller-v-column,
@@ -4394,37 +4331,13 @@
   top: 0px;
   bottom: 0px;
   right: 0px;
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-  width: 85px;
-=======
   width: 60px;
->>>>>>> origin/GF-42322-brookepeterson
-=======
-  width: 60px;
->>>>>>> Stashed changes
 }
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
   left: 0px;
   right: 0px;
   bottom: 0px;
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-  height: 85px;
-=======
-  height: 60px;
->>>>>>> Stashed changes
-}
-/* Shorten vertical column when horizontal column is enabled */
-.moon-scroller-v-column.h-scroll-enabled {
-  bottom: 60px;
-}
-/* Shorten horizontal column when vertical column is enabled */
-.moon-scroller-h-column.v-scroll-enabled {
-<<<<<<< Updated upstream
-  right: 85px;
-=======
   height: 60px;
 }
 /* Shorten vertical column when horizontal column is enabled */
@@ -4434,33 +4347,11 @@
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
   right: 60px;
->>>>>>> origin/GF-42322-brookepeterson
-=======
-  right: 60px;
->>>>>>> Stashed changes
 }
 .moon-scroller-thumb-container {
   position: absolute;
 }
 .moon-scroller-hthumb-container {
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-  left: 85px;
-  right: 85px;
-=======
-  left: 60px;
-  right: 60px;
->>>>>>> Stashed changes
-  bottom: 0px;
-  height: 60px;
-}
-.moon-scroller-vthumb-container {
-  top: 60px;
-  bottom: 60px;
-  right: 0px;
-<<<<<<< Updated upstream
-  width: 85px;
-=======
   left: 60px;
   right: 60px;
   bottom: 0px;
@@ -4471,10 +4362,6 @@
   bottom: 60px;
   right: 0px;
   width: 60px;
->>>>>>> origin/GF-42322-brookepeterson
-=======
-  width: 60px;
->>>>>>> Stashed changes
 }
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
@@ -4571,19 +4458,14 @@
   display: block;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-<<<<<<< HEAD
-  background-position: 0px -75px;
+  background-position: center -75px;
   border: 5px solid #ff2f7d;
   color: #ffffff;
-=======
-  background-position: center 0;
-  border: 5px solid #ff2f7d;
->>>>>>> origin/GF-42322-brookepeterson
   background-color: #ffffff;
   border-color: #ffffff;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.small {
-  background-position: 0px -50px;
+  background-position: center -50px;
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
@@ -4602,13 +4484,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-<<<<<<< HEAD
   margin-top: -22.5px;
   margin-left: -22.5px;
-=======
-  margin-top: -25px;
-  margin-left: -25px;
->>>>>>> origin/GF-42322-brookepeterson
 }
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;
@@ -4625,24 +4502,10 @@
   -webkit-transition: opacity 0.1s linear;
 }
 .moon-scroller-hthumb {
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-  bottom: 40.5px;
-}
-.moon-scroller-vthumb {
-  right: 40.5px;
-=======
   bottom: 28px;
 }
 .moon-scroller-vthumb {
   right: 28px;
->>>>>>> origin/GF-42322-brookepeterson
-=======
-  bottom: 28px;
-}
-.moon-scroller-vthumb {
-  right: 28px;
->>>>>>> Stashed changes
 }
 .moon-scroller-hthumb.hidden,
 .moon-scroller-vthumb.hidden {

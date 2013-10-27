@@ -8,7 +8,7 @@ enyo.kind({
 				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Input", noneText: "No Input"},
 				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Input with Placeholder", noneText: "No Input", placeholder: "Placeholder"},
 				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Input with Value", noneText: "No Input", placeholder: "Placeholder", value: "Initial value"},
-				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Deactivated Input", noneText: "No Input", disabled:true, value: "I am deactivated."},
+				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Disabled Input", noneText: "No Input", disabled:true, value: "I am disabled."},
 				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Input with loooooooooooooooong text truncation", noneText: "No Input with loooooooooooooooooong text truncation"},
 				{kind: "moon.ExpandableInput", oninput:"inputChanging", onChange:"inputChanged", content: "Input with no value or noneText"}
 			]}
