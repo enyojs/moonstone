@@ -22,7 +22,14 @@ enyo.kind({
 			A value of true indicates that this is the active button of the group;
 			false, that it is not the active button.
 		*/
-		active: false
+		active: false,
+		/**
+			A parameter indicating the size of the button.
+			If true, the diameter of this button is 60px.
+			However, the button's tap target still has a diameter of 78px, so there is
+			invisible DOM that wraps the small button to provide the larger tap zone.
+		*/
+		small: true
 	},
 	classes: "moon-icon-button",
 	//* @protected
