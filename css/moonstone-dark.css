@@ -1891,7 +1891,7 @@
 .moon-icon-toggle {
   width: 45px;
   height: 45px;
-  background-position: center 0;
+  background-position: center -15px;
   background-repeat: no-repeat;
   display: inline-block;
   vertical-align: middle;
@@ -1903,6 +1903,7 @@
 }
 .moon-icon.small,
 .moon-icon-toggle.small {
+  background-position: center -9px;
   position: relative;
   width: 32px;
   height: 32px;
@@ -1920,7 +1921,7 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-  background-position: center -75px;
+  background-position: center -85px;
   color: #ffffff;
 }
 .moon-icon.disabled {
@@ -1986,6 +1987,7 @@
   height: 60px;
   border-radius: 30px;
   background-size: 50px 100px;
+  background-position: center 0;
   line-height: 50px;
 }
 .moon-icon-button.spotlight {
