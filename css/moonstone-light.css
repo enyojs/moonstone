@@ -2019,7 +2019,7 @@
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat 6px 6px;
+  background-color: transparent;
   opacity: 1;
   transform: translateZ(1px);
   -o-transform: translateZ(1px);
@@ -2072,19 +2072,12 @@
   color: #ffffff;
   background-color: #ff2f7d;
   background-position: center -75px;
-  background-image: url(../images/LightTheme_Icons/scroller_spotlight.png);
 }
 .moon-icon-button.moon-paging-button.hover:hover.small {
   background-position: center -50px;
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
   background-color: transparent;
-}
-.moon-paging-button.moon-icon.moon-icon-button.active,
-.moon-paging-button.moon-icon.moon-icon-button:active:hover,
-.moon-paging-button.moon-icon-toggle.active,
-.moon-icon-button.moon-paging-button.spotlight.pressed {
-  background-position: 6px 6px;
 }
 /* IntegerPicker.css */
 .moon-scroll-picker-container {
