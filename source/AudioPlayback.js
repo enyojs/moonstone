@@ -168,6 +168,7 @@ enyo.kind({
 	components: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded",
 			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
+			onprogress: "_progress", onPlay: "_play", onpause: "_pause", ontimeupdate: "timeUpdate", 
 			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"},
 		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", kind: "Image", classes: "moon-audio-playback-track-icon"},
@@ -179,11 +180,11 @@ enyo.kind({
 					]},
 					{classes: "moon-audio-control-buttons", fit: true, components: [
 						// _src_ property will need to be updated with images from UX
-						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_skipbackward.png", ontap: "playPrevious"},
-						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_backward.png", ontap: "rewind"},
-						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_play.png", style:"background-size:65px;width:65px;height:65px;margin: 0 40px 0 55px;", ontap: "togglePlay"},
-						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_forward.png", ontap: "fastForward"},
-						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_skipforward.png", ontap: "playNext"},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_skipbackward.png", ontap: "playPrevious", small:false},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_backward.png", ontap: "rewind", small:false},
+						{name: "btnPlay", kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_play.png", ontap: "togglePlay", small:false},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_forward.png", ontap: "fastForward", small:false},
+						{kind: "moon.IconButton", classes: "moon-audio-control-item", src: "$lib/moonstone/images/video-player/icon_skipforward.png", ontap: "playNext", small:false},
 						{name: "client", classes: "client-area moon-audio-icon-button right"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button shuffle-button right", name: "btnShuffle", ontap: "toggleShuffleState"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button repeat-button none right", name: "btnRepeat", ontap: "changeRepeatState"},
@@ -194,22 +195,103 @@ enyo.kind({
 		]},
 		{kind: "FittableColumns", classes: "", components: [
 			{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
-				{name: "slider", kind: "moon.VideoTransportSlider", audioPlayerSupport: true, onSeekStart: "sliderChanging", onSeek: "sliderChanging", onSeekFinish: "sliderChanging"}
+				{name: "slider", kind: "moon.VideoTransportSlider", audioPlayerSupport: true, onSeekStart: "sliderSeekStart", onSeek: "sliderChanging", onSeekFinish: "sliderSeekFinish"}
 			]}
 		]}
 	],
-	endPlayheadJob: function() {
-		clearInterval(this.playheadJob);
-		this.playheadJob = null;
+	_play: function(inSender, inEvent) {
+		this.sendFeedback("Play");
+	},
+	_pause: function(inSender, inEvent) {
+		// Don't send pause feedback if we are rewinding
+		if (inEvent.srcElement.playbackRate < 0) {
+			return;
+		}
+		this.sendFeedback("Pause", {}, true);
+	},
+	//* Updates the audio time.
+	timeUpdate: function(inSender, inEvent) {
+		//* Update _this.duration_ and _this.currentTime_
+		if (!inEvent && inEvent.srcElement) {
+			return;
+		}
+
+		this._duration = inEvent.duration;
+		this._currentTime = inEvent.currentTime;
+
+		this.updatePosition();
+		/*var duration = this.$.audio.getDuration(), 
+			totalTime = isNaN(duration) ? 0 : duration,
+			currentTime = this.$.audio.getCurrentTime(),
+			playheadPos = (currentTime * totalTime) / totalTime;*/
+		//this.updatePosition();
+
+		// TODO: Event handler shouldn't know about event delegates.
+		// Waterfall should handle this automatically.
+		// See https://enyojs.atlassian.net/browse/ENYO-3188
+		delete inEvent.delegate;
+		this.waterfall("onTimeupdate", inEvent);
+	},
+	updatePosition: function () {
+		if (this.$.slider.isDragging()) {
+			return;
+		}
+		this.$.slider.setValue(this._currentTime);
+	},
+	/*durationUpdate: function(inSender, inEvent) {
+		this._duration = this.$.video.getDuration();
+		this._currentTime = this.$.video.getCurrentTime();
+
+		this.$.slider.setMin(0);
+		this.$.slider.setMax(this._duration);
+
+		this.updatePosition();
+
+		this.waterfall("onTimeupdate", inEvent);
+	},*/
+	//* Get this event on buffering is in progress
+	_progress: function(inSender, inEvent) {
+		/*var buffered = this._getBufferedProgress(inEvent.srcElement);
+		if (this.isFullscreen() || !this.getInline()) {
+			this.$.slider.setBgProgress(buffered.value); 
+		} else {
+			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
+		}*/
+	},
+	_getBufferedProgress: function(inNode) {
+		var bufferData = inNode.buffered,
+			numberOfBuffers = bufferData.length,
+			highestBufferPoint = 0,
+			duration = inNode.duration || 0,
+			endPoint = 0,
+			i
+		;
+		
+		if (duration === 0 || isNaN(duration)) {
+			return {value: 0, percent: 0};
+		}
+		
+		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
+		for (i = 0; i < numberOfBuffers; i++) {
+			endPoint = bufferData.end(i);
+			highestBufferPoint = (endPoint > highestBufferPoint) ? endPoint : highestBufferPoint;
+		}
+		return {value: highestBufferPoint, percent: highestBufferPoint/duration*100};
 	},
 	durationUpdate: function (inSender, inEvent) {
-		this.$.slider.setMin(0);
-		this.$.slider.setMax(this.$.audio.getDuration());
+		this._duration = this.$.audio.getDuration();
+		this._currentTime = this.$.audio.getCurrentTime();
 
+		this.$.slider.setMin(0);
+		this.$.slider.setMax(this._duration);
+
+		this.updatePosition();
+
+		this.waterfall("onTimeupdate", { duration: this._duration, currentTime: this._currentTime });
 		this.updatePlayTime(this.toReadableTime(0), this.toReadableTime(this.$.audio.getDuration()));
 	},
-	dataloaded: function () {
-		this.durationUpdate();
+	dataloaded: function (inSender, inEvent) {
+		this.durationUpdate(inSender, inEvent);
 	},
 	toggleTrackList: function () {
 		this.doAudioPlayerShowHideQueue();
@@ -222,7 +304,6 @@ enyo.kind({
 					//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 					this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 					this.lastControlCommand = "PLAY";
-					this.endPlayheadJob();
 					return true;
 				} else {
 					this.setIndex(this.getNextIndexForShuffle());
@@ -246,7 +327,6 @@ enyo.kind({
 					//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 					this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 					this.lastControlCommand = "PLAY";
-					this.endPlayheadJob();
 					return true;
 				}
 				else {
@@ -272,6 +352,7 @@ enyo.kind({
 		var track = this.tracks.at(inIndex);
 		this.$.trackName.setContent(track.get("trackName"));
 		this.$.artistName.setContent(track.get("artistName"));
+		this.$.audio.setSrc(""); //* initial value before change src attribute.
 		this.$.audio.setSrc(track.get("src"));
 		this.updatePlayTime("0:00", "0:00");
 		this.$.trackIcon.setSrc(track.get("albumImage"));
@@ -279,16 +360,15 @@ enyo.kind({
 		// moon.Drawer needs a method for updating marquee content
 		//this.owner.$.drawers.$.drawerHandle.setContent(a.trackName + " by " + a.artistName);
 	},
-	updatePlayhead: function() {
+	/*updatePlayhead: function(inSender, inEvent) {
 		var duration = this.$.audio.getDuration(), 
 			totalTime = isNaN(duration) ? 0 : duration,
 			currentTime = this.$.audio.getCurrentTime(),
 			playheadPos = (currentTime * totalTime) / totalTime;
 
-		this.$.slider.setValue(playheadPos);
-		//this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
-		this.waterfall("onTimeupdate", {"currentTime": currentTime, "duration": duration});
-	},
+		//this.$.slider.setValue(playheadPos);
+		//this.waterfall("onTimeupdate", {"currentTime": currentTime, "duration": duration});
+	},*/
 	updatePlayTime: function(inStart, inEnd) {
 		this.$.slider.$.beginTickText.setContent(inStart);
 		this.$.slider.$.endTickText.setContent(inEnd);
@@ -303,11 +383,24 @@ enyo.kind({
 		}
 		return minutes + ":" + seconds;
 	},
+	////// Slider event handling //////
+
+	//* When seeking starts, pause audio.
+	sliderSeekStart: function(inSender, inEvent) {
+		this.pause();
+		return true;
+	},
+	//* When seeking, set audio time.
 	sliderChanging: function(inSender, inEvent) {
 		var totalTime = this.$.audio.getDuration(),
 			currentTime = (totalTime / totalTime) * inEvent.value;
 		this.updatePlayTime(this.toReadableTime(currentTime), this.toReadableTime(totalTime));
+		//this.$.audio.setCurrentTime(currentTime);
 		this.$.audio.seekTo(currentTime);
+	},
+	//* When seeking completes, play audio.
+	sliderSeekFinish: function () {
+		this.play();
 	},
 	changeRepeatState: function() {
 		var result = "";
@@ -438,15 +531,17 @@ enyo.kind({
 		var previous = this.index;
 		this.index = inIndex;
 		this.controller.setPlayingIndex(this.index);
+
 		this.doAudioPlayerIndexChanged({"previous": previous, "current": this.index});
 	},
 	recomposeAudioTag: function() {
-		if (this.$.audio) {
+		/*if (this.$.audio) {
+			this.endPlayheadJob();
 			var audioParent = this.$.audio.parent;
 			this.$.audio.destroy();
 			audioParent.createComponent({name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded"}, {owner: this});
 			this.$.audio.render();
-		}
+		}*/
 	},
 	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
 		inParams = inParams || {};
@@ -467,7 +562,7 @@ enyo.kind({
 	play: function() {
 		this.$.audio.play();
 		if (this.playheadJob === null) {
-			this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 10);
+			//this.playheadJob = setInterval(this.bindSafely("updatePlayhead"), 150);
 		}
 		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
 		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_pause.png");
@@ -477,7 +572,6 @@ enyo.kind({
 	pause: function() {
 		this.$.audio.pause();
 		this.doAudioPlayerPaused();
-		this.endPlayheadJob();
 		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 		this.controller.setAudioPaused();
@@ -523,6 +617,7 @@ enyo.kind({
 	},
 	playNext: function() {
 		this.recomposeAudioTag();
+
 		if (this.shuffle) {
 			if (this.getRepeat() === "NONE") {
 				this.setIndex(this.getNextIndexForShuffle());
