@@ -47,7 +47,7 @@ enyo.kind({
 	},
 	//* @protected
 	tools: [
-		{name: "client", classes: "enyo-fit moon-popup-client"},
+		{name: "client", classes: "enyo-fill, moon-popup-client"},
 		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
