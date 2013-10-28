@@ -1,5 +1,7 @@
 /* ----- MISO ------ */
 
+@font-unicode-range-miso: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
+
 @font-face {
   font-family: "Miso";
   src: local("LG Display-Regular");
@@ -13,7 +15,7 @@
     url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-miso;
 }
 
 @font-face {
@@ -29,7 +31,7 @@
     url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-miso;
 }
 
 @font-face {
@@ -45,10 +47,12 @@
     url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-miso;
 }
 
 /* ----- Museo Sans ------ */
+
+@font-unicode-range-museosans: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C-U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 
 @font-face {
   font-family: "MuseoSans Light";
@@ -63,7 +67,7 @@
     url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -79,7 +83,7 @@
   url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -95,7 +99,7 @@
     url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -109,7 +113,7 @@
     url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"),
     url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
   font-style: italic;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -125,7 +129,7 @@
   url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -140,7 +144,7 @@
   url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"),
   url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
   font-style: italic;
-  unicode-range: U+00-FF;
+  unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -156,7 +160,7 @@
          url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
-    unicode-range: U+00-FF;
+    unicode-range: @font-unicode-range-museosans;
 }
 
 @font-face {
@@ -171,7 +175,7 @@
          url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"),
          url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
     font-style: italic;
-    unicode-range: U+00-FF;
+    unicode-range: @font-unicode-range-museosans;
 }
 
 /* ----- Moonstone ------ */

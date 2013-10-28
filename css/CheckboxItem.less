@@ -6,10 +6,10 @@
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
 	height: @moon-item-line-height;
-	margin-right: @moon-checkbox-width;
+	margin-right: @moon-item-indent;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	margin-left: @moon-checkbox-width;
+	margin-left: @moon-item-indent;
 	margin-right: 0;
 }
 .moon-checkbox-item .moon-checkbox-item-label {
@@ -50,16 +50,21 @@
 	filter: alpha(opacity=100);
 }
 
+/* Special treatment inside of ExpandablePicker (checkbox nudged up) */
+.moon-expandable-picker .moon-checkbox-item .moon-checkbox {
+	top: @moon-spotlight-outset - 2px;
+}
+
 
 /* Left-handed checkbox */
 
 /* Label */
 .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
 	margin-right: 0px;
-	margin-left: @moon-checkbox-width;
+	margin-left: @moon-item-indent;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: @moon-checkbox-width;
+	margin-right: @moon-item-indent;
 	margin-left: 0px;
 }
 .moon-checkbox-item.left-handed .moon-checkbox-item-label {
@@ -71,11 +76,10 @@
 
 /* Checkbox */
 .moon-checkbox-item.left-handed .moon-checkbox {
-	left: 0px;
+	left: @moon-spotlight-outset;
 	right: auto;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
 	left: auto;
-	right: 0px;
+	right: @moon-spotlight-outset;
 }
-

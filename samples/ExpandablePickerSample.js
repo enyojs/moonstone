@@ -39,7 +39,8 @@ enyo.kind({
 					]},
 					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
 					{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
-					{tag: "br"}
+					{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
+					{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"}
 				]}
 			]}
 		]},
@@ -81,7 +82,8 @@ enyo.kind({
 						]},
 						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", autoCollapse: true, content: "Integer Picker", value: 7, min: 3, max: 15, step: 1, unit: "elephants"},
 						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
-						{tag: "br"}
+						{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
+						{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"}
 					]}
 				]}
 			]}
@@ -93,7 +95,9 @@ enyo.kind({
 		if (inEvent.originator instanceof moon.ExpandablePicker) {
 			value = inEvent.originator.getSelected().getContent();
 			inSender.setSubTitleBelow(picker + " changed to '" + value + "'");
-		} else if (inEvent.originator instanceof moon.ExpandableIntegerPicker) {
+		} else if ((inEvent.originator instanceof moon.ExpandableIntegerPicker) ||
+					(inEvent.originator instanceof moon.DatePicker) ||
+					(inEvent.originator instanceof moon.TimePicker)) {
 			value = inEvent.originator.getValue();
 			inSender.setSubTitleBelow(picker + " changed to '" + value + "'");
 		}
