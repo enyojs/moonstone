@@ -78,7 +78,6 @@ enyo.kind({
 	//* @protected
 	create: function() {
 		this.inherited(arguments);
-		enyo.dom.accelerate(this, "auto");
 		this.openChanged();
 		this.setActive(this.open);
 		this.disabledChanged();
@@ -90,8 +89,8 @@ enyo.kind({
 	//* Facade for drawer
 	openChanged: function() {
 		var open = this.getOpen();
-		this.$.drawer.setOpen(open);
 		this.addRemoveClass("open", open);
+		this.$.drawer.setOpen(open);
 		if (this.generated) {
 			this.stopHeaderMarquee();
 		}
@@ -105,7 +104,7 @@ enyo.kind({
 		}
 	},
 	activeChanged: function() {
-		this.bubble("onActivate");
+		this.bubble("onActivate", {allowHighlanderDeactivate:true});
 		this.setOpen(this.active);
 	},
 	//* If closed, opens drawer and highlights first spottable child.
@@ -116,7 +115,7 @@ enyo.kind({
 
 		this.toggleActive();
 
-		if (this.getActive()) {
+		if (this.getActive() && !enyo.Spotlight.getPointerMode()) {
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		}
 	},
@@ -128,17 +127,16 @@ enyo.kind({
 			this.setActive(false);
 		} else {
 			this.setActive(true);
-			enyo.Spotlight.unspot();
 		}
 	},
 	//* If drawer is currently open, and event was sent via keypress (i.e., it has a direction), process header focus
 	headerFocus: function(inSender, inEvent) {
 		var direction = inEvent && inEvent.dir;
-		
+
 		if (this.getOpen() && this.getAutoCollapse() && direction === "UP") {
 			this.setActive(false);
 		}
-		
+
 		if (inEvent.originator === this.$.header) {
 			this.bubble("onRequestScrollIntoView", {side: "top"});
 		}

@@ -46,7 +46,9 @@ enyo.kind({
 		//* This flag for support audio player.
 		audioPlayerSupport: false,
 		//** threshold value(percentage) for using animation effect on slider progress change
-		smallVariation: 1
+		smallVariation: 1,
+			//* Popup height in pixels
+		popupHeight: 67
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -91,6 +93,7 @@ enyo.kind({
 
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.$.beginTickText.setContent(this.formatTime(0));
 		}
 	},
 	createTickComponents: function() {
@@ -111,11 +114,8 @@ enyo.kind({
 		this.doLeaveTapArea(inEvent);
 	},
 	preview: function(inSender, inEvent) {
-		if (!this.disabled) {
+		if (!this.disabled && !this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
-			if( this.dragging || this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				return;
-			}
 			this.currentTime = this.transformToVideo(v);
 			this._updateKnobPosition(this.currentTime);
 		}
@@ -127,7 +127,7 @@ enyo.kind({
 	endPreview: function(inSender, inEvent) {
 		this._previewMode = false;
 		this.currentTime = this._currentTime;
-		this._updateKnobPosition(this._currentTime);
+		this._updateKnobPosition(this.currentTime);
 		if (this.$.feedback.isPersistShowing()) {
 			this.$.feedback.setShowing(true);
 		}
@@ -234,16 +234,18 @@ enyo.kind({
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
-		var iValue = (oValue - this.rangeStart) / this.scaleFactor;
-		return iValue;
+		if (this.showDummyArea && (oValue < this.beginTickPos)) {
+			oValue = this.rangeStart;
+		}
+		if (this.showDummyArea && (oValue > this.endTickPos)) {
+			oValue = this.rangeEnd;
+		}
+		return (oValue - this.rangeStart) / this.scaleFactor;
 	},
 	//* If user presses on _this.$.tapArea_, seek to that point
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
-			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-			}
 
 			v = this.transformToVideo(v);
 			this.sendSeekEvent(v);
@@ -289,9 +291,6 @@ enyo.kind({
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 
-			if(this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-			}
 			//* Default behavior to support elastic effect
 			v = this.transformToVideo(v);
 			if (this.constrainToBgProgress === true) {
@@ -305,7 +304,7 @@ enyo.kind({
 				v = this.clampValue(this.min, this.max, v);
 				this.elasticFrom = this.elasticTo = v;
 			}
-
+			this.currentTime = v;
 			this.updateKnobPosition(this.elasticFrom);
 
 			if (this.lockBar) {
@@ -323,13 +322,6 @@ enyo.kind({
 		}
 		if(!this.dummyAction) {
 			var v = this.calcKnobPosition(inEvent);
-
-			if(this.showDummyArea && v <= this.beginTickPos) {
-				v = this.rangeStart;
-			}
-			if(this.showDummyArea && v >= this.endTickPos ) {
-				v = this.rangeEnd;
-			}
 			v = this.transformToVideo(v);
 			var z = this.elasticTo;
 			if (this.constrainToBgProgress === true) {

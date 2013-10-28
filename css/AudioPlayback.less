@@ -56,7 +56,7 @@
 	float: right;
 }
 .moon-audio-track-info {
-	width: 35%;
+	width: 28%;
 }
 .moon-audio-top {
 	height: 65px;
@@ -68,14 +68,25 @@
 	margin: 8px 4px;
 }
 
-.moon-audio-control-item {
-	background-position:0px 0px !important;
-	background-color:transparent !important;
-	border:0 !important;
+.moon-audio-control-buttons .moon-audio-control-item {
+	width:80px;
+	height:80px;
 	border-radius:0;
-	width:70px;
-	height:70px;
-	margin:0 5px 0 0;
+	border:0 !important;
+	background-color:transparent !important;
+	background-position:0px 0px;
+}
+.moon-audio-control-buttons .moon-audio-control-item.active,
+.moon-audio-control-buttons .moon-audio-control-item.pressed,
+.moon-audio-control-buttons .moon-audio-control-item.spotlight,
+.moon-audio-control-buttons moon-audio-control-item.spotlight.pressed,
+.moon-audio-control-buttons .moon-audio-control-item.spotlight:active {
+	background-position: 0 -80px;
+	border: 0px;
+	background-color: transparent;
+}
+.moon-audio-control-item.pressed {
+	width: 100px;
 }
 .moon-audio-control-item.left {
 	float: left;
@@ -83,6 +94,7 @@
 .moon-audio-icon-button.right {
 	float: right;
 }
+
 /* AudioPlayback styles for Slider */
 .moon-audio-slider-container {
 	padding-top: 10px;

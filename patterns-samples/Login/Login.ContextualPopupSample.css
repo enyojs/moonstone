@@ -3,7 +3,9 @@
     application easier to maintain, you should try to
     minimize the use of custom CSS.
 */
-
+.moon{
+	padding:0;
+}
 .moon-movie-list-item {
     float: left;
     margin: 0 6px 6px 0;

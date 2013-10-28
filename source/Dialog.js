@@ -1,5 +1,5 @@
 /**
-	_moon.Dialog_ is a <a href="#moon.Popup">moon.Popup</a> with a title, a
+	_moon.Dialog_ is a <a href="#moon.Popup">moon.Popup</a> with a title, a sub-title, a
 	message, and an area for additional controls.
 */
 enyo.kind({
@@ -7,26 +7,38 @@ enyo.kind({
 	kind: moon.Popup,
 	classes: "moon-dialog",
 	published: {
+		//* The title string for the dialog
 		title: "",
+		//* The sub-title string for the dialog
+		subTitle: "",
+		//* The message for the dialog
 		message: ""
 	},
 	tools: [
-		{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
 		{
 			layoutKind: "FittableColumnsLayout",
 			components: [
-				{name: "message", kind:"moon.BodyText", fit: true},
-				{name: "client"}
+				{fit: true, components: [
+					{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
+					{name: "subTitle", classes: "moon-dialog-sub-title"}
+				]},
+				{name: "client", classes: "moon-dialog-client"}
 			]
-		}
+		},
+		{kind: "moon.Divider", classes: "moon-dialog-divider"},
+		{name: "message", kind:"moon.BodyText", classes: "moon-dialog-content"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.titleChanged();
+		this.subTitleChanged();
 		this.messageChanged();
 	},
 	titleChanged: function() {
 		this.$.title.setContent(this.title);
+	},
+	subTitleChanged: function() {
+		this.$.subTitle.setContent(this.subTitle);
 	},
 	messageChanged: function() {
 		this.$.message.setContent(this.message);

@@ -24,6 +24,7 @@
 	border-radius: @moon-video-transport-slider-knob-size/2;
 	margin: -@moon-video-transport-slider-knob-size/2;
 	top: @moon-video-transport-slider-height/2 + @moon-video-transport-slider-knob-offset;
+	pointer-events: none;
 }
 .moon-video-transport-slider-knob {
 	background: transparent;
@@ -63,12 +64,12 @@
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;
 }
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label {
-	font-family: @moon-non-latin-font-family;
-}
 .moon-video-transport-slider-popup-label > * {
 	display: inline-block;
-	padding-top: 5px;
+	padding-top: 14px;
+}
+.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
+	padding-top: 9px;
 }
 
 .moon-video-transport-slider-indicator-wrapper {
@@ -85,7 +86,7 @@
 }
 .moon-video-transport-slider-indicator-bar-left {
 	position: absolute;
-	left: 48%;
+	left: 49.5%;
 	top: 25px;
 	width: 2px;
 	height: 30px;
@@ -93,7 +94,7 @@
 }
 .moon-video-transport-slider-indicator-bar-right {
 	position: absolute;
-	left: 48%;
+	left: 49.5%;
 	top: 25px;
 	width: 2px;
 	height: 30px;
@@ -102,14 +103,16 @@
 .moon-video-transport-slider-indicator-text {
 	position: absolute;
 	width: 100%;
-	height: 25px;
-	top: 25px;
-	font-size: 25px;
-	font-family: "MuseoSans 300";
+	height: 30px;
+	top: 23px;
+	font-size: 30px;
+	font-family: @moon-header-font-family;
+	font-weight:bold;
 	color: @moon-indicator-text-color;
 	text-align: left;
 	left: 55%;
 }
+
 .moon-audio-slider-container .moon-video-transport-slider {
 	margin:0 !important;
 }
@@ -126,3 +129,8 @@
 .moon-audio-slider-container .moon-video-transport-slider-indicator-wrapper.start .moon-video-transport-slider-indicator-text {
 	left:5px;
 }
+
+.enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
+	font-family: @moon-non-latin-font-family;
+}
+

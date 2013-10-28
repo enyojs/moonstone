@@ -18,8 +18,42 @@ enyo.kind({
 	kind	: 'enyo.Input',
 	classes	: 'moon-input',
 
+	published: {
+		//* When true, blur on enter, if focused
+		dismissOnEnter: false
+	},
+	
+	handlers: {
+		onkeypress : 'onKeyUp',
+		onblur     : 'onBlur',
+		onfocus    : 'onFocus'
+	},
+
 	//* @protected
 	/**********************************************/
+	
+	_bFocused: true, // Used only for dismissOnEnter feature, cannot rely on hasFocus in this case because of racing condition
+	
+	onFocus: function() {
+		if (this.dismissOnEnter) {
+			var oThis = this;
+			enyo.asyncMethod(this, function() {oThis._bFocused = true;});
+		}
+	},
+	onBlur: function() {
+		if (this.dismissOnEnter) {
+			this._bFocused = false;
+		}
+	},
+	onKeyUp: function(oSender, oEvent) {
+		if (this.dismissOnEnter) {
+			if (oEvent.keyCode == 13) {
+				if (this._bFocused) {
+					this.blur();
+				}
+			}
+		}
+	},
 
 	blur: function() {
 		if (this.hasNode()) {

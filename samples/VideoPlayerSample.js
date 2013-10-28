@@ -8,6 +8,7 @@ enyo.kind({
 			name: "player",
 			kind: "moon.VideoPlayer",
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
+			poster: "assets/video-poster.png",
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
@@ -28,7 +29,7 @@ enyo.kind({
 						title: "Downton Abbey - Extra Title",
 						subTitle: "Mon June 21, 7:00 - 8:00pm",
 						subSubTitle: "R - TV 14, V, L, SC",
-						description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and", 
+						description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 						components: [
 							{content: "Icon 1", classes: "moon-video-player-info-icon"},
 							{content: "Icon 2", classes: "moon-video-player-info-icon"},
