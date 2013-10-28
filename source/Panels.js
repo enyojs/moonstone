@@ -28,7 +28,7 @@ enyo.kind({
 	},
 	handlers: {
 		ontap:						"onTap",
-
+		
 		onSpotlightRight:			"spotlightRight",
 		onSpotlightLeft:			"spotlightLeft",
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
@@ -179,7 +179,9 @@ enyo.kind({
 
 		if (this.shouldHide(oEvent)) {
 			if (this.showing && this.useHandle === true) {
-				this.hide();
+				if (this.pattern === "alwaysviewing") {
+					this.hide();
+				}
 			}
 		} else {
 			var n = (oEvent.breadcrumbTap) ? this.getPanelIndex(oEvent.originator) : -1;

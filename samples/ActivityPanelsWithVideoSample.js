@@ -38,13 +38,13 @@ enyo.kind({
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 		]},
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", useHandle: false, components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", useHandle: true, components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next1"},
 				{kind: "moon.Item", content: "Item Four", ontap: "next1"},
-				{kind: "moon.ToggleItem", content: "Show/Hide Side Handle", checked: true,  onchange: "handleShowingChanged"}
+				{kind: "moon.ToggleItem", content: "Show/Hide Side Handle", checked: true, onchange: "handleShowingChanged"}
 			]},
 			{title: "Second Panel", classes: "moon-7h",
 				joinToPrev: true, components: [
