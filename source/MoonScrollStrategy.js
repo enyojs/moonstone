@@ -11,7 +11,7 @@ enyo.kind({
 	kind: "enyo.ScrollStrategy",
 	published: {
 		//* Scroll speed in pixels per second
-		scrollSpeed: 600
+		scrollSpeed: 800
 	},
 	events: {
 		//* Fires when scroll action starts.
@@ -50,18 +50,35 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "showHidePageControls", isChrome: true}
 	],
-	//* Bezier iming functions used for different scroll behaviors
+	//* Current bezier timing function
 	timingFunction: null,
-	holdTimingFunction: [0,0,1,1],
-	scrollTimingFunction: [0,0,1,1],
-	paginateTimingFunction: [0.35,0.66,0,1],
-	stabilizeTimingFunction: [0,0.58,0.58,1],
-	decelerateTimingFunction: [0.5,0.5,0.8,1],
-	mousewheelTimingFunction: [0,0,0.4,1], //[0,0,1,1], //[0,0,.4,1],
+	//* Bezier timing functions used for different scroll behaviors
+	timingFunctions: {
+		hold: {
+			controlPoints: [0,0,1,1],
+			points: []
+		},
+		scroll: {
+			controlPoints: [0,0,1,1],
+			points: []
+		},
+		paginate: {
+			controlPoints: [0.35,0.66,0,1],
+			points: []
+		},
+		decelerate: {
+			controlPoints: [0,0,0.58,1],
+			points: []
+		},
+		mousewheel: {
+			controlPoints: [0,0,0.4,1],
+			points: []
+		}
+	},
 	//* Fraction of the total client height/width to scroll on pagination
 	paginationScrollMultiplier: 0.9,
 	//* Fraction of the total client height/width to scroll during deceleration
-	decelerateScrollMultiplier: 0.4,
+	decelerateScrollMultiplier: 0.3,
 	//* Larger numbers -> faster mousewheel scrolling
 	mouseWheelMultiplier: 4,
 	//* Duration of mousewheel scroll animations
@@ -70,6 +87,12 @@ enyo.kind({
 	accelerationMultiplier: 1.5,
 	//* Time interval to wait during scrolling before accelerating
 	accelerateIntervalMS: 1500,
+	//* Interval in MS between emitting onScroll events
+	scrollBubbleIntervalMS: 30,
+	//* Current scroll animation initial left position
+	initialLeft: null,
+	//* Current scroll animation initial top position
+	initialTop: null,
 	//* Current scroll animation target left position
 	targetLeft: null,
 	//* Current scroll animation target top position
@@ -78,8 +101,11 @@ enyo.kind({
 	scrolling: false,
 	//* Maximum scroll speed in pixels per second
 	maxScrollSpeed: null,
+	//* Optional callback to be called directly when scrolling (rather than bubbling scroll event)
 	scrollListenerCallback: null,
+	//* Optional scrollbounds thresholds used to determine when to call _this.scrollListenerCallback_
 	scrollThreshold: null,
+	
 	
 	create: function() {
 		this.inherited(arguments);
@@ -89,6 +115,7 @@ enyo.kind({
 		this.container.addClass("enyo-touch-strategy-container");
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
 		this.scrollSpeedChanged();
+		this.timingFunctionsChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -113,9 +140,13 @@ enyo.kind({
 		this.$.clientContainer.addRemoveClass("enyo-scrollee-fit", !this.maxHeight);
 	},
 	scrollSpeedChanged: function() {
-		this.maxScrollSpeed = this.maxScrollSpeed || this.scrollSpeed * 3;
+		this.maxScrollSpeed = this.maxScrollSpeed || this.scrollSpeed * 5;
 	},
-
+	timingFunctionsChanged: function() {
+		for (var func in this.timingFunctions) {
+			this.timingFunctions[func].points = this.calcBezierPoints(this.timingFunctions[func].controlPoints);
+		}
+	},
 
 	//* @public
 	
@@ -155,7 +186,7 @@ enyo.kind({
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
-		this.set("timingFunction", this.scrollTimingFunction);
+		this.setTimingFunction("scroll");
 		this._scrollTo(inX, inY);
 	},
 	//* Stops scrolling at current location
@@ -167,10 +198,14 @@ enyo.kind({
 	addScrollListener: function(inFunction) {
 		this.scrollListenerCallback = inFunction;
 	},
+	//* Setup scroll thresholds used by strategy to notify scroll listener
 	setScrollThreshold: function(inScrollThreshold) {
 		this.scrollThreshold = inScrollThreshold;
 	},
-	
+	//* Update current timing function via string name
+	setTimingFunction: function(inName) {
+		this.timingFunction = this.timingFunctions[inName] || this.timingFunctions.scroll;
+	},
 
 	//* @protected
 	
@@ -189,6 +224,8 @@ enyo.kind({
 	},
 	//* On _mousewheel_, scrolls a fixed amount.
 	mousewheel: function(inSender, inEvent) {
+		this.scrollBounds = this.getScrollBounds();
+		
 		var x = 0, y = 0, dx = 0, dy = 0,
 			delta = inEvent.wheelDelta || 0,
 			vertical = this.showVertical(),
@@ -199,26 +236,29 @@ enyo.kind({
 			return false;
 		}
 		
-		this.scrollBounds = this.getScrollBounds();
-		
 		// If vertical scrolling enabled, get deltaY
-		if (this.showVertical()) {
+		if (vertical) {
 			dy = inEvent.wheelDeltaY || delta;
 			delta = 0;
 		}
 		
 		// If horizontal scrolling enabled, get deltaX
-		if (this.showHorizontal()) {
+		if (horizontal) {
 			dx = inEvent.wheelDeltaX || delta;
 		}
 		
 		dx *= this.mouseWheelMultiplier;
 		dy *= this.mouseWheelMultiplier;
 		
-		x = this.scrollLeft - dx;
-		y = this.scrollTop - dy;
-
-		this.set("timingFunction", this.mousewheelTimingFunction);
+		x = this.scrollBounds.left - dx;
+		y = this.scrollBounds.top - dy;
+		
+		if (this.scrolling) {
+			this.twiddleThumbs();
+			this.stop(true);
+		}
+		
+		this.setTimingFunction("mousewheel");
 		this._scrollTo(x, y, this.mousewheelDurationMS);
 		this.scrollBounds = null;
 		
@@ -245,7 +285,7 @@ enyo.kind({
 			break;
 		}
 		
-		this.set("timingFunction", this.paginateTimingFunction);
+		this.setTimingFunction("paginate");
 		this._scrollTo(x, y);
 		return true;
 	},
@@ -271,33 +311,41 @@ enyo.kind({
 			break;
 		}
 		
-		this.set("timingFunction", this.holdTimingFunction);
+		this.setTimingFunction("hold");
 		this._scrollTo(x, y);
 		this.scrollBounds = null;
 		return true;
 	},
 	//* End the press-and-hold scroll sequence
 	endPaginateHold: function(inSender, inEvent) {
+		if (!this.scrolling) {
+			return true;
+		}
+		
+		this.scrollBounds = this.getScrollBounds();
+		
 		var x = this.scrollLeft,
-			y = this.scrollTop;
+			y = this.scrollTop
+			speed = this.calcScrollSpeed(this.initialTop, this.scrollTop, this.scrollDuration) * 100;
 		
 		switch (inEvent.side) {
 		case "left":
-			x = this.scrollLeft - this.getScrollBounds().clientWidth * this.decelerateScrollMultiplier;
+			x = this.scrollLeft - speed * this.decelerateScrollMultiplier;
 			break;
 		case "right":
-			x = this.scrollLeft + this.getScrollBounds().clientWidth * this.decelerateScrollMultiplier;
+			x = this.scrollLeft + speed * this.decelerateScrollMultiplier;
 			break;
 		case "top":
-			y = this.scrollTop - this.getScrollBounds().clientHeight * this.decelerateScrollMultiplier;
+			y = this.scrollTop - speed * this.decelerateScrollMultiplier;
 			break;
 		case "bottom":
-			y = this.scrollTop + this.getScrollBounds().clientHeight * this.decelerateScrollMultiplier;
+			y = this.scrollTop + speed * this.decelerateScrollMultiplier;
 			break;
 		}
 		
-		this.set("timingFunction", this.decelerateTimingFunction);
-		this._scrollTo(x, y);
+		this.setTimingFunction("decelerate");
+		this._scrollTo(x, y, null, true, true);
+		this.scrollBounds = null;
 		return true;
 	},
 	//* Called when css scroll transition completes
@@ -312,9 +360,11 @@ enyo.kind({
 	
 	
 	//* Scrolls to specific x/y positions within the scroll area.
-	_scrollTo: function(inX, inY, inDuration, inSilence) {
+	_scrollTo: function(inX, inY, inDuration, inSilence, inNoMute) {
 		inX = this.clampX(inX);
 		inY = this.clampY(inY);
+		
+		// TODO - should maxSpeed force extended scroll duration?
 		inDuration = this.calcDuration(inX, inY, inDuration);
 		
 		// Only scroll to new positions
@@ -322,22 +372,22 @@ enyo.kind({
 			return;
 		}
 		
-		this.muteSpotlight();
-		
-		// Needed for calculating cubic bezier delta w/o dom query
-		this.initialLeft = this.scrollLeft;
-		this.initialTop = this.scrollTop;
+		// Unless otherwise specified, mute spotlight
+		if (!inNoMute) {
+			this.muteSpotlight();
+		}
 		
 		// Go scroll
+		this.updateScrollValues(inX, inY, inDuration);
 		this.effectScroll(inX, inY, inDuration);
 		this.start(inSilence);
 	},
 	start: function(inSilence) {
 		if (!inSilence && !this.scrolling) {
 			this.doScrollStart();
-			this.scrolling = true;
 		}
-		
+
+		this.scrolling = true;
 		this.scroll();
 	},
 	scroll: function() {
@@ -384,34 +434,32 @@ enyo.kind({
 		
 		this.twiddleThumbs();
 		this.stop(true);
-		this._scrollTo(left, top, duration, true);
+		this._scrollTo(left, top, duration, true, true);
 	},
 	startScrollJob: function() {
-		this.startJob("scroll", "scroll", 30);
+		this.startJob("scroll", "scroll", this.scrollBubbleIntervalMS);
 	},
 	endScrollJob: function() {
 		this.stopJob("scroll");
 	},
-	timingFunctionChanged: function() {
-		this.updateBezierPoints();
-	},
-	updateBezierPoints: function() {
+	calcBezierPoints: function(inControlPoints) {
 		var curvePoints = [
 				{x: 0, y: 0},
-				{x: this.timingFunction[0], y: this.timingFunction[1]},
-				{x: this.timingFunction[2], y: this.timingFunction[3]},
+				{x: inControlPoints[0], y: inControlPoints[1]},
+				{x: inControlPoints[2], y: inControlPoints[3]},
 				{x: 1, y: 1}
 			],
-			point, x, y, i;
-		
-		this.bezierPoints = [];
+			point, x, y, i,
+			points = [];
 		
 		for (i = 0; i <= 1; i+= 0.01) {
 			point = this.casteljausAlgorithm(i, curvePoints);
 			x = Math.round(point.x*100);
 			y = Math.round(point.y*100);
-			this.bezierPoints[x] = y;
+			points[x] = y;
 		}
+		
+		return points;
 	},
 	casteljausAlgorithm: function(t, p) {
 		var a = {
@@ -446,14 +494,13 @@ enyo.kind({
 			distanceY = this.targetTop - this.initialTop,
 			x = this.initialLeft + distanceToTimeRatio * distanceX,
 			y = this.initialTop + distanceToTimeRatio * distanceY;
-		
 		return {x: x, y: y};
 	},
 	lookupBezierDistancePercentageAtTime: function(inTime) {
 		return  (inTime >= 100) ? 100 :
 				(inTime <= 0) ? 0 :
-				(typeof this.bezierPoints[inTime] === "undefined") ? this.lookupBezierDistancePercentageAtTime(++inTime) :
-				this.bezierPoints[inTime];
+				(typeof this.timingFunction.points[inTime] === "undefined") ? this.lookupBezierDistancePercentageAtTime(++inTime) :
+				this.timingFunction.points[inTime];
 	},
 	_stop: function(inSilence) {
 		this.endScrollJob();
@@ -504,12 +551,16 @@ enyo.kind({
 		this.scrollLeft = currentPosition.x;
 		this.scrollTop = currentPosition.y;
 	},
-	effectScroll: function(inX, inY, inDuration) {
+	updateScrollValues: function(inX, inY, inDuration) {
 		this.scrollDuration = inDuration;
 		this.targetLeft = inX;
 		this.targetTop = inY;
+		this.initialLeft = this.scrollLeft;
+		this.initialTop = this.scrollTop;
 		this.xDir = (this.targetLeft < this.initialLeft) ? -1 : (this.targetLeft > this.initialLeft) ? 1 : 0;
 		this.yDir = (this.targetTop < this.initialTop) ? -1 : (this.targetTop > this.initialTop) ? 1 : 0;
+	},
+	effectScroll: function(inX, inY, inDuration) {
 		this.$.client.addStyles(this.generateTransitionStyleString(inDuration/1000) + this.generateTransformStyleString(inX, inY));
 		this.showThumbs(inDuration);
 		this.scrollStartTime = enyo.bench();
@@ -526,7 +577,7 @@ enyo.kind({
 	},
 	//* Convert bezier points to css-compatible transition timing string
 	generateTimingFunctionString: function() {
-		return "cubic-bezier(" + this.timingFunction[0] + "," + this.timingFunction[1] + "," + this.timingFunction[2] + "," + this.timingFunction[3] + ")";
+		return "cubic-bezier(" + this.timingFunction.controlPoints[0] + "," + this.timingFunction.controlPoints[1] + "," + this.timingFunction.controlPoints[2] + "," + this.timingFunction.controlPoints[3] + ")";
 	},
 	updateSpotlightPagingControls: function() {
 		enyo.forEach([
@@ -797,7 +848,8 @@ enyo.kind({
 			break;
 		}
 		
-		this._scrollTo(x, y);
+		this.setTimingFunction("scroll");
+		this._scrollTo(x, y, null, false, true);
 	},
 	calcCurrentPosition: function() {
 		var style = enyo.dom.getComputedStyleValue(this.calcScrollNode(), this.transformProp).split("(")[1].split(")")[0],
@@ -808,14 +860,22 @@ enyo.kind({
 	},
 	calcDuration: function(inX, inY, inDuration) {
 		var delta = Math.max(Math.abs(this.scrollLeft - inX), Math.abs(this.scrollTop - inY)),
-			speed = (inDuration) ? delta * 1000 /inDuration : this.scrollSpeed;
+			speed = (inDuration) ? delta * 1000 / inDuration : this.scrollSpeed;
 		
-		if (speed > this.maxScrollSpeed) {
+		speed = this.clampScrollSpeed(speed);
+		return delta * 1000 / speed;
+	},
+	clampScrollSpeed: function(inSpeed) {
+		if (inSpeed > this.maxScrollSpeed) {
 			this.maxSpeedReached = true;
-			speed = this.maxScrollSpeed;
+			inSpeed = this.maxScrollSpeed;
 		}
 		
-		return delta * 1000 / speed;
+		return inSpeed;
+	},
+	calcScrollSpeed: function(inFrom, inTo, inDuration) {
+		var delta = Math.abs(inFrom - inTo);
+		return this.clampScrollSpeed((inDuration) ? delta * 1000 / inDuration : this.scrollSpeed);
 	},
 	clampX: function(inX) {
 		return Math.min(Math.max(inX, -this.leftBoundary), -this.rightBoundary);
@@ -827,8 +887,8 @@ enyo.kind({
 		return this.$.client.hasNode();
 	},
 	muteSpotlight: function() {
-		enyo.Spotlight.unspot();
 		if (!enyo.Spotlight.isMuted()) {
+			enyo.Spotlight.unspot();
 			enyo.Spotlight.mute(this);
 		}
 	},
