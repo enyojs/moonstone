@@ -75,7 +75,7 @@ enyo.kind({
 			points: []
 		},
 		overscroll: {
-			controlPoints: [.25,.1,.25,1]
+			controlPoints: [0.25,0.1,0.25,1]
 		}
 	},
 	//* Fraction of the total client height/width to scroll on pagination
@@ -123,7 +123,6 @@ enyo.kind({
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
 		this.scrollSpeedChanged();
 		this.timingFunctionsChanged();
-		bam = this;
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -382,13 +381,13 @@ enyo.kind({
 		return this.isOverscrollingX() || this.isOverscrollingY();
 	},
 	isOverscrollingX: function(inX) {
-		var bounds = this.getScrollBounds(),
-			inX = inX || bounds.left;
+		var bounds = this.getScrollBounds();
+		inX = inX || bounds.left;
 		return inX < bounds.minLeft || inX > bounds.maxLeft;
 	},
 	isOverscrollingY: function(inY) {
-		var bounds = this.getScrollBounds(),
-			inY = inY || bounds.top;
+		var bounds = this.getScrollBounds();
+		inY = inY || bounds.top;
 		return inY < bounds.minTop || inY > bounds.maxTop;
 	},
 	bounceBack: function() {
