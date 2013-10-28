@@ -62,7 +62,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso111"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
+  src: local("Miso113"), url("../fonts/miso/miso-regular-113.woff") format("woff"), url("../fonts/miso/miso-regular-113.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -405,7 +405,7 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
 }
 .moon-sub-header-text {
@@ -421,14 +421,14 @@
   font-size: 32px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
 }
 .moon-popup-header-text {
   font-family: "Miso";
   font-size: 73px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
 }
 .moon-divider-text {
@@ -539,8 +539,9 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
   font-family: "MuseoSans 700";
@@ -555,15 +556,17 @@
   font-size: 32px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
+  -webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
   font-family: "Miso";
   font-size: 73px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-divider-text {
   font-family: "MuseoSans 700";
@@ -1677,8 +1680,9 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   line-height: normal;
   height: 154px;
 }
@@ -3160,8 +3164,9 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   margin: 0px;
   padding-left: 1px;
   display: inline-block;
@@ -4047,8 +4052,9 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
@@ -4168,8 +4174,9 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   vertical-align: center;
   display: inline-block;
   margin-right: 15px;
@@ -4185,8 +4192,9 @@
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: -0.05em;
+  letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   font-size: 68px;
   color: #ffffff;
   vertical-align: bottom;
