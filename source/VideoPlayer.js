@@ -850,6 +850,7 @@ enyo.kind({
 			ratio = videoAspectRatio[1] / videoAspectRatio[0];
 			this.applyStyle("height", ((parseInt(width, 10) * ratio)) + "px");
 		}
+		this.updateSpinnerPosition(width);
 	},
 	updatePosition: function() {
 		this.updateFullscreenPosition();
@@ -887,6 +888,10 @@ enyo.kind({
 		} else if (spinner.getShowing()) {
 			spinner.stop();
 		}
+	},
+	updateSpinnerPosition: function(inWidth) {
+		this.$.spinner.applyStyle("left", (parseInt(inWidth, 10)/2 - (this.$.spinner.getBounds().width/2)) + "px");
+		this.$.spinner.applyStyle("top", (this.$.videoContainer.getBounds().height/2) + "px");
 	},
 	/**
 		When _moreButton_ is tapped, toggles visibility of player controls and
