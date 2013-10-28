@@ -2,7 +2,7 @@
 .moon-icon-button.moon-paging-button {
 	position:absolute;
 	z-index: 150;
-	background: transparent @moon-scroller-icon no-repeat 6px 6px;
+	background-color: transparent;
 	opacity: 1;
 	transform: translateZ(1px);
 	-o-transform: translateZ(1px);
@@ -48,17 +48,7 @@
 }
 .moon-icon-button.moon-paging-button.hover:hover {
 	.moon-icon-button.spotlight;
-	background-image: @moon-scroller-spotlight;
 }
 .moon-icon-button.moon-paging-button.hidden.hover:hover {
 	background-color: transparent;	
 }
-.moon-paging-button.moon-icon.moon-icon-button.active, 
-.moon-paging-button.moon-icon.moon-icon-button:active:hover,
-.moon-paging-button.moon-icon-toggle.active,
-.moon-icon-button.moon-paging-button.spotlight.pressed
-{
-	background-position: 6px 6px;
-}
-
-

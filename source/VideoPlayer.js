@@ -186,7 +186,7 @@ enyo.kind({
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", oncanplay: "_setCanPlay", onwaiting: "_waiting", onerror: "_error"
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", ontap: "videoTapped", oncanplay: "_setCanPlay", onwaiting: "_waiting", onerror: "_error"
 			},
 			{name: "spinner", kind: "moon.Spinner", classes: "moon-video-player-spinner"}
 		]},
@@ -694,6 +694,7 @@ enyo.kind({
 		if (!this.$.slider.isInPreview()) {
 			this.$.controls.show();
 		}
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
 	//* When seeking, set video time.
@@ -717,6 +718,11 @@ enyo.kind({
 		var percentComplete = this._duration ? Math.round(this._currentTime * 1000 / this._duration) / 10 : 0;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
 		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
+	},
+	videoTapped: function() {
+		if (this.getInline() && !this.isFullscreen()) {
+			this.playPause();
+		}
 	},
 
 	//* @public

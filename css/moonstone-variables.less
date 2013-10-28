@@ -34,6 +34,10 @@
 @moon-button-large-font-size:  30px;
 @moon-button-small-font-size:  24px;
 @moon-header-font-size:        126px;
+@moon-clock-minute-font-size:   68px;
+@moon-clock-meridiem-font-size: 24px;
+@moon-clock-month-font-size:    28px;
+@moon-clock-day-font-size:      28px;
 
 @moon-non-latin-superscript-text-size:  24px;
 @moon-non-latin-large-text-size:        48px;
@@ -46,6 +50,7 @@
 @moon-non-latin-button-large-font-size: 36px;
 @moon-non-latin-button-small-font-size: 27px;
 @moon-non-latin-header-font-size:       114px;
+
 
 /* Other Font Properties */
 
@@ -104,10 +109,6 @@
 @accordion-sub-menu-line-height: 1.7em;
 
 
-/* Disabled Opacity */
-/* ---------------------------------------*/
-@moon-disabled-opacity: 0.4;
-
 /* Images */
 /* ---------------------------------------*/
 @moon-checkbox-image-height: 32px;
@@ -127,12 +128,16 @@
 
 /* Icon Sizes */
 /* ---------------------------------------*/
-@moon-icon-size: 42px;
-@moon-icon-button-size: 50px;
+@moon-icon-size: 45px;
+@moon-icon-small-size: 32px;
+@moon-icon-button-size: 85px;
+@moon-icon-button-small-size: 60px;
+@moon-icon-sprite-size: (@moon-icon-button-size - (@moon-button-border-width * 2));
+@moon-icon-sprite-small-size: (@moon-icon-button-small-size - (@moon-button-border-width * 2));
 
 /* Disabled Opacity */
 /* ---------------------------------------*/
-@moon-disabled-opacity: 0.4;
+@moon-disabled-opacity: 0.6;
 
 /* Spotlight */
 /* ---------------------------------------*/
@@ -150,6 +155,9 @@
 @moon-button-large-min-width: 180px;
 @moon-button-small-min-width: 130px;
 
+/* Header */
+/* ---------------------------------------*/
+@moon-header-indent-width: 20px;
 
 /* Input */
 /* ---------------------------------------*/
@@ -200,6 +208,10 @@
 /* ObjectActionDecorator */
 /* ---------------------------------------*/
 @moon-objaction-decorator-display: table-cell;
+
+/* Video Player */
+/* ---------------------------------------*/
+@moon-video-player-info-icon-text-size:20px;
 
 /* Caret */
 /* ---------------------------------------*/
