@@ -168,7 +168,7 @@ enyo.kind({
 	components: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd", durationchange: "durationUpdate", onloadeddata: "dataloaded",
 			onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-			onprogress: "_progress", onPlay: "_play", onpause: "_pause", ontimeupdate: "timeUpdate", 
+			onprogress: "_progress", onPlay: "_play", onpause: "_pause", ontimeupdate: "timeUpdate", onStart: "_start", 
 			onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"},
 		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", kind: "Image", classes: "moon-audio-playback-track-icon"},
@@ -208,6 +208,10 @@ enyo.kind({
 			return;
 		}
 		this.sendFeedback("Pause", {}, true);
+	},
+	_start: function(inSender, inEvent) {
+		this.sendFeedback(this.$.audio.getPaused() ? "Play" : "Pause", {});
+		this.$.slider.$.popup.setShowing(false);
 	},
 	//* Updates the audio time.
 	timeUpdate: function(inSender, inEvent) {
@@ -566,7 +570,7 @@ enyo.kind({
 		}
 		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-pause-btn.png)");
 		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_pause.png");
-		this.sendFeedback("Play");
+		//this.sendFeedback("Play");
 		this.lastControlCommand = "PLAY";
 	},
 	pause: function() {
@@ -575,7 +579,7 @@ enyo.kind({
 		//this.$.btnPlay.applyStyle("background-image", "url(assets/icon-play-btn.png)");
 		this.$.btnPlay.setSrc("$lib/moonstone/images/video-player/icon_play.png");
 		this.controller.setAudioPaused();
-		this.sendFeedback("Pause");
+		//this.sendFeedback("Pause");
 	},
 	//* Facades _this.$.video.fastForward()_.
 	fastForward: function(inSender, inEvent) {
