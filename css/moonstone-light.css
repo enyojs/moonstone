@@ -3340,6 +3340,9 @@
 .moon-popup-close.spotlight {
   background-color: #ff2f7d;
 }
+.moon-icon.moon-popup-close {
+  position: absolute;
+}
 .moon-icon.moon-popup-close.active,
 .moon-icon.moon-popup-close.pressed,
 .moon-icon.moon-popup-close.spotlight.pressed,
