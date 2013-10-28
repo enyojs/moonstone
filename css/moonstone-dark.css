@@ -3739,7 +3739,7 @@
   bottom: 10px;
   left: 10px;
 }
-.moon-video-inline-control-fullscreen {
+.moon-video-inline-control .moon-video-inline-control-fullscreen {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -3856,12 +3856,13 @@
   border: 0px;
   background-color: transparent;
   background-position: 0px 0px;
+  background-size: 85px 170px;
 }
-.moon-video-fullscreen-control .moon-icon-button.active,
-.moon-video-fullscreen-control .moon-icon-button.pressed,
-.moon-video-fullscreen-control .moon-icon-button.spotlight,
-.moon-video-fullscreen-control .moon-icon-button.spotlight.pressed,
-.moon-video-fullscreen-control .moon-icon-button.spotlight:active {
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active {
   background-position: 0 -85px;
   border: 0px;
   background-color: transparent;

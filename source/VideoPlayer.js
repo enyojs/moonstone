@@ -196,18 +196,18 @@ enyo.kind({
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
 							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
-								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
-								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
-								{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
-								{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
-								{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+								{name: "jumpBack",		kind: "moon.IconButton", small: false, classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
+								{name: "rewind",		kind: "moon.IconButton", small: false, classes: "moon-video-player-control-button", ontap: "rewind"},
+								{name: "fsPlayPause",	kind: "moon.IconButton", small: false, classes: "moon-video-player-control-button", ontap: "playPause"},
+								{name: "fastForward",	kind: "moon.IconButton", small: false, classes: "moon-video-player-control-button", ontap: "fastForward"},
+								{name: "jumpForward",	kind: "moon.IconButton", small: false, classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
-						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
+						{name: "moreButton", kind: "moon.IconButton", small: false, ontap: "moreButtonTapped"}
 					]}
 				]},
 			
