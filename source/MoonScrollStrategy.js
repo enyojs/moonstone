@@ -21,13 +21,13 @@ enyo.kind({
 		//* Fires when scroll action stops.
 		onScrollStop: ""
 	},
+	//* @protected
 	handlers: {
 		onRequestScrollIntoView: "requestScrollIntoView",
 		onenter: "enter",
 		onleave: "leave",
 		onmousewheel: "mousewheel"
 	},
-	//* @protected
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
 			{name: "viewport", classes:"moon-scroller-viewport", components: [
@@ -54,11 +54,11 @@ enyo.kind({
 	timingFunction: null,
 	//* Bezier timing functions used for different scroll behaviors
 	timingFunctions: {
-		hold: {
+		scroll: {
 			controlPoints: [0,0,1,1],
 			points: []
 		},
-		scroll: {
+		hold: {
 			controlPoints: [0,0,1,1],
 			points: []
 		},
@@ -82,7 +82,7 @@ enyo.kind({
 	//* Larger numbers -> faster mousewheel scrolling
 	mouseWheelMultiplier: 4,
 	//* Duration of mousewheel scroll animations
-	mousewheelDurationMS: 500,
+	mousewheelDurationMS: 400,
 	//* Multiplier applied to scroll animations when accelerating (bigger -> faster scrolling)
 	accelerationMultiplier: 1.5,
 	//* Time interval to wait during scrolling before accelerating
@@ -325,7 +325,7 @@ enyo.kind({
 		this.scrollBounds = this.getScrollBounds();
 		
 		var x = this.scrollLeft,
-			y = this.scrollTop
+			y = this.scrollTop,
 			speed = this.calcScrollSpeed(this.initialTop, this.scrollTop, this.scrollDuration) * 100;
 		
 		switch (inEvent.side) {
