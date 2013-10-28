@@ -73,6 +73,9 @@ enyo.kind({
 		mousewheel: {
 			controlPoints: [0,0,0.4,1],
 			points: []
+		},
+		overscroll: {
+			controlPoints: [.25,.1,.25,1]
 		}
 	},
 	//* Fraction of the total client height/width to scroll on pagination
@@ -101,6 +104,10 @@ enyo.kind({
 	scrolling: false,
 	//* Maximum scroll speed in pixels per second
 	maxScrollSpeed: null,
+	//* Maximum distance in pixels to overscroll
+	maxOverscrollDistance: 300,
+	//* Time in MS for overscroll to bounce back
+	overscrollDurationMS: 800,
 	//* Optional callback to be called directly when scrolling (rather than bubbling scroll event)
 	scrollListenerCallback: null,
 	//* Optional scrollbounds thresholds used to determine when to call _this.scrollListenerCallback_
@@ -116,6 +123,7 @@ enyo.kind({
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
 		this.scrollSpeedChanged();
 		this.timingFunctionsChanged();
+		bam = this;
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -146,6 +154,10 @@ enyo.kind({
 		for (var func in this.timingFunctions) {
 			this.timingFunctions[func].points = this.calcBezierPoints(this.timingFunctions[func].controlPoints);
 		}
+	},
+	
+	bounce: function() {
+		this.scrollTo(0, -200);
 	},
 
 	//* @public
@@ -261,40 +273,42 @@ enyo.kind({
 		this.setTimingFunction("mousewheel");
 		this._scrollTo(x, y, this.mousewheelDurationMS);
 		this.scrollBounds = null;
-		
 		inEvent.preventDefault();
 		return true;
 	},
 	//* Handles _paginate_ event sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
+		this.scrollBounds = this.getScrollBounds();
+		
 		var x = this.scrollLeft,
 			y = this.scrollTop;
 		
 		switch (inEvent.side) {
 		case "left":
-			x = this.scrollLeft - this.getScrollBounds().clientWidth * this.paginationScrollMultiplier;
+			x = this.scrollLeft - this.scrollBounds.clientWidth * this.paginationScrollMultiplier;
 			break;
 		case "right":
-			x = this.scrollLeft + this.getScrollBounds().clientWidth * this.paginationScrollMultiplier;
+			x = this.scrollLeft + this.scrollBounds.clientWidth * this.paginationScrollMultiplier;
 			break;
 		case "top":
-			y = this.scrollTop - this.getScrollBounds().clientHeight * this.paginationScrollMultiplier;
+			y = this.scrollTop - this.scrollBounds.clientHeight * this.paginationScrollMultiplier;
 			break;
 		case "bottom":
-			y = this.scrollTop + this.getScrollBounds().clientHeight * this.paginationScrollMultiplier;
+			y = this.scrollTop + this.scrollBounds.clientHeight * this.paginationScrollMultiplier;
 			break;
 		}
 		
 		this.setTimingFunction("paginate");
 		this._scrollTo(x, y);
+		this.scrollBounds = null;
 		return true;
 	},
 	//* Kick off the press-and-hold scroll sequence
 	beginPaginateHold: function(inSender, inEvent) {
+		this.scrollBounds = this.getScrollBounds();
+
 		var x = this.scrollLeft,
 			y = this.scrollTop;
-		
-		this.scrollBounds = this.getScrollBounds();
 		
 		switch (inEvent.side) {
 		case "left":
@@ -351,10 +365,47 @@ enyo.kind({
 	//* Called when css scroll transition completes
 	transitionEnd: function(inSender, inEvent) {
 		if (inEvent.originator === this.$.client) {
-			this._stop();
+			this.syncScrollPosition();
+			this.scrollBounds = this.getScrollBounds();
+			
+			if (this.isOverscrolling()) {
+				this.bounceBack();
+			} else {
+				this._stop();
+			}
+			
+			this.scrollBounds = null;
 			return true;
 		}
 	},
+	isOverscrolling: function() {
+		return this.isOverscrollingX() || this.isOverscrollingY();
+	},
+	isOverscrollingX: function(inX) {
+		var bounds = this.getScrollBounds(),
+			inX = inX || bounds.left;
+		return inX < bounds.minLeft || inX > bounds.maxLeft;
+	},
+	isOverscrollingY: function(inY) {
+		var bounds = this.getScrollBounds(),
+			inY = inY || bounds.top;
+		return inY < bounds.minTop || inY > bounds.maxTop;
+	},
+	bounceBack: function() {
+		var bounds = this.getScrollBounds(),
+			x = (bounds.left < bounds.minLeft) ? bounds.minLeft :
+				(bounds.left > bounds.maxLeft) ? bounds.maxLeft :
+				bounds.left,
+			y = (bounds.top < bounds.minTop) ? bounds.minTop :
+				(bounds.top > bounds.maxTop) ? bounds.maxTop :
+				bounds.top;
+
+		this.setTimingFunction("overscroll");
+		this.updateScrollValues(x, y, this.overscrollDurationMS);
+		this.effectOverscroll(x, y);
+		this.start(true);
+	},
+	
 	
 	///////// End Event Handlers /////////
 	
@@ -559,14 +610,17 @@ enyo.kind({
 		this.initialTop = this.scrollTop;
 		this.xDir = (this.targetLeft < this.initialLeft) ? -1 : (this.targetLeft > this.initialLeft) ? 1 : 0;
 		this.yDir = (this.targetTop < this.initialTop) ? -1 : (this.targetTop > this.initialTop) ? 1 : 0;
+		this.scrollStartTime = enyo.bench();
 	},
 	effectScroll: function(inX, inY, inDuration) {
 		this.$.client.addStyles(this.generateTransitionStyleString(inDuration/1000) + this.generateTransformStyleString(inX, inY));
 		this.showThumbs(inDuration);
-		this.scrollStartTime = enyo.bench();
 	},
 	effectScrollStop: function() {
 		this.$.client.addStyles(this.transitionProp + ": " + this.transformProp + " 0s linear; " + this.generateTransformStyleString(this.scrollLeft, this.scrollTop));
+	},
+	effectOverscroll: function(inX, inY) {
+		this.$.client.addStyles(this.generateTransitionStyleString(this.overscrollDurationMS/1000) + this.generateTransformStyleString(inX, inY));
 	},
 	generateTransitionStyleString: function(inDuration) {
 		return this.transitionProp + ": " + this.transformProp + " " + inDuration + "s " + this.generateTimingFunctionString() + "; ";
@@ -860,10 +914,13 @@ enyo.kind({
 	},
 	calcDuration: function(inX, inY, inDuration) {
 		var delta = Math.max(Math.abs(this.scrollLeft - inX), Math.abs(this.scrollTop - inY)),
-			speed = (inDuration) ? delta * 1000 / inDuration : this.scrollSpeed;
+			duration = 1000 * delta / this.scrollSpeed;
 		
-		speed = this.clampScrollSpeed(speed);
-		return delta * 1000 / speed;
+		return (inDuration >= 0 && inDuration < duration) ? inDuration : this.clampDuration(delta, duration);
+	},
+	clampDuration: function(inDistance, inDuration) {
+		var speed = Math.min(1000 * inDistance / inDuration, this.maxScrollSpeed);
+		return 1000 * inDistance / speed;
 	},
 	clampScrollSpeed: function(inSpeed) {
 		if (inSpeed > this.maxScrollSpeed) {
@@ -878,10 +935,26 @@ enyo.kind({
 		return this.clampScrollSpeed((inDuration) ? delta * 1000 / inDuration : this.scrollSpeed);
 	},
 	clampX: function(inX) {
-		return Math.min(Math.max(inX, -this.leftBoundary), -this.rightBoundary);
+		var delta;
+		if (inX > this.rightBoundary) {
+			delta = Math.abs(inX - this.rightBoundary);
+			inX = this.rightBoundary + Math.min(Math.pow(delta, 1/1.25), this.maxOverscrollDistance);
+		} else if (inX < this.leftBoundary) {
+			delta =  Math.abs(inX - this.leftBoundary);
+			inX = this.leftBoundary - Math.min(Math.pow(delta, 1/1.25), this.maxOverscrollDistance);
+		}
+		return inX;
 	},
 	clampY: function(inY) {
-		return Math.min(Math.max(inY, this.topBoundary), this.bottomBoundary);
+		var delta;
+		if (inY > this.bottomBoundary) {
+			delta = Math.abs(inY - this.bottomBoundary);
+			inY = this.bottomBoundary + Math.min(Math.pow(delta, 1/1.25), this.maxOverscrollDistance);
+		} else if (inY < this.topBoundary) {
+			delta =  Math.abs(inY - this.topBoundary);
+			inY = this.topBoundary - Math.min(Math.pow(delta, 1/1.25), this.maxOverscrollDistance);
+		}
+		return inY;
 	},
 	calcScrollNode: function() {
 		return this.$.client.hasNode();
