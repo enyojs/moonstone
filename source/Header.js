@@ -18,11 +18,9 @@ enyo.kind({
 		small : false,
 		//* URL src of a background image
 		backgroundSrc : null,
-		/**
-		 Background position, defined as a string in the form of _"vertical horizontal"_,
-		 with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
-		 If no second property is included, the horizontal value will default to _right_.
-		 */
+		//* Background position, defined as a string in the form of _"vertical horizontal"_,
+		//* with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
+		//* If no second property is included, the horizontal value will default to _right_.
 		backgroundPosition : "top right",
 		//* When using a full-bleed background image, set this property to true to indent
 		//* the header text/controls and remove the header lines
