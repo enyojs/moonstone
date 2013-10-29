@@ -103,6 +103,8 @@ enyo.kind({
 		showPlayPauseControl: true,
 		//* When false, hides video element
 		showVideo: true,
+		//* When true, spinner is automatically shown when video is in play state but still loading/buffering
+		autoShowSpinner: true,
 
 		//* URL for "jump back" icon
 		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
@@ -849,7 +851,6 @@ enyo.kind({
 			ratio = videoAspectRatio[1] / videoAspectRatio[0];
 			this.applyStyle("height", ((parseInt(width, 10) * ratio)) + "px");
 		}
-		this.updateSpinnerPosition(width);
 	},
 	updatePosition: function() {
 		this.updateFullscreenPosition();
@@ -882,15 +883,14 @@ enyo.kind({
 	//* Turns on/off spinner as appropriate.
 	updateSpinner: function() {
 		var spinner = this.$.spinner;
-		if (this._isPlaying && !this._canPlay && !this._errorCode) {
+		if (this.autoShowSpinner && this._isPlaying && !this._canPlay && !this._errorCode) {
 			spinner.start();
 		} else if (spinner.getShowing()) {
 			spinner.stop();
 		}
 	},
-	updateSpinnerPosition: function(inWidth) {
-		this.$.spinner.applyStyle("left", (parseInt(inWidth, 10)/2 - (this.$.spinner.getBounds().width/2)) + "px");
-		this.$.spinner.applyStyle("top", (this.$.videoContainer.getBounds().height/2) + "px");
+	autoShowSpinnerChanged: function() {
+		this.updateSpinner();
 	},
 	/**
 		When _moreButton_ is tapped, toggles visibility of player controls and
