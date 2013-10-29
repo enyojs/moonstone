@@ -3104,14 +3104,6 @@
 .moon-calendar-picker .moon-simple-picker-item {
   color: #ffffff;
 }
-.moon-calendar-picker .moon-simple-picker-button {
-  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
-  background-position: center 5px;
-}
-.moon-calendar-picker .moon-simple-picker-button.spotlight {
-  background-image: url(../images/DarkTheme_Icons/scroller_icon.png);
-  background-position: center -45px;
-}
 .moon-calendar-picker-date.moon-button.small.active,
 .moon-calendar-picker-date.moon-button.small.pressed,
 .moon-calendar-picker-date.moon-button.small.spotlight.pressed,
