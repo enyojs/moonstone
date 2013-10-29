@@ -80,7 +80,7 @@ enyo.kind({
 			{
 				kind: "moon.ContextualPopup",
 				name: "buttonPopup",
-				classes: "moon-7h moon-8v",
+				classes: "moon-9h moon-8v",
 				modal: true,
 				autoDismiss: false,
 				spotlightModal: true,
@@ -101,7 +101,7 @@ enyo.kind({
 			{content: "Spottable", small:true},
 			{
 				kind: "moon.ContextualPopup",
-				classes: "moon-8h moon-4v",
+				classes: "moon-9h moon-4v",
 				components: [
 					{kind: "moon.Scroller", horizontal: "auto", classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button 1"},
