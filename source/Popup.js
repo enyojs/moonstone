@@ -51,7 +51,7 @@ enyo.kind({
 	},
 	//* @protected
 	tools: [
-		{name: "client"},
+		{name: "client", classes: "enyo-fill"},
 		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
@@ -69,7 +69,7 @@ enyo.kind({
 	},
 	animateChanged: function() {
 		if (this.animate) {
-			this.animateShow();			
+			this.animateShow();
 		}
 		this.$.childwrapper.addRemoveClass("animate", this.animate);
 		if (!this.animate) {
@@ -83,6 +83,7 @@ enyo.kind({
 		this.contentChanged();
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
+		this.$.client.addRemoveClass("moon-popup-client", this.$.closeButton.getShowing());
 	},
 	rendered: function () {
 		this.inherited(arguments);
@@ -109,7 +110,7 @@ enyo.kind({
 		if (!this.$.closeButton) {
 			return;
 		}
-		
+
 		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
@@ -155,8 +156,9 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 		}
-		
+
 		this.showHideScrim(this.showing);
+
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.spotlight = this._spotlight;
@@ -300,7 +302,7 @@ enyo.kind({
 		if (this._bounds) {
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
-			enyo.dom.transform(this.$.childwrapper, {translateY: this._bounds.height - prevHeight + "px"});	
+			enyo.dom.transform(this.$.childwrapper, {translateY: this._bounds.height - prevHeight + "px"});
 		}
 	}
 });
