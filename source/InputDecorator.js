@@ -36,6 +36,7 @@ enyo.kind({
 		onDisabledChange  : 'onDisabledChange',
 		onfocus           : 'onFocus',
 		onblur            : 'onBlur',
+		onSpotlightFocus  : 'onSpotlightFocus',
 		onSpotlightSelect : 'onSpotlightSelect',
 		onSpotlightBlur   : 'onSpotlightBlur',
 		onSpotlightLeft   : 'onSpotlightLeft',
@@ -109,11 +110,13 @@ enyo.kind({
 	onFocus: function(oSender, oEvent) {
 		enyo.Spotlight.spot(this);
 		// enyo.Spotlight.disablePointerMode();
+		enyo.Spotlight.freeze();
 		this.updateFocus(true);
 	},
 
 	onBlur: function() {
 		// enyo.Spotlight.enablePointerMode();
+		enyo.Spotlight.unfreeze();
 		this.updateFocus(false);
 	},
 
@@ -123,6 +126,10 @@ enyo.kind({
 
 	// Spotlight Event handlers:
 	/**************************************************/
+
+	onSpotlightFocus: function() {
+		this.bubble("onRequestScrollIntoView", {side: "top"});
+	},
 
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();

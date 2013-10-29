@@ -2,7 +2,7 @@ enyo.depends(
 	"BodyText.js",
 	"Marquee.js",
 	"Button.js",
-	"CalendarPicker.js",
+	"Calendar.js",
 	"CaptionDecorator.js",
 	"Item.js",
 	"SelectableItem.js",
