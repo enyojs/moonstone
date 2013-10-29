@@ -2747,6 +2747,11 @@
   line-height: 85px;
   background-position: 13px 13px;
 }
+.enyo-locale-right-to-left .moon-spinner.content {
+  background-position: top 13px right 13px;
+  padding-right: 85px;
+  padding-left: 40px;
+}
 .moon-panel {
   -webkit-transform: scale3d(1, 1, 1);
   overflow: hidden;
