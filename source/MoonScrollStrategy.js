@@ -129,7 +129,6 @@ enyo.kind({
 		this.showHideScrollColumns(this.container.spotlightPagingControls);
 		this.scrollSpeedChanged();
 		this.timingFunctionsChanged();
-		bam = this;
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -501,7 +500,7 @@ enyo.kind({
 		}
 		
 		// If not done asynchronously, the new translation doesn't take
-		this.accelerateJob = this.startJob("accelerate", function() { this.startScrolling(left, top, duration) }, 0);
+		this.accelerateJob = this.startJob("accelerate", function() { this.startScrolling(left, top, duration); }, 0);
 	},
 	startScrollJob: function() {
 		this.startJob("scroll", "scroll", this.scrollBubbleIntervalMS);
