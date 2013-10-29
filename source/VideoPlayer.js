@@ -181,7 +181,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -204,18 +204,18 @@ enyo.kind({
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
 							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
-								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
-								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
-								{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
-								{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
-								{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+								{name: "jumpBack",		kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
+								{name: "rewind",		kind: "moon.IconButton", small: false, ontap: "rewind"},
+								{name: "fsPlayPause",	kind: "moon.IconButton", small: false, ontap: "playPause"},
+								{name: "fastForward",	kind: "moon.IconButton", small: false, ontap: "fastForward"},
+								{name: "jumpForward",	kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
-						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
+						{name: "moreButton", kind: "moon.IconButton", small: false, ontap: "moreButtonTapped"}
 					]}
 				]},
 			
@@ -236,8 +236,7 @@ enyo.kind({
 			]},
 			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
-		]},
-		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
+		]}
 	],
 	create: function() {
 		this.inherited(arguments);
