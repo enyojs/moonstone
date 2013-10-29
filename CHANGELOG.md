@@ -23,3 +23,11 @@ no longer have any effect and may be removed.
 
 `moon.Spinner` can now take a `content` property to add a message inside the spinner control.
 See the SpinnerSample.html for example.
+
+`moon.VideoPlayer` now automatically shows a `moon.Spinner` centered in the video area when
+the video is in the playing state but is still buffering.   This can be disabled by setting
+`autoShowSpinner:false`.
+
+`moon.VideoPlayer` now automatically disables playback controls if there is no source set, and
+until video metadata is loaded.  Playback controls will also be disabled if an error occurred during
+video loading, e.g. URL returned 404.  This can be disabled by setting `disablePlaybackControlsOnUnload:false`.

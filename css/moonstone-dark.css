@@ -3685,6 +3685,13 @@
   height: 100%;
   width: 100%;
 }
+.moon-video-player-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -36.5px;
+  margin-left: -36.5px;
+}
 /* Fullscreen CSS */
 :-webkit-full-screen.moon-video-player {
   position: static !important;
