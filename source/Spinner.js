@@ -26,5 +26,9 @@ enyo.kind({
 	//* Toggles the spinner animation on or off.
 	toggle: function() {
 		this.setShowing(!this.getShowing());
+	},
+	contentChanged: function() {
+		this.inherited(arguments);
+		this.addRemoveClass("content", !!this.content);
 	}
 });
