@@ -20,3 +20,6 @@ VKB, if present) when the Enter key is pressed.
 `moon.Spinner` used to require classes `moon-light` or `moon-dark`, depending on the background
 it was placed on.  `moon.Spinner` now comes with a solid background color, and so those classes
 no longer have any effect and may be removed.
+
+`moon.Spinner` can now take a `content` property to add a message inside the spinner control.
+See the SpinnerSample.html for example.
