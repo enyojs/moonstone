@@ -2119,11 +2119,19 @@
 }
 .moon-scroll-picker-overlay-container.top {
   top: 0;
-  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center 6px no-repeat;
+  background-position: center 6px;
+  background-repeat: no-repeat;
+}
+.moon-scroll-picker-overlay-container.top-image {
+  background-image: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png);
 }
 .moon-scroll-picker-overlay-container.bottom {
   bottom: 0;
-  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -6px no-repeat;
+  background-position: center -6px;
+  background-repeat: no-repeat;
+}
+.moon-scroll-picker-overlay-container.bottom-image {
+  background-image: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png);
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
   background-position: center -27px;

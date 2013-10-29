@@ -39,11 +39,19 @@
 	height: @moon-integer-picker-overlay-height;
 	&.top {
 		top: 0;
-		background: @moon-carat-picker-up-icon center 6px no-repeat;
+		background-position: center 6px;
+		background-repeat: no-repeat;
+	}
+	&.top-image {
+		background-image: @moon-carat-picker-up-icon;
 	}
 	&.bottom {
 		bottom: 0;
-		background: @moon-carat-picker-down-icon center -6px no-repeat;
+		background-position: center -6px;
+		background-repeat: no-repeat;
+	}
+	&.bottom-image {
+		background-image: @moon-carat-picker-down-icon;
 	}
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
