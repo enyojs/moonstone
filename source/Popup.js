@@ -47,7 +47,7 @@ enyo.kind({
 	},
 	//* @protected
 	tools: [
-		{name: "client", classes: "enyo-fill, moon-popup-client"},
+		{name: "client", classes: "enyo-fill"},
 		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
@@ -64,6 +64,7 @@ enyo.kind({
 		this.contentChanged();
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
+		this.$.client.addRemoveClass("moon-popup-client", this.$.closeButton.getShowing());
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.content);

@@ -3032,7 +3032,7 @@ button:focus {
   box-sizing: border-box;
 }
 .moon-popup-client {
-  margin-right: 60px;
+  margin-right: 20px;
   padding: 0px;
   z-index: 1;
 }
