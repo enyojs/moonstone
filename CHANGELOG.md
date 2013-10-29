@@ -16,3 +16,7 @@ affected, since header children are forced to `display: inline-block` by default
 
 `moon.Input` now has an optional `dismissOnEnter` flag, which will blur the input (and dismiss the
 VKB, if present) when the Enter key is pressed.
+
+`moon.Spinner` used to require classes `moon-light` or `moon-dark`, depending on the background
+it was placed on.  `moon.Spinner` now comes with a solid background color, and so those classes
+no longer have any effect and may be removed.
