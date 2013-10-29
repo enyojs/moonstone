@@ -44,7 +44,9 @@ enyo.kind({
 		//* Popup offset in pixels
 		popupOffset: 25,
 		//** threshold value(percentage) for using animation effect on slider progress change
-		smallVariation: 1
+		smallVariation: 1,
+			//* Popup height in pixels
+		popupHeight: 67
 	},
 	handlers: {
 		onTimeupdate: "timeUpdate",
@@ -100,9 +102,11 @@ enyo.kind({
 		this.currentTime = 0;
 	},
 	enterTapArea: function(inSender, inEvent) {
-		this.addClass('visible');
-		this.startPreview();
-		this.doEnterTapArea(inEvent);
+		if (!this.disabled) {
+			this.addClass('visible');
+			this.startPreview();
+			this.doEnterTapArea(inEvent);
+		}
 	},
 	leaveTapArea: function(inSender, inEvent) {
 		this.removeClass('visible');
@@ -110,7 +114,7 @@ enyo.kind({
 		this.doLeaveTapArea(inEvent);
 	},
 	preview: function(inSender, inEvent) {
-		if (!this.disabled) {
+		if (!this.disabled && !this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 			this.currentTime = this.transformToVideo(v);
 			this._updateKnobPosition(this.currentTime);
@@ -230,10 +234,10 @@ enyo.kind({
 		return oValue;
 	},
 	transformToVideo: function(oValue) {
-		if (oValue < this.beginTickPos) {
+		if (this.showDummyArea && (oValue < this.beginTickPos)) {
 			oValue = this.rangeStart;
 		}
-		if (oValue > this.endTickPos) {
+		if (this.showDummyArea && (oValue > this.endTickPos)) {
 			oValue = this.rangeEnd;
 		}
 		return (oValue - this.rangeStart) / this.scaleFactor;
@@ -287,9 +291,6 @@ enyo.kind({
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
 
-			if(this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-			}
 			//* Default behavior to support elastic effect
 			v = this.transformToVideo(v);
 			if (this.constrainToBgProgress === true) {
@@ -303,7 +304,7 @@ enyo.kind({
 				v = this.clampValue(this.min, this.max, v);
 				this.elasticFrom = this.elasticTo = v;
 			}
-
+			this.currentTime = v;
 			this.updateKnobPosition(this.elasticFrom);
 
 			if (this.lockBar) {

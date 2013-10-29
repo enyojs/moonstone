@@ -19,12 +19,9 @@
 	background-color: @moon-background-color;
 }
 
-/* Remove any focus outline */
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
+.moon-header-font {
+	font-family: @moon-alt-font-family;
+	text-transform: uppercase;
 }
 
 .enyo-locale-right-to-left .moon
@@ -55,6 +52,7 @@ button:focus {
 	font-style: @moon-header-font-style;
 	letter-spacing: @moon-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
 	font-family: @moon-sub-header-font-family;
@@ -70,6 +68,7 @@ button:focus {
 	font-weight: @moon-super-header-font-weight;
 	font-style: @moon-super-header-font-style;
 	letter-spacing: @moon-super-header-letter-spacing;
+	-webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
 	font-family: @moon-popup-header-font-family;
@@ -78,6 +77,7 @@ button:focus {
 	font-style: @moon-popup-header-font-style;
 	letter-spacing: @moon-popup-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
@@ -193,6 +193,9 @@ button:focus {
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
 /* Individual widget CSS */
+@import "Icon.less";
+@import "moonstone-icons.less";
+@import "IconButton.less";
 @import "Marquee.less";
 @import "SimplePicker.less";
 @import "SimpleIntegerPicker.less";
@@ -213,8 +216,6 @@ button:focus {
 @import "ExpandableIntegerPicker.less";
 @import "Header.less";
 @import "GridList.less";
-@import "Icon.less";
-@import "IconButton.less";
 @import "PagingControl.less";
 @import "IntegerPicker.less";
 @import "DatePicker.less";

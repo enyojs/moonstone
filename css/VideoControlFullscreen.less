@@ -36,41 +36,45 @@
 	background-color: @moon-video-player-bottom-bg-color;
 }
 .moon-video-player-controls {
-	height: 90px;
+	height: @moon-icon-button-size;
+	margin-bottom:30px;
 }
 .moon-video-player-controls-container > * {
 	width: 100%;
 }
 .moon-video-player-more-controls {
 	border-left: 2px solid white;	
+	padding-left:5px;
 }
 .moon-video-player-premium-placeholder-left {
-	width: 110 + (@moon-icon-button-size + 2 * @moon-spotlight-outset);
-	height: 80px;
-	padding-top: 5px;
-	padding-left: 80px;
+	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
+	height: @moon-icon-button-size;
+
+	padding-left: 90px;
+
 }
 .moon-video-player-premium-placeholder-right {
-	width: 110 + (@moon-icon-button-size + 2 * @moon-spotlight-outset);
-	height: 80px;
-	padding-top: 5px;
+	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
+	height: @moon-icon-button-size;
+	padding-left:5px;
 }
 
 /* --- Buttons --- */
 .moon-video-fullscreen-control .moon-icon-button {
-	width: 80px;
-	height: 80px;
+	width: @moon-icon-button-size;
+	height: @moon-icon-button-size;
 	border-radius: 0;
 	border: 0px;
 	background-color: transparent;
 	background-position: 0px 0px;
+	background-size: @moon-icon-button-size (@moon-icon-button-size * 2);
 }
-.moon-video-fullscreen-control .moon-icon-button.active,
-.moon-video-fullscreen-control .moon-icon-button.pressed,
-.moon-video-fullscreen-control .moon-icon-button.spotlight,
-.moon-video-fullscreen-control .moon-icon-button.spotlight.pressed,
-.moon-video-fullscreen-control .moon-icon-button.spotlight:active {
-	background-position: 0 -80px;
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active {
+	background-position: 0 -(@moon-icon-button-size);
 	border: 0px;
 	background-color: transparent;
 }
