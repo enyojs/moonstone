@@ -3735,7 +3735,7 @@
   bottom: 10px;
   left: 10px;
 }
-.moon-video-inline-control-fullscreen {
+.moon-video-inline-control .moon-video-inline-control-fullscreen {
   position: absolute;
   bottom: 10px;
   right: 10px;
