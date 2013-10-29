@@ -33,7 +33,6 @@ enyo.kind({
     name: "Sample.Wizard.Panels",
     kind: "moon.Panels",
     arrangerKind: "CardArranger",
-    classes: "enyo-unselectable enyo-fit",
     handlers: {
         onNext: "next",
         onPrevious: "previous",
