@@ -226,6 +226,7 @@ enyo.kind({
 	},
 	handleBlur: function() {
 		this.resetHandleAutoHide();
+		this._blurred();
 	},
 	resetHandleAutoHide: function(inSender, inEvent) {
 		this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
@@ -242,6 +243,7 @@ enyo.kind({
 	},
 	handleFocus: function() {
 		this.unstashHandle();
+		this._focused();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
@@ -532,6 +534,14 @@ enyo.kind({
 		this.$.showHideHandle.removeClass("right");	
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
+	},
+	//* Focused handle with transition from right
+	_focused: function() {
+		enyo.Signals.send("onHandleFocused");		
+	},
+	//* Blurred handle with transition from right
+	_blurred : function() {
+		enyo.Signals.send("onHandleBlurred");		
 	},
 	//* Set to show state without animation
 	_directShow: function() {

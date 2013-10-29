@@ -174,7 +174,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden",onHandleFocused:"handleFocused", onHandleBlurred:"handleBlurred"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -415,6 +415,16 @@ enyo.kind({
 	},
 	panelsHidden: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
+	},
+	handleFocused: function(inSender, inEvent) {
+		if (this.isOverlayShowing()) {
+			this.hideFSControls();
+		}
+	},
+	handleBlurred: function(inSender, inEvent) {
+		if (!this.isOverlayShowing()) {
+			this.showFSControls();
+		}
 	},
 	isLarge: function() {
 		return this.isFullscreen() || !this.get("inline");
