@@ -52,7 +52,7 @@ enyo.kind({
 	//* @protected
 	tools: [
 		{name: "client"},
-		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
@@ -114,9 +114,11 @@ enyo.kind({
 		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
+			this.$.childwrapper.addClass("reserve-close");
 		} else {
 			this.$.closeButton.hide();
 			this.$.closeButton.spotlight = false;
+			this.$.childwrapper.removeClass("reserve-close");
 		}
 	},
 	//* If _this.spotlightModal_ changes
