@@ -10,6 +10,7 @@
 			{"name": "Toggle Button", "path":"$lib/moonstone/samples/ToggleButtonSample"},
 			{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"}
 		]},
+		{"name": "Clock", "path":"$lib/moonstone/samples/ClockSample"},
 		{"name": "Divider", "path":"$lib/moonstone/samples/DividerSample"},
 		{"name": "Drawer", "path":"$lib/moonstone/samples/DrawerSample"},
 		{"name": "Fonts", "path":"$lib/moonstone/samples/FontSample"},
@@ -19,6 +20,7 @@
 			{"name": "Input Header", "path":"$lib/moonstone/samples/InputHeaderSample"},
 			{"name": "Auto-collapsing Header", "path":"$lib/moonstone/samples/HeaderAutoCollapsingSample"}
 		]},
+		{"name": "Icon", "path":"$lib/moonstone/samples/IconSample"},
 		{"name": "Icon Button", "path":"$lib/moonstone/samples/IconButtonSample"},
 		{"name": "Image Badge", "path":"$lib/moonstone/samples/ImageBadgeSample"},
 		{"name": "Inputs", "samples": [
@@ -66,8 +68,8 @@
 			{"name": "Simple Picker", "path":"$lib/moonstone/samples/SimplePickerSample", "css":"sample"},
 			{"name": "Date Picker", "path":"$lib/moonstone/samples/DatePickerSample"},
 			{"name": "Time Picker", "path":"$lib/moonstone/samples/TimePickerSample", "css":"sample"},
-			{"name": "Calendar Picker", "path":"$lib/moonstone/samples/CalendarPickerSample"},
-			{"name": "Integer Picker", "path":"$lib/moonstone/samples/IntegerPickerSample"}
+			{"name": "Integer Picker", "path":"$lib/moonstone/samples/IntegerPickerSample"},
+			{"name": "Calendar", "path":"$lib/moonstone/samples/CalendarSample"}
 		]},
 		{"name": "Popups", "samples": [
 			{"name": "Basic Popup", "path":"$lib/moonstone/samples/PopupSample", "css":"sample"},

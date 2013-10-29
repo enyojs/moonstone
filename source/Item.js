@@ -16,12 +16,12 @@ enyo.kind({
 		disabled: false
 	},
 	//* @protected
-	overlayComponents: [
-		{name: "overlay", classes: "moon-item-overlay", addBefore: true}
-	],
 	create: function() {
 		this.inherited(arguments);
 		this.disabledChanged();
+		if (this.children.length) {
+			this.addClass("allow-wrap");
+		}
 	},
 	disabledChanged: function(inOld) {
 		this.addRemoveClass("disabled", this.disabled);

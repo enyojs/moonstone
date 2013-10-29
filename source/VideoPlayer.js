@@ -5,6 +5,9 @@
 	optional app-specific controls, and an information bar for video information
 	and player feedback.
 
+	All of the standard HTML5 media events bubbled from _enyo.Video_ will also bubble
+	from this control.
+
 	Client components added to the _components_ block are rendered into the video
 	player's transport control area, and should generally be limited to instances
 	of <a href="#moon.IconButton">moon.IconButton</a>. If more than two are
@@ -32,13 +35,28 @@ enyo.kind({
 	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
 	classes: "moon-video-player enyo-unselectable",
+	events: {
+		//* Bubbled when _disablePlaybackControls_ is true and the user taps one of the controls,
+		//* allowing the controsl to be re-enabled if desired
+		onPlaybackControlsTapped: ""
+	},
 	published: {
 		//* URL of HTML5 video
 		src: "",
 		//* Array for setting multiple sources for the same video
 		sources: null,
-		//* Video aspect ratio, specified as _"width:height"_
+		//* When true, size of the video player is resized after metadata is loaded, based on the aspectRatio received from
+		//* the metadata. Applies only to inline:true mode.
+		autoResize: false,
+		//* Video aspect ratio, specified as _"width:height"_, or _"none"_.  When a ratio is specified at render time,
+		//* the player height or width is updated to respect this ratio, depending on whether _fixedHeight_ is true or false.
+		//* If _autoResize_ is true, the _aspectRatio_ will be updated based on the metadata loaded for the current video and
+		//* the player will be resized accordingly.  Applies only to inline:true mode.
 		aspectRatio: "16:9",
+		//* When true, the width will be applied at render time based on the measured width and the aspectRatio property.
+		//* When false, the height will be applied at render time based on the measured width and the aspectRatio property.
+		//* This property is ignored when aspectRatio is 'none' or falsy value. Applies only to inline:true mode.
+		fixedHeight: false,
 		//* Control buttons is hided automatically in this time amount
 		autoCloseTimeout: 7000,
 		//* Video duration
@@ -75,7 +93,18 @@ enyo.kind({
 		showJumpControls: true, 
 		//* When false, fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
-
+		//* When true, slider and playback controls are disabled.  If the user taps the controls,
+		//* the _onPlaybackControlsTapped_ event will be bubbled.
+		disablePlaybackControls: false,
+		//* When true, playback controls are only active when the video player has a vaid source URL
+		//* and no error has occurred during video loading
+		disablePlaybackControlsOnUnload: true,
+		//* When false, PlayPause are hidden
+		showPlayPauseControl: true,
+		//* When false, hides video element
+		showVideo: true,
+		//* When true, spinner is automatically shown when video is in play state but still loading/buffering
+		autoShowSpinner: true,
 
 		//* URL for "jump back" icon
 		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
@@ -111,8 +140,11 @@ enyo.kind({
 			rewind: ["-2", "-4", "-8", "-16"],
 			slowForward: ["1/4", "1/2", "1"],
 			slowRewind: ["-1/2", "-1"]
-		}
+		},
+		//* source of image file to show when video isn't available or until the user hits the play button.
+		poster: ""
 	},
+	//* @protected
 	handlers: {
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
@@ -127,6 +159,7 @@ enyo.kind({
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
+		{from: ".poster",					to:".$.video.poster"},
 		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
 		{from: ".rewindIcon",				to:".$.rewind.src"},
 		{from: ".fastForwardIcon",			to:".$.fastForward.src"},
@@ -137,25 +170,27 @@ enyo.kind({
 		{from: ".showJumpControls",			to:".$.jumpForward.showing"},
 		{from: ".showJumpControls",			to:".$.jumpBack.showing"},
 		{from: ".showFFRewindControls",		to:".$.fastForward.showing"},
-		{from: ".showFFRewindControls",		to:".$.rewind.showing"}
+		{from: ".showFFRewindControls",		to:".$.rewind.showing"},
+		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
+		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
 	
-	//* @protected
-
 	spotlightModal: true,
 	
 	_isPlaying: false,
+	_canPlay: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start", onended: "_stop",
+				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
 				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange"
-			}
+				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", ontap: "videoTapped", oncanplay: "_setCanPlay", onwaiting: "_waiting", onerror: "_error"
+			},
+			{name: "spinner", kind: "moon.Spinner", classes: "moon-video-player-spinner"}
 		]},
 
 		//* Fullscreen controls
@@ -164,31 +199,31 @@ enyo.kind({
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", XonSpotlightUp: "showFSInfoWithPreventEvent", XonSpotlightDown: "preventEvent", ontap: "resetAutoTimeout", components: [
+				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
 			
-					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left", XonSpotlightLeft: "preventEvent"},
+					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left"},
 				
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
-						{name: "trickPlay", components: [
+						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
 							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
-								{name: "jumpBack",		kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
-								{name: "rewind",		kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "rewind"},
-								{name: "fsPlayPause",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "playPause"},
-								{name: "fastForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", ontap: "fastForward"},
-								{name: "jumpForward",	kind: "moon.IconButton", classes: "moon-video-player-control-button", onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
+								{name: "jumpBack",		kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseBackHandler", ontap: "onjumpBackward"},
+								{name: "rewind",		kind: "moon.IconButton", small: false, ontap: "rewind"},
+								{name: "fsPlayPause",	kind: "moon.IconButton", small: false, ontap: "playPause"},
+								{name: "fastForward",	kind: "moon.IconButton", small: false, ontap: "fastForward"},
+								{name: "jumpForward",	kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
 						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
 					]},
 				
-					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", XonSpotlightRight: "preventEvent", components: [
-						{name: "moreButton", kind: "moon.IconButton", ontap: "moreButtonTapped"}
+					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
+						{name: "moreButton", kind: "moon.IconButton", small: false, ontap: "moreButtonTapped"}
 					]}
 				]},
 			
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
-						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider"
+						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider", ontap:"playbackControlsTapped"
 					}
 				]}
 			]}
@@ -199,13 +234,11 @@ enyo.kind({
 			{name: "bgProgressStatus", classes: "moon-video-inline-control-bgprogress"},
 			{name: "progressStatus", classes: "moon-video-inline-control-progress"},
 			{classes: "moon-video-inline-control-text", components: [
-				{name: "currTime", content: "00:00"},
-				{name: "totalTime", content: "00:00"}
+				{name: "currTime", content: "00:00 / 00:00"}
 			]},
 			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
-		]},
-		{kind: "enyo.Signals", onFullscreenChange: "fullscreenChanged"}
+		]}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -219,6 +252,46 @@ enyo.kind({
 		this.showPlaybackControlsChanged();
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
+		this.updatePlaybackControlState();
+		if (window.ilib) {
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+		}
+	},
+	disablePlaybackControlsChanged: function() {
+		this.updatePlaybackControlState();
+	},
+	disablePlaybackControlsOnUnloadChanged: function() {
+		this.updatePlaybackControlState();
+	},
+	updatePlaybackControlState: function() {
+		var disabled = this.disablePlaybackControls || 
+			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+		this.updateSliderState();
+		this.$.playbackControls.addRemoveClass("disabled", disabled);
+		this.$.jumpBack.setDisabled(disabled);
+		this.$.rewind.setDisabled(disabled);
+		this.$.fsPlayPause.setDisabled(disabled);
+		this.$.fastForward.setDisabled(disabled);
+		this.$.jumpForward.setDisabled(disabled);
+		this.$.ilPlayPause.setDisabled(disabled);
+		var currentSpot = enyo.Spotlight.getCurrent();
+		if (currentSpot && currentSpot.disabled) {
+			if (this.isFullscreen() || !this.getInline()) {
+				this.spotFSBottomControls();
+			} else {
+				enyo.Spotlight.spot(this.$.ilFullscreen);
+			}
+		}
+	},
+	playbackControlsTapped: function() {
+		if (this.disablePlaybackControls) {
+			this.bubble("onPlaybackControlsTapped");
+		}
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		//* Change aspect ratio based on initialAspectRatio
+		this.aspectRatioChanged();
 	},
 	showPlaybackControlsChanged: function(inOld) {
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
@@ -230,20 +303,26 @@ enyo.kind({
 		this.$.sliderContainer.setShowing(this.showProgressBar);
 	},
 	//* Overrides default _enyo.Control_ behavior.
-	setSrc: function(inSrc) {
-		this.src = inSrc;
-		this.srcChanged();
-	},
-	//* Overrides default _enyo.Control_ behavior.
 	getSrc: function() {
 		return this.src;
 	},
 	srcChanged: function() {
-		this.pause();
+		this._canPlay = false;
+		this._isPlaying = this.autoplay;
+		this._errorCode = null;
+		this.updatePlayPauseButtons();
+		this.updateSpinner();
+		this.updatePlaybackControlState();
+		this._resetTime();
 		this.$.video.setSrc(this.getSrc());
 	},
+	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
+	getVideo: function() {
+		return this.$.video;
+	},
 	createInfoControls: function() {
-		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: this.getInstanceOwner()});
+		var owner = this.hasOwnProperty("infoComponents") ? this.getInstanceOwner() : this;
+		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: owner});
 	},
 	createClientComponents: function(inComponents) {
 		inComponents = (inComponents) ? enyo.clone(inComponents) : [];
@@ -292,13 +371,22 @@ enyo.kind({
 		this.$.video.setAutoplay(this.autoplay);
 		this._isPlaying = this.autoplay;
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	jumpSecChanged: function() {
 		this.$.video.setJumpSec(this.jumpSec);
 	},
 	disableSliderChanged: function() {
+		this.updateSliderState();
+	},
+	updateSliderState: function() {
 		//* this should be be called on create because default slider status should be disabled.
-		this.$.slider.setDisabled(this.disableSlider);
+		var disabled = 
+			this.disableSlider || 
+			this.disablePlaybackControls || 
+			!this._loaded || 
+			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+		this.$.slider.setDisabled(disabled);
 	},
 	autoShowOverlayChanged: function() {
 		this.autoShowInfoChanged();
@@ -325,6 +413,11 @@ enyo.kind({
 	},
 	showInfoChanged: function() {
 		this.$.videoInfoHeader.setShowing(this.showInfo);
+		
+		if (this.showInfo) {
+			// Kick off any marquees in the video info header
+			this.$.videoInfoHeader.waterfallDown("onRequestStartMarquee");
+		}
 	},
 	inlineChanged: function() {
 		// Force fullscreen
@@ -337,12 +430,17 @@ enyo.kind({
 		}
 		this.spotlight = !this.inline;
 	},
-	showFSInfoWithPreventEvent: function(inSender, inEvent) {
-		this.showFSInfo();
-		return true;
-	},
-	preventEvent: function(inSender, inEvent) {
-		return true;
+	//* Unload the current video source, stopping all playback and buffering.
+	unload: function() {
+		this.$.video.unload();
+		this._resetTime();
+		this._loaded = false;
+		this._isPlaying = false;
+		this._canPlay = false;
+		this._errorCode = null;
+		this.src = null;
+		this.updatePlaybackControlState();
+		this.updateSpinner();
 	},
 	showScrim: function(show) {
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
@@ -444,22 +542,31 @@ enyo.kind({
 			}
 			
 			//* Initial spot
-			if (this.showPlaybackControls) {
-				if (this.$.controlsContainer.getIndex() === 0) {
-					enyo.Spotlight.spot(this.$.fsPlayPause);
-				} else {
-					enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
-				}
-			} else {
-				var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
-				enyo.Spotlight.spot(oTarget);
-			}
+			this.spotFSBottomControls();
 			
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
 				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
 			}
+		}
+	},
+	spotFSBottomControls: function() {
+		if (this.showPlaybackControls) {
+			if (this.$.controlsContainer.getIndex() === 0) {
+				if (enyo.Spotlight.spot(this.$.fsPlayPause) === false) {
+					if(enyo.Spotlight.spot(this.$.fastForward) === false){
+						if(enyo.Spotlight.spot(this.$.jumpForward) === false) {
+							enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
+						}
+					}
+				}	
+			} else {
+				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
+			}
+		} else {
+			var oTarget = enyo.Spotlight.getFirstChild(this.$.leftPremiumPlaceHolder);
+			enyo.Spotlight.spot(oTarget);
 		}
 	},
 	//* Sets _this.visible_ to false.
@@ -479,6 +586,9 @@ enyo.kind({
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.$.videoInfoHeader.setShowing(true);
 			this.$.videoInfoHeader.resized();
+			
+			// Kick off any marquees in the video info header
+			this.$.videoInfoHeader.waterfallDown("onRequestStartMarquee");
 		}
 	},
 	//* Sets _this.visible_ to false.
@@ -535,7 +645,7 @@ enyo.kind({
 		}
 	},
 	onLeaveSlider: function(inSender, inEvent) {
-		if (this.hideButtonsOnSlider) {
+		if (this.hideButtonsOnSlider && !this.$.slider.isDragging()) {
 			this.$.controls.setShowing(true);
 		}
 	},
@@ -559,9 +669,9 @@ enyo.kind({
 			inSender._holding = false;
 		}
 	},
-	sendFeedback: function(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing) {
+	sendFeedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		inParams = inParams || {};
-		this.$.slider.feedback(inMessage, inParams, inShowLeft, inShowRight, inPersistShowing);
+		this.$.slider.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
 	},
 
 	////// Slider event handling //////
@@ -582,6 +692,10 @@ enyo.kind({
 			}
 			this._isPausedBeforeDrag = this.$.video.isPaused();
 		}
+		if (!this.$.slider.isInPreview()) {
+			this.$.controls.show();
+		}
+		this.setCurrentTime(inEvent.value);
 		return true;
 	},
 	//* When seeking, set video time.
@@ -591,7 +705,7 @@ enyo.kind({
 	},
 	//* Programatically updates slider position to match _this.currentTime_/_this.duration_.
 	updateFullscreenPosition: function() {
-		if (this.$.slider.dragging) {
+		if (this.$.slider.isDragging()) {
 			return;
 		}
 		this.$.slider.setValue(this._currentTime);
@@ -602,14 +716,14 @@ enyo.kind({
 	///// Inline controls /////
 
 	updateInlinePosition: function() {
-		var currentTimeFloat = this._currentTime * 1000,
-			percentComplete = Math.round(currentTimeFloat / this._duration) / 10,
-			currentTimeDate = new Date(currentTimeFloat),
-			durationDate = new Date(this._duration * 1000)
-		;
+		var percentComplete = this._duration ? Math.round(this._currentTime * 1000 / this._duration) / 10 : 0;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
-		this.$.currTime.setContent(this.formatTime(currentTimeDate.getMinutes(), currentTimeDate.getSeconds()));
-		this.$.totalTime.setContent("/" + this.formatTime(durationDate.getMinutes(), durationDate.getSeconds()));
+		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
+	},
+	videoTapped: function() {
+		if (this.getInline() && !this.isFullscreen()) {
+			this.playPause();
+		}
 	},
 
 	//* @public
@@ -644,36 +758,41 @@ enyo.kind({
 		this._isPlaying = true;
 		this.$.video.play();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.pause()_.
 	pause: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.pause();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.rewind()_.
 	rewind: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.rewind();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpToStart()_.
 	jumpToStart: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.jumpToStart();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpBackward()_.
 	jumpBackward: function(inSender, inEvent) {
-		this._isPlaying = true;
 		this.$.video.jumpBackward();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.fastForward()_.
 	fastForward: function(inSender, inEvent) {
 		this._isPlaying = false;
 		this.$.video.fastForward();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpToEnd()_.
 	jumpToEnd: function(inSender, inEvent) {
@@ -684,12 +803,13 @@ enyo.kind({
 		}
 		this.$.video.jumpToEnd();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.jumpForward()_.
 	jumpForward: function(inSender, inEvent) {
-		this._isPlaying = true;
 		this.$.video.jumpForward();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 	},
 	//* Facades _this.$.video.setCurrentTime()_.
 	setCurrentTime: function(inValue) {
@@ -701,48 +821,76 @@ enyo.kind({
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
 	},
+	//* Refreshes the sizing of the video player
+	resizeHandler: function() {
+		this.aspectRatioChanged();
+	},
 	//* Updates the height/width based on the video's aspect ratio.
-	updateAspectRatio: function() {
-		var node = this.hasNode(),
-			aspectRatio = this.$.video.getAspectRatio(),
-			videoAspectRatio = null,
+	aspectRatioChanged: function() {
+		// Case 5: Fixed size provided by user
+		if (!this.inline || this.aspectRatio == "none" || !this.aspectRatio) { return; }
+
+		var videoAspectRatio = null,
+			width = this.getComputedStyleValue('width'),
+			height = this.getComputedStyleValue('height'),
 			ratio = 1
 		;
 		
-		if (!node && aspectRatio == "0:0") {
-			return;
-		}
-
-		videoAspectRatio = aspectRatio.split(":");
+		videoAspectRatio = this.aspectRatio.split(":");
 		
-		// If height but no width defined, update width based on aspect ratio
-		if (node.style.height && !node.style.width) {
+		// If fixedHeight is true, update width based on aspect ratio
+		if (this.fixedHeight) {
+			// Case 2: Automatic resize based on video aspect ratio (fixed height):
+			// Case 4: Fixed aspect ratio provided by user (fixed-height):
 			ratio = videoAspectRatio[0] / videoAspectRatio[1];
-			this.applyStyle("width", ((parseInt(node.style.height, 10) * ratio)) + "px");
-		// If width but no height defined, update height based on aspect ratio
-		} else if (node.style.width && !node.style.height) {
+			this.applyStyle("width", ((parseInt(height, 10) * ratio)) + "px");
+		// If fixedHeight is false, update height based on aspect ratio
+		} else if (!this.fixedHeight) {
+			// Case 1: Automatic resize based on video aspect ratio (fixed width):
+			// Case 3: Fixed aspect ratio provided by user (fixed-width):
 			ratio = videoAspectRatio[1] / videoAspectRatio[0];
-			this.applyStyle("height", ((parseInt(node.style.width, 10) * ratio)) + "px");
+			this.applyStyle("height", ((parseInt(width, 10) * ratio)) + "px");
 		}
 	},
 	updatePosition: function() {
 		this.updateFullscreenPosition();
 		this.updateInlinePosition();
 	},
-	//* Properly formats time.
-	formatTime: function(inMinutes, inSeconds) {
-		inMinutes = this._formatTime(inMinutes);
-		inSeconds = this._formatTime(inSeconds);
-		return inMinutes + ":" + inSeconds;
+	//* Properly format time
+	formatTime: function(inValue) {
+		var hour = Math.floor(inValue / (60*60));
+		var min = Math.floor(inValue / 60);
+		var sec = Math.round(inValue % 60);
+		if (this.durfmt) {
+			var val = {minute: min, second: sec};
+			if (hour) {
+				val.hour = hour;
+			}
+			return this.durfmt.format(val);
+		} else {
+			return (hour ? this.padDigit(hour) + ":" : "") + this.padDigit(min) + ":" + this.padDigit(sec);
+		}
 	},
 	//* Format time helper
-	_formatTime: function(inValue) {
+	padDigit: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
 		this.$.fsPlayPause.setSrc(this._isPlaying ? this.pauseIcon : this.playIcon);
 		this.$.ilPlayPause.setSrc(this._isPlaying ? this.inlinePauseIcon : this.inlinePlayIcon);
+	},
+	//* Turns on/off spinner as appropriate.
+	updateSpinner: function() {
+		var spinner = this.$.spinner;
+		if (this.autoShowSpinner && this._isPlaying && !this._canPlay && !this._errorCode) {
+			spinner.start();
+		} else if (spinner.getShowing()) {
+			spinner.stop();
+		}
+	},
+	autoShowSpinnerChanged: function() {
+		this.updateSpinner();
 	},
 	/**
 		When _moreButton_ is tapped, toggles visibility of player controls and
@@ -801,7 +949,10 @@ enyo.kind({
 	},
 	//* Called when video successfully loads video metadata.
 	metadataLoaded: function(inSender, inEvent) {
-		this.updateAspectRatio();	// Fixme: Support aspect ratio
+		//* Update aspect ratio based on actual video aspect ratio when autoResize is true.
+		if (this.autoResize && this.$.video) {
+			this.setAspectRatio(this.$.video.getAspectRatio());
+		}
 		this.durationUpdate(inSender, inEvent);
 	},
 	durationUpdate: function(inSender, inEvent) {
@@ -815,10 +966,10 @@ enyo.kind({
 
 		this.waterfall("onTimeupdate", inEvent);
 	},
+	_loaded: false,
 	dataloaded: function(inSender, inEvent) {
-		if (!this.disableSlider) {
-			this.$.slider.setDisabled(false);
-		}
+		this._loaded = true;
+		this.updateSliderState();
 		this.durationUpdate(inSender, inEvent);
 	},
 	_getBufferedProgress: function(inNode) {
@@ -850,6 +1001,13 @@ enyo.kind({
 			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
 		}
 	},
+	_resetTime: function() {
+		this._currentTime = 0;
+		this._duration = 0;
+		this.updatePosition();
+		this.$.slider.setBgProgress(0);
+		this.$.bgProgressStatus.applyStyle("width", 0);
+	},
 	_play: function(inSender, inEvent) {
 		this.sendFeedback("Play");
 	},
@@ -860,13 +1018,14 @@ enyo.kind({
 		}
 		this.sendFeedback("Pause", {}, true);
 	},
-	_start: function(inSender, inEvent) {
-		this.sendFeedback("Pause");
-	},
 	_stop: function(inSender, inEvent) {
 		this.pause();
 		this.updatePlayPauseButtons();
+		this.updateSpinner();
 		this.sendFeedback("Stop");
+	},
+	_start: function(inSender, inEvent) {
+		this.sendFeedback(this._isPlaying ? "Play" : "Pause", {}, !this._isPlaying);
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
@@ -885,5 +1044,25 @@ enyo.kind({
 	},
 	_jumpBackward: function(inSender, inEvent) {
 		this.sendFeedback("JumpBackward", {jumpSize: inEvent.jumpSize}, false);
+	},
+	_waiting: function(inSender, inEvent) {
+		this._canPlay = false;
+		this.updateSpinner();
+	},
+	_setCanPlay: function(inSender, inEvent) {
+		this._canPlay = true;
+		this.updateSpinner();
+	},
+	_error: function(inSender, inEvent) {
+		// Error codes in inEvent.currentTarget.error.code
+		// 1: MEDIA_ERR_ABORTED, 2: MEDIA_ERR_NETWORK, 3: MEDIA_ERR_DECODE, 4: MEDIA_ERR_SRC_NOT_SUPPORTED
+		this._errorCode = inEvent.currentTarget.error.code;
+		this._loaded = false;
+		this._isPlaying = false;
+		this._canPlay = false;
+		this.$.currTime.setContent($L("Error"));
+		this._stop();
+		this.updateSpinner();
+		this.updatePlaybackControlState();
 	}
 });

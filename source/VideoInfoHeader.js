@@ -24,6 +24,7 @@ enyo.kind({
 	classes: "moon-video-info-header",
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
+	marqueeOnRender: true,
 	published: {
 		title: "",
 		subTitle: "",
@@ -32,10 +33,12 @@ enyo.kind({
 	},
 	components: [
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
-		{kind: "enyo.Control", name: "subTitle", classes: "moon-video-player-info-subtitle"},
-		{kind: "enyo.Control", name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
-		{kind: "enyo.Control", name: "client", classes: "moon-video-player-info-client"},
-		{kind: "enyo.Control", name: "description", classes: "moon-video-player-info-description"}
+		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
+		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
+		{name: "client", classes: "moon-video-player-info-client"},
+		{components: [
+			{name: "description", classes: "moon-video-player-info-description"}
+		]}
 	],
 	bindings: [
 		{from: ".title",		to: ".$.title.content"},

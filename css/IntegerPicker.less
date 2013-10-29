@@ -36,27 +36,27 @@
 	position:absolute;
 	z-index: 1;
 	width: 100%;
-	height: @moon-integer-picker-radius;
+	height: @moon-integer-picker-overlay-height;
 	&.top {
 		top: 0;
-		background: @moon-carat-picker-up-icon center 6px no-repeat;
+		background: @moon-carat-picker-up-small-icon center 14px no-repeat;
 	}
 	&.bottom {
 		bottom: 0;
-		background: @moon-carat-picker-down-icon center -6px no-repeat;
+		background: @moon-carat-picker-down-small-icon center 6px no-repeat;
 	}
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
-	background-position: center -27px;
+	background: @moon-carat-picker-up-icon center -27px no-repeat;
 }
 .spotlight .moon-scroll-picker-overlay-container.bottom {
-	background-position: center -39px;
+	background: @moon-carat-picker-down-icon center -39px no-repeat;
 }
 
 .moon-scroll-picker-overlay {
 	display: none;
 	position:absolute;
-	height:@moon-integer-picker-radius + 5px;
+	height:@moon-integer-picker-overlay-height + 5px;
 	width:100%;
 	border-width: @moon-integer-picker-shadow-width;
 	border-color: rgba(0,0,0,0.2);

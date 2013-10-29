@@ -7,29 +7,31 @@ enyo.kind({
 	title: "SETTINGS CATEGORY",
 	titleBelow: "Description of Setting Category",
 	components: [
-		{
-			name: "pickersInfo",
-			kind: "enyo.DataRepeater",
-			selection: false,
-			fit: true,
-			components: [
-				{
-					kind: "moon.ExpandablePicker",
-					bindings: [
-						{from: ".model.name", to: ".content"},
-						{from: ".model.value1", to: ".$.item1.content"},
-						{from: ".model.value2", to: ".$.item2.content"},
-						{from: ".model.value3", to: ".$.item3.content"}
-					],
-					noneText: "None Selected",
-					components: [
-						{ name: "item1" },
-						{ name: "item2" },
-						{ name: "item3" }
-					]
-				}
-			]
-		}
+		{kind: "moon.Scroller", classes: "enyo-fill", components: [
+			{
+				name: "pickersInfo",
+				kind: "enyo.DataRepeater",
+				selection: false,
+				fit: true,
+				components: [
+					{
+						kind: "moon.ExpandablePicker",
+						bindings: [
+							{from: ".model.name", to: ".content"},
+							{from: ".model.value1", to: ".$.item1.content"},
+							{from: ".model.value2", to: ".$.item2.content"},
+							{from: ".model.value3", to: ".$.item3.content"}
+						],
+						noneText: "None Selected",
+						components: [
+							{ name: "item1" },
+							{ name: "item2" },
+							{ name: "item3" }
+						]
+					}
+				]
+			}
+		]}
 	],
 	bindings: [
 		{from: ".controller.pickers", to: ".$.pickersInfo.controller"}

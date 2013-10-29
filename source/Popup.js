@@ -9,6 +9,7 @@ enyo.kind({
 	modal: true,
 	floating: true,
 	_spotlight: null,
+	_bounds: null,
 	spotlight: "container",
 	handlers: {
 		onSpotlightSelect: "spotSelect",
@@ -16,7 +17,8 @@ enyo.kind({
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight",
-		onRequestScrollIntoView: "_preventEventBubble"
+		onRequestScrollIntoView: "_preventEventBubble",
+		ontransitionend: "animationEnd"
 	},
 	published: {
 		/**
@@ -43,20 +45,37 @@ enyo.kind({
 			_showCloseButton_ is set to "auto" (the default), _closeButton_ is shown
 			when _spotlightModal_ is true.
 		*/
-		showCloseButton: "auto"
+		showCloseButton: "auto",
+		//* When true, popups will animate on/off screen
+		animate: true
 	},
 	//* @protected
 	tools: [
 		{name: "client"},
-		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
 	activator: null,
 	//* Creates chrome
 	initComponents: function() {
-		this.createChrome(this.tools);
+		this.createComponent({ name: "childwrapper", classes: "moon-neutral moon-popup-childwrapper", owner: this });
+		this.$.childwrapper.createComponents(this.tools, {owner: this});
 		this.inherited(arguments);
+	},
+	create: function () {
+		this.inherited(arguments);
+		this.animateChanged();
+	},
+	animateChanged: function() {
+		if (this.animate) {
+			this.animateShow();			
+		}
+		this.$.childwrapper.addRemoveClass("animate", this.animate);
+		if (!this.animate) {
+			this.$.childwrapper.applyStyle("top", null);
+			enyo.dom.transform(this.$.childwrapper, {translateY: null});
+		}
 	},
 	//* Renders _moon.Popup_, extending enyo.Popup
 	render: function() {
@@ -64,6 +83,9 @@ enyo.kind({
 		this.contentChanged();
 		this.inherited(arguments);
 		this._spotlight = this.spotlight;
+	},
+	rendered: function () {
+		this.inherited(arguments);
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
@@ -78,7 +100,7 @@ enyo.kind({
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* _tap()_ code.
 	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
+		if (!this.downEvent || (this.downEvent.type !== "onSpotlightSelect")) {
 			return this.inherited(arguments);
 		}
 	},
@@ -91,9 +113,11 @@ enyo.kind({
 		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
+			this.$.childwrapper.addClass("reserve-close");
 		} else {
 			this.$.closeButton.hide();
 			this.$.closeButton.spotlight = false;
+			this.$.childwrapper.removeClass("reserve-close");
 		}
 	},
 	//* If _this.spotlightModal_ changes
@@ -113,11 +137,28 @@ enyo.kind({
 			if(moon.Popup.count > 0) {
 				moon.Popup.count--;
 			}
+			if (this.generated) {
+				this.respotActivator();
+			}
+		}
+
+		if (this.animate) {
+			if (this.showing) {
+				this.inherited(arguments);
+				this.animateShow();
+				this.animationEnd = enyo.nop;
+			} else {
+				this.animateHide();
+				var args = arguments;
+				this.animationEnd = enyo.bind(this, function() {
+					this.inherited(args);
+				});
+			}
+		} else {
+			this.inherited(arguments);
 		}
 		
 		this.showHideScrim(this.showing);
-		this.inherited(arguments);
-		
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.spotlight = this._spotlight;
@@ -128,6 +169,14 @@ enyo.kind({
 			} else if ((this.spotlight) && (spottableChildren > 0)) {
 				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
 			}
+		}
+	},
+	getShowing: function() {
+		//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
+		if (this.animate) {
+			return this.showing;
+		} else {
+			this.inherited(arguments);
 		}
 	},
 	showHideScrim: function(inShow) {
@@ -179,7 +228,6 @@ enyo.kind({
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");
 		}
-		this.respotActivator();
 		this.spotlight = false;
 		this.hide();
 	},
@@ -187,7 +235,7 @@ enyo.kind({
 	respotActivator: function() {
 		var a = this.activator;
 		// Attempt to identify and re-spot the activator if present
-		if (a.destroyed === undefined) {
+		if (a && a.destroyed === undefined) {
 			enyo.Spotlight.spot(a);
 			if (a instanceof moon.Button) {
 				a.removeClass("pressed");
@@ -244,5 +292,17 @@ enyo.kind({
 	//*@protected
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
+	},
+	animateShow: function () {
+		this._bounds = this.getBounds();
+		this.$.childwrapper.applyStyle("top", this._bounds.height + "px");
+		enyo.dom.transform(this.$.childwrapper, {translateY: -this._bounds.height + "px"});
+	},
+	animateHide: function () {
+		if (this._bounds) {
+			var prevHeight = this._bounds.height;
+			this._bounds = this.getBounds();
+			enyo.dom.transform(this.$.childwrapper, {translateY: this._bounds.height - prevHeight + "px"});	
+		}
 	}
 });

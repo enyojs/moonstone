@@ -26,21 +26,24 @@ enyo.kind({
 	lockBottom: true,
 	
 	//* @protected
-	
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		client: {name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
-			{name: "clientInput", kind: "moon.Input"}
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
+			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
+				{name: "clientInput", kind: "moon.Input"}
+			]}
 		]}
-	},
+	],
 	bindings: [
 		{from: ".value", to: ".$.clientInput.value"},
 		{from: ".placeholder", to: ".$.clientInput.placeholder"},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
-		{from: ".currentValueText", to: ".$.currentValue.content"}
+		{from: ".currentValueText", to: ".$.currentValue.content"},
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
 	computed: {
 		"showCurrentValue": ["open", "value", "noneText"],
@@ -58,6 +61,7 @@ enyo.kind({
 		
 		if (this.generated && !this.getOpen()) {
 			this.updateValue();
+			this.$.clientInput.blur();
 		}
 	},
 	
@@ -107,16 +111,7 @@ enyo.kind({
 	fireChangeEvent: function() {
 		this.doChange({value: this.value});
 	},
-	_marqueeSpotlightFocus: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.startMarquee();
-			this.$.currentValue.startMarquee();
-		}
-	},
-	_marqueeSpotlightBlur: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.stopMarquee();
-			this.$.currentValue.stopMarquee();
-		}
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
 	}
 });

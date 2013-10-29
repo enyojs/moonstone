@@ -37,21 +37,22 @@ enyo.kind({
 		unit: "sec"
 	},
 	lockBottom: true,
-	
+	autoCollapse: true,
+
 	//* @protected
 	
 	handlers: {
 		requestScrollIntoView: "requestScrollIntoView"
 	},
-	componentOverrides: {
-		headerWrapper: {components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
-			{name: "currentValue", kind: "moon.Item", spotlight: false, classes: "moon-expandable-picker-current-value"}
+	components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		client: {components: [
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
 			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
 		]}
-	},
+	],
 	bindings: [
 		{from: ".min", to: ".$.picker.min"},
 		{from: ".max", to: ".$.picker.max"},
@@ -59,7 +60,8 @@ enyo.kind({
 		{from: ".unit", to: ".$.picker.unit"},
 		{from: ".value", to: ".$.picker.value", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
-		{from: ".currentValueText", to: ".$.currentValue.content"}
+		{from: ".currentValueText", to: ".$.currentValue.content"},
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
 	computed: {
 		"showCurrentValue": ["open"],
@@ -69,17 +71,6 @@ enyo.kind({
 	// Change handlers
 	valueChanged: function() {
 		this.fireChangeEvent();
-	},
-	activeChanged: function() {
-		var active = this.getActive();
-		if (active) {
-			// enyo.Group's highlander logic actually prevents an item from being
-			// de-activated once it's been activated; that's not exactly the logic
-			// we want for ExpandablePicker, so we only notify the group when an
-			// item is activated, not when it's de-activated.
-			this.bubble("onActivate");
-		}
-		this.setOpen(active);
 	},
 	openChanged: function() {
 		this.inherited(arguments);
@@ -102,10 +93,11 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
-			enyo.Spotlight.spot(this.$.headerWrapper);
+			if (!enyo.Spotlight.getPointerMode()) {
+				enyo.Spotlight.spot(this.$.headerWrapper);
+			}
 		} else {
 			this.setActive(true);
-			enyo.Spotlight.unspot();
 		}
 	},
 	//* Kill any onActivate events coming from buttons in the SimplePicker
@@ -115,5 +107,13 @@ enyo.kind({
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({value: this.value, content: this.content});
+	},
+	stopHeaderMarquee: function() {
+		this.$.headerWrapper.stopMarquee();
+	},
+	spotlightDown: function(inSender, inEvent) {
+		if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
+			return true;
+		}
 	}
 });

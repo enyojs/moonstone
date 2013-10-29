@@ -6,6 +6,7 @@ enyo.kind({
 	name: "moon.PagingControl",
 	kind: "moon.IconButton",
 	published: {
+		icon: "arrowlargeup",
 		side: null
 	},
 	events: {

@@ -1,56 +1,4 @@
 /**
-	_moon.MarqueeText_ is a basic text control that supports marquee animation.
-	When _moon.MarqueeText_ objects are used inside a
-	[moon.MarqueeDecorator](#moon.MarqueeDecorator), the decorator synchronizes
-	their start times; the user may start a marquee programmatically by calling
-	_startMarquee()_.
-
-		enyo.kind({
-			name: "moon.Header",
-			mixins: ["moon.MarqueeSupport"],
-			marqueeSpeed: 100,
-			components: [
-				{kind: "moon.MarqueeText", content: "longText+longText"},
-				{kind: "moon.MarqueeText", content: "longText"}
-			],
-			rendered: function() {
-				this.startMarquee();
-			}
-		});
-
-	To add the marquee feature to a kind, simply use the MarqueeSupport mixin:
-
-		enyo.kind({
-			name: "moon.MarqueeButton",
-			kind: "enyo.Button",
-			mixins: ["moon.MarqueeSupport"],
-			components: [
-				{kind:"moon.MarqueeText"}
-			],
-			contentChanged: function() {
-				this.$.marqueeText.setContent(this.content);
-			}
-		});
-*/
-
-
-enyo.kind({
-	name: "moon.MarqueeText",
-	mixins: ["moon.MarqueeItem"],
-	published: {
-		//* Speed of marquee animation, in pixels per second
-		marqueeSpeed: 60,
-		/**
-			Time in milliseconds that the marquee will pause at the end of the
-			animation, before resetting to the beginning
-		*/
-		marqueePause: 1000,
-		//* When true, marqueeing will not occur
-		disabled: false
-	}
-});
-
-/**
 	@public
 
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain multiple marquees
@@ -59,9 +7,9 @@ enyo.kind({
 */
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
-	marqueeOnSpotlight: true,
 	//* @protected
-	handlers: {
+	_marquee_Handlers: {
+		onRequestStartMarquee: "_marquee_requestStartMarquee",
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
 		onMarqueeEnded: "_marquee_marqueeEnded",
@@ -89,6 +37,25 @@ moon.MarqueeSupport = {
 			}
 		};
 	}),
+	dispatchEvent: enyo.inherit(function (sup) {
+		return function(sEventName, oEvent, oSender) {
+			if (!oEvent.delegate) {
+				var handler = this._marquee_Handlers[sEventName];
+				if (handler && this[handler](oSender, oEvent)) {
+					return true;
+				}
+			}
+			return sup.apply(this, arguments);
+		};
+	}),
+	//* Handle external requests to kick off _marqueeStart_
+	_marquee_requestStartMarquee: function() {
+		if (this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+			return true;
+		}
+	},
 	//* On focus, start child marquees
 	_marquee_spotlightFocus: function(inSender, inEvent) {
 		if (this.marqueeOnSpotlight) {
@@ -113,7 +80,8 @@ moon.MarqueeSupport = {
 		return true;
 	},
 	_marquee_resize: function(inSender, inEvent) {
-		if (this.marqueeOnSpotlight) {
+		if (this.marqueeOnSpotlight && this.marqueeActive) {
+			this.marqueeActive = false;
 			this._marquee_startHold();
 		}
 	},
@@ -123,7 +91,7 @@ moon.MarqueeSupport = {
 	//* Start timer to waterfall an _onRequestMarqueeStart_ event that kicks off marquee animation on all child marquees
 	startMarquee: function() {
 		this._marquee_buildWaitList();
-		
+
 		if (this.marqueeWaitList.length === 0) {
 			return;
 		}
@@ -175,7 +143,7 @@ moon.MarqueeItem = {
 		onMarqueeEnded:""
 	},
 	//* @protected
-	handlers: {
+	_marqueeItem_Handlers: {
 		onRequestMarquee: "_marquee_requestMarquee",
 		onRequestMarqueeStart: "_marquee_startAnimation",
 		onRequestMarqueeStop: "_marquee_stopAnimation",
@@ -185,10 +153,22 @@ moon.MarqueeItem = {
 		_marquee_contentChanged: ["content"]
 	},
 	classes: "moon-marquee",
+	dispatchEvent: enyo.inherit(function (sup) {
+		return function(sEventName, oEvent, oSender) {
+			if (!oEvent.delegate) {
+				var handler = this._marqueeItem_Handlers[sEventName];
+				if (handler && this[handler](oSender, oEvent)) {
+					return true;
+				}
+			}
+			return sup.apply(this, arguments);
+		};
+	}),
 	//* When the content of this control changes, update the content of _this.$.marqueeText_ (if it exists)
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
+			this._marquee_stopAnimation();
 		}
 	},
 	//* If this control needs to marquee, let the event originator know
@@ -203,7 +183,7 @@ moon.MarqueeItem = {
 		this.marqueeSpeed = inEvent.marqueeSpeed || 60;
 	},
 	//* Start marquee animation
-	_marquee_startAnimation: function() {
+	_marquee_startAnimation: function(inSender, inEvent) {
 		var distance = this._marquee_calcDistance();
 		
 		// If there is no need to animate, return early
@@ -241,17 +221,12 @@ moon.MarqueeItem = {
 	},
 	//* Determine how far the marquee needs to scroll
 	_marquee_calcDistance: function() {
-		var node = this._marquee_getMarqueeNode() || this.hasNode();
-		return node.scrollWidth - node.clientWidth;
+		var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
+		return Math.abs(node.scrollWidth - node.clientWidth);
 	},
 	//* Return duration based on _inDistance_ and _this.marqueeSpeed_
 	_marquee_calcDuration: function(inDistance) {
 		return inDistance / this.marqueeSpeed;
-	},
-	//* Return the marquee-able node
-	_marquee_getMarqueeNode: function() {
-		this.marqueeNode = this.marqueeNode || (this.$.marqueeText ? this.$.marqueeText.hasNode() : null);
-		return this.marqueeNode;
 	},
 	//* Create a marquee-able div inside of _this_
 	_marquee_createMarquee: function() {
@@ -268,7 +243,7 @@ moon.MarqueeItem = {
 		
 		// Need this timeout for FF!
 		setTimeout(enyo.bind(this, function() {
-			enyo.dom.transform(this.$.marqueeText, {translateX: (-1 * inDistance) + "px"});
+			enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(inDistance) + "px"});
 		}), 100);
 	},
 	_marquee_removeAnimationStyles: function() {
@@ -284,10 +259,65 @@ moon.MarqueeItem = {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
 		}), 0);
+	},
+	//* Flip distance value for RTL support
+	_marquee_adjustDistanceForRTL: function(inDistance) {
+		return this.rtl ? inDistance : inDistance * -1;
 	}
 };
 
-//* @public
+/**
+	_moon.MarqueeText_ is a basic text control that supports marquee animation.
+	When _moon.MarqueeText_ objects are used inside a
+	[moon.MarqueeDecorator](#moon.MarqueeDecorator), the decorator synchronizes
+	their start times; the user may start a marquee programmatically by calling
+	_startMarquee()_.
+
+		enyo.kind({
+			name: "moon.Header",
+			mixins: ["moon.MarqueeSupport"],
+			marqueeSpeed: 100,
+			components: [
+				{kind: "moon.MarqueeText", content: "longText+longText"},
+				{kind: "moon.MarqueeText", content: "longText"}
+			],
+			rendered: function() {
+				this.startMarquee();
+			}
+		});
+
+	To add the marquee feature to a kind, simply use the MarqueeSupport mixin:
+
+		enyo.kind({
+			name: "moon.MarqueeButton",
+			kind: "enyo.Button",
+			mixins: ["moon.MarqueeSupport"],
+			components: [
+				{kind:"moon.MarqueeText"}
+			],
+			contentChanged: function() {
+				this.$.marqueeText.setContent(this.content);
+			}
+		});
+*/
+
+
+enyo.kind({
+	name: "moon.MarqueeText",
+	mixins: ["moon.MarqueeItem"],
+	published: {
+		//* Speed of marquee animation, in pixels per second
+		marqueeSpeed: 60,
+		/**
+			Time in milliseconds that the marquee will pause at the end of the
+			animation, before resetting to the beginning
+		*/
+		marqueePause: 1000,
+		//* When true, marqueeing will not occur
+		disabled: false
+	}
+});
+
 enyo.kind({
 	name: "moon.MarqueeDecorator",
 	//* @protected

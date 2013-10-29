@@ -644,7 +644,6 @@ enyo.kind({
 			this.$.pageUpControl,
 			this.$.pageDownControl
 		], function(c) {
-			c.spotlight = this.container.spotlightPagingControls;
 			c.addRemoveClass("hover", !this.container.spotlightPagingControls);
 		}, this);
 	},

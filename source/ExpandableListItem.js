@@ -64,27 +64,20 @@ enyo.kind({
 	defaultKind: "moon.Item",
 	handlers: {
 		onSpotlightDown: "spotlightDown",
-		onSpotlightFocused: "spotlightFocused",
 		onDrawerAnimationEnd: "drawerAnimationEnd"
 	},
 	components: [
-		{name: "headerWrapper", kind: "enyo.Control", spotlight: true, classes: "moon-expandable-list-item-header-wrapper",
-			onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
-			{name: "header", kind: "moon.Item", spotlight: false, classes: "moon-expandable-list-item-header"}
-		]},
-		{name: "drawer", kind: "enyo.Drawer", components: [
-			{name: "client", kind: "Group", classes: "moon-expandable-list-item-client"}
+		{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract", classes: "moon-expandable-list-item-header"},
+		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
+			{name: "client", kind: "Group", tag: null}
 		]}
 	],
 	bindings: [
-		{from: ".disabled", to: ".$.headerWrapper.disabled"}
+		{from: ".disabled", to: ".$.header.disabled"}
 	],
-
 	//* @protected
-
 	create: function() {
 		this.inherited(arguments);
-		enyo.dom.accelerate(this, "auto");
 		this.openChanged();
 		this.setActive(this.open);
 		this.disabledChanged();
@@ -96,8 +89,11 @@ enyo.kind({
 	//* Facade for drawer
 	openChanged: function() {
 		var open = this.getOpen();
-		this.$.drawer.setOpen(open);
 		this.addRemoveClass("open", open);
+		this.$.drawer.setOpen(open);
+		if (this.generated) {
+			this.stopHeaderMarquee();
+		}
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
@@ -108,7 +104,7 @@ enyo.kind({
 		}
 	},
 	activeChanged: function() {
-		this.bubble("onActivate");
+		this.bubble("onActivate", {allowHighlanderDeactivate:true});
 		this.setOpen(this.active);
 	},
 	//* If closed, opens drawer and highlights first spottable child.
@@ -119,23 +115,30 @@ enyo.kind({
 
 		this.toggleActive();
 
-		if (this.getActive()) {
+		if (this.getActive() && !enyo.Spotlight.getPointerMode()) {
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		}
+	},
+	stopHeaderMarquee: function() {
+		this.$.header.stopMarquee();
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
 		} else {
 			this.setActive(true);
-			enyo.Spotlight.unspot();
 		}
 	},
 	//* If drawer is currently open, and event was sent via keypress (i.e., it has a direction), process header focus
 	headerFocus: function(inSender, inEvent) {
 		var direction = inEvent && inEvent.dir;
+
 		if (this.getOpen() && this.getAutoCollapse() && direction === "UP") {
 			this.setActive(false);
+		}
+
+		if (inEvent.originator === this.$.header) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
 		}
 	},
 	//* Check for the last item in the client area, and prevent 5-way focus movement below it, per UX specs
@@ -148,21 +151,6 @@ enyo.kind({
 	drawerAnimationEnd: function() {
 		this.bubble("onRequestScrollIntoView", {side: "top", scrollInPointerMode:true});
 		return true;
-	},
-	spotlightFocused: function(inSender, inEvent) {
-		if (inEvent.originator === this.$.headerWrapper) {
-			this.bubble("onRequestScrollIntoView", {side: "top"});
-		}
-	},
-	_marqueeSpotlightFocus: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.startMarquee();
-		}
-	},
-	_marqueeSpotlightBlur: function(inSender, inEvent) {
-		if (inSender === this) {
-			this.$.header.stopMarquee();
-		}
 	}
 });
 

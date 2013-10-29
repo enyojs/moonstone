@@ -23,22 +23,49 @@ enyo.kind({
 			with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
 			If no second property is included, the horizontal value will default to _right_.
 		*/
-		backgroundPosition: "top right"
+		backgroundPosition: "top right",
+		//* When using a full-bleed background image, set this property to true to indent
+		//* the header text/controls and remove the header lines
+		fullBleedBackground: false,
+		//* If true, title will be an input
+		inputMode: false,
+		//* Text to display when the input is empty
+		placeholder: "",
+		//* The value of the input
+		value: "",
+		//* When true, inputted text will be displayed in uppercase
+		inputUpperCase: false
 	},
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	marqueeOnRender: true,
+	handlers: {
+		oninput: "handleInput",
+		onchange: "handleChange"
+	},
+	events: {
+		//* Custom input event to allow apps to differentiate between inputs and header inputs
+		onInputHeaderInput: "",
+		//* Custom input change event to allow apps to differentiate between input changes and header input changes
+		onInputHeaderChange: ""
+	},
 	components: [
 		{name: "texts", components: [
 			{name: "titleAbove", classes: "moon-super-header-text moon-header-title-above"},
 			{name: "titleWrapper", classes: "moon-header-title-wrapper", components: [
-				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title"}
+				{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-header-title", canGenerate: false},
+				{name: "inputDecorator", kind: "moon.InputDecorator", classes: 'moon-input-header-input-decorator', canGenerate: false, components: [
+					{name: "titleInput", kind: "moon.Input", classes: "moon-header-text moon-header-title"}
+				]}
 			]},
 			{name: "titleBelow", kind: "moon.MarqueeText", classes: "moon-header-title-below"},
 			{name: "subTitleBelow", kind: "moon.MarqueeText", classes: "moon-header-sub-title-below"}
 		]},
 		{name: "client", classes: "moon-hspacing moon-header-client"},
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
+	],
+	bindings: [
+		{from: ".value", to: ".$.titleInput.value", oneWay: false}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -50,6 +77,10 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.backgroundSrcChanged();
 		this.backgroundPositionChanged();
+		this.inputModeChanged();
+		this.inputUpperCaseChanged();
+		this.placeholderChanged();
+		this.fullBleedBackgroundChanged();
 	},
 	allowHtmlChanged: function() {
 		this.$.title.setAllowHtml(this.allowHtml);
@@ -64,6 +95,9 @@ enyo.kind({
 			posStr = (posArray.length === 0) ? "top right" : (posArray.length === 1) ? posArray[0] + " right" : posArray[0] + " " + posArray[1];
 		this.applyStyle("background-position", posStr);
 	},
+	fullBleedBackgroundChanged: function() {
+		this.addRemoveClass("full-bleed", this.fullBleedBackground);
+	},
 	//* @public
 	collapseToSmall: function() {
 		if (this.collapsed) {
@@ -72,7 +106,6 @@ enyo.kind({
 
 		var myStyle = enyo.dom.getComputedStyle(this.hasNode());
 		var titleWrapperStyle = enyo.dom.getComputedStyle(this.$.titleWrapper.hasNode());
-		var titleStyle = enyo.dom.getComputedStyle(this.$.title.hasNode());
 		var titleBelowStyle = enyo.dom.getComputedStyle(this.$.titleBelow.hasNode());
 		var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
 
@@ -85,9 +118,7 @@ enyo.kind({
 			"padding-left": titleWrapperStyle["padding-left"],
 			"top": titleWrapperStyle["top"]
 		};
-		this.$.title.smallAnimProps = {
-			"line-height": titleStyle["line-height"]
-		};
+		this.$.title.smallAnimProps = {};
 		this.$.titleBelow.smallAnimProps = {
 			"top": titleBelowStyle["top"]
 		};
@@ -113,9 +144,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "current"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -137,22 +166,20 @@ enyo.kind({
 					control: this.$.titleWrapper,
 					properties: {
 						"padding-left": "58px",
-						"top": "-48px"
+						"top": "-42px"
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "0.96em"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
-						"top": "-48px"
+						"top": "-42px"
 					}
 				}, {
 					control: this.$.subTitleBelow,
 					properties: {
-						"top": "-48px"
+						"top": "-42px"
 					}
 				}]
 
@@ -184,9 +211,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": "current"
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -212,9 +237,7 @@ enyo.kind({
 					}
 				}, {
 					control: this.$.title,
-					properties: {
-						"line-height": this.$.title.smallAnimProps["line-height"]
-					}
+					properties: {}
 				}, {
 					control: this.$.titleBelow,
 					properties: {
@@ -231,8 +254,6 @@ enyo.kind({
 		this.$.animator.play("expandToLarge");
 		this.collapsed = false;
 	},
-	
-
 	//* @protected
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-header", this.getSmall());
@@ -240,11 +261,17 @@ enyo.kind({
 	//* @protected
 	contentChanged: function() {
 		this.$.title.setContent(this.title || this.content);
+		this.placeholderChanged();
 	},
 	//* @protected
 	// For backward-compatibility with original API
 	titleChanged: function() {
 		this.contentChanged();
+		this.placeholderChanged();
+	},
+	placeholderChanged: function() {
+		// For backward-compatibility with original API
+		this.$.titleInput.set("placeholder", this.placeholder || this.title || this.content);
 	},
 	//* @protected
 	titleAboveChanged: function() {
@@ -262,5 +289,36 @@ enyo.kind({
 	//* @protected
 	animationComplete: function(inSender, inEvent) {
 		// Do something?
+	},
+	//* @protected
+	inputModeChanged: function() {
+		this.$.title.canGenerate = !this.inputMode;
+		this.$.title.setShowing(!this.inputMode);
+		this.$.inputDecorator.canGenerate = this.inputMode;
+		this.$.inputDecorator.setShowing(this.inputMode);
+
+		if(!this.inputMode) {
+			if (!this.$.title.hasNode()) {
+				this.$.title.render();	
+			}
+			// Reset marquees when coming back to static text
+			this.stopMarquee();
+			this.startMarquee();
+		}
+		if(this.inputMode && !this.$.inputDecorator.hasNode()) {
+			this.$.inputDecorator.render();
+		}
+		this.addRemoveClass("moon-input-header", this.inputMode);
+	},
+	//* Create custom event for _input_ events
+	handleInput: function(inSender, inEvent) {
+		this.doInputHeaderInput(inEvent);
+	},
+	//* Create custom event for _change_ events
+	handleChange: function(inSender, inEvent) {
+		this.doInputHeaderChange(inEvent);
+	},
+	inputUpperCaseChanged: function() {
+		this.$.titleInput.addRemoveClass("uppercase", this.inputUpperCase);
 	}
 });

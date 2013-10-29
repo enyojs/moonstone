@@ -19,7 +19,13 @@ enyo.kind({
 			However, the button's tap target still has a diameter of 78px, so there is
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
-		small: false
+		small: false,
+		/**
+			A parameter indicating the min-Width of the button.
+			If true, the min-width shoule be set 180px wide, (The small button is set 130px)
+			When false, thie min-width should be the current @moon-button-height (forcing it no smaller than a circle)
+		*/
+		minWidth: true
 	},
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
@@ -28,6 +34,9 @@ enyo.kind({
 		onSpotlightSelect	: 'depress',
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
+		//* Also make sure we remove the pressed class if focus is removed from
+		//* this item before it receives a keyup.
+		onSpotlightBlur		: 'undepress',
 		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
 		onSpotlightFocused	: "spotFocused"
 	},
@@ -37,6 +46,7 @@ enyo.kind({
 			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
 		}
 		this.smallChanged();
+		this.minWidthChanged();
 		this.inherited(arguments);
 	},
 	//* Adds _pressed_ CSS class.
@@ -48,7 +58,6 @@ enyo.kind({
 		if (inEvent.originator === this) {
 			this.bubble("onRequestScrollIntoView", {side: "top"});
 		}
-		return true;
 	},
 	//* Removes _pressed_ CSS class.
 	undepress: function() {
@@ -79,6 +88,13 @@ enyo.kind({
 			this.$.client.setContent(this.getContent());
 		} else {
 			this.inherited(arguments);
+		}
+	},
+	minWidthChanged: function() {
+		if (this.minWidth) {
+			this.addClass('min-width');
+		} else {
+			this.removeClass('min-width');
 		}
 	}
 });
