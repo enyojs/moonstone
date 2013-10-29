@@ -2092,17 +2092,17 @@
 }
 .moon-scroll-picker-overlay-container.top {
   top: 0;
-  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center 6px no-repeat;
+  background: url(../images/DarkTheme_Icons/SmallCarat_up1.png) center 14px no-repeat;
 }
 .moon-scroll-picker-overlay-container.bottom {
   bottom: 0;
-  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -6px no-repeat;
+  background: url(../images/DarkTheme_Icons/SmallCarat_down1.png) center 6px no-repeat;
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
-  background-position: center -27px;
+  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center -27px no-repeat;
 }
 .spotlight .moon-scroll-picker-overlay-container.bottom {
-  background-position: center -39px;
+  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -39px no-repeat;
 }
 .moon-scroll-picker-overlay {
   display: none;
