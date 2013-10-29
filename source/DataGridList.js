@@ -7,7 +7,20 @@ enyo.kind({
 	kind: "enyo.DataGridList",
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" }
+	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" },
+	handlers: {
+		onSpotlightSelect	: "spotHandler",
+		onSpotlightLeft	: "spotHandler",
+		onSpotlightRight	: "spotHandler",
+		onSpotlightUp	: "spotHandler",
+		onSpotlightDown	: "spotHandler"
+	},
+	spotHandler: function(oSender, oEvent) {
+		if (this.$.scroller.getStrategy().isScrolling()) {
+			enyo.Signals.send("onListKeydown", oEvent);
+			return true;
+		}
+	}
 });
 //*@protected
 /**

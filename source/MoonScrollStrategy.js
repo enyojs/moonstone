@@ -46,7 +46,8 @@ enyo.kind({
 			]},
 			{name: "pageRightControl", kind: "moon.PagingControl", side: "right", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
-		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
+		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true},
+		{kind: "Signals", onListKeydown: "listKeydown"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -127,6 +128,12 @@ enyo.kind({
 	},
 	//* On _down_, stops scrolling.
 	down: function(inSender, inEvent) {
+		if (!this.isPageControl(inEvent.originator) && this.isScrolling() && !this.isOverscrolling()) {
+			this.stop();
+		}
+	},
+	//* On _onListKeydown_, stops scrolling.
+	listKeydown: function(inSender, inEvent) {
 		if (!this.isPageControl(inEvent.originator) && this.isScrolling() && !this.isOverscrolling()) {
 			this.stop();
 		}

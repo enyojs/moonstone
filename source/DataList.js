@@ -7,7 +7,20 @@ enyo.kind({
 	name: "moon.DataList",
 	kind: "enyo.DataList",
 	noDefer: true,
-	scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" }
+	scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" },
+	handlers: {
+		onSpotlightSelect	: "spotHandler",
+		onSpotlightLeft	: "spotHandler",
+		onSpotlightRight	: "spotHandler",
+		onSpotlightUp	: "spotHandler",
+		onSpotlightDown	: "spotHandler"
+	},
+	spotHandler: function(oSender, oEvent) {
+		if (this.$.scroller.getStrategy().isScrolling()) {
+			enyo.Signals.send("onListKeydown", oEvent);
+			return true;
+		}
+	}
 });
 //*@protected
 /**
