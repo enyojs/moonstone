@@ -118,9 +118,11 @@ enyo.kind({
 			this.activator.keepOpen = true;
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
+			this.addClass("reserve-close");
 		} else {
 			this.$.closeButton.hide();
 			this.$.closeButton.spotlight = false;
+			this.removeClass("reserve-close");
 		}
 	},
 	contentChanged: function() {

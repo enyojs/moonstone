@@ -698,6 +698,7 @@
   line-height: 45px;
   text-align: center;
   position: relative;
+  color: #a6a6a6;
 }
 .moon-icon.small,
 .moon-icon-toggle.small {
@@ -795,16 +796,10 @@
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-icon.moon-icon-button.spotlight:active {
-  background-position: center -75px;
+  background-position: center 0;
   border: 5px solid #ff2f7d;
   background-color: #404040;
-  color: #ffffff;
-}
-.moon-icon.moon-icon-button.active.small,
-.moon-icon.moon-icon-button.pressed.small,
-.moon-icon.moon-icon-button.spotlight.pressed.small,
-.moon-icon.moon-icon-button.spotlight:active.small {
-  background-position: center -50px;
+  color: #a6a6a6;
 }
 .moon-icon-button.spotlight {
   background-color: #ff2f7d;
@@ -2486,6 +2481,10 @@
   -moz-box-sizing: border-box;
   background-color: #686868;
 }
+.moon-contextual-popup.reserve-close,
+.enyo.moon-contextual-popup.reserve-close {
+  padding-right: 80px;
+}
 .enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
 }
@@ -2667,13 +2666,13 @@
 /* Scroller */
 .moon-list-actions-scroller {
   margin: 20px;
-  margin-right: 60px;
+  margin-right: 80px;
   padding: 0px;
   z-index: 1;
 }
 .enyo-locale-right-to-left .moon-list-actions-scroller {
   margin-right: 10px;
-  margin-left: 60px;
+  margin-left: 80px;
 }
 /* Action menu */
 .moon-list-actions-menu {
@@ -3305,6 +3304,9 @@
 .moon-popup-childwrapper {
   position: relative;
   padding: 40px;
+}
+.moon-popup-childwrapper.reserve-close {
+  padding-right: 80px;
 }
 .moon-popup .moon-popup-childwrapper.animate {
   -webkit-transition: -webkit-transform 0.4s ease;
@@ -4440,15 +4442,12 @@
   display: block;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-  background-position: center -75px;
+  background-position: center 0;
   border: 5px solid #ff2f7d;
   background-color: #404040;
-  color: #ffffff;
+  color: #a6a6a6;
   background-color: #ffffff;
   border-color: #ffffff;
-}
-.selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.small {
-  background-position: center -50px;
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
