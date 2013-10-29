@@ -10,7 +10,7 @@ enyo.kind({
         {classes: "moon-hspacing", components: [
             {kind: "moon.Button", content: "Wizard Popup", ontap: "showPopup", popup: "wizPopup"}
         ]},
-        {name: "wizPopup", kind: "moon.Popup", spotlightModal: true, style:"height:600px", components: [
+        {name: "wizPopup", kind: "moon.Popup", animate: false, spotlightModal: true, style:"height:600px", components: [
             {name: "wizardSample", kind: "moon.sample.wizard.PopupSample", classes:"enyo-fill"}
         ]}
     ],

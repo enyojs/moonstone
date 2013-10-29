@@ -4,14 +4,15 @@
     bottom: 0;
     width: 100%;
     padding: 0px;
-    box-sizing: border-box;
-    background:none !important;
+    box-sizing: border-box;    
+    overflow: hidden;
 }
-.moon-popup-childwrapper {
+.moon-popup.animate {
+	background: none !important;
+}
+.moon-popup.animate .moon-popup-childwrapper {
 	position: relative;
 	padding: 40px;
-}
-.moon-popup .moon-popup-childwrapper.animate {
 	-webkit-transition: -webkit-transform 0.4s ease
 }
 .moon-popup-close {

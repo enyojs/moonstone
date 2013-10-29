@@ -69,9 +69,10 @@ enyo.kind({
 	},
 	animateChanged: function() {
 		if (this.animate) {
-			this.animateShow();			
+			this.animateShow();
 		}
-		this.$.childwrapper.addRemoveClass("animate", this.animate);
+		this.addRemoveClass("animate", this.animate);
+		//this.$.childwrapper.addRemoveClass("animate", this.animate);
 		if (!this.animate) {
 			this.$.childwrapper.applyStyle("top", null);
 			enyo.dom.transform(this.$.childwrapper, {translateY: null});
