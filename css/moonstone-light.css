@@ -2911,7 +2911,12 @@
   height: 100%;
   background-color: black;
   pointer-events: none;
-  opacity: 0.2;
+  opacity: 0;
+}
+.moon-panels-background-scrim.transition {
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+  -moz-transition: opacity 0.5s linear;
 }
 .moon-panels-panel-scrim {
   position: absolute;
