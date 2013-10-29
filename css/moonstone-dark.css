@@ -34,6 +34,8 @@
 /* ---------------------------------------*/
 /* Pickers */
 /* ---------------------------------------*/
+/* Slider Knob */
+/* ---------------------------------------*/
 /* Items */
 /* ---------------------------------------*/
 /* Divider */
@@ -2248,13 +2250,13 @@
 .moon-progress-bar {
   position: relative;
   margin: 50px 20px;
-  height: 4px;
-  background-color: #323232;
+  height: 10px;
+  background-color: #262626;
   min-width: 128px;
 }
 .moon-progress-bg-bar {
   height: 100%;
-  background-color: #7d7d7d;
+  background-color: #a6a6a6;
   position: absolute;
   top: 0;
 }
@@ -2283,8 +2285,8 @@
   width: 60px;
   border-radius: 30px;
   margin: -30px;
-  background-color: #404040;
-  top: 0;
+  background-color: #4d4d4d;
+  top: 3px;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
@@ -2305,7 +2307,7 @@
   width: 60px;
   border-radius: 30px;
   margin: -30px;
-  background-color: #404040;
+  background-color: #4d4d4d;
   border: 5px solid #ff2f7d;
 }
 .moon-slider.disabled {
@@ -2359,7 +2361,7 @@
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
-  line-height: 1.5em;
+  line-height: 60px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
