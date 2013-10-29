@@ -35,9 +35,7 @@ enyo.kind({
 			scroller contents have no spotlightable controls, such as the case of a 
 			scroller with a long body of text. 
 		*/
-		spotlightPagingControls: false,
-		//* Relative parameter used to determine scroll speed
-		scrollInterval: 75
+		spotlightPagingControls: false
 	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
@@ -59,9 +57,6 @@ enyo.kind({
 	},
 
 	//* @protected
-	bindings: [
-		{from: ".scrollInterval", to:".$.strategy.interval"}
-	],
 	create: function() {
 		this.inherited(arguments);
 		this.spotlightPagingControlsChanged();

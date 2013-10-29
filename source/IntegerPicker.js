@@ -56,8 +56,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.rangeChanged();
 		this.refreshScrollState();
-		this.$.scroller.getStrategy().setFixedTime(false);
-		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
