@@ -15,6 +15,13 @@
 	background-position: top left;
 }
 
+.moon-header.full-bleed {
+	padding-left: @moon-header-indent-width;
+	padding-right: @moon-header-indent-width;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
 /* Title Above */
 .moon-header-title-above.no-border {
 	border: none;
@@ -69,6 +76,10 @@
 	right: 0;
 	text-align: right;	/* fallback in case text-align:end isn't supported */
 	text-align: end;	/* CSS3 for RTL support */
+}
+.full-bleed .moon-header-client {
+	left: @moon-header-indent-width;
+	right: @moon-header-indent-width;
 }
 .moon-header-client > * {
 	text-align: left;	/* fallback in case text-align:start isn't supported */
