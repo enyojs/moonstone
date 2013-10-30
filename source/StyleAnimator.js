@@ -318,6 +318,9 @@ enyo.kind({
 
 			// If complete, bail
 			if (elapsed > animation.duration) {
+				if (animation.percentElapsed != 100) {
+					this.applyTransitions(animation.name, 100);
+				}
 				animation.percentElapsed = 100;
 				this.doStep({animation: animation});
 				this.completeAnimation(animation.name);
@@ -326,7 +329,7 @@ enyo.kind({
 
 			animation.timeElapsed = elapsed;
 			animation.percentElapsed = Math.round(elapsed*100/animation.duration);
-			this.applyTransitions(animation.name, Math.round((elapsed/animation.duration)*100));
+			this.applyTransitions(animation.name, animation.percentElapsed);
 			playingAnimations = true;
 
 			// Bubble step event
