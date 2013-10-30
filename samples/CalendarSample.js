@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: "moon.Scroller", fit:true, components: [
 			{kind: "FittableColumns", components: [
 				{kind: "moon.Calendar", name: "calendar", onChange: "changed"},
-				{kind: "FittableRows", fit: true, components: [
+				{kind: "FittableRows", fit: true, noStretch: true, components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
