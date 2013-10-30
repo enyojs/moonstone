@@ -1411,19 +1411,6 @@
 .moon-neutral .moon-button.small.spotlight.pressed * {
   color: #4b4b4b;
 }
-.moon-contextual-popup .moon-button {
-  background-color: #ffffff;
-  color: #4b4b4b;
-}
-.moon-contextual-popup .moon-button.active,
-.moon-contextual-popup .moon-button.pressed,
-.moon-contextual-popup .moon-button.spotlight.pressed,
-.moon-contextual-popup .moon-button.spotlight:active,
-.moon-contextual-popup .moon-button.small.spotlight.pressed {
-  border: 5px solid #ff2f7d;
-  background-color: #ffffff;
-  color: #4b4b4b;
-}
 /* Caption Decorator */
 .moon-button-caption-decorator {
   display: inline-block;
@@ -3382,6 +3369,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
+  color: #ffffff;
   float: right;
   position: absolute;
   right: 10px;
