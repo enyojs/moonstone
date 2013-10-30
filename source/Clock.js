@@ -30,7 +30,8 @@ enyo.kind({
 			{kind: "enyo.Control", name: "top", classes: "moon-header-text moon-clock-top"},
 			{name: "divider", classes: "moon-clock-divider"},
 			{kind: "enyo.Control", name: "bottom", classes: "moon-body-text moon-clock-bottom"}
-		]}
+		]},
+		{kind: "enyo.Signals", onlocalechange: "handleLocaleChangeEvent"}
 	],
 	months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 	_timeDiff: 0,
@@ -144,5 +145,8 @@ enyo.kind({
 	updateMonthDay: function(inDate) {
 		var md = this._mdf ? this._mdf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate());
 		this.$.bottom.setContent(md);
+	},
+	handleLocaleChangeEvent: function() {
+		this._refresh();
 	}
 });
