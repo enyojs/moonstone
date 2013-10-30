@@ -3357,19 +3357,15 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 0px;
-  box-sizing: border-box;
-  background: none !important;
-}
-.moon-popup-childwrapper {
-  position: relative;
   padding: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-.moon-popup-childwrapper.reserve-close {
-  padding-right: 80px;
-}
-.moon-popup .moon-popup-childwrapper.animate {
+.moon-popup.animate {
   -webkit-transition: -webkit-transform 0.4s ease;
+}
+.moon-popup.reserve-close {
+  padding-right: 80px;
 }
 .moon-popup-close {
   background-color: transparent;
@@ -3397,7 +3393,7 @@
   background-color: #000000;
 }
 /* Dialog.css */
-.moon-dialog .moon-popup-childwrapper {
+.moon-dialog {
   padding: 24px 40px 40px;
 }
 .moon-dialog-title {
