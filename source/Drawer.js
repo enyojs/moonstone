@@ -61,18 +61,18 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
 		this.$.client.$.client.addClass('moon-drawer-client');
-		this.$.controlDrawer.$.client.addClass('moon-drawer-client');
+		this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
 	},
 	drawersRendered: function(inSender, inEvent) {
-		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});
+		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 		this.openChanged();
 		if (!this.controlsOpen) {
 			this.$.controlDrawer.open = this.controlsOpen;
 			this.$.controlDrawer.$.client.setShowing(this.controlsOpen);
 		}
 	},
-	calcDrawerHeight: function(drawersHeight, activatorHeight) {
-		var clientHeight = drawersHeight - activatorHeight;
+	calcDrawerHeight: function(drawersHeight) {
+		var clientHeight = drawersHeight;
 		if (this.controlDrawerComponents == null) {
 			return clientHeight;
 		} else {
@@ -89,7 +89,6 @@ enyo.kind({
 	},
 	openChanged: function() {
 		this.$.client.setOpen(this.open);
-		this.$.client.spotlight = this.open ? "container" : false;
 		if (this.open) {
 			this.doActivate();
 			enyo.Spotlight.spot(this.$.client);
@@ -99,7 +98,6 @@ enyo.kind({
 	},
 	controlsOpenChanged: function() {
 		this.$.controlDrawer.setOpen(this.controlsOpen);
-		this.$.controlDrawer.spotlight = this.controlsOpen ? "container" : false;
 		if (this.controlsOpen) {
 			this.doActivate();
 			enyo.Spotlight.spot(this.$.controlDrawer);
@@ -112,7 +110,7 @@ enyo.kind({
 	},
 	drawersResized: function(inSender, inEvent) {
 		this.$.controlDrawer.$.client.setShowing(true);
-		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight, inEvent.activatorHeight)});
+		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 		this.$.controlDrawer.$.client.setShowing(false);
 		this.$.client.render();
 		this.$.controlDrawer.render();
