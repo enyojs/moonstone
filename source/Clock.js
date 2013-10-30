@@ -36,7 +36,7 @@ enyo.kind({
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
 	dateChanged: function() {
-		if(this.date && this.date instanceof Date) {
+		if((this.date && this.date instanceof Date) && !isNaN(this.date)) {
 			this._timeDiff = this.date.getTime() - Date.now();
 		} else {
 			this._timeDiff = 0;
@@ -53,7 +53,6 @@ enyo.kind({
 		this.$.hour.setContent(this._formatNumber(h));
 		this.$.minute.setContent(this._formatNumber(d.getMinutes()));
 		this.$.meridiem.setContent(meridiem);
-
 		this.$.month.setContent(this.months[d.getMonth()]);
 		this.$.day.setContent(this._formatNumber(d.getUTCDate()));
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
