@@ -2099,17 +2099,31 @@
 }
 .moon-scroll-picker-overlay-container.top {
   top: 0;
-  background: url(../images/DarkTheme_Icons/SmallCarat_up1.png) center 14px no-repeat;
+  background-position: center 14px;
+  background-repeat: no-repeat;
+}
+.moon-scroll-picker-overlay-container.top-image {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
 .moon-scroll-picker-overlay-container.bottom {
   bottom: 0;
-  background: url(../images/DarkTheme_Icons/SmallCarat_down1.png) center 6px no-repeat;
+  background-position: center 6px;
+  background-repeat: no-repeat;
+}
+.moon-scroll-picker-overlay-container.bottom-image {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
-  background: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center -27px no-repeat;
+  background-position: center -27px;
+}
+.spotlight .moon-scroll-picker-overlay-container.top.top-image {
+  background-image: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png);
 }
 .spotlight .moon-scroll-picker-overlay-container.bottom {
-  background: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -39px no-repeat;
+  background-position: center -39px;
+}
+.spotlight .moon-scroll-picker-overlay-container.bottom.bottom-image {
+  background-image: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png);
 }
 .moon-scroll-picker-overlay {
   display: none;

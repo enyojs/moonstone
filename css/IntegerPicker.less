@@ -39,18 +39,32 @@
 	height: @moon-integer-picker-overlay-height;
 	&.top {
 		top: 0;
-		background: @moon-carat-picker-up-small-icon center 14px no-repeat;
+		background-position: center 14px;
+		background-repeat: no-repeat;
+	}
+	&.top-image {
+		background-image: @moon-carat-picker-up-small-icon;
 	}
 	&.bottom {
 		bottom: 0;
-		background: @moon-carat-picker-down-small-icon center 6px no-repeat;
+		background-position: center 6px;
+		background-repeat: no-repeat;
+	}
+	&.bottom-image {
+		background-image: @moon-carat-picker-down-small-icon;
 	}
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
-	background: @moon-carat-picker-up-icon center -27px no-repeat;
+	background-position: center -27px;
+	&.top-image {
+		background-image: @moon-carat-picker-up-icon;
+	}
 }
 .spotlight .moon-scroll-picker-overlay-container.bottom {
-	background: @moon-carat-picker-down-icon center -39px no-repeat;
+	background-position: center -39px;
+	&.bottom-image {
+		background-image: @moon-carat-picker-down-icon;
+	}
 }
 
 .moon-scroll-picker-overlay {
