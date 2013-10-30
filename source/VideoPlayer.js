@@ -194,7 +194,7 @@ enyo.kind({
 		]},
 
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit", ontap: "toggleControls", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", ontap: "toggleControls", onmousemove: "mousemove", components: [
 		
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
