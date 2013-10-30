@@ -58,7 +58,7 @@ enyo.kind({
 		*/
 		small: true,
 		//* When true, the button will have no round background color/border
-		noBacktround: false
+		noBackground: false
 	},
 	classes: "moon-icon-button",
 	//* @protected
