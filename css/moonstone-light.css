@@ -3752,6 +3752,7 @@
 .moon-video-player {
   position: relative;
   display: inline-block;
+  margin: 0 10px;
   background-color: #000000;
 }
 .moon-video-player-container {
