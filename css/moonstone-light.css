@@ -734,19 +734,6 @@
 .moon-icon.disabled:active:hover {
   background-position: center 0;
 }
-.moon-contextual-popup .moon-icon-closex {
-  color: #ffffff;
-}
-.moon-contextual-popup .moon-icon.moon-icon-button.moon-icon-closex.active,
-.moon-contextual-popup .moon-icon.moon-icon-button.moon-icon-closex:active:hover {
-  background-color: #ff2f7d;
-  color: #ffffff;
-}
-.moon-neutral .moon-icon.moon-icon-button.moon-icon-closex.active,
-.moon-neutral .moon-icon.moon-icon-button.moon-icon-closex:active:hover {
-  background-color: #ff2f7d;
-  color: #ffffff;
-}
 /* moonstone-icons.css */
 /* Font icon, name-to-character definitions */
 .moon-icon-drawer:after {
@@ -3397,7 +3384,8 @@
 .moon-icon.moon-popup-close.pressed,
 .moon-icon.moon-popup-close.spotlight.pressed,
 .moon-icon.moon-popup-close.spotlight:active {
-  background-color: #ededed;
+  background-color: #ff2f7d;
+  color: #ffffff;
 }
 /* Dialog.css */
 .moon-dialog {
