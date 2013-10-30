@@ -51,7 +51,7 @@ enyo.kind({
 	horizBuffer: 16,
 	activator: null,
 	tools: [
-		{name: "client"},
+		{name: "client", classes: "moon-neutral"},
 		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.

@@ -9,6 +9,17 @@ line in your commits and pull requests.
 If you're interested in introducing new kinds, you might also consider hosting your own repo
 and contributing to the [Enyo community gallery](http://enyojs.com/gallery).
 
+Below are specific guidelines to follow when contributing to the Moonstone library.
+
+## Internationalization
+
+Moonstone optionally uses the [ilib](http://jedlsoft.com/index.html) internationalization library (typically loaded via the [enyo-ilib](https://github.com/enyojs/enyo-ilib) wrapper) for localizing any strings used inside controls, as well as any locale-specific
+date, time, and number formatting.
+
+All user-visible strings in Moonstone controls should be wrapped with the `moon.$L("...")` wrapper function.  This will ensure localized strings are loaded from Moonstone resource files (as opposed to app-specific resource files when using `$L("...")`).
+
+Any formatting of date, time, or numbers should use ilib when present.  However, use of `ilib` is not a mandatory prerequisite to using Moonstone, so any use of ilib should first check that ilib is loaded, and provide en-US fallback when appropriate.
+
 ## Modifications to CSS
 
 Moonstone CSS is defined using parameterized LESS files.  Whenever you make changes to LESS files in Moonstone, you'll also need to re-generate and check-in the top-level .css file as well, to maintain backward-compatibility for environments that don't wish to use LESS.

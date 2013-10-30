@@ -80,7 +80,7 @@ enyo.kind({
 			{
 				kind: "moon.ContextualPopup",
 				name: "buttonPopup",
-				classes: "moon-9h moon-8v",
+				classes: "moon-8h moon-8v",
 				modal: true,
 				autoDismiss: false,
 				spotlightModal: true,
