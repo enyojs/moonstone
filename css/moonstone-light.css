@@ -2098,7 +2098,7 @@
 }
 .moon-scroll-picker-overlay-container.top {
   top: 0;
-  background-position: center 6px;
+  background-position: center 14px;
   background-repeat: no-repeat;
 }
 .moon-scroll-picker-overlay-container.top-image {
@@ -2106,7 +2106,7 @@
 }
 .moon-scroll-picker-overlay-container.bottom {
   bottom: 0;
-  background-position: center -6px;
+  background-position: center 6px;
   background-repeat: no-repeat;
 }
 .moon-scroll-picker-overlay-container.bottom-image {
