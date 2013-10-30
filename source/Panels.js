@@ -516,6 +516,7 @@ enyo.kind({
 		if (this.useHandle === true) {
 			this.$.showHideHandle.canGenerate = true;
 			this.$.showHideHandle.spotlight = true;
+			this.$.backgroundScrim.setShowing(true);
 		}
 	},
 	//* Show panels with transition from right
@@ -524,8 +525,9 @@ enyo.kind({
 			return;
 		}
 
-		this.$.backgroundScrim.show();
-		this.$.showHideHandle.addClass("right");	
+		this.$.backgroundScrim.addClass("transition");
+		this.$.backgroundScrim.addClass("visible");
+		this.$.showHideHandle.addClass("right");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
 	},
@@ -534,13 +536,16 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.showHideHandle.removeClass("right");	
+		this.$.backgroundScrim.addClass("transition");
+		this.$.backgroundScrim.removeClass("visible");
+		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
 	},
 	//* Set to show state without animation
 	_directShow: function() {
-		this.$.backgroundScrim.show();
+		this.$.backgroundScrim.removeClass("transition");
+		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
@@ -548,6 +553,8 @@ enyo.kind({
 	},
 	//* Set to hide state without animation
 	_directHide: function() {
+		this.$.backgroundScrim.removeClass("transition");
+		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
@@ -609,7 +616,6 @@ enyo.kind({
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
-		this.$.backgroundScrim.hide();
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		return this.layout.getTransitionOptions && this.layout.getTransitionOptions(fromIndex, toIndex) || {};
