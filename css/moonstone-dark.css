@@ -793,25 +793,46 @@
   background-position: center 0;
   line-height: 50px;
 }
+.moon-icon-button.hover:hover:not(.disabled),
 .moon-icon-button.spotlight {
-  background-color: #ff2f7d;
   color: #ffffff;
+  background-color: #ff2f7d;
+  background-position: center -75px;
+}
+.moon-icon-button.hover:hover:not(.disabled).small,
+.moon-icon-button.spotlight.small {
+  background-position: center -50px;
+}
+.moon-icon-button.no-background {
+  background-color: transparent;
+  border-color: transparent;
+}
+.moon-icon-button.no-background.disabled:active,
+.moon-icon-button.no-background.hover.disabled:hover {
+  background-color: transparent;
+}
+.moon-icon-button.no-background.spotlight {
+  background-color: #ff2f7d;
 }
 .moon-icon.moon-icon-button.active,
+.moon-icon.moon-icon-button:active,
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
-.moon-icon.moon-icon-button.spotlight:active {
+.moon-icon.moon-icon-button.spotlight:active,
+.moon-icon.moon-icon-button.hover:active:not(.disabled) {
   background-position: center 0;
   border: 5px solid #ff2f7d;
   background-color: #404040;
   color: #a6a6a6;
 }
-.moon-icon-button.spotlight {
-  background-color: #ff2f7d;
-  background-position: center -75px;
-}
-.moon-icon-button.spotlight.small {
-  background-position: center -50px;
+.moon-icon.moon-icon-button.active.disabled,
+.moon-icon.moon-icon-button:active.disabled,
+.moon-icon.moon-icon-button.pressed.disabled,
+.moon-icon.moon-icon-button.spotlight.pressed.disabled,
+.moon-icon.moon-icon-button.spotlight:active.disabled,
+.moon-icon.moon-icon-button.hover:active:not(.disabled).disabled {
+  border-color: transparent;
+  color: #a6a6a6;
 }
 .moon-marquee {
   width: auto;
@@ -855,17 +876,8 @@
 .moon-simple-picker-button {
   position: absolute;
   top: 0;
-  color: #a6a6a6;
   padding: 0;
   margin: 0;
-  background: transparent;
-}
-.moon-simple-picker-button.hidden {
-  opacity: 0.6;
-  filter: alpha(opacity=60);
-}
-.moon-simple-picker-button.spotlight {
-  background-color: #ff2f7d;
 }
 .moon-simple-picker-client-wrapper {
   width: 100%;
@@ -2032,66 +2044,19 @@
 .moon-icon-button.moon-paging-button {
   position: absolute;
   z-index: 150;
-  background-color: transparent;
-  opacity: 1;
-  transform: translateZ(1px);
-  -o-transform: translateZ(1px);
-  -ms-transform: translateZ(1px);
-  -moz-transform: translateZ(1px);
-  -webkit-transform: translateZ(1px);
   margin: 0;
-}
-.moon-icon-button.moon-paging-button.spotlight {
-  color: #ffffff;
-  background-color: #ff2f7d;
-  background-position: center -75px;
-}
-.moon-icon-button.moon-paging-button.spotlight.small {
-  background-position: center -50px;
-}
-.moon-icon-button.moon-paging-button.hidden,
-.moon-icon-button.moon-paging-button.hidden.hover:hover {
-  opacity: 0.6;
-  filter: alpha(opacity=60);
-  color: inherit;
 }
 .moon-icon-button.moon-paging-button.top {
   top: 0px;
 }
 .moon-icon-button.moon-paging-button.right {
   right: 0px;
-  transform: rotate(90deg) translateZ(1px);
-  -o-transform: rotate(90deg) translateZ(1px);
-  -ms-transform: rotate(90deg) translateZ(1px);
-  -moz-transform: rotate(90deg) translateZ(1px);
-  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.bottom {
   bottom: 0px;
-  transform: rotate(180deg) translateZ(1px);
-  -o-transform: rotate(180deg) translateZ(1px);
-  -ms-transform: rotate(180deg) translateZ(1px);
-  -moz-transform: rotate(180deg) translateZ(1px);
-  -webkit-transform: rotate(180deg) translateZ(1px);
 }
 .moon-icon-button.moon-paging-button.left {
   left: 0px;
-  transform: rotate(270deg) translateZ(1px);
-  -o-transform: rotate(270deg) translateZ(1px);
-  -ms-transform: rotate(270deg) translateZ(1px);
-  -moz-transform: rotate(270deg) translateZ(1px);
-  -webkit-transform: rotate(270deg) translateZ(1px);
-}
-.moon-icon-button.moon-paging-button.hover:hover {
-  color: #ffffff;
-  background-color: #ff2f7d;
-  background-position: center -75px;
-}
-.moon-icon-button.moon-paging-button.hover:hover.small {
-  background-position: center -50px;
-}
-.moon-icon-button.moon-paging-button.hidden.hover:hover {
-  background-color: transparent;
 }
 /* IntegerPicker.css */
 .moon-scroll-picker-container {
@@ -4391,7 +4356,7 @@
   -webkit-user-select: none;
 }
 .moon-scroller-client-wrapper.v-scroll-enabled {
-  padding-right: 60px;
+  padding-right: 70px;
 }
 .moon-scroller-client-wrapper.h-scroll-enabled {
   padding-bottom: 60px;
@@ -4425,7 +4390,7 @@
 .moon-scroller-v-column {
   top: 0px;
   bottom: 0px;
-  right: 0px;
+  right: 10px;
   width: 60px;
 }
 /* Default position for horizontal scrollbar */
@@ -4566,6 +4531,10 @@
   color: #a6a6a6;
   background-color: #ffffff;
   border-color: #ffffff;
+}
+.selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.disabled {
+  border-color: transparent;
+  color: #a6a6a6;
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,

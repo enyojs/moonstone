@@ -69,11 +69,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -177,14 +177,16 @@ enyo.kind({
 	},
 	//* Hide _inControl_ and disable spotlight functionality
 	hideNavButton: function(inControl) {
-		inControl.addClass("hidden");
-		enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
-		inControl.spotlight = false;
+		inControl.setDisabled(true);
+		if (enyo.Spotlight.getPointerMode()) {
+			enyo.Spotlight.unspot();
+		} else {
+			enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
+		}
 	},
 	//* Show _inControl_ and enable spotlight functionality
 	showNavButton: function(inControl) {
-		inControl.removeClass("hidden");
-		inControl.spotlight = true;
+		inControl.setDisabled(false);
 	},
 	disabledChanged: function() {
 		this.$.client.addRemoveClass("disabled", this.disabled);

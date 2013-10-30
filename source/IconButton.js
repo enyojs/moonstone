@@ -56,7 +56,9 @@ enyo.kind({
 			However, the button's tap target still has a diameter of 78px, so there is
 			invisible DOM that wraps the small button to provide the larger tap zone.
 		*/
-		small: true
+		small: true,
+		//* When true, the button will have no round background color/border
+		noBacktround: false
 	},
 	classes: "moon-icon-button",
 	//* @protected
@@ -70,9 +72,16 @@ enyo.kind({
 		onSpotlightFocused: "spotlightFocused",
 		onSpotlightBlur: "undepress"
 	},
+	create: function() {
+		this.inherited(arguments);
+		this.noBackgroundChanged();
+	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.activeChanged();
+	},
+	noBackgroundChanged: function() {
+		this.addRemoveClass("no-background", this.noBackground);
 	},
 	tap: function() {
 		if (this.disabled) {
