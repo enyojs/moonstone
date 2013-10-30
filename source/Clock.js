@@ -25,11 +25,11 @@ enyo.kind({
 		locale: ""
 	},
 	components: [
-		{kind: "enyo.Control", name: "hour", classes: "moon-clock-hour"},
+		{kind: "enyo.Control", name: "hour", classes: "moon-header-text moon-clock-hour"},
 		{name: "right", classes: "moon-clock-right", components: [
-			{kind: "enyo.Control", name: "top", classes: "moon-clock-top"},
+			{kind: "enyo.Control", name: "top", classes: "moon-header-text moon-clock-top"},
 			{name: "divider", classes: "moon-clock-divider"},
-			{kind: "enyo.Control", name: "bottom", classes: "moon-clock-bottom"}
+			{kind: "enyo.Control", name: "bottom", classes: "moon-body-text moon-clock-bottom"}
 		]}
 	],
 	months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -135,7 +135,7 @@ enyo.kind({
 	updateMinute: function(inDate, inHour) {
 		var m = this._mf ? this._mf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this._formatNumber(inDate.getMinutes());
 		var meridiem;
-		if (this.ilibLocaleInfo.locale.spec === "en-US") {
+		if (!this.ilibLocaleInfo || this.ilibLocaleInfo.locale.spec === "en-US") {
 			meridiem = inHour > 11 ? " pm" : " am";
 			m += meridiem;
 		}
