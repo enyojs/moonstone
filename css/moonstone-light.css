@@ -3176,7 +3176,6 @@
 }
 .moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
   color: #ffffff;
-  opacity: 0.5;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
   background-color: #ff2f7d;
