@@ -5,7 +5,7 @@
 enyo.kind({
 	name: "moon.Popup",
 	kind: enyo.Popup,
-	classes: "moon moon-neutral moon-popup",
+	classes: "moon moon-neutral enyo-unselectable moon-popup",
 	modal: true,
 	floating: true,
 	_spotlight: null,
@@ -51,7 +51,7 @@ enyo.kind({
 	},
 	//* @protected
 	tools: [
-		{name: "client"},
+		{name: "client", classes:"enyo-fill"},
 		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	statics: { count: 0 },
@@ -59,8 +59,7 @@ enyo.kind({
 	activator: null,
 	//* Creates chrome
 	initComponents: function() {
-		this.createComponent({ name: "childwrapper", classes: "moon-neutral moon-popup-childwrapper", owner: this });
-		this.$.childwrapper.createComponents(this.tools, {owner: this});
+		this.createComponents(this.tools, {owner: this});
 		this.inherited(arguments);
 	},
 	create: function () {
@@ -69,12 +68,13 @@ enyo.kind({
 	},
 	animateChanged: function() {
 		if (this.animate) {
-			this.animateShow();			
+			this.animateShow();
 		}
-		this.$.childwrapper.addRemoveClass("animate", this.animate);
+		this.addRemoveClass("animate", this.animate);
+		//this.addRemoveClass("animate", this.animate);
 		if (!this.animate) {
-			this.$.childwrapper.applyStyle("top", null);
-			enyo.dom.transform(this.$.childwrapper, {translateY: null});
+			this.applyStyle("bottom", null);
+			enyo.dom.transform(this, {translateY: null});
 		}
 	},
 	//* Renders _moon.Popup_, extending enyo.Popup
@@ -109,15 +109,16 @@ enyo.kind({
 		if (!this.$.closeButton) {
 			return;
 		}
+
+		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
 		
-		if (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false)) {
-			this.$.closeButton.show();
-			this.$.closeButton.spotlight = true;
-			this.$.childwrapper.addClass("reserve-close");
-		} else {
-			this.$.closeButton.hide();
-			this.$.closeButton.spotlight = false;
-			this.$.childwrapper.removeClass("reserve-close");
+		if (shouldShow != this.$.closeButton.getShowing()) {
+			this.$.closeButton.setShowing(shouldShow);
+			this.$.closeButton.spotlight = shouldShow;
+			this.addRemoveClass("reserve-close", shouldShow);
+			if (this.generated) {
+				this.resized();
+			}
 		}
 	},
 	//* If _this.spotlightModal_ changes
@@ -295,14 +296,14 @@ enyo.kind({
 	},
 	animateShow: function () {
 		this._bounds = this.getBounds();
-		this.$.childwrapper.applyStyle("top", this._bounds.height + "px");
-		enyo.dom.transform(this.$.childwrapper, {translateY: -this._bounds.height + "px"});
+		this.applyStyle("bottom", -this._bounds.height + "px");
+		enyo.dom.transform(this, {translateY: -this._bounds.height + "px"});
 	},
 	animateHide: function () {
 		if (this._bounds) {
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
-			enyo.dom.transform(this.$.childwrapper, {translateY: this._bounds.height - prevHeight + "px"});	
+			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});	
 		}
 	}
 });

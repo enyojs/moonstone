@@ -104,7 +104,7 @@
 }
 @font-face {
   font-family: "MuseoSans Light";
-  src: local("☺"), url("../fonts/MuseoSans/MuseoSans-100.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-100.ttf") format("truetype");
+  src: local("Museo SansLight"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -117,7 +117,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-300.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-300.ttf") format("truetype");
+  src: local("Museo SansNormal"), url("../fonts/MuseoSans/Museo SansNormal.woff") format("woff"), url("../fonts/MuseoSans/Museo SansNormal.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -130,7 +130,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-500.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500.ttf") format("truetype");
+  src: local("Museo SansDemiBold"), url("../fonts/MuseoSans/Museo SansDemiBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansDemiBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -142,7 +142,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium Italic";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-500Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-500Italic.ttf") format("truetype");
+  src: local("Museo SansDemiBoldItalic"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
@@ -154,7 +154,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-700.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700.ttf") format("truetype");
+  src: local("Museo SansBold"), url("../fonts/MuseoSans/Museo SansBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -167,7 +167,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-700Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-700Italic.ttf") format("truetype");
+  src: local("Museo SansBoldItalic"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
@@ -179,7 +179,7 @@
 }
 @font-face {
   font-family: "MuseoSans Bold";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-900.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900.ttf") format("truetype");
+  src: local("Museo SansBlack"), url("../fonts/MuseoSans/Museo SansBlack.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlack.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -192,7 +192,7 @@
 }
 @font-face {
   font-family: "MuseoSans Bold Italic";
-  src: local("Museo Sans"), url("../fonts/MuseoSans/MuseoSans-900Italic.woff") format("woff"), url("../fonts/MuseoSans/MuseoSans-900Italic.ttf") format("truetype");
+  src: local("Museo SansBlackItalic"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype");
   font-style: italic;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
@@ -1330,6 +1330,10 @@
 .enyo-locale-non-latin .moon-button {
   padding: 15px 22px 16px;
 }
+.moon-neutral .moon-button {
+  color: #4b4b4b;
+  background-color: #ffffff;
+}
 .moon-neutral .moon-button * {
   color: #4b4b4b;
 }
@@ -1391,6 +1395,21 @@
   cursor: default;
   color: #b3b3b3;
   background-color: #ffffff;
+}
+.moon-neutral .moon-button.active,
+.moon-neutral .moon-button.pressed,
+.moon-neutral .moon-button.spotlight.pressed,
+.moon-neutral .moon-button.spotlight:active,
+.moon-neutral .moon-button.small.spotlight.pressed {
+  border: 5px solid #ff2f7d;
+  background-color: #ffffff;
+}
+.moon-neutral .moon-button.active *,
+.moon-neutral .moon-button.pressed *,
+.moon-neutral .moon-button.spotlight.pressed *,
+.moon-neutral .moon-button.spotlight:active *,
+.moon-neutral .moon-button.small.spotlight.pressed * {
+  color: #4b4b4b;
 }
 /* Caption Decorator */
 .moon-button-caption-decorator {
@@ -1758,10 +1777,14 @@
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
-  padding: 4px 0px 10px 0px;
+  padding: 0 0 10px 0px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
+}
+.moon-neutral .moon-header {
+  border-top: 2px solid #ffffff;
+  border-bottom: 6px solid #ffffff;
 }
 .moon-header.full-bleed {
   padding-left: 20px;
@@ -1774,6 +1797,7 @@
   border: none;
 }
 .moon-header-title-above {
+  margin-top: 5px;
   width: 30px;
   height: 1.2em;
 }
@@ -1790,7 +1814,7 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   line-height: normal;
-  height: 154px;
+  height: 150px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1850,7 +1874,7 @@
 /* Header Client */
 .moon-header-client {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 0;
   right: 0;
   text-align: right;
@@ -1881,25 +1905,25 @@
 .moon-header.moon-small-header {
   height: 240px;
 }
+.moon-small-header .moon-header-title-above {
+  height: 0;
+  opacity: 0;
+}
 .moon-small-header .moon-header-title {
   line-height: normal;
 }
 .moon-small-header .moon-header-title-wrapper {
-  padding-left: 58px;
+  padding-left: 0;
   box-sizing: border-box;
-  top: -42px;
-  max-height: 154px;
+  max-height: 150px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
-  padding-right: 58px;
-  padding-left: 0;
+  padding-right: 0;
 }
 .moon-small-header .moon-header-title-below {
-  top: -42px;
   max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-  top: -42px;
   max-height: 40px;
 }
 .hidden-title .moon-header-title,
@@ -2100,17 +2124,31 @@
 }
 .moon-scroll-picker-overlay-container.top {
   top: 0;
-  background: url(../images/LightTheme_Icons/SmallCarat_up1.png) center 14px no-repeat;
+  background-position: center 14px;
+  background-repeat: no-repeat;
+}
+.moon-scroll-picker-overlay-container.top-image {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_up1.png);
 }
 .moon-scroll-picker-overlay-container.bottom {
   bottom: 0;
-  background: url(../images/LightTheme_Icons/SmallCarat_down1.png) center 6px no-repeat;
+  background-position: center 6px;
+  background-repeat: no-repeat;
+}
+.moon-scroll-picker-overlay-container.bottom-image {
+  background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
 }
 .spotlight .moon-scroll-picker-overlay-container.top {
-  background: url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) center -27px no-repeat;
+  background-position: center -27px;
+}
+.spotlight .moon-scroll-picker-overlay-container.top.top-image {
+  background-image: url(../images/LightTheme_Icons/CaratPickerUp_Icon.png);
 }
 .spotlight .moon-scroll-picker-overlay-container.bottom {
-  background: url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) center -39px no-repeat;
+  background-position: center -39px;
+}
+.spotlight .moon-scroll-picker-overlay-container.bottom.bottom-image {
+  background-image: url(../images/LightTheme_Icons/CaratPickerDown_Icon.png);
 }
 .moon-scroll-picker-overlay {
   display: none;
@@ -2877,18 +2915,24 @@
   left: 0;
   height: 360px;
   width: 100%;
-  padding: 9px 10px 10px;
+  padding: 5px 10px 10px;
   box-sizing: border-box;
-  border-top: 1px solid #ffffff;
+  border-top: 2px solid #4b4b4b;
 }
 .moon-panel-mini-header {
-  margin-top: 20px;
-  color: #ffffff;
+  margin-top: 25px;
+  color: #4b4b4b;
   display: block;
   overflow: hidden;
   padding: 0px;
 }
+.spotlight .moon-panel-mini-header {
+  color: #ffffff;
+}
 .moon-panel-mini-header-title-above {
+  color: #4b4b4b;
+}
+.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight {
@@ -2897,7 +2941,7 @@
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel-mini-header-wrapper {
-  border-top: 1px solid #4b4b4b;
+  border-top: 2px solid #4b4b4b;
 }
 .moon-panels.activity .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-title-above {
@@ -2906,6 +2950,9 @@
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
+}
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+  border-top: 2px solid #ffffff;
 }
 /* Panels */
 .moon-panels.activity,
@@ -3014,7 +3061,7 @@
   display: inline-block;
   text-align: center;
   width: 616px;
-  background-color: #555555;
+  background-color: #686868;
   border-radius: 16px;
   margin: 0px 20px;
   padding: 20px 0px;
@@ -3306,24 +3353,21 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 0px;
-  box-sizing: border-box;
-  background: none !important;
-}
-.moon-popup-childwrapper {
-  position: relative;
   padding: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-.moon-popup-childwrapper.reserve-close {
-  padding-right: 80px;
-}
-.moon-popup .moon-popup-childwrapper.animate {
+.moon-popup.animate {
   -webkit-transition: -webkit-transform 0.4s ease;
+}
+.moon-popup.reserve-close {
+  padding-right: 80px;
 }
 .moon-popup-close {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
+  color: #ffffff;
   float: right;
   position: absolute;
   right: 10px;
@@ -3345,7 +3389,7 @@
   background-color: #ededed;
 }
 /* Dialog.css */
-.moon-dialog .moon-popup-childwrapper {
+.moon-dialog {
   padding: 24px 40px 40px;
 }
 .moon-dialog-title {
@@ -4616,7 +4660,7 @@
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
-  background-color: #555555;
+  background-color: #686868;
   color: #ededed;
 }
 .moon-neutral * {
