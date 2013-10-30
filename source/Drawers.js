@@ -166,7 +166,6 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		this.resizeDresser();		
 		var dh = document.body.getBoundingClientRect().height;
 		this.waterfall("onDrawersResized", {drawersHeight: dh});
 		this.updateActivator(false);
