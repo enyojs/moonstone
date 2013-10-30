@@ -303,9 +303,9 @@ enyo.kind({
 				newValue,
 				newMonthLength = this.getMonthLength(value.getFullYear(), newMonth - 1);
 			if(newMonthLength < value.getDate()) {
-				newValue = new Date(value.getFullYear(), newMonth -1, newMonthLength);
+				newValue = new Date(value.getFullYear(), newMonth, newMonthLength);
 			} else {
-				newValue = new Date(value.getFullYear(), newMonth -1, value.getDate());
+				newValue = new Date(value.getFullYear(), newMonth, value.getDate());
 			}
 			this.setValue(newValue);
 		}
@@ -341,7 +341,7 @@ enyo.kind({
 	*/
 	selectMonthPicker: function(inSender, inEvent) {
 		var month = this.$.monthPicker.getSelectedIndex();
-		this.setMonth(month + 1);
+		this.setMonth(month);
 	},
 	/**
 		Returns number of days in a particular month/year.
@@ -373,6 +373,9 @@ enyo.kind({
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
+		if(isNaN(this.value) || this.value === null) {
+			this.setValue(new Date());
+		}		
 		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}

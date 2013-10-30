@@ -36,18 +36,13 @@ enyo.kind({
 						{content: "Divider", className:"moon-divider moon-divider-text"}
 					]},
 					{kind: "moon.Divider"},
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name: "yearInput", content: "Year"}
-					]},
-					{kind: "moon.Button", small: true, content: "Set", ontap: "setYear"},
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name: "monthInput", content: "Month"}
-					]},
-					{kind: "moon.Button", small: true, content: "Set", ontap: "setMonth"},
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name: "dateInput", content: "Date"}
-					]},
-					{kind: "moon.Button", small: true, content: "Set", ontap: "setDate"}
+					{classes:"moon-hspacing", components: [
+						{kind: "moon.InputDecorator", components: [
+							{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
+						]},
+						{kind: "moon.Button", small:true, content:"Set Date", ontap:"setDate"},
+						{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetDate"}
+					]}
 				]}
 			]}
 		]},
@@ -60,23 +55,6 @@ enyo.kind({
 			this.$.localePicker.hide();
 			this.$.dowLengthPicker.hide();
 			this.log("iLib not present -- hiding locale & dow length picker");
-		}
-	},
-	setYear: function(inSender, inEvent) {
-		if(this.$.yearInput.getValue()) {
-			this.$.calendar.setYear(this.$.yearInput.getValue());
-		}
-	},
-	setMonth: function(inSender, inEvent) {
-		if(this.$.monthInput.getValue() > 0 && this.$.monthInput.getValue() < 13) {
-			this.$.calendar.setMonth(parseInt(this.$.monthInput.getValue(), 10));
-		} else {
-			this.$.result.setContent("Please input value between 1 to 12");
-		}
-	},
-	setDate: function(inSender, inEvent) {
-		if(this.$.dateInput.getValue()) {
-			this.$.calendar.setDate(this.$.dateInput.getValue());
 		}
 	},
 	setLocale: function(inSender, inEvent){
@@ -106,5 +84,11 @@ enyo.kind({
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent("Current Date" + " changed to " + inEvent.value.toDateString());
 		}
+	},
+	setDate: function(inSender, inEvent){
+		this.$.calendar.setValue(new Date(this.$.input.getValue()));
+	},
+	resetDate: function() {
+		this.$.calendar.setValue(null);
 	}
 });
