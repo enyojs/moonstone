@@ -2922,6 +2922,9 @@
   -webkit-transition: opacity 0.5s linear;
   -moz-transition: opacity 0.5s linear;
 }
+.moon-panels-background-scrim.visible {
+  opacity: 0.2;
+}
 .moon-panels-panel-scrim {
   position: absolute;
   left: 0;

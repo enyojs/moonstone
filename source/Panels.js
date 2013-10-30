@@ -521,7 +521,7 @@ enyo.kind({
 		}
 
 		this.$.backgroundScrim.addClass("transition");
-		this.$.backgroundScrim.applyStyle("opacity",0.2);
+		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
@@ -532,7 +532,7 @@ enyo.kind({
 			return;
 		}
 		this.$.backgroundScrim.addClass("transition");
-		this.$.backgroundScrim.applyStyle("opacity",0.0);
+		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
@@ -540,7 +540,7 @@ enyo.kind({
 	//* Set to show state without animation
 	_directShow: function() {
 		this.$.backgroundScrim.removeClass("transition");
-		this.$.backgroundScrim.applyStyle("opacity",0.2);
+		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
@@ -549,7 +549,7 @@ enyo.kind({
 	//* Set to hide state without animation
 	_directHide: function() {
 		this.$.backgroundScrim.removeClass("transition");
-		this.$.backgroundScrim.applyStyle("opacity",0.0);
+		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
