@@ -101,7 +101,7 @@ enyo.kind({
 			{content: "Spottable", small:true},
 			{
 				kind: "moon.ContextualPopup",
-				classes: "moon-10h moon-4v",
+				classes: "moon-9h moon-4v",
 				components: [
 					{kind: "moon.Scroller", horizontal: "auto", classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button 1"},
