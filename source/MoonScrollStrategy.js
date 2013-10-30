@@ -257,7 +257,8 @@ enyo.kind({
 			horizontal = this.showHorizontal();
 		
 		// If we don't have to scroll, allow mousewheel event to bubble
-		if (!vertical && !horizontal) {
+		if (this.isOverscrolling() || (!vertical && !horizontal)) {
+			this.scrollBounds = null;
 			return false;
 		}
 		
@@ -327,8 +328,12 @@ enyo.kind({
 		this.scrollBounds = this.getScrollBounds();
 
 		var x = this.scrollLeft,
-			y = this.scrollTop,
-			deltaX, deltaY;
+			y = this.scrollTop;
+		
+		if (this.isOverscrolling()) {
+			this.scrollBounds = null;
+			return true;
+		}
 		
 		switch (inEvent.side) {
 		case "left":
@@ -344,9 +349,6 @@ enyo.kind({
 			y = this.scrollBounds.maxTop + 1000;
 			break;
 		}
-		
-		deltaX = x - this.scrollLeft;
-		deltaY = y - this.scrollTop;
 		
 		this.setTimingFunction("hold");
 		this._scrollTo(x, y);
@@ -410,7 +412,7 @@ enyo.kind({
 	
 	
 	//* Scrolls to specific x/y positions within the scroll area.
-	_scrollTo: function(inX, inY, inDuration, inNoMute) {
+	_scrollTo: function(inX, inY, inDuration) {
 		inX = this.clampX(inX);
 		inY = this.clampY(inY);
 		inDuration = this.clampDuration(inX, inY, inDuration);
@@ -420,8 +422,8 @@ enyo.kind({
 			return;
 		}
 		
-		// Unless otherwise specified, mute spotlight
-		if (!this.scrolling && !inNoMute) {
+		// Mute spotlight if not already scrolling
+		if (!this.scrolling) {
 			this.muteSpotlight();
 		}
 		
@@ -941,7 +943,16 @@ enyo.kind({
 		}
 		
 		this.setTimingFunction("scroll");
-		this._scrollTo(x, y, null, true);
+		
+		x = this.clampX(x);
+		y = this.clampY(y);
+		
+		// Only scroll to new positions
+		if (x === this.scrollLeft && y === this.scrollTop) {
+			return;
+		}
+		
+		this.startScrolling(x, y, this.clampDuration(x, y));
 	},
 	calcCurrentPosition: function() {
 		var style = enyo.dom.getComputedStyleValue(this.calcScrollNode(), this.transformProp).split("(")[1].split(")")[0],
