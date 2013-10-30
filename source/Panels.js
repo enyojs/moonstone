@@ -10,8 +10,8 @@ enyo.kind({
 	classes				: 'moon-panels',
 	spotlightDecorate	: false,
 	published: {
-		//* The current design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
-		//* Note, pattern must be set at craete-time; changes to pattern after create time have no effect
+		//* The panel design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
+		//* Note: Pattern must be set when creating panels; changes to this property after create time have no effect.
 		pattern: "none",
 		//* Handle is hided automatically in this time amount
 		autoHideTimeout: 4000,
