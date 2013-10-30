@@ -2938,6 +2938,11 @@
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
 }
+/* AlwaysViewing Overrides */
+.moon-panels.always-viewing .moon-panel-mini-header,
+.moon-panels.always-viewing .moon-panel-mini-header-title-above {
+  color: #ffffff;
+}
 /* Panels */
 .moon-panels.activity,
 .moon-panels.always-viewing {

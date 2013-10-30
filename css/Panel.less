@@ -86,14 +86,24 @@
 }
 
 /* Activity Panels Overrides */
-.moon-panels.activity .moon-panel-mini-header-title-above {
-	border-top: 2px solid @moon-header-border-color;
+.moon-panels.activity  {
+	.moon-panel-mini-header-title-above {
+		border-top: 2px solid @moon-header-border-color;
+	}
+	.moon-panel-mini-header,
+	.moon-panel-mini-header-title-above {
+		color: @moon-header-text-color;
+	}
+	.moon-panel-mini-header-wrapper.spotlight {
+		.moon-panel-mini-header,
+		.moon-panel-mini-header-title-above {
+			color: @moon-white;
+		}
+	}
 }
-.moon-panels.activity .moon-panel-mini-header,
-.moon-panels.activity .moon-panel-mini-header-title-above {
-	color: @moon-header-text-color;
-}
-.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight {
+
+/* AlwaysViewing Overrides */
+.moon-panels.always-viewing  {
 	.moon-panel-mini-header,
 	.moon-panel-mini-header-title-above {
 		color: @moon-white;
