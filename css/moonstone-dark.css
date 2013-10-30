@@ -4446,6 +4446,13 @@
 .moon-expandable-input .moon-input {
   width: 100%;
 }
+/* Header - Open */
+.moon-expandable-input.open .moon-expandable-picker-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
+}
+.moon-expandable-input.open .spotlight .moon-expandable-picker-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
+}
 .moon-highlight-text-highlighted {
   color: #ff2f7d;
 }
