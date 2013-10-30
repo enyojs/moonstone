@@ -4264,7 +4264,7 @@
   position: relative;
   top: 5px;
 }
-.moon-clock-minute {
+.moon-clock-top {
   font-family: "Miso";
   font-size: 126px;
   font-weight: normal;
@@ -4278,21 +4278,10 @@
   display: inline-block;
   margin-right: 10px;
   line-height: 60px;
-}
-.moon-clock-meridiem {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  font-size: 24px;
-  color: #4b4b4b;
+  width: 100%;
   white-space: nowrap;
-  vertical-align: bottom;
-  display: inline-block;
-  text-transform: none;
 }
-.moon-clock-month-day {
+.moon-clock-bottom {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -4305,20 +4294,21 @@
   vertical-align: top;
   display: inline-block;
   height: 28px;
+  width: 100%;
 }
-.moon-clock-month-day a:link {
+.moon-clock-bottom a:link {
   color: #ff2f7d;
   text-decoration: none;
 }
-.moon-clock-month-day a:visited {
+.moon-clock-bottom a:visited {
   color: #ff2f7d;
   text-decoration: none;
 }
-.moon-clock-month-day a:hover {
+.moon-clock-bottom a:hover {
   color: #ff2f7d;
   text-decoration: none;
 }
-.moon-clock-month-day a:active {
+.moon-clock-bottom a:active {
   color: #ff2f7d;
   text-decoration: none;
 }
@@ -4327,6 +4317,19 @@
   width: 100%;
   margin: 5px 0;
   background-color: #4b4b4b;
+}
+.moon-clock-right.mini > .moon-clock-divider {
+  background-color: transparent;
+  height: 6px;
+}
+.moon-clock-right.mini > .moon-clock-top {
+  font-size: 65px;
+  text-align: right;
+  font-weight: bold;
+}
+.moon-clock-right.mini > .moon-clock-bottom {
+  font-size: 28px;
+  text-align: right;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
