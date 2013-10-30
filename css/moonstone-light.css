@@ -1758,7 +1758,7 @@
   -webkit-transition: height 0.2s linear;
   -moz-transition: height 0.2s linear;
   max-width: 100%;
-  padding: 4px 0px 10px 0px;
+  padding: 0 0 10px 0px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
@@ -1774,6 +1774,7 @@
   border: none;
 }
 .moon-header-title-above {
+  margin-top: 5px;
   width: 30px;
   height: 1.2em;
 }
@@ -1790,7 +1791,7 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   line-height: normal;
-  height: 154px;
+  height: 150px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1850,7 +1851,7 @@
 /* Header Client */
 .moon-header-client {
   position: absolute;
-  bottom: 10px;
+  bottom: 20px;
   left: 0;
   right: 0;
   text-align: right;
@@ -1881,25 +1882,25 @@
 .moon-header.moon-small-header {
   height: 240px;
 }
+.moon-small-header .moon-header-title-above {
+  height: 0;
+  opacity: 0;
+}
 .moon-small-header .moon-header-title {
   line-height: normal;
 }
 .moon-small-header .moon-header-title-wrapper {
-  padding-left: 58px;
+  padding-left: 0;
   box-sizing: border-box;
-  top: -42px;
-  max-height: 154px;
+  max-height: 150px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
-  padding-right: 58px;
-  padding-left: 0;
+  padding-right: 0;
 }
 .moon-small-header .moon-header-title-below {
-  top: -42px;
   max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-  top: -42px;
   max-height: 40px;
 }
 .hidden-title .moon-header-title,
@@ -2889,18 +2890,24 @@
   left: 0;
   height: 360px;
   width: 100%;
-  padding: 9px 10px 10px;
+  padding: 5px 10px 10px;
   box-sizing: border-box;
-  border-top: 1px solid #ffffff;
+  border-top: 2px solid #4b4b4b;
 }
 .moon-panel-mini-header {
-  margin-top: 20px;
-  color: #ffffff;
+  margin-top: 25px;
+  color: #4b4b4b;
   display: block;
   overflow: hidden;
   padding: 0px;
 }
+.spotlight .moon-panel-mini-header {
+  color: #ffffff;
+}
 .moon-panel-mini-header-title-above {
+  color: #4b4b4b;
+}
+.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight {
@@ -2909,7 +2916,7 @@
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel-mini-header-wrapper {
-  border-top: 1px solid #4b4b4b;
+  border-top: 2px solid #4b4b4b;
 }
 .moon-panels.activity .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-title-above {
@@ -2918,6 +2925,9 @@
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
+}
+.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+  border-top: 2px solid #ffffff;
 }
 /* Panels */
 .moon-panels.activity,
