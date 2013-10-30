@@ -1627,7 +1627,7 @@
   padding-right: 32px;
   background-position: right -10px top 12px;
 }
-.spotlight .moon-expandable-picker-header {
+.moon-expandable-picker-header-wrapper.spotlight .moon-expandable-picker-header {
   background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
 }
 /* Header - Disabled */
@@ -1674,7 +1674,7 @@
   padding-left: 0;
   padding-right: 32px;
 }
-.spotlight .moon-expandable-picker-current-value {
+.moon-expandable-picker-header-wrapper.spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
