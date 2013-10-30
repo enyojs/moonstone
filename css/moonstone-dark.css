@@ -2042,9 +2042,11 @@
 .moon-icon-button.moon-paging-button.spotlight.small {
   background-position: center -50px;
 }
-.moon-icon-button.moon-paging-button.hidden {
+.moon-icon-button.moon-paging-button.hidden,
+.moon-icon-button.moon-paging-button.hidden.hover:hover {
   opacity: 0.6;
   filter: alpha(opacity=60);
+  color: inherit;
 }
 .moon-icon-button.moon-paging-button.top {
   top: 0px;

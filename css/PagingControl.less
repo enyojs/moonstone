@@ -14,9 +14,11 @@
 .moon-icon-button.moon-paging-button.spotlight {
 	.moon-icon-button.spotlight;
 }
-.moon-icon-button.moon-paging-button.hidden {
+.moon-icon-button.moon-paging-button.hidden,
+.moon-icon-button.moon-paging-button.hidden.hover:hover {
 	opacity: @moon-disabled-opacity;
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
+	color: inherit;
 }
 .moon-icon-button.moon-paging-button.top {
 	top: 0px;
