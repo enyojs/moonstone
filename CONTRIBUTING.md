@@ -18,7 +18,7 @@ date, time, and number formatting.
 
 All user-visible strings in Moonstone controls should be wrapped with the `moon.$L("...")` wrapper function.  This will ensure localized strings are loaded from Moonstone resource files (as opposed to app-specific resource files when using `$L("...")`).
 
-Any formatting of date, time, or numbers should use ilib when present.  However, use of `ilib` is not a mandatory prerequisite to using Moonstone, so any use of ilib should first check that ilib is loaded, and provide us-EN fallback when appropriate.
+Any formatting of date, time, or numbers should use ilib when present.  However, use of `ilib` is not a mandatory prerequisite to using Moonstone, so any use of ilib should first check that ilib is loaded, and provide en-US fallback when appropriate.
 
 ## Modifications to CSS
 
