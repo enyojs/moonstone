@@ -69,11 +69,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, ontap: "left"},
+		{name: "buttonLeft",  kind: "moon.IconButton", classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, ontap: "right"}
+		{name: "buttonRight", kind: "moon.IconButton", classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right"}
 	],
 	create: function() {
 		this.inherited(arguments);

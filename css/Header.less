@@ -9,10 +9,17 @@
 	-webkit-transition: height 0.2s linear;
 	-moz-transition: height 0.2s linear;
 	max-width:100%;
-	padding: 4px 0px @moon-spotlight-outset 0px;
+	padding: 0 0 @moon-spotlight-outset 0px;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
+}
+
+.moon-header.full-bleed {
+	padding-left: @moon-header-indent-width;
+	padding-right: @moon-header-indent-width;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
 }
 
 /* Title Above */
@@ -20,6 +27,7 @@
 	border: none;
 }
 .moon-header-title-above {
+  margin-top:5px;
 	width: 30px;
 	height: 1.2em;
 }
@@ -32,7 +40,7 @@
 .moon-header-title {
 	.moon-header-text;
 	line-height: @moon-header-line-height;
-	height: 154px;
+	height: 150px;
 }
 .enyo-locale-non-latin .moon-header-title {
 	.enyo-locale-non-latin .moon-header-text;
@@ -64,15 +72,22 @@
 /* Header Client */
 .moon-header-client {
 	position: absolute;
-	bottom: 10px;
+	bottom: 20px;
 	left: 0;
 	right: 0;
 	text-align: right;	/* fallback in case text-align:end isn't supported */
 	text-align: end;	/* CSS3 for RTL support */
 }
+.full-bleed .moon-header-client {
+	left: @moon-header-indent-width;
+	right: @moon-header-indent-width;
+}
 .moon-header-client > * {
 	text-align: left;	/* fallback in case text-align:start isn't supported */
 	text-align: start;	/* CSS3 for RTL support */
+}
+.moon-header-client > .moon-button {
+  text-align: center;	/* Overrides the text-align property  for button */
 }
 
 
@@ -80,25 +95,26 @@
 .moon-header.moon-small-header {
 	height: 240px;
 }
+
+.moon-small-header .moon-header-title-above{
+  height:0;
+  opacity:0;
+}
 .moon-small-header .moon-header-title {
 	line-height: @moon-small-header-line-height;
 }
 .moon-small-header .moon-header-title-wrapper {
-	padding-left: 58px;
+	padding-left: 0;
 	box-sizing: border-box;
-	top: -42px;
-	max-height: 154px;
+	max-height: 150px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
-	padding-right: 58px;
-	padding-left: 0;
+	padding-right: 0;
 }
 .moon-small-header .moon-header-title-below {
-	top: -42px;
 	max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-	top: -42px;
 	max-height: 40px;	
 }
 .hidden-title .moon-header-title,

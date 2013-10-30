@@ -8,12 +8,12 @@
 .moon-slider-knob.disabled:active:hover {
 	.border-box;
 	position: absolute;
-	height: 60px;
-	width: 60px;
-	border-radius: 30px;
-	margin: -30px;
+	height:@moon-slider-knob-height;
+	width:@moon-slider-knob-width;
+	border-radius: @moon-slider-knob-width/2;
+	margin: -@moon-slider-knob-width/2;
 	background-color: @moon-slider-knob-bg-color;
-	top: 0;
+	top: 3px;
 }
 .moon-slider-knob.active,
 .moon-slider-knob.spotselect,
@@ -30,11 +30,11 @@
 	background-color: @moon-slider-spotlight-knob-color;
 }
 .moon-slider.spotlight > .moon-slider-knob.spotselect {
-	height: 60px;
-	width: 60px;
-	border-radius: 30px;
-	margin: -30px;
-	background-color: @moon-button-background-color;
+	height: @moon-slider-knob-height;
+	width: @moon-slider-knob-width;
+	border-radius: @moon-slider-knob-width/2;
+	margin: -@moon-slider-knob-width/2;
+	background-color: @moon-slider-knob-bg-color;
 	border: @moon-button-border-width solid @moon-spotlight-color;
 }
 .moon-slider.disabled {
@@ -84,7 +84,7 @@
 	white-space: nowrap;
 	color: @moon-slider-popup-text-color;
 	text-align: center;
-	line-height: 1.5em;
+	line-height: @moon-slider-knob-height;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
 	.enyo-locale-non-latin .moon-large-button-text;
