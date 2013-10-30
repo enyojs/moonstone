@@ -122,6 +122,10 @@ enyo.kind({
 			this.createComponent({content: v + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
+			if (this.step <= 0) {
+				// if step value is 0 or negative, should create only "min" value and then break this loop. 
+				break;
+			}
 		}
 	},
 	validate: function() {
