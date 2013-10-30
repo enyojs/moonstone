@@ -37,6 +37,12 @@ enyo.kind({
 	],
 
 	//* @public
+	create: function() {
+		this.inherited(arguments);
+		if (window.ilib) {
+			this.df = new ilib.DurFmt({length: "medium"});
+		}
+	},
 
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		var customMessage = false;
@@ -45,10 +51,12 @@ enyo.kind({
 
 		switch (inMessage) {
 		case "Play":
+			inMessage = moon.$L("Play"); // i18n "PLAY" feedback text in moon.VideoPlayer widget
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._playImg);
 			break;
 
 		case "Pause":
+			inMessage = moon.$L("Pause"); // i18n "PAUSE" feedback text in moon.VideoPlayer widget
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseImg);
 			break;
 
@@ -73,24 +81,27 @@ enyo.kind({
 			break;
 
 		case "JumpBackward":
-			inMessage = inParams.jumpSize + " sec";
+			inMessage = this.df ? this.df.format({second: inParams.jumpSize}) : inParams.jumpSize + " sec";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
 
 		case "JumpForward":
-			inMessage = inParams.jumpSize + " sec";
+			inMessage = this.df ? this.df.format({second: inParams.jumpSize}) : inParams.jumpSize + " sec";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
 			break;
 
 		case "JumpToStart":
+			inMessage = "";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
 			
 		case "JumpToEnd":
+			inMessage = "";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
 			break;
 
 		case "Stop":
+			inMessage = moon.$L("Stop"); // i18n "Stop" feedback text in moon.VideoPlayer widget
 			inRightSrc = "";
 			break;
 
