@@ -40,7 +40,7 @@ enyo.kind({
 		onPostTransitionComplete:	"panelPostTransitionComplete"
 	},
 	handleTools: [
-		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},
+		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false, ontransitionend: "hideScrim"},
 		{name: "clientWrapper", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
@@ -516,7 +516,6 @@ enyo.kind({
 		if (this.useHandle === true) {
 			this.$.showHideHandle.canGenerate = true;
 			this.$.showHideHandle.spotlight = true;
-			this.$.backgroundScrim.setShowing(true);
 		}
 	},
 	//* Show panels with transition from right
@@ -524,7 +523,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
+		this.$.backgroundScrim.show();
 		this.$.backgroundScrim.addClass("transition");
 		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
@@ -536,6 +535,7 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
+		this.$.backgroundScrim.show();
 		this.$.backgroundScrim.addClass("transition");
 		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
@@ -544,6 +544,7 @@ enyo.kind({
 	},
 	//* Set to show state without animation
 	_directShow: function() {
+		this.$.backgroundScrim.show();
 		this.$.backgroundScrim.removeClass("transition");
 		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
@@ -553,6 +554,7 @@ enyo.kind({
 	},
 	//* Set to hide state without animation
 	_directHide: function() {
+		this.$.backgroundScrim.hide();
 		this.$.backgroundScrim.removeClass("transition");
 		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
@@ -560,6 +562,10 @@ enyo.kind({
 		this.$.showHideHandle.removeClass("right");
 		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
 		this.hideAnimationComplete();
+	},
+	hideScrim: function() {
+		this.$.backgroundScrim.hide();
+		return true;
 	},
 	createShowAnimation: function() {
 		return this.$.showHideAnimator.newAnimation({
