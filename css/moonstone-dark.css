@@ -3398,7 +3398,8 @@
 .moon-icon.moon-popup-close.pressed,
 .moon-icon.moon-popup-close.spotlight.pressed,
 .moon-icon.moon-popup-close.spotlight:active {
-  background-color: #000000;
+  background-color: #ff2f7d;
+  color: #ffffff;
 }
 /* Dialog.css */
 .moon-dialog {
