@@ -10,7 +10,8 @@ enyo.kind({
 	classes				: 'moon-panels',
 	spotlightDecorate	: false,
 	published: {
-		//* The current design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
+		//* The panel design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
+		//* Note: Pattern must be set when creating panels; changes to this property after create time have no effect.
 		pattern: "none",
 		//* Handle is hided automatically in this time amount
 		autoHideTimeout: 4000,
@@ -44,7 +45,7 @@ enyo.kind({
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
 		]},
-		{name: "showHideHandle", kind: "enyo.Control", spotlight: true, classes: "moon-panels-handle hidden", canGenerate: false,
+		{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle hidden", canGenerate: false,
 			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
 		},
 		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
@@ -247,6 +248,7 @@ enyo.kind({
 		//* show handle only when useHandle is true
 		if (this.useHandle !== true) { return; }
 		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
+		this.$.showHideHandle.spotlight = this.handleShowing;
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
@@ -501,16 +503,19 @@ enyo.kind({
 		this.panelCoverRatio = 0.5;
 		this.useHandle = (this.useHandle === "auto") ? true : this.useHandle;
 		this.createChrome(this.handleTools);
+		this.breadcrumbGap = 20;
 	},
 	applyActivityPattern: function() {
 		this.addClass('activity');
 		this.showFirstBreadcrumb = true;
 		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
 		this.createChrome(this.handleTools);
+		this.breadcrumbGap = 0;
 	},
 	initializeShowHideHandle: function() {
 		if (this.useHandle === true) {
 			this.$.showHideHandle.canGenerate = true;
+			this.$.showHideHandle.spotlight = true;
 			this.$.backgroundScrim.setShowing(true);
 		}
 	},

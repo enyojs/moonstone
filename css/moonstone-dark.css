@@ -2882,8 +2882,15 @@
   -webkit-transform: scale3d(1, 1, 1);
   overflow: hidden;
   padding: 0;
-  margin: 0;
+  margin: 20px;
   height: 100%;
+}
+.moon-panel .moon-header {
+  margin: 0 10px;
+}
+.moon-panels .moon-panel {
+  height: auto;
+  margin: 0;
 }
 .moon-panel-viewport {
   -webkit-transform: scale3d(1, 1, 1);
@@ -2892,7 +2899,6 @@
 }
 .moon-panel-content-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
-  padding: 10px;
   z-index: 2;
   box-sizing: border-box;
 }
@@ -2904,7 +2910,7 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
   -webkit-transform: scale3d(1, 1, 1);
-  width: 220px;
+  width: 230px;
   height: 370px;
   position: absolute;
   top: 0px;
@@ -2913,9 +2919,9 @@
 .moon-panel-breadcrumb-viewport {
   -webkit-transform: scale3d(1, 1, 1);
   position: absolute;
-  bottom: 0px;
-  left: 9px;
-  right: 0px;
+  bottom: 0;
+  left: 0;
+  right: 0;
   height: 200px;
   overflow: hidden;
 }
@@ -2923,13 +2929,12 @@
   -webkit-transform: scale3d(1, 1, 1);
   margin: 10px 0 0;
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   left: 0;
   height: 360px;
   width: 100%;
-  padding: 5px 10px 10px;
+  padding: 0 10px 10px;
   box-sizing: border-box;
-  border-top: 2px solid #a6a6a6;
 }
 .moon-panel-mini-header {
   margin-top: 25px;
@@ -2943,6 +2948,8 @@
 }
 .moon-panel-mini-header-title-above {
   color: #a6a6a6;
+  border-top: 2px solid #a6a6a6;
+  padding-top: 5px;
 }
 .spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
@@ -2951,8 +2958,11 @@
   background: #ff2f7d;
   color: #ffffff;
 }
+.moon-panel .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
+  border-top: 1px transparent;
+}
 /* Activity Panels Overrides */
-.moon-panels.activity .moon-panel-mini-header-wrapper {
+.moon-panels.activity .moon-panel-mini-header-title-above {
   border-top: 2px solid #a6a6a6;
 }
 .moon-panels.activity .moon-panel-mini-header,
@@ -2963,17 +2973,14 @@
 .moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
 }
-.moon-panel .moon-panel-mini-header-wrapper.spotlight {
-  border-top: 2px solid #ffffff;
-}
 /* Panels */
 .moon-panels.activity,
 .moon-panels.always-viewing {
   position: absolute;
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: 0;
+  box-sizing: border-box;
+  padding: 20px 10px;
   overflow: visible;
   -webkit-transform: translate3d(0, 0, 0);
   pointer-events: none;
@@ -3262,22 +3269,30 @@
   max-width: 250px;
   text-align: start;
 }
+.moon-drawer-partial-client {
+  padding: 40px 20px 20px;
+}
 .moon-drawer-client {
   padding: 20px;
 }
 /* Drawers.css */
-.moon-drawers {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
 .moon-drawers-handles {
   text-align: center;
-  padding: 30px 0 10px;
+  padding: 45px 0 10px;
+}
+.moon-drawers-activator-wrapper {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  z-index: 100;
 }
 .moon-drawers-activator {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
   height: 20px;
   background-color: #404040;
   z-index: 100;
@@ -3321,7 +3336,7 @@
   border-color: transparent transparent #ffffff transparent;
 }
 /* Activator is spotlight focused */
-.moon-drawers-activator.spotlight {
+.moon-drawers-activator-wrapper.spotlight .moon-drawers-activator {
   background-color: #ff2f7d;
 }
 .spotlight .moon-drawers-activator-nub {
@@ -3340,13 +3355,18 @@
 .spotlight .moon-drawers-activator-nub .up::after {
   border-color: transparent transparent #ff2f7d transparent;
 }
+.moon-drawers-handle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 .moon-drawers-handle {
   display: inline-block;
   vertical-align: top;
 }
 .moon-drawers-drawer-container {
   position: relative;
-  padding: 10px 0;
 }
 .moon-drawers-client {
   position: relative;

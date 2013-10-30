@@ -31,3 +31,9 @@ the video is in the playing state but is still buffering.   This can be disabled
 `moon.VideoPlayer` now automatically disables playback controls if there is no source set, and
 until video metadata is loaded.  Playback controls will also be disabled if an error occurred during
 video loading, e.g. URL returned 404.  This can be disabled by setting `disablePlaybackControlsOnUnload:false`.
+
+`moon.Panel`, `moon.Panels`, and `moon.Drawers` have been updated to ensure there is exactly 20px of spacing
+between all panels in all use cases.  To ensure that your app correctly meets this specification,
+please make sure your full-screen `moon.Panels` instances have the `enyo-fit` class applied (instead of
+`enyo-fill`, which was shown in some samples).
+
