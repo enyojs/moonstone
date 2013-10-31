@@ -55,6 +55,7 @@ enyo.kind({
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
+		this.updateOverlays();
 		this.refreshScrollState();
 		this.$.scroller.getStrategy().setFixedTime(false);
 		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
@@ -103,11 +104,7 @@ enyo.kind({
 			}
 			this.fireChangeEvent();
 		}
-		if (this.value === this.min) {
-			this.$.bottomOverlay.removeClass("bottom-image");
-		} else if (this.value < this.max && !this.$.topOverlay.hasClass("top-image")) {
-			this.$.topOverlay.addClass("top-image");
-		}
+		this.updateOverlays();
 		return true;
 	},
 	next: function(inSender, inEvent) {
@@ -120,12 +117,12 @@ enyo.kind({
 			}
 			this.fireChangeEvent();
 		}
-		if (this.value === this.max) {
-			this.$.topOverlay.removeClass("top-image");
-		} else if (this.value > this.min && !this.$.bottomOverlay.hasClass("bottom-image")) {
-			this.$.bottomOverlay.addClass("bottom-image");
-		}
+		this.updateOverlays();
 		return true;
+	},
+	updateOverlays: function() {
+		this.$.bottomOverlay.addRemoveClass("bottom-image", (this.value !== this.min));
+		this.$.topOverlay.addRemoveClass("top-image", (this.value !== this.max));
 	},
 	hideTopOverlay: function() {
 		this.$.topOverlay.removeClass("selected");

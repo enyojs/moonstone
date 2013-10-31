@@ -2600,6 +2600,10 @@
   margin-top: -36px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
 }
+.moon-contextual-popup-client {
+  height: 100%;
+  overflow: hidden;
+}
 /* TextArea.css */
 .moon-textarea {
   font-family: "MuseoSans 300";
