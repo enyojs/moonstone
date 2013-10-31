@@ -15,11 +15,11 @@ enyo.kind({
 		//* state
 		value: false,
 		//* Label for toggle button's "on" state
-		onContent: $L("On"),
+		onContent: moon.$L("On"),  // i18n "ON" label in moon.ToggleButton widget
 		//* Label for toggle button's "off" state
-		offContent: $L("Off"),
+		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
 		//* Label for separator
-		labelSeparator: $L(": "), 
+		labelSeparator: moon.$L(": "),   // i18n Separater between moon.ToggleButton text label and ON/OFF indicator
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false

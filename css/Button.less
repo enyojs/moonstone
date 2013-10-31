@@ -14,12 +14,20 @@
 	padding: 19px 22px;
 	margin: 0px @moon-spotlight-outset;
 	color: @moon-button-text-color;
+	> * {
+		text-align: center;
+	}
 }
 .enyo-locale-non-latin .moon-button {
 	padding: 15px 22px 16px;
 }
+
+.moon-neutral .moon-button {
+    color:@moon-neutral-button-text-color;
+    background-color:@moon-neutral-button-bg-color;
+}
 .moon-neutral .moon-button * {
-	color: @moon-sub-header-text-color;
+	color: @moon-neutral-button-text-color;
 }
 .moon-neutral .moon-button.spotlight * {
 	color: @moon-spotlight-text-color;
@@ -31,6 +39,12 @@
   padding: 10px 20px 10px 20px;
   position: relative;
   overflow: visible;
+}
+.moon-button.min-width {
+  min-width: @moon-button-large-min-width;
+}
+.moon-button.small.min-width {
+  min-width: @moon-button-small-min-width;
 }
 .enyo-locale-non-latin .moon-button.small {
 	padding: 10px 15px;
@@ -78,4 +92,23 @@
 	cursor: default;
 	color: @moon-button-disabled-text-color;
 	background-color: @moon-button-disabled-bg-color;
+}
+
+.moon-neutral .moon-button.active,
+.moon-neutral .moon-button.pressed,
+.moon-neutral .moon-button.spotlight.pressed,
+.moon-neutral .moon-button.spotlight:active,
+.moon-neutral .moon-button.small.spotlight.pressed
+{
+  border: @moon-button-border-width solid @moon-spotlight-border-color;
+  background-color: @moon-neutral-button-bg-color;
+}
+
+.moon-neutral .moon-button.active *,
+.moon-neutral .moon-button.pressed *,
+.moon-neutral .moon-button.spotlight.pressed *,
+.moon-neutral .moon-button.spotlight:active *,
+.moon-neutral .moon-button.small.spotlight.pressed *
+{
+  color: @moon-neutral-button-text-color;
 }

@@ -10,34 +10,42 @@
 	.moon-header-text;
 	margin: 0px;
 	padding-left: 1px;
+	padding-right: 110px;
 	display: inline-block;
 	box-sizing: border-box;
 	line-height: 1em;
 	color: @moon-input-header-text-color;
 	width: 100%;
+	background-image: @moon-input-header-icon;
+	background-position: right 0px;
+	background-repeat: no-repeat;
+	&:not(.uppercase) {
+		text-transform: none;
+	}
 }
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
 	.enyo-locale-non-latin .moon-header-text;
 }
 .moon-input-header .moon-input.moon-header-title {
-	position:static;
+	position: static;
 }
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
-	color: lighter(@moon-header-text-color, 50%);
+	color: @moon-input-header-placeholder-color;
 	margin-top:15px;
 	line-height: 1.25em;
+	text-transform: uppercase;
 }
-.moon-input-header-input-decorator.spotlight .moon-input.moon-header-title::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
 	color: @moon-spotlight-text-color;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
-	background: @moon-spotlight-background-color;
-	color: white;
+	background-color: @moon-spotlight-background-color;
+	background-position: right -154px;
+	color: @moon-spotlight-text-color;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
 	background: none;
-	color: @moon-header-text-color;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
-	color: @moon-header-text-color;
+	color: @moon-input-header-placeholder-color;
 }

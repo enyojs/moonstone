@@ -3,13 +3,21 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 40px;
-    box-sizing: border-box;
+	padding: 40px;
+    box-sizing: border-box;    
+    overflow: hidden;
+    &.animate {
+		-webkit-transition: -webkit-transform 0.4s ease;
+    }
+	&.reserve-close {
+		padding-right: @moon-icon-button-small-size + 20px;
+	}
 }
 .moon-popup-close {
-	background: @moon-close-popup-icon;
+	background-color: transparent;
 	background-repeat: no-repeat;
-	background-position: 0px -@moon-close-image-height;
+	background-position: 0 0;
+	color: @moon-popup-close-text-color;
 	float: right;
 	position: absolute;
 	right: 10px;
@@ -19,14 +27,15 @@
 	margin: 0;
 }
 .moon-popup-close.spotlight {
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
 	background-color: @moon-popup-close-spotlight-color;
+}
+.moon-icon.moon-popup-close {
+	position: absolute;
 }
 .moon-icon.moon-popup-close.active,
 .moon-icon.moon-popup-close.pressed,
 .moon-icon.moon-popup-close.spotlight.pressed,
 .moon-icon.moon-popup-close.spotlight:active {
-	background-position: 0px -@moon-close-image-height;
 	background-color: @moon-popup-close-bg-color;
+	color: @moon-neutral-icon-color;
 }

@@ -17,9 +17,9 @@ enyo.kind({
 		//* Max line number to show content when it is collapsed.
 		maxLines: 3,
 		//* Button text when content is collapsed
-		moreContent: $L("more"),
+		moreContent: moon.$L("more"),  // i18n "MORE" label in moon.ExpandableText widget
 		//* Button text when content is not collapsed
-		lessContent: $L("less")
+		lessContent: moon.$L("less")   // i18n "LESS" label in moon.ExpandableText widget
 	},
 	events: {
 		//* Fired when this control expands/collapses
@@ -140,9 +140,9 @@ enyo.kind({
 	kind: "enyo.Control",
 	published: {
 		//* Button text when _this.collapsed_ is true
-		moreContent: $L("more"),
+		moreContent: moon.$L("more"),  // i18n "MORE" label in moon.ExpandableTextButton widget
 		//* Button text when _this.collapsed_ is false
-		lessContent: $L("less"),
+		lessContent: moon.$L("less"),  // i18n "LESS" label in moon.ExpandableTextButton widget
 		//* Boolean value that causes content/class changes
 		collapsed: true
 	},

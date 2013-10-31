@@ -73,7 +73,7 @@ enyo.kind({
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", components: [
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client", components: [
 			{name: "client", tag: null, kind: "Group", onActivate: "activated", highlander: true},
 			{name: "helpText", kind:"moon.BodyText", canGenerate: false, classes: "moon-expandable-picker-help-text"}
 		]}
@@ -117,17 +117,6 @@ enyo.kind({
 				this.fireChangeEvent();
 			}
 		}
-	},
-	activeChanged: function() {
-		var active = this.getActive();
-		if (active) {
-			// enyo.Group's highlander logic actually prevents an item from being
-			// de-activated once it's been activated; that's not exactly the logic
-			// we want for ExpandablePicker, so we only notify the group when an
-			// item is activated, not when it's de-activated.
-			this.bubble("onActivate");
-		}
-		this.setOpen(active);
 	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the appropriate control.
 	selectedIndexChanged: function() {
@@ -227,7 +216,9 @@ enyo.kind({
 	//* Close drawer and select header
 	selectAndClose: function() {
 		this.setActive(false);
-		enyo.Spotlight.spot(this.$.headerWrapper);
+		if (!enyo.Spotlight.getPointerMode() && enyo.Spotlight.getCurrent() && enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+			enyo.Spotlight.spot(this.$.headerWrapper);
+		}
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {

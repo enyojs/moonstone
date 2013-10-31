@@ -19,14 +19,6 @@
 	background-color: @moon-background-color;
 }
 
-/* Remove any focus outline */
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    outline: none;
-}
-
 .moon-header-font {
 	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
@@ -44,21 +36,7 @@ button:focus {
 	border-bottom: @moon-divider-border-width solid @moon-neutral-border-color;
 }
 
-.moon-superscript {
-	font-size: @moon-superscript-text-size;
-	vertical-align: top;
-	margin: 0px 0px 0px 2px;
-	padding: 0px;
-}
-
-.moon-pre-text {
-	font-size: @moon-pre-text-size;
-	vertical-align: top;
-	height:  @moon-large-text-size;
-	line-height: @moon-pre-text-size;
-	margin: 12px 2px 8px 0px;
-	padding: 0px;
-}
+@import "moonstone-text.less";
 
 .moon-large-text {
 	font-size: @moon-large-text-size;
@@ -74,6 +52,7 @@ button:focus {
 	font-style: @moon-header-font-style;
 	letter-spacing: @moon-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
 	font-family: @moon-sub-header-font-family;
@@ -89,6 +68,7 @@ button:focus {
 	font-weight: @moon-super-header-font-weight;
 	font-style: @moon-super-header-font-style;
 	letter-spacing: @moon-super-header-letter-spacing;
+	-webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
 	font-family: @moon-popup-header-font-family;
@@ -97,6 +77,7 @@ button:focus {
 	font-style: @moon-popup-header-font-style;
 	letter-spacing: @moon-popup-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
@@ -114,6 +95,10 @@ button:focus {
 	letter-spacing: @moon-body-letter-spacing;
 	color: @moon-body-text-color;
 	line-height: @moon-body-line-height;
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
 }
 .moon-body-text-spacing {
 	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
@@ -198,6 +183,7 @@ button:focus {
 		font-size: @moon-non-latin-button-small-font-size;
 	}
 }
+
 .border-box {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -207,6 +193,9 @@ button:focus {
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
 /* Individual widget CSS */
+@import "Icon.less";
+@import "moonstone-icons.less";
+@import "IconButton.less";
 @import "Marquee.less";
 @import "SimplePicker.less";
 @import "SimpleIntegerPicker.less";
@@ -227,8 +216,6 @@ button:focus {
 @import "ExpandableIntegerPicker.less";
 @import "Header.less";
 @import "GridList.less";
-@import "Icon.less";
-@import "IconButton.less";
 @import "PagingControl.less";
 @import "IntegerPicker.less";
 @import "DatePicker.less";
@@ -249,7 +236,7 @@ button:focus {
 @import "Panel.less";
 @import "Panels.less";
 @import "Accordion.less";
-@import "CalendarPicker.less";
+@import "Calendar.less";
 @import "Table.less";
 @import "InputHeader.less";
 @import "DrawerHandle.less";
@@ -296,41 +283,4 @@ button:focus {
 	color: @moon-dark-gray;
 }
 
-/* Standard horizontal spacing */
-.moon-hspacing {
-	white-space: nowrap;
-}
-.moon-hspacing > * {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 0 @moon-grid-gutter-width/2;
-}
-.moon-hspacing.top > * {
-	vertical-align: top;
-}
-.moon-hspacing > :first-child {
-	margin-left: 0;
-}
-.enyo-locale-right-to-left .moon-hspacing > :first-child {
-	margin-left: @moon-grid-gutter-width/2;
-	margin-right: 0;
-}
-.moon-hspacing > :last-child {
-	margin-right: 0;
-}
-.enyo-locale-right-to-left .moon-hspacing > :last-child {
-	margin-right: @moon-grid-gutter-width/2;
-	margin-left: 0;
-}
-
-/* Standard vertical spacing */
-.moon-vspacing > * {
-	display: block;
-	margin: @moon-grid-gutter-width/2 0;
-}
-.moon-vspacing > :first-child {
-	margin-top: 0;
-}
-.moon-vspacing > :last-child {
-	margin-bottom: 0;
-}
+@import "moonstone-spacing.less";

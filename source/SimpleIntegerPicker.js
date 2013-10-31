@@ -73,7 +73,8 @@ enyo.kind({
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
 	observers: {
-		triggerRebuild: ["step", "min", "max", "unit"]
+		triggerRebuild: ["step", "min", "max", "unit"],
+		setButtonVisibility: ["value"]
 	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -84,9 +85,6 @@ enyo.kind({
 	sync: function(inVal, inOrigin, inBinding) {
 		if (this.values) {
 			return (inOrigin === "source") ? this.indices[inVal] : this.values[inVal];
-		}
-		else {
-			inBinding.stop();
 		}
 	},
 	//* @public
@@ -112,6 +110,7 @@ enyo.kind({
 		this.inherited(arguments);
 		if (!this.deferInitialization) {
 			this.build();
+			this.validate();
 		}
 		this.disabledChanged();
 	},
@@ -123,12 +122,17 @@ enyo.kind({
 			this.createComponent({content: v + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
+			if (this.step <= 0) {
+				// if step value is 0 or negative, should create only "min" value and then break this loop. 
+				break;
+			}
 		}
 	},
 	validate: function() {
 		var index = this.indices[this.value];
-		if (index) {
+		if (index !== undefined) {
 			this.$.client.set("index", index);
+			this.setButtonVisibility(null, this.value);
 		}
 		else
 		{
@@ -194,6 +198,24 @@ enyo.kind({
 	hideOverlays: function() {
 		this.$.leftOverlay.setShowing(false);
 		this.$.rightOverlay.setShowing(false);
+	},
+	setButtonVisibility: function(inOld, inNew) {
+		if (this.values) {
+			var min = this.values[0],
+				max = this.values[this.values.length - 1];
+			if (inNew === min) {
+				this.$.buttonLeft.applyStyle("visibility", "hidden");
+			}
+			else if (inOld === min) {
+				this.$.buttonLeft.applyStyle("visibility", "visible");
+			}
+			if (inNew === max) {
+				this.$.buttonRight.applyStyle("visibility", "hidden");
+			}
+			else if (inOld === max) {
+				this.$.buttonRight.applyStyle("visibility", "visible");
+			}
+		}
 	},
 	fireSelectEvent: function () {
 		if (this.hasNode()) {

@@ -1,7 +1,9 @@
 enyo.depends(
+	"moon-ilib.js",
 	"BodyText.js",
 	"Marquee.js",
 	"Button.js",
+	"Calendar.js",
 	"CaptionDecorator.js",
 	"Item.js",
 	"SelectableItem.js",
@@ -61,7 +63,6 @@ enyo.depends(
 	"TooltipDecorator.js",
 	"Tooltip.js",
 	"ExpandableInput.js",
-	"Video.js",
 	"VideoPlayer.js",
 	"VideoInfoHeader.js",
 	"VideoTransportSlider.js",

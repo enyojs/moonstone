@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.HeaderAutoCollapsingSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "moon.Panels", classes:"enyo-fit", pattern: "Activity", components: [
+		{kind: "moon.Panels", classes:"enyo-fit", pattern: "activity", components: [
 			{kind: "moon.Panel", classes:"moon-6h", collapsingHeader:true, title:"Scroll Me", titleBelow:"To test the auto-collapsing", subTitleBelow:"Feature of moon.Panel", headerComponents: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}

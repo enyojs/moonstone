@@ -1,18 +1,22 @@
 /* Drawers.css */
-.moon-drawers {
-	position:relative;
-	height:100%;
-	width:100%;
-}
-
 .moon-drawers-handles {
 	text-align:center;
-	padding:15px 0 10px;
+	padding: 45px 0 10px;
 }
-	
+
+.moon-drawers-activator-wrapper {
+	position:absolute;
+	top: -10px;
+	left: 0;
+	right: 0;
+	height: 10px;	
+	z-index: 100;
+}	
 .moon-drawers-activator {
-	position:relative;
-	width:100%;
+	position:absolute;
+	top: 10px;
+	left: 0;
+	right: 0;
 	height:20px;	
 	background-color: @moon-drawer-bg-color;
 	z-index: 100;
@@ -23,10 +27,10 @@
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:-5px;	
-	border-bottom-left-radius:26px;
-	border-bottom-right-radius: 26px;	
-	height:18px;
-	width:36px;
+	border-bottom-left-radius:36px;
+	border-bottom-right-radius: 36px;	
+	height:36px;
+	width:60px;
 	background-color: @moon-drawer-bg-color;
 	top:10px;
 }
@@ -36,8 +40,8 @@
 	position:absolute;
 	width: 18px;
 	height: 11px;
-	left: 9px;
-	top: -3px;
+	left: 21px;
+	top: 10px;
 }
 
 
@@ -67,7 +71,7 @@
 }
 
 /* Activator is spotlight focused */
-.moon-drawers-activator.spotlight {
+.moon-drawers-activator-wrapper.spotlight .moon-drawers-activator {
 	background-color:@moon-spotlight-border-color;
 }
 
@@ -92,6 +96,13 @@
 	border-color: transparent transparent @moon-spotlight-border-color transparent;	
 }
 
+.moon-drawers-handle-container {
+	position:absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
 .moon-drawers-handle {
 	display:inline-block;
 	vertical-align:top;
@@ -99,7 +110,6 @@
 
 .moon-drawers-drawer-container {
 	position:relative;
-	padding:10px 0;
 }
 
 .moon-drawers-client {

@@ -1,15 +1,17 @@
 /**
 	_moon.PagingControl_ is a paging control button derived from
-	<a href="#moon.IconButton">moon.IconButton</a>.
+	<a href="#moon.IconButton">moon.IconButton</a>.  This control
+	is not intended for use outside of _moon.Scroller_.
 **/
 enyo.kind({
 	name: "moon.PagingControl",
 	kind: "moon.IconButton",
-	classes: "moon-paging-button",
+	classes: "moon-paging-button no-background",
 	spotlight: true,
 	published: {
 		side: null
 	},
+	noBackground: true,
 	handlers: {
 		onSpotlightFocused: "noop",
 		onSpotlightSelect: "depress",
@@ -47,16 +49,21 @@ enyo.kind({
 	
 	//* @protected
 	
+	_iconMappings: {
+		"top": "arrowlargeup",
+		"bottom": "arrowlargedown",
+		"left": "arrowlargeleft",
+		"right": "arrowlargeright"
+	},
 	//* Set this control's CSS class based on its _side_ value.
-	sideChanged: function() {
+	sideChanged: function(inOld) {
 		var s = this.getSide();
-		this.addRemoveClass("top",    (s === "top"));
-		this.addRemoveClass("right",  (s === "right"));
-		this.addRemoveClass("bottom", (s === "bottom"));
-		this.addRemoveClass("left",   (s === "left"));
+		this.removeClass(inOld);
+		this.addClass(s);
+		this.setIcon(this._iconMappings[s]);
 	},
 	down: function(inSender, inEvent) {
-		if (this.hasClass("hidden")) {
+		if (this.disabled) {
 			return;
 		}
 		
@@ -64,7 +71,7 @@ enyo.kind({
 		this.delta = this.initialDelta;
 	},
 	hold: function(inSender, inEvent) {
-		if (this.hasClass("hidden")) {
+		if (this.disabled) {
 			return;
 		}
 

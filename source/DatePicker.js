@@ -21,11 +21,11 @@ enyo.kind({
 		//* Optional maximum year value		
 		maxYear: 2099,
 		//* Optional label for day
-		dayText: "day",
+		dayText: moon.$L("day"),		// i18n "DAY" label in moon.DatePicker widget
 		//* Optional label for month
-		monthText: "month",
+		monthText: moon.$L("month"),	// i18n "MONTH" label in moon.DatePicker widget
 		//* Optional label for year
-		yearText: "year"
+		yearText: moon.$L("year")		// i18n "YEAR" label in moon.DatePicker widget
 	},
 	//*@protected
 	iLibFormatType: "date",
@@ -50,21 +50,21 @@ enyo.kind({
 					{classes: "moon-date-picker-wrap", components:[
 						{kind:"moon.IntegerPicker", name:"day", classes:"moon-date-picker-field", min:1,
 						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()},
-						{name: "dayLabel", content: this.dayText || "day", classes: "moon-date-picker-label moon-divider-text"}
+						{name: "dayLabel", content: this.dayText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
 			case 'm':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
 						{kind:"moon.IntegerPicker", name:"month", classes:"moon-date-picker-field", min:1, max:12, value:this.value.getMonth()+1},
-						{name: "monthLabel", content: this.monthText || "month", classes: "moon-date-picker-label moon-divider-text"}
+						{name: "monthLabel", content: this.monthText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
 			case 'y':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap year", components:[
 						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear},
-						{name: "yearLabel", content: this.yearText || "year", classes: "moon-date-picker-label moon-divider-text"}
+						{name: "yearLabel", content: this.yearText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
 			default:
@@ -102,6 +102,7 @@ enyo.kind({
 		this.$.currentValue.setContent(this.formatValue());
 	},
 	getMonthName: function() {
+		// Only used when ilib is not loaded
 		return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	},
 	//* Returns number of days in a particular month/year.

@@ -2,11 +2,36 @@
 	_moon.Icon_ is a control that displays an icon image. Specify the image by
 	setting the _src_ property to a URL indicating the image file's location.
 
-	In Moonstone, icons have a size of 32x32 pixels. Since the icon image is
-	applied as a CSS background, the height and width of an icon must be set if an
-	image of a different size is used.
+	In Moonstone, we support two (2) methods for displaying icons: a traditional
+	image asset (using the “_src_” property); and an icon stored as a single
+	character in a special symbol font (using the “_icon_” property and setting
+	an icon name as the value). Font-based icon name-to-character references are
+	stored in “css/moonstone-icons.less” This associates an icon name with the
+	font’s character or symbol.
 
-		{kind: "moon.Icon", src: "images/search.png"}
+	There are also two sizes of icons supported: large (45x45 pixels); and small
+	(32x32 pixels). Icons are small by default. To specify a large icon, set the
+	"_small_" property to false. Each icon size also supports two states: the
+	top, a resting state and the bottom, pressed or active state.
+
+	Large-sized icon image assets should have dimensions of 45x90. This allows
+	for 2 icon states, with a 15 pixel transparent padding around each 45x45
+	icon.
+
+	Small-sized icon image assets should have dimensions of 50x100. This allows
+	for 2 icon states, with a 9 pixel transparent padding around each 32x32
+	icon.
+
+	Since the asset-based icon image is applied as a CSS background, the height
+	and width of an icon must be set if an image of a different size is used.
+
+		{kind: "moon.IconButton", src: "images/search.png"}
+		or
+		{kind: "moon.IconButton", icon: "closex"}
+		or
+		{kind: "moon.IconButton", src: "images/search.png", small: false}
+		or
+		{kind: "moon.IconButton", icon: "closex", small: false}
 
 	For situations in which an icon should act like a button, use
 	<a href="#moon.IconButton">moon.IconButton</a>.
@@ -14,10 +39,35 @@
 enyo.kind({
 	name: "moon.Icon",
 	published: {
+		/**
+			Specify the icon name from the following list
+
+			List of all icons:
+				drawer
+				arrowlargeup
+				arrowlargedown
+				arrowlargeleft
+				arrowlargeright
+				arrowsmallup
+				arrowsmalldown
+				arrowsmallleft
+				arrowsmallright
+				closex
+				check
+				search
+		*/
+		icon: "",
 		//* URL specifying path to icon image
 		src: "",
 		//* When true, icon is shown as disabled
-		disabled: false
+		disabled: false,
+		/**
+			A parameter indicating the size of the button.
+			If true, the diameter of this button is 60px.
+			However, the button's tap target still has a diameter of 78px, so there is
+			invisible DOM that wraps the small button to provide the larger tap zone.
+		*/
+		small: true
 	},
 	classes: "moon-icon",
 	//* @protected
@@ -26,12 +76,38 @@ enyo.kind({
 		if (this.src) {
 			this.srcChanged();
 		}
+		if (this.icon) {
+			this.iconChanged();
+		}
+		this.smallChanged();
 		this.disabledChanged();
+	},
+	getIconClass: function(inIconName) {
+		return "moon-icon-" + (inIconName || this.icon);
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	srcChanged: function() {
 		this.applyStyle("background-image", "url(" + enyo.path.rewrite(this.src) + ")");
+	},
+	iconChanged: function(inOld) {
+		if (inOld) {
+			this.removeClass(this.getIconClass(inOld));
+		}
+		this.addClass(this.getIconClass());
+	},
+	smallChanged: function() {
+		if (this.$.tapArea) {
+			this.$.tapArea.destroy();
+		}
+
+		if (this.small) {
+			var ta = this.createComponent({name: "tapArea", classes: "small-icon-tap-area", isChrome: true});
+			if (this.generated) {
+				ta.render();
+			}
+		}
+		this.addRemoveClass("small", this.small);
 	}
 });

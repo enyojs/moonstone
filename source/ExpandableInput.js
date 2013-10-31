@@ -32,7 +32,7 @@ enyo.kind({
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", components: [
+		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
 			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
 				{name: "clientInput", kind: "moon.Input"}
 			]}
@@ -61,6 +61,7 @@ enyo.kind({
 		
 		if (this.generated && !this.getOpen()) {
 			this.updateValue();
+			this.$.clientInput.blur();
 		}
 	},
 	

@@ -10,7 +10,8 @@ enyo.kind({
 	classes				: 'moon-panels',
 	spotlightDecorate	: false,
 	published: {
-		//* The current design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
+		//* The panel design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
+		//* Note: Pattern must be set when creating panels; changes to this property after create time have no effect.
 		pattern: "none",
 		//* Handle is hided automatically in this time amount
 		autoHideTimeout: 4000,
@@ -39,12 +40,12 @@ enyo.kind({
 		onPostTransitionComplete:	"panelPostTransitionComplete"
 	},
 	handleTools: [
-		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false},
+		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false, ontransitionend: "hideScrim"},
 		{name: "clientWrapper", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
 		]},
-		{name: "showHideHandle", kind: "enyo.Control", spotlight: true, classes: "moon-panels-handle hidden", canGenerate: false,
+		{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle hidden", canGenerate: false,
 			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
 		},
 		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
@@ -234,16 +235,20 @@ enyo.kind({
 		this.stopJob("autoHide");
 	},
 	stashHandle: function() {
-		this.$.showHideHandle.addClass("stashed");
+		this.$.showHideHandle.addRemoveClass("stashed", !this.showing);
 	},
-	handleFocus: function() {
+	unstashHandle: function() {
 		this.stopHandleAutoHide();
 		this.$.showHideHandle.removeClass("stashed");
+	},
+	handleFocus: function() {
+		this.unstashHandle();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
 		if (this.useHandle !== true) { return; }
 		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
+		this.$.showHideHandle.spotlight = this.handleShowing;
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
@@ -468,9 +473,11 @@ enyo.kind({
 	showingChanged: function() {
 		if (this.useHandle === true) {
 			if (this.showing) {
+				this.unstashHandle();
 				this._show();
 			}
 			else {
+				this.resetHandleAutoHide();
 				this._hide();
 			}
 			return;
@@ -496,16 +503,19 @@ enyo.kind({
 		this.panelCoverRatio = 0.5;
 		this.useHandle = (this.useHandle === "auto") ? true : this.useHandle;
 		this.createChrome(this.handleTools);
+		this.breadcrumbGap = 20;
 	},
 	applyActivityPattern: function() {
 		this.addClass('activity');
 		this.showFirstBreadcrumb = true;
 		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
 		this.createChrome(this.handleTools);
+		this.breadcrumbGap = 0;
 	},
 	initializeShowHideHandle: function() {
 		if (this.useHandle === true) {
 			this.$.showHideHandle.canGenerate = true;
+			this.$.showHideHandle.spotlight = true;
 		}
 	},
 	//* Show panels with transition from right
@@ -513,9 +523,9 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
 		this.$.backgroundScrim.show();
-		this.$.showHideHandle.addClass("hidden");
+		this.$.backgroundScrim.addClass("transition");
+		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
@@ -525,8 +535,9 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-
-		this.$.showHideHandle.addClass("hidden");
+		this.$.backgroundScrim.show();
+		this.$.backgroundScrim.addClass("transition");
+		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
@@ -534,19 +545,27 @@ enyo.kind({
 	//* Set to show state without animation
 	_directShow: function() {
 		this.$.backgroundScrim.show();
+		this.$.backgroundScrim.removeClass("transition");
+		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
 	},
 	//* Set to hide state without animation
 	_directHide: function() {
+		this.$.backgroundScrim.hide();
+		this.$.backgroundScrim.removeClass("transition");
+		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
 		this.hideAnimationComplete();
+	},
+	hideScrim: function() {
+		this.$.backgroundScrim.hide();
+		return true;
 	},
 	createShowAnimation: function() {
 		return this.$.showHideAnimator.newAnimation({
@@ -594,18 +613,15 @@ enyo.kind({
 		}
 	},
 	showAnimationComplete: function() {
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
 		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
-		this.$.showHideHandle.addClass("stashed");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
-		this.$.backgroundScrim.hide();
 	},
 	getTransitionOptions: function(fromIndex, toIndex) {
 		return this.layout.getTransitionOptions && this.layout.getTransitionOptions(fromIndex, toIndex) || {};

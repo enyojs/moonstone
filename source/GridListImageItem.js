@@ -12,8 +12,14 @@
 enyo.kind({
     name: "moon.GridListImageItem",
     kind: "enyo.GridListImageItem",
+    //* @protected
+    mixins: ["moon.MarqueeSupport"],
 	spotlight: true,
     classes: "moon-gridlist-item moon-gridlist-imageitem",
+	componentOverrides: {
+		caption: { kind:"moon.MarqueeText" },
+		subCaption: { kind:"moon.MarqueeText" }
+	},
 	handlers: {
 		onSpotlightFocus: "focused"
 	},
