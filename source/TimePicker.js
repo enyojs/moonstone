@@ -1,5 +1,6 @@
 /**
-	_moon.MeridiemPicker is a helper kind used by _moon.TimePicker_.
+	_moon.MeridiemPicker_ is a helper kind used by _moon.TimePicker_.  It is not
+	intended for use in other contexts.
 */
 enyo.kind({
 	name: "moon.MeridiemPicker",
@@ -18,7 +19,8 @@ enyo.kind({
 });
 
 /**
-	_moon.HourPicker is a helper kind used by _moon.TimePicker_.
+	_moon.HourPicker_ is a helper kind used by _moon.TimePicker_.  It is not
+	intended for use in other contexts.
 */
 enyo.kind({
 	name: "moon.HourPicker",
