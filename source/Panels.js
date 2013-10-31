@@ -527,6 +527,7 @@ enyo.kind({
 		this.$.backgroundScrim.addClass("transition");
 		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
+		this.$.clientWrapper.addClass("visible");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
 	},
@@ -539,6 +540,7 @@ enyo.kind({
 		this.$.backgroundScrim.addClass("transition");
 		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
+		this.$.clientWrapper.removeClass("visible");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
 	},
@@ -548,6 +550,7 @@ enyo.kind({
 		this.$.backgroundScrim.removeClass("transition");
 		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
+		this.$.clientWrapper.addClass("visible");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
@@ -560,6 +563,7 @@ enyo.kind({
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
+		this.$.clientWrapper.removeClass("visible");
 		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
 		this.hideAnimationComplete();
 	},
@@ -599,7 +603,9 @@ enyo.kind({
 		});
 	},
 	getOffscreenXPosition: function() {
-		return this.$.clientWrapper.getBounds().width;
+		if (this.$.clientWrapper.getBounds().width/2 <= this.layout.breadcrumbWidth * this.getIndex())
+			return this.$.clientWrapper.getBounds().width;
+		return this.$.clientWrapper.getBounds().width/2 + this.layout.breadcrumbWidth * this.getIndex();
 	},
 	//* Hide/show animation complete
 	animationComplete: function(inSender, inEvent) {
