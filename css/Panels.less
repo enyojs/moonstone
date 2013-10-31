@@ -16,6 +16,13 @@
 	pointer-events: auto;
 }
 
+.moon-panels-client {
+	pointer-events: auto;
+}
+.moon-panels-client.visible {
+	pointer-events: none;
+}
+
 /* Scrim */
 .moon-panels-background-scrim {
 	position: absolute;
@@ -67,6 +74,7 @@
 	-webkit-transform: translate3d(0, 0, 0);
 	transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
 	opacity: 1;
+	pointer-events: auto;
 }
 .moon-panels-handle.spotlight {
 	background-color: @moon-panels-spot-fg-color;
