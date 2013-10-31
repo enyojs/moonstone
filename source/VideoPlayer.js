@@ -859,7 +859,7 @@ enyo.kind({
 	//* Properly format time
 	formatTime: function(inValue) {
 		var hour = Math.floor(inValue / (60*60));
-		var min = Math.floor(inValue / 60);
+		var min = Math.floor((inValue / 60) % 60);
 		var sec = Math.round(inValue % 60);
 		if (this.durfmt) {
 			var val = {minute: min, second: sec};
