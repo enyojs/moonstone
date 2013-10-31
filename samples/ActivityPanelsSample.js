@@ -2,13 +2,20 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fill", style: "z-index: 1000;", components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
-				{kind: "moon.Item", content: "Item One", ontap: "next1"},
-				{kind: "moon.Item", content: "Item Two", ontap: "next1"},
-				{kind: "moon.Item", content: "Item Three", ontap: "next1"},
-				{kind: "moon.Item", content: "Item Four", ontap: "next1"},
-				{kind: "moon.Item", content: "Item Five", ontap: "next1"}
+				{kind: "moon.Scroller", fit:true, components: [
+					{kind: "moon.Item", content: "Item One", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Two", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Three", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Four", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Five", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Six", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Seven", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Eight", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Nine", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Ten", ontap: "next1"}
+				]}
 			]},
 			{title: "Second Panel", defaultSpotlightControl: "defaultControl", classes: "moon-7h", joinToPrev: true, components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next2"},

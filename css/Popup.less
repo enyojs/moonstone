@@ -3,24 +3,21 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 0px;
-    box-sizing: border-box;
-    background:none !important;
-}
-.moon-popup-childwrapper {
-	position: relative;
 	padding: 40px;
+    box-sizing: border-box;    
+    overflow: hidden;
+    &.animate {
+		-webkit-transition: -webkit-transform 0.4s ease;
+    }
 	&.reserve-close {
 		padding-right: @moon-icon-button-small-size + 20px;
 	}
-}
-.moon-popup .moon-popup-childwrapper.animate {
-	-webkit-transition: -webkit-transform 0.4s ease
 }
 .moon-popup-close {
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: 0 0;
+	color: @moon-popup-close-text-color;
 	float: right;
 	position: absolute;
 	right: 10px;
@@ -40,4 +37,5 @@
 .moon-icon.moon-popup-close.spotlight.pressed,
 .moon-icon.moon-popup-close.spotlight:active {
 	background-color: @moon-popup-close-bg-color;
+	color: @moon-neutral-icon-color;
 }

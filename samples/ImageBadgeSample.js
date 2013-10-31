@@ -6,25 +6,25 @@ enyo.kind({
 		{kind: "moon.Scroller", fit: true, components: [
 			{kind: "moon.Divider", content: "Image Badges:"},
 			{kind: "moon.Image", src: "http://placehold.it/340x360&text=Image+One", alt: "Image One", components: [
-				{content: "\u0042"},
-				{content: "\u0043"},
-				{content: "\u0044", classes: "float-right"}
+				{kind: "moon.Icon", icon: "check"},
+				{kind: "moon.Icon", icon: "closex"},
+				{kind: "moon.Icon", icon: "drawer", classes: "float-right"}
 			]},
 			{kind: "moon.Image", src: "http://placehold.it/180x240&text=Image+Two", alt: "Image Two", components: [
-				{content: "\u0045"}
+				{kind: "moon.Icon", icon: "closex"}
 			]},
 			
 			{kind: "moon.Divider", classes: "image-badge-sample-divider", content: "Image Badges - Show on Spotlight:"},
 			{kind: "moon.Item", components: [
 				{kind: "moon.Image", src: "http://placehold.it/340x360&text=Image+One", alt: "Image One", showBadgesOnSpotlight: true, components: [
-					{content: "\u0046"},
-					{content: "\u0047"},
-					{content: "\u0048", classes: "float-right"}
+					{kind: "moon.Icon", icon: "check"},
+					{kind: "moon.Icon", icon: "closex"},
+					{kind: "moon.Icon", icon: "drawer", classes: "float-right"}
 				]}
 			]},
 			{kind: "moon.Item", components: [
 				{kind: "moon.Image", src: "http://placehold.it/180x240&text=Image+Two", alt: "Image Two", showBadgesOnSpotlight: true, components: [
-					{content: "\u0049"}
+					{kind: "moon.Icon", icon: "closex"}
 				]}
 			]}
 		]}
