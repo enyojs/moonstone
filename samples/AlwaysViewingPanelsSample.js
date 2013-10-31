@@ -1,6 +1,7 @@
 enyo.kind({
     name: "moon.sample.AlwaysViewingPanelsSample",
     classes: "moon enyo-fit enyo-unselectable",
+    style: "background: gray url('http://lorempixel.com/1920/1080/')",
     components: [
         {name: "panels", kind: "moon.Panels", pattern: "alwaysviewing", classes: "enyo-fit", useHandle: false, components: [
             {title: "First Panel", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", classes: "moon-7h", components: [

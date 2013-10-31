@@ -373,11 +373,11 @@ enyo.kind({
 		;
 
 		if (!this.container.spotlightPagingControls) {
-			this.$.pageUpControl.addRemoveClass("hidden", (top <= 0));
-			this.$.pageDownControl.addRemoveClass("hidden", (top >= -1 * m.bottomBoundary));
+			this.$.pageUpControl.setDisabled(top <= 0);
+			this.$.pageDownControl.setDisabled(top >= -1 * m.bottomBoundary);
 
-			this.$.pageLeftControl.addRemoveClass("hidden", (left <= 0));
-			this.$.pageRightControl.addRemoveClass("hidden", (left >= -1 * m.rightBoundary));
+			this.$.pageLeftControl.setDisabled(left <= 0);
+			this.$.pageRightControl.setDisabled(left >= -1 * m.rightBoundary);
 		}
 	},
 	//* Enables or disables scroll columns.
@@ -436,10 +436,10 @@ enyo.kind({
 	//* Hides pagination controls.
 	hidePageControls: function() {
 		if (!this.container.spotlightPagingControls) {
-			this.$.pageLeftControl.addClass("hidden");
-			this.$.pageRightControl.addClass("hidden");
-			this.$.pageUpControl.addClass("hidden");
-			this.$.pageDownControl.addClass("hidden");
+			this.$.pageLeftControl.setDisabled(true);
+			this.$.pageRightControl.setDisabled(true);
+			this.$.pageUpControl.setDisabled(true);
+			this.$.pageDownControl.setDisabled(true);
 		}
 	},
 	_getScrollBounds: function() {

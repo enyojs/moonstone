@@ -3,16 +3,18 @@ enyo.kind({
 	kind: "FittableRows",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
+		{kind: "moon.Clock", name:"clock"},
+		{classes:"moon-1v"},
+		{classes:"moon-hspacing", components: [
+			{kind: "moon.InputDecorator", components: [
+				{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
+			]},
+			{kind: "moon.Button", small:true, content:"Set Time", ontap:"setTime"},
+			{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetTime"}
+		]},
+		{classes:"moon-1v"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
-				{kind: "moon.Clock", name:"clock"},
-				{classes:"moon-hspacing", components: [
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
-					]},
-					{kind: "moon.Button", small:true, content:"Set Time", ontap:"setTime"},
-					{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetTime"}
-				]},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: $L("No Locale Selected"), content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: 'Use Default Locale', active: true},
 					{content: 'en-US'},

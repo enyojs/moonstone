@@ -6,7 +6,7 @@ enyo.kind({
 		{kind:"moon.Panels", pattern:"none", fit:true, components: [
 			{
 				kind: "moon.Panel",
-				classes: "moon-8h",
+				classes: "moon-10h",
 				headerOptions: {kind: "moon.InputHeader", components: [
 					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png"},
 					{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png"}

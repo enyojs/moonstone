@@ -14,9 +14,10 @@ enyo.kind({
 					onDeactivate: "partialDrawerChanged",
 					handle: {name: "handleButton", content: "Partial drawer with long text truncation"},
 					components: [
-						{kind: "moon.Header", title: "Partial Drawer"},
-						{kind: "moon.Item", content: "Item One"},
-						{kind: "moon.Item", content: "Item Two"}
+						{kind: "moon.Panel", classes:"enyo-fit", title: "Partial Drawer", components: [
+							{kind: "moon.Item", content: "Item One"},
+							{kind: "moon.Item", content: "Item Two"}
+						]}
 					],
 					controlDrawerComponents: [
 						{classes:"moon-hspacing", components: [
@@ -29,9 +30,10 @@ enyo.kind({
 					name: "searchDrawer",
 					handle: {content: "Full drawer"},
 					components: [
-						{kind: "moon.Header", title: "Full Drawer"},
-						{kind: "moon.Item", content: "Item One"},
-						{kind: "moon.Item", content: "Item Two"}
+						{kind: "moon.Panel", classes:"enyo-fit", title: "Partial Drawer", components: [
+							{kind: "moon.Item", content: "Item One"},
+							{kind: "moon.Item", content: "Item Two"}
+						]}
 					]
 				}
 			],
@@ -39,6 +41,7 @@ enyo.kind({
 				{
 					name: "panels",
 					kind: "moon.Panels",
+					pattern: "activity",
 					classes: "enyo-fit",
 					components: [
 						{title: "First", classes: "moon-7h", components: [
