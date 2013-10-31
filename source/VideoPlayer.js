@@ -941,6 +941,16 @@ enyo.kind({
 
 		this.updatePosition();
 
+		/* Check for playback in fast-forward reaching end of current buffer and switch to play mode,
+		if end of current buffer is same as end of video then do the default operation */
+		var node = this.$.video.hasNode();
+		if ((node) && (this.$.video._prevCommand == "fastForward")) {
+			var bufferIndex = this.getBufferCurrentRangeIndex();
+			if ((bufferIndex != undefined) && (node.playbackRate > (node.buffered.end(bufferIndex) - node.currentTime)) && (node.buffered.end(bufferIndex).toFixed(2) != node.duration.toFixed(2))) {
+				this.play();
+			}
+		}
+
 		// TODO: Event handler shouldn't know about event delegates.
 		// Waterfall should handle this automatically.
 		// See https://enyojs.atlassian.net/browse/ENYO-3188
@@ -971,6 +981,14 @@ enyo.kind({
 		this._loaded = true;
 		this.updateSliderState();
 		this.durationUpdate(inSender, inEvent);
+	},
+	getBufferCurrentRangeIndex: function(inSender, inEvent) {
+		var videoNode = this.$.video.node;
+		for (var bufferindex = videoNode.buffered.length - 1; bufferindex >= 0; bufferindex--) {
+			if ((videoNode.currentTime >= videoNode.buffered.start(bufferindex)) && (videoNode.currentTime <= videoNode.buffered.end(bufferindex))) {
+				return bufferindex;
+			}
+		}
 	},
 	_getBufferedProgress: function(inNode) {
 		var bufferData = inNode.buffered,
