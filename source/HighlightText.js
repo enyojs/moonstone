@@ -50,6 +50,8 @@ enyo.kind({
             if (this.highlight instanceof RegExp) {
                 // Make sure the regex isn't empty
                 this.search = ("".match(this.highlight)) ? null : this.highlight;
+            } else if (typeof (this.highlight) === "boolean") {
+                this.search= this.content;
             } else {
                 if (this.caseSensitive) {
                     this.search = this.highlight;
