@@ -14,8 +14,8 @@
 	Guide.
 */
 enyo.kind({
-	name:      "moon.Scroller",
-	kind:      "enyo.Scroller",
+	name: "moon.Scroller",
+	kind: "enyo.Scroller",
 	spotlight: "container",
 	published: {
 		//* If true, paging controls are hidden if a key is pressed (5-way mode)
@@ -65,5 +65,9 @@ enyo.kind({
 		// Since spotlightPagingControls is used when there are no focusable
 		// children, turn off container handling in that case.
 		this.spotlight = this.spotlightPagingControls ? false : "container";
+	},
+	//* Override _decorateScrollEvent_ to use cached version of bounds
+	decorateScrollEvent: function(inEvent) {
+		inEvent.scrollBounds = inEvent.scrollBounds || this.$.strategy.getScrollBounds(true);
 	}
 });

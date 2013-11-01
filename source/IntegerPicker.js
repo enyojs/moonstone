@@ -141,7 +141,7 @@ enyo.kind({
 	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
 	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
 	updateScrollBounds: function() {
-		this.scrollBounds = this.$.scroller.getStrategy()._getScrollBounds();
+		this.scrollBounds = this.$.scroller.getStrategy().getScrollBounds();
 	},
 	//* Scrolls to a given node in the list.
 	animateToNode: function(inNode) {

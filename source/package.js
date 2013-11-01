@@ -53,6 +53,8 @@ enyo.depends(
 	"Accordion.js",
 	"Table.js",
 	"DataTable.js",
+	"TransitionScrollStrategy.js",
+	"TransitionThumb.js",
 	"MoonScrollStrategy.js",
 	"Thumb.js",
 	"InputHeader.js",

@@ -4356,6 +4356,7 @@
 }
 .moon-scroller-thumb-container {
   position: absolute;
+  overflow: hidden;
 }
 .moon-scroller-hthumb-container {
   left: 60px;
@@ -4617,6 +4618,32 @@
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
   display: none;
+}
+.transition-strategy-thumb-container {
+  position: absolute;
+}
+.transition-strategy-thumb-container.vertical {
+  width: 12px;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+}
+.transition-strategy-thumb-container.horizontal {
+  width: 100%;
+  height: 12px;
+  bottom: 0px;
+  left: 0px;
+}
+.enyo-transition-thumb.hidden {
+  opacity: 0;
+}
+.transition-strategy-thumb-container .enyo-vthumb {
+  width: 8px;
+  min-height: 10px;
+}
+.transition-strategy-thumb-container .enyo-hthumb {
+  height: 8px;
+  min-width: 10px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
