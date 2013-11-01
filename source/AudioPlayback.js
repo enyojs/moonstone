@@ -719,7 +719,7 @@ enyo.kind({
 		onAudioQueueClickItem: ""
 	},
 	bindings: [
-		{ from: ".trackList", to: ".$.list.controller" },
+		{ from: ".trackList", to: ".$.list.collection" },
 		{ from: ".trackList.length", to: ".$.queueHeader.titleBelow", transform: "titleBelowTransform" },
 		{ from: ".deleteMode", to: ".$.multiDeleteButton.showing" },
 		{ from: ".deleteMode", to: ".$.selectAll.showing" },
@@ -777,7 +777,7 @@ enyo.kind({
 	},
 	deleteSelected: function () {
 		var selected = this.$.list.get("selected"),
-			collect = this.$.list.controller;
+			collect = this.$.list.collection;
 		for (var i = 0, idxArr = []; i < selected.length; i++) {
 			idxArr.push(collect.indexOf(selected[i]));
 		}
@@ -828,7 +828,7 @@ enyo.kind({
 		var selected = this.$.list.get("selected");
 
 		if (selected && selected.length === 2) {
-			var collection = this.$.list.controller,
+			var collection = this.$.list.collection,
 				fromIdx = collection.indexOf(selected[0]),
 				toIdx = collection.indexOf(selected[1]);
 			this.$.list.deselectAll();	
