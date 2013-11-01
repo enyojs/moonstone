@@ -1,13 +1,23 @@
+/**
+	_enyo.StyleAnimator_ is a basic animation component.  Call _play()_ to start
+	the animation.  The animation will run for the period of time (in milliseconds)
+	specified by its _duration_, subject to its _timingFunction_ and _direction_.
+*/
 enyo.kind({
 	name: "enyo.StyleAnimator",
 	kind: "Component",
 	events: {
+		//* Fires when an animation step occurs.
 		onStep: "",
+		//* Fires when the animation completes.
 		onComplete: ""
 	},
 	published: {
+		//* Default value used if the animation has no _duration_ specified
 		defaultDuration: 1000,
+		//* Default value used if the animation has no _timingFunction_ specified
 		defaultTimingFunction: "linear",
+		//* Default value used if the animation has no _direction_ specified
 		defaultDirection: "forward"
 	},
 	transitionProperty: enyo.dom.transition,
@@ -23,6 +33,10 @@ enyo.kind({
 		this.animations = [];
 	},
 	//* @public
+	/**
+		Returns animation object reflecting the passed-in properties, while also
+		adding it to the _animations_ array.
+	*/
 	newAnimation: function(inProps) {
 		if (this.animations && inProps.name && this.getAnimation(inProps.name)) {
 			this.deleteAnimation(inProps.name);
@@ -47,11 +61,13 @@ enyo.kind({
 		return animation;
 	},
 	//* @public
+	//* Resets transition properties to their pre-transition state.
 	reset: function (inName) {
 		this.getAnimation(inName);
 		this._reset(inName);
 	},
 	//* @public
+	//* Plays the animation according to its properties.
 	play: function (inName) {
 		var animation = this.getAnimation(inName);
 
@@ -66,13 +82,15 @@ enyo.kind({
 		setTimeout(enyo.bind(this, function() { this._play(inName); }), 0);
 	},
 	//* @public
+	//* Pauses the animation, if it is currently playing.
 	pause: function(inName) {
 		var animation = this.getAnimation(inName);
 		if (animation.state === "playing") {
 			this._pause(inName);
 		}
 	},
-	//* @public - Lookup animation by name in _this.animations_
+	//* @public
+	//* Looks up an animation by name in _this.animations_.
 	getAnimation: function(inName) {
 		var animation = null;
 		for (var i = 0; i < this.animations.length; i++) {
@@ -83,7 +101,11 @@ enyo.kind({
 		}
 		return animation;
 	},
-	//* @public - remove existing animation
+	//* @public
+	/**
+		Removes an existing animation from _this.animations_, stopping it first, if
+		necessary.
+	*/
 	deleteAnimation: function(inName) {
 		var animation = this.getAnimation(inName);
 
@@ -98,10 +120,12 @@ enyo.kind({
 		this.animations.splice(this.animations.indexOf(animation), 1);
 	},
 	//* @public
+	//* Begins stepping through the animation.
 	start: function() {
 		this.beginStepping();
 	},
 	//* @public
+	//* Stops stepping through the animation.
 	stop: function() {
 		this.stopStepping();
 	},

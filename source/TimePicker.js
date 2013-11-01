@@ -10,6 +10,11 @@ enyo.kind({
 	max: 1,
 	value: null,
 	published: {
+		/**
+			If _TimePicker.meridiemEnable_ is false, this value has not yet been
+			initialized; if true, this value will be _"PM"_ if the _hour_ is greater
+			than 11, or _"AM"_ otherwise.
+		*/
 		meridiems: ["AM","PM"]
 	},
 	setupItem: function(inSender, inEvent) {

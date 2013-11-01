@@ -45,10 +45,15 @@ enyo.kind({
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
+		//* Initial picker value
 		value: -1,
+		//* Minimum picker value
 		min: 1,
+		//* Maximum picker value
 		max: 9,
+		//* Amount to increment/decrement by when moving picker between _min_ and _max_
 		step: 1,
+		//* Unit label to be appended to the value for display
 		unit: "sec"
 	},
 

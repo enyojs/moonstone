@@ -1,8 +1,8 @@
 /**
 	_moon.PagingControl_ is a paging control button derived from
-	<a href="#moon.IconButton">moon.IconButton</a>.  This control
-	is not intended for use outside of _moon.Scroller_.
-**/
+	[moon.IconButton](#moon.IconButton). This control is not intended for use
+	outside of [moon.Scroller](#moon.Scroller).
+*/
 enyo.kind({
 	name: "moon.PagingControl",
 	kind: "moon.IconButton",
@@ -23,7 +23,14 @@ enyo.kind({
 		onActivate: "noop"
 	},
 	events: {
+		//* Fires when page boundary is reached.
 		onPaginate: "",
+		/**
+			Fires when we've determined how large the bounceback effect should be.
+
+			_inEvent.scrollDelta_ contains a number representing the magnitude of the
+			bounceback effect.
+		*/
 		onPaginateScroll: ""
 	},
 
@@ -40,7 +47,10 @@ enyo.kind({
 	},
 	
 	//* @public
-	
+	/**
+		Stops scrolling animation and triggers _onPaginate_ event with a delta value
+		for the bounceback effect.
+	*/
 	hitBoundary: function() {
 		this.stopHoldJob();
 		this.downTime = null;
