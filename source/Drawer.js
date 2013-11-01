@@ -1,6 +1,6 @@
 /**
-    _moon.Drawer_, a control designed for use with <a href="#moon.Drawers">moon.Drawers</a>,
-    consists of two drawers and a <a href="#moon.DrawerHandle">moon.DrawerHandle</a>.
+    _moon.Drawer_, a control designed for use with [moon.Drawers](#moon.Drawers),
+    consists of two drawers and a [moon.DrawerHandle](#moon.DrawerHandle).
     The main drawer is populated with any child components that are specified in
     the constructor; the optional second drawer (_controlDrawer_) is populated
     with components passed into the _controlDrawerComponents_ property.

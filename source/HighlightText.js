@@ -21,9 +21,17 @@
 enyo.kind({
     name: "moon.HighlightText",
     published: {
+        //* The control's content
         content: "",
+        /**
+            If true, highlighting is activated; at runtime, this property is
+            used to store the search term from an incoming _onHighlight_ event,
+            i.e., _inEvent.highlight_.
+        */
         highlight: false,
+        //* If true, matching is case-sensitive
         caseSensitive: false,
+        //* CSS classes to be applied to highlighted content
         highlightClasses: "moon-highlight-text-highlighted"
     },
     handlers: {

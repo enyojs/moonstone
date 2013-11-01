@@ -14,7 +14,7 @@ enyo.kind({
 		titleBelow : '',
 		//* Sub-text below the header
 		subTitleBelow : '',
-		//* If true, the moon-small-header css class will be applied to this header
+		//* If true, the _moon-small-header_ CSS class will be applied to this header
 		small : false,
 		//* URL src of a background image
 		backgroundSrc : null,
@@ -31,7 +31,7 @@ enyo.kind({
 		placeholder : "",
 		//* The value of the input
 		value : "",
-		//* When true, inputted text will be displayed in uppercase
+		//* When true, the entered text will be displayed as uppercase
 		inputUpperCase : false
 	},
 	mixins : ["moon.MarqueeSupport"],
@@ -124,6 +124,7 @@ enyo.kind({
 		this.addRemoveClass("full-bleed", this.fullBleedBackground);
 	},
 	//* @public
+	//* Collapses the drawer, hiding its contents.
 	collapseToSmall : function() {
 		if (this.collapsed) {
 			return;
@@ -222,6 +223,7 @@ enyo.kind({
 		this.$.animator.play("collapseToSmall");
 		this.collapsed = true;
 	},
+	//* Expands the drawer, showing its contents.
 	expandToLarge : function() {
 		if (!this.collapsed) {
 			return;

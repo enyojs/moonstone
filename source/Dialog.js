@@ -1,5 +1,5 @@
 /**
-	_moon.Dialog_ is a <a href="#moon.Popup">moon.Popup</a> with a title, a sub-title, a
+	_moon.Dialog_ is a [moon.Popup](#moon.Popup) with a title, a subtitle, a
 	message, and an area for additional controls.
 */
 enyo.kind({
@@ -9,7 +9,7 @@ enyo.kind({
 	published: {
 		//* The title string for the dialog
 		title: "",
-		//* The sub-title string for the dialog
+		//* The subtitle string for the dialog
 		subTitle: "",
 		//* The message for the dialog
 		message: ""

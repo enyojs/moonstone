@@ -1,7 +1,7 @@
 /**
-	_moon.ChannelInfo_ is a control that displays channel information. 
-	It is designed to be used within the _infoComponents_ block of a
-	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
+	_moon.ChannelInfo_ is a control that displays channel information.  It is
+	designed to be used within the _infoComponents_ block of a
+	[moon.VideoPlayer](#moon.VideoPlayer).
 
 	Example:
 
@@ -21,7 +21,9 @@ enyo.kind({
 	kind: "enyo.Control",
 	classes: "moon-channelinfo",
 	published: {
+		//* The channel number
 		channelNo: "",
+		//* The name of the channel
 		channelName: ""
 	},
 	defaultKind: "moon.ChannelInfoBadge",
