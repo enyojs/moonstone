@@ -40,7 +40,7 @@ enyo.kind({
 		onPostTransitionComplete:	"panelPostTransitionComplete"
 	},
 	handleTools: [
-		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false, ontransitionend: "hideScrim"},
+		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim"},
 		{name: "clientWrapper", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
@@ -523,8 +523,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.backgroundScrim.show();
-		this.$.backgroundScrim.addClass("transition");
 		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
@@ -535,8 +533,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.backgroundScrim.show();
-		this.$.backgroundScrim.addClass("transition");
 		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
@@ -544,8 +540,6 @@ enyo.kind({
 	},
 	//* Set to show state without animation
 	_directShow: function() {
-		this.$.backgroundScrim.show();
-		this.$.backgroundScrim.removeClass("transition");
 		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		if (this.handleShowing) {
@@ -554,18 +548,12 @@ enyo.kind({
 	},
 	//* Set to hide state without animation
 	_directHide: function() {
-		this.$.backgroundScrim.hide();
-		this.$.backgroundScrim.removeClass("transition");
 		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
 		this.hideAnimationComplete();
-	},
-	hideScrim: function() {
-		this.$.backgroundScrim.hide();
-		return true;
 	},
 	createShowAnimation: function() {
 		return this.$.showHideAnimator.newAnimation({
