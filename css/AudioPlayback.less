@@ -7,8 +7,9 @@
 	position: relative;
 	top: 6px;
 	left: 4px;
-	width: 128px;
-	height: 128px;
+	width: 114px;
+	height: 114px;
+	margin: 0 15px 10px 0;
 	background: transparent url() no-repeat 0px 0px;
 	display: inline-block;
 }
@@ -19,6 +20,21 @@
 .moon-audio-control-buttons > * {
 	display: inline-block;
 	top: 6px;
+}
+.shuffle-button {
+	background-image: url(../images/audio-player/shuffle-n-f.png);
+}
+.shuffle-button.on {
+	background-image: url(../images/audio-player/shuffle-on.png);
+}
+.repeat-button.none {
+	background-image: url(../images/audio-player/repeat-n-f.png);
+}
+.repeat-button.one {
+	background-image: url(../images/audio-player/repeat-one.png);
+}
+.repeat-button.all {
+	background-image: url(../images/audio-player/repeat-on.png);
 }
 .moon-audio-play-time {
 	width: 80px;
@@ -35,7 +51,7 @@
 	float: right;
 }
 .moon-audio-track-info {
-	width: 40%;
+	width: 28%;
 }
 .moon-audio-top {
 	height: 65px;
@@ -46,12 +62,34 @@
 	background-color: @moon-audio-icon-button-bg-color;
 	margin: 8px 4px;
 }
-.moon-audio-icon-button.left {
+
+.moon-audio-control-buttons .moon-audio-control-item {
+	width:75px;
+	height:75px;
+	border-radius:0;
+	border:0 !important;
+	background-color:transparent !important;
+	background-position:0px 0px;
+}
+.moon-audio-control-buttons .moon-audio-control-item.active,
+.moon-audio-control-buttons .moon-audio-control-item.pressed,
+.moon-audio-control-buttons .moon-audio-control-item.spotlight,
+.moon-audio-control-buttons moon-audio-control-item.spotlight.pressed,
+.moon-audio-control-buttons .moon-audio-control-item.spotlight:active {
+	background-position: 0 -75px;
+	border: 0px;
+	background-color: transparent;
+}
+.moon-audio-control-item.pressed {
+	width: 100px;
+}
+.moon-audio-control-item.left {
 	float: left;
 }
 .moon-audio-icon-button.right {
 	float: right;
 }
+
 /* AudioPlayback styles for Slider */
 .moon-audio-slider-container {
 	padding-top: 10px;
@@ -89,23 +127,48 @@
 	margin: 0px 40px;
 }
 /* AudioPlayback styles for queue list items */
-.moon-audio-queue-list {
-	height: 100px;
+.moon-audio-queue-item {
 	padding: 12px 16px;
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid transparent;
 }
-.moon-audio-queue-list-selected {
-	background-color: @moon-audio-queue-selected-bg-color;
-	border-color: @moon-audio-queue-selected-border-color;
-}
-.moon-audio-queue-list > * {
+.moon-audio-queue-item > * {
 	display: inline-block;
 	vertical-align: middle;
 }
-.moon-audio-queue-album-art {
+.moon-audio-queue-item-albumArt {
 	width: 80px;
 	height: 80px;
 	background: transparent url() no-repeat 0px 0px;
 	padding-right: 10px;
+}
+/*.moon-audio-queue-item .moon-audio-item-playmark {
+  margin-left: 10px; 
+  color: black;
+}*/
+.moon-audio-queue-item.playing {
+	background-color: #4b4b4b;
+}
+/*.moon-audio-queue-item .moon-audio-item-selectmark {
+  display: none;
+  margin-left: 10px; 
+  color: black;
+  position: absolute;
+  right: 15px;
+  background-image: @moon-checkbox-image;
+  background-repeat: no-repeat;
+  background-position: 11px 1px;
+}*/
+.moon-audio-queue-list.editMode .selected {
+	background-color: @moon-audio-queue-selected-bg-color;
+	border-color: @moon-audio-queue-selected-border-color;
+}
+.moon-audio-queue-list.editMode .selected .moon-audio-queue-item .moon-audio-item-selectmark {
+  display: inline-block;
+}
+.client-area {
+	background: transparent;
+}
+.client-area .moon-icon-button{
+	margin: 8px 4px;
 }

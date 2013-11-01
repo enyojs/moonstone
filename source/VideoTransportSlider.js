@@ -43,6 +43,8 @@ enyo.kind({
 		popupColor: "#fff",
 		//* Popup offset in pixels
 		popupOffset: 25,
+		//* This flag for support audio player.
+		audioPlayerSupport: false,
 		//** threshold value(percentage) for using animation effect on slider progress change
 		smallVariation: 1,
 			//* Popup height in pixels
@@ -140,8 +142,8 @@ enyo.kind({
 		this.updateSliderRange();
 	},
 	updateSliderRange: function() {
-		this.beginTickPos = (this.max-this.min)*0.0625;
-		this.endTickPos = (this.max-this.min)*0.9375;
+		this.beginTickPos = this.audioPlayerSupport? 0 : (this.max-this.min)*0.0625;
+		this.endTickPos = this.audioPlayerSupport? this.max : (this.max-this.min)*0.9375;
 
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
@@ -348,8 +350,8 @@ enyo.kind({
 	//* When the time updates, update buffered progress, canvas, video currentTime and duration
 	timeUpdate: function(inSender, inEvent) {
 		if (!this.dragging && this.isInPreview()) { return; }
-		this._currentTime = inSender._currentTime;
-		this._duration = inSender._duration;
+		this._currentTime = (inEvent && inEvent.currentTime) ? inEvent.currentTime : inSender._currentTime;
+		this._duration = (inEvent && inEvent.duration) ? inEvent.duration : inSender._duration;
 		this.currentTime = this._currentTime;
 		this.duration = this._duration;
 		this.$.endTickText.setContent(this.formatTime(this.duration));

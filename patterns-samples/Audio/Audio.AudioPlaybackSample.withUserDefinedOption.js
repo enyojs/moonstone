@@ -11,7 +11,7 @@ enyo.kind({
 		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "07-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: "$lib/moonstone/images/html5-icon.png"},
 		{src: "http://enyojs.com/_media/engine.mp3", trackName: "08-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: "$lib/moonstone/images/css3-icon.png"},
 		{src: "http://enyojs.com/_media/thunder.mp3", trackName: "09-Thunder", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:22", albumImage: "$lib/moonstone/images/enyo-icon.png"},
-		{src: "http://enyojs.com/_media/engine.mp3", trackName: "10-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: "$lib/moonstone/images/html5-icon.png"}
+		{src: "http://enyojs.com/_media/engine.mp3", trackName: "10-Engine", artistName: "Sound Effects Artist", albumName: "Sound Effects", duration: "0:04", albumImage: "$lib/moonstone/images/html5-icon.png"}	
 	],
 	handlers: {
 		onPlayIndex: "playIndex",
@@ -26,10 +26,22 @@ enyo.kind({
 					kind: "moon.DrawerHandle",
 					marquee: true
 				},
-				components: [
-					{kind: "moon.IconButton", content: "1"},
-					{kind: "moon.IconButton", content: "2"}
-				]
+				// User can customize queue list item.
+				userBindedQueueListItem: {
+					bindings: [
+						{from: ".model.albumImage", to: ".$.userListItem.$.albumArt.src" },
+						{from: ".model.trackName", to: ".$.userListItem.$.trackName.content" },
+						{from: ".model.artistName", to: ".$.userListItem.$.artistName.content"},
+						// User can use their attribute. It is specified at "userQueueAttr".  
+						{from: ".model.filePath", to: ".$.userListItem.$.filePath.content", transform: "filePathTransform"}
+					],
+					components: [
+						{kind: "sample.userQueueListItem", name: "userListItem", classes: "enyo-border-box"}
+					],
+					filePathTransform: function (value) {
+						return "(" + value + ")";
+					}
+				}
 			}
 		],
 		components: [
@@ -47,7 +59,7 @@ enyo.kind({
 		var a = this.audioFiles;
 		var len = a.length;
 		for (var i=0; i<len; i++) {
-			this.$.audioPlayback.addAudioTrack(a[i].src, a[i].trackName, a[i].artistName, a[i].albumName, a[i].duration, a[i].albumImage);
+			this.$.audioPlayback.addAudioTrack(a[i].src, a[i].trackName, a[i].artistName, a[i].albumName, a[i].duration, a[i].albumImage, a[i].userQueueAttr);
 		}
 	},
 	indexChanged: function (inSender, inEvent) {
@@ -58,6 +70,19 @@ enyo.kind({
 	}
 });
 
+// User can define their list item.
+enyo.kind({
+	name: "sample.userQueueListItem",
+	kind: "moon.AudioListItem",
+	components: [
+		{name: "albumArt", kind: "Image", classes: "moon-audio-queue-item-albumArt", src: "assets/default-music-sm.png"},
+		{components: [
+			{name: "artistName", style: "display:inline-block;"},
+			{name: "filePath", style: "display:inline-block;"},
+			{name: "trackName"}
+		]}
+	]
+});
 
 enyo.kind({
     name: "moon.sample.audioPlayback.pageContent",
