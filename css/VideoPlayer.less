@@ -1,6 +1,7 @@
 .moon-video-player {
 	position: relative;
 	display: inline-block;
+	margin: 0 @moon-spotlight-outset;
 	background-color: @moon-video-player-bg-color;
 }
 .moon-video-player-container {
@@ -16,6 +17,13 @@
 	margin: 0px auto;
 	height: 100%;
 	width: 100%;
+}
+.moon-video-player-spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -@moon-spinner-size/2;
+	margin-left: -@moon-spinner-size/2;
 }
 
 /* Fullscreen CSS */

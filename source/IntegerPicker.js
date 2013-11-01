@@ -23,11 +23,11 @@ enyo.kind({
 		digits: null
 	},
 	handlers: {
-		onSpotlightUp:"previous",
-		onSpotlightDown:"next",
+		onSpotlightUp:"next",
+		onSpotlightDown:"previous",
 		onSpotlightBlur:"spotlightBlur",
-		onSpotlightScrollUp:"previous",
-		onSpotlightScrollDown:"next"
+		onSpotlightScrollUp:"next",
+		onSpotlightScrollDown:"previous"
 	},
 	events: {
 		onChange: ""
@@ -36,7 +36,7 @@ enyo.kind({
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"topOverlay", ondown:"previous", classes:"moon-scroll-picker-overlay-container top", components:[
+		{name:"topOverlay", ondown:"next", classes:"moon-scroll-picker-overlay-container top top-image", components:[
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
@@ -45,7 +45,7 @@ enyo.kind({
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
 		]},
-		{name:"bottomOverlay", ondown:"next", classes:"moon-scroll-picker-overlay-container bottom", components:[
+		{name:"bottomOverlay", ondown:"previous", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
 			{classes:"moon-scroll-picker-overlay bottom"},
 			{classes: "moon-scroll-picker-taparea"}
 		]}
@@ -55,6 +55,7 @@ enyo.kind({
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
+		this.updateOverlays();
 		this.refreshScrollState();
 		this.$.scroller.getStrategy().setFixedTime(false);
 		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
@@ -97,25 +98,31 @@ enyo.kind({
 		if (this.value > this.min) {
 			this.stopJob("hideTopOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
-			this.$.topOverlay.addClass("selected");
+			this.$.bottomOverlay.addClass("selected");
 			if (inEvent.originator != this.$.upArrow) {
-				this.startJob("hideTopOverlay", "hideTopOverlay", 350);
+				this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
 			}
 			this.fireChangeEvent();
 		}
+		this.updateOverlays();
 		return true;
 	},
 	next: function(inSender, inEvent) {
 		if (this.value < this.max) {
 			this.stopJob("hideBottomOverlay");
 			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
-			this.$.bottomOverlay.addClass("selected");
+			this.$.topOverlay.addClass("selected");
 			if (inEvent.originator != this.$.downArrow) {
-				this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
+				this.startJob("hideTopOverlay", "hideTopOverlay", 350);
 			}
 			this.fireChangeEvent();
 		}
+		this.updateOverlays();
 		return true;
+	},
+	updateOverlays: function() {
+		this.$.bottomOverlay.addRemoveClass("bottom-image", (this.value !== this.min));
+		this.$.topOverlay.addRemoveClass("top-image", (this.value !== this.max));
 	},
 	hideTopOverlay: function() {
 		this.$.topOverlay.removeClass("selected");

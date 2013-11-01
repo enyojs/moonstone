@@ -14,7 +14,11 @@
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	background-color: @moon-contextual-popup-bg-color;
+	&.reserve-close {
+		padding-right: @moon-icon-button-small-size + 20px;
+	}
 }
+
 .enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
 }
@@ -125,3 +129,7 @@
 	background-image: @moon-contextual-up;
 }
 
+.moon-contextual-popup-client {
+	height: 100%;
+	overflow: hidden;
+}

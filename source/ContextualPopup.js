@@ -51,8 +51,8 @@ enyo.kind({
 	horizBuffer: 16,
 	activator: null,
 	tools: [
-		{name: "client"},
-		{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "client", classes: "moon-neutral moon-contextual-popup-client"},
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.
 	initComponents: function() {
@@ -118,9 +118,11 @@ enyo.kind({
 			this.activator.keepOpen = true;
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
+			this.addClass("reserve-close");
 		} else {
 			this.$.closeButton.hide();
 			this.$.closeButton.spotlight = false;
+			this.removeClass("reserve-close");
 		}
 	},
 	contentChanged: function() {
