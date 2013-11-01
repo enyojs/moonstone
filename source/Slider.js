@@ -320,6 +320,7 @@ enyo.kind({
 		} else {
 			v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
+			v = this.clampValue(this.min, this.max, v);
 		}
 
 		this.dragging = false;
