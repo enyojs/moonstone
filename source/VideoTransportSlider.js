@@ -1,6 +1,6 @@
 /**
-	_moon.VideoTransportSlider_ extends <a href="#moon.Slider">moon.Slider</a>,
-	adding specialized behavior related to video playback.
+	_moon.VideoTransportSlider_ extends [moon.Slider](#Moon.Slider), adding
+	specialized behavior related to video playback.
 
 		{kind: "moon.VideoTransportSlider", value: 30}
 
@@ -15,19 +15,19 @@ enyo.kind({
 	classes: "moon-video-transport-slider",
 	//* @protected
 	published: {
-		//** This is start point of slider
+		//** Starting point of slider
 		rangeStart: 0,
-		//** This is end point of slider
+		//** Ending point of slider
 		rangeEnd: 100,
-		//** This flag decide the slider draw
+		//** This flag controls the slider draw
 		syncTick: true,
-		//** This flag decide whether using dummy area or not
+		//** This flag determines whether we show the dummy area
 		showDummyArea: true,
-		//** When true, show label on start and end position
+		//** When true, label is shown at the start and end positions
 		showTickText: true,
-		//** When true, show tick bar on start and end position
+		//** When true, tick bar is shown at the start and end positions
 		showTickBar: true,
-		//** When true, the progress can extend past the hour markers.
+		//** When true, the progress may extend past the hour markers
 		liveMode: false,
 		//* CSS classes to apply to bg progressbar
 		bgBarClasses: "moon-video-transport-slider-bg-bar",
@@ -43,9 +43,9 @@ enyo.kind({
 		popupColor: "#fff",
 		//* Popup offset in pixels
 		popupOffset: 25,
-		//** threshold value(percentage) for using animation effect on slider progress change
+		//* Threshold value (percentage) for using animation effect on slider progress change
 		smallVariation: 1,
-			//* Popup height in pixels
+		//* Popup height in pixels
 		popupHeight: 67
 	},
 	handlers: {
@@ -53,10 +53,15 @@ enyo.kind({
 		onresize: "resizeHandler"
 	},
 	events: {
+		//* Fires in response to _dragstart_.
 		onSeekStart: "",
+		//* Fires when user taps in _tapArea_.
 		onSeek: "",
+		//* Fires in response to _dragfinish_.
 		onSeekFinish: "",
+		//* Fires when cursor enters _tapArea_.
 		onEnterTapArea: "",
+		//* Fires when cursor leaves _tapArea_.
 		onLeaveTapArea: ""
 	},
 	tickComponents: [

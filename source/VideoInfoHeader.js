@@ -1,7 +1,7 @@
 /**
 	_moon.VideoInfoHeader_ is a control that displays various information about a
 	video. It is designed to be used within the _infoComponents_ block of a
-	<a href="#moon.VideoPlayer">moon.VideoPlayer</a>.
+	[moon.VideoPlayer](#moon.VideoPlayer).
 
 	Example:
 
@@ -10,7 +10,8 @@
 			aboveTitle: new Date(),
 			title: "Breaking Bad - Live Free Or Die",
 			subTitle: "AMC (301) 7:00 PM - 8:00 PM",
-			description: "As Walt deals with the aftermath of the Casa Tranquila explosion, Hank works to wrap up his investigation of Gus' empire.",
+			description: "As Walt deals with the aftermath of the Casa Tranquila explosion, "
+				+ "Hank works to wrap up his investigation of Gus' empire.",
 			components: [
 				{content: "3D"},
 				{content: "Live"},
@@ -26,9 +27,13 @@ enyo.kind({
 	marqueeOnSpotlight: false,
 	marqueeOnRender: true,
 	published: {
+		//* Title of the VideoInfoHeader
 		title: "",
+		//* Subtitle of the VideoInfoHeader
 		subTitle: "",
+		//* VideoInfoHeader text subordinate to subtitle
 		subSubTitle: "",
+		//* Main content of the VideoInfoHeader
 		description: ""
 	},
 	components: [
