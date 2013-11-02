@@ -90,6 +90,7 @@
 			{"name": "Expandable Text", "path":"$lib/moonstone/samples/ExpandableTextSample"},
 			{"name": "Highlight Text", "path":"$lib/moonstone/samples/HighlightTextSample"}
 		]},
-		{"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"}
+		{"name": "Tooltip", "path":"$lib/moonstone/samples/TooltipSample"},
+		{"name": "RTL/LTR selector", "path": "$lib/moonstone/samples/RTL"}
 	]
 }
