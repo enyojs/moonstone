@@ -2572,7 +2572,7 @@
 /* High nubs */
 .moon-contextual-popup.left.high::after,
 .moon-contextual-popup.right.high::after {
-  top: 50px;
+  top: 30px;
 }
 /* Bottom right corner nub */
 .moon-contextual-popup.left.above::after {
