@@ -180,9 +180,7 @@ enyo.kind({
 			}
 		}));
 	},
-	/**
-		Shows scrim if the value is true
-	*/
+	//* Shows scrim if the value is true
 	showScrim: function(value) {
 		this.$.clientScrim.addRemoveClass("moon-scrim-transparent", value);
 	},
@@ -217,9 +215,7 @@ enyo.kind({
 	spotDown: function(inSender, inEvent) {
 		return this.spotChecker("DOWN");
 	},
-	/**
-		Check whether to allow spotlight to move to any given direction.
-	*/
+	//* Check whether to allow spotlight to move to any given direction.
 	spotChecker: function(inDirection) {
 		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection),
 			currentSpot = enyo.Spotlight.getCurrent();
@@ -233,10 +229,7 @@ enyo.kind({
 			}
 		}
 	},
-	/**
-		returns "true" if any drawer's client is open,
-		returns "false" no drawer's client is open
-	*/
+	//* returns "true" if any drawer's client is open, returns "false" no drawer's client is open
 	fullDrawerOpen: function(inSender, inEvent) {
 		for (var index in this.drawers)
 		{
