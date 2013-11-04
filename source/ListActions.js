@@ -1,3 +1,9 @@
+/**
+	_moon.ListActions_ is a control used in conjunction with a list of items.  It
+	combines an activating control with a drawer containing a menu of selectable
+	options.  When a menu item is selected, an action--such as filtering, sorting,
+	moving, or deleting--is performed on the items in the associated list.
+*/
 enyo.kind({
 	name: "moon.ListActions",
 	classes: "moon-list-actions",
@@ -113,7 +119,7 @@ enyo.kind({
 			this.bubble("onRequestUnmuteTooltip");
 			this.setActive(false);
 		}
-		// If currently closed, resize and show _this.$.drawer
+		// If currently closed, resize and show _this.$.drawer_
 		else {
 			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
@@ -126,7 +132,7 @@ enyo.kind({
 			this.setActive(true);
 		}
 	},
-	//* Positions _this.$.drawer to fill the entire header.
+	//* Positions _this.$.drawer_ to fill the entire header.
 	configurePopup: function() {
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
