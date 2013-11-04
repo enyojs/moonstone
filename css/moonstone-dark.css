@@ -731,9 +731,6 @@
   opacity: 0.6;
   filter: alpha(opacity=60);
 }
-.moon-icon.disabled:active:hover {
-  background-position: center 0;
-}
 /* moonstone-icons.css */
 /* Font icon, name-to-character definitions */
 .moon-icon-drawer:after {
