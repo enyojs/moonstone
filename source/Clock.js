@@ -2,28 +2,33 @@
 	_moon.Clock_ is a control that displays system clock information. 
 
 	Example:
-		{kind:"moon.Clock"}
+
+		{kind: "moon.Clock"}
 */
 enyo.kind({
 	name: "moon.Clock",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-clock moon-header-font",
+	//* @public
 	published: {
-		//* Refresh time in sec.
+		//* Refresh time in milliseconds
 		refresh: 1000,
-		//* Manual date. If it is undefined, _moon.Clock_ will use system date.
+		//* User-provided date; if undefined, system date is used
 		date: undefined,
 		/**
-			ilib locale info instance. It gives information about the paarticular locale.
+			_ilib_ locale info instance; it contains information about the particular
+			locale
 		*/
 		ilibLocaleInfo: null,
 		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
-			new value.  Only valid if ilib is loaded.
+			new value.  Only valid if _ilib_ is loaded.
 		*/
 		locale: ""
 	},
+	//* @protected
 	components: [
 		{kind: "enyo.Control", name: "hour", classes: "moon-header-text moon-clock-hour"},
 		{name: "right", classes: "moon-clock-right", components: [
