@@ -57,7 +57,8 @@ enyo.kind({
 		onSeek: "",
 		onSeekFinish: "",
 		onEnterTapArea: "",
-		onLeaveTapArea: ""
+		onLeaveTapArea: "",
+		onProgressbarScaleChanged: ""
 	},
 	tickComponents: [
 		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
@@ -138,6 +139,9 @@ enyo.kind({
 	resizeHandler: function() {
 		this.inherited(arguments);
 		this.updateSliderRange();
+		if(this.scaleFactor) {
+			this.doProgressbarScaleChanged({progressbarScaling: this.scaleFactor});
+		}
 	},
 	updateSliderRange: function() {
 		this.beginTickPos = (this.max-this.min)*0.0625;
@@ -253,6 +257,12 @@ enyo.kind({
 			if (this.isInPreview()) {
 				//* This will move popup position to playing time when preview move is end
 				this._currentTime = v;
+				if (this._currentTime == 0) {
+					this.$.feedback.feedback("Play");
+				}
+				if (this._currentTime == this.duration) {
+					this.$.feedback.feedback("Stop");
+				}
 			}
 			return true;
 		}
@@ -353,6 +363,7 @@ enyo.kind({
 		this.currentTime = this._currentTime;
 		this.duration = this._duration;
 		this.$.endTickText.setContent(this.formatTime(this.duration));
+		this.doProgressbarScaleChanged({progressbarScaling: this.scaleFactor});
 	},
 
 	//* Properly format time

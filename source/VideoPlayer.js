@@ -37,7 +37,7 @@ enyo.kind({
 	classes: "moon-video-player enyo-unselectable",
 	events: {
 		//* Bubbled when _disablePlaybackControls_ is true and the user taps one of the controls,
-		//* allowing the controsl to be re-enabled if desired
+		//* allowing the controls to be re-enabled if desired
 		onPlaybackControlsTapped: ""
 	},
 	published: {
@@ -154,7 +154,8 @@ enyo.kind({
 		onSpotlightSelect: 'spotlightSelectHandler',
 		onSpotlightLeft: 'spotlightLeftRightHandler',
 		onSpotlightRight: 'spotlightLeftRightHandler',
-		onresize: 'resizeHandler'
+		onresize: 'resizeHandler',
+		onProgressbarScaleChanged: 'updateProgressBufferGap'
 	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
@@ -813,7 +814,16 @@ enyo.kind({
 	},
 	//* Facades _this.$.video.setCurrentTime()_.
 	setCurrentTime: function(inValue) {
-		this.$.video.setCurrentTime(inValue);
+		var videoNode = this.$.video;
+		videoNode.setCurrentTime(inValue);
+		if(videoNode._prevCommand != "play") {
+			if (inValue == videoNode.node.startTime) {
+				this.play();
+			}
+			else if (inValue == videoNode.node.duration) {
+				this._stop();
+			}
+		}
 	},
 
 	//* @protected
@@ -946,7 +956,7 @@ enyo.kind({
 		var node = this.$.video.hasNode();
 		if ((node) && (this.$.video._prevCommand == "fastForward")) {
 			var bufferIndex = this.getBufferCurrentRangeIndex();
-			if ((bufferIndex != undefined) && (node.playbackRate > (node.buffered.end(bufferIndex) - node.currentTime)) && (node.buffered.end(bufferIndex).toFixed(2) != node.duration.toFixed(2))) {
+			if ((bufferIndex != undefined) && (this.bufferGap > (node.buffered.end(bufferIndex) - node.currentTime))) {
 				this.play();
 			}
 		}
@@ -983,12 +993,10 @@ enyo.kind({
 		this.durationUpdate(inSender, inEvent);
 	},
 	getBufferCurrentRangeIndex: function(inSender, inEvent) {
-		var videoNode = this.$.video.node;
-		for (var bufferindex = videoNode.buffered.length - 1; bufferindex >= 0; bufferindex--) {
-			if ((videoNode.currentTime >= videoNode.buffered.start(bufferindex)) && (videoNode.currentTime <= videoNode.buffered.end(bufferindex))) {
-				return bufferindex;
-			}
-		}
+		return (this.$.video.node.buffered.length -1);
+	},
+	updateProgressBufferGap: function(inSender, inEvent) {
+		this.bufferGap = (this.$.video.getDuration() / (inEvent.progressbarScaling * this.$.video.getBounds().width));
 	},
 	_getBufferedProgress: function(inNode) {
 		var bufferData = inNode.buffered,
