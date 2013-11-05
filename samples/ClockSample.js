@@ -12,6 +12,8 @@ enyo.kind({
 			{kind: "moon.Button", small:true, content:"Set Time", ontap:"setTime"},
 			{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetTime"}
 		]},
+		{kind: "moon.Divider", content: "Result", classes: "moon-clock-sample-result"},
+		{kind: "moon.BodyText", name: "console", content: "Time:"},
 		{classes:"moon-1v"},
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-5h", components: [
@@ -48,9 +50,16 @@ enyo.kind({
 		return true;
 	},
 	setTime: function() {
-		this.$.clock.setDate(new Date(this.$.input.getValue()));
+		var result = this.$.clock.setDate(new Date(this.$.input.getValue()));
+		if(result) {
+			this.$.console.setContent("Valid Time");
+		}
+		else {
+			this.$.console.setContent("Invalid Time");
+		}
 	},
 	resetTime: function() {
 		this.$.clock.setDate(null);
+		this.$.console.setContent("Reset to Current Time");
 	}
 });
