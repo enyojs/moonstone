@@ -106,28 +106,22 @@ enyo.kind({
 		//* When true, spinner is automatically shown when video is in play state but still loading/buffering
 		autoShowSpinner: true,
 
-		//* URL for "jump back" icon
-		jumpBackIcon: "$lib/moonstone/images/video-player/icon_skipbackward.png",
-		//* URL for "rewind" icon
-		rewindIcon: "$lib/moonstone/images/video-player/icon_backward.png",
-		//* URL for "play" icon
-		playIcon: "$lib/moonstone/images/video-player/icon_play.png",
-		//* URL for "pause" icon
-		pauseIcon: "$lib/moonstone/images/video-player/icon_pause.png",
-		//* URL for "fast forward" icon
-		fastForwardIcon: "$lib/moonstone/images/video-player/icon_forward.png",
-		//* URL for "jump forward" icon
-		jumpForwardIcon: "$lib/moonstone/images/video-player/icon_skipforward.png",
-		//* URL for "more controls" icon
-		moreControlsIcon: "$lib/moonstone/images/video-player/icon_extend.png",
-		//* URL for "less controls" icon
-		lessControlsIcon: "$lib/moonstone/images/video-player/icon_shrink.png",
-		//* URL for "inline-play" icon
-		inlinePlayIcon: "$lib/moonstone/images/video-player/icon_small_play.png",
-		//* URL for "inline-pause" icon
-		inlinePauseIcon: "$lib/moonstone/images/video-player/icon_small_pause.png",
-		//* URL for "inline-fullscreen" icon
-		inlineFullscreenIcon: "$lib/moonstone/images/video-player/icon_small_fullscreen.png",
+		//* base URL for icons
+		iconPath: "$lib/moonstone/images/video-player/",
+
+		//* icon image files
+		jumpBackIcon: "icon_skipbackward.png",
+		rewindIcon: "icon_backward.png",
+		playIcon: "icon_play.png",
+		pauseIcon: "icon_pause.png",
+		fastForwardIcon: "icon_forward.png",
+		jumpForwardIcon: "icon_skipforward.png",
+		moreControlsIcon: "icon_extend.png",
+		lessControlsIcon: "icon_shrink.png",
+		inlinePlayIcon: "icon_small_play.png",
+		inlinePauseIcon: "icon_small_pause.png",
+		inlineFullscreenIcon: "icon_small_fullscreen.png",
+
 		//* Default hash of playbackRate, you can set this hash by
 		//* playbackRateHash: {
 		//*		fastForward: ["2", "4", "8", "16"],
@@ -160,11 +154,11 @@ enyo.kind({
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
 		{from: ".poster",					to:".$.video.poster"},
-		{from: ".jumpBackIcon",				to:".$.jumpBack.src"},
-		{from: ".rewindIcon",				to:".$.rewind.src"},
-		{from: ".fastForwardIcon",			to:".$.fastForward.src"},
-		{from: ".jumpForwardIcon",			to:".$.jumpForward.src"},
-		{from: ".inlineFullscreenIcon",		to:".$.ilFullscreen.src"},
+		{from: ".jumpBackIcon",				to:".$.jumpBack.src", transform: "transformIconSrc"},
+		{from: ".rewindIcon",				to:".$.rewind.src", transform: "transformIconSrc"},
+		{from: ".fastForwardIcon",			to:".$.fastForward.src", transform: "transformIconSrc"},
+		{from: ".jumpForwardIcon",			to:".$.jumpForward.src", transform: "transformIconSrc"},
+		{from: ".inlineFullscreenIcon",		to:".$.ilFullscreen.src", transform: "transformIconSrc"},
 		{from: ".constrainToBgProgress",	to:".$.slider.constrainToBgProgress"},
 		{from: ".elasticEffect",			to:".$.slider.elasticEffect"},
 		{from: ".showJumpControls",			to:".$.jumpForward.showing"},
@@ -256,6 +250,10 @@ enyo.kind({
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
 		}
+	},
+	transformIconSrc: function(inSrc) {
+		var iconPath = this.iconPath || "";
+		return iconPath + inSrc;
 	},
 	disablePlaybackControlsChanged: function() {
 		this.updatePlaybackControlState();
@@ -877,8 +875,10 @@ enyo.kind({
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
-		this.$.fsPlayPause.setSrc(this._isPlaying ? this.pauseIcon : this.playIcon);
-		this.$.ilPlayPause.setSrc(this._isPlaying ? this.inlinePauseIcon : this.inlinePlayIcon);
+		var t = this.bindSafely("transformIconSrc");
+
+		this.$.fsPlayPause.setSrc(this._isPlaying ? t(this.pauseIcon) : t(this.playIcon));
+		this.$.ilPlayPause.setSrc(this._isPlaying ? t(this.inlinePauseIcon) : t(this.inlinePlayIcon));
 	},
 	//* Turns on/off spinner as appropriate.
 	updateSpinner: function() {
@@ -898,22 +898,26 @@ enyo.kind({
 	*/
 	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controlsContainer.getIndex();
+		var t = this.bindSafely("transformIconSrc");
+
 		if (index === 0) {
-			this.$.moreButton.setSrc(this.lessControlsIcon);
+			this.$.moreButton.setSrc(t(this.lessControlsIcon));
 			this.toggleSpotlightForMoreControls(true);
 			this.$.controlsContainer.next();
 		} else {
-			this.$.moreButton.setSrc(this.moreControlsIcon);
+			this.$.moreButton.setSrc(t(this.moreControlsIcon));
 			this.toggleSpotlightForMoreControls(false);
 			this.$.controlsContainer.previous();
 		}
 	},
 	updateMoreButton: function() {
 		var index = this.$.controlsContainer.getIndex();
+		var t = this.bindSafely("transformIconSrc");
+		
 		if (index === 0) {
-			this.$.moreButton.setSrc(this.moreControlsIcon);
+			this.$.moreButton.setSrc(t(this.moreControlsIcon));
 		} else {
-			this.$.moreButton.setSrc(this.lessControlsIcon);
+			this.$.moreButton.setSrc(t(this.lessControlsIcon));
 		}
 	},
 	toggleSpotlightForMoreControls: function(trueOrFalse) {
