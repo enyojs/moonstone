@@ -1,15 +1,18 @@
 /**
 	_moon.ExpandableInput_, which extends
-	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
-	input that prompts the user to enter text.
+	[moon.ExpandableListItem](#moon.ExpandableListItem), is a drop-down input that
+	prompts the user to enter text.
 */
 enyo.kind({
 	name: "moon.ExpandableInput",
 	kind: "moon.ExpandableListItem",
+	//* @protected
 	classes: "moon-expandable-input",
+	//* @public
 	events: {
 		/**
 			Fires when the current text changes.
+
 			_inEvent.value_ contains the value of the input.
 		*/
 		onChange: ""
@@ -19,13 +22,12 @@ enyo.kind({
 		noneText: "",
 		//* Text to be displayed in the input if no text has been entered
 		placeholder: "",
-		//* Initial value
+		//* Initial value of the input
 		value: ""
 	},
+	//* @protected
 	autoCollapse: true,
 	lockBottom: true,
-	
-	//* @protected
 
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
@@ -81,7 +83,7 @@ enyo.kind({
 			this.focusInput();
 		}
 	},
-	//* Set _this.value_ to _this.$.clientInput.value_
+	//* Sets _this.value_ to _this.$.clientInput.value_.
 	updateValue: function() {
 		this.setValue(this.$.clientInput.getValue());
 	},
@@ -92,18 +94,24 @@ enyo.kind({
 			this.focusInput();
 		}
 	},
-	//* If navigating down from the header when the drawer is open, focus on the input field
+	/**
+		Focuses the input field if navigating down from the header while the drawer
+		is open.
+	*/
 	spotlightDown: function(inSender, inEvent) {
 		if (inEvent.originator === this.$.headerWrapper && this.getOpen()) {
 			this.focusInput();
 		}
 	},
-	//* Focus on the input field
+	//* Focuses the input field.
 	focusInput: function() {
 		this.$.clientInput.focus();
 		enyo.Spotlight.spot(this.$.clientInput);
 	},
-	//* If _this.lockBottom_ is _true_, don't allow user to navigate down from the input field
+	/**
+		If _this.lockBottom_ is _true_, don't allow user to navigate down from the
+		input field.
+	*/
 	inputDown: function(inSender, inEvent) {
 		return this.getLockBottom();
 	},
