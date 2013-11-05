@@ -1,10 +1,10 @@
 /**
 	_moon.Drawers_ is a container kind designed to hold a set of
-	<a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
-	_drawers_ property accepts an array of _moon.Drawer_ controls. The
-	associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
-	their own small drawer, centered at the top of the "dresser"--the region
-	containing the array of Drawer controls and the activator nub.
+	[moon.Drawer](#moon.Drawer) objects and client content. The _drawers_ property
+	accepts an array of _moon.Drawer_ controls. The associated [drawer
+	handles](#moon.DrawerHandle) are positioned in their own small drawer,
+	centered at the top of the "dresser"--the region containing the array of
+	Drawer controls and the activator nub.
 
 	When a handle is selected, it opens the corresponding Drawer object's main
 	drawer or control drawer, depending on how the Drawer object is configured.
@@ -34,11 +34,14 @@
 enyo.kind({
 	name: "moon.Drawers",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-drawers enyo-fit",
+	//* @public
 	published: {
 		//* Populate with an array of _moon.Drawer_ components
 		drawers: null
 	},
+	//* @protected
 	handlers: {
 		//* Handlers to update the activator when the state of the contained drawers changes
 		onActivate: "drawerActivated",
@@ -170,7 +173,10 @@ enyo.kind({
 		this.waterfall("onDrawersResized", {drawersHeight: dh});
 		this.updateActivator(false);
 	},
-	//Updates the activator's style only when it is not animating so that there are no visual artifacts
+	/**
+		Updates the activator's style only when it is not animating, so that there
+		are no visual artifacts.
+	*/
 	resizeHandleContainer: function(inSender, inEvent) {
 		enyo.asyncMethod(inEvent.delegate.bindSafely(function(){
 			if (!this.$.animator.isAnimating()) {

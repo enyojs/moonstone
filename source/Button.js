@@ -86,7 +86,6 @@ enyo.kind({
 		}
 		this.contentChanged();
 	},
-	//* @public
 	//* Override to handle potential child components.
 	contentChanged: function() {
 		if (this.$.client) {
@@ -95,7 +94,6 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-	//* @protected
 	minWidthChanged: function() {
 		if (this.minWidth) {
 			this.addClass('min-width');

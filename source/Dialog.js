@@ -5,7 +5,9 @@
 enyo.kind({
 	name: "moon.Dialog",
 	kind: moon.Popup,
+	//* @protected
 	classes: "moon-dialog",
+	//* @public
 	published: {
 		//* The title string for the dialog
 		title: "",
@@ -14,6 +16,7 @@ enyo.kind({
 		//* The message for the dialog
 		message: ""
 	},
+	//* @protected
 	tools: [
 		{
 			layoutKind: "FittableColumnsLayout",

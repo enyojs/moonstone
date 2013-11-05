@@ -30,7 +30,9 @@
 enyo.kind({
 	name: "moon.Drawer",
 	kind:"enyo.Control",
+	//* @protected
 	classes: "moon-drawer moon-neutral",
+	//* @public
 	published: {
 		//* Components that are to be placed in the control drawer
 		controlDrawerComponents: null,
@@ -47,6 +49,7 @@ enyo.kind({
 		//* Fires when either the main drawer or the control drawer is deactivated.
 		onDeactivate: ""
 	},
+	//* @protected
 	handlers: {
 		//* Handler for initial rendering event
 		onDrawersRendered: "drawersRendered",
@@ -126,13 +129,16 @@ enyo.kind({
 enyo.kind({
 	name: "moon.FullScreenDrawer",
 	kind: "enyo.Drawer",
+	//* @protected
 	handlers: {
 		onResizeDrawer: "resizeDrawer"
 	},
 	open: false,
+	//* @public
 	published: {
 		drawerProps: null
 	},
+	//* @protected
 	openChanged: function() {
 		this.$.client.show();
 		if (this.hasNode()) {
