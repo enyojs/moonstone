@@ -7,10 +7,15 @@ enyo.kind({
 		{kind: "moon.Scroller", fit: true, components: [
 			{kind:"moon.SimpleIntegerPicker", name:"picker1", value:3, min:1, max:10, step: 1, unit: "sec", onChange: "change"}
 		]},
+		{kind: "moon.ToggleButton", content: "Toggle RTL", ontap: "buttonTapped"},
 		{kind: "moon.Divider", content:"Result"},
 		{kind: "moon.BodyText", name: "result", content: "No action yet."}
 	],
 	change: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.value + ")");
+	},
+	buttonTapped: function(inSender, inEvent) {
+		inSender.parent.addRemoveClass("enyo-locale-right-to-left", inSender.getActive());
+		inSender.parent.applyStyle("direction",inSender.getActive()? "rtl;":"lft;");
 	}
 });
