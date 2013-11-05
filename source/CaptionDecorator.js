@@ -8,10 +8,12 @@
 */
 enyo.kind({
 	name: "moon.CaptionDecorator",
+	//* @protected
 	handlers: {
 		onSpotlightFocus: "spotFocus",
 		onSpotlightBlur:  "spotBlur"
 	},
+	//* @public
 	published: {
 		/**
 			The position of the caption with respect to the wrapped control; valid

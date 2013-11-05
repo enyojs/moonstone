@@ -6,7 +6,7 @@
 	Example:
 
 		{
-			kind: "moon.ChennelInfo",
+			kind: "moon.ChannelInfo",
 			no: 36,
 			name: "AMC",
 			components: [
@@ -19,13 +19,16 @@
 enyo.kind({
 	name: "moon.ChannelInfo",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-channelinfo",
+	//* @public
 	published: {
 		//* The channel number
 		channelNo: "",
 		//* The name of the channel
 		channelName: ""
 	},
+	//* @protected
 	defaultKind: "moon.ChannelInfoBadge",
 	components: [
 		{kind: "enyo.Control", name: "channelNo", classes: "moon-header-font moon-video-player-channel-info-no"},
@@ -46,5 +49,6 @@ enyo.kind({
 enyo.kind({
 	name: "moon.ChannelInfoBadge",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-video-badge-text moon-video-player-info-icon"
 });
