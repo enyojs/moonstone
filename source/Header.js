@@ -176,7 +176,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : "current",
-						"opacity" : "current"
+						"opacity" : "current",
+						"margin-top" : "current"
 					}
 				}, {
 					control : this.$.title,
@@ -205,7 +206,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : 0,
-						"opacity" : 0
+						"opacity" : 0,
+						"margin-top" : 0
 					}
 				}, {
 					control : this.$.title,
@@ -249,7 +251,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : "current",
-						"opacity" : "current"
+						"opacity" : "current",
+						"margin-top" : "current"
 					}
 				}, {
 					control : this.$.title,
@@ -281,7 +284,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : this.$.titleAbove.smallAnimProps["height"],
-						"opacity" : this.$.titleAbove.smallAnimProps["opacity"]
+						"opacity" : this.$.titleAbove.smallAnimProps["opacity"],
+						"margin-top" : this.$.titleAbove.smallAnimProps["margin-top"]
 					}
 				}, {
 					control : this.$.title,
