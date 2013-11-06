@@ -4,7 +4,9 @@
  */
 enyo.kind({
 	name : "moon.Header",
+	//* @protected
 	classes : "moon-header",
+	//* @public
 	published : {
 		//* Title of the header
 		title : '',
@@ -34,6 +36,7 @@ enyo.kind({
 		//* When true, the entered text will be displayed as uppercase
 		inputUpperCase : false
 	},
+	//* @protected
 	mixins : ["moon.MarqueeSupport"],
 	marqueeOnSpotlight : false,
 	marqueeOnRender : true,
@@ -41,12 +44,14 @@ enyo.kind({
 		oninput : "handleInput",
 		onchange : "handleChange"
 	},
+	//* @public
 	events : {
 		//* Custom input event to allow apps to differentiate between inputs and header inputs
 		onInputHeaderInput : "",
 		//* Custom input change event to allow apps to differentiate between input changes and header input changes
 		onInputHeaderChange : ""
 	},
+	//* @protected
 	components : [{
 		name : "texts",
 		components : [{
