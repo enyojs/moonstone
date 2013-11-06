@@ -153,11 +153,14 @@ enyo.kind({
 		}
 
 		if (showHorizontal) {
+			var intDirection = 1;
+			// Reverse the direction for RTL
+			if (enyo.Control.prototype.rtl) intDirection = -1;
 			if (inEvent.wheelDeltaX) {
-				x = this.scrollLeft + -1 * (inEvent.wheelDeltaX * this.scrollWheelMultiplier);
+				x = this.scrollLeft + -1 * (intDirection * inEvent.wheelDeltaX * this.scrollWheelMultiplier);
 			} else if (!showVertical) {
 				// only use vertical wheel for horizontal scrolling when no vertical bars shown
-				x = this.scrollLeft + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+				x = this.scrollLeft + -1 * (intDirection * inEvent.wheelDeltaY * this.scrollWheelMultiplier);
 			}
 		}
 
@@ -304,6 +307,9 @@ enyo.kind({
 		var x = -1 * this.scrollLeft,
 			y = -1 * this.scrollTop
 		;
+
+		/// Reverse the direction for RTL
+		if (enyo.Control.prototype.rtl) x*= -1;
 
 		return (this.accel)
 			?   "1,         0,     0,  0, "
