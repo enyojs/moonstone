@@ -3,7 +3,7 @@ enyo.kind({
 	classes: "moon enyo-fit",
 	layoutKind: "FittableRowsLayout",
 	components: [
-	    {kind : "moon.Button", content:"Refresh", ontap:"refreshItems"},
+		{kind : "moon.Button", content:"Refresh", ontap:"refreshItems"},
 		{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
 			{
 				kind: "moon.GridListImageItem",
