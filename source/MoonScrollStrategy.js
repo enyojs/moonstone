@@ -155,7 +155,9 @@ enyo.kind({
 		if (showHorizontal) {
 			var intDirection = 1;
 			// Reverse the direction for RTL
-			if (enyo.Control.prototype.rtl) intDirection = -1;
+			if (enyo.Control.prototype.rtl) {
+				intDirection = -1;
+			}
 			if (inEvent.wheelDeltaX) {
 				x = this.scrollLeft + -1 * (intDirection * inEvent.wheelDeltaX * this.scrollWheelMultiplier);
 			} else if (!showVertical) {
@@ -309,7 +311,9 @@ enyo.kind({
 		;
 
 		/// Reverse the direction for RTL
-		if (enyo.Control.prototype.rtl) x*= -1;
+		if (enyo.Control.prototype.rtl) {
+			x*= -1;
+		}
 
 		return (this.accel)
 			?   "1,         0,     0,  0, "
