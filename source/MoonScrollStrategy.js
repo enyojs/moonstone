@@ -67,8 +67,10 @@ enyo.kind({
 		this.updateSpotlightPagingControls();
 	},
 	resizeHandler: function() {
+		this.resizing = true;
 		this.resetCachedValues();
 		this.setupBounds();
+		this.resizing = false;
 	},
 	setupBounds: function() {
 		this.calcBoundaries();
@@ -102,7 +104,11 @@ enyo.kind({
 	//* Scrolls to specific x/y positions within the scroll area.
 	scrollTo: function(inX, inY) {
 		this.stop();
-		this._scrollTo(inX, inY);
+		if (this.resizing) {
+			this.effectScroll(inX, inY);
+		} else {
+			this._scrollTo(inX, inY);
+		}
 	},
 
 	//* @protected
@@ -296,8 +302,8 @@ enyo.kind({
 		s.rightBoundary = -1 * b.maxLeft;
 	},
 	effectScroll: function(inX, inY) {
-		this.scrollLeft = inX || this.scrollLeft || 0;
-		this.scrollTop =  inY || this.scrollTop  || 0;
+		this.scrollLeft = (inX !== null && !isNaN(inX))? inX: (this.scrollLeft || 0);
+		this.scrollTop  = (inY !== null && !isNaN(inY))? inY: (this.scrollTop  || 0);
 		enyo.dom.transformValue(this.$.client, this.translation, this.generateMatrix());
 	},
 	generateMatrix: function() {
