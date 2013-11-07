@@ -209,9 +209,9 @@ enyo.kind({
 				continue;
 			}
 
-			var totalWidth = panels[i].width + 
-				this.getBreadcrumbEdge(inJoinedPanels[i][0]) + 
-				this.getContainerPadding().left + 
+			var totalWidth = panels[i].width +
+				this.getBreadcrumbEdge(inJoinedPanels[i][0]) +
+				this.getContainerPadding().left +
 				this.getBreadcrumbGap();
 
 			// Add the width of each additional panel that is visible at this index
@@ -243,8 +243,8 @@ enyo.kind({
 						match = true;
 					}
 				}
-				panels[i].actualWidth = (match) ? 
-					panels[i].width : 
+				panels[i].actualWidth = (match) ?
+					panels[i].width :
 					inContainerWidth - this.getBreadcrumbEdge(i) - this.getBreadcrumbGap();
 			}
 		}
@@ -306,8 +306,16 @@ enyo.kind({
 			this.arrangeControl(c, {left: xPos});
 		}
 	},
+	/**
+		Return whether given panel is visible or not.
+	*/
 	isOutOfScreen: function(inIndex) {
-		return this.container.transitionPositions[inIndex+"."+this.container.getIndex()] >= this.containerBounds.width;
+		var transitionPosition = this.container.transitionPositions[inIndex+"."+this.container.getIndex()];
+		if (transitionPosition < 0) {
+			return transitionPosition + this.breadcrumbWidth <= this.getBreadcrumbEdge(inIndex);
+		} else {
+			return transitionPosition >= this.containerBounds.width;
+		}
 	},
 	isBreadcrumb: function(inPanelIndex, inActiveIndex) {
 		return this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
@@ -354,22 +362,22 @@ enyo.kind({
 		if (!(inFromIndex >= 0 && inToIndex >= 0)) {
 			return;
 		}
-		
+
 		var transitionPositions = this.container.transitionPositions,
 			panelCount = this.container.getPanels().length,
 			panelIndex,
 			from,
 			to;
-		
+
 		for (panelIndex = 0; panelIndex < panelCount; panelIndex++) {
 			from = transitionPositions[panelIndex + "." + inFromIndex];
 			to = transitionPositions[panelIndex + "." + inToIndex];
-			
+
 			if (from !== to) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 });
