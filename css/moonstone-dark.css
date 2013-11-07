@@ -1009,11 +1009,6 @@
   border-left-color: rgba(0, 0, 0, 0.13);
 }
 .enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
   border-right-width: 30px;
   border-right-style: solid;
   border-left-width: 0px;
@@ -1033,11 +1028,6 @@
   left: 6px;
 }
 .enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
   border-right-width: 30px;
   border-right-style: solid;
   border-left-width: 0px;
@@ -1062,11 +1052,6 @@
   right: 0px;
 }
 .enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
   border-left-width: 30px;
   border-left-style: solid;
   border-right-width: 0px;
@@ -1085,11 +1070,6 @@
   right: 6px;
 }
 .enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
   border-left-width: 30px;
   border-left-style: solid;
   border-right-width: 0px;
