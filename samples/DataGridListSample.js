@@ -22,6 +22,7 @@ enyo.kind({
 		this.inherited(arguments);
 		// we set the collection that will fire the binding and add it to the list
 		this.set("collection", new enyo.Collection(this.generateRecords()));
+		this.$.gridList.getScroller().setScrollMultiplier(5);
 	},
 	generateRecords: function () {
 		var records = [],

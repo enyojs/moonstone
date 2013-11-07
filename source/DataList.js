@@ -5,10 +5,17 @@
 enyo.kind({
 	name: "moon.DataList",
 	kind: "enyo.DataList",
+	//* @public
+	published: {
+		//* Increase this value to increase the distance scrolled by holding the pagination buttons
+		scrollMultiplier: 5
+	},
 	//* @protected
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" }
+	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" },
+	//* @public
+	getScroller: function() { return this.$.scroller; }
 });
 //* @protected
 /**

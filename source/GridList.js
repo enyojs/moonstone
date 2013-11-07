@@ -31,6 +31,11 @@
 enyo.kind({
 	name: "moon.GridList",
 	kind: "enyo.GridList",
+	//* @public
+	published: {
+		//* Increase this value to increase the distance scrolled by holding the pagination buttons
+		scrollMultiplier: 5,
+	},
 	//* @protected
 	classes: "moon-gridlist",
 	spotlight: true,
@@ -45,6 +50,10 @@ enyo.kind({
 	events: {
 		ontap: "tap"
 	},
+	//* @protected
+	bindings: [
+		{from: ".scrollMultiplier", to:".$.strategy.scrollWheelMultiplier"}
+	],
 	initComponents: function() {
 		// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
 		// if spotlight is applied on any template controls

@@ -24,7 +24,9 @@ enyo.kind({
 			Amount to scroll when a paging control is tapped. Set to the row size by
 			default.
 		*/
-		pageSize: null
+		pageSize: null,
+		//* Increase this value to increase the distance scrolled by holding the pagination buttons
+		scrollMultiplier: 5
 	},
 	//* @protected
 	/**
@@ -34,6 +36,10 @@ enyo.kind({
 	strategyKind: "moon.ScrollStrategy",
 	//* @protected
 	spotlight: true,
+	//* @protected
+	bindings: [
+		{from: ".scrollMultiplier", to:".$.strategy.scrollWheelMultiplier"}
+	],
 	//* Handles _paginate_ events sent by PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){
