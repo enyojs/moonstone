@@ -35,7 +35,11 @@ enyo.kind({
 		//* Position properties for background image for the header
 		headerBackgroundPosition: "top right",
 		//* Header options
-		headerOptions: null
+		headerOptions: null,
+		/** If true, this panel's position is out of screen so we can't see it.
+			However it doesn't mean that this panel is hided (display: none).
+		*/
+		isOutOfScreen: false
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -85,13 +89,13 @@ enyo.kind({
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
-	
+
 	headerComponents: [],
 	isBreadcrumb: false,
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
@@ -192,6 +196,22 @@ enyo.kind({
 	titleAboveChanged: function() {
 		this.$.header.setTitleAbove(this.getTitleAbove());
 	},
+	//* If this panel is invisible from screen, we stop marquee text.
+	isOutOfScreenChanged: function() {
+		if (this.getIsOutOfScreen()) {
+			if(this.isBreadcrumb) {
+				this.$.breadcrumbText.stopMarquee();
+			} else {
+				this.$.header.stopMarquee();
+			}
+		} else {
+			if(this.isBreadcrumb) {
+				this.$.breadcrumbText.startMarquee();
+			} else {
+				this.$.header.startMarquee();
+			}
+		}
+	},
 	generateAutoNumber: function() {
 		var adjustedIndex = this.indexInContainer() + 1;
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
@@ -239,7 +259,7 @@ enyo.kind({
 	},
 	growingWidthAnimation: function() {
 		this.haltAnimations();
-		
+
 		this.growingHeightAnimation();
 		// NOTE - Skipping width grow animation
 		// this.$.animator.play(this.growWidthAnimation.name);
@@ -261,6 +281,7 @@ enyo.kind({
 				this.$.header.startMarquee();
 			}
 		}
+		this.setIsOutOfScreen(inEvent.isOutOfScreen);
 		return true;
 	},
 	preTransitionComplete: function() {
@@ -327,7 +348,7 @@ enyo.kind({
 			keyframes: {
 				0: [
 					{control: this.$.viewport, properties: { "width": "current" }}
-					
+
 				],
 				100: [
 					{control: this.$.viewport, properties: { "width": this.initialWidth + "px" }}
