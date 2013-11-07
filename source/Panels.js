@@ -30,10 +30,11 @@ enyo.kind({
 	handlers: {
 		ontap:						"onTap",
 
+		onSpotlightKeyDown:			"spotlightKeyDown",
 		onSpotlightRight:			"spotlightRight",
 		onSpotlightLeft:			"spotlightLeft",
-		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
-		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
+		onSpotlightContainerLeave:	"spotlightPanelLeave",
+		onSpotlightContainerEnter:	"spotlightPanelEnter",
 
 		onTransitionFinish:			"transitionFinish",
 		onPreTransitionComplete:	"panelPreTransitionComplete",
@@ -209,6 +210,13 @@ enyo.kind({
 			}
 		}
 	},
+	spotlightKeyDown: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { 
+			if (enyo.Spotlight.getPointerMode()) { enyo.Spotlight.setPointerMode(false); }
+			enyo.Spotlight.spot(this.getActive());
+			return true; 
+		}
+	},
 	//* Tap on show/hide handle
 	handleTap: function() {
 		enyo.Spotlight.unspot();
@@ -252,14 +260,14 @@ enyo.kind({
 	},
 	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
 	//* show handle.
-	onSpotlightPanelEnter: function() {
+	spotlightPanelEnter: function() {
 		if (!this.showing && this.useHandle === true) {
 			enyo.Spotlight.spot(this.$.showHideHandle);
 			return true;
 		}
 	},
 	//* Called when focus leaves one of the panels
-	onSpotlightPanelLeave: function(inSender, inEvent) {
+	spotlightPanelLeave: function(inSender, inEvent) {
 		var direction = inEvent.direction;
 
 		// Ignore panel leave events that don't come from active panel
