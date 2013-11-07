@@ -34,7 +34,7 @@ enyo.kind({
 	//* @public
 	published: {
 		//* Increase this value to increase the distance scrolled by holding the pagination buttons
-		scrollMultiplier: 5,
+		scrollMultiplier: 5
 	},
 	//* @protected
 	classes: "moon-gridlist",
