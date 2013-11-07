@@ -49,7 +49,7 @@ enyo.kind({
 		this.$.client.createComponents([{ name: "audioQueue", kind: "moon.AudioPlaybackQueue", userBindedQueueListItem: this.userBindedQueueListItem }], {owner:this});
 	},
 	createClientComponents: function(inComponents) {
-		if (inComponents.length > 0) {
+		if (inComponents && inComponents.length > 0) {
 			this.clientComponents = inComponents;
 		}
 	},
