@@ -10,7 +10,7 @@ enyo.kind({
 	allowTransitions: false,
 	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" },
 	//* @public
-	getScroller: function() {return this.$.scroller;}
+	getScroller: function() { return this.$.scroller; }
 });
 //*@protected
 /**
