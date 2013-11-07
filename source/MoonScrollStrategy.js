@@ -155,7 +155,7 @@ enyo.kind({
 		if (showHorizontal) {
 			var intDirection = 1;
 			// Reverse the direction for RTL
-			if (enyo.Control.prototype.rtl) {
+			if (this.$.pageLeftControl.rtl) {
 				intDirection = -1;
 			}
 			if (inEvent.wheelDeltaX) {
@@ -311,7 +311,7 @@ enyo.kind({
 		;
 
 		/// Reverse the direction for RTL
-		if (enyo.Control.prototype.rtl) {
+		if (this.$.pageLeftControl.rtl) {
 			x*= -1;
 		}
 
