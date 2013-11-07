@@ -69,9 +69,9 @@ moon.MarqueeSupport = {
 			this.stopMarquee();
 		}
 	},
-	//*
+	/**
 		When a child marquee animation completes, removes the child from
-	_	this.marqueeWaitList_.
+		_this.marqueeWaitList_.
 	*/
 	_marquee_marqueeEnded: function(inSender, inEvent) {
 		if (this.marqueeActive) {
