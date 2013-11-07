@@ -1527,7 +1527,8 @@
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
   background-color: #ff2f7d;
 }
-.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
+.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client,
+.enyo-locale-right-to-left .moon-radio-item.selected .moon-selectable-item-client {
   padding: 0 32px 0 10px;
 }
 /* Radio Item */
