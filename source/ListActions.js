@@ -6,8 +6,10 @@
 */
 enyo.kind({
 	name: "moon.ListActions",
+	//* @protected
 	classes: "moon-list-actions",
 	kind: "enyo.GroupItem",
+	//* @public
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
@@ -31,6 +33,8 @@ enyo.kind({
 		*/
 		proportionalWidth: false
 	},
+
+	//* @protected
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
 		{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, spotlight: "container", spotlightModal:true, components: [
@@ -248,11 +252,17 @@ enyo.kind({
 	}
 });
 
+/**
+	_moon.ListActionsDrawer_ is a control used by
+	[moon.ListActions](#moon.ListActions) to house a menu of selectable options.
+*/
 enyo.kind({
 	name: "moon.ListActionsDrawer",
+	//* @public
 	published: {
 		open: false
 	},
+	//* @protected
 	classes: "moon-list-actions-drawer",
 	components: [
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},

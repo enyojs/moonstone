@@ -15,13 +15,14 @@
 enyo.kind({
 	name	: 'moon.Input',
 	kind	: 'enyo.Input',
+	//* @protected
 	classes	: 'moon-input',
-
+	//* @public
 	published: {
 		//* When true, blur on Enter keypress (if focused)
 		dismissOnEnter: false
 	},
-	
+	//* @protected
 	handlers: {
 		onkeypress : 'onKeyUp',
 		onblur     : 'onBlur',

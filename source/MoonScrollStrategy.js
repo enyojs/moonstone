@@ -1,14 +1,14 @@
 /**
 	_moon.ScrollStrategy_ inherits from
-	<a href="#enyo.TouchScrollStrategy">enyo.TouchScrollStrategy</a>. Its main
-	purpose is to handle scroller paging for
-	<a href="#moon.Scroller">moon.Scroller</a> and
-	<a href="#moon.List">moon.List</a>.
+	[enyo.TouchScrollStrategy](#enyo.TouchScrollStrategy). Its main purpose is to
+	handle scroller paging for [moon.Scroller](#moon.Scroller) and
+	[moon.List](#moon.List).
 */
 
 enyo.kind({
 	name: "moon.ScrollStrategy",
 	kind: "enyo.TouchScrollStrategy",
+	//* @public
 	published: {
 		//* Increase this value to increase the distance scrolled by the scroll wheel
 		scrollWheelMultiplier: 5,
@@ -17,6 +17,7 @@ enyo.kind({
 		//* Increase this value to increase the distance scrolled by holding the pagination buttons
 		paginationScrollMultiplier: 5
 	},
+	//* @protected
 	handlers: {
 		onRequestScrollIntoView : "requestScrollIntoView",
 		onenter                 : "enter",
@@ -89,7 +90,7 @@ enyo.kind({
 	getScrollTop: function() {
 		return this.scrollTop;
 	},
-	//* Sets the top scroll position within the scroller.
+	//* Sets the left scroll position within the scroller.
 	setScrollLeft: function(inLeft) {
 		var m = this.$.scrollMath;
 		m.setScrollX(-inLeft);
@@ -184,7 +185,7 @@ enyo.kind({
 		this.hovering = false;
 		this.showHideScrollColumns(false);
 	},
-	//* Handles _paginate_ event sent from PagingControl buttons.
+	//* Handles _paginate_ events sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		var sb = this.getScrollBounds(),
 			scrollYDelta = sb.clientHeight * this.paginationPageMultiplier,
@@ -213,7 +214,7 @@ enyo.kind({
 
 		return true;
 	},
-	//* Handles _paginateScroll_ event sent from PagingControl buttons.
+	//* Handles _paginateScroll_ events sent from PagingControl buttons.
 	paginateScroll: function(inSender, inEvent) {
 		if (!inEvent || !inEvent.scrollDelta) {
 			return;
@@ -333,7 +334,7 @@ enyo.kind({
 		}, this);
 	},
 	/**
-		Because the thumb columns are a fixed size that impacts the scrollbounds,
+		Because the thumb columns are a fixed size that impacts the scroll bounds,
 		captures the difference for use in thumb rendering math.
 	*/
 	setThumbSizeRatio: function() {
