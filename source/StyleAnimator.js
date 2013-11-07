@@ -6,6 +6,7 @@
 enyo.kind({
 	name: "enyo.StyleAnimator",
 	kind: "Component",
+	//* @public
 	events: {
 		//* Fires when an animation step occurs.
 		onStep: "",
@@ -20,6 +21,7 @@ enyo.kind({
 		//* Default value used if the animation has no _direction_ specified
 		defaultDirection: "forward"
 	},
+	//* @protected
 	transitionProperty: enyo.dom.transition,
 	instructions: null,
 	stepInterval: null,
@@ -132,7 +134,8 @@ enyo.kind({
 
 	////////// PROTECTED //////////
 
-	//* @protected - Generate a unique name based on the length of _this.animations_
+	//* @protected
+	//* Generates a unique name based on the length of _this.animations_.
 	generateAnimationName: function() {
 		var count = this.animations.length,
 			name = this.getName()+"_animation_"+count;
@@ -312,20 +315,23 @@ enyo.kind({
 		//  this.log(inInstruction.control.id+".applyStyle("+transitionProperty+", "+newStyle+")");
 		//  this.log(inInstruction.control.id+".applyStyle("+inInstruction.property+", "+inInstruction.endValue+")");
 	},
-	//* @protected - begin stepping
+	//* @protected
+	//* Begins stepping.
 	beginStepping: function() {
 		if (!this.stepInterval) {
 			this.stepInterval = setInterval(enyo.bind(this, "_step"), this.stepIntervalMS);
 		}
 	},
-	//* @protected - stop stepping
+	//* @protected
+	//* Stops stepping.
 	stopStepping: function() {
 		if (this.stepInterval) {
 			clearInterval(this.stepInterval);
 			this.stepInterval = null;
 		}
 	},
-	//* @protected - step through each playing animation
+	//* @protected
+	//* Steps through each playing animation.
 	_step: function() {
 		var playingAnimations = false,
 			now = enyo.now(),
@@ -372,7 +378,8 @@ enyo.kind({
 		this._reset(inName);
 		this.doComplete({animation: animation});
 	},
-	//* @protected - Reset transition properties to what they were before transition happened
+	//* @protected
+	//* Resets transition properties to their pre-transition values.
 	_reset: function(inName) {
 		var animation = this.getAnimation(inName);
 		for(var item in animation.startValues) {

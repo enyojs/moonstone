@@ -15,6 +15,7 @@
 
 enyo.kind({
 	name: "moon.Scrim",
+	//* @protected
 	//* Current visibility state of the scrim
 	showing: false,
 	classes: "moon-scrim enyo-fit",
@@ -50,8 +51,10 @@ enyo.kind({
 		enyo.remove(inControl, this.zStack);
 	},
 	//* @public
-	//* Shows scrim at the specified z-index. Note: If you use _showAtZIndex()_,
-	//* you must call _hideAtZIndex()_ to properly unwind the z-index stack.
+	/**
+		Shows scrim at the specified z-index. Note that if you use _showAtZIndex()_,
+		you must call _hideAtZIndex()_ to properly unwind the z-index stack.
+	*/
 	showAtZIndex: function(inZIndex) {
 		this.addZIndex(inZIndex);
 		if (inZIndex !== undefined) {
@@ -70,7 +73,7 @@ enyo.kind({
 		}
 	},
 	//* @protected
-	// Set scrim to show at `inZIndex`
+	// Sets scrim to show at passed-in z-index.
 	setZIndex: function(inZIndex) {
 		this.zIndex = inZIndex;
 		this.applyStyle("z-index", inZIndex);

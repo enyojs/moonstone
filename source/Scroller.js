@@ -1,6 +1,6 @@
 /**
-	_moon.Scroller_ extends <a href="#enyo.Scroller">enyo.Scroller</a>, adding
-	support for 5-way focus (Spotlight) and pagination buttons.
+	_moon.Scroller_ extends [enyo.Scroller](#enyo.Scroller), adding support for
+	5-way focus (Spotlight) and pagination buttons.
 
 	_moon.Scroller_ responds to the _onSpotlightFocused_ event by scrolling the
 	event originator into view. This ensures that 5-way (Spotlight) focused
@@ -16,7 +16,9 @@
 enyo.kind({
 	name:      "moon.Scroller",
 	kind:      "enyo.Scroller",
+	//* @protected
 	spotlight: "container",
+	//* @public
 	published: {
 		//* If true, paging controls are hidden if a key is pressed (5-way mode)
 		hidePagingOnKey: true,
@@ -39,6 +41,7 @@ enyo.kind({
 		//* Relative parameter used to determine scroll speed
 		scrollInterval: 75
 	},
+	//* @protected
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
