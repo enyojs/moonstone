@@ -5,11 +5,6 @@
 enyo.kind({
 	name: "moon.DataList",
 	kind: "enyo.DataList",
-	//* @public
-	published: {
-		//* Increase this value to increase the distance scrolled by holding the pagination buttons
-		scrollMultiplier: 5
-	},
 	//* @protected
 	noDefer: true,
 	allowTransitions: false,
