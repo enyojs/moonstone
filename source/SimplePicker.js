@@ -234,6 +234,7 @@ enyo.kind({
 				c$[i].disabled = false;
 			} else {
 				c$[i].disabled = true;
+				this.waterfall("onRequestMarqueeStop");
 			}
 		}
 	},
