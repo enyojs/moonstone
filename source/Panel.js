@@ -1,8 +1,8 @@
 //* @public
 /**
 	_moon.Panel_ is the default kind for controls created inside a
-	<a href="#moon.Panels">moon.Panels</a> container.  Typically, a _moon.Panels_
-	will contain several instances of _moon.Panel_.
+	[moon.Panels](#moon.Panels) container. A _moon.Panels_ will typically contain
+	several instances of _moon.Panel_.
 
 	The built-in features of _moon.Panel_ include a header and a FittableRows
 	layout for the main body content.
@@ -10,6 +10,7 @@
 
 enyo.kind({
 	name: "moon.Panel",
+	//* @public
 	published: {
 		//* Facade for the header's _title_ property
 		title: "",
@@ -32,7 +33,7 @@ enyo.kind({
 		allowHtmlHeader: false,
 		//* URL of a background image for the header
 		headerBackgroundSrc: null,
-		//* Position properties for background image for the header
+		//* Position properties for the header's background image
 		headerBackgroundPosition: "top right",
 		//* Header options
 		headerOptions: null
@@ -43,6 +44,7 @@ enyo.kind({
 		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
 	},
+	//* @protected
 	handlers: {
 		onScroll: "scroll",
 		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
@@ -116,7 +118,7 @@ enyo.kind({
 		enyo.mixin(hc, this.headerOptions || this.headerOption);
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
-	//* On reflow, update _this.$.contentWrapper_ bounds
+	//* On reflow, updates _this.$.contentWrapper_ bounds.
 	reflow: function() {
 		this.inherited(arguments);
 		this.getInitAnimationValues();
@@ -126,7 +128,7 @@ enyo.kind({
 		this.growWidthAnimation = this.createGrowingWidthAnimation();
 		this.growHeightAnimation = this.createGrowingHeightAnimation();
 	},
-	//* Update _this.$.contentWrapper_ to have the height/width of _this_
+	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
 	updateViewportSize: function() {
 		var node = this.hasNode();
 
@@ -143,7 +145,7 @@ enyo.kind({
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 	},
-	//* When _this.isBreadcrumb_ changes, update spottability
+	//* When _this.isBreadcrumb_ changes, updates spottability.
 	isBreadcrumbChanged: function() {
 		if (this.isBreadcrumb) {
 			this.addSpottableBreadcrumbProps();

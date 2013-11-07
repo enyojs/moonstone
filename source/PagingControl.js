@@ -6,11 +6,14 @@
 enyo.kind({
 	name: "moon.PagingControl",
 	kind: "moon.IconButton",
+	//* @protected
 	classes: "moon-paging-button no-background",
 	spotlight: true,
+	//* @public
 	published: {
 		side: null
 	},
+	//* @protected
 	noBackground: true,
 	handlers: {
 		onSpotlightFocused: "noop",
@@ -22,6 +25,7 @@ enyo.kind({
 		onhold: "hold",
 		onActivate: "noop"
 	},
+	//* @public
 	events: {
 		//* Fires when page boundary is reached.
 		onPaginate: "",
@@ -33,7 +37,7 @@ enyo.kind({
 		*/
 		onPaginateScroll: ""
 	},
-
+	//* @protected
 	downTime: 0,
 	initialDelta: 2.5,
 	delta: 0,
