@@ -58,7 +58,12 @@ enyo.kind({
 			(rather than _active_) to set the item's initial state.
 		*/
 		open: false,
-		//* True if the item is currently selected
+		/**
+			_active_ is a notification to container that it is currently selected, focused or manupulated control.
+			True if the item is currently selected, false it the item is not selected.
+			It is prepared to support grouping. When multiple pickers which use moon.ExpandableListItem
+			are grouped	(inside of _enyo.Group_), only one pickers can be expanded.
+		*/
 		active: false,
 		//* If true, the user is prevented from spotting off the bottom of the drawer (when open) using five-way controls
 		lockBottom: false,
