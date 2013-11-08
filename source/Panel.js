@@ -125,8 +125,7 @@ enyo.kind({
 		this.updateViewportSize();
 		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
 		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
-		this.growWidthAnimation = this.createGrowingWidthAnimation();
-		this.growHeightAnimation = this.createGrowingHeightAnimation();
+		this.growAnimation = this.createGrowingAnimation();
 	},
 	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
 	updateViewportSize: function() {
@@ -219,7 +218,7 @@ enyo.kind({
 		this.growing = true;
 		this.shrinking = false;
 		this.showingSmallHeader = true;
-		this.growingWidthAnimation();
+		this.growingAnimation();
 	},
 	//* @protected
 	getInitAnimationValues: function() {
@@ -235,21 +234,13 @@ enyo.kind({
 		this.haltAnimations();
 		this.preTransitionComplete();
 	},
-	growingHeightAnimation: function() {
+	growingAnimation: function() {
 		this.haltAnimations();
-		this.$.animator.play(this.growHeightAnimation.name);
-	},
-	growingWidthAnimation: function() {
-		this.haltAnimations();
-		
-		this.growingHeightAnimation();
-		// NOTE - Skipping width grow animation
-		// this.$.animator.play(this.growWidthAnimation.name);
+		this.$.animator.play(this.growAnimation.name);
 	},
 	haltAnimations: function() {
 		this.$.animator.stop();
-		this.$.animator.pause(this.growWidthAnimation.name);
-		this.$.animator.pause(this.growHeightAnimation.name);
+		this.$.animator.pause(this.growAnimation.name);
 		this.$.animator.pause(this.shrinkWidthAnimation.name);
 		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
@@ -303,10 +294,7 @@ enyo.kind({
 		case "shrinkWidth":
 			this.preTransitionComplete();
 			return true;
-		case "growWidth":
-			this.growingHeightAnimation();
-			return true;
-		case "growHeight":
+		case "grow":
 			this.postTransitionComplete();
 			return true;
 		}
@@ -337,9 +325,9 @@ enyo.kind({
 			}
 		});
 	},
-	createGrowingHeightAnimation: function() {
+	createGrowingAnimation: function() {
 		return this.$.animator.newAnimation({
-			name: "growHeight",
+			name: "grow",
 			duration: 400,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
