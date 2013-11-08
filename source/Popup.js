@@ -25,11 +25,15 @@ enyo.kind({
 	published: {
 		/**
 			Determines whether a scrim will appear when the dialog is modal.
+			If it is true, _moon.Scrim_ provides an transparent overlay which will
+			prevent propagation of tap event.
 			Note that modal scrims are transparent, so you won't see them.
 		*/
 		scrimWhenModal: true,
-		//* Determines whether or not to display a scrim. Only displays scrims
-		//* when floating.
+		/** Determines whether or not to display a scrim. Only displays scrims
+			when floating. When _moon.Scrim_ is floating state, scrim will cover
+			entire viewport. That means, scrim will be exposed to top of other controls.
+		*/
 		scrim: true,
 		/**
 			Optional class name to apply to the scrim. Be aware that the scrim
@@ -38,8 +42,14 @@ enyo.kind({
 		*/
 		scrimClassName: "",
 		/**
+			modal property indicates whether it prevent to receive event from out
+			side the popup or not while popup is showing.
 			When true, spotlight cannot leave the constraints of the _moon.Popup_
-			unless it is explicitly closed.
+			unless it is explicitly closed. Spotlight range is limited to inside
+			of popup area.
+			If you try to move spot using arrow key with spotlightModal: true,
+			you can't move out of popup. When false, spotlight can be moved anywhere
+			in viewport.
 		*/
 		spotlightModal: false,
 		/**
@@ -113,7 +123,7 @@ enyo.kind({
 		}
 
 		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
-		
+
 		if (shouldShow != this.$.closeButton.getShowing()) {
 			this.$.closeButton.setShowing(shouldShow);
 			this.$.closeButton.spotlight = shouldShow;
@@ -160,7 +170,7 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 		}
-		
+
 		this.showHideScrim(this.showing);
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
@@ -305,7 +315,7 @@ enyo.kind({
 		if (this._bounds) {
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
-			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});	
+			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
 	}
 });
