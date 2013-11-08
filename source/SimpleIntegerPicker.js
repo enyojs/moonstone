@@ -10,8 +10,10 @@
 */
 enyo.kind({
 	name: "moon.SimpleIntegerPicker",
+	//* @protected
 	classes: "moon-simple-integer-picker",
 	spotlight:true,
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -30,6 +32,7 @@ enyo.kind({
 		*/
 		onSelect: ""
 	},
+	//* @protected
 	handlers: {
 		onSpotlightSelect: "fireSelectEvent",
 		onSpotlightRight: "next",
@@ -40,6 +43,7 @@ enyo.kind({
 		onSpotlightScrollLeft: "previous",
 		onSpotlightScrollRight: "next"
 	},
+	//* @public
 	published: {
 		//* When true, picker transitions animate left/right
 		animate:true,
@@ -104,13 +108,12 @@ enyo.kind({
 		this.$.client.next();
 		return true;
 	},
-	//* Facade for currently active panel
+	//* Facades the currently active panel.
 	getContent: function() {
 		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
 	},
 
 	//* @protected
-
 	create: function() {
 		this.inherited(arguments);
 		if (!this.deferInitialization) {
@@ -162,12 +165,11 @@ enyo.kind({
 		this.startJob("rebuild", this.rebuild, 10);
 	},
 
-	// Change handlers
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.getDisabled());
 	},
 
-	//* On reflow, update the bounds of _this.$.client_
+	//* On reflow, updates the bounds of _this.$.client_.
 	reflow: function() {
 		this.inherited(arguments);
 

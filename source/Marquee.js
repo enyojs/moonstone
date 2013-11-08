@@ -175,8 +175,8 @@ moon.MarqueeItem = {
 	}),
 	/**
 		When the content of this control changes, updates the content of
-	 _this.$.marqueeText_ (if it exists).
-	 */
+		_this.$.marqueeText_ (if it exists).
+	*/
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
