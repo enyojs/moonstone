@@ -1,20 +1,18 @@
 
 /**
-	_moon.VideoPlayer_ is a control that wraps an   <a href="#enyo.Video">enyo.Video</a>
-	HTML5 video player to provide Moonstone-styled standard transport controls,
-	optional app-specific controls, and an information bar for video information
-	and player feedback.
+	_moon.VideoPlayer_ is an HTML5 video player control.  It wraps an
+	[enyo.Video](#enyo.Video) object to provide Moonstone-styled standard
+	transport controls, optional app-specific controls, and an information bar for
+	displaying video information and player feedback.
 
-	All of the standard HTML5 media events bubbled from _enyo.Video_ will also bubble
-	from this control.
+	All of the standard HTML5 media events bubbled from _enyo.Video_ will also
+	bubble from this control.
 
 	Client components added to the _components_ block are rendered into the video
 	player's transport control area, and should generally be limited to instances
-	of <a href="#moon.IconButton">moon.IconButton</a>. If more than two are
+	of [moon.IconButton](#moon.IconButton). If more than two client components are
 	specified, they will be rendered into an "overflow" screen, reached by
 	activating a button to the right of the controls.
-
-	Example:
 
 		{
 			kind: "moon.VideoPlayer",
@@ -26,18 +24,21 @@
 				{kind: "moon.IconButton", src: "assets/feature3.png", ontap: "feature3"}
 			]
 		}
-
 */
 
 enyo.kind({
 	name: "moon.VideoPlayer",
 	kind: "enyo.Control",
+	//* @protected
 	spotlight: true,
 	// Fixme: When enyo-fit is used than the background image does not fit to video while dragging.
 	classes: "moon-video-player enyo-unselectable",
+	//* @public
 	events: {
-		//* Bubbled when _disablePlaybackControls_ is true and the user taps one of the controls,
-		//* allowing the controsl to be re-enabled if desired
+		/**
+			Fires when _disablePlaybackControls_ is true and the user taps one of the
+			controls; may be handled to re-enable the controls, if desired.
+		*/
 		onPlaybackControlsTapped: ""
 	},
 	published: {
@@ -45,71 +46,129 @@ enyo.kind({
 		src: "",
 		//* Array for setting multiple sources for the same video
 		sources: null,
-		//* When true, size of the video player is resized after metadata is loaded, based on the aspectRatio received from
-		//* the metadata. Applies only to inline:true mode.
+		/**
+			When true, the video player is resized after metadata is loaded, based on
+			the _aspectRatio_ contained in the metadata. This applies only to inline
+			mode--i.e., when _inline: true_.
+		*/
 		autoResize: false,
-		//* Video aspect ratio, specified as _"width:height"_, or _"none"_.  When a ratio is specified at render time,
-		//* the player height or width is updated to respect this ratio, depending on whether _fixedHeight_ is true or false.
-		//* If _autoResize_ is true, the _aspectRatio_ will be updated based on the metadata loaded for the current video and
-		//* the player will be resized accordingly.  Applies only to inline:true mode.
+		/**
+			Video aspect ratio, specified as _"width:height"_, or _"none"_.  When an
+			aspect ratio is specified at render time, the player's height or width
+			will be updated to respect the ratio, depending on whether _fixedHeight_
+			is true or false. If _autoResize_ is true, the _aspectRatio_ will be
+			updated based on the metadata for the current video and the player will be
+			resized accordingly.  This applies only to inline mode.
+		*/
 		aspectRatio: "16:9",
-		//* When true, the width will be applied at render time based on the measured width and the aspectRatio property.
-		//* When false, the height will be applied at render time based on the measured width and the aspectRatio property.
-		//* This property is ignored when aspectRatio is 'none' or falsy value. Applies only to inline:true mode.
+		/**
+			When true, the width will be adjusted at render time based on the observed
+			height and the aspect ratio. When false (the default), the height will be
+			adjusted at render time based on the observed width and the aspect ratio.
+			This property is ignored if _aspectRatio_ is _"none"_ or a falsy value. In
+			addition, this applies only to inline mode.
+		*/
 		fixedHeight: false,
-		//* Control buttons is hided automatically in this time amount
+		/**
+			Amount of time (in milliseconds) after which control buttons are
+			automatically hidden
+		*/
 		autoCloseTimeout: 7000,
-		//* Video duration
+		//* Duration of the video
 		duration: 0,
-		//* When true, automatically start the video when it is rendered
+		//* When true, playback starts automatically when video is loaded
 		autoplay: false,
-		//* when false, don't show any fullscreen video control overlays (info or transport) based on up/down/ok event, and hide them if currently visible
+		/**
+			When false, fullscreen video control overlays (info or transport) are not
+			shown or hidden automatically in response to _up/down/ok_ events
+		*/
 		autoShowOverlay: true,
-		//* When true, the overlay will show based on pointer movement (in addition to up/down/ok)
+		/**
+			When true, the overlay will be shown in response to pointer movement (in
+			addition to _up/down/ok_ events)
+		*/
 		shakeAndWake: false,
-		//* when false, don't show the top infoComponents based on up event, and hide them if currently visible
+		/**
+			When false, the top _infoComponents_ are not automatically shown or hidden
+			in response to _up_ events
+		*/
 		autoShowInfo: true,
-		//* when false, don't show the bottom slider/controls based on down event, and hide them if currently visible
+		/**
+			When false, the bottom slider/controls are not automatically shown or
+			hidden in response to _down_ events
+		*/
 		autoShowControls: true,
-		//* when true, show top infoComponents (no timeout), when false, show only based on autoShow conditions
+		/**
+			When true, the top _infoComponents_ are shown with no timeout; when false,
+			they are shown based on _autoShow_ property values
+		*/
 		showInfo: false,
-		//* When false, start with fullscreen mode, when true, start with inline mode
+		/**
+			When false, the player starts in fullscreen mode; when true, it starts in
+			inline mode
+		*/
 		inline: false,
-		//* Amount of time in seconds to jump (not used when jumpStartEnd is true)
+		/**
+			Amount of time (in seconds) to jump in response to jump buttons. This
+			value is ignored when _jumpStartEnd_ is true.
+		*/
 		jumpSec: 30,
-		//* When true, the jump buttons jump to the start/end of the video
+		/**
+			When true, the jump forward and jump back buttons jump to the start and
+			end of the video, respectively
+		*/
 		jumpStartEnd: false,
-		//* When true, automatically hide popups that were opened from VideoPlayer client controls
+		/**
+			When true, popups opened from VideoPlayer client controls are
+			automatically hidden
+		*/
 		autoHidePopups: true,
-		//* When false, remove the progress bar and any additional controls will drop down
+		/**
+			When false, the progress bar is removed and any additional controls are
+			moved downward
+		*/
 		showProgressBar: true,
-		//* When false, removing the transport controls but keeping the icon button area
+		/**
+			When false, the transport controls are removed, but the icon button area
+			is kept
+		*/
 		showPlaybackControls: true,
-		//* When true, hides playback controls whenever mouse is hover over slider
+		//* When true, playback controls are hidden when the slider is hovered over
 		hideButtonsOnSlider: true,
-		//* When true, make slider in disabled status and also will not enable when video dataloaded
+		/**
+			When true, the slider is disabled and will not be enabled when video data
+			has loaded
+		*/
 		disableSlider: false,
-		//* When false, jump forward/back buttons are hidden
+		//* When false, the jump forward and jump back buttons are hidden
 		showJumpControls: true, 
-		//* When false, fast-forward and rewind buttons are hidden
+		//* When false, the fast-forward and rewind buttons are hidden
 		showFFRewindControls: true,
-		//* When true, slider and playback controls are disabled.  If the user taps the controls,
-		//* the _onPlaybackControlsTapped_ event will be bubbled.
+		/**
+			When true, the slider and playback controls are disabled.  If the user
+			taps the controls, an _onPlaybackControlsTapped_ event will be bubbled.
+		*/
 		disablePlaybackControls: false,
-		//* When true, playback controls are only active when the video player has a vaid source URL
-		//* and no error has occurred during video loading
+		/**
+			When true, playback controls are only active when the video player has a
+			valid source URL and no errors occur during video loading
+		*/
 		disablePlaybackControlsOnUnload: true,
-		//* When false, PlayPause are hidden
+		//* When false, the Play/Pause control is hidden
 		showPlayPauseControl: true,
-		//* When false, hides video element
+		//* When false, the video element is hidden
 		showVideo: true,
-		//* When true, spinner is automatically shown when video is in play state but still loading/buffering
+		/**
+			When true, a spinner is automatically shown when video is in play state
+			but is still loading/buffering
+		*/
 		autoShowSpinner: true,
 
-		//* base URL for icons
+		//* @protected
+		//* Base URL for icons
 		iconPath: "$lib/moonstone/images/video-player/",
 
-		//* icon image files
+		//* Icon image files
 		jumpBackIcon: "icon_skipbackward.png",
 		rewindIcon: "icon_backward.png",
 		playIcon: "icon_play.png",
@@ -122,20 +181,24 @@ enyo.kind({
 		inlinePauseIcon: "icon_small_pause.png",
 		inlineFullscreenIcon: "icon_small_fullscreen.png",
 
-		//* Default hash of playbackRate, you can set this hash by
-		//* playbackRateHash: {
-		//*		fastForward: ["2", "4", "8", "16"],
-		//*		rewind: ["-2", "-4", "-8", "-16"],
-		//*		slowForward: ["1/4", "1/2"],
-		//*		slowRewind: ["-1/2", "-1"]
-		//*	}
+		//* Default hash of playback states and their associated playback rates
+		// playbackRateHash: {
+		//		fastForward: ["2", "4", "8", "16"],
+		//		rewind: ["-2", "-4", "-8", "-16"],
+		//		slowForward: ["1/4", "1/2"],
+		//		slowRewind: ["-1/2", "-1"]
+		//	}
 		playbackRateHash: {
 			fastForward: ["2", "4", "8", "16"],
 			rewind: ["-2", "-4", "-8", "-16"],
 			slowForward: ["1/4", "1/2", "1"],
 			slowRewind: ["-1/2", "-1"]
 		},
-		//* source of image file to show when video isn't available or until the user hits the play button.
+		//* @public
+		/**
+			Source of image file to show when video isn't available or user has not
+			yet tapped the play button
+		*/
 		poster: ""
 	},
 	//* @protected
@@ -428,7 +491,7 @@ enyo.kind({
 		}
 		this.spotlight = !this.inline;
 	},
-	//* Unload the current video source, stopping all playback and buffering.
+	//* Unloads the current video source, stopping all playback and buffering.
 	unload: function() {
 		this.$.video.unload();
 		this._resetTime();
@@ -493,11 +556,11 @@ enyo.kind({
 	_holding: false,
 	_sentHold: false,
 
-	//* Returns true if any piece of the overlay is showing
+	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
 		return this.$.videoInfoHeader.getShowing() && this.$.playerControl.getShowing();
 	},
-	//* If currently in fullscreen, hide the controls on non-button taps
+	//* If currently in fullscreen, hides the controls on non-button taps.
 	toggleControls: function(inSender, inEvent) {
 		if (inEvent.originator === this.$.fullscreenControl) {
 			if (this.isOverlayShowing()) {
@@ -507,7 +570,7 @@ enyo.kind({
 			}
 		}
 	},
-	//* Resets the timeout, or wakes the overlay
+	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {
 		if (this.isOverlayShowing()) {
 			this.resetAutoTimeout();
@@ -674,13 +737,13 @@ enyo.kind({
 
 	////// Slider event handling //////
 
-	//* When seeking starts, pause video.
+	//* When seeking starts, pauses video.
 	sliderSeekStart: function(inSender, inEvent) {
 		this._isPausedBeforeDrag = this.$.video.isPaused();
 		this.pause();
 		return true;
 	},
-	//* When seeking completes, play video.
+	//* When seeking completes, plays video.
 	sliderSeekFinish: function(inSender, inEvent) {
 		if (inEvent.value < this._duration - 1) {
 			if (!this._isPausedBeforeDrag) {
@@ -696,7 +759,7 @@ enyo.kind({
 		this.setCurrentTime(inEvent.value);
 		return true;
 	},
-	//* When seeking, set video time.
+	//* When seeking, sets video time.
 	sliderSeek: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
 		return true;
@@ -725,7 +788,6 @@ enyo.kind({
 	},
 
 	//* @public
-
 	//* Toggles fullscreen state.
 	toggleFullscreen: function(inSender, inEvent) {
 		if (this.isFullscreen()) {
@@ -734,6 +796,7 @@ enyo.kind({
 			this.requestFullscreen();
 		}
 	},
+	//* @protected
 	fullscreenChanged: function(inSender, inEvent) {
 		enyo.Spotlight.unspot();
 		this.addRemoveClass("inline", !this.isFullscreen());
@@ -750,6 +813,7 @@ enyo.kind({
 			this.spotlight = false;
 		}
 	},
+	//* @public
 	//* Facades _this.$.video.play()_.
 	play: function(inSender, inEvent) {
 		this.currTimeSync = true;
@@ -819,7 +883,7 @@ enyo.kind({
 	timeChange: function(inSender, inEvent) {
 		this.setCurrentTime(inEvent.value);
 	},
-	//* Refreshes the sizing of the video player
+	//* Refreshes size of video player.
 	resizeHandler: function() {
 		this.aspectRatioChanged();
 	},
@@ -854,7 +918,7 @@ enyo.kind({
 		this.updateFullscreenPosition();
 		this.updateInlinePosition();
 	},
-	//* Properly format time
+	//* Properly formats time.
 	formatTime: function(inValue) {
 		var hour = Math.floor(inValue / (60*60));
 		var min = Math.floor((inValue / 60) % 60);
@@ -880,7 +944,7 @@ enyo.kind({
 		this.$.fsPlayPause.setSrc(this._isPlaying ? t(this.pauseIcon) : t(this.playIcon));
 		this.$.ilPlayPause.setSrc(this._isPlaying ? t(this.inlinePauseIcon) : t(this.inlinePlayIcon));
 	},
-	//* Turns on/off spinner as appropriate.
+	//* Turns spinner on or off, as appropriate.
 	updateSpinner: function() {
 		var spinner = this.$.spinner;
 		if (this.autoShowSpinner && this._isPlaying && !this._canPlay && !this._errorCode) {
@@ -996,7 +1060,7 @@ enyo.kind({
 		}
 		return {value: highestBufferPoint, percent: highestBufferPoint/duration*100};
 	},
-	//* Get this event on buffering is in progress
+	//* We get this event while buffering is in progress.
 	_progress: function(inSender, inEvent) {
 		var buffered = this._getBufferedProgress(inEvent.srcElement);
 		if (this.isFullscreen() || !this.getInline()) {
