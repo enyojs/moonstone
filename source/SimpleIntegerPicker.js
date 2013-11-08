@@ -101,11 +101,13 @@ enyo.kind({
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
 		this.$.client.previous();
+		if( !this.animate ) { this.fireChangeEvent(); }
 		return true;
 	},
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
 		this.$.client.next();
+		if( !this.animate ) { this.fireChangeEvent(); }
 		return true;
 	},
 	//* Facades the currently active panel.
