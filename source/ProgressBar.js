@@ -33,8 +33,6 @@ enyo.kind({
 		barClasses: "moon-progress-bar-bar",
 		//* CSS classes to apply to bg progress bar
 		bgBarClasses: "moon-progress-bg-bar",
-		//* Sliders may "snap" to multiples of this value in either direction
-		increment: 0,
 		//* Completion percentage for background process
 		bgProgress: 0
 	},
@@ -73,9 +71,6 @@ enyo.kind({
 		this.progress = this.clampValue(this.min, this.max, this.progress);
 		var p = this.calcPercent(this.progress);
 		this.updateBarPosition(p);
-	},
-	calcIncrement: function(inValue) {
-		return (Math.round(inValue / this.increment) * this.increment);
 	},
 	clampValue: function(inMin, inMax, inValue) {
 		return Math.max(inMin, Math.min(inValue, inMax));
