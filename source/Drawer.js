@@ -122,6 +122,8 @@ enyo.kind({
 	}
 });
 
+//* @public
+
 /**
     _moon.FullScreenDrawer_ is a content-free drawer that fills the client's
     full screen area.

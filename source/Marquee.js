@@ -1,6 +1,4 @@
 /**
-	@public
-
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain
 	multiple marquees whose animation behavior should be synchronized. Calling
 	_this.startMarquee()_ or _this.stopMarquee()_ starts/stops all contained
@@ -140,11 +138,11 @@ moon.MarqueeSupport = {
 	}
 };
 
-/**
-	@public
+//* @public
 
-	The _moon.MarqueeSupport_ mixin is used to add marquee animation functionality
-	to a control.
+/**
+	The _moon.MarqueeItem_ mixin is used to add marquee animation functionality to
+	a control.
 */
 moon.MarqueeItem = {
 	//* @public
@@ -278,6 +276,8 @@ moon.MarqueeItem = {
 	}
 };
 
+//* @public
+
 /**
 	_moon.MarqueeText_ is a basic text control that supports marquee animation.
 	When _moon.MarqueeText_ objects are used inside a
@@ -312,7 +312,6 @@ moon.MarqueeItem = {
 			}
 		});
 */
-
 enyo.kind({
 	name: "moon.MarqueeText",
 	//* @protected
@@ -331,6 +330,11 @@ enyo.kind({
 	}
 });
 
+//* @public
+/**
+	_moon.MarqueeDecorator_ is a wrapper for [moon.MarqueeText](#moon.MarqueeText)
+	objects.
+*/
 enyo.kind({
 	name: "moon.MarqueeDecorator",
 	//* @protected

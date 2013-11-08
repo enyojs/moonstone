@@ -5,10 +5,12 @@
 enyo.kind({
 	name: "moon.ScrollThumb",
 	kind: "enyo.ScrollThumb",
+	//* @public
 	published: {
 		//* Ratio of size and position of thumb with respect to scroll bounds
 		sizeRatio: 1
 	},
+	//* @protected
 	classes: "moon-thumb matrix3dsurface",
 
 	create: function() {
