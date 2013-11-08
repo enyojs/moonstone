@@ -1,9 +1,9 @@
 /**
 	_moon.Tooltip_ is a popup that works in conjunction with
-	<a href="#moon.TooltipDecorator">moon.TooltipDecorator</a>. It automatically
-	displays a tooltip when the user hovers over the decorator for a given period
-	of time. The tooltip is positioned around the decorator where there is
-	available window space.
+	[moon.TooltipDecorator](#moon.TooltipDecorator). It automatically displays a
+	tooltip when the user hovers over the decorator for a given period of time.
+	The tooltip is positioned around the decorator where there is available window
+	space.
 
 		{kind: "moon.TooltipDecorator", components: [
 			{kind: "moon.Button", content: "Tooltip"},
@@ -16,7 +16,9 @@
 enyo.kind({
 	name: "moon.Tooltip",
 	kind: "enyo.Popup",
+	//* @protected
 	classes: "moon-tooltip below left-arrow",
+	//* @public
 	published: {
 		//* If true, tooltip is automatically dismissed when user stops hovering
 		//* over the decorator
@@ -25,7 +27,7 @@ enyo.kind({
 		//* causes the tooltip to appear.
 		showDelay: 500,
 		//* Whether to position the tooltip above or below the activator.  Valid values are
-		//* "above", "below", or "auto" to choose the best position based on 
+		//* "above", "below", or "auto". 
 		position: "auto",
 		//* Default _margin-left_ value
 		defaultLeft: 10

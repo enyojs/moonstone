@@ -1,6 +1,6 @@
 /**
 	_moon.ToggleItem_ is a control that combines a
-	<a href="#moon.ToggleText">moon.ToggleText</a> with a text label.
+	[moon.ToggleText](#moon.ToggleText) with a text label.
 */
 enyo.kind({
 	name: "moon.ToggleItem",
