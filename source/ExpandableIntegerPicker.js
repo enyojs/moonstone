@@ -74,7 +74,7 @@ enyo.kind({
 	// Change handlers
 	valueChanged: function(inOld) {
 		if (this.value < this.min || this.value > this.max) {
-			this.setValue(inOld);
+			this.value = inOld;
 		}
 		this.fireChangeEvent();
 	},
