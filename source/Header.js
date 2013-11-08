@@ -56,6 +56,7 @@ enyo.kind({
 		name : "texts",
 		components : [{
 			name : "titleAbove",
+			kind : "moon.MarqueeText",
 			classes : "moon-super-header-text moon-header-title-above"
 		}, {
 			name : "titleWrapper",
