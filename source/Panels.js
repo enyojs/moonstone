@@ -367,6 +367,20 @@ enyo.kind({
 		this.triggerPanelPostTransitions(this.fromIndex, this.toIndex);
 		return true;
 	},
+	//* Called when indexChanged without transition animation.
+	refresh: function() {
+		if (this.$.animator && this.$.animator.isAnimating()) {
+			this.$.animator.stop();
+		}
+		this.startTransition(false);
+		this.fraction = 1;
+		this.stepTransition();
+		if (this.lastIndex === undefined) {
+			this.finishTransition(false); // Initial render
+		} else {
+			this.triggerPanelPostTransitions(this.fromIndex, this.toIndex);
+		}
+	},
 	/**
 		If any panel has a pre-transition, pushes the panel's index to
 		_preTransitionWaitList_.
@@ -475,9 +489,8 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
-		// Don't change focus unless this was an actual transition (indicated
-		// by sendEvents being true
-		if (sendEvents) {
+		// Don't change focus unless this was an actual transition
+		if (this.lastIndex !== undefined) {	// Initial render
 			enyo.Spotlight.spot(this.getActive());
 		}
 	},
