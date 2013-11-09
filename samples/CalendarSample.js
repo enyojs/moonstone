@@ -18,7 +18,7 @@ enyo.kind({
 				]},
 				{classes:"moon-1v"},
 				{classes:"moon-7h", components: [
-					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
+					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
 						//{content: "th-TH"},	//Thailand
@@ -52,6 +52,10 @@ enyo.kind({
 			{kind: "moon.BodyText", name: "result", content: "No change yet"}
 		]}
 	],
+	bindings: [
+		{from: ".$.calendar.value", to:".$.picker.value", oneWay:false},
+		{from: ".$.calendar.value", to:".$.input.value"}
+	],
 	create: function(){
 		this.inherited(arguments);
 		if (!window.ilib) {
@@ -77,11 +81,6 @@ enyo.kind({
 			this.$.calendar.setDayOfWeekClasses(inEvent.selected.className);
 		}
 		return true;
-	},
-	pickDate: function(inSender, inEvent) {
-		if (inEvent.value){
-			this.$.calendar.setValue(inEvent.value);
-		}
 	},
 	changed: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
