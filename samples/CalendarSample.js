@@ -54,7 +54,7 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".$.calendar.value", to:".$.picker.value", oneWay:false},
-		{from: ".$.calendar.value", to:".$.input.value"}
+		{from: ".$.calendar.value", to:".$.input.value", transform: function(val) {return val.toDateString();} }
 	],
 	create: function(){
 		this.inherited(arguments);
