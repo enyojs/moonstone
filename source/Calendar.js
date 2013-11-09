@@ -378,6 +378,10 @@ enyo.kind({
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
+		if(isNaN(this.value) || this.value === null) {
+			this.setValue(new Date());
+			return;
+		}		
 		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}
