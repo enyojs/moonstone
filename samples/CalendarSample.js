@@ -1,12 +1,23 @@
 enyo.kind({
 	name: "moon.sample.CalendarSample",
 	classes: "moon enyo-unselectable enyo-fit",
-	kind: "FittableRows",
+	kind: "FittableColumns",
 	components: [
-		{kind: "moon.Scroller", fit:true, components: [
-			{kind: "FittableColumns", components: [
-				{kind: "moon.Calendar", name: "calendar", onChange: "changed"},
-				{kind: "FittableRows", fit: true, noStretch: true, components: [
+		{components: [
+			{kind: "moon.Calendar", name: "calendar", onChange: "changed"}
+		]},
+		{kind: "FittableRows", fit: true, components: [
+			{kind: "moon.Scroller", fit:true, components: [
+				{kind:"moon.Divider", content:"Set value:"},
+				{classes:"moon-hspacing", components: [
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
+					]},
+					{kind: "moon.Button", small:true, content:"Set Date", ontap:"setDate"},
+					{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetDate"}
+				]},
+				{classes:"moon-1v"},
+				{classes:"moon-7h", components: [
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
@@ -34,20 +45,12 @@ enyo.kind({
 					{kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
 						{content: "Default", active: true, className:""},
 						{content: "Divider", className:"moon-divider moon-divider-text"}
-					]},
-					{kind: "moon.Divider"},
-					{classes:"moon-hspacing", components: [
-						{kind: "moon.InputDecorator", components: [
-							{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
-						]},
-						{kind: "moon.Button", small:true, content:"Set Date", ontap:"setDate"},
-						{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetDate"}
 					]}
 				]}
-			]}
-		]},
-		{kind: "moon.Divider", content: "Result"},
-		{kind: "moon.BodyText", name: "result", content: "No change yet"}
+			]},
+			{kind: "moon.Divider", content: "Result"},
+			{kind: "moon.BodyText", name: "result", content: "No change yet"}
+		]}
 	],
 	create: function(){
 		this.inherited(arguments);
