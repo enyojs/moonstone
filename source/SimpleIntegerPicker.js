@@ -83,7 +83,7 @@ enyo.kind({
 	],
 	observers: {
 		triggerRebuild: ["step", "min", "max", "unit"],
-		setButtonVisibility: ["value"]
+		handleValueChange: ["value"]
 	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -195,7 +195,6 @@ enyo.kind({
 		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.fireChangeEvent();
 		this.hideOverlays();
 		return true;
 	},
@@ -233,5 +232,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doChange({content: this.getContent(), value: this.value});
 		}
+	},
+	handleValueChange: function(inOld, inNew) {
+		this.setButtonVisibility(inOld, inNew);
+		this.fireChangeEvent();
 	}
 });
