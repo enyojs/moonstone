@@ -77,7 +77,8 @@ enyo.kind({
 	queuedIndex: null,
 	//* Flag for initial transition
 	_initialTransition: true,
-
+	//* Flag for panel transition
+	inPanelTransition: false,
 
 	//* @public
 
@@ -189,7 +190,7 @@ enyo.kind({
 		}
 	},
 	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
+		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.inPanelTransition === true) {
 			return;
 		}
 
@@ -375,6 +376,7 @@ enyo.kind({
 		var panels = this.getPanels(),
 			options = {};
 
+		this.inPanelTransition = true;
 		this.preTransitionWaitlist = [];
 
 		for(var i = 0, panel; (panel = panels[i]); i++) {
@@ -455,6 +457,7 @@ enyo.kind({
 		for (var i = 0; i < this.getPanels().length; i++) {
 			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
 		}
+		this.inPanelTransition = false;
 	},
 	/**
 		When index changes, updates the breadcrumbed panel's _spotlight_ property
