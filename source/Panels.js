@@ -468,6 +468,13 @@ enyo.kind({
 		}
 
 		this.inherited(arguments);
+
+		// If we're not animating, then spot the active
+		// panel immediately. Otherwise, this will happen
+		// in finishTransition().
+		if (this.hasNode() && !this.animate) {
+			enyo.Spotlight.spot(this.getActive());
+		}
 	},
 	finishTransition: function(sendEvents) {
 		this.inherited(arguments);
