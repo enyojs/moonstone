@@ -199,7 +199,12 @@ enyo.kind({
 			Source of image file to show when video isn't available or user has not
 			yet tapped the play button
 		*/
-		poster: ""
+		poster: "",
+		/**
+			When false, video player doesn't response to remote controller
+		*/
+		handleRemoteControlKey: true
+			
 	},
 	//* @protected
 	handlers: {
@@ -211,7 +216,8 @@ enyo.kind({
 		onSpotlightSelect: 'spotlightSelectHandler',
 		onSpotlightLeft: 'spotlightLeftRightHandler',
 		onSpotlightRight: 'spotlightLeftRightHandler',
-		onresize: 'resizeHandler'
+		onresize: 'resizeHandler',
+		onRemoteControlKeyDown : "remoteKeyHandler"
 	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
@@ -1132,5 +1138,27 @@ enyo.kind({
 		this._stop();
 		this.updateSpinner();
 		this.updatePlaybackControlState();
+	},
+	remoteKeyHandler: function(inSender, inEvent) {
+		if(this.handleRemoteControlKey) {
+			switch (inEvent.keyIdentifier) {
+			case 'play':
+				this.play(inSender, inEvent);
+				break;
+			case 'pause':
+				this.pause(inSender, inEvent);
+				break;
+			case 'rewind':
+				this.rewind(inSender, inEvent);
+				break;
+			case 'fastforward':
+				this.fastForward(inSender, inEvent);
+				break;
+			case 'stop':
+				this.unload(inSender, inEvent);  
+				break;
+			}
+		}
+		return true;
 	}
 });
