@@ -83,7 +83,7 @@ enyo.kind({
 	],
 	observers: {
 		triggerRebuild: ["step", "min", "max", "unit"],
-		setButtonVisibility: ["value"]
+		handleValueChange: ["value"]
 	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -101,13 +101,11 @@ enyo.kind({
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
 		this.$.client.previous();
-		if( !this.animate ) { this.fireChangeEvent(); }
 		return true;
 	},
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
 		this.$.client.next();
-		if( !this.animate ) { this.fireChangeEvent(); }
 		return true;
 	},
 	//* Facades the currently active panel.
@@ -197,7 +195,6 @@ enyo.kind({
 		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.fireChangeEvent();
 		this.hideOverlays();
 		return true;
 	},
@@ -235,5 +232,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doChange({content: this.getContent(), value: this.value});
 		}
+	},
+	handleValueChange: function(inOld, inNew) {
+		this.setButtonVisibility(inOld, inNew);
+		this.fireChangeEvent();
 	}
 });
