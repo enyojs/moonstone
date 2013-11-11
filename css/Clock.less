@@ -19,10 +19,18 @@
   color:@moon-clock-color;
   vertical-align: bottom;
   display: inline-block;
-  margin-right:10px;
   line-height:60px;
-  width: 100%;
   white-space: nowrap;
+  font-size: 61px;
+  line-height: 62px;
+}
+.moon-clock-meridiem {
+  .moon-bold-text;
+  color:@moon-clock-color;
+  display: inline-block;
+  text-transform: none;
+  margin-left: 10px;
+  font-size: @moon-clock-meridiem-font-size;
 }
 .moon-clock-bottom {
   color:@moon-clock-color;
@@ -47,11 +55,11 @@
   height: 6px;
 }
 .moon-clock-right.mini > .moon-clock-top {
-  font-size: 65px;
+  font-size: @moon-clock-top-font-size;
   text-align: right;
 }
 .moon-clock-right.mini > .moon-clock-bottom {
-  font-size: 28px;
+  font-size: @moon-clock-bottom-font-size;
   text-align: right;
 }
 // }

@@ -13,15 +13,21 @@
 */
 enyo.kind({
 	name: "moon.IntegerPicker",
+	//* @protected
 	classes: "moon-scroll-picker-container",
+	//* @public
 	published: {
+		//* Current value of the picker
 		value: null,
+		//* Minimum value of the picker
 		min: 0,
+		//* Maximum value of the picker
 		max: 9,
-		//* If a number is specified, picker value is displayed as this many
+		//* If a number is specified, the picker value is displayed as this many
 		//* zero-filled digits
 		digits: null
 	},
+	//* @protected
 	handlers: {
 		onSpotlightUp:"next",
 		onSpotlightDown:"previous",
@@ -29,10 +35,20 @@ enyo.kind({
 		onSpotlightScrollUp:"next",
 		onSpotlightScrollDown:"previous"
 	},
+	//* @public
 	events: {
+		/**
+			Fires when the currently selected value changes (i.e., when either
+			_topOverlay_ or _bottomOverlay_ is tapped).
+
+			_inEvent.name_ contains the name of the IntegerPicker instance.
+
+			_inEvent.value_ contains the current value of the picker.
+		*/
 		onChange: ""
 	},
-	spotlight:true,
+	//* @protected
+	spotlight: true,
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
@@ -55,6 +71,7 @@ enyo.kind({
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
+		this.updateOverlays();
 		this.refreshScrollState();
 		this.$.scroller.getStrategy().setFixedTime(false);
 		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
@@ -103,11 +120,7 @@ enyo.kind({
 			}
 			this.fireChangeEvent();
 		}
-		if (this.value === this.min) {
-			this.$.bottomOverlay.removeClass("bottom-image");
-		} else if (this.value < this.max && !this.$.topOverlay.hasClass("top-image")) {
-			this.$.topOverlay.addClass("top-image");
-		}
+		this.updateOverlays();
 		return true;
 	},
 	next: function(inSender, inEvent) {
@@ -120,12 +133,12 @@ enyo.kind({
 			}
 			this.fireChangeEvent();
 		}
-		if (this.value === this.max) {
-			this.$.topOverlay.removeClass("top-image");
-		} else if (this.value > this.min && !this.$.bottomOverlay.hasClass("bottom-image")) {
-			this.$.bottomOverlay.addClass("bottom-image");
-		}
+		this.updateOverlays();
 		return true;
+	},
+	updateOverlays: function() {
+		this.$.bottomOverlay.addRemoveClass("bottom-image", (this.value !== this.min));
+		this.$.topOverlay.addRemoveClass("top-image", (this.value !== this.max));
 	},
 	hideTopOverlay: function() {
 		this.$.topOverlay.removeClass("selected");

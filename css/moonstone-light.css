@@ -603,6 +603,31 @@
   color: #ff2f7d;
   text-decoration: none;
 }
+.moon-bold-text {
+  font-family: "MuseoSans Bold";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #4b4b4b;
+  line-height: 32px;
+}
+.moon-bold-text a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-bold-text a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-bold-text a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-bold-text a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
 .moon-body-text-spacing {
   margin: 0 10px 40px 10px;
 }
@@ -641,6 +666,7 @@
 .enyo-locale-non-latin .moon-super-header-text,
 .enyo-locale-non-latin .moon-divider-text,
 .enyo-locale-non-latin .moon-body-text,
+.enyo-locale-non-latin .moon-bold-text,
 .enyo-locale-non-latin .moon-large-button-text,
 .enyo-locale-non-latin .moon-small-button-text {
   font-family: "LG Display";
@@ -673,6 +699,10 @@
   font-size: 28px;
 }
 .enyo-locale-non-latin .moon-body-text {
+  font-size: 26px;
+  line-height: 32px;
+}
+.enyo-locale-non-latin .moon-bold-text {
   font-size: 26px;
   line-height: 32px;
 }
@@ -1817,8 +1847,10 @@
 }
 .moon-header-title-above {
   margin-top: 5px;
-  width: 30px;
   height: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /* Main Title */
 .moon-header-title-wrapper {
@@ -2599,6 +2631,10 @@
   left: 10%;
   margin-top: -36px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
+}
+.moon-contextual-popup-client {
+  height: 100%;
+  overflow: hidden;
 }
 /* TextArea.css */
 .moon-textarea {
@@ -4229,14 +4265,42 @@
   top: 5px;
 }
 .moon-clock-top {
-  font-size: 68px;
   color: #4b4b4b;
   vertical-align: bottom;
   display: inline-block;
-  margin-right: 10px;
   line-height: 60px;
-  width: 100%;
   white-space: nowrap;
+  font-size: 61px;
+  line-height: 62px;
+}
+.moon-clock-meridiem {
+  font-family: "MuseoSans Bold";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 32px;
+  color: #4b4b4b;
+  display: inline-block;
+  text-transform: none;
+  margin-left: 10px;
+  font-size: 24px;
+}
+.moon-clock-meridiem a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-meridiem a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-meridiem a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-clock-meridiem a:active {
+  color: #ff2f7d;
+  text-decoration: none;
 }
 .moon-clock-bottom {
   color: #4b4b4b;

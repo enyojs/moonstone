@@ -1,13 +1,13 @@
 /**
 	_moon.SimplePicker_ is a control that solicits a choice from the user by
 	cycling through a list of options. The picker's child components, typically
-	simple <a href="#enyo.Control">enyo.Control</a> objects with text content,
-	become the options for the picker.
+	simple [enyo.Control](#enyo.Control) objects with text content, become the
+	options for the picker.
 
-		{kind:"moon.SimplePicker", onChange:"changed", selectedIndex:1, components: [
-			{content:"San Francisco"},
-			{content:"Boston"},
-			{content:"Tokyo"}
+		{kind: "moon.SimplePicker", onChange: "changed", selectedIndex: 1, components: [
+			{content: "San Francisco"},
+			{content: "Boston"},
+			{content: "Tokyo"}
 		]}
 
 	The picker may be changed programmatically by calling _previous()_ or
@@ -35,8 +35,10 @@
 */
 enyo.kind({
 	name: "moon.SimplePicker",
+	//* @protected
 	classes: "moon-simple-picker",
 	mixins: ["moon.MarqueeSupport"],
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -60,9 +62,10 @@ enyo.kind({
 		disabled: false,
 		//* When true, picker will wrap around from last item to first
 		wrap: false,
-		//* By default, SimplePicker is an inline-block element; Setting `block: true` makes it a block element
+		//* By default, SimplePicker is an inline-block element; setting _block: true_ makes it a block element
 		block: false
 	},
+	//* @protected
 	defaultKind:"moon.MarqueeText",
 	//* @protected
 	handlers: {
@@ -101,7 +104,7 @@ enyo.kind({
 	blockChanged: function() {
 		this.addRemoveClass("block", this.block);
 	},
-	//* Show/hide prev/next buttons based on current index
+	//* Shows/hides previous/next buttons based on current index.
 	showHideNavButtons: function() {
 		var index = this.getSelectedIndex(),
 			maxIndex = this.getClientControls().length - 1;
@@ -175,7 +178,7 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-	//* Hide _inControl_ and disable spotlight functionality
+	//* Hides _inControl_ and disables spotlight functionality.
 	hideNavButton: function(inControl) {
 		inControl.setDisabled(true);
 		if (enyo.Spotlight.getPointerMode()) {
@@ -184,7 +187,7 @@ enyo.kind({
 			enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
 		}
 	},
-	//* Show _inControl_ and enable spotlight functionality
+	//* Shows _inControl_ and enables spotlight functionality.
 	showNavButton: function(inControl) {
 		inControl.setDisabled(false);
 	},

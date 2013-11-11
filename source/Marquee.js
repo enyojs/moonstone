@@ -1,9 +1,8 @@
 /**
-	@public
-
-	The _moon.MarqueeSupport_ mixin should be used with controls that contain multiple marquees
-	whose animation behavior should be synchronized. Calling _this.startMarquee()_ or
-	_this.stopMarquee()_ starts/stops all contained marquees.
+	The _moon.MarqueeSupport_ mixin should be used with controls that contain
+	multiple marquees whose animation behavior should be synchronized. Calling
+	_this.startMarquee()_ or _this.stopMarquee()_ starts/stops all contained
+	marquees.
 */
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
@@ -16,7 +15,7 @@ moon.MarqueeSupport = {
 		onresize: "_marquee_resize"
 	},
 	marqueeActive: false,
-	//* Initialize marquee timings during _create_
+	//* Initializes marquee timings.
 	create: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
@@ -48,7 +47,7 @@ moon.MarqueeSupport = {
 			return sup.apply(this, arguments);
 		};
 	}),
-	//* Handle external requests to kick off _marqueeStart_
+	//* Handles external requests to kick off _marqueeStart_.
 	_marquee_requestStartMarquee: function() {
 		if (this.marqueeOnRender) {
 			this.stopMarquee();
@@ -56,19 +55,22 @@ moon.MarqueeSupport = {
 			return true;
 		}
 	},
-	//* On focus, start child marquees
+	//* On focus, starts child marquees.
 	_marquee_spotlightFocus: function(inSender, inEvent) {
 		if (this.marqueeOnSpotlight) {
 			this.startMarquee();
 		}
 	},
-	//* On blur, halt child marquees
+	//* On blur, halts child marquees.
 	_marquee_spotlightBlur: function(inSender, inEvent) {
 		if (this.marqueeOnSpotlight) {
 			this.stopMarquee();
 		}
 	},
-	//* When a child marquee animation completes, remove the child from _this.marqueeWaitList_
+	/**
+		When a child marquee animation completes, removes the child from
+		_this.marqueeWaitList_.
+	*/
 	_marquee_marqueeEnded: function(inSender, inEvent) {
 		if (this.marqueeActive) {
 			enyo.remove(inEvent.originator, this.marqueeWaitList);
@@ -87,8 +89,10 @@ moon.MarqueeSupport = {
 	},
 	
 	//* @public
-	
-	//* Start timer to waterfall an _onRequestMarqueeStart_ event that kicks off marquee animation on all child marquees
+	/**
+		Starts timer to waterfall an _onRequestMarqueeStart_ event that kicks off
+		marquee animation on all child marquees.
+	*/
 	startMarquee: function() {
 		this._marquee_buildWaitList();
 
@@ -99,46 +103,49 @@ moon.MarqueeSupport = {
 		this.marqueeActive = true;
 		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", this.marqueeDelay);
 	},
-	//* Waterfall an _onRequestMarqueeStop_ event to halt all running child marquees
+	/**
+		Waterfalls an _onRequestMarqueeStop_ event to halt all running child
+		marquees.
+	*/
 	stopMarquee: function() {
 		this.stopJob("marqueeSupportJob");
 		this.marqueeActive = false;
 		this._marquee_stopChildMarquees();
 	},
-	//* Add _inControl_ to _this.marqueeWaitList_
+	//* Adds _inControl_ to _this.marqueeWaitList_.
 	addMarqueeItem: function(inControl) {
 		this.marqueeWaitList.push(inControl);
 	},
 	
 	//* @protected
 	
-	//* Waterfall request for child animations to build up _this.marqueeWaitList_
+	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
 		this.marqueeWaitList = [];
 		this.waterfall("onRequestMarquee", {originator: this, marqueePause: this.marqueePause, marqueeSpeed: this.marqueeSpeed});
 	},
-	//* Waterfall event to kick off child marquee animations
+	//* Waterfalls event to kick off child marquee animations.
 	_marquee_startChildMarquees: function() {
 		this.waterfall("onRequestMarqueeStart");
 	},
-	//* Waterfall event to halt child marquee animations
+	//* Waterfalls event to halt child marquee animations.
 	_marquee_stopChildMarquees: function() {
 		this.waterfall("onRequestMarqueeStop");
 	},
-	//* Begin delayed restart of child marquee animations
+	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
 	}
 };
 
+//* @public
 
 /**
-	@public
-
-	The _moon.MarqueeSupport_ mixin is used to add marquee animation functionality
-	to a control.
+	The _moon.MarqueeItem_ mixin is used to add marquee animation functionality to
+	a control.
 */
 moon.MarqueeItem = {
+	//* @public
 	events: {
 		onMarqueeEnded:""
 	},
@@ -164,14 +171,17 @@ moon.MarqueeItem = {
 			return sup.apply(this, arguments);
 		};
 	}),
-	//* When the content of this control changes, update the content of _this.$.marqueeText_ (if it exists)
+	/**
+		When the content of this control changes, updates the content of
+		_this.$.marqueeText_ (if it exists).
+	*/
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 			this._marquee_stopAnimation();
 		}
 	},
-	//* If this control needs to marquee, let the event originator know
+	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
 		if (!inEvent || !this._marquee_shouldAnimate()) {
 			return;
@@ -182,7 +192,7 @@ moon.MarqueeItem = {
 		this.marqueePause = inEvent.marqueePause || 1000;
 		this.marqueeSpeed = inEvent.marqueeSpeed || 60;
 	},
-	//* Start marquee animation
+	//* Starts marquee animation.
 	_marquee_startAnimation: function(inSender, inEvent) {
 		var distance = this._marquee_calcDistance();
 		
@@ -199,13 +209,13 @@ moon.MarqueeItem = {
 		this._marquee_addAnimationStyles(distance);
 		return true;
 	},
-	//* Stop marquee animation
+	//* Stops marquee animation.
 	_marquee_stopAnimation: function(inSender, inEvent) {
 		this.stopJob("stopMarquee");
 		this._marquee_removeAnimationStyles();
 		this.doMarqueeEnded();
 	},
-	//* When animation ends, start _this.stopMarquee_ job
+	//* When animation ends, starts _this.stopMarquee_ job.
 	_marquee_animationEnded: function(inSender, inEvent) {
 		if (inEvent.originator !== this.$.marqueeText) {
 			return;
@@ -214,21 +224,21 @@ moon.MarqueeItem = {
 		this.startJob("stopMarquee", "_marquee_stopAnimation", this.marqueePause);
         return true;
 	},
-	//* Return _true_ if this control has enough content that it needs to animate
+	//* Returns _true_ if this control has enough content that it needs to animate.
 	_marquee_shouldAnimate: function(inDistance) {
 		inDistance = (inDistance && inDistance >= 0) ? inDistance : this._marquee_calcDistance();
 		return (!this.disabled && inDistance > 0);
 	},
-	//* Determine how far the marquee needs to scroll
+	//* Determines how far the marquee needs to scroll.
 	_marquee_calcDistance: function() {
 		var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
 		return Math.abs(node.scrollWidth - node.clientWidth);
 	},
-	//* Return duration based on _inDistance_ and _this.marqueeSpeed_
+	//* Returns duration based on _inDistance_ and _this.marqueeSpeed_.
 	_marquee_calcDuration: function(inDistance) {
 		return inDistance / this.marqueeSpeed;
 	},
-	//* Create a marquee-able div inside of _this_
+	//* Creates a marquee-able div inside of _this_.
 	_marquee_createMarquee: function() {
 		this.createComponent({classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
 		this.render();
@@ -260,11 +270,13 @@ moon.MarqueeItem = {
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
 		}), 0);
 	},
-	//* Flip distance value for RTL support
+	//* Flips distance value for RTL support
 	_marquee_adjustDistanceForRTL: function(inDistance) {
 		return this.rtl ? inDistance : inDistance * -1;
 	}
 };
+
+//* @public
 
 /**
 	_moon.MarqueeText_ is a basic text control that supports marquee animation.
@@ -300,11 +312,11 @@ moon.MarqueeItem = {
 			}
 		});
 */
-
-
 enyo.kind({
 	name: "moon.MarqueeText",
+	//* @protected
 	mixins: ["moon.MarqueeItem"],
+	//* @public
 	published: {
 		//* Speed of marquee animation, in pixels per second
 		marqueeSpeed: 60,
@@ -318,6 +330,11 @@ enyo.kind({
 	}
 });
 
+//* @public
+/**
+	_moon.MarqueeDecorator_ is a wrapper for [moon.MarqueeText](#moon.MarqueeText)
+	objects.
+*/
 enyo.kind({
 	name: "moon.MarqueeDecorator",
 	//* @protected

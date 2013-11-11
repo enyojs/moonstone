@@ -8,5 +8,6 @@
 enyo.kind({
 	name: "moon.FormCheckbox",
 	kind: "moon.CheckboxItem",
+	//* @protected
 	classes: "moon-formcheckbox-item"
 });

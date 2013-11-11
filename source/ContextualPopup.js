@@ -1,11 +1,12 @@
 /**
 	_moon.ContextualPopup_ is a popup window control with Moonstone visual styling
-	applied.  It extends <a href="#enyo.Popup">enyo.Popup</a> and is designed to
-	be used with <a href="#moon.ContextualPopupDecorator">moon.ContextualPopupDecorator</a>.
+	applied.  It extends [enyo.Popup](#enyo.Popup) and is designed to be used with
+	[moon.ContextualPopupDecorator](#moon.ContextualPopupDecorator).
 */
 enyo.kind({
 	name: "moon.ContextualPopup",
 	kind: "enyo.Popup",
+	//* @protected
 	layoutKind: "ContextualLayout",
 	classes: "moon-body-text moon-contextual-popup",
 	handlers: {
@@ -19,6 +20,7 @@ enyo.kind({
 		onSpotlightSelect: "spotSelect",
 		onRequestScrollIntoView: "_preventEventBubble"
 	},
+	//* @public
 	published: {
 		/**
 			When true, spotlight cannot leave the constraints of the _moon.Popup_
@@ -32,8 +34,8 @@ enyo.kind({
 		*/
 		showCloseButton: "auto"
 	},
-	spotlight: "container",
 	//* @protected
+	spotlight: "container",
 	_spotlight: null,
 	floating:true,
 	
@@ -51,7 +53,7 @@ enyo.kind({
 	horizBuffer: 16,
 	activator: null,
 	tools: [
-		{name: "client", classes: "moon-neutral"},
+		{name: "client", classes: "moon-neutral moon-contextual-popup-client"},
 		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.

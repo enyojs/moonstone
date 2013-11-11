@@ -8,12 +8,22 @@
 */
 enyo.kind({
 	name: "moon.CaptionDecorator",
+	//* @protected
 	handlers: {
 		onSpotlightFocus: "spotFocus",
 		onSpotlightBlur:  "spotBlur"
 	},
+	//* @public
 	published: {
+		/**
+			The position of the caption with respect to the wrapped control; valid
+			values are "top", "bottom", "left", and "right"
+		*/
 		side: "top",
+		/**
+			If true, the caption is only shown when the wrapped control has Spotlight
+			focus; otherwise, it is always visible
+		*/
 		showOnFocus: false
 	},
 	//* @protected

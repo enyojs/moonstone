@@ -13,6 +13,7 @@
 */
 enyo.kind({
 	name: "moon.Spinner",
+	//* @protected
 	classes: "moon-spinner",
 	//* @public
 	//* Stops the spinner animation.
@@ -27,6 +28,7 @@ enyo.kind({
 	toggle: function() {
 		this.setShowing(!this.getShowing());
 	},
+	//* @protected
 	contentChanged: function() {
 		this.inherited(arguments);
 		this.addRemoveClass("content", !!this.content);

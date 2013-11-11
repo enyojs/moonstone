@@ -1,19 +1,16 @@
 /**
-	_moon.Calendar_ is a control that displays a monthly calendar, with the
-	month name at the top and a grid of days, grouped into rows by week, below.
-
-	The header buttons are used to navigate to the desired month; the desired day
-	is selected by tapping on it.
-
-	{kind: "moon.Calendar", content: "Calendar Title"}
+	_moon.CalendarDate_ implements a control representing a single day, used by
+	the monthly calendar kind [moon.Calendar](#moon.Calendar).
 */
 enyo.kind({
 	name: "moon.CalendarDate",
 	kind: "moon.Button",
+	//* @protected
 	small: true,
 	marquee: false,
 	minWidth: false,
 	classes: "moon-calendar-picker-date enyo-unselectable",
+	//* @public
 	published: {
 		value: null,
 		color: 0
@@ -21,6 +18,7 @@ enyo.kind({
 	events: {
 		onDateSelected:""
 	},
+	//* @protected
 	create: function() {
 		this.inherited(arguments);
 		if (typeof ilib !== "undefined") {
@@ -46,10 +44,19 @@ enyo.kind({
 		this.doDateSelected();
 	}
 });
+/**
+	_moon.Calendar_ is a control that displays a monthly calendar, with the
+	month name at the top and a grid of days, grouped into rows by week, below.
 
+	The header buttons are used to navigate to the desired month; the desired day
+	is selected by tapping on it.
+
+		{kind: "moon.Calendar", content: "Calendar Title"}
+*/
 enyo.kind({
 	name: "moon.Calendar",
 	classes: "moon-calendar-picker",
+	//* @public
 	events: {
 		/**
 			Fires when the date changes.
@@ -63,47 +70,48 @@ enyo.kind({
 	},
 	published: {
 		/**
-			ilib locale info instance. It gives information about the paarticular locale.
+			_ilib_ locale info instance; contains information about the particular locale.
 		*/
 		ilibLocaleInfo: null,
 		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
-			new value.  Only valid if ilib is loaded.
+			new value.  Only valid if _ilib_ is loaded.
 		*/
 		locale: "",
 		/**
-			The current Date object. When a Date object is passed to _setValue_,
-			the control is updated to reflect the new value. _getValue_ returns
+			The current Date object. When a Date object is passed to _setValue()_,
+			the control is updated to reflect the new value. _getValue()_ returns
 			a Date object.
 		*/
 		value: null,
 		/**
-			The day of week that starts weeks in current locale.
-			Valid values are Sumday (0) through Saturday (6).
-			As a default, Sunday is the first day of week.
+			The first day of the week in the current locale.
+			Valid values are Sunday (0) through Saturday (6). Default is Sunday (0).
 		*/
 		firstDayOfWeek: 0,
 		/**
-			The maximum number of weeks to display in a screen.
+			Maximum number of weeks to display on a screen.
 			If this value is greater than 9, dates two months in the future may be
 			shown. Unexpected input may result in errors.
 		*/
 		maxWeeks: 6,
 		/**
-			The range of yearPicker to be displayed.
-			Initial value is from 1900 to 2200
+			Start value for range of years displayed in year picker
 		*/
 		startYear: 1900,
+		/**
+			End value for range of years displayed in year picker
+		*/
 		endYear: 2200,
 		/**
-			The class which will decorate day lebels (e.g. moon-divider)
+			CSS classes used to decorate day labels (e.g., _"moon-divider"_)
 		*/
 		dayOfWeekClasses: "",
 		/**
-			The length of character to abbreviate property
-			If we use "short", "medium", long" and "full" to represent it.
-			Only valid if ilib is loaded.
+			Length of abbreviation to use for day of the week.
+			Accepted values are _"short"_, _"medium"_, _"long"_, and _"full"_.
+			Only valid if _ilib_ is loaded.
 		*/
 		dayOfWeekLength: "short"
 	},
@@ -166,8 +174,8 @@ enyo.kind({
 		}
 	},
 	/**
-		Initiate days of the week from first day to last day.
-		Initially, SUN is the first day and SAT is the last day of week.
+		Initializes days of the week from first to last.
+		Initially, SUN is the first day of the week and SAT is the last.
 	*/
 	initDays: function() {
 		for(var i = 0; i < 7; i++) {
@@ -178,7 +186,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Compose calendar with number of calendarDate
+		Populates Calendar with CalendarDate objects.
 	*/
 	initCalendar: function() {
 		if (!this.$.dates.controls.length) {
@@ -195,7 +203,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Month name could be various depends on its locale
+		Updates month name displayed in month picker.
 	*/
 	updateMonthPicker: function() {
 		if (typeof ilib !== "undefined") {
@@ -213,7 +221,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Update days of the week from first day to last day.
+		Updates days of the week from first day to last day.
 	*/
 	updateDays: function() {
 		var daysControls = this.$.days.getClientControls();
@@ -228,7 +236,7 @@ enyo.kind({
 		}
 	},
 	/**
-		Sets up the first week of this month.
+		Sets up first week of this month.
 		Before the first day of this month, days from the previous month will be
 		used to fill the calendar.
 	*/
@@ -254,7 +262,7 @@ enyo.kind({
 		return 0;
 	},
 	/**
-		Sets up the last week of this month.
+		Sets up last week of this month.
 		After the last day of this month, days from the next month will be used to
 		fill the calendar.
 	*/
@@ -322,7 +330,7 @@ enyo.kind({
 		this.setValue(newValue);
 	},
 	/**
-		Select a control in calendar with tapping a date button in calendar
+		Responds to selection of a particular CalendarDate.
 	*/
 	selectDate: function(inSender, inEvent) {
 		var newValue = inEvent.originator.value;
@@ -330,14 +338,14 @@ enyo.kind({
 		return true;
 	},
 	/**
-		Select a control in yearPicker using left and right arrow button
+		Responds to change of year in year picker.
 	*/
 	selectYearPicker: function(inSender, inEvent) {
 		var year = this.$.yearPicker.getSelected().getContent();
 		this.setYear(year);
 	},
 	/**
-		Select a control in monthPicker using left and right arrow button
+		Responds to change of month in month picker.
 	*/
 	selectMonthPicker: function(inSender, inEvent) {
 		var month = this.$.monthPicker.getSelectedIndex();
@@ -345,9 +353,6 @@ enyo.kind({
 	},
 	/**
 		Returns number of days in a particular month/year.
-		@param inYear
-		@param inMonth
-		@return Number of dates in given year and month
 	*/
 	getMonthLength: function(inYear, inMonth) {
 		if (typeof ilib !== "undefined") {
@@ -373,6 +378,10 @@ enyo.kind({
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
+		if(isNaN(this.value) || this.value === null) {
+			this.setValue(new Date());
+			return;
+		}		
 		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}
@@ -385,8 +394,8 @@ enyo.kind({
 		}
 	},
 	/**
-		When user(or developer) want change style of day label dynamically,
-		it will replace css classes for them.
+		Switches CSS classes when the user (or developer) changes the day label
+		style dynamically.
 	*/
 	dayOfWeekClassesChanged: function(inOld) {
 		var dayControls = this.$.days.getClientControls();
@@ -407,11 +416,10 @@ enyo.kind({
 		}
 	},
 	/**
-		Sometimes first day of week is channged based on locale changing.
-		In this case, destroy day label and reconsturct it.
-		Create new ilib.Date instance with time of given day, and get Gregorian
-		date instance that represents the first date of the week.
-
+		Sometimes the first day of week changes because of a locale change.
+		When this happens, we destroy the day label and reconstruct it.
+		We create a new _ilib.Date_ instance with the time of the given day, and get
+		a Gregorian date instance that represents the first day of the week.
 	*/
 	firstDayOfWeekChanged: function() {
 		if (typeof ilib !== "undefined") {
