@@ -526,7 +526,7 @@
   line-height: 32px;
 }
 .enyo-locale-non-latin .moon-large-button-text {
-  font-size: 30px;
+  font-size: 36px;
 }
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
@@ -712,7 +712,7 @@
   line-height: 32px;
 }
 .enyo-locale-non-latin .moon-large-button-text {
-  font-size: 30px;
+  font-size: 36px;
 }
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
@@ -2419,6 +2419,7 @@
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
+  font-size: 36px;
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
@@ -3709,7 +3710,7 @@
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "LG Display";
-  font-size: 30px;
+  font-size: 36px;
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
