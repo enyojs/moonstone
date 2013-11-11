@@ -2994,7 +2994,7 @@
   pointer-events: auto;
 }
 /* Scrim */
-.moon-panels-background-scrim {
+.moon-panels .moon-panels-background-scrim {
   position: absolute;
   left: 0;
   top: 0;
@@ -3003,8 +3003,6 @@
   background-color: black;
   pointer-events: none;
   opacity: 0;
-}
-.moon-panels-background-scrim.transition {
   transition: opacity 0.5s linear;
   -webkit-transition: opacity 0.5s linear;
   -moz-transition: opacity 0.5s linear;
