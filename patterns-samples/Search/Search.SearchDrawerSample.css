@@ -2,6 +2,9 @@
 .moon .moon-panel-body {
   overflow: visible;
 }
+.moon-search-drawer {
+	margin-top: 0px;
+}
 /* close button for a drawer */
 .drawer-close-container {
 	position: absolute;

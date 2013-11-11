@@ -43,6 +43,7 @@ enyo.kind({
     kind: "moon.Panel",
     title: "Enter Keyword",
     controller: ".app.controllers.searchDrawerController",
+	 classes: "moon-search-drawer",
     headerOptions: {kind: "moon.InputHeader", components: [
         {kind: "moon.IconButton", src: "../assets/trash-can-icon.png"}
     ]},
