@@ -102,12 +102,8 @@ enyo.kind({
 		this.date = val;
 		if((this.date && this.date instanceof Date) && !isNaN(this.date)) {
 			this._timeDiff = this.date.getTime() - Date.now();
-			var d = new Date(Date.now() + this._timeDiff);
-			var h = d.getHours();
-			this.updateHour(d, h);
-			this.updateMinute(d, h);
-			this.updateMonthDay(d);
 			this.stopJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
+			this.updateClockControls();
 			return true;
 		} else {
 			this._timeDiff = 0;
@@ -116,11 +112,7 @@ enyo.kind({
 		}			
 	},
 	refreshJob: function() {
-		var d = new Date(Date.now() + this._timeDiff);
-		var h = d.getHours();
-		this.updateHour(d, h);
-		this.updateMinute(d, h);
-		this.updateMonthDay(d);
+		this.updateClockControls();
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
 	_formatNumber: function(inValue) {
@@ -162,5 +154,12 @@ enyo.kind({
 	},
 	handleLocaleChangeEvent: function() {
 		this._refresh();
+	},
+	updateClockControls: function() {
+		var d = new Date(Date.now() + this._timeDiff);
+		var h = d.getHours();
+		this.updateHour(d, h);
+		this.updateMinute(d, h);
+		this.updateMonthDay(d);
 	}
 });
