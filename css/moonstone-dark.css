@@ -671,6 +671,7 @@
 }
 .enyo-locale-non-latin .moon-divider-text {
   font-size: 28px;
+  font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
   font-size: 26px;
@@ -681,9 +682,6 @@
 }
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
-}
-.enyo-locale-IN .moon-divider-text {
-  font-style: normal;
 }
 .border-box {
   box-sizing: border-box;
@@ -1755,6 +1753,7 @@
 .enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
   font-family: "LG Display";
   font-size: 28px;
+  font-style: normal;
 }
 .moon-expandable-integer-picker-current-value {
   font-family: "MuseoSans 300";
@@ -2256,6 +2255,7 @@
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
   font-family: "LG Display";
   font-size: 28px;
+  font-style: normal;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
   border: 5px solid #ff2f7d;
