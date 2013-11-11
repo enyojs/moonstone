@@ -35,7 +35,7 @@ enyo.kind({
         //* will disable highlighting.
         highlight: "",
         //* When true, only case-sensitive matches of the highlight string will be highlighted.  This property
-        //* is ignored if a RegExp is specified to the highlight property (you may use the "i" modifier to indicate)
+        //* is ignored if a RegExp is specified to the highlight property (you may use the "i" modifier to indicate
         //* case insensitive RegExp).
         caseSensitive: false,
         //* The default CSS class to apply to highlighted content.
