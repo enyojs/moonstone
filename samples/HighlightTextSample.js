@@ -29,7 +29,7 @@ enyo.kind({
 			]},
 			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, joinToPrev: true, oninput: "search", components: [
 				{kind: "moon.DataList", fit: true, name:"list", components: [
-					{kind: "moon.HighlightText", bindings: [
+					{kind: "moon.HighlightText", caseSensitive: true, bindings: [
 						{from: ".model.text", to:".content"},
 						{from: ".controller.text", to: ".highlight"}
 					]}
