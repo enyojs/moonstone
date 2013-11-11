@@ -61,13 +61,9 @@ enyo.kind({
                 // Make sure the regex isn't empty
                 this.search = ("".match(this.highlight)) ? null : this.highlight;
             } else {
-                if (this.caseSensitive) {
-                    this.search = this.highlight;
-                } else {
-                    // Escape string for use in regex (standard regex escape from google)
-                    var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-                    this.search = new RegExp(escaped, "ig");
-                }
+                // Escape string for use in regex (standard regex escape from google)
+                var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+                this.search = new RegExp(escaped, this.caseSensitive ? "g" : "ig");
             }
         } else {
             this.search = false;
@@ -75,6 +71,10 @@ enyo.kind({
         if (this.hasNode()) {
             this.contentChanged();
         }
+    },
+    //* @protected
+    caseSensitiveChanged: function () {
+        this.highlightChanged();
     },
     //* @protected
     onHighlightHandler: function(inSender, inEvent) {
