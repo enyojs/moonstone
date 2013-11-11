@@ -114,5 +114,6 @@ enyo.kind({
 	],
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
+		this.$.buttonPopup.setAutoDismiss(!inSender.getActive());
 	}
 });
