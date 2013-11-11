@@ -2,32 +2,38 @@
 	_moon.Clock_ is a control that displays system clock information. 
 
 	Example:
-		{kind:"moon.Clock"}
+
+		{kind: "moon.Clock"}
 */
 enyo.kind({
 	name: "moon.Clock",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-clock moon-header-font",
+	//* @public
 	published: {
-		//* Refresh time in sec.
+		//* Refresh time in milliseconds
 		refresh: 1000,
-		//* Manual date. If it is undefined, _moon.Clock_ will use system date.
+		//* User-provided date; if undefined, system date is used
 		date: undefined,
 		/**
-			ilib locale info instance. It gives information about the paarticular locale.
+			_ilib_ locale info instance; it contains information about the particular
+			locale
 		*/
 		ilibLocaleInfo: null,
 		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
-			new value.  Only valid if ilib is loaded.
+			new value.  Only valid if _ilib_ is loaded.
 		*/
 		locale: ""
 	},
+	//* @protected
 	components: [
 		{kind: "enyo.Control", name: "hour", classes: "moon-header-text moon-clock-hour"},
 		{name: "right", classes: "moon-clock-right", components: [
 			{kind: "enyo.Control", name: "top", classes: "moon-header-text moon-clock-top"},
+			{name: "meridiem", classes: "moon-bold-text moon-clock-meridiem"},
 			{name: "divider", classes: "moon-clock-divider"},
 			{kind: "enyo.Control", name: "bottom", classes: "moon-body-text moon-clock-bottom"}
 		]},
@@ -51,11 +57,13 @@ enyo.kind({
 			fmtMin = "m";
 			this.$.right.addRemoveClass("mini", false);
 			this.$.hour.show();
+			this.$.meridiem.show();
 		} else {
 			dateLen = "full";
 			fmtMin = "hma";
 			this.$.right.addRemoveClass("mini", true);
 			this.$.hour.hide();
+			this.$.meridiem.hide();
 		}
 
 		var fmtHourParams = {
@@ -134,13 +142,13 @@ enyo.kind({
 		this.$.hour.setContent(hour);
 	},
 	updateMinute: function(inDate, inHour) {
-		var m = this._mf ? this._mf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this._formatNumber(inDate.getMinutes());
-		var meridiem;
+		var time = this._mf ? this._mf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this._formatNumber(inDate.getMinutes());
+		var meridiem = "";
 		if (!this.ilibLocaleInfo || this.ilibLocaleInfo.locale.spec === "en-US") {
-			meridiem = inHour > 11 ? " pm" : " am";
-			m += meridiem;
+			meridiem = inHour > 11 ? "pm" : "am";
 		}
-		this.$.top.setContent(m);
+		this.$.top.setContent(time);
+		this.$.meridiem.setContent(meridiem);
 	},
 	updateMonthDay: function(inDate) {
 		var md = this._mdf ? this._mdf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate());

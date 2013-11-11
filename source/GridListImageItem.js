@@ -1,19 +1,18 @@
 /**
 	_moon.GridListImageItem_ extends
-	<a href="#enyo.GridListImageItem">enyo.GridListImageItem</a>, adding
-	Moonstone-specific configuration, styling, decorators, and Spotlight/focus-state
-	management.
+	[enyo.GridListImageItem](#enyo.GridListImageItem), adding Moonstone-specific
+	configuration, styling, decorators, and Spotlight/focus-state management.
 
 	You may create an image grid by adding instances of this kind as components of
-	a <a href="#moon.GridList">moon.GridList</a>.  See the latter kind for an
-	example of how this may be done.
+	a [moon.GridList](#moon.GridList). See the latter kind for an example of how
+	this may be done.
 */
 
 enyo.kind({
-    name: "moon.GridListImageItem",
-    kind: "enyo.GridListImageItem",
-    //* @protected
-    mixins: ["moon.MarqueeSupport"],
+	name: "moon.GridListImageItem",
+	kind: "enyo.GridListImageItem",
+	//* @protected
+	mixins: ["moon.MarqueeSupport"],
 	spotlight: true,
     classes: "moon-gridlist-item moon-gridlist-imageitem",
 	componentOverrides: {

@@ -12,15 +12,23 @@
 enyo.kind({
 	name: "moon.Slider",
 	kind: "moon.ProgressBar",
+	//* @protected
 	classes: "moon-slider",
 	spotlight: true,
+	//* @public
 	published: {
-		//* Position of slider, expressed as an integer between 0 and 100,
-		//* inclusive
+		/**
+			Position of slider, expressed as an integer between 0 and 100, inclusive
+		*/
 		value: 0,
-		//* If true, current progress will be styled differently from rest of bar
+		//* Sliders may "snap" to multiples of this value in either direction
+		increment: 0,
+		/**
+			If true (the default), current progress will be styled differently from
+			rest of bar
+		*/
 		lockBar: true,
-		//* If true, tapping on bar will change current position
+		//* If true (the default), tapping on bar will change current position
 		tappable: true,
 		//* CSS classes to apply to knob
 		knobClasses: "moon-slider-knob",
@@ -30,40 +38,54 @@ enyo.kind({
 		tapAreaClasses: "moon-slider-taparea",
 		//* Color of value popup
 		popupColor: "#686868",
-		//* When true, button is shown as disabled and does not generate tap events
+		/**
+			When set to true, button is shown as disabled and does not generate tap
+			events (default is false)
+		*/
 		disabled: false,
 		/**
-			When true, knob and progress move with animation when left/right direction
-			key is pressed or bar is tapped
+			When true (the default), knob and progress move with animation when left
+			or right direction key is pressed or bar is tapped
 		*/
 		animate: true,
-		//* When false, the slider's popup bubble is displayed when slider is adjusted
+		/**
+			When false (the default), the slider's popup bubble is displayed while the
+			slider is being adjusted
+		*/
 		noPopup: false,
-		//* When true, popup displays a percentage value (rather than the absolute value)
+		/**
+			When true (the default), the popup displays a percentage value (rather
+			than an absolute value)
+		*/
 		showPercentage: true,
-
 		//* Popup width in pixels
 		popupWidth: "auto",
 		//* Popup height in pixels
 		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
-		//* When false, you can move the knob past the _bgProgress_
+		//* When false (the default), the knob may be moved past the _bgProgress_
 		constrainToBgProgress: false,
 		/**
 			When true, an elastic visual effect is seen when the knob is dragged past
-			the _bgProgress_.
+			the _bgProgress_ (default is false)
 		*/
 		elasticEffect: false,
 		//* Custom popup content (ignored if null)
 		popupContent: null
 	},
 	events: {
-		//* Fires when bar position is set. The _value_ property contains the
-		//* new position.
+		/**
+			Fires when bar position is set.
+
+			_inEvent.value_ contains the new position.
+		*/
 		onChange: "",
-		//* Fires while control knob is being dragged. The _value_ property
-		//* contains the current position.
+		/**
+			Fires while control knob is being dragged.
+
+			_inEvent.value_ contains the current position.
+		*/
 		onChanging: "",
 		//* Fires when animation to a position finishes.
 		onAnimateFinish: ""
@@ -108,7 +130,7 @@ enyo.kind({
 		});
 	},
 
-	//* Returns true if the slider is currently being dragged
+	//* Returns true if the slider is currently being dragged.
 	isDragging: function() {
 		return this.dragging;
 	},
@@ -160,18 +182,18 @@ enyo.kind({
 		this.$.tapArea.removeClass(inOld);
 		this.$.tapArea.addClass(this.tapAreaClasses);
 	},
-	//* Updates popup Offset.
+	//* Updates popup offset.
 	popupOffsetChanged: function() {
 		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
 		this.drawToCanvas(this.popupColor);
 	},
-	//* Updates popup Width.
+	//* Updates popup width.
 	popupWidthChanged: function() {
 		if (this.popupWidth != "auto") {
 			this.$.popupLabel.applyStyle("width", this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) + 'px');
 		}
 	},
-	//* Updates popup Height.
+	//* Updates popup height.
 	popupHeightChanged: function() {
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
@@ -184,12 +206,18 @@ enyo.kind({
 		this.drawToCanvas(this.popupColor);
 		this.$.popupLabel.applyStyle("background-color", this.popupColor);
 	},
-	//* Updates the popup content.
+	//* Updates popup content.
 	popupContentChanged: function() {
 		var content = this.getPopupContent();
 		if (content !== null) {
 			this.$.popupLabel.setContent(content);
 		}
+	},
+	/**
+		Slider will snap multiples.
+	*/
+	calcIncrement: function(inValue) {
+		return (Math.round(inValue / this.increment) * this.increment);
 	},
 	//* Called only when _constrainToBgProgress_ is true.
 	calcConstrainedIncrement: function(inValue) {
@@ -213,12 +241,12 @@ enyo.kind({
 			if (this.constrainToBgProgress) {
 				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
-			}		
-			if (this.animate){			
+			}
+			if (this.animate){
 				this.animateTo(preValue, inValue);
 			} else {
 				this._setValue(inValue);
-			}			
+			}
 		}
 	},
 	_setValue: function(inValue) {
@@ -240,9 +268,9 @@ enyo.kind({
 		var percent = this.calcPercent(inValue),
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue
 		;
-		
+
 		if (this.rtl) { percent = 100 - percent; }
-		
+
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
@@ -290,7 +318,7 @@ enyo.kind({
 				ev = this.bgProgress + (v-this.bgProgress)*0.4;
 				v = this.clampValue(this.min, this.bgProgress, v);
 				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
-				this.elasticTo = v;	
+				this.elasticTo = v;
 			} else {
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				v = this.clampValue(this.min, this.max, v);
@@ -400,7 +428,7 @@ enyo.kind({
 			var v = this.rtl
 				? this.getValue() - (this.increment || 1)
 				: this.getValue() + (this.increment || 1);
-				
+
 			this.set("value",v);
 			return true;
 		}
@@ -446,7 +474,7 @@ enyo.kind({
 		// Draw shape with arrow on right
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r);
-		
+
 		ctxRight.arcTo(wre, 1, 0, 1, r);
 		ctxRight.lineTo(0, 0);
 		ctxRight.fill();

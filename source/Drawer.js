@@ -1,6 +1,6 @@
 /**
-    _moon.Drawer_, a control designed for use with <a href="#moon.Drawers">moon.Drawers</a>,
-    consists of two drawers and a <a href="#moon.DrawerHandle">moon.DrawerHandle</a>.
+    _moon.Drawer_, a control designed for use with [moon.Drawers](#moon.Drawers),
+    consists of two drawers and a [moon.DrawerHandle](#moon.DrawerHandle).
     The main drawer is populated with any child components that are specified in
     the constructor; the optional second drawer (_controlDrawer_) is populated
     with components passed into the _controlDrawerComponents_ property.
@@ -30,7 +30,9 @@
 enyo.kind({
 	name: "moon.Drawer",
 	kind:"enyo.Control",
+	//* @protected
 	classes: "moon-drawer moon-neutral",
+	//* @public
 	published: {
 		//* Components that are to be placed in the control drawer
 		controlDrawerComponents: null,
@@ -47,6 +49,7 @@ enyo.kind({
 		//* Fires when either the main drawer or the control drawer is deactivated.
 		onDeactivate: ""
 	},
+	//* @protected
 	handlers: {
 		//* Handler for initial rendering event
 		onDrawersRendered: "drawersRendered",
@@ -119,6 +122,8 @@ enyo.kind({
 	}
 });
 
+//* @public
+
 /**
     _moon.FullScreenDrawer_ is a content-free drawer that fills the client's
     full screen area.
@@ -126,13 +131,16 @@ enyo.kind({
 enyo.kind({
 	name: "moon.FullScreenDrawer",
 	kind: "enyo.Drawer",
+	//* @protected
 	handlers: {
 		onResizeDrawer: "resizeDrawer"
 	},
 	open: false,
+	//* @public
 	published: {
 		drawerProps: null
 	},
+	//* @protected
 	openChanged: function() {
 		this.$.client.show();
 		if (this.hasNode()) {

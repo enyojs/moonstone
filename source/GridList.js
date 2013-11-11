@@ -1,7 +1,7 @@
 /**
-	_moon.GridList_ extends <a href="#enyo.GridList">enyo.GridList</a>, adding
-	Moonstone-specific configuration, styling, decorators, and Spotlight/focus-state
-	management.
+	_moon.GridList_ extends [enyo.GridList](#enyo.GridList), adding
+	Moonstone-specific configuration, styling, decorators, and
+	Spotlight/focus-state management.
 
 		enyo.kind({
 			...
@@ -31,6 +31,7 @@
 enyo.kind({
 	name: "moon.GridList",
 	kind: "enyo.GridList",
+	//* @protected
 	classes: "moon-gridlist",
 	spotlight: true,
 	itemSpacing: 64,
@@ -48,7 +49,7 @@ enyo.kind({
 		// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
 		// if spotlight is applied on any template controls
 		this._removeSpotlight(this.components);
-		// Create a dummy component to dynamically compute the dimensions of items at run-time (once for each item during sizeupItem) based on the actual content inside the item (only for variable sized items where sizeupItem is called).
+		// Create a dummy component to dynamically compute the dimensions of items at runtime (once for each item during sizeupItem) based on the actual content inside the item (only for variable sized items where sizeupItem is called).
 		this.createComponent({name: "_dummy_", allowHtml: true, classes: "enyo-gridlist-dummy", showing: false}, {owner: this});
 		this.inherited(arguments);
 	},
@@ -64,7 +65,7 @@ enyo.kind({
 	tap: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
 	},
-	//* Override to account for scrollbars in moon.ScrollStrategy
+	//* Override to account for scrollbars in moon.ScrollStrategy.
 	_calculateItemsPerRow: function() {
 		var n = this.$.strategy.$.clientContainer.hasNode();
 		if (n) {

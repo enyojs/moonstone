@@ -15,6 +15,7 @@
 enyo.kind({
 	name: "moon.DatePicker",
 	kind: "moon.DateTimePickerBase",
+	//* @public
 	published: {
 		//* Optional minimum year value
 		minYear: 1900,

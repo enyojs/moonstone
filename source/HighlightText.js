@@ -29,17 +29,19 @@
 */
 enyo.kind({
     name: "moon.HighlightText",
+    //* @public
     published: {
-        //* String or RegExp indicating the text or pattern to highlight.  A falsy value or empty RegExp
+        //* String or RegExp indicating the text or pattern to highlight.  An empty string, falsy value, or empty RegExp
         //* will disable highlighting.
         highlight: "",
         //* When true, only case-sensitive matches of the highlight string will be highlighted.  This property
         //* is ignored if a RegExp is specified to the highlight property (you may use the "i" modifier to indicate)
         //* case insensitive RegExp).
         caseSensitive: false,
-        //* The default CSS class to apply to highlighted text.  
+        //* The default CSS class to apply to highlighted content.
         highlightClasses: "moon-highlight-text-highlighted"
     },
+    //* @protected
     handlers: {
         onHighlight: "onHighlightHandler",
         onUnHighlight: "unHighlightHandler"
@@ -65,13 +67,9 @@ enyo.kind({
                 // Make sure the regex isn't empty
                 this.search = ("".match(this.highlight)) ? null : this.highlight;
             } else {
-                if (this.caseSensitive) {
-                    this.search = this.highlight;
-                } else {
-                    // Escape string for use in regex (standard regex escape from google)
-                    var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-                    this.search = new RegExp(escaped, "ig");
-                }
+                // Escape string for use in regex (standard regex escape from google)
+                var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+                this.search = new RegExp(escaped, this.caseSensitive ? "g" : "ig");
             }
         } else {
             this.search = false;
@@ -79,6 +77,10 @@ enyo.kind({
         if (this.hasNode()) {
             this.contentChanged();
         }
+    },
+    //* @protected
+    caseSensitiveChanged: function () {
+        this.highlightChanged();
     },
     //* @protected
     onHighlightHandler: function(inSender, inEvent) {

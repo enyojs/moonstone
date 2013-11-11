@@ -1,10 +1,13 @@
 /**
 	_moon.CheckboxItem_ is a control that combines a
-	<a href="#moon.Checkbox">moon.Checkbox</a> with a text label. The label text
-	may be set via the _content_ property. The state of the checkbox may be
-	retrieved by querying the _checked_ property.
+	[moon.Checkbox](#moon.Checkbox) with a text label. The label text may be set
+	via the _content_ property. The state of the checkbox may be retrieved by
+	querying the _checked_ property.
 
-		{kind: "moon.CheckboxItem", content: "San Francisco", onchange: "checkedChanged"}
+		{kind: "moon.CheckboxItem", content: "San Francisco",
+			onchange: "checkedChanged"},
+
+		...
 
 		checkedChanged: function(inSender, inEvent) {
 			var checked = inSender.get("checked");
@@ -23,7 +26,9 @@
  */
 enyo.kind({
 	name: "moon.CheckboxItem",
+	//* @protected
 	mixins: ["moon.MarqueeSupport"],
+	//* @public
 	published: {
 		//* The state of the checkbox
 		checked: false,

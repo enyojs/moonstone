@@ -1,16 +1,16 @@
 /**
-	_moon.DataList_ is an <a href="#enyo.DataList">enyo.DataList</a> with
-	Moonstone styling applied.  It uses <a href="#moon.Scroller">moon.Scroller</a>
-	as its default scroller.
+	_moon.DataList_ is an [enyo.DataList](#enyo.DataList) with Moonstone styling
+	applied.  It uses [moon.Scroller](#moon.Scroller) as its default scroller.
 */
 enyo.kind({
 	name: "moon.DataList",
 	kind: "enyo.DataList",
+	//* @protected
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind:"moon.Scroller", horizontal: "hidden" }
+	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" }
 });
-//*@protected
+//* @protected
 /**
 	Overload the delegate strategy to incorporate measurements for our scrollers
 	when they are visible.

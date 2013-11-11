@@ -4,6 +4,7 @@
 */
 enyo.kind({
 	name: "moon.Divider",
+	//* @protected
 	classes: "moon-divider moon-divider-text",
 	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
 	marqueeOnSpotlight: false,

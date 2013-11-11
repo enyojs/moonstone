@@ -1,7 +1,7 @@
 /**
 	_moon.InputDecorator_ is a control that provides input styling. Any controls
 	in the InputDecorator will appear to be inside an area styled as an	input.
-	Usually, an InputDecorator surrounds a <a href='#moon.Input'>moon.Input</a>:
+	Usually, an InputDecorator surrounds a [moon.Input](#moon.Input):
 
 		{kind: 'moon.InputDecorator', components: [
 			{kind: 'moon.Input'}
@@ -27,6 +27,7 @@
 enyo.kind({
 	name              : 'moon.InputDecorator',
 	kind              : 'enyo.ToolDecorator',
+	//* @protected
 	tag               : 'label',
 	classes           : 'moon-input-decorator',
 	spotlight         : true,
@@ -103,10 +104,9 @@ enyo.kind({
 		return this._oInputControl;
 	},
 
-
+	//* @protected
 	// Event handlers:
 	/**************************************************/
-
 	onFocus: function(oSender, oEvent) {
 		enyo.Spotlight.spot(this);
 		// enyo.Spotlight.disablePointerMode();

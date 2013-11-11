@@ -1,10 +1,11 @@
 /**
-	_moon.DataGridList_ is an <a href="#enyo.DataGridList">enyo.DataGridList</a> with
+	_moon.DataGridList_ is an [enyo.DataGridList](#enyo.DataGridList) with
 	Moonstone visual styling applied.
 */
 enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
+	//* @protected
 	noDefer: true,
 	allowTransitions: false,
 	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" }

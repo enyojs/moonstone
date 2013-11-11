@@ -11,7 +11,9 @@
 enyo.kind({
 	name: 'moon.Button',
 	kind: 'enyo.Button',
+	//* @protected
 	mixins: ["moon.MarqueeSupport"],
+	//* @public
 	published: {
 		/**
 			A parameter indicating the size of the button.
@@ -21,12 +23,14 @@ enyo.kind({
 		*/
 		small: false,
 		/**
-			A parameter indicating the min-Width of the button.
-			If true, the min-width shoule be set 180px wide, (The small button is set 130px)
-			When false, thie min-width should be the current @moon-button-height (forcing it no smaller than a circle)
+			A parameter indicating the minimum width of the button. If true, the
+			min-width should be set 180px wide (the small button is set 130px). When
+			false, the min-width should be the current @moon-button-height (forcing it
+			to be no smaller than a circle).
 		*/
 		minWidth: true
 	},
+	//* @protected
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
 	spotlight: true,
 	handlers: {

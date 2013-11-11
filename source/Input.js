@@ -1,28 +1,28 @@
 /**
 	_moon.Input_ is a Moonstone-styled input control, derived from
-	<a href='#enyo.Input'>enyo.Input</a>. Typically, a _moon.Input_ is placed
-	inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
-	provides styling, e.g.:
+	[enyo.Input](#enyo.Input). Typically, a _moon.Input_ is placed inside a
+	[moon.InputDecorator](#moon.InputDecorator), which provides styling, e.g.:
 
 		{kind: 'moon.InputDecorator', components: [
 			{kind: 'moon.Input', placeholder: 'Enter some text...', onchange: 'inputChange'}
 		]}
 
-	For more information, see the documentation on
-	[Text Fields](https://github.com/enyojs/enyo/wiki/Text-Fields) in the Enyo
-	Developer Guide.
+	For more information, see the documentation on [Text
+	Fields](https://github.com/enyojs/enyo/wiki/Text-Fields) in the Enyo Developer
+	Guide.
 */
 
 enyo.kind({
 	name	: 'moon.Input',
 	kind	: 'enyo.Input',
+	//* @protected
 	classes	: 'moon-input',
-
+	//* @public
 	published: {
-		//* When true, blur on enter, if focused
+		//* When true, blur on Enter keypress (if focused)
 		dismissOnEnter: false
 	},
-	
+	//* @protected
 	handlers: {
 		onkeypress : 'onKeyUp',
 		onblur     : 'onBlur',

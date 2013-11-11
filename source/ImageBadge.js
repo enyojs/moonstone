@@ -1,10 +1,11 @@
 /**
-	_moon.ImageBadge_, which derives from <a href="#moon.Icon">moon.Icon</a>, is a
-	simple control intended to be used inside of <a href="#moon.Image">moon.Image</a>.
+	_moon.ImageBadge_, which derives from [moon.Icon](#moon.Icon), is a simple
+	control designed for use inside of [moon.Image](#moon.Image).
 */
 
 enyo.kind({
 	name: "moon.ImageBadge",
 	kind: "moon.Icon",
+	//* @protected
 	classes: "moon-image-badge"
 });
