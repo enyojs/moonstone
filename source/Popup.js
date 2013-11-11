@@ -185,7 +185,7 @@ enyo.kind({
 	showHideScrim: function(inShow) {
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 			var scrim = this.getScrim();
-			if (inShow) {
+			if (inShow && this.modal && this.scrimWhenModal) {
 				// move scrim to just under the popup to obscure rest of screen
 				var i = this.getScrimZIndex();
 				this._scrimZ = i;
