@@ -1865,7 +1865,7 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   line-height: normal;
-  height: 150px;
+  height: 155px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1925,7 +1925,7 @@
 /* Header Client */
 .moon-header-client {
   position: absolute;
-  bottom: 20px;
+  bottom: 14px;
   left: 0;
   right: 0;
   text-align: right;
@@ -1959,6 +1959,7 @@
 .moon-small-header .moon-header-title-above {
   height: 0;
   opacity: 0;
+  margin-top: 0;
 }
 .moon-small-header .moon-header-title {
   line-height: normal;
@@ -1966,7 +1967,7 @@
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 0;
   box-sizing: border-box;
-  max-height: 150px;
+  max-height: 155px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
   padding-right: 0;
