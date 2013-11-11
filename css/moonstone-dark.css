@@ -4449,6 +4449,9 @@
 .moon-highlight-text-highlighted {
   color: #ff2f7d;
 }
+.moon-item.spotlight .moon-highlight-text-highlighted {
+  color: #950038;
+}
 /* ObjectActionDecorator */
 .moon-objaction.vertical {
   display: inline-block;
