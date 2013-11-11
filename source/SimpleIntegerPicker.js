@@ -34,14 +34,15 @@ enyo.kind({
 	},
 	//* @protected
 	handlers: {
-		onSpotlightSelect: "fireSelectEvent",
-		onSpotlightRight: "next",
-		onSpotlightBlur: "spotlightBlur",
-		onSpotlightFocus: "spotlightFocus",
-		onSpotlightFocused: "spotlightFocus",
-		onSpotlightLeft: "previous",
-		onSpotlightScrollLeft: "previous",
-		onSpotlightScrollRight: "next"
+		onSpotlightSelect      : "fireSelectEvent",
+		onSpotlightRight       : "next",
+		onSpotlightLeft        : "previous",
+		onSpotlightScrollUp    : "next",
+		onSpotlightScrollDown  : "previous",
+		
+		onSpotlightBlur        : "spotlightBlur",
+		onSpotlightFocus       : "spotlightFocus",
+		onSpotlightFocused     : "spotlightFocus"
 	},
 	//* @public
 	published: {
