@@ -72,7 +72,11 @@
 	position:absolute;
 	height:@moon-integer-picker-overlay-height + 5px;
 	width:100%;
-	border-width: @moon-integer-picker-shadow-width;
+	// border-width: @moon-integer-picker-shadow-width;
+	// -webkit-animation: initial;
+	padding-top: @moon-integer-picker-shadow-width;
+	padding-bottom: @moon-integer-picker-shadow-width;
+	border-width: 0px;
 	border-color: rgba(0,0,0,0.2);
 	&.top {
 	 	top: 0;
@@ -84,11 +88,28 @@
 	 	bottom: 0;
 		border-bottom-style: solid;
 		border-radius: 0 0 @moon-integer-picker-radius @moon-integer-picker-radius;
-		background: @moon-spotlight-border-color @moon-carat-picker-down-icon center -60px no-repeat;
+		background: @moon-spotlight-border-color @moon-carat-picker-down-icon center (-60px - @moon-integer-picker-shadow-width) no-repeat;
 	}
  }
+
+@-webkit-keyframes toThickBorder /* Safari and Chrome */
+{
+	from {
+		border-width: 0px;
+	}
+	to {
+		border-width: @moon-integer-picker-shadow-width;
+	}
+}
 .moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
 	display: block;
+	-webkit-animation: toThickBorder 0.1s;
+	border-width: @moon-integer-picker-shadow-width;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	&.bottom {
+		background-position: center (-60px - @moon-integer-picker-shadow-width);
+	}
 }
 
 .moon-scroll-picker-taparea {

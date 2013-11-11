@@ -2128,7 +2128,9 @@
   position: absolute;
   height: 35px;
   width: 100%;
-  border-width: 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-width: 0px;
   border-color: rgba(0, 0, 0, 0.2);
 }
 .moon-scroll-picker-overlay.top {
@@ -2141,10 +2143,25 @@
   bottom: 0;
   border-bottom-style: solid;
   border-radius: 0 0 9999px 9999px;
-  background: #ff2f7d url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
+  background: #ff2f7d url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -66px no-repeat;
+}
+@-webkit-keyframes toThickBorder /* Safari and Chrome */ {
+  from {
+    border-width: 0px;
+  }
+  to {
+    border-width: 6px;
+  }
 }
 .moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
   display: block;
+  -webkit-animation: toThickBorder 0.1s;
+  border-width: 6px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay.bottom {
+  background-position: center -66px;
 }
 .moon-scroll-picker-taparea {
   position: absolute;
