@@ -21,6 +21,8 @@ enyo.kind({
 			Position of slider, expressed as an integer between 0 and 100, inclusive
 		*/
 		value: 0,
+		//* Sliders may "snap" to multiples of this value in either direction
+		increment: 0,
 		/**
 			If true (the default), current progress will be styled differently from
 			rest of bar
@@ -211,6 +213,12 @@ enyo.kind({
 			this.$.popupLabel.setContent(content);
 		}
 	},
+	/**
+		Slider will snap multiples.
+	*/
+	calcIncrement: function(inValue) {
+		return (Math.round(inValue / this.increment) * this.increment);
+	},
 	//* Called only when _constrainToBgProgress_ is true.
 	calcConstrainedIncrement: function(inValue) {
 		return (Math.floor(inValue / this.increment) * this.increment);
@@ -233,12 +241,12 @@ enyo.kind({
 			if (this.constrainToBgProgress) {
 				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
-			}		
-			if (this.animate){			
+			}
+			if (this.animate){
 				this.animateTo(preValue, inValue);
 			} else {
 				this._setValue(inValue);
-			}			
+			}
 		}
 	},
 	_setValue: function(inValue) {
@@ -260,9 +268,9 @@ enyo.kind({
 		var percent = this.calcPercent(inValue),
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue
 		;
-		
+
 		if (this.rtl) { percent = 100 - percent; }
-		
+
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
@@ -310,7 +318,7 @@ enyo.kind({
 				ev = this.bgProgress + (v-this.bgProgress)*0.4;
 				v = this.clampValue(this.min, this.bgProgress, v);
 				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
-				this.elasticTo = v;	
+				this.elasticTo = v;
 			} else {
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				v = this.clampValue(this.min, this.max, v);
@@ -420,7 +428,7 @@ enyo.kind({
 			var v = this.rtl
 				? this.getValue() - (this.increment || 1)
 				: this.getValue() + (this.increment || 1);
-				
+
 			this.set("value",v);
 			return true;
 		}
@@ -466,7 +474,7 @@ enyo.kind({
 		// Draw shape with arrow on right
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r);
-		
+
 		ctxRight.arcTo(wre, 1, 0, 1, r);
 		ctxRight.lineTo(0, 0);
 		ctxRight.fill();
