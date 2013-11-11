@@ -2944,7 +2944,7 @@
 }
 .moon-panel-mini-header-title-above {
   color: #4b4b4b;
-  border-top: 2px solid #4b4b4b;
+  border-top: 2px solid #ffffff;
   padding-top: 5px;
 }
 .spotlight .moon-panel-mini-header-title-above {
@@ -2955,7 +2955,7 @@
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
-  border-top: 1px transparent;
+  border-top: 2px solid transparent;
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel-mini-header-title-above {
