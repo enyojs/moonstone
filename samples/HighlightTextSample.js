@@ -7,10 +7,10 @@ enyo.kind({
 				{kind: "moon.Scroller", fit: true, components: [
 					{kind: "moon.Divider", content:"Standard highlight"},
 					{kind: "moon.Item", components: [
-						{kind: "moon.HighlightText", content:"Text to highlight", highlight:true}
+						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"text"}
 					]},
 					{kind: "moon.Item", components: [
-						{kind: "moon.HighlightText", content:"Text to highlight", highlight:false}
+						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"to"}
 					]},
 					{kind: "moon.Item", components: [
 						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"highlight"}
@@ -29,9 +29,11 @@ enyo.kind({
 			]},
 			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, joinToPrev: true, oninput: "search", components: [
 				{kind: "moon.DataList", fit: true, name:"list", components: [
-					{kind: "moon.HighlightText", bindings: [
-						{from: ".model.text", to:".content"},
-						{from: ".controller.text", to: ".highlight"}
+					{kind: "moon.Item", bindings: [
+						{from: ".model.text", to:".$.text.content"},
+						{from: ".controller.text", to: ".$.text.highlight"}
+					], components: [
+						{kind: "moon.HighlightText", name:"text"}
 					]}
 				]}
 			], title:"SEARCH", titleBelow: "Filtered items in DataList", subTitleBelow: "Case sensitive"}
