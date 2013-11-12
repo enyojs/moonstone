@@ -1,6 +1,8 @@
 /* Button */
+
 .moon-button {
 	height:@moon-button-height;
+	line-height:(@moon-button-height)-(2*@moon-button-border-width);
 	border-radius: @moon-button-border-radius;
 	background-color: @moon-button-background-color;
 	border: @moon-button-border-width solid transparent;
@@ -11,15 +13,12 @@
 	width: auto;
 	min-width: @moon-button-height;
 	max-width: 302px;
-	padding: 16px 22px 20px;
-	margin: 0px @moon-spotlight-outset;
+	padding: 0 22px;
+	margin: 0 @moon-spotlight-outset;
 	color: @moon-button-text-color;
 	> * {
 		text-align: center;
 	}
-}
-.enyo-locale-non-latin .moon-button {
-	padding: 12px 22px 16px;
 }
 
 .moon-neutral .moon-button {
@@ -35,7 +34,8 @@
 .moon-button.small {
   height: @moon-button-small-height;
   min-width: @moon-button-small-height;
-  padding: 8px 20px 10px;
+  line-height:(@moon-button-small-height)-(2*@moon-button-border-width);
+  padding:0 20px;
   position: relative;
   overflow: visible;
 }
@@ -45,9 +45,7 @@
 .moon-button.small.min-width {
   min-width: @moon-button-small-min-width;
 }
-.enyo-locale-non-latin .moon-button.small {
-	padding: 6px 20px 10px;
-}
+
 .moon-button.small > .small-button-tap-area {
 	position: absolute;
 	top: -(@moon-button-border-width + (@moon-button-small-tap-area-height - @moon-button-small-height) / 2);
@@ -58,8 +56,7 @@
 /* Need 100% width for marquee in button */
 .moon-button .moon-marquee {
 	width: 100%;
-	  height:1.2em;
-    line-height:1.2;
+ vertical-align:top;
 }
 
 /*
