@@ -70,10 +70,6 @@ enyo.kind({
 	},
 	published: {
 		/**
-			_ilib_ locale info instance; contains information about the particular locale.
-		*/
-		ilibLocaleInfo: null,
-		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
 			new value.  Only valid if _ilib_ is loaded.
@@ -137,9 +133,7 @@ enyo.kind({
 				date: "w",		//'w' is the day of the week
 				length: this.dayOfWeekLength
 			});
-
-			this.ilibLocaleInfo = new ilib.LocaleInfo();
-			this.setLocale(this.ilibLocaleInfo.locale);
+			this.setLocale(new ilib.LocaleInfo().locale);
 		} else {
 			this.initDefaults();
 		}
@@ -148,7 +142,7 @@ enyo.kind({
 		this.setValue(this.value || new Date());
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
-			this.firstDayOfWeek = this.ilibLocaleInfo.getFirstDayOfWeek();
+			this.firstDayOfWeek = new ilib.LocaleInfo(this.locale).getFirstDayOfWeek();
 		}
 		this.firstDayOfWeekChanged();
 	},
@@ -365,7 +359,6 @@ enyo.kind({
 	},
 	localeChanged: function() {
 		if (typeof ilib !== "undefined") {
-			this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale);
 			this._tf = new ilib.DateFmt({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
@@ -381,7 +374,7 @@ enyo.kind({
 		if(isNaN(this.value) || this.value === null) {
 			this.setValue(new Date());
 			return;
-		}		
+		}
 		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}
