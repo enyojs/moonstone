@@ -1136,7 +1136,7 @@
 }
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.2;
+  height: 1.2em;
   margin-right: 34px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
@@ -1146,7 +1146,7 @@
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
-  height: 1.2;
+  height: 1.2em;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -1246,7 +1246,7 @@
   width: 53px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.2;
+  height: 1.2em;
   padding: 2px 0px 0px 0px;
   margin-right: 65px;
 }
@@ -1283,7 +1283,7 @@
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.2;
+  line-height: 1.2em;
   padding: 10px;
   vertical-align: top;
   position: relative;
