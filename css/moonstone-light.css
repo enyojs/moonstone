@@ -372,7 +372,7 @@
   direction: rtl;
 }
 .moon-divider-border {
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #4b4b4b;
 }
 .moon-neutral-divider-border {
   border-bottom: 2px solid #ffffff;
@@ -518,6 +518,9 @@
 }
 .enyo-locale-non-latin .moon-divider-text {
   font-size: 28px;
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
+  font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
   font-size: 26px;
@@ -1119,7 +1122,7 @@
   opacity: 0.6;
 }
 .moon-divider {
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #4b4b4b;
   margin: 0px 10px 20px 10px;
   text-transform: capitalize;
   padding-bottom: 3px;
@@ -1133,7 +1136,7 @@
 }
 /* Label */
 .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.2em;
+  height: 1.2;
   margin-right: 34px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
@@ -1143,7 +1146,7 @@
 .moon-checkbox-item .moon-checkbox-item-label {
   float: left;
   white-space: nowrap;
-  height: 1.2em;
+  height: 1.2;
 }
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
   float: right;
@@ -1243,7 +1246,7 @@
   width: 53px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.2em;
+  height: 1.2;
   padding: 2px 0px 0px 0px;
   margin-right: 65px;
 }
@@ -1276,11 +1279,11 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #4b4b4b;
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.2em;
-  color: #4b4b4b;
+  line-height: 1.2;
   padding: 10px;
   vertical-align: top;
   position: relative;
@@ -1618,17 +1621,14 @@
   opacity: 1;
   filter: alpha(opacity=100);
 }
-.moon-expandable-list-item.open .moon-expandable-list-item-header {
-  margin-bottom: 10px;
-}
-.moon-expandable-list-item.open {
-  padding-bottom: 10px;
-}
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
   color: #ffffff;
   border-color: #ffffff;
 }
 /* Client Items */
+.moon-expandable-list-item.open .moon-expandable-list-item-client {
+  margin-bottom: 10px;
+}
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
   font-size: 26px;
@@ -1773,10 +1773,12 @@
   font-style: italic;
   letter-spacing: 0;
   color: #4b4b4b;
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #4b4b4b;
   padding: 0px;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
   font-family: "LG Display";
   font-size: 28px;
   font-style: normal;
@@ -2043,7 +2045,7 @@
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption {
-  color: #a2a2a2;
+  color: #4b4b4b;
   line-height: 1.25em;
   height: 1.25em;
   vertical-align: bottom;
@@ -2188,6 +2190,7 @@
 .moon-date-picker-wrap {
   min-width: 100px;
   text-align: center;
+  margin: 10px 0;
 }
 .moon-date-picker-wrap.year {
   min-width: 120px;
@@ -2250,14 +2253,14 @@
   cursor: default;
 }
 .moon-input-decorator > input::-webkit-input-placeholder {
-  color: #7d7d7d;
+  color: #868686;
 }
 .moon-input-decorator > input:-moz-placeholder {
-  color: #7d7d7d;
+  color: #868686;
 }
 /* IE10 */
 .moon-input-decorator > input:-ms-input-placeholder {
-  color: #7d7d7d;
+  color: #868686;
 }
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
@@ -2281,6 +2284,8 @@
 
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
   font-family: "LG Display";
   font-size: 28px;
   font-style: normal;
@@ -2292,7 +2297,7 @@
   opacity: 0.4;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
-  border: 5px solid #a2a2a2;
+  border: 5px solid #4b4b4b;
 }
 /* ProgressBar.css */
 .moon-progress-bar {
@@ -2776,7 +2781,7 @@
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
-  border-top: 1px solid #a2a2a2;
+  border-top: 2px solid #4b4b4b;
   margin: 0px 0px 3px 0px;
   padding: 6px 0px 0px 0px;
 }
@@ -3063,16 +3068,16 @@
   padding-left: 40px;
 }
 .moon-accordion .moon-accordion-header-wrapper {
-  line-height: 1em;
+  height: 1.2em;
 }
 /* Arrow */
 .moon-accordion .moon-accordion-arrow {
-  background-position: right top 11px;
+  background-position: right top 13px;
   background-repeat: no-repeat;
   background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
 }
 .enyo-locale-right-to-left .moon-accordion .moon-accordion-arrow {
-  background-position: left top 11px;
+  background-position: left top 13px;
 }
 .moon-accordion .spotlight .moon-accordion-arrow {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
