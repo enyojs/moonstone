@@ -92,7 +92,7 @@ enyo.kind({
 		]}
 	],
 	pickerChanged: function(inSender, inEvent) {
-		var value, 
+		var value,
 			picker = inEvent.originator.getContent();
 		if (inEvent.originator instanceof moon.ExpandablePicker) {
 			value = inEvent.originator.getSelected().getContent();
@@ -104,5 +104,43 @@ enyo.kind({
 			value = inEvent.originator.getValue();
 			inSender.setSubTitleBelow(picker + " changed to '" + value + "'");
 		}
+	},
+	// when called, go into loop of opening/closing pickers every second
+	stressTest: function() {
+		var pickers = [
+			"datePicker",
+			"datePicker2",
+			"expandableInput",
+			"expandableInput2",
+			"expandableIntegerPicker",
+			// disabled "expandableIntegerPicker2",
+			"expandableIntegerPicker3",
+			// disabled "expandableIntegerPicker4",
+			"expandablePicker",
+			"expandablePicker2",
+			"expandablePicker3",
+			"expandablePicker4",
+			// disabled "expandablePicker5",
+			"expandablePicker6",
+			"expandablePicker7",
+			"expandablePicker8",
+			"expandablePicker9",
+			"expandablePicker10",
+			// disabled "expandablePicker11",
+			"expandablePicker12",
+			"timePicker",
+			"timePicker2"
+		];
+		var index = 0;
+		var opened = false;
+		setInterval(this.bindSafely(function() {
+			if (opened) {
+				this.$[pickers[index++]].setOpen(false);
+			} else {
+				this.$[pickers[index]].setOpen(true);
+			}
+			opened = !opened;
+			index = index % pickers.length;
+		}), 1000);
 	}
 });
