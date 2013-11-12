@@ -21,7 +21,7 @@ enyo.kind({
 					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
-						//{content: "th-TH"},	//Thailand
+						{content: "th-TH"},	//Thailand
 						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
 						{content: "ko-KO"}, //Korea, firstDayOfWeek: 0
 						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6

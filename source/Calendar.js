@@ -209,7 +209,10 @@ enyo.kind({
 			});
 			var monthPickerControls = this.$.monthPicker.getClientControls();
 			for (var i = 0; i < 12; i++) {
-				var date = ilib.Date.newInstance({unixtime: i * 31 * (24*60*60*1000)});
+				var date = ilib.Date.newInstance({
+					type: fmt.getCalendar(),
+					unixtime: i * 31 * (24*60*60*1000)
+				});
 				monthPickerControls[i].setContent(fmt.format(date));
 			}
 		}
@@ -221,7 +224,10 @@ enyo.kind({
 		var daysControls = this.$.days.getClientControls();
 		for(var i = 0; i < 7; i++) {
 			if (typeof ilib !== "undefined") {
-				var date = ilib.Date.newInstance({unixtime: i*(24*60*60*1000) + this._firstTime});
+				var date = ilib.Date.newInstance({
+					type: this._tf.getCalendar(),
+					unixtime: i*(24*60*60*1000) + this._firstTime
+				});
 				var day = this._tf.format(date);
 				daysControls[i].setContent(day);
 			} else {
