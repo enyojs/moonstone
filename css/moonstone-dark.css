@@ -456,18 +456,20 @@
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Miso";
   font-size: 24px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-icon-text {
   font-family: "Moonstone Icons";
@@ -634,18 +636,20 @@
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Miso";
   font-size: 24px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-icon-text {
   font-family: "Moonstone Icons";
@@ -1350,7 +1354,8 @@
 }
 /* Button */
 .moon-button {
-  max-height: 106px;
+  height: 85px;
+  line-height: 75px;
   border-radius: 9999px;
   background-color: #404040;
   border: 5px solid transparent;
@@ -1361,15 +1366,12 @@
   width: auto;
   min-width: 85px;
   max-width: 302px;
-  padding: 19px 22px;
-  margin: 0px 10px;
+  padding: 0 22px;
+  margin: 0 10px;
   color: #a6a6a6;
 }
 .moon-button > * {
   text-align: center;
-}
-.enyo-locale-non-latin .moon-button {
-  padding: 15px 22px 16px;
 }
 .moon-neutral .moon-button {
   color: #4b4b4b;
@@ -1382,10 +1384,10 @@
   color: #ffffff;
 }
 .moon-button.small {
-  max-height: 60px;
-  min-height: 60px;
+  height: 60px;
   min-width: 60px;
-  padding: 10px 20px 10px 20px;
+  line-height: 50px;
+  padding: 0 20px;
   position: relative;
   overflow: visible;
 }
@@ -1394,9 +1396,6 @@
 }
 .moon-button.small.min-width {
   min-width: 130px;
-}
-.enyo-locale-non-latin .moon-button.small {
-  padding: 10px 15px;
 }
 .moon-button.small > .small-button-tap-area {
   position: absolute;
@@ -1408,6 +1407,7 @@
 /* Need 100% width for marquee in button */
 .moon-button .moon-marquee {
   width: 100%;
+  vertical-align: top;
 }
 /*
 	IE8 can't handle these selectors in tandem:
@@ -2404,10 +2404,11 @@
 .moon-slider-popup-label {
   font-family: "Miso";
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
@@ -3473,10 +3474,11 @@
 .moon-tooltip-label {
   font-family: "Miso";
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   height: 59px;
   line-height: 2.2em;
   vertical-align: middle;
@@ -3698,10 +3700,11 @@
 .moon-video-transport-slider-popup-label {
   font-family: "Miso";
   font-size: 30px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
   vertical-align: top;
@@ -4454,9 +4457,7 @@
 /* ObjectActionDecorator */
 .moon-objaction.vertical {
   display: inline-block;
-}
-.moon-objaction.vertical .moon-objaction-client {
-  padding-bottom: 10px;
+  text-align: center;
 }
 .moon-objaction.vertical .moon-objaction-actions {
   opacity: 0;
@@ -4485,6 +4486,15 @@
 .enyo-locale-right-to-left .moon-objaction-client.horizontal .moon-objaction-client {
   padding-right: auto;
   padding-left: 10px;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight {
+  background-color: transparent;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item > img {
+  padding: 10px;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight > img {
+  background-color: #ff2f7d;
 }
 /* FormCheckbox.css */
 .moon-item.moon-formcheckbox-item {
