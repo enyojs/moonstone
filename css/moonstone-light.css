@@ -904,6 +904,7 @@
   padding: 0 70px;
   position: relative;
   height: 60px;
+  vertical-align: middle;
 }
 .moon-simple-picker.block {
   display: block;

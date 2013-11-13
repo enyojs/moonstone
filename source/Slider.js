@@ -178,6 +178,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.popupColorChanged();
 		this.popupHeightChanged();
+		this.popupWidthChanged();
 		this.drawToCanvas(this.popupColor);
 		this._setValue(this.value);
 		this.addRemoveClass("moon-slider-rtl", this.rtl);
