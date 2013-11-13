@@ -7,6 +7,10 @@ enyo.kind({
 	kind: enyo.Popup,
 	//* @protected
 	classes: "moon moon-neutral enyo-unselectable moon-popup",
+	/**
+		If true, events from outside of the popup are not received while the popup
+		is showing.
+	*/
 	modal: true,
 	floating: true,
 	_spotlight: null,
@@ -25,14 +29,15 @@ enyo.kind({
 	published: {
 		/**
 			Determines whether a scrim will appear when the dialog is modal.
-			If it is true, _moon.Scrim_ provides an transparent overlay which will
-			prevent propagation of tap event.
-			Note that modal scrims are transparent, so you won't see them.
+			If true, _moon.Scrim_ provides a transparent (i.e., invisible)
+			overlay that prevents propagation of tap events.
 		*/
 		scrimWhenModal: true,
-		/** Determines whether or not to display a scrim. Only displays scrims
-			when floating. When _moon.Scrim_ is floating state, scrim will cover
-			entire viewport. That means, scrim will be exposed to top of other controls.
+		/**
+			Determines whether or not to display a scrim. Only displays scrims when
+			floating. When the scrim is in the floating state (_floating: true_), it
+			covers the entire viewport--i.e., it is displayed on top of other
+			controls.
 		*/
 		scrim: true,
 		/**
@@ -42,14 +47,9 @@ enyo.kind({
 		*/
 		scrimClassName: "",
 		/**
-			modal property indicates whether it prevent to receive event from out
-			side the popup or not while popup is showing.
-			When true, spotlight cannot leave the constraints of the _moon.Popup_
-			unless it is explicitly closed. Spotlight range is limited to inside
-			of popup area.
-			If you try to move spot using arrow key with spotlightModal: true,
-			you can't move out of popup. When false, spotlight can be moved anywhere
-			in viewport.
+			If true, spotlight (focus) cannot leave the area of the popup unless the
+			popup is explicitly closed; if false, spotlight may be moved anywhere
+			within the viewport
 		*/
 		spotlightModal: false,
 		/**
