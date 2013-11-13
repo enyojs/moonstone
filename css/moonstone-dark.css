@@ -2241,6 +2241,7 @@
   font-family: "LG Display";
   font-size: 26px;
   line-height: 32px;
+  max-width: 300px;
 }
 .moon-neutral .moon-input {
   color: #868686;
@@ -2269,31 +2270,46 @@
   font-style: italic;
   letter-spacing: 0;
   color: #999999;
-  margin: 0px;
-  padding: 14px 30px 14px 30px;
+  margin: 5px;
+  padding: 9px 30px;
   border-radius: 34px;
-  -moz-border-radius: 34px;
   border: 5px solid transparent;
   background-color: #ffffff;
-  -webkit-background-clip: padding;
-  /* Safari */
-
-  background-clip: padding-box;
-  /* Firefox 4+, Chrome, IE 9+ */
-
+  box-sizing: border-box;
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  padding: 5px 30px 9px;
+}
+.moon-textarea-decorator {
+  font-family: "MuseoSans 700";
+  font-size: 22px;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0;
+  color: #999999;
+  margin: 5px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 5px solid transparent;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+.enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
+.enyo-locale-non-latin .moon-textarea-decorator {
   font-family: "LG Display";
   font-size: 28px;
   font-style: normal;
 }
-.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
+.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight,
+.moon-textarea-decorator.spotlight {
   border: 5px solid #ff2f7d;
 }
-.moon-input-decorator.moon-disabled {
-  opacity: 0.4;
+.moon-input-decorator.moon-disabled,
+.moon-textarea-decorator.moon-disabled {
+  opacity: 0.6;
 }
-.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
+.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused,
+.moon-textarea-decorator.moon-focused {
   border: 5px solid #a2a2a2;
 }
 /* ProgressBar.css */
@@ -2683,8 +2699,9 @@
   font-family: "LG Display";
   font-size: 26px;
   line-height: 32px;
+  max-width: 300px;
 }
-.moon-input-decorator > .moon-textarea {
+.moon-textarea-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
 
   resize: none;
@@ -2694,10 +2711,10 @@
   /* -webkit-appearance: caret;*/
 
 }
-.moon-input-decorator.moon-focused .moon-textarea {
+.moon-textarea-decorator.moon-focused .moon-textarea {
   cursor: text;
 }
-.moon-input-decorator.moon-disabled .moon-textarea {
+.moon-textarea-decorator.moon-disabled .moon-textarea {
   cursor: default;
 }
 /* List Actions */
