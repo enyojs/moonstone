@@ -2907,7 +2907,7 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
   -webkit-transform: scale3d(1, 1, 1);
-  width: 230px;
+  width: 240px;
   height: 370px;
   position: absolute;
   top: 0px;
@@ -2924,13 +2924,13 @@
 }
 .moon-panel-mini-header-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
-  margin: 10px 0 0;
+  margin: 10px 0 0 10px;
   position: absolute;
   bottom: 10px;
   left: 0;
   height: 360px;
   width: 100%;
-  padding: 0 10px 10px;
+  padding: 0 20px 10px 10px;
   box-sizing: border-box;
 }
 .moon-panel-mini-header {
