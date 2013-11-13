@@ -196,7 +196,9 @@ enyo.kind({
 	titleAboveChanged: function() {
 		this.$.header.setTitleAbove(this.getTitleAbove());
 	},
-	//* If this panel is invisible from screen, we stop marquee text.
+	/** If this panel is invisible from screen, we stop marquee text.
+		Otherwise, start marquee text.
+	*/
 	isOutOfScreenChanged: function() {
 		if (this.getIsOutOfScreen()) {
 			if(this.isBreadcrumb) {
@@ -230,13 +232,11 @@ enyo.kind({
 	shrinkPanel: function() {
 		this.growing = false;
 		this.shrinking = true;
-		this.showingSmallHeader = false;
 		this.shrinkingHeightAnimation();
 	},
 	growPanel: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.showingSmallHeader = true;
 		this.growingWidthAnimation();
 	},
 	//* @protected
@@ -273,7 +273,7 @@ enyo.kind({
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		// run breadcrumbText marquee when we're collapsed
-		if(this.showingSmallHeader) {
+		if(this.isBreadcrumb) {
 			this.$.breadcrumbText.startMarquee();
 		} else {
 			this.$.breadcrumbText.stopMarquee();
