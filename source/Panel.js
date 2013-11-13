@@ -206,12 +206,6 @@ enyo.kind({
 			} else {
 				this.$.header.stopMarquee();
 			}
-		} else {
-			if(this.isBreadcrumb) {
-				this.$.breadcrumbText.startMarquee();
-			} else {
-				this.$.header.startMarquee();
-			}
 		}
 	},
 	generateAutoNumber: function() {
@@ -271,17 +265,24 @@ enyo.kind({
 		this.$.animator.pause(this.shrinkWidthAnimation.name);
 		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
+	/**
+		After panel transition finished, we adjust marquee's moving
+		based on its visibility and status like breadCrumbed or not.
+		If panel is invisible, that means it is out of screen not,
+		all text in that panel should be stopped. The otherhand, we make
+		the marquee start.
+	*/
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		// run breadcrumbText marquee when we're collapsed
-		if(this.isBreadcrumb) {
-			this.$.breadcrumbText.startMarquee();
-		} else {
-			this.$.breadcrumbText.stopMarquee();
-			if (inEvent.active == inEvent.index) {
+		// mark visibility
+		this.setIsOutOfScreen(inEvent.isOutOfScreen);
+		// start marquee when this panel is active and visible.
+		if (!this.getIsOutOfScreen()) {
+			if (this.isBreadcrumb) {
+				this.$.breadcrumbText.startMarquee();
+			} else if (inEvent.active == inEvent.index) {
 				this.$.header.startMarquee();
 			}
 		}
-		this.setIsOutOfScreen(inEvent.isOutOfScreen);
 		return true;
 	},
 	preTransitionComplete: function() {
