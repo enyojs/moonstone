@@ -97,7 +97,8 @@ enyo.kind({
 			(inOld.getFullYear() != this.value.getFullYear() ||
 			inOld.getMonth() != this.value.getMonth())) {
 			this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
-			this.$.day.render();
+			this.$.day.updateScrollBounds();
+			this.$.day.updateOverlays();
 		}
 		this.$.day.setValue(this.value.getDate());
 
