@@ -455,7 +455,7 @@
 }
 .moon-large-button-text {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -464,7 +464,7 @@
 }
 .moon-small-button-text {
   font-family: "Miso";
-  font-size: 24px;
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -638,7 +638,7 @@
 }
 .moon-large-button-text {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -647,7 +647,7 @@
 }
 .moon-small-button-text {
   font-family: "Miso";
-  font-size: 24px;
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -1171,6 +1171,9 @@
   left: 10px;
   right: auto;
 }
+.moon-neutral .moon-checkbox[checked] {
+  background-image: url(../images/LightTheme_Icons/CheckmarkWhite_Icon.png);
+}
 .moon-checkbox-item .moon-checkbox[checked] {
   background-color: transparent;
 }
@@ -1212,6 +1215,10 @@
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
   left: auto;
   right: 10px;
+}
+/*this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
+.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  padding-left: 2px;
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
@@ -2425,7 +2432,7 @@
 }
 .moon-slider-popup-label {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
@@ -3491,15 +3498,14 @@
 }
 .moon-tooltip-label {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   height: 59px;
-  line-height: 2.2em;
-  vertical-align: middle;
+  line-height: 59px;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
@@ -3717,7 +3723,7 @@
 }
 .moon-video-transport-slider-popup-label {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
