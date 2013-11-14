@@ -487,7 +487,7 @@ enyo.kind({
 		// width's edge
 		var r = hbc;
 		// min-radius is half of the bubble with
-		var bcr = 73//bottom curve radius 56
+		var bcr = 50//bottom curve radius 56
 		var bcy = hb + bcr//calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
 
 		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
