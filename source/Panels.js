@@ -172,9 +172,6 @@ enyo.kind({
 				this._directHide();
 			}
 		}
-		for (var i = 0; i < this.getPanels().length; i++) {
-			this.getPanels()[i].setIsOutOfScreen(this.layout.isOutOfScreen(i));
-		}
 	},
 	onTap: function(oSender, oEvent) {
 		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
@@ -430,7 +427,7 @@ enyo.kind({
 		this.finishTransition(true);
 
 		for (var i = 0; i < this.getPanels().length; i++) {
-			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i, isOutOfScreen: this.layout.isOutOfScreen(i)});
+			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
 		}
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)

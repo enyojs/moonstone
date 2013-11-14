@@ -307,12 +307,13 @@ enyo.kind({
 		}
 	},
 	/**
-		Return whether given panel is visible or not.
+		Return whether a given panel is currently outside the bounds of the panels container
 	*/
-	isOutOfScreen: function(inIndex) {
+	panelIsOffscreen: function(inIndex) {
 		var transitionPosition = this.container.transitionPositions[inIndex+"."+this.container.getIndex()];
+		var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inIndex) : 0;
 		if (transitionPosition < 0) {
-			return transitionPosition + this.breadcrumbWidth <= this.getBreadcrumbEdge(inIndex);
+			return transitionPosition + this.breadcrumbWidth <= screenEdge;
 		} else {
 			return transitionPosition >= this.containerBounds.width;
 		}
@@ -379,5 +380,18 @@ enyo.kind({
 		}
 
 		return false;
-	}
+	},
+	finish: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var c$ = this.container.getPanels();
+			var i, c;
+
+			for (i=0; (c=c$[i]); i++) {
+				c.set("panelInfo", {
+					isOffscreen: this.panelIsOffscreen(i)
+				});
+			}
+		}
+	})
 });

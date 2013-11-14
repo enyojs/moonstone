@@ -35,11 +35,7 @@ enyo.kind({
 		//* Position properties for background image for the header
 		headerBackgroundPosition: "top right",
 		//* Header options
-		headerOptions: null,
-		/** If true, this panel's position is out of screen so we can't see it.
-			However it doesn't mean that this panel is hided (display: none).
-		*/
-		isOutOfScreen: false
+		headerOptions: null
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -76,7 +72,7 @@ enyo.kind({
 
 		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
 	],
-	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
+	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", marqueeOnRender: false, isChrome: true},
 	bindings: [
 		{from: ".title", to: ".$.header.title"},
 		{from: ".title", to: ".$.breadcrumbText.content"},
@@ -89,6 +85,9 @@ enyo.kind({
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
+	observers: {
+		panelInfoChanged: ["panelInfo"]
+	},
 
 	headerComponents: [],
 	isBreadcrumb: false,
@@ -143,6 +142,9 @@ enyo.kind({
 		this.$.contentWrapper.applyStyle("height", this.initialHeight + "px");
 		this.$.contentWrapper.applyStyle("width", this.initialWidth + "px");
 	},
+	panelInfoChanged: function() {
+		this.startMarqueeAsNeeded();
+	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
@@ -196,22 +198,6 @@ enyo.kind({
 	titleAboveChanged: function() {
 		this.$.header.setTitleAbove(this.getTitleAbove());
 	},
-	//* If this panel is invisible from screen, we stop marquee text.
-	isOutOfScreenChanged: function() {
-		if (this.getIsOutOfScreen()) {
-			if(this.isBreadcrumb) {
-				this.$.breadcrumbText.stopMarquee();
-			} else {
-				this.$.header.stopMarquee();
-			}
-		} else {
-			if(this.isBreadcrumb) {
-				this.$.breadcrumbText.startMarquee();
-			} else {
-				this.$.header.startMarquee();
-			}
-		}
-	},
 	generateAutoNumber: function() {
 		var adjustedIndex = this.indexInContainer() + 1;
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
@@ -222,6 +208,22 @@ enyo.kind({
 	removeSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.spotlight = false;
 		this.$.breadcrumbBackground.removeClass("spotlight");
+	},
+	startMarqueeAsNeeded: function() {
+		var panelInfo = this.get("panelInfo"),
+			onscreen = (panelInfo && !panelInfo.isOffscreen) || !panelInfo;
+		if (onscreen) {
+			if (this.isBreadcrumb) {
+				this.$.breadcrumbText.startMarquee();
+			}
+			else {
+				this.$.header.startMarquee();
+			}
+		}
+	},
+	stopMarquees: function() {
+		this.$.breadcrumbText.stopMarquee();
+		this.$.header.stopMarquee();
 	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
@@ -272,16 +274,6 @@ enyo.kind({
 		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		// run breadcrumbText marquee when we're collapsed
-		if(this.showingSmallHeader) {
-			this.$.breadcrumbText.startMarquee();
-		} else {
-			this.$.breadcrumbText.stopMarquee();
-			if (inEvent.active == inEvent.index) {
-				this.$.header.startMarquee();
-			}
-		}
-		this.setIsOutOfScreen(inEvent.isOutOfScreen);
 		return true;
 	},
 	preTransitionComplete: function() {
@@ -296,8 +288,7 @@ enyo.kind({
 		this.resized();
 	},
 	preTransition: function(inFromIndex, inToIndex, options) {
-		this.$.header.stopMarquee();
-		this.$.breadcrumbText.stopMarquee();
+		this.stopMarquees();
 
 		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
 			this.shrinkPanel();
