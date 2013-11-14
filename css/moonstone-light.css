@@ -956,6 +956,7 @@
   margin-left: 10px;
 }
 .moon-simple-integer-picker {
+  white-space: nowrap;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
