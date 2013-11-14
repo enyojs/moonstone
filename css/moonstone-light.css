@@ -3978,7 +3978,7 @@
   border: 0px;
   background-color: transparent;
 }
-.moon-video-player-control-buttons.disabled {
+.moon-video-player-control-buttons.disabled > * {
   pointer-events: none;
 }
 /* ---- Equal space margin on fullscreen player control buttons ---- */
