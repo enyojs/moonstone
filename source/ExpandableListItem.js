@@ -58,7 +58,11 @@ enyo.kind({
 			(rather than _active_) to set the item's initial state.
 		*/
 		open: false,
-		//* True if the item is currently selected
+		/**
+			The _active_ reflects the value of the open property, and is used to support the _enyo.Group_ 
+			API for grouping a set of ExpandableListItems where only one is expanded at a time.  
+			Note, the _open_ property will control the initial state of the picker, not this property.
+		*/
 		active: false,
 		//* If true, the user is prevented from spotting off the bottom of the drawer (when open) using five-way controls
 		lockBottom: false,
