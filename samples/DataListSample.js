@@ -41,7 +41,7 @@ enyo.kind({
 	bindings: [
 		{from: ".$.orientation.selected.content", to: ".orientation"},
 		{from: ".$.debugging.selected.value", to: ".repeaterDebugging"},
-		{from: ".$.recordCount.value", to: ".recordCount", debug: true, oneWay: false, transform: function (v) {return (v !== undefined && v !== null && !isNaN(v))? v: undefined}},
+		{from: ".$.recordCount.value", to: ".recordCount", debug: true, oneWay: false, transform: function (v) {return (v !== undefined && v !== null && !isNaN(v))? v: undefined;}},
 		{from: ".$.collection", to: ".$.repeater.collection"},
 		{from: ".side", to: ".$.repeater.side"}
 	],
