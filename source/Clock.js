@@ -103,7 +103,7 @@ enyo.kind({
 	},
 	dateChanged: function() {
 		if(this.date && this.date instanceof Date) {
-			this._timeDiff = this.date.getTime() - Date.now();
+			this._timeDiff = (this.date.getTime() - Date.now()) || 0;
 		} else {
 			this._timeDiff = 0;
 		}
