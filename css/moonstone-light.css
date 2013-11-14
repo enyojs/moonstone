@@ -2410,7 +2410,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 1px 0 0 0;
+  margin: 0px 0 0 0;
   padding: 0;
   z-index: 21;
 }
@@ -2432,7 +2432,6 @@
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
-  line-height: 60px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
@@ -3732,10 +3731,6 @@
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
-  padding-top: 14px;
-}
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
-  padding-top: 9px;
 }
 .moon-video-transport-slider-indicator-wrapper {
   width: 12.5%;

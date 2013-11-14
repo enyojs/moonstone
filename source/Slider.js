@@ -198,8 +198,9 @@ enyo.kind({
 	popupHeightChanged: function() {
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
-		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 8 + 'px');
+		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 7 + 'px');
 		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
+		this.$.popup.applyStyle("line-height", this.getPopupHeight() - 6 + 'px');
 		this.popupOffsetChanged();
 	},
 	//* Updates popup color.
@@ -451,7 +452,9 @@ enyo.kind({
 		var hb = h - 8; // height bubble
 		var hbc = (hb)/2; // height of bubble's center
 		var wre = 26; // width's edge
-		var r = 30; // radius
+		var r = hbc; //radius is half the bubble height
+		var bcr = 50;//bottom curve radius 50
+		var bcy = hb + bcr;//calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
 
 		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
 		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
@@ -463,12 +466,11 @@ enyo.kind({
 		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 		// Draw shape with arrow on left
 		ctxLeft.moveTo(0, h);
-		ctxLeft.arc(26, 120, 60, 1.35*Math.PI, 1.485*Math.PI, false);
+		ctxLeft.arc(wre, bcy, bcr, 1.35 * Math.PI, 1.485 * Math.PI, false);
 		ctxLeft.lineTo(wre, hb);
-		ctxLeft.lineTo(wre, 1);
-		ctxLeft.arcTo(0, 1, 0, hbc, r);
+		ctxLeft.lineTo(wre, 0);
+		ctxLeft.arcTo(0, 0, 0, hbc, r);
 		ctxLeft.lineTo(0, h);
-		ctxLeft.lineTo(0, 51);
 		ctxLeft.fill();
 
 		// Set styles. Default color is knob's color
@@ -477,7 +479,7 @@ enyo.kind({
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r);
 
-		ctxRight.arcTo(wre, 1, 0, 1, r);
+		ctxRight.arcTo(wre, 0, 0, 0, r);
 		ctxRight.lineTo(0, 0);
 		ctxRight.fill();
 	},
