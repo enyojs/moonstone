@@ -35,6 +35,7 @@ enyo.kind({
 									kind: "moon.ChannelInfo",
 									channelNo: "13",
 									channelName: "AMC",
+									classes: "moon-2h",
 									components: [
 										{content: "3D"},
 										{content: "Live"},

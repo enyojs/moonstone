@@ -19,7 +19,10 @@
 </head>
 <body>
 <script type="text/javascript">
-	new moon.sample.ExpandablePickerSample().renderInto(document.body);
+	var app = new moon.sample.ExpandablePickerSample().renderInto(document.body);
+	if (document.location.hash.match("auto")) {
+		app.stressTest();
+	}
 </script>
 </body>
 </html>
