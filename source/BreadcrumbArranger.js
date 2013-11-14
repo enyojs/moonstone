@@ -154,7 +154,15 @@ enyo.kind({
 
 		// breadcrumbed panels should be positioned to the left
 		} else if (inIndex > inPanelIndex) {
-			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - (breadcrumbEdge - this.breadcrumbWidth);
+			var stickyEdgeOffset = 0;
+			if (this.container.pattern == "activity") {
+				// add some positional sugar just for the activity breadcrumbs
+				stickyEdgeOffset = breadcrumbEdge - this.breadcrumbWidth;
+			}
+			else {
+				stickyEdgeOffset = this.getBreadcrumbGap()/2;
+			}
+			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - stickyEdgeOffset;
 
 		// upcoming panels should be layed out to the right if _joinToPrev_ is true
 		} else {
