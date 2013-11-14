@@ -19,8 +19,8 @@
 			{content: "Brazil"}
 		]}
 
-	When multiple ExpandableListItems are used in a group, only one may be open at a given
-	time.
+	When multiple ExpandableListItems are used in a group, only one may be open at
+	a given time.
 
 		{kind: "enyo.Group", highlander: true, components: [
 			{kind: "moon.ExpandableListItem",  active: true,
@@ -54,17 +54,21 @@ enyo.kind({
 		*/
 		autoCollapse: false,
 		/**
-			If true, the drawer is expanded, showing this item's contents. Use this property
-			(rather than _active_) to set the item's initial state.
+			If true, the drawer is expanded, showing this item's contents. Use this
+			property (rather than _active_) to set the item's initial state.
 		*/
 		open: false,
 		/**
-			The _active_ reflects the value of the open property, and is used to support the _enyo.Group_ 
-			API for grouping a set of ExpandableListItems where only one is expanded at a time.  
-			Note, the _open_ property will control the initial state of the picker, not this property.
+			Boolean that reflects the value of the _open_ property; it is used to
+			support the _enyo.Group_ API for grouping a set of ExpandableListItems in
+			which only one is expanded at a time. Note that the _open_ property (not
+			the _active_ property) controls the initial state of the picker.
 		*/
 		active: false,
-		//* If true, the user is prevented from spotting off the bottom of the drawer (when open) using five-way controls
+		/**
+			If true, the user is prevented from moving spotlight past the bottom of
+			the drawer (when open) using five-way controls
+		*/
 		lockBottom: false,
 		//* When true, item is shown as disabled and does not generate tap events
 		disabled: false
