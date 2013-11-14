@@ -759,7 +759,7 @@ enyo.kind({
 			this._stop();
 			this.sendFeedback("Stop", {bForcing: true}, true);
 		}
-		else if (inEvent.value == 0) {
+		else if (inEvent.value === 0) {
 			this.play();
 			this.sendFeedback("Play", {bForcing: true}, true);
 		}
@@ -880,8 +880,8 @@ enyo.kind({
 	setCurrentTime: function(inValue) {
 		this.$.video.setCurrentTime(inValue);
 		// updates the controls and feedback when tapped in tapArea and dummyTapArea
-		if (this.$.slider.isDragging() == false) {
-			if (this.$.slider.tappable && this.$.slider.showDummyArea && inValue == 0) {
+		if (this.$.slider.isDragging() === false) {
+			if (this.$.slider.tappable && this.$.slider.showDummyArea && inValue === 0) {
 				this.play();
 				this.sendFeedback("Play", {bForcing: true}, true);
 			}
