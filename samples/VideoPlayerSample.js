@@ -9,7 +9,6 @@ enyo.kind({
 			kind: "moon.VideoPlayer",
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 			poster: "assets/video-poster.png",
-			showFFRewindControls: true,
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
@@ -44,11 +43,10 @@ enyo.kind({
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls", ontap: "togglePlaybackControls"},
+				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls"},
 				{kind: "moon.Button", content:"Unload", ontap:"unload"},
 				{kind: "moon.Button", content:"Reload", ontap:"load"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
@@ -61,7 +59,8 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from:".$.controlsToggleButton.value", to:".$.player.disablePlaybackControls"}
+		{from:".$.player.disablePlaybackControls", to:".$.controlsToggleButton.value", oneWay:false},
+		{from:".$.player.showFFRewindControls", to:".$.ffrewToggleButton.value", oneWay:false}
 	],
 	controlsTapped: function() {
 		this.$.tapDialog.show();
