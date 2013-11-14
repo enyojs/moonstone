@@ -98,22 +98,13 @@ enyo.kind({
 	refreshChanged: function() {
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
-	setDate: function(val) {
-		this.date = val;
-		if((this.date && this.date instanceof Date) && !isNaN(this.date)) {
+	dateChanged: function() {
+		if(this.date && this.date instanceof Date) {
 			this._timeDiff = this.date.getTime() - Date.now();
-			var d = new Date(Date.now() + this._timeDiff);
-			var h = d.getHours();
-			this.updateHour(d, h);
-			this.updateMinute(d, h);
-			this.updateMonthDay(d);
-			this.stopJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
-			return true;
 		} else {
 			this._timeDiff = 0;
-			this.refreshJob();
-			return false;
-		}			
+		}
+		this.refreshJob();
 	},
 	refreshJob: function() {
 		var d = new Date(Date.now() + this._timeDiff);
