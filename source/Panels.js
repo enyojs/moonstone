@@ -232,20 +232,10 @@ enyo.kind({
 	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightUp: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
-		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
-			if (this.getIndex() > 0 && this.showing) {
-				return true;
-			}
-		}
 	},
 	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightDown: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
-		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
-			if (this.getIndex() < this.getPanels().length - 1) {
-				return true;
-			}
-		}
 	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
