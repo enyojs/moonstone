@@ -13,13 +13,15 @@
 
 		{kind: "moon.ProgressBar", barClasses: "class-name"}
 
-	For more information, see the documentation on
-	<a href="https://github.com/enyojs/moonstone/wiki/Progress-Indicators">Progress Indicators</a>
-	in the Enyo Developer Guide.
+	For more information, see the documentation on [Progress
+	Indicators](https://github.com/enyojs/moonstone/wiki/Progress-Indicators) in
+	the Enyo Developer Guide.
 */
 enyo.kind({
 	name: "moon.ProgressBar",
+	//* @protected
 	classes: "moon-progress-bar",
+	//* @public
 	published: {
 		//* Current position of progress bar
 		progress: 0,
@@ -31,8 +33,6 @@ enyo.kind({
 		barClasses: "moon-progress-bar-bar",
 		//* CSS classes to apply to bg progress bar
 		bgBarClasses: "moon-progress-bg-bar",
-		//* Sliders may "snap" to multiples of this value in either direction
-		increment: 0,
 		//* Completion percentage for background process
 		bgProgress: 0
 	},
@@ -72,9 +72,6 @@ enyo.kind({
 		var p = this.calcPercent(this.progress);
 		this.updateBarPosition(p);
 	},
-	calcIncrement: function(inValue) {
-		return (Math.round(inValue / this.increment) * this.increment);
-	},
 	clampValue: function(inMin, inMax, inValue) {
 		return Math.max(inMin, Math.min(inValue, inMax));
 	},
@@ -91,7 +88,7 @@ enyo.kind({
 		this.$.bgbar.applyStyle("width", inPercent + "%");
 	},
 	//* @public
-	//* Animates progress to the given value.
+	//* Animates progress to the passed-in value.
 	animateProgressTo: function(inValue) {
 		this.$.progressAnimator.play({
 			startValue: this.progress,

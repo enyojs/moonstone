@@ -74,6 +74,9 @@ enyo.kind({
 		*/
 		small: true
 	},
+	getSrc: function () {
+		return this.src;
+	},
 	//* @protected
 	classes: "moon-icon",
 

@@ -1,23 +1,27 @@
 /**
-	_moon.SelectionOverlaySupport_ is a mixin that can be applied to any `moon.DataList`/`moon.DataGridList`
-	item to provide an overlay that is activated when the list is in selection mode.  The selection overlay
-	has three visual states: focused but not selected, focused and selected, and selected but not focused.
+	_moon.SelectionOverlaySupport_ is a mixin that may be applied to any
+	_moon.DataList_/_moon.DataGridList_ item to provide an overlay that is
+	activated when the list is in selection mode.
 
-	The item may define a `selectionScrimIcon` URL to override the default icon.
+	The selection overlay has three visual states: focused but not selected,
+	focused and selected, and selected but not focused.
 
-	Example:
+	The item may define a _selectionScrimIcon_ URL to override the default icon.
 
-			{name: "list", selection: false, kind: "moon.DataList", components: [
-				{mixins: ["moon.SelectionOverlaySupport"], selectionScrimIcon:"assets/my-icon.png", kind: "moon.ImageItem", bindings: [
+		{name: "list", selection: false, kind: "moon.DataList", components: [
+			{mixins: ["moon.SelectionOverlaySupport"], selectionScrimIcon: "assets/my-icon.png",
+				kind: "moon.ImageItem", bindings: [
 					{from: ".model.title", to: ".label"},
 					{from: ".model.description", to: ".text"},
 					{from: ".model.coverSource", to: ".source"}
-				]}
-			]}
+				]
+			}
+		]}
 
 */
 moon.SelectionOverlaySupport = {
 	name: "moon.SelectionOverlaySupport",
+	//* @protected
 	classes: "moon-selection-overlay-support",
 	create: enyo.inherit(function (sup) {
 		return function () {

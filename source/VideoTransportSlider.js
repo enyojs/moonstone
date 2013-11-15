@@ -11,6 +11,7 @@
 enyo.kind({
 	name: "moon.VideoTransportSlider",
 	kind: "moon.Slider",
+	//* @protected
 	spotlight: false,
 	classes: "moon-video-transport-slider",
 	//* @protected
@@ -48,14 +49,20 @@ enyo.kind({
 		//* Popup height in pixels
 		popupHeight: 67
 	},
+	//* @protected
 	handlers: {
 		onTimeupdate: "timeUpdate",
 		onresize: "resizeHandler"
 	},
+	//* @public
 	events: {
 		//* Fires in response to _dragstart_.
 		onSeekStart: "",
-		//* Fires when user taps in _tapArea_.
+		/**
+			Fires when user taps in _tapArea_.
+			
+			_inEvent.value_ contains the position to seek to.
+		*/
 		onSeek: "",
 		//* Fires in response to _dragfinish_.
 		onSeekFinish: "",
@@ -64,6 +71,7 @@ enyo.kind({
 		//* Fires when cursor leaves _tapArea_.
 		onLeaveTapArea: ""
 	},
+	//* @protected
 	tickComponents: [
 		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-video-transport-slider-indicator-bar-left"},
@@ -202,15 +210,13 @@ enyo.kind({
 		this.progressChanged();
 		this.bgProgressChanged();
 	},
-	//** hiden variable, scaleFactor is generated when create this
+	//* Sets value of hidden variable, _scaleFactor_.
 	updateScale: function() {
 		this.scaleFactor = (this.rangeEnd-this.rangeStart)/(this.max-this.min);
 	},
-	//
 	calcPercent: function(inValue) {
 		return (this.calcRatio(inValue) * 100) * this.scaleFactor;
 	},
-	//
 	_calcPercent: function(inValue) {
 		return this.calcRatio(inValue) * 100;
 	},
@@ -247,7 +253,7 @@ enyo.kind({
 		}
 		return (oValue - this.rangeStart) / this.scaleFactor;
 	},
-	//* If user presses on _this.$.tapArea_, seek to that point
+	//* If user presses on _this.$.tapArea_, seeks to that point.
 	tap: function(inSender, inEvent) {
 		if (this.tappable && !this.disabled) {
 			var v = this.calcKnobPosition(inEvent);
@@ -269,7 +275,7 @@ enyo.kind({
 			this._setValue(inValue);
 		}
 	},
-	//* If dragstart, bubble _onSeekStart_ event
+	//* If dragstart, bubbles _onSeekStart_ event.
 	dragstart: function(inSender, inEvent) {
 		if (this.disabled) {
 			return; // return nothing
@@ -291,7 +297,7 @@ enyo.kind({
 
 		return true;
 	},
-	//* If drag, bubble _onSeek_ event, and override parent drag handler
+	//* If drag, bubbles _onSeek_ event and overrides parent drag handler.
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {
 			var v = this.calcKnobPosition(inEvent);
@@ -320,7 +326,10 @@ enyo.kind({
 			return true;
 		}
 	},
-	//* If dragfinish, bubble _onSeecFinish_ event, and override parent dragfinish handler
+	/**
+		If dragfinish, bubbles _onSeekFinish_ event and overrides parent dragfinish
+		handler.
+	*/
 	dragfinish: function(inSender, inEvent) {
 		if (this.disabled) {
 			return;
@@ -346,11 +355,14 @@ enyo.kind({
 		this.dragging = false;
 		return true;
 	},
-	//* Send seek event, inValue is in video domain
+	//* Sends _onSeek_ event.
 	sendSeekEvent: function(inValue) {
 		this.doSeek({value: inValue});
 	},
-	//* When the time updates, update buffered progress, canvas, video currentTime and duration
+	/**
+		During time update, updates buffered progress, canvas, video currentTime,
+		and duration.
+	*/
 	timeUpdate: function(inSender, inEvent) {
 		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
@@ -360,7 +372,7 @@ enyo.kind({
 		this.$.endTickText.setContent(this.formatTime(this.duration));
 	},
 
-	//* Properly format time
+	//* Properly formats time.
 	formatTime: function(inValue) {
 		var hour = Math.floor(inValue / (60*60));
 		var min = Math.floor((inValue / 60) % 60);

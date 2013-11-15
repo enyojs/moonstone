@@ -21,25 +21,46 @@ enyo.kind({
 				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
 			},
 
-			{kind: "moon.Divider", content:"Option Properties"},
+			{kind: "moon.Divider", content:"Change Value"},
 			{classes: "moon-hspacing", components: [
-				{content: "Value: "},
 				{kind: "moon.InputDecorator", components: [
-					{name: "input", kind: "moon.Input", placeholder: "Value", value: 20}
+					{name: "valueInput", kind: "moon.Input", placeholder: "Value", classes:"moon-1h", value: 20}
 				]},
 				{kind: "moon.Button", small:true, content:"Set", ontap:"changeValue"},
 				{kind: "moon.Button", small:true, content:"-", ontap:"decValue"},
 				{kind: "moon.Button", small:true, content:"+", ontap:"incValue"}
 			]},
+			{classes:"moon-1v"},
 
-			{components: [
-				{name: "lockBarSetting",        kind: "moon.ToggleItem", checked: true,     content: "Lock Bar",        onchange: "changeLockbar"},
-				{name: "animateSetting",        kind: "moon.ToggleItem", checked: true,     content: "Animated",        onchange: "animateActivate"},
-				{name: "noPopupSetting",        kind: "moon.ToggleItem", checked: false,    content: "Hide Popup",      onchange: "changeStatusBubble"},
-				{name: "tapableSetting",        kind: "moon.ToggleItem", checked: true,     content: "Tapable",         onchange: "changeTapable"},
-				{name: "constrainSetting",      kind: "moon.ToggleItem", checked: false,    content: "Constrain to BG", onchange: "changeConstrain"},
-				{name: "elasticSetting",        kind: "moon.ToggleItem", checked: false,    content: "Elastic Effect",  onchange: "changeElastic"},
-				{name: "showPercentageSetting", kind: "moon.ToggleItem", checked: true,     content: "Show Percentage", onchange: "changePercentage"}
+			{kind: "moon.Divider", content:"Change Background Progress"},
+			{classes: "moon-hspacing", components: [
+				{kind: "moon.InputDecorator", components: [
+					{name: "progressInput", kind: "moon.Input", placeholder: "Progress", classes:"moon-1h", value: 30}
+				]},
+				{kind: "moon.Button", small:true, content:"Set", ontap:"changeProgress"},
+				{kind: "moon.Button", small:true, content:"-", ontap:"decProgress"},
+				{kind: "moon.Button", small:true, content:"+", ontap:"incProgress"}
+			]},
+			{classes:"moon-1v"},
+
+			{kind: "moon.Divider", content:"Change Increment (applies only to dragging, 0 for disable)"},
+			{classes: "moon-hspacing", components: [
+				{kind: "moon.InputDecorator", components: [
+					{name: "incrementInput", kind: "moon.Input", placeholder: "Increment", classes:"moon-1h", value: 0}
+				]},
+				{kind: "moon.Button", small:true, content:"Set", ontap:"changeIncrement"}
+			]},
+			{classes:"moon-1v"},
+
+			{kind: "moon.Divider", content:"Options"},
+			{classes: "moon-8h", defaultKind:"moon.CheckboxItem", components: [
+				{name: "lockBarSetting",        checked: true,     content: "Lock Bar to Knob", onchange: "changeLockbar"},
+				{name: "animateSetting",        checked: true,     content: "Animated",        onchange: "animateActivate"},
+				{name: "noPopupSetting",        checked: false,    content: "Hide Popup",      onchange: "changeStatusBubble"},
+				{name: "tapableSetting",        checked: true,     content: "Tapable",         onchange: "changeTapable"},
+				{name: "constrainSetting",      checked: false,    content: "Constrain to Background Progress", onchange: "changeConstrain"},
+				{name: "elasticSetting",        checked: false,    content: "Elastic Effect",  onchange: "changeElastic"},
+				{name: "showPercentageSetting", checked: true,     content: "Show Percentage", onchange: "changePercentage"}
 			]}
 		]},
 		{kind:"moon.Divider", content:"Result"},
@@ -60,7 +81,7 @@ enyo.kind({
 	},
 	//* @protected
 	changeValue: function(inSender, inEvent) {
-		var v = this.$.input.getValue();
+		var v = this.$.valueInput.getValue();
 
 		for (var i in this.$) {
 			if (this.$[i].kind == "moon.Slider") {
@@ -69,12 +90,38 @@ enyo.kind({
 		}
 	},
 	incValue: function() {
-		this.$.input.setValue(Math.min(parseInt(this.$.input.getValue() || 0, 10) + 10, 100));
+		this.$.valueInput.setValue(Math.min(parseInt(this.$.valueInput.getValue() || 0, 10) + 10, 100));
 		this.changeValue();
 	},
 	decValue: function() {
-		this.$.input.setValue(Math.max(parseInt(this.$.input.getValue() || 0, 10) - 10, 0));
+		this.$.valueInput.setValue(Math.max(parseInt(this.$.valueInput.getValue() || 0, 10) - 10, 0));
 		this.changeValue();
+	},
+	changeProgress: function(inSender, inEvent) {
+		var v = this.$.progressInput.getValue();
+
+		for (var i in this.$) {
+			if (this.$[i].kind == "moon.Slider") {
+				this.$[i].setBgProgress(v);
+			}
+		}
+	},
+	changeIncrement: function(inSender, inEvent) {
+		var v = this.$.incrementInput.getValue();
+
+		for (var i in this.$) {
+			if (this.$[i].kind == "moon.Slider") {
+				this.$[i].setIncrement(v);
+			}
+		}
+	},
+	incProgress: function() {
+		this.$.progressInput.setValue(Math.min(parseInt(this.$.progressInput.getValue() || 0, 10) + 10, 100));
+		this.changeProgress();
+	},
+	decProgress: function() {
+		this.$.progressInput.setValue(Math.max(parseInt(this.$.progressInput.getValue() || 0, 10) - 10, 0));
+		this.changeProgress();
 	},
 	sliderChanging: function(inSender, inEvent) {
 		this.$.result.setContent(inSender.name + " changing: " + Math.round(inEvent.value));
