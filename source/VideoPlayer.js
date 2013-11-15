@@ -587,7 +587,6 @@ enyo.kind({
 	showFSControls: function(inSender, inEvent) {
 		this.showFSInfo();
 		this.showFSBottomControls();
-		this.resetAutoTimeout();
 	},
 	hideFSControls: function() {
 		if (this.isOverlayShowing()) {
@@ -599,6 +598,7 @@ enyo.kind({
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSBottomControls: function(inSender, inEvent) {
 		if (this.autoShowOverlay && this.autoShowControls) {
+			this.resetAutoTimeout();
 			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
 			this.$.playerControl.resized();
@@ -650,6 +650,7 @@ enyo.kind({
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
+			this.resetAutoTimeout();
 			this.$.videoInfoHeader.setShowing(true);
 			this.$.videoInfoHeader.resized();
 			
@@ -1151,15 +1152,19 @@ enyo.kind({
 				showControls = true;
 				break;
 			case 'rewind':
-				this.rewind(inSender, inEvent);
-				showControls = true;
+				if (this.showFFRewindControls) {
+					this.rewind(inSender, inEvent);
+					showControls = true;
+				}
 				break;
 			case 'fastforward':
-				this.fastForward(inSender, inEvent);
-				showControls = true;
+				if (this.showFFRewindControls) {
+					this.fastForward(inSender, inEvent);
+					showControls = true;
+				}
 				break;
 			case 'stop':
-				this.unload(inSender, inEvent);  
+				this.stop();  
 				showControls = true;
 				break;
 			}
