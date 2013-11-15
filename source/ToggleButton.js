@@ -1,13 +1,18 @@
 /**
-	_moon.ToggleButton_, which extends [moon.Button](#moon.Button), is a button
-	with two states, "on" and "off".  When the ToggleButton is tapped, it switches
-	its state and fires an _onChange_ event.
+	_moon.ToggleButton_, which extends <a href="#moon.Button">moon.Button</a>,
+	is a button with two states, "on" and "off".  When the ToggleButton is tapped,
+	it switches its state and fires an _onChange_ event.
+	--Tested the following cases
+	1) Set content, onContent, offContent, value, separator on toggle button dynamically, statically
+	2) Dynamic components creation/destroy
+	--To be checked Cases
+	3) Static components block in the sample
+	{kind: "TB", components: [{}]}
+	4) Check related components to button is not changing behavior
 */
-
 enyo.kind({
 	name: "moon.ToggleButton",
 	kind: "moon.Button",
-	//* @public
 	published: {
 		//* If true, indicates that this is the active button of the group;
 		//* otherwise, false
@@ -20,7 +25,7 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
 		//* Label for separator
-		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
+		labelSeparator: moon.$L(":"),   // i18n Separater between moon.ToggleButton text label and ON/OFF indicator
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false
@@ -36,39 +41,51 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-toggle-button",
+	components: [
+		{name:"offToggleButtonWrapper", classes:"wrapper", components: [
+			{name:"offToggleLabel", classes:"label", kind: "moon.MarqueeText"},
+			{name: "offLabelSeparate"},
+			{name:"offContent"}
+		]},
+		{tag:"br"},
+		{name:"onToggleButtonWrapper", classes:"wrapper toggle-bottom", components: [
+			{name:"onToggleLabel", classes:"label", kind:"moon.MarqueeText"},
+			{name: "onLabelSeparate"},
+			{name:"onContent"}
+		]}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.value = Boolean(this.value || this.active);
 		this.updateContent();
 		this.disabledChanged();
-	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.$.client.addClass("moon-toggle-button-text");
+		this.updateVisualState();
+		this.valueChanged();
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.updateVisualState();
+		this.correction = true;
+		this.correctWidth();
 	},
 	updateVisualState: function() {
 		this.addRemoveClass("moon-overlay", this.value);
 		this.setActive(this.value);
-	},
-	contentChanged: function() {
-		this.updateContent();
 	},
 	activeChanged: function() {
 		this.setValue(this.active);
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
-		this.updateContent();
 		this.updateVisualState();
 		this.doChange({value: this.value});
+		this.$.offToggleButtonWrapper.addRemoveClass("hidden", this.value);
+		this.$.offToggleLabel.setDisabled(this.value);
+		this.$.onToggleButtonWrapper.addRemoveClass("hidden", !this.value);
+		this.$.onToggleLabel.setDisabled(!this.value);
 	},
 	onContentChanged: function() {
 		this.updateContent();
-	}, 
+	},
 	offContentChanged: function() {
 		this.updateContent();
 	},
@@ -87,9 +104,44 @@ enyo.kind({
 		this.updateValue(!this.value);
 	},
 	updateContent: function() {
-		this._postfix = (this.value) ? this.onContent : this.offContent;
-		if (this.$.client) {
-			this.$.client.setContent((this.content || "") + (this.labelSeparator || " ") + (this._postfix || ""));
+		this.$.offToggleLabel.setContent(this.content);
+		this.$.offLabelSeparate.setContent(this.labelSeparator);
+		this.$.offContent.setContent(this.offContent);
+		this.$.onToggleLabel.setContent(this.content);
+		this.$.onLabelSeparate.setContent(this.labelSeparator);
+		this.$.onContent.setContent(this.onContent);
+		this.correctWidth();
+	},
+	correctWidth: function() {
+		var offContentWidth = this.$.offContent.hasNode().clientWidth,
+			offLabelSeparateWidth = this.$.offLabelSeparate.hasNode().clientWidth,
+			offToggleLabelWidth = this.$.offToggleLabel.hasNode().clientWidth,
+			offTotalWidth = offContentWidth + offToggleLabelWidth + offLabelSeparateWidth,
+			offMaxWidth = parseInt(enyo.dom.getComputedStyleValue(this.$.offToggleButtonWrapper.hasNode(), "width"),10),
+			offToggleLabelHeight = this.$.offToggleLabel.hasNode().clientHeight;
+
+		if(offTotalWidth > offMaxWidth) {
+			var offToggleClient = offMaxWidth- (offContentWidth + offLabelSeparateWidth);
+			this.$.offToggleLabel.applyStyle("width", offToggleClient + "px");
+		}else {
+			if(isNaN(offMaxWidth)) {
+				this.$.offToggleLabel.applyStyle("width","auto");
+			}
 		}
+		var onContentWidth = this.$.onContent.hasNode().clientWidth,
+			onLabelSeparateWidth = this.$.onLabelSeparate.hasNode().clientWidth,
+			onToggleLabelWidth = this.$.onToggleLabel.hasNode().clientWidth,
+			onTotalWidth = onContentWidth + onToggleLabelWidth + onLabelSeparateWidth,
+			onMaxWidth = parseInt(enyo.dom.getComputedStyleValue(this.$.onToggleButtonWrapper.hasNode(), "width"),10);
+		this.$.onToggleButtonWrapper.applyStyle("top", -offToggleLabelHeight + "px");
+		if(onTotalWidth > onMaxWidth) {
+			var onToggleClient = onMaxWidth- (onContentWidth + onLabelSeparateWidth);
+			this.$.onToggleLabel.applyStyle("width", onToggleClient + "px");
+		}else {
+			if(isNaN(onMaxWidth)) {
+				this.$.onToggleLabel.applyStyle("width","auto");
+			}
+		}
+		this.resized();
 	}
 });
