@@ -48,7 +48,7 @@ enyo.kind({
 		{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle hidden", canGenerate: false,
 			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
 		},
-		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "showHideAnimator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
 
 	//* @protected

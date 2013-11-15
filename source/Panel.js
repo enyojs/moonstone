@@ -70,7 +70,7 @@ enyo.kind({
 			]}
 		]},
 
-		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "animator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", marqueeOnRender: false, isChrome: true},
 	bindings: [

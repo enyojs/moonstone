@@ -90,7 +90,7 @@ enyo.kind({
 		classes : "moon-hspacing moon-header-client"
 	}, {
 		name : "animator",
-		kind : "StyleAnimator",
+		kind : "enyo.StyleAnimator",
 		onComplete : "animationComplete"
 	}],
 	bindings : [{
