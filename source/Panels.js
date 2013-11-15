@@ -512,6 +512,7 @@ enyo.kind({
 		}
 	},
 	showingChanged: function() {
+		this.$.backgroundScrim.addRemoveClass("visible", this.showing);
 		if (this.useHandle === true) {
 			if (this.showing) {
 				this.unstashHandle();
@@ -521,10 +522,10 @@ enyo.kind({
 				this.resetHandleAutoHide();
 				this._hide();
 			}
-			return;
 		}
-
-		this.inherited(arguments);
+		else {
+			this.inherited(arguments);
+		}
 	},
 	applyPattern: function() {
 		switch (this.pattern) {
@@ -564,7 +565,6 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
@@ -574,14 +574,12 @@ enyo.kind({
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
 	},
 	//* Sets show state without animation.
 	_directShow: function() {
-		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
@@ -589,7 +587,6 @@ enyo.kind({
 	},
 	//* Sets hide state without animation.
 	_directHide: function() {
-		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
