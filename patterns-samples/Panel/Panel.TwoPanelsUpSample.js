@@ -53,7 +53,7 @@ enyo.kind({
 		}
 	],
 	onTap: function(inSender, inEvent) {
-		if (inSender.nextPanel) {
+		if (!this.$.panels.isPanelInTransition() && inSender.nextPanel) {
 			this.$.panels.replacePanel(1, {kind: inSender.nextPanel, joinToPrev: true});
 			this.$.panels.next();
 		}

@@ -82,6 +82,11 @@ enyo.kind({
 
 	//* @public
 
+	//* Get panel transition status
+	isPanelInTransition: function() {
+		return this.inPanelTransition;
+	},
+
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
