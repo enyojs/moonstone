@@ -463,10 +463,12 @@ enyo.kind({
 	finishTransition: function(sendEvents) {
 		this.inherited(arguments);
 
-		var i, panel, info
-			panels = this.getPanels(),
+		var panels = this.getPanels(),
 			transitioned = typeof this.lastIndex !== "undefined",
-			method = transitioned ? "transitionFinished" : "initPanel";
+			method = transitioned ? "transitionFinished" : "initPanel",
+			i,
+			panel,
+			info;
 
 		for (i =0 ; (panel = panels[i]); i++) {
 			info = this.getPanelInfo(i, this.index);
