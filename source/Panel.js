@@ -207,9 +207,12 @@ enyo.kind({
 		this.$.breadcrumbBackground.spotlight = false;
 		this.$.breadcrumbBackground.removeClass("spotlight");
 	},
-	startMarqueeAsNeeded: function() {
-		var panelInfo = this.get("panelInfo"),
-			onscreen = (panelInfo && !panelInfo.isOffscreen) || !panelInfo;
+	stopMarquees: function() {
+		this.$.breadcrumbText.stopMarquee();
+		this.$.header.stopMarquee();
+	},
+	startMarqueeAsNeeded: function(inInfo) {
+		var onscreen = !inInfo.offscreen;
 		if (onscreen) {
 			if (this.isBreadcrumb) {
 				this.$.breadcrumbText.startMarquee();
@@ -218,10 +221,6 @@ enyo.kind({
 				this.$.header.startMarquee();
 			}
 		}
-	},
-	stopMarquees: function() {
-		this.$.breadcrumbText.stopMarquee();
-		this.$.header.stopMarquee();
 	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
