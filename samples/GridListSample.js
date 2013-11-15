@@ -11,6 +11,7 @@ enyo.kind({
 			itemWidth: 200,
 			itemHeight: 200,
 			itemSpacing: 50,
+			scrollMultiplier: 5,
 			components: [
 				{name: "item", kind: "moon.GridListImageItem"}
 			]

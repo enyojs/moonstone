@@ -33,13 +33,15 @@ enyo.kind({
 		/**
 			If true, paging controls are focusable (in 5-way mode).  Normally, this
 			is not required, since the scroller will automatically scroll to ensure
-			most focusable items are in view.  It is intended to be used when the 
-			scroller contents have no spotlightable controls, such as the case of a 
-			scroller with a long body of text. 
+			most focusable items are in view.  It is intended to be used when the
+			scroller contents have no spotlightable controls, such as the case of a
+			scroller with a long body of text.
 		*/
 		spotlightPagingControls: false,
 		//* Relative parameter used to determine scroll speed
-		scrollInterval: 75
+		scrollInterval: 75,
+		//* Increase this value to increase the distance scrolled by holding the pagination buttons
+		scrollMultiplier: 5
 	},
 	//* @protected
 	//* If true, scroll events are not allowed to propagate
@@ -57,7 +59,8 @@ enyo.kind({
 
 	//* @protected
 	bindings: [
-		{from: ".scrollInterval", to:".$.strategy.interval"}
+		{from: ".scrollInterval", to:".$.strategy.interval"},
+		{from: ".scrollMultiplier", to:".$.strategy.scrollWheelMultiplier"}
 	],
 	create: function() {
 		this.inherited(arguments);

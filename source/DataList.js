@@ -8,7 +8,9 @@ enyo.kind({
 	//* @protected
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" }
+	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" },
+	//* @public
+	getScroller: function() { return this.$.scroller; }
 });
 //* @protected
 /**
