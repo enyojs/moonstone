@@ -82,5 +82,5 @@ enyo.depends(
 	"Image.js",
 	"ImageBadge.js",
 	"ExpandableText.js",
-	"RemoteControlEvent.js"
+	"keymap.js"
 );

@@ -216,8 +216,7 @@ enyo.kind({
 		onSpotlightSelect: 'spotlightSelectHandler',
 		onSpotlightLeft: 'spotlightLeftRightHandler',
 		onSpotlightRight: 'spotlightLeftRightHandler',
-		onresize: 'resizeHandler',
-		onRemoteControlKeyDown : "remoteKeyHandler"
+		onresize: 'resizeHandler'
 	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
@@ -246,7 +245,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged", onkeydown:"remoteKeyHandler"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -1140,23 +1139,32 @@ enyo.kind({
 		this.updatePlaybackControlState();
 	},
 	remoteKeyHandler: function(inSender, inEvent) {
-		if(this.handleRemoteControlKey) {
-			switch (inEvent.keyIdentifier) {
+		if (this.handleRemoteControlKey) {
+			var showControls = false;
+			switch (inEvent.keySymbol) {
 			case 'play':
 				this.play(inSender, inEvent);
+				showControls = true;
 				break;
 			case 'pause':
 				this.pause(inSender, inEvent);
+				showControls = true;
 				break;
 			case 'rewind':
 				this.rewind(inSender, inEvent);
+				showControls = true;
 				break;
 			case 'fastforward':
 				this.fastForward(inSender, inEvent);
+				showControls = true;
 				break;
 			case 'stop':
 				this.unload(inSender, inEvent);  
+				showControls = true;
 				break;
+			}
+			if (showControls) {
+				this.showFSBottomControls();
 			}
 		}
 		return true;
