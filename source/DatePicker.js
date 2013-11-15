@@ -19,7 +19,7 @@ enyo.kind({
 	published: {
 		//* Optional minimum year value
 		minYear: 1900,
-		//* Optional maximum year value		
+		//* Optional maximum year value
 		maxYear: 2099,
 		//* Optional label for day
 		dayText: moon.$L("day"),		// i18n "DAY" label in moon.DatePicker widget
@@ -37,7 +37,7 @@ enyo.kind({
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {               
+			if (doneArr.indexOf(o) < 0) {
 				doneArr.push(o);
 			}
 		}
@@ -76,7 +76,12 @@ enyo.kind({
 	},
 	formatValue: function() {
 		if (this._tf) {
-			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			switch (this._tf.getCalendar()) {
+			case "gregorian":
+				return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			case "thaisolar":
+				return this._tf.format(new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			}
 		} else {
 			return this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
