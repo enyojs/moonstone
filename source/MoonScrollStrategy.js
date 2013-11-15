@@ -467,6 +467,16 @@ enyo.kind({
 		b.maxLeft = Math.max(0, b.width - b.clientWidth);
 		b.maxTop = Math.max(0, b.height - b.clientHeight);
 
+		if (this.showVertical()) {
+			this.$.pageUpControl.setDisabled(b.height <= b.clientHeight);
+			this.$.pageDownControl.setDisabled(b.height <= b.clientHeight);
+		}
+
+		if (this.showHorizontal()) {
+			this.$.pageLeftControl.setDisabled(b.width <= b.clientWidth);
+			this.$.pageRightControl.setDisabled(b.width <= b.clientWidth);
+		}
+
 		enyo.mixin(b, this.getOverScrollBounds());
 
 		return b;
