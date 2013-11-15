@@ -124,9 +124,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.getInitAnimationValues();
 		this.updateViewportSize();
-		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
 		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
-		this.growWidthAnimation = this.createGrowingWidthAnimation();
 		this.growHeightAnimation = this.createGrowingHeightAnimation();
 	},
 	//* Update _this.$.contentWrapper_ to have the height/width of _this_
@@ -239,7 +237,7 @@ enyo.kind({
 		this.growing = true;
 		this.shrinking = false;
 		this.showingSmallHeader = true;
-		this.growingWidthAnimation();
+		this.growingHeightAnimation();
 	},
 	//* @protected
 	getInitAnimationValues: function() {
@@ -251,26 +249,13 @@ enyo.kind({
 		this.haltAnimations();
 		this.$.animator.play(this.shrinkHeightAnimation.name);
 	},
-	shrinkingWidthAnimation: function() {
-		this.haltAnimations();
-		this.preTransitionComplete();
-	},
 	growingHeightAnimation: function() {
 		this.haltAnimations();
 		this.$.animator.play(this.growHeightAnimation.name);
 	},
-	growingWidthAnimation: function() {
-		this.haltAnimations();
-
-		this.growingHeightAnimation();
-		// NOTE - Skipping width grow animation
-		// this.$.animator.play(this.growWidthAnimation.name);
-	},
 	haltAnimations: function() {
 		this.$.animator.stop();
-		this.$.animator.pause(this.growWidthAnimation.name);
 		this.$.animator.pause(this.growHeightAnimation.name);
-		this.$.animator.pause(this.shrinkWidthAnimation.name);
 		this.$.animator.pause(this.shrinkHeightAnimation.name);
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
@@ -308,13 +293,7 @@ enyo.kind({
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
 		case "shrinkHeight":
-			this.shrinkingWidthAnimation();
-			return true;
-		case "shrinkWidth":
 			this.preTransitionComplete();
-			return true;
-		case "growWidth":
-			this.growingHeightAnimation();
 			return true;
 		case "growHeight":
 			this.postTransitionComplete();
@@ -331,22 +310,6 @@ enyo.kind({
 			break;
 		}
 	},
-	createGrowingWidthAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "growWidth",
-			duration: 225,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [
-					{control: this.$.viewport, properties: { "width": "current" }}
-
-				],
-				100: [
-					{control: this.$.viewport, properties: { "width": this.initialWidth + "px" }}
-				]
-			}
-		});
-	},
 	createGrowingHeightAnimation: function() {
 		return this.$.animator.newAnimation({
 			name: "growHeight",
@@ -362,21 +325,6 @@ enyo.kind({
 				],
 				100: [
 					{control: this.$.viewport, properties: {"height" : this.initialHeight + "px"}}
-				]
-			}
-		});
-	},
-	createShrinkingWidthAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "shrinkWidth",
-			duration: 225,
-			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
-			keyframes: {
-				0: [
-					{control: this.$.breadcrumbBackground, properties: { "width": "current" }}
-				],
-				100: [
-					{control: this.$.breadcrumbBackground, properties: { "width": "current" }}
 				]
 			}
 		});
