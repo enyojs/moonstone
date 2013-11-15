@@ -158,6 +158,7 @@ enyo.kind({
 	//* On _mousewheel_, scrolls a fixed amount.
 	mousewheel: function(inSender, inEvent) {
 		if (this.useMouseWheel) {
+			var isScrolling = this.isScrolling();
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
 
@@ -182,7 +183,7 @@ enyo.kind({
 				val = Math.abs(inEvent.wheelDeltaY * this.scrollWheelMultiplier);
 				max = this.scrollBounds.clientHeight * this.scrollWheelPageMultiplier;
 				delta = Math.min(val, max);
-				y = (this.isScrolling() ? this.lastScrollToY : this.scrollTop) + -dir * delta;
+				y = (isScrolling ? this.lastScrollToY : this.scrollTop) + -dir * delta;
 			}
 
 			if (showHorizontal) {
@@ -191,14 +192,14 @@ enyo.kind({
 					val = Math.abs(inEvent.wheelDeltaX * this.scrollWheelMultiplier);
 					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
 					delta = Math.min(val, max);
-					x = (this.isScrolling() ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
+					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
 				} else if (!showVertical) {
 					// only use vertical wheel for horizontal scrolling when no vertical bars shown
 					dir = inEvent.wheelDeltaY >= 0 ? 1 : -1;
 					val = Math.abs(inEvent.wheelDeltaY * this.scrollWheelMultiplier);
 					max = this.scrollBounds.clientHeight * this.scrollWheelPageMultiplier;
 					delta = Math.min(val, max);
-					x = (this.isScrolling() ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
+					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
 				}
 			}
 
