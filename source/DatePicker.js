@@ -90,17 +90,20 @@ enyo.kind({
 		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays));
 	},
 	setChildPickers: function(inOld) {
+		var updateDays = inOld &&
+			(inOld.getFullYear() != this.value.getFullYear() ||
+			inOld.getMonth() != this.value.getMonth());
 		this.$.year.setValue(this.value.getFullYear());
 		this.$.month.setValue(this.value.getMonth()+1);
 
-		if (inOld &&
-			(inOld.getFullYear() != this.value.getFullYear() ||
-			inOld.getMonth() != this.value.getMonth())) {
+		if (updateDays) {
 			this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
 			this.$.day.updateScrollBounds();
-			this.$.day.updateOverlays();
 		}
 		this.$.day.setValue(this.value.getDate());
+		if (updateDays) {
+			this.$.day.updateOverlays();
+		}
 
 		this.$.currentValue.setContent(this.formatValue());
 	},
