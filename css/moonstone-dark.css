@@ -2107,7 +2107,7 @@
   position: relative;
 }
 .moon-scroll-picker {
-  height: 92px;
+  height: 94px;
   min-width: 60px;
   border-top-width: 30px;
   border-top-style: solid;
@@ -2126,9 +2126,8 @@
   padding-right: 5px;
   padding-left: 5px;
   padding-bottom: 2px;
-  height: 92px;
-  line-height: 92px;
-  vertical-align: middle;
+  height: 94px;
+  line-height: 94px;
   text-align: center;
   background: transparent;
 }
@@ -2325,6 +2324,9 @@
 .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused,
 .moon-textarea-decorator.moon-focused {
   border: 5px solid #a6a6a6;
+}
+.moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  margin: 5px 0;
 }
 /* ProgressBar.css */
 .moon-progress-bar {
