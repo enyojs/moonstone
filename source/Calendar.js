@@ -189,12 +189,21 @@ enyo.kind({
 			}
 		}
 	},
-	parseDate: function() {
-		if (this._tf) {
-			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
-		} else {
-			return this.months[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
+	/**
+		Updates year picker.
+	*/
+	updateYearPicker: function(newYear) {
+		var offset = newYear - this.value.getFullYear();
+		this.setStartYear(this.getStartYear() + offset);
+		this.setEndYear(this.getEndYear() + offset);
+
+		var yearPickerControls = this.$.yearPicker.getClientControls(),
+			startYear = this.getStartYear(),
+			endYear = this.getEndYear();
+		for (var i = 0; i < endYear - startYear; i++) {
+			yearPickerControls[i].setContent(i + startYear);
 		}
+		this.setYear(newYear);
 	},
 	/**
 		Updates month name displayed in month picker.
@@ -365,16 +374,41 @@ enyo.kind({
 	},
 	localeChanged: function() {
 		if (typeof ilib !== "undefined") {
+			var prevCal = this._tf.getCalendar();
 			this._tf = new ilib.DateFmt({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
 				length: this.dayOfWeekLength
 			});
+			if (prevCal !== this._tf.getCalendar()) {
+				this.calendarChanged();
+			}
 		}
 		this.updateMonthPicker();
 		this.initDefaults();
 		this.doChange({value: this.value});
+	},
+	/**
+		When ilib is supported, and type of calendar is changed like
+		from gregorian to thaisolar, julian, arabic, hebrew or chinese
+		calendar should check whethere there are any differences in
+		year, month and day.
+	*/
+	calendarChanged: function() {
+		var fmt = new ilib.DateFmt({
+			locale: this.locale,
+			type: "date",	//only format the date component, not the time
+			date: "y",		//'y' stands for year
+			length: "long"
+		});
+		var date = ilib.Date.newInstance({
+			type: fmt.getCalendar()
+		});
+		var newYear = parseInt(fmt.format(date), 10);
+		if (newYear !== this.value.getFullYear()) {
+			this.updateYearPicker(newYear);
+		}
 	},
 	valueChanged: function(inOld) {
 		if(isNaN(this.value) || this.value === null) {
