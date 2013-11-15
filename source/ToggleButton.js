@@ -64,7 +64,6 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.correction = true;
 		this.correctWidth();
 	},
 	updateVisualState: function() {
@@ -91,6 +90,11 @@ enyo.kind({
 	},
 	labelSeparatorChanged: function() {
 		this.updateContent();
+	},
+	contentChanged: function() {
+		if(this.$.offToggleLabel) {
+			this.updateContent();
+		}
 	},
 	disabledChanged: function() {
 		this.setAttribute("disabled", this.disabled);
