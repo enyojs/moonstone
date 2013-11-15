@@ -35,6 +35,22 @@
 enyo.kind({
 	name: "moon.BreadcrumbArranger",
 	kind: "enyo.DockRightArranger",
+	//* @public
+	/**
+		Returns an object containing information about the state
+		of a given panel (identified by _inPanelIndex_) within a
+		given arrangement (identified by _inActiveIndex).
+
+		Specifically, _moon.BreadcrumbArranger_ reports whether a panel
+		is offscreen, and whether it is in breadcrumb (collapsed) form.
+	*/
+	getPanelInfo: function(inPanelIndex, inActiveIndex) {
+		return {
+			breadcrumb: this.isBreadcrumb(inPanelIndex, inActiveIndex),
+			offscreen: this.isOffscreen(inPanelIndex, inActiveIndex)
+		};
+	},
+	//* @protected
 	breadcrumbWidth: 230,
 	debug: false,
 	size: function() {
@@ -306,12 +322,9 @@ enyo.kind({
 			this.arrangeControl(c, {left: xPos});
 		}
 	},
-	/**
-		Return whether a given panel is currently outside the bounds of the panels container
-	*/
-	panelIsOffscreen: function(inIndex) {
-		var transitionPosition = this.container.transitionPositions[inIndex+"."+this.container.getIndex()];
-		var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inIndex) : 0;
+	isOffscreen: function(inPanelIndex, inActiveIndex) {
+		var transitionPosition = this.container.transitionPositions[inPanelIndex + "." + inActiveIndex];
+		var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inPanelIndex) : 0;
 		if (transitionPosition < 0) {
 			return transitionPosition + this.breadcrumbWidth <= screenEdge;
 		} else {
@@ -355,9 +368,6 @@ enyo.kind({
 	getContainerPadding: function() {
 		return this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {};
 	},
-	getTransitionOptions: function(fromIndex, toIndex) {
-		return {isBreadcrumb: this.isBreadcrumb(fromIndex, toIndex)};
-	},
 	//* Return _true_ if any panels will move in the transition from _inFromIndex_ to _inToIndex_
 	shouldArrange: function(inFromIndex, inToIndex) {
 		if (!(inFromIndex >= 0 && inToIndex >= 0)) {
@@ -380,18 +390,5 @@ enyo.kind({
 		}
 
 		return false;
-	},
-	finish: enyo.inherit(function(sup) {
-		return function() {
-			sup.apply(this, arguments);
-			var c$ = this.container.getPanels();
-			var i, c;
-
-			for (i=0; (c=c$[i]); i++) {
-				c.set("panelInfo", {
-					isOffscreen: this.panelIsOffscreen(i)
-				});
-			}
-		}
-	})
+	}
 });

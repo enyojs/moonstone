@@ -85,9 +85,6 @@ enyo.kind({
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
-	observers: {
-		panelInfoChanged: ["panelInfo"]
-	},
 
 	headerComponents: [],
 	isBreadcrumb: false,
@@ -139,9 +136,6 @@ enyo.kind({
 		this.$.viewport.applyStyle("width", this.initialWidth + "px");
 		this.$.contentWrapper.applyStyle("height", this.initialHeight + "px");
 		this.$.contentWrapper.applyStyle("width", this.initialWidth + "px");
-	},
-	panelInfoChanged: function() {
-		this.startMarqueeAsNeeded();
 	},
 	//* Forcibly applies layout kind changes to _this.$.panelBody_.
 	layoutKindChanged: function() {
@@ -226,6 +220,41 @@ enyo.kind({
 	getHeader: function() {
 		return this.$.header;
 	},
+	// Called directly by moon.Panels
+	initPanel: function(inInfo) {
+		this.startJob("initPanel", function() {
+			this.set("isBreadcrumb", inInfo.breadcrumb);
+			if (this.isBreadcrumb) {
+				this.$.animator.jumpToEnd("shrinkHeight");
+			}
+			this.startMarqueeAsNeeded(inInfo);
+		}, 0);
+	},
+	// Called directly by moon.Panels
+	preTransition: function(inInfo) {
+		this.stopMarquees();
+
+		if (!this.shrinking && inInfo.breadcrumb && (!this.isBreadcrumb || this.growing)) {
+			this.shrinkPanel();
+			return true;
+		}
+
+		return false;
+	},
+	// Called directly by moon.Panels
+	postTransition: function(inInfo) {
+		if (!this.growing && !inInfo.breadcrumb && (this.isBreadcrumb || this.shrinking)) {
+			this.growPanel();
+			return true;
+		}
+
+		return false;
+	},
+	// Called directly by moon.Panels
+	transitionFinished: function(inInfo) {
+		this.set("isBreadcrumb", inInfo.breadcrumb);
+		this.startMarqueeAsNeeded(inInfo);
+	},
 	shrinkPanel: function() {
 		this.growing = false;
 		this.shrinking = true;
@@ -262,32 +291,12 @@ enyo.kind({
 	},
 	preTransitionComplete: function() {
 		this.shrinking = false;
-		this.set("isBreadcrumb", true);
 		this.doPreTransitionComplete();
 	},
 	postTransitionComplete: function() {
 		this.growing = false;
-		this.set("isBreadcrumb", false);
 		this.doPostTransitionComplete();
 		this.resized();
-	},
-	preTransition: function(inFromIndex, inToIndex, options) {
-		this.stopMarquees();
-
-		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
-			this.shrinkPanel();
-			return true;
-		}
-
-		return false;
-	},
-	postTransition: function(inFromIndex, inToIndex, options) {
-		if (!this.growing && !options.isBreadcrumb && (this.isBreadcrumb || this.shrinking)) {
-			this.growPanel();
-			return true;
-		}
-
-		return false;
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
