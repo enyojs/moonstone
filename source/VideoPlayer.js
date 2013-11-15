@@ -209,8 +209,6 @@ enyo.kind({
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
 		onSpotlightSelect: 'spotlightSelectHandler',
-		onSpotlightLeft: 'spotlightLeftRightHandler',
-		onSpotlightRight: 'spotlightLeftRightHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -231,8 +229,6 @@ enyo.kind({
 		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
-	
-	spotlightModal: true,
 	
 	_isPlaying: false,
 	_canPlay: false,
@@ -520,24 +516,25 @@ enyo.kind({
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isLarge()) {
+			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
-				this.showFSInfo();
-			}
-			if (inEvent.originator === this) {
-				return true;
-			}
-		}
-	},
-	spotlightDownHandler: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.isLarge()) {
-			if (!this.$.playerControl.getShowing()) {
-				this.showFSBottomControls();
+				if (!this.$.videoInfoHeader.getShowing()) {
+					this.showFSInfo();
+				} else {
+					this.hideFSInfo();
+				}
 			}
 			return true;
 		}
 	},
-	spotlightLeftRightHandler: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.isFullscreen()) {
+	spotlightDownHandler: function(inSender, inEvent) {
+		if (this.isLarge()) {
+			// Toggle info header on "down" press
+			if (!this.$.playerControl.getShowing()) {
+				this.showFSBottomControls();
+			} else {
+				this.hideFSBottomControls();
+			}
 			return true;
 		}
 	},
@@ -610,6 +607,8 @@ enyo.kind({
 				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
 			}
+			// When controls are visible, set as container to remember last focused control
+			this.set("spotlight", "container");
 		}
 	},
 	spotFSBottomControls: function() {
@@ -632,6 +631,10 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
+		// When controls are hidden, set as just a spotlight true component, 
+		// so that it is spottable (since it won't have any spottable children),
+		// and then spot itself
+		this.set("spotlight", true);
 		enyo.Spotlight.spot(this);
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)

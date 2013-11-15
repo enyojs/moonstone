@@ -199,10 +199,10 @@ enyo.kind({
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
 	},
 	addSpottableBreadcrumbProps: function() {
-		this.$.breadcrumbBackground.spotlight = true;
+		this.$.breadcrumbBackground.set("spotlight", true);
 	},
 	removeSpottableBreadcrumbProps: function() {
-		this.$.breadcrumbBackground.spotlight = false;
+		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
 	},
 	//* Updates panel header dynamically.

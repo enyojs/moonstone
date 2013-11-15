@@ -3788,8 +3788,10 @@
 .moon-video-player {
   position: relative;
   display: inline-block;
-  margin: 0 10px;
   background-color: #000000;
+}
+.moon-video-player:not(.enyo-fullscreen) {
+  margin: 0 10px;
 }
 .moon-video-player-container {
   display: block;
@@ -3815,6 +3817,7 @@
 :-webkit-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-webkit-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3822,6 +3825,7 @@
 :-moz-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-moz-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3829,6 +3833,7 @@
 :-ms-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-ms-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3836,6 +3841,7 @@
 :-o-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-o-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3843,6 +3849,7 @@
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
