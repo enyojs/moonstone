@@ -72,7 +72,7 @@ enyo.kind({
 	//* Flag for initial transition
 	_initialTransition: true,
 	//* Flag for panel transition
-	inPanelTransition: false,
+	transitionInProgress: false,
 
 	//* @public
 
@@ -184,7 +184,7 @@ enyo.kind({
 		}
 	},
 	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.inPanelTransition === true) {
+		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.transitionInProgress === true) {
 			return;
 		}
 
@@ -328,6 +328,7 @@ enyo.kind({
 
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
+			this.transitionInProgress = true;
 			this.triggerPreTransitions();
 		}
 		else {
@@ -380,7 +381,6 @@ enyo.kind({
 		var panels = this.getPanels(),
 			info;
 
-		this.inPanelTransition = true;
 		this.preTransitionWaitlist = [];
 
 		for(var i = 0, panel; (panel = panels[i]); i++) {
@@ -479,7 +479,7 @@ enyo.kind({
 			}
 		}
 
-		this.inPanelTransition = false;
+		this.transitionInProgress = false;
 
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
