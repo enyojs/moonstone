@@ -1830,6 +1830,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
+  margin: 0 10px;
 }
 .moon-neutral .moon-header {
   border-top: 2px solid #ffffff;
@@ -2886,9 +2887,6 @@
   padding: 0;
   margin: 20px;
   height: 100%;
-}
-.moon-panel .moon-header {
-  margin: 0 10px;
 }
 .moon-panels .moon-panel {
   height: auto;
