@@ -250,6 +250,9 @@ enyo.kind({
 			break;
 		}
 
+		x = Math.max(0, Math.min(x, sb.maxLeft));
+		y = Math.max(0, Math.min(y, sb.maxTop));
+
 		this._scrollTo(x, y);
 
 		return true;
