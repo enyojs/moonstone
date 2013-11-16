@@ -328,8 +328,13 @@ enyo.kind({
 
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
-			this.transitionInProgress = true;
-			this.triggerPreTransitions();
+			if (this.animate) {
+				this.transitionInProgress = true;
+				this.triggerPreTransitions();
+			}
+			else {
+				this._setIndex(this.toIndex);
+			}
 		}
 		else {
 			this.skipArrangerAnimation();
@@ -360,7 +365,12 @@ enyo.kind({
 
 		this.fraction = 1;
 		this.stepTransition();
-		this.triggerPostTransitions();
+		if (this.animate) {
+			this.triggerPostTransitions();
+		}
+		else {
+			this.finishTransition(true);
+		}
 		return true;
 	},
 	getPanelInfo: function(inPanelIndex, inActiveIndex) {
@@ -371,6 +381,7 @@ enyo.kind({
 		info.from = this.fromIndex;
 		info.to = this.toIndex;
 		info.index = inPanelIndex;
+		info.animate = this.animate;
 		return info;
 	},
 	/**
@@ -452,17 +463,8 @@ enyo.kind({
 		}
 
 		this.inherited(arguments);
-
-		// If we're not animating, then spot the active
-		// panel immediately. Otherwise, this will happen
-		// in finishTransition().
-		if (this.hasNode() && !this.animate) {
-			enyo.Spotlight.spot(this.getActive());
-		}
 	},
 	finishTransition: function(sendEvents) {
-		this.inherited(arguments);
-
 		var panels = this.getPanels(),
 			transitioned = typeof this.lastIndex !== "undefined",
 			method = transitioned ? "transitionFinished" : "initPanel",
@@ -471,13 +473,13 @@ enyo.kind({
 			info;
 
 		for (i =0 ; (panel = panels[i]); i++) {
-			info = this.getPanelInfo(i, this.index);
-			info = enyo.mixin(info, this.finishTransitionInfo);
-			info.index = i;
+			info = this.getTransitionInfo(i);
 			if (panel[method]) {
 				panel[method](info);
 			}
 		}
+
+		this.inherited(arguments);
 
 		this.transitionInProgress = false;
 
@@ -513,7 +515,7 @@ enyo.kind({
 	},
 	showingChanged: function() {
 		if (this.$.backgroundScrim) {
-		this.$.backgroundScrim.addRemoveClass("visible", this.showing);
+			this.$.backgroundScrim.addRemoveClass("visible", this.showing);
 		}
 		if (this.useHandle === true) {
 			if (this.showing) {
