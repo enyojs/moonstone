@@ -19,21 +19,7 @@ enyo.kind({
 			]}
 		], components: [
 			{kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
-				{kind: "enyo.Control", components: [
-					{name: "repeater", kind: "moon.DataList", components: [
-						{classes: "enyo-border-box", style: "overflow: hidden; min-width: 230px; padding: 10px; margin: 10px;", components: [
-							{name: "caption", controlClasses: "moon-2h", kind: "moon.CaptionDecorator", components: [
-								{name: "button", kind: "moon.ToggleButton"}
-							]}
-						], bindings: [
-							{from: ".model.caption", to: ".$.caption.content"},
-							{from: ".repeater.side", to: ".$.caption.side"},
-							{from: ".model.label", to: ".$.button.content"},
-							{from: ".model.disabled", to: ".$.button.disabled"},
-							{from: ".model.on", to: ".$.button.value"}
-						]}
-					]}
-				]}
+				{name: "repeaterContainer", kind: "enyo.Control"}
 			]}
 		]},
 		{name: "collection", kind: "enyo.Collection"}
@@ -63,11 +49,22 @@ enyo.kind({
 		this.$.repeater.scrollToIndex(sender.getValue());
 	},
 	repeaterDebuggingChanged: function () {
-		this.$.repeater.addRemoveClass("debug", this.repeaterDebugging);
+		if (this.$.repeater) {
+			this.$.repeater.addRemoveClass("debug", this.repeaterDebugging);
+		}
 	},
 	orientationChanged: function () {
+		var props = enyo.mixin({}, [this.repeaterDefaults, {orientation: this.orientation}]),
+			cp    = this.controlParent,
+			c;
+		if (this.$.repeater) {
+			this.$.repeater.destroy();
+		}
 		this.set("side", this.orientation == "vertical"? "left": "bottom");
-		this.$.repeater.set("orientation", this.orientation);
+		this.controlParent = this.$.repeaterContainer;
+		c = this.createComponent(props);
+		c.render();
+		this.controlParent = cp;
 	},
 	recordCountChanged: function () {
 		var count   = this.get("recordCount"),
@@ -81,5 +78,18 @@ enyo.kind({
 		} else if (records.length < num) {
 			this.$.collection.add(this.generateRecords(Math.abs(records.length - num)));
 		}
-	}
+	},
+	repeaterDefaults: {name: "repeater", kind: "moon.DataList", components: [
+		{classes: "enyo-border-box", style: "overflow: hidden; min-width: 230px; padding: 10px; margin: 10px;", components: [
+			{name: "caption", controlClasses: "moon-2h", kind: "moon.CaptionDecorator", components: [
+				{name: "button", kind: "moon.ToggleButton"}
+			]}
+		], bindings: [
+			{from: ".model.caption", to: ".$.caption.content"},
+			{from: ".repeater.side", to: ".$.caption.side"},
+			{from: ".model.label", to: ".$.button.content"},
+			{from: ".model.disabled", to: ".$.button.disabled"},
+			{from: ".model.on", to: ".$.button.value"}
+		]}
+	]}
 });
