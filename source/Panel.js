@@ -123,8 +123,8 @@ enyo.kind({
 		this.inherited(arguments);
 		this.getInitAnimationValues();
 		this.updateViewportSize();
-		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
-		this.growHeightAnimation = this.createGrowingHeightAnimation();
+		this.createShrinkAnimation();
+		this.createGrowAnimation();
 	},
 	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
 	updateViewportSize: function() {
@@ -227,7 +227,7 @@ enyo.kind({
 		this.startJob("initPanel", function() {
 			this.set("isBreadcrumb", inInfo.breadcrumb);
 			if (this.isBreadcrumb) {
-				this.$.animator.jumpToEnd("shrinkHeight");
+				this.shrink();
 			}
 			this.startMarqueeAsNeeded(inInfo);
 		}, 0);
@@ -237,7 +237,7 @@ enyo.kind({
 		this.stopMarquees();
 
 		if (!this.shrinking && inInfo.breadcrumb && (!this.isBreadcrumb || this.growing)) {
-			this.shrinkPanel();
+			this.shrinkAnimation();
 			return true;
 		}
 
@@ -246,7 +246,7 @@ enyo.kind({
 	// Called directly by moon.Panels
 	postTransition: function(inInfo) {
 		if (!this.growing && !inInfo.breadcrumb && (this.isBreadcrumb || this.shrinking)) {
-			this.growPanel();
+			this.growAnimation();
 			return true;
 		}
 
@@ -257,17 +257,23 @@ enyo.kind({
 		this.set("isBreadcrumb", inInfo.breadcrumb);
 		this.startMarqueeAsNeeded(inInfo);
 	},
-	shrinkPanel: function() {
+	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
-		this.showingSmallHeader = false;
-		this.shrinkingHeightAnimation();
+		this.haltAnimations();
+		this.$.animator.play("shrink");
 	},
-	growPanel: function() {
+	shrink: function() {
+		this.$.animator.jumpToEnd("shrink");
+	},
+	growAnimation: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.showingSmallHeader = true;
-		this.growingHeightAnimation();
+		this.haltAnimations();
+		this.$.animator.play("grow");			
+	},
+	grow: function() {
+		this.$.animator.jumpToEnd("grow");
 	},
 	//* @protected
 	getInitAnimationValues: function() {
@@ -275,18 +281,10 @@ enyo.kind({
 		this.initialHeight = node.offsetHeight;
 		this.initialWidth = node.offsetWidth;
 	},
-	shrinkingHeightAnimation: function() {
-		this.haltAnimations();
-		this.$.animator.play(this.shrinkHeightAnimation.name);
-	},
-	growingHeightAnimation: function() {
-		this.haltAnimations();
-		this.$.animator.play(this.growHeightAnimation.name);
-	},
 	haltAnimations: function() {
 		this.$.animator.stop();
-		this.$.animator.pause(this.growHeightAnimation.name);
-		this.$.animator.pause(this.shrinkHeightAnimation.name);
+		this.$.animator.pause("grow");
+		this.$.animator.pause("shrink");
 	},
 	panelsTransitionFinishHandler: function(inSender, inEvent) {
 		return true;
@@ -302,10 +300,10 @@ enyo.kind({
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-		case "shrinkHeight":
+		case "shrink":
 			this.preTransitionComplete();
 			return true;
-		case "growHeight":
+		case "grow":
 			this.postTransitionComplete();
 			return true;
 		}
@@ -320,9 +318,9 @@ enyo.kind({
 			break;
 		}
 	},
-	createGrowingHeightAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "growHeight",
+	createGrowAnimation: function() {
+		this.$.animator.newAnimation({
+			name: "grow",
 			duration: 400,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
@@ -339,9 +337,9 @@ enyo.kind({
 			}
 		});
 	},
-	createShrinkingHeightAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "shrinkHeight",
+	createShrinkAnimation: function() {
+		this.$.animator.newAnimation({
+			name: "shrink",
 			duration: 500,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
