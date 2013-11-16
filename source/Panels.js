@@ -512,7 +512,9 @@ enyo.kind({
 		}
 	},
 	showingChanged: function() {
+		if (this.$.backgroundScrim) {
 		this.$.backgroundScrim.addRemoveClass("visible", this.showing);
+		}
 		if (this.useHandle === true) {
 			if (this.showing) {
 				this.unstashHandle();
