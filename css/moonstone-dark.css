@@ -2910,7 +2910,7 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
   -webkit-transform: scale3d(1, 1, 1);
-  width: 240px;
+  width: 230px;
   height: 370px;
   position: absolute;
   top: 0px;
@@ -2927,13 +2927,13 @@
 }
 .moon-panel-mini-header-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
-  margin: 10px 0 0 10px;
+  margin: 10px 0 0 0;
   position: absolute;
   bottom: 10px;
   left: 0;
   height: 360px;
   width: 100%;
-  padding: 0 20px 10px 10px;
+  padding: 0 10px 10px 10px;
   box-sizing: border-box;
 }
 .moon-panel-mini-header {
@@ -2989,6 +2989,13 @@
   overflow: visible;
   -webkit-transform: translate3d(0, 0, 0);
   pointer-events: none;
+}
+.moon-panels.activity .moon-panels-client {
+  /* The difference between the keepout and the outset is the space we have to block off */
+
+  left: 10px;
+  right: 10px;
+  width: auto;
 }
 .moon-panels.activity *,
 .moon-panels.always-viewing * {

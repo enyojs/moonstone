@@ -28,7 +28,7 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
 	-webkit-transform: scale3d(1,1,1);
-	width: 240px;
+	width: 210px + (@moon-spotlight-outset * 2);
 	height: 370px;
 	position: absolute;
 	top: 0px;
@@ -45,13 +45,13 @@
 }
 .moon-panel-mini-header-wrapper {
 	-webkit-transform: scale3d(1,1,1);
-	margin: @moon-spotlight-outset 0 0 (@moon-app-keepout - @moon-spotlight-outset);
+	margin: @moon-spotlight-outset 0 0 0;
 	position: absolute;
 	bottom: 10px;
 	left: 0;
 	height: 360px;
 	width: 100%;
-	padding: 0 (@moon-spotlight-outset * 2) @moon-spotlight-outset @moon-spotlight-outset;
+	padding: 0 @moon-spotlight-outset @moon-spotlight-outset @moon-spotlight-outset;
 	box-sizing: border-box;
 }
 .moon-panel-mini-header {
