@@ -197,7 +197,7 @@ enyo.kind({
 					// only use vertical wheel for horizontal scrolling when no vertical bars shown
 					dir = inEvent.wheelDeltaY >= 0 ? 1 : -1;
 					val = Math.abs(inEvent.wheelDeltaY * this.scrollWheelMultiplier);
-					max = this.scrollBounds.clientHeight * this.scrollWheelPageMultiplier;
+					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
 					delta = Math.min(val, max);
 					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
 				}
