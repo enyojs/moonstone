@@ -253,6 +253,16 @@ enyo.kind({
 	},
 	// Called directly by moon.Panels
 	transitionFinished: function(inInfo) {
+		if (!inInfo.animate) {
+			this.stopMarquees();
+
+			if (this.isBreadcrumb === true && inInfo.breadcrumb === false) {
+				this.grow();
+			}
+			if (this.isBreadcrumb === false && inInfo.breadcrumb === true) {
+				this.shrink();
+			}
+		}
 		this.set("isBreadcrumb", inInfo.breadcrumb);
 		this.startMarqueeAsNeeded(inInfo);
 	},
