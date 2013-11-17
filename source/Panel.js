@@ -295,9 +295,6 @@ enyo.kind({
 		this.$.animator.pause("grow");
 		this.$.animator.pause("shrink");
 	},
-	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		return true;
-	},
 	preTransitionComplete: function() {
 		this.shrinking = false;
 		this.doPreTransitionComplete();
