@@ -47,7 +47,6 @@ enyo.kind({
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
 
-		onTransitionFinish:			"transitionFinish",
 		onPreTransitionComplete:	"panelPreTransitionComplete",
 		onPostTransitionComplete:	"panelPostTransitionComplete"
 	},
@@ -190,12 +189,12 @@ enyo.kind({
 		}
 	},
 	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.inPanelTransition === true) {
+		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
 			return;
 		}
 
 		if (this.shouldHide(oEvent)) {
-			if (this.showing && this.useHandle === true) {
+			if (this.showing && this.useHandle === true && this.inPanelTransition === false) {
 				this.hide();
 			}
 		} else {
@@ -322,7 +321,7 @@ enyo.kind({
 			return;
 		}
 
-		if (this.toIndex !== null) {
+		if (this.toIndex !== null || this.inPanelTransition === true) {
 			this.queuedIndex = inIndex;
 			return;
 		}
@@ -477,6 +476,7 @@ enyo.kind({
 		// in finishTransition().
 		if (this.hasNode() && !this.animate) {
 			enyo.Spotlight.spot(this.getActive());
+			this.inPanelTransition = false;
 		}
 	},
 	finishTransition: function(sendEvents) {
