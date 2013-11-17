@@ -211,19 +211,15 @@ enyo.kind({
 	},
 	//* On _enter_, sets _this.hovering_ to true and shows pagination controls.
 	enter: function(inSender, inEvent) {
-		if (inEvent.originator == this) {
-			this.hovering = true;
-			this.setupBounds();
-			this.showHidePageControls();
-			this.showHideScrollColumns(true);
-		}
+		this.hovering = true;
+		this.setupBounds();
+		this.showHidePageControls();
+		this.showHideScrollColumns(true);
 	},
 	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
 	leave: function(inSender, inEvent) {
-		if (inEvent.originator == this) {
-			this.hovering = false;
-			this.showHideScrollColumns(false);
-		}
+		this.hovering = false;
+		this.showHideScrollColumns(false);
 	},
 	//* Handles _paginate_ events sent from PagingControl buttons.
 	paginate: function(inSender, inEvent) {
