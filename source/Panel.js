@@ -73,7 +73,7 @@ enyo.kind({
 
 		{name: "animator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
-	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", marqueeOnRender: false, isChrome: true},
+	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
 	bindings: [
 		{from: ".title", to: ".$.header.title"},
 		{from: ".title", to: ".$.breadcrumbText.content"},
@@ -124,6 +124,7 @@ enyo.kind({
 		this.updateViewportSize();
 		this.createShrinkAnimation();
 		this.createGrowAnimation();
+		this.shrinkAsNeeded();
 	},
 	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
 	updateViewportSize: function() {
@@ -202,6 +203,12 @@ enyo.kind({
 		this.$.breadcrumbBackground.spotlight = false;
 		this.$.breadcrumbBackground.removeClass("spotlight");
 	},
+	shrinkAsNeeded: function() {
+		if (this.needsToShrink) {
+			this.shrink();
+			this.needsToShrink = false;
+		}
+	},
 	stopMarquees: function() {
 		this.$.breadcrumbText.stopMarquee();
 		this.$.header.stopMarquee();
@@ -223,13 +230,11 @@ enyo.kind({
 	},
 	// Called directly by moon.Panels
 	initPanel: function(inInfo) {
-		this.startJob("initPanel", function() {
-			this.set("isBreadcrumb", inInfo.breadcrumb);
-			if (this.isBreadcrumb) {
-				this.shrink();
-			}
-			this.startMarqueeAsNeeded(inInfo);
-		}, 0);
+		this.set("isBreadcrumb", inInfo.breadcrumb);
+		if (this.isBreadcrumb) {
+			this.needsToShrink = true;
+		}
+		this.startMarqueeAsNeeded(inInfo);
 	},
 	// Called directly by moon.Panels
 	preTransition: function(inInfo) {
