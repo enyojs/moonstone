@@ -55,7 +55,7 @@ enyo.kind({
 						{content:"testing 16", kind: "moon.Item"},
 						{content:"testing 17", kind: "moon.Item"},
 						{content:"testing 18", kind: "moon.Item"},
-						{content:"testing 19", kind: "moon.Item"},
+						{content:"testing 19", kind: "moon.Item"}
 					]}
 
 				]}
