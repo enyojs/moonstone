@@ -42,7 +42,7 @@ enyo.kind({
 
 				{kind: "moon.Divider", content: "Marquee pause:"},
 				{name: "marqueePause1", marqueeOnRender: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee which has 1000ms pause time"},
-				{name: "marqueePause2", marqueeOnRender: true, marqueePause: 2000, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee which has 2000ms pause time"}
+				{name: "marqueePause2", marqueeOnRender: true, marqueePause: 2000, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee which has 2000ms pause time"},
 				{tag: "br"},
 
 				{kind: "moon.Divider", content: "Disabled marquee:"},
