@@ -19,9 +19,14 @@ enyo.kind({
 		*/
 		autoCollapse: false,
 		/**
-			List of actions to be displayed
+			Set of item lists to be displayed.
+			Ordinary _this.listActions_ is a moon.Scroller without any components.
+			When user instantiates _moon.ListActions_ he should use listActions : [some internal kind]
+			to fill inside of scroller.
+			To summary, _this.listActions_ is a components block which has some item lists
+			to be shown inside of drawed scroller.
 		*/
-		listActions: null,
+		listActions: [],
 		/**
 			Source URL for icon image
 		*/
@@ -55,7 +60,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		// Set the popup size before the drawer rendered is called, so that the drawer
-		// can properly translate itself out of the viewport 
+		// can properly translate itself out of the viewport
 		this.configurePopup();
 		this.inherited(arguments);
 	},
@@ -70,12 +75,12 @@ enyo.kind({
 	},
 	createListActionComponents: function() {
 		var listAction, i;
-		
+
 		this.listActionComponents = [];
 		for (i = 0; (listAction = this.listActions[i]); i++) {
 			this.listActionComponents.push(this.createListActionComponent(listAction));
 		}
-		
+
 		// Increase width to 100% if there is only one list action
 		if (this.proportionalWidth) {
 			this.addClass("proportional-width");
@@ -84,7 +89,7 @@ enyo.kind({
 				this.listActionComponents[i].applyStyle("width", w + "%");
 			}
 		}
-		
+
 		if (this.hasNode()) {
 			this.$.listActions.render();
 		}
@@ -92,11 +97,11 @@ enyo.kind({
 	//* Creates a new list action component based on _inListAction_.
 	createListActionComponent: function(inListAction) {
 		var listActionComponent;
-		
+
 		inListAction.mixins = this.addListActionMixin(inListAction);
 		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner(), layoutKind:"FittableRowsLayout"});
 		listActionComponent.addClass("moon-list-actions-menu");
-		
+
 		return listActionComponent;
 	},
 	/**
@@ -115,7 +120,7 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
+
 		// If currently open, close and spot _this.$.activator_
 		if (this.getOpen()) {
 			this.setOpen(false);
@@ -141,7 +146,7 @@ enyo.kind({
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
 			styleString = "";
-		
+
 		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
 		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
 		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
@@ -152,7 +157,7 @@ enyo.kind({
 		else {
 			styleString += "left: " + Math.ceil(headerBounds.left - bounds.left) + "px; ";
 		}
-		
+
 		this.$.drawer.addStyles(styleString);
 	},
 	drawerAnimationEnd: function() {
@@ -190,7 +195,7 @@ enyo.kind({
 	},
 	stackMeUp: function() {
 		var optionGroup, i;
-	
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "block");
 			optionGroup.applyStyle("height", "none");
@@ -200,7 +205,7 @@ enyo.kind({
 		var containerHeight = this.getContainerBounds().height,
 			optionGroup,
 			i;
-		
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
 			optionGroup.applyStyle("height", containerHeight + "px");
@@ -242,7 +247,7 @@ enyo.kind({
 		inParent = inParent || this.parent;
 		if (inParent instanceof moon.Header || !inParent.parent) {
 			return inParent.hasNode();
-		} 
+		}
 		return this.getParentHeaderNode(inParent.parent);
 	},
 	resetCachedValues: function() {
