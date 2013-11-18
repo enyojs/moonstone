@@ -32,7 +32,7 @@ enyo.kind({
 				{name: "marqueeContent1", marqueeOnRender: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for separate marquee case"},
 				{name: "marqueeContainer1", mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
 					{name: "marqueeContent2", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for syncronized case"},
-					{name: "marqueeContent3", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for syncronized case"},
+					{name: "marqueeContent3", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is short text for marquee"},
 				]},
 				{tag: "br"},
 
