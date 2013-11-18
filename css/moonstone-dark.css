@@ -762,8 +762,13 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-  background-position: center -85px;
+  background-position: center -75px;
   color: #ffffff;
+}
+.moon-icon.moon-icon-button.active.small,
+.moon-icon.moon-icon-button:active:hover.small,
+.moon-icon-toggle.active.small {
+  background-position: center -50px;
 }
 .moon-icon.disabled {
   opacity: 0.6;
