@@ -251,7 +251,14 @@ enyo.kind({
 		Check whether to allow spotlight to move to any given direction.
 	*/
 	spotChecker: function(inDirection) {
-		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
+		var current = enyo.Spotlight.getCurrent(),
+			neighbor;
+
+		do {
+			neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection, current);
+			current = enyo.Spotlight.getParent(current);
+		} while (!neighbor && enyo.Spotlight.Util.isChild(this, current));
+		
 		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
 			if (this.spotlightModal) {
 				return true;
