@@ -266,7 +266,7 @@ enyo.kind({
 	classes: "moon-list-actions-drawer",
 	components: [
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
-		{name: "animator", kind: "StyleAnimator", onStep: "step"}
+		{name: "animator", kind: "enyo.StyleAnimator", onStep: "step"}
 	],
 	rendered: function() {
 		this.inherited(arguments);
