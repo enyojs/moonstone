@@ -1170,7 +1170,7 @@ enyo.kind({
 			}
 			if (showControls) {
 				if(!this.$.playerControl.getShowing()) {
-				this.showFSBottomControls();
+					this.showFSBottomControls();
 				} else {
 					this.resetAutoTimeout();
 				}
