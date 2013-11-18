@@ -165,8 +165,9 @@ enyo.kind({
 
 		do {
 			neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection, current);
+			if (neighbor) { break; }
 			current = enyo.Spotlight.getParent(current);
-		} while (!neighbor && enyo.Spotlight.Util.isChild(this, current));
+		} while (enyo.Spotlight.Util.isChild(this, current));
 
 		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
 			if (this.spotlightModal) {
