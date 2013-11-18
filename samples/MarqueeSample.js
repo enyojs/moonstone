@@ -24,7 +24,7 @@ enyo.kind({
 
 				{kind: "moon.Divider", content: "Marquee on content changed:"},
 				{kind: "moon.InputDecorator", components: [
-					{kind: "moon.Input", placeholder: "JUST TYPE", oninput:"contentChange"},
+					{kind: "moon.Input", placeholder: "JUST TYPE", oninput:"contentChange"}
 
 				]},
 				{kind: "moon.Button", content: "Start marquee", ontap:"start"},
@@ -47,7 +47,7 @@ enyo.kind({
 
 				{kind: "moon.Divider", content: "Disabled marquee:"},
 				{name: "marqueeDisabled", marqueeOnRender: true, disabled: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for disabled marquee test which is having disabled property"},
-				{tag: "br"},
+				{tag: "br"}
 
 			]}
 		]}
