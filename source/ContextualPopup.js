@@ -67,13 +67,11 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		// this._spotlight = this.spotlight;
 	},
 	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
 		this.activator = inEvent.activator;
-		// this.spotlight = this._spotlight;
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
@@ -140,7 +138,6 @@ enyo.kind({
 	},
 	//* Called when _this.spotlight_ changes.
 	spotlightChanged: function() {
-		// this._spotlight = this.spotlight;
 		this.configSpotlightBehavior(false);
 	},
 	//* Called when _this.spotlightModal_ changes.
