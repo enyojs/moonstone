@@ -285,7 +285,7 @@ moon.MarqueeItem = {
 				this.render();
 			}
 		}
-	},
+	}
 };
 
 //* @public
