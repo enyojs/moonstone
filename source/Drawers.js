@@ -162,6 +162,10 @@ enyo.kind({
 	drawerActivated: function(inSender, inEvent) {
 		if (inEvent.originator instanceof moon.Drawer) {
 			this.updateActivator(true);
+			// Hide client when fullscreen drawer is open so it is not focusable
+			if (inEvent.originator.getOpen()) {
+				this.$.client.hide();
+			}
 		}
 	},
 	drawerDeactivated: function(inSender, inEvent) {
@@ -169,6 +173,10 @@ enyo.kind({
 			enyo.Spotlight.spot(this.$.activatorWrapper);
 			if (!inEvent.originator.getOpen() && !inEvent.originator.getControlsOpen()) {
 				this.updateActivator(false);
+			}
+			// Re-show client when closing fullscreen drawer
+			if (!inEvent.originator.getOpen()) {
+				this.$.client.show();
 			}
 		}
 	},
