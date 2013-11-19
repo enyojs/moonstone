@@ -153,6 +153,4 @@ enyo.ready(function() {
 			}
 		]
 	});
-	
-	console.clear();
 });
