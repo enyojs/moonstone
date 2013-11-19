@@ -57,11 +57,11 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, onSpotlightDown:"handleContainerLeave", open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, onpostresize:"resizeHandleContainer", ontap:"captureEvent", onSpotlightFocus:"captureEvent", onSpotlightSelect:"captureEvent", components:[
 			{name:"handles", classes:"moon-neutral moon-drawers-handles"}
 		]},
-		{name: "drawers", classes:"moon-drawers-drawer-container"},
-		{name: "client", classes:"moon-drawers-client", xspotlight:'container', ontap:"clientTapped"}
+		{name: "drawers", classes:"moon-drawers-drawer-container", ontap:"captureEvent", onSpotlightFocus:"captureEvent", onSpotlightSelect:"captureEvent"},
+		{name: "client", classes:"moon-drawers-client"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -90,15 +90,25 @@ enyo.kind({
 		} else {
 			if (this.$.handles.getControls().length == 1) {
 				this.openDrawer(this.$.handles.getControls()[0]);
-				this.updateActivator(true);
 			} else {
-				this.updateActivator(!this.$.handleContainer.getOpen());
-				this.$.handleContainer.setOpen(!this.$.handleContainer.getOpen());
 				if (this.$.handleContainer.getOpen()) {
-					enyo.Spotlight.spot(this.$.handleContainer);
+					this.closeHandleContainer();
+				} else {
+					this.openHandleContainer();
 				}
 			}
 		}
+	},
+	openHandleContainer: function() {
+		this.$.handleContainer.setOpen(true);
+		enyo.Spotlight.spot(this.$.handleContainer);
+		this.updateActivator(true);
+		enyo.dispatcher.capture(this.$.handleContainer, true, {tap:1, onSpotlightFocus:1, onSpotlightSelect:1});
+	},
+	closeHandleContainer: function() {
+		enyo.dispatcher.release(this.$.handleContainer);
+		this.$.handleContainer.setOpen(false);
+		this.updateActivator(false);
 	},
 	handleTapped: function(inSender, inEvent) {
 		this.openDrawer(inEvent.originator);
@@ -111,7 +121,8 @@ enyo.kind({
 			if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index],drawer)) {
 				drawer = this.$.drawers.getControls()[index];
 				drawer.toggleDrawer();
-				this.$.handleContainer.setOpen(false);
+				this.closeHandleContainer();
+				enyo.dispatcher.capture(drawer, true, {tap:1, onSpotlightFocus:1, onSpotlightSelect:1});
 				return;
 			}
 		}
@@ -125,22 +136,27 @@ enyo.kind({
 		}
 		return false;
 	},
-	closeDrawers: function(inSender, inEvent) {
+	closeDrawers: function() {
 		var drawers = this.$.drawers.getControls();
 		for (var index in drawers){
 			var drawer = drawers[index];
 			if (drawer.getOpen() || drawer.getControlsOpen()) {
+				enyo.dispatcher.release(drawer);
 				drawer.setOpen(false);
 				drawer.setControlsOpen(false);
-				enyo.Spotlight.spot(this.$.activator);
 			}
 		}
+		this.updateActivator(false);
 	},
-	clientTapped: function(inSender, inEvent) {
-		for (var index in this.drawers)
-		{
-			var drawer = this.$.drawers.getControls()[index];
-			drawer.setControlsOpen(false);
+	captureEvent: function(inSender, inEvent) {
+		if (inEvent.captured) {
+			// Any tap, select, or 5-way focus into the client area closes the dresser/drawer
+			if ((inEvent.dir || (inEvent.type != "onSpotlightFocus")) && 
+				(inEvent.dispatchTarget.isDescendantOf(this.$.client))) {
+				this.closeDrawers();
+				this.closeHandleContainer();
+			}
+			return true;
 		}
 	},
 	drawerActivated: function(inSender, inEvent) {
@@ -150,7 +166,7 @@ enyo.kind({
 	},
 	drawerDeactivated: function(inSender, inEvent) {
 		if (inEvent.originator instanceof moon.Drawer) {
-			enyo.Spotlight.spot(this.$.activator);
+			enyo.Spotlight.spot(this.$.activatorWrapper);
 			if (!inEvent.originator.getOpen() && !inEvent.originator.getControlsOpen()) {
 				this.updateActivator(false);
 			}
@@ -162,10 +178,6 @@ enyo.kind({
 		if (!up) {
 			this.$.activator.addRemoveClass("drawer-open", false);
 		}
-	},
-	handleContainerLeave: function() {
-		this.$.handleContainer.setOpen(false);
-		this.updateActivator(false);
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
@@ -186,60 +198,5 @@ enyo.kind({
 	},
 	handleAtIndex: function(inIndex) {
 		return this.$.handles.getControls()[inIndex];
-	},
-	spotUp: function(inSender, inEvent) {
-		if (inEvent.originator == this.$.activator && !this.$.handleContainer.getOpen()) {
-			return true;
-		}
-
-		//this specifically handles an up event from moon.Panels, but it is potentially too strict
-		if (inEvent.originator.kind == "moon.Panels" && enyo.Spotlight.Util.isChild(this.$.client,inEvent.originator)) {
-			enyo.Spotlight.spot(this.$.activator);
-			return true;
-		}
-
-		//if at the top of a drawer then move focus to the activator
-		var drawers = this.$.drawers.getControls();
-		for (var index in drawers) {
-			if (drawers[index].getOpen()) {
-				if (drawers[index].$.client == inEvent.originator) {
-					enyo.Spotlight.spot(this.$.activator);
-					return true;
-				}
-			} else if (drawers[index].$.controlDrawer == inEvent.originator) {
-				enyo.Spotlight.spot(this.$.activator);
-				return true;
-			}
-		}
-	},
-	spotDown: function(inSender, inEvent) {
-		var drawers = this.$.drawers.getControls();
-		var index;
-		var kids;
-		//if at the bottom a drawer then stop them from going further
-		for (index in drawers) {
-			//when the main drawer is open
-			if (drawers[index].getOpen()) {
-				if (drawers[index].$.client == inEvent.originator) {
-					//go to the controls drawer if there is one, otherwise stop at the last control
-					if (drawers[index].controlDrawerComponents !== null && drawers[index].getControlsOpen()) {
-						enyo.Spotlight.spot(drawers[index].$.controlDrawer);
-					} else {
-						kids = enyo.Spotlight.getChildren(drawers[index].$.client);
-						enyo.Spotlight.spot(kids[kids.length-1]);
-					}
-					return true;
-				//if from the control drawer & it was the last spottable item, respot it
-				} else if (drawers[index].$.controlDrawer == inEvent.originator) {
-					kids = enyo.Spotlight.getChildren(drawers[index].$.controlDrawer);
-					enyo.Spotlight.spot(kids[kids.length-1]);
-					return true;
-				}
-			//when only the control drawer is open then spotlight our main client area
-			} else if (drawers[index].$.controlDrawer == inEvent.originator && drawers[index].getControlsOpen()) {
-				enyo.Spotlight.spot(this.$.client);
-				return true;
-			}
-		}
 	}
 });
