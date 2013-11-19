@@ -21,6 +21,7 @@ enyo.kind({
 		meridiems: ["AM","PM"]
 	},
 	valueChanged: function() {
+		this.inherited(arguments);
 		this.updateOverlays();
 	},
 	//* @protected
