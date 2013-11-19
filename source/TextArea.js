@@ -1,8 +1,7 @@
 /**
 	_moon.TextArea_ is a Moonstone-styled TextArea control, derived from
-	<a href="#enyo.TextArea">enyo.TextArea</a>. Typically, a _moon.TextArea_ is
-	placed inside a <a href="#moon.InputDecorator">moon.InputDecorator</a>, which
-	provides styling, e.g.:
+	[enyo.TextArea](#enyo.TextArea). Typically, a _moon.TextArea_ is placed inside
+	a [moon.InputDecorator](#moon.InputDecorator), which provides styling, e.g.:
 
 		{kind: "moon.InputDecorator", components: [
 			{kind: "moon.TextArea", onchange: "inputChange"}
@@ -15,6 +14,7 @@
 enyo.kind({
 	name: "moon.TextArea",
 	kind: "enyo.TextArea",
+	//* @protected
 	classes: "moon-textarea",
 	blur: function() {
 		if (this.hasNode()) {

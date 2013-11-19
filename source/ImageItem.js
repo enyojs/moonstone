@@ -1,19 +1,21 @@
 /**
-	_moon.ImageItem_, which derives from <a href="#moon.Item">moon.Item</a>, is a
-	control that combines an <a href="#enyo.Image">enyo.Image</a>	with a
-	<a href="#moon.LabeledTextItem">moon.LabeledTextItem</a>. By default,	the
-	image is displayed to the left of the text; to display the image on the	right,
-	set _imageAlignRight: true_.
+	_moon.ImageItem_, which derives from [moon.Item](#moon.Item), is a control
+	that combines an [enyo.Image](#enyo.Image) with a
+	[moon.LabeledTextItem](#moon.LabeledTextItem). By default, the image is
+	displayed to the left of the text; to display the image on the right, set
+	_imageAlignRight: true_.
 */
 
 enyo.kind({
     name: "moon.ImageItem",
     classes: "moon-imageitem",
+		//* @protected
     kind: "moon.Item",
     components:[
         {name: 'image', kind: 'enyo.Image'},
         {name: 'textItem', kind: 'moon.LabeledTextItem', spotlight: false}
     ],
+    //* @public
     published: {
         //* The absolute URL path to the image
         source: '',
@@ -21,9 +23,10 @@ enyo.kind({
         label: '',
         //* The text to be displayed in the item
         text: '',
-        //* Set to true to align image to right
+        //* Set to true to align image to right of text
         imageAlignRight: false
     },
+    //* @protected
     create: function() {
         this.inherited(arguments);
         this.sourceChanged();

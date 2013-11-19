@@ -7,7 +7,7 @@
 	below the wrapped	components, and horizontal, with object actions placed next
 	to the components.
 
-	Vertical example:
+	Here's a vertical example:
 
 			{
 				kind: "moon.ObjectActionDecorator", 
@@ -27,6 +27,7 @@
 */
 enyo.kind({
 	name: "moon.ObjectActionDecorator",
+	//* @protected
 	classes: "moon-objaction",
 	handlers: {
 		onSpotlightFocus:"focus",
@@ -34,6 +35,7 @@ enyo.kind({
 		onenter: "enter",
 		onleave: "leave"
 	},
+	//* @public
 	published: {
 		/**
 			Orientation of object actions in relation to focused components.
@@ -47,6 +49,7 @@ enyo.kind({
 		*/
 		noStretch: false
 	},
+	//* @protected
 	components: [
 		{name:"client", classes: "moon-objaction-client"},
 		{name:"actions", classes: "moon-objaction-actions"}

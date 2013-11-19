@@ -309,7 +309,7 @@ enyo.kind({
 		if (this.value.getMonth() != newMonth) {
 			var value = this.value,
 				newValue,
-				newMonthLength = this.getMonthLength(value.getFullYear(), newMonth - 1);
+				newMonthLength = this.getMonthLength(value.getFullYear(), newMonth);
 			if(newMonthLength < value.getDate()) {
 				newValue = new Date(value.getFullYear(), newMonth, newMonthLength);
 			} else {
@@ -378,6 +378,10 @@ enyo.kind({
 		this.doChange({value: this.value});
 	},
 	valueChanged: function(inOld) {
+		if(isNaN(this.value) || this.value === null) {
+			this.setValue(new Date());
+			return;
+		}		
 		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}

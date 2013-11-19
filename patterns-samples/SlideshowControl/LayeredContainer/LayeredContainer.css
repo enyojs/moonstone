@@ -50,11 +50,11 @@
 }
 
 .moon-photo-slideshow-control-buttons {
-	height: 120px;	
+	height: 130px;	
 }
 
 .moon-photo-slideshow-control-list {
-	height: 202px;	/* 160 + 16 * 2 + 10 */
+	height: 230px;
 }
 
 .moon-photo-slideshow-control-left-button {
@@ -77,7 +77,7 @@
 }
 
 .moon-photo-slideshow-control-picker-wrapper {
-	width:250px;
+	width:270px;
 	display:block;
 }
 

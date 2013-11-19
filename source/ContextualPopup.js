@@ -38,7 +38,11 @@ enyo.kind({
 	spotlight: "container",
 	_spotlight: null,
 	floating:true,
-	
+	/**
+		Determines whether a scrim will appear when the popup is modal.
+		Note that modal scrims are transparent, so you won't see them.
+	*/
+	scrimWhenModal: true,
 	// Layout parameters
 	
 	//* Vertical flush layout margin
@@ -116,7 +120,7 @@ enyo.kind({
 	},
 	//* Determines whether to display _closeButton_.
 	configCloseButton: function() {
-		if (this.showCloseButton === true || (this.spotlightModal && this.closeButton !== false)) {
+		if (this.showCloseButton === true || (this.spotlightModal && this.showCloseButton !== false)) {
 			this.activator.keepOpen = true;
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
@@ -202,5 +206,47 @@ enyo.kind({
 	},
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
+	},
+	showHideScrim: function(inShow) {
+		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
+			var scrim = this.getScrim();
+			if (inShow && this.modal && this.scrimWhenModal) {
+				// move scrim to just under the popup to obscure rest of screen
+				var i = this.getScrimZIndex();
+				this._scrimZ = i;
+				scrim.showAtZIndex(i);
+			} else {
+				scrim.hideAtZIndex(this._scrimZ);
+			}
+			enyo.call(scrim, "addRemoveClass", [this.scrimClassName, scrim.showing]);
+		}
+	},
+	getScrimZIndex: function() {
+		// Position scrim directly below popup
+		return this.findZIndex()-1;
+	},
+	getScrim: function() {
+		// show a transparent scrim for modal popups if scrimWhenModal is true
+		// if scrim is true, then show a regular scrim.
+		if (this.modal && this.scrimWhenModal) {
+			return moon.scrimTransparent.make();
+		}
+		return moon.scrim.make();
+	},
+	findZIndex: function() {
+		// a default z value
+		var z = this.defaultZ;
+		if (this._zIndex) {
+			z = this._zIndex;
+		} else if (this.hasNode()) {
+			// Re-use existing zIndex if it has one
+			z = Number(enyo.dom.getComputedStyleValue(this.node, "z-index")) || z;
+		}
+		this._zIndex = z;
+		return this._zIndex;
+	},
+	showingChanged: function() {
+		this.inherited(arguments);
+		this.showHideScrim(this.showing);
 	}
 });

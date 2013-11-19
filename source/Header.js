@@ -4,7 +4,9 @@
  */
 enyo.kind({
 	name : "moon.Header",
+	//* @protected
 	classes : "moon-header",
+	//* @public
 	published : {
 		//* Title of the header
 		title : '',
@@ -34,6 +36,7 @@ enyo.kind({
 		//* When true, the entered text will be displayed as uppercase
 		inputUpperCase : false
 	},
+	//* @protected
 	mixins : ["moon.MarqueeSupport"],
 	marqueeOnSpotlight : false,
 	marqueeOnRender : true,
@@ -41,12 +44,14 @@ enyo.kind({
 		oninput : "handleInput",
 		onchange : "handleChange"
 	},
+	//* @public
 	events : {
 		//* Custom input event to allow apps to differentiate between inputs and header inputs
 		onInputHeaderInput : "",
 		//* Custom input change event to allow apps to differentiate between input changes and header input changes
 		onInputHeaderChange : ""
 	},
+	//* @protected
 	components : [{
 		name : "texts",
 		components : [{
@@ -85,7 +90,7 @@ enyo.kind({
 		classes : "moon-hspacing moon-header-client"
 	}, {
 		name : "animator",
-		kind : "StyleAnimator",
+		kind : "enyo.StyleAnimator",
 		onComplete : "animationComplete"
 	}],
 	bindings : [{
@@ -176,7 +181,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : "current",
-						"opacity" : "current"
+						"opacity" : "current",
+						"margin-top" : "current"
 					}
 				}, {
 					control : this.$.title,
@@ -205,7 +211,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : 0,
-						"opacity" : 0
+						"opacity" : 0,
+						"margin-top" : 0
 					}
 				}, {
 					control : this.$.title,
@@ -249,7 +256,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : "current",
-						"opacity" : "current"
+						"opacity" : "current",
+						"margin-top" : "current"
 					}
 				}, {
 					control : this.$.title,
@@ -281,7 +289,8 @@ enyo.kind({
 					control : this.$.titleAbove,
 					properties : {
 						"height" : this.$.titleAbove.smallAnimProps["height"],
-						"opacity" : this.$.titleAbove.smallAnimProps["opacity"]
+						"opacity" : this.$.titleAbove.smallAnimProps["opacity"],
+						"margin-top" : this.$.titleAbove.smallAnimProps["margin-top"]
 					}
 				}, {
 					control : this.$.title,

@@ -1,7 +1,7 @@
 /** 
-	_moon.HighlightText_ is a control that displays highlighted text. In response
-	to an `onHighlight` event, it will highlight a specified string if that string
-	is found within the control's content.
+	_moon.HighlightText_ is a control that displays highlighted text.  In response
+	to calling `setHighlight` or receiving `onHighlight` event, it will highlight a 
+    specified string if that string is found within the control's content.
 
 	For example, let's say we have the following control:
 	
@@ -11,29 +11,37 @@
 
 		this.waterfall("onHighlight", {highlight: "Hello"}); 
 
+    or calling the API directly:
+
+        this.$.myHT.setHighlight("Hello");
+
 	the word "Hello" will be highlighted.
 
 	The highlighting will be turned off in response to an `offHighlight` event,
 	e.g.:
 
 		this.waterfall("offHighlight");
+
+    or by setting highlight to a falsy value:
+
+        this.$.myHT.setHighlight("");
+
 */
 enyo.kind({
     name: "moon.HighlightText",
+    //* @public
     published: {
-        //* The control's content
-        content: "",
-        /**
-            If true, highlighting is activated; at runtime, this property is
-            used to store the search term from an incoming _onHighlight_ event,
-            i.e., _inEvent.highlight_.
-        */
-        highlight: false,
-        //* If true, matching is case-sensitive
+        //* String or RegExp indicating the text or pattern to highlight.  An empty string, falsy value, or empty RegExp
+        //* will disable highlighting.
+        highlight: "",
+        //* When true, only case-sensitive matches of the highlight string will be highlighted.  This property
+        //* is ignored if a RegExp is specified to the highlight property (you may use the "i" modifier to indicate
+        //* case insensitive RegExp).
         caseSensitive: false,
-        //* CSS classes to be applied to highlighted content
+        //* The default CSS class to apply to highlighted content.
         highlightClasses: "moon-highlight-text-highlighted"
     },
+    //* @protected
     handlers: {
         onHighlight: "onHighlightHandler",
         onUnHighlight: "unHighlightHandler"
@@ -59,13 +67,9 @@ enyo.kind({
                 // Make sure the regex isn't empty
                 this.search = ("".match(this.highlight)) ? null : this.highlight;
             } else {
-                if (this.caseSensitive) {
-                    this.search = this.highlight;
-                } else {
-                    // Escape string for use in regex (standard regex escape from google)
-                    var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-                    this.search = new RegExp(escaped, "ig");
-                }
+                // Escape string for use in regex (standard regex escape from google)
+                var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+                this.search = new RegExp(escaped, this.caseSensitive ? "g" : "ig");
             }
         } else {
             this.search = false;
@@ -73,6 +77,10 @@ enyo.kind({
         if (this.hasNode()) {
             this.contentChanged();
         }
+    },
+    //* @protected
+    caseSensitiveChanged: function () {
+        this.highlightChanged();
     },
     //* @protected
     onHighlightHandler: function(inSender, inEvent) {
