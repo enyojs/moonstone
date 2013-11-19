@@ -3791,7 +3791,6 @@
 .moon-video-player {
   position: relative;
   display: inline-block;
-  margin: 0 10px;
   background-color: #000000;
 }
 .moon-video-player-container {
@@ -3933,7 +3932,12 @@
   font-size: 30px;
   letter-spacing: 0;
   color: #ffffff;
-  padding: 15px 0 0 0;
+  background-color: black;
+  opacity: 0.8;
+  padding: 40px 0 0 0;
+  height: 300px;
+  box-sizing: border-box;
+  position: relative;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4039,16 +4043,19 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 1100px;
+  width: 70%;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
   margin-bottom: 32px;
   white-space: nowrap;
+  display: inline-block;
+  background: transparent;
+  width: 30%;
 }
 .moon-video-player-info-title {
-  font-size: 126px;
-  letter-spacing: -0.05em;
+  font-size: 72px;
+  -webkit-font-kerning: normal;
   margin-bottom: 0;
   white-space: nowrap;
 }
@@ -4062,6 +4069,7 @@
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
+  display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
   font-family: "LG Display";
@@ -4076,11 +4084,9 @@
   letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
-  font-style: italic;
   color: #ffffff;
   display: inline-block;
   white-space: normal;
-  max-width: 1200px;
   margin-bottom: 10px;
 }
 .moon-video-player-info-subsubtitle a:link {
@@ -4115,8 +4121,8 @@
   line-height: 32px;
   color: #ffffff;
   white-space: normal;
-  margin-bottom: 25px;
-  -webkit-line-clamp: 3;
+  margin: 10px 0 20px;
+  -webkit-line-clamp: 2;
   display: -webkit-inline-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -4148,9 +4154,51 @@
   display: inline-block;
   margin: 0 0 10px 20px;
 }
+.moon-video-player-subtitle-divider,
 .moon-video-player-info-client > * {
   display: inline-block;
-  margin: 0 5px;
+  margin: 0 20px;
+}
+.moon-video-title-divider {
+  font-family: "MuseoSans 300";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #a6a6a6;
+  line-height: 32px;
+  margin: 0 20px;
+}
+.moon-video-title-divider a:link {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-title-divider a:visited {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-title-divider a:hover {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.moon-video-title-divider a:active {
+  color: #ff2f7d;
+  text-decoration: none;
+}
+.enyo-locale-non-latin .moon-video-title-divider {
+  font-family: "LG Display";
+  font-size: 26px;
+  line-height: 32px;
+}
+.moon-icon-button.moon-video-player-info-icon-cc {
+  width: 41px;
+  height: 33px;
+  background-size: 41px 33px;
+  margin-left: 0;
+}
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
+.moon-icon-button.spotlight.moon-video-player-info-icon-cc {
+  background-position: 0 0;
 }
 .moon-channelinfo {
   display: inline-block;
@@ -4158,11 +4206,12 @@
   text-align: right;
   white-space: normal;
 }
-.moon-video-player-channel-info-badges > * {
-  margin: 3px 0px 3px 10px;
+.moon-video-player-channel-info-badges-container {
+  height: 240px;
+  display: inline-block;
 }
-.moon-video-player-channel-info-badges > :first-child {
-  margin: 3px 10px;
+.moon-video-player-channel-info-badges > * {
+  margin: 25px 10px 0;
 }
 .moon-video-player-channel-info-no {
   font-family: "Miso";
@@ -4172,6 +4221,7 @@
   letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
+  font-size: 72px;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
@@ -4182,7 +4232,7 @@
   letter-spacing: 0;
   color: #a6a6a6;
   color: #ffffff;
-  margin-bottom: 22px;
+  margin-top: 10px;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
@@ -4198,7 +4248,6 @@
   font-size: 20px;
   background-color: #ffffff;
   color: #000000;
-  border-radius: 5px;
   text-align: center;
   white-space: nowrap;
   padding: 3px 9px;
@@ -4210,81 +4259,45 @@
 .moon-video-player-info-redicon {
   background-color: #fe4a4b;
   color: #ffffff;
-  margin-top: 13px;
 }
 .moon-background-wrapper {
-  position: absolute;
   overflow: hidden;
-  width: 100%;
+  height: 300px;
 }
 .moon-background-wrapper-client-content {
   position: relative;
   display: inline-block;
 }
-.moon-background-wrapper-client-content.right {
-  float: right;
-}
-.moon-background-wrapper-client-content.bg {
-  background-color: black;
-}
-.moon-background-wrapper-client-tri {
-  position: absolute;
-  width: 0;
-  height: 0;
-}
-.left .moon-background-wrapper-client-tri {
-  left: 100%;
-  bottom: 0;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
-  border-left-style: solid;
-  border-left-color: transparent;
-  border-bottom-width: 1000px;
-  border-left-width: 170px;
-}
-.left.bg .moon-background-wrapper-client-tri {
-  border-left-color: black;
-}
-.right .moon-background-wrapper-client-tri {
-  right: 100%;
-  top: 0;
-  border-top-style: solid;
-  border-top-color: transparent;
-  border-right-style: solid;
-  border-right-color: transparent;
-  border-top-width: 1000px;
-  border-right-width: 170px;
-}
-.right.bg .moon-background-wrapper-client-tri {
-  border-right-color: black;
-}
 /* Decorate video header styling */
 .moon-background-wrapper-client-content.right {
-  padding-right: 30px;
-  padding-left: 0px;
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 40%;
+  box-sizing: border-box;
+  text-align: right;
 }
 .moon-background-wrapper-client-content.left {
-  padding-left: 70px;
-  padding-right: 30px;
+  position: absolute;
+  left: 0;
+  width: 60%;
+  box-sizing: border-box;
 }
 /* Make equal spacing */
 .moon-background-wrapper-client-content {
   white-space: nowrap;
 }
-.moon-background-wrapper-client-content > * {
-  display: inline-block;
-  margin: 0 30px;
-}
 .moon-background-wrapper-client-content.left > :first-child {
-  margin-left: 0;
+  margin: 0 60px;
 }
-.moon-background-wrapper-client-content.right > :first-child {
-  margin-right: 0;
+.moon-background-wrapper-client-content.right > :last-child {
+  margin: 0 60px 0 30px;
 }
 .moon-clock {
   display: block;
   vertical-align: top;
   width: auto;
+  text-align: left;
 }
 .moon-clock-hour {
   vertical-align: center;
@@ -4365,6 +4378,9 @@
 .moon-clock-right.mini > .moon-clock-bottom {
   font-size: 28px;
   text-align: right;
+}
+.moon-video-clock-container {
+  display: inline-block;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {

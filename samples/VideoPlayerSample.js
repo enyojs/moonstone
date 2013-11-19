@@ -16,30 +16,32 @@ enyo.kind({
 					{
 						kind: "moon.ChannelInfo",
 						channelNo: "13",
-						channelName: "AMC",
-						classes: "moon-2h",
-						components: [
-							{content: "3D"},
-							{content: "Live"},
-							{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
-						]
+						channelName: "AMC"
 					},
 					{
 						kind: "moon.VideoInfoHeader",
 						title: "Downton Abbey - Extra Title",
-						subTitle: "Mon June 21, 7:00 - 8:00pm",
-						subSubTitle: "R - TV 14, V, L, SC",
 						description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+						subTitle: "Mon June 21, 7:00 - 8:00pm",
+						subtitleDivider: "|",
+						subSubTitle: "R - TV 14, V, L, SC",	
 						components: [
-							{content: "Icon 1", classes: "moon-video-player-info-icon"},
-							{content: "Icon 2", classes: "moon-video-player-info-icon"},
-							{content: "Icon 3", classes: "moon-video-player-info-icon"}
-						]
-					}
+							{kind: "moon.IconButton", src:"../images/video-player/icon-videocc.png", classes: "moon-video-player-info-icon-cc"},					
+						]			
+					},
+				 
 				]},
 				{kind: "moon.VideoInfoBackground", orient: "right", background: true, components: [
-					{kind:"moon.Clock"}
-				]}
+				{kind: "moon.ChannelInfo",
+				classes:"moon-video-player-channel-info-badges-container",
+				components: [
+							{content: "3D"},
+							{content: "Live"},
+							{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
+						]},
+					{kind:"moon.Clock", classes:"moon-video-clock-container"}
+				 ]}
+				
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},

@@ -7,25 +7,30 @@ enyo.kind({
 				{
 					kind: "moon.ChannelInfo",
 					channelNo: "13",
-					channelName: "AMC",
-					classes: "moon-2h", 
-					components: [
-						{content: "3D"},
-						{content: "Live"},
-						{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
-					]
+					channelName: "AMC"
 				},
 				{
 					kind: "moon.VideoInfoHeader",
 					title: "Downton Abbey - Extra Title",
+					description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and",
 					subTitle: "Mon June 21, 7:00 - 8:00pm",
+					subtitleDivider: "|",
 					subSubTitle: "R - TV 14, V, L, SC",
-					description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
+					components: [
+							{kind: "moon.IconButton", src:"../images/video-player/icon-videocc.png", classes: "moon-video-player-info-icon-cc"},					
+						],	
 				}
 			]},
 			{kind: "moon.VideoInfoBackground", orient: "right", background: true, components: [
-				{kind:"moon.Clock"}
-			]}
+			{kind: "moon.ChannelInfo",
+				classes:"moon-video-player-channel-info-badges-container",
+				components: [
+							{content: "3D"},
+							{content: "Live"},
+							{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
+						]},
+					{kind:"moon.Clock", classes:"moon-video-clock-container"}
+				 ]}
 		], components: [
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},

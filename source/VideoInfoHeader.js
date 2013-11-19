@@ -41,17 +41,20 @@ enyo.kind({
 	//* @protected
 	components: [
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
-		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
-		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
-		{name: "client", classes: "moon-video-player-info-client"},
 		{components: [
 			{name: "description", classes: "moon-video-player-info-description"}
-		]}
+		]},
+		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
+		{name: "subtitleDivider", classes: "moon-video-player-subtitle-divider"},	
+		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
+		{name: "client", classes: "moon-video-player-info-client"}
 	],
 	bindings: [
 		{from: ".title",		to: ".$.title.content"},
 		{from: ".subTitle",		to: ".$.subTitle.content"},
 		{from: ".subSubTitle",	to: ".$.subSubTitle.content"},
-		{from: ".description",	to: ".$.description.content"}
+		{from: ".subtitleDivider",	to: ".$.subtitleDivider.content"},
+		{from: ".description",	to: ".$.description.content"},
+		{from: ".client",	to: ".$.client.content"}
 	]
 });

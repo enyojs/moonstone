@@ -1,72 +1,36 @@
 .moon-background-wrapper {
-    position: absolute;
     overflow: hidden;
-    width: 100%;
+    height:300px;   
 }
 .moon-background-wrapper-client-content {
     position: relative;
     display: inline-block;
 }
-.moon-background-wrapper-client-content.right {
-    float: right;
-}
-.moon-background-wrapper-client-content.bg {
-    background-color: black;
-}
-.moon-background-wrapper-client-tri {
-    position: absolute;
-    width: 0;
-    height: 0;
-}
-.left .moon-background-wrapper-client-tri {
-    left: 100%;
-    bottom: 0;
-    border-bottom-style: solid;
-    border-bottom-color: transparent;
-    border-left-style: solid;
-    border-left-color: transparent;
-    border-bottom-width: 1000px;
-    border-left-width: 170px;
-}
-.left.bg .moon-background-wrapper-client-tri {
-    border-left-color: black;
-}
-.right .moon-background-wrapper-client-tri {
-    right: 100%;
-    top: 0;
-    border-top-style: solid;
-    border-top-color: transparent;
-    border-right-style: solid;
-    border-right-color: transparent;
-    border-top-width: 1000px;
-    border-right-width: 170px;
-}
-.right.bg .moon-background-wrapper-client-tri {
-    border-right-color: black;
-}
-
 
 /* Decorate video header styling */
 .moon-background-wrapper-client-content.right {
-	padding-right: 30px;
-	padding-left: 0px;
+  position:absolute;
+  right:0;
+  top:25px;
+	width:40%;
+	box-sizing:border-box;
+	 text-align:right;
 }
 .moon-background-wrapper-client-content.left {
-	padding-left: 70px;
-	padding-right: 30px;
+  position:absolute;
+  left:0;
+	width:60%;
+  box-sizing:border-box;
 }
 
 /* Make equal spacing */
 .moon-background-wrapper-client-content {
 	white-space: nowrap;
 }
-.moon-background-wrapper-client-content > * {
-	display: inline-block;
-	margin: 0 30px;
-}
+
 .moon-background-wrapper-client-content.left > :first-child {
-	margin-left: 0;
+	margin: 0 60px;
 }
-.moon-background-wrapper-client-content.right > :first-child {
-	margin-right: 0;
+.moon-background-wrapper-client-content.right > :last-child {
+	margin:0 60px 0 30px;
 }
