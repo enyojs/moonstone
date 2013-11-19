@@ -36,7 +36,7 @@ enyo.kind({
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
 			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
-				{name: "clientInput", kind: "moon.Input"}
+				{name: "clientInput", kind: "moon.Input", onblur: "blured"}
 			]}
 		]}
 	],
@@ -51,7 +51,13 @@ enyo.kind({
 		"showCurrentValue": ["open", "value", "noneText"],
 		"currentValueText": ["value", "noneText"]
 	},
-	
+	blured: function() {
+		if (this.getOpen() && this.getAutoCollapse()) {
+			this.expandContract();
+		} else {
+			this.updateValue();
+		}
+	},
 	// Change handlers
 	valueChanged: function() {
 		if (this.generated) {
