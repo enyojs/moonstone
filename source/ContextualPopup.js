@@ -17,7 +17,7 @@ enyo.kind({
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight",
-		onSpotlightSelect: "spotSelect",
+		onSpotlightKeyDown: "spotKeyDown",
 		onRequestScrollIntoView: "_preventEventBubble"
 	},
 	//* @public
@@ -38,6 +38,7 @@ enyo.kind({
 	spotlight: "container",
 	_spotlight: null,
 	floating:true,
+	eventsToCapture: { down:1, tap:1, onSpotlightKeyDown:1 },
 	/**
 		Determines whether a scrim will appear when the popup is modal.
 		Note that modal scrims are transparent, so you won't see them.
@@ -106,13 +107,6 @@ enyo.kind({
 			this.hide();
 		}
 	},
-	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
-	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
-			return this.inherited(arguments);
-		}
-	},
 	closePopup: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this.activator);
 		this.$.closeButton.removeClass("pressed");
@@ -161,8 +155,13 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	spotSelect: function(inSender, inEvent) {
-		this.downEvent = inEvent;
+	spotKeyDown: function(inSender, inEvent) {
+		if (!inEvent.dispatchTarget.isDescendantOf(this)) {
+			if (inEvent.keyCode == 13) {
+				this.downEvent = inEvent;
+			}
+			return true;
+		}
 	},
 	//* Checks whether to allow spotlight to move in a given direction.
 	spotChecker: function(inDirection) {
