@@ -27,14 +27,14 @@ enyo.kind({
 	//* @public
 	published: {
 		/** True if this item is currently selected; false if not
-			If user want to modify selected state, use _setSelected()_
+
 		*/
 		selected: false,
 		/**
 			For use with the Enyo Group API; true if this item is the selected item in
-			the group. Just inside of this kind, _selected_ and _active_ look like same role.
+			the group. Just inside of this kind, _selected_ and _active_ look similar.
 			However, _active_ is not for user's usage, is for _enyo.Group_.
-			We highly recommed to use _selected_ for changing selection.
+			We highly recommend to use _selected_ for changing selection.
 		*/
 		active: false
 	},
