@@ -177,9 +177,9 @@ moon.MarqueeItem = {
 	*/
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
-			this.$.marqueeText.setContent(this.content);
-			this._marquee_stopAnimation();
+			this.$.marqueeText.setContent(this.content);		
 		}
+		this._marquee_checkMarquee();
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
@@ -240,7 +240,7 @@ moon.MarqueeItem = {
 	},
 	//* Creates a marquee-able div inside of _this_.
 	_marquee_createMarquee: function() {
-		this.createComponent({classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
+		this.createComponent({name:"marqueeTextWrapper", classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
 		this.render();
 		return true;
 	},
@@ -273,7 +273,19 @@ moon.MarqueeItem = {
 	//* Flips distance value for RTL support
 	_marquee_adjustDistanceForRTL: function(inDistance) {
 		return this.rtl ? inDistance : inDistance * -1;
-	}
+	},
+	//* Check the text if maquee is required or not
+	_marquee_checkMarquee: function(inSender, inEvent) {
+		var distance = this._marquee_calcDistance();
+		if(distance > 0){
+			this._marquee_startAnimation();
+		} else {
+			if(this.$.marqueeTextWrapper){
+				this.$.marqueeTextWrapper.destroy();
+				this.render();
+			}
+		}
+	},
 };
 
 //* @public
