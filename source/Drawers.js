@@ -170,7 +170,6 @@ enyo.kind({
 	},
 	drawerDeactivated: function(inSender, inEvent) {
 		if (inEvent.originator instanceof moon.Drawer) {
-			enyo.Spotlight.spot(this.$.activatorWrapper);
 			if (!inEvent.originator.getOpen() && !inEvent.originator.getControlsOpen()) {
 				this.updateActivator(false);
 			}
