@@ -12,6 +12,7 @@ moon.MarqueeSupport = {
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
 		onMarqueeEnded: "_marquee_marqueeEnded",
+		onContentChanged: "_marquee_contentChanged",
 		onresize: "_marquee_resize"
 	},
 	marqueeActive: false,
@@ -87,6 +88,9 @@ moon.MarqueeSupport = {
 			this._marquee_startHold();
 		}
 	},
+	_marquee_contentChanged: function(inSender, inEvent) {
+		this.startMarquee();
+	},
 	
 	//* @public
 	/**
@@ -147,7 +151,8 @@ moon.MarqueeSupport = {
 moon.MarqueeItem = {
 	//* @public
 	events: {
-		onMarqueeEnded:""
+		onMarqueeEnded:"",
+		onContentChanged:""
 	},
 	//* @protected
 	_marqueeItem_Handlers: {
@@ -175,11 +180,26 @@ moon.MarqueeItem = {
 		When the content of this control changes, updates the content of
 		_this.$.marqueeText_ (if it exists).
 	*/
-	_marquee_contentChanged: function() {
+	_marquee_contentChanged: function(inSender, inEvent) {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 			this._marquee_stopAnimation();
+		}else if(this.content){
+			this.doContentChanged();
 		}
+	},
+	//* If this control needs to marquee, lets the event originator know.
+	_marquee_reStartMarquee: function(inSender, inEvent) {
+		var distance = this._marquee_calcDistance();
+		if (distance<=0) {
+			this._marquee_stopAnimation();
+			return;
+		}
+		
+		inEvent.originator.addMarqueeItem(this);
+		
+		this.marqueePause = inEvent.marqueePause || 1000;
+		this.marqueeSpeed = inEvent.marqueeSpeed || 60;
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
