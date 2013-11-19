@@ -16,15 +16,17 @@ enyo.kind({
 	//* @protected
 	classes: "moon-spinner",
 	//* @public
-	//* Stops the spinner animation.
+	//* Removes the animating spinner.
 	stop: function() {
 		this.setShowing(false);
 	},
-	//* Starts the spinner animation.
+	//* Shows the spinner with animation.
 	start: function() {
 		this.setShowing(true);
 	},
-	//* Toggles the spinner animation on or off.
+	/** Toggle existing state of spinner.
+		If spinner is visible it will be removed and viceversa.
+	*/
 	toggle: function() {
 		this.setShowing(!this.getShowing());
 	},
