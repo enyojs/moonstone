@@ -118,7 +118,7 @@ enyo.kind({
 
 // Sample model
 
-enyo.ready(function(){
+enyo.ready(function() {
 	var sampleModel = new enyo.Model({
 		menus: new enyo.Collection([
 			{menuItem: "Browse Movies"},
@@ -153,4 +153,6 @@ enyo.ready(function(){
 			}
 		]
 	});
+	
+	console.clear();
 });

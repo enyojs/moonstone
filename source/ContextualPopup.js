@@ -4,21 +4,19 @@
 	[moon.ContextualPopupDecorator](#moon.ContextualPopupDecorator).
 */
 enyo.kind({
-	name: "moon.ContextualPopup",
-	kind: "enyo.Popup",
+	name : "moon.ContextualPopup",
+	kind : "enyo.Popup",
+	
 	//* @protected
-	layoutKind: "ContextualLayout",
-	classes: "moon-body-text moon-contextual-popup",
+	layoutKind : "ContextualLayout",
+	classes    : "moon-body-text moon-contextual-popup",
+	
 	handlers: {
-		onRequestShowPopup: "requestShow",
-		onRequestHidePopup: "requestHide",
-		onActivate: "decorateActivateEvent",
-		onSpotlightUp: "spotlightUp",
-		onSpotlightDown: "spotlightDown",
-		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight",
-		onSpotlightSelect: "spotSelect",
-		onRequestScrollIntoView: "_preventEventBubble"
+		onRequestShowPopup        : "requestShow",
+		onRequestHidePopup        : "requestHide",
+		onActivate                : "decorateActivateEvent",
+		onRequestScrollIntoView   : "_preventEventBubble",
+		onSpotlightContainerLeave : "onLeave"
 	},
 	//* @public
 	published: {
@@ -36,7 +34,6 @@ enyo.kind({
 	},
 	//* @protected
 	spotlight: "container",
-	_spotlight: null,
 	floating:true,
 	/**
 		Determines whether a scrim will appear when the popup is modal.
@@ -70,13 +67,13 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
+		// this._spotlight = this.spotlight;
 	},
 	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
 		this.activator = inEvent.activator;
-		this.spotlight = this._spotlight;
+		// this.spotlight = this._spotlight;
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
@@ -104,13 +101,6 @@ enyo.kind({
 		if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
 			enyo.Spotlight.spot(this.activator);
 			this.hide();
-		}
-	},
-	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
-	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
-			return this.inherited(arguments);
 		}
 	},
 	closePopup: function(inSender, inEvent) {
@@ -150,7 +140,7 @@ enyo.kind({
 	},
 	//* Called when _this.spotlight_ changes.
 	spotlightChanged: function() {
-		this._spotlight = this.spotlight;
+		// this._spotlight = this.spotlight;
 		this.configSpotlightBehavior(false);
 	},
 	//* Called when _this.spotlightModal_ changes.
@@ -161,48 +151,11 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	spotSelect: function(inSender, inEvent) {
-		this.downEvent = inEvent;
-	},
-	//* Checks whether to allow spotlight to move in a given direction.
-	spotChecker: function(inDirection) {
-		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
-		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
-			if (this.spotlightModal) {
-				return true;
-			} else {
-				enyo.Spotlight.spot(this.activator);
-				this.hide();
-			}
+	onLeave: function(oSender, oEvent) {
+		if (oEvent.originator == this) {
+			enyo.Spotlight.spot(this.activator);
+			this.hide();
 		}
-	},
-	/**
-		When spotlight reaches top edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightUp: function(inSender, inEvent) {
-		return this.spotChecker("UP");
-	},
-	/**
-		When spotlight reaches bottom edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightDown: function(inSender, inEvent) {
-		return this.spotChecker("DOWN");
-	},
-	/**
-		When spotlight reaches left edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightLeft: function(inSender, inEvent) {
-		return this.spotChecker("LEFT");
-	},
-	/**
-		When spotlight reaches right edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightRight: function(inSender, inEvent) {
-		return this.spotChecker("RIGHT");
 	},
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
