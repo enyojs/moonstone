@@ -17,7 +17,6 @@ enyo.kind({
 		onSpotlightDown: "spotlightDown",
 		onSpotlightLeft: "spotlightLeft",
 		onSpotlightRight: "spotlightRight",
-		onSpotlightKeyDown: "spotKeyDown",
 		onRequestScrollIntoView: "_preventEventBubble"
 	},
 	//* @public
@@ -155,13 +154,14 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	spotKeyDown: function(inSender, inEvent) {
-		if (!inEvent.dispatchTarget.isDescendantOf(this)) {
+	capturedEvent: function(inEventName, inEvent, inSender) {
+		if (inEventName == "onSpotlightKeyDown") {
 			if (inEvent.keyCode == 13) {
 				this.downEvent = inEvent;
 			}
 			return true;
 		}
+		this.inherited(arguments);
 	},
 	//* Checks whether to allow spotlight to move in a given direction.
 	spotChecker: function(inDirection) {
