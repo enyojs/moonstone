@@ -291,7 +291,7 @@ enyo.kind({
 	},
 	//* @protected
 	getInitAnimationValues: function() {
-		var node = this.hasNode()
+		var node = this.hasNode(),
 			marginT = parseInt(enyo.dom.getComputedStyleValue(node, "margin-top"), 10),
 			marginR = parseInt(enyo.dom.getComputedStyleValue(node, "margin-right"), 10),
 			marginB = parseInt(enyo.dom.getComputedStyleValue(node, "margin-bottom"), 10),
