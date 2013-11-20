@@ -1,7 +1,15 @@
+/**
+	_moon.ListActions_ is a control used in conjunction with a list of items.  It
+	combines an activating control with a drawer containing a menu of selectable
+	options.  When a menu item is selected, an action--such as filtering, sorting,
+	moving, or deleting--is performed on the items in the associated list.
+*/
 enyo.kind({
 	name: "moon.ListActions",
+	//* @protected
 	classes: "moon-list-actions",
 	kind: "enyo.GroupItem",
+	//* @public
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
@@ -25,10 +33,12 @@ enyo.kind({
 		*/
 		proportionalWidth: false
 	},
+
+	//* @protected
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
 		{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, spotlight: "container", spotlightModal:true, components: [
-			{name: "closeButton", kind: "moon.IconButton", classes: "moon-popup-close moon-list-actions-close moon-neutral", ontap: "expandContract"},
+			{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close moon-list-actions-close moon-neutral", ontap: "expandContract"},
 			{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-neutral", components: [
 				{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", horizontal:"hidden", vertical:"hidden", onActivate: "optionSelected"}
 			]}
@@ -113,7 +123,7 @@ enyo.kind({
 			this.bubble("onRequestUnmuteTooltip");
 			this.setActive(false);
 		}
-		// If currently closed, resize and show _this.$.drawer
+		// If currently closed, resize and show _this.$.drawer_
 		else {
 			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
@@ -126,7 +136,7 @@ enyo.kind({
 			this.setActive(true);
 		}
 	},
-	//* Positions _this.$.drawer to fill the entire header.
+	//* Positions _this.$.drawer_ to fill the entire header.
 	configurePopup: function() {
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
@@ -242,15 +252,21 @@ enyo.kind({
 	}
 });
 
+/**
+	_moon.ListActionsDrawer_ is a control used by
+	[moon.ListActions](#moon.ListActions) to house a menu of selectable options.
+*/
 enyo.kind({
 	name: "moon.ListActionsDrawer",
+	//* @public
 	published: {
 		open: false
 	},
+	//* @protected
 	classes: "moon-list-actions-drawer",
 	components: [
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
-		{name: "animator", kind: "StyleAnimator", onStep: "step"}
+		{name: "animator", kind: "enyo.StyleAnimator", onStep: "step"}
 	],
 	rendered: function() {
 		this.inherited(arguments);

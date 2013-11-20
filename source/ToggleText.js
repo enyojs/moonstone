@@ -1,18 +1,19 @@
 /**
-	_moon.ToggleText_, which extends <a href="#moon.Checkbox">moon.Checkbox</a>,
-	is a control that looks like a switch with labels for an "on" state and an
-	"off" state.  When the ToggleText is tapped, it switches its state and fires
-	an _onChange_ event.
+	_moon.ToggleText_, which extends [moon.Checkbox](#moon.Checkbox), is a control
+	that looks like a switch with labels for an "on" state and an "off" state.
+	When the ToggleText is tapped, it switches its state and fires an _onChange_
+	event.
 */
 
 enyo.kind({
 	name: "moon.ToggleText",
 	kind: "moon.Checkbox",
+	//* @public
 	published: {
 		//* Text label for the "on" state
-		onContent: $L("on"),
+		onContent: moon.$L("on"),   // i18n "ON" label in moon.ToggleText / moon.ToggleItem widget
 		//* Text label for the "off" state
-		offContent: $L("off")
+		offContent: moon.$L("off")  // i18n "OFF" label in moon.ToggleText / moon.ToggleItem widget
 	},
 	//* @protected
 	classes: "moon-toggle-text",

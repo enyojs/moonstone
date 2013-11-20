@@ -52,6 +52,7 @@
 	font-style: @moon-header-font-style;
 	letter-spacing: @moon-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
 	font-family: @moon-sub-header-font-family;
@@ -67,6 +68,7 @@
 	font-weight: @moon-super-header-font-weight;
 	font-style: @moon-super-header-font-style;
 	letter-spacing: @moon-super-header-letter-spacing;
+	-webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
 	font-family: @moon-popup-header-font-family;
@@ -75,6 +77,7 @@
 	font-style: @moon-popup-header-font-style;
 	letter-spacing: @moon-popup-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
@@ -97,6 +100,19 @@
 	a:hover {color: @moon-spotlight-color; text-decoration:none;}
 	a:active {color: @moon-spotlight-color; text-decoration:none;}
 }
+.moon-bold-text {
+	font-family: @moon-font-family-bold;
+	font-size: @moon-body-font-size;
+	font-weight: @moon-body-font-weight;
+	font-style: @moon-body-font-style;
+	letter-spacing: @moon-body-letter-spacing;
+	color: @moon-body-text-color;
+	line-height: @moon-body-line-height;
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
+}
 .moon-body-text-spacing {
 	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
 }
@@ -107,6 +123,7 @@
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning:normal;
 }
 .moon-small-button-text {
 	font-family: @moon-button-font-family;
@@ -115,6 +132,7 @@
 	font-style: @moon-button-font-style;
 	letter-spacing: @moon-button-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning:normal;
 }
 .moon-icon-text {
 	font-family: @moon-icon-font-family;
@@ -137,6 +155,7 @@
 	.moon-super-header-text,
 	.moon-divider-text,
 	.moon-body-text,
+	.moon-bold-text,
 	.moon-large-button-text,
 	.moon-small-button-text {
 		font-family: @moon-non-latin-font-family;
@@ -168,8 +187,13 @@
 	}
 	.moon-divider-text {
 		font-size: @moon-non-latin-divider-font-size;
+		font-style: normal;
 	}
 	.moon-body-text {
+		font-size: @moon-non-latin-body-font-size;
+		line-height: @moon-non-latin-body-line-height;
+	}
+	.moon-bold-text {
 		font-size: @moon-non-latin-body-font-size;
 		line-height: @moon-non-latin-body-line-height;
 	}
@@ -190,6 +214,9 @@
 @moon-disabled-opacity-ie: @moon-disabled-opacity*100;
 
 /* Individual widget CSS */
+@import "Icon.less";
+@import "moonstone-icons.less";
+@import "IconButton.less";
 @import "Marquee.less";
 @import "SimplePicker.less";
 @import "SimpleIntegerPicker.less";
@@ -210,9 +237,6 @@
 @import "ExpandableIntegerPicker.less";
 @import "Header.less";
 @import "GridList.less";
-@import "Icon.less";
-@import "moonstone-icons.less";
-@import "IconButton.less";
 @import "PagingControl.less";
 @import "IntegerPicker.less";
 @import "DatePicker.less";

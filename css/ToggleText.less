@@ -8,7 +8,7 @@
 	background: transparent none no-repeat 0 0;
 }
 .moon-checkbox.moon-toggle-text[disabled] {
-	opacity: 0.4;
+	opacity: @moon-disabled-opacity;
 }
 .moon-checkbox.moon-toggle-text[checked] {
 	background: transparent none no-repeat 0px 0px;
@@ -21,6 +21,7 @@
 .moon-toggle-text-text {
 	position: absolute;
 	right: 0px;
+	top: 2px;
 	text-align: right;
 	color: @moon-toggle-text-color;
 }

@@ -4,7 +4,6 @@
 	width: auto;
 }
 .moon-clock-hour {
-  .moon-header-text;
   vertical-align:center;
   display: inline-block;
   margin-right:15px;
@@ -15,43 +14,32 @@
 	position:relative;
   top:5px;
 }
-.moon-clock-minute {
-  .moon-header-text;
+.moon-clock-top {
   font-size: @moon-clock-minute-font-size;
   color:@moon-clock-color;
   vertical-align: bottom;
   display: inline-block;
-  margin-right:10px;
   line-height:60px;
+  white-space: nowrap;
+  font-size: 61px;
+  line-height: 62px;
 }
-
 .moon-clock-meridiem {
-	.moon-sub-header-text;
-	font-size: @moon-clock-meridiem-font-size;
-	color:@moon-clock-color;
-	white-space: nowrap;
-	vertical-align: bottom;
-	display: inline-block;
-	 text-transform:none;
-}
-
-.moon-clock-month {
- .moon-body-text;
+  .moon-bold-text;
   color:@moon-clock-color;
-  text-transform: capitalize;
-  white-space: normal;
-  vertical-align: top;
   display: inline-block;
-  margin-right: 10px;
- 
+  text-transform: none;
+  margin-left: 10px;
+  font-size: @moon-clock-meridiem-font-size;
 }
-.moon-clock-day {
- .moon-body-text;
+.moon-clock-bottom {
   color:@moon-clock-color;
+  text-transform: none;
   white-space: normal;
   vertical-align: top;
   display: inline-block;
   height:28px;
+  width: 100%;
 }
 .moon-clock-divider {
   height: 2px;
@@ -59,4 +47,18 @@
   margin:5px 0;
   background-color: @moon-clock-color;
 }
-// }
+.moon-clock-right.mini {
+  padding: 20px 0;
+}
+.moon-clock-right.mini > .moon-clock-divider {
+  background-color: transparent;
+  height: 6px;
+}
+.moon-clock-right.mini > .moon-clock-top {
+  font-size: @moon-clock-top-font-size;
+  text-align: right;
+}
+.moon-clock-right.mini > .moon-clock-bottom {
+  font-size: @moon-clock-bottom-font-size;
+  text-align: right;
+}

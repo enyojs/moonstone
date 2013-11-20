@@ -1,10 +1,10 @@
 /**
 	_moon.Drawers_ is a container kind designed to hold a set of
-	<a href="#moon.Drawer">moon.Drawer</a> objects and client content. The
-	_drawers_ property accepts an array of _moon.Drawer_ controls. The
-	associated <a href="#moon.DrawerHandle">drawer handles</a> are positioned in
-	their own small drawer, centered at the top of the "dresser"--the region
-	containing the array of Drawer controls and the activator nub.
+	[moon.Drawer](#moon.Drawer) objects and client content. The _drawers_ property
+	accepts an array of _moon.Drawer_ controls. The associated [drawer
+	handles](#moon.DrawerHandle) are positioned in their own small drawer,
+	centered at the top of the "dresser"--the region containing the array of
+	Drawer controls and the activator nub.
 
 	When a handle is selected, it opens the corresponding Drawer object's main
 	drawer or control drawer, depending on how the Drawer object is configured.
@@ -34,11 +34,14 @@
 enyo.kind({
 	name: "moon.Drawers",
 	kind: "enyo.Control",
-	classes: "moon-drawers",
+	//* @protected
+	classes: "moon-drawers enyo-fit",
+	//* @public
 	published: {
 		//* Populate with an array of _moon.Drawer_ components
 		drawers: null
 	},
+	//* @protected
 	handlers: {
 		//* Handlers to update the activator when the state of the contained drawers changes
 		onActivate: "drawerActivated",
@@ -47,16 +50,18 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"activator", classes:"moon-drawers-activator", spotlight:true, ontap:"activatorHandler", components:[
-			{classes:"moon-drawers-activator-nub", components:[
-				{name:"nubArrow", classes:"nub-arrow down"}
+		{name:"activatorWrapper", classes:"moon-drawers-activator-wrapper", spotlight:true, ontap:"activatorHandler", components: [
+			{name:"activator", classes:"moon-drawers-activator", components:[
+				{classes:"moon-drawers-activator-nub", components:[
+					{name:"nubArrow", classes:"nub-arrow down"}
+				]}
 			]}
 		]},
-		{name:"handleContainer", kind:"enyo.Drawer", resizeContainer:false, spotlight:'container', onSpotlightDown:"handleContainerLeave", open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, onSpotlightDown:"handleContainerLeave", open:false, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-neutral moon-drawers-handles"}
 		]},
 		{name: "drawers", classes:"moon-drawers-drawer-container"},
-		{name: "client", classes:"moon-drawers-client", spotlight:'container', ontap:"clientTapped"}
+		{name: "client", classes:"moon-drawers-client", xspotlight:'container', ontap:"clientTapped"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -66,32 +71,7 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		var dh = document.body.getBoundingClientRect().height;
-		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-		this.waterfall("onDrawersRendered", {drawersHeight: dh, activatorHeight: ah});
-		this.resizeDresser();
-	},
-	resizeDresser: function() {
-		var client = this.getBounds();
-
-		this.$.activator.applyStyle('left', -client.left+'px');
-		this.$.activator.applyStyle('top',-client.top+'px');
-		this.$.activator.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-
-		this.$.handleContainer.applyStyle('left', -client.left+'px');
-		this.$.handleContainer.applyStyle('top',(-client.top)+'px');
-		this.$.handleContainer.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-
-		this.$.drawers.applyStyle('left', -client.left+'px');
-		this.$.drawers.applyStyle('top', (-client.top-10)+'px');
-		this.$.drawers.applyStyle('width',enyo.dom.getWindowWidth() + "px");
-
-		this.resizeClient();
-	},
-	resizeClient: function(){
-		var aHeight = this.$.activator.hasNode().getBoundingClientRect().height;
-		var hHeight = this.$.handleContainer.hasNode().getBoundingClientRect().height;
-		var dHeight = this.$.drawers.hasNode().getBoundingClientRect().height;
-		this.$.client.applyStyle('height', (this.getBounds().height - (aHeight + hHeight + dHeight)) + 'px');
+		this.waterfall("onDrawersRendered", {drawersHeight: dh});
 	},
 	setupHandles: function() {
 		var handles = [];
@@ -189,13 +169,14 @@ enyo.kind({
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);
-		this.resizeDresser();		
 		var dh = document.body.getBoundingClientRect().height;
-		var ah = this.$.activator.hasNode().getBoundingClientRect().height;
-		this.waterfall("onDrawersResized", {drawersHeight: dh, activatorHeight: ah});
+		this.waterfall("onDrawersResized", {drawersHeight: dh});
 		this.updateActivator(false);
 	},
-	//Updates the activator's style only when it is not animating so that there are no visual artifacts
+	/**
+		Updates the activator's style only when it is not animating, so that there
+		are no visual artifacts.
+	*/
 	resizeHandleContainer: function(inSender, inEvent) {
 		enyo.asyncMethod(inEvent.delegate.bindSafely(function(){
 			if (!this.$.animator.isAnimating()) {

@@ -1,13 +1,13 @@
 /**
 	_moon.SimplePicker_ is a control that solicits a choice from the user by
 	cycling through a list of options. The picker's child components, typically
-	simple <a href="#enyo.Control">enyo.Control</a> objects with text content,
-	become the options for the picker.
+	simple [enyo.Control](#enyo.Control) objects with text content, become the
+	options for the picker.
 
-		{kind:"moon.SimplePicker", onChange:"changed", selectedIndex:1, components: [
-			{content:"San Francisco"},
-			{content:"Boston"},
-			{content:"Tokyo"}
+		{kind: "moon.SimplePicker", onChange: "changed", selectedIndex: 1, components: [
+			{content: "San Francisco"},
+			{content: "Boston"},
+			{content: "Tokyo"}
 		]}
 
 	The picker may be changed programmatically by calling _previous()_ or
@@ -35,8 +35,10 @@
 */
 enyo.kind({
 	name: "moon.SimplePicker",
+	//* @protected
 	classes: "moon-simple-picker",
 	mixins: ["moon.MarqueeSupport"],
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -60,20 +62,21 @@ enyo.kind({
 		disabled: false,
 		//* When true, picker will wrap around from last item to first
 		wrap: false,
-		//* By default, SimplePicker is an inline-block element; Setting `block: true` makes it a block element
+		//* By default, SimplePicker is an inline-block element; setting _block: true_ makes it a block element
 		block: false
 	},
+	//* @protected
 	defaultKind:"moon.MarqueeText",
 	//* @protected
 	handlers: {
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "enyo.Button", classes: "moon-simple-picker-button left", spotlight: true, ontap: "left"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-picker-button right", spotlight: true, ontap: "right"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -101,7 +104,7 @@ enyo.kind({
 	blockChanged: function() {
 		this.addRemoveClass("block", this.block);
 	},
-	//* Show/hide prev/next buttons based on current index
+	//* Shows/hides previous/next buttons based on current index.
 	showHideNavButtons: function() {
 		var index = this.getSelectedIndex(),
 			maxIndex = this.getClientControls().length - 1;
@@ -175,16 +178,18 @@ enyo.kind({
 			this.inherited(arguments);
 		}
 	},
-	//* Hide _inControl_ and disable spotlight functionality
+	//* Hides _inControl_ and disables spotlight functionality.
 	hideNavButton: function(inControl) {
-		inControl.addClass("hidden");
-		enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
-		inControl.spotlight = false;
+		inControl.setDisabled(true);
+		if (enyo.Spotlight.getPointerMode()) {
+			enyo.Spotlight.unspot();
+		} else {
+			enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
+		}
 	},
-	//* Show _inControl_ and enable spotlight functionality
+	//* Shows _inControl_ and enables spotlight functionality.
 	showNavButton: function(inControl) {
-		inControl.removeClass("hidden");
-		inControl.spotlight = true;
+		inControl.setDisabled(false);
 	},
 	disabledChanged: function() {
 		this.$.client.addRemoveClass("disabled", this.disabled);
@@ -219,14 +224,13 @@ enyo.kind({
 	},
 	selectedIndexChanged: function() {
 		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
-		if (this.selectedIndex !== null) {
-			this.updateMarqueeDisable();
-		}
+		this.updateMarqueeDisable();
 		this.setSelected(this.getClientControls()[this.selectedIndex]);
 		this.fireChangedEvent();
 		this.showHideNavButtons();
 	},
 	updateMarqueeDisable: function() {
+		this.waterfall("onRequestMarqueeStop");
 		for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
 			if (i == this.selectedIndex) {
 				c$[i].disabled = false;
@@ -258,7 +262,6 @@ enyo.kind({
 				idx = this.wrap ? this.getClientControls().length - 1 : 0;
 			}
 			this.setSelectedIndex(idx);
-			this.updateMarqueeDisable();
 		}
 	},
 	//* @public
@@ -270,7 +273,6 @@ enyo.kind({
 				idx = this.wrap ? 0 : this.getClientControls().length - 1;
 			}
 			this.setSelectedIndex(idx);
-			this.updateMarqueeDisable();
 		}
 	}
 });

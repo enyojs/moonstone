@@ -10,8 +10,10 @@
 */
 enyo.kind({
 	name: "moon.SimpleIntegerPicker",
+	//* @protected
 	classes: "moon-simple-integer-picker",
 	spotlight:true,
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -30,25 +32,33 @@ enyo.kind({
 		*/
 		onSelect: ""
 	},
+	//* @protected
 	handlers: {
-		onSpotlightSelect: "fireSelectEvent",
-		onSpotlightRight: "next",
-		onSpotlightBlur: "spotlightBlur",
-		onSpotlightFocus: "spotlightFocus",
-		onSpotlightFocused: "spotlightFocus",
-		onSpotlightLeft: "previous",
-		onSpotlightScrollLeft: "previous",
-		onSpotlightScrollRight: "next"
+		onSpotlightSelect      : "fireSelectEvent",
+		onSpotlightRight       : "next",
+		onSpotlightLeft        : "previous",
+		onSpotlightScrollUp    : "next",
+		onSpotlightScrollDown  : "previous",
+		
+		onSpotlightBlur        : "spotlightBlur",
+		onSpotlightFocus       : "spotlightFocus",
+		onSpotlightFocused     : "spotlightFocus"
 	},
+	//* @public
 	published: {
 		//* When true, picker transitions animate left/right
 		animate:true,
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
+		//* Initial picker value
 		value: -1,
+		//* Minimum picker value
 		min: 1,
+		//* Maximum picker value
 		max: 9,
+		//* Amount to increment/decrement by when moving picker between _min_ and _max_
 		step: 1,
+		//* Unit label to be appended to the value for display
 		unit: "sec"
 	},
 
@@ -73,7 +83,8 @@ enyo.kind({
 		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
 	],
 	observers: {
-		triggerRebuild: ["step", "min", "max", "unit"]
+		triggerRebuild: ["step", "min", "max", "unit"],
+		handleValueChange: ["value"]
 	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -98,17 +109,17 @@ enyo.kind({
 		this.$.client.next();
 		return true;
 	},
-	//* Facade for currently active panel
+	//* Facades the currently active panel.
 	getContent: function() {
 		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
 	},
 
 	//* @protected
-
 	create: function() {
 		this.inherited(arguments);
 		if (!this.deferInitialization) {
 			this.build();
+			this.validate();
 		}
 		this.disabledChanged();
 	},
@@ -120,12 +131,17 @@ enyo.kind({
 			this.createComponent({content: v + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
+			if (this.step <= 0) {
+				// if step value is 0 or negative, should create only "min" value and then break this loop. 
+				break;
+			}
 		}
 	},
 	validate: function() {
 		var index = this.indices[this.value];
-		if (index) {
+		if (index !== undefined) {
 			this.$.client.set("index", index);
+			this.setButtonVisibility(null, this.value);
 		}
 		else
 		{
@@ -150,12 +166,11 @@ enyo.kind({
 		this.startJob("rebuild", this.rebuild, 10);
 	},
 
-	// Change handlers
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.getDisabled());
 	},
 
-	//* On reflow, update the bounds of _this.$.client_
+	//* On reflow, updates the bounds of _this.$.client_.
 	reflow: function() {
 		this.inherited(arguments);
 
@@ -181,7 +196,6 @@ enyo.kind({
 		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.fireChangeEvent();
 		this.hideOverlays();
 		return true;
 	},
@@ -192,6 +206,24 @@ enyo.kind({
 		this.$.leftOverlay.setShowing(false);
 		this.$.rightOverlay.setShowing(false);
 	},
+	setButtonVisibility: function(inOld, inNew) {
+		if (this.values) {
+			var min = this.values[0],
+				max = this.values[this.values.length - 1];
+			if (inNew === min) {
+				this.$.buttonLeft.applyStyle("visibility", "hidden");
+			}
+			else if (inOld === min) {
+				this.$.buttonLeft.applyStyle("visibility", "visible");
+			}
+			if (inNew === max) {
+				this.$.buttonRight.applyStyle("visibility", "hidden");
+			}
+			else if (inOld === max) {
+				this.$.buttonRight.applyStyle("visibility", "visible");
+			}
+		}
+	},
 	fireSelectEvent: function () {
 		if (this.hasNode()) {
 			this.doSelect({content: this.getContent(), value: this.value});
@@ -201,5 +233,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doChange({content: this.getContent(), value: this.value});
 		}
+	},
+	handleValueChange: function(inOld, inNew) {
+		this.setButtonVisibility(inOld, inNew);
+		this.fireChangeEvent();
 	}
 });

@@ -1,8 +1,8 @@
 /**
 	_moon.ExpandableIntegerPicker_, which extends
-	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
-	picker menu that prompts the user to make a selection from a range of
-	integer-based options.
+	[moon.ExpandableListItem](#moon.ExpandableListItem), is a drop-down picker
+	menu that prompts the user to make a selection from a range of integer-based
+	options.
 
 	The value of the currently selected item is available in the picker's _value_
 	property, while the content of the item is available in _content_.
@@ -13,11 +13,15 @@
 enyo.kind({
 	name: "moon.ExpandableIntegerPicker",
 	kind: "moon.ExpandableListItem",
+	//* @protected
 	classes: "moon-expandable-integer-picker",
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
+
 			_inEvent.value_ contains the value of the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
 		onChange: ""
@@ -25,22 +29,21 @@ enyo.kind({
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
-		//* Initial value
+		//* Initial value of the picker
 		value: -1,
-		//* Minimum value
+		//* Minimum value of the picker
 		min: 0,
-		//* Maximum value
+		//* Maximum value of the picker
 		max: 9,
 		//* Amount to increment/decrement by
 		step: 1,
 		//* Unit/label to be appended to the end of the number
 		unit: "sec"
 	},
+	//* @protected
 	lockBottom: true,
 	autoCollapse: true,
 
-	//* @protected
-	
 	handlers: {
 		requestScrollIntoView: "requestScrollIntoView"
 	},
@@ -67,16 +70,19 @@ enyo.kind({
 		"showCurrentValue": ["open"],
 		"currentValueText": ["value", "unit", "noneText"]
 	},
-	
+
 	// Change handlers
-	valueChanged: function() {
+	valueChanged: function(inOld) {
+		if (this.value < this.min || this.value > this.max) {
+			this.value = inOld;
+		}
 		this.fireChangeEvent();
 	},
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
 	},
-	
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open;
@@ -85,11 +91,11 @@ enyo.kind({
 		return (this.value === "") ? this.noneText : this.value + " " + this.unit;
 	},
 
-	//* Set _this.value_ to _this.$.clientInput.value_
+	//* Sets _this.value_ to _this.$.clientInput.value_.
 	updateValue: function() {
 		this.setValue(this.$.picker.getValue());
 	},
-	//* If open, close and spot header. If closed, open and unspot.
+	//* If open, closes and spots header. If closed, opens and unspots.
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
@@ -100,7 +106,7 @@ enyo.kind({
 			this.setActive(true);
 		}
 	},
-	//* Kill any onActivate events coming from buttons in the SimplePicker
+	//* Kills any _onActivate_ events coming from buttons in the SimplePicker.
 	activated: function(inSender, inEvent) {
 		return true;
 	},

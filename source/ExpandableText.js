@@ -1,28 +1,31 @@
 /**
-	_moon.ExpandableText_ is a control that allows long bodies of text to be expanded/collapsed.
+	_moon.ExpandableText_ is a control that allows long bodies of text to be
+	expanded and collapsed.
 
-	Usage:
-	{kind: "moon.ExpandableText", collapsed: true, maxLines: 3, content: "I left my heart in San Francisco."}
+		{kind: "moon.ExpandableText", collapsed: true, maxLines: 3,
+			content: "I left my heart in San Francisco."}
 
-	Events:
-	The _onExpandCollapse_ event is fired when the control is expanded/collapsed.
+	The _onExpandCollapse_ event is fired when the control is either expanded or
+	collapsed.
 */
 
 enyo.kind({
 	name: "moon.ExpandableText",
+	//* @protected
 	classes: "moon-expandable-text",
+	//* @public
 	published: {
 		//* When true, content is collapsed
 		collapsed: true,
 		//* Max line number to show content when it is collapsed.
 		maxLines: 3,
 		//* Button text when content is collapsed
-		moreContent: $L("more"),
+		moreContent: moon.$L("more"),  // i18n "MORE" label in moon.ExpandableText widget
 		//* Button text when content is not collapsed
-		lessContent: $L("less")
+		lessContent: moon.$L("less")   // i18n "LESS" label in moon.ExpandableText widget
 	},
 	events: {
-		//* Fired when this control expands/collapses
+		//* Fires when this control expands or collapses.
 		onExpandCollapse: ""
 	},
 	
@@ -41,7 +44,7 @@ enyo.kind({
 		this.lessContentChanged();
 		this.collapsedChanged();
 	},
-	//* Update _this.lineHeight_ after render
+	//* Updates _this.lineHeight_ after render.
 	rendered: function() {
 		this.inherited(arguments);
 		this.calcLineHeight();
@@ -49,15 +52,15 @@ enyo.kind({
 	resizeHandler: function() {
 		this.reflow();
 	},
-	//* Update _this.contentHeight_ on reflow
+	//* Updates _this.contentHeight_ on reflow.
 	reflow: function() {
 		this.calcContentHeight();
 	},
-	//* When _this.$.button_ is tapped, toggle _this.collapsed_
+	//* Toggles value of _this.collapsed_ when _this.$.button_ is tapped. 
 	expandContract: function() {
 		this.set("collapsed", !this.collapsed);
 	},
-	//* Facade to _this.$.client.content_
+	//* Facades _this.$.client.content_.
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
 		
@@ -65,25 +68,26 @@ enyo.kind({
 			this.reflow();
 		}
 	},
-	//* Facade for _this.$.button.moreContent_
+	//* Facades _this.$.button.moreContent_.
 	moreContentChanged: function() {
 		this.$.button.setMoreContent(this.moreContent);
 	},
-	//* Facade for _this.$.button.lessContent_
+	//* Facades _this.$.button.lessContent_.
 	lessContentChanged: function() {
 		this.$.button.setLessContent(this.lessContent);
 	},
-	//* When _this.lineHeight_ changes, recalculate _this.maxHeight_
+	//* Recalculates _this.maxHeight_ when _this.lineHeight_ changes.
 	lineHeightChanged: function() {
 		this.calcMaxHeight();
 	},
-	//* When _this.maxLines_ changes, recalculate _this.maxHeight_
+	//* Recalculates _this.maxHeight_ when _this.maxLines_ changes. 
 	maxLinesChanged: function() {
 		this.calcMaxHeight();
 	},
 	/**
-		When _this.collapse_ changes, add/remove the line clamp, and push state
-		to _this.$.button_. If node has rendered, bubble _onExpandCollapse_ event.
+		When _this.collapse_ changes, adds/removes the line clamp, and pushes state
+		to _this.$.button_. If the node has rendered, bubbles _onExpandCollapse_
+		event.
 	*/
 	collapsedChanged: function() {
 		this.addRemoveLineClamp(this.collapsed);
@@ -92,29 +96,32 @@ enyo.kind({
 			this.doExpandCollapse({collapsed: this.collapsed});
 		}
 	},
-	//* When _this.maxHeight_ changes, update _this.canCollapse_
+	//* Updates _this.canCollapse_ when _this.maxHeight_ changes. 
 	maxHeightChanged: function() {
 		this.calcCanCollapse();
 		this.addRemoveLineClamp(this.collapsed);
 	},
-	//* When _this.contentHeight_ changes, update _this.canCollapse_
+	//* Updates _this.canCollapse_ when _this.contentHeight_ changes.
 	contentHeightChanged: function() {
 		this.calcCanCollapse();
 	},
-	//* When _this.canCollapse_ changes, update _this.$.button.showing_
+	//* Updates _this.$.button.showing_ when _this.canCollapse_ changes. 
 	canCollapseChanged: function() {
 		this.$.button.setShowing(this.canCollapse);
 	},
-	//* Update _this.maxHeight_
+	//* Updates _this.maxHeight_.
 	calcMaxHeight: function() {
 		this.set("maxHeight", this.maxLines * this.lineHeight);
 	},
-	//* Calculate line height of content and set _this.lineHeight_
+	//* Calculates line height of content and sets _this.lineHeight_.
 	calcLineHeight: function() {
 		var lineHeight = parseInt(enyo.dom.getComputedStyleValue(this.$.client.hasNode(), "line-height"), 10);
 		this.set("lineHeight", (lineHeight > 0) ? lineHeight : null);
 	},
-	//* Update _this.contentHeight_ by unclamping _this.$.client_, measuring it, then returning to it's previous state
+	/**
+		Updates _this.contentHeight_ by unclamping _this.$.client_ and measuring it,
+		before returning it to its previous state.
+	*/
 	calcContentHeight: function() {
 		var contentHeight;
 		this.addRemoveLineClamp(false);
@@ -122,27 +129,27 @@ enyo.kind({
 		this.addRemoveLineClamp(this.collapsed);
 		this.set("contentHeight", contentHeight);
 	},
-	//* Determine is this control has enough content to collapse
+	//* Determines whether this control has enough content to collapse.
 	calcCanCollapse: function() {
 		this.set("canCollapse", this.contentHeight > this.maxHeight);
 	},
-	//* Add/remove _webkit-line-clamp_ style based on _inAdd_
+	//* Adds/removes _webkit-line-clamp_ style based on _inAdd_.
 	addRemoveLineClamp: function(inAdd) {
 		this.$.client.applyStyle("-webkit-line-clamp", (inAdd) ? this.maxLines : null);
 	}
 });
 
 /**
-	Button used in _moon.ExpandableText_
+	_moon.ExpandableTextButton_ is a control used inside of _moon.ExpandableText_.
 */
 enyo.kind({
 	name: "moon.ExpandableTextButton",
 	kind: "enyo.Control",
 	published: {
 		//* Button text when _this.collapsed_ is true
-		moreContent: $L("more"),
+		moreContent: moon.$L("more"),  // i18n "MORE" label in moon.ExpandableTextButton widget
 		//* Button text when _this.collapsed_ is false
-		lessContent: $L("less"),
+		lessContent: moon.$L("less"),  // i18n "LESS" label in moon.ExpandableTextButton widget
 		//* Boolean value that causes content/class changes
 		collapsed: true
 	},
@@ -162,8 +169,9 @@ enyo.kind({
 		this.updateContent();
 	},
 	/**
-		If collapsed, use _this.moreContent_ and add _collapsed_ css class.
-		If not collapsed, use _this.lessContent_ and remove _collapsed_ css class.
+		If control is collapsed, sets _content_ to _this.moreContent_ and adds
+		_collapsed_ CSS class' otherwise, sets content to _this.lessContent_ and
+		removes _collapsed_ CSS class.
 	*/
 	updateContent: function() {
 		if (this.collapsed) {

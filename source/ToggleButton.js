@@ -1,12 +1,13 @@
 /**
-	_moon.ToggleButton_, which extends <a href="#moon.Button">moon.Button</a>,
-	is a button with two states, "on" and "off".  When the ToggleButton is tapped,
-	it switches its state and fires an _onChange_ event.
+	_moon.ToggleButton_, which extends [moon.Button](#moon.Button), is a button
+	with two states, "on" and "off".  When the ToggleButton is tapped, it switches
+	its state and fires an _onChange_ event.
 */
 
 enyo.kind({
 	name: "moon.ToggleButton",
 	kind: "moon.Button",
+	//* @public
 	published: {
 		//* If true, indicates that this is the active button of the group;
 		//* otherwise, false
@@ -15,11 +16,11 @@ enyo.kind({
 		//* state
 		value: false,
 		//* Label for toggle button's "on" state
-		onContent: $L("On"),
+		onContent: moon.$L("On"),  // i18n "ON" label in moon.ToggleButton widget
 		//* Label for toggle button's "off" state
-		offContent: $L("Off"),
+		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
 		//* Label for separator
-		labelSeparator: $L(": "), 
+		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false

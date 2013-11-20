@@ -1,15 +1,17 @@
 /**
 	_moon.ExpandablePicker_, which extends
-	<a href="#moon.ExpandableListItem">moon.ExpandableListItem</a>, is a drop-down
-	picker menu that solicits a choice from the user. The picker's child
-	components, which are instances of <a href="#moon.CheckboxItem">moon.CheckboxItem</a>
-	by default, provide the options for the picker.
+	[moon.ExpandableListItem](#moon.ExpandableListItem), is a drop-down picker
+	menu that solicits a choice from the user. The picker's child components,
+	which are instances of [moon.CheckboxItem](#moon.CheckboxItem) by default,
+	provide the options for the picker.
 
-		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City", components: [
-			{content: "San Francisco"},
-			{content: "Boston"},
-			{content: "Tokyo"}
-		]}
+		{kind: "moon.ExpandablePicker", noneText: "None Selected", content: "Choose City",
+			components: [
+				{content: "San Francisco"},
+				{content: "Boston"},
+				{content: "Tokyo"}
+			]
+		}
 
 	The currently selected item is available in the picker's _selected_ property
 	and may be accessed in the normal manner, by calling _get("selected")_ and
@@ -41,12 +43,17 @@
 enyo.kind({
 	name: "moon.ExpandablePicker",
 	kind: "moon.ExpandableListItem",
+	//* @protected
 	classes: "moon-expandable-picker",
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
+
 			_inEvent.selected_ contains a reference to the currently selected item.
+
 			_inEvent.content_ contains the content of the currently selected item.
+
 			_inEvent.index_ contains the index of the currently selected item.
 		*/
 		onChange: ""
@@ -63,9 +70,10 @@ enyo.kind({
 		//* If true, auto collapse when an item is selected
 		autoCollapseOnSelect: true
 	},
+	//* @protected
 	autoCollapse: true,
 	lockBottom: true,
-	//* @protected
+
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
 	components: [
@@ -175,7 +183,7 @@ enyo.kind({
 		this.$.helpText.render();
 	},
 	/*
-		When the picker is initialized, looks for any items with an _active:true_
+		When the picker is initialized, looks for any items with an _active: true_
 		flag; if one is found, it is set as the currently selected item. This is
 		done without triggering an _onChange_ event, as it happens during
 		initialization.
@@ -213,10 +221,10 @@ enyo.kind({
 		}
 		return true;
 	},
-	//* Close drawer and select header
+	//* Closes drawer and selects header.
 	selectAndClose: function() {
 		this.setActive(false);
-		if (!enyo.Spotlight.getPointerMode()) {
+		if (!enyo.Spotlight.getPointerMode() && enyo.Spotlight.getCurrent() && enyo.Spotlight.getCurrent().isDescendantOf(this)) {
 			enyo.Spotlight.spot(this.$.headerWrapper);
 		}
 	},

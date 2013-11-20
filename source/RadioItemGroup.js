@@ -1,12 +1,12 @@
 /**
 	_moon.RadioItemGroup_ is a container in which a group of
-	<a href="#moon.RadioItem">moon.RadioItem</a> objects are laid out
-	horizontally. Within a group, only one item may be active at a time; tapping
-	on an item will deactivate any previously-tapped item.
+	[moon.RadioItem](#moon.RadioItem) objects are laid out horizontally. Within a
+	group, only one item may be active at a time; tapping on an item will
+	deactivate any previously-tapped item.
 
 		{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
-			{content: "Cats", active: true},
-			{content: "Dogs"},
+			{content: "Lions", active: true},
+			{content: "Tigers"},
 			{content: "Bears"}
 		]}
 */

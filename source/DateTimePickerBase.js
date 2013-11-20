@@ -1,13 +1,15 @@
 /**
 	_moon.DateTimePickerBase_ is a base kind implementing fuctionality shared
-	by _moon.DatePicker_ and _moon.TimePicker_. It is not intended to be used
-	directly.
+	by [moon.DatePicker](#moon.DatePicker) and [moon.TimePicker](#moon.TimePicker).
+	It is not intended to be used directly.
 */
 enyo.kind({
 	name: "moon.DateTimePickerBase",
 	kind: "moon.ExpandableListItem",
+	//* @protected
 	defaultKind: "enyo.Control",
 	classes: "moon-expandable-picker moon-date-picker",
+	//* @public
 	events: {
 		/**
 			Fires when the value changes.
@@ -19,10 +21,12 @@ enyo.kind({
 		*/
 		onChange: ""
 	},
+	//* @protected
 	handlers: {
 		//* Handler for _onChange_ events coming from constituent controls
 		onChange: "handleChangeEvent"
 	},
+	//* @public
 	published: {
 		//* Text to be displayed in the _currentValue_ control if no item is
 		//* currently selected
@@ -30,16 +34,16 @@ enyo.kind({
 		/**
 			The locale (in IETF format) used for picker formatting.
 
-			This setting only applies when the iLib library is loaded.
+			This setting only applies when the _ilib_ library is loaded.
 
-			* When iLib is not present, US English (en-US) formatting is applied.
+			* When ilib is not present, US English (en-US) formatting is applied.
 			
-			* When iLib is present and _locale_ is set to the default value (`null`),
-			the picker uses iLib's current locale (which iLib tries to determine
+			* When ilib is present and _locale_ is set to the default value (_null_),
+			the picker uses ilib's current locale (which ilib tries to determine
 			from the system).
 
-			* When iLib is present and an explicit _locale_ is provided, that locale
-			will be used (regardless of iLib's current locale).
+			* When ilib is present and an explicit _locale_ is provided, that locale
+			will be used (regardless of ilib's current locale).
 
 			_locale_ may be changed after the picker is created, in which case the
 			picker will	be reformatted to match the new setting.

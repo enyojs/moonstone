@@ -1,9 +1,9 @@
 /**
-	_moon.ExpandableListItem_, which extends <a href="#moon.Item">moon.Item</a>,
-	displays a header while also allowing additional content to be stored in an
-	<a href="#enyo.Drawer">enyo.Drawer</a>. When the header is selected, the
-	drawer opens below. To close the drawer, tap on the header text or navigate
-	(via 5-way) back to the top of the drawer.
+	_moon.ExpandableListItem_, which extends [moon.Item](#moon.Item), displays a
+	header while also allowing additional content to be stored in an
+	[enyo.Drawer](#enyo.Drawer). When the header is selected, the drawer opens
+	below. To close the drawer, tap on the header text or navigate (via 5-way)
+	back to the top of the drawer.
 
 	The control's child components may be of any kind; by default, they are
 	instances of _moon.Item_.
@@ -19,41 +19,56 @@
 			{content: "Brazil"}
 		]}
 
-	When multiple ExpandableListItems are used in a group, only one may be open at a given
-	time.
+	When multiple ExpandableListItems are used in a group, only one may be open at
+	a given time.
 
-		{kind: "Group", highlander: true, components: [
-			{kind: "moon.ExpandableListItem",  active: true, content: "This is a grouped ExpandableListItem", components: [
-				{content: "Item One"},
-				{content: "Item Two"}
-			]},
-			{kind: "moon.ExpandableListItem", content: "This is another grouped ExpandableListItem", components: [
-				{content: "Item Three"},
-				{content: "Item Four"}
-			]},
-			{kind: "moon.ExpandableListItem", content: "This is yet another grouped ExpandableListItem", components: [
-				{content: "Item Five"},
-				{content: "Item Six"}
-			]}
+		{kind: "enyo.Group", highlander: true, components: [
+			{kind: "moon.ExpandableListItem",  active: true,
+				content: "This is a grouped ExpandableListItem", components: [
+					{content: "Item One"},
+					{content: "Item Two"}
+				]
+			},
+			{kind: "moon.ExpandableListItem",
+				content: "This is another grouped ExpandableListItem", components: [
+					{content: "Item Three"},
+					{content: "Item Four"}
+				]
+			},
+			{kind: "moon.ExpandableListItem",
+				content: "This is yet another grouped ExpandableListItem", components: [
+					{content: "Item Five"},
+					{content: "Item Six"}
+				]
+			}
 		]}
 */
 enyo.kind({
 	name: "moon.ExpandableListItem",
+	//* @public
 	published: {
 		/**
 			If true, the drawer automatically closes when the user navigates to the
-			top of the control. If false, the user must select/tap the header to close
-			the drawer.
+			top of the control. If false (the default), the user must select/tap the
+			header to close the drawer.
 		*/
 		autoCollapse: false,
 		/**
-			If true, the drawer is expanded, showing this item's contents. Use this property
-			to set the initial state of the item (rather than active).
+			If true, the drawer is expanded, showing this item's contents. Use this
+			property (rather than _active_) to set the item's initial state.
 		*/
 		open: false,
-		//* True if the item is currently selected
+		/**
+			Boolean that reflects the value of the _open_ property; it is used to
+			support the _enyo.Group_ API for grouping a set of ExpandableListItems in
+			which only one is expanded at a time. Note that the _open_ property (not
+			the _active_ property) controls the initial state of the picker.
+		*/
 		active: false,
-		//* If true, the user is prevented from spotting off the bottom of the drawer (when open) using five-way controls
+		/**
+			If true, the user is prevented from moving spotlight past the bottom of
+			the drawer (when open) using five-way controls
+		*/
 		lockBottom: false,
 		//* When true, item is shown as disabled and does not generate tap events
 		disabled: false
@@ -153,4 +168,3 @@ enyo.kind({
 		return true;
 	}
 });
-

@@ -40,15 +40,21 @@ enyo.kind({
 enyo.kind({
 	//* @public
 	name: "moon.sample.search.SearchDrawer",
-    kind: "moon.Panel",
-    title: "Enter Keyword",
-    controller: ".app.controllers.searchDrawerController",
-    headerOptions: {kind: "moon.InputHeader", components: [
-        {kind: "moon.IconButton", src: "../assets/trash-can-icon.png"}
-    ]},
+	kind: "moon.Panel",
+	title: "Enter Keyword",
+	controller: ".app.controllers.searchDrawerController",
+	classes: "moon-search-drawer",
+	headerOptions: {
+		kind: "moon.InputHeader",
+		components: [{
+			kind: "moon.IconButton",
+			src: "../assets/trash-can-icon.png"
+		}]
+	},
 	handlers: {
 		"onInputHeaderInput": "onInputChanged"
 	},
+
 
 	//* @protected
 	spotlight: false,

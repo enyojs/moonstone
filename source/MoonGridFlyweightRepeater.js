@@ -1,6 +1,7 @@
 enyo.kind({
 	name: "moon.GridFlyWeightRepeater",
 	kind: "enyo.GridFlyWeightRepeater",
+	//* @protected
 	//* Override to use strategy's _clientWrapper_ node.
 	_generateChildHtmlEqualSizedItems: function() {
 		var cw = this.owner.getScrollBounds().clientWidth;

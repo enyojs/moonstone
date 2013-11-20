@@ -38,7 +38,7 @@ enyo.kind({
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Disabled Icon:"},
 			{kind: "moon.Icon", icon: "drawer", ontap: "buttonTapped", disabled: true},
-			{kind: "moon.Icon", icon: "zoom", ontap: "buttonTapped", disabled: true},
+			{kind: "moon.Icon", icon: "search", ontap: "buttonTapped", disabled: true},
 			{kind: "moon.Icon", src: "assets/icon-list.png", ontap: "buttonTapped", disabled: true},
 			{kind: "moon.Icon", src: "assets/icon-album.png", ontap: "buttonTapped", disabled: true}
 		]},

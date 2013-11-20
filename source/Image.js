@@ -1,36 +1,39 @@
 /**
-	_moon.Image_ is a simple control that wraps an <a href="#enyo.Image">enyo.Image</a> to
+	_moon.Image_ is a simple control that wraps an [enyo.Image](#enyo.Image) to
 	provide proper alignment with text-based contols.
 
-	In addition, _moon.Image_ optionally accepts <a href="#moon.ImageBadge">moon.ImageBadge</a> client
-	components, placed inside a container positioned over the image.  The badges are normally persistent,
-	but can be shown/hidden based on spotlight focus as well, using the `showBadgesOnSpotlight` property.
+	In addition, _moon.Image_ optionally accepts [moon.ImageBadge](#moon.ImageBadge)
+	client components, which are placed inside a container positioned over the
+	image.  These badges are normally persistent, but may be shown or hidden based
+	on spotlight focus, using the _showBadgesOnSpotlight_ property.
 
-	Example usage: 
-
-			{kind: "moon.Image", src: "assets/movie.png", showBadgesOnSpotlight:true, components: [
-				{src: "assets/icon-recommended.png"},
-				{src: "assets/icon-favorite.png"},
-				{src: "assets/icon-new/png", classes: "float-right"}
-			]}
+		{kind: "moon.Image", src: "assets/movie.png", showBadgesOnSpotlight: true, components: [
+			{src: "assets/icon-recommended.png"},
+			{src: "assets/icon-favorite.png"},
+			{src: "assets/icon-new/png", classes: "float-right"}
+		]}
 */
 
 enyo.kind({
 	name: "moon.Image",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-image",
-	//*@public
+	//* @public
 	published: {
 		//* The URL of the image
 		src: "",
 		//* The alt text of the image
 		alt: "",
-		//* When true, badges will only be shown when the image is placed within a spotlightable
-		//* component and that component has focus.  Otherwise the badges are always shown if provided.
+		/**
+			When true, badges will only be shown when the image is within a
+			spotlightable component that has focus.  Otherwise, any badges provided
+			will always be shown.
+		*/
 		showBadgesOnSpotlight: false
 	},
-	defaultKind: "moon.ImageBadge",
 	//*@protected
+	defaultKind: "moon.ImageBadge",
 	components: [
 		{name: "image", kind: "enyo.Image"},
 		{name: "client", kind: "enyo.Control", canGenerate: false, classes: "moon-image-client"}
@@ -39,7 +42,7 @@ enyo.kind({
 		{from: ".src", to: ".$.image.src"},
 		{from: ".alt", to: ".$.image.alt"}
 	],
-	//* Only generate _this.$.client_ if the instance has components
+	//* Only generate _this.$.client_ if the instance has components.
 	create: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);

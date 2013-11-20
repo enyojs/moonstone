@@ -1,16 +1,20 @@
 /**
 	_moon.PagingControl_ is a paging control button derived from
-	<a href="#moon.IconButton">moon.IconButton</a>.
-**/
+	[moon.IconButton](#moon.IconButton). This control is not intended for use
+	outside of [moon.Scroller](#moon.Scroller).
+*/
 enyo.kind({
 	name: "moon.PagingControl",
 	kind: "moon.IconButton",
-	classes: "moon-paging-button",
+	//* @protected
+	classes: "moon-paging-button no-background",
 	spotlight: true,
+	//* @public
 	published: {
-		icon: "arrowlargeup",
 		side: null
 	},
+	//* @protected
+	noBackground: true,
 	handlers: {
 		onSpotlightFocused: "noop",
 		onSpotlightSelect: "depress",
@@ -21,11 +25,19 @@ enyo.kind({
 		onhold: "hold",
 		onActivate: "noop"
 	},
+	//* @public
 	events: {
+		//* Fires when page boundary is reached.
 		onPaginate: "",
+		/**
+			Fires when we've determined how large the bounceback effect should be.
+
+			_inEvent.scrollDelta_ contains a number representing the magnitude of the
+			bounceback effect.
+		*/
 		onPaginateScroll: ""
 	},
-
+	//* @protected
 	downTime: 0,
 	initialDelta: 2.5,
 	delta: 0,
@@ -39,7 +51,10 @@ enyo.kind({
 	},
 	
 	//* @public
-	
+	/**
+		Stops scrolling animation and triggers _onPaginate_ event with a delta value
+		for the bounceback effect.
+	*/
 	hitBoundary: function() {
 		this.stopHoldJob();
 		this.downTime = null;
@@ -48,16 +63,21 @@ enyo.kind({
 	
 	//* @protected
 	
+	_iconMappings: {
+		"top": "arrowlargeup",
+		"bottom": "arrowlargedown",
+		"left": "arrowlargeleft",
+		"right": "arrowlargeright"
+	},
 	//* Set this control's CSS class based on its _side_ value.
-	sideChanged: function() {
+	sideChanged: function(inOld) {
 		var s = this.getSide();
-		this.addRemoveClass("top",    (s === "top"));
-		this.addRemoveClass("right",  (s === "right"));
-		this.addRemoveClass("bottom", (s === "bottom"));
-		this.addRemoveClass("left",   (s === "left"));
+		this.removeClass(inOld);
+		this.addClass(s);
+		this.setIcon(this._iconMappings[s]);
 	},
 	down: function(inSender, inEvent) {
-		if (this.hasClass("hidden")) {
+		if (this.disabled) {
 			return;
 		}
 		
@@ -65,7 +85,7 @@ enyo.kind({
 		this.delta = this.initialDelta;
 	},
 	hold: function(inSender, inEvent) {
-		if (this.hasClass("hidden")) {
+		if (this.disabled) {
 			return;
 		}
 

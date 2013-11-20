@@ -7,7 +7,8 @@ enyo.kind({
 		{classes: "moon-hspacing", components: [
 			{kind: "moon.Button", content: "Basic Popup", ontap: "showPopup", popup: "basicPopup"},
 			{kind: "moon.Button", content: "Long Popup", ontap: "showPopup", popup: "longPopup"},
-			{kind: "moon.Button", content: "Button in Popup", ontap: "showPopup", popup: "buttonPopup"}
+			{kind: "moon.Button", content: "Button in Popup", ontap: "showPopup", popup: "buttonPopup"},
+			{kind: "moon.Button", content: "Panels in Popup", ontap: "showPopup", popup: "panelsPopup"}
 		]},
 
 		{name: "basicPopup", kind: "moon.Popup", content: "Popup..."},
@@ -18,6 +19,28 @@ enyo.kind({
 				{kind: "moon.Button", content: "Hello"},
 				{kind: "moon.Button", content: "Goodbye"},
 				{kind: "moon.ToggleButton", content: "SpotlightModal", ontap: "buttonToggled"}
+			]}
+		]},
+		{name: "panelsPopup", kind: "moon.Popup", floating:true, components: [
+			{kind: "moon.Panels", name:"panels", defaultKind: "enyo.FittableRows", arrangerKind:"CardArranger", animate:false, classes:"moon-12v", components: [
+				{components: [
+					{kind:"moon.Divider", content:"Step 1: Terms of Service"},
+					{kind:"moon.Scroller", fit:true, spotlightPagingControls:true, horizontal:"hidden", style:"margin-bottom:20px;", components: [
+						{kind:"moon.BodyText", content:"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."}
+					]},
+					{kind:"FittableColumns", components: [
+						{fit:true, components: [
+							{kind:"moon.FormCheckbox", content:"I agree", style:"display:inline-block;"}
+						]},
+						{kind: "moon.ToggleButton", content: "SpotlightModal", ontap: "panelsToggled"},
+						{kind:"moon.Button", content:"Sign me Up!", ontap:"panelNext"}
+					]}
+				]},
+				{components: [
+					{kind: "moon.Divider", content:"Step 2"},
+					{kind:"moon.BodyText", fit: true, content: "All done.  Thanks for signing up!"},
+					{kind:"moon.Button", content:"Previous", ontap:"panelPrev"}
+				]}
 			]}
 		]}
 	],
@@ -36,5 +59,16 @@ enyo.kind({
 	},
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
+		this.$.buttonPopup.setAutoDismiss(!inSender.getActive());
+	},
+	panelsToggled: function(inSender, inEvent) {
+		this.$.panelsPopup.setSpotlightModal(inSender.getActive());
+		this.$.panelsPopup.setAutoDismiss(!inSender.getActive());
+	},
+	panelNext: function() {
+		this.$.panels.next();
+	},
+	panelPrev: function() {
+		this.$.panels.previous();
 	}
 });
