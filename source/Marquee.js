@@ -14,7 +14,7 @@ moon.MarqueeSupport = {
 		onMarqueeEnded: "_marquee_marqueeEnded",
 		onresize: "_marquee_resize"
 	},
-	marqueeActive: false,
+	_marquee_active: false,
 	//* Initializes marquee timings.
 	create: enyo.inherit(function (sup) {
 		return function() {
@@ -72,18 +72,18 @@ moon.MarqueeSupport = {
 		_this.marqueeWaitList_.
 	*/
 	_marquee_marqueeEnded: function(inSender, inEvent) {
-		if (this.marqueeActive) {
+		if (this._marquee_active) {
 			enyo.remove(inEvent.originator, this.marqueeWaitList);
 			if (this.marqueeWaitList.length === 0) {
 				this._marquee_startHold();
-				this.marqueeActive = false;
+				this._marquee_active = false;
 			}
 		}
 		return true;
 	},
 	_marquee_resize: function(inSender, inEvent) {
-		if (this.marqueeOnSpotlight && this.marqueeActive) {
-			this.marqueeActive = false;
+		if (this.marqueeOnSpotlight && this._marquee_active) {
+			this._marquee_active = false;
 			this._marquee_startHold();
 		}
 	},
@@ -100,7 +100,7 @@ moon.MarqueeSupport = {
 			return;
 		}
 	
-		this.marqueeActive = true;
+		this._marquee_active = true;
 		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", this.marqueeDelay);
 	},
 	/**
@@ -109,7 +109,7 @@ moon.MarqueeSupport = {
 	*/
 	stopMarquee: function() {
 		this.stopJob("marqueeSupportJob");
-		this.marqueeActive = false;
+		this._marquee_active = false;
 		this._marquee_stopChildMarquees();
 	},
 	//* Adds _inControl_ to _this.marqueeWaitList_.
