@@ -32,7 +32,7 @@ enyo.kind({
 	},
 	spotlightFocused: function(inSender, inEvent) {
 		if (inEvent.originator === this) {
-			this.bubble("onRequestScrollIntoView", {side: "top"});
+			this.bubble("onRequestScrollIntoView");
 		}
 	}
 });
