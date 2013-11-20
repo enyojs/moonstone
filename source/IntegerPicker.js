@@ -157,7 +157,7 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView");
 	},
 	spotlightBlur: function() {
 		this.hideTopOverlay();

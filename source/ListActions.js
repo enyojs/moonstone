@@ -19,7 +19,10 @@ enyo.kind({
 		*/
 		autoCollapse: false,
 		/**
-			List of actions to be displayed
+			A block of components (typically, lists of items) to be displayed inside
+			of a _moon.Scroller_; by default, it is a scroller without any components.
+			When instantiating _moon.ListActions_, declare
+			_listActions: &lt;your components&gt;_ to populate the scroller.
 		*/
 		listActions: null,
 		/**
@@ -55,7 +58,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		// Set the popup size before the drawer rendered is called, so that the drawer
-		// can properly translate itself out of the viewport 
+		// can properly translate itself out of the viewport
 		this.configurePopup();
 		this.inherited(arguments);
 	},
@@ -71,12 +74,12 @@ enyo.kind({
 	},
 	createListActionComponents: function(inOwner) {
 		var listAction, i;
-		
+
 		this.listActionComponents = [];
 		for (i = 0; (listAction = this.listActions[i]); i++) {
 			this.listActionComponents.push(this.createListActionComponent(listAction, inOwner));
 		}
-		
+
 		// Increase width to 100% if there is only one list action
 		if (this.proportionalWidth) {
 			this.addClass("proportional-width");
@@ -85,7 +88,7 @@ enyo.kind({
 				this.listActionComponents[i].applyStyle("width", w + "%");
 			}
 		}
-		
+
 		if (this.hasNode()) {
 			this.$.listActions.render();
 		}
@@ -93,11 +96,11 @@ enyo.kind({
 	//* Creates a new list action component based on _inListAction_.
 	createListActionComponent: function(inListAction, inOwner) {
 		var listActionComponent;
-		
+
 		inListAction.mixins = this.addListActionMixin(inListAction);
 		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: inOwner, layoutKind:"FittableRowsLayout"});
 		listActionComponent.addClass("moon-list-actions-menu");
-		
+
 		return listActionComponent;
 	},
 	/**
@@ -134,7 +137,7 @@ enyo.kind({
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
 			styleString = "";
-		
+
 		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
 		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
 		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
@@ -145,7 +148,7 @@ enyo.kind({
 		else {
 			styleString += "left: " + Math.ceil(headerBounds.left - bounds.left) + "px; ";
 		}
-		
+
 		this.$.drawer.addStyles(styleString);
 	},
 	drawerAnimationEnd: function() {
@@ -190,7 +193,7 @@ enyo.kind({
 	},
 	stackMeUp: function() {
 		var optionGroup, i;
-	
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "block");
 			optionGroup.applyStyle("height", "none");
@@ -200,7 +203,7 @@ enyo.kind({
 		var containerHeight = this.getContainerBounds().height,
 			optionGroup,
 			i;
-		
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
 			optionGroup.applyStyle("height", containerHeight + "px");
@@ -242,7 +245,7 @@ enyo.kind({
 		inParent = inParent || this.parent;
 		if (inParent instanceof moon.Header || !inParent.parent) {
 			return inParent.hasNode();
-		} 
+		}
 		return this.getParentHeaderNode(inParent.parent);
 	},
 	resetCachedValues: function() {
