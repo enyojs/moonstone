@@ -16,7 +16,8 @@ enyo.kind({
 		onRequestHidePopup        : "requestHide",
 		onActivate                : "decorateActivateEvent",
 		onRequestScrollIntoView   : "_preventEventBubble",
-		onSpotlightContainerLeave : "onLeave"
+		onSpotlightContainerLeave : "onLeave",
+		onSpotlightSelect         : "onSpotlightSelect"
 	},
 	//* @public
 	published: {
@@ -78,6 +79,7 @@ enyo.kind({
 		this.show();
 		this.configCloseButton();
 		if (enyo.Spotlight.isSpottable(this)) {
+			enyo.Spotlight.setPointerMode(false);
 			enyo.Spotlight.spot(this);
 		}
 		return true;
@@ -101,6 +103,16 @@ enyo.kind({
 		if (this.showing && this.autoDismiss && inEvent.keyCode == 27 /* escape */) {
 			enyo.Spotlight.spot(this.activator);
 			this.hide();
+		}
+	},
+	onSpotlightSelect: function(inSender, inEvent) {
+		this.downEvent = inEvent;
+	},
+	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
+	//* _tap()_ code.
+	tap: function(inSender, inEvent) {
+		if (this.downEvent.type !== "onSpotlightSelect") {
+			return this.inherited(arguments);
 		}
 	},
 	closePopup: function(inSender, inEvent) {
@@ -137,13 +149,8 @@ enyo.kind({
 	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
-			if (this.spotlightModal) {
-				var oLastFocusedControlWithinPopup = enyo.Spotlight.Decorator.Container.getLastFocusedChild(oEvent.originator);
-				enyo.Spotlight.spot(oLastFocusedControlWithinPopup);
-			} else {
-				enyo.Spotlight.spot(this.activator);
-				this.hide();
-			}
+			enyo.Spotlight.spot(this.activator);
+			this.hide();
 		}
 	},
 	_preventEventBubble: function(inSender, inEvent) {
