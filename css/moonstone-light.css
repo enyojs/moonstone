@@ -1,5 +1,5 @@
 /* WARNING: This is a generated file for backward-compatibility.  Most      */
-/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* users should instead modify LESS files.  If you choose to edit this CSS  */
 /* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
 /* is commented out in your debug.html, and run deploy.sh/bat using the     */
 /* '-c' flag to disable LESS compilation.  This will force the loader and   */
@@ -1069,7 +1069,7 @@
   border-right-style: solid;
   border-left-width: 0px;
   border-left-style: none;
-  border-right-color: #ff2f7d;
+  border-right-color: #cf0652;
   left: 0px;
   right: 6px;
 }
@@ -1111,7 +1111,7 @@
   border-left-style: solid;
   border-right-width: 0px;
   border-right-style: none;
-  border-left-color: #ff2f7d;
+  border-left-color: #cf0652;
   right: -6px;
 }
 .moon-simple-integer-picker-button.left {
