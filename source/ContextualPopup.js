@@ -77,7 +77,9 @@ enyo.kind({
 		}
 		this.show();
 		this.configCloseButton();
-		this.configSpotlightBehavior(true);
+		if (enyo.Spotlight.isSpottable(this)) {
+			enyo.Spotlight.spot(this);
+		}
 		return true;
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
@@ -125,21 +127,6 @@ enyo.kind({
 	allowHtmlChanged: function() {
 		this.$.client.setAllowHtml(this.allowHtml);
 	},
-	//* Spotlights the first spottable control, if possible.
-	configSpotlightBehavior: function(spotChild) {
-		if (enyo.Spotlight.getChildren(this).length > 0) {
-			if (spotChild) {
-				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
-			}
-		} else if (!this.spotlightModal) {
-			this.activator.keepOpen = false;
-			this.spotlight = false;
-		}
-	},
-	//* Called when _this.spotlight_ changes.
-	spotlightChanged: function() {
-		this.configSpotlightBehavior(false);
-	},
 	//* Called when _this.spotlightModal_ changes.
 	spotlightModalChanged: function() {
 		this.configCloseButton();
@@ -150,8 +137,13 @@ enyo.kind({
 	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
-			enyo.Spotlight.spot(this.activator);
-			this.hide();
+			if (this.spotlightModal) {
+				var oLastFocusedControlWithinPopup = enyo.Spotlight.Decorator.Container.getLastFocusedChild(oEvent.originator);
+				enyo.Spotlight.spot(oLastFocusedControlWithinPopup);
+			} else {
+				enyo.Spotlight.spot(this.activator);
+				this.hide();
+			}
 		}
 	},
 	_preventEventBubble: function(inSender, inEvent) {
