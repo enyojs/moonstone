@@ -57,12 +57,13 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, onpostresize:"resizeHandleContainer", ontap:"captureEvent", onSpotlightFocus:"captureEvent", onSpotlightSelect:"captureEvent", components:[
+		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-neutral moon-drawers-handles"}
 		]},
-		{name: "drawers", classes:"moon-drawers-drawer-container", ontap:"captureEvent", onSpotlightFocus:"captureEvent", onSpotlightSelect:"captureEvent"},
+		{name: "drawers", classes:"moon-drawers-drawer-container"},
 		{name: "client", classes:"moon-drawers-client"}
 	],
+	eventsToCapture: {tap:1, onSpotlightFocus:1, onSpotlightSelect:1},
 	create: function() {
 		this.inherited(arguments);
 		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
@@ -103,7 +104,7 @@ enyo.kind({
 		this.$.handleContainer.setOpen(true);
 		enyo.Spotlight.spot(this.$.handleContainer);
 		this.updateActivator(true);
-		enyo.dispatcher.capture(this.$.handleContainer, true, {tap:1, onSpotlightFocus:1, onSpotlightSelect:1});
+		enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, enyo.bind(this, "capturedEvent"), true);
 	},
 	closeHandleContainer: function() {
 		enyo.dispatcher.release(this.$.handleContainer);
@@ -122,7 +123,7 @@ enyo.kind({
 				drawer = this.$.drawers.getControls()[index];
 				drawer.toggleDrawer();
 				this.closeHandleContainer();
-				enyo.dispatcher.capture(drawer, true, {tap:1, onSpotlightFocus:1, onSpotlightSelect:1});
+				enyo.dispatcher.capture(drawer, this.eventsToCapture, enyo.bind(this, "capturedEvent"), true);
 				return;
 			}
 		}
@@ -148,15 +149,12 @@ enyo.kind({
 		}
 		this.updateActivator(false);
 	},
-	captureEvent: function(inSender, inEvent) {
-		if (inEvent.captured) {
-			// Any tap, select, or 5-way focus into the client area closes the dresser/drawer
-			if ((inEvent.dir || (inEvent.type != "onSpotlightFocus")) && 
-				(inEvent.dispatchTarget.isDescendantOf(this.$.client))) {
-				this.closeDrawers();
-				this.closeHandleContainer();
-			}
-			return true;
+	capturedEvent: function(inEventName, inEvent, inSender) {
+		// Any tap, select, or 5-way focus into the client area closes the dresser/drawer
+		if ((inEvent.dir || (inEventName != "onSpotlightFocus")) && 
+			(inEvent.dispatchTarget.isDescendantOf(this.$.client))) {
+			this.closeDrawers();
+			this.closeHandleContainer();
 		}
 	},
 	drawerActivated: function(inSender, inEvent) {
