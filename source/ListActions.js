@@ -19,12 +19,10 @@ enyo.kind({
 		*/
 		autoCollapse: false,
 		/**
-			Set of item lists to be displayed.
-			Ordinary _this.listActions_ is a moon.Scroller without any components.
-			When user instantiates _moon.ListActions_ he should use listActions : [some internal kind]
-			to fill inside of scroller.
-			To summary, _this.listActions_ is a components block which has some item lists
-			to be shown inside of drawed scroller.
+			A block of components (typically, lists of items) to be displayed inside
+			of a _moon.Scroller_; by default, it is a scroller without any components.
+			When instantiating _moon.ListActions_, declare
+			_listActions: &lt;your components&gt;_ to populate the scroller.
 		*/
 		listActions: [],
 		/**
