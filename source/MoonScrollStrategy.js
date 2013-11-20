@@ -667,3 +667,11 @@ enyo.kind({
 	}
 });
  
+// FIXME: Webkit will change the scrollTop value of the scroller viewport to keep the current
+// tab-focused control onscreen if we allow it to handle tabs itself, so we defeat native
+// TAB focus movement here.
+enyo.dispatcher.features.push(function(e) {
+	if ((e.type == "keydown") && (e.keyCode == 9)) {
+		e.preventDefault();
+	}
+});
