@@ -35,6 +35,9 @@
 	left: @moon-spotlight-outset;
 	right: auto;
 }
+.moon-neutral .moon-checkbox[checked] {
+  background-image: @moon-checkmark-white;
+}
 .moon-checkbox-item .moon-checkbox[checked] {
 	background-color:transparent;
 }
@@ -83,3 +86,8 @@
 	left: auto;
 	right: @moon-spotlight-outset;
 }
+/*this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
+.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper{
+    padding-left:2px;
+}
+ 

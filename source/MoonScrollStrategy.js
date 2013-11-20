@@ -10,12 +10,29 @@ enyo.kind({
 	kind: "enyo.TouchScrollStrategy",
 	//* @public
 	published: {
-		//* Increase this value to increase the distance scrolled by the scroll wheel
-		scrollWheelMultiplier: 5,
-		//* Increase this value to increase the distance scrolled by tapping the pagination buttons
-		paginationPageMultiplier: 1,
-		//* Increase this value to increase the distance scrolled by holding the pagination buttons
-		paginationScrollMultiplier: 5
+		/** 
+			Defines the ratio of mousewheel "delta" units to pixels scrolled.  Increase this value to increase
+			the distance scrolled by the scroll wheel.  Note, mice/trackpads do not emit the same "delta" units
+			per "notch" or flick of the scroll wheel/trackpad; that can vary based on intensity and momentum.
+		*/
+		scrollWheelMultiplier: 2,
+		/** 
+			Defines the maximum distance scrolled by each scroll wheel event, as a rato of the viewport height/width.
+			Setting to larger than 1 is not advised, since a single scroll event could move more than one viewport's
+			worth of content (depending on the delta received), skipping content.
+		*/
+		scrollWheelPageMultiplier: 0.2,
+		/** 
+			Defines the distance scrolled per tap of the paging button, as a rato of the viewport height/width.
+			Setting to larger than 1 is not advised, since a paging button tap will move more than one viewport's
+			worth of content, skipping content.
+		*/
+		paginationPageMultiplier: 0.8,
+		/** 
+			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
+			Increase this value to increase the distance scrolled by holding the pagination buttons.
+		*/
+		paginationScrollMultiplier: 8
 	},
 	//* @protected
 	handlers: {
@@ -140,48 +157,72 @@ enyo.kind({
 	},
 	//* On _mousewheel_, scrolls a fixed amount.
 	mousewheel: function(inSender, inEvent) {
-		this.scrollBounds = this._getScrollBounds();
-		this.setupBounds();
+		if (this.useMouseWheel) {
+			var isScrolling = this.isScrolling();
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
 
-		var x = null,
-			y = null,
-			showVertical = this.showVertical(),
-			showHorizontal = this.showHorizontal()
-		;
+			var x = null,
+				y = null,
+				showVertical = this.showVertical(),
+				showHorizontal = this.showHorizontal(),
+				dir = null,
+				val = null,
+				max = null,
+				delta = null
+			;
 
-		//* If we don't have to scroll, allow mousewheel event to bubble
-		if (!showVertical && !showHorizontal) {
-			this.scrollBounds = null;
-			return false;
-		}
-
-		if (showVertical) {
-			y = this.scrollTop + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
-		}
-
-		if (showHorizontal) {
-			if (inEvent.wheelDeltaX) {
-				x = this.scrollLeft + -1 * (inEvent.wheelDeltaX * this.scrollWheelMultiplier);
-			} else if (!showVertical) {
-				// only use vertical wheel for horizontal scrolling when no vertical bars shown
-				x = this.scrollLeft + -1 * (inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+			//* If we don't have to scroll, allow mousewheel event to bubble
+			if (!showVertical && !showHorizontal) {
+				this.scrollBounds = null;
+				return false;
 			}
-		}
 
-		this.scrollTo(x, y);
-		inEvent.preventDefault();
-		this.scrollBounds = null;
-		return true;
+			if (showVertical) {
+				dir = inEvent.wheelDeltaY >= 0 ? 1 : -1;
+				val = Math.abs(inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+				max = this.scrollBounds.clientHeight * this.scrollWheelPageMultiplier;
+				delta = Math.min(val, max);
+				y = (isScrolling ? this.lastScrollToY : this.scrollTop) + -dir * delta;
+			}
+
+			if (showHorizontal) {
+				var intDirection = 1;
+				// Reverse the direction for RTL
+				if (this.$.pageLeftControl.rtl) {
+					intDirection = -1;
+				}
+				if (inEvent.wheelDeltaX) {
+					dir = (inEvent.wheelDeltaX >= 0 ? 1 : -1) * intDirection;
+					val = Math.abs(inEvent.wheelDeltaX * this.scrollWheelMultiplier);
+					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
+					delta = Math.min(val, max);
+					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
+				} else if (!showVertical) {
+					// only use vertical wheel for horizontal scrolling when no vertical bars shown
+					dir = (inEvent.wheelDeltaY >= 0 ? 1 : -1) * intDirection;
+					val = Math.abs(inEvent.wheelDeltaY * this.scrollWheelMultiplier);
+					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
+					delta = Math.min(val, max);
+					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
+				}
+			}
+
+			this.scrollTo(x, y);
+			inEvent.preventDefault();
+			this.scrollBounds = null;
+			return true;
+		}
 	},
 	//* On _enter_, sets _this.hovering_ to true and shows pagination controls.
-	enter: function() {
+	enter: function(inSender, inEvent) {
 		this.hovering = true;
 		this.setupBounds();
 		this.enableDisablePageControls();
 		this.showHideScrollColumns(true);
 	},
 	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
-	leave: function() {
+	leave: function(inSender, inEvent) {
 		this.hovering = false;
 		this.showHideScrollColumns(false);
 	},
@@ -209,6 +250,9 @@ enyo.kind({
 			y += scrollYDelta;
 			break;
 		}
+
+		x = Math.max(0, Math.min(x, sb.maxLeft));
+		y = Math.max(0, Math.min(y, sb.maxTop));
 
 		this._scrollTo(x, y);
 
@@ -284,6 +328,8 @@ enyo.kind({
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
+		this.lastScrollToX = inX;
+		this.lastScrollToY = inY;
 		this.$.scrollMath.scrollTo(inX, inY);
 	},
 	//* Returns true if _inControl_ is one of four page controls.
@@ -311,6 +357,11 @@ enyo.kind({
 		var x = -1 * this.scrollLeft,
 			y = -1 * this.scrollTop
 		;
+
+		/// Reverse the direction for RTL
+		if (this.$.pageLeftControl.rtl) {
+			x*= -1;
+		}
 
 		return (this.accel)
 			?   "1,         0,     0,  0, "
@@ -613,5 +664,14 @@ enyo.kind({
 	clampY: function() {
 		var m = this.$.scrollMath;
 		return Math.min(Math.max(this.getScrollTop(), -1*m.topBoundary), -1*m.bottomBoundary);
+	}
+});
+ 
+// FIXME: Webkit will change the scrollTop value of the scroller viewport to keep the current
+// tab-focused control onscreen if we allow it to handle tabs itself, so we defeat native
+// TAB focus movement here.
+enyo.dispatcher.features.push(function(e) {
+	if ((e.type == "keydown") && (e.keyCode == 9)) {
+		e.preventDefault();
 	}
 });

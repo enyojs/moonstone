@@ -1,6 +1,8 @@
 /**
 	_moon.ScrollThumb_, which extends [enyo.ScrollThumb](#enyo.ScrollThumb), is
-	used to display a small visual scroll indicaor.
+	used to display a small visual scroll indicator.
+	
+	_moon.ScrollThumb_ is not typically created in application code.
 */
 enyo.kind({
 	name: "moon.ScrollThumb",

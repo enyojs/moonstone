@@ -9,7 +9,7 @@ enyo.kind({
 			{kind:"moon.Scroller", fit:true, horizontal:"hidden", style:"margin-bottom:20px;", components: [
 				{kind:"moon.BodyText", name:"text"}
 			]},
-			{kind:"FittableColumns", components: [
+			{kind:"FittableColumns", noStretch:true, components: [
 				{fit:true, components: [
 					{kind:"moon.ToggleButton", name:"lengthToggle", content:"Long Text", active:true},
 					{kind:"moon.ToggleButton", name:"spotToggle", content:"Spot Paging Controls", active:false}

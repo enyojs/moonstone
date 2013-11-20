@@ -142,8 +142,8 @@ enyo.kind({
 		disableSlider: false,
 		//* When false, the jump forward and jump back buttons are hidden
 		showJumpControls: true, 
-		//* When false, the fast-forward and rewind buttons are hidden
-		showFFRewindControls: true,
+		//* When true, the fast-forward and rewind buttons are visible
+		showFFRewindControls: false,
 		/**
 			When true, the slider and playback controls are disabled.  If the user
 			taps the controls, an _onPlaybackControlsTapped_ event will be bubbled.
