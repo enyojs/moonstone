@@ -3258,15 +3258,12 @@
   -webkit-font-kerning: normal;
   margin: 0px;
   padding-left: 1px;
-  padding-right: 110px;
+  padding-right: 1px;
   display: inline-block;
   box-sizing: border-box;
   line-height: 1em;
   color: #4b4b4b;
   width: 100%;
-  background-image: url(../images/input-header-icon.png);
-  background-position: right 0px;
-  background-repeat: no-repeat;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
   text-transform: none;
@@ -3289,7 +3286,6 @@
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
   background-color: #cf0652;
-  background-position: right -154px;
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
