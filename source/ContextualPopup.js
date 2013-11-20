@@ -166,7 +166,15 @@ enyo.kind({
 	},
 	//* Checks whether to allow spotlight to move in a given direction.
 	spotChecker: function(inDirection) {
-		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
+		var current = enyo.Spotlight.getCurrent(),
+			neighbor;
+
+		do {
+			neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection, current);
+			if (neighbor) { break; }
+			current = enyo.Spotlight.getParent(current);
+		} while (enyo.Spotlight.Util.isChild(this, current));
+
 		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
 			if (this.spotlightModal) {
 				return true;
@@ -175,6 +183,7 @@ enyo.kind({
 				this.hide();
 			}
 		}
+		
 	},
 	/**
 		When spotlight reaches top edge of popup, prevents user from
