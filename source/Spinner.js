@@ -16,7 +16,7 @@ enyo.kind({
 	//* @protected
 	classes: "moon-spinner",
 	//* @public
-	//* Removes the animating spinner.
+	//* Hides the animating spinner.
 	stop: function() {
 		this.setShowing(false);
 	},
