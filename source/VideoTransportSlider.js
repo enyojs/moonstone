@@ -321,7 +321,7 @@ enyo.kind({
 			if (this.lockBar) {
 				this.setProgress(this.elasticFrom);
 				this.sendChangingEvent({value: this.elasticFrom});
-				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(this.elasticFrom); }), 100);
+				this.sendSeekEvent(this.elasticFrom);
 			}
 			return true;
 		}

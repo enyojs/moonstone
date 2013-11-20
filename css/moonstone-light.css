@@ -3729,6 +3729,9 @@
   margin: 0 10px;
   background-color: #000000;
 }
+.enyo-fullscreen.moon-video-player {
+  margin: 0;
+}
 .moon-video-player-container {
   display: block;
   margin: 0;

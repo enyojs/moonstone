@@ -612,7 +612,6 @@ enyo.kind({
 			
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
-				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
 			}
 		}
@@ -1090,6 +1089,10 @@ enyo.kind({
 		if (inEvent.srcElement.playbackRate < 0) {
 			return;
 		}
+		if (inEvent.srcElement.currentTime === 0) {
+			this.sendFeedback("Stop", {}, true);
+			return;
+		}
 		this.sendFeedback("Pause", {}, true);
 	},
 	_stop: function(inSender, inEvent) {
@@ -1097,9 +1100,6 @@ enyo.kind({
 		this.updatePlayPauseButtons();
 		this.updateSpinner();
 		this.sendFeedback("Stop");
-	},
-	_start: function(inSender, inEvent) {
-		this.sendFeedback(this._isPlaying ? "Play" : "Pause", {}, !this._isPlaying);
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
