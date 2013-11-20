@@ -209,17 +209,23 @@ enyo.kind({
 			this.needsToShrink = false;
 		}
 	},
-	stopMarquees: function() {
-		this.$.breadcrumbText.stopMarquee();
-		this.$.header.stopMarquee();
+	enableMarquees: function() {
+		this.$.breadcrumbText.enableMarquee();
+		this.$.header.enableMarquee();
+	},
+	disableMarquees: function() {
+		this.$.breadcrumbText.disableMarquee();
+		this.$.header.disableMarquee();
 	},
 	startMarqueeAsNeeded: function(inInfo) {
 		var onscreen = !inInfo.offscreen;
 		if (onscreen) {
 			if (this.isBreadcrumb) {
+				this.$.breadcrumbText.enableMarquee();
 				this.$.breadcrumbText.startMarquee();
 			}
 			else {
+				this.$.header.enableMarquee();
 				this.$.header.startMarquee();
 			}
 		}
@@ -234,11 +240,12 @@ enyo.kind({
 		if (this.isBreadcrumb) {
 			this.needsToShrink = true;
 		}
+		this.disableMarquees();
 		this.startMarqueeAsNeeded(inInfo);
 	},
 	// Called directly by moon.Panels
 	preTransition: function(inInfo) {
-		this.stopMarquees();
+		this.disableMarquees();
 
 		if (!this.shrinking && inInfo.breadcrumb && (!this.isBreadcrumb || this.growing)) {
 			this.shrinkAnimation();
@@ -259,7 +266,7 @@ enyo.kind({
 	// Called directly by moon.Panels
 	transitionFinished: function(inInfo) {
 		if (!inInfo.animate) {
-			this.stopMarquees();
+			this.disableMarquees();
 
 			if (this.isBreadcrumb === true && inInfo.breadcrumb === false) {
 				this.grow();
