@@ -15,7 +15,8 @@ enyo.kind({
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.value + ")");
 	},
 	buttonTapped: function(inSender, inEvent) {
-		inSender.parent.addRemoveClass("enyo-locale-right-to-left", inSender.getActive());
-		inSender.parent.applyStyle("direction",inSender.getActive()? "rtl;":"lft;");
+		var active = inSender.getActive();
+		inSender.parent.addRemoveClass("enyo-locale-right-to-left", active);
+		inSender.parent.applyStyle("direction", active ? "rtl" : "ltr");
 	}
 });
