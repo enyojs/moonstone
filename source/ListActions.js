@@ -116,21 +116,8 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
-		// If currently open, close and spot _this.$.activator_
-		if (this.getOpen()) {
-			this.setOpen(false);
-			enyo.Spotlight.spot(this.$.activator);
-			this.bubble("onRequestUnmuteTooltip");
-			this.setActive(false);
-		}
-		// If currently closed, show and spot _this.$.closeButton_
-		else {
-			this.setOpen(true);
-			enyo.Spotlight.spot(this.$.closeButton);
-			this.bubble("onRequestMuteTooltip");
-			this.setActive(true);
-		}
+		this.setActive(!this.getOpen());
+		this.setOpen(!this.getOpen());
 	},
 	openChanged: function(){
 		//If opened, show drawer and resize it if needed
@@ -162,13 +149,20 @@ enyo.kind({
 		this.$.drawer.addStyles(styleString);
 	},
 	drawerAnimationEnd: function() {
+		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
 			this.$.drawer.hide();
-		} else {
+			enyo.Spotlight.spot(this.$.activator);
+			this.bubble("onRequestUnmuteTooltip");
+		} 
+		//on open, move top and spot _this.$.closeButton_
+		else {
 			if (this.resetScroller) {
 				this.$.listActions.scrollTo(0, 0);
 				this.resetScroller = false;
 			}
+			enyo.Spotlight.spot(this.$.closeButton);
+			this.bubble("onRequestMuteTooltip");
 		}
 	},
 	updateStacking: function() {
