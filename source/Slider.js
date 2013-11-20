@@ -95,7 +95,7 @@ enyo.kind({
 		ondragstart: "dragstart",
 		ondrag: "drag",
 		ondragfinish: "dragfinish",
-		onSpotlightFocus: "spotFocus",
+		onSpotlightFocused: "spotFocused",
 		onSpotlightSelect: "spotSelect",
 		onSpotlightBlur: "spotBlur",
 		onSpotlightLeft: "spotLeft",
@@ -388,8 +388,10 @@ enyo.kind({
 		this.doAnimateFinish(inSender);
 		return true;
 	},
-	spotFocus: function() {
-		return;
+	spotFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView", {side: "top"});
+		}
 	},
 	spotSelect: function() {
 		var sh = this.$.popup.getShowing();
