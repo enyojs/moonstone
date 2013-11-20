@@ -60,20 +60,21 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	listActionsChanged: function() {
+		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
 		this.listActions = this.listActions || [];
-		this.renderListActionComponents();
+		this.renderListActionComponents(owner);
 	},
-	renderListActionComponents: function() {
+	renderListActionComponents: function(inOwner) {
 		this.noAutoCollapse = true;
-		this.createListActionComponents();
+		this.createListActionComponents(inOwner);
 		this.noAutoCollapse = false;
 	},
-	createListActionComponents: function() {
+	createListActionComponents: function(inOwner) {
 		var listAction, i;
 		
 		this.listActionComponents = [];
 		for (i = 0; (listAction = this.listActions[i]); i++) {
-			this.listActionComponents.push(this.createListActionComponent(listAction));
+			this.listActionComponents.push(this.createListActionComponent(listAction, inOwner));
 		}
 		
 		// Increase width to 100% if there is only one list action
@@ -90,11 +91,11 @@ enyo.kind({
 		}
 	},
 	//* Creates a new list action component based on _inListAction_.
-	createListActionComponent: function(inListAction) {
+	createListActionComponent: function(inListAction, inOwner) {
 		var listActionComponent;
 		
 		inListAction.mixins = this.addListActionMixin(inListAction);
-		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner(), layoutKind:"FittableRowsLayout"});
+		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: inOwner, layoutKind:"FittableRowsLayout"});
 		listActionComponent.addClass("moon-list-actions-menu");
 		
 		return listActionComponent;
@@ -266,7 +267,7 @@ enyo.kind({
 	classes: "moon-list-actions-drawer",
 	components: [
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
-		{name: "animator", kind: "StyleAnimator", onStep: "step"}
+		{name: "animator", kind: "enyo.StyleAnimator", onStep: "step"}
 	],
 	rendered: function() {
 		this.inherited(arguments);
