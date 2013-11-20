@@ -196,7 +196,7 @@ moon.MarqueeItem = {
 		return function() {
 			sup.apply(this, arguments);
 			this._marquee_invalidateMetrics();
-		}
+		};
 	}),
 	_marquee_invalidateMetrics: function() {
 		this._marquee_distance = null;
