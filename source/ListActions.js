@@ -124,17 +124,22 @@ enyo.kind({
 			this.bubble("onRequestUnmuteTooltip");
 			this.setActive(false);
 		}
-		// If currently closed, resize and show _this.$.drawer_
+		// If currently closed, show and spot _this.$.closeButton_
 		else {
+			this.setOpen(true);
+			enyo.Spotlight.spot(this.$.closeButton);
+			this.bubble("onRequestMuteTooltip");
+			this.setActive(true);
+		}
+	},
+	openChanged: function(){
+		//If opened, show drawer and resize it if needed
+		if(this.open){
 			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
 				this.resizeDrawer();
 				this.drawerNeedsResize = false;
 			}
-			this.setOpen(true);
-			enyo.Spotlight.spot(this.$.closeButton);
-			this.bubble("onRequestMuteTooltip");
-			this.setActive(true);
 		}
 	},
 	//* Positions _this.$.drawer_ to fill the entire header.
