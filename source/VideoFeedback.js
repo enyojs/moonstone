@@ -65,8 +65,8 @@ enyo.kind({
 		var customMessage = false;
 		inMessage = inMessage || "";
 		inParams = inParams || {};
-		
-		if (inMessage != "") { this.$.feedText.show(); }
+
+		if (inMessage !== "") { this.$.feedText.show(); }
 
 		switch (inMessage) {
 		case "Play":
