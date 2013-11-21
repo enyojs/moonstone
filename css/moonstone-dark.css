@@ -2698,13 +2698,13 @@
 .moon-contextual-popup.left.below::after {
   top: 0%;
   left: 90%;
-  margin-top: -36px;
+  margin-top: -27px;
   background-image: url(../images/DarkTheme_Icons/ContextualMenu_Up.png);
 }
 /* Top left corner nub */
 .moon-contextual-popup.right.below::after {
   top: 9px;
-  left: 10%;
+  left: 20%;
   margin-top: -36px;
   background-image: url(../images/DarkTheme_Icons/ContextualMenu_Up.png);
 }
