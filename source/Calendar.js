@@ -309,7 +309,7 @@ enyo.kind({
 		if (this.value.getMonth() != newMonth) {
 			var value = this.value,
 				newValue,
-				newMonthLength = this.getMonthLength(value.getFullYear(), newMonth - 1);
+				newMonthLength = this.getMonthLength(value.getFullYear(), newMonth);
 			if(newMonthLength < value.getDate()) {
 				newValue = new Date(value.getFullYear(), newMonth, newMonthLength);
 			} else {

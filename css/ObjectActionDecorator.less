@@ -2,9 +2,7 @@
 .moon-objaction {
 	&.vertical {
 		display: inline-block;
-		.moon-objaction-client {
-			padding-bottom: @moon-spotlight-outset;
-		}
+		text-align:center;
 		.moon-objaction-actions {
 			opacity: 0; 
 			text-align: center;
@@ -35,3 +33,15 @@
 	padding-right: auto;
 	padding-left: @moon-spotlight-outset;
 }
+
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight{
+  background-color:transparent;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item >img{
+  padding:@moon-spotlight-outset;
+
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight >img{
+  background-color:@moon-spotlight-color;
+}
+

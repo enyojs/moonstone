@@ -7,6 +7,10 @@ enyo.kind({
 	kind: enyo.Popup,
 	//* @protected
 	classes: "moon moon-neutral enyo-unselectable moon-popup",
+	/**
+		If true, events from outside of the popup are not received while the popup
+		is showing.
+	*/
 	modal: true,
 	floating: true,
 	_spotlight: null,
@@ -25,11 +29,16 @@ enyo.kind({
 	published: {
 		/**
 			Determines whether a scrim will appear when the dialog is modal.
-			Note that modal scrims are transparent, so you won't see them.
+			If true, _moon.Scrim_ provides a transparent (i.e., invisible)
+			overlay that prevents propagation of tap events.
 		*/
 		scrimWhenModal: true,
-		//* Determines whether or not to display a scrim. Only displays scrims
-		//* when floating.
+		/**
+			Determines whether or not to display a scrim. Only displays scrims when
+			floating. When the scrim is in the floating state (_floating: true_), it
+			covers the entire viewport--i.e., it is displayed on top of other
+			controls.
+		*/
 		scrim: true,
 		/**
 			Optional class name to apply to the scrim. Be aware that the scrim
@@ -38,8 +47,9 @@ enyo.kind({
 		*/
 		scrimClassName: "",
 		/**
-			When true, spotlight cannot leave the constraints of the _moon.Popup_
-			unless it is explicitly closed.
+			If true, spotlight (focus) cannot leave the area of the popup unless the
+			popup is explicitly closed; if false, spotlight may be moved anywhere
+			within the viewport
 		*/
 		spotlightModal: false,
 		/**
@@ -113,7 +123,7 @@ enyo.kind({
 		}
 
 		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
-		
+
 		if (shouldShow != this.$.closeButton.getShowing()) {
 			this.$.closeButton.setShowing(shouldShow);
 			this.$.closeButton.spotlight = shouldShow;
@@ -160,7 +170,7 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 		}
-		
+
 		this.showHideScrim(this.showing);
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
@@ -185,7 +195,7 @@ enyo.kind({
 	showHideScrim: function(inShow) {
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 			var scrim = this.getScrim();
-			if (inShow) {
+			if (inShow && this.modal && this.scrimWhenModal) {
 				// move scrim to just under the popup to obscure rest of screen
 				var i = this.getScrimZIndex();
 				this._scrimZ = i;
@@ -305,7 +315,7 @@ enyo.kind({
 		if (this._bounds) {
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
-			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});	
+			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
 	}
 });
