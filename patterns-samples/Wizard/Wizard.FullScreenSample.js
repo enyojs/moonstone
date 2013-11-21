@@ -74,10 +74,10 @@ enyo.kind({
 		onCancel: "doCancel"
 	},
 	components: [
-		{name: "page1", kind: "moon.Sample.Wizard.Panel"},
-		{name: "page2", kind: "moon.Sample.Wizard.Panel"},
-		{name: "page3", kind: "moon.Sample.Wizard.Panel"},
-		{name: "page4", kind: "moon.Sample.Wizard.Panel"}
+		{name: "page1", kind: "moon.Sample.Wizard.FullPanel"},
+		{name: "page2", kind: "moon.Sample.Wizard.FullPanel"},
+		{name: "page3", kind: "moon.Sample.Wizard.FullPanel"},
+		{name: "page4", kind: "moon.Sample.Wizard.FullPanel"}
 	],
 	bindings: [
 		{from: ".collection.model.page1", to: ".$.page1.controller"},
