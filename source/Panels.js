@@ -242,6 +242,7 @@ enyo.kind({
 	},
 	handleBlur: function() {
 		this.resetHandleAutoHide();
+		enyo.Signals.send("onPanelsHandleBlurred");
 	},
 	resetHandleAutoHide: function(inSender, inEvent) {
 		this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
@@ -258,6 +259,7 @@ enyo.kind({
 	},
 	handleFocus: function() {
 		this.unstashHandle();
+		enyo.Signals.send("onPanelsHandleFocused");
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true

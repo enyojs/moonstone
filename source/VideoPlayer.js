@@ -240,7 +240,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -514,6 +514,18 @@ enyo.kind({
 	},
 	panelsHidden: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
+	},
+	panelsHandleFocused: function(inSender, inEvent) {
+		this._lastOverlayShowing = this.isOverlayShowing();
+		if ((this.isFullscreen() || !this.getInline()) && this.isOverlayShowing()) {
+			this.hideFSControls();
+			enyo.Spotlight.unspot();
+		}
+	},
+	panelsHandleBlurred: function(inSender, inEvent) {
+		if ((this.isFullscreen() || !this.getInline()) && !this.isOverlayShowing() && this._lastOverlayShowing === true) {
+			this.showFSControls();
+		}
 	},
 	isLarge: function() {
 		return this.isFullscreen() || !this.get("inline");
