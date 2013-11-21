@@ -3988,17 +3988,19 @@ textarea::-webkit-scrollbar-thumb:vertical {
 }
 /* ---- Header info styling ---- */
 .moon-video-player-header {
+  padding-top: 20px;
   width: 100%;
   font-family: "MuseoSans 700";
   font-size: 30px;
   letter-spacing: 0;
   color: #ffffff;
-  background-color: black;
-  opacity: 0.8;
-  padding: 40px 0 0 0;
-  height: 300px;
+  height: 317px;
   box-sizing: border-box;
   position: relative;
+}
+.moon-video-player-header.full-background {
+  background-color: black;
+  opacity: 0.8;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4024,6 +4026,9 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .moon-video-player-more-controls {
   border-left: 2px solid white;
   padding-left: 5px;
+}
+.moon-video-player-more-controls.moon-neutral {
+  background: transparent;
 }
 .moon-video-player-premium-placeholder-left {
   width: 210px;
@@ -4104,15 +4109,13 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  width: 70%;
+  max-width: 1264px;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
   margin-bottom: 32px;
   white-space: nowrap;
-  display: inline-block;
   background: transparent;
-  width: 30%;
 }
 .moon-video-player-info-title {
   font-size: 72px;
@@ -4128,7 +4131,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   letter-spacing: 0;
   color: #a6a6a6;
   color: #ffffff;
-  margin-bottom: 22px;
+  margin-bottom: 30px;
   white-space: nowrap;
   display: inline-block;
 }
@@ -4148,7 +4151,6 @@ textarea::-webkit-scrollbar-thumb:vertical {
   color: #ffffff;
   display: inline-block;
   white-space: normal;
-  margin-bottom: 10px;
 }
 .moon-video-player-info-subsubtitle a:link {
   color: #cf0652;
@@ -4213,7 +4215,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 }
 .moon-video-player-info-client {
   display: inline-block;
-  margin: 0 0 10px 20px;
+  margin: 0 0 20px;
 }
 .moon-video-player-subtitle-divider,
 .moon-video-player-info-client > * {
@@ -4266,13 +4268,14 @@ textarea::-webkit-scrollbar-thumb:vertical {
   vertical-align: top;
   text-align: right;
   white-space: normal;
+  width: 230px;
 }
 .moon-video-player-channel-info-badges-container {
   height: 240px;
   display: inline-block;
 }
 .moon-video-player-channel-info-badges > * {
-  margin: 25px 10px 0;
+  margin: 0 10px 15px;
 }
 .moon-video-player-channel-info-no {
   font-family: "Miso";
@@ -4294,6 +4297,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   color: #a6a6a6;
   color: #ffffff;
   margin-top: 10px;
+  margin-bottom: 28px;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
@@ -4322,37 +4326,71 @@ textarea::-webkit-scrollbar-thumb:vertical {
   color: #ffffff;
 }
 .moon-background-wrapper {
+  position: absolute;
   overflow: hidden;
-  height: 300px;
+  width: 100%;
 }
 .moon-background-wrapper-client-content {
   position: relative;
   display: inline-block;
-}
-/* Decorate video header styling */
-.moon-background-wrapper-client-content.right {
-  position: absolute;
-  right: 0;
-  top: 25px;
-  width: 40%;
-  box-sizing: border-box;
-  text-align: right;
+  white-space: nowrap;
+  height: 257px;
 }
 .moon-background-wrapper-client-content.left {
+  padding: 40px 20px 0 60px;
+}
+.moon-background-wrapper-client-content.left > * {
+  margin-right: 40px;
+}
+.moon-background-wrapper-client-content.right {
+  float: right;
+  padding: 40px 60px 0 20px;
+}
+.moon-background-wrapper-client-content.right > * {
+  margin-left: 40px;
+}
+.moon-background-wrapper-client-content.bg {
+  background-color: black;
+}
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.bg {
+  background-color: transparent;
+}
+.moon-background-wrapper-client-tri {
   position: absolute;
-  left: 0;
-  width: 60%;
-  box-sizing: border-box;
+  width: 0;
+  height: 0;
 }
-/* Make equal spacing */
-.moon-background-wrapper-client-content {
-  white-space: nowrap;
+.left .moon-background-wrapper-client-tri {
+  left: 100%;
+  bottom: 0;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  border-left-style: solid;
+  border-left-color: transparent;
+  border-bottom-width: 1000px;
+  border-left-width: 170px;
 }
-.moon-background-wrapper-client-content.left > :first-child {
-  margin: 0 60px;
+.left.bg .moon-background-wrapper-client-tri {
+  border-left-color: black;
 }
-.moon-background-wrapper-client-content.right > :last-child {
-  margin: 0 60px 0 30px;
+.right .moon-background-wrapper-client-tri {
+  right: 100%;
+  top: 0;
+  border-top-style: solid;
+  border-top-color: transparent;
+  border-right-style: solid;
+  border-right-color: transparent;
+  border-top-width: 1000px;
+  border-right-width: 170px;
+}
+.right.bg .moon-background-wrapper-client-tri {
+  border-right-color: black;
+}
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.left.bg .moon-background-wrapper-client-tri {
+  border-left-color: transparent;
+}
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.right.bg .moon-background-wrapper-client-tri {
+  border-right-color: transparent;
 }
 .moon-clock {
   display: block;
@@ -4365,6 +4403,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   display: inline-block;
   margin-right: 15px;
   color: #ffffff;
+  line-height: 100px;
 }
 .moon-clock-right {
   display: inline-block;

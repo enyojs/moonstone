@@ -25,7 +25,9 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{name: "client", classes: "moon-background-wrapper-client-content"}
+		{name: "client", classes: "moon-background-wrapper-client-content", components: [
+			{classes: "moon-background-wrapper-client-tri"}
+		]}
 	],
 	initComponents: function() {
 		this.inherited(arguments);

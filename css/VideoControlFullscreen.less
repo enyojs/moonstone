@@ -13,17 +13,19 @@
 
 /* ---- Header info styling ---- */
 .moon-video-player-header {
+	padding-top: 20px;
 	width: 100%;
 	font-family: @moon-font-family;
 	font-size: @moon-sub-header-font-size;
 	letter-spacing: @moon-sub-header-letter-spacing;
 	color: #ffffff;
-	  background-color: black;
-	  opacity:0.8;
-	  padding:40px 0 0 0;
-	height:300px;
+	height:317px;
 	box-sizing:border-box;
 	position:relative;
+}
+.moon-video-player-header.full-background {
+	background-color: black;
+	opacity:0.8;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
 	margin: 0;
@@ -50,6 +52,9 @@
 .moon-video-player-more-controls {
 	border-left: 2px solid white;	
 	padding-left:5px;
+}
+.moon-video-player-more-controls.moon-neutral {
+	background: transparent;
 }
 .moon-video-player-premium-placeholder-left {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);

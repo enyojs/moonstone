@@ -1,36 +1,70 @@
 .moon-background-wrapper {
+    position: absolute;
     overflow: hidden;
-    height:300px;   
+    width: 100%;
 }
 .moon-background-wrapper-client-content {
     position: relative;
     display: inline-block;
+    white-space: nowrap;
+    height: 257px;
+    &.left {
+        padding: 40px 20px 0 60px;
+        > * {
+          margin-right: 40px;
+        }
+    }
+    &.right {
+        float: right;
+        padding: 40px 60px 0 20px;
+        > * {
+          margin-left: 40px;
+        }
+    }
+    &.bg {
+        background-color: black;
+    }
+}
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.bg {
+  background-color: transparent;
 }
 
-/* Decorate video header styling */
-.moon-background-wrapper-client-content.right {
-  position:absolute;
-  right:0;
-  top:25px;
-	width:40%;
-	box-sizing:border-box;
-	 text-align:right;
+.moon-background-wrapper-client-tri {
+    position: absolute;
+    width: 0;
+    height: 0;
 }
-.moon-background-wrapper-client-content.left {
-  position:absolute;
-  left:0;
-	width:60%;
-  box-sizing:border-box;
+.left .moon-background-wrapper-client-tri {
+    left: 100%;
+    bottom: 0;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-bottom-width: 1000px;
+    border-left-width: 170px;
 }
-
-/* Make equal spacing */
-.moon-background-wrapper-client-content {
-	white-space: nowrap;
+.left.bg .moon-background-wrapper-client-tri {
+    border-left-color: black;
 }
-
-.moon-background-wrapper-client-content.left > :first-child {
-	margin: 0 60px;
+.right .moon-background-wrapper-client-tri {
+    right: 100%;
+    top: 0;
+    border-top-style: solid;
+    border-top-color: transparent;
+    border-right-style: solid;
+    border-right-color: transparent;
+    border-top-width: 1000px;
+    border-right-width: 170px;
 }
-.moon-background-wrapper-client-content.right > :last-child {
-	margin:0 60px 0 30px;
+.right.bg .moon-background-wrapper-client-tri {
+    border-right-color: black;
+}
+.moon-video-player-header.full-background {
+    .moon-background-wrapper-client-content.left.bg .moon-background-wrapper-client-tri {
+        border-left-color: transparent;
+    }
+    .moon-background-wrapper-client-content.right.bg .moon-background-wrapper-client-tri {
+        border-right-color: transparent;
+    }
 }

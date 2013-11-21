@@ -12,48 +12,48 @@ enyo.kind({
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
-				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
+				{kind: "moon.VideoInfoBackground", name:"leftInfo", orient: "left", background: true, fit: true, components: [
 					{
 						kind: "moon.ChannelInfo",
-						channelNo: "13",
-						channelName: "AMC"
-					},
-					{
-						kind: "moon.VideoInfoHeader",
-						title: "Downton Abbey - Extra Title",
-						description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-						subTitle: "Mon June 21, 7:00 - 8:00pm",
-						subtitleDivider: "|",
-						subSubTitle: "R - TV 14, V, L, SC",	
+						name: "channelInfo",
+						channelNo: "9999-99",
+						channelName: "AMC",
+						classes: "moon-2h",
 						components: [
-							{kind: "moon.IconButton", src:"../images/video-player/icon-videocc.png", classes: "moon-video-player-info-icon-cc"},					
-						]			
-					},
-				 
-				]},
-				{kind: "moon.VideoInfoBackground", orient: "right", background: true, components: [
-				{kind: "moon.ChannelInfo",
-				classes:"moon-video-player-channel-info-badges-container",
-				components: [
 							{content: "3D"},
 							{content: "Live"},
 							{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
-						]},
-					{kind:"moon.Clock", classes:"moon-video-clock-container"}
-				 ]}
-				
+						]
+					},
+					{
+						kind: "moon.VideoInfoHeader",
+						name: "videoInfo",
+						title: "Downton Abbey - Extra Title",
+						subTitle: "Mon June 21, 7:00 - 8:00pm",
+						subSubTitle: "R - TV 14, V, L, SC",
+						description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+						components: [
+							{content: "Icon 1", classes: "moon-video-player-info-icon"},
+							{content: "Icon 2", classes: "moon-video-player-info-icon"},
+							{content: "Icon 3", classes: "moon-video-player-info-icon"}
+						]
+					}
+				]},
+				{kind: "moon.VideoInfoBackground", name:"rightInfo", orient: "right", background: true, components: [
+					{kind:"moon.Clock", name:"clock"}
+				]}
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls"},
-				{kind: "moon.Button", content:"Unload", ontap:"unload"},
-				{kind: "moon.Button", content:"Reload", ontap:"load"},
-				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
+				{kind: "moon.ToggleButton", name:"controlsToggleButton", minWidth:false, content:"Controls"},
+				{kind: "moon.Button", content:"Unld", minWidth:false, ontap:"unload"},
+				{kind: "moon.Button", content:"Reld", minWidth:false, ontap:"load"},
+				{kind: "moon.ToggleButton", content:"FF/Rew", minWidth:false, name:"ffrewToggleButton"},
+				{kind: "moon.ToggleButton", content:"Left", minWidth:false, name:"leftToggleButton"},
+				{kind: "moon.ToggleButton", content:"BG", minWidth:false, name:"bgToggleButton"},
+				{kind: "moon.ToggleButton", content:"Ch", minWidth:false, name:"chToggleButton"},
+				{kind: "moon.ToggleButton", content:"Info", minWidth:false, name:"infoToggleButton"},
+				{kind: "moon.ToggleButton", content:"Right", minWidth:false, name:"rightToggleButton"}
 			]
 		},
 		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [
@@ -62,7 +62,12 @@ enyo.kind({
 	],
 	bindings: [
 		{from:".$.player.disablePlaybackControls", to:".$.controlsToggleButton.value", oneWay:false},
-		{from:".$.player.showFFRewindControls", to:".$.ffrewToggleButton.value", oneWay:false}
+		{from:".$.player.showFFRewindControls", to:".$.ffrewToggleButton.value", oneWay:false},
+		{from:".$.player.showInfoBackground", to:".$.bgToggleButton.value", oneWay:false},
+		{from:".$.leftInfo.showing", to:".$.leftToggleButton.value", oneWay:false},
+		{from:".$.channelInfo.showing", to:".$.chToggleButton.value", oneWay:false},
+		{from:".$.videoInfo.showing", to:".$.infoToggleButton.value", oneWay:false},
+		{from:".$.rightInfo.showing", to:".$.rightToggleButton.value", oneWay:false}
 	],
 	controlsTapped: function() {
 		this.$.tapDialog.show();
