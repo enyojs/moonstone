@@ -17,7 +17,7 @@ enyo.kind({
 
 			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
 			{name: "slider3", kind: "moon.Slider", classes: "rgb-sample-slider",
-				popupColor: "rgb(0, 0, 25)", popupWidth: 180, value: 25, bgProgress: 150, min: 0, max: 255,
+				popupColor: "rgb(0, 0, 25)", value: 25, bgProgress: 150, min: 0, max: 255,
 				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
 			},
 
