@@ -102,7 +102,7 @@ enyo.kind({
 						]},
 						{kind: "moon.ContextualPopupDecorator", components: [
 							{classes: "moon-3h", content: "Share"},
-							{kind: "moon.ContextualLoginPopup"}
+							{kind: "moon.ContextualLoginPopup", spotlightModal: true}
 						]}
 					]}
 				]}
@@ -118,7 +118,7 @@ enyo.kind({
 
 // Sample model
 
-enyo.ready(function(){
+enyo.ready(function() {
 	var sampleModel = new enyo.Model({
 		menus: new enyo.Collection([
 			{menuItem: "Browse Movies"},
