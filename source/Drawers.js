@@ -63,7 +63,11 @@ enyo.kind({
 		{name: "drawers", classes:"moon-drawers-drawer-container"},
 		{name: "client", classes:"moon-drawers-client"}
 	],
-	eventsToCapture: {tap:1, onSpotlightFocus:1, onSpotlightSelect:1},
+	eventsToCapture: {
+		ontap: "captureTapSelect", 
+		onSpotlightFocus: "captureSpotFocus", 
+		onSpotlightSelect: "captureTapSelect"
+	},
 	create: function() {
 		this.inherited(arguments);
 		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
@@ -104,7 +108,7 @@ enyo.kind({
 		this.$.handleContainer.setOpen(true);
 		enyo.Spotlight.spot(this.$.handleContainer);
 		this.updateActivator(true);
-		enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, enyo.bind(this, "capturedEvent"), true);
+		enyo.dispatcher.capture(this.$.handleContainer, this.eventsToCapture, this);
 	},
 	closeHandleContainer: function() {
 		enyo.dispatcher.release(this.$.handleContainer);
@@ -123,7 +127,7 @@ enyo.kind({
 				drawer = this.$.drawers.getControls()[index];
 				drawer.toggleDrawer();
 				this.closeHandleContainer();
-				enyo.dispatcher.capture(drawer, this.eventsToCapture, enyo.bind(this, "capturedEvent"), true);
+				enyo.dispatcher.capture(drawer, this.eventsToCapture, this);
 				return;
 			}
 		}
@@ -149,10 +153,16 @@ enyo.kind({
 		}
 		this.updateActivator(false);
 	},
-	capturedEvent: function(inEventName, inEvent, inSender) {
-		// Any tap, select, or 5-way focus into the client area closes the dresser/drawer
-		if ((inEvent.dir || (inEventName != "onSpotlightFocus")) && 
-			(inEvent.dispatchTarget.isDescendantOf(this.$.client))) {
+	captureSpotFocus: function(inSender, inEvent) {
+		// Only close drawers on 5-way focus in the client (not pointer focus)
+		if (inEvent.dir && inEvent.dispatchTarget.isDescendantOf(this.$.client)) {
+			this.closeDrawers();
+			this.closeHandleContainer();
+		}
+	},
+	captureTapSelect: function(inSender, inEvent) {
+		// Any tap or select in the client area closes the dresser/drawer
+		if (inEvent.dispatchTarget.isDescendantOf(this.$.client)) {
 			this.closeDrawers();
 			this.closeHandleContainer();
 		}
