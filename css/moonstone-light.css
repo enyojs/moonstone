@@ -2768,6 +2768,20 @@
 .moon-textarea-decorator.moon-disabled .moon-textarea {
   cursor: default;
 }
+textarea::-webkit-scrollbar {
+  width: 4px;
+}
+textarea::-webkit-scrollbar-track-piece {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  background-color: #ffffff;
+  -webkit-border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb:vertical {
+  height: 10px;
+  background-color: #a6a6a6;
+  -webkit-border-radius: 10px;
+}
 /* List Actions */
 .moon-list-actions {
   position: relative;
