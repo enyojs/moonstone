@@ -2,13 +2,6 @@
 	_moon.ToggleButton_, which extends <a href="#moon.Button">moon.Button</a>,
 	is a button with two states, "on" and "off".  When the ToggleButton is tapped,
 	it switches its state and fires an _onChange_ event.
-	--Tested the following cases
-	1) Set content, onContent, offContent, value, separator on toggle button dynamically, statically
-	2) Dynamic components creation/destroy
-	--To be checked Cases
-	3) Static components block in the sample
-	{kind: "TB", components: [{}]}
-	4) Check related components to button is not changing behavior
 */
 enyo.kind({
 	name: "moon.ToggleButton",
@@ -25,7 +18,7 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
 		//* Label for separator
-		labelSeparator: moon.$L(":"),   // i18n Separater between moon.ToggleButton text label and ON/OFF indicator
+		labelSeparator: moon.$L(": "),   // i18n Separater between moon.ToggleButton text label and ON/OFF indicator
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false
@@ -42,28 +35,25 @@ enyo.kind({
 	//* @protected
 	classes: "moon-toggle-button",
 	components: [
-		{name:"offToggleButtonWrapper", classes:"wrapper", components: [
-			{name:"offToggleLabel", classes:"label", kind: "moon.MarqueeText"},
-			{name: "offLabelSeparate"},
+		{name:"offToggleButtonWrapper", kind:"FittableColumns", classes:"wrapper", components: [
+			{name:"offToggleLabel", classes:"label", kind: "moon.MarqueeText", fit:true},
+			{name: "offLabelSeparate", style: "white-space: pre"},
 			{name:"offContent"}
 		]},
 		{tag:"br"},
-		{name:"onToggleButtonWrapper", classes:"wrapper toggle-bottom", components: [
-			{name:"onToggleLabel", classes:"label", kind:"moon.MarqueeText"},
-			{name: "onLabelSeparate"},
+		{name:"onToggleButtonWrapper", kind:"FittableColumns", classes:"wrapper toggle-bottom", components: [
+			{name:"onToggleLabel", classes:"label", kind:"moon.MarqueeText", fit:true},
+			{name: "onLabelSeparate", style: "white-space: pre"},
 			{name:"onContent"}
 		]}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.value = Boolean(this.value || this.active);
-		this.updateContent();
-		this.disabledChanged();
 		this.updateVisualState();
 		this.valueChanged();
 	},
 	rendered: function() {
-		this.inherited(arguments);
 		this.correctWidth();
 	},
 	updateVisualState: function() {
@@ -75,12 +65,11 @@ enyo.kind({
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
-		this.updateVisualState();
 		this.doChange({value: this.value});
-		this.$.offToggleButtonWrapper.addRemoveClass("hidden", this.value);
-		this.$.offToggleLabel.setDisabled(this.value);
 		this.$.onToggleButtonWrapper.addRemoveClass("hidden", !this.value);
 		this.$.onToggleLabel.setDisabled(!this.value);
+		this.$.offToggleButtonWrapper.addRemoveClass("hidden", this.value);
+		this.$.offToggleLabel.setDisabled(this.value);
 	},
 	onContentChanged: function() {
 		this.updateContent();
@@ -146,6 +135,5 @@ enyo.kind({
 				this.$.onToggleLabel.applyStyle("width","auto");
 			}
 		}
-		this.resized();
 	}
 });
