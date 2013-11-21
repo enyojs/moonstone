@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.Sample.Wizard.MiniPanel",
-	kind: "moon.Sample.Wizard.Panel",
+	kind: "moon.Sample.Wizard.FullPanel",
 	smallHeader: true,
 	components: [
 		{fit:true, kind: "moon.Scroller", horizontal: "hidden", components: [

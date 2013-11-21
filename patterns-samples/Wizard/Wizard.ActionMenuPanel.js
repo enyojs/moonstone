@@ -1,6 +1,6 @@
 enyo.kind({
 	name: "moon.Sample.Wizard.ActionMenuPanel",
-	kind: "moon.Sample.Wizard.Panel",
+	kind: "moon.Sample.Wizard.FullPanel",
 	headerComponents: [
 		{name: "listAction", kind: "moon.ListActions", autoCollapse: true, iconSrc: "./assets/icon-list.png", listActions: [
 			{action: "Cost", components: [

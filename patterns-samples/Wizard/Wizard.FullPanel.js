@@ -1,5 +1,5 @@
 enyo.kind({
-	name: "moon.Sample.Wizard.Panel",
+	name: "moon.Sample.Wizard.FullPanel",
 	kind: "moon.Panel",
 	autoNumber: false,
 	events: {
