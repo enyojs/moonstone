@@ -7,6 +7,7 @@ enyo.kind({
 	kind : enyo.Popup,
 	
 	//* @protected
+	modal     : true,
 	classes   : "moon moon-neutral enyo-unselectable moon-popup",
 	floating  : true,
 	_bounds   : null,
@@ -39,7 +40,7 @@ enyo.kind({
 			is a singleton and you will be modifying the scrim instance used for
 			other popups.
 		*/
-		// scrimClassName: "",
+		scrimClassName: "",
 		/**
 			If true, spotlight (focus) cannot leave the area of the popup unless the
 			popup is explicitly closed; if false, spotlight may be moved anywhere
@@ -58,7 +59,8 @@ enyo.kind({
 	//* @protected
 	tools: [
 		{name: "client", classes:"enyo-fill"},
-		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", showing:false},
+		{name: "spotlightDummy", spotlight:false}
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
@@ -123,7 +125,6 @@ enyo.kind({
 
 		if (shouldShow != this.$.closeButton.getShowing()) {
 			this.$.closeButton.setShowing(shouldShow);
-			this.$.closeButton.spotlight = shouldShow;
 			this.addRemoveClass("reserve-close", shouldShow);
 			if (this.generated) {
 				this.resized();
@@ -172,8 +173,11 @@ enyo.kind({
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
 			this.configCloseButton();
+			this.$.spotlightDummy.spotlight = false;
 			if (enyo.Spotlight.isSpottable(this)) {
-				enyo.Spotlight.setPointerMode(false);
+				enyo.Spotlight.spot(this);
+			} else {
+				this.$.spotlightDummy.spotlight = true;
 				enyo.Spotlight.spot(this);
 			}
 		}
@@ -235,7 +239,6 @@ enyo.kind({
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");
 		}
-		this.spotlight = false;
 		this.hide();
 	},
 	//* Attempts to respot _this.activator_ when _moon.Popup_ is hidden.
