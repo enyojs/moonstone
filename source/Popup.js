@@ -148,9 +148,6 @@ enyo.kind({
 			if(moon.Popup.count > 0) {
 				moon.Popup.count--;
 			}
-			if (this.generated) {
-				this.respotActivator();
-			}
 		}
 
 		if (this.animate) {
@@ -179,6 +176,10 @@ enyo.kind({
 			} else {
 				this.$.spotlightDummy.spotlight = true;
 				enyo.Spotlight.spot(this);
+			}
+		} else {
+			if (this.generated) {
+				this.respotActivator();
 			}
 		}
 	},
