@@ -80,12 +80,12 @@ enyo.kind({
 		autoplay: false,
 		/**
 			When false, fullscreen video control overlays (info or transport) are not
-			shown or hidden automatically in response to _up/down/ok_ events
+			shown or hidden automatically in response to _up/down_ events
 		*/
 		autoShowOverlay: true,
 		/**
 			When true, the overlay will be shown in response to pointer movement (in
-			addition to _up/down/ok_ events)
+			addition to _up/down_ events)
 		*/
 		shakeAndWake: false,
 		/**
@@ -208,7 +208,6 @@ enyo.kind({
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
-		onSpotlightSelect: 'spotlightSelectHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -247,7 +246,7 @@ enyo.kind({
 		]},
 
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", ontap: "toggleControls", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
 		
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
@@ -538,13 +537,6 @@ enyo.kind({
 			return true;
 		}
 	},
-	spotlightSelectHandler: function(inSender, inEvent) {
-		if (inEvent.originator == this && this.isLarge()) {
-			this.showFSInfo();
-			this.showFSBottomControls();
-			return true;
-		}
-	},
 
 	///// Fullscreen controls /////
 
@@ -556,16 +548,6 @@ enyo.kind({
 	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
 		return this.$.videoInfoHeader.getShowing() && this.$.playerControl.getShowing();
-	},
-	//* If currently in fullscreen, hides the controls on non-button taps.
-	toggleControls: function(inSender, inEvent) {
-		if (inEvent.originator === this.$.fullscreenControl) {
-			if (this.isOverlayShowing()) {
-				this.hideFSControls();
-			} else {
-				this.showFSControls();
-			}
-		}
 	},
 	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {
