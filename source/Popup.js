@@ -13,7 +13,7 @@ enyo.kind({
 	*/
 	modal: true,
 	floating: true,
-	_spotlight: null,
+	_spotlightOld: null,
 	_bounds: null,
 	spotlight: "container",
 	handlers: {
@@ -94,7 +94,7 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
+		this._spotlightOld = this.spotlight;
 	},
 	rendered: function () {
 		this.inherited(arguments);
@@ -174,13 +174,13 @@ enyo.kind({
 		this.showHideScrim(this.showing);
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
-			this.spotlight = this._spotlight;
+			this.spotlight = this._spotlightOld;
 			this.configCloseButton();
 			var spottableChildren = enyo.Spotlight.getChildren(this).length;
 			if (spottableChildren === 0) {
 				this.spotlight = false;
 			} else if ((this.spotlight) && (spottableChildren > 0)) {
-				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+				enyo.Spotlight.spot(this);
 			}
 		}
 	},
