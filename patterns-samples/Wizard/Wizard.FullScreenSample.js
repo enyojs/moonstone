@@ -94,9 +94,15 @@ enyo.kind({
 		this.getPanels()[0].initialSetting();
 	},
 	next: function() {
-		this.inherited(arguments);
-		if (this.index === this.getPanels().length - 1) {
-			this.getPanels()[this.index].finalSetting();
+		var panels = this.getPanels();
+		if (this.index === panels.length - 1) {
+			//exit Wizard
+			return true;
+		} else {
+			this.inherited(arguments);
+			if (this.index === panels.length - 1) {
+				this.getPanels()[this.index].finalSetting();
+			}
 		}
 	},
 	doCancel: function() {
