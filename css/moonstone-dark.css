@@ -64,7 +64,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso113"), url("../fonts/miso/miso-regular-113.woff") format("woff"), url("../fonts/miso/miso-regular-113.ttf") format("truetype");
+  src: local("Miso"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -456,7 +456,7 @@
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -465,7 +465,7 @@
 .moon-small-button-text {
   font-family: "Miso";
   font-size: 27px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -639,7 +639,7 @@
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -648,7 +648,7 @@
 .moon-small-button-text {
   font-family: "Miso";
   font-size: 27px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -716,9 +716,11 @@
 }
 .enyo-locale-non-latin .moon-large-button-text {
   font-size: 36px;
+  font-weight: normal;
 }
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
+  font-weight: normal;
 }
 .border-box {
   box-sizing: border-box;
@@ -2474,7 +2476,7 @@
 .moon-slider-popup-label {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -2486,6 +2488,7 @@
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
   font-size: 36px;
+  font-weight: normal;
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
@@ -3560,7 +3563,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .moon-tooltip-label {
   font-family: "Miso";
   font-size: 27px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -3577,6 +3580,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .enyo-locale-non-latin .moon-tooltip-label {
   font-family: "LG Display";
   font-size: 27px;
+  font-weight: normal;
 }
 .moon-tooltip.below {
   top: 100%;
@@ -3785,7 +3789,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .moon-video-transport-slider-popup-label {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -3797,6 +3801,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "LG Display";
   font-size: 36px;
+  font-weight: normal;
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
