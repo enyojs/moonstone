@@ -16,13 +16,17 @@ enyo.kind({
 		{name: "finalPage", kind: "moon.Sample.Wizard.Panel"}
 	],
 	bindings: [
-		{from: ".controller", to: ".$.introPage.controller"},
-		{from: ".controller", to: ".$.stepPage1.controller"},
-		{from: ".controller", to: ".$.stepPage2.controller"},
-		{from: ".controller", to: ".$.stepPage3.controller"},
-		{from: ".controller", to: ".$.stepPage4.controller"},
-		{from: ".controller", to: ".$.finalPage.controller"}
+		{from: ".collection", to: ".$.introPage.controller"},
+		{from: ".collection", to: ".$.stepPage1.controller"},
+		{from: ".collection", to: ".$.stepPage2.controller"},
+		{from: ".collection", to: ".$.stepPage3.controller"},
+		{from: ".collection", to: ".$.stepPage4.controller"},
+		{from: ".collection", to: ".$.finalPage.controller"}
 	],
+	create: function() {
+		this.inherited(arguments);
+		this.set("collection", app.$.WizardController);
+	},
 	next: function() {
 		this.inherited(arguments);
 		if (this.index === this.getPanels().length - 1) {
@@ -90,17 +94,10 @@ enyo.ready(function(){
 	});
 
 	new enyo.Application({
-		view: {
-			classes: "enyo-unselectable moon",
-			components: [
-				{
-					kind: "moon.Sample.Wizard.FullScreenSample",
-					controller: ".app.controllers.WizardController",
-					classes: "enyo-fit"
-				}
-			]
-		},
-		controllers: [
+		name: "app",
+		view: "moon.Sample.Wizard.FullScreenSample",
+		classes: "enyo-unselectable moon enyo-fit",
+		components: [
 			{
 				name: "WizardController",
 				kind: "enyo.ModelController",
