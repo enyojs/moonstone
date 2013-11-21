@@ -4046,6 +4046,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   background-size: 85px 170px;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
@@ -4649,6 +4650,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button:active,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {
