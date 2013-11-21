@@ -134,7 +134,7 @@ enyo.kind({
 	/**************************************************/
 
 	onSpotlightFocus: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView");
 	},
 
 	onSpotlightSelect: function(oSender, oEvent) {

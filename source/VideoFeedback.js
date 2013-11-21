@@ -33,8 +33,8 @@ enyo.kind({
 	_autoTimer: null,
 
 	components: [
-		{name: "leftIcon",  classes: "moon-video-feedback-icon-left",  allowHtml: true, content: "&nbsp;", showing: false},
-		{name: "feedText",  classes: "moon-video-feedback-text"},
+		{name: "leftIcon",  classes: "moon-video-feedback-icon-left", allowHtml: true, content: "&nbsp;", showing: false},
+		{name: "feedText",  classes: "moon-video-feedback-text", allowHtml: true, content: "&nbsp;"},
 		{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
 	],
 
@@ -111,7 +111,7 @@ enyo.kind({
 			inMessage = "";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
-			
+
 		case "JumpToEnd":
 			inMessage = "";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
