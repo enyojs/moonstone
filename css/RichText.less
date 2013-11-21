@@ -8,17 +8,16 @@
 	cursor: pointer;
 	background: transparent;
 	box-shadow: none;
-	min-height: 50px;
-	height: 96px;
-	min-width: 100px;
+	height: 3 * @moon-body-line-height;
+	width: 300px;
+	color: @moon-input-textarea-color;
 }
 .enyo-locale-non-latin .moon-richtext {
 	.enyo-locale-non-latin .moon-body-text;
 }
-
 .moon-input-decorator > .moon-richtext {
 	resize: none;
-    overflow: auto;
+	overflow: auto;
 	background-image: none;
 	box-shadow: none;
 	text-transform: none;
@@ -30,4 +29,19 @@
 }
 .moon-input-decorator.moon-disabled .moon-richtext {
 	cursor: default;
+}
+
+.moon-input-decorator .moon-richtext::-webkit-scrollbar {
+  width: 4px;
+}
+.moon-input-decorator .moon-richtext::-webkit-scrollbar-track-piece {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  background-color: @moon-input-decorator-bg-color;
+  -webkit-border-radius: 10px;
+}
+.moon-input-decorator .moon-richtext::-webkit-scrollbar-thumb:vertical {
+  height: 10px;
+  background-color: @moon-active-border-color;
+  -webkit-border-radius: 10px;
 }
