@@ -3849,8 +3849,10 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .moon-video-player {
   position: relative;
   display: inline-block;
-  margin: 0 10px;
   background-color: #000000;
+}
+.moon-video-player:not(.enyo-fullscreen) {
+  margin: 0 10px;
 }
 .moon-video-player-container {
   display: block;
@@ -3876,6 +3878,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-webkit-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-webkit-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3883,6 +3886,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-moz-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-moz-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3890,6 +3894,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-ms-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-ms-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3897,6 +3902,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-o-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-o-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3904,6 +3910,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
