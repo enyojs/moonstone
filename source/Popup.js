@@ -5,21 +5,21 @@
 enyo.kind({
 	name : "moon.Popup",
 	kind : enyo.Popup,
-	
+
 	//* @protected
 	modal     : true,
 	classes   : "moon moon-neutral enyo-unselectable moon-popup",
 	floating  : true,
 	_bounds   : null,
 	spotlight : "container",
-	
+
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
 		ontransitionend           : "animationEnd",
 		onSpotlightSelect         : "onSpotlightSelect",
 		onSpotlightContainerLeave : "onLeave"
 	},
-	
+
 	//* @public
 	published: {
 		/**
@@ -161,7 +161,7 @@ enyo.kind({
 			} else {
 				this.animateHide();
 				var args = arguments;
-				this.animationEnd = enyo.bind(this, function() {
+				this.animationEnd = this.bindSafely(function() {
 					this.inherited(args);
 				});
 			}
