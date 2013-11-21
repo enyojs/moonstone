@@ -802,16 +802,19 @@ enyo.kind({
 	//* @protected
 	fullscreenChanged: function(inSender, inEvent) {
 		enyo.Spotlight.unspot();
-		this.addRemoveClass("inline", !this.isFullscreen());
-		this.$.inlineControl.setShowing(!this.isFullscreen());
-		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
 			this.$.ilFullscreen.undepress();
 			this.spotlight = true;
+			this.removeClass("inline");
+			this.$.inlineControl.setShowing(false);
+			this.$.fullscreenControl.setShowing(true);
 			this.showFSControls();
 			this.$.controlsContainer.resized();
 		} else {
 			this.stopJob("autoHide");
+			this.addClass("inline");
+			this.$.inlineControl.setShowing(true);
+			this.$.fullscreenControl.setShowing(false);
 			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.spotlight = false;
 		}
