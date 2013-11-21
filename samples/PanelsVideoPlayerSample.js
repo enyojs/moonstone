@@ -72,7 +72,7 @@ enyo.kind({
 					}]
 				},
 				{classes: "moon-3h", components: [
-					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
+					{kind: "moon.Item", classes:"moon-item-capture",content: "Capture", ontap: "capture"}
 				]}
 			]},
 			{kind: "moon.Panel", title: "Capture to Canvas", components: [
