@@ -16,8 +16,7 @@ enyo.kind({
 		onRequestHidePopup        : "requestHide",
 		onActivate                : "decorateActivateEvent",
 		onRequestScrollIntoView   : "_preventEventBubble",
-		onSpotlightContainerLeave : "onLeave",
-		onSpotlightSelect         : "onSpotlightSelect"
+		onSpotlightContainerLeave : "onLeave"
 	},
 	//* @public
 	published: {
@@ -62,6 +61,8 @@ enyo.kind({
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
+		this.eventsToCapture = enyo.clone(this.eventsToCapture);
+		this.eventsToCapture.onSpotlightKeyDown = "capturedKeyDown";
 	},
 	//* Renders the contextual popup.
 	render: function() {
@@ -105,16 +106,6 @@ enyo.kind({
 			this.hide();
 		}
 	},
-	onSpotlightSelect: function(inSender, inEvent) {
-		this.downEvent = inEvent;
-	},
-	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
-	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
-			return this.inherited(arguments);
-		}
-	},
 	closePopup: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this.activator);
 		this.$.closeButton.removeClass("pressed");
@@ -146,6 +137,12 @@ enyo.kind({
 	//* Called when _this.showCloseButton_ changes.
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
+	},
+	capturedKeyDown: function(inSender, inEvent) {
+		if (inEvent.keyCode == 13) {
+			this.downEvent = inEvent;
+		}
+		return this.modal;
 	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
