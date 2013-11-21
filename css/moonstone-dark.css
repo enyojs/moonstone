@@ -1,5 +1,5 @@
 /* WARNING: This is a generated file for backward-compatibility.  Most      */
-/* users should instead modify LESS files.  If you choose to edit this CSS  */
+/* users should instead modify LESS files.  If you choose to edit this CSS   */
 /* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
 /* is commented out in your debug.html, and run deploy.sh/bat using the     */
 /* '-c' flag to disable LESS compilation.  This will force the loader and   */
@@ -2521,7 +2521,8 @@
   cursor: pointer;
   background: transparent;
   box-shadow: none;
-  min-height: 20px;
+  min-height: 50px;
+  height: 96px;
   min-width: 100px;
 }
 .moon-richtext a:link {
