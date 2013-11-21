@@ -99,6 +99,7 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		this.updateOverlays();
 	},
 	//prevent scroller dragging
 	dragstart: function(inSender, inEvent) {
@@ -157,7 +158,7 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView");
 	},
 	spotlightBlur: function() {
 		this.hideTopOverlay();

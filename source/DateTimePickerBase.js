@@ -37,7 +37,7 @@ enyo.kind({
 			This setting only applies when the _ilib_ library is loaded.
 
 			* When ilib is not present, US English (en-US) formatting is applied.
-			
+
 			* When ilib is present and _locale_ is set to the default value (_null_),
 			the picker uses ilib's current locale (which ilib tries to determine
 			from the system).

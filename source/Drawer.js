@@ -57,8 +57,8 @@ enyo.kind({
 		onDrawersResized: "drawersResized"
 	},
 	components: [
-		{name: "client", kind: "moon.FullScreenDrawer"},
-		{name: "controlDrawer", kind: "enyo.Drawer"}
+		{name: "client", kind: "moon.FullScreenDrawer", resizeContainer:false},
+		{name: "controlDrawer", kind: "enyo.Drawer", resizeContainer:false}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -141,6 +141,10 @@ enyo.kind({
 		drawerProps: null
 	},
 	//* @protected
+	initComponents: function() {
+		this.inherited(arguments);
+		this.$.client.setShowing(true);
+	},
 	openChanged: function() {
 		this.$.client.show();
 		if (this.hasNode()) {
@@ -168,8 +172,6 @@ enyo.kind({
 					this.animatorEnd();
 				}
 			}
-		} else {
-			this.$.client.setShowing(this.open);
 		}
 	},
 	animatorEnd: function() {
@@ -192,5 +194,7 @@ enyo.kind({
 	},
 	drawerPropsChanged: function(){
 		this.$.client.applyStyle("height", this.drawerProps.height + "px");
+		this.$.client.resized();
+		this.$.client.setShowing(this.open);
 	}
 });

@@ -187,15 +187,20 @@ enyo.kind({
 			}
 
 			if (showHorizontal) {
+				var intDirection = 1;
+				// Reverse the direction for RTL
+				if (this.$.pageLeftControl.rtl) {
+					intDirection = -1;
+				}
 				if (inEvent.wheelDeltaX) {
-					dir = inEvent.wheelDeltaX >= 0 ? 1 : -1;
+					dir = (inEvent.wheelDeltaX >= 0 ? 1 : -1) * intDirection;
 					val = Math.abs(inEvent.wheelDeltaX * this.scrollWheelMultiplier);
 					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
 					delta = Math.min(val, max);
 					x = (isScrolling ? this.lastScrollToX : this.scrollLeft) + -dir * delta;
 				} else if (!showVertical) {
 					// only use vertical wheel for horizontal scrolling when no vertical bars shown
-					dir = inEvent.wheelDeltaY >= 0 ? 1 : -1;
+					dir = (inEvent.wheelDeltaY >= 0 ? 1 : -1) * intDirection;
 					val = Math.abs(inEvent.wheelDeltaY * this.scrollWheelMultiplier);
 					max = this.scrollBounds.clientWidth * this.scrollWheelPageMultiplier;
 					delta = Math.min(val, max);
@@ -352,6 +357,11 @@ enyo.kind({
 		var x = -1 * this.scrollLeft,
 			y = -1 * this.scrollTop
 		;
+
+		/// Reverse the direction for RTL
+		if (this.$.pageLeftControl.rtl) {
+			x*= -1;
+		}
 
 		return (this.accel)
 			?   "1,         0,     0,  0, "
@@ -657,3 +667,11 @@ enyo.kind({
 	}
 });
  
+// FIXME: Webkit will change the scrollTop value of the scroller viewport to keep the current
+// tab-focused control onscreen if we allow it to handle tabs itself, so we defeat native
+// TAB focus movement here.
+enyo.dispatcher.features.push(function(e) {
+	if ((e.type == "keydown") && (e.keyCode == 9)) {
+		e.preventDefault();
+	}
+});

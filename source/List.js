@@ -14,18 +14,6 @@ enyo.kind({
 	kind: "enyo.List",
 	//* @protected
 	classes: "moon-list",
-	//* @public
-	published: {
-		//* If true, paging controls are hidden if a key is pressed (in 5-way mode)
-		hidePagingOnKey: true,
-		//* If true, paging controls are hidden if the user's pointer leaves this control
-		hidePagingOnLeave: true,
-		/**
-			Amount to scroll when a paging control is tapped. Set to the row size by
-			default.
-		*/
-		pageSize: null
-	},
 	//* @protected
 	/**
 		Default scrolling strategy is _moon.ScrollStrategy_, which extends
