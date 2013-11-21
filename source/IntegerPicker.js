@@ -97,6 +97,13 @@ enyo.kind({
 			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 		}));
 	},
+	setValue: function(newValue) {
+		if (this.min > newValue || this.max < newValue) { return; }
+		if (this.value === newValue) { return; }
+		var oldValue = this.value;
+		this.value = newValue;
+		this.valueChanged(oldValue);
+	},
 	valueChanged: function(inOld) {
 		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 	},
