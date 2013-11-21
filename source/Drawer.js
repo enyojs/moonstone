@@ -81,7 +81,7 @@ enyo.kind({
 		if (this.controlDrawerComponents == null) {
 			return clientHeight;
 		} else {
-			this.controlDrawerHeight = (this.controlDrawerHeight) ? this.controlDrawerHeight : this.$.controlDrawer.hasNode().getBoundingClientRect().height
+			this.controlDrawerHeight = (this.controlDrawerHeight) ? this.controlDrawerHeight : this.$.controlDrawer.hasNode().getBoundingClientRect().height;
 			return (clientHeight - this.controlDrawerHeight);
 		}
 	},
