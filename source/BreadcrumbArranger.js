@@ -35,6 +35,22 @@
 enyo.kind({
 	name: "moon.BreadcrumbArranger",
 	kind: "enyo.DockRightArranger",
+	//* @public
+	/**
+		Returns an object containing information about the state
+		of a given panel (identified by _inPanelIndex_) within a
+		given arrangement (identified by _inActiveIndex).
+
+		Specifically, _moon.BreadcrumbArranger_ reports whether a panel
+		is offscreen, and whether it is in breadcrumb (collapsed) form.
+	*/
+	getPanelInfo: function(inPanelIndex, inActiveIndex) {
+		return {
+			breadcrumb: this.isBreadcrumb(inPanelIndex, inActiveIndex),
+			offscreen: this.isOffscreen(inPanelIndex, inActiveIndex)
+		};
+	},
+	//* @protected
 	breadcrumbWidth: 230,
 	debug: false,
 	size: function() {
@@ -146,15 +162,26 @@ enyo.kind({
 		var breadcrumbEdge = this.getBreadcrumbEdge(inIndex),
 			panels = this.container.getPanels(),
 			xPos,
-			i;
+			i,
+			patternOffset = 0;
+
+		if (this.container.pattern == "activity") {
+			// add some positional sugar just for the activity breadcrumbs
+			if (inIndex === 0) {
+				patternOffset = breadcrumbEdge;
+			}
+			else {
+				patternOffset = breadcrumbEdge - this.breadcrumbWidth;
+			}
+		}
 
 		// each active item should be at _breadcrumbEdge_
 		if (inIndex === inPanelIndex) {
-			return breadcrumbEdge + this.getBreadcrumbGap()/2;
+			return breadcrumbEdge + this.getBreadcrumbGap()/2 - patternOffset;
 
 		// breadcrumbed panels should be positioned to the left
 		} else if (inIndex > inPanelIndex) {
-			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2;
+			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - patternOffset;
 
 		// upcoming panels should be layed out to the right if _joinToPrev_ is true
 		} else {
@@ -168,11 +195,11 @@ enyo.kind({
 			i = inPanelIndex;
 			while (i > inIndex) {
 				if (panels[i - 1]) {
-					xPos += panels[i - 1].width;
+					xPos += panels[i - 1].width - patternOffset;
 				}
 				i--;
 			}
-
+			
 			return xPos;
 		}
 	},
@@ -211,7 +238,6 @@ enyo.kind({
 
 			var totalWidth = panels[i].width + 
 				this.getBreadcrumbEdge(inJoinedPanels[i][0]) + 
-				this.getContainerPadding().left + 
 				this.getBreadcrumbGap();
 
 			// Add the width of each additional panel that is visible at this index
@@ -243,8 +269,8 @@ enyo.kind({
 						match = true;
 					}
 				}
-				panels[i].actualWidth = (match) ? 
-					panels[i].width : 
+				panels[i].actualWidth = (match) ?
+					panels[i].width :
 					inContainerWidth - this.getBreadcrumbEdge(i) - this.getBreadcrumbGap();
 			}
 		}
@@ -306,8 +332,14 @@ enyo.kind({
 			this.arrangeControl(c, {left: xPos});
 		}
 	},
-	isOutOfScreen: function(inIndex) {
-		return this.container.transitionPositions[inIndex+"."+this.container.getIndex()] >= this.containerBounds.width;
+	isOffscreen: function(inPanelIndex, inActiveIndex) {
+		var transitionPosition = this.container.transitionPositions[inPanelIndex + "." + inActiveIndex];
+		var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inPanelIndex) : 0;
+		if (transitionPosition < 0) {
+			return transitionPosition + this.breadcrumbWidth <= screenEdge;
+		} else {
+			return transitionPosition >= this.containerBounds.width;
+		}
 	},
 	isBreadcrumb: function(inPanelIndex, inActiveIndex) {
 		return this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
@@ -327,7 +359,7 @@ enyo.kind({
 	getBreadcrumbEdge: function(inIndex) {
 		var leftMargin = this.getContainerWidth() * (1 - this.container.panelCoverRatio);
 		if (this.container.panelCoverRatio == 1) {
-			leftMargin += this.getContainerPadding().left;
+			leftMargin += this.getContainerPadding().left + this.getContainerPadding().right;
 		}
 		if (this.container.showFirstBreadcrumb && inIndex !== 0) {
 			leftMargin += this.breadcrumbWidth;
@@ -346,30 +378,27 @@ enyo.kind({
 	getContainerPadding: function() {
 		return this.container.hasNode() ? enyo.dom.calcPaddingExtents(this.container.node) : {};
 	},
-	getTransitionOptions: function(fromIndex, toIndex) {
-		return {isBreadcrumb: this.isBreadcrumb(fromIndex, toIndex)};
-	},
 	//* Return _true_ if any panels will move in the transition from _inFromIndex_ to _inToIndex_
 	shouldArrange: function(inFromIndex, inToIndex) {
 		if (!(inFromIndex >= 0 && inToIndex >= 0)) {
 			return;
 		}
-		
+
 		var transitionPositions = this.container.transitionPositions,
 			panelCount = this.container.getPanels().length,
 			panelIndex,
 			from,
 			to;
-		
+
 		for (panelIndex = 0; panelIndex < panelCount; panelIndex++) {
 			from = transitionPositions[panelIndex + "." + inFromIndex];
 			to = transitionPositions[panelIndex + "." + inToIndex];
-			
+
 			if (from !== to) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 });

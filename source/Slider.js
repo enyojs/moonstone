@@ -60,7 +60,7 @@ enyo.kind({
 		showPercentage: true,
 		//* Popup width in pixels
 		popupWidth: "auto",
-		//* Popup height in pixels
+		//* Popup height in pixels, and it is designed for under 72 pixels.
 		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
@@ -95,7 +95,7 @@ enyo.kind({
 		ondragstart: "dragstart",
 		ondrag: "drag",
 		ondragfinish: "dragfinish",
-		onSpotlightFocus: "spotFocus",
+		onSpotlightFocused: "spotFocused",
 		onSpotlightSelect: "spotSelect",
 		onSpotlightBlur: "spotBlur",
 		onSpotlightLeft: "spotLeft",
@@ -196,6 +196,10 @@ enyo.kind({
 	},
 	//* Updates popup height.
 	popupHeightChanged: function() {
+		if (this.getPopupHeight() >= 72) {
+			enyo.warn("This popupHeight API is designed for under 72 pixels.");
+		}
+
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
 		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 7 + 'px');
@@ -388,8 +392,10 @@ enyo.kind({
 		this.doAnimateFinish(inSender);
 		return true;
 	},
-	spotFocus: function() {
-		return;
+	spotFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView");
+		}
 	},
 	spotSelect: function() {
 		var sh = this.$.popup.getShowing();

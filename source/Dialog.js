@@ -29,7 +29,8 @@ enyo.kind({
 			]
 		},
 		{kind: "moon.Divider", classes: "moon-dialog-divider"},
-		{name: "message", kind:"moon.BodyText", classes: "moon-dialog-content"}
+		{name: "message", kind:"moon.BodyText", classes: "moon-dialog-content"},
+		{name: "spotlightDummy", spotlight:false}
 	],
 	create: function() {
 		this.inherited(arguments);

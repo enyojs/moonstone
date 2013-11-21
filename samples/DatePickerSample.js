@@ -10,6 +10,7 @@ enyo.kind({
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: 'Use Default Locale', active: true},
 					{content: 'en-US'},
+					{content: "th-TH"},	//Thailand
 					{content: 'ko-KR'},
 					{content: 'en-CA'},
 					{content: 'en-IE'},
