@@ -162,15 +162,26 @@ enyo.kind({
 		var breadcrumbEdge = this.getBreadcrumbEdge(inIndex),
 			panels = this.container.getPanels(),
 			xPos,
-			i;
+			i,
+			patternOffset = 0;
+
+		if (this.container.pattern == "activity") {
+			// add some positional sugar just for the activity breadcrumbs
+			if (inIndex === 0) {
+				patternOffset = breadcrumbEdge;
+			}
+			else {
+				patternOffset = breadcrumbEdge - this.breadcrumbWidth;
+			}
+		}
 
 		// each active item should be at _breadcrumbEdge_
 		if (inIndex === inPanelIndex) {
-			return breadcrumbEdge + this.getBreadcrumbGap()/2;
+			return breadcrumbEdge + this.getBreadcrumbGap()/2 - patternOffset;
 
 		// breadcrumbed panels should be positioned to the left
 		} else if (inIndex > inPanelIndex) {
-			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2;
+			return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - patternOffset;
 
 		// upcoming panels should be layed out to the right if _joinToPrev_ is true
 		} else {
@@ -184,11 +195,11 @@ enyo.kind({
 			i = inPanelIndex;
 			while (i > inIndex) {
 				if (panels[i - 1]) {
-					xPos += panels[i - 1].width;
+					xPos += panels[i - 1].width - patternOffset;
 				}
 				i--;
 			}
-
+			
 			return xPos;
 		}
 	},
@@ -225,9 +236,8 @@ enyo.kind({
 				continue;
 			}
 
-			var totalWidth = panels[i].width +
-				this.getBreadcrumbEdge(inJoinedPanels[i][0]) +
-				this.getContainerPadding().left +
+			var totalWidth = panels[i].width + 
+				this.getBreadcrumbEdge(inJoinedPanels[i][0]) + 
 				this.getBreadcrumbGap();
 
 			// Add the width of each additional panel that is visible at this index
@@ -349,7 +359,7 @@ enyo.kind({
 	getBreadcrumbEdge: function(inIndex) {
 		var leftMargin = this.getContainerWidth() * (1 - this.container.panelCoverRatio);
 		if (this.container.panelCoverRatio == 1) {
-			leftMargin += this.getContainerPadding().left;
+			leftMargin += this.getContainerPadding().left + this.getContainerPadding().right;
 		}
 		if (this.container.showFirstBreadcrumb && inIndex !== 0) {
 			leftMargin += this.breadcrumbWidth;

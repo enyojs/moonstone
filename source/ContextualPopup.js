@@ -4,20 +4,19 @@
 	[moon.ContextualPopupDecorator](#moon.ContextualPopupDecorator).
 */
 enyo.kind({
-	name: "moon.ContextualPopup",
-	kind: "enyo.Popup",
+	name : "moon.ContextualPopup",
+	kind : "enyo.Popup",
+	
 	//* @protected
-	layoutKind: "ContextualLayout",
-	classes: "moon-body-text moon-contextual-popup",
+	layoutKind : "ContextualLayout",
+	classes    : "moon-body-text moon-contextual-popup",
+	
 	handlers: {
-		onRequestShowPopup: "requestShow",
-		onRequestHidePopup: "requestHide",
-		onActivate: "decorateActivateEvent",
-		onSpotlightUp: "spotlightUp",
-		onSpotlightDown: "spotlightDown",
-		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight",
-		onRequestScrollIntoView: "_preventEventBubble"
+		onRequestShowPopup        : "requestShow",
+		onRequestHidePopup        : "requestHide",
+		onActivate                : "decorateActivateEvent",
+		onRequestScrollIntoView   : "_preventEventBubble",
+		onSpotlightContainerLeave : "onLeave"
 	},
 	//* @public
 	published: {
@@ -35,7 +34,6 @@ enyo.kind({
 	},
 	//* @protected
 	spotlight: "container",
-	_spotlight: null,
 	floating:true,
 	eventsToCapture: { down:1, tap:1, onSpotlightKeyDown:1 },
 	/**
@@ -70,19 +68,20 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
 	},
 	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
 		this.activator = inEvent.activator;
-		this.spotlight = this._spotlight;
 		if (n) {
 			this.activatorOffset = this.getPageOffset(n);
 		}
 		this.show();
 		this.configCloseButton();
-		this.configSpotlightBehavior(true);
+		if (enyo.Spotlight.isSpottable(this)) {
+			enyo.Spotlight.setPointerMode(false);
+			enyo.Spotlight.spot(this);
+		}
 		return true;
 	},
 	decorateActivateEvent: function(inSender, inEvent) {
@@ -130,22 +129,6 @@ enyo.kind({
 	allowHtmlChanged: function() {
 		this.$.client.setAllowHtml(this.allowHtml);
 	},
-	//* Spotlights the first spottable control, if possible.
-	configSpotlightBehavior: function(spotChild) {
-		if (enyo.Spotlight.getChildren(this).length > 0) {
-			if (spotChild) {
-				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
-			}
-		} else if (!this.spotlightModal) {
-			this.activator.keepOpen = false;
-			this.spotlight = false;
-		}
-	},
-	//* Called when _this.spotlight_ changes.
-	spotlightChanged: function() {
-		this._spotlight = this.spotlight;
-		this.configSpotlightBehavior(false);
-	},
 	//* Called when _this.spotlightModal_ changes.
 	spotlightModalChanged: function() {
 		this.configCloseButton();
@@ -162,45 +145,11 @@ enyo.kind({
 		}
 		return this.inherited(arguments);
 	},
-	//* Checks whether to allow spotlight to move in a given direction.
-	spotChecker: function(inDirection) {
-		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
-		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
-			if (this.spotlightModal) {
-				return true;
-			} else {
-				enyo.Spotlight.spot(this.activator);
-				this.hide();
-			}
+	onLeave: function(oSender, oEvent) {
+		if (oEvent.originator == this) {
+			enyo.Spotlight.spot(this.activator);
+			this.hide();
 		}
-	},
-	/**
-		When spotlight reaches top edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightUp: function(inSender, inEvent) {
-		return this.spotChecker("UP");
-	},
-	/**
-		When spotlight reaches bottom edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightDown: function(inSender, inEvent) {
-		return this.spotChecker("DOWN");
-	},
-	/**
-		When spotlight reaches left edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightLeft: function(inSender, inEvent) {
-		return this.spotChecker("LEFT");
-	},
-	/**
-		When spotlight reaches right edge of popup, prevents user from
-		continuing further.
-	*/
-	spotlightRight: function(inSender, inEvent) {
-		return this.spotChecker("RIGHT");
 	},
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;

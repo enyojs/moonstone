@@ -76,6 +76,11 @@ enyo.kind({
 
 	//* @public
 
+	//* Returns true if a transition between panels is currently in progress.
+	inTransition: function() {
+		return this.transitionInProgress;
+	},
+
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added

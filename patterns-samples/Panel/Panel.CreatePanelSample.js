@@ -66,7 +66,7 @@ enyo.kind({
 	next: function(inSender, inEvent) {
 		// Example of Current panel drives next panel.
 		// The better way is using static panels and change content only based on item selection.
-		if(this.$.panels.getPanelIndex(inSender) == this.$.panels.getIndex()) {
+		if (!this.$.panels.inTransition() && this.$.panels.getPanelIndex(inSender) == this.$.panels.getIndex()) {
 			this.$.panels.replacePanel(1, {kind: 'myPanel', title: inSender.getContent()});
 			this.$.panels.next();
 		}
