@@ -24,28 +24,14 @@ enyo.kind({
 		{name: "post", kind: "moon.Button", ontap: "doNext", content: "Next"}
 	],
 	bindings: [
-		{from: ".controller.title", to: ".title"}
+		{from: ".controller.title", to: ".title"},
+		{from: ".controller.subTitle", to: ".subTitleBelow"},
+		{from: ".controller.imgSrc", to: ".$.imgmenu.src"},
+		{from: ".controller.instruction", to: ".$.headline.content"},
+		{from: ".controller.detail", to: ".$.detail.content"}
 	],
-	rendered: function() {
-		this.inherited(arguments);
-		this.initialSetting();
-	},
 	initialSetting: function() {
-		var idx = this.indexInContainer();
-		var subTitleIdx;
-		if (!idx) {
-			this.$.prev.hide();
-		}
-		if (idx < 9) {
-			subTitleIdx = "0" + (idx + 1);
-		}
-		var collection = this.controller.get('wizContainer');
-		var record = collection.at(idx);
-
-		this.$.header.setTitleBelow(subTitleIdx + ". " + record.get("subtitle"));
-		this.$.imgmenu.set("src", record.get("imgsrc"));
-		this.$.headline.set("content", record.get("instruction"));
-		this.$.detail.set("content", record.get("detail"));
+		this.$.prev.hide();
 	},
 	finalSetting: function() {
 		this.$.post.setContent("DONE");
