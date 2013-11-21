@@ -35,7 +35,6 @@ enyo.kind({
 	//* @protected
 	spotlight: "container",
 	floating:true,
-	eventsToCapture: { down:1, tap:1, onSpotlightKeyDown:1 },
 	/**
 		Determines whether a scrim will appear when the popup is modal.
 		Note that modal scrims are transparent, so you won't see them.
@@ -62,6 +61,8 @@ enyo.kind({
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
+		this.eventsToCapture = enyo.clone(this.eventsToCapture);
+		this.eventsToCapture.onSpotlightKeyDown = "capturedKeyDown";
 	},
 	//* Renders the contextual popup.
 	render: function() {
@@ -137,13 +138,11 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	capturedEvent: function(inEventName, inSender, inEvent) {
-		if (inEventName == "onSpotlightKeyDown") {
-			if (inEvent.keyCode == 13) {
-				this.downEvent = inEvent;
-			}
+	capturedKeyDown: function(inSender, inEvent) {
+		if (inEvent.keyCode == 13) {
+			this.downEvent = inEvent;
 		}
-		return this.inherited(arguments);
+		return this.modal;
 	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
