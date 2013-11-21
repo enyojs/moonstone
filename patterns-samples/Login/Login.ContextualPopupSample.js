@@ -39,7 +39,6 @@ enyo.kind({
 enyo.kind({
 	name: "moon.ContextualLoginPopup",
 	kind: "moon.ContextualPopup",
-	spotlightModal: true,
 	components: [
 		{
 			classes: "moon-5h moon-13v", // Do not define size on ContextualPopup directly.
@@ -103,7 +102,7 @@ enyo.kind({
 						]},
 						{kind: "moon.ContextualPopupDecorator", components: [
 							{classes: "moon-3h", content: "Share"},
-							{kind: "moon.ContextualLoginPopup"}
+							{kind: "moon.ContextualLoginPopup", spotlightModal: true}
 						]}
 					]}
 				]}
