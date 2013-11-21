@@ -25,15 +25,15 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 25%;", components: [
 			{content: "Left"},
-				{
-					kind: "moon.ContextualPopup",
-					classes: "moon-3h moon-4v",
-					components: [
-						{content:"Item 1"},
-						{content:"Item 2"},
-						{content:"Item 3"}
-					]
-				}
+			{
+				kind: "moon.ContextualPopup",
+				classes: "moon-3h moon-4v",
+				components: [
+					{content:"Item 1"},
+					{content:"Item 2"},
+					{content:"Item 3"}
+				]
+			}
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 25%;", components: [
 			{content:"Right", small:true},
