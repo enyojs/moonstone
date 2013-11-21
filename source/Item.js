@@ -4,15 +4,19 @@
 */
 enyo.kind({
 	name: "moon.Item",
+	//* @protected
 	classes: "moon-item",
 	mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"],
 	spotlight: true,
 	handlers: {
 		onSpotlightFocused: "spotlightFocused"
 	},
+	//* @public
 	published: {
-		//* When true, button is shown as disabled and does not generate tap
-		//* events
+		/**
+			When true, the control is shown as disabled and does not generate tap
+			events
+		*/
 		disabled: false
 	},
 	//* @protected
@@ -28,7 +32,7 @@ enyo.kind({
 	},
 	spotlightFocused: function(inSender, inEvent) {
 		if (inEvent.originator === this) {
-			this.bubble("onRequestScrollIntoView", {side: "top"});
+			this.bubble("onRequestScrollIntoView");
 		}
 	}
 });

@@ -1,11 +1,12 @@
 /**
-	_moon.LabeledTextItem_, which extends <a href="#moon.Item">moon.Item</a>, is a
-	control that combines text content with a text label.
+	_moon.LabeledTextItem_, which extends [moon.Item](#moon.Item), is a control
+	that combines text content with a text label.
 */
 
 enyo.kind({
     name: "moon.LabeledTextItem",
     kind: "moon.Item",
+    //* @protected
     classes: "moon-labeledtextitem",
     components:[
         {name: "label", classes: "label"},
@@ -16,6 +17,7 @@ enyo.kind({
         this.labelChanged();
         this.textChanged();
     },
+    //* @public
     published: {
         //* The label to be displayed along with the text
         label: '',

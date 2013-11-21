@@ -1,14 +1,17 @@
 /**
-	_moon.MeridiemPicker_ is a helper kind used by _moon.TimePicker_.  It is not
-	intended for use in other contexts.
+	_moon.MeridiemPicker_ is a helper kind used by
+	[moon.TimePicker](#moon.TimePicker).  It is not intended for use in other
+	contexts.
 */
 enyo.kind({
 	name: "moon.MeridiemPicker",
 	kind: "moon.IntegerPicker",
+	//* @protected
 	classes:"moon-date-picker-month",
 	min: 0,
 	max: 1,
 	value: null,
+	//* @public
 	published: {
 		/**
 			If _TimePicker.meridiemEnable_ is false, this value has not yet been
@@ -17,19 +20,27 @@ enyo.kind({
 		*/
 		meridiems: ["AM","PM"]
 	},
+	valueChanged: function() {
+		this.inherited(arguments);
+		this.updateOverlays();
+	},
+	//* @protected
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
 		this.$.item.setContent(this.meridiems[index]);
 	}
 });
 
+//*	@public
+
 /**
-	_moon.HourPicker_ is a helper kind used by _moon.TimePicker_.  It is not
-	intended for use in other contexts.
+	_moon.HourPicker_ is a helper kind used by [moon.TimePicker](#moon.TimePicker).
+	It is not intended for use in other contexts.
 */
 enyo.kind({
 	name: "moon.HourPicker",
 	kind: "moon.IntegerPicker",
+	//* @protected
 	classes:"moon-date-picker-field",
 	min: 1,
 	max: 24,
@@ -38,13 +49,13 @@ enyo.kind({
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index,
 			hour;
-			
+
 		if (index > 11) {	//current hour reached meridiem(noon)
 			index -= 12;
 		}
 
 		hour = index + this.min;
-		
+
 		if (this.zeroToEleven) {
 			hour = ('0' + (hour-1)).slice(-2);  // zero padded 0-11 value
 		}
@@ -52,19 +63,23 @@ enyo.kind({
 	}
 });
 
+//* @public
+
 /**
 	_moon.TimePicker_ is a control that can display--or allow the selection of--a
 	time expressed in hours and minutes, with an optional meridiem indicator
 	("am" or "pm").
 
+
 		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, onChange: "changed"}
 
-	Set the _value_ property to a standard JavaScript Date object to initialize
-	the picker, or to change it programmatically at runtime.
+	Set the _value_ property to a standard JavaScript Date object
+	to initialize the picker, or to change it programmatically at runtime.
 */
 enyo.kind({
 	name: "moon.TimePicker",
 	kind: "moon.DateTimePickerBase",
+	//* @public
 	published: {
 		/**
 			When true, the picker uses a 12-hour clock. (This value is ignored when
@@ -78,11 +93,11 @@ enyo.kind({
 		//* Optional label for meridiem
 		meridiemText: moon.$L("meridiem")	// i18n "MERIDIAN" label in moon.TimePicker widget
 	},
-	//*@protected
+	//* @protected
 	iLibFormatType  : "time",
 	defaultOrdering : "hma",
 	zeroToEleven    : false,
-	
+
 	initILib: function() {
 		this.inherited(arguments);
 
@@ -90,7 +105,7 @@ enyo.kind({
 		var li = new ilib.LocaleInfo(this.locale || undefined);
 		var clockPref = li.getClock();
 		this.meridiemEnable = (clockPref == '12');
-		
+
 		var fmtParams = {
 			type: "time",
 			time: "h",
@@ -100,7 +115,7 @@ enyo.kind({
 		if (this.locale) {
 			fmtParams.locale = this.locale;
 		}
-		var hourFormatter = new ilib.DateFmt(fmtParams); 
+		var hourFormatter = new ilib.DateFmt(fmtParams);
 
 		switch (hourFormatter.template) {
 		case 'KK':
@@ -132,14 +147,14 @@ enyo.kind({
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {				
+			if (doneArr.indexOf(o) < 0) {
 				doneArr.push(o);
 			}
 		}
 
 		for(f = 0, l = doneArr.length; f < l; f++) {
 			o = doneArr[f];
-		
+
 			switch (o){
 			case 'h': {
 					if (this.meridiemEnable === true) {
@@ -182,7 +197,7 @@ enyo.kind({
 			default:
 				break;
 			}
-		
+
 		}
 
 		this.inherited(arguments);
@@ -234,7 +249,7 @@ enyo.kind({
 			this.$.meridiem.setValue(hour > 11 ? 1 : 0);
 		}
 		if (!hour) {
-			hour = 24;
+			hour = (this.meridiemEnable) ? 24 : 0;
 		}
 		this.$.hour.setValue(hour);
 		this.$.minute.setValue(this.value.getMinutes());

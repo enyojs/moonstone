@@ -13,7 +13,9 @@
 */
 enyo.kind({
 	name: "moon.IntegerPicker",
+	//* @protected
 	classes: "moon-scroll-picker-container",
+	//* @public
 	published: {
 		//* Current value of the picker
 		value: null,
@@ -21,10 +23,11 @@ enyo.kind({
 		min: 0,
 		//* Maximum value of the picker
 		max: 9,
-		//* If a number is specified, picker value is displayed as this many
+		//* If a number is specified, the picker value is displayed as this many
 		//* zero-filled digits
 		digits: null
 	},
+	//* @protected
 	handlers: {
 		onSpotlightUp:"next",
 		onSpotlightDown:"previous",
@@ -32,6 +35,7 @@ enyo.kind({
 		onSpotlightScrollUp:"next",
 		onSpotlightScrollDown:"previous"
 	},
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected value changes (i.e., when either
@@ -43,7 +47,8 @@ enyo.kind({
 		*/
 		onChange: ""
 	},
-	spotlight:true,
+	//* @protected
+	spotlight: true,
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
@@ -94,6 +99,7 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		this.updateOverlays();
 	},
 	//prevent scroller dragging
 	dragstart: function(inSender, inEvent) {
@@ -152,7 +158,7 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView");
 	},
 	spotlightBlur: function() {
 		this.hideTopOverlay();

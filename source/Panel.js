@@ -1,8 +1,8 @@
 //* @public
 /**
 	_moon.Panel_ is the default kind for controls created inside a
-	<a href="#moon.Panels">moon.Panels</a> container.  Typically, a _moon.Panels_
-	will contain several instances of _moon.Panel_.
+	[moon.Panels](#moon.Panels) container. A _moon.Panels_ will typically contain
+	several instances of _moon.Panel_.
 
 	The built-in features of _moon.Panel_ include a header and a FittableRows
 	layout for the main body content.
@@ -10,6 +10,7 @@
 
 enyo.kind({
 	name: "moon.Panel",
+	//* @public
 	published: {
 		//* Facade for the header's _title_ property
 		title: "",
@@ -32,7 +33,7 @@ enyo.kind({
 		allowHtmlHeader: false,
 		//* URL of a background image for the header
 		headerBackgroundSrc: null,
-		//* Position properties for background image for the header
+		//* Position properties for the header's background image
 		headerBackgroundPosition: "top right",
 		//* Header options
 		headerOptions: null
@@ -43,9 +44,9 @@ enyo.kind({
 		//* Fires when this panel has completed its post-arrangement transition.
 		onPostTransitionComplete: ""
 	},
+	//* @protected
 	handlers: {
-		onScroll: "scroll",
-		onPanelsPostTransitionFinished: "panelsTransitionFinishHandler"
+		onScroll: "scroll"
 	},
 
 	//* @protected
@@ -70,7 +71,7 @@ enyo.kind({
 			]}
 		]},
 
-		{name: "animator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "animator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
 	headerConfig : {name: "header", kind: "moon.Header", onComplete: "headerAnimationComplete", isChrome: true},
 	bindings: [
@@ -85,13 +86,13 @@ enyo.kind({
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
-	
+
 	headerComponents: [],
 	isBreadcrumb: false,
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
@@ -116,17 +117,16 @@ enyo.kind({
 		enyo.mixin(hc, this.headerOptions || this.headerOption);
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
-	//* On reflow, update _this.$.contentWrapper_ bounds
+	//* On reflow, updates _this.$.contentWrapper_ bounds.
 	reflow: function() {
 		this.inherited(arguments);
 		this.getInitAnimationValues();
 		this.updateViewportSize();
-		this.shrinkWidthAnimation = this.createShrinkingWidthAnimation();
-		this.shrinkHeightAnimation = this.createShrinkingHeightAnimation();
-		this.growWidthAnimation = this.createGrowingWidthAnimation();
-		this.growHeightAnimation = this.createGrowingHeightAnimation();
+		this.createShrinkAnimation();
+		this.createGrowAnimation();
+		this.shrinkAsNeeded();
 	},
-	//* Update _this.$.contentWrapper_ to have the height/width of _this_
+	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
 	updateViewportSize: function() {
 		var node = this.hasNode();
 
@@ -143,7 +143,7 @@ enyo.kind({
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 	},
-	//* When _this.isBreadcrumb_ changes, update spottability
+	//* When _this.isBreadcrumb_ changes, updates spottability.
 	isBreadcrumbChanged: function() {
 		if (this.isBreadcrumb) {
 			this.addSpottableBreadcrumbProps();
@@ -197,114 +197,128 @@ enyo.kind({
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
 	},
 	addSpottableBreadcrumbProps: function() {
-		this.$.breadcrumbBackground.spotlight = true;
+		this.$.breadcrumbBackground.set("spotlight", true);
 	},
 	removeSpottableBreadcrumbProps: function() {
-		this.$.breadcrumbBackground.spotlight = false;
+		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
+	},
+	shrinkAsNeeded: function() {
+		if (this.needsToShrink) {
+			this.shrink();
+			this.needsToShrink = false;
+		}
+	},
+	stopMarquees: function() {
+		this.$.breadcrumbText.stopMarquee();
+		this.$.header.stopMarquee();
+	},
+	startMarqueeAsNeeded: function(inInfo) {
+		var onscreen = !inInfo.offscreen;
+		if (onscreen) {
+			if (this.isBreadcrumb) {
+				this.$.breadcrumbText.startMarquee();
+			}
+			else {
+				this.$.header.startMarquee();
+			}
+		}
 	},
 	//* Updates panel header dynamically.
 	getHeader: function() {
 		return this.$.header;
 	},
-	shrinkPanel: function() {
+	// Called directly by moon.Panels
+	initPanel: function(inInfo) {
+		this.set("isBreadcrumb", inInfo.breadcrumb);
+		if (this.isBreadcrumb) {
+			this.needsToShrink = true;
+		}
+		this.startMarqueeAsNeeded(inInfo);
+	},
+	// Called directly by moon.Panels
+	preTransition: function(inInfo) {
+		this.stopMarquees();
+
+		if (!this.shrinking && inInfo.breadcrumb && (!this.isBreadcrumb || this.growing)) {
+			this.shrinkAnimation();
+			return true;
+		}
+
+		return false;
+	},
+	// Called directly by moon.Panels
+	postTransition: function(inInfo) {
+		if (!this.growing && !inInfo.breadcrumb && (this.isBreadcrumb || this.shrinking)) {
+			this.growAnimation();
+			return true;
+		}
+
+		return false;
+	},
+	// Called directly by moon.Panels
+	transitionFinished: function(inInfo) {
+		if (!inInfo.animate) {
+			this.stopMarquees();
+
+			if (this.isBreadcrumb === true && inInfo.breadcrumb === false) {
+				this.grow();
+			}
+			if (this.isBreadcrumb === false && inInfo.breadcrumb === true) {
+				this.shrink();
+			}
+		}
+		this.set("isBreadcrumb", inInfo.breadcrumb);
+		this.startMarqueeAsNeeded(inInfo);
+	},
+	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
-		this.showingSmallHeader = false;
-		this.shrinkingHeightAnimation();
+		this.haltAnimations();
+		this.$.animator.play("shrink");
 	},
-	growPanel: function() {
+	shrink: function() {
+		this.$.animator.jumpToEnd("shrink");
+	},
+	growAnimation: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.showingSmallHeader = true;
-		this.growingWidthAnimation();
+		this.haltAnimations();
+		this.$.animator.play("grow");			
+	},
+	grow: function() {
+		this.$.animator.jumpToEnd("grow");
 	},
 	//* @protected
 	getInitAnimationValues: function() {
-		var node = this.hasNode();
-		this.initialHeight = node.offsetHeight;
-		this.initialWidth = node.offsetWidth;
-	},
-	shrinkingHeightAnimation: function() {
-		this.haltAnimations();
-		this.$.animator.play(this.shrinkHeightAnimation.name);
-	},
-	shrinkingWidthAnimation: function() {
-		this.haltAnimations();
-		this.preTransitionComplete();
-	},
-	growingHeightAnimation: function() {
-		this.haltAnimations();
-		this.$.animator.play(this.growHeightAnimation.name);
-	},
-	growingWidthAnimation: function() {
-		this.haltAnimations();
-		
-		this.growingHeightAnimation();
-		// NOTE - Skipping width grow animation
-		// this.$.animator.play(this.growWidthAnimation.name);
+		var node = this.hasNode(),
+			marginT = parseInt(enyo.dom.getComputedStyleValue(node, "margin-top"), 10),
+			marginR = parseInt(enyo.dom.getComputedStyleValue(node, "margin-right"), 10),
+			marginB = parseInt(enyo.dom.getComputedStyleValue(node, "margin-bottom"), 10),
+			marginL = parseInt(enyo.dom.getComputedStyleValue(node, "margin-left"), 10);
+		this.initialHeight = node.offsetHeight - marginT - marginB;
+		this.initialWidth = node.offsetWidth - marginR - marginL;
 	},
 	haltAnimations: function() {
 		this.$.animator.stop();
-		this.$.animator.pause(this.growWidthAnimation.name);
-		this.$.animator.pause(this.growHeightAnimation.name);
-		this.$.animator.pause(this.shrinkWidthAnimation.name);
-		this.$.animator.pause(this.shrinkHeightAnimation.name);
-	},
-	panelsTransitionFinishHandler: function(inSender, inEvent) {
-		// run breadcrumbText marquee when we're collapsed
-		if(this.showingSmallHeader) {
-			this.$.breadcrumbText.startMarquee();
-		} else {
-			this.$.breadcrumbText.stopMarquee();
-			if (inEvent.active == inEvent.index) {
-				this.$.header.startMarquee();
-			}
-		}
-		return true;
+		this.$.animator.pause("grow");
+		this.$.animator.pause("shrink");
 	},
 	preTransitionComplete: function() {
 		this.shrinking = false;
-		this.set("isBreadcrumb", true);
 		this.doPreTransitionComplete();
 	},
 	postTransitionComplete: function() {
 		this.growing = false;
-		this.set("isBreadcrumb", false);
 		this.doPostTransitionComplete();
 		this.resized();
 	},
-	preTransition: function(inFromIndex, inToIndex, options) {
-		this.$.header.stopMarquee();
-		this.$.breadcrumbText.stopMarquee();
-
-		if (!this.shrinking && options.isBreadcrumb && (!this.isBreadcrumb || this.growing)) {
-			this.shrinkPanel();
-			return true;
-		}
-
-		return false;
-	},
-	postTransition: function(inFromIndex, inToIndex, options) {
-		if (!this.growing && !options.isBreadcrumb && (this.isBreadcrumb || this.shrinking)) {
-			this.growPanel();
-			return true;
-		}
-
-		return false;
-	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
-		case "shrinkHeight":
-			this.shrinkingWidthAnimation();
-			return true;
-		case "shrinkWidth":
+		case "shrink":
 			this.preTransitionComplete();
 			return true;
-		case "growWidth":
-			this.growingHeightAnimation();
-			return true;
-		case "growHeight":
+		case "grow":
 			this.postTransitionComplete();
 			return true;
 		}
@@ -319,25 +333,9 @@ enyo.kind({
 			break;
 		}
 	},
-	createGrowingWidthAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "growWidth",
-			duration: 225,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [
-					{control: this.$.viewport, properties: { "width": "current" }}
-					
-				],
-				100: [
-					{control: this.$.viewport, properties: { "width": this.initialWidth + "px" }}
-				]
-			}
-		});
-	},
-	createGrowingHeightAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "growHeight",
+	createGrowAnimation: function() {
+		this.$.animator.newAnimation({
+			name: "grow",
 			duration: 400,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {
@@ -354,24 +352,9 @@ enyo.kind({
 			}
 		});
 	},
-	createShrinkingWidthAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "shrinkWidth",
-			duration: 225,
-			timingFunction: "cubic-bezier(.68,.4,.56,.98)",
-			keyframes: {
-				0: [
-					{control: this.$.breadcrumbBackground, properties: { "width": "current" }}
-				],
-				100: [
-					{control: this.$.breadcrumbBackground, properties: { "width": "current" }}
-				]
-			}
-		});
-	},
-	createShrinkingHeightAnimation: function() {
-		return this.$.animator.newAnimation({
-			name: "shrinkHeight",
+	createShrinkAnimation: function() {
+		this.$.animator.newAnimation({
+			name: "shrink",
 			duration: 500,
 			timingFunction: "cubic-bezier(.25,.1,.25,1)",
 			keyframes: {

@@ -6,8 +6,10 @@
 */
 enyo.kind({
 	name: "moon.ListActions",
+	//* @protected
 	classes: "moon-list-actions",
 	kind: "enyo.GroupItem",
+	//* @public
 	published: {
 		//* If true, the drawer is expanded, showing this item's contents
 		open: false,
@@ -17,7 +19,10 @@ enyo.kind({
 		*/
 		autoCollapse: false,
 		/**
-			List of actions to be displayed
+			A block of components (typically, lists of items) to be displayed inside
+			of a _moon.Scroller_; by default, it is a scroller without any components.
+			When instantiating _moon.ListActions_, declare
+			_listActions: &lt;your components&gt;_ to populate the scroller.
 		*/
 		listActions: null,
 		/**
@@ -31,6 +36,8 @@ enyo.kind({
 		*/
 		proportionalWidth: false
 	},
+
+	//* @protected
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
 		{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, spotlight: "container", spotlightModal:true, components: [
@@ -51,27 +58,28 @@ enyo.kind({
 	},
 	rendered: function() {
 		// Set the popup size before the drawer rendered is called, so that the drawer
-		// can properly translate itself out of the viewport 
+		// can properly translate itself out of the viewport
 		this.configurePopup();
 		this.inherited(arguments);
 	},
 	listActionsChanged: function() {
+		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
 		this.listActions = this.listActions || [];
-		this.renderListActionComponents();
+		this.renderListActionComponents(owner);
 	},
-	renderListActionComponents: function() {
+	renderListActionComponents: function(inOwner) {
 		this.noAutoCollapse = true;
-		this.createListActionComponents();
+		this.createListActionComponents(inOwner);
 		this.noAutoCollapse = false;
 	},
-	createListActionComponents: function() {
+	createListActionComponents: function(inOwner) {
 		var listAction, i;
-		
+
 		this.listActionComponents = [];
 		for (i = 0; (listAction = this.listActions[i]); i++) {
-			this.listActionComponents.push(this.createListActionComponent(listAction));
+			this.listActionComponents.push(this.createListActionComponent(listAction, inOwner));
 		}
-		
+
 		// Increase width to 100% if there is only one list action
 		if (this.proportionalWidth) {
 			this.addClass("proportional-width");
@@ -80,19 +88,19 @@ enyo.kind({
 				this.listActionComponents[i].applyStyle("width", w + "%");
 			}
 		}
-		
+
 		if (this.hasNode()) {
 			this.$.listActions.render();
 		}
 	},
 	//* Creates a new list action component based on _inListAction_.
-	createListActionComponent: function(inListAction) {
+	createListActionComponent: function(inListAction, inOwner) {
 		var listActionComponent;
-		
+
 		inListAction.mixins = this.addListActionMixin(inListAction);
-		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: this.getInstanceOwner(), layoutKind:"FittableRowsLayout"});
+		listActionComponent = this.$.listActions.createComponent(inListAction, {owner: inOwner, layoutKind:"FittableRowsLayout"});
 		listActionComponent.addClass("moon-list-actions-menu");
-		
+
 		return listActionComponent;
 	},
 	/**
@@ -111,25 +119,17 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
-		// If currently open, close and spot _this.$.activator_
-		if (this.getOpen()) {
-			this.setOpen(false);
-			enyo.Spotlight.spot(this.$.activator);
-			this.bubble("onRequestUnmuteTooltip");
-			this.setActive(false);
-		}
-		// If currently closed, resize and show _this.$.drawer_
-		else {
+		this.setActive(!this.getOpen());
+		this.setOpen(!this.getOpen());
+	},
+	openChanged: function(){
+		//If opened, show drawer and resize it if needed
+		if(this.open){
 			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
 				this.resizeDrawer();
 				this.drawerNeedsResize = false;
 			}
-			this.setOpen(true);
-			enyo.Spotlight.spot(this.$.closeButton);
-			this.bubble("onRequestMuteTooltip");
-			this.setActive(true);
 		}
 	},
 	//* Positions _this.$.drawer_ to fill the entire header.
@@ -137,7 +137,7 @@ enyo.kind({
 		var headerBounds = this.getHeaderBounds(),
 			bounds = this.getClientBounds(),
 			styleString = "";
-		
+
 		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
 		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
 		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
@@ -148,17 +148,24 @@ enyo.kind({
 		else {
 			styleString += "left: " + Math.ceil(headerBounds.left - bounds.left) + "px; ";
 		}
-		
+
 		this.$.drawer.addStyles(styleString);
 	},
 	drawerAnimationEnd: function() {
+		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
 			this.$.drawer.hide();
-		} else {
+			enyo.Spotlight.spot(this.$.activator);
+			this.bubble("onRequestUnmuteTooltip");
+		} 
+		//on open, move top and spot _this.$.closeButton_
+		else {
 			if (this.resetScroller) {
 				this.$.listActions.scrollTo(0, 0);
 				this.resetScroller = false;
 			}
+			enyo.Spotlight.spot(this.$.closeButton);
+			this.bubble("onRequestMuteTooltip");
 		}
 	},
 	updateStacking: function() {
@@ -186,7 +193,7 @@ enyo.kind({
 	},
 	stackMeUp: function() {
 		var optionGroup, i;
-	
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "block");
 			optionGroup.applyStyle("height", "none");
@@ -196,7 +203,7 @@ enyo.kind({
 		var containerHeight = this.getContainerBounds().height,
 			optionGroup,
 			i;
-		
+
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
 			optionGroup.applyStyle("height", containerHeight + "px");
@@ -238,7 +245,7 @@ enyo.kind({
 		inParent = inParent || this.parent;
 		if (inParent instanceof moon.Header || !inParent.parent) {
 			return inParent.hasNode();
-		} 
+		}
 		return this.getParentHeaderNode(inParent.parent);
 	},
 	resetCachedValues: function() {
@@ -248,15 +255,21 @@ enyo.kind({
 	}
 });
 
+/**
+	_moon.ListActionsDrawer_ is a control used by
+	[moon.ListActions](#moon.ListActions) to house a menu of selectable options.
+*/
 enyo.kind({
 	name: "moon.ListActionsDrawer",
+	//* @public
 	published: {
 		open: false
 	},
+	//* @protected
 	classes: "moon-list-actions-drawer",
 	components: [
 		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
-		{name: "animator", kind: "StyleAnimator", onStep: "step"}
+		{name: "animator", kind: "enyo.StyleAnimator", onStep: "step"}
 	],
 	rendered: function() {
 		this.inherited(arguments);

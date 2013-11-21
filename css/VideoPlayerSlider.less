@@ -38,13 +38,13 @@
 /* ---- Bar ---- */
 .moon-video-transport-slider-bar-bar {
 	height: 100%;
-	background-color: #ff2f7d;
+	background-color: @moon-pink;
 	position: absolute;
 	top: 0;
 }
 .moon-video-transport-slider-bg-bar {
 	height: 100%;
-	background-color: #4b4b4b;
+	background-color: @moon-dark-gray;
 	position: absolute;
 	top: 0;
 }
@@ -58,7 +58,7 @@
 .moon-video-transport-slider-popup-label {
 	.moon-large-button-text;
 	white-space: nowrap;
-	color: #4b4b4b;
+	color: @moon-dark-gray;
 	vertical-align: top;
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
@@ -66,10 +66,9 @@
 }
 .moon-video-transport-slider-popup-label > * {
 	display: inline-block;
-	padding-top: 14px;
+
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
-	padding-top: 9px;
 }
 
 .moon-video-transport-slider-indicator-wrapper {

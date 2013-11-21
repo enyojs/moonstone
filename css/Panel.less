@@ -2,15 +2,11 @@
 	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
 	padding: 0;
-	margin: 20px;
+	margin: 20px 10px;
 	height: 100%;
-	.moon-header {
-		margin: 0 10px;
+	&.enyo-fit {
+		height: auto;
 	}
-}
-.moon-panels .moon-panel {
-	height: auto;
-	margin: 0;
 }
 .moon-panel-viewport {
 	-webkit-transform: scale3d(1,1,1);
@@ -31,7 +27,7 @@
 /* Breadcrumb */
 .moon-panel-breadcrumb {
 	-webkit-transform: scale3d(1,1,1);
-	width: 230px;
+	width: 210px + (@moon-spotlight-outset * 2);
 	height: 370px;
 	position: absolute;
 	top: 0px;
@@ -48,13 +44,13 @@
 }
 .moon-panel-mini-header-wrapper {
 	-webkit-transform: scale3d(1,1,1);
-	margin: @moon-spotlight-outset 0 0;
+	margin: @moon-spotlight-outset 0 0 0;
 	position: absolute;
 	bottom: 10px;
 	left: 0;
 	height: 360px;
 	width: 100%;
-	padding: 0 @moon-spotlight-outset @moon-spotlight-outset;
+	padding: 0 @moon-spotlight-outset @moon-spotlight-outset @moon-spotlight-outset;
 	box-sizing: border-box;
 }
 .moon-panel-mini-header {
@@ -70,7 +66,7 @@
 }
 .moon-panel-mini-header-title-above {
 	color: @moon-header-text-color;
-	border-top: 2px solid @moon-header-border-color;
+	border-top: 2px solid @moon-spotlight-text-color;
 	padding-top: 5px;
 }
 .spotlight .moon-panel-mini-header-title-above {
@@ -81,7 +77,7 @@
 	background: @moon-pink;
 	color: @moon-white;
 	.moon-panel-mini-header-title-above {
-		border-top: 1px transparent;
+		border-top: 2px solid transparent;
 	}
 }
 

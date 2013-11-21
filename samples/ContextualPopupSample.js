@@ -34,44 +34,30 @@ enyo.kind({
 		]},
 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 45%;", components: [
 			{content:"Long but Small Button with truncation", small:true},
-			{kind: "moon.ContextualPopup", components: [
+			{kind: "moon.ContextualPopup", components: [	
+				{content:"Outside scroller", kind: "moon.Item"},
 				{classes: "moon-3h moon-16v", components: [
 					{kind: "moon.Scroller", classes: "enyo-fill", components: [
-						{content:"testing 1"},
-						{content:"testing 2"},
-						{content:"testing 3"},
-						{content:"testing 4"},
-						{content:"testing 5"},
-						{content:"testing 6"},
-						{content:"testing 7"},
-						{content:"testing 9"},
-						{content:"testing 10"},
-						{content:"testing 11"},
-						{content:"testing 12"},
-						{content:"testing 13"},
-						{content:"testing 14"},
-						{content:"testing 15"},
-						{content:"testing 16"},
-						{content:"testing 17"},
-						{content:"testing 18"},
-						{content:"testing 19"},
-						{content:"testing 20"},
-						{content:"testing 21"},
-						{content:"testing 22"},
-						{content:"testing 23"},
-						{content:"testing 24"},
-						{content:"testing 25"},
-						{content:"testing 26"},
-						{content:"testing 27"},
-						{content:"testing 28"},
-						{content:"testing 29"},
-						{content:"testing 30"},
-						{content:"testing 31"},
-						{content:"testing 32"},
-						{content:"testing 33"},
-						{content:"testing 34"},
-						{content:"testing 35"}
+						{content:"testing 1", kind: "moon.Item"},
+						{content:"testing 2", kind: "moon.Item"},
+						{content:"testing 3", kind: "moon.Item"},
+						{content:"testing 4", kind: "moon.Item"},
+						{content:"testing 5", kind: "moon.Item"},
+						{content:"testing 6", kind: "moon.Item"},
+						{content:"testing 7", kind: "moon.Item"},
+						{content:"testing 8", kind: "moon.Item"},
+						{content:"testing 9", kind: "moon.Item"},
+						{content:"testing 10", kind: "moon.Item"},
+						{content:"testing 12", kind: "moon.Item"},
+						{content:"testing 13", kind: "moon.Item"},
+						{content:"testing 14", kind: "moon.Item"},
+						{content:"testing 15", kind: "moon.Item"},
+						{content:"testing 16", kind: "moon.Item"},
+						{content:"testing 17", kind: "moon.Item"},
+						{content:"testing 18", kind: "moon.Item"},
+						{content:"testing 19", kind: "moon.Item"}
 					]}
+
 				]}
 			]}
 		]},
@@ -114,5 +100,6 @@ enyo.kind({
 	],
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
+		this.$.buttonPopup.setAutoDismiss(!inSender.getActive());
 	}
 });

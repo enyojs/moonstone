@@ -43,7 +43,7 @@ enyo.kind({
 	//* @protected
 	lockBottom: true,
 	autoCollapse: true,
-	
+
 	handlers: {
 		requestScrollIntoView: "requestScrollIntoView"
 	},
@@ -70,16 +70,19 @@ enyo.kind({
 		"showCurrentValue": ["open"],
 		"currentValueText": ["value", "unit", "noneText"]
 	},
-	
+
 	// Change handlers
-	valueChanged: function() {
+	valueChanged: function(inOld) {
+		if (this.value < this.min || this.value > this.max) {
+			this.value = inOld;
+		}
 		this.fireChangeEvent();
 	},
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
 	},
-	
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open;

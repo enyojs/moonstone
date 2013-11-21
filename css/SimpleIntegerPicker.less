@@ -1,4 +1,5 @@
 .moon-simple-integer-picker {
+  white-space: nowrap;
   .moon-sub-header-text;
   position: relative;
   display: table-cell;
@@ -69,7 +70,7 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: @moon-picker-button-width;
+  position: relative;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -80,6 +81,14 @@
   border-left-width: @moon-picker-button-width/2;
   border-left-style: solid;
   border-left-color: @moon-shadow-color;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
+  border-right-width: @moon-picker-button-width/2;
+  border-right-style: solid;
+  border-left-width: 0px;
+  border-left-style: none;
+  border-right-color: @moon-shadow-color;
+  right: 0px;
 }
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
@@ -92,10 +101,19 @@
   border-left-color: @moon-spotlight-border-color;
   left: 6px;
 }
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
+  border-right-width: @moon-picker-button-width/2;
+  border-right-style: solid;
+  border-left-width: 0px;
+  border-left-style: none;
+  border-right-color: @moon-spotlight-border-color;
+  left: 0px;
+  right: 6px;
+}
 
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: @moon-picker-button-width;
+  position: relative;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
@@ -108,6 +126,13 @@
   border-right-color: @moon-shadow-color;
   right: 0px;
 }
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
+  border-left-width: @moon-picker-button-width/2;
+  border-left-style: solid;
+  border-right-width: 0px;
+  border-right-style: none;
+  border-left-color: @moon-shadow-color;
+}
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
   width: @moon-picker-button-width/2;
@@ -118,6 +143,14 @@
   border-right-style: solid;
   border-right-color: @moon-spotlight-border-color;
   right: 6px;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
+  border-left-width: @moon-picker-button-width/2;
+  border-left-style: solid;
+  border-right-width: 0px;
+  border-right-style: none;
+  border-left-color: @moon-spotlight-border-color;
+  right: -6px;
 }
 
 .moon-simple-integer-picker-button.left {

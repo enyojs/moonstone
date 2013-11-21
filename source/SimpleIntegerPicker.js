@@ -10,8 +10,10 @@
 */
 enyo.kind({
 	name: "moon.SimpleIntegerPicker",
+	//* @protected
 	classes: "moon-simple-integer-picker",
 	spotlight:true,
+	//* @public
 	events: {
 		/**
 			Fires when the currently selected item changes.
@@ -30,16 +32,19 @@ enyo.kind({
 		*/
 		onSelect: ""
 	},
+	//* @protected
 	handlers: {
-		onSpotlightSelect: "fireSelectEvent",
-		onSpotlightRight: "next",
-		onSpotlightBlur: "spotlightBlur",
-		onSpotlightFocus: "spotlightFocus",
-		onSpotlightFocused: "spotlightFocus",
-		onSpotlightLeft: "previous",
-		onSpotlightScrollLeft: "previous",
-		onSpotlightScrollRight: "next"
+		onSpotlightSelect      : "fireSelectEvent",
+		onSpotlightRight       : "next",
+		onSpotlightLeft        : "previous",
+		onSpotlightScrollUp    : "next",
+		onSpotlightScrollDown  : "previous",
+		
+		onSpotlightBlur        : "spotlightBlur",
+		onSpotlightFocus       : "spotlightFocus",
+		onSpotlightFocused     : "spotlightFocus"
 	},
+	//* @public
 	published: {
 		//* When true, picker transitions animate left/right
 		animate:true,
@@ -63,23 +68,27 @@ enyo.kind({
 	values: null,
 
 	components: [
-		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
-			{classes: "moon-scroll-picker-overlay-left"},
-			{classes: "moon-scroll-picker-overlay-left-border"}
+		{classes: "moon-scroll-picker-overlay-container-left", components: [
+			{name: "leftOverlay", showing: false, components:[
+				{classes: "moon-scroll-picker-overlay-left"},
+				{classes: "moon-scroll-picker-overlay-left-border"} 
+			]},
+			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"}
 		]},
-		{name: "rightOverlay", classes: "moon-scroll-picker-overlay-container-right", showing: false, components:[
-			{classes: "moon-scroll-picker-overlay-right"},
-			{classes: "moon-scroll-picker-overlay-right-border"}
-		]},
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
+		{classes: "moon-scroll-picker-overlay-container-right", components: [
+			{name: "rightOverlay", showing: false, components:[
+				{classes: "moon-scroll-picker-overlay-right"},
+				{classes: "moon-scroll-picker-overlay-right-border"}
+			]},
+			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
+		]}
 	],
 	observers: {
 		triggerRebuild: ["step", "min", "max", "unit"],
-		setButtonVisibility: ["value"]
+		handleValueChange: ["value"]
 	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -104,13 +113,12 @@ enyo.kind({
 		this.$.client.next();
 		return true;
 	},
-	//* Facade for currently active panel
+	//* Facades the currently active panel.
 	getContent: function() {
 		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
 	},
 
 	//* @protected
-
 	create: function() {
 		this.inherited(arguments);
 		if (!this.deferInitialization) {
@@ -162,12 +170,11 @@ enyo.kind({
 		this.startJob("rebuild", this.rebuild, 10);
 	},
 
-	// Change handlers
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.getDisabled());
 	},
 
-	//* On reflow, update the bounds of _this.$.client_
+	//* On reflow, updates the bounds of _this.$.client_.
 	reflow: function() {
 		this.inherited(arguments);
 
@@ -193,7 +200,6 @@ enyo.kind({
 		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.fireChangeEvent();
 		this.hideOverlays();
 		return true;
 	},
@@ -231,5 +237,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doChange({content: this.getContent(), value: this.value});
 		}
+	},
+	handleValueChange: function(inOld, inNew) {
+		this.setButtonVisibility(inOld, inNew);
+		this.fireChangeEvent();
 	}
 });

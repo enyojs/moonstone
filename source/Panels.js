@@ -1,46 +1,54 @@
 /**
-	_moon.Panels_ extends <a href="#enyo.Panels">enyo.Panels</a>, adding support
-	for 5-way focus (Spotlight).  By default, controls added to a _moon.Panels_
-	are instances of <a href="#moon.Panel">moon.Panel</a>.
+	_moon.Panels_ extends [enyo.Panels](#enyo.Panels), adding support for 5-way
+	focus (Spotlight).  By default, controls added to a _moon.Panels_ are
+	instances of [moon.Panel](#moon.Panel).
  */
-
 enyo.kind({
 	name				: 'moon.Panels',
 	kind				: 'enyo.Panels',
+	//* @protected
 	classes				: 'moon-panels',
 	spotlightDecorate	: false,
+	//* public
 	published: {
-		//* The panel design pattern; valid values are "none" (default), "activity", and "alwaysviewing".
-		//* Note: Pattern must be set when creating panels; changes to this property after create time have no effect.
+		/**
+			The panel design pattern; valid values are "none" (default), "activity",
+			and "alwaysviewing". Note that this property may only be set at creation
+			time.
+		*/
 		pattern: "none",
-		//* Handle is hided automatically in this time amount
+		//* Handle is hidden automatically after this amount of time
 		autoHideTimeout: 4000,
-		//* When "true", create handle; when "false", not create handle, when "auto" (default), true for alwaysviewing and false for activity;
-		//* This property can be set only at creation time
+		/**
+			When true, a handle is created; when "false", no handle is created; when
+			"auto" (the default), a handle is created if the _pattern_ is
+			"alwaysviewing" and not created if the _pattern_ is "activity". Note that
+			this property may only be set at creation time.
+		*/
 		useHandle: "auto",
-		//* When true (default), set do not show handle; when false, show handle
+		//* When true (the default), handle is shown; when false, handle is hidden
 		handleShowing: true
 	},
 	events: {
-		// Fired when panel transition by setIndex is finished
-		// inEvent.activeIndex: active index
-		onPanelsPostTransitionFinished: "",
 		onHidePanels: ""
 	},
+	//* @protected
 	handlers: {
 		ontap:						"onTap",
 
 		onSpotlightRight:			"spotlightRight",
 		onSpotlightLeft:			"spotlightLeft",
+		onSpotlightUp:				"spotlightUp",
+		onSpotlightDown:			"spotlightDown",
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
 
 		onTransitionFinish:			"transitionFinish",
-		onPreTransitionComplete:	"panelPreTransitionComplete",
-		onPostTransitionComplete:	"panelPostTransitionComplete"
+		onPreTransitionComplete:	"preTransitionComplete",
+		onPostTransitionComplete:	"postTransitionComplete"
 	},
 	handleTools: [
-		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim", showing: false, ontransitionend: "hideScrim"},
+		{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim"},
 		{name: "clientWrapper", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
@@ -48,29 +56,32 @@ enyo.kind({
 		{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle hidden", canGenerate: false,
 			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
 		},
-		{name: "showHideAnimator", kind: "StyleAnimator", onComplete: "animationComplete"}
+		{name: "showHideAnimator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
 
 	//* @protected
-
-	//* Use _moon.Panel_s by default
 	defaultKind: "moon.Panel",
-	//* Disable dragging
+	//* Set to false to disable dragging
 	draggable: false,
-	//* 0 ~ 1
+	//* Value may be between 0 and 1, inclusive
 	panelCoverRatio: 1,
-	//* activity: true, alwaysviewing: false
+	//* True for "activity" pattern; false for "alwaysviewing" pattern
 	showFirstBreadcrumb: false,
 	//* Default to using _moon.BreadcrumbArranger_
 	arrangerKind: "moon.BreadcrumbArranger",
-	//* Index of panel which is set in the middle of transition
+	//* Index of panel set in the middle of transition
 	queuedIndex: null,
 	//* Flag for initial transition
 	_initialTransition: true,
-
+	//* Flag for panel transition
+	transitionInProgress: false,
 
 	//* @public
 
+	//* Returns true if a transition between panels is currently in progress.
+	inTransition: function() {
+		return this.transitionInProgress;
+	},
 
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
@@ -107,7 +118,7 @@ enyo.kind({
 			panels[panels.length - 1].destroy();
 		}
 	},
-	//* Destroy right panel and create panel without transition effect. */
+	//* Destroys right panel and creates new panel without transition effect.
 	replacePanel: function(index, inInfo, inMoreInfo) {
 		var oPanel = null;
 
@@ -121,7 +132,10 @@ enyo.kind({
 		oPanel.render();
 		this.resized();
 	},
-	/** Returns the panel index of a control contained within a panel, or -1 otherwise */
+	/**
+		Returns the panel index of the passed-in control, or -1 if the panel is not
+		found.
+	*/
 	getPanelIndex: function(oControl) {
 		var oPanel = null;
 
@@ -144,7 +158,10 @@ enyo.kind({
 
 		return -1;
 	},
-	/** Returns true if the control is a child panel of this _moon.Panels_ */
+	/**
+		Returns true if the passed-in control is a child panel of this Panels
+		instance.
+	*/
 	isPanel: function(inControl) {
 		for (var n=0; n<this.getPanels().length; n++) {
 			if (this.getPanels()[n] == inControl) {
@@ -174,7 +191,7 @@ enyo.kind({
 		}
 	},
 	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none") {
+		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.transitionInProgress === true) {
 			return;
 		}
 
@@ -193,23 +210,39 @@ enyo.kind({
 	shouldHide: function(oEvent) {
 		return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 	},
-	//* Prevent event bubble up when parent of originator is client
+	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightLeft: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
 			if (this.getIndex() > 0 && this.showing) {
 				return true;
 			}
 		}
 	},
-	//* Prevent event bubble up when parent of originator is client
+	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightRight: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") {
+			// Upon pressing right from a pointer-focused breadcrumn, just jump
+			// to the current panel to keep focus visible
+			var idx = this.getPanelIndex(oEvent.originator) + 1;
+			enyo.Spotlight.spot(this.getPanels()[idx]);
+			return true; 
+		}
 		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
 			if (this.getIndex() < this.getPanels().length - 1) {
 				return true;
 			}
 		}
 	},
-	//* Tap on show/hide handle
+	//* Prevents event from bubbling up when parent of originator is client.
+	spotlightUp: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+	},
+	//* Prevents event from bubbling up when parent of originator is client.
+	spotlightDown: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+	},
+	//* Responds to tap on show/hide handle.
 	handleTap: function() {
 		enyo.Spotlight.unspot();
 		this.setShowing(!this.showing);
@@ -218,6 +251,8 @@ enyo.kind({
 		if (this.showing) {
 			enyo.Spotlight.spot(this.getActive());
 			return true;
+		} else {
+			enyo.Spotlight.unspot();
 		}
 	},
 	handleSpotRight: function(inSender, inEvent) {
@@ -226,6 +261,16 @@ enyo.kind({
 		}
 	},
 	handleBlur: function() {
+		if (this.handleFocused) {
+			this.handleFocused = false;
+			if (!enyo.Spotlight.getPointerMode()) {
+				if (this.showing) {
+					enyo.Spotlight.spot(this.getActive());
+				} else {
+					enyo.Signals.send("onPanelsHidden");
+				}
+			}
+		}
 		this.resetHandleAutoHide();
 	},
 	resetHandleAutoHide: function(inSender, inEvent) {
@@ -243,6 +288,11 @@ enyo.kind({
 	},
 	handleFocus: function() {
 		this.unstashHandle();
+		this.startJob("autoHide", "unspotHandle", this.getAutoHideTimeout());
+		this.handleFocused = true;
+	},
+	unspotHandle: function() {
+		enyo.Spotlight.unspot();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
@@ -250,15 +300,17 @@ enyo.kind({
 		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
 		this.$.showHideHandle.spotlight = this.handleShowing;
 	},
-	//* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
-	//* show handle.
+	/**
+		Called when focus enters one of the panels. If currently hiding and
+		_this.useHandle_ is true, shows handle.
+	*/
 	onSpotlightPanelEnter: function() {
 		if (!this.showing && this.useHandle === true) {
 			enyo.Spotlight.spot(this.$.showHideHandle);
 			return true;
 		}
 	},
-	//* Called when focus leaves one of the panels
+	//* Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(inSender, inEvent) {
 		var direction = inEvent.direction;
 
@@ -316,17 +368,26 @@ enyo.kind({
 
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
-			this.triggerPanelPreTransitions(this.fromIndex, this.toIndex);
+			if (this.animate) {
+				this.transitionInProgress = true;
+				this.triggerPreTransitions();
+			}
+			else {
+				this._setIndex(this.toIndex);
+			}
 		}
 		else {
 			this.skipArrangerAnimation();
 		}
 	},
-	//* Return _true_ if any panels will move in the transition from _this.fromIndex_ to _this.toIndex_
+	/**
+		Returns true if any panels will move in the transition from
+		_this.fromIndex_ to _this.toIndex_.
+	*/
 	shouldArrange: function() {
 		return this.layout.shouldArrange ? this.layout.shouldArrange(this.fromIndex, this.toIndex) : true;
 	},
-	//* Skip animation and jump to next arrangement
+	//* Skips animation and jumps to next arrangement.
 	skipArrangerAnimation: function() {
 		this._setIndex(this.toIndex);
 		this.completed();
@@ -336,7 +397,7 @@ enyo.kind({
 		this.index = this.clamp(inIndex);
 		this.notifyObservers("index", prev, inIndex);
 	},
-	//* Called when the arranger animation completes
+	//* Called when the arranger animation completes.
 	completed: function() {
 		if (this.$.animator.isAnimating()) {
 			this.$.animator.stop();
@@ -344,28 +405,47 @@ enyo.kind({
 
 		this.fraction = 1;
 		this.stepTransition();
-		this.triggerPanelPostTransitions(this.fromIndex, this.toIndex);
+		if (this.animate) {
+			this.triggerPostTransitions();
+		}
+		else {
+			this.finishTransition(true);
+		}
 		return true;
 	},
-	//* If any panel has a pre-transition, pushes the panel's index to _preTransitionWaitList_.
-	triggerPanelPreTransitions: function(inFromIndex, inToIndex) {
+	getPanelInfo: function(inPanelIndex, inActiveIndex) {
+		return this.layout.getPanelInfo && this.layout.getPanelInfo(inPanelIndex, inActiveIndex) || {};
+	},
+	getTransitionInfo: function(inPanelIndex) {
+		var info = this.getPanelInfo(inPanelIndex, this.toIndex);
+		info.from = this.fromIndex;
+		info.to = this.toIndex;
+		info.index = inPanelIndex;
+		info.animate = this.animate;
+		return info;
+	},
+	/**
+		If any panel has a pre-transition, pushes the panel's index to
+		_preTransitionWaitList_.
+	*/
+	triggerPreTransitions: function() {
 		var panels = this.getPanels(),
-			options = {};
+			info;
 
 		this.preTransitionWaitlist = [];
 
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			options = this.getTransitionOptions(i, inToIndex);
-			if (panel.preTransition && panel.preTransition(inFromIndex, inToIndex, options)) {
+			info = this.getTransitionInfo(i);
+			if (panel.preTransition && panel.preTransition(info)) {
 				this.preTransitionWaitlist.push(i);
 			}
 		}
 
 		if (this.preTransitionWaitlist.length === 0) {
-			this.preTransitionComplete();
+			this._setIndex(this.toIndex);
 		}
 	},
-	panelPreTransitionComplete: function(inSender, inEvent) {
+	preTransitionComplete: function(inSender, inEvent) {
 		var index = this.getPanels().indexOf(inEvent.originator);
 
 		for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
@@ -376,34 +456,29 @@ enyo.kind({
 		}
 
 		if (this.preTransitionWaitlist.length === 0) {
-			this.preTransitionComplete();
+			this._setIndex(this.toIndex);
 		}
 
 		return true;
 	},
-	//* Called after all pre transitions have been completed. Triggers standard _setIndex_ functionality.
-	preTransitionComplete: function() {
-		this._setIndex(this.toIndex);
-		this.waterfallDown("onPanelPreTransitionFinished");
-	},
-	triggerPanelPostTransitions: function(inFromIndex, inToIndex) {
+	triggerPostTransitions: function() {
 		var panels = this.getPanels(),
-			options = {};
+			info;
 
 		this.postTransitionWaitlist = [];
 
 		for(var i = 0, panel; (panel = panels[i]); i++) {
-			options = this.getTransitionOptions(i, inToIndex);
-			if (panel.postTransition && panel.postTransition(inFromIndex, inToIndex, options)) {
+			info = this.getTransitionInfo(i);
+			if (panel.postTransition && panel.postTransition(info)) {
 				this.postTransitionWaitlist.push(i);
 			}
 		}
 
 		if (this.postTransitionWaitlist.length === 0) {
-			this.postTransitionComplete();
+			this.finishTransition(true);
 		}
 	},
-	panelPostTransitionComplete: function(inSender, inEvent) {
+	postTransitionComplete: function(inSender, inEvent) {
 		var index = this.getPanels().indexOf(inEvent.originator);
 
 		for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
@@ -414,21 +489,10 @@ enyo.kind({
 		}
 
 		if (this.postTransitionWaitlist.length === 0) {
-			this.postTransitionComplete();
+			this.finishTransition(true);
 		}
 
 		return true;
-	},
-	postTransitionComplete: function() {
-		var activeIndex = this.getIndex();
-
-		this.doPanelsPostTransitionFinished({active: activeIndex});
-
-		this.finishTransition(true);
-
-		for (var i = 0; i < this.getPanels().length; i++) {
-			this.getPanels()[i].waterfall("onPanelsPostTransitionFinished", {active: activeIndex, index: i});
-		}
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
 	indexChanged: function() {
@@ -439,20 +503,39 @@ enyo.kind({
 		}
 
 		this.inherited(arguments);
+
+		// Spot the active panel
+		if (this.hasNode()) {
+			enyo.Spotlight.spot(this.getActive());
+		}
 	},
 	finishTransition: function(sendEvents) {
+		var panels = this.getPanels(),
+			transitioned = typeof this.lastIndex !== "undefined",
+			method = transitioned ? "transitionFinished" : "initPanel",
+			i,
+			panel,
+			info;
+
+		for (i =0 ; (panel = panels[i]); i++) {
+			info = this.getTransitionInfo(i);
+			if (panel[method]) {
+				panel[method](info);
+			}
+		}
+
 		this.inherited(arguments);
+
+		this.transitionInProgress = false;
 
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
-		// Don't change focus unless this was an actual transition (indicated
-		// by sendEvents being true
-		if (sendEvents) {
-			enyo.Spotlight.spot(this.getActive());
-		}
 	},
-	//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
+	/**
+		Override the default _getShowing()_ behavior to avoid setting _this.showing_
+		based on the CSS _display_ property.
+	*/
 	getShowing: function() {
 		return this.showing;
 	},
@@ -471,6 +554,9 @@ enyo.kind({
 		}
 	},
 	showingChanged: function() {
+		if (this.$.backgroundScrim) {
+			this.$.backgroundScrim.addRemoveClass("visible", this.showing);
+		}
 		if (this.useHandle === true) {
 			if (this.showing) {
 				this.unstashHandle();
@@ -480,10 +566,10 @@ enyo.kind({
 				this.resetHandleAutoHide();
 				this._hide();
 			}
-			return;
 		}
-
-		this.inherited(arguments);
+		else {
+			this.inherited(arguments);
+		}
 	},
 	applyPattern: function() {
 		switch (this.pattern) {
@@ -518,54 +604,38 @@ enyo.kind({
 			this.$.showHideHandle.spotlight = true;
 		}
 	},
-	//* Show panels with transition from right
+	//* Shows panels with transition from right.
 	_show: function() {
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.backgroundScrim.show();
-		this.$.backgroundScrim.addClass("transition");
-		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		this.$.showHideAnimator.play(this.createShowAnimation().name);
 		enyo.Signals.send("onPanelsShown");
 	},
-	//* Hide panels with transition to right
+	//* Hides panels with transition to right.
 	_hide: function() {
 		if (!this.hasNode()) {
 			return;
 		}
-		this.$.backgroundScrim.show();
-		this.$.backgroundScrim.addClass("transition");
-		this.$.backgroundScrim.removeClass("visible");
 		this.$.showHideHandle.removeClass("right");
 		this.$.showHideAnimator.play(this.createHideAnimation().name);
 		enyo.Signals.send("onPanelsHidden");
 	},
-	//* Set to show state without animation
+	//* Sets show state without animation.
 	_directShow: function() {
-		this.$.backgroundScrim.show();
-		this.$.backgroundScrim.removeClass("transition");
-		this.$.backgroundScrim.addClass("visible");
 		this.$.showHideHandle.addClass("right");
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
 	},
-	//* Set to hide state without animation
+	//* Sets hide state without animation.
 	_directHide: function() {
-		this.$.backgroundScrim.hide();
-		this.$.backgroundScrim.removeClass("transition");
-		this.$.backgroundScrim.removeClass("visible");
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
-		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
+		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(" + x + "px)");
 		this.hideAnimationComplete();
-	},
-	hideScrim: function() {
-		this.$.backgroundScrim.hide();
-		return true;
 	},
 	createShowAnimation: function() {
 		return this.$.showHideAnimator.newAnimation({
@@ -622,8 +692,5 @@ enyo.kind({
 		if (this.handleShowing) {
 			this.$.showHideHandle.removeClass("hidden");
 		}
-	},
-	getTransitionOptions: function(fromIndex, toIndex) {
-		return this.layout.getTransitionOptions && this.layout.getTransitionOptions(fromIndex, toIndex) || {};
 	}
 });

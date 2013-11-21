@@ -1,8 +1,9 @@
 /**
-	_moon.List_ extends <a href="#enyo.List">enyo.List</a>, adding support for
-	5-way focus (Spotlight) and pagination buttons.
+	_moon.List_ extends [enyo.List](#enyo.List), adding support for 5-way focus
+	(Spotlight) and pagination buttons.
 
-	For the time being, _moon.List_ requires a _strategyKind_ of _TouchScrollStrategy_.
+	At the present time, _moon.List_ requires a _strategyKind_ of
+	_TouchScrollStrategy_.
 
 	For more information, see the documentation on
 	[Lists](https://github.com/enyojs/enyo/wiki/Lists)
@@ -11,18 +12,9 @@
 enyo.kind({
 	name: "moon.List",
 	kind: "enyo.List",
+	//* @protected
 	classes: "moon-list",
-	published: {
-		//* If true, paging controls are hidden if a key is pressed (in 5-way mode)
-		hidePagingOnKey: true,
-		//* If true, paging controls are hidden if the user's pointer leaves this control
-		hidePagingOnLeave: true,
-		/**
-			Amount to scroll when a paging control is tapped. Set to the row size by
-			default.
-		*/
-		pageSize: null
-	},
+	//* @protected
 	/**
 		Default scrolling strategy is _moon.ScrollStrategy_, which extends
 		_enyo.TouchScrollStrategy_.
@@ -30,7 +22,7 @@ enyo.kind({
 	strategyKind: "moon.ScrollStrategy",
 	//* @protected
 	spotlight: true,
-	//* Handles _paginate_ event sent by PagingControl buttons.
+	//* Handles _paginate_ events sent by PagingControl buttons.
 	paginate: function(inSender, inEvent) {
 		if (this.preventPaginate){
 			this.stopJob('preventPaginate');
@@ -91,7 +83,10 @@ enyo.kind({
 			}
 		}
 	},
-	//* Finds page at one clientHeight/Width before the current top/left position.
+	/**
+		Finds page at one clientHeight/clientWidth before the current top/left
+		position.
+	*/
 	findBoundingPageOnBack: function() {
 		var sb = this.$.strategy.getScrollBounds(),
 			coordinate = this.orientV ? sb.top - sb.clientHeight : sb.left - sb.clientWidth,
@@ -99,7 +94,10 @@ enyo.kind({
 
 		return (pageInfo.no === this.p0) ? this.$.page0 : this.$.page1;
 	},
-	//* Finds page at one clientHeight/Width after the current top/left position.
+	/**
+		Finds page at one clientHeight/clientWidth after the current top/left
+		position.
+	*/
 	findBoundingPageOnForward: function() {
 		var sb = this.$.strategy.getScrollBounds(),
 			coordinate = this.orientV ? sb.top + sb.clientHeight : sb.left + sb.clientWidth,

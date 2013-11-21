@@ -8,7 +8,7 @@ enyo.kind({
 	//* @protected
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" }
+	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" }
 });
 //*@protected
 /**
@@ -28,7 +28,8 @@ enyo.kind({
 				// first see if the child is already available to scroll to
 			var c = this.childForIndex(list, i),
 				// but we also need the page so we can find its position
-				p = this.pageForIndex(list, i);
+				p = this.pageForIndex(list, i),
+				d = this;
 			// if there is no page then the index is bad
 			if (p < 0 || p > this.pageCount(list)) { return; }
 			// if there isn't one, then we know we need to go ahead and
@@ -37,21 +38,33 @@ enyo.kind({
 			if (c) {
 				list.$.scroller.scrollToControl(c, true);
 			} else {
-				// we do this to ensure we trigger the paging event when necessary
-				this.resetToPosition(list, this.pagePosition(list, p));
-				// now retry the original logic until we have this right
-				enyo.asyncMethod(function () {
-					list.scrollToIndex(i);
-				});
+				// list.$.scroller.resizing = true;
+				var x, y, fn;
+				
+				fn = function (sender, event, props) {
+					if (i >= props.start && i <= props.end) {
+						var c = d.childForIndex(list, i);
+						if (c) {
+							list.removeListener("paging", fn);
+							list.$.scroller.scrollToControl(c, true);
+						}
+					}
+				};
+				
+				list.addListener("paging", fn);
+				
+				x = 0;
+				y = this.pagePosition(list, p); 
+				
+				list.$.scroller.scrollTo(x, y);
 			}
 		},
 		reset: enyo.inherit(function (sup) {
 			return function (list) {
 				sup.apply(this, arguments);
-				if (list.$.scroller.getVertical() != "scroll") {
-					this.updateBounds(list);
-					list.refresh();
-				}
+				this.updateMetrics(list);
+				list.refresh();
+				list.$.scroller.scrollTo(0, 0);
 			};
 		}),
 		updateBounds: enyo.inherit(function (sup) {

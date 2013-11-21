@@ -1,7 +1,6 @@
 /* TextArea.css */
 .moon-textarea {
 	.moon-body-text;
-	line-height: @moon-body-line-height;
 	margin: 0px;
 	padding: 0px;
 	border: none;
@@ -17,17 +16,32 @@
 }
 .enyo-locale-non-latin .moon-textarea {
 	.enyo-locale-non-latin .moon-body-text;
+	max-width:300px;
 }
-.moon-input-decorator > .moon-textarea {
+.moon-textarea-decorator > .moon-textarea {
 	/* Remove scrollbars and resize handle */
 	resize: none;
 	overflow: auto;
 	/* FIXME: hack for styling reset on Android */
 	/* -webkit-appearance: caret;*/
 }
-.moon-input-decorator.moon-focused .moon-textarea {
+.moon-textarea-decorator.moon-focused .moon-textarea {
 	cursor: text;
 }
-.moon-input-decorator.moon-disabled .moon-textarea {
+.moon-textarea-decorator.moon-disabled .moon-textarea {
 	cursor: default;
+}
+textarea::-webkit-scrollbar {
+  width: 4px;
+}
+textarea::-webkit-scrollbar-track-piece {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  background-color: @moon-input-decorator-bg-color;
+  -webkit-border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb:vertical {
+  height: 10px;
+  background-color: @moon-active-border-color;
+  -webkit-border-radius: 10px;
 }

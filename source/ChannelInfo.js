@@ -41,6 +41,8 @@ enyo.kind({
 	]
 });
 
+//* @public
+
 /**
     _moon.ChannelInfoBadge_ is a simple kind used to display a badge
     containing channel info. It is the default kind for components added to
