@@ -154,14 +154,13 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	capturedEvent: function(inEventName, inEvent, inSender) {
+	capturedEvent: function(inEventName, inSender, inEvent) {
 		if (inEventName == "onSpotlightKeyDown") {
 			if (inEvent.keyCode == 13) {
 				this.downEvent = inEvent;
 			}
-			return true;
 		}
-		this.inherited(arguments);
+		return this.inherited(arguments);
 	},
 	//* Checks whether to allow spotlight to move in a given direction.
 	spotChecker: function(inDirection) {
