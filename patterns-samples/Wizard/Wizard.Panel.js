@@ -30,10 +30,10 @@ enyo.kind({
 		{from: ".controller.instruction", to: ".$.headline.content"},
 		{from: ".controller.detail", to: ".$.detail.content"}
 	],
-	initialSetting: function() {
+	setToIntro: function() {
 		this.$.prev.hide();
 	},
-	finalSetting: function() {
+	setToEnd: function() {
 		this.$.post.setContent("DONE");
 	}
 });

@@ -91,7 +91,7 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.getPanels()[0].initialSetting();
+		this.getPanels()[0].setToIntro();
 	},
 	next: function() {
 		var panels = this.getPanels();
@@ -101,7 +101,7 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 			if (this.index === panels.length - 1) {
-				this.getPanels()[this.index].finalSetting();
+				this.getPanels()[this.index].setToExit();
 			}
 		}
 	},
