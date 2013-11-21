@@ -16,8 +16,7 @@ enyo.kind({
 		onRequestHidePopup        : "requestHide",
 		onActivate                : "decorateActivateEvent",
 		onRequestScrollIntoView   : "_preventEventBubble",
-		onSpotlightContainerLeave : "onLeave",
-		onSpotlightSelect         : "onSpotlightSelect"
+		onSpotlightContainerLeave : "onLeave"
 	},
 	//* @public
 	published: {
@@ -36,6 +35,7 @@ enyo.kind({
 	//* @protected
 	spotlight: "container",
 	floating:true,
+	eventsToCapture: { down:1, tap:1, onSpotlightKeyDown:1 },
 	/**
 		Determines whether a scrim will appear when the popup is modal.
 		Note that modal scrims are transparent, so you won't see them.
@@ -105,16 +105,6 @@ enyo.kind({
 			this.hide();
 		}
 	},
-	onSpotlightSelect: function(inSender, inEvent) {
-		this.downEvent = inEvent;
-	},
-	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
-	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
-		if (this.downEvent.type !== "onSpotlightSelect") {
-			return this.inherited(arguments);
-		}
-	},
 	closePopup: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this.activator);
 		this.$.closeButton.removeClass("pressed");
@@ -146,6 +136,14 @@ enyo.kind({
 	//* Called when _this.showCloseButton_ changes.
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
+	},
+	capturedEvent: function(inEventName, inSender, inEvent) {
+		if (inEventName == "onSpotlightKeyDown") {
+			if (inEvent.keyCode == 13) {
+				this.downEvent = inEvent;
+			}
+		}
+		return this.inherited(arguments);
 	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
