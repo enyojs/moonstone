@@ -71,9 +71,9 @@ enyo.kind({
         ontap: "onTap"
     },
     components: [
-        {kind: "moon.Divider", content: "Wizard Popup Sample"},
+        {kind: "moon.Divider", content: "Mini Wizard Sample"},
         {classes: "moon-hspacing", components: [
-            {kind: "moon.Button", content: "Wizard Popup", ontap: "showPopup", popup: "wizPopup"}
+            {kind: "moon.Button", content: "Mini Popup", ontap: "showPopup", popup: "wizPopup"}
         ]},
         {name: "wizPopup", kind: "moon.Popup", animate: false, spotlightModal: true, classes: "moon-12v", components: [
             {name: "wizardSample", kind: "moon.Sample.Wizard.MiniPanels", classes:"enyo-fill"}
