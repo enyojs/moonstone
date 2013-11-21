@@ -3,28 +3,22 @@
 	screen and takes up the full screen width.
 */
 enyo.kind({
-	name: "moon.Popup",
-	kind: enyo.Popup,
+	name : "moon.Popup",
+	kind : enyo.Popup,
+	
 	//* @protected
-	classes: "moon moon-neutral enyo-unselectable moon-popup",
-	/**
-		If true, events from outside of the popup are not received while the popup
-		is showing.
-	*/
-	modal: true,
-	floating: true,
-	_spotlight: null,
-	_bounds: null,
-	spotlight: "container",
+	classes   : "moon moon-neutral enyo-unselectable moon-popup",
+	floating  : true,
+	_bounds   : null,
+	spotlight : "container",
+	
 	handlers: {
-		onSpotlightSelect: "spotSelect",
-		onSpotlightUp: "spotlightUp",
-		onSpotlightDown: "spotlightDown",
-		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight",
-		onRequestScrollIntoView: "_preventEventBubble",
-		ontransitionend: "animationEnd"
+		onRequestScrollIntoView   : "_preventEventBubble",
+		ontransitionend           : "animationEnd",
+		onSpotlightSelect         : "onSpotlightSelect",
+		onSpotlightContainerLeave : "onLeave"
 	},
+	
 	//* @public
 	published: {
 		/**
@@ -45,7 +39,7 @@ enyo.kind({
 			is a singleton and you will be modifying the scrim instance used for
 			other popups.
 		*/
-		scrimClassName: "",
+		// scrimClassName: "",
 		/**
 			If true, spotlight (focus) cannot leave the area of the popup unless the
 			popup is explicitly closed; if false, spotlight may be moved anywhere
@@ -94,7 +88,6 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
 	},
 	rendered: function () {
 		this.inherited(arguments);
@@ -106,7 +99,7 @@ enyo.kind({
 		this.$.client.setAllowHtml(this.allowHtml);
 	},
 	//* Sets _this.downEvent_ on _onSpotlightSelect_ event.
-	spotSelect: function(inSender, inEvent) {
+	onSpotlightSelect: function(inSender, inEvent) {
 		this.downEvent = inEvent;
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
@@ -116,11 +109,15 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
+	onLeave: function(oSender, oEvent) {
+		if (oEvent.originator == this) {
+			enyo.Spotlight.spot(this.activator);
+			this.hide();
+		}
+	},
 	//* Determines whether to display _closeButton_.
 	configCloseButton: function() {
-		if (!this.$.closeButton) {
-			return;
-		}
+		if (!this.$.closeButton) { return; }
 
 		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
 
@@ -174,13 +171,10 @@ enyo.kind({
 		this.showHideScrim(this.showing);
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
-			this.spotlight = this._spotlight;
 			this.configCloseButton();
-			var spottableChildren = enyo.Spotlight.getChildren(this).length;
-			if (spottableChildren === 0) {
-				this.spotlight = false;
-			} else if ((this.spotlight) && (spottableChildren > 0)) {
-				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			if (enyo.Spotlight.isSpottable(this)) {
+				enyo.Spotlight.setPointerMode(false);
+				enyo.Spotlight.spot(this);
 			}
 		}
 	},
@@ -258,49 +252,6 @@ enyo.kind({
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
 		}
 		this.activator = null;
-	},
-	/**
-		Checks whether to allow spotlight to move in the given direction.
-	*/
-	spotChecker: function(inDirection) {
-		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
-		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
-			if (this.spotlightModal) {
-				return true;
-			} else {
-				this.respotActivator();
-				this.spotlight = false;
-				this.hide();
-			}
-		}
-	},
-	/**
-		When spotlight reaches top edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightUp: function(inSender, inEvent) {
-		return this.spotChecker("UP");
-	},
-	/**
-		When spotlight reaches bottom edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightDown: function(inSender, inEvent) {
-		return this.spotChecker("DOWN");
-	},
-	/**
-		When spotlight reaches left edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightLeft: function(inSender, inEvent) {
-		return this.spotChecker("LEFT");
-	},
-	/**
-		When spotlight reaches right edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightRight: function(inSender, inEvent) {
-		return this.spotChecker("RIGHT");
 	},
 	//*@protected
 	_preventEventBubble: function(inSender, inEvent) {
