@@ -38,7 +38,8 @@ moon.MarqueeSupport = {
 	}),
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
-			if (!oEvent.delegate) {
+			// FIXME: not sure why events can arrive without event objects, but we gaurd here for safety
+			if (oEvent && !oEvent.delegate) {
 				var handler = this._marquee_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
