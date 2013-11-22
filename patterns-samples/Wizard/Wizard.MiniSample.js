@@ -124,7 +124,7 @@ enyo.kind({
 		} else {
 			this.inherited(arguments);
 			if (this.index === panels.length - 1) {
-				this.getPanels()[this.index].setToEnd();
+				panels[this.index].setToEnd();
 			}
 		}
 	},
