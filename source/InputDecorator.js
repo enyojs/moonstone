@@ -83,10 +83,10 @@ enyo.kind({
 		this.inherited(arguments);
 		this.updateFocus(false);
 		this._oInputControl = this._findInputControl();
-		if (this._oInputControl instanceof moon.Input || this._oInputControl instanceof moon.RichText) {
+		if (this._oInputControl instanceof moon.Input) {
 			this.addClass("moon-input-decorator");
 		}
-		if (this._oInputControl instanceof moon.TextArea) {
+		if (this._oInputControl instanceof moon.TextArea || this._oInputControl instanceof moon.RichText) {
 			this.addClass("moon-textarea-decorator");
 		}
 	},
