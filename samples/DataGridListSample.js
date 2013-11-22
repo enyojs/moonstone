@@ -1,40 +1,40 @@
 enyo.kind({
 	name: "moon.sample.DataGridListSample",
-	classes: "moon",
+	kind: "moon.Panels",
+	pattern: "activity",
+	classes: "moon enyo-fit",
 	components: [
-		{kind: "moon.Panels", classes:"enyo-fit", components: [
-			{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [
-				{kind:"moon.Item", content:"Scroll"},
-				{kind:"moon.Item", content:"the"},
-				{kind:"moon.Item", content:"Data Grid List"},
-				{kind:"moon.Item", content:"to"},
-				{kind:"moon.Item", content:"the"},
-				{kind:"moon.Item", content:"Right!"}
-			]},
-			{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
-				{kind : "moon.Button", content:"Refresh", ontap:"refreshItems"},
-				{kind: "moon.ContextualPopupDecorator", components: [
-					{kind: "moon.ContextualPopupButton", content:"Popup List"},
-					{kind: "moon.ContextualPopup", classes:"moon-6h moon-8v", components: [
-						{kind:"moon.DataList", components: [
-							{kind:"moon.CheckboxItem", bindings: [
-								{from:".model.text", to:".content"}
-							]}
+		{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [
+			{kind:"moon.Item", content:"Scroll"},
+			{kind:"moon.Item", content:"the"},
+			{kind:"moon.Item", content:"Data Grid List"},
+			{kind:"moon.Item", content:"to"},
+			{kind:"moon.Item", content:"the"},
+			{kind:"moon.Item", content:"Right!"}
+		]},
+		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
+			{kind : "moon.Button", content:"Refresh", ontap:"refreshItems"},
+			{kind: "moon.ContextualPopupDecorator", components: [
+				{kind: "moon.ContextualPopupButton", content:"Popup List"},
+				{kind: "moon.ContextualPopup", classes:"moon-6h moon-8v", components: [
+					{kind:"moon.DataList", components: [
+						{kind:"moon.CheckboxItem", bindings: [
+							{from:".model.text", to:".content"}
 						]}
 					]}
 				]}
-			], components: [
-				{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
-					{
-						kind: "moon.GridListImageItem",
-						subCaption: "Sub Caption",
-						bindings: [
-							{from: ".model.text", to: ".caption"},
-							{from: ".model.subText", to: ".subCaption"},
-							{from: ".model.url", to: ".source"}
-						]
-					}
-				]}
+			]}
+		], components: [
+			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
+				{
+					kind: "moon.GridListImageItem",
+					subCaption: "Sub Caption",
+					bindings: [
+						{from: ".model.text", to: ".caption"},
+						{from: ".model.subText", to: ".subCaption"},
+						{from: ".model.url", to: ".source"}
+					]
+				}
 			]}
 		]}
 	],
