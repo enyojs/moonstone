@@ -49,7 +49,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: "moon.Divider", content: "Result", classes: "moon-input-sample-result"},
-		{kind: "moon.BodyText", name: "console", content: "Input: "},
+		{kind: "moon.BodyText", name: "console", allowHtml: false, content: "Input: "},
 		{kind: "moon.Divider", content: "Bottom-aligned inputs", classes: "moon-input-sample-result"},
 		{components: [
 			{kind: "moon.InputDecorator", components: [
