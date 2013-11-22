@@ -8,7 +8,15 @@ enyo.kind({
 	//* @protected
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" }
+	spotlight: true,
+	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" },
+	didReset: function () {
+		var spot = enyo.Spotlight.getCurrent();
+		if (spot === this || spo.isDescendentOf(this)) {
+			this.spotlight = false;
+			enyo.Spotlight.spot(this);
+		}
+	}
 });
 //* @protected
 /**
