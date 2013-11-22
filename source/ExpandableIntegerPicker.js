@@ -57,9 +57,9 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from: ".min", to: ".$.picker.min"},
-		{from: ".max", to: ".$.picker.max"},
-		{from: ".step", to: ".$.picker.step"},
+		{from: ".min", to: ".$.picker.min", transform: "validateMin"},
+		{from: ".max", to: ".$.picker.max", transform: "validateMax"},
+		{from: ".step", to: ".$.picker.step", transform: "validStep"},
 		{from: ".unit", to: ".$.picker.unit"},
 		{from: ".value", to: ".$.picker.value", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
@@ -70,7 +70,27 @@ enyo.kind({
 		"showCurrentValue": ["open"],
 		"currentValueText": ["value", "unit", "noneText"]
 	},
-
+	validateMin: function (newValue) {
+		if (newValue >= this.$.picker.max) {
+			this.min = this.$.picker.min;
+			return this.min;
+		}
+		return newValue;
+	},
+	validateMax: function (newValue) {
+		if (newValue <= this.$.picker.min) {
+			this.max = this.$.picker.max;
+			return this.max;
+		}
+		return newValue;
+	},
+	validStep: function (newValue) {
+		if (this.$.picker.max - this.$.picker.min <= newValue) {
+			this.step = this.$.picker.step;
+			return this.step;
+		}
+		return newValue;
+	},
 	// Change handlers
 	valueChanged: function(inOld) {
 		if (this.value < this.min || this.value > this.max) {
