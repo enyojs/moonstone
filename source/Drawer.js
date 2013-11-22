@@ -63,6 +63,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
+		//* Todo: remove padding on client
 		this.$.client.$.client.addClass('moon-drawer-client');
 		this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
 	},
@@ -70,8 +71,9 @@ enyo.kind({
 		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 		this.openChanged();
 		if (!this.controlsOpen) {
-			this.$.controlDrawer.open = this.controlsOpen;
-			this.$.controlDrawer.$.client.setShowing(this.controlsOpen);
+			this.$.controlDrawer.setAnimated(false);
+			this.$.controlDrawer.setOpen(this.controlsOpen);
+			this.$.controlDrawer.setAnimated(true);
 		}
 	},
 	calcDrawerHeight: function(drawersHeight) {
@@ -79,7 +81,8 @@ enyo.kind({
 		if (this.controlDrawerComponents == null) {
 			return clientHeight;
 		} else {
-			return (clientHeight - this.$.controlDrawer.hasNode().getBoundingClientRect().height);
+			this.controlDrawerHeight = (this.controlDrawerHeight) ? this.controlDrawerHeight : this.$.controlDrawer.hasNode().getBoundingClientRect().height;
+			return (clientHeight - this.controlDrawerHeight);
 		}
 	},
 	toggleDrawer: function() {
@@ -112,11 +115,7 @@ enyo.kind({
 		}
 	},
 	drawersResized: function(inSender, inEvent) {
-		this.$.controlDrawer.$.client.setShowing(true);
 		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
-		this.$.controlDrawer.$.client.setShowing(false);
-		this.$.client.render();
-		this.$.controlDrawer.render();
 		this.setOpen(false);
 		this.setControlsOpen(false);
 	}
