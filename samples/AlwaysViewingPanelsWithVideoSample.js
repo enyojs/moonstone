@@ -6,8 +6,18 @@ enyo.kind({
 			{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 				{
 					kind: "moon.ChannelInfo",
-					channelNo: "13",
-					channelName: "AMC"
+					channelNo: "9999-99",
+					channelName: "AMC",
+					classes: "moon-2h",
+					components: [
+						{content: "REC 08:22", classes: "moon-video-player-info-redicon "},
+						{content: "Cinema"},
+						{content: "Sub English"},
+						{content: "\u2665"},
+						{content: "3D"},
+						{content: "AD"},
+						{content: "CC1"}
+					]
 				},
 				{
 					kind: "moon.VideoInfoHeader",
@@ -17,21 +27,17 @@ enyo.kind({
 					subtitleDivider: "|",
 					subSubTitle: "R - TV 14, V, L, SC",
 					components: [
-							{kind: "moon.IconButton", src:"../images/video-player/icon-videocc.png", classes: "moon-video-player-info-icon-cc"},					
+							{content: "Icon 1", classes: "moon-video-player-info-icon"},
+							{content: "Icon 2", classes: "moon-video-player-info-icon"},
+							{content: "Icon 3", classes: "moon-video-player-info-icon"}					
 						],	
 				}
 			]},
-			{kind: "moon.VideoInfoBackground", orient: "right", background: true, components: [
-			{kind: "moon.ChannelInfo",
-				classes:"moon-video-player-channel-info-badges-container",
-				components: [
-							{content: "3D"},
-							{content: "Live"},
-							{content: "REC 08:22", classes: "moon-video-player-info-redicon "}
-						]},
-					{kind:"moon.Clock", classes:"moon-video-clock-container"}
-				 ]}
-		], components: [
+			{kind: "moon.VideoInfoBackground", name:"rightInfo", orient: "right", background: true, components: [
+					{kind:"moon.Clock", name:"clock"}
+				]}
+		], 
+		components: [
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},

@@ -1,5 +1,5 @@
 /* WARNING: This is a generated file for backward-compatibility.  Most      */
-/* users should instead modify LESS files.  If you choose to edit this CSS  */
+/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
 /* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
 /* is commented out in your debug.html, and run deploy.sh/bat using the     */
 /* '-c' flag to disable LESS compilation.  This will force the loader and   */
@@ -474,6 +474,14 @@
 .moon-icon-text {
   font-family: "Moonstone Icons";
   font-size: 72px;
+  color: #ffffff;
+}
+.moon-video-sub-header-text {
+  font-family: "MuseoSans Medium";
+  font-size: 27px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
   color: #ffffff;
 }
 .enyo-locale-non-latin .moon,
@@ -3999,8 +4007,8 @@ textarea::-webkit-scrollbar-thumb:vertical {
   position: relative;
 }
 .moon-video-player-header.full-background {
-  background-color: black;
-  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 315px;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4118,18 +4126,17 @@ textarea::-webkit-scrollbar-thumb:vertical {
   background: transparent;
 }
 .moon-video-player-info-title {
-  font-size: 72px;
+  font-size: 70px;
   -webkit-font-kerning: normal;
   margin-bottom: 0;
   white-space: nowrap;
 }
 .moon-video-player-info-subtitle {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-family: "MuseoSans Medium";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
+  letter-spacing: normal;
   color: #ffffff;
   margin-bottom: 30px;
   white-space: nowrap;
@@ -4148,6 +4155,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
+  font-size: 27px;
   color: #ffffff;
   display: inline-block;
   white-space: normal;
@@ -4175,37 +4183,20 @@ textarea::-webkit-scrollbar-thumb:vertical {
   color: #ffffff;
 }
 .moon-video-player-info-description {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
+  font-family: "MuseoSans Medium";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
+  letter-spacing: normal;
+  line-height: 1.4;
   color: #ffffff;
   white-space: normal;
-  margin: 10px 0 20px;
+  margin: 4px 0 20px;
   -webkit-line-clamp: 2;
   display: -webkit-inline-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
   max-height: 96px;
-}
-.moon-video-player-info-description a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-video-player-info-description a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-video-player-info-description a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-video-player-info-description a:active {
-  color: #cf0652;
-  text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
   font-family: "LG Display";
@@ -4217,12 +4208,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   display: inline-block;
   margin: 0 0 20px;
 }
-.moon-video-player-subtitle-divider,
-.moon-video-player-info-client > * {
-  display: inline-block;
-  margin: 0 20px;
-}
-.moon-video-title-divider {
+.moon-video-player-subtitle-divider {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -4230,38 +4216,39 @@ textarea::-webkit-scrollbar-thumb:vertical {
   letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
-  margin: 0 20px;
 }
-.moon-video-title-divider a:link {
+.moon-video-player-subtitle-divider a:link {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-video-title-divider a:visited {
+.moon-video-player-subtitle-divider a:visited {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-video-title-divider a:hover {
+.moon-video-player-subtitle-divider a:hover {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-video-title-divider a:active {
+.moon-video-player-subtitle-divider a:active {
   color: #cf0652;
   text-decoration: none;
 }
-.enyo-locale-non-latin .moon-video-title-divider {
+.enyo-locale-non-latin .moon-video-player-subtitle-divider {
   font-family: "LG Display";
   font-size: 26px;
   line-height: 32px;
 }
-.moon-icon-button.moon-video-player-info-icon-cc {
-  width: 41px;
-  height: 33px;
-  background-size: 41px 33px;
-  margin-left: 0;
+.moon-video-player-subtitle-divider {
+  display: inline-block;
+  color: #ffffff;
+  margin: 0 20px;
 }
-.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
-.moon-icon-button.spotlight.moon-video-player-info-icon-cc {
-  background-position: 0 0;
+.moon-video-player-info-client > * {
+  display: inline-block;
+  margin: 0 10px;
+}
+.moon-video-player-info-client > *:first-child {
+  margin-left: 20px;
 }
 .moon-channelinfo {
   display: inline-block;
@@ -4270,12 +4257,14 @@ textarea::-webkit-scrollbar-thumb:vertical {
   white-space: normal;
   width: 230px;
 }
-.moon-video-player-channel-info-badges-container {
-  height: 240px;
-  display: inline-block;
+.moon-video-player-channel-info-badges {
+  padding: 0;
+  margin-right: -15px;
+  /*offset child element the info-icon margin-right 10px, so the icons align right with the channel name */
+
 }
 .moon-video-player-channel-info-badges > * {
-  margin: 0 10px 15px;
+  margin: 0 15px 6px 0;
 }
 .moon-video-player-channel-info-no {
   font-family: "Miso";
@@ -4285,37 +4274,36 @@ textarea::-webkit-scrollbar-thumb:vertical {
   letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
-  font-size: 72px;
+  font-size: 70px;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-family: "MuseoSans Medium";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
+  letter-spacing: normal;
   color: #ffffff;
-  margin-top: 10px;
-  margin-bottom: 28px;
+  margin: 6px 0 15px;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
   font-family: "LG Display";
 }
 .moon-video-player-info-icon {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-family: "MuseoSans Medium";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  font-size: 20px;
+  letter-spacing: normal;
+  color: #ffffff;
+  font-size: 16px;
   background-color: #ffffff;
   color: #000000;
+  text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
-  padding: 3px 9px;
+  padding: 4px 9px;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
@@ -4334,23 +4322,23 @@ textarea::-webkit-scrollbar-thumb:vertical {
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  height: 257px;
+  height: 275px;
 }
 .moon-background-wrapper-client-content.left {
-  padding: 40px 20px 0 60px;
+  padding: 20px 20px 0 60px;
 }
 .moon-background-wrapper-client-content.left > * {
   margin-right: 40px;
 }
 .moon-background-wrapper-client-content.right {
   float: right;
-  padding: 40px 60px 0 20px;
+  padding: 20px 60px 0 20px;
 }
 .moon-background-wrapper-client-content.right > * {
   margin-left: 40px;
 }
 .moon-background-wrapper-client-content.bg {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .moon-video-player-header.full-background .moon-background-wrapper-client-content.bg {
   background-color: transparent;
@@ -4371,7 +4359,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   border-left-width: 170px;
 }
 .left.bg .moon-background-wrapper-client-tri {
-  border-left-color: black;
+  border-left-color: rgba(0, 0, 0, 0.8);
 }
 .right .moon-background-wrapper-client-tri {
   right: 100%;
@@ -4384,7 +4372,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   border-right-width: 170px;
 }
 .right.bg .moon-background-wrapper-client-tri {
-  border-right-color: black;
+  border-right-color: rgba(0, 0, 0, 0.8);
 }
 .moon-video-player-header.full-background .moon-background-wrapper-client-content.left.bg .moon-background-wrapper-client-tri {
   border-left-color: transparent;
