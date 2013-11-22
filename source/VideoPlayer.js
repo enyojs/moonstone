@@ -516,15 +516,18 @@ enyo.kind({
 		enyo.Spotlight.spot(this);
 	},
 	panelsHandleFocused: function(inSender, inEvent) {
-		this._lastOverlayShowing = this.isOverlayShowing();
-		if ((this.isFullscreen() || !this.getInline()) && this.isOverlayShowing()) {
-			this.hideFSControls();
-			enyo.Spotlight.unspot();
-		}
+		this._infoShowing = this.$.videoInfoHeader.getShowing();
+		this._controlsShowing = this.$.playerControl.getShowing();
+		this.hideFSControls();
 	},
 	panelsHandleBlurred: function(inSender, inEvent) {
-		if ((this.isFullscreen() || !this.getInline()) && !this.isOverlayShowing() && this._lastOverlayShowing === true) {
-			this.showFSControls();
+		if (this.isLarge() && !this.isOverlayShowing()) {
+			if (this._infoShowing) {
+				this.showFSInfo();
+			}
+			if (this._controlsShowing) {
+				this.showFSBottomControls();
+			}
 		}
 	},
 	isLarge: function() {
@@ -564,7 +567,7 @@ enyo.kind({
 
 	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
-		return this.$.videoInfoHeader.getShowing() && this.$.playerControl.getShowing();
+		return this.$.videoInfoHeader.getShowing() || this.$.playerControl.getShowing();
 	},
 	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {

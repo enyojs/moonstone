@@ -250,10 +250,10 @@ enyo.kind({
 	handleSpotLeft: function() {
 		if (this.showing) {
 			enyo.Spotlight.spot(this.getActive());
-			return true;
 		} else {
 			enyo.Spotlight.unspot();
 		}
+		return true;
 	},
 	handleSpotRight: function(inSender, inEvent) {
 		if (this.showing) {
