@@ -51,7 +51,7 @@ enyo.kind({
 		"showCurrentValue": ["open", "value", "noneText"],
 		"currentValueText": ["value", "noneText"]
 	},
-	
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open && this.currentValueText() !== "";
@@ -62,6 +62,7 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
+			enyo.Spotlight.unfreeze();
 			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
