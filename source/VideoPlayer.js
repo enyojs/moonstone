@@ -240,7 +240,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -515,6 +515,21 @@ enyo.kind({
 	panelsHidden: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
 	},
+	panelsHandleFocused: function(inSender, inEvent) {
+		this._infoShowing = this.$.videoInfoHeader.getShowing();
+		this._controlsShowing = this.$.playerControl.getShowing();
+		this.hideFSControls();
+	},
+	panelsHandleBlurred: function(inSender, inEvent) {
+		if (this.isLarge() && !this.isOverlayShowing()) {
+			if (this._infoShowing) {
+				this.showFSInfo();
+			}
+			if (this._controlsShowing) {
+				this.showFSBottomControls();
+			}
+		}
+	},
 	isLarge: function() {
 		return this.isFullscreen() || !this.get("inline");
 	},
@@ -552,7 +567,7 @@ enyo.kind({
 
 	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
-		return this.$.videoInfoHeader.getShowing() && this.$.playerControl.getShowing();
+		return this.$.videoInfoHeader.getShowing() || this.$.playerControl.getShowing();
 	},
 	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {
