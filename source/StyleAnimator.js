@@ -81,7 +81,7 @@ enyo.kind({
 		this.applyValues(animation.startValues);
 		this.cacheStartValues(animation.startValues);
 
-		setTimeout(enyo.bind(this, function() { this._play(inName); }), 0);
+		enyo.asyncMethod(this.bindSafely(function() { this._play(inName); }));
 	},
 	//* @public
 	//* Jumps directly to the end state of a given animation (without animating).
@@ -230,7 +230,7 @@ enyo.kind({
 			for (var j = 0, control; (control = frames[i].controls[j]); j++) {
 				c = control.control;
 				cID = c.id;
-				
+
 				if (!startValues[cID]) {
 					startValues[cID] = {
 						control: c,
@@ -343,7 +343,7 @@ enyo.kind({
 	//* Begins stepping.
 	beginStepping: function() {
 		if (!this.stepInterval) {
-			this.stepInterval = setInterval(enyo.bind(this, "_step"), this.stepIntervalMS);
+			this.stepInterval = setInterval(this.bindSafely("_step"), this.stepIntervalMS);
 		}
 	},
 	//* @protected
