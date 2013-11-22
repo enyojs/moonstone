@@ -93,7 +93,7 @@ enyo.kind({
 		this.$.repeater.setCount(this.max-this.min+1);
 		this.$.repeater.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch
-		enyo.asyncMethod(enyo.bind(this,function(){
+		enyo.asyncMethod(this.bindSafely(function(){
 			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 		}));
 	},

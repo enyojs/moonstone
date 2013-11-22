@@ -88,7 +88,7 @@ moon.MarqueeSupport = {
 			this._marquee_startHold();
 		}
 	},
-	
+
 	//* @public
 	/**
 		Starts timer to waterfall an _onRequestMarqueeStart_ event that kicks off
@@ -100,7 +100,7 @@ moon.MarqueeSupport = {
 		if (this.marqueeWaitList.length === 0) {
 			return;
 		}
-	
+
 		this._marquee_active = true;
 		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", this.marqueeDelay);
 	},
@@ -124,9 +124,9 @@ moon.MarqueeSupport = {
 	addMarqueeItem: function(inControl) {
 		this.marqueeWaitList.push(inControl);
 	},
-	
+
 	//* @protected
-	
+
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
 		this.marqueeWaitList = [];
@@ -209,7 +209,7 @@ moon.MarqueeItem = {
 	*/
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
-			this.$.marqueeText.setContent(this.content);		
+			this.$.marqueeText.setContent(this.content);
 		}
 		this._marquee_invalidateMetrics();
 		if (this._marquee_puppetMaster) {
@@ -222,29 +222,29 @@ moon.MarqueeItem = {
 		if (!inEvent || this.disabled || !this._marquee_enabled || this._marquee_fits) {
 			return;
 		}
-		
+
 		this._marquee_puppetMaster = inEvent.originator;
 		inEvent.originator.addMarqueeItem(this);
-		
+
 		this.marqueePause = inEvent.marqueePause || 1000;
 		this.marqueeSpeed = inEvent.marqueeSpeed || 60;
 	},
 	//* Starts marquee animation.
 	_marquee_startAnimation: function(inSender, inEvent) {
 		var distance = this._marquee_calcDistance();
-		
+
 		// If there is no need to animate, return early
 		if (!this._marquee_shouldAnimate(distance)) {
 			this._marquee_fits = true;
 			this.doMarqueeEnded();
 			return;
 		}
-		
+
 		// Lazy creation of _this.$.marqueeText_
 		if (!this.$.marqueeText) {
 			this._marquee_createMarquee();
 		}
-		
+
 		this._marquee_addAnimationStyles(distance);
 		return true;
 	},
@@ -266,7 +266,7 @@ moon.MarqueeItem = {
 		if (inEvent.originator !== this.$.marqueeText) {
 			return;
 		}
-		
+
 		this.startJob("stopMarquee", "_marquee_stopAnimation", this.marqueePause);
         return true;
 	},
@@ -296,13 +296,13 @@ moon.MarqueeItem = {
 	},
 	_marquee_addAnimationStyles: function(inDistance) {
 		var duration = this._marquee_calcDuration(inDistance);
-		
+
 		this.$.marqueeText.addClass("animate-marquee");
 		this.$.marqueeText.applyStyle("transition-duration", duration + "s");
 		this.$.marqueeText.applyStyle("-webkit-transition-duration", duration + "s");
-		
+
 		// Need this timeout for FF!
-		setTimeout(enyo.bind(this, function() {
+		setTimeout(this.bindSafely(function() {
 			enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(inDistance) + "px"});
 		}), 100);
 	},
@@ -310,12 +310,12 @@ moon.MarqueeItem = {
 		if (!this.$.marqueeText) {
 			return;
 		}
-		
+
 		this.$.marqueeText.applyStyle("transition-duration", "0s");
-		this.$.marqueeText.applyStyle("-webkit-transition-duration", "0s");	
-		
+		this.$.marqueeText.applyStyle("-webkit-transition-duration", "0s");
+
 		// Need this timeout for FF!
-		setTimeout(enyo.bind(this, function() {
+		setTimeout(this.bindSafely(function() {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
 		}), 0);
