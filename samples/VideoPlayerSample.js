@@ -11,6 +11,7 @@ enyo.kind({
 			poster: "assets/video-poster.png",
 			autoplay:true,
 			onPlaybackControlsTapped: "controlsTapped",
+			showInfoBackground: true,
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", name:"leftInfo", orient: "left", background: true, fit: true, components: [
 					{

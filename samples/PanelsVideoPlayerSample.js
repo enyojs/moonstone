@@ -26,6 +26,7 @@ enyo.kind({
 						inline:true,
 						classes: "moon-8h",
 						poster: "assets/video-poster.png",
+						showInfoBackground: true,
 						infoComponents: [{
 							kind: "moon.VideoInfoBackground",
 							orient: "left",
