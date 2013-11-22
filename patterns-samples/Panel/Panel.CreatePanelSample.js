@@ -1,7 +1,9 @@
 enyo.kind({
-	name: "myPanel",
+	name: "myListPanel",
 	kind: "moon.Panel",
-	defaultSpotlightControl: "second",
+	titleBelow: "DataList below has artifically long render delay",
+	subTitleBelow: "It should become focused after rendering",
+	defaultSpotlightControl: "dataList",
 	headerComponents:[
 		{kind: "moon.IconButton", src: "../assets/icon-list.png"},
 		{kind: "moon.IconButton", src: "../assets/icon-list.png"},
@@ -38,12 +40,28 @@ enyo.kind({
 		]}
 	],
 	components:[
-		{kind: "moon.Item", content: "Item One"},
-		{name: "second", kind: "moon.Item", content: "Item Two"},
-		{kind: "moon.Item", content: "Item Three"},
-		{kind: "moon.Item", content: "Item Four"},
-		{kind: "moon.Item", content: "Item Five"}
-	]
+		{kind: "moon.DataList", name:"dataList", renderDelay:2000, fit:true, components: [
+			{kind:"moon.Item", bindings: [
+				{from:".model.text", to:".content"}
+			]}
+		]}
+	],
+	create: function() {
+		this.inherited(arguments);
+		var r = [];
+		for (var i=0; i<100; i++) {
+			r.push({text: "Item " + i});
+		}
+		this.$.dataList.set("collection", new enyo.Collection(r));
+	}
+});
+
+enyo.kind({
+	name: "myGridPanel",
+	kind: "myListPanel",
+	componentOverrides: {
+		dataList: {kind:"moon.DataGridList"}
+	}
 });
 
 enyo.kind({
@@ -67,7 +85,8 @@ enyo.kind({
 		// Example of Current panel drives next panel.
 		// The better way is using static panels and change content only based on item selection.
 		if (!this.$.panels.inTransition() && this.$.panels.getPanelIndex(inSender) == this.$.panels.getIndex()) {
-			this.$.panels.replacePanel(1, {kind: 'myPanel', title: inSender.getContent()});
+			var kind = (inSender.indexInContainer() % 2) == 0 ? "myListPanel" : "myGridPanel";
+			this.$.panels.replacePanel(1, {kind: kind, title: inSender.getContent()});
 			this.$.panels.next();
 		}
 		return true;
