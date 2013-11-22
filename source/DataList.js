@@ -12,7 +12,7 @@ enyo.kind({
 	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" },
 	didReset: function () {
 		var spot = enyo.Spotlight.getCurrent();
-		if (spot === this || spo.isDescendentOf(this)) {
+		if (spot === this || spot.isDescendentOf(this)) {
 			this.spotlight = false;
 			enyo.Spotlight.spot(this);
 		}
