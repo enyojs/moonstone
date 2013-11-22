@@ -5,9 +5,6 @@
 	border-top: 2px solid @moon-header-border-color;
 	border-bottom: 6px solid @moon-header-border-color;
 	position: relative;
-	transition: height 0.2s linear;
-	-webkit-transition: height 0.2s linear;
-	-moz-transition: height 0.2s linear;
 	max-width:100%;
 	padding: 0 0 @moon-spotlight-outset 0px;
 	background-color: transparent;
@@ -100,6 +97,9 @@
 /* Small Header */
 .moon-header.moon-small-header {
 	height: 240px;
+	transition: height 0.2s linear;
+	-webkit-transition: height 0.2s linear;
+	-moz-transition: height 0.2s linear;
 }
 
 .moon-small-header .moon-header-title-above{
@@ -122,7 +122,7 @@
 	max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-	max-height: 40px;	
+	max-height: 40px;
 }
 .hidden-title .moon-header-title,
 .hidden-title .moon-header-title-below,
