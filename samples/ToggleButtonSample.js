@@ -6,7 +6,8 @@ enyo.kind({
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-toggle-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Toggle Buttons:"},
-				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"},
+				{kind: "moon.ToggleButton", content: "A", minWidth: false, ontap: "buttonTapped", showing:false, name:"tb1"},
+				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped", showing:false, name:"tb2"},
 				{kind: "moon.ToggleButton", content: "Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},

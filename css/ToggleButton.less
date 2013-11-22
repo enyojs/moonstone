@@ -17,36 +17,28 @@
 	max-width: 250px;
 }
 
-.wrapper {
+.moon-toggle-button-wrapper {
     max-width:100%;
     vertical-align: top;
- }
-
-.toggle-bottom {
-    position: relative;
+    &.bottom {
+        position: relative;
+        top: -@moon-button-line-height;
+    }
+    &.hidden {
+        opacity:0;
+    }
+    > * {
+        vertical-align: top;
+        display: inline-block;
+    }
+}
+.moon-button.small .moon-toggle-button-wrapper.bottom {
+    top: -@moon-button-small-line-height;
 }
 
-.wrapper > * {
-    vertical-align: top;
-    display: inline-block;
-}
-
-.label {
+.moon-toggle-button-label {
     width: auto;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-}
-
-.hidden {
-    opacity:0;
-}
-
-.moon-custom-button {
-    line-height: 50px;
-}
-
-.toggle-wrap {
-  max-height: 33px;
-  padding: 1px;
 }

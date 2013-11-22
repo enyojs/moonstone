@@ -35,14 +35,14 @@ enyo.kind({
 	//* @protected
 	classes: "moon-toggle-button",
 	components: [
-		{name:"offToggleButtonWrapper", kind:"FittableColumns", classes:"wrapper", components: [
-			{name:"offToggleLabel", classes:"label", kind: "moon.MarqueeText", fit:true},
+		{name:"offToggleButtonWrapper", kind:"FittableColumns", classes:"moon-toggle-button-wrapper", components: [
+			{name:"offToggleLabel", classes:"moon-toggle-button-label", kind: "moon.MarqueeText", fit:true},
 			{name: "offLabelSeparate", style: "white-space: pre"},
 			{name:"offContent"}
 		]},
 		{tag:"br"},
-		{name:"onToggleButtonWrapper", kind:"FittableColumns", classes:"wrapper toggle-bottom", components: [
-			{name:"onToggleLabel", classes:"label", kind:"moon.MarqueeText", fit:true},
+		{name:"onToggleButtonWrapper", kind:"FittableColumns", classes:"moon-toggle-button-wrapper bottom", components: [
+			{name:"onToggleLabel", classes:"moon-toggle-button-label", kind:"moon.MarqueeText", fit:true},
 			{name: "onLabelSeparate", style: "white-space: pre"},
 			{name:"onContent"}
 		]}
@@ -50,14 +50,18 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.value = Boolean(this.value || this.active);
-		this.updateVisualState();
 		this.valueChanged();
-	},
-	rendered: function() {
-		this.correctWidth();
 	},
 	updateVisualState: function() {
 		this.addRemoveClass("moon-overlay", this.value);
+		this.$.onToggleButtonWrapper.addRemoveClass("hidden", !this.value);
+		this.$.onToggleLabel.setDisabled(!this.value);
+		this.$.offToggleButtonWrapper.addRemoveClass("hidden", this.value);
+		this.$.offToggleLabel.setDisabled(this.value);
+		if (this.generated && this.hasClass("spotlight")) {
+			this.stopMarquee();
+			this.startMarquee();
+		}
 		this.setActive(this.value);
 	},
 	activeChanged: function() {
@@ -65,11 +69,8 @@ enyo.kind({
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
+		this.updateVisualState();
 		this.doChange({value: this.value});
-		this.$.onToggleButtonWrapper.addRemoveClass("hidden", !this.value);
-		this.$.onToggleLabel.setDisabled(!this.value);
-		this.$.offToggleButtonWrapper.addRemoveClass("hidden", this.value);
-		this.$.offToggleLabel.setDisabled(this.value);
 	},
 	onContentChanged: function() {
 		this.updateContent();
@@ -103,37 +104,15 @@ enyo.kind({
 		this.$.onToggleLabel.setContent(this.content);
 		this.$.onLabelSeparate.setContent(this.labelSeparator);
 		this.$.onContent.setContent(this.onContent);
-		this.correctWidth();
+		this.resized();
 	},
-	correctWidth: function() {
-		var offContentWidth = this.$.offContent.hasNode().clientWidth,
-			offLabelSeparateWidth = this.$.offLabelSeparate.hasNode().clientWidth,
-			offToggleLabelWidth = this.$.offToggleLabel.hasNode().clientWidth,
-			offTotalWidth = offContentWidth + offToggleLabelWidth + offLabelSeparateWidth,
-			offMaxWidth = parseInt(enyo.dom.getComputedStyleValue(this.$.offToggleButtonWrapper.hasNode(), "width"),10),
-			offToggleLabelHeight = this.$.offToggleLabel.hasNode().clientHeight;
-
-		if(offTotalWidth > offMaxWidth) {
-			var offToggleClient = offMaxWidth- (offContentWidth + offLabelSeparateWidth);
-			this.$.offToggleLabel.applyStyle("width", offToggleClient + "px");
-		}else {
-			if(isNaN(offMaxWidth)) {
-				this.$.offToggleLabel.applyStyle("width","auto");
-			}
-		}
-		var onContentWidth = this.$.onContent.hasNode().clientWidth,
-			onLabelSeparateWidth = this.$.onLabelSeparate.hasNode().clientWidth,
-			onToggleLabelWidth = this.$.onToggleLabel.hasNode().clientWidth,
-			onTotalWidth = onContentWidth + onToggleLabelWidth + onLabelSeparateWidth,
-			onMaxWidth = parseInt(enyo.dom.getComputedStyleValue(this.$.onToggleButtonWrapper.hasNode(), "width"),10);
-		this.$.onToggleButtonWrapper.applyStyle("top", -offToggleLabelHeight + "px");
-		if(onTotalWidth > onMaxWidth) {
-			var onToggleClient = onMaxWidth- (onContentWidth + onLabelSeparateWidth);
-			this.$.onToggleLabel.applyStyle("width", onToggleClient + "px");
-		}else {
-			if(isNaN(onMaxWidth)) {
-				this.$.onToggleLabel.applyStyle("width","auto");
-			}
-		}
+	resized: function() {
+		this.$.offToggleLabel.applyStyle("width", "auto");
+		this.$.onToggleLabel.applyStyle("width", "auto");
+		this.inherited(arguments);
+	},
+	showingChanged: function() {
+		this.inherited(arguments);
+		this.resized();
 	}
 });
