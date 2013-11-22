@@ -1,5 +1,6 @@
 enyo.depends(
 	"moon-ilib.js",
+	"moon-fonts.js",
 	"BodyText.js",
 	"Marquee.js",
 	"Button.js",
