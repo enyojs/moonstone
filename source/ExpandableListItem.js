@@ -153,7 +153,7 @@ enyo.kind({
 		}
 
 		if (inEvent.originator === this.$.header) {
-			this.bubble("onRequestScrollIntoView", {side: "top"});
+			this.bubble("onRequestScrollIntoView");
 		}
 	},
 	//* Check for the last item in the client area, and prevent 5-way focus movement below it, per UX specs
@@ -164,7 +164,7 @@ enyo.kind({
 		}
 	},
 	drawerAnimationEnd: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top", scrollInPointerMode:true});
+		this.bubble("onRequestScrollIntoView", {scrollInPointerMode: true});
 		return true;
 	}
 });

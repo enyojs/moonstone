@@ -249,7 +249,7 @@ enyo.kind({
 			this.$.meridiem.setValue(hour > 11 ? 1 : 0);
 		}
 		if (!hour) {
-			hour = 24;
+			hour = (this.meridiemEnable) ? 24 : 0;
 		}
 		this.$.hour.setValue(hour);
 		this.$.minute.setValue(this.value.getMinutes());

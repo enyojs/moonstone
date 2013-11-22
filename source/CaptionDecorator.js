@@ -52,7 +52,9 @@ enyo.kind({
 			this.resetCaptionPosition();
 		}
 	},
-
+	getSide: function () {
+		return this.side || "top";
+	},
 	// Change handlers
 
 	sideChanged: function() {

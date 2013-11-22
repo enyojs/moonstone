@@ -27,7 +27,7 @@ enyo.kind({
 		//* causes the tooltip to appear.
 		showDelay: 500,
 		//* Whether to position the tooltip above or below the activator.  Valid values are
-		//* "above", "below", or "auto". 
+		//* "above", "below", or "auto".
 		position: "auto",
 		//* Default _margin-left_ value
 		defaultLeft: 10
@@ -78,13 +78,14 @@ enyo.kind({
 		if (this.showing && this.hasNode()) {
 
 			var b = this.node.getBoundingClientRect();
+			var moonDefaultPadding = 20;
 
 			//when the tooltip bottom goes below the window height move it above the decorator
-			if ((b.top + b.height > window.innerHeight) || (this.position == "above")) {
+			if ((b.top + b.height > window.innerHeight - moonDefaultPadding) || (this.position == "above")) {
 				this.removeClass("below");
 				this.addClass("above");
 				this.applyStyle("top", -b.height + "px");
-			} 
+			}
 			if ((b.top  < 0) || (this.position == "below")) {
 				this.removeClass("above");
 				this.addClass("below");
@@ -104,7 +105,7 @@ enyo.kind({
 			*/
 
 			//when the tooltip's right edge is out of the window, align its right edge with the decorator left edge (approx)
-			if (b.left + b.width > window.innerWidth){
+			if (b.left + b.width > window.innerWidth - moonDefaultPadding){
 				//use the right-arrow
 				this.applyPosition({'margin-left': -b.width});
 				this.removeClass("left-arrow");

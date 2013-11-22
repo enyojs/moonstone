@@ -64,7 +64,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso113"), url("../fonts/miso/miso-regular-113.woff") format("woff"), url("../fonts/miso/miso-regular-113.ttf") format("truetype");
+  src: local("Miso"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -456,7 +456,7 @@
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -465,7 +465,7 @@
 .moon-small-button-text {
   font-family: "Miso";
   font-size: 27px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -639,7 +639,7 @@
 .moon-large-button-text {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -648,7 +648,7 @@
 .moon-small-button-text {
   font-family: "Miso";
   font-size: 27px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -716,9 +716,11 @@
 }
 .enyo-locale-non-latin .moon-large-button-text {
   font-size: 36px;
+  font-weight: normal;
 }
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
+  font-weight: normal;
 }
 .border-box {
   box-sizing: border-box;
@@ -762,8 +764,13 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-  background-position: center -85px;
+  background-position: center -75px;
   color: #4b4b4b;
+}
+.moon-icon.moon-icon-button.active.small,
+.moon-icon.moon-icon-button:active:hover.small,
+.moon-icon-toggle.active.small {
+  background-position: center -50px;
 }
 .moon-icon.disabled {
   opacity: 0.6;
@@ -1033,7 +1040,7 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: 60px;
+  position: relative;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -1044,6 +1051,14 @@
   border-left-width: 30px;
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
+  border-right-width: 30px;
+  border-right-style: solid;
+  border-left-width: 0px;
+  border-left-style: none;
+  border-right-color: rgba(0, 0, 0, 0.13);
+  right: 0px;
 }
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
@@ -1056,9 +1071,18 @@
   border-left-color: #cf0652;
   left: 6px;
 }
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
+  border-right-width: 30px;
+  border-right-style: solid;
+  border-left-width: 0px;
+  border-left-style: none;
+  border-right-color: #cf0652;
+  left: 0px;
+  right: 6px;
+}
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: 60px;
+  position: relative;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
@@ -1071,6 +1095,13 @@
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
+  border-left-width: 30px;
+  border-left-style: solid;
+  border-right-width: 0px;
+  border-right-style: none;
+  border-left-color: rgba(0, 0, 0, 0.13);
+}
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
   width: 30px;
@@ -1081,6 +1112,14 @@
   border-right-style: solid;
   border-right-color: #cf0652;
   right: 6px;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
+  border-left-width: 30px;
+  border-left-style: solid;
+  border-right-width: 0px;
+  border-right-style: none;
+  border-left-color: #cf0652;
+  right: -6px;
 }
 .moon-simple-integer-picker-button.left {
   transform: rotate(270deg) translateZ(1px);
@@ -2436,7 +2475,7 @@
 .moon-slider-popup-label {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -2448,6 +2487,7 @@
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
   font-size: 36px;
+  font-weight: normal;
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
@@ -2730,6 +2770,20 @@
 }
 .moon-textarea-decorator.moon-disabled .moon-textarea {
   cursor: default;
+}
+textarea::-webkit-scrollbar {
+  width: 4px;
+}
+textarea::-webkit-scrollbar-track-piece {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  background-color: #ffffff;
+  -webkit-border-radius: 10px;
+}
+textarea::-webkit-scrollbar-thumb:vertical {
+  height: 10px;
+  background-color: #a6a6a6;
+  -webkit-border-radius: 10px;
 }
 /* List Actions */
 .moon-list-actions {
@@ -3506,7 +3560,7 @@
 .moon-tooltip-label {
   font-family: "Miso";
   font-size: 27px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -3517,12 +3571,13 @@
   color: #ffffff;
   text-align: center;
   padding: 0px 24px;
-  background-color: #686868;
+  background-color: #4d4d4d;
   border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
   font-family: "LG Display";
   font-size: 27px;
+  font-weight: normal;
 }
 .moon-tooltip.below {
   top: 100%;
@@ -3731,7 +3786,7 @@
 .moon-video-transport-slider-popup-label {
   font-family: "Miso";
   font-size: 33px;
-  font-weight: normal;
+  font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -3743,6 +3798,7 @@
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "LG Display";
   font-size: 36px;
+  font-weight: normal;
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
@@ -3793,8 +3849,10 @@
 .moon-video-player {
   position: relative;
   display: inline-block;
-  margin: 0 10px;
   background-color: #000000;
+}
+.moon-video-player:not(.enyo-fullscreen) {
+  margin: 0 10px;
 }
 .moon-video-player-container {
   display: block;
@@ -3820,6 +3878,7 @@
 :-webkit-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-webkit-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3827,6 +3886,7 @@
 :-moz-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-moz-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3834,6 +3894,7 @@
 :-ms-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-ms-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3841,6 +3902,7 @@
 :-o-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-o-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3848,6 +3910,7 @@
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3983,6 +4046,7 @@
   background-size: 85px 170px;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
@@ -4586,6 +4650,7 @@
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button:active,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {

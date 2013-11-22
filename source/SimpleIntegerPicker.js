@@ -68,19 +68,23 @@ enyo.kind({
 	values: null,
 
 	components: [
-		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
-			{classes: "moon-scroll-picker-overlay-left"},
-			{classes: "moon-scroll-picker-overlay-left-border"}
+		{classes: "moon-scroll-picker-overlay-container-left", components: [
+			{name: "leftOverlay", showing: false, components:[
+				{classes: "moon-scroll-picker-overlay-left"},
+				{classes: "moon-scroll-picker-overlay-left-border"} 
+			]},
+			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"}
 		]},
-		{name: "rightOverlay", classes: "moon-scroll-picker-overlay-container-right", showing: false, components:[
-			{classes: "moon-scroll-picker-overlay-right"},
-			{classes: "moon-scroll-picker-overlay-right-border"}
-		]},
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
+		{classes: "moon-scroll-picker-overlay-container-right", components: [
+			{name: "rightOverlay", showing: false, components:[
+				{classes: "moon-scroll-picker-overlay-right"},
+				{classes: "moon-scroll-picker-overlay-right-border"}
+			]},
+			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
+		]}
 	],
 	observers: {
 		triggerRebuild: ["step", "min", "max", "unit"],

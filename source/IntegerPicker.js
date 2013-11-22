@@ -52,7 +52,7 @@ enyo.kind({
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"topOverlay", ondown:"next", classes:"moon-scroll-picker-overlay-container top top-image", components:[
+		{name:"topOverlay", ondown:"next", onholdpulse:"next", classes:"moon-scroll-picker-overlay-container top top-image", components:[
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
@@ -61,7 +61,7 @@ enyo.kind({
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
 		]},
-		{name:"bottomOverlay", ondown:"previous", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
+		{name:"bottomOverlay", ondown:"previous", onholdpulse:"previous", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
 			{classes:"moon-scroll-picker-overlay bottom"},
 			{classes: "moon-scroll-picker-taparea"}
 		]}
@@ -99,6 +99,7 @@ enyo.kind({
 	},
 	valueChanged: function(inOld) {
 		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		this.updateOverlays();
 	},
 	//prevent scroller dragging
 	dragstart: function(inSender, inEvent) {
@@ -157,7 +158,7 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	spotlightFocus: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView");
 	},
 	spotlightBlur: function() {
 		this.hideTopOverlay();

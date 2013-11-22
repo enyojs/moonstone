@@ -76,7 +76,12 @@ enyo.kind({
 	},
 	formatValue: function() {
 		if (this._tf) {
-			return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			switch (this._tf.getCalendar()) {
+			case "gregorian":
+				return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			case "thaisolar":
+				return this._tf.format(new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			}
 		} else {
 			return this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
