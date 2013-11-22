@@ -250,10 +250,10 @@ enyo.kind({
 	handleSpotLeft: function() {
 		if (this.showing) {
 			enyo.Spotlight.spot(this.getActive());
-			return true;
 		} else {
 			enyo.Spotlight.unspot();
 		}
+		return true;
 	},
 	handleSpotRight: function(inSender, inEvent) {
 		if (this.showing) {
@@ -272,6 +272,7 @@ enyo.kind({
 			}
 		}
 		this.resetHandleAutoHide();
+		enyo.Signals.send("onPanelsHandleBlurred");
 	},
 	resetHandleAutoHide: function(inSender, inEvent) {
 		this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
@@ -290,6 +291,7 @@ enyo.kind({
 		this.unstashHandle();
 		this.startJob("autoHide", "unspotHandle", this.getAutoHideTimeout());
 		this.handleFocused = true;
+		enyo.Signals.send("onPanelsHandleFocused");
 	},
 	unspotHandle: function() {
 		enyo.Spotlight.unspot();
