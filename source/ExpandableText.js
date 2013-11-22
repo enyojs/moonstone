@@ -95,6 +95,7 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doExpandCollapse({collapsed: this.collapsed});
 		}
+		this.bubble("onRequestScrollIntoView");
 	},
 	//* Updates _this.canCollapse_ when _this.maxHeight_ changes.
 	maxHeightChanged: function() {
