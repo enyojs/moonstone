@@ -180,7 +180,7 @@ moon.MarqueeItem = {
 	classes: "moon-marquee",
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
-			if (!oEvent.delegate) {
+			if (oEvent && !oEvent.delegate) {
 				var handler = this._marqueeItem_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
