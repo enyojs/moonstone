@@ -34,11 +34,16 @@ enyo.kind({
 	queueList: null,
 	//* @public
 	published: {
-		repeat: false
+		repeat: false,
+		/**
+			When false, audio player doesn't response to remote controller
+		*/
+		handleRemoteControlKey: true
 	},
 	//* @protected
 	audioComponents: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
+		{kind: "enyo.Signals", onkeyup:"remoteKeyHandler"},
 		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
@@ -183,6 +188,30 @@ enyo.kind({
 		this.audioTracks[this.audioTracks.length] = a;
 		this.updateTrackCount();
 		this.waterfall("onAddAudio", {tracks: this.audioTracks});
+	},
+	remoteKeyHandler: function(inSender, inEvent) {
+		if (this.handleRemoteControlKey) {
+			switch (inEvent.keySymbol) {
+			case 'play':
+				this.play();
+				break;
+			case 'pause':
+				this.pause();
+				break;
+			case 'rewind':
+				this.playPrevious();
+				break;
+			case 'fastforward':
+				this.playNext();
+				break;
+			case 'stop':
+				this.pause();
+				this.$.audio.seekTo(0);
+				this.updatePlayhead();
+				break;
+			}
+		}
+		return true;
 	}
 });
 

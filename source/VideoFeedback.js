@@ -34,7 +34,7 @@ enyo.kind({
 
 	components: [
 		{name: "leftIcon",  classes: "moon-video-feedback-icon-left", allowHtml: true, content: "&nbsp;", showing: false},
-		{name: "feedText",  classes: "moon-video-feedback-text", allowHtml: true, content: "&nbsp;"},
+		{name: "feedText",  classes: "moon-video-feedback-text", allowHtml: true, content: "&nbsp;", showing: false},
 		{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
 	],
 
@@ -65,6 +65,8 @@ enyo.kind({
 		var customMessage = false;
 		inMessage = inMessage || "";
 		inParams = inParams || {};
+
+		if (inMessage !== "") { this.$.feedText.show(); }
 
 		switch (inMessage) {
 		case "Play":

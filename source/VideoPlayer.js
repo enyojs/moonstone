@@ -199,7 +199,12 @@ enyo.kind({
 			Source of image file to show when video isn't available or user has not
 			yet tapped the play button
 		*/
-		poster: ""
+		poster: "",
+		/**
+			When false, video player doesn't response to remote controller
+		*/
+		handleRemoteControlKey: true
+			
 	},
 	//* @protected
 	handlers: {
@@ -235,7 +240,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -561,7 +566,6 @@ enyo.kind({
 	showFSControls: function(inSender, inEvent) {
 		this.showFSInfo();
 		this.showFSBottomControls();
-		this.resetAutoTimeout();
 	},
 	hideFSControls: function() {
 		if (this.isOverlayShowing()) {
@@ -573,6 +577,7 @@ enyo.kind({
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSBottomControls: function(inSender, inEvent) {
 		if (this.autoShowOverlay && this.autoShowControls) {
+			this.resetAutoTimeout();
 			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
 			this.$.playerControl.resized();
@@ -586,7 +591,6 @@ enyo.kind({
 			
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
-				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
 			}
 			// When controls are visible, set as container to remember last focused control
@@ -630,6 +634,7 @@ enyo.kind({
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
+			this.resetAutoTimeout();
 			this.$.videoInfoHeader.setShowing(true);
 			this.$.videoInfoHeader.resized();
 			
@@ -1072,6 +1077,10 @@ enyo.kind({
 		if (inEvent.srcElement.playbackRate < 0) {
 			return;
 		}
+		if (inEvent.srcElement.currentTime === 0) {
+			this.sendFeedback("Stop", {}, true);
+			return;
+		}
 		this.sendFeedback("Pause", {}, true);
 	},
 	_stop: function(inSender, inEvent) {
@@ -1079,9 +1088,6 @@ enyo.kind({
 		this.updatePlayPauseButtons();
 		this.updateSpinner();
 		this.sendFeedback("Stop");
-	},
-	_start: function(inSender, inEvent) {
-		this.sendFeedback(this._isPlaying ? "Play" : "Pause", {}, !this._isPlaying);
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
@@ -1120,5 +1126,44 @@ enyo.kind({
 		this._stop();
 		this.updateSpinner();
 		this.updatePlaybackControlState();
+	},
+	remoteKeyHandler: function(inSender, inEvent) {
+		if (this.handleRemoteControlKey && !this.disablePlaybackControls) {
+			var showControls = false;
+			switch (inEvent.keySymbol) {
+			case 'play':
+				this.play(inSender, inEvent);
+				showControls = true;
+				break;
+			case 'pause':
+				this.pause(inSender, inEvent);
+				showControls = true;
+				break;
+			case 'rewind':
+				if (this.showFFRewindControls) {
+					this.rewind(inSender, inEvent);
+					showControls = true;
+				}
+				break;
+			case 'fastforward':
+				if (this.showFFRewindControls) {
+					this.fastForward(inSender, inEvent);
+					showControls = true;
+				}
+				break;
+			case 'stop':
+				this.jumpToStart();
+				showControls = true;
+				break;
+			}
+			if (showControls) {
+				if(!this.$.playerControl.getShowing()) {
+					this.showFSBottomControls();
+				} else {
+					this.resetAutoTimeout();
+				}
+			}
+		}
+		return true;
 	}
 });
