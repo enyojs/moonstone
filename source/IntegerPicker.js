@@ -97,6 +97,16 @@ enyo.kind({
 			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 		}));
 	},
+	setMin: function(newValue) {
+		if (newValue >= this.max) { return; }
+		if (this.min === newValue) { return; }
+		this.min = newValue;
+	},
+	setMax: function(newValue) {
+		if (newValue <= this.min) { return; }
+		if (this.max === newValue) { return; }
+		this.max = newValue;
+	},
 	setValue: function(newValue) {
 		if (this.min > newValue || this.max < newValue) { return; }
 		if (this.value === newValue) { return; }
