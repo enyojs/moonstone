@@ -62,7 +62,7 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
-			enyo.Spotlight.unfreeze();
+			this.$.clientInput.blur();
 			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
