@@ -3574,7 +3574,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   color: #ffffff;
   text-align: center;
   padding: 0px 24px;
-  background-color: #686868;
+  background-color: #4d4d4d;
   border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
@@ -3852,11 +3852,10 @@ textarea::-webkit-scrollbar-thumb:vertical {
 .moon-video-player {
   position: relative;
   display: inline-block;
-  margin: 0 10px;
   background-color: #000000;
 }
-.enyo-fullscreen.moon-video-player {
-  margin: 0;
+.moon-video-player:not(.enyo-fullscreen) {
+  margin: 0 10px;
 }
 .moon-video-player-container {
   display: block;
@@ -3882,6 +3881,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-webkit-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-webkit-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3889,6 +3889,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-moz-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-moz-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3896,6 +3897,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-ms-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-ms-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3903,6 +3905,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :-o-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-o-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3910,6 +3913,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -4045,6 +4049,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
   background-size: 85px 170px;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
@@ -4650,6 +4655,7 @@ textarea::-webkit-scrollbar-thumb:vertical {
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button:active,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {

@@ -80,12 +80,12 @@ enyo.kind({
 		autoplay: false,
 		/**
 			When false, fullscreen video control overlays (info or transport) are not
-			shown or hidden automatically in response to _up/down/ok_ events
+			shown or hidden automatically in response to _up/down_ events
 		*/
 		autoShowOverlay: true,
 		/**
 			When true, the overlay will be shown in response to pointer movement (in
-			addition to _up/down/ok_ events)
+			addition to _up/down_ events)
 		*/
 		shakeAndWake: false,
 		/**
@@ -213,9 +213,6 @@ enyo.kind({
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
-		onSpotlightSelect: 'spotlightSelectHandler',
-		onSpotlightLeft: 'spotlightLeftRightHandler',
-		onSpotlightRight: 'spotlightLeftRightHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -237,8 +234,6 @@ enyo.kind({
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
 	
-	spotlightModal: true,
-	
 	_isPlaying: false,
 	_canPlay: false,
 	_autoCloseTimer: null,
@@ -256,7 +251,7 @@ enyo.kind({
 		]},
 
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", ontap: "toggleControls", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
 		
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
@@ -525,31 +520,25 @@ enyo.kind({
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isLarge()) {
+			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
-				this.showFSInfo();
+				if (!this.$.videoInfoHeader.getShowing()) {
+					this.showFSInfo();
+				} else {
+					this.hideFSInfo();
+				}
 			}
-			if (inEvent.originator === this) {
-				return true;
-			}
+			return true;
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.isLarge()) {
+		if (this.isLarge()) {
+			// Toggle info header on "down" press
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
+			} else {
+				this.hideFSBottomControls();
 			}
-			return true;
-		}
-	},
-	spotlightLeftRightHandler: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.isFullscreen()) {
-			return true;
-		}
-	},
-	spotlightSelectHandler: function(inSender, inEvent) {
-		if (inEvent.originator == this && this.isLarge()) {
-			this.showFSInfo();
-			this.showFSBottomControls();
 			return true;
 		}
 	},
@@ -564,16 +553,6 @@ enyo.kind({
 	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
 		return this.$.videoInfoHeader.getShowing() && this.$.playerControl.getShowing();
-	},
-	//* If currently in fullscreen, hides the controls on non-button taps.
-	toggleControls: function(inSender, inEvent) {
-		if (inEvent.originator === this.$.fullscreenControl) {
-			if (this.isOverlayShowing()) {
-				this.hideFSControls();
-			} else {
-				this.showFSControls();
-			}
-		}
 	},
 	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {
@@ -614,6 +593,8 @@ enyo.kind({
 			if (this.$.video.isPaused()) {
 				this.updateFullscreenPosition();
 			}
+			// When controls are visible, set as container to remember last focused control
+			this.set("spotlight", "container");
 		}
 	},
 	spotFSBottomControls: function() {
@@ -636,6 +617,10 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
+		// When controls are hidden, set as just a spotlight true component, 
+		// so that it is spottable (since it won't have any spottable children),
+		// and then spot itself
+		this.set("spotlight", true);
 		enyo.Spotlight.spot(this);
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)
@@ -804,16 +789,19 @@ enyo.kind({
 	//* @protected
 	fullscreenChanged: function(inSender, inEvent) {
 		enyo.Spotlight.unspot();
-		this.addRemoveClass("inline", !this.isFullscreen());
-		this.$.inlineControl.setShowing(!this.isFullscreen());
-		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
 			this.$.ilFullscreen.undepress();
 			this.spotlight = true;
+			this.removeClass("inline");
+			this.$.inlineControl.setShowing(false);
+			this.$.fullscreenControl.setShowing(true);
 			this.showFSControls();
 			this.$.controlsContainer.resized();
 		} else {
 			this.stopJob("autoHide");
+			this.addClass("inline");
+			this.$.inlineControl.setShowing(true);
+			this.$.fullscreenControl.setShowing(false);
 			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.spotlight = false;
 		}

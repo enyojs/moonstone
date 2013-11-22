@@ -94,5 +94,6 @@ enyo.kind({
 		// Since spotlightPagingControls is used when there are no focusable
 		// children, turn off container handling in that case.
 		this.spotlight = this.spotlightPagingControls ? false : "container";
+		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
 	}
 });
