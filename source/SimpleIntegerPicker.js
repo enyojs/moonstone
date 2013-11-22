@@ -42,7 +42,9 @@ enyo.kind({
 		
 		onSpotlightBlur        : "spotlightBlur",
 		onSpotlightFocus       : "spotlightFocus",
-		onSpotlightFocused     : "spotlightFocus"
+		onSpotlightFocused     : "spotlightFocus",
+
+		onmousewheel           : "mousewheel"
 	},
 	//* @public
 	published: {
@@ -73,7 +75,7 @@ enyo.kind({
 				{classes: "moon-scroll-picker-overlay-left"},
 				{classes: "moon-scroll-picker-overlay-left-border"} 
 			]},
-			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"}
+			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous", onholdpulse:"previous"}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
@@ -83,7 +85,7 @@ enyo.kind({
 				{classes: "moon-scroll-picker-overlay-right"},
 				{classes: "moon-scroll-picker-overlay-right-border"}
 			]},
-			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
+			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next", onholdpulse:"next"}
 		]}
 	],
 	observers: {
@@ -241,5 +243,10 @@ enyo.kind({
 	handleValueChange: function(inOld, inNew) {
 		this.setButtonVisibility(inOld, inNew);
 		this.fireChangeEvent();
+	},
+	mousewheel: function(inSender, inEvent) {
+		// Make sure scrollers that container integer pickers don't scroll
+		inEvent.preventDefault();
+		return true;
 	}
 });

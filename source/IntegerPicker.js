@@ -33,7 +33,8 @@ enyo.kind({
 		onSpotlightDown:"previous",
 		onSpotlightBlur:"spotlightBlur",
 		onSpotlightScrollUp:"next",
-		onSpotlightScrollDown:"previous"
+		onSpotlightScrollDown:"previous",
+		onmousewheel:"mousewheel"
 	},
 	//* @public
 	events: {
@@ -213,8 +214,16 @@ enyo.kind({
 	//* Ensures scroll position is in bounds.
 	stabilize: function() {
 		this.$.scroller.stabilize();
+	},
+	mousewheel: function(inSender, inEvent) {
+		// Make sure scrollers that container integer pickers don't scroll
+		inEvent.preventDefault();
+		return true;
 	}
 });
 
 // For backward compatibility
 moon.IntegerScrollPicker = moon.IntegerPicker;
+
+// Tune holdpulse delay (this is global, but it's a fairly minor adjustment 200->300)
+enyo.gesture.drag.holdPulseDelay = 300;

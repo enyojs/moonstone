@@ -137,7 +137,7 @@ enyo.kind({
 		this.initDefaults();
 	},
 	updateHour: function(inDate, inHour) {
-		inHour = inHour > 12 ? inHour-12: inHour;
+		inHour = (inHour > 12 ? inHour-12: inHour) || 12;
 		var hour = this._hf ? this._hf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : inHour;
 		this.$.hour.setContent(hour);
 	},
