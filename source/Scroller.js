@@ -61,9 +61,20 @@ enyo.kind({
 			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
 			Increase this value to increase the distance scrolled by holding the pagination buttons.
 		*/
-		paginationScrollMultiplier: 8
+		paginationScrollMultiplier: 8,
+		/** 
+			When true, the scroll wheel moves spotlight focus up/down through the scroller when in 5-way mode
+			(in pointer mode, scroll wheel always scrolls the viewport without modifying focus position).
+			When false, the scroll wheel works the same in 5-way mode and pointer mode, where the wheel moves
+			the position of the scroller viewport.
+		*/
+		scrollWheelMovesFocus: true
 	},
 	//* @protected
+	handlers: {
+		onSpotlightScrollUp:"spotlightWheel",
+		onSpotlightScrollDown:"spotlightWheel"
+	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
@@ -88,11 +99,31 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.spotlightPagingControlsChanged();
+		this.scrollWheelMovesFocusChanged();
 	},
 	spotlightPagingControlsChanged: function() {
 		// Since spotlightPagingControls is used when there are no focusable
 		// children, turn off container handling in that case.
 		this.spotlight = this.spotlightPagingControls ? false : "container";
 		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
+	},
+	scrollWheelMovesFocusChanged: function() {
+		if (!this.scrollWheelMovesFocus) {
+			this.setUseMouseWheel(true);
+		}
+	},
+	spotlightWheel: function(inSender, inEvent) {
+		if (this.scrollWheelMovesFocus) {
+			var pointerMode = enyo.Spotlight.getPointerMode();
+			this.setUseMouseWheel(pointerMode);
+			if (!pointerMode) {
+				var curr = enyo.Spotlight.getCurrent();
+				if (curr && curr.isDescendantOf(this)) {
+					var dir = inEvent.type == "onSpotlightScrollUp" ? "onSpotlightUp" : "onSpotlightDown";
+					enyo.Spotlight.Util.dispatchEvent(dir, {type: dir}, curr);
+					return true;
+				}
+			}
+		}
 	}
 });
