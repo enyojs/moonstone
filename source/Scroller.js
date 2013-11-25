@@ -10,8 +10,7 @@
 	controls to be scrolled into view via the _onRequestScrollIntoView_ event.
 
 	For more information, see the documentation on
-	[Scrollers](https://github.com/enyojs/enyo/wiki/Scrollers) in the Enyo Developer
-	Guide.
+	[Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
 */
 enyo.kind({
 	name:      "moon.Scroller",
