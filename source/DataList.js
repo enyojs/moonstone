@@ -46,7 +46,7 @@ enyo.kind({
 			if (c) {
 				// force a synchronous scroll to the control so it won't dupe and
 				// re-animate over positions it has already crossed
-				list.$.scroller.scrollToControl(c, true, false);
+				list.$.scroller.scrollToControl(c, false, false);
 				// doing this seems to trigger placement of the pages correctly
 				// in a few cases where synchronously scrolling the scroller
 				// wouldn't identify for the list when it needed to page
@@ -54,6 +54,8 @@ enyo.kind({
 			} else {
 				var idx = list.$.page1.index;
 				
+				// attempting to line them up in a useful order
+				// given the direction from where our current index is
 				if (idx < p) {
 					list.$.page1.index = p - 1;
 					list.$.page2.index = p;
