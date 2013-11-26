@@ -2,8 +2,8 @@
 	_moon.RadioItem_ is a modified [moon.Item](#moon.Item) control designed for
 	use inside a [moon.RadioItemGroup](#moon.RadioItemGroup).
 
-	For more information, see the documentation on [Radio
-	Items](building-apps/controls/radio-items.html) in the Enyo Developer Guide.
+	It contains the properties of [moon.SelectableItem](#moon.SelectableItem) with
+	an additional indicator component [moon.RadioItemIndicator](#moon.RadioItemIndicator).
 */
 enyo.kind({
 	name: "moon.RadioItem",
