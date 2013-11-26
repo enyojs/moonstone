@@ -123,5 +123,9 @@ enyo.kind({
 	},
 	handleShowingChanged: function(inSender, inEvent) {
 		this.$.panels.setHandleShowing(inSender.getChecked());
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		enyo.Spotlight.spot(this.$.panels);
 	}
 });
