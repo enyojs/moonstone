@@ -807,6 +807,7 @@ enyo.kind({
 		if (this.isFullscreen()) {
 			this.$.ilFullscreen.undepress();
 			this.spotlight = true;
+			this.spotlightModal = true;
 			this.removeClass("inline");
 			this.$.inlineControl.setShowing(false);
 			this.$.fullscreenControl.setShowing(true);
@@ -819,6 +820,7 @@ enyo.kind({
 			this.$.fullscreenControl.setShowing(false);
 			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.spotlight = false;
+			this.spotlightModal = false;
 		}
 	},
 	//* @public
