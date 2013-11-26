@@ -137,6 +137,11 @@ enyo.kind({
 	open: false,
 	//* @public
 	published: {
+		/** 
+			An object which holds the client dimensions for fullscreen drawer.
+			like, drawer.setDrawerProps({height:100px});
+			where, drawer is an instance of _moon.FullScreenDrawer_
+		*/
 		drawerProps: null
 	},
 	//* @protected
