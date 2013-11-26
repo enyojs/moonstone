@@ -72,12 +72,21 @@ enyo.kind({
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
-		area.
+		area. Optional third parameter to indicate whether or not it should animate
+		the scroll. Defaults to animation unless it is set to false.
 	*/
-	scrollToControl: function(inControl, inScrollFullPage) {
-		this.$.strategy.animateToControl(inControl, inScrollFullPage);
+	scrollToControl: function(inControl, inScrollFullPage, animate) {
+		this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
 	},
 
+	/**
+		Accepts third optional paramater to indicate whether or not it should
+		animate the scroll. Defaults to animation unless it is set to false.
+	*/
+	scrollTo: function (x, y, animate) {
+		this.$.strategy.scrollTo(x, y, animate);	
+	},
+		
 	//* @protected
 	bindings: [
 		{from: ".scrollInterval",				to:".$.strategy.interval"},

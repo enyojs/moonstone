@@ -120,9 +120,12 @@ enyo.kind({
 		m.stabilize();
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
-	scrollTo: function(inX, inY) {
+	scrollTo: function(inX, inY, animate) {
 		this.stop();
-		if (this.resizing) {
+		if (this.resizing || animate === false) {
+			var b = this.getScrollBounds();
+			inX = Math.max(Math.min(inX, b.maxLeft), 0);
+			inY = Math.max(Math.min(inY, b.maxTop),  0);
 			this.effectScroll(inX, inY);
 		} else {
 			this._scrollTo(inX, inY);
@@ -547,7 +550,7 @@ enyo.kind({
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
 		area.
 	*/
-	animateToControl: function(inControl, inScrollFullPage) {
+	animateToControl: function(inControl, inScrollFullPage, animate) {
 		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
 			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.container),
 			scrollBounds   = this.getScrollBounds(),
@@ -643,10 +646,10 @@ enyo.kind({
 			}
 			break;
 		}
-
+		
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
-			this.scrollTo(x, y);
+			this.scrollTo(x, y, animate);
 		}
 	},
 	clampScrollPosition: function() {
