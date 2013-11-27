@@ -33,6 +33,7 @@ enyo.kind({
 		onHidePanels: ""
 	},
 	//* @protected
+	narrowFit: false,
 	handlers: {
 		ontap:						"onTap",
 
