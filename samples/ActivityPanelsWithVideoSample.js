@@ -93,7 +93,7 @@ enyo.kind({
 	],
 	rendered: function() {
 		this.inherited(arguments);
-		enyo.Spotlight.initialize({spot: this.$.panels});
+		enyo.Spotlight.spot(this.$.panels);
 	},
 	// custom next handler for each panel to avoid switching from one active panel
 	// to another with no visible change for demo
