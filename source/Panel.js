@@ -299,12 +299,12 @@ enyo.kind({
 	//* @protected
 	getInitAnimationValues: function() {
 		var node = this.hasNode(),
-			marginT = parseInt(enyo.dom.getComputedStyleValue(node, "margin-top"), 10),
-			marginR = parseInt(enyo.dom.getComputedStyleValue(node, "margin-right"), 10),
-			marginB = parseInt(enyo.dom.getComputedStyleValue(node, "margin-bottom"), 10),
-			marginL = parseInt(enyo.dom.getComputedStyleValue(node, "margin-left"), 10);
-		this.initialHeight = node.offsetHeight - marginT - marginB;
-		this.initialWidth = node.offsetWidth - marginR - marginL;
+			paddingT = parseInt(enyo.dom.getComputedStyleValue(node, "padding-top"), 10),
+			paddingR = parseInt(enyo.dom.getComputedStyleValue(node, "padding-right"), 10),
+			paddingB = parseInt(enyo.dom.getComputedStyleValue(node, "padding-bottom"), 10),
+			paddingL = parseInt(enyo.dom.getComputedStyleValue(node, "padding-left"), 10);
+		this.initialHeight = node.offsetHeight - paddingT - paddingB;
+		this.initialWidth = node.offsetWidth   - paddingR - paddingL;
 	},
 	haltAnimations: function() {
 		this.$.animator.stop();

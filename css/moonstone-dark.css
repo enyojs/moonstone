@@ -2988,7 +2988,7 @@
   -webkit-transform: scale3d(1, 1, 1);
   overflow: hidden;
   padding: 0;
-  margin: 20px 10px;
+  padding: 20px 10px;
   height: 100%;
 }
 .moon-panel.enyo-fit {
@@ -3064,6 +3064,9 @@
   border-top: 2px solid transparent;
 }
 /* Activity Panels Overrides */
+.moon-panels.activity .moon-panel {
+  padding: 0;
+}
 .moon-panels.activity .moon-panel-mini-header-title-above {
   border-top: 2px solid #a6a6a6;
 }
@@ -3076,6 +3079,9 @@
   color: #ffffff;
 }
 /* AlwaysViewing Overrides */
+.moon-panels.always-viewing .moon-panel {
+  padding: 0;
+}
 .moon-panels.always-viewing .moon-panel-mini-header,
 .moon-panels.always-viewing .moon-panel-mini-header-title-above {
   color: #ffffff;
@@ -3092,21 +3098,14 @@
   -webkit-transform: translate3d(0, 0, 0);
   pointer-events: none;
 }
+.moon-panels.activity *,
+.moon-panels.always-viewing * {
+  pointer-events: auto;
+}
 .moon-panels.activity .moon-panel,
 .moon-panels.always-viewing .moon-panel {
   height: auto;
   margin: 0;
-}
-.moon-panels.activity .moon-panels-client {
-  /* The difference between the keepout and the outset is the space we have to block off */
-
-  left: 10px;
-  right: 10px;
-  width: auto;
-}
-.moon-panels.activity *,
-.moon-panels.always-viewing * {
-  pointer-events: auto;
 }
 /* Scrim */
 .moon-panels .moon-panels-background-scrim {
