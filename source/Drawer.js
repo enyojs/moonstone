@@ -125,8 +125,8 @@ enyo.kind({
 
 /**
     _moon.FullScreenDrawer_ is a content-free drawer that fills the client's
-    full screen area.  It is intended for use inside of `moon.Drawer`.  Users
-    should not instantiate _moon.FullScreenDrawer_ directly.
+    full screen area.  It is only intended for use inside of `moon.Drawer`.
+    Users should not instantiate _moon.FullScreenDrawer_ directly.
 */
 enyo.kind({
 	name: "moon.FullScreenDrawer",
@@ -139,9 +139,9 @@ enyo.kind({
 	//* @public
 	published: {
 		/** 
-			An object which holds the client dimensions for fullscreen drawer.
-			like, `drawer.setDrawerProps({height:100px});`.  This property is intended
-			to be used internally by `moon.Drawer`.
+			An object that holds the client dimensions for the fullscreen drawer,
+			e.g.: _drawer.setDrawerProps({height:100px});_.  This property is only
+			intended to be used internally by _moon.Drawer_.
 		*/
 		drawerProps: null
 	},
