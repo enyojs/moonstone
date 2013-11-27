@@ -2617,7 +2617,7 @@
   min-height: 100px;
   min-width: 100px;
   border-radius: 16px;
-  border: 5px solid transparent;
+  border: 5px solid rgba(0, 0, 0, 0.5);
   color: #ffffff;
   padding: 20px;
   background-clip: padding-box;
