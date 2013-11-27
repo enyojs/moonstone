@@ -173,6 +173,7 @@ enyo.kind({
 			else {
 				patternOffset = breadcrumbEdge - this.breadcrumbWidth;
 			}
+			patternOffset/= 2;
 		}
 
 		// each active item should be at _breadcrumbEdge_
@@ -329,6 +330,15 @@ enyo.kind({
 
 		for (i=0; (c=c$[i]); i++) {
 			xPos = this.container.transitionPositions[i + "." + s];
+			// If the panel is even a little off the screen, 
+			if (xPos < 0) {
+				// lets check if its fully off.
+				var containerPadding = this.getContainerPadding();
+				if (xPos <= ((this.breadcrumbWidth - containerPadding.left) * -1)) {
+					// Its visible portion is, so lets nudge it off entirely so it can't be highlighted using just its non-visible edge
+					xPos -= containerPadding.right;
+				}
+			}
 			this.arrangeControl(c, {left: xPos});
 		}
 	},
@@ -359,7 +369,8 @@ enyo.kind({
 	getBreadcrumbEdge: function(inIndex) {
 		var leftMargin = this.getContainerWidth() * (1 - this.container.panelCoverRatio);
 		if (this.container.panelCoverRatio == 1) {
-			leftMargin += this.getContainerPadding().left + this.getContainerPadding().right;
+			var containerPadding = this.getContainerPadding();
+			leftMargin += containerPadding.left + containerPadding.right;
 		}
 		if (this.container.showFirstBreadcrumb && inIndex !== 0) {
 			leftMargin += this.breadcrumbWidth;
