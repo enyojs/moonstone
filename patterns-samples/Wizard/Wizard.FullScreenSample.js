@@ -11,8 +11,14 @@ enyo.kind({
 enyo.kind({
 	name: "moon.Sample.Wizard.Model",
 	kind: "enyo.Model",
+	attributes: {
+		subTitle: "",
+		imgSrc: "../assets/album.PNG",
+		instruction: "",
+		detail: ""
+	},
 	defaults: {
-		title: "",
+		title: "Wizard Title",
 		subTitle: "",
 		imgSrc: "../assets/album.PNG",
 		instruction: "",
@@ -30,7 +36,6 @@ enyo.kind({
 	generateRecords: function() {
 		return {
 				page1 : new moon.Sample.Wizard.Model({
-					title: "Wizard Title",
 					subTitle: "01.Step Title 1",
 					imgSrc: "../assets/album.PNG",
 					instruction: "INSTRUCTIONAL TEXT GOES HERE",
@@ -40,21 +45,18 @@ enyo.kind({
 							"interdum vel volutpat velit semper."
 				}),
 				page2 : new moon.Sample.Wizard.Model({
-					title: "Wizard Title",
 					subTitle: "02.Step Title 2",
 					imgSrc: "",
 					instruction: "INSTRUCTIONAL TEXT GOES HERE 2",
 					detail: "INPUT FIELD DESCRIPTION GOES HERE 2"
 				}),
 				page3 : new moon.Sample.Wizard.Model({
-					title: "Wizard Title",
 					subTitle: "03.Step Title 3",
 					imgSrc: "../assets/album.PNG",
 					instruction: "INSTRUCTIONAL TEXT GOES HERE 3",
 					detail: "INPUT FIELD DESCRIPTION GOES HERE 3"
 				}),
 				page4 : new moon.Sample.Wizard.Model({
-					title: "Wizard Title",
 					subTitle: "04.Step Title 4",
 					imgSrc: "",
 					instruction: "Confirm your selections before complete",
