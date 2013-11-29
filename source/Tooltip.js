@@ -20,8 +20,11 @@ enyo.kind({
 	classes: "moon-tooltip below left-arrow",
 	//* @public
 	published: {
-		//* If true, tooltip is automatically dismissed when user stops hovering
-		//* over the decorator
+		//* This property is added to override the default value of autoDismiss 
+		//* from enyo.Popup. If true,the tooltip will hide when the user taps outside it or
+		//* presses ESC.  Set to false to prevent this behavior.
+		//* This property works only when Tooltip used independently, 
+		//* not works when Tooltip used with the TooltipDecorator.
 		autoDismiss: false,
 		//* Hovering over the decorator for this length of time (in milliseconds)
 		//* causes the tooltip to appear.
