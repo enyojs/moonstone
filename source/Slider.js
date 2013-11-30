@@ -255,6 +255,16 @@ enyo.kind({
 			}
 		}
 	},
+	minChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
+	},
+	maxChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
+	},
 	_setValue: function(inValue) {
 		var v = this.clampValue(this.min, this.max, inValue);
 
