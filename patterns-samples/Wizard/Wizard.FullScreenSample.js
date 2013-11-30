@@ -68,7 +68,7 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.Sample.Wizard.FullScreen",
-	kind: "moon.Panels",
+	kind: "enyo.Panels",
 	arrangerKind: "CardArranger",
 	handlers: {
 		onNext: "next",

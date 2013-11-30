@@ -66,7 +66,7 @@ enyo.kind({
 
 enyo.kind({
 	name: "moon.Sample.Wizard.ActionMenu",
-	kind: "moon.Panels",
+	kind: "enyo.Panels",
 	arrangerKind: "CardArranger",
 	handlers: {
 		onNext: "next",
