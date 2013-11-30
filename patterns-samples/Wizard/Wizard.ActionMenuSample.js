@@ -68,6 +68,7 @@ enyo.kind({
 	name: "moon.Sample.Wizard.ActionMenu",
 	kind: "enyo.Panels",
 	arrangerKind: "CardArranger",
+	classes: "enyo-unselectable moon enyo-fit",
 	handlers: {
 		onNext: "next",
 		onPrevious: "previous",

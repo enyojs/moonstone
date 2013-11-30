@@ -2,7 +2,6 @@ enyo.kind({
 	name: "moon.Sample.Wizard.MiniSample",
 	kind: "enyo.Application",
 	view: "moon.Sample.Wizard.MiniPopup",
-	classes: "enyo-unselectable moon enyo-fit",
 	components: [
 		{name: "WizardController", kind: "moon.Sample.Wizard.Controller"}
 	]
@@ -91,6 +90,7 @@ enyo.kind({
 	name: "moon.Sample.Wizard.MiniPanels",
 	kind: "enyo.Panels",
 	arrangerKind: "CardArranger",
+	classes: "enyo-unselectable moon enyo-fit",
 	handlers: {
 		onNext: "next",
 		onPrevious: "previous",
