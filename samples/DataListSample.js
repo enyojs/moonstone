@@ -46,6 +46,7 @@ enyo.kind({
 		return add;
 	},
 	scrollToIndex: function (sender, event) {
+		this.$.drawers.closeDrawers();
 		this.$.repeater.scrollToIndex(sender.getValue());
 	},
 	repeaterDebuggingChanged: function () {
