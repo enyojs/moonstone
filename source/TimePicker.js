@@ -44,20 +44,23 @@ enyo.kind({
 	classes:"moon-date-picker-field",
 	min: 1,
 	max: 24,
-	zeroToEleven: false,
+	meridiemEnable: false,
+	twoDigits: false,
 	value: null,
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index,
 			hour;
 
-		if (index > 11) {	//current hour reached meridiem(noon)
-			index -= 12;
-		}
+		if (this.meridiemEnable) {
+			if (index > 11) {	//current hour reached meridiem(noon)
+				index -= 12;
+			}	
+		}		
 
 		hour = index + this.min;
 
-		if (this.zeroToEleven) {
-			hour = ('0' + (hour-1)).slice(-2);  // zero padded 0-11 value
+		if (this.twoDigits) {
+			hour = ('0' + (hour)).slice(-2);  // zero padded 0-11 value
 		}
 		this.$.item.setContent(hour);
 	}
@@ -129,7 +132,7 @@ enyo.kind({
 		this.twoDigits = (hourFormatter.template.length - 1) ? true : false;
 		// 'h', 'hh', 'k', 'kk' means 1-12 or 1-24
 		this.zeroToEleven = (hourFormatter.template === hourFormatter.template.toUpperCase());
-
+		
 		// Get localized meridiem values
 		if (this.meridiemEnable) {
 			fmtParams = {
@@ -150,6 +153,7 @@ enyo.kind({
 		var orderingArr = ordering.toLowerCase().split("");
 		var doneArr = [];
 		var o,f,l;
+		var min, max, value;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
 			if (doneArr.indexOf(o) < 0) {
@@ -162,21 +166,21 @@ enyo.kind({
 
 			switch (o){
 			case 'h': {
-					if (this.meridiemEnable === true) {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.HourPicker", name:"hour", zeroToEleven: this.zeroToEleven, min:1, max:24, value: (this.value.getHours() || 24)},
-								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
+					value = this.value.getHours();
+					if(this.zeroToEleven) {
+						min = 0;
+						max = 23;						
 					} else {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.IntegerPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
-								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
+						min = 1;
+						max = 24;
+						value = value || 24;
 					}
+					this.createComponent(
+						{classes: "moon-date-picker-wrap", components:[
+							{kind: "moon.HourPicker", name: "hour", meridiemEnable: this.meridiemEnable, zeroToEleven: this.zeroToEleven, twoDigits: this.twoDigits, min: min, max: max, value: value},
+							{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
+						]}
+					);
 				}
 				break;
 			case 'm': {
