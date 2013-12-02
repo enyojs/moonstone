@@ -96,7 +96,15 @@ enyo.kind({
 	//* @protected
 	iLibFormatType  : "time",
 	defaultOrdering : "hma",
+	/** Whether hour has 0-11 or 1-12 with meridiem picker.
+		Without meridiem picker, 0-23 or 1-24.
+		If true, hour has 0-11 (0-23)
+	*/
 	zeroToEleven    : false,
+	/** Decide whether hour has 2 digits or not
+		If true, 0 padded to make 2 digits.
+	*/
+	twoDigits		: false,
 
 	initILib: function() {
 		this.inherited(arguments);
@@ -117,13 +125,10 @@ enyo.kind({
 		}
 		var hourFormatter = new ilib.DateFmt(fmtParams);
 
-		switch (hourFormatter.template.length) {
-		case 2:
-		case 1 :
-			// 0-11 hours instead of 1-12
-			this.zeroToEleven = true;
-			break;
-		}
+		// If length is 2, 0 padded to 2 digits. 
+		this.twoDigits = (hourFormatter.template.length - 1) ? true : false;
+		// 'h', 'hh', 'k', 'kk' means 1-12 or 1-24
+		this.zeroToEleven = (hourFormatter.template === hourFormatter.template.toUpperCase());
 
 		// Get localized meridiem values
 		if (this.meridiemEnable) {
