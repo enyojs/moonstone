@@ -17,11 +17,6 @@ enyo.kind({
 		//* User-provided date; if undefined, system date is used
 		date: undefined,
 		/**
-			_ilib_ locale info instance; it contains information about the particular
-			locale
-		*/
-		ilibLocaleInfo: null,
-		/**
 			Current locale used for formatting. May be set after the control is
 			created, in which case the control will be updated to reflect the
 			new value.  Only valid if _ilib_ is loaded.
@@ -41,6 +36,8 @@ enyo.kind({
 	],
 	months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 	_timeDiff: 0,
+	//* _ilib_ locale info instance; it contains information about the particular locale
+	ilibLocaleInfo: null,
 	create: function() {
 		this.inherited(arguments);
 		this.initDefaults();
