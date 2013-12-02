@@ -117,9 +117,9 @@ enyo.kind({
 		}
 		var hourFormatter = new ilib.DateFmt(fmtParams);
 
-		switch (hourFormatter.template) {
-		case 'KK':
-		case 'K' :
+		switch (hourFormatter.template.length) {
+		case 2:
+		case 1 :
 			// 0-11 hours instead of 1-12
 			this.zeroToEleven = true;
 			break;
