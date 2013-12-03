@@ -359,7 +359,8 @@
 .moon {
   font-family: "MuseoSans 700";
   font-size: 30px;
-  letter-spacing: 0;
+  font-style: normal;
+  letter-spacing: normal;
   padding: 20px;
   color: #4b4b4b;
   background-color: #ededed;
@@ -406,31 +407,23 @@
   font-family: "Miso";
   font-size: 126px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
 }
 .moon-sub-header-text {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
 }
 .moon-super-header-text {
   font-family: "Miso";
   font-size: 32px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
 }
 .moon-popup-header-text {
   font-family: "Miso";
   font-size: 73px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
 }
 .moon-divider-text {
@@ -438,17 +431,53 @@
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0;
   color: #4b4b4b;
 }
 .moon-body-text {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
+}
+.moon-body-text a:link {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-body-text a:visited {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-body-text a:hover {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-body-text a:active {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text {
+  font-family: "MuseoSans Bold";
+  font-size: 26px;
+  font-weight: normal;
+  color: #4b4b4b;
+  line-height: 32px;
+}
+.moon-bold-text a:link {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text a:visited {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text a:hover {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text a:active {
+  color: #cf0652;
+  text-decoration: none;
 }
 .moon-body-text-spacing {
   margin: 0 10px 40px 10px;
@@ -457,8 +486,6 @@
   font-family: "Miso";
   font-size: 33px;
   font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
@@ -466,8 +493,6 @@
   font-family: "Miso";
   font-size: 27px;
   font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
@@ -525,192 +550,6 @@
   font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
-  font-size: 26px;
-  line-height: 32px;
-}
-.enyo-locale-non-latin .moon-large-button-text {
-  font-size: 36px;
-}
-.enyo-locale-non-latin .moon-small-button-text {
-  font-size: 27px;
-}
-.moon-large-text {
-  font-size: 48px;
-  vertical-align: top;
-  height: 48px;
-  margin: 0px;
-  padding: 0px;
-}
-.moon-header-text {
-  font-family: "Miso";
-  font-size: 126px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  text-transform: uppercase;
-  -webkit-font-kerning: normal;
-}
-.moon-sub-header-text {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #4b4b4b;
-}
-.moon-super-header-text {
-  font-family: "Miso";
-  font-size: 32px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  -webkit-font-kerning: normal;
-}
-.moon-popup-header-text {
-  font-family: "Miso";
-  font-size: 73px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
-  text-transform: uppercase;
-  -webkit-font-kerning: normal;
-}
-.moon-divider-text {
-  font-family: "MuseoSans 700";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: italic;
-  letter-spacing: 0;
-  color: #4b4b4b;
-}
-.moon-body-text {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #4b4b4b;
-  line-height: 32px;
-}
-.moon-body-text a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-body-text a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-body-text a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-body-text a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-bold-text {
-  font-family: "MuseoSans Bold";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #4b4b4b;
-  line-height: 32px;
-}
-.moon-bold-text a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-bold-text a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-bold-text a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-bold-text a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-body-text-spacing {
-  margin: 0 10px 40px 10px;
-}
-.moon-large-button-text {
-  font-family: "Miso";
-  font-size: 33px;
-  font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
-  text-transform: uppercase;
-  -webkit-font-kerning: normal;
-}
-.moon-small-button-text {
-  font-family: "Miso";
-  font-size: 27px;
-  font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
-  text-transform: uppercase;
-  -webkit-font-kerning: normal;
-}
-.moon-icon-text {
-  font-family: "Moonstone Icons";
-  font-size: 72px;
-  color: #ffffff;
-}
-.enyo-locale-non-latin .moon,
-.enyo-locale-non-latin .moon input,
-.enyo-locale-non-latin .moon textarea,
-.enyo-locale-non-latin .moon button,
-.enyo-locale-non-latin .moon-superscript,
-.enyo-locale-non-latin .moon-pre-text,
-.enyo-locale-non-latin .moon-large-text,
-.enyo-locale-non-latin .moon-header-text,
-.enyo-locale-non-latin .moon-header-font,
-.enyo-locale-non-latin .moon-popup-header-text,
-.enyo-locale-non-latin .moon-sub-header-text,
-.enyo-locale-non-latin .moon-super-header-text,
-.enyo-locale-non-latin .moon-divider-text,
-.enyo-locale-non-latin .moon-body-text,
-.enyo-locale-non-latin .moon-bold-text,
-.enyo-locale-non-latin .moon-large-button-text,
-.enyo-locale-non-latin .moon-small-button-text {
-  font-family: "LG Display";
-}
-.enyo-locale-non-latin .moon {
-  font-size: 30px;
-}
-.enyo-locale-non-latin .moon-superscript {
-  font-size: 24px;
-}
-.enyo-locale-non-latin .moon-pre-text {
-  font-size: 24px;
-}
-.enyo-locale-non-latin .moon-large-text {
-  font-size: 48px;
-}
-.enyo-locale-non-latin .moon-header-text {
-  font-size: 114px;
-}
-.enyo-locale-non-latin .moon-popup-header-text {
-  font-size: 65px;
-}
-.enyo-locale-non-latin .moon-sub-header-text {
-  font-size: 30px;
-}
-.enyo-locale-non-latin .moon-super-header-text {
-  font-size: 32px;
-}
-.enyo-locale-non-latin .moon-divider-text {
-  font-size: 28px;
-  font-style: normal;
-}
-.enyo-locale-non-latin .moon-body-text {
-  font-size: 26px;
-  line-height: 32px;
-}
-.enyo-locale-non-latin .moon-bold-text {
   font-size: 26px;
   line-height: 32px;
 }
@@ -972,8 +811,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   position: relative;
   display: table-cell;
@@ -1023,8 +860,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   display: table;
   white-space: nowrap;
@@ -1334,13 +1169,11 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
-  line-height: 1.2em;
+  line-height: 1.2;
   padding: 10px;
   vertical-align: top;
   position: relative;
@@ -1624,12 +1457,9 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   display: inline-block;
   border-width: 0px;
   background-color: transparent;
-  letter-spacing: normal;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
@@ -1687,8 +1517,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
 }
@@ -1766,8 +1594,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   line-height: 32px;
   color: #4b4b4b;
   margin: 0px;
@@ -1825,24 +1651,21 @@
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0;
   color: #4b4b4b;
   border-bottom: 2px solid #4b4b4b;
   padding: 0px;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
-  /* LG display italic is cut off on the right on TV so change it to normal */
-
   font-family: "LG Display";
   font-size: 28px;
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
   font-style: normal;
 }
 .moon-expandable-integer-picker-current-value {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
   margin: 0px;
@@ -1916,10 +1739,7 @@
   font-family: "Miso";
   font-size: 126px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
-  -webkit-font-kerning: normal;
   line-height: normal;
   height: 155px;
 }
@@ -1936,8 +1756,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   height: 44px;
 }
@@ -1951,8 +1769,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
   height: 44px;
@@ -2070,16 +1886,12 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
 }
@@ -2101,7 +1913,7 @@
 }
 .moon-gridlist-imageitem .sub-caption {
   color: #4b4b4b;
-  line-height: 1.25em;
+  line-height: 1.25;
   height: 1.25em;
   vertical-align: bottom;
 }
@@ -2154,12 +1966,8 @@
 .moon-scroll-picker {
   height: 94px;
   min-width: 60px;
-  border-top-width: 30px;
-  border-top-style: solid;
-  border-top-color: transparent;
-  border-bottom-width: 30px;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
   border-radius: 9999px;
 }
 .spotlight .moon-scroll-picker {
@@ -2269,8 +2077,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   line-height: 32px;
   margin: 0px;
   padding: 0px;
@@ -2328,7 +2134,6 @@
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0;
   color: #4b4b4b;
   margin: 5px;
   padding: 9px 30px;
@@ -2345,7 +2150,6 @@
   font-size: 22px;
   font-weight: normal;
   font-style: italic;
-  letter-spacing: 0;
   color: #4b4b4b;
   margin: 5px;
   padding: 9px 14px;
@@ -2356,10 +2160,10 @@
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin .moon-textarea-decorator {
-  /* LG display italic is cut off on the right on TV so change it to normal */
-
   font-family: "LG Display";
   font-size: 28px;
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
   font-style: normal;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight,
@@ -2486,8 +2290,6 @@
   font-family: "Miso";
   font-size: 33px;
   font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
@@ -2519,8 +2321,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   line-height: 32px;
   margin: 0px;
   padding: 0px;
@@ -2742,8 +2542,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   line-height: 32px;
   margin: 0px;
   padding: 0px;
@@ -2884,8 +2682,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   border-top: 2px solid #4b4b4b;
   margin: 0px 0px 3px 0px;
@@ -2905,8 +2701,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
   text-transform: none;
@@ -3227,8 +3021,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   text-align: center;
   vertical-align: middle;
@@ -3259,8 +3051,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   width: 60px;
   min-width: 60px;
   line-height: 60px;
@@ -3281,8 +3071,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   color: #ffffff;
   padding: 0px;
@@ -3336,16 +3124,13 @@
   font-family: "Miso";
   font-size: 126px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
-  -webkit-font-kerning: normal;
   margin: 0px;
   padding-left: 1px;
   padding-right: 1px;
   display: inline-block;
   box-sizing: border-box;
-  line-height: 1em;
+  line-height: 1;
   color: #4b4b4b;
   width: 100%;
 }
@@ -3362,7 +3147,7 @@
 .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
   color: #b1b1b1;
   margin-top: 15px;
-  line-height: 1.25em;
+  line-height: 1.25;
   text-transform: uppercase;
 }
 .moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
@@ -3582,8 +3367,6 @@
   font-family: "Miso";
   font-size: 27px;
   font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   height: 59px;
@@ -3808,8 +3591,6 @@
   font-family: "Miso";
   font-size: 33px;
   font-weight: bold;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
@@ -4017,7 +3798,6 @@
   width: 100%;
   font-family: "MuseoSans 700";
   font-size: 30px;
-  letter-spacing: 0;
   color: #ffffff;
   padding: 15px 0 0 0;
 }
@@ -4135,7 +3915,6 @@
 }
 .moon-video-player-info-title {
   font-size: 126px;
-  letter-spacing: -0.05em;
   margin-bottom: 0;
   white-space: nowrap;
 }
@@ -4143,8 +3922,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   color: #ffffff;
   margin-bottom: 22px;
@@ -4159,8 +3936,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
   font-style: italic;
@@ -4196,8 +3971,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
   color: #ffffff;
@@ -4255,18 +4028,13 @@
   font-family: "Miso";
   font-size: 126px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: normal;
   text-transform: uppercase;
-  -webkit-font-kerning: normal;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   color: #ffffff;
   margin-bottom: 22px;
@@ -4279,8 +4047,6 @@
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   font-size: 20px;
   background-color: #ffffff;
@@ -4322,12 +4088,8 @@
 .left .moon-background-wrapper-client-tri {
   left: 100%;
   bottom: 0;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
-  border-left-style: solid;
-  border-left-color: transparent;
-  border-bottom-width: 1000px;
-  border-left-width: 170px;
+  border-bottom: 1000px solid transparent;
+  border-left: 170px solid transparent;
 }
 .left.bg .moon-background-wrapper-client-tri {
   border-left-color: black;
@@ -4335,12 +4097,8 @@
 .right .moon-background-wrapper-client-tri {
   right: 100%;
   top: 0;
-  border-top-style: solid;
-  border-top-color: transparent;
-  border-right-style: solid;
-  border-right-color: transparent;
-  border-top-width: 1000px;
-  border-right-width: 170px;
+  border-top: 1000px solid transparent;
+  border-right: 170px solid transparent;
 }
 .right.bg .moon-background-wrapper-client-tri {
   border-right-color: black;
@@ -4397,8 +4155,6 @@
   font-family: "MuseoSans Bold";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   line-height: 32px;
   color: #4b4b4b;
   display: inline-block;
@@ -4767,8 +4523,6 @@
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
   float: right;
