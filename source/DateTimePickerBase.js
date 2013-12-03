@@ -98,7 +98,7 @@ enyo.kind({
 	},
 	initDefaults: function() {
 		var ordering;
-		this.value = this.value || new Date();
+		this.value = this.value || this.getPickerDate();
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this.initILib();
@@ -108,6 +108,10 @@ enyo.kind({
 		}
 		this.setupPickers(ordering);
 		this.noneTextChanged();
+	},
+	getPickerDate: function() {
+		// implement in subkind
+		return new Date();
 	},
 	setupPickers: function(ordering) {
 		// implement in subkind, calling this.inherited() at the end
