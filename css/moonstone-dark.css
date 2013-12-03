@@ -3354,6 +3354,9 @@
   font-family: "LG Display";
   font-size: 114px;
 }
+.enyo-locale-non-latin .moon-input.moon-header-text {
+  max-width: 100%;
+}
 .moon-input-header .moon-input.moon-header-title {
   position: static;
 }
