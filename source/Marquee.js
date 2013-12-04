@@ -58,12 +58,14 @@ moon.MarqueeSupport = {
 	},
 	//* On focus, starts child marquees.
 	_marquee_spotlightFocus: function(inSender, inEvent) {
+		this._marquee_isFocused = true;
 		if (this.marqueeOnSpotlight) {
 			this.startMarquee();
 		}
 	},
 	//* On blur, halts child marquees.
 	_marquee_spotlightBlur: function(inSender, inEvent) {
+		this._marquee_isFocused = false;
 		if (this.marqueeOnSpotlight) {
 			this.stopMarquee();
 		}
@@ -151,6 +153,13 @@ moon.MarqueeSupport = {
 	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
+	},
+	//* Called by children to re-start marquees if needed
+	_marquee_invalidate: function() {
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+		}
 	}
 };
 
@@ -213,8 +222,7 @@ moon.MarqueeItem = {
 		}
 		this._marquee_invalidateMetrics();
 		if (this._marquee_puppetMaster) {
-			this._marquee_puppetMaster.stopMarquee();
-			this._marquee_puppetMaster.startMarquee();
+			this._marquee_puppetMaster._marquee_invalidate();
 		}
 	},
 	//* If this control needs to marquee, lets the event originator know.
