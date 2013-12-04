@@ -182,7 +182,7 @@ enyo.kind({
 	hideNavButton: function(inControl) {
 		var current = enyo.Spotlight.getCurrent();
 		inControl.setDisabled(true);
-		if (current && current.isDescendantOf(this)) {
+		if (current && !current.getDisabled() && current.isDescendantOf(this)) {
 			if (enyo.Spotlight.getPointerMode()) {
 				enyo.Spotlight.unspot();
 			} else {
