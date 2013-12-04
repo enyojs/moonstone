@@ -132,25 +132,25 @@ enyo.kind({
 	},
 	addToList: function() {
 		this.optionNumber = (this.optionNumber || 0) + 1;
-		this.$.list.controller.add({name: "Option " + this.optionNumber});
+		this.$.list.collection.add({name: "Option " + this.optionNumber});
 	},
 	addToRepeater: function() {
 		this.optionNumber = (this.optionNumber || 0) + 1;
-		this.$.repeater.controller.add({name: "Option " + this.optionNumber});
+		this.$.repeater.collection.add({name: "Option " + this.optionNumber});
 	},
 	toggleBreadcrumb: function() {
 		this.setIndex(this.getIndex() > 0 ? 0 : 1);
 	},
 	create: function() {
 		this.inherited(arguments);
-		this.$.list.set("controller", new enyo.Collection([
+		this.$.list.set("collection", new enyo.Collection([
 			{name: "SAT 1"},
 			{name: "SAT 2"},
 			{name: "SAT 3"},
 			{name: "OTHER S1"},
 			{name: "OTHER S2"}
 		]));
-		this.$.repeater.set("controller", new enyo.Collection([
+		this.$.repeater.set("collection", new enyo.Collection([
 			{name: "Comedy"},
 			{name: "Action"},
 			{name: "Drama"},
