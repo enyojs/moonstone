@@ -180,12 +180,15 @@ enyo.kind({
 	},
 	//* Hides _inControl_ and disables spotlight functionality.
 	hideNavButton: function(inControl) {
+		var current = enyo.Spotlight.getCurrent();
 		inControl.setDisabled(true);
-		if (enyo.Spotlight.getPointerMode()) {
-			enyo.Spotlight.unspot();
-		} else {
-			enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
-		}
+		if (current && current.isDescendantOf(this)) {
+			if (enyo.Spotlight.getPointerMode()) {
+				enyo.Spotlight.unspot();
+			} else {
+				enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
+			}	
+		}		
 	},
 	//* Shows _inControl_ and enables spotlight functionality.
 	showNavButton: function(inControl) {
