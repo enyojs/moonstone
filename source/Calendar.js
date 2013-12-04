@@ -191,11 +191,6 @@ enyo.kind({
 		a Gregorian date instance that represents the first day of the week.
 	*/
 	firstDayOfWeekChanged: function() {
-		if (typeof ilib !== "undefined") {
-			var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
-			var firstDate = d.onOrBefore(this.firstDayOfWeek);
-			this._firstTime = firstDate.getTime();	//get unix time
-		}
 		this.updateDays();
 		this.updateDates();
 	},
@@ -262,7 +257,8 @@ enyo.kind({
 			if (typeof ilib !== "undefined") {
 				var date = ilib.Date.newInstance({
 					type: this._tf.getCalendar(),
-					unixtime: i*(24*60*60*1000) + this._firstTime
+					day: (i + 1) + (this.getFirstDayOfWeek() + 1),
+					timezone: "UTC"
 				});
 				var day = this._tf.format(date);
 				daysControls[i].setContent(day);
