@@ -49,14 +49,23 @@ enyo.kind({
 	value: null,
 	formatter: null,
 	wrap: true,
+	
 	create: function() {
 		this.inherited(arguments);
-		this.date = new ilib.Date.GregDate();
+		// Create ilib Date object used for formatting hours
+		if (typeof ilib !== "undefined") {
+			this.date = new ilib.Date.GregDate();
+		}
 	},
 	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index;
-		this.date.hour = index;
-		this.$.item.setContent(this.formatter.format(this.date));
+		var hour = inEvent.index;
+		if (this.date) { // ilib enabled
+			this.date.hour = hour;
+			hour = this.formatter.format(this.date);
+		} else {	// Have TimePicker format the hours
+			hour = this.formatter.formatHour(hour);
+		}
+		this.$.item.setContent(hour);
 	}
 });
 
@@ -88,12 +97,25 @@ enyo.kind({
 		//* Optional label for minute
 		minuteText: moon.$L("minute"),		// i18n "MINUTE" label in moon.TimePicker widget
 		//* Optional label for meridiem
-		meridiemText: moon.$L("meridiem")	// i18n "MERIDIAN" label in moon.TimePicker widget
+		meridiemText: moon.$L("meridiem"),	// i18n "MERIDIAN" label in moon.TimePicker widget
+		/**
+			When true, midnight (and noon, if meridiemEnable:true) is represented as zero instead of
+			24 (and 12). (This value is ignored when _ilib_ is loaded, since it will be based on
+			the current locale.)
+		*/
+		hoursStartAtZero: false,
+		/**
+			When true, hours will be zero-padded (This value is ignored when _ilib_ is loaded, since it
+			will be based on the the current locale.)
+		*/
+		hoursZeroPadded: false
 	},
 	//* @protected
+	observers: {
+		refresh: ["hoursStartAtZero", "meridiemEnable", "hoursZeroPadded"]
+	},
 	iLibFormatType  : "time",
 	defaultOrdering : "hma",
-	zeroToEleven    : false,
 
 	initILib: function() {
 		this.inherited(arguments);
@@ -146,9 +168,10 @@ enyo.kind({
 
 			switch (o){
 			case 'h':
+			case 'k':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
-						{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter, value: this.value.getHours()},
+						{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter || this, value: this.value.getHours()},
 						{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
 					]}
 				);
@@ -185,15 +208,33 @@ enyo.kind({
 			dateStr = this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 		}
 		else {
-			if (this.meridiemEnable === true && this.value.getHours() > 12) {
-				dateStr += this.value.getHours() - 12;
-			} else {
-				dateStr += this.value.getHours();
-			}
+			dateStr += this.formatHour(this.value.getHours());
 			dateStr += ":" + ("00" + this.value.getMinutes()).slice(-2) + " ";
 			dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : "";
 		}
 		return dateStr;
+	},
+	formatHour: function(hour) {
+		if (this.meridiemEnable) {
+			if (hour > 12) {
+				hour -= 12;
+			}
+			if (this.hoursStartAtZero) {
+				if (hour == 12) {
+					hour = 0;
+				}
+			} else {
+				hour = hour || 12;
+			}
+		} else {
+			if (!this.hoursStartAtZero) {
+				hour = hour || 24;
+			}
+		}
+		if (this.hoursZeroPadded) {
+			hour = ("0" + hour).slice(-2);
+		}
+		return hour;
 	},
 	updateValue: function(inSender, inEvent) {
 		var hour = this.$.hour.getValue();
