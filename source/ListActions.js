@@ -64,7 +64,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.doRequestCreateListActions({components: this.drawerComponents});
 		if (!this.$.drawer) {
-			throw "moon.ListActions must be created as a child of moon.Header"
+			throw "moon.ListActions must be created as a child of moon.Header";
 		}
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
