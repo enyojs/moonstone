@@ -137,7 +137,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium Italic";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-style: italic;
 }
 @font-face {
@@ -212,7 +212,7 @@
 }
 @font-face {
   font-family: "LG Display";
-  src: local("LG Display-light");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
