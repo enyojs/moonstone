@@ -246,7 +246,8 @@ enyo.kind({
 			for (var i = 0; i < 12; i++) {
 				var date = ilib.Date.newInstance({
 					type: fmt.getCalendar(),
-					unixtime: i * 31 * (24*60*60*1000)
+					month: i + 1,
+					timezone: "UTC"
 				});
 				monthPickerControls[i].setContent(fmt.format(date));
 			}
