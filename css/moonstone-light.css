@@ -58,7 +58,7 @@
 /* ----- MISO ------ */
 @font-face {
   font-family: "Miso";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -84,7 +84,7 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: 100;
   font-style: normal;
 }
@@ -98,7 +98,7 @@
 /* ----- Museo Sans ------ */
 @font-face {
   font-family: "MuseoSans Light";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -111,7 +111,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: 300;
   font-style: normal;
 }
@@ -124,7 +124,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -137,7 +137,7 @@
 }
 @font-face {
   font-family: "MuseoSans Medium Italic";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-style: italic;
 }
 @font-face {
@@ -207,7 +207,19 @@
 @font-face {
   font-family: "LG Display";
   src: local("LG Display-Regular");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LG Display";
+  src: local("LG Display-Light");
   font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LG Display";
+  src: local("LG Display-Light");
+  font-weight: 100;
   font-style: normal;
 }
 /* Import grid classes/mixins */
