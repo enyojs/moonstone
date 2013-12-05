@@ -251,6 +251,11 @@ enyo.kind({
 		this.resetClientPosition();
 		this.setShowing(false);
 	},
+	// We override getBubbleTarget here so that events emanating from a ListActionsDrawer
+	// instance will bubble to the owner of the associated ListActions instance, as expected.
+	// This is necessary because events normally bubble to a control's DOM parent, but
+	// we have sneakily arranged for the DOM parent of a ListActionsDrawer instance to be
+	// not the ListActions instance but the containing Header instance.
 	getBubbleTarget: function() {
 		return this.owner;
 	},
