@@ -6,27 +6,11 @@ enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
 	//* @protected
+	mixins: ["moon.DataListSpotlightSupport"],
 	noDefer: true,
 	allowTransitions: false,
 	spotlight: true,
 	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" },
-	didRender: function () {
-		var spot = enyo.Spotlight.getCurrent();
-		this.spotlight = false;
-		if (spot && (spot === this || spot.isDescendantOf(this))) {
-			enyo.Spotlight.spot(this);
-		}
-	},
-	didScroll: enyo.inherit(function (sup) {
-		return function () {
-			var spot;
-			if (enyo.Spotlight.getPointerMode() &&
-				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this)))) {
-				enyo.Spotlight.unspot();
-			}
-			return sup.apply(this, arguments);
-		};
-	})
 });
 //*@protected
 /**
