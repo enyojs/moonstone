@@ -7,6 +7,17 @@
 		margin:0;
 	}
 }
+.list-actions-drawer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.moon-header .list-actions-drawer {
+	top: -@moon-header-border-top-width;
+	bottom: -@moon-header-border-bottom-width;
+}
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
 	position: absolute;
@@ -44,10 +55,10 @@
 	float: left;
 }
 
-.proportional-width.stacked .moon-list-actions-menu {
+.moon-list-actions-drawer.proportional-width.stacked .moon-list-actions-menu {
 	width: 100% !important;
 }
-.moon-list-actions.stacked .moon-list-actions-menu {
+.moon-list-actions-drawer.stacked .moon-list-actions-menu {
 	margin-bottom: 20px;
 	clear: both;
 }
