@@ -38,9 +38,18 @@ enyo.kind({
 	},
 
 	//* @protected
+	events: {
+		/** 
+			Used internally for ListActions to request Header to add fitting components to itself.
+			Not intended for use by end-developer.
+		*/
+		onRequestCreateListActions: ""
+	},
 	components:[
-		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"},
-		{name: "drawer", kind: "moon.ListActionsDrawer", classes: "enyo-fit", onComplete: "drawerAnimationEnd", open: false, spotlight: "container", spotlightModal:true, components: [
+		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"}
+	],
+	drawerComponents: [
+		{name: "drawer", kind: "moon.ListActionsDrawer", classes: "list-actions-drawer", onComplete: "drawerAnimationEnd", open: false, spotlight: "container", spotlightModal:true, components: [
 			{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close moon-list-actions-close moon-neutral", ontap: "expandContract", defaultSpotlightDown:"listActions"},
 			{name: "listActionsClientContainer", classes: "enyo-fit moon-list-actions-client-container moon-neutral", components: [
 				{name: "listActions", kind: "moon.Scroller", classes: "enyo-fit moon-list-actions-scroller", horizontal:"hidden", vertical:"hidden", onActivate: "optionSelected", defaultSpotlightUp:"closeButton"}
@@ -53,14 +62,12 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.doRequestCreateListActions({components: this.drawerComponents});
+		if (!this.$.drawer) {
+			throw "moon.ListActions must be created as a child of moon.Header";
+		}
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
-	},
-	rendered: function() {
-		// Set the popup size before the drawer rendered is called, so that the drawer
-		// can properly translate itself out of the viewport
-		this.configurePopup();
-		this.inherited(arguments);
 	},
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
@@ -82,7 +89,7 @@ enyo.kind({
 
 		// Increase width to 100% if there is only one list action
 		if (this.proportionalWidth) {
-			this.addClass("proportional-width");
+			this.$.drawer.addClass("proportional-width");
 			var w = 100 / this.listActionComponents.length;
 			for (i=0; i<this.listActionComponents.length; i++) {
 				this.listActionComponents[i].applyStyle("width", w + "%");
@@ -132,25 +139,6 @@ enyo.kind({
 			}
 		}
 	},
-	//* Positions _this.$.drawer_ to fill the entire header.
-	configurePopup: function() {
-		var headerBounds = this.getHeaderBounds(),
-			bounds = this.getClientBounds(),
-			styleString = "";
-
-		styleString += "width: "	+ Math.ceil(headerBounds.width)					+ "px; ";
-		styleString += "height: "	+ Math.ceil(headerBounds.height)				+ "px; ";
-		styleString += "top: "		+ Math.ceil(headerBounds.top - bounds.top)		+ "px; ";
-
-		if (this.rtl) {
-			styleString += "right: " + Math.ceil(bounds.right - headerBounds.right) + "px; ";
-		}
-		else {
-			styleString += "left: " + Math.ceil(headerBounds.left - bounds.left) + "px; ";
-		}
-
-		this.$.drawer.addStyles(styleString);
-	},
 	drawerAnimationEnd: function() {
 		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
@@ -179,12 +167,12 @@ enyo.kind({
 	},
 	stackedChanged: function() {
 		if (this.stacked) {
-			this.addClass("stacked");
+			this.$.drawer.addClass("stacked");
 			this.stackMeUp();
 			this.$.listActions.setVertical("auto");
 		}
 		else {
-			this.removeClass("stacked");
+			this.$.drawer.removeClass("stacked");
 			this.unStackMeUp();
 			this.$.listActions.setVertical("hidden");
 		}
@@ -220,7 +208,6 @@ enyo.kind({
 		}
 	},
 	resizeDrawer: function() {
-		this.configurePopup();
 		this.updateStacking();
 	},
 	optionSelected: function(inSender, inEvent) {
@@ -228,25 +215,9 @@ enyo.kind({
 			this.startJob("expandContract", "expandContract", 300);
 		}
 	},
-	getHeaderBounds: function() {
-		this.headerBounds = this.headerBounds || this.getParentHeaderNode().getBoundingClientRect();
-		return this.headerBounds;
-	},
-	getClientBounds: function() {
-		this.clientBounds = this.clientBounds || this.hasNode().getBoundingClientRect();
-		return this.clientBounds;
-	},
 	getContainerBounds: function() {
 		this.containerBounds = this.containerBounds || this.$.listActions.getBounds();
 		return this.containerBounds;
-	},
-	getParentHeaderNode: function(inParent) {
-		// Walk up the parent tree to find a moon.Header
-		inParent = inParent || this.parent;
-		if (inParent instanceof moon.Header || !inParent.parent) {
-			return inParent.hasNode();
-		}
-		return this.getParentHeaderNode(inParent.parent);
 	},
 	resetCachedValues: function() {
 		this.headerBounds = null;
@@ -279,6 +250,14 @@ enyo.kind({
 		this.accel = enyo.dom.canAccelerate() && enyo.platform.webos !== 4;
 		this.resetClientPosition();
 		this.setShowing(false);
+	},
+	// We override getBubbleTarget here so that events emanating from a ListActionsDrawer
+	// instance will bubble to the owner of the associated ListActions instance, as expected.
+	// This is necessary because events normally bubble to a control's DOM parent, but
+	// we have sneakily arranged for the DOM parent of a ListActionsDrawer instance to be
+	// not the ListActions instance but the containing Header instance.
+	getBubbleTarget: function() {
+		return this.owner;
 	},
 	openChanged: function() {
 		if (this.open) {
