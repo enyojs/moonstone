@@ -51,7 +51,6 @@ enyo.kind({
 
 	//* @protected
 	spotlight: "container",
-	fit: true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
 	headerOption: null, //* Deprecated
