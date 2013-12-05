@@ -64,46 +64,46 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
+  src: local("Miso-Regular"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 @font-face {
-  font-family: "Miso";
+  font-family: "Miso Bold";
   src: local("LG Display-Regular");
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "Miso";
-  src: local("Miso"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
-  font-weight: bold;
+  font-family: "Miso Bold";
+  src: local("Miso-Bold"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 @font-face {
-  font-family: "Miso";
+  font-family: "Miso Light";
   src: local("LG Display-Light");
-  font-weight: 100;
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "Miso";
-  src: local("Miso"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
-  font-weight: 100;
+  font-family: "Miso Light";
+  src: local("Miso-Light"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 /* ----- Museo Sans ------ */
 @font-face {
-  font-family: "MuseoSans Light";
+  font-family: "MuseoSans 100";
   src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans Light";
+  font-family: "MuseoSans 100";
   src: local("Museo SansLight"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -112,7 +112,7 @@
 @font-face {
   font-family: "MuseoSans 300";
   src: local("LG Display-Light");
-  font-weight: 300;
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
@@ -123,33 +123,35 @@
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   src: local("Museo SansDemiBold"), url("../fonts/MuseoSans/Museo SansDemiBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansDemiBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
-  font-family: "MuseoSans Medium Italic";
+  font-family: "MuseoSans 500 Italic";
   src: local("LG Display-Light");
-  font-style: italic;
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans Medium Italic";
+  font-family: "MuseoSans 500 Italic";
   src: local("Museo SansDemiBoldItalic"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.ttf") format("truetype");
-  font-style: italic;
+  font-weight: normal;
+  font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans 700";
   src: local("LG Display-Regular");
-  font-weight: 700;
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
@@ -160,40 +162,42 @@
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
-  font-family: "MuseoSans 700";
+  font-family: "MuseoSans 700 Italic";
   src: local("LG Display-Regular");
-  font-weight: 700;
-  font-style: italic;
-}
-@font-face {
-  font-family: "MuseoSans 700";
-  src: local("Museo SansBoldItalic"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype");
-  font-style: italic;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
-}
-@font-face {
-  font-family: "MuseoSans Bold";
-  src: local("LG Display-Regular");
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans Bold";
+  font-family: "MuseoSans 700 Italic";
+  src: local("Museo SansBoldItalic"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+}
+@font-face {
+  font-family: "MuseoSans 900";
+  src: local("LG Display-Regular");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MuseoSans 900";
   src: local("Museo SansBlack"), url("../fonts/MuseoSans/Museo SansBlack.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlack.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
-  font-family: "MuseoSans Bold Italic";
+  font-family: "MuseoSans 900 Italic";
   src: local("LG Display-Regular");
-  font-weight: bold;
-  font-style: italic;
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans Bold Italic";
+  font-family: "MuseoSans 900 Italic";
   src: local("Museo SansBlackItalic"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype");
-  font-style: italic;
+  font-weight: normal;
+  font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 /* ----- Moonstone ------ */
@@ -207,19 +211,13 @@
 @font-face {
   font-family: "LG Display";
   src: local("LG Display-Regular");
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: "LG Display";
-  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "LG Display";
+  font-family: "LG Display Light";
   src: local("LG Display-Light");
-  font-weight: 100;
+  font-weight: normal;
   font-style: normal;
 }
 /* Import grid classes/mixins */
@@ -450,10 +448,10 @@
   -webkit-font-kerning: normal;
 }
 .moon-divider-text {
-  font-family: "MuseoSans 700";
+  font-family: "MuseoSans 700 Italic";
   font-size: 22px;
   font-weight: normal;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
 }
@@ -483,7 +481,7 @@
   text-decoration: none;
 }
 .moon-bold-text {
-  font-family: "MuseoSans Bold";
+  font-family: "MuseoSans 900";
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
@@ -511,18 +509,18 @@
   margin: 0 10px 40px 10px;
 }
 .moon-large-button-text {
-  font-family: "Miso";
+  font-family: "Miso Bold";
   font-size: 33px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
-  font-family: "Miso";
+  font-family: "Miso Bold";
   font-size: 27px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -556,9 +554,11 @@
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-superscript {
+  font-family: "LG Display Light";
   font-size: 24px;
 }
 .enyo-locale-non-latin .moon-pre-text {
+  font-family: "LG Display Light";
   font-size: 24px;
 }
 .enyo-locale-non-latin .moon-large-text {
@@ -581,6 +581,7 @@
   font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1584,6 +1585,7 @@
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1672,6 +1674,7 @@
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1695,10 +1698,10 @@
   margin: 0px 0px 10px 0px;
 }
 .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
-  font-family: "MuseoSans 700";
+  font-family: "MuseoSans 700 Italic";
   font-size: 22px;
   font-weight: normal;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
   border-bottom: 2px solid #a6a6a6;
@@ -1738,6 +1741,7 @@
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1847,6 +1851,7 @@
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1997,6 +2002,7 @@
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .sub-caption {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2172,6 +2178,7 @@
 }
 .enyo-locale-non-latin .moon-input {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
   max-width: 300px;
@@ -2197,10 +2204,10 @@
 }
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  font-family: "MuseoSans 700";
+  font-family: "MuseoSans 700 Italic";
   font-size: 22px;
   font-weight: normal;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
   margin: 5px;
@@ -2214,10 +2221,10 @@
   padding: 5px 30px 9px;
 }
 .moon-textarea-decorator {
-  font-family: "MuseoSans 700";
+  font-family: "MuseoSans 700 Italic";
   font-size: 22px;
   font-weight: normal;
-  font-style: italic;
+  font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
   margin: 5px;
@@ -2354,9 +2361,9 @@
   padding: 0;
 }
 .moon-slider-popup-label {
-  font-family: "Miso";
+  font-family: "Miso Bold";
   font-size: 33px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -2423,6 +2430,7 @@
 }
 .enyo-locale-non-latin .moon-richtext {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2647,6 +2655,7 @@
 }
 .enyo-locale-non-latin .moon-textarea {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2804,6 +2813,7 @@
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -3453,9 +3463,9 @@
   height: 68px;
 }
 .moon-tooltip-label {
-  font-family: "Miso";
+  font-family: "Miso Bold";
   font-size: 27px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -3679,9 +3689,9 @@
   width: 100%;
 }
 .moon-video-transport-slider-popup-label {
-  font-family: "Miso";
+  font-family: "Miso Bold";
   font-size: 33px;
-  font-weight: bold;
+  font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
@@ -4062,6 +4072,7 @@
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
   color: #ffffff;
@@ -4101,6 +4112,7 @@
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
   color: #ffffff;
@@ -4268,7 +4280,7 @@
   line-height: 62px;
 }
 .moon-clock-meridiem {
-  font-family: "MuseoSans Bold";
+  font-family: "MuseoSans 900";
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
@@ -4676,6 +4688,7 @@
 }
 .enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
   font-family: "LG Display";
+  font-family: "LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
