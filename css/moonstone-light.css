@@ -553,9 +553,6 @@
   font-family: "LG Display";
 }
 .enyo-locale-non-latin .moon {
-  font-weight: normal !important;
-}
-.enyo-locale-non-latin .moon {
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-superscript {
