@@ -16,7 +16,17 @@ enyo.kind({
 		if (spot && (spot === this || spot.isDescendantOf(this))) {
 			enyo.Spotlight.spot(this);
 		}
-	}
+	},
+	didScroll: enyo.inherit(function (sup) {
+		return function () {
+			var spot;
+			if (enyo.Spotlight.getPointerMode() &&
+				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this)))) {
+				enyo.Spotlight.unspot();
+			}
+			return sup.apply(this, arguments);
+		};
+	})
 });
 //* @protected
 /**
@@ -37,40 +47,35 @@ enyo.kind({
 				// first see if the child is already available to scroll to
 			var c = this.childForIndex(list, i),
 				// but we also need the page so we can find its position
-				p = this.pageForIndex(list, i),
-				d = this;
+				p = this.pageForIndex(list, i);
 			// if there is no page then the index is bad
 			if (p < 0 || p > this.pageCount(list)) { return; }
 			// if there isn't one, then we know we need to go ahead and
 			// update, otherwise we should be able to use the scroller's
 			// own methods to find it
 			if (c) {
-				list.$.scroller.scrollToControl(c, true);
+				// force a synchronous scroll to the control so it won't dupe and
+				// re-animate over positions it has already crossed
+				list.$.scroller.scrollToControl(c, false, false);
+				// doing this seems to trigger placement of the pages correctly
+				// in a few cases where synchronously scrolling the scroller
+				// wouldn't identify for the list when it needed to page
+				this.didScroll(list, {scrollBounds: list.$.scroller.getScrollBounds()});
 			} else {
-				// list.$.scroller.resizing = true;
-				var x, y, fn;
+				var idx = list.$.page1.index;
 				
-				fn = function (sender, event, props) {
-					if (i >= props.start && i <= props.end) {
-						var c = d.childForIndex(list, i);
-						if (c) {
-							list.removeListener("paging", fn);
-							list.$.scroller.scrollToControl(c, true);
-						}
-					}
-				};
-				
-				list.addListener("paging", fn);
-				
-				if (list.orientation == "vertical") {
-					x = 0;
-					y = this.pagePosition(list, p); 
+				// attempting to line them up in a useful order
+				// given the direction from where our current index is
+				if (idx < p) {
+					list.$.page1.index = p - 1;
+					list.$.page2.index = p;
 				} else {
-					x = this.pagePosition(list, p);
-					y = 0;
+					list.$.page1.index = p;
+					list.$.page2.index = p + 1;
 				}
-				
-				list.$.scroller.scrollTo(x, y);
+				list.refresh();
+								
+				this.scrollToIndex(list, i);
 			}
 		}
 	};

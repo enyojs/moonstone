@@ -65,7 +65,7 @@ enyo.kind({
 		this.set("deleteMode", false);
 	},
 	deleteSelected: function () {
-		this.$.list.controller.remove(this.$.list.get("selected"));
+		this.$.list.collection.remove(this.$.list.get("selected"));
 		this.cancel();
 	},
 	rendered: enyo.inherit(function (sup) {
@@ -79,7 +79,7 @@ enyo.kind({
 					"Nullam rhoncus elit mi, at laoreet tortor euismod non. Proin at aliquet enim."});
 			}
 			c.add(r);
-			this.$.list.set("controller", c);
+			this.$.list.set("collection", c);
 		};
 	})
 });
