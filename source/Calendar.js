@@ -179,6 +179,7 @@ enyo.kind({
 			if (prevCal !== this._tf.getCalendar()) {
 				this.calendarChanged();
 			}
+			this.firstDayOfWeek = -1; // Force change handler when locale changes
 			this.setFirstDayOfWeek(new ilib.LocaleInfo(this.locale).getFirstDayOfWeek());
 		}
 		this.updateMonthPicker();
@@ -191,11 +192,6 @@ enyo.kind({
 		a Gregorian date instance that represents the first day of the week.
 	*/
 	firstDayOfWeekChanged: function() {
-		if (typeof ilib !== "undefined") {
-			var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
-			var firstDate = d.onOrBefore(this.firstDayOfWeek);
-			this._firstTime = firstDate.getTime();	//get unix time
-		}
 		this.updateDays();
 		this.updateDates();
 	},
@@ -246,7 +242,8 @@ enyo.kind({
 			for (var i = 0; i < 12; i++) {
 				var date = ilib.Date.newInstance({
 					type: fmt.getCalendar(),
-					unixtime: i * 31 * (24*60*60*1000)
+					month: i + 1,
+					day: 15	//Just middle of each month
 				});
 				monthPickerControls[i].setContent(fmt.format(date));
 			}
@@ -254,6 +251,9 @@ enyo.kind({
 	},
 	/**
 		Updates days of the week from first day to last day.
+		If it uses ilib, '0' value of this.firstDayOfweek means Sunday
+		and '1' means Monday. 
+		To make day acts like above, it adds an offset to day calculation.
 	*/
 	updateDays: function() {
 		var daysControls = this.$.days.getClientControls();
@@ -261,7 +261,7 @@ enyo.kind({
 			if (typeof ilib !== "undefined") {
 				var date = ilib.Date.newInstance({
 					type: this._tf.getCalendar(),
-					unixtime: i*(24*60*60*1000) + this._firstTime
+					day:  2 + i + this.getFirstDayOfWeek()
 				});
 				var day = this._tf.format(date);
 				daysControls[i].setContent(day);
