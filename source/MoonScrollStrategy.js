@@ -127,6 +127,7 @@ enyo.kind({
 			inX = Math.max(Math.min(inX, b.maxLeft), 0);
 			inY = Math.max(Math.min(inY, b.maxTop),  0);
 			this.effectScroll(inX, inY);
+			this.bubble("onScroll");
 		} else {
 			this._scrollTo(inX, inY);
 		}
@@ -406,7 +407,7 @@ enyo.kind({
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
-				this.animateToControl(inEvent.originator, inEvent.scrollFullPage);
+				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				this.scrollBounds = null;
 				return true;
 			} else {
