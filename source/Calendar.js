@@ -179,6 +179,7 @@ enyo.kind({
 			if (prevCal !== this._tf.getCalendar()) {
 				this.calendarChanged();
 			}
+			this.firstDayOfWeek = -1; // Force change handler when locale changes
 			this.setFirstDayOfWeek(new ilib.LocaleInfo(this.locale).getFirstDayOfWeek());
 		}
 		this.updateMonthPicker();
@@ -260,7 +261,7 @@ enyo.kind({
 			if (typeof ilib !== "undefined") {
 				var date = ilib.Date.newInstance({
 					type: this._tf.getCalendar(),
-					day:  3 + i + this.getFirstDayOfWeek()
+					day:  2 + i + this.getFirstDayOfWeek()
 				});
 				var day = this._tf.format(date);
 				daysControls[i].setContent(day);
