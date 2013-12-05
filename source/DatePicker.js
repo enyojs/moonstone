@@ -30,7 +30,7 @@ enyo.kind({
 	},
 	//*@protected
 	iLibFormatType: "date",
-	defaultOrdering: "mdy",
+	defaultOrdering: "Mdy",
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.split("");
 		var doneArr = [];
