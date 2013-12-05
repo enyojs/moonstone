@@ -123,15 +123,23 @@ enyo.kind({
 	},
 	spotlightWheel: function(inSender, inEvent) {
 		if (this.scrollWheelMovesFocus) {
-			var pointerMode = enyo.Spotlight.getPointerMode();
-			this.setUseMouseWheel(pointerMode);
-			if (!pointerMode) {
+			if (!enyo.Spotlight.getPointerMode()) {
 				var curr = enyo.Spotlight.getCurrent();
 				if (curr && curr.isDescendantOf(this)) {
 					var dir = inEvent.type == "onSpotlightScrollUp" ? "onSpotlightUp" : "onSpotlightDown";
+					this._spotlightModal = this.spotlightModal;
+					this.spotlightModal = true;	// Trap focus inside scroller while wheeling
 					enyo.Spotlight.Util.dispatchEvent(dir, {type: dir}, curr);
+					this.spotlightModal = this._spotlightModal;
 					return true;
 				}
+			}
+		}
+	},
+	previewDomEvent: function(inEvent) {
+		if (this.scrollWheelMovesFocus) {
+			if (inEvent.type == "mousewheel") {
+				this.setUseMouseWheel(enyo.Spotlight.getPointerMode());
 			}
 		}
 	}
