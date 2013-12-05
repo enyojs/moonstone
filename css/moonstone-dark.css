@@ -2160,7 +2160,7 @@
   border-bottom-width: 30px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 9999px;
+  border-radius: 45px;
 }
 .spotlight .moon-scroll-picker {
   background: #cf0652;
@@ -2221,13 +2221,13 @@
 .moon-scroll-picker-overlay.top {
   top: 0;
   border-top-style: solid;
-  border-radius: 9999px 9999px 0 0;
+  border-radius: 45px 45px 0 0;
   background: #cf0652 url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay.bottom {
   bottom: 0;
   border-bottom-style: solid;
-  border-radius: 0 0 9999px 9999px;
+  border-radius: 0 0 45px 45px;
   background: #cf0652 url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
@@ -2819,6 +2819,17 @@
 .moon-list-actions .moon-icon-button {
   margin: 0;
 }
+.list-actions-drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.moon-header .list-actions-drawer {
+  top: -2px;
+  bottom: -6px;
+}
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
   position: absolute;
@@ -2855,10 +2866,10 @@
 .enyo-locale-right-to-left .moon-list-actions-menu {
   float: left;
 }
-.proportional-width.stacked .moon-list-actions-menu {
+.moon-list-actions-drawer.proportional-width.stacked .moon-list-actions-menu {
   width: 100% !important;
 }
-.moon-list-actions.stacked .moon-list-actions-menu {
+.moon-list-actions-drawer.stacked .moon-list-actions-menu {
   margin-bottom: 20px;
   clear: both;
 }
