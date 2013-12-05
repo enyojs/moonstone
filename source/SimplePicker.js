@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left", onholdpulse:"left"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right", onholdpulse:"right"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -181,11 +181,6 @@ enyo.kind({
 	//* Hides _inControl_ and disables spotlight functionality.
 	hideNavButton: function(inControl) {
 		inControl.setDisabled(true);
-		if (enyo.Spotlight.getPointerMode()) {
-			enyo.Spotlight.unspot();
-		} else {
-			enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
-		}
 	},
 	//* Shows _inControl_ and enables spotlight functionality.
 	showNavButton: function(inControl) {
