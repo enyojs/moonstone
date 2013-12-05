@@ -117,6 +117,11 @@ enyo.kind({
 			};
 		}),
 		scrollToIndex: function (list, i) {
+			// This function recurses, so make sure we are scrolling to a valid index, 
+			// otherwise childForIndex will never return a control
+			if ((i < 0) || (i >= list.collection.length)) {
+				return;
+			}
 				// first see if the child is already available to scroll to
 			var c = this.childForIndex(list, i),
 				// but we also need the page so we can find its position
