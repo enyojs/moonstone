@@ -114,6 +114,9 @@ enyo.kind({
 	// Event handlers:
 	/**************************************************/
 	onFocus: function(oSender, oEvent) {
+		if (enyo.Spotlight.getCurrent() != this) {
+			enyo.Spotlight.spot(this);
+		}
 		enyo.Spotlight.freeze();
 		this.updateFocus(true);
 	},
