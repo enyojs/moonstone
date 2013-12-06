@@ -44,7 +44,10 @@ enyo.kind({
 		/**
 			If true, spotlight (focus) cannot leave the area of the popup unless the
 			popup is explicitly closed; if false, spotlight may be moved anywhere
-			within the viewport
+			within the viewport. Note that When we set the _spotlightModal_ true, 
+			_autoDismiss_ property which is inherited from enyo.Popup need to be 
+			set to false, because default value of _autoDismiss is 'true', so which 
+			resutls no behaviour change when we set _spotlightModal 'true'.
 		*/
 		spotlightModal: false,
 		/**
