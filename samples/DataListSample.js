@@ -46,6 +46,7 @@ enyo.kind({
 		return add;
 	},
 	scrollToIndex: function (sender, event) {
+		this.$.drawers.closeDrawers();
 		this.$.repeater.scrollToIndex(sender.getValue());
 	},
 	repeaterDebuggingChanged: function () {
@@ -80,8 +81,8 @@ enyo.kind({
 		}
 	},
 	repeaterDefaults: {name: "repeater", kind: "moon.DataList", components: [
-		{classes: "enyo-border-box", style: "overflow: hidden; min-width: 230px; padding: 10px; margin: 10px;", components: [
-			{name: "caption", controlClasses: "moon-2h", kind: "moon.CaptionDecorator", components: [
+		{classes: "enyo-border-box", components: [
+			{name: "caption", kind: "moon.CaptionDecorator", components: [
 				{name: "button", kind: "moon.ToggleButton"}
 			]}
 		], bindings: [

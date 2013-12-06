@@ -4708,6 +4708,9 @@
   height: 4px;
   border-radius: 0;
 }
+.moon-neutral .moon-thumb {
+  background: #ffffff;
+}
 .moon-scroller-hthumb,
 .moon-scroller-vthumb {
   transition: opacity 0.1s linear;
