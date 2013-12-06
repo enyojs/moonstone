@@ -31,7 +31,7 @@ enyo.kind({
 	//* @protected
 	/**********************************************/
 	
-	_bFocused: true, // Used only for dismissOnEnter feature, cannot rely on hasFocus in this case because of racing condition
+	_bFocused: false, // Used only for dismissOnEnter feature, cannot rely on hasFocus in this case because of racing condition
 	
 	onFocus: function() {
 		if (this.dismissOnEnter) {
