@@ -114,6 +114,12 @@ enyo.kind({
 	// Event handlers:
 	/**************************************************/
 	onFocus: function(oSender, oEvent) {
+		if (enyo.Spotlight.getCurrent() != this) {
+			// Force a spot here, even when we're in pointer mode,
+			// to ensure that clicks inside us (e.g. to position
+			// the cursor) don't cause Spotlight to unfreeze
+			enyo.Spotlight.spot(this, null, true);
+		}
 		enyo.Spotlight.freeze();
 		this.updateFocus(true);
 	},
