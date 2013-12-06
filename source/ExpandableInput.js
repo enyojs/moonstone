@@ -59,6 +59,12 @@ enyo.kind({
 	currentValueText: function() {
 		return (this.value === "") ? this.noneText : this.value;
 	},
+	expandContract: function() {
+		if (this.disabled) {
+			return true;
+		}
+		this.toggleActive();
+	},
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
@@ -88,7 +94,6 @@ enyo.kind({
 	//* Focuses the input field.
 	focusInput: function() {
 		this.$.clientInput.focus();
-		enyo.Spotlight.spot(this.$.clientInput);
 	},
 	/**
 		If _this.lockBottom_ is _true_, don't allow user to navigate down from the
