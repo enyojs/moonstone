@@ -94,6 +94,11 @@ enyo.kind({
 	//* Focuses the input field.
 	focusInput: function() {
 		this.$.clientInput.focus();
+		// Force cursor to end of text. We were sometimes seeing the
+		// cursor positioned at the start of the text, which caused
+		// problems in 5-way mode (where there's no way to move the
+		// cursor).
+		this.$.clientInput.hasNode().selectionStart = this.value.length;
 	},
 	/**
 		If _this.lockBottom_ is _true_, don't allow user to navigate down from the
