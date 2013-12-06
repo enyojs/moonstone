@@ -31,31 +31,35 @@ moon.DataListSpotlightSupport = {
 	previewDomEvent: function(inEvent) {
 		// When spotlight is being applied back to the list after being unspotted, check that the child being 
 		// focused is visible and if not, spot the first visible child that is
-		if ((inEvent.type == "onSpotlightFocus") && this._unspotSinceSpot && (!enyo.Spotlight.getPointerMode())) {
-			var target = inEvent.originator;
-			if (target != this) {
-				// Calculate the target bounds, relative to the scrollBounds
-				var tb = target.getBounds();
-				var p = target.isDescendantOf(this.$.page1) ? this.$.page1 : this.$.page2;
-				var pb = p.getBounds();
-				// Need to add page offset to target bounds
-				tb.top += pb.top;
-				tb.left += pb.left;
-				var sb = this.$.scroller.getScrollBounds();
-				// Check if target is inside the current scrollBounds
-				if ((tb.top < sb.top) || 
-					(tb.left < sb.left) || 
-					((tb.top + tb.height) > (sb.top + sb.clientHeight)) || 
-					((tb.left + tb.width) > (sb.left + sb.clientWidth))) {
-					// Not in view, so find and spot the first visible child
-					var vc = this.getFirstVisibleChild(sb);
-					if (vc) {
+		if ((inEvent.type == "onSpotlightFocus") && this._unspotSinceSpot) {
+			if (enyo.Spotlight.getPointerMode()) {
+				this._unspotSinceSpot = false;
+			} else {
+				var target = inEvent.originator;
+				if (target != this) {
+					// Calculate the target bounds, relative to the scrollBounds
+					var tb = target.getBounds();
+					var p = target.isDescendantOf(this.$.page1) ? this.$.page1 : this.$.page2;
+					var pb = p.getBounds();
+					// Need to add page offset to target bounds
+					tb.top += pb.top;
+					tb.left += pb.left;
+					var sb = this.$.scroller.getScrollBounds();
+					// Check if target is inside the current scrollBounds
+					if ((tb.top < sb.top) || 
+						(tb.left < sb.left) || 
+						((tb.top + tb.height) > (sb.top + sb.clientHeight)) || 
+						((tb.left + tb.width) > (sb.left + sb.clientWidth))) {
+						// Not in view, so find and spot the first visible child
+						var vc = this.getFirstVisibleChild(sb);
+						if (vc) {
+							this._unspotSinceSpot = false;
+							enyo.Spotlight.spot(vc);
+						}
+						return true;
+					} else {
 						this._unspotSinceSpot = false;
-						enyo.Spotlight.spot(vc);
 					}
-					return true;
-				} else {
-					this._unspotSinceSpot = false;
 				}
 			}
 		}
