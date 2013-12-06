@@ -1,49 +1,12 @@
-// Sample view
-
-enyo.kind({
-    name: "moon.SearchResultImageItem",
-    classes: "moon-search-result-item",
-    spotlight: true,
-    published: {
-        option: {
-            src: "",
-            caption: ""
-        }
-    },
-    handlers: {
-        onSpotlightFocused: "focused",
-        onSpotlightBlur: "released"
-    },
-    components: [
-        {name: "caption", classes: "moon-search-result-item-text"}
-    ],
-    create: function() {
-        this.inherited(arguments);
-        this.optionChanged();
-    },
-    getCaption: function() {
-        return this.$.caption;
-    },
-    optionChanged: function(inOld) {
-        this.applyStyle("background-image", 'url(' + this.option.src + ')');
-        this.$.caption.setContent(this.option.caption);
-    },
-    focused: function() {
-        this.$.caption.addClass("spotlight");
-        return true;
-    },
-    released: function() {
-        this.$.caption.removeClass("spotlight");
-        return true;
-    }
-});
-
 enyo.kind({
     name: "moon.sample.search.RecentSearchHalfSample",
     kind: "moon.Panel",
     titleAbove: "02",
     title: "SEARCH",
     titleBelow: "",
+    events: {
+        onChangeName:""
+    },
     headerComponents: [
         /* Fixme: moon.Panel needs interface to change Header, Body, Tools area size */
         {kind: "moon.InputDecorator", components: [
@@ -58,25 +21,29 @@ enyo.kind({
     components: [
         {
             /* Fixme: enyo.DataList should be changed to moon.DataGrid to support scroll */
-            kind: "moon.DataList",
+            kind: "moon.DataGridList",
             name: "resultInfo",
+            spacing: 20, 
+            minWidth: 250, 
+            minHeight: 200,
             components: [
                 {                  
+                    kind: "moon.GridListImageItem", 
+                    ontap: "changeName",
                     bindings: [
-                        {from: ".model.option", to: ".$.searchResultImageItem.option"}
-                    ], 
-                    components: [{                   
-                        name: "searchResultImageItem",
-                        kind: "moon.SearchResultImageItem", 
-                        ontap: "changeName"
-                    }]
+                        {from: ".model.caption", to: ".caption"},
+                        {from: ".model.src", to: ".source"}
+                    ]
                 }
             ]
         }
     ],
     bindings: [
-        {from: ".controller.result", to: ".$.resultInfo.controller"}
-    ]
+        {from: ".controller.result", to: ".$.resultInfo.collection"}
+    ],
+    changeName: function(inSender, inEvent) {
+        this.doChangeName({index:inEvent.index});
+    }
 });
 
 // Sample model
@@ -84,33 +51,33 @@ enyo.kind({
 enyo.ready(function(){
     var sampleModel = new enyo.Model({
         result: new enyo.Collection([
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}},
-            {option: {src: "../assets/default-movie.png", caption: "Person name"}}
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"},
+            {src: "../assets/default-movie.png", caption: "Person name"}
         ])
     });
 
@@ -120,22 +87,24 @@ enyo.ready(function(){
         view: {
             classes: "enyo-unselectable moon",
             components: [
-                {
-                    kind: "moon.sample.search.RecentSearchHalfSample",
-                    controller: ".app.controllers.searchController",
-                    classes: "enyo-fit"
-                }
+                {name:"searchView", kind: "moon.sample.search.RecentSearchHalfSample", classes:"enyo-fit"}
             ]
         },
-        controllers: [
+        components: [
             {
                 name: "searchController",
                 kind: "enyo.ModelController",
-                model: sampleModel,
-                changeName: function(inSender, inEvent) {
-                    inSender.getCaption().setContent("Selected");
-                }
+                model: sampleModel
             }
-        ]
+        ],
+        bindings: [
+            {from:".$.searchController", to:".view.$.searchView.controller"}
+        ],
+        handlers: {
+            onChangeName: "changeName"
+        },
+        changeName: function(inSender, inEvent) {
+            this.$.searchController.get("model").get("result").at(inEvent.index).set("caption", "New name set");
+        }
     });
 });

@@ -1,3 +1,9 @@
+## 2.3.0-rc1
+
+`moon.VideoPlayer` and `moon.AudioPlayback` now handle remote control "trick play" keys by default.
+To disable this behavior for apps that are already handling these controls, set 
+`handleRemoteControlKey:false`.
+
 ## 2.3.0-pre.11
 
 Previous to pre.11, `moon.TooltipDecorator` and `moon.ContextualPopupDecorator` were block-level 

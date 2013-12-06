@@ -26,11 +26,15 @@ enyo.kind({
 	},
 	//* @public
 	published: {
-		//* True if this item is currently selected; false if not
+		/**
+			True if this item is currently selected; false if not
+		*/
 		selected: false,
 		/**
 			For use with the Enyo Group API; true if this item is the selected item in
-			the group
+			the group. Within this kind, _selected_ and _active_ appear to behave
+			similarly; however, _active_ is meant to be used by _enyo.Group_, while
+			_selected_ is to be used for changing selection state.
 		*/
 		active: false
 	},
@@ -57,7 +61,7 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		
+
 		this.setActive(!this.getActive());
 		this.bubble("onchange");
 	},

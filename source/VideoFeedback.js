@@ -6,11 +6,13 @@
 enyo.kind({
 	name: "moon.VideoFeedback",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-video-player-feedback",
+	//* @public
 	published: {
 		/**
 			Length of time (in milliseconds) after which the on-screen feedback will
-			automatically disapear
+			automatically disappear
 		*/
 		autoTimeoutMS:	2000
 	},
@@ -31,8 +33,8 @@ enyo.kind({
 	_autoTimer: null,
 
 	components: [
-		{name: "leftIcon",  classes: "moon-video-feedback-icon-left",  allowHtml: true, content: "&nbsp;", showing: false},
-		{name: "feedText",  classes: "moon-video-feedback-text"},
+		{name: "leftIcon",  classes: "moon-video-feedback-icon-left", allowHtml: true, content: "&nbsp;", showing: false},
+		{name: "feedText",  classes: "moon-video-feedback-text", allowHtml: true, content: "&nbsp;", showing: false},
 		{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
 	],
 
@@ -47,22 +49,24 @@ enyo.kind({
 	//* @public
 	/**
 		Updates IconButton image and Slider message with current state and
-		playbackRate when any of the playback controls are triggered.
+		playback rate when any of the playback controls are triggered.
 
 		Playback states are mapped to _playbackRate_ values according to the
 		following hash:
 
-		{
-			"fastForward": ["2", "4", "8", "16"],
-			"rewind": ["-2", "-4", "-8", "-16"],
-			"slowForward": ["1/4", "1/2"],
-			"slowRewind": ["-1/2", "-1"]
-		}
-+  */
+			{
+				"fastForward": ["2", "4", "8", "16"],
+				"rewind": ["-2", "-4", "-8", "-16"],
+				"slowForward": ["1/4", "1/2"],
+				"slowRewind": ["-1/2", "-1"]
+			}
+	*/
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		var customMessage = false;
 		inMessage = inMessage || "";
 		inParams = inParams || {};
+
+		if (inMessage !== "") { this.$.feedText.show(); }
 
 		switch (inMessage) {
 		case "Play":
@@ -109,7 +113,7 @@ enyo.kind({
 			inMessage = "";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
-			
+
 		case "JumpToEnd":
 			inMessage = "";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
@@ -141,7 +145,7 @@ enyo.kind({
 		// Show icons as appropriate
 		this.updateIcons(inLeftSrc, inRightSrc);
 
-		//* Don't setup hide timer if _inPersistShowing_ is true
+		//* Don't set up hide timer if _inPersistShowing_ is true
 		if (inPersistShowing) {
 			this.resetAutoTimer();
 		} else {
@@ -150,7 +154,7 @@ enyo.kind({
 		this.inPersistShowing = inPersistShowing;
 	},
 
-	//* When true, means current feedback message has no timeout.
+	//* When true, current feedback message has no timeout.
 	isPersistShowing: function() {
 		return this.inPersistShowing;
 	},

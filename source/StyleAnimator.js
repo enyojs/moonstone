@@ -77,11 +77,23 @@ enyo.kind({
 			return;
 		}
 
-		animation.startValues = this.findStartValues(inName);
-		this.applyStartValues(animation.startValues);
+		this.findStartAndEndValues(animation);
+		this.applyValues(animation.startValues);
 		this.cacheStartValues(animation.startValues);
 
-		setTimeout(enyo.bind(this, function() { this._play(inName); }), 0);
+		enyo.asyncMethod(this.bindSafely(function() { this._play(inName); }));
+	},
+	//* @public
+	//* Jumps directly to the end state of a given animation (without animating).
+	jumpToEnd: function(inName) {
+		var animation = this.getAnimation(inName);
+
+		if (!animation) {
+			return;
+		}
+
+		this.findStartAndEndValues(animation);
+		this.applyValues(animation.endValues);
 	},
 	//* @public
 	//* Pauses the animation, if it is currently playing.
@@ -191,7 +203,7 @@ enyo.kind({
 						startTime: frames[i].index
 					};
 
-					endValues = this.findEndValues(instruction, i+1, frames);
+					endValues = this.findInstructionEndValues(instruction, i+1, frames);
 
 					// If no end values, skip this rule   TODO - is this right?
 					if (!endValues) {
@@ -207,39 +219,51 @@ enyo.kind({
 		return instructions;
 	},
 	//* @protected
-	findStartValues: function(inName) {
-		var animation = this.getAnimation(inName),
-			frames = animation.keyframes,
-			startValues = {};
+	findStartAndEndValues: function(inAnimation) {
+		var frames = inAnimation.keyframes,
+			startValues = {},
+			endValues = {},
+			c,
+			cID;
 
-		for (var i = 0; i < frames.length-1; i++) {
+		for (var i = 0; i < frames.length; i++) {
 			for (var j = 0, control; (control = frames[i].controls[j]); j++) {
-				if (!startValues[control.control.id]) {
-					startValues[control.control.id] = {
-						control: control.control,
+				c = control.control;
+				cID = c.id;
+
+				if (!startValues[cID]) {
+					startValues[cID] = {
+						control: c,
+						properties: {}
+					};
+				}
+				if (!endValues[cID]) {
+					endValues[cID] = {
+						control: c,
 						properties: {}
 					};
 				}
 
 				for (var prop in control.properties) {
-					// at zero, every prop is a startvalue
-					if (i === 0 || !startValues[control.control.id]["properties"][prop]) {
-						if (control.properties[prop] === "current") {
-							control.properties[prop] = enyo.dom.getComputedStyle(control.control.hasNode())[prop];
-						}
-						// If start value is set to _current_, grab the computed value
-						startValues[control.control.id]["properties"][prop] = (control.properties[prop] === "current")
-							?	enyo.dom.getComputedStyle(control.control.hasNode())[prop]
-							:	control.properties[prop];
+					// If value is set to _current_, grab the computed value
+					if (control.properties[prop] === "current") {
+						control.properties[prop] = enyo.dom.getComputedStyle(c.hasNode())[prop];
 					}
+					// at zero, every prop is a startvalue
+					if (i === 0 || typeof startValues[cID]["properties"][prop] === "undefined") {
+						startValues[cID]["properties"][prop] = control.properties[prop];
+					}
+
+					endValues[cID]["properties"][prop] = control.properties[prop];
 				}
 			}
 		}
 
-		return startValues;
+		inAnimation.startValues = startValues;
+		inAnimation.endValues = endValues;
 	},
 	//* @protected
-	findEndValues: function (inInstruction, inFrameIndex, inFrames) {
+	findInstructionEndValues: function (inInstruction, inFrameIndex, inFrames) {
 		for (var i = inFrameIndex; i < inFrames.length; i++) {
 			for (var j = 0, control; (control = inFrames[i].controls[j]); j++) {
 				if (control.control !== inInstruction.control) {
@@ -267,14 +291,14 @@ enyo.kind({
 		animation.startTime = enyo.now();
 	},
 	//* @protected
-	applyStartValues: function(inStartValues) {
+	applyValues: function(inValues) {
 		var item, prop, control;
 
-		for(item in inStartValues) {
-			control = inStartValues[item].control;
+		for(item in inValues) {
+			control = inValues[item].control;
 
-			for (prop in inStartValues[item].properties) {
-				control.applyStyle(prop, inStartValues[item].properties[prop]);
+			for (prop in inValues[item].properties) {
+				control.applyStyle(prop, inValues[item].properties[prop]);
 			}
 		}
 	},
@@ -319,7 +343,7 @@ enyo.kind({
 	//* Begins stepping.
 	beginStepping: function() {
 		if (!this.stepInterval) {
-			this.stepInterval = setInterval(enyo.bind(this, "_step"), this.stepIntervalMS);
+			this.stepInterval = setInterval(this.bindSafely("_step"), this.stepIntervalMS);
 		}
 	},
 	//* @protected

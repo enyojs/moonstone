@@ -1,16 +1,27 @@
 enyo.kind({
 	name: "moon.sample.CalendarSample",
 	classes: "moon enyo-unselectable enyo-fit",
-	kind: "FittableRows",
+	kind: "FittableColumns",
 	components: [
-		{kind: "moon.Scroller", fit:true, components: [
-			{kind: "FittableColumns", components: [
-				{kind: "moon.Calendar", name: "calendar", onChange: "changed"},
-				{kind: "FittableRows", fit: true, components: [
-					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date", onChange: "pickDate"},
+		{components: [
+			{kind: "moon.Calendar", name: "calendar", onChange: "changed"}
+		]},
+		{kind: "FittableRows", fit: true, components: [
+			{kind: "moon.Scroller", fit:true, components: [
+				{kind:"moon.Divider", content:"Set value:"},
+				{classes:"moon-hspacing", components: [
+					{kind: "moon.InputDecorator", components: [
+						{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
+					]},
+					{kind: "moon.Button", small:true, content:"Set Date", ontap:"setDate"},
+					{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetDate"}
+				]},
+				{classes:"moon-1v"},
+				{classes:"moon-7h", components: [
+					{kind: "moon.DatePicker", name: "picker", noneText: "Pick a Date", content: "Pick a Date"},
 					{kind: "moon.ExpandablePicker", name:"localePicker", noneText: "No Language Selected", content: "Choose Locale", onChange: "setLocale", components: [
 						{content: "en-US", active:true}, //United States, firstDayOfWeek: 1
-						//{content: "th-TH"},	//Thailand
+						{content: "th-TH"},	//Thailand
 						{content: "en-CA"},	//Canada, firstDayOfWeek: 1
 						{content: "ko-KO"}, //Korea, firstDayOfWeek: 0
 						{content: "und-AE"}, //United Arab Emirates, firstDayOfWeek: 6
@@ -34,25 +45,16 @@ enyo.kind({
 					{kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
 						{content: "Default", active: true, className:""},
 						{content: "Divider", className:"moon-divider moon-divider-text"}
-					]},
-					{kind: "moon.Divider"},
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name: "yearInput", content: "Year"}
-					]},
-					{kind: "moon.Button", small: true, content: "Set", ontap: "setYear"},
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name: "monthInput", content: "Month"}
-					]},
-					{kind: "moon.Button", small: true, content: "Set", ontap: "setMonth"},
-					{kind: "moon.InputDecorator", components: [
-						{kind: "moon.Input", name: "dateInput", content: "Date"}
-					]},
-					{kind: "moon.Button", small: true, content: "Set", ontap: "setDate"}
+					]}
 				]}
-			]}
-		]},
-		{kind: "moon.Divider", content: "Result"},
-		{kind: "moon.BodyText", name: "result", content: "No change yet"}
+			]},
+			{kind: "moon.Divider", content: "Result"},
+			{kind: "moon.BodyText", name: "result", content: "No change yet"}
+		]}
+	],
+	bindings: [
+		{from: ".$.calendar.value", to:".$.picker.value", oneWay:false},
+		{from: ".$.calendar.value", to:".$.input.value", transform: function(val) {return val.toDateString();} }
 	],
 	create: function(){
 		this.inherited(arguments);
@@ -60,23 +62,6 @@ enyo.kind({
 			this.$.localePicker.hide();
 			this.$.dowLengthPicker.hide();
 			this.log("iLib not present -- hiding locale & dow length picker");
-		}
-	},
-	setYear: function(inSender, inEvent) {
-		if(this.$.yearInput.getValue()) {
-			this.$.calendar.setYear(this.$.yearInput.getValue());
-		}
-	},
-	setMonth: function(inSender, inEvent) {
-		if(this.$.monthInput.getValue() > 0 && this.$.monthInput.getValue() < 13) {
-			this.$.calendar.setMonth(parseInt(this.$.monthInput.getValue(), 10));
-		} else {
-			this.$.result.setContent("Please input value between 1 to 12");
-		}
-	},
-	setDate: function(inSender, inEvent) {
-		if(this.$.dateInput.getValue()) {
-			this.$.calendar.setDate(this.$.dateInput.getValue());
 		}
 	},
 	setLocale: function(inSender, inEvent){
@@ -97,14 +82,15 @@ enyo.kind({
 		}
 		return true;
 	},
-	pickDate: function(inSender, inEvent) {
-		if (inEvent.value){
-			this.$.calendar.setValue(inEvent.value);
-		}
-	},
 	changed: function(inSender, inEvent) {
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent("Current Date" + " changed to " + inEvent.value.toDateString());
 		}
+	},
+	setDate: function(inSender, inEvent){
+		this.$.calendar.setValue(new Date(this.$.input.getValue()));
+	},
+	resetDate: function() {
+		this.$.calendar.setValue(null);
 	}
 });

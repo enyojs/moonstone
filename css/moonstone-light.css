@@ -1,5 +1,5 @@
 /* WARNING: This is a generated file for backward-compatibility.  Most      */
-/* usrs should instead modify LESS files.  If you choose to edit this CSS   */
+/* users should instead modify LESS files.  If you choose to edit this CSS  */
 /* directly rather than LESS files, you should make sure less.xx.yy.min.js  */
 /* is commented out in your debug.html, and run deploy.sh/bat using the     */
 /* '-c' flag to disable LESS compilation.  This will force the loader and   */
@@ -64,10 +64,10 @@
 }
 @font-face {
   font-family: "Miso";
-  src: local("Miso113"), url("../fonts/miso/miso-regular-113.woff") format("woff"), url("../fonts/miso/miso-regular-113.ttf") format("truetype");
+  src: local("Miso"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
+  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 @font-face {
   font-family: "Miso";
@@ -80,7 +80,7 @@
   src: local("Miso"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
-  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
+  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 @font-face {
   font-family: "Miso";
@@ -93,7 +93,7 @@
   src: local("Miso"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
-  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
+  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 /* ----- Museo Sans ------ */
 @font-face {
@@ -107,7 +107,7 @@
   src: local("Museo SansLight"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans 300";
@@ -120,7 +120,7 @@
   src: local("Museo SansNormal"), url("../fonts/MuseoSans/Museo SansNormal.woff") format("woff"), url("../fonts/MuseoSans/Museo SansNormal.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans Medium";
@@ -133,7 +133,7 @@
   src: local("Museo SansDemiBold"), url("../fonts/MuseoSans/Museo SansDemiBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansDemiBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans Medium Italic";
@@ -144,7 +144,7 @@
   font-family: "MuseoSans Medium Italic";
   src: local("Museo SansDemiBoldItalic"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansDemiBoldItalic.ttf") format("truetype");
   font-style: italic;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans 700";
@@ -157,7 +157,7 @@
   src: local("Museo SansBold"), url("../fonts/MuseoSans/Museo SansBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans 700";
@@ -169,7 +169,7 @@
   font-family: "MuseoSans 700";
   src: local("Museo SansBoldItalic"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype");
   font-style: italic;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans Bold";
@@ -182,7 +182,7 @@
   src: local("Museo SansBlack"), url("../fonts/MuseoSans/Museo SansBlack.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlack.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans Bold Italic";
@@ -194,7 +194,7 @@
   font-family: "MuseoSans Bold Italic";
   src: local("Museo SansBlackItalic"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype");
   font-style: italic;
-  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C -U 201 E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
+  unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 /* ----- Moonstone ------ */
 @font-face {
@@ -372,7 +372,7 @@
   direction: rtl;
 }
 .moon-divider-border {
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #4b4b4b;
 }
 .moon-neutral-divider-border {
   border-bottom: 2px solid #ffffff;
@@ -455,19 +455,21 @@
 }
 .moon-large-button-text {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Miso";
-  font-size: 24px;
+  font-size: 27px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-icon-text {
   font-family: "Moonstone Icons";
@@ -518,6 +520,9 @@
 }
 .enyo-locale-non-latin .moon-divider-text {
   font-size: 28px;
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
+  font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
   font-size: 26px;
@@ -588,19 +593,44 @@
   line-height: 32px;
 }
 .moon-body-text a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-body-text a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-body-text a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-body-text a:active {
-  color: #ff2f7d;
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text {
+  font-family: "MuseoSans Bold";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  color: #4b4b4b;
+  line-height: 32px;
+}
+.moon-bold-text a:link {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text a:visited {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text a:hover {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-bold-text a:active {
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-body-text-spacing {
@@ -608,19 +638,21 @@
 }
 .moon-large-button-text {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
   font-family: "Miso";
-  font-size: 24px;
+  font-size: 27px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
 }
 .moon-icon-text {
   font-family: "Moonstone Icons";
@@ -641,6 +673,7 @@
 .enyo-locale-non-latin .moon-super-header-text,
 .enyo-locale-non-latin .moon-divider-text,
 .enyo-locale-non-latin .moon-body-text,
+.enyo-locale-non-latin .moon-bold-text,
 .enyo-locale-non-latin .moon-large-button-text,
 .enyo-locale-non-latin .moon-small-button-text {
   font-family: "LG Display";
@@ -671,16 +704,23 @@
 }
 .enyo-locale-non-latin .moon-divider-text {
   font-size: 28px;
+  font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
   font-size: 26px;
   line-height: 32px;
 }
+.enyo-locale-non-latin .moon-bold-text {
+  font-size: 26px;
+  line-height: 32px;
+}
 .enyo-locale-non-latin .moon-large-button-text {
   font-size: 36px;
+  font-weight: normal;
 }
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
+  font-weight: normal;
 }
 .border-box {
   box-sizing: border-box;
@@ -724,15 +764,22 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-  background-position: center -85px;
+  background-position: center -75px;
   color: #4b4b4b;
+}
+.moon-icon.moon-icon-button.active.small,
+.moon-icon.moon-icon-button:active:hover.small,
+.moon-icon-toggle.active.small {
+  background-position: center -50px;
+}
+.moon-icon.moon-icon-button.active.disabled,
+.moon-icon.moon-icon-button:active:hover.disabled,
+.moon-icon-toggle.active.disabled {
+  background-position: center 0;
 }
 .moon-icon.disabled {
   opacity: 0.6;
   filter: alpha(opacity=60);
-}
-.moon-icon.disabled:active:hover {
-  background-position: center 0;
 }
 /* moonstone-icons.css */
 /* Font icon, name-to-character definitions */
@@ -796,7 +843,7 @@
 .moon-icon-button.hover:hover:not(.disabled),
 .moon-icon-button.spotlight {
   color: #ffffff;
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   background-position: center -75px;
 }
 .moon-icon-button.hover:hover:not(.disabled).small,
@@ -812,7 +859,7 @@
   background-color: transparent;
 }
 .moon-icon-button.no-background.spotlight {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active,
@@ -821,7 +868,7 @@
 .moon-icon.moon-icon-button.spotlight:active,
 .moon-icon.moon-icon-button.hover:active:not(.disabled) {
   background-position: center 0;
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
   background-color: #ffffff;
   color: #a6a6a6;
 }
@@ -869,6 +916,7 @@
   padding: 0 70px;
   position: relative;
   height: 60px;
+  vertical-align: middle;
 }
 .moon-simple-picker.block {
   display: block;
@@ -920,6 +968,7 @@
   margin-left: 10px;
 }
 .moon-simple-integer-picker {
+  white-space: nowrap;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
@@ -942,7 +991,7 @@
   box-sizing: border-box;
 }
 .moon-simple-integer-picker.spotlight {
-  background: #ff2f7d;
+  background: #cf0652;
 }
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
   color: #ffffff;
@@ -996,7 +1045,7 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  height: 60px;
+  position: relative;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -1008,6 +1057,14 @@
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
+  border-right-width: 30px;
+  border-right-style: solid;
+  border-left-width: 0px;
+  border-left-style: none;
+  border-right-color: rgba(0, 0, 0, 0.13);
+  right: 0px;
+}
 .moon-scroll-picker-overlay-left-border {
   position: absolute;
   width: 30px;
@@ -1016,12 +1073,21 @@
   border-radius: 30px;
   border-left-width: 30px;
   border-left-style: solid;
-  border-left-color: #ff2f7d;
+  border-left-color: #cf0652;
   left: 6px;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
+  border-right-width: 30px;
+  border-right-style: solid;
+  border-left-width: 0px;
+  border-left-style: none;
+  border-right-color: #cf0652;
+  left: 0px;
+  right: 6px;
 }
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
-  height: 60px;
+  position: relative;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
@@ -1034,6 +1100,13 @@
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
+  border-left-width: 30px;
+  border-left-style: solid;
+  border-right-width: 0px;
+  border-right-style: none;
+  border-left-color: rgba(0, 0, 0, 0.13);
+}
 .moon-scroll-picker-overlay-right-border {
   position: absolute;
   width: 30px;
@@ -1042,8 +1115,16 @@
   border-radius: 30px;
   border-right-width: 30px;
   border-right-style: solid;
-  border-right-color: #ff2f7d;
+  border-right-color: #cf0652;
   right: 6px;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
+  border-left-width: 30px;
+  border-left-style: solid;
+  border-right-width: 0px;
+  border-right-style: none;
+  border-left-color: #cf0652;
+  right: -6px;
 }
 .moon-simple-integer-picker-button.left {
   transform: rotate(270deg) translateZ(1px);
@@ -1091,7 +1172,7 @@
   opacity: 0.6;
 }
 .moon-divider {
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #4b4b4b;
   margin: 0px 10px 20px 10px;
   text-transform: capitalize;
   padding-bottom: 3px;
@@ -1133,6 +1214,9 @@
 .enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
   left: 10px;
   right: auto;
+}
+.moon-neutral .moon-checkbox[checked] {
+  background-image: url(../images/LightTheme_Icons/CheckmarkWhite_Icon.png);
 }
 .moon-checkbox-item .moon-checkbox[checked] {
   background-color: transparent;
@@ -1176,6 +1260,10 @@
   left: auto;
   right: 10px;
 }
+/*this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
+.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  padding-left: 2px;
+}
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
   text-align: left;
@@ -1185,7 +1273,7 @@
   background: transparent none no-repeat 0 0;
 }
 .moon-checkbox.moon-toggle-text[disabled] {
-  opacity: 0.4;
+  opacity: 0.6;
 }
 .moon-checkbox.moon-toggle-text[checked] {
   background: transparent none no-repeat 0px 0px;
@@ -1233,7 +1321,7 @@
   position: relative;
 }
 .moon-toggle-button.moon-overlay {
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
 }
 .moon-toggle-button-text {
   position: relative;
@@ -1248,11 +1336,11 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #4b4b4b;
   border-width: 0 0;
   border-left-color: transparent;
   border-left-style: solid;
   line-height: 1.2em;
-  color: #4b4b4b;
   padding: 10px;
   vertical-align: top;
   position: relative;
@@ -1270,7 +1358,7 @@
   filter: alpha(opacity=60);
 }
 .moon-item.spotlight {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   color: #ffffff;
 }
 /* SelectableItem.css */
@@ -1278,7 +1366,7 @@
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   display: none;
   position: absolute;
   left: 10px;
@@ -1321,7 +1409,8 @@
 }
 /* Button */
 .moon-button {
-  max-height: 106px;
+  height: 85px;
+  line-height: 75px;
   border-radius: 9999px;
   background-color: #ffffff;
   border: 5px solid transparent;
@@ -1332,15 +1421,12 @@
   width: auto;
   min-width: 85px;
   max-width: 302px;
-  padding: 19px 22px;
-  margin: 0px 10px;
+  padding: 0 22px;
+  margin: 0 10px;
   color: #4b4b4b;
 }
 .moon-button > * {
   text-align: center;
-}
-.enyo-locale-non-latin .moon-button {
-  padding: 15px 22px 16px;
 }
 .moon-neutral .moon-button {
   color: #4b4b4b;
@@ -1353,10 +1439,10 @@
   color: #ffffff;
 }
 .moon-button.small {
-  max-height: 60px;
-  min-height: 60px;
+  height: 60px;
   min-width: 60px;
-  padding: 10px 20px 10px 20px;
+  line-height: 50px;
+  padding: 0 20px;
   position: relative;
   overflow: visible;
 }
@@ -1365,9 +1451,6 @@
 }
 .moon-button.small.min-width {
   min-width: 130px;
-}
-.enyo-locale-non-latin .moon-button.small {
-  padding: 10px 15px;
 }
 .moon-button.small > .small-button-tap-area {
   position: absolute;
@@ -1379,6 +1462,7 @@
 /* Need 100% width for marquee in button */
 .moon-button .moon-marquee {
   width: 100%;
+  vertical-align: top;
 }
 /*
 	IE8 can't handle these selectors in tandem:
@@ -1391,16 +1475,16 @@
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active,
 .moon-button.small.spotlight.pressed {
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
   background-color: #ffffff;
   color: #4b4b4b;
 }
 .moon-button:active:hover:not([disabled]) {
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
   background-color: #ffffff;
 }
 .moon-button.spotlight {
-  background: #ff2f7d;
+  background: #cf0652;
   color: #ffffff;
 }
 .moon-button[disabled] {
@@ -1413,7 +1497,7 @@
 .moon-neutral .moon-button.spotlight.pressed,
 .moon-neutral .moon-button.spotlight:active,
 .moon-neutral .moon-button.small.spotlight.pressed {
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
   background-color: #ffffff;
 }
 .moon-neutral .moon-button.active *,
@@ -1524,9 +1608,10 @@
   background-color: #4d4d4d;
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
-.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client {
+.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client,
+.enyo-locale-right-to-left .moon-radio-item.selected .moon-selectable-item-client {
   padding: 0 32px 0 10px;
 }
 /* Radio Item */
@@ -1566,10 +1651,10 @@
 .moon-radio-item-group .moon-button.spotlight,
 .moon-radio-item-group .moon-button.spotlight:active {
   border: none;
-  color: #ff2f7d;
+  color: #cf0652;
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
-  border-right: 21px solid #ff2f7d;
+  border-right: 21px solid #cf0652;
   border-left: 0;
 }
 /* ExpandableListItem */
@@ -1590,17 +1675,14 @@
   opacity: 1;
   filter: alpha(opacity=100);
 }
-.moon-expandable-list-item.open .moon-expandable-list-item-header {
-  margin-bottom: 10px;
-}
-.moon-expandable-list-item.open {
-  padding-bottom: 10px;
-}
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
   color: #ffffff;
   border-color: #ffffff;
 }
 /* Client Items */
+.moon-expandable-list-item.open .moon-expandable-list-item-client {
+  margin-bottom: 10px;
+}
 .moon-expandable-list-item-client .moon-item {
   font-family: "MuseoSans 300";
   font-size: 26px;
@@ -1611,19 +1693,19 @@
   line-height: 32px;
 }
 .moon-expandable-list-item-client .moon-item a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-list-item-client .moon-item a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-list-item-client .moon-item a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-list-item-client .moon-item a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
@@ -1657,7 +1739,7 @@
   padding-right: 34px;
   background-position: right -7px top 12px;
 }
-.spotlight .moon-expandable-picker-header {
+.moon-expandable-list-item .spotlight .moon-expandable-picker-header {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
 }
 /* Header - Disabled */
@@ -1692,26 +1774,26 @@
   padding-left: 34px;
 }
 .moon-expandable-picker-current-value a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-picker-current-value a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-picker-current-value a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-picker-current-value a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-current-value {
   padding-left: 0;
   padding-right: 34px;
 }
-.spotlight .moon-expandable-picker-current-value {
+.moon-expandable-list-item .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
@@ -1732,7 +1814,7 @@
 }
 .moon-expandable-integer-picker.spotlight {
   padding: 0px 0px 0px 4px;
-  border-left: 16px solid #ff2f7d;
+  border-left: 16px solid #cf0652;
 }
 .moon-item.moon-expandable-integer-picker-header {
   padding: 0px;
@@ -1745,12 +1827,15 @@
   font-style: italic;
   letter-spacing: 0;
   color: #4b4b4b;
-  border-bottom: 2px solid #404040;
+  border-bottom: 2px solid #4b4b4b;
   padding: 0px;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
   font-family: "LG Display";
   font-size: 28px;
+  font-style: normal;
 }
 .moon-expandable-integer-picker-current-value {
   font-family: "MuseoSans 300";
@@ -1764,19 +1849,19 @@
   padding: 0px;
 }
 .moon-expandable-integer-picker-current-value a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-integer-picker-current-value a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-integer-picker-current-value a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-integer-picker-current-value a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
@@ -1800,6 +1885,7 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: top left;
+  margin: 0 10px;
 }
 .moon-neutral .moon-header {
   border-top: 2px solid #ffffff;
@@ -1817,8 +1903,10 @@
 }
 .moon-header-title-above {
   margin-top: 5px;
-  width: 30px;
   height: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 /* Main Title */
 .moon-header-title-wrapper {
@@ -1833,7 +1921,7 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   line-height: normal;
-  height: 150px;
+  height: 155px;
 }
 .enyo-locale-non-latin .moon-header-title {
   font-family: "LG Display";
@@ -1870,19 +1958,19 @@
   height: 44px;
 }
 .moon-header-sub-title-below a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-header-sub-title-below a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-header-sub-title-below a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-header-sub-title-below a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
@@ -1893,7 +1981,7 @@
 /* Header Client */
 .moon-header-client {
   position: absolute;
-  bottom: 20px;
+  bottom: 14px;
   left: 0;
   right: 0;
   text-align: right;
@@ -1927,6 +2015,7 @@
 .moon-small-header .moon-header-title-above {
   height: 0;
   opacity: 0;
+  margin-top: 0;
 }
 .moon-small-header .moon-header-title {
   line-height: normal;
@@ -1934,7 +2023,7 @@
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 0;
   box-sizing: border-box;
-  max-height: 150px;
+  max-height: 155px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
   padding-right: 0;
@@ -1995,31 +2084,31 @@
   line-height: 32px;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption {
-  color: #a2a2a2;
+  color: #4b4b4b;
   line-height: 1.25em;
   height: 1.25em;
   vertical-align: bottom;
 }
 .moon-gridlist-imageitem.selected,
 .moon-gridlist-imageitem.spotlight {
-  border: 5px solid #ff2f7d;
-  background-color: #ff2f7d;
+  border: 5px solid #cf0652;
+  background-color: #cf0652;
 }
 .moon-gridlist-imageitem.selected .caption,
 .moon-gridlist-imageitem.spotlight .caption,
@@ -2063,7 +2152,7 @@
   position: relative;
 }
 .moon-scroll-picker {
-  height: 92px;
+  height: 94px;
   min-width: 60px;
   border-top-width: 30px;
   border-top-style: solid;
@@ -2071,10 +2160,10 @@
   border-bottom-width: 30px;
   border-bottom-style: solid;
   border-bottom-color: transparent;
-  border-radius: 9999px;
+  border-radius: 45px;
 }
 .spotlight .moon-scroll-picker {
-  background: #ff2f7d;
+  background: #cf0652;
   color: #ffffff;
 }
 .moon-scroll-picker-item {
@@ -2082,9 +2171,8 @@
   padding-right: 5px;
   padding-left: 5px;
   padding-bottom: 2px;
-  height: 92px;
-  line-height: 92px;
-  vertical-align: middle;
+  height: 94px;
+  line-height: 94px;
   text-align: center;
   background: transparent;
 }
@@ -2135,14 +2223,14 @@
 .moon-scroll-picker-overlay.top {
   top: 0;
   border-top-style: solid;
-  border-radius: 9999px 9999px 0 0;
-  background: #ff2f7d url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
+  border-radius: 45px 45px 0 0;
+  background: #cf0652 url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay.bottom {
   bottom: 0;
   border-bottom-style: solid;
-  border-radius: 0 0 9999px 9999px;
-  background: #ff2f7d url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) center -66px no-repeat;
+  border-radius: 0 0 45px 45px;
+  background: #cf0652 url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) center -66px no-repeat;
 }
 @-webkit-keyframes toThickBorder /* Safari and Chrome */ {
   from {
@@ -2173,6 +2261,8 @@
 .moon-date-picker-wrap {
   min-width: 100px;
   text-align: center;
+  margin: 10px 0;
+  vertical-align: top;
 }
 .moon-date-picker-wrap.year {
   min-width: 120px;
@@ -2186,6 +2276,10 @@
 .moon-date-picker-header-wrapper.disabled {
   opacity: 1;
   filter: alpha(opacity=100);
+}
+/* Time/date pickers should always be arranged left-to-right according to the order of the formatter */
+.moon-date-picker-client {
+  direction: ltr;
 }
 /* Input.css */
 .moon-input {
@@ -2205,19 +2299,19 @@
   color: #4b4b4b;
 }
 .moon-input a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-input a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-input a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-input a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-input {
@@ -2235,14 +2329,14 @@
   cursor: default;
 }
 .moon-input-decorator > input::-webkit-input-placeholder {
-  color: #7d7d7d;
+  color: #868686;
 }
 .moon-input-decorator > input:-moz-placeholder {
-  color: #7d7d7d;
+  color: #868686;
 }
 /* IE10 */
 .moon-input-decorator > input:-ms-input-placeholder {
-  color: #7d7d7d;
+  color: #868686;
 }
 /* InputDecorator.css */
 .moon-input-decorator:not(.moon-input-header-input-decorator) {
@@ -2252,31 +2346,52 @@
   font-style: italic;
   letter-spacing: 0;
   color: #4b4b4b;
-  margin: 0px;
-  padding: 14px 30px 14px 30px;
+  margin: 5px;
+  padding: 9px 30px;
   border-radius: 34px;
-  -moz-border-radius: 34px;
   border: 5px solid transparent;
   background-color: #ffffff;
-  -webkit-background-clip: padding;
-  /* Safari */
-
-  background-clip: padding-box;
-  /* Firefox 4+, Chrome, IE 9+ */
-
+  box-sizing: border-box;
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  padding: 5px 30px 9px;
+}
+.moon-textarea-decorator {
+  font-family: "MuseoSans 700";
+  font-size: 22px;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 0;
+  color: #4b4b4b;
+  margin: 5px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 5px solid transparent;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+.enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
+.enyo-locale-non-latin .moon-textarea-decorator {
+  /* LG display italic is cut off on the right on TV so change it to normal */
+
   font-family: "LG Display";
   font-size: 28px;
+  font-style: normal;
 }
-.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight {
-  border: 5px solid #ff2f7d;
+.moon-input-decorator:not(.moon-input-header-input-decorator).spotlight,
+.moon-textarea-decorator.spotlight {
+  border: 5px solid #cf0652;
 }
-.moon-input-decorator.moon-disabled {
-  opacity: 0.4;
+.moon-input-decorator.moon-disabled,
+.moon-textarea-decorator.moon-disabled {
+  opacity: 0.6;
 }
-.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused {
-  border: 5px solid #a2a2a2;
+.moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused,
+.moon-textarea-decorator.moon-focused {
+  border: 5px solid #a6a6a6;
+}
+.moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  margin: 5px 0;
 }
 /* ProgressBar.css */
 .moon-progress-bar {
@@ -2294,7 +2409,7 @@
 }
 .moon-progress-bar-bar {
   height: 100%;
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   position: absolute;
   top: 0;
 }
@@ -2329,10 +2444,10 @@
   margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .moon-slider.spotlight > .moon-slider-knob {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .moon-slider.spotlight > .moon-slider-knob.spotselect {
   height: 60px;
@@ -2340,7 +2455,7 @@
   border-radius: 30px;
   margin: -30px;
   background-color: #ffffff;
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
 }
 .moon-slider.disabled {
   cursor: default;
@@ -2372,7 +2487,7 @@
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin: 1px 0 0 0;
+  margin: 0px 0 0 0;
   padding: 0;
   z-index: 21;
 }
@@ -2385,31 +2500,32 @@
 }
 .moon-slider-popup-label {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
-  line-height: 60px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
   font-size: 36px;
+  font-weight: normal;
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "LG Display";
 }
 .moon-slider-popup-flip-h {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
+  transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
 }
 .moon-slider-focus {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .moon-slider-nofocus {
   background-color: #ffffff;
@@ -2421,7 +2537,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #4b4b4b;
   line-height: 32px;
   margin: 0px;
   padding: 0px;
@@ -2430,23 +2545,24 @@
   cursor: pointer;
   background: transparent;
   box-shadow: none;
-  min-height: 20px;
-  min-width: 100px;
+  height: 96px;
+  width: 300px;
+  color: #4b4b4b;
 }
 .moon-richtext a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-richtext a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-richtext a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-richtext a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-richtext {
@@ -2454,7 +2570,9 @@
   font-size: 26px;
   line-height: 32px;
 }
-.moon-input-decorator > .moon-richtext {
+.moon-textarea-decorator > .moon-richtext {
+  resize: none;
+  overflow: auto;
   background-image: none;
   box-shadow: none;
   text-transform: none;
@@ -2463,11 +2581,25 @@
   /* -webkit-appearance: caret;*/
 
 }
-.moon-input-decorator.moon-focused .moon-richtext {
+.moon-textarea-decorator.moon-focused .moon-richtext {
   cursor: text;
 }
-.moon-input-decorator.moon-disabled .moon-richtext {
+.moon-textarea-decorator.moon-disabled .moon-richtext {
   cursor: default;
+}
+.moon-textarea-decorator .moon-richtext::-webkit-scrollbar {
+  width: 4px;
+}
+.moon-textarea-decorator .moon-richtext::-webkit-scrollbar-track-piece {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  background-color: #ffffff;
+  -webkit-border-radius: 10px;
+}
+.moon-textarea-decorator .moon-richtext::-webkit-scrollbar-thumb:vertical {
+  height: 10px;
+  background-color: #a6a6a6;
+  -webkit-border-radius: 10px;
 }
 /*ContextualPopupButton.css*/
 .contextual-popup-button,
@@ -2607,13 +2739,13 @@
 .moon-contextual-popup.left.below::after {
   top: 0%;
   left: 90%;
-  margin-top: -36px;
+  margin-top: -27px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
 }
 /* Top left corner nub */
 .moon-contextual-popup.right.below::after {
   top: 9px;
-  left: 10%;
+  left: 20%;
   margin-top: -36px;
   background-image: url(../images/LightTheme_Icons/ContextualMenu_Up.png);
 }
@@ -2636,27 +2768,24 @@
   cursor: pointer;
   background: transparent;
   box-shadow: none;
-  /* need >=50px for scrollbar to be usable on mac */
-
-  min-height: 50px;
   height: 96px;
-  min-width: 100px;
+  width: 300px;
   color: #4b4b4b;
 }
 .moon-textarea a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-textarea a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-textarea a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-textarea a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-textarea {
@@ -2664,7 +2793,7 @@
   font-size: 26px;
   line-height: 32px;
 }
-.moon-input-decorator > .moon-textarea {
+.moon-textarea-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
 
   resize: none;
@@ -2674,11 +2803,25 @@
   /* -webkit-appearance: caret;*/
 
 }
-.moon-input-decorator.moon-focused .moon-textarea {
+.moon-textarea-decorator.moon-focused .moon-textarea {
   cursor: text;
 }
-.moon-input-decorator.moon-disabled .moon-textarea {
+.moon-textarea-decorator.moon-disabled .moon-textarea {
   cursor: default;
+}
+.moon-textarea-decorator .moon-textarea::-webkit-scrollbar {
+  width: 4px;
+}
+.moon-textarea-decorator .moon-textarea::-webkit-scrollbar-track-piece {
+  margin-top: 4px;
+  margin-bottom: 0px;
+  background-color: #ffffff;
+  -webkit-border-radius: 10px;
+}
+.moon-textarea-decorator .moon-textarea::-webkit-scrollbar-thumb:vertical {
+  height: 10px;
+  background-color: #a6a6a6;
+  -webkit-border-radius: 10px;
 }
 /* List Actions */
 .moon-list-actions {
@@ -2688,6 +2831,17 @@
 }
 .moon-list-actions .moon-icon-button {
   margin: 0;
+}
+.list-actions-drawer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.moon-header .list-actions-drawer {
+  top: -2px;
+  bottom: -6px;
 }
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
@@ -2725,10 +2879,10 @@
 .enyo-locale-right-to-left .moon-list-actions-menu {
   float: left;
 }
-.proportional-width.stacked .moon-list-actions-menu {
+.moon-list-actions-drawer.proportional-width.stacked .moon-list-actions-menu {
   width: 100% !important;
 }
-.moon-list-actions.stacked .moon-list-actions-menu {
+.moon-list-actions-drawer.stacked .moon-list-actions-menu {
   margin-bottom: 20px;
   clear: both;
 }
@@ -2760,7 +2914,7 @@
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
-  border-top: 1px solid #a2a2a2;
+  border-top: 2px solid #4b4b4b;
   margin: 0px 0px 3px 0px;
   padding: 6px 0px 0px 0px;
 }
@@ -2787,19 +2941,19 @@
   padding: 0px;
 }
 .moon-labeledtextitem .text a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-labeledtextitem .text a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-labeledtextitem .text a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-labeledtextitem .text a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
@@ -2863,15 +3017,11 @@
   -webkit-transform: scale3d(1, 1, 1);
   overflow: hidden;
   padding: 0;
-  margin: 20px;
+  padding: 20px 10px;
   height: 100%;
 }
-.moon-panel .moon-header {
-  margin: 0 10px;
-}
-.moon-panels .moon-panel {
+.moon-panel.enyo-fit {
   height: auto;
-  margin: 0;
 }
 .moon-panel-viewport {
   -webkit-transform: scale3d(1, 1, 1);
@@ -2908,13 +3058,13 @@
 }
 .moon-panel-mini-header-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
-  margin: 10px 0 0;
+  margin: 10px 0 0 0;
   position: absolute;
   bottom: 10px;
   left: 0;
   height: 360px;
   width: 100%;
-  padding: 0 10px 10px;
+  padding: 0 10px 10px 10px;
   box-sizing: border-box;
 }
 .moon-panel-mini-header {
@@ -2929,20 +3079,23 @@
 }
 .moon-panel-mini-header-title-above {
   color: #4b4b4b;
-  border-top: 2px solid #4b4b4b;
+  border-top: 2px solid #ffffff;
   padding-top: 5px;
 }
 .spotlight .moon-panel-mini-header-title-above {
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight {
-  background: #ff2f7d;
+  background: #cf0652;
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
-  border-top: 1px transparent;
+  border-top: 2px solid transparent;
 }
 /* Activity Panels Overrides */
+.moon-panels.activity .moon-panel {
+  padding: 0;
+}
 .moon-panels.activity .moon-panel-mini-header-title-above {
   border-top: 2px solid #4b4b4b;
 }
@@ -2955,6 +3108,9 @@
   color: #ffffff;
 }
 /* AlwaysViewing Overrides */
+.moon-panels.always-viewing .moon-panel {
+  padding: 0;
+}
 .moon-panels.always-viewing .moon-panel-mini-header,
 .moon-panels.always-viewing .moon-panel-mini-header-title-above {
   color: #ffffff;
@@ -2975,8 +3131,13 @@
 .moon-panels.always-viewing * {
   pointer-events: auto;
 }
+.moon-panels.activity .moon-panel,
+.moon-panels.always-viewing .moon-panel {
+  height: auto;
+  margin: 0;
+}
 /* Scrim */
-.moon-panels-background-scrim {
+.moon-panels .moon-panels-background-scrim {
   position: absolute;
   left: 0;
   top: 0;
@@ -2985,8 +3146,6 @@
   background-color: black;
   pointer-events: none;
   opacity: 0;
-}
-.moon-panels-background-scrim.transition {
   transition: opacity 0.5s linear;
   -webkit-transition: opacity 0.5s linear;
   -moz-transition: opacity 0.5s linear;
@@ -3027,7 +3186,7 @@
   opacity: 1;
 }
 .moon-panels-handle.spotlight {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   -webkit-transform: translate3d(-120px, 0, 0);
 }
 .moon-panels-handle.right {
@@ -3049,16 +3208,16 @@
   padding-left: 40px;
 }
 .moon-accordion .moon-accordion-header-wrapper {
-  line-height: 1em;
+  height: 1.2em;
 }
 /* Arrow */
 .moon-accordion .moon-accordion-arrow {
-  background-position: right top 11px;
+  background-position: right top 13px;
   background-repeat: no-repeat;
   background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
 }
 .enyo-locale-right-to-left .moon-accordion .moon-accordion-arrow {
-  background-position: left top 11px;
+  background-position: left top 13px;
 }
 .moon-accordion .spotlight .moon-accordion-arrow {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
@@ -3173,7 +3332,7 @@
 .moon-calendar-picker-date.moon-button.small.spotlight.pressed,
 .moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
   color: #ffffff;
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   border: 0px;
 }
 .moon-calendar-picker .moon-simple-picker-client > * {
@@ -3185,7 +3344,7 @@
 	box-sizing: border-box;
 }*/
 .moon-table-row.spotlight {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 /* TODO: Support for disabled table rows? */
 .moon-table-cell {
@@ -3210,15 +3369,12 @@
   -webkit-font-kerning: normal;
   margin: 0px;
   padding-left: 1px;
-  padding-right: 110px;
+  padding-right: 1px;
   display: inline-block;
   box-sizing: border-box;
   line-height: 1em;
   color: #4b4b4b;
   width: 100%;
-  background-image: url(../images/input-header-icon.png);
-  background-position: right 0px;
-  background-repeat: no-repeat;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
   text-transform: none;
@@ -3240,8 +3396,7 @@
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
-  background-color: #ff2f7d;
-  background-position: right -154px;
+  background-color: #cf0652;
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
@@ -3322,23 +3477,23 @@
 }
 /* Activator is spotlight focused */
 .moon-drawers-activator-wrapper.spotlight .moon-drawers-activator {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .spotlight .moon-drawers-activator-nub {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .spotlight .moon-drawers-activator-nub .down {
   border-color: white transparent transparent transparent;
 }
 .spotlight .moon-drawers-activator-nub .down::after {
-  border-color: #ff2f7d transparent transparent transparent;
+  border-color: #cf0652 transparent transparent transparent;
 }
 .spotlight .moon-drawers-activator-nub .up {
   border-color: transparent transparent white transparent;
   background-image: url(../images/LightTheme_Icons/drawer_up_spotlight.png);
 }
 .spotlight .moon-drawers-activator-nub .up::after {
-  border-color: transparent transparent #ff2f7d transparent;
+  border-color: transparent transparent #cf0652 transparent;
 }
 .moon-drawers-handle-container {
   position: absolute;
@@ -3408,7 +3563,7 @@
   margin: 0;
 }
 .moon-popup-close.spotlight {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .moon-icon.moon-popup-close {
   position: absolute;
@@ -3417,7 +3572,7 @@
 .moon-icon.moon-popup-close.pressed,
 .moon-icon.moon-popup-close.spotlight.pressed,
 .moon-icon.moon-popup-close.spotlight:active {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   color: #ffffff;
 }
 /* Dialog.css */
@@ -3452,24 +3607,25 @@
 }
 .moon-tooltip-label {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 27px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   height: 59px;
-  line-height: 2.2em;
-  vertical-align: middle;
+  line-height: 59px;
   white-space: nowrap;
   color: #ffffff;
   text-align: center;
   padding: 0px 24px;
-  background-color: #686868;
+  background-color: #4d4d4d;
   border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
   font-family: "LG Display";
   font-size: 27px;
+  font-weight: normal;
 }
 .moon-tooltip.below {
   top: 100%;
@@ -3660,7 +3816,7 @@
 /* ---- Bar ---- */
 .moon-video-transport-slider-bar-bar {
   height: 100%;
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   position: absolute;
   top: 0;
 }
@@ -3677,11 +3833,12 @@
 }
 .moon-video-transport-slider-popup-label {
   font-family: "Miso";
-  font-size: 30px;
+  font-size: 33px;
   font-weight: bold;
   font-style: normal;
   letter-spacing: normal;
   text-transform: uppercase;
+  -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
   vertical-align: top;
@@ -3689,13 +3846,10 @@
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "LG Display";
   font-size: 36px;
+  font-weight: normal;
 }
 .moon-video-transport-slider-popup-label > * {
   display: inline-block;
-  padding-top: 14px;
-}
-.enyo-locale-non-latin .moon-video-transport-slider-popup-label > * {
-  padding-top: 9px;
 }
 .moon-video-transport-slider-indicator-wrapper {
   width: 12.5%;
@@ -3743,8 +3897,10 @@
 .moon-video-player {
   position: relative;
   display: inline-block;
-  margin: 0 10px;
   background-color: #000000;
+}
+.moon-video-player:not(.enyo-fullscreen) {
+  margin: 0 10px;
 }
 .moon-video-player-container {
   display: block;
@@ -3770,6 +3926,7 @@
 :-webkit-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-webkit-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3777,6 +3934,7 @@
 :-moz-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-moz-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3784,6 +3942,7 @@
 :-ms-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-ms-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3791,6 +3950,7 @@
 :-o-full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :-o-full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3798,6 +3958,7 @@
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
+  margin: 0;
 }
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
@@ -3836,7 +3997,7 @@
   left: 0px;
   width: 0%;
   height: 80px;
-  background-color: #ff2f7d;
+  background-color: #cf0652;
   transition: width 0.1s linear;
   -webkit-transition: width 0.1s linear;
   -moz-transition: width 0.1s linear;
@@ -3933,6 +4094,7 @@
   background-size: 85px 170px;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed,
@@ -3941,7 +4103,7 @@
   border: 0px;
   background-color: transparent;
 }
-.moon-video-player-control-buttons.disabled {
+.moon-video-player-control-buttons.disabled > * {
   pointer-events: none;
 }
 /* ---- Equal space margin on fullscreen player control buttons ---- */
@@ -3973,7 +4135,7 @@
 .moon-video-feedback-text {
   display: inline-block;
   text-transform: uppercase;
-  color: #ff2f7d;
+  color: #cf0652;
   margin: 0 5px;
 }
 .moon-video-feedback-icon-left,
@@ -4036,19 +4198,19 @@
   margin-bottom: 10px;
 }
 .moon-video-player-info-subsubtitle a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-video-player-info-subsubtitle a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-video-player-info-subsubtitle a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-video-player-info-subsubtitle a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
@@ -4075,19 +4237,19 @@
   max-height: 96px;
 }
 .moon-video-player-info-description a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-video-player-info-description a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-video-player-info-description a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-video-player-info-description a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
@@ -4250,14 +4412,42 @@
   top: 5px;
 }
 .moon-clock-top {
-  font-size: 68px;
   color: #4b4b4b;
   vertical-align: bottom;
   display: inline-block;
-  margin-right: 10px;
   line-height: 60px;
-  width: 100%;
   white-space: nowrap;
+  font-size: 61px;
+  line-height: 62px;
+}
+.moon-clock-meridiem {
+  font-family: "MuseoSans Bold";
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 32px;
+  color: #4b4b4b;
+  display: inline-block;
+  text-transform: none;
+  margin-left: 10px;
+  font-size: 24px;
+}
+.moon-clock-meridiem a:link {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-clock-meridiem a:visited {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-clock-meridiem a:hover {
+  color: #cf0652;
+  text-decoration: none;
+}
+.moon-clock-meridiem a:active {
+  color: #cf0652;
+  text-decoration: none;
 }
 .moon-clock-bottom {
   color: #4b4b4b;
@@ -4333,6 +4523,10 @@
   -moz-transform: translateZ(1px);
   -webkit-transform: translateZ(1px);
 }
+/* Flip the horizontal scroller for RTL mode */
+.enyo-locale-right-to-left .moon-scroller-h-column {
+  -webkit-transform: translateZ(1px) scale(-1);
+}
 /* Toggle opacity with .visible class */
 .moon-scroller-v-column.visible,
 .moon-scroller-h-column.visible {
@@ -4397,14 +4591,15 @@
   background-image: url(../images/LightTheme_Icons/SmallCarat_up2.png);
 }
 .moon-highlight-text-highlighted {
-  color: #ff2f7d;
+  color: #cf0652;
+}
+.moon-item.spotlight .moon-highlight-text-highlighted {
+  color: #3a0217;
 }
 /* ObjectActionDecorator */
 .moon-objaction.vertical {
   display: inline-block;
-}
-.moon-objaction.vertical .moon-objaction-client {
-  padding-bottom: 10px;
+  text-align: center;
 }
 .moon-objaction.vertical .moon-objaction-actions {
   opacity: 0;
@@ -4433,6 +4628,15 @@
 .enyo-locale-right-to-left .moon-objaction-client.horizontal .moon-objaction-client {
   padding-right: auto;
   padding-left: 10px;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight {
+  background-color: transparent;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item > img {
+  padding: 10px;
+}
+.moon-objaction.vertical .moon-objaction-client .moon-item.spotlight > img {
+  background-color: #cf0652;
 }
 /* FormCheckbox.css */
 .moon-item.moon-formcheckbox-item {
@@ -4471,7 +4675,7 @@
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox,
 .moon-formcheckbox-item.spotlight .moon-checkbox[checked] {
-  background-color: #ff2f7d;
+  background-color: #cf0652;
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #4b4b4b;
@@ -4483,7 +4687,7 @@
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
   background-position: center 0;
-  border: 5px solid #ff2f7d;
+  border: 5px solid #cf0652;
   color: #a6a6a6;
   background-color: #ffffff;
   border-color: #ffffff;
@@ -4494,6 +4698,7 @@
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
+.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button:active,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {
@@ -4519,6 +4724,9 @@
   width: 4px;
   height: 4px;
   border-radius: 0;
+}
+.moon-neutral .moon-thumb {
+  background: #ffffff;
 }
 .moon-scroller-hthumb,
 .moon-scroller-vthumb {
@@ -4602,19 +4810,19 @@
   border-right: solid 2px transparent;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:link {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:visited {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:hover {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:active {
-  color: #ff2f7d;
+  color: #cf0652;
   text-decoration: none;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
@@ -4634,10 +4842,10 @@
 .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
   color: #ffffff;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
-  border-right: solid 2px #ff2f7d;
+  border-right: solid 2px #cf0652;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
-  border-left: solid 2px #ff2f7d;
+  border-left: solid 2px #cf0652;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);

@@ -33,8 +33,14 @@
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active:hover,
 .moon-icon-toggle.active {
-	background-position: center -(@moon-icon-button-size - (@moon-icon-button-size - @moon-icon-sprite-size - (2 * @moon-button-border-width)));
+	background-position: center -(@moon-icon-sprite-size);
 	color: @moon-icon-button-active-text-color;
+	&.small {
+		background-position: center -(@moon-icon-sprite-small-size);
+	}
+	&.disabled {
+		background-position: center 0;
+	}
 }
 
 .moon-icon.disabled {
@@ -42,6 +48,3 @@
 	filter: alpha(opacity=@moon-disabled-opacity-ie);
 }
 
-.moon-icon.disabled:active:hover {
-	background-position: center 0;
-}

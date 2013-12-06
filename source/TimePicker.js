@@ -1,3 +1,5 @@
+//*	@protected
+
 /**
 	_moon.MeridiemPicker_ is a helper kind used by
 	[moon.TimePicker](#moon.TimePicker).  It is not intended for use in other
@@ -20,6 +22,10 @@ enyo.kind({
 		*/
 		meridiems: ["AM","PM"]
 	},
+	valueChanged: function() {
+		this.inherited(arguments);
+		this.updateOverlays();
+	},
 	//* @protected
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -27,7 +33,7 @@ enyo.kind({
 	}
 });
 
-//*	@public
+//*	@protected
 
 /**
 	_moon.HourPicker_ is a helper kind used by [moon.TimePicker](#moon.TimePicker).
@@ -38,22 +44,26 @@ enyo.kind({
 	kind: "moon.IntegerPicker",
 	//* @protected
 	classes:"moon-date-picker-field",
-	min: 1,
-	max: 24,
-	zeroToEleven: false,
+	min: 0,
+	max: 23,
 	value: null,
-	setupItem: function(inSender, inEvent) {
-		var index = inEvent.index,
-			hour;
-			
-		if (index > 11) {	//current hour reached meridiem(noon)
-			index -= 12;
+	formatter: null,
+	wrap: true,
+	
+	create: function() {
+		this.inherited(arguments);
+		// Create ilib Date object used for formatting hours
+		if (typeof ilib !== "undefined") {
+			this.date = new ilib.Date.GregDate();
 		}
-
-		hour = index + this.min;
-		
-		if (this.zeroToEleven) {
-			hour = ('0' + (hour-1)).slice(-2);  // zero padded 0-11 value
+	},
+	setupItem: function(inSender, inEvent) {
+		var hour = inEvent.index;
+		if (this.date) { // ilib enabled
+			this.date.hour = hour;
+			hour = this.formatter.format(this.date);
+		} else {	// Have TimePicker format the hours
+			hour = this.formatter.formatHour(hour);
 		}
 		this.$.item.setContent(hour);
 	}
@@ -68,7 +78,7 @@ enyo.kind({
 
 
 		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, onChange: "changed"}
-	
+
 	Set the _value_ property to a standard JavaScript Date object
 	to initialize the picker, or to change it programmatically at runtime.
 */
@@ -87,13 +97,26 @@ enyo.kind({
 		//* Optional label for minute
 		minuteText: moon.$L("minute"),		// i18n "MINUTE" label in moon.TimePicker widget
 		//* Optional label for meridiem
-		meridiemText: moon.$L("meridiem")	// i18n "MERIDIAN" label in moon.TimePicker widget
+		meridiemText: moon.$L("meridiem"),	// i18n "MERIDIAN" label in moon.TimePicker widget
+		/**
+			When true, midnight (and noon, if meridiemEnable:true) is represented as zero instead of
+			24 (and 12). (This value is ignored when _ilib_ is loaded, since it will be based on
+			the current locale.)
+		*/
+		hoursStartAtZero: false,
+		/**
+			When true, hours will be zero-padded (This value is ignored when _ilib_ is loaded, since it
+			will be based on the the current locale.)
+		*/
+		hoursZeroPadded: false
 	},
 	//* @protected
+	observers: {
+		refresh: ["hoursStartAtZero", "meridiemEnable", "hoursZeroPadded"]
+	},
 	iLibFormatType  : "time",
 	defaultOrdering : "hma",
-	zeroToEleven    : false,
-	
+
 	initILib: function() {
 		this.inherited(arguments);
 
@@ -101,7 +124,7 @@ enyo.kind({
 		var li = new ilib.LocaleInfo(this.locale || undefined);
 		var clockPref = li.getClock();
 		this.meridiemEnable = (clockPref == '12');
-		
+
 		var fmtParams = {
 			type: "time",
 			time: "h",
@@ -111,15 +134,7 @@ enyo.kind({
 		if (this.locale) {
 			fmtParams.locale = this.locale;
 		}
-		var hourFormatter = new ilib.DateFmt(fmtParams); 
-
-		switch (hourFormatter.template) {
-		case 'KK':
-		case 'K' :
-			// 0-11 hours instead of 1-12
-			this.zeroToEleven = true;
-			break;
-		}
+		this.hourFormatter = new ilib.DateFmt(fmtParams);
 
 		// Get localized meridiem values
 		if (this.meridiemEnable) {
@@ -143,57 +158,46 @@ enyo.kind({
 		var o,f,l;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {				
+			if (doneArr.indexOf(o) < 0) {
 				doneArr.push(o);
 			}
 		}
 
 		for(f = 0, l = doneArr.length; f < l; f++) {
 			o = doneArr[f];
-		
+
 			switch (o){
-			case 'h': {
-					if (this.meridiemEnable === true) {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.HourPicker", name:"hour", zeroToEleven: this.zeroToEleven, min:1, max:24, value: (this.value.getHours() || 24)},
-								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
-					} else {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind: "moon.IntegerPicker", name:"hour", classes:"moon-date-picker-field", min:0, max:23, value: this.value.getHours()},
-								{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
-					}
-				}
+			case 'h':
+			case 'k':
+				this.createComponent(
+					{classes: "moon-date-picker-wrap", components:[
+						{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter || this, value: this.value.getHours()},
+						{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
+					]}
+				);
 				break;
-			case 'm': {
+			case 'm':
+				this.createComponent(
+					{classes: "moon-date-picker-wrap", components:[
+						{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0, max:59, wrap:true, digits: 2, value: this.value.getMinutes()},
+						{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
+					]}
+				);
+				break;
+			case 'a':
+				if (this.meridiemEnable === true) {
 					this.createComponent(
 						{classes: "moon-date-picker-wrap", components:[
-							{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0,max:59, digits: 2, value: this.value.getMinutes()},
-							{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
+							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
+							{name: "meridiemLabel", content: this.meridiemText, classes: "moon-date-picker-label moon-divider-text"}
 						]}
 					);
-				}
-				break;
-			case 'a': {
-					if (this.meridiemEnable === true) {
-						this.createComponent(
-							{classes: "moon-date-picker-wrap", components:[
-								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
-								{name: "meridiemLabel", content: this.meridiemText, classes: "moon-date-picker-label moon-divider-text"}
-							]}
-						);
-					}
 				}
 				break;
 			default:
 				break;
 			}
-		
+
 		}
 
 		this.inherited(arguments);
@@ -204,15 +208,33 @@ enyo.kind({
 			dateStr = this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 		}
 		else {
-			if (this.meridiemEnable === true && this.value.getHours() > 12) {
-				dateStr += this.value.getHours() - 12;
-			} else {
-				dateStr += this.value.getHours();
-			}
+			dateStr += this.formatHour(this.value.getHours());
 			dateStr += ":" + ("00" + this.value.getMinutes()).slice(-2) + " ";
 			dateStr += this.meridiemEnable ? this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] : "";
 		}
 		return dateStr;
+	},
+	formatHour: function(hour) {
+		if (this.meridiemEnable) {
+			if (hour > 12) {
+				hour -= 12;
+			}
+			if (this.hoursStartAtZero) {
+				if (hour == 12) {
+					hour = 0;
+				}
+			} else {
+				hour = hour || 12;
+			}
+		} else {
+			if (!this.hoursStartAtZero) {
+				hour = hour || 24;
+			}
+		}
+		if (this.hoursZeroPadded) {
+			hour = ("0" + hour).slice(-2);
+		}
+		return hour;
 	},
 	updateValue: function(inSender, inEvent) {
 		var hour = this.$.hour.getValue();
@@ -244,10 +266,7 @@ enyo.kind({
 		if (this.meridiemEnable === true) {
 			this.$.meridiem.setValue(hour > 11 ? 1 : 0);
 		}
-		if (!hour) {
-			hour = 24;
-		}
-		this.$.hour.setValue(hour);
+		this.$.hour.setValue(this.value.getHours());
 		this.$.minute.setValue(this.value.getMinutes());
 
 		this.$.currentValue.setContent(this.formatValue());

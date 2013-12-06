@@ -34,14 +34,17 @@ enyo.kind({
 	},
 	//* @protected
 	handlers: {
-		onSpotlightSelect: "fireSelectEvent",
-		onSpotlightRight: "next",
-		onSpotlightBlur: "spotlightBlur",
-		onSpotlightFocus: "spotlightFocus",
-		onSpotlightFocused: "spotlightFocus",
-		onSpotlightLeft: "previous",
-		onSpotlightScrollLeft: "previous",
-		onSpotlightScrollRight: "next"
+		onSpotlightSelect      : "fireSelectEvent",
+		onSpotlightRight       : "next",
+		onSpotlightLeft        : "previous",
+		onSpotlightScrollUp    : "next",
+		onSpotlightScrollDown  : "previous",
+		
+		onSpotlightBlur        : "spotlightBlur",
+		onSpotlightFocus       : "spotlightFocus",
+		onSpotlightFocused     : "spotlightFocus",
+
+		onmousewheel           : "mousewheel"
 	},
 	//* @public
 	published: {
@@ -67,23 +70,27 @@ enyo.kind({
 	values: null,
 
 	components: [
-		{name: "leftOverlay", classes: "moon-scroll-picker-overlay-container-left", showing: false, components:[
-			{classes: "moon-scroll-picker-overlay-left"},
-			{classes: "moon-scroll-picker-overlay-left-border"}
+		{classes: "moon-scroll-picker-overlay-container-left", components: [
+			{name: "leftOverlay", showing: false, components:[
+				{classes: "moon-scroll-picker-overlay-left"},
+				{classes: "moon-scroll-picker-overlay-left-border"} 
+			]},
+			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous", onholdpulse:"previous"}
 		]},
-		{name: "rightOverlay", classes: "moon-scroll-picker-overlay-container-right", showing: false, components:[
-			{classes: "moon-scroll-picker-overlay-right"},
-			{classes: "moon-scroll-picker-overlay-right-border"}
-		]},
-		{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous"},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next"}
+		{classes: "moon-scroll-picker-overlay-container-right", components: [
+			{name: "rightOverlay", showing: false, components:[
+				{classes: "moon-scroll-picker-overlay-right"},
+				{classes: "moon-scroll-picker-overlay-right-border"}
+			]},
+			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next", onholdpulse:"next"}
+		]}
 	],
 	observers: {
 		triggerRebuild: ["step", "min", "max", "unit"],
-		setButtonVisibility: ["value"]
+		handleValueChange: ["value"]
 	},
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
@@ -195,7 +202,6 @@ enyo.kind({
 		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
-		this.fireChangeEvent();
 		this.hideOverlays();
 		return true;
 	},
@@ -233,5 +239,14 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doChange({content: this.getContent(), value: this.value});
 		}
+	},
+	handleValueChange: function(inOld, inNew) {
+		this.setButtonVisibility(inOld, inNew);
+		this.fireChangeEvent();
+	},
+	mousewheel: function(inSender, inEvent) {
+		// Make sure scrollers that container integer pickers don't scroll
+		inEvent.preventDefault();
+		return true;
 	}
 });

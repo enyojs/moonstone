@@ -6,9 +6,11 @@ enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
 	//* @protected
+	mixins: ["moon.DataListSpotlightSupport"],
 	noDefer: true,
 	allowTransitions: false,
-	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll" }
+	spotlight: true,
+	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" }
 });
 //*@protected
 /**
@@ -25,6 +27,11 @@ enyo.kind({
 			};
 		}),
 		scrollToIndex: function (list, i) {
+			// This function recurses, so make sure we are scrolling to a valid index, 
+			// otherwise childForIndex will never return a control
+			if ((i < 0) || (i >= list.collection.length)) {
+				return;
+			}
 				// first see if the child is already available to scroll to
 			var c = this.childForIndex(list, i),
 				// but we also need the page so we can find its position
@@ -35,23 +42,32 @@ enyo.kind({
 			// update, otherwise we should be able to use the scroller's
 			// own methods to find it
 			if (c) {
-				list.$.scroller.scrollToControl(c, true);
+				// force a synchronous scroll to the control so it won't dupe and
+				// re-animate over positions it has already crossed
+				list.$.scroller.scrollToControl(c, false, false);
 			} else {
-				// we do this to ensure we trigger the paging event when necessary
-				this.resetToPosition(list, this.pagePosition(list, p));
-				// now retry the original logic until we have this right
-				enyo.asyncMethod(function () {
-					list.scrollToIndex(i);
-				});
+				var idx = list.$.page1.index;
+				
+				// attempting to line them up in a useful order
+				// given the direction from where our current index is
+				if (idx < p) {
+					list.$.page1.index = p - 1;
+					list.$.page2.index = p;
+				} else {
+					list.$.page1.index = p;
+					list.$.page2.index = p + 1;
+				}
+				list.refresh();
+								
+				this.scrollToIndex(list, i);
 			}
 		},
 		reset: enyo.inherit(function (sup) {
 			return function (list) {
 				sup.apply(this, arguments);
-				if (list.$.scroller.getVertical() != "scroll") {
-					this.updateBounds(list);
-					list.refresh();
-				}
+				this.updateMetrics(list);
+				list.refresh();
+				list.$.scroller.scrollTo(0, 0);
 			};
 		}),
 		updateBounds: enyo.inherit(function (sup) {

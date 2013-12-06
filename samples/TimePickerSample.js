@@ -9,6 +9,7 @@ enyo.kind({
 				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: "Use Default Locale", active: true},
+					{content: 'jp-JP'},
 					{content: 'en-US'},
 					{content: 'ko-KR'},
 					{content: 'en-CA'},

@@ -36,12 +36,12 @@ enyo.kind({
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
 			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
-				{name: "clientInput", kind: "moon.Input"}
+				{name: "clientInput", kind: "moon.Input", onchange: "doChange"}
 			]}
 		]}
 	],
 	bindings: [
-		{from: ".value", to: ".$.clientInput.value"},
+		{from: ".value", to: ".$.clientInput.value", oneWay: false},
 		{from: ".placeholder", to: ".$.clientInput.placeholder"},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
 		{from: ".currentValueText", to: ".$.currentValue.content"},
@@ -51,22 +51,7 @@ enyo.kind({
 		"showCurrentValue": ["open", "value", "noneText"],
 		"currentValueText": ["value", "noneText"]
 	},
-	
-	// Change handlers
-	valueChanged: function() {
-		if (this.generated) {
-			this.fireChangeEvent();
-		}
-	},
-	openChanged: function() {
-		this.inherited(arguments);
-		
-		if (this.generated && !this.getOpen()) {
-			this.updateValue();
-			this.$.clientInput.blur();
-		}
-	},
-	
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open && this.currentValueText() !== "";
@@ -77,15 +62,12 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
+			this.$.clientInput.blur();
 			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
 			this.focusInput();
 		}
-	},
-	//* Sets _this.value_ to _this.$.clientInput.value_.
-	updateValue: function() {
-		this.setValue(this.$.clientInput.getValue());
 	},
 	//* Focuses the _moon.Input_ when the input decorator receives focus.
 	inputFocus: function(inSender, inEvent) {
@@ -114,10 +96,6 @@ enyo.kind({
 	*/
 	inputDown: function(inSender, inEvent) {
 		return this.getLockBottom();
-	},
-	//* Fires an _onChange_ event
-	fireChangeEvent: function() {
-		this.doChange({value: this.value});
 	},
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();

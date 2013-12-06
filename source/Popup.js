@@ -3,33 +3,37 @@
 	screen and takes up the full screen width.
 */
 enyo.kind({
-	name: "moon.Popup",
-	kind: enyo.Popup,
+	name : "moon.Popup",
+	kind : enyo.Popup,
+
 	//* @protected
-	classes: "moon moon-neutral enyo-unselectable moon-popup",
-	modal: true,
-	floating: true,
-	_spotlight: null,
-	_bounds: null,
-	spotlight: "container",
+	modal     : true,
+	classes   : "moon moon-neutral enyo-unselectable moon-popup",
+	floating  : true,
+	_bounds   : null,
+	spotlight : "container",
+
 	handlers: {
-		onSpotlightSelect: "spotSelect",
-		onSpotlightUp: "spotlightUp",
-		onSpotlightDown: "spotlightDown",
-		onSpotlightLeft: "spotlightLeft",
-		onSpotlightRight: "spotlightRight",
-		onRequestScrollIntoView: "_preventEventBubble",
-		ontransitionend: "animationEnd"
+		onRequestScrollIntoView   : "_preventEventBubble",
+		ontransitionend           : "animationEnd",
+		onSpotlightSelect         : "onSpotlightSelect",
+		onSpotlightContainerLeave : "onLeave"
 	},
+
 	//* @public
 	published: {
 		/**
 			Determines whether a scrim will appear when the dialog is modal.
-			Note that modal scrims are transparent, so you won't see them.
+			If true, _moon.Scrim_ provides a transparent (i.e., invisible)
+			overlay that prevents propagation of tap events.
 		*/
 		scrimWhenModal: true,
-		//* Determines whether or not to display a scrim. Only displays scrims
-		//* when floating.
+		/**
+			Determines whether or not to display a scrim. Only displays scrims when
+			floating. When the scrim is in the floating state (_floating: true_), it
+			covers the entire viewport--i.e., it is displayed on top of other
+			controls.
+		*/
 		scrim: true,
 		/**
 			Optional class name to apply to the scrim. Be aware that the scrim
@@ -38,8 +42,9 @@ enyo.kind({
 		*/
 		scrimClassName: "",
 		/**
-			When true, spotlight cannot leave the constraints of the _moon.Popup_
-			unless it is explicitly closed.
+			If true, spotlight (focus) cannot leave the area of the popup unless the
+			popup is explicitly closed; if false, spotlight may be moved anywhere
+			within the viewport
 		*/
 		spotlightModal: false,
 		/**
@@ -54,7 +59,8 @@ enyo.kind({
 	//* @protected
 	tools: [
 		{name: "client", classes:"enyo-fill"},
-		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", showing:false},
+		{name: "spotlightDummy", spotlight:false}
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
@@ -84,7 +90,6 @@ enyo.kind({
 		this.allowHtmlChanged();
 		this.contentChanged();
 		this.inherited(arguments);
-		this._spotlight = this.spotlight;
 	},
 	rendered: function () {
 		this.inherited(arguments);
@@ -96,7 +101,7 @@ enyo.kind({
 		this.$.client.setAllowHtml(this.allowHtml);
 	},
 	//* Sets _this.downEvent_ on _onSpotlightSelect_ event.
-	spotSelect: function(inSender, inEvent) {
+	onSpotlightSelect: function(inSender, inEvent) {
 		this.downEvent = inEvent;
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
@@ -106,17 +111,20 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
+	onLeave: function(oSender, oEvent) {
+		if (oEvent.originator == this) {
+			enyo.Spotlight.spot(this.activator);
+			this.hide();
+		}
+	},
 	//* Determines whether to display _closeButton_.
 	configCloseButton: function() {
-		if (!this.$.closeButton) {
-			return;
-		}
+		if (!this.$.closeButton) { return; }
 
 		var shouldShow = (this.showCloseButton === true || (this.spotlightModal === true && this.showCloseButton !== false));
-		
+
 		if (shouldShow != this.$.closeButton.getShowing()) {
 			this.$.closeButton.setShowing(shouldShow);
-			this.$.closeButton.spotlight = shouldShow;
 			this.addRemoveClass("reserve-close", shouldShow);
 			if (this.generated) {
 				this.resized();
@@ -153,24 +161,24 @@ enyo.kind({
 			} else {
 				this.animateHide();
 				var args = arguments;
-				this.animationEnd = enyo.bind(this, function() {
+				this.animationEnd = this.bindSafely(function() {
 					this.inherited(args);
 				});
 			}
 		} else {
 			this.inherited(arguments);
 		}
-		
+
 		this.showHideScrim(this.showing);
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
-			this.spotlight = this._spotlight;
 			this.configCloseButton();
-			var spottableChildren = enyo.Spotlight.getChildren(this).length;
-			if (spottableChildren === 0) {
-				this.spotlight = false;
-			} else if ((this.spotlight) && (spottableChildren > 0)) {
-				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this));
+			this.$.spotlightDummy.spotlight = false;
+			if (enyo.Spotlight.isSpottable(this)) {
+				enyo.Spotlight.spot(this);
+			} else {
+				this.$.spotlightDummy.spotlight = true;
+				enyo.Spotlight.spot(this);
 			}
 		}
 	},
@@ -185,7 +193,7 @@ enyo.kind({
 	showHideScrim: function(inShow) {
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 			var scrim = this.getScrim();
-			if (inShow) {
+			if (inShow && this.modal && this.scrimWhenModal) {
 				// move scrim to just under the popup to obscure rest of screen
 				var i = this.getScrimZIndex();
 				this._scrimZ = i;
@@ -231,7 +239,6 @@ enyo.kind({
 		if (this.$.closeButton) {
 			this.$.closeButton.removeClass("pressed");
 		}
-		this.spotlight = false;
 		this.hide();
 	},
 	//* Attempts to respot _this.activator_ when _moon.Popup_ is hidden.
@@ -249,49 +256,6 @@ enyo.kind({
 		}
 		this.activator = null;
 	},
-	/**
-		Checks whether to allow spotlight to move in the given direction.
-	*/
-	spotChecker: function(inDirection) {
-		var neighbor = enyo.Spotlight.NearestNeighbor.getNearestNeighbor(inDirection);
-		if (!enyo.Spotlight.Util.isChild(this, neighbor)) {
-			if (this.spotlightModal) {
-				return true;
-			} else {
-				this.respotActivator();
-				this.spotlight = false;
-				this.hide();
-			}
-		}
-	},
-	/**
-		When spotlight reaches top edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightUp: function(inSender, inEvent) {
-		return this.spotChecker("UP");
-	},
-	/**
-		When spotlight reaches bottom edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightDown: function(inSender, inEvent) {
-		return this.spotChecker("DOWN");
-	},
-	/**
-		When spotlight reaches left edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightLeft: function(inSender, inEvent) {
-		return this.spotChecker("LEFT");
-	},
-	/**
-		When spotlight reaches right edge of popup, prevents user from continuing
-		further.
-	*/
-	spotlightRight: function(inSender, inEvent) {
-		return this.spotChecker("RIGHT");
-	},
 	//*@protected
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
@@ -305,7 +269,7 @@ enyo.kind({
 		if (this._bounds) {
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
-			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});	
+			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
 	}
 });

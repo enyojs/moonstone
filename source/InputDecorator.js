@@ -29,7 +29,7 @@ enyo.kind({
 	kind              : 'enyo.ToolDecorator',
 	//* @protected
 	tag               : 'label',
-	classes           : 'moon-input-decorator',
+	
 	spotlight         : true,
 	spotlightDecorate : false,
 
@@ -83,6 +83,12 @@ enyo.kind({
 		this.inherited(arguments);
 		this.updateFocus(false);
 		this._oInputControl = this._findInputControl();
+		if (this._oInputControl instanceof moon.Input) {
+			this.addClass("moon-input-decorator");
+		}
+		if (this._oInputControl instanceof moon.TextArea || this._oInputControl instanceof moon.RichText) {
+			this.addClass("moon-textarea-decorator");
+		}
 	},
 
 	createComponent: function() {
@@ -128,7 +134,7 @@ enyo.kind({
 	/**************************************************/
 
 	onSpotlightFocus: function() {
-		this.bubble("onRequestScrollIntoView", {side: "top"});
+		this.bubble("onRequestScrollIntoView");
 	},
 
 	onSpotlightSelect: function(oSender, oEvent) {

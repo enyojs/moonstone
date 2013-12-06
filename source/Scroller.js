@@ -10,8 +10,7 @@
 	controls to be scrolled into view via the _onRequestScrollIntoView_ event.
 
 	For more information, see the documentation on
-	[Scrollers](https://github.com/enyojs/enyo/wiki/Scrollers) in the Enyo Developer
-	Guide.
+	[Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
 */
 enyo.kind({
 	name:      "moon.Scroller",
@@ -39,9 +38,43 @@ enyo.kind({
 		*/
 		spotlightPagingControls: false,
 		//* Relative parameter used to determine scroll speed
-		scrollInterval: 75
+		scrollInterval: 75,
+		/** 
+			Defines the ratio of mousewheel "delta" units to pixels scrolled.  Increase this value to increase
+			the distance scrolled by the scroll wheel.  Note, mice/trackpads do not emit the same "delta" units
+			per "notch" or flick of the scroll wheel/trackpad; that can vary based on intensity and momentum.
+		*/
+		scrollWheelMultiplier: 2,
+		/** 
+			Defines the maximum distance scrolled by each scroll wheel event, as a rato of the viewport height/width.
+			Setting to larger than 1 is not advised, since a single scroll event could move more than one viewport's
+			worth of content (depending on the delta received), skipping content.
+		*/
+		scrollWheelPageMultiplier: 0.2,
+		/** 
+			Defines the distance scrolled per tap of the paging button, as a rato of the viewport height/width.
+			Setting to larger than 1 is not advised, since a paging button tap will move more than one viewport's
+			worth of content, skipping content.
+		*/
+		paginationPageMultiplier: 0.8,
+		/** 
+			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
+			Increase this value to increase the distance scrolled by holding the pagination buttons.
+		*/
+		paginationScrollMultiplier: 8,
+		/** 
+			When true, the scroll wheel moves spotlight focus up/down through the scroller when in 5-way mode
+			(in pointer mode, scroll wheel always scrolls the viewport without modifying focus position).
+			When false, the scroll wheel works the same in 5-way mode and pointer mode, where the wheel moves
+			the position of the scroller viewport.
+		*/
+		scrollWheelMovesFocus: true
 	},
 	//* @protected
+	handlers: {
+		onSpotlightScrollUp:"spotlightWheel",
+		onSpotlightScrollDown:"spotlightWheel"
+	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
@@ -49,23 +82,65 @@ enyo.kind({
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
-		area.
+		area. Optional third parameter to indicate whether or not it should animate
+		the scroll. Defaults to animation unless it is set to false.
 	*/
-	scrollToControl: function(inControl, inScrollFullPage) {
-		this.$.strategy.animateToControl(inControl, inScrollFullPage);
+	scrollToControl: function(inControl, inScrollFullPage, animate) {
+		this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
 	},
 
+	/**
+		Accepts third optional paramater to indicate whether or not it should
+		animate the scroll. Defaults to animation unless it is set to false.
+	*/
+	scrollTo: function (x, y, animate) {
+		this.$.strategy.scrollTo(x, y, animate);	
+	},
+		
 	//* @protected
 	bindings: [
-		{from: ".scrollInterval", to:".$.strategy.interval"}
+		{from: ".scrollInterval",				to:".$.strategy.interval"},
+		{from: ".scrollWheelMultiplier",		to:".$.strategy.scrollWheelMultiplier"},
+		{from: ".scrollWheelPageMultiplier",	to:".$.strategy.scrollWheelPageMultiplier"},
+		{from: ".paginationPageMultiplier",		to:".$.strategy.paginationPageMultiplier"},
+		{from: ".paginationScrollMultiplier",	to:".$.strategy.paginationScrollMultiplier"}
 	],
 	create: function() {
 		this.inherited(arguments);
 		this.spotlightPagingControlsChanged();
+		this.scrollWheelMovesFocusChanged();
 	},
 	spotlightPagingControlsChanged: function() {
 		// Since spotlightPagingControls is used when there are no focusable
 		// children, turn off container handling in that case.
 		this.spotlight = this.spotlightPagingControls ? false : "container";
+		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
+	},
+	scrollWheelMovesFocusChanged: function() {
+		if (!this.scrollWheelMovesFocus) {
+			this.setUseMouseWheel(true);
+		}
+	},
+	spotlightWheel: function(inSender, inEvent) {
+		if (this.scrollWheelMovesFocus) {
+			if (!enyo.Spotlight.getPointerMode()) {
+				var curr = enyo.Spotlight.getCurrent();
+				if (curr && curr.isDescendantOf(this)) {
+					var dir = inEvent.type == "onSpotlightScrollUp" ? "onSpotlightUp" : "onSpotlightDown";
+					this._spotlightModal = this.spotlightModal;
+					this.spotlightModal = true;	// Trap focus inside scroller while wheeling
+					enyo.Spotlight.Util.dispatchEvent(dir, {type: dir}, curr);
+					this.spotlightModal = this._spotlightModal;
+					return true;
+				}
+			}
+		}
+	},
+	previewDomEvent: function(inEvent) {
+		if (this.scrollWheelMovesFocus) {
+			if (inEvent.type == "mousewheel") {
+				this.setUseMouseWheel(enyo.Spotlight.getPointerMode());
+			}
+		}
 	}
 });

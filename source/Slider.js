@@ -21,6 +21,8 @@ enyo.kind({
 			Position of slider, expressed as an integer between 0 and 100, inclusive
 		*/
 		value: 0,
+		//* Sliders may "snap" to multiples of this value in either direction
+		increment: 0,
 		/**
 			If true (the default), current progress will be styled differently from
 			rest of bar
@@ -35,7 +37,7 @@ enyo.kind({
 		//* CSS classes to apply to tapArea
 		tapAreaClasses: "moon-slider-taparea",
 		//* Color of value popup
-		popupColor: "#686868",
+		popupColor: "#4d4d4d",
 		/**
 			When set to true, button is shown as disabled and does not generate tap
 			events (default is false)
@@ -58,7 +60,7 @@ enyo.kind({
 		showPercentage: true,
 		//* Popup width in pixels
 		popupWidth: "auto",
-		//* Popup height in pixels
+		//* Popup height in pixels, and it is designed for under 72 pixels.
 		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
@@ -93,7 +95,7 @@ enyo.kind({
 		ondragstart: "dragstart",
 		ondrag: "drag",
 		ondragfinish: "dragfinish",
-		onSpotlightFocus: "spotFocus",
+		onSpotlightFocused: "spotFocused",
 		onSpotlightSelect: "spotSelect",
 		onSpotlightBlur: "spotBlur",
 		onSpotlightLeft: "spotLeft",
@@ -156,6 +158,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.popupColorChanged();
 		this.popupHeightChanged();
+		this.popupWidthChanged();
 		this.drawToCanvas(this.popupColor);
 		this._setValue(this.value);
 		this.addRemoveClass("moon-slider-rtl", this.rtl);
@@ -193,10 +196,15 @@ enyo.kind({
 	},
 	//* Updates popup height.
 	popupHeightChanged: function() {
+		if (this.getPopupHeight() >= 72) {
+			enyo.warn("This popupHeight API is designed for under 72 pixels.");
+		}
+
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
-		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 8 + 'px');
+		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 7 + 'px');
 		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
+		this.$.popup.applyStyle("line-height", this.getPopupHeight() - 6 + 'px');
 		this.popupOffsetChanged();
 	},
 	//* Updates popup color.
@@ -210,6 +218,12 @@ enyo.kind({
 		if (content !== null) {
 			this.$.popupLabel.setContent(content);
 		}
+	},
+	/**
+		Slider will snap multiples.
+	*/
+	calcIncrement: function(inValue) {
+		return (Math.round(inValue / this.increment) * this.increment);
 	},
 	//* Called only when _constrainToBgProgress_ is true.
 	calcConstrainedIncrement: function(inValue) {
@@ -233,13 +247,23 @@ enyo.kind({
 			if (this.constrainToBgProgress) {
 				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
-			}		
-			if (this.animate){			
+			}
+			if (this.animate){
 				this.animateTo(preValue, inValue);
 			} else {
 				this._setValue(inValue);
-			}			
+			}
 		}
+	},
+	minChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
+	},
+	maxChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
 	},
 	_setValue: function(inValue) {
 		var v = this.clampValue(this.min, this.max, inValue);
@@ -260,9 +284,9 @@ enyo.kind({
 		var percent = this.calcPercent(inValue),
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue
 		;
-		
+
 		if (this.rtl) { percent = 100 - percent; }
-		
+
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
@@ -310,7 +334,7 @@ enyo.kind({
 				ev = this.bgProgress + (v-this.bgProgress)*0.4;
 				v = this.clampValue(this.min, this.bgProgress, v);
 				this.elasticFrom = (this.elasticEffect === false || this.bgProgress > v) ? v : ev;
-				this.elasticTo = v;	
+				this.elasticTo = v;
 			} else {
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				v = this.clampValue(this.min, this.max, v);
@@ -340,6 +364,7 @@ enyo.kind({
 		} else {
 			v = this.calcKnobPosition(inEvent);
 			v = (this.increment) ? this.calcIncrement(v) : v;
+			v = this.clampValue(this.min, this.max, v);
 		}
 
 		this.dragging = false;
@@ -377,8 +402,10 @@ enyo.kind({
 		this.doAnimateFinish(inSender);
 		return true;
 	},
-	spotFocus: function() {
-		return;
+	spotFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView");
+		}
 	},
 	spotSelect: function() {
 		var sh = this.$.popup.getShowing();
@@ -420,7 +447,7 @@ enyo.kind({
 			var v = this.rtl
 				? this.getValue() - (this.increment || 1)
 				: this.getValue() + (this.increment || 1);
-				
+
 			this.set("value",v);
 			return true;
 		}
@@ -441,7 +468,9 @@ enyo.kind({
 		var hb = h - 8; // height bubble
 		var hbc = (hb)/2; // height of bubble's center
 		var wre = 26; // width's edge
-		var r = 30; // radius
+		var r = hbc; //radius is half the bubble height
+		var bcr = 50;//bottom curve radius 50
+		var bcy = hb + bcr;//calculate the height of the center of the circle plus the radius to get the y coordinate of the circle to draw the bottom irregular arc
 
 		var ctxLeft = this.$.drawingLeft.hasNode().getContext("2d");
 		var ctxRight = this.$.drawingRight.hasNode().getContext("2d");
@@ -453,12 +482,11 @@ enyo.kind({
 		ctxLeft.fillStyle = bgColor || enyo.dom.getComputedStyleValue(this.$.knob.hasNode(), "background-color");
 		// Draw shape with arrow on left
 		ctxLeft.moveTo(0, h);
-		ctxLeft.arc(26, 120, 60, 1.35*Math.PI, 1.485*Math.PI, false);
+		ctxLeft.arc(wre, bcy, bcr, 1.35 * Math.PI, 1.485 * Math.PI, false);
 		ctxLeft.lineTo(wre, hb);
-		ctxLeft.lineTo(wre, 1);
-		ctxLeft.arcTo(0, 1, 0, hbc, r);
+		ctxLeft.lineTo(wre, 0);
+		ctxLeft.arcTo(0, 0, 0, hbc, r);
 		ctxLeft.lineTo(0, h);
-		ctxLeft.lineTo(0, 51);
 		ctxLeft.fill();
 
 		// Set styles. Default color is knob's color
@@ -466,8 +494,8 @@ enyo.kind({
 		// Draw shape with arrow on right
 		ctxRight.moveTo(0, hb);
 		ctxRight.arcTo(wre, hb, wre, hbc, r);
-		
-		ctxRight.arcTo(wre, 1, 0, 1, r);
+
+		ctxRight.arcTo(wre, 0, 0, 0, r);
 		ctxRight.lineTo(0, 0);
 		ctxRight.fill();
 	},

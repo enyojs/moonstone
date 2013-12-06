@@ -22,20 +22,23 @@
 enyo.kind({
 	name: "moon.VideoInfoHeader",
 	kind: "enyo.Control",
+	//* @protected
 	classes: "moon-video-info-header",
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	marqueeOnRender: true,
+	//* @public
 	published: {
 		//* Title of the VideoInfoHeader
 		title: "",
 		//* Subtitle of the VideoInfoHeader
 		subTitle: "",
-		//* VideoInfoHeader text subordinate to subtitle
+		//* VideoInfoHeader text below subtitle
 		subSubTitle: "",
 		//* Main content of the VideoInfoHeader
 		description: ""
 	},
+	//* @protected
 	components: [
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
 		{name: "subTitle", classes: "moon-video-player-info-subtitle"},

@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -181,11 +181,6 @@ enyo.kind({
 	//* Hides _inControl_ and disables spotlight functionality.
 	hideNavButton: function(inControl) {
 		inControl.setDisabled(true);
-		if (enyo.Spotlight.getPointerMode()) {
-			enyo.Spotlight.unspot();
-		} else {
-			enyo.Spotlight.spot(inControl == this.$.buttonLeft ? this.$.buttonRight : this.$.buttonLeft);
-		}
 	},
 	//* Shows _inControl_ and enables spotlight functionality.
 	showNavButton: function(inControl) {
@@ -224,14 +219,13 @@ enyo.kind({
 	},
 	selectedIndexChanged: function() {
 		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
-		if (this.selectedIndex !== null) {
-			this.updateMarqueeDisable();
-		}
+		this.updateMarqueeDisable();
 		this.setSelected(this.getClientControls()[this.selectedIndex]);
 		this.fireChangedEvent();
 		this.showHideNavButtons();
 	},
 	updateMarqueeDisable: function() {
+		this.waterfall("onRequestMarqueeStop");
 		for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
 			if (i == this.selectedIndex) {
 				c$[i].disabled = false;
@@ -263,7 +257,6 @@ enyo.kind({
 				idx = this.wrap ? this.getClientControls().length - 1 : 0;
 			}
 			this.setSelectedIndex(idx);
-			this.updateMarqueeDisable();
 		}
 	},
 	//* @public
@@ -275,7 +268,6 @@ enyo.kind({
 				idx = this.wrap ? 0 : this.getClientControls().length - 1;
 			}
 			this.setSelectedIndex(idx);
-			this.updateMarqueeDisable();
 		}
 	}
 });
