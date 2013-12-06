@@ -75,9 +75,15 @@ moon.DataListSpotlightSupport = {
 				// Need to add page offset to target bounds
 				cb.top += pb.top;
 				cb.left += pb.left;
-				// Return the first child whose top/left are inside the viewport
+				// Return the first spottable child whose top/left are inside the viewport
 				if ((cb.top >= inScrollBounds.top) && (cb.left >= inScrollBounds.left)) {
-					return c;
+					if (enyo.Spotlight.isSpottable(c)) {
+						return c;
+					}
+					c = enyo.Spotlight.getFirstChild(c);
+					if (c) {
+						return c;
+					}
 				}
 			}
 		}
