@@ -69,6 +69,14 @@ enyo.kind({
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
 	},
+	rendered: function() {
+		this.inherited(arguments);
+		if (this.open) {
+			enyo.Spotlight.setPointerMode(false);	// Fixme: Initial focus is on activator
+			this.drawerAnimationEnd();				// Give spot on closeButton and mute tooltip
+			this.resizeDrawer();					// update stacking
+		}
+	},
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
 		this.listActions = this.listActions || [];
@@ -169,7 +177,7 @@ enyo.kind({
 		if (this.stacked) {
 			this.$.drawer.addClass("stacked");
 			this.stackMeUp();
-			this.$.listActions.setVertical("auto");
+			this.$.listActions.setVertical("scroll");	// When stacked, always have vertical scroller 
 		}
 		else {
 			this.$.drawer.removeClass("stacked");
@@ -180,11 +188,13 @@ enyo.kind({
 		this.$.listActions.resized();
 	},
 	stackMeUp: function() {
-		var optionGroup, i;
+		var containerHeight = this.getContainerBounds().height,
+			optionGroup, 
+			i;
 
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "block");
-			optionGroup.applyStyle("height", "none");
+			optionGroup.applyStyle("height", containerHeight + "px");	// Give height for initial render of data controls
 		}
 	},
 	unStackMeUp: function() {
@@ -248,8 +258,13 @@ enyo.kind({
 		// for this use case, and avoid a strange "layer ghosting" issue
 		// the first time a drawer is opened.
 		this.accel = enyo.dom.canAccelerate() && enyo.platform.webos !== 4;
-		this.resetClientPosition();
-		this.setShowing(false);
+		// Show drawer if default open value is true without animation
+		if (this.open) {
+			this.setShowing(true);
+		} else {
+			this.resetClientPosition();
+			this.setShowing(false);
+		}
 	},
 	// We override getBubbleTarget here so that events emanating from a ListActionsDrawer
 	// instance will bubble to the owner of the associated ListActions instance, as expected.
@@ -259,7 +274,9 @@ enyo.kind({
 	getBubbleTarget: function() {
 		return this.owner;
 	},
-	openChanged: function() {
+	openChanged: function(inOld) {
+		// Skip animation before render time
+		if (!this.$.client.hasNode()) { return; }
 		if (this.open) {
 			this.playOpenAnimation();
 		} else {

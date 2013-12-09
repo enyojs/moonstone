@@ -12,7 +12,7 @@ enyo.kind({
 				{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
 			
 				//* List actions with default width
-				{kind: "moon.ListActions", name:"listActions", iconSrc:"./assets/icon-list.png", listActions: [
+				{kind: "moon.ListActions", open: true, name:"listActions", iconSrc:"./assets/icon-list.png", listActions: [
 					{action:"category3", components: [
 						{kind: "moon.Divider", content: "Category 3 (DataList)"},
 						{kind: "moon.DataList", name:"list", fit:true, components: [
@@ -21,13 +21,13 @@ enyo.kind({
 					]},
 					{action:"category2", components: [
 						{kind: "moon.Divider", content: "Category 2 (DataRepeater)"},
-						{kind: "enyo.DataRepeater", containerOptions:{kind:"moon.Scroller", classes:"enyo-fill"}, name:"repeater", fit:true, components: [
+						{kind: "enyo.DataRepeater", containerOptions:{kind:"moon.Scroller", classes:"enyo-fill", vertical: "scroll"}, name:"repeater", fit:true, components: [
 							{kind:"moon.ToggleItem", bindings: [{from:".model.name", to:".content"}]}
 						]}
 					]},
 					{action:"category1", components: [
 						{kind: "moon.Divider", content:"Category 1 (Static)"},
-						{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+						{kind: "moon.Scroller", horizontal: "hidden", vertical: "scroll", fit: true, components: [
 							{kind: "enyo.Group", name:"group", highlander: true, defaultKind: "moon.SelectableItem", components: [
 								{content:"Just Released"},
 								{content:"Recommended"},
