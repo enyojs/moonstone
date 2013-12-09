@@ -1,10 +1,7 @@
 /* ----- SYSTEM FONT NAMES ------ */
-// @font-system-name-non-latin:        "LG Display-Regular";
-// @font-system-name-non-latin-light:  "LG Display-Light";
-// @font-system-name-non-latin-bold:   "LG Display-Regular";
-@font-system-name-non-latin:        "LG Display Regular";
-@font-system-name-non-latin-light:  "LG Display Light";
-@font-system-name-non-latin-bold:   "LG Display Bold";
+@font-system-name-non-latin:        local("LG Display Regular"), local("LG Display-Regular"), local("LG Display");
+@font-system-name-non-latin-light:  local("LG Display Light"),   local("LG Display-Light"),   local("LG Display-Regular"), local("LG Display");
+@font-system-name-non-latin-bold:   local("LG Display Bold"),    local("LG Display-Regular"), local("LG Display");
 
 /* ----- MISO ------ */
 
@@ -12,7 +9,7 @@
 
 @font-face {
 	font-family: "Miso";
-	src: local(@font-system-name-non-latin);
+	src: @font-system-name-non-latin;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -28,7 +25,7 @@
 
 @font-face {
 	font-family: "Miso Bold";
-	src: local(@font-system-name-non-latin-bold);
+	src: @font-system-name-non-latin-bold;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -44,7 +41,7 @@
 
 @font-face {
 	font-family: "Miso Light";
-	src: local(@font-system-name-non-latin-light);
+	src: @font-system-name-non-latin-light;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -64,7 +61,7 @@
 
 @font-face {
 	font-family: "MuseoSans";
-	src: local(@font-system-name-non-latin);
+	src: @font-system-name-non-latin;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -80,7 +77,7 @@
 
 @font-face {
 	font-family: "MuseoSans 100";
-	src: local(@font-system-name-non-latin-light);
+	src: @font-system-name-non-latin-light;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -96,7 +93,7 @@
 
 @font-face {
 	font-family: "MuseoSans 300";
-	src: local(@font-system-name-non-latin-light);
+	src: @font-system-name-non-latin-light;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -112,7 +109,7 @@
 
 @font-face {
 	font-family: "MuseoSans 500";
-	src: local(@font-system-name-non-latin);
+	src: @font-system-name-non-latin;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -128,7 +125,7 @@
 
 @font-face {
 	font-family: "MuseoSans 500 Italic";
-	src: local(@font-system-name-non-latin);
+	src: @font-system-name-non-latin;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -144,7 +141,7 @@
 
 @font-face {
 	font-family: "MuseoSans 700";
-	src: local(@font-system-name-non-latin-bold);
+	src: @font-system-name-non-latin-bold;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -160,7 +157,7 @@
 
 @font-face {
 	font-family: "MuseoSans 700 Italic";
-	src: local(@font-system-name-non-latin-bold);
+	src: @font-system-name-non-latin-bold;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -176,7 +173,7 @@
 
 @font-face {
 	font-family: "MuseoSans 900";
-	src: local(@font-system-name-non-latin-bold);
+	src: @font-system-name-non-latin-bold;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -192,7 +189,7 @@
 
 @font-face {
 	font-family: "MuseoSans 900 Italic";
-	src: local(@font-system-name-non-latin-bold);
+	src: @font-system-name-non-latin-bold;
 	font-weight: normal;
 	font-style: normal;
 	}
@@ -222,19 +219,19 @@
 @font-face {
 	/* We want "LG Display" to map to the bold variant, since that was originally the only option */
 	font-family: "LG Display";
-	src: local(@font-system-name-non-latin);
+	src: @font-system-name-non-latin;
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: "LG Display Bold";
-	src: local(@font-system-name-non-latin-bold);
+	src: @font-system-name-non-latin-bold;
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: "LG Display Light";
-	src: local(@font-system-name-non-latin-light);
+	src: @font-system-name-non-latin-light;
 	font-weight: normal;
 	font-style: normal;
 }
