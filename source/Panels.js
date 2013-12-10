@@ -235,11 +235,6 @@ enyo.kind({
 			}
 		}
 	},
-	//* Prevents event from bubbling up when parent of originator is client.
-	spotlightUp: function(oSender, oEvent) {
-		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
-	},
-	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightDown: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 	},
@@ -266,7 +261,7 @@ enyo.kind({
 			this.handleFocused = false;
 			if (!enyo.Spotlight.getPointerMode()) {
 				if (this.showing) {
-					enyo.Spotlight.spot(this.getActive());
+					enyo.Spotlight.spot(this.getActive()); // Fixme: This makes 2 focus when handle is used with drawers
 				} else {
 					enyo.Signals.send("onPanelsHidden");
 				}
