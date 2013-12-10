@@ -126,6 +126,13 @@ moon.MarqueeSupport = {
 	addMarqueeItem: function(inControl) {
 		this.marqueeWaitList.push(inControl);
 	},
+	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
+	restartMarqueeIfNeeded: function() {
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+		}
+	},
 
 	//* @protected
 
@@ -153,13 +160,6 @@ moon.MarqueeSupport = {
 	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
-	},
-	//* Called by children to re-start marquees if needed
-	_marquee_invalidate: function() {
-		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
-			this.stopMarquee();
-			this.startMarquee();
-		}
 	}
 };
 
@@ -222,7 +222,7 @@ moon.MarqueeItem = {
 		}
 		this._marquee_invalidateMetrics();
 		if (this._marquee_puppetMaster) {
-			this._marquee_puppetMaster._marquee_invalidate();
+			this._marquee_puppetMaster.restartMarqueeIfNeeded();
 		}
 	},
 	//* If this control needs to marquee, lets the event originator know.
