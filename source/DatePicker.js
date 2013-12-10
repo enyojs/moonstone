@@ -31,6 +31,32 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: "date",
 	defaultOrdering: "Mdy",
+	caledarType: null,
+	initILib: enyo.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			this.calendarType = this._tf.getCalendar();			
+		};
+	}),
+	initDefaults: function() {
+		var ordering;
+		var prevCal = this.calendarType;
+		this.value = this.value || new Date();
+		//Attempt to use the ilib lib (assuming that it is loaded)
+		if (typeof ilib !== "undefined") {
+			this.initILib();
+			ordering = this._tf.getTemplate();
+		} else {
+			ordering = this.defaultOrdering;
+		}
+		this._isCalendarUpdated = (prevCal && prevCal !== this._tf.getCalendar());
+		if (this._isCalendarUpdated) {			
+			this.updateYearRange(new ilib.Date.newInstance({type: prevCal, unixtime: this.value.getTime(), timezone:"UTC"}).getYears(),
+								new ilib.Date.newInstance({type: this._tf.getCalendar(), unixtime: this.value.getTime(), timezone:"UTC"}).getYears());
+		}
+		this.setupPickers(ordering);
+		this.noneTextChanged();
+	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.split("");
 		var doneArr = [];
@@ -66,13 +92,16 @@ enyo.kind({
 			case 'y':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap year", components:[
-						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear},
+						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear() + (this._offset || 0), min:this.minYear, max:this.maxYear},
 						{name: "yearLabel", content: this.yearText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
 			default:
 				break;
 			}
+		}
+		if (this._isCalendarUpdated) {
+			this.value = new Date(this.value.getFullYear() + this._offset, this.value.getMonth(), this.value.getDate());
 		}
 		this.inherited(arguments);
 	},
@@ -82,11 +111,27 @@ enyo.kind({
 			case "gregorian":
 				return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 			case "thaisolar":
-				return this._tf.format(new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+				var newYear = this.value.getFullYear();
+				if (this._isCalendarUpdated) {
+					this._isCalendarUpdated = false;
+				} 
+				return this._tf.format(new ilib.Date.ThaiSolarDate({
+					year: newYear,
+					month: this.value.getMonth(),
+					day: this.value.getDay(),
+					timezone:"UTC"
+				}));
 			}
 		} else {
 			return this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
 		}
+	},
+	updateYearRange: function(oldYear, newYear) {
+		var offset = newYear - oldYear;
+		this.setMinYear(this.getMinYear() + offset);
+		this.setMaxYear(this.getMaxYear() + offset);
+
+		this._offset = offset;		
 	},
 	updateValue: function(inSender, inEvent) {
 		var day = this.$.day.getValue(),
