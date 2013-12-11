@@ -17,9 +17,15 @@ enyo.kind({
 	kind: "moon.DateTimePickerBase",
 	//* @public
 	published: {
-		//* Optional minimum year value
+		/**
+			Optional minimum year value. Must be specified using the Gregorian
+			calendar, regardless of the calendar type used by the specified locale.
+		*/
 		minYear: 1900,
-		//* Optional maximum year value
+		/*
+			Optional maximum year value. Must be specified using the Gregorian
+			calendar, regardless of the calendar type used by the specified locale.
+		*/
 		maxYear: 2099,
 		//* Optional label for day
 		dayText: moon.$L("day"),		// i18n "DAY" label in moon.DatePicker widget
@@ -31,6 +37,14 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: "date",
 	defaultOrdering: "Mdy",
+	yearOffset: 0,
+	initILib: function() {
+		this.inherited(arguments);
+		var time = this.value.getTime();
+		var gregYear = new ilib.Date.newInstance({type: "gregorian", unixtime: time, timezone:"UTC"}).getYears();
+		var localeYear = new ilib.Date.newInstance({type: this._tf.getCalendar(), unixtime: time, timezone:"UTC"}).getYears();
+		this.yearOffset = gregYear - localeYear;
+	},
 	setupPickers: function(ordering) {
 		var orderingArr = ordering.split("");
 		var doneArr = [];
@@ -66,7 +80,7 @@ enyo.kind({
 			case 'y':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap year", components:[
-						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear(), min:this.minYear, max:this.maxYear},
+						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear()-this.yearOffset, min:this.minYear-this.yearOffset, max:this.maxYear-this.yearOffset},
 						{name: "yearLabel", content: this.yearText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
@@ -91,7 +105,7 @@ enyo.kind({
 	updateValue: function(inSender, inEvent) {
 		var day = this.$.day.getValue(),
 			month = this.$.month.getValue()-1,
-			year = this.$.year.getValue();
+			year = this.$.year.getValue() + this.yearOffset;
 
 		var maxDays = this.monthLength(year, month);
 		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays));
@@ -100,7 +114,7 @@ enyo.kind({
 		var updateDays = inOld &&
 			(inOld.getFullYear() != this.value.getFullYear() ||
 			inOld.getMonth() != this.value.getMonth());
-		this.$.year.setValue(this.value.getFullYear());
+		this.$.year.setValue(this.value.getFullYear() - this.yearOffset);
 		this.$.month.setValue(this.value.getMonth()+1);
 
 		if (updateDays) {
