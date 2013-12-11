@@ -556,7 +556,7 @@ enyo.kind({
 			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.container),
 			scrollBounds   = this.getScrollBounds(),
 			offsetTop      = controlBounds.top - absoluteBounds.top,
-			offsetLeft     = controlBounds.left - absoluteBounds.left,
+			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - absoluteBounds.left,
 			offsetHeight   = controlBounds.height,
 			offsetWidth    = controlBounds.width,
 			xDir,
