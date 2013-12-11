@@ -23,7 +23,10 @@ enyo.kind({
 	published: {
 		//* The URL of the image
 		src: "",
-		//* The alt text of the image
+		/** 
+			The alt text of the image
+			alt property is not working in webkit.
+		*/
 		alt: "",
 		/**
 			When true, badges will only be shown when the image is within a
