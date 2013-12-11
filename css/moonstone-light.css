@@ -58,40 +58,40 @@
 /* ----- SYSTEM FONT NAMES ------ */
 /* ----- MISO ------ */
 @font-face {
-  font-family: "Miso";
-  src: local("LG Display Regular"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  font-family: "Miso-Web";
+  src: local("LG Display Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "Miso";
-  src: local("Miso-Regular"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
-}
-@font-face {
-  font-family: "Miso Bold";
-  src: local("LG Display Bold"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Miso Bold";
-  src: local("Miso-Bold"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
+  font-family: "Miso-Web";
+  src: local("Miso Regular"), url("../fonts/miso/miso-regular.woff") format("woff"), url("../fonts/miso/miso-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
 }
 @font-face {
-  font-family: "Miso Light";
-  src: local("LG Display Light"), local("LG Display-Light"), local("LG Display GP4"), local("LG Display-Regular"), local("LG Display");
+  font-family: "Miso-Web Bold";
+  src: local("LG Display Bold"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "Miso Light";
-  src: local("Miso-Light"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
+  font-family: "Miso-Web Bold";
+  src: local("Miso Bold"), url("../fonts/miso/miso-bold.woff") format("woff"), url("../fonts/miso/miso-bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
+}
+@font-face {
+  font-family: "Miso-Web Light";
+  src: local("LG Display Light"), local("NanumGothic");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Miso-Web Light";
+  src: local("Miso Light"), url("../fonts/miso/miso-light.woff") format("woff"), url("../fonts/miso/miso-light.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+0D, U+20-7E, U+A1-FF, U+131, U+141-142, U+152-153, U+160-161, U+178, U+17D-17E, U+192, U+2C6, U+2DC, U+3C6, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+20AC, U+2122;
@@ -99,7 +99,7 @@
 /* ----- Museo Sans ------ */
 @font-face {
   font-family: "MuseoSans";
-  src: local("LG Display Regular"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -112,20 +112,20 @@
 }
 @font-face {
   font-family: "MuseoSans 100";
-  src: local("LG Display Light"), local("LG Display-Light"), local("LG Display GP4"), local("LG Display-Regular"), local("LG Display");
+  src: local("LG Display Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "MuseoSans 100";
-  src: local("Museo SansLight"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype");
+  src: local("Museo SansLightBROKEN"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("LG Display Light"), local("LG Display-Light"), local("LG Display GP4"), local("LG Display-Regular"), local("LG Display");
+  src: local("LG Display Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -138,7 +138,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500";
-  src: local("LG Display Regular"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -151,7 +151,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500 Italic";
-  src: local("LG Display Regular"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -164,7 +164,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("LG Display Bold"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Bold"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -177,7 +177,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700 Italic";
-  src: local("LG Display Bold"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Bold"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -190,7 +190,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900";
-  src: local("LG Display Bold"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Bold"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -203,7 +203,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900 Italic";
-  src: local("LG Display Bold"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  src: local("LG Display Bold"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -217,26 +217,26 @@
 /* ----- Moonstone ------ */
 @font-face {
   font-family: "Moonstone Icons";
-  src: local("☺"), url("../fonts/moonstone.ttf") format("truetype"), url("../fonts/moonstone.woff") format("woff");
+  src: local("Moonstone "), url("../fonts/moonstone.ttf") format("truetype"), url("../fonts/moonstone.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 /* ----- LG Display ------ */
 @font-face {
-  font-family: "LG Display";
-  src: local("LG Display Regular"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  font-family: "LG Display-Web";
+  src: local("LG Display Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;/* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
-  font-family: "LG Display Bold";
-  src: local("LG Display Bold"), local("LG Display-Regular"), local("LG Display GP4"), local("LG Display");
+  font-family: "LG Display-Web Bold";
+  src: local("LG Display Bold"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "LG Display Light";
-  src: local("LG Display Light"), local("LG Display-Light"), local("LG Display GP4"), local("LG Display-Regular"), local("LG Display");
+  font-family: "LG Display-Web Light";
+  src: local("LG Display Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -395,7 +395,7 @@
   background-color: #ededed;
 }
 .moon-header-font {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   text-transform: uppercase;
 }
 .enyo-locale-right-to-left .moon {
@@ -409,7 +409,7 @@
 }
 /* Text definitions */
 .moon-header-font {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   text-transform: uppercase;
 }
 .moon-superscript {
@@ -434,7 +434,7 @@
   padding: 0px;
 }
 .moon-header-text {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
@@ -451,7 +451,7 @@
   color: #4b4b4b;
 }
 .moon-super-header-text {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-size: 32px;
   font-weight: normal;
   font-style: normal;
@@ -459,7 +459,7 @@
   -webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-size: 73px;
   font-weight: normal;
   font-style: normal;
@@ -529,7 +529,7 @@
   margin: 0 10px 40px 10px;
 }
 .moon-large-button-text {
-  font-family: "Miso Bold";
+  font-family: "Miso-Web Bold";
   font-size: 33px;
   font-weight: normal;
   font-style: normal;
@@ -538,7 +538,7 @@
   -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
-  font-family: "Miso Bold";
+  font-family: "Miso-Web Bold";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -568,17 +568,17 @@
 .enyo-locale-non-latin .moon-bold-text,
 .enyo-locale-non-latin .moon-large-button-text,
 .enyo-locale-non-latin .moon-small-button-text {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
 }
 .enyo-locale-non-latin .moon {
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-superscript {
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web Light";
   font-size: 24px;
 }
 .enyo-locale-non-latin .moon-pre-text {
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web Light";
   font-size: 24px;
 }
 .enyo-locale-non-latin .moon-large-text {
@@ -601,7 +601,7 @@
   font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -861,7 +861,7 @@
   border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-simple-integer-picker > * {
@@ -912,7 +912,7 @@
   width: auto;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker-item {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-simple-integer-picker.disabled,
@@ -1228,7 +1228,7 @@
   white-space: normal;
 }
 .enyo-locale-non-latin .moon-item {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-item.disabled {
@@ -1520,7 +1520,7 @@
   min-width: 0px;
 }
 .enyo-locale-non-latin .moon-radio-item-group .moon-button {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-radio-item-group .moon-button[disabled] {
@@ -1588,8 +1588,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1677,8 +1677,8 @@
   color: #ffffff;
 }
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1712,7 +1712,7 @@
   padding: 0px;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 28px;
   font-style: normal;
 }
@@ -1744,8 +1744,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -1793,7 +1793,7 @@
   position: relative;
 }
 .moon-header-title {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
@@ -1804,7 +1804,7 @@
   height: 155px;
 }
 .enyo-locale-non-latin .moon-header-title {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 114px;
 }
 .moon-header-title .moon-marquee-text {
@@ -1822,7 +1822,7 @@
   height: 44px;
 }
 .enyo-locale-non-latin .moon-header-title-below {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 /* Sub Title Below */
@@ -1854,8 +1854,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2001,12 +2001,12 @@
   margin-bottom: 100px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .caption {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .sub-caption {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2180,8 +2180,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-input {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2238,7 +2238,7 @@
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin .moon-textarea-decorator {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 28px;
   font-style: normal;
 }
@@ -2363,7 +2363,7 @@
   padding: 0;
 }
 .moon-slider-popup-label {
-  font-family: "Miso Bold";
+  font-family: "Miso-Web Bold";
   font-size: 33px;
   font-weight: normal;
   font-style: normal;
@@ -2375,13 +2375,13 @@
   text-align: center;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 36px;
   font-weight: normal;
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
 }
 .moon-slider-popup-flip-h {
   transform: scaleX(-1);
@@ -2430,8 +2430,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-richtext {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2654,8 +2654,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-textarea {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2785,7 +2785,7 @@
   padding: 6px 0px 0px 0px;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .label {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .spotlight.moon-labeledtextitem .label,
@@ -2823,8 +2823,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -2833,7 +2833,7 @@
   color: #ffffff;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
 }
 .moon-imageitem {
   display: block;
@@ -3132,7 +3132,7 @@
   text-transform: uppercase;
 }
 .enyo-locale-non-latin .moon-calendar-picker-day {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-calendar-picker-month {
@@ -3168,7 +3168,7 @@
   vertical-align: middle;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-calendar-picker-date.moon-button.small {
@@ -3182,7 +3182,7 @@
   padding: 0px;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
 }
 .moon-calendar-picker-date-shadow.moon-button.small {
@@ -3227,7 +3227,7 @@
   background-color: transparent;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
@@ -3247,7 +3247,7 @@
   text-transform: none;
 }
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 114px;
 }
 .moon-input-header .moon-input.moon-header-title {
@@ -3473,7 +3473,7 @@
   height: 68px;
 }
 .moon-tooltip-label {
-  font-family: "Miso Bold";
+  font-family: "Miso-Web Bold";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -3490,7 +3490,7 @@
   border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 27px;
   font-weight: normal;
 }
@@ -3699,7 +3699,7 @@
   width: 100%;
 }
 .moon-video-transport-slider-popup-label {
-  font-family: "Miso Bold";
+  font-family: "Miso-Web Bold";
   font-size: 33px;
   font-weight: normal;
   font-style: normal;
@@ -3711,7 +3711,7 @@
   vertical-align: top;
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 36px;
   font-weight: normal;
 }
@@ -3752,14 +3752,14 @@
   height: 30px;
   top: 23px;
   font-size: 30px;
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-weight: bold;
   color: #ffffff;
   text-align: left;
   left: 55%;
 }
 .enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
 }
 .moon-video-player {
   position: relative;
@@ -3847,7 +3847,7 @@
   right: 10px;
 }
 .moon-video-inline-control-text {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   position: absolute;
   bottom: 20px;
   left: 100px;
@@ -4045,7 +4045,7 @@
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
   font-size: 30px;
   color: #ffffff;
 }
@@ -4081,8 +4081,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
   color: #ffffff;
@@ -4121,8 +4121,8 @@
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
   color: #ffffff;
@@ -4148,7 +4148,7 @@
   margin: 3px 10px;
 }
 .moon-video-player-channel-info-no {
-  font-family: "Miso";
+  font-family: "Miso-Web";
   font-size: 126px;
   font-weight: normal;
   font-style: normal;
@@ -4169,7 +4169,7 @@
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
@@ -4188,7 +4188,7 @@
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
-  font-family: "LG Display";
+  font-family: "LG Display-Web";
 }
 .moon-video-player-info-redicon {
   background-color: #fe4a4b;
@@ -4698,8 +4698,8 @@
   float: left;
 }
 .enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
-  font-family: "LG Display";
-  font-family: "LG Display Light";
+  font-family: "LG Display-Web";
+  font-family: "LG Display-Web Light";
   font-size: 26px;
   line-height: 32px;
 }
