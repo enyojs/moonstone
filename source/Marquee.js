@@ -127,7 +127,7 @@ moon.MarqueeSupport = {
 		this.marqueeWaitList.push(inControl);
 	},
 	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
-	restartMarqueeIfNeeded: function() {
+	resetMarquee: function() {
 		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
 			this.stopMarquee();
 			this.startMarquee();
@@ -222,7 +222,7 @@ moon.MarqueeItem = {
 		}
 		this._marquee_invalidateMetrics();
 		if (this._marquee_puppetMaster) {
-			this._marquee_puppetMaster.restartMarqueeIfNeeded();
+			this._marquee_puppetMaster.resetMarquee();
 		}
 	},
 	//* If this control needs to marquee, lets the event originator know.

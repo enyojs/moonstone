@@ -71,7 +71,7 @@ enyo.kind({
 		this.setNodeProperty("selected", selected);
 		this.setAttribute("selected", selected ? "selected" : "");
 		this.setActive(selected);
-		this.restartMarqueeIfNeeded();
+		this.resetMarquee();
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called
