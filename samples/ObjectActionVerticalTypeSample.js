@@ -8,13 +8,13 @@ enyo.kind({
 	components: [
 		{kind: "moon.Divider", content: "Object Action: vertical Type Sample"},
 		{kind: "moon.Scroller", fit:true, components: [
-			{kind: "Repeater", count:20, classes:"moon-hspacing", components: [
+			{kind: "Repeater", count:20, classes:"moon-hspacing", onSetupItem:"setupItem", components: [
 				{
 					kind: "moon.ObjectActionDecorator", 
 					orientation: "vertical",
 					components: [
 						{kind: "moon.Item", components: [
-							{name: 'image', kind: 'enyo.Image', src: "assets/default-music.png"}
+							{name: 'image', kind: 'enyo.Image'}
 						]}
 					],
 					actionComponents: [
@@ -28,6 +28,9 @@ enyo.kind({
 		{kind: "moon.Divider", content: "Result"},
 		{kind: "moon.BodyText", name: "result", content: "No item tapped yet."}
 	],
+	setupItem: function(inSender, inEvent) {
+		inEvent.item.$.image.setSrc("http://placehold.it/200x200/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + inEvent.index);
+	},
 	ontap: function(inSender, inEvent) {
 		this.$.result.setContent(inEvent.originator.name + " tapped.");
 	}
