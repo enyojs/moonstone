@@ -95,24 +95,43 @@ enyo.kind({
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
 		{from: ".disabled", to: ".$.buttonLeft.disabled"},
-		{from: ".disabled", to: ".$.buttonRight.disabled"},
-		{from: ".value",   to: ".$.client.index", oneWay: false, transform: "sync"}
+		{from: ".disabled", to: ".$.buttonRight.disabled"}
 	],
-	sync: function(inVal, inOrigin, inBinding) {
-		if (this.values) {
-			return (inOrigin === "source") ? this.indices[inVal] : this.values[inVal];
-		}
+	resetPosition: function() {
+		this.$.client.setAnimate(false);
+		this.$.client.setIndex(1);
+		this.$.client.getActive().setContent(this.value + " " + this.unit);
+		this.$.client.getActive().value = this.value;
+		this.$.client.setAnimate(this.animate);
+	},
+	setupNextPanel: function(toIndex, actualIndex) {
+		var panels = this.$.client.getPanels();
+		panels[actualIndex].setContent(this.values[toIndex] + " " + this.unit);
+		panels[actualIndex].value = this.values[toIndex];
 	},
 	//* @public
 
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
-		this.$.client.previous();
+		var index = this.indices[this.value]-1,
+			panels = this.$.client.getPanels();
+		if (index >= 0) {
+			this.resetPosition();
+			this.setupNextPanel(index, 0);
+			this.$.client.previous();
+			this.setValue(this.values[index]);
+		}
 		return true;
 	},
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
-		this.$.client.next();
+		var index = this.indices[this.value]+1;
+		if (index < Object.keys(this.indices).length) {
+			this.resetPosition();
+			this.setupNextPanel(index, 2);
+			this.$.client.next();
+			this.setValue(this.values[index]);
+		}
 		return true;
 	},
 	//* Facades the currently active panel.
@@ -133,8 +152,12 @@ enyo.kind({
 		var indices = this.indices = {},
 			values = this.values = [];
 
+		// Create only 3 panels: this is used for measuring max width in reflow
+		this.createComponent({content: this.min + " " + this.unit, value: this.min});
+		this.createComponent({content: this.value + " " + this.unit, value: this.value});
+		this.createComponent({content: this.max + " " + this.unit, value: this.max});
+
 		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-			this.createComponent({content: v + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
 			if (this.step <= 0) {
@@ -144,14 +167,15 @@ enyo.kind({
 		}
 	},
 	validate: function() {
-		var index = this.indices[this.value];
+		var index = this.indices[this.value],
+			to = (this.value > this.max) ? this.max : this.min;
 		if (index !== undefined) {
-			this.$.client.set("index", index);
+			this.$.client.set("index", 1);
 			this.setButtonVisibility(null, this.value);
 		}
 		else
 		{
-			this.set("value", this.min);
+			this.set("value", to);
 		}
 	},
 	rebuild: function() {
