@@ -10,6 +10,7 @@
 */
 enyo.kind({
 	name: "moon.SimpleIntegerPicker",
+	kind: "moon.SimplePicker",
 	//* @protected
 	classes: "moon-simple-integer-picker",
 	spotlight:true,
@@ -44,7 +45,8 @@ enyo.kind({
 		onSpotlightFocus       : "spotlightFocus",
 		onSpotlightFocused     : "spotlightFocus",
 
-		onmousewheel           : "mousewheel"
+		onmousewheel           : "mousewheel",
+		ontransitionend        : "transitionFinished"
 	},
 	//* @public
 	published: {
@@ -77,9 +79,9 @@ enyo.kind({
 			]},
 			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous", onholdpulse:"previous"}
 		]},
-		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
-			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
-		},
+		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
+			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
+		]},
 		{classes: "moon-scroll-picker-overlay-container-right", components: [
 			{name: "rightOverlay", showing: false, components:[
 				{classes: "moon-scroll-picker-overlay-right"},
@@ -96,7 +98,7 @@ enyo.kind({
 		{from: ".animate",  to: ".$.client.animate"},
 		{from: ".disabled", to: ".$.buttonLeft.disabled"},
 		{from: ".disabled", to: ".$.buttonRight.disabled"},
-		{from: ".value",   to: ".$.client.index", oneWay: false, transform: "sync"}
+		{from: ".value",   to: ".selectedIndex", oneWay: false, transform: "sync"}
 	],
 	sync: function(inVal, inOrigin, inBinding) {
 		if (this.values) {
@@ -107,17 +109,20 @@ enyo.kind({
 
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
-		this.$.client.previous();
-		return true;
+		this.inherited(arguments);
+		this.showOverlays(false);
 	},
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
-		this.$.client.next();
-		return true;
+		this.inherited(arguments);
+		//Its better to define isNext as true/false 
+		//while moving next or pervious as it would help 
+		//in scenarios where wrapping is turned on.
+		this.showOverlays(true);
 	},
 	//* Facades the currently active panel.
 	getContent: function() {
-		return (this.$.client && this.$.client.hasNode() && this.$.client.getActive()) ? this.$.client.getActive().getContent() : "";
+		return (this.$.client && this.$.client.hasNode()) && this.getSelected() ? this.getSelected().getContent() : "";
 	},
 
 	//* @protected
@@ -142,11 +147,14 @@ enyo.kind({
 				break;
 			}
 		}
+		if (this.generated) {
+			this.render();
+		}
 	},
 	validate: function() {
 		var index = this.indices[this.value];
 		if (index !== undefined) {
-			this.$.client.set("index", index);
+			this.set("selectedIndex", index);
 			this.setButtonVisibility(null, this.value);
 		}
 		else
@@ -157,8 +165,6 @@ enyo.kind({
 	rebuild: function() {
 		this.destroyClientControls();
 		this.build();
-		this.$.client.render();
-		this.reflow();
 		this.validate();
 	},
 	triggerRebuild: function() {
@@ -171,35 +177,8 @@ enyo.kind({
 		// creation.
 		this.startJob("rebuild", this.rebuild, 10);
 	},
-
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.getDisabled());
-	},
-
-	//* On reflow, updates the bounds of _this.$.client_.
-	reflow: function() {
-		this.inherited(arguments);
-
-		// Find max width of all children
-		if (this.getAbsoluteShowing()) {
-			var width = 0;
-			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
-			}
-			this.$.client.setBounds({width:width});
-			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				c$[i].setBounds({width:width});
-			}
-			this.$.client.reflow();
-		}
-	},
-	transitionStart: function(inSender, inEvent) {
-		if (inEvent.fromIndex > inEvent.toIndex) {
-			this.$.leftOverlay.show();
-		} else if (inEvent.fromIndex < inEvent.toIndex) {
-			this.$.rightOverlay.show();
-		}
-		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
 		this.hideOverlays();
@@ -208,12 +187,19 @@ enyo.kind({
 	spotlightBlur: function() {
 		this.hideOverlays();
 	},
+	showOverlays: function(isNext) {
+		if (isNext) {
+			this.$.rightOverlay.show();
+		} else {
+			this.$.leftOverlay.show();
+		}
+	},
 	hideOverlays: function() {
 		this.$.leftOverlay.setShowing(false);
 		this.$.rightOverlay.setShowing(false);
 	},
 	setButtonVisibility: function(inOld, inNew) {
-		if (this.values) {
+		if (this.values && !this.wrap) {
 			var min = this.values[0],
 				max = this.values[this.values.length - 1];
 			if (inNew === min) {

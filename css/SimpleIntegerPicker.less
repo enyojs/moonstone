@@ -1,10 +1,7 @@
 .moon-simple-integer-picker {
-  white-space: nowrap;
   .moon-sub-header-text;
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  height: @moon-picker-button-width;
+  white-space: nowrap;
+  padding: 0 @moon-picker-button-width;
   border-radius: @moon-picker-button-width/2;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
@@ -20,13 +17,13 @@
 .moon-simple-integer-picker.spotlight {
   background: @moon-spotlight-border-color;
 }
-.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
-	color: @moon-spotlight-text-color;
+.moon-simple-integer-picker.spotlight .moon-simple-picker-client > * {
+  color: @moon-spotlight-text-color;
 }
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
-	color: @moon-spotlight-text-color;
+  color: @moon-spotlight-text-color;
 }
-.moon-simple-integer-picker-button {	
+.moon-simple-integer-picker-button {  
   width: @moon-picker-button-width;
   height: @moon-picker-button-width;
   border-radius: @moon-picker-button-width/2;  border: 0;
@@ -38,26 +35,6 @@
   z-index: 2;
   color: @moon-sub-header-text-color;
   background: transparent @moon-scroller-icon no-repeat center 0;
- 
-}
-
-.moon-simple-integer-picker-client {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  height: @moon-sub-header-font-size*1.2;
-}
-
-.moon-simple-integer-picker-item {
-  .moon-sub-header-text;
-  display: table;
-  white-space: nowrap;
-  text-align: center;
-  padding: 0 8px;
-  width: auto;
-}
-.enyo-locale-non-latin .moon-simple-integer-picker-item {
-  .enyo-locale-non-latin .moon-sub-header-text;
 }
 
 .moon-simple-integer-picker.disabled,
@@ -70,7 +47,13 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-container-left {
+  right: 0; 
+  left: auto;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -114,6 +97,12 @@
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
   position: relative;
+  right: 0;
+  top: 0;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-container-right {
+  right: auto; 
+  left: 0;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
@@ -154,37 +143,37 @@
 }
 
 .moon-simple-integer-picker-button.left {
-	transform: rotate(270deg) translateZ(1px);
-	-o-transform: rotate(270deg) translateZ(1px);
-	-ms-transform: rotate(270deg) translateZ(1px);
-	-moz-transform: rotate(270deg) translateZ(1px);
-	-webkit-transform: rotate(270deg) translateZ(1px);
+  transform: rotate(270deg) translateZ(1px);
+  -o-transform: rotate(270deg) translateZ(1px);
+  -ms-transform: rotate(270deg) translateZ(1px);
+  -moz-transform: rotate(270deg) translateZ(1px);
+  -webkit-transform: rotate(270deg) translateZ(1px);
 }
 
 .enyo-locale-right-to-left .moon-simple-integer-picker-button.left {
-	transform: rotate(90deg) translateZ(1px);
-	-o-transform: rotate(90deg) translateZ(1px);
-	-ms-transform: rotate(90deg) translateZ(1px);
-	-moz-transform: rotate(90deg) translateZ(1px);
-	-webkit-transform: rotate(90deg) translateZ(1px);
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 
 .moon-simple-integer-picker-button.right {
-	transform: rotate(90deg) translateZ(1px);
-	-o-transform: rotate(90deg) translateZ(1px);
-	-ms-transform: rotate(90deg) translateZ(1px);
-	-moz-transform: rotate(90deg) translateZ(1px);
-	-webkit-transform: rotate(90deg) translateZ(1px);
+  transform: rotate(90deg) translateZ(1px);
+  -o-transform: rotate(90deg) translateZ(1px);
+  -ms-transform: rotate(90deg) translateZ(1px);
+  -moz-transform: rotate(90deg) translateZ(1px);
+  -webkit-transform: rotate(90deg) translateZ(1px);
 }
 
 .enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
-	transform: rotate(270deg) translateZ(1px);
-	-o-transform: rotate(270deg) translateZ(1px);
-	-ms-transform: rotate(270deg) translateZ(1px);
-	-moz-transform: rotate(270deg) translateZ(1px);
-	-webkit-transform: rotate(270deg) translateZ(1px);
+  transform: rotate(270deg) translateZ(1px);
+  -o-transform: rotate(270deg) translateZ(1px);
+  -ms-transform: rotate(270deg) translateZ(1px);
+  -moz-transform: rotate(270deg) translateZ(1px);
+  -webkit-transform: rotate(270deg) translateZ(1px);
 }
 
 .spotlight .moon-simple-integer-picker-button {
-	background: @moon-scroller-icon no-repeat center -@moon-icon-sprite-small-size;
+  background: @moon-scroller-icon no-repeat center -@moon-icon-sprite-small-size;
 }
