@@ -37,7 +37,7 @@ enyo.kind({
 		//* CSS classes to apply to tapArea
 		tapAreaClasses: "moon-slider-taparea",
 		//* Color of value popup
-		popupColor: "#686868",
+		popupColor: "#4d4d4d",
 		/**
 			When set to true, button is shown as disabled and does not generate tap
 			events (default is false)
@@ -254,6 +254,16 @@ enyo.kind({
 				this._setValue(inValue);
 			}
 		}
+	},
+	minChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
+	},
+	maxChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
 	},
 	_setValue: function(inValue) {
 		var v = this.clampValue(this.min, this.max, inValue);

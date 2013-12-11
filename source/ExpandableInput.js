@@ -51,7 +51,7 @@ enyo.kind({
 		"showCurrentValue": ["open", "value", "noneText"],
 		"currentValueText": ["value", "noneText"]
 	},
-	
+
 	// Computed props
 	showCurrentValue: function() {
 		return !this.open && this.currentValueText() !== "";
@@ -59,9 +59,16 @@ enyo.kind({
 	currentValueText: function() {
 		return (this.value === "") ? this.noneText : this.value;
 	},
+	expandContract: function() {
+		if (this.disabled) {
+			return true;
+		}
+		this.toggleActive();
+	},
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
+			this.$.clientInput.blur();
 			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
@@ -87,7 +94,11 @@ enyo.kind({
 	//* Focuses the input field.
 	focusInput: function() {
 		this.$.clientInput.focus();
-		enyo.Spotlight.spot(this.$.clientInput);
+		// Force cursor to end of text. We were sometimes seeing the
+		// cursor positioned at the start of the text, which caused
+		// problems in 5-way mode (where there's no way to move the
+		// cursor).
+		this.$.clientInput.hasNode().selectionStart = this.value.length;
 	},
 	/**
 		If _this.lockBottom_ is _true_, don't allow user to navigate down from the

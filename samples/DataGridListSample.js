@@ -1,6 +1,7 @@
 enyo.kind({
 	name: "moon.sample.DataGridListSample",
 	kind: "moon.Panels",
+	pattern: "activity",
 	classes: "moon enyo-fit",
 	components: [
 		{kind: "moon.Panel", classes:"moon-6h", title:"Menu", components: [

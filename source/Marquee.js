@@ -14,7 +14,7 @@ moon.MarqueeSupport = {
 		onMarqueeEnded: "_marquee_marqueeEnded",
 		onresize: "_marquee_resize"
 	},
-	marqueeActive: false,
+	_marquee_active: false,
 	//* Initializes marquee timings.
 	create: enyo.inherit(function (sup) {
 		return function() {
@@ -38,7 +38,8 @@ moon.MarqueeSupport = {
 	}),
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
-			if (!oEvent.delegate) {
+			// FIXME: not sure why events can arrive without event objects, but we gaurd here for safety
+			if (oEvent && !oEvent.delegate) {
 				var handler = this._marquee_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
@@ -57,12 +58,14 @@ moon.MarqueeSupport = {
 	},
 	//* On focus, starts child marquees.
 	_marquee_spotlightFocus: function(inSender, inEvent) {
+		this._marquee_isFocused = true;
 		if (this.marqueeOnSpotlight) {
 			this.startMarquee();
 		}
 	},
 	//* On blur, halts child marquees.
 	_marquee_spotlightBlur: function(inSender, inEvent) {
+		this._marquee_isFocused = false;
 		if (this.marqueeOnSpotlight) {
 			this.stopMarquee();
 		}
@@ -72,22 +75,22 @@ moon.MarqueeSupport = {
 		_this.marqueeWaitList_.
 	*/
 	_marquee_marqueeEnded: function(inSender, inEvent) {
-		if (this.marqueeActive) {
+		if (this._marquee_active) {
 			enyo.remove(inEvent.originator, this.marqueeWaitList);
 			if (this.marqueeWaitList.length === 0) {
 				this._marquee_startHold();
-				this.marqueeActive = false;
+				this._marquee_active = false;
 			}
 		}
 		return true;
 	},
 	_marquee_resize: function(inSender, inEvent) {
-		if (this.marqueeOnSpotlight && this.marqueeActive) {
-			this.marqueeActive = false;
+		if (this.marqueeOnSpotlight && this._marquee_active) {
+			this._marquee_active = false;
 			this._marquee_startHold();
 		}
 	},
-	
+
 	//* @public
 	/**
 		Starts timer to waterfall an _onRequestMarqueeStart_ event that kicks off
@@ -99,8 +102,8 @@ moon.MarqueeSupport = {
 		if (this.marqueeWaitList.length === 0) {
 			return;
 		}
-	
-		this.marqueeActive = true;
+
+		this._marquee_active = true;
 		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", this.marqueeDelay);
 	},
 	/**
@@ -109,16 +112,30 @@ moon.MarqueeSupport = {
 	*/
 	stopMarquee: function() {
 		this.stopJob("marqueeSupportJob");
-		this.marqueeActive = false;
+		this._marquee_active = false;
 		this._marquee_stopChildMarquees();
+	},
+	enableMarquee: function() {
+		this._marquee_enableChildMarquees();
+	},
+	disableMarquee: function() {
+		this.stopMarquee();
+		this._marquee_disableChildMarquees();
 	},
 	//* Adds _inControl_ to _this.marqueeWaitList_.
 	addMarqueeItem: function(inControl) {
 		this.marqueeWaitList.push(inControl);
 	},
-	
+	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
+	resetMarquee: function() {
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+		}
+	},
+
 	//* @protected
-	
+
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
 		this.marqueeWaitList = [];
@@ -131,6 +148,14 @@ moon.MarqueeSupport = {
 	//* Waterfalls event to halt child marquee animations.
 	_marquee_stopChildMarquees: function() {
 		this.waterfall("onRequestMarqueeStop");
+	},
+	//* Waterfalls event to enable child marquee animations.
+	_marquee_enableChildMarquees: function() {
+		this.waterfall("onRequestMarqueeEnable");
+	},
+	//* Waterfalls event to disable child marquee animations.
+	_marquee_disableChildMarquees: function() {
+		this.waterfall("onRequestMarqueeDisable");
 	},
 	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
@@ -154,6 +179,8 @@ moon.MarqueeItem = {
 		onRequestMarquee: "_marquee_requestMarquee",
 		onRequestMarqueeStart: "_marquee_startAnimation",
 		onRequestMarqueeStop: "_marquee_stopAnimation",
+		onRequestMarqueeEnable: "_marquee_enable",
+		onRequestMarqueeDisable: "_marquee_disable",
 		ontransitionend: "_marquee_animationEnded"
 	},
 	observers: {
@@ -162,7 +189,7 @@ moon.MarqueeItem = {
 	classes: "moon-marquee",
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
-			if (!oEvent.delegate) {
+			if (oEvent && !oEvent.delegate) {
 				var handler = this._marqueeItem_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
@@ -171,6 +198,20 @@ moon.MarqueeItem = {
 			return sup.apply(this, arguments);
 		};
 	}),
+	_marquee_enabled: true,
+	_marquee_distance: null,
+	_marquee_fits: null,
+	_marquee_puppetMaster: null,
+	reflow: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._marquee_invalidateMetrics();
+		};
+	}),
+	_marquee_invalidateMetrics: function() {
+		this._marquee_distance = null;
+		this._marquee_fits = null;
+	},
 	/**
 		When the content of this control changes, updates the content of
 		_this.$.marqueeText_ (if it exists).
@@ -178,36 +219,49 @@ moon.MarqueeItem = {
 	_marquee_contentChanged: function() {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
-			this._marquee_stopAnimation();
+		}
+		this._marquee_invalidateMetrics();
+		if (this._marquee_puppetMaster) {
+			this._marquee_puppetMaster.resetMarquee();
 		}
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
-		if (!inEvent || !this._marquee_shouldAnimate()) {
+		if (!inEvent || this.disabled || !this._marquee_enabled || this._marquee_fits) {
 			return;
 		}
-		
+
+		this._marquee_puppetMaster = inEvent.originator;
 		inEvent.originator.addMarqueeItem(this);
-		
+
 		this.marqueePause = inEvent.marqueePause || 1000;
 		this.marqueeSpeed = inEvent.marqueeSpeed || 60;
 	},
 	//* Starts marquee animation.
 	_marquee_startAnimation: function(inSender, inEvent) {
 		var distance = this._marquee_calcDistance();
-		
+
 		// If there is no need to animate, return early
 		if (!this._marquee_shouldAnimate(distance)) {
+			this._marquee_fits = true;
+			this.doMarqueeEnded();
 			return;
 		}
-		
+
 		// Lazy creation of _this.$.marqueeText_
 		if (!this.$.marqueeText) {
 			this._marquee_createMarquee();
 		}
-		
+
 		this._marquee_addAnimationStyles(distance);
 		return true;
+	},
+	_marquee_enable: function() {
+		this.set("_marquee_enabled", true);
+	},
+	_marquee_disable: function() {
+		this.set("_marquee_enabled", false);
+		this._marquee_stopAnimation();
 	},
 	//* Stops marquee animation.
 	_marquee_stopAnimation: function(inSender, inEvent) {
@@ -220,19 +274,23 @@ moon.MarqueeItem = {
 		if (inEvent.originator !== this.$.marqueeText) {
 			return;
 		}
-		
+
 		this.startJob("stopMarquee", "_marquee_stopAnimation", this.marqueePause);
         return true;
 	},
 	//* Returns _true_ if this control has enough content that it needs to animate.
 	_marquee_shouldAnimate: function(inDistance) {
 		inDistance = (inDistance && inDistance >= 0) ? inDistance : this._marquee_calcDistance();
-		return (!this.disabled && inDistance > 0);
+		return (inDistance > 0);
 	},
 	//* Determines how far the marquee needs to scroll.
 	_marquee_calcDistance: function() {
+		if (this._marquee_distance !== null) {
+			return this._marquee_distance;
+		}
 		var node = this.$.marqueeText ? this.$.marqueeText.hasNode() : this.hasNode();
-		return Math.abs(node.scrollWidth - node.clientWidth);
+		this._marquee_distance = Math.abs(node.scrollWidth - node.clientWidth);
+		return this._marquee_distance;
 	},
 	//* Returns duration based on _inDistance_ and _this.marqueeSpeed_.
 	_marquee_calcDuration: function(inDistance) {
@@ -240,19 +298,19 @@ moon.MarqueeItem = {
 	},
 	//* Creates a marquee-able div inside of _this_.
 	_marquee_createMarquee: function() {
-		this.createComponent({classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
+		this.createComponent({name:"marqueeTextWrapper", classes: "moon-marquee-text-wrapper", components: [{name: "marqueeText", classes: "moon-marquee-text", allowHtml: this.allowHtml, content: this.content}]});
 		this.render();
 		return true;
 	},
 	_marquee_addAnimationStyles: function(inDistance) {
 		var duration = this._marquee_calcDuration(inDistance);
-		
+
 		this.$.marqueeText.addClass("animate-marquee");
 		this.$.marqueeText.applyStyle("transition-duration", duration + "s");
 		this.$.marqueeText.applyStyle("-webkit-transition-duration", duration + "s");
-		
+
 		// Need this timeout for FF!
-		setTimeout(enyo.bind(this, function() {
+		setTimeout(this.bindSafely(function() {
 			enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(inDistance) + "px"});
 		}), 100);
 	},
@@ -260,12 +318,12 @@ moon.MarqueeItem = {
 		if (!this.$.marqueeText) {
 			return;
 		}
-		
+
 		this.$.marqueeText.applyStyle("transition-duration", "0s");
-		this.$.marqueeText.applyStyle("-webkit-transition-duration", "0s");	
-		
+		this.$.marqueeText.applyStyle("-webkit-transition-duration", "0s");
+
 		// Need this timeout for FF!
-		setTimeout(enyo.bind(this, function() {
+		setTimeout(this.bindSafely(function() {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
 		}), 0);

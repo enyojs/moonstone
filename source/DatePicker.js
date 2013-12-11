@@ -30,11 +30,11 @@ enyo.kind({
 	},
 	//*@protected
 	iLibFormatType: "date",
-	defaultOrdering: "mdy",
+	defaultOrdering: "Mdy",
 	setupPickers: function(ordering) {
-		var orderingArr = ordering.toLowerCase().split("");
+		var orderingArr = ordering.split("");
 		var doneArr = [];
-		var o,f,l;
+		var o, f, l, digits;
 		for(f = 0, l = orderingArr.length; f < l; f++) {
 			o = orderingArr[f];
 			if (doneArr.indexOf(o) < 0) {
@@ -47,17 +47,19 @@ enyo.kind({
 
 			switch (o) {
 			case 'd':
+				digits = (ordering.indexOf("dd") > -1) ? 2 : null;
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
-						{kind:"moon.IntegerPicker", name:"day", classes:"moon-date-picker-field", min:1,
+						{kind:"moon.IntegerPicker", name:"day", classes:"moon-date-picker-field", wrap:true, digits:digits, min:1,
 						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()},
 						{name: "dayLabel", content: this.dayText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
-			case 'm':
+			case 'M':
+				digits = (ordering.indexOf("MM") > -1) ? 2 : null;
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
-						{kind:"moon.IntegerPicker", name:"month", classes:"moon-date-picker-field", min:1, max:12, value:this.value.getMonth()+1},
+						{kind:"moon.IntegerPicker", name:"month", classes:"moon-date-picker-field", wrap:true, min:1, max:12, value:this.value.getMonth()+1},
 						{name: "monthLabel", content: this.monthText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;

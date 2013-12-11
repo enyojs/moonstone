@@ -14,8 +14,8 @@
 		{kind: "moon.ProgressBar", barClasses: "class-name"}
 
 	For more information, see the documentation on [Progress
-	Indicators](https://github.com/enyojs/moonstone/wiki/Progress-Indicators) in
-	the Enyo Developer Guide.
+	Indicators](building-apps/controls/progress-indicators.html) in the Enyo
+	Developer Guide.
 */
 enyo.kind({
 	name: "moon.ProgressBar",

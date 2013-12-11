@@ -3,8 +3,7 @@
 	styling applied.
 
 	For more information, see the documentation on
-	[Buttons](https://github.com/enyojs/enyo/wiki/Buttons) in the Enyo Developer
-	Guide.
+	[Buttons](building-apps/controls/buttons.html) in the Enyo Developer Guide.
 */
 
 enyo.kind({

@@ -83,10 +83,10 @@ enyo.kind({
 		this.inherited(arguments);
 		this.updateFocus(false);
 		this._oInputControl = this._findInputControl();
-		if (this._oInputControl instanceof moon.Input || this._oInputControl instanceof moon.RichText) {
+		if (this._oInputControl instanceof moon.Input) {
 			this.addClass("moon-input-decorator");
 		}
-		if (this._oInputControl instanceof moon.TextArea) {
+		if (this._oInputControl instanceof moon.TextArea || this._oInputControl instanceof moon.RichText) {
 			this.addClass("moon-textarea-decorator");
 		}
 	},
@@ -114,14 +114,17 @@ enyo.kind({
 	// Event handlers:
 	/**************************************************/
 	onFocus: function(oSender, oEvent) {
-		enyo.Spotlight.spot(this);
-		// enyo.Spotlight.disablePointerMode();
+		if (enyo.Spotlight.getCurrent() != this) {
+			// Force a spot here, even when we're in pointer mode,
+			// to ensure that clicks inside us (e.g. to position
+			// the cursor) don't cause Spotlight to unfreeze
+			enyo.Spotlight.spot(this, null, true);
+		}
 		enyo.Spotlight.freeze();
 		this.updateFocus(true);
 	},
 
 	onBlur: function() {
-		// enyo.Spotlight.enablePointerMode();
 		enyo.Spotlight.unfreeze();
 		this.updateFocus(false);
 	},

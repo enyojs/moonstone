@@ -1,5 +1,6 @@
 enyo.depends(
 	"moon-ilib.js",
+	"moon-fonts.js",
 	"BodyText.js",
 	"Marquee.js",
 	"Button.js",
@@ -81,5 +82,6 @@ enyo.depends(
 	"SelectionOverlaySupport.js",
 	"Image.js",
 	"ImageBadge.js",
-	"ExpandableText.js"
+	"ExpandableText.js",
+	"keymap.js"
 );

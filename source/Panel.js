@@ -51,7 +51,6 @@ enyo.kind({
 
 	//* @protected
 	spotlight: "container",
-	fit: true,
 	classes: "moon-panel",
 	layoutKind: "FittableRowsLayout",
 	headerOption: null, //* Deprecated
@@ -197,10 +196,10 @@ enyo.kind({
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
 	},
 	addSpottableBreadcrumbProps: function() {
-		this.$.breadcrumbBackground.spotlight = true;
+		this.$.breadcrumbBackground.set("spotlight", true);
 	},
 	removeSpottableBreadcrumbProps: function() {
-		this.$.breadcrumbBackground.spotlight = false;
+		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
 	},
 	shrinkAsNeeded: function() {
@@ -209,17 +208,23 @@ enyo.kind({
 			this.needsToShrink = false;
 		}
 	},
-	stopMarquees: function() {
-		this.$.breadcrumbText.stopMarquee();
-		this.$.header.stopMarquee();
+	enableMarquees: function() {
+		this.$.breadcrumbText.enableMarquee();
+		this.$.header.enableMarquee();
+	},
+	disableMarquees: function() {
+		this.$.breadcrumbText.disableMarquee();
+		this.$.header.disableMarquee();
 	},
 	startMarqueeAsNeeded: function(inInfo) {
 		var onscreen = !inInfo.offscreen;
 		if (onscreen) {
 			if (this.isBreadcrumb) {
+				this.$.breadcrumbText.enableMarquee();
 				this.$.breadcrumbText.startMarquee();
 			}
 			else {
+				this.$.header.enableMarquee();
 				this.$.header.startMarquee();
 			}
 		}
@@ -234,11 +239,12 @@ enyo.kind({
 		if (this.isBreadcrumb) {
 			this.needsToShrink = true;
 		}
+		this.disableMarquees();
 		this.startMarqueeAsNeeded(inInfo);
 	},
 	// Called directly by moon.Panels
 	preTransition: function(inInfo) {
-		this.stopMarquees();
+		this.disableMarquees();
 
 		if (!this.shrinking && inInfo.breadcrumb && (!this.isBreadcrumb || this.growing)) {
 			this.shrinkAnimation();
@@ -259,7 +265,7 @@ enyo.kind({
 	// Called directly by moon.Panels
 	transitionFinished: function(inInfo) {
 		if (!inInfo.animate) {
-			this.stopMarquees();
+			this.disableMarquees();
 
 			if (this.isBreadcrumb === true && inInfo.breadcrumb === false) {
 				this.grow();
@@ -292,12 +298,12 @@ enyo.kind({
 	//* @protected
 	getInitAnimationValues: function() {
 		var node = this.hasNode(),
-			marginT = parseInt(enyo.dom.getComputedStyleValue(node, "margin-top"), 10),
-			marginR = parseInt(enyo.dom.getComputedStyleValue(node, "margin-right"), 10),
-			marginB = parseInt(enyo.dom.getComputedStyleValue(node, "margin-bottom"), 10),
-			marginL = parseInt(enyo.dom.getComputedStyleValue(node, "margin-left"), 10);
-		this.initialHeight = node.offsetHeight - marginT - marginB;
-		this.initialWidth = node.offsetWidth - marginR - marginL;
+			paddingT = parseInt(enyo.dom.getComputedStyleValue(node, "padding-top"), 10),
+			paddingR = parseInt(enyo.dom.getComputedStyleValue(node, "padding-right"), 10),
+			paddingB = parseInt(enyo.dom.getComputedStyleValue(node, "padding-bottom"), 10),
+			paddingL = parseInt(enyo.dom.getComputedStyleValue(node, "padding-left"), 10);
+		this.initialHeight = node.offsetHeight - paddingT - paddingB;
+		this.initialWidth = node.offsetWidth   - paddingR - paddingL;
 	},
 	haltAnimations: function() {
 		this.$.animator.stop();

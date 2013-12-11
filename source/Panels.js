@@ -33,11 +33,14 @@ enyo.kind({
 		onHidePanels: ""
 	},
 	//* @protected
+	narrowFit: false,
 	handlers: {
 		ontap:						"onTap",
 
 		onSpotlightRight:			"spotlightRight",
 		onSpotlightLeft:			"spotlightLeft",
+		onSpotlightUp:				"spotlightUp",
+		onSpotlightDown:			"spotlightDown",
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
 
@@ -210,6 +213,7 @@ enyo.kind({
 	},
 	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightLeft: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
 			if (this.getIndex() > 0 && this.showing) {
 				return true;
@@ -218,11 +222,26 @@ enyo.kind({
 	},
 	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightRight: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") {
+			// Upon pressing right from a pointer-focused breadcrumn, just jump
+			// to the current panel to keep focus visible
+			var idx = this.getPanelIndex(oEvent.originator) + 1;
+			enyo.Spotlight.spot(this.getPanels()[idx]);
+			return true; 
+		}
 		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
 			if (this.getIndex() < this.getPanels().length - 1) {
 				return true;
 			}
 		}
+	},
+	//* Prevents event from bubbling up when parent of originator is client.
+	spotlightUp: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+	},
+	//* Prevents event from bubbling up when parent of originator is client.
+	spotlightDown: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
@@ -232,8 +251,10 @@ enyo.kind({
 	handleSpotLeft: function() {
 		if (this.showing) {
 			enyo.Spotlight.spot(this.getActive());
-			return true;
+		} else {
+			enyo.Spotlight.unspot();
 		}
+		return true;
 	},
 	handleSpotRight: function(inSender, inEvent) {
 		if (this.showing) {
@@ -241,7 +262,18 @@ enyo.kind({
 		}
 	},
 	handleBlur: function() {
+		if (this.handleFocused) {
+			this.handleFocused = false;
+			if (!enyo.Spotlight.getPointerMode()) {
+				if (this.showing) {
+					enyo.Spotlight.spot(this.getActive());
+				} else {
+					enyo.Signals.send("onPanelsHidden");
+				}
+			}
+		}
 		this.resetHandleAutoHide();
+		enyo.Signals.send("onPanelsHandleBlurred");
 	},
 	resetHandleAutoHide: function(inSender, inEvent) {
 		this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
@@ -258,6 +290,12 @@ enyo.kind({
 	},
 	handleFocus: function() {
 		this.unstashHandle();
+		this.startJob("autoHide", "unspotHandle", this.getAutoHideTimeout());
+		this.handleFocused = true;
+		enyo.Signals.send("onPanelsHandleFocused");
+	},
+	unspotHandle: function() {
+		enyo.Spotlight.unspot();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
@@ -468,6 +506,11 @@ enyo.kind({
 		}
 
 		this.inherited(arguments);
+
+		// Spot the active panel
+		if (this.hasNode()) {
+			enyo.Spotlight.spot(this.getActive());
+		}
 	},
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
@@ -490,11 +533,6 @@ enyo.kind({
 
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
-		}
-
-		// Don't change focus unless this was an actual transition
-		if (transitioned) {
-			enyo.Spotlight.spot(this.getActive());
 		}
 	},
 	/**
@@ -599,7 +637,7 @@ enyo.kind({
 		var x = this.getOffscreenXPosition();
 		this.$.showHideHandle.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
-		this.$.clientWrapper.applyStyle("-webkit-transform", "translate3d( " + x + "px, 0, 0)");
+		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(" + x + "px)");
 		this.hideAnimationComplete();
 	},
 	createShowAnimation: function() {

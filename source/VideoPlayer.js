@@ -80,12 +80,12 @@ enyo.kind({
 		autoplay: false,
 		/**
 			When false, fullscreen video control overlays (info or transport) are not
-			shown or hidden automatically in response to _up/down/ok_ events
+			shown or hidden automatically in response to _up/down_ events
 		*/
 		autoShowOverlay: true,
 		/**
 			When true, the overlay will be shown in response to pointer movement (in
-			addition to _up/down/ok_ events)
+			addition to _up/down_ events)
 		*/
 		shakeAndWake: false,
 		/**
@@ -204,7 +204,12 @@ enyo.kind({
 			Source of image file to show when video isn't available or user has not
 			yet tapped the play button
 		*/
-		poster: ""
+		poster: "",
+		/**
+			When false, video player doesn't response to remote controller
+		*/
+		handleRemoteControlKey: true
+			
 	},
 	//* @protected
 	handlers: {
@@ -213,9 +218,6 @@ enyo.kind({
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
-		onSpotlightSelect: 'spotlightSelectHandler',
-		onSpotlightLeft: 'spotlightLeftRightHandler',
-		onSpotlightRight: 'spotlightLeftRightHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -237,15 +239,13 @@ enyo.kind({
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
 	
-	spotlightModal: true,
-	
 	_isPlaying: false,
 	_canPlay: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onFullscreenChange: "fullscreenChanged"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -256,7 +256,7 @@ enyo.kind({
 		]},
 
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", ontap: "toggleControls", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
 		
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
@@ -524,36 +524,45 @@ enyo.kind({
 	panelsHidden: function(inSender, inEvent) {
 		enyo.Spotlight.spot(this);
 	},
+	panelsHandleFocused: function(inSender, inEvent) {
+		this._infoShowing = this.$.videoInfoHeader.getShowing();
+		this._controlsShowing = this.$.playerControl.getShowing();
+		this.hideFSControls();
+	},
+	panelsHandleBlurred: function(inSender, inEvent) {
+		if (this.isLarge() && !this.isOverlayShowing()) {
+			if (this._infoShowing) {
+				this.showFSInfo();
+			}
+			if (this._controlsShowing) {
+				this.showFSBottomControls();
+			}
+		}
+	},
 	isLarge: function() {
 		return this.isFullscreen() || !this.get("inline");
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
 		if (this.isLarge()) {
+			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
-				this.showFSInfo();
+				if (!this.$.videoInfoHeader.getShowing()) {
+					this.showFSInfo();
+				} else {
+					this.hideFSInfo();
+				}
 			}
-			if (inEvent.originator === this) {
-				return true;
-			}
+			return true;
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.isLarge()) {
+		if (this.isLarge()) {
+			// Toggle info header on "down" press
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
+			} else {
+				this.hideFSBottomControls();
 			}
-			return true;
-		}
-	},
-	spotlightLeftRightHandler: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.isFullscreen()) {
-			return true;
-		}
-	},
-	spotlightSelectHandler: function(inSender, inEvent) {
-		if (inEvent.originator == this && this.isLarge()) {
-			this.showFSInfo();
-			this.showFSBottomControls();
 			return true;
 		}
 	},
@@ -567,17 +576,7 @@ enyo.kind({
 
 	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
-		return this.$.videoInfoHeader.getShowing() && this.$.playerControl.getShowing();
-	},
-	//* If currently in fullscreen, hides the controls on non-button taps.
-	toggleControls: function(inSender, inEvent) {
-		if (inEvent.originator === this.$.fullscreenControl) {
-			if (this.isOverlayShowing()) {
-				this.hideFSControls();
-			} else {
-				this.showFSControls();
-			}
-		}
+		return this.$.videoInfoHeader.getShowing() || this.$.playerControl.getShowing();
 	},
 	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {
@@ -591,7 +590,6 @@ enyo.kind({
 	showFSControls: function(inSender, inEvent) {
 		this.showFSInfo();
 		this.showFSBottomControls();
-		this.resetAutoTimeout();
 	},
 	hideFSControls: function() {
 		if (this.isOverlayShowing()) {
@@ -603,6 +601,7 @@ enyo.kind({
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSBottomControls: function(inSender, inEvent) {
 		if (this.autoShowOverlay && this.autoShowControls) {
+			this.resetAutoTimeout();
 			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
 			this.$.playerControl.resized();
@@ -616,9 +615,10 @@ enyo.kind({
 			
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
-				this.sendFeedback("Pause");
 				this.updateFullscreenPosition();
 			}
+			// When controls are visible, set as container to remember last focused control
+			this.set("spotlight", "container");
 		}
 	},
 	spotFSBottomControls: function() {
@@ -641,6 +641,10 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
+		// When controls are hidden, set as just a spotlight true component, 
+		// so that it is spottable (since it won't have any spottable children),
+		// and then spot itself
+		this.set("spotlight", true);
 		enyo.Spotlight.spot(this);
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)
@@ -654,6 +658,7 @@ enyo.kind({
 	//* Sets _this.visible_ to true and clears hide job.
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
+			this.resetAutoTimeout();
 			this.$.videoInfoHeader.setShowing(true);
 			this.$.videoInfoHeader.resized();
 			
@@ -808,18 +813,23 @@ enyo.kind({
 	//* @protected
 	fullscreenChanged: function(inSender, inEvent) {
 		enyo.Spotlight.unspot();
-		this.addRemoveClass("inline", !this.isFullscreen());
-		this.$.inlineControl.setShowing(!this.isFullscreen());
-		this.$.fullscreenControl.setShowing(this.isFullscreen());
 		if (this.isFullscreen()) {
 			this.$.ilFullscreen.undepress();
 			this.spotlight = true;
+			this.spotlightModal = true;
+			this.removeClass("inline");
+			this.$.inlineControl.setShowing(false);
+			this.$.fullscreenControl.setShowing(true);
 			this.showFSControls();
 			this.$.controlsContainer.resized();
 		} else {
 			this.stopJob("autoHide");
+			this.addClass("inline");
+			this.$.inlineControl.setShowing(true);
+			this.$.fullscreenControl.setShowing(false);
 			enyo.Spotlight.spot(this.$.ilFullscreen);
 			this.spotlight = false;
+			this.spotlightModal = false;
 		}
 	},
 	//* @public
@@ -1093,6 +1103,10 @@ enyo.kind({
 		if (inEvent.srcElement.playbackRate < 0) {
 			return;
 		}
+		if (inEvent.srcElement.currentTime === 0) {
+			this.sendFeedback("Stop", {}, true);
+			return;
+		}
 		this.sendFeedback("Pause", {}, true);
 	},
 	_stop: function(inSender, inEvent) {
@@ -1100,9 +1114,6 @@ enyo.kind({
 		this.updatePlayPauseButtons();
 		this.updateSpinner();
 		this.sendFeedback("Stop");
-	},
-	_start: function(inSender, inEvent) {
-		this.sendFeedback(this._isPlaying ? "Play" : "Pause", {}, !this._isPlaying);
 	},
 	_fastforward: function(inSender, inEvent) {
 		this.sendFeedback("Fastforward", {playbackRate: inEvent.playbackRate}, true);
@@ -1141,5 +1152,44 @@ enyo.kind({
 		this._stop();
 		this.updateSpinner();
 		this.updatePlaybackControlState();
+	},
+	remoteKeyHandler: function(inSender, inEvent) {
+		if (this.handleRemoteControlKey && !this.disablePlaybackControls) {
+			var showControls = false;
+			switch (inEvent.keySymbol) {
+			case 'play':
+				this.play(inSender, inEvent);
+				showControls = true;
+				break;
+			case 'pause':
+				this.pause(inSender, inEvent);
+				showControls = true;
+				break;
+			case 'rewind':
+				if (this.showFFRewindControls) {
+					this.rewind(inSender, inEvent);
+					showControls = true;
+				}
+				break;
+			case 'fastforward':
+				if (this.showFFRewindControls) {
+					this.fastForward(inSender, inEvent);
+					showControls = true;
+				}
+				break;
+			case 'stop':
+				this.jumpToStart();
+				showControls = true;
+				break;
+			}
+			if (showControls) {
+				if(!this.$.playerControl.getShowing()) {
+					this.showFSBottomControls();
+				} else {
+					this.resetAutoTimeout();
+				}
+			}
+		}
+		return true;
 	}
 });
