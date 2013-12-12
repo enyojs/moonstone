@@ -41,13 +41,13 @@ enyo.kind({
 	//* @protected
 	components: [
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
-		{components: [
-			{name: "description", classes: "moon-video-player-info-description"}
-		]},
 		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
 		{name: "subtitleDivider", classes: "moon-video-player-subtitle-divider"},	
 		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
-		{name: "client", classes: "moon-video-player-info-client"}
+		{name: "client", classes: "moon-video-player-info-client"},
+		{components: [
+			{name: "description", classes: "moon-video-player-info-description"}
+		]},
 	],
 	bindings: [
 		{from: ".title",		to: ".$.title.content"},

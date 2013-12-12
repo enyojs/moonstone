@@ -73,7 +73,7 @@ enyo.kind({
 			Amount of time (in milliseconds) after which control buttons are
 			automatically hidden
 		*/
-		autoCloseTimeout: 700099999,
+		autoCloseTimeout: 7000,
 		//* Duration of the video
 		duration: 0,
 		//* When true, playback starts automatically when video is loaded
