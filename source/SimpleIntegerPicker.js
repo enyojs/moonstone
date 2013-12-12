@@ -147,14 +147,25 @@ enyo.kind({
 		}
 		this.disabledChanged();
 	},
+	//* generate pattern from -10, 1, 10, 100, ... to -99, 9, 99, 999, ...
+	generateNumberPattern: function(num) {
+		if (num === 0) { return 9; }
+		if (num < 0) {
+			return -(Math.pow(10, (-num).toString().length)-1);
+		} else {
+			return Math.pow(10, num.toString().length)-1;
+		}
+	},
 	build: function() {
 		var indices = this.indices = {},
-			values = this.values = [];
+			values = this.values = [],
+			min = this.generateNumberPattern(this.min),
+			max = this.generateNumberPattern(this.max);
 
 		// Create only 3 panels: this is used for measuring max width in reflow
-		this.createComponent({content: this.min + " " + this.unit, value: this.min});
+		this.createComponent({content: min + " " + this.unit, value: min});
 		this.createComponent({content: this.value + " " + this.unit, value: this.value});
-		this.createComponent({content: this.max + " " + this.unit, value: this.max});
+		this.createComponent({content: max + " " + this.unit, value: max});
 
 		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
 			values[i] = v;
