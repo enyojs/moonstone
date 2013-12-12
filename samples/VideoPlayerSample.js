@@ -21,6 +21,9 @@ enyo.kind({
 						channelName: "AMC",
 						classes: "moon-2h",
 						components: [
+							{content: "DTV"},
+							{content: "\u266B"},
+							{content: "amc", classes: "moon-video-player-info-default-icon"},
 							{content: "REC 08:22", classes: "moon-video-player-info-redicon "},
 							{content: "Cinema"},
 							{content: "Sub English"},

@@ -47,7 +47,7 @@ enyo.kind({
 		{name: "client", classes: "moon-video-player-info-client"},
 		{components: [
 			{name: "description", classes: "moon-video-player-info-description"}
-		]},
+		]}
 	],
 	bindings: [
 		{from: ".title",		to: ".$.title.content"},
