@@ -346,7 +346,6 @@ enyo.kind({
 				v = (this.increment) ? this.calcIncrement(v) : v;
 				this._setValue(v);
 			}
-			inEvent.preventTap();
 			// this.hideKnobStatus();
 			this.doSeekFinish({value: v});
 		}
