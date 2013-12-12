@@ -553,10 +553,10 @@ enyo.kind({
 	*/
 	animateToControl: function(inControl, inScrollFullPage, animate) {
 		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
-			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.container),
+			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.$.viewport),
 			scrollBounds   = this.getScrollBounds(),
 			offsetTop      = controlBounds.top - absoluteBounds.top,
-			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - absoluteBounds.left,
+			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left),
 			offsetHeight   = controlBounds.height,
 			offsetWidth    = controlBounds.width,
 			xDir,
