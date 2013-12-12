@@ -8,7 +8,7 @@
 		if (language === 'ur') {
 			styleContent =
 				'@font-face { ' +
-				'  font-family: "LG Display";' +
+				'  font-family: "Moonstone LG Display";' +
 				'  src: local("LG Display_Urdu");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' +
@@ -20,7 +20,7 @@
 		else if (language === 'ja') {
 			styleContent =
 				'@font-face { ' +
-				'  font-family: "LG Display";' +
+				'  font-family: "Moonstone LG Display";' +
 				'  src: local("LG Display_JP");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' +
@@ -49,13 +49,13 @@
 				'U+FF00-U+FFEF';
 			styleContent =
 				'@font-face { ' +
-				'  font-family: "LG Display";' +
+				'  font-family: "Moonstone LG Display";' +
 				'  src: local("LG Display GP4_HK"), local("LG Display_HK-Regular");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
 				'} ' +
 				'@font-face { ' +
-				'  font-family: "LG Display Light";' +
+				'  font-family: "Moonstone LG Display Light";' +
 				'  src: local("LG Display GP4_HK Light"), local("LG Display_HK-Light");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
