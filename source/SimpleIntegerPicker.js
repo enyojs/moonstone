@@ -77,7 +77,7 @@ enyo.kind({
 			]},
 			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous", onholdpulse:"previous"}
 		]},
-		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
+		{name: "client", kind: "enyo.Panels", narrowFit:false, classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
 		{classes: "moon-scroll-picker-overlay-container-right", components: [
@@ -113,24 +113,12 @@ enyo.kind({
 
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
-		var index = this.indices[this.value]-1;
-		if (index >= 0) {
-			this.resetPosition();
-			this.setupNextPanel(index, 0);
-			this.$.client.previous();
-			this.setValue(this.values[index]);
-		}
+		this.setValue(Math.max(this.value - this.step, this.min));
 		return true;
 	},
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
-		var index = this.indices[this.value]+1;
-		if (index < Object.keys(this.indices).length) {
-			this.resetPosition();
-			this.setupNextPanel(index, 2);
-			this.$.client.next();
-			this.setValue(this.values[index]);
-		}
+		this.setValue(Math.min(this.value + this.step, this.max));
 		return true;
 	},
 	//* Facades the currently active panel.
@@ -275,6 +263,17 @@ enyo.kind({
 		}
 	},
 	handleValueChange: function(inOld, inNew) {
+		var index = this.indices[inNew];
+		if (index >= 0) {
+			this.resetPosition();
+			if (inOld < inNew) {
+				this.setupNextPanel(index, 2);
+				this.$.client.next();
+			} else {
+				this.setupNextPanel(index, 0);
+				this.$.client.previous();
+			}
+		}
 		this.setButtonVisibility(inOld, inNew);
 		this.fireChangeEvent();
 	},
