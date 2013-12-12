@@ -59,7 +59,7 @@
 /* ----- MISO ------ */
 @font-face {
   font-family: "Miso-Web";
-  src: local("LG Display Regular"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -72,7 +72,7 @@
 }
 @font-face {
   font-family: "Miso-Web Bold";
-  src: local("LG Display Bold"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -85,7 +85,7 @@
 }
 @font-face {
   font-family: "Miso-Web Light";
-  src: local("LG Display Light"), local("NanumGothic");
+  src: local("LG Display GP4-Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -99,7 +99,7 @@
 /* ----- Museo Sans ------ */
 @font-face {
   font-family: "MuseoSans";
-  src: local("LG Display Regular"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -112,7 +112,7 @@
 }
 @font-face {
   font-family: "MuseoSans 100";
-  src: local("LG Display Light"), local("NanumGothic");
+  src: local("LG Display GP4-Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -125,7 +125,7 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("LG Display Light"), local("NanumGothic");
+  src: local("LG Display GP4-Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -138,7 +138,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500";
-  src: local("LG Display Regular"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -151,7 +151,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500 Italic";
-  src: local("LG Display Regular"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -164,7 +164,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("LG Display Bold"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -177,7 +177,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700 Italic";
-  src: local("LG Display Bold"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -190,7 +190,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900";
-  src: local("LG Display Bold"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -203,7 +203,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900 Italic";
-  src: local("LG Display Bold"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
@@ -224,19 +224,19 @@
 /* ----- LG Display ------ */
 @font-face {
   font-family: "LG Display-Web";
-  src: local("LG Display Regular"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;/* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
   font-family: "LG Display-Web Bold";
-  src: local("LG Display Bold"), local("NanumGothic");
+  src: local("LG Display GP4-Regular"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "LG Display-Web Light";
-  src: local("LG Display Light"), local("NanumGothic");
+  src: local("LG Display GP4-Light"), local("NanumGothic");
   font-weight: normal;
   font-style: normal;
 }
