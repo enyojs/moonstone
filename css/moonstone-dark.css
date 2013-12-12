@@ -532,7 +532,7 @@
   color: #ffffff;
 }
 .moon-video-sub-header-text {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -3928,7 +3928,7 @@
 }
 .moon-video-player-header.full-background {
   background-color: rgba(0, 0, 0, 0.8);
-  height: 315px;
+  height: 340px;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4038,7 +4038,7 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 1264px;
+  max-width: 1165px;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
@@ -4049,11 +4049,11 @@
 .moon-video-player-info-title {
   font-size: 70px;
   -webkit-font-kerning: normal;
-  margin-bottom: 0;
+  margin-bottom: 3px;
   white-space: nowrap;
 }
 .moon-video-player-info-subtitle {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -4105,7 +4105,7 @@
   color: #ffffff;
 }
 .moon-video-player-info-description {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -4129,7 +4129,8 @@
 }
 .moon-video-player-info-client {
   display: inline-block;
-  margin: 0 0 20px;
+  position: relative;
+  top: -5px;
 }
 .moon-video-player-subtitle-divider {
   font-family: "MuseoSans 300";
@@ -4202,7 +4203,7 @@
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -4215,7 +4216,7 @@
   font-family: "LG Display";
 }
 .moon-video-player-info-icon {
-  font-family: "MuseoSans Medium";
+  font-family: "MuseoSans 500";
   font-size: 27px;
   font-weight: normal;
   font-style: normal;
@@ -4246,7 +4247,7 @@
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  height: 275px;
+  height: 300px;
 }
 .moon-background-wrapper-client-content.left {
   padding: 20px 20px 0 60px;
@@ -4309,13 +4310,14 @@
   vertical-align: top;
   width: auto;
   text-align: left;
+  width: 200px;
+  margin-top: -20px;
 }
 .moon-clock-hour {
   vertical-align: center;
   display: inline-block;
   margin-right: 15px;
   color: #ffffff;
-  line-height: 100px;
 }
 .moon-clock-right {
   display: inline-block;
@@ -4326,7 +4328,6 @@
   color: #ffffff;
   vertical-align: bottom;
   display: inline-block;
-  line-height: 60px;
   white-space: nowrap;
   font-size: 61px;
   line-height: 62px;
