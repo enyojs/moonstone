@@ -113,8 +113,7 @@ enyo.kind({
 
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
-		var index = this.indices[this.value]-1,
-			panels = this.$.client.getPanels();
+		var index = this.indices[this.value]-1;
 		if (index >= 0) {
 			this.resetPosition();
 			this.setupNextPanel(index, 0);
