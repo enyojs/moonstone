@@ -636,22 +636,6 @@
   left: -14px;
   right: -14px;
 }
-.moon-icon.moon-icon-button.active,
-.moon-icon.moon-icon-button:active:hover,
-.moon-icon-toggle.active {
-  background-position: center -75px;
-  color: #ffffff;
-}
-.moon-icon.moon-icon-button.active.small,
-.moon-icon.moon-icon-button:active:hover.small,
-.moon-icon-toggle.active.small {
-  background-position: center -50px;
-}
-.moon-icon.moon-icon-button.active.disabled,
-.moon-icon.moon-icon-button:active:hover.disabled,
-.moon-icon-toggle.active.disabled {
-  background-position: center 0;
-}
 .moon-icon.disabled {
   opacity: 0.6;
   filter: alpha(opacity=60);
