@@ -2,12 +2,14 @@
 	display: block;
 	vertical-align: top;
 	width: auto;
+	text-align:left;
+	width:200px;
 }
 .moon-clock-hour {
-  vertical-align:center;
   display: inline-block;
   margin-right:15px;
   color:@moon-clock-color;
+  line-height:100px;
 }
 .moon-clock-right {
 	display: inline-block;
@@ -17,9 +19,7 @@
 .moon-clock-top {
   font-size: @moon-clock-minute-font-size;
   color:@moon-clock-color;
-  vertical-align: bottom;
   display: inline-block;
-  line-height:60px;
   white-space: nowrap;
   font-size: 61px;
   line-height: 62px;
@@ -61,4 +61,7 @@
 .moon-clock-right.mini > .moon-clock-bottom {
   font-size: @moon-clock-bottom-font-size;
   text-align: right;
+}
+.moon-video-clock-container{
+  display:inline-block;
 }
