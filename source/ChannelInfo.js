@@ -23,7 +23,7 @@ enyo.kind({
 	classes: "moon-channelinfo",
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
-	marqueeOnRender: true,
+	marqueeOnHover: true,
 	//* @public
 	published: {
 		//* The channel number
