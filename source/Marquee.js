@@ -8,11 +8,11 @@
 	control the marquee behavior:
 
 	* `marqueeOnSpotlight`: When true, marquee will start when spotlight focused and
-		end when spotlight blurred
+		end when spotlight blurred.
 	* `marqueeOnHover`: When true, marquee will run when hovered with the mouse.  This
-		property is ignored if `spotlightOnHover` is true.
-	* `marqueeOnRender`: When true, marquee will run when hovered with the mouse.  This
-		property is ignored if `spotlightOnHover` is true.
+		property is ignored if `marqueeOnSpotlight` is true.
+	* `marqueeOnRender`: When true, marquee will start running as soon as it is rendered
+		and run continuously.
 	* `marqueeSpeed`: The speed of the marquee animation, in pixels/second.
 	* `marqueeDelay`: The delay between spotlight focus/hover and the animation starting
 		(only used when `marqueeOnSpotlight` or `marqueeOnHover` is true).
