@@ -224,11 +224,6 @@ enyo.kind({
 			return true; 
 		}
 	},
-	//* Prevents event from bubbling up when parent of originator is client.
-	spotlightUp: function(oSender, oEvent) {
-		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
-	},
-	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightDown: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 	},
@@ -254,9 +249,7 @@ enyo.kind({
 		if (this.handleFocused) {
 			this.handleFocused = false;
 			if (!enyo.Spotlight.getPointerMode()) {
-				if (this.showing) {
-					enyo.Spotlight.spot(this.getActive());
-				} else {
+				if (!this.showing) {
 					enyo.Signals.send("onPanelsHidden");
 				}
 			}
@@ -279,12 +272,9 @@ enyo.kind({
 	},
 	handleFocus: function() {
 		this.unstashHandle();
-		this.startJob("autoHide", "unspotHandle", this.getAutoHideTimeout());
+		this.startJob("autoHide", "handleSpotLeft", this.getAutoHideTimeout());
 		this.handleFocused = true;
 		enyo.Signals.send("onPanelsHandleFocused");
-	},
-	unspotHandle: function() {
-		enyo.Spotlight.unspot();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
