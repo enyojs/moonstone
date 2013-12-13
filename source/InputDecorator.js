@@ -142,15 +142,16 @@ enyo.kind({
 
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
-		var textArea = oInput instanceof moon.TextArea;
-		if (textArea && !oInput.hasFocus() && oEvent && (oEvent.keyCode === 13)) {
-			this.focus();
-			return false;
-		}
-		this.focus();
-		if (oInput && oInput.hasFocus() && oEvent) {
-			oEvent.allowDomDefault();            // Allow keydown to bubble
-			return true;                         // Prevent onSpotlightLeft to bubble
+		if (oInput) {
+			if (oInput.hasFocus() && oEvent) {
+				// We're already focused, so let the
+				// input get the Enter key event.
+				oEvent.allowDomDefault();
+				return true;
+			} else {
+				oInput.focus();
+				return false;
+			}
 		}
 	},
 
@@ -176,7 +177,7 @@ enyo.kind({
 		if (oInput && oInput.hasFocus() && oInput.right) {
 			if (oInput.right()) {
 				oEvent.allowDomDefault();       // Allow keydown to bubble
-				return true;                    // Prevent onSpotlightLeft to bubble
+				return true;                    // Prevent onSpotlightRight to bubble
 			} else {
 				this.onBlur();
 				oInput.blur();
@@ -189,7 +190,7 @@ enyo.kind({
 		if (oInput && oInput.hasFocus() && oInput.up) {
 			if (oInput.up()) {
 				oEvent.allowDomDefault();       // Allow keydown to bubble
-				return true;                    // Prevent onSpotlightLeft to bubble
+				return true;                    // Prevent onSpotlightUp to bubble
 			} else {
 				this.blur();
 				oInput.blur();

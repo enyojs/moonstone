@@ -15,14 +15,29 @@ enyo.kind({
 	kind: "enyo.RichText",
 	//* @protected
 	classes: "moon-richtext",
+	handlers: {
+		onblur: "blurred"
+	},
 	create: function() {
 		this.inherited(arguments);
 		this.disabledChanged();
+	},
+	focus: function() {
+		this.inherited(arguments);
+		var node = this.hasNode();
+		// We move the cursor to the end, because in 5-way
+		// mode there is no way (other than backspacing) for
+		// the user to move the caret within the text field
+		this.moveCursorToEnd();
+		node.scrollTop = node.scrollHeight;
 	},
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
 		}
+	},
+	blurred: function() {
+		this.hasNode().scrollTop = 0;
 	},
 	disabledChanged: function() {
 		this.inherited(arguments);
