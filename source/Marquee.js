@@ -29,7 +29,13 @@ moon.MarqueeSupport = {
 		onenter: "_marquee_enter",
 		onleave: "_marquee_leave",
 		onMarqueeEnded: "_marquee_marqueeEnded",
-		onresize: "_marquee_resize"
+		onresize: "_marquee_resize",
+
+		// Stop propagation of requests coming from parent MarqueeSupport's, since
+		// only this MarqueeSupport should be controlling its subordinate children
+		onRequestMarquee: "_marquee_stopPropagation",
+		onRequestMarqueeStart: "_marquee_stopPropagation",
+		onRequestMarqueeStop: "_marquee_stopPropagation"
 	},
 	_marquee_active: false,
 	//* Initializes marquee timings.
@@ -102,6 +108,11 @@ moon.MarqueeSupport = {
 		this._marquee_isHovered = false;
 		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
 			this.stopMarquee();
+		}
+	},
+	_marquee_stopPropagation: function(inSender, inEvent) {
+		if (inEvent.originator != this) {
+			return true;
 		}
 	},
 	/**
@@ -179,11 +190,11 @@ moon.MarqueeSupport = {
 	},
 	//* Waterfalls event to kick off child marquee animations.
 	_marquee_startChildMarquees: function() {
-		this.waterfall("onRequestMarqueeStart");
+		this.waterfall("onRequestMarqueeStart", {originator: this});
 	},
 	//* Waterfalls event to halt child marquee animations.
 	_marquee_stopChildMarquees: function() {
-		this.waterfall("onRequestMarqueeStop");
+		this.waterfall("onRequestMarqueeStop", {originator: this});
 	},
 	//* Waterfalls event to enable child marquee animations.
 	_marquee_enableChildMarquees: function() {
