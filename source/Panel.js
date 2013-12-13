@@ -197,10 +197,12 @@ enyo.kind({
 	},
 	addSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", true);
-	},
+		this.set("spotlight", false);
+	},	
 	removeSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
+		this.set("spotlight", "container");
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {
