@@ -260,9 +260,7 @@ enyo.kind({
 		if (this.handleFocused) {
 			this.handleFocused = false;
 			if (!enyo.Spotlight.getPointerMode()) {
-				if (this.showing) {
-					enyo.Spotlight.spot(this.getActive()); // Fixme: This makes 2 focus when handle is used with drawers
-				} else {
+				if (!this.showing) {
 					enyo.Signals.send("onPanelsHidden");
 				}
 			}
@@ -285,12 +283,9 @@ enyo.kind({
 	},
 	handleFocus: function() {
 		this.unstashHandle();
-		this.startJob("autoHide", "unspotHandle", this.getAutoHideTimeout());
+		this.startJob("autoHide", "handleSpotLeft", this.getAutoHideTimeout());
 		this.handleFocused = true;
 		enyo.Signals.send("onPanelsHandleFocused");
-	},
-	unspotHandle: function() {
-		enyo.Spotlight.unspot();
 	},
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
