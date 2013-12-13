@@ -2,7 +2,22 @@
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain
 	multiple marquees whose animation behavior should be synchronized. Calling
 	_this.startMarquee()_ or _this.stopMarquee()_ starts/stops all contained
-	marquees.
+	marquees.  
+
+	The following properties defined on the base kind on which the mixin is applied 
+	control the marquee behavior:
+
+	* `marqueeOnSpotlight`: When true, marquee will start when spotlight focused and
+		end when spotlight blurred.
+	* `marqueeOnHover`: When true, marquee will run when hovered with the mouse.  This
+		property is ignored if `marqueeOnSpotlight` is true.
+	* `marqueeOnRender`: When true, marquee will start running as soon as it is rendered
+		and run continuously.
+	* `marqueeSpeed`: The speed of the marquee animation, in pixels/second.
+	* `marqueeDelay`: The delay between spotlight focus/hover and the animation starting
+		(only used when `marqueeOnSpotlight` or `marqueeOnHover` is true).
+	* `marqueePause`: The duration between the last of all subordinate marquee animations
+		ending and all animations restarting.
 */
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
@@ -11,6 +26,8 @@ moon.MarqueeSupport = {
 		onRequestStartMarquee: "_marquee_requestStartMarquee",
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
+		onenter: "_marquee_enter",
+		onleave: "_marquee_leave",
 		onMarqueeEnded: "_marquee_marqueeEnded",
 		onresize: "_marquee_resize"
 	},
@@ -20,6 +37,7 @@ moon.MarqueeSupport = {
 		return function() {
 			sup.apply(this, arguments);
 			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
+			this.marqueeOnHover =  (this.marqueeOnHover ===   undefined) ? false :  this.marqueeOnHover;
 			this.marqueeSpeed =    (this.marqueeSpeed ===     undefined) ? 60 :    this.marqueeSpeed;
 			this.marqueeDelay =    (this.marqueeDelay ===     undefined) ? 1000 :  this.marqueeDelay;
 			this.marqueePause =    (this.marqueePause ===     undefined) ? 1000 :  this.marqueePause;
@@ -38,6 +56,10 @@ moon.MarqueeSupport = {
 	}),
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
+			// Needed for proper onenter/onleave handling
+			if (this.strictlyInternalEvents[sEventName] && this.isInternalEvent(oEvent)) {
+				return true;
+			}
 			// FIXME: not sure why events can arrive without event objects, but we gaurd here for safety
 			if (oEvent && !oEvent.delegate) {
 				var handler = this._marquee_Handlers[sEventName];
@@ -67,6 +89,18 @@ moon.MarqueeSupport = {
 	_marquee_spotlightBlur: function(inSender, inEvent) {
 		this._marquee_isFocused = false;
 		if (this.marqueeOnSpotlight) {
+			this.stopMarquee();
+		}
+	},
+	_marquee_enter: function(inSender, inEvent) {
+		this._marquee_isHovered = true;
+		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			this.startMarquee();
+		}
+	},
+	_marquee_leave: function(inSender, inEvent) {
+		this._marquee_isHovered = false;
+		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
 			this.stopMarquee();
 		}
 	},
@@ -156,7 +190,9 @@ moon.MarqueeSupport = {
 	},
 	//* Called by children to re-start marquees if needed
 	_marquee_invalidate: function() {
-		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
+			(this.marqueeOnHover && this._marquee_isHovered) || 
+			this.marqueeOnRender) {
 			this.stopMarquee();
 			this.startMarquee();
 		}
