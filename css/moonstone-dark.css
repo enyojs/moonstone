@@ -170,7 +170,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700";
-  src: local("Museo Sans Bold"), url("../fonts/MuseoSans/Museo SansBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBold.ttf") format("truetype");
+  src: local("Moon Museo Sans Bold"), url("../fonts/MuseoSans/Museo SansBold.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -183,7 +183,7 @@
 }
 @font-face {
   font-family: "MuseoSans 700 Italic";
-  src: local("Museo Sans Bold Italic"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype");
+  src: local("Moon Museo Sans Bold Italic"), url("../fonts/MuseoSans/Museo SansBoldItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBoldItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -196,7 +196,7 @@
 }
 @font-face {
   font-family: "MuseoSans 900";
-  src: local("Museo Sans Black"), url("../fonts/MuseoSans/Museo SansBlack.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlack.ttf") format("truetype");
+  src: local("Moon Museo Sans Black"), url("../fonts/MuseoSans/Museo SansBlack.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlack.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
@@ -208,8 +208,8 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans 900 Italic";
-  src: local("Museo Sans Black Italic"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype");
+  font-family: "Moon MuseoSans 900 Italic";
+  src: local("Moon Museo Sans Black Italic"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
