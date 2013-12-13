@@ -208,7 +208,7 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "Moon MuseoSans 900 Italic";
+  font-family: "MuseoSans 900 Italic";
   src: local("Moon Museo Sans Black Italic"), url("../fonts/MuseoSans/Museo SansBlackItalic.woff") format("woff"), url("../fonts/MuseoSans/Museo SansBlackItalic.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
