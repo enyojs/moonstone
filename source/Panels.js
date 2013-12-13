@@ -211,28 +211,17 @@ enyo.kind({
 	shouldHide: function(oEvent) {
 		return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 	},
-	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightLeft: function(oSender, oEvent) {
+		// Don't allow left-movement from a breadcrumb
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
-		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
-			if (this.getIndex() > 0 && this.showing) {
-				return true;
-			}
-		}
 	},
-	//* Prevents event from bubbling up when parent of originator is client.
 	spotlightRight: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") {
-			// Upon pressing right from a pointer-focused breadcrumn, just jump
+			// Upon pressing right from a pointer-focused breadcrumb, just jump
 			// to the current panel to keep focus visible
 			var idx = this.getPanelIndex(oEvent.originator) + 1;
 			enyo.Spotlight.spot(this.getPanels()[idx]);
 			return true; 
-		}
-		if (oEvent.originator.parent === this.$.client || oEvent.originator.parent === this) {
-			if (this.getIndex() < this.getPanels().length - 1) {
-				return true;
-			}
 		}
 	},
 	//* Prevents event from bubbling up when parent of originator is client.
