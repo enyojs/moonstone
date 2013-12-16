@@ -827,17 +827,14 @@
   margin-left: 10px;
 }
 .moon-simple-integer-picker {
-  white-space: nowrap;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
-  height: 60px;
+  white-space: nowrap;
+  padding: 0 60px;
   border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
@@ -852,7 +849,7 @@
 .moon-simple-integer-picker.spotlight {
   background: #cf0652;
 }
-.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
+.moon-simple-integer-picker.spotlight .moon-simple-picker-client > * {
   color: #ffffff;
 }
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
@@ -872,29 +869,6 @@
   color: #a6a6a6;
   background: transparent url(../images/DarkTheme_Icons/scroller_icon.png) no-repeat center 0;
 }
-.moon-simple-integer-picker-client {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  height: 36px;
-}
-.moon-simple-integer-picker-item {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  display: table;
-  white-space: nowrap;
-  text-align: center;
-  padding: 0 8px;
-  width: auto;
-}
-.enyo-locale-non-latin .moon-simple-integer-picker-item {
-  font-family: "LG Display";
-  font-size: 30px;
-}
 .moon-simple-integer-picker.disabled,
 .moon-simple-integer-picker-button[disabled] {
   cursor: default;
@@ -904,7 +878,13 @@
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-container-left {
+  right: 0;
+  left: auto;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -947,6 +927,12 @@
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
   position: relative;
+  right: 0;
+  top: 0;
+}
+.enyo-locale-right-to-left .moon-scroll-picker-overlay-container-right {
+  right: auto;
+  left: 0;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
