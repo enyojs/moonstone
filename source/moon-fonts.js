@@ -50,13 +50,13 @@
 			styleContent =
 				'@font-face { ' +
 				'  font-family: "Moonstone LG Display";' +
-				'  src: local("LG Display GP4_HK"), local("LG Display_HK-Regular");' +
+				'  src: local("LG Display_HK-Regular");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
 				'} ' +
 				'@font-face { ' +
 				'  font-family: "Moonstone LG Display Light";' +
-				'  src: local("LG Display GP4_HK Light"), local("LG Display_HK-Light");' +
+				'  src: local("LG Display GP4_HK-Light");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
 				'}';
