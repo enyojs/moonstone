@@ -59,7 +59,7 @@
 /* ----- MISO ------ */
 @font-face {
   font-family: "Moonstone Miso";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -99,7 +99,7 @@
 /* ----- Museo Sans ------ */
 @font-face {
   font-family: "MuseoSans";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -131,14 +131,14 @@
 }
 @font-face {
   font-family: "MuseoSans 300";
-  src: local("Moon Museo Sans Light"), url("../fonts/MuseoSans/Museo SansNormal.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansNormal.woff") format("woff");
+  src: local("Moon Museo Sans Light"), url("../fonts/MuseoSans/Museo SansLight.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansLight.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   unicode-range: U+20-7E, U+A0-17F, U+192, U+218-21B, U+2C6-2C7, U+2D8-2DD, U+3BC, U+1E9E, U+2009, U+2013-2014, U+2018-201A, U+201C, U+201D, U+201E, U+2020-2022, U+2026, U+2030, U+2039, U+203A, U+2044, U+2070, U+2074-2079, U+2080-2089, U+20AC, U+2122, U+2212, U+221E, U+2248, U+2260, U+2264-2265, U+FB00-FB04;
 }
 @font-face {
   font-family: "MuseoSans 500";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -151,7 +151,7 @@
 }
 @font-face {
   font-family: "MuseoSans 500 Italic";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;
 }
@@ -224,7 +224,7 @@
 /* ----- LG Display ------ */
 @font-face {
   font-family: "Moonstone LG Display";
-  src: local("LG Display-Regular");
+  src: local("LG Display-Light");
   font-weight: normal;
   font-style: normal;/* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
@@ -551,6 +551,14 @@
   font-size: 72px;
   color: #ffffff;
 }
+.enyo-locale-non-latin {
+  /* All/Medium weighted classes */
+
+  /* Light weighted classes */
+
+  /* Bold weighted classes */
+
+}
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin .moon input,
 .enyo-locale-non-latin .moon textarea,
@@ -570,15 +578,25 @@
 .enyo-locale-non-latin .moon-small-button-text {
   font-family: "Moonstone LG Display";
 }
+.enyo-locale-non-latin .moon-body-text,
+.enyo-locale-non-latin .moon-superscript,
+.enyo-locale-non-latin .moon-pre-text {
+  font-family: "Moonstone LG Display Light";
+}
+.enyo-locale-non-latin .moon-sub-header-text,
+.enyo-locale-non-latin .moon-divider-text,
+.enyo-locale-non-latin .moon-bold-text,
+.enyo-locale-non-latin .moon-large-button-text,
+.enyo-locale-non-latin .moon-small-button-text {
+  font-family: "Moonstone LG Display Bold";
+}
 .enyo-locale-non-latin .moon {
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-superscript {
-  font-family: "Moonstone LG Display Light";
   font-size: 24px;
 }
 .enyo-locale-non-latin .moon-pre-text {
-  font-family: "Moonstone LG Display Light";
   font-size: 24px;
 }
 .enyo-locale-non-latin .moon-large-text {
@@ -601,7 +619,6 @@
   font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
-  font-family: "Moonstone LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
@@ -878,6 +895,7 @@
 }
 .enyo-locale-non-latin .moon-simple-integer-picker {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-simple-integer-picker > * {
@@ -929,6 +947,7 @@
 }
 .enyo-locale-non-latin .moon-simple-integer-picker-item {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-simple-integer-picker.disabled,
@@ -1245,6 +1264,7 @@
 }
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-item.disabled {
@@ -1537,6 +1557,7 @@
 }
 .enyo-locale-non-latin .moon-radio-item-group .moon-button {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-radio-item-group .moon-button[disabled] {
@@ -1729,6 +1750,7 @@
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 28px;
   font-style: normal;
 }
@@ -1839,6 +1861,7 @@
 }
 .enyo-locale-non-latin .moon-header-title-below {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 /* Sub Title Below */
@@ -2018,6 +2041,7 @@
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .caption {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .sub-caption {
@@ -2256,6 +2280,7 @@
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin .moon-textarea-decorator {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 28px;
   font-style: normal;
 }
@@ -2393,6 +2418,7 @@
 }
 .enyo-locale-non-latin .moon-slider-popup-label {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 36px;
   font-weight: normal;
   font-size: 30px;
@@ -2805,6 +2831,7 @@
 }
 .enyo-locale-non-latin .moon-labeledtextitem .label {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .spotlight.moon-labeledtextitem .label,
@@ -3152,6 +3179,7 @@
 }
 .enyo-locale-non-latin .moon-calendar-picker-day {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-calendar-picker-month {
@@ -3189,6 +3217,7 @@
 }
 .enyo-locale-non-latin .moon-calendar-picker-date {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-calendar-picker-date.moon-button.small {
@@ -3203,6 +3232,7 @@
 }
 .enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
 }
 .moon-calendar-picker-date-shadow.moon-button.small {
@@ -3511,6 +3541,7 @@
 }
 .enyo-locale-non-latin .moon-tooltip-label {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 27px;
   font-weight: normal;
 }
@@ -3732,6 +3763,7 @@
 }
 .enyo-locale-non-latin .moon-video-transport-slider-popup-label {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 36px;
   font-weight: normal;
 }
@@ -4066,6 +4098,7 @@
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
   font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
   font-size: 30px;
   color: #ffffff;
 }
