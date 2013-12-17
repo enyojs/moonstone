@@ -16,3 +16,29 @@
 	text-align: center;
 	max-width: 250px;
 }
+
+.moon-toggle-button-wrapper {
+    max-width:100%;
+    vertical-align: top;
+    &.bottom {
+        position: relative;
+        top: -@moon-button-line-height;
+    }
+    &.hidden {
+        opacity:0;
+    }
+    > * {
+        vertical-align: top;
+        display: inline-block;
+    }
+}
+.moon-button.small .moon-toggle-button-wrapper.bottom {
+    top: -@moon-button-small-line-height;
+}
+
+.moon-toggle-button-label {
+    width: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

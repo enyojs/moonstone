@@ -45,7 +45,7 @@ enyo.kind({
 	},
 	//* On creation, updates based on value of _this.small_.
 	initComponents: function() {
-		if (!(this.components && this.components.length > 0)) {
+		if (!((this.components && this.components.length > 0) || this.kindComponents)) {
 			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
 		}
 		this.smallChanged();

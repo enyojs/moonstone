@@ -1188,6 +1188,30 @@
   text-align: center;
   max-width: 250px;
 }
+.moon-toggle-button-wrapper {
+  max-width: 100%;
+  vertical-align: top;
+}
+.moon-toggle-button-wrapper.bottom {
+  position: relative;
+  top: -75px;
+}
+.moon-toggle-button-wrapper.hidden {
+  opacity: 0;
+}
+.moon-toggle-button-wrapper > * {
+  vertical-align: top;
+  display: inline-block;
+}
+.moon-button.small .moon-toggle-button-wrapper.bottom {
+  top: -50px;
+}
+.moon-toggle-button-label {
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 /* Item.css */
 .moon-item {
   font-family: "MuseoSans 700";
@@ -1267,6 +1291,7 @@
   right: 44px;
 }
 /* Button */
+/* Used by ToggleButton.less */
 .moon-button {
   height: 85px;
   line-height: 75px;
