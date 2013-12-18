@@ -54,8 +54,11 @@ enyo.kind({
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
 		]},
-		{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle hidden", canGenerate: false,
-			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur"
+		{name: "handleWrapper", kind: "enyo.Control", classes: "moon-panels-handle-wrapper hidden", canGenerate: false, 
+			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur",
+			components: [
+				{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle"}
+			]
 		},
 		{name: "showHideAnimator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
@@ -279,8 +282,8 @@ enyo.kind({
 	handleShowingChanged: function() {
 		//* show handle only when useHandle is true
 		if (this.useHandle !== true) { return; }
-		this.$.showHideHandle.addRemoveClass('hidden', !this.handleShowing);
-		this.$.showHideHandle.spotlight = this.handleShowing;
+		this.$.handleWrapper.addRemoveClass('hidden', !this.handleShowing);
+		this.$.handleWrapper.spotlight = this.handleShowing;
 	},
 	/**
 		Called when focus enters one of the panels. If currently hiding and
@@ -288,7 +291,7 @@ enyo.kind({
 	*/
 	onSpotlightPanelEnter: function() {
 		if (!this.showing && this.useHandle === true) {
-			enyo.Spotlight.spot(this.$.showHideHandle);
+			enyo.Spotlight.spot(this.$.handleWrapper);
 			return true;
 		}
 	},
@@ -321,7 +324,7 @@ enyo.kind({
 		else if (direction === "RIGHT") {
 			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
 			if (this.useHandle === true && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
-				enyo.Spotlight.spot(this.$.showHideHandle);
+				enyo.Spotlight.spot(this.$.handleWrapper);
 				return true;
 			}
 			// If leaving to the right and handle is not enabled, go to next panel
@@ -582,8 +585,8 @@ enyo.kind({
 	},
 	initializeShowHideHandle: function() {
 		if (this.useHandle === true) {
-			this.$.showHideHandle.canGenerate = true;
-			this.$.showHideHandle.spotlight = true;
+			this.$.handleWrapper.canGenerate = true;
+			this.$.handleWrapper.spotlight = true;
 		}
 	},
 	//* Shows panels with transition from right.
@@ -608,13 +611,13 @@ enyo.kind({
 	_directShow: function() {
 		this.$.showHideHandle.addClass("right");
 		if (this.handleShowing) {
-			this.$.showHideHandle.removeClass("hidden");
+			this.$.handleWrapper.removeClass("hidden");
 		}
 	},
 	//* Sets hide state without animation.
 	_directHide: function() {
 		var x = this.getOffscreenXPosition();
-		this.$.showHideHandle.addClass("hidden");
+		this.$.handleWrapper.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(" + x + "px)");
 		this.hideAnimationComplete();
@@ -666,13 +669,13 @@ enyo.kind({
 	},
 	showAnimationComplete: function() {
 		if (this.handleShowing) {
-			this.$.showHideHandle.removeClass("hidden");
+			this.$.handleWrapper.removeClass("hidden");
 		}
 		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
 		if (this.handleShowing) {
-			this.$.showHideHandle.removeClass("hidden");
+			this.$.handleWrapper.removeClass("hidden");
 		}
 	}
 });
