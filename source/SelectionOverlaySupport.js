@@ -27,6 +27,10 @@ moon.SelectionOverlaySupport = {
 		return function () {
 			sup.apply(this, arguments);
 			this.createChrome(this._selectionScrim);
+			this.selectionOverlayLeftPercentage = this.selectionOverlayLeftPercentage === undefined ? 50 : this.selectionOverlayLeftPercentage;
+			this.selectionOverlayTopPercentage = this.selectionOverlayTopPercentage === undefined ? 50 : this.selectionOverlayTopPercentage;
+			this.selectionOverlayLeftPercentageChanged();
+			this.selectionOverlayTopPercentageChanged();
 			// Allow the icon to be modified by user
 			this.selectionScrimIcon = this.selectionScrimIcon || "$lib/moonstone/images/icon-selection.png";
 		};
@@ -38,5 +42,11 @@ moon.SelectionOverlaySupport = {
 		{classes: "enyo-fit moon-selection-overlay-support-scrim", components: [
 			{name:"selectionScrimIcon", kind: "moon.IconButton", classes: "moon-selection-overlay-support-checkbox", spotlight: false}
 		]}
-	]
+	],
+	selectionOverlayTopPercentageChanged: function() {
+		this.$.selectionScrimIcon.applyStyle("top", this.selectionOverlayTopPercentage + "%");
+	},
+	selectionOverlayLeftPercentageChanged: function() {
+		this.$.selectionScrimIcon.applyStyle("left", this.selectionOverlayLeftPercentage + "%");
+	}
 };
