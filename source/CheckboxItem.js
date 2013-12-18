@@ -23,7 +23,7 @@
 			{kind: "moon.CheckboxItem", content: "San Francisco"},
 			{kind: "moon.CheckboxItem", content: "Beijing"}
 		]}
- */
+*/
 enyo.kind({
 	name: "moon.CheckboxItem",
 	//* @protected
