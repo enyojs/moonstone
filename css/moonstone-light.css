@@ -2012,14 +2012,19 @@
   height: 1.25em;
   vertical-align: bottom;
 }
-.moon-gridlist-imageitem.selected,
+.moon-gridlist-imageitem.selected {
+  border: 5px solid #404040;
+  background-color: #404040;
+}
+.moon-gridlist-imageitem.selected .caption,
+.moon-gridlist-imageitem.selected .sub-caption {
+  color: #ffffff;
+}
 .moon-gridlist-imageitem.spotlight {
   border: 5px solid #cf0652;
   background-color: #cf0652;
 }
-.moon-gridlist-imageitem.selected .caption,
 .moon-gridlist-imageitem.spotlight .caption,
-.moon-gridlist-imageitem.selected .sub-caption,
 .moon-gridlist-imageitem.spotlight .sub-caption {
   color: #ffffff;
 }
@@ -4602,6 +4607,7 @@
   color: #a6a6a6;
   background-color: #ffffff;
   border-color: #ffffff;
+  background-position: 0 -50px;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.disabled {
   border-color: transparent;
@@ -4619,12 +4625,9 @@
 .moon-selection-overlay-support-scrim {
   display: none;
   z-index: 100000;
-  background: rgba(0, 0, 0, 0.3);
 }
 .moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
   position: absolute;
-  top: 50%;
-  left: 50%;
   margin-top: -30px;
   margin-left: -30px;
 }

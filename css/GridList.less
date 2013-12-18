@@ -30,7 +30,14 @@
 		height: 1.25em;
 		vertical-align: bottom;
 	}
-	&.selected,
+	&.selected {
+		border: 5px solid @moon-gridlist-item-selection-color;
+		background-color: @moon-gridlist-item-selection-color;
+		.caption, 
+		.sub-caption {
+			color: @moon-spotlight-text-color;
+		}
+	}
 	&.spotlight {
 		border: 5px solid @moon-spotlight-border-color;
 		background-color: @moon-spotlight-border-color;
