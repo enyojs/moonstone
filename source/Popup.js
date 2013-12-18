@@ -143,6 +143,7 @@ enyo.kind({
 	},
 	showingChanged: function() {
 		if (this.showing) {
+			this.activator = enyo.Spotlight.getCurrent();
 			moon.Popup.count++;
 			this.applyZIndex();
 		}
@@ -173,7 +174,6 @@ enyo.kind({
 
 		this.showHideScrim(this.showing);
 		if (this.showing) {
-			this.activator = enyo.Spotlight.getCurrent();
 			this.configCloseButton();
 			this.$.spotlightDummy.spotlight = false;
 			if (enyo.Spotlight.isSpottable(this)) {
