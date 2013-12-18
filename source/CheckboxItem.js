@@ -63,6 +63,9 @@ enyo.kind({
 		{name: "client", mixins: ["moon.MarqueeItem"], classes: "moon-checkbox-item-label-wrapper"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
 	],
+	bindings: [
+		{from: ".allowHtml", to: ".$.client.allowHtml"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.disabledChanged();
@@ -99,5 +102,10 @@ enyo.kind({
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.getContent());
+		// if (this.get("allowHtml")) {
+		// 	this.$.client.innerHtml = this.getContent();
+		// }
+		// else {
+		// }
 	}
 });
