@@ -102,10 +102,5 @@ enyo.kind({
 	},
 	contentChanged: function() {
 		this.$.client.setContent(this.getContent());
-		// if (this.get("allowHtml")) {
-		// 	this.$.client.innerHtml = this.getContent();
-		// }
-		// else {
-		// }
 	}
 });
