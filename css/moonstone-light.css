@@ -3894,6 +3894,7 @@
   letter-spacing: 0;
   color: #ffffff;
   padding: 15px 0 0 0;
+  direction: ltr;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4111,6 +4112,9 @@
   display: inline-block;
   margin: 0 0 10px 20px;
 }
+.enyo-locale-right-to-left .moon-video-player-info-client {
+  margin: 0 20px 10px 0;
+}
 .moon-video-player-info-client > * {
   display: inline-block;
   margin: 0 5px;
@@ -4183,6 +4187,9 @@
 .moon-background-wrapper-client-content {
   position: relative;
   display: inline-block;
+}
+.enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
+  direction: rtl;
 }
 .moon-background-wrapper-client-content.right {
   float: right;
