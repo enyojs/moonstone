@@ -54,12 +54,9 @@ enyo.kind({
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
 		]},
-		{name: "handleWrapper", kind: "enyo.Control", classes: "moon-panels-handle-wrapper hidden", canGenerate: false, 
-			ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur",
-			components: [
-				{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle"}
-			]
-		},
+		{name: "handleWrapper", kind: "enyo.Control", classes: "moon-panels-handle-wrapper hidden", canGenerate: false, ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur", components: [
+			{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle"}
+		]},
 		{name: "showHideAnimator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
 	],
 
