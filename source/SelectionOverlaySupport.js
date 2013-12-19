@@ -27,10 +27,10 @@ moon.SelectionOverlaySupport = {
 		return function () {
 			sup.apply(this, arguments);
 			this.createChrome(this._selectionScrim);
-			this.selectionOverlayLeftPercentage = this.selectionOverlayLeftPercentage === undefined ? 50 : this.selectionOverlayLeftPercentage;
-			this.selectionOverlayTopPercentage = this.selectionOverlayTopPercentage === undefined ? 50 : this.selectionOverlayTopPercentage;
-			this.selectionOverlayLeftPercentageChanged();
-			this.selectionOverlayTopPercentageChanged();
+			this.selectionOverlayHorizontalOffset = this.selectionOverlayHorizontalOffset === undefined ? 50 : this.selectionOverlayHorizontalOffset;
+			this.selectionOverlayVerticalOffset = this.selectionOverlayVerticalOffset === undefined ? 50 : this.selectionOverlayVerticalOffset;
+			this.selectionOverlayHorizontalOffsetChanged();
+			this.selectionOverlayVerticalOffsetChanged();
 			// Allow the icon to be modified by user
 			this.selectionScrimIcon = this.selectionScrimIcon || "$lib/moonstone/images/icon-selection.png";
 		};
@@ -43,10 +43,10 @@ moon.SelectionOverlaySupport = {
 			{name:"selectionScrimIcon", kind: "moon.IconButton", classes: "moon-selection-overlay-support-checkbox", spotlight: false}
 		]}
 	],
-	selectionOverlayTopPercentageChanged: function() {
-		this.$.selectionScrimIcon.applyStyle("top", this.selectionOverlayTopPercentage + "%");
+	selectionOverlayVerticalOffsetChanged: function() {
+		this.$.selectionScrimIcon.applyStyle("top", this.selectionOverlayVerticalOffset + "%");
 	},
-	selectionOverlayLeftPercentageChanged: function() {
-		this.$.selectionScrimIcon.applyStyle("left", this.selectionOverlayLeftPercentage + "%");
+	selectionOverlayHorizontalOffsetChanged: function() {
+		this.$.selectionScrimIcon.applyStyle((this.rtl ? "right" : "left"), this.selectionOverlayHorizontalOffset + "%");
 	}
 };

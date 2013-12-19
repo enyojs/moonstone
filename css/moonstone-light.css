@@ -4631,6 +4631,10 @@
   margin-top: -30px;
   margin-left: -30px;
 }
+.enyo-locale-right-to-left .moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
+  margin-left: initial;
+  margin-right: -30px;
+}
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;
   border: none;
