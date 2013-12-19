@@ -10,6 +10,7 @@
 				.moon-icon.moon-icon-button.pressed;
 				background-color: @moon-selection-overlay-bg-color;
 				border-color: @moon-selection-overlay-bg-color;
+				background-position: 0 -50px;
 			}
 		}
 		.moon-icon.moon-icon-button,
@@ -26,12 +27,16 @@
 .moon-selection-overlay-support-scrim {
 	display: none;
 	z-index: 100000;
-	background: rgba(0, 0, 0, 0.3);
 	.moon-selection-overlay-support-checkbox {
 		position: absolute;
-		top: 50%;
-		left: 50%;
 		margin-top: -@moon-icon-button-small-size/2;
 		margin-left: -@moon-icon-button-small-size/2;
+	}
+}
+
+.enyo-locale-right-to-left .moon-selection-overlay-support-scrim {
+	.moon-selection-overlay-support-checkbox {
+		margin-left: initial;
+		margin-right: -@moon-icon-button-small-size/2;
 	}
 }
