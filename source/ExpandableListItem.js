@@ -88,6 +88,7 @@ enyo.kind({
 		]}
 	],
 	bindings: [
+		{from: ".allowHtml", to: ".$.header.allowHtml"},
 		{from: ".disabled", to: ".$.header.disabled"}
 	],
 	//* @protected

@@ -27,6 +27,9 @@ enyo.kind({
         imageAlignRight: false
     },
     //* @protected
+    bindings: [
+        {from: ".allowHtml", to: ".$.textItem.allowHtml"}
+    ],
     create: function() {
         this.inherited(arguments);
         this.sourceChanged();
