@@ -1,4 +1,12 @@
-## 2.3.0-rc1
+## 2.3.0-rc.4
+
+Added an API to specify the horizontal and vertical positioning of the overlay icon in
+moon.SelectionOverlaySupport, which can be mixed into any item used in moon.DataList or
+moon.DataGridList. By default, the overlay icon is centered horizontally and vertically over the
+item, but you can override the default by specifying percentage values for
+_selectionOverlayHorizontalOffset_ and _selectionOverlayVerticalOffset_.
+
+## 2.3.0-rc.1
 
 `moon.VideoPlayer` and `moon.AudioPlayback` now handle remote control "trick play" keys by default.
 To disable this behavior for apps that are already handling these controls, set 
