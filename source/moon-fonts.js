@@ -1,67 +1,76 @@
 (function() {
 	if (window.ilib) {
-		var loc = new ilib.Locale();
-		var language = loc.getLanguage();
-		var region = loc.getRegion();
-		var style;
+		var loc = new ilib.Locale(),
+			language = loc.getLanguage(),
+			region = loc.getRegion(),
+			fontFamilyRegular = 'LG Display-Light',
+			fontFamilyBold    = 'LG Display-Regular',
+			fontFamilyLight   = 'LG Display-Light',
+			unicodeRanges = '';
+
 		if (language === 'ur') {
-			style = document.createElement("style");
-			document.head.appendChild(style);
-			style.innerText =
-				'@font-face { ' +
-				'	font-family: "LG Display";' +
-				'	src: local("LG Display_Urdu");' +
-				'	font-weight: normal;' +
-				'	unicode-range: U+0600-U+06FF;' +
-				'	unicode-range: U+FE70-U+FEFE;' +
-				'	unicode-range: U+FB50-U+FDFF;' +
-				'}';
+			fontFamilyRegular = 'LG Display_Urdu';
+			fontFamilyBold    = 'LG Display_Urdu';
+			fontFamilyLight   = 'LG Display_Urdu';
+			unicodeRanges = 
+				'U+0600-U+06FF, ' +
+				'U+FE70-U+FEFE, ' +
+				'U+FB50-U+FDFF';
 		}
 		else if (language === 'ja') {
-			style = document.createElement("style");
-			document.head.appendChild(style);
-			style.innerText =
-				'@font-face { ' +
-				'	font-family: "LG Display";' +
-				'	src: local("LG Display_JP");' +
-				'	font-weight: normal;' +
-				'	unicode-range: U+0000-U+00FF;' +
-				'	unicode-range: U+2E80-U+2EFF;' +
-				'	unicode-range: U+2F00-U+2FDF;' +
-				'	unicode-range: U+3000-U+303F;' +
-				'	unicode-range: U+3040-U+309F;' +
-				'	unicode-range: U+30A0-U+30FF;' +
-				'	unicode-range: U+3200-U+33FF;' +
-				'	unicode-range: U+3400-U+4DBF;' +
-				'	unicode-range: U+4E00-U+9FFF;' +
-				'	unicode-range: U+E000-U+FAFF;' +
-				'	unicode-range: U+FF00-U+FFEF;' +
-				'}';
+			fontFamilyRegular = 'LG Display_JP';
+			fontFamilyBold    = 'LG Display_JP';
+			fontFamilyLight   = 'LG Display_JP';
+			unicodeRanges = 
+				'U+0000-U+00FF, ' +
+				'U+2E80-U+2EFF,' +
+				'U+2F00-U+2FDF,' +
+				'U+3000-U+303F,' +
+				'U+3040-U+309F,' +
+				'U+30A0-U+30FF,' +
+				'U+3200-U+33FF,' +
+				'U+3400-U+4DBF,' +
+				'U+4E00-U+9FFF,' +
+				'U+E000-U+FAFF,' +
+				'U+FF00-U+FFEF';
 		}
 		else if (language === 'zh' && region === 'HK') {
-			style = document.createElement("style");
+			fontFamilyRegular = 'LG Display GP4_HK-Light';
+			fontFamilyBold    = 'LG Display GP4_HK-Regular';
+			fontFamilyLight   = 'LG Display GP4_HK-Light';
+			unicodeRanges = 
+				'U+0000-U+00FF,' +
+				'U+2E80-U+2EFF,' +
+				'U+3000-U+303F,' +
+				'U+3200-U+33FF,' +
+				'U+3400-U+4DBF,' +
+				'U+4E00-U+9FFF,' +
+				'U+E000-U+FAFF,' +
+				'U+FF00-U+FFEF';
+		}
+
+		if (unicodeRanges) {
+			var style = document.createElement("style");
+			style.setAttribute("class", "enyo-localization-font-override");
 			document.head.appendChild(style);
-			var unicodeRanges = 
-				'	unicode-range: U+0000-U+00FF;' +
-				'	unicode-range: U+2E80-U+2EFF;' +
-				'	unicode-range: U+3000-U+303F;' +
-				'	unicode-range: U+3200-U+33FF;' +
-				'	unicode-range: U+3400-U+4DBF;' +
-				'	unicode-range: U+4E00-U+9FFF;' +
-				'	unicode-range: U+E000-U+FAFF;' +
-				'	unicode-range: U+FF00-U+FFEF;';
-			style.innerText =
+			style.innerText = 
 				'@font-face { ' +
-				'	font-family: "LG Display";' +
-				'	src: local("LG Display_HK");' +
-				'	font-weight: normal;' +
-				unicodeRanges +
+				'  font-family: "Moonstone LG Display";' +
+				'  src: local("' + fontFamilyRegular + '");' +
+				'  font-weight: normal;' +
+				'  unicode-range: ' + unicodeRanges + ';' +
 				'} ' +
 				'@font-face { ' +
-				'	font-family: "LG Display Light";' +
-				'	src: local("LG Display_HK-Light");' +
-				'	font-weight: normal;' +
-				unicodeRanges +
+				'  font-family: "Moonstone LG Display Bold";' +
+				'  src: local("' + fontFamilyBold + '");' +
+				'  font-weight: normal;' +
+				'  unicode-range: ' + unicodeRanges + ';' +
+				'} ' +
+				'@font-face { ' +
+				'  font-family: "Moonstone LG Display Light";' +
+				'  src: local("' + fontFamilyLight + '");' +
+				'  font-weight: normal;' +
+				'  unicode-range: ' + unicodeRanges + ';' +
 				'}';
 		}
 	}
