@@ -87,6 +87,8 @@ enyo.kind({
 		]}
 	],
 	bindings: [
+		{from: ".allowHtml", to: ".$.header.allowHtml"},
+		{from: ".allowHtml", to: ".$.currentValue.allowHtml"},
 		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
 	create: function() {

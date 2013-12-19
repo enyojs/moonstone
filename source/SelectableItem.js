@@ -43,6 +43,9 @@ enyo.kind({
 		{name: "indicator", classes: "moon-selectable-item-indicator"},
 		{name: "client", kind: "moon.MarqueeText", classes: "moon-selectable-item-client"}
 	],
+    bindings: [
+        {from: ".allowHtml", to: ".$.client.allowHtml"}
+    ],
 	//* @protected
 	create: enyo.inherit(function (sup) {
 		return function() {
