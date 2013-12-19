@@ -308,9 +308,13 @@ enyo.kind({
 		return label;
 	},
 	calcKnobPosition: function(inEvent) {
-		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
+		var x;
+		if (this.rtl) { 
+			x = this.hasNode().getBoundingClientRect().right - inEvent.clientX;
+		} else {
+			x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
+		}
 		var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
-		if (this.rtl) { pos = this.max - pos; }
 		return pos;
 	},
 	dragstart: function(inSender, inEvent) {
