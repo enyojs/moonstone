@@ -73,7 +73,7 @@ enyo.kind({
 	name: "moon.sample.GridSampleItem",
 	kind: "moon.GridListImageItem",
 	mixins: ["moon.SelectionOverlaySupport"],
-	selectionOverlayTopPercentage: 35,
+	selectionOverlayVerticalOffset: 35,
 	subCaption: "Sub Caption",
 	bindings: [
 		{from: ".model.text", to: ".caption"},
