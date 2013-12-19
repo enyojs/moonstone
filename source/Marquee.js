@@ -222,6 +222,9 @@ moon.MarqueeItem = {
 	observers: {
 		_marquee_contentChanged: ["content"]
 	},
+	bindings: [
+		{from: ".allowHtml", to:".$.marqueeText.allowHtml"}
+	],
 	classes: "moon-marquee",
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
