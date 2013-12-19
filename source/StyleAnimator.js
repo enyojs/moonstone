@@ -288,7 +288,7 @@ enyo.kind({
 		this.applyTransitions(inName, 0);
 		animation.state = "playing";
 		animation.timeElapsed = 0;
-		animation.startTime = enyo.now();
+		animation.startTime = enyo.perfNow();
 	},
 	//* @protected
 	applyValues: function(inValues) {
@@ -358,7 +358,7 @@ enyo.kind({
 	//* Steps through each playing animation.
 	_step: function() {
 		var playingAnimations = false,
-			now = enyo.now(),
+			now = enyo.perfNow(),
 			animation,
 			elapsed,
 			i;
