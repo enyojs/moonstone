@@ -3,27 +3,25 @@
 		var loc = new ilib.Locale(),
 			language = loc.getLanguage(),
 			region = loc.getRegion(),
-			styleContent = '';
+			fontFamilyRegular = 'LG Display-Light',
+			fontFamilyBold    = 'LG Display-Regular',
+			fontFamilyLight   = 'LG Display-Light',
+			unicodeRanges = '';
 
 		if (language === 'ur') {
-			styleContent =
-				'@font-face { ' +
-				'  font-family: "Moonstone LG Display";' +
-				'  src: local("LG Display_Urdu");' +
-				'  font-weight: normal;' +
-				'  unicode-range: ' +
+			fontFamilyRegular = 'LG Display_Urdu';
+			fontFamilyBold    = 'LG Display_Urdu';
+			fontFamilyLight   = 'LG Display_Urdu';
+			unicodeRanges = 
 				'U+0600-U+06FF, ' +
 				'U+FE70-U+FEFE, ' +
-				'U+FB50-U+FDFF;' +
-				'}';
+				'U+FB50-U+FDFF';
 		}
 		else if (language === 'ja') {
-			styleContent =
-				'@font-face { ' +
-				'  font-family: "Moonstone LG Display";' +
-				'  src: local("LG Display_JP");' +
-				'  font-weight: normal;' +
-				'  unicode-range: ' +
+			fontFamilyRegular = 'LG Display_JP';
+			fontFamilyBold    = 'LG Display_JP';
+			fontFamilyLight   = 'LG Display_JP';
+			unicodeRanges = 
 				'U+0000-U+00FF, ' +
 				'U+2E80-U+2EFF,' +
 				'U+2F00-U+2FDF,' +
@@ -34,11 +32,13 @@
 				'U+3400-U+4DBF,' +
 				'U+4E00-U+9FFF,' +
 				'U+E000-U+FAFF,' +
-				'U+FF00-U+FFEF;' +
-				'}';
+				'U+FF00-U+FFEF';
 		}
 		else if (language === 'zh' && region === 'HK') {
-			var unicodeRanges = 
+			fontFamilyRegular = 'LG Display GP4_HK-Light';
+			fontFamilyBold    = 'LG Display GP4_HK-Regular';
+			fontFamilyLight   = 'LG Display GP4_HK-Light';
+			unicodeRanges = 
 				'U+0000-U+00FF,' +
 				'U+2E80-U+2EFF,' +
 				'U+3000-U+303F,' +
@@ -47,32 +47,31 @@
 				'U+4E00-U+9FFF,' +
 				'U+E000-U+FAFF,' +
 				'U+FF00-U+FFEF';
-			styleContent =
+		}
+
+		if (unicodeRanges) {
+			var style = document.createElement("style");
+			style.setAttribute("class", "enyo-localization-font-override");
+			document.head.appendChild(style);
+			style.innerText = 
 				'@font-face { ' +
 				'  font-family: "Moonstone LG Display";' +
-				'  src: local("LG Display GP4_HK-Light");' +
+				'  src: local("' + fontFamilyRegular + '");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
 				'} ' +
 				'@font-face { ' +
 				'  font-family: "Moonstone LG Display Bold";' +
-				'  src: local("LG Display GP4_HK-Regular");' +
+				'  src: local("' + fontFamilyBold + '");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
 				'} ' +
 				'@font-face { ' +
 				'  font-family: "Moonstone LG Display Light";' +
-				'  src: local("LG Display GP4_HK-Light");' +
+				'  src: local("' + fontFamilyLight + '");' +
 				'  font-weight: normal;' +
 				'  unicode-range: ' + unicodeRanges + ';' +
 				'}';
-		}
-
-		if (styleContent) {
-			var style = document.createElement("style");
-			style.setAttribute("class", "enyo-localization-font-override");
-			document.head.appendChild(style);
-			style.innerText = styleContent;	
 		}
 	}
 })();
