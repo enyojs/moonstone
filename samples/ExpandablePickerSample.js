@@ -13,7 +13,7 @@ enyo.kind({
 							{content: "German"},
 							{content: "Italian"},
 							{content: "Japanese"},
-							{content: "Symbols <span style='color:orange;'>&#x2620; &#x2764; &#x2619;", allowHtml:true}
+							{content: "Symbols <span style='color:orange;'>&#x2620; &#x2764; &#x2619;</span>", allowHtml:true}
 						]},
 						{kind: "moon.ExpandablePicker", content: "Pre-selected Picker", components: [
 							{content: "On", active: true},
@@ -58,7 +58,7 @@ enyo.kind({
 								{content: "German"},
 								{content: "Italian"},
 								{content: "Japanese"},
-								{content: "Symbols <span style='color:orange;'>&#x2620; &#x2764; &#x2619;", allowHtml:true}
+								{content: "Symbols <span style='color:orange;'>&#x2620; &#x2764; &#x2619;</span>", allowHtml:true}
 							]},
 							{kind: "moon.ExpandablePicker", content: "Pre-selected Picker", components: [
 								{content: "On", active: true},
