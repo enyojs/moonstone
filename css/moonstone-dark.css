@@ -3048,7 +3048,7 @@
 .moon-panels-handle.right {
   background-image: url(../images/DarkTheme_Icons/caret-white-right.png);
 }
-.moon-panels-handle.hidden {
+.moon-panels-handle-wrapper.hidden {
   display: none;
 }
 .moon-panels-handle.stashed {
