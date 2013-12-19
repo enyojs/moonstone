@@ -53,13 +53,20 @@
 }
 
 /* Show/Hide Handle */
-.moon-panels-handle {
-    position: absolute;
-    height: 100%;
-    left: auto;
-	right: -120px;
-    width: 130px;
+.moon-panels-handle-wrapper {
+	position: absolute;
+	height: 100%;
+	left: auto;
+	right: -130px;
+	width: 130px;
 	z-index: 100;
+}
+
+.moon-panels-handle {
+	position: absolute;
+	left: -10px;
+	height: 100%;
+	width: 100%;
     background-repeat: no-repeat;
 	background-position: center;
     background-color: @moon-panels-spot-bg-color;
@@ -68,7 +75,8 @@
 	transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
 	opacity: 1;
 }
-.moon-panels-handle.spotlight {
+
+.moon-panels-handle-wrapper.spotlight .moon-panels-handle {
 	background-color: @moon-panels-spot-fg-color;
 	-webkit-transform: translate3d(-120px, 0, 0);
 }
@@ -77,7 +85,7 @@
 	background-image: @moon-panels-caret-white-right-icon;
 }
 
-.moon-panels-handle.hidden {
+.moon-panels-handle-wrapper.hidden {
 	display: none;
 }
 .moon-panels-handle.stashed {

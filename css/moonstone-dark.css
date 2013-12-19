@@ -3070,13 +3070,19 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 /* Show/Hide Handle */
-.moon-panels-handle {
+.moon-panels-handle-wrapper {
   position: absolute;
   height: 100%;
   left: auto;
-  right: -120px;
+  right: -130px;
   width: 130px;
   z-index: 100;
+}
+.moon-panels-handle {
+  position: absolute;
+  left: -10px;
+  height: 100%;
+  width: 100%;
   background-repeat: no-repeat;
   background-position: center;
   background-color: #4b4b4b;
@@ -3085,14 +3091,14 @@
   transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
   opacity: 1;
 }
-.moon-panels-handle.spotlight {
+.moon-panels-handle-wrapper.spotlight .moon-panels-handle {
   background-color: #cf0652;
   -webkit-transform: translate3d(-120px, 0, 0);
 }
 .moon-panels-handle.right {
   background-image: url(../images/DarkTheme_Icons/caret-white-right.png);
 }
-.moon-panels-handle.hidden {
+.moon-panels-handle-wrapper.hidden {
   display: none;
 }
 .moon-panels-handle.stashed {
