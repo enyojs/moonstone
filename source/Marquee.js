@@ -348,7 +348,7 @@ moon.MarqueeItem = {
 		// Need this timeout for FF!
 		setTimeout(this.bindSafely(function() {
 			enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(inDistance) + "px"});
-		}), 100);
+		}), enyo.platform.firefox ? 100 : 0);
 	},
 	_marquee_removeAnimationStyles: function() {
 		if (!this.$.marqueeText) {
@@ -362,7 +362,7 @@ moon.MarqueeItem = {
 		setTimeout(this.bindSafely(function() {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
-		}), 0);
+		}), enyo.platform.firefox ? 100 : 0);
 	},
 	//* Flips distance value for RTL support
 	_marquee_adjustDistanceForRTL: function(inDistance) {
