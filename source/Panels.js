@@ -1,7 +1,7 @@
 /**
 	_moon.Panels_ extends [enyo.Panels](#enyo.Panels), adding support for 5-way
-	focus (Spotlight).  By default, controls added to a _moon.Panels_ are
-	instances of [moon.Panel](#moon.Panel).
+	focus (Spotlight) and pre-configured Moonstone panels design patterns.  
+	By default, controls added to a _moon.Panels_ are instances of [moon.Panel](#moon.Panel).
  */
 enyo.kind({
 	name				: 'moon.Panels',
@@ -12,21 +12,43 @@ enyo.kind({
 	//* public
 	published: {
 		/**
-			The panel design pattern; valid values are "none" (default), "activity",
+			A convenience property for configuring _moon.Panels_ according to a particular
+			design pattern.  Valid values are "none" (default), "activity",
 			and "alwaysviewing". Note that this property may only be set at creation
-			time.
+			time, and should not be changed at runtime.
+
+			The "alwaysviewing" pattern uses the _moon.BreadcrumbArranger_ with semi-transparent
+			panels (depending on the color theme) over the right half of the screen, allowing
+			multiple breadcrumbs to accumulate over the left half of the screen.
+
+			The "activity" pattern  uses the _moon.BreadcrumbArranger_ with opaque panels
+			over the full screen, with only one breadcrumb showing on screen.
+
+			The "none" pattern should be used when selecting other arrangers, such as
+			_enyo.CarouselArranger_ or _enyo.CardArranger_.
 		*/
 		pattern: "none",
-		//* Handle is hidden automatically after this amount of time
+		//* When used, the handle is hidden automatically after this amount of time (in ms)
 		autoHideTimeout: 4000,
 		/**
-			When true, a handle is created; when "false", no handle is created; when
-			"auto" (the default), a handle is created if the _pattern_ is
-			"alwaysviewing" and not created if the _pattern_ is "activity". Note that
-			this property may only be set at creation time.
+			When true, a handle is created to allow the user to control the showing state
+			of the panels using animation.  When false, no handle is created and
+			panels can only be hidden/shown programmatically with no animation.
+			When "auto" (the default), _useHandle_ is set to true if _pattern_ is
+			"alwaysviewing" and set to false if the _pattern_ is "activity". Note that
+			this property may only be set at creation time, and should not be changed
+			at runtime.  This property only has an effect in "activity" or "alwaysviewing"
+			pattern.
 		*/
 		useHandle: "auto",
-		//* When true (the default), handle is shown; when false, handle is hidden
+		/** 
+			Dynamically controls whether the handle is showing.
+			When true (the default), handle is shown and panels can be shown by activating
+			the handle and hidden by re-activating the handle again or tapping outside the
+			panel area.  When false, handle is hidden and panels can only be shown/hidden
+			programmatically using the _showing_ property or the _hide_/_show_ API.
+			Only valid when _useHandle_ is true (or "auto" resulting in true).
+		*/
 		handleShowing: true
 	},
 	events: {
@@ -44,7 +66,6 @@ enyo.kind({
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
 
-		onTransitionFinish:			"transitionFinish",
 		onPreTransitionComplete:	"preTransitionComplete",
 		onPostTransitionComplete:	"postTransitionComplete"
 	},
@@ -197,7 +218,7 @@ enyo.kind({
 		}
 
 		if (this.shouldHide(oEvent)) {
-			if (this.showing && this.useHandle === true) {
+			if (this.showing && (this.useHandle === true) && this.handleShowing) {
 				this.hide();
 			}
 		} else {
@@ -287,7 +308,7 @@ enyo.kind({
 		_this.useHandle_ is true, shows handle.
 	*/
 	onSpotlightPanelEnter: function() {
-		if (!this.showing && this.useHandle === true) {
+		if (!this.showing && (this.useHandle === true) && this.handleShowing ) {
 			enyo.Spotlight.spot(this.$.handleWrapper);
 			return true;
 		}
@@ -313,14 +334,14 @@ enyo.kind({
 				return true;
 			}
 			// If leaving to the left and we are at the first panel, hide panels
-			else if (this.toIndex === null && this.showing && this.useHandle === true) {
+			else if (this.toIndex === null && this.showing && (this.useHandle === true) && this.handleShowing) {
 				this.hide();
 				return true;
 			}
 		}
 		else if (direction === "RIGHT") {
 			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
-			if (this.useHandle === true && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
+			if ((this.useHandle === true) && this.handleShowing && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
 				enyo.Spotlight.spot(this.$.handleWrapper);
 				return true;
 			}
@@ -543,6 +564,7 @@ enyo.kind({
 			if (this.showing) {
 				this.unstashHandle();
 				this._show();
+				enyo.Spotlight.spot(this.getActive());
 			}
 			else {
 				this.resetHandleAutoHide();
@@ -567,6 +589,7 @@ enyo.kind({
 		}
 	},
 	applyAlwaysViewingPattern: function() {
+		this.setArrangerKind("moon.BreadcrumbArranger");
 		this.addClass('always-viewing');
 		this.panelCoverRatio = 0.5;
 		this.useHandle = (this.useHandle === "auto") ? true : this.useHandle;
@@ -574,6 +597,7 @@ enyo.kind({
 		this.breadcrumbGap = 20;
 	},
 	applyActivityPattern: function() {
+		this.setArrangerKind("moon.BreadcrumbArranger");
 		this.addClass('activity');
 		this.showFirstBreadcrumb = true;
 		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
@@ -668,7 +692,6 @@ enyo.kind({
 		if (this.handleShowing) {
 			this.$.handleWrapper.removeClass("hidden");
 		}
-		enyo.Spotlight.spot(this.getActive());
 	},
 	hideAnimationComplete: function() {
 		if (this.handleShowing) {
