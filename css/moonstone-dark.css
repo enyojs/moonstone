@@ -2550,10 +2550,14 @@
 }
 .moon-contextual-popup.reserve-close,
 .enyo.moon-contextual-popup.reserve-close {
-  padding-right: 80px;
+  padding-right: 70px;
 }
 .enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
+}
+.enyo-locale-right-to-left .moon-contextual-popup.reserve-close {
+  padding-right: 20px;
+  padding-left: 70px;
 }
 /* Vertical Popups */
 /* Vertical Popups that display below their activator */
@@ -3462,14 +3466,13 @@
   -webkit-transition: -webkit-transform 0.4s ease;
 }
 .moon-popup.reserve-close {
-  padding-right: 80px;
+  padding-right: 70px;
 }
 .moon-popup-close {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: 0 0;
   color: #ffffff;
-  float: right;
   position: absolute;
   right: 10px;
   width: 32px;
@@ -3489,6 +3492,14 @@
 .moon-icon.moon-popup-close.spotlight:active {
   background-color: #cf0652;
   color: #ffffff;
+}
+.enyo-locale-right-to-left .moon-popup.reserve-close {
+  padding-right: 40px;
+  padding-left: 70px;
+}
+.enyo-locale-right-to-left .moon-popup-close {
+  right: auto;
+  left: 10px;
 }
 /* Dialog.css */
 .moon-dialog {
@@ -4426,6 +4437,10 @@
 .moon-scroller-client-wrapper.v-scroll-enabled {
   padding-right: 70px;
 }
+.enyo-locale-right-to-left .moon-scroller-client-wrapper.v-scroll-enabled {
+  padding-right: 0;
+  padding-left: 70px;
+}
 .moon-scroller-client-wrapper.h-scroll-enabled {
   padding-bottom: 60px;
 }
@@ -4465,6 +4480,10 @@
   right: 10px;
   width: 60px;
 }
+.enyo-locale-right-to-left .moon-scroller-v-column {
+  right: auto;
+  left: 10px;
+}
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
   left: 0px;
@@ -4479,6 +4498,10 @@
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
   right: 60px;
+}
+.enyo-locale-right-to-left .moon-scroller-h-column.v-scroll-enabled {
+  right: 0;
+  left: 60px;
 }
 .moon-scroller-thumb-container {
   position: absolute;
