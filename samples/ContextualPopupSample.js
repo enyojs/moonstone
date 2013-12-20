@@ -77,7 +77,7 @@ enyo.kind({
 			{content:"Long but Small Button with truncation", small:true},
 			{kind: "moon.ContextualPopup", components: [
 				{content:"Outside scroller", kind: "moon.Item"},
-				{classes: "moon-3h moon-16v", components: [
+				{classes: "moon-16v", components: [
 					{kind: "moon.Scroller", classes: "enyo-fill", components: [
 						{content:"testing 1", kind: "moon.Item"},
 						{content:"testing 2", kind: "moon.Item"},
