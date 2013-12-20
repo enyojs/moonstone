@@ -122,7 +122,7 @@ enyo.kind({
 
 		while (n && n.parentNode && n.id != st.scrollNode.id) {
 			b.top += n.offsetTop;
-			b.left += n.offsetLeft;
+			b.left += (this.rtl? n.offsetRight : n.offsetLeft);
 			n = n.parentNode;
 		}
 
