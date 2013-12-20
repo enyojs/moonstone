@@ -256,7 +256,7 @@ enyo.kind({
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "FittableColumns", classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
+				{name: "controls", kind: "FittableColumns", rtl:false, classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
 			
 					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left"},
 				
@@ -270,7 +270,7 @@ enyo.kind({
 								{name: "jumpForward",	kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
-						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls", noStretch: true}
+						{name: "client", classes: "moon-video-player-more-controls"}
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
@@ -279,7 +279,7 @@ enyo.kind({
 				]},
 			
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
+					{name: "slider", kind: "moon.VideoTransportSlider", rtl: false, disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
 						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider", ontap:"playbackControlsTapped"
 					}
 				]}
