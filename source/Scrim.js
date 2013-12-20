@@ -8,9 +8,9 @@
 	_"moon-scrim-translucent"_,	or any other class that has
 	_"pointer-events: auto"_ in its style properties.
 
-	You may specify the z-index at which you want the scrim to appear by calling
-	_showAtZIndex()_; if you do so, you must call _hideAtZIndex()_ with the same
-	value to hide the scrim.
+	You may specify the z-index at which you want the scrim to appear by passing
+	an integer value to _showAtZIndex()_; if you do so, you must call
+	_hideAtZIndex()_ with the same value to hide the scrim.
 */
 
 enyo.kind({
