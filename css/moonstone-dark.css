@@ -3822,6 +3822,9 @@
 .enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
   font-family: "Moonstone LG Display";
 }
+.enyo-locale-right-to-left .moon-video-transport-slider-indicator-text {
+  direction: rtl;
+}
 .moon-video-player {
   position: relative;
   display: inline-block;
@@ -3975,6 +3978,7 @@
   letter-spacing: 0;
   color: #ffffff;
   padding: 15px 0 0 0;
+  direction: ltr;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -3989,10 +3993,15 @@
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0);
+  direction: ltr;
 }
 .moon-video-player-controls {
   height: 85px;
   margin-bottom: 30px;
+}
+.enyo-fittable-columns-layout.moon-video-player-controls {
+  direction: ltr;
+  text-align: left;
 }
 .moon-video-player-controls-container > * {
   width: 100%;
@@ -4000,6 +4009,9 @@
 .moon-video-player-more-controls {
   border-left: 2px solid white;
   padding-left: 5px;
+}
+.enyo-locale-right-to-left .moon-video-player-more-controls > * {
+  direction: rtl;
 }
 .moon-video-player-premium-placeholder-left {
   width: 210px;
@@ -4059,6 +4071,9 @@
 /* Feedback area */
 .moon-video-player-feedback {
   margin-right: 5px;
+}
+.enyo-locale-right-to-left .moon-video-player-feedback {
+  direction: rtl;
 }
 .moon-video-feedback-text {
   display: inline-block;
@@ -4193,6 +4208,9 @@
   display: inline-block;
   margin: 0 0 10px 20px;
 }
+.enyo-locale-right-to-left .moon-video-player-info-client {
+  margin: 0 20px 10px 0;
+}
 .moon-video-player-info-client > * {
   display: inline-block;
   margin: 0 5px;
@@ -4265,6 +4283,9 @@
 .moon-background-wrapper-client-content {
   position: relative;
   display: inline-block;
+}
+.enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
+  direction: rtl;
 }
 .moon-background-wrapper-client-content.right {
   float: right;
