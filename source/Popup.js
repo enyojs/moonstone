@@ -143,6 +143,7 @@ enyo.kind({
 	},
 	showingChanged: function() {
 		if (this.showing) {
+			this.activator = enyo.Spotlight.getCurrent();
 			moon.Popup.count++;
 			this.applyZIndex();
 		}
@@ -173,14 +174,16 @@ enyo.kind({
 
 		this.showHideScrim(this.showing);
 		if (this.showing) {
-			this.activator = enyo.Spotlight.getCurrent();
 			this.configCloseButton();
 			this.$.spotlightDummy.spotlight = false;
-			if (enyo.Spotlight.isSpottable(this)) {
-				enyo.Spotlight.spot(this);
-			} else {
-				this.$.spotlightDummy.spotlight = true;
-				enyo.Spotlight.spot(this);
+			// Spot ourselves, unless we're already spotted
+			if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+				if (enyo.Spotlight.isSpottable(this)) {
+					enyo.Spotlight.spot(this);
+				} else {
+					this.$.spotlightDummy.spotlight = true;
+					enyo.Spotlight.spot(this);
+				}
 			}
 		}
 	},
