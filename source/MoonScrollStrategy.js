@@ -586,6 +586,9 @@ enyo.kind({
 					? -1
 					: 0;
 
+		scrollBounds.xDir = xDir;
+		scrollBounds.yDir = yDir;
+
 		switch (xDir) {
 		case 0:
 			x = this.getScrollLeft();
@@ -647,7 +650,7 @@ enyo.kind({
 			}
 			break;
 		}
-		
+
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x, y, animate);
