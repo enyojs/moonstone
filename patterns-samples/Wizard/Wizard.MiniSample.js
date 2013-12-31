@@ -1,7 +1,7 @@
 enyo.kind({
-	name: "moon.Sample.Wizard.FullScreenSample",
+	name: "moon.Sample.Wizard.MiniSample",
 	kind: "enyo.Application",
-	view: "moon.Sample.Wizard.FullScreen",
+	view: "moon.Sample.Wizard.MiniPopup",
 	components: [
 		{name: "WizardController", kind: "moon.Sample.Wizard.Controller"}
 	]
@@ -10,14 +10,8 @@ enyo.kind({
 enyo.kind({
 	name: "moon.Sample.Wizard.Model",
 	kind: "enyo.Model",
-	attributes: {
-		subTitle: "",
-		imgSrc: "../assets/album.PNG",
-		instruction: "",
-		detail: ""
-	},
 	defaults: {
-		title: "Wizard Title",
+		title: "",
 		subTitle: "",
 		imgSrc: "../assets/album.PNG",
 		instruction: "",
@@ -35,6 +29,7 @@ enyo.kind({
 	generateRecords: function() {
 		return {
 				page1 : new moon.Sample.Wizard.Model({
+					title: "Wizard Title",
 					subTitle: "01.Step Title 1",
 					imgSrc: "../assets/album.PNG",
 					instruction: "INSTRUCTIONAL TEXT GOES HERE",
@@ -44,18 +39,21 @@ enyo.kind({
 							"interdum vel volutpat velit semper."
 				}),
 				page2 : new moon.Sample.Wizard.Model({
+					title: "Wizard Title",
 					subTitle: "02.Step Title 2",
 					imgSrc: "",
 					instruction: "INSTRUCTIONAL TEXT GOES HERE 2",
 					detail: "INPUT FIELD DESCRIPTION GOES HERE 2"
 				}),
 				page3 : new moon.Sample.Wizard.Model({
+					title: "Wizard Title",
 					subTitle: "03.Step Title 3",
 					imgSrc: "../assets/album.PNG",
 					instruction: "INSTRUCTIONAL TEXT GOES HERE 3",
 					detail: "INPUT FIELD DESCRIPTION GOES HERE 3"
 				}),
 				page4 : new moon.Sample.Wizard.Model({
+					title: "Wizard Title",
 					subTitle: "04.Step Title 4",
 					imgSrc: "",
 					instruction: "Confirm your selections before complete",
@@ -66,7 +64,30 @@ enyo.kind({
 });
 
 enyo.kind({
-	name: "moon.Sample.Wizard.FullScreen",
+    name: "moon.Sample.Wizard.MiniPopup",
+    classes: "moon enyo-unselectable",
+    handlers: {
+        ontap: "onTap"
+    },
+    components: [
+        {kind: "moon.Divider", content: "Mini Wizard Sample"},
+        {classes: "moon-hspacing", components: [
+            {kind: "moon.Button", content: "Mini Popup", ontap: "showPopup", popup: "wizPopup"}
+        ]},
+        {name: "wizPopup", kind: "moon.Popup", animate: false, spotlightModal: true, classes: "moon-12v", components: [
+            {name: "wizardSample", kind: "moon.Sample.Wizard.MiniPanels", classes:"enyo-fill"}
+        ]}
+    ],
+    showPopup: function(inSender) {
+        this.$.wizPopup.show();
+    },
+    hidePopup: function() {
+        this.$.wizPopup.hide();
+    }
+});
+
+enyo.kind({
+	name: "moon.Sample.Wizard.MiniPanels",
 	kind: "enyo.Panels",
 	arrangerKind: "CardArranger",
 	classes: "enyo-unselectable moon enyo-fit",
@@ -76,10 +97,10 @@ enyo.kind({
 		onCancel: "doCancel"
 	},
 	components: [
-		{name: "page1", kind: "moon.Sample.Wizard.FullPanel"},
-		{name: "page2", kind: "moon.Sample.Wizard.FullPanel"},
-		{name: "page3", kind: "moon.Sample.Wizard.FullPanel"},
-		{name: "page4", kind: "moon.Sample.Wizard.FullPanel"}
+		{name: "page1", kind: "moon.Sample.Wizard.MiniPanel"},
+		{name: "page2", kind: "moon.Sample.Wizard.MiniPanel"},
+		{name: "page3", kind: "moon.Sample.Wizard.MiniPanel"},
+		{name: "page4", kind: "moon.Sample.Wizard.MiniPanel"}
 	],
 	bindings: [
 		{from: ".collection.model.page1", to: ".$.page1.controller"},
