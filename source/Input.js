@@ -19,7 +19,9 @@ enyo.kind({
 	//* @public
 	published: {
 		//* When true, blur on Enter keypress (if focused)
-		dismissOnEnter: false
+		dismissOnEnter: false,
+		//* Limits the length of the input
+		maxLength: 128
 	},
 	//* @protected
 	handlers: {
@@ -32,7 +34,11 @@ enyo.kind({
 	/**********************************************/
 	
 	_bFocused: false, // Used only for dismissOnEnter feature, cannot rely on hasFocus in this case because of racing condition
-	
+
+	create: function() {
+		this.inherited(arguments);
+		this.maxLengthChanged();
+	},
 	onFocus: function() {
 		if (this.dismissOnEnter) {
 			var oThis = this;
@@ -80,5 +86,11 @@ enyo.kind({
 
 	down: function() {
 		return false;
+	},
+	maxLengthChanged: function() {
+		this.setAttribute("maxlength", this.maxLength);
+		if (this.getNodeProperty("maxlength", this.maxLength) !== this.maxLength) {
+			this.setNodeProperty("maxlength", this.maxLength);
+		}
 	}
 });
