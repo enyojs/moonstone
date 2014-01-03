@@ -412,13 +412,12 @@ enyo.kind({
 		}
 	},
 	spotSelect: function() {
-		this.sh = (this.sh === undefined) ? !this.$.popup.getShowing() : !this.sh;
+		this.selected = (this.selected === undefined) ? !this.$.popup.getShowing() : !this.selected;
 		if (!this.noPopup) {
-			this.$.popup.setShowing(this.sh);
+			this.$.popup.setShowing(this.selected);
 			this.updateKnobPosition(this.getValue());
 		}
-		this.selected = this.sh;
-		this.$.knob.addRemoveClass("spotselect", this.sh);
+		this.$.knob.addRemoveClass("spotselect", this.selected);
 		return true;
 	},
 	spotBlur: function() {
@@ -431,7 +430,6 @@ enyo.kind({
 			if (this.$.popup) {
 				this.$.popup.hide();
 			}
-			this.sh = false;
 			this.selected = false;
 		}
 	},
