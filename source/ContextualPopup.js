@@ -17,7 +17,7 @@ enyo.kind({
 		onActivate                : "decorateActivateEvent",
 		onRequestScrollIntoView   : "_preventEventBubble",
 		onSpotlightContainerLeave : "onLeave",
-		onSpotlightKeyDown		  : "onSpotlightKeyDown"
+		onSpotlightKeyDown        : "onSpotlightKeyDown"
 	},
 	//* @public
 	published: {
