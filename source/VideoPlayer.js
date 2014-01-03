@@ -998,10 +998,10 @@ enyo.kind({
 		var m = this.$.client.children;
 		var p = this.$.playbackControls.children;
 		for (var i = 0; i < m.length; i++) {
-			m[i].spotlight = trueOrFalse;
+			m[i].spotlightDisabled = !trueOrFalse;
 		}
 		for (var j = 0; j < p.length; j++) {
-			p[j].spotlight = !trueOrFalse;
+			p[j].spotlightDisabled = trueOrFalse;
 		}
 	},
 
