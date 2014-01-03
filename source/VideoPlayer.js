@@ -534,7 +534,7 @@ enyo.kind({
 		return this.isFullscreen() || !this.get("inline");
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
-		if (this.isLarge()) {
+		if (this.isLarge() && !inEvent.spotSentFromContainer) {
 			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
 				if (!this.$.videoInfoHeader.getShowing()) {
@@ -547,7 +547,7 @@ enyo.kind({
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		if (this.isLarge()) {
+		if (this.isLarge() && !inEvent.spotSentFromContainer) {
 			// Toggle info header on "down" press
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
@@ -932,7 +932,7 @@ enyo.kind({
 	formatTime: function(inValue) {
 		var hour = Math.floor(inValue / (60*60));
 		var min = Math.floor((inValue / 60) % 60);
-		var sec = Math.floor(inValue % 60);
+		var sec = Math.round(inValue % 60);
 		if (this.durfmt) {
 			var val = {minute: min, second: sec};
 			if (hour) {

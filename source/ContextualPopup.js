@@ -16,7 +16,8 @@ enyo.kind({
 		onRequestHidePopup        : "requestHide",
 		onActivate                : "decorateActivateEvent",
 		onRequestScrollIntoView   : "_preventEventBubble",
-		onSpotlightContainerLeave : "onLeave"
+		onSpotlightContainerLeave : "onLeave",
+		onSpotlightKeyDown		  : "onSpotlightKeyDown"
 	},
 	//* @public
 	published: {
@@ -148,6 +149,10 @@ enyo.kind({
 			enyo.Spotlight.spot(this.activator);
 			this.hide();
 		}
+	},
+	onSpotlightKeyDown: function(inSender, inEvent) {
+		// Inform other controls that spotlight event was generated within a container
+		inEvent.spotSentFromContainer = this.spotlight === "container";
 	},
 	_preventEventBubble: function(inSender, inEvent) {
 		return true;
