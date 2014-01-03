@@ -82,14 +82,15 @@ enyo.kind({
 		if (this.showing && this.hasNode()) {
 
 			var b = this.node.getBoundingClientRect(),
-				moonDefaultPadding = 20;
+				moonDefaultPadding = 20,
+				pBounds = null;
 
 			//when the tooltip bottom goes below the window height move it above the decorator
 			if ((b.top + b.height > window.innerHeight - moonDefaultPadding) || (this.position == "above")) {
 				this.removeClass("below");
 				this.addClass("above");
 				if (this.get("floating")) {
-					var pBounds = this.parent.getAbsoluteBounds();
+					pBounds = this.parent.getAbsoluteBounds();
 					this.applyStyle("top", (pBounds.top - b.height) + "px" );
 					this.applyStyle("left", (pBounds.left + (pBounds.width / 2)) + "px" );
 				}
@@ -101,7 +102,7 @@ enyo.kind({
 				this.removeClass("above");
 				this.addClass("below");
 				if (this.get("floating")) {
-					var pBounds = this.parent.getAbsoluteBounds();
+					pBounds = this.parent.getAbsoluteBounds();
 					this.applyStyle("top", (pBounds.top + pBounds.height) + "px" );
 					this.applyStyle("left", (pBounds.left + (pBounds.width / 2)) + "px" );
 				}
