@@ -608,8 +608,8 @@ enyo.kind({
 			if (this.$.video.isPaused()) {
 				this.updateFullscreenPosition();
 			}
-			// When controls are visible, set as container to remember last focused control
-			this.set("spotlight", "container");
+			// Prevent player from being spottable so that spotlight focus is limited to bottom controls
+			this.set("spotlight", false);
 		}
 	},
 	spotFSBottomControls: function() {
