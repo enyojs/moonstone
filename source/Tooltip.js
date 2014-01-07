@@ -138,7 +138,6 @@ enyo.kind({
 		this.addRemoveClass("left-arrow", true);
 		this.addRemoveClass("right-arrow", false);
 		this.applyStyle("top", "100%");
-		this.$.client.addRemoveClass("right-arrow", false);
 		this.adjustPosition(true);
 		this.inherited(arguments);
 	}
