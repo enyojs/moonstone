@@ -412,7 +412,7 @@ enyo.kind({
 		}
 	},
 	spotSelect: function() {
-		this.selected = (this.selected === undefined) ? !this.$.popup.getShowing() : !this.selected;
+		this.selected = !this.selected;
 		if (!this.noPopup) {
 			this.$.popup.setShowing(this.selected);
 			this.updateKnobPosition(this.getValue());
