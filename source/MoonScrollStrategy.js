@@ -128,7 +128,6 @@ enyo.kind({
 			inY = Math.max(Math.min(inY, b.maxTop),  0);
 			this.effectScroll(inX, inY);
 			this.bubble("onScroll");
-			this.alertThumbs();
 		} else {
 			this._scrollTo(inX, inY);
 		}
@@ -408,6 +407,7 @@ enyo.kind({
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
+				this.alertThumbs();
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				this.scrollBounds = null;
 				return true;
