@@ -220,12 +220,13 @@ enyo.kind({
 	selectedIndexChanged: function() {
 		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
 		this.updateMarqueeDisable();
+		this.startMarquee();
 		this.setSelected(this.getClientControls()[this.selectedIndex]);
 		this.fireChangedEvent();
 		this.showHideNavButtons();
 	},
 	updateMarqueeDisable: function() {
-		this.waterfall("onRequestMarqueeStop");
+		this.stopMarquee();
 		for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
 			if (i == this.selectedIndex) {
 				c$[i].disabled = false;
