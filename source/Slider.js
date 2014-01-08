@@ -115,6 +115,7 @@ enyo.kind({
 	animatingTo: null,
 	popupLeftCanvasWidth: 26, // Popup left canvas width in pixel
 	popupRightCanvasWidth: 26, // Popup right canvas width in pixel
+	selected: false,
 
 	//* @public
 
