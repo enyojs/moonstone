@@ -932,7 +932,7 @@ enyo.kind({
 	formatTime: function(inValue) {
 		var hour = Math.floor(inValue / (60*60));
 		var min = Math.floor((inValue / 60) % 60);
-		var sec = Math.round(inValue % 60);
+		var sec = Math.floor(inValue % 60);
 		if (this.durfmt) {
 			var val = {minute: min, second: sec};
 			if (hour) {
@@ -994,15 +994,9 @@ enyo.kind({
 			this.$.moreButton.setSrc(t(this.lessControlsIcon));
 		}
 	},
-	toggleSpotlightForMoreControls: function(trueOrFalse) {
-		var m = this.$.client.children;
-		var p = this.$.playbackControls.children;
-		for (var i = 0; i < m.length; i++) {
-			m[i].spotlightDisabled = !trueOrFalse;
-		}
-		for (var j = 0; j < p.length; j++) {
-			p[j].spotlightDisabled = trueOrFalse;
-		}
+	toggleSpotlightForMoreControls: function(moreControlsSpottable) {
+		this.$.playbackControls.spotlightDisabled = moreControlsSpottable;
+		this.$.client.spotlightDisabled = !moreControlsSpottable;
 	},
 
 	///////// VIDEO EVENT HANDLERS /////////
