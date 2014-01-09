@@ -407,6 +407,7 @@ enyo.kind({
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
+				this.alertThumbs();
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				this.scrollBounds = null;
 				return true;
