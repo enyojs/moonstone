@@ -122,7 +122,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.initCalendar();
-		this.setValue(this.value || new Date());
+		this.set("value", this.value || new Date(), true);
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({
 				type: "date",	//only format the date component, not the time
