@@ -32,7 +32,7 @@ enyo.kind({
             {
                 components: [
 					{kind: "moon.Divider", content:"Category"},
-					{name: "wizList", kind: "moon.DataList", components: [
+					{name: "wizList", kind: "moon.DataList", fit: true, components: [
 						{
 							bindings: [
 								{from: ".model.step", to: ".$.wizardListItem.content"},
@@ -50,7 +50,7 @@ enyo.kind({
     ],
     bindings: [
         {from: ".controller.title", to: ".title"},
-        {from: ".controller.wizResults", to: ".$.wizListAction.$.listActionsContainer.$.wizList.controller"}
+		{from: ".controller.wizResults", to: ".$.wizList.collection"}
     ],
     create: function() {
 		this.inherited(arguments);
@@ -83,9 +83,6 @@ enyo.kind({
         {from: ".controller", to: ".$.stepPage4.controller"},
         {from: ".controller", to: ".$.confirmPage.controller"}
     ],
-    create: function() {
-		this.inherited(arguments);
-    },
     closeListAction: function(sender) {
         var p = this.$[sender].$.header.$.wizListAction;
         if(p.getOpen())
@@ -163,12 +160,14 @@ enyo.ready(function(){
 			components: [
 				{
 					kind: "moon.sample.wizard.ActionMenuSample",
-					controller: ".app.controllers.WizardController",
-					classes: "enyo-fit"
+					classes: "enyo-fit",
+					bindings: [
+						{from: ".app.$.WizardController", to: ".controller"}
+					]
 				}
 			]
 		},
-		controllers: [
+		components: [
 			{
 				name: "WizardController",
 				kind: "enyo.ModelController",

@@ -30,7 +30,7 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".controller.title", to: ".title"},
-		{from: ".controller.wizResults", to: ".$.resultList.controller"}
+		{from: ".controller.wizResults", to: ".$.resultList.collection"}
 	],
 	initialSetting: function() {
 		var idx = this.indexInContainer();
