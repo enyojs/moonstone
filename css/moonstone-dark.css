@@ -3670,14 +3670,14 @@
   padding-top: 10px;
 }
 .moon-audio-slider.spotlight > .moon-slider-knob {
-  background-color: #ffb80d;
+  background-color: #cf0652;
 }
 .moon-audio-slider > .moon-slider-knob,
 .moon-audio-slider > .moon-slider-knob.disabled:active:hover {
   height: 30px;
   width: 30px;
   border-radius: 15px;
-  margin: -17px -16px;
+  margin: -13px -16px;
   background-color: #808080;
 }
 .moon-audio-slider > .moon-slider-knob.active,
@@ -3686,7 +3686,7 @@
   height: 34px;
   width: 34px;
   border-radius: 17px;
-  margin: -19px -18px;
+  margin: -15px -18px;
   background-color: #808080;
 }
 .moon-audio-slider.moon-progress-bar {
@@ -3720,7 +3720,7 @@
 .moon-audio-queue-album-art {
   width: 80px;
   height: 80px;
-  background: transparent url() no-repeat 0px 0px;
+  background: transparent none no-repeat 0px 0px;
   padding-right: 10px;
 }
 .moon-video-transport-slider {
