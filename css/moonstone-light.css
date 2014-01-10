@@ -3607,7 +3607,7 @@
   left: 4px;
   width: 128px;
   height: 128px;
-  background: transparent url() no-repeat 0px 0px;
+  background: transparent none no-repeat 0px 0px;
   display: inline-block;
 }
 .moon-audio-playback-playtime {
@@ -3650,6 +3650,17 @@
 .moon-audio-icon-button.right {
   float: right;
 }
+.enyo-locale-right-to-left .moon-audio-control-buttons {
+  direction: ltr;
+}
+.enyo-locale-right-to-left .moon-audio-play-time.right,
+.enyo-locale-right-to-left .moon-audio-icon-button.left {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-audio-play-time.left,
+.enyo-locale-right-to-left .moon-audio-icon-button.right {
+  float: left;
+}
 /* AudioPlayback styles for Slider */
 .moon-audio-slider-container {
   padding-top: 10px;
@@ -3678,6 +3689,7 @@
   background-color: #cccccc;
   margin: 0px;
   top: 10px;
+  direction: ltr;
 }
 .moon-audio-slider > .moon-progress-bar-bar {
   background-color: #666666;
