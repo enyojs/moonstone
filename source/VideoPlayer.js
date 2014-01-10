@@ -213,6 +213,7 @@ enyo.kind({
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
+		onSpotlightKeyDown: 'spotlightKeyDownHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -557,6 +558,12 @@ enyo.kind({
 			return true;
 		}
 	},
+	spotlightKeyDownHandler: function(inSender, inEvent) {
+		// Do not decorate event with spotlight container flag if sent from control whose events player should handle
+		if (inEvent.spotSentFromContainer && (enyo.Spotlight.getParent(inEvent.originator) === this || inEvent.originator === this)) {
+			inEvent.spotSentFromContainer = false;
+		}
+	},
 
 	///// Fullscreen controls /////
 
@@ -608,8 +615,8 @@ enyo.kind({
 			if (this.$.video.isPaused()) {
 				this.updateFullscreenPosition();
 			}
-			// Prevent player from being spottable so that spotlight focus is limited to bottom controls
-			this.set("spotlight", false);
+			// When controls are visible, set as container to remember last focused control
+			this.set("spotlight", "container");
 		}
 	},
 	spotFSBottomControls: function() {
