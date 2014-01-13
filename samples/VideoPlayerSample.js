@@ -10,7 +10,6 @@ enyo.kind({
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 			poster: "assets/video-poster.png",
 			autoplay:true,
-			autoCloseTimeout: 99999999,
 			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
