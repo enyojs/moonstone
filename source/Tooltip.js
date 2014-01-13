@@ -37,6 +37,7 @@ enyo.kind({
 		defaultLeft: 10
 	},
 	//* @protected
+	captureEvents: false,
 	handlers: {
 		onRequestShowTooltip: "requestShow",
 		onRequestHideTooltip: "requestHide"
