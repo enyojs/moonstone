@@ -81,19 +81,34 @@ enyo.kind({
 	adjustPosition: function(belowActivator) {
 		if (this.showing && this.hasNode()) {
 
-			var b = this.node.getBoundingClientRect();
-			var moonDefaultPadding = 20;
+			var b = this.node.getBoundingClientRect(),
+				moonDefaultPadding = 20,
+				pBounds = null;
 
 			//when the tooltip bottom goes below the window height move it above the decorator
 			if ((b.top + b.height > window.innerHeight - moonDefaultPadding) || (this.position == "above")) {
 				this.removeClass("below");
 				this.addClass("above");
-				this.applyStyle("top", -b.height + "px");
+				if (this.get("floating")) {
+					pBounds = this.parent.getAbsoluteBounds();
+					this.applyStyle("top", (pBounds.top - b.height) + "px" );
+					this.applyStyle("left", (pBounds.left + (pBounds.width / 2)) + "px" );
+				}
+				else {
+					this.applyStyle("top", -b.height + "px");
+				}
 			}
 			if ((b.top  < 0) || (this.position == "below")) {
 				this.removeClass("above");
 				this.addClass("below");
-				this.applyStyle("top", "100%");
+				if (this.get("floating")) {
+					pBounds = this.parent.getAbsoluteBounds();
+					this.applyStyle("top", (pBounds.top + pBounds.height) + "px" );
+					this.applyStyle("left", (pBounds.left + (pBounds.width / 2)) + "px" );
+				}
+				else {
+					this.applyStyle("top", "100%");
+				}
 			}
 
 			// FIXME: Leaving the following commented until verification from UX
@@ -111,10 +126,9 @@ enyo.kind({
 			//when the tooltip's right edge is out of the window, align its right edge with the decorator left edge (approx)
 			if (b.left + b.width > window.innerWidth - moonDefaultPadding){
 				//use the right-arrow
-				this.applyPosition({'margin-left': -b.width});
+				this.applyPosition({"margin-left": -b.width + "px"});
 				this.removeClass("left-arrow");
 				this.addClass("right-arrow");
-				this.$.client.addClass("right-arrow");
 			}
 		}
 	},
@@ -124,7 +138,6 @@ enyo.kind({
 		this.addRemoveClass("left-arrow", true);
 		this.addRemoveClass("right-arrow", false);
 		this.applyStyle("top", "100%");
-		this.$.client.addRemoveClass("right-arrow", false);
 		this.adjustPosition(true);
 		this.inherited(arguments);
 	}
