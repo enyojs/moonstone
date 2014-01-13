@@ -115,6 +115,7 @@ enyo.kind({
 	animatingTo: null,
 	popupLeftCanvasWidth: 26, // Popup left canvas width in pixel
 	popupRightCanvasWidth: 26, // Popup right canvas width in pixel
+	selected: false,
 
 	//* @public
 
@@ -412,14 +413,12 @@ enyo.kind({
 		}
 	},
 	spotSelect: function() {
-		var sh = this.$.popup.getShowing();
-		this.$.knob.addRemoveClass("spotselect", !sh);
+		this.selected = !this.selected;
 		if (!this.noPopup) {
-			this.$.popup.setShowing(!sh);
+			this.$.popup.setShowing(this.selected);
 			this.updateKnobPosition(this.getValue());
 		}
-		this.selected = !sh;
-
+		this.$.knob.addRemoveClass("spotselect", this.selected);
 		return true;
 	},
 	spotBlur: function() {

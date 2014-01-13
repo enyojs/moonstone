@@ -69,6 +69,10 @@ enyo.kind({
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
 	},
+	destroy: function() {
+		enyo.dispatcher.release(this.$.drawer);
+		this.inherited(arguments);
+	},
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
 		this.listActions = this.listActions || [];

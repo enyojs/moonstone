@@ -114,7 +114,6 @@ enyo.kind({
 	//* Determines whether to display _closeButton_.
 	configCloseButton: function() {
 		if (this.showCloseButton === true || (this.spotlightModal && this.showCloseButton !== false)) {
-			this.activator.keepOpen = true;
 			this.$.closeButton.show();
 			this.$.closeButton.spotlight = true;
 			this.addClass("reserve-close");
