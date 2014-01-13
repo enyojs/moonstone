@@ -10,8 +10,5 @@ enyo.kind({
 	name: "moon.ContextualPopupButton",
 	kind: "moon.Button",
 	//* @protected
-	classes: "contextual-popup-button",
-	//* A flag used by _moon.ContextualPopupDecorator_ to determine what action to take if
-	//* spotlight navigation is attempted outside of _moon.ContextualPopup_
-	keepOpen: true
+	classes: "contextual-popup-button"
 });

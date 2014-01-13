@@ -213,6 +213,7 @@ enyo.kind({
 		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
+		onSpotlightKeyDown: 'spotlightKeyDownHandler',
 		onresize: 'resizeHandler'
 	},
     bindings: [
@@ -534,7 +535,7 @@ enyo.kind({
 		return this.isFullscreen() || !this.get("inline");
 	},
 	spotlightUpHandler: function(inSender, inEvent) {
-		if (this.isLarge()) {
+		if (this.isLarge() && !inEvent.spotSentFromContainer) {
 			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
 				if (!this.$.videoInfoHeader.getShowing()) {
@@ -547,7 +548,7 @@ enyo.kind({
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		if (this.isLarge()) {
+		if (this.isLarge() && !inEvent.spotSentFromContainer) {
 			// Toggle info header on "down" press
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
@@ -555,6 +556,12 @@ enyo.kind({
 				this.hideFSBottomControls();
 			}
 			return true;
+		}
+	},
+	spotlightKeyDownHandler: function(inSender, inEvent) {
+		// Do not decorate event with spotlight container flag if sent from control whose events player should handle
+		if (inEvent.spotSentFromContainer && (enyo.Spotlight.getParent(inEvent.originator) === this || inEvent.originator === this)) {
+			inEvent.spotSentFromContainer = false;
 		}
 	},
 
@@ -994,15 +1001,9 @@ enyo.kind({
 			this.$.moreButton.setSrc(t(this.lessControlsIcon));
 		}
 	},
-	toggleSpotlightForMoreControls: function(trueOrFalse) {
-		var m = this.$.client.children;
-		var p = this.$.playbackControls.children;
-		for (var i = 0; i < m.length; i++) {
-			m[i].spotlight = trueOrFalse;
-		}
-		for (var j = 0; j < p.length; j++) {
-			p[j].spotlight = !trueOrFalse;
-		}
+	toggleSpotlightForMoreControls: function(moreControlsSpottable) {
+		this.$.playbackControls.spotlightDisabled = moreControlsSpottable;
+		this.$.client.spotlightDisabled = !moreControlsSpottable;
 	},
 
 	///////// VIDEO EVENT HANDLERS /////////
