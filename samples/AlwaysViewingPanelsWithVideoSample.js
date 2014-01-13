@@ -28,6 +28,21 @@ enyo.kind({
 			]}
 		], components: [
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+			{kind: "moon.TooltipDecorator", components: [
+				{kind: "moon.ContextualPopupDecorator", components: [
+					{kind: "moon.Button", content: "Popup"},
+					{
+						kind: "moon.ContextualPopup",
+						classes: "moon-3h moon-6v",
+						components: [
+							{kind: "moon.Item", content:"Item 1"},
+							{kind: "moon.Item", content:"Item 2"},
+							{kind: "moon.Item", content:"Item 3"}
+						]
+					}
+				]},
+				{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
+			]},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 			{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
