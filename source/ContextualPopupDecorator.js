@@ -25,8 +25,7 @@ enyo.kind({
 	classes: "moon-contextual-popup-decorator",
 	handlers: {
 		onActivate: "activated",
-		onHide: "popupHidden",
-		onSpotlightBlur: "spotBlur"
+		onHide: "popupHidden"
 	},
 	activated: function(inSender, inEvent) {
 		// Don't process activate events that came from inside this decorator
@@ -48,11 +47,6 @@ enyo.kind({
 			this.activator.setActive(false);
 			this.activator.removeClass("active");
 			this.activator.removeClass("pressed");
-		}
-	},
-	spotBlur: function(inSender, inEvent) {
-		if ((this.activator !== undefined) && (!this.activator.keepOpen) && (this.popupActive) && (!enyo.Spotlight.getPointerMode())) {
-			this.requestHidePopup();
 		}
 	},
 	requestShowPopup: function() {
