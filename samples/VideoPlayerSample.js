@@ -10,6 +10,7 @@ enyo.kind({
 			src: "http://media.w3.org/2010/05/bunny/movie.mp4",
 			poster: "assets/video-poster.png",
 			autoplay:true,
+			autoCloseTimeout: 99999999,
 			onPlaybackControlsTapped: "controlsTapped",
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
@@ -47,8 +48,21 @@ enyo.kind({
 				{kind: "moon.Button", content:"Unload", ontap:"unload"},
 				{kind: "moon.Button", content:"Reload", ontap:"load"},
 				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.TooltipDecorator", components: [
+					{kind: "moon.ContextualPopupDecorator", components: [
+						{kind: "moon.Button", content: "Popup"},
+						{
+							kind: "moon.ContextualPopup",
+							classes: "moon-3h moon-6v",
+							components: [
+								{kind: "moon.Item", content:"Item 1"},
+								{kind: "moon.Item", content:"Item 2"},
+								{kind: "moon.Item", content:"Item 3"}
+							]
+						}
+					]},
+					{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
+				]},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
