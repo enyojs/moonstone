@@ -26,13 +26,17 @@
 .moon-input-header .moon-input.moon-header-title {
 	position: static;
 }
-.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
+.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
+.moon-input-header .moon-input.moon-header-title::-moz-placeholder,
+.moon-input-header .moon-input.moon-header-title::-ms-input-placeholder {
 	color: @moon-input-header-placeholder-color;
 	margin-top:15px;
 	line-height: 1.25em;
 	text-transform: uppercase;
 }
-.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder,
+.moon-input-header-input-decorator.spotlight .moon-input::-moz-placeholder,
+.moon-input-header-input-decorator.spotlight .moon-input::-ms-input-placeholder {
 	color: @moon-spotlight-text-color;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
@@ -42,6 +46,8 @@
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
 	background: none;
 }
-.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder,
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-moz-placeholder,
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-ms-input-placeholder {
 	color: @moon-input-header-placeholder-color;
 }
