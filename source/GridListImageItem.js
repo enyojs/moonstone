@@ -14,6 +14,7 @@ enyo.kind({
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
 	spotlight: true,
+	centered: true,
     classes: "moon-gridlist-item moon-gridlist-imageitem",
 	componentOverrides: {
 		caption: { kind:"moon.MarqueeText" },
@@ -21,6 +22,13 @@ enyo.kind({
 	},
 	handlers: {
 		onSpotlightFocus: "focused"
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.centeredChanged();
+	},
+	centeredChanged: function() {
+		this.addRemoveClass("no-center", !this.centered);
 	},
 	focused: function (inSender, inEvent) {
 		if (inEvent.originator === this) {

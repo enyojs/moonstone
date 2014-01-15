@@ -331,7 +331,7 @@ moon.MarqueeItem = {
 	//* Returns _true_ if this control has enough content that it needs to animate.
 	_marquee_shouldAnimate: function(inDistance) {
 		inDistance = (inDistance && inDistance >= 0) ? inDistance : this._marquee_calcDistance();
-		return (inDistance > 0);
+		return (inDistance > 1);
 	},
 	//* Determines how far the marquee needs to scroll.
 	_marquee_calcDistance: function() {

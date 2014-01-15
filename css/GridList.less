@@ -21,10 +21,15 @@
 	.caption {
 		.moon-sub-header-text;
 	}
-	.sub-caption {
-		.moon-body-text;
+	&.no-center {
+		.caption, 
+		.sub-caption {
+			text-align: left;
+			text-align: start;
+		}
 	}
 	.sub-caption {
+		.moon-body-text;
 		color: @moon-gridlist-sub-caption-color;
 		line-height: 1.25em;
 		height: 1.25em;
