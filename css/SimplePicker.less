@@ -1,7 +1,7 @@
 .moon-simple-picker {
 	display: inline-block;
 	max-width: 350px;
-	box-sizing: border-box;
+	.border-box;
 	padding: 0 @moon-picker-button-width + 10px;
 	position: relative;
 	height: @moon-picker-button-width;
@@ -20,7 +20,7 @@
 	width: 100%;
 	overflow: hidden;
 	position: relative;
-	box-sizing: border-box;
+	.border-box;
 }
 .moon-simple-picker-client {
 	white-space: nowrap;
@@ -34,13 +34,13 @@
 .moon-simple-picker-client > * {
 	display: inline-block;
 	vertical-align: middle;
-	box-sizing: border-box;
+	.border-box;
 	width: 100%;
 	line-height: @moon-picker-button-width;
 	height: @moon-picker-button-width;
 	color: @moon-simple-picker-item-text-color;
-	white-space:nowrap; 
-	text-align: center; 
+	white-space:nowrap;
+	text-align: center;
 }
 .moon-simple-picker-client.disabled, .moon-simple-picker-button[disabled] {
 	opacity: @moon-disabled-opacity;

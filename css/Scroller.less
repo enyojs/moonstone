@@ -1,6 +1,6 @@
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
-	box-sizing: border-box;
+	.border-box;
 	height: 100%;
 	overflow: hidden;
 }
@@ -17,8 +17,7 @@
     transform-origin: center center;
     -webkit-transform-style: flat;
     transform-style: flat;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+	.border-box;
     -webkit-tap-highlight-color: transparent;
     pointer-events: auto;
     -webkit-user-select: none;
@@ -44,7 +43,7 @@
 	transition: opacity 0.1s linear;
 	-moz-transition: opacity 0.1s linear;
 	-webkit-transition: opacity 0.1s linear;
-	
+
 	transform: translateZ(1px);
 	-o-transform: translateZ(1px);
 	-ms-transform: translateZ(1px);

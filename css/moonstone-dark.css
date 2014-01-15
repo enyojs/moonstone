@@ -718,6 +718,7 @@
 /* IconButton.css */
 .moon-icon-button {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   width: 85px;
   height: 85px;
   border-radius: 42.5px;
@@ -812,6 +813,7 @@
   display: inline-block;
   max-width: 350px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   padding: 0 70px;
   position: relative;
   height: 60px;
@@ -831,6 +833,7 @@
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .moon-simple-picker-client {
   white-space: nowrap;
@@ -845,6 +848,7 @@
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   width: 100%;
   line-height: 60px;
   height: 60px;
@@ -889,6 +893,7 @@
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .moon-simple-integer-picker.spotlight {
   background: #cf0652;
@@ -1572,6 +1577,7 @@
 .moon-expandable-list-item-header {
   margin-bottom: 0px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   max-width: 100%;
 }
 .moon-expandable-list-item-header.disabled {
@@ -1930,6 +1936,7 @@
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 0;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   max-height: 155px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
@@ -2251,6 +2258,7 @@
   border: 5px solid transparent;
   background-color: #ffffff;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
   padding: 5px 30px 9px;
@@ -2268,6 +2276,7 @@
   border: 5px solid transparent;
   background-color: #ffffff;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator),
 .enyo-locale-non-latin .moon-textarea-decorator {
@@ -2544,7 +2553,6 @@
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding-box;
   box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   background-color: #686868;
 }
@@ -2782,6 +2790,7 @@
 
   float: right;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .enyo-locale-right-to-left .moon-list-actions-menu {
   float: left;
@@ -2941,6 +2950,7 @@
   -webkit-transform: scale3d(1, 1, 1);
   z-index: 2;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .moon-panel-body {
   overflow: hidden;
@@ -2975,6 +2985,7 @@
   width: 100%;
   padding: 0 10px 10px 10px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .moon-panel-mini-header {
   margin-top: 25px;
@@ -3031,6 +3042,7 @@
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   padding: 20px 10px;
   overflow: visible;
   -webkit-transform: translate3d(0, 0, 0);
@@ -3260,7 +3272,7 @@
 /* Table.css */
 /*.moon-table {
 	padding-right: 2em;
-	box-sizing: border-box;
+	.border-box;
 }*/
 .moon-table-row.spotlight {
   background-color: #cf0652;
@@ -3276,6 +3288,7 @@
   border: 0px;
   width: 100%;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   background-color: transparent;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
@@ -3291,6 +3304,7 @@
   padding-right: 1px;
   display: inline-block;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   line-height: 1em;
   color: #a6a6a6;
   width: 100%;
@@ -3460,6 +3474,7 @@
   width: 100%;
   padding: 40px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   overflow: hidden;
 }
 .moon-popup.animate {
@@ -3961,6 +3976,7 @@
 /* --- Fullscreen control --- */
 .moon-video-fullscreen-control {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.1);
   transition: background-color 0.1s linear;
   -webkit-transition: background-color 0.1s linear;
@@ -3968,6 +3984,7 @@
 }
 .moon-video-fullscreen-control.scrim {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0);
 }
 /* ---- Header info styling ---- */
@@ -4444,6 +4461,7 @@
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   height: 100%;
   overflow: hidden;
 }
@@ -4458,8 +4476,8 @@
   transform-origin: center center;
   -webkit-transform-style: flat;
   transform-style: flat;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
   pointer-events: auto;
   -webkit-user-select: none;
@@ -4551,6 +4569,7 @@
 .moon-expandable-input .moon-input-decorator {
   width: 100%;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -4580,6 +4599,7 @@
   text-align: center;
   padding: 0 10px;
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .moon-objaction.vertical .moon-objaction-actions.stretch > * {
   width: 100%;
