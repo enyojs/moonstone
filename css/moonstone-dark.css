@@ -2504,12 +2504,12 @@
   margin-top: 4px;
   margin-bottom: 0px;
   background-color: #ffffff;
-  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 .moon-textarea-decorator .moon-richtext:focus::-webkit-scrollbar-thumb:vertical {
   height: 10px;
   background-color: #a6a6a6;
-  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 /*ContextualPopupButton.css*/
 .contextual-popup-button,
@@ -2731,12 +2731,12 @@
   margin-top: 4px;
   margin-bottom: 0px;
   background-color: #ffffff;
-  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 .moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-thumb:vertical {
   height: 10px;
   background-color: #a6a6a6;
-  -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 /* List Actions */
 .moon-list-actions {
