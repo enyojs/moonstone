@@ -300,13 +300,14 @@ enyo.kind({
 		this.$.popupLabel.setContent(label);
 	},
 	calcPopupLabel: function(inKnobValue) {
-		var label = (typeof ilib !== "undefined") ? this._nf.format(Math.round(inKnobValue)) : Math.round(inKnobValue);
-
 		if (this.showPercentage) {
-			label += "%";
+			if (typeof ilib !== "undefined") {
+				inKnobValue = this._nf.format(Math.round(inKnobValue))
+			} else {
+				inKnobValue = Math.round(inKnobValue) + "%";
+			}
 		}
-
-		return label;
+		return inKnobValue;
 	},
 	calcKnobPosition: function(inEvent) {
 		var x;

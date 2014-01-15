@@ -184,14 +184,6 @@ enyo.kind({
 			this.setTitleAbove(n);
 		}
 	},
-	//* Updates _this.header_ when _title_ changes.
-	titleChanged: function() {
-		this.$.header.setTitle(this.getTitle());
-	},
-	//* Updates _this.header_ when _titleAbove_ changes.
-	titleAboveChanged: function() {
-		this.$.header.setTitleAbove(this.getTitleAbove());
-	},
 	generateAutoNumber: function() {
 		var adjustedIndex = this.indexInContainer() + 1;
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
