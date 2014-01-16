@@ -88,6 +88,7 @@ enyo.kind({
 
 	headerComponents: [],
 	isBreadcrumb: false,
+	isOffscreen: false,
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
@@ -142,9 +143,9 @@ enyo.kind({
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 	},
-	//* When _this.isBreadcrumb_ changes, updates spottability.
-	isBreadcrumbChanged: function() {
-		if (this.isBreadcrumb) {
+	//* Updates spottability.
+	updatesSpottability: function() {
+		if (this.isBreadcrumb && !this.isOffscreen) {
 			this.addSpottableBreadcrumbProps();
 		} else {
 			this.removeSpottableBreadcrumbProps();
@@ -238,6 +239,8 @@ enyo.kind({
 	// Called directly by moon.Panels
 	initPanel: function(inInfo) {
 		this.set("isBreadcrumb", inInfo.breadcrumb);
+		this.set("isOffscreen", inInfo.offscreen);
+		this.updatesSpottability();
 		if (this.isBreadcrumb) {
 			this.needsToShrink = true;
 		}
@@ -277,6 +280,8 @@ enyo.kind({
 			}
 		}
 		this.set("isBreadcrumb", inInfo.breadcrumb);
+		this.set("isOffscreen", inInfo.offscreen);
+		this.updatesSpottability();
 		this.startMarqueeAsNeeded(inInfo);
 	},
 	shrinkAnimation: function() {
