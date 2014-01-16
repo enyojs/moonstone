@@ -80,7 +80,6 @@ enyo.kind({
 		this.show();
 		this.configCloseButton();
 		if (enyo.Spotlight.isSpottable(this)) {
-			enyo.Spotlight.setPointerMode(false);
 			enyo.Spotlight.spot(this);
 		}
 		return true;
