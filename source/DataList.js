@@ -195,7 +195,6 @@ enyo.kind({
 					this.updateBounds(list);
 					list.refresh();
 				}
-				list.$.scroller.scrollTo(0, 0);
 			};
 		}),
 		updateBounds: enyo.inherit(function (sup) {
