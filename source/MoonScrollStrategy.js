@@ -322,12 +322,7 @@ enyo.kind({
 	scrollMathScroll: function() {
 		this.inherited(arguments);
 
-		if (this.hovering) {
-			this.enableDisablePageControls();
-		} else {
-			this.hidePageControls();
-		}
-
+		this.enableDisablePageControls();
 		this.showHideScrollColumns(true);
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
