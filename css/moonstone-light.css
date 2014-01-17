@@ -4656,6 +4656,7 @@
 .selection-enabled .moon-selection-overlay-support .spotlight.selected .moon-selection-overlay-support-scrim,
 .selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim {
   display: block;
+  visibility: hidden;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
   background-position: center 0;
@@ -4664,6 +4665,7 @@
   background-color: #ffffff;
   border-color: #ffffff;
   background-position: 0 -50px;
+  visibility: visible;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.disabled {
   border-color: transparent;
