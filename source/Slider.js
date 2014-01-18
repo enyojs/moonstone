@@ -301,7 +301,7 @@ enyo.kind({
 	calcPopupLabel: function(inKnobValue) {
 		if (this.showPercentage) {
 			if (typeof ilib !== "undefined") {
-				inKnobValue = this._nf.format(Math.round(inKnobValue))
+				inKnobValue = this._nf.format(Math.round(inKnobValue));
 			} else {
 				inKnobValue = Math.round(inKnobValue) + "%";
 			}
