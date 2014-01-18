@@ -483,19 +483,19 @@
   line-height: 32px;
 }
 .moon-body-text a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-body-text a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-body-text a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-body-text a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-bold-text {
@@ -508,19 +508,19 @@
   line-height: 32px;
 }
 .moon-bold-text a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-bold-text a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-bold-text a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-bold-text a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-body-text-spacing {
@@ -737,7 +737,7 @@
 .moon-icon-button.hover:hover:not(.disabled),
 .moon-icon-button.spotlight {
   color: #ffffff;
-  background-color: #ad560c;
+  background-color: #f7590e;
   background-position: center -75px;
 }
 .moon-icon-button.hover:hover:not(.disabled).small,
@@ -753,7 +753,7 @@
   background-color: transparent;
 }
 .moon-icon-button.no-background.spotlight {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .moon-icon.moon-icon-button.active,
 .moon-icon.moon-icon-button:active,
@@ -762,7 +762,7 @@
 .moon-icon.moon-icon-button.spotlight:active,
 .moon-icon.moon-icon-button.hover:active:not(.disabled) {
   background-position: center 0;
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
   background-color: #ffffff;
   color: #a6a6a6;
 }
@@ -889,7 +889,7 @@
   box-sizing: border-box;
 }
 .moon-simple-integer-picker.spotlight {
-  background: #ad560c;
+  background: #f7590e;
 }
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
   color: #ffffff;
@@ -972,7 +972,7 @@
   border-radius: 30px;
   border-left-width: 30px;
   border-left-style: solid;
-  border-left-color: #ad560c;
+  border-left-color: #f7590e;
   left: 6px;
 }
 .enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
@@ -980,7 +980,7 @@
   border-right-style: solid;
   border-left-width: 0px;
   border-left-style: none;
-  border-right-color: #ad560c;
+  border-right-color: #f7590e;
   left: 0px;
   right: 6px;
 }
@@ -1014,7 +1014,7 @@
   border-radius: 30px;
   border-right-width: 30px;
   border-right-style: solid;
-  border-right-color: #ad560c;
+  border-right-color: #f7590e;
   right: 6px;
 }
 .enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
@@ -1022,7 +1022,7 @@
   border-left-style: solid;
   border-right-width: 0px;
   border-right-style: none;
-  border-left-color: #ad560c;
+  border-left-color: #f7590e;
   right: -6px;
 }
 .moon-simple-integer-picker-button.left {
@@ -1220,7 +1220,7 @@
   position: relative;
 }
 .moon-toggle-button.moon-overlay {
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
 }
 .moon-toggle-button-text {
   position: relative;
@@ -1258,7 +1258,7 @@
   filter: alpha(opacity=60);
 }
 .moon-item.spotlight {
-  background-color: #ad560c;
+  background-color: #f7590e;
   color: #ffffff;
 }
 /* SelectableItem.css */
@@ -1266,7 +1266,7 @@
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background-color: #ad560c;
+  background-color: #f7590e;
   display: none;
   position: absolute;
   left: 10px;
@@ -1375,16 +1375,16 @@
 .moon-button.spotlight.pressed,
 .moon-button.spotlight:active,
 .moon-button.small.spotlight.pressed {
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
   background-color: #ffffff;
   color: #4b4b4b;
 }
 .moon-button:active:hover:not([disabled]) {
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
   background-color: #ffffff;
 }
 .moon-button.spotlight {
-  background: #ad560c;
+  background: #f7590e;
   color: #ffffff;
 }
 .moon-button[disabled] {
@@ -1397,7 +1397,7 @@
 .moon-neutral .moon-button.spotlight.pressed,
 .moon-neutral .moon-button.spotlight:active,
 .moon-neutral .moon-button.small.spotlight.pressed {
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
   background-color: #ffffff;
 }
 .moon-neutral .moon-button.active *,
@@ -1508,7 +1508,7 @@
   background-color: #4d4d4d;
 }
 .moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client,
 .enyo-locale-right-to-left .moon-radio-item.selected .moon-selectable-item-client {
@@ -1552,10 +1552,10 @@
 .moon-radio-item-group .moon-button.spotlight,
 .moon-radio-item-group .moon-button.spotlight:active {
   border: none;
-  color: #ad560c;
+  color: #f7590e;
 }
 .enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
-  border-right: 21px solid #ad560c;
+  border-right: 21px solid #f7590e;
   border-left: 0;
 }
 /* ExpandableListItem */
@@ -1594,19 +1594,19 @@
   line-height: 32px;
 }
 .moon-expandable-list-item-client .moon-item a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-list-item-client .moon-item a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-list-item-client .moon-item a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-list-item-client .moon-item a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
@@ -1676,19 +1676,19 @@
   padding-left: 34px;
 }
 .moon-expandable-picker-current-value a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-picker-current-value a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-picker-current-value a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-picker-current-value a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-current-value {
@@ -1717,7 +1717,7 @@
 }
 .moon-expandable-integer-picker.spotlight {
   padding: 0px 0px 0px 4px;
-  border-left: 16px solid #ad560c;
+  border-left: 16px solid #f7590e;
 }
 .moon-item.moon-expandable-integer-picker-header {
   padding: 0px;
@@ -1751,19 +1751,19 @@
   padding: 0px;
 }
 .moon-expandable-integer-picker-current-value a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-integer-picker-current-value a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-integer-picker-current-value a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-integer-picker-current-value a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
@@ -1862,19 +1862,19 @@
   height: 44px;
 }
 .moon-header-sub-title-below a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-header-sub-title-below a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-header-sub-title-below a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-header-sub-title-below a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-header-sub-title-below {
@@ -1997,19 +1997,19 @@
   vertical-align: bottom;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-gridlist-imageitem .sub-caption a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-gridlist-imageitem.selected {
@@ -2021,8 +2021,8 @@
   color: #ffffff;
 }
 .moon-gridlist-imageitem.spotlight {
-  border: 5px solid #ad560c;
-  background-color: #ad560c;
+  border: 5px solid #f7590e;
+  background-color: #f7590e;
 }
 .moon-gridlist-imageitem.spotlight .caption,
 .moon-gridlist-imageitem.spotlight .sub-caption {
@@ -2077,7 +2077,7 @@
   border-radius: 45px;
 }
 .spotlight .moon-scroll-picker {
-  background: #ad560c;
+  background: #f7590e;
   color: #ffffff;
 }
 .moon-scroll-picker-item {
@@ -2136,13 +2136,13 @@
   top: 0;
   border-top-style: solid;
   border-radius: 45px 45px 0 0;
-  background: #ad560c url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
+  background: #f7590e url(../images/LightTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay.bottom {
   bottom: 0;
   border-bottom-style: solid;
   border-radius: 0 0 45px 45px;
-  background: #ad560c url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
+  background: #f7590e url(../images/LightTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
 }
 .moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
   display: block;
@@ -2196,19 +2196,19 @@
   color: #4b4b4b;
 }
 .moon-input a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-input a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-input a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-input a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-input {
@@ -2277,7 +2277,7 @@
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator).spotlight,
 .moon-textarea-decorator.spotlight {
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
 }
 .moon-input-decorator.moon-disabled,
 .moon-textarea-decorator.moon-disabled {
@@ -2306,7 +2306,7 @@
 }
 .moon-progress-bar-bar {
   height: 100%;
-  background-color: #ad560c;
+  background-color: #f7590e;
   position: absolute;
   top: 0;
 }
@@ -2341,10 +2341,10 @@
   margin: -43px;
 }
 .moon-slider.spotlight > .moon-progress-bar-bar {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .moon-slider.spotlight > .moon-slider-knob {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .moon-slider.spotlight > .moon-slider-knob.spotselect {
   height: 60px;
@@ -2352,7 +2352,7 @@
   border-radius: 30px;
   margin: -30px;
   background-color: #ffffff;
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
 }
 .moon-slider.disabled {
   cursor: default;
@@ -2423,7 +2423,7 @@
   -moz-transform: scaleX(-1);
 }
 .moon-slider-focus {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .moon-slider-nofocus {
   background-color: #ffffff;
@@ -2448,19 +2448,19 @@
   color: #4b4b4b;
 }
 .moon-richtext a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-richtext a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-richtext a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-richtext a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-richtext {
@@ -2676,19 +2676,19 @@
   color: #4b4b4b;
 }
 .moon-textarea a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-textarea a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-textarea a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-textarea a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-textarea {
@@ -2846,19 +2846,19 @@
   padding: 0px;
 }
 .moon-labeledtextitem .text a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-labeledtextitem .text a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-labeledtextitem .text a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-labeledtextitem .text a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-labeledtextitem .text {
@@ -2992,7 +2992,7 @@
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight {
-  background: #ad560c;
+  background: #f7590e;
   color: #ffffff;
 }
 .moon-panel .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
@@ -3098,7 +3098,7 @@
   opacity: 1;
 }
 .moon-panels-handle-wrapper.spotlight .moon-panels-handle {
-  background-color: #ad560c;
+  background-color: #f7590e;
   -webkit-transform: translate3d(-120px, 0, 0);
 }
 .moon-panels-handle.right {
@@ -3247,7 +3247,7 @@
 .moon-calendar-picker-date.moon-button.small.spotlight.pressed,
 .moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
   color: #ffffff;
-  background-color: #ad560c;
+  background-color: #f7590e;
   border: 0px;
 }
 .moon-calendar-picker .moon-simple-picker-client > * {
@@ -3259,7 +3259,7 @@
 	box-sizing: border-box;
 }*/
 .moon-table-row.spotlight {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 /* TODO: Support for disabled table rows? */
 .moon-table-cell {
@@ -3311,7 +3311,7 @@
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
-  background-color: #ad560c;
+  background-color: #f7590e;
   color: #ffffff;
 }
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
@@ -3392,23 +3392,23 @@
 }
 /* Activator is spotlight focused */
 .moon-drawers-activator-wrapper.spotlight .moon-drawers-activator {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .spotlight .moon-drawers-activator-nub {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .spotlight .moon-drawers-activator-nub .down {
   border-color: white transparent transparent transparent;
 }
 .spotlight .moon-drawers-activator-nub .down::after {
-  border-color: #ad560c transparent transparent transparent;
+  border-color: #f7590e transparent transparent transparent;
 }
 .spotlight .moon-drawers-activator-nub .up {
   border-color: transparent transparent white transparent;
   background-image: url(../images/LightTheme_Icons/drawer_up_spotlight.png);
 }
 .spotlight .moon-drawers-activator-nub .up::after {
-  border-color: transparent transparent #ad560c transparent;
+  border-color: transparent transparent #f7590e transparent;
 }
 .moon-drawers-handle-container {
   position: absolute;
@@ -3477,7 +3477,7 @@
   margin: 0;
 }
 .moon-popup-close.spotlight {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .moon-icon.moon-popup-close {
   position: absolute;
@@ -3486,7 +3486,7 @@
 .moon-icon.moon-popup-close.pressed,
 .moon-icon.moon-popup-close.spotlight.pressed,
 .moon-icon.moon-popup-close.spotlight:active {
-  background-color: #ad560c;
+  background-color: #f7590e;
   color: #ffffff;
 }
 .enyo-locale-right-to-left .moon-popup.reserve-close {
@@ -3739,7 +3739,7 @@
 /* ---- Bar ---- */
 .moon-video-transport-slider-bar-bar {
   height: 100%;
-  background-color: #ad560c;
+  background-color: #f7590e;
   position: absolute;
   top: 0;
 }
@@ -3924,7 +3924,7 @@
   left: 0px;
   width: 0%;
   height: 80px;
-  background-color: #ad560c;
+  background-color: #f7590e;
   transition: width 0.1s linear;
   -webkit-transition: width 0.1s linear;
   -moz-transition: width 0.1s linear;
@@ -4083,7 +4083,7 @@
 .moon-video-feedback-text {
   display: inline-block;
   text-transform: uppercase;
-  color: #ad560c;
+  color: #f7590e;
   margin: 0 5px;
 }
 .moon-video-feedback-icon-left,
@@ -4147,19 +4147,19 @@
   margin-bottom: 10px;
 }
 .moon-video-player-info-subsubtitle a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-video-player-info-subsubtitle a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-video-player-info-subsubtitle a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-video-player-info-subsubtitle a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
@@ -4187,19 +4187,19 @@
   max-height: 96px;
 }
 .moon-video-player-info-description a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-video-player-info-description a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-video-player-info-description a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-video-player-info-description a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-non-latin .moon-video-player-info-description {
@@ -4391,19 +4391,19 @@
   font-size: 24px;
 }
 .moon-clock-meridiem a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-clock-meridiem a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-clock-meridiem a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-clock-meridiem a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-clock-bottom {
@@ -4560,10 +4560,10 @@
   background-image: url(../images/LightTheme_Icons/SmallCarat_up2.png);
 }
 .moon-highlight-text-highlighted {
-  color: #ad560c;
+  color: #f7590e;
 }
 .moon-item.spotlight .moon-highlight-text-highlighted {
-  color: #1e0f02;
+  color: #692403;
 }
 /* ObjectActionDecorator */
 .moon-objaction.vertical {
@@ -4605,7 +4605,7 @@
   padding: 10px;
 }
 .moon-objaction.vertical .moon-objaction-client .moon-item.spotlight > img {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 /* FormCheckbox.css */
 .moon-item.moon-formcheckbox-item {
@@ -4644,7 +4644,7 @@
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox,
 .moon-formcheckbox-item.spotlight .moon-checkbox[checked] {
-  background-color: #ad560c;
+  background-color: #f7590e;
 }
 .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #4b4b4b;
@@ -4656,7 +4656,7 @@
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
   background-position: center 0;
-  border: 5px solid #ad560c;
+  border: 5px solid #f7590e;
   color: #a6a6a6;
   background-color: #ffffff;
   border-color: #ffffff;
@@ -4725,6 +4725,8 @@
 }
 .moon-image > img {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 .moon-image-client {
   position: absolute;
@@ -4782,19 +4784,19 @@
   border-right: solid 2px transparent;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:link {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:visited {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:hover {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button a:active {
-  color: #ad560c;
+  color: #f7590e;
   text-decoration: none;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
@@ -4815,10 +4817,10 @@
 .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
   color: #ffffff;
   background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
-  border-right: solid 2px #ad560c;
+  border-right: solid 2px #f7590e;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
-  border-left: solid 2px #ad560c;
+  border-left: solid 2px #f7590e;
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
