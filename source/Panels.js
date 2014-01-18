@@ -97,7 +97,6 @@ enyo.kind({
 	_initialTransition: true,
 	//* Flag for panel transition
 	transitionInProgress: false,
-
 	//* @public
 
 	//* Returns true if a transition between panels is currently in progress.
