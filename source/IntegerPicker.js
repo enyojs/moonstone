@@ -149,7 +149,7 @@ enyo.kind({
 		return true;
 	},
 	hold: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy:"element", delay:1000});
+		inEvent.configureHoldPulse({stopStrategy:"element", delay:300});
 	},
 	updateOverlays: function() {
 		this.$.bottomOverlay.addRemoveClass("bottom-image", this.wrap || (this.value !== this.min));
