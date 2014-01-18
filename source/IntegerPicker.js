@@ -55,7 +55,7 @@ enyo.kind({
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"topOverlay", ondown:"next", onholdpulse:"next", classes:"moon-scroll-picker-overlay-container top top-image", components:[
+		{name:"topOverlay", ontap:"next", onholdpulse:"next", onhold:"hold", classes:"moon-scroll-picker-overlay-container top top-image", components:[
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
@@ -64,7 +64,7 @@ enyo.kind({
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
 		]},
-		{name:"bottomOverlay", ondown:"previous", onholdpulse:"previous", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
+		{name:"bottomOverlay", ontap:"previous", onholdpulse:"previous", onhold:"hold", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
 			{classes:"moon-scroll-picker-overlay bottom"},
 			{classes: "moon-scroll-picker-taparea"}
 		]}
@@ -148,6 +148,9 @@ enyo.kind({
 		this.fireChangeEvent();
 		return true;
 	},
+	hold: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({stopStrategy:"element", delay:300});
+	},
 	updateOverlays: function() {
 		this.$.bottomOverlay.addRemoveClass("bottom-image", this.wrap || (this.value !== this.min));
 		this.$.topOverlay.addRemoveClass("top-image", this.wrap || (this.value !== this.max));
@@ -196,6 +199,3 @@ enyo.kind({
 
 // For backward compatibility
 moon.IntegerScrollPicker = moon.IntegerPicker;
-
-// Tune holdpulse delay (this is global, but it's a fairly minor adjustment 200->300)
-enyo.gesture.drag.holdPulseDelay = 300;

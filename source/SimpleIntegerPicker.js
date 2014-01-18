@@ -75,7 +75,7 @@ enyo.kind({
 				{classes: "moon-scroll-picker-overlay-left"},
 				{classes: "moon-scroll-picker-overlay-left-border"} 
 			]},
-			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous", onholdpulse:"previous"}
+			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ontap: "previous", onholdpulse:"previous", onhold:"hold"}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
@@ -85,7 +85,7 @@ enyo.kind({
 				{classes: "moon-scroll-picker-overlay-right"},
 				{classes: "moon-scroll-picker-overlay-right-border"}
 			]},
-			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next", onholdpulse:"next"}
+			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ontap: "next", onholdpulse:"next", onhold:"hold"}
 		]}
 	],
 	observers: {
@@ -248,5 +248,8 @@ enyo.kind({
 		// Make sure scrollers that container integer pickers don't scroll
 		inEvent.preventDefault();
 		return true;
+	},
+	hold: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({stopStrategy:"element"});
 	}
 });
