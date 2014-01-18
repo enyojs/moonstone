@@ -55,7 +55,7 @@ enyo.kind({
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"topOverlay", ondown:"next", onholdpulse:"next", onhold:"hold", classes:"moon-scroll-picker-overlay-container top top-image", components:[
+		{name:"topOverlay", ontap:"next", onholdpulse:"next", onhold:"hold", classes:"moon-scroll-picker-overlay-container top top-image", components:[
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
@@ -64,7 +64,7 @@ enyo.kind({
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
 		]},
-		{name:"bottomOverlay", ondown:"previous", onholdpulse:"previous", onhold:"hold", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
+		{name:"bottomOverlay", ontap:"previous", onholdpulse:"previous", onhold:"hold", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
 			{classes:"moon-scroll-picker-overlay bottom"},
 			{classes: "moon-scroll-picker-taparea"}
 		]}
@@ -149,7 +149,7 @@ enyo.kind({
 		return true;
 	},
 	hold: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy:"element", delay:300});
+		inEvent.configureHoldPulse({stopStrategy:"element", delay:1000});
 	},
 	updateOverlays: function() {
 		this.$.bottomOverlay.addRemoveClass("bottom-image", this.wrap || (this.value !== this.min));
