@@ -375,6 +375,7 @@ enyo.kind({
 		this.dragging = false;
 		this.set("value",v);
 		this.sendChangeEvent({value: this.getValue()});
+		inEvent.preventTap();
 		this.$.knob.removeClass("active");
 		this.hideKnobStatus();
 		return true;
