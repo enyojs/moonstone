@@ -143,15 +143,8 @@ enyo.kind({
 	onSpotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput) {
-			if (oInput.hasFocus() && oEvent) {
-				// We're already focused, so let the
-				// input get the Enter key event.
-				oEvent.allowDomDefault();
-				return true;
-			} else {
-				oInput.focus();
-				return false;
-			}
+			oInput.focus();
+			return false;
 		}
 	},
 
