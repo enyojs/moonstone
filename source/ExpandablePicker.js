@@ -243,6 +243,8 @@ enyo.kind({
 		this.$.headerWrapper.stopMarquee();
 	},
 	drawerAnimationEnd: function() {
+		this.inherited(arguments);
 		this.$.drawer.spotlightDisabled = false;
+		return true;
 	}
 });
