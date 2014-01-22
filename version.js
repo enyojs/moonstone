@@ -1,3 +1,3 @@
 if (enyo && enyo.version) {
-	enyo.version.moonstone = "2.3.0-rc.4";
+	enyo.version.moonstone = "2.3.1-pre.1";
 }
