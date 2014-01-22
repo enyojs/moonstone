@@ -46,7 +46,26 @@
 			color: @moon-spotlight-text-color;
 		}
 	}
+	&.sized-image {
+		&.use-caption,
+		&.use-subcaption {
+			padding-bottom: 40px;
+		}
+		>.caption,
+		>.sub-caption {
+			position: absolute;
+			bottom: 0;
+		}
+		&.use-caption.use-subcaption {
+			padding-bottom: 80px;
+			> .caption {
+				position: absolute;
+				bottom: 35px;
+			}
+		}
+	}
 }
+
 .moon-gridlist .enyo-gridlist-row:last-child {
 	margin-bottom: 5*@moon-grid-gutter-width;
 }

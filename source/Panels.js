@@ -49,10 +49,10 @@ enyo.kind({
 			programmatically using the _showing_ property or the _hide_/_show_ API.
 			Only valid when _useHandle_ is true (or "auto" resulting in true).
 		*/
-		handleShowing: true
-	},
-	events: {
-		onHidePanels: ""
+		handleShowing: true,
+		//* When true, panels are automatically popped when the user moves back
+		popOnBack: false
+
 	},
 	//* @protected
 	narrowFit: false,
@@ -520,10 +520,18 @@ enyo.kind({
 			panel,
 			info;
 
-		for (i =0 ; (panel = panels[i]); i++) {
-			info = this.getTransitionInfo(i);
-			if (panel[method]) {
-				panel[method](info);
+		if (sendEvents) {
+			for (i =0 ; (panel = panels[i]); i++) {
+				info = this.getTransitionInfo(i);
+				if (panel[method]) {
+					panel[method](info);
+				}
+			}
+
+			if (this.popOnBack) {
+				if (this.toIndex < this.fromIndex) {
+					this.popPanels(this.toIndex + 1);
+				}
 			}
 		}
 
