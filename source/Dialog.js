@@ -39,7 +39,7 @@ enyo.kind({
 		this.messageChanged();
 	},
 	titleChanged: function() {
-		this.$.title.setContent(this.title);
+		this.$.title.setContent( enyo.toUpperCase(this.title) );
 	},
 	subTitleChanged: function() {
 		this.$.subTitle.setContent(this.subTitle);

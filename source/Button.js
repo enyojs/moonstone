@@ -88,7 +88,7 @@ enyo.kind({
 	//* Override to handle potential child components.
 	contentChanged: function() {
 		if (this.$.client) {
-			this.$.client.setContent(this.getContent());
+			this.$.client.setContent( enyo.toUpperCase(this.getContent()) );
 		} else {
 			this.inherited(arguments);
 		}
