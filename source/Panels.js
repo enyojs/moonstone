@@ -75,7 +75,7 @@ enyo.kind({
 			{name: "scrim", classes: "moon-panels-panel-scrim"},
 			{name: "client", tag: null}
 		]},
-		{name: "handleWrapper", kind: "enyo.Control", classes: "moon-panels-handle-wrapper hidden", canGenerate: false, ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocus: "handleFocus", onSpotlightBlur: "handleBlur", components: [
+		{name: "handleWrapper", kind: "enyo.Control", classes: "moon-panels-handle-wrapper hidden", canGenerate: false, ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocused: "handleFocused", onSpotlightBlur: "handleBlur", components: [
 			{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle"}
 		]},
 		{name: "showHideAnimator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
@@ -266,17 +266,21 @@ enyo.kind({
 			return true;
 		}
 	},
-	handleBlur: function() {
-		if (this.handleFocused) {
-			this.handleFocused = false;
+	handleBlur: function(inSender, inEvent) {
+		if (this.isHandleFocused) {
+			this.isHandleFocused = false;
 			if (!enyo.Spotlight.getPointerMode()) {
 				if (!this.showing) {
-					enyo.Signals.send("onPanelsHidden");
+					// Use asyncMethod to prevent blur/focus bounce as onPanelsHandleBlurred signal is also being sent
+					enyo.asyncMethod(this, "panelsHiddenAsync");
 				}
 			}
 		}
 		this.resetHandleAutoHide();
 		enyo.Signals.send("onPanelsHandleBlurred");
+	},
+	panelsHiddenAsync: function() {
+		enyo.Signals.send("onPanelsHidden");
 	},
 	resetHandleAutoHide: function(inSender, inEvent) {
 		this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
@@ -291,10 +295,10 @@ enyo.kind({
 		this.stopHandleAutoHide();
 		this.$.showHideHandle.removeClass("stashed");
 	},
-	handleFocus: function() {
+	handleFocused: function() {
 		this.unstashHandle();
 		this.startJob("autoHide", "handleSpotLeft", this.getAutoHideTimeout());
-		this.handleFocused = true;
+		this.isHandleFocused = true;
 		enyo.Signals.send("onPanelsHandleFocused");
 	},
 	handleShowingChanged: function() {
