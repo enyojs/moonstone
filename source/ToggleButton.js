@@ -55,6 +55,7 @@ enyo.kind({
 		this.setActive(this.value);
 	},
 	contentChanged: function() {
+		this.content = enyo.toUpperCase(this.content);
 		this.updateContent();
 	},
 	activeChanged: function() {
