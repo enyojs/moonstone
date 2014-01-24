@@ -1337,6 +1337,9 @@
 .moon-neutral .moon-button * {
   color: #4b4b4b;
 }
+.moon-neutral .moon-button[disabled] * {
+  color: #b3b3b3;
+}
 .moon-neutral .moon-button.spotlight * {
   color: #ffffff;
 }
