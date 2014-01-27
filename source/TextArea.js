@@ -15,6 +15,7 @@ enyo.kind({
 	kind: "enyo.TextArea",
 	//* @protected
 	classes: "moon-textarea",
+	spotlightIgnoredKeys: [13, 16777221],	// 13==Enter, 16777221==KeypadEnter
 	handlers: {
 		onblur: "blurred"
 	},
