@@ -72,6 +72,8 @@ enyo.kind({
 			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
+			enyo.Spotlight.unspot();
+			enyo.Spotlight.freeze();
 		}
 	},
 	//* Focuses the _moon.Input_ when the input decorator receives focus.
@@ -110,6 +112,7 @@ enyo.kind({
 		this.$.headerWrapper.stopMarquee();
 	},
 	drawerAnimationEnd: function() {
+		enyo.Spotlight.unfreeze();
 		this.focusInput();
 		this.inherited(arguments);
 	}
