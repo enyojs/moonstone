@@ -143,7 +143,11 @@ enyo.kind({
 	spotlightSelect: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput) {
-			oInput.focus();
+			if (oInput.hasFocus() && oEvent) {
+				return true;
+			} else {
+				oInput.focus();
+			}
 			return false;
 		}
 	},
