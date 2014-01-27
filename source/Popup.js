@@ -16,8 +16,8 @@ enyo.kind({
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
 		ontransitionend           : "animationEnd",
-		onSpotlightSelect         : "onSpotlightSelect",
-		onSpotlightContainerLeave : "onLeave"
+		onSpotlightSelect         : "handleSpotlightSelect",
+		onSpotlightContainerLeave : "handleLeave"
 	},
 
 	//* @public
@@ -101,7 +101,7 @@ enyo.kind({
 		this.$.client.setAllowHtml(this.allowHtml);
 	},
 	//* Sets _this.downEvent_ on _onSpotlightSelect_ event.
-	onSpotlightSelect: function(inSender, inEvent) {
+	handleSpotlightSelect: function(inSender, inEvent) {
 		this.downEvent = inEvent;
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
@@ -111,7 +111,7 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
-	onLeave: function(oSender, oEvent) {
+	handleLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
 			enyo.Spotlight.spot(this.activator);
 			this.hide();
