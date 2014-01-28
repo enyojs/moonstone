@@ -4235,6 +4235,7 @@
   vertical-align: top;
   text-align: right;
   white-space: normal;
+  max-width: 800px;
 }
 .moon-video-player-channel-info-badges > * {
   margin: 3px 0px 3px 10px;
