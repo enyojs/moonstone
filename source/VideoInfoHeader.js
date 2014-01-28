@@ -60,7 +60,7 @@ enyo.kind({
 		this.titleChanged();
 	},
 	titleChanged: function() {
-		this.$.title.set("content", this.get("titleUpperCase") ? enyo.toUpperCase(this.get("title") || "") : this.get("title") );
+		this.$.title.set("content", this.get("titleUpperCase") ? enyo.toUpperCase(this.get("title")) : this.get("title") );
 	},
 	titleUpperCaseChanged: function() {
 		this.titleChanged();
