@@ -322,7 +322,7 @@ enyo.kind({
 	},
 	//* @protected
 	contentChanged: function() {
-		this.$.title.setContent( this.getTitleUpperCase ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
+		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
 		this.placeholderChanged();
 	},
 	//* @protected
@@ -333,7 +333,7 @@ enyo.kind({
 	},
 	placeholderChanged: function() {
 		// For backward-compatibility with original API
-		this.$.titleInput.set("placeholder", this.getTitleUpperCase ? enyo.toUpperCase(this.placeholder || this.title || this.content) : (this.placeholder || this.title || this.content) );
+		this.$.titleInput.set("placeholder", this.getTitleUpperCase() ? enyo.toUpperCase(this.placeholder || this.title || this.content) : (this.placeholder || this.title || this.content) );
 	},
 	//* @protected
 	titleUpperCaseChanged: function() {
