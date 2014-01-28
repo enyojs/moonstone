@@ -394,10 +394,6 @@
   color: #4b4b4b;
   background-color: #ededed;
 }
-.moon-header-font {
-  font-family: "Moonstone Miso";
-  text-transform: uppercase;
-}
 .enyo-locale-right-to-left .moon {
   direction: rtl;
 }
@@ -410,7 +406,6 @@
 /* Text definitions */
 .moon-header-font {
   font-family: "Moonstone Miso";
-  text-transform: uppercase;
 }
 .moon-superscript {
   font-size: 24px;
@@ -439,7 +434,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
@@ -464,7 +458,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
 .moon-divider-text {
@@ -534,7 +527,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
 .moon-small-button-text {
@@ -543,7 +535,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
 }
 .moon-icon-text {
@@ -1168,7 +1159,6 @@
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
   text-align: left;
-  text-transform: uppercase;
   background: inherit;
   opacity: 1;
   background: transparent none no-repeat 0 0;
@@ -1218,7 +1208,6 @@
 /* Toggle.css */
 .moon-button.moon-toggle-button {
   text-align: center;
-  text-transform: uppercase;
   position: relative;
 }
 .moon-toggle-button.moon-overlay {
@@ -1826,7 +1815,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
   line-height: normal;
   height: 155px;
@@ -2404,7 +2392,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #ffffff;
@@ -3177,7 +3164,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-transform: uppercase;
 }
 .enyo-locale-non-latin .moon-calendar-picker-day {
   font-family: "Moonstone LG Display";
@@ -3283,7 +3269,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
   margin: 0px;
   padding-left: 1px;
@@ -3293,9 +3278,6 @@
   line-height: 1em;
   color: #4b4b4b;
   width: 100%;
-}
-.moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
-  text-transform: none;
 }
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone LG Display";
@@ -3308,7 +3290,6 @@
   color: #b1b1b1;
   margin-top: 15px;
   line-height: 1.25em;
-  text-transform: uppercase;
 }
 .moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
   color: #ffffff;
@@ -3536,7 +3517,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
   height: 59px;
   line-height: 59px;
@@ -3763,7 +3743,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
   color: #4b4b4b;
@@ -4088,7 +4067,6 @@
 }
 .moon-video-feedback-text {
   display: inline-block;
-  text-transform: uppercase;
   color: #cf0652;
   margin: 0 5px;
 }
@@ -4245,7 +4223,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: normal;
-  text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
 }
