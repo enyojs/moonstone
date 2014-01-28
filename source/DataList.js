@@ -22,7 +22,11 @@ moon.DataListSpotlightSupport = {
 			var spot;
 			if (enyo.Spotlight.getPointerMode() &&
 				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this)))) {
-				enyo.Spotlight.unspot();
+				// If we haven't enabled spotlightable controls,
+				if (this.$.scroller.spotlightPagingControls != true) {
+					// go ahead and unspot whatever's currently spotted.
+					enyo.Spotlight.unspot();
+				}
 				this._unspotSinceSpot = true;
 			}
 			return sup.apply(this, arguments);
