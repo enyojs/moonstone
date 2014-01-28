@@ -39,9 +39,15 @@ enyo.kind({
 		{kind: "enyo.Control", name: "client", classes: "moon-video-player-channel-info-badges"}
 	],
 	bindings: [
-		{from: ".channelNo",		to: ".$.channelNo.content"},
 		{from: ".channelName",		to: ".$.channelName.content"}
-	]
+	],
+	create: function() {
+		this.inherited(arguments);
+		this.channelNoChanged();
+	},
+	channelNoChanged: function() {
+		this.$.channelNo.set("content", enyo.toUpperCase(this.get("channelNo")) );
+	}
 });
 
 //* @public
