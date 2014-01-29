@@ -2614,8 +2614,8 @@
 }
 .moon-contextual-popup.left::after {
   left: 0%;
-  margin-left: -27px;
-  background-image: url(../images/LightTheme_Icons/ContextualMenu_Left.png);
+  margin-left: -26px;
+  background-image: url(../images/contxt_09.png);
 }
 /* Low nubs */
 .moon-contextual-popup.left.low::after,
