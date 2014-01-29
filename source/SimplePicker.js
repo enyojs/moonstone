@@ -250,11 +250,11 @@ enyo.kind({
 		}
 	},
 	downLeft: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
 		this.left();
 	},
 	downRight: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
 		this.right();
 	},
 	//* @public

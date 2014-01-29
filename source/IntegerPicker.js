@@ -149,11 +149,11 @@ enyo.kind({
 		return true;
 	},
 	downPrevious: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
 		this.previous(inSender, inEvent);
 	},
 	downNext: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
 		this.next(inSender, inEvent);
 	},
 	updateOverlays: function() {

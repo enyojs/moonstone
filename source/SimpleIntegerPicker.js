@@ -116,11 +116,11 @@ enyo.kind({
 		return true;
 	},
 	downPrevious: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
 		this.previous();
 	},
 	downNext: function(inSender, inEvent) {
-		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
 		this.next();
 	},
 	//* Facades the currently active panel.
