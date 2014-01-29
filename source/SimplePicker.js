@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -248,6 +248,14 @@ enyo.kind({
 		} else {
 			this.next();
 		}
+	},
+	downLeft: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		this.left();
+	},
+	downRight: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({stopStrategy: "control", delay: 300});
+		this.right();
 	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.
