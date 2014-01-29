@@ -234,10 +234,10 @@ enyo.kind({
 	},
 	spotlightLeft: function(oSender, oEvent) {
 		// Don't allow left-movement from a breadcrumb
-		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+		if (oEvent.originator.name === "breadcrumbBackground" || this.inTransition()) { return true; }
 	},
 	spotlightRight: function(oSender, oEvent) {
-		if (oEvent.originator.name === "breadcrumbBackground") {
+		if (oEvent.originator.name === "breadcrumbBackground" || this.inTransition()) {
 			// Upon pressing right from a pointer-focused breadcrumb, just jump
 			// to the current panel to keep focus visible
 			var idx = this.getPanelIndex(oEvent.originator) + 1;
@@ -246,7 +246,7 @@ enyo.kind({
 		}
 	},
 	spotlightDown: function(oSender, oEvent) {
-		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+		if (oEvent.originator.name === "breadcrumbBackground" || this.inTransition()) { return true; }
 	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
@@ -315,6 +315,7 @@ enyo.kind({
 	},
 	//* Called when focus leaves one of the panels.
 	onSpotlightPanelLeave: function(inSender, inEvent) {
+		if (this.inTransition()) { return true; }
 		var direction = inEvent.direction;
 
 		// Ignore panel leave events that don't come from active panel
