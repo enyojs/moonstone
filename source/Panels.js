@@ -517,20 +517,26 @@ enyo.kind({
 			method = transitioned ? "transitionFinished" : "initPanel",
 			i,
 			panel,
-			info;
+			info,
+			popFrom;
 
 		if (sendEvents) {
+			// Pop panels starting at this index, plus any that are still onscreen
+			popFrom = this.toIndex + 1;
+			// Notify panels of transition
 			for (i =0 ; (panel = panels[i]); i++) {
 				info = this.getTransitionInfo(i);
 				if (panel[method]) {
 					panel[method](info);
 				}
-			}
-
-			if (this.popOnBack) {
-				if (this.toIndex < this.fromIndex) {
-					this.popPanels(this.toIndex + 1);
+				// If a panel is onscreen, don't pop it
+				if ((i > this.toIndex) && !info.offscreen) {
+					popFrom++;
 				}
+			}
+			// Automatically pop off panels that are no longer on screen
+			if (this.popOnBack && (this.toIndex < this.fromIndex)) {
+				this.popPanels(popFrom);
 			}
 		}
 
