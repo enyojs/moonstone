@@ -86,7 +86,7 @@
 			else {
 				styleElem.innerHTML = '';
 			}
-		}
+		};
 
 		enyo.updateLocale = function() {
 			funEnyoLocaleChanged.apply(this,arguments);
