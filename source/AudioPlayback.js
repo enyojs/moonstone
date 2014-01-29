@@ -54,9 +54,9 @@ enyo.kind({
 					]},
 					{classes: "moon-audio-control-buttons", fit: true, components: [
 						// _src_ property will need to be updated with images from UX
-						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
-						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button left", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
-						{kind: "moon.IconButton", classes: "moon-audio-icon-button left", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button", src: "assets/icon-rew-btn.png", ontap: "playPrevious"},
+						{kind: "moon.IconButton", name: "btnPlay", classes: "moon-audio-icon-button", src: "assets/icon-play-btn.png", ontap: "togglePlay"},
+						{kind: "moon.IconButton", classes: "moon-audio-icon-button", src: "assets/icon-fwd-btn.png", ontap: "playNext"},
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackDrawer"}
 					]}
 				]},
