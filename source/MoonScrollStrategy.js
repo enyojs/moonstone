@@ -553,18 +553,27 @@ enyo.kind({
 		area.
 	*/
 	animateToControl: function(inControl, inScrollFullPage, animate) {
-		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
-			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.$.viewport),
+		var controlBounds  = inControl.getAbsoluteBounds(),
+			absoluteBounds = this.$.viewport.getAbsoluteBounds(),
 			scrollBounds   = this.getScrollBounds(),
-			offsetTop      = controlBounds.top - absoluteBounds.top,
-			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left),
-			offsetHeight   = controlBounds.height,
-			offsetWidth    = controlBounds.width,
+			offsetTop,
+			offsetLeft,
+			offsetHeight,
+			offsetWidth,
 			xDir,
 			yDir,
 			x,
 			y
 		;
+
+		// Make absolute controlBounds relative to scroll position
+		controlBounds.top += scrollBounds.top;
+		controlBounds.left += scrollBounds.left;
+
+		offsetTop      = controlBounds.top - absoluteBounds.top;
+		offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);
+		offsetHeight   = controlBounds.height;
+		offsetWidth    = controlBounds.width;
 
 		// Allow local inScrollFullPage param to override scroller property
 		inScrollFullPage = (typeof inScrollFullPage === "undefined") ? this.container.getScrollFullPage() : inScrollFullPage;
