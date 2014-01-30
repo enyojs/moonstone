@@ -148,8 +148,7 @@ enyo.kind({
 				this.setShowing(inValue);
 			};
 		} else {
-			this.showing = inValue;
-			this.showingChanged();
+			this.inherited(arguments);
 		}
 	},
 	showingChanged: function() {
