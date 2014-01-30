@@ -3628,7 +3628,7 @@
 .moon-audio-play-time {
   width: 80px;
   font-size: 20px;
-  padding-top: 10px;
+  padding-top: 72px;
 }
 .moon-audio-play-time.left {
   text-align: left;
@@ -3641,6 +3641,11 @@
 }
 .moon-audio-track-info {
   width: 40%;
+  padding: 0 10px;
+}
+.enyo-locale-right-to-left .moon-audio-track-info {
+  text-align: right;
+  direction: rtl;
 }
 .moon-audio-top {
   height: 65px;
@@ -3713,6 +3718,10 @@
   height: 80px;
   background: transparent none no-repeat 0px 0px;
   padding-right: 10px;
+}
+.enyo-locale-right-to-left .moon-audio-queue-album-art {
+  padding-right: 0;
+  padding-left: 10px;
 }
 .moon-video-transport-slider {
   height: 80px;
