@@ -141,6 +141,17 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
+	setShowing: function(inValue) {
+		// queue setShowing if we are currently in the process of hiding and are trying to show the popup
+		if (inValue && this.animate && this.isAnimating) {
+			this.animationEndCommand = function() {
+				this.setShowing(inValue);
+			};
+		} else {
+			this.showing = inValue;
+			this.showingChanged();
+		}
+	},
 	showingChanged: function() {
 		if (this.showing) {
 			this.activator = enyo.Spotlight.getCurrent();
@@ -166,6 +177,13 @@ enyo.kind({
 				var args = arguments;
 				this.animationEnd = this.bindSafely(function() {
 					this.inherited(args);
+					this.isAnimating = false;
+
+					// run queued command i.e. setShowing
+					if (this.animationEndCommand) {
+						this.animationEndCommand.apply(this);
+						this.animationEndCommand = null;
+					}
 				});
 			}
 		} else {
@@ -272,6 +290,7 @@ enyo.kind({
 	},
 	animateHide: function () {
 		if (this._bounds) {
+			this.isAnimating = true;
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
