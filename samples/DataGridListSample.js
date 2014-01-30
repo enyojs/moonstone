@@ -27,7 +27,7 @@ enyo.kind({
 				]}
 			]}
 		], components: [
-			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
+			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
 				{ kind: "moon.sample.GridSampleItem" }
 			]}
 		]}
