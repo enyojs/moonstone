@@ -180,7 +180,7 @@ enyo.kind({
 
 					// run queued command i.e. setShowing
 					if (this.animationEndCommand) {
-						this.animationEndCommand.apply(this);
+						this.animationEndCommand();
 						this.animationEndCommand = null;
 					}
 				});
