@@ -180,9 +180,9 @@ enyo.kind({
 				sup.apply(this, arguments);
 				var w = list.boundsCache.width,
 					b = list.$.scroller.getScrollBounds(),
-					n = list.$.scroller.$.strategy.$.vColumn.hasNode();
-				if (list.$.scroller.getVertical() == "scroll" || (b.height > b.clientHeight)) {
-					list.boundsCache.width = w-n.offsetWidth;
+					v = list.$.scroller.$.strategy.$.vColumn;
+				if (v && (list.$.scroller.getVertical() == "scroll" || (b.height > b.clientHeight))) {
+					list.boundsCache.width = w-v.hasNode().offsetWidth;
 				}
 			};
 		})
