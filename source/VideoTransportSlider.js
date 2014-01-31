@@ -77,11 +77,11 @@ enyo.kind({
 	},
 	//* @protected
 	tickComponents: [
-		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
+		{name: "startWrapper", classes: "moon-video-transport-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-video-transport-slider-indicator-bar-left"},
 			{name: "beginTickText", classes: "moon-video-transport-slider-indicator-text", content: "00:00"}
 		]},
-		{classes: "moon-video-transport-slider-indicator-wrapper end", components: [
+		{name: "endWrapper", classes: "moon-video-transport-slider-indicator-wrapper end", components: [
 			{name: "endTickBar", classes: "moon-video-transport-slider-indicator-bar-right"},
 			{name: "endTickText", classes: "moon-video-transport-slider-indicator-text", content: "00:00"}
 		]}
@@ -117,6 +117,9 @@ enyo.kind({
 				this.set("endPosition", this.get("endPosition") - 0.05 );
 			}
 		}
+
+		this.beginPositionChanged();
+		this.endPositionChanged();
 	},
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
@@ -191,6 +194,16 @@ enyo.kind({
 	setRangeEnd: function(inValue) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeEndChanged();
+	},
+	beginPositionChanged: function() {
+		// Set the width of the wrapper to twice the amount of it's position from the start.
+		this.$.startWrapper.applyStyle("width", (this.get("beginPosition") * 200) + "%");
+		this.updateSliderRange();
+	},
+	endPositionChanged: function() {
+		// Set the width of the wrapper to twice the amount of it's position from the end.
+		this.$.endWrapper.applyStyle("width", ((this.get("endPosition") - 1) * -200) + "%");
+		this.updateSliderRange();
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.setShowing(this.getShowTickText());

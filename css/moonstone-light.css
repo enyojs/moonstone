@@ -3779,13 +3779,9 @@
   display: inline-block;
 }
 .moon-video-transport-slider-indicator-wrapper {
-  width: 12.5%;
   height: 82px;
   top: 0;
   position: absolute;
-}
-.enyo-locale-ja .moon-video-transport-slider-indicator-wrapper {
-  width: 22.5%;
 }
 .moon-video-transport-slider-indicator-wrapper.start {
   left: 0px;
