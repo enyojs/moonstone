@@ -382,6 +382,11 @@ enyo.kind({
 		else {
 			this.skipArrangerAnimation();
 		}
+
+		// Ensure any VKB is closed when transitioning panels
+		if (document.activeElement) {
+			document.activeElement.blur();
+		}
 	},
 	/**
 		Returns true if any panels will move in the transition from

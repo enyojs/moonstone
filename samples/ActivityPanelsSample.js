@@ -24,7 +24,7 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next2"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next2"}
 			]},
-			{title: "Third Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+			{title: "Third Panel", classes: "moon-7h", titleBelow:"Type 'go' to transition", headerOptions: {inputMode:true}, onInputHeaderChange:"inputChanged", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One", ontap: "next3"},
 				{kind: "moon.Item", content: "Item Two", ontap: "next3"},
 				{kind: "moon.Item", content: "Item Three", ontap: "next3"},
@@ -86,5 +86,10 @@ enyo.kind({
 	next6: function(inSender, inEvent) {
 		this.$.panels.setIndex(7);
 		return true;
+	},
+	inputChanged: function(inSender, inEvent) {
+		if (inEvent.originator.getValue() == "go") {
+			this.next3();
+		}
 	}
 });
