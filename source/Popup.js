@@ -141,11 +141,11 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	setShowing: function(inValue) {
+	setShowing: function(inOldValue) {
 		// queue setShowing if we are currently in the process of hiding and are trying to show the popup
-		if (inValue && this.animate && this.isAnimating) {
+		if (this.showing && this.animate && this.isAnimating) {
 			this.animationEndCommand = function() {
-				this.setShowing(inValue);
+				this.setShowing(inOldValue);
 			};
 		} else {
 			this.inherited(arguments);
