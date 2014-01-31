@@ -20,6 +20,10 @@ enyo.kind({
 		rangeStart: 0,
 		//** Ending point of slider
 		rangeEnd: 100,
+		//** The percentage of where the slider begins (between 0 and 1)
+		beginPosition: 0.0625,
+		//** The percentage of where the slider ends (between 0 and 1)
+		endPosition: 0.9375,
 		//** This flag controls the slider draw
 		syncTick: true,
 		//** This flag determines whether we show the dummy area
@@ -105,6 +109,13 @@ enyo.kind({
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
 			this.$.beginTickText.setContent(this.formatTime(0));
+
+			var loc = new ilib.Locale(),
+				language = loc.getLanguage();
+			if (language === 'ja') {
+				this.set("beginPosition", this.get("beginPosition") + 0.05 );
+				this.set("endPosition", this.get("endPosition") - 0.05 );
+			}
 		}
 	},
 	createTickComponents: function() {
@@ -153,8 +164,8 @@ enyo.kind({
 		this.updateSliderRange();
 	},
 	updateSliderRange: function() {
-		this.beginTickPos = (this.max-this.min)*0.0625;
-		this.endTickPos = (this.max-this.min)*0.9375;
+		this.beginTickPos = (this.max-this.min) * this.get("beginPosition");
+		this.endTickPos = (this.max-this.min) * this.get("endPosition");
 
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
