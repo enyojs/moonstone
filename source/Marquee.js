@@ -239,13 +239,15 @@ moon.MarqueeItem = {
 	classes: "moon-marquee",
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
+			if (sup.apply(this, arguments)) {
+				return true;
+			}
 			if (oEvent && !oEvent.delegate) {
 				var handler = this._marqueeItem_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
 				}
 			}
-			return sup.apply(this, arguments);
 		};
 	}),
 	_marquee_enabled: true,
