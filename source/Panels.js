@@ -248,6 +248,9 @@ enyo.kind({
 	spotlightDown: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground" || this.inTransition()) { return true; }
 	},
+	spotlightUp: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground" || this.inTransition()) { return true; }
+	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
 		enyo.Spotlight.unspot();
