@@ -286,7 +286,7 @@ enyo.kind({
 			var nd = enyo.Spotlight.getPointerMode() || this._getNodeParent(n);
 			if (nd) {
 				if (nCurrent !== null) {
-					this._blurNode(this, nCurrent);
+					this._blurNode(nCurrent);
 				}
 				this._focusNode(n);
 				this._nCurrentSpotlightItem = n;
