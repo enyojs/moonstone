@@ -147,6 +147,14 @@ enyo.kind({
 				// need to call this early to prevent race condition where animationEnd
 				// originated from a "hide" context but we are already in a "show" context
 				this.animationEnd = enyo.nop;
+				// if we are currently animating the hide transition, release
+				// the events captured when popup was initially shown
+				if (this.isAnimatingHide) {
+					if (this.captureEvents) {
+						this.release();
+					}
+					this.isAnimatingHide = false;
+				}
 			}
 			this.activator = enyo.Spotlight.getCurrent();
 			moon.Popup.count++;
@@ -163,12 +171,6 @@ enyo.kind({
 
 		if (this.animate) {
 			if (this.showing) {
-				// if we are currently animating the hide transition, release
-				// the events captured when popup was initially shown
-				if (this.isAnimatingHide) {
-					this.release();
-					this.isAnimatingHide = false;
-				}
 				this.inherited(arguments);
 				this.animateShow();
 			} else {
