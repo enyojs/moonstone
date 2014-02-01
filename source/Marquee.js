@@ -171,6 +171,15 @@ moon.MarqueeSupport = {
 	addMarqueeItem: function(inControl) {
 		this.marqueeWaitList.push(inControl);
 	},
+	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
+	resetMarquee: function() {
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
+			(this.marqueeOnHover && this._marquee_isHovered) || 
+			this.marqueeOnRender) {
+			this.stopMarquee();
+			this.startMarquee();
+		}
+	},
 
 	//* @protected
 
@@ -198,15 +207,6 @@ moon.MarqueeSupport = {
 	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
-	},
-	//* Called by children to re-start marquees if needed
-	_marquee_invalidate: function() {
-		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
-			(this.marqueeOnHover && this._marquee_isHovered) || 
-			this.marqueeOnRender) {
-			this.stopMarquee();
-			this.startMarquee();
-		}
 	}
 };
 
@@ -260,6 +260,14 @@ moon.MarqueeItem = {
 			this._marquee_invalidateMetrics();
 		};
 	}),
+	showingChangedHandler: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.showing) {
+				this._marquee_reset();
+			}
+		};
+	}),
 	_marquee_invalidateMetrics: function() {
 		this._marquee_distance = null;
 		this._marquee_fits = null;
@@ -272,10 +280,7 @@ moon.MarqueeItem = {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 		}
-		this._marquee_invalidateMetrics();
-		if (this._marquee_puppetMaster) {
-			this._marquee_puppetMaster._marquee_invalidate();
-		}
+		this._marquee_reset();
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
@@ -386,6 +391,12 @@ moon.MarqueeItem = {
 	//* Flips distance value for RTL support
 	_marquee_adjustDistanceForRTL: function(inDistance) {
 		return this.rtl ? inDistance : inDistance * -1;
+	},
+	_marquee_reset: function() {
+		this._marquee_invalidateMetrics();
+		if (this._marquee_puppetMaster) {
+			this._marquee_puppetMaster.resetMarquee();
+		}
 	}
 };
 
