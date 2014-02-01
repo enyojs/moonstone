@@ -141,18 +141,13 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	setShowing: function(inValue) {
-		// queue setShowing if we are currently in the process of hiding and are trying to show the popup
-		if (inValue && this.animate && this.isAnimating) {
-			this.animationEndCommand = function() {
-				this.setShowing(inValue);
-			};
-		} else {
-			this.inherited(arguments);
-		}
-	},
 	showingChanged: function() {
 		if (this.showing) {
+			if (this.animate) {
+				// need to call this early to prevent race condition where animationEnd
+				// originated from a "hide" context but we are already in a "show" context
+				this.animationEnd = enyo.nop;
+			}
 			this.activator = enyo.Spotlight.getCurrent();
 			moon.Popup.count++;
 			this.applyZIndex();
@@ -168,21 +163,20 @@ enyo.kind({
 
 		if (this.animate) {
 			if (this.showing) {
+				// if we are currently animating the hide transition, release
+				// the events captured when popup was initially shown
+				if (this.isAnimatingHide) {
+					this.release();
+					this.isAnimatingHide = false;
+				}
 				this.inherited(arguments);
 				this.animateShow();
-				this.animationEnd = enyo.nop;
 			} else {
 				this.animateHide();
 				var args = arguments;
 				this.animationEnd = this.bindSafely(function() {
 					this.inherited(args);
-					this.isAnimating = false;
-
-					// run queued command i.e. setShowing
-					if (this.animationEndCommand) {
-						this.animationEndCommand();
-						this.animationEndCommand = null;
-					}
+					this.isAnimatingHide = false;
 				});
 			}
 		} else {
@@ -289,7 +283,7 @@ enyo.kind({
 	},
 	animateHide: function () {
 		if (this._bounds) {
-			this.isAnimating = true;
+			this.isAnimatingHide = true;
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
