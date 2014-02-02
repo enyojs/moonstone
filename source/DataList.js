@@ -21,7 +21,7 @@ moon.DataListSpotlightSupport = {
 			// looping as new pages come up
 			var spot;
 			if (enyo.Spotlight.getPointerMode() &&
-				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this)))) {
+				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this.$.active)))) {
 				enyo.Spotlight.unspot();
 				this._unspotSinceSpot = true;
 			}
