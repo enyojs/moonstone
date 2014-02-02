@@ -107,6 +107,7 @@ enyo.kind({
 		var open = this.getOpen();
 		this.addRemoveClass("open", open);
 		this.$.drawer.setOpen(open);
+		this.$.drawer.spotlightDisabled = !open;
 		if (this.generated) {
 			this.stopHeaderMarquee();
 		}
