@@ -250,7 +250,6 @@ enyo.kind({
 	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
-		enyo.Spotlight.unspot();
 		this.setShowing(!this.showing);
 	},
 	handleSpotLeft: function() {
@@ -277,7 +276,9 @@ enyo.kind({
 			}
 		}
 		this.resetHandleAutoHide();
-		enyo.Signals.send("onPanelsHandleBlurred");
+		if (!this.showing) {
+			enyo.Signals.send("onPanelsHandleBlurred");
+		}
 	},
 	panelsHiddenAsync: function() {
 		enyo.Signals.send("onPanelsHidden");
