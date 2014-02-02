@@ -1635,16 +1635,17 @@
 }
 /* Header */
 .moon-expandable-picker-header {
-  padding-left: 34px;
   margin: 0px;
-  background-position: left -7px top 12px;
+  background-position: right 0px top 12px;
   background-repeat: no-repeat;
   background-image: url(../images/LightTheme_Icons/SmallCarat_down1.png);
+  display: inline-block;
+  padding-right: 40px;
 }
 .enyo-locale-right-to-left .moon-expandable-picker-header {
-  padding-left: 0;
-  padding-right: 34px;
-  background-position: right -7px top 12px;
+  padding-left: 40px;
+  padding-right: 0;
+  background-position: left 0px top 12px;
 }
 .moon-expandable-list-item .spotlight .moon-expandable-picker-header {
   background-image: url(../images/LightTheme_Icons/SmallCarat_down2.png);
@@ -1678,7 +1679,6 @@
   line-height: 32px;
   color: #4b4b4b;
   margin: 0px;
-  padding-left: 34px;
 }
 .moon-expandable-picker-current-value a:link {
   color: #cf0652;
@@ -1698,7 +1698,6 @@
 }
 .enyo-locale-right-to-left .moon-expandable-picker-current-value {
   padding-left: 0;
-  padding-right: 34px;
 }
 .moon-expandable-list-item .spotlight .moon-expandable-picker-current-value {
   color: #ffffff;
