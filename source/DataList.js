@@ -21,12 +21,8 @@ moon.DataListSpotlightSupport = {
 			// looping as new pages come up
 			var spot;
 			if (enyo.Spotlight.getPointerMode() &&
-				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this)))) {
-				// If we haven't enabled spotlightable controls,
-				if (!this.$.scroller.spotlightPagingControls) {
-					// go ahead and unspot whatever's currently spotted.
-					enyo.Spotlight.unspot();
-				}
+				((spot = enyo.Spotlight.getCurrent()) && (spot === this || spot.isDescendantOf(this.$.active)))) {
+				enyo.Spotlight.unspot();
 				this._unspotSinceSpot = true;
 			}
 			return sup.apply(this, arguments);
