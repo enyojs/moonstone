@@ -281,22 +281,22 @@ enyo.kind({
 	},
 
 	setCurrent: function(n, bScrollIntoView) {
-		var nCurrent = this.getCurrent();
-
-		if (nCurrent !== null) {
-			this._blurNode(nCurrent);
-		}
-
+		var nCurrent = this.getCurrent();			
 		if (n !== null) {
-			this._focusNode(n);
-			this._nCurrentSpotlightItem = n;
-			if (bScrollIntoView) {
-				var nd = this._getNodeParent(n);
-				if (!this.$.strategy.isInView(nd)) {
-					this.animateToNode(nd, true);
+			var nd = enyo.Spotlight.getPointerMode() || this._getNodeParent(n);
+			if (nd) {
+				if (nCurrent !== null) {
+					this._blurNode(nCurrent);
 				}
+				this._focusNode(n);
+				this._nCurrentSpotlightItem = n;
+				if (bScrollIntoView) {
+					if (!this.$.strategy.isInView(nd)) {
+						this.animateToNode(nd, true);
+					}
+				}
+				enyo.Spotlight.Util.dispatchEvent('onSpotlightItemFocus', {index: n}, this);
 			}
-			enyo.Spotlight.Util.dispatchEvent('onSpotlightItemFocus', {index: n}, this);
 		}
 		enyo.Spotlight.Util.removeClass(this.node, 'spotlight');
 	}
