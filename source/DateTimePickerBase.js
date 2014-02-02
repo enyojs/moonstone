@@ -172,7 +172,9 @@ enyo.kind({
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);
-			enyo.Spotlight.spot(this.$.headerWrapper);
+			if (!enyo.Spotlight.getPointerMode()) {
+				enyo.Spotlight.spot(this.$.headerWrapper);
+			}
 		} else {
 			this.setActive(true);
 		}
