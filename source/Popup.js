@@ -141,6 +141,19 @@ enyo.kind({
 	},
 	showingChanged: function() {
 		if (this.showing) {
+			if (this.animate) {
+				// need to call this early to prevent race condition where animationEnd
+				// originated from a "hide" context but we are already in a "show" context
+				this.animationEnd = enyo.nop;
+				// if we are currently animating the hide transition, release
+				// the events captured when popup was initially shown
+				if (this.isAnimatingHide) {
+					if (this.captureEvents) {
+						this.release();
+					}
+					this.isAnimatingHide = false;
+				}
+			}
 			this.activator = enyo.Spotlight.getCurrent();
 			moon.Popup.count++;
 			this.applyZIndex();
@@ -158,12 +171,12 @@ enyo.kind({
 			if (this.showing) {
 				this.inherited(arguments);
 				this.animateShow();
-				this.animationEnd = enyo.nop;
 			} else {
 				this.animateHide();
 				var args = arguments;
 				this.animationEnd = this.bindSafely(function() {
 					this.inherited(args);
+					this.isAnimatingHide = false;
 				});
 			}
 		} else {
@@ -270,6 +283,7 @@ enyo.kind({
 	},
 	animateHide: function () {
 		if (this._bounds) {
+			this.isAnimatingHide = true;
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
