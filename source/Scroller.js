@@ -160,3 +160,9 @@ enyo.kind({
 		}
 	}
 });
+
+// On touch platforms, revert to using Enyo scroller, which picks an appropriate
+// scroll strategy for the given platform
+if (enyo.platform.touch) {
+	moon.Scroller = enyo.Scroller;
+}

@@ -75,7 +75,7 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-expandable-list-item",
-	spotlight: "container",
+	spotlight: false,
 	defaultKind: "moon.Item",
 	handlers: {
 		onSpotlightDown: "spotlightDown",

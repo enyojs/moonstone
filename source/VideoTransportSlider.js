@@ -364,8 +364,8 @@ enyo.kind({
 		and duration.
 	*/
 	timeUpdate: function(inSender, inEvent) {
-		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
+		if (!this.dragging && this.isInPreview()) { return; }
 		this._duration = inSender._duration;
 		this.currentTime = this._currentTime;
 		this.duration = this._duration;

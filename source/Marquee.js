@@ -239,13 +239,15 @@ moon.MarqueeItem = {
 	classes: "moon-marquee",
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
+			if (sup.apply(this, arguments)) {
+				return true;
+			}
 			if (oEvent && !oEvent.delegate) {
 				var handler = this._marqueeItem_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
 				}
 			}
-			return sup.apply(this, arguments);
 		};
 	}),
 	_marquee_enabled: true,
@@ -256,6 +258,14 @@ moon.MarqueeItem = {
 		return function() {
 			sup.apply(this, arguments);
 			this._marquee_invalidateMetrics();
+		};
+	}),
+	showingChangedHandler: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.showing) {
+				this._marquee_reset();
+			}
 		};
 	}),
 	_marquee_invalidateMetrics: function() {
@@ -270,10 +280,7 @@ moon.MarqueeItem = {
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 		}
-		this._marquee_invalidateMetrics();
-		if (this._marquee_puppetMaster) {
-			this._marquee_puppetMaster.resetMarquee();
-		}
+		this._marquee_reset();
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
@@ -384,6 +391,12 @@ moon.MarqueeItem = {
 	//* Flips distance value for RTL support
 	_marquee_adjustDistanceForRTL: function(inDistance) {
 		return this.rtl ? inDistance : inDistance * -1;
+	},
+	_marquee_reset: function() {
+		this._marquee_invalidateMetrics();
+		if (this._marquee_puppetMaster) {
+			this._marquee_puppetMaster.resetMarquee();
+		}
 	}
 };
 
