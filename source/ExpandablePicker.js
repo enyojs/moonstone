@@ -225,7 +225,6 @@ enyo.kind({
 	},
 	//* Closes drawer and selects header.
 	selectAndClose: function() {
-		this.$.drawer.spotlightDisabled = true; // prevent side-effects of spotting items in a drawer that is closing
 		this.setActive(false);
 		if (!enyo.Spotlight.getPointerMode() && enyo.Spotlight.getCurrent() && enyo.Spotlight.getCurrent().isDescendantOf(this)) {
 			enyo.Spotlight.spot(this.$.headerWrapper);
@@ -241,10 +240,5 @@ enyo.kind({
 	},
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();
-	},
-	drawerAnimationEnd: function() {
-		this.inherited(arguments);
-		this.$.drawer.spotlightDisabled = false;
-		return true;
 	}
 });
