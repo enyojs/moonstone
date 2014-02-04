@@ -176,13 +176,18 @@ moon.MarqueeSupport = {
 		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
 			(this.marqueeOnHover && this._marquee_isHovered) || 
 			this.marqueeOnRender) {
-			this.stopMarquee();
-			this.startMarquee();
+			// Batch multiple requests to reset from children being hidden/shown
+			this.startJob("resetMarquee", "_resetMarquee", 10);
 		}
 	},
 
 	//* @protected
 
+	//* Stops and restarts the marquee animations
+	_resetMarquee: function() {
+		this.stopMarquee();
+		this.startMarquee();
+	},
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
 		this.marqueeWaitList = [];
@@ -263,9 +268,7 @@ moon.MarqueeItem = {
 	showingChangedHandler: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
-			if (this.showing) {
-				this._marquee_reset();
-			}
+			this._marquee_reset();
 		};
 	}),
 	_marquee_invalidateMetrics: function() {
@@ -284,7 +287,7 @@ moon.MarqueeItem = {
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
-		if (!inEvent || this.disabled || !this._marquee_enabled || this._marquee_fits) {
+		if (!inEvent || this.disabled || !this.showing || !this._marquee_enabled || this._marquee_fits) {
 			return;
 		}
 
