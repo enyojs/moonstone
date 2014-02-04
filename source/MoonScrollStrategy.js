@@ -407,10 +407,10 @@ enyo.kind({
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
+				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				if (this.$.scrollMath.bottomBoundary) {
 					this.alertThumbs();
 				}				
-				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				this.scrollBounds = null;
 				return true;
 			} else {
