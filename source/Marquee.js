@@ -263,9 +263,7 @@ moon.MarqueeItem = {
 	showingChangedHandler: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
-			if (this.showing) {
-				this._marquee_reset();
-			}
+			this._marquee_reset();
 		};
 	}),
 	_marquee_invalidateMetrics: function() {
@@ -284,7 +282,7 @@ moon.MarqueeItem = {
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
-		if (!inEvent || this.disabled || !this._marquee_enabled || this._marquee_fits) {
+		if (!inEvent || this.disabled || !this.showing || !this._marquee_enabled || this._marquee_fits) {
 			return;
 		}
 
