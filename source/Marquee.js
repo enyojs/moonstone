@@ -176,13 +176,18 @@ moon.MarqueeSupport = {
 		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
 			(this.marqueeOnHover && this._marquee_isHovered) || 
 			this.marqueeOnRender) {
-			this.stopMarquee();
-			this.startMarquee();
+			// Batch multiple requests to reset from children being hidden/shown
+			this.startJob("resetMarquee", "_resetMarquee", 10);
 		}
 	},
 
 	//* @protected
 
+	//* Stops and restarts the marquee animations
+	_resetMarquee: function() {
+		this.stopMarquee();
+		this.startMarquee();
+	},
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
 		this.marqueeWaitList = [];
