@@ -212,11 +212,13 @@ enyo.kind({
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 			var scrim = this.getScrim();
 			if (inShow && this.modal && this.scrimWhenModal) {
+				this.allowDefault = true;
 				// move scrim to just under the popup to obscure rest of screen
 				var i = this.getScrimZIndex();
 				this._scrimZ = i;
 				scrim.showAtZIndex(i);
 			} else {
+				this.allowDefault = false;
 				scrim.hideAtZIndex(this._scrimZ);
 			}
 			enyo.call(scrim, "addRemoveClass", [this.scrimClassName, scrim.showing]);
