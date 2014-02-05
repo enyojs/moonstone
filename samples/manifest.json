@@ -62,7 +62,7 @@
 			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
 			{"name": "Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
 			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"},
-			{"name": "Dynamic Panels Push/Pop", "path":"$lib/moonstone/samples/DnyamicPanelsSample"}
+			{"name": "Dynamic Panels Push/Pop", "path":"$lib/moonstone/samples/DynamicPanelsSample"}
 		]},
 		{"name": "Pickers", "samples": [
 			{"name": "Expandable Picker", "path":"$lib/moonstone/samples/ExpandablePickerSample"},
