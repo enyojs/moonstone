@@ -176,7 +176,7 @@ enyo.kind({
 				oEvent.allowDomDefault();       // Allow keydown to bubble
 				return true;                    // Prevent onSpotlightRight to bubble
 			} else {
-				this.onBlur();
+				this.blur();
 				oInput.blur();
 			}
 		}
