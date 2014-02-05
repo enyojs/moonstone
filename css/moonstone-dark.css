@@ -11,8 +11,6 @@
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
-/* Colors */
-/* ---------------------------------------*/
 /* Font */
 /* ---------------------------------------*/
 /* Font Sizes */
@@ -1983,14 +1981,22 @@
   letter-spacing: 0;
   color: #a6a6a6;
 }
+.moon-gridlist-imageitem.no-center .caption,
+.moon-gridlist-imageitem.no-center .sub-caption {
+  text-align: left;
+  text-align: start;
+}
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
   line-height: 32px;
+  color: #a6a6a6;
+  line-height: 1.25em;
+  height: 1.25em;
+  vertical-align: bottom;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -2008,12 +2014,6 @@
   color: #cf0652;
   text-decoration: none;
 }
-.moon-gridlist-imageitem .sub-caption {
-  color: #a6a6a6;
-  line-height: 1.25em;
-  height: 1.25em;
-  vertical-align: bottom;
-}
 .moon-gridlist-imageitem.selected {
   border: 5px solid #404040;
   background-color: #404040;
@@ -2029,6 +2029,22 @@
 .moon-gridlist-imageitem.spotlight .caption,
 .moon-gridlist-imageitem.spotlight .sub-caption {
   color: #ffffff;
+}
+.moon-gridlist-imageitem.sized-image.use-caption,
+.moon-gridlist-imageitem.sized-image.use-subcaption {
+  padding-bottom: 40px;
+}
+.moon-gridlist-imageitem.sized-image > .caption,
+.moon-gridlist-imageitem.sized-image > .sub-caption {
+  position: absolute;
+  bottom: 0;
+}
+.moon-gridlist-imageitem.sized-image.use-caption.use-subcaption {
+  padding-bottom: 80px;
+}
+.moon-gridlist-imageitem.sized-image.use-caption.use-subcaption > .caption {
+  position: absolute;
+  bottom: 35px;
 }
 .moon-gridlist .enyo-gridlist-row:last-child {
   margin-bottom: 100px;
@@ -4737,13 +4753,16 @@
 }
 .moon-image {
   display: inline-block;
+  margin: 0 10px;
 }
 .moon-image.has-children {
   position: relative;
   overflow: hidden;
 }
-.moon-image > img {
+.moon-image > .enyo-image {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 .moon-image-client {
   position: absolute;
