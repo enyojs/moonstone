@@ -514,26 +514,28 @@ enyo.kind({
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
 			transitioned = typeof this.lastIndex !== "undefined",
-			method = transitioned ? "transitionFinished" : "initPanel",
+			method = transitioned ? (sendEvents ? "transitionFinished" : "updatePanel") : "initPanel",
 			i,
 			panel,
 			info,
 			popFrom;
 
-		if (sendEvents) {
-			// Pop panels starting at this index, plus any that are still onscreen
-			popFrom = this.toIndex + 1;
-			// Notify panels of transition
-			for (i =0 ; (panel = panels[i]); i++) {
-				info = this.getTransitionInfo(i);
-				if (panel[method]) {
-					panel[method](info);
-				}
-				// If a panel is onscreen, don't pop it
-				if ((i > this.toIndex) && !info.offscreen) {
-					popFrom++;
-				}
+		// Pop panels starting at this index, plus any that are still onscreen
+		popFrom = this.toIndex + 1;
+		// Notify panels of transition
+		for (i =0 ; (panel = panels[i]); i++) {
+			info = this.getTransitionInfo(i);
+			if (panel[method]) {
+				panel[method](info);
 			}
+			// If a panel is onscreen, don't pop it
+			if ((i > this.toIndex) && !info.offscreen) {
+				popFrom++;
+			}
+		}
+		// "sendEvents" means we actually transitioned (not a reflow), so
+		// check popOnBack logic
+		if (sendEvents) {
 			// Automatically pop off panels that are no longer on screen
 			if (this.popOnBack && (this.toIndex < this.fromIndex)) {
 				this.popPanels(popFrom);

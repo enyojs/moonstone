@@ -260,7 +260,7 @@ enyo.kind({
 		return false;
 	},
 	// Called directly by moon.Panels
-	transitionFinished: function(inInfo) {
+	updatePanel: function(inInfo) {
 		if (!inInfo.animate) {
 			this.disableMarquees();
 
@@ -275,6 +275,10 @@ enyo.kind({
 		this.set("isOffscreen", inInfo.offscreen);
 		this.updatesSpottability();
 		this.startMarqueeAsNeeded(inInfo);
+	},
+	// Called directly by moon.Panels
+	transitionFinished: function(inInfo) {
+		this.updatePanel(inInfo);
 	},
 	shrinkAnimation: function() {
 		this.growing = false;
