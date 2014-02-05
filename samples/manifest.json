@@ -61,7 +61,8 @@
 			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
 			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
 			{"name": "Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
-			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"}
+			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"},
+			{"name": "Dynamic Panels Push/Pop", "path":"$lib/moonstone/samples/DnyamicPanelsSample"}
 		]},
 		{"name": "Pickers", "samples": [
 			{"name": "Expandable Picker", "path":"$lib/moonstone/samples/ExpandablePickerSample"},

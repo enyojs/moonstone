@@ -34,7 +34,9 @@ enyo.kind({
 		//* The value of the input
 		value: "",
 		//* When true, the entered text will be displayed as uppercase
-		inputUpperCase: false
+		inputUpperCase: false,
+		//* When true, input will be blurred on Enter keypress (if focused)
+		dismissOnEnter: false
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
@@ -98,6 +100,9 @@ enyo.kind({
 		from: ".value",
 		to: ".$.titleInput.value",
 		oneWay: false
+	}, {
+		from: ".dismissOnEnter",
+		to: ".$.titleInput.dismissOnEnter"
 	}],
 	create: function() {
 		this.inherited(arguments);
