@@ -195,7 +195,7 @@ enyo.kind({
 		}
 	},
 
-	spotlightDown: function(oSender, oEvent) {
+	spotlightDownHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.down) {
 			if (oInput.down()) {
