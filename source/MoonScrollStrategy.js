@@ -32,7 +32,11 @@ enyo.kind({
 			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
 			Increase this value to increase the distance scrolled by holding the pagination buttons.
 		*/
-		paginationScrollMultiplier: 8
+		paginationScrollMultiplier: 8,
+		/** 
+			Defines the spacing value(px) of each items.
+		*/
+		itemSpacing: 0
 	},
 	//* @protected
 	handlers: {
@@ -520,8 +524,8 @@ enyo.kind({
 			canVScroll = b.height > b.clientHeight,
 			canHScroll = b.width > b.clientWidth
 		;
-		this.$.pageUpControl.setDisabled((b.top <= 0) || !canVScroll);
-		this.$.pageDownControl.setDisabled((b.top >= -1 * m.bottomBoundary) || !canVScroll);
+		this.$.pageUpControl.setDisabled((b.top <= this.itemSpacing) || !canVScroll);
+		this.$.pageDownControl.setDisabled((b.top >= -1 * (m.bottomBoundary + this.itemSpacing)) || !canVScroll);
 		this.$.pageLeftControl.setDisabled((b.left <= 0) || !canHScroll);
 		this.$.pageRightControl.setDisabled((b.left >= -1 * m.rightBoundary) || !canHScroll);
 
