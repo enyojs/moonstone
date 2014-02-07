@@ -92,7 +92,46 @@ moon.DataListSpotlightSupport = {
 			}
 		}
 		return null;
-	}
+	},
+	getIndexFromChild: function(oControl) {
+		while (oControl) {
+			if (oControl.index !== undefined) {
+				return oControl.index;
+			}
+			oControl = oControl.parent;
+		}
+		return -1;
+	},
+	modelsAdded: enyo.inherit(function (sup) {
+		return function (c, e, props) {
+			var current = enyo.Spotlight.getCurrent(),
+				focusedIndex = -1;
+			if (current && current.isDescendantOf(this)) {
+				focusedIndex = this.getIndexFromChild(current);
+				enyo.Spotlight.unspot();
+			}
+			sup.apply(this, arguments);
+			if (focusedIndex > -1) {
+				focusedIndex = (focusedIndex < c.length-1) ? focusedIndex : c.length-1;
+				enyo.Spotlight.spot(this.childForIndex(focusedIndex));
+			}
+		};
+	}),
+	modelsRemoved: enyo.inherit(function (sup) {
+		return function (c, e, props) {
+			var current = enyo.Spotlight.getCurrent(),
+				focusedIndex = -1;
+			if (current && current.isDescendantOf(this)) {
+				focusedIndex = this.getIndexFromChild(current);
+				enyo.Spotlight.unspot();
+			}
+			sup.apply(this, arguments);
+			if (focusedIndex > -1) {
+				focusedIndex = (focusedIndex < c.length-1) ? focusedIndex : c.length-1;
+				enyo.Spotlight.spot(this.childForIndex(focusedIndex));
+			}
+		};
+	})
 };
 
 //* @public
@@ -109,28 +148,7 @@ enyo.kind({
 	noDefer: true,
 	allowTransitions: false,
 	spotlight: true,
-	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" },
-	getIndexFromChild: function(oControl) {
-		while (oControl) {
-			if (oControl.index !== undefined) {
-				return oControl.index;
-			}
-			oControl = oControl.parent;
-		}
-		return -1;
-	},
-	modelsRemoved: function(c, e, props) {
-		var current = enyo.Spotlight.getCurrent(), focused_index = -1;
-		if (current && current.isDescendantOf(this)) {
-			focused_index = this.getIndexFromChild(current);
-			enyo.Spotlight.unspot();
-		}
-		this.inherited(arguments);
-		if (focused_index > -1) {
-			focused_index = (focused_index < c.length-1) ? focused_index : c.length-1;
-			enyo.Spotlight.spot(this.childForIndex(focused_index));
-		}
-	}
+	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" }
 });
 //* @protected
 /**
