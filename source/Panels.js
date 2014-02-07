@@ -560,7 +560,8 @@ enyo.kind({
 		this.inherited(arguments);
 
 		this.transitionInProgress = false;
-
+		// queueIndex is '-1' means that there is LEFT key input during transition
+		// and current index is '0'
 		if (this.queuedIndex === -1) {
 			this.hide();
 		} else if (this.queuedIndex !== null) {	
