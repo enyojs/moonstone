@@ -109,7 +109,28 @@ enyo.kind({
 	noDefer: true,
 	allowTransitions: false,
 	spotlight: true,
-	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" }
+	scrollerOptions: { kind: "moon.Scroller", horizontal: "hidden" },
+	getIndexFromChild: function(oControl) {
+		while (oControl) {
+			if (oControl.index !== undefined) {
+				return oControl.index;
+			}
+			oControl = oControl.parent;
+		}
+		return -1;
+	},
+	modelsRemoved: function(c, e, props) {
+		var current = enyo.Spotlight.getCurrent(), focused_index = -1;
+		if (current && current.isDescendantOf(this)) {
+			focused_index = this.getIndexFromChild(current);
+			enyo.Spotlight.unspot();
+		}
+		this.inherited(arguments);
+		if (focused_index > -1) {
+			focused_index = (focused_index < c.length-1) ? focused_index : c.length-1;
+			enyo.Spotlight.spot(this.childForIndex(focused_index));
+		}
+	}
 });
 //* @protected
 /**
