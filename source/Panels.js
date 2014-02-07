@@ -373,6 +373,11 @@ enyo.kind({
 
 		this.queuedIndex = null;
 
+		// Ensure any VKB is closed when transitioning panels
+		if (document.activeElement) {
+			document.activeElement.blur();
+		}
+
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
 			if (this.animate) {
@@ -385,11 +390,6 @@ enyo.kind({
 		}
 		else {
 			this.skipArrangerAnimation();
-		}
-
-		// Ensure any VKB is closed when transitioning panels
-		if (document.activeElement) {
-			document.activeElement.blur();
 		}
 	},
 	/**
