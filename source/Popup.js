@@ -12,6 +12,7 @@ enyo.kind({
 	floating  : true,
 	_bounds   : null,
 	spotlight : "container",
+	allowDefault: true,
 
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
@@ -290,5 +291,9 @@ enyo.kind({
 			this._bounds = this.getBounds();
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
+	},
+	destroy: function() {
+		this.showHideScrim(false);
+		this.inherited(arguments);
 	}
 });
