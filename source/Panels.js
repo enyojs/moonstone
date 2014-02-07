@@ -49,10 +49,10 @@ enyo.kind({
 			programmatically using the _showing_ property or the _hide_/_show_ API.
 			Only valid when _useHandle_ is true (or "auto" resulting in true).
 		*/
-		handleShowing: true
-	},
-	events: {
-		onHidePanels: ""
+		handleShowing: true,
+		//* When true, panels are automatically popped when the user moves back
+		popOnBack: false
+
 	},
 	//* @protected
 	narrowFit: false,
@@ -97,7 +97,6 @@ enyo.kind({
 	_initialTransition: true,
 	//* Flag for panel transition
 	transitionInProgress: false,
-
 	//* @public
 
 	//* Returns true if a transition between panels is currently in progress.
@@ -337,6 +336,11 @@ enyo.kind({
 			if (this.getIndex() > 0) {
 				this.previous();
 				return true;
+			} 
+			// If there is LEFT key input during panels move from index 1 to index 0
+			else if (this.toIndex === 0) {
+				this.queuedIndex = -1;
+				return true;
 			}
 			// If leaving to the left and we are at the first panel, hide panels
 			else if (this.toIndex === null && this.showing && (this.useHandle === true) && this.handleShowing) {
@@ -525,15 +529,31 @@ enyo.kind({
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
 			transitioned = typeof this.lastIndex !== "undefined",
-			method = transitioned ? "transitionFinished" : "initPanel",
+			method = transitioned ? (sendEvents ? "transitionFinished" : "updatePanel") : "initPanel",
 			i,
 			panel,
-			info;
+			info,
+			popFrom;
 
+		// Pop panels starting at this index, plus any that are still onscreen
+		popFrom = this.toIndex + 1;
+		// Notify panels of transition
 		for (i =0 ; (panel = panels[i]); i++) {
 			info = this.getTransitionInfo(i);
 			if (panel[method]) {
 				panel[method](info);
+			}
+			// If a panel is onscreen, don't pop it
+			if ((i > this.toIndex) && !info.offscreen) {
+				popFrom++;
+			}
+		}
+		// "sendEvents" means we actually transitioned (not a reflow), so
+		// check popOnBack logic
+		if (sendEvents) {
+			// Automatically pop off panels that are no longer on screen
+			if (this.popOnBack && (this.toIndex < this.fromIndex)) {
+				this.popPanels(popFrom);
 			}
 		}
 
@@ -541,7 +561,9 @@ enyo.kind({
 
 		this.transitionInProgress = false;
 
-		if (this.queuedIndex !== null) {
+		if (this.queuedIndex === -1) {
+			this.hide();
+		} else if (this.queuedIndex !== null) {	
 			this.setIndex(this.queuedIndex);
 		}
 	},
