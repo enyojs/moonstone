@@ -92,7 +92,46 @@ moon.DataListSpotlightSupport = {
 			}
 		}
 		return null;
-	}
+	},
+	getIndexFromChild: function(oControl) {
+		while (oControl) {
+			if (oControl.index !== undefined) {
+				return oControl.index;
+			}
+			oControl = oControl.parent;
+		}
+		return -1;
+	},
+	modelsAdded: enyo.inherit(function (sup) {
+		return function (c, e, props) {
+			var current = enyo.Spotlight.getCurrent(),
+				focusedIndex = -1;
+			if (current && current.isDescendantOf(this)) {
+				focusedIndex = this.getIndexFromChild(current);
+				enyo.Spotlight.unspot();
+			}
+			sup.apply(this, arguments);
+			if (focusedIndex > -1) {
+				focusedIndex = (focusedIndex < c.length-1) ? focusedIndex : c.length-1;
+				enyo.Spotlight.spot(this.childForIndex(focusedIndex));
+			}
+		};
+	}),
+	modelsRemoved: enyo.inherit(function (sup) {
+		return function (c, e, props) {
+			var current = enyo.Spotlight.getCurrent(),
+				focusedIndex = -1;
+			if (current && current.isDescendantOf(this)) {
+				focusedIndex = this.getIndexFromChild(current);
+				enyo.Spotlight.unspot();
+			}
+			sup.apply(this, arguments);
+			if (focusedIndex > -1) {
+				focusedIndex = (focusedIndex < c.length-1) ? focusedIndex : c.length-1;
+				enyo.Spotlight.spot(this.childForIndex(focusedIndex));
+			}
+		};
+	})
 };
 
 //* @public
