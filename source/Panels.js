@@ -339,7 +339,7 @@ enyo.kind({
 				return true;
 			}
 			// If leaving to the left and we are at the first panel, hide panels
-			else if ((this.$.animator.isAnimating() || this.toIndex === null) && this.showing && (this.useHandle === true) && this.handleShowing) {
+			else if (this.toIndex === null && this.showing && (this.useHandle === true) && this.handleShowing) {
 				this.hide();
 				return true;
 			}
