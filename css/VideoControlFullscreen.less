@@ -13,6 +13,7 @@
 
 /* ---- Header info styling ---- */
 .moon-video-player-header {
+	padding-top: 20px;
 	width: 100%;
 	font-family: @moon-font-family;
 	font-size: @moon-sub-header-font-size;
@@ -31,7 +32,16 @@
 	.moon-clock-divider {
 		background-color: #ffffff;
 	}
+
+	height:317px;
+	box-sizing:border-box;
+	position:relative;
 }
+.moon-video-player-header.full-background {
+	background-color:rgba(0,0,0,0.8);
+	height:360px;
+}
+
 .moon-video-player-header.enyo-fittable-columns-layout > * {
 	margin: 0;
 }
@@ -70,12 +80,13 @@
 .enyo-locale-right-to-left .moon-video-player-more-controls > * {
 	direction: rtl;
 }
+.moon-video-player-more-controls.moon-neutral {
+	background: transparent;
+}
 .moon-video-player-premium-placeholder-left {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
 	height: @moon-icon-button-size;
-
 	padding-left: 90px;
-
 }
 .moon-video-player-premium-placeholder-right {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);

@@ -449,7 +449,7 @@
   color: #4b4b4b;
 }
 .moon-super-header-text {
-  font-family: "Moonstone Miso";
+  font-family: "Miso";
   font-size: 32px;
   font-weight: normal;
   font-style: normal;
@@ -549,6 +549,22 @@
   font-size: 72px;
   color: #ffffff;
 }
+.moon-video-sub-header-text {
+  font-family: "MuseoSans 500";
+  font-size: 27px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+.moon-video-description-text {
+  font-family: "MuseoSans 700";
+  font-size: 27px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
 .enyo-locale-non-latin {
   /* All/Medium weighted classes */
 
@@ -573,7 +589,9 @@
 .enyo-locale-non-latin .moon-body-text,
 .enyo-locale-non-latin .moon-bold-text,
 .enyo-locale-non-latin .moon-large-button-text,
-.enyo-locale-non-latin .moon-small-button-text {
+.enyo-locale-non-latin .moon-small-button-text,
+.enyo-locale-non-latin .moon-video-sub-header-text,
+.enyo-locale-non-latin .moon-video-description-text {
   font-family: "Moonstone LG Display";
 }
 .enyo-locale-non-latin .moon-body-text,
@@ -629,6 +647,14 @@
   font-weight: normal;
 }
 .enyo-locale-non-latin .moon-small-button-text {
+  font-size: 27px;
+  font-weight: normal;
+}
+.enyo-locale-non-latin .moon-video-sub-header-text {
+  font-size: 27px;
+  font-weight: normal;
+}
+.enyo-locale-non-latin .moon-video-description-text {
   font-size: 27px;
   font-weight: normal;
 }
@@ -3994,6 +4020,7 @@
 }
 /* ---- Header info styling ---- */
 .moon-video-player-header {
+  padding-top: 20px;
   width: 100%;
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -4001,6 +4028,9 @@
   color: #ffffff;
   padding: 15px 0 0 0;
   direction: ltr;
+  height: 317px;
+  box-sizing: border-box;
+  position: relative;
 }
 .moon-video-player-header .moon-clock-hour,
 .moon-video-player-header .moon-clock-top,
@@ -4010,6 +4040,10 @@
 }
 .moon-video-player-header .moon-clock-divider {
   background-color: #ffffff;
+}
+.moon-video-player-header.full-background {
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 360px;
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4046,6 +4080,9 @@
 }
 .enyo-locale-right-to-left .moon-video-player-more-controls > * {
   direction: rtl;
+}
+.moon-video-player-more-controls.moon-neutral {
+  background: transparent;
 }
 .moon-video-player-premium-placeholder-left {
   width: 210px;
@@ -4130,34 +4167,35 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 1100px;
+  max-width: 1165px;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
   margin-bottom: 32px;
   white-space: nowrap;
+  background: transparent;
 }
 .moon-video-player-info-title {
-  font-size: 126px;
-  letter-spacing: -0.05em;
-  margin-bottom: 0;
+  font-size: 70px;
+  -webkit-font-kerning: normal;
+  margin-bottom: 3px;
   white-space: nowrap;
 }
 .moon-video-player-info-subtitle {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-family: "MuseoSans 500";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #4b4b4b;
+  letter-spacing: normal;
   color: #ffffff;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
   white-space: nowrap;
+  display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
   font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+  font-size: 27px;
+  font-weight: normal;
   color: #ffffff;
 }
 .moon-video-player-info-subsubtitle {
@@ -4168,12 +4206,10 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  font-style: italic;
+  font-size: 27px;
   color: #ffffff;
   display: inline-block;
   white-space: normal;
-  max-width: 1200px;
-  margin-bottom: 10px;
 }
 .moon-video-player-info-subsubtitle a:link {
   color: #cf0652;
@@ -4199,6 +4235,35 @@
   color: #ffffff;
 }
 .moon-video-player-info-description {
+  font-family: "MuseoSans 700";
+  font-size: 27px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  line-height: 1.4;
+  color: #ffffff;
+  white-space: normal;
+  margin: 0px 0 20px;
+  -webkit-line-clamp: 4;
+  display: -webkit-inline-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+.enyo-locale-non-latin .moon-video-player-info-description {
+  font-family: "Moonstone LG Display";
+  font-size: 27px;
+  font-weight: normal;
+  color: #ffffff;
+}
+.moon-video-player-info-client {
+  display: inline-block;
+  position: relative;
+  top: -5px;
+}
+.enyo-locale-right-to-left .moon-video-player-info-client {
+  margin: 0 20px 10px 0;
+}
+.moon-video-player-subtitle-divider {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -4206,48 +4271,40 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  color: #ffffff;
-  white-space: normal;
-  margin-bottom: 25px;
-  -webkit-line-clamp: 3;
-  display: -webkit-inline-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  max-height: 96px;
 }
-.moon-video-player-info-description a:link {
+.moon-video-player-subtitle-divider a:link {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-video-player-info-description a:visited {
+.moon-video-player-subtitle-divider a:visited {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-video-player-info-description a:hover {
+.moon-video-player-subtitle-divider a:hover {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-video-player-info-description a:active {
+.moon-video-player-subtitle-divider a:active {
   color: #cf0652;
   text-decoration: none;
 }
-.enyo-locale-non-latin .moon-video-player-info-description {
+.enyo-locale-non-latin .moon-video-player-subtitle-divider {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
   font-size: 26px;
   line-height: 32px;
-  color: #ffffff;
 }
-.moon-video-player-info-client {
+.moon-video-player-subtitle-divider {
   display: inline-block;
-  margin: 0 0 10px 20px;
-}
-.enyo-locale-right-to-left .moon-video-player-info-client {
-  margin: 0 20px 10px 0;
+  color: #ffffff;
+  margin: 0 20px;
 }
 .moon-video-player-info-client > * {
   display: inline-block;
-  margin: 0 5px;
+  margin: 0 10px;
+}
+.moon-video-player-info-client > *:first-child {
+  margin-left: 20px;
 }
 .moon-channelinfo {
   display: inline-block;
@@ -4255,12 +4312,16 @@
   text-align: right;
   white-space: normal;
   max-width: 800px;
+  width: 230px;
+}
+.moon-video-player-channel-info-badges {
+  padding: 0;
+  margin-right: -15px;
+  /*offset child element the info-icon margin-right 10px, so the icons align right with the channel name */
+
 }
 .moon-video-player-channel-info-badges > * {
-  margin: 3px 0px 3px 10px;
-}
-.moon-video-player-channel-info-badges > :first-child {
-  margin: 3px 10px;
+  margin: 0 15px 6px 0;
 }
 .moon-video-player-channel-info-no {
   font-family: "Moonstone Miso";
@@ -4270,36 +4331,36 @@
   letter-spacing: normal;
   text-transform: uppercase;
   -webkit-font-kerning: normal;
+  font-size: 70px;
   white-space: nowrap;
 }
 .moon-video-player-channel-info-name {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-family: "MuseoSans 500";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #4b4b4b;
+  letter-spacing: normal;
   color: #ffffff;
-  margin-bottom: 22px;
+  margin: 6px 0 15px;
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
   font-family: "Moonstone LG Display";
 }
 .moon-video-player-info-icon {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-family: "MuseoSans 500";
+  font-size: 27px;
   font-weight: normal;
   font-style: normal;
-  letter-spacing: 0;
-  color: #4b4b4b;
-  font-size: 20px;
+  letter-spacing: normal;
+  color: #ffffff;
+  font-size: 16px;
   background-color: #ffffff;
   color: #000000;
-  border-radius: 5px;
+  text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
-  padding: 3px 9px;
+  padding: 4px 9px;
   display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
@@ -4308,7 +4369,13 @@
 .moon-video-player-info-redicon {
   background-color: #fe4a4b;
   color: #ffffff;
-  margin-top: 13px;
+}
+.moon-video-player-info-default-icon {
+  background-color: #000000;
+  color: #ffffff;
+  border: solid 1px #299064;
+  box-sizing: border-box;
+  text-transform: lowercase;
 }
 .moon-background-wrapper {
   position: absolute;
@@ -4318,6 +4385,24 @@
 .moon-background-wrapper-client-content {
   position: relative;
   display: inline-block;
+  white-space: nowrap;
+  height: 320px;
+}
+.moon-background-wrapper-client-content.left {
+  padding: 20px 20px 0 60px;
+}
+.moon-background-wrapper-client-content.left > * {
+  margin-right: 40px;
+}
+.moon-background-wrapper-client-content.right {
+  float: right;
+  padding: 20px 60px 0 20px;
+}
+.moon-background-wrapper-client-content.right > * {
+  margin-left: 40px;
+}
+.moon-background-wrapper-client-content.bg {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
   direction: rtl;
@@ -4327,6 +4412,9 @@
 }
 .moon-background-wrapper-client-content.bg {
   background-color: black;
+}
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.bg {
+  background-color: transparent;
 }
 .moon-background-wrapper-client-tri {
   position: absolute;
@@ -4344,7 +4432,7 @@
   border-left-width: 170px;
 }
 .left.bg .moon-background-wrapper-client-tri {
-  border-left-color: black;
+  border-left-color: rgba(0, 0, 0, 0.8);
 }
 .right .moon-background-wrapper-client-tri {
   right: 100%;
@@ -4357,41 +4445,26 @@
   border-right-width: 170px;
 }
 .right.bg .moon-background-wrapper-client-tri {
-  border-right-color: black;
+  border-right-color: rgba(0, 0, 0, 0.8);
 }
-/* Decorate video header styling */
-.moon-background-wrapper-client-content.right {
-  padding-right: 30px;
-  padding-left: 0px;
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.left.bg .moon-background-wrapper-client-tri {
+  border-left-color: transparent;
 }
-.moon-background-wrapper-client-content.left {
-  padding-left: 70px;
-  padding-right: 30px;
-}
-/* Make equal spacing */
-.moon-background-wrapper-client-content {
-  white-space: nowrap;
-}
-.moon-background-wrapper-client-content > * {
-  display: inline-block;
-  margin: 0 30px;
-}
-.moon-background-wrapper-client-content.left > :first-child {
-  margin-left: 0;
-}
-.moon-background-wrapper-client-content.right > :first-child {
-  margin-right: 0;
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.right.bg .moon-background-wrapper-client-tri {
+  border-right-color: transparent;
 }
 .moon-clock {
   display: block;
   vertical-align: top;
   width: auto;
+  text-align: left;
+  width: 200px;
 }
 .moon-clock-hour {
-  vertical-align: center;
   display: inline-block;
   margin-right: 15px;
   color: #4b4b4b;
+  line-height: 100px;
 }
 .moon-clock-right {
   display: inline-block;
@@ -4400,9 +4473,7 @@
 }
 .moon-clock-top {
   color: #4b4b4b;
-  vertical-align: bottom;
   display: inline-block;
-  line-height: 60px;
   white-space: nowrap;
   font-size: 61px;
   line-height: 62px;
@@ -4465,6 +4536,9 @@
 .moon-clock-right.mini > .moon-clock-bottom {
   font-size: 28px;
   text-align: right;
+}
+.moon-video-clock-container {
+  display: inline-block;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {

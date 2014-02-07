@@ -2,11 +2,11 @@ enyo.kind({
     name: "moon.sample.AlwaysViewingPanelsWithVideoSample",
     classes: "moon enyo-fit enyo-unselectable",
     components: [
-        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "assets/video-poster.png", autoplay: true, infoComponents: [
+        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "assets/video-poster.png", autoplay: true, showInfoBackground: true, infoComponents: [
 			{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 				{
 					kind: "moon.ChannelInfo",
-					channelNo: "13",
+					channelNo: "9999-99",
 					channelName: "AMC",
 					classes: "moon-2h", 
 					components: [
@@ -109,7 +109,7 @@ enyo.kind({
 		this.$.panels.next();
 		return true;
 	},
-	handleShowingChanged: function(inSender, inEvent) {
+	handleShowingChanged : function(inSender, inEvent) {
 		this.$.panels.setHandleShowing(inSender.getChecked());
 	}
-});
+}); 

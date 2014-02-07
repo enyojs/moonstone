@@ -6,6 +6,24 @@
 .moon-background-wrapper-client-content {
     position: relative;
     display: inline-block;
+    white-space: nowrap;
+    height: 320px;
+    &.left {
+        padding: 20px 20px 0 60px;
+        > * {
+          margin-right: 40px;
+        }
+    }
+    &.right {
+        float: right;
+        padding: 20px 60px 0 20px;
+        > * {
+          margin-left: 40px;
+        }
+    }
+    &.bg {
+        background-color: rgba(0,0,0,0.8);
+    }
 }
 .enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
     direction: rtl;
@@ -16,6 +34,10 @@
 .moon-background-wrapper-client-content.bg {
     background-color: black;
 }
+.moon-video-player-header.full-background .moon-background-wrapper-client-content.bg {
+  background-color: transparent;
+}
+
 .moon-background-wrapper-client-tri {
     position: absolute;
     width: 0;
@@ -32,7 +54,7 @@
     border-left-width: 170px;
 }
 .left.bg .moon-background-wrapper-client-tri {
-    border-left-color: black;
+    border-left-color: rgba(0,0,0,0.8);
 }
 .right .moon-background-wrapper-client-tri {
     right: 100%;
@@ -45,31 +67,14 @@
     border-right-width: 170px;
 }
 .right.bg .moon-background-wrapper-client-tri {
-    border-right-color: black;
+    border-right-color: rgba(0,0,0,0.8);
 }
 
-
-/* Decorate video header styling */
-.moon-background-wrapper-client-content.right {
-	padding-right: 30px;
-	padding-left: 0px;
-}
-.moon-background-wrapper-client-content.left {
-	padding-left: 70px;
-	padding-right: 30px;
-}
-
-/* Make equal spacing */
-.moon-background-wrapper-client-content {
-	white-space: nowrap;
-}
-.moon-background-wrapper-client-content > * {
-	display: inline-block;
-	margin: 0 30px;
-}
-.moon-background-wrapper-client-content.left > :first-child {
-	margin-left: 0;
-}
-.moon-background-wrapper-client-content.right > :first-child {
-	margin-right: 0;
+.moon-video-player-header.full-background {
+    .moon-background-wrapper-client-content.left.bg .moon-background-wrapper-client-tri {
+        border-left-color: transparent;
+    }
+    .moon-background-wrapper-client-content.right.bg .moon-background-wrapper-client-tri {
+        border-right-color: transparent;
+    }
 }

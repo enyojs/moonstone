@@ -163,6 +163,11 @@ enyo.kind({
 			but is still loading/buffering
 		*/
 		autoShowSpinner: true,
+		/** 
+			When true, the video info header has a full-width background (and any background wrappers) used
+			in the info header have their backgrounds removed.
+		*/
+		showInfoBackground: false,
 
 		//* @protected
 		//* Base URL for icons
@@ -271,7 +276,7 @@ enyo.kind({
 								{name: "jumpForward",	kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
-						{name: "client", classes: "moon-video-player-more-controls"}
+						{name: "client", layoutKind: "FittableColumnsLayout", classes: "moon-video-player-more-controls moon-neutral", noStretch: true}
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
@@ -311,6 +316,7 @@ enyo.kind({
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
 		this.updatePlaybackControlState();
+		this.showInfoBackgroundChanged();
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
 		}
@@ -377,6 +383,9 @@ enyo.kind({
 		this.updatePlaybackControlState();
 		this._resetTime();
 		this.$.video.setSrc(this.getSrc());
+	},
+	showInfoBackgroundChanged: function() {
+		this.$.videoInfoHeader.addRemoveClass("full-background", this.showInfoBackground);
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
 	getVideo: function() {
