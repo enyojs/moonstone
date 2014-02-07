@@ -12,6 +12,7 @@ enyo.kind({
 	floating  : true,
 	_bounds   : null,
 	spotlight : "container",
+	allowDefault: true,
 
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
