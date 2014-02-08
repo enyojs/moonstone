@@ -141,7 +141,7 @@
   font-style: normal;
 }
 @font-face {
-  font-family: "MuseoSans 500";
+  font-family: "Moonstone MuseoSans 500";
   src: local("Moon Museo Sans Medium"), url("../fonts/MuseoSans/Museo SansDemiBold.ttf") format("truetype"), url("../fonts/MuseoSans/Museo SansDemiBold.woff") format("woff");
   font-weight: normal;
   font-style: normal;
@@ -4142,15 +4142,25 @@
   white-space: nowrap;
 }
 .moon-video-player-info-title {
+  font-family: "Moonstone Miso";
   font-size: 126px;
-  letter-spacing: -0.05em;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  -webkit-font-kerning: normal;
+  font-size: 72px;
   margin-bottom: 0;
   white-space: nowrap;
+  color: #ffffff;
+  margin-top: 20px;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
   font-family: "Moonstone LG Display";
   font-size: 114px;
+  font-size: 72px;
   color: #ffffff;
+  text-transform: none;
 }
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
@@ -4159,8 +4169,8 @@
   font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
+  font-family: "MuseoSans 500";
   color: #ffffff;
-  margin-bottom: 22px;
   white-space: nowrap;
   display: inline-block;
 }
@@ -4252,6 +4262,8 @@
 .moon-video-player-info-client {
   display: inline-block;
   margin: 0 0 10px 20px;
+  position: relative;
+  bottom: 4px;
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {
   margin: 0 20px 10px 0;
@@ -4282,6 +4294,9 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
+  font-size: 72px;
+  color: #ffffff;
+  margin-top: 20px;
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
@@ -4291,7 +4306,7 @@
   letter-spacing: 0;
   color: #a6a6a6;
   color: #ffffff;
-  margin-bottom: 22px;
+  font-family: "MuseoSans 500";
   white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
@@ -4305,8 +4320,9 @@
   letter-spacing: 0;
   color: #a6a6a6;
   font-size: 20px;
-  background-color: #ffffff;
-  color: #000000;
+  font-size: 15px;
+  background-color: #292929;
+  color: #878787;
   border-radius: 5px;
   text-align: center;
   white-space: nowrap;
@@ -4337,7 +4353,7 @@
   float: right;
 }
 .moon-background-wrapper-client-content.bg {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.85);
 }
 .moon-background-wrapper-client-tri {
   position: absolute;
@@ -4355,7 +4371,7 @@
   border-left-width: 170px;
 }
 .left.bg .moon-background-wrapper-client-tri {
-  border-left-color: black;
+  border-left-color: rgba(0, 0, 0, 0.85);
 }
 .right .moon-background-wrapper-client-tri {
   right: 100%;
@@ -4368,7 +4384,7 @@
   border-right-width: 170px;
 }
 .right.bg .moon-background-wrapper-client-tri {
-  border-right-color: black;
+  border-right-color: rgba(0, 0, 0, 0.85);
 }
 /* Decorate video header styling */
 .moon-background-wrapper-client-content.right {

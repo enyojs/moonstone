@@ -9,19 +9,26 @@
 	white-space: nowrap;
 }
 .moon-video-player-info-title {
-	font-size: 126px;
-	letter-spacing:-0.05em;
+	.moon-header-text;
+	font-size: 72px;
+	// letter-spacing:-0.05em;
 	margin-bottom: 0;
 	white-space: nowrap;
+	color: @moon-white;
+	// text-transform: none;
+	margin-top: 20px;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
 	.enyo-locale-non-latin .moon-header-text;
+	font-size: 72px;
 	color: @moon-white;
+	text-transform: none;
 }
 .moon-video-player-info-subtitle {
 	.moon-sub-header-text;
+	font-family: "MuseoSans 500";
 	color: @moon-white;
-	margin-bottom: 22px;
+	// margin-bottom: 22px;
 	white-space: nowrap;
 	display: inline-block;
 }
@@ -61,6 +68,8 @@
 .moon-video-player-info-client {
 	display: inline-block;
 	margin: 0 0 10px 20px;
+	position: relative;
+	bottom: 4px;
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {
 	margin: 0 20px 10px 0;
