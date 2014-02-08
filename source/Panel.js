@@ -324,7 +324,7 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.growing = false;
 		this.doPostTransitionComplete();
-		this.resized();
+		this.reflow();
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
