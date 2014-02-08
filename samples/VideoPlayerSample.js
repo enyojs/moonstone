@@ -56,7 +56,7 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 				{kind: "moon.TooltipDecorator", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
-						{kind: "moon.IconButton"},
+						{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
 						{
 							kind: "moon.ContextualPopup",
 							classes: "moon-3h moon-6v",
@@ -70,14 +70,14 @@ enyo.kind({
 					{kind: "moon.Tooltip", floating:true, content: "Opens ContextualPopup"}
 				]},
 				{kind: "moon.ToggleButton", name:"controlsToggleButton", minWidth:false, content:"Controls"},
-				{kind: "moon.Button", content:"Unld", minWidth:false, ontap:"unload"},
-				{kind: "moon.Button", content:"Reld", minWidth:false, ontap:"load"},
-				{kind: "moon.ToggleButton", content:"FF/Rew", minWidth:false, name:"ffrewToggleButton"},
-				{kind: "moon.ToggleButton", content:"Left", minWidth:false, name:"leftToggleButton"},
-				{kind: "moon.ToggleButton", content:"BG", minWidth:false, name:"bgToggleButton"},
-				{kind: "moon.ToggleButton", content:"Ch", minWidth:false, name:"chToggleButton"},
-				{kind: "moon.ToggleButton", content:"Info", minWidth:false, name:"infoToggleButton"},
-				{kind: "moon.ToggleButton", content:"Right", minWidth:false, name:"rightToggleButton"}
+				// {kind: "moon.Button", content:"Unld", minWidth:false, ontap:"unload"},
+				// {kind: "moon.Button", content:"Reld", minWidth:false, ontap:"load"},
+				// {kind: "moon.ToggleButton", content:"FF/Rew", minWidth:false, name:"ffrewToggleButton"},
+				// {kind: "moon.ToggleButton", content:"Left", minWidth:false, name:"leftToggleButton"},
+				// {kind: "moon.ToggleButton", content:"BG", minWidth:false, name:"bgToggleButton"},
+				// {kind: "moon.ToggleButton", content:"Ch", minWidth:false, name:"chToggleButton"},
+				// {kind: "moon.ToggleButton", content:"Info", minWidth:false, name:"infoToggleButton"},
+				// {kind: "moon.ToggleButton", content:"Right", minWidth:false, name:"rightToggleButton"}
 			]
 		},
 		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [

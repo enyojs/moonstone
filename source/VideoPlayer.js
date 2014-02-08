@@ -280,7 +280,7 @@ enyo.kind({
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
-						{name: "moreButton", kind: "moon.IconButton", small: false, ontap: "moreButtonTapped"}
+						{name: "moreButton", kind: "moon.IconButton", small: false, ontap: "moreButtonTapped", isChrome:true}
 					]}
 				]},
 			
@@ -365,7 +365,8 @@ enyo.kind({
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
 		this.$.moreButton.set("showing", this.showPlaybackControls && this.clientComponentsCount > 2);
 		this.toggleSpotlightForMoreControls(!this.showPlaybackControls);
-		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
+		this.$.controlsContainer.setIndex(this.showPlaybackControls ? 0 : 1);
+		//this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
 	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
@@ -398,27 +399,32 @@ enyo.kind({
 	createClientComponents: function(inComponents) {
 		inComponents = (inComponents) ? enyo.clone(inComponents) : [];
 		this.clientComponentsCount = inComponents.length;
-		if (!this._buttonsSetup) {
-			this._buttonsSetup = true;
-			if (!inComponents || inComponents.length === 0) {
-				// No components - destroy more button
-				this.$.leftPremiumPlaceHolder.hide();
-				this.$.rightPremiumPlaceHolder.hide();		
-			} else if (inComponents.length <= 2) {
-				// One or two components - destroy more button and utilize left/right premium placeholders
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
-				if (inComponents.length === 1) {
-					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
-				}
-			} else {
-				// More than two components - use extra panel, with left premium plaeholder for first component
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+		if (!inComponents || inComponents.length === 0) {
+			// No components - destroy more button
+			this.$.leftPremiumPlaceHolder.hide();
+			this.$.rightPremiumPlaceHolder.hide();		
+		} else if (inComponents.length <= 2) {
+			// One or two components - destroy more button and utilize left/right premium placeholders
+			this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+			if (inComponents.length === 1) {
+				this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 			}
-			// Create the rest of the components in the client (panels)
-			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
 		} else {
-			this.inherited(arguments);
+			// More than two components - use extra panel, with left premium plaeholder for first component
+			this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 		}
+		// Create the rest of the components in the client (panels)
+		this.createComponents(inComponents, {owner: this.getInstanceOwner()});
+	},
+	recreateClientComponents: function(inComponents) {
+		this.$.leftPremiumPlaceHolder.destroyClientControls();
+		this.$.rightPremiumPlaceHolder.destroyClientControls();
+		this.destroyClientControls();
+		this.createClientComponents(inComponents);
+		this.showPlaybackControlsChanged();
+		this.$.leftPremiumPlaceHolder.render();
+		this.$.rightPremiumPlaceHolder.render();
+		this.$.client.render();
 	},
 	playIconChanged: function() {
 		this.updatePlayPauseButtons();
