@@ -161,7 +161,17 @@ enyo.kind({
 	var exts = {
 		refresh: enyo.inherit(function (sup) {
 			return function (list) {
+				var current = enyo.Spotlight.getCurrent(),
+					focusedIndex = -1;
+				if (current && current.isDescendantOf(list)) {
+					focusedIndex = list.getIndexFromChild(current);
+					enyo.Spotlight.unspot();
+				}
 				sup.apply(this, arguments);
+				if (focusedIndex > -1) {
+					focusedIndex = (focusedIndex < list.collection.length-1) ? focusedIndex : list.collection.length-1;
+					enyo.Spotlight.spot(list.childForIndex(focusedIndex));
+				}
 				list.$.scroller.resized();
 			};
 		}),
