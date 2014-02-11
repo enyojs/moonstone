@@ -374,9 +374,7 @@ enyo.kind({
 		this.queuedIndex = null;
 
 		// Ensure any VKB is closed when transitioning panels
-		if (document.activeElement) {
-			document.activeElement.blur();
-		}
+		this.blurActiveElementIfHiding(inIndex);
 
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
@@ -390,6 +388,25 @@ enyo.kind({
 		}
 		else {
 			this.skipArrangerAnimation();
+		}
+	},
+	blurActiveElementIfHiding: function(inIndex) {
+		var activeElement = document.activeElement,
+			activeComponent = activeElement ? enyo.$[activeElement.id] : null,
+			panels = this.getPanels(),
+			panel,
+			panelInfo;
+		if (activeComponent) {
+			for (var i = 0; i < panels.length; i++) {
+				panel = panels[i];
+				if (activeComponent.isDescendantOf(panel)) {
+					panelInfo = this.getPanelInfo(i, inIndex);
+					if (panelInfo.offscreen) {
+						document.activeElement.blur();
+					}
+					break;
+				}
+			}
 		}
 	},
 	/**
