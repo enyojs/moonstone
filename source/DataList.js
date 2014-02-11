@@ -169,8 +169,11 @@ enyo.kind({
 				}
 				sup.apply(this, arguments);
 				if (focusedIndex > -1) {
-					focusedIndex = (focusedIndex < list.collection.length-1) ? focusedIndex : list.collection.length-1;
-					enyo.Spotlight.spot(list.childForIndex(focusedIndex));
+					if (!current.generated) {
+						focusedIndex = (focusedIndex < list.collection.length-1) ? focusedIndex : list.collection.length-1;
+						current = list.childForIndex(focusedIndex);
+					}
+					enyo.Spotlight.spot(current);
 				}
 				list.$.scroller.resized();
 			};
