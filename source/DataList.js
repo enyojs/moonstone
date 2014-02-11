@@ -5,14 +5,49 @@
 	enyo counterparts, this mixin provides common add-on code needed for proper spotlight handling.
 */
 moon.DataListSpotlightSupport = {
+	published: {
+		initialFocusIndex: -1
+	},
+	focusOnIndex: function(inIndex, inSubChild) {
+		var c = this.collection,
+			child,
+			page,
+			subChild;
+		if (c && c.length && this.hasRendered) {				// Give focus if list is rendered
+			inIndex = inIndex < 0 ? 0 : (inIndex >= c.length ? c.length - 1 : inIndex);
+			child = this.childForIndex(inIndex);
+			if (!child) {
+				page = this.delegate.pageForIndex(this, inIndex);
+				if (page !== null) {
+					this.scrollToIndex(inIndex);
+					child = this.childForIndex(inIndex);
+				}
+			}
+			subChild = inSubChild ? enyo.Spotlight.getChildren(child)[inSubChild] : child;
+			enyo.Spotlight.spot(subChild);
+		} else {
+			this._indexToFocus = inIndex;
+		}
+	},
+	getFocusedIndex: function() {
+		var focusedChild = this.getFocusedChild();
+		return focusedChild ? this.getIndexFromChild(focusedChild) : -1;
+	},
+	getFocusedChild: function() {
+		var current = enyo.Spotlight.getCurrent();
+		return (current && current.isDescendantOf(this.$.active)) ? current : null;
+	},
+	_indexToFocus: -1,
+	_subChildToFocus: null,
 	didRender: function () {
 		// Since we delay rendering (potentially spottable) children by default, spotlight on the list is
 		// true by default; once we render, we check if the list was focused and if so, transfer
 		// focus to the first spottable child inside
-		var spot = enyo.Spotlight.getCurrent();
 		this.spotlight = false;
-		if (spot && (spot === this || spot.isDescendantOf(this))) {
-			enyo.Spotlight.spot(this);
+		var index = (this._indexToFocus > -1) ? this._indexToFocus : this.initialFocusIndex;
+		if (index > -1) {
+			this.focusOnIndex(index);
+			this._indexToFocus = -1;
 		}
 	},
 	didScroll: enyo.inherit(function (sup) {
@@ -93,43 +128,58 @@ moon.DataListSpotlightSupport = {
 		}
 		return null;
 	},
-	getIndexFromChild: function(oControl) {
+	getItemFromChild: function(oControl) {
 		while (oControl) {
 			if (oControl.index !== undefined) {
-				return oControl.index;
+				return oControl;
 			}
 			oControl = oControl.parent;
 		}
-		return -1;
+		return null;
 	},
+	getIndexFromChild: function(oControl) {
+		var item = this.getItemFromChild(oControl);
+		return item ? item.index : -1;
+	},
+	unspotAndRememberFocus: function() {
+		var current = this.getFocusedChild(),
+			focusedItem;
+		if (current) {
+			focusedItem = this.getItemFromChild(current);
+			this._indexToFocus = focusedItem.index;
+			this._subChildToFocus = focusedItem === current ? null : enyo.Spotlight.getChildren(focusedItem).indexOf(current);
+			enyo.Spotlight.unspot();
+		}
+	},
+	restoreFocus: function() {
+		var index = this._indexToFocus,
+			subChild = this._subChildToFocus,
+			c = this.collection;
+		if (c && c.length) {
+			this.focusOnIndex(index, subChild);
+			this._indexToFocus = -1;
+			this._subChildToFocus = null;
+		}
+	},
+	didResize: enyo.inherit(function(sup) {
+		return function(sender, event) {
+			this.unspotAndRememberFocus();
+			sup.apply(this, arguments);
+			this.restoreFocus();
+		};
+	}),
 	modelsAdded: enyo.inherit(function (sup) {
 		return function (c, e, props) {
-			var current = enyo.Spotlight.getCurrent(),
-				focusedIndex = -1;
-			if (current && current.isDescendantOf(this)) {
-				focusedIndex = this.getIndexFromChild(current);
-				enyo.Spotlight.unspot();
-			}
+			this.unspotAndRememberFocus();
 			sup.apply(this, arguments);
-			if (focusedIndex > -1) {
-				focusedIndex = (focusedIndex < c.length-1) ? focusedIndex : c.length-1;
-				enyo.Spotlight.spot(this.childForIndex(focusedIndex));
-			}
+			this.restoreFocus();
 		};
 	}),
 	modelsRemoved: enyo.inherit(function (sup) {
 		return function (c, e, props) {
-			var current = enyo.Spotlight.getCurrent(),
-				focusedIndex = -1;
-			if (current && current.isDescendantOf(this)) {
-				focusedIndex = this.getIndexFromChild(current);
-				enyo.Spotlight.unspot();
-			}
+			this.unspotAndRememberFocus();
 			sup.apply(this, arguments);
-			if (focusedIndex > -1) {
-				focusedIndex = (focusedIndex < c.length-1) ? focusedIndex : c.length-1;
-				enyo.Spotlight.spot(this.childForIndex(focusedIndex));
-			}
+			this.restoreFocus();
 		};
 	})
 };
@@ -161,17 +211,7 @@ enyo.kind({
 	var exts = {
 		refresh: enyo.inherit(function (sup) {
 			return function (list) {
-				var current = enyo.Spotlight.getCurrent(),
-					focusedIndex = -1;
-				if (current && current.isDescendantOf(list)) {
-					focusedIndex = list.getIndexFromChild(current);
-					enyo.Spotlight.unspot();
-				}
 				sup.apply(this, arguments);
-				if (focusedIndex > -1) {
-					focusedIndex = (focusedIndex < list.collection.length-1) ? focusedIndex : list.collection.length-1;
-					enyo.Spotlight.spot(list.childForIndex(focusedIndex));
-				}
 				list.$.scroller.resized();
 			};
 		}),
