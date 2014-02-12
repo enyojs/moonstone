@@ -11,22 +11,19 @@ moon.DataListSpotlightSupport = {
 	focusOnIndex: function(inIndex, inSubChild) {
 		var c = this.collection,
 			child,
-			page,
 			subChild;
-		if (c && c.length && this.hasRendered) {				// Give focus if list is rendered
+		if (c && c.length && this.hasRendered) {  // Give focus if list is rendered
 			inIndex = inIndex < 0 ? 0 : (inIndex >= c.length ? c.length - 1 : inIndex);
 			child = this.childForIndex(inIndex);
 			if (!child) {
-				page = this.delegate.pageForIndex(this, inIndex);
-				if (page !== null) {
-					this.scrollToIndex(inIndex);
-					child = this.childForIndex(inIndex);
-				}
+				this.scrollToIndex(inIndex);
+				child = this.childForIndex(inIndex);
 			}
 			subChild = inSubChild ? enyo.Spotlight.getChildren(child)[inSubChild] : child;
 			enyo.Spotlight.spot(subChild);
 		} else {
 			this._indexToFocus = inIndex;
+			this._subChildToFocus = inSubChild;
 		}
 	},
 	getFocusedIndex: function() {
@@ -155,7 +152,7 @@ moon.DataListSpotlightSupport = {
 		var index = this._indexToFocus,
 			subChild = this._subChildToFocus,
 			c = this.collection;
-		if (c && c.length) {
+		if (c && c.length && (index > -1)) {
 			this.focusOnIndex(index, subChild);
 			this._indexToFocus = -1;
 			this._subChildToFocus = null;
