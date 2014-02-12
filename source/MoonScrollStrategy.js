@@ -403,14 +403,17 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
+		var showVertical, showHorizontal;
 		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
 			this.scrollBounds = this._getScrollBounds();
 			this.setupBounds();
-			if (this.showVertical() || this.showHorizontal()) {
+			showVertical = this.showVertical();
+			showHorizontal = this.showHorizontal();
+			if (showVertical || showHorizontal) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
-				if (this.$.scrollMath.bottomBoundary) {
+				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 					this.alertThumbs();
-				}				
+				}	
 				this.scrollBounds = null;
 				return true;
 			} else {
