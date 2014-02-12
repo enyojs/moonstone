@@ -206,5 +206,12 @@ enyo.kind({
 				oInput.blur();
 			}
 		}
-	}
+	},
+
+	destroy: function() {
+		this.inherited(arguments);
+		if (this.focused) {
+			enyo.Spotlight.unfreeze();
+		}
+	},
 });

@@ -208,7 +208,9 @@ enyo.kind({
 		/**
 			When false, video player doesn't response to remote controller
 		*/
-		handleRemoteControlKey: true
+		handleRemoteControlKey: true,
+		//* Show/hide video info and transport controls when user taps on player
+		showOverlayOnTap: false
 			
 	},
 	//* @protected
@@ -257,7 +259,7 @@ enyo.kind({
 		]},
 
 		//* Fullscreen controls
-		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
+		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", ontap:"fullscreenTapped", components: [
 		
 			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
 			
@@ -362,11 +364,11 @@ enyo.kind({
 		this.aspectRatioChanged();
 	},
 	showPlaybackControlsChanged: function(inOld) {
-		this.$.trickPlay.set("showing", this.showPlaybackControls);
 		this.$.moreButton.set("showing", this.showPlaybackControls && this.clientComponentsCount > 2);
 		this.toggleSpotlightForMoreControls(!this.showPlaybackControls);
-		this.$.controlsContainer.setIndex(this.showPlaybackControls ? 0 : 1);
-		//this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
+		this.$.controlsContainer.setIndexDirect(this.showPlaybackControls ? 0 : 1);
+		this.updateMoreButton();
+		this.$.client.addRemoveClass("no-line", !this.showPlaybackControls);
 	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
@@ -573,6 +575,15 @@ enyo.kind({
 			return true;
 		}
 	},
+	fullscreenTapped: function(inSender, inEvent) {
+		if (this.showOverlayOnTap && this.isLarge() && (inEvent.originator == this.$.fullscreenControl)) {
+			if (this.isOverlayShowing()) {
+				this.hideFSControls();
+			} else {
+				this.showFSControls();
+			}
+		}
+	},
 	spotlightKeyDownHandler: function(inSender, inEvent) {
 		// Do not decorate event with spotlight container flag if sent from control whose events player should handle
 		if (inEvent.spotSentFromContainer && (enyo.Spotlight.getParent(inEvent.originator) === this || inEvent.originator === this)) {
@@ -618,10 +629,6 @@ enyo.kind({
 			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
 			this.$.playerControl.resized();
-			if (!this.showPlaybackControls) {
-				//* Fixed index
-				this.$.controlsContainer.setIndex(1);
-			}
 			
 			//* Initial spot
 			this.spotFSBottomControls();
