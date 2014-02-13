@@ -30,7 +30,7 @@ enyo.kind({
 	lockBottom: true,
 
 	components: [
-		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", ondown: "headerDown", components: [
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
@@ -69,12 +69,14 @@ enyo.kind({
 		if (this.getOpen()) {
 			this.setActive(false);
 			this.$.clientInput.blur();
-			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
 			enyo.Spotlight.unspot();
 			enyo.Spotlight.freeze();
 		}
+	},
+	headerDown: function() {
+		enyo.Spotlight.unfreeze();
 	},
 	//* Focuses the _moon.Input_ when the input decorator receives focus.
 	inputFocus: function(inSender, inEvent) {
