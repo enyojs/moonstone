@@ -10,8 +10,8 @@ enyo.kind({
 					{kind: "moon.ToggleItem", content: "Option 1", checked: true, onchange: "itemChanged"},
 					{kind: "moon.ToggleItem", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.ToggleItem", disabled: true, content: "Disabled", onchange: "itemChanged"},
-					{kind: "moon.ToggleItem", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.ToggleItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
+					{kind: "moon.ToggleItem", content: "This is a verrry long option 4", checked: true, onchange: "itemChanged"},
+					{kind: "moon.ToggleItem", content: "Long option with custom on/off", onContent:"üzerinde", offContent:"kapalı", onchange: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Toggle Item Group"},

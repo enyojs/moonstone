@@ -1165,11 +1165,14 @@
 }
 /* Toggle.css */
 .moon-checkbox.moon-toggle-text {
-  text-align: left;
   text-transform: uppercase;
   background: inherit;
   opacity: 1;
-  background: transparent none no-repeat 0 0;
+  display: table-cell;
+  white-space: nowrap;
+  color: #4b4b4b;
+  position: static;
+  padding-left: 10px;
 }
 .moon-checkbox.moon-toggle-text[disabled] {
   opacity: 0.6;
@@ -1180,35 +1183,32 @@
 .moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
   background: transparent none no-repeat 0px 0px;
 }
-.moon-toggle-text-text {
-  position: absolute;
-  right: 0px;
-  top: 2px;
-  text-align: right;
-  color: #4b4b4b;
+.enyo-locale-right-to-left .moon-checkbox.moon-toggle-text {
+  padding-left: 0;
+  padding-right: 10px;
 }
-.enyo-locale-right-to-left .moon-toggle-text-text {
-  right: auto;
-  left: 0px;
-}
-.moon-checkbox-item.spotlight .moon-toggle-text-text {
+.moon-checkbox-item.spotlight .moon-toggle-text {
   color: #ffffff;
 }
 .moon-toggle-item {
   display: block;
   position: relative;
 }
-.moon-toggle-item .moon-checkbox {
-  width: 53px;
+.moon-toggle-item-fit {
+  display: table-cell;
+  width: 100%;
+}
+.moon-toggle-item-wrapper {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 30px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   height: 1.2em;
-  padding: 2px 0px 0px 0px;
-  margin-right: 65px;
-}
-.enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-  margin-left: 65px;
-  margin-right: 0px;
+  position: absolute;
+  top: 2px;
+  width: 100%;
 }
 .moon-toggle-item.disabled .moon-toggle-text {
   opacity: 1;

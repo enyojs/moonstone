@@ -2,17 +2,21 @@
 	display: block;
 	position:relative;
 }
-.moon-toggle-item .moon-checkbox {
-	width: 53px;
+.moon-toggle-item-fit {
+	display: table-cell;
+	width: 100%;
+}
+.moon-toggle-item-wrapper {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 30px;
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
 	height: @moon-item-line-height;
-	padding: 2px 0px 0px 0px;
-	margin-right: 65px;
-}
-.enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-	margin-left: 65px;
-	margin-right: 0px;
+	position: absolute;
+	top: 2px;
+	width: 100%;
 }
 .moon-toggle-item.disabled .moon-toggle-text {
 	opacity: 1;
