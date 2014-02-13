@@ -35,8 +35,8 @@ enyo.kind({
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
-			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
-				{name: "clientInput", kind: "moon.Input", onchange: "doChange"}
+			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightDown: "inputDown", components: [
+				{name: "clientInput", kind: "moon.Input", onchange: "doChange", spotlightIgnoredKeys: [], onkeydown: "inputKeyDown"}
 			]}
 		]}
 	],
@@ -81,6 +81,11 @@ enyo.kind({
 		var direction = inEvent && inEvent.dir;
 		if (this.getOpen() && direction) {
 			this.focusInput();
+		}
+	},
+	inputKeyDown: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			this.expandContract();
 		}
 	},
 	/**
