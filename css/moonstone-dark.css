@@ -43,6 +43,8 @@
 /* ---------------------------------------*/
 /* Spinner */
 /* ---------------------------------------*/
+/* ToggleSwitch */
+/* ---------------------------------------*/
 /* IntegerPicker */
 /* ---------------------------------------*/
 /* Grid Dimensions */
@@ -1165,26 +1167,55 @@
 .moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   padding-left: 2px;
 }
-/* Toggle.css */
-.moon-checkbox.moon-toggle-indicator {
-  top: 11px;
-  /* To overwrite top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
-
+/* ToggleText.css */
+.moon-checkbox.moon-toggle-text {
+  text-align: left;
+  text-transform: uppercase;
+  background: inherit;
+  opacity: 1;
+  background: transparent none no-repeat 0 0;
 }
-.moon-toggle-item-off {
+.moon-checkbox.moon-toggle-text[disabled] {
+  opacity: 0.6;
+}
+.moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-toggle-text-text {
+  position: absolute;
+  right: 0px;
+  top: 2px;
+  text-align: right;
+  color: #a6a6a6;
+}
+.enyo-locale-right-to-left .moon-toggle-text-text {
+  right: auto;
+  left: 0px;
+}
+.moon-checkbox-item.spotlight .moon-toggle-text-text {
+  color: #ffffff;
+}
+/* ToggleSwitch.css */
+.moon-checkbox.moon-toggle-switch {
+  height: 33px;
+  width: 65px;
   background: url(../images/toggle-off.png) no-repeat 0 0;
 }
-.moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-indicator[checked].moon-toggle-item-on,
-.moon-checkbox.moon-toggle-indicator[checked].moon-toggle-item-on {
+.moon-checkbox-item.moon-toggle-item.spotlight .moon-toggle-switch[checked],
+.moon-checkbox.moon-toggle-switch[checked] {
   background: url(../images/toggle-on.png) no-repeat 0 0;
 }
 .moon-toggle-item {
   display: block;
   position: relative;
 }
-.moon-toggle-item .moon-checkbox {
-  width: 65px;
-  height: 33px;
+.moon-toggle-item .moon-checkbox.moon-toggle-switch {
+  top: 11px;
+  /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   margin-right: 75px;
