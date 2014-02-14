@@ -17,22 +17,21 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-toggle-text",
-	components: [
-		{name: "label", classes: "moon-toggle-text-text"}
-	],
 	create: function() {
 		this.inherited(arguments);
 		this.checkedChanged();
 	},
 	checkedChanged: function() {
 		this.inherited(arguments);
-		this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
+		this.setContent(this.getChecked() ? this.onContent : this.offContent);
 	},
 	shouldDoTransition: function(inChecked) {
 		return true;
 	},
-	createOverlayComponent: function() {
-		var content = this.getChecked() ? this.getOnContent() : this.getOffContent();
-		return this.createComponent({name: "overlay", classes: "moon-overlay", content: content});
+	onContentChanged: function() {
+		this.checkedChanged();
+	},
+	offContentChanged: function() {
+		this.checkedChanged();
 	}
 });

@@ -1,11 +1,14 @@
 /* Toggle.css */
 
 .moon-checkbox.moon-toggle-text {
-	text-align: left;
 	text-transform: uppercase;
 	background: inherit;
 	opacity: 1;
-	background: transparent none no-repeat 0 0;
+	display: table-cell;
+	white-space: nowrap;
+	color: @moon-toggle-text-color;
+	position: static;
+	padding-left: @moon-spotlight-outset;
 }
 .moon-checkbox.moon-toggle-text[disabled] {
 	opacity: @moon-disabled-opacity;
@@ -18,21 +21,11 @@
 	background: transparent none no-repeat 0px 0px;
 }
 
-.moon-toggle-text-text {
-	position: absolute;
-	right: 0px;
-	top: 2px;
-	text-align: right;
-	color: @moon-toggle-text-color;
+.enyo-locale-right-to-left .moon-checkbox.moon-toggle-text {
+	padding-left: 0;
+	padding-right: @moon-spotlight-outset;
 }
 
-.enyo-locale-right-to-left {
-	.moon-toggle-text-text {
-		right: auto;
-		left: 0px;
-	}
-}
-
-.moon-checkbox-item.spotlight .moon-toggle-text-text {
+.moon-checkbox-item.spotlight .moon-toggle-text {
 	color: @moon-spotlight-text-color;
 }
