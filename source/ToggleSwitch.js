@@ -8,5 +8,5 @@ enyo.kind({
 	name: "moon.ToggleSwitch",
 	kind: "moon.Checkbox",
 	//* @protected
-	classes: "moon-toggle-switch",
+	classes: "moon-toggle-switch"
 });
