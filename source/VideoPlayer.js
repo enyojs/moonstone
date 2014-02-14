@@ -74,7 +74,9 @@ enyo.kind({
 			automatically hidden
 		*/
 		autoCloseTimeout: 7000,
-		//* Duration of the video
+		//* The current position of playback
+		currentTime: 0,
+		//* The duration of the currently loaded video
 		duration: 0,
 		//* When true, playback starts automatically when video is loaded
 		autoplay: false,
@@ -204,7 +206,6 @@ enyo.kind({
 			When false, video player doesn't response to remote controller
 		*/
 		handleRemoteControlKey: true
-			
 	},
 	//* @protected
 	handlers: {
@@ -238,7 +239,6 @@ enyo.kind({
 	_isPlaying: false,
 	_canPlay: false,
 	_autoCloseTimer: null,
-	_currentTime: 0,
 	
 	components: [
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
@@ -757,7 +757,7 @@ enyo.kind({
 	},
 	//* When seeking completes, plays video.
 	sliderSeekFinish: function(inSender, inEvent) {
-		if (inEvent.value < this._duration - 1) {
+		if (inEvent.value < this.duration - 1) {
 			if (!this._isPausedBeforeDrag) {
 				this.play();
 			} else {
@@ -781,7 +781,7 @@ enyo.kind({
 		if (this.$.slider.isDragging()) {
 			return;
 		}
-		this.$.slider.setValue(this._currentTime);
+		this.$.slider.setValue(this.currentTime);
 	},
 
 
@@ -789,9 +789,9 @@ enyo.kind({
 	///// Inline controls /////
 
 	updateInlinePosition: function() {
-		var percentComplete = this._duration ? Math.round(this._currentTime * 1000 / this._duration) / 10 : 0;
+		var percentComplete = this.duration ? Math.round(this.currentTime * 1000 / this.duration) / 10 : 0;
 		this.$.progressStatus.applyStyle("width", percentComplete + "%");
-		this.$.currTime.setContent(this.formatTime(this._currentTime) + " / " + this.formatTime(this._duration));
+		this.$.currTime.setContent(this.formatTime(this.currentTime) + " / " + this.formatTime(this.duration));
 	},
 	videoTapped: function() {
 		if (this.getInline() && !this.isFullscreen()) {
@@ -1015,8 +1015,8 @@ enyo.kind({
 			return;
 		}
 
-		this._duration = inEvent.duration;
-		this._currentTime = inEvent.currentTime;
+		this.set("duration", inEvent.duration);
+		this.set("currentTime", inEvent.currentTime);
 
 		this.updatePosition();
 
@@ -1035,11 +1035,11 @@ enyo.kind({
 		this.durationUpdate(inSender, inEvent);
 	},
 	durationUpdate: function(inSender, inEvent) {
-		this._duration = this.$.video.getDuration();
-		this._currentTime = this.$.video.getCurrentTime();
+		this.set("duration", this.$.video.getDuration());
+		this.set("currentTime", this.$.video.getCurrentTime());
 
 		this.$.slider.setMin(0);
-		this.$.slider.setMax(this._duration);
+		this.$.slider.setMax(this.duration);
 
 		this.updatePosition();
 
@@ -1081,8 +1081,8 @@ enyo.kind({
 		}
 	},
 	_resetTime: function() {
-		this._currentTime = 0;
-		this._duration = 0;
+		this.set("duration", 0);
+		this.set("currentTime", 0);
 		this.updatePosition();
 		this.$.slider.setBgProgress(0);
 		this.$.bgProgressStatus.applyStyle("width", 0);
