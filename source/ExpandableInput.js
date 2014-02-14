@@ -30,13 +30,13 @@ enyo.kind({
 	lockBottom: true,
 
 	components: [
-		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ondown: "headerDown", ontap: "expandContract", components: [
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
-			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightSelect: "expandContract", onSpotlightDown: "inputDown", components: [
-				{name: "clientInput", kind: "moon.Input", onchange: "doChange"}
+			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightDown: "inputDown", components: [
+				{name: "clientInput", kind: "moon.Input", onchange: "doChange", onkeydown: "inputKeyDown"}
 			]}
 		]}
 	],
@@ -69,7 +69,6 @@ enyo.kind({
 		if (this.getOpen()) {
 			this.setActive(false);
 			this.$.clientInput.blur();
-			enyo.Spotlight.spot(this.$.headerWrapper);
 		} else {
 			this.setActive(true);
 			enyo.Spotlight.unspot();
@@ -82,6 +81,23 @@ enyo.kind({
 		if (this.getOpen() && direction) {
 			this.focusInput();
 		}
+	},
+	inputKeyDown: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			/* We manually set pointer mode to false as it was seemingly the
+			least harmful method to re-highlight the header after the drawer
+			closes. The other options had side effects of resetting the 
+			current spotted control to the root, or requiring a double-press to 
+			subsequently 5-way move.
+			*/
+			enyo.Spotlight.setPointerMode(false);
+			enyo.Spotlight.unfreeze();
+			enyo.Spotlight.spot(this.$.headerWrapper);
+			this.expandContract();
+		}
+	},
+	headerDown: function() {
+		enyo.Spotlight.unfreeze();
 	},
 	/**
 		Focuses the input field if navigating down from the header while the drawer
