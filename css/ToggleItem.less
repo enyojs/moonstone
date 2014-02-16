@@ -1,19 +1,17 @@
 .moon-toggle-item {
 	display: block;
 	position:relative;
+
+	.moon-checkbox.moon-toggle-switch {
+		top: @moon-spotlight-outset + 1px; /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+	}
 }
-.moon-toggle-item .moon-checkbox {
-	width: 53px;
-}
+
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-	height: @moon-item-line-height;
-	padding: 2px 0px 0px 0px;
-	margin-right: 65px;
+	margin-right: @moon-toggleswitch-margin;
 }
+
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-	margin-left: 65px;
+	margin-left: @moon-toggleswitch-margin;
 	margin-right: 0px;
-}
-.moon-toggle-item.disabled .moon-toggle-text {
-	opacity: 1;
 }
