@@ -15,8 +15,6 @@
 enyo.kind({
 	name:      "moon.Scroller",
 	kind:      "enyo.Scroller",
-	//* @protected
-	spotlight: "container",
 	//* @public
 	published: {
 		//* If true, paging controls are hidden if a key is pressed (5-way mode)
