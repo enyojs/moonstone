@@ -3999,7 +3999,7 @@
   font-size: 30px;
   letter-spacing: 0;
   color: #ffffff;
-  padding: 15px 0 0 0;
+  padding: 0 0 0 0;
   direction: ltr;
 }
 .moon-video-player-header .moon-clock-hour,
@@ -4130,7 +4130,7 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 1100px;
+  max-width: 1319px;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
@@ -4366,9 +4366,6 @@
   border-bottom-width: 1000px;
   border-left-width: 170px;
 }
-.left.bg .moon-background-wrapper-client-tri {
-  border-left-color: rgba(0, 0, 0, 0.85);
-}
 .right .moon-background-wrapper-client-tri {
   right: 100%;
   top: 0;
@@ -4379,13 +4376,11 @@
   border-top-width: 1000px;
   border-right-width: 170px;
 }
-.right.bg .moon-background-wrapper-client-tri {
-  border-right-color: rgba(0, 0, 0, 0.85);
-}
 /* Decorate video header styling */
 .moon-background-wrapper-client-content.right {
   padding-right: 30px;
   padding-left: 0px;
+  min-height: 251px;
 }
 .moon-background-wrapper-client-content.left {
   padding-left: 70px;
