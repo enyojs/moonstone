@@ -193,7 +193,8 @@ enyo.kind({
 			this.configCloseButton();
 			this.$.spotlightDummy.spotlight = false;
 			// Spot ourselves, unless we're already spotted
-			if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+			var current = enyo.Spotlight.getCurrent(); 
+			if (current === null || typeof current == "undefined" || (current && !current.isDescendantOf(this))) {
 				if (enyo.Spotlight.isSpottable(this)) {
 					enyo.Spotlight.spot(this);
 				} else {
