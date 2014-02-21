@@ -177,9 +177,11 @@ enyo.kind({
 			} else {
 				this.animateHide();
 				var args = arguments;
-				this.animationEnd = this.bindSafely(function() {
-					this.inherited(args);
-					this.isAnimatingHide = false;
+				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+					if (inEvent.originator === this) {
+						this.inherited(args);
+						this.isAnimatingHide = false;
+					}
 				});
 			}
 		} else {
