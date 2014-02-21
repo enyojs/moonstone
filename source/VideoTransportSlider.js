@@ -111,10 +111,16 @@ enyo.kind({
 			this.$.beginTickText.setContent(this.formatTime(0));
 
 			var loc = new ilib.Locale(),
-				language = loc.getLanguage();
-			if (language === 'ja') {
-				this.set("beginPosition", this.get("beginPosition") + 0.05 );
-				this.set("endPosition", this.get("endPosition") - 0.05 );
+				language = loc.getLanguage(),
+				// Hash of languages and the additional % widths they'll need to not run off the edge.
+				langWidths = {
+					ja: 0.05,
+					pt: 0.05
+				};
+
+			if (langWidths[language]) {
+				this.set("beginPosition", this.get("beginPosition") + langWidths[language] );
+				this.set("endPosition", this.get("endPosition") - langWidths[language] );
 			}
 		}
 
