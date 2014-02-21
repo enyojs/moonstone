@@ -206,7 +206,7 @@ enyo.kind({
 		if (this.animate) {
 			return this.showing;
 		} else {
-			this.inherited(arguments);
+			return this.inherited(arguments);
 		}
 	},
 	showHideScrim: function(inShow) {
