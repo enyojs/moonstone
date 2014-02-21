@@ -160,7 +160,7 @@ enyo.kind({
 	getPanelIndex: function(oControl) {
 		var oPanel = null;
 
-		while (oControl.parent) {
+		while (oControl && oControl.parent) {
 			// Parent of a panel can be a client or a panels.
 			if (oControl.parent === this.$.client || oControl.parent === this) {
 				oPanel = oControl;
