@@ -4130,7 +4130,7 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
-  max-width: 1319px;
+  max-width: 1330px;
 }
 .moon-video-player-info-datetime {
   font-size: 32px;
@@ -4381,6 +4381,7 @@
   padding-right: 30px;
   padding-left: 0px;
   min-height: 251px;
+  min-width: 200px;
 }
 .moon-background-wrapper-client-content.left {
   padding-left: 70px;
