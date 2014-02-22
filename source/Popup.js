@@ -187,18 +187,20 @@ enyo.kind({
 		}
 
 		this.showHideScrim(this.showing);
+
 		if (this.showing) {
 			this.configCloseButton();
 			this.$.spotlightDummy.spotlight = false;
 			// Spot ourselves, unless we're already spotted
-			if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+			var current = enyo.Spotlight.getCurrent();
+			if ((current && !current.isDescendantOf(this)) || current === null) {
 				if (enyo.Spotlight.isSpottable(this)) {
 					enyo.Spotlight.spot(this);
 				} else {
 					this.$.spotlightDummy.spotlight = true;
 					enyo.Spotlight.spot(this);
 				}
-			}
+			} 
 		}
 	},
 	getShowing: function() {
