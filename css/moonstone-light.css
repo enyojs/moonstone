@@ -8,6 +8,8 @@
 
 /* Moonstone colors defined here */
 /* Moonstone Light Theme */
+/* Disabled Opacity */
+/* ---------------------------------------*/
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
@@ -19,8 +21,6 @@
 /* Images */
 /* ---------------------------------------*/
 /* Icon Sizes */
-/* ---------------------------------------*/
-/* Disabled Opacity */
 /* ---------------------------------------*/
 /* Spotlight */
 /* ---------------------------------------*/
@@ -674,8 +674,8 @@
   right: -14px;
 }
 .moon-icon.disabled {
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
 }
 /* moonstone-icons.css */
 /* Font icon, name-to-character definitions */
@@ -854,8 +854,8 @@
 }
 .moon-simple-picker-client.disabled,
 .moon-simple-picker-button[disabled] {
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
   background-color: transparent;
 }
 .moon-simple-picker-button.left {
@@ -940,8 +940,8 @@
 .moon-simple-integer-picker.disabled,
 .moon-simple-integer-picker-button[disabled] {
   cursor: default;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
 }
 /* Button shadow overlay */
 .moon-scroll-picker-overlay-container-left {
@@ -1070,7 +1070,7 @@
   background-position: -5px 1px;
 }
 .moon-checkbox[disabled] {
-  opacity: 0.6;
+  opacity: 0.35;
 }
 .moon-divider {
   border-bottom: 2px solid #4b4b4b;
@@ -1124,8 +1124,8 @@
 }
 .moon-checkbox-item.disabled {
   cursor: default;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
 }
 .moon-checkbox-item .moon-checkbox[disabled] {
   cursor: default;
@@ -1174,7 +1174,7 @@
   background: transparent none no-repeat 0 0;
 }
 .moon-checkbox.moon-toggle-text[disabled] {
-  opacity: 0.6;
+  opacity: 0.35;
 }
 .moon-checkbox.moon-toggle-text[checked] {
   background: transparent none no-repeat 0px 0px;
@@ -1263,8 +1263,8 @@
 }
 .moon-item.disabled {
   cursor: default;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
 }
 .moon-item.spotlight {
   background-color: #cf0652;
@@ -1575,8 +1575,8 @@
   padding: 0px;
 }
 .moon-expandable-list-item.disabled {
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
 }
 /* Header */
 .moon-expandable-list-item-header {
@@ -2308,7 +2308,7 @@
 }
 .moon-input-decorator.moon-disabled,
 .moon-textarea-decorator.moon-disabled {
-  opacity: 0.6;
+  opacity: 0.35;
 }
 .moon-input-decorator:not(.moon-input-header-input-decorator).moon-focused,
 .moon-textarea-decorator.moon-focused {
@@ -2383,8 +2383,8 @@
 }
 .moon-slider.disabled {
   cursor: default;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
+  opacity: 0.35;
+  filter: alpha(opacity=35);
 }
 .moon-progress-bar.moon-slider {
   margin: 60px 45px !important;
