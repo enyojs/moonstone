@@ -603,7 +603,7 @@ enyo.kind({
 
 		switch (xDir) {
 		case 0:
-			x = this.getScrollLeft();
+			x = this.clampX();
 			break;
 		case 1:
 			// If control requested to be scrolled all the way to the viewport's left, or if the control
@@ -633,7 +633,7 @@ enyo.kind({
 
 		switch (yDir) {
 		case 0:
-			y = this.getScrollTop();
+			y = this.clampY();
 			break;
 		case 1:
 			// If control requested to be scrolled all the way to the viewport's top, or if the control
