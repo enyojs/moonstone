@@ -148,7 +148,7 @@ enyo.kind({
 		this.$.meridiem.setContent(meridiem);
 	},
 	updateMonthDay: function(inDate) {
-		var md = this._mdf ? this._mdf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate());
+		var md = this._mdf ? this._mdf.format(new ilib.Date.GregDate({unixtime: inDate.getTime(), timezone:"UTC"})) : this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getDate());
 		this.$.bottom.setContent(md);
 	},
 	handleLocaleChangeEvent: function() {
