@@ -107,7 +107,7 @@ enyo.kind({
 		this.showTickBarChanged();
 
 		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 			this.$.beginTickText.setContent(this.formatTime(0));
 
 			var loc = new ilib.Locale(),

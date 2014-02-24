@@ -142,6 +142,7 @@ enyo.kind({
 			fmtParams = {
 				template: "a",
 				clock: clockPref !== "locale" ? clockPref : undefined,
+				useNative: false,
 				timezone: "local"
 			};
 			if (this.locale) {
