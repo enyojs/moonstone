@@ -261,7 +261,8 @@ enyo.kind({
 		this._updateKnobPosition(inValue);
 	},
 	_updateKnobPosition: function(inValue) {
-		var p = this._calcPercent(inValue);
+		var p = this.clampValue(this.min, this.max, inValue);
+		p = this._calcPercent(p);
 		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
