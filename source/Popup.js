@@ -192,7 +192,7 @@ enyo.kind({
 			this.$.spotlightDummy.spotlight = false;
 			// Spot ourselves, unless we're already spotted
 			var current = enyo.Spotlight.getCurrent(); 
-			if (current === null || typeof current == "undefined" || (current && !current.isDescendantOf(this))) {
+			if (!current || !current.isDescendantOf(this)) {
 				if (enyo.Spotlight.isSpottable(this)) {
 					enyo.Spotlight.spot(this);
 				} else {
