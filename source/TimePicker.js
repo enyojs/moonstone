@@ -49,12 +49,19 @@ enyo.kind({
 	value: null,
 	formatter: null,
 	wrap: true,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		// Create ilib Date object used for formatting hours
 		if (typeof ilib !== "undefined") {
-			this.date = new ilib.Date.GregDate();
+			this.date = this.getILibDate();
+		}
+	},
+	getILibDate: function(params){
+		if (this.formatter && this.formatter.locale.spec === "th-TH") {
+			return new ilib.Date.ThaiSolarDate(params)
+		} else {
+			return new ilib.Date.GregDate(params)
 		}
 	},
 	setupItem: function(inSender, inEvent) {
@@ -148,9 +155,17 @@ enyo.kind({
 				fmtParams.locale = this.locale;
 			}
 			var merFormatter = new ilib.DateFmt(fmtParams);
-			var am = new ilib.Date.GregDate({hour:1});
-			var pm = new ilib.Date.GregDate({hour:13});
+			var am = this.getILibDate({hour:1});
+			var pm = this.getILibDate({hour:13});
 			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+		}
+	},
+	getILibDate: function(params){
+		var ilibLocaleInfo = new ilib.LocaleInfo(this.locale || undefined);
+		if (ilibLocaleInfo.locale.spec === "th-TH") {
+			return new ilib.Date.ThaiSolarDate(params)
+		} else {
+			return new ilib.Date.GregDate(params)
 		}
 	},
 	setupPickers: function(ordering) {
@@ -206,7 +221,7 @@ enyo.kind({
 	formatValue: function() {
 		var dateStr = "";
 		if (this._tf) {
-			dateStr = this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			dateStr = this._tf.format(this.getILibDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 		}
 		else {
 			dateStr += this.formatHour(this.value.getHours());
