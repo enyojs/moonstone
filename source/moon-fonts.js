@@ -47,7 +47,7 @@
 					'U+E000-U+FAFF,' +
 					'U+FF00-U+FFEF';
 			}
-			else if (language === 'zh' && region === 'HK') {
+			else if (language === 'zh' && (region === 'HK' || region === 'TW')) {
 				fontFamilyRegular = 'LG Display GP4_HK-Light';
 				fontFamilyBold    = 'LG Display GP4_HK-Regular';
 				fontFamilyLight   = 'LG Display GP4_HK-Light';
