@@ -312,7 +312,7 @@ enyo.kind({
 		this.jumpSecChanged();
 		this.updatePlaybackControlState();
 		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 		}
 	},
 	transformIconSrc: function(inSrc) {
