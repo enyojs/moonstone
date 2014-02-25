@@ -4141,6 +4141,8 @@
   font-size: 126px;
   margin-bottom: 0;
   white-space: nowrap;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
 }
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
