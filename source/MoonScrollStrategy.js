@@ -557,7 +557,7 @@ enyo.kind({
 	animateToControl: function(inControl, inScrollFullPage, animate) {
 		var controlBounds  = inControl.getAbsoluteBounds(),
 			absoluteBounds = this.$.viewport.getAbsoluteBounds(),
-			scrollBounds   = this.getScrollBounds(),
+			scrollBounds   = this._getScrollBounds(),
 			offsetTop,
 			offsetLeft,
 			offsetHeight,
