@@ -570,7 +570,11 @@ enyo.kind({
 
 		// Make absolute controlBounds relative to scroll position
 		controlBounds.top += scrollBounds.top;
-		controlBounds.left += scrollBounds.left;
+		if (this.rtl) {
+			controlBounds.right += scrollBounds.left;
+		} else {
+			controlBounds.left += scrollBounds.left;
+		}
 
 		offsetTop      = controlBounds.top - absoluteBounds.top;
 		offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);
