@@ -557,7 +557,7 @@ enyo.kind({
 	animateToControl: function(inControl, inScrollFullPage, animate) {
 		var controlBounds  = inControl.getAbsoluteBounds(),
 			absoluteBounds = this.$.viewport.getAbsoluteBounds(),
-			scrollBounds   = this.getScrollBounds(),
+			scrollBounds   = this._getScrollBounds(),
 			offsetTop,
 			offsetLeft,
 			offsetHeight,
@@ -603,7 +603,7 @@ enyo.kind({
 
 		switch (xDir) {
 		case 0:
-			x = this.clampX();
+			x = this.getScrollLeft();
 			break;
 		case 1:
 			// If control requested to be scrolled all the way to the viewport's left, or if the control
@@ -633,7 +633,7 @@ enyo.kind({
 
 		switch (yDir) {
 		case 0:
-			y = this.clampY();
+			y = this.getScrollTop();
 			break;
 		case 1:
 			// If control requested to be scrolled all the way to the viewport's top, or if the control
