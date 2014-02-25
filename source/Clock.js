@@ -135,11 +135,11 @@ enyo.kind({
 	},
 	updateHour: function(inDate, inHour) {
 		inHour = (inHour > 12 ? inHour-12: inHour) || 12;
-		var hour = this._hf ? this._hf.format(ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"UTC"})) : inHour;
+		var hour = this._hf ? this._hf.format(ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})) : inHour;
 		this.$.hour.setContent(hour);
 	},
 	updateMinute: function(inDate, inHour) {
-		var time = this._mf ? this._mf.format(ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"UTC"})) : this._formatNumber(inDate.getMinutes());
+		var time = this._mf ? this._mf.format(ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})) : this._formatNumber(inDate.getMinutes());
 		var meridiem = "";
 		if (!this.ilibLocaleInfo || this.ilibLocaleInfo.locale.spec === "en-US") {
 			meridiem = inHour > 11 ? "pm" : "am";
@@ -148,7 +148,7 @@ enyo.kind({
 		this.$.meridiem.setContent(meridiem);
 	},
 	updateMonthDay: function(inDate) {
-		var md = this._mdf ? this._mdf.format(ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"UTC"})) : this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate());
+		var md = this._mdf ? this._mdf.format(ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})) : this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate());
 		this.$.bottom.setContent(md);
 	},
 	handleLocaleChangeEvent: function() {

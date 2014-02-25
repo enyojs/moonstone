@@ -206,7 +206,7 @@ enyo.kind({
 	formatValue: function() {
 		var dateStr = "";
 		if (this._tf) {
-			dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:"UTC"}));
+			dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:"Etc/UTC"}));
 		}
 		else {
 			dateStr += this.formatHour(this.value.getHours());
