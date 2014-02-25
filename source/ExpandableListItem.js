@@ -82,7 +82,7 @@ enyo.kind({
 		onDrawerAnimationEnd: "drawerAnimationEnd"
 	},
 	components: [
-		{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract", classes: "moon-expandable-list-item-header"},
+		{name: "header", kind: "moon.Item", onSpotlightFocused: "headerFocused", ontap: "expandContract", classes: "moon-expandable-list-item-header"},
 		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
@@ -147,7 +147,7 @@ enyo.kind({
 		}
 	},
 	//* If drawer is currently open, and event was sent via keypress (i.e., it has a direction), process header focus
-	headerFocus: function(inSender, inEvent) {
+	headerFocused: function(inSender, inEvent) {
 		var direction = inEvent && inEvent.dir;
 
 		if (this.getOpen() && this.getAutoCollapse() && direction === "UP") {

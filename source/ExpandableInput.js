@@ -30,7 +30,7 @@ enyo.kind({
 	lockBottom: true,
 
 	components: [
-		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ondown: "headerDown", ontap: "expandContract", components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocused: "headerFocused", ondown: "headerDown", ontap: "expandContract", components: [
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
