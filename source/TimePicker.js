@@ -49,12 +49,12 @@ enyo.kind({
 	value: null,
 	formatter: null,
 	wrap: true,
-	
+
 	create: function() {
 		this.inherited(arguments);
 		// Create ilib Date object used for formatting hours
 		if (typeof ilib !== "undefined") {
-			this.date = new ilib.Date.GregDate();
+			this.date = ilib.Date.newInstance();
 		}
 	},
 	setupItem: function(inSender, inEvent) {
@@ -148,8 +148,8 @@ enyo.kind({
 				fmtParams.locale = this.locale;
 			}
 			var merFormatter = new ilib.DateFmt(fmtParams);
-			var am = new ilib.Date.GregDate({hour:1});
-			var pm = new ilib.Date.GregDate({hour:13});
+			var am = ilib.Date.newInstance({hour:1});
+			var pm = ilib.Date.newInstance({hour:13});
 			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
 		}
 	},
@@ -206,7 +206,7 @@ enyo.kind({
 	formatValue: function() {
 		var dateStr = "";
 		if (this._tf) {
-			dateStr = this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+			dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:"Etc/UTC"}));
 		}
 		else {
 			dateStr += this.formatHour(this.value.getHours());
