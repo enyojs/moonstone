@@ -51,6 +51,14 @@
 .enyo-locale-non-latin .moon-header-title {
 	.enyo-locale-non-latin .moon-header-text;
 }
+/* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014 
+   has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
+   Please remove the line-height rule below if this font file is changed. */
+.enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
+	line-height: 1.25em;
+}
+
 .moon-header-title .moon-marquee-text {
 	white-space: nowrap;
 }
