@@ -41,7 +41,7 @@ enyo.kind({
 	//* @protected
 	classes: "moon-accordion",
 	components: [
-		{name: "headerWrapper", kind: "moon.Item", classes: "moon-accordion-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+		{name: "headerWrapper", kind: "moon.Item", classes: "moon-accordion-header-wrapper", onSpotlightFocused: "headerFocused", ontap: "expandContract", components: [
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-accordion-arrow"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [

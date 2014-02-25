@@ -21,7 +21,7 @@ enyo.kind({
 		subCaption: { kind:"moon.MarqueeText" }
 	},
 	handlers: {
-		onSpotlightFocus: "focused"
+		onSpotlightFocused: "focused"
 	},
 	create: function() {
 		this.inherited(arguments);

@@ -36,6 +36,7 @@ enyo.kind({
 		onSpotlightBlur:"spotlightBlur",
 		onSpotlightScrollUp:"next",
 		onSpotlightScrollDown:"previous",
+		onSpotlightFocused:"spotlightFocused",
 		onmousewheel:"mousewheel"
 	},
 	//* @public
@@ -176,7 +177,7 @@ enyo.kind({
 		this.hideTopOverlay();
 		this.hideBottomOverlay();
 	},
-	spotlightFocus: function() {
+	spotlightFocused: function() {
 		this.bubble("onRequestScrollIntoView");
 	},
 	spotlightBlur: function() {

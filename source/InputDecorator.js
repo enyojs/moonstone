@@ -37,7 +37,7 @@ enyo.kind({
 		onDisabledChange  : 'disabledChangeHandler',
 		onfocus           : 'focusHandler',
 		onblur            : 'blurHandler',
-		onSpotlightFocus  : 'spotlightFocusHandler',
+		onSpotlightFocused : 'spotlightFocusedHandler',
 		onSpotlightSelect : 'spotlightSelectHandler',
 		onSpotlightBlur   : 'spotlightBlurHandler',
 		onSpotlightLeft   : 'spotlightLeftHandler',
@@ -136,7 +136,7 @@ enyo.kind({
 	// Spotlight Event handlers:
 	/**************************************************/
 
-	spotlightFocusHandler: function() {
+	spotlightFocusedHandler: function() {
 		this.bubble("onRequestScrollIntoView");
 	},
 
