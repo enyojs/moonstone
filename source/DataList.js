@@ -98,28 +98,32 @@ moon.DataListSpotlightSupport = {
 	},
 	getFirstVisibleChild: function(inScrollBounds) {
 		var posProp = (this.orientation == "vertical") ? "top" : "left";
+		var sizeProp = (this.orientation == "vertical") ? "height" : "width";
 		// Loop through the pages in top-down order
 		var pages = (this.$.page1.index < this.$.page2.index) ? 
 			[this.$.page1, this.$.page2] : 
 			[this.$.page2, this.$.page1];
-		for (var p in pages) {
-			var page = pages[p];
-			var pb = page.getBounds();
-			// Loop through children in each pange top-down
-			for (var i=0; i<page.children.length; i++) {
-				var c = page.children[i];
-				var cb = c.getBounds();
-				// Need to add page offset to target bounds
-				cb[posProp] += pb[posProp];
-				// Return the first spottable child whose top/left are inside the viewport
-				if ((cb[posProp] >= inScrollBounds[posProp])) {
-					if (enyo.Spotlight.isSpottable(c)) {
-						return c;
-					}
-					c = enyo.Spotlight.getFirstChild(c);
-					if (c) {
-						return c;
-					}
+		// Find the page which is in screen now 
+		var page = pages[0];
+		var pb = page.getBounds();
+		if ((pb[posProp] + pb[sizeProp]) < inScrollBounds[posProp]) {
+			page = pages[1];
+			pb = page.getBounds();
+		}
+		// Loop through children in each pange top-down
+		for (var i=0; i<page.children.length; i++) {
+			var c = page.children[i];
+			var cb = c.getBounds();
+			// Need to add page offset to target bounds
+			cb[posProp] += pb[posProp];
+			// Return the first spottable child whose top/left are inside the viewport
+			if ((cb[posProp] >= inScrollBounds[posProp])) {
+				if (enyo.Spotlight.isSpottable(c)) {
+					return c;
+				}
+				c = enyo.Spotlight.getFirstChild(c);
+				if (c) {
+					return c;
 				}
 			}
 		}
