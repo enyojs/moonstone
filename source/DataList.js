@@ -97,6 +97,7 @@ moon.DataListSpotlightSupport = {
 		}
 	},
 	getFirstVisibleChild: function(inScrollBounds) {
+		var posProp = (this.orientation == "vertical") ? "top" : "left";
 		// Loop through the pages in top-down order
 		var pages = (this.$.page1.index < this.$.page2.index) ? 
 			[this.$.page1, this.$.page2] : 
@@ -109,10 +110,9 @@ moon.DataListSpotlightSupport = {
 				var c = page.children[i];
 				var cb = c.getBounds();
 				// Need to add page offset to target bounds
-				cb.top += pb.top;
-				cb.left += pb.left;
+				cb[posProp] += pb[posProp];
 				// Return the first spottable child whose top/left are inside the viewport
-				if ((cb.top >= inScrollBounds.top) && (cb.left >= inScrollBounds.left)) {
+				if ((cb[posProp] >= inScrollBounds[posProp])) {
 					if (enyo.Spotlight.isSpottable(c)) {
 						return c;
 					}
