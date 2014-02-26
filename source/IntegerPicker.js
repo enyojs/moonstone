@@ -125,7 +125,6 @@ enyo.kind({
 		} else {
 			return;
 		}
-		this.stopJob("hideTopOverlay");
 		this.$.bottomOverlay.addClass("selected");
 		if (inEvent.originator != this.$.upArrow) {
 			this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
