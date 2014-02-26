@@ -1730,58 +1730,12 @@
   padding: 0px 0px 0px 4px;
   border-left: 16px solid #cf0652;
 }
-.moon-item.moon-expandable-integer-picker-header {
-  padding: 0px;
-  margin: 0px 0px 10px 0px;
+/* Header - Open */
+.moon-expandable-integer-picker.open .moon-expandable-list-item-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
 }
-.moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
-  font-family: "MuseoSans 700 Italic";
-  font-size: 22px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  border-bottom: 2px solid #a6a6a6;
-  padding: 0px;
-}
-.enyo-locale-non-latin .moon-expandable-integer-picker.open .moon-expandable-integer-picker-header {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 28px;
-  font-style: normal;
-}
-.moon-expandable-integer-picker-current-value {
-  font-family: "MuseoSans 300";
-  font-size: 26px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  line-height: 32px;
-  margin: 0px;
-  padding: 0px;
-}
-.moon-expandable-integer-picker-current-value a:link {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-integer-picker-current-value a:visited {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-integer-picker-current-value a:hover {
-  color: #cf0652;
-  text-decoration: none;
-}
-.moon-expandable-integer-picker-current-value a:active {
-  color: #cf0652;
-  text-decoration: none;
-}
-.enyo-locale-non-latin .moon-expandable-integer-picker-current-value {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Light";
-  font-size: 26px;
-  line-height: 32px;
+.moon-expandable-integer-picker.open .spotlight .moon-expandable-list-item-header {
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
 }
 .moon-header {
   box-sizing: border-box;
