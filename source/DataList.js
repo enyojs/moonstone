@@ -110,8 +110,8 @@ moon.DataListSpotlightSupport = {
 			page = pages[1];
 			pb = page.getBounds();
 		}
-		// Loop through children in each pange top-down
-		for (var i=0; i<page.children.length; i++) {
+		// Loop through children in each page top-down
+		for (var i = 0; i < page.children.length; i++) {
 			var c = page.children[i];
 			var cb = c.getBounds();
 			// Need to add page offset to target bounds
