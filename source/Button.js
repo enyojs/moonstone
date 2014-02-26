@@ -99,5 +99,11 @@ enyo.kind({
 		} else {
 			this.removeClass('min-width');
 		}
+	},
+	showingChanged: function() {
+		this.inherited(arguments);
+		if (!this.showing && this.hasClass('pressed')) {
+			this.undepress();
+		}
 	}
 });
