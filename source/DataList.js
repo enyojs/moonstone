@@ -110,36 +110,40 @@ moon.DataListSpotlightSupport = {
 		var pages = (this.$.page1.index < this.$.page2.index) ? 
 			[this.$.page1, this.$.page2] : 
 			[this.$.page2, this.$.page1];
+		var page, pb, lastChildSize;
 		// Check if list is horizontally reversed or not.
 		if (this.orientation == "horizontal" && this.rtl) {
 			isHorizontalRtl = true;
 			inScrollBounds.right = inScrollBounds.width - inScrollBounds.left; //Definitly posProp is width, sizeProp is width
 		}
-		// Find the page which is in screen now 
-		var page = pages[0];
-		var pb = page.getBounds();
-		var lastChildSize = page.children[page.children.length - 1].getBounds()[sizeProp];
-		if (isHorizontalRtl ? (pb[posProp] + lastChildSize >= inScrollBounds.right) 
-							: (pb[posProp] + pb[sizeProp] - lastChildSize) <= inScrollBounds[posProp]) {
-			page = pages[1];
+		// Find the page which is in screen now
+		for (var p in pages) {
+			page = pages[p];
 			pb = page.getBounds();
-		}
-		// Loop through children in each page top-down
-		for (var i = 0; i < page.children.length; i++) {
-			var c = page.children[i];
-			var cb = c.getBounds();
-			// Need to add page offset to target bounds
-			cb[posProp] += pb[posProp];
-			// Return the first spottable child whose top/left are inside the viewport
-			var isVisible = isHorizontalRtl ? (inScrollBounds.right >= cb[posProp] + cb[sizeProp])
-											: (cb[posProp] >= inScrollBounds[posProp]);
-			if (isVisible) {
-				if (enyo.Spotlight.isSpottable(c)) {
-					return c;
-				}
-				c = enyo.Spotlight.getFirstChild(c);
-				if (c) {
-					return c;
+			if (p === "0") {	//Execute at the first page
+				lastChildSize = page.children[page.children.length - 1].getBounds()[sizeProp];
+				if (isHorizontalRtl ? (pb[posProp] + lastChildSize >= inScrollBounds.right) 
+									: (pb[posProp] + pb[sizeProp] - lastChildSize) <= inScrollBounds[posProp]) {
+					continue;
+				}		
+			}
+			// Loop through children in each page top-down
+			for (var i = 0; i < page.children.length; i++) {
+				var c = page.children[i];
+				var cb = c.getBounds();
+				// Need to add page offset to target bounds
+				cb[posProp] += pb[posProp];
+				// Return the first spottable child whose top/left are inside the viewport
+				var isVisible = isHorizontalRtl ? (inScrollBounds.right >= cb[posProp] + cb[sizeProp])
+												: (cb[posProp] >= inScrollBounds[posProp]);
+				if (isVisible) {
+					if (enyo.Spotlight.isSpottable(c)) {
+						return c;
+					}
+					c = enyo.Spotlight.getFirstChild(c);
+					if (c) {
+						return c;
+					}
 				}
 			}
 		}
