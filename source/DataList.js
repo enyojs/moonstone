@@ -96,6 +96,12 @@ moon.DataListSpotlightSupport = {
 			}
 		}
 	},
+	/**
+		Find the first visible child in DataList.
+		Visible child means, perfectly displayed control in current viewport which is not cut off at all.
+		To find it, this method compare each control's position with viewport position.
+		To reduce calculation, candidates are restricted on currently visible page.
+	*/
 	getFirstVisibleChild: function(inScrollBounds) {
 		var posProp = (this.orientation == "vertical") ? "top" : "left";
 		var sizeProp = (this.orientation == "vertical") ? "height" : "width";
