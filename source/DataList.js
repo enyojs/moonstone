@@ -110,7 +110,7 @@ moon.DataListSpotlightSupport = {
 		var pages = (this.$.page1.index < this.$.page2.index) ? 
 			[this.$.page1, this.$.page2] : 
 			[this.$.page2, this.$.page1];
-		// Check if list is horizontaly reversed or not.
+		// Check if list is horizontally reversed or not.
 		if (this.orientation == "horizontal" && this.rtl) {
 			isHorizontalRtl = true;
 			inScrollBounds.right = inScrollBounds.width - inScrollBounds.left; //Definitly posProp is width, sizeProp is width
