@@ -112,8 +112,9 @@ moon.DataListSpotlightSupport = {
 		// Find the page which is in screen now 
 		var page = pages[0];
 		var pb = page.getBounds();
-		if (isHorizontalRtl ? (pb[posProp] >= inScrollBounds.right) 
-							: (pb[posProp] + pb[sizeProp]) <= inScrollBounds[posProp]) {
+		var lastChildSize = page.children[page.children.length - 1].getBounds()[sizeProp];
+		if (isHorizontalRtl ? (pb[posProp] + lastChildSize >= inScrollBounds.right) 
+							: (pb[posProp] + pb[sizeProp] - lastChildSize) <= inScrollBounds[posProp]) {
 			page = pages[1];
 			pb = page.getBounds();
 		}
