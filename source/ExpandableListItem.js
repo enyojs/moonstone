@@ -108,9 +108,6 @@ enyo.kind({
 		this.addRemoveClass("open", open);
 		this.$.drawer.setOpen(open);
 		this.$.drawer.spotlightDisabled = !open;
-		if (this.generated) {
-			this.stopHeaderMarquee();
-		}
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
@@ -123,6 +120,13 @@ enyo.kind({
 	activeChanged: function() {
 		this.bubble("onActivate", {allowHighlanderDeactivate:true});
 		this.setOpen(this.active);
+		if (this.generated) {
+			if (this.active) {
+				this.stopHeaderMarquee();
+			} else {
+				this.resetHeaderMarquee();
+			}
+		}
 	},
 	//* If closed, opens drawer and highlights first spottable child.
 	expandContract: function(inSender, inEvent) {
@@ -138,6 +142,9 @@ enyo.kind({
 	},
 	stopHeaderMarquee: function() {
 		this.$.header.stopMarquee();
+	},
+	resetHeaderMarquee: function() {
+		this.$.header.resetMarquee();
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {

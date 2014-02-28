@@ -117,6 +117,9 @@ enyo.kind({
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();
 	},
+	resetHeaderMarquee: function() {
+		this.$.headerWrapper.resetMarquee();
+	},
 	spotlightDown: function(inSender, inEvent) {
 		if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
 			return true;

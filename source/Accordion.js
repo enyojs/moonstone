@@ -50,5 +50,8 @@ enyo.kind({
 	],
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();
+	},
+	resetHeaderMarquee: function() {
+		this.$.headerWrapper.resetMarquee();
 	}
 });

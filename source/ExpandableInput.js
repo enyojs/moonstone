@@ -127,6 +127,9 @@ enyo.kind({
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();
 	},
+	resetHeaderMarquee: function() {
+		this.$.headerWrapper.resetMarquee();
+	},
 	drawerAnimationEnd: function() {
 		enyo.Spotlight.unfreeze();
 		this.focusInput();
