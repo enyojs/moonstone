@@ -46,7 +46,7 @@ enyo.kind({
 	],
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
-			{name: "viewport", classes:"moon-scroller-viewport", components: [
+			{name: "viewport", spotlight: "container", classes:"moon-scroller-viewport", components: [
 				{name: "client", classes: "enyo-touch-scroller matrix-scroll-client matrix3dsurface"}
 			]}
 		]},
