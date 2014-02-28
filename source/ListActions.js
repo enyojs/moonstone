@@ -58,7 +58,8 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".open", to: ".$.drawer.open"},
-		{from: ".iconSrc", to: ".$.activator.src"}
+		{from: ".iconSrc", to: ".$.activator.src"},
+		{from: ".icon", to: ".$.activator.icon"}
 	],
 	create: function() {
 		this.inherited(arguments);
