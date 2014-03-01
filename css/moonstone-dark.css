@@ -1837,6 +1837,9 @@
   line-height: normal;
   height: 155px;
 }
+.moon-header-title.moon-marquee {
+  white-space: pre !important;
+}
 .enyo-locale-non-latin .moon-header-title {
   font-family: "Moonstone LG Display";
   font-size: 114px;
@@ -1847,9 +1850,6 @@
 .enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
 .enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
   line-height: 1.25em;
-}
-.moon-header-title .moon-marquee-text {
-  white-space: nowrap;
 }
 /* Title Below */
 .moon-header-title-below {
@@ -4174,7 +4174,9 @@
   font-size: 126px;
   letter-spacing: -0.05em;
   margin-bottom: 0;
-  white-space: nowrap;
+}
+.moon-video-player-info-title.moon-marquee {
+  white-space: pre !important;
 }
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";

@@ -47,6 +47,9 @@
 	.moon-header-text;
 	line-height: @moon-header-line-height;
 	height: 155px;
+	&.moon-marquee {
+		white-space: pre !important;
+	}
 }
 .enyo-locale-non-latin .moon-header-title {
 	.enyo-locale-non-latin .moon-header-text;
@@ -57,10 +60,6 @@
 .enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
 .enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
 	line-height: 1.25em;
-}
-
-.moon-header-title .moon-marquee-text {
-	white-space: nowrap;
 }
 
 /* Title Below */
