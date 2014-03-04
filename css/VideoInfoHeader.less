@@ -15,7 +15,9 @@
 	white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
-	line-height: 1.4em;
+	line-height: @moon-non-latin-header-text-line-height;
+	/* Clip the title box by just a bit to help it fit better */
+	height: 1.4em;
 }
 .moon-video-player-info-subtitle {
 	.moon-sub-header-text;
