@@ -606,6 +606,7 @@
 }
 .enyo-locale-non-latin .moon-header-text {
   font-size: 114px;
+  line-height: 1.5em;
 }
 .enyo-locale-non-latin .moon-popup-header-text {
   font-size: 65px;
@@ -1842,6 +1843,7 @@
 .enyo-locale-non-latin .moon-header-title {
   font-family: "Moonstone LG Display";
   font-size: 114px;
+  line-height: 1.5em;
 }
 /* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014 
    has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
@@ -3332,6 +3334,7 @@
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone LG Display";
   font-size: 114px;
+  line-height: 1.5em;
 }
 .moon-input-header .moon-input.moon-header-title {
   position: static;
@@ -4161,6 +4164,12 @@
   -webkit-font-kerning: normal;
   font-kerning: normal;
 }
+.enyo-locale-non-latin .moon-video-player-info-title {
+  line-height: 1.5em;
+  /* Clip the title box by just a bit to help it fit better */
+
+  height: 1.4em;
+}
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -4289,6 +4298,12 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
+}
+.enyo-locale-non-latin .moon-video-player-channel-info-no {
+  line-height: 1.5em;
+  /* Clip the title box by just a bit to help it fit better */
+
+  height: 1.4em;
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
