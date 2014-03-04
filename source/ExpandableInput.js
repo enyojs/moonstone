@@ -31,6 +31,7 @@ enyo.kind({
 
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ondown: "headerDown", ontap: "expandContract", components: [
+			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
 			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-input-header", components: [
 				{name: "header", kind: "moon.MarqueeText"}
 			]},

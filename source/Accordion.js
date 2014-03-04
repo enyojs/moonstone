@@ -42,6 +42,7 @@ enyo.kind({
 	classes: "moon-accordion",
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-accordion-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
 			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-accordion-arrow", components: [
 				{name: "header", kind: "moon.MarqueeText"}
 			]}
