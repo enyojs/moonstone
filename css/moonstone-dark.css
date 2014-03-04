@@ -1840,6 +1840,7 @@
 .enyo-locale-non-latin .moon-header-title {
   font-family: "Moonstone LG Display";
   font-size: 114px;
+  line-height: 1.4em;
 }
 /* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014 
    has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
@@ -4176,6 +4177,9 @@
   margin-bottom: 0;
   white-space: nowrap;
 }
+.enyo-locale-non-latin .moon-video-player-info-title {
+  line-height: 1.4em;
+}
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -4304,6 +4308,9 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
+}
+.enyo-locale-non-latin .moon-video-player-channel-info-no {
+  line-height: 1.4em;
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
