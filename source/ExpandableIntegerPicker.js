@@ -49,7 +49,9 @@ enyo.kind({
 	},
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
-			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
+			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header", components: [
+				{name: "header", kind: "moon.MarqueeText"}
+			]},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
