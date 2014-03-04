@@ -67,6 +67,7 @@ enyo.kind({
 	defaultOrdering: null, // set in subkind
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-date-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
 			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header", components: [
 				{name: "header", kind: "moon.MarqueeText"}
 			]},

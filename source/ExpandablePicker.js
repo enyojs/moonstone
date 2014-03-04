@@ -78,6 +78,7 @@ enyo.kind({
 	selectAndCloseDelayMS: 600,
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
 			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header", components: [
 				{name: "header", kind: "moon.MarqueeText"}
 			]},
