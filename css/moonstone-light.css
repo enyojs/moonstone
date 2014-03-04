@@ -3410,6 +3410,14 @@
   width: 60px;
   background-color: #4b4b4b;
   top: 10px;
+  text-align: center;
+  font-family: "Moonstone Icons";
+  font-size: 72px;
+  line-height: 36px;
+  overflow: hidden;
+}
+.spotlight .moon-drawers-activator-nub {
+  color: #ffffff;
 }
 .moon-drawers-activator-nub .nub-arrow {
   position: absolute;
