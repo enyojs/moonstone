@@ -14,6 +14,10 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareSmall"}
 			]},
 			{style:"height:20px;"},
+			{kind: "moon.Header", name:"sizeChangingHeader", content: "Size-Changing Header", small: false, titleAbove: "03", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
+				{kind: "moon.Button", small:true, content:"Grow/Shrink", ontap: "changeHeaderSize"}
+			]},
+			{style:"height:20px;"},
 			{kind: "moon.Header", content: "Header 헤더 ヘッダ ylätunniste כותרת رأس Kopfzeile", titleAbove: "02", titleBelow: "Header 헤더 ヘッダ ylätunniste כותרת رأس Kopfzeile Header 헤더 ヘッダ ylätunniste כותרת رأس Kopfzeile Header 헤더 ヘッダ ylätunniste כותרת رأس Kopfzeile", subTitleBelow: "Titles will truncate/marquee"},
 			{kind: "moon.Header", content: "Varied Alignment", titleAbove: "02", titleBelow: "Panel actions can be positioned on left or right", components: [
 				{kind: "moon.Button", small:true, content:"Left", classes:"moon-header-left"},
@@ -43,6 +47,9 @@ enyo.kind({
 	},
 	shareSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setSubTitleBelow("Please share Enyo.");
+	},
+	changeHeaderSize: function(inSender, inEvent) {
+		this.$.sizeChangingHeader.setSmall(!this.$.sizeChangingHeader.getSmall());
 	},
 	switchMode: function(inSender, inEvent) {
 		this.$.switchHeader.setInputMode(!this.$.switchHeader.getInputMode());
