@@ -3741,19 +3741,6 @@
 .spotlight .moon-drawers-activator-nub {
   color: #ffffff;
 }
-.moon-drawers-activator-nub .nub-arrow {
-  position: absolute;
-  width: 18px;
-  height: 11px;
-  left: 21px;
-  top: 10px;
-}
-.moon-drawers-activator-nub .down {
-  background: url(../images/LightTheme_Icons/drawer_down.png) 0 0 no-repeat;
-}
-.moon-drawers-activator-nub .up {
-  background: url(../images/LightTheme_Icons/drawer_up.png) 0 0 no-repeat;
-}
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
   background-color: #ffffff;
