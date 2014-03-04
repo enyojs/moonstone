@@ -52,9 +52,7 @@ enyo.kind({
 	components: [
 		{name:"activatorWrapper", classes:"moon-drawers-activator-wrapper", spotlight:true, ontap:"activatorHandler", components: [
 			{name:"activator", classes:"moon-drawers-activator", components:[
-				{classes:"moon-drawers-activator-nub", components:[
-					{name:"nubArrow", classes:"nub-arrow down"}
-				]}
+				{name: "activatorNub", classes:"moon-drawers-activator-nub"}
 			]}
 		]},
 		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
@@ -194,8 +192,8 @@ enyo.kind({
 		}
 	},
 	updateActivator: function(up) {
-		this.$.nubArrow.addRemoveClass("up",up);
-		this.$.nubArrow.addRemoveClass("down",!up);
+		this.$.activatorNub.addRemoveClass("moon-icon-arrowsmallup",up);
+		this.$.activatorNub.addRemoveClass("moon-icon-arrowsmalldown",!up);
 		if (!up) {
 			this.$.activator.addRemoveClass("drawer-open", false);
 		}
