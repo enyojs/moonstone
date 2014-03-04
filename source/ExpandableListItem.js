@@ -82,7 +82,10 @@ enyo.kind({
 		onDrawerAnimationEnd: "drawerAnimationEnd"
 	},
 	components: [
-		{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract", classes: "moon-expandable-list-item-header"},
+		// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
+		{name: "headerContainer", classes: "moon-expandable-picker-header", components: [
+			{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract"}
+		]},
 		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
