@@ -598,7 +598,7 @@ enyo.kind({
 			return true;
 		}
 	},
-	showingChanged: function() {
+	showingChanged: function(inOldValue) {
 		if (this.$.backgroundScrim) {
 			this.$.backgroundScrim.addRemoveClass("visible", this.showing);
 		}
@@ -612,6 +612,7 @@ enyo.kind({
 				this.resetHandleAutoHide();
 				this._hide();
 			}
+			this.waterfallShowingChanged(inOldValue);
 		}
 		else {
 			this.inherited(arguments);
