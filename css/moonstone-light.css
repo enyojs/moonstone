@@ -1945,6 +1945,9 @@
 .moon-small-header .moon-header-title {
   line-height: normal;
 }
+.enyo-locale-non-latin .moon-small-header .moon-header-title {
+  line-height: 1.5em;
+}
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 0;
   box-sizing: border-box;
