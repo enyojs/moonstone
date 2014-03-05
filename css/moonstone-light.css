@@ -4438,6 +4438,8 @@
   white-space: nowrap;
   font-size: 61px;
   line-height: 62px;
+  line-height: 96px;
+  height: 72px;
 }
 .moon-clock-meridiem {
   font-family: "MuseoSans 900";
