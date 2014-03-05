@@ -25,9 +25,9 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{kind: "enyo.Control", name: "hour", classes: "moon-header-text moon-clock-hour"},
+		{kind: "enyo.Control", name: "hour", classes: "moon-header-font moon-clock-hour"},
 		{name: "right", classes: "moon-clock-right", components: [
-			{kind: "enyo.Control", name: "top", classes: "moon-header-text moon-clock-top"},
+			{kind: "enyo.Control", name: "top", classes: "moon-header-font moon-clock-top"},
 			{name: "meridiem", classes: "moon-bold-text moon-clock-meridiem"},
 			{name: "divider", classes: "moon-clock-divider"},
 			{kind: "enyo.Control", name: "bottom", classes: "moon-body-text moon-clock-bottom"}
