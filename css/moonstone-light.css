@@ -2001,6 +2001,7 @@
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
+  white-space: pre !important;
 }
 .moon-gridlist-imageitem.no-center .caption,
 .moon-gridlist-imageitem.no-center .sub-caption {
