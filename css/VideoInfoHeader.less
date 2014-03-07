@@ -1,33 +1,39 @@
 .moon-video-info-header {
-	display:inline-block; 
-	vertical-align:top;
-	max-width: 1165px;
+	display: inline-block; 
+	vertical-align: top;
+	max-width: 1135px;
 }
 .moon-video-player-info-datetime {
 	font-size: @moon-super-header-font-size;
 	margin-bottom: 32px;
 	white-space: nowrap;
-	background:transparent;
+	background: transparent;
+}
+.moon-video-player-info-title,
+.moon-video-player-info-subtitle,
+.moon-video-player-info-subtitle-divider,
+.moon-video-player-info-subsubtitle {
+	color: @moon-white;
+	white-space: nowrap;
+}
+.moon-video-player-info-subtitle,
+.moon-video-player-info-subtitle-divider,
+.moon-video-player-info-subsubtitle {
+	.moon-video-sub-header-text;
+	margin-bottom: 20px;
+	margin-right: 1ex;
+	display: inline-block;
 }
 .moon-video-player-info-title {
 	font-size: @moon-video-header-font-size;
-	-webkit-font-kerning:normal;
+	-webkit-font-kerning: normal;
+	font-kerning: normal;
 	margin-bottom: 3px;
-	white-space: nowrap;
-	-webkit-font-kerning:normal;
-	font-kerning:normal;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
 	line-height: @moon-non-latin-header-text-line-height;
 	/* Clip the title box by just a bit to help it fit better */
 	height: 1.4em;
-}
-.moon-video-player-info-subtitle {
-	.moon-video-sub-header-text;
-	color: @moon-white;
-	margin-bottom: 24px;
-	white-space: nowrap;
-	display: inline-block;
 }
 .enyo-locale-non-latin .moon-video-player-info-subtitle {
 	.enyo-locale-non-latin .moon-video-sub-header-text;
@@ -35,9 +41,7 @@
 }
 .moon-video-player-info-subsubtitle {
 	.moon-body-text;
-	font-size:27px;
 	color: @moon-white;
-	display: inline-block;
 	white-space: normal;
 }
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
@@ -46,12 +50,12 @@
 }
 .moon-video-player-info-description {
 	.moon-video-description-text;
-	line-height:1.4;
+	line-height: 1.4;
 	color: @moon-white;
 	white-space: normal;
 	margin: 0px 0 20px;
 	-webkit-line-clamp: 4;
-	display: -webkit-inline-box;
+	display: -webkit-box;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
 }
@@ -61,28 +65,16 @@
 }
 .moon-video-player-info-client {
 	display: inline-block;
-	position:relative;
-	top:-5px;
-}
 
-.moon-video-player-subtitle-divider{
-  .moon-body-text;
-}
-.enyo-locale-non-latin .moon-video-player-subtitle-divider{
-   .enyo-locale-non-latin .moon-body-text;
-}
-.moon-video-player-subtitle-divider{
-	display: inline-block;
-	color:@moon-white;
-	margin: 0 20px;
-}
-
-.moon-video-player-info-client > * {
-  display: inline-block;
-  margin: 0 10px;
-  &:first-child{
-    margin-left:20px;
-  }
+	position: relative;
+	top: -5px;
+	> * {
+		display: inline-block;
+		margin: 0 10px;
+		&:first-child {
+			margin-left:20px;
+		}
+	}
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {
 	margin: 0 20px 10px 0;
