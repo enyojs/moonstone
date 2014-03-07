@@ -29,10 +29,13 @@ enyo.kind({
 	marqueeOnRender: true,
 	//* @public
 	published: {
+		fit: true,
 		//* Title of the VideoInfoHeader
 		title: "",
 		//* Subtitle of the VideoInfoHeader
 		subTitle: "",
+		//* Delimiter used to separate the subTitle from the subSubTitle
+		subTitleDivider: "",
 		//* VideoInfoHeader text below subtitle
 		subSubTitle: "",
 		//* Main content of the VideoInfoHeader
@@ -42,7 +45,7 @@ enyo.kind({
 	components: [
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
 		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
-		{name: "subtitleDivider", classes: "moon-video-player-subtitle-divider"},	
+		{name: "subTitleDivider", classes: "moon-video-player-info-subtitle-divider"},	
 		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
 		{name: "client", classes: "moon-video-player-info-client"},
 		{components: [
@@ -53,7 +56,7 @@ enyo.kind({
 		{from: ".title",		to: ".$.title.content"},
 		{from: ".subTitle",		to: ".$.subTitle.content"},
 		{from: ".subSubTitle",	to: ".$.subSubTitle.content"},
-		{from: ".subtitleDivider",	to: ".$.subtitleDivider.content"},
+		{from: ".subTitleDivider",	to: ".$.subTitleDivider.content"},
 		{from: ".description",	to: ".$.description.content"},
 		{from: ".client",	to: ".$.client.content"}
 	]

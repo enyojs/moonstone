@@ -1,76 +1,97 @@
-.moon-background-wrapper {
-    position: absolute;
-    overflow: hidden;
-    width: 100%;
-}
 .moon-background-wrapper-client-content {
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-    height: 320px;
-    &.left {
-        padding: 20px 20px 0 60px;
-        > * {
-          margin-right: 40px;
-        }
-    }
-    &.right {
-        float: right;
-        padding: 20px 60px 0 20px;
-        > * {
-          margin-left: 40px;
-        }
-    }
-    &.bg {
-        background-color: rgba(0,0,0,0.8);
-    }
-}
-.moon-video-player-header.full-background .moon-background-wrapper-client-content.bg {
-  background-color: transparent;
-}
-
+	white-space: nowrap;
+	&.left {
+		padding: 20px 20px 20px 60px;
+		> * {
+			margin-right: 40px;
+		}
+	}
+	&.right {
+		float: right;
+		padding: 20px 60px 20px 20px;
+		> * {
+			margin-left: 40px;
+		}
+	}
 }
 .enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
-    direction: rtl;
+	direction: rtl;
 }
 
-.moon-background-wrapper-client-tri {
-    position: absolute;
-    width: 0;
-    height: 0;
-}
-.left .moon-background-wrapper-client-tri {
-    left: 100%;
-    bottom: 0;
-    border-bottom-style: solid;
-    border-bottom-color: transparent;
-    border-left-style: solid;
-    border-left-color: transparent;
-    border-bottom-width: 1000px;
-    border-left-width: 170px;
-}
-.left.bg .moon-background-wrapper-client-tri {
-    border-left-color: rgba(0,0,0,0.8);
-}
-.right .moon-background-wrapper-client-tri {
-    right: 100%;
-    top: 0;
-    border-top-style: solid;
-    border-top-color: transparent;
-    border-right-style: solid;
-    border-right-color: transparent;
-    border-top-width: 1000px;
-    border-right-width: 170px;
-}
-.right.bg .moon-background-wrapper-client-tri {
-    border-right-color: rgba(0,0,0,0.8);
+/* Angled edged corners rule-set */
+.moon-video-player-header.angle-background {
+	.moon-background-wrapper {
+		position: absolute;
+		overflow: hidden;
+		width: 100%;
+		&.enyo-fittable-columns-layout {
+			height: initial;
+		}
+	}
+
+	.moon-background-wrapper-client-content {
+		position: relative;
+		&.bg {
+			background-color: @moon-videoplayer-header-bg-color;
+		}
+	}
+
+	.moon-background-wrapper-client-tri-frame {
+		position: absolute;
+		height: 100%;
+		width: 300px
+	}
+	.moon-background-wrapper-client-tri {
+		position: absolute;
+		width: 0;
+		height: 0;
+	}
+	.left {
+		.moon-background-wrapper-client-tri-frame {
+			left: 100%;
+			top: 0;
+		}
+		.moon-background-wrapper-client-tri {
+			left: 0;
+			bottom: 0;
+			border-bottom-style: solid;
+			border-bottom-color: transparent;
+			border-left-style: solid;
+			border-left-color: transparent;
+			border-bottom-width: 1000px;
+			border-left-width: 170px;
+		}
+		&.bg .moon-background-wrapper-client-tri {
+			border-left-color: @moon-videoplayer-header-bg-color;
+		}
+	}
+	.right {
+		.moon-background-wrapper-client-tri-frame {
+			right: 100%;
+			top: 0;
+		}
+		.moon-background-wrapper-client-tri {
+			right: 0;
+			top: 0;
+			border-top-style: solid;
+			border-top-color: transparent;
+			border-right-style: solid;
+			border-right-color: transparent;
+			border-top-width: 1000px;
+			border-right-width: 170px;
+		}
+		&.bg .moon-background-wrapper-client-tri {
+			border-right-color: @moon-videoplayer-header-bg-color;
+		}
+	}
 }
 
+/* Full background coverage rule-set */
 .moon-video-player-header.full-background {
-    .moon-background-wrapper-client-content.left.bg .moon-background-wrapper-client-tri {
-        border-left-color: transparent;
-    }
-    .moon-background-wrapper-client-content.right.bg .moon-background-wrapper-client-tri {
-        border-right-color: transparent;
-    }
+	.moon-background-wrapper {
+		width: 300px; // Temporary width, not final.
+	}
+	.moon-background-wrapper-client-tri-frame {
+		display: none;
+	}
 }
