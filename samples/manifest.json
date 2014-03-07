@@ -36,9 +36,6 @@
 			{"name": "Toggle Item", "path":"$lib/moonstone/samples/ToggleItemSample"}
 		]},
 		{"name": "List", "samples": [
-			{"name": "Horizontal List", "path":"$lib/moonstone/samples/ListHorizontalSample"},
-			{"name": "Vertical List", "path":"$lib/moonstone/samples/ListVerticalSample"},
-			{"name": "Grid List", "path":"$lib/moonstone/samples/GridListSample"},
 			{"name": "List Items", "samples": [
 				{"name": "Labeled Text Item", "path":"$lib/moonstone/samples/LabeledTextItemSample"},
 				{"name": "Image Item", "path":"$lib/moonstone/samples/ImageItemSample"}
