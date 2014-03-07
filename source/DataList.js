@@ -112,7 +112,7 @@ moon.DataListSpotlightSupport = {
 				cb.top += pb.top;
 				cb.left += pb.left;
 				// Return the first spottable child whose top/left are inside the viewport
-				if ((cb.top >= inScrollBounds.top) && (cb.left >= inScrollBounds.left)) {
+				if ((cb.top >= inScrollBounds.top) && ((this.rtl ? (inScrollBounds.width - (cb.left + cb.width)) : cb.left) >= inScrollBounds.left)) {
 					if (enyo.Spotlight.isSpottable(c)) {
 						return c;
 					}
