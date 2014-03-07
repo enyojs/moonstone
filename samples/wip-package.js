@@ -1,5 +1,7 @@
 enyo.depends(
 	"../source/wip-package.js",
 	"AudioPlaybackSample.css",
-	"AudioPlaybackSample.js"
+	"AudioPlaybackSample.js",
+	"HighlightTextSample.css",
+	"HighlightTextSample.js"
 );

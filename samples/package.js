@@ -45,8 +45,6 @@ enyo.depends(
 	"HeaderAutoCollapsingSample.js",
 	"HeaderSample.css",
 	"HeaderSample.js",
-	"HighlightTextSample.css",
-	"HighlightTextSample.js",
 	"IconSample.css",
 	"IconSample.js",
 	"IconButtonSample.css",
