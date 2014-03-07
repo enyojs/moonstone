@@ -27,9 +27,9 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	marqueeOnRender: true,
+	fit: true,
 	//* @public
 	published: {
-		fit: true,
 		//* Title of the VideoInfoHeader
 		title: "",
 		//* Subtitle of the VideoInfoHeader

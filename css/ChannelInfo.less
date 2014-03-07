@@ -1,57 +1,61 @@
 .moon-channelinfo {
-	display:inline-block; 
-	vertical-align:top;
+	display: inline-block; 
+	vertical-align: top;
 	text-align: right;
 	white-space: normal;
-  max-width: 800px;
-  width: 230px;
+	max-width: 960px;
 }
-.moon-video-player-channel-info-badges{
-  padding:0;
-  margin-right:-15px; /*offset child element the info-icon margin-right 10px, so the icons align right with the channel name */
-}
-.moon-video-player-channel-info-badges > * {
-  margin: 0 15px 6px 0;
+.moon-video-player-channel-info-badges {
+	display: inline-block;
+	padding: 0;
+	margin-right: 0px; /*offset child element the info-icon margin-right 10px, so the icons align right with the channel name */
+	max-width: 230px;
+	max-height: 125px;
+	overflow: hidden;
+	> * {
+		margin: 0px 0px 5px 15px;
+	}
 }
 .moon-video-player-channel-info-no {
-.moon-header-text;
-font-size:@moon-video-header-font-size;
+	.moon-header-text;
+	font-size: @moon-video-header-font-size;
 	white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-no {
-  .enyo-locale-non-latin .moon-video-player-info-title
+	.enyo-locale-non-latin .moon-video-player-info-title
 }
 .moon-video-player-channel-info-name {
-.moon-video-sub-header-text;
-	margin: 6px 0 15px;
+	.moon-video-sub-header-text;
+	margin: 6px 0px 15px;
 	white-space: nowrap;
 }
 .enyo-locale-non-latin .moon-video-player-channel-info-name {
 	font-family: @moon-non-latin-font-family;
 }
 .moon-video-player-info-icon {
-.moon-video-sub-header-text;
-  font-size: @moon-video-player-info-icon-text-size;
-  background-color: @moon-video-player-info-icon-bg-color;
-  color: @moon-video-player-info-icon-text-color;
-  text-transform:uppercase;
-  text-align: center;
-  white-space: nowrap;
-  padding: 4px 9px;
-  display: inline-block;
+	.moon-video-sub-header-text;
+	font-size: @moon-video-player-info-icon-text-size;
+	background-color: @moon-video-player-info-icon-bg-color;
+	color: @moon-video-player-info-icon-text-color;
+	text-transform: uppercase;
+	text-align: center;
+	white-space: nowrap;
+	padding: 4px 9px;
+	display: inline-block;
+	border-radius: 4px;
 }
 .enyo-locale-non-latin .moon-video-player-info-icon {
 	font-family: @moon-non-latin-font-family;
 }
 .moon-video-player-info-redicon {
-  background-color: @moon-video-player-info-redicon-bg-color;
-  color: @moon-video-player-info-redicon-text-color;
+	background-color: @moon-video-player-info-redicon-bg-color;
+	color: @moon-video-player-info-redicon-text-color;
 }
 
-.moon-video-player-info-default-icon{
-  background-color: @moon-black;
-  color:@moon-white;
-  border:solid 1px #299064;
-  box-sizing:border-box;
-  text-transform:lowercase;
+.moon-video-player-info-default-icon {
+	background-color: @moon-black;
+	color: @moon-white;
+	border: solid 1px #299064;
+	box-sizing: border-box;
+	text-transform: lowercase;
 }
