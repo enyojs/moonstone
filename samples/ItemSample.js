@@ -9,7 +9,8 @@ enyo.kind({
 					{kind: "moon.Item", content: "Item 1"},
 					{kind: "moon.Item", content: "Item 2"},
 					{kind: "moon.Item", content: "Item 3"},
-					{kind: "moon.Item", content: "Item with very long text that should truncate"}
+					{kind: "moon.Item", content: "Item with very long text that should truncate"},
+					{kind: "moon.Item", content: "Item   with   extra   spaces   that   should   truncate"}
 				]
 			}
 		]}
