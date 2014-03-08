@@ -10,7 +10,8 @@
 */
 enyo.kind({
 	name: "moon.VideoInfoBackground",
-	kind: "FittableColumns",
+	kind: "enyo.Control",
+	// kind: "FittableColumns",
 	//* @protected
 	classes: "moon-background-wrapper",
 	//* @public
@@ -25,7 +26,7 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{name: "client", classes: "moon-background-wrapper-client-content", components: [
+		{kind: "FittableColumns", name: "client", classes: "moon-background-wrapper-client-content", components: [
 			{classes: "moon-background-wrapper-client-tri-frame", components: [
 				{classes: "moon-background-wrapper-client-tri"}
 			]}
@@ -39,8 +40,6 @@ enyo.kind({
 	orientChanged: function() {
 		this.$.client.addRemoveClass("right", this.orient != 'left');
 		this.$.client.addRemoveClass("left", this.orient == 'left');
-		// this.addRemoveClass("right", this.orient != 'left');
-		// this.addRemoveClass("left", this.orient == 'left');
 	},
 	backgroundChanged: function() {
 		this.$.client.addRemoveClass("bg", this.background);

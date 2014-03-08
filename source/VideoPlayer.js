@@ -102,7 +102,7 @@ enyo.kind({
 			When true, the top _infoComponents_ are shown with no timeout; when false,
 			they are shown based on _autoShow_ property values
 		*/
-		showInfo: true,
+		showInfo: false,
 		/**
 			When false, the player starts in fullscreen mode; when true, it starts in
 			inline mode
