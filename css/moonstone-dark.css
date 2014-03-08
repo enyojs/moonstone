@@ -4484,8 +4484,9 @@
   border-right-color: rgba(0, 0, 0, 0.8);
 }
 /* Full background coverage rule-set */
-.moon-video-player-header.full-background .moon-background-wrapper {
-  width: 300px;
+.moon-video-player-header.full-background .moon-background-wrapper-client-content {
+  width: 100%;
+  box-sizing: border-box;
 }
 .moon-video-player-header.full-background .moon-background-wrapper-client-tri-frame {
   display: none;

@@ -164,8 +164,10 @@ enyo.kind({
 		*/
 		autoShowSpinner: true,
 		/** 
-			When true, the video info header has a full-width background (and any background wrappers) used
-			in the info header have their backgrounds removed.
+			When true, the video info header has a full-width background (and any
+			background wrappers) used in the info header have their backgrounds removed.
+			When false, the angled containers on either edge are visually detached. 
+			In this case, the video-info-header should also have set("showing", false).
 		*/
 		showInfoBackground: false,
 
@@ -246,7 +248,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler", onlocalechange: "handleLocaleChangeEvent"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -573,6 +575,13 @@ enyo.kind({
 		if (inEvent.spotSentFromContainer && (enyo.Spotlight.getParent(inEvent.originator) === this || inEvent.originator === this)) {
 			inEvent.spotSentFromContainer = false;
 		}
+	},
+	/**
+		When the locale changes, the clock may have been resized, so we reflow
+		our video-info-header control and any children it has.
+	 */
+	handleLocaleChangeEvent: function(inSender, inEvent) {
+		this.$.videoInfoHeader.resized();
 	},
 
 	///// Fullscreen controls /////
