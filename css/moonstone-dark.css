@@ -4071,7 +4071,7 @@
   background-color: #ffffff;
 }
 .moon-video-player-header.full-background {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .moon-video-player-header.enyo-fittable-columns-layout > * {
   margin: 0;
@@ -4195,6 +4195,7 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
+  white-space: nowrap;
 }
 .moon-video-info-header > *:nth-child(2) {
   margin-left: 0px;
@@ -4406,6 +4407,7 @@
   text-transform: lowercase;
 }
 .moon-background-wrapper-client-content {
+  display: inline-block;
   white-space: nowrap;
 }
 .moon-background-wrapper-client-content.left {
@@ -4429,15 +4431,13 @@
   position: absolute;
   overflow: hidden;
   width: 100%;
-}
-.moon-video-player-header.angle-background .moon-background-wrapper.enyo-fittable-columns-layout {
   height: initial;
 }
 .moon-video-player-header.angle-background .moon-background-wrapper-client-content {
   position: relative;
 }
 .moon-video-player-header.angle-background .moon-background-wrapper-client-content.bg {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .moon-video-player-header.angle-background .moon-background-wrapper-client-tri-frame {
   position: absolute;
@@ -4464,7 +4464,7 @@
   border-left-width: 170px;
 }
 .moon-video-player-header.angle-background .left.bg .moon-background-wrapper-client-tri {
-  border-left-color: rgba(0, 0, 0, 0.5);
+  border-left-color: rgba(0, 0, 0, 0.8);
 }
 .moon-video-player-header.angle-background .right .moon-background-wrapper-client-tri-frame {
   right: 100%;
@@ -4481,7 +4481,7 @@
   border-right-width: 170px;
 }
 .moon-video-player-header.angle-background .right.bg .moon-background-wrapper-client-tri {
-  border-right-color: rgba(0, 0, 0, 0.5);
+  border-right-color: rgba(0, 0, 0, 0.8);
 }
 /* Full background coverage rule-set */
 .moon-video-player-header.full-background .moon-background-wrapper {

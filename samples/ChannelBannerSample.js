@@ -13,6 +13,7 @@ enyo.kind({
 			onPlaybackControlsTapped: "controlsTapped",
 			showInfoBackground: true,
 			shakeAndWake: true,
+			showInfo: true,
 			autoCloseTimeout: 999999,
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", name:"leftInfo", orient: "left", background: true, fit: true, components: [
@@ -46,14 +47,6 @@ enyo.kind({
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				// {kind:"moon.SimplePicker", block:false, name:"localePicker", animate:false, wrap:true, onChange:"handleLocaleChange", components: [
-				// 	{content:"en-US"},
-				// 	{content:"pt-PT"},
-				// 	{content:"pa-PK"},
-				// 	{content:"ko-KR"},
-				// 	{content:"zh-Hant-HK"},
-				// 	{content:"ja-JP"}
-				// ]},
 				{kind: "moon.ContextualPopupDecorator", components: [
 					{kind: "moon.Button", content:"Locale"},
 					{kind: "moon.ContextualPopup", components: [

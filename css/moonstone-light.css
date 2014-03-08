@@ -4191,6 +4191,7 @@
 .moon-video-info-header {
   display: inline-block;
   vertical-align: top;
+  white-space: nowrap;
 }
 .moon-video-info-header > *:nth-child(2) {
   margin-left: 0px;
@@ -4402,6 +4403,7 @@
   text-transform: lowercase;
 }
 .moon-background-wrapper-client-content {
+  display: inline-block;
   white-space: nowrap;
 }
 .moon-background-wrapper-client-content.left {
@@ -4425,8 +4427,6 @@
   position: absolute;
   overflow: hidden;
   width: 100%;
-}
-.moon-video-player-header.angle-background .moon-background-wrapper.enyo-fittable-columns-layout {
   height: initial;
 }
 .moon-video-player-header.angle-background .moon-background-wrapper-client-content {
