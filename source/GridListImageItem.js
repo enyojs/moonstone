@@ -23,13 +23,6 @@ enyo.kind({
 	handlers: {
 		onSpotlightFocus: "focused"
 	},
-	create: function() {
-		this.inherited(arguments);
-		this.centeredChanged();
-	},
-	centeredChanged: function() {
-		this.addRemoveClass("no-center", !this.centered);
-	},
 	focused: function (inSender, inEvent) {
 		if (inEvent.originator === this) {
 			this.bubble("onRequestScrollIntoView");

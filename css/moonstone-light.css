@@ -807,7 +807,7 @@
 .moon-marquee {
   width: auto;
   text-overflow: ellipsis;
-  white-space: nowrap !important;
+  white-space: pre !important;
   overflow: hidden;
 }
 .moon-marquee span {
@@ -824,6 +824,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  white-space: pre !important;
   transition-property: transform;
   -moz-transition-property: transform;
   -webkit-transition-property: -webkit-transform;
@@ -2003,10 +2004,6 @@
 	Put anything you reference with "url()" in ../assets/
 	This way, you can minify your application, and just remove the "source" folder for production
 */
-.enyo-gridlist-row {
-  overflow: visible;
-  background: none;
-}
 .moon-gridlist-imageitem {
   width: 100%;
   height: 100%;
@@ -2027,11 +2024,6 @@
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
-}
-.moon-gridlist-imageitem.no-center .caption,
-.moon-gridlist-imageitem.no-center .sub-caption {
-  text-align: left;
-  text-align: start;
 }
 .moon-gridlist-imageitem .sub-caption {
   font-family: "MuseoSans 300";
@@ -2092,9 +2084,6 @@
 .moon-gridlist-imageitem.sized-image.use-caption.use-subcaption > .caption {
   position: absolute;
   bottom: 35px;
-}
-.moon-gridlist .enyo-gridlist-row:last-child {
-  margin-bottom: 100px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .caption {
   font-family: "Moonstone LG Display";
