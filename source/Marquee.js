@@ -369,7 +369,7 @@ moon.MarqueeItem = {
 		this.$.marqueeText.applyStyle("transition-duration", duration + "s");
 		this.$.marqueeText.applyStyle("-webkit-transition-duration", duration + "s");
 
-		enyo.dom.transform(this, {translateZ: -0.1});
+		enyo.dom.transform(this.$.marqueeText, {translateZ: 0});
 
 		// Need this timeout for FF!
 		setTimeout(this.bindSafely(function() {
@@ -388,7 +388,7 @@ moon.MarqueeItem = {
 		setTimeout(this.bindSafely(function() {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
-			enyo.dom.transform(this, {translateZ: null});
+			enyo.dom.transform(this.$.marqueeText, {translateZ: null});
 		}), enyo.platform.firefox ? 100 : 0);
 	},
 	//* Flips distance value for RTL support
