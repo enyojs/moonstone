@@ -25,8 +25,10 @@ enyo.kind({
 	},
 	//* @protected
 	components: [
-		{name: "client", classes: "moon-background-wrapper-client-content", components: [
-			{classes: "moon-background-wrapper-client-tri"}
+		{kind: "FittableColumns", name: "client", classes: "moon-background-wrapper-client-content", rtl: false, components: [
+			{classes: "moon-background-wrapper-client-tri-frame", components: [
+				{classes: "moon-background-wrapper-client-tri"}
+			]}
 		]}
 	],
 	initComponents: function() {

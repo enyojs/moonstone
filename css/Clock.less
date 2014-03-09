@@ -2,12 +2,14 @@
 	display: block;
 	vertical-align: top;
 	width: auto;
+	text-align:left;
+	width:240px;
 }
 .moon-clock-hour {
-  vertical-align:center;
   display: inline-block;
   margin-right:15px;
   color:@moon-clock-color;
+  line-height:100px;
 }
 .moon-clock-right {
 	display: inline-block;
@@ -17,9 +19,7 @@
 .moon-clock-top {
   font-size: @moon-clock-minute-font-size;
   color:@moon-clock-color;
-  vertical-align: bottom;
   display: inline-block;
-  line-height:60px;
   white-space: nowrap;
   font-size: 61px;
   line-height: 62px;
@@ -63,4 +63,46 @@
 .moon-clock-right.mini > .moon-clock-bottom {
   font-size: @moon-clock-bottom-font-size;
   text-align: right;
+}
+.moon-video-clock-container{
+  display:inline-block;
+}
+
+/* Localized custom widths */
+.enyo-locale-es-PR,
+.enyo-locale-es-US,
+.enyo-locale-ms-MY,
+.enyo-locale-ms-SG,
+.enyo-locale-vi-VN,
+.enyo-locale-pt-AO,
+.enyo-locale-pt-BR,
+.enyo-locale-pt-CQ,
+.enyo-locale-pt-CV,
+.enyo-locale-pt-PT,
+.enyo-locale-mr-IN,
+.enyo-locale-ko-KR,
+.enyo-locale-ur-IN,
+.enyo-locale-gu-IN,
+.enyo-locale-zh-Hans-CN,
+.enyo-locale-zh-Hans-SG,
+.enyo-locale-zh-Hant-HK,
+.enyo-locale-zh-Hant-MY,
+.enyo-locale-zh-Hant-TW,
+.enyo-locale-el-CY,
+.enyo-locale-el-GR,
+.enyo-locale-hi-IN,
+.enyo-locale-as-IN,
+.enyo-locale-bn-IN,
+.enyo-locale-kn-IN {
+  .moon-clock {
+    width: 280px;
+  }
+}
+
+.enyo-locale-te-IN,
+.enyo-locale-pa-IN,
+.enyo-locale-pa-PK {
+  .moon-clock {
+    width: 450px;
+  }
 }
