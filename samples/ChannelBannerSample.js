@@ -66,15 +66,15 @@ enyo.kind({
 				{kind: "moon.ContextualPopupDecorator", components: [
 					{kind: "moon.Button", content:"Header Parts"},
 					{kind: "moon.ContextualPopup", components: [
+						{kind: "moon.SelectableItem", name:"leftToggleButton", content:"Channel & Video Info Wrapper"},
+						{kind: "moon.SelectableItem", name:"rightToggleButton", content:"Clock Wrapper"},
 						{kind: "moon.SelectableItem", name:"chToggleButton", content:"Channel Info"},
-						{kind: "moon.SelectableItem", name:"infoToggleButton", content:"Video Info"},
-						{kind: "moon.SelectableItem", name:"rightToggleButton", content:"Clock"}
+						{kind: "moon.SelectableItem", name:"infoToggleButton", content:"Video Info"}
 					]}
 				]},
 				{kind: "moon.ContextualPopupDecorator", components: [
 					{kind: "moon.Button", content:"Modes"},
 					{kind: "moon.ContextualPopup", components: [
-						{kind: "moon.SelectableItem", name:"leftToggleButton", content:"Channel + Title"},
 						{kind: "moon.SelectableItem", name:"bgToggleButton", content:"Background"},
 						{kind: "moon.SelectableItem", name:"dbgToggleButton", content:"Debugging Lines", ontap: "toggleDebuggingLines", selected: false}
 					]}
