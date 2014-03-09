@@ -73,7 +73,10 @@ enyo.kind({
 	//* @protected
 	handlers: {
 		onSpotlightScrollUp:"spotlightWheel",
-		onSpotlightScrollDown:"spotlightWheel"
+		onSpotlightScrollDown:"spotlightWheel",
+		onSpotlightContainerEnter: "spotlightHello",
+		onSpotlightFocus: "spotlightHello",
+		onSpotlightContainerLeave: "spotlightGoodbye"
 	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
@@ -111,9 +114,6 @@ enyo.kind({
 		this.scrollWheelMovesFocusChanged();
 	},
 	spotlightPagingControlsChanged: function() {
-		// Since spotlightPagingControls is used when there are no focusable
-		// children, turn off container handling in that case.
-		this.spotlight = this.spotlightPagingControls ? false : "container";
 		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
 	},
 	scrollWheelMovesFocusChanged: function() {
@@ -136,6 +136,19 @@ enyo.kind({
 			}
 		}
 	},
+	// When scroller is entered or one of its children is focused
+	// in 5-way mode, make sure that we're showing the scroll columns
+	spotlightHello: function(inSender, inEvent) {
+		if (this.$.strategy.showHideScrollColumns) {
+			this.$.strategy.showHideScrollColumns(true);
+		}
+	},
+	// When 5-way focus leaves scroller, hide the scroll columns
+	spotlightGoodbye: function(inSender, inEvent) {
+		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns) {
+			this.$.strategy.showHideScrollColumns(false);
+		}
+	},
 	previewDomEvent: function(inEvent) {
 		if (this.scrollWheelMovesFocus) {
 			if (inEvent.type == "mousewheel") {
@@ -144,3 +157,9 @@ enyo.kind({
 		}
 	}
 });
+
+// On touch platforms, revert to using Enyo scroller, which picks an appropriate
+// scroll strategy for the given platform
+if (enyo.platform.touch) {
+	moon.Scroller = enyo.Scroller;
+}

@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", onSpotlightSelect: "left", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightSelect: "right", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -86,6 +86,10 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
 		this.blockChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.showHideNavButtons();
 	},
 	scrollIntoView: function() {
 		this.bubble("onRequestScrollIntoView");
@@ -220,12 +224,13 @@ enyo.kind({
 	selectedIndexChanged: function() {
 		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
 		this.updateMarqueeDisable();
+		this.startMarquee();
 		this.setSelected(this.getClientControls()[this.selectedIndex]);
 		this.fireChangedEvent();
 		this.showHideNavButtons();
 	},
 	updateMarqueeDisable: function() {
-		this.waterfall("onRequestMarqueeStop");
+		this.stopMarquee();
 		for (var c$=this.getClientControls(), i=0; i<c$.length; i++) {
 			if (i == this.selectedIndex) {
 				c$[i].disabled = false;
@@ -247,6 +252,14 @@ enyo.kind({
 		} else {
 			this.next();
 		}
+	},
+	downLeft: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		this.left();
+	},
+	downRight: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		this.right();
 	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.

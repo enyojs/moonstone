@@ -44,10 +44,10 @@ enyo.kind({
 	audioComponents: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
 		{kind: "enyo.Signals", onkeyup:"remoteKeyHandler"},
-		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
+		{kind: "FittableColumns", rtl: false, noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
-				{kind: "FittableColumns", classes: "moon-audio-top", components: [
+				{kind: "FittableColumns", rtl: false, classes: "moon-audio-top", components: [
 					{classes: "moon-audio-track-info", components: [
 						{name: "trackName", content: "Track Name", classes: "moon-audio-playback-track"},
 						{name: "artistName", content: "Artist Name", classes: "moon-audio-playback-artist"}
@@ -60,10 +60,10 @@ enyo.kind({
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackDrawer"}
 					]}
 				]},
-				{kind: "FittableColumns", classes: "", components: [
+				{kind: "FittableColumns", rtl: false, classes: "", components: [
 					{name: "timePlayed", classes: "moon-audio-play-time left", content: "0:00"},
 					{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
-						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
+						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", rtl: false, noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
 					]},
 					{name: "timeRemaining", classes: "moon-audio-play-time right", content: "0:00"}
 				]}

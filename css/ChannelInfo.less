@@ -4,6 +4,7 @@
 	text-align: right;
 	white-space: normal;
   width: 230px;
+  max-width: 800px;
 }
 .moon-video-player-channel-info-badges{
   padding:0;
@@ -13,9 +14,12 @@
   margin: 0 15px 6px 0;
 }
 .moon-video-player-channel-info-no {
-.moon-header-text;
-font-size:@moon-video-header-font-size;
+  .moon-header-text;
+  font-size:@moon-video-header-font-size;
 	white-space: nowrap;
+}
+.enyo-locale-non-latin .moon-video-player-channel-info-no {
+  .enyo-locale-non-latin .moon-video-player-info-title
 }
 .moon-video-player-channel-info-name {
 .moon-video-sub-header-text;

@@ -88,6 +88,7 @@ enyo.kind({
 
 	headerComponents: [],
 	isBreadcrumb: false,
+	isOffscreen: false,
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
@@ -142,9 +143,9 @@ enyo.kind({
 	layoutKindChanged: function() {
 		this.$.panelBody.setLayoutKind(this.getLayoutKind());
 	},
-	//* When _this.isBreadcrumb_ changes, updates spottability.
-	isBreadcrumbChanged: function() {
-		if (this.isBreadcrumb) {
+	//* Updates spottability.
+	updatesSpottability: function() {
+		if (this.isBreadcrumb && !this.isOffscreen) {
 			this.addSpottableBreadcrumbProps();
 		} else {
 			this.removeSpottableBreadcrumbProps();
@@ -183,24 +184,18 @@ enyo.kind({
 			this.setTitleAbove(n);
 		}
 	},
-	//* Updates _this.header_ when _title_ changes.
-	titleChanged: function() {
-		this.$.header.setTitle(this.getTitle());
-	},
-	//* Updates _this.header_ when _titleAbove_ changes.
-	titleAboveChanged: function() {
-		this.$.header.setTitleAbove(this.getTitleAbove());
-	},
 	generateAutoNumber: function() {
 		var adjustedIndex = this.indexInContainer() + 1;
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
 	},
 	addSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", true);
-	},
+		this.spotlightDisabled = true;
+	},	
 	removeSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
+		this.spotlightDisabled = false;
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {
@@ -236,6 +231,8 @@ enyo.kind({
 	// Called directly by moon.Panels
 	initPanel: function(inInfo) {
 		this.set("isBreadcrumb", inInfo.breadcrumb);
+		this.set("isOffscreen", inInfo.offscreen);
+		this.updatesSpottability();
 		if (this.isBreadcrumb) {
 			this.needsToShrink = true;
 		}
@@ -263,7 +260,7 @@ enyo.kind({
 		return false;
 	},
 	// Called directly by moon.Panels
-	transitionFinished: function(inInfo) {
+	updatePanel: function(inInfo) {
 		if (!inInfo.animate) {
 			this.disableMarquees();
 
@@ -275,8 +272,28 @@ enyo.kind({
 			}
 		}
 		this.set("isBreadcrumb", inInfo.breadcrumb);
+		this.set("isOffscreen", inInfo.offscreen);
+		this.updatesSpottability();
 		this.startMarqueeAsNeeded(inInfo);
 	},
+	//* @public
+	/**
+		The `transitionFinished` method is called directly on the panel by `moon.Panels` when the
+		panel has completed a transition.  You can override this function in a panel sub-kind to
+		perform post-transition work such as loading data for the panel, for example.  The `inInfo`
+		argument carries the following information, which can be used to determine the context for
+		the transition:
+		- inInfo.from: the index the parent panels was moving from for this transition
+		- inInfo.to: the index the parent panels was moving from for this transition
+		- inInfo.index: the current index of this panel
+		- inInfo.animate: whether the parent panels is set to animate or not
+		- plus any additional information provided by the selected arranger, such as breadcrumb and
+			offscreen status, for example
+	*/
+	transitionFinished: function(inInfo) {
+		this.updatePanel(inInfo);
+	},
+	//* @protected
 	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
@@ -317,7 +334,7 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.growing = false;
 		this.doPostTransitionComplete();
-		this.resized();
+		this.reflow();
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {

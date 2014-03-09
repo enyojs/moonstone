@@ -14,6 +14,13 @@
 	-webkit-font-kerning:normal;
 	margin-bottom: 3px;
 	white-space: nowrap;
+	-webkit-font-kerning:normal;
+	font-kerning:normal;
+}
+.enyo-locale-non-latin .moon-video-player-info-title {
+	line-height: @moon-non-latin-header-text-line-height;
+	/* Clip the title box by just a bit to help it fit better */
+	height: 1.4em;
 }
 .moon-video-player-info-subtitle {
 	.moon-video-sub-header-text;
@@ -76,4 +83,7 @@
   &:first-child{
     margin-left:20px;
   }
+}
+.enyo-locale-right-to-left .moon-video-player-info-client {
+	margin: 0 20px 10px 0;
 }

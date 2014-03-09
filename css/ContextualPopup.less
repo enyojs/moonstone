@@ -15,12 +15,16 @@
 	-moz-box-sizing: border-box;
 	background-color: @moon-contextual-popup-bg-color;
 	&.reserve-close {
-		padding-right: @moon-icon-button-small-size + 20px;
+		padding-right: @moon-icon-button-small-size + 10px;
 	}
 }
 
 .enyo-locale-right-to-left .moon-contextual-popup {
-  direction: rtl;
+	direction: rtl;
+	&.reserve-close {
+		padding-right: 20px;
+		padding-left: @moon-icon-button-small-size + 10px;
+	}
 }
 
 /* Vertical Popups */

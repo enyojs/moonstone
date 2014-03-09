@@ -25,6 +25,10 @@ enyo.kind({
         text: ''
     },
     //* @protected
+    bindings: [
+        {from: ".allowHtml", to: ".$.label.allowHtml"},
+        {from: ".allowHtml", to: ".$.text.allowHtml"}
+    ],
     labelChanged: function() {
         this.$.label.setContent(this.label);
     },

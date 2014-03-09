@@ -13,7 +13,9 @@ enyo.kind({
 			{kind:"moon.Item", content:"Right!"}
 		]},
 		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
-			{kind : "moon.Button", content:"Refresh", ontap:"refreshItems"},
+			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
+			{kind: "moon.ToggleButton", content:"MultiSelect", name:"multiSelectToggle"},
+			{kind: "moon.Button", content:"Refresh", ontap:"refreshItems"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Popup List"},
 				{kind: "moon.ContextualPopup", classes:"moon-6h moon-8v", components: [
@@ -25,22 +27,16 @@ enyo.kind({
 				]}
 			]}
 		], components: [
-			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", components: [
-				{
-					kind: "moon.GridListImageItem",
-					subCaption: "Sub Caption",
-					bindings: [
-						{from: ".model.text", to: ".caption"},
-						{from: ".model.subText", to: ".subCaption"},
-						{from: ".model.url", to: ".source"}
-					]
-				}
+			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+				{ kind: "moon.sample.GridSampleItem" }
 			]}
 		]}
 	],
 	bindings: [
 		{from: ".collection", to: ".$.dataList.collection"},
-		{from: ".collection", to: ".$.gridList.collection"}
+		{from: ".collection", to: ".$.gridList.collection"},
+		{from: ".$.selectionToggle.value", to:".$.gridList.selection"},
+		{from: ".$.multiSelectToggle.value", to:".$.gridList.multipleSelection"}
 	],
 	create: function () {
 		this.inherited(arguments);
@@ -71,4 +67,17 @@ enyo.kind({
 		// and we insert all new records that will update the list
 		collection.add(this.generateRecords());
 	}
+});
+
+enyo.kind({
+	name: "moon.sample.GridSampleItem",
+	kind: "moon.GridListImageItem",
+	mixins: ["moon.SelectionOverlaySupport"],
+	selectionOverlayVerticalOffset: 35,
+	subCaption: "Sub Caption",
+	bindings: [
+		{from: ".model.text", to: ".caption"},
+		{from: ".model.subText", to: ".subCaption"},
+		{from: ".model.url", to: ".source"}
+	]
 });

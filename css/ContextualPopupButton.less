@@ -6,9 +6,6 @@
 	background-position: right center;
 	padding-right: 50px;
 }
-.enyo-locale-non-latin .moon-button.contextual-popup-button {
-	padding-right: 50px;
-}
 .contextual-popup-button.spotlight {
 	background-image: url(../images/contextual-arrow-spotlight.png);
 	background-repeat: no-repeat;
@@ -18,4 +15,23 @@
 .contextual-popup-button.pressed,
 .contextual-popup-button:active {
 	background-image: url(../images/contextual-arrow.png);
+}
+
+.enyo-locale-right-to-left {	
+	.contextual-popup-button {
+		background-image: url(../images/contextual-arrow-rtl.png);
+		background-position: left center;
+		padding-right: 22px;
+		padding-left: 50px;
+	}
+	.contextual-popup-button.small {
+		padding-right: 20px;
+	}
+	.contextual-popup-button.spotlight {
+		background-image: url(../images/contextual-arrow-spotlight-rtl.png);
+	}
+	.contextual-popup-button.pressed,
+	.contextual-popup-button:active {
+		background-image: url(../images/contextual-arrow-rtl.png);
+	}
 }

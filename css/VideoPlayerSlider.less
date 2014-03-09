@@ -38,7 +38,7 @@
 /* ---- Bar ---- */
 .moon-video-transport-slider-bar-bar {
 	height: 100%;
-	background-color: @moon-pink;
+	background-color: @moon-accent;
 	position: absolute;
 	top: 0;
 }
@@ -72,7 +72,6 @@
 }
 
 .moon-video-transport-slider-indicator-wrapper {
-	width: 12.5%;
 	height: 82px;
 	top: 0;
 	position: absolute;
@@ -113,4 +112,7 @@
 }
 .enyo-locale-non-latin .moon-video-transport-slider-indicator-text {
 	font-family: @moon-non-latin-font-family;
+}
+.enyo-locale-right-to-left .moon-video-transport-slider-indicator-text {
+	direction: rtl;
 }

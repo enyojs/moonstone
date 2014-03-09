@@ -30,7 +30,11 @@ enyo.kind({
 			spotlightable component that has focus.  Otherwise, any badges provided
 			will always be shown.
 		*/
-		showBadgesOnSpotlight: false
+		showBadgesOnSpotlight: false,
+		//* Sets the image sizing strategy.  See _enyo.Image_ for details.
+		sizing: "",
+		//* Sets the image position when `sizing` is used.  See _enyo.Image_ for details.
+		position: ""
 	},
 	//*@protected
 	defaultKind: "moon.ImageBadge",
@@ -40,7 +44,9 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".src", to: ".$.image.src"},
-		{from: ".alt", to: ".$.image.alt"}
+		{from: ".alt", to: ".$.image.alt"},
+		{from: ".sizing", to: ".$.image.sizing"},
+		{from: ".position", to: ".$.image.position"}
 	],
 	//* Only generate _this.$.client_ if the instance has components.
 	create: enyo.inherit(function (sup) {

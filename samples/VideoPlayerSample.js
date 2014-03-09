@@ -1,4 +1,3 @@
-
 enyo.kind({
 	name: "moon.sample.VideoPlayerSample",
 	classes: "moon enyo-fit enyo-unselectable moon-video-player-sample",
@@ -54,15 +53,28 @@ enyo.kind({
 			],
 			components: [
 				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.ToggleButton", name:"controlsToggleButton", minWidth:false, content:"Controls"},
-				{kind: "moon.Button", content:"Unld", minWidth:false, ontap:"unload"},
-				{kind: "moon.Button", content:"Reld", minWidth:false, ontap:"load"},
-				{kind: "moon.ToggleButton", content:"FF/Rew", minWidth:false, name:"ffrewToggleButton"},
-				{kind: "moon.ToggleButton", content:"Left", minWidth:false, name:"leftToggleButton"},
-				{kind: "moon.ToggleButton", content:"BG", minWidth:false, name:"bgToggleButton"},
-				{kind: "moon.ToggleButton", content:"Ch", minWidth:false, name:"chToggleButton"},
-				{kind: "moon.ToggleButton", content:"Info", minWidth:false, name:"infoToggleButton"},
-				{kind: "moon.ToggleButton", content:"Right", minWidth:false, name:"rightToggleButton"}
+				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls"},
+				{kind: "moon.Button", content:"Unload", ontap:"unload"},
+				{kind: "moon.Button", content:"Reload", ontap:"load"},
+				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
+				{kind: "moon.TooltipDecorator", components: [
+					{kind: "moon.ContextualPopupDecorator", components: [
+						{kind: "moon.Button", content: "Popup"},
+						{
+							kind: "moon.ContextualPopup",
+							classes: "moon-3h moon-6v",
+							components: [
+								{kind: "moon.Item", content:"Item 1"},
+								{kind: "moon.Item", content:"Item 2"},
+								{kind: "moon.Item", content:"Item 3"}
+							]
+						}
+					]},
+					{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
+				]},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 			]
 		},
 		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [
@@ -71,12 +83,7 @@ enyo.kind({
 	],
 	bindings: [
 		{from:".$.player.disablePlaybackControls", to:".$.controlsToggleButton.value", oneWay:false},
-		{from:".$.player.showFFRewindControls", to:".$.ffrewToggleButton.value", oneWay:false},
-		{from:".$.player.showInfoBackground", to:".$.bgToggleButton.value", oneWay:false},
-		{from:".$.leftInfo.showing", to:".$.leftToggleButton.value", oneWay:false},
-		{from:".$.channelInfo.showing", to:".$.chToggleButton.value", oneWay:false},
-		{from:".$.videoInfo.showing", to:".$.infoToggleButton.value", oneWay:false},
-		{from:".$.rightInfo.showing", to:".$.rightToggleButton.value", oneWay:false}
+		{from:".$.player.showFFRewindControls", to:".$.ffrewToggleButton.value", oneWay:false}
 	],
 	controlsTapped: function() {
 		this.$.tapDialog.show();

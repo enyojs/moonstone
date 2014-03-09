@@ -2,7 +2,22 @@
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain
 	multiple marquees whose animation behavior should be synchronized. Calling
 	_this.startMarquee()_ or _this.stopMarquee()_ starts/stops all contained
-	marquees.
+	marquees.  
+
+	The following properties defined on the base kind on which the mixin is applied 
+	control the marquee behavior:
+
+	* `marqueeOnSpotlight`: When true, marquee will start when spotlight focused and
+		end when spotlight blurred.
+	* `marqueeOnHover`: When true, marquee will run when hovered with the mouse.  This
+		property is ignored if `marqueeOnSpotlight` is true.
+	* `marqueeOnRender`: When true, marquee will start running as soon as it is rendered
+		and run continuously.
+	* `marqueeSpeed`: The speed of the marquee animation, in pixels/second.
+	* `marqueeDelay`: The delay between spotlight focus/hover and the animation starting
+		(only used when `marqueeOnSpotlight` or `marqueeOnHover` is true).
+	* `marqueePause`: The duration between the last of all subordinate marquee animations
+		ending and all animations restarting.
 */
 moon.MarqueeSupport = {
 	name: "MarqueeSupport",
@@ -11,8 +26,16 @@ moon.MarqueeSupport = {
 		onRequestStartMarquee: "_marquee_requestStartMarquee",
 		onSpotlightFocus: "_marquee_spotlightFocus",
 		onSpotlightBlur: "_marquee_spotlightBlur",
+		onenter: "_marquee_enter",
+		onleave: "_marquee_leave",
 		onMarqueeEnded: "_marquee_marqueeEnded",
-		onresize: "_marquee_resize"
+		onresize: "_marquee_resize",
+
+		// Stop propagation of requests coming from parent MarqueeSupport's, since
+		// only this MarqueeSupport should be controlling its subordinate children
+		onRequestMarquee: "_marquee_stopPropagation",
+		onRequestMarqueeStart: "_marquee_stopPropagation",
+		onRequestMarqueeStop: "_marquee_stopPropagation"
 	},
 	_marquee_active: false,
 	//* Initializes marquee timings.
@@ -20,6 +43,7 @@ moon.MarqueeSupport = {
 		return function() {
 			sup.apply(this, arguments);
 			this.marqueeOnSpotlight = (this.marqueeOnSpotlight === undefined) ? true : this.marqueeOnSpotlight;
+			this.marqueeOnHover =  (this.marqueeOnHover ===   undefined) ? false :  this.marqueeOnHover;
 			this.marqueeSpeed =    (this.marqueeSpeed ===     undefined) ? 60 :    this.marqueeSpeed;
 			this.marqueeDelay =    (this.marqueeDelay ===     undefined) ? 1000 :  this.marqueeDelay;
 			this.marqueePause =    (this.marqueePause ===     undefined) ? 1000 :  this.marqueePause;
@@ -38,6 +62,10 @@ moon.MarqueeSupport = {
 	}),
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
+			// Needed for proper onenter/onleave handling
+			if (this.strictlyInternalEvents[sEventName] && this.isInternalEvent(oEvent)) {
+				return true;
+			}
 			// FIXME: not sure why events can arrive without event objects, but we gaurd here for safety
 			if (oEvent && !oEvent.delegate) {
 				var handler = this._marquee_Handlers[sEventName];
@@ -68,6 +96,23 @@ moon.MarqueeSupport = {
 		this._marquee_isFocused = false;
 		if (this.marqueeOnSpotlight) {
 			this.stopMarquee();
+		}
+	},
+	_marquee_enter: function(inSender, inEvent) {
+		this._marquee_isHovered = true;
+		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			this.startMarquee();
+		}
+	},
+	_marquee_leave: function(inSender, inEvent) {
+		this._marquee_isHovered = false;
+		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+			this.stopMarquee();
+		}
+	},
+	_marquee_stopPropagation: function(inSender, inEvent) {
+		if (inEvent.originator != this) {
+			return true;
 		}
 	},
 	/**
@@ -128,14 +173,21 @@ moon.MarqueeSupport = {
 	},
 	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
 	resetMarquee: function() {
-		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || this.marqueeOnRender) {
-			this.stopMarquee();
-			this.startMarquee();
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
+			(this.marqueeOnHover && this._marquee_isHovered) || 
+			this.marqueeOnRender) {
+			// Batch multiple requests to reset from children being hidden/shown
+			this.startJob("resetMarquee", "_resetMarquee", 10);
 		}
 	},
 
 	//* @protected
 
+	//* Stops and restarts the marquee animations
+	_resetMarquee: function() {
+		this.stopMarquee();
+		this.startMarquee();
+	},
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
 		this.marqueeWaitList = [];
@@ -143,11 +195,11 @@ moon.MarqueeSupport = {
 	},
 	//* Waterfalls event to kick off child marquee animations.
 	_marquee_startChildMarquees: function() {
-		this.waterfall("onRequestMarqueeStart");
+		this.waterfall("onRequestMarqueeStart", {originator: this});
 	},
 	//* Waterfalls event to halt child marquee animations.
 	_marquee_stopChildMarquees: function() {
-		this.waterfall("onRequestMarqueeStop");
+		this.waterfall("onRequestMarqueeStop", {originator: this});
 	},
 	//* Waterfalls event to enable child marquee animations.
 	_marquee_enableChildMarquees: function() {
@@ -186,26 +238,43 @@ moon.MarqueeItem = {
 	observers: {
 		_marquee_contentChanged: ["content"]
 	},
+	bindings: [
+		{from: ".allowHtml", to:".$.marqueeText.allowHtml"}
+	],
 	classes: "moon-marquee",
 	dispatchEvent: enyo.inherit(function (sup) {
 		return function(sEventName, oEvent, oSender) {
+			if (sup.apply(this, arguments)) {
+				return true;
+			}
 			if (oEvent && !oEvent.delegate) {
 				var handler = this._marqueeItem_Handlers[sEventName];
 				if (handler && this[handler](oSender, oEvent)) {
 					return true;
 				}
 			}
-			return sup.apply(this, arguments);
 		};
 	}),
 	_marquee_enabled: true,
 	_marquee_distance: null,
 	_marquee_fits: null,
 	_marquee_puppetMaster: null,
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._marquee_checkRtl();
+		};
+	}),
 	reflow: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
 			this._marquee_invalidateMetrics();
+		};
+	}),
+	showingChangedHandler: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._marquee_reset();
 		};
 	}),
 	_marquee_invalidateMetrics: function() {
@@ -217,17 +286,15 @@ moon.MarqueeItem = {
 		_this.$.marqueeText_ (if it exists).
 	*/
 	_marquee_contentChanged: function() {
+		this._marquee_checkRtl();
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 		}
-		this._marquee_invalidateMetrics();
-		if (this._marquee_puppetMaster) {
-			this._marquee_puppetMaster.resetMarquee();
-		}
+		this._marquee_reset();
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
-		if (!inEvent || this.disabled || !this._marquee_enabled || this._marquee_fits) {
+		if (!inEvent || this.disabled || !this.showing || !this._marquee_enabled || this._marquee_fits) {
 			return;
 		}
 
@@ -309,10 +376,12 @@ moon.MarqueeItem = {
 		this.$.marqueeText.applyStyle("transition-duration", duration + "s");
 		this.$.marqueeText.applyStyle("-webkit-transition-duration", duration + "s");
 
+		enyo.dom.transform(this.$.marqueeText, {translateZ: 0});
+
 		// Need this timeout for FF!
 		setTimeout(this.bindSafely(function() {
 			enyo.dom.transform(this.$.marqueeText, {translateX: this._marquee_adjustDistanceForRTL(inDistance) + "px"});
-		}), 100);
+		}), enyo.platform.firefox ? 100 : 0);
 	},
 	_marquee_removeAnimationStyles: function() {
 		if (!this.$.marqueeText) {
@@ -326,11 +395,33 @@ moon.MarqueeItem = {
 		setTimeout(this.bindSafely(function() {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
-		}), 0);
+			enyo.dom.transform(this.$.marqueeText, {translateZ: null});
+		}), enyo.platform.firefox ? 100 : 0);
 	},
 	//* Flips distance value for RTL support
 	_marquee_adjustDistanceForRTL: function(inDistance) {
 		return this.rtl ? inDistance : inDistance * -1;
+	},
+	_marquee_reset: function() {
+		this._marquee_invalidateMetrics();
+		if (this._marquee_puppetMaster) {
+			this._marquee_puppetMaster.resetMarquee();
+		}
+	},
+	_marquee_checkRtl: function() {
+		// Set RTL mode based on first character of content
+		if (this.content.length) {
+			var firstCharCode = this.content.charCodeAt(0);
+			// Check if within Hebrew or Arabic ranges (in addition to Syriac to reduce number of comparisons)
+			// Hebrew: 1424-1535
+			// Arabic: 1536-1791, 1872-1919, 64336-65023, 65136-65279
+			// Syriac: 1792-1871
+			var isRtl = ((firstCharCode >= 1424 && firstCharCode <= 1919) ||
+				(firstCharCode >= 64336 && firstCharCode <= 65023) ||
+				(firstCharCode >= 65136 && firstCharCode <= 65279));
+			this.rtl = isRtl;
+			this.applyStyle("direction", isRtl ? "rtl" : "ltr");
+		}
 	}
 };
 

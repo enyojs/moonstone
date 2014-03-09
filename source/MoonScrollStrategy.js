@@ -51,18 +51,18 @@ enyo.kind({
 			]}
 		]},
 		{name: "vColumn", classes: "moon-scroller-v-column", components: [
-			{name: "pageUpControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageDownControl", side: "top", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
+			{name: "pageUpControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageDownControl", defaultSpotlightDown: "pageDownControl", side: "top", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
 			{name: "vthumbContainer", classes: "moon-scroller-thumb-container moon-scroller-vthumb-container", components: [
 				{name: "vthumb", kind: "moon.ScrollThumb", classes: "moon-scroller-vthumb hidden", axis: "v"}
 			]},
-			{name: "pageDownControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageUpControl", side: "bottom", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
+			{name: "pageDownControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageUpControl", defaultSpotlightUp: "pageUpControl", side: "bottom", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
 		{name: "hColumn", classes: "moon-scroller-h-column", components: [
-			{name: "pageLeftControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageRightControl", side: "left", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
+			{name: "pageLeftControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageRightControl", defaultSpotlightRight: "pageRightControl", side: "left", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
 			{name: "hthumbContainer", classes: "moon-scroller-thumb-container moon-scroller-hthumb-container", components: [
 				{name: "hthumb", kind: "moon.ScrollThumb", classes: "moon-scroller-hthumb hidden", axis: "h"}
 			]},
-			{name: "pageRightControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageLeftControl", side: "right", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
+			{name: "pageRightControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageLeftControl", defaultSpotlightLeft: "pageLeftControl", side: "right", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
 	],
@@ -408,6 +408,9 @@ enyo.kind({
 			this.setupBounds();
 			if (this.showVertical() || this.showHorizontal()) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
+				if (this.$.scrollMath.bottomBoundary) {
+					this.alertThumbs();
+				}				
 				this.scrollBounds = null;
 				return true;
 			} else {
@@ -552,18 +555,31 @@ enyo.kind({
 		area.
 	*/
 	animateToControl: function(inControl, inScrollFullPage, animate) {
-		var controlBounds  = enyo.Spotlight.Util.getAbsoluteBounds(inControl),
-			absoluteBounds = enyo.Spotlight.Util.getAbsoluteBounds(this.$.viewport),
-			scrollBounds   = this.getScrollBounds(),
-			offsetTop      = controlBounds.top - absoluteBounds.top,
-			offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left),
-			offsetHeight   = controlBounds.height,
-			offsetWidth    = controlBounds.width,
+		var controlBounds  = inControl.getAbsoluteBounds(),
+			absoluteBounds = this.$.viewport.getAbsoluteBounds(),
+			scrollBounds   = this._getScrollBounds(),
+			offsetTop,
+			offsetLeft,
+			offsetHeight,
+			offsetWidth,
 			xDir,
 			yDir,
 			x,
 			y
 		;
+
+		// Make absolute controlBounds relative to scroll position
+		controlBounds.top += scrollBounds.top;
+		if (this.rtl) {
+			controlBounds.right += scrollBounds.left;
+		} else {
+			controlBounds.left += scrollBounds.left;
+		}
+
+		offsetTop      = controlBounds.top - absoluteBounds.top;
+		offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);
+		offsetHeight   = controlBounds.height;
+		offsetWidth    = controlBounds.width;
 
 		// Allow local inScrollFullPage param to override scroller property
 		inScrollFullPage = (typeof inScrollFullPage === "undefined") ? this.container.getScrollFullPage() : inScrollFullPage;
@@ -585,6 +601,9 @@ enyo.kind({
 				: offsetTop - scrollBounds.top < 0
 					? -1
 					: 0;
+
+		scrollBounds.xDir = xDir;
+		scrollBounds.yDir = yDir;
 
 		switch (xDir) {
 		case 0:
@@ -647,7 +666,7 @@ enyo.kind({
 			}
 			break;
 		}
-		
+
 		// If x or y changed, scroll to new position
 		if (x !== this.getScrollLeft() || y !== this.getScrollTop()) {
 			this.scrollTo(x, y, animate);

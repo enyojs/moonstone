@@ -11,9 +11,9 @@ enyo.kind({
 	//* @public
 	published: {
 		//* Text label for the "on" state
-		onContent: moon.$L("on"),   // i18n "ON" label in moon.ToggleText / moon.ToggleItem widget
+		onContent: moon.$L("on"),   // i18n "ON" label in moon.ToggleText widget
 		//* Text label for the "off" state
-		offContent: moon.$L("off")  // i18n "OFF" label in moon.ToggleText / moon.ToggleItem widget
+		offContent: moon.$L("off")  // i18n "OFF" label in moon.ToggleText widget
 	},
 	//* @protected
 	classes: "moon-toggle-text",
@@ -27,12 +27,5 @@ enyo.kind({
 	checkedChanged: function() {
 		this.inherited(arguments);
 		this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
-	},
-	shouldDoTransition: function(inChecked) {
-		return true;
-	},
-	createOverlayComponent: function() {
-		var content = this.getChecked() ? this.getOnContent() : this.getOffContent();
-		return this.createComponent({name: "overlay", classes: "moon-overlay", content: content});
 	}
 });
