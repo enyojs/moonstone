@@ -3,20 +3,26 @@
 	white-space: nowrap;
 	&.left {
 		padding: 20px 20px 20px 60px;
-		> * {
+		> * + * {
 			margin-right: 40px;
 		}
 	}
 	&.right {
 		float: right;
 		padding: 20px 60px 20px 20px;
-		> * {
+		> * + * {
 			margin-left: 40px;
 		}
 	}
 }
-.enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
-	direction: rtl;
+.enyo-locale-right-to-left {
+	.moon-background-wrapper-client-content {
+		direction: ltr;
+		> * {
+			direction: rtl;
+			text-align: right;
+		}
+	}
 }
 
 /* Angled edged corners rule-set */

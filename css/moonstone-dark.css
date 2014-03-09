@@ -4192,14 +4192,6 @@
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
   margin-bottom: 8px;
 }
-.moon-video-info-header {
-  display: inline-block;
-  vertical-align: top;
-  white-space: nowrap;
-}
-.moon-video-info-header > *:nth-child(2) {
-  margin-left: 0px;
-}
 .moon-video-player-header.angle-background .moon-video-info-header {
   max-width: 1135px;
 }
@@ -4214,6 +4206,14 @@
   margin-bottom: 32px;
   white-space: nowrap;
   background: transparent;
+}
+.moon-video-info-header {
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.moon-video-info-header > *:nth-child(2) {
+  margin-left: 0px;
 }
 .moon-video-player-info-title,
 .moon-video-player-info-subtitle,
@@ -4299,6 +4299,27 @@
 .moon-video-player-info-client > * {
   display: inline-block;
   margin-left: 20px;
+}
+.enyo-locale-right-to-left .moon-video-player-header {
+  direction: ltr;
+  text-align: left;
+}
+.enyo-locale-right-to-left .moon-video-player-info-subtitle,
+.enyo-locale-right-to-left .moon-video-player-info-subtitle-divider,
+.enyo-locale-right-to-left .moon-video-player-info-subsubtitle,
+.enyo-locale-right-to-left .moon-video-player-info-client {
+  margin-left: 0px;
+  margin-right: 20px;
+}
+.enyo-locale-right-to-left .moon-video-player-info-subtitle :first-child,
+.enyo-locale-right-to-left .moon-video-player-info-subtitle-divider :first-child,
+.enyo-locale-right-to-left .moon-video-player-info-subsubtitle :first-child,
+.enyo-locale-right-to-left .moon-video-player-info-client :first-child {
+  margin-left: 20px;
+  margin-right: 0px;
+}
+.enyo-locale-right-to-left .moon-video-info-header > *:nth-child(2) {
+  margin-right: 0px;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
   line-height: 1.5em;
@@ -4413,18 +4434,22 @@
 .moon-background-wrapper-client-content.left {
   padding: 20px 20px 20px 60px;
 }
-.moon-background-wrapper-client-content.left > * {
+.moon-background-wrapper-client-content.left > * + * {
   margin-right: 40px;
 }
 .moon-background-wrapper-client-content.right {
   float: right;
   padding: 20px 60px 20px 20px;
 }
-.moon-background-wrapper-client-content.right > * {
+.moon-background-wrapper-client-content.right > * + * {
   margin-left: 40px;
+}
+.enyo-locale-right-to-left .moon-background-wrapper-client-content {
+  direction: ltr;
 }
 .enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
   direction: rtl;
+  text-align: right;
 }
 /* Angled edged corners rule-set */
 .moon-video-player-header.angle-background .moon-background-wrapper {
