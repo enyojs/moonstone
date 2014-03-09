@@ -13,25 +13,31 @@
 
 /* ---- Header info styling ---- */
 .moon-video-player-header {
+	padding-top: 20px;
 	width: 100%;
 	font-family: @moon-font-family;
 	font-size: @moon-sub-header-font-size;
 	letter-spacing: @moon-sub-header-letter-spacing;
-	color: #ffffff;
-	padding: 15px 0 0 0;
+	color: @moon-white;
+	box-sizing: border-box;
+	position: relative;
 	direction: ltr;
 
 	.moon-clock-hour,
 	.moon-clock-top,
 	.moon-clock-meridiem,
 	.moon-clock-bottom {
-		color: #ffffff;
+		color: @moon-white;
 	}
 
 	.moon-clock-divider {
-		background-color: #ffffff;
+		background-color: @moon-white;
 	}
 }
+.moon-video-player-header.full-background {
+	background-color: @moon-videoplayer-header-bg-color;
+}
+
 .moon-video-player-header.enyo-fittable-columns-layout > * {
 	margin: 0;
 }
@@ -50,7 +56,7 @@
 }
 .moon-video-player-controls {
 	height: @moon-icon-button-size;
-	margin-bottom:30px;
+	margin-bottom: 30px;
 }
 .enyo-fittable-columns-layout.moon-video-player-controls {
 	direction: ltr;
@@ -61,7 +67,7 @@
 }
 .moon-video-player-more-controls {
 	border-left: 2px solid white;
-	padding-left:5px;
+	padding-left: 5px;
 }
 .moon-video-player-more-controls > * {
 	vertical-align: middle;
@@ -70,17 +76,18 @@
 .enyo-locale-right-to-left .moon-video-player-more-controls > * {
 	direction: rtl;
 }
+.moon-video-player-more-controls.moon-neutral {
+	background: transparent;
+}
 .moon-video-player-premium-placeholder-left {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
 	height: @moon-icon-button-size;
-
 	padding-left: 90px;
-
 }
 .moon-video-player-premium-placeholder-right {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
 	height: @moon-icon-button-size;
-	padding-left:5px;
+	padding-left: 5px;
 }
 
 /* --- Buttons --- */

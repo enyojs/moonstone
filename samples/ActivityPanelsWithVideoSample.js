@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsWithVideoSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "assets/video-poster.png", autoplay: true, infoComponents: [
+        {name: "player", kind: "moon.VideoPlayer", src: "http://media.w3.org/2010/05/bunny/movie.mp4", poster: "assets/video-poster.png", showInfoBackground: true, autoplay: true, infoComponents: [
 			{kind: "moon.VideoInfoBackground", orient: "left", background: true, fit: true, components: [
 				{
 					kind: "moon.ChannelInfo",
@@ -19,6 +19,7 @@ enyo.kind({
 					kind: "moon.VideoInfoHeader",
 					title: "Downton Abbey - Extra Title",
 					subTitle: "Mon June 21, 7:00 - 8:00pm",
+					subtitleDivider:"|",
 					subSubTitle: "R - TV 14, V, L, SC",
 					description: "The series, set in the Youkshire country estate of Downton Abbey, depicts the lives of the aristocratic Crawley famiry and"
 				}

@@ -120,6 +120,23 @@
 	color: @moon-icon-color;
 }
 
+.moon-video-sub-header-text {
+  font-family: @moon-video-sub-header-font-family;
+  font-size: @moon-video-sub-header-font-size;
+  font-weight: @moon-video-sub-header-font-weight;
+  font-style: @moon-video-sub-header-font-style;
+  letter-spacing: @moon-video-sub-header-letter-spacing;
+  color: @moon-video-sub-header-text-color;
+}
+
+.moon-video-description-text{
+   font-family: @moon-sub-header-font-family;
+  font-size: @moon-video-sub-header-font-size;
+  font-weight: @moon-video-sub-header-font-weight;
+  font-style: @moon-video-sub-header-font-style;
+  letter-spacing: @moon-video-sub-header-letter-spacing;
+  color: @moon-video-sub-header-text-color;
+}
 .enyo-locale-non-latin {
 	/* All/Medium weighted classes */
 	.moon,
@@ -138,7 +155,9 @@
 	.moon-body-text,
 	.moon-bold-text,
 	.moon-large-button-text,
-	.moon-small-button-text {
+	.moon-small-button-text,
+	 .moon-video-sub-header-text,
+  .moon-video-description-text {
 		font-family: @moon-non-latin-font-family;
 	}
 
@@ -201,5 +220,13 @@
 	.moon-small-button-text {
 		font-size: @moon-non-latin-button-small-font-size;
 		font-weight: normal;
+	}
+	.moon-video-sub-header-text,{
+	     font-size:@moon-non-latin-video-sub-header-font-size;
+    font-weight:normal;
+	}
+	.moon-video-description-text{
+	  font-size:@moon-non-latin-video-sub-header-font-size;
+	  font-weight:normal;
 	}
 }
