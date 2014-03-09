@@ -34,6 +34,7 @@ enyo.kind({
 						subTitleDivider:"|",
 						subSubTitle: "R - TV 14, V, L, SC",
 						description: "Lorem ipsum dolor sit amet.",
+						classes: "moon-video-info-header-full-only",
 						components: [
 							{content: "Icon 1", classes: "moon-video-player-info-icon"},
 							{content: "Icon 2", classes: "moon-video-player-info-icon"},
@@ -52,11 +53,13 @@ enyo.kind({
 					{kind: "moon.ContextualPopup", components: [
 						{kind: "Group", name: "localeGroup", onActivate: "handleLocaleChange", components: [
 							{kind: "moon.SelectableItem", content:"English", value: "en-US"},
-							{kind: "moon.SelectableItem", content:"Portuguese", value: "pt-PT"},
-							{kind: "moon.SelectableItem", content:"Punjabi", value: "pa-IN"},
-							{kind: "moon.SelectableItem", content:"Korean", value: "ko-KR"},
-							{kind: "moon.SelectableItem", content:"Traditional Chinese", value: "zh-Hant-HK"},
-							{kind: "moon.SelectableItem", content:"Japanese", value: "ja-JP"}
+							{kind: "moon.SelectableItem", content:"Portuguese (Alt Time Format)", value: "pt-PT"},
+							{kind: "moon.SelectableItem", content:"Punjabi (Long Time Format)", value: "pa-IN"},
+							{kind: "moon.SelectableItem", content:"Arabic (RTL)", value: "ar-SA"},
+							{kind: "moon.SelectableItem", content:"Urdu (RTL + Font)", value: "ur-PK"},
+							{kind: "moon.SelectableItem", content:"Korean (Font Fallback)", value: "ko-KR"},
+							{kind: "moon.SelectableItem", content:"Traditional Chinese (Font)", value: "zh-Hant-HK"},
+							{kind: "moon.SelectableItem", content:"Japanese (Wide Font)", value: "ja-JP"}
 						]}
 					]}
 				]},
@@ -72,7 +75,8 @@ enyo.kind({
 					{kind: "moon.Button", content:"Modes"},
 					{kind: "moon.ContextualPopup", components: [
 						{kind: "moon.SelectableItem", name:"leftToggleButton", content:"Channel + Title"},
-						{kind: "moon.SelectableItem", name:"bgToggleButton", content:"Background"}
+						{kind: "moon.SelectableItem", name:"bgToggleButton", content:"Background"},
+						{kind: "moon.SelectableItem", name:"dbgToggleButton", content:"Debugging Lines", ontap: "toggleDebuggingLines", selected: false}
 					]}
 				]},
 				{kind: "moon.ContextualPopupDecorator", components: [
@@ -82,10 +86,10 @@ enyo.kind({
 						{kind: "moon.SimpleIntegerPicker", name:"badgesPicker", fit: true, value:4, min:0, max:10, step: 1, unit: "badges", onChange: "handleBadgesChange"},
 						{kind: "moon.Divider", content: "Title Length"},
 						{kind:"moon.SimplePicker", block:true, name:"titlesPicker", animate:false, wrap:true, components: [
-							{content:"House"},
-							{content:"Firefly"},
-							{content:"Downton Abbey"},
-							{content:"Arrested Development"},
+							{content:"House M.D. 강남스타일"},
+							{content:"Firefly 螢火蟲"},
+							{content:"Downton Abbey 猫の動画"},
+							{content:"Arrested Development ਨੂੰ ਗ੍ਰਿਫਤਾਰ ਵਿਕਾਸ"},
 							{content:"Gordon Ramsay's Ultimate Cookery Course - And Complete Guide to Long Show Titles"}
 						]},
 						{kind: "moon.Divider", content: "Description Length"},
@@ -119,6 +123,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.toggleDebuggingLines();
 		this.setChannelBadgesLength(this.$.badgesPicker.value);
 		this.setDescriptionLength(this.$.sentencesPicker.value);
 	},
@@ -154,6 +159,9 @@ enyo.kind({
 		this.$.channelInfo.destroyClientControls();
 		this.$.channelInfo.createComponents(badgesSubset);
 		this.$.channelInfo.render();
+	},
+	toggleDebuggingLines: function(inSender, inEvent) {
+		this.addRemoveClass("debug-lines", this.$.dbgToggleButton.selected);
 	},
 	controlsTapped: function() {
 		this.$.tapDialog.show();
