@@ -52,7 +52,7 @@ enyo.kind({
 					{kind: "moon.Button", content:"Locale"},
 					{kind: "moon.ContextualPopup", components: [
 						{kind: "Group", name: "localeGroup", onActivate: "handleLocaleChange", components: [
-							{kind: "moon.SelectableItem", content:"English", value: "en-US"},
+							{kind: "moon.SelectableItem", content:"English", value: "en-US", selected: true},
 							{kind: "moon.SelectableItem", content:"Portuguese (Alt Time Format)", value: "pt-PT"},
 							{kind: "moon.SelectableItem", content:"Punjabi (Long Time Format)", value: "pa-IN"},
 							{kind: "moon.SelectableItem", content:"Arabic (RTL)", value: "ar-SA"},

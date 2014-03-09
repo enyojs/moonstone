@@ -1,11 +1,6 @@
-.moon-video-info-header {
-	display: inline-block; 
-	vertical-align: top;
-	white-space: nowrap;
-	> *:nth-child(2) {
-		margin-left: 0px;
-	}
-}
+// Local-use-only variables
+@moon-video-info-header-item-spacing: 20px;
+
 .moon-video-player-header.angle-background {
 	.moon-video-info-header {
 		max-width: 1135px;
@@ -25,6 +20,14 @@
 	white-space: nowrap;
 	background: transparent;
 }
+.moon-video-info-header {
+	display: inline-block; 
+	vertical-align: top;
+	white-space: nowrap;
+	> *:nth-child(2) {
+		margin-left: 0px;
+	}
+}
 .moon-video-player-info-title,
 .moon-video-player-info-subtitle,
 .moon-video-player-info-subtitle-divider,
@@ -37,8 +40,8 @@
 .moon-video-player-info-subsubtitle,
 .moon-video-player-info-client {
 	.moon-video-sub-header-text;
-	margin-bottom: 20px;
-	margin-left: 20px;
+	margin-bottom: @moon-video-info-header-item-spacing;
+	margin-left: @moon-video-info-header-item-spacing;
 	display: inline-block;
 	:first-child {
 		margin-left: 0px;
@@ -60,7 +63,7 @@
 	line-height: 1.4;
 	color: @moon-white;
 	white-space: normal;
-	margin: 0px 0px 20px;
+	margin: 0px 0px @moon-video-info-header-item-spacing;
 	-webkit-line-clamp: 3;
 	display: -webkit-box;
 	overflow: hidden;
@@ -71,10 +74,30 @@
 
 	position: relative;
 	top: -5px;
-	margin-left: 20px;
+	margin-left: @moon-video-info-header-item-spacing;
 	> * {
 		display: inline-block;
-		margin-left: 20px;
+		margin-left: @moon-video-info-header-item-spacing;
+	}
+}
+.enyo-locale-right-to-left {
+	.moon-video-player-header {
+		direction: ltr;
+		text-align: left;
+	}
+	.moon-video-player-info-subtitle,
+	.moon-video-player-info-subtitle-divider,
+	.moon-video-player-info-subsubtitle,
+	.moon-video-player-info-client {
+		margin-left: 0px;
+		margin-right: @moon-video-info-header-item-spacing;
+		:first-child {
+			margin-left: @moon-video-info-header-item-spacing;
+			margin-right: 0px;
+		}
+	}
+	.moon-video-info-header > *:nth-child(2) {
+		margin-right: 0px;
 	}
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {

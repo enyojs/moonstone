@@ -261,7 +261,7 @@ enyo.kind({
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
 		
-			{name: "videoInfoHeader", kind: "FittableColumns", showing: false, classes: "moon-video-player-header"},
+			{name: "videoInfoHeader", kind: "FittableColumns", rtl: false, showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", rtl:false, classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
