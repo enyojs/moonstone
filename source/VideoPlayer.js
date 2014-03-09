@@ -389,6 +389,9 @@ enyo.kind({
 	showInfoBackgroundChanged: function() {
 		this.$.videoInfoHeader.addRemoveClass("full-background", this.showInfoBackground);
 		this.$.videoInfoHeader.addRemoveClass("angle-background", !this.showInfoBackground);
+		if (this.showInfoBackground) {
+			this.$.videoInfoHeader.resized();
+		}
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
 	getVideo: function() {

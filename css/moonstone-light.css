@@ -4515,8 +4515,9 @@
   display: block;
   vertical-align: top;
   width: auto;
-  text-align: left;
+  text-align: right;
   width: 240px;
+  padding-bottom: 20px;
 }
 .moon-clock-hour {
   display: inline-block;
@@ -4527,15 +4528,15 @@
 .moon-clock-right {
   display: inline-block;
   position: relative;
-  top: 5px;
+  top: 8px;
+  text-align: left;
 }
 .moon-clock-top {
   color: #4b4b4b;
   display: inline-block;
   white-space: nowrap;
   font-size: 61px;
-  line-height: 62px;
-  line-height: 96px;
+  line-height: 70px;
   height: 72px;
 }
 .moon-clock-meridiem {
@@ -4581,9 +4582,6 @@
   width: 100%;
   margin: 5px 0;
   background-color: #4b4b4b;
-}
-.moon-clock-right.mini {
-  padding: 20px 0;
 }
 .moon-clock-right.mini > .moon-clock-divider {
   background-color: transparent;
@@ -4632,6 +4630,9 @@
 .enyo-locale-pa-IN .moon-clock,
 .enyo-locale-pa-PK .moon-clock {
   width: 450px;
+}
+.angle-background .moon-clock {
+  width: auto;
 }
 .moon-scroller-client-wrapper,
 .moon-scroller-viewport {
