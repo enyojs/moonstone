@@ -4524,7 +4524,8 @@
   vertical-align: top;
   width: auto;
   text-align: left;
-  width: 200px;
+  width: 240px;
+  white-space: nowrap;
 }
 .moon-clock-hour {
   display: inline-block;
