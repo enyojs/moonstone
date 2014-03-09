@@ -66,9 +66,9 @@ enyo.kind({
 				{kind: "moon.ContextualPopupDecorator", components: [
 					{kind: "moon.Button", content:"Header Parts"},
 					{kind: "moon.ContextualPopup", components: [
-						{kind: "moon.SelectableItem", name:"chToggleButton", content:"Channel Area"},
-						{kind: "moon.SelectableItem", name:"infoToggleButton", content:"Title Area"},
-						{kind: "moon.SelectableItem", name:"rightToggleButton", content:"Clock Area"}
+						{kind: "moon.SelectableItem", name:"chToggleButton", content:"Channel Info"},
+						{kind: "moon.SelectableItem", name:"infoToggleButton", content:"Video Info"},
+						{kind: "moon.SelectableItem", name:"rightToggleButton", content:"Clock"}
 					]}
 				]},
 				{kind: "moon.ContextualPopupDecorator", components: [
@@ -95,25 +95,11 @@ enyo.kind({
 						{kind: "moon.Divider", content: "Description Length"},
 						{kind: "moon.SimpleIntegerPicker", name:"sentencesPicker", value:2, min:0, max:12, step: 1, unit: "sentences", onChange: "handleSentencesChange"}
 					]}
-				]},
-				{kind: "moon.ContextualPopupDecorator", components: [
-					{kind: "moon.Button", content:"Video Components"},
-					{kind: "moon.ContextualPopup", components: [
-						{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls"},
-						{kind: "moon.ToggleButton", name:"ffrewToggleButton", content:"FF/Rewind"},
-						{kind: "moon.Button", content:"Unload Video", ontap:"unload"},
-						{kind: "moon.Button", content:"Reload Video", ontap:"load"}
-					]}
 				]}
 			]
-		},
-		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [
-			{kind:"moon.Button", content:"OK", ontap:"dismissTapDialog"}
-		]}
+		}
 	],
 	bindings: [
-		{from:".$.player.disablePlaybackControls", to:".$.controlsToggleButton.value", oneWay:false},
-		{from:".$.player.showFFRewindControls", to:".$.ffrewToggleButton.value", oneWay:false},
 		{from:".$.player.showInfoBackground", to:".$.bgToggleButton.selected", oneWay:false},
 		{from:".$.leftInfo.showing", to:".$.leftToggleButton.selected", oneWay:false},
 		{from:".$.channelInfo.showing", to:".$.chToggleButton.selected", oneWay:false},
@@ -164,18 +150,5 @@ enyo.kind({
 	},
 	toggleDebuggingLines: function(inSender, inEvent) {
 		this.addRemoveClass("debug-lines", this.$.dbgToggleButton.selected);
-	},
-	controlsTapped: function() {
-		this.$.tapDialog.show();
-	},
-	dismissTapDialog: function() {
-		this.$.tapDialog.hide();
-	},
-	unload: function() {
-		this.$.player.unload();
-	},
-	load: function() {
-		this.$.player.unload();
-		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
 	}
 });
