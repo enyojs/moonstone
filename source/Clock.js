@@ -132,6 +132,7 @@ enyo.kind({
 			delete this._mdf;
 		}
 		this.initDefaults();
+		this.refreshJob();
 	},
 	updateHour: function(inDate, inHour) {
 		inHour = (inHour > 12 ? inHour-12: inHour) || 12;

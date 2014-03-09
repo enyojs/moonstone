@@ -11,6 +11,7 @@ enyo.kind({
 			inline:true,
 			classes:"moon-8h",
 			autoplay:true,
+			showInfoBackground: true,
 			infoComponents: [
 				{kind: "moon.VideoInfoBackground", orient: "left", fit: true, components: [
 					{

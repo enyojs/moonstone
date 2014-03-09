@@ -1,0 +1,15 @@
+.debug-lines .moon-background-wrapper-client-content.right {
+    outline: 1px dashed orange;
+}
+.debug-lines .moon-clock {
+    outline: 1px dashed green;
+}
+.debug-lines .moon-background-wrapper:first-child {
+    outline: 3px dashed red;
+}
+.debug-lines .moon-background-wrapper-client-content.left {
+    outline: 1px dashed cyan;
+}
+.debug-lines .moon-video-info-header {
+    outline: 1px dashed yellow;
+}
