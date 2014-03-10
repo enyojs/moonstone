@@ -27,6 +27,7 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	marqueeOnRender: true,
+	fit: true,
 	//* @public
 	published: {
 		//* Title of the VideoInfoHeader
@@ -42,6 +43,7 @@ enyo.kind({
 	components: [
 		{kind: "moon.MarqueeText", name: "title", classes: "moon-header-font moon-video-player-info-title"},
 		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
+		{name: "subTitleDivider", classes: "moon-video-player-info-subtitle-divider", content:"|"},	
 		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
 		{name: "client", classes: "moon-video-player-info-client"},
 		{components: [
@@ -53,5 +55,15 @@ enyo.kind({
 		{from: ".subTitle",		to: ".$.subTitle.content"},
 		{from: ".subSubTitle",	to: ".$.subSubTitle.content"},
 		{from: ".description",	to: ".$.description.content"}
-	]
+	],
+	observers: {
+		updateDivider: ["subTitle", "subSubTitle"]
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.updateDivider();
+	},
+	updateDivider: function() {
+		this.$.subTitleDivider.setShowing(this.subTitle && this.subSubTitle);
+	}
 });

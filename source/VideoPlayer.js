@@ -163,6 +163,13 @@ enyo.kind({
 			but is still loading/buffering
 		*/
 		autoShowSpinner: true,
+		/** 
+			When true, the video info header has a full-width background (and any
+			background wrappers) used in the info header have their backgrounds removed.
+			When false, the angled containers on either edge are visually detached. 
+			In this case, the video-info-header should also have set("showing", false).
+		*/
+		showInfoBackground: false,
 
 		//* @protected
 		//* Base URL for icons
@@ -241,7 +248,7 @@ enyo.kind({
 	_currentTime: 0,
 	
 	components: [
-		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
+		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler", onlocalechange: "handleLocaleChangeEvent"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
 			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
 				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
@@ -254,7 +261,7 @@ enyo.kind({
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
 		
-			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
+			{name: "videoInfoHeader", kind: "FittableColumns", rtl: false, showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", rtl:false, classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
@@ -271,7 +278,7 @@ enyo.kind({
 								{name: "jumpForward",	kind: "moon.IconButton", small: false, onholdpulse: "onHoldPulseForwardHandler", ontap: "onjumpForward"}
 							]}
 						]},
-						{name: "client", classes: "moon-video-player-more-controls"}
+						{name: "client", classes: "moon-video-player-more-controls moon-neutral"}
 					]},
 				
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
@@ -311,6 +318,7 @@ enyo.kind({
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
 		this.updatePlaybackControlState();
+		this.showInfoBackgroundChanged();
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 		}
@@ -359,7 +367,7 @@ enyo.kind({
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
 		this.$.moreButton.set("showing", this.showPlaybackControls && this.clientComponentsCount > 2);
 		this.toggleSpotlightForMoreControls(!this.showPlaybackControls);
-		this.$.client.addRemoveClass('moon-video-player-more-controls', this.showPlaybackControls);
+		this.$.client.addRemoveClass("moon-video-player-more-controls", this.showPlaybackControls);
 	},
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
@@ -377,6 +385,13 @@ enyo.kind({
 		this.updatePlaybackControlState();
 		this._resetTime();
 		this.$.video.setSrc(this.getSrc());
+	},
+	showInfoBackgroundChanged: function() {
+		this.$.videoInfoHeader.addRemoveClass("full-background", this.showInfoBackground);
+		this.$.videoInfoHeader.addRemoveClass("angle-background", !this.showInfoBackground);
+		if (this.showInfoBackground) {
+			this.$.videoInfoHeader.resized();
+		}
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
 	getVideo: function() {
@@ -505,7 +520,7 @@ enyo.kind({
 		this.updateSpinner();
 	},
 	showScrim: function(show) {
-		this.$.fullscreenControl.addRemoveClass('scrim', !show);
+		this.$.fullscreenControl.addRemoveClass("scrim", !show);
 	},
 	panelsShown: function(inSender, inEvent) {
 		if ((this.isFullscreen() || !this.getInline()) && this.isOverlayShowing()) {
@@ -563,6 +578,13 @@ enyo.kind({
 		if (inEvent.spotSentFromContainer && (enyo.Spotlight.getParent(inEvent.originator) === this || inEvent.originator === this)) {
 			inEvent.spotSentFromContainer = false;
 		}
+	},
+	/**
+		When the locale changes, the clock may have been resized, so we reflow
+		our video-info-header control and any children it has.
+	 */
+	handleLocaleChangeEvent: function(inSender, inEvent) {
+		this.$.videoInfoHeader.resized();
 	},
 
 	///// Fullscreen controls /////
@@ -913,8 +935,8 @@ enyo.kind({
 		if (!this.inline || this.aspectRatio == "none" || !this.aspectRatio) { return; }
 
 		var videoAspectRatio = null,
-			width = this.getComputedStyleValue('width'),
-			height = this.getComputedStyleValue('height'),
+			width = this.getComputedStyleValue("width"),
+			height = this.getComputedStyleValue("height"),
 			ratio = 1
 		;
 		
@@ -1152,27 +1174,27 @@ enyo.kind({
 		if (this.handleRemoteControlKey && !this.disablePlaybackControls) {
 			var showControls = false;
 			switch (inEvent.keySymbol) {
-			case 'play':
+			case "play":
 				this.play(inSender, inEvent);
 				showControls = true;
 				break;
-			case 'pause':
+			case "pause":
 				this.pause(inSender, inEvent);
 				showControls = true;
 				break;
-			case 'rewind':
+			case "rewind":
 				if (this.showFFRewindControls) {
 					this.rewind(inSender, inEvent);
 					showControls = true;
 				}
 				break;
-			case 'fastforward':
+			case "fastforward":
 				if (this.showFFRewindControls) {
 					this.fastForward(inSender, inEvent);
 					showControls = true;
 				}
 				break;
-			case 'stop':
+			case "stop":
 				this.jumpToStart();
 				showControls = true;
 				break;

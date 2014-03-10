@@ -1,71 +1,124 @@
-.moon-video-info-header {
-	display:inline-block; 
-	vertical-align:top;
-	max-width: 1100px;
+// Local-use-only variables
+@moon-video-info-header-item-spacing: 20px;
+
+.moon-video-player-header.angle-background {
+	.moon-video-info-header {
+		max-width: 1135px;
+	}
+	.moon-video-info-header-full-only {
+		display: none;
+	}
+}
+.moon-video-player-header.full-background {
+	.moon-video-info-header {
+		max-width: 1264px;
+	}
 }
 .moon-video-player-info-datetime {
 	font-size: @moon-super-header-font-size;
 	margin-bottom: 32px;
 	white-space: nowrap;
+	background: transparent;
 }
-.moon-video-player-info-title {
-	font-size: 126px;
-	margin-bottom: 0;
+.moon-video-info-header {
+	display: inline-block; 
+	vertical-align: top;
 	white-space: nowrap;
-	-webkit-font-kerning:normal;
-	font-kerning:normal;
+	> *:nth-child(2) {
+		margin-left: 0px;
+	}
 }
-.enyo-locale-non-latin .moon-video-player-info-title {
-	line-height: @moon-non-latin-header-text-line-height;
-	/* Clip the title box by just a bit to help it fit better */
-	height: 1.4em;
-}
-.moon-video-player-info-subtitle {
-	.moon-sub-header-text;
+.moon-video-player-info-title,
+.moon-video-player-info-subtitle,
+.moon-video-player-info-subtitle-divider,
+.moon-video-player-info-subsubtitle {
 	color: @moon-white;
-	margin-bottom: 22px;
 	white-space: nowrap;
 }
-.enyo-locale-non-latin .moon-video-player-info-subtitle {
-	.enyo-locale-non-latin .moon-sub-header-text;
-	color: @moon-white;
+.moon-video-player-info-subtitle,
+.moon-video-player-info-subtitle-divider,
+.moon-video-player-info-subsubtitle,
+.moon-video-player-info-client {
+	.moon-video-sub-header-text;
+	margin-bottom: @moon-video-info-header-item-spacing;
+	margin-left: @moon-video-info-header-item-spacing;
+	display: inline-block;
+	:first-child {
+		margin-left: 0px;
+	}
 }
 .moon-video-player-info-subsubtitle {
 	.moon-body-text;
-	font-style:italic;
 	color: @moon-white;
-	display: inline-block;
 	white-space: normal;
-	max-width: 1200px;
-	margin-bottom: 10px;
 }
-.enyo-locale-non-latin .moon-video-player-info-subsubtitle {
-	.enyo-locale-non-latin .moon-body-text;
-	color: @moon-white;
+.moon-video-player-info-title {
+	font-size: @moon-video-header-font-size;
+	-webkit-font-kerning: normal;
+	font-kerning: normal;
+	margin-bottom: 3px;
 }
 .moon-video-player-info-description {
-	.moon-body-text;
+	.moon-video-description-text;
+	line-height: 1.4;
 	color: @moon-white;
 	white-space: normal;
-	margin-bottom: 25px;
+	margin: 0px 0px @moon-video-info-header-item-spacing;
 	-webkit-line-clamp: 3;
-	display: -webkit-inline-box;
+	display: -webkit-box;
 	overflow: hidden;
 	-webkit-box-orient: vertical;
-	max-height: 96px;
-}
-.enyo-locale-non-latin .moon-video-player-info-description {
-	.enyo-locale-non-latin .moon-body-text;
-	color: @moon-white;
 }
 .moon-video-player-info-client {
 	display: inline-block;
-	margin: 0 0 10px 20px;
+
+	position: relative;
+	top: -5px;
+	margin-left: @moon-video-info-header-item-spacing;
+	> * {
+		display: inline-block;
+		margin-left: @moon-video-info-header-item-spacing;
+	}
+}
+.enyo-locale-right-to-left {
+	.moon-video-player-header {
+		direction: ltr;
+		text-align: left;
+	}
+	.moon-video-player-info-subtitle,
+	.moon-video-player-info-subtitle-divider,
+	.moon-video-player-info-subsubtitle,
+	.moon-video-player-info-client {
+		margin-left: 0px;
+		margin-right: @moon-video-info-header-item-spacing;
+		:first-child {
+			margin-left: @moon-video-info-header-item-spacing;
+			margin-right: 0px;
+		}
+	}
+	.moon-video-info-header > *:nth-child(2) {
+		margin-right: 0px;
+	}
 }
 .enyo-locale-right-to-left .moon-video-player-info-client {
 	margin: 0 20px 10px 0;
 }
-.moon-video-player-info-client > * {
-	display: inline-block;
-	margin: 0 5px;
+.enyo-locale-non-latin {
+	.moon-video-player-info-title {
+		line-height: @moon-non-latin-header-text-line-height;
+		/* Clip the title box by just a bit to help it fit better */
+		height: 1.4em;
+	}
+	.moon-video-player-info-subtitle {
+		.enyo-locale-non-latin .moon-video-sub-header-text;
+		color: @moon-white;
+	}
+	.moon-video-player-info-subsubtitle {
+		.enyo-locale-non-latin .moon-body-text;
+		color: @moon-white;
+	}
+	.moon-video-player-info-description {
+		.enyo-locale-non-latin .moon-video-description-text;
+		color: @moon-white;
+	}
 }
