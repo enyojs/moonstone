@@ -612,7 +612,7 @@ enyo.kind({
 				this.resetHandleAutoHide();
 				this._hide();
 			}
-			this.waterfallShowingChanged(inOldValue);
+			this.sendShowingChangedEvent(inOldValue);
 		}
 		else {
 			this.inherited(arguments);
