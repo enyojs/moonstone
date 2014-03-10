@@ -102,6 +102,7 @@ enyo.kind({
 	bindings: [
 		{from:".$.player.showInfoBackground", to:".$.bgToggleButton.selected", oneWay:false},
 		{from:".$.leftInfo.showing", to:".$.leftToggleButton.selected", oneWay:false},
+		{from:".$.leftInfo.showing", to:".$.player.showInfoBackground"},
 		{from:".$.channelInfo.showing", to:".$.chToggleButton.selected", oneWay:false},
 		{from:".$.videoInfo.showing", to:".$.infoToggleButton.selected", oneWay:false},
 		{from:".$.titlesPicker.selected.content", to:".$.videoInfo.title", oneWay:true},
