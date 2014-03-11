@@ -3473,6 +3473,14 @@
   height: 100%;
   width: 100%;
 }
+/* If a video player or other controls are behind the drawers, let events pass straight through to them. */
+.moon-drawers > * {
+  pointer-events: all;
+}
+.moon-drawers,
+.moon-drawers-client {
+  pointer-events: none;
+}
 /* Scrim.css */
 .moon-scrim {
   z-index: 1;
