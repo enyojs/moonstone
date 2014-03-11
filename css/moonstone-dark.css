@@ -551,6 +551,14 @@
   font-size: 72px;
   color: #ffffff;
 }
+.enyo-locale-ko .moon-header-text,
+.enyo-locale-ko .moon-super-header-text,
+.enyo-locale-ko .moon-popup-header-text,
+.enyo-locale-ko .moon-large-button-text,
+.enyo-locale-ko .moon-small-button-text {
+  -webkit-font-kerning: initial;
+  font-kerning: initial;
+}
 .enyo-locale-non-latin {
   /* All/Medium weighted classes */
 
@@ -4174,6 +4182,10 @@
   white-space: nowrap;
   -webkit-font-kerning: normal;
   font-kerning: normal;
+}
+.enyo-locale-ko .moon-video-player-info-title {
+  -webkit-font-kerning: initial;
+  font-kerning: initial;
 }
 .enyo-locale-non-latin .moon-video-player-info-title {
   line-height: 1.5em;
