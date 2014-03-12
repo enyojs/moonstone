@@ -96,23 +96,47 @@ moon.DataListSpotlightSupport = {
 			}
 		}
 	},
+	/**
+		Find the first visible child in DataList.
+		Visible child means, perfectly displayed control in current viewport which is not cut off at all.
+		To find it, this method compare each control's position with viewport position.
+		To reduce calculation, candidates are restricted on currently visible page.
+	*/
 	getFirstVisibleChild: function(inScrollBounds) {
+		var posProp = (this.orientation == "vertical") ? "top" : "left";
+		var sizeProp = (this.orientation == "vertical") ? "height" : "width";
+		var isHorizontalRtl = false;
 		// Loop through the pages in top-down order
 		var pages = (this.$.page1.index < this.$.page2.index) ? 
 			[this.$.page1, this.$.page2] : 
 			[this.$.page2, this.$.page1];
+		var page, pb, lastChildSize;
+		// Check if list is horizontally reversed or not.
+		if (this.orientation == "horizontal" && this.rtl) {
+			isHorizontalRtl = true;
+			inScrollBounds.right = inScrollBounds.width - inScrollBounds.left; //Definitly posProp is width, sizeProp is width
+		}
+		// Find the page which is in screen now
 		for (var p in pages) {
-			var page = pages[p];
-			var pb = page.getBounds();
-			// Loop through children in each pange top-down
-			for (var i=0; i<page.children.length; i++) {
+			page = pages[p];
+			pb = page.getBounds();
+			if (p === "0") {	//Execute at the first page
+				lastChildSize = page.children[page.children.length - 1].getBounds()[sizeProp];
+				if (isHorizontalRtl ? (pb[posProp] + lastChildSize >= inScrollBounds.right) 
+									: (pb[posProp] + pb[sizeProp] - lastChildSize) <= inScrollBounds[posProp]) {
+					continue;
+				}		
+			}
+			// Loop through children in each page top-down
+			for (var i = 0; i < page.children.length; i++) {
 				var c = page.children[i];
 				var cb = c.getBounds();
 				// Need to add page offset to target bounds
-				cb.top += pb.top;
-				cb.left += pb.left;
+				cb[posProp] += pb[posProp];
 				// Return the first spottable child whose top/left are inside the viewport
-				if ((cb.top >= inScrollBounds.top) && (cb.left >= inScrollBounds.left)) {
+				var isVisible = isHorizontalRtl ? (inScrollBounds.right >= cb[posProp] + cb[sizeProp])
+												: (cb[posProp] >= inScrollBounds[posProp]);
+				if (isVisible) {
 					if (enyo.Spotlight.isSpottable(c)) {
 						return c;
 					}
