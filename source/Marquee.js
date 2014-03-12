@@ -410,7 +410,7 @@ moon.MarqueeItem = {
 	},
 	_marquee_checkRtl: function() {
 		// Set RTL mode based on first character of content
-		if (this.content.length) {
+		if (this.content && this.content.length) {
 			var firstCharCode = this.content.charCodeAt(0);
 			// Check if within Hebrew or Arabic ranges (in addition to Syriac to reduce number of comparisons)
 			// Hebrew: 1424-1535
