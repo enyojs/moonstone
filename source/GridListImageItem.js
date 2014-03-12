@@ -20,6 +20,10 @@ enyo.kind({
 		caption: { kind:"moon.MarqueeText" },
 		subCaption: { kind:"moon.MarqueeText" }
 	},
+	bindings: [
+		{from: ".allowHtml", to: ".$.caption.allowHtml"},
+		{from: ".allowHtml", to: ".$.subCaption.allowHtml"}
+	],
 	handlers: {
 		onSpotlightFocus: "focused"
 	},
