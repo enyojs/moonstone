@@ -19,10 +19,13 @@ enyo.kind({
 		//* If true, the _moon-small-header_ CSS class will be applied to this header
 		small: false,
 		//* URL src of a background image
+		//* This can be a string for a single background-image, or an array of multiple background-image sources
 		backgroundSrc: null,
 		//* Background position, defined as a string in the form of _"vertical horizontal"_,
 		//* with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
 		//* If no second property is included, the horizontal value will default to _right_.
+		//* Additionally, an array may be supplied to position multiple background images.
+		//* The order should be the same as the order of the backgroundSrc sources array.
 		backgroundPosition: "top right",
 		//* When using a full-bleed background image, set this property to true to indent
 		//* the header text/controls and remove the header lines
@@ -125,10 +128,24 @@ enyo.kind({
 		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	backgroundSrcChanged: function() {
-		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")": "none");
+		if (enyo.isArray(this.backgroundSrc)) {
+			var bgs = enyo.map(this.backgroundSrc, function(inBackgroundSource) { return "url(" + inBackgroundSource + ")"; });
+			this.applyStyle("background-image", (bgs.length) ? bgs.join(", ") : null);
+		}
+		else {
+			this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")": null);
+		}
 	},
 	backgroundPositionChanged: function() {
-		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [], posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": posArray[0] + " " + posArray[1];
+		if (enyo.isArray(this.backgroundPosition)) {
+			this.backgroundPosition = (this.backgroundPosition.length) ? this.backgroundPosition.join(", ") : null;
+		}
+		// If this.backgroundPosition is set explicitly to inherit or initial, apply that instead of assuming a position.
+		if (this.get("backgroundPosition") === "inherit" || this.get("backgroundPosition") === "initial") {
+			this.applyStyle("background-position", this.get("backgroundPosition"));
+			return;
+		}
+		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [], posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": this.backgroundPosition;
 		this.applyStyle("background-position", posStr);
 	},
 	fullBleedBackgroundChanged: function() {
