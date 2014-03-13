@@ -128,24 +128,22 @@ enyo.kind({
 		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	backgroundSrcChanged: function() {
-		if (enyo.isArray(this.backgroundSrc)) {
-			var bgs = enyo.map(this.backgroundSrc, function(inBackgroundSource) { return "url(" + inBackgroundSource + ")"; });
-			this.applyStyle("background-image", (bgs.length) ? bgs.join(", ") : null);
-		}
-		else {
-			this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")": null);
-		}
+		var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
+		bgs = enyo.map(bgs, function(inBackgroundSource) { return inBackgroundSource ? "url(" + inBackgroundSource + ")" : null; });
+		this.applyStyle("background-image", (bgs.length) ? bgs.join(", ") : null);
 	},
 	backgroundPositionChanged: function() {
-		if (enyo.isArray(this.backgroundPosition)) {
-			this.backgroundPosition = (this.backgroundPosition.length) ? this.backgroundPosition.join(", ") : null;
+		var bgp = this.backgroundPosition;
+		if (enyo.isArray(bgp)) {
+			bgp = (bgp.length) ? bgp.join(", ") : null;
 		}
 		// If this.backgroundPosition is set explicitly to inherit or initial, apply that instead of assuming a position.
-		if (this.get("backgroundPosition") === "inherit" || this.get("backgroundPosition") === "initial") {
-			this.applyStyle("background-position", this.get("backgroundPosition"));
+		if (bgp === "inherit" || bgp === "initial") {
+			this.applyStyle("background-position", bgp);
 			return;
 		}
-		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [], posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": this.backgroundPosition;
+		var posArray = bgp && bgp.split(" ") || [],
+			posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": bgp;
 		this.applyStyle("background-position", posStr);
 	},
 	fullBleedBackgroundChanged: function() {
