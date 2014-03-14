@@ -12,6 +12,7 @@ enyo.kind({
 	floating  : true,
 	_bounds   : null,
 	spotlight : "container",
+	allowDefault: true,
 
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
@@ -143,6 +144,19 @@ enyo.kind({
 	},
 	showingChanged: function() {
 		if (this.showing) {
+			if (this.animate) {
+				// need to call this early to prevent race condition where animationEnd
+				// originated from a "hide" context but we are already in a "show" context
+				this.animationEnd = enyo.nop;
+				// if we are currently animating the hide transition, release
+				// the events captured when popup was initially shown
+				if (this.isAnimatingHide) {
+					if (this.captureEvents) {
+						this.release();
+					}
+					this.isAnimatingHide = false;
+				}
+			}
 			this.activator = enyo.Spotlight.getCurrent();
 			moon.Popup.count++;
 			this.applyZIndex();
@@ -160,12 +174,14 @@ enyo.kind({
 			if (this.showing) {
 				this.inherited(arguments);
 				this.animateShow();
-				this.animationEnd = enyo.nop;
 			} else {
 				this.animateHide();
 				var args = arguments;
-				this.animationEnd = this.bindSafely(function() {
-					this.inherited(args);
+				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+					if (inEvent.originator === this) {
+						this.inherited(args);
+						this.isAnimatingHide = false;
+					}
 				});
 			}
 		} else {
@@ -177,7 +193,8 @@ enyo.kind({
 			this.configCloseButton();
 			this.$.spotlightDummy.spotlight = false;
 			// Spot ourselves, unless we're already spotted
-			if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+			var current = enyo.Spotlight.getCurrent(); 
+			if (!current || !current.isDescendantOf(this)) {
 				if (enyo.Spotlight.isSpottable(this)) {
 					enyo.Spotlight.spot(this);
 				} else {
@@ -192,7 +209,7 @@ enyo.kind({
 		if (this.animate) {
 			return this.showing;
 		} else {
-			this.inherited(arguments);
+			return this.inherited(arguments);
 		}
 	},
 	showHideScrim: function(inShow) {
@@ -272,9 +289,14 @@ enyo.kind({
 	},
 	animateHide: function () {
 		if (this._bounds) {
+			this.isAnimatingHide = true;
 			var prevHeight = this._bounds.height;
 			this._bounds = this.getBounds();
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
+	},
+	destroy: function() {
+		this.showHideScrim(false);
+		this.inherited(arguments);
 	}
 });

@@ -29,22 +29,37 @@
 */
 
 enyo.kind({
-	name: "moon.GridList",
-	kind: "enyo.GridList",
-	//* @protected
-	classes: "moon-gridlist",
-	spotlight: true,
-	itemSpacing: 64,
-	itemMinWidth: 180,
-	itemMinHeight: 180,
-	itemWidth: 180,
-	itemHeight: 180,
-	itemFluidWidth: true,
-	strategyKind: "moon.ScrollStrategy",
+	name : "moon.GridList",
+	kind : "enyo.GridList",
+	
+	handlers: {
+		onSpotlightFocus  : 'onSpotlightFocus',
+		onSpotlightBlur   : 'onSpotlightBlur',
+		onSpotlightSelect : 'onSpotlightSelect',
+		onSpotlightDown   : 'onSpotlightDown',
+		onSpotlightUp     : 'onSpotlightUp',
+		onSpotlightLeft   : 'onSpotlightLeft',
+		onSpotlightRight  : 'onSpotlightRight',
+		onmove            : 'onMove'
+	},
+	
 	//* @protected
 	events: {
 		ontap: "tap"
 	},
+	
+	//* @protected
+	classes           : "moon-gridlist",
+	spotlight         : true,
+	spotlightDecorate : false,
+	itemSpacing       : 64,
+	itemMinWidth      : 180,
+	itemMinHeight     : 180,
+	itemWidth         : 180,
+	itemHeight        : 180,
+	itemFluidWidth    : true,
+	strategyKind      : "moon.ScrollStrategy",
+	
 	initComponents: function() {
 		// enyo.Spotlight.Decorator.GridList will not find flyweighted nodes properly
 		// if spotlight is applied on any template controls
@@ -159,5 +174,130 @@ enyo.kind({
 		var ot = inNode.offsetTop;
 		var oh = inNode.offsetHeight;
 		return (ot >= sb.top && ot + oh <= sb.top + sb.clientHeight);
+	},
+	
+	/************************* BELOW MOVED FROM DECORATOR **********************/
+	
+	_getNodeParent: function(n) {
+		if (this.$.generator.hasNode()) {
+			return this.$.generator.node.querySelector('[data-enyo-index="' + n + '"]');
+		}
+	},
+
+	_getNode: function(n) {
+		if (this.$.generator.hasNode()) {
+			return this.$.generator.node.querySelector('[data-enyo-index="' + n + '"] > .moon-gridlist-item');
+		}
+	},
+
+	_focusNode: function(n) {
+		enyo.Spotlight.Util.addClass(this._getNode(n), 'spotlight');
+	},
+
+	_blurNode: function(n) {
+		enyo.Spotlight.Util.removeClass(this._getNode(n), 'spotlight');
+	},
+
+	/******************************/
+
+	onSpotlightFocus: function(oSender, oEvent) {
+		this.setCurrent(this.getCurrent(), false);
+		enyo.Spotlight.Util.removeClass(this.node, 'spotlight');
+	},
+
+	onSpotlightBlur: function(oSender, oEvent) {
+		this.setCurrent(null, true);
+		enyo.Spotlight.Util.removeClass(this.node, 'spotlight');
+	},
+
+	onSpotlightSelect: function(oSender, oEvent) {
+		if (this.getCurrent() !== null) {
+			this.$.generator.$.selection.bubble("ontap", {index: this.getCurrent()});
+			this.setCurrent(this.getCurrent(), true);
+		} else {
+			this.setCurrent(0, true);
+		}
+		enyo.Spotlight.Util.removeClass(this.node, 'spotlight');
+		return true;
+	},
+
+	onSpotlightDown: function(oSender, oEvent) {
+		//Jump one row down (increment index by itemsPerRow)
+		var nCurrent = this.getCurrent();
+		if (nCurrent === null) { return true; }
+		var nNew = nCurrent + this.itemsPerRow;
+		if (nNew <= this.getCount() - 1) {
+			this.setCurrent(nNew, true);
+			return true;
+		}
+		this.setCurrent(null, true);
+	},
+
+	onSpotlightUp: function(oSender, oEvent) {
+		//Jump one row up (decrement index by itemsPerRow)
+		var nCurrent = this.getCurrent();
+		if (nCurrent === null) { return true; }
+		var nNew = nCurrent - this.itemsPerRow;
+		if (nNew >= 0) {
+			this.setCurrent(nNew, true);
+			return true;
+		}
+		this.setCurrent(null, true);
+	},
+
+	onSpotlightLeft: function(oSender, oEvent) {
+		var nCurrent = this.getCurrent();
+		if (nCurrent === null) { return true; }
+		if (nCurrent > 0) {
+			this.setCurrent(nCurrent - 1, true);
+			return true;
+		}
+		this.setCurrent(null, true);
+	},
+
+	onSpotlightRight: function(oSender, oEvent) {
+		var nCurrent = this.getCurrent();
+		if (nCurrent === null) { return true; }
+		if (nCurrent < this.getCount() - 1 && nCurrent + 1 >= 0) {
+			this.setCurrent(nCurrent + 1, true);
+			return true;
+		}
+		this.setCurrent(null, true);
+	},
+
+	onMove: function(oSender, oEvent) {
+		this.setCurrent(oEvent.index);
+	},
+
+	getCurrent: function() {
+		if (typeof this._nCurrentSpotlightItem == 'undefined') {
+			if(enyo.Spotlight.getPointerMode()){
+				return 0 - this.itemsPerRow;
+			} else {
+				return 0;
+			}
+		}
+		return this._nCurrentSpotlightItem;
+	},
+
+	setCurrent: function(n, bScrollIntoView) {
+		var nCurrent = this.getCurrent();			
+		if (n !== null) {
+			var nd = enyo.Spotlight.getPointerMode() || this._getNodeParent(n);
+			if (nd) {
+				if (nCurrent !== null) {
+					this._blurNode(nCurrent);
+				}
+				this._focusNode(n);
+				this._nCurrentSpotlightItem = n;
+				if (bScrollIntoView) {
+					if (!this.$.strategy.isInView(nd)) {
+						this.animateToNode(nd, true);
+					}
+				}
+				enyo.Spotlight.Util.dispatchEvent('onSpotlightItemFocus', {index: n}, this);
+			}
+		}
+		enyo.Spotlight.Util.removeClass(this.node, 'spotlight');
 	}
 });

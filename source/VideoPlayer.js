@@ -312,7 +312,7 @@ enyo.kind({
 		this.jumpSecChanged();
 		this.updatePlaybackControlState();
 		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 		}
 	},
 	transformIconSrc: function(inSrc) {
@@ -643,7 +643,10 @@ enyo.kind({
 		// so that it is spottable (since it won't have any spottable children),
 		// and then spot itself
 		this.set("spotlight", true);
-		enyo.Spotlight.spot(this);
+		// Only spot the player if hiding is triggered from player control
+		if (enyo.Spotlight.hasCurrent() && enyo.Spotlight.getParent(enyo.Spotlight.getCurrent()) === this) {
+			enyo.Spotlight.spot(this);
+		}
 		if (this.autoHidePopups) {
 			// Hide enyo.Popup-based popups (including moon.Popup)
 			this.$.playerControl.waterfall("onRequestHide");
