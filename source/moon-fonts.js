@@ -1,3 +1,34 @@
+/**
+
+	_moon-fonts_ is the locale-specific font generator, allowing any locale to
+	have its own font. Each locale-font in the configuration block is generated
+	at run-time. If the locale you're currently in is in the locale-font list,
+	an additional font-face rule will be generated that will override the
+	standard "Moonstone LG Display" font.
+
+	Below is example genarated-output of the "ur", Urdu locale-font.
+
+@font-face { 
+  font-family: "Moonstone LG Display ur";
+  font-weight: normal;
+  src: local("LG Display_Urdu");
+  unicode-range: U+0600-U+06FF, U+FE70-U+FEFE, U+FB50-U+FDFF;
+} 
+@font-face { 
+  font-family: "Moonstone LG Display ur Bold";
+  font-weight: normal;
+  src: local("LG Display_Urdu");
+  unicode-range: U+0600-U+06FF, U+FE70-U+FEFE, U+FB50-U+FDFF;
+} 
+@font-face { 
+  font-family: "Moonstone LG Display ur Light";
+  font-weight: normal;
+  src: local("LG Display_Urdu");
+  unicode-range: U+0600-U+06FF, U+FE70-U+FEFE, U+FB50-U+FDFF;
+} 
+
+ */
+
 (function() {
 	if (window.ilib) {
 
@@ -8,9 +39,10 @@
 			var loc = new ilib.Locale(),
 				language = loc.getLanguage(),
 				region = loc.getRegion(),
-				styleId = "enyo-locale-font-override",
+				styleId = "enyo-localization-font-override",
 				styleElem = document.getElementById(styleId),
 				fontDefinitionCss = "",
+				// Locale Configuration Block
 				fonts = {
 					"NonLatin": {
 						regular: "LG Display-Light",
@@ -120,7 +152,7 @@
 			else if (language === "ur") {
 				fontDefinitionCss+= this.buildFontSet("ur", true);
 			}
-			else if (language === "zh" && region === "HK") {
+			else if (language === "zh" && (region === "HK" || region === 'TW')) {
 				fontDefinitionCss+= this.buildFontSet("zh-HK", true);
 			}
 
