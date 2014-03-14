@@ -155,7 +155,7 @@
 			else if (language === "ur") {
 				fontDefinitionCss+= this.buildFontSet("ur", true);
 			}
-			else if (language === "zh" && region === "HK") {
+			else if (language === "zh" && (region === "HK" || region === 'TW')) {
 				fontDefinitionCss+= this.buildFontSet("zh-HK", true);
 			}
 			else if (language === "zh" && region === "TW") {
