@@ -85,6 +85,9 @@
 					}
 				};
 
+			// Duplications and alternate locale names
+			fonts["zh-TW"] = fonts["zh-HK"];
+
 			// Generate a single font-face rule
 			this.buildFont = function(inOptions) {
 				if (!inOptions && !inOptions.name) {
@@ -152,8 +155,11 @@
 			else if (language === "ur") {
 				fontDefinitionCss+= this.buildFontSet("ur", true);
 			}
-			else if (language === "zh" && (region === "HK" || region === 'TW')) {
+			else if (language === "zh" && region === "HK") {
 				fontDefinitionCss+= this.buildFontSet("zh-HK", true);
+			}
+			else if (language === "zh" && region === "TW") {
+				fontDefinitionCss+= this.buildFontSet("zh-TW", true);
 			}
 
 			styleElem.innerHTML = fontDefinitionCss;
