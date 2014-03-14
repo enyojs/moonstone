@@ -82,6 +82,7 @@ enyo.kind({
 		{from: ".subTitleBelow", to: ".$.header.subTitleBelow"},
 		{from: ".smallHeader", to: ".$.header.small"},
 		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
+		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
