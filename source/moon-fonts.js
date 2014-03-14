@@ -165,10 +165,13 @@
 			styleElem.innerHTML = fontDefinitionCss;
 		};
 
-		enyo.updateLocale = function() {
-			funEnyoLocaleChanged.apply(this,arguments);
-			funLocaleSpecificFonts();
-		};
+		(function(originalUpdateLocale) {
+			enyo.updateLocale = function() {
+				funEnyoLocaleChanged.apply(this,arguments);
+				funLocaleSpecificFonts();
+				originalUpdateLocale(arguments);
+			};
+		})(enyo.updateLocale);
 
 		funLocaleSpecificFonts();
 	}
