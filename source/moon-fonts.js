@@ -32,7 +32,7 @@
 (function() {
 	if (window.ilib) {
 
-		var funEnyoLocaleChanged = enyo.updateLocale,
+		var funEnyoUpdateLocale = enyo.updateLocale,
 			funLocaleSpecificFonts = null;
 
 		funLocaleSpecificFonts = function() {
@@ -165,13 +165,10 @@
 			styleElem.innerHTML = fontDefinitionCss;
 		};
 
-		(function(originalUpdateLocale) {
-			enyo.updateLocale = function() {
-				funEnyoLocaleChanged.apply(this,arguments);
-				funLocaleSpecificFonts();
-				originalUpdateLocale(arguments);
-			};
-		})(enyo.updateLocale);
+		enyo.updateLocale = function() {
+			funEnyoUpdateLocale.apply(this, arguments);
+			funLocaleSpecificFonts();
+		};
 
 		funLocaleSpecificFonts();
 	}
