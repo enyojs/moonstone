@@ -76,6 +76,7 @@ enyo.kind({
 		onSpotlightScrollDown:"spotlightWheel",
 		onSpotlightContainerEnter: "spotlightHello",
 		onSpotlightFocus: "spotlightHello",
+		onSpotlightBlur: "spotlightControlChanged",
 		onSpotlightContainerLeave: "spotlightGoodbye"
 	},
 	//* If true, scroll events are not allowed to propagate
@@ -145,9 +146,13 @@ enyo.kind({
 	},
 	// When 5-way focus leaves scroller, hide the scroll columns
 	spotlightGoodbye: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns) {
+		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns && 
+			this.lastSpottedControl !== enyo.Spotlight.getCurrent()) {
 			this.$.strategy.showHideScrollColumns(false);
 		}
+	},
+	spotlightControlChanged: function(inSender, inEvent) {
+		this.lastSpottedControl = inEvent.originator;
 	},
 	previewDomEvent: function(inEvent) {
 		if (this.scrollWheelMovesFocus) {
