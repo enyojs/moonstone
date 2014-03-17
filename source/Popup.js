@@ -12,6 +12,7 @@ enyo.kind({
 	floating  : true,
 	_bounds   : null,
 	spotlight : "container",
+	allowDefault: true,
 
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
@@ -176,9 +177,11 @@ enyo.kind({
 			} else {
 				this.animateHide();
 				var args = arguments;
-				this.animationEnd = this.bindSafely(function() {
-					this.inherited(args);
-					this.isAnimatingHide = false;
+				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+					if (inEvent.originator === this) {
+						this.inherited(args);
+						this.isAnimatingHide = false;
+					}
 				});
 			}
 		} else {
@@ -190,7 +193,8 @@ enyo.kind({
 			this.configCloseButton();
 			this.$.spotlightDummy.spotlight = false;
 			// Spot ourselves, unless we're already spotted
-			if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+			var current = enyo.Spotlight.getCurrent(); 
+			if (!current || !current.isDescendantOf(this)) {
 				if (enyo.Spotlight.isSpottable(this)) {
 					enyo.Spotlight.spot(this);
 				} else {
@@ -205,7 +209,7 @@ enyo.kind({
 		if (this.animate) {
 			return this.showing;
 		} else {
-			this.inherited(arguments);
+			return this.inherited(arguments);
 		}
 	},
 	showHideScrim: function(inShow) {
@@ -290,5 +294,9 @@ enyo.kind({
 			this._bounds = this.getBounds();
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
+	},
+	destroy: function() {
+		this.showHideScrim(false);
+		this.inherited(arguments);
 	}
 });

@@ -42,7 +42,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		if (window.ilib) {
-			this.df = new ilib.DurFmt({length: "medium"});
+			this.df = new ilib.DurFmt({length: "medium", useNative: false});
 		}
 	},
 

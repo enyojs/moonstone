@@ -11,8 +11,6 @@
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
-/* Colors */
-/* ---------------------------------------*/
 /* Font */
 /* ---------------------------------------*/
 /* Font Sizes */
@@ -42,6 +40,8 @@
 /* Breadcrumb */
 /* ---------------------------------------*/
 /* Spinner */
+/* ---------------------------------------*/
+/* ToggleSwitch */
 /* ---------------------------------------*/
 /* IntegerPicker */
 /* ---------------------------------------*/
@@ -604,6 +604,7 @@
 }
 .enyo-locale-non-latin .moon-header-text {
   font-size: 114px;
+  line-height: 1.5em;
 }
 .enyo-locale-non-latin .moon-popup-header-text {
   font-size: 65px;
@@ -780,7 +781,7 @@
 .moon-marquee {
   width: auto;
   text-overflow: ellipsis;
-  white-space: nowrap !important;
+  white-space: pre !important;
   overflow: hidden;
 }
 .moon-marquee span {
@@ -797,6 +798,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  white-space: pre !important;
   transition-property: transform;
   -moz-transition-property: transform;
   -webkit-transition-property: -webkit-transform;
@@ -1165,7 +1167,7 @@
 .moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
   padding-left: 2px;
 }
-/* Toggle.css */
+/* ToggleText.css */
 .moon-checkbox.moon-toggle-text {
   text-align: left;
   text-transform: uppercase;
@@ -1196,24 +1198,31 @@
 .moon-checkbox-item.spotlight .moon-toggle-text-text {
   color: #ffffff;
 }
+/* ToggleSwitch.css */
+.moon-checkbox.moon-toggle-switch {
+  height: 33px;
+  width: 65px;
+  background: url(../images/toggle-off.png) no-repeat 0 0;
+}
+.moon-checkbox-item.moon-toggle-item.spotlight .moon-toggle-switch[checked],
+.moon-checkbox.moon-toggle-switch[checked] {
+  background: url(../images/toggle-on.png) no-repeat 0 0;
+}
 .moon-toggle-item {
   display: block;
   position: relative;
 }
-.moon-toggle-item .moon-checkbox {
-  width: 53px;
+.moon-toggle-item .moon-checkbox.moon-toggle-switch {
+  top: 11px;
+  /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
-  height: 1.2em;
-  padding: 2px 0px 0px 0px;
-  margin-right: 65px;
+  margin-right: 75px;
 }
 .enyo-locale-right-to-left .moon-toggle-item .moon-toggle-item-label-wrapper {
-  margin-left: 65px;
+  margin-left: 75px;
   margin-right: 0px;
-}
-.moon-toggle-item.disabled .moon-toggle-text {
-  opacity: 1;
 }
 /* Toggle.css */
 .moon-button.moon-toggle-button {
@@ -1833,6 +1842,14 @@
 .enyo-locale-non-latin .moon-header-title {
   font-family: "Moonstone LG Display";
   font-size: 114px;
+  line-height: 1.5em;
+}
+/* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014 
+   has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
+   Please remove the line-height rule below if this font file is changed. */
+.enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
+  line-height: 1.25em;
 }
 .moon-header-title .moon-marquee-text {
   white-space: nowrap;
@@ -1929,6 +1946,9 @@
 .moon-small-header .moon-header-title {
   line-height: normal;
 }
+.enyo-locale-non-latin .moon-small-header .moon-header-title {
+  line-height: 1.5em;
+}
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 0;
   box-sizing: border-box;
@@ -1958,10 +1978,6 @@
 	Put anything you reference with "url()" in ../assets/
 	This way, you can minify your application, and just remove the "source" folder for production
 */
-.enyo-gridlist-row {
-  overflow: visible;
-  background: none;
-}
 .moon-gridlist-imageitem {
   width: 100%;
   height: 100%;
@@ -1989,8 +2005,11 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #4b4b4b;
   line-height: 32px;
+  color: #4b4b4b;
+  line-height: 1.25em;
+  height: 1.25em;
+  vertical-align: bottom;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -2008,12 +2027,6 @@
   color: #cf0652;
   text-decoration: none;
 }
-.moon-gridlist-imageitem .sub-caption {
-  color: #4b4b4b;
-  line-height: 1.25em;
-  height: 1.25em;
-  vertical-align: bottom;
-}
 .moon-gridlist-imageitem.selected {
   border: 5px solid #404040;
   background-color: #404040;
@@ -2030,8 +2043,21 @@
 .moon-gridlist-imageitem.spotlight .sub-caption {
   color: #ffffff;
 }
-.moon-gridlist .enyo-gridlist-row:last-child {
-  margin-bottom: 100px;
+.moon-gridlist-imageitem.sized-image.use-caption,
+.moon-gridlist-imageitem.sized-image.use-subcaption {
+  padding-bottom: 40px;
+}
+.moon-gridlist-imageitem.sized-image > .caption,
+.moon-gridlist-imageitem.sized-image > .sub-caption {
+  position: absolute;
+  bottom: 0;
+}
+.moon-gridlist-imageitem.sized-image.use-caption.use-subcaption {
+  padding-bottom: 80px;
+}
+.moon-gridlist-imageitem.sized-image.use-caption.use-subcaption > .caption {
+  position: absolute;
+  bottom: 35px;
 }
 .enyo-locale-non-latin .moon-gridlist-imageitem .caption {
   font-family: "Moonstone LG Display";
@@ -2510,9 +2536,6 @@
   background-position: right center;
   padding-right: 50px;
 }
-.enyo-locale-non-latin .moon-button.contextual-popup-button {
-  padding-right: 50px;
-}
 .contextual-popup-button.spotlight {
   background-image: url(../images/contextual-arrow-spotlight.png);
   background-repeat: no-repeat;
@@ -2522,6 +2545,22 @@
 .contextual-popup-button.pressed,
 .contextual-popup-button:active {
   background-image: url(../images/contextual-arrow.png);
+}
+.enyo-locale-right-to-left .contextual-popup-button {
+  background-image: url(../images/contextual-arrow-rtl.png);
+  background-position: left center;
+  padding-right: 22px;
+  padding-left: 50px;
+}
+.enyo-locale-right-to-left .contextual-popup-button.small {
+  padding-right: 20px;
+}
+.enyo-locale-right-to-left .contextual-popup-button.spotlight {
+  background-image: url(../images/contextual-arrow-spotlight-rtl.png);
+}
+.enyo-locale-right-to-left .contextual-popup-button.pressed,
+.enyo-locale-right-to-left .contextual-popup-button:active {
+  background-image: url(../images/contextual-arrow-rtl.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
@@ -3299,6 +3338,7 @@
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone LG Display";
   font-size: 114px;
+  line-height: 1.5em;
 }
 .moon-input-header .moon-input.moon-header-title {
   position: static;
@@ -3308,6 +3348,9 @@
   margin-top: 15px;
   line-height: 1.25em;
   text-transform: uppercase;
+}
+.enyo-locale-non-latin .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
+  line-height: 1.5em;
 }
 .moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
   color: #ffffff;
@@ -3429,6 +3472,14 @@
   position: relative;
   height: 100%;
   width: 100%;
+}
+/* If a video player or other controls are behind the drawers, let events pass straight through to them. */
+.moon-drawers > * {
+  pointer-events: all;
+}
+.moon-drawers,
+.moon-drawers-client {
+  pointer-events: none;
 }
 /* Scrim.css */
 .moon-scrim {
@@ -4123,9 +4174,16 @@
 }
 .moon-video-player-info-title {
   font-size: 126px;
-  letter-spacing: -0.05em;
   margin-bottom: 0;
   white-space: nowrap;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
+}
+.enyo-locale-non-latin .moon-video-player-info-title {
+  line-height: 1.5em;
+  /* Clip the title box by just a bit to help it fit better */
+
+  height: 1.4em;
 }
 .moon-video-player-info-subtitle {
   font-family: "MuseoSans 700";
@@ -4255,6 +4313,12 @@
   text-transform: uppercase;
   -webkit-font-kerning: normal;
   white-space: nowrap;
+}
+.enyo-locale-non-latin .moon-video-player-channel-info-no {
+  line-height: 1.5em;
+  /* Clip the title box by just a bit to help it fit better */
+
+  height: 1.4em;
 }
 .moon-video-player-channel-info-name {
   font-family: "MuseoSans 700";
@@ -4390,6 +4454,8 @@
   white-space: nowrap;
   font-size: 61px;
   line-height: 62px;
+  line-height: 96px;
+  height: 72px;
 }
 .moon-clock-meridiem {
   font-family: "MuseoSans 900";
@@ -4731,13 +4797,16 @@
 }
 .moon-image {
   display: inline-block;
+  margin: 0 10px;
 }
 .moon-image.has-children {
   position: relative;
   overflow: hidden;
 }
-.moon-image > img {
+.moon-image > .enyo-image {
   display: block;
+  width: 100%;
+  height: 100%;
 }
 .moon-image-client {
   position: absolute;

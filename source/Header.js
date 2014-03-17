@@ -19,10 +19,13 @@ enyo.kind({
 		//* If true, the _moon-small-header_ CSS class will be applied to this header
 		small: false,
 		//* URL src of a background image
+		//* This can be a string for a single background-image, or an array of multiple background-image sources
 		backgroundSrc: null,
 		//* Background position, defined as a string in the form of _"vertical horizontal"_,
 		//* with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
 		//* If no second property is included, the horizontal value will default to _right_.
+		//* Additionally, an array may be supplied to position multiple background images.
+		//* The order should be the same as the order of the backgroundSrc sources array.
 		backgroundPosition: "top right",
 		//* When using a full-bleed background image, set this property to true to indent
 		//* the header text/controls and remove the header lines
@@ -36,7 +39,9 @@ enyo.kind({
 		//* The value of the input
 		value: "",
 		//* When true, the entered text will be displayed as uppercase
-		inputUpperCase: false
+		inputUpperCase: false,
+		//* When true, input will be blurred on Enter keypress (if focused)
+		dismissOnEnter: false
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
@@ -121,10 +126,22 @@ enyo.kind({
 		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	backgroundSrcChanged: function() {
-		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")": "none");
+		var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
+		bgs = enyo.map(bgs, function(inBackgroundSource) { return inBackgroundSource ? "url(" + inBackgroundSource + ")" : null; });
+		this.applyStyle("background-image", (bgs.length) ? bgs.join(", ") : null);
 	},
 	backgroundPositionChanged: function() {
-		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [], posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": posArray[0] + " " + posArray[1];
+		var bgp = this.backgroundPosition;
+		if (enyo.isArray(bgp)) {
+			bgp = (bgp.length) ? bgp.join(", ") : null;
+		}
+		// If this.backgroundPosition is set explicitly to inherit or initial, apply that instead of assuming a position.
+		if (bgp === "inherit" || bgp === "initial") {
+			this.applyStyle("background-position", bgp);
+			return;
+		}
+		var posArray = bgp && bgp.split(" ") || [],
+			posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": bgp;
 		this.applyStyle("background-position", posStr);
 	},
 	fullBleedBackgroundChanged: function() {
