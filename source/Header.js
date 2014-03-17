@@ -32,6 +32,8 @@ enyo.kind({
 		fullBleedBackground: false,
 		//* If true, title will be an input
 		inputMode: false,
+		//* When true, blur on Enter keypress (if focused)
+		dismissOnEnter: false,
 		//* Text to display when the input is empty
 		placeholder: "",
 		//* The value of the input
@@ -74,7 +76,7 @@ enyo.kind({
 			}, {
 				name: "inputDecorator",
 				kind: "moon.InputDecorator",
-				classes: 'moon-input-header-input-decorator',
+				classes: "moon-input-header-input-decorator",
 				canGenerate: false,
 				components: [{
 					name: "titleInput",
@@ -99,14 +101,10 @@ enyo.kind({
 		kind: "enyo.StyleAnimator",
 		onComplete: "animationComplete"
 	}],
-	bindings: [{
-		from: ".value",
-		to: ".$.titleInput.value",
-		oneWay: false
-	}, {
-		from: ".dismissOnEnter",
-		to: ".$.titleInput.dismissOnEnter"
-	}],
+	bindings: [
+		{from: ".value", to: ".$.titleInput.value", oneWay: false},
+		{from: ".dismissOnEnter", to: ".$.titleInput.dismissOnEnter"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.smallChanged();

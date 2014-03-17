@@ -24,6 +24,7 @@ enyo.kind({
 			{kind: "moon.Header", name:"switchHeader", content: "Static Title", placeholder:"Type Here", titleAbove: "03", titleBelow: "Header title can be changed to an input", subTitleBelow:"Press 'Switch Mode' button, which sets 'inputMode:true'", components: [
 				{kind: "moon.Button", small:true, content:"Switch Mode", ontap: "switchMode", header: "switchHeader"}
 			]},
+			{kind: "moon.Header", name:"inputHeaderDismiss", inputMode: true, dismissOnEnter: true, content: "Input-style Header", placeholder:"Dismiss on Enter", titleAbove: "03", titleBelow: "InputHeader blurs-focus when pressing Enter", subTitleBelow:"", onchange:"handleChange"},
 			{classes: "moon-1v"},
 			{kind: "moon.Header", name:"imageHeader", content: "Header with Image", titleAbove: "02", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", fullBleedBackground:true, backgroundSrc: "http://lorempixel.com/g/1920/360/abstract/2/", components: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", classes:"moon-header-left"},
@@ -55,5 +56,8 @@ enyo.kind({
 	switchMode: function(inSender, inEvent) {
 		var header = this.$[inSender.header];
 		header.setInputMode(!header.getInputMode());
+	},
+	handleChange: function(inSender, inEvent) {
+		this.$.inputHeaderDismiss.set("subTitleBelow", "Changed: " + inSender.getValue());
 	}
 });
