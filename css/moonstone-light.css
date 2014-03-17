@@ -1929,7 +1929,8 @@
   /* CSS3 for RTL support */
 
 }
-.moon-header-client > .moon-button {
+.moon-header-client > .moon-button,
+.moon-header-client > .moon-icon {
   text-align: center;
   /* Overrides the text-align property  for button */
 
