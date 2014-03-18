@@ -72,41 +72,49 @@ enyo.kind({
 		case "Play":
 			inMessage = moon.$L("Play"); // i18n "PLAY" feedback text in moon.VideoPlayer widget
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._playImg);
+			this.$.feedText.removeClass("noneTextTransform");
 			break;
 
 		case "Pause":
 			inMessage = moon.$L("Pause"); // i18n "PAUSE" feedback text in moon.VideoPlayer widget
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseImg);
+			this.$.feedText.removeClass("noneTextTransform");
 			break;
 
 		case "Rewind":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._rewindImg);
+			this.$.feedText.addClass("noneTextTransform");
 			break;
 
 		case "Slowrewind":
-			inMessage = inParams.playbackRate + "x";
+			inMessage = inParams.playbackRate + "x";			
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseBackImg);
+			this.$.feedText.addClass("noneTextTransform");
 			break;
 
 		case "Fastforward":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._fastForwardImg);
+			this.$.feedText.addClass("noneTextTransform");
 			break;
 
 		case "Slowforward":
 			inMessage = inParams.playbackRate + "x";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseForwardImg);
+			this.$.feedText.addClass("noneTextTransform");
 			break;
 
 		case "JumpBackward":
 			inMessage = this.df ? this.df.format({second: inParams.jumpSize}) : inParams.jumpSize + " sec";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
+			this.$.feedText.removeClass("noneTextTransform");
 			break;
 
 		case "JumpForward":
 			inMessage = this.df ? this.df.format({second: inParams.jumpSize}) : inParams.jumpSize + " sec";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
+			this.$.feedText.removeClass("noneTextTransform");
 			break;
 
 		case "JumpToStart":
@@ -122,6 +130,7 @@ enyo.kind({
 		case "Stop":
 			inMessage = moon.$L("Stop"); // i18n "Stop" feedback text in moon.VideoPlayer widget
 			inRightSrc = "";
+			this.$.feedText.removeClass("noneTextTransform");
 			break;
 
 		// If the user sends in a custom message, block other messages until it's hidden

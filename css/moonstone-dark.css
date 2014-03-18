@@ -4155,6 +4155,9 @@
   color: #cf0652;
   margin: 0 5px;
 }
+.moon-video-feedback-text.noneTextTransform {
+  text-transform: none;
+}
 .moon-video-feedback-icon-left,
 .moon-video-feedback-icon-right {
   display: inline-block;
