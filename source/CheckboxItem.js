@@ -23,7 +23,7 @@
 			{kind: "moon.CheckboxItem", content: "San Francisco"},
 			{kind: "moon.CheckboxItem", content: "Beijing"}
 		]}
- */
+*/
 enyo.kind({
 	name: "moon.CheckboxItem",
 	//* @protected
@@ -62,6 +62,9 @@ enyo.kind({
 	components: [
 		{name: "client", mixins: ["moon.MarqueeItem"], classes: "moon-checkbox-item-label-wrapper"},
 		{name: "input", kind: "moon.Checkbox", spotlight: false}
+	],
+	bindings: [
+		{from: ".allowHtml", to: ".$.client.allowHtml"}
 	],
 	create: function() {
 		this.inherited(arguments);

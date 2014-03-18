@@ -68,7 +68,8 @@ enyo.kind({
 	initComponents: function() {
 		this.inherited(arguments);
 		if (this.actionComponents) {
-			this.$.actions.createClientComponents(this.actionComponents);
+			var owner = this.hasOwnProperty("actionComponents") ? this.getInstanceOwner() : this;
+			this.$.actions.createComponents(this.actionComponents, {owner: owner});
 		}	
 		this.orientationChanged();	
 		this.noStretchChanged();	

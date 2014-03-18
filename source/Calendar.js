@@ -24,6 +24,7 @@ enyo.kind({
 			this._tf = new ilib.DateFmt({
 				type: "date",	//only format the date component, not the time
 				date: "d",		//'d' is the date of month
+				useNative: false,
 				length: "short"	//it uses 2 chars to abbreviate properly
 			});
 		}
@@ -122,11 +123,12 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.initCalendar();
-		this.setValue(this.value || new Date());
+		this.set("value", this.value || new Date(), true);
 		if (typeof ilib !== "undefined") {
 			this._tf = new ilib.DateFmt({
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
+				useNative: false,
 				length: this.dayOfWeekLength
 			});
 			this.setLocale(new ilib.LocaleInfo().locale);
@@ -174,6 +176,7 @@ enyo.kind({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
+				useNative: false,
 				length: this.dayOfWeekLength
 			});
 			if (prevCal !== this._tf.getCalendar()) {
@@ -236,6 +239,7 @@ enyo.kind({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "m",		//'m' is the month of year
+				useNative: false,
 				length: "long"
 			});
 			var monthPickerControls = this.$.monthPicker.getClientControls();
@@ -409,6 +413,7 @@ enyo.kind({
 			locale: this.locale,
 			type: "date",	//only format the date component, not the time
 			date: "y",		//'y' stands for year
+			useNative: false,
 			length: "long"
 		});
 		var date = ilib.Date.newInstance({
@@ -436,6 +441,7 @@ enyo.kind({
 				locale: this.locale,
 				type: "date",	//only format the date component, not the time
 				date: "w",		//'w' is the day of the week
+				useNative: false,
 				length: this.dayOfWeekLength
 			});
 			this.updateDays();

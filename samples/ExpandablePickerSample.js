@@ -6,13 +6,14 @@ enyo.kind({
 			{kind: "moon.Panel", name:"nonGroupedPanel", onChange:"pickerChanged", title:"Expandable", smallHeader:true, titleBelow:"Not grouped", style:"width:50%;", components: [
 				{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 					{style:"max-width: 500px;", components: [
-						{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", components: [
+						{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", allowHtml:true, components: [
 							{content: "English"},
 							{content: "Spanish"},
 							{content: "French"},
 							{content: "German"},
 							{content: "Italian"},
-							{content: "Japanese"}
+							{content: "Japanese"},
+							{content: "Symbols <span style='color:orange;'>&#x2620; &#x2764; &#x2619;</span>", allowHtml:true}
 						]},
 						{kind: "moon.ExpandablePicker", content: "Pre-selected Picker", components: [
 							{content: "On", active: true},
@@ -50,13 +51,14 @@ enyo.kind({
 				{kind: "enyo.Group", tag:null, highlander: true, components: [
 					{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
 						{style:"max-width: 500px;", components: [
-							{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", components: [
+							{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", allowHtml:true, components: [
 								{content: "English"},
 								{content: "Spanish"},
 								{content: "French"},
 								{content: "German"},
 								{content: "Italian"},
-								{content: "Japanese"}
+								{content: "Japanese"},
+								{content: "Symbols <span style='color:orange;'>&#x2620; &#x2764; &#x2619;</span>", allowHtml:true}
 							]},
 							{kind: "moon.ExpandablePicker", content: "Pre-selected Picker", components: [
 								{content: "On", active: true},

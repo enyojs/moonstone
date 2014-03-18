@@ -16,6 +16,7 @@ enyo.kind({
 	kind	: 'enyo.Input',
 	//* @protected
 	classes	: 'moon-input',
+	spotlightIgnoredKeys: [13, 16777221],	// 13==Enter, 16777221==KeypadEnter
 	//* @public
 	published: {
 		//* When true, blur on Enter keypress (if focused)

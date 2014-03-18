@@ -74,7 +74,7 @@ enyo.kind({
 		this.requestHideTooltip();
 	},
 	requestShowTooltip: function() {
-		if (this.autoShow) {
+		if (this.autoShow && !enyo.Spotlight.isFrozen()) {
 			this.waterfallDown("onRequestShowTooltip");
 		}
 	},

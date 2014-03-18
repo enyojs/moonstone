@@ -69,6 +69,7 @@ enyo.kind({
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
 	},
+<<<<<<< HEAD
 	rendered: function() {
 		this.inherited(arguments);
 		if (this.open) {
@@ -76,6 +77,11 @@ enyo.kind({
 			this.drawerAnimationEnd();				// Give spot on closeButton and mute tooltip
 			this.resizeDrawer();					// update stacking
 		}
+=======
+	destroy: function() {
+		enyo.dispatcher.release(this.$.drawer);
+		this.inherited(arguments);
+>>>>>>> master
 	},
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
@@ -136,6 +142,14 @@ enyo.kind({
 		}
 		this.setActive(!this.getOpen());
 		this.setOpen(!this.getOpen());
+
+		// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
+		// from landing in the header beneath the drawer
+		if (this.open) {
+			enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: "capturedSpotlightFocus"}, this);
+		} else {
+			enyo.dispatcher.release(this.$.drawer);
+		}
 	},
 	openChanged: function(){
 		//If opened, show drawer and resize it if needed
@@ -233,6 +247,14 @@ enyo.kind({
 		this.headerBounds = null;
 		this.clientBounds = null;
 		this.containerBounds = null;
+	},
+	capturedSpotlightFocus: function(inSender, inEvent) {
+		// We need to prevent header children below the drawer from being focused
+		if (inEvent.originator.isDescendantOf(this.$.drawer.parent) && 
+			!inEvent.originator.isDescendantOf(this.$.drawer)) {
+			enyo.Spotlight.spot(this.$.drawer);
+			return true;
+		}
 	}
 });
 

@@ -121,6 +121,7 @@
 }
 
 .enyo-locale-non-latin {
+	/* All/Medium weighted classes */
 	.moon,
 	.moon input,
 	.moon textarea,
@@ -141,15 +142,28 @@
 		font-family: @moon-non-latin-font-family;
 	}
 
+	/* Light weighted classes */
+	.moon-body-text,
+	.moon-superscript,
+	.moon-pre-text {
+		font-family: @moon-non-latin-font-family-light;
+	}
+	/* Bold weighted classes */
+	.moon-sub-header-text,
+	.moon-divider-text,
+	.moon-bold-text,
+	.moon-large-button-text,
+	.moon-small-button-text {
+		font-family: @moon-non-latin-font-family-bold;
+	}
+
 	.moon {
 		font-size: @moon-non-latin-sub-header-font-size;
 	}
 	.moon-superscript {
-		font-family: @moon-non-latin-font-family-light;
 		font-size: @moon-non-latin-superscript-text-size;
 	}
 	.moon-pre-text {
-		font-family: @moon-non-latin-font-family-light;
 		font-size: @moon-non-latin-pre-text-size;
 	}
 	.moon-large-text {
@@ -157,6 +171,7 @@
 	}
 	.moon-header-text {
 		font-size: @moon-non-latin-header-font-size;
+		line-height: @moon-non-latin-header-text-line-height;
 	}
 	.moon-popup-header-text {
 		font-size: @moon-non-latin-popup-header-font-size;
@@ -172,7 +187,6 @@
 		font-style: normal;
 	}
 	.moon-body-text {
-		font-family: @moon-non-latin-font-family-light;
 		font-size: @moon-non-latin-body-font-size;
 		line-height: @moon-non-latin-body-line-height;
 	}

@@ -34,16 +34,16 @@ enyo.kind({
 	spotlightDecorate : false,
 
 	handlers : {
-		onDisabledChange  : 'onDisabledChange',
-		onfocus           : 'onFocus',
-		onblur            : 'onBlur',
-		onSpotlightFocus  : 'onSpotlightFocus',
-		onSpotlightSelect : 'onSpotlightSelect',
-		onSpotlightBlur   : 'onSpotlightBlur',
-		onSpotlightLeft   : 'onSpotlightLeft',
-		onSpotlightRight  : 'onSpotlightRight',
-		onSpotlightUp     : 'onSpotlightUp',
-		onSpotlightDown   : 'onSpotlightDown'
+		onDisabledChange  : 'disabledChangeHandler',
+		onfocus           : 'focusHandler',
+		onblur            : 'blurHandler',
+		onSpotlightFocus  : 'spotlightFocusHandler',
+		onSpotlightSelect : 'spotlightSelectHandler',
+		onSpotlightBlur   : 'spotlightBlurHandler',
+		onSpotlightLeft   : 'spotlightLeftHandler',
+		onSpotlightRight  : 'spotlightRightHandler',
+		onSpotlightUp     : 'spotlightUpHandler',
+		onSpotlightDown   : 'spotlightDownHandler'
 	},
 
 	//* @protected
@@ -113,7 +113,7 @@ enyo.kind({
 	//* @protected
 	// Event handlers:
 	/**************************************************/
-	onFocus: function(oSender, oEvent) {
+	focusHandler: function(oSender, oEvent) {
 		if (enyo.Spotlight.getCurrent() != this) {
 			// Force a spot here, even when we're in pointer mode,
 			// to ensure that clicks inside us (e.g. to position
@@ -124,41 +124,39 @@ enyo.kind({
 		this.updateFocus(true);
 	},
 
-	onBlur: function() {
+	blurHandler: function() {
 		enyo.Spotlight.unfreeze();
 		this.updateFocus(false);
 	},
 
-	onDisabledChange: function(oSender, oEvent) {
+	disabledChangeHandler: function(oSender, oEvent) {
 		this.addRemoveClass('moon-disabled', oEvent.originator.disabled);
 	},
 
 	// Spotlight Event handlers:
 	/**************************************************/
 
-	onSpotlightFocus: function() {
+	spotlightFocusHandler: function() {
 		this.bubble("onRequestScrollIntoView");
 	},
 
-	onSpotlightSelect: function(oSender, oEvent) {
+	spotlightSelectHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
-		var textArea = oInput instanceof moon.TextArea;
-		if (textArea && !oInput.hasFocus() && oEvent && (oEvent.keyCode === 13)) {
-			this.focus();
+		if (oInput) {
+			if (oInput.hasFocus() && oEvent) {
+				return true;
+			} else {
+				oInput.focus();
+			}
 			return false;
-		}
-		this.focus();
-		if (oInput && oInput.hasFocus() && oEvent) {
-			oEvent.allowDomDefault();            // Allow keydown to bubble
-			return true;                         // Prevent onSpotlightLeft to bubble
 		}
 	},
 
-	onSpotlightBlur: function(oSender, oEvent) {
+	spotlightBlurHandler: function(oSender, oEvent) {
 		this.blur();
 	},
 
-	onSpotlightLeft: function(oSender, oEvent) {
+	spotlightLeftHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.left) {
 			if (oInput.left()) {
@@ -171,25 +169,12 @@ enyo.kind({
 		}
 	},
 
-	onSpotlightRight: function(oSender, oEvent) {
+	spotlightRightHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.right) {
 			if (oInput.right()) {
 				oEvent.allowDomDefault();       // Allow keydown to bubble
-				return true;                    // Prevent onSpotlightLeft to bubble
-			} else {
-				this.onBlur();
-				oInput.blur();
-			}
-		}
-	},
-
-	onSpotlightUp: function(oSender, oEvent) {
-		var oInput = this.getInputControl();
-		if (oInput && oInput.hasFocus() && oInput.up) {
-			if (oInput.up()) {
-				oEvent.allowDomDefault();       // Allow keydown to bubble
-				return true;                    // Prevent onSpotlightLeft to bubble
+				return true;                    // Prevent onSpotlightRight to bubble
 			} else {
 				this.blur();
 				oInput.blur();
@@ -197,7 +182,20 @@ enyo.kind({
 		}
 	},
 
-	onSpotlightDown: function(oSender, oEvent) {
+	spotlightUpHandler: function(oSender, oEvent) {
+		var oInput = this.getInputControl();
+		if (oInput && oInput.hasFocus() && oInput.up) {
+			if (oInput.up()) {
+				oEvent.allowDomDefault();       // Allow keydown to bubble
+				return true;                    // Prevent onSpotlightUp to bubble
+			} else {
+				this.blur();
+				oInput.blur();
+			}
+		}
+	},
+
+	spotlightDownHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.down) {
 			if (oInput.down()) {

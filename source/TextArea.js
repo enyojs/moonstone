@@ -15,10 +15,26 @@ enyo.kind({
 	kind: "enyo.TextArea",
 	//* @protected
 	classes: "moon-textarea",
+	spotlightIgnoredKeys: [13, 16777221],	// 13==Enter, 16777221==KeypadEnter
+	handlers: {
+		onblur: "blurred"
+	},
+	focus: function() {
+		this.inherited(arguments);
+		var node = this.hasNode();
+		// We move the cursor to the end, because in 5-way
+		// mode there is no way (other than backspacing) for
+		// the user to move the caret within the text field
+		node.selectionStart = this.value.length;
+		node.scrollTop = node.scrollHeight;
+	},
 	blur: function() {
 		if (this.hasNode()) {
 			this.node.blur();
 		}
+	},
+	blurred: function() {
+		this.hasNode().scrollTop = 0;
 	},
 	left: function(inEvent) {
 		if (!this.hasNode() || this.node.selectionStart === 0) {

@@ -3,5 +3,6 @@
 }
 
 .moon-scroller-sample-2d-scroller .moon-button {
-	position:absolute;
+	display: inline-block;
+	margin: 190px;
 }

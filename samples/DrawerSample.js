@@ -57,6 +57,27 @@ enyo.kind({
 							{kind: "moon.Item", content: "Item Three", ontap: "next"},
 							{kind: "moon.Item", content: "Item Four", ontap: "next"},
 							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]},
+						{title: "Thrid", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]},
+						{title: "Fourth", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
+						]},
+						{title: "Fifth", classes: "moon-7h", components: [
+							{kind: "moon.Item", content: "Item One", ontap: "next"},
+							{kind: "moon.Item", content: "Item Two", ontap: "next"},
+							{kind: "moon.Item", content: "Item Three", ontap: "next"},
+							{kind: "moon.Item", content: "Item Four", ontap: "next"},
+							{kind: "moon.Item", content: "Item Five", ontap: "next"}
 						]}
 					]
 				}

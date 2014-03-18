@@ -10,7 +10,7 @@
 		-webkit-transition: -webkit-transform 0.4s ease;
     }
 	&.reserve-close {
-		padding-right: @moon-icon-button-small-size + 20px;
+		padding-right: @moon-icon-button-small-size + 10px;
 	}
 }
 .moon-popup-close {
@@ -18,7 +18,6 @@
 	background-repeat: no-repeat;
 	background-position: 0 0;
 	color: @moon-popup-close-text-color;
-	float: right;
 	position: absolute;
 	right: 10px;
 	width: @moon-close-image-width;
@@ -38,4 +37,16 @@
 .moon-icon.moon-popup-close.spotlight:active {
 	background-color: @moon-popup-close-bg-color;
 	color: @moon-neutral-icon-color;
+}
+.enyo-locale-right-to-left {
+	.moon-popup {
+		&.reserve-close {
+			padding-right: 40px;
+			padding-left: @moon-icon-button-small-size + 10px;
+		}
+	}	
+	.moon-popup-close {
+		right: auto;
+		left: 10px;
+	}
 }

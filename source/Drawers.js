@@ -213,5 +213,12 @@ enyo.kind({
 	},
 	handleAtIndex: function(inIndex) {
 		return this.$.handles.getControls()[inIndex];
+	},
+	destroy: function() {
+		enyo.dispatcher.release(this.$.handleContainer);
+		for (var i=0, c$=this.$.drawers.getControls(); i<c$.length; i++) {
+			enyo.dispatcher.release(c$[i]);
+		}
+		this.inherited(arguments);
 	}
 });
