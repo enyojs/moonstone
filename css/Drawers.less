@@ -17,7 +17,7 @@
 	top: 10px;
 	left: 0;
 	right: 0;
-	height:20px;	
+	height:22px;	
 	background-color: @moon-drawer-bg-color;
 	z-index: 100;
 }
@@ -116,4 +116,13 @@
 	position:relative;
 	height:100%;
 	width:100%;
+}
+
+/* If a video player or other controls are behind the drawers, let events pass straight through to them. */
+.moon-drawers > * {
+	pointer-events: all;
+}
+.moon-drawers,
+.moon-drawers-client {
+	pointer-events: none;
 }

@@ -49,10 +49,10 @@ enyo.kind({
 			programmatically using the _showing_ property or the _hide_/_show_ API.
 			Only valid when _useHandle_ is true (or "auto" resulting in true).
 		*/
-		handleShowing: true
-	},
-	events: {
-		onHidePanels: ""
+		handleShowing: true,
+		//* When true, panels are automatically popped when the user moves back
+		popOnBack: false
+
 	},
 	//* @protected
 	narrowFit: false,
@@ -97,7 +97,6 @@ enyo.kind({
 	_initialTransition: true,
 	//* Flag for panel transition
 	transitionInProgress: false,
-
 	//* @public
 
 	//* Returns true if a transition between panels is currently in progress.
@@ -161,7 +160,7 @@ enyo.kind({
 	getPanelIndex: function(oControl) {
 		var oPanel = null;
 
-		while (oControl.parent) {
+		while (oControl && oControl.parent) {
 			// Parent of a panel can be a client or a panels.
 			if (oControl.parent === this.$.client || oControl.parent === this) {
 				oPanel = oControl;
@@ -374,6 +373,9 @@ enyo.kind({
 
 		this.queuedIndex = null;
 
+		// Ensure any VKB is closed when transitioning panels
+		this.blurActiveElementIfHiding(inIndex);
+
 		// If panels will move for this index change, kickoff animation. Otherwise skip it.
 		if (this.shouldArrange()) {
 			if (this.animate) {
@@ -387,10 +389,24 @@ enyo.kind({
 		else {
 			this.skipArrangerAnimation();
 		}
-
-		// Ensure any VKB is closed when transitioning panels
-		if (document.activeElement) {
-			document.activeElement.blur();
+	},
+	blurActiveElementIfHiding: function(inIndex) {
+		var activeElement = document.activeElement,
+			activeComponent = activeElement ? enyo.$[activeElement.id] : null,
+			panels = this.getPanels(),
+			panel,
+			panelInfo;
+		if (activeComponent) {
+			for (var i = 0; i < panels.length; i++) {
+				panel = panels[i];
+				if (activeComponent.isDescendantOf(panel)) {
+					panelInfo = this.getPanelInfo(i, inIndex);
+					if (panelInfo.offscreen) {
+						document.activeElement.blur();
+					}
+					break;
+				}
+			}
 		}
 	},
 	/**
@@ -525,15 +541,31 @@ enyo.kind({
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
 			transitioned = typeof this.lastIndex !== "undefined",
-			method = transitioned ? "transitionFinished" : "initPanel",
+			method = transitioned ? (sendEvents ? "transitionFinished" : "updatePanel") : "initPanel",
 			i,
 			panel,
-			info;
+			info,
+			popFrom;
 
+		// Pop panels starting at this index, plus any that are still onscreen
+		popFrom = this.toIndex + 1;
+		// Notify panels of transition
 		for (i =0 ; (panel = panels[i]); i++) {
 			info = this.getTransitionInfo(i);
 			if (panel[method]) {
 				panel[method](info);
+			}
+			// If a panel is onscreen, don't pop it
+			if ((i > this.toIndex) && !info.offscreen) {
+				popFrom++;
+			}
+		}
+		// "sendEvents" means we actually transitioned (not a reflow), so
+		// check popOnBack logic
+		if (sendEvents) {
+			// Automatically pop off panels that are no longer on screen
+			if (this.popOnBack && (this.toIndex < this.fromIndex)) {
+				this.popPanels(popFrom);
 			}
 		}
 
@@ -566,7 +598,7 @@ enyo.kind({
 			return true;
 		}
 	},
-	showingChanged: function() {
+	showingChanged: function(inOldValue) {
 		if (this.$.backgroundScrim) {
 			this.$.backgroundScrim.addRemoveClass("visible", this.showing);
 		}
@@ -580,6 +612,7 @@ enyo.kind({
 				this.resetHandleAutoHide();
 				this._hide();
 			}
+			this.sendShowingChangedEvent(inOldValue);
 		}
 		else {
 			this.inherited(arguments);

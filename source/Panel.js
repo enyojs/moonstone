@@ -82,6 +82,7 @@ enyo.kind({
 		{from: ".subTitleBelow", to: ".$.header.subTitleBelow"},
 		{from: ".smallHeader", to: ".$.header.small"},
 		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
+		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
 	],
@@ -184,14 +185,6 @@ enyo.kind({
 			this.setTitleAbove(n);
 		}
 	},
-	//* Updates _this.header_ when _title_ changes.
-	titleChanged: function() {
-		this.$.header.setTitle(this.getTitle());
-	},
-	//* Updates _this.header_ when _titleAbove_ changes.
-	titleAboveChanged: function() {
-		this.$.header.setTitleAbove(this.getTitleAbove());
-	},
 	generateAutoNumber: function() {
 		var adjustedIndex = this.indexInContainer() + 1;
 		return (adjustedIndex < 10) ? "0"+ adjustedIndex : adjustedIndex;
@@ -268,7 +261,7 @@ enyo.kind({
 		return false;
 	},
 	// Called directly by moon.Panels
-	transitionFinished: function(inInfo) {
+	updatePanel: function(inInfo) {
 		if (!inInfo.animate) {
 			this.disableMarquees();
 
@@ -284,6 +277,24 @@ enyo.kind({
 		this.updatesSpottability();
 		this.startMarqueeAsNeeded(inInfo);
 	},
+	//* @public
+	/**
+		The `transitionFinished` method is called directly on the panel by `moon.Panels` when the
+		panel has completed a transition.  You can override this function in a panel sub-kind to
+		perform post-transition work such as loading data for the panel, for example.  The `inInfo`
+		argument carries the following information, which can be used to determine the context for
+		the transition:
+		- inInfo.from: the index the parent panels was moving from for this transition
+		- inInfo.to: the index the parent panels was moving from for this transition
+		- inInfo.index: the current index of this panel
+		- inInfo.animate: whether the parent panels is set to animate or not
+		- plus any additional information provided by the selected arranger, such as breadcrumb and
+			offscreen status, for example
+	*/
+	transitionFinished: function(inInfo) {
+		this.updatePanel(inInfo);
+	},
+	//* @protected
 	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
@@ -324,7 +335,7 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.growing = false;
 		this.doPostTransitionComplete();
-		this.resized();
+		this.reflow();
 	},
 	animationComplete: function(inSender, inEvent) {
 		switch (inEvent.animation.name) {
