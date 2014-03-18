@@ -2,9 +2,9 @@
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain
 	multiple marquees whose animation behavior should be synchronized. Calling
 	_this.startMarquee()_ or _this.stopMarquee()_ starts/stops all contained
-	marquees.  
+	marquees.
 
-	The following properties defined on the base kind on which the mixin is applied 
+	The following properties defined on the base kind on which the mixin is applied
 	control the marquee behavior:
 
 	* `marqueeOnSpotlight`: When true, marquee will start when spotlight focused and
@@ -173,8 +173,8 @@ moon.MarqueeSupport = {
 	},
 	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
 	resetMarquee: function() {
-		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
-			(this.marqueeOnHover && this._marquee_isHovered) || 
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) ||
+			(this.marqueeOnHover && this._marquee_isHovered) ||
 			this.marqueeOnRender) {
 			// Batch multiple requests to reset from children being hidden/shown
 			this.startJob("resetMarquee", "_resetMarquee", 10);
@@ -409,9 +409,13 @@ moon.MarqueeItem = {
 		}
 	},
 	_marquee_checkRtl: function() {
+		var content = this.content;
+		if (content && typeof content === "object") {
+			content = content.toString();
+		}
 		// Set RTL mode based on first character of content
-		if (this.content && this.content.length) {
-			var firstCharCode = this.content.charCodeAt(0);
+		if (content && content.length) {
+			var firstCharCode = content.charCodeAt(0);
 			// Check if within Hebrew or Arabic ranges (in addition to Syriac to reduce number of comparisons)
 			// Hebrew: 1424-1535
 			// Arabic: 1536-1791, 1872-1919, 64336-65023, 65136-65279
