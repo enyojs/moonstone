@@ -70,12 +70,12 @@ enyo.kind({
 
 		switch (inMessage) {
 		case "Play":
-			inMessage = moon.$L("Play"); // i18n "PLAY" feedback text in moon.VideoPlayer widget
+			inMessage = moon.$L("PLAY"); // i18n "PLAY" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._playImg);
 			break;
 
 		case "Pause":
-			inMessage = moon.$L("Pause"); // i18n "PAUSE" feedback text in moon.VideoPlayer widget
+			inMessage = moon.$L("PAUSE"); // i18n "PAUSE" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseImg);
 			break;
 
@@ -100,12 +100,12 @@ enyo.kind({
 			break;
 
 		case "JumpBackward":
-			inMessage = this.df ? this.df.format({second: inParams.jumpSize}) : inParams.jumpSize + " sec";
+			inMessage = this.df ? enyo.toUpperCase(this.df.format({second: inParams.jumpSize})) : inParams.jumpSize + " SEC";
 			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
 			break;
 
 		case "JumpForward":
-			inMessage = this.df ? this.df.format({second: inParams.jumpSize}) : inParams.jumpSize + " sec";
+			inMessage = this.df ? enyo.toUpperCase(this.df.format({second: inParams.jumpSize})) : inParams.jumpSize + " SEC";
 			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
 			break;
 
@@ -120,7 +120,7 @@ enyo.kind({
 			break;
 
 		case "Stop":
-			inMessage = moon.$L("Stop"); // i18n "Stop" feedback text in moon.VideoPlayer widget
+			inMessage = moon.$L("STOP"); // i18n "STOP" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
 			inRightSrc = "";
 			break;
 
