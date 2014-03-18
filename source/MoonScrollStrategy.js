@@ -403,27 +403,26 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
-		var showVertical, showHorizontal;
+		var showVertical, showHorizontal,
+			bubble = false;
 		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
 			showVertical = this.showVertical();
 			showHorizontal = this.showHorizontal();
 			if (showVertical || showHorizontal) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 					this.alertThumbs();
-				}	
-				this.scrollBounds = null;
-				return true;
+				}				
 			} else {
 				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
 				// to allow items in nested scrollers to be scrolled
-				this.scrollBounds = null;
-				return false;
+				bubble = true;
 			}
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
+			this.scrollBounds = null;
 		}
-		return true;
+		return !bubble;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();

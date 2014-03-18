@@ -128,8 +128,8 @@ enyo.kind({
 			this.hideNavButton(nextButton);
 		// If we are on the first option, hide the left button
 		} else if (index <= 0) {
-			this.hideNavButton(prevButton);
 			this.showNavButton(nextButton);
+			this.hideNavButton(prevButton);
 		// If we are on the last item, hide the right button
 		} else if (index >= maxIndex) {
 			this.showNavButton(prevButton);
