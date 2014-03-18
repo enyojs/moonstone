@@ -32,16 +32,14 @@ enyo.kind({
 		fullBleedBackground: false,
 		//* If true, title will be an input
 		inputMode: false,
-		//* When true, blur on Enter keypress (if focused)
+		//* When true, input will be blurred on Enter keypress (if focused)
 		dismissOnEnter: false,
 		//* Text to display when the input is empty
 		placeholder: "",
 		//* The value of the input
 		value: "",
 		//* When true, the entered text will be displayed as uppercase
-		inputUpperCase: false,
-		//* When true, input will be blurred on Enter keypress (if focused)
-		dismissOnEnter: false
+		inputUpperCase: false
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
