@@ -4147,7 +4147,7 @@
 }
 .moon-video-feedback-text {
   display: inline-block;
-  text-transform: uppercase;
+  text-transform: none;
   color: #cf0652;
   margin: 0 5px;
 }
