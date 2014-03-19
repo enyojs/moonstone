@@ -18,7 +18,8 @@ enyo.kind({
 		onRequestScrollIntoView   : "_preventEventBubble",
 		ontransitionend           : "animationEnd",
 		onSpotlightSelect         : "handleSpotlightSelect",
-		onSpotlightContainerLeave : "handleLeave"
+		onSpotlightContainerLeave : "handleLeave",
+		onHide                    : "handlePopupHide"
 	},
 
 	//* @public
@@ -58,6 +59,10 @@ enyo.kind({
 		showCloseButton: "auto",
 		//* When true, popups will animate on/off screen
 		animate: true
+	},
+	events: {
+		onShown: "",
+		onHidden: ""
 	},
 	//* @protected
 	tools: [
@@ -147,7 +152,11 @@ enyo.kind({
 			if (this.animate) {
 				// need to call this early to prevent race condition where animationEnd
 				// originated from a "hide" context but we are already in a "show" context
-				this.animationEnd = enyo.nop;
+				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+					if (inEvent.originator === this) {
+						this.doShown();
+					}
+				});
 				// if we are currently animating the hide transition, release
 				// the events captured when popup was initially shown
 				if (this.isAnimatingHide) {
@@ -175,6 +184,7 @@ enyo.kind({
 				this.inherited(arguments);
 				this.animateShow();
 			} else {
+				this.doHide();
 				this.animateHide();
 				var args = arguments;
 				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
@@ -298,5 +308,9 @@ enyo.kind({
 	destroy: function() {
 		this.showHideScrim(false);
 		this.inherited(arguments);
+	},
+	handlePopupHide: function() {
+		this.doHidden();
+		return true;
 	}
 });
