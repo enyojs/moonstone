@@ -55,6 +55,8 @@
 /* ---------------------------------------*/
 /* ContextualPopupButton */
 /* ---------------------------------------*/
+/* Panel */
+/* ----------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- SYSTEM FONT NAMES ------ */
@@ -3039,6 +3041,14 @@
   height: auto;
   margin: 0;
 }
+.moon-panels.activity .moon-panels-panel-scrim {
+  display: none;
+}
+.moon-panels.activity .moon-panels-background-scrim {
+  background-position: bottom 20px left 10px;
+  background-repeat: no-repeat;
+  background-size: 230px;
+}
 /* Scrim */
 .moon-panels .moon-panels-background-scrim {
   position: absolute;
@@ -3046,15 +3056,14 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0);
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s linear;
-  -webkit-transition: opacity 0.5s linear;
-  -moz-transition: opacity 0.5s linear;
+  transition: background-color 0.5s linear;
+  -webkit-transition: background-color 0.5s linear;
+  -moz-transition: background-color 0.5s linear;
 }
 .moon-panels-background-scrim.visible {
-  opacity: 0.2;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 .moon-panels-panel-scrim {
   position: absolute;
