@@ -3093,9 +3093,9 @@
   display: none;
 }
 .moon-panels.activity .moon-panels-background-scrim {
-  background-position: bottom 20px left 10px;
+  background-position: bottom 20px left 20px;
   background-repeat: no-repeat;
-  background-size: 230px;
+  background-size: 210px;
 }
 /* Scrim */
 .moon-panels .moon-panels-background-scrim {
