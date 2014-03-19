@@ -51,7 +51,9 @@ enyo.kind({
 		*/
 		handleShowing: true,
 		//* When true, panels are automatically popped when the user moves back
-		popOnBack: false
+		popOnBack: false,
+		//* The source of the image used for branding in the lower left of the panels.
+		brandingSrc: ""
 
 	},
 	//* @protected
@@ -537,6 +539,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			enyo.Spotlight.spot(this.getActive());
 		}
+
+		// Update display of branding image
+		this.brandingSrcChanged();
 	},
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
@@ -646,6 +651,7 @@ enyo.kind({
 		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
 		this.createChrome(this.handleTools);
 		this.breadcrumbGap = 0;
+		this.brandingSrcChanged();
 	},
 	initializeShowHideHandle: function() {
 		if (this.useHandle === true) {
@@ -740,5 +746,8 @@ enyo.kind({
 		if (this.handleShowing) {
 			this.$.handleWrapper.removeClass("hidden");
 		}
+	},
+	brandingSrcChanged: function() {
+		this.$.backgroundScrim.applyStyle("background-image", (this.brandingSrc && this.index > 0) ? "url(" + this.brandingSrc + ")" : "none");
 	}
 });
