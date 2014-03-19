@@ -243,11 +243,6 @@ enyo.kind({
 	components: [
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
-			{name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
-				ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", durationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
-				onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
-				onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", ontap: "videoTapped", oncanplay: "_setCanPlay", onwaiting: "_waiting", onerror: "_error"
-			},
 			{name: "spinner", kind: "moon.Spinner", classes: "moon-video-player-spinner"}
 		]},
 
@@ -298,6 +293,15 @@ enyo.kind({
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
 		]}
 	],
+	videoConfig: {name: "video", kind: "enyo.Video", classes: "moon-video-player-video",
+		ontimeupdate: "timeUpdate", onloadedmetadata: "metadataLoaded", ondurationchange: "durationUpdate", onloadeddata: "dataloaded", onprogress: "_progress", onPlay: "_play", onpause: "_pause", onStart: "_start",  onended: "_stop",
+		onFastforward: "_fastforward", onSlowforward: "_slowforward", onRewind: "_rewind", onSlowrewind: "_slowrewind",
+		onJumpForward: "_jumpForward", onJumpBackward: "_jumpBackward", onratechange: "playbackRateChange", ontap: "videoTapped", oncanplay: "_setCanPlay", onwaiting: "_waiting", onerror: "_error"
+	},
+	initComponents: function() {
+		this.inherited(arguments);
+		this.replaceVideo();
+	},
 	create: function() {
 		this.inherited(arguments);
 		this.createInfoControls();
@@ -313,6 +317,18 @@ enyo.kind({
 		this.updatePlaybackControlState();
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
+		}
+	},
+	replaceVideo: function(videoConfig) {
+		if (this.$.video) {
+			this.$.video.destroy();
+		}
+		var vc = enyo.clone(this.videoConfig || {});
+		vc.addBefore = this.$.spinner;
+		enyo.mixin(vc, videoConfig || {});
+		this.$.videoContainer.createComponent(vc, {owner:this});
+		if (this.generated) {
+			this.$.video.render();
 		}
 	},
 	transformIconSrc: function(inSrc) {
@@ -376,6 +392,9 @@ enyo.kind({
 		this.updateSpinner();
 		this.updatePlaybackControlState();
 		this._resetTime();
+		this._setVideoSrc(this.src);
+	},
+	_setVideoSrc: function() {
 		this.$.video.setSrc(this.getSrc());
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
