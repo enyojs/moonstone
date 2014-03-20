@@ -515,7 +515,7 @@ enyo.kind({
 			{name: "videoInfoHeaderClient", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
-				{name: "controls", kind: "TestControls", ontap: "resetAutoTimeout"},
+				{name: "controls", kind: "moon.MediaPlayerControls", ontap: "resetAutoTimeout"},
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
 					{name: "slider", kind: "moon.VideoTransportSlider", rtl: false, disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
 						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider", ontap:"playbackControlsTapped"
