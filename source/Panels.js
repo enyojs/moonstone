@@ -52,7 +52,10 @@ enyo.kind({
 		handleShowing: true,
 		//* When true, panels are automatically popped when the user moves back
 		popOnBack: false,
-		//* The source of the image used for branding in the lower left of the panels.
+		/** 
+			The source of the image used for branding in the lower left of the panels (only
+			applies to panels with the "activity" pattern).
+		*/
 		brandingSrc: ""
 
 	},
@@ -651,7 +654,6 @@ enyo.kind({
 		this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
 		this.createChrome(this.handleTools);
 		this.breadcrumbGap = 0;
-		this.brandingSrcChanged();
 	},
 	initializeShowHideHandle: function() {
 		if (this.useHandle === true) {
@@ -748,6 +750,8 @@ enyo.kind({
 		}
 	},
 	brandingSrcChanged: function() {
-		this.$.backgroundScrim.applyStyle("background-image", (this.brandingSrc && this.index > 0) ? "url(" + this.brandingSrc + ")" : "none");
+		if (this.pattern === "activity") {
+			this.$.backgroundScrim.applyStyle("background-image", (this.brandingSrc && this.index > 0) ? "url(" + this.brandingSrc + ")" : "none");
+		}
 	}
 });
