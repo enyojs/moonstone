@@ -83,7 +83,9 @@ enyo.kind({
 			, controls, index;
 
 		// cover the case where one is not defined
-		for (index = 0; index < this.drawers.length; ++index) handles.push(this.drawers[index].handle || {});
+		for (index = 0; index < this.drawers.length; ++index) {
+			handles.push(this.drawers[index].handle || {});
+		}
 		this.$.handles.createComponents(handles, {kind: "moon.DrawerHandle", owner:this});
 		controls = this.$.handles.getControls();
 		enyo.forEach(handles, function (handle, idx) {
