@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", ontap: "left", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", onSpotlightSelect: "left", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", ontap: "right", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightSelect: "right", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -86,6 +86,10 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
 		this.blockChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.showHideNavButtons();
 	},
 	scrollIntoView: function() {
 		this.bubble("onRequestScrollIntoView");
@@ -124,8 +128,8 @@ enyo.kind({
 			this.hideNavButton(nextButton);
 		// If we are on the first option, hide the left button
 		} else if (index <= 0) {
-			this.hideNavButton(prevButton);
 			this.showNavButton(nextButton);
+			this.hideNavButton(prevButton);
 		// If we are on the last item, hide the right button
 		} else if (index >= maxIndex) {
 			this.showNavButton(prevButton);
@@ -248,6 +252,14 @@ enyo.kind({
 		} else {
 			this.next();
 		}
+	},
+	downLeft: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		this.left();
+	},
+	downRight: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		this.right();
 	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.

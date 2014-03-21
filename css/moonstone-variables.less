@@ -2,15 +2,6 @@
 /* ---------------------------------------*/
 @moon-app-keepout: 20px;
 
-/* Colors */
-/* ---------------------------------------*/
-@moon-dark-gray: #4B4B4B;
-@moon-light-gray: #EDEDED;
-@moon-orange: #FFB80D;
-@moon-black: #000000;
-@moon-pink: #cf0652;
-@moon-white: #ffffff;
-
 @moon-neutral-bg-color: #686868;
 @moon-neutral-text-color: @moon-light-gray;
 @moon-neutral-child-text-color: @moon-white;
@@ -72,6 +63,8 @@
 @moon-header-font-style: normal;
 @moon-header-line-height: normal;
 @moon-small-header-line-height: normal;
+@moon-non-latin-header-text-line-height: 1.5em;
+@moon-non-latin-small-header-line-height: 1.5em;
 
 @moon-popup-header-font-family: "Moonstone Miso";
 @moon-popup-header-font-weight: normal;
@@ -135,10 +128,6 @@
 @moon-icon-sprite-size: (@moon-icon-button-size - (@moon-button-border-width * 2));
 @moon-icon-sprite-small-size: (@moon-icon-button-small-size - (@moon-button-border-width * 2));
 
-/* Disabled Opacity */
-/* ---------------------------------------*/
-@moon-disabled-opacity: 0.6;
-
 /* Spotlight */
 /* ---------------------------------------*/
 @moon-spotlight-outset: 10px;
@@ -196,6 +185,14 @@
 @moon-spinner-image: url(../images/spinner.gif);
 @moon-spinner-image-width: 60px;
 @moon-spinner-image-height: 60px;
+
+/* ToggleSwitch */
+/* ---------------------------------------*/
+@moon-toggleswitch-image-height: 33px;
+@moon-toggleswitch-image-width: 65px;
+@moon-toggleswitch-off: url(../images/toggle-off.png);
+@moon-toggleswitch-on: url(../images/toggle-on.png);
+@moon-toggleswitch-margin: @moon-toggleswitch-image-width + @moon-spotlight-outset;
 
 /* IntegerPicker */
 /* ---------------------------------------*/

@@ -114,9 +114,6 @@ enyo.kind({
 		this.scrollWheelMovesFocusChanged();
 	},
 	spotlightPagingControlsChanged: function() {
-		// Since spotlightPagingControls is used when there are no focusable
-		// children, turn off container handling in that case.
-		this.spotlight = this.spotlightPagingControls ? false : "container";
 		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
 	},
 	scrollWheelMovesFocusChanged: function() {
@@ -160,3 +157,9 @@ enyo.kind({
 		}
 	}
 });
+
+// On touch platforms, revert to using Enyo scroller, which picks an appropriate
+// scroll strategy for the given platform
+if (enyo.platform.touch) {
+	moon.Scroller = enyo.Scroller;
+}

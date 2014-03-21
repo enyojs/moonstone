@@ -47,8 +47,25 @@ enyo.kind({
 
 				{kind: "moon.Divider", content: "Disabled marquee:"},
 				{name: "marqueeDisabled", marqueeOnRender: true, disabled: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for disabled marquee test which is having disabled property"},
-				{tag: "br"}
+				{tag: "br"},
 
+				{kind: "moon.Divider", content: "LTR Languages:"},
+				{name: "marqueeContainer1", mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "The quick brown fox jumped over the lazy dog.  The bean bird flies at sundown."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "Η γρήγορη καφέ αλεπού πήδηξε πάνω από το μεσημέρι. Το πουλί πετά σε φασολιών δύση του ηλίου."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "ਤੁਰੰਤ ਭੂਰਾ Fox ਆਲਸੀ ਕੁੱਤੇ ਨੂੰ ਵੱਧ ਗਈ. ਬੀਨ ਪੰਛੀ ਸੂਰਜ ਡੁੱਬਣ 'ਤੇ ਉਡਾਣ ਭਰਦੀ ਹੈ."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "速い茶色のキツネは、怠け者の犬を飛び越えた。豆の鳥は日没で飛ぶ。"},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "那只敏捷的棕色狐狸跃过那只懒狗。豆鸟飞日落。"},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "빠른 갈색 여우가 게으른 개를 뛰어 넘었다.콩 조류 일몰에 파리."}
+				]},
+				{tag: "br"},
+
+				{kind: "moon.Divider", content: "RTL Languages:"},
+				{name: "marqueeContainer1", mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקיעה."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "قفز الثعلب البني السريع فوق الكلب الكسول. الطيور تطير في الفول عند غروب الشمس."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز."}
+				]}
 			]}
 		]}
 	],

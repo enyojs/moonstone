@@ -14,11 +14,16 @@ enyo.kind({
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
 	spotlight: true,
+	centered: true,
     classes: "moon-gridlist-item moon-gridlist-imageitem",
 	componentOverrides: {
 		caption: { kind:"moon.MarqueeText" },
 		subCaption: { kind:"moon.MarqueeText" }
 	},
+	bindings: [
+		{from: ".allowHtml", to: ".$.caption.allowHtml"},
+		{from: ".allowHtml", to: ".$.subCaption.allowHtml"}
+	],
 	handlers: {
 		onSpotlightFocus: "focused"
 	},

@@ -34,7 +34,7 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.ChannelInfoBadge",
 	components: [
-		{kind: "enyo.Control", name: "channelNo", classes: "moon-header-font moon-video-player-channel-info-no"},
+		{kind: "moon.MarqueeText", name: "channelNo", classes: "moon-header-font moon-video-player-channel-info-no"},
 		{kind: "moon.MarqueeText", name: "channelName", classes: "moon-video-player-channel-info-name"},
 		{kind: "enyo.Control", name: "client", classes: "moon-video-player-channel-info-badges"}
 	],

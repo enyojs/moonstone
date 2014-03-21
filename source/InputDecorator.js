@@ -34,16 +34,16 @@ enyo.kind({
 	spotlightDecorate : false,
 
 	handlers : {
-		onDisabledChange  : 'onDisabledChange',
-		onfocus           : 'onFocus',
-		onblur            : 'onBlur',
-		onSpotlightFocus  : 'onSpotlightFocus',
-		onSpotlightSelect : 'onSpotlightSelect',
-		onSpotlightBlur   : 'onSpotlightBlur',
-		onSpotlightLeft   : 'onSpotlightLeft',
-		onSpotlightRight  : 'onSpotlightRight',
-		onSpotlightUp     : 'onSpotlightUp',
-		onSpotlightDown   : 'onSpotlightDown'
+		onDisabledChange  : 'disabledChangeHandler',
+		onfocus           : 'focusHandler',
+		onblur            : 'blurHandler',
+		onSpotlightFocus  : 'spotlightFocusHandler',
+		onSpotlightSelect : 'spotlightSelectHandler',
+		onSpotlightBlur   : 'spotlightBlurHandler',
+		onSpotlightLeft   : 'spotlightLeftHandler',
+		onSpotlightRight  : 'spotlightRightHandler',
+		onSpotlightUp     : 'spotlightUpHandler',
+		onSpotlightDown   : 'spotlightDownHandler'
 	},
 
 	//* @protected
@@ -113,7 +113,7 @@ enyo.kind({
 	//* @protected
 	// Event handlers:
 	/**************************************************/
-	onFocus: function(oSender, oEvent) {
+	focusHandler: function(oSender, oEvent) {
 		if (enyo.Spotlight.getCurrent() != this) {
 			// Force a spot here, even when we're in pointer mode,
 			// to ensure that clicks inside us (e.g. to position
@@ -124,42 +124,39 @@ enyo.kind({
 		this.updateFocus(true);
 	},
 
-	onBlur: function() {
+	blurHandler: function() {
 		enyo.Spotlight.unfreeze();
 		this.updateFocus(false);
 	},
 
-	onDisabledChange: function(oSender, oEvent) {
+	disabledChangeHandler: function(oSender, oEvent) {
 		this.addRemoveClass('moon-disabled', oEvent.originator.disabled);
 	},
 
 	// Spotlight Event handlers:
 	/**************************************************/
 
-	onSpotlightFocus: function() {
+	spotlightFocusHandler: function() {
 		this.bubble("onRequestScrollIntoView");
 	},
 
-	onSpotlightSelect: function(oSender, oEvent) {
+	spotlightSelectHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput) {
 			if (oInput.hasFocus() && oEvent) {
-				// We're already focused, so let the
-				// input get the Enter key event.
-				oEvent.allowDomDefault();
 				return true;
 			} else {
 				oInput.focus();
-				return false;
 			}
+			return false;
 		}
 	},
 
-	onSpotlightBlur: function(oSender, oEvent) {
+	spotlightBlurHandler: function(oSender, oEvent) {
 		this.blur();
 	},
 
-	onSpotlightLeft: function(oSender, oEvent) {
+	spotlightLeftHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.left) {
 			if (oInput.left()) {
@@ -172,20 +169,20 @@ enyo.kind({
 		}
 	},
 
-	onSpotlightRight: function(oSender, oEvent) {
+	spotlightRightHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.right) {
 			if (oInput.right()) {
 				oEvent.allowDomDefault();       // Allow keydown to bubble
 				return true;                    // Prevent onSpotlightRight to bubble
 			} else {
-				this.onBlur();
+				this.blur();
 				oInput.blur();
 			}
 		}
 	},
 
-	onSpotlightUp: function(oSender, oEvent) {
+	spotlightUpHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.up) {
 			if (oInput.up()) {
@@ -198,7 +195,7 @@ enyo.kind({
 		}
 	},
 
-	onSpotlightDown: function(oSender, oEvent) {
+	spotlightDownHandler: function(oSender, oEvent) {
 		var oInput = this.getInputControl();
 		if (oInput && oInput.hasFocus() && oInput.down) {
 			if (oInput.down()) {

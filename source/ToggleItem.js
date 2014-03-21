@@ -10,6 +10,6 @@ enyo.kind({
 	checkboxOnRight: true,
 	componentOverrides: {
 		client: {classes: "moon-toggle-item-label-wrapper"},
-		input: {kind: "moon.ToggleText", spotlight: false}
+		input: {kind: "moon.ToggleSwitch", spotlight: false}
 	}
 });

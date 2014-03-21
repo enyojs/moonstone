@@ -1,3 +1,18 @@
+## 2.4.0-pre.1
+
+moon.Header: Facade dismissOnEnter to input
+
+moon.Image: Facade new sizing and position properties to enyo.Image in chrome
+
+moon.Panels: Add popOnBack property, to automatically pop panels when user moves back
+
+moon.Panels: Call transitionFinished on panel instances only when transition actually completed,
+giving app developers a hook to perform post-transition work in a panel.
+
+In LESS files: Rename @moon-pink to @moon-accent
+
+
+
 ## 2.3.0-rc.4
 
 Added an API to specify the horizontal and vertical positioning of the overlay icon in
