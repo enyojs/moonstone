@@ -121,8 +121,8 @@ enyo.kind({
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
 			nPanel;
-
-		for (nPanel in oPanels) {
+		
+		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 			oPanels[nPanel].render();
 		}
 

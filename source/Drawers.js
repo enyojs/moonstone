@@ -79,15 +79,17 @@ enyo.kind({
 		this.waterfall("onDrawersRendered", {drawersHeight: dh});
 	},
 	setupHandles: function() {
-		var handles = [];
-		for (var index in this.drawers){
-			handles.push(this.drawers[index].handle);
-		}
+		var handles = []
+			, controls, index;
+
+		// cover the case where one is not defined
+		for (index = 0; index < this.drawers.length; ++index) handles.push(this.drawers[index].handle || {});
 		this.$.handles.createComponents(handles, {kind: "moon.DrawerHandle", owner:this});
-		for (index in handles) {
-			this.$.handles.getControls()[index].addClass('moon-drawers-handle');
-			this.$.handles.getControls()[index].tap = this.bindSafely(this.handleTapped);
-		}
+		controls = this.$.handles.getControls();
+		enyo.forEach(handles, function (handle, idx) {
+			controls[idx].addClass('moon-drawers-handle');
+			controls[idx].tap = this.bindSafely(this.handleTapped);
+		}, this);
 	},
 	activatorHandler: function(){
 		if (this.drawerOpen()) {
@@ -121,7 +123,7 @@ enyo.kind({
 	},
 	openDrawer: function(drawer) {
 		var handles = this.$.handles.getControls();
-		for (var index in handles)
+		for (var index = 0; index < handles.length; ++index)
 		{
 			if (handles[index] == drawer || enyo.Spotlight.Util.isChild(handles[index],drawer)) {
 				drawer = this.$.drawers.getControls()[index];
@@ -134,7 +136,7 @@ enyo.kind({
 	},
 	drawerOpen: function() {
 		var drawers = this.$.drawers.getControls();
-		for (var index in drawers){
+		for (var index = 0; index < drawers.length; ++index){
 			if (drawers[index].getOpen() || drawers[index].getControlsOpen()) {
 				return true;
 			}
@@ -143,7 +145,7 @@ enyo.kind({
 	},
 	closeDrawers: function() {
 		var drawers = this.$.drawers.getControls();
-		for (var index in drawers){
+		for (var index = 0; index < drawers.length; ++index){
 			var drawer = drawers[index];
 			if (drawer.getOpen() || drawer.getControlsOpen()) {
 				enyo.dispatcher.release(drawer);
