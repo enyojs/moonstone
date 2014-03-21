@@ -336,6 +336,11 @@ enyo.kind({
 			if (this.getIndex() > 0) {
 				this.previous();
 				return true;
+			} 
+			// If there is LEFT key input during panels move from index 1 to index 0
+			else if (this.toIndex === 0) {
+				this.queuedIndex = -1;
+				return true;
 			}
 			// If leaving to the left and we are at the first panel, hide panels
 			else if (this.toIndex === null && this.showing && (this.useHandle === true) && this.handleShowing) {
@@ -572,8 +577,11 @@ enyo.kind({
 		this.inherited(arguments);
 
 		this.transitionInProgress = false;
-
-		if (this.queuedIndex !== null) {
+		// queueIndex is '-1' means that there is LEFT key input during transition
+		// and current index is '0'
+		if (this.queuedIndex === -1) {
+			this.hide();
+		} else if (this.queuedIndex !== null) {	
 			this.setIndex(this.queuedIndex);
 		}
 	},
