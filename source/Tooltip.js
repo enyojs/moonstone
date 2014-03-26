@@ -54,7 +54,11 @@ enyo.kind({
 		this.contentChanged();
 	},
 	contentChanged: function() {
-		this.$.client.setContent( enyo.toUpperCase(this.content) );
+		var content = this.getContent();
+		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+	},
+	contentUpperCaseChanged: function() {
+		this.contentChanged();
 	},
 	requestShow: function() {
 		this.startJob("showJob", "show", this.showDelay);

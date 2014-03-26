@@ -87,11 +87,15 @@ enyo.kind({
 	},
 	//* Override to handle potential child components.
 	contentChanged: function() {
+		var content = this.getContent();
 		if (this.$.client) {
-			this.$.client.setContent( enyo.toUpperCase(this.getContent()) );
+			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
 		} else {
 			this.inherited(arguments);
 		}
+	},
+	contentUpperCaseChanged: function() {
+		this.contentChanged();
 	},
 	minWidthChanged: function() {
 		if (this.minWidth) {
