@@ -55,7 +55,8 @@ enyo.kind({
 		this.setActive(this.value);
 	},
 	contentChanged: function() {
-		this.content = enyo.toUpperCase(this.content);
+		this._orgContent = this.getContent();
+		this.content = (this.contentUpperCase) ? enyo.toUpperCase(this._orgContent) : this._orgContent;
 		this.updateContent();
 	},
 	activeChanged: function() {
@@ -90,7 +91,7 @@ enyo.kind({
 	updateContent: function() {
 		this._postfix = (this.value) ? this.onContent : this.offContent;
 		if (this.$.client) {
-			this.$.client.setContent((this.content || "") + (this.labelSeparator || " ") + (this._postfix || ""));
+			this.$.client.setContent((this.content || "") + (this.labelSeparator || " ") + (enyo.toUpperCase(this._postfix) || ""));
 		}
 	}
 });
