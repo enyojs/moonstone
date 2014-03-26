@@ -89,15 +89,14 @@ enyo.kind({
 	},
 	//* Override to handle potential child components.
 	contentChanged: function() {
-		this._orgContent = this.getContent();
+		var content = this.getContent();
 		if (this.$.client) {
-			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(this._orgContent) : this._orgContent );
+			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
 		} else {
 			this.inherited(arguments);
 		}
 	},
 	contentUpperCaseChanged: function() {
-		this.content = this._orgContent;
 		this.contentChanged();
 	},
 	minWidthChanged: function() {

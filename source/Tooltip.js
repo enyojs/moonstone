@@ -56,11 +56,10 @@ enyo.kind({
 		this.contentChanged();
 	},
 	contentChanged: function() {
-		this._orgContent = this.getContent();
-		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(this._orgContent) : this._orgContent );
+		var content = this.getContent();
+		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
 	},
 	contentUpperCaseChanged: function() {
-		this.content = this._orgContent;
 		this.contentChanged();
 	},
 	requestShow: function() {
