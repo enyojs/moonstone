@@ -33,8 +33,8 @@ enyo.kind({
 		placeholder: "",
 		//* The value of the input
 		value: "",
-		//* When true, the entered text will be displayed as uppercase
-		inputUpperCase: false
+		//* When true, the title text will be converted to locale-safe uppercasing
+		titleUpperCase: true
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
@@ -110,7 +110,6 @@ enyo.kind({
 		this.backgroundSrcChanged();
 		this.backgroundPositionChanged();
 		this.inputModeChanged();
-		this.inputUpperCaseChanged();
 		this.placeholderChanged();
 		this.fullBleedBackgroundChanged();
 	},
@@ -323,7 +322,7 @@ enyo.kind({
 	},
 	//* @protected
 	contentChanged: function() {
-		this.$.title.setContent(this.title || this.content);
+		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
 		this.placeholderChanged();
 	},
 	//* @protected
@@ -334,7 +333,11 @@ enyo.kind({
 	},
 	placeholderChanged: function() {
 		// For backward-compatibility with original API
-		this.$.titleInput.set("placeholder", this.placeholder || this.title || this.content);
+		this.$.titleInput.set("placeholder", this.getTitleUpperCase() ? enyo.toUpperCase(this.placeholder || this.title || this.content) : (this.placeholder || this.title || this.content) );
+	},
+	//* @protected
+	titleUpperCaseChanged: function() {
+		this.titleChanged();
 	},
 	//* @protected
 	titleAboveChanged: function() {
@@ -380,8 +383,5 @@ enyo.kind({
 	//* Create custom event for _change_ events
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
-	},
-	inputUpperCaseChanged: function() {
-		this.$.titleInput.addRemoveClass("uppercase", this.inputUpperCase);
 	}
 });
