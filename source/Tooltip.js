@@ -34,7 +34,9 @@ enyo.kind({
 		//* "above", "below", or "auto".
 		position: "auto",
 		//* Default _margin-left_ value
-		defaultLeft: 10
+		defaultLeft: 10,
+		//* When true, the content will be converted to locale-safe uppercasing
+		contentUpperCase: true
 	},
 	//* @protected
 	captureEvents: false,

@@ -14,7 +14,9 @@ enyo.kind({
 		//* The subtitle string for the dialog
 		subTitle: "",
 		//* The message for the dialog
-		message: ""
+		message: "",
+		//* When true, the title text will be converted to locale-safe uppercasing
+		titleUpperCase: true
 	},
 	//* @protected
 	tools: [

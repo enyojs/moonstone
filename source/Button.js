@@ -27,7 +27,9 @@ enyo.kind({
 			false, the min-width should be the current @moon-button-height (forcing it
 			to be no smaller than a circle).
 		*/
-		minWidth: true
+		minWidth: true,
+		//* When true, the content will be converted to locale-safe uppercasing
+		contentUpperCase: true
 	},
 	//* @protected
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
