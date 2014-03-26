@@ -89,8 +89,7 @@ enyo.kind({
 	updateContent: function() {
 		var content = this.getContent();
 		content = this.contentUpperCase ? enyo.toUpperCase(content) : content;
-		var postfix = (this.value) ? this.onContent : this.offContent;
-		postfix = this.contentUpperCase ? enyo.toUpperCase(postfix) : postfix;
+		var postfix = enyo.toUpperCase(this.value ? this.onContent : this.offContent);
 		if (this.$.client) {
 			this.$.client.setContent((content || "") + (this.labelSeparator || " ") + (postfix || ""));
 		}
