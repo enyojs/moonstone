@@ -67,7 +67,7 @@ enyo.kind({
 				sup.apply(this, arguments);
 				this.updateMetrics(list);
 				list.refresh();
-				list.$.scroller.scrollTo(0, 0, false);
+				list.$.scroller.scrollTo(0, 0);
 			};
 		}),
 		updateBounds: enyo.inherit(function (sup) {
