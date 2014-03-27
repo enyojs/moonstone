@@ -2547,6 +2547,9 @@
 .moon-button.contextual-popup-button:active {
   background-image: url(../images/contextual-arrow.png);
 }
+.moon-button.contextual-popup-button[disabled] {
+  background-image: url(../images/DarkTheme_Icons/contextual-arrow-deactivated.png);
+}
 .enyo-locale-right-to-left .moon-button.contextual-popup-button {
   background-image: url(../images/contextual-arrow-rtl.png);
   background-position: left center;
@@ -2562,6 +2565,9 @@
 .enyo-locale-right-to-left .moon-button.contextual-popup-button.pressed,
 .enyo-locale-right-to-left .moon-button.contextual-popup-button:active {
   background-image: url(../images/contextual-arrow-rtl.png);
+}
+.enyo-locale-right-to-left .moon-button.contextual-popup-button[disabled] {
+  background-image: url(../images/DarkTheme_Icons/contextual-arrow-deactivated-rtl.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {

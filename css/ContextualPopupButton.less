@@ -1,19 +1,19 @@
 /*ContextualPopupButton.css*/
-.moon-button.contextual-popup-button {
+.moon-button.contextual-popup-button{
 	background-image: @moon-contextual-arrow;
 	background-repeat: no-repeat;
 	background-position: right center;
 	padding-right: @moon-contextual-arrow-padding;
-
 	&.spotlight {
 		background-image: @moon-contextual-arrow-spotlight;
 	}
-
 	&.pressed,
 	&:active {
 		background-image: @moon-contextual-arrow;
 	}
-
+	&[disabled] {
+	background-image: @moon-contextual-arrow-deactivated;
+	}
 }
 
 .enyo-locale-right-to-left {	
@@ -22,18 +22,18 @@
 		background-position: left center;
 		padding-right: @moon-button-h-padding;
 		padding-left: @moon-contextual-arrow-padding;
-
 		&.small {
 			padding-right: @moon-button-small-h-padding;
 		}
-
 		&.spotlight {
 			background-image: @moon-contextual-arrow-spotlight-rtl;
 		}
-
 		&.pressed,
 		&:active {
 			background-image: @moon-contextual-arrow-rtl;
 		}
+		&[disabled] {
+      background-image: @moon-contextual-arrow-deactivated-rtl;
+    }
 	}
 }
