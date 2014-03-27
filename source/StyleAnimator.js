@@ -82,6 +82,8 @@ enyo.kind({
 		this.cacheStartValues(animation.startValues);
 
 		enyo.asyncMethod(this.bindSafely(function() { this._play(inName); }));
+
+		animation.durationCheckerJob = setTimeout(this.bindSafely(function() { this._durationChecker(inName); }), animation.duration);
 	},
 	//* @public
 	//* Jumps directly to the end state of a given animation (without animating).
@@ -353,6 +355,24 @@ enyo.kind({
 			clearInterval(this.stepInterval);
 			this.stepInterval = null;
 		}
+	},
+	_durationChecker: function(inName) {
+		var animation = this.getAnimation(inName);
+
+		animation.durationCheckerJob = undefined;
+
+		if (animation.state === "paused") {
+			return;
+		}
+
+		if (animation.percentElapsed != 100) {
+			this.applyTransitions(animation.name, 100);
+		}
+		animation.percentElapsed = 100;
+		this.doStep({animation: animation});
+		this.completeAnimation(animation.name);
+
+		return;
 	},
 	//* @protected
 	//* Steps through each playing animation.
