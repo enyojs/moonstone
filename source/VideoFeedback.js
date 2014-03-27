@@ -137,7 +137,7 @@ enyo.kind({
 		}
 
 		// Set content as _inMessage_
-		this.$.feedText.setContent( enyo.toUpperCase(inMessage) );
+		this.$.feedText.setContent(inMessage);
 
 		// Show output controls
 		this.showFeedback();

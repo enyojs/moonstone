@@ -36,9 +36,7 @@ enyo.kind({
 		//* VideoInfoHeader text below subtitle
 		subSubTitle: "",
 		//* Main content of the VideoInfoHeader
-		description: "",
-		//* When true, the title text will be converted to locale-safe uppercasing
-		titleUpperCase: true
+		description: ""
 	},
 	//* @protected
 	components: [
@@ -51,18 +49,9 @@ enyo.kind({
 		]}
 	],
 	bindings: [
+		{from: ".title",		to: ".$.title.content"},
 		{from: ".subTitle",		to: ".$.subTitle.content"},
 		{from: ".subSubTitle",	to: ".$.subSubTitle.content"},
 		{from: ".description",	to: ".$.description.content"}
-	],
-	create: function() {
-		this.inherited(arguments);
-		this.titleChanged();
-	},
-	titleChanged: function() {
-		this.$.title.set("content", this.get("titleUpperCase") ? enyo.toUpperCase(this.get("title")) : this.get("title") );
-	},
-	titleUpperCaseChanged: function() {
-		this.titleChanged();
-	}
+	]
 });

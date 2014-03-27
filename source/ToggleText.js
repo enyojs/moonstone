@@ -16,26 +16,16 @@ enyo.kind({
 		offContent: moon.$L("off")  // i18n "OFF" label in moon.ToggleText widget
 	},
 	//* @protected
-	casedOnContent: "",
-	casedOffContent: "",
 	classes: "moon-toggle-text",
 	components: [
 		{name: "label", classes: "moon-toggle-text-text"}
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.onContentChanged();
-		this.offContentChanged();
 		this.checkedChanged();
-	},
-	onContentChanged: function() {
-		this.casedOnContent = enyo.toUpperCase( this.getOnContent() );
-	},
-	offContentChanged: function() {
-		this.casedOffContent = enyo.toUpperCase( this.getOffContent() );
 	},
 	checkedChanged: function() {
 		this.inherited(arguments);
-		this.$.label.set("content", this.getChecked() ? this.casedOnContent : this.casedOffContent);
+		this.$.label.setContent(this.getChecked() ? this.onContent : this.offContent);
 	}
 });

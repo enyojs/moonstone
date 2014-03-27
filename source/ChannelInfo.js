@@ -29,9 +29,7 @@ enyo.kind({
 		//* The channel number
 		channelNo: "",
 		//* The name of the channel
-		channelName: "",
-		//* When true, the channelNo will be converted to locale-safe uppercase
-		channelNoUpperCase: true
+		channelName: ""
 	},
 	//* @protected
 	defaultKind: "moon.ChannelInfoBadge",
@@ -41,19 +39,9 @@ enyo.kind({
 		{kind: "enyo.Control", name: "client", classes: "moon-video-player-channel-info-badges"}
 	],
 	bindings: [
-		{from: ".channelName", to: ".$.channelName.content"}
-	],
-	create: function() {
-		this.inherited(arguments);
-		this.channelNoChanged();
-	},
-	channelNoChanged: function() {
-		var channelNo = this.getChannelNo();
-		this.$.channelNo.setContent(this.getChannelNoUpperCase() ? enyo.toUpperCase(channelNo) : channelNo);
-	},
-	channelNoUpperCaseChanged: function() {
-		this.channelNoChanged();
-	}
+		{from: ".channelNo",		to: ".$.channelNo.content"},
+		{from: ".channelName",		to: ".$.channelName.content"}
+	]
 });
 
 //* @public

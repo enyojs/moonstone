@@ -27,9 +27,7 @@ enyo.kind({
 			false, the min-width should be the current @moon-button-height (forcing it
 			to be no smaller than a circle).
 		*/
-		minWidth: true,
-		//* When true, the content will be converted to locale-safe uppercasing
-		contentUpperCase: true
+		minWidth: true
 	},
 	//* @protected
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
@@ -89,15 +87,11 @@ enyo.kind({
 	},
 	//* Override to handle potential child components.
 	contentChanged: function() {
-		var content = this.getContent();
 		if (this.$.client) {
-			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+			this.$.client.setContent(this.getContent());
 		} else {
 			this.inherited(arguments);
 		}
-	},
-	contentUpperCaseChanged: function() {
-		this.contentChanged();
 	},
 	minWidthChanged: function() {
 		if (this.minWidth) {

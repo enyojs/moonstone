@@ -87,11 +87,9 @@ enyo.kind({
 		this.updateValue(!this.value);
 	},
 	updateContent: function() {
-		var content = this.getContent();
-		content = this.contentUpperCase ? enyo.toUpperCase(content) : content;
-		var postfix = enyo.toUpperCase(this.value ? this.onContent : this.offContent);
+		this._postfix = (this.value) ? this.onContent : this.offContent;
 		if (this.$.client) {
-			this.$.client.setContent((content || "") + (this.labelSeparator || " ") + (postfix || ""));
+			this.$.client.setContent((this.content || "") + (this.labelSeparator || " ") + (this._postfix || ""));
 		}
 	}
 });
