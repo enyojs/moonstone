@@ -26,7 +26,7 @@ enyo.kind({
 						{kind: "moon.HighlightText", content:"Text to highlight", highlight:"highlight", highlightClasses:"highlight-text-sample-fancy"}
 					]}
 				]}
-			]},
+			]}/*,
 			{name: "inputPanel", kind: "moon.Panel", headerOptions: {kind: "moon.InputHeader"}, classes:"moon-6h", joinToPrev: true, oninput: "search", components: [
 				{kind: "moon.DataList", fit: true, name:"list", components: [
 					{kind: "moon.Item", bindings: [
@@ -36,9 +36,9 @@ enyo.kind({
 						{kind: "moon.HighlightText", name:"text"}
 					]}
 				]}
-			], title:"SEARCH", titleBelow: "Filtered items in DataList", subTitleBelow: "Case sensitive"}
+			], title:"SEARCH", titleBelow: "Filtered items in DataList", subTitleBelow: "Case sensitive"}*/
 		]}
-	],
+	]/*,
 	bindings: [
 		{from: ".controller", to: ".$.list.controller"},
 		{from: ".$.inputPanel.$.header.value", to: ".controller.text"}
@@ -172,5 +172,5 @@ enyo.kind({
 		{ text: "amet ipsum in", isFolder: true },
 		{ text: "minim et pariatur", isFolder: false },
 		{ text: "ea officia nisi", isFolder: false }
-	]
+	]*/
 });
