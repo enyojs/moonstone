@@ -2,7 +2,7 @@
 	"sourcePath":"../../..",
 	"name": "Moonstone",
 	"ns": "moon.sample",
-	"loadPackages": "$lib/moonstone $lib/moonstone/source/wip-package.js $lib/moonstone/samples $lib/spotlight",
+	"loadPackages": "$lib/moonstone $lib/moonstone/source/wip-package.js $lib/moonstone/samples $lib/spotlight $lib/spotlight/sampler-initialize",
 	"samples": [
 		{"name": "Accordion", "path":"$lib/moonstone/samples/AccordionSample", "css":"sample"},
 		{"name": "Buttons", "samples": [
@@ -61,7 +61,8 @@
 			{"name": "Always Viewing Pattern", "path":"$lib/moonstone/samples/AlwaysViewingPanelsSample"},
 			{"name": "Activity Pattern", "path":"$lib/moonstone/samples/ActivityPanelsSample"},
 			{"name": "Card Arranger", "path":"$lib/moonstone/samples/PanelsWithCardArrangerSample"},
-			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"}
+			{"name": "Carousel Arranger", "path":"$lib/moonstone/samples/PanelsWithCarouselArrangerSample"},
+			{"name": "Dynamic Panels Push/Pop", "path":"$lib/moonstone/samples/DynamicPanelsSample"}
 		]},
 		{"name": "Pickers", "samples": [
 			{"name": "Expandable Picker", "path":"$lib/moonstone/samples/ExpandablePickerSample"},

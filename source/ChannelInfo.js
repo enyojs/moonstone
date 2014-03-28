@@ -21,6 +21,9 @@ enyo.kind({
 	kind: "enyo.Control",
 	//* @protected
 	classes: "moon-channelinfo",
+	mixins: ["moon.MarqueeSupport"],
+	marqueeOnSpotlight: false,
+	marqueeOnHover: true,
 	//* @public
 	published: {
 		//* The channel number
@@ -31,8 +34,8 @@ enyo.kind({
 	//* @protected
 	defaultKind: "moon.ChannelInfoBadge",
 	components: [
-		{kind: "enyo.Control", name: "channelNo", classes: "moon-header-font moon-video-player-channel-info-no"},
-		{kind: "enyo.Control", name: "channelName", classes: "moon-video-player-channel-info-name"},
+		{kind: "moon.MarqueeText", name: "channelNo", classes: "moon-header-font moon-video-player-channel-info-no"},
+		{kind: "moon.MarqueeText", name: "channelName", classes: "moon-video-player-channel-info-name"},
 		{kind: "enyo.Control", name: "client", classes: "moon-video-player-channel-info-badges"}
 	],
 	bindings: [

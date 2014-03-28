@@ -9,7 +9,7 @@ enyo.kind({
 			onSetupItem: "setupItem",
 			toggleSelected: true,
 			itemWidth: 200,
-			itemHeight: 200,
+			itemHeight: 300,
 			itemSpacing: 50,
 			components: [
 				{name: "item", kind: "moon.GridListImageItem"}
@@ -18,7 +18,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.$.gridlist.show(50);
+		this.$.gridlist.show(1000);
 	},
 	setupItem: function(inSender, inEvent) {
 		var i = inEvent.index;

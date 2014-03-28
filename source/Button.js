@@ -1,11 +1,10 @@
 /**
-	_moon.Button_ is an <a href="#enyo.Button">enyo.Button</a> with Moonstone
-	styling applied. The color of the button may be customized by specifying a
-	background color.
+	_moon.Button_ is an [enyo.Button](#enyo.Button) with Moonstone styling
+	applied. The color of the button may be customized by specifying a background
+	color.
 
 	For more information, see the documentation on
-	<a href='https://github.com/enyojs/enyo/wiki/Buttons'>Buttons</a> in the
-	Enyo Developer Guide.
+	[Buttons](building-apps/controls/buttons.html) in the Enyo Developer Guide.
 */
 
 enyo.kind({

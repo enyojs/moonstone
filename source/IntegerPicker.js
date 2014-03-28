@@ -25,7 +25,9 @@ enyo.kind({
 		max: 9,
 		//* If a number is specified, the picker value is displayed as this many
 		//* zero-filled digits
-		digits: null
+		digits: null,
+		//* When true, incrementing past max will wrap to min, and vice versa
+		wrap: false
 	},
 	//* @protected
 	handlers: {
@@ -33,7 +35,8 @@ enyo.kind({
 		onSpotlightDown:"previous",
 		onSpotlightBlur:"spotlightBlur",
 		onSpotlightScrollUp:"next",
-		onSpotlightScrollDown:"previous"
+		onSpotlightScrollDown:"previous",
+		onmousewheel:"mousewheel"
 	},
 	//* @public
 	events: {
@@ -52,7 +55,7 @@ enyo.kind({
 	//* Cache scroll bounds so we don't have to run _stop()_ every time we need them
 	scrollBounds: {},
 	components: [
-		{name:"topOverlay", ondown:"next", onholdpulse:"next", classes:"moon-scroll-picker-overlay-container top top-image", components:[
+		{name:"topOverlay", ondown:"downNext", onholdpulse:"next", classes:"moon-scroll-picker-overlay-container top top-image", components:[
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
@@ -61,7 +64,7 @@ enyo.kind({
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
 		]},
-		{name:"bottomOverlay", ondown:"previous", onholdpulse:"previous", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
+		{name:"bottomOverlay", ondown:"downPrevious", onholdpulse:"previous", classes:"moon-scroll-picker-overlay-container bottom bottom-image", components:[
 			{classes:"moon-scroll-picker-overlay bottom"},
 			{classes: "moon-scroll-picker-taparea"}
 		]}
@@ -93,12 +96,15 @@ enyo.kind({
 		this.$.repeater.setCount(this.max-this.min+1);
 		this.$.repeater.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch
-		enyo.asyncMethod(enyo.bind(this,function(){
+		enyo.asyncMethod(this.bindSafely(function(){
 			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
 		}));
 	},
 	valueChanged: function(inOld) {
-		this.animateToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		var node = this.$.repeater.fetchRowNode(this.value - this.min);
+		if (node) {
+			this.$.scroller.scrollTo(node.offsetLeft, node.offsetTop);
+		}
 		this.updateOverlays();
 	},
 	//prevent scroller dragging
@@ -113,33 +119,46 @@ enyo.kind({
 	},
 	previous: function(inSender, inEvent) {
 		if (this.value > this.min) {
-			this.stopJob("hideTopOverlay");
-			this.animateToNode(this.$.repeater.fetchRowNode(--this.value - this.min));
-			this.$.bottomOverlay.addClass("selected");
-			if (inEvent.originator != this.$.upArrow) {
-				this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
-			}
-			this.fireChangeEvent();
+			this.setValue(this.value - 1);
+		} else if (this.wrap) {
+			this.setValue(this.max);
+		} else {
+			return;
 		}
-		this.updateOverlays();
+		this.stopJob("hideTopOverlay");
+		this.$.bottomOverlay.addClass("selected");
+		if (inEvent.originator != this.$.upArrow) {
+			this.startJob("hideBottomOverlay", "hideBottomOverlay", 350);
+		}
+		this.fireChangeEvent();
 		return true;
 	},
 	next: function(inSender, inEvent) {
 		if (this.value < this.max) {
-			this.stopJob("hideBottomOverlay");
-			this.animateToNode(this.$.repeater.fetchRowNode(++this.value - this.min));
-			this.$.topOverlay.addClass("selected");
-			if (inEvent.originator != this.$.downArrow) {
-				this.startJob("hideTopOverlay", "hideTopOverlay", 350);
-			}
-			this.fireChangeEvent();
+			this.setValue(this.value + 1);
+		} else if (this.wrap) {
+			this.setValue(this.min);
+		} else {
+			return;
 		}
-		this.updateOverlays();
+		this.$.topOverlay.addClass("selected");
+		if (inEvent.originator != this.$.downArrow) {
+			this.startJob("hideTopOverlay", "hideTopOverlay", 350);
+		}
+		this.fireChangeEvent();
 		return true;
 	},
+	downPrevious: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		this.previous(inSender, inEvent);
+	},
+	downNext: function(inSender, inEvent) {
+		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		this.next(inSender, inEvent);
+	},
 	updateOverlays: function() {
-		this.$.bottomOverlay.addRemoveClass("bottom-image", (this.value !== this.min));
-		this.$.topOverlay.addRemoveClass("top-image", (this.value !== this.max));
+		this.$.bottomOverlay.addRemoveClass("bottom-image", this.wrap || (this.value !== this.min));
+		this.$.topOverlay.addRemoveClass("top-image", this.wrap || (this.value !== this.max));
 	},
 	hideTopOverlay: function() {
 		this.$.topOverlay.removeClass("selected");
@@ -165,46 +184,8 @@ enyo.kind({
 		this.hideBottomOverlay();
 	},
 	//* Cache scroll bounds in _this.scrollBounds_ so we don't have to call stop() to retrieve them later
-	// NOTE - this is a copy of what's in Scroller, we will likely later integrate this functionality (including animateToNode) into enyo.Scroller & remove from here
 	updateScrollBounds: function() {
 		this.scrollBounds = this.$.scroller.getStrategy()._getScrollBounds();
-	},
-	//* Scrolls to a given node in the list.
-	animateToNode: function(inNode) {
-		if(!inNode) {
-			return;
-		}
-
-		var sb = this.scrollBounds,
-			st = this.$.scroller.getStrategy(),
-			b = {
-				height: inNode.offsetHeight,
-				width: inNode.offsetWidth,
-				top: 0,
-				left: 0
-			},
-			n = inNode;
-
-		if(!st.scrollNode) {
-			return;
-		}
-
-		while (n && n.parentNode && n.id != st.scrollNode.id) {
-			b.top += n.offsetTop;
-			b.left += n.offsetLeft;
-			n = n.parentNode;
-		}
-
-		var xDir = b.left - sb.left > 0 ? 1 : b.left - sb.left < 0 ? -1 : 0;
-		var yDir = b.top - sb.top > 0 ? 1 : b.top - sb.top < 0 ? -1 : 0;
-
-		var y = (yDir === 0) ? sb.top  : Math.min(sb.maxTop, b.top);
-		var x = (xDir === 0) ? sb.left : Math.min(sb.maxLeft, b.left);
-
-		// If x or y changed, scroll to new position
-		if (x !== this.$.scroller.getScrollLeft() || y !== this.$.scroller.getScrollTop()) {
-			this.$.scroller.scrollTo(x,y);
-		}
 	},
 	//* Silently scrolls to the _inValue_ y-position without animating
 	setScrollTop: function(inValue) {
@@ -213,6 +194,11 @@ enyo.kind({
 	//* Ensures scroll position is in bounds.
 	stabilize: function() {
 		this.$.scroller.stabilize();
+	},
+	mousewheel: function(inSender, inEvent) {
+		// Make sure scrollers that container integer pickers don't scroll
+		inEvent.preventDefault();
+		return true;
 	}
 });
 

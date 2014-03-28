@@ -20,6 +20,10 @@ enyo.kind({
 		rangeStart: 0,
 		//** Ending point of slider
 		rangeEnd: 100,
+		//** The percentage of where the slider begins (between 0 and 1)
+		beginPosition: 0.0625,
+		//** The percentage of where the slider ends (between 0 and 1)
+		endPosition: 0.9375,
 		//** This flag controls the slider draw
 		syncTick: true,
 		//** This flag determines whether we show the dummy area
@@ -73,11 +77,11 @@ enyo.kind({
 	},
 	//* @protected
 	tickComponents: [
-		{classes: "moon-video-transport-slider-indicator-wrapper start", components: [
+		{name: "startWrapper", classes: "moon-video-transport-slider-indicator-wrapper start", components: [
 			{name: "beginTickBar", classes: "moon-video-transport-slider-indicator-bar-left"},
 			{name: "beginTickText", classes: "moon-video-transport-slider-indicator-text", content: "00:00"}
 		]},
-		{classes: "moon-video-transport-slider-indicator-wrapper end", components: [
+		{name: "endWrapper", classes: "moon-video-transport-slider-indicator-wrapper end", components: [
 			{name: "endTickBar", classes: "moon-video-transport-slider-indicator-bar-right"},
 			{name: "endTickText", classes: "moon-video-transport-slider-indicator-text", content: "00:00"}
 		]}
@@ -103,9 +107,25 @@ enyo.kind({
 		this.showTickBarChanged();
 
 		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 			this.$.beginTickText.setContent(this.formatTime(0));
+
+			var loc = new ilib.Locale(),
+				language = loc.getLanguage(),
+				// Hash of languages and the additional % widths they'll need to not run off the edge.
+				langWidths = {
+					ja: 0.05,
+					pt: 0.05
+				};
+
+			if (langWidths[language]) {
+				this.set("beginPosition", this.get("beginPosition") + langWidths[language] );
+				this.set("endPosition", this.get("endPosition") - langWidths[language] );
+			}
 		}
+
+		this.beginPositionChanged();
+		this.endPositionChanged();
 	},
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
@@ -153,8 +173,8 @@ enyo.kind({
 		this.updateSliderRange();
 	},
 	updateSliderRange: function() {
-		this.beginTickPos = (this.max-this.min)*0.0625;
-		this.endTickPos = (this.max-this.min)*0.9375;
+		this.beginTickPos = (this.max-this.min) * this.get("beginPosition");
+		this.endTickPos = (this.max-this.min) * this.get("endPosition");
 
 		if(this.showDummyArea) {
 			this.setRangeStart(this.beginTickPos);
@@ -180,6 +200,16 @@ enyo.kind({
 	setRangeEnd: function(inValue) {
 		this.rangeEnd = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeEndChanged();
+	},
+	beginPositionChanged: function() {
+		// Set the width of the wrapper to twice the amount of it's position from the start.
+		this.$.startWrapper.applyStyle("width", (this.get("beginPosition") * 200) + "%");
+		this.updateSliderRange();
+	},
+	endPositionChanged: function() {
+		// Set the width of the wrapper to twice the amount of it's position from the end.
+		this.$.endWrapper.applyStyle("width", ((this.get("endPosition") - 1) * -200) + "%");
+		this.updateSliderRange();
 	},
 	showTickTextChanged: function() {
 		this.$.beginTickText.setShowing(this.getShowTickText());
@@ -231,7 +261,8 @@ enyo.kind({
 		this._updateKnobPosition(inValue);
 	},
 	_updateKnobPosition: function(inValue) {
-		var p = this._calcPercent(inValue);
+		var p = this.clampValue(this.min, this.max, inValue);
+		p = this._calcPercent(p);
 		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);
@@ -321,7 +352,7 @@ enyo.kind({
 			if (this.lockBar) {
 				this.setProgress(this.elasticFrom);
 				this.sendChangingEvent({value: this.elasticFrom});
-				this.throttleJob("updateCanvas", this.bindSafely(function() { this.sendSeekEvent(this.elasticFrom); }), 100);
+				this.sendSeekEvent(this.elasticFrom);
 			}
 			return true;
 		}
@@ -364,8 +395,8 @@ enyo.kind({
 		and duration.
 	*/
 	timeUpdate: function(inSender, inEvent) {
-		if (!this.dragging && this.isInPreview()) { return; }
 		this._currentTime = inSender._currentTime;
+		if (!this.dragging && this.isInPreview()) { return; }
 		this._duration = inSender._duration;
 		this.currentTime = this._currentTime;
 		this.duration = this._duration;
@@ -376,7 +407,7 @@ enyo.kind({
 	formatTime: function(inValue) {
 		var hour = Math.floor(inValue / (60*60));
 		var min = Math.floor((inValue / 60) % 60);
-		var sec = Math.round(inValue % 60);
+		var sec = Math.floor(inValue % 60);
 		if (this.durfmt) {
 			var val = {minute: min, second: sec};
 			if (hour) {

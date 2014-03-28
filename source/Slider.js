@@ -115,6 +115,7 @@ enyo.kind({
 	animatingTo: null,
 	popupLeftCanvasWidth: 26, // Popup left canvas width in pixel
 	popupRightCanvasWidth: 26, // Popup right canvas width in pixel
+	selected: false,
 
 	//* @public
 
@@ -255,6 +256,16 @@ enyo.kind({
 			}
 		}
 	},
+	minChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
+	},
+	maxChanged: function (preValue, inValue) {
+		this.initValue();
+		this.progressChanged();
+		this.bgProgressChanged();
+	},
 	_setValue: function(inValue) {
 		var v = this.clampValue(this.min, this.max, inValue);
 
@@ -289,18 +300,23 @@ enyo.kind({
 		this.$.popupLabel.setContent(label);
 	},
 	calcPopupLabel: function(inKnobValue) {
-		var label = (typeof ilib !== "undefined") ? this._nf.format(Math.round(inKnobValue)) : Math.round(inKnobValue);
-
 		if (this.showPercentage) {
-			label += "%";
+			if (typeof ilib !== "undefined") {
+				inKnobValue = this._nf.format(Math.round(inKnobValue));
+			} else {
+				inKnobValue = Math.round(inKnobValue) + "%";
+			}
 		}
-
-		return label;
+		return inKnobValue;
 	},
 	calcKnobPosition: function(inEvent) {
-		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
+		var x;
+		if (this.rtl) { 
+			x = this.hasNode().getBoundingClientRect().right - inEvent.clientX;
+		} else {
+			x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
+		}
 		var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
-		if (this.rtl) { pos = this.max - pos; }
 		return pos;
 	},
 	dragstart: function(inSender, inEvent) {
@@ -398,14 +414,12 @@ enyo.kind({
 		}
 	},
 	spotSelect: function() {
-		var sh = this.$.popup.getShowing();
-		this.$.knob.addRemoveClass("spotselect", !sh);
+		this.selected = !this.selected;
 		if (!this.noPopup) {
-			this.$.popup.setShowing(!sh);
+			this.$.popup.setShowing(this.selected);
 			this.updateKnobPosition(this.getValue());
 		}
-		this.selected = !sh;
-
+		this.$.knob.addRemoveClass("spotselect", this.selected);
 		return true;
 	},
 	spotBlur: function() {

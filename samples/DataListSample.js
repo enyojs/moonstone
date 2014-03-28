@@ -14,7 +14,8 @@ enyo.kind({
 					{name: "debugging", kind: "moon.ExpandablePicker", selectedIndex: 0, content: "Page Debugging", components: [
 						{value: false, content: "off"},
 						{value: true, content: "on"}
-					], style: "vertical-align: top;"}
+					], style: "vertical-align: top;"},
+					{kind: "moon.Button", content: "Hide", ontap: "toggleShowing"}
 				]}
 			]}
 		], components: [
@@ -32,21 +33,30 @@ enyo.kind({
 		{from: ".side", to: ".$.repeater.side"}
 	],
 	generateRecords: function (amount) {
-		var records = this.$.collection.records,
-			add     = [],
-			on;
-		for (var i=records.length, len=(i+amount); i<len; ++i) {
+		var records = this.$.collection.records
+			, add = []
+			, i = records.length
+			, len = (i + (!isNaN(amount)? amount: 0));
+		
+		for (; i<len; ++i) {
 			add.push({
-				on: (on = Boolean(Math.floor(Math.random()*100) % 2 === 0)),
-				disabled: on && Boolean(Math.floor(Math.random()*100) % 2 === 0),
-				caption: "Item " + i,
+				on: false,
+				disabled: Boolean(i % 10 === 0),
+				caption: "Caption " + i,
 				label: "Label " + i
 			});
 		}
+		
 		return add;
 	},
 	scrollToIndex: function (sender, event) {
+		this.$.drawers.closeDrawers();
 		this.$.repeater.scrollToIndex(sender.getValue());
+	},
+	toggleShowing: function (sender) {
+		var showing = ! this.$.repeater.getShowing();
+		this.$.repeater.setShowing(showing);
+		sender.set("content", (showing? "Hide": "Show"));
 	},
 	repeaterDebuggingChanged: function () {
 		if (this.$.repeater) {
@@ -80,8 +90,8 @@ enyo.kind({
 		}
 	},
 	repeaterDefaults: {name: "repeater", kind: "moon.DataList", components: [
-		{classes: "enyo-border-box", style: "overflow: hidden; min-width: 230px; padding: 10px; margin: 10px;", components: [
-			{name: "caption", controlClasses: "moon-2h", kind: "moon.CaptionDecorator", components: [
+		{classes: "enyo-border-box", components: [
+			{name: "caption", kind: "moon.CaptionDecorator", components: [
 				{name: "button", kind: "moon.ToggleButton"}
 			]}
 		], bindings: [
@@ -89,7 +99,7 @@ enyo.kind({
 			{from: ".repeater.side", to: ".$.caption.side"},
 			{from: ".model.label", to: ".$.button.content"},
 			{from: ".model.disabled", to: ".$.button.disabled"},
-			{from: ".model.on", to: ".$.button.value"}
+			{from: ".model.on", to: ".$.button.value", oneWay: false}
 		]}
 	]}
 });

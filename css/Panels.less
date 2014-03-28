@@ -9,21 +9,13 @@
 	overflow: visible;
 	-webkit-transform: translate3d(0, 0, 0);
 	pointer-events: none;
-}
-.moon-panels.activity .moon-panel,
-.moon-panels.always-viewing .moon-panel {
-	height: auto;
-	margin: 0;
-}
-.moon-panels.activity .moon-panels-client {
-	/* The difference between the keepout and the outset is the space we have to block off */
-	left: (@moon-app-keepout - @moon-spotlight-outset);
-	right: (@moon-app-keepout - @moon-spotlight-outset);
-	width: auto;
-}
-.moon-panels.activity *,
-.moon-panels.always-viewing * {
-	pointer-events: auto;
+	* {
+		pointer-events: auto;		
+	}
+	.moon-panel {
+		height: auto;
+		margin: 0;
+	}
 }
 
 /* Scrim */
@@ -61,13 +53,20 @@
 }
 
 /* Show/Hide Handle */
-.moon-panels-handle {
-    position: absolute;
-    height: 100%;
-    left: auto;
-	right: -120px;
-    width: 130px;
+.moon-panels-handle-wrapper {
+	position: absolute;
+	height: 100%;
+	left: auto;
+	right: -130px;
+	width: 130px;
 	z-index: 100;
+}
+
+.moon-panels-handle {
+	position: absolute;
+	left: -10px;
+	height: 100%;
+	width: 100%;
     background-repeat: no-repeat;
 	background-position: center;
     background-color: @moon-panels-spot-bg-color;
@@ -76,7 +75,8 @@
 	transition: -webkit-transform 0.2s linear, opacity 0.2s linear;
 	opacity: 1;
 }
-.moon-panels-handle.spotlight {
+
+.moon-panels-handle-wrapper.spotlight .moon-panels-handle {
 	background-color: @moon-panels-spot-fg-color;
 	-webkit-transform: translate3d(-120px, 0, 0);
 }
@@ -85,7 +85,7 @@
 	background-image: @moon-panels-caret-white-right-icon;
 }
 
-.moon-panels-handle.hidden {
+.moon-panels-handle-wrapper.hidden {
 	display: none;
 }
 .moon-panels-handle.stashed {

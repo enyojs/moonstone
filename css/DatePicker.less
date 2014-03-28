@@ -3,6 +3,7 @@
 	min-width:100px;
 	text-align: center;
 	margin:10px 0;
+	vertical-align: top;
 }
 
 .moon-date-picker-wrap.year {
@@ -20,3 +21,9 @@
 	opacity: 1;
 	filter: alpha(opacity=100);
 }
+
+/* Time/date pickers should always be arranged left-to-right according to the order of the formatter */
+.moon-date-picker-client {
+	direction: ltr;	
+}
+

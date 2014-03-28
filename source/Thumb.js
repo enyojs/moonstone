@@ -14,6 +14,7 @@ enyo.kind({
 	},
 	//* @protected
 	classes: "moon-thumb matrix3dsurface",
+	minSize: 20,
 
 	create: function() {
 		this.inherited(arguments);

@@ -2,7 +2,7 @@
 	-webkit-transform: scale3d(1,1,1);
 	overflow: hidden;
 	padding: 0;
-	margin: 20px 10px;
+	padding: 20px 10px;
 	height: 100%;
 	&.enyo-fit {
 		height: auto;
@@ -74,7 +74,7 @@
 }
 
 .moon-panel .moon-panel-mini-header-wrapper.spotlight {
-	background: @moon-pink;
+	background: @moon-accent;
 	color: @moon-white;
 	.moon-panel-mini-header-title-above {
 		border-top: 2px solid transparent;
@@ -82,7 +82,10 @@
 }
 
 /* Activity Panels Overrides */
-.moon-panels.activity  {
+.moon-panels.activity {
+	.moon-panel {
+		padding: 0;
+	}
 	.moon-panel-mini-header-title-above {
 		border-top: 2px solid @moon-header-border-color;
 	}
@@ -99,7 +102,10 @@
 }
 
 /* AlwaysViewing Overrides */
-.moon-panels.always-viewing  {
+.moon-panels.always-viewing {
+	.moon-panel {
+		padding: 0;
+	}
 	.moon-panel-mini-header,
 	.moon-panel-mini-header-title-above {
 		color: @moon-white;

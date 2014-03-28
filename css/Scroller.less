@@ -27,6 +27,10 @@
 .moon-scroller-client-wrapper.v-scroll-enabled {
 	padding-right:  @moon-icon-button-small-size + @moon-spotlight-outset;
 }
+.enyo-locale-right-to-left .moon-scroller-client-wrapper.v-scroll-enabled {
+	padding-right: 0;
+	padding-left:  @moon-icon-button-small-size + @moon-spotlight-outset;
+}
 .moon-scroller-client-wrapper.h-scroll-enabled {
 	padding-bottom:  @moon-icon-button-small-size;
 }
@@ -68,6 +72,10 @@
 	right: @moon-spotlight-outset;
 	width:  @moon-icon-button-small-size;
 }
+.enyo-locale-right-to-left .moon-scroller-v-column {
+	right: auto;
+	left: @moon-spotlight-outset;
+}
 /* Default position for horizontal scrollbar */
 .moon-scroller-h-column {
 	left: 0px;
@@ -82,6 +90,11 @@
 /* Shorten horizontal column when vertical column is enabled */
 .moon-scroller-h-column.v-scroll-enabled {
 	right:  @moon-icon-button-small-size;
+}
+
+.enyo-locale-right-to-left .moon-scroller-h-column.v-scroll-enabled {
+	right: 0;
+	left: @moon-icon-button-small-size;
 }
 
 .moon-scroller-thumb-container {

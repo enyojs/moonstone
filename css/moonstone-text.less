@@ -1,15 +1,15 @@
+/* Text definitions */
+
 .moon-header-font {
 	font-family: @moon-alt-font-family;
 	text-transform: uppercase;
 }
-
 .moon-superscript {
 	font-size: @moon-superscript-text-size;
 	vertical-align: top;
 	margin: 0px 0px 0px 2px;
 	padding: 0px;
 }
-
 .moon-pre-text {
 	font-size: @moon-pre-text-size;
 	vertical-align: top;
@@ -18,7 +18,6 @@
 	margin: 12px 2px 8px 0px;
 	padding: 0px;
 }
-
 .moon-large-text {
 	font-size: @moon-large-text-size;
 	vertical-align: top;
@@ -33,6 +32,7 @@
 	font-style: @moon-header-font-style;
 	letter-spacing: @moon-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-sub-header-text {
 	font-family: @moon-sub-header-font-family;
@@ -48,6 +48,7 @@
 	font-weight: @moon-super-header-font-weight;
 	font-style: @moon-super-header-font-style;
 	letter-spacing: @moon-super-header-letter-spacing;
+	-webkit-font-kerning: normal;
 }
 .moon-popup-header-text {
 	font-family: @moon-popup-header-font-family;
@@ -56,6 +57,7 @@
 	font-style: @moon-popup-header-font-style;
 	letter-spacing: @moon-popup-header-letter-spacing;
 	text-transform: uppercase;
+	-webkit-font-kerning: normal;
 }
 .moon-divider-text {
 	font-family: @moon-divider-font-family;
@@ -73,6 +75,23 @@
 	letter-spacing: @moon-body-letter-spacing;
 	color: @moon-body-text-color;
 	line-height: @moon-body-line-height;
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
+}
+.moon-bold-text {
+	font-family: @moon-font-family-bold;
+	font-size: @moon-body-font-size;
+	font-weight: @moon-body-font-weight;
+	font-style: @moon-body-font-style;
+	letter-spacing: @moon-body-letter-spacing;
+	color: @moon-body-text-color;
+	line-height: @moon-body-line-height;
+	a:link {color: @moon-spotlight-color; text-decoration:none;}
+	a:visited {color: @moon-spotlight-color; text-decoration:none;}
+	a:hover {color: @moon-spotlight-color; text-decoration:none;}
+	a:active {color: @moon-spotlight-color; text-decoration:none;}
 }
 .moon-body-text-spacing {
 	margin: 0 @moon-spotlight-outset @moon-grid-row-height @moon-spotlight-outset;
@@ -102,6 +121,7 @@
 }
 
 .enyo-locale-non-latin {
+	/* All/Medium weighted classes */
 	.moon,
 	.moon input,
 	.moon textarea,
@@ -116,9 +136,25 @@
 	.moon-super-header-text,
 	.moon-divider-text,
 	.moon-body-text,
+	.moon-bold-text,
 	.moon-large-button-text,
 	.moon-small-button-text {
 		font-family: @moon-non-latin-font-family;
+	}
+
+	/* Light weighted classes */
+	.moon-body-text,
+	.moon-superscript,
+	.moon-pre-text {
+		font-family: @moon-non-latin-font-family-light;
+	}
+	/* Bold weighted classes */
+	.moon-sub-header-text,
+	.moon-divider-text,
+	.moon-bold-text,
+	.moon-large-button-text,
+	.moon-small-button-text {
+		font-family: @moon-non-latin-font-family-bold;
 	}
 
 	.moon {
@@ -135,6 +171,7 @@
 	}
 	.moon-header-text {
 		font-size: @moon-non-latin-header-font-size;
+		line-height: @moon-non-latin-header-text-line-height;
 	}
 	.moon-popup-header-text {
 		font-size: @moon-non-latin-popup-header-font-size;
@@ -147,17 +184,22 @@
 	}
 	.moon-divider-text {
 		font-size: @moon-non-latin-divider-font-size;
-		/* LG display italic is cut off on the right on TV so change it to normal */
-		font-style:normal; 
+		font-style: normal;
 	}
 	.moon-body-text {
 		font-size: @moon-non-latin-body-font-size;
 		line-height: @moon-non-latin-body-line-height;
 	}
+	.moon-bold-text {
+		font-size: @moon-non-latin-body-font-size;
+		line-height: @moon-non-latin-body-line-height;
+	}
 	.moon-large-button-text {
 		font-size: @moon-non-latin-button-large-font-size;
+		font-weight: normal;
 	}
 	.moon-small-button-text {
 		font-size: @moon-non-latin-button-small-font-size;
+		font-weight: normal;
 	}
 }

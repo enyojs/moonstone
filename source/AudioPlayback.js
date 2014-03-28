@@ -34,15 +34,20 @@ enyo.kind({
 	queueList: null,
 	//* @public
 	published: {
-		repeat: false
+		repeat: false,
+		/**
+			When false, audio player doesn't response to remote controller
+		*/
+		handleRemoteControlKey: true
 	},
 	//* @protected
 	audioComponents: [
 		{name: "audio", kind: "enyo.Audio", onEnded: "audioEnd"},
-		{kind: "FittableColumns", noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
+		{kind: "enyo.Signals", onkeyup:"remoteKeyHandler"},
+		{kind: "FittableColumns", rtl: false, noStretch:true, classes: "moon-audio-playback-controls", spotlight: "container", components: [
 			{name: "trackIcon", classes: "moon-audio-playback-track-icon"},
 			{classes: "moon-audio-play-controls", fit: true, components: [
-				{kind: "FittableColumns", classes: "moon-audio-top", components: [
+				{kind: "FittableColumns", rtl: false, classes: "moon-audio-top", components: [
 					{classes: "moon-audio-track-info", components: [
 						{name: "trackName", content: "Track Name", classes: "moon-audio-playback-track"},
 						{name: "artistName", content: "Artist Name", classes: "moon-audio-playback-artist"}
@@ -55,10 +60,10 @@ enyo.kind({
 						{kind: "moon.IconButton", classes: "moon-audio-icon-button right", src: "../assets/icon-album.png", ontap: "toggleTrackDrawer"}
 					]}
 				]},
-				{kind: "FittableColumns", classes: "", components: [
+				{kind: "FittableColumns", rtl: false, classes: "", components: [
 					{name: "timePlayed", classes: "moon-audio-play-time left", content: "0:00"},
 					{classes: "moon-audio-slider-container enyo-inline", fit: true, components: [
-						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
+						{kind: "moon.Slider", name: "slider", classes: "moon-audio-slider", rtl: false, noPopup: true, lockBar: true, onChanging: "sliderChanging", onAnimateFinish: "sliderChanging"}
 					]},
 					{name: "timeRemaining", classes: "moon-audio-play-time right", content: "0:00"}
 				]}
@@ -183,6 +188,30 @@ enyo.kind({
 		this.audioTracks[this.audioTracks.length] = a;
 		this.updateTrackCount();
 		this.waterfall("onAddAudio", {tracks: this.audioTracks});
+	},
+	remoteKeyHandler: function(inSender, inEvent) {
+		if (this.handleRemoteControlKey) {
+			switch (inEvent.keySymbol) {
+			case 'play':
+				this.play();
+				break;
+			case 'pause':
+				this.pause();
+				break;
+			case 'rewind':
+				this.playPrevious();
+				break;
+			case 'fastforward':
+				this.playNext();
+				break;
+			case 'stop':
+				this.pause();
+				this.$.audio.seekTo(0);
+				this.updatePlayhead();
+				break;
+			}
+		}
+		return true;
 	}
 });
 

@@ -8,15 +8,12 @@
 	cursor: pointer;
 	background: transparent;
 	box-shadow: none;
-	/* need >=50px for scrollbar to be usable on mac */
-	min-height: 50px;
 	height: 3 * @moon-body-line-height;
-	min-width: 100px;
+	width: 300px;
 	color: @moon-input-textarea-color;
 }
 .enyo-locale-non-latin .moon-textarea {
 	.enyo-locale-non-latin .moon-body-text;
-	max-width:300px;
 }
 .moon-textarea-decorator > .moon-textarea {
 	/* Remove scrollbars and resize handle */
@@ -31,16 +28,16 @@
 .moon-textarea-decorator.moon-disabled .moon-textarea {
 	cursor: default;
 }
-textarea::-webkit-scrollbar {
+.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar {
   width: 4px;
 }
-textarea::-webkit-scrollbar-track-piece {
+.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-track-piece {
   margin-top: 4px;
   margin-bottom: 0px;
   background-color: @moon-input-decorator-bg-color;
   -webkit-border-radius: 10px;
 }
-textarea::-webkit-scrollbar-thumb:vertical {
+.moon-textarea-decorator .moon-textarea:focus::-webkit-scrollbar-thumb:vertical {
   height: 10px;
   background-color: @moon-active-border-color;
   -webkit-border-radius: 10px;

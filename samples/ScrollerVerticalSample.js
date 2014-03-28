@@ -2,7 +2,7 @@ enyo.kind({
 	name: 'moon.sample.ScrollerVerticalSample',
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "moon.Panel", smallHeader:true, title:"Vertical Scroller", headerComponents: [
+		{kind: "moon.Panel", classes:"enyo-fit", smallHeader:true, title:"Vertical Scroller", headerComponents: [
 			{content:"Spacing: "},
 			{kind: "moon.SimplePicker", name:"spacingPicker", classes:"moon-4h", onChange:"spacingChanged", components: [
 				{content:"default", spacingClass:""},
@@ -75,14 +75,17 @@ enyo.kind({
 					{kind: "moon.Item", content: "Item 2"},
 					{kind: "moon.Item", content: "Item 3"},
 					{kind: "moon.Item", content: "Item 4"},
+					{kind: "moon.ExpandableText", content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
 					{kind: "moon.Item", content: "Item 5"},
 					{kind: "moon.Item", content: "Item 6"},
 					{kind: "moon.Item", content: "Item 7"},
 					{kind: "moon.Item", content: "Item 8"},
+					{kind: "moon.ExpandableText", content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
 					{kind: "moon.Item", content: "Item 9"},
 					{kind: "moon.Item", content: "Item 10"},
 					{kind: "moon.Item", content: "Item 11"},
 					{kind: "moon.Item", content: "Item 12"},
+					{kind: "moon.ExpandableText", content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."},
 					{kind: "moon.Item", content: "Item 13"},
 					{kind: "moon.Item", content: "Item 14"},
 					{kind: "moon.Item", content: "Item 15"},

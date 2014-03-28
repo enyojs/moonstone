@@ -28,7 +28,7 @@ enyo.kind({
 		//* Fires when this control expands or collapses.
 		onExpandCollapse: ""
 	},
-	
+
 	//*@protected
 	components:[
 		{name: "client", classes: "moon-body-text moon-expandable-text-content"},
@@ -56,14 +56,14 @@ enyo.kind({
 	reflow: function() {
 		this.calcContentHeight();
 	},
-	//* Toggles value of _this.collapsed_ when _this.$.button_ is tapped. 
+	//* Toggles value of _this.collapsed_ when _this.$.button_ is tapped.
 	expandContract: function() {
 		this.set("collapsed", !this.collapsed);
 	},
 	//* Facades _this.$.client.content_.
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
-		
+
 		if (this.hasNode()) {
 			this.reflow();
 		}
@@ -80,7 +80,7 @@ enyo.kind({
 	lineHeightChanged: function() {
 		this.calcMaxHeight();
 	},
-	//* Recalculates _this.maxHeight_ when _this.maxLines_ changes. 
+	//* Recalculates _this.maxHeight_ when _this.maxLines_ changes.
 	maxLinesChanged: function() {
 		this.calcMaxHeight();
 	},
@@ -95,8 +95,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			this.doExpandCollapse({collapsed: this.collapsed});
 		}
+		this.bubble("onRequestScrollIntoView", {scrollInPointerMode: true});
 	},
-	//* Updates _this.canCollapse_ when _this.maxHeight_ changes. 
+	//* Updates _this.canCollapse_ when _this.maxHeight_ changes.
 	maxHeightChanged: function() {
 		this.calcCanCollapse();
 		this.addRemoveLineClamp(this.collapsed);
@@ -105,7 +106,7 @@ enyo.kind({
 	contentHeightChanged: function() {
 		this.calcCanCollapse();
 	},
-	//* Updates _this.$.button.showing_ when _this.canCollapse_ changes. 
+	//* Updates _this.$.button.showing_ when _this.canCollapse_ changes.
 	canCollapseChanged: function() {
 		this.$.button.setShowing(this.canCollapse);
 	},
@@ -153,11 +154,21 @@ enyo.kind({
 		//* Boolean value that causes content/class changes
 		collapsed: true
 	},
+	handlers: {
+		//* _onSpotlightFocus_ bubble _requestScrollIntoView_ event
+		onSpotlightFocused	: "spotFocused"
+	},
 	classes: "moon-item moon-expandable-text-button",
 	spotlight: true,
 	create: function() {
 		this.inherited(arguments);
 		this.updateContent();
+	},
+	//* Bubble _requestScrollIntoView_ event
+	spotFocused: function(inSender, inEvent) {
+		if (inEvent.originator === this) {
+			this.bubble("onRequestScrollIntoView");
+		}
 	},
 	moreContentChanged: function() {
 		this.updateContent();

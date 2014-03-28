@@ -10,8 +10,7 @@
 	controls to be scrolled into view via the _onRequestScrollIntoView_ event.
 
 	For more information, see the documentation on
-	[Scrollers](https://github.com/enyojs/enyo/wiki/Scrollers) in the Enyo Developer
-	Guide.
+	[Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
 */
 enyo.kind({
 	name:      "moon.Scroller",
@@ -62,9 +61,23 @@ enyo.kind({
 			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
 			Increase this value to increase the distance scrolled by holding the pagination buttons.
 		*/
-		paginationScrollMultiplier: 8
+		paginationScrollMultiplier: 8,
+		/** 
+			When true, the scroll wheel moves spotlight focus up/down through the scroller when in 5-way mode
+			(in pointer mode, scroll wheel always scrolls the viewport without modifying focus position).
+			When false, the scroll wheel works the same in 5-way mode and pointer mode, where the wheel moves
+			the position of the scroller viewport.
+		*/
+		scrollWheelMovesFocus: true
 	},
 	//* @protected
+	handlers: {
+		onSpotlightScrollUp:"spotlightWheel",
+		onSpotlightScrollDown:"spotlightWheel",
+		onSpotlightContainerEnter: "spotlightHello",
+		onSpotlightFocus: "spotlightHello",
+		onSpotlightContainerLeave: "spotlightGoodbye"
+	},
 	//* If true, scroll events are not allowed to propagate
 	preventScrollPropagation: false,
 	//* Default to moon.ScrollStrategy
@@ -72,12 +85,21 @@ enyo.kind({
 	/**
 		Scrolls until _inControl_ is in view. If _inScrollFullPage_ is set, scrolls
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
-		area.
+		area. Optional third parameter to indicate whether or not it should animate
+		the scroll. Defaults to animation unless it is set to false.
 	*/
-	scrollToControl: function(inControl, inScrollFullPage) {
-		this.$.strategy.animateToControl(inControl, inScrollFullPage);
+	scrollToControl: function(inControl, inScrollFullPage, animate) {
+		this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
 	},
 
+	/**
+		Accepts third optional paramater to indicate whether or not it should
+		animate the scroll. Defaults to animation unless it is set to false.
+	*/
+	scrollTo: function (x, y, animate) {
+		this.$.strategy.scrollTo(x, y, animate);	
+	},
+		
 	//* @protected
 	bindings: [
 		{from: ".scrollInterval",				to:".$.strategy.interval"},
@@ -89,11 +111,55 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.spotlightPagingControlsChanged();
+		this.scrollWheelMovesFocusChanged();
 	},
 	spotlightPagingControlsChanged: function() {
-		// Since spotlightPagingControls is used when there are no focusable
-		// children, turn off container handling in that case.
-		this.spotlight = this.spotlightPagingControls ? false : "container";
 		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
+	},
+	scrollWheelMovesFocusChanged: function() {
+		if (!this.scrollWheelMovesFocus) {
+			this.setUseMouseWheel(true);
+		}
+	},
+	spotlightWheel: function(inSender, inEvent) {
+		if (this.scrollWheelMovesFocus) {
+			if (!enyo.Spotlight.getPointerMode()) {
+				var curr = enyo.Spotlight.getCurrent();
+				if (curr && curr.isDescendantOf(this)) {
+					var dir = inEvent.type == "onSpotlightScrollUp" ? "onSpotlightUp" : "onSpotlightDown";
+					this._spotlightModal = this.spotlightModal;
+					this.spotlightModal = true;	// Trap focus inside scroller while wheeling
+					enyo.Spotlight.Util.dispatchEvent(dir, {type: dir}, curr);
+					this.spotlightModal = this._spotlightModal;
+					return true;
+				}
+			}
+		}
+	},
+	// When scroller is entered or one of its children is focused
+	// in 5-way mode, make sure that we're showing the scroll columns
+	spotlightHello: function(inSender, inEvent) {
+		if (this.$.strategy.showHideScrollColumns) {
+			this.$.strategy.showHideScrollColumns(true);
+		}
+	},
+	// When 5-way focus leaves scroller, hide the scroll columns
+	spotlightGoodbye: function(inSender, inEvent) {
+		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns) {
+			this.$.strategy.showHideScrollColumns(false);
+		}
+	},
+	previewDomEvent: function(inEvent) {
+		if (this.scrollWheelMovesFocus) {
+			if (inEvent.type == "mousewheel") {
+				this.setUseMouseWheel(enyo.Spotlight.getPointerMode());
+			}
+		}
 	}
 });
+
+// On touch platforms, revert to using Enyo scroller, which picks an appropriate
+// scroll strategy for the given platform
+if (enyo.platform.touch) {
+	moon.Scroller = enyo.Scroller;
+}
