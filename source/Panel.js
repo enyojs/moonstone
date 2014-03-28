@@ -81,7 +81,6 @@ enyo.kind({
 		{from: ".titleAbove", to: ".$.breadcrumbTitleAbove.content"},
 		{from: ".titleBelow", to: ".$.header.titleBelow"},
 		{from: ".subTitleBelow", to: ".$.header.subTitleBelow"},
-		{from: ".smallHeader", to: ".$.header.small"},
 		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
@@ -101,6 +100,7 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
+		this.smallHeaderChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -161,6 +161,12 @@ enyo.kind({
 			} else {
 				this.expandHeader();
 			}
+		}
+	},
+	smallHeaderChanged: function() {
+		this.$.header.setSmall(this.smallHeader);
+		if (this.generated) {
+			this.$.contentWrapper.resized();
 		}
 	},
 	collapseHeader: function() {

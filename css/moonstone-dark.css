@@ -2003,9 +2003,6 @@
 /* Small Header */
 .moon-header.moon-small-header {
   height: 240px;
-  transition: height 0.2s linear;
-  -webkit-transition: height 0.2s linear;
-  -moz-transition: height 0.2s linear;
 }
 .moon-small-header .moon-header-title-above {
   height: 0;
