@@ -1793,9 +1793,6 @@
   border-top: 2px solid #a6a6a6;
   border-bottom: 6px solid #a6a6a6;
   position: relative;
-  transition: height 0.2s linear;
-  -webkit-transition: height 0.2s linear;
-  -moz-transition: height 0.2s linear;
   max-width: 100%;
   padding: 0 0 10px 0px;
   background-color: transparent;
