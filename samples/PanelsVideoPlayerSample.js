@@ -70,30 +70,13 @@ enyo.kind({
 							{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
 						]
 					}]
-				},
-				{classes: "moon-3h", components: [
-					{kind: "moon.Item", style: "position:absolute; right:0px;", content: "Capture", ontap: "capture"}
-				]}
-			]},
-			{kind: "moon.Panel", title: "Capture to Canvas", components: [
-				{kind: "moon.Scroller", fit: true, components: [
-					{tag: "canvas", name: "capture", spotlight: true}
-				]}
+				}
 			]}
 		]}
 	],
 	bindings: [
 		{from:".$.autoplayToggle.value", to:".$.player.autoplay"}
 	],
-	capture: function(inSender, inEvent) {
-		try {
-			this.updateCanvas();
-		} catch (e) {
-			enyo.warn(e);
-		}
-		this.$.panels.setIndex(2);
-		return true;
-	},
 	unload: function() {
 		this.$.player.unload();
 	},
@@ -132,14 +115,5 @@ enyo.kind({
 		this.src = "http://foo.bar";
 		this.$.player.setSrc(this.src);
 		this.$.videoInfoHeader.setTitle("Error video");
-	},
-	updateCanvas: function() {
-		var drawingNode = this.$.capture.hasNode();
-		var videoNode = this.$.player.getVideo().hasNode();
-		var ctx = drawingNode.getContext("2d");
-		var vdb = videoNode.getBoundingClientRect();
-		this.$.capture.applyStyle("width", vdb.width+"px");
-		this.$.capture.applyStyle("height", vdb.height+"px");
-		ctx.drawImage(videoNode, 0, 0, 300, 150);
 	}
 });
