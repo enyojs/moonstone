@@ -359,7 +359,7 @@ enyo.kind({
 	_durationChecker: function(inName) {
 		var animation = this.getAnimation(inName);
 
-		animation.durationCheckerJob = undefined;
+		animation.durationCheckerJob = null;
 
 		if (animation.state === "paused") {
 			return;
