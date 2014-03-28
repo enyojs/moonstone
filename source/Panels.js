@@ -160,7 +160,7 @@ enyo.kind({
 	getPanelIndex: function(oControl) {
 		var oPanel = null;
 
-		while (oControl.parent) {
+		while (oControl && oControl.parent) {
 			// Parent of a panel can be a client or a panels.
 			if (oControl.parent === this.$.client || oControl.parent === this) {
 				oPanel = oControl;
@@ -598,7 +598,7 @@ enyo.kind({
 			return true;
 		}
 	},
-	showingChanged: function() {
+	showingChanged: function(inOldValue) {
 		if (this.$.backgroundScrim) {
 			this.$.backgroundScrim.addRemoveClass("visible", this.showing);
 		}
@@ -612,6 +612,7 @@ enyo.kind({
 				this.resetHandleAutoHide();
 				this._hide();
 			}
+			this.sendShowingChangedEvent(inOldValue);
 		}
 		else {
 			this.inherited(arguments);

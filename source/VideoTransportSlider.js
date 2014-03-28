@@ -107,14 +107,20 @@ enyo.kind({
 		this.showTickBarChanged();
 
 		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 			this.$.beginTickText.setContent(this.formatTime(0));
 
 			var loc = new ilib.Locale(),
-				language = loc.getLanguage();
-			if (language === 'ja') {
-				this.set("beginPosition", this.get("beginPosition") + 0.05 );
-				this.set("endPosition", this.get("endPosition") - 0.05 );
+				language = loc.getLanguage(),
+				// Hash of languages and the additional % widths they'll need to not run off the edge.
+				langWidths = {
+					ja: 0.05,
+					pt: 0.05
+				};
+
+			if (langWidths[language]) {
+				this.set("beginPosition", this.get("beginPosition") + langWidths[language] );
+				this.set("endPosition", this.get("endPosition") - langWidths[language] );
 			}
 		}
 
@@ -255,7 +261,8 @@ enyo.kind({
 		this._updateKnobPosition(inValue);
 	},
 	_updateKnobPosition: function(inValue) {
-		var p = this._calcPercent(inValue);
+		var p = this.clampValue(this.min, this.max, inValue);
+		p = this._calcPercent(p);
 		var slider = this.inverseToSlider(p);
 		this.$.knob.applyStyle("left", slider + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", slider > 50);

@@ -51,18 +51,18 @@ enyo.kind({
 			]}
 		]},
 		{name: "vColumn", classes: "moon-scroller-v-column", components: [
-			{name: "pageUpControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageDownControl", side: "top", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
+			{name: "pageUpControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageDownControl", defaultSpotlightDown: "pageDownControl", side: "top", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
 			{name: "vthumbContainer", classes: "moon-scroller-thumb-container moon-scroller-vthumb-container", components: [
 				{name: "vthumb", kind: "moon.ScrollThumb", classes: "moon-scroller-vthumb hidden", axis: "v"}
 			]},
-			{name: "pageDownControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageUpControl", side: "bottom", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
+			{name: "pageDownControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageUpControl", defaultSpotlightUp: "pageUpControl", side: "bottom", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
 		{name: "hColumn", classes: "moon-scroller-h-column", components: [
-			{name: "pageLeftControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageRightControl", side: "left", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
+			{name: "pageLeftControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageRightControl", defaultSpotlightRight: "pageRightControl", side: "left", onPaginateScroll: "paginateScroll", onPaginate: "paginate"},
 			{name: "hthumbContainer", classes: "moon-scroller-thumb-container moon-scroller-hthumb-container", components: [
 				{name: "hthumb", kind: "moon.ScrollThumb", classes: "moon-scroller-hthumb hidden", axis: "h"}
 			]},
-			{name: "pageRightControl", kind: "moon.PagingControl", defaultSpotlightDisappear:"pageLeftControl", side: "right", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
+			{name: "pageRightControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageLeftControl", defaultSpotlightLeft: "pageLeftControl", side: "right", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
 	],
@@ -403,24 +403,26 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
+		var showVertical, showHorizontal,
+			bubble = false;
 		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
-			if (this.showVertical() || this.showHorizontal()) {
+			showVertical = this.showVertical();
+			showHorizontal = this.showHorizontal();
+			if (showVertical || showHorizontal) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
-				if (this.$.scrollMath.bottomBoundary) {
+				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 					this.alertThumbs();
 				}				
-				this.scrollBounds = null;
-				return true;
 			} else {
 				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
 				// to allow items in nested scrollers to be scrolled
-				this.scrollBounds = null;
-				return false;
+				bubble = true;
 			}
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
+			this.scrollBounds = null;
 		}
-		return true;
+		return !bubble;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();
@@ -557,7 +559,7 @@ enyo.kind({
 	animateToControl: function(inControl, inScrollFullPage, animate) {
 		var controlBounds  = inControl.getAbsoluteBounds(),
 			absoluteBounds = this.$.viewport.getAbsoluteBounds(),
-			scrollBounds   = this.getScrollBounds(),
+			scrollBounds   = this._getScrollBounds(),
 			offsetTop,
 			offsetLeft,
 			offsetHeight,
@@ -570,7 +572,11 @@ enyo.kind({
 
 		// Make absolute controlBounds relative to scroll position
 		controlBounds.top += scrollBounds.top;
-		controlBounds.left += scrollBounds.left;
+		if (this.rtl) {
+			controlBounds.right += scrollBounds.left;
+		} else {
+			controlBounds.left += scrollBounds.left;
+		}
 
 		offsetTop      = controlBounds.top - absoluteBounds.top;
 		offsetLeft     = (this.rtl ? controlBounds.right : controlBounds.left) - (this.rtl ? absoluteBounds.right : absoluteBounds.left);

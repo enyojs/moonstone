@@ -254,7 +254,7 @@ enyo.kind({
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
 		
-			{name: "videoInfoHeader", showing: false, classes: "moon-video-player-header"},
+			{name: "videoInfoHeaderClient", showing: false, classes: "moon-video-player-header"},
 			
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", rtl:false, classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
@@ -312,7 +312,7 @@ enyo.kind({
 		this.jumpSecChanged();
 		this.updatePlaybackControlState();
 		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock"});
+			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 		}
 	},
 	transformIconSrc: function(inSrc) {
@@ -384,7 +384,7 @@ enyo.kind({
 	},
 	createInfoControls: function() {
 		var owner = this.hasOwnProperty("infoComponents") ? this.getInstanceOwner() : this;
-		this.$.videoInfoHeader.createComponents(this.infoComponents, {owner: owner});
+		this.$.videoInfoHeaderClient.createComponents(this.infoComponents, {owner: owner});
 	},
 	createClientComponents: function(inComponents) {
 		inComponents = (inComponents) ? enyo.clone(inComponents) : [];
@@ -458,8 +458,8 @@ enyo.kind({
 		}
 	},
 	autoShowInfoChanged: function() {
-		if (this.$.videoInfoHeader.getShowing() && !this.autoShowInfo && !this.showInfo) {
-			this.$.videoInfoHeader.hide();
+		if (this.$.videoInfoHeaderClient.getShowing() && !this.autoShowInfo && !this.showInfo) {
+			this.$.videoInfoHeaderClient.hide();
 		}
 		if (this.autoShowInfo) {
 			this.resetAutoTimeout();
@@ -474,11 +474,11 @@ enyo.kind({
 		}
 	},
 	showInfoChanged: function() {
-		this.$.videoInfoHeader.setShowing(this.showInfo);
+		this.$.videoInfoHeaderClient.setShowing(this.showInfo);
 		
 		if (this.showInfo) {
 			// Kick off any marquees in the video info header
-			this.$.videoInfoHeader.waterfallDown("onRequestStartMarquee");
+			this.$.videoInfoHeaderClient.waterfallDown("onRequestStartMarquee");
 		}
 	},
 	inlineChanged: function() {
@@ -517,7 +517,7 @@ enyo.kind({
 		enyo.Spotlight.spot(this);
 	},
 	panelsHandleFocused: function(inSender, inEvent) {
-		this._infoShowing = this.$.videoInfoHeader.getShowing();
+		this._infoShowing = this.$.videoInfoHeaderClient.getShowing();
 		this._controlsShowing = this.$.playerControl.getShowing();
 		this.hideFSControls();
 	},
@@ -538,7 +538,7 @@ enyo.kind({
 		if (this.isLarge() && !inEvent.spotSentFromContainer) {
 			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
-				if (!this.$.videoInfoHeader.getShowing()) {
+				if (!this.$.videoInfoHeaderClient.getShowing()) {
 					this.showFSInfo();
 				} else {
 					this.hideFSInfo();
@@ -574,7 +574,7 @@ enyo.kind({
 
 	//* Returns true if any piece of the overlay is showing.
 	isOverlayShowing: function() {
-		return this.$.videoInfoHeader.getShowing() || this.$.playerControl.getShowing();
+		return this.$.videoInfoHeaderClient.getShowing() || this.$.playerControl.getShowing();
 	},
 	//* Resets the timeout, or wakes the overlay.
 	mousemove: function(inSender, inEvent) {
@@ -660,17 +660,17 @@ enyo.kind({
 	showFSInfo: function() {
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.resetAutoTimeout();
-			this.$.videoInfoHeader.setShowing(true);
-			this.$.videoInfoHeader.resized();
+			this.$.videoInfoHeaderClient.setShowing(true);
+			this.$.videoInfoHeaderClient.resized();
 			
 			// Kick off any marquees in the video info header
-			this.$.videoInfoHeader.waterfallDown("onRequestStartMarquee");
+			this.$.videoInfoHeaderClient.waterfallDown("onRequestStartMarquee");
 		}
 	},
 	//* Sets _this.visible_ to false.
 	hideFSInfo: function() {
 		if (!this.showInfo) {
-			this.$.videoInfoHeader.setShowing(false);
+			this.$.videoInfoHeaderClient.setShowing(false);
 		}
 	},
 	resetAutoTimeout: function() {

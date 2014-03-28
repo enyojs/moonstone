@@ -5,9 +5,6 @@
 	border-top: 2px solid @moon-header-border-color;
 	border-bottom: 6px solid @moon-header-border-color;
 	position: relative;
-	transition: height 0.2s linear;
-	-webkit-transition: height 0.2s linear;
-	-moz-transition: height 0.2s linear;
 	max-width:100%;
 	padding: 0 0 @moon-spotlight-outset 0px;
 	background-color: transparent;
@@ -51,6 +48,14 @@
 .enyo-locale-non-latin .moon-header-title {
 	.enyo-locale-non-latin .moon-header-text;
 }
+/* Special override for Japanese font (LG Display_JP) which, as of 07-Feb-2014 
+   has a taller baseline. This corrects both Header and InputHeader. 2014-02-24
+   Please remove the line-height rule below if this font file is changed. */
+.enyo-locale-non-latin.enyo-locale-ja .moon-header-title,
+.enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
+	line-height: 1.25em;
+}
+
 .moon-header-title .moon-marquee-text {
 	white-space: nowrap;
 }
@@ -92,7 +97,8 @@
 	text-align: left;	/* fallback in case text-align:start isn't supported */
 	text-align: start;	/* CSS3 for RTL support */
 }
-.moon-header-client > .moon-button {
+.moon-header-client > .moon-button,
+.moon-header-client > .moon-icon {
   text-align: center;	/* Overrides the text-align property  for button */
 }
 
@@ -110,6 +116,9 @@
 .moon-small-header .moon-header-title {
 	line-height: @moon-small-header-line-height;
 }
+.enyo-locale-non-latin .moon-small-header .moon-header-title {
+	line-height: @moon-non-latin-small-header-line-height;
+}
 .moon-small-header .moon-header-title-wrapper {
 	padding-left: 0;
 	box-sizing: border-box;
@@ -122,7 +131,7 @@
 	max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-	max-height: 40px;	
+	max-height: 40px;
 }
 .hidden-title .moon-header-title,
 .hidden-title .moon-header-title-below,
