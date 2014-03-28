@@ -245,11 +245,12 @@ enyo.kind({
 	},
 	valueChanged : function(preValue, inValue){
 		if (!this.dragging) {
+			var allowAnimation = this.constrainToBgProgress && inValue <= this.bgProgress || !this.constrainToBgProgress;
 			if (this.constrainToBgProgress) {
 				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
 			}
-			if (this.animate){
+			if (this.animate && allowAnimation) {
 				this.animateTo(preValue, inValue);
 			} else {
 				this._setValue(inValue);
