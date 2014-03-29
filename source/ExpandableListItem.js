@@ -83,7 +83,7 @@ enyo.kind({
 	},
 	components: [
 		{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract", classes: "moon-expandable-list-item-header"},
-		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
 	],
@@ -120,13 +120,6 @@ enyo.kind({
 	activeChanged: function() {
 		this.bubble("onActivate", {allowHighlanderDeactivate:true});
 		this.setOpen(this.active);
-		if (this.generated) {
-			if (this.active) {
-				this.stopHeaderMarquee();
-			} else {
-				this.resetHeaderMarquee();
-			}
-		}
 	},
 	//* If closed, opens drawer and highlights first spottable child.
 	expandContract: function(inSender, inEvent) {
@@ -139,12 +132,6 @@ enyo.kind({
 		if (this.getActive() && !enyo.Spotlight.getPointerMode()) {
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		}
-	},
-	stopHeaderMarquee: function() {
-		this.$.header.stopMarquee();
-	},
-	resetHeaderMarquee: function() {
-		this.$.header.resetMarquee();
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {

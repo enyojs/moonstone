@@ -81,7 +81,7 @@ enyo.kind({
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes:"moon-expandable-list-item-client", components: [
 			{name: "client", tag: null, kind: "Group", onActivate: "activated", highlander: true},
 			{name: "helpText", kind:"moon.BodyText", canGenerate: false, classes: "moon-expandable-picker-help-text"}
 		]}
@@ -237,11 +237,5 @@ enyo.kind({
 			content: this.getSelected().getContent(),
 			index: this.getSelectedIndex()
 		});
-	},
-	stopHeaderMarquee: function() {
-		this.$.headerWrapper.stopMarquee();
-	},
-	resetHeaderMarquee: function() {
-		this.$.headerWrapper.resetMarquee();
 	}
 });

@@ -52,7 +52,7 @@ enyo.kind({
 			{name: "header", kind: "moon.MarqueeText", classes: "moon-expandable-list-item-header moon-expandable-picker-header"},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes:"moon-expandable-list-item-client indented", components: [
 			{name: "picker", kind: "moon.SimpleIntegerPicker", deferInitialization: true, onSelect: "toggleActive", onActivate: "activated"}
 		]}
 	],
@@ -113,12 +113,6 @@ enyo.kind({
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
 		this.doChange({value: this.value, content: this.content});
-	},
-	stopHeaderMarquee: function() {
-		this.$.headerWrapper.stopMarquee();
-	},
-	resetHeaderMarquee: function() {
-		this.$.headerWrapper.resetMarquee();
 	},
 	spotlightDown: function(inSender, inEvent) {
 		if (this.getLockBottom() && (inEvent.originator === this.$.picker) && this.getOpen()) {
