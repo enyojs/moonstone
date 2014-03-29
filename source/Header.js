@@ -381,8 +381,10 @@ enyo.kind({
 				this.$.title.render();
 			}
 			// Reset marquees when coming back to static text
-			this.stopMarquee();
-			this.startMarquee();
+			if (this.generated) {
+				this.stopMarquee();
+				this.startMarquee();
+			}
 		}
 		if (this.inputMode && !this.$.inputDecorator.hasNode()) {
 			this.$.inputDecorator.render();

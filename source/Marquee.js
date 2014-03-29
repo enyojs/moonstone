@@ -157,6 +157,7 @@ moon.MarqueeSupport = {
 	*/
 	stopMarquee: function() {
 		this.stopJob("marqueeSupportJob");
+		this.stopJob("resetMarquee");
 		this._marquee_active = false;
 		this._marquee_stopChildMarquees();
 	},

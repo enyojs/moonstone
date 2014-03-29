@@ -73,7 +73,7 @@ enyo.kind({
 			]},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes:"moon-expandable-list-item-client indented", components: [
 			{name: "client", kind: "enyo.Control", classes: "enyo-tool-decorator moon-date-picker-client", onSpotlightLeft:"closePicker", onSpotlightSelect: "closePicker"}
 		]}
 	],
@@ -216,8 +216,5 @@ enyo.kind({
 		}
 		this.initDefaults();
 		this.render();
-	},
-	stopHeaderMarquee: function() {
-		this.$.headerWrapper.stopMarquee();
 	}
 });
