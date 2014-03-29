@@ -5,9 +5,6 @@
 	border-top: 2px solid @moon-header-border-color;
 	border-bottom: 6px solid @moon-header-border-color;
 	position: relative;
-	transition: height 0.2s linear;
-	-webkit-transition: height 0.2s linear;
-	-moz-transition: height 0.2s linear;
 	max-width:100%;
 	padding: 0 0 @moon-spotlight-outset 0px;
 	background-color: transparent;
@@ -100,7 +97,8 @@
 	text-align: left;	/* fallback in case text-align:start isn't supported */
 	text-align: start;	/* CSS3 for RTL support */
 }
-.moon-header-client > .moon-button {
+.moon-header-client > .moon-button,
+.moon-header-client > .moon-icon {
   text-align: center;	/* Overrides the text-align property  for button */
 }
 
@@ -118,6 +116,9 @@
 .moon-small-header .moon-header-title {
 	line-height: @moon-small-header-line-height;
 }
+.enyo-locale-non-latin .moon-small-header .moon-header-title {
+	line-height: @moon-non-latin-small-header-line-height;
+}
 .moon-small-header .moon-header-title-wrapper {
 	padding-left: 0;
 	box-sizing: border-box;
@@ -130,7 +131,7 @@
 	max-height: 40px;
 }
 .moon-small-header .moon-header-sub-title-below {
-	max-height: 40px;	
+	max-height: 40px;
 }
 .hidden-title .moon-header-title,
 .hidden-title .moon-header-title-below,

@@ -46,7 +46,7 @@ enyo.kind({
 	],
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
-			{name: "viewport", classes:"moon-scroller-viewport", components: [
+			{name: "viewport", classes:"moon-scroller-viewport", spotlight: "container", components: [
 				{name: "client", classes: "enyo-touch-scroller matrix-scroll-client matrix3dsurface"}
 			]}
 		]},
@@ -403,24 +403,26 @@ enyo.kind({
 	},
 	//* Responds to child components' requests to be scrolled into view.
 	requestScrollIntoView: function(inSender, inEvent) {
+		var showVertical, showHorizontal,
+			bubble = false;
 		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
-			if (this.showVertical() || this.showHorizontal()) {
+			showVertical = this.showVertical();
+			showHorizontal = this.showHorizontal();
+			if (showVertical || showHorizontal) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
-				if (this.$.scrollMath.bottomBoundary) {
+				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 					this.alertThumbs();
 				}				
-				this.scrollBounds = null;
-				return true;
 			} else {
 				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
 				// to allow items in nested scrollers to be scrolled
-				this.scrollBounds = null;
-				return false;
+				bubble = true;
 			}
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
+			this.scrollBounds = null;
 		}
-		return true;
+		return !bubble;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();
