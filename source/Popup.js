@@ -108,8 +108,8 @@ enyo.kind({
 		this.downEvent = inEvent;
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
-	//* _tap()_ code.
-	tap: function(inSender, inEvent) {
+	//* capturedTap()_ code.
+	capturedTap: function(inSender, inEvent) {
 		if (!this.downEvent || (this.downEvent.type !== "onSpotlightSelect")) {
 			return this.inherited(arguments);
 		}
