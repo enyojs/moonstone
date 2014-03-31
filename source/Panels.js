@@ -51,7 +51,12 @@ enyo.kind({
 		*/
 		handleShowing: true,
 		//* When true, panels are automatically popped when the user moves back
-		popOnBack: false
+		popOnBack: false,
+		/** 
+			The source of the image used for branding in the lower left of the panels (only
+			applies to panels with the "activity" pattern).
+		*/
+		brandingSrc: ""
 
 	},
 	//* @protected
@@ -537,6 +542,9 @@ enyo.kind({
 		if (this.hasNode()) {
 			enyo.Spotlight.spot(this.getActive());
 		}
+
+		// Update display of branding image
+		this.brandingSrcChanged();
 	},
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
@@ -739,6 +747,11 @@ enyo.kind({
 	hideAnimationComplete: function() {
 		if (this.handleShowing) {
 			this.$.handleWrapper.removeClass("hidden");
+		}
+	},
+	brandingSrcChanged: function() {
+		if (this.pattern === "activity") {
+			this.$.scrim.applyStyle("background-image", (this.brandingSrc && this.index > 0) ? "url(" + this.brandingSrc + ")" : "none");
 		}
 	}
 });
