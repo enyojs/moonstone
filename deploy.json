@@ -1,4 +1,9 @@
 {
+	level : 1,
+	time : 201403311430
+	name : sb.cho
+}
+{
 	"packagejs": "./package.js",
 	"assets": ["fonts", "images", "resources"],
 	"libs": []
