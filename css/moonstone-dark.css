@@ -53,6 +53,8 @@
 /* ---------------------------------------*/
 /* Caret */
 /* ---------------------------------------*/
+/* ContextualPopupButton */
+/* ---------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- SYSTEM FONT NAMES ------ */
@@ -1398,7 +1400,7 @@
   background-color: #404040;
 }
 .moon-button.spotlight {
-  background: #cf0652;
+  background-color: #cf0652;
   color: #ffffff;
 }
 .moon-button[disabled] {
@@ -2483,38 +2485,40 @@
   -webkit-border-radius: 10px;
 }
 /*ContextualPopupButton.css*/
-.contextual-popup-button,
-.contextual-popup-button.small {
+.moon-button.contextual-popup-button {
   background-image: url(../images/contextual-arrow.png);
   background-repeat: no-repeat;
   background-position: right center;
   padding-right: 50px;
 }
-.contextual-popup-button.spotlight {
+.moon-button.contextual-popup-button.spotlight {
   background-image: url(../images/contextual-arrow-spotlight.png);
-  background-repeat: no-repeat;
-  background-position: right center;
-  padding-right: 50px;
 }
-.contextual-popup-button.pressed,
-.contextual-popup-button:active {
+.moon-button.contextual-popup-button.pressed,
+.moon-button.contextual-popup-button:active {
   background-image: url(../images/contextual-arrow.png);
 }
-.enyo-locale-right-to-left .contextual-popup-button {
+.moon-button.contextual-popup-button[disabled] {
+  background-image: url(../images/DarkTheme_Icons/contextual-arrow-deactivated.png);
+}
+.enyo-locale-right-to-left .moon-button.contextual-popup-button {
   background-image: url(../images/contextual-arrow-rtl.png);
   background-position: left center;
   padding-right: 22px;
   padding-left: 50px;
 }
-.enyo-locale-right-to-left .contextual-popup-button.small {
+.enyo-locale-right-to-left .moon-button.contextual-popup-button.small {
   padding-right: 20px;
 }
-.enyo-locale-right-to-left .contextual-popup-button.spotlight {
+.enyo-locale-right-to-left .moon-button.contextual-popup-button.spotlight {
   background-image: url(../images/contextual-arrow-spotlight-rtl.png);
 }
-.enyo-locale-right-to-left .contextual-popup-button.pressed,
-.enyo-locale-right-to-left .contextual-popup-button:active {
+.enyo-locale-right-to-left .moon-button.contextual-popup-button.pressed,
+.enyo-locale-right-to-left .moon-button.contextual-popup-button:active {
   background-image: url(../images/contextual-arrow-rtl.png);
+}
+.enyo-locale-right-to-left .moon-button.contextual-popup-button[disabled] {
+  background-image: url(../images/DarkTheme_Icons/contextual-arrow-deactivated-rtl.png);
 }
 /* ContextualPopupDecorator.css */
 .moon-contextual-popup-decorator {
