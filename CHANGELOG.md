@@ -1,3 +1,8 @@
+{
+	level : 1,
+	time : 201403311430
+	name : sb.cho
+}
 ## 2.4.0-pre.1
 
 moon.Header: Facade dismissOnEnter to input
