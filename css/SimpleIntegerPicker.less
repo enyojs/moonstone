@@ -44,20 +44,31 @@
 	&.moon-icon {
 		color: @moon-spotlight-text-color;
 	}
-	/* Hover state */
-	&.moon-icon-arrowsmallleft:after {
+	/* Hover while not Pressed state */
+	&.moon-icon-arrowsmallleft:not(.pressed):after {
 		content: @moon-icon-arrowlargeleft;
 	}
-	&.moon-icon-arrowsmallright:after {
+	&.moon-icon-arrowsmallright:not(.pressed):after {
 		content: @moon-icon-arrowlargeright;
 	}
-	/* Pressed state */
-	&.moon-icon-arrowsmallleft.pressed:after {
-		content: @moon-icon-arrowsmallleft;
-	}
-	&.moon-icon-arrowsmallright.pressed:after {
-		content: @moon-icon-arrowsmallright;
-	}
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button {
+  /* Default RTL state */
+  &.moon-icon-arrowsmallleft:after {
+    content: @moon-icon-arrowsmallright;
+  }
+  &.moon-icon-arrowsmallright:after {
+    content: @moon-icon-arrowsmallleft;
+  }
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
+  /* Hover while not Pressed state */
+  &.moon-icon-arrowsmallleft:not(.pressed):after {
+    content: @moon-icon-arrowlargeright;
+  }
+  &.moon-icon-arrowsmallright:not(.pressed):after {
+    content: @moon-icon-arrowlargeleft;
+  }
 }
 
 .moon-simple-integer-picker-client {
@@ -173,28 +184,7 @@
   border-left-color: @moon-spotlight-border-color;
   right: -6px;
 }
-// .moon-scroll-picker-overlay-container-right .moon-icon {
-// 	position: absolute;
-// }
-
-.moon-simple-integer-picker-button.left,
-.moon-simple-integer-picker-button.right {
-	transform: scaleX(1);
-	-o-transform: scaleX(1);
-	-ms-transform: scaleX(1);
-	-moz-transform: scaleX(1);
-	-webkit-transform: scaleX(1);
-}
-
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.left,
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
-	transform: scaleX(-1);
-	-o-transform: scaleX(-1);
-	-ms-transform: scaleX(-1);
-	-moz-transform: scaleX(-1);
-	-webkit-transform: scaleX(-1);
-}
 
 .spotlight .moon-simple-integer-picker-button {
-	// background: @moon-scroller-icon no-repeat center -@moon-icon-sprite-small-size;
+  background-position: center -@moon-icon-sprite-small-size;
 }

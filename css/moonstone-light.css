@@ -977,25 +977,37 @@
   height: 100%;
 }
 .spotlight .moon-simple-integer-picker-button {
-  /* Hover state */
-
-  /* Pressed state */
+  /* Hover while not Pressed state */
 
 }
 .spotlight .moon-simple-integer-picker-button.moon-icon {
   color: #ffffff;
 }
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:after {
+.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
   content: "\0F0003";
 }
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:after {
+.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
   content: "\0F0004";
 }
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft.pressed:after {
+.enyo-locale-right-to-left .moon-simple-integer-picker-button {
+  /* Default RTL state */
+
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:after {
+  content: "\0F0008";
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallright:after {
   content: "\0F0007";
 }
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright.pressed:after {
-  content: "\0F0008";
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
+  /* Hover while not Pressed state */
+
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
+  content: "\0F0004";
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
+  content: "\0F0003";
 }
 .moon-simple-integer-picker-client {
   padding: 0;
@@ -1113,21 +1125,8 @@
   border-left-color: #cf0652;
   right: -6px;
 }
-.moon-simple-integer-picker-button.left,
-.moon-simple-integer-picker-button.right {
-  transform: scaleX(1);
-  -o-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  -moz-transform: scaleX(1);
-  -webkit-transform: scaleX(1);
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.left,
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
-  transform: scaleX(-1);
-  -o-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  -moz-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
+.spotlight .moon-simple-integer-picker-button {
+  background-position: center -50px;
 }
 /* Checkbox.css */
 .moon-checkbox {
