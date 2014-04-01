@@ -971,6 +971,8 @@
   vertical-align: middle;
   z-index: 2;
   color: #a6a6a6;
+  background-repeat: no-repeat;
+  background-position: center 0;
 }
 .moon-simple-integer-picker-button.moon-icon.small {
   width: 60px;
