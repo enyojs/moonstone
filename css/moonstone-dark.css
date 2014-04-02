@@ -397,6 +397,7 @@
   padding: 20px;
   color: #a6a6a6;
   background-color: #000000;
+  text-align: left;
 }
 .moon-header-font {
   font-family: "Moonstone Miso";
@@ -404,6 +405,7 @@
 }
 .enyo-locale-right-to-left .moon {
   direction: rtl;
+  text-align: right;
 }
 .moon-divider-border {
   border-bottom: 2px solid #a6a6a6;
