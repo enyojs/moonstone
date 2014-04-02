@@ -115,8 +115,14 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Creates multiple panels on top of the stack and updates index to select
-	//* the last one created.
+	/**
+		Creates multiple panels on top of the stack and updates index to select
+		the last one created. Supports an optional options object as the third parameter.
+		{
+			setIndex: <indexNumber>,	// The panel index number to immediately switch to.
+			transition: true	// Whether to transition or jump directly to the next panel.
+		}
+	*/
 	pushPanels: function(inInfos, inCommonInfo, inOptions) { // added
 		if (!inOptions) { inOptions = {}; }
 		var lastIndex = this.getPanels().length - 1,
