@@ -7,7 +7,7 @@ enyo.kind({
 			{classes: "moon-toggle-button-sample-wrapper", components: [
 				{kind: "moon.Divider", content: "Toggle Buttons:"},
 				{kind: "moon.ToggleButton", content: "B", ontap: "buttonTapped"},
-				{kind: "moon.ToggleButton", content: "Button", ontap: "buttonTapped"},
+				{name: "button", kind: "moon.ToggleButton", contentUpperCase : false, content: "Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{classes: "moon-1v"},

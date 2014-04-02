@@ -72,7 +72,9 @@ enyo.kind({
 		*/
 		elasticEffect: false,
 		//* Custom popup content (ignored if null)
-		popupContent: null
+		popupContent: null,
+		//* When true, popup content will be translated to locale-safe uppercase
+		popupContentUpperCase: true
 	},
 	events: {
 		/**
@@ -216,9 +218,13 @@ enyo.kind({
 	//* Updates popup content.
 	popupContentChanged: function() {
 		var content = this.getPopupContent();
-		if (content !== null) {
-			this.$.popupLabel.setContent(content);
+		this._popupContent = this.getPopupContentUpperCase() ? enyo.toUpperCase(content) : content;
+		if (this._popupContent !== null) {
+			this.$.popupLabel.setContent(this._popupContent);
 		}
+	},
+	popupContentUpperCaseChanged: function() {
+		this.popupContentChanged();
 	},
 	/**
 		Slider will snap multiples.
@@ -295,8 +301,7 @@ enyo.kind({
 		this.updatePopupLabel(knobValue);
 	},
 	updatePopupLabel: function(inKnobValue) {
-		var label = this.getPopupContent();
-		label = (label === null) ? this.calcPopupLabel(inKnobValue) : label;
+		var label = this._popupContent || this.calcPopupLabel(inKnobValue);
 		this.$.popupLabel.setContent(label);
 	},
 	calcPopupLabel: function(inKnobValue) {
