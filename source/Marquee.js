@@ -262,7 +262,7 @@ moon.MarqueeItem = {
 	create: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
-			this._marquee_checkRtl();
+			this.checkContentRtl();
 		};
 	}),
 	reflow: enyo.inherit(function(sup) {
@@ -286,7 +286,7 @@ moon.MarqueeItem = {
 		_this.$.marqueeText_ (if it exists).
 	*/
 	_marquee_contentChanged: function() {
-		this._marquee_checkRtl();
+		this.checkContentRtl();
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 		}
@@ -406,25 +406,6 @@ moon.MarqueeItem = {
 		this._marquee_invalidateMetrics();
 		if (this._marquee_puppetMaster) {
 			this._marquee_puppetMaster.resetMarquee();
-		}
-	},
-	_marquee_checkRtl: function() {
-		var content = this.content;
-		if (content && typeof content === "object") {
-			content = content.toString();
-		}
-		// Set RTL mode based on first character of content
-		if (content && content.length) {
-			var firstCharCode = content.charCodeAt(0);
-			// Check if within Hebrew or Arabic ranges (in addition to Syriac to reduce number of comparisons)
-			// Hebrew: 1424-1535
-			// Arabic: 1536-1791, 1872-1919, 64336-65023, 65136-65279
-			// Syriac: 1792-1871
-			var isRtl = ((firstCharCode >= 1424 && firstCharCode <= 1919) ||
-				(firstCharCode >= 64336 && firstCharCode <= 65023) ||
-				(firstCharCode >= 65136 && firstCharCode <= 65279));
-			this.rtl = isRtl;
-			this.applyStyle("direction", isRtl ? "rtl" : "ltr");
 		}
 	}
 };
