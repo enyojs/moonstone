@@ -418,11 +418,11 @@ moon.MarqueeItem = {
 			var firstCharCode = content.charCodeAt(0);
 			// Check if within Hebrew or Arabic ranges (in addition to Syriac to reduce number of comparisons)
 			// Hebrew: 1424-1535
-			// Arabic: 1536-1791, 1872-1919, 64336-65023, 65136-65279
+			// Arabic: 1536-1791, 1872-1919, 64336-65023, 65136-65278
 			// Syriac: 1792-1871
 			var isRtl = ((firstCharCode >= 1424 && firstCharCode <= 1919) ||
 				(firstCharCode >= 64336 && firstCharCode <= 65023) ||
-				(firstCharCode >= 65136 && firstCharCode <= 65279));
+				(firstCharCode >= 65136 && firstCharCode <= 65278));
 			this.rtl = isRtl;
 			this.applyStyle("direction", isRtl ? "rtl" : "ltr");
 		}
