@@ -478,6 +478,7 @@
   letter-spacing: 0;
   color: #a6a6a6;
   line-height: 32px;
+  text-align: left;
 }
 .moon-body-text a:link {
   color: #cf0652;
@@ -627,6 +628,9 @@
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
   font-weight: normal;
+}
+.enyo-locale-right-to-left .moon-body-text {
+  text-align: right;
 }
 .border-box {
   box-sizing: border-box;
@@ -4894,13 +4898,6 @@
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
   display: none;
-}
-/* Input.css */
-.moon-body-text {
-  text-align: left;
-}
-.enyo-locale-right-to-left .moon-body-text {
-  text-align: right;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {

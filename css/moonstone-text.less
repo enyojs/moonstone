@@ -72,6 +72,7 @@
 	letter-spacing: @moon-body-letter-spacing;
 	color: @moon-body-text-color;
 	line-height: @moon-body-line-height;
+	text-align: left;
 	a:link {color: @moon-spotlight-color; text-decoration:none;}
 	a:visited {color: @moon-spotlight-color; text-decoration:none;}
 	a:hover {color: @moon-spotlight-color; text-decoration:none;}
@@ -196,5 +197,11 @@
 	.moon-small-button-text {
 		font-size: @moon-non-latin-button-small-font-size;
 		font-weight: normal;
+	}
+}
+
+.enyo-locale-right-to-left {
+	.moon-body-text {
+		text-align: right;
 	}
 }

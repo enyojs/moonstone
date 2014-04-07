@@ -9,5 +9,9 @@ enyo.kind({
 	classes: "moon-body-text moon-body-text-spacing",
 	//* @public
 	//* If true, HTML tags are allowed in the control's content 
-	allowHtml: true
+	allowHtml: true,
+	contentChanged: function() {
+		this.inherited(arguments);
+		this.detectTextDirectionality();
+	}
 });
