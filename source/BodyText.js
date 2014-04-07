@@ -12,6 +12,6 @@ enyo.kind({
 	allowHtml: true,
 	contentChanged: function() {
 		this.inherited(arguments);
-		this.checkContentRtl();
+		this.detectTextDirectionality();
 	}
 });

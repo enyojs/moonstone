@@ -262,7 +262,7 @@ moon.MarqueeItem = {
 	create: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
-			this.checkContentRtl();
+			this.detectTextDirectionality();
 		};
 	}),
 	reflow: enyo.inherit(function(sup) {
@@ -286,7 +286,7 @@ moon.MarqueeItem = {
 		_this.$.marqueeText_ (if it exists).
 	*/
 	_marquee_contentChanged: function() {
-		this.checkContentRtl();
+		this.detectTextDirectionality();
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 		}
