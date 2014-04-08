@@ -1381,6 +1381,7 @@
 .moon-button .moon-marquee {
   width: 100%;
   vertical-align: top;
+  text-align: center;
 }
 /*
 	IE8 can't handle these selectors in tandem:
