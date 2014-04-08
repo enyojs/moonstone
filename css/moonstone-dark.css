@@ -2899,7 +2899,129 @@
   margin-left: 64px;
 }
 /* Spinner.css */
+@-webkit-keyframes spinBall {
+  0% {
+    -webkit-transform: rotateZ(13deg);
+  }
+  /* Slow down toward the top */
+  15% {
+    -webkit-transform: rotateZ(160deg);
+  }
+  25% {
+    -webkit-transform: rotateZ(200deg);
+  }
+  30% {
+    -webkit-transform: rotateZ(225deg);
+  }
+  /* Speed back up as the ball falls */
+  /* Impact at last ball */
+  34% {
+    -webkit-transform: rotateZ(321deg);
+  }
+  39%,
+  67% {
+    -webkit-transform: rotateZ(347deg);
+  }
+  72% {
+    -webkit-transform: rotateZ(383deg);
+  }
+  79%,
+  100% {
+    -webkit-transform: rotateZ(373deg);
+  }
+}
+@-webkit-keyframes propellerBall {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg);
+  }
+}
 .moon-spinner {
+  height: 73px;
+  min-width: 73px;
+  line-height: 73px;
+  position: relative;
+  display: inline-block;
+  color: #ffffff;
+  background-color: #4d4d4d;
+  border-radius: 73px;
+  margin: 0 10px;
+}
+.moon-spinner.moon-spinner-transparent-background {
+  background-color: transparent;
+}
+.moon-spinner.content {
+  position: static;
+  height: 85px;
+  min-width: 85px;
+  line-height: 85px;
+}
+.moon-spinner.content .moon-spinner-ball-decorator {
+  width: 85px;
+  height: 85px;
+}
+.moon-spinner.content .moon-spinner-text {
+  line-height: 85px;
+}
+.moon-spinner .moon-spinner-ball-decorator {
+  position: relative;
+  width: 73px;
+  height: 73px;
+  float: left;
+}
+.moon-spinner .moon-spinner-ball-decorator.spin-ball-animation > * {
+  -webkit-animation-name: spinBall;
+}
+.moon-spinner .moon-spinner-ball-decorator.propeller-ball-animation > * {
+  -webkit-animation-name: propellerBall;
+}
+.moon-spinner .moon-spinner-ball {
+  position: absolute;
+  text-align: center;
+  font-size: 90%;
+  line-height: 0.4em;
+  -webkit-animation: 1.83s linear infinite;
+  height: 15%;
+  width: 15%;
+  left: 42.5%;
+  bottom: 15%;
+  -webkit-transform-origin: center -133.33333333333331%;
+}
+.moon-spinner .moon-spinner-ball:after {
+  content: "•";
+}
+.moon-spinner .moon-spinner-ball1 {
+  -webkit-animation-delay: 0.61s;
+  color: #69cdff;
+}
+.moon-spinner .moon-spinner-ball2 {
+  -webkit-animation-delay: 1.22s;
+  color: #ff4a4a;
+}
+.moon-spinner .moon-spinner-ball3 {
+  -webkit-animation-delay: 1.83s;
+  color: #ffb80d;
+}
+.moon-spinner .moon-spinner-text {
+  float: left;
+  line-height: 73px;
+  margin: 0 2ex 0 0.5ex;
+}
+.enyo-locale-right-to-left .moon-spinner .moon-spinner-ball-decorator {
+  -webkit-transform: scaleX(-1);
+}
+.enyo-locale-right-to-left .moon-spinner .moon-spinner-ball-decorator {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-spinner .moon-spinner-text {
+  float: right;
+  margin-left: 2ex;
+  margin-right: 0.5ex;
+}
+/* Gif-based Spinner */
+.moon-spinner-gif {
   border-radius: 73px;
   height: 73px;
   min-width: 73px;
@@ -2909,14 +3031,14 @@
   line-height: 73px;
   margin: 0 10px;
 }
-.moon-spinner.content {
+.moon-spinner-gif.content {
   padding-left: 85px;
   padding-right: 40px;
   height: 85px;
   line-height: 85px;
   background-position: 13px 13px;
 }
-.enyo-locale-right-to-left .moon-spinner.content {
+.enyo-locale-right-to-left .moon-spinner-gif.content {
   background-position: top 13px right 13px;
   padding-right: 85px;
   padding-left: 40px;
