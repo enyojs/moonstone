@@ -236,7 +236,8 @@ moon.MarqueeItem = {
 		ontransitionend: "_marquee_animationEnded"
 	},
 	observers: {
-		_marquee_contentChanged: ["content"]
+		_marquee_contentChanged: ["content"],
+		_marquee_centeredChanged: ["centered"]
 	},
 	bindings: [
 		{from: ".allowHtml", to:".$.marqueeText.allowHtml"}
@@ -263,6 +264,7 @@ moon.MarqueeItem = {
 		return function() {
 			sup.apply(this, arguments);
 			this.detectTextDirectionality();
+			this._marquee_centeredChanged();
 		};
 	}),
 	reflow: enyo.inherit(function(sup) {
@@ -407,6 +409,9 @@ moon.MarqueeItem = {
 		if (this._marquee_puppetMaster) {
 			this._marquee_puppetMaster.resetMarquee();
 		}
+	},
+	_marquee_centeredChanged: function() {
+		this.applyStyle("text-align", this.centered ? "center" : null);
 	}
 };
 
@@ -460,7 +465,9 @@ enyo.kind({
 		*/
 		marqueePause: 1000,
 		//* When true, marqueeing will not occur
-		disabled: false
+		disabled: false,
+		//* When true, text is centered; otherwise left-aligned
+		centered: false
 	}
 });
 
