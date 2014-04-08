@@ -478,7 +478,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
 }
 .moon-body-text a:link {
   color: #cf0652;
@@ -628,9 +627,6 @@
 .enyo-locale-non-latin .moon-small-button-text {
   font-size: 27px;
   font-weight: normal;
-}
-.enyo-locale-right-to-left .moon-body-text {
-  text-align: right;
 }
 .border-box {
   box-sizing: border-box;
@@ -1605,7 +1601,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
 }
 .moon-expandable-list-item-client .moon-item a:link {
   color: #cf0652;
@@ -1686,7 +1681,6 @@
   font-style: normal;
   letter-spacing: 0;
   line-height: 32px;
-  text-align: left;
   color: #4b4b4b;
   margin: 0px;
 }
@@ -1761,7 +1755,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
   margin: 0px;
   padding: 0px;
 }
@@ -1881,7 +1874,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
   height: 44px;
 }
 .moon-header-sub-title-below a:link {
@@ -2013,7 +2005,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
 }
 .moon-gridlist-imageitem .sub-caption a:link {
   color: #cf0652;
@@ -2211,7 +2202,6 @@
   font-style: normal;
   letter-spacing: 0;
   line-height: 32px;
-  text-align: left;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -2461,7 +2451,6 @@
   font-style: normal;
   letter-spacing: 0;
   line-height: 32px;
-  text-align: left;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -2703,7 +2692,6 @@
   font-style: normal;
   letter-spacing: 0;
   line-height: 32px;
-  text-align: left;
   margin: 0px;
   padding: 0px;
   border: none;
@@ -2879,7 +2867,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  text-align: left;
   color: #4b4b4b;
   line-height: 32px;
   text-transform: none;
@@ -4193,7 +4180,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
   font-style: italic;
   color: #ffffff;
   display: inline-block;
@@ -4232,7 +4218,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
   color: #ffffff;
   white-space: normal;
   margin-bottom: 25px;
@@ -4836,7 +4821,6 @@
   letter-spacing: 0;
   color: #4b4b4b;
   line-height: 32px;
-  text-align: left;
   float: right;
   display: inline-block;
   padding-right: 38px;
@@ -4892,6 +4876,12 @@
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
   display: none;
+}
+.moon-body-text-control {
+  text-align: left;
+}
+.enyo-locale-right-to-left .moon-body-text-control {
+  text-align: right;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
