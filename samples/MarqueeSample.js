@@ -30,9 +30,11 @@ enyo.kind({
 				{kind: "moon.Button", content: "Start marquee", ontap:"start"},
 				{kind: "moon.Button", content: "Stop marquee", ontap:"stop"},	
 				{name: "marqueeContent1", marqueeOnRender: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for separate marquee case"},
+				{name: "marqueeContent2", marqueeOnRender: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", centered: true, content: "Centered text for separate marquee case"},
 				{name: "marqueeContainer1", mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
-					{name: "marqueeContent2", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for syncronized case"},
-					{name: "marqueeContent3", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is short text for marquee"}
+					{name: "marqueeContent3", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for syncronized case"},
+					{name: "marqueeContent4", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is short text for marquee"},
+					{name: "marqueeContent5", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", centered: true, content: "This is centered text for marquee"}
 				]},
 				{tag: "br"},
 
