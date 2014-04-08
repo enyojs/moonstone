@@ -2965,24 +2965,22 @@
 .moon-spinner.content .moon-spinner-text {
   line-height: 85px;
 }
+.moon-spinner.running .moon-spinner-ball {
+  -webkit-animation-play-state: running;
+}
 .moon-spinner .moon-spinner-ball-decorator {
   position: relative;
   width: 73px;
   height: 73px;
   float: left;
 }
-.moon-spinner .moon-spinner-ball-decorator.spin-ball-animation > * {
-  -webkit-animation-name: spinBall;
-}
-.moon-spinner .moon-spinner-ball-decorator.propeller-ball-animation > * {
-  -webkit-animation-name: propellerBall;
-}
 .moon-spinner .moon-spinner-ball {
   position: absolute;
   text-align: center;
   font-size: 90%;
   line-height: 0.4em;
-  -webkit-animation: 1.83s linear infinite;
+  -webkit-animation: spinBall 1.83s linear infinite;
+  -webkit-animation-play-state: paused;
   height: 15%;
   width: 15%;
   left: 42.5%;
@@ -2995,14 +2993,17 @@
 .moon-spinner .moon-spinner-ball1 {
   -webkit-animation-delay: 0.61s;
   color: #69cdff;
+  -webkit-transform: rotateZ(13deg);
 }
 .moon-spinner .moon-spinner-ball2 {
   -webkit-animation-delay: 1.22s;
   color: #ff4a4a;
+  -webkit-transform: rotateZ(347deg);
 }
 .moon-spinner .moon-spinner-ball3 {
   -webkit-animation-delay: 1.83s;
   color: #ffb80d;
+  -webkit-transform: rotateZ(321deg);
 }
 .moon-spinner .moon-spinner-text {
   float: left;

@@ -32,15 +32,8 @@ enyo.kind({
 		this.inherited(arguments);
 		this.contentChanged();
 		this.transparentChanged();
-		// We have to reinitialize the animation, so that all the start-delays sync-up
-		var self = this;
-		enyo.job("spinnerAnimationDelayFor"+this.id, function() {
-			// Remove an animation, stick on adifferent one, remove that, and put back the first
-			self.$.decorator.addRemoveClass("spin-ball-animation", 0);
-			self.$.decorator.addRemoveClass("propeller-ball-animation", 1);
-			self.$.decorator.addRemoveClass("spin-ball-animation", 1);
-			self.$.decorator.addRemoveClass("propeller-ball-animation", 0);
-		}, 1830);
+		// Begin our animation, so each ball is in-sync (for slower devices)
+		this.addRemoveClass("running", true);
 	},
 	//* @public
 	//* Hides the animating spinner.
