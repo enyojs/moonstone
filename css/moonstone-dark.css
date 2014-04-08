@@ -4893,6 +4893,13 @@
 .enyo-locale-right-to-left .moon-body-text-control {
   text-align: right;
 }
+/*
+	This styling is applied to preserve text alignment in the presence of the RTL text alignment fix.
+*/
+.moon-gridlist-imageitem .caption.moon-marquee,
+.moon-gridlist-imageitem .sub-caption.moon-marquee {
+  text-align: center;
+}
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
   background-color: #686868;
