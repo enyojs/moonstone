@@ -2000,10 +2000,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.moon-gridlist-imageitem .caption.moon-marquee,
-.moon-gridlist-imageitem .sub-caption.moon-marquee {
-  text-align: center;
-}
 .moon-gridlist-imageitem .caption {
   font-family: "MuseoSans 700";
   font-size: 30px;
