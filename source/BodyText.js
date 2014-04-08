@@ -10,8 +10,19 @@ enyo.kind({
 	//* @public
 	//* If true, HTML tags are allowed in the control's content 
 	allowHtml: true,
+	published: {
+		//* When true, text content is centered; otherwise left-aligned
+		centered: false
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.centeredChanged();
+	},
 	contentChanged: function() {
 		this.inherited(arguments);
 		this.detectTextDirectionality();
+	},
+	centeredChanged: function() {
+		this.applyStyle("text-align", this.centered ? "center" : null);
 	}
 });
