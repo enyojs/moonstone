@@ -6,7 +6,7 @@
 enyo.kind({
 	name: "moon.BodyText",
 	//*	@protected
-	classes: "moon-body-text moon-body-text-spacing",
+	classes: "moon-body-text moon-body-text-spacing moon-body-text-control",
 	//* @public
 	//* If true, HTML tags are allowed in the control's content 
 	allowHtml: true,
