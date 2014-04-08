@@ -841,6 +841,9 @@
 .moon-simple-picker-client {
   white-space: nowrap;
 }
+.moon-simple-picker-client .moon-marquee {
+  text-align: center;
+}
 .moon-simple-picker-client.animated {
   -webkit-transition: -webkit-transform ease-out 0.3s;
   -moz-transition: -moz-transform ease-out 0.3s;
