@@ -10,6 +10,7 @@
 	/* Impact at last ball */
 	34%       { -webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3)); }
 	39%, 67%  { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
+	/* Small bounce forward */
 	72%       { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
 	79%, 100% { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle); }
 }
@@ -106,28 +107,4 @@
 		margin-left: 2ex;
 		margin-right: 0.5ex;
 	}
-}
-
-/* Gif-based Spinner */
-.moon-spinner-gif {
-	border-radius: @moon-spinner-size;
-	height: @moon-spinner-size;
-	min-width: @moon-spinner-size;
-	display: inline-block;
-	background: @moon-spinner-background-color @moon-spinner-image no-repeat 7px 7px;
-	color: @moon-spinner-text-color;
-	line-height: @moon-spinner-size;
-	margin: 0 @moon-spotlight-outset;
-}
-.moon-spinner-gif.content {
-	padding-left: @moon-button-height;
-	padding-right: 40px;	
-	height: @moon-button-height;
-	line-height: @moon-button-height;
-	background-position: 13px 13px;
-}
-.enyo-locale-right-to-left .moon-spinner-gif.content {
-	background-position: top 13px right 13px;
-	padding-right: @moon-button-height;
-	padding-left: 40px;
 }

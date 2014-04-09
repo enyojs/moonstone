@@ -2919,6 +2919,7 @@
   67% {
     -webkit-transform: rotateZ(347deg);
   }
+  /* Small bounce forward */
   72% {
     -webkit-transform: rotateZ(383deg);
   }
@@ -3017,29 +3018,6 @@
   float: right;
   margin-left: 2ex;
   margin-right: 0.5ex;
-}
-/* Gif-based Spinner */
-.moon-spinner-gif {
-  border-radius: 73px;
-  height: 73px;
-  min-width: 73px;
-  display: inline-block;
-  background: #4d4d4d url(../images/spinner.gif) no-repeat 7px 7px;
-  color: #ffffff;
-  line-height: 73px;
-  margin: 0 10px;
-}
-.moon-spinner-gif.content {
-  padding-left: 85px;
-  padding-right: 40px;
-  height: 85px;
-  line-height: 85px;
-  background-position: 13px 13px;
-}
-.enyo-locale-right-to-left .moon-spinner-gif.content {
-  background-position: top 13px right 13px;
-  padding-right: 85px;
-  padding-left: 40px;
 }
 .moon-panel {
   -webkit-transform: scale3d(1, 1, 1);

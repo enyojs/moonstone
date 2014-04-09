@@ -61,30 +61,3 @@ enyo.kind({
 		this.addRemoveClass("moon-spinner-transparent-background", !!this.get("transparent"));
 	}
 });
-
-
-enyo.kind({
-	name: "moon.SpinnerGif",
-	//* @protected
-	classes: "moon-spinner-gif",
-	//* @public
-	//* Hides the animating spinner.
-	stop: function() {
-		this.setShowing(false);
-	},
-	//* Shows the spinner with animation.
-	start: function() {
-		this.setShowing(true);
-	},
-	/** Toggle existing state of spinner.
-		If spinner is visible it will be removed and viceversa.
-	*/
-	toggle: function() {
-		this.setShowing(!this.getShowing());
-	},
-	//* @protected
-	contentChanged: function() {
-		this.inherited(arguments);
-		this.addRemoveClass("content", !!this.content);
-	}
-});
