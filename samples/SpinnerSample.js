@@ -5,6 +5,6 @@ enyo.kind({
 		{kind: "moon.Divider", content: "Spinner"},
 		{kind: "moon.Spinner"},
 		{kind: "moon.Divider", content: "Spinner with Content"},
-		{kind: "moon.Spinner", content: "Loading..."},
+		{kind: "moon.Spinner", content: "Loading..."}
 	]
 });

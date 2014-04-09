@@ -33,7 +33,7 @@ enyo.kind({
 		this.contentChanged();
 		this.transparentChanged();
 		// Begin our animation, so each ball is in-sync (for slower devices)
-		this.addRemoveClass("running", true);
+		this.addClass("running");
 	},
 	//* @public
 	//* Hides the animating spinner.
