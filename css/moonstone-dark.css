@@ -787,6 +787,7 @@
   text-overflow: ellipsis;
   white-space: pre !important;
   overflow: hidden;
+  text-align: left;
 }
 .moon-marquee span {
   pointer-events: none !important;
@@ -814,6 +815,9 @@
   text-overflow: clip;
   overflow: visible;
 }
+.enyo-locale-right-to-left .moon-marquee {
+  text-align: right;
+}
 .moon-simple-picker {
   display: inline-block;
   max-width: 350px;
@@ -840,6 +844,9 @@
 }
 .moon-simple-picker-client {
   white-space: nowrap;
+}
+.moon-simple-picker-client .moon-marquee {
+  text-align: center;
 }
 .moon-simple-picker-client.animated {
   -webkit-transition: -webkit-transform ease-out 0.3s;
@@ -1381,6 +1388,7 @@
 .moon-button .moon-marquee {
   width: 100%;
   vertical-align: top;
+  text-align: center;
 }
 /*
 	IE8 can't handle these selectors in tandem:
@@ -4879,6 +4887,12 @@
 }
 .moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
   display: none;
+}
+.moon-body-text-control {
+  text-align: left;
+}
+.enyo-locale-right-to-left .moon-body-text-control {
+  text-align: right;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
