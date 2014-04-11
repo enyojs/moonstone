@@ -2,7 +2,7 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", index: 3, components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
 				{kind: "moon.ToggleButton", small:true, content:"Small Header", name:"smallHeaderToggle"}
 			], components: [
@@ -56,12 +56,64 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Four", ontap: "next5"},
 				{kind: "moon.Item", content: "Item Five", ontap: "next5"}
 			]},
-			{title: "Sixth Panel with a very long title", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
-				{kind: "moon.Item", content: "Item One", ontap: "next6"},
-				{kind: "moon.Item", content: "Item Two", ontap: "next6"},
-				{kind: "moon.Item", content: "Item Three", ontap: "next6"},
-				{kind: "moon.Item", content: "Item Four", ontap: "next6"},
-				{kind: "moon.Item", content: "Item Five", ontap: "next6"}
+			{title: "Sixth Panel", classes: "moon-7h", joinToPrev: true, titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+				{kind: "moon.Scroller", fit: true, components: [
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "enyo.Image", ontap: "next6", src: "http://lorempixel.com/200/200/sports/", style: "display: inline-block; padding: 10px;"},
+					{kind: "moon.Item", content: "Item One", ontap: "next6"},
+					{kind: "moon.Item", content: "Item Two", ontap: "next6"},
+					{kind: "moon.Item", content: "Item Three", ontap: "next6"},
+					{kind: "moon.Item", content: "Item Four", ontap: "next6"},
+					{kind: "moon.Item", content: "Item Five", ontap: "next6"}
+				]}
 			]},
 			{title: "Seventh", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
 				{kind: "moon.Item", content: "Item One"},

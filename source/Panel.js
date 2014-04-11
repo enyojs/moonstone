@@ -63,7 +63,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name: "viewport", classes: "moon-panel-viewport", components: [
+		{name: "viewport", classes: "moon-panel-viewport", onwebkitAnimationEnd: "animationComplete", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 				/* header will be created here programmatically in createTools after mixing-in headerOptions */
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
@@ -304,20 +304,20 @@ enyo.kind({
 	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
-		this.haltAnimations();
-		this.$.animator.play("shrink");
+		this.addClass("shrunken");
+		this.addClass("shrinking");
 	},
 	shrink: function() {
-		this.$.animator.jumpToEnd("shrink");
+		this.addClass("shrunken");
 	},
 	growAnimation: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.haltAnimations();
-		this.$.animator.play("grow");			
+		this.addClass("growing");	
+		this.removeClass("shrunken");
 	},
 	grow: function() {
-		this.$.animator.jumpToEnd("grow");
+		this.removeClass("shrunken");
 	},
 	//* @protected
 	getInitAnimationValues: function() {
@@ -330,9 +330,8 @@ enyo.kind({
 		this.initialWidth = node.offsetWidth   - paddingR - paddingL;
 	},
 	haltAnimations: function() {
-		this.$.animator.stop();
-		this.$.animator.pause("grow");
-		this.$.animator.pause("shrink");
+		this.removeClass("growing");
+		this.removeClass("shrinking");
 	},
 	preTransitionComplete: function() {
 		this.shrinking = false;
@@ -341,14 +340,15 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.growing = false;
 		this.doPostTransitionComplete();
-		this.reflow();
 	},
 	animationComplete: function(inSender, inEvent) {
-		switch (inEvent.animation.name) {
-		case "shrink":
+		if (this.shrinking) {
+			this.removeClass("shrinking");
 			this.preTransitionComplete();
 			return true;
-		case "grow":
+		}
+		if (this.growing) {
+			this.removeClass("growing");
 			this.postTransitionComplete();
 			return true;
 		}
