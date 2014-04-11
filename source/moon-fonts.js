@@ -140,7 +140,12 @@
 			if (!styleElem) {
 				styleElem = document.createElement("style");
 				styleElem.setAttribute("id", styleId);
-				document.head.appendChild(styleElem);
+				if (enyo.platform.ie === 8) {
+					// ENYO-3944: Using getElementsByTagName('head') for IE8 Sampler support
+					document.getElementsByTagName('head')[0].appendChild(styleElem);
+				} else {
+					document.head.appendChild(styleElem);
+				}
 			}
 
 			// Build all the fonts so they could be explicitly called
@@ -162,7 +167,10 @@
 				fontDefinitionCss+= this.buildFontSet("zh-TW", true);
 			}
 
-			styleElem.innerHTML = fontDefinitionCss;
+			// ENYO-3944: IE8 Sampler support - IE8 does not allow innerHTML modification of <style> elements
+			if (enyo.platform.ie !== 8) {
+				styleElem.innerHTML = fontDefinitionCss;
+			}
 		};
 
 		enyo.updateLocale = function() {
