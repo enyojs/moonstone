@@ -140,8 +140,12 @@
 			if (!styleElem) {
 				styleElem = document.createElement("style");
 				styleElem.setAttribute("id", styleId);
-				// ENYO-3944: Using getElementsByTagName('head') for IE8 Sampler support
-				document.getElementsByTagName('head')[0].appendChild(styleElem);
+				if (enyo.platform.ie === 8) {
+					// ENYO-3944: Using getElementsByTagName('head') for IE8 Sampler support
+					document.getElementsByTagName('head')[0].appendChild(styleElem);
+				} else {
+					document.head.appendChild(styleElem);
+				}
 			}
 
 			// Build all the fonts so they could be explicitly called
