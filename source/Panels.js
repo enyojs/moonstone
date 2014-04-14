@@ -120,9 +120,16 @@ enyo.kind({
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
-	//* Creates multiple panels on top of the stack and updates index to select
-	//* the last one created.
-	pushPanels: function(inInfos, inCommonInfo) { // added
+	/**
+		Creates multiple panels on top of the stack and updates index to select
+		the last one created. Supports an optional options object as the third parameter.
+		{
+			setIndex: <indexNumber>,	// The panel index number to immediately switch to.
+			transition: true	// Whether to transition or jump directly to the next panel.
+		}
+	*/
+	pushPanels: function(inInfos, inCommonInfo, inOptions) { // added
+		if (!inOptions) { inOptions = {}; }
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
 			nPanel;
@@ -131,8 +138,20 @@ enyo.kind({
 			oPanels[nPanel].render();
 		}
 
+		if (inOptions.setIndex || inOptions.setIndex === 0) {
+			lastIndex = inOptions.setIndex;
+		}
+		else {
+			lastIndex++;
+		}
 		this.resized();
-		this.setIndex(lastIndex+1);
+		// If transition was explicitly set to false
+		if (inOptions.transition === false) {
+			this.setIndexDirect(lastIndex);
+		}
+		else {
+			this.setIndex(lastIndex);
+		}
 		return oPanels;
 	},
 	//* Destroys panels whose index is greater than or equal to _inIndex_.
