@@ -21,7 +21,14 @@ enyo.kind({
 			created, in which case the control will be updated to reflect the
 			new value.  Only valid if _iLib_ is loaded.
 		*/
-		locale: ""
+		locale: "",
+		/** 
+			Define clock mode.
+			If date is assinged with JS Date object or null, it will be "normal".
+			If date is assinged with JS object that indicating the exact time components
+			to be formatted into the clock, it will be "direct".
+		*/
+		mode: "normal"
 	},
 	//* @protected
 	components: [
@@ -99,9 +106,13 @@ enyo.kind({
 		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
 	},
 	dateChanged: function() {
-		if(this.date && this.date instanceof Date) {
+		if (this.date && !(this.date instanceof Date)) {
+			this.setMode("direct");
+		} else if(this.date && this.date instanceof Date) {
+			this.setMode("normal");
 			this._timeDiff = (this.date.getTime() - Date.now()) || 0;
 		} else {
+			this.setMode("normal");
 			this._timeDiff = 0;
 		}
 		this.refreshJob();
