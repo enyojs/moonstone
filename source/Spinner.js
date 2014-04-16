@@ -32,8 +32,11 @@ enyo.kind({
 		this.inherited(arguments);
 		this.contentChanged();
 		this.transparentChanged();
+	},
+	rendered: function() {
+		this.inherited(arguments);
 		// Begin our animation, so each ball is in-sync (for slower devices)
-		this.addClass("running");
+		enyo.asyncMethod(this, function() { this.addClass("running"); });
 	},
 	//* @public
 	//* Hides the animating spinner.
