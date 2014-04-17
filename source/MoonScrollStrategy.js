@@ -430,7 +430,9 @@ enyo.kind({
 		this.scrollBounds = this._getScrollBounds();
 		this.setupBounds();
 		this.scrollBounds = null;
-		this.alertThumbs();
+		if (this.showVertical() || this.showHorizontal()) {
+			this.alertThumbs();
+		}
 		return true;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
