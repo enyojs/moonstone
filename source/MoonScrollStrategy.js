@@ -430,7 +430,7 @@ enyo.kind({
 		this.scrollBounds = this._getScrollBounds();
 		this.setupBounds();
 		this.scrollBounds = null;
-		if (this.showVertical() || this.showHorizontal()) {
+		if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
 			this.alertThumbs();
 		}
 		return true;
