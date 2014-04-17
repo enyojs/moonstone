@@ -37,6 +37,7 @@ enyo.kind({
 	//* @protected
 	handlers: {
 		onRequestScrollIntoView : "requestScrollIntoView",
+		onRequestSetupBounds	: "requestSetupBounds",
 		onenter                 : "enter",
 		onleave                 : "leave"
 	},
@@ -423,6 +424,14 @@ enyo.kind({
 			this.scrollBounds = null;
 		}
 		return !bubble;
+	},
+	//* Responds to child components' requests to update scrollBounds without scrolling into view
+	requestSetupBounds: function(inSender, inEvent) {
+		this.scrollBounds = this._getScrollBounds();
+		this.setupBounds();
+		this.scrollBounds = null;
+		this.alertThumbs();
+		return true;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();
