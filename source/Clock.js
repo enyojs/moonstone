@@ -196,7 +196,7 @@ enyo.kind({
 		var md = this._mdf	? this._mdf.format((this.mode === "normal") ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
 																		: ilib.Date.newInstance(this.parseDirectDate(inDate))) 
 							: (this.mode === "normal")	? this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate())
-														: (inDate.month !== undefined) ? this.months[inDate.month] : 0 + " " + this._formatNumber(inDate.day);
+														: ((inDate.month !== undefined) ? this.months[inDate.month] : 0) + " " + this._formatNumber(inDate.day);
 		this.$.bottom.setContent(md);
 	},
 	handleLocaleChangeEvent: function() {
