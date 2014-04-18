@@ -21,14 +21,10 @@ enyo.kind({
 			created, in which case the control will be updated to reflect the
 			new value.  Only valid if _iLib_ is loaded.
 		*/
-		locale: "",
-		/** 
-			Define clock mode.
-			If date is assinged with JS Date object or null, it will be "normal".
-			If date is assinged with JS object that indicating the exact time components
-			to be formatted into the clock, it will be "direct".
-		*/
-		mode: "normal"
+		locale: ""
+	},
+	observers: {
+		modeChanged: ["mode"]
 	},
 	//* @protected
 	components: [
@@ -45,6 +41,13 @@ enyo.kind({
 	_timeDiff: 0,
 	//* _ilib_ locale info instance; it contains information about the particular locale
 	ilibLocaleInfo: null,
+	/** 
+		Define clock mode.
+		If date is assinged with JS Date object or null, it will be "normal".
+		If date is assinged with JS object that indicating the exact time components
+		to be formatted into the clock, it will be "direct".
+	*/
+	mode: "normal",
 	create: function() {
 		this.inherited(arguments);
 		this.initDefaults();
@@ -107,15 +110,18 @@ enyo.kind({
 	},
 	dateChanged: function() {
 		if (this.date && !(this.date instanceof Date)) {
-			this.setMode("direct");
+			this.set("mode", "direct");
 		} else if(this.date && this.date instanceof Date) {
-			this.setMode("normal");
+			this.set("mode", "normal");
 			this._timeDiff = (this.date.getTime() - Date.now()) || 0;
 		} else {
-			this.setMode("normal");
-			this._timeDiff = 0;
+			this.set("mode", "normal");
+			this._timeDiff = 0;			
 		}
 		this.refreshJob();
+	},
+	modeChanged: function() {
+		// reinitialize data format to use timezone: Etc/UTC
 	},
 	refreshJob: function() {
 		var d = new Date(Date.now() + this._timeDiff);
