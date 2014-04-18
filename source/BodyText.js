@@ -21,6 +21,7 @@ enyo.kind({
 	contentChanged: function() {
 		this.inherited(arguments);
 		this.detectTextDirectionality();
+		this.bubble("onRequestSetupBounds");
 	},
 	centeredChanged: function() {
 		this.applyStyle("text-align", this.centered ? "center" : null);
