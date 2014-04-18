@@ -78,21 +78,21 @@ enyo.kind({
 			type: "time",
 			time: "h",
 			clock: clock,
-			timezone: "local"
+			timezone: (this.mode == "normal") ? "local" : "Etc/UTC"
 		};
 		var fmtMinuteParams = {
 			locale: this.locale,
 			type: "time",
 			time: fmtMin,
 			clock: clock,
-			timezone: "local"
+			timezone: (this.mode == "normal") ? "local" : "Etc/UTC"
 		};
 		var fmtMonthDayParams = {
 			locale: this.locale,
 			type: "date",
 			date: "md",
 			length: dateLen,
-			timezone: "local"
+			timezone: (this.mode == "normal") ? "local" : "Etc/UTC"
 		};
 
 		this._hf = new ilib.DateFmt(fmtHourParams);
@@ -121,6 +121,7 @@ enyo.kind({
 		this.refreshJob();
 	},
 	modeChanged: function() {
+		this.initDefaults();
 		// reinitialize data format to use timezone: Etc/UTC
 	},
 	refreshJob: function() {
