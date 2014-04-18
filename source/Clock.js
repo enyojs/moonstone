@@ -78,21 +78,21 @@ enyo.kind({
 			type: "time",
 			time: "h",
 			clock: clock,
-			timezone: (this.mode == "normal") ? "local" : "Etc/UTC"
+			timezone: (this.mode === "normal") ? "local" : "Etc/UTC"
 		};
 		var fmtMinuteParams = {
 			locale: this.locale,
 			type: "time",
 			time: fmtMin,
 			clock: clock,
-			timezone: (this.mode == "normal") ? "local" : "Etc/UTC"
+			timezone: (this.mode === "normal") ? "local" : "Etc/UTC"
 		};
 		var fmtMonthDayParams = {
 			locale: this.locale,
 			type: "date",
 			date: "md",
 			length: dateLen,
-			timezone: (this.mode == "normal") ? "local" : "Etc/UTC"
+			timezone: (this.mode === "normal") ? "local" : "Etc/UTC"
 		};
 
 		this._hf = new ilib.DateFmt(fmtHourParams);
@@ -126,7 +126,7 @@ enyo.kind({
 	},
 	refreshJob: function() {
 		var d, h;
-		if (this.mode == "normal") {
+		if (this.mode === "normal") {
 			d = new Date(Date.now() + this._timeDiff);
 			h = d.getHours();
 		} else {
@@ -163,27 +163,27 @@ enyo.kind({
 	*/
 	parseDirectDate: function(inDate) {
 		return {
-			year: inDate.year ? inDate.year : 0,
-			month: inDate.month ? inDate.month : 0,
-			day: inDate.day ? inDate.day : 0,
-			hour: inDate.hour ? inDate.hour : 0,
-			minute: inDate.min ? inDate.min : 0,
-			second: inDate.sec ? inDate.sec : 0,
+			year: (inDate.year !== undefined) ? inDate.year : 0,
+			month: (inDate.month !== undefined) ? inDate.month : 0,
+			day: (inDate.day !== undefined) ? inDate.day : 0,
+			hour: (inDate.hour !== undefined) ? inDate.hour : 0,
+			minute: (inDate.min !== undefined) ? inDate.min : 0,
+			second: (inDate.sec !== undefined) ? inDate.sec : 0,
 			timezone: "Etc/UTC"
 		};
 	},
 	updateHour: function(inDate, inHour) {
 		inHour = (inHour > 12 ? inHour-12: inHour) || 12;
 		
-		var hour = this._hf ? this._hf.format((this.mode == "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
+		var hour = this._hf ? this._hf.format((this.mode === "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
 																		: ilib.Date.newInstance(this.parseDirectDate(inDate)))
 							: inHour;
 		this.$.hour.setContent(hour);
 	},
 	updateMinute: function(inDate, inHour) {
-		var time = this._mf ? this._mf.format((this.mode == "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
+		var time = this._mf ? this._mf.format((this.mode === "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
 																		: ilib.Date.newInstance(this.parseDirectDate(inDate))) 
-							: (this.mode == "normal")	? this._formatNumber(inDate.getMinutes())
+							: (this.mode === "normal")	? this._formatNumber(inDate.getMinutes())
 														: this._formatNumber(inDate.min);
 		var meridiem = "";
 		if (!this.ilibLocaleInfo || this.ilibLocaleInfo.locale.spec === "en-US") {
@@ -193,10 +193,10 @@ enyo.kind({
 		this.$.meridiem.setContent(meridiem);
 	},
 	updateMonthDay: function(inDate) {
-		var md = this._mdf	? this._mdf.format((this.mode == "normal") ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
+		var md = this._mdf	? this._mdf.format((this.mode === "normal") ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
 																		: ilib.Date.newInstance(this.parseDirectDate(inDate))) 
-							: (this.mode == "normal")	? this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate())
-														: inDate.month ? this.months[inDate.month] : 0 + " " + this._formatNumber(inDate.day);
+							: (this.mode === "normal")	? this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate())
+														: (inDate.month !== undefined) ? this.months[inDate.month] : 0 + " " + this._formatNumber(inDate.day);
 		this.$.bottom.setContent(md);
 	},
 	handleLocaleChangeEvent: function() {
