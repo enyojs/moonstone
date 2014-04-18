@@ -136,7 +136,9 @@ enyo.kind({
 		this.updateHour(d, h);
 		this.updateMinute(d, h);
 		this.updateMonthDay(d);
-		this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
+		if (this.mode === "normal") {
+			this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());	
+		}		
 	},
 	_formatNumber: function(inValue) {
 		// Used when ilib is not present
