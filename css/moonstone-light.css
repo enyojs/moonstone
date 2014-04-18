@@ -4273,6 +4273,9 @@
 .moon-video-player-channel-info-badges > :first-child {
   margin: 3px 10px;
 }
+.enyo-locale-right-to-left .moon-video-player-channel-info-badges > :first-child {
+  margin: 3px 0 3px 20px;
+}
 .moon-video-player-channel-info-no {
   font-family: "Moonstone Miso";
   font-size: 126px;
