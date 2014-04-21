@@ -120,10 +120,6 @@ enyo.kind({
 		}
 		this.refreshJob();
 	},
-	modeChanged: function() {
-		this.initDefaults();
-		// reinitialize data format to use timezone: Etc/UTC
-	},
 	refreshJob: function() {
 		var d, h;
 		if (this.mode === "normal") {
@@ -145,6 +141,9 @@ enyo.kind({
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	localeChanged: function() {
+		this._refresh();
+	},
+	modeChanged: function() {
 		this._refresh();
 	},
 	_refresh: function() {
