@@ -4267,11 +4267,11 @@
   white-space: normal;
   max-width: 800px;
 }
-.moon-video-player-channel-info-badges > * {
-  margin: 3px 0px 3px 10px;
+.moon-channelinfo .moon-marquee {
+  text-align: right;
 }
-.moon-video-player-channel-info-badges > :first-child {
-  margin: 3px 10px;
+.moon-video-player-channel-info-badges > * {
+  margin: 3px 0 3px 20px;
 }
 .moon-video-player-channel-info-no {
   font-family: "Moonstone Miso";
