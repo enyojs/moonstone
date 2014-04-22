@@ -43,6 +43,7 @@ enyo.kind({
 				{classes: "column two-column col1", components: [
 					{kind: "moon.Divider", content: "Spinner"},
 					{kind: "moon.Spinner"},
+					{kind: "moon.Spinner", transparent: true},
 
 					{kind: "moon.Divider", content: "Custom Colors"},
 					{kind: "moon.Spinner", classes: "custom-colors1"},
@@ -63,7 +64,9 @@ enyo.kind({
 				]},
 				{classes: "column two-column col2", components: [
 					{kind: "moon.Divider", content: "Huge Spinner!"},
-					{kind: "moon.Spinner", classes: "huge"}
+					{kind: "moon.Spinner", classes: "huge"},
+					{kind: "moon.Spinner", classes: "huge", transparent: true},
+					{kind: "moon.Spinner", classes: "huge picture-bg"}
 				]}
 			]}
 		]}

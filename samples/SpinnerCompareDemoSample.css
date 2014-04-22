@@ -6,6 +6,9 @@
 .extra-wide {
 	max-width: none;
 }
+.moon-divider {
+	margin-top: 2em;
+}
 
 .column {
 	display: inline-block;
@@ -13,6 +16,14 @@
 }
 .column.two-column {
 	width: 50%;
+}
+
+.column.two-thin-column {
+	width: 30%;
+	margin-top: 100px;
+}
+.column.two-thin-column.col1 {
+	margin-left: 20%;
 }
 
 .right-column.col1 {
@@ -122,9 +133,6 @@
 .moon-spinner.huge .moon-spinner-ball-decorator {
 	height: 300px;
 	width: 300px;
-}
-.moon-spinner.huge.picture-bg {
-	background: transparent url(http://lorempixel.com/300/300/nature/3/) no-repeat;
 }
 
 /* Gif-based Spinner */
