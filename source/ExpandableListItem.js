@@ -117,7 +117,7 @@ enyo.kind({
 
 		this.addRemoveClass("disabled", disabled);
 		if (disabled) {
-			this.setOpen(false);
+			this.setActive(false);
 		}
 	},
 	activeChanged: function() {
