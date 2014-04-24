@@ -1,7 +1,8 @@
 /**
-	_moon.HighlightText_ is a control that displays highlighted text.  In response
-	to calling `setHighlight` or receiving `onHighlight` event, it will highlight a
-    specified string if that string is found within the control's content.
+	_moon.HighlightText_ is a control that displays highlighted text.  When
+	_setHighlight()_ is called or an _onHighlight_ event is received, it will
+	highlight a specified string if that string is found within the control's
+	content.
 
 	For example, let's say we have the following control:
 
@@ -11,34 +12,34 @@
 
 		this.waterfall("onHighlight", {highlight: "Hello"});
 
-    or calling the API directly:
+	or the direct API call
 
-        this.$.myHT.setHighlight("Hello");
+		this.$.myHT.setHighlight("Hello");
 
 	the word "Hello" will be highlighted.
 
-	The highlighting will be turned off in response to an `offHighlight` event,
-	e.g.:
+	The highlighting will be turned when an _offHighlight_ event is received
 
 		this.waterfall("offHighlight");
 
-    or by setting highlight to a falsy value:
+	or when _setHighlight()_ is passed a falsy value
 
         this.$.myHT.setHighlight("");
-
 */
 enyo.kind({
     name: "moon.HighlightText",
     //* @public
     published: {
-        //* String or RegExp indicating the text or pattern to highlight.  An empty string, falsy value, or empty RegExp
-        //* will disable highlighting.
+        //* String or regular expression specifying the text or pattern to
+        //* highlight. Setting this to an empty string, falsy value, or empty
+        //* regex will disable highlighting.
         highlight: "",
-        //* When true, only case-sensitive matches of the highlight string will be highlighted.  This property
-        //* is ignored if a RegExp is specified to the highlight property (you may use the "i" modifier to indicate
-        //* case insensitive RegExp).
+        //* When true, only case-sensitive matches of the string to highlight
+        //* will be highlighted.  This property will be ignored if the
+        //* _highlight_ property is set to a regular expression (you may use the
+        //* "i" modifier to create a case-insensitive regex).
         caseSensitive: false,
-        //* The default CSS class to apply to highlighted content.
+        //* The default CSS class to apply to highlighted content
         highlightClasses: "moon-highlight-text-highlighted"
     },
     //* @protected
