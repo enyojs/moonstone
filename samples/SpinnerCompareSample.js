@@ -8,7 +8,6 @@ enyo.kind({
 	components: [
 		{kind: "moon.Panels", name: "panels", pattern: "activity", classes: "enyo-fit", components: [
 			{kind: "moon.Panel", title: "Tools", smallHeader: true, components: [
-				// {kind: "moon.Button", content: "   SYSTEM OVERLOAD", classes: "skull-button", ontap: "systemOverload"},
 				{kind: "moon.Button", ontap: "systemOverload", classes: "extra-wide", components: [
 					{kind: "moon.Icon", src: "../images/skull.png"},
 					{content: "SYSTEM OVERLOAD"}
@@ -25,7 +24,7 @@ enyo.kind({
 			]},
 			{kind: "moon.Panel", title: "Spinners", smallHeader: true, joinToPrev: true, headerComponents: [
 				{kind: "moon.IconButton", icon: "arrowlargeright", ontap: "goToCustom1"}
-			],components: [
+			], components: [
 				{kind: "moon.Divider", content: "Spinner"},
 				{kind: "moon.Spinner"},
 				{kind: "moon.Divider", content: "Spinner with Content"},
@@ -97,17 +96,29 @@ enyo.kind({
 	forceSyncSpinners: function() {
 	},
 	forceStopSpinners: function() {
-		var sps = document.getElementsByClassName("moon-spinner-ball");
+		var sps = document.getElementsByClassName("moon-spinner");
 		enyo.forEach(sps, function(elem, index) {
+			var ed = enyo.$[elem.id];
+			ed.removeClass("running");
+		}, this);
+
+		var spbs = document.getElementsByClassName("moon-spinner-ball");
+		enyo.forEach(spbs, function(elem, index) {
 			var ed = enyo.$[elem.id];
 			ed.applyStyle("-webkit-animation-name", "dummyname");
 		}, this);
 	},
 	forceStartSpinners: function() {
-		var sps = document.getElementsByClassName("moon-spinner-ball");
+		var sps = document.getElementsByClassName("moon-spinner");
 		enyo.forEach(sps, function(elem, index) {
 			var ed = enyo.$[elem.id];
-			ed.applyStyle("-webkit-animation-name", "inherit");
+			ed.addClass("running");
+		}, this);
+		
+		var spbs = document.getElementsByClassName("moon-spinner-ball");
+		enyo.forEach(spbs, function(elem, index) {
+			var ed = enyo.$[elem.id];
+			ed.applyStyle("-webkit-animation-name", null);
 		}, this);
 	}
 });
