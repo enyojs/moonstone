@@ -30,7 +30,7 @@ enyo.kind({
 	//* @protected
 	classes: "moon-objaction",
 	handlers: {
-		onSpotlightFocus: "spotFocused",
+		onSpotlightFocused: "spotFocused",
 		onSpotlightBlur: "spotBlur",
 		onenter: "enter",
 		onleave: "leave"
