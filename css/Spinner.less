@@ -8,7 +8,7 @@
 	30%       { -webkit-transform: rotateZ(225deg); }
 	/* Speed back up as the ball falls */
 	/* Impact at last ball */
-	34%       { -webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3)); }
+	33%       { -webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3)); }
 	39%, 67%  { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
 	/* Small bounce forward */
 	72%       { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
@@ -17,7 +17,8 @@
 
 @-webkit-keyframes spinBall2 {
 	/* Small bounce forward */
-	0%, 5%    { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
+	0%        { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
+	5%        { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
 	12%, 33%  { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle); }
 
 	33.01%    { -webkit-transform: rotateZ(@moon-spinner-ball-angle); }

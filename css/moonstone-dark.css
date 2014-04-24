@@ -2915,7 +2915,7 @@
   }
   /* Speed back up as the ball falls */
   /* Impact at last ball */
-  34% {
+  33% {
     -webkit-transform: rotateZ(321deg);
   }
   39%,
@@ -2933,7 +2933,9 @@
 }
 @-webkit-keyframes spinBall2 {
   /* Small bounce forward */
-  0%,
+  0% {
+    -webkit-transform: rotateZ(347deg);
+  }
   5% {
     -webkit-transform: rotateZ(383deg);
   }
