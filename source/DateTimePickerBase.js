@@ -34,16 +34,16 @@ enyo.kind({
 		/**
 			The locale (in IETF format) used for picker formatting.
 
-			This setting only applies when the _ilib_ library is loaded.
+			This setting only applies when the _iLib_ library is loaded.
 
-			* When ilib is not present, US English (en-US) formatting is applied.
+			* When iLib is not present, US English (en-US) formatting is applied.
 
-			* When ilib is present and _locale_ is set to the default value (_null_),
-			the picker uses ilib's current locale (which ilib tries to determine
+			* When iLib is present and _locale_ is set to the default value (_null_),
+			the picker uses iLib's current locale (which iLib tries to determine
 			from the system).
 
-			* When ilib is present and an explicit _locale_ is provided, that locale
-			will be used (regardless of ilib's current locale).
+			* When iLib is present and an explicit _locale_ is provided, that locale
+			will be used (regardless of iLib's current locale).
 
 			_locale_ may be changed after the picker is created, in which case the
 			picker will	be reformatted to match the new setting.
@@ -57,8 +57,8 @@ enyo.kind({
 		*/
 		value: null,
 		/**
-			When true, the picker uses a 12-hour clock (this value is ignored when ilib
-			is loaded, since the meridiem will be set by the current locale)
+			When true, the picker uses a 12-hour clock (this value is ignored when
+			iLib is loaded, since the meridiem will be set by the current locale)
 		*/
 		meridiemEnable: false
 	},

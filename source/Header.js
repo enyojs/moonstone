@@ -18,14 +18,21 @@ enyo.kind({
 		subTitleBelow: '',
 		//* If true, the _moon-small-header_ CSS class will be applied to this header
 		small: false,
-		//* URL src of a background image
-		//* This can be a string for a single background-image, or an array of multiple background-image sources
+		/**
+			URL of background image(s).
+			This may be a string referring a single background image, or an array of
+			strings referring to multiple background images.
+		*/
 		backgroundSrc: null,
-		//* Background position, defined as a string in the form of _"vertical horizontal"_,
-		//* with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
-		//* If no second property is included, the horizontal value will default to _right_.
-		//* Additionally, an array may be supplied to position multiple background images.
-		//* The order should be the same as the order of the backgroundSrc sources array.
+		/**
+			Position of background image, defined as a string of the form _"vertical
+			horizontal"_, with a space separating the _vertical_ and _horizontal_
+			properties (e.g., _"top right"_). If no second property is included, the
+			horizontal value will default to _right_.
+			As with _backgroundSrc_, an array of strings may be supplied to position
+			multiple background images. The order of items should be the same as in
+			_backgroundSrc_.
+		*/
 		backgroundPosition: "top right",
 		//* When using a full-bleed background image, set this property to true to indent
 		//* the header text/controls and remove the header lines
