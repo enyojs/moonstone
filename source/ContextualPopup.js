@@ -21,8 +21,8 @@ enyo.kind({
 	//* @public
 	published: {
 		/**
-			When true, spotlight cannot leave the constraints of the _moon.Popup_
-			unless it is explicitly closed.
+			When true, focus cannot leave the constraints of the popup unless the
+			popup is explicitly closed.
 		*/
 		spotlightModal: false,
 		/**
