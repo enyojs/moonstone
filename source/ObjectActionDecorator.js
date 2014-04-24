@@ -30,8 +30,8 @@ enyo.kind({
 	//* @protected
 	classes: "moon-objaction",
 	handlers: {
-		onSpotlightFocus:"focus",
-		onSpotlightBlur:"blur",
+		onSpotlightFocus: "spotFocused",
+		onSpotlightBlur: "spotBlur",
 		onenter: "enter",
 		onleave: "leave"
 	},
@@ -74,11 +74,11 @@ enyo.kind({
 		this.orientationChanged();	
 		this.noStretchChanged();	
 	},
-	focus: function(inSender, inEvent) {
+	spotFocused: function(inSender, inEvent) {
 		this.focused = true;
 		this.updateActionsVisibility();
 	},
-	blur: function(inSender, inEvent) {
+	spotBlur: function(inSender, inEvent) {
 		this.focused = false;
 		this.entered = false;
 		this.updateActionsVisibility();
