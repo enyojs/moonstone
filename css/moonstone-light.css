@@ -2928,12 +2928,94 @@
     -webkit-transform: rotateZ(373deg);
   }
 }
+@-webkit-keyframes spinBall2 {
+  /* Small bounce forward */
+  0%,
+  5% {
+    -webkit-transform: rotateZ(383deg);
+  }
+  12%,
+  33% {
+    -webkit-transform: rotateZ(373deg);
+  }
+  33.01% {
+    -webkit-transform: rotateZ(13deg);
+  }
+  /* Slow down toward the top */
+  48% {
+    -webkit-transform: rotateZ(160deg);
+  }
+  58% {
+    -webkit-transform: rotateZ(200deg);
+  }
+  63% {
+    -webkit-transform: rotateZ(225deg);
+  }
+  /* Speed back up as the ball falls */
+  /* Impact at last ball */
+  67% {
+    -webkit-transform: rotateZ(321deg);
+  }
+  72%,
+  100% {
+    -webkit-transform: rotateZ(347deg);
+  }
+}
+@-webkit-keyframes spinBall3 {
+  /* Impact at last ball */
+  0%,
+  100% {
+    -webkit-transform: rotateZ(321deg);
+  }
+  5%,
+  33% {
+    -webkit-transform: rotateZ(347deg);
+  }
+  /* Small bounce forward */
+  38% {
+    -webkit-transform: rotateZ(383deg);
+  }
+  45%,
+  66% {
+    -webkit-transform: rotateZ(373deg);
+  }
+  66.01% {
+    -webkit-transform: rotateZ(13deg);
+  }
+  /* Slow down toward the top */
+  81% {
+    -webkit-transform: rotateZ(160deg);
+  }
+  91% {
+    -webkit-transform: rotateZ(200deg);
+  }
+  97% {
+    -webkit-transform: rotateZ(225deg);
+  }
+  /* Speed back up as the ball falls */
+}
 @-webkit-keyframes propellerBall {
   0% {
     -webkit-transform: rotateZ(0deg);
   }
   100% {
     -webkit-transform: rotateZ(360deg);
+  }
+}
+@-webkit-keyframes propellerBall2 {
+  0% {
+    -webkit-transform: rotateZ(120deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(480deg);
+  }
+}
+@-webkit-keyframes propellerBall3 {
+  0% {
+    -webkit-transform: rotateZ(240deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(600deg);
   }
 }
 .moon-spinner {
@@ -2977,7 +3059,7 @@
   text-align: center;
   font-size: 90%;
   line-height: 0.4em;
-  -webkit-animation: spinBall 1.83s linear infinite;
+  -webkit-animation: none 1.83s linear infinite;
   -webkit-animation-play-state: paused;
   height: 15%;
   width: 15%;
@@ -2989,17 +3071,17 @@
   content: "•";
 }
 .moon-spinner .moon-spinner-ball1 {
-  -webkit-animation-delay: 0.61s;
+  -webkit-animation-name: spinBall;
   color: #69cdff;
   -webkit-transform: rotateZ(13deg);
 }
 .moon-spinner .moon-spinner-ball2 {
-  -webkit-animation-delay: 1.22s;
+  -webkit-animation-name: spinBall2;
   color: #ff4a4a;
   -webkit-transform: rotateZ(347deg);
 }
 .moon-spinner .moon-spinner-ball3 {
-  -webkit-animation-delay: 1.83s;
+  -webkit-animation-name: spinBall3;
   color: #ffb80d;
   -webkit-transform: rotateZ(321deg);
 }
