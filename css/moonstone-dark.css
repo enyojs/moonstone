@@ -3073,7 +3073,7 @@
   -webkit-transform-origin: center -133.33333333333331%;
 }
 .moon-spinner .moon-spinner-ball:after {
-  content: "•";
+  content: "\2022";
 }
 .moon-spinner .moon-spinner-ball1 {
   -webkit-animation-name: spinBall;
