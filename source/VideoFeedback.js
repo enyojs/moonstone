@@ -154,7 +154,10 @@ enyo.kind({
 		this.inPersistShowing = inPersistShowing;
 	},
 
-	//* When true, current feedback message has no timeout.
+	/**
+		Returns boolean value previously passed into _feedback()_. A return value of
+		true indicates that the current feedback message has no timeout.
+	*/
 	isPersistShowing: function() {
 		return this.inPersistShowing;
 	},

@@ -33,7 +33,7 @@ enyo.kind({
 		title: "",
 		//* Subtitle of the VideoInfoHeader
 		subTitle: "",
-		//* VideoInfoHeader text below subtitle
+		//* Text below subtitle of the VideoInfoHeader
 		subSubTitle: "",
 		//* Main content of the VideoInfoHeader
 		description: ""
