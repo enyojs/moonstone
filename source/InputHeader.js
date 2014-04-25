@@ -1,10 +1,10 @@
 /**
-	_moon.InputHeader_ is a header that uses an input for the title. While it was
-	initially created as an independent subkind of [moon.Header](#moon.Header),
-	its unique functionality has been folded back into the latter kind, making the
-	current _moon.InputHeader_ simply a _moon.Header_ for which _inputMode_ is set
-	to _true_. We continue to offer _moon.InputHeader_ as a separate kind for
-	reasons of convenience and backward compatibility.
+	_moon.InputHeader_ is a header that uses an input for the title. While this
+	was initially created as an independent subkind of [moon.Header](#moon.Header),
+	its unique functionality has since been folded back into the latter kind,
+	making the current _moon.InputHeader_ simply a _moon.Header_ for which
+	_inputMode_ is set to _true_. We continue to offer _moon.InputHeader_ as a
+	separate kind for reasons of convenience and backward compatibility.
 
 	The _title_ property is used as the input placeholder, while the _value_
 	property contains the contents of the input. Developers may listen for

@@ -26,7 +26,10 @@ enyo.kind({
 		//* If a number is specified, the picker value is displayed as this many
 		//* zero-filled digits
 		digits: null,
-		//* When true, incrementing past max will wrap to min, and vice versa
+		/**
+			When true, incrementing beyond _max_ will wrap to _min_, and decrementing
+			beyond _min_ will wrap to _max_
+		*/
 		wrap: false
 	},
 	//* @protected
