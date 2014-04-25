@@ -26,7 +26,7 @@
 
 	In addition, both icon sizes support two states: a default or resting state,
 	and a pressed or active state.  Both states need to be included in the icon's
-	associated image asset, with the resting state on top and the sctive state on
+	associated image asset, with the resting state on top and the active state on
 	the bottom.
 
 	Image assets for large icons should be 75px wide and 150px high. This allows
