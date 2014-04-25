@@ -1,7 +1,8 @@
 /**
 	_moon.Panels_ extends [enyo.Panels](#enyo.Panels), adding support for 5-way
-	focus (Spotlight) and pre-configured Moonstone panels design patterns.  
-	By default, controls added to a _moon.Panels_ are instances of [moon.Panel](#moon.Panel).
+	focus (Spotlight) and pre-configured Moonstone panels design patterns. By
+	default, controls added to a _moon.Panels_ are instances of
+	[moon.Panel](#moon.Panel).
  */
 enyo.kind({
 	name				: 'moon.Panels',
@@ -9,52 +10,57 @@ enyo.kind({
 	//* @protected
 	classes				: 'moon-panels',
 	spotlightDecorate	: false,
-	//* public
+	//* @public
 	published: {
 		/**
-			A convenience property for configuring _moon.Panels_ according to a particular
-			design pattern.  Valid values are "none" (default), "activity",
+			A convenience property for configuring _moon.Panels_ according to a
+			particular design pattern.  Valid values are "none" (default), "activity",
 			and "alwaysviewing". Note that this property may only be set at creation
 			time, and should not be changed at runtime.
 
-			The "alwaysviewing" pattern uses the _moon.BreadcrumbArranger_ with semi-transparent
-			panels (depending on the color theme) over the right half of the screen, allowing
-			multiple breadcrumbs to accumulate over the left half of the screen.
+			The "alwaysviewing" pattern uses the _moon.BreadcrumbArranger_ with
+			semi-transparent panels (depending on the color theme) over the right half
+			of the screen, allowing multiple breadcrumbs to accumulate on the left
+			half of the screen.
 
-			The "activity" pattern  uses the _moon.BreadcrumbArranger_ with opaque panels
-			over the full screen, with only one breadcrumb showing on screen.
+			The "activity" pattern  uses the _moon.BreadcrumbArranger_, with opaque
+			panels over the full screen, with only one breadcrumb showing onscreen.
 
 			The "none" pattern should be used when selecting other arrangers, such as
 			_enyo.CarouselArranger_ or _enyo.CardArranger_.
 		*/
 		pattern: "none",
-		//* When used, the handle is hidden automatically after this amount of time (in ms)
+		/**
+			When handle is used, it is automatically hidden after this amount of time
+			(in milliseconds)
+		*/
 		autoHideTimeout: 4000,
 		/**
-			When true, a handle is created to allow the user to control the showing state
-			of the panels using animation.  When false, no handle is created and
+			When true, a handle is created to allow the user to control the showing
+			state of the panels using animation. When false, no handle is created and
 			panels can only be hidden/shown programmatically with no animation.
 			When "auto" (the default), _useHandle_ is set to true if _pattern_ is
 			"alwaysviewing" and set to false if the _pattern_ is "activity". Note that
 			this property may only be set at creation time, and should not be changed
-			at runtime.  This property only has an effect in "activity" or "alwaysviewing"
-			pattern.
+			at runtime. This property only has an effect when using the "activity" or
+			"alwaysviewing" pattern.
 		*/
 		useHandle: "auto",
-		/** 
+		/**
 			Dynamically controls whether the handle is showing.
-			When true (the default), handle is shown and panels can be shown by activating
-			the handle and hidden by re-activating the handle again or tapping outside the
-			panel area.  When false, handle is hidden and panels can only be shown/hidden
-			programmatically using the _showing_ property or the _hide_/_show_ API.
-			Only valid when _useHandle_ is true (or "auto" resulting in true).
+			When true (the default), the handle is shown and panels may be shown by
+			activating the handle and hidden by re-activating the handle or by tapping
+			outside the panel area. When false, the handle is hidden and panels may
+			only be shown or hidden programmatically using the _showing_ property or
+			the _hide()_/_show()_ API. This property only has an effect when the value
+			of _useHandle_ is true (or "auto", resulting in true).
 		*/
 		handleShowing: true,
 		//* When true, panels are automatically popped when the user moves back
 		popOnBack: false,
-		/** 
-			The source of the image used for branding in the lower left of the panels (only
-			applies to panels with the "activity" pattern).
+		/**
+			The source of the image used for branding in the lower left region of the
+			Panels (only applies to Panels using the "activity" pattern)
 		*/
 		brandingSrc: ""
 

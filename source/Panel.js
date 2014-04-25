@@ -285,17 +285,19 @@ enyo.kind({
 	},
 	//* @public
 	/**
-		The `transitionFinished` method is called directly on the panel by `moon.Panels` when the
-		panel has completed a transition.  You can override this function in a panel sub-kind to
-		perform post-transition work such as loading data for the panel, for example.  The `inInfo`
-		argument carries the following information, which can be used to determine the context for
-		the transition:
-		- inInfo.from: the index the parent panels was moving from for this transition
-		- inInfo.to: the index the parent panels was moving from for this transition
+		Called directly on the panel by _moon.Panels_ when the panel has completed a
+		transition. You may override this function in a panel subkind to perform
+		post-transition work (e.g., loading data for the panel).
+
+		The _inInfo_ argument contains the following information, which may be used
+		to determine the context for the transition:
+
+		- inInfo.from: the index the parent Panels was moving from for this transition
+		- inInfo.to: the index the parent Panels was moving to for this transition
 		- inInfo.index: the current index of this panel
-		- inInfo.animate: whether the parent panels is set to animate or not
-		- plus any additional information provided by the selected arranger, such as breadcrumb and
-			offscreen status, for example
+		- inInfo.animate: whether the parent Panels is set to animate or not
+		- any additional information provided by the selected arranger, such as
+			breadcrumb and offscreen status
 	*/
 	transitionFinished: function(inInfo) {
 		this.updatePanel(inInfo);
