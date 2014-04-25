@@ -16,23 +16,47 @@ enyo.kind({
 	//* @protected
 	classes: "moon-spinner",
 	//* @public
+	published: {
+		//* Set the background of the spinner to transparent (defaults to false)
+		transparent: false
+	},
+	components: [
+		{name: "decorator", classes: "moon-spinner-ball-decorator spin-ball-animation", components: [
+			{classes: "moon-spinner-ball moon-spinner-ball1"},
+			{classes: "moon-spinner-ball moon-spinner-ball2"},
+			{classes: "moon-spinner-ball moon-spinner-ball3"}
+		]},
+		{name: "client", classes: "moon-spinner-text"}
+	],
+	create: function() {
+		this.inherited(arguments);
+		this.contentChanged();
+		this.transparentChanged();
+		this.addClass("running");
+	},
+	//* @public
 	//* Hides the animating spinner.
 	stop: function() {
-		this.setShowing(false);
+		this.set("showing", false);
 	},
 	//* Shows the spinner with animation.
 	start: function() {
-		this.setShowing(true);
+		this.set("showing", true);
 	},
 	/** Toggle existing state of spinner.
 		If spinner is visible it will be removed and viceversa.
 	*/
 	toggle: function() {
-		this.setShowing(!this.getShowing());
+		this.set("showing", !this.get("showing"));
 	},
 	//* @protected
 	contentChanged: function() {
 		this.inherited(arguments);
+		this.$.client.setContent(this.content);
+		this.$.client.set("showing", !!this.content);
 		this.addRemoveClass("content", !!this.content);
+	},
+	transparentChanged: function() {
+		this.addRemoveClass("moon-spinner-transparent-background", !!this.get("transparent"));
 	}
 });
