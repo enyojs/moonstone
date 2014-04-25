@@ -60,15 +60,18 @@ enyo.kind({
 		showPercentage: true,
 		//* Popup width in pixels
 		popupWidth: "auto",
-		//* Popup height in pixels, and it is designed for under 72 pixels.
+		//* Popup height in pixels; value should be under 72
 		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
-		//* When false (the default), the knob may be moved past the _bgProgress_
+		/**
+			When false (the default), the knob may be moved past the _bgProgress_
+			value
+		*/
 		constrainToBgProgress: false,
 		/**
 			When true, an elastic visual effect is seen when the knob is dragged past
-			the _bgProgress_ (default is false)
+			the _bgProgress_ value (default is false)
 		*/
 		elasticEffect: false,
 		//* Custom popup content (ignored if null)

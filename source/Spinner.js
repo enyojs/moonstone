@@ -17,7 +17,7 @@ enyo.kind({
 	classes: "moon-spinner",
 	//* @public
 	published: {
-		//* Set the background of the spinner to transparent (defaults to false)
+		//* Determines whether spinner's background is transparent (default is false)
 		transparent: false
 	},
 	components: [
@@ -43,9 +43,7 @@ enyo.kind({
 	start: function() {
 		this.set("showing", true);
 	},
-	/** Toggle existing state of spinner.
-		If spinner is visible it will be removed and viceversa.
-	*/
+	//* Toggles the spinner's visibility state.
 	toggle: function() {
 		this.set("showing", !this.get("showing"));
 	},
