@@ -51,7 +51,9 @@ enyo.kind({
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
+	marqueeOnHover: true,
 	marqueeOnRender: true,
+	marqueeOnRenderDelay: 10000,
 	handlers: {
 		oninput: "handleInput",
 		onchange: "handleChange",
