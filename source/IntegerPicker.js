@@ -111,6 +111,18 @@ enyo.kind({
 	dragstart: function(inSender, inEvent) {
 		return true;
 	},
+	/**
+		fail-safe design.
+		If out boundary value is assigned, adjust boundary.
+	*/
+	setValue: function(inValue) {
+		if (inValue < this.min) {
+			this.setMin(inValue);
+		} else if (inValue > this.max) {
+			this.setMax(inValue);
+		}
+		this.set("value", inValue);
+	},
 	minChanged: function() {
 		this.rangeChanged();
 	},
