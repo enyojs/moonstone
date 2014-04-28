@@ -17,12 +17,17 @@ enyo.kind({
 		message: ""
 	},
 	//* @protected
+	mixins: ["moon.MarqueeSupport"],
+	marqueeOnSpotlight: false,
+	marqueeOnHover: true,
+	marqueeOnRender: true,
+	marqueeOnRenderDelay: 10000,
 	tools: [
 		{
 			layoutKind: "FittableColumnsLayout",
 			components: [
 				{fit: true, components: [
-					{name: "title", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
+					{name: "title", kind: "moon.MarqueeText", classes: "moon-header-font moon-popup-header-text moon-dialog-title"},
 					{name: "subTitle", classes: "moon-dialog-sub-title"}
 				]},
 				{name: "client", classes: "moon-dialog-client"}
