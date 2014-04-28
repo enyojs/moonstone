@@ -148,6 +148,8 @@ enyo.kind({
 	updatesSpottability: function() {
 		if (this.isBreadcrumb && !this.isOffscreen) {
 			this.addSpottableBreadcrumbProps();
+		} else if (this.isBreadcrumb && this.isOffscreen) {
+			this.removeSpottableProps();
 		} else {
 			this.removeSpottableBreadcrumbProps();
 		}
@@ -203,6 +205,10 @@ enyo.kind({
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
 		this.spotlightDisabled = false;
+	},
+	removeSpottableProps: function() {
+		this.$.breadcrumbBackground.set("spotlight", false);
+		this.spotlightDisabled = true;
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {
