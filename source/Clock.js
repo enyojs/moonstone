@@ -156,7 +156,7 @@ enyo.kind({
 	parseStaticDate: function(inDate) {
 		return {
 			year: (inDate.year !== undefined) ? inDate.year : 0,
-			month: (inDate.month !== undefined) ? inDate.month : 0,
+			month: (inDate.month !== undefined) ? inDate.month : 1,
 			day: (inDate.day !== undefined) ? inDate.day : 0,
 			hour: (inDate.hour !== undefined) ? inDate.hour : 0,
 			minute: (inDate.min !== undefined) ? inDate.min : 0,
