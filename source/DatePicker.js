@@ -108,7 +108,11 @@ enyo.kind({
 			year = this.$.year.getValue() + this.yearOffset;
 
 		var maxDays = this.monthLength(year, month);
-		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays));
+		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays, 
+			this.value.getHours(),
+			this.value.getMinutes(),
+			this.value.getSeconds(),
+			this.value.getMilliseconds()));
 	},
 	setChildPickers: function(inOld) {
 		var updateDays = inOld &&
