@@ -1,3 +1,11 @@
+## 2.3.0-rc.20
+
+`moon.Clock` now has an API to set the date/time directly, which prevents the clock from ticking
+automatically and relies on the developer to update the date/time. This API is accessed by passing
+an object with date/time values, i.e. {year: 2014, month: 2, day: 15, hour: 11, min: 28, sec: 59},
+where `month` is a 1-based month index (as opposed to the JavaScript 0-based month indexing) to
+match both ilib conventions and how numerical month values are normally written.
+
 ## 2.3.0-rc.4
 
 Added an API to specify the horizontal and vertical positioning of the overlay icon in

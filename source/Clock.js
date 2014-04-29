@@ -43,8 +43,8 @@ enyo.kind({
 	ilibLocaleInfo: null,
 	/** 
 		Define clock mode.
-		If date is assinged with JS Date object or null, it will be "normal".
-		If date is assinged with JS object that indicating the exact time components
+		If date is assigned with JS Date object or null, it will be "normal".
+		If date is assigned with JS object that indicates the exact time components
 		to be formatted into the clock, it will be "direct".
 	*/
 	mode: "normal",
@@ -121,17 +121,7 @@ enyo.kind({
 		this.refreshJob();
 	},
 	refreshJob: function() {
-		var d, h;
-		if (this.mode === "normal") {
-			d = new Date(Date.now() + this._timeDiff);
-			h = d.getHours();
-		} else {
-			d = this.date;
-			h = (this.date.hour) ? this.date.hour : 0;
-		}		
-		this.updateHour(d, h);
-		this.updateMinute(d, h);
-		this.updateMonthDay(d);
+		this.updateDate();
 		if (this.mode === "normal") {
 			this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());	
 		}		
@@ -142,6 +132,7 @@ enyo.kind({
 	},
 	localeChanged: function() {
 		this._refresh();
+		this.updateDate();
 	},
 	modeChanged: function() {
 		this._refresh();
@@ -173,6 +164,19 @@ enyo.kind({
 			timezone: "Etc/UTC"
 		};
 	},
+	updateDate: function() {
+		var d, h;
+		if (this.mode === "normal") {
+			d = new Date(Date.now() + this._timeDiff);
+			h = d.getHours();
+		} else {
+			d = this.date;
+			h = (this.date.hour) ? this.date.hour : 0;
+		}		
+		this.updateHour(d, h);
+		this.updateMinute(d, h);
+		this.updateMonthDay(d);
+	},
 	updateHour: function(inDate, inHour) {
 		inHour = (inHour > 12 ? inHour-12: inHour) || 12;
 		
@@ -197,7 +201,7 @@ enyo.kind({
 		var md = this._mdf	? this._mdf.format((this.mode === "normal") ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
 																		: ilib.Date.newInstance(this.parseDirectDate(inDate))) 
 							: (this.mode === "normal")	? this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate())
-														: ((inDate.month !== undefined) ? this.months[inDate.month] : 0) + " " + this._formatNumber(inDate.day);
+														: ((inDate.month !== undefined) ? this.months[inDate.month-1] : 0) + " " + this._formatNumber(inDate.day);
 		this.$.bottom.setContent(md);
 	},
 	handleLocaleChangeEvent: function() {
