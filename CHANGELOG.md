@@ -15,11 +15,13 @@ In LESS files: Rename @moon-pink to @moon-accent
 
 ## 2.3.0-rc.20
 
-`moon.Clock` now has an API to set the date/time directly, which prevents the clock from ticking
+`moon.Clock` now has an API to set the date/time statically, which prevents the clock from ticking
 automatically and relies on the developer to update the date/time. This API is accessed by passing
-an object with date/time values, i.e. {year: 2014, month: 2, day: 15, hour: 11, min: 28, sec: 59},
-where `month` is a 1-based month index (as opposed to the JavaScript 0-based month indexing) to
-match both ilib conventions and how numerical month values are normally written.
+as a parameter to the `setDate` method, an object with date/time values, i.e. something like
+{year: 2014, month: 2, day: 15, hour: 11, min: 28, sec: 59}, where `month` is a 1-based month index 
+(as opposed to the JavaScript 0-based month indexing) to match both ilib conventions and how 
+numerical month values are normally written, in addition to how months are indexed in the target 
+device services.
 
 ## 2.3.0-rc.4
 

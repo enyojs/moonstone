@@ -10,7 +10,7 @@ enyo.kind({
 				{kind: "moon.Input", name:"input", value:"Jan 01 2013 11:22:59"}
 			]},
 			{kind: "moon.Button", small:true, content:"Set Time", ontap:"setTime"},
-			{kind: "moon.Button", small:true, content:"Set Direct Time", ontap:"setTimeDirect"},
+			{kind: "moon.Button", small:true, content:"Set Static Time", ontap:"setStaticTime"},
 			{kind: "moon.Button", small:true, content:"Reset to Current", ontap:"resetTime"}
 		]},
 		{classes:"moon-1v"},
@@ -52,7 +52,7 @@ enyo.kind({
 	setTime: function() {
 		this.$.clock.setDate(new Date(this.$.input.getValue()));
 	},
-	setTimeDirect: function() {
+	setStaticTime: function() {
 		var d = this.$.input.getValue() ? new Date(this.$.input.getValue()) : new Date();
 		// We increment the JS month value so that it is 1-based
 		this.$.clock.setDate({year: d.getFullYear(), month: d.getMonth()+1, day: d.getDate(), hour: d.getHours(), min: d.getMinutes(), sec: d.getSeconds()});

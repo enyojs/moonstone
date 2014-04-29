@@ -45,7 +45,7 @@ enyo.kind({
 		Define clock mode.
 		If date is assigned with JS Date object or null, it will be "normal".
 		If date is assigned with JS object that indicates the exact time components
-		to be formatted into the clock, it will be "direct".
+		to be formatted into the clock, it will be "static".
 	*/
 	mode: "normal",
 	create: function() {
@@ -110,7 +110,7 @@ enyo.kind({
 	},
 	dateChanged: function() {
 		if (this.date && !(this.date instanceof Date)) {
-			this.set("mode", "direct");
+			this.set("mode", "static");
 		} else if(this.date && this.date instanceof Date) {
 			this.set("mode", "normal");
 			this._timeDiff = (this.date.getTime() - Date.now()) || 0;
@@ -153,7 +153,7 @@ enyo.kind({
 		If user sets time without using JS Date object, 
 		it should be parsed into array for ilib.Date object.
 	*/
-	parseDirectDate: function(inDate) {
+	parseStaticDate: function(inDate) {
 		return {
 			year: (inDate.year !== undefined) ? inDate.year : 0,
 			month: (inDate.month !== undefined) ? inDate.month : 0,
@@ -181,13 +181,13 @@ enyo.kind({
 		inHour = (inHour > 12 ? inHour-12: inHour) || 12;
 		
 		var hour = this._hf ? this._hf.format((this.mode === "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
-																		: ilib.Date.newInstance(this.parseDirectDate(inDate)))
+																		: ilib.Date.newInstance(this.parseStaticDate(inDate)))
 							: inHour;
 		this.$.hour.setContent(hour);
 	},
 	updateMinute: function(inDate, inHour) {
 		var time = this._mf ? this._mf.format((this.mode === "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
-																		: ilib.Date.newInstance(this.parseDirectDate(inDate))) 
+																		: ilib.Date.newInstance(this.parseStaticDate(inDate))) 
 							: (this.mode === "normal")	? this._formatNumber(inDate.getMinutes())
 														: this._formatNumber(inDate.min);
 		var meridiem = "";
@@ -199,12 +199,13 @@ enyo.kind({
 	},
 	updateMonthDay: function(inDate) {
 		var md = this._mdf	? this._mdf.format((this.mode === "normal") ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
-																		: ilib.Date.newInstance(this.parseDirectDate(inDate))) 
+																		: ilib.Date.newInstance(this.parseStaticDate(inDate))) 
 							: (this.mode === "normal")	? this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate())
 														: ((inDate.month !== undefined) ? this.months[inDate.month-1] : 0) + " " + this._formatNumber(inDate.day);
 		this.$.bottom.setContent(md);
 	},
 	handleLocaleChangeEvent: function() {
 		this._refresh();
+		this.updateDate();
 	}
 });
