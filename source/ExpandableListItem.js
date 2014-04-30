@@ -114,6 +114,7 @@ enyo.kind({
 		if (this.generated) {
 			this.stopHeaderMarquee();
 		}
+		this.setActive(open);
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
