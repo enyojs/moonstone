@@ -111,6 +111,7 @@ enyo.kind({
 		this.addRemoveClass("open", open);
 		this.$.drawer.setOpen(open);
 		this.$.drawer.spotlightDisabled = !open;
+		this.setActive(open);
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
