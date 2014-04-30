@@ -36,7 +36,9 @@ enyo.kind({
 		//* Position properties for the header's background image
 		headerBackgroundPosition: "top right",
 		//* Header options
-		headerOptions: null
+		headerOptions: null,
+		//* When true, the title text will be converted to locale-safe uppercasing
+		titleUpperCase: true
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -83,7 +85,8 @@ enyo.kind({
 		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
 		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
-		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
+		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"},
+		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"}
 	],
 
 	headerComponents: [],

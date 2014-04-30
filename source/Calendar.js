@@ -271,7 +271,7 @@ enyo.kind({
 					day:  2 + i + this.getFirstDayOfWeek()
 				});
 				var day = this._tf.format(date);
-				daysControls[i].setContent(day);
+				daysControls[i].setContent(enyo.toUpperCase(day));
 			} else {
 				daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
 			}
