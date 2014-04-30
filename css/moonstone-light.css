@@ -1814,9 +1814,6 @@
 .enyo-locale-non-latin.enyo-locale-ja .moon-input-header .moon-input-header-input-decorator > .moon-input {
   line-height: 1.25em;
 }
-.moon-input-header .moon-input {
-  text-overflow: ellipsis;
-}
 .moon-header-title .moon-marquee-text {
   white-space: nowrap;
 }
@@ -3488,6 +3485,7 @@
   line-height: 1em;
   color: #4b4b4b;
   width: 100%;
+  text-overflow: ellipsis;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
   text-transform: none;
