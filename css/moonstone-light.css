@@ -3470,6 +3470,10 @@
   line-height: 1em;
   color: #4b4b4b;
   width: 100%;
+  text-overflow: ellipsis;
+}
+.moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
+  text-transform: none;
 }
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone LG Display";

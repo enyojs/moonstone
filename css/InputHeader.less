@@ -16,6 +16,10 @@
 	line-height: 1em;
 	color: @moon-input-header-text-color;
 	width: 100%;
+	text-overflow: ellipsis;
+	&:not(.uppercase) {
+		text-transform: none;
+	}
 }
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
 	.enyo-locale-non-latin .moon-header-text;
