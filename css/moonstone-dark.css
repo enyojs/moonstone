@@ -3494,11 +3494,6 @@
 .moon-input-header .moon-input-header-input-decorator > .moon-input:not(.uppercase) {
   text-transform: none;
 }
-/*
-.moon-input-header .moon-input {
-	text-overflow: ellipsis;
-}
-*/
 .enyo-locale-non-latin .moon-input-header .moon-input-header-input-decorator > .moon-input {
   font-family: "Moonstone LG Display";
   font-size: 114px;
