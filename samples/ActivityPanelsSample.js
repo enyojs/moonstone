@@ -2,8 +2,10 @@ enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
 	components: [
-		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", components: [
-			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", components: [
+		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "./assets/default-movie.png", components: [
+			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
+				{kind: "moon.ToggleButton", small:true, content:"Small Header", name:"smallHeaderToggle"}
+			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Two", ontap: "next1"},
@@ -14,7 +16,16 @@ enyo.kind({
 					{kind: "moon.Item", content: "Item Seven", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Eight", ontap: "next1"},
 					{kind: "moon.Item", content: "Item Nine", ontap: "next1"},
-					{kind: "moon.Item", content: "Item Ten", ontap: "next1"}
+					{kind: "moon.Item", content: "Item Eleven", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Twelve", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Thirteen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Fourteen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Fifteen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Sixteen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Seventeen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Eighteen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Nineteen", ontap: "next1"},
+					{kind: "moon.Item", content: "Item Twenty", ontap: "next1"}
 				]}
 			]},
 			{title: "Second Panel", defaultSpotlightControl: "defaultControl", classes: "moon-7h", joinToPrev: true, components: [
@@ -60,6 +71,9 @@ enyo.kind({
 				{kind: "moon.Item", content: "Item Five"}
 			]}
 		]}
+	],
+	bindings: [
+		{from: ".$.smallHeaderToggle.value", to:".$.panel.smallHeader"}
 	],
 	// custom next handler for each panel to avoid switching from one active panel
 	// to another with no visible change for demo

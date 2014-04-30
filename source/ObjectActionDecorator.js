@@ -30,22 +30,22 @@ enyo.kind({
 	//* @protected
 	classes: "moon-objaction",
 	handlers: {
-		onSpotlightFocus:"focus",
-		onSpotlightBlur:"blur",
+		onSpotlightFocused: "spotFocused",
+		onSpotlightBlur: "spotBlur",
 		onenter: "enter",
 		onleave: "leave"
 	},
 	//* @public
 	published: {
 		/**
-			Orientation of object actions in relation to focused components.
+			Orientation of object actions in relation to focused components;
 			_vertical_ places the object actions below the components, while
-			_horizontal_ places them next to the components.
+			_horizontal_ places them next to the components
 		*/
 		orientation: 'vertical',
 		/**
-			When _orientation_ is _vertical_, setting _noStretch: true_ causes the
-			object actions to be stretched to fit the width of the components above.
+			When _orientation_ is _vertical_, setting _noStretch: false_ causes the
+			object actions to be stretched to fit the width of the components above
 		*/
 		noStretch: false
 	},
@@ -74,11 +74,11 @@ enyo.kind({
 		this.orientationChanged();	
 		this.noStretchChanged();	
 	},
-	focus: function(inSender, inEvent) {
+	spotFocused: function(inSender, inEvent) {
 		this.focused = true;
 		this.updateActionsVisibility();
 	},
-	blur: function(inSender, inEvent) {
+	spotBlur: function(inSender, inEvent) {
 		this.focused = false;
 		this.entered = false;
 		this.updateActionsVisibility();

@@ -86,7 +86,7 @@ enyo.kind({
 		{name: "headerContainer", classes: "moon-expandable-picker-header", components: [
 			{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
 	],
@@ -111,16 +111,13 @@ enyo.kind({
 		this.addRemoveClass("open", open);
 		this.$.drawer.setOpen(open);
 		this.$.drawer.spotlightDisabled = !open;
-		if (this.generated) {
-			this.stopHeaderMarquee();
-		}
 	},
 	disabledChanged: function() {
 		var disabled = this.getDisabled();
 
 		this.addRemoveClass("disabled", disabled);
 		if (disabled) {
-			this.setOpen(false);
+			this.setActive(false);
 		}
 	},
 	activeChanged: function() {
@@ -138,9 +135,6 @@ enyo.kind({
 		if (this.getActive() && !enyo.Spotlight.getPointerMode()) {
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.drawer));
 		}
-	},
-	stopHeaderMarquee: function() {
-		this.$.header.stopMarquee();
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {

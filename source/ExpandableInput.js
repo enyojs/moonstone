@@ -37,7 +37,7 @@ enyo.kind({
 			]},
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", classes:"moon-expandable-list-item-client indented", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes:"moon-expandable-list-item-client indented", components: [
 			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightDown: "inputDown", components: [
 				{name: "clientInput", kind: "moon.Input", onchange: "doChange", onkeydown: "inputKeyDown"}
 			]}
@@ -126,9 +126,6 @@ enyo.kind({
 	*/
 	inputDown: function(inSender, inEvent) {
 		return this.getLockBottom();
-	},
-	stopHeaderMarquee: function() {
-		this.$.headerWrapper.stopMarquee();
 	},
 	drawerAnimationEnd: function() {
 		enyo.Spotlight.unfreeze();

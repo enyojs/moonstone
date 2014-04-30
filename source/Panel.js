@@ -82,7 +82,6 @@ enyo.kind({
 		{from: ".titleAbove", to: ".$.breadcrumbTitleAbove.content"},
 		{from: ".titleBelow", to: ".$.header.titleBelow"},
 		{from: ".subTitleBelow", to: ".$.header.subTitleBelow"},
-		{from: ".smallHeader", to: ".$.header.small"},
 		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
 		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
@@ -105,6 +104,7 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
+		this.smallHeaderChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -151,6 +151,8 @@ enyo.kind({
 	updatesSpottability: function() {
 		if (this.isBreadcrumb && !this.isOffscreen) {
 			this.addSpottableBreadcrumbProps();
+		} else if (this.isBreadcrumb && this.isOffscreen) {
+			this.removeSpottableProps();
 		} else {
 			this.removeSpottableBreadcrumbProps();
 		}
@@ -165,6 +167,12 @@ enyo.kind({
 			} else {
 				this.expandHeader();
 			}
+		}
+	},
+	smallHeaderChanged: function() {
+		this.$.header.setSmall(this.smallHeader);
+		if (this.generated) {
+			this.$.contentWrapper.resized();
 		}
 	},
 	collapseHeader: function() {
@@ -200,6 +208,10 @@ enyo.kind({
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
 		this.spotlightDisabled = false;
+	},
+	removeSpottableProps: function() {
+		this.$.breadcrumbBackground.set("spotlight", false);
+		this.spotlightDisabled = true;
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {
@@ -282,17 +294,19 @@ enyo.kind({
 	},
 	//* @public
 	/**
-		The `transitionFinished` method is called directly on the panel by `moon.Panels` when the
-		panel has completed a transition.  You can override this function in a panel sub-kind to
-		perform post-transition work such as loading data for the panel, for example.  The `inInfo`
-		argument carries the following information, which can be used to determine the context for
-		the transition:
-		- inInfo.from: the index the parent panels was moving from for this transition
-		- inInfo.to: the index the parent panels was moving from for this transition
+		Called directly on the panel by _moon.Panels_ when the panel has completed a
+		transition. You may override this function in a panel subkind to perform
+		post-transition work (e.g., loading data for the panel).
+
+		The _inInfo_ argument contains the following information, which may be used
+		to determine the context for the transition:
+
+		- inInfo.from: the index the parent Panels was moving from for this transition
+		- inInfo.to: the index the parent Panels was moving to for this transition
 		- inInfo.index: the current index of this panel
-		- inInfo.animate: whether the parent panels is set to animate or not
-		- plus any additional information provided by the selected arranger, such as breadcrumb and
-			offscreen status, for example
+		- inInfo.animate: whether the parent Panels is set to animate or not
+		- any additional information provided by the selected arranger, such as
+			breadcrumb and offscreen status
 	*/
 	transitionFinished: function(inInfo) {
 		this.updatePanel(inInfo);

@@ -10,33 +10,39 @@ enyo.kind({
 	kind: "enyo.TouchScrollStrategy",
 	//* @public
 	published: {
-		/** 
-			Defines the ratio of mousewheel "delta" units to pixels scrolled.  Increase this value to increase
-			the distance scrolled by the scroll wheel.  Note, mice/trackpads do not emit the same "delta" units
-			per "notch" or flick of the scroll wheel/trackpad; that can vary based on intensity and momentum.
+		/**
+			The ratio of mousewheel "delta" units to pixels scrolled.  Increase this
+			value to increase the distance scrolled by the scroll wheel. Note that
+			mice/trackpads do not emit the same "delta" units per "notch" or flick of
+			the scroll wheel/trackpad; that can vary based on intensity and momentum.
 		*/
 		scrollWheelMultiplier: 2,
-		/** 
-			Defines the maximum distance scrolled by each scroll wheel event, as a rato of the viewport height/width.
-			Setting to larger than 1 is not advised, since a single scroll event could move more than one viewport's
-			worth of content (depending on the delta received), skipping content.
+		/**
+			The ratio of the maximum distance scrolled by each scroll wheel event to
+			the height/width of the viewport. Setting a value larger than 1 is not
+			advised, since a single scroll event could move more than one viewport's
+			worth of content (depending on the delta received), resulting in skipped
+			content.
 		*/
 		scrollWheelPageMultiplier: 0.2,
-		/** 
-			Defines the distance scrolled per tap of the paging button, as a rato of the viewport height/width.
-			Setting to larger than 1 is not advised, since a paging button tap will move more than one viewport's
-			worth of content, skipping content.
+		/**
+			The ratio of the distance scrolled per tap of the paging button to the
+			height/width of the viewport. Setting a value larger than 1 is not
+			advised, since a paging button tap will move more than one viewport's
+			worth of content, resulting in skipped content.
 		*/
 		paginationPageMultiplier: 0.8,
-		/** 
-			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
-			Increase this value to increase the distance scrolled by holding the pagination buttons.
+		/**
+			The ratio of continuous-scrolling delta units to pixels scrolled. Increase
+			this value to increase the distance scrolled when the pagination buttons
+			are held.
 		*/
 		paginationScrollMultiplier: 8
 	},
 	//* @protected
 	handlers: {
 		onRequestScrollIntoView : "requestScrollIntoView",
+		onRequestSetupBounds	: "requestSetupBounds",
 		onenter                 : "enter",
 		onleave                 : "leave"
 	},
@@ -46,7 +52,7 @@ enyo.kind({
 	],
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
-			{name: "viewport", classes:"moon-scroller-viewport", components: [
+			{name: "viewport", classes:"moon-scroller-viewport", spotlight: "container", components: [
 				{name: "client", classes: "enyo-touch-scroller matrix-scroll-client matrix3dsurface"}
 			]}
 		]},
@@ -423,6 +429,16 @@ enyo.kind({
 			this.scrollBounds = null;
 		}
 		return !bubble;
+	},
+	//* Responds to child components' requests to update scrollBounds without scrolling into view
+	requestSetupBounds: function(inSender, inEvent) {
+		this.scrollBounds = this._getScrollBounds();
+		this.setupBounds();
+		this.scrollBounds = null;
+		if ((this.showVertical() && this.$.scrollMath.bottomBoundary) || (this.showHorizontal() && this.$.scrollMath.rightBoundary)) {
+			this.alertThumbs();
+		}
+		return true;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();

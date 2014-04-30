@@ -1,23 +1,151 @@
 /* Spinner.css */
+
+@-webkit-keyframes spinBall {
+	0%        { -webkit-transform: rotateZ(@moon-spinner-ball-angle); }
+	/* Slow down toward the top */
+	15%       { -webkit-transform: rotateZ(160deg); }
+	25%       { -webkit-transform: rotateZ(200deg); }
+	30%       { -webkit-transform: rotateZ(225deg); }
+	/* Speed back up as the ball falls */
+	/* Impact at last ball */
+	33%       { -webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3)); }
+	39%, 67%  { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
+	/* Small bounce forward */
+	72%       { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
+	79%, 100% { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle); }
+}
+
+@-webkit-keyframes spinBall2 {
+	/* Small bounce forward */
+	0%        { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
+	5%        { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
+	12%, 33%  { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle); }
+
+	33.01%    { -webkit-transform: rotateZ(@moon-spinner-ball-angle); }
+	/* Slow down toward the top */
+	48%       { -webkit-transform: rotateZ(160deg); }
+	58%       { -webkit-transform: rotateZ(200deg); }
+	63%       { -webkit-transform: rotateZ(225deg); }
+	/* Speed back up as the ball falls */
+	/* Impact at last ball */
+	67%       { -webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3)); }
+	72%, 100% { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
+}
+
+@-webkit-keyframes spinBall3 {
+	/* Impact at last ball */
+	0%, 100%  { -webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3)); }
+	5%, 33%   { -webkit-transform: rotateZ(360 - @moon-spinner-ball-angle); }
+	/* Small bounce forward */
+	38%       { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle + 10); }
+	45%, 66%  { -webkit-transform: rotateZ(360 + @moon-spinner-ball-angle); }
+
+	66.01%    { -webkit-transform: rotateZ(@moon-spinner-ball-angle); }
+	/* Slow down toward the top */
+	81%       { -webkit-transform: rotateZ(160deg); }
+	91%       { -webkit-transform: rotateZ(200deg); }
+	97%       { -webkit-transform: rotateZ(225deg); }
+	/* Speed back up as the ball falls */
+}
+
+@-webkit-keyframes propellerBall {
+	0%   { -webkit-transform: rotateZ(0deg); }
+	100% { -webkit-transform: rotateZ(360deg); }
+}
+@-webkit-keyframes propellerBall2 {
+	0%   { -webkit-transform: rotateZ(120deg); }
+	100% { -webkit-transform: rotateZ(480deg); }
+}
+@-webkit-keyframes propellerBall3 {
+	0%   { -webkit-transform: rotateZ(240deg); }
+	100% { -webkit-transform: rotateZ(600deg); }
+}
+
 .moon-spinner {
-	border-radius: @moon-spinner-size;
 	height: @moon-spinner-size;
 	min-width: @moon-spinner-size;
-	display: inline-block;
-	background: @moon-spinner-background-color @moon-spinner-image no-repeat 7px 7px;
-	color: @moon-spinner-text-color;
 	line-height: @moon-spinner-size;
+	position: relative;
+	display: inline-block;
+	color: @moon-spinner-text-color;
+	background-color: @moon-spinner-background-color;
+	border-radius: @moon-spinner-size;
 	margin: 0 @moon-spotlight-outset;
+
+	&.moon-spinner-transparent-background {
+		background-color: transparent;
+	}
+	&.content {
+		position: static;
+
+		height: @moon-button-height;
+		min-width: @moon-button-height;
+		line-height: @moon-button-height;
+		.moon-spinner-ball-decorator {
+			width: @moon-button-height;
+			height: @moon-button-height;
+		}
+		.moon-spinner-text {
+			line-height: @moon-button-height;
+		}
+	}
+	&.running .moon-spinner-ball {
+		-webkit-animation-play-state: running;
+	}
+	.moon-spinner-ball-decorator {
+		position: relative;
+		width: @moon-spinner-size;
+		height: @moon-spinner-size;
+		float: left;
+	}
+	.moon-spinner-ball {
+		position: absolute;
+		text-align: center;
+		font-size: 90%;
+		line-height: 0.4em;
+		-webkit-animation: none @moon-spinner-time linear infinite;
+		-webkit-animation-play-state: paused;
+		height: @moon-spinner-ball-height;
+		width: @moon-spinner-ball-width;
+		left: (50% - (@moon-spinner-ball-width / 2));
+		bottom: (50% - @moon-spinner-ball-height - @moon-spinner-ball-disatance);
+		-webkit-transform-origin: center ((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
+
+		&:after {
+			content: "\2022";
+		}
+	}
+	.moon-spinner-ball1 {
+		-webkit-animation-name: spinBall;
+		color: @moon-spinner-ball1-color;
+		-webkit-transform: rotateZ(@moon-spinner-ball-angle);
+	}
+	.moon-spinner-ball2 {
+		-webkit-animation-name: spinBall2;
+		color: @moon-spinner-ball2-color;
+		-webkit-transform: rotateZ(360 - @moon-spinner-ball-angle);
+	}
+	.moon-spinner-ball3 {
+		-webkit-animation-name: spinBall3;
+		color: @moon-spinner-ball3-color;
+		-webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3));
+	}
+	.moon-spinner-text {
+		float: left;
+		line-height: @moon-spinner-size;
+		margin: 0 2ex 0 0.5ex;
+	}
 }
-.moon-spinner.content {
-	padding-left: @moon-button-height;
-	padding-right: 40px;	
-	height: @moon-button-height;
-	line-height: @moon-button-height;
-	background-position: 13px 13px;
-}
-.enyo-locale-right-to-left .moon-spinner.content {
-	background-position: top 13px right 13px;
-	padding-right: @moon-button-height;
-	padding-left: 40px;
+.enyo-locale-right-to-left .moon-spinner {
+	.moon-spinner-ball-decorator {
+		-webkit-transform: scaleX(-1);
+	}
+	.moon-spinner-ball-decorator {
+		float: right;
+	}
+	.moon-spinner-text {
+		float: right;
+		margin-left: 2ex;
+		margin-right: 0.5ex;
+	}
 }

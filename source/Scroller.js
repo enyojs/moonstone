@@ -15,8 +15,6 @@
 enyo.kind({
 	name:      "moon.Scroller",
 	kind:      "enyo.Scroller",
-	//* @protected
-	spotlight: "container",
 	//* @public
 	published: {
 		//* If true, paging controls are hidden if a key is pressed (5-way mode)
@@ -39,34 +37,40 @@ enyo.kind({
 		spotlightPagingControls: false,
 		//* Relative parameter used to determine scroll speed
 		scrollInterval: 75,
-		/** 
-			Defines the ratio of mousewheel "delta" units to pixels scrolled.  Increase this value to increase
-			the distance scrolled by the scroll wheel.  Note, mice/trackpads do not emit the same "delta" units
-			per "notch" or flick of the scroll wheel/trackpad; that can vary based on intensity and momentum.
+		/**
+			The ratio of mousewheel "delta" units to pixels scrolled. Increase this
+			value to increase the distance scrolled by the scroll wheel. Note that
+			mice/trackpads do not emit the same "delta" units per "notch" or flick of
+			the scroll wheel/trackpad; that can vary based on intensity and momentum.
 		*/
 		scrollWheelMultiplier: 2,
-		/** 
-			Defines the maximum distance scrolled by each scroll wheel event, as a rato of the viewport height/width.
-			Setting to larger than 1 is not advised, since a single scroll event could move more than one viewport's
-			worth of content (depending on the delta received), skipping content.
+		/**
+			The ratio of the maximum distance scrolled by each scroll wheel event to
+			the height/width of the viewport. Setting a value larger than 1 is not
+			advised, since a single scroll event could move more than one viewport's
+			worth of content (depending on the delta received), resulting in skipped
+			content.
 		*/
 		scrollWheelPageMultiplier: 0.2,
-		/** 
-			Defines the distance scrolled per tap of the paging button, as a rato of the viewport height/width.
-			Setting to larger than 1 is not advised, since a paging button tap will move more than one viewport's
-			worth of content, skipping content.
+		/**
+			The ratio of the distance scrolled per tap of the paging button to the
+			height/width of the viewport. Setting a value larger than 1 is not
+			advised, since a paging button tap will move more than one viewport's
+			worth of content, resulting in skipped content.
 		*/
 		paginationPageMultiplier: 0.8,
-		/** 
-			Defines the ratio of continuous-scrolling delta units to pixels scrolled.
-			Increase this value to increase the distance scrolled by holding the pagination buttons.
+		/**
+			The ratio of continuous-scrolling delta units to pixels scrolled. Increase
+			this value to increase the distance scrolled when the pagination buttons
+			are held.
 		*/
 		paginationScrollMultiplier: 8,
-		/** 
-			When true, the scroll wheel moves spotlight focus up/down through the scroller when in 5-way mode
-			(in pointer mode, scroll wheel always scrolls the viewport without modifying focus position).
-			When false, the scroll wheel works the same in 5-way mode and pointer mode, where the wheel moves
-			the position of the scroller viewport.
+		/**
+			When true, the scroll wheel moves spotlight focus up/down through the
+			scroller when in 5-way mode. (In pointer mode, the scroll wheel always
+			scrolls the viewport without modifying focus position.) When false, the
+			scroll wheel works the same in 5-way mode as in pointer mode, where the
+			wheel moves the position of the scroller viewport.
 		*/
 		scrollWheelMovesFocus: true
 	},

@@ -13,7 +13,7 @@
 	width: auto;
 	min-width: @moon-button-height;
 	max-width: 302px;
-	padding: 0 22px;
+	padding: 0 @moon-button-h-padding;
 	margin: 0 @moon-spotlight-outset;
 	color: @moon-button-text-color;
 	> * {
@@ -38,7 +38,7 @@
   height: @moon-button-small-height;
   min-width: @moon-button-small-height;
   line-height:(@moon-button-small-height)-(2*@moon-button-border-width);
-  padding:0 20px;
+  padding:0 @moon-button-small-h-padding;
   position: relative;
   overflow: visible;
 }
@@ -59,8 +59,9 @@
 /* Need 100% width for marquee in button */
 .moon-button .moon-marquee {
 	width: 100%;
- vertical-align:top;
-}
+ 	vertical-align: top;
+ 	text-align: center;
+ }
 
 /*
 	IE8 can't handle these selectors in tandem:
@@ -85,7 +86,7 @@
 }
 
 .moon-button.spotlight {
-	background: @moon-spotlight-border-color;
+	background-color: @moon-spotlight-border-color;
 	color: @moon-spotlight-text-color;
 }
 

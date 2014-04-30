@@ -60,15 +60,18 @@ enyo.kind({
 		showPercentage: true,
 		//* Popup width in pixels
 		popupWidth: "auto",
-		//* Popup height in pixels, and it is designed for under 72 pixels.
+		//* Popup height in pixels; value should be under 72
 		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
-		//* When false (the default), the knob may be moved past the _bgProgress_
+		/**
+			When false (the default), the knob may be moved past the _bgProgress_
+			value
+		*/
 		constrainToBgProgress: false,
 		/**
 			When true, an elastic visual effect is seen when the knob is dragged past
-			the _bgProgress_ (default is false)
+			the _bgProgress_ value (default is false)
 		*/
 		elasticEffect: false,
 		//* Custom popup content (ignored if null)
@@ -251,11 +254,12 @@ enyo.kind({
 	},
 	valueChanged : function(preValue, inValue){
 		if (!this.dragging) {
+			var allowAnimation = this.constrainToBgProgress && inValue <= this.bgProgress || !this.constrainToBgProgress;
 			if (this.constrainToBgProgress) {
 				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
 			}
-			if (this.animate){
+			if (this.animate && allowAnimation) {
 				this.animateTo(preValue, inValue);
 			} else {
 				this._setValue(inValue);

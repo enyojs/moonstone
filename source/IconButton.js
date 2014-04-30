@@ -14,9 +14,9 @@
 
 		{kind: "moon.IconButton", icon: "closex"}
 
-	The name-to-character definitions for font-based icons are stored in
-	_css/moonstone-icons.less_. Each definition associates an icon name with the
-	icon font's corresponding character or symbol.
+	The name-to-character mappings for font-based icons are stored in
+	_css/moonstone-icons.less_. Each mapping associates an icon name with the icon
+	font's corresponding character or symbol.
 
 	See [moon.Icon](#moon.Icon) for more information on the available font-based
 	icons, as well as specifications for icon image assets.
@@ -33,13 +33,13 @@ enyo.kind({
 		*/
 		active: false,
 		/**
-			A parameter indicating the size of the button.
-			If true, the diameter of this button is 60px.
-			However, the button's tap target still has a diameter of 78px, so there is
-			invisible DOM that wraps the small button to provide the larger tap zone.
+			A boolean parameter affecting the size of the button.
+			If true, the button will have a diameter of 60px.
+			However, the button's tap target will still have a diameter of 78px, with
+			invisible DOM wrapping the small button to provide the larger tap zone.
 		*/
 		small: true,
-		//* When true, the button will have no round background color/border
+		//* When true, the button will have no rounded background color/border
 		noBackground: false
 	},
 	//* @protected

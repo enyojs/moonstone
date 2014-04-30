@@ -10,7 +10,7 @@ enyo.kind({
 						{content: "horizontal"}
 					], style: "vertical-align: top;"},
 					{name: "recordCount", kind: "moon.ExpandableInput", content: "Record Count", value: 1000, onchange: "updateRecords", style: "vertical-align: top;"},
-					{name: "scrollIndex", kind: "moon.ExpandableInput", value: 0, content: "Scroll to Index", onchange: "scrollToIndex", style: "vertical-align: top;"},
+					{name: "scrollIndex", kind: "moon.ExpandableInput", value: 0, content: "Scroll to Index", onblur: "scrollToIndex", style: "vertical-align: top;"},
 					{name: "debugging", kind: "moon.ExpandablePicker", selectedIndex: 0, content: "Page Debugging", components: [
 						{value: false, content: "off"},
 						{value: true, content: "on"}
@@ -50,8 +50,15 @@ enyo.kind({
 		return add;
 	},
 	scrollToIndex: function (sender, event) {
-		this.$.drawers.closeDrawers();
-		this.$.repeater.scrollToIndex(sender.getValue());
+		var newIndex = sender.getValue();
+		if (this.isScrolled && newIndex) {
+			this.$.drawers.closeDrawers();
+			this.$.repeater.scrollToIndex(newIndex);
+			this.isScrolled = false;
+		}
+	},
+	scrollStopped: function() {
+		this.isScrolled = true;
 	},
 	toggleShowing: function (sender) {
 		var showing = ! this.$.repeater.getShowing();
@@ -101,5 +108,5 @@ enyo.kind({
 			{from: ".model.disabled", to: ".$.button.disabled"},
 			{from: ".model.on", to: ".$.button.value", oneWay: false}
 		]}
-	]}
+	], onScrollStop: "scrollStopped"}
 });

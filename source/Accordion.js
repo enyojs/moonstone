@@ -47,11 +47,8 @@ enyo.kind({
 				{name: "header", kind: "moon.MarqueeText"}
 			]}
 		]},
-		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
+		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
-	],
-	stopHeaderMarquee: function() {
-		this.$.headerWrapper.stopMarquee();
-	}
+	]
 });

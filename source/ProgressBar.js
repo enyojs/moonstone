@@ -31,7 +31,7 @@ enyo.kind({
 		max: 100,
 		//* CSS classes to apply to progress bar
 		barClasses: "moon-progress-bar-bar",
-		//* CSS classes to apply to bg progress bar
+		//* CSS classes to apply to background progress bar
 		bgBarClasses: "moon-progress-bg-bar",
 		//* Completion percentage for background process
 		bgProgress: 0
