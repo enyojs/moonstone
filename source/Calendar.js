@@ -34,7 +34,10 @@ enyo.kind({
 	},
 	valueChanged: function() {
 		if (typeof ilib !== "undefined") {
-			var date = ilib.Date.newInstance({unixtime: (this.value.getDate() - 1) * (24*60*60*1000)});
+			var date = ilib.Date.newInstance({
+				unixtime: this.value.getTime(),
+				timezone: "local"
+			});
 			this.setContent(this._tf.format(date));
 		} else {
 			this.setContent(this.value.getDate());
@@ -268,7 +271,7 @@ enyo.kind({
 					day:  2 + i + this.getFirstDayOfWeek()
 				});
 				var day = this._tf.format(date);
-				daysControls[i].setContent(day);
+				daysControls[i].setContent(enyo.toUpperCase(day));
 			} else {
 				daysControls[i].setContent(this.days[(this.firstDayOfWeek + i) % 7]);
 			}
@@ -395,8 +398,7 @@ enyo.kind({
 	*/
 	getMonthLength: function(inYear, inMonth) {
 		if (typeof ilib !== "undefined") {
-			var d = ilib.Date.newInstance({unixtime: this.value.getTime()});
-			var cal = ilib.Cal.newInstance({name: d.getCalendar()});
+			var cal = ilib.Cal.newInstance();
 			return cal.getMonLength(inMonth + 1, inYear);
 		} else {
 			return 32 - new Date(inYear, inMonth, 32).getDate();
