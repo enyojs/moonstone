@@ -17,12 +17,15 @@
   box-sizing: border-box;
 }
 
+.moon-simple-integer-picker.animation,
 .moon-simple-integer-picker.spotlight {
   background: @moon-spotlight-border-color;
 }
+.moon-simple-integer-picker.animation .moon-simple-integer-picker-item,
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
 	color: @moon-spotlight-text-color;
 }
+.moon-simple-integer-picker.animation .moon-simple-integer-picker-button
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
 	color: @moon-spotlight-text-color;
 }
@@ -185,6 +188,7 @@
 	-webkit-transform: rotate(270deg) translateZ(1px);
 }
 
+.animation .moon-simple-integer-picker-button,
 .spotlight .moon-simple-integer-picker-button {
 	background: @moon-scroller-icon no-repeat center -@moon-icon-sprite-small-size;
 }

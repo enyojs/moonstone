@@ -207,6 +207,7 @@ enyo.kind({
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
 			this.$.rightOverlay.show();
 		}
+		this.addRemoveClass("animation", true);
 		return true;
 	},
 	transitionFinished: function(inSender, inEvent) {
@@ -219,6 +220,7 @@ enyo.kind({
 	hideOverlays: function() {
 		this.$.leftOverlay.setShowing(false);
 		this.$.rightOverlay.setShowing(false);
+		this.addRemoveClass("animation", false);
 	},
 	setButtonVisibility: function(inOld, inNew) {
 		if (this.values) {
