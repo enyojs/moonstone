@@ -10,7 +10,20 @@ enyo.kind({
 	noDefer: true,
 	allowTransitions: false,
 	spotlight: true,
-	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" }
+	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" },
+	handlers: {
+		onSpotlightFocus : "spotlightFocus",
+		onSpotlightBlur  : "spotlightBlur"
+	},
+	spotlightFocus: function(inSender, inEvent) {
+		var zIndex = parseInt(enyo.dom.getComputedStyleValue(inEvent.originator.hasNode(), "z-index"), 10) || 0;
+		inEvent.originator.applyStyle("z-index", zIndex + 1);
+	},
+	spotlightBlur: function(inSender, inEvent) {
+		setTimeout(this.bindSafely(function() {
+			inEvent.originator.applyStyle("z-index", null);
+		}), 0);
+	}
 });
 //*@protected
 /**
