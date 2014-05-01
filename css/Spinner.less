@@ -134,19 +134,20 @@
 	.moon-spinner-text {
 		float: left;
 		line-height: @moon-spinner-size;
-		margin: 0 2ex 0 0.5ex;
+		margin: 0 2.6ex 0 0;
 	}
 }
 .enyo-locale-right-to-left .moon-spinner {
-	.moon-spinner-ball-decorator {
-		-webkit-transform: scaleX(-1);
-	}
+	// This allows for the spinner to spin in a counter-clockwise direction in RTL mode
+	// .moon-spinner-ball-decorator {
+	// 	-webkit-transform: scaleX(-1);
+	// }
 	.moon-spinner-ball-decorator {
 		float: right;
 	}
 	.moon-spinner-text {
 		float: right;
-		margin-left: 2ex;
-		margin-right: 0.5ex;
+		margin-left: 2.6ex;
+		margin-right: 0;
 	}
 }
