@@ -3066,6 +3066,7 @@
 }
 .moon-spinner .moon-spinner-ball:after {
   content: "\2022";
+  font-family: "MuseoSans 700";
 }
 .moon-spinner .moon-spinner-ball1 {
   -webkit-animation-name: spinBall;
