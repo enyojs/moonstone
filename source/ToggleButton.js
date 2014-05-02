@@ -42,8 +42,8 @@ enyo.kind({
 		this.disabledChanged();
 		},
 	updateVisualState: function() {
-		this.addRemoveClass("moon-toggle-switch-off",!this.value)
-		this.addRemoveClass("moon-toggle-switch-on",this.value)
+		this.addRemoveClass("moon-toggle-switch-off",!this.value);
+		this.addRemoveClass("moon-toggle-switch-on",this.value);
 		this.setActive(this.value);
 	},
 	activeChanged: function() {
