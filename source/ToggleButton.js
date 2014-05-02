@@ -15,12 +15,10 @@ enyo.kind({
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
-		//* Label for toggle button's "on" state
-		onContent: moon.$L("On"),  // i18n "ON" label in moon.ToggleButton widget
-		//* Label for toggle button's "off" state
-		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
-		//* Label for separator
-		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
+		//* Label for toggle button's "on" state, which is set programmatically by app developer
+		onLabel: "",
+		//* Label for toggle button's "off" state, which is set programmatically by app debeloper
+		offLabel: "",
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false
@@ -40,22 +38,13 @@ enyo.kind({
 		this.inherited(arguments);
 		this.value = Boolean(this.value || this.active);
 		this.updateContent();
-		this.disabledChanged();
-	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.$.client.addClass("moon-toggle-button-text");
-	},
-	rendered: function() {
-		this.inherited(arguments);
 		this.updateVisualState();
-	},
+		this.disabledChanged();
+		},
 	updateVisualState: function() {
-		this.addRemoveClass("moon-overlay", this.value);
+		this.addRemoveClass("moon-toggle-switch-off",!this.value)
+		this.addRemoveClass("moon-toggle-switch-on",this.value)
 		this.setActive(this.value);
-	},
-	contentChanged: function() {
-		this.updateContent();
 	},
 	activeChanged: function() {
 		this.setValue(this.active);
@@ -65,15 +54,6 @@ enyo.kind({
 		this.updateContent();
 		this.updateVisualState();
 		this.doChange({value: this.value});
-	},
-	onContentChanged: function() {
-		this.updateContent();
-	}, 
-	offContentChanged: function() {
-		this.updateContent();
-	},
-	labelSeparatorChanged: function() {
-		this.updateContent();
 	},
 	disabledChanged: function() {
 		this.setAttribute("disabled", this.disabled);
@@ -87,11 +67,6 @@ enyo.kind({
 		this.updateValue(!this.value);
 	},
 	updateContent: function() {
-		var content = this.getContent();
-		content = this.contentUpperCase ? enyo.toUpperCase(content) : content;
-		var postfix = enyo.toUpperCase(this.value ? this.onContent : this.offContent);
-		if (this.$.client) {
-			this.$.client.setContent((content || "") + (this.labelSeparator || " ") + (postfix || ""));
-		}
+		this.setContent((this.value) ? this.onLabel : this.offLabel);
 	}
 });
