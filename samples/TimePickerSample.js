@@ -6,7 +6,7 @@ enyo.kind({
 		{kind: 'moon.Scroller', fit: true, components: [
 			{classes: "moon-7h", components: [
 				{kind: "moon.DatePicker", name:"datepicker", noneText: "Pick a Date", content: "Date", onChange: "datechanged"},
-				{kind: "moon.TimePicker", name:"timepicker", content: "Time", meridiemEnable: true, onChange: "timechanged"},
+				{kind: "moon.TimePicker", name:"timepicker", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timechanged"},
 				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: "Use Default Locale", active: true},
@@ -31,10 +31,10 @@ enyo.kind({
 		{kind: "moon.Divider", content:"Result"},
 		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
-	bindings: [
-		{from:".value", to:".$.datepicker.value", oneWay:false},
-		{from:".value", to:".$.timepicker.value", oneWay:false}
-	],
+	// bindings: [
+	// 	{from:".value", to:".$.datepicker.value", oneWay:false},
+	// 	{from:".value", to:".$.timepicker.value", oneWay:false}
+	// ],
 	create: function(){
 		this.inherited(arguments);
 		if (!window.ilib) {

@@ -102,7 +102,7 @@ enyo.kind({
 	},
 	initDefaults: function() {
 		var ordering;
-		this.value = this.value || new Date();
+		this.value = this.value || new Date(-1);
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this.initILib();
@@ -143,7 +143,7 @@ enyo.kind({
 	},
 	// If no item is selected, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if(this.value == null) {
+		if(this.value.getTime() === -1) {
 			this.$.currentValue.setContent(this.getNoneText());
 		} else {
 			this.$.currentValue.setContent(this.formatValue());
@@ -180,6 +180,9 @@ enyo.kind({
 				enyo.Spotlight.spot(this.$.headerWrapper);
 			}
 		} else {
+			if(this.value.getTime() === -1) {
+				this.setValue(new Date());
+			}
 			this.setActive(true);
 		}
 	},
