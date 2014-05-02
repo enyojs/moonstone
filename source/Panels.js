@@ -391,6 +391,7 @@ enyo.kind({
 		if (this.shouldArrange()) {
 			if (this.animate) {
 				this.transitionInProgress = true;
+				enyo.Spotlight.mute(this);
 				this.triggerPreTransitions();
 			}
 			else {
@@ -545,7 +546,7 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Spot the active panel
-		if (this.hasNode()) {
+		if (this.hasNode() && !this.animate) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -590,6 +591,8 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
+
+		enyo.Spotlight.unmute(this);
 	},
 	/**
 		Override the default _getShowing()_ behavior to avoid setting _this.showing_
