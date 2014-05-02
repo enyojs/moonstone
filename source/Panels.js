@@ -244,7 +244,15 @@ enyo.kind({
 	},
 	spotlightLeft: function(oSender, oEvent) {
 		// Don't allow left-movement from a breadcrumb
-		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+		if (oEvent.originator.name === "breadcrumbBackground") {
+			return true;
+		} else {
+			var idx = this.getPanelIndex(oEvent.originator);
+			if (idx > 0 && oEvent.originator instanceof moon.Panel && this.getPanels()[idx-1].isBreadcrumb) {
+				this.previous();
+				return true;
+			}
+		}
 	},
 	spotlightRight: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") {
