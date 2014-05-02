@@ -91,13 +91,8 @@ enyo.kind({
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
 		area. Optional third parameter to indicate whether or not it should animate
 		the scroll. Defaults to animation unless it is set to false.
-		If _setLastFocusedChild_ is true, scroller will set up _inControl_ to be the spotted child
-		when scroller is spotted.
 	*/
-	scrollToControl: function(inControl, inScrollFullPage, animate, setLastFocusedChild) {
-		if (setLastFocusedChild) {
-			this.$.strategy.setLastFocusedChild(inControl);
-		}
+	scrollToControl: function(inControl, inScrollFullPage, animate) {
 		this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
 	},
 
@@ -108,7 +103,7 @@ enyo.kind({
 	scrollTo: function (x, y, animate) {
 		this.$.strategy.scrollTo(x, y, animate);	
 	},
-	
+		
 	//* @protected
 	bindings: [
 		{from: ".scrollInterval",				to:".$.strategy.interval"},
