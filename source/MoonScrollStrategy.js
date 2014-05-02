@@ -385,18 +385,21 @@ enyo.kind({
 	effectScrollStop: function() { },
 	effectOverscroll: function() { },
 	spotlightPagingControlsChanged: function() {
+		this.updateHoverOnPagingContols(!this.spotlightPagingControls);
+		this.showHideScrollColumns(this.spotlightPagingControls);
+		if (this.generated) {
+			this.setupBounds();
+		}
+	},
+	updateHoverOnPagingContols: function(hover) {
 		enyo.forEach([
 			this.$.pageLeftControl,
 			this.$.pageRightControl,
 			this.$.pageUpControl,
 			this.$.pageDownControl
 		], function(c) {
-			c.addRemoveClass("hover", !this.spotlightPagingControls);
+			c.addRemoveClass("hover", hover);
 		}, this);
-		this.showHideScrollColumns(this.spotlightPagingControls);
-		if (this.generated) {
-			this.setupBounds();
-		}
 	},
 	/**
 		Because the thumb columns are a fixed size that impacts the scroll bounds,
@@ -442,6 +445,7 @@ enyo.kind({
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();
+		this.updateHoverOnPagingContols(this.shouldShowPageControls());
 	},
 	//* Shows or hides pagination controls, as appropriate.
 	enableDisablePageControls: function(inSender, inEvent) {
