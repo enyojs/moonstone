@@ -96,7 +96,7 @@ enyo.kind({
 	*/
 	scrollToControl: function(inControl, inScrollFullPage, animate, setLastFocusedChild) {
 		if (setLastFocusedChild) {
-			enyo.Spotlight.Container.setLastFocusedChild(this.$.strategy.$.viewport, inControl);
+			this.$.strategy.setLastFocusedChild(inControl);
 		}
 		this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
 	},

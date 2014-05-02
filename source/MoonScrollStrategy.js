@@ -103,6 +103,9 @@ enyo.kind({
 		this.setThumbSizeRatio();
 		this.clampScrollPosition();
 	},
+	setLastFocusedChild: function(inControl) {
+		enyo.Spotlight.Container.setLastFocusedChild(this.$.viewport, inControl);
+	},
 
 	//* @public
 	//* Gets the left scroll position within the scroller.
