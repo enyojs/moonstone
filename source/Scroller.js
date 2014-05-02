@@ -92,7 +92,7 @@ enyo.kind({
 		area. Optional third parameter to indicate whether or not it should animate
 		the scroll. Defaults to animation unless it is set to false.
 		If _setLastFocusedChild_ is true, scroller will set up _inControl_ to be the spotted child
-		when scorller is spotted.
+		when scroller is spotted.
 	*/
 	scrollToControl: function(inControl, inScrollFullPage, animate, setLastFocusedChild) {
 		if (setLastFocusedChild) {
