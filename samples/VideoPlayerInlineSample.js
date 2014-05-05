@@ -46,7 +46,7 @@ enyo.kind({
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
-				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"}
 			]
 		}
 	]

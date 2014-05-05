@@ -964,8 +964,16 @@ enyo.kind({
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
-		this._isPlaying ? this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon,"moon-icon-playpause-font-style") : this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.playIcon,"moon-icon-playpause-font-style");		
-		this._isPlaying ? this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePauseIcon, "moon-video-inline-control-play-pause") : this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon,"moon-video-inline-control-play-pause");
+		if(this._isPlaying){
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon,"moon-icon-playpause-font-style")
+		}else{
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.playIcon,"moon-icon-playpause-font-style");
+		}
+		if(this._isPlaying){
+			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePauseIcon, "moon-video-inline-control-play-pause")
+		}else{
+			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon,"moon-video-inline-control-play-pause");
+		}
 	},
 	//retrieve icons -- either through setSrc or setIcon depending on the iconType:
 	retrieveIconsSrcOrFont:function(inSrc,inIcon, inClasses){
@@ -975,7 +983,7 @@ enyo.kind({
 				inSrc.setSrc(t(inIcon));
 				if(inSrc!==this.$.ilPlayPause){
 					inSrc.addRemoveClass(inClasses,Boolean(this.checkIconType(inIcon)=="iconfont"));
-				};
+				}
 				inSrc.addRemoveClass("moon-icon-",Boolean(this.checkIconType(inIcon)=="iconfont"));
 				inSrc.addRemoveClass('"moon-icon-'+inIcon+'"',Boolean(this.checkIconType(inIcon)=="iconfont"));
 			}
@@ -1004,8 +1012,6 @@ enyo.kind({
 	*/
 	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controlsContainer.getIndex();
-		var t = this.bindSafely("transformIconSrc");
-
 		if (index === 0) {
 			this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon,"moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 			this.toggleSpotlightForMoreControls(true);
@@ -1018,7 +1024,6 @@ enyo.kind({
 	},
 	updateMoreButton: function() {
 		var index = this.$.controlsContainer.getIndex();
-		var t = this.bindSafely("transformIconSrc");
 		if (index === 0) {
 				this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon,"moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		} else {
