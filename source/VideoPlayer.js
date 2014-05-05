@@ -965,12 +965,12 @@ enyo.kind({
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
 		if(this._isPlaying){
-			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon,"moon-icon-playpause-font-style")
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon,"moon-icon-playpause-font-style");
 		}else{
 			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.playIcon,"moon-icon-playpause-font-style");
 		}
 		if(this._isPlaying){
-			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePauseIcon, "moon-video-inline-control-play-pause")
+			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePauseIcon, "moon-video-inline-control-play-pause");
 		}else{
 			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon,"moon-video-inline-control-play-pause");
 		}
