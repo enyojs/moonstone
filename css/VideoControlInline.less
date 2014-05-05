@@ -57,16 +57,19 @@
 
 
 .moon-video-inline-control .moon-icon-button {
+  color:@moon-icon-video-inline-controls-bg-color;
 	background-color: transparent;
 }
 .moon-video-inline-control .moon-icon-button.active,
 .moon-video-inline-control .moon-icon-button.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight:active {
-	background-color: #fff;
+	color:@moon-icon-video-inline-controls-font-spotlight-color;
+  background-color: @moon-icon-video-inline-controls-bg-color;
 	background-position: 0px -@moon-icon-sprite-small-size;
 }
 .moon-video-inline-control .moon-icon-button.spotlight {
-	background-color: #fff;
+	color:@moon-icon-video-inline-controls-font-spotlight-color;
+	background-color: @moon-icon-video-inline-controls-bg-color;
 	background-position: 0px -@moon-icon-sprite-small-size;
 }

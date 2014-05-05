@@ -13,6 +13,8 @@
 /* Moonstone default parameters defined here */
 /* App */
 /* ---------------------------------------*/
+/* Icon Font */
+/* ---------------------------------------*/
 /* Font */
 /* ---------------------------------------*/
 /* Font Sizes */
@@ -674,45 +676,99 @@
   filter: alpha(opacity=35);
 }
 /* moonstone-icons.css */
-/* Font icon, name-to-character definitions */
-.moon-icon-drawer:after {
-  content: "\0F0000";
-}
 .moon-icon-arrowlargeup:after {
-  content: "\0F0002";
+  content: "\0F0000";
 }
 .moon-icon-arrowlargedown:after {
   content: "\0F0001";
 }
 .moon-icon-arrowlargeleft:after {
-  content: "\0F0003";
+  content: "\0F0002";
 }
 .moon-icon-arrowlargeright:after {
-  content: "\0F0004";
+  content: "\0F0003";
 }
 .moon-icon-arrowsmallup:after {
-  content: "\0F0005";
+  content: "\0F0004";
 }
 .moon-icon-arrowsmalldown:after {
-  content: "\0F0006";
+  content: "\0F0005";
 }
 .moon-icon-arrowsmallleft:after {
-  content: "\0F0007";
+  content: "\0F0006";
 }
 .moon-icon-arrowsmallright:after {
-  content: "\0F0008";
+  content: "\0F0007";
 }
 .moon-icon-closex:after {
-  content: "\0F0009";
+  content: "\0F0008";
 }
 .moon-icon-check:after {
-  content: "\0F000A";
+  content: "\0F0009";
 }
 .moon-icon-search:after {
-  content: "\0F000B";
+  content: "\0F0010";
+}
+.moon-icon-drawer:after {
+  content: "\0F0011";
+}
+.moon-icon-fullscreen:after {
+  content: "\0F0012";
+}
+.moon-icon-circle:after {
+  content: "\0F0013";
+}
+.moon-icon-stop:after {
+  content: "\0F0014";
+}
+.moon-icon-play:after {
+  content: "\0F0015";
+}
+.moon-icon-pause:after {
+  content: "\0F0016";
+}
+.moon-icon-forward:after {
+  content: "\0F0017";
+}
+.moon-icon-backward:after {
+  content: "\0F0018";
+}
+.moon-icon-skipforward:after {
+  content: "\0F0019";
+}
+.moon-icon-skipbackward:after {
+  content: "\0F001A";
+}
+.moon-icon-pauseforward:after {
+  content: "\0F001B";
+}
+.moon-icon-pausebackward:after {
+  content: "\0F001C";
+}
+.moon-icon-pausejumpforward:after {
+  content: "\0F001D";
+}
+.moon-icon-pausejumpbackward:after {
+  content: "\0F001E";
+}
+.moon-icon-jumpforward:after {
+  content: "\0F001F";
+}
+.moon-icon-jumpbackward:after {
+  content: "\0F0020";
+}
+.moon-icon-arrowshrink:after {
+  content: "\0F0021";
+}
+.moon-icon-arrowextend:after {
+  content: "\0F0022";
+}
+.moon-icon-exitfullscreen:after {
+  content: "\0F0023";
 }
 /* IconButton.css */
 .moon-icon-button {
+  color: #999999;
   box-sizing: border-box;
   width: 85px;
   height: 85px;
@@ -762,7 +818,7 @@
   background-position: center 0;
   border: 5px solid #cf0652;
   background-color: #ffffff;
-  color: #4b4b4b;
+  color: #999999;
 }
 .moon-icon.moon-icon-button.active.disabled,
 .moon-icon.moon-icon-button:active.disabled,
@@ -771,7 +827,7 @@
 .moon-icon.moon-icon-button.spotlight:active.disabled,
 .moon-icon.moon-icon-button.hover:active:not(.disabled).disabled {
   border-color: transparent;
-  color: #4b4b4b;
+  color: #d9d9d9;
 }
 .moon-marquee {
   width: auto;
@@ -4136,17 +4192,20 @@
   -moz-transition: width 0.1s linear;
 }
 .moon-video-inline-control .moon-icon-button {
+  color: #ffffff;
   background-color: transparent;
 }
 .moon-video-inline-control .moon-icon-button.active,
 .moon-video-inline-control .moon-icon-button.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight.pressed,
 .moon-video-inline-control .moon-icon-button.spotlight:active {
-  background-color: #fff;
+  color: #393939;
+  background-color: #ffffff;
   background-position: 0px -50px;
 }
 .moon-video-inline-control .moon-icon-button.spotlight {
-  background-color: #fff;
+  color: #393939;
+  background-color: #ffffff;
   background-position: 0px -50px;
 }
 /* --- Fullscreen control --- */
@@ -4235,6 +4294,23 @@
   background-color: transparent;
   background-position: 0px 0px;
   background-size: 85px 170px;
+  color: #ffffff;
+}
+.moon-icon-playpause-font-style {
+  font-size: 220px;
+}
+.moon-icon-video-main-control-font-style {
+  font-size: 190px;
+}
+/* this stye with be used for the two side controls and placeholders */
+.moon-icon-button.moon-icon-video-round-controls-style {
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 999px;
+}
+.moon-icon-button.moon-icon-video-more-controls-font-style {
+  font-size: 112px;
+  line-height: 64px;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
@@ -4245,6 +4321,16 @@
   background-position: 0 -85px;
   border: 0px;
   background-color: transparent;
+  color: #cf0652;
+}
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.active.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button:active.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.pressed.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight.pressed.moon-icon-video-round-controls-style,
+.moon-video-fullscreen-control .moon-icon.moon-icon-button.spotlight:active.moon-icon-video-round-controls-style {
+  color: #ffffff;
+  background-color: #cf0652;
 }
 .moon-video-player-control-buttons.disabled > * {
   pointer-events: none;
@@ -4273,7 +4359,7 @@
 }
 /* Feedback area */
 .moon-video-player-feedback {
-  margin-right: 5px;
+  margin-right: 15px;
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
   direction: rtl;
@@ -4281,19 +4367,54 @@
 .moon-video-feedback-text {
   display: inline-block;
   color: #cf0652;
-  margin: 0 5px;
+  margin: 0;
 }
-.moon-video-feedback-icon-left,
-.moon-video-feedback-icon-right {
+.moon-icon.moon-video-feedback-icon-left,
+.moon-icon.moon-video-feedback-icon-right {
   display: inline-block;
-  width: 33px;
-  height: 33px;
-  vertical-align: middle;
-  margin-bottom: 4px;
+  width: 32px;
+  margin: 0 0 0 15px;
+  /* margin-right is inherited from moon-video-player-feedback */
+
+  color: #cf0652;
+  font-size: 124px;
+  line-height: 20px;
+  /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+
+}
+.moon-video-player-feedback .moon-icon.small {
+  background-position: center -3px;
+}
+.moon-icon.moon-video-feedback-icon-left {
+  margin-left: 0;
+  margin-right: 15px;
+}
+.moon-icon.moon-video-feedback-icon-left.moon-icon-pausejumpbackward {
+  width: 37px;
+}
+.moon-icon.moon-video-feedback-icon-right.moon-icon-play {
+  font-size: 72px;
+  width: 22px;
+  line-height: 24px;
+  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
+
+}
+.moon-icon.moon-video-feedback-icon-right.moon-icon-pause {
+  font-size: 72px;
+  width: 22px;
+  line-height: 24px;
+  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
+
+}
+.moon-icon.moon-video-feedback-icon-right.moon-icon-pausejumpforward {
+  width: 37px;
+}
+.moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
+  display: none;
 }
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 }
 .moon-video-info-header {
   display: inline-block;
@@ -4870,7 +4991,7 @@
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
   background-position: center 0;
   border: 5px solid #cf0652;
-  color: #4b4b4b;
+  color: #999999;
   background-color: #ffffff;
   border-color: #ffffff;
   background-position: 0 -50px;
@@ -4878,7 +4999,7 @@
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.disabled {
   border-color: transparent;
-  color: #4b4b4b;
+  color: #d9d9d9;
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
@@ -5050,6 +5171,10 @@
 }
 .enyo-locale-right-to-left .moon-body-text-control {
   text-align: right;
+}
+.moon-icon-exitfullscreen.moon-icon-exitfullscreen-font-style {
+  font-size: 100px;
+  line-height: 81px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {
