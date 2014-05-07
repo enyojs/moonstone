@@ -15,10 +15,11 @@ enyo.kind({
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
+		//* App developer has the choice to ust set the one label for both toggle on and toggle off content, or they have a toggle on label and toggle off label
 		//* Label for toggle button's "on" state, which is set programmatically by app developer
-		onLabel: "",
+		toggleOnLabel: "",
 		//* Label for toggle button's "off" state, which is set programmatically by app debeloper
-		offLabel: "",
+		toggleOffLabel: "",
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
 		disabled: false
@@ -67,6 +68,10 @@ enyo.kind({
 		this.updateValue(!this.value);
 	},
 	updateContent: function() {
-		this.setContent((this.value) ? this.onLabel : this.offLabel);
+		if (!this.toggleOnLabel || !this.toggleOffLabel) {
+			this.setContent(this.content);
+		} else {
+			this.setContent(this.value ? this.toggleOnLabel : this.toggleOffLabel);
+		}
 	}
 });
