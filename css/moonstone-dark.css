@@ -4125,7 +4125,11 @@
   height: 80px;
   background-color: #252525;
 }
-.moon-video-inline-control .moon-video-inline-control-play-pause,
+.moon-video-inline-control .moon-video-inline-control-play-pause {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
 .moon-video-inline-control .moon-video-inline-control-fullscreen {
   position: absolute;
   bottom: 10px;

@@ -977,7 +977,7 @@ enyo.kind({
 	},
 	//retrieve icons -- either through setSrc or setIcon depending on the iconType:
 	retrieveIconsSrcOrFont:function(inSrc,inIcon, inClasses){
-	var t = this.bindSafely("transformIconSrc");
+		var t = this.bindSafely("transformIconSrc");
 		if(this.checkIconType(inIcon)=="image"){
 				inSrc.setIcon("");
 				inSrc.setSrc(t(inIcon));
@@ -1025,9 +1025,9 @@ enyo.kind({
 	updateMoreButton: function() {
 		var index = this.$.controlsContainer.getIndex();
 		if (index === 0) {
-				this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		} else {
-				this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		}
 	},
 	toggleSpotlightForMoreControls: function(moreControlsSpottable) {
