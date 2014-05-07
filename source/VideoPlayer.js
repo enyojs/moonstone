@@ -964,15 +964,15 @@ enyo.kind({
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
-		if(this._isPlaying){
-			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon,"moon-icon-playpause-font-style");
-		}else{
-			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.playIcon,"moon-icon-playpause-font-style");
+		if (this._isPlaying) {
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon, "moon-icon-playpause-font-style");
+		} else {
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.playIcon, "moon-icon-playpause-font-style");
 		}
-		if(this._isPlaying){
+		if (this._isPlaying) {
 			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePauseIcon, "moon-video-inline-control-play-pause");
-		}else{
-			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon,"moon-video-inline-control-play-pause");
+		} else {
+			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon, "moon-video-inline-control-play-pause");
 		}
 	},
 	//retrieve icons -- either through setSrc or setIcon depending on the iconType:
@@ -1013,11 +1013,11 @@ enyo.kind({
 	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controlsContainer.getIndex();
 		if (index === 0) {
-			this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon,"moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 			this.toggleSpotlightForMoreControls(true);
 			this.$.controlsContainer.next();
 		} else {
-			this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon,"moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 			this.toggleSpotlightForMoreControls(false);
 			this.$.controlsContainer.previous();
 		}
@@ -1025,9 +1025,9 @@ enyo.kind({
 	updateMoreButton: function() {
 		var index = this.$.controlsContainer.getIndex();
 		if (index === 0) {
-				this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon,"moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
+				this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		} else {
-				this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon,"moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
+				this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		}
 	},
 	toggleSpotlightForMoreControls: function(moreControlsSpottable) {

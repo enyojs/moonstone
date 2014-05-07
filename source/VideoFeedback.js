@@ -61,14 +61,14 @@ enyo.kind({
 			}
 	*/
 	checkIconType: function(inIcon) {
-	var imagesrcRegex=/\.(jpg|jpeg|png|gif)$/i;
-	var iconType=imagesrcRegex.test(inIcon)?"image":"iconfont";
-	return iconType;
+		var imagesrcRegex=/\.(jpg|jpeg|png|gif)$/i;
+		var iconType=imagesrcRegex.test(inIcon)?"image":"iconfont";
+		return iconType;
 	},
 	retriveImgOrIconPath:function(inIcon){
-		if(this.checkIconType(inIcon)=="image"){
+		if (this.checkIconType(inIcon)=="image") {
 			return enyo.path.rewrite(this._imagePath + inIcon);
-		}else{
+		} else {
 			return enyo.path.rewrite(inIcon);
 		}
 	},
@@ -209,13 +209,13 @@ enyo.kind({
 			this.$.rightIcon.hide();
 		}
 	},
-	displayIconSrcOrFont: function(inSrc, inIcon){
-		if(this.checkIconType(inIcon)=="image"){
-				inSrc.setIcon("");
-				inSrc.applyStyle("background-image", "url(" + inIcon + ")");
-				inSrc.addRemoveClass("moon-icon-", Boolean(this.checkIconType(inIcon)=="image"));
-				inSrc.addRemoveClass('"moon-icon-'+inIcon+'"', Boolean(this.checkIconType(inIcon)=="image"));
-			}else{
+	displayIconSrcOrFont: function(inSrc, inIcon) {
+		if(this.checkIconType(inIcon)=="image") {
+			inSrc.setIcon("");
+			inSrc.applyStyle("background-image", "url(" + inIcon + ")");
+			inSrc.addRemoveClass("moon-icon-", Boolean(this.checkIconType(inIcon)=="image"));
+			inSrc.addRemoveClass('"moon-icon-'+inIcon+'"', Boolean(this.checkIconType(inIcon)=="image"));
+			} else {
 				inSrc.setSrc("");
 				inSrc.setIcon(inIcon);
 				inSrc.applyStyle("background-image",inSrc.src);
