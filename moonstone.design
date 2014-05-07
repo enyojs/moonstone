@@ -705,26 +705,6 @@
                     }
                 },
                 {
-                    "name": "moon.GridList",
-                    "kind": "moon.GridList",
-                    "description": "A grid list",
-                    "config": {
-                        "kind": "moon.GridList",
-                        "itemWidth": 100,
-                        "itemHeight": 100,
-                        "itemSpacing": 50,
-                        "count": 15,
-                        "components": [
-                            {
-                                "kind": "moon.GridListImageItem",
-                                "source": "$lib/moonstone/images/enyo-icon.png",
-                                "caption": "Sample",
-                                "subCaption": "item"
-                            }
-                        ]
-                    }
-                },
-                {
                     "name": "moon.Header",
                     "kind": "moon.Header",
                     "description": "A simple header",
@@ -829,42 +809,6 @@
                         "kind": "moon.LabeledTextItem",
                         "label": "Text Title",
                         "text": "This is a labeled text item. This is an example for the text contents."
-                    }
-                },
-                {
-                    "name": "moon.List (Horizontal)",
-                    "kind": "moon.List",
-                    "description": "A horizontal list",
-                    "config": {
-                        "kind": "moon.List",
-                        "orient": "h",
-                        "count": 10,
-                        "spotlight": true,
-                        "multiSelect": false,
-                        "components": [
-                            {
-                                "style": "border: solid; width:200px;",
-                                "content": "Sample"
-                            }
-                        ]
-                    }
-                },
-                {
-                    "name": "moon.List (Vertical)",
-                    "kind": "moon.List",
-                    "description": "A vertical list",
-                    "config": {
-                        "kind": "moon.List",
-                        "orient": "v",
-                        "count": 10,
-                        "spotlight": true,
-                        "multiSelect": false,
-                        "components": [
-                            {
-                                "style": "border: solid; width:200px;",
-                                "content": "Sample"
-                            }
-                        ]
                     }
                 },
                 {

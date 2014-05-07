@@ -1,3 +1,7 @@
+## 2.4.0-pre.2
+
+Removed moon.List and moon.GridList, as they're considered deprecated.
+
 ## 2.4.0-pre.1
 
 moon.Header: Facade dismissOnEnter to input
@@ -34,16 +38,16 @@ _selectionOverlayHorizontalOffset_ and _selectionOverlayVerticalOffset_.
 ## 2.3.0-rc.1
 
 `moon.VideoPlayer` and `moon.AudioPlayback` now handle remote control "trick play" keys by default.
-To disable this behavior for apps that are already handling these controls, set 
+To disable this behavior for apps that are already handling these controls, set
 `handleRemoteControlKey:false`.
 
 ## 2.3.0-pre.11
 
-Previous to pre.11, `moon.TooltipDecorator` and `moon.ContextualPopupDecorator` were block-level 
-elements.  However, since tooltips and popups are most commonly used with inline-block activators 
-such as `moon.Button` and `moon.Icon`, these decorators were changed to be an inline-block element by 
+Previous to pre.11, `moon.TooltipDecorator` and `moon.ContextualPopupDecorator` were block-level
+elements.  However, since tooltips and popups are most commonly used with inline-block activators
+such as `moon.Button` and `moon.Icon`, these decorators were changed to be an inline-block element by
 default.  This avoids requiring a "display: inline-block;" style to be applied to the decorator to
-achieve correct popup positioning when wrapping an inline-block element, which is the biggest use 
+achieve correct popup positioning when wrapping an inline-block element, which is the biggest use
 case.  When wrapping a block-level element, simply add a "display: block;" to the decorator's inline
 style or CSS class.  Tooltips and ContextualPopups used as components of `moon.Header` are not
 affected, since header children are forced to `display: inline-block` by default.
