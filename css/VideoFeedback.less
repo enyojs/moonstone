@@ -1,6 +1,6 @@
 /* Feedback area */
 .moon-video-player-feedback {
-  margin-right:@moon-video-player-icon-text-gutter-width;
+  margin-right: @moon-video-player-icon-text-gutter-width;
 }
 .enyo-locale-right-to-left .moon-video-player-feedback {
   direction:rtl;
@@ -8,48 +8,51 @@
 .moon-video-feedback-text {
 	display: inline-block;
 	color: @moon-accent;
-	margin:0;
+	margin: 0;
 }
 .moon-icon.moon-video-feedback-icon-left,
 .moon-icon.moon-video-feedback-icon-right {
 	display: inline-block;
-	width:@moon-video-feedback-icon-width;
-	margin:0 0 0 @moon-video-player-icon-text-gutter-width; /* margin-right is inherited from moon-video-player-feedback */
+	width: @moon-video-feedback-icon-width;
+	margin: 0 0 0 @moon-video-player-icon-text-gutter-width; /* margin-right is inherited from moon-video-player-feedback */
 	color: @moon-accent;
-	font-size:@moon-video-feedback-icon-font-size;
-  line-height: 20px; /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+	font-size: @moon-video-feedback-icon-font-size;
+	line-height: 20px; /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 }
 
-.moon-video-player-feedback .moon-icon.small{
-  background-position:center -3px;
+.moon-video-player-feedback .moon-icon.small {
+  background-position: center -3px;
 }
 
-.moon-icon.moon-video-feedback-icon-left{
-  margin-left:0;
-  margin-right:@moon-video-player-icon-text-gutter-width;
-  &.moon-icon-pausejumpbackward{
-    width:@moon-video-feedback-icon-pausejumpbackward-width;
+.moon-icon.moon-video-feedback-icon-left {
+  margin-left: 0;
+  margin-right: @moon-video-player-icon-text-gutter-width;
+  &.moon-icon-pausejumpbackward {
+    width: @moon-video-feedback-icon-pausejumpbackward-width;
   }
 }
 
-.moon-icon.moon-video-feedback-icon-right{
-  &.moon-icon-play{
-      font-size:@moon-video-feedback-icon-font-play-size;
-      width:@moon-video-feedback-icon-play-width;
-      line-height:24px;  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
+.moon-icon.moon-video-feedback-icon-right {
+  &.moon-icon-play {
+    font-size: @moon-video-feedback-icon-font-play-size;
+    width: @moon-video-feedback-icon-play-width;
+    line-height: 24px;  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
   }
-  &.moon-icon-pause{
-      font-size:@moon-video-feedback-icon-font-pause-size;
-      width:@moon-video-feedback-icon-pause-width;
-      line-height:24px;  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
+  &.moon-icon-pause {
+    font-size: @moon-video-feedback-icon-font-pause-size;
+    width: @moon-video-feedback-icon-pause-width;
+    line-height: 24px;  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
   }
-  &.moon-icon-pausejumpforward{
-    width:@moon-video-feedback-icon-pausejumpforward-width;
+  &.moon-icon-pausejumpforward {
+    width: @moon-video-feedback-icon-pausejumpforward-width;
   }
 }
 
-.moon-video-player-feedback .moon-icon.small > .small-icon-tap-area{
-  display:none;
+.moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
