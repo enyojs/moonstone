@@ -3,19 +3,13 @@
 	width: 100%;
 	height: 80px;
 	background-color: @moon-video-inline-bg-color;
-}
 
-
-.moon-video-inline-control .moon-video-inline-control-play-pause {
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-}
-
-.moon-video-inline-control .moon-video-inline-control-fullscreen {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
+	.moon-video-inline-control-play-pause,
+	.moon-video-inline-control-fullscreen {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+	}
 }
 
 .moon-video-inline-control-text {
@@ -26,9 +20,10 @@
 	background-color: transparent;
 	color: @moon-video-text-color;
 	font-size: 32px;
-}
-.moon-video-inline-control-text > * {
-	display: inline;
+
+	> * {
+		display: inline;
+	}
 }
 
 .moon-video-inline-control-progress {
@@ -55,21 +50,22 @@
 	-moz-transition: width 0.1s linear;
 }
 
-
-.moon-video-inline-control .moon-icon-button {
-  color:@moon-icon-video-inline-controls-bg-color;
-  background-color: transparent;
-}
-.moon-video-inline-control .moon-icon-button.active,
-.moon-video-inline-control .moon-icon-button.pressed,
-.moon-video-inline-control .moon-icon-button.spotlight.pressed,
-.moon-video-inline-control .moon-icon-button.spotlight:active {
-	color:@moon-icon-video-inline-controls-font-spotlight-color;
-	background-color: @moon-icon-video-inline-controls-bg-color;
-	background-position: 0px -@moon-icon-sprite-small-size;
-}
-.moon-video-inline-control .moon-icon-button.spotlight {
-	color:@moon-icon-video-inline-controls-font-spotlight-color;
-	background-color: @moon-icon-video-inline-controls-bg-color;
-	background-position: 0px -@moon-icon-sprite-small-size;
+.moon-video-inline-control {
+	.moon-icon-button {
+		color:@moon-icon-video-inline-controls-bg-color;
+		background-color: transparent;
+	}
+	.moon-icon-button.active,
+	.moon-icon-button.pressed,
+	.moon-icon-button.spotlight.pressed,
+	.moon-icon-button.spotlight:active {
+		color:@moon-icon-video-inline-controls-font-spotlight-color;
+		background-color: @moon-icon-video-inline-controls-bg-color;
+		background-position: 0px -@moon-icon-sprite-small-size;
+	}
+	.moon-icon-button.spotlight {
+		color:@moon-icon-video-inline-controls-font-spotlight-color;
+		background-color: @moon-icon-video-inline-controls-bg-color;
+		background-position: 0px -@moon-icon-sprite-small-size;
+	}
 }

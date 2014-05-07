@@ -4103,43 +4103,19 @@
   margin-left: -36.5px;
 }
 /* Fullscreen CSS */
-:-webkit-full-screen.moon-video-player {
-  position: static !important;
-  display: block !important;
-  margin: 0;
-}
-:-webkit-full-screen.moon-video-player .moon-video-player-video {
-  position: static;
-}
-:-moz-full-screen.moon-video-player {
-  position: static !important;
-  display: block !important;
-  margin: 0;
-}
-:-moz-full-screen.moon-video-player .moon-video-player-video {
-  position: static;
-}
-:-ms-full-screen.moon-video-player {
-  position: static !important;
-  display: block !important;
-  margin: 0;
-}
-:-ms-full-screen.moon-video-player .moon-video-player-video {
-  position: static;
-}
-:-o-full-screen.moon-video-player {
-  position: static !important;
-  display: block !important;
-  margin: 0;
-}
-:-o-full-screen.moon-video-player .moon-video-player-video {
-  position: static;
-}
+:-webkit-full-screen.moon-video-player,
+:-moz-full-screen.moon-video-player,
+:-ms-full-screen.moon-video-player,
+:-o-full-screen.moon-video-player,
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
   margin: 0;
 }
+:-webkit-full-screen.moon-video-player .moon-video-player-video,
+:-moz-full-screen.moon-video-player .moon-video-player-video,
+:-ms-full-screen.moon-video-player .moon-video-player-video,
+:-o-full-screen.moon-video-player .moon-video-player-video,
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
 }
@@ -4149,11 +4125,7 @@
   height: 80px;
   background-color: #252525;
 }
-.moon-video-inline-control .moon-video-inline-control-play-pause {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
+.moon-video-inline-control .moon-video-inline-control-play-pause,
 .moon-video-inline-control .moon-video-inline-control-fullscreen {
   position: absolute;
   bottom: 10px;
