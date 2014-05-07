@@ -3030,7 +3030,6 @@
   background-color: transparent;
 }
 .moon-spinner.content {
-  position: static;
   height: 85px;
   min-width: 85px;
   line-height: 85px;
