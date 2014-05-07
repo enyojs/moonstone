@@ -15,8 +15,6 @@
 /* ---------------------------------------*/
 /* Icon Font */
 /* ---------------------------------------*/
-/* Font */
-/* ---------------------------------------*/
 /* Font Sizes */
 /* Other Font Properties */
 /* Body text line heights must be speified in px, since moon.ExpandableText requires precise line measurement */
@@ -4302,11 +4300,11 @@
 .moon-icon-video-main-control-font-style {
   font-size: 190px;
 }
-/* this stye with be used for the two side controls and placeholders */
+/* this style is used for the two side controls and placeholders */
 .moon-icon-button.moon-icon-video-round-controls-style {
   color: #000000;
   background-color: #ffffff;
-  border-radius: 999px;
+  border-radius: 9999px;
 }
 .moon-icon-button.moon-icon-video-more-controls-font-style {
   font-size: 112px;
@@ -4410,7 +4408,10 @@
   width: 37px;
 }
 .moon-video-player-feedback .moon-icon.small > .small-icon-tap-area {
-  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .enyo-locale-non-latin .moon-video-feedback-icon-left,
 .enyo-locale-non-latin .moon-video-feedback-icon-right {
