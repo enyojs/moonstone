@@ -37,14 +37,22 @@ moon.DataListSpotlightSupport = {
 	_indexToFocus: -1,
 	_subChildToFocus: null,
 	didRender: function () {
-		// Since we delay rendering (potentially spottable) children by default, spotlight on the list is
-		// true by default; once we render, we check if the list was focused and if so, transfer
-		// focus to the first spottable child inside
+		// Lists are set to spotlight:true by default, which allows them to receive focus before
+		// children are rendered; once rendred, it becomes spotlight:false, and the code below 
+		// ensures spotlight is transferred inside the list once rendering is complete
 		this.spotlight = false;
+		// If there is a queued index to focus (or an initialFocusIndex), focus that item now that
+		// the list is rendered
 		var index = (this._indexToFocus > -1) ? this._indexToFocus : this.initialFocusIndex;
 		if (index > -1) {
 			this.focusOnIndex(index);
 			this._indexToFocus = -1;
+		} else {
+			// Otherwise, check if the list was focused and if so, transfer focus to the first 
+			// spottable child inside
+			if (enyo.Spotlight.getCurrent() == this) {
+				enyo.Spotlight.spot(this);
+			}
 		}
 	},
 	didScroll: enyo.inherit(function (sup) {
@@ -112,7 +120,7 @@ moon.DataListSpotlightSupport = {
 				cb.top += pb.top;
 				cb.left += pb.left;
 				// Return the first spottable child whose top/left are inside the viewport
-				if ((cb.top >= inScrollBounds.top) && (cb.left >= inScrollBounds.left)) {
+				if ((cb.top >= inScrollBounds.top) && ((this.rtl ? (inScrollBounds.width - (cb.left + cb.width)) : cb.left) >= inScrollBounds.left)) {
 					if (enyo.Spotlight.isSpottable(c)) {
 						return c;
 					}
@@ -230,7 +238,7 @@ enyo.kind({
 			if (c) {
 				// force a synchronous scroll to the control so it won't dupe and
 				// re-animate over positions it has already crossed
-				list.$.scroller.scrollToControl(c, false, false);
+				list.$.scroller.scrollToControl(c, false, false, true);
 			} else {
 				var idx = list.$.page1.index;
 				

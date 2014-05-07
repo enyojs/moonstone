@@ -30,9 +30,11 @@ enyo.kind({
 				{kind: "moon.Button", content: "Start marquee", ontap:"start"},
 				{kind: "moon.Button", content: "Stop marquee", ontap:"stop"},	
 				{name: "marqueeContent1", marqueeOnRender: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for separate marquee case"},
+				{name: "marqueeContent2", marqueeOnRender: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", centered: true, content: "Centered text for separate marquee case"},
 				{name: "marqueeContainer1", mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
-					{name: "marqueeContent2", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for syncronized case"},
-					{name: "marqueeContent3", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is short text for marquee"}
+					{name: "marqueeContent3", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for marquee content change test for syncronized case"},
+					{name: "marqueeContent4", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is short text for marquee"},
+					{name: "marqueeContent5", mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", centered: true, content: "This is centered text for marquee"}
 				]},
 				{tag: "br"},
 
@@ -47,8 +49,25 @@ enyo.kind({
 
 				{kind: "moon.Divider", content: "Disabled marquee:"},
 				{name: "marqueeDisabled", marqueeOnRender: true, disabled: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for disabled marquee test which is having disabled property"},
-				{tag: "br"}
+				{tag: "br"},
 
+				{kind: "moon.Divider", content: "LTR Languages:"},
+				{mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "The quick brown fox jumped over the lazy dog.  The bean bird flies at sundown."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "Η γρήγορη καφέ αλεπού πήδηξε πάνω από το μεσημέρι. Το πουλί πετά σε φασολιών δύση του ηλίου."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "ਤੁਰੰਤ ਭੂਰਾ Fox ਆਲਸੀ ਕੁੱਤੇ ਨੂੰ ਵੱਧ ਗਈ. ਬੀਨ ਪੰਛੀ ਸੂਰਜ ਡੁੱਬਣ 'ਤੇ ਉਡਾਣ ਭਰਦੀ ਹੈ."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "速い茶色のキツネは、怠け者の犬を飛び越えた。豆の鳥は日没で飛ぶ。"},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "那只敏捷的棕色狐狸跃过那只懒狗。豆鸟飞日落。"},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "빠른 갈색 여우가 게으른 개를 뛰어 넘었다.콩 조류 일몰에 파리."}
+				]},
+				{tag: "br"},
+
+				{kind: "moon.Divider", content: "RTL Languages:"},
+				{mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקיעה."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "قفز الثعلب البني السريع فوق الكلب الكسول. الطيور تطير في الفول عند غروب الشمس."},
+					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز."}
+				]}
 			]}
 		]}
 	],
@@ -59,10 +78,12 @@ enyo.kind({
 	},
 	start: function(inSender, inEvent) {
 		this.$.marqueeContent1.startMarquee();
+		this.$.marqueeContent2.startMarquee();
 		this.$.marqueeContainer1.startMarquee();
 	},
 	stop: function(inSender, inEvent) {
 		this.$.marqueeContent1.stopMarquee();
+		this.$.marqueeContent2.stopMarquee();
 		this.$.marqueeContainer1.stopMarquee();	
 	}
 });

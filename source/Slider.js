@@ -60,19 +60,24 @@ enyo.kind({
 		showPercentage: true,
 		//* Popup width in pixels
 		popupWidth: "auto",
-		//* Popup height in pixels, and it is designed for under 72 pixels.
+		//* Popup height in pixels; value should be under 72
 		popupHeight: 67,
 		//* Popup offset in pixels
 		popupOffset: 8,
-		//* When false (the default), the knob may be moved past the _bgProgress_
+		/**
+			When false (the default), the knob may be moved past the _bgProgress_
+			value
+		*/
 		constrainToBgProgress: false,
 		/**
 			When true, an elastic visual effect is seen when the knob is dragged past
-			the _bgProgress_ (default is false)
+			the _bgProgress_ value (default is false)
 		*/
 		elasticEffect: false,
 		//* Custom popup content (ignored if null)
-		popupContent: null
+		popupContent: null,
+		//* When true, popup content will be translated to locale-safe uppercase
+		popupContentUpperCase: true
 	},
 	events: {
 		/**
@@ -216,9 +221,13 @@ enyo.kind({
 	//* Updates popup content.
 	popupContentChanged: function() {
 		var content = this.getPopupContent();
-		if (content !== null) {
-			this.$.popupLabel.setContent(content);
+		this._popupContent = this.getPopupContentUpperCase() ? enyo.toUpperCase(content) : content;
+		if (this._popupContent !== null) {
+			this.$.popupLabel.setContent(this._popupContent);
 		}
+	},
+	popupContentUpperCaseChanged: function() {
+		this.popupContentChanged();
 	},
 	/**
 		Slider will snap multiples.
@@ -245,11 +254,12 @@ enyo.kind({
 	},
 	valueChanged : function(preValue, inValue){
 		if (!this.dragging) {
+			var allowAnimation = this.constrainToBgProgress && inValue <= this.bgProgress || !this.constrainToBgProgress;
 			if (this.constrainToBgProgress) {
 				inValue = this.clampValue(this.min, this.bgProgress, inValue); // Moved from animatorStep
 				inValue = (this.increment) ? this.calcConstrainedIncrement(inValue) : inValue;
 			}
-			if (this.animate){
+			if (this.animate && allowAnimation) {
 				this.animateTo(preValue, inValue);
 			} else {
 				this._setValue(inValue);
@@ -295,8 +305,7 @@ enyo.kind({
 		this.updatePopupLabel(knobValue);
 	},
 	updatePopupLabel: function(inKnobValue) {
-		var label = this.getPopupContent();
-		label = (label === null) ? this.calcPopupLabel(inKnobValue) : label;
+		var label = this._popupContent || this.calcPopupLabel(inKnobValue);
 		this.$.popupLabel.setContent(label);
 	},
 	calcPopupLabel: function(inKnobValue) {

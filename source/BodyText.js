@@ -6,8 +6,24 @@
 enyo.kind({
 	name: "moon.BodyText",
 	//*	@protected
-	classes: "moon-body-text moon-body-text-spacing",
+	classes: "moon-body-text moon-body-text-spacing moon-body-text-control",
 	//* @public
 	//* If true, HTML tags are allowed in the control's content 
-	allowHtml: true
+	allowHtml: true,
+	published: {
+		//* When true, text content is centered; otherwise left-aligned
+		centered: false
+	},
+	create: function() {
+		this.inherited(arguments);
+		this.centeredChanged();
+	},
+	contentChanged: function() {
+		this.inherited(arguments);
+		this.detectTextDirectionality();
+		this.bubble("onRequestSetupBounds");
+	},
+	centeredChanged: function() {
+		this.applyStyle("text-align", this.centered ? "center" : null);
+	}
 });

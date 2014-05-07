@@ -27,7 +27,7 @@ enyo.kind({
 					]},
 					{action:"category1", components: [
 						{kind: "moon.Divider", content:"Category 1 (Static)"},
-						{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+						{kind: "moon.Scroller", fit: true, components: [
 							{kind: "enyo.Group", name:"group", highlander: true, defaultKind: "moon.SelectableItem", components: [
 								{content:"Just Released"},
 								{content:"Recommended"},
@@ -44,7 +44,7 @@ enyo.kind({
 				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
 					{action: "Cost", components: [
 						{kind: "moon.Divider", content:"Cost"},
-						{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.ToggleItem", fit: true, components: [
+						{kind: "moon.Scroller", defaultKind: "moon.ToggleItem", fit: true, components: [
 							{content:"$"},
 							{content:"$$"},
 							{content:"$$$"}
@@ -52,7 +52,7 @@ enyo.kind({
 					]},
 					{action: "Flavor", components: [
 						{kind: "moon.Divider", content:"Flavor"},
-						{kind: "moon.Scroller", horizontal: "hidden", defaultKind: "moon.CheckboxItem", fit: true, components: [
+						{kind: "moon.Scroller", defaultKind: "moon.CheckboxItem", fit: true, components: [
 							{content:"Spicy"},
 							{content:"Sweet"},
 							{content:"Sour"},
@@ -72,7 +72,7 @@ enyo.kind({
 				{kind: "moon.ListActions", autoCollapse: true, iconSrc: "./assets/icon-list.png", listActions: [
 					{action: "AutoCollapseTest", components: [
 						{kind: "moon.Divider", content:"Try Auto-collapse"},
-						{kind: "moon.Scroller", horizontal: "hidden", fit: true, components: [
+						{kind: "moon.Scroller", fit: true, components: [
 							{kind: "enyo.Group", highlander: true, defaultKind: "moon.CheckboxItem", components: [
 								{content:"Select"},
 								{content:"One"},

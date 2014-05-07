@@ -2,9 +2,9 @@
 	The _moon.MarqueeSupport_ mixin should be used with controls that contain
 	multiple marquees whose animation behavior should be synchronized. Calling
 	_this.startMarquee()_ or _this.stopMarquee()_ starts/stops all contained
-	marquees.  
+	marquees.
 
-	The following properties defined on the base kind on which the mixin is applied 
+	The following properties defined on the base kind on which the mixin is applied
 	control the marquee behavior:
 
 	* `marqueeOnSpotlight`: When true, marquee will start when spotlight focused and
@@ -157,6 +157,7 @@ moon.MarqueeSupport = {
 	*/
 	stopMarquee: function() {
 		this.stopJob("marqueeSupportJob");
+		this.stopJob("resetMarquee");
 		this._marquee_active = false;
 		this._marquee_stopChildMarquees();
 	},
@@ -173,8 +174,8 @@ moon.MarqueeSupport = {
 	},
 	//* Restarts marquee if needed (depends on marqueeOnSpotlight/marqueeOnRender settings)
 	resetMarquee: function() {
-		if ((this.marqueeOnSpotlight && this._marquee_isFocused) || 
-			(this.marqueeOnHover && this._marquee_isHovered) || 
+		if ((this.marqueeOnSpotlight && this._marquee_isFocused) ||
+			(this.marqueeOnHover && this._marquee_isHovered) ||
 			this.marqueeOnRender) {
 			// Batch multiple requests to reset from children being hidden/shown
 			this.startJob("resetMarquee", "_resetMarquee", 10);
@@ -236,7 +237,8 @@ moon.MarqueeItem = {
 		ontransitionend: "_marquee_animationEnded"
 	},
 	observers: {
-		_marquee_contentChanged: ["content"]
+		_marquee_contentChanged: ["content"],
+		_marquee_centeredChanged: ["centered"]
 	},
 	bindings: [
 		{from: ".allowHtml", to:".$.marqueeText.allowHtml"}
@@ -259,6 +261,13 @@ moon.MarqueeItem = {
 	_marquee_distance: null,
 	_marquee_fits: null,
 	_marquee_puppetMaster: null,
+	create: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.detectTextDirectionality();
+			this._marquee_centeredChanged();
+		};
+	}),
 	reflow: enyo.inherit(function(sup) {
 		return function() {
 			sup.apply(this, arguments);
@@ -280,6 +289,7 @@ moon.MarqueeItem = {
 		_this.$.marqueeText_ (if it exists).
 	*/
 	_marquee_contentChanged: function() {
+		this.detectTextDirectionality();
 		if (this.$.marqueeText) {
 			this.$.marqueeText.setContent(this.content);
 		}
@@ -369,7 +379,7 @@ moon.MarqueeItem = {
 		this.$.marqueeText.applyStyle("transition-duration", duration + "s");
 		this.$.marqueeText.applyStyle("-webkit-transition-duration", duration + "s");
 
-		enyo.dom.transform(this, {translateZ: 0});
+		enyo.dom.transform(this.$.marqueeText, {translateZ: 0});
 
 		// Need this timeout for FF!
 		setTimeout(this.bindSafely(function() {
@@ -388,7 +398,7 @@ moon.MarqueeItem = {
 		setTimeout(this.bindSafely(function() {
 			this.$.marqueeText.removeClass("animate-marquee");
 			enyo.dom.transform(this.$.marqueeText, {translateX: null});
-			enyo.dom.transform(this, {translateZ: null});
+			enyo.dom.transform(this.$.marqueeText, {translateZ: null});
 		}), enyo.platform.firefox ? 100 : 0);
 	},
 	//* Flips distance value for RTL support
@@ -400,6 +410,9 @@ moon.MarqueeItem = {
 		if (this._marquee_puppetMaster) {
 			this._marquee_puppetMaster.resetMarquee();
 		}
+	},
+	_marquee_centeredChanged: function() {
+		this.applyStyle("text-align", this.centered ? "center" : null);
 	}
 };
 
@@ -453,7 +466,9 @@ enyo.kind({
 		*/
 		marqueePause: 1000,
 		//* When true, marqueeing will not occur
-		disabled: false
+		disabled: false,
+		//* When true, text is centered; otherwise left-aligned
+		centered: false
 	}
 });
 

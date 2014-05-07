@@ -76,11 +76,10 @@ enyo.kind({
 	time expressed in hours and minutes, with an optional meridiem indicator
 	("am" or "pm").
 
-
 		{kind: "moon.TimePicker", content: "Time", meridiemEnable: true, onChange: "changed"}
 
-	Set the _value_ property to a standard JavaScript Date object
-	to initialize the picker, or to change it programmatically at runtime.
+	Set the _value_ property to a standard JavaScript Date object to initialize
+	the picker, or to change it programmatically at runtime.
 */
 enyo.kind({
 	name: "moon.TimePicker",
@@ -88,8 +87,9 @@ enyo.kind({
 	//* @public
 	published: {
 		/**
-			When true, the picker uses a 12-hour clock. (This value is ignored when
-			_ilib_ is loaded, since the meridiem will be set by the current locale.)
+			When true, the picker will use a 12-hour clock. (When _iLib_ is loaded,
+			this value will be ignored and the current locale's rules will determine
+			whether a 12-hour or 24-hour clock is used.)
 		*/
 		meridiemEnable: false,
 		//* Optional label for hour
@@ -99,14 +99,16 @@ enyo.kind({
 		//* Optional label for meridiem
 		meridiemText: moon.$L("meridiem"),	// i18n "MERIDIAN" label in moon.TimePicker widget
 		/**
-			When true, midnight (and noon, if meridiemEnable:true) is represented as zero instead of
-			24 (and 12). (This value is ignored when _ilib_ is loaded, since it will be based on
-			the current locale.)
+			When true, midnight (and noon, if _meridiemEnable: true_) will be
+			represented as 0 instead of 24 (and 12). (When _iLib_ is loaded, this
+			value will be ignored and the current locale's rules will determine
+			whether 0 is used.)
 		*/
 		hoursStartAtZero: false,
 		/**
-			When true, hours will be zero-padded (This value is ignored when _ilib_ is loaded, since it
-			will be based on the the current locale.)
+			When true, hours will be zero-padded. (When _iLib_ is loaded, this value
+			will be ignored and the current locale's rules will determine whether
+			zero-padding is used.)
 		*/
 		hoursZeroPadded: false
 	},
@@ -256,12 +258,17 @@ enyo.kind({
 			this.$.hour.setValue(hour);
 		}
 
-		this.setValue(new Date(this.value.getFullYear(),
+		if (inEvent.originator.kind == "moon.HourPicker") {
+			// Excludes illegal hours based on DST rules by adding hour offset directly
+			this.setValue(new Date(this.value.getTime() + ((hour - this.value.getHours())*60*60*1000)));
+		} else {
+			this.setValue(new Date(this.value.getFullYear(),
 							this.value.getMonth(),
 							this.value.getDate(),
 							hour, minute,
 							this.value.getSeconds(),
 							this.value.getMilliseconds()));
+		}
 	},
 	setChildPickers: function(inOld) {
 		var hour = this.value.getHours();

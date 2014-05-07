@@ -1,8 +1,8 @@
 /**
 	_moon.Image_ is a simple control that wraps an [enyo.Image](#enyo.Image) to
-	provide proper alignment with text-based contols.
+	provide proper alignment with text-based controls.
 
-	In addition, _moon.Image_ optionally accepts [moon.ImageBadge](#moon.ImageBadge)
+	In addition, _moon.Image_ accepts optional [moon.ImageBadge](#moon.ImageBadge)
 	client components, which are placed inside a container positioned over the
 	image.  These badges are normally persistent, but may be shown or hidden based
 	on spotlight focus, using the _showBadgesOnSpotlight_ property.
@@ -31,9 +31,9 @@ enyo.kind({
 			will always be shown.
 		*/
 		showBadgesOnSpotlight: false,
-		//* Sets the image sizing strategy.  See _enyo.Image_ for details.
+		//* The image sizing strategy.  See _enyo.Image_ for details.
 		sizing: "",
-		//* Sets the image position when `sizing` is used.  See _enyo.Image_ for details.
+		//* The image position when _sizing_ is used.  See _enyo.Image_ for details.
 		position: ""
 	},
 	//*@protected

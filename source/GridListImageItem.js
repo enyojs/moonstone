@@ -20,15 +20,12 @@ enyo.kind({
 		caption: { kind:"moon.MarqueeText" },
 		subCaption: { kind:"moon.MarqueeText" }
 	},
+	bindings: [
+		{from: ".allowHtml", to: ".$.caption.allowHtml"},
+		{from: ".allowHtml", to: ".$.subCaption.allowHtml"}
+	],
 	handlers: {
 		onSpotlightFocus: "focused"
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.centeredChanged();
-	},
-	centeredChanged: function() {
-		this.addRemoveClass("no-center", !this.centered);
 	},
 	focused: function (inSender, inEvent) {
 		if (inEvent.originator === this) {

@@ -15,19 +15,22 @@ enyo.kind({
 	//* @public
 	published: {
 		/**
-			A parameter indicating the size of the button.
-			If true, the diameter of this button is 60px.
-			However, the button's tap target still has a diameter of 78px, so there is
-			invisible DOM that wraps the small button to provide the larger tap zone.
+			A boolean parameter affecting the size of the button. If true, the
+			button's diameter will be set to 60px. However, the button's tap target
+			will still have a diameter of 78px, with invisible DOM wrapping the small
+			button to provide the larger tap zone.
 		*/
 		small: false,
 		/**
-			A parameter indicating the minimum width of the button. If true, the
-			min-width should be set 180px wide (the small button is set 130px). When
-			false, the min-width should be the current @moon-button-height (forcing it
-			to be no smaller than a circle).
+			A boolean parameter affecting the minimum width of the button. If true,
+			the minimum width will be set to 180px (or 130px if _small_ is true). If
+			false, the minimum width will be set to the current @moon-button-height
+			(thus forcing the button to be no smaller than a circle with diameter
+			@moon-button-height).
 		*/
-		minWidth: true
+		minWidth: true,
+		//* When true, the content will be converted to locale-safe uppercasing
+		contentUpperCase: true
 	},
 	//* @protected
 	classes: 'moon-large-button-text moon-button enyo-unselectable',
@@ -87,17 +90,27 @@ enyo.kind({
 	},
 	//* Override to handle potential child components.
 	contentChanged: function() {
+		var content = this.getContent();
 		if (this.$.client) {
-			this.$.client.setContent(this.getContent());
+			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
 		} else {
 			this.inherited(arguments);
 		}
+	},
+	contentUpperCaseChanged: function() {
+		this.contentChanged();
 	},
 	minWidthChanged: function() {
 		if (this.minWidth) {
 			this.addClass('min-width');
 		} else {
 			this.removeClass('min-width');
+		}
+	},
+	showingChanged: function() {
+		this.inherited(arguments);
+		if (!this.showing && this.hasClass('pressed')) {
+			this.undepress();
 		}
 	}
 });

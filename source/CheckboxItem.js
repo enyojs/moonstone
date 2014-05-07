@@ -30,7 +30,7 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	//* @public
 	published: {
-		//* The state of the checkbox
+		//* Boolean value indicating whether checkbox is currently checked
 		checked: false,
 		//* If true, checkbox will be displayed on the right side of the checkbox item
 		checkboxOnRight: false,

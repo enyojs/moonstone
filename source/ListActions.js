@@ -1,8 +1,10 @@
 /**
-	_moon.ListActions_ is a control used in conjunction with a list of items.  It
-	combines an activating control with a drawer containing a menu of selectable
-	options.  When a menu item is selected, an action--such as filtering, sorting,
-	moving, or deleting--is performed on the items in the associated list.
+	_moon.ListActions_ is a control designed to live within a _moon.Header_. It is
+	used to perform actions on an associated list of items. A ListActions object
+	combines an activating control with a drawer containing a user-defined menu of
+	selectable options for acting on items in the list. When a menu item is
+	selected, an action--such as filtering, sorting, moving, or deleting--may be
+	invoked in the application by handling change events from the selected items.
 */
 enyo.kind({
 	name: "moon.ListActions",
@@ -19,10 +21,36 @@ enyo.kind({
 		*/
 		autoCollapse: false,
 		/**
-			A block of components (typically, lists of items) to be displayed inside
-			of a _moon.Scroller_; by default, it is a scroller without any components.
-			When instantiating _moon.ListActions_, declare
-			_listActions: &lt;your components&gt;_ to populate the scroller.
+			A block of one or more controls to be displayed inside the list actions
+			menu. By default, each top-level ListActions will have a _defaultKind_ of
+			_FittableRows_, and should typically contain a _moon.Divider_ identifying
+			the category and a _moon.Scroller_ with _fit: true_, containing instances
+			of _moon.CheckboxItem_, _moon.ToggleItem_, or _moon.SelectableItem_ for
+			setting options for the underlying panel.  Alternatively, a
+			_moon.DataRepeater_ (with a _moon.Scroller_ set as its container) or a
+			_moon.DataList_ may be used as the _fit: true_ control for populating a
+			data-bound list of options (see below for limitations on using a
+			_moon.DataList_).
+
+			More than one option group may be added to the _listActions_ block, in
+			which options are laid out horizontally by default, with each FittableRows'
+			height constrained to the height of the parent Header. However, a minimum
+			width (300px) is enforced for each group, and if there are more groups
+			than will fit in the available horizontal space, all controls will instead
+			be stacked vertically. In this case, an outer scroller is enabled; the
+			outer scroller scrolls all groups vertically, and the FittableRows are
+			reset to natural size based on their content, effectively disabling any
+			scrollers contained within, to prevent nested scrolling.
+
+			Note that the vertical stacking capability poses a limitation on using
+			_moon.DataList_. Since _moon.DataList_ must always be allowed to scroll,
+			it is not suitable for use in a stacked scenario in which only one outer
+			scroller is used.  As such, _moon.DataList_ cannot be used within a
+			ListActions that may need to stack vertically.
+
+			Each group should have a string value set for the _category_ property, as
+			this will be passed in all events that bubble from the ListActions, to
+			allow the user to identify which category changed.
 		*/
 		listActions: null,
 		/**
@@ -30,9 +58,10 @@ enyo.kind({
 		*/
 		iconSrc: "",
 		/**
-			By default, list action menus are 300px wide.  To have the menus be proportionally
-			sized within the available space, set to true.  Note, a minimum width of 300px is still
-			respected; if all menus don't fit horizontally, they will be stacked vertically.
+			By default, list action menus are 300px wide.  Set this to true to instead
+			have the menus be proportionally sized within the available space.  Note
+			that a minimum width of 300px is still respected; if all menus don't fit
+			horizontally, they will be stacked vertically.
 		*/
 		proportionalWidth: false
 	},
@@ -68,6 +97,15 @@ enyo.kind({
 		}
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
+	},
+	rendered: function() {
+		this.inherited(arguments);
+		if (this.open) {
+			// Perform post-open work
+			this.drawerAnimationEnd();
+			// Update stacking
+			this.resizeDrawer();
+		}
 	},
 	destroy: function() {
 		enyo.dispatcher.release(this.$.drawer);
@@ -130,32 +168,31 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		this.setActive(!this.getOpen());
 		this.setOpen(!this.getOpen());
-
-		// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
-		// from landing in the header beneath the drawer
-		if (this.open) {
-			enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: "capturedSpotlightFocus"}, this);
-		} else {
-			enyo.dispatcher.release(this.$.drawer);
-		}
 	},
 	openChanged: function(){
-		//If opened, show drawer and resize it if needed
+		this.setActive(!this.getOpen());
+		// If opened, show drawer and resize it if needed
 		if(this.open){
 			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
 				this.resizeDrawer();
 				this.drawerNeedsResize = false;
 			}
+			// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
+			// from landing in the header beneath the drawer
+			enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: "capturedSpotlightFocus"}, this);
+		} else {
+			enyo.dispatcher.release(this.$.drawer);
 		}
 	},
 	drawerAnimationEnd: function() {
 		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
 			this.$.drawer.hide();
-			enyo.Spotlight.spot(this.$.activator);
+			if (this.generated) {
+				enyo.Spotlight.spot(this.$.activator);
+			}
 			this.bubble("onRequestUnmuteTooltip");
 		} 
 		//on open, move top and spot _this.$.closeButton_
@@ -164,7 +201,9 @@ enyo.kind({
 				this.$.listActions.scrollTo(0, 0);
 				this.resetScroller = false;
 			}
-			enyo.Spotlight.spot(this.$.closeButton);
+			if (this.generated) {
+				enyo.Spotlight.spot(this.$.closeButton);
+			}
 			this.bubble("onRequestMuteTooltip");
 		}
 	},
@@ -181,7 +220,8 @@ enyo.kind({
 		if (this.stacked) {
 			this.$.drawer.addClass("stacked");
 			this.stackMeUp();
-			this.$.listActions.setVertical("auto");
+			// When stacked, always have vertical scroller 
+			this.$.listActions.setVertical("scroll");
 		}
 		else {
 			this.$.drawer.removeClass("stacked");
@@ -196,6 +236,10 @@ enyo.kind({
 
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "block");
+			// Stacked contols get natural height (which prevents scrolling), such that they stack
+			// within outer scroller which is allowed to scroll all controls; this is a problem for
+			// DataLists, which require an explicit height, making them unsuitable for use in 
+			// stacked ListActions
 			optionGroup.applyStyle("height", "none");
 		}
 	},
@@ -268,8 +312,13 @@ enyo.kind({
 		// for this use case, and avoid a strange "layer ghosting" issue
 		// the first time a drawer is opened.
 		this.accel = enyo.dom.canAccelerate() && enyo.platform.webos !== 4;
-		this.resetClientPosition();
-		this.setShowing(false);
+		// Show drawer if default open value is true without animation
+		if (this.open) {
+			this.setShowing(true);
+		} else {
+			this.resetClientPosition();
+			this.setShowing(false);
+		}
 	},
 	// We override getBubbleTarget here so that events emanating from a ListActionsDrawer
 	// instance will bubble to the owner of the associated ListActions instance, as expected.
@@ -279,7 +328,9 @@ enyo.kind({
 	getBubbleTarget: function() {
 		return this.owner;
 	},
-	openChanged: function() {
+	openChanged: function(inOld) {
+		// Skip animation before render time
+		if (!this.$.client.hasNode()) { return; }
 		if (this.open) {
 			this.playOpenAnimation();
 		} else {

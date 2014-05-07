@@ -23,18 +23,22 @@ enyo.kind({
 		/**
 			This value overrides the default value of _autoDismiss_ inherited from
 			_enyo.Popup_. If true, the Tooltip will hide when the user taps outside of
-			it or presses ESC.  Note that this property only affects behavior when the
+			it or presses ESC. Note that this property only affects behavior when the
 			Tooltip is used independently--not when it is used with TooltipDecorator.
 		*/
 		autoDismiss: false,
 		//* Hovering over the decorator for this length of time (in milliseconds)
-		//* causes the tooltip to appear.
+		//* causes the tooltip to appear
 		showDelay: 500,
-		//* Whether to position the tooltip above or below the activator.  Valid values are
-		//* "above", "below", or "auto".
+		/**
+			Position of the tooltip with respect to the activating control.  Valid
+			values are "above", "below", and "auto".
+		*/
 		position: "auto",
 		//* Default _margin-left_ value
-		defaultLeft: 10
+		defaultLeft: 10,
+		//* When true, the content will be converted to locale-safe uppercasing
+		contentUpperCase: true
 	},
 	//* @protected
 	captureEvents: false,
@@ -54,7 +58,11 @@ enyo.kind({
 		this.contentChanged();
 	},
 	contentChanged: function() {
-		this.$.client.setContent(this.content);
+		var content = this.getContent();
+		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+	},
+	contentUpperCaseChanged: function() {
+		this.contentChanged();
 	},
 	requestShow: function() {
 		this.startJob("showJob", "show", this.showDelay);

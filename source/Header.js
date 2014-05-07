@@ -18,25 +18,35 @@ enyo.kind({
 		subTitleBelow: '',
 		//* If true, the _moon-small-header_ CSS class will be applied to this header
 		small: false,
-		//* URL src of a background image
+		/**
+			URL of background image(s).
+			This may be a string referring a single background image, or an array of
+			strings referring to multiple background images.
+		*/
 		backgroundSrc: null,
-		//* Background position, defined as a string in the form of _"vertical horizontal"_,
-		//* with a space separating the _vertical_ and _horizontal_ properties (e.g. _"top right"_).
-		//* If no second property is included, the horizontal value will default to _right_.
+		/**
+			Position of background image, defined as a string of the form _"vertical
+			horizontal"_, with a space separating the _vertical_ and _horizontal_
+			properties (e.g., _"top right"_). If no second property is included, the
+			horizontal value will default to _right_.
+			As with _backgroundSrc_, an array of strings may be supplied to position
+			multiple background images. The order of items should be the same as in
+			_backgroundSrc_.
+		*/
 		backgroundPosition: "top right",
 		//* When using a full-bleed background image, set this property to true to indent
 		//* the header text/controls and remove the header lines
 		fullBleedBackground: false,
 		//* If true, title will be an input
 		inputMode: false,
+		//* When true, input will be blurred on Enter keypress (if focused)
+		dismissOnEnter: false,
 		//* Text to display when the input is empty
 		placeholder: "",
 		//* The value of the input
 		value: "",
-		//* When true, the entered text will be displayed as uppercase
-		inputUpperCase: false,
-		//* When true, input will be blurred on Enter keypress (if focused)
-		dismissOnEnter: false
+		//* When true, the title text will be converted to locale-safe uppercasing
+		titleUpperCase: true
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
@@ -71,7 +81,7 @@ enyo.kind({
 			}, {
 				name: "inputDecorator",
 				kind: "moon.InputDecorator",
-				classes: 'moon-input-header-input-decorator',
+				classes: "moon-input-header-input-decorator",
 				canGenerate: false,
 				components: [{
 					name: "titleInput",
@@ -96,14 +106,10 @@ enyo.kind({
 		kind: "enyo.StyleAnimator",
 		onComplete: "animationComplete"
 	}],
-	bindings: [{
-		from: ".value",
-		to: ".$.titleInput.value",
-		oneWay: false
-	}, {
-		from: ".dismissOnEnter",
-		to: ".$.titleInput.dismissOnEnter"
-	}],
+	bindings: [
+		{from: ".value", to: ".$.titleInput.value", oneWay: false},
+		{from: ".dismissOnEnter", to: ".$.titleInput.dismissOnEnter"}
+	],
 	create: function() {
 		this.inherited(arguments);
 		this.smallChanged();
@@ -115,7 +121,6 @@ enyo.kind({
 		this.backgroundSrcChanged();
 		this.backgroundPositionChanged();
 		this.inputModeChanged();
-		this.inputUpperCaseChanged();
 		this.placeholderChanged();
 		this.fullBleedBackgroundChanged();
 	},
@@ -125,10 +130,22 @@ enyo.kind({
 		this.$.subTitleBelow.setAllowHtml(this.allowHtml);
 	},
 	backgroundSrcChanged: function() {
-		this.applyStyle("background-image", (this.backgroundSrc) ? "url(" + this.backgroundSrc + ")": "none");
+		var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
+		bgs = enyo.map(bgs, function(inBackgroundSource) { return inBackgroundSource ? "url(" + inBackgroundSource + ")" : null; });
+		this.applyStyle("background-image", (bgs.length) ? bgs.join(", ") : null);
 	},
 	backgroundPositionChanged: function() {
-		var posArray = this.backgroundPosition && this.backgroundPosition.split(" ") || [], posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": posArray[0] + " " + posArray[1];
+		var bgp = this.backgroundPosition;
+		if (enyo.isArray(bgp)) {
+			bgp = (bgp.length) ? bgp.join(", ") : null;
+		}
+		// If this.backgroundPosition is set explicitly to inherit or initial, apply that instead of assuming a position.
+		if (bgp === "inherit" || bgp === "initial") {
+			this.applyStyle("background-position", bgp);
+			return;
+		}
+		var posArray = bgp && bgp.split(" ") || [],
+			posStr = (posArray.length === 0) ? "top right": (posArray.length === 1) ? posArray[0] + " right": bgp;
 		this.applyStyle("background-position", posStr);
 	},
 	fullBleedBackgroundChanged: function() {
@@ -328,7 +345,7 @@ enyo.kind({
 	},
 	//* @protected
 	contentChanged: function() {
-		this.$.title.setContent(this.title || this.content);
+		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
 		this.placeholderChanged();
 	},
 	//* @protected
@@ -339,7 +356,11 @@ enyo.kind({
 	},
 	placeholderChanged: function() {
 		// For backward-compatibility with original API
-		this.$.titleInput.set("placeholder", this.placeholder || this.title || this.content);
+		this.$.titleInput.set("placeholder", this.getTitleUpperCase() ? enyo.toUpperCase(this.placeholder || this.title || this.content) : (this.placeholder || this.title || this.content) );
+	},
+	//* @protected
+	titleUpperCaseChanged: function() {
+		this.titleChanged();
 	},
 	//* @protected
 	titleAboveChanged: function() {
@@ -370,8 +391,10 @@ enyo.kind({
 				this.$.title.render();
 			}
 			// Reset marquees when coming back to static text
-			this.stopMarquee();
-			this.startMarquee();
+			if (this.generated) {
+				this.stopMarquee();
+				this.startMarquee();
+			}
 		}
 		if (this.inputMode && !this.$.inputDecorator.hasNode()) {
 			this.$.inputDecorator.render();
@@ -385,8 +408,5 @@ enyo.kind({
 	//* Create custom event for _change_ events
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
-	},
-	inputUpperCaseChanged: function() {
-		this.$.titleInput.addRemoveClass("uppercase", this.inputUpperCase);
 	}
 });

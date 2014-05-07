@@ -39,7 +39,7 @@ enyo.kind({
 	/**
 		Returns an object containing information about the state
 		of a given panel (identified by _inPanelIndex_) within a
-		given arrangement (identified by _inActiveIndex).
+		given arrangement (identified by _inActiveIndex_).
 
 		Specifically, _moon.BreadcrumbArranger_ reports whether a panel
 		is offscreen, and whether it is in breadcrumb (collapsed) form.

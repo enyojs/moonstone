@@ -59,6 +59,7 @@ enyo.kind({
 		this.stopHoldJob();
 		this.downTime = null;
 		this.doPaginate({scrollDelta: this.delta * this.bumpDeltaMultiplier});
+		enyo.Spotlight.Accelerator.cancel();
 	},
 	
 	//* @protected

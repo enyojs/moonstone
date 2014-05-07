@@ -17,7 +17,7 @@ enyo.kind({
 	published: {
 		//* When true, content is collapsed
 		collapsed: true,
-		//* Max line number to show content when it is collapsed.
+		//* Maximum number of lines of content to show in collapsed state
 		maxLines: 3,
 		//* Button text when content is collapsed
 		moreContent: moon.$L("more"),  // i18n "MORE" label in moon.ExpandableText widget
@@ -25,7 +25,12 @@ enyo.kind({
 		lessContent: moon.$L("less")   // i18n "LESS" label in moon.ExpandableText widget
 	},
 	events: {
-		//* Fires when this control expands or collapses.
+		/**
+			Fires when this control expands or collapses.
+
+			_inEvent.collapsed_ contains a boolean indicating whether the control is
+			currently collapsed.
+		*/
 		onExpandCollapse: ""
 	},
 

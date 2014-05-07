@@ -1,8 +1,9 @@
 .moon-marquee {
     width: auto;
     text-overflow: ellipsis;
-    white-space: nowrap !important;
+    white-space: pre !important;
     overflow: hidden;
+    text-align: left;
 
 	span {
 		pointer-events: none !important;
@@ -20,6 +21,7 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 		width: 100%;
+	    white-space: pre !important;
 		
 		transition-property: transform;
 		-moz-transition-property: transform;
@@ -34,4 +36,7 @@
 		text-overflow: clip;
 		overflow: visible;
 	}
+}
+.enyo-locale-right-to-left .moon-marquee {
+	text-align: right;
 }
