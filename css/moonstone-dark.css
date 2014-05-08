@@ -1269,6 +1269,7 @@
   width: 65px;
   color: #a6a6a6;
   background-color: #404040;
+  font-family: "MuseoSans 700";
   overflow: hidden;
   -webkit-transition: background-color 0.2s, color 0.2s;
   background-image: none;
