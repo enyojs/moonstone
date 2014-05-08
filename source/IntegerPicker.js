@@ -84,7 +84,10 @@ enyo.kind({
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
-		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		var node = this.$.repeater.fetchRowNode(this.value - this.min);
+		if (node) {
+			this.$.scroller.scrollToNode(node);
+		}
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -100,7 +103,10 @@ enyo.kind({
 		this.$.repeater.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch
 		enyo.asyncMethod(this.bindSafely(function(){
-			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+			var node = this.$.repeater.fetchRowNode(this.value - this.min);
+			if (node) {
+				this.$.scroller.scrollToNode(node);
+			}
 		}));
 	},
 	valueChanged: function(inOld) {
