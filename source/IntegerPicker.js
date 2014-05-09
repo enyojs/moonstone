@@ -109,7 +109,17 @@ enyo.kind({
 			}
 		}));
 	},
+	/**
+		fail-safe design.
+		If out boundary value is assigned, adjust boundary.
+	*/
 	valueChanged: function(inOld) {
+		if (this.value < this.min) {
+			this.setMin(this.value);
+		} else if (this.value > this.max) {
+			this.setMax(this.value);
+		}
+
 		var node = this.$.repeater.fetchRowNode(this.value - this.min);
 		if (node) {
 			this.$.scroller.scrollTo(node.offsetLeft, node.offsetTop);
