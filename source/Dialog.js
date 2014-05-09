@@ -49,13 +49,13 @@ enyo.kind({
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(title) : title );
 	},
 	//* @protected
-	show: function() {
+	showingChanged: function() {
 		this.inherited(arguments);
-		this.startMarqueeCustomDelay(5000);
-	},
-	hide: function() {
-		this.inherited(arguments);
-		this.stopMarquee();
+		if (this.showing) {
+			this.startMarqueeCustomDelay(5000);
+		} else {
+			this.stopMarquee();
+		}
 	},
 	titleUpperCaseChanged: function() {
 		this.titleChanged();
