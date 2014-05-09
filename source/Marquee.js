@@ -193,7 +193,8 @@ moon.MarqueeSupport = {
 	//* Stops and restarts the marquee animations
 	_resetMarquee: function() {
 		this.stopMarquee();
-		this.startMarquee();
+		if (this.marqueeOnRender) this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
+		else this.startMarquee();
 	},
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {

@@ -22,7 +22,8 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	marqueeOnHover: true,
-	marqueeOnRender: false,
+	marqueeOnRender: true,
+	marqueeOnRenderDelay: 5000,
 	tools: [
 		{
 			layoutKind: "FittableColumnsLayout",
@@ -47,15 +48,6 @@ enyo.kind({
 	titleChanged: function() {
 		var title = this.getTitle();
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(title) : title );
-	},
-	//* @protected
-	showingChanged: function() {
-		this.inherited(arguments);
-		if (this.showing) {
-			this.startMarqueeCustomDelay(5000);
-		} else {
-			this.stopMarquee();
-		}
 	},
 	titleUpperCaseChanged: function() {
 		this.titleChanged();
