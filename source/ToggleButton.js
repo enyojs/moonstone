@@ -2,6 +2,12 @@
 	_moon.ToggleButton_, which extends [moon.Button](#moon.Button), is a button
 	with two states, "on" and "off".  When the ToggleButton is tapped, it switches
 	its state and fires an _onChange_ event.
+
+	One has the choice to show the same text (via the _content_ property) for 
+	both toggle states, or different text can be shown for each toggle state, 
+	utilizing the _toggleOnLabel_ and the _toggleOffLabel_. Note that both of 
+	these properties need to be set to display differentiating text, otherwise 
+	the _content_ property will be shown for the button text.
 */
 
 enyo.kind({
@@ -15,10 +21,11 @@ enyo.kind({
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
-		//* App developer has the choice to ust set the one label for both toggle on and toggle off content, or they have a toggle on label and toggle off label
-		//* Label for toggle button's "on" state, which is set programmatically by app developer
+		//* Button text displayed in the "on" state. If empty, will default to 
+		//* displaying _content_ as button text
 		toggleOnLabel: "",
-		//* Label for toggle button's "off" state, which is set programmatically by app debeloper
+		//* Button text displayed in the "off" state. If empty, will default to 
+		//* displaying _content_ as button text
 		toggleOffLabel: "",
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
@@ -33,22 +40,22 @@ enyo.kind({
 		*/
 		onChange: ""
 	},
+	bindings: [
+		{from: ".value", to: ".active", oneWay: false}
+	],
 	//* @protected
 	classes: "moon-toggle-button",
 	create: function() {
 		this.inherited(arguments);
-		this.value = Boolean(this.value || this.active);
-		this.updateContent();
-		this.updateVisualState();
+		this.set("value", Boolean(this.value || this.active), true);
+		this.active = this.value;
 		this.disabledChanged();
-		},
+	},
 	updateVisualState: function() {
 		this.addRemoveClass("moon-toggle-switch-off",!this.value);
 		this.addRemoveClass("moon-toggle-switch-on",this.value);
-		this.setActive(this.value);
 	},
 	activeChanged: function() {
-		this.setValue(this.active);
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
