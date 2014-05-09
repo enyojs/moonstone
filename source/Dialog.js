@@ -51,7 +51,11 @@ enyo.kind({
 	//* @protected
 	show: function() {
 		this.inherited(arguments);
-		this.startJob("startMarqueeDialog", "startMarquee", 5000);
+		this.startMarqueeCustomDelay(5000);
+	},
+	hide: function() {
+		this.inherited(arguments);
+		this.stopMarquee();
 	},
 	titleUpperCaseChanged: function() {
 		this.titleChanged();

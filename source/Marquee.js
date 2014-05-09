@@ -58,7 +58,7 @@ moon.MarqueeSupport = {
 		return function() {
 			sup.apply(this, arguments);
 			if (this.marqueeOnRender) {
-				this._marquee_startMarqueeCustomDelay(this.marqueeOnRenderDelay);
+				this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
 			}
 		};
 	}),
@@ -144,7 +144,7 @@ moon.MarqueeSupport = {
 		marquee animation on all child marquees.
 	*/
 	startMarquee: function() {
-		this._marquee_startMarqueeCustomDelay(this.marqueeDelay);
+		this.startMarqueeCustomDelay(this.marqueeDelay);
 	},
 	/**
 		Waterfalls an _onRequestMarqueeStop_ event to halt all running child
@@ -175,6 +175,17 @@ moon.MarqueeSupport = {
 			// Batch multiple requests to reset from children being hidden/shown
 			this.startJob("resetMarquee", "_resetMarquee", 10);
 		}
+	},
+	//* starts Marquee with a custom delay. Used to provide a different delay for onRender and onSpotlight/Hover
+	startMarqueeCustomDelay: function(delay) {
+		this._marquee_buildWaitList();
+
+		if (this.marqueeWaitList.length === 0) {
+			return;
+		}
+
+		this._marquee_active = true;
+		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", delay);
 	},
 
 	//* @protected
@@ -208,17 +219,6 @@ moon.MarqueeSupport = {
 	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
-	},
-	//* starts Marquee with a custom delay. Used to provide a different delay for onRender and onSpotlight/Hover
-	_marquee_startMarqueeCustomDelay: function(delay) {
-		this._marquee_buildWaitList();
-
-		if (this.marqueeWaitList.length === 0) {
-			return;
-		}
-
-		this._marquee_active = true;
-		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", delay);
 	}
 };
 
