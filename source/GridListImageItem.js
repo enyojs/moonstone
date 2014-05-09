@@ -4,7 +4,7 @@
 	configuration, styling, decorators, and Spotlight/focus-state management.
 
 	You may create an image grid by adding instances of this kind as components of
-	a [moon.GridList](#moon.GridList). See the latter kind for an example of how
+	a [moon.DataGridList](#moon.DataGridList). See the latter kind for an example of how
 	this may be done.
 */
 

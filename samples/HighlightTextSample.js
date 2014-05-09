@@ -1,3 +1,7 @@
+// FIXME. THIS SAMPLE IS BROKEN.
+// This uses an old implementation of collection filters from Enyo 2.3.0 that was removed
+// before 2.4.0 went final. We'll restore this sample once we have the new filter
+// impelementation as part of post-2.4.0 work.
 enyo.kind({
 	name: "moon.sample.HighlightTextSample",
 	classes: "moon enyo-unselectable enyo-fit",

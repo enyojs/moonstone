@@ -258,12 +258,17 @@ enyo.kind({
 			this.$.hour.setValue(hour);
 		}
 
-		this.setValue(new Date(this.value.getFullYear(),
+		if (inEvent.originator.kind == "moon.HourPicker") {
+			// Excludes illegal hours based on DST rules by adding hour offset directly
+			this.setValue(new Date(this.value.getTime() + ((hour - this.value.getHours())*60*60*1000)));
+		} else {
+			this.setValue(new Date(this.value.getFullYear(),
 							this.value.getMonth(),
 							this.value.getDate(),
 							hour, minute,
 							this.value.getSeconds(),
 							this.value.getMilliseconds()));
+		}
 	},
 	setChildPickers: function(inOld) {
 		var hour = this.value.getHours();

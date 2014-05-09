@@ -36,7 +36,9 @@ enyo.kind({
 		//* Position properties for the header's background image
 		headerBackgroundPosition: "top right",
 		//* Header options
-		headerOptions: null
+		headerOptions: null,
+		//* When true, the title text will be converted to locale-safe uppercasing
+		titleUpperCase: true
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -83,7 +85,8 @@ enyo.kind({
 		{from: ".allowHtmlHeader", to: ".$.header.allowHtml"},
 		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
-		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"}
+		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"},
+		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"}
 	],
 
 	headerComponents: [],
@@ -148,6 +151,8 @@ enyo.kind({
 	updatesSpottability: function() {
 		if (this.isBreadcrumb && !this.isOffscreen) {
 			this.addSpottableBreadcrumbProps();
+		} else if (this.isBreadcrumb && this.isOffscreen) {
+			this.removeSpottableProps();
 		} else {
 			this.removeSpottableBreadcrumbProps();
 		}
@@ -203,6 +208,10 @@ enyo.kind({
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
 		this.spotlightDisabled = false;
+	},
+	removeSpottableProps: function() {
+		this.$.breadcrumbBackground.set("spotlight", false);
+		this.spotlightDisabled = true;
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {

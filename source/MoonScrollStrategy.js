@@ -2,7 +2,7 @@
 	_moon.ScrollStrategy_ inherits from
 	[enyo.TouchScrollStrategy](#enyo.TouchScrollStrategy). Its main purpose is to
 	handle scroller paging for [moon.Scroller](#moon.Scroller) and
-	[moon.List](#moon.List).
+	[moon.DataList](#moon.DataList).
 */
 
 enyo.kind({
@@ -102,6 +102,9 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 		this.clampScrollPosition();
+	},
+	setLastFocusedChild: function(inControl) {
+		enyo.Spotlight.Container.setLastFocusedChild(this.$.viewport, inControl);
 	},
 
 	//* @public
@@ -707,7 +710,7 @@ enyo.kind({
 		return Math.min(Math.max(this.getScrollTop(), -1*m.topBoundary), -1*m.bottomBoundary);
 	}
 });
- 
+
 // FIXME: Webkit will change the scrollTop value of the scroller viewport to keep the current
 // tab-focused control onscreen if we allow it to handle tabs itself, so we defeat native
 // TAB focus movement here.

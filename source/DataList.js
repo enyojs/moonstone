@@ -238,7 +238,7 @@ enyo.kind({
 			if (c) {
 				// force a synchronous scroll to the control so it won't dupe and
 				// re-animate over positions it has already crossed
-				list.$.scroller.scrollToControl(c, false, false);
+				list.$.scroller.scrollToControl(c, false, false, true);
 			} else {
 				var idx = list.$.page1.index;
 				

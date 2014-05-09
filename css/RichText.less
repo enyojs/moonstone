@@ -11,6 +11,10 @@
 	height: 3 * @moon-body-line-height;
 	width: 300px;
 	color: @moon-input-textarea-color;
+	&::selection {
+		color: @moon-spotlight-text-color;
+		background-color: @moon-spotlight-background-color;
+	}
 }
 .enyo-locale-non-latin .moon-richtext {
 	.enyo-locale-non-latin .moon-body-text;

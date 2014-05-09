@@ -36,7 +36,9 @@ enyo.kind({
 		*/
 		position: "auto",
 		//* Default _margin-left_ value
-		defaultLeft: 10
+		defaultLeft: 10,
+		//* When true, the content will be converted to locale-safe uppercasing
+		contentUpperCase: true
 	},
 	//* @protected
 	captureEvents: false,
@@ -56,7 +58,11 @@ enyo.kind({
 		this.contentChanged();
 	},
 	contentChanged: function() {
-		this.$.client.setContent(this.content);
+		var content = this.getContent();
+		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+	},
+	contentUpperCaseChanged: function() {
+		this.contentChanged();
 	},
 	requestShow: function() {
 		this.startJob("showJob", "show", this.showDelay);

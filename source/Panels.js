@@ -244,7 +244,15 @@ enyo.kind({
 	},
 	spotlightLeft: function(oSender, oEvent) {
 		// Don't allow left-movement from a breadcrumb
-		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+		if (oEvent.originator.name === "breadcrumbBackground") {
+			return true;
+		} else {
+			var idx = this.getPanelIndex(oEvent.originator);
+			if (idx > 0 && oEvent.originator instanceof moon.Panel && this.getPanels()[idx-1].isBreadcrumb) {
+				this.previous();
+				return true;
+			}
+		}
 	},
 	spotlightRight: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") {
@@ -391,6 +399,7 @@ enyo.kind({
 		if (this.shouldArrange()) {
 			if (this.animate) {
 				this.transitionInProgress = true;
+				enyo.Spotlight.mute(this);
 				this.triggerPreTransitions();
 			}
 			else {
@@ -545,7 +554,7 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Spot the active panel
-		if (this.hasNode()) {
+		if (this.hasNode() && !this.animate) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -590,6 +599,8 @@ enyo.kind({
 		if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
+
+		enyo.Spotlight.unmute(this);
 	},
 	/**
 		Override the default _getShowing()_ behavior to avoid setting _this.showing_

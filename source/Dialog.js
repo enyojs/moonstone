@@ -14,7 +14,9 @@ enyo.kind({
 		//* The subtitle string for the dialog
 		subTitle: "",
 		//* The message for the dialog
-		message: ""
+		message: "",
+		//* When true, the title text will be converted to locale-safe uppercasing
+		titleUpperCase: true
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
@@ -44,7 +46,12 @@ enyo.kind({
 		this.messageChanged();
 	},
 	titleChanged: function() {
-		this.$.title.setContent(this.title);
+		var title = this.getTitle();
+		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(title) : title );
+	},
+	//* @protected
+	titleUpperCaseChanged: function() {
+		this.titleChanged();
 	},
 	subTitleChanged: function() {
 		this.$.subTitle.setContent(this.subTitle);
