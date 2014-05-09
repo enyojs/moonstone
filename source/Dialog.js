@@ -22,8 +22,7 @@ enyo.kind({
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
 	marqueeOnHover: true,
-	marqueeOnRender: true,
-	marqueeOnRenderDelay: 10000,
+	marqueeOnRender: false,
 	tools: [
 		{
 			layoutKind: "FittableColumnsLayout",
@@ -50,6 +49,10 @@ enyo.kind({
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(title) : title );
 	},
 	//* @protected
+	show: function() {
+		this.inherited(arguments);
+		this.startJob("startMarqueeDialog", "startMarquee", 5000);
+	},
 	titleUpperCaseChanged: function() {
 		this.titleChanged();
 	},
