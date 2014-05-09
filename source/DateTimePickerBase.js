@@ -65,6 +65,7 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: null, // set in subkind
 	defaultOrdering: null, // set in subkind
+	dateInitialized: false,
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-date-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
 			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
@@ -102,7 +103,7 @@ enyo.kind({
 	},
 	initDefaults: function() {
 		var ordering;
-		this.value = this.value || new Date(-1);
+		this.value = this.value || new Date();
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this.initILib();
@@ -143,7 +144,7 @@ enyo.kind({
 	},
 	// If no item is selected, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if(this.value.getTime() === -1) {
+		if(!this.dateInitialized) {
 			this.$.currentValue.setContent(this.getNoneText());
 		} else {
 			this.$.currentValue.setContent(this.formatValue());
@@ -180,9 +181,7 @@ enyo.kind({
 				enyo.Spotlight.spot(this.$.headerWrapper);
 			}
 		} else {
-			if(this.value.getTime() === -1) {
-				this.setValue(new Date());
-			}
+			this.dateInitialized = true;
 			this.setActive(true);
 		}
 	},
