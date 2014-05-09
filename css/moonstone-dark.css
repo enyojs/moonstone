@@ -2040,6 +2040,9 @@
 .moon-icon-button.moon-paging-button.left {
   left: 0px;
 }
+.moon-neutral .moon-icon-button.moon-paging-button.disabled {
+  color: #ffffff;
+}
 /* IntegerPicker.css */
 .moon-scroll-picker-container {
   display: inline-block;
