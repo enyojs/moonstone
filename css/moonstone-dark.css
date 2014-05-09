@@ -2192,6 +2192,10 @@
   color: #cf0652;
   text-decoration: none;
 }
+.moon-input::selection {
+  color: #ffffff;
+  background-color: #cf0652;
+}
 .enyo-locale-non-latin .moon-input {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
@@ -2444,6 +2448,10 @@
   color: #cf0652;
   text-decoration: none;
 }
+.moon-richtext::selection {
+  color: #ffffff;
+  background-color: #cf0652;
+}
 .enyo-locale-non-latin .moon-richtext {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
@@ -2687,6 +2695,10 @@
 .moon-textarea a:active {
   color: #cf0652;
   text-decoration: none;
+}
+.moon-textarea::selection {
+  color: #ffffff;
+  background-color: #cf0652;
 }
 .enyo-locale-non-latin .moon-textarea {
   font-family: "Moonstone LG Display";
