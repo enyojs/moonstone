@@ -1,0 +1,15 @@
+.input-label {
+	display: inline-block;
+	margin-right: 1ex;
+}
+.group-heading {
+	width: 15ex;
+	display: inline-block;
+}
+.moon-input {
+	width: 10ex;
+}
+
+.moon-icon {
+	border: 1px dashed;
+}

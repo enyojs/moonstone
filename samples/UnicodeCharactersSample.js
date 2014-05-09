@@ -3,15 +3,24 @@ enyo.kind({
 	kind:"FittableRows",
 	classes: "moon enyo-unselectable enyo-fit moon-input-sample",
 	components: [
-		{kind: "moon.Divider", content: "Generated Unicode Entities and their Icons"},
-		{name: "repeater", kind: "moon.DataList", components: [
+		{kind: "moon.Divider", content: "Generated Unicode Entities"},
+		{kind: "moon.InputDecorator", components: [
+			{content: "Start at", classes: "input-label"},
+			{kind: "moon.Input", name: "startAt", placeholder: "F0000", value: "F0000", onchange: "generateCharacters"}
+		]},
+		{kind: "moon.InputDecorator", components: [
+			{content: "Count", classes: "input-label"},
+			{kind: "moon.Input", name: "count", placeholder: "50", value: 50, onchange: "generateCharacters"}
+		]},
+		{kind: "moon.Divider", content: "Unicode Entities and their Icons"},
+		{content: "HTML Entity", classes: "group-heading"},
+		{content: "CSS Entity", classes: "group-heading"},
+		{name: "repeater", fit: true, kind: "moon.DataList", components: [
 			{classes: "enyo-border-box", components: [
-				{kind: "moon.InputDecorator", style: "width: 20ex;", components: [
-					{content: "HTML Entity"},
+				{kind: "moon.InputDecorator", components: [
 					{kind: "moon.Input", name: "text"}
 				]},
-				{kind: "moon.InputDecorator", style: "width: 20ex;", components: [
-					{content: "CSS Entity"},
+				{kind: "moon.InputDecorator", components: [
 					{kind: "moon.Input", name: "css"}
 				]},
 				{name: "icon", classes: "moon-icon", allowHtml: true}
@@ -28,8 +37,8 @@ enyo.kind({
 	},
 	generateCharacters: function() {
 		var i, hex,
-			start = parseInt("F0000", 16),
-			end = start + 50,
+			start = parseInt(this.$.startAt.get("value"), 16),
+			end = start + Number(this.$.count.get("value")),
 			coll = new enyo.Collection();
 
 		for (i = start; i < end; i++) {

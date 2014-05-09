@@ -108,6 +108,8 @@ enyo.depends(
 	"ToggleItemSample.js",
 	"TooltipSample.css",
 	"TooltipSample.js",
+	"UnicodeCharactersSample.css",
+	"UnicodeCharactersSample.js",
 	"VideoPlayerInlineSample.css",
 	"VideoPlayerInlineSample.js",
 	"VideoPlayerSample.css",
