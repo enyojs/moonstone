@@ -103,7 +103,11 @@ enyo.kind({
 	},
 	initDefaults: function() {
 		var ordering;
-		this.value = this.value || new Date();
+		if (this.value === null) {
+			this.value = new Date();
+		} else {
+			this.dateInitialized = true;
+		}
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this.initILib();
