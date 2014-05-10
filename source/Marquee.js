@@ -58,7 +58,7 @@ moon.MarqueeSupport = {
 		return function() {
 			sup.apply(this, arguments);
 			if (this.marqueeOnRender) {
-				this._marquee_startMarqueeCustomDelay(this.marqueeOnRenderDelay);
+				this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
 			}
 		};
 	}),
@@ -144,7 +144,7 @@ moon.MarqueeSupport = {
 		marquee animation on all child marquees.
 	*/
 	startMarquee: function() {
-		this._marquee_startMarqueeCustomDelay(this.marqueeDelay);
+		this.startMarqueeCustomDelay(this.marqueeDelay);
 	},
 	/**
 		Waterfalls an _onRequestMarqueeStop_ event to halt all running child
@@ -176,13 +176,25 @@ moon.MarqueeSupport = {
 			this.startJob("resetMarquee", "_resetMarquee", 10);
 		}
 	},
+	//* starts Marquee with a custom delay. Used to provide a different delay for onRender and onSpotlight/Hover
+	startMarqueeCustomDelay: function(inDelay) {
+		this._marquee_buildWaitList();
+
+		if (this.marqueeWaitList.length === 0) {
+			return;
+		}
+
+		this._marquee_active = true;
+		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", inDelay);
+	},
 
 	//* @protected
 
 	//* Stops and restarts the marquee animations
 	_resetMarquee: function() {
 		this.stopMarquee();
-		this.startMarquee();
+		if (this.marqueeOnRender) { this.startMarqueeCustomDelay(this.marqueeOnRenderDelay); }
+		else { this.startMarquee(); }
 	},
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {
@@ -208,17 +220,6 @@ moon.MarqueeSupport = {
 	//* Begins delayed restart of child marquee animations.
 	_marquee_startHold: function() {
 		this.startJob("marqueeSupportJob", "startMarquee", this.marqueeHold);
-	},
-	//* starts Marquee with a custom delay. Used to provide a different delay for onRender and onSpotlight/Hover
-	_marquee_startMarqueeCustomDelay: function(delay) {
-		this._marquee_buildWaitList();
-
-		if (this.marqueeWaitList.length === 0) {
-			return;
-		}
-
-		this._marquee_active = true;
-		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", delay);
 	}
 };
 
