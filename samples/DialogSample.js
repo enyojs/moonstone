@@ -10,7 +10,7 @@ enyo.kind({
 		{
 			name: "dialog", 
 			kind: "moon.Dialog", 
-			title: "You've been watching TV a very long time.",
+			title: "You've been watching TV for a very long time so let's do a quick check-in.",
 			subTitle: "This TV has been active for 10 hours.",
 			message: "Perhaps it is time to take a break and get some fresh air. There is a nice coffee shop around the corner", 
 			components: [
