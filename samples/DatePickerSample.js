@@ -35,6 +35,10 @@ enyo.kind({
 			this.$.localePicker.hide();
 			this.log("iLib not present -- hiding locale picker");
 		}
+		//testing ability to set date picker to initial value, to null, and back to initial value
+		this.$.picker.set("value", new Date("Mar 09 2014 01:59"));
+		this.$.picker.set("value", null);
+		// this.$.picker.set("value", new Date("Mar 09 2014 01:59"));
 	},
 	pickerHandler: function(inSender, inEvent){
 		var opt = inEvent.selected.content,

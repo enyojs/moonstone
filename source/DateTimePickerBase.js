@@ -138,9 +138,14 @@ enyo.kind({
 		// implement in subkind
 	},
 	valueChanged: function(inOld) {
-		this.setChildPickers(inOld);
 		if (this.value) {
+			this.setChildPickers(inOld);
 			this.doChange({name:this.name, value:this.value});
+		} else {
+			this.dateInitialized = false;
+			this.value = new Date();
+			this.setChildPickers(this.value);
+			this.noneTextChanged();
 		}
 	},
 	setChildPickers: function(inOld) {
@@ -180,6 +185,7 @@ enyo.kind({
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
+			this.noneTextChanged();
 			this.setActive(false);
 			if (!enyo.Spotlight.getPointerMode()) {
 				enyo.Spotlight.spot(this.$.headerWrapper);
