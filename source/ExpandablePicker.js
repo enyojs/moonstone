@@ -216,7 +216,7 @@ enyo.kind({
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
 
-			if (this.getAutoCollapseOnSelect() && !this.needsRender && this.getOpen()) {
+			if (this.getAutoCollapseOnSelect() && !this._needsRender && this.getOpen()) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
 		}
