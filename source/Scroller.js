@@ -2,11 +2,10 @@
 	_moon.Scroller_ extends [enyo.Scroller](#enyo.Scroller), adding support for
 	5-way focus (Spotlight) and pagination buttons.
 
-	_moon.Scroller_ responds to explicit/programmatic requests from
-	controls to be scrolled into view via the _onRequestScrollIntoView_ event.
-	These requests are generally made in response to the _onSpotlightFocused_
-	event handled by these controls and ensures that 5-way (Spotlight) focused
-	controls are in view.
+	_moon.Scroller_ responds when controls explicitly request to be scrolled into
+	view by emitting the _onRequestScrollIntoView_ event. This typically happens
+	when a control handles an _onSpotlightFocused_ event, ensuring that 5-way
+	(Spotlight) focused controls remain in view.
 
 	For more information, see the documentation on
 	[Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
