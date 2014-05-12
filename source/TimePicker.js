@@ -169,13 +169,15 @@ enyo.kind({
 
 		for(f = 0, l = doneArr.length; f < l; f++) {
 			o = doneArr[f];
+			var valueHours = this.value ? this.value.getHours() : 0;
+			var valueMinutes = this.value ? this.value.getMinutes() : 0;
 
 			switch (o){
 			case 'h':
 			case 'k':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
-						{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter || this, value: this.value.getHours()},
+						{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter || this, value: valueHours},
 						{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
 					]}
 				);
@@ -183,7 +185,7 @@ enyo.kind({
 			case 'm':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
-						{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0, max:59, wrap:true, digits: 2, value: this.value.getMinutes()},
+						{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
 						{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
 					]}
 				);
@@ -192,7 +194,7 @@ enyo.kind({
 				if (this.meridiemEnable === true) {
 					this.createComponent(
 						{classes: "moon-date-picker-wrap", components:[
-							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: this.value.getHours() > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
+							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
 							{name: "meridiemLabel", content: this.meridiemText, classes: "moon-date-picker-label moon-divider-text"}
 						]}
 					);
@@ -207,6 +209,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	formatValue: function() {
+		if (!this.value) {
+			return (this.noneText);
+		}
 		var dateStr = "";
 		if (this._tf) {
 			dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:"Etc/UTC"}));
@@ -259,25 +264,40 @@ enyo.kind({
 		}
 
 		if (inEvent.originator.kind == "moon.HourPicker") {
+			var valueTime = this.value ? this.value.getTime() : 0;
+			var valueHours = this.value ? this.value.getHours() : 0;
+
 			// Excludes illegal hours based on DST rules by adding hour offset directly
-			this.setValue(new Date(this.value.getTime() + ((hour - this.value.getHours())*60*60*1000)));
+			this.setValue(new Date(valueTime + ((hour - valueHours)*60*60*1000)));
 		} else {
-			this.setValue(new Date(this.value.getFullYear(),
-							this.value.getMonth(),
-							this.value.getDate(),
-							hour, minute,
-							this.value.getSeconds(),
-							this.value.getMilliseconds()));
+			var valueFullYear = this.value ? this.value.getFullYear() : 0;
+			var valueMonth = this.value ? this.value.getMonth() : 0;
+			var valueDate = this.value ? this.value.getDate() : 0;
+			var valueSeconds = this.value ? this.value.getSeconds() : 0;
+			var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
+
+			this.setValue(
+				new Date(
+					valueFullYear,
+					valueMonth,
+					valueDate,
+					hour, 
+					minute,
+					valueSeconds,
+					valueMilliseconds
+				)
+			);
 		}
 	},
 	setChildPickers: function(inOld) {
-		var hour = this.value.getHours();
-		if (this.meridiemEnable === true) {
-			this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+		if (this.value) {
+			var hour = this.value.getHours();
+			if (this.meridiemEnable === true) {
+				this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+			}
+			this.$.hour.setValue(this.value.getHours());
+			this.$.minute.setValue(this.value.getMinutes());
 		}
-		this.$.hour.setValue(this.value.getHours());
-		this.$.minute.setValue(this.value.getMinutes());
-
 		this.$.currentValue.setContent(this.formatValue());
 	},
 	hourTextChanged: function (inOldvalue, inNewValue) {

@@ -4,8 +4,9 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes: "moon-7h", components: [
+			{classes: "moon-7h moon-vspacing-s", components: [
 				{kind: "moon.DatePicker", name:"picker", noneText: "Pick a Date", content: "Date", onChange: "changed"},
+				{kind: "moon.Button", name: "buttonReset", content: "Reset Date", small: true, ontap: "resetTapped"},
 				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date"},
 				{classes:"moon-hspacing", components: [
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
@@ -71,5 +72,9 @@ enyo.kind({
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
+	},
+	resetTapped: function(inSender, inEvent) {
+		this.$.picker.set("value", null);
+		return true;
 	}
 });

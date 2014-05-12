@@ -102,7 +102,6 @@ enyo.kind({
 	},
 	initDefaults: function() {
 		var ordering;
-		this.value = this.value || new Date();
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this.initILib();
@@ -136,6 +135,8 @@ enyo.kind({
 		this.setChildPickers(inOld);
 		if (this.value) {
 			this.doChange({name:this.name, value:this.value});
+		} else {
+			this.noneTextChanged();
 		}
 	},
 	setChildPickers: function(inOld) {
@@ -143,7 +144,7 @@ enyo.kind({
 	},
 	// If no item is selected, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if(this.value == null) {
+		if(!this.value) {
 			this.$.currentValue.setContent(this.getNoneText());
 		} else {
 			this.$.currentValue.setContent(this.formatValue());
@@ -180,6 +181,9 @@ enyo.kind({
 				enyo.Spotlight.spot(this.$.headerWrapper);
 			}
 		} else {
+			if (!this.value) {
+				this.setValue(new Date());
+			}
 			this.setActive(true);
 		}
 	},

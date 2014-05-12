@@ -4,9 +4,11 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes: "moon-7h", components: [
-				{kind: "moon.DatePicker", name:"datepicker", noneText: "Pick a Date", content: "Date", onChange: "datechanged"},
-				{kind: "moon.TimePicker", name:"timepicker", content: "Time", meridiemEnable: true, onChange: "timechanged"},
+			{classes: "moon-7h moon-vspacing-s", components: [
+				{kind: "moon.DatePicker", name:"datepicker", noneText: "Pick a Date", content: "Linked Date", onChange: "datechanged"},
+				{kind: "moon.TimePicker", name:"timepicker", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "timechanged"},
+				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timechanged"},
+				{kind: "moon.Button", name: "buttonReset", content: "Reset Time", small: true, ontap: "resetTapped"},
 				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: "Use Default Locale", active: true},
@@ -62,5 +64,9 @@ enyo.kind({
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
+	},
+	resetTapped: function(inSender, inEvent) {
+		this.$.pickerTime.set("value", null);
+		return true;
 	}
 });
