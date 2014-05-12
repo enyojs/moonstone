@@ -952,7 +952,7 @@
   z-index: 1;
   position: relative;
 }
-.moon-scroll-picker-overlay-left {
+.moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-left {
   position: absolute;
   width: 30px;
   height: 100%;
@@ -962,7 +962,7 @@
   border-left-style: solid;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
+.enyo-locale-right-to-left .moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-left {
   border-right-width: 30px;
   border-right-style: solid;
   border-left-width: 0px;
@@ -970,7 +970,7 @@
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
-.moon-scroll-picker-overlay-left-border {
+.moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-left-border {
   position: absolute;
   width: 30px;
   height: 100%;
@@ -981,7 +981,7 @@
   border-left-color: #cf0652;
   left: 6px;
 }
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
+.enyo-locale-right-to-left .moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-left-border {
   border-right-width: 30px;
   border-right-style: solid;
   border-left-width: 0px;
@@ -994,7 +994,7 @@
   z-index: 1;
   position: relative;
 }
-.moon-scroll-picker-overlay-right {
+.moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-right {
   position: absolute;
   width: 30px;
   height: 100%;
@@ -1005,14 +1005,14 @@
   border-right-color: rgba(0, 0, 0, 0.13);
   right: 0px;
 }
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
+.enyo-locale-right-to-left .moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-right {
   border-left-width: 30px;
   border-left-style: solid;
   border-right-width: 0px;
   border-right-style: none;
   border-left-color: rgba(0, 0, 0, 0.13);
 }
-.moon-scroll-picker-overlay-right-border {
+.moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-right-border {
   position: absolute;
   width: 30px;
   height: 100%;
@@ -1023,7 +1023,7 @@
   border-right-color: #cf0652;
   right: 6px;
 }
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
+.enyo-locale-right-to-left .moon-simple-integer-picker.spotlight .moon-scroll-picker-overlay-right-border {
   border-left-width: 30px;
   border-left-style: solid;
   border-right-width: 0px;

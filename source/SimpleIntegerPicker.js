@@ -77,7 +77,7 @@ enyo.kind({
 			]},
 			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"}
 		]},
-		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
+		{name: "client", kind: "enyo.Panels", narrowFit:false, classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
 		{classes: "moon-scroll-picker-overlay-container-right", components: [
@@ -95,24 +95,30 @@ enyo.kind({
 	bindings: [
 		{from: ".animate",  to: ".$.client.animate"},
 		{from: ".disabled", to: ".$.buttonLeft.disabled"},
-		{from: ".disabled", to: ".$.buttonRight.disabled"},
-		{from: ".value",   to: ".$.client.index", oneWay: false, transform: "sync"}
+		{from: ".disabled", to: ".$.buttonRight.disabled"}
 	],
-	sync: function(inVal, inOrigin, inBinding) {
-		if (this.values) {
-			return (inOrigin === "source") ? this.indices[inVal] : this.values[inVal];
-		}
+	resetPosition: function() {
+		this.$.client.setAnimate(false);
+		this.$.client.setIndex(1);
+		this.$.client.getActive().setContent(this.value + " " + this.unit);
+		this.$.client.getActive().value = this.value;
+		this.$.client.setAnimate(this.animate);
+	},
+	setupNextPanel: function(toIndex, actualIndex) {
+		var panels = this.$.client.getPanels();
+		panels[actualIndex].setContent(this.values[toIndex] + " " + this.unit);
+		panels[actualIndex].value = this.values[toIndex];
 	},
 	//* @public
 
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
-		this.$.client.previous();
+		this.setValue(Math.max(this.value - this.step, this.min));
 		return true;
 	},
 	//* Cycles the selected item to the one after the currently selected item.
 	next: function() {
-		this.$.client.next();
+		this.setValue(Math.min(this.value + this.step, this.max));
 		return true;
 	},
 	downPrevious: function(inSender, inEvent) {
@@ -137,12 +143,27 @@ enyo.kind({
 		}
 		this.disabledChanged();
 	},
+	//* generate pattern from -10, 1, 10, 100, ... to -99, 9, 99, 999, ...
+	generateNumberPattern: function(num) {
+		if (num === 0) { return 9; }
+		if (num < 0) {
+			return -(Math.pow(10, (-num).toString().length)-1);
+		} else {
+			return Math.pow(10, num.toString().length)-1;
+		}
+	},
 	build: function() {
 		var indices = this.indices = {},
-			values = this.values = [];
+			values = this.values = [],
+			min = this.generateNumberPattern(this.min),
+			max = this.generateNumberPattern(this.max);
+
+		// Create only 3 panels: this is used for measuring max width in reflow
+		this.createComponent({content: min + " " + this.unit, value: min});
+		this.createComponent({content: this.value + " " + this.unit, value: this.value});
+		this.createComponent({content: max + " " + this.unit, value: max});
 
 		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-			this.createComponent({content: v + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
 			if (this.step <= 0) {
@@ -152,14 +173,15 @@ enyo.kind({
 		}
 	},
 	validate: function() {
-		var index = this.indices[this.value];
+		var index = this.indices[this.value],
+			to = (this.value > this.max) ? this.max : this.min;
 		if (index !== undefined) {
-			this.$.client.set("index", index);
+			this.$.client.set("index", 1);
 			this.setButtonVisibility(null, this.value);
 		}
 		else
 		{
-			this.set("value", this.min);
+			this.set("value", to);
 		}
 	},
 	rebuild: function() {
@@ -249,6 +271,17 @@ enyo.kind({
 		}
 	},
 	handleValueChange: function(inOld, inNew) {
+		var index = this.indices[inNew];
+		if (index >= 0) {
+			this.resetPosition();
+			if (inOld < inNew) {
+				this.setupNextPanel(index, 2);
+				this.$.client.next();
+			} else {
+				this.setupNextPanel(index, 0);
+				this.$.client.previous();
+			}
+		}
 		this.setButtonVisibility(inOld, inNew);
 		this.fireChangeEvent();
 	},
