@@ -145,6 +145,9 @@ enyo.kind({
 	popPanels: function(inIndex) {
 		var panels = this.getPanels();
 		inIndex = inIndex || panels.length - 1;
+		if (this.getIndex() >= inIndex) {
+			this.setIndex(inIndex - 1);
+		}
 
 		while (panels.length > inIndex && inIndex >= 0) {
 			panels[panels.length - 1].destroy();
