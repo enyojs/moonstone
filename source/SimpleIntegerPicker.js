@@ -104,7 +104,6 @@ enyo.kind({
 		}
 	},
 	//* @public
-
 	//* Cycles the selected item to the one before the currently selected item.
 	previous: function() {
 		this.$.client.previous();
@@ -169,7 +168,26 @@ enyo.kind({
 		this.reflow();
 		this.validate();
 	},
-	triggerRebuild: function() {
+	triggerRebuild: function(oldValue, newValue, propertyName) {
+		// check is it valid value.
+		switch (propertyName) {
+		case "max" :
+			if (newValue <= this.min) {
+				this.max = oldValue;
+			}
+			break;
+		case "min" :
+			if (newValue >= this.max) {
+				this.min = oldValue;
+			}
+			break;
+		case "step" :
+			if (this.max - this.min <= newValue) {
+				this.step = oldValue;
+			}
+			break;
+		}
+
 		// We use a job here to avoid rebuilding the picker multiple
 		// times in succession when more than one of the properties it
 		// depends on (min, max, step, unit) change at once. This case
@@ -221,9 +239,13 @@ enyo.kind({
 		this.$.rightOverlay.setShowing(false);
 	},
 	setButtonVisibility: function(inOld, inNew) {
-		if (this.values) {
+		if (this.values) {			
 			var min = this.values[0],
 				max = this.values[this.values.length - 1];
+
+			this.$.buttonLeft.applyStyle("visibility", "visible");
+			this.$.buttonRight.applyStyle("visibility", "visible");
+
 			if (inNew === min) {
 				this.$.buttonLeft.applyStyle("visibility", "hidden");
 			}
@@ -249,6 +271,10 @@ enyo.kind({
 		}
 	},
 	handleValueChange: function(inOld, inNew) {
+		if (this.min > inNew || this.max < inNew) {
+			this.value = inOld;
+			return;
+		}
 		this.setButtonVisibility(inOld, inNew);
 		this.fireChangeEvent();
 	},

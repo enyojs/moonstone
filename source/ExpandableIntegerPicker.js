@@ -60,11 +60,11 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from: ".min", to: ".$.picker.min"},
-		{from: ".max", to: ".$.picker.max"},
-		{from: ".step", to: ".$.picker.step"},
+		{from: ".min", to: ".$.picker.min", transform: "validateMin"},
+		{from: ".max", to: ".$.picker.max", transform: "validateMax"},
+		{from: ".step", to: ".$.picker.step", transform: "validateStep"},
 		{from: ".unit", to: ".$.picker.unit"},
-		{from: ".value", to: ".$.picker.value", oneWay: false},
+		{from: ".value", to: ".$.picker.value", transform: "validateValue", oneWay: false},
 		{from: ".showCurrentValue", to: ".$.currentValue.showing"},
 		{from: ".currentValueText", to: ".$.currentValue.content"},
 		{from: ".disabled", to: ".$.headerWrapper.disabled"}
@@ -73,10 +73,47 @@ enyo.kind({
 		"showCurrentValue": ["open"],
 		"currentValueText": ["value", "unit", "noneText"]
 	},
-
+	isNumber: function (v) {
+		return toString.call(v) === "[object Number]" && !isNaN(v);
+	},
+	validateMin: function (newValue) {
+		if (!this.isNumber(newValue) || newValue >= this.$.picker.max) {
+			this.min = this.$.picker.min;
+			return this.min;
+		}
+		return newValue;
+	},
+	validateMax: function (newValue) {
+		if (!this.isNumber(newValue) || newValue <= this.$.picker.min) {
+			this.max = this.$.picker.max;
+			return this.max;
+		}
+		return newValue;
+	},
+	validateStep: function (newValue) {
+		if (!this.isNumber(newValue) || this.$.picker.max - this.$.picker.min <= newValue) {
+			this.step = this.$.picker.step;
+			return this.step;
+		}
+		return newValue;
+	},
+	validateValue: function (newValue) {
+		if (!this.isNumber(newValue)) {
+			this.value = this.$.picker.value;
+			return this.value;
+		}
+		if (this.value < this.$.picker.min) {
+			this.value = this.$.picker.min;
+			return this.value;
+		} else if (this.value > this.$.picker.max) {
+			this.value = this.$.picker.max;
+			return this.value;
+		}
+		return newValue;
+	},
 	// Change handlers
 	valueChanged: function(inOld) {
-		if (this.value < this.min || this.value > this.max) {
+		if ((this.value < this.min || this.value > this.max)) {
 			this.value = inOld;
 		}
 		this.fireChangeEvent();
