@@ -209,7 +209,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	formatValue: function() {
-		if (!this.value) return (this.noneText);
+		if (!this.value) {
+			return (this.noneText);
+		}
 		var dateStr = "";
 		if (this._tf) {
 			dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:"Etc/UTC"}));

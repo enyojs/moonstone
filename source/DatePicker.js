@@ -94,7 +94,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	formatValue: function() {
-		if (!this.value) return (this.noneText);
+		if (!this.value) {
+			return (this.noneText);
+		}
 		if (this._tf) {
 			switch (this._tf.getCalendar()) {
 			case "gregorian":
