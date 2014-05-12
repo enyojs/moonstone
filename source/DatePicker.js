@@ -114,6 +114,15 @@ enyo.kind({
 			this.value.getSeconds(),
 			this.value.getMilliseconds()));
 	},
+	getPickerDate: function() {
+		var minDate = new Date(this.minYear, 0, 1);
+		var maxDate = new Date(this.maxYear, 11, 31);
+		var presentDate = new Date();
+		if((minDate > presentDate) || (maxDate < presentDate)) {
+			return minDate;
+		}
+		return presentDate;
+	},
 	setChildPickers: function(inOld) {
 		var updateDays = inOld &&
 			(inOld.getFullYear() != this.value.getFullYear() ||
