@@ -65,7 +65,6 @@ enyo.kind({
 	//*@protected
 	iLibFormatType: null, // set in subkind
 	defaultOrdering: null, // set in subkind
-	dateInitialized: false,
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-date-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
 			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
@@ -103,11 +102,6 @@ enyo.kind({
 	},
 	initDefaults: function() {
 		var ordering;
-		if (this.value === null) {
-			this.value = new Date();
-		} else {
-			this.dateInitialized = true;
-		}
 		//Attempt to use the ilib lib (assuming that it is loaded)
 		if (typeof ilib !== "undefined") {
 			this.initILib();
@@ -138,13 +132,10 @@ enyo.kind({
 		// implement in subkind
 	},
 	valueChanged: function(inOld) {
+		this.setChildPickers(inOld);
 		if (this.value) {
-			this.setChildPickers(inOld);
 			this.doChange({name:this.name, value:this.value});
 		} else {
-			this.dateInitialized = false;
-			this.value = new Date();
-			this.setChildPickers(this.value);
 			this.noneTextChanged();
 		}
 	},
@@ -153,7 +144,7 @@ enyo.kind({
 	},
 	// If no item is selected, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if(!this.dateInitialized) {
+		if(!this.value) {
 			this.$.currentValue.setContent(this.getNoneText());
 		} else {
 			this.$.currentValue.setContent(this.formatValue());
@@ -185,13 +176,14 @@ enyo.kind({
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
-			this.noneTextChanged();
 			this.setActive(false);
 			if (!enyo.Spotlight.getPointerMode()) {
 				enyo.Spotlight.spot(this.$.headerWrapper);
 			}
 		} else {
-			this.dateInitialized = true;
+			if (!this.value) {
+				this.setValue(new Date());
+			}
 			this.setActive(true);
 		}
 	},

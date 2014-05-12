@@ -42,6 +42,10 @@ enyo.kind({
 			this.log("iLib not present -- hiding locale picker");
 		}
 		this.set("value", new Date("Mar 09 2014 01:59"));
+		//testing ability to set time picker to initial value, to null, and back to initial value
+		this.$.timepicker.set("value", new Date("Mar 09 2014 01:59"));
+		this.$.timepicker.set("value", null);
+		// this.$.timepicker.set("value", new Date("Mar 09 2014 01:59"));
 	},
 	pickerHandler: function(inSender, inEvent){
 		var opt = inEvent.selected.content,
