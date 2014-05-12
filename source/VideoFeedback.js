@@ -61,7 +61,7 @@ enyo.kind({
 				"slowRewind": ["-1/2", "-1"]
 			}
 	*/
-	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
+	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc, isInPreview) {
 		var customMessage = false;
 		inMessage = inMessage || "";
 		inParams = inParams || {};
@@ -139,9 +139,10 @@ enyo.kind({
 		// Set content as _inMessage_
 		this.$.feedText.setContent( enyo.toUpperCase(inMessage) );
 
-		// Show output controls
-		this.showFeedback();
-
+		// Show output controls when video player is not in preview mode
+		if (!isInPreview) {
+			this.showFeedback();
+		}
 		// Show icons as appropriate
 		this.updateIcons(inLeftSrc, inRightSrc);
 
