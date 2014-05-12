@@ -40,7 +40,7 @@ enyo.kind({
 	yearOffset: 0,
 	initILib: function() {
 		this.inherited(arguments);
-		var time =  (this.value) ? this.value.getTime() : 0;
+		var time = this.value ? this.value.getTime() : 0;
 		var gregYear = new ilib.Date.newInstance({type: "gregorian", unixtime: time, timezone:"UTC"}).getYears();
 		var localeYear = new ilib.Date.newInstance({type: this._tf.getCalendar(), unixtime: time, timezone:"UTC"}).getYears();
 		this.yearOffset = gregYear - localeYear;
@@ -58,9 +58,9 @@ enyo.kind({
 
 		for(f = 0, l = doneArr.length; f < l; f++) {
 			o = doneArr[f];
-			var valueFullYear = (this.value) ? this.value.getFullYear() : 0;
-			var valueMonth = (this.value) ? this.value.getMonth() : 0;
-			var valueDate = (this.value) ? this.value.getDate() : 0;
+			var valueFullYear = this.value ? this.value.getFullYear() : 0;
+			var valueMonth = this.value ? this.value.getMonth() : 0;
+			var valueDate = this.value ? this.value.getDate() : 0;
 
 			switch (o) {
 			case 'd':
@@ -109,10 +109,10 @@ enyo.kind({
 		}
 	},
 	updateValue: function(inSender, inEvent) {
-		var valueHours = (this.value) ? this.value.getHours() : 0;
-		var valueMinutes = (this.value) ? this.value.getMinutes() : 0;
-		var valueSeconds = (this.value) ? this.value.getSeconds() : 0;
-		var valueMilliseconds = (this.value) ? this.value.getMilliseconds() : 0;
+		var valueHours = this.value ? this.value.getHours() : 0;
+		var valueMinutes = this.value ? this.value.getMinutes() : 0;
+		var valueSeconds = this.value ? this.value.getSeconds() : 0;
+		var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
 
 		var day = this.$.day.getValue(),
 			month = this.$.month.getValue()-1,

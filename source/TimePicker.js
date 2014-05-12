@@ -169,8 +169,8 @@ enyo.kind({
 
 		for(f = 0, l = doneArr.length; f < l; f++) {
 			o = doneArr[f];
-			var valueHours = (this.value) ? this.value.getHours() : 0;
-			var valueMinutes = (this.value) ? this.value.getMinutes() : 0;
+			var valueHours = this.value ? this.value.getHours() : 0;
+			var valueMinutes = this.value ? this.value.getMinutes() : 0;
 
 			switch (o){
 			case 'h':
@@ -264,25 +264,30 @@ enyo.kind({
 		}
 
 		if (inEvent.originator.kind == "moon.HourPicker") {
-			var valueTime = (this.value) ? this.value.getTime() : 0;
-			var valueHours = (this.value) ? this.value.getHours() : 0;
+			var valueTime = this.value ? this.value.getTime() : 0;
+			var valueHours = this.value ? this.value.getHours() : 0;
 
 			// Excludes illegal hours based on DST rules by adding hour offset directly
 			this.setValue(new Date(valueTime + ((hour - valueHours)*60*60*1000)));
 		} else {
-			var valueFullYear = (this.value) ? this.value.getFullYear() : 0;
-			var valueMonth = (this.value) ? this.value.getMonth() : 0;
-			var valueDate = (this.value) ? this.value.getDate() : 0;
-			var valueSeconds = (this.value) ? this.value.getSeconds() : 0;
-			var valueMilliseconds = (this.value) ? this.value.getMilliseconds() : 0;
+			var valueFullYear = this.value ? this.value.getFullYear() : 0;
+			var valueMonth = this.value ? this.value.getMonth() : 0;
+			var valueDate = this.value ? this.value.getDate() : 0;
+			var valueSeconds = this.value ? this.value.getSeconds() : 0;
+			var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
 
-			this.setValue(new Date(valueFullYear,
-				valueMonth,
-				valueDate,
-				hour, minute,
-				valueSeconds,
-				valueMilliseconds));
-			}
+			this.setValue(
+				new Date(
+					valueFullYear,
+					valueMonth,
+					valueDate,
+					hour, 
+					minute,
+					valueSeconds,
+					valueMilliseconds
+				)
+			);
+		}
 	},
 	setChildPickers: function(inOld) {
 		if (this.value) {

@@ -4,9 +4,11 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
 		{kind: 'moon.Scroller', fit: true, components: [
-			{classes: "moon-7h", components: [
-				{kind: "moon.DatePicker", name:"datepicker", noneText: "Pick a Date", content: "Date", onChange: "datechanged"},
-				{kind: "moon.TimePicker", name:"timepicker", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timechanged"},
+			{classes: "moon-7h moon-vspacing-s", components: [
+				{kind: "moon.DatePicker", name:"datepicker", noneText: "Pick a Date", content: "Linked Date", onChange: "datechanged"},
+				{kind: "moon.TimePicker", name:"timepicker", noneText: "Pick a Time", content: "Linked Time", meridiemEnable: true, onChange: "timechanged"},
+				{kind: "moon.TimePicker", name: "pickerTime", noneText: "Pick a Time", content: "Time", meridiemEnable: true, onChange: "timechanged"},
+				{kind: "moon.Button", name: "buttonReset", content: "Reset Time", small: true, ontap: "resetTapped"},
 				{kind: "moon.TimePicker", name:"disabledPicker", meridiemEnable: true, disabled: true, noneText: "Disabled Time Picker", content: "Disabled Time"},
 				{name: "localePicker", kind: "moon.ExpandablePicker", noneText: "No Locale Selected", content: "Choose Locale", onChange:"pickerHandler", components: [
 					{content: "Use Default Locale", active: true},
@@ -31,10 +33,10 @@ enyo.kind({
 		{kind: "moon.Divider", content:"Result"},
 		{kind: "moon.BodyText", name: "result", content: "No change yet"}
 	],
-	// bindings: [
-	// 	{from:".value", to:".$.datepicker.value", oneWay:false},
-	// 	{from:".value", to:".$.timepicker.value", oneWay:false}
-	// ],
+	bindings: [
+		{from:".value", to:".$.datepicker.value", oneWay:false},
+		{from:".value", to:".$.timepicker.value", oneWay:false}
+	],
 	create: function(){
 		this.inherited(arguments);
 		if (!window.ilib) {
@@ -42,10 +44,6 @@ enyo.kind({
 			this.log("iLib not present -- hiding locale picker");
 		}
 		this.set("value", new Date("Mar 09 2014 01:59"));
-		//testing ability to set time picker to initial value, to null, and back to initial value
-		this.$.timepicker.set("value", new Date("Mar 09 2014 01:59"));
-		this.$.timepicker.set("value", null);
-		// this.$.timepicker.set("value", new Date("Mar 09 2014 01:59"));
 	},
 	pickerHandler: function(inSender, inEvent){
 		var opt = inEvent.selected.content,
@@ -66,5 +64,9 @@ enyo.kind({
 		if (this.$.result && inEvent.value){
 			this.$.result.setContent(inEvent.name + " changed to " + inEvent.value.toDateString());
 		}
+	},
+	resetTapped: function(inSender, inEvent) {
+		this.$.pickerTime.set("value", null);
+		return true;
 	}
 });
