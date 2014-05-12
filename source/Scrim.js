@@ -56,6 +56,10 @@ enyo.kind({
 		you must call _hideAtZIndex()_ to properly unwind the z-index stack.
 	*/
 	showAtZIndex: function(inZIndex) {
+		if (inZIndex == parseInt(inZIndex, 10)) { 
+			enyo.warn("The z-index should be integer value."); 
+			return; 
+		}
 		this.addZIndex(inZIndex);
 		if (inZIndex !== undefined) {
 			this.setZIndex(inZIndex);
@@ -64,6 +68,10 @@ enyo.kind({
 	},
 	//* Hides scrim at the specified z-index.
 	hideAtZIndex: function(inZIndex) {
+		if (inZIndex == parseInt(inZIndex, 10)) { 
+			enyo.warn("The z-index should be integer value."); 
+			return; 
+		}
 		this.removeZIndex(inZIndex);
 		if (!this.zStack.length) {
 			this.hide();
