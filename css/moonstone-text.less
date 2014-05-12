@@ -115,6 +115,18 @@
 	color: @moon-icon-color;
 }
 
+// Temporary fix for issue ANG-891. Remove when it's fixed in webkit.
+.enyo-locale-ko {
+	.moon-header-text,
+	.moon-super-header-text,
+	.moon-popup-header-text,
+	.moon-large-button-text,
+	.moon-small-button-text {
+		-webkit-font-kerning: initial;
+		font-kerning: initial;
+	}
+}
+
 .enyo-locale-non-latin {
 	/* All/Medium weighted classes */
 	.moon,
