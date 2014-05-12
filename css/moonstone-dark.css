@@ -4103,19 +4103,43 @@
   margin-left: -36.5px;
 }
 /* Fullscreen CSS */
-:-webkit-full-screen.moon-video-player,
-:-moz-full-screen.moon-video-player,
-:-ms-full-screen.moon-video-player,
-:-o-full-screen.moon-video-player,
+:-webkit-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+  margin: 0;
+}
+:-webkit-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
+:-moz-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+  margin: 0;
+}
+:-moz-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
+:-ms-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+  margin: 0;
+}
+:-ms-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
+:-o-full-screen.moon-video-player {
+  position: static !important;
+  display: block !important;
+  margin: 0;
+}
+:-o-full-screen.moon-video-player .moon-video-player-video {
+  position: static;
+}
 :full-screen.moon-video-player {
   position: static !important;
   display: block !important;
   margin: 0;
 }
-:-webkit-full-screen.moon-video-player .moon-video-player-video,
-:-moz-full-screen.moon-video-player .moon-video-player-video,
-:-ms-full-screen.moon-video-player .moon-video-player-video,
-:-o-full-screen.moon-video-player .moon-video-player-video,
 :full-screen.moon-video-player .moon-video-player-video {
   position: static;
 }
