@@ -3,7 +3,7 @@
 	padding: 0px;
 	border: 0px;
 	width: 100%;
-	box-sizing: border-box;
+	.border-box;
 	background-color: transparent;
 }
 .moon-input-header .moon-input-header-input-decorator > .moon-input {
@@ -12,7 +12,7 @@
 	padding-left: 1px;
 	padding-right: 1px;
 	display: inline-block;
-	box-sizing: border-box;
+	.border-box;
 	line-height: 1em;
 	color: @moon-input-header-text-color;
 	width: 100%;
@@ -24,7 +24,9 @@
 .moon-input-header .moon-input.moon-header-title {
 	position: static;
 }
-.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
+.moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder,
+.moon-input-header .moon-input.moon-header-title::-moz-placeholder,
+.moon-input-header .moon-input.moon-header-title::-ms-input-placeholder {
 	color: @moon-input-header-placeholder-color;
 	margin-top:15px;
 	line-height: 1.25em;
@@ -32,7 +34,9 @@
 .enyo-locale-non-latin .moon-input-header .moon-input.moon-header-title::-webkit-input-placeholder {
 	line-height: 1.5em;
 }
-.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight .moon-input::-webkit-input-placeholder,
+.moon-input-header-input-decorator.spotlight .moon-input::-moz-placeholder,
+.moon-input-header-input-decorator.spotlight .moon-input::-ms-input-placeholder {
 	color: @moon-spotlight-text-color;
 }
 .moon-input-header-input-decorator.spotlight > .moon-input {
@@ -42,6 +46,8 @@
 .moon-input-header-input-decorator.spotlight.moon-focused > .moon-input {
 	background: none;
 }
-.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder {
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-webkit-input-placeholder,
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-moz-placeholder,
+.moon-input-header-input-decorator.spotlight.moon-focused > .moon-input::-ms-input-placeholder {
 	color: @moon-input-header-placeholder-color;
 }

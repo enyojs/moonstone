@@ -26,13 +26,8 @@
 .moon-input-decorator.moon-disabled .moon-input {
 	cursor: default;
 }
-.moon-input-decorator > input::-webkit-input-placeholder {
-	color: @moon-input-placeholder-color;
-}
-.moon-input-decorator > input:-moz-placeholder {
-	color: @moon-input-placeholder-color;
-}
-/* IE10 */
+.moon-input-decorator > input::-webkit-input-placeholder,
+.moon-input-decorator > input::-moz-placeholder,
 .moon-input-decorator > input:-ms-input-placeholder {
 	color: @moon-input-placeholder-color;
 }
