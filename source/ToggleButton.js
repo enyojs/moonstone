@@ -41,6 +41,7 @@ enyo.kind({
 		this.value = Boolean(this.value || this.active);
 		this.updateContent();
 		this.disabledChanged();
+		this.updateOverlay();
 	},
 	initComponents: function() {
 		this.inherited(arguments);
@@ -48,10 +49,13 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.updateVisualState();
+		this.setActive(this.value);
+	},
+	updateOverlay: function() {
+		this.addRemoveClass("moon-overlay", this.value);
 	},
 	updateVisualState: function() {
-		this.addRemoveClass("moon-overlay", this.value);
+		this.updateOverlay();
 		this.setActive(this.value);
 	},
 	contentChanged: function() {
