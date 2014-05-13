@@ -20,7 +20,7 @@ enyo.kind({
 		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
 		//* If true, toggle button cannot be tapped and thus will not generate
 		//* any events
-		disabled: false
+		//disabled: false
 	},
 	events: {
 		/**
@@ -77,16 +77,17 @@ enyo.kind({
 	labelSeparatorChanged: function() {
 		this.updateContent();
 	},
+	// we override the inherited activeChanged method
 	disabledChanged: function() {
 		this.setAttribute("disabled", this.disabled);
 	},
-	updateValue: function(inValue) {
-		if (!this.disabled) {
-			this.setValue(inValue);
-		}
-	},
+	// we override the inherited tap method
 	tap: function() {
-		this.updateValue(!this.value);
+		if (this.disabled) {
+			return true;
+		} else {
+			this.setValue(!this.value);
+		}
 	},
 	updateContent: function() {
 		var content = this.getContent();
