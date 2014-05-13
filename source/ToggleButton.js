@@ -9,9 +9,6 @@ enyo.kind({
 	kind: "moon.Button",
 	//* @public
 	published: {
-		//* If true, indicates that this is the active button of the group;
-		//* otherwise, false
-		active: false,
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
@@ -35,13 +32,12 @@ enyo.kind({
 		onChange: ""
 	},
 	//* @protected
+	isRendered: false,
 	classes: "moon-toggle-button",
 	create: function() {
 		this.inherited(arguments);
-		this.value = Boolean(this.value || this.active);
 		this.updateContent();
 		this.disabledChanged();
-		this.updateOverlay();
 	},
 	initComponents: function() {
 		this.inherited(arguments);
@@ -49,25 +45,27 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.setActive(this.value);
-	},
-	updateOverlay: function() {
-		this.addRemoveClass("moon-overlay", this.value);
+		this.valueChanged();
+		this.isRendered = true;
 	},
 	updateVisualState: function() {
-		this.updateOverlay();
-		this.setActive(this.value);
+		this.addRemoveClass("moon-overlay", this.value);
 	},
 	contentChanged: function() {
 		this.updateContent();
 	},
+	// we override the inherited activeChanged method
 	activeChanged: function() {
-		this.setValue(this.active);
+		if (this.isRendered) {
+			this.active = enyo.isTrue(this.active);
+			this.setValue(this.active);
+		}
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
 		this.updateContent();
 		this.updateVisualState();
+		this.setActive(this.value);
 		this.doChange({value: this.value});
 	},
 	onContentChanged: function() {
