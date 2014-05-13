@@ -17,7 +17,7 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
 		//* Label for separator
-		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
+		labelSeparator: moon.$L(": ")   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
 	},
 	events: {
 		/**
