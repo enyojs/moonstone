@@ -46,9 +46,7 @@ enyo.kind({
 		{name: "subTitle", classes: "moon-video-player-info-subtitle"},
 		{name: "subSubTitle", classes: "moon-video-player-info-subsubtitle"},
 		{name: "client", classes: "moon-video-player-info-client"},
-		{components: [
-			{name: "description", classes: "moon-video-player-info-description"}
-		]}
+		{name: "description", classes: "moon-video-player-info-description"}
 	],
 	bindings: [
 		{from: ".subTitle",		to: ".$.subTitle.content"},
