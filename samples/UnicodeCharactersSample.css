@@ -13,3 +13,8 @@
 .moon-icon {
 	border: 1px dashed;
 }
+.moon-icon.no-sizing {
+	width: auto;
+	height: auto;
+	line-height: initial;
+}

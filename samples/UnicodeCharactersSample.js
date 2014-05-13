@@ -23,11 +23,13 @@ enyo.kind({
 				{kind: "moon.InputDecorator", components: [
 					{kind: "moon.Input", name: "css"}
 				]},
-				{name: "icon", classes: "moon-icon", allowHtml: true}
+				{name: "icon", classes: "moon-icon", allowHtml: true},
+				{name: "icon2", classes: "moon-icon no-sizing", allowHtml: true}
 			], bindings: [
 				{from: ".model.entity", to: ".$.text.value"},
 				{from: ".model.cssref", to: ".$.css.value"},
-				{from: ".model.entity", to: ".$.icon.content"}
+				{from: ".model.entity", to: ".$.icon.content"},
+				{from: ".model.entity", to: ".$.icon2.content"}
 			]}
 		]}
 	],
