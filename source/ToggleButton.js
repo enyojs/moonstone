@@ -74,7 +74,7 @@ enyo.kind({
 	labelSeparatorChanged: function() {
 		this.updateContent();
 	},
-	// we override the inherited activeChanged method
+	// we override the inherited disabledChanged method
 	disabledChanged: function() {
 		this.setAttribute("disabled", this.disabled);
 	},
