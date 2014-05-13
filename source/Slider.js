@@ -154,6 +154,7 @@ enyo.kind({
 		this.popupLabelClassesChanged();
 		this.tapAreaClassesChanged();
 		this.initSliderStyles();
+		this.addRemoveClass("moon-slider-rtl", this.rtl);
 	},
 	destroy: function() {
 		if (this._nf) {
@@ -165,7 +166,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.drawToCanvas(this.popupColor);
 		this._setValue(this.value);
-		this.addRemoveClass("moon-slider-rtl", this.rtl);
 	},
 	initSliderStyles: function() {
 		this.updatePopupLabelColor();
