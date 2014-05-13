@@ -102,6 +102,10 @@ enyo.kind({
 		this.helpTextChanged();
 		this.openChanged();
 	},
+	rendered: function() {
+		this.inherited(arguments);
+		this.isRendered = true;
+	},
 	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
@@ -216,7 +220,7 @@ enyo.kind({
 		if (inEvent.checked && index >= 0) {
 			this.setSelected(inEvent.toggledControl);
 
-			if (this.getAutoCollapseOnSelect() && !this._needsRender && this.getOpen()) {
+			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
 				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
 			}
 		}
