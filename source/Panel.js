@@ -38,9 +38,7 @@ enyo.kind({
 		//* Header options
 		headerOptions: null,
 		//* When true, the title text will be converted to locale-safe uppercasing
-		titleUpperCase: true,
-		//* When true, the headerComponents and components block is created after panel transition finish on pushPanel
-		deferRender: false
+		titleUpperCase: true
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -100,32 +98,16 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		if (!this.deferRender) {
-			this.createHeaderComponents();
+		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
+		if (this.headerComponents) {
+			var owner = this.hasOwnProperty("headerComponents") ? this.getInstanceOwner() : this;
+			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
 		this.smallHeaderChanged();
 	},
-	createHeaderComponents: function() {
-		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
-		if (this.headerComponents) {
-			var owner = this.hasOwnProperty("headerComponents") ? this.getInstanceOwner() : this;
-			return this.$.header.createComponents(this.headerComponents, {owner: owner});
-		}
-	},
-	backupComponents: function() {
-		var components = this.components;
-		this.components = undefined;
-		return components;
-	},
-	restoreComponents: function(components) {
-		this.components = components;
-	},
 	initComponents: function() {
 		this.createTools();
-		if (this.deferRender) {
-			this.LazyKindComponents = this.backupComponents();
-		}
 		this.controlParentName = "panelBody";
 		this.discoverControlParent();
 		this.inherited(arguments);
@@ -328,21 +310,8 @@ enyo.kind({
 	*/
 	transitionFinished: function(inInfo) {
 		this.updatePanel(inInfo);
-		if (this.deferRender && (inInfo.to === inInfo.index) && this.LazyKindComponents && this.getClientControls().length === 0 ) {
-			this.updateLazyCreate();
-		}
 	},
 	//* @protected
-	updateLazyCreate: function() {
-		// pushPanel case: create headerComponents and components after finish panel arrangement when deferRender is true 
-		var headerComponents = this.createHeaderComponents();
-		for (var nPanel = 0; nPanel < headerComponents.length; ++nPanel) {
-			headerComponents[nPanel].render();
-		}
-		this.restoreComponents(this.LazyKindComponents);
-		this.createClientComponents(this.components);
-		this.$.panelBody.render();
-	},
 	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
@@ -381,9 +350,6 @@ enyo.kind({
 		this.doPreTransitionComplete();
 	},
 	postTransitionComplete: function() {
-		if (this.deferRender && this.LazyKindComponents && this.getClientControls().length === 0 ) {
-			this.updateLazyCreate();
-		}
 		this.growing = false;
 		this.doPostTransitionComplete();
 		this.reflow();
