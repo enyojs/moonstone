@@ -9,9 +9,6 @@ enyo.kind({
 	kind: "moon.Button",
 	//* @public
 	published: {
-		//* If true, indicates that this is the active button of the group;
-		//* otherwise, false
-		active: false,
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
@@ -19,10 +16,7 @@ enyo.kind({
 		//* Label for toggle button's "on" state, which is set programmatically by app developer
 		toggleOnLabel: "",
 		//* Label for toggle button's "off" state, which is set programmatically by app debeloper
-		toggleOffLabel: "",
-		//* If true, toggle button cannot be tapped and thus will not generate
-		//* any events
-		disabled: false
+		toggleOffLabel: ""
 	},
 	events: {
 		/**
@@ -34,38 +28,49 @@ enyo.kind({
 		onChange: ""
 	},
 	//* @protected
+	_rendered: false,
 	classes: "moon-toggle-button",
 	create: function() {
 		this.inherited(arguments);
-		this.value = Boolean(this.value || this.active);
 		this.updateContent();
 		this.updateVisualState();
-		this.disabledChanged();
-		},
-	updateVisualState: function() {
-		this.addRemoveClass("moon-toggle-switch-off",!this.value);
-		this.addRemoveClass("moon-toggle-switch-on",this.value);
-		this.setActive(this.value);
 	},
-	activeChanged: function() {
-		this.setValue(this.active);
-		this.bubble("onActivate");
+	rendered: function() {
+		this.inherited(arguments);
+		this.setActive(this.value);
+		this.fireChangeEvent();
+		this._rendered = true;
+	},
+	updateVisualState: function() {
+		this.addRemoveClass("moon-toggle-button-on", this.value);
 	},
 	valueChanged: function() {
 		this.updateContent();
 		this.updateVisualState();
-		this.doChange({value: this.value});
+		this.setActive(this.value);
+		this.fireChangeEvent();
 	},
-	disabledChanged: function() {
-		this.setAttribute("disabled", this.disabled);
+	toggleOnLabelChanged: function() {
+		this.updateContent();
+	}, 
+	toggleOffLabelChanged: function() {
+		this.updateContent();
 	},
-	updateValue: function(inValue) {
-		if (!this.disabled) {
-			this.setValue(inValue);
+	// we override the inherited activeChanged method
+	activeChanged: function() {
+		if (this._rendered) {
+			this.active = enyo.isTrue(this.active);
+			this.setValue(this.active);
 		}
+		this.bubble("onActivate");
 	},
+	// we override the inherited tap method
 	tap: function() {
-		this.updateValue(!this.value);
+		if (this.disabled) {
+			return true;
+		} else {
+			this.setValue(!this.value);
+		}
 	},
 	updateContent: function() {
 		if (!this.toggleOnLabel || !this.toggleOffLabel) {
@@ -73,5 +78,8 @@ enyo.kind({
 		} else {
 			this.setContent(this.value ? this.toggleOnLabel : this.toggleOffLabel);
 		}
+	},
+	fireChangeEvent: function() {
+		this.doChange({value: this.value});
 	}
 });
