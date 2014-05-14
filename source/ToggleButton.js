@@ -9,6 +9,9 @@ enyo.kind({
 	kind: "moon.Button",
 	//* @public
 	published: {
+		//* If true, indicates that this is the active button of the group;
+		//* otherwise, false
+		active: false,
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
@@ -17,7 +20,10 @@ enyo.kind({
 		//* Label for toggle button's "off" state
 		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
 		//* Label for separator
-		labelSeparator: moon.$L(": ")   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
+		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
+		//* If true, toggle button cannot be tapped and thus will not generate
+		//* any events
+		disabled: false
 	},
 	events: {
 		/**
@@ -29,10 +35,10 @@ enyo.kind({
 		onChange: ""
 	},
 	//* @protected
-	isRendered: false,
 	classes: "moon-toggle-button",
 	create: function() {
 		this.inherited(arguments);
+		this.value = Boolean(this.value || this.active);
 		this.updateContent();
 		this.disabledChanged();
 	},
@@ -42,27 +48,22 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.valueChanged();
-		this.isRendered = true;
+		this.updateVisualState();
 	},
 	updateVisualState: function() {
 		this.addRemoveClass("moon-overlay", this.value);
+		this.setActive(this.value);
 	},
 	contentChanged: function() {
 		this.updateContent();
 	},
-	// we override the inherited activeChanged method
 	activeChanged: function() {
-		if (this.isRendered) {
-			this.active = enyo.isTrue(this.active);
-			this.setValue(this.active);
-		}
+		this.setValue(this.active);
 		this.bubble("onActivate");
 	},
 	valueChanged: function() {
 		this.updateContent();
 		this.updateVisualState();
-		this.setActive(this.value);
 		this.doChange({value: this.value});
 	},
 	onContentChanged: function() {
@@ -74,13 +75,16 @@ enyo.kind({
 	labelSeparatorChanged: function() {
 		this.updateContent();
 	},
-	// we override the inherited tap method
-	tap: function() {
-		if (this.disabled) {
-			return true;
-		} else {
-			this.setValue(!this.value);
+	disabledChanged: function() {
+		this.setAttribute("disabled", this.disabled);
+	},
+	updateValue: function(inValue) {
+		if (!this.disabled) {
+			this.setValue(inValue);
 		}
+	},
+	tap: function() {
+		this.updateValue(!this.value);
 	},
 	updateContent: function() {
 		var content = this.getContent();
