@@ -675,40 +675,40 @@
 }
 /* moonstone-icons.css */
 .moon-icon-arrowlargeup:after {
-  content: "\0F0000";
+  content: "\0F0002";
 }
 .moon-icon-arrowlargedown:after {
   content: "\0F0001";
 }
 .moon-icon-arrowlargeleft:after {
-  content: "\0F0002";
-}
-.moon-icon-arrowlargeright:after {
   content: "\0F0003";
 }
-.moon-icon-arrowsmallup:after {
+.moon-icon-arrowlargeright:after {
   content: "\0F0004";
 }
-.moon-icon-arrowsmalldown:after {
+.moon-icon-arrowsmallup:after {
   content: "\0F0005";
 }
-.moon-icon-arrowsmallleft:after {
+.moon-icon-arrowsmalldown:after {
   content: "\0F0006";
 }
-.moon-icon-arrowsmallright:after {
+.moon-icon-arrowsmallleft:after {
   content: "\0F0007";
 }
-.moon-icon-closex:after {
+.moon-icon-arrowsmallright:after {
   content: "\0F0008";
 }
-.moon-icon-check:after {
+.moon-icon-closex:after {
   content: "\0F0009";
 }
+.moon-icon-check:after {
+  content: "\0F000A";
+}
 .moon-icon-search:after {
-  content: "\0F0010";
+  content: "\0F000B";
 }
 .moon-icon-drawer:after {
-  content: "\0F0011";
+  content: "\0F0000";
 }
 .moon-icon-fullscreen:after {
   content: "\0F0012";
@@ -762,7 +762,7 @@
   content: "\0F0022";
 }
 .moon-icon-exitfullscreen:after {
-  content: "\0F0023";
+  content: "\0F0011";
 }
 /* IconButton.css */
 .moon-icon-button {
@@ -4293,6 +4293,7 @@
   background-position: 0px 0px;
   background-size: 85px 170px;
   color: #ffffff;
+  line-height: 85px;
 }
 .moon-icon-playpause-font-style {
   font-size: 220px;
@@ -4308,7 +4309,6 @@
 }
 .moon-icon-button.moon-icon-video-more-controls-font-style {
   font-size: 112px;
-  line-height: 64px;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
@@ -4376,7 +4376,7 @@
 
   color: #cf0652;
   font-size: 124px;
-  line-height: 20px;
+  line-height: 26px;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 
 }
@@ -4393,16 +4393,10 @@
 .moon-icon.moon-video-feedback-icon-right.moon-icon-play {
   font-size: 72px;
   width: 22px;
-  line-height: 24px;
-  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
-
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pause {
   font-size: 72px;
   width: 22px;
-  line-height: 24px;
-  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
-
 }
 .moon-icon.moon-video-feedback-icon-right.moon-icon-pausejumpforward {
   width: 37px;
@@ -5175,7 +5169,7 @@
 }
 .moon-icon-exitfullscreen.moon-icon-exitfullscreen-font-style {
   font-size: 100px;
-  line-height: 81px;
+  line-height: 85px;
 }
 /* Put this at the end because we want these to take precedence over others */
 .moon-neutral {

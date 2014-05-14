@@ -212,9 +212,9 @@ enyo.kind({
 	displayIconSrcOrFont: function(inSrc, inIcon) {
 		if(this.checkIconType(inIcon)=="image") {
 			inSrc.setIcon("");
-			inSrc.applyStyle("background-image", "url(" + inIcon + ")");
-			inSrc.addRemoveClass("moon-icon-", Boolean(this.checkIconType(inIcon)=="image"));
-			inSrc.addRemoveClass('"moon-icon-'+inIcon+'"', Boolean(this.checkIconType(inIcon)=="image"));
+			inSrc.setSrc(inIcon);
+			inSrc.addRemoveClass("moon-icon-", Boolean(this.checkIconType(inIcon)=="iconfont"));
+			inSrc.addRemoveClass('"moon-icon-'+inIcon+'"', Boolean(this.checkIconType(inIcon)=="iconfont"));
 			} else {
 				inSrc.setSrc("");
 				inSrc.setIcon(inIcon);

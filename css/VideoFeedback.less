@@ -17,7 +17,7 @@
 	margin: 0 0 0 @moon-video-player-icon-text-gutter-width; /* margin-right is inherited from moon-video-player-feedback */
 	color: @moon-accent;
 	font-size: @moon-video-feedback-icon-font-size;
-	line-height: 20px; /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+	line-height: @moon-video-feedback-icon-line-height; /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
 }
 
 .moon-video-player-feedback .moon-icon.small {
@@ -36,12 +36,10 @@
 	&.moon-icon-play {
 		font-size: @moon-video-feedback-icon-font-play-size;
 		width: @moon-video-feedback-icon-play-width;
-		line-height: 24px;  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
 	}
 	&.moon-icon-pause {
 		font-size: @moon-video-feedback-icon-font-pause-size;
 		width: @moon-video-feedback-icon-pause-width;
-		line-height: 24px;  /* use line-height to middle align the icon, the defaut 32px from moon-icon makes it too low */
 	}
 	&.moon-icon-pausejumpforward {
 		width: @moon-video-feedback-icon-pausejumpforward-width;
