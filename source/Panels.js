@@ -119,7 +119,8 @@ enyo.kind({
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
-			oPanel = this.createComponent(inInfo, inMoreInfo);
+			inMoreMixedInfo = enyo.mixin(inMoreInfo, {deferRender: true}),
+			oPanel = this.createComponent(inInfo, inMoreMixedInfo);
 
 		oPanel.render();
 		this.resized();
@@ -130,7 +131,8 @@ enyo.kind({
 	//* the last one created.
 	pushPanels: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
-			oPanels = this.createComponents(inInfos, inCommonInfo),
+			inCommonMixedInfo = enyo.mixin(inCommonInfo, {deferRender: true}),
+			oPanels = this.createComponents(inInfos, inCommonMixedInfo),
 			nPanel;
 		
 		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
