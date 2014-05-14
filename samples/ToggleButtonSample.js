@@ -8,8 +8,9 @@ enyo.kind({
 				{kind: "moon.Divider", content: "Toggle Buttons:"},
 				{kind: "moon.ToggleButton", toggleOnLabel: "wifi is On", toggleOffLabel: "wifi is off", ontap: "buttonTapped"},
 				{kind: "moon.ToggleButton", contentUpperCase : false, toggleOnLabel: "Internet connected", toggleOffLabel: "Internet disconnected", ontap: "buttonTapped"},
-				{kind: "moon.ToggleButton", disabled: true, toggleOnLabel: "Disabled Button Activated Value", toggleOffLabel:"Disabled Button Deactivated Value", ontap: "buttonTapped"},
-				{kind: "moon.ToggleButton", content: "You set-top box is", ontap: "buttonTapped"},
+				{kind: "moon.ToggleButton", disabled: true, toggleOnLabel: "Disabled Button Activated Value", toggleOffLabel: "Disabled Button Deactivated Value", ontap: "buttonTapped"},
+				{kind: "moon.ToggleButton", disabled: true, value: true, content: "Disabled Active Button", ontap: "buttonTapped"},
+				{kind: "moon.ToggleButton", content: "Your set-top box is", ontap: "buttonTapped"},
 				{classes: "moon-1v"},
 				{kind: "moon.Divider", content: "Toggle Buttons are set on programmically by default:"},
 				{kind: "moon.ToggleButton", value: true, toggleOnLabel: "English", toggleOffLabel: "Spanish", ontap: "buttonTapped"},
@@ -33,7 +34,7 @@ enyo.kind({
 				{kind: "enyo.Group", classes: "moon-toggle-button-sample-group", components: [
 					{kind: "moon.ToggleButton", content: "iPod is", ontap: "buttonTapped"},
 					{kind: "moon.ToggleButton", toggleOnLabel: "Banana Ripen", toggleOffLabel: "Banana Green", ontap: "buttonTapped"},
-					{kind: "moon.ToggleButton", toggleOnLabel: "Saskatoonberry Sweet", toggleOffLabel: "Saskatoonberry Bitter", ontap: "buttonTapped"}
+					{kind: "moon.ToggleButton", toggleOnLabel: "Saskatoonberry Sweet", toggleOffLabel: "Saskatoonberry Bitter", ontap: "buttonTapped", value: true}
 				]}
 			]}
 		]},
