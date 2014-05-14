@@ -34,7 +34,7 @@ enyo.kind({
 				{kind: "enyo.Group", classes: "moon-toggle-button-sample-group", components: [
 					{kind: "moon.ToggleButton", content: "iPod is", ontap: "buttonTapped"},
 					{kind: "moon.ToggleButton", toggleOnLabel: "Banana Ripen", toggleOffLabel: "Banana Green", ontap: "buttonTapped"},
-					{kind: "moon.ToggleButton", toggleOnLabel: "Saskatoonberry Sweet", toggleOffLabel: "Saskatoonberry Bitter", ontap: "buttonTapped", value: true}
+					{kind: "moon.ToggleButton", toggleOnLabel: "Saskatoonberry Sweet", toggleOffLabel: "Saskatoonberry Bitter", ontap: "buttonTapped"}
 				]}
 			]}
 		]},
