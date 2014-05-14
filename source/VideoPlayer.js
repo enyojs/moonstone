@@ -985,11 +985,11 @@ enyo.kind({
 		var t = this.bindSafely("transformIconSrc");
 
 		if (index === 0) {
-			this.$.moreButton.setSrc(t(this.lessControlsIcon));
+			this.$.moreButton.setSrc(t(this.moreControlsIcon));
 			this.toggleSpotlightForMoreControls(true);
 			this.$.controlsContainer.next();
 		} else {
-			this.$.moreButton.setSrc(t(this.moreControlsIcon));
+			this.$.moreButton.setSrc(t(this.lessControlsIcon));
 			this.toggleSpotlightForMoreControls(false);
 			this.$.controlsContainer.previous();
 		}
@@ -999,9 +999,9 @@ enyo.kind({
 		var t = this.bindSafely("transformIconSrc");
 		
 		if (index === 0) {
-			this.$.moreButton.setSrc(t(this.moreControlsIcon));
-		} else {
 			this.$.moreButton.setSrc(t(this.lessControlsIcon));
+		} else {
+			this.$.moreButton.setSrc(t(this.moreControlsIcon));
 		}
 	},
 	toggleSpotlightForMoreControls: function(moreControlsSpottable) {
