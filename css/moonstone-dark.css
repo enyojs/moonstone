@@ -2354,6 +2354,7 @@
   z-index: 20;
   left: 50%;
   direction: ltr;
+  border-radius: 30px;
 }
 .moon-slider-popup.moon-slider-popup-flip-h {
   left: auto;

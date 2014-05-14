@@ -209,14 +209,14 @@ enyo.kind({
 		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
 		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
 		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 7 + 'px');
-		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
+		this.$.popup.applyStyle("height", this.getPopupHeight() - 7 + 'px');
 		this.$.popup.applyStyle("line-height", this.getPopupHeight() - 6 + 'px');
 		this.popupOffsetChanged();
 	},
 	//* Updates popup color.
 	popupColorChanged: function() {
 		this.drawToCanvas(this.popupColor);
-		this.$.popupLabel.applyStyle("background-color", this.popupColor);
+		this.$.popup.applyStyle("background-color", this.popupColor);
 	},
 	//* Updates popup content.
 	popupContentChanged: function() {
