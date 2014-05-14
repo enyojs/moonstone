@@ -12,14 +12,14 @@ enyo.kind({
 	spotlight: true,
 	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" },
 	handlers: {
-		onSpotlightFocus : "spotlightFocus",
-		onSpotlightBlur  : "spotlightBlur"
+		onSpotlightFocus : "handleSpotlightFocus",
+		onSpotlightBlur  : "handleSpotlightBlur"
 	},
-	spotlightFocus: function(inSender, inEvent) {
+	handleSpotlightFocus: function(inSender, inEvent) {
 		var zIndex = parseInt(enyo.dom.getComputedStyleValue(inEvent.originator.hasNode(), "z-index"), 10) || 0;
 		inEvent.originator.applyStyle("z-index", zIndex + 1);
 	},
-	spotlightBlur: function(inSender, inEvent) {
+	handleSpotlightBlur: function(inSender, inEvent) {
 		setTimeout(this.bindSafely(function() {
 			inEvent.originator.applyStyle("z-index", null);
 		}), 0);
