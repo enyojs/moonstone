@@ -7,34 +7,38 @@
 }
 .moon-checkbox.moon-toggle-switch {
 	border-radius: (@moon-toggleswitch-image-height / 2);
-	height: @moon-toggleswitch-image-height;
 	width: @moon-toggleswitch-image-width;
+	height: @moon-toggleswitch-image-height;
+	line-height: @moon-toggleswitch-image-height;
 	color: @moon-checkbox-toggle-switch-color;
 	background-color: @moon-checkbox-toggle-switch-bg-color;
-	// font-family: @moon-font-family;
 	font-family: @moon-icon-font-family;
 	font-size: @moon-toggleswitch-image-width;
 	overflow: hidden;
-	-webkit-transition: background-color 0.2s, color 0.2s;
 	background-image: none;
 	text-align: left;
 
 	&:after {
-		// content: "\025CF";
 		content: "\0F0013";
-		-webkit-transition: padding-left 0.2s;
-		padding-left: 0.3ex;
+		margin-left: 5px;
 	}
 	&[checked], &.checked {
 		color: @moon-checkbox-toggle-switch-checked-color;
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
 		background-image: none;
 		&:after {
-			padding-left: 2.1ex;
+			margin-left: (@moon-toggleswitch-image-width - @moon-toggleswitch-image-height + 5px);
 		}
 	}
 	&[disabled], &.disabled {
 		background-color: @moon-button-disabled-bg-color;
 		color: @moon-button-disabled-text-color;
+	}
+
+	&.animated {
+		-webkit-transition: background-color 0.2s, color 0.2s;
+		&:after {
+			-webkit-transition: margin-left 0.2s;
+		}
 	}
 }
