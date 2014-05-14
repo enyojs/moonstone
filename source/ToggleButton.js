@@ -49,7 +49,11 @@ enyo.kind({
 		this._rendered = true;
 	},
 	updateVisualState: function() {
-		this.addRemoveClass("moon-toggle-button-on", this.value);
+		this.addRemoveClass("moon-toggle-button-on", this.value && !this.disabled);
+	},
+	disabledChanged: function() {
+		this.inherited(arguments);
+		this.updateVisualState();
 	},
 	valueChanged: function() {
 		this.updateContent();
