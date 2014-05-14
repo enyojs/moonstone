@@ -120,9 +120,9 @@ enyo.kind({
 	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = this.createComponent(inInfo, inMoreInfo);
-
 		oPanel.render();
-		this.resized();
+		this.reflow();
+		oPanel.resized();
 		this.setIndex(lastIndex+1);
 		return oPanel;
 	},
@@ -136,8 +136,10 @@ enyo.kind({
 		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 			oPanels[nPanel].render();
 		}
-
-		this.resized();
+		this.reflow();
+		for (nPanel in oPanels) {
+			oPanels[nPanel].resized();
+		}
 		this.setIndex(lastIndex+1);
 		return oPanels;
 	},
