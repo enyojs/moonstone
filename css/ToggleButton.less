@@ -1,45 +1,46 @@
 /* Toggle.css */
 .moon-button.moon-toggle-button {
-  text-align: center;
-  position: relative;
-  padding-right: @moon-toggle-button-text-switch-gutter+@moon-button-h-padding+@moon-toggle-button-switch-width+2*@moon-toggle-button-switch-border-width;
-  &:after{
-    position: absolute;
-    content: "";
-    top: ((@moon-button-height)-@moon-toggle-button-switch-width)/2-(@moon-button-border-width+@moon-toggle-button-switch-border-width);
-    right: @moon-button-h-padding;
-    width: @moon-toggle-button-switch-width;
-    height: @moon-toggle-button-switch-width;
-    border-radius: @moon-button-border-radius;
-    background-color: @moon-toggle-button-switch-off-bg-color;
-    border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-off-border-color;
-    }
-  &[disabled]:after{
-    border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-disabled-border-color;
-    }
-  &.moon-toggle-button-on{
-    border: solid 5px @moon-accent;
-    }
-  &.moon-toggle-button-on:after{
-    position: absolute;
-    content: "";
-    top: ((@moon-button-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width+@moon-toggle-button-switch-border-width);
-    right: @moon-button-h-padding;
-    width: @moon-toggle-button-switch-width;
-    height: @moon-toggle-button-switch-width;
-    border-radius: @moon-button-border-radius;
-    background-color: @moon-toggle-button-switch-on-bg-color;
-    border:solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-on-border-color;
-    }
+	text-align: center;
+	position: relative;
+	padding-right: @moon-toggle-button-text-switch-gutter+@moon-button-h-padding+@moon-toggle-button-switch-width+2*@moon-toggle-button-switch-border-width;
+	
+	&:after {
+		position: absolute;
+		content: "";
+		top: ((@moon-button-height)-@moon-toggle-button-switch-width)/2-(@moon-button-border-width+@moon-toggle-button-switch-border-width);
+		right: @moon-button-h-padding;
+		width: @moon-toggle-button-switch-width;
+		height: @moon-toggle-button-switch-width;
+		border-radius: @moon-button-border-radius;
+		background-color: @moon-toggle-button-switch-off-bg-color;
+		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-off-border-color;
+	}
+	&[disabled]:after {
+		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-disabled-border-color;
+	}
+	&.moon-toggle-button-on {
+		border: solid 5px @moon-accent;
+	}
+	&.moon-toggle-button-on:after {
+		position: absolute;
+		content: "";
+		top: ((@moon-button-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width+@moon-toggle-button-switch-border-width);
+		right: @moon-button-h-padding;
+		width: @moon-toggle-button-switch-width;
+		height: @moon-toggle-button-switch-width;
+		border-radius: @moon-button-border-radius;
+		background-color: @moon-toggle-button-switch-on-bg-color;
+		border:solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-on-border-color;
+	}
 }
 
 .enyo-locale-right-to-left {
-  & .moon-button.moon-toggle-button{
-    padding-right: @moon-button-h-padding;
-    padding-left: @moon-toggle-button-text-switch-gutter+@moon-button-h-padding+@moon-toggle-button-switch-width+2*@moon-toggle-button-switch-border-width;
-    }
-  & .moon-button:after, & .moon-button.moon-toggle-button-on:after{
-    left: @moon-button-h-padding;
-    right: auto;
-    }
+	& .moon-button.moon-toggle-button {
+		padding-right: @moon-button-h-padding;
+		padding-left: @moon-toggle-button-text-switch-gutter+@moon-button-h-padding+@moon-toggle-button-switch-width+2*@moon-toggle-button-switch-border-width;
+	}
+	& .moon-button:after, & .moon-button.moon-toggle-button-on:after {
+		left: @moon-button-h-padding;
+		right: auto;
+	}
 }
