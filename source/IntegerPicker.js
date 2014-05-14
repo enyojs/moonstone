@@ -108,7 +108,7 @@ enyo.kind({
 		this.$.item.setContent(content);
 	},
 	rangeChanged: function() {
-		this.value = this.getVerifiedValue();
+		this.verifyValue();
 		this.$.repeater.setCount(this.max-this.min+1);
 		this.$.repeater.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch
