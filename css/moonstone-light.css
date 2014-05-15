@@ -678,6 +678,9 @@
   left: -14px;
   right: -14px;
 }
+.spotlight .moon-icon {
+  color: #ffffff;
+}
 .moon-icon.disabled {
   opacity: 0.35;
   filter: alpha(opacity=35);
