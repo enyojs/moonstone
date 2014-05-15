@@ -18,24 +18,23 @@ enyo.kind({
 	},
 	//* @protected
 	_showingFeedback: false,
-
 	_imagePath:				"$lib/moonstone/images/video-player/",
-	_jumpBackImg:			"icon_indicator_jumpbackward.png",
-	_rewindImg:				"icon_indicator_backward.png",
-	_playImg:				"icon_indicator_play.png",
-	_pauseImg:				"icon_indicator_pause.png",
-	_fastForwardImg:		"icon_indicator_forward.png",
-	_jumpForwardImg:		"icon_indicator_jumpforward.png",
-	_pauseBackImg:			"icon_indicator_pausebackward.png",
-	_pauseForwardImg:		"icon_indicator_pauseforward.png",
-	_pauseJumpBackImg:		"icon_indicator_pausejumpbackward.png",
-	_pauseJumpForwardImg:	"icon_indicator_pausejumpforward.png",
+	_jumpBackImg:			"jumpbackward",
+	_rewindImg:				"backward",
+	_playImg:				"play",
+	_pauseImg:				"pause",
+	_fastForwardImg:		"forward",
+	_jumpForwardImg:		"jumpforward",
+	_pauseBackImg:			"pausebackward",
+	_pauseForwardImg:		"pauseforward",
+	_pauseJumpBackImg:		"pausejumpbackward",
+	_pauseJumpForwardImg:	"pausejumpforward",
 	_autoTimer: null,
 
 	components: [
-		{name: "leftIcon",  classes: "moon-video-feedback-icon-left", allowHtml: true, content: "&nbsp;", showing: false},
-		{name: "feedText",  classes: "moon-video-feedback-text", allowHtml: true, content: "&nbsp;", showing: false},
-		{name: "rightIcon", classes: "moon-video-feedback-icon-right", allowHtml: true, content: "&nbsp;", showing: false}
+		{name: "leftIcon", kind: "moon.Icon", classes: "moon-video-feedback-icon-left", allowHtml: true, showing: false},
+		{name: "feedText",  classes: "moon-video-feedback-text", allowHtml: true, showing: false},
+		{name: "rightIcon", kind: "moon.Icon", classes: "moon-video-feedback-icon-right", allowHtml: true, showing: false}
 	],
 
 	//* @public
@@ -61,6 +60,18 @@ enyo.kind({
 				"slowRewind": ["-1/2", "-1"]
 			}
 	*/
+	checkIconType: function(inIcon) {
+		var imagesrcRegex=/\.(jpg|jpeg|png|gif)$/i;
+		var iconType=imagesrcRegex.test(inIcon)?"image":"iconfont";
+		return iconType;
+	},
+	retriveImgOrIconPath:function(inIcon){
+		if (this.checkIconType(inIcon)=="image") {
+			return enyo.path.rewrite(this._imagePath + inIcon);
+		} else {
+			return enyo.path.rewrite(inIcon);
+		}
+	},
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		var customMessage = false;
 		inMessage = inMessage || "";
@@ -71,52 +82,52 @@ enyo.kind({
 		switch (inMessage) {
 		case "Play":
 			inMessage = moon.$L("PLAY"); // i18n "PLAY" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._playImg);
+			inRightSrc = this.retriveImgOrIconPath(this._playImg);
 			break;
 
 		case "Pause":
 			inMessage = moon.$L("PAUSE"); // i18n "PAUSE" feedback text in moon.VideoPlayer widget, should be translated to ALL CAPS in all languages
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseImg);
+			inRightSrc = this.retriveImgOrIconPath(this._pauseImg);
 			break;
 
 		case "Rewind":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
-			inLeftSrc = enyo.path.rewrite(this._imagePath + this._rewindImg);
+			inLeftSrc = this.retriveImgOrIconPath(this._rewindImg);
 			break;
 
 		case "Slowrewind":
 			inMessage = inParams.playbackRate + "x";
-			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseBackImg);
+			inLeftSrc = this.retriveImgOrIconPath(this._pauseBackImg);
 			break;
 
 		case "Fastforward":
 			inMessage = Math.abs(inParams.playbackRate) + "x";
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._fastForwardImg);
+			inRightSrc = this.retriveImgOrIconPath(this._fastForwardImg);
 			break;
 
 		case "Slowforward":
 			inMessage = inParams.playbackRate + "x";
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseForwardImg);
+			inRightSrc = this.retriveImgOrIconPath(this._pauseForwardImg);
 			break;
 
 		case "JumpBackward":
 			inMessage = this.df ? enyo.toUpperCase(this.df.format({second: inParams.jumpSize})) : inParams.jumpSize + " SEC";
-			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
+			inLeftSrc = this.retriveImgOrIconPath(this._pauseJumpBackImg);
 			break;
 
 		case "JumpForward":
 			inMessage = this.df ? enyo.toUpperCase(this.df.format({second: inParams.jumpSize})) : inParams.jumpSize + " SEC";
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
+			inRightSrc = this.retriveImgOrIconPath(this._pauseJumpForwardImg);
 			break;
 
 		case "JumpToStart":
 			inMessage = "";
-			inLeftSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpBackImg);
+			inLeftSrc = this.retriveImgOrIconPath(this._pauseJumpBackImg);
 			break;
 
 		case "JumpToEnd":
 			inMessage = "";
-			inRightSrc = enyo.path.rewrite(this._imagePath + this._pauseJumpForwardImg);
+			inRightSrc = this.retriveImgOrIconPath(this._pauseJumpForwardImg);
 			break;
 
 		case "Stop":
@@ -186,16 +197,28 @@ enyo.kind({
 	updateIcons: function(inLeftSrc, inRightSrc) {
 		if (inLeftSrc) {
 			this.$.leftIcon.show();
-			this.$.leftIcon.applyStyle("background-image", "url(" + inLeftSrc + ")");
+			this.displayIconSrcOrFont(this.$.leftIcon, inLeftSrc);
 		} else {
 			this.$.leftIcon.hide();
 		}
 
 		if (inRightSrc) {
 			this.$.rightIcon.show();
-			this.$.rightIcon.applyStyle("background-image", "url(" + inRightSrc + ")");
+			this.displayIconSrcOrFont(this.$.rightIcon, inRightSrc);
 		} else {
 			this.$.rightIcon.hide();
 		}
+	},
+	displayIconSrcOrFont: function(inSrc, inIcon) {
+		if(this.checkIconType(inIcon)=="image") {
+			inSrc.setIcon("");
+			inSrc.setSrc(inIcon);
+			inSrc.addRemoveClass("moon-icon-", Boolean(this.checkIconType(inIcon)=="iconfont"));
+			inSrc.addRemoveClass('"moon-icon-'+inIcon+'"', Boolean(this.checkIconType(inIcon)=="iconfont"));
+			} else {
+				inSrc.setSrc("");
+				inSrc.setIcon(inIcon);
+				inSrc.applyStyle("background-image",inSrc.src);
+			}
 	}
 });

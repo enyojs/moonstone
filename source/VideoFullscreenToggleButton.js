@@ -8,7 +8,8 @@ enyo.kind({
 	name: "moon.VideoFullscreenToggleButton",
 	kind: "moon.IconButton",
 	//* @protected
-	src: "$lib/moonstone/images/video-player/icon-fullscreenbutton.png",
+	icon : "exitfullscreen",
+	classes : "moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style",
 	//* @public
 	events: {
 		/**
