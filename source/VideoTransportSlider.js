@@ -97,7 +97,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.popup.setAutoDismiss(false);		//* Always showing popup
 		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
-		this.$.tapArea.onmousemove = "preview";
+		this.$.tapArea.onmove = "preview";
 		this.$.tapArea.onenter = "enterTapArea";
 		this.$.tapArea.onleave = "leaveTapArea";
 		//* Extend components
