@@ -3213,6 +3213,7 @@
 }
 .moon-spinner .moon-spinner-ball:after {
   content: "\2022";
+  font-family: "MuseoSans 700";
 }
 .moon-spinner .moon-spinner-ball1 {
   -webkit-animation-name: spinBall;
@@ -3232,18 +3233,15 @@
 .moon-spinner .moon-spinner-text {
   float: left;
   line-height: 73px;
-  margin: 0 2ex 0 0.5ex;
-}
-.enyo-locale-right-to-left .moon-spinner .moon-spinner-ball-decorator {
-  -webkit-transform: scaleX(-1);
+  margin: 0 2.6ex 0 0;
 }
 .enyo-locale-right-to-left .moon-spinner .moon-spinner-ball-decorator {
   float: right;
 }
 .enyo-locale-right-to-left .moon-spinner .moon-spinner-text {
   float: right;
-  margin-left: 2ex;
-  margin-right: 0.5ex;
+  margin-left: 2.6ex;
+  margin-right: 0;
 }
 .moon-panel {
   -webkit-transform: scale3d(1, 1, 1);
