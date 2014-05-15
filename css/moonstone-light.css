@@ -755,10 +755,10 @@
 .moon-icon-jumpbackward:after {
   content: "\0F0020";
 }
-.moon-icon-arrowshrink:after {
+.moon-icon-arrowextend:after {
   content: "\0F0021";
 }
-.moon-icon-arrowextend:after {
+.moon-icon-arrowshrink:after {
   content: "\0F0022";
 }
 .moon-icon-exitfullscreen:after {

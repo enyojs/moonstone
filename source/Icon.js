@@ -101,13 +101,21 @@ enyo.kind({
 		this.addRemoveClass("disabled", this.disabled);
 	},
 	srcChanged: function() {
-		this.applyStyle("background-image", "url(" + enyo.path.rewrite(this.src) + ")");
+		var src = this.src || null;
+		if (src) {
+			if (src != "none" && src != "inherit" && src != "initial") {
+				src = "url(" + enyo.path.rewrite(this.src) + ")";
+			}
+		}
+		this.applyStyle("background-image", src);
 	},
 	iconChanged: function(inOld) {
 		if (inOld) {
 			this.removeClass(this.getIconClass(inOld));
 		}
-		this.addClass(this.getIconClass());
+		if (this.get("icon")) {
+			this.addClass(this.getIconClass());
+		}
 	},
 	smallChanged: function() {
 		if (this.$.tapArea) {
