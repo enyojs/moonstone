@@ -2,6 +2,12 @@
 	_moon.ToggleButton_, which extends [moon.Button](#moon.Button), is a button
 	with two states, "on" and "off".  When the ToggleButton is tapped, it switches
 	its state and fires an _onChange_ event.
+
+	One has the choice to show the same text (via the _content_ property) for 
+	both toggle states, or different text can be shown for each toggle state, 
+	utilizing the _toggleOnLabel_ and the _toggleOffLabel_. Note that both of 
+	these properties need to be set to display differentiating text, otherwise 
+	the _content_ property will be shown for the button text.
 */
 
 enyo.kind({
@@ -9,21 +15,15 @@ enyo.kind({
 	kind: "moon.Button",
 	//* @public
 	published: {
-		//* If true, indicates that this is the active button of the group;
-		//* otherwise, false
-		active: false,
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
-		//* Label for toggle button's "on" state
-		onContent: moon.$L("On"),  // i18n "ON" label in moon.ToggleButton widget
-		//* Label for toggle button's "off" state
-		offContent: moon.$L("Off"),  // i18n "OFF" label in moon.ToggleButton widget
-		//* Label for separator
-		labelSeparator: moon.$L(": "),   // i18n Separator between moon.ToggleButton text label and ON/OFF indicator
-		//* If true, toggle button cannot be tapped and thus will not generate
-		//* any events
-		disabled: false
+		//* Button text displayed in the "on" state. If empty, will default to 
+		//* displaying _content_ as button text
+		toggleOnLabel: "",
+		//* Button text displayed in the "off" state. If empty, will default to 
+		//* displaying _content_ as button text
+		toggleOffLabel: ""
 	},
 	events: {
 		/**
@@ -35,63 +35,62 @@ enyo.kind({
 		onChange: ""
 	},
 	//* @protected
+	_rendered: false,
 	classes: "moon-toggle-button",
 	create: function() {
 		this.inherited(arguments);
-		this.value = Boolean(this.value || this.active);
 		this.updateContent();
-		this.disabledChanged();
-	},
-	initComponents: function() {
-		this.inherited(arguments);
-		this.$.client.addClass("moon-toggle-button-text");
+		this.updateVisualState();
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.updateVisualState();
+		this.setActive(this.value);
+		this.fireChangeEvent();
+		this._rendered = true;
 	},
 	updateVisualState: function() {
-		this.addRemoveClass("moon-overlay", this.value);
-		this.setActive(this.value);
+		this.addRemoveClass("moon-toggle-button-on", this.value && !this.disabled);
 	},
-	contentChanged: function() {
-		this.updateContent();
-	},
-	activeChanged: function() {
-		this.setValue(this.active);
-		this.bubble("onActivate");
+	disabledChanged: function() {
+		this.inherited(arguments);
+		this.updateVisualState();
 	},
 	valueChanged: function() {
 		this.updateContent();
 		this.updateVisualState();
-		this.doChange({value: this.value});
+		this.setActive(this.value);
+		this.fireChangeEvent();
 	},
-	onContentChanged: function() {
+	toggleOnLabelChanged: function() {
 		this.updateContent();
 	}, 
-	offContentChanged: function() {
+	toggleOffLabelChanged: function() {
 		this.updateContent();
 	},
-	labelSeparatorChanged: function() {
-		this.updateContent();
-	},
-	disabledChanged: function() {
-		this.setAttribute("disabled", this.disabled);
-	},
-	updateValue: function(inValue) {
-		if (!this.disabled) {
-			this.setValue(inValue);
+	// we override the inherited activeChanged method
+	activeChanged: function() {
+		if (this._rendered) {
+			this.active = enyo.isTrue(this.active);
+			this.setValue(this.active);
 		}
+		this.bubble("onActivate");
 	},
+	// we override the inherited tap method
 	tap: function() {
-		this.updateValue(!this.value);
+		if (this.disabled) {
+			return true;
+		} else {
+			this.setValue(!this.value);
+		}
 	},
 	updateContent: function() {
-		var content = this.getContent();
-		content = this.contentUpperCase ? enyo.toUpperCase(content) : content;
-		var postfix = enyo.toUpperCase(this.value ? this.onContent : this.offContent);
-		if (this.$.client) {
-			this.$.client.setContent((content || "") + (this.labelSeparator || " ") + (postfix || ""));
+		if (!this.toggleOnLabel || !this.toggleOffLabel) {
+			this.setContent(this.content);
+		} else {
+			this.setContent(this.value ? this.toggleOnLabel : this.toggleOffLabel);
 		}
+	},
+	fireChangeEvent: function() {
+		this.doChange({value: this.value});
 	}
 });

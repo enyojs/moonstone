@@ -8,6 +8,7 @@
 
 /* Moonstone colors defined here */
 /* Moonstone Light Theme */
+/*toggle colors */
 /* Disabled Opacity */
 /* ---------------------------------------*/
 /* Moonstone default parameters defined here */
@@ -1232,15 +1233,55 @@
 .moon-button.moon-toggle-button {
   text-align: center;
   position: relative;
+  padding-right: 62px;
 }
-.moon-toggle-button.moon-overlay {
-  border: 5px solid #cf0652;
+.moon-button.moon-toggle-button:after {
+  position: absolute;
+  content: "";
+  top: 27.5px;
+  right: 22px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background-color: #b3b3b3;
+  border: solid 2px #ffffff;
 }
-.moon-toggle-button-text {
-  position: relative;
-  right: 0px;
-  text-align: center;
-  max-width: 250px;
+.moon-button.moon-toggle-button[disabled] {
+  border: 5px solid transparent;
+}
+.moon-button.moon-toggle-button[disabled]:after {
+  background-color: #b3b3b3;
+  border: solid 2px #ffffff;
+}
+.moon-button.moon-toggle-button.moon-toggle-button-on {
+  border: solid 5px #cf0652;
+}
+.moon-button.moon-toggle-button.moon-toggle-button-on:after {
+  background-color: #cf0652;
+  border: solid 2px #ffffff;
+}
+.moon-button.moon-toggle-button.small {
+  padding-right: 60px;
+}
+.moon-button.moon-toggle-button.small:after {
+  top: 15px;
+  right: 20px;
+}
+.enyo-locale-right-to-left .moon-button.moon-toggle-button {
+  padding-right: 22px;
+  padding-left: 62px;
+}
+.enyo-locale-right-to-left .moon-button.moon-toggle-button:after {
+  left: 22px;
+  right: auto;
+}
+.enyo-locale-right-to-left .moon-button.moon-toggle-button.small {
+  padding-right: 20px;
+  padding-left: 60px;
+}
+.enyo-locale-right-to-left .moon-button.moon-toggle-button.small:after {
+  left: 20px;
+  right: auto;
 }
 /* Item.css */
 .moon-item {
