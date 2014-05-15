@@ -2,25 +2,18 @@
 
 .moon-item.moon-formcheckbox-item {
 	background: none;
-	padding: 0;
-	padding-left: @moon-spotlight-outset;
+	padding: 0 0 0 @moon-spotlight-outset;
 	margin-bottom: @moon-spotlight-outset;
-	
 	.moon-checkbox {
 		position: absolute;
 		top: 5px;
 		left: @moon-spotlight-outset;
 		width: @moon-checkbox-width + @moon-spotlight-outset;
 		height: @moon-checkbox-width + @moon-spotlight-outset;
-		border-radius: 9999px;
+		border-radius: @moon-button-border-radius;
 		background-color: @moon-form-checkbox-bg-color;
-		background-position: 5px 5px;
+		line-height: @moon-checkbox-width + @moon-spotlight-outset;
 	}
-
-	.moon-checkbox[checked] {
-		background-color: @moon-form-checkbox-bg-color;
-	}
-
 	.moon-checkbox-item-label-wrapper {
 		padding: 8px 10px;
 		margin-left: @moon-checkbox-width + @moon-spotlight-outset;
@@ -29,8 +22,7 @@
 
 .enyo-locale-right-to-left {
 	.moon-item.moon-formcheckbox-item {
-		padding-left: 0;
-		padding-right: @moon-spotlight-outset;
+		padding: 0 @moon-spotlight-outset 0 0;
 		.moon-checkbox-item-label-wrapper {
 			margin-left: auto;
 			margin-right: @moon-checkbox-width + 2*@moon-spotlight-outset;
@@ -42,8 +34,7 @@
 }
 
 .moon-formcheckbox-item.spotlight {
-	.moon-checkbox, 
-	.moon-checkbox[checked] {
+	.moon-checkbox {
 		background-color: @moon-spotlight-color;
 	}
 	.moon-checkbox-item-label-wrapper {
