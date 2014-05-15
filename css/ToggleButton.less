@@ -15,6 +15,9 @@
 		background-color: @moon-toggle-button-switch-off-bg-color;
 		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-off-border-color;
 	}
+	&[disabled] {
+		border: @moon-button-border-width solid transparent;
+	}
 	&[disabled]:after {
 		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-disabled-border-color;
 	}

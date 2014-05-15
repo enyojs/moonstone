@@ -1243,6 +1243,9 @@
   background-color: #b3b3b3;
   border: solid 2px #ffffff;
 }
+.moon-button.moon-toggle-button[disabled] {
+  border: 5px solid transparent;
+}
 .moon-button.moon-toggle-button[disabled]:after {
   border: solid 2px #ffffff;
 }
