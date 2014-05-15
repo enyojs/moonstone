@@ -308,10 +308,8 @@ enyo.kind({
 		var tp = this.container.transitionPositions;
 		var panels = this.container.getPanels();
 		var panel;
-		var opacity;
 		var hiding = [];
 		for(var i=0;(panel = panels[i]);i++) {
-			opacity = panel.domStyles.opacity;
 			if (tp[i+"."+this.container.toIndex] === 0) {
 				var width = panel.getBounds().width;
 				var nextTp = tp[i+1+"."+this.container.toIndex];

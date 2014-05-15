@@ -309,7 +309,7 @@ enyo.kind({
 
 		for(item in inStartValues) {
 			control = inStartValues[item].control;
-			inStartValues[item].properties[this.transitionProperty] = control.domStyles[this.transitionProperty];
+			inStartValues[item].properties[this.transitionProperty] = control[this.transitionProperty];
 		}
 	},
 	//* @protected
@@ -326,7 +326,7 @@ enyo.kind({
 	//* @protected
 	applyTransition: function (inName, inInstruction) {
 		var animation = this.getAnimation(inName),
-			currentStyle = inInstruction.control.domStyles[this.transitionProperty],
+			currentStyle = inInstruction.control[this.transitionProperty],
 			transitionTime = (inInstruction.endTime - inInstruction.startTime)*animation.duration/(100*1000),
 			newStyle = currentStyle ? currentStyle + ", " : "",
 			transitionProperty = this.transitionProperty;
@@ -334,6 +334,10 @@ enyo.kind({
 		newStyle += inInstruction.property + " " + transitionTime + "s " + animation.timingFunction + " 0s";
 
 		inInstruction.control.applyStyle(transitionProperty, newStyle);
+		
+		// we arbitrarily cache this value for cheaper lookup later
+		inInstruction.control[transitionProperty] = newStyle;
+		
 		inInstruction.control.applyStyle(inInstruction.property, inInstruction.endValue);
 
 		//  this.log(inInstruction.control.id+".applyStyle("+transitionProperty+", "+newStyle+")");
