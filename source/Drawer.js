@@ -182,9 +182,6 @@ enyo.kind({
 	animatorEnd: function() {
 		if (!this.open) {
 			this.$.client.hide();
-		} else {
-			// save changes to this.domCssText --> see ENYO-1561
-			this.$.client.domCssText = enyo.Control.domStylesToCssText(this.$.client.domStyles);
 		}
 		if (this.container) {
 			this.container.resized();
