@@ -51,8 +51,12 @@ enyo.kind({
 		*/
 		handleShowing: true,
 		//* When true, panels are automatically popped when the user moves back
-		popOnBack: false
-
+		popOnBack: false,
+		/** 
+			When true, tap events are ignored while a transition is in progress,
+			to prevent pushing duplicate panels when calling pushPanels from tap handlers
+		*/
+		ignoreTapDuringTransition: true
 	},
 	//* @protected
 	narrowFit: false,
@@ -721,6 +725,11 @@ enyo.kind({
 	hideAnimationComplete: function() {
 		if (this.handleShowing) {
 			this.$.handleWrapper.removeClass("hidden");
+		}
+	},
+	previewDomEvent: function(inEvent) {
+		if ((inEvent.type == "tap") && (this.ignoreTapDuringTransition) && this.inTransition()) {
+			return true;
 		}
 	}
 });
