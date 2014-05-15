@@ -1258,14 +1258,48 @@
   color: #ffffff;
 }
 /* ToggleSwitch.css */
-.moon-checkbox.moon-toggle-switch {
-  height: 33px;
-  width: 65px;
-  background: url(../images/toggle-off.png) no-repeat 0 0;
+.moon-checkbox.moon-toggle-switch,
+.moon-checkbox.moon-toggle-switch[checked],
+.moon-checkbox-item.moon-toggle-item.spotlight .moon-toggle-switch[checked] {
+  background-image: none;
 }
-.moon-checkbox-item.moon-toggle-item.spotlight .moon-toggle-switch[checked],
-.moon-checkbox.moon-toggle-switch[checked] {
-  background: url(../images/toggle-on.png) no-repeat 0 0;
+.moon-checkbox.moon-toggle-switch {
+  border-radius: 16.5px;
+  width: 65px;
+  height: 33px;
+  line-height: 33px;
+  color: #a6a6a6;
+  background-color: #404040;
+  font-family: "Moonstone Icons";
+  font-size: 65px;
+  overflow: hidden;
+  background-image: none;
+  text-align: left;
+}
+.moon-checkbox.moon-toggle-switch:after {
+  content: "\0F0013";
+  margin-left: 5px;
+}
+.moon-checkbox.moon-toggle-switch[checked],
+.moon-checkbox.moon-toggle-switch.checked {
+  color: #cf0652;
+  background-color: #ffffff;
+  background-image: none;
+}
+.moon-checkbox.moon-toggle-switch[checked]:after,
+.moon-checkbox.moon-toggle-switch.checked:after {
+  margin-left: 37px;
+}
+.moon-checkbox.moon-toggle-switch[disabled],
+.moon-checkbox.moon-toggle-switch.disabled {
+  background-color: #262626;
+  color: #4d4d4d;
+}
+.moon-checkbox.moon-toggle-switch.animated {
+  -webkit-transition: background-color 0.2s, color 0.2s;
+}
+.moon-checkbox.moon-toggle-switch.animated:after {
+  -webkit-transition: margin-left 0.2s;
 }
 .moon-toggle-item {
   display: block;
