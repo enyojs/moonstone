@@ -962,8 +962,6 @@
   color: #ffffff;
 }
 .moon-simple-integer-picker-button {
-  width: 60px;
-  height: 60px;
   border-radius: 30px;
   border: 0;
   background: inherit;
@@ -973,7 +971,45 @@
   vertical-align: middle;
   z-index: 2;
   color: #4b4b4b;
-  background: transparent url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center 0;
+  background-repeat: no-repeat;
+  background-position: center 0;
+}
+.moon-simple-integer-picker-button.moon-icon.small {
+  width: 60px;
+  height: 100%;
+}
+.spotlight .moon-simple-integer-picker-button {
+  /* Hover while not Pressed state */
+
+}
+.spotlight .moon-simple-integer-picker-button.moon-icon {
+  color: #ffffff;
+}
+.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
+  content: "\0F0003";
+}
+.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
+  content: "\0F0004";
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button {
+  /* Default RTL state */
+
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:after {
+  content: "\0F0008";
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallright:after {
+  content: "\0F0007";
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
+  /* Hover while not Pressed state */
+
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
+  content: "\0F0004";
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
+  content: "\0F0003";
 }
 .moon-simple-integer-picker-client {
   padding: 0;
@@ -1009,6 +1045,7 @@
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
   position: relative;
+  height: 100%;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -1051,6 +1088,7 @@
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
   position: relative;
+  height: 100%;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
@@ -1089,36 +1127,8 @@
   border-left-color: #cf0652;
   right: -6px;
 }
-.moon-simple-integer-picker-button.left {
-  transform: rotate(270deg) translateZ(1px);
-  -o-transform: rotate(270deg) translateZ(1px);
-  -ms-transform: rotate(270deg) translateZ(1px);
-  -moz-transform: rotate(270deg) translateZ(1px);
-  -webkit-transform: rotate(270deg) translateZ(1px);
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.left {
-  transform: rotate(90deg) translateZ(1px);
-  -o-transform: rotate(90deg) translateZ(1px);
-  -ms-transform: rotate(90deg) translateZ(1px);
-  -moz-transform: rotate(90deg) translateZ(1px);
-  -webkit-transform: rotate(90deg) translateZ(1px);
-}
-.moon-simple-integer-picker-button.right {
-  transform: rotate(90deg) translateZ(1px);
-  -o-transform: rotate(90deg) translateZ(1px);
-  -ms-transform: rotate(90deg) translateZ(1px);
-  -moz-transform: rotate(90deg) translateZ(1px);
-  -webkit-transform: rotate(90deg) translateZ(1px);
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
-  transform: rotate(270deg) translateZ(1px);
-  -o-transform: rotate(270deg) translateZ(1px);
-  -ms-transform: rotate(270deg) translateZ(1px);
-  -moz-transform: rotate(270deg) translateZ(1px);
-  -webkit-transform: rotate(270deg) translateZ(1px);
-}
 .spotlight .moon-simple-integer-picker-button {
-  background: url(../images/LightTheme_Icons/scroller_icon.png) no-repeat center -50px;
+  background-position: center -50px;
 }
 /* Checkbox.css */
 .moon-checkbox {

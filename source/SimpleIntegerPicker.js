@@ -73,9 +73,9 @@ enyo.kind({
 		{classes: "moon-scroll-picker-overlay-container-left", components: [
 			{name: "leftOverlay", showing: false, components:[
 				{classes: "moon-scroll-picker-overlay-left"},
-				{classes: "moon-scroll-picker-overlay-left-border"} 
+				{classes: "moon-scroll-picker-overlay-left-border"}
 			]},
-			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"}
+			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left small moon-icon moon-icon-arrowsmallleft", ondown: "downPrevious", onholdpulse:"previous"}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
@@ -85,7 +85,7 @@ enyo.kind({
 				{classes: "moon-scroll-picker-overlay-right"},
 				{classes: "moon-scroll-picker-overlay-right-border"}
 			]},
-			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next"}
+			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right small moon-icon moon-icon-arrowsmallright", ondown: "downNext", onholdpulse:"next"}
 		]}
 	],
 	observers: {
@@ -204,8 +204,10 @@ enyo.kind({
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
 			this.$.leftOverlay.show();
+			this.$.buttonLeft.addClass("pressed");
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
 			this.$.rightOverlay.show();
+			this.$.buttonRight.addClass("pressed");
 		}
 		return true;
 	},
@@ -217,8 +219,10 @@ enyo.kind({
 		this.hideOverlays();
 	},
 	hideOverlays: function() {
-		this.$.leftOverlay.setShowing(false);
-		this.$.rightOverlay.setShowing(false);
+		this.$.leftOverlay.hide();
+		this.$.rightOverlay.hide();
+		this.$.buttonLeft.removeClass("pressed");
+		this.$.buttonRight.removeClass("pressed");
 	},
 	setButtonVisibility: function(inOld, inNew) {
 		if (this.values) {
