@@ -3,6 +3,7 @@
 	text-align: center;
 	position: relative;
 	padding-right: @moon-toggle-button-text-switch-gutter + @moon-button-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
+
 	&:after {
 		position: absolute;
 		content: "";
@@ -28,34 +29,33 @@
 		background-color: @moon-toggle-button-switch-on-bg-color;
 		border: solid @moon-toggle-button-switch-border-width @moon-toggle-button-switch-on-border-color;
 	}
-}
-
-.moon-button.moon-toggle-button.small {
-  padding-right: @moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
-  &:after {
-    top: ((@moon-button-small-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width + @moon-toggle-button-switch-border-width);
-    right: @moon-button-small-h-padding;
-  }
+	&.small {
+		padding-right: @moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
+  
+		&:after {
+			top: ((@moon-button-small-height) - @moon-toggle-button-switch-width)/2 - (@moon-button-border-width + @moon-toggle-button-switch-border-width);
+			right: @moon-button-small-h-padding;
+		}
+	}
 }
 
 .enyo-locale-right-to-left {
 	& .moon-button.moon-toggle-button {
 		padding-right: @moon-button-h-padding;
 		padding-left: @moon-toggle-button-text-switch-gutter + @moon-button-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
-	}
-	& .moon-button.moon-toggle-button:after {
-		left: @moon-button-h-padding;
-		right: auto;
-	}
-}
 
-.enyo-locale-right-to-left {
-  & .moon-button.moon-toggle-button.small {
-    padding-right: @moon-button-small-h-padding;
-    padding-left: @moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
-  }
-  & .moon-button.moon-toggle-button.small:after {
-    left: @moon-button-small-h-padding;
-    right: auto;
-  }
+		&:after {
+			left: @moon-button-h-padding;
+			right: auto;
+		}
+	}
+	& .moon-button.moon-toggle-button.small {
+		padding-right: @moon-button-small-h-padding;
+		padding-left: @moon-toggle-button-text-switch-gutter + @moon-button-small-h-padding + @moon-toggle-button-switch-width + 2*@moon-toggle-button-switch-border-width;
+
+		&:after {
+			left: @moon-button-small-h-padding;
+			right: auto;
+		}
+	}
 }
