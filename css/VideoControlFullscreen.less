@@ -50,7 +50,7 @@
 }
 .moon-video-player-controls {
 	height: @moon-icon-button-size;
-	margin-bottom:30px;
+	margin-bottom: 30px;
 }
 .enyo-fittable-columns-layout.moon-video-player-controls {
 	direction: ltr;
@@ -61,7 +61,7 @@
 }
 .moon-video-player-more-controls {
 	border-left: 2px solid white;
-	padding-left:5px;
+	padding-left: 5px;
 }
 .moon-video-player-more-controls > * {
 	vertical-align: middle;
@@ -73,14 +73,12 @@
 .moon-video-player-premium-placeholder-left {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
 	height: @moon-icon-button-size;
-
 	padding-left: 90px;
-
 }
 .moon-video-player-premium-placeholder-right {
 	width: 130 + (@moon-icon-button-small-size + 2 * @moon-spotlight-outset);
 	height: @moon-icon-button-size;
-	padding-left:5px;
+	padding-left: 5px;
 }
 
 /* --- Buttons --- */
@@ -92,6 +90,24 @@
 	background-color: transparent;
 	background-position: 0px 0px;
 	background-size: @moon-icon-button-size (@moon-icon-button-size * 2);
+	color: @moon-icon-video-controls-font-color;
+	line-height: @moon-icon-button-size;
+}
+.moon-icon-playpause-font-style {
+  font-size: @moon-icon-playpause-font-size;
+}
+.moon-icon-video-main-control-font-style {
+  font-size: @moon-icon-main-control-font-size;
+}
+
+/* this style is used for the two side controls and placeholders */
+.moon-icon-button.moon-icon-video-round-controls-style {
+  color: @moon-icon-video-round-controls-font-color;
+  background-color: @moon-icon-video-round-controls-bg-color;
+  border-radius: @moon-button-border-radius;
+}
+.moon-icon-button.moon-icon-video-more-controls-font-style {
+  font-size: @moon-icon-arrowextendshrink-font-size;
 }
 .moon-video-fullscreen-control .moon-icon.moon-icon-button.active,
 .moon-video-fullscreen-control .moon-icon.moon-icon-button:active,
@@ -102,6 +118,11 @@
 	background-position: 0 -(@moon-icon-button-size);
 	border: 0px;
 	background-color: transparent;
+	color: @moon-accent;
+	&.moon-icon-video-round-controls-style {
+	  color: @moon-icon-video-round-controls-font-spotlight-color;
+	  background-color: @moon-accent;
+	}
 }
 
 .moon-video-player-control-buttons.disabled > * {
