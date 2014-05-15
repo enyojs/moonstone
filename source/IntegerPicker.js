@@ -74,13 +74,23 @@ enyo.kind({
 	],
 	//* @protected
 	scrollFrame: 3, // parameter that determines scroll math simulation speed
+	create: function(){
+		this.inherited(arguments);
+		this.verifyValue();
+		this.updateOverlays();
+	},
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
-		this.updateOverlays();
 		this.refreshScrollState();
 		this.$.scroller.getStrategy().setFixedTime(false);
 		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
+	},
+	getVerifiedValue: function() {
+		return this.value >= this.min && this.value <= this.max ? this.value : this.min;
+	},
+	verifyValue: function() {
+		this.value = this.getVerifiedValue();
 	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
@@ -98,7 +108,7 @@ enyo.kind({
 		this.$.item.setContent(content);
 	},
 	rangeChanged: function() {
-		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
+		this.verifyValue();
 		this.$.repeater.setCount(this.max-this.min+1);
 		this.$.repeater.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch

@@ -94,9 +94,6 @@ enyo.kind({
 		this.contentChanged();
 		this.inherited(arguments);
 	},
-	rendered: function () {
-		this.inherited(arguments);
-	},
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
 	},

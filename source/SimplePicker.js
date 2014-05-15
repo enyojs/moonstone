@@ -86,9 +86,6 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
 		this.blockChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
 		this.showHideNavButtons();
 	},
 	scrollIntoView: function() {

@@ -153,6 +153,8 @@ enyo.kind({
 		this.knobClassesChanged();
 		this.popupLabelClassesChanged();
 		this.tapAreaClassesChanged();
+		this.initSliderStyles();
+		this.addRemoveClass("moon-slider-rtl", this.rtl);
 	},
 	destroy: function() {
 		if (this._nf) {
@@ -162,12 +164,14 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.popupColorChanged();
-		this.popupHeightChanged();
-		this.popupWidthChanged();
 		this.drawToCanvas(this.popupColor);
 		this._setValue(this.value);
-		this.addRemoveClass("moon-slider-rtl", this.rtl);
+	},
+	initSliderStyles: function() {
+		this.updatePopupLabelColor();
+		this.updatePopupHeight();
+		this.updatePopupOffset();
+		this.popupWidthChanged();
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -189,9 +193,12 @@ enyo.kind({
 		this.$.tapArea.removeClass(inOld);
 		this.$.tapArea.addClass(this.tapAreaClasses);
 	},
+	updatePopupOffset: function() {
+		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
+	},
 	//* Updates popup offset.
 	popupOffsetChanged: function() {
-		this.$.popup.applyStyle("top", -(this.getPopupHeight() + this.getPopupOffset()) + 'px');
+		this.updatePopupOffset();
 		this.drawToCanvas(this.popupColor);
 	},
 	//* Updates popup width.
@@ -200,23 +207,30 @@ enyo.kind({
 			this.$.popupLabel.applyStyle("width", this.getPopupWidth() - (this.popupLeftCanvasWidth + this.popupRightCanvasWidth) + 'px');
 		}
 	},
+	updatePopupHeight: function() {
+		var h = this.getPopupHeight();
+		this.$.drawingLeft.setAttribute("height", h);
+		this.$.drawingRight.setAttribute("height", h);
+		this.$.popupLabel.applyStyle("height", h - 7 + 'px');
+		this.$.popup.applyStyle("height", h + 'px');
+		this.$.popup.applyStyle("line-height", h - 6 + 'px');
+	},
 	//* Updates popup height.
 	popupHeightChanged: function() {
 		if (this.getPopupHeight() >= 72) {
 			enyo.warn("This popupHeight API is designed for under 72 pixels.");
 		}
 
-		this.$.drawingLeft.setAttribute("height", this.getPopupHeight());
-		this.$.drawingRight.setAttribute("height", this.getPopupHeight());
-		this.$.popupLabel.applyStyle("height", this.getPopupHeight() - 7 + 'px');
-		this.$.popup.applyStyle("height", this.getPopupHeight() + 'px');
-		this.$.popup.applyStyle("line-height", this.getPopupHeight() - 6 + 'px');
+		this.updatePopupHeight();
 		this.popupOffsetChanged();
+	},
+	updatePopupLabelColor: function() {
+		this.$.popupLabel.applyStyle("background-color", this.popupColor);
 	},
 	//* Updates popup color.
 	popupColorChanged: function() {
 		this.drawToCanvas(this.popupColor);
-		this.$.popupLabel.applyStyle("background-color", this.popupColor);
+		this.updatePopupLabelColor();
 	},
 	//* Updates popup content.
 	popupContentChanged: function() {

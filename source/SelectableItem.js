@@ -51,11 +51,12 @@ enyo.kind({
 		return function() {
 			sup.apply(this, arguments);
 			this.contentChanged();
+			this.updateSelectedValue();
 		};
 	}),
 	rendered: function() {
 		this.inherited(arguments);
-		this.selectedChanged();
+		this.updateActiveValue();
 	},
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
@@ -68,13 +69,19 @@ enyo.kind({
 		this.setActive(!this.getActive());
 		this.bubble("onchange");
 	},
-	selectedChanged: function() {
+	updateSelectedValue: function() {
 		var selected = this.getSelected();
 		this.addRemoveClass("selected", selected);
 		this.setNodeProperty("selected", selected);
 		this.setAttribute("selected", selected ? "selected" : "");
-		this.setActive(selected);
+	},
+	updateActiveValue: function() {
+		this.setActive(this.getSelected());
 		this.resetMarquee();
+	},
+	selectedChanged: function() {
+		this.updateSelectedValue();
+		this.updateActiveValue();
 	},
 	/**
 		For use with the Enyo Group API, which is supported by this object. Called
