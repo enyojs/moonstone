@@ -1,31 +1,16 @@
-/* ExpandableListItem */
-.moon-expandable-list-item {
-	padding: 0px;
-}
-.moon-expandable-list-item.disabled {
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
-}
-
-/* Header */
+/* ExpandableListItem Header*/
 .moon-expandable-list-item-header {
-	margin-bottom: 0px;
-	box-sizing: border-box;
-	max-width: 100%;	
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  max-width: 100%;
 }
-.moon-expandable-list-item-header.disabled {
-	opacity: 1;
-	filter: alpha(opacity=100);
-}
-
-.moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
-	color: @moon-white;
-	border-color: @moon-white;
+.moon-expandable-list-header.moon-expandable-picker-header:after {
+  top: @moon-spotlight-outset + 2;
 }
 
 /* Client Items */
-.moon-expandable-list-item.open .moon-expandable-list-item-client{
-  margin-bottom:10px;
+.moon-expandable-list-item.open .moon-expandable-list-item-client {
+  margin-bottom: 10px;
 }
 .moon-expandable-list-item-client .moon-item {
 	.moon-body-text;

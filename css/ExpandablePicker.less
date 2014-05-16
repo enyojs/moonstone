@@ -1,42 +1,37 @@
-/* Header */
+/* Header Expandable*/
 .moon-expandable-picker-header {
-	margin: 0px;
-	background-position: right 0px top 12px;
-	background-repeat: no-repeat;
-	background-image: @moon-small-carat-down1;
-	display: inline-block;
-	padding-right: @moon-spotlight-outset + 30;
+  margin: 0px;
+  display: inline-block;
+  padding-right: @moon-spotlight-outset + 32;
+  position: relative;
+  &:after {
+    position: absolute;
+    top: @moon-spotlight-outset - 8;
+    right: @moon-spotlight-outset + 1;
+    font-family: @moon-icon-font-family;
+    content: @moon-icon-arrowlargedown;
+    font-size: @moon-expandable-caret-icon-font-size;
+    line-height: @moon-icon-small-size;
+  }
+  &.spotlight {
+    color: @moon-white;
+  }
 }
+
 .enyo-locale-right-to-left .moon-expandable-picker-header {
-	padding-left:  @moon-spotlight-outset + 30;
-	padding-right: 0;
-	background-position: left 0px top 12px;
-}
-.moon-expandable-list-item .spotlight .moon-expandable-picker-header {
-	background-image: @moon-small-carat-down2;
-}
-
-/* Header - Disabled */
-.moon-expandable-picker-header-wrapper.disabled {
-	opacity: 1;
-	filter: alpha(opacity=100);
-}
-/*for expandable itmes*/
-.moon-expandable-list-item.moon-expandable-input.open .moon-expandable-picker-header {
-  background-image: @moon-small-carat-up1;
+  padding-left: @moon-spotlight-outset + 32;
+  padding-right: @moon-spotlight-outset;
+  &:after{
+    left: @moon-spotlight-outset + 1;
+    right: auto;
+  }
 }
 
-.moon-expandable-list-item.moon-expandable-input.open .spotlight .moon-expandable-picker-header {
-  background-image: @moon-small-carat-up2;
-}
-
-
-/* Header - Open */
-.moon-expandable-picker.open .moon-expandable-picker-header {
-	background-image: @moon-small-carat-up1;
-}
-.moon-expandable-picker.open .spotlight .moon-expandable-picker-header {
-	background-image: @moon-small-carat-up2;
+/* Header Open*/
+.moon-expandable-list-item.open {
+  .moon-expandable-picker-header:after {
+    content: @moon-icon-arrowlargeup;
+  }
 }
 
 /* Current Value */
