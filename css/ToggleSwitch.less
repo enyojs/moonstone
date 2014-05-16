@@ -1,44 +1,37 @@
 /* ToggleSwitch.css */
-
-.moon-checkbox.moon-toggle-switch,
-.moon-checkbox.moon-toggle-switch[checked],
-.moon-checkbox-item.moon-toggle-item.spotlight .moon-toggle-switch[checked] {
-	background-image: none;
-}
 .moon-checkbox.moon-toggle-switch {
 	border-radius: (@moon-toggleswitch-image-height / 2);
 	width: @moon-toggleswitch-image-width;
 	height: @moon-toggleswitch-image-height;
 	line-height: @moon-toggleswitch-image-height;
-	color: @moon-checkbox-toggle-switch-color;
 	background-color: @moon-checkbox-toggle-switch-bg-color;
 	font-family: @moon-icon-font-family;
 	font-size: @moon-toggleswitch-image-width;
 	overflow: hidden;
-	background-image: none;
 	text-align: left;
-
+	
 	&:after {
+		color: @moon-checkbox-toggle-switch-color;
 		content: @moon-icon-circle;
 		margin-left: 5px;
 	}
-	&[checked], &.checked {
-		color: @moon-checkbox-toggle-switch-checked-color;
+	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
-		background-image: none;
 		&:after {
+			color: @moon-checkbox-toggle-switch-checked-color;
 			margin-left: (@moon-toggleswitch-image-width - @moon-toggleswitch-image-height + 5px);
 		}
 	}
-	&[disabled], &.disabled {
-		background-color: @moon-button-disabled-bg-color;
-		color: @moon-button-disabled-text-color;
-	}
-
-	&.animated {
-		-webkit-transition: background-color 0.2s, color 0.2s;
+	&[disabled] {
+		background-color: @moon-checkbox-toggle-switch-bg-color;
 		&:after {
-			-webkit-transition: margin-left 0.2s;
+			color: @moon-checkbox-toggle-switch-color;
+		}
+	}
+	&.animated {
+		-webkit-transition: background-color 0.2s;
+		&:after {
+			-webkit-transition: color 0.2s, margin-left 0.2s;
 		}
 	}
 }
