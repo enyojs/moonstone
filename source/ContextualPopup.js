@@ -142,6 +142,15 @@ enyo.kind({
 		}
 		return this.modal;
 	},
+	capturedTap: function(inSender, inEvent) {
+		// If same activator tapped sequentially, it should toggle popup's visibility
+		if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+			this.isToggle = true;
+		} else {
+			this.isToggle = false;
+		}
+		this.inherited(arguments);
+	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
 			enyo.Spotlight.spot(this.activator);
