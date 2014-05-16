@@ -38,9 +38,14 @@ enyo.kind({
 		if (inEvent.originator.active) {
 			this.popupActive = true;
 			this.activator = inEvent.originator;
-			this.activator.addClass("active");
-			this.requestShowPopup();
-		}
+			if (this.isToggle) {
+				inEvent.originator.active = false;
+				this.isToggle = false;
+			} else {
+				this.activator.addClass("active");
+				this.requestShowPopup();	
+			}
+		}			
 	},
 	popupShown: function(inSender, inEvent) {
 		if (this.popup === undefined) {
@@ -50,7 +55,8 @@ enyo.kind({
 	popupHidden: function() {
 		this.popupActive = false;
 		if (this.activator) {
-			this.activator.setActive(false);
+			this.isToggle = this.popup.isToggle;
+			this.activator.active = false;
 			this.activator.removeClass("active");
 			this.activator.removeClass("pressed");
 		}
