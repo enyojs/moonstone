@@ -143,11 +143,11 @@ enyo.kind({
 		return this.modal;
 	},
 	capturedTap: function(inSender, inEvent) {
-		// If same activator tapped sequentially, it should toggle popup's visibility
+		// If same activator tapped sequentially, we notice that this popup is already activeted.
 		if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
-			this.isToggle = true;
+			this.popupActived = true;
 		} else {
-			this.isToggle = false;
+			this.popupActived = false;
 		}
 		this.inherited(arguments);
 	},

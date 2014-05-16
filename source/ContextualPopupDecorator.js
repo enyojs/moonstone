@@ -36,11 +36,10 @@ enyo.kind({
 
 		this.requestHidePopup();
 		if (inEvent.originator.active) {
-			this.popupActive = true;
 			this.activator = inEvent.originator;
-			if (this.isToggle) {
+			if (this.popupActived) {	//popup is already activated
 				inEvent.originator.active = false;
-				this.isToggle = false;
+				this.popupActived = false;
 			} else {
 				this.activator.addClass("active");
 				this.requestShowPopup();	
@@ -53,9 +52,8 @@ enyo.kind({
 		}
 	},
 	popupHidden: function() {
-		this.popupActive = false;
 		if (this.activator) {
-			this.isToggle = this.popup.isToggle;
+			this.popupActived = this.popup.popupActived;
 			this.activator.active = false;
 			this.activator.removeClass("active");
 			this.activator.removeClass("pressed");
