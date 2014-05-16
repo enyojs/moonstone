@@ -1,37 +1,39 @@
-/* Header Expandable*/
+/* Header Expandable */
 .moon-expandable-picker-header {
-  margin: 0px;
-  display: inline-block;
-  padding-right: @moon-spotlight-outset + 32;
-  position: relative;
-  &:after {
-    position: absolute;
-    top: @moon-spotlight-outset - 8;
-    right: @moon-spotlight-outset + 1;
-    font-family: @moon-icon-font-family;
-    content: @moon-icon-arrowlargedown;
-    font-size: @moon-expandable-caret-icon-font-size;
-    line-height: @moon-icon-small-size;
-  }
-  &.spotlight {
-    color: @moon-white;
-  }
+	margin: 0px;
+	display: inline-block;
+	padding-right: @moon-spotlight-outset + 32px;
+	position: relative;
+
+	&:after {
+		position: absolute;
+		top: @moon-spotlight-outset - 8px;
+		right: @moon-spotlight-outset + 1px;
+		font-family: @moon-icon-font-family;
+		content: @moon-icon-arrowlargedown;
+		font-size: @moon-expandable-caret-icon-font-size;
+		line-height: @moon-icon-small-size;
+	}
+	&.spotlight {
+		color: @moon-white;
+	}
 }
 
 .enyo-locale-right-to-left .moon-expandable-picker-header {
-  padding-left: @moon-spotlight-outset + 32;
-  padding-right: @moon-spotlight-outset;
-  &:after{
-    left: @moon-spotlight-outset + 1;
-    right: auto;
-  }
+	padding-left: @moon-spotlight-outset + 32px;
+	padding-right: @moon-spotlight-outset;
+
+	&:after{
+		left: @moon-spotlight-outset + 1px;
+		right: auto;
+	}
 }
 
-/* Header Open*/
+/* Header Open */
 .moon-expandable-list-item.open {
-  .moon-expandable-picker-header:after {
-    content: @moon-icon-arrowlargeup;
-  }
+	.moon-expandable-picker-header:after {
+		content: @moon-icon-arrowlargeup;
+	}
 }
 
 /* Current Value */
@@ -52,5 +54,5 @@
 
 /* Help Text */
 .moon-expandable-picker-help-text {
-  color: @moon-help-text-color;
+	color: @moon-help-text-color;
 }

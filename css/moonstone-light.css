@@ -1774,7 +1774,7 @@
   padding-left: 0;
   padding-right: 44px;
 }
-/* Header Expandable*/
+/* Header Expandable */
 .moon-expandable-picker-header {
   margin: 0px;
   display: inline-block;
@@ -1801,7 +1801,7 @@
   left: 11px;
   right: auto;
 }
-/* Header Open*/
+/* Header Open */
 .moon-expandable-list-item.open .moon-expandable-picker-header:after {
   content: "\0F0002";
 }
