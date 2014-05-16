@@ -4,34 +4,34 @@
 	width: @moon-toggleswitch-image-width;
 	height: @moon-toggleswitch-image-height;
 	line-height: @moon-toggleswitch-image-height;
-	color: @moon-checkbox-toggle-switch-color;
 	background-color: @moon-checkbox-toggle-switch-bg-color;
 	font-family: @moon-icon-font-family;
 	font-size: @moon-toggleswitch-image-width;
 	overflow: hidden;
 	text-align: left;
-	&:before {
+	
+	&:after {
+		color: @moon-checkbox-toggle-switch-color;
 		content: @moon-icon-circle;
 		margin-left: 5px;
 	}
-	&[checked]{
-		color: @moon-checkbox-toggle-switch-checked-color;
+	&[checked] {
 		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
-		&:before {
+		&:after {
+			color: @moon-checkbox-toggle-switch-checked-color;
 			margin-left: (@moon-toggleswitch-image-width - @moon-toggleswitch-image-height + 5px);
 		}
 	}
-	&[disabled][checked]{
-		background-color: @moon-checkbox-toggle-switch-bg-color;;
-		color: @moon-checkbox-toggle-switch-color;
-	}
-	&[checked]:after{
-	  display: none;
+	&[disabled] {
+		background-color: @moon-checkbox-toggle-switch-bg-color;
+		&:after {
+			color: @moon-checkbox-toggle-switch-color;
+		}
 	}
 	&.animated {
-		-webkit-transition: background-color 0.2s, color 0.2s;
-		&:before {
-			-webkit-transition: margin-left 0.2s;
+		-webkit-transition: background-color 0.2s;
+		&:after {
+			-webkit-transition: color 0.2s, margin-left 0.2s;
 		}
 	}
 }

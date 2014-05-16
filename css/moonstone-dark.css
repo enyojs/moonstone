@@ -1139,8 +1139,8 @@
 }
 .moon-checkbox[checked]:after {
   font-family: "Moonstone Icons";
-  content: "\0F000A";
   font-size: 64px;
+  content: "\0F000A";
   color: #a6a6a6;
 }
 .spotlight .moon-checkbox[checked]:after {
@@ -1158,27 +1158,21 @@
 .moon-checkbox-item {
   position: relative;
 }
-/* Label */
-.moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  height: 1.2em;
-  margin-right: 32px;
-}
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  margin-left: 32px;
-  margin-right: 0;
-}
-/* Checkbox */
-.moon-checkbox-item {
-  position: relative;
-}
 .moon-checkbox-item .moon-checkbox {
   position: absolute;
   top: 10px;
   right: 10px;
 }
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
+.moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  height: 1.2em;
+  margin-right: 32px;
+}
+.moon-checkbox-item.left-handed .moon-checkbox {
   left: 10px;
-  right: auto;
+}
+.moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
+  margin-right: 0px;
+  margin-left: 32px;
 }
 .moon-neutral .moon-checkbox[checked]:after {
   color: #ffffff;
@@ -1187,27 +1181,26 @@
 .moon-expandable-picker .moon-checkbox-item .moon-checkbox {
   top: 10px;
 }
-/* Left-handed checkbox */
-/* Label */
-.moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 0px;
-  margin-left: 32px;
+/* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
+.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  padding-left: 2px;
 }
-.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-  margin-right: 32px;
-  margin-left: 0px;
-}
-/* Checkbox */
-.moon-checkbox-item.left-handed .moon-checkbox {
+/* Right to left */
+.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
   left: 10px;
+  right: auto;
+}
+.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+  margin-left: 32px;
+  margin-right: 0px;
 }
 .enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
   left: auto;
   right: 10px;
 }
-/*this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
-.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-  padding-left: 2px;
+.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
+  margin-right: 32px;
+  margin-left: 0px;
 }
 /* ToggleText.css */
 .moon-checkbox.moon-toggle-text {
@@ -1245,36 +1238,35 @@
   width: 65px;
   height: 33px;
   line-height: 33px;
-  color: #a6a6a6;
   background-color: #404040;
   font-family: "Moonstone Icons";
   font-size: 65px;
   overflow: hidden;
   text-align: left;
 }
-.moon-checkbox.moon-toggle-switch:before {
+.moon-checkbox.moon-toggle-switch:after {
+  color: #a6a6a6;
   content: "\0F0013";
   margin-left: 5px;
 }
 .moon-checkbox.moon-toggle-switch[checked] {
-  color: #cf0652;
   background-color: #ffffff;
 }
-.moon-checkbox.moon-toggle-switch[checked]:before {
+.moon-checkbox.moon-toggle-switch[checked]:after {
+  color: #cf0652;
   margin-left: 37px;
 }
-.moon-checkbox.moon-toggle-switch[disabled][checked] {
+.moon-checkbox.moon-toggle-switch[disabled] {
   background-color: #404040;
+}
+.moon-checkbox.moon-toggle-switch[disabled]:after {
   color: #a6a6a6;
 }
-.moon-checkbox.moon-toggle-switch[checked]:after {
-  display: none;
-}
 .moon-checkbox.moon-toggle-switch.animated {
-  -webkit-transition: background-color 0.2s, color 0.2s;
+  -webkit-transition: background-color 0.2s;
 }
-.moon-checkbox.moon-toggle-switch.animated:before {
-  -webkit-transition: margin-left 0.2s;
+.moon-checkbox.moon-toggle-switch.animated:after {
+  -webkit-transition: color 0.2s, margin-left 0.2s;
 }
 .moon-toggle-item {
   display: block;

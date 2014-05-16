@@ -1,34 +1,35 @@
 .moon-checkbox-item {
 	position: relative;
+
+	// Checkbox 
+	.moon-checkbox {
+		position: absolute;
+		top: @moon-spotlight-outset;
+		right: @moon-spotlight-outset;
+	}
+	// Label 
+	.moon-checkbox-item-label-wrapper {
+		height: @moon-item-line-height;
+		margin-right: @moon-item-indent;
+	}
+
+	// Left-handed checkbox 
+	&.left-handed  {
+		// Checkbox 
+		.moon-checkbox {
+			left: @moon-spotlight-outset;
+		}
+		// Label 
+		.moon-checkbox-item-label-wrapper {
+			margin-right: 0px;
+			margin-left: @moon-item-indent;
+		}
+	}
+
 }
 
-/* Label */
-.moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	height: @moon-item-line-height;
-	margin-right: @moon-item-indent;
-}
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	margin-left: @moon-item-indent;
-	margin-right: 0;
-}
-
-/* Checkbox */
-.moon-checkbox-item {
-  position: relative;
-  .moon-checkbox {
-  position: absolute;
-  top: @moon-spotlight-outset;
-  right: @moon-spotlight-outset;
-  }
-}
-
-
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-	left: @moon-spotlight-outset;
-	right: auto;
-}
 .moon-neutral .moon-checkbox[checked]:after {
-  color: @moon-white;
+	color: @moon-white;
 }
 
 /* Special treatment inside of ExpandablePicker (checkbox nudged up) */
@@ -36,30 +37,32 @@
 	top: @moon-spotlight-outset;
 }
 
-/* Left-handed checkbox */
-
-/* Label */
-.moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: 0px;
-	margin-left: @moon-item-indent;
-}
-.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: @moon-item-indent;
-	margin-left: 0px;
-}
-
-/* Checkbox */
-.moon-checkbox-item.left-handed  {
-  .moon-checkbox {
-    left: @moon-spotlight-outset;
-  }
-}
-.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
-	left: auto;
-	right: @moon-spotlight-outset;
-}
-/*this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
+/* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
 .moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-    padding-left: 2px;
+	padding-left: 2px;
 }
- 
+
+/* Right to left */
+.enyo-locale-right-to-left .moon-checkbox-item {
+	// Checkbox
+	.moon-checkbox {
+		left: @moon-spotlight-outset;
+		right: auto;
+	}
+	.moon-checkbox-item-label-wrapper {
+		margin-left: @moon-item-indent;
+		margin-right: 0px;
+	}
+
+	// Left-handed checkbox
+	&.left-handed {
+		.moon-checkbox {
+			left: auto;
+			right: @moon-spotlight-outset;
+		}
+		.moon-checkbox-item-label-wrapper {
+			margin-right: @moon-item-indent;
+			margin-left: 0px;
+		}
+	}
+}
