@@ -498,6 +498,10 @@
   color: #cf0652;
   text-decoration: none;
 }
+.moon-body-large-text {
+  font-size: 28px;
+  line-height: 40px;
+}
 .moon-bold-text {
   font-family: "MuseoSans 900";
   font-size: 26px;
@@ -616,12 +620,16 @@
   font-style: normal;
 }
 .enyo-locale-non-latin .moon-body-text {
+  font-size: 26px;
+  line-height: 32px;
+}
+.enyo-locale-non-latin .moon-body-large-text {
   font-size: 28px;
   line-height: 40px;
 }
 .enyo-locale-non-latin .moon-bold-text {
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .enyo-locale-non-latin .moon-large-button-text {
   font-size: 36px;
@@ -1671,8 +1679,8 @@
 .enyo-locale-non-latin .moon-expandable-list-item-client .moon-item {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .moon-expandable-list-item-client .moon-item.spotlight {
   color: #ffffff;
@@ -1759,8 +1767,8 @@
 .enyo-locale-non-latin .moon-expandable-picker-current-value {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 /* Help Text */
 .moon-expandable-picker-help-text {
@@ -1896,8 +1904,8 @@
 .enyo-locale-non-latin .moon-header-sub-title-below {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 /* Header Client */
 .moon-header-client {
@@ -2063,8 +2071,8 @@
 .enyo-locale-non-latin .moon-gridlist-imageitem .sub-caption {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 /* Scroller Page Controls */
 .moon-icon-button.moon-paging-button {
@@ -2243,8 +2251,8 @@
 .enyo-locale-non-latin .moon-input {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .moon-neutral .moon-input {
   color: #4b4b4b;
@@ -2499,8 +2507,8 @@
 .enyo-locale-non-latin .moon-richtext {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .moon-textarea-decorator > .moon-richtext {
   resize: none;
@@ -2747,8 +2755,8 @@
 .enyo-locale-non-latin .moon-textarea {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .moon-textarea-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
@@ -2917,8 +2925,8 @@
 .enyo-locale-non-latin .moon-labeledtextitem .text {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .spotlight.moon-labeledtextitem .text,
 .spotlight .moon-labeledtextitem .text {
@@ -4430,8 +4438,8 @@
 .enyo-locale-non-latin .moon-video-player-info-subsubtitle {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
   color: #ffffff;
 }
 .moon-video-player-info-description {
@@ -4470,8 +4478,8 @@
 .enyo-locale-non-latin .moon-video-player-info-description {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
   color: #ffffff;
 }
 .moon-video-player-info-client {
@@ -5082,8 +5090,8 @@
 .enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 26px;
+  line-height: 32px;
 }
 .enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
   padding-right: 10px;
