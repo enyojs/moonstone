@@ -37,7 +37,8 @@ enyo.kind({
 		this.requestHidePopup();
 		if (inEvent.originator.active) {
 			this.activator = inEvent.originator;
-			if (this.popupActived) {	//popup is already activated
+			// if this ContextualPopup is already activated
+			if (this.popupActived) {	
 				inEvent.originator.active = false;
 				this.popupActived = false;
 			} else {
@@ -46,11 +47,22 @@ enyo.kind({
 			}
 		}			
 	},
+	/**
+		onShow event handler. 
+		Due to popup is "client control" of decorator
+		we should provide connetor between them.
+
+		@param {inSender} the component that most recently propagated onShow event
+		@param {inEvent} an object which contains event information
+	*/
 	popupShown: function(inSender, inEvent) {
 		if (this.popup === undefined) {
 			this.popup = inEvent.originator;
 		}
 	},
+	/**
+		If you tap out of popup control, {@link enyo.Popup} close it
+	*/
 	popupHidden: function() {
 		if (this.activator) {
 			this.popupActived = this.popup.popupActived;
