@@ -3144,7 +3144,6 @@
   background-color: transparent;
 }
 .moon-spinner.content {
-  position: static;
   height: 85px;
   min-width: 85px;
   line-height: 85px;
@@ -3730,6 +3729,9 @@
 .moon-drawers,
 .moon-drawers-client {
   pointer-events: none;
+}
+.moon-drawers-client > * {
+  pointer-events: all;
 }
 /* Scrim.css */
 .moon-scrim {
