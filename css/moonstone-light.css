@@ -5155,6 +5155,8 @@
 .moon-image > .enyo-image {
   display: block;
   width: 100%;
+}
+.moon-image > .enyo-image.sized {
   height: 100%;
 }
 .moon-image-client {
