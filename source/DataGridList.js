@@ -75,9 +75,11 @@ enyo.kind({
 				sup.apply(this, arguments);
 				var w = list.boundsCache.width,
 					b = list.$.scroller.getScrollBounds(),
-					v = list.$.scroller.$.strategy.$.vColumn;
+					v = list.$.scroller.$.strategy.$.vColumn,
+					c = list.$.scroller.$.strategy.$.clientContainer;
 				if (v && (list.$.scroller.getVertical() == "scroll" || (b.height > b.clientHeight))) {
-					list.boundsCache.width = w-v.hasNode().offsetWidth;
+					var cs = enyo.dom.getComputedStyle(c.hasNode());
+					list.boundsCache.width = w - (parseInt(cs["padding-right"]) + parseInt(cs["padding-left"]));
 				}
 			};
 		})
