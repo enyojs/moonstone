@@ -21,7 +21,7 @@
 	When multiple Accordions are used in a group, only one may be open at a given time.
 
 		{kind: "Group", highlander: true, components: [
-			{kind: "moon.Accordion",  active: true, content: "This is a grouped accordion", components: [
+			{kind: "moon.Accordion",  open: true, content: "This is a grouped accordion", components: [
 				{content: "Item One"},
 				{content: "Item Two"}
 			]},
