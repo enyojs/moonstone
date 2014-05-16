@@ -5160,9 +5160,9 @@
 }
 .moon-image > .enyo-image {
   display: block;
-  width: 100%;
 }
 .moon-image > .enyo-image.sized {
+  width: 100%;
   height: 100%;
 }
 .moon-image-client {
