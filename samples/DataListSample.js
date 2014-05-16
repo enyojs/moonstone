@@ -51,7 +51,8 @@ enyo.kind({
 	},
 	scrollToIndex: function (sender, event) {
 		var newIndex = sender.getValue();
-		if (this.isScrolled && newIndex) {
+		if (this.isScrolled || newIndex !== this.currentIndex) {
+			this.currentIndex = newIndex;
 			this.$.drawers.closeDrawers();
 			this.$.repeater.scrollToIndex(newIndex);
 			this.isScrolled = false;
