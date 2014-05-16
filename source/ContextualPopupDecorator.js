@@ -25,6 +25,7 @@ enyo.kind({
 	classes: "moon-contextual-popup-decorator",
 	handlers: {
 		onActivate: "activated",
+		onShow: "popupShown",
 		onHide: "popupHidden"
 	},
 	activated: function(inSender, inEvent) {
@@ -39,6 +40,11 @@ enyo.kind({
 			this.activator = inEvent.originator;
 			this.activator.addClass("active");
 			this.requestShowPopup();
+		}
+	},
+	popupShown: function(inSender, inEvent) {
+		if (this.popup === undefined) {
+			this.popup = inEvent.originator;
 		}
 	},
 	popupHidden: function() {
