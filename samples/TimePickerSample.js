@@ -49,7 +49,7 @@ enyo.kind({
 		var opt = inEvent.selected.content,
 			val = (opt == "Use Default Locale") ? null : opt;
 		this.$.datepicker.setLocale(val);
-		this.$.picker.setLocale(val);
+		this.$.timepicker.setLocale(val);
 		this.$.disabledPicker.setLocale(val);
 		this.$.result.setContent("locale changed to " + opt);
 		return true;
