@@ -2109,16 +2109,12 @@
 .moon-scroll-picker-container {
   display: inline-block;
   position: relative;
+  text-align: center;
 }
 .moon-scroll-picker {
   height: 94px;
-  min-width: 60px;
-  border-top-width: 30px;
-  border-top-style: solid;
-  border-top-color: transparent;
-  border-bottom-width: 30px;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
+  border-top: solid 30px transparent;
+  border-bottom: solid 30px transparent;
   border-radius: 45px;
 }
 .spotlight .moon-scroll-picker {
@@ -2127,9 +2123,8 @@
 }
 .moon-scroll-picker-item {
   white-space: nowrap;
-  padding-right: 5px;
-  padding-left: 5px;
-  padding-bottom: 2px;
+  padding: 0 5px 2px 5px;
+  min-width: 50px;
   height: 94px;
   line-height: 94px;
   text-align: center;
@@ -2140,57 +2135,60 @@
   z-index: 1;
   width: 100%;
   height: 30px;
+  font-family: "Moonstone Icons";
 }
 .moon-scroll-picker-overlay-container.top {
   top: 0;
-  background-position: center 14px;
-  background-repeat: no-repeat;
 }
-.moon-scroll-picker-overlay-container.top-image {
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
+.moon-scroll-picker-overlay-container.top-image:after {
+  content: "\0F0005";
+  font-size: 68px;
+  line-height: 38px;
 }
 .moon-scroll-picker-overlay-container.bottom {
   bottom: 0;
-  background-position: center 6px;
-  background-repeat: no-repeat;
 }
-.moon-scroll-picker-overlay-container.bottom-image {
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
+.moon-scroll-picker-overlay-container.bottom-image:after {
+  content: "\0F0006";
+  font-size: 68px;
+  line-height: 26px;
 }
-.spotlight .moon-scroll-picker-overlay-container.top {
-  background-position: center -27px;
+.spotlight .moon-scroll-picker-overlay-container {
+  color: #ffffff;
 }
-.spotlight .moon-scroll-picker-overlay-container.top.top-image {
-  background-image: url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png);
+.spotlight .moon-scroll-picker-overlay-container.top-image:after {
+  content: "\0F0002";
+  line-height: 42px;
 }
-.spotlight .moon-scroll-picker-overlay-container.bottom {
-  background-position: center -39px;
+.spotlight .moon-scroll-picker-overlay-container.bottom-image:after {
+  content: "\0F0001";
+  line-height: 22px;
 }
-.spotlight .moon-scroll-picker-overlay-container.bottom.bottom-image {
-  background-image: url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png);
-}
-.moon-scroll-picker-overlay {
-  display: none;
+.selected .moon-scroll-picker-overlay {
   position: absolute;
   height: 35px;
   width: 100%;
-  border-width: 6px;
-  border-color: rgba(0, 0, 0, 0.2);
+  background-color: #cf0652;
 }
-.moon-scroll-picker-overlay.top {
+.selected .moon-scroll-picker-overlay.top {
   top: 0;
-  border-top-style: solid;
+  border-top: solid 6px rgba(0, 0, 0, 0.2);
   border-radius: 45px 45px 0 0;
-  background: #cf0652 url(../images/DarkTheme_Icons/CaratPickerUp_Icon.png) center -60px no-repeat;
 }
-.moon-scroll-picker-overlay.bottom {
+.selected .moon-scroll-picker-overlay.top:after {
+  content: "\0F0005";
+  font-size: 68px;
+  line-height: 30px;
+}
+.selected .moon-scroll-picker-overlay.bottom {
   bottom: 0;
-  border-bottom-style: solid;
+  border-bottom: solid 6px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 45px 45px;
-  background: #cf0652 url(../images/DarkTheme_Icons/CaratPickerDown_Icon.png) center -60px no-repeat;
 }
-.moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
-  display: block;
+.selected .moon-scroll-picker-overlay.bottom:after {
+  content: "\0F0006";
+  font-size: 68px;
+  line-height: 42px;
 }
 .moon-scroll-picker-taparea {
   position: absolute;
