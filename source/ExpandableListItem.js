@@ -23,7 +23,7 @@
 	a given time.
 
 		{kind: "enyo.Group", highlander: true, components: [
-			{kind: "moon.ExpandableListItem",  active: true,
+			{kind: "moon.ExpandableListItem",  open: true,
 				content: "This is a grouped ExpandableListItem", components: [
 					{content: "Item One"},
 					{content: "Item Two"}

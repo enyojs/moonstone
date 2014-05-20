@@ -5,7 +5,7 @@
 	deactivate any previously-tapped item.
 
 		{kind: "moon.RadioItemGroup", onActivate: "buttonActivated", components: [
-			{content: "Lions", active: true},
+			{content: "Lions", selected: true},
 			{content: "Tigers"},
 			{content: "Bears"}
 		]}
