@@ -734,7 +734,7 @@ enyo.kind({
 		if (this.jumpStartEnd) {
 			this.jumpToStart(inSender, inEvent);
 		} else {
-			if (!inSender._holding) {
+			if (!inSender._holding || (inSender._holding && inSender._sentHold !== true)) {
 				this.jumpBackward(inSender, inEvent);
 			}
 			inSender._holding = false;
@@ -744,7 +744,7 @@ enyo.kind({
 		if (this.jumpStartEnd) {
 			this.jumpToEnd(inSender, inEvent);
 		} else {
-			if (!inSender._holding) {
+			if (!inSender._holding || (inSender._holding && inSender._sentHold !== true)) {
 				this.jumpForward(inSender, inEvent);
 			}
 			inSender._holding = false;
