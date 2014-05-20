@@ -212,7 +212,6 @@ enyo.kind({
 	},
 	rendered: function() {
 		this.inherited(arguments);
-		this.isRendered = true;
 
 		// Direct hide if not showing and using handle
 		if (this.useHandle === true) {
@@ -560,7 +559,7 @@ enyo.kind({
 		}
 
 		// Update display of branding image
-		if (this.isRendered && this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
+		if (this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
 			this.brandingSrcChanged();
 		}
 	},

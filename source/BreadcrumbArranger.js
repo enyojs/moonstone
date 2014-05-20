@@ -341,6 +341,9 @@ enyo.kind({
 		}
 	},
 	isOffscreen: function(inPanelIndex, inActiveIndex) {
+		if (!this.container.transitionPositions) {
+			return;
+		}
 		var transitionPosition = this.container.transitionPositions[inPanelIndex + "." + inActiveIndex];
 		var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inPanelIndex) : 0;
 		if (transitionPosition < 0) {
@@ -350,7 +353,7 @@ enyo.kind({
 		}
 	},
 	isBreadcrumb: function(inPanelIndex, inActiveIndex) {
-		return this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
+		return this.breadcrumbPositions && this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
 	},
 	calcBreadcrumbEdges: function() {
 		this.breadcrumbEdges = [];
