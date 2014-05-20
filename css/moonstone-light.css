@@ -502,6 +502,10 @@
   color: #cf0652;
   text-decoration: none;
 }
+.moon-body-large-text {
+  font-size: 28px;
+  line-height: 40px;
+}
 .moon-bold-text {
   font-family: "MuseoSans 900";
   font-size: 26px;
@@ -622,6 +626,10 @@
 .enyo-locale-non-latin .moon-body-text {
   font-size: 26px;
   line-height: 32px;
+}
+.enyo-locale-non-latin .moon-body-large-text {
+  font-size: 28px;
+  line-height: 40px;
 }
 .enyo-locale-non-latin .moon-bold-text {
   font-size: 26px;
