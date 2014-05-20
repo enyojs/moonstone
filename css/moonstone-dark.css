@@ -35,6 +35,8 @@
 /* ---------------------------------------*/
 /* Expandable Pickers */
 /* ---------------------------------------*/
+/* Expandable Text */
+/* ---------------------------------------*/
 /* Slider Knob */
 /* ---------------------------------------*/
 /* Items */
@@ -5096,13 +5098,11 @@
 }
 .moon-expandable-text .moon-expandable-text-content {
   margin: 0 10px;
-}
-.moon-expandable-text .moon-expandable-text-content {
   display: -webkit-inline-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button {
+.moon-expandable-text .moon-expandable-text-button {
   font-family: "MuseoSans 300";
   font-size: 26px;
   font-weight: normal;
@@ -5112,59 +5112,59 @@
   line-height: 32px;
   float: right;
   display: inline-block;
-  padding-right: 38px;
-  background-repeat: no-repeat;
-  background-position: right center;
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_up1.png);
-  border-right: solid 2px transparent;
+  padding-right: 42px;
+  position: relative;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button a:link {
+.moon-expandable-text .moon-expandable-text-button a:link {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button a:visited {
+.moon-expandable-text .moon-expandable-text-button a:visited {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button a:hover {
+.moon-expandable-text .moon-expandable-text-button a:hover {
   color: #cf0652;
   text-decoration: none;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button a:active {
+.moon-expandable-text .moon-expandable-text-button a:active {
   color: #cf0652;
   text-decoration: none;
 }
-.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
-  float: left;
+.moon-expandable-text .moon-expandable-text-button:after {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  font-family: "Moonstone Icons";
+  content: "\0F0002";
+  font-size: 48px;
 }
-.enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
+.moon-expandable-text .moon-expandable-text-button.spotlight {
+  color: #ffffff;
+}
+.moon-expandable-text .moon-expandable-text-button.collapsed:after {
+  content: "\0F0001";
+}
+.moon-expandable-text .moon-expandable-text-button.hidden {
+  display: none;
+}
+.enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Light";
   font-size: 26px;
   line-height: 32px;
 }
-.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
+.enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button:after {
+  top: 11px;
+}
+.enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button {
+  float: left;
+  padding-left: 42px;
   padding-right: 10px;
-  padding-left: 38px;
-  background-position: left center;
-  border-left: solid 2px transparent;
 }
-.moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
-  color: #ffffff;
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_up2.png);
-  border-right: solid 2px #cf0652;
-}
-.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
-  border-left: solid 2px #cf0652;
-}
-.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
-}
-.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed.spotlight {
-  background-image: url(../images/DarkTheme_Icons/SmallCarat_down2.png);
-}
-.moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
-  display: none;
+.enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button:after {
+  left: 11px;
+  right: auto;
 }
 .moon-body-text-control {
   text-align: left;

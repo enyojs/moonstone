@@ -2,60 +2,55 @@
 
 .moon-expandable-text {
 	overflow: hidden;
-
+	.moon-expandable-text-content {
+		margin: 0 @moon-spotlight-outset;
+		display: -webkit-inline-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+	}
+	.moon-expandable-text-button {
+		.moon-body-text;
+		float: right;
+		display: inline-block;
+		padding-right: @moon-expandable-text-button-padding;
+		position: relative;
+		&:after {
+			position: absolute;
+			top: @moon-spotlight-outset;
+			right: @moon-spotlight-outset + 1px;
+			font-family: @moon-icon-font-family;
+			content: @moon-icon-arrowlargeup;
+			font-size: @moon-expandable-caret-icon-font-size;
+		}
+		&.spotlight {
+			color: @moon-white;
+		}
+		&.collapsed:after {
+			content: @moon-icon-arrowlargedown;
+		}
+		&.hidden {
+			display: none;
+		}
+	}
 }
 
-.moon-expandable-text .moon-expandable-text-content {
-    margin: 0 @moon-spotlight-outset;
-}
-.moon-expandable-text .moon-expandable-text-content {
-    display: -webkit-inline-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-}
-
-.moon-expandable-text .moon-item.moon-expandable-text-button {
-	.moon-body-text;
-	float: right;
-	display: inline-block;
-	padding-right: 38px;
-	background-repeat: no-repeat;
-	background-position: right center;
-	background-image: @moon-expandable-text-up-arrow;
-	border-right: solid 2px transparent;
+.enyo-locale-non-latin .moon-expandable-text {
+	.moon-expandable-text-button {
+		.enyo-locale-non-latin .moon-body-text;
+		&:after {
+			top: @moon-spotlight-outset + 1px;
+		}
+	}
 }
 
-.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
-	float: left;
-}
-.enyo-locale-non-latin .moon-expandable-text .moon-item.moon-expandable-text-button {
-	.enyo-locale-non-latin .moon-body-text;
-}
-.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button {
-	padding-right: @moon-spotlight-outset;
-	padding-left: 38px;
-	background-position: left center;
-	border-left: solid 2px transparent;
-}
-.moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
-	color: @moon-white;
-	background-image: @moon-expandable-text-up-arrow-spotlight;
-	border-right: solid 2px @moon-spotlight-color;
-}
-
-.enyo-locale-right-to-left .moon-expandable-text .moon-item.moon-expandable-text-button.spotlight {
-  border-left: solid 2px @moon-spotlight-color;
-}
-
-
-
-.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed {
-	background-image: @moon-expandable-text-down-arrow;
-}
-.moon-expandable-text .moon-item.moon-expandable-text-button.collapsed.spotlight {
-	background-image: @moon-expandable-text-down-arrow-spotlight;
-}
-
-.moon-expandable-text .moon-item.moon-expandable-text-button.hidden {
-	display: none;
+.enyo-locale-right-to-left {
+	.moon-expandable-text .moon-expandable-text-button {
+		float: left;
+		padding-left: @moon-expandable-text-button-padding;
+		padding-right: @moon-spotlight-outset;
+		&:after {
+			left: @moon-spotlight-outset + 1px;
+			right: auto;
+		}
+	}
 }
