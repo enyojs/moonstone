@@ -2,6 +2,7 @@
 
 .moon-expandable-text {
 	overflow: hidden;
+
 	.moon-expandable-text-content {
 		margin: 0 @moon-spotlight-outset;
 		display: -webkit-inline-box;
@@ -14,6 +15,7 @@
 		display: inline-block;
 		padding-right: @moon-expandable-text-button-padding;
 		position: relative;
+
 		&:after {
 			position: absolute;
 			top: @moon-spotlight-outset;
@@ -34,23 +36,21 @@
 	}
 }
 
-.enyo-locale-non-latin .moon-expandable-text {
-	.moon-expandable-text-button {
-		.enyo-locale-non-latin .moon-body-text;
-		&:after {
-			top: @moon-spotlight-outset + 1px;
-		}
+.enyo-locale-non-latin .moon-expandable-text .moon-expandable-text-button {
+	.enyo-locale-non-latin .moon-body-text;
+
+	&:after {
+		top: @moon-spotlight-outset + 1px;
 	}
 }
 
-.enyo-locale-right-to-left {
-	.moon-expandable-text .moon-expandable-text-button {
-		float: left;
-		padding-left: @moon-expandable-text-button-padding;
-		padding-right: @moon-spotlight-outset;
-		&:after {
-			left: @moon-spotlight-outset + 1px;
-			right: auto;
-		}
+.enyo-locale-right-to-left .moon-expandable-text .moon-expandable-text-button {
+	float: left;
+	padding-left: @moon-expandable-text-button-padding;
+	padding-right: @moon-spotlight-outset;
+
+	&:after {
+		left: @moon-spotlight-outset + 1px;
+		right: auto;
 	}
 }
