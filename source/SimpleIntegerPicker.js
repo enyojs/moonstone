@@ -139,10 +139,11 @@ enyo.kind({
 	},
 	build: function() {
 		var indices = this.indices = {},
-			values = this.values = [];
+			values = this.values = [],
+			ilibNumFmt = new ilib.NumFmt({locale: new ilib.LocaleInfo().locale, useNative: false});
 
 		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-			this.createComponent({content: v + " " + this.unit, value: v});
+			this.createComponent({content: ilibNumFmt.format(v) + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
 			if (this.step <= 0) {
