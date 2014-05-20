@@ -6,6 +6,12 @@ enyo.kind({
 	name: "moon.DataGridList",
 	kind: "enyo.DataGridList",
 	//* @protected
+	create: enyo.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			this.$.scroller.$.strategy.setItemSpacing(this.spacing);
+		};
+	}),
 	mixins: ["moon.DataListSpotlightSupport"],
 	noDefer: true,
 	allowTransitions: false,
