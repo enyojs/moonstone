@@ -27,7 +27,7 @@ enyo.kind({
 			};
 		}),
 		scrollToIndex: function (list, i) {
-			// This function recurses, so make sure we are scrolling to a valid index, 
+			// This function recurses, so make sure we are scrolling to a valid index,
 			// otherwise childForIndex will never return a control
 			if ((i < 0) || (i >= list.collection.length)) {
 				return;
@@ -47,7 +47,7 @@ enyo.kind({
 				list.$.scroller.scrollToControl(c, false, false);
 			} else {
 				var idx = list.$.page1.index;
-				
+
 				// attempting to line them up in a useful order
 				// given the direction from where our current index is
 				if (idx < p) {
@@ -58,7 +58,7 @@ enyo.kind({
 					list.$.page2.index = p + 1;
 				}
 				list.refresh();
-								
+
 				this.scrollToIndex(list, i);
 			}
 		},
@@ -75,9 +75,11 @@ enyo.kind({
 				sup.apply(this, arguments);
 				var w = list.boundsCache.width,
 					b = list.$.scroller.getScrollBounds(),
-					v = list.$.scroller.$.strategy.$.vColumn;
+					v = list.$.scroller.$.strategy.$.vColumn,
+					c = list.$.scroller.$.strategy.$.clientContainer;
 				if (v && (list.$.scroller.getVertical() == "scroll" || (b.height > b.clientHeight))) {
-					list.boundsCache.width = w-v.hasNode().offsetWidth;
+					var cs = enyo.dom.getComputedStyle(c.hasNode());
+					list.boundsCache.width = w - (parseInt(cs["padding-right"], 10) + parseInt(cs["padding-left"], 10));
 				}
 			};
 		})
