@@ -16,6 +16,12 @@
 .contextual-popup-button:active {
 	background-image: url(../images/contextual-arrow.png);
 }
+.contextual-popup-button[disabled],
+.contextual-popup-button.small[disabled],
+.contextual-popup-button.pressed[disabled],
+.contextual-popup-button:active[disabled] {
+	background-image: url(../images/contextual-arrow-deactivated.png);
+}
 
 .enyo-locale-right-to-left {	
 	.contextual-popup-button {
@@ -34,4 +40,10 @@
 	.contextual-popup-button:active {
 		background-image: url(../images/contextual-arrow-rtl.png);
 	}
+	.contextual-popup-button.small[disabled],
+	.contextual-popup-button[disabled],
+	.contextual-popup-button.pressed[disabled],
+	.contextual-popup-button:active[disabled] {
+		background-image: url(../images/contextual-arrow-deactivated-rtl.png);
+	}	
 }
