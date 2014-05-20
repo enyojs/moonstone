@@ -138,24 +138,24 @@ enyo.kind({
 				]
 			}
 		]},
- 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 65%;", components: [
- 			{content: "Deactivated", disabled:true},
- 			{kind: "moon.ContextualPopup", classes: "moon-6h moon-4v", components: [
- 				{kind: "moon.Scroller", classes: "enyo-fill", components:[
- 					{content:"testing 1"},
- 					{content:"testing 2"}
- 				]}
- 			]}
- 		]},
- 		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 65%;", components: [
- 			{content: "Small Deactivated", small:true, disabled:true},
- 			{kind: "moon.ContextualPopup", classes: "moon-6h moon-4v", components: [
- 				{kind: "moon.Scroller", classes: "enyo-fill", components:[
- 					{content:"testing 1"},
- 					{content:"testing 2"}
- 				]}
- 			]}
- 		]},
+		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; left: 0px; top: 65%;", components: [
+			{content: "Deactivated", disabled:true},
+			{kind: "moon.ContextualPopup", classes: "moon-6h moon-4v", components: [
+				{kind: "moon.Scroller", classes: "enyo-fill", components:[
+					{content:"testing 1"},
+					{content:"testing 2"}
+				]}
+			]}
+		]},
+		{kind: "moon.ContextualPopupDecorator", style:"position: absolute; right: 0px; top: 65%;", components: [
+			{content: "Small Deactivated", small:true, disabled:true},
+			{kind: "moon.ContextualPopup", classes: "moon-6h moon-4v", components: [
+				{kind: "moon.Scroller", classes: "enyo-fill", components:[
+					{content:"testing 1"},
+					{content:"testing 2"}
+				]}
+			]}
+		]}
 	],
 	buttonToggled: function(inSender, inEvent) {
 		this.$.buttonPopup.setSpotlightModal(inSender.getActive());
