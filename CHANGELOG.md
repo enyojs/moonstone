@@ -1,3 +1,8 @@
+## 2.4.0-pre.3
+
+moon.Panels: Add brandingSrc property, to display a brand image in the lower left corner of an
+activity panel when there is a breadcrumb visible.
+
 ## 2.4.0-pre.2
 
 Removed moon.List and moon.GridList, as they're considered deprecated.

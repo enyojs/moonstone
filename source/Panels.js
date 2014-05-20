@@ -544,7 +544,7 @@ enyo.kind({
 		return true;
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
-	indexChanged: function() {
+	indexChanged: function(inPrevious) {
 		var activePanel = this.getActive();
 
 		if (activePanel && activePanel.isBreadcrumb) {
@@ -559,7 +559,9 @@ enyo.kind({
 		}
 
 		// Update display of branding image
-		this.brandingSrcChanged();
+		if (this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
+			this.brandingSrcChanged();
+		}
 	},
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
@@ -768,7 +770,7 @@ enyo.kind({
 	},
 	brandingSrcChanged: function() {
 		if (this.pattern === "activity") {
-			this.$.scrim.applyStyle("background-image", (this.brandingSrc && this.index > 0) ? "url(" + this.brandingSrc + ")" : "none");
+			this.$.scrim.applyStyle("background-image", (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? "url(" + this.brandingSrc + ")" : "none");
 		}
 	}
 });
