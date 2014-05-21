@@ -4373,6 +4373,7 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
   -webkit-box-orient: vertical;
+  display: -webkit-inline-box;
   max-height: 96px;
 }
 .moon-video-player-info-description a:link {
