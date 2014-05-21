@@ -4371,9 +4371,9 @@
   white-space: normal;
   margin-bottom: 25px;
   -webkit-line-clamp: 3;
+  display: -webkit-inline-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  display: -webkit-inline-box;
   max-height: 96px;
 }
 .moon-video-player-info-description a:link {
