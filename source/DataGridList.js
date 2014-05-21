@@ -12,8 +12,9 @@ enyo.kind({
 	spotlight: true,
 	scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden" },
 	handlers: {
-		onSpotlightFocus : "handleSpotlightFocus",
-		onSpotlightBlur  : "handleSpotlightBlur"
+		onSpotlightFocus   : "handleSpotlightFocus",
+		onSpotlightBlur    : "handleSpotlightBlur",
+		onSpotlightFocused : "handleSpotlightFocused"
 	},
 	handleSpotlightFocus: function(inSender, inEvent) {
 		var zIndex = parseInt(enyo.dom.getComputedStyleValue(inEvent.originator.hasNode(), "z-index"), 10) || 0;
@@ -23,6 +24,15 @@ enyo.kind({
 		setTimeout(this.bindSafely(function() {
 			inEvent.originator.applyStyle("z-index", null);
 		}), 0);
+	},
+	handleSpotlightFocused: function(inSender, inEvent) {
+		if (!enyo.Spotlight.getPointerMode()) {
+			if (inEvent.index < this._indexBoundFirstRow) {
+				this.$.scroller.scrollToTop();
+			} else if (inEvent.index > this._indexBoundLastRow) {
+				this.$.scroller.scrollToBottom();
+			}
+		}
 	}
 });
 //*@protected
