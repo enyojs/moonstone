@@ -9,10 +9,11 @@ moon.DataListSpotlightSupport = {
 		initialFocusIndex: -1
 	},
 	handlers: {
-		onSpotlightUp    : "selectPrev",
-		onSpotlightLeft  : "selectPrev",
-		onSpotlightDown  : "selectNext",
-		onSpotlightRight : "selectNext"
+		onSpotlightUp      : "selectPrev",
+		onSpotlightLeft    : "selectPrev",
+		onSpotlightDown    : "selectNext",
+		onSpotlightRight   : "selectNext",
+		onSpotlightFocused : "handleItemFocused"
 	},
 	focusOnIndex: function(inIndex, inSubChild) {
 		var c = this.collection,
@@ -60,6 +61,10 @@ moon.DataListSpotlightSupport = {
 				enyo.Spotlight.spot(this);
 			}
 		}
+		// Compute first and last row index bounds
+		var columnSize = this.columns ? this.columns : 1;
+		this._indexBoundFirstRow = columnSize;
+		this._indexBoundLastRow = (Math.ceil(this.collection.length / columnSize) - 1) * columnSize - 1;
 	},
 	didScroll: enyo.inherit(function (sup) {
 		return function () {
@@ -74,6 +79,15 @@ moon.DataListSpotlightSupport = {
 			return sup.apply(this, arguments);
 		};
 	}),
+	handleItemFocused: function(inSender, inEvent) {
+		if (!enyo.Spotlight.getPointerMode()) {
+			if (inEvent.index < this._indexBoundFirstRow) {
+				this.$.scroller.scrollToTop();
+			} else if (inEvent.index > this._indexBoundLastRow) {
+				this.$.scroller.scrollToBottom();
+			}
+		}
+	},
 	selectNext: function(inSender, inEvent) {
 		return this.selectItem(inEvent, 1);
 	},
