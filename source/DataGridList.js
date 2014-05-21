@@ -27,9 +27,9 @@ enyo.kind({
 	},
 	handleSpotlightFocused: function(inSender, inEvent) {
 		if (!enyo.Spotlight.getPointerMode()) {
-			if (inEvent.index < this._indexBoundFirstRow) {
+			if (inEvent.index < this.indexBoundFirstRow) {
 				this.$.scroller.scrollToTop();
-			} else if (inEvent.index > this._indexBoundLastRow) {
+			} else if (inEvent.index > this.indexBoundLastRow) {
 				this.$.scroller.scrollToBottom();
 			}
 		}
