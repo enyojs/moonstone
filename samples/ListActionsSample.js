@@ -38,7 +38,7 @@ enyo.kind({
 				]}
 			]},
 			{kind:"moon.TooltipDecorator", components: [
-				{kind:"moon.Tooltip", position: "above", content: "Dummy List Actions"},
+				{kind:"moon.Tooltip", floating: true, position: "above", content: "Floating Dummy List Actions"},
 			
 				//* List actions with proportional width
 				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
