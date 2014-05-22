@@ -349,6 +349,7 @@ enyo.kind({
 		if (inEvent.horizontal) {
 			inEvent.preventDefault();
 			this.dragging = true;
+			enyo.Spotlight.freeze();
 			this.$.knob.addClass("active");
 			this.showKnobStatus();
 			return true;
@@ -397,6 +398,7 @@ enyo.kind({
 		}
 
 		this.dragging = false;
+		enyo.Spotlight.unfreeze();
 		this.set("value",v);
 		this.sendChangeEvent({value: this.getValue()});
 		inEvent.preventTap();
@@ -446,9 +448,7 @@ enyo.kind({
 		return true;
 	},
 	spotBlur: function() {
-		if (this.dragging) {
-			return true;
-		} else {
+		if (!this.dragging) {
 			if (this.$.knob) {
 				this.$.knob.removeClass("spotselect");
 			}
