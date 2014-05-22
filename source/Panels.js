@@ -697,7 +697,7 @@ enyo.kind({
 			return;
 		}
 		this.$.showHideHandle.addClass("right");
-		this.$.showHideAnimator.play(this.createShowAnimation().name);
+		this.applyShowAnimation();
 		enyo.Signals.send("onPanelsShown");
 	},
 	//* Hides panels with transition to right.
@@ -706,7 +706,7 @@ enyo.kind({
 			return;
 		}
 		this.$.showHideHandle.removeClass("right");
-		this.$.showHideAnimator.play(this.createHideAnimation().name);
+		this.applyHideAnimation();
 		enyo.Signals.send("onPanelsHidden");
 	},
 	//* Sets show state without animation.
@@ -715,45 +715,23 @@ enyo.kind({
 		if (this.handleShowing) {
 			this.$.handleWrapper.removeClass("hidden");
 		}
+		this.applyShowAnimation(true);
 	},
 	//* Sets hide state without animation.
 	_directHide: function() {
 		var x = this.getOffscreenXPosition();
 		this.$.handleWrapper.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
-		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(" + x + "px)");
+		this.applyHideAnimation(true);
 		this.hideAnimationComplete();
 	},
-	createShowAnimation: function() {
-		return this.$.showHideAnimator.newAnimation({
-			name: "show",
-			duration: 500,
-			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
-			keyframes: {
-				0: [
-					{control: this.$.clientWrapper, properties: { "-webkit-transform": "current" }}
-				],
-				100: [
-					{control: this.$.clientWrapper, properties: { "-webkit-transform": "translate3d(0, 0, 0)" }}
-				]
-			}
-		});
+	applyShowAnimation: function(inDirect) {
+		this.$.clientWrapper.applyStyle("-webkit-transition", inDirect ? null : "-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)");
+		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(0)");
 	},
-	createHideAnimation: function() {
-		var x = this.getOffscreenXPosition();
-		return this.$.showHideAnimator.newAnimation({
-			name: "hide",
-			duration: 500,
-			timingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
-			keyframes: {
-				0: [
-					{control: this.$.clientWrapper, properties: { "-webkit-transform": "current" }}
-				],
-				100: [
-					{control: this.$.clientWrapper, properties: { "-webkit-transform": "translate3d( " + x + "px, 0, 0)" }}
-				]
-			}
-		});
+	applyHideAnimation: function(inDirect) {
+		this.$.clientWrapper.applyStyle("-webkit-transition", inDirect ? null : "-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)");
+		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(90%)");
 	},
 	getOffscreenXPosition: function() {
 		return this.$.clientWrapper.getBounds().width;
