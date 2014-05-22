@@ -731,7 +731,7 @@ enyo.kind({
 	},
 	applyHideAnimation: function(inDirect) {
 		this.$.clientWrapper.applyStyle("-webkit-transition", inDirect ? null : "-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)");
-		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(90%)");
+		this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(100%)");
 	},
 	getOffscreenXPosition: function() {
 		return this.$.clientWrapper.getBounds().width;
