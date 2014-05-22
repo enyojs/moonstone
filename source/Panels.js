@@ -554,7 +554,7 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Spot the active panel
-		if (this.hasNode() && !this.animate) {
+		if (this.hasNode()) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
