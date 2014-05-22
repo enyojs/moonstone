@@ -2242,6 +2242,9 @@
   font-size: 26px;
   line-height: 32px;
 }
+.enyo-locale-non-latin.enyo-locale-th .moon-input {
+  line-height: 60px;
+}
 .moon-neutral .moon-input {
   color: #4b4b4b;
 }
@@ -2278,6 +2281,9 @@
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
   padding: 5px 30px 9px;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  border-radius: 44px;
 }
 .moon-textarea-decorator {
   font-family: "MuseoSans 700 Italic";
@@ -4872,6 +4878,9 @@
 }
 .moon-expandable-input .moon-input {
   width: 100%;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-picker-current-value {
+  line-height: 60px;
 }
 .moon-highlight-text-highlighted {
   color: #cf0652;
