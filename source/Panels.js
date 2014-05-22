@@ -564,7 +564,7 @@ enyo.kind({
 		this.inherited(arguments);
 
 		this.transitionInProgress = false;
-		// queedIndex become -1 when left key input is occurred during transition from index 1 to 0.
+		// queuedIndex becomes -1 when left key input is occurred during transition from index 1 to 0.
 		if (this.queuedIndex === -1) {
 			this.hide();
 		} else if (this.queuedIndex !== null) {
