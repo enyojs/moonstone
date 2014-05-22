@@ -339,8 +339,15 @@ enyo.kind({
 				return true;
 			}
 			// If leaving to the left and we are at the first panel, hide panels
-			else if (this.toIndex === null && this.showing && (this.useHandle === true) && this.handleShowing) {
-				this.hide();
+			else if (this.showing && (this.useHandle === true) && this.handleShowing) {
+				if (this.toIndex === null) {
+					this.hide();	
+				} 
+				// If left key input is occurred during transition, this.toIndex is not updated yet.
+				// It still addresses previous toIndex. So we reserve hiding as pushing queueIndex
+				else {
+					this.queuedIndex = -1;
+				}				
 				return true;
 			}
 		}
@@ -557,8 +564,10 @@ enyo.kind({
 		this.inherited(arguments);
 
 		this.transitionInProgress = false;
-
-		if (this.queuedIndex !== null) {
+		// queedIndex become -1 when left key input is occurred during transition from index 1 to 0.
+		if (this.queuedIndex === -1) {
+			this.hide();
+		} else if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
 		}
 	},
