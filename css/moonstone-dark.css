@@ -2285,6 +2285,7 @@
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator) {
   border-radius: 44px;
+  padding: 1px 30px;
 }
 .moon-textarea-decorator {
   font-family: "MuseoSans 700 Italic";
@@ -4886,6 +4887,12 @@
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-picker-current-value {
   line-height: 60px;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-list-item.open .moon-expandable-list-item-client {
+  margin-bottom: 0px;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  margin: 4px 0;
 }
 .moon-highlight-text-highlighted {
   color: #cf0652;
