@@ -1790,8 +1790,8 @@
   -moz-box-sizing: border-box;
   color: #a6a6a6;
   height: 360px;
-  border-top: 2px solid #a6a6a6;
-  border-bottom: 6px solid #a6a6a6;
+  border-top: 2px solid #505050;
+  border-bottom: 6px solid #404040;
   position: relative;
   max-width: 100%;
   padding: 0 0 10px 0px;
@@ -3249,7 +3249,7 @@
   padding: 0;
 }
 .moon-panels.activity .moon-panel-mini-header-title-above {
-  border-top: 2px solid #a6a6a6;
+  border-top: 2px solid #505050;
 }
 .moon-panels.activity .moon-panel-mini-header,
 .moon-panels.activity .moon-panel-mini-header-title-above {
