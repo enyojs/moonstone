@@ -259,7 +259,7 @@ enyo.kind({
 		}
 		if (orig instanceof moon.Panel) {
 			idx = this.getPanelIndex(orig);
-			if (idx == 0) {
+			if (idx === 0) {
 				if (this.showing && (this.useHandle === true) && this.handleShowing) {
 					this.hide();
 					return true;
