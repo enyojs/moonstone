@@ -202,7 +202,7 @@ moon.DataListSpotlightSupport = {
 				? [this.$.page1, this.$.page2] : [this.$.page2, this.$.page1];
 
 		// Explore the controls in the current pages
-		for (pageIndex in pages) {
+		for (pageIndex = 0; pageIndex < pages.length; pageIndex++) {
 			page = pages[pageIndex];
 			if (inDirection === 1) {
 				// Loop through children in each page top-down
