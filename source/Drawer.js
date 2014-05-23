@@ -57,8 +57,8 @@ enyo.kind({
 		onDrawersResized: "drawersResized"
 	},
 	components: [
-		{name: "client", kind: "moon.FullScreenDrawer", resizeContainer:false},
-		{name: "controlDrawer", kind: "enyo.Drawer", resizeContainer:false}
+		{name: "client", kind: "moon.FullScreenDrawer", spotlightDisabled: true, resizeContainer:false},
+		{name: "controlDrawer", kind: "enyo.Drawer", spotlightDisabled: true, resizeContainer:false}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -97,8 +97,10 @@ enyo.kind({
 		this.$.client.setOpen(this.open);
 		if (this.open) {
 			this.doActivate();
+			this.$.client.spotlightDisabled = false;
 			enyo.Spotlight.spot(this.$.client);
 		} else {
+			this.$.client.spotlightDisabled = true;
 			this.doDeactivate();
 		}
 	},
@@ -106,11 +108,13 @@ enyo.kind({
 		this.$.controlDrawer.setOpen(this.controlsOpen);
 		if (this.controlsOpen) {
 			this.doActivate();
+			this.$.controlDrawer.spotlightDisabled = false;
 			enyo.Spotlight.spot(this.$.controlDrawer);
 		} else {
 			if (this.$.client.getOpen()) {
 				this.$.client.setOpen(false);
 			}
+			this.$.controlDrawer.spotlightDisabled = true;
 			this.doDeactivate();
 		}
 	},

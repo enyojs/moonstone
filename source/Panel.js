@@ -149,12 +149,18 @@ enyo.kind({
 	},
 	//* Updates spottability.
 	updatesSpottability: function() {
-		if (this.isBreadcrumb && !this.isOffscreen) {
-			this.addSpottableBreadcrumbProps();
-		} else if (this.isBreadcrumb && this.isOffscreen) {
+		if (this.isOffscreen) {
+			this.spotlightDisabled = true;
 			this.removeSpottableProps();
-		} else {
 			this.removeSpottableBreadcrumbProps();
+		} else {
+			if (this.isBreadcrumb) {
+				this.spotlightDisabled = true;
+				this.addSpottableBreadcrumbProps();
+			}
+			else {
+				this.spotlightDisabled = false;
+			}
 		}
 	},
 	handleBreadcrumbTap: function(inSender, inEvent) {
@@ -202,16 +208,13 @@ enyo.kind({
 	},
 	addSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", true);
-		this.spotlightDisabled = true;
 	},	
 	removeSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
-		this.spotlightDisabled = false;
 	},
 	removeSpottableProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
-		this.spotlightDisabled = true;
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {
