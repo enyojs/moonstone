@@ -2243,6 +2243,10 @@
   font-size: 26px;
   line-height: 32px;
 }
+.enyo-locale-non-latin.enyo-locale-th .moon-input {
+  font-size: 24px;
+  line-height: 48px;
+}
 .moon-neutral .moon-input {
   color: #4b4b4b;
 }
@@ -2279,6 +2283,10 @@
 }
 .enyo-locale-non-latin .moon-input-decorator:not(.moon-input-header-input-decorator) {
   padding: 5px 30px 9px;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator) {
+  padding: 1px 30px;
+  height: 60px;
 }
 .moon-textarea-decorator {
   font-family: "MuseoSans 700 Italic";
@@ -4877,6 +4885,9 @@
 }
 .moon-expandable-input .moon-input {
   width: 100%;
+}
+.enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-picker-current-value {
+  line-height: 54px;
 }
 .moon-highlight-text-highlighted {
   color: #cf0652;
