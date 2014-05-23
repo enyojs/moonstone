@@ -252,8 +252,7 @@ enyo.kind({
 	},
 	spotlightLeft: function(oSender, oEvent) {
 		var orig = oEvent.originator,
-			idx,
-			prev;
+			idx;
 		// Don't allow left-movement from a breadcrumb
 		if (orig.name === "breadcrumbBackground") {
 			return true;
@@ -267,11 +266,8 @@ enyo.kind({
 				}
 			}
 			else {
-				prev = this.getPanels()[idx - 1];
-				if (prev.isBreadcrumb) {
-					this.previous();
-					return true;
-				}
+				this.previous();
+				return true;
 			}
 		}
 	},
