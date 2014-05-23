@@ -719,7 +719,6 @@ enyo.kind({
 	},
 	//* Sets hide state without animation.
 	_directHide: function() {
-		var x = this.getOffscreenXPosition();
 		this.$.handleWrapper.addClass("hidden");
 		this.$.showHideHandle.removeClass("right");
 		this.applyHideAnimation(true);
