@@ -205,7 +205,15 @@ enyo.kind({
 	},
 
 	//* @protected
-
+	create: enyo.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			
+			// we need to ensure our handler has the opportunity to modify the flow during
+			// initialization
+			this.showingChanged();
+		};
+	}),
 	initComponents: function() {
 		this.applyPattern();
 		this.inherited(arguments);
@@ -556,7 +564,7 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Spot the active panel
-		if (this.hasNode() && !this.animate) {
+		if (this.hasNode()) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -638,6 +646,9 @@ enyo.kind({
 				enyo.Spotlight.spot(this.getActive());
 			}
 			else {
+				// in this case, our display flag will have been set to none so we need to clear
+				// that even though the showing flag will remain false
+				this.applyStyle('display', null);
 				this.resetHandleAutoHide();
 				this._hide();
 			}

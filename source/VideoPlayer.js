@@ -294,6 +294,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.srcChanged();
 		this.createInfoControls();
 		this.inlineChanged();
 		this.showInfoChanged();
