@@ -2243,7 +2243,8 @@
   line-height: 32px;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input {
-  line-height: 60px;
+  font-size: 24px;
+  line-height: 48px;
 }
 .moon-neutral .moon-input {
   color: #4b4b4b;
@@ -2283,8 +2284,8 @@
   padding: 5px 30px 9px;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  border-radius: 44px;
   padding: 1px 30px;
+  height: 60px;
 }
 .moon-textarea-decorator {
   font-family: "MuseoSans 700 Italic";
@@ -4881,13 +4882,7 @@
   width: 100%;
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-picker-current-value {
-  line-height: 60px;
-}
-.enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-expandable-list-item.open .moon-expandable-list-item-client {
-  margin-bottom: 0px;
-}
-.enyo-locale-non-latin.enyo-locale-th .moon-expandable-input .moon-input-decorator:not(.moon-input-header-input-decorator) {
-  margin: 4px 0;
+  line-height: 54px;
 }
 .moon-highlight-text-highlighted {
   color: #cf0652;
