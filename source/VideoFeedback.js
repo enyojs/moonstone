@@ -71,7 +71,7 @@ enyo.kind({
 			return enyo.path.rewrite(inIcon);
 		}
 	},
-	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
+	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc, isInPreview) {
 		var customMessage = false;
 		inMessage = inMessage || "";
 		inParams = inParams || {};
@@ -150,8 +150,10 @@ enyo.kind({
 		this.$.feedText.setContent( enyo.toUpperCase(inMessage) );
 
 		// Show output controls
-		this.showFeedback();
-
+		if (!isInPreview {
+			this.showFeedback();	
+		})
+		
 		// Show icons as appropriate
 		this.updateIcons(inLeftSrc, inRightSrc);
 

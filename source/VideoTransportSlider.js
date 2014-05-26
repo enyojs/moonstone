@@ -423,9 +423,7 @@ enyo.kind({
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
-		if (!this.isInPreview()) {
-			this.showKnobStatus();
-			this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
-		}
+		this.showKnobStatus();
+		this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc, this.isInPreview());
 	}
 });
