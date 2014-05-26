@@ -150,9 +150,9 @@ enyo.kind({
 		this.$.feedText.setContent( enyo.toUpperCase(inMessage) );
 
 		// Show output controls when video player is not preview mode
-		if (!isInPreview {
+		if (!isInPreview) {
 			this.showFeedback();	
-		})
+		}
 		
 		// Show icons as appropriate
 		this.updateIcons(inLeftSrc, inRightSrc);
