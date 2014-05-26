@@ -73,6 +73,8 @@ enyo.kind({
 	//* @protected
 	autoCollapse: true,
 	lockBottom: true,
+	//* If false, _addItem_ save the properties instead of creating component for later
+	canItemCreate: true,
 
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
@@ -101,6 +103,7 @@ enyo.kind({
 		this.noneTextChanged();
 		this.helpTextChanged();
 		this.openChanged();
+		this.itemsProp = [];
 	},
 	rendered: function() {
 		this.inherited(arguments);
@@ -240,5 +243,54 @@ enyo.kind({
 			content: this.getSelected().getContent(),
 			index: this.getSelectedIndex()
 		});
-	}
+	},
+	/**
+		Adds picker's child components.
+		If _canItemCreate_ is false, components will not created until headerWrapper is tapped.
+	*/
+	addItem: function(inInfo, inMoreInfo) {
+		if (this.canItemCreate || this.getOpen()) {
+			this.createComponent(inInfo, inMoreInfo);
+		}
+		else {
+			if (inInfo.active) {
+				this.selectedIndex = this.itemsProp.length;
+				this.selected = this.createComponent(inInfo, inMoreInfo);
+
+				this.$.currentValue.setContent(this.selected.getContent());
+				this.selected.setChecked(true);
+			}
+			else {
+				var props = enyo.mixin(enyo.clone(inMoreInfo), inInfo);
+				this.itemsProp.push(props);
+			}
+		}
+	},
+	/**
+		When _canItemCreate_ is false and headerWrapper is tapped,
+		create/render picker's child components before expanding picker
+	*/
+	expandContract: enyo.inherit(function(sup) {
+		return function() {
+			if (!this.canItemCreate) {
+				this.canItemCreate = true;
+				for (var i=0, ci; (ci=this.itemsProp[i]); i++) {
+					if (i < this.selectedIndex) {
+						ci.addBefore = this.selected;
+					}
+					this.createComponent(ci);
+				}
+				this.itemsProp = [];
+				this.render();
+			}
+			sup.apply(this, arguments);
+		};
+	}),
+	destroyClientControls: enyo.inherit(function(sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// when destroy "client controls", set itemsProp to defaults value
+			this.itemsProp = [];
+		};
+	})
 });
