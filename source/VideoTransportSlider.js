@@ -422,6 +422,9 @@ enyo.kind({
 	padDigit: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
+	/**
+ 		Send current status to feedback control in response to user input
+ 	*/
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
 		this.showKnobStatus();
 		this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc, this.isInPreview());

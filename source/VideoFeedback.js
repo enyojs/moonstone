@@ -149,7 +149,7 @@ enyo.kind({
 		// Set content as _inMessage_
 		this.$.feedText.setContent( enyo.toUpperCase(inMessage) );
 
-		// Show output controls
+		// Show output controls when video player is not preview mode
 		if (!isInPreview {
 			this.showFeedback();	
 		})
