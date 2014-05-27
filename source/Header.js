@@ -16,10 +16,11 @@ enyo.kind({
 		titleBelow: '',
 		//* Sub-text below the header
 		subTitleBelow: '',
-		//* If true, the _moon-small-header_ CSS class will be applied to this header
-		small: false,
-		//* If true, the _moon-mini-header_ CSS class will be applied to this header
-		mini: false,
+		/** If small, the _moon-small-header_ CSS class will be applied to this header
+			If mini, the _moon-mini-header_ CSS class will be applied to this header
+			If large, the _moon-header_ CSS class will be applied to this header
+		*/
+		type: "large",
 		/**
 			URL of background image(s).
 			This may be a string referring a single background image, or an array of
@@ -116,7 +117,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.smallChanged();
+		this.typeChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
@@ -344,13 +345,25 @@ enyo.kind({
 		this.collapsed = false;
 	},
 	//* @protected
-	smallChanged: function() {
-		this.addRemoveClass("moon-small-header", this.getSmall());
-	},
-	//* @protected
-	miniChanged: function() {
-		this.addRemoveClass("moon-mini-header", this.getMini());
-	},
+	typeChanged: function(inOld) {
+		switch (inOld) {
+		case "small":
+			this.removeClass("moon-small-header");
+			break;
+		case "mini":
+			this.removeClass("moon-mini-header");
+			break;
+		}
+
+		switch (this.getType()) {
+		case "small":
+			this.addClass("moon-small-header");
+			break;
+		case "mini":
+			this.addClass("moon-mini-header");
+			break;
+		}		
+	},	
 	//* @protected
 	contentChanged: function() {
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );

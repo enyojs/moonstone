@@ -25,8 +25,8 @@ enyo.kind({
 			with the panel index
 		*/
 		autoNumber: true,
-		//* Facade for the header's _small_ property
-		smallHeader: false,
+		//* Facade for the header's _type_ property. You can choose among large, small and mini
+		headerType: "large",
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
 		//* Title's _allowHtml_ property
@@ -104,7 +104,7 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
-		this.smallHeaderChanged();
+		this.headerTypeChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -161,7 +161,7 @@ enyo.kind({
 		inEvent.breadcrumbTap = true;
 	},
 	scroll: function(inSender, inEvent) {
-		if (this.collapsingHeader && !this.smallHeader) {
+		if (this.collapsingHeader && (this.headerType === "large")) {
 			if (inEvent.originator.y < 0) {
 				this.collapseHeader();
 			} else {
@@ -169,8 +169,8 @@ enyo.kind({
 			}
 		}
 	},
-	smallHeaderChanged: function() {
-		this.$.header.setSmall(this.smallHeader);
+	headerTypeChanged: function() {
+		this.$.header.setType(this.headerType);
 		if (this.generated) {
 			this.$.contentWrapper.resized();
 		}
