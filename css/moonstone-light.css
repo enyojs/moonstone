@@ -1965,6 +1965,40 @@
 .hidden-title .moon-header-sub-title-below {
   opacity: 0;
 }
+/* Mini Header */
+.moon-header.moon-mini-header {
+  height: 112px;
+}
+.moon-mini-header .moon-header-title-above {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+.moon-mini-header .moon-header-title {
+  line-height: normal;
+  font-size: 60px;
+}
+.enyo-locale-non-latin .moon-mini-header .moon-header-title {
+  line-height: 1.5em;
+}
+.moon-mini-header .moon-header-title-wrapper {
+  padding-left: 0;
+  box-sizing: border-box;
+  max-height: 88px;
+}
+.enyo-locale-right-to-left .moon-mini-header .moon-header-title-wrapper {
+  padding-right: 0;
+}
+.moon-mini-header .moon-header-title-below {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+.moon-mini-header .moon-header-sub-title-below {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
 .moon-header-left {
   float: left;
 }
