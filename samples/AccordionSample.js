@@ -20,7 +20,7 @@ enyo.kind({
 				{kind: "moon.Accordion", content: "Disabled accordion", disabled: true, components: [
 					{content: "Item One"},
 					{content: "Item Two"}
-				]},
+				]}
 			]},
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "In Group"},
