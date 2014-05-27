@@ -18,6 +18,8 @@ enyo.kind({
 		subTitleBelow: '',
 		//* If true, the _moon-small-header_ CSS class will be applied to this header
 		small: false,
+		//* If true, the _moon-mini-header_ CSS class will be applied to this header
+		mini: false,
 		/**
 			URL of background image(s).
 			This may be a string referring a single background image, or an array of
@@ -344,6 +346,10 @@ enyo.kind({
 	//* @protected
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-header", this.getSmall());
+	},
+	//* @protected
+	miniChanged: function() {
+		this.addRemoveClass("moon-mini-header", this.getMini());
 	},
 	//* @protected
 	contentChanged: function() {
