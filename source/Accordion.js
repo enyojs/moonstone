@@ -50,5 +50,8 @@ enyo.kind({
 		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
+	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	]
 });
