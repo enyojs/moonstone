@@ -37,6 +37,12 @@
 		// Remove currently selected item from picker
 		this.$.expandablePicker.getSelected().destroy();
 
+		// Add new items to picker. But the items will be created after headerWrapper is tapped.
+		this.$.expandablePicker.set("canCreateItems", false)
+		this.$.expandablePicker.addItem({"New York"});
+		this.$.expandablePicker.addItem({"London"});
+		this.$.expandablePicker.render();
+
 	When the picker is minimized, the content of the currently selected item is
 	displayed as subtext below the picker label.
 */
@@ -74,7 +80,7 @@ enyo.kind({
 	autoCollapse: true,
 	lockBottom: true,
 	//* If false, _addItem_ save the properties instead of creating component for later
-	canItemCreate: true,
+	canCreateItems: true,
 
 	defaultKind: "moon.CheckboxItem",
 	selectAndCloseDelayMS: 600,
@@ -246,10 +252,10 @@ enyo.kind({
 	},
 	/**
 		Adds picker's child components.
-		If _canItemCreate_ is false, components will not created until headerWrapper is tapped.
+		If _canCreateItems_ is false, components will not created until headerWrapper is tapped.
 	*/
 	addItem: function(inInfo, inMoreInfo) {
-		if (this.canItemCreate || this.getOpen()) {
+		if (this.canCreateItems || this.getOpen()) {
 			this.createComponent(inInfo, inMoreInfo);
 		}
 		else {
@@ -267,13 +273,13 @@ enyo.kind({
 		}
 	},
 	/**
-		When _canItemCreate_ is false and headerWrapper is tapped,
+		When _canCreateItems_ is false and headerWrapper is tapped,
 		create/render picker's child components before expanding picker
 	*/
 	expandContract: enyo.inherit(function(sup) {
 		return function() {
-			if (!this.canItemCreate) {
-				this.canItemCreate = true;
+			if (!this.canCreateItems) {
+				this.canCreateItems = true;
 				for (var i=0, ci; (ci=this.itemsProp[i]); i++) {
 					if (i < this.selectedIndex) {
 						ci.addBefore = this.selected;
