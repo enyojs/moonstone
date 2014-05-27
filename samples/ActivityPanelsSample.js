@@ -1,9 +1,6 @@
 enyo.kind({
 	name: "moon.sample.ActivityPanelsSample",
 	classes: "moon enyo-fit enyo-unselectable",
-	published: {
-		headerType: "large"
-	},
 	components: [
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "./assets/default-movie.png", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
@@ -76,9 +73,6 @@ enyo.kind({
 			]}
 		]}
 	],
-	bindings: [
-		{from: ".headerType", to:".$.panel.headerType"}
-	],
 	// custom next handler for each panel to avoid switching from one active panel
 	// to another with no visible change for demo
 	next1: function(inSender, inEvent) {
@@ -113,17 +107,17 @@ enyo.kind({
 	smallTapped: function(inSender, inEvent) {
 		if (this.$.smallHeaderToggle.value) {
 			this.$.miniHeaderToggle.setValue(false);
-			this.setHeaderType("small");
+			this.$.panel.setHeaderType("small");
 		} else {
-			this.setHeaderType("large");
+			this.$.panel.setHeaderType("large");
 		}
 	},
 	miniTapped: function(inSender, inEvent) {
 		if (this.$.miniHeaderToggle.value) {
 			this.$.smallHeaderToggle.setValue(false);
-			this.setHeaderType("mini");
+			this.$.panel.setHeaderType("mini");
 		} else {
-			this.setHeaderType("large");
+			this.$.panel.setHeaderType("large");
 		}
 	}
 });
