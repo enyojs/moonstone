@@ -2,17 +2,17 @@ enyo.kind({
 	name: 'moon.sample.ScrollerVerticalSample',
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "moon.Panel", classes:"enyo-fit", smallHeader:true, title:"Vertical Scroller", headerComponents: [
-			{content:"Spacing: "},
-			{kind: "moon.SimplePicker", name:"spacingPicker", classes:"moon-4h", onChange:"spacingChanged", components: [
-				{content:"default", spacingClass:""},
-				{content:"small", spacingClass:"moon-vspacing-s", active:true},
-				{content:"medium", spacingClass:"moon-vspacing-m"},
-				{content:"large", spacingClass:"moon-vspacing-l"}
+		{kind: "moon.Panel", classes: "enyo-fit", headerType: "small", title: "Vertical Scroller", headerComponents: [
+			{content: "Spacing: "},
+			{kind: "moon.SimplePicker", name: "spacingPicker", classes: "moon-4h", onChange: "spacingChanged", components: [
+				{content: "default", spacingClass: ""},
+				{content: "small", spacingClass: "moon-vspacing-s", active:true},
+				{content: "medium", spacingClass: "moon-vspacing-m"},
+				{content: "large", spacingClass: "moon-vspacing-l"}
 			]}
 		], components: [
 			{ kind: 'moon.Scroller', classes: "enyo-fill", components: [
-				{name:"wrapper", classes:"moon-6h moon-vspacing-s", components: [
+				{name: "wrapper", classes: "moon-6h moon-vspacing-s", components: [
 					{kind: "moon.ExpandablePicker", noneText: "Select a language", autoCollapse: true, content: "Expandable Picker", classes: "moon-expandable-picker-wrapper", components: [
 						{content: "English"},
 						{content: "Spanish"},
@@ -42,14 +42,14 @@ enyo.kind({
 					{kind: "moon.FormCheckbox", content: "Form Checkbox 3"},
 					{kind: "moon.Item", content: "Item 1"},
 					{kind: "moon.Item", content: "Item 1"},
-					{kind: "moon.Button", content: "Button 1"}, {tag:"br"},
-					{kind: "moon.Button", content: "Button 2"}, {tag:"br"},
-					{kind: "moon.Button", content: "Button 3"}, {tag:"br"},
+					{kind: "moon.Button", content: "Button 1"}, {tag: "br"},
+					{kind: "moon.Button", content: "Button 2"}, {tag: "br"},
+					{kind: "moon.Button", content: "Button 3"}, {tag: "br"},
 					{kind: "moon.Item", content: "Item 1"},
 					{kind: "moon.Item", content: "Item 1"},
-					{kind: "moon.ToggleButton", content: "Toggle Button 1"}, {tag:"br"},
-					{kind: "moon.ToggleButton", content: "Toggle Button 2"}, {tag:"br"},
-					{kind: "moon.ToggleButton", content: "Toggle Button 3"}, {tag:"br"},
+					{kind: "moon.ToggleButton", content: "Toggle Button 1"}, {tag: "br"},
+					{kind: "moon.ToggleButton", content: "Toggle Button 2"}, {tag: "br"},
+					{kind: "moon.ToggleButton", content: "Toggle Button 3"}, {tag: "br"},
 					{kind: "moon.InputDecorator", components: [
 						{kind: "moon.Input", placeholder: "Input"}
 					]},
@@ -59,15 +59,15 @@ enyo.kind({
 					{kind: "moon.InputDecorator", components: [
 						{kind: "moon.Input", placeholder: "Input"}
 					]},
-					{kind: "moon.Accordion", content: "Accordion 1", defaultKind:"moon.SelectableItem", components: [
+					{kind: "moon.Accordion", content: "Accordion 1", defaultKind: "moon.SelectableItem", components: [
 						{content: "Item One"},
 						{content: "Item Two"}
 					]},
-					{kind: "moon.Accordion", content: "Accordion 2", defaultKind:"moon.SelectableItem", components: [
+					{kind: "moon.Accordion", content: "Accordion 2", defaultKind: "moon.SelectableItem", components: [
 						{content: "Item Three"},
 						{content: "Item Four"}
 					]},
-					{kind: "moon.Accordion", content: "Accordion 3", defaultKind:"moon.SelectableItem", components: [
+					{kind: "moon.Accordion", content: "Accordion 3", defaultKind: "moon.SelectableItem", components: [
 						{content: "Item Five"},
 						{content: "Item Six"}
 					]},
