@@ -63,7 +63,8 @@ enyo.kind({
 	handlers: {
 		oninput: "handleInput",
 		onchange: "handleChange",
-		onRequestCreateListActions: "handleRequestCreateComponents"
+		onRequestCreateListActions: "handleRequestCreateComponents",
+		onExpand: "handleExpandDrawer"
 	},
 	//* @public
 	events: {
@@ -439,5 +440,9 @@ enyo.kind({
 	//* Create custom event for _change_ events
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
+	},
+	//* Expand header to large type before expand drawer.
+	handleExpandDrawer: function (inSender, inEvent) {
+		this.setType("large");
 	}
 });

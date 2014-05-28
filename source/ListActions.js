@@ -300,6 +300,10 @@ enyo.kind({
 	published: {
 		open: false
 	},
+	events: {
+		//* Inform you that drawer starts expand.
+		onExpand: ""
+	},
 	//* @protected
 	classes: "moon-list-actions-drawer",
 	components: [
@@ -332,6 +336,7 @@ enyo.kind({
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
 		if (this.open) {
+			this.doExpand();
 			this.playOpenAnimation();
 		} else {
 			this.playCloseAnimation();
