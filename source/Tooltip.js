@@ -96,7 +96,6 @@ enyo.kind({
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = 20,
 				pBounds = this.parent.getAbsoluteBounds(),
-				pClients = this.parent.getClientControls(),
 				acBounds =null;
 
 			this.activator = enyo.Spotlight.getCurrent();
