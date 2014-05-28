@@ -16,6 +16,10 @@ enyo.kind({
 				{kind: "moon.Accordion", content: "This is an lonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnng title accordion", components: [
 					{content: "Looooooooooooooooooooooooooooooooooooong Item One"},
 					{content: "Loooooooooooooooooooooooooooooong Item Two"}
+				]},
+				{kind: "moon.Accordion", content: "Disabled accordion", disabled: true, components: [
+					{content: "Item One"},
+					{content: "Item Two"}
 				]}
 			]},
 			{classes:"moon-1v"},

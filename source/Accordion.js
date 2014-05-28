@@ -51,6 +51,9 @@ enyo.kind({
 			{name: "client", kind: "Group", tag: null}
 		]}
 	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
+	],
 	stopHeaderMarquee: function() {
 		this.$.headerWrapper.stopMarquee();
 	}
