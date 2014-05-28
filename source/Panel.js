@@ -27,6 +27,9 @@ enyo.kind({
 		autoNumber: true,
 		//* Facade for the header's _type_ property. You can choose among large, small and mini
 		headerType: "large",
+		//* Facade for the header's _small_ property
+		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
+		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
 		//* Title's _allowHtml_ property
@@ -104,6 +107,8 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
+		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
+		this.smallHeaderChanged();
 		this.headerTypeChanged();
 	},
 	initComponents: function() {
@@ -160,13 +165,21 @@ enyo.kind({
 	handleBreadcrumbTap: function(inSender, inEvent) {
 		inEvent.breadcrumbTap = true;
 	},
+	// Note: smallHeader will be deprecated soon. For backward compatiblity, I leave it for a while.
 	scroll: function(inSender, inEvent) {
-		if (this.collapsingHeader && (this.headerType === "large")) {
+		if (this.collapsingHeader && ((this.headerType === "large") || !this.smallHeader)) {
 			if (inEvent.originator.y < 0) {
 				this.collapseHeader();
 			} else {
 				this.expandHeader();
 			}
+		}
+	},
+	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
+	smallHeaderChanged: function() {
+		this.$.header.setSmall(this.smallHeader);
+		if (this.generated) {
+			this.$.contentWrapper.resized();
 		}
 	},
 	headerTypeChanged: function() {
