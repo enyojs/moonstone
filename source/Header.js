@@ -21,6 +21,9 @@ enyo.kind({
 			If large, the _moon-header_ CSS class will be applied to this header
 		*/
 		type: "large",
+		//* If true, the _moon-small-header_ CSS class will be applied to this header
+		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
+		small: false,
 		/**
 			URL of background image(s).
 			This may be a string referring a single background image, or an array of
@@ -117,6 +120,8 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
+		this.smallChanged();
 		this.typeChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
@@ -363,6 +368,11 @@ enyo.kind({
 			this.addClass("moon-mini-header");
 			break;
 		}		
+	},
+	//* @protected
+	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
+	smallChanged: function() {
+		this.addRemoveClass("moon-small-header", this.getSmall());
 	},	
 	//* @protected
 	contentChanged: function() {
