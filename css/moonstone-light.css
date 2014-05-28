@@ -1977,12 +1977,14 @@
 .moon-mini-header .moon-header-title {
   line-height: normal;
   font-size: 60px;
+  height: 84px;
 }
 .enyo-locale-non-latin .moon-mini-header .moon-header-title {
   line-height: 1.5em;
 }
 .moon-mini-header .moon-header-title-wrapper {
   padding-left: 0;
+  padding-top: 26px;
   box-sizing: border-box;
   max-height: 88px;
 }
