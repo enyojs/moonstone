@@ -140,10 +140,12 @@ enyo.kind({
 	build: function() {
 		var indices = this.indices = {},
 			values = this.values = [],
-			ilibNumFmt = new ilib.NumFmt({locale: new ilib.LocaleInfo().locale, useNative: false});
+			ilibNumFmt = (typeof ilib !== "undefined") ? new ilib.NumFmt({locale: new ilib.LocaleInfo().locale, useNative: false}) : null,
+			fmtValue;
 
 		for (var i = 0, v = this.min; v <= this.max; i++, v += this.step) {
-			this.createComponent({content: ilibNumFmt.format(v) + " " + this.unit, value: v});
+			fmtValue = ilibNumFmt ? ilibNumFmt.format(v) : v;
+			this.createComponent({content: fmtValue + " " + this.unit, value: v});
 			values[i] = v;
 			indices[v] = i;
 			if (this.step <= 0) {
