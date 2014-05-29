@@ -172,6 +172,12 @@ enyo.kind({
 		}
 		this.setOpen(!this.getOpen());
 	},
+	beforeOpenDrawer: function(standardHeight, type) {
+		this.standardHeight = standardHeight;
+		if (type !== "large") {
+			this.set(this.stacked, "false");
+		}
+	},
 	openChanged: function(){
 		this.setActive(!this.getOpen());
 		this.doListActionOpenChanged({open: this.open});
@@ -247,9 +253,13 @@ enyo.kind({
 		}
 	},
 	unStackMeUp: function() {
-		var containerHeight = this.getContainerBounds().height,
-			optionGroup,
-			i;
+		var containerHeight, optionGroup, i;
+		if (this.standardHeight) {
+			containerHeight = this.standardHeight;
+			this.$.drawer.applyStyle("height", containerHeight+ "px");
+		} else {
+			containerHeight = this.getContainerBounds().height;
+		}
 
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");

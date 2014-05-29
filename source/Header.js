@@ -60,6 +60,8 @@ enyo.kind({
 	marqueeOnHover: true,
 	marqueeOnRender: true,
 	marqueeOnRenderDelay: 10000,
+	// Described in .moon-header class
+	standardHeight: 360,
 	handlers: {
 		oninput: "handleInput",
 		onchange: "handleChange",
@@ -441,15 +443,13 @@ enyo.kind({
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
 	},
-	/** Expand header to large type before expand drawer.
-		And back to previous status when drawer is collpsed.
+	/** 
+		Enlarge listActionDrawer's height to large type's height		
 	*/
 	handleListActionOpenChanged: function (inSender, inEvent) {		
-		if (inEvent.open) {
-			this.prevType = this.getType();
-			this.setType("large");
-		} else {
-			this.setType(this.prevType);
+		if (!inEvent.open) {
+			return;
 		}
+		inEvent.originator.beforeOpenDrawer(this.standardHeight, this.getType());
 	}
 });
