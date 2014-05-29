@@ -119,6 +119,7 @@ enyo.kind({
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
+			inMoreInfo = enyo.mixin(inMoreInfo, {isPanelPushed: true}),
 			oPanel = this.createComponent(inInfo, inMoreInfo);
 
 		oPanel.render();
@@ -130,6 +131,7 @@ enyo.kind({
 	//* the last one created.
 	pushPanels: function(inInfos, inCommonInfo) { // added
 		var lastIndex = this.getPanels().length - 1,
+			inCommonInfo = enyo.mixin(inCommonInfo, {isPanelPushed: true}),
 			oPanels = this.createComponents(inInfos, inCommonInfo),
 			nPanel;
 		
@@ -203,15 +205,7 @@ enyo.kind({
 	},
 
 	//* @protected
-	create: enyo.inherit(function (sup) {
-		return function () {
-			sup.apply(this, arguments);
-			
-			// we need to ensure our handler has the opportunity to modify the flow during
-			// initialization
-			this.showingChanged();
-		};
-	}),
+
 	initComponents: function() {
 		this.applyPattern();
 		this.inherited(arguments);
@@ -562,7 +556,7 @@ enyo.kind({
 		this.inherited(arguments);
 
 		// Spot the active panel
-		if (this.hasNode()) {
+		if (this.hasNode() && !this.animate) {
 			enyo.Spotlight.spot(this.getActive());
 		}
 
@@ -644,9 +638,6 @@ enyo.kind({
 				enyo.Spotlight.spot(this.getActive());
 			}
 			else {
-				// in this case, our display flag will have been set to none so we need to clear
-				// that even though the showing flag will remain false
-				this.applyStyle('display', null);
 				this.resetHandleAutoHide();
 				this._hide();
 			}

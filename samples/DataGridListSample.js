@@ -45,7 +45,7 @@ enyo.kind({
 	},
 	generateRecords: function () {
 		var records = [],
-			idx     = this.index || 0;
+			idx     = this.indexCache || 0;
 		for (; records.length < 500; ++idx) {
 			var title = (idx % 8 === 0) ? " with long title" : "";
 			var subTitle = (idx % 8 === 0) ? "Lorem ipsum dolor sit amet" : "Subtitle";
@@ -56,14 +56,14 @@ enyo.kind({
 			});
 		}
 		// update our internal index so it will always generate unique values
-		this.index = idx;
+		this.indexCache = idx;
 		return records;
 	},
 	refreshItems: function () {
 		// we fetch our collection reference
 		var collection = this.get("collection");
 		// we now remove all of the current records from the collection
-		collection.remove(collection.models);
+		collection.removeAll();
 		// and we insert all new records that will update the list
 		collection.add(this.generateRecords());
 	}
