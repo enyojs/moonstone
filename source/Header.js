@@ -64,7 +64,7 @@ enyo.kind({
 		oninput: "handleInput",
 		onchange: "handleChange",
 		onRequestCreateListActions: "handleRequestCreateComponents",
-		onDrawerOpenChanged: "handleDrawerOpenChanged"
+		onListActionOpenChanged: "handleListActionOpenChanged"
 	},
 	//* @public
 	events: {
@@ -444,7 +444,7 @@ enyo.kind({
 	/** Expand header to large type before expand drawer.
 		And back to previous status when drawer is collpsed.
 	*/
-	handleDrawerOpenChanged: function (inSender, inEvent) {		
+	handleListActionOpenChanged: function (inSender, inEvent) {		
 		if (inEvent.open) {
 			this.prevType = this.getType();
 			this.setType("large");

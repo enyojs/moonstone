@@ -72,7 +72,9 @@ enyo.kind({
 			Used internally for ListActions to request Header to add fitting components to itself.
 			Not intended for use by end-developer.
 		*/
-		onRequestCreateListActions: ""
+		onRequestCreateListActions: "",
+		//* Inform open changed of drawer
+		onListActionOpenChanged: ""	
 	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"}
@@ -172,6 +174,7 @@ enyo.kind({
 	},
 	openChanged: function(){
 		this.setActive(!this.getOpen());
+		this.doListActionOpenChanged({open: this.open});
 		// If opened, show drawer and resize it if needed
 		if(this.open){
 			this.$.drawer.show();
@@ -300,10 +303,6 @@ enyo.kind({
 	published: {
 		open: false
 	},
-	events: {
-		//* Inform open changed of drawer
-		onDrawerOpenChanged: ""
-	},
 	//* @protected
 	classes: "moon-list-actions-drawer",
 	components: [
@@ -335,7 +334,6 @@ enyo.kind({
 	openChanged: function(inOld) {
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
-		this.doDrawerOpenChanged({open: this.open});
 		if (this.open) {			
 			this.playOpenAnimation();
 		} else {
