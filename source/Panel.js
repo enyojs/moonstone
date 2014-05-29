@@ -38,7 +38,9 @@ enyo.kind({
 		//* Header options
 		headerOptions: null,
 		//* When true, the title text will be converted to locale-safe uppercasing
-		titleUpperCase: true
+		titleUpperCase: true,
+		//* When true on create, the headerComponents and components block are created after panel transition finish by pushPanel
+		deferRender: false
 	},
 	events: {
 		//* Fires when this panel has completed its pre-arrangement transition.
@@ -68,7 +70,9 @@ enyo.kind({
 		{name: "viewport", classes: "moon-panel-viewport", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 				/* header will be created here programmatically in createTools after mixing-in headerOptions */
-				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
+				{name: "panelBodyWrapper", fit: true, components: [
+					{name: "panelBody", kind: "FittableRows", classes: "enyo-fill moon-panel-body"}
+				]}
 			]}
 		]},
 
@@ -95,13 +99,14 @@ enyo.kind({
 	isHeaderCollapsed: false,
 	shrinking: false,
 	growing: false,
+	isPanelPushed: false,
 
 	create: function() {
 		this.inherited(arguments);
 		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
 		if (this.headerComponents) {
 			var owner = this.hasOwnProperty("headerComponents") ? this.getInstanceOwner() : this;
-			this.$.header.createComponents(this.headerComponents, {owner: owner});
+			this.$.header.createComponents(this.headerComponents, {owner: owner, canGenerate: !this.isPanelPushed || (this.isPanelPushed && !this.deferRender)});
 		}
 		this.autoNumberChanged();
 		this.smallHeaderChanged();
@@ -110,6 +115,7 @@ enyo.kind({
 		this.createTools();
 		this.controlParentName = "panelBody";
 		this.discoverControlParent();
+		this.$.panelBody.canGenerate = !this.isPanelPushed || (this.isPanelPushed && !this.deferRender);
 		this.inherited(arguments);
 	},
 	createTools: function() {
@@ -117,7 +123,7 @@ enyo.kind({
 		this.createChrome(this.panelTools);
 		// Special-handling for header, which can have its options modified by the instance
 		var hc = enyo.clone(this.headerConfig || {});
-		hc.addBefore = this.$.panelBody;
+		hc.addBefore = this.$.panelBodyWrapper;
 		enyo.mixin(hc, this.headerOptions || this.headerOption);
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
@@ -310,6 +316,12 @@ enyo.kind({
 	*/
 	transitionFinished: function(inInfo) {
 		this.updatePanel(inInfo);
+		if (this.isPanelPushed && this.deferRender && (inInfo.to === inInfo.index)) {
+			this.$.header.getClientControls().forEach(function(c) {c.render();});
+			if (!this.$.panelBody.generated) {
+				this.$.panelBody.render();
+			}
+		}
 	},
 	//* @protected
 	shrinkAnimation: function() {
