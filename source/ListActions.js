@@ -301,8 +301,8 @@ enyo.kind({
 		open: false
 	},
 	events: {
-		//* Inform you that drawer starts expand.
-		onExpand: ""
+		//* Inform open changed of drawer
+		onDrawerOpenChanged: ""
 	},
 	//* @protected
 	classes: "moon-list-actions-drawer",
@@ -335,8 +335,8 @@ enyo.kind({
 	openChanged: function(inOld) {
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
-		if (this.open) {
-			this.doExpand();
+		this.doDrawerOpenChanged({open: this.open});
+		if (this.open) {			
 			this.playOpenAnimation();
 		} else {
 			this.playCloseAnimation();

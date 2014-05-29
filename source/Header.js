@@ -64,7 +64,7 @@ enyo.kind({
 		oninput: "handleInput",
 		onchange: "handleChange",
 		onRequestCreateListActions: "handleRequestCreateComponents",
-		onExpand: "handleExpandDrawer"
+		onDrawerOpenChanged: "handleDrawerOpenChanged"
 	},
 	//* @public
 	events: {
@@ -368,7 +368,7 @@ enyo.kind({
 		case "mini":
 			this.addClass("moon-mini-header");
 			break;
-		}		
+		}
 	},
 	//* @protected
 	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
@@ -441,8 +441,15 @@ enyo.kind({
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
 	},
-	//* Expand header to large type before expand drawer.
-	handleExpandDrawer: function (inSender, inEvent) {
-		this.setType("large");
+	/** Expand header to large type before expand drawer.
+		And back to previous status when drawer is collpsed.
+	*/
+	handleDrawerOpenChanged: function (inSender, inEvent) {		
+		if (inEvent.open) {
+			this.prevType = this.getType();
+			this.setType("large");
+		} else {
+			this.setType(this.prevType);
+		}
 	}
 });
