@@ -25,6 +25,7 @@ enyo.kind({
 	classes: "moon-contextual-popup-decorator",
 	handlers: {
 		onActivate: "activated",
+		onShow: "popupShown",
 		onHide: "popupHidden"
 	},
 	activated: function(inSender, inEvent) {
@@ -35,16 +36,37 @@ enyo.kind({
 
 		this.requestHidePopup();
 		if (inEvent.originator.active) {
-			this.popupActive = true;
 			this.activator = inEvent.originator;
-			this.activator.addClass("active");
-			this.requestShowPopup();
+			// if this ContextualPopup is already activated
+			if (this.popupActived) {	
+				inEvent.originator.active = false;
+				this.popupActived = false;
+			} else {
+				this.activator.addClass("active");
+				this.requestShowPopup();	
+			}
+		}			
+	},
+	/**
+		onShow event handler. 
+		Due to popup is "client control" of decorator
+		we should provide connetor between them.
+
+		@param {inSender} the component that most recently propagated onShow event
+		@param {inEvent} an object which contains event information
+	*/
+	popupShown: function(inSender, inEvent) {
+		if (this.popup === undefined) {
+			this.popup = inEvent.originator;
 		}
 	},
+	/**
+		If you tap out of popup control, {@link enyo.Popup} close it
+	*/
 	popupHidden: function() {
-		this.popupActive = false;
 		if (this.activator) {
-			this.activator.setActive(false);
+			this.popupActived = this.popup.popupActived;
+			this.activator.active = false;
 			this.activator.removeClass("active");
 			this.activator.removeClass("pressed");
 		}
