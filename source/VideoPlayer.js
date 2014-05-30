@@ -979,21 +979,21 @@ enyo.kind({
 	//retrieve icons -- either through setSrc or setIcon depending on the iconType:
 	retrieveIconsSrcOrFont:function(inSrc,inIcon, inClasses){
 		var t = this.bindSafely("transformIconSrc");
-		if(this.checkIconType(inIcon)=="image"){
-				inSrc.setIcon("");
-				inSrc.setSrc(t(inIcon));
-				if(inSrc!==this.$.ilPlayPause){
-					inSrc.addRemoveClass(inClasses,Boolean(this.checkIconType(inIcon)=="iconfont"));
-				}
-				inSrc.addRemoveClass("moon-icon-",Boolean(this.checkIconType(inIcon)=="iconfont"));
-				inSrc.addRemoveClass('"moon-icon-'+inIcon+'"',Boolean(this.checkIconType(inIcon)=="iconfont"));
-			}
-		if(this.checkIconType(inIcon)=="iconfont")	{
-				inSrc.setSrc("");
-				inSrc.setIcon(t(inIcon));
+		if(this.checkIconType(inIcon)=="image") {
+			inSrc.setIcon("");
+			inSrc.setSrc(t(inIcon));
+			if(inSrc!==this.$.ilPlayPause){
 				inSrc.addRemoveClass(inClasses,Boolean(this.checkIconType(inIcon)=="iconfont"));
-				inSrc.applyStyle("background-image",inSrc.src);
 			}
+			inSrc.addRemoveClass("moon-icon-",Boolean(this.checkIconType(inIcon)=="iconfont"));
+			inSrc.addRemoveClass('"moon-icon-'+inIcon+'"',Boolean(this.checkIconType(inIcon)=="iconfont"));
+		}
+		if(this.checkIconType(inIcon)=="iconfont") {
+			inSrc.setSrc("");
+			inSrc.setIcon(t(inIcon));
+			inSrc.addRemoveClass(inClasses,Boolean(this.checkIconType(inIcon)=="iconfont"));
+			inSrc.applyStyle("background-image",inSrc.src);
+		}
 	},
 	//* Turns spinner on or off, as appropriate.
 	updateSpinner: function() {
