@@ -21,7 +21,7 @@
 	When multiple Accordions are used in a group, only one may be open at a given time.
 
 		{kind: "Group", highlander: true, components: [
-			{kind: "moon.Accordion",  active: true, content: "This is a grouped accordion", components: [
+			{kind: "moon.Accordion",  open: true, content: "This is a grouped accordion", components: [
 				{content: "Item One"},
 				{content: "Item Two"}
 			]},
@@ -43,12 +43,15 @@ enyo.kind({
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-accordion-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
 			// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
-			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-accordion-arrow", components: [
+			{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-accordion-header", components: [
 				{name: "header", kind: "moon.MarqueeText"}
 			]}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
 		]}
+	],
+	bindings: [
+		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	]
 });

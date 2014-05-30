@@ -142,6 +142,15 @@ enyo.kind({
 		}
 		return this.modal;
 	},
+	capturedTap: function(inSender, inEvent) {
+		// If same activator tapped sequentially, we notice that this popup is already activeted.
+		if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+			this.popupActived = true;
+		} else {
+			this.popupActived = false;
+		}
+		this.inherited(arguments);
+	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
 			enyo.Spotlight.spot(this.activator);

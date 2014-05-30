@@ -63,7 +63,7 @@ enyo.kind({
 		// we fetch our collection reference
 		var collection = this.get("collection");
 		// we now remove all of the current records from the collection
-		collection.removeAll();
+		collection.remove(collection.models);
 		// and we insert all new records that will update the list
 		collection.add(this.generateRecords());
 	}

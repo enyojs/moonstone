@@ -23,7 +23,7 @@
 	a given time.
 
 		{kind: "enyo.Group", highlander: true, components: [
-			{kind: "moon.ExpandableListItem",  active: true,
+			{kind: "moon.ExpandableListItem",  open: true,
 				content: "This is a grouped ExpandableListItem", components: [
 					{content: "Item One"},
 					{content: "Item Two"}
@@ -83,8 +83,8 @@ enyo.kind({
 	},
 	components: [
 		// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
-		{name: "headerContainer", classes: "moon-expandable-picker-header", components: [
-			{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract"}
+		{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-picker-header moon-expandable-list-header", components: [
+			{name: "header", kind: "moon.MarqueeText", onSpotlightFocus: "headerFocus", ontap: "expandContract"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}

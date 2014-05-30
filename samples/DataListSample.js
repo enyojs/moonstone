@@ -33,7 +33,7 @@ enyo.kind({
 		{from: ".side", to: ".$.repeater.side"}
 	],
 	generateRecords: function (amount) {
-		var records = this.$.collection.records
+		var records = this.$.collection.models
 			, add = []
 			, i = records.length
 			, len = (i + (!isNaN(amount)? amount: 0));
@@ -51,7 +51,8 @@ enyo.kind({
 	},
 	scrollToIndex: function (sender, event) {
 		var newIndex = sender.getValue();
-		if (this.isScrolled && newIndex) {
+		if (this.isScrolled || newIndex !== this.currentIndex) {
+			this.currentIndex = newIndex;
 			this.$.drawers.closeDrawers();
 			this.$.repeater.scrollToIndex(newIndex);
 			this.isScrolled = false;
@@ -86,7 +87,7 @@ enyo.kind({
 	recordCountChanged: function () {
 		var count   = this.get("recordCount"),
 			num     = Math.min(Math.max(count, 0), 1000),
-			records = this.$.collection.records;
+			records = this.$.collection.models;
 		if (num != count) {
 			this.set("recordCount", num);
 		}

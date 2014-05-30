@@ -2,17 +2,13 @@
 .moon-scroll-picker-container {
 	display: inline-block;
 	position: relative;
+	text-align: center;
 }
 .moon-scroll-picker {
 	height: @moon-integer-picker-height;
-	min-width: @moon-picker-min-width;
-	border-top-width: 30px;
-	border-top-style: solid;
-	border-top-color:transparent;	
-	border-bottom-width: 30px;
-	border-bottom-style: solid;
-	border-bottom-color:transparent;
-	border-radius:@moon-integer-picker-radius;
+	border-top: solid 30px transparent;
+	border-bottom: solid 30px transparent;
+	border-radius: @moon-integer-picker-radius;
 }
 
 .spotlight .moon-scroll-picker {
@@ -21,14 +17,13 @@
 }
 
 .moon-scroll-picker-item {
-	white-space:nowrap;
-	padding-right: @moon-picker-min-padding;
-	padding-left: @moon-picker-min-padding;
-	padding-bottom: 2px;
+	white-space: nowrap;
+	padding: 0 @moon-picker-min-padding 2px @moon-picker-min-padding;
+	min-width: 50px;
 	height: @moon-integer-picker-height;
 	line-height: @moon-integer-picker-height;
-	text-align:center;
-	background:transparent;
+	text-align: center;
+	background: transparent;
 }
 
 .moon-scroll-picker-overlay-container {
@@ -36,59 +31,66 @@
 	z-index: 1;
 	width: 100%;
 	height: @moon-integer-picker-overlay-height;
+	font-family: @moon-icon-font-family;
+
 	&.top {
 		top: 0;
-		background-position: center 14px;
-		background-repeat: no-repeat;
 	}
-	&.top-image {
-		background-image: @moon-carat-picker-up-small-icon;
+	&.top-image:after {
+		content: @moon-icon-arrowsmallup;
+		font-size: @moon-integer-picker-caret-font-size;
+		line-height: @moon-integer-picker-caret-font-size/2 + 4;
 	}
 	&.bottom {
 		bottom: 0;
-		background-position: center 6px;
-		background-repeat: no-repeat;
 	}
-	&.bottom-image {
-		background-image: @moon-carat-picker-down-small-icon;
-	}
-}
-.spotlight .moon-scroll-picker-overlay-container.top {
-	background-position: center -27px;
-	&.top-image {
-		background-image: @moon-carat-picker-up-icon;
-	}
-}
-.spotlight .moon-scroll-picker-overlay-container.bottom {
-	background-position: center -39px;
-	&.bottom-image {
-		background-image: @moon-carat-picker-down-icon;
+	&.bottom-image:after {
+		content: @moon-icon-arrowsmalldown;
+		font-size: @moon-integer-picker-caret-font-size;
+		line-height: @moon-integer-picker-caret-font-size/2 - 8;
 	}
 }
 
-.moon-scroll-picker-overlay {
-	display: none;
-	position:absolute;
-	height:@moon-integer-picker-overlay-height + 5px;
-	width:100%;
-	border-width: @moon-integer-picker-shadow-width;
-	border-color: rgba(0,0,0,0.2);
+.spotlight .moon-scroll-picker-overlay-container {
+	color: @moon-white;
+
+	&.top-image:after {
+		content: @moon-icon-arrowlargeup;
+		line-height: @moon-integer-picker-caret-font-size/2 + 8;
+	}
+	&.bottom-image:after {
+		content: @moon-icon-arrowlargedown;
+		line-height: @moon-integer-picker-caret-font-size/2 - 12;
+	}
+}
+
+.selected .moon-scroll-picker-overlay {
+	position: absolute;
+	height: @moon-integer-picker-overlay-height + 5px;
+	width: 100%;
+	background-color: @moon-accent;
+	
 	&.top {
 	 	top: 0;
-		border-top-style: solid;
+		border-top: solid @moon-integer-picker-shadow-width rgba(0,0,0,0.2);
 		border-radius: @moon-integer-picker-radius @moon-integer-picker-radius 0 0;
-		background: @moon-spotlight-border-color @moon-carat-picker-up-icon center -60px no-repeat;
+	}
+	&.top:after {
+		content: @moon-icon-arrowsmallup;
+		font-size: @moon-integer-picker-caret-font-size;
+		line-height: @moon-integer-picker-caret-font-size/2 - 4;
 	}
 	&.bottom {
 	 	bottom: 0;
-		border-bottom-style: solid;
+		border-bottom: solid @moon-integer-picker-shadow-width rgba(0,0,0,0.2);
 		border-radius: 0 0 @moon-integer-picker-radius @moon-integer-picker-radius;
-		background: @moon-spotlight-border-color @moon-carat-picker-down-icon center -60px no-repeat;
+	}
+	&.bottom:after {
+		content: @moon-icon-arrowsmalldown;
+		font-size: @moon-integer-picker-caret-font-size;
+		line-height: @moon-integer-picker-caret-font-size/2 + 8;
 	}
  }
-.moon-scroll-picker-overlay-container.selected .moon-scroll-picker-overlay {
-	display: block;
-}
 
 .moon-scroll-picker-taparea {
 	position:absolute;

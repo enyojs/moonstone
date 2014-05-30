@@ -82,9 +82,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
 	},
-	rendered: function() {
-		this.inherited(arguments);
-	},
 	toggleTrackDrawer: function() {
 		this.$.client.setOpen(!this.$.client.getOpen());
 	},

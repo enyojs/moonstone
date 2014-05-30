@@ -26,9 +26,7 @@
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
 	color: @moon-spotlight-text-color;
 }
-.moon-simple-integer-picker-button {	
-  width: @moon-picker-button-width;
-  height: @moon-picker-button-width;
+.moon-simple-integer-picker-button {  
   border-radius: @moon-picker-button-width/2;  border: 0;
   background: inherit;
   padding: 0;
@@ -37,8 +35,42 @@
   vertical-align: middle;
   z-index: 2;
   color: @moon-sub-header-text-color;
-  background: transparent @moon-scroller-icon no-repeat center 0;
- 
+  background-repeat: no-repeat;
+  background-position: center 0;
+  &.moon-icon.small {
+    width: @moon-picker-button-width;
+    height: 100%;
+  }
+}
+.spotlight .moon-simple-integer-picker-button {
+	&.moon-icon {
+		color: @moon-spotlight-text-color;
+	}
+	/* Hover while not Pressed state */
+	&.moon-icon-arrowsmallleft:not(.pressed):after {
+		content: @moon-icon-arrowlargeleft;
+	}
+	&.moon-icon-arrowsmallright:not(.pressed):after {
+		content: @moon-icon-arrowlargeright;
+	}
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button {
+  /* Default RTL state */
+  &.moon-icon-arrowsmallleft:after {
+    content: @moon-icon-arrowsmallright;
+  }
+  &.moon-icon-arrowsmallright:after {
+    content: @moon-icon-arrowsmallleft;
+  }
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
+  /* Hover while not Pressed state */
+  &.moon-icon-arrowsmallleft:not(.pressed):after {
+    content: @moon-icon-arrowlargeright;
+  }
+  &.moon-icon-arrowsmallright:not(.pressed):after {
+    content: @moon-icon-arrowlargeleft;
+  }
 }
 
 .moon-simple-integer-picker-client {
@@ -71,6 +103,7 @@
 .moon-scroll-picker-overlay-container-left {
   z-index: 1;
   position: relative;
+  height: 100%;
 }
 .moon-scroll-picker-overlay-left {
   position: absolute;
@@ -114,6 +147,7 @@
 .moon-scroll-picker-overlay-container-right {
   z-index: 1;
   position: relative;
+  height: 100%;
 }
 .moon-scroll-picker-overlay-right {
   position: absolute;
@@ -153,38 +187,6 @@
   right: -6px;
 }
 
-.moon-simple-integer-picker-button.left {
-	transform: rotate(270deg) translateZ(1px);
-	-o-transform: rotate(270deg) translateZ(1px);
-	-ms-transform: rotate(270deg) translateZ(1px);
-	-moz-transform: rotate(270deg) translateZ(1px);
-	-webkit-transform: rotate(270deg) translateZ(1px);
-}
-
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.left {
-	transform: rotate(90deg) translateZ(1px);
-	-o-transform: rotate(90deg) translateZ(1px);
-	-ms-transform: rotate(90deg) translateZ(1px);
-	-moz-transform: rotate(90deg) translateZ(1px);
-	-webkit-transform: rotate(90deg) translateZ(1px);
-}
-
-.moon-simple-integer-picker-button.right {
-	transform: rotate(90deg) translateZ(1px);
-	-o-transform: rotate(90deg) translateZ(1px);
-	-ms-transform: rotate(90deg) translateZ(1px);
-	-moz-transform: rotate(90deg) translateZ(1px);
-	-webkit-transform: rotate(90deg) translateZ(1px);
-}
-
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.right {
-	transform: rotate(270deg) translateZ(1px);
-	-o-transform: rotate(270deg) translateZ(1px);
-	-ms-transform: rotate(270deg) translateZ(1px);
-	-moz-transform: rotate(270deg) translateZ(1px);
-	-webkit-transform: rotate(270deg) translateZ(1px);
-}
-
 .spotlight .moon-simple-integer-picker-button {
-	background: @moon-scroller-icon no-repeat center -@moon-icon-sprite-small-size;
+  background-position: center -@moon-icon-sprite-small-size;
 }

@@ -10,6 +10,7 @@ enyo.kind({
 					{kind: "moon.ToggleItem", content: "Option 1", checked: true, onchange: "itemChanged"},
 					{kind: "moon.ToggleItem", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.ToggleItem", disabled: true, content: "Disabled", onchange: "itemChanged"},
+					{kind: "moon.ToggleItem", disabled: true, checked: true, content: "Disabled Checked"},
 					{kind: "moon.ToggleItem", content: "Option 4", checked: true, onchange: "itemChanged"},
 					{kind: "moon.ToggleItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
 				]},

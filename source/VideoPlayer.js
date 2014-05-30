@@ -167,19 +167,18 @@ enyo.kind({
 		//* @protected
 		//* Base URL for icons
 		iconPath: "$lib/moonstone/images/video-player/",
-
-		//* Icon image files
-		jumpBackIcon: "icon_skipbackward.png",
-		rewindIcon: "icon_backward.png",
-		playIcon: "icon_play.png",
-		pauseIcon: "icon_pause.png",
-		fastForwardIcon: "icon_forward.png",
-		jumpForwardIcon: "icon_skipforward.png",
-		moreControlsIcon: "icon_extend.png",
-		lessControlsIcon: "icon_shrink.png",
-		inlinePlayIcon: "icon_small_play.png",
-		inlinePauseIcon: "icon_small_pause.png",
-		inlineFullscreenIcon: "icon_small_fullscreen.png",
+		//* Icon font or image files
+		jumpBackIcon: "skipbackward",
+		rewindIcon: "backward",
+		playIcon: "play",
+		pauseIcon: "pause",
+		fastForwardIcon: "forward",
+		jumpForwardIcon: "skipforward",
+		moreControlsIcon: "arrowextend",
+		lessControlsIcon: "arrowshrink",
+		inlinePlayIcon: "play",
+		inlinePauseIcon: "pause",
+		inlineFullscreenIcon: "fullscreen",
 
 		//* Default hash of playback states and their associated playback rates
 		// playbackRateHash: {
@@ -220,11 +219,6 @@ enyo.kind({
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
 		{from: ".poster",					to:".$.video.poster"},
-		{from: ".jumpBackIcon",				to:".$.jumpBack.src", transform: "transformIconSrc"},
-		{from: ".rewindIcon",				to:".$.rewind.src", transform: "transformIconSrc"},
-		{from: ".fastForwardIcon",			to:".$.fastForward.src", transform: "transformIconSrc"},
-		{from: ".jumpForwardIcon",			to:".$.jumpForward.src", transform: "transformIconSrc"},
-		{from: ".inlineFullscreenIcon",		to:".$.ilFullscreen.src", transform: "transformIconSrc"},
 		{from: ".constrainToBgProgress",	to:".$.slider.constrainToBgProgress"},
 		{from: ".elasticEffect",			to:".$.slider.elasticEffect"},
 		{from: ".showJumpControls",			to:".$.jumpForward.showing"},
@@ -294,12 +288,13 @@ enyo.kind({
 			{classes: "moon-video-inline-control-text", components: [
 				{name: "currTime", content: "00:00 / 00:00"}
 			]},
-			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause", classes: "moon-video-inline-control-play-pause" },
-			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton", classes: "moon-video-inline-control-fullscreen"}
+			{name: "ilPlayPause", kind: "moon.IconButton", ontap: "playPause"},
+			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton"}
 		]}
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.srcChanged();
 		this.createInfoControls();
 		this.inlineChanged();
 		this.showInfoChanged();
@@ -311,13 +306,24 @@ enyo.kind({
 		this.showProgressBarChanged();
 		this.jumpSecChanged();
 		this.updatePlaybackControlState();
+		this.retrieveIconsSrcOrFont(this.$.jumpBack, this.jumpBackIcon, "moon-icon-video-main-control-font-style");
+		this.retrieveIconsSrcOrFont(this.$.rewind, this.rewindIcon, "moon-icon-video-main-control-font-style");
+		this.retrieveIconsSrcOrFont(this.$.fastForward, this.fastForwardIcon, "moon-icon-video-main-control-font-style");
+		this.retrieveIconsSrcOrFont(this.$.jumpForward, this.jumpForwardIcon, "moon-icon-video-main-control-font-style");
+		this.retrieveIconsSrcOrFont(this.$.ilFullscreen, this.inlineFullscreenIcon, "moon-video-inline-control-fullscreen");
+		this.$.ilFullscreen.removeClass("moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style");
 		if (window.ilib) {
 			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
 		}
 	},
-	transformIconSrc: function(inSrc) {
-		var iconPath = this.iconPath || "";
-		return iconPath + inSrc;
+	checkIconType: function(inIcon) {
+		var imagesrcRegex=/\.(jpg|jpeg|png|gif)$/i;
+		var iconType=imagesrcRegex.test(inIcon)?"image":"iconfont";
+		return iconType;
+	},
+	transformIconSrc: function(inIcon) {
+		var iconPath=Boolean(this.checkIconType(inIcon)=="image")?(this.iconPath+inIcon):inIcon;
+		return iconPath;
 	},
 	disablePlaybackControlsChanged: function() {
 		this.updatePlaybackControlState();
@@ -729,7 +735,7 @@ enyo.kind({
 		if (this.jumpStartEnd) {
 			this.jumpToStart(inSender, inEvent);
 		} else {
-			if (!inSender._holding) {
+			if (!inSender._holding || (inSender._holding && inSender._sentHold !== true)) {
 				this.jumpBackward(inSender, inEvent);
 			}
 			inSender._holding = false;
@@ -739,7 +745,7 @@ enyo.kind({
 		if (this.jumpStartEnd) {
 			this.jumpToEnd(inSender, inEvent);
 		} else {
-			if (!inSender._holding) {
+			if (!inSender._holding || (inSender._holding && inSender._sentHold !== true)) {
 				this.jumpForward(inSender, inEvent);
 			}
 			inSender._holding = false;
@@ -816,6 +822,7 @@ enyo.kind({
 		enyo.Spotlight.unspot();
 		if (this.isFullscreen()) {
 			this.$.ilFullscreen.undepress();
+			this.$.ilFullscreen.removeClass("moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style");
 			this.spotlight = true;
 			this.spotlightModal = true;
 			this.removeClass("inline");
@@ -915,8 +922,7 @@ enyo.kind({
 		var videoAspectRatio = null,
 			width = this.getComputedStyleValue('width'),
 			height = this.getComputedStyleValue('height'),
-			ratio = 1
-		;
+			ratio = 1;
 		
 		videoAspectRatio = this.aspectRatio.split(":");
 		
@@ -959,10 +965,35 @@ enyo.kind({
 	},
 	//* Switches play/pause buttons as appropriate.
 	updatePlayPauseButtons: function() {
+		if (this._isPlaying) {
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.pauseIcon, "moon-icon-playpause-font-style");
+		} else {
+			this.retrieveIconsSrcOrFont(this.$.fsPlayPause, this.playIcon, "moon-icon-playpause-font-style");
+		}
+		if (this._isPlaying) {
+			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePauseIcon, "moon-video-inline-control-play-pause");
+		} else {
+			this.retrieveIconsSrcOrFont(this.$.ilPlayPause, this.inlinePlayIcon, "moon-video-inline-control-play-pause");
+		}
+	},
+	//retrieve icons -- either through setSrc or setIcon depending on the iconType:
+	retrieveIconsSrcOrFont:function(inSrc,inIcon, inClasses){
 		var t = this.bindSafely("transformIconSrc");
-
-		this.$.fsPlayPause.setSrc(this._isPlaying ? t(this.pauseIcon) : t(this.playIcon));
-		this.$.ilPlayPause.setSrc(this._isPlaying ? t(this.inlinePauseIcon) : t(this.inlinePlayIcon));
+		if(this.checkIconType(inIcon)=="image"){
+				inSrc.setIcon("");
+				inSrc.setSrc(t(inIcon));
+				if(inSrc!==this.$.ilPlayPause){
+					inSrc.addRemoveClass(inClasses,Boolean(this.checkIconType(inIcon)=="iconfont"));
+				}
+				inSrc.addRemoveClass("moon-icon-",Boolean(this.checkIconType(inIcon)=="iconfont"));
+				inSrc.addRemoveClass('"moon-icon-'+inIcon+'"',Boolean(this.checkIconType(inIcon)=="iconfont"));
+			}
+		if(this.checkIconType(inIcon)=="iconfont")	{
+				inSrc.setSrc("");
+				inSrc.setIcon(t(inIcon));
+				inSrc.addRemoveClass(inClasses,Boolean(this.checkIconType(inIcon)=="iconfont"));
+				inSrc.applyStyle("background-image",inSrc.src);
+			}
 	},
 	//* Turns spinner on or off, as appropriate.
 	updateSpinner: function() {
@@ -982,26 +1013,22 @@ enyo.kind({
 	*/
 	moreButtonTapped: function(inSender, inEvent) {
 		var index = this.$.controlsContainer.getIndex();
-		var t = this.bindSafely("transformIconSrc");
-
 		if (index === 0) {
-			this.$.moreButton.setSrc(t(this.lessControlsIcon));
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 			this.toggleSpotlightForMoreControls(true);
 			this.$.controlsContainer.next();
 		} else {
-			this.$.moreButton.setSrc(t(this.moreControlsIcon));
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 			this.toggleSpotlightForMoreControls(false);
 			this.$.controlsContainer.previous();
 		}
 	},
 	updateMoreButton: function() {
 		var index = this.$.controlsContainer.getIndex();
-		var t = this.bindSafely("transformIconSrc");
-		
 		if (index === 0) {
-			this.$.moreButton.setSrc(t(this.moreControlsIcon));
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.moreControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		} else {
-			this.$.moreButton.setSrc(t(this.lessControlsIcon));
+			this.retrieveIconsSrcOrFont(this.$.moreButton, this.lessControlsIcon, "moon-icon-video-round-controls-style moon-icon-video-more-controls-font-style");
 		}
 	},
 	toggleSpotlightForMoreControls: function(moreControlsSpottable) {

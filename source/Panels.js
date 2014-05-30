@@ -205,7 +205,15 @@ enyo.kind({
 	},
 
 	//* @protected
-
+	create: enyo.inherit(function (sup) {
+		return function () {
+			sup.apply(this, arguments);
+			
+			// we need to ensure our handler has the opportunity to modify the flow during
+			// initialization
+			this.showingChanged();
+		};
+	}),
 	initComponents: function() {
 		this.applyPattern();
 		this.inherited(arguments);
@@ -245,24 +253,44 @@ enyo.kind({
 		return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 	},
 	spotlightLeft: function(oSender, oEvent) {
+		var orig = oEvent.originator,
+			idx;
 		// Don't allow left-movement from a breadcrumb
-		if (oEvent.originator.name === "breadcrumbBackground") {
+		if (orig.name === "breadcrumbBackground") {
 			return true;
-		} else {
-			var idx = this.getPanelIndex(oEvent.originator);
-			if (idx > 0 && oEvent.originator instanceof moon.Panel && this.getPanels()[idx-1].isBreadcrumb) {
+		}
+		if (orig instanceof moon.Panel) {
+			idx = this.getPanelIndex(orig);
+			if (idx === 0) {
+				if (this.showing && (this.useHandle === true) && this.handleShowing) {
+					this.hide();
+					return true;
+				}
+			}
+			else {
 				this.previous();
 				return true;
 			}
 		}
 	},
 	spotlightRight: function(oSender, oEvent) {
-		if (oEvent.originator.name === "breadcrumbBackground") {
+		var orig = oEvent.originator,
+			idx = this.getPanelIndex(orig),
+			next = this.getPanels()[idx + 1];
+		if (orig.name === "breadcrumbBackground") {
 			// Upon pressing right from a pointer-focused breadcrumb, just jump
 			// to the current panel to keep focus visible
-			var idx = this.getPanelIndex(oEvent.originator) + 1;
-			enyo.Spotlight.spot(this.getPanels()[idx]);
+			enyo.Spotlight.spot(next);
 			return true; 
+		}
+		if (next && orig instanceof moon.Panel) {
+			if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
+				enyo.Spotlight.spot(this.$.handleWrapper);
+			}
+			else {
+				this.next();
+			}
+			return true;
 		}
 	},
 	spotlightDown: function(oSender, oEvent) {
@@ -336,45 +364,6 @@ enyo.kind({
 		if (!this.showing && (this.useHandle === true) && this.handleShowing ) {
 			enyo.Spotlight.spot(this.$.handleWrapper);
 			return true;
-		}
-	},
-	//* Called when focus leaves one of the panels.
-	onSpotlightPanelLeave: function(inSender, inEvent) {
-		var direction = inEvent.direction;
-
-		// Ignore panel leave events that don't come from active panel
-		if (inEvent.originator != this.getActive())	{
-			return false;
-		}
-
-		// Kill leave events that come from pointer mode
-		if (enyo.Spotlight.getPointerMode()) {
-			return true;
-		}
-
-		if (direction === "LEFT") {
-			// If leaving to the left and we're not at first panel, go to previous panel
-			if (this.getIndex() > 0) {
-				this.previous();
-				return true;
-			}
-			// If leaving to the left and we are at the first panel, hide panels
-			else if (this.toIndex === null && this.showing && (this.useHandle === true) && this.handleShowing) {
-				this.hide();
-				return true;
-			}
-		}
-		else if (direction === "RIGHT") {
-			// If leaving to the right and handle is enabled, spot the handle (unless next panel is joined to current)
-			if ((this.useHandle === true) && this.handleShowing && this.layout.joinedPanels && this.layout.joinedPanels[this.getIndex() + 1] === undefined) {
-				enyo.Spotlight.spot(this.$.handleWrapper);
-				return true;
-			}
-			// If leaving to the right and handle is not enabled, go to next panel
-			else if (this.getIndex() < this.getPanels().length - 1) {
-				this.next();
-				return true;
-			}
 		}
 	},
 	setIndex: function(inIndex) {
@@ -546,7 +535,7 @@ enyo.kind({
 		return true;
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
-	indexChanged: function() {
+	indexChanged: function(inPrevious) {
 		var activePanel = this.getActive();
 
 		if (activePanel && activePanel.isBreadcrumb) {
@@ -555,13 +544,10 @@ enyo.kind({
 
 		this.inherited(arguments);
 
-		// Spot the active panel
-		if (this.hasNode() && !this.animate) {
-			enyo.Spotlight.spot(this.getActive());
-		}
-
 		// Update display of branding image
-		this.brandingSrcChanged();
+		if (this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
+			this.brandingSrcChanged();
+		}
 	},
 	finishTransition: function(sendEvents) {
 		var panels = this.getPanels(),
@@ -603,6 +589,9 @@ enyo.kind({
 		}
 
 		enyo.Spotlight.unmute(this);
+		// Spot the active panel
+		enyo.Spotlight.spot(this.getActive());
+
 	},
 	/**
 		Override the default _getShowing()_ behavior to avoid setting _this.showing_
@@ -636,6 +625,9 @@ enyo.kind({
 				enyo.Spotlight.spot(this.getActive());
 			}
 			else {
+				// in this case, our display flag will have been set to none so we need to clear
+				// that even though the showing flag will remain false
+				this.applyStyle('display', null);
 				this.resetHandleAutoHide();
 				this._hide();
 			}
@@ -770,7 +762,7 @@ enyo.kind({
 	},
 	brandingSrcChanged: function() {
 		if (this.pattern === "activity") {
-			this.$.scrim.applyStyle("background-image", (this.brandingSrc && this.index > 0) ? "url(" + this.brandingSrc + ")" : "none");
+			this.$.scrim.applyStyle("background-image", (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? "url(" + this.brandingSrc + ")" : "none");
 		}
 	}
 });

@@ -1,93 +1,68 @@
 .moon-checkbox-item {
-	display: block;
 	position: relative;
+
+	// Checkbox 
+	.moon-checkbox {
+		position: absolute;
+		top: @moon-spotlight-outset;
+		right: @moon-spotlight-outset;
+	}
+	// Label 
+	.moon-checkbox-item-label-wrapper {
+		height: @moon-item-line-height;
+		margin-right: @moon-item-indent;
+	}
+
+	// Left-handed checkbox 
+	&.left-handed  {
+		// Checkbox 
+		.moon-checkbox {
+			left: @moon-spotlight-outset;
+		}
+		// Label 
+		.moon-checkbox-item-label-wrapper {
+			margin-right: 0px;
+			margin-left: @moon-item-indent;
+		}
+	}
+
 }
 
-/* Label */
-.moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	height: @moon-item-line-height;
-	margin-right: @moon-item-indent;
-}
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label-wrapper {
-	margin-left: @moon-item-indent;
-	margin-right: 0;
-}
-.moon-checkbox-item .moon-checkbox-item-label {
-	float: left;
-	white-space: nowrap;
-	height: @moon-item-line-height;
-}
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox-item-label {
-	float: right;
-}
-
-/* Checkbox */
-.moon-checkbox-item .moon-checkbox {
-	position: absolute;
-	top: @moon-spotlight-outset;
-	left: auto;
-	right: @moon-spotlight-outset;
-}
-.moon-checkbox-item.spotlight .moon-checkbox[checked] {
-	background-image: @moon-checkmark-white;
-}
-.enyo-locale-right-to-left .moon-checkbox-item .moon-checkbox {
-	left: @moon-spotlight-outset;
-	right: auto;
-}
-.moon-neutral .moon-checkbox[checked] {
-  background-image: @moon-checkmark-white;
-}
-.moon-checkbox-item .moon-checkbox[checked] {
-	background-color:transparent;
-}
-.moon-checkbox-item.disabled {
-	cursor: default;
-	opacity: @moon-disabled-opacity;
-	filter: alpha(opacity=@moon-disabled-opacity-ie);
-}
-
-.moon-checkbox-item .moon-checkbox[disabled] {
-	cursor: default;
-	opacity: 1;
-	filter: alpha(opacity=100);
+.moon-neutral .moon-checkbox[checked]:after {
+	color: @moon-white;
 }
 
 /* Special treatment inside of ExpandablePicker (checkbox nudged up) */
 .moon-expandable-picker .moon-checkbox-item .moon-checkbox {
-	top: @moon-spotlight-outset - 2px;
+	top: @moon-spotlight-outset;
 }
 
-
-/* Left-handed checkbox */
-
-/* Label */
-.moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: 0px;
-	margin-left: @moon-item-indent;
-}
-.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label-wrapper {
-	margin-right: @moon-item-indent;
-	margin-left: 0px;
-}
-.moon-checkbox-item.left-handed .moon-checkbox-item-label {
-	float: right;
-}
-.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox-item-label {
-	float: left;
+/* this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
+.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper {
+	padding-left: 2px;
 }
 
-/* Checkbox */
-.moon-checkbox-item.left-handed .moon-checkbox {
-	left: @moon-spotlight-outset;
-	right: auto;
+/* Right to left */
+.enyo-locale-right-to-left .moon-checkbox-item {
+	// Checkbox
+	.moon-checkbox {
+		left: @moon-spotlight-outset;
+		right: auto;
+	}
+	.moon-checkbox-item-label-wrapper {
+		margin-left: @moon-item-indent;
+		margin-right: 0px;
+	}
+
+	// Left-handed checkbox
+	&.left-handed {
+		.moon-checkbox {
+			left: auto;
+			right: @moon-spotlight-outset;
+		}
+		.moon-checkbox-item-label-wrapper {
+			margin-right: @moon-item-indent;
+			margin-left: 0px;
+		}
+	}
 }
-.enyo-locale-right-to-left .moon-checkbox-item.left-handed .moon-checkbox {
-	left: auto;
-	right: @moon-spotlight-outset;
-}
-/*this is a fix for TV only - left-side of letter cut off in list-action item drawer*/
-.moon-list-actions-drawer-client .moon-checkbox-item .moon-checkbox-item-label-wrapper{
-    padding-left:2px;
-}
- 
