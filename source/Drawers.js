@@ -57,7 +57,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-neutral moon-drawers-handles"}
 		]},
 		{name: "drawers", classes:"moon-drawers-drawer-container"},
@@ -109,6 +109,7 @@ enyo.kind({
 		}
 	},
 	openHandleContainer: function() {
+		this.$.handleContainer.spotlightDisabled = false;
 		this.$.handleContainer.setOpen(true);
 		enyo.Spotlight.spot(this.$.handleContainer);
 		this.updateActivator(true);
@@ -116,6 +117,7 @@ enyo.kind({
 	},
 	closeHandleContainer: function() {
 		enyo.dispatcher.release(this.$.handleContainer);
+		this.$.handleContainer.spotlightDisabled = true;
 		this.$.handleContainer.setOpen(false);
 		this.updateActivator(false);
 	},
