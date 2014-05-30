@@ -65,7 +65,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name: "viewport", classes: "moon-panel-viewport", components: [
+		{name: "viewport", classes: "moon-panel-viewport", onwebkitAnimationEnd: "animationComplete", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 				/* header will be created here programmatically in createTools after mixing-in headerOptions */
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
@@ -126,8 +126,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.getInitAnimationValues();
 		this.updateViewportSize();
-		this.createShrinkAnimation();
-		this.createGrowAnimation();
 		this.shrinkAsNeeded();
 	},
 	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
@@ -318,20 +316,20 @@ enyo.kind({
 	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
-		this.haltAnimations();
-		this.$.animator.play("shrink");
+		this.addClass("shrunken");
+		this.addClass("shrinking");
 	},
 	shrink: function() {
-		this.$.animator.jumpToEnd("shrink");
+		this.addClass("shrunken");
 	},
 	growAnimation: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.haltAnimations();
-		this.$.animator.play("grow");			
+		this.addClass("growing");	
+		this.removeClass("shrunken");
 	},
 	grow: function() {
-		this.$.animator.jumpToEnd("grow");
+		this.removeClass("shrunken");
 	},
 	//* @protected
 	getInitAnimationValues: function() {
@@ -344,9 +342,8 @@ enyo.kind({
 		this.initialWidth = node.offsetWidth   - paddingR - paddingL;
 	},
 	haltAnimations: function() {
-		this.$.animator.stop();
-		this.$.animator.pause("grow");
-		this.$.animator.pause("shrink");
+		this.removeClass("growing");
+		this.removeClass("shrinking");
 	},
 	preTransitionComplete: function() {
 		this.shrinking = false;
@@ -355,14 +352,15 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.growing = false;
 		this.doPostTransitionComplete();
-		this.reflow();
 	},
 	animationComplete: function(inSender, inEvent) {
-		switch (inEvent.animation.name) {
-		case "shrink":
+		if (this.shrinking) {
+			this.removeClass("shrinking");
 			this.preTransitionComplete();
 			return true;
-		case "grow":
+		}
+		if (this.growing) {
+			this.removeClass("growing");
 			this.postTransitionComplete();
 			return true;
 		}
@@ -376,43 +374,5 @@ enyo.kind({
 			this.resized();
 			break;
 		}
-	},
-	createGrowAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "grow",
-			duration: 400,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [
-					{control: this.$.viewport, properties: {"height"  : "0px"}},
-					{control: this.$.breadcrumbViewport, properties: { "height": "current" }}
-				],
-				50: [
-					{control: this.$.breadcrumbViewport, properties: { "height": "0px" }}
-				],
-				100: [
-					{control: this.$.viewport, properties: {"height" : this.initialHeight + "px"}}
-				]
-			}
-		});
-	},
-	createShrinkAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "shrink",
-			duration: 500,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [
-					{control: this.$.viewport, properties: { "height"  : "current" }}
-				],
-				50: [
-					{control: this.$.breadcrumbViewport, properties: { "height": "current" }}
-				],
-				100: [
-					{control: this.$.viewport, properties: { "height"  : "0px" }},
-					{control: this.$.breadcrumbViewport, properties: { "height": "370px" }}
-				]
-			}
-		});
 	}
 });
