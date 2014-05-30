@@ -48,6 +48,8 @@
 /* ---------------------------------------*/
 /* ToggleSwitch */
 /* ---------------------------------------*/
+/* Tooltip */
+/* ---------------------------------------*/
 /* IntegerPicker */
 /* ---------------------------------------*/
 /* Grid Dimensions */
@@ -3774,8 +3776,6 @@
 }
 .moon-tooltip {
   z-index: 20;
-  left: 0px;
-  background-repeat: no-repeat;
   height: 68px;
 }
 .moon-tooltip-label {
@@ -3792,7 +3792,6 @@
   text-align: center;
   padding: 0px 24px;
   background-color: #4d4d4d;
-  border-radius: 30px;
 }
 .enyo-locale-non-latin .moon-tooltip-label {
   font-family: "Moonstone LG Display";
@@ -3800,51 +3799,61 @@
   font-size: 27px;
   font-weight: normal;
 }
-.moon-tooltip.below {
-  top: 100%;
-  transform: translateY(5px);
-  -o-transform: translateY(5px);
-  -ms-transform: translateY(5px);
-  -moz-transform: translateY(5px);
-  -webkit-transform: translateY(5px);
-}
-.moon-tooltip.above {
-  top: 100%;
-  transform: translateY(-5px);
-  -o-transform: translateY(-5px);
-  -ms-transform: translateY(-5px);
-  -moz-transform: translateY(-5px);
-  -webkit-transform: translateY(-5px);
-}
 .moon-tooltip.below > .moon-tooltip-label {
   margin: 9px 0px 0px;
 }
 .moon-tooltip.above > .moon-tooltip-label {
   margin: 0px 0px 9px;
 }
-.moon-tooltip.above.left-arrow {
-  background-image: url('../images/tooltip-nubs/top-left.png');
-  background-position: left 30px;
-  left: 35%;
-}
-.moon-tooltip.above.right-arrow {
-  background-image: url('../images/tooltip-nubs/top-right.png');
-  background-position: right 30px;
-  left: 50%;
-}
-.moon-tooltip.below.left-arrow {
-  background-image: url('../images/tooltip-nubs/bottom-left.png');
-  background-position: left 1px;
-  left: 35%;
-}
-.moon-tooltip.below.right-arrow {
-  background-image: url('../images/tooltip-nubs/bottom-right.png');
-  background-position: right 1px;
-  left: 50%;
-}
-.moon-tooltip .moon-tooltip-label.right-arrow {
+.moon-tooltip-label:before {
   position: absolute;
-  right: 0px;
+  content: "";
+  width: 84px;
+  height: 60px;
+}
+/* .above .left-arrow nub shape */
+.moon-tooltip.above.left-arrow .moon-tooltip-label {
+  border-radius: 34px 34px 34px 0px;
+}
+.moon-tooltip.above.left-arrow .moon-tooltip-label:before {
+  top: 29px;
+  left: -2px;
+  border-top: 29px solid #4d4d4d;
+  clip: rect(30px, 24px, 38px, 2px);
+  border-radius: 9999px;
+}
+/* .above .right-arrow nub shape */
+.moon-tooltip.above.right-arrow .moon-tooltip-label {
+  border-radius: 34px 34px 0px 34px;
+}
+.moon-tooltip.above.right-arrow .moon-tooltip-label:before {
+  top: 29px;
+  right: -2px;
+  border-top: 29px solid #4d4d4d;
+  clip: rect(30px, 82px, 38px, 56px);
+  border-radius: 9999px;
+}
+/* .below .left-arrow nub shape */
+.moon-tooltip.below.left-arrow .moon-tooltip-label {
+  border-radius: 0 34px 34px 34px;
+}
+.moon-tooltip.below.left-arrow .moon-tooltip-label:before {
+  top: -50px;
+  left: -2px;
+  border-bottom: 29px solid #4d4d4d;
+  clip: rect(2px, 24px, 60px, 2px);
+  border-radius: 9999px;
+}
+/* .below .right-arrow nub shape */
+.moon-tooltip.below.right-arrow .moon-tooltip-label {
+  border-radius: 34px 0px 34px 34px;
+}
+.moon-tooltip.below.right-arrow .moon-tooltip-label:before {
+  top: -50px;
+  right: -2px;
+  border-bottom: 29px solid #4d4d4d;
+  clip: rect(2px, 82px, 60px, 56px);
+  border-radius: 9999px;
 }
 /* AudioPlayback.css */
 .moon-audio-playback {
