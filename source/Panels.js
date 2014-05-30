@@ -137,7 +137,7 @@ enyo.kind({
 			oPanels[nPanel].render();
 		}
 		this.reflow();
-		for (nPanel in oPanels) {
+		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 			oPanels[nPanel].resized();
 		}
 		this.setIndex(lastIndex+1);
