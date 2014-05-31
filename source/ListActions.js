@@ -255,11 +255,9 @@ enyo.kind({
 	unStackMeUp: function() {
 		var containerHeight, optionGroup, i;
 		if (this.standardHeight) {
-			containerHeight = this.standardHeight;
-			this.$.drawer.applyStyle("height", containerHeight+ "px");
-		} else {
-			containerHeight = this.getContainerBounds().height;
+			this.$.drawer.applyStyle("height", this.standardHeight + "px");
 		}
+		containerHeight = this.getContainerBounds().height;
 
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
