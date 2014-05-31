@@ -4,7 +4,8 @@ enyo.kind({
 	components: [
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "./assets/default-movie.png", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
-				{kind: "moon.ToggleButton", small:true, content:"Small Header", name:"smallHeaderToggle"}
+				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "smallTapped"},
+				{kind: "moon.ToggleButton", small:true, content:"Mini", name:"miniHeaderToggle", ontap: "miniTapped"}
 			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
@@ -72,9 +73,6 @@ enyo.kind({
 			]}
 		]}
 	],
-	bindings: [
-		{from: ".$.smallHeaderToggle.value", to:".$.panel.smallHeader"}
-	],
 	// custom next handler for each panel to avoid switching from one active panel
 	// to another with no visible change for demo
 	next1: function(inSender, inEvent) {
@@ -104,6 +102,22 @@ enyo.kind({
 	inputChanged: function(inSender, inEvent) {
 		if (inEvent.originator.getValue() == "go") {
 			this.next3();
+		}
+	},
+	smallTapped: function(inSender, inEvent) {
+		if (this.$.smallHeaderToggle.value) {
+			this.$.miniHeaderToggle.setValue(false);
+			this.$.panel.setHeaderType("small");
+		} else {
+			this.$.panel.setHeaderType("large");
+		}
+	},
+	miniTapped: function(inSender, inEvent) {
+		if (this.$.miniHeaderToggle.value) {
+			this.$.smallHeaderToggle.setValue(false);
+			this.$.panel.setHeaderType("mini");
+		} else {
+			this.$.panel.setHeaderType("large");
 		}
 	}
 });

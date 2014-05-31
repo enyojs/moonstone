@@ -25,7 +25,10 @@ enyo.kind({
 			with the panel index
 		*/
 		autoNumber: true,
+		//* Facade for the header's _type_ property. You can choose among large, small and mini
+		headerType: "large",
 		//* Facade for the header's _small_ property
+		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
@@ -86,7 +89,8 @@ enyo.kind({
 		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"},
-		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"}
+		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"},
+		{from: ".headerType", to: ".$.header.type", oneWay: false}
 	],
 
 	headerComponents: [],
@@ -104,7 +108,9 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
+		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
 		this.smallHeaderChanged();
+		this.headerTypeChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -164,8 +170,9 @@ enyo.kind({
 	handleBreadcrumbTap: function(inSender, inEvent) {
 		inEvent.breadcrumbTap = true;
 	},
+	// Note: smallHeader will be deprecated soon. For backward compatiblity, I leave it for a while.
 	scroll: function(inSender, inEvent) {
-		if (this.collapsingHeader && !this.smallHeader) {
+		if (this.collapsingHeader && ((this.headerType === "large") || !this.smallHeader)) {
 			if (inEvent.originator.y < 0) {
 				this.collapseHeader();
 			} else {
@@ -173,8 +180,15 @@ enyo.kind({
 			}
 		}
 	},
+	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.smallHeader);
+		if (this.generated) {
+			this.$.contentWrapper.resized();
+		}
+	},
+	headerTypeChanged: function() {
+		this.$.header.setType(this.headerType);
 		if (this.generated) {
 			this.$.contentWrapper.resized();
 		}

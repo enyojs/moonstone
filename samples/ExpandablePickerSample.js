@@ -2,10 +2,10 @@ enyo.kind({
 	name: "moon.sample.ExpandablePickerSample",
 	classes: "moon enyo-unselectable enyo-fit",
 	components: [
-		{kind: "moon.Panels", pattern:"activity", classes:"enyo-fit", components: [
-			{kind: "moon.Panel", name:"nonGroupedPanel", onChange:"pickerChanged", title:"Expandable", smallHeader:true, titleBelow:"Not grouped", style:"width:50%;", components: [
+		{kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", components: [
+			{kind: "moon.Panel", name: "nonGroupedPanel", onChange: "pickerChanged", title: "Expandable", headerType: "small", titleBelow: "Not grouped", style: "width:50%;", components: [
 				{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
-					{style:"max-width: 500px;", components: [
+					{style: "max-width: 500px;", components: [
 						{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", allowHtml:true, components: [
 							{content: "English"},
 							{content: "Spanish"},
@@ -29,7 +29,7 @@ enyo.kind({
 							{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 2"},
 							{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 3"}
 						]},
-						{kind: "moon.ExpandablePicker", disabled:true, content:"Disabled Picker", components: [
+						{kind: "moon.ExpandablePicker", disabled:true, content: "Disabled Picker", components: [
 							{content: "Item 1"},
 							{content: "Item 2", active: true},
 							{content: "Item 3"}
@@ -43,14 +43,14 @@ enyo.kind({
 						{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 						{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 						{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
-						{kind: "moon.ExpandableInput", noneText: "Enter text", content:"Expandable Input", placeholder:"Enter text"}
+						{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"}
 					]}
 				]}
 			]},
-			{kind: "moon.Panel", name:"groupedPanel", onChange:"pickerChanged", title:"Pickers", smallHeader:true, titleBelow:"Grouped", joinToPrev:true, components: [
+			{kind: "moon.Panel", name: "groupedPanel", onChange: "pickerChanged", title: "Pickers", headerType: "small", titleBelow: "Grouped", joinToPrev:true, components: [
 				{kind: "enyo.Group", tag:null, highlander: true, components: [
 					{kind: "moon.Scroller", horizontal: "hidden", classes: "enyo-fill", components: [
-						{style:"max-width: 500px;", components: [
+						{style: "max-width: 500px;", components: [
 							{kind: "moon.ExpandablePicker", noneText: "Nothing selected", content: "Expandable Picker", allowHtml:true, components: [
 								{content: "English"},
 								{content: "Spanish"},
@@ -74,7 +74,7 @@ enyo.kind({
 								{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 2"},
 								{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 3"}
 							]},
-							{kind: "moon.ExpandablePicker", disabled:true, content:"Disabled Picker", components: [
+							{kind: "moon.ExpandablePicker", disabled:true, content: "Disabled Picker", components: [
 								{content: "Item 1"},
 								{content: "Item 2", active: true},
 								{content: "Item 3"}
@@ -88,7 +88,7 @@ enyo.kind({
 							{kind: "moon.ExpandableIntegerPicker", noneText: "Not Selected", disabled:true, autoCollapse: true, content: "Disabled Integer Picker", value: 2, min: 1, max: 15, unit: "sec"},
 							{kind: "moon.DatePicker", noneText: "Pick a Date", content: "Date Picker"},
 							{kind: "moon.TimePicker", noneText: "Pick a Date", content: "Time Picker"},
-							{kind: "moon.ExpandableInput", noneText: "Enter text", content:"Expandable Input", placeholder:"Enter text"}
+							{kind: "moon.ExpandableInput", noneText: "Enter text", content: "Expandable Input", placeholder: "Enter text"}
 						]}
 					]}
 				]}

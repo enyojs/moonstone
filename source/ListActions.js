@@ -72,7 +72,9 @@ enyo.kind({
 			Used internally for ListActions to request Header to add fitting components to itself.
 			Not intended for use by end-developer.
 		*/
-		onRequestCreateListActions: ""
+		onRequestCreateListActions: "",
+		//* Inform open changed of drawer
+		onListActionOpenChanged: ""	
 	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"}
@@ -170,8 +172,15 @@ enyo.kind({
 		}
 		this.setOpen(!this.getOpen());
 	},
+	beforeOpenDrawer: function(standardHeight, type) {
+		this.standardHeight = standardHeight;
+		if (type !== "large") {
+			this.set(this.stacked, "false");
+		}
+	},
 	openChanged: function(){
 		this.setActive(!this.getOpen());
+		this.doListActionOpenChanged({open: this.open});
 		// If opened, show drawer and resize it if needed
 		if(this.open){
 			this.$.drawer.show();
@@ -244,9 +253,11 @@ enyo.kind({
 		}
 	},
 	unStackMeUp: function() {
-		var containerHeight = this.getContainerBounds().height,
-			optionGroup,
-			i;
+		var containerHeight, optionGroup, i;
+		if (this.standardHeight) {
+			this.$.drawer.applyStyle("height", this.standardHeight + "px");
+		}
+		containerHeight = this.getContainerBounds().height;
 
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
 			optionGroup.applyStyle("display", "inline-block");
@@ -331,7 +342,7 @@ enyo.kind({
 	openChanged: function(inOld) {
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
-		if (this.open) {
+		if (this.open) {			
 			this.playOpenAnimation();
 		} else {
 			this.playCloseAnimation();
