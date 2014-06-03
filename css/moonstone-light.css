@@ -3131,31 +3131,27 @@
   }
 }
 .moon-spinner {
-  height: 73px;
+  min-height: 73px;
   min-width: 73px;
   line-height: 73px;
   position: relative;
   display: inline-block;
   color: #ffffff;
   background-color: #4d4d4d;
-  border-radius: 73px;
+  border-radius: 42.5px;
   margin: 0 10px;
+}
+.moon-spinner > * {
+  display: inline-block;
 }
 .moon-spinner.moon-spinner-transparent-background {
   background-color: transparent;
 }
 .moon-spinner.content {
-  position: static;
-  height: 85px;
-  min-width: 85px;
-  line-height: 85px;
+  padding: 6px;
 }
-.moon-spinner.content .moon-spinner-ball-decorator {
-  width: 85px;
-  height: 85px;
-}
-.moon-spinner.content .moon-spinner-text {
-  line-height: 85px;
+.moon-spinner.content .moon-spinner-client {
+  max-width: 400px;
 }
 .moon-spinner.running .moon-spinner-ball {
   -webkit-animation-play-state: running;
@@ -3198,7 +3194,7 @@
   color: #ffb80d;
   -webkit-transform: rotateZ(321deg);
 }
-.moon-spinner .moon-spinner-text {
+.moon-spinner .moon-spinner-client {
   float: left;
   line-height: 73px;
   margin: 0 2.6ex 0 0;
@@ -3206,7 +3202,7 @@
 .enyo-locale-right-to-left .moon-spinner .moon-spinner-ball-decorator {
   float: right;
 }
-.enyo-locale-right-to-left .moon-spinner .moon-spinner-text {
+.enyo-locale-right-to-left .moon-spinner .moon-spinner-client {
   float: right;
   margin-left: 2.6ex;
   margin-right: 0;
