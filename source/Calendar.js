@@ -201,11 +201,28 @@ enyo.kind({
 		this.updateDays();
 		this.updateDates();
 	},
+	/**
+		We were previously relying on a non-guaranteed ordering of calls (change handlers
+		on bindings, transformation of binding values) to perform validation on the 
+		Date value before updating a control with this value. Though this ordering was 
+		non-guaranteed, it has since changed and can possibly affect any code that is 
+		improperly relying on the specific ordering of these calls. We instead handle the 
+		validation in the generic setter and facade this via the _setValue_ method.
+	*/
+	setValue: function(inValue) {
+		this.set("value", inValue);
+	},
+	set: enyo.inherit(function (sup) {
+		return function(path, value) {
+			if (path == "value") {
+				if(isNaN(value) || value === null) {
+					value = new Date();
+				}
+			}
+			sup.apply(this, arguments);
+		};
+	}),
 	valueChanged: function(inOld) {
-		if(isNaN(this.value) || this.value === null) {
-			this.setValue(new Date());
-			return;
-		}
 		if (!this.generated || this.$.monthPicker.getSelectedIndex() != this.value.getMonth()) {
 			this.$.monthPicker.setSelectedIndex(this.value.getMonth());
 		}
