@@ -29,7 +29,6 @@ enyo.kind({
 		{from: ".$.orientation.selected.content", to: ".orientation"},
 		{from: ".$.debugging.selected.value", to: ".repeaterDebugging"},
 		{from: ".$.recordCount.value", to: ".recordCount", debug: true, oneWay: false, transform: function (v) {return (v !== undefined && v !== null && !isNaN(v))? v: undefined;}},
-		{from: ".$.collection", to: ".$.repeater.collection"},
 		{from: ".side", to: ".$.repeater.side"}
 	],
 	generateRecords: function (amount) {
@@ -81,6 +80,7 @@ enyo.kind({
 		this.set("side", this.orientation == "vertical"? "left": "bottom");
 		this.controlParent = this.$.repeaterContainer;
 		c = this.createComponent(props);
+        c.set("collection", this.$.collection);
 		c.render();
 		this.controlParent = cp;
 	},
