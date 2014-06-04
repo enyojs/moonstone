@@ -91,6 +91,6 @@ enyo.kind({
 		this.$.calendar.setValue(new Date(this.$.input.getValue()));
 	},
 	resetDate: function() {
-		this.$.calendar.setValue(null);
+		this.$.calendar.setValue(new Date());
 	}
 });
