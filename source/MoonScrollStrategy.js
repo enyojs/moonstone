@@ -388,13 +388,13 @@ enyo.kind({
 	effectScrollStop: function() { },
 	effectOverscroll: function() { },
 	spotlightPagingControlsChanged: function() {
-		this.updateHoverOnPagingContols(!this.spotlightPagingControls);
+		this.updateHoverOnPagingControls(!this.spotlightPagingControls);
 		this.showHideScrollColumns(this.spotlightPagingControls);
 		if (this.generated) {
 			this.setupBounds();
 		}
 	},
-	updateHoverOnPagingContols: function(hover) {
+	updateHoverOnPagingControls: function(hover) {
 		enyo.forEach([
 			this.$.pageLeftControl,
 			this.$.pageRightControl,
@@ -448,7 +448,7 @@ enyo.kind({
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
 		this.enableDisablePageControls();
-		this.updateHoverOnPagingContols(this.shouldShowPageControls());
+		this.updateHoverOnPagingControls(this.shouldShowPageControls() || enyo.Spotlight.getPointerMode());
 	},
 	//* Shows or hides pagination controls, as appropriate.
 	enableDisablePageControls: function(inSender, inEvent) {
