@@ -74,6 +74,18 @@ enyo.kind({
 		"currentValueText": ["value", "unit", "noneText"]
 	},
 
+	create: function() {
+		this.inherited(arguments);
+		for (var i = 0, observedProps = this.$.picker.observers["triggerRebuild"]; i < observedProps.length; i++) {
+			this.addObserver(observedProps[i], this.triggerReflow);
+		}
+		this.triggerReflow();
+	},
+
+	triggerReflow: function() {
+		this.shouldReflow = true;
+	},
+
 	// Change handlers
 	valueChanged: function(inOld) {
 		if (this.value < this.min || this.value > this.max) {
@@ -84,8 +96,9 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
-		if (this.open) {
+		if (this.open && this.shouldReflow) {
 			this.$.picker.reflow();
+			this.shouldReflow = false;
 		}
 	},
 
