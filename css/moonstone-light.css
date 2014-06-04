@@ -825,8 +825,8 @@
 .moon-icon-button.no-background.spotlight {
   background-color: #cf0652;
 }
-.moon-icon.moon-icon-button.active,
-.moon-icon.moon-icon-button:active,
+.moon-icon.moon-icon-button.active:not(.spotlight),
+.moon-icon.moon-icon-button:active:not(.spotlight),
 .moon-icon.moon-icon-button.pressed,
 .moon-icon.moon-icon-button.spotlight.pressed,
 .moon-icon.moon-icon-button.spotlight:active,
@@ -836,8 +836,8 @@
   background-color: #ffffff;
   color: #999999;
 }
-.moon-icon.moon-icon-button.active.disabled,
-.moon-icon.moon-icon-button:active.disabled,
+.moon-icon.moon-icon-button.active:not(.spotlight).disabled,
+.moon-icon.moon-icon-button:active:not(.spotlight).disabled,
 .moon-icon.moon-icon-button.pressed.disabled,
 .moon-icon.moon-icon-button.spotlight.pressed.disabled,
 .moon-icon.moon-icon-button.spotlight:active.disabled,
