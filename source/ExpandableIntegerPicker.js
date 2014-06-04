@@ -84,6 +84,9 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
+		if (this.open) {
+			this.$.picker.reflow();
+		}
 	},
 
 	// Computed props
