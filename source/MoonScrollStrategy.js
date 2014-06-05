@@ -420,6 +420,9 @@ enyo.kind({
 		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
 			showVertical = this.showVertical();
 			showHorizontal = this.showHorizontal();
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
+			this.scrollBounds = null;
 			if (showVertical || showHorizontal) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
@@ -430,9 +433,6 @@ enyo.kind({
 				// to allow items in nested scrollers to be scrolled
 				bubble = true;
 			}
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
-			this.scrollBounds = null;
 		}
 		return !bubble;
 	},
