@@ -30,7 +30,13 @@ enyo.kind({
 
 			_inEvent.content_ contains the content of the currently selected item.
 		*/
-		onSelect: ""
+		onSelect: "",
+		/**
+			Fires when the picker is rebuilt, allowing other controls the opportunity to reflow the 
+			picker as necessary, i.e. as a child of _moon.ExpandableIntegerPicker_ needing to be 
+			reflowed when opened as it may currently not be visible.
+		*/
+		onRebuilt: ""
 	},
 	//* @protected
 	handlers: {
@@ -171,6 +177,7 @@ enyo.kind({
 		this.$.client.render();
 		this.reflow();
 		this.validate();
+		this.doRebuilt();
 	},
 	triggerRebuild: function() {
 		// We use a job here to avoid rebuilding the picker multiple
