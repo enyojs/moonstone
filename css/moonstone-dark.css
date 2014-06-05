@@ -1961,6 +1961,42 @@
 .hidden-title .moon-header-sub-title-below {
   opacity: 0;
 }
+/* Mini Header */
+.moon-header.moon-mini-header {
+  height: 112px;
+}
+.moon-mini-header .moon-header-title-above {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+.moon-mini-header .moon-header-title {
+  line-height: normal;
+  font-size: 60px;
+  height: 84px;
+}
+.enyo-locale-non-latin .moon-mini-header .moon-header-title {
+  line-height: 1.5em;
+}
+.moon-mini-header .moon-header-title-wrapper {
+  padding-left: 0;
+  padding-top: 26px;
+  box-sizing: border-box;
+  max-height: 88px;
+}
+.enyo-locale-right-to-left .moon-mini-header .moon-header-title-wrapper {
+  padding-right: 0;
+}
+.moon-mini-header .moon-header-title-below {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+.moon-mini-header .moon-header-sub-title-below {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
 .moon-header-left {
   float: left;
 }
@@ -2241,7 +2277,7 @@
 }
 .enyo-locale-non-latin.enyo-locale-th .moon-input {
   font-size: 24px;
-  line-height: 48px;
+  line-height: 52px;
 }
 .moon-neutral .moon-input {
   color: #4b4b4b;
