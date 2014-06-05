@@ -68,7 +68,9 @@ enyo.kind({
 		//* Text to be displayed when the drawer is opened
 		helpText: null,
 		//* If true, auto collapse when an item is selected
-		autoCollapseOnSelect: true
+		autoCollapseOnSelect: true,
+		//* If true, allow multiple selections
+		multipleSelection: false,
 	},
 	//* @protected
 	autoCollapse: true,
@@ -96,6 +98,11 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		if (this.multipleSelection) {
+			this.selected = [];
+			this.selectedIndex = [];
+			this.$.client.setHighlander(false);
+		}
 		this.initializeActiveItem();
 		this.selectedIndexChanged();
 		this.noneTextChanged();
@@ -106,12 +113,46 @@ enyo.kind({
 		this.inherited(arguments);
 		this.isRendered = true;
 	},
-	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.
+	multiSelectCurrentValue: function() {
+		if (!this.multipleSelection) return;
+		var controls = this.getClientControls();
+		var str = "";
+		this.selectedIndex.sort();
+		for (var i=0; i < this.selectedIndex.length; i++) {
+			if (!str) {
+				str = controls[this.selectedIndex[i]].getContent();
+			} else {
+				str = str + ", " + controls[this.selectedIndex[i]].getContent();
+			}
+		}
+		return str;
+	},
+	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.	
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
-			controls = this.getClientControls(),
-			index = -1;
+		controls = this.getClientControls();
 
+		if (this.multipleSelection) {
+			var index = this.getSelectedIndex();
+			for (var i=0;i<controls.length;i++) {
+				controls[i].silence();
+				if (selected.indexOf(controls[i]) >= 0) {
+					controls[i].setChecked(true);
+					if (index.indexOf(i) == -1) index.push(i);
+				} else {
+					controls[i].setChecked(false);
+					if (index.indexOf(i) >= 0) index.splice(index.indexOf(i),1);
+				}
+				controls[i].unsilence();
+			}
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
+			if(this.hasNode()) {
+				this.fireChangeEvent();
+			}
+			return;
+		}
+
+		var index = -1;
 		for (var i=0;i<controls.length;i++) {
 			controls[i].silence();
 			if(controls[i] === selected) {
@@ -122,7 +163,6 @@ enyo.kind({
 			}
 			controls[i].unsilence();
 		}
-
 		if (index > -1 && selected !== inOldValue) {
 			this.setSelectedIndex(index);
 			this.$.currentValue.setContent(selected.getContent());
@@ -133,9 +173,28 @@ enyo.kind({
 	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the appropriate control.
 	selectedIndexChanged: function() {
-		var selected = this.getSelected(),
+		if (this.multipleSelection) {
+			var selected = this.getSelected(),
 			controls = this.getClientControls(),
 			index = this.getSelectedIndex();
+			for (var i=0;i<controls.length;i++) {
+				controls[i].silence();
+				if (index.indexOf(i) >= 0) {
+					controls[i].setChecked(true);
+					if (selected.indexOf(controls[i]) == -1) selected.push(controls[i]);
+				} else {
+					controls[i].setChecked(false);
+					if (selected.indexOf(controls[i]) >= 0) selected.splice(selected.indexOf(controls[i]), 1);
+				}
+				controls[i].unsilence();
+			}
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
+			return;
+		}
+
+		var selected = this.getSelected(),
+		controls = this.getClientControls(),
+		index = this.getSelectedIndex();
 
 		if (controls[index] && controls[index] !== selected) {
 			this.setSelected(controls[index]);
@@ -143,6 +202,12 @@ enyo.kind({
 	},
 	//* If there is no selected item, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
+		if (this.multipleSelection) {
+			if (!this.getSelected().length && !this.getSelectedIndex().length) {
+				this.$.currentValue.setContent(this.getNoneText());
+			}
+			return;
+		}
 		if (!this.getSelected() && this.getSelectedIndex() === -1) {
 			this.$.currentValue.setContent(this.getNoneText());
 		}
@@ -175,9 +240,16 @@ enyo.kind({
 			if (!this.destroying) {
 				// set currentValue, selected and selectedIndex to defaults value
 				if (this.selected === inControl) {
-					this.setSelected(null);
-					this.setSelectedIndex(-1);
-					this.$.currentValue.setContent(this.getNoneText());
+					if (this.multipleSelection) {
+						this.setSelected([]);
+						this.setSelectedIndex([]);
+						this.$.currentValue.setContent(this.getNoneText());
+					}
+					else {
+						this.setSelected(null);
+						this.setSelectedIndex(-1);
+						this.$.currentValue.setContent(this.getNoneText());
+					}
 				}
 			}
 			sup.apply(this, arguments);
@@ -195,17 +267,25 @@ enyo.kind({
 	*/
 	initializeActiveItem: function() {
 		var controls = this.getClientControls();
+
 		for (var i=0; i<controls.length; i++) {
 			if (!controls[i].active) {
 				continue;
 			}
 
-			this.selectedIndex = i;
-			this.selected = controls[i];
-			this.$.currentValue.setContent(controls[i].getContent());
-			controls[i].setChecked(true);
-			return;
+			if (this.multipleSelection) {
+				this.selectedIndex.push(i);
+				this.selected.push(controls[i]);
+				controls[i].setChecked(true);
+			} else {
+				this.selectedIndex = i;
+				this.selected = controls[i];
+				this.$.currentValue.setContent(controls[i].getContent());
+				controls[i].setChecked(true);
+				return;
+			}
 		}
+		this.$.currentValue.setContent(this.multiSelectCurrentValue());
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
 	activated: function(inSender, inEvent) {
@@ -217,13 +297,27 @@ enyo.kind({
 
 		index = this.getClientControls().indexOf(toggledControl);
 
-		if (inEvent.checked && index >= 0) {
-			this.setSelected(inEvent.toggledControl);
-
-			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
-				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
+		if (this.multipleSelection) {
+			if (index >= 0) {
+				if (inEvent.checked && (this.selectedIndex.indexOf(index) == -1)) {
+					this.selectedIndex.push(index);
+					this.selectedIndexChanged();
+				}
+				if (!inEvent.checked && (this.selectedIndex.indexOf(index) >= 0)) {
+					this.selectedIndex.splice(this.selectedIndex.indexOf(index), 1);
+					this.selectedIndexChanged();
+				}
+			}
+		} else {
+			if (inEvent.checked && index >= 0) {
+				this.setSelected(inEvent.toggledControl);
 			}
 		}
+
+		if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
+			this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
+		}
+
 		return true;
 	},
 	//* Closes drawer and selects header.
@@ -235,10 +329,14 @@ enyo.kind({
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
+		var contentStr = (this.multipleSelection) ? this.multiSelectCurrentValue() : this.getSelected().getContent();
 		this.doChange({
 			selected: this.getSelected(),
-			content: this.getSelected().getContent(),
+			content: contentStr,
 			index: this.getSelectedIndex()
 		});
+	},
+	multipleSelectionChanged : function(inOldValue) {
+		this.$.client.setHighlander(!this.multipleSelection);
 	}
 });
