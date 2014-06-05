@@ -45,7 +45,8 @@ enyo.kind({
 	autoCollapse: true,
 
 	handlers: {
-		requestScrollIntoView: "requestScrollIntoView"
+		requestScrollIntoView: "requestScrollIntoView",
+		onRebuilt: "requestPickerReflow"
 	},
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
@@ -76,14 +77,11 @@ enyo.kind({
 
 	create: function() {
 		this.inherited(arguments);
-		for (var i = 0, observedProps = this.$.picker.observers["triggerRebuild"]; i < observedProps.length; i++) {
-			this.addObserver(observedProps[i], this.triggerReflow);
-		}
-		this.triggerReflow();
+		this.requestPickerReflow();
 	},
 
-	triggerReflow: function() {
-		this.shouldReflow = true;
+	requestPickerReflow: function() {
+		this._needsPickerReflow = true;
 	},
 
 	// Change handlers
@@ -96,9 +94,9 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
-		if (this.open && this.shouldReflow) {
+		if (this.open && this._needsPickerReflow) {
 			this.$.picker.reflow();
-			this.shouldReflow = false;
+			this._needsPickerReflow = false;
 		}
 	},
 
