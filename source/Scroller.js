@@ -152,7 +152,7 @@ enyo.kind({
 	},
 	// When 5-way focus leaves scroller, hide the scroll columns
 	spotlightGoodbye: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns) {
+		if (inEvent.originator.owner === this.$.strategy && this.$.strategy.showHideScrollColumns) {
 			this.$.strategy.showHideScrollColumns(false);
 		}
 	},
