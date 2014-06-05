@@ -219,6 +219,11 @@ enyo.kind({
 			delete this._tf;
 		}
 		this.initDefaults();
-		this.render();
+		var pickers = this.pickers;
+		if (pickers) {
+			for (var i = 0; i < pickers.length; i++) {
+				pickers[i].render();
+			}
+		}
 	}
 });
