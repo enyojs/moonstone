@@ -18,6 +18,9 @@ enyo.kind({
 		onRequestScrollIntoView   : "_preventEventBubble",
 		onSpotlightContainerLeave : "onLeave"
 	},
+	eventsToCapture: {
+		onSpotlightKeyDown: "capturedKeyDown"
+	},
 	//* @public
 	published: {
 		/**
@@ -61,8 +64,6 @@ enyo.kind({
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
-		this.eventsToCapture = enyo.clone(this.eventsToCapture);
-		this.eventsToCapture.onSpotlightKeyDown = "capturedKeyDown";
 	},
 	//* Renders the contextual popup.
 	render: function() {
