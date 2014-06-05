@@ -231,8 +231,8 @@ enyo.kind({
 	enter: function(inSender, inEvent) {
 		this.hovering = true;
 		this.setupBounds();
-		this.enableDisablePageControls();
 		this.showHideScrollColumns(true);
+		this.updateHoverOnPagingControls(true);
 	},
 	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
 	leave: function(inSender, inEvent) {
@@ -327,17 +327,6 @@ enyo.kind({
 		}
 
 		return true;
-	},
-	scrollMathScroll: function() {
-		this.inherited(arguments);
-
-		if (this.hovering) {
-			this.enableDisablePageControls();
-		} else {
-			this.hidePageControls();
-		}
-
-		this.showHideScrollColumns(true);
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
@@ -447,18 +436,9 @@ enyo.kind({
 		return true;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
-		this.enableDisablePageControls();
-		this.updateHoverOnPagingControls(this.shouldShowPageControls() || enyo.Spotlight.getPointerMode());
-	},
-	//* Shows or hides pagination controls, as appropriate.
-	enableDisablePageControls: function(inSender, inEvent) {
-		/*
-			If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
-			If not hovering and set to hide on leave, hide pagination controls.
-		*/
-		if (!this.shouldShowPageControls()) {
-			this.hidePageControls();
-		}
+		var activatePageControls = this.shouldShowPageControls();
+		this.showHideScrollColumns(activatePageControls);
+		this.updateHoverOnPagingControls(activatePageControls);
 	},
 	//* Enables or disables scroll columns.
 	enableDisableScrollColumns: function() {
@@ -512,15 +492,6 @@ enyo.kind({
 		return (this.getHorizontal() == "scroll" ||
 				(this.getHorizontal() !== "hidden" &&
 				((-1 * this.$.scrollMath.rightBoundary > 0) || this.spotlightPagingControls)));
-	},
-	//* Hides pagination controls.
-	hidePageControls: function() {
-		if (!this.spotlightPagingControls) {
-			this.$.pageLeftControl.setDisabled(true);
-			this.$.pageRightControl.setDisabled(true);
-			this.$.pageUpControl.setDisabled(true);
-			this.$.pageDownControl.setDisabled(true);
-		}
 	},
 	_getScrollBounds: function() {
 		if (this.scrollBounds) {
