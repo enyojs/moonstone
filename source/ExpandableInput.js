@@ -66,7 +66,11 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		this.toggleActive();
+		if (this.getOpen()) {
+			this.closeDrawerAndHighlightHeader();
+		} else {
+			this.toggleActive();
+		}
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
@@ -88,7 +92,7 @@ enyo.kind({
 	//* value should submit if user clicks outside control. We check for "down" to make sure not to contract on mousemove
 	inputBlur: function(inSender, inEvent) {
 		if (this.$.clientInput.hasFocus() && enyo.Spotlight.getPointerMode() && enyo.Spotlight.getLastEvent().type === "down") {
-			this.expandContract();
+			this.toggleActive();
 		}
 	},
 	inputKeyDown: function(inSender, inEvent) {
@@ -132,7 +136,9 @@ enyo.kind({
 	},
 	drawerAnimationEnd: function() {
 		enyo.Spotlight.unfreeze();
-		this.focusInput();
+		if (this.getOpen()) {
+			this.focusInput();
+		}
 		this.inherited(arguments);
 	},
 	/** 
@@ -146,6 +152,6 @@ enyo.kind({
 		enyo.Spotlight.setPointerMode(false);
 		enyo.Spotlight.unfreeze();
 		enyo.Spotlight.spot(this.$.headerWrapper);
-		this.expandContract();
+		this.toggleActive();
 	}
 });
