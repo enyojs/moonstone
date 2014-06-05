@@ -47,7 +47,7 @@ enyo.kind({
 	spotlight: true,
 	handlers: {
 		//* onSpotlightSelect simulates mousedown
-		onSpotlightSelect: "depress",
+		onSpotlightKeyDown: "depress",
 		//* onSpotlightKeyUp simulates mouseup
 		onSpotlightKeyUp: "undepress",
 		//* used to request it is in view in scrollers

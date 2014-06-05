@@ -37,7 +37,7 @@ enyo.kind({
 	spotlight: true,
 	handlers: {
 		//* _onSpotlightSelect_ simulates _mousedown_.
-		onSpotlightSelect	: 'depress',
+		onSpotlightKeyDown	: 'depress',
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
 		//* Also make sure we remove the pressed class if focus is removed from

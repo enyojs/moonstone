@@ -61,7 +61,7 @@ enyo.kind({
 		//* When true, button is shown as disabled and does not generate tap events
 		disabled: false,
 		//* When true, picker will wrap around from last item to first
-		wrap: false,
+		wrap: true,
 		//* By default, SimplePicker is an inline-block element; setting _block: true_ makes it a block element
 		block: false
 	},
@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", onSpotlightSelect: "left", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
+		{name: "buttonLeft",  direction: "left", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", onSpotlightKeyDown: "depress", onSpotlightKeyUp: "undepress", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightSelect: "right", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
+		{name: "buttonRight", direction: "right", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightKeyDown: "depress", onSpotlightKeyUp: "undepress", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -279,5 +279,74 @@ enyo.kind({
 			}
 			this.setSelectedIndex(idx);
 		}
+	},
+	depress: function(inSender, inEvent) {
+		// keydown events repeat (while mousedown/hold does not); simulate
+		// hold behavior with mouse by catching the second keydown event
+		if (inEvent.keyCode == 13) {
+			if (!this.downCount) {
+				this.down(inSender, inEvent);
+				this.downCount = 1;
+			} else {
+				this.downCount++;
+			}
+			if (this.downCount == 2) {
+				this.hold(inSender, inEvent);
+			}
+		}
+	},
+	undepress: function(inSender, inEvent) {
+		this.downCount = 0;
+		this.endHold(inSender, inEvent);
+	},
+	down: function(inSender, inEvent) {
+		if (this.disabled) {
+			return;
+		}
+		
+		this.downTime = enyo.bench();
+	},
+	hold: function(inSender, inEvent) {
+		if (this.disabled) {
+			return;
+		}
+
+		this.startHoldJob(inSender, inEvent);
+	},
+	endHold: function(inSender, inEvent) {
+		if (!this.downTime) {
+			return;
+		}
+		
+		this.stopHoldJob();
+		if (!this.direction) {
+			this[inEvent.originator.direction]();
+		} else {
+			this.direction = null;
+		}
+		this.downTime = null;
+	},
+	startHoldJob: function(inSender, inEvent) {
+		this.stopHoldJob();
+
+		var fn = this.bindSafely(function() {
+			if (!this.wrap) {
+				if ((!this.rtl && this.direction === "left" && this.selectedIndex === 0) ||
+					(!this.rtl && this.direction === "right" && this.selectedIndex === this.getClientControls().length - 1) ||
+					(this.rtl && this.direction === "left" && this.selectedIndex === this.getClientControls().length - 1) ||
+					(this.rtl && this.direction === "right" && this.selectedIndex === 0)) {
+					return;
+				}
+			}
+
+			this[this.direction]();
+
+			this.job = enyo.requestAnimationFrame(fn);
+		});
+		this.direction = inEvent.originator.direction;
+		this.job = enyo.requestAnimationFrame(fn);
+	},
+	stopHoldJob: function() {
+		this.job = enyo.cancelRequestAnimationFrame(this.job);
 	}
 });

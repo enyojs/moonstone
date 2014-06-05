@@ -17,7 +17,7 @@ enyo.kind({
 	noBackground: true,
 	handlers: {
 		onSpotlightFocused: "noop",
-		onSpotlightSelect: "depress",
+		onSpotlightKeyDown: "depress",
 		onSpotlightKeyUp: "undepress",
 		ondown: "down",
 		onup: "endHold",
@@ -96,14 +96,16 @@ enyo.kind({
 		this.inherited(arguments);
 		// keydown events repeat (while mousedown/hold does not); simulate
 		// hold behavior with mouse by catching the second keydown event
-		if (!this.downCount) {
-			this.down();
-			this.downCount = 1;
-		} else {
-			this.downCount++;
-		}
-		if (this.downCount == 2) {
-			this.hold();
+		if (inEvent.keyCode == 13) {
+			if (!this.downCount) {
+				this.down();
+				this.downCount = 1;
+			} else {
+				this.downCount++;
+			}
+			if (this.downCount == 2) {
+				this.hold();
+			}
 		}
 	},
 	undepress: function(inSender, inEvent) {
