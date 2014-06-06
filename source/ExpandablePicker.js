@@ -168,7 +168,7 @@ enyo.kind({
 				this.fireChangeEvent();
 			}
 		} else {
-			for (var i=0;i<controls.length;i++) {
+			for (i=0;i<controls.length;i++) {
 				controls[i].silence();
 				if(controls[i] === selected) {
 					controls[i].setChecked(true);
