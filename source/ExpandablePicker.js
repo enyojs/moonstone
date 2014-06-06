@@ -151,15 +151,16 @@ enyo.kind({
 			index = this.selectedIndex = [];
 			for (i=0;i<controls.length;i++) {
 				controls[i].silence();
+				var selIndex = index.indexOf(i);
 				if (selected.indexOf(controls[i]) >= 0) {
 					controls[i].setChecked(true);
-					if (index.indexOf(i) == -1) {
+					if (selIndex == -1) {
 						index.push(i);
 					}
 				} else {
 					controls[i].setChecked(false);
-					if (index.indexOf(i) >= 0) {
-						index.splice(index.indexOf(i),1);
+					if (selIndex >= 0) {
+						index.splice(selIndex,1);
 					}
 				}
 				controls[i].unsilence();
@@ -197,15 +198,16 @@ enyo.kind({
 		if (this.multipleSelection) {
 			for (var i=0;i<controls.length;i++) {
 				controls[i].silence();
+				var selIndex = selected.indexOf(controls[i]);
 				if (index.indexOf(i) >= 0) {
 					controls[i].setChecked(true);
-					if (selected.indexOf(controls[i]) == -1) {
+					if (selIndex == -1) {
 						selected.push(controls[i]);
 					}
 				} else {
 					controls[i].setChecked(false);
-					if (selected.indexOf(controls[i]) >= 0) {
-						selected.splice(selected.indexOf(controls[i]), 1);
+					if (selIndex >= 0) {
+						selected.splice(selIndex, 1);
 					}
 				}
 				controls[i].unsilence();
@@ -227,7 +229,7 @@ enyo.kind({
 				this.$.currentValue.setContent(this.getNoneText());
 			}
 		} else {
-			if (!this.getSelected() && this.getSelectedIndex() === -1) {
+			if (!this.getSelected() && this.getSelectedIndex() == -1) {
 				this.$.currentValue.setContent(this.getNoneText());
 			}
 		}
@@ -336,7 +338,7 @@ enyo.kind({
 			}
 		} else {
 			if (inEvent.checked && index >= 0) {
-				this.setSelected(inEvent.toggledControl);
+				this.setSelected(toggledControl);
 			}
 		}
 
@@ -363,6 +365,16 @@ enyo.kind({
 		});
 	},
 	multipleSelectionChanged : function(inOldValue) {
+		if (this.multipleSelection) {
+			var _selected = [];
+			if (this.selected) _selected.push(this.selected);
+			this.selected = _selected;
+			this.selectedIndex = [];
+		} else {
+			this.selected = (this.selected.length) ? this.selected[0] : null;
+			this.selectedIndex = -1;
+		}
 		this.$.client.setHighlander(!this.multipleSelection);
+		this.selectedChanged();
 	}
 });
