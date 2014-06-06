@@ -62,31 +62,27 @@
 }
 
 .moon-spinner {
-	height: @moon-spinner-size;
+	min-height: @moon-spinner-size;
 	min-width: @moon-spinner-size;
 	line-height: @moon-spinner-size;
 	position: relative;
 	display: inline-block;
 	color: @moon-spinner-text-color;
 	background-color: @moon-spinner-background-color;
-	border-radius: @moon-spinner-size;
+	border-radius: (@moon-button-height / 2);
 	margin: 0 @moon-spotlight-outset;
 
+	> * {
+		display: inline-block;
+	}
 	&.moon-spinner-transparent-background {
 		background-color: transparent;
 	}
 	&.content {
-		position: static;
-
-		height: @moon-button-height;
-		min-width: @moon-button-height;
-		line-height: @moon-button-height;
-		.moon-spinner-ball-decorator {
-			width: @moon-button-height;
-			height: @moon-button-height;
-		}
-		.moon-spinner-text {
-			line-height: @moon-button-height;
+		padding: ((@moon-button-height - @moon-spinner-size) / 2);
+		
+		.moon-spinner-client {
+			max-width: 400px;
 		}
 	}
 	&.running .moon-spinner-ball {
@@ -131,7 +127,7 @@
 		color: @moon-spinner-ball3-color;
 		-webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3));
 	}
-	.moon-spinner-text {
+	.moon-spinner-client {
 		float: left;
 		line-height: @moon-spinner-size;
 		margin: 0 2.6ex 0 0;
@@ -145,7 +141,7 @@
 	.moon-spinner-ball-decorator {
 		float: right;
 	}
-	.moon-spinner-text {
+	.moon-spinner-client {
 		float: right;
 		margin-left: 2.6ex;
 		margin-right: 0;

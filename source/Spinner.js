@@ -25,9 +25,32 @@ enyo.kind({
 			{classes: "moon-spinner-ball moon-spinner-ball1"},
 			{classes: "moon-spinner-ball moon-spinner-ball2"},
 			{classes: "moon-spinner-ball moon-spinner-ball3"}
-		]},
-		{name: "client", classes: "moon-spinner-text"}
+		]}
 	],
+	spinnerTools: [
+		{name: "client", classes: "moon-spinner-client"}
+	],
+	initComponents: function() {
+		this.inherited(arguments);
+		this.createTools();
+	},
+	createTools: function() {
+		// This allows for the spinner instances with child components to not have 
+		// MarqueeText kind on the client container.
+		var tools = enyo.clone(this.spinnerTools);
+		if (!(this.components && this.components.length > 0)) {
+			// If there are no components in the spinner, convert its client area to a MarqueeText kind
+			enyo.mixin(tools[0], {
+				kind: "moon.MarqueeText",
+				mixins: ["moon.MarqueeSupport"],
+				marqueeOnSpotlight: false,
+				marqueeOnHover: true,
+				marqueeOnRender: true,
+				marqueeOnRenderDelay: 1000
+			});
+		}
+		this.createChrome(tools);
+	},
 	create: function() {
 		this.inherited(arguments);
 		this.contentChanged();
@@ -48,11 +71,17 @@ enyo.kind({
 		this.set("showing", !this.get("showing"));
 	},
 	//* @protected
-	contentChanged: function() {
+	hasContent: function() {
+		// true if this.content is set to something OR if there are more than zero components 
+		return (!!this.content || (this.components && this.components.length > 0));
+	},
+	contentChanged: function(inOld) {
 		this.inherited(arguments);
-		this.$.client.setContent(this.content);
+		if (this.content || inOld) {
+			this.$.client.set("content", this.content);
+		}
 		this.$.client.set("showing", !!this.content);
-		this.addRemoveClass("content", !!this.content);
+		this.addRemoveClass("content", this.hasContent());
 	},
 	transparentChanged: function() {
 		this.addRemoveClass("moon-spinner-transparent-background", !!this.get("transparent"));
