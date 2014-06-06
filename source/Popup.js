@@ -17,10 +17,12 @@ enyo.kind({
 	handlers: {
 		onRequestScrollIntoView   : "_preventEventBubble",
 		ontransitionend           : "animationEnd",
-		onSpotlightSelect         : "handleSpotlightSelect",
-		onSpotlightContainerLeave : "handleLeave"
+		onSpotlightSelect         : "handleSpotlightSelect"
 	},
 
+	eventsToCapture: { 
+		onSpotlightFocus: "capturedFocus"
+	},
 	//* @public
 	published: {
 		/**
@@ -62,8 +64,7 @@ enyo.kind({
 	//* @protected
 	tools: [
 		{name: "client", classes:"enyo-fill"},
-		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", showing:false},
-		{name: "spotlightDummy", spotlight:false}
+		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", showing:false}
 	],
 	statics: { count: 0 },
 	defaultZ: 120,
@@ -111,11 +112,38 @@ enyo.kind({
 			return this.inherited(arguments);
 		}
 	},
-	handleLeave: function(oSender, oEvent) {
-		if (oEvent.originator == this) {
-			enyo.Spotlight.spot(this.activator);
-			this.hide();
-		}
+	capturedFocus: function (inSender, inEvent) {
+	// While we're open, we hijack Spotlight focus events. In all cases, we want
+	// to prevent the default 5-way behavior (which is to focus on the control nearest
+	// to the pointer in the chosen direction)...
+	var last = enyo.Spotlight.getLastControl(),
+		cur = enyo.Spotlight.getCurrent();
+	// There are two cases where we want to focus back on ourselves...
+	// NOTE: The logic used here to detect these cases is highly dependent on certain
+	// nuances of how Spotlight currently tracks the "last" and "current" focus. It will
+	// probably need to be updated if / when Spotlight gets some love in this area.
+	if (
+		// Case 1: We were probably just opened in pointer mode. The pointer is outside
+		// the popup, which means a 5-way press will likely focus some control outside the
+		// popup, unless we prevent it by re-spotting ourselves.
+		//(last === this && !cur.isDescendantOf(this)) ||
+		(last === this && cur === this.activator) ||
+		// Case 2: We were probably opened in 5-way mode and then the pointer was moved
+		// (likely due to incidental movement of the magic remote). It's possible that the
+		// user actually wants to exit the popup by focusing on something outside, but more
+		// likely that they have accidentally wiggled the remote and intend to be moving
+		// around within the popup -- so, again, we re-spot ourselves.
+		(last.isDescendantOf(this) && cur !== this)
+
+	){
+		enyo.Spotlight.spot(this);
+	}
+	// In all other cases, the user probably means to exit the popup by moving out, so we
+	// close ourselves.
+	else {
+		this.hide();
+	}
+	return true;
 	},
 	//* Determines whether to display _closeButton_.
 	configCloseButton: function() {
@@ -188,15 +216,15 @@ enyo.kind({
 		this.showHideScrim(this.showing);
 		if (this.showing) {
 			this.configCloseButton();
-			this.$.spotlightDummy.spotlight = false;
 			// Spot ourselves, unless we're already spotted
 			var current = enyo.Spotlight.getCurrent(); 
 			if (!current || !current.isDescendantOf(this)) {
 				if (enyo.Spotlight.isSpottable(this)) {
 					enyo.Spotlight.spot(this);
-				} else {
-					this.$.spotlightDummy.spotlight = true;
-					enyo.Spotlight.spot(this);
+				}
+				// If we're not spottable, just unspot whatever was previously spotted
+				else {
+					enyo.Spotlight.unspot();
 				}
 			}
 		}
@@ -263,8 +291,11 @@ enyo.kind({
 	//* Attempts to respot _this.activator_ when _moon.Popup_ is hidden.
 	respotActivator: function() {
 		var a = this.activator;
+		// We're about to spot something, so we first call release() to avoid capturing
+		// (and preventing) the resulting SpotlightFocus event.
+		this.release();
 		// Attempt to identify and re-spot the activator if present
-		if (a && a.destroyed === undefined) {
+		if (a && !a.destroyed) {
 			enyo.Spotlight.spot(a);
 			if (a instanceof moon.Button) {
 				a.removeClass("pressed");
