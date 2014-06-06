@@ -99,7 +99,7 @@ enyo.kind({
 		var value,
 			picker = inEvent.originator.getContent();
 		if (inEvent.originator instanceof moon.ExpandablePicker) {
-			value = inEvent.originator.getSelected().getContent();
+			value = inEvent.content;
 			inSender.setSubTitleBelow(picker + " changed to '" + value + "'");
 		} else if ((inEvent.originator instanceof moon.ExpandableIntegerPicker) ||
 					(inEvent.originator instanceof moon.DatePicker) ||
