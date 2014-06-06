@@ -15,11 +15,6 @@ enyo.kind({
 	kind:      "enyo.Scroller",
 	//* @public
 	published: {
-		//* If true, paging controls are hidden if a key is pressed (5-way mode)
-		hidePagingOnKey: true,
-		//* If true, paging controls are hidden if the user's pointer leaves this
-		//* control
-		hidePagingOnLeave: true,
 		/**
 			If true, when scrolling to focused child controls, the scroller will
 			scroll as far as possible, until its edge meets the next item's edge
@@ -152,7 +147,7 @@ enyo.kind({
 	},
 	// When 5-way focus leaves scroller, hide the scroll columns
 	spotlightGoodbye: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns) {
+		if (inEvent.originator.owner === this.$.strategy && this.$.strategy.showHideScrollColumns) {
 			this.$.strategy.showHideScrollColumns(false);
 		}
 	},
