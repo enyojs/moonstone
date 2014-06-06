@@ -10,13 +10,13 @@ enyo.kind({
 				{kind: "moon.DatePicker", name:"disabledPicker", disabled: true, noneText: "Disabled Date Picker", content: "Disabled Date"},
 				{classes:"moon-hspacing", components: [
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"yearInput", placeholder: "Year"}
+						{kind: "moon.Input", name:"yearInput", classes: "moon-date-picker-sample-input", placeholder: "Year"}
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [
-						{kind: "moon.Input", name:"monthInput", placeholder: "Month"}
+						{kind: "moon.Input", name:"monthInput", classes: "moon-date-picker-sample-input", placeholder: "Month"}
 					]},
 					{kind: "moon.InputDecorator", classes: "moon-2h", components: [	
-						{kind: "moon.Input", name:"dayInput", placeholder: "Day"}
+						{kind: "moon.Input", name:"dayInput", classes: "moon-date-picker-sample-input", placeholder: "Day"}
 					]}
 				]},
 				{classes:"moon-hspacing", components: [
