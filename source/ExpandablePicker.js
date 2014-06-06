@@ -367,7 +367,9 @@ enyo.kind({
 	multipleSelectionChanged : function(inOldValue) {
 		if (this.multipleSelection) {
 			var _selected = [];
-			if (this.selected) _selected.push(this.selected);
+			if (this.selected) {
+				_selected.push(this.selected);
+			}
 			this.selected = _selected;
 			this.selectedIndex = [];
 		} else {
