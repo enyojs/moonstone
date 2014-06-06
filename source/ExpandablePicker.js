@@ -78,7 +78,7 @@ enyo.kind({
 		//* If true, auto collapse when an item is selected
 		autoCollapseOnSelect: true,
 		//* If true, allow multiple selections.
-		multipleSelection: false,
+		multipleSelection: false
 	},
 	//* @protected
 	autoCollapse: true,
@@ -122,7 +122,9 @@ enyo.kind({
 		this.isRendered = true;
 	},
 	multiSelectCurrentValue: function() {
-		if (!this.multipleSelection) return;
+		if (!this.multipleSelection) {
+			return;
+		}
 		var controls = this.getClientControls();
 		var str = "";
 		this.selectedIndex.sort();
@@ -133,24 +135,31 @@ enyo.kind({
 				str = str + ", " + controls[this.selectedIndex[i]].getContent();
 			}
 		}
-		if (!str) str = this.getNoneText();
+		if (!str) {
+			str = this.getNoneText();
+		}
 		return str;
 	},
 	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.	
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
-		controls = this.getClientControls();
+		controls = this.getClientControls(),
+		index = -1;
 
 		if (this.multipleSelection) {
-			var index = this.selectedIndex = [];
+			index = this.selectedIndex = [];
 			for (var i=0;i<controls.length;i++) {
 				controls[i].silence();
 				if (selected.indexOf(controls[i]) >= 0) {
 					controls[i].setChecked(true);
-					if (index.indexOf(i) == -1) index.push(i);
+					if (index.indexOf(i) == -1) {
+						index.push(i);
+					}
 				} else {
 					controls[i].setChecked(false);
-					if (index.indexOf(i) >= 0) index.splice(index.indexOf(i),1);
+					if (index.indexOf(i) >= 0) {
+						index.splice(index.indexOf(i),1);
+					}
 				}
 				controls[i].unsilence();
 			}
@@ -159,7 +168,6 @@ enyo.kind({
 				this.fireChangeEvent();
 			}
 		} else {
-			var index = -1;
 			for (var i=0;i<controls.length;i++) {
 				controls[i].silence();
 				if(controls[i] === selected) {
@@ -190,10 +198,14 @@ enyo.kind({
 				controls[i].silence();
 				if (index.indexOf(i) >= 0) {
 					controls[i].setChecked(true);
-					if (selected.indexOf(controls[i]) == -1) selected.push(controls[i]);
+					if (selected.indexOf(controls[i]) == -1) {
+						selected.push(controls[i]);
+					}
 				} else {
 					controls[i].setChecked(false);
-					if (selected.indexOf(controls[i]) >= 0) selected.splice(selected.indexOf(controls[i]), 1);
+					if (selected.indexOf(controls[i]) >= 0) {
+						selected.splice(selected.indexOf(controls[i]), 1);
+					}
 				}
 				controls[i].unsilence();
 			}
@@ -296,7 +308,9 @@ enyo.kind({
 				return;
 			}
 		}
-		if (this.multipleSelection) this.$.currentValue.setContent(this.multiSelectCurrentValue());
+		if (this.multipleSelection) {
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
+		}
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
 	activated: function(inSender, inEvent) {
