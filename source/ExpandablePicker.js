@@ -144,11 +144,12 @@ enyo.kind({
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
 		controls = this.getClientControls(),
-		index = -1;
+		index = -1,
+		i; //declaring i here to fix travis error
 
 		if (this.multipleSelection) {
 			index = this.selectedIndex = [];
-			for (var i=0;i<controls.length;i++) {
+			for (i=0;i<controls.length;i++) {
 				controls[i].silence();
 				if (selected.indexOf(controls[i]) >= 0) {
 					controls[i].setChecked(true);
