@@ -366,12 +366,10 @@ enyo.kind({
 	},
 	multipleSelectionChanged : function(inOldValue) {
 		if (this.multipleSelection) {
-			var _selected = [];
+			this.selected = this.selectedIndex = [];
 			if (this.selected) {
-				_selected.push(this.selected);
+				this.selected = [this.selected];
 			}
-			this.selected = _selected;
-			this.selectedIndex = [];
 		} else {
 			this.selected = (this.selected.length) ? this.selected[0] : null;
 			this.selectedIndex = -1;
