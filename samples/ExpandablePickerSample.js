@@ -19,7 +19,7 @@ enyo.kind({
 							{content: "On", active: true},
 							{content: "Off"}
 						]},
-						{kind: "moon.ExpandablePicker", multipleSelection: true, content: "Non-auto-collapsing", autoCollapseOnSelect: false, components: [
+						{kind: "moon.ExpandablePicker", multipleSelection: true, noneText: "Nothing selected", content: "Non-auto-collapsing", autoCollapseOnSelect: false, components: [
 							{content: "Item 1"},
 							{content: "Item 2", active: true},
 							{content: "Item 3", active: true}
