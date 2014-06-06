@@ -99,8 +99,8 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		if (this.multipleSelection) {
-			this.selected = [];
-			this.selectedIndex = [];
+			this.selected = (this.selected) ? this.selected : [];
+			this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
 			this.$.client.setHighlander(false);
 		}
 		this.initializeActiveItem();
@@ -173,10 +173,11 @@ enyo.kind({
 	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the appropriate control.
 	selectedIndexChanged: function() {
+		var selected = this.getSelected(),
+		controls = this.getClientControls(),
+		index = this.getSelectedIndex();
+
 		if (this.multipleSelection) {
-			var selected = this.getSelected(),
-			controls = this.getClientControls(),
-			index = this.getSelectedIndex();
 			for (var i=0;i<controls.length;i++) {
 				controls[i].silence();
 				if (index.indexOf(i) >= 0) {
@@ -191,10 +192,6 @@ enyo.kind({
 			this.$.currentValue.setContent(this.multiSelectCurrentValue());
 			return;
 		}
-
-		var selected = this.getSelected(),
-		controls = this.getClientControls(),
-		index = this.getSelectedIndex();
 
 		if (controls[index] && controls[index] !== selected) {
 			this.setSelected(controls[index]);
