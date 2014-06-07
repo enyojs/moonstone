@@ -19,10 +19,10 @@ enyo.kind({
 							{content: "On", active: true},
 							{content: "Off"}
 						]},
-						{kind: "moon.ExpandablePicker", content: "Non-auto-collapsing", autoCollapseOnSelect: false, components: [
+						{kind: "moon.ExpandablePicker", multipleSelection: true, noneText: "Nothing selected", content: "Non-auto-collapsing", autoCollapseOnSelect: false, components: [
 							{content: "Item 1"},
 							{content: "Item 2", active: true},
-							{content: "Item 3"}
+							{content: "Item 3", active: true}
 						]},
 						{kind: "moon.ExpandablePicker", noneText: "Nothing selected with loooooooooooooooooooooooooong text truncation", content: "Expandable Picker with looooooooooooooooooooooooooong text truncation", components: [
 							{content: "Looooooooooooooooooooooooooooooooooooooooooooong Item 1"},
@@ -99,7 +99,7 @@ enyo.kind({
 		var value,
 			picker = inEvent.originator.getContent();
 		if (inEvent.originator instanceof moon.ExpandablePicker) {
-			value = inEvent.originator.getSelected().getContent();
+			value = inEvent.content;
 			inSender.setSubTitleBelow(picker + " changed to '" + value + "'");
 		} else if ((inEvent.originator instanceof moon.ExpandableIntegerPicker) ||
 					(inEvent.originator instanceof moon.DatePicker) ||
