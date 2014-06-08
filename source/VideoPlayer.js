@@ -233,6 +233,7 @@ enyo.kind({
 	_canPlay: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
+	_panelsShowing: false,
 	
 	components: [
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
@@ -333,6 +334,7 @@ enyo.kind({
 	},
 	updatePlaybackControlState: function() {
 		var disabled = this.disablePlaybackControls || 
+			this._panelsShowing || 
 			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
 		this.updateSliderState();
 		this.$.playbackControls.addRemoveClass("disabled", disabled);
@@ -513,13 +515,29 @@ enyo.kind({
 	showScrim: function(show) {
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
 	},
+	updateSpotability: function() {
+		this.updatePlaybackControlState();
+		this.set("spotlight", !this._panelsShowing);
+		if (this.$.moreButton.getShowing()) {
+			this.$.moreButton.spotlightDisabled = this._panelsShowing;
+		}
+		this.$.leftPremiumPlaceHolder.spotlightDisabled = this._panelsShowing;
+	},
 	panelsShown: function(inSender, inEvent) {
+		this._panelsShowing = true;
+		this.updateSpotability();
+		if (inEvent.initialization) {
+			return;
+		}
+
 		if ((this.isFullscreen() || !this.getInline()) && this.isOverlayShowing()) {
 			this.hideFSControls();
 			enyo.Spotlight.unspot();
 		}
 	},
 	panelsHidden: function(inSender, inEvent) {
+		this._panelsShowing = false;
+		this.updateSpotability();
 		enyo.Spotlight.spot(this);
 	},
 	panelsHandleFocused: function(inSender, inEvent) {

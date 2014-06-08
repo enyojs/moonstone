@@ -674,12 +674,22 @@ enyo.kind({
 	},
 	//* Shows panels with transition from right.
 	_show: function() {
+		/*
 		if (!this.hasNode()) {
 			return;
 		}
 		this.$.showHideHandle.addClass("right");
 		this.applyShowAnimation();
 		enyo.Signals.send("onPanelsShown");
+		*/
+		var init = false;
+		if (!this.hasNode()) {
+			init = true;
+		} else {
+			this.$.showHideHandle.addClass("right");
+			this.applyShowAnimation();
+		}
+		enyo.Signals.send("onPanelsShown", {initialization: init});
 	},
 	//* Hides panels with transition to right.
 	_hide: function() {
