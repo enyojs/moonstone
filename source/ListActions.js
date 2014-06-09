@@ -183,7 +183,6 @@ enyo.kind({
 		this.doListActionOpenChanged({open: this.open});
 		// If opened, show drawer and resize it if needed
 		if(this.open){
-			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
 				this.resizeDrawer();
 				this.drawerNeedsResize = false;
@@ -198,7 +197,6 @@ enyo.kind({
 	drawerAnimationEnd: function() {
 		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
-			this.$.drawer.hide();
 			if (this.generated) {
 				enyo.Spotlight.spot(this.$.activator);
 			}
@@ -310,8 +308,7 @@ enyo.kind({
 	name: "moon.ListActionsDrawer",
 	//* @public
 	published: {
-		open: false,
-		animated: true
+		open: false
 	},
 	//* @protected
 	classes: "moon-list-actions-drawer",
@@ -324,18 +321,17 @@ enyo.kind({
 	rendered: function() {
 		this.inherited(arguments);
 		// Temporarily disable animation
-		this.$.client.addRemoveClass("animated", false );
+		this.applyAnimatedMode(false);
 		// Set the state of the drawer
 		this.openChanged();
 		// Re-enable animation
-		this.animatedChanged();
+		this.applyAnimatedMode(true);
 		// Let any watchers know we've finished our preparation
 		this.doComplete();
 	},
 	handleTransitionEnd: function(inSender, inEvent) {
 		if (inEvent.originator === this.$.client) {
 			this.doComplete();
-			// this.doComplete(inSender, inEvent);
 			return true;
 		}
 	},
@@ -347,50 +343,13 @@ enyo.kind({
 	getBubbleTarget: function() {
 		return this.owner;
 	},
-	showingChanged: function() {
-		// Override showing to use visibility so we don't interfere with the animation on show()
-		if (this.showing) {			
-			this.applyStyle("visibility", "visible");
-		} else {
-			this.applyStyle("visibility", "hidden");
-		}
-	},
-	openChanged: function(inOld) {
+	openChanged: function() {
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
-		this.show();
-		if (this.open) {
-			this.playOpenAnimation();
-		} else {
-			this.playCloseAnimation();
-		}
-	},
-	resetClientPosition: function() {
-		this.playCloseAnimation(false);
-	},
-	playOpenAnimation: function(shouldAnimate) {
-		if (!shouldAnimate && this.get("animated")) {
-			this.applyAnimatedMode(false);
-			this.$.client.addClass("open");
-			this.applyAnimatedMode();
-		} else {
-			this.$.client.addClass("open");
-		}
-	},
-	playCloseAnimation: function(shouldAnimate) {
-		if (!shouldAnimate && this.get("animated")) {
-			this.applyAnimatedMode(false);
-			this.$.client.removeClass("open");
-			this.applyAnimatedMode();
-		} else {
-			this.$.client.removeClass("open");
-		}
-	},
-	animatedChanged: function() {
-		this.applyAnimatedMode();
+		this.$.client.addRemoveClass("open", this.open);
 	},
 	applyAnimatedMode: function(shouldAnimate) {
-		this.$.client.addRemoveClass("animated", (typeof direct !== "undefined" && shouldAnimate !== null) ? shouldAnimate : this.get("animated") );
+		this.$.client.addRemoveClass("animated", shouldAnimate);
 	}
 });
 
