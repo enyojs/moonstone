@@ -366,31 +366,31 @@ enyo.kind({
 		}
 	},
 	resetClientPosition: function() {
-		this.playCloseAnimation(true);
+		this.playCloseAnimation(false);
 	},
-	playOpenAnimation: function(direct) {
-		if (direct && this.get("animated")) {
-			this.applyAnimated(false);
+	playOpenAnimation: function(shouldAnimate) {
+		if (!shouldAnimate && this.get("animated")) {
+			this.applyAnimatedMode(false);
 			this.$.client.addClass("open");
-			this.applyAnimated();
+			this.applyAnimatedMode();
 		} else {
 			this.$.client.addClass("open");
 		}
 	},
-	playCloseAnimation: function(direct) {
-		if (direct && this.get("animated")) {
-			this.applyAnimated(false);
+	playCloseAnimation: function(shouldAnimate) {
+		if (!shouldAnimate && this.get("animated")) {
+			this.applyAnimatedMode(false);
 			this.$.client.removeClass("open");
-			this.applyAnimated();
+			this.applyAnimatedMode();
 		} else {
 			this.$.client.removeClass("open");
 		}
 	},
 	animatedChanged: function() {
-		this.applyAnimated();
+		this.applyAnimatedMode();
 	},
-	applyAnimated: function(direct) {
-		this.$.client.addRemoveClass("animated", (typeof direct !== "undefined" && direct !== null) ? !direct : this.get("animated") );
+	applyAnimatedMode: function(shouldAnimate) {
+		this.$.client.addRemoveClass("animated", (typeof direct !== "undefined" && shouldAnimate !== null) ? shouldAnimate : this.get("animated") );
 	}
 });
 
