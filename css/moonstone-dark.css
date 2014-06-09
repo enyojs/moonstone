@@ -687,6 +687,7 @@
 .spotlight .moon-icon {
   color: #ffffff;
 }
+.disabled .moon-icon,
 .moon-icon.disabled {
   opacity: 0.6;
   filter: alpha(opacity=60);
@@ -814,36 +815,29 @@
 .moon-icon-button.spotlight.small {
   background-position: center -50px;
 }
-.moon-icon-button.no-background {
-  background-color: transparent;
-  border-color: transparent;
-}
-.moon-icon-button.no-background.disabled:active,
-.moon-icon-button.no-background.hover.disabled:hover {
-  background-color: transparent;
-}
-.moon-icon-button.no-background.spotlight {
-  background-color: #cf0652;
-}
-.moon-icon.moon-icon-button.active:not(.spotlight),
-.moon-icon.moon-icon-button:active:not(.spotlight),
-.moon-icon.moon-icon-button.pressed,
-.moon-icon.moon-icon-button.spotlight.pressed,
-.moon-icon.moon-icon-button.spotlight:active,
-.moon-icon.moon-icon-button.hover:active:not(.disabled) {
-  background-position: center 0;
-  border: 5px solid #cf0652;
-  background-color: #404040;
+.moon-icon-button.active:not(.spotlight),
+.moon-icon-button:active,
+.moon-icon-button.pressed,
+.moon-icon-button.pressed.spotlight,
+.moon-icon-button.hover:hover:not(.disabled).active,
+.moon-icon-button.hover:hover:not(.disabled):active {
   color: #a6a6a6;
+  background-color: #404040;
+  background-position: center 0;
+  border-color: #cf0652;
 }
-.moon-icon.moon-icon-button.active:not(.spotlight).disabled,
-.moon-icon.moon-icon-button:active:not(.spotlight).disabled,
-.moon-icon.moon-icon-button.pressed.disabled,
-.moon-icon.moon-icon-button.spotlight.pressed.disabled,
-.moon-icon.moon-icon-button.spotlight:active.disabled,
-.moon-icon.moon-icon-button.hover:active:not(.disabled).disabled {
+.moon-icon-button.disabled,
+.moon-icon-button.disabled:active {
   border-color: transparent;
-  color: #4d4d4d;
+}
+.moon-icon-button.no-background:not(.spotlight),
+.moon-icon-button.no-background.active:not(.spotlight),
+.moon-icon-button.no-background:active,
+.moon-icon-button.no-background.pressed,
+.moon-icon-button.no-background.pressed.spotlight,
+.moon-icon-button.no-background.active.hover:hover,
+.moon-icon-button.no-background:active.hover:hover {
+  background-color: transparent;
 }
 .moon-marquee {
   width: auto;
@@ -5108,18 +5102,14 @@
   visibility: hidden;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-  background-position: center 0;
-  border: 5px solid #cf0652;
-  background-color: #404040;
   color: #a6a6a6;
+  background-color: #404040;
+  background-position: center 0;
+  border-color: #cf0652;
   background-color: #ffffff;
   border-color: #ffffff;
   background-position: 0 -50px;
   visibility: visible;
-}
-.selection-enabled .moon-selection-overlay-support.selected .moon-icon-button.disabled {
-  border-color: transparent;
-  color: #4d4d4d;
 }
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
 .selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,

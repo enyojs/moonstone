@@ -28,31 +28,33 @@
 			background-position: center -@moon-icon-sprite-small-size;
 		}
 	}
-}
-.moon-icon-button.no-background {
-	background-color: transparent;
-	border-color: transparent;
-	&.disabled:active,
-	&.hover.disabled:hover {
-		background-color: transparent;
+	&.active:not(.spotlight),
+	&:active,
+	&.pressed,
+	&.pressed.spotlight,
+	&.hover:hover:not(.disabled).active,
+	&.hover:hover:not(.disabled):active {
+		color: @moon-icon-button-font-color;
+		background-color: @moon-icon-button-active-bg-color;
+		background-position: center 0;
+		border-color: @moon-icon-button-active-border-color;
 	}
-	&.spotlight {
-		background-color: @moon-icon-button-spotlight-bg-color;
-	}
-}
 
-.moon-icon.moon-icon-button.active:not(.spotlight),
-.moon-icon.moon-icon-button:active:not(.spotlight),
-.moon-icon.moon-icon-button.pressed,
-.moon-icon.moon-icon-button.spotlight.pressed,
-.moon-icon.moon-icon-button.spotlight:active,
-.moon-icon.moon-icon-button.hover:active:not(.disabled) {
-	background-position: center 0;
-	border: @moon-button-border-width solid @moon-icon-button-active-border-color;
-	background-color: @moon-icon-button-active-bg-color;
-	color: @moon-icon-button-font-color;
-	&.disabled {
+	&.disabled,
+	&.disabled:active {
 		border-color: transparent;
-		color: @moon-icon-button-font-disabled-color;
+	}
+	
+	// No-background + no-background and all states
+	&.no-background {
+		&:not(.spotlight),
+		&.active:not(.spotlight),
+		&:active,
+		&.pressed,
+		&.pressed.spotlight,
+		&.active.hover:hover,
+		&:active.hover:hover {
+			background-color: transparent;
+		}
 	}
 }
