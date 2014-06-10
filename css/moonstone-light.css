@@ -2117,6 +2117,9 @@
 .moon-icon-button.moon-paging-button.left {
   left: 0px;
 }
+.moon-icon-button.moon-paging-button.disabled {
+  color: #d9d9d9;
+}
 .moon-neutral .moon-icon-button.moon-paging-button.disabled {
   color: #ffffff;
 }
