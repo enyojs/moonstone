@@ -3191,8 +3191,8 @@
   -webkit-transform-origin: center -133.33333333333331%;
 }
 .moon-spinner .moon-spinner-ball:after {
-  content: "\2022";
-  font-family: "MuseoSans 700";
+  content: "\0F0013";
+  font-family: "Moonstone Icons";
 }
 .moon-spinner .moon-spinner-ball1 {
   -webkit-animation-name: spinBall;
