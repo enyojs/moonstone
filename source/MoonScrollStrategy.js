@@ -48,7 +48,7 @@ enyo.kind({
 	},
 	//* @protected
 	tools: [
-		{kind: "ScrollMath", onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"}
+		{kind: "ScrollMath", kFrictionEpsilon: 1e-1, onScrollStart: "scrollMathStart", onScroll: "scrollMathScroll", onScrollStop: "scrollMathStop"}
 	],
 	components: [
 		{name: "clientContainer", classes: "moon-scroller-client-wrapper", components: [
