@@ -50,14 +50,14 @@ enyo.kind({
 			};
 		}),
 		modelsAdded: enyo.inherit(function (sup) {
-			return function (c, e, props) {
-				this.updateMetrics(this.list);
+			return function (list, props) {
+				this.updateIndexBound(list);
 				sup.apply(this, arguments);
 			};
 		}),
 		modelsRemoved: enyo.inherit(function (sup) {
-			return function (c, e, props) {
-				this.updateMetrics(this.list);
+			return function (list, props) {
+				this.updateIndexBound(list);
 				sup.apply(this, arguments);
 			};
 		}),
