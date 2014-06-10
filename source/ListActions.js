@@ -58,6 +58,11 @@ enyo.kind({
 		*/
 		iconSrc: "",
 		/**
+			Set the icon name to be used by the ListActions Activator button.
+			(like moon.Icon and moon.IconButton)
+		*/
+		icon: "",
+		/**
 			By default, list action menus are 300px wide.  Set this to true to instead
 			have the menus be proportionally sized within the available space.  Note
 			that a minimum width of 300px is still respected; if all menus don't fit
@@ -89,7 +94,8 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".open", to: ".$.drawer.open"},
-		{from: ".iconSrc", to: ".$.activator.src"}
+		{from: ".iconSrc", to: ".$.activator.src"},
+		{from: ".icon", to: ".$.activator.icon"}
 	],
 	create: function() {
 		this.inherited(arguments);
