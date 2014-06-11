@@ -162,7 +162,7 @@ enyo.kind({
 		};
 	}),
 	removeControl: enyo.inherit(function (sup) {
-		return function() {
+		return function(inControl) {
 			if (!this.destroying) {
 				var removedIdx = this.getClientControls().indexOf(inControl);
 				var selectedIdx = this.selectedIndex;
