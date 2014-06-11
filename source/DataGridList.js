@@ -49,6 +49,18 @@ enyo.kind({
 				list.$.scroller.resized();
 			};
 		}),
+		modelsAdded: enyo.inherit(function (sup) {
+			return function (list, props) {
+				this.updateIndexBound(list);
+				sup.apply(this, arguments);
+			};
+		}),
+		modelsRemoved: enyo.inherit(function (sup) {
+			return function (list, props) {
+				this.updateIndexBound(list);
+				sup.apply(this, arguments);
+			};
+		}),
 		scrollToIndex: function (list, i) {
 			// This function recurses, so make sure we are scrolling to a valid index,
 			// otherwise childForIndex will never return a control
