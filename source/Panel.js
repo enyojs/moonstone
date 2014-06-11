@@ -100,24 +100,28 @@ enyo.kind({
 	shrinking: false,
 	growing: false,
 
-	create: function() {
-		this.inherited(arguments);
-		// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
-		if (this.headerComponents) {
-			var owner = this.hasOwnProperty("headerComponents") ? this.getInstanceOwner() : this;
-			this.$.header.createComponents(this.headerComponents, {owner: owner});
-		}
-		this.autoNumberChanged();
-		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
-		this.smallHeaderChanged();
-		this.headerTypeChanged();
-	},
-	initComponents: function() {
-		this.createTools();
-		this.controlParentName = "panelBody";
-		this.discoverControlParent();
-		this.inherited(arguments);
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// FIXME: Need to determine whether headerComponents was passed on the instance or kind to get the ownership correct
+			if (this.headerComponents) {
+				var owner = this.hasOwnProperty("headerComponents") ? this.getInstanceOwner() : this;
+				this.$.header.createComponents(this.headerComponents, {owner: owner});
+			}
+			this.autoNumberChanged();
+			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
+			this.smallHeaderChanged();
+			this.headerTypeChanged();
+		};
+	}),
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			this.createTools();
+			this.controlParentName = "panelBody";
+			this.discoverControlParent();
+			sup.apply(this, arguments);
+		};
+	}),
 	createTools: function() {
 		// Create everything but the header
 		this.createChrome(this.panelTools);
@@ -128,12 +132,14 @@ enyo.kind({
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
 	//* On reflow, updates _this.$.contentWrapper_ bounds.
-	reflow: function() {
-		this.inherited(arguments);
-		this.getInitAnimationValues();
-		this.updateViewportSize();
-		this.shrinkAsNeeded();
-	},
+	reflow: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.getInitAnimationValues();
+			this.updateViewportSize();
+			this.shrinkAsNeeded();
+		};
+	}),
 	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
 	updateViewportSize: function() {
 		var node = this.hasNode();
@@ -220,7 +226,7 @@ enyo.kind({
 	},
 	addSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", true);
-	},	
+	},
 	removeSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
@@ -339,7 +345,7 @@ enyo.kind({
 	growAnimation: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.addClass("growing");	
+		this.addClass("growing");
 		this.removeClass("shrunken");
 	},
 	grow: function() {

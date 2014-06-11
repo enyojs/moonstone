@@ -12,11 +12,13 @@ enyo.kind({
         {name: "label", classes: "label"},
         {name: "text", classes: "text"}
     ],
-    create: function() {
-        this.inherited(arguments);
-        this.labelChanged();
-        this.textChanged();
-    },
+    create: enyo.inherit(function (sup) {
+        return function() {
+            sup.apply(this, arguments);
+            this.labelChanged();
+            this.textChanged();
+        };
+    }),
     //* @public
     published: {
         //* The label to be displayed along with the text

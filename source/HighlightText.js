@@ -1,8 +1,8 @@
 (function (enyo, scope) {
-	
+
 	var HTMLStringDelegate = enyo.HTMLStringDelegate,
 		HighlightTextDelegate = Object.create(HTMLStringDelegate);
-		
+
 	HighlightTextDelegate.generateInnerHtml = function (control) {
 		if (control.search) {
 			return control.content.replace(control.search, control.bindSafely(function(s) {
@@ -12,7 +12,7 @@
 			return enyo.dom.escape(control.get("content"));
 		}
 	};
-	
+
 	/**
 		_moon.HighlightText_ is a control that displays highlighted text.  When
 		_setHighlight()_ is called or an _onHighlight_ event is received, it will
@@ -63,10 +63,12 @@
 			onHighlight: "onHighlightHandler",
 			onUnHighlight: "unHighlightHandler"
 		},
-		create: function() {
-			this.inherited(arguments);
-			this.highlightChanged();
-		},
+		create: enyo.inherit(function (sup) {
+			return function() {
+				sup.apply(this, arguments);
+				this.highlightChanged();
+			};
+		}),
 		//* @protected
 		highlightChanged: function() {
 			if (this.highlight) {

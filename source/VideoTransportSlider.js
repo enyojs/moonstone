@@ -64,7 +64,7 @@ enyo.kind({
 		onSeekStart: "",
 		/**
 			Fires when user taps in _tapArea_.
-			
+
 			_inEvent.value_ contains the position to seek to.
 		*/
 		onSeek: "",
@@ -93,40 +93,42 @@ enyo.kind({
 	_previewMode: false,
 
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		this.$.popup.setAutoDismiss(false);		//* Always showing popup
-		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
-		this.$.tapArea.onmove = "preview";
-		this.$.tapArea.onenter = "enterTapArea";
-		this.$.tapArea.onleave = "leaveTapArea";
-		//* Extend components
-		this.createTickComponents();
-		this.createPopupLabelComponents();
-		this.showTickTextChanged();
-		this.showTickBarChanged();
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.popup.setAutoDismiss(false);		//* Always showing popup
+			this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
+			this.$.tapArea.onmove = "preview";
+			this.$.tapArea.onenter = "enterTapArea";
+			this.$.tapArea.onleave = "leaveTapArea";
+			//* Extend components
+			this.createTickComponents();
+			this.createPopupLabelComponents();
+			this.showTickTextChanged();
+			this.showTickBarChanged();
 
-		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
-			this.$.beginTickText.setContent(this.formatTime(0));
+			if (window.ilib) {
+				this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
+				this.$.beginTickText.setContent(this.formatTime(0));
 
-			var loc = new ilib.Locale(),
-				language = loc.getLanguage(),
-				// Hash of languages and the additional % widths they'll need to not run off the edge.
-				langWidths = {
-					ja: 0.05,
-					pt: 0.05
-				};
+				var loc = new ilib.Locale(),
+					language = loc.getLanguage(),
+					// Hash of languages and the additional % widths they'll need to not run off the edge.
+					langWidths = {
+						ja: 0.05,
+						pt: 0.05
+					};
 
-			if (langWidths[language]) {
-				this.set("beginPosition", this.get("beginPosition") + langWidths[language] );
-				this.set("endPosition", this.get("endPosition") - langWidths[language] );
+				if (langWidths[language]) {
+					this.set("beginPosition", this.get("beginPosition") + langWidths[language] );
+					this.set("endPosition", this.get("endPosition") - langWidths[language] );
+				}
 			}
-		}
 
-		this.beginPositionChanged();
-		this.endPositionChanged();
-	},
+			this.beginPositionChanged();
+			this.endPositionChanged();
+		};
+	}),
 	createTickComponents: function() {
 		this.createComponents(this.tickComponents, {owner: this, addBefore: this.$.tapArea});
 	},
@@ -168,10 +170,12 @@ enyo.kind({
 	isInPreview: function(inSender, inEvent) {
 		return this._previewMode;
 	},
-	resizeHandler: function() {
-		this.inherited(arguments);
-		this.updateSliderRange();
-	},
+	resizeHandler: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateSliderRange();
+		};
+	}),
 	updateSliderRange: function() {
 		this.beginTickPos = (this.max-this.min) * this.get("beginPosition");
 		this.endTickPos = (this.max-this.min) * this.get("endPosition");
@@ -185,14 +189,18 @@ enyo.kind({
 		}
 		this.updateKnobPosition(this.value);
 	},
-	setMin: function() {
-		this.inherited(arguments);
-		this.updateSliderRange();
-	},
-	setMax: function() {
-		this.inherited(arguments);
-		this.updateSliderRange();
-	},
+	setMin: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateSliderRange();
+		};
+	}),
+	setMax: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateSliderRange();
+		};
+	}),
 	setRangeStart: function(inValue) {
 		this.rangeStart = this.clampValue(this.getMin(), this.getMax(), inValue);
 		this.rangeStartChanged();
@@ -299,35 +307,39 @@ enyo.kind({
 			return true;
 		}
 	},
-	setValue: function(inValue) {
-		if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
-			this.inherited(arguments);
-		} else {
-			this._setValue(inValue);
-		}
-	},
-	//* If dragstart, bubbles _onSeekStart_ event.
-	dragstart: function(inSender, inEvent) {
-		if (this.disabled) {
-			return; // return nothing
-		}
-		if (inEvent.horizontal) {
-			var v = this.calcKnobPosition(inEvent);
-			if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
-				// TODO : action in dummy area
-				this.dummyAction = true;
+	setValue: enyo.inherit(function (sup) {
+		return function(inValue) {
+			if(Math.abs(this.calcVariationPercent(inValue)) > this.smallVariation) {
+				sup.apply(this, arguments);
 			} else {
-				var dragstart = this.inherited(arguments);
-				if (dragstart) {
-					this.doSeekStart();
-				}
-				this.dummyAction = false;
+				this._setValue(inValue);
 			}
-			return true;
-		}
+		};
+	}),
+	//* If dragstart, bubbles _onSeekStart_ event.
+	dragstart: enyo.inherit(function (sup) {
+		return function(inSender, inEvent) {
+			if (this.disabled) {
+				return; // return nothing
+			}
+			if (inEvent.horizontal) {
+				var v = this.calcKnobPosition(inEvent);
+				if( this.showDummyArea && (v < this.beginTickPos || v > this.endTickPos) ) {
+					// TODO : action in dummy area
+					this.dummyAction = true;
+				} else {
+					var dragstart = sup.apply(this, arguments);
+					if (dragstart) {
+						this.doSeekStart();
+					}
+					this.dummyAction = false;
+				}
+				return true;
+			}
 
-		return true;
-	},
+			return true;
+		};
+	}),
 	//* If drag, bubbles _onSeek_ event and overrides parent drag handler.
 	drag: function(inSender, inEvent) {
 		if (this.dragging) {

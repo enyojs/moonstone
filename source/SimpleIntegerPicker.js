@@ -32,8 +32,8 @@ enyo.kind({
 		*/
 		onSelect: "",
 		/**
-			Fires when the picker is rebuilt, allowing other controls the opportunity to reflow the 
-			picker as necessary, i.e. as a child of _moon.ExpandableIntegerPicker_ needing to be 
+			Fires when the picker is rebuilt, allowing other controls the opportunity to reflow the
+			picker as necessary, i.e. as a child of _moon.ExpandableIntegerPicker_ needing to be
 			reflowed when opened as it may currently not be visible.
 		*/
 		onRebuilt: ""
@@ -45,7 +45,7 @@ enyo.kind({
 		onSpotlightLeft        : "previous",
 		onSpotlightScrollUp    : "next",
 		onSpotlightScrollDown  : "previous",
-		
+
 		onSpotlightBlur        : "spotlightBlur",
 		onSpotlightFocus       : "spotlightFocus",
 		onSpotlightFocused     : "spotlightFocus",
@@ -135,14 +135,16 @@ enyo.kind({
 	},
 
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		if (!this.deferInitialization) {
-			this.build();
-			this.validate();
-		}
-		this.disabledChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (!this.deferInitialization) {
+				this.build();
+				this.validate();
+			}
+			this.disabledChanged();
+		};
+	}),
 	build: function() {
 		var indices = this.indices = {},
 			values = this.values = [],
@@ -155,7 +157,7 @@ enyo.kind({
 			values[i] = v;
 			indices[v] = i;
 			if (this.step <= 0) {
-				// if step value is 0 or negative, should create only "min" value and then break this loop. 
+				// if step value is 0 or negative, should create only "min" value and then break this loop.
 				break;
 			}
 		}
@@ -195,22 +197,24 @@ enyo.kind({
 	},
 
 	//* On reflow, updates the bounds of _this.$.client_.
-	reflow: function() {
-		this.inherited(arguments);
+	reflow: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		// Find max width of all children
-		if (this.getAbsoluteShowing()) {
-			var width = 0;
-			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
+			// Find max width of all children
+			if (this.getAbsoluteShowing()) {
+				var width = 0;
+				for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+					width = Math.max(width, c$[i].getBounds().width);
+				}
+				this.$.client.setBounds({width:width});
+				for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
+					c$[i].setBounds({width:width});
+				}
+				this.$.client.reflow();
 			}
-			this.$.client.setBounds({width:width});
-			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				c$[i].setBounds({width:width});
-			}
-			this.$.client.reflow();
-		}
-	},
+		};
+	}),
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
 			this.$.leftOverlay.show();

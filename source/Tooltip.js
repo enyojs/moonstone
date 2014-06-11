@@ -49,14 +49,18 @@ enyo.kind({
 	tools: [
 		{name: "client", classes: "moon-tooltip-label moon-header-font"}
 	],
-	initComponents: function() {
-		this.createChrome(this.tools);
-		this.inherited(arguments);
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.contentChanged();
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			this.createChrome(this.tools);
+			sup.apply(this, arguments);
+		};
+	}),
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.contentChanged();
+		};
+	}),
 	contentChanged: function() {
 		var content = this.getContent();
 		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content);
@@ -64,10 +68,12 @@ enyo.kind({
 	contentUpperCaseChanged: function() {
 		this.contentChanged();
 	},
-	positionChanged:function() {
-		this.inherited(arguments);
-		this.adjustPosition(true);
-	},
+	positionChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.adjustPosition(true);
+		};
+	}),
 	requestShow: function() {
 		this.startJob("showJob", "show", this.showDelay);
 		return true;
@@ -75,15 +81,19 @@ enyo.kind({
 	cancelShow: function() {
 		this.stopJob("showJob");
 	},
-	requestHide: function() {
-		this.cancelShow();
-		return this.inherited(arguments);
-	},
-	showingChanged: function() {
-		this.cancelShow();
-		this.inherited(arguments);
-		this.adjustPosition(true);
-	},
+	requestHide: enyo.inherit(function (sup) {
+		return function() {
+			this.cancelShow();
+			return sup.apply(this, arguments);
+		};
+	}),
+	showingChanged: enyo.inherit(function (sup) {
+		return function() {
+			this.cancelShow();
+			sup.apply(this, arguments);
+			this.adjustPosition(true);
+		};
+	}),
 	applyPosition: function(inRect) {
 		var s = "";
 		for (var n in inRect) {
@@ -149,9 +159,11 @@ enyo.kind({
 			}
 		}
 	},
-	resizeHandler: function() {
-		this.applyPosition({"margin-left": this.defaultLeft, "bottom": "auto"});
-		this.adjustPosition(true);
-		this.inherited(arguments);
-	}
+	resizeHandler: enyo.inherit(function (sup) {
+		return function() {
+			this.applyPosition({"margin-left": this.defaultLeft, "bottom": "auto"});
+			this.adjustPosition(true);
+			sup.apply(this, arguments);
+		};
+	})
 });

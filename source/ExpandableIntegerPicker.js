@@ -75,10 +75,12 @@ enyo.kind({
 		"currentValueText": ["value", "unit", "noneText"]
 	},
 
-	create: function() {
-		this.inherited(arguments);
-		this.requestPickerReflow();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.requestPickerReflow();
+		};
+	}),
 
 	requestPickerReflow: function() {
 		this._needsPickerReflow = true;
@@ -91,14 +93,16 @@ enyo.kind({
 		}
 		this.fireChangeEvent();
 	},
-	openChanged: function() {
-		this.inherited(arguments);
-		this.setActive(this.getOpen());
-		if (this.open && this._needsPickerReflow) {
-			this.$.picker.reflow();
-			this._needsPickerReflow = false;
-		}
-	},
+	openChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.setActive(this.getOpen());
+			if (this.open && this._needsPickerReflow) {
+				this.$.picker.reflow();
+				this._needsPickerReflow = false;
+			}
+		};
+	}),
 
 	// Computed props
 	showCurrentValue: function() {

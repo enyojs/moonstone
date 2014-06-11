@@ -11,7 +11,7 @@
 			name: "AMC",
 			components: [
 				{content: "3D"},
-				{content: "Live"},					
+				{content: "Live"},
 				{content: "REC 08:22", classes: "moon-video-player-info-redicon"}
 			]
 		}
@@ -43,10 +43,12 @@ enyo.kind({
 	bindings: [
 		{from: ".channelName", to: ".$.channelName.content"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.channelNoChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.channelNoChanged();
+		};
+	}),
 	channelNoChanged: function() {
 		var channelNo = this.getChannelNo();
 		this.$.channelNo.setContent(this.getChannelNoUpperCase() ? enyo.toUpperCase(channelNo) : channelNo);

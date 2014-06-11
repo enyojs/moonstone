@@ -23,9 +23,9 @@ enyo.kind({
 		/**
 			If true, paging controls are focusable (in 5-way mode).  Normally, this
 			is not required, since the scroller will automatically scroll to ensure
-			most focusable items are in view.  It is intended to be used when the 
-			scroller contents have no spotlightable controls, such as the case of a 
-			scroller with a long body of text. 
+			most focusable items are in view.  It is intended to be used when the
+			scroller contents have no spotlightable controls, such as the case of a
+			scroller with a long body of text.
 		*/
 		spotlightPagingControls: false,
 		//* Relative parameter used to determine scroll speed
@@ -99,9 +99,9 @@ enyo.kind({
 		animate the scroll. Defaults to animation unless it is set to false.
 	*/
 	scrollTo: function (x, y, animate) {
-		this.$.strategy.scrollTo(x, y, animate);	
+		this.$.strategy.scrollTo(x, y, animate);
 	},
-	
+
 	//* @protected
 	bindings: [
 		{from: ".scrollInterval",				to:".$.strategy.interval"},
@@ -110,11 +110,13 @@ enyo.kind({
 		{from: ".paginationPageMultiplier",		to:".$.strategy.paginationPageMultiplier"},
 		{from: ".paginationScrollMultiplier",	to:".$.strategy.paginationScrollMultiplier"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.spotlightPagingControlsChanged();
-		this.scrollWheelMovesFocusChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.spotlightPagingControlsChanged();
+			this.scrollWheelMovesFocusChanged();
+		};
+	}),
 	spotlightPagingControlsChanged: function() {
 		this.$.strategy.set("spotlightPagingControls", this.spotlightPagingControls);
 	},

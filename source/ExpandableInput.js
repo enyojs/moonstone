@@ -123,7 +123,7 @@ enyo.kind({
 	},
 	/**
 		If _this.lockBottom_ is _true_, don't allow user to navigate down from the
-		input field. If _this.lockBottom_ is _false_, close drawer and return true 
+		input field. If _this.lockBottom_ is _false_, close drawer and return true
 		to keep spotlight on header.
 	*/
 	inputDown: function(inSender, inEvent) {
@@ -132,20 +132,22 @@ enyo.kind({
 		} else {
 			this.closeDrawerAndHighlightHeader();
 		}
-		return true; 
+		return true;
 	},
-	drawerAnimationEnd: function() {
-		enyo.Spotlight.unfreeze();
-		if (this.getOpen()) {
-			this.focusInput();
-		}
-		this.inherited(arguments);
-	},
-	/** 
+	drawerAnimationEnd: enyo.inherit(function (sup) {
+		return function() {
+			enyo.Spotlight.unfreeze();
+			if (this.getOpen()) {
+				this.focusInput();
+			}
+			sup.apply(this, arguments);
+		};
+	}),
+	/**
 		We manually set pointer mode to false as it was seemingly the
 		least harmful method to re-highlight the header after the drawer
-		closes. The other options had side effects of resetting the 
-		current spotted control to the root, or requiring a double-press to 
+		closes. The other options had side effects of resetting the
+		current spotted control to the root, or requiring a double-press to
 		subsequently 5-way move.
 	*/
 	closeDrawerAndHighlightHeader: function() {

@@ -22,10 +22,12 @@ enyo.kind({
 		*/
 		meridiems: ["AM","PM"]
 	},
-	valueChanged: function() {
-		this.inherited(arguments);
-		this.updateOverlays();
-	},
+	valueChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateOverlays();
+		};
+	}),
 	//* @protected
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -50,13 +52,15 @@ enyo.kind({
 	formatter: null,
 	wrap: true,
 
-	create: function() {
-		this.inherited(arguments);
-		// Create ilib Date object used for formatting hours
-		if (typeof ilib !== "undefined") {
-			this.date = ilib.Date.newInstance();
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// Create ilib Date object used for formatting hours
+			if (typeof ilib !== "undefined") {
+				this.date = ilib.Date.newInstance();
+			}
+		};
+	}),
 	setupItem: function(inSender, inEvent) {
 		var hour = inEvent.index;
 		if (this.date) { // ilib enabled
@@ -119,30 +123,18 @@ enyo.kind({
 	iLibFormatType  : "time",
 	defaultOrdering : "hma",
 
-	initILib: function() {
-		this.inherited(arguments);
+	initILib: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		// Set picker format 12 vs 24 hour clock
-		var li = new ilib.LocaleInfo(this.locale || undefined);
-		var clockPref = li.getClock();
-		this.meridiemEnable = (clockPref == '12');
+			// Set picker format 12 vs 24 hour clock
+			var li = new ilib.LocaleInfo(this.locale || undefined);
+			var clockPref = li.getClock();
+			this.meridiemEnable = (clockPref == '12');
 
-		var fmtParams = {
-			type: "time",
-			time: "h",
-			clock: clockPref !== "locale" ? clockPref : undefined,
-			useNative: false,
-			timezone: "local"
-		};
-		if (this.locale) {
-			fmtParams.locale = this.locale;
-		}
-		this.hourFormatter = new ilib.DateFmt(fmtParams);
-
-		// Get localized meridiem values
-		if (this.meridiemEnable) {
-			fmtParams = {
-				template: "a",
+			var fmtParams = {
+				type: "time",
+				time: "h",
 				clock: clockPref !== "locale" ? clockPref : undefined,
 				useNative: false,
 				timezone: "local"
@@ -150,64 +142,80 @@ enyo.kind({
 			if (this.locale) {
 				fmtParams.locale = this.locale;
 			}
-			var merFormatter = new ilib.DateFmt(fmtParams);
-			var am = ilib.Date.newInstance({hour:1});
-			var pm = ilib.Date.newInstance({hour:13});
-			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
-		}
-	},
-	setupPickers: function(ordering) {
-		var orderingArr = ordering.toLowerCase().split("");
-		var doneArr = [];
-		var o,f,l;
-		for(f = 0, l = orderingArr.length; f < l; f++) {
-			o = orderingArr[f];
-			if (doneArr.indexOf(o) < 0) {
-				doneArr.push(o);
+			this.hourFormatter = new ilib.DateFmt(fmtParams);
+
+			// Get localized meridiem values
+			if (this.meridiemEnable) {
+				fmtParams = {
+					template: "a",
+					clock: clockPref !== "locale" ? clockPref : undefined,
+					useNative: false,
+					timezone: "local"
+				};
+				if (this.locale) {
+					fmtParams.locale = this.locale;
+				}
+				var merFormatter = new ilib.DateFmt(fmtParams);
+				var am = ilib.Date.newInstance({hour:1});
+				var pm = ilib.Date.newInstance({hour:13});
+				this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
 			}
-		}
+		};
+	}),
+	setupPickers: enyo.inherit(function (sup) {
+		return function(ordering) {
+			var orderingArr = ordering.toLowerCase().split("");
+			var doneArr = [];
+			var o,f,l;
+			for(f = 0, l = orderingArr.length; f < l; f++) {
+				o = orderingArr[f];
+				if (doneArr.indexOf(o) < 0) {
+					doneArr.push(o);
+				}
+			}
 
-		for(f = 0, l = doneArr.length; f < l; f++) {
-			o = doneArr[f];
-			var valueHours = this.value ? this.value.getHours() : 0;
-			var valueMinutes = this.value ? this.value.getMinutes() : 0;
+			for(f = 0, l = doneArr.length; f < l; f++) {
+				o = doneArr[f];
+				var valueHours = this.value ? this.value.getHours() : 0;
+				var valueMinutes = this.value ? this.value.getMinutes() : 0;
 
-			switch (o){
-			case 'h':
-			case 'k':
-				this.createComponent(
-					{classes: "moon-date-picker-wrap", components:[
-						{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter || this, value: valueHours},
-						{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
-					]}
-				);
-				break;
-			case 'm':
-				this.createComponent(
-					{classes: "moon-date-picker-wrap", components:[
-						{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
-						{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
-					]}
-				);
-				break;
-			case 'a':
-				if (this.meridiemEnable === true) {
+				switch (o){
+				case 'h':
+				case 'k':
 					this.createComponent(
 						{classes: "moon-date-picker-wrap", components:[
-							{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
-							{name: "meridiemLabel", content: this.meridiemText, classes: "moon-date-picker-label moon-divider-text"}
+							{kind: "moon.HourPicker", name:"hour", formatter: this.hourFormatter || this, value: valueHours},
+							{name: "hourLabel", content: this.hourText, classes: "moon-date-picker-label moon-divider-text"}
 						]}
 					);
+					break;
+				case 'm':
+					this.createComponent(
+						{classes: "moon-date-picker-wrap", components:[
+							{kind: "moon.IntegerPicker", name:"minute", classes:"moon-date-picker-field", min:0, max:59, wrap:true, digits: 2, value: valueMinutes},
+							{name: "minuteLabel", content: this.minuteText, classes: "moon-date-picker-label moon-divider-text"}
+						]}
+					);
+					break;
+				case 'a':
+					if (this.meridiemEnable === true) {
+						this.createComponent(
+							{classes: "moon-date-picker-wrap", components:[
+								{kind:"moon.MeridiemPicker", name:"meridiem", classes:"moon-date-picker-field", value: valueHours > 12 ? 1 : 0, meridiems: this.meridiems || ["am","pm"] },
+								{name: "meridiemLabel", content: this.meridiemText, classes: "moon-date-picker-label moon-divider-text"}
+							]}
+						);
+					}
+					break;
+				default:
+					break;
 				}
-				break;
-			default:
-				break;
+
 			}
 
-		}
-
-		this.inherited(arguments);
-	},
+			sup.apply(this, arguments);
+		};
+	}),
 	formatValue: function() {
 		if (!this.value) {
 			return (this.noneText);
@@ -281,7 +289,7 @@ enyo.kind({
 					valueFullYear,
 					valueMonth,
 					valueDate,
-					hour, 
+					hour,
 					minute,
 					valueSeconds,
 					valueMilliseconds

@@ -60,13 +60,15 @@ enyo.kind({
 		{name: "client", kind: "moon.FullScreenDrawer", spotlightDisabled: true, resizeContainer:false},
 		{name: "controlDrawer", kind: "enyo.Drawer", spotlightDisabled: true, resizeContainer:false}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
-		//* Todo: remove padding on client
-		this.$.client.$.client.addClass('moon-drawer-client');
-		this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.controlDrawer.createComponents(this.controlDrawerComponents, {owner:this.owner});
+			//* Todo: remove padding on client
+			this.$.client.$.client.addClass('moon-drawer-client');
+			this.$.controlDrawer.$.client.addClass('moon-drawer-partial-client');
+		};
+	}),
 	drawersRendered: function(inSender, inEvent) {
 		this.$.client.setDrawerProps({height: this.calcDrawerHeight(inEvent.drawersHeight)});
 		this.openChanged();
@@ -142,7 +144,7 @@ enyo.kind({
 	open: false,
 	//* @public
 	published: {
-		/** 
+		/**
 			An object that holds the client dimensions for the fullscreen drawer,
 			e.g.: _drawer.setDrawerProps({height:100px});_.  This property is only
 			intended to be used internally by _moon.Drawer_.
@@ -150,10 +152,12 @@ enyo.kind({
 		drawerProps: null
 	},
 	//* @protected
-	initComponents: function() {
-		this.inherited(arguments);
-		this.$.client.setShowing(true);
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.client.setShowing(true);
+		};
+	}),
 	openChanged: function() {
 		this.$.client.show();
 		if (this.hasNode()) {

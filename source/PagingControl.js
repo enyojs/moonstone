@@ -44,12 +44,14 @@ enyo.kind({
 	maxDelta: 100,
 	tapDelta: 15,
 	bumpDeltaMultiplier: 3,
-	
-	create: function() {
-		this.inherited(arguments);
-		this.sideChanged();
-	},
-	
+
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.sideChanged();
+		};
+	}),
+
 	//* @public
 	/**
 		Stops scrolling animation and triggers _onPaginate_ event with a delta value
@@ -61,9 +63,9 @@ enyo.kind({
 		this.doPaginate({scrollDelta: this.delta * this.bumpDeltaMultiplier});
 		enyo.Spotlight.Accelerator.cancel();
 	},
-	
+
 	//* @protected
-	
+
 	_iconMappings: {
 		"top": "arrowlargeup",
 		"bottom": "arrowlargedown",
@@ -81,7 +83,7 @@ enyo.kind({
 		if (this.disabled) {
 			return;
 		}
-		
+
 		this.downTime = enyo.bench();
 		this.delta = this.initialDelta;
 	},
@@ -92,50 +94,54 @@ enyo.kind({
 
 		this.startHoldJob();
 	},
-	depress: function(inSender, inEvent) {
-		this.inherited(arguments);
-		// keydown events repeat (while mousedown/hold does not); simulate
-		// hold behavior with mouse by catching the second keydown event
-		if (!this.downCount) {
-			this.down();
-			this.downCount = 1;
-		} else {
-			this.downCount++;
-		}
-		if (this.downCount == 2) {
-			this.hold();
-		}
-	},
-	undepress: function(inSender, inEvent) {
-		this.inherited(arguments);
-		this.downCount = 0;
-		this.endHold(inSender, inEvent);
-	},
+	depress: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// keydown events repeat (while mousedown/hold does not); simulate
+			// hold behavior with mouse by catching the second keydown event
+			if (!this.downCount) {
+				this.down();
+				this.downCount = 1;
+			} else {
+				this.downCount++;
+			}
+			if (this.downCount == 2) {
+				this.hold();
+			}
+		};
+	}),
+	undepress: enyo.inherit(function (sup) {
+		return function(inSender, inEvent) {
+			sup.apply(this, arguments);
+			this.downCount = 0;
+			this.endHold(inSender, inEvent);
+		};
+	}),
 	endHold: function(inSender, inEvent) {
 		if (!this.downTime) {
 			return;
 		}
-		
+
 		this.stopHoldJob();
 		this.sendPaginateEvent();
 		this.downTime = null;
 	},
 	startHoldJob: function() {
 		this.stopHoldJob();
-		
+
 		var t0 = enyo.bench(),
 			t = 0
 		;
-		
+
 		var fn = this.bindSafely(function() {
 			this.job = enyo.requestAnimationFrame(fn);
-			
+
 			t = (enyo.bench() - t0)/1000;
 			this.delta = Math.min(this.maxDelta, this.delta + (0.1 * Math.pow(t, 1.1)));
-			
+
 			this.doPaginateScroll({scrollDelta: this.delta});
 		});
-		
+
 		this.job = enyo.requestAnimationFrame(fn);
 	},
 	stopHoldJob: function() {
@@ -145,7 +151,7 @@ enyo.kind({
 		var tapThreshold = 200,
 			timeElapsed = enyo.bench() - this.downTime,
 			delta = (timeElapsed <= tapThreshold) ? this.tapDelta : this.delta;
-		
+
 		this.doPaginate({scrollDelta: delta});
 	},
 	//* Override default focused handling to make sure scroller doesn't scroll to this button.

@@ -200,7 +200,7 @@ enyo.kind({
 				}
 				i--;
 			}
-			
+
 			return xPos;
 		}
 	},
@@ -237,8 +237,8 @@ enyo.kind({
 				continue;
 			}
 
-			var totalWidth = panels[i].width + 
-				this.getBreadcrumbEdge(inJoinedPanels[i][0]) + 
+			var totalWidth = panels[i].width +
+				this.getBreadcrumbEdge(inJoinedPanels[i][0]) +
 				this.getBreadcrumbGap();
 
 			// Add the width of each additional panel that is visible at this index
@@ -302,25 +302,26 @@ enyo.kind({
 			}
 		}
 	},
-	start: function() {
-		this.inherited(arguments);
-
-		var tp = this.container.transitionPositions;
-		var panels = this.container.getPanels();
-		var panel;
-		var hiding = [];
-		for(var i=0;(panel = panels[i]);i++) {
-			if (tp[i+"."+this.container.toIndex] === 0) {
-				var width = panel.getBounds().width;
-				var nextTp = tp[i+1+"."+this.container.toIndex];
-				if (width > nextTp) {
-					hiding.push(i);
+	start: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var tp = this.container.transitionPositions;
+			var panels = this.container.getPanels();
+			var panel;
+			var hiding = [];
+			for(var i=0;(panel = panels[i]);i++) {
+				if (tp[i+"."+this.container.toIndex] === 0) {
+					var width = panel.getBounds().width;
+					var nextTp = tp[i+1+"."+this.container.toIndex];
+					if (width > nextTp) {
+						hiding.push(i);
+					}
 				}
 			}
-		}
 
-		this.container.hiddenPanels = hiding;
-	},
+			this.container.hiddenPanels = hiding;
+		};
+	}),
 	arrange: function(inC, inName) {
 		var c$ = this.container.getPanels();
 		var s = this.container.clamp(inName);
@@ -328,7 +329,7 @@ enyo.kind({
 
 		for (i=0; (c=c$[i]); i++) {
 			xPos = this.container.transitionPositions[i + "." + s];
-			// If the panel is even a little off the screen, 
+			// If the panel is even a little off the screen,
 			if (xPos < 0) {
 				// lets check if its fully off.
 				var containerPadding = this.getContainerPadding();

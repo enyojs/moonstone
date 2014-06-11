@@ -46,14 +46,16 @@ enyo.kind({
 		{name: "bgbar"},
 		{name: "bar"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.addRemoveClass("moon-progress-bar-rtl", this.rtl);
-		this.progressChanged();
-		this.barClassesChanged();
-		this.bgBarClassesChanged();
-		this.bgProgressChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.addRemoveClass("moon-progress-bar-rtl", this.rtl);
+			this.progressChanged();
+			this.barClassesChanged();
+			this.bgBarClassesChanged();
+			this.bgProgressChanged();
+		};
+	}),
 	barClassesChanged: function(inOld) {
 		this.$.bar.removeClass(inOld);
 		this.$.bar.addClass(this.barClasses);

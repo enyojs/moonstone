@@ -20,13 +20,15 @@ enyo.kind({
 		disabled: false
 	},
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		this.disabledChanged();
-		if (this.children.length) {
-			this.addClass("allow-wrap");
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.disabledChanged();
+			if (this.children.length) {
+				this.addClass("allow-wrap");
+			}
+		};
+	}),
 	disabledChanged: function(inOld) {
 		this.addRemoveClass("disabled", this.disabled);
 	},

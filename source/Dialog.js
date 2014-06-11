@@ -39,12 +39,14 @@ enyo.kind({
 		{name: "message", kind:"moon.BodyText", classes: "moon-dialog-content"},
 		{name: "spotlightDummy", spotlight:false}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.titleChanged();
-		this.subTitleChanged();
-		this.messageChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.titleChanged();
+			this.subTitleChanged();
+			this.messageChanged();
+		};
+	}),
 	titleChanged: function() {
 		var title = this.getTitle();
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(title) : title );

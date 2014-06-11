@@ -47,14 +47,16 @@ enyo.kind({
 		onSpotlightFocused	: "spotFocused"
 	},
 	//* On creation, updates based on value of _this.small_.
-	initComponents: function() {
-		if (!(this.components && this.components.length > 0)) {
-			this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
-		}
-		this.smallChanged();
-		this.minWidthChanged();
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			if (!(this.components && this.components.length > 0)) {
+				this.createComponent({name: "client", kind:"moon.MarqueeText", isChrome: true});
+			}
+			this.smallChanged();
+			this.minWidthChanged();
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Adds _pressed_ CSS class.
 	depress: function() {
 		this.addClass('pressed');
@@ -89,14 +91,16 @@ enyo.kind({
 		this.contentChanged();
 	},
 	//* Override to handle potential child components.
-	contentChanged: function() {
-		var content = this.getContent();
-		if (this.$.client) {
-			this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
-		} else {
-			this.inherited(arguments);
-		}
-	},
+	contentChanged: enyo.inherit(function (sup) {
+		return function() {
+			var content = this.getContent();
+			if (this.$.client) {
+				this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+			} else {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	contentUpperCaseChanged: function() {
 		this.contentChanged();
 	},
@@ -107,10 +111,12 @@ enyo.kind({
 			this.removeClass('min-width');
 		}
 	},
-	showingChanged: function() {
-		this.inherited(arguments);
-		if (!this.showing && this.hasClass('pressed')) {
+	showingChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (!this.showing && this.hasClass('pressed')) {
 			this.undepress();
 		}
-	}
+		};
+	})
 });

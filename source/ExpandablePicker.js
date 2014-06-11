@@ -16,7 +16,7 @@
 	The currently selected item is available in the picker's _selected_ property
 	and may be accessed in the normal manner, by calling _get("selected")_ and
 	_set("selected", &lt;value&gt;)_. Similarly, the index of the current selection is
-	available in _selectedIndex_. When the multipleSelection property is set to true, 
+	available in _selectedIndex_. When the multipleSelection property is set to true,
 	selected returns an array of selected items, and selectedIndex returns an array of
 	selected indexes.
 
@@ -53,7 +53,7 @@ enyo.kind({
 		/**
 			Fires when the currently selected item changes.
 
-			_inEvent.selected_ contains a reference to the currently selected item, 
+			_inEvent.selected_ contains a reference to the currently selected item,
 			or (when multipleSelection is true), an array of selected items.
 
 			_inEvent.content_ contains the content of the currently selected item,
@@ -104,23 +104,27 @@ enyo.kind({
 		{from: ".allowHtml", to: ".$.currentValue.allowHtml"},
 		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		if (this.multipleSelection) {
-			this.selected = (this.selected) ? this.selected : [];
-			this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
-			this.$.client.setHighlander(false);
-		}
-		this.initializeActiveItem();
-		this.selectedIndexChanged();
-		this.noneTextChanged();
-		this.helpTextChanged();
-		this.openChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.isRendered = true;
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.multipleSelection) {
+				this.selected = (this.selected) ? this.selected : [];
+				this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
+				this.$.client.setHighlander(false);
+			}
+			this.initializeActiveItem();
+			this.selectedIndexChanged();
+			this.noneTextChanged();
+			this.helpTextChanged();
+			this.openChanged();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.isRendered = true;
+		};
+	}),
 	multiSelectCurrentValue: function() {
 		if (!this.multipleSelection) {
 			return;
@@ -140,7 +144,7 @@ enyo.kind({
 		}
 		return str;
 	},
-	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.	
+	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
 		controls = this.getClientControls(),
@@ -235,11 +239,13 @@ enyo.kind({
 		}
 	},
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
-	openChanged: function() {
-		this.inherited(arguments);
-		this.$.currentValue.setShowing(!this.open);
-		this.setActive(this.getOpen());
-	},
+	openChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.currentValue.setShowing(!this.open);
+			this.setActive(this.getOpen());
+		};
+	}),
 	//* When drawer is opened/closed, shows/hides _this.$.helpText.
 	helpTextChanged: function() {
 		if (this.helpText !== null && !this.$.helpText.canGenerate) {

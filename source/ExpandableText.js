@@ -43,17 +43,21 @@ enyo.kind({
 	maxHeight: 96,
 	contentHeight: -1,
 	canCollapse: true,
-	create: function() {
-		this.inherited(arguments);
-		this.moreContentChanged();
-		this.lessContentChanged();
-		this.collapsedChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.moreContentChanged();
+			this.lessContentChanged();
+			this.collapsedChanged();
+		};
+	}),
 	//* Updates _this.lineHeight_ after render.
-	rendered: function() {
-		this.inherited(arguments);
-		this.calcLineHeight();
-	},
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.calcLineHeight();
+		};
+	}),
 	resizeHandler: function() {
 		this.reflow();
 	},
@@ -165,10 +169,12 @@ enyo.kind({
 	},
 	classes: "moon-item moon-expandable-text-button",
 	spotlight: true,
-	create: function() {
-		this.inherited(arguments);
-		this.updateContent();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateContent();
+		};
+	}),
 	//* Bubble _requestScrollIntoView_ event
 	spotFocused: function(inSender, inEvent) {
 		if (inEvent.originator === this) {

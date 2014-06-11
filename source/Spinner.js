@@ -30,12 +30,14 @@ enyo.kind({
 	spinnerTools: [
 		{name: "client", classes: "moon-spinner-client"}
 	],
-	initComponents: function() {
-		this.inherited(arguments);
-		this.createTools();
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.createTools();
+		};
+	}),
 	createTools: function() {
-		// This allows for the spinner instances with child components to not have 
+		// This allows for the spinner instances with child components to not have
 		// MarqueeText kind on the client container.
 		var tools = enyo.clone(this.spinnerTools);
 		if (!(this.components && this.components.length > 0)) {
@@ -51,12 +53,14 @@ enyo.kind({
 		}
 		this.createChrome(tools);
 	},
-	create: function() {
-		this.inherited(arguments);
-		this.contentChanged();
-		this.transparentChanged();
-		this.addClass("running");
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.contentChanged();
+			this.transparentChanged();
+			this.addClass("running");
+		};
+	}),
 	//* @public
 	//* Hides the animating spinner.
 	stop: function() {
@@ -72,17 +76,19 @@ enyo.kind({
 	},
 	//* @protected
 	hasContent: function() {
-		// true if this.content is set to something OR if there are more than zero components 
+		// true if this.content is set to something OR if there are more than zero components
 		return (!!this.content || (this.components && this.components.length > 0));
 	},
-	contentChanged: function(inOld) {
-		this.inherited(arguments);
-		if (this.content || inOld) {
-			this.$.client.set("content", this.content);
-		}
-		this.$.client.set("showing", !!this.content);
-		this.addRemoveClass("content", this.hasContent());
-	},
+	contentChanged: enyo.inherit(function (sup) {
+		return function(inOld) {
+			sup.apply(this, arguments);
+			if (this.content || inOld) {
+				this.$.client.set("content", this.content);
+			}
+			this.$.client.set("showing", !!this.content);
+			this.addRemoveClass("content", this.hasContent());
+		};
+	}),
 	transparentChanged: function() {
 		this.addRemoveClass("moon-spinner-transparent-background", !!this.get("transparent"));
 	}

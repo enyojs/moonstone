@@ -20,7 +20,7 @@ enyo.kind({
 		onSpotlightSelect         : "handleSpotlightSelect"
 	},
 
-	eventsToCapture: { 
+	eventsToCapture: {
 		onSpotlightFocus: "capturedFocus"
 	},
 	//* @public
@@ -70,14 +70,18 @@ enyo.kind({
 	defaultZ: 120,
 	activator: null,
 	//* Creates chrome
-	initComponents: function() {
-		this.createComponents(this.tools, {owner: this});
-		this.inherited(arguments);
-	},
-	create: function () {
-		this.inherited(arguments);
-		this.animateChanged();
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			this.createComponents(this.tools, {owner: this});
+			sup.apply(this, arguments);
+		};
+	}),
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.animateChanged();
+		};
+	}),
 	animateChanged: function() {
 		if (this.animate) {
 			this.animateShow();
@@ -90,11 +94,13 @@ enyo.kind({
 		}
 	},
 	//* Renders _moon.Popup_, extending enyo.Popup
-	render: function() {
-		this.allowHtmlChanged();
-		this.contentChanged();
-		this.inherited(arguments);
-	},
+	render: enyo.inherit(function (sup) {
+		return function() {
+			this.allowHtmlChanged();
+			this.contentChanged();
+			sup.apply(this, arguments);
+		};
+	}),
 	contentChanged: function() {
 		this.$.client.setContent(this.content);
 	},
@@ -107,11 +113,13 @@ enyo.kind({
 	},
 	//* If _this.downEvent_ is set to a spotlight event, skips normal popup
 	//* capturedTap()_ code.
-	capturedTap: function(inSender, inEvent) {
-		if (!this.downEvent || (this.downEvent.type !== "onSpotlightSelect")) {
-			return this.inherited(arguments);
-		}
-	},
+	capturedTap: enyo.inherit(function (sup) {
+		return function(inSender, inEvent) {
+			if (!this.downEvent || (this.downEvent.type !== "onSpotlightSelect")) {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	capturedFocus: function (inSender, inEvent) {
 	// While we're open, we hijack Spotlight focus events. In all cases, we want
 	// to prevent the default 5-way behavior (which is to focus on the control nearest
@@ -167,76 +175,80 @@ enyo.kind({
 	showCloseButtonChanged: function() {
 		this.configCloseButton();
 	},
-	showingChanged: function() {
-		if (this.showing) {
-			if (this.animate) {
-				// need to call this early to prevent race condition where animationEnd
-				// originated from a "hide" context but we are already in a "show" context
-				this.animationEnd = enyo.nop;
-				// if we are currently animating the hide transition, release
-				// the events captured when popup was initially shown
-				if (this.isAnimatingHide) {
-					if (this.captureEvents) {
-						this.release();
-					}
-					this.isAnimatingHide = false;
-				}
-			}
-			this.activator = enyo.Spotlight.getCurrent();
-			moon.Popup.count++;
-			this.applyZIndex();
-		}
-		else {
-			if(moon.Popup.count > 0) {
-				moon.Popup.count--;
-			}
-			if (this.generated) {
-				this.respotActivator();
-			}
-		}
-
-		if (this.animate) {
+	showingChanged: enyo.inherit(function (sup) {
+		return function() {
 			if (this.showing) {
-				this.inherited(arguments);
-				this.animateShow();
-			} else {
-				this.animateHide();
-				var args = arguments;
-				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
-					if (inEvent.originator === this) {
-						this.inherited(args);
+				if (this.animate) {
+					// need to call this early to prevent race condition where animationEnd
+					// originated from a "hide" context but we are already in a "show" context
+					this.animationEnd = enyo.nop;
+					// if we are currently animating the hide transition, release
+					// the events captured when popup was initially shown
+					if (this.isAnimatingHide) {
+						if (this.captureEvents) {
+							this.release();
+						}
 						this.isAnimatingHide = false;
 					}
-				});
+				}
+				this.activator = enyo.Spotlight.getCurrent();
+				moon.Popup.count++;
+				this.applyZIndex();
 			}
-		} else {
-			this.inherited(arguments);
-		}
+			else {
+				if(moon.Popup.count > 0) {
+					moon.Popup.count--;
+				}
+				if (this.generated) {
+					this.respotActivator();
+				}
+			}
 
-		this.showHideScrim(this.showing);
-		if (this.showing) {
-			this.configCloseButton();
-			// Spot ourselves, unless we're already spotted
-			var current = enyo.Spotlight.getCurrent(); 
-			if (!current || !current.isDescendantOf(this)) {
-				if (enyo.Spotlight.isSpottable(this)) {
-					enyo.Spotlight.spot(this);
+			if (this.animate) {
+				if (this.showing) {
+					sup.apply(this, arguments);
+					this.animateShow();
+				} else {
+					this.animateHide();
+					var args = arguments;
+					this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+						if (inEvent.originator === this) {
+							sup.apply(this, args);
+							this.isAnimatingHide = false;
+						}
+					});
 				}
-				// If we're not spottable, just unspot whatever was previously spotted
-				else {
-					enyo.Spotlight.unspot();
+			} else {
+				sup.apply(this, arguments);
+			}
+
+			this.showHideScrim(this.showing);
+			if (this.showing) {
+				this.configCloseButton();
+				// Spot ourselves, unless we're already spotted
+				var current = enyo.Spotlight.getCurrent();
+				if (!current || !current.isDescendantOf(this)) {
+					if (enyo.Spotlight.isSpottable(this)) {
+						enyo.Spotlight.spot(this);
+					}
+					// If we're not spottable, just unspot whatever was previously spotted
+					else {
+						enyo.Spotlight.unspot();
+					}
 				}
 			}
-		}
-	},
-	getShowing: function() {
-		//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
-		if (this.animate) {
-			return this.showing;
-		} else {
-			return this.inherited(arguments);
-		}
-	},
+		};
+	}),
+	getShowing: enyo.inherit(function (sup) {
+		return function() {
+			//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
+			if (this.animate) {
+				return this.showing;
+			} else {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	showHideScrim: function(inShow) {
 		if (this.floating && (this.scrim || (this.modal && this.scrimWhenModal))) {
 			var scrim = this.getScrim();
@@ -323,8 +335,10 @@ enyo.kind({
 			enyo.dom.transform(this, {translateY: this._bounds.height - prevHeight + "px"});
 		}
 	},
-	destroy: function() {
-		this.showHideScrim(false);
-		this.inherited(arguments);
-	}
+	destroy: enyo.inherit(function (sup) {
+		return function() {
+			this.showHideScrim(false);
+			sup.apply(this, arguments);
+		};
+	})
 });

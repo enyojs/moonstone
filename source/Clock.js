@@ -41,18 +41,20 @@ enyo.kind({
 	_timeDiff: 0,
 	//* _ilib_ locale info instance; it contains information about the particular locale
 	ilibLocaleInfo: null,
-	/** 
+	/**
 		Define clock mode.
 		If date is assigned with JS Date object or null, it will be "normal".
 		If date is assigned with JS object that indicates the exact time components
 		to be formatted into the clock, it will be "static".
 	*/
 	mode: "normal",
-	create: function() {
-		this.inherited(arguments);
-		this.initDefaults();
-		this.refreshJob();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.initDefaults();
+			this.refreshJob();
+		};
+	}),
 	initILib: function() {
 		this.ilibLocaleInfo = new ilib.LocaleInfo(this.locale || undefined);
 		var clockPref = this.ilibLocaleInfo.getClock();
@@ -116,15 +118,15 @@ enyo.kind({
 			this._timeDiff = (this.date.getTime() - Date.now()) || 0;
 		} else {
 			this.set("mode", "normal");
-			this._timeDiff = 0;			
+			this._timeDiff = 0;
 		}
 		this.refreshJob();
 	},
 	refreshJob: function() {
 		this.updateDate();
 		if (this.mode === "normal") {
-			this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());	
-		}		
+			this.startJob("refresh", this.bindSafely("refreshJob"), this.getRefresh());
+		}
 	},
 	_formatNumber: function(inValue) {
 		// Used when ilib is not present
@@ -149,8 +151,8 @@ enyo.kind({
 		}
 		this.initDefaults();
 	},
-	/**	
-		If user sets time without using JS Date object, 
+	/**
+		If user sets time without using JS Date object,
 		it should be parsed into array for ilib.Date object.
 	*/
 	parseStaticDate: function(inDate) {
@@ -172,14 +174,14 @@ enyo.kind({
 		} else {
 			d = this.date;
 			h = (this.date.hour) ? this.date.hour : 0;
-		}		
+		}
 		this.updateHour(d, h);
 		this.updateMinute(d, h);
 		this.updateMonthDay(d);
 	},
 	updateHour: function(inDate, inHour) {
 		inHour = (inHour > 12 ? inHour-12: inHour) || 12;
-		
+
 		var hour = this._hf ? this._hf.format((this.mode === "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
 																		: ilib.Date.newInstance(this.parseStaticDate(inDate)))
 							: inHour;
@@ -187,7 +189,7 @@ enyo.kind({
 	},
 	updateMinute: function(inDate, inHour) {
 		var time = this._mf ? this._mf.format((this.mode === "normal")	? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
-																		: ilib.Date.newInstance(this.parseStaticDate(inDate))) 
+																		: ilib.Date.newInstance(this.parseStaticDate(inDate)))
 							: (this.mode === "normal")	? this._formatNumber(inDate.getMinutes())
 														: this._formatNumber(inDate.min);
 		var meridiem = "";
@@ -199,7 +201,7 @@ enyo.kind({
 	},
 	updateMonthDay: function(inDate) {
 		var md = this._mdf	? this._mdf.format((this.mode === "normal") ? ilib.Date.newInstance({unixtime: inDate.getTime(), timezone:"Etc/UTC"})
-																		: ilib.Date.newInstance(this.parseStaticDate(inDate))) 
+																		: ilib.Date.newInstance(this.parseStaticDate(inDate)))
 							: (this.mode === "normal")	? this.months[inDate.getMonth()] + " " + this._formatNumber(inDate.getUTCDate())
 														: ((inDate.month !== undefined) ? this.months[inDate.month-1] : 0) + " " + this._formatNumber(inDate.day);
 		this.$.bottom.setContent(md);

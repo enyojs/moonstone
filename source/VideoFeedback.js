@@ -38,12 +38,14 @@ enyo.kind({
 	],
 
 	//* @public
-	create: function() {
-		this.inherited(arguments);
-		if (window.ilib) {
-			this.df = new ilib.DurFmt({length: "medium", useNative: false});
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (window.ilib) {
+				this.df = new ilib.DurFmt({length: "medium", useNative: false});
+			}
+		};
+	}),
 
 	//* @public
 	/**
@@ -151,9 +153,9 @@ enyo.kind({
 
 		// Show output controls when video player is not preview mode
 		if (!isInPreview) {
-			this.showFeedback();	
+			this.showFeedback();
 		}
-		
+
 		// Show icons as appropriate
 		this.updateIcons(inLeftSrc, inRightSrc);
 

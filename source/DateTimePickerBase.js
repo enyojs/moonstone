@@ -80,11 +80,13 @@ enyo.kind({
 	bindings: [
 		{from: ".disabled", to: ".$.headerWrapper.disabled"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.createComponent({kind: "enyo.Signals", onlocalechange: "handleLocaleChangeEvent"});
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.createComponent({kind: "enyo.Signals", onlocalechange: "handleLocaleChangeEvent"});
 		this.initDefaults();
-	},
+		};
+	}),
 	initILib: function() {
 		var fmtParams = {
 			type: this.iLibFormatType,
@@ -151,29 +153,31 @@ enyo.kind({
 		}
 	},
 	// When _this.open_ changes, shows/hides _this.$.currentValue_.
-	openChanged: function() {
-		this.inherited(arguments);
-		var open = this.$.drawer.get("open"),
-			pickers = this.pickers,
-			i, p;
-		this.$.currentValue.setShowing(!open);
-		if (pickers) {
-			for (i = 0; i < pickers.length; i++) {
-				p = pickers[i];
-				if (p.getClientControls().length > 0) {
-					p = p.getClientControls()[0];
-				}
-				if (open) {
-					//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
-					p.refreshScrollState();
-				} else {
-					// If one of the pickers is animating when the drawer closes, it won't display properly
-					// when the drawer reopens, unless we stabilize here
-					p.stabilize();
+	openChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var open = this.$.drawer.get("open"),
+				pickers = this.pickers,
+				i, p;
+			this.$.currentValue.setShowing(!open);
+			if (pickers) {
+				for (i = 0; i < pickers.length; i++) {
+					p = pickers[i];
+					if (p.getClientControls().length > 0) {
+						p = p.getClientControls()[0];
+					}
+					if (open) {
+						//Force the pickers to update their scroll positions (they don't update while the drawer is closed)
+						p.refreshScrollState();
+					} else {
+						// If one of the pickers is animating when the drawer closes, it won't display properly
+						// when the drawer reopens, unless we stabilize here
+						p.stabilize();
+					}
 				}
 			}
-		}
-	},
+		};
+	}),
 	toggleActive: function() {
 		if (this.getOpen()) {
 			this.setActive(false);

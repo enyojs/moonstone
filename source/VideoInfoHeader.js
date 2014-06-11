@@ -55,10 +55,12 @@ enyo.kind({
 		{from: ".subSubTitle",	to: ".$.subSubTitle.content"},
 		{from: ".description",	to: ".$.description.content"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.titleChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.titleChanged();
+		};
+	}),
 	titleChanged: function() {
 		this.$.title.set("content", this.get("titleUpperCase") ? enyo.toUpperCase(this.get("title")) : this.get("title") );
 	},

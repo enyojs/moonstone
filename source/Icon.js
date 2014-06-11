@@ -83,17 +83,19 @@ enyo.kind({
 	//* @protected
 	classes: "moon-icon",
 
-	create: function() {
-		this.inherited(arguments);
-		if (this.src) {
-			this.srcChanged();
-		}
-		if (this.icon) {
-			this.iconChanged();
-		}
-		this.smallChanged();
-		this.disabledChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.src) {
+				this.srcChanged();
+			}
+			if (this.icon) {
+				this.iconChanged();
+			}
+			this.smallChanged();
+			this.disabledChanged();
+		};
+	}),
 	getIconClass: function(inIconName) {
 		return "moon-icon-" + (inIconName || this.icon);
 	},

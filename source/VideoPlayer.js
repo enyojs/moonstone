@@ -141,7 +141,7 @@ enyo.kind({
 		*/
 		disableSlider: false,
 		//* When false, the jump forward and jump back buttons are hidden
-		showJumpControls: true, 
+		showJumpControls: true,
 		//* When true, the fast-forward and rewind buttons are visible
 		showFFRewindControls: false,
 		/**
@@ -203,7 +203,7 @@ enyo.kind({
 			When false, video player doesn't response to remote controller
 		*/
 		handleRemoteControlKey: true
-			
+
 	},
 	//* @protected
 	handlers: {
@@ -228,12 +228,12 @@ enyo.kind({
 		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
     ],
-	
+
 	_isPlaying: false,
 	_canPlay: false,
 	_autoCloseTimer: null,
 	_currentTime: 0,
-	
+
 	components: [
 		{kind: "enyo.Signals", onPanelsShown: "panelsShown", onPanelsHidden: "panelsHidden", onPanelsHandleFocused: "panelsHandleFocused", onPanelsHandleBlurred: "panelsHandleBlurred", onFullscreenChange: "fullscreenChanged", onkeyup:"remoteKeyHandler"},
 		{name: "videoContainer", classes: "moon-video-player-container", components: [
@@ -247,14 +247,14 @@ enyo.kind({
 
 		//* Fullscreen controls
 		{name: "fullscreenControl", classes: "moon-video-fullscreen-control enyo-fit scrim", onmousemove: "mousemove", components: [
-		
+
 			{name: "videoInfoHeaderClient", showing: false, classes: "moon-video-player-header"},
-			
+
 			{name: "playerControl", classes: "moon-video-player-bottom", showing: false, components: [
 				{name: "controls", kind: "FittableColumns", rtl:false, classes: "moon-video-player-controls", ontap: "resetAutoTimeout", components: [
-			
+
 					{name: "leftPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-left"},
-				
+
 					{name: "controlsContainer", kind: "Panels", arrangerKind: "CarouselArranger", fit: true, draggable: false, classes: "moon-video-player-controls-container", components: [
 						{name: "trickPlay", ontap:"playbackControlsTapped", components: [
 							{name: "playbackControls", classes: "moon-video-player-control-buttons", components: [
@@ -267,14 +267,14 @@ enyo.kind({
 						]},
 						{name: "client", classes: "moon-video-player-more-controls"}
 					]},
-				
+
 					{name: "rightPremiumPlaceHolder", classes: "moon-video-player-premium-placeholder-right", components: [
 						{name: "moreButton", kind: "moon.IconButton", small: false, ontap: "moreButtonTapped"}
 					]}
 				]},
-			
+
 				{name: "sliderContainer", classes: "moon-video-player-slider-container", components: [
-					{name: "slider", kind: "moon.VideoTransportSlider", rtl: false, disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish", 
+					{name: "slider", kind: "moon.VideoTransportSlider", rtl: false, disabled: true, onSeekStart: "sliderSeekStart", onSeek: "sliderSeek", onSeekFinish: "sliderSeekFinish",
 						onEnterTapArea: "onEnterSlider", onLeaveTapArea: "onLeaveSlider", ontap:"playbackControlsTapped"
 					}
 				]}
@@ -292,30 +292,32 @@ enyo.kind({
 			{name: "ilFullscreen", kind: "moon.VideoFullscreenToggleButton"}
 		]}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.srcChanged();
-		this.createInfoControls();
-		this.inlineChanged();
-		this.showInfoChanged();
-		this.autoShowInfoChanged();
-		this.autoShowControlsChanged();
-		this.autoplayChanged();
-		this.updateMoreButton();
-		this.showPlaybackControlsChanged();
-		this.showProgressBarChanged();
-		this.jumpSecChanged();
-		this.updatePlaybackControlState();
-		this.retrieveIconsSrcOrFont(this.$.jumpBack, this.jumpBackIcon, "moon-icon-video-main-control-font-style");
-		this.retrieveIconsSrcOrFont(this.$.rewind, this.rewindIcon, "moon-icon-video-main-control-font-style");
-		this.retrieveIconsSrcOrFont(this.$.fastForward, this.fastForwardIcon, "moon-icon-video-main-control-font-style");
-		this.retrieveIconsSrcOrFont(this.$.jumpForward, this.jumpForwardIcon, "moon-icon-video-main-control-font-style");
-		this.retrieveIconsSrcOrFont(this.$.ilFullscreen, this.inlineFullscreenIcon, "moon-video-inline-control-fullscreen");
-		this.$.ilFullscreen.removeClass("moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style");
-		if (window.ilib) {
-			this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.srcChanged();
+			this.createInfoControls();
+			this.inlineChanged();
+			this.showInfoChanged();
+			this.autoShowInfoChanged();
+			this.autoShowControlsChanged();
+			this.autoplayChanged();
+			this.updateMoreButton();
+			this.showPlaybackControlsChanged();
+			this.showProgressBarChanged();
+			this.jumpSecChanged();
+			this.updatePlaybackControlState();
+			this.retrieveIconsSrcOrFont(this.$.jumpBack, this.jumpBackIcon, "moon-icon-video-main-control-font-style");
+			this.retrieveIconsSrcOrFont(this.$.rewind, this.rewindIcon, "moon-icon-video-main-control-font-style");
+			this.retrieveIconsSrcOrFont(this.$.fastForward, this.fastForwardIcon, "moon-icon-video-main-control-font-style");
+			this.retrieveIconsSrcOrFont(this.$.jumpForward, this.jumpForwardIcon, "moon-icon-video-main-control-font-style");
+			this.retrieveIconsSrcOrFont(this.$.ilFullscreen, this.inlineFullscreenIcon, "moon-video-inline-control-fullscreen");
+			this.$.ilFullscreen.removeClass("moon-icon-video-round-controls-style moon-icon-exitfullscreen-font-style");
+			if (window.ilib) {
+				this.durfmt = new ilib.DurFmt({length: "medium", style: "clock", useNative: false});
+			}
+		};
+	}),
 	checkIconType: function(inIcon) {
 		var imagesrcRegex=/\.(jpg|jpeg|png|gif)$/i;
 		var iconType=imagesrcRegex.test(inIcon)?"image":"iconfont";
@@ -332,7 +334,7 @@ enyo.kind({
 		this.updatePlaybackControlState();
 	},
 	updatePlaybackControlState: function() {
-		var disabled = this.disablePlaybackControls || 
+		var disabled = this.disablePlaybackControls ||
 			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
 		this.updateSliderState();
 		this.$.playbackControls.addRemoveClass("disabled", disabled);
@@ -356,11 +358,13 @@ enyo.kind({
 			this.bubble("onPlaybackControlsTapped");
 		}
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		//* Change aspect ratio based on initialAspectRatio
-		this.aspectRatioChanged();
-	},
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			//* Change aspect ratio based on initialAspectRatio
+			this.aspectRatioChanged();
+		};
+	}),
 	showPlaybackControlsChanged: function(inOld) {
 		this.$.trickPlay.set("showing", this.showPlaybackControls);
 		this.$.moreButton.set("showing", this.showPlaybackControls && this.clientComponentsCount > 2);
@@ -392,31 +396,33 @@ enyo.kind({
 		var owner = this.hasOwnProperty("infoComponents") ? this.getInstanceOwner() : this;
 		this.$.videoInfoHeaderClient.createComponents(this.infoComponents, {owner: owner});
 	},
-	createClientComponents: function(inComponents) {
-		inComponents = (inComponents) ? enyo.clone(inComponents) : [];
-		this.clientComponentsCount = inComponents.length;
-		if (!this._buttonsSetup) {
-			this._buttonsSetup = true;
-			if (!inComponents || inComponents.length === 0) {
-				// No components - destroy more button
-				this.$.leftPremiumPlaceHolder.hide();
-				this.$.rightPremiumPlaceHolder.hide();		
-			} else if (inComponents.length <= 2) {
-				// One or two components - destroy more button and utilize left/right premium placeholders
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
-				if (inComponents.length === 1) {
-					this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+	createClientComponents: enyo.inherit(function (sup) {
+		return function(inComponents) {
+			inComponents = (inComponents) ? enyo.clone(inComponents) : [];
+			this.clientComponentsCount = inComponents.length;
+			if (!this._buttonsSetup) {
+				this._buttonsSetup = true;
+				if (!inComponents || inComponents.length === 0) {
+					// No components - destroy more button
+					this.$.leftPremiumPlaceHolder.hide();
+					this.$.rightPremiumPlaceHolder.hide();
+				} else if (inComponents.length <= 2) {
+					// One or two components - destroy more button and utilize left/right premium placeholders
+					this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+					if (inComponents.length === 1) {
+						this.$.rightPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+					}
+				} else {
+					// More than two components - use extra panel, with left premium plaeholder for first component
+					this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
 				}
+				// Create the rest of the components in the client (panels)
+				this.createComponents(inComponents, {owner: this.getInstanceOwner()});
 			} else {
-				// More than two components - use extra panel, with left premium plaeholder for first component
-				this.$.leftPremiumPlaceHolder.createComponent(inComponents.shift(), {owner: this.getInstanceOwner()});
+				sup.apply(this, arguments);
 			}
-			// Create the rest of the components in the client (panels)
-			this.createComponents(inComponents, {owner: this.getInstanceOwner()});
-		} else {
-			this.inherited(arguments);
-		}
-	},
+		};
+	}),
 	playIconChanged: function() {
 		this.updatePlayPauseButtons();
 	},
@@ -449,10 +455,10 @@ enyo.kind({
 	},
 	updateSliderState: function() {
 		//* this should be be called on create because default slider status should be disabled.
-		var disabled = 
-			this.disableSlider || 
-			this.disablePlaybackControls || 
-			!this._loaded || 
+		var disabled =
+			this.disableSlider ||
+			this.disablePlaybackControls ||
+			!this._loaded ||
 			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
 		this.$.slider.setDisabled(disabled);
 	},
@@ -481,7 +487,7 @@ enyo.kind({
 	},
 	showInfoChanged: function() {
 		this.$.videoInfoHeaderClient.setShowing(this.showInfo);
-		
+
 		if (this.showInfo) {
 			// Kick off any marquees in the video info header
 			this.$.videoInfoHeaderClient.waterfallDown("onRequestStartMarquee");
@@ -613,10 +619,10 @@ enyo.kind({
 				//* Fixed index
 				this.$.controlsContainer.setIndex(1);
 			}
-			
+
 			//* Initial spot
 			this.spotFSBottomControls();
-			
+
 			this.$.slider.showKnobStatus();
 			if (this.$.video.isPaused()) {
 				this.updateFullscreenPosition();
@@ -634,7 +640,7 @@ enyo.kind({
 							enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controls));
 						}
 					}
-				}	
+				}
 			} else {
 				enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.$.controlsContainer.getActive()));
 			}
@@ -645,7 +651,7 @@ enyo.kind({
 	},
 	//* Sets _this.visible_ to false.
 	hideFSBottomControls: function() {
-		// When controls are hidden, set as just a spotlight true component, 
+		// When controls are hidden, set as just a spotlight true component,
 		// so that it is spottable (since it won't have any spottable children),
 		// and then spot itself
 		this.set("spotlight", true);
@@ -668,7 +674,7 @@ enyo.kind({
 			this.resetAutoTimeout();
 			this.$.videoInfoHeaderClient.setShowing(true);
 			this.$.videoInfoHeaderClient.resized();
-			
+
 			// Kick off any marquees in the video info header
 			this.$.videoInfoHeaderClient.waterfallDown("onRequestStartMarquee");
 		}
@@ -923,9 +929,9 @@ enyo.kind({
 			width = this.getComputedStyleValue('width'),
 			height = this.getComputedStyleValue('height'),
 			ratio = 1;
-		
+
 		videoAspectRatio = this.aspectRatio.split(":");
-		
+
 		// If fixedHeight is true, update width based on aspect ratio
 		if (this.fixedHeight) {
 			// Case 2: Automatic resize based on video aspect ratio (fixed height):
@@ -1089,11 +1095,11 @@ enyo.kind({
 			endPoint = 0,
 			i
 		;
-		
+
 		if (duration === 0 || isNaN(duration)) {
 			return {value: 0, percent: 0};
 		}
-		
+
 		// Find furthest along buffer end point and use that (only supporting one buffer range for now)
 		for (i = 0; i < numberOfBuffers; i++) {
 			endPoint = bufferData.end(i);
@@ -1105,7 +1111,7 @@ enyo.kind({
 	_progress: function(inSender, inEvent) {
 		var buffered = this._getBufferedProgress(inEvent.srcElement);
 		if (this.isFullscreen() || !this.getInline()) {
-			this.$.slider.setBgProgress(buffered.value); 
+			this.$.slider.setBgProgress(buffered.value);
 		} else {
 			this.$.bgProgressStatus.applyStyle("width", buffered.percent + "%");
 		}

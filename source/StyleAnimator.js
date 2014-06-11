@@ -30,10 +30,12 @@ enyo.kind({
 	animations: null,
 
 	////////// PUBLIC //////////
-	create: function() {
-		this.inherited(arguments);
-		this.animations = [];
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.animations = [];
+		};
+	}),
 	//* @public
 	/**
 		Returns animation object reflecting the passed-in properties, while also
@@ -334,10 +336,10 @@ enyo.kind({
 		newStyle += inInstruction.property + " " + transitionTime + "s " + animation.timingFunction + " 0s";
 
 		inInstruction.control.applyStyle(transitionProperty, newStyle);
-		
+
 		// we arbitrarily cache this value for cheaper lookup later
 		inInstruction.control[transitionProperty] = newStyle;
-		
+
 		inInstruction.control.applyStyle(inInstruction.property, inInstruction.endValue);
 
 		//  this.log(inInstruction.control.id+".applyStyle("+transitionProperty+", "+newStyle+")");

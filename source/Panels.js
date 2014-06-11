@@ -132,7 +132,7 @@ enyo.kind({
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
 			nPanel;
-		
+
 		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
 			oPanels[nPanel].render();
 		}
@@ -208,30 +208,34 @@ enyo.kind({
 	create: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
-			
+
 			// we need to ensure our handler has the opportunity to modify the flow during
 			// initialization
 			this.showingChanged();
 		};
 	}),
-	initComponents: function() {
-		this.applyPattern();
-		this.inherited(arguments);
-		this.initializeShowHideHandle();
-		this.handleShowingChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			this.applyPattern();
+			sup.apply(this, arguments);
+			this.initializeShowHideHandle();
+			this.handleShowingChanged();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
 
-		// Direct hide if not showing and using handle
-		if (this.useHandle === true) {
-			if (this.showing) {
-				this._directShow();
-			} else {
-				this._directHide();
+			// Direct hide if not showing and using handle
+			if (this.useHandle === true) {
+				if (this.showing) {
+					this._directShow();
+				} else {
+					this._directHide();
+				}
 			}
-		}
-	},
+		};
+	}),
 	onTap: function(oSender, oEvent) {
 		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.transitionInProgress === true) {
 			return;
@@ -281,7 +285,7 @@ enyo.kind({
 			// Upon pressing right from a pointer-focused breadcrumb, just jump
 			// to the current panel to keep focus visible
 			enyo.Spotlight.spot(next);
-			return true; 
+			return true;
 		}
 		if (next && orig instanceof moon.Panel) {
 			if (this.useHandle === true && this.handleShowing && next.isOffscreen) {
@@ -535,64 +539,67 @@ enyo.kind({
 		return true;
 	},
 	//* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid spotlight issues)
-	indexChanged: function(inPrevious) {
-		var activePanel = this.getActive();
+	indexChanged: enyo.inherit(function (sup) {
+		return function(inPrevious) {
+			var activePanel = this.getActive();
 
-		if (activePanel && activePanel.isBreadcrumb) {
-			activePanel.removeSpottableBreadcrumbProps();
-		}
-
-		this.inherited(arguments);
-
-		// Update display of branding image
-		if (this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
-			this.brandingSrcChanged();
-		}
-	},
-	finishTransition: function(sendEvents) {
-		var panels = this.getPanels(),
-			transitioned = typeof this.lastIndex !== "undefined",
-			method = transitioned ? (sendEvents ? "transitionFinished" : "updatePanel") : "initPanel",
-			i,
-			panel,
-			info,
-			popFrom;
-
-		// Pop panels starting at this index, plus any that are still onscreen
-		popFrom = this.toIndex + 1;
-		// Notify panels of transition
-		for (i =0 ; (panel = panels[i]); i++) {
-			info = this.getTransitionInfo(i);
-			if (panel[method]) {
-				panel[method](info);
+			if (activePanel && activePanel.isBreadcrumb) {
+				activePanel.removeSpottableBreadcrumbProps();
 			}
-			// If a panel is onscreen, don't pop it
-			if ((i > this.toIndex) && !info.offscreen) {
-				popFrom++;
+
+			sup.apply(this, arguments);
+
+			// Update display of branding image
+			if (this.getPanelInfo(0, this.index).breadcrumb !== this.getPanelInfo(0, this.inPrevious).breadcrumb) {
+				this.brandingSrcChanged();
 			}
-		}
-		// "sendEvents" means we actually transitioned (not a reflow), so
-		// check popOnBack logic
-		if (sendEvents) {
-			// Automatically pop off panels that are no longer on screen
-			if (this.popOnBack && (this.toIndex < this.fromIndex)) {
-				this.popPanels(popFrom);
+		};
+	}),
+	finishTransition: enyo.inherit(function (sup) {
+		return function(sendEvents) {
+			var panels = this.getPanels(),
+				transitioned = typeof this.lastIndex !== "undefined",
+				method = transitioned ? (sendEvents ? "transitionFinished" : "updatePanel") : "initPanel",
+				i,
+				panel,
+				info,
+				popFrom;
+
+			// Pop panels starting at this index, plus any that are still onscreen
+			popFrom = this.toIndex + 1;
+			// Notify panels of transition
+			for (i =0 ; (panel = panels[i]); i++) {
+				info = this.getTransitionInfo(i);
+				if (panel[method]) {
+					panel[method](info);
+				}
+				// If a panel is onscreen, don't pop it
+				if ((i > this.toIndex) && !info.offscreen) {
+					popFrom++;
+				}
 			}
-		}
+			// "sendEvents" means we actually transitioned (not a reflow), so
+			// check popOnBack logic
+			if (sendEvents) {
+				// Automatically pop off panels that are no longer on screen
+				if (this.popOnBack && (this.toIndex < this.fromIndex)) {
+					this.popPanels(popFrom);
+				}
+			}
 
-		this.inherited(arguments);
+			sup.apply(this, arguments);
 
-		this.transitionInProgress = false;
+			this.transitionInProgress = false;
 
-		if (this.queuedIndex !== null) {
-			this.setIndex(this.queuedIndex);
-		}
+			if (this.queuedIndex !== null) {
+				this.setIndex(this.queuedIndex);
+			}
 
-		enyo.Spotlight.unmute(this);
-		// Spot the active panel
-		enyo.Spotlight.spot(this.getActive());
-
-	},
+			enyo.Spotlight.unmute(this);
+			// Spot the active panel
+			enyo.Spotlight.spot(this.getActive());
+		};
+	}),
 	/**
 		Override the default _getShowing()_ behavior to avoid setting _this.showing_
 		based on the CSS _display_ property.
@@ -614,29 +621,31 @@ enyo.kind({
 			return true;
 		}
 	},
-	showingChanged: function(inOldValue) {
-		if (this.$.backgroundScrim) {
-			this.$.backgroundScrim.addRemoveClass("visible", this.showing);
-		}
-		if (this.useHandle === true) {
-			if (this.showing) {
-				this.unstashHandle();
-				this._show();
-				enyo.Spotlight.spot(this.getActive());
+	showingChanged: enyo.inherit(function (sup) {
+		return function(inOldValue) {
+			if (this.$.backgroundScrim) {
+				this.$.backgroundScrim.addRemoveClass("visible", this.showing);
+			}
+			if (this.useHandle === true) {
+				if (this.showing) {
+					this.unstashHandle();
+					this._show();
+					enyo.Spotlight.spot(this.getActive());
+				}
+				else {
+					// in this case, our display flag will have been set to none so we need to clear
+					// that even though the showing flag will remain false
+					this.applyStyle('display', null);
+					this.resetHandleAutoHide();
+					this._hide();
+				}
+				this.sendShowingChangedEvent(inOldValue);
 			}
 			else {
-				// in this case, our display flag will have been set to none so we need to clear
-				// that even though the showing flag will remain false
-				this.applyStyle('display', null);
-				this.resetHandleAutoHide();
-				this._hide();
+				sup.apply(this, arguments);
 			}
-			this.sendShowingChangedEvent(inOldValue);
-		}
-		else {
-			this.inherited(arguments);
-		}
-	},
+		};
+	}),
 	applyPattern: function() {
 		switch (this.pattern) {
 		case "alwaysviewing":

@@ -142,31 +142,37 @@ enyo.kind({
 	},
 
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		if (typeof ilib !== "undefined") {
-			this._nf = new ilib.NumFmt({type: "percentage"});
-		}
-		this.createComponents(this.moreComponents);
-		this.initValue();
-		this.disabledChanged();
-		this.knobClassesChanged();
-		this.popupLabelClassesChanged();
-		this.tapAreaClassesChanged();
-		this.initSliderStyles();
-		this.addRemoveClass("moon-slider-rtl", this.rtl);
-	},
-	destroy: function() {
-		if (this._nf) {
-			delete this._nf;
-		}
-		this.inherited(arguments);
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.drawToCanvas(this.popupColor);
-		this._setValue(this.value);
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (typeof ilib !== "undefined") {
+				this._nf = new ilib.NumFmt({type: "percentage"});
+			}
+			this.createComponents(this.moreComponents);
+			this.initValue();
+			this.disabledChanged();
+			this.knobClassesChanged();
+			this.popupLabelClassesChanged();
+			this.tapAreaClassesChanged();
+			this.initSliderStyles();
+			this.addRemoveClass("moon-slider-rtl", this.rtl);
+		};
+	}),
+	destroy: enyo.inherit(function (sup) {
+		return function() {
+			if (this._nf) {
+				delete this._nf;
+			}
+			sup.apply(this, arguments);
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.drawToCanvas(this.popupColor);
+			this._setValue(this.value);
+		};
+	}),
 	initSliderStyles: function() {
 		this.updatePopupLabelColor();
 		this.updatePopupHeight();
@@ -334,7 +340,7 @@ enyo.kind({
 	},
 	calcKnobPosition: function(inEvent) {
 		var x;
-		if (this.rtl) { 
+		if (this.rtl) {
 			x = this.hasNode().getBoundingClientRect().right - inEvent.clientX;
 		} else {
 			x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
