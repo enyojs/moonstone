@@ -29,7 +29,7 @@ enyo.kind({
 	kind              : 'enyo.ToolDecorator',
 	//* @protected
 	tag               : 'label',
-	
+
 	spotlight         : true,
 	spotlightDecorate : false,
 
@@ -79,27 +79,33 @@ enyo.kind({
 	//* @public
 	/**************************************************/
 
-	create: function() {
-		this.inherited(arguments);
-		this.updateFocus(false);
-		this._oInputControl = this._findInputControl();
-		if (this._oInputControl instanceof moon.Input) {
-			this.addClass("moon-input-decorator");
-		}
-		if (this._oInputControl instanceof moon.TextArea || this._oInputControl instanceof moon.RichText) {
-			this.addClass("moon-textarea-decorator");
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateFocus(false);
+			this._oInputControl = this._findInputControl();
+			if (this._oInputControl instanceof moon.Input) {
+				this.addClass("moon-input-decorator");
+			}
+			if (this._oInputControl instanceof moon.TextArea || this._oInputControl instanceof moon.RichText) {
+				this.addClass("moon-textarea-decorator");
+			}
+		};
+	}),
 
-	createComponent: function() {
-		this.inherited(arguments);
-		this._oInputControl = this._findInputControl();
-	},
+	createComponent: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._oInputControl = this._findInputControl();
+		};
+	}),
 
-	createComponents: function() {
-		this.inherited(arguments);
-		this._oInputControl = this._findInputControl();
-	},
+	createComponents: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this._oInputControl = this._findInputControl();
+		};
+	}),
 
 	updateFocus: function(bFocus) {
 		this.focused = bFocus;

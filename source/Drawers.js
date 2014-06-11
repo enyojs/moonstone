@@ -64,20 +64,24 @@ enyo.kind({
 		{name: "client", classes:"moon-drawers-client"}
 	],
 	eventsToCapture: {
-		ontap: "captureTapSelect", 
-		onSpotlightFocus: "captureSpotFocus", 
+		ontap: "captureTapSelect",
+		onSpotlightFocus: "captureSpotFocus",
 		onSpotlightSelect: "captureTapSelect"
 	},
-	create: function() {
-		this.inherited(arguments);
-		this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
-		this.setupHandles();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		var dh = document.body.getBoundingClientRect().height;
-		this.waterfall("onDrawersRendered", {drawersHeight: dh});
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.drawers.createComponents(this.drawers, {kind: "moon.Drawer", owner:this.owner});
+			this.setupHandles();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var dh = document.body.getBoundingClientRect().height;
+			this.waterfall("onDrawersRendered", {drawersHeight: dh});
+		};
+	}),
 	setupHandles: function() {
 		var handles = []
 			, controls, index;
@@ -200,12 +204,14 @@ enyo.kind({
 			this.$.activator.addRemoveClass("drawer-open", false);
 		}
 	},
-	resizeHandler: function() {
-		this.inherited(arguments);
-		var dh = document.body.getBoundingClientRect().height;
-		this.waterfall("onDrawersResized", {drawersHeight: dh});
-		this.updateActivator(false);
-	},
+	resizeHandler: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			var dh = document.body.getBoundingClientRect().height;
+			this.waterfall("onDrawersResized", {drawersHeight: dh});
+			this.updateActivator(false);
+		};
+	}),
 	/**
 		Updates the activator's style only when it is not animating, so that there
 		are no visual artifacts.
@@ -220,11 +226,13 @@ enyo.kind({
 	handleAtIndex: function(inIndex) {
 		return this.$.handles.getControls()[inIndex];
 	},
-	destroy: function() {
-		enyo.dispatcher.release(this.$.handleContainer);
-		for (var i=0, c$=this.$.drawers.getControls(); i<c$.length; i++) {
-			enyo.dispatcher.release(c$[i]);
-		}
-		this.inherited(arguments);
-	}
+	destroy: enyo.inherit(function (sup) {
+		return function() {
+			enyo.dispatcher.release(this.$.handleContainer);
+			for (var i=0, c$=this.$.drawers.getControls(); i<c$.length; i++) {
+				enyo.dispatcher.release(c$[i]);
+			}
+			sup.apply(this, arguments);
+		};
+	})
 });

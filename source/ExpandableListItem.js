@@ -95,12 +95,14 @@ enyo.kind({
 		{from: ".disabled", to: ".$.header.disabled"}
 	],
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		this.openChanged();
-		this.setActive(this.open);
-		this.disabledChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.openChanged();
+			this.setActive(this.open);
+			this.disabledChanged();
+		};
+	}),
 	//* Facade for header content
 	contentChanged: function() {
 		this.$.header.setContent(this.getContent());

@@ -121,22 +121,24 @@ enyo.kind({
 		{from: ".value", to: ".$.titleInput.value", oneWay: false},
 		{from: ".dismissOnEnter", to: ".$.titleInput.dismissOnEnter"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
-		this.smallChanged();
-		this.typeChanged();
-		this.titleChanged();
-		this.titleAboveChanged();
-		this.titleBelowChanged();
-		this.subTitleBelowChanged();
-		this.allowHtmlChanged();
-		this.backgroundSrcChanged();
-		this.backgroundPositionChanged();
-		this.inputModeChanged();
-		this.placeholderChanged();
-		this.fullBleedBackgroundChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
+			this.smallChanged();
+			this.typeChanged();
+			this.titleChanged();
+			this.titleAboveChanged();
+			this.titleBelowChanged();
+			this.subTitleBelowChanged();
+			this.allowHtmlChanged();
+			this.backgroundSrcChanged();
+			this.backgroundPositionChanged();
+			this.inputModeChanged();
+			this.placeholderChanged();
+			this.fullBleedBackgroundChanged();
+		};
+	}),
 	allowHtmlChanged: function() {
 		this.$.title.setAllowHtml(this.allowHtml);
 		this.$.titleBelow.setAllowHtml(this.allowHtml);
@@ -376,7 +378,7 @@ enyo.kind({
 	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-header", this.getSmall());
-	},	
+	},
 	//* @protected
 	contentChanged: function() {
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
@@ -443,10 +445,10 @@ enyo.kind({
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
 	},
-	/** 
-		Enlarge listActionDrawer's height to large type's height		
+	/**
+		Enlarge listActionDrawer's height to large type's height
 	*/
-	handleListActionOpenChanged: function (inSender, inEvent) {		
+	handleListActionOpenChanged: function (inSender, inEvent) {
 		if (!inEvent.open) {
 			return;
 		}

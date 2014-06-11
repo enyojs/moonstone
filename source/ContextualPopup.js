@@ -6,11 +6,11 @@
 enyo.kind({
 	name : "moon.ContextualPopup",
 	kind : "enyo.Popup",
-	
+
 	//* @protected
 	layoutKind : "ContextualLayout",
 	classes    : "moon-body-text moon-contextual-popup",
-	
+
 	handlers: {
 		onRequestShowPopup        : "requestShow",
 		onRequestHidePopup        : "requestHide",
@@ -44,7 +44,7 @@ enyo.kind({
 	*/
 	scrimWhenModal: true,
 	// Layout parameters
-	
+
 	//* Vertical flush layout margin
 	vertFlushMargin:0,
 	//* Horizontal flush layout margin
@@ -61,16 +61,20 @@ enyo.kind({
 		{name: "closeButton", kind: "moon.IconButton", icon: "closex", classes: "moon-popup-close", ontap: "closePopup", spotlight: false}
 	],
 	//* Creates chrome.
-	initComponents: function() {
-		this.createChrome(this.tools);
-		this.inherited(arguments);
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			this.createChrome(this.tools);
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Renders the contextual popup.
-	render: function() {
-		this.allowHtmlChanged();
-		this.contentChanged();
-		this.inherited(arguments);
-	},
+	render: enyo.inherit(function (sup) {
+		return function() {
+			this.allowHtmlChanged();
+			this.contentChanged();
+			sup.apply(this, arguments);
+		};
+	}),
 	//* Performs control-specific tasks before/after showing _moon.ContextualPopup_.
 	requestShow: function(inSender, inEvent) {
 		var n = inEvent.activator.hasNode();
@@ -143,15 +147,17 @@ enyo.kind({
 		}
 		return this.modal;
 	},
-	capturedTap: function(inSender, inEvent) {
-		// If same activator tapped sequentially, we notice that this popup is already activeted.
-		if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
-			this.popupActived = true;
-		} else {
-			this.popupActived = false;
-		}
-		this.inherited(arguments);
-	},
+	capturedTap: enyo.inherit(function (sup) {
+		return function(inSender, inEvent) {
+			// If same activator tapped sequentially, we notice that this popup is already activeted.
+			if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+				this.popupActived = true;
+			} else {
+				this.popupActived = false;
+			}
+			sup.apply(this, arguments);
+		};
+	}),
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {
 			enyo.Spotlight.spot(this.activator);
@@ -199,8 +205,10 @@ enyo.kind({
 		this._zIndex = z;
 		return this._zIndex;
 	},
-	showingChanged: function() {
-		this.inherited(arguments);
-		this.showHideScrim(this.showing);
-	}
+	showingChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.showHideScrim(this.showing);
+		};
+	})
 });

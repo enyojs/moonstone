@@ -66,15 +66,19 @@ enyo.kind({
 	bindings: [
 		{from: ".allowHtml", to: ".$.client.allowHtml"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.disabledChanged();
-		this.checkboxOnRightChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.checkedChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.disabledChanged();
+			this.checkboxOnRightChanged();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.checkedChanged();
+		};
+	}),
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.input.setDisabled(this.disabled);

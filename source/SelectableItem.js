@@ -54,10 +54,12 @@ enyo.kind({
 			this.updateSelectedValue();
 		};
 	}),
-	rendered: function() {
-		this.inherited(arguments);
-		this.updateActiveValue();
-	},
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateActiveValue();
+		};
+	}),
 	shouldDoTransition: function(inSelected) {
 		return inSelected === true;
 	},

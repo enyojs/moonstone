@@ -68,13 +68,13 @@ enyo.kind({
 
 	//* @protected
 	events: {
-		/** 
+		/**
 			Used internally for ListActions to request Header to add fitting components to itself.
 			Not intended for use by end-developer.
 		*/
 		onRequestCreateListActions: "",
 		//* Inform open changed of drawer
-		onListActionOpenChanged: ""	
+		onListActionOpenChanged: ""
 	},
 	components:[
 		{name:"activator", kind: "moon.IconButton", classes: "moon-list-actions-activator", ontap: "expandContract"}
@@ -91,28 +91,34 @@ enyo.kind({
 		{from: ".open", to: ".$.drawer.open"},
 		{from: ".iconSrc", to: ".$.activator.src"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.doRequestCreateListActions({components: this.drawerComponents});
-		if (!this.$.drawer) {
-			throw "moon.ListActions must be created as a child of moon.Header";
-		}
-		this.listActionsChanged();
-		this.drawerNeedsResize = true;
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		if (this.open) {
-			// Perform post-open work
-			this.drawerAnimationEnd();
-			// Update stacking
-			this.resizeDrawer();
-		}
-	},
-	destroy: function() {
-		enyo.dispatcher.release(this.$.drawer);
-		this.inherited(arguments);
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.doRequestCreateListActions({components: this.drawerComponents});
+			if (!this.$.drawer) {
+				throw "moon.ListActions must be created as a child of moon.Header";
+			}
+			this.listActionsChanged();
+			this.drawerNeedsResize = true;
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.open) {
+				// Perform post-open work
+				this.drawerAnimationEnd();
+				// Update stacking
+				this.resizeDrawer();
+			}
+		};
+	}),
+	destroy: enyo.inherit(function (sup) {
+		return function() {
+			enyo.dispatcher.release(this.$.drawer);
+			sup.apply(this, arguments);
+		};
+	}),
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
 		this.listActions = this.listActions || [];
@@ -201,7 +207,7 @@ enyo.kind({
 				enyo.Spotlight.spot(this.$.activator);
 			}
 			this.bubble("onRequestUnmuteTooltip");
-		} 
+		}
 		//on open, move top and spot _this.$.closeButton_
 		else {
 			if (this.resetScroller) {
@@ -228,7 +234,7 @@ enyo.kind({
 		if (this.stacked) {
 			this.$.drawer.addClass("stacked");
 			this.stackMeUp();
-			// When stacked, always have vertical scroller 
+			// When stacked, always have vertical scroller
 			this.$.listActions.setVertical("scroll");
 		}
 		else {
@@ -246,7 +252,7 @@ enyo.kind({
 			optionGroup.applyStyle("display", "block");
 			// Stacked contols get natural height (which prevents scrolling), such that they stack
 			// within outer scroller which is allowed to scroll all controls; this is a problem for
-			// DataLists, which require an explicit height, making them unsuitable for use in 
+			// DataLists, which require an explicit height, making them unsuitable for use in
 			// stacked ListActions
 			optionGroup.applyStyle("height", "none");
 		}
@@ -292,7 +298,7 @@ enyo.kind({
 	},
 	capturedSpotlightFocus: function(inSender, inEvent) {
 		// We need to prevent header children below the drawer from being focused
-		if (inEvent.originator.isDescendantOf(this.$.drawer.parent) && 
+		if (inEvent.originator.isDescendantOf(this.$.drawer.parent) &&
 			!inEvent.originator.isDescendantOf(this.$.drawer)) {
 			enyo.Spotlight.spot(this.$.drawer);
 			return true;
@@ -318,17 +324,19 @@ enyo.kind({
 	events: {
 		onComplete: ""
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		// Temporarily disable animation
-		this.applyAnimatedMode(false);
-		// Set the state of the drawer
-		this.openChanged();
-		// Re-enable animation
-		this.applyAnimatedMode(true);
-		// Let any watchers know we've finished our preparation
-		this.doComplete();
-	},
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// Temporarily disable animation
+			this.applyAnimatedMode(false);
+			// Set the state of the drawer
+			this.openChanged();
+			// Re-enable animation
+			this.applyAnimatedMode(true);
+			// Let any watchers know we've finished our preparation
+			this.doComplete();
+		};
+	}),
 	handleTransitionEnd: function(inSender, inEvent) {
 		if (inEvent.originator === this.$.client) {
 			this.doComplete();

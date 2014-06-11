@@ -54,14 +54,18 @@ enyo.kind({
 		onSpotlightFocused: "spotlightFocused",
 		onSpotlightBlur: "undepress"
 	},
-	create: function() {
-		this.inherited(arguments);
-		this.noBackgroundChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.activeChanged();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.noBackgroundChanged();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.activeChanged();
+		};
+	}),
 	noBackgroundChanged: function() {
 		this.addRemoveClass("no-background", this.noBackground);
 	},

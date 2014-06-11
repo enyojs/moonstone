@@ -72,14 +72,16 @@ enyo.kind({
 		]},
 		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.transform = enyo.dom.canTransform();
-		this.accel = enyo.dom.canAccelerate();
-		this.container.addClass("enyo-touch-strategy-container");
-		this.translation = this.accel ? "matrix3d" : "matrix";
-		this.showHideScrollColumns(this.spotlightPagingControls);
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.transform = enyo.dom.canTransform();
+			this.accel = enyo.dom.canAccelerate();
+			this.container.addClass("enyo-touch-strategy-container");
+			this.translation = this.accel ? "matrix3d" : "matrix";
+			this.showHideScrollColumns(this.spotlightPagingControls);
+		};
+	}),
 	/**
 		Calls super-super-inherited (i.e., skips _TouchScrollStrategy_'s)
 		_rendered()_ function to avoid thumb flicker at render time. Then
@@ -157,11 +159,13 @@ enyo.kind({
 	//* Disables dragging.
 	shouldDrag: function(inSender, inEvent) { return true; },
 	//* On _hold_, stops scrolling.
-	hold: function(inSender, inEvent) {
-		if (!this.isPageControl(inEvent.originator)) {
-			this.inherited(arguments);
-		}
-	},
+	hold: enyo.inherit(function (sup) {
+		return function(inSender, inEvent) {
+			if (!this.isPageControl(inEvent.originator)) {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	//* On _down_, stops scrolling.
 	down: function(inSender, inEvent) {
 		if (!this.isPageControl(inEvent.originator) && this.isScrolling() && !this.isOverscrolling()) {
@@ -416,7 +420,7 @@ enyo.kind({
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
 					this.alertThumbs();
-				}				
+				}
 			} else {
 				// Scrollers that don't need to scroll bubble their onRequestScrollIntoView,
 				// to allow items in nested scrollers to be scrolled

@@ -30,13 +30,15 @@ enyo.kind({
     bindings: [
         {from: ".allowHtml", to: ".$.textItem.allowHtml"}
     ],
-    create: function() {
-        this.inherited(arguments);
-        this.sourceChanged();
-        this.labelChanged();
-        this.textChanged();
-        this.imageAlignRightChanged();
-    },
+    create: enyo.inherit(function (sup) {
+        return function() {
+            sup.apply(this, arguments);
+            this.sourceChanged();
+            this.labelChanged();
+            this.textChanged();
+            this.imageAlignRightChanged();
+        };
+    }),
     //* @protected
     sourceChanged: function() {
         if (!this.source || this.source === '') {

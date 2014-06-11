@@ -73,15 +73,19 @@ enyo.kind({
 			]}
 		]}
 	],
-	initComponents: function() {
-		this.components = [{kind: "moon.AudioPlaybackQueue"}];
-		this.inherited(arguments);
-		this.components = null;
-	},
-	create: function() {
-		this.inherited(arguments);
-		this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			this.components = [{kind: "moon.AudioPlaybackQueue"}];
+			sup.apply(this, arguments);
+			this.components = null;
+		};
+	}),
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
+		};
+	}),
 	toggleTrackDrawer: function() {
 		this.$.client.setOpen(!this.$.client.getOpen());
 	},
@@ -239,10 +243,12 @@ enyo.kind({
 		}
     ],
     tracks: [],
-    create: function() {
-		this.inherited(arguments);
-		this.parent.applyStyle("height", "100%");
-    },
+    create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.parent.applyStyle("height", "100%");
+		};
+	}),
     addAudio: function(inSender, inEvent) {
 		var i = this.$.list.getCount() + 1;
 		this.tracks = inEvent.tracks;

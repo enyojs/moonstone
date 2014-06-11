@@ -10,7 +10,7 @@
 	Here's a vertical example:
 
 			{
-				kind: "moon.ObjectActionDecorator", 
+				kind: "moon.ObjectActionDecorator",
 				orientation: "vertical",
 				components: [
 					{kind: "moon.Item", components: [
@@ -65,15 +65,17 @@ enyo.kind({
 	noStretchChanged: function() {
 		this.$.actions.addRemoveClass("stretch", !this.noStretch);
 	},
-	initComponents: function() {
-		this.inherited(arguments);
-		if (this.actionComponents) {
-			var owner = this.hasOwnProperty("actionComponents") ? this.getInstanceOwner() : this;
-			this.$.actions.createComponents(this.actionComponents, {owner: owner});
-		}	
-		this.orientationChanged();	
-		this.noStretchChanged();	
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (this.actionComponents) {
+				var owner = this.hasOwnProperty("actionComponents") ? this.getInstanceOwner() : this;
+				this.$.actions.createComponents(this.actionComponents, {owner: owner});
+			}
+			this.orientationChanged();
+			this.noStretchChanged();
+		};
+	}),
 	spotFocused: function(inSender, inEvent) {
 		this.focused = true;
 		this.updateActionsVisibility();

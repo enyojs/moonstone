@@ -9,11 +9,13 @@ enyo.kind({
 	kind: "moon.Checkbox",
 	//* @protected
 	classes: "moon-toggle-switch",
-	rendered: function() {
-		this.inherited(arguments);
-		// wait until after we're rendered to allow animation.
-		enyo.asyncMethod(this, function() {
-			this.addClass("animated");
-		});
-	}
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			// wait until after we're rendered to allow animation.
+			enyo.asyncMethod(this, function() {
+				this.addClass("animated");
+			});
+		};
+	})
 });

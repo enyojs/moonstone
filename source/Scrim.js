@@ -26,21 +26,25 @@ enyo.kind({
 	*/
 	floating: false,
 	//* @protected
-	create: function() {
-		this.inherited(arguments);
-		this.zStack = [];
-		if (this.floating) {
-			this.setParent(enyo.floatingLayer);
-		}
-	},
-	showingChanged: function() {
-	// auto render when shown.
-		if (this.floating && this.showing && !this.hasNode()) {
-			this.render();
-		}
-		this.inherited(arguments);
-		//this.addRemoveClass(this.showingClassName, this.showing);
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.zStack = [];
+			if (this.floating) {
+				this.setParent(enyo.floatingLayer);
+			}
+		};
+	}),
+	showingChanged: enyo.inherit(function (sup) {
+		return function() {
+		// auto render when shown.
+			if (this.floating && this.showing && !this.hasNode()) {
+				this.render();
+			}
+			sup.apply(this, arguments);
+			//this.addRemoveClass(this.showingClassName, this.showing);
+		};
+	}),
 	//* @protected
 	addZIndex: function(inZIndex) {
 		if (enyo.indexOf(inZIndex, this.zStack) < 0) {

@@ -78,16 +78,18 @@ enyo.kind({
 		]},
 		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightSelect: "right", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.animateChanged();
-		this.initializeActiveItem();
-		this.disabledChanged();
-		this.selectedIndexChanged();
-		this.updateMarqueeDisable();
-		this.blockChanged();
-		this.showHideNavButtons();
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.animateChanged();
+			this.initializeActiveItem();
+			this.disabledChanged();
+			this.selectedIndexChanged();
+			this.updateMarqueeDisable();
+			this.blockChanged();
+			this.showHideNavButtons();
+		};
+	}),
 	scrollIntoView: function() {
 		this.bubble("onRequestScrollIntoView");
 	},
@@ -137,48 +139,54 @@ enyo.kind({
 			this.showNavButton(nextButton);
 		}
 	},
-	destroy: function() {
-		this.destroying = true;
-		this.inherited(arguments);
-	},
-	addControl: function(inControl) {
-		this.inherited(arguments);
-		var addedIdx = this.getClientControls().indexOf(inControl);
-		var selectedIdx = this.selectedIndex;
-		if (this.generated) {
-			if ((selectedIdx < 0) || (addedIdx < selectedIdx)) {
-				this.setSelectedIndex(selectedIdx + 1);
-			} else if (selectedIdx == addedIdx) {
-				// Force change handler, since the currently selected item actually changed
-				this.selectedIndexChanged();
-			}
-			this.showHideNavButtons();
-		}
-	},
-	removeControl: function(inControl) {
-		if (!this.destroying) {
-			var removedIdx = this.getClientControls().indexOf(inControl);
+	destroy: enyo.inherit(function (sup) {
+		return function() {
+			this.destroying = true;
+			sup.apply(this, arguments);
+		};
+	}),
+	addControl: enyo.inherit(function (sup) {
+		return function(inControl) {
+			sup.apply(this, arguments);
+			var addedIdx = this.getClientControls().indexOf(inControl);
 			var selectedIdx = this.selectedIndex;
-			var wasLast = (removedIdx == this.getClientControls().length-1);
-
-			this.inherited(arguments);
-
-			// If removedIdx is -1, that means that the Control being removed is
-			// not one of our picker items, so we don't need to update our state.
-			// Probably, we're being torn down.
-			if (removedIdx !== -1) {
-				if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
-					this.setSelectedIndex(selectedIdx - 1);
-				} else if (selectedIdx == removedIdx) {
+			if (this.generated) {
+				if ((selectedIdx < 0) || (addedIdx < selectedIdx)) {
+					this.setSelectedIndex(selectedIdx + 1);
+				} else if (selectedIdx == addedIdx) {
 					// Force change handler, since the currently selected item actually changed
 					this.selectedIndexChanged();
 				}
 				this.showHideNavButtons();
 			}
-		} else {
-			this.inherited(arguments);
-		}
-	},
+		};
+	}),
+	removeControl: enyo.inherit(function (sup) {
+		return function() {
+			if (!this.destroying) {
+				var removedIdx = this.getClientControls().indexOf(inControl);
+				var selectedIdx = this.selectedIndex;
+				var wasLast = (removedIdx == this.getClientControls().length-1);
+
+				sup.apply(this, arguments);
+
+				// If removedIdx is -1, that means that the Control being removed is
+				// not one of our picker items, so we don't need to update our state.
+				// Probably, we're being torn down.
+				if (removedIdx !== -1) {
+					if ((removedIdx < selectedIdx) || ((selectedIdx == removedIdx) && wasLast)) {
+						this.setSelectedIndex(selectedIdx - 1);
+					} else if (selectedIdx == removedIdx) {
+						// Force change handler, since the currently selected item actually changed
+						this.selectedIndexChanged();
+					}
+					this.showHideNavButtons();
+				}
+			} else {
+				sup.apply(this, arguments);
+			}
+		};
+	}),
 	//* Hides _inControl_ and disables spotlight functionality.
 	hideNavButton: function(inControl) {
 		inControl.setDisabled(true);

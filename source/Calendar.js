@@ -18,17 +18,19 @@ enyo.kind({
 	marquee: false,
 	minWidth: false,
 	classes: "moon-calendar-picker-date enyo-unselectable",
-	create: function() {
-		this.inherited(arguments);
-		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({
-				type: "date",	//only format the date component, not the time
-				date: "d",		//'d' is the date of month
-				useNative: false,
-				length: "short"	//it uses 2 chars to abbreviate properly
-			});
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			if (typeof ilib !== "undefined") {
+				this._tf = new ilib.DateFmt({
+					type: "date",	//only format the date component, not the time
+					date: "d",		//'d' is the date of month
+					useNative: false,
+					length: "short"	//it uses 2 chars to abbreviate properly
+				});
+			}
+		};
+	}),
 	colorChanged: function(inOld) {
 		this.addRemoveClass("moon-calendar-picker-date-shadow", this.color);
 	},
@@ -123,20 +125,22 @@ enyo.kind({
 		{name: "days", classes: "moon-calendar-picker-days moon-neutral", kind: "enyo.Group"},
 		{name: "dates", kind: "enyo.Group"}
 	],
-	create: function() {
-		this.inherited(arguments);
-		this.initCalendar();
-		this.set("value", this.value || new Date(), true);
-		if (typeof ilib !== "undefined") {
-			this._tf = new ilib.DateFmt({
-				type: "date",	//only format the date component, not the time
-				date: "w",		//'w' is the day of the week
-				useNative: false,
-				length: this.dayOfWeekLength
-			});
-			this.setLocale(new ilib.LocaleInfo().locale);
-		}
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.initCalendar();
+			this.set("value", this.value || new Date(), true);
+			if (typeof ilib !== "undefined") {
+				this._tf = new ilib.DateFmt({
+					type: "date",	//only format the date component, not the time
+					date: "w",		//'w' is the day of the week
+					useNative: false,
+					length: this.dayOfWeekLength
+				});
+				this.setLocale(new ilib.LocaleInfo().locale);
+			}
+		};
+	}),
 	/**
 		Create picker contents with default (un-US) value.
 	*/
@@ -203,10 +207,10 @@ enyo.kind({
 	},
 	/**
 		We were previously relying on a non-guaranteed ordering of calls (change handlers
-		on bindings, transformation of binding values) to perform validation on the 
-		Date value before updating a control with this value. Though this ordering was 
-		non-guaranteed, it has since changed and can possibly affect any code that is 
-		improperly relying on the specific ordering of these calls. We instead handle the 
+		on bindings, transformation of binding values) to perform validation on the
+		Date value before updating a control with this value. Though this ordering was
+		non-guaranteed, it has since changed and can possibly affect any code that is
+		improperly relying on the specific ordering of these calls. We instead handle the
 		validation in the generic setter and facade this via the _setValue_ method.
 	*/
 	setValue: function(inValue) {
@@ -276,7 +280,7 @@ enyo.kind({
 	/**
 		Updates days of the week from first day to last day.
 		If it uses ilib, '0' value of this.firstDayOfweek means Sunday
-		and '1' means Monday. 
+		and '1' means Monday.
 		To make day acts like above, it adds an offset to day calculation.
 	*/
 	updateDays: function() {

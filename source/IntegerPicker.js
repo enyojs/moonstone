@@ -74,18 +74,22 @@ enyo.kind({
 	],
 	//* @protected
 	scrollFrame: 3, // parameter that determines scroll math simulation speed
-	create: function(){
-		this.inherited(arguments);
-		this.verifyValue();
-		this.updateOverlays();
-	},
-	rendered: function(){
-		this.inherited(arguments);
-		this.rangeChanged();
-		this.refreshScrollState();
-		this.$.scroller.getStrategy().setFixedTime(false);
-		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.verifyValue();
+			this.updateOverlays();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.rangeChanged();
+			this.refreshScrollState();
+			this.$.scroller.getStrategy().setFixedTime(false);
+			this.$.scroller.getStrategy().setFrame(this.scrollFrame);
+		};
+	}),
 	getVerifiedValue: function() {
 		return this.value >= this.min && this.value <= this.max ? this.value : this.min;
 	},

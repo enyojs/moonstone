@@ -3,10 +3,10 @@
 	with two states, "on" and "off".  When the ToggleButton is tapped, it switches
 	its state and fires an _onChange_ event.
 
-	One has the choice to show the same text (via the _content_ property) for 
-	both toggle states, or different text can be shown for each toggle state, 
-	utilizing the _toggleOnLabel_ and the _toggleOffLabel_. Note that both of 
-	these properties need to be set to display differentiating text, otherwise 
+	One has the choice to show the same text (via the _content_ property) for
+	both toggle states, or different text can be shown for each toggle state,
+	utilizing the _toggleOnLabel_ and the _toggleOffLabel_. Note that both of
+	these properties need to be set to display differentiating text, otherwise
 	the _content_ property will be shown for the button text.
 */
 
@@ -18,10 +18,10 @@ enyo.kind({
 		//* Boolean indicating whether toggle button is currently in the "on"
 		//* state
 		value: false,
-		//* Button text displayed in the "on" state. If empty, will default to 
+		//* Button text displayed in the "on" state. If empty, will default to
 		//* displaying _content_ as button text
 		toggleOnLabel: "",
-		//* Button text displayed in the "off" state. If empty, will default to 
+		//* Button text displayed in the "off" state. If empty, will default to
 		//* displaying _content_ as button text
 		toggleOffLabel: ""
 	},
@@ -37,24 +37,30 @@ enyo.kind({
 	//* @protected
 	_rendered: false,
 	classes: "moon-toggle-button",
-	create: function() {
-		this.inherited(arguments);
-		this.updateContent();
-		this.updateVisualState();
-	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.setActive(this.value);
-		this.fireChangeEvent();
-		this._rendered = true;
-	},
+	create: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateContent();
+			this.updateVisualState();
+		};
+	}),
+	rendered: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.setActive(this.value);
+			this.fireChangeEvent();
+			this._rendered = true;
+		};
+	}),
 	updateVisualState: function() {
 		this.addRemoveClass("moon-toggle-button-on", this.value && !this.disabled);
 	},
-	disabledChanged: function() {
-		this.inherited(arguments);
-		this.updateVisualState();
-	},
+	disabledChanged: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.updateVisualState();
+		};
+	}),
 	valueChanged: function() {
 		this.updateContent();
 		this.updateVisualState();
@@ -63,7 +69,7 @@ enyo.kind({
 	},
 	toggleOnLabelChanged: function() {
 		this.updateContent();
-	}, 
+	},
 	toggleOffLabelChanged: function() {
 		this.updateContent();
 	},

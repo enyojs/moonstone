@@ -29,11 +29,13 @@ enyo.kind({
 			{classes: "moon-background-wrapper-client-tri"}
 		]}
 	],
-	initComponents: function() {
-		this.inherited(arguments);
-		this.orientChanged();
-		this.backgroundChanged();
-	},
+	initComponents: enyo.inherit(function (sup) {
+		return function() {
+			sup.apply(this, arguments);
+			this.orientChanged();
+			this.backgroundChanged();
+		};
+	}),
 	orientChanged: function() {
 		this.$.client.addRemoveClass("right", this.orient != 'left');
 		this.$.client.addRemoveClass("left", this.orient == 'left');
