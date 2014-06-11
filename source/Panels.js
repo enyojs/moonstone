@@ -108,6 +108,8 @@ enyo.kind({
 	_initialTransition: true,
 	//* Flag for panel transition
 	transitionInProgress: false,
+	//* Flag for blocking consecutive push/pop/replace panel to protect create/render/destroy time
+	inPushPopReplacePanel: false,
 	//* @public
 
 	//* Returns true if a transition between panels is currently in progress.
@@ -118,17 +120,22 @@ enyo.kind({
 	//* Creates a panel on top of the stack and increments index to select that
 	//* component.
 	pushPanel: function(inInfo, inMoreInfo) { // added
+		if (this.transitionInProgress || this.inPushPopReplacePanel) {return null;}
+		this.inPushPopReplacePanel = true;
 		var lastIndex = this.getPanels().length - 1,
 			oPanel = this.createComponent(inInfo, inMoreInfo);
 		oPanel.render();
 		this.reflow();
 		oPanel.resized();
 		this.setIndex(lastIndex+1);
+		this.inPushPopReplacePanel = false;
 		return oPanel;
 	},
 	//* Creates multiple panels on top of the stack and updates index to select
 	//* the last one created.
 	pushPanels: function(inInfos, inCommonInfo) { // added
+		if (this.transitionInProgress || this.inPushPopReplacePanel) {return null;}
+		this.inPushPopReplacePanel = true;
 		var lastIndex = this.getPanels().length - 1,
 			oPanels = this.createComponents(inInfos, inCommonInfo),
 			nPanel;
@@ -141,19 +148,25 @@ enyo.kind({
 			oPanels[nPanel].resized();
 		}
 		this.setIndex(lastIndex+1);
+		this.inPushPopReplacePanel = false;
 		return oPanels;
 	},
 	//* Destroys panels whose index is greater than or equal to _inIndex_.
 	popPanels: function(inIndex) {
+		if (this.transitionInProgress || this.inPushPopReplacePanel) {return;}
+		this.inPushPopReplacePanel = true;
 		var panels = this.getPanels();
 		inIndex = inIndex || panels.length - 1;
 
 		while (panels.length > inIndex && inIndex >= 0) {
 			panels[panels.length - 1].destroy();
 		}
+		this.inPushPopReplacePanel = false;
 	},
 	//* Destroys right panel and creates new panel without transition effect.
 	replacePanel: function(index, inInfo, inMoreInfo) {
+		if (this.transitionInProgress || this.inPushPopReplacePanel) {return;}
+		this.inPushPopReplacePanel = true;
 		var oPanel = null;
 
 		if (this.getPanels().length > index) {
@@ -165,6 +178,7 @@ enyo.kind({
 		oPanel = this.createComponent(inInfo, inMoreInfo);
 		oPanel.render();
 		this.resized();
+		this.inPushPopReplacePanel = false;
 	},
 	/**
 		Returns the panel index of the passed-in control, or -1 if the panel is not
@@ -233,7 +247,8 @@ enyo.kind({
 		}
 	},
 	onTap: function(oSender, oEvent) {
-		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || this.transitionInProgress === true) {
+		if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" || 
+			this.transitionInProgress === true || this.inPushPopReplacePanel === true) {
 			return;
 		}
 
