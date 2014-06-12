@@ -43,7 +43,7 @@ enyo.kind({
 			{kind: "moon.Panel", deferRender: true, title:"Data Grid List", headerComponents: [
 				{kind: "moon.Button", content: "back", ontap: "back"}
 			], components: [
-				{name: "gridList2", renderDelay: 0, fit: true, spacing: 20, minWidth: 180, minHeight: 270, renderDelay: 0, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
+				{name: "gridList2", renderDelay: 0, fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
 					{ kind: "moon.sample.GridSampleItem" }
 				]}
 			]}
