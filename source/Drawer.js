@@ -74,6 +74,8 @@ enyo.kind({
 			this.$.controlDrawer.setAnimated(false);
 			this.$.controlDrawer.setOpen(this.controlsOpen);
 			this.$.controlDrawer.setAnimated(true);
+		} else {
+			this.controlsOpenChanged();
 		}
 	},
 	calcDrawerHeight: function(drawersHeight) {
