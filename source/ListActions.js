@@ -58,6 +58,11 @@ enyo.kind({
 		*/
 		iconSrc: "",
 		/**
+			Set the icon name to be used by the ListActions Activator button.
+			(like moon.Icon and moon.IconButton)
+		*/
+		icon: "",
+		/**
 			By default, list action menus are 300px wide.  Set this to true to instead
 			have the menus be proportionally sized within the available space.  Note
 			that a minimum width of 300px is still respected; if all menus don't fit
@@ -89,7 +94,8 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".open", to: ".$.drawer.open"},
-		{from: ".iconSrc", to: ".$.activator.src"}
+		{from: ".iconSrc", to: ".$.activator.src"},
+		{from: ".icon", to: ".$.activator.icon"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -183,7 +189,6 @@ enyo.kind({
 		this.doListActionOpenChanged({open: this.open});
 		// If opened, show drawer and resize it if needed
 		if(this.open){
-			this.$.drawer.show();
 			if (this.drawerNeedsResize) {
 				this.resizeDrawer();
 				this.drawerNeedsResize = false;
@@ -198,7 +203,6 @@ enyo.kind({
 	drawerAnimationEnd: function() {
 		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
-			this.$.drawer.hide();
 			if (this.generated) {
 				enyo.Spotlight.spot(this.$.activator);
 			}
@@ -215,6 +219,7 @@ enyo.kind({
 			}
 			this.bubble("onRequestMuteTooltip");
 		}
+		return true;
 	},
 	updateStacking: function() {
 		if (this.$.drawer.hasNode()) {
@@ -314,21 +319,26 @@ enyo.kind({
 	//* @protected
 	classes: "moon-list-actions-drawer",
 	components: [
-		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral"},
-		{name: "animator", kind: "enyo.StyleAnimator", onStep: "step"}
+		{name: "client", classes: "moon-list-actions-drawer-client moon-neutral", ontransitionend: "handleTransitionEnd"}
 	],
+	events: {
+		onComplete: ""
+	},
 	rendered: function() {
 		this.inherited(arguments);
-		// On webOS TV, 2D matrix transforms seem to perform as well as 3D
-		// for this use case, and avoid a strange "layer ghosting" issue
-		// the first time a drawer is opened.
-		this.accel = enyo.dom.canAccelerate() && enyo.platform.webos !== 4;
-		// Show drawer if default open value is true without animation
-		if (this.open) {
-			this.setShowing(true);
-		} else {
-			this.resetClientPosition();
-			this.setShowing(false);
+		// Temporarily disable animation
+		this.applyAnimatedMode(false);
+		// Set the state of the drawer
+		this.openChanged();
+		// Re-enable animation
+		this.applyAnimatedMode(true);
+		// Let any watchers know we've finished our preparation
+		this.doComplete();
+	},
+	handleTransitionEnd: function(inSender, inEvent) {
+		if (inEvent.originator === this.$.client) {
+			this.doComplete();
+			return true;
 		}
 	},
 	// We override getBubbleTarget here so that events emanating from a ListActionsDrawer
@@ -339,83 +349,13 @@ enyo.kind({
 	getBubbleTarget: function() {
 		return this.owner;
 	},
-	openChanged: function(inOld) {
+	openChanged: function() {
 		// Skip animation before render time
 		if (!this.$.client.hasNode()) { return; }
-		if (this.open) {			
-			this.playOpenAnimation();
-		} else {
-			this.playCloseAnimation();
-		}
+		this.$.client.addRemoveClass("open", this.open);
 	},
-	resetClientPosition: function() {
-		var matrix = this.generateMatrix(this.getBounds().height);
-		this.$.client.applyStyle("-webkit-transform", matrix);
-	},
-	playOpenAnimation: function() {
-		var openAnimation = this.createOpenAnimation();
-		this.$.animator.play(openAnimation.name);
-	},
-	createOpenAnimation: function() {
-		// For unknown reasons, a null transform works reliably in Chrome,
-		// whereas a matrix transform setting Y translation to 0 causes a
-		// a strange "layer ghosting" issue the first time a drawer is
-		// opened -- the same issue we see on webOS TV with 3D matrices.
-		var matrix = enyo.platform.chrome ? null : this.generateMatrix(0);
-		return this.$.animator.newAnimation({
-			name: "open",
-			duration: 225,
-			timingFunction: "linear",
-			keyframes: {
-				0: [{
-					control: this.$.client,
-					properties: {
-						"-webkit-transform"  : "current"
-					}
-				}],
-				100: [{
-					control: this.$.client,
-					properties: {
-						"-webkit-transform" : matrix
-					}
-				}]
-			}
-		});
-	},
-	playCloseAnimation: function() {
-		var closeAnimation = this.createCloseAnimation(this.getBounds().height);
-		this.$.animator.play(closeAnimation.name);
-	},
-	createCloseAnimation: function(inHeight) {
-		var matrix = this.generateMatrix(inHeight);
-		return this.$.animator.newAnimation({
-			name: "close",
-			duration: 225,
-			timingFunction: "linear",
-			keyframes: {
-				0: [{
-					control: this.$.client,
-					properties: {
-						"-webkit-transform"  : "current"
-					}
-				}],
-				100: [{
-					control: this.$.client,
-					properties: {
-						"-webkit-transform" : matrix
-					}
-				}]
-			}
-		});
-	},
-	generateMatrix: function(inYPosition) {
-		return (this.accel) ? this.assemble3dMatrix(0, inYPosition, 1, 1) : this.assemle2dMatrix(0, inYPosition, 1, 1);
-	},
-	assemle2dMatrix: function(inX, inY, inWidth, inHeight) {
-		return "matrix(" + inWidth + ", 0, 0, " + inHeight + ", " + inX + ", " + inY + ")";
-	},
-	assemble3dMatrix: function(inX, inY, inWidth, inHeight) {
-		return "matrix3d(" + inWidth + ", 0, 0, 0, 0, " + inHeight + ", 0, 0, 0, 0, 1, 0, " + inX + ", " + inY + ", 1, 1)";
+	applyAnimatedMode: function(shouldAnimate) {
+		this.$.client.addRemoveClass("animated", shouldAnimate);
 	}
 });
 
