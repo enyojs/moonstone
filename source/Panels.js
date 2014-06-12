@@ -689,12 +689,14 @@ enyo.kind({
 	},
 	//* Shows panels with transition from right.
 	_show: function() {
+		var init = false;
 		if (!this.hasNode()) {
-			return;
+			init = true;
+		} else {
+			this.$.showHideHandle.addClass("right");
+			this.applyShowAnimation();
 		}
-		this.$.showHideHandle.addClass("right");
-		this.applyShowAnimation();
-		enyo.Signals.send("onPanelsShown");
+		enyo.Signals.send("onPanelsShown", {initialization: init});
 	},
 	//* Hides panels with transition to right.
 	_hide: function() {
