@@ -70,9 +70,7 @@ enyo.kind({
 		{name: "viewport", classes: "moon-panel-viewport", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 				/* header will be created here programmatically in createTools after mixing-in headerOptions */
-				{name: "panelBodyWrapper", fit: true, components: [
-					{name: "panelBody", kind: "FittableRows", classes: "enyo-fill moon-panel-body"}
-				]}
+				{name: "panelBody", kind: "FittableRows", fit: true, classes: "enyo-fill moon-panel-body"}
 			]}
 		]},
 
@@ -123,7 +121,7 @@ enyo.kind({
 		this.createChrome(this.panelTools);
 		// Special-handling for header, which can have its options modified by the instance
 		var hc = enyo.clone(this.headerConfig || {});
-		hc.addBefore = this.$.panelBodyWrapper;
+		hc.addBefore = this.$.panelBody;
 		enyo.mixin(hc, this.headerOptions || this.headerOption);
 		this.$.contentWrapper.createComponent(hc, {owner:this});
 	},
