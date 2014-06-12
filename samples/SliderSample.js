@@ -10,14 +10,14 @@ enyo.kind({
 		{kind: "moon.Scroller", fit: true, components: [
 			{classes:"moon-1v"},
 			{kind: "moon.Divider", content: "Slider 1: Default"},
-			{name: "slider1", kind: "moon.Slider", min: -255, max: 255, value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
+			{name: "slider1", kind: "moon.Slider", value: 25, bgProgress: 35, onChanging: "sliderChanging", onChange: "sliderChanged"},
 
 			{kind: "moon.Divider", content:"Slider 2: Disabled, Bound to Slider 1"},
 			{name: "slider2", kind: "moon.Slider", disabled: true},
 
 			{kind: "moon.Divider", content: "Slider 3: Custom Popup Content"},
 			{name: "slider3", kind: "moon.Slider", classes: "rgb-sample-slider",
-				popupColor: "rgb(0, 0, 25)", value: 25, bgProgress: 150, min: -255, max: 255,
+				popupColor: "rgb(0, 0, 25)", value: 25, bgProgress: 150, min: 0, max: 255,
 				onChanging: "customChanging", onChange: "customChanged", onAnimateFinish: "customAnimateFinish"
 			},
 
