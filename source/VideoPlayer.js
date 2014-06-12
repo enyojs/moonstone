@@ -520,9 +520,6 @@ enyo.kind({
 		this.set("spotlight", !this._panelsShowing);
 		this.$.leftPremiumPlaceHolder.spotlightDisabled = this._panelsShowing;
 		this.$.rightPremiumPlaceHolder.spotlightDisabled = this._panelsShowing;
-		if (this.$.moreButton.getShowing()) {
-			this.$.moreButton.spotlightDisabled = this._panelsShowing;
-		}
 	},
 	panelsShown: function(inSender, inEvent) {
 		this._panelsShowing = true;
