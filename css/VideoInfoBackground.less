@@ -7,6 +7,7 @@
     position: relative;
     display: inline-block;
     white-space: nowrap;
+
     &.bg {
         background-color: @moon-videoplayer-background-wrapper-color;
     }
@@ -18,26 +19,23 @@
     }
     &.left {
         padding: 0 30px 0 70px;
+
         &:after {
             left: 100%;
             bottom: 0;
             border-bottom: solid 1000px transparent;
             border-left: solid 170px @moon-videoplayer-background-wrapper-color;
         }
-        :first-child {
-            margin-left: 0;
-        }
     }
     &.right {
         padding: 0 30px 0 0;
+        float: right;
+
         &:after {
             right: 100%;
             top: 0;
             border-top: solid 1000px transparent;
             border-right: solid 170px @moon-videoplayer-background-wrapper-color;
-        }
-        :first-child {
-            margin-right: 0;
         }
     }
     > * {
