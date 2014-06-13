@@ -47,7 +47,8 @@ enyo.kind({
 		onActivate: "drawerActivated",
 		onDeactivate: "drawerDeactivated",
 		onSpotlightDown:"spotDown",
-		onSpotlightUp:"spotUp"
+		onSpotlightUp:"spotUp",
+		onSpotlightFocus: "initialSpotlightFocus"
 	},
 	components: [
 		{name:"activatorWrapper", classes:"moon-drawers-activator-wrapper", spotlight:true, ontap:"activatorHandler", components: [
@@ -158,6 +159,14 @@ enyo.kind({
 			}
 		}
 		this.updateActivator(false);
+	},
+	// initialSpotlightFocus() ensures the first spot in response 
+	// to a 5-way event goes to the topmost element, activatorWrapper
+	initialSpotlightFocus: function(inSender, inEvent) {
+		if (!enyo.Spotlight.getCurrent() && !enyo.Spotlight.getPointerMode() && (inEvent.dispatchTarget != this.$.activatorWrapper) && inEvent.dispatchTarget.isDescendantOf(this)) {
+			enyo.Spotlight.spot(this.$.activatorWrapper);
+			return true;
+		}
 	},
 	captureSpotFocus: function(inSender, inEvent) {
 		// Only close drawers on 5-way focus in the client (not pointer focus)
