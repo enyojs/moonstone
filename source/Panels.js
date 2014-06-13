@@ -382,7 +382,12 @@ enyo.kind({
 		}
 	},
 	setIndex: function(inIndex) {
-		inIndex = this.clamp(inIndex);
+		// Normally this.index cannot be smaller than 0 and larger than panels.length
+		// However, if panels uses handle and there is sequential key input during transition
+		// then inIndex could have -1. It means that panels will be hided.
+		if (this.toIndex === null || this.useHandle === false) {
+			inIndex = this.clamp(inIndex);
+		}
 
 		if (inIndex === this.index) {
 			return;
@@ -599,9 +604,13 @@ enyo.kind({
 
 		this.transitionInProgress = false;
 
-		if (this.queuedIndex !== null) {
-			this.setIndex(this.queuedIndex);
-		}
+		// queuedIndex becomes -1 when left key input is occurred 
+ 		// during transition from index 1 to 0.
+ 		if (this.queuedIndex === -1) {
+ 			this.hide();
+		} else if (this.queuedIndex !== null) {
+  			this.setIndex(this.queuedIndex);
+  		}
 
 		enyo.Spotlight.unmute(this);
 		// Spot the active panel
