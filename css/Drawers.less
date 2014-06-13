@@ -1,11 +1,11 @@
 /* Drawers.css */
 .moon-drawers-handles {
-	text-align:center;
+	text-align: center;
 	padding: 45px 0 10px;
 }
 
 .moon-drawers-activator-wrapper {
-	position:absolute;
+	position: absolute;
 	top: -10px;
 	left: 0;
 	right: 0;
@@ -13,34 +13,36 @@
 	z-index: 100;
 }	
 .moon-drawers-activator {
-	position:absolute;
+	position: absolute;
 	top: 10px;
 	left: 0;
 	right: 0;
-	height:22px;	
+	height: 22px;	
 	background-color: @moon-drawer-bg-color;
 	z-index: 100;
-}
 
-.moon-drawers-activator-nub {
-	position:relative;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top:-5px;	
-	border-bottom-left-radius:36px;
-	border-bottom-right-radius: 36px;	
-	height:36px;
-	width:60px;
-	background-color: @moon-drawer-bg-color;
-	top:10px;
-	text-align: center;
-	font-family: @moon-icon-font-family;
-	font-size: @moon-icon-font-size;
-	line-height: @moon-icon-font-size/2;
-	overflow: hidden;
-}
-.spotlight .moon-drawers-activator-nub {
-	color: @moon-spotlight-text-color;
+	&:after {
+		content: @moon-icon-arrowsmalldown;
+		position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: -5px;
+		display: block;
+		border-bottom-left-radius: 36px;
+		border-bottom-right-radius: 36px;	
+		height: 36px;
+		width: 60px;
+		background-color: @moon-drawer-bg-color;
+		top: 10px;
+		text-align: center;
+		font-family: @moon-icon-font-family;
+		font-size: 50px;
+		line-height: @moon-icon-font-size/2;
+		overflow: hidden;
+	}
+	&.open:after {
+		content: @moon-icon-arrowsmallup;
+	}
 }
 
 /* The activator & nub are white when a drawer is open */
@@ -48,64 +50,41 @@
 	background-color: @moon-drawer-open-bg-color;
 }
 
-.drawer-open .moon-drawers-activator-nub {
+.drawer-open .moon-drawers-activator:after {
 	background-color: @moon-drawer-open-bg-color;
 }
 
-.drawer-open .moon-drawers-activator-nub .up {
-	border-color: transparent transparent @moon-drawer-up-border-color transparent;
-}
-
-.drawer-open .moon-drawers-activator-nub .up::after {
-	border-color: transparent transparent @moon-drawer-after-border-color transparent;	
-}
-
 /* Activator is spotlight focused */
-.moon-drawers-activator-wrapper.spotlight .moon-drawers-activator {
-	background-color:@moon-spotlight-border-color;
-}
+.spotlight .moon-drawers-activator {
+	background-color: @moon-spotlight-border-color;
 
-.spotlight .moon-drawers-activator-nub {
-	background-color:@moon-spotlight-border-color;
-}
-
-.spotlight .moon-drawers-activator-nub .down {
-	border-color: white transparent transparent transparent;
-}
-
-.spotlight .moon-drawers-activator-nub .down::after {
-	border-color: @moon-spotlight-border-color transparent transparent transparent;	
-}
-
-.spotlight .moon-drawers-activator-nub .up {
-	border-color: transparent transparent white transparent;
-	background-image: @moon-drawer-up-spotlight;
-}
-
-.spotlight .moon-drawers-activator-nub .up::after {
-	border-color: transparent transparent @moon-spotlight-border-color transparent;	
+	&:after,
+	&.open:after {
+		color: @moon-spotlight-text-color;
+		background-color: @moon-spotlight-border-color;
+	}
 }
 
 .moon-drawers-handle-container {
-	position:absolute;
+	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 }
 
 .moon-drawers-handle {
-	display:inline-block;
-	vertical-align:top;
+	display: inline-block;
+	vertical-align: top;
 }
 
 .moon-drawers-drawer-container {
-	position:relative;
+	position: relative;
 }
 
 .moon-drawers-client {
-	position:relative;
-	height:100%;
-	width:100%;
+	position: relative;
+	height: 100%;
+	width: 100%;
 }
 
 /* If a video player or other controls are behind the drawers, let events pass straight through to them. */
