@@ -58,6 +58,7 @@ enyo.kind({
 		this.contentChanged();
 	},
 	contentChanged: function() {
+		this.detectTextDirectionality();
 		var content = this.getContent();
 		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content);
 	},
