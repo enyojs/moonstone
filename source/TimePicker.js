@@ -151,8 +151,8 @@ enyo.kind({
 				fmtParams.locale = this.locale;
 			}
 			var merFormatter = new ilib.DateFmt(fmtParams);
-			var am = ilib.Date.newInstance({hour:1});
-			var pm = ilib.Date.newInstance({hour:13});
+			var am = ilib.Date.newInstance({hour:10});
+			var pm = ilib.Date.newInstance({hour:14});
 			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
 		}
 	},
