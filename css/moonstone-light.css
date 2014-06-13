@@ -237,9 +237,7 @@
   font-family: "Moonstone LG Display";
   src: local("LG Display-Light");
   font-weight: normal;
-  font-style: normal;
-  
-  /* We want "LG Display" to map to the bold variant, since that was originally the only option */
+  font-style: normal;/* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
   font-family: "Moonstone LG Display Bold";
@@ -561,8 +559,11 @@
 }
 .enyo-locale-non-latin {
   /* All/Medium weighted classes */
+
   /* Light weighted classes */
+
   /* Bold weighted classes */
+
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin .moon input,
@@ -993,6 +994,7 @@
 }
 .spotlight .moon-simple-integer-picker-button {
   /* Hover while not Pressed state */
+
 }
 .spotlight .moon-simple-integer-picker-button.moon-icon {
   color: #ffffff;
@@ -1005,6 +1007,7 @@
 }
 .enyo-locale-right-to-left .moon-simple-integer-picker-button {
   /* Default RTL state */
+
 }
 .enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:after {
   content: "\0F0008";
@@ -1014,6 +1017,7 @@
 }
 .enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
   /* Hover while not Pressed state */
+
 }
 .enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
   content: "\0F0004";
@@ -1255,6 +1259,7 @@
 .moon-toggle-item .moon-checkbox.moon-toggle-switch {
   top: 11px;
   /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   margin-right: 75px;
@@ -1905,8 +1910,10 @@
   right: 0;
   text-align: right;
   /* fallback in case text-align:end isn't supported */
+
   text-align: end;
   /* CSS3 for RTL support */
+
 }
 .full-bleed .moon-header-client {
   left: 20px;
@@ -1915,13 +1922,16 @@
 .moon-header-client > * {
   text-align: left;
   /* fallback in case text-align:start isn't supported */
+
   text-align: start;
   /* CSS3 for RTL support */
+
 }
 .moon-header-client > .moon-button,
 .moon-header-client > .moon-icon {
   text-align: center;
   /* Overrides the text-align property  for button */
+
 }
 /* Small Header */
 .moon-header.moon-small-header {
@@ -2543,7 +2553,9 @@
   box-shadow: none;
   text-transform: none;
   /* FIXME: hack for styling reset on Android */
+
   /* -webkit-appearance: caret;*/
+
 }
 .moon-textarea-decorator.moon-focused .moon-richtext {
   cursor: text;
@@ -2796,10 +2808,13 @@
 }
 .moon-textarea-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
+
   resize: none;
   overflow: auto;
   /* FIXME: hack for styling reset on Android */
+
   /* -webkit-appearance: caret;*/
+
 }
 .moon-textarea-decorator.moon-focused .moon-textarea {
   cursor: text;
@@ -2868,9 +2883,9 @@
   display: inline-block;
   vertical-align: top;
   width: 300px;
-  /* Do not change - used in JS */
   min-width: 300px;
   /* Do not change - used in JS */
+
   float: right;
   box-sizing: border-box;
 }
@@ -3158,7 +3173,7 @@
   width: 15%;
   left: 42.5%;
   bottom: 15%;
-  -webkit-transform-origin: center -133.33333333%;
+  -webkit-transform-origin: center -133.33333333333331%;
 }
 .moon-spinner .moon-spinner-ball:after {
   content: "\2022";
@@ -3786,6 +3801,7 @@
 		while it is fading out; however, this requires any showing classes
 		to set pointer events to auto or scrim will not function as expected.
 	*/
+
   pointer-events: none;
 }
 .moon-scrim.moon-scrim-translucent {
@@ -4486,10 +4502,12 @@
   width: 32px;
   margin: 0 0 0 15px;
   /* margin-right is inherited from moon-video-player-feedback */
+
   color: #cf0652;
   font-size: 124px;
   line-height: 26px;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+
 }
 .moon-video-player-feedback .moon-icon.small {
   background-position: center -3px;
@@ -4542,6 +4560,7 @@
 .enyo-locale-non-latin .moon-video-player-info-title {
   line-height: 1.5em;
   /* Clip the title box by just a bit to help it fit better */
+
   height: 1.4em;
 }
 .moon-video-player-info-subtitle {
@@ -4675,6 +4694,7 @@
 .enyo-locale-non-latin .moon-video-player-channel-info-no {
   line-height: 1.5em;
   /* Clip the title box by just a bit to help it fit better */
+
   height: 1.4em;
 }
 .moon-video-player-channel-info-name {
