@@ -33,6 +33,8 @@ enyo.depends(
 	"DynamicPanelsSample.js",
 	"ExpandableInputSample.css",
 	"ExpandableInputSample.js",
+	"ExpandableListItemSample.css",
+	"ExpandableListItemSample.js",
 	"ExpandablePickerSample.css",
 	"ExpandablePickerSample.js",
 	"ExpandableTextSample.css",
