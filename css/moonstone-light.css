@@ -3721,63 +3721,43 @@
   background-color: #4b4b4b;
   z-index: 100;
 }
-.moon-drawers-activator-nub {
+.moon-drawers-activator:after {
+  content: "\0F0006";
   position: relative;
   margin-left: auto;
   margin-right: auto;
   margin-top: -5px;
+  display: block;
   border-bottom-left-radius: 36px;
   border-bottom-right-radius: 36px;
   height: 36px;
   width: 60px;
   background-color: #4b4b4b;
   top: 10px;
+  text-align: center;
+  font-family: "Moonstone Icons";
+  font-size: 50px;
+  line-height: 36px;
+  overflow: hidden;
 }
-.moon-drawers-activator-nub .nub-arrow {
-  position: absolute;
-  width: 18px;
-  height: 11px;
-  left: 21px;
-  top: 10px;
-}
-.moon-drawers-activator-nub .down {
-  background: url(../images/LightTheme_Icons/drawer_down.png) 0 0 no-repeat;
-}
-.moon-drawers-activator-nub .up {
-  background: url(../images/LightTheme_Icons/drawer_up.png) 0 0 no-repeat;
+.moon-drawers-activator.open:after {
+  content: "\0F0005";
 }
 /* The activator & nub are white when a drawer is open */
 .moon-drawers-activator.drawer-open {
   background-color: #ffffff;
 }
-.drawer-open .moon-drawers-activator-nub {
+.drawer-open .moon-drawers-activator:after {
   background-color: #ffffff;
 }
-.drawer-open .moon-drawers-activator-nub .up {
-  border-color: transparent transparent #4b4b4b transparent;
-}
-.drawer-open .moon-drawers-activator-nub .up::after {
-  border-color: transparent transparent #ffffff transparent;
-}
 /* Activator is spotlight focused */
-.moon-drawers-activator-wrapper.spotlight .moon-drawers-activator {
+.spotlight .moon-drawers-activator {
   background-color: #cf0652;
 }
-.spotlight .moon-drawers-activator-nub {
+.spotlight .moon-drawers-activator:after,
+.spotlight .moon-drawers-activator.open:after {
+  color: #ffffff;
   background-color: #cf0652;
-}
-.spotlight .moon-drawers-activator-nub .down {
-  border-color: white transparent transparent transparent;
-}
-.spotlight .moon-drawers-activator-nub .down::after {
-  border-color: #cf0652 transparent transparent transparent;
-}
-.spotlight .moon-drawers-activator-nub .up {
-  border-color: transparent transparent white transparent;
-  background-image: url(../images/LightTheme_Icons/drawer_up_spotlight.png);
-}
-.spotlight .moon-drawers-activator-nub .up::after {
-  border-color: transparent transparent #cf0652 transparent;
 }
 .moon-drawers-handle-container {
   position: absolute;
