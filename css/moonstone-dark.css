@@ -1534,6 +1534,14 @@
   filter: alpha(opacity=60);
 }
 /* Header */
+.moon-expandable-list-header {
+  margin: 0px;
+  background-position: right 0px top 24px;
+  background-repeat: no-repeat;
+  background-image: url(../images/DarkTheme_Icons/SmallCarat_down1.png);
+  display: inline-block;
+  padding-right: 40px;
+}
 .moon-expandable-list-item-header {
   margin-bottom: 0px;
   box-sizing: border-box;
