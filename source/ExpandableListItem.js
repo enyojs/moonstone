@@ -83,8 +83,8 @@ enyo.kind({
 	},
 	components: [
 		// headerContainer required to avoid bad scrollWidth returned in RTL for certain text widths (webkit bug)
-		{name: "headerContainer", classes: "moon-expandable-picker-header", components: [
-			{name: "header", kind: "moon.Item", onSpotlightFocus: "headerFocus", ontap: "expandContract"}
+		{name: "headerContainer", classes: "moon-expandable-list-item-header moon-expandable-list-header", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
+			{name: "header", kind: "moon.MarqueeText"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", classes: "moon-expandable-list-item-client", components: [
 			{name: "client", kind: "Group", tag: null}
@@ -92,7 +92,8 @@ enyo.kind({
 	],
 	bindings: [
 		{from: ".allowHtml", to: ".$.header.allowHtml"},
-		{from: ".disabled", to: ".$.header.disabled"}
+		{from: ".disabled", to: ".$.header.disabled"},
+		{from: ".disabled", to: ".$.headerContainer.disabled"}
 	],
 	//* @protected
 	create: function() {
@@ -141,7 +142,7 @@ enyo.kind({
 		}
 	},
 	stopHeaderMarquee: function() {
-		this.$.header.stopMarquee();
+		this.$.headerContainer.stopMarquee();
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
