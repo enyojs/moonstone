@@ -13,6 +13,11 @@ enyo.kind({
 					{content: "Item 2"},
 					{content: "Item 3"}
 				]},
+				{kind: "moon.ExpandableListItem", disabled:true, content:"Disabled ListItem", components: [
+					{content: "Item 1"},
+					{content: "Item 2"},
+					{content: "Item 3"}
+				]},
 				{kind: "moon.ExpandableListItem", content: "Pre-expanded ListItem", open: true, components: [
 					{content: "Item 1"},
 					{content: "Item 2"},
