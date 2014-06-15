@@ -15,6 +15,10 @@
 	background-image: @moon-small-carat-down1;
 	display: inline-block;
 	padding-right: @moon-spotlight-outset + 30;
+
+	&.spotlight {
+		background-image: @moon-small-carat-down2;
+	}
 }
 .moon-expandable-list-item-header {
 	margin-bottom: 0px;
@@ -24,6 +28,14 @@
 .moon-expandable-list-item-header.disabled {
 	opacity: 1;
 	filter: alpha(opacity=100);
+}
+
+.moon-expandable-list-item.open .moon-expandable-list-item-header {
+	background-image: @moon-small-carat-up1;
+
+	&.spotlight {
+		background-image: @moon-small-carat-up2;
+	}
 }
 
 .moon-expandable-list-item.open .spotlight .moon-expandable-list-item-header {
