@@ -5118,6 +5118,8 @@
 }
 .moon-image > .enyo-image {
   display: block;
+}
+.moon-image > .enyo-image.sized {
   width: 100%;
   height: 100%;
 }
