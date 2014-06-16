@@ -1,0 +1,242 @@
+/*mixin classes used for creating nubs*/
+/*nub position*/
+.moon-popup-nub-position (@nub-top, @nub-left, @nub-right, @nub-width, @nub-height, @nub-margintop, @nub-marginleft){
+	top: @nub-top;
+	left: @nub-left;
+	right: auto;
+	width: @nub-width;
+	height: @nub-height;
+	margin-top: @nub-margintop;
+	margin-left: @nub-marginleft;
+}
+/*left nub*/
+.moon-popup-nub-left (@nub-bgcolor){
+	border-top: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-bottom: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-right: @moon-contextual-popup-nub-height solid @nub-bgcolor;
+}
+/*right nub*/ 
+.moon-popup-nub-right (@nub-bgcolor){
+	border-top: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-bottom: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-left: @moon-contextual-popup-nub-height solid @nub-bgcolor;
+}
+/*below nub*/
+.moon-popup-nub-below (@nub-bgcolor){
+	border-right: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-left: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-bottom: @moon-contextual-popup-nub-height solid @nub-bgcolor;
+}
+/*above nub*/
+.moon-popup-nub-above(@nub-bgcolor){
+	border-right: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-left: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-top: @moon-contextual-popup-nub-height solid @nub-bgcolor;
+}
+
+
+/* ContextualPopup */
+.moon-contextual-popup {
+	min-height: 100px;
+	min-width: 100px;
+	border-radius: @moon-contextual-popup-border-radius;
+	border: @moon-button-border-width solid @moon-contextual-popup-border-color;
+	color: @moon-contextual-popup-text-color;
+	padding: @moon-contextual-popup-padding;
+	background-clip: padding-box;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background-color: @moon-contextual-popup-bg-color;
+	&.reserve-close {
+		padding-right: @moon-icon-button-small-size + 10px;
+	}
+	&::before, &::after {
+		content: '';
+		position: absolute;
+	}
+	&.left {
+		margin: 0 0 0 @moon-contextual-popup-gutter;
+		&::before {
+			top: @moon-button-height / 2;
+		  	left: 0;
+		  	width: 0;
+		  	height: 6px;
+		  	margin-top: -@moon-contextual-popup-nub-height - 6;
+		  	margin-left: -@moon-contextual-popup-nub-height - 5;
+		  	.moon-popup-nub-position(@moon-button-height / 2, 0, auto, 0, 6px, (-@moon-contextual-popup-nub-height - 6), -@moon-contextual-popup-nub-height - 5);
+			.moon-popup-nub-left(@moon-contextual-popup-border-color);
+		}
+		&::after{
+			top: @moon-button-height / 2;
+			left: 0;
+			width: 0;
+			height: 0;
+			margin-top: -@moon-contextual-popup-nub-height - 3;
+			margin-left: -@moon-contextual-popup-nub-height;
+			.moon-popup-nub-left(@moon-contextual-popup-bg-color);
+		}
+	}
+	&.right {
+		margin: 0 0 0 -@moon-contextual-popup-gutter;
+		&::before {
+		  	left: 100%;
+		  	top: 50%;
+		  	width: 0;
+		  	height: 6px;
+		  	margin-top: -@moon-contextual-popup-nub-height;
+		  	margin-left: @moon-button-border-width;
+		  	.moon-popup-nub-right(@moon-contextual-popup-border-color);
+		}
+		&::after{
+			top: 50%;
+			left: 100%;
+			width: 0;
+			height: 0;
+			margin-top: -@moon-contextual-popup-nub-height + 3;
+			margin-left: 0px;
+			.moon-popup-nub-right(@moon-contextual-popup-bg-color);
+		}
+	}	
+	&.below {
+		margin: @moon-contextual-popup-gutter 0 0 0;
+		&::before {	  	
+		  	top: 0;
+		  	left: 50%;
+		  	width: 6px;
+		  	height: 0;
+		  	margin-top: -@moon-contextual-popup-nub-height - 5;
+		  	margin-left: -@moon-contextual-popup-nub-height;	  	
+		  	.moon-popup-nub-below(@moon-contextual-popup-border-color);
+		}
+		&::after{
+			top: 0;
+			left: 50%;
+			width: 0;
+			height: 0;
+			margin-top: -@moon-contextual-popup-nub-height;
+			margin-left: -@moon-contextual-popup-nub-height + 3;
+			.moon-popup-nub-below(@moon-contextual-popup-bg-color);
+		}
+		&.right::before {	  	
+		  	top: 0;
+		  	left: 20%;
+		  	margin-top: -@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 4;
+		  	margin-left: -@moon-contextual-popup-nub-height;
+		  	width: 6px;
+		  	height: 0;	  	
+		  	.moon-popup-nub-below(@moon-contextual-popup-border-color);
+		}
+		&.right::after{
+			top: 0;
+			left: 20%;
+			width: 0;
+			height: 0;
+			margin-top: -@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 4;
+			margin-left: -@moon-contextual-popup-nub-height + 3;
+			.moon-popup-nub-below(@moon-contextual-popup-bg-color);
+		}
+		&.left::before {	  	
+		  	top: 0;
+		  	right: 10%;
+		  	left: auto;
+		  	margin-top: -@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 4;
+		  	margin-right: -@moon-contextual-popup-nub-height;
+		  	width: 6px;
+		  	height: 0;	  	
+		  	.moon-popup-nub-below(@moon-contextual-popup-border-color);
+		}
+		&.left::after{
+			top: 0;
+			right: 10%;
+			left: auto;
+			width: 0;
+			height: 0;
+			margin-top: -@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 4;
+			margin-right: -(@moon-contextual-popup-nub-height) + 3;
+			.moon-popup-nub-below(@moon-contextual-popup-bg-color);
+		}
+	}
+	&.above {
+		margin: -@moon-contextual-popup-gutter 0 0 0;
+		&::before {	  	
+		  	top: 100%;
+		  	left: 50%;
+		  	margin-top: @moon-button-border-width;
+		  	margin-left: -@moon-contextual-popup-nub-height;
+		  	width: 6px;
+		  	height: 0;	  	
+		  	.moon-popup-nub-above(@moon-contextual-popup-border-color);
+		}
+		&::after{
+			top: 100%;
+			left: 50%;
+			width: 0;
+			height: 0;
+			margin-top: 0px;
+			margin-left: -(@moon-contextual-popup-nub-height) + 3;
+			.moon-popup-nub-above(@moon-contextual-popup-bg-color);
+		}	
+		&.right::before {	  	
+		  	top: 100%;
+		  	left: 20%;
+		  	margin-top: @moon-button-border-width;
+		  	margin-left: -@moon-contextual-popup-nub-height;
+		  	width: 6px;
+		  	height: 0;	  	
+		  	.moon-popup-nub-above(@moon-contextual-popup-border-color);
+		}
+		&.right::after{
+			top: 100%;
+			left: 20%;
+			width: 0;
+			height: 0;
+			margin-top: 0px;
+			margin-left: -(@moon-contextual-popup-nub-height) + 3;
+			.moon-popup-nub-above(@moon-contextual-popup-bg-color);
+		}	
+		&.left::before {	  	
+		  	top: 100%;
+		  	right: 20%;
+		  	left: auto;
+		  	margin-top: @moon-button-border-width;
+		  	margin-right: -@moon-contextual-popup-nub-height;
+		  	width: 6px;
+		  	height: 0;	  	
+		  	.moon-popup-nub-above(@moon-contextual-popup-border-color);
+		}
+		&.left::after{
+			top: 100%;
+			right: 20%;
+			left: auto;
+			width: 0;
+			height: 0;
+			margin-top: 0;
+			margin-right: -(@moon-contextual-popup-nub-height) + 3;
+			.moon-popup-nub-above(@moon-contextual-popup-bg-color);
+		}
+	}
+}
+.enyo-locale-right-to-left .moon-contextual-popup {
+	direction: rtl;
+	&.reserve-close {
+		padding-right: 20px;
+		padding-left: @moon-icon-button-small-size + 10px;
+	}
+}
+.moon-contextual-popup-client {
+	height: 100%;
+	overflow: hidden;
+}
+.moon {
+	background: tan;
+}
+.moon-contextual-popup-nub {
+	position: absolute;
+	content: '';
+	background-color: green;
+	width: 20px;
+	height: 20px;
+}
