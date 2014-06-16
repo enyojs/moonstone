@@ -3774,6 +3774,9 @@
 .moon-drawers-client {
   pointer-events: none;
 }
+.moon-drawers-client > * {
+  pointer-events: all;
+}
 /* Scrim.css */
 .moon-scrim {
   z-index: 1;
