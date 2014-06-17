@@ -7,7 +7,7 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-		{kind:"moon.Panel", headerType: "small", title: "List Actions Sample", headerComponents: [
+		{kind:"moon.Panel", headerType: "medium", title: "List Actions Sample", headerComponents: [
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
 			
