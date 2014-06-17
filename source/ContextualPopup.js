@@ -18,6 +18,9 @@ enyo.kind({
 		onRequestScrollIntoView   : "_preventEventBubble",
 		onSpotlightContainerLeave : "onLeave"
 	},
+	eventsToCapture: {
+		onSpotlightKeyDown: "capturedKeyDown"
+	},
 	//* @public
 	published: {
 		/**
@@ -61,8 +64,6 @@ enyo.kind({
 	initComponents: function() {
 		this.createChrome(this.tools);
 		this.inherited(arguments);
-		this.eventsToCapture = enyo.clone(this.eventsToCapture);
-		this.eventsToCapture.onSpotlightKeyDown = "capturedKeyDown";
 	},
 	//* Renders the contextual popup.
 	render: function() {
@@ -141,6 +142,15 @@ enyo.kind({
 			this.downEvent = inEvent;
 		}
 		return this.modal;
+	},
+	capturedTap: function(inSender, inEvent) {
+		// If same activator tapped sequentially, we notice that this popup is already activeted.
+		if (inEvent.dispatchTarget.isDescendantOf(this.activator)) {
+			this.popupActived = true;
+		} else {
+			this.popupActived = false;
+		}
+		this.inherited(arguments);
 	},
 	onLeave: function(oSender, oEvent) {
 		if (oEvent.originator == this) {

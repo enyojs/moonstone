@@ -1,16 +1,17 @@
 /* Checkbox.css */
 .moon-checkbox {
 	cursor: pointer;
-	height: @moon-checkbox-image-height;
-	width: @moon-checkbox-image-width;
+	width: @moon-checkbox-icon-width;
+	height: @moon-checkbox-icon-height;
+	text-align: center;
+	&[checked]:after {
+		font-family: @moon-icon-font-family;
+		font-size: (2*@moon-icon-small-size);
+		content: @moon-icon-check;
+		color: @moon-body-text-color;
+	}
 }
 
-.moon-checkbox[checked] {
-	background-image: @moon-checkbox-image;
-	background-repeat: no-repeat;
-	background-position: -5px 1px;
-}
-
-.moon-checkbox[disabled] {
-	opacity: @moon-disabled-opacity;
+.spotlight .moon-checkbox[checked]:after {
+	color: @moon-white;
 }

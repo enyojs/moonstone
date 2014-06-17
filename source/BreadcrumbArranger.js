@@ -308,10 +308,8 @@ enyo.kind({
 		var tp = this.container.transitionPositions;
 		var panels = this.container.getPanels();
 		var panel;
-		var opacity;
 		var hiding = [];
 		for(var i=0;(panel = panels[i]);i++) {
-			opacity = panel.domStyles.opacity;
 			if (tp[i+"."+this.container.toIndex] === 0) {
 				var width = panel.getBounds().width;
 				var nextTp = tp[i+1+"."+this.container.toIndex];
@@ -343,6 +341,9 @@ enyo.kind({
 		}
 	},
 	isOffscreen: function(inPanelIndex, inActiveIndex) {
+		if (!this.container.transitionPositions) {
+			return;
+		}
 		var transitionPosition = this.container.transitionPositions[inPanelIndex + "." + inActiveIndex];
 		var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inPanelIndex) : 0;
 		if (transitionPosition < 0) {
@@ -352,7 +353,7 @@ enyo.kind({
 		}
 	},
 	isBreadcrumb: function(inPanelIndex, inActiveIndex) {
-		return this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
+		return this.breadcrumbPositions && this.breadcrumbPositions[inPanelIndex + "." + inActiveIndex];
 	},
 	calcBreadcrumbEdges: function() {
 		this.breadcrumbEdges = [];

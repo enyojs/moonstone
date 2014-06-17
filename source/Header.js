@@ -16,7 +16,13 @@ enyo.kind({
 		titleBelow: '',
 		//* Sub-text below the header
 		subTitleBelow: '',
+		/** If small, the _moon-small-header_ CSS class will be applied to this header
+			If mini, the _moon-mini-header_ CSS class will be applied to this header
+			If large, the _moon-header_ CSS class will be applied to this header
+		*/
+		type: "large",
 		//* If true, the _moon-small-header_ CSS class will be applied to this header
+		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
 		small: false,
 		/**
 			URL of background image(s).
@@ -51,11 +57,16 @@ enyo.kind({
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
 	marqueeOnSpotlight: false,
+	marqueeOnHover: true,
 	marqueeOnRender: true,
+	marqueeOnRenderDelay: 10000,
+	// Described in .moon-header class
+	standardHeight: 360,
 	handlers: {
 		oninput: "handleInput",
 		onchange: "handleChange",
-		onRequestCreateListActions: "handleRequestCreateComponents"
+		onRequestCreateListActions: "handleRequestCreateComponents",
+		onListActionOpenChanged: "handleListActionOpenChanged"
 	},
 	//* @public
 	events: {
@@ -112,7 +123,9 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
 		this.smallChanged();
+		this.typeChanged();
 		this.titleChanged();
 		this.titleAboveChanged();
 		this.titleBelowChanged();
@@ -340,9 +353,30 @@ enyo.kind({
 		this.collapsed = false;
 	},
 	//* @protected
+	typeChanged: function(inOld) {
+		switch (inOld) {
+		case "small":
+			this.removeClass("moon-small-header");
+			break;
+		case "mini":
+			this.removeClass("moon-mini-header");
+			break;
+		}
+
+		switch (this.getType()) {
+		case "small":
+			this.addClass("moon-small-header");
+			break;
+		case "mini":
+			this.addClass("moon-mini-header");
+			break;
+		}
+	},
+	//* @protected
+	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
 	smallChanged: function() {
 		this.addRemoveClass("moon-small-header", this.getSmall());
-	},
+	},	
 	//* @protected
 	contentChanged: function() {
 		this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
@@ -408,5 +442,14 @@ enyo.kind({
 	//* Create custom event for _change_ events
 	handleChange: function(inSender, inEvent) {
 		this.doInputHeaderChange(inEvent);
+	},
+	/** 
+		Enlarge listActionDrawer's height to large type's height		
+	*/
+	handleListActionOpenChanged: function (inSender, inEvent) {		
+		if (!inEvent.open) {
+			return;
+		}
+		inEvent.originator.beforeOpenDrawer(this.standardHeight, this.getType());
 	}
 });

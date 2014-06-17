@@ -97,7 +97,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.$.popup.setAutoDismiss(false);		//* Always showing popup
 		this.$.popup.captureEvents = false;		//* Hot fix for bad originator on tap, drag ...
-		this.$.tapArea.onmousemove = "preview";
+		this.$.tapArea.onmove = "preview";
 		this.$.tapArea.onenter = "enterTapArea";
 		this.$.tapArea.onleave = "leaveTapArea";
 		//* Extend components
@@ -422,10 +422,11 @@ enyo.kind({
 	padDigit: function(inValue) {
 		return (inValue) ? (String(inValue).length < 2) ? "0"+inValue : inValue : "00";
 	},
+	/**
+ 		Send current status to feedback control in response to user input
+ 	*/
 	feedback: function(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc) {
-		if (!this.isInPreview()) {
-			this.showKnobStatus();
-			this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc);
-		}
+		this.showKnobStatus();
+		this.$.feedback.feedback(inMessage, inParams, inPersistShowing, inLeftSrc, inRightSrc, this.isInPreview());
 	}
 });

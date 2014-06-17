@@ -2,12 +2,10 @@
 	_moon.Scroller_ extends [enyo.Scroller](#enyo.Scroller), adding support for
 	5-way focus (Spotlight) and pagination buttons.
 
-	_moon.Scroller_ responds to the _onSpotlightFocused_ event by scrolling the
-	event originator into view. This ensures that 5-way (Spotlight) focused
-	controls are always in view.
-
-	In addition, _moon.Scroller_ responds to explicit/programmatic requests from
-	controls to be scrolled into view via the _onRequestScrollIntoView_ event.
+	_moon.Scroller_ responds when controls explicitly request to be scrolled into
+	view by emitting the _onRequestScrollIntoView_ event. This typically happens
+	when a control handles an _onSpotlightFocused_ event, ensuring that 5-way
+	(Spotlight) focused controls remain in view.
 
 	For more information, see the documentation on
 	[Scrollers](building-apps/layout/scrollers.html) in the Enyo Developer Guide.
@@ -17,11 +15,6 @@ enyo.kind({
 	kind:      "enyo.Scroller",
 	//* @public
 	published: {
-		//* If true, paging controls are hidden if a key is pressed (5-way mode)
-		hidePagingOnKey: true,
-		//* If true, paging controls are hidden if the user's pointer leaves this
-		//* control
-		hidePagingOnLeave: true,
 		/**
 			If true, when scrolling to focused child controls, the scroller will
 			scroll as far as possible, until its edge meets the next item's edge
@@ -91,8 +84,13 @@ enyo.kind({
 		until the edge of _inControl_ is aligned with the edge of the visible scroll
 		area. Optional third parameter to indicate whether or not it should animate
 		the scroll. Defaults to animation unless it is set to false.
+		If _setLastFocusedChild_ is true, scroller will set up _inControl_ to be the spotted child
+		when scroller is spotted.
 	*/
-	scrollToControl: function(inControl, inScrollFullPage, animate) {
+	scrollToControl: function(inControl, inScrollFullPage, animate, setLastFocusedChild) {
+		if (setLastFocusedChild) {
+			this.$.strategy.setLastFocusedChild(inControl);
+		}
 		this.$.strategy.animateToControl(inControl, inScrollFullPage, animate);
 	},
 
@@ -103,7 +101,7 @@ enyo.kind({
 	scrollTo: function (x, y, animate) {
 		this.$.strategy.scrollTo(x, y, animate);	
 	},
-		
+	
 	//* @protected
 	bindings: [
 		{from: ".scrollInterval",				to:".$.strategy.interval"},
@@ -149,7 +147,7 @@ enyo.kind({
 	},
 	// When 5-way focus leaves scroller, hide the scroll columns
 	spotlightGoodbye: function(inSender, inEvent) {
-		if (inEvent.originator === this && this.$.strategy.showHideScrollColumns) {
+		if (inEvent.originator.owner === this.$.strategy && this.$.strategy.showHideScrollColumns) {
 			this.$.strategy.showHideScrollColumns(false);
 		}
 	},

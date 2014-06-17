@@ -74,17 +74,30 @@ enyo.kind({
 	],
 	//* @protected
 	scrollFrame: 3, // parameter that determines scroll math simulation speed
+	create: function(){
+		this.inherited(arguments);
+		this.verifyValue();
+		this.updateOverlays();
+	},
 	rendered: function(){
 		this.inherited(arguments);
 		this.rangeChanged();
-		this.updateOverlays();
 		this.refreshScrollState();
 		this.$.scroller.getStrategy().setFixedTime(false);
 		this.$.scroller.getStrategy().setFrame(this.scrollFrame);
 	},
+	getVerifiedValue: function() {
+		return this.value >= this.min && this.value <= this.max ? this.value : this.min;
+	},
+	verifyValue: function() {
+		this.value = this.getVerifiedValue();
+	},
 	refreshScrollState: function() {
 		this.updateScrollBounds();
-		this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+		var node = this.$.repeater.fetchRowNode(this.value - this.min);
+		if (node) {
+			this.$.scroller.scrollToNode(node);
+		}
 	},
 	setupItem: function(inSender, inEvent) {
 		var index = inEvent.index;
@@ -95,15 +108,28 @@ enyo.kind({
 		this.$.item.setContent(content);
 	},
 	rangeChanged: function() {
-		this.value = this.value >= this.min && this.value <= this.max ? this.value : this.min;
+		this.verifyValue();
 		this.$.repeater.setCount(this.max-this.min+1);
 		this.$.repeater.render();
 		//asynchronously scroll to the current node, this works around a potential scrolling glitch
 		enyo.asyncMethod(this.bindSafely(function(){
-			this.$.scroller.scrollToNode(this.$.repeater.fetchRowNode(this.value - this.min));
+			var node = this.$.repeater.fetchRowNode(this.value - this.min);
+			if (node) {
+				this.$.scroller.scrollToNode(node);
+			}
 		}));
 	},
+	/**
+		fail-safe design.
+		If out boundary value is assigned, adjust boundary.
+	*/
 	valueChanged: function(inOld) {
+		if (this.value < this.min) {
+			this.setMin(this.value);
+		} else if (this.value > this.max) {
+			this.setMax(this.value);
+		}
+
 		var node = this.$.repeater.fetchRowNode(this.value - this.min);
 		if (node) {
 			this.$.scroller.scrollTo(node.offsetLeft, node.offsetTop);

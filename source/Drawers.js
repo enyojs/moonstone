@@ -51,13 +51,9 @@ enyo.kind({
 	},
 	components: [
 		{name:"activatorWrapper", classes:"moon-drawers-activator-wrapper", spotlight:true, ontap:"activatorHandler", components: [
-			{name:"activator", classes:"moon-drawers-activator", components:[
-				{classes:"moon-drawers-activator-nub", components:[
-					{name:"nubArrow", classes:"nub-arrow down"}
-				]}
-			]}
+			{name:"activator", classes:"moon-drawers-activator"}
 		]},
-		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, onpostresize:"resizeHandleContainer", components:[
+		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
 			{name:"handles", classes:"moon-neutral moon-drawers-handles"}
 		]},
 		{name: "drawers", classes:"moon-drawers-drawer-container"},
@@ -109,6 +105,7 @@ enyo.kind({
 		}
 	},
 	openHandleContainer: function() {
+		this.$.handleContainer.spotlightDisabled = false;
 		this.$.handleContainer.setOpen(true);
 		enyo.Spotlight.spot(this.$.handleContainer);
 		this.updateActivator(true);
@@ -116,6 +113,7 @@ enyo.kind({
 	},
 	closeHandleContainer: function() {
 		enyo.dispatcher.release(this.$.handleContainer);
+		this.$.handleContainer.spotlightDisabled = true;
 		this.$.handleContainer.setOpen(false);
 		this.updateActivator(false);
 	},
@@ -192,11 +190,7 @@ enyo.kind({
 		}
 	},
 	updateActivator: function(up) {
-		this.$.nubArrow.addRemoveClass("up",up);
-		this.$.nubArrow.addRemoveClass("down",!up);
-		if (!up) {
-			this.$.activator.addRemoveClass("drawer-open", false);
-		}
+		this.$.activator.addRemoveClass("open", up);
 	},
 	resizeHandler: function() {
 		this.inherited(arguments);

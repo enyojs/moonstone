@@ -45,7 +45,8 @@ enyo.kind({
 	autoCollapse: true,
 
 	handlers: {
-		requestScrollIntoView: "requestScrollIntoView"
+		requestScrollIntoView: "requestScrollIntoView",
+		onRebuilt: "requestPickerReflow"
 	},
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ontap: "expandContract", components: [
@@ -74,6 +75,15 @@ enyo.kind({
 		"currentValueText": ["value", "unit", "noneText"]
 	},
 
+	create: function() {
+		this.inherited(arguments);
+		this.requestPickerReflow();
+	},
+
+	requestPickerReflow: function() {
+		this._needsPickerReflow = true;
+	},
+
 	// Change handlers
 	valueChanged: function(inOld) {
 		if (this.value < this.min || this.value > this.max) {
@@ -84,6 +94,10 @@ enyo.kind({
 	openChanged: function() {
 		this.inherited(arguments);
 		this.setActive(this.getOpen());
+		if (this.open && this._needsPickerReflow) {
+			this.$.picker.reflow();
+			this._needsPickerReflow = false;
+		}
 	},
 
 	// Computed props

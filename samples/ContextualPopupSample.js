@@ -132,7 +132,7 @@ enyo.kind({
 				components: [
 					{kind: "moon.Scroller", horizontal: "auto", classes: "enyo-fill", components: [
 						{kind: "moon.Button", content: "Button"},
-						{kind: "moon.ToggleButton", content: "SpotlightModal", active: true, ontap: "buttonToggled"},
+						{kind: "moon.ToggleButton", content: "SpotlightModal", value: true, ontap: "buttonToggled"},
 						{tag: "br"},
 						{tag: "br"},
 						{kind: "moon.InputDecorator", spotlight: true, components: [

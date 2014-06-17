@@ -6,70 +6,43 @@
 .moon-background-wrapper-client-content {
     position: relative;
     display: inline-block;
+    white-space: nowrap;
+
+    &.bg {
+        background-color: @moon-videoplayer-background-wrapper-color;
+    }
+    &:after {
+        position: absolute;
+        content: "";
+        width: 0;
+        height: 0;
+    }
+    &.left {
+        padding: 0 30px 0 70px;
+
+        &:after {
+            left: 100%;
+            bottom: 0;
+            border-bottom: solid 1000px transparent;
+            border-left: solid 170px @moon-videoplayer-background-wrapper-color;
+        }
+    }
+    &.right {
+        padding: 0 30px 0 0;
+        float: right;
+
+        &:after {
+            right: 100%;
+            top: 0;
+            border-top: solid 1000px transparent;
+            border-right: solid 170px @moon-videoplayer-background-wrapper-color;
+        }
+    }
+    > * {
+        display: inline-block;
+        margin: 0 30px;
+    }
 }
 .enyo-locale-right-to-left .moon-background-wrapper-client-content > * {
     direction: rtl;
-}
-.moon-background-wrapper-client-content.right {
-    float: right;
-}
-.moon-background-wrapper-client-content.bg {
-    background-color: black;
-}
-.moon-background-wrapper-client-tri {
-    position: absolute;
-    width: 0;
-    height: 0;
-}
-.left .moon-background-wrapper-client-tri {
-    left: 100%;
-    bottom: 0;
-    border-bottom-style: solid;
-    border-bottom-color: transparent;
-    border-left-style: solid;
-    border-left-color: transparent;
-    border-bottom-width: 1000px;
-    border-left-width: 170px;
-}
-.left.bg .moon-background-wrapper-client-tri {
-    border-left-color: black;
-}
-.right .moon-background-wrapper-client-tri {
-    right: 100%;
-    top: 0;
-    border-top-style: solid;
-    border-top-color: transparent;
-    border-right-style: solid;
-    border-right-color: transparent;
-    border-top-width: 1000px;
-    border-right-width: 170px;
-}
-.right.bg .moon-background-wrapper-client-tri {
-    border-right-color: black;
-}
-
-
-/* Decorate video header styling */
-.moon-background-wrapper-client-content.right {
-	padding-right: 30px;
-	padding-left: 0px;
-}
-.moon-background-wrapper-client-content.left {
-	padding-left: 70px;
-	padding-right: 30px;
-}
-
-/* Make equal spacing */
-.moon-background-wrapper-client-content {
-	white-space: nowrap;
-}
-.moon-background-wrapper-client-content > * {
-	display: inline-block;
-	margin: 0 30px;
-}
-.moon-background-wrapper-client-content.left > :first-child {
-	margin-left: 0;
-}
-.moon-background-wrapper-client-content.right > :first-child {
-	margin-right: 0;
 }

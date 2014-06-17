@@ -18,6 +18,7 @@
 	top: -@moon-header-border-top-width;
 	bottom: -@moon-header-border-bottom-width;
 }
+
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
 	position: absolute;
@@ -72,8 +73,26 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-}
+	-webkit-transform: translateZ(0) translateY(100%);
 
+	&.open {
+		-webkit-transform: translateZ(0) translateY(0);
+	}
+	&.animated {
+		-webkit-transition: -webkit-transform .225s cubic-bezier(0.25, 0.1, 0.25, 1);
+	}
+}
+.moon-small-header .moon-list-actions-drawer-client,
+.moon-mini-header .moon-list-actions-drawer-client {
+	-webkit-transform: translateZ(0) translateY(-100%);
+
+	&.open {
+		-webkit-transform: translateZ(0) translateY(0);
+	}
+}
 .moon-list-actions.stacked .enyo-fittable-rows-layout > * {
 	height: auto !important;	
+}
+.moon-panels .moon-header .moon-list-actions-drawer {
+	pointer-events: none;
 }

@@ -86,9 +86,6 @@ enyo.kind({
 		this.selectedIndexChanged();
 		this.updateMarqueeDisable();
 		this.blockChanged();
-	},
-	rendered: function() {
-		this.inherited(arguments);
 		this.showHideNavButtons();
 	},
 	scrollIntoView: function() {
@@ -224,10 +221,10 @@ enyo.kind({
 	selectedIndexChanged: function() {
 		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
 		this.updateMarqueeDisable();
-		this.startMarquee();
 		this.setSelected(this.getClientControls()[this.selectedIndex]);
 		this.fireChangedEvent();
 		this.showHideNavButtons();
+		this.startMarquee();
 	},
 	updateMarqueeDisable: function() {
 		this.stopMarquee();

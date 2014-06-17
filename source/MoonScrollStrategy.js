@@ -2,7 +2,7 @@
 	_moon.ScrollStrategy_ inherits from
 	[enyo.TouchScrollStrategy](#enyo.TouchScrollStrategy). Its main purpose is to
 	handle scroller paging for [moon.Scroller](#moon.Scroller) and
-	[moon.List](#moon.List).
+	[moon.DataList](#moon.DataList).
 */
 
 enyo.kind({
@@ -102,6 +102,9 @@ enyo.kind({
 		this.enableDisableScrollColumns();
 		this.setThumbSizeRatio();
 		this.clampScrollPosition();
+	},
+	setLastFocusedChild: function(inControl) {
+		enyo.Spotlight.Container.setLastFocusedChild(this.$.viewport, inControl);
 	},
 
 	//* @public
@@ -228,8 +231,8 @@ enyo.kind({
 	enter: function(inSender, inEvent) {
 		this.hovering = true;
 		this.setupBounds();
-		this.enableDisablePageControls();
 		this.showHideScrollColumns(true);
+		this.updateHoverOnPagingControls(true);
 	},
 	//* On _leave_, sets _this.hovering_ to false and hides pagination controls.
 	leave: function(inSender, inEvent) {
@@ -325,17 +328,6 @@ enyo.kind({
 
 		return true;
 	},
-	scrollMathScroll: function() {
-		this.inherited(arguments);
-
-		if (this.hovering) {
-			this.enableDisablePageControls();
-		} else {
-			this.hidePageControls();
-		}
-
-		this.showHideScrollColumns(true);
-	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
 		this.lastScrollToX = inX;
@@ -385,18 +377,21 @@ enyo.kind({
 	effectScrollStop: function() { },
 	effectOverscroll: function() { },
 	spotlightPagingControlsChanged: function() {
+		this.updateHoverOnPagingControls(!this.spotlightPagingControls);
+		this.showHideScrollColumns(this.spotlightPagingControls);
+		if (this.generated) {
+			this.setupBounds();
+		}
+	},
+	updateHoverOnPagingControls: function(hover) {
 		enyo.forEach([
 			this.$.pageLeftControl,
 			this.$.pageRightControl,
 			this.$.pageUpControl,
 			this.$.pageDownControl
 		], function(c) {
-			c.addRemoveClass("hover", !this.spotlightPagingControls);
+			c.addRemoveClass("hover", hover);
 		}, this);
-		this.showHideScrollColumns(this.spotlightPagingControls);
-		if (this.generated) {
-			this.setupBounds();
-		}
 	},
 	/**
 		Because the thumb columns are a fixed size that impacts the scroll bounds,
@@ -414,6 +409,9 @@ enyo.kind({
 		if (!enyo.Spotlight.getPointerMode() || inEvent.scrollInPointerMode === true) {
 			showVertical = this.showVertical();
 			showHorizontal = this.showHorizontal();
+			this.scrollBounds = this._getScrollBounds();
+			this.setupBounds();
+			this.scrollBounds = null;
 			if (showVertical || showHorizontal) {
 				this.animateToControl(inEvent.originator, inEvent.scrollFullPage, inEvent.scrollInPointerMode || false);
 				if ((showVertical && this.$.scrollMath.bottomBoundary) || (showHorizontal && this.$.scrollMath.rightBoundary)) {
@@ -424,9 +422,6 @@ enyo.kind({
 				// to allow items in nested scrollers to be scrolled
 				bubble = true;
 			}
-			this.scrollBounds = this._getScrollBounds();
-			this.setupBounds();
-			this.scrollBounds = null;
 		}
 		return !bubble;
 	},
@@ -441,17 +436,9 @@ enyo.kind({
 		return true;
 	},
 	spotlightModeChanged: function(inSender, inEvent) {
-		this.enableDisablePageControls();
-	},
-	//* Shows or hides pagination controls, as appropriate.
-	enableDisablePageControls: function(inSender, inEvent) {
-		/*
-			If we're not in pointer mode, and set to hide paging on key, hide pagination controls.
-			If not hovering and set to hide on leave, hide pagination controls.
-		*/
-		if (!this.shouldShowPageControls()) {
-			this.hidePageControls();
-		}
+		var activatePageControls = this.shouldShowPageControls();
+		this.showHideScrollColumns(activatePageControls);
+		this.updateHoverOnPagingControls(activatePageControls);
 	},
 	//* Enables or disables scroll columns.
 	enableDisableScrollColumns: function() {
@@ -505,15 +492,6 @@ enyo.kind({
 		return (this.getHorizontal() == "scroll" ||
 				(this.getHorizontal() !== "hidden" &&
 				((-1 * this.$.scrollMath.rightBoundary > 0) || this.spotlightPagingControls)));
-	},
-	//* Hides pagination controls.
-	hidePageControls: function() {
-		if (!this.spotlightPagingControls) {
-			this.$.pageLeftControl.setDisabled(true);
-			this.$.pageRightControl.setDisabled(true);
-			this.$.pageUpControl.setDisabled(true);
-			this.$.pageDownControl.setDisabled(true);
-		}
 	},
 	_getScrollBounds: function() {
 		if (this.scrollBounds) {
@@ -707,7 +685,7 @@ enyo.kind({
 		return Math.min(Math.max(this.getScrollTop(), -1*m.topBoundary), -1*m.bottomBoundary);
 	}
 });
- 
+
 // FIXME: Webkit will change the scrollTop value of the scroller viewport to keep the current
 // tab-focused control onscreen if we allow it to handle tabs itself, so we defeat native
 // TAB focus movement here.

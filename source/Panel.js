@@ -25,7 +25,10 @@ enyo.kind({
 			with the panel index
 		*/
 		autoNumber: true,
+		//* Facade for the header's _type_ property. You can choose among large, small and mini
+		headerType: "large",
 		//* Facade for the header's _small_ property
+		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
@@ -65,7 +68,7 @@ enyo.kind({
 				]}
 			]}
 		]},
-		{name: "viewport", classes: "moon-panel-viewport", components: [
+		{name: "viewport", classes: "moon-panel-viewport", onwebkitAnimationEnd: "animationComplete", components: [
 			{name: "contentWrapper", kind:"FittableRows", classes: "moon-panel-content-wrapper", components: [
 				/* header will be created here programmatically in createTools after mixing-in headerOptions */
 				{name: "panelBody", kind: "FittableRows", fit: true, classes: "moon-panel-body"}
@@ -86,7 +89,8 @@ enyo.kind({
 		{from: ".allowHtmlHeader", to: ".$.breadcrumbText.allowHtml"},
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"},
-		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"}
+		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"},
+		{from: ".headerType", to: ".$.header.type", oneWay: false}
 	],
 
 	headerComponents: [],
@@ -104,7 +108,9 @@ enyo.kind({
 			this.$.header.createComponents(this.headerComponents, {owner: owner});
 		}
 		this.autoNumberChanged();
+		// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
 		this.smallHeaderChanged();
+		this.headerTypeChanged();
 	},
 	initComponents: function() {
 		this.createTools();
@@ -126,8 +132,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.getInitAnimationValues();
 		this.updateViewportSize();
-		this.createShrinkAnimation();
-		this.createGrowAnimation();
 		this.shrinkAsNeeded();
 	},
 	//* Updates _this.$.contentWrapper_ to have the height/width of _this_.
@@ -149,19 +153,26 @@ enyo.kind({
 	},
 	//* Updates spottability.
 	updatesSpottability: function() {
-		if (this.isBreadcrumb && !this.isOffscreen) {
-			this.addSpottableBreadcrumbProps();
-		} else if (this.isBreadcrumb && this.isOffscreen) {
+		if (this.isOffscreen) {
+			this.spotlightDisabled = true;
 			this.removeSpottableProps();
-		} else {
 			this.removeSpottableBreadcrumbProps();
+		} else {
+			if (this.isBreadcrumb) {
+				this.spotlightDisabled = true;
+				this.addSpottableBreadcrumbProps();
+			}
+			else {
+				this.spotlightDisabled = false;
+			}
 		}
 	},
 	handleBreadcrumbTap: function(inSender, inEvent) {
 		inEvent.breadcrumbTap = true;
 	},
+	// Note: smallHeader will be deprecated soon. For backward compatiblity, I leave it for a while.
 	scroll: function(inSender, inEvent) {
-		if (this.collapsingHeader && !this.smallHeader) {
+		if (this.collapsingHeader && ((this.headerType === "large") || !this.smallHeader)) {
 			if (inEvent.originator.y < 0) {
 				this.collapseHeader();
 			} else {
@@ -169,8 +180,15 @@ enyo.kind({
 			}
 		}
 	},
+	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.smallHeader);
+		if (this.generated) {
+			this.$.contentWrapper.resized();
+		}
+	},
+	headerTypeChanged: function() {
+		this.$.header.setType(this.headerType);
 		if (this.generated) {
 			this.$.contentWrapper.resized();
 		}
@@ -202,16 +220,13 @@ enyo.kind({
 	},
 	addSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", true);
-		this.spotlightDisabled = true;
 	},	
 	removeSpottableBreadcrumbProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
 		this.$.breadcrumbBackground.removeClass("spotlight");
-		this.spotlightDisabled = false;
 	},
 	removeSpottableProps: function() {
 		this.$.breadcrumbBackground.set("spotlight", false);
-		this.spotlightDisabled = true;
 	},
 	shrinkAsNeeded: function() {
 		if (this.needsToShrink) {
@@ -315,20 +330,20 @@ enyo.kind({
 	shrinkAnimation: function() {
 		this.growing = false;
 		this.shrinking = true;
-		this.haltAnimations();
-		this.$.animator.play("shrink");
+		this.addClass("shrunken");
+		this.addClass("shrinking");
 	},
 	shrink: function() {
-		this.$.animator.jumpToEnd("shrink");
+		this.addClass("shrunken");
 	},
 	growAnimation: function() {
 		this.growing = true;
 		this.shrinking = false;
-		this.haltAnimations();
-		this.$.animator.play("grow");			
+		this.addClass("growing");	
+		this.removeClass("shrunken");
 	},
 	grow: function() {
-		this.$.animator.jumpToEnd("grow");
+		this.removeClass("shrunken");
 	},
 	//* @protected
 	getInitAnimationValues: function() {
@@ -341,9 +356,8 @@ enyo.kind({
 		this.initialWidth = node.offsetWidth   - paddingR - paddingL;
 	},
 	haltAnimations: function() {
-		this.$.animator.stop();
-		this.$.animator.pause("grow");
-		this.$.animator.pause("shrink");
+		this.removeClass("growing");
+		this.removeClass("shrinking");
 	},
 	preTransitionComplete: function() {
 		this.shrinking = false;
@@ -352,14 +366,15 @@ enyo.kind({
 	postTransitionComplete: function() {
 		this.growing = false;
 		this.doPostTransitionComplete();
-		this.reflow();
 	},
 	animationComplete: function(inSender, inEvent) {
-		switch (inEvent.animation.name) {
-		case "shrink":
+		if (this.shrinking) {
+			this.removeClass("shrinking");
 			this.preTransitionComplete();
 			return true;
-		case "grow":
+		}
+		if (this.growing) {
+			this.removeClass("growing");
 			this.postTransitionComplete();
 			return true;
 		}
@@ -373,43 +388,5 @@ enyo.kind({
 			this.resized();
 			break;
 		}
-	},
-	createGrowAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "grow",
-			duration: 400,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [
-					{control: this.$.viewport, properties: {"height"  : "0px"}},
-					{control: this.$.breadcrumbViewport, properties: { "height": "current" }}
-				],
-				50: [
-					{control: this.$.breadcrumbViewport, properties: { "height": "0px" }}
-				],
-				100: [
-					{control: this.$.viewport, properties: {"height" : this.initialHeight + "px"}}
-				]
-			}
-		});
-	},
-	createShrinkAnimation: function() {
-		this.$.animator.newAnimation({
-			name: "shrink",
-			duration: 500,
-			timingFunction: "cubic-bezier(.25,.1,.25,1)",
-			keyframes: {
-				0: [
-					{control: this.$.viewport, properties: { "height"  : "current" }}
-				],
-				50: [
-					{control: this.$.breadcrumbViewport, properties: { "height": "current" }}
-				],
-				100: [
-					{control: this.$.viewport, properties: { "height"  : "0px" }},
-					{control: this.$.breadcrumbViewport, properties: { "height": "370px" }}
-				]
-			}
-		});
 	}
 });

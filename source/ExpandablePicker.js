@@ -16,15 +16,17 @@
 	The currently selected item is available in the picker's _selected_ property
 	and may be accessed in the normal manner, by calling _get("selected")_ and
 	_set("selected", &lt;value&gt;)_. Similarly, the index of the current selection is
-	available in _selectedIndex_.
+	available in _selectedIndex_. When the multipleSelection property is set to true, 
+	selected returns an array of selected items, and selectedIndex returns an array of
+	selected indexes.
 
 	The _onChange_ event is fired when the selected item changes, and contains the
 	following properties:
 
 		{
-			selected: [object Object],	// Reference to selected item
-			content: "San Francisco",	// Content of selected item
-			index: 1					// Index of selected item
+			selected: [object Object],	// Reference to selected item, or array of items
+			content: "San Francisco",	// Content of selected item, or items
+			index: 1							// Index of selected item, or array of indexes
 		}
 
 	The picker options may be modified programmatically in the standard manner, by
@@ -38,7 +40,8 @@
 		this.$.expandablePicker.getSelected().destroy();
 
 	When the picker is minimized, the content of the currently selected item is
-	displayed as subtext below the picker label.
+	displayed as subtext below the picker label. In the multipleSelection case,
+	the content of all selected items is displayed as a comma separated list
 */
 enyo.kind({
 	name: "moon.ExpandablePicker",
@@ -50,25 +53,32 @@ enyo.kind({
 		/**
 			Fires when the currently selected item changes.
 
-			_inEvent.selected_ contains a reference to the currently selected item.
+			_inEvent.selected_ contains a reference to the currently selected item, 
+			or (when multipleSelection is true), an array of selected items.
 
-			_inEvent.content_ contains the content of the currently selected item.
+			_inEvent.content_ contains the content of the currently selected item,
+			or (when multipleSelection is true), a comma separated list of selected items content.
 
-			_inEvent.index_ contains the index of the currently selected item.
+			_inEvent.index_ contains the index of the currently selected item,
+			or (when multipleSelection is true), an array of indexes.
 		*/
 		onChange: ""
 	},
 	published: {
-		//* Reference to currently selected item, if any
+		//* Reference to currently selected item, if any,
+		//* or (when multipleSelection is true), an array of selected items.
 		selected: null,
-		//* Index of currently selected item, if any
+		//* Index of currently selected item, if any,
+		//* or (when multipleSelection is true), an array of selected indexes.
 		selectedIndex: -1,
 		//* Text to be displayed in the _currentValue_ control if no item is currently selected
 		noneText: "",
 		//* Text to be displayed when the drawer is opened
 		helpText: null,
 		//* If true, auto collapse when an item is selected
-		autoCollapseOnSelect: true
+		autoCollapseOnSelect: true,
+		//* If true, allow multiple selections.
+		multipleSelection: false
 	},
 	//* @protected
 	autoCollapse: true,
@@ -96,6 +106,11 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		if (this.multipleSelection) {
+			this.selected = (this.selected) ? this.selected : [];
+			this.selectedIndex = (this.selectedIndex != -1) ? this.selectedIndex : [];
+			this.$.client.setHighlander(false);
+		}
 		this.initializeActiveItem();
 		this.selectedIndexChanged();
 		this.noneTextChanged();
@@ -106,45 +121,117 @@ enyo.kind({
 		this.inherited(arguments);
 		this.isRendered = true;
 	},
-	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.
+	multiSelectCurrentValue: function() {
+		if (!this.multipleSelection) {
+			return;
+		}
+		var controls = this.getClientControls();
+		var str = "";
+		this.selectedIndex.sort();
+		for (var i=0; i < this.selectedIndex.length; i++) {
+			if (!str) {
+				str = controls[this.selectedIndex[i]].getContent();
+			} else {
+				str = str + ", " + controls[this.selectedIndex[i]].getContent();
+			}
+		}
+		if (!str) {
+			str = this.getNoneText();
+		}
+		return str;
+	},
+	//* When the _selected_ control changes, updates _checked_ values appropriately and fires an _onChange_ event.	
 	selectedChanged: function(inOldValue) {
 		var selected = this.getSelected(),
-			controls = this.getClientControls(),
-			index = -1;
+		controls = this.getClientControls(),
+		index = -1,
+		i; //declaring i here to fix travis error
 
-		for (var i=0;i<controls.length;i++) {
-			controls[i].silence();
-			if(controls[i] === selected) {
-				controls[i].setChecked(true);
-				index = i;
-			} else {
-				controls[i].setChecked(false);
+		if (this.multipleSelection) {
+			index = this.selectedIndex = [];
+			for (i=0;i<controls.length;i++) {
+				controls[i].silence();
+				var selIndex = index.indexOf(i);
+				if (selected.indexOf(controls[i]) >= 0) {
+					controls[i].setChecked(true);
+					if (selIndex == -1) {
+						index.push(i);
+					}
+				} else {
+					controls[i].setChecked(false);
+					if (selIndex >= 0) {
+						index.splice(selIndex,1);
+					}
+				}
+				controls[i].unsilence();
 			}
-			controls[i].unsilence();
-		}
-
-		if (index > -1 && selected !== inOldValue) {
-			this.setSelectedIndex(index);
-			this.$.currentValue.setContent(selected.getContent());
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
 			if(this.hasNode()) {
 				this.fireChangeEvent();
+			}
+		} else {
+			for (i=0;i<controls.length;i++) {
+				controls[i].silence();
+				if(controls[i] === selected) {
+					controls[i].setChecked(true);
+					index = i;
+				} else {
+					controls[i].setChecked(false);
+				}
+				controls[i].unsilence();
+			}
+			if (index > -1 && selected !== inOldValue) {
+				this.setSelectedIndex(index);
+				this.$.currentValue.setContent(selected.getContent());
+				if(this.hasNode()) {
+					this.fireChangeEvent();
+				}
 			}
 		}
 	},
 	//* When the _selectedIndex_ changes, calls _this.setChecked()_ on the appropriate control.
 	selectedIndexChanged: function() {
 		var selected = this.getSelected(),
-			controls = this.getClientControls(),
-			index = this.getSelectedIndex();
+		controls = this.getClientControls(),
+		index = this.getSelectedIndex();
 
-		if (controls[index] && controls[index] !== selected) {
-			this.setSelected(controls[index]);
+		if (this.multipleSelection) {
+			for (var i=0;i<controls.length;i++) {
+				controls[i].silence();
+				var selIndex = selected.indexOf(controls[i]);
+				if (index.indexOf(i) >= 0) {
+					controls[i].setChecked(true);
+					if (selIndex == -1) {
+						selected.push(controls[i]);
+					}
+				} else {
+					controls[i].setChecked(false);
+					if (selIndex >= 0) {
+						selected.splice(selIndex, 1);
+					}
+				}
+				controls[i].unsilence();
+			}
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
+			if(this.hasNode()) {
+				this.fireChangeEvent();
+			}
+		} else {
+			if (controls[index] && controls[index] !== selected) {
+				this.setSelected(controls[index]);
+			}
 		}
 	},
 	//* If there is no selected item, uses _this.noneText_ as current value.
 	noneTextChanged: function() {
-		if (!this.getSelected() && this.getSelectedIndex() === -1) {
-			this.$.currentValue.setContent(this.getNoneText());
+		if (this.multipleSelection) {
+			if (!this.getSelected().length && !this.getSelectedIndex().length) {
+				this.$.currentValue.setContent(this.getNoneText());
+			}
+		} else {
+			if (!this.getSelected() && this.getSelectedIndex() == -1) {
+				this.$.currentValue.setContent(this.getNoneText());
+			}
 		}
 	},
 	//* When _this.open_ changes, shows/hides _this.$.currentValue_.
@@ -174,10 +261,21 @@ enyo.kind({
 			// Skip extra work during panel destruction.
 			if (!this.destroying) {
 				// set currentValue, selected and selectedIndex to defaults value
-				if (this.selected === inControl) {
-					this.setSelected(null);
-					this.setSelectedIndex(-1);
-					this.$.currentValue.setContent(this.getNoneText());
+				if (this.multipleSelection) {
+					for (var i=0;i<this.selected;i++) {
+						if (this.selected[i] === inControl) {
+							this.selected.splice(i, 1);
+							break;
+						}
+					}
+					// have to call selectedChanged in all cases for multipleSelection because indexes will change
+					this.selectedChanged();
+				} else {
+					if (this.selected === inControl) {
+						this.setSelected(null);
+						this.setSelectedIndex(-1);
+						this.$.currentValue.setContent(this.getNoneText());
+					}
 				}
 			}
 			sup.apply(this, arguments);
@@ -195,16 +293,26 @@ enyo.kind({
 	*/
 	initializeActiveItem: function() {
 		var controls = this.getClientControls();
+
 		for (var i=0; i<controls.length; i++) {
 			if (!controls[i].active) {
 				continue;
 			}
 
-			this.selectedIndex = i;
-			this.selected = controls[i];
-			this.$.currentValue.setContent(controls[i].getContent());
-			controls[i].setChecked(true);
-			return;
+			if (this.multipleSelection) {
+				this.selectedIndex.push(i);
+				this.selected.push(controls[i]);
+				controls[i].setChecked(true);
+			} else {
+				this.selectedIndex = i;
+				this.selected = controls[i];
+				this.$.currentValue.setContent(controls[i].getContent());
+				controls[i].setChecked(true);
+				return;
+			}
+		}
+		if (this.multipleSelection) {
+			this.$.currentValue.setContent(this.multiSelectCurrentValue());
 		}
 	},
 	//* When an item is chosen, marks it as checked and closes the picker.
@@ -217,13 +325,27 @@ enyo.kind({
 
 		index = this.getClientControls().indexOf(toggledControl);
 
-		if (inEvent.checked && index >= 0) {
-			this.setSelected(inEvent.toggledControl);
-
-			if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
-				this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
+		if (this.multipleSelection) {
+			if (index >= 0) {
+				if (inEvent.checked && (this.selected.indexOf(toggledControl) == -1)) {
+					this.selected.push(toggledControl);
+					this.selectedChanged();
+				}
+				if (!inEvent.checked && (this.selected.indexOf(toggledControl) >= 0)) {
+					this.selected.splice(this.selected.indexOf(toggledControl), 1);
+					this.selectedChanged();
+				}
+			}
+		} else {
+			if (inEvent.checked && index >= 0) {
+				this.setSelected(toggledControl);
 			}
 		}
+
+		if (this.getAutoCollapseOnSelect() && this.isRendered && this.getOpen()) {
+			this.startJob("selectAndClose", "selectAndClose", this.selectAndCloseDelayMS);
+		}
+
 		return true;
 	},
 	//* Closes drawer and selects header.
@@ -235,10 +357,26 @@ enyo.kind({
 	},
 	//* Fires an _onChange_ event.
 	fireChangeEvent: function() {
+		var contentStr = (this.multipleSelection) ? this.multiSelectCurrentValue() : this.getSelected().getContent();
 		this.doChange({
 			selected: this.getSelected(),
-			content: this.getSelected().getContent(),
+			content: contentStr,
 			index: this.getSelectedIndex()
 		});
+	},
+	multipleSelectionChanged : function(inOldValue) {
+		if (this.multipleSelection) {
+			if (this.selected) {
+				this.selected = [this.selected];
+			} else {
+				this.selected = [];
+			}
+			this.selectedIndex = [];
+		} else {
+			this.selected = (this.selected.length) ? this.selected[0] : null;
+			this.selectedIndex = -1;
+		}
+		this.$.client.setHighlander(!this.multipleSelection);
+		this.selectedChanged();
 	}
 });

@@ -1,4 +1,7 @@
 /**
+	FIXME! THIS KIND IS BROKEN.  We removed moon.List as part of code cleanup in
+	2.4, and this code hasn't yet been updated to use moon.DataList.
+
 	_moon.AudioPlayback_ is meant to be used with <a href="#moon.Drawers">moon.Drawers</a>.
 	This extends <a href="#moon.Drawer">moon.Drawer</a> by adding  an audio playback control
 	and playlist for the imported audio.
@@ -78,9 +81,6 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.$.controlDrawer.createComponents(this.audioComponents, {owner:this});
-	},
-	rendered: function() {
-		this.inherited(arguments);
 	},
 	toggleTrackDrawer: function() {
 		this.$.client.setOpen(!this.$.client.getOpen());
@@ -229,7 +229,7 @@ enyo.kind({
 		{
 			kind: "moon.List",
 			name: "list",
-			classes: "list-sample-contacts-list enyo-unselectable",
+			classes: "enyo-unselectable",
 			fit: true,
 			multiSelect: false,
 			onSetupItem: "setupItem",
@@ -242,9 +242,6 @@ enyo.kind({
     create: function() {
 		this.inherited(arguments);
 		this.parent.applyStyle("height", "100%");
-    },
-    rendered: function() {
-		this.inherited(arguments);
     },
     addAudio: function(inSender, inEvent) {
 		var i = this.$.list.getCount() + 1;

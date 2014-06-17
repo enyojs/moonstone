@@ -1,3 +1,7 @@
+// FIXME. RE-IMPLEMENT FILTERING.
+// Removed the old Enyo 2.3.0 implementation of collection filters from this sample that was removed
+// before 2.4.0 went final. We'll restore filtering to this sample once we have the new filter
+// implementation as part of post-2.4.0 work.
 enyo.kind({
 	name: "moon.sample.HighlightTextSample",
 	classes: "moon enyo-unselectable enyo-fit",
@@ -36,36 +40,15 @@ enyo.kind({
 						{kind: "moon.HighlightText", name:"text"}
 					]}
 				]}
-			], title:"SEARCH", titleBelow: "Filtered items in DataList", subTitleBelow: "Case sensitive"}
+			], title:"SEARCH", titleBelow: "Highlighted text in DataList", subTitleBelow: "Case sensitive"}
 		]}
 	],
 	bindings: [
-		{from: ".controller", to: ".$.list.controller"},
+		{from: ".controller", to: ".$.list.collection"},
 		{from: ".$.inputPanel.$.header.value", to: ".controller.text"}
 	],
 	create: function() {
-		this.controller = new enyo.Collection(this.data, {
-			// we set our available filters block
-			filters: {search: "searchFilter"},
-			// we want to make use of the ability to set a bindable property to
-			// automatically filter on change
-			filterProps: "text",
-			// we designate our filter as active so it is immediately useable
-			activeFilter: "search",
-			// we implement our actual filter function that needs to return an array of
-			// records to reset the internal data to
-			searchFilter: function () {
-				var text = this.text;
-				// if there is no text value we ultimately need the collection to reset to
-				// its original state so we need to return `true` (`true` tells it to reset)
-				// otherwise we return the subset of records we want to show, the `reset` call
-				// is necessary to ensure we are always filtering the entire dataset, otherwise
-				// it will filter against the subset currently set by the filter
-				return (text && this.reset().filter(function (record) {
-					return record.get("text").indexOf(text) >= 0;
-				})) || true;
-			}
-		});
+		this.controller = new enyo.Collection(this.data);
 		this.inherited(arguments);
 	},
 	search: function(inSender, inEvent) {

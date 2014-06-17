@@ -40,7 +40,7 @@ enyo.kind({
 	yearOffset: 0,
 	initILib: function() {
 		this.inherited(arguments);
-		var time = this.value.getTime();
+		var time = this.value ? this.value.getTime() : 0;
 		var gregYear = new ilib.Date.newInstance({type: "gregorian", unixtime: time, timezone:"UTC"}).getYears();
 		var localeYear = new ilib.Date.newInstance({type: this._tf.getCalendar(), unixtime: time, timezone:"UTC"}).getYears();
 		this.yearOffset = gregYear - localeYear;
@@ -58,6 +58,9 @@ enyo.kind({
 
 		for(f = 0, l = doneArr.length; f < l; f++) {
 			o = doneArr[f];
+			var valueFullYear = this.value ? this.value.getFullYear() : 0;
+			var valueMonth = this.value ? this.value.getMonth() : 0;
+			var valueDate = this.value ? this.value.getDate() : 0;
 
 			switch (o) {
 			case 'd':
@@ -65,7 +68,7 @@ enyo.kind({
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
 						{kind:"moon.IntegerPicker", name:"day", classes:"moon-date-picker-field", wrap:true, digits:digits, min:1,
-						max:this.monthLength(this.value.getFullYear(), this.value.getMonth()), value:this.value.getDate()},
+						max:this.monthLength(valueFullYear, valueMonth), value: valueDate},
 						{name: "dayLabel", content: this.dayText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
@@ -73,14 +76,14 @@ enyo.kind({
 				digits = (ordering.indexOf("MM") > -1) ? 2 : null;
 				this.createComponent(
 					{classes: "moon-date-picker-wrap", components:[
-						{kind:"moon.IntegerPicker", name:"month", classes:"moon-date-picker-field", wrap:true, min:1, max:12, value:this.value.getMonth()+1},
+						{kind:"moon.IntegerPicker", name:"month", classes:"moon-date-picker-field", wrap:true, min:1, max:12, value:valueMonth+1},
 						{name: "monthLabel", content: this.monthText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
 			case 'y':
 				this.createComponent(
 					{classes: "moon-date-picker-wrap year", components:[
-						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:this.value.getFullYear()-this.yearOffset, min:this.minYear-this.yearOffset, max:this.maxYear-this.yearOffset},
+						{kind:"moon.IntegerPicker", name:"year", classes:"moon-date-picker-field year", value:valueFullYear-this.yearOffset, min:this.minYear-this.yearOffset, max:this.maxYear-this.yearOffset},
 						{name: "yearLabel", content: this.yearText, classes: "moon-date-picker-label moon-divider-text"}
 					]});
 				break;
@@ -91,6 +94,9 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	formatValue: function() {
+		if (!this.value) {
+			return (this.noneText);
+		}
 		if (this._tf) {
 			switch (this._tf.getCalendar()) {
 			case "gregorian":
@@ -103,33 +109,38 @@ enyo.kind({
 		}
 	},
 	updateValue: function(inSender, inEvent) {
+		var valueHours = this.value ? this.value.getHours() : 0;
+		var valueMinutes = this.value ? this.value.getMinutes() : 0;
+		var valueSeconds = this.value ? this.value.getSeconds() : 0;
+		var valueMilliseconds = this.value ? this.value.getMilliseconds() : 0;
+
 		var day = this.$.day.getValue(),
 			month = this.$.month.getValue()-1,
 			year = this.$.year.getValue() + this.yearOffset;
 
 		var maxDays = this.monthLength(year, month);
 		this.setValue(new Date(year, month, (day <= maxDays) ? day : maxDays, 
-			this.value.getHours(),
-			this.value.getMinutes(),
-			this.value.getSeconds(),
-			this.value.getMilliseconds()));
+		valueHours,
+		valueMinutes,
+		valueSeconds,
+		valueMilliseconds));
 	},
 	setChildPickers: function(inOld) {
-		var updateDays = inOld &&
+		if (this.value) {
+			var updateDays = inOld &&
 			(inOld.getFullYear() != this.value.getFullYear() ||
 			inOld.getMonth() != this.value.getMonth());
-		this.$.year.setValue(this.value.getFullYear() - this.yearOffset);
-		this.$.month.setValue(this.value.getMonth()+1);
-
-		if (updateDays) {
-			this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
-			this.$.day.updateScrollBounds();
+			this.$.year.setValue(this.value.getFullYear() - this.yearOffset);
+			this.$.month.setValue(this.value.getMonth() + 1);
+			if (updateDays) {
+				this.$.day.setMax(this.monthLength(this.value.getFullYear(), this.value.getMonth()));
+				this.$.day.updateScrollBounds();
+			}
+			this.$.day.setValue(this.value.getDate());
+			if (updateDays) {
+				this.$.day.updateOverlays();
+			}
 		}
-		this.$.day.setValue(this.value.getDate());
-		if (updateDays) {
-			this.$.day.updateOverlays();
-		}
-
 		this.$.currentValue.setContent(this.formatValue());
 	},
 	getMonthName: function() {

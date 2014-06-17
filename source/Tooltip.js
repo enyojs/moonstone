@@ -36,7 +36,7 @@ enyo.kind({
 		*/
 		position: "auto",
 		//* Default _margin-left_ value
-		defaultLeft: 10,
+		defaultLeft: 0,
 		//* When true, the content will be converted to locale-safe uppercasing
 		contentUpperCase: true
 	},
@@ -58,11 +58,16 @@ enyo.kind({
 		this.contentChanged();
 	},
 	contentChanged: function() {
+		this.detectTextDirectionality();
 		var content = this.getContent();
-		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content );
+		this.$.client.setContent( this.getContentUpperCase() ? enyo.toUpperCase(content) : content);
 	},
 	contentUpperCaseChanged: function() {
 		this.contentChanged();
+	},
+	positionChanged:function() {
+		this.inherited(arguments);
+		this.adjustPosition(true);
 	},
 	requestShow: function() {
 		this.startJob("showJob", "show", this.showDelay);
@@ -89,64 +94,64 @@ enyo.kind({
 	},
 	adjustPosition: function(belowActivator) {
 		if (this.showing && this.hasNode()) {
-
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = 20,
-				pBounds = null;
+				pBounds = this.parent.getAbsoluteBounds(),
+				acBounds =null;
 
-			//when the tooltip bottom goes below the window height move it above the decorator
-			if ((b.top + b.height > window.innerHeight - moonDefaultPadding) || (this.position == "above")) {
+			this.activator = enyo.Spotlight.getCurrent();
+			acBounds = this.activator.getAbsoluteBounds();
+
+			//* Calculate the difference between decorator and activating
+			//* control's top, left, right differences, position tooltip against
+			//* the activating control instead of the decorator accordingly.
+			var paTopDiff = pBounds.top - acBounds.top,
+				paLeftDiff =  acBounds.left - pBounds.left,
+				paRightDiff = pBounds.left + pBounds.width - acBounds.left - acBounds.width,
+				acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width;
+
+			//* When there is not enough room in the bottom, move it above the
+			//* decorator; when the tooltip bottom is within window height but
+			//* set programmatically above, move it above
+			if ((window.innerHeight - moonDefaultPadding) - (pBounds.top + pBounds.height) < b.height + 5 || (this.position == "above")) {
 				this.removeClass("below");
 				this.addClass("above");
 				if (this.get("floating")) {
-					pBounds = this.parent.getAbsoluteBounds();
-					this.applyStyle("top", (pBounds.top - b.height) + "px" );
-					this.applyStyle("left", (pBounds.left + (pBounds.width / 2)) + "px" );
-				}
-				else {
-					this.applyStyle("top", -b.height + "px");
+					this.applyPosition({"top": (acBounds.top - b.height - 5) + "px", "left": acBounds.left + acBounds.width / 2 + "px", "right": "auto"});
+				} else {
+					this.applyPosition({"top": -(b.height + 5 + paTopDiff) + "px", "left": acBounds.width / 2 + paLeftDiff + "px", "right": "auto"});
 				}
 			}
-			if ((b.top  < 0) || (this.position == "below")) {
+
+			//* When there is not enough space above the parent container, move
+			//* it below the decorator; when there is enough space above the
+			//* parent container but is set programmatically, leave it below
+			if (pBounds.top < (b.height + 5) || (this.position == "below") || this.hasClass("below")) {
 				this.removeClass("above");
 				this.addClass("below");
 				if (this.get("floating")) {
-					pBounds = this.parent.getAbsoluteBounds();
-					this.applyStyle("top", (pBounds.top + pBounds.height) + "px" );
-					this.applyStyle("left", (pBounds.left + (pBounds.width / 2)) + "px" );
-				}
-				else {
-					this.applyStyle("top", "100%");
+					this.applyPosition({"top": acBounds.top + acBounds.height + 5 + "px", "left": acBounds.left + acBounds.width / 2 + "px", "right": "auto"});
+				} else {
+					this.applyPosition({"top": pBounds.height + 5 + paTopDiff + "px", "left": acBounds.width / 2 + paLeftDiff + "px", "right": "auto"});
 				}
 			}
 
-			// FIXME: Leaving the following commented until verification from UX
-			//when the tooltip top goes above the window height move it below the decorator
-			/*
-			if (b.top < 0) {
-				this.addRemoveClass("below", true);
-				this.addRemoveClass("above", false);
-			} else {
-				this.addRemoveClass("above", true);
-				this.addRemoveClass("below", false);
-			}
-			*/
-
-			//when the tooltip's right edge is out of the window, align its right edge with the decorator left edge (approx)
-			if (b.left + b.width > window.innerWidth - moonDefaultPadding){
-				//use the right-arrow
-				this.applyPosition({"margin-left": -b.width + "px"});
+			//* When there is not enough room on the left, using right-arrow for the tooltip
+			if (window.innerWidth - moonDefaultPadding - pBounds.left - pBounds.width / 2 < b.width){
+				//* use the right-arrow
 				this.removeClass("left-arrow");
 				this.addClass("right-arrow");
+				this.applyPosition({"margin-left": - b.width + "px", "left": "auto"});
+				if (this.floating) {
+					this.applyStyle("right", acBounds.width / 2 + acRight + moonDefaultPadding + "px");
+				} else {
+					this.applyStyle("right", acBounds.width / 2 + paRightDiff + "px");
+				}
 			}
 		}
 	},
 	resizeHandler: function() {
-		//reset the tooltip to align its left edge with the decorator
 		this.applyPosition({"margin-left": this.defaultLeft, "bottom": "auto"});
-		this.addRemoveClass("left-arrow", true);
-		this.addRemoveClass("right-arrow", false);
-		this.applyStyle("top", "100%");
 		this.adjustPosition(true);
 		this.inherited(arguments);
 	}

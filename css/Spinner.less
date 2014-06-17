@@ -62,31 +62,27 @@
 }
 
 .moon-spinner {
-	height: @moon-spinner-size;
+	min-height: @moon-spinner-size;
 	min-width: @moon-spinner-size;
 	line-height: @moon-spinner-size;
 	position: relative;
 	display: inline-block;
 	color: @moon-spinner-text-color;
 	background-color: @moon-spinner-background-color;
-	border-radius: @moon-spinner-size;
+	border-radius: (@moon-button-height / 2);
 	margin: 0 @moon-spotlight-outset;
 
+	> * {
+		display: inline-block;
+	}
 	&.moon-spinner-transparent-background {
 		background-color: transparent;
 	}
 	&.content {
-		position: static;
-
-		height: @moon-button-height;
-		min-width: @moon-button-height;
-		line-height: @moon-button-height;
-		.moon-spinner-ball-decorator {
-			width: @moon-button-height;
-			height: @moon-button-height;
-		}
-		.moon-spinner-text {
-			line-height: @moon-button-height;
+		padding: ((@moon-button-height - @moon-spinner-size) / 2);
+		
+		.moon-spinner-client {
+			max-width: 400px;
 		}
 	}
 	&.running .moon-spinner-ball {
@@ -112,7 +108,8 @@
 		-webkit-transform-origin: center ((@moon-spinner-ball-disatance / @moon-spinner-ball-height) * -100);
 
 		&:after {
-			content: "\2022";
+			content: @moon-icon-circle;
+			font-family: @moon-icon-font-family;
 		}
 	}
 	.moon-spinner-ball1 {
@@ -130,22 +127,23 @@
 		color: @moon-spinner-ball3-color;
 		-webkit-transform: rotateZ(360 - (@moon-spinner-ball-angle * 3));
 	}
-	.moon-spinner-text {
+	.moon-spinner-client {
 		float: left;
 		line-height: @moon-spinner-size;
-		margin: 0 2ex 0 0.5ex;
+		margin: 0 2.6ex 0 0;
 	}
 }
 .enyo-locale-right-to-left .moon-spinner {
-	.moon-spinner-ball-decorator {
-		-webkit-transform: scaleX(-1);
-	}
+	// This allows for the spinner to spin in a counter-clockwise direction in RTL mode
+	// .moon-spinner-ball-decorator {
+	// 	-webkit-transform: scaleX(-1);
+	// }
 	.moon-spinner-ball-decorator {
 		float: right;
 	}
-	.moon-spinner-text {
+	.moon-spinner-client {
 		float: right;
-		margin-left: 2ex;
-		margin-right: 0.5ex;
+		margin-left: 2.6ex;
+		margin-right: 0;
 	}
 }

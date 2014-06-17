@@ -16,6 +16,7 @@
 	* `marqueeSpeed`: The speed of the marquee animation, in pixels/second.
 	* `marqueeDelay`: The delay between spotlight focus/hover and the animation starting
 		(only used when `marqueeOnSpotlight` or `marqueeOnHover` is true).
+	* `marqueeOnRenderDelay`: Used when you want the marquee to run on render, after a custom delay
 	* `marqueePause`: The duration between the last of all subordinate marquee animations
 		ending and all animations restarting.
 */
@@ -49,6 +50,7 @@ moon.MarqueeSupport = {
 			this.marqueePause =    (this.marqueePause ===     undefined) ? 1000 :  this.marqueePause;
 			this.marqueeHold  =    (this.marqueeHold  ===     undefined) ? 2000 :  this.marqueeHold;
 			this.marqueeOnRender = (this.marqueeOnRender  === undefined) ? false : this.marqueeOnRender;
+			this.marqueeOnRenderDelay = (this.marqueeOnRenderDelay === undefined) ? this.marqueeDelay : this.marqueeOnRenderDelay;
 		};
 	}),
 	//* If _this.marqueeOnRender_ is true, kick off marquee animation
@@ -56,7 +58,7 @@ moon.MarqueeSupport = {
 		return function() {
 			sup.apply(this, arguments);
 			if (this.marqueeOnRender) {
-				this.startMarquee();
+				this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
 			}
 		};
 	}),
@@ -142,14 +144,7 @@ moon.MarqueeSupport = {
 		marquee animation on all child marquees.
 	*/
 	startMarquee: function() {
-		this._marquee_buildWaitList();
-
-		if (this.marqueeWaitList.length === 0) {
-			return;
-		}
-
-		this._marquee_active = true;
-		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", this.marqueeDelay);
+		this.startMarqueeCustomDelay(this.marqueeDelay);
 	},
 	/**
 		Waterfalls an _onRequestMarqueeStop_ event to halt all running child
@@ -181,13 +176,25 @@ moon.MarqueeSupport = {
 			this.startJob("resetMarquee", "_resetMarquee", 10);
 		}
 	},
+	//* starts Marquee with a custom delay. Used to provide a different delay for onRender and onSpotlight/Hover
+	startMarqueeCustomDelay: function(inDelay) {
+		this._marquee_buildWaitList();
+
+		if (this.marqueeWaitList.length === 0) {
+			return;
+		}
+
+		this._marquee_active = true;
+		this.startJob("marqueeSupportJob", "_marquee_startChildMarquees", inDelay);
+	},
 
 	//* @protected
 
 	//* Stops and restarts the marquee animations
 	_resetMarquee: function() {
 		this.stopMarquee();
-		this.startMarquee();
+		if (this.marqueeOnRender) { this.startMarqueeCustomDelay(this.marqueeOnRenderDelay); }
+		else { this.startMarquee(); }
 	},
 	//* Waterfalls request for child animations to build up _this.marqueeWaitList_.
 	_marquee_buildWaitList: function() {

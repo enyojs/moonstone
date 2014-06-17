@@ -8,6 +8,12 @@ moon.DataListSpotlightSupport = {
 	published: {
 		initialFocusIndex: -1
 	},
+	handlers: {
+		onSpotlightUp    : "selectPrev",
+		onSpotlightLeft  : "selectPrev",
+		onSpotlightDown  : "selectNext",
+		onSpotlightRight : "selectNext"
+	},
 	focusOnIndex: function(inIndex, inSubChild) {
 		var c = this.collection,
 			child,
@@ -68,6 +74,57 @@ moon.DataListSpotlightSupport = {
 			return sup.apply(this, arguments);
 		};
 	}),
+	selectNext: function(inSender, inEvent) {
+		return this.selectItem(inEvent, 1);
+	},
+	selectPrev: function(inSender, inEvent) {
+		return this.selectItem(inEvent, -1);
+	},
+	// Spot the next/previous control. Handles the case where this control may not be generated yet, otherwise the default
+	// behavior occurs that is handled by Spotlight.
+	selectItem: function(inEvent, inDirection) {
+		var pages = this.delegate.pagesByPosition(this),
+			spottableControl;
+
+		// If there are no spottable items generated in the current pages, generate the subsequent page(s)
+		// based on the current direction
+		if (!this.getNextSpottableChild(inDirection)) {
+			// Find the next spottable control in the appropriate direction
+			if (inDirection === 1) {
+				spottableControl = this.findSpottableControl(inDirection, pages.firstPage, pages.lastPage.index + 1);
+			} else if (inDirection === -1) {
+				spottableControl = this.findSpottableControl(inDirection, pages.lastPage, pages.firstPage.index - 1);
+			}
+
+			if (spottableControl) {
+				// Explicitly handle spotting of the control we found
+				enyo.Spotlight.spot(spottableControl);
+				return true;
+			}
+		}
+	},
+	// Find the next/previous spottable control, page to generate next page of controls in, and index of the next page to generate
+	findSpottableControl: function(inDirection, inPage, inPageIndex) {
+		if ((inPageIndex > this.delegate.pageCount(this) - 1) || inPageIndex < 0) {
+			return null;
+		}
+		this.delegate.generatePage(this, inPage, inPageIndex);
+		this.delegate.adjustPagePositions(this);
+		this.delegate.adjustBuffer(this);
+
+		var pages = this.delegate.pagesByPosition(this),
+			control = this.getNextSpottableChild(inDirection);
+
+		if (!control) {
+			if (inDirection === 1) {
+				return this.findSpottableControl(inDirection, inPage === pages.firstPage ? pages.lastPage : pages.firstPage, inPageIndex + 1);
+			} else if (inDirection === -1) {
+				return this.findSpottableControl(inDirection, inPage === pages.firstPage ? pages.lastPage : pages.firstPage, inPageIndex - 1);
+			}
+		}
+
+		return control;
+	},
 	previewDomEvent: function(inEvent) {
 		// When spotlight is being applied back to the list after being unspotted, check that the child being 
 		// focused is visible and if not, spot the first visible child that is
@@ -112,7 +169,7 @@ moon.DataListSpotlightSupport = {
 		for (var p in pages) {
 			var page = pages[p];
 			var pb = page.getBounds();
-			// Loop through children in each pange top-down
+			// Loop through children in each page top-down
 			for (var i=0; i<page.children.length; i++) {
 				var c = page.children[i];
 				var cb = c.getBounds();
@@ -127,6 +184,56 @@ moon.DataListSpotlightSupport = {
 					c = enyo.Spotlight.getFirstChild(c);
 					if (c) {
 						return c;
+					}
+				}
+			}
+		}
+		return null;
+	},
+	// Retrieve the next/previous spottable child from the generated controls starting from the given index
+	getNextSpottableChild: function(inDirection, inFocusedIndex) {
+		var i,
+			page,
+			pageIndex,
+			control,
+			controlIndex,
+			focusedIndex = this.getFocusedIndex(),
+			pages = (inDirection === 1 && this.$.page1.index < this.$.page2.index || inDirection === -1 && this.$.page1.index > this.$.page2.index)
+				? [this.$.page1, this.$.page2] : [this.$.page2, this.$.page1];
+
+		// Explore the controls in the current pages
+		for (pageIndex = 0; pageIndex < pages.length; pageIndex++) {
+			page = pages[pageIndex];
+			if (inDirection === 1) {
+				// Loop through children in each page top-down
+				for (i = 0; i < page.children.length; i++) {
+					control = page.children[i];
+					controlIndex = this.getIndexFromChild(control);
+					// If we have already passed our current item or no item is selected, we can return the next spottable control
+					if (controlIndex > focusedIndex || focusedIndex < 0) {
+						if (enyo.Spotlight.isSpottable(control, false)) {
+							return control;
+						}
+						control = enyo.Spotlight.getFirstChild(control);
+						if (control) {
+							return control;
+						}
+					}
+				}
+			} else if (inDirection === -1) {
+				// Loop through children in each page bottom-up
+				for (i = page.children.length - 1; i >= 0; i--) {
+					control = page.children[i];
+					controlIndex = this.getIndexFromChild(control);
+					// If we have already passed our current item or no item is selected, we can return the next spottable control
+					if (controlIndex < focusedIndex || focusedIndex < 0) {
+						if (enyo.Spotlight.isSpottable(control, false)) {
+							return control;
+						}
+						control = enyo.Spotlight.getFirstChild(control);
+						if (control) {
+							return control;
+						}
 					}
 				}
 			}
@@ -238,7 +345,7 @@ enyo.kind({
 			if (c) {
 				// force a synchronous scroll to the control so it won't dupe and
 				// re-animate over positions it has already crossed
-				list.$.scroller.scrollToControl(c, false, false);
+				list.$.scroller.scrollToControl(c, false, false, true);
 			} else {
 				var idx = list.$.page1.index;
 				

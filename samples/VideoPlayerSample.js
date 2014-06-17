@@ -42,7 +42,7 @@ enyo.kind({
 				]}
 			],
 			components: [
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
+				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
 				{kind: "moon.ToggleButton", name:"controlsToggleButton", content:"Controls"},
 				{kind: "moon.Button", content:"Unload", ontap:"unload"},
 				{kind: "moon.Button", content:"Reload", ontap:"load"},
@@ -62,9 +62,9 @@ enyo.kind({
 					]},
 					{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
 				]},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"},
-				{kind: "moon.IconButton", src: "$lib/moonstone/images/video-player/icon-placeholder.png"}
+				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
+				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"}
 			]
 		},
 		{kind:"moon.Dialog", name:"tapDialog", title:"The controls were tapped.", message:"Press OK to dismiss", components: [

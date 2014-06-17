@@ -11,6 +11,7 @@
 @moon-sup-header-text-color: #4b4b4b;
 @moon-header-text-color: #4b4b4b;
 @moon-header-border-color: #4b4b4b;
+@moon-header-bottom-border-color: #4b4b4b;
 @moon-body-text-color: #4b4b4b;
 @moon-spotlight-text-color: @moon-white;
 @moon-spotlight-background-color: @moon-accent;
@@ -32,8 +33,20 @@
 @moon-input-textarea-color: @moon-input-font-color;
 @moon-tooltip-bg-color: #4d4d4d;
 @moon-tooltip-text-color: #fff;
-@moon-toggle-text-color: @moon-sub-header-text-color;
 @moon-checkbox-toggle-text-color: @moon-spotlight-color;
+@moon-checkbox-toggle-switch-color: @moon-font-color-light;
+@moon-checkbox-toggle-switch-bg-color: @moon-button-background-color;
+@moon-checkbox-toggle-switch-checked-color: @moon-spotlight-color;
+@moon-checkbox-toggle-switch-checked-bg-color: @moon-spotlight-text-color;
+
+/*toggle colors */
+@moon-toggle-text-color: @moon-sub-header-text-color;
+@moon-toggle-button-switch-on-bg-color:@moon-accent;
+@moon-toggle-button-switch-on-border-color:@moon-white;
+@moon-toggle-button-switch-off-bg-color:#b3b3b3;
+@moon-toggle-button-switch-off-border-color:@moon-white;
+@moon-toggle-button-switch-disabled-bg-color:#b3b3b3;
+@moon-toggle-button-switch-disabled-border-color:@moon-white;
 
 @moon-slider-nofocus-bg-color: @moon-white;
 @moon-slider-focus-bg-color: @moon-spotlight-color;
@@ -75,14 +88,15 @@
 @moon-input-header-placeholder-color: lighten(@moon-header-text-color, 40%);
 @moon-input-decorator-bg-color: white;
 
-@moon-icon-font-color: @moon-simple-picker-item-text-color;
+@moon-icon-font-color: @moon-dark-gray;
+@moon-icon-button-font-color: #999;
+@moon-icon-button-font-disabled-color: #d9d9d9;
 @moon-icon-button-bg-color: #fff;
 @moon-icon-button-active-border-color: @moon-spotlight-color;
 @moon-icon-button-active-bg-color: #ffffff;
 @moon-icon-button-active-text-color: @moon-light-text-color;
 @moon-icon-button-spotlight-bg-color: @moon-spotlight-color;
 @moon-highlight-text-color: @moon-spotlight-color;
-
 
 @moon-gridlist-sub-caption-color: #4b4b4b;
 @moon-gridlist-caption-color: #4B4B4B;
@@ -127,10 +141,11 @@
 @moon-audio-slider-knob-bg-color: gray;
 @moon-audio-icon-button-bg-color: gray;
 @moon-audio-playback-bg-color: #333;
-@moon-videoplayer-redicon-bg-color: red;
-@moon-videoplayer-redicon-text-color: #ffffff;
+@moon-videoplayer-redicon-bg-color: #fe4a4b;
+@moon-videoplayer-redicon-text-color: @moon-white;
 @moon-videoplayer-info-icon-text-color: #000000;
-@moon-videoplayer-info-icon-bg-color:  #ffffff;
+@moon-videoplayer-info-icon-bg-color: @moon-white;
+@moon-videoplayer-background-wrapper-color: #000000;
 @moon-videoplayer-header-bg-color: rgba(0,0,0,0.5);
 @moon-videoplayer-header-text-color: #ffffff;
 @moon-videoplayer-progress-bar-bg-color: rgba(0,212,179,1);
@@ -147,11 +162,15 @@
 @moon-videoplayer-progressbar-bg-color: #7d7d7d;
 @moon-videoplayer-spotlight-bg-color: #69cdff;
 @moon-videoplayer-slider-bg-color: #4b4b4b;
-@moon-player-channel-info-name-text-color:@moon-white;
-@moon-video-player-info-icon-text-color:#000000;
-@moon-video-player-info-icon-bg-color:@moon-white;
-@moon-video-player-info-redicon-text-color:@moon-white;
-@moon-video-player-info-redicon-bg-color:#fe4a4b;
+@moon-player-channel-info-name-text-color: @moon-white;
+@moon-icon-video-round-controls-bg-color: @moon-white;
+@moon-icon-video-controls-font-color: @moon-white;
+@moon-icon-video-round-controls-font-color: #000;
+@moon-icon-video-round-controls-font-spotlight-color: @moon-white;
+@moon-icon-video-inline-controls-bg-color: @moon-white;
+@moon-icon-video-inline-controls-font-color: @moon-white;
+@moon-icon-video-inline-controls-font-spotlight-color: #393939;
+
 @moon-clock-color: #4B4B4B;
 
 @moon-selection-overlay-bg-color: @moon-white;

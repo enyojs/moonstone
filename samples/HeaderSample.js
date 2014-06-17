@@ -9,9 +9,14 @@ enyo.kind({
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareBig"}
 			]},
 			{classes: "moon-1v"},
-			{kind: "moon.Header", name:"smallHeader", content: "Small Header", small: true, titleAbove: "03", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
+			{kind: "moon.Header", name:"smallHeader", content: "Small Header", type: "small", titleAbove: "03", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeSmall"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareSmall"}
+			]},
+			{classes: "moon-1v"},
+			{kind: "moon.Header", name:"miniHeader", content: "Mini Header", type: "mini", titleAbove: "04", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
+				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeMini"},
+				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareMini"}
 			]},
 			{classes: "moon-1v"},
 			{kind: "moon.Header", content: "Varied Alignment", titleAbove: "02", titleBelow: "Panel actions can be positioned on left or right", components: [
@@ -52,6 +57,12 @@ enyo.kind({
 	},
 	shareSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setSubTitleBelow("Please share Enyo.");
+	},
+	likeMini: function(inSender, inEvent) {
+		this.$.miniHeader.setSubTitleBelow("Thanks for liking Enyo.");
+	},
+	shareMini: function(inSender, inEvent) {
+		this.$.miniHeader.setSubTitleBelow("Please share Enyo.");
 	},
 	switchMode: function(inSender, inEvent) {
 		var header = this.$[inSender.header];

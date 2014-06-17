@@ -7,12 +7,12 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-		{kind:"moon.Panel", title: "List Actions Sample", headerComponents: [
+		{kind:"moon.Panel", headerType: "small", title: "List Actions Sample", headerComponents: [
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
 			
 				//* List actions with default width
-				{kind: "moon.ListActions", name:"listActions", iconSrc:"./assets/icon-list.png", listActions: [
+				{kind: "moon.ListActions", name:"listActions", icon:"drawer", listActions: [
 					{action:"category3", components: [
 						{kind: "moon.Divider", content: "Category 3 (DataList)"},
 						{kind: "moon.DataList", name:"list", fit:true, components: [

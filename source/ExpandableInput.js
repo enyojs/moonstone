@@ -27,7 +27,7 @@ enyo.kind({
 	},
 	//* @protected
 	autoCollapse: true,
-	lockBottom: true,
+	lockBottom: false,
 
 	components: [
 		{name: "headerWrapper", kind: "moon.Item", classes: "moon-expandable-picker-header-wrapper", onSpotlightFocus: "headerFocus", ondown: "headerDown", ontap: "expandContract", components: [
@@ -38,7 +38,7 @@ enyo.kind({
 			{name: "currentValue", kind: "moon.MarqueeText", classes: "moon-expandable-picker-current-value"}
 		]},
 		{name: "drawer", kind: "enyo.Drawer", resizeContainer:false, classes:"moon-expandable-list-item-client indented", components: [
-			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightFocus: "inputFocus", onSpotlightDown: "inputDown", components: [
+			{name: "inputDecorator", kind: "moon.InputDecorator", onSpotlightBlur: "inputBlur", onSpotlightFocus: "inputFocus", onSpotlightDown: "inputDown", components: [
 				{name: "clientInput", kind: "moon.Input", onchange: "doChange", onkeydown: "inputKeyDown"}
 			]}
 		]}
@@ -66,7 +66,11 @@ enyo.kind({
 		if (this.disabled) {
 			return true;
 		}
-		this.toggleActive();
+		if (this.getOpen()) {
+			this.closeDrawerAndHighlightHeader();
+		} else {
+			this.toggleActive();
+		}
 	},
 	toggleActive: function() {
 		if (this.getOpen()) {
@@ -85,18 +89,15 @@ enyo.kind({
 			this.focusInput();
 		}
 	},
+	//* value should submit if user clicks outside control. We check for "down" to make sure not to contract on mousemove
+	inputBlur: function(inSender, inEvent) {
+		if (this.$.clientInput.hasFocus() && enyo.Spotlight.getPointerMode() && enyo.Spotlight.getLastEvent().type === "down") {
+			this.toggleActive();
+		}
+	},
 	inputKeyDown: function(inSender, inEvent) {
 		if (inEvent.keyCode === 13) {
-			/* We manually set pointer mode to false as it was seemingly the
-			least harmful method to re-highlight the header after the drawer
-			closes. The other options had side effects of resetting the 
-			current spotted control to the root, or requiring a double-press to 
-			subsequently 5-way move.
-			*/
-			enyo.Spotlight.setPointerMode(false);
-			enyo.Spotlight.unfreeze();
-			enyo.Spotlight.spot(this.$.headerWrapper);
-			this.expandContract();
+			this.closeDrawerAndHighlightHeader();
 		}
 	},
 	headerDown: function() {
@@ -122,14 +123,35 @@ enyo.kind({
 	},
 	/**
 		If _this.lockBottom_ is _true_, don't allow user to navigate down from the
-		input field.
+		input field. If _this.lockBottom_ is _false_, close drawer and return true 
+		to keep spotlight on header.
 	*/
 	inputDown: function(inSender, inEvent) {
-		return this.getLockBottom();
+		if (this.getLockBottom()) {
+			this.focusInput();
+		} else {
+			this.closeDrawerAndHighlightHeader();
+		}
+		return true; 
 	},
 	drawerAnimationEnd: function() {
 		enyo.Spotlight.unfreeze();
-		this.focusInput();
+		if (this.getOpen()) {
+			this.focusInput();
+		}
 		this.inherited(arguments);
+	},
+	/** 
+		We manually set pointer mode to false as it was seemingly the
+		least harmful method to re-highlight the header after the drawer
+		closes. The other options had side effects of resetting the 
+		current spotted control to the root, or requiring a double-press to 
+		subsequently 5-way move.
+	*/
+	closeDrawerAndHighlightHeader: function() {
+		enyo.Spotlight.setPointerMode(false);
+		enyo.Spotlight.unfreeze();
+		enyo.Spotlight.spot(this.$.headerWrapper);
+		this.toggleActive();
 	}
 });

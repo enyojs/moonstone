@@ -1,12 +1,37 @@
 /* ToggleSwitch.css */
-
 .moon-checkbox.moon-toggle-switch {
-	height: @moon-toggleswitch-image-height;
+	border-radius: (@moon-toggleswitch-image-height / 2);
 	width: @moon-toggleswitch-image-width;
-	background: @moon-toggleswitch-off no-repeat 0 0;
-}
-
-.moon-checkbox-item.moon-toggle-item.spotlight .moon-toggle-switch[checked],
-.moon-checkbox.moon-toggle-switch[checked] {
-	background: @moon-toggleswitch-on no-repeat 0 0;
+	height: @moon-toggleswitch-image-height;
+	line-height: @moon-toggleswitch-image-height;
+	background-color: @moon-checkbox-toggle-switch-bg-color;
+	font-family: @moon-icon-font-family;
+	font-size: @moon-toggleswitch-image-width;
+	overflow: hidden;
+	text-align: left;
+	
+	&:after {
+		color: @moon-checkbox-toggle-switch-color;
+		content: @moon-icon-circle;
+		margin-left: 5px;
+	}
+	&[checked] {
+		background-color: @moon-checkbox-toggle-switch-checked-bg-color;
+		&:after {
+			color: @moon-checkbox-toggle-switch-checked-color;
+			margin-left: (@moon-toggleswitch-image-width - @moon-toggleswitch-image-height + 5px);
+		}
+	}
+	&[disabled] {
+		background-color: @moon-checkbox-toggle-switch-bg-color;
+		&:after {
+			color: @moon-checkbox-toggle-switch-color;
+		}
+	}
+	&.animated {
+		-webkit-transition: background-color 0.2s;
+		&:after {
+			-webkit-transition: color 0.2s, margin-left 0.2s;
+		}
+	}
 }
