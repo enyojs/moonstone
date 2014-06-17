@@ -1927,9 +1927,43 @@
   /* Overrides the text-align property  for button */
 
 }
+/* Medium Header */
+.moon-header.moon-medium-header {
+  height: 240px;
+}
+.moon-medium-header .moon-header-title-above {
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+.moon-medium-header .moon-header-title {
+  line-height: normal;
+}
+.enyo-locale-non-latin .moon-medium-header .moon-header-title {
+  line-height: 1.5em;
+}
+.moon-medium-header .moon-header-title-wrapper {
+  padding-left: 0;
+  box-sizing: border-box;
+  max-height: 155px;
+}
+.enyo-locale-right-to-left .moon-medium-header .moon-header-title-wrapper {
+  padding-right: 0;
+}
+.moon-medium-header .moon-header-title-below {
+  max-height: 40px;
+}
+.moon-medium-header .moon-header-sub-title-below {
+  max-height: 40px;
+}
+.hidden-title .moon-header-title,
+.hidden-title .moon-header-title-below,
+.hidden-title .moon-header-sub-title-below {
+  opacity: 0;
+}
 /* Small Header */
 .moon-header.moon-small-header {
-  height: 240px;
+  height: 112px;
 }
 .moon-small-header .moon-header-title-above {
   height: 0;
@@ -1938,61 +1972,27 @@
 }
 .moon-small-header .moon-header-title {
   line-height: normal;
+  font-size: 60px;
+  height: 84px;
 }
 .enyo-locale-non-latin .moon-small-header .moon-header-title {
   line-height: 1.5em;
 }
 .moon-small-header .moon-header-title-wrapper {
   padding-left: 0;
+  padding-top: 26px;
   box-sizing: border-box;
-  max-height: 155px;
+  max-height: 88px;
 }
 .enyo-locale-right-to-left .moon-small-header .moon-header-title-wrapper {
   padding-right: 0;
 }
 .moon-small-header .moon-header-title-below {
-  max-height: 40px;
+  height: 0;
+  opacity: 0;
+  margin-top: 0;
 }
 .moon-small-header .moon-header-sub-title-below {
-  max-height: 40px;
-}
-.hidden-title .moon-header-title,
-.hidden-title .moon-header-title-below,
-.hidden-title .moon-header-sub-title-below {
-  opacity: 0;
-}
-/* Mini Header */
-.moon-header.moon-mini-header {
-  height: 112px;
-}
-.moon-mini-header .moon-header-title-above {
-  height: 0;
-  opacity: 0;
-  margin-top: 0;
-}
-.moon-mini-header .moon-header-title {
-  line-height: normal;
-  font-size: 60px;
-  height: 84px;
-}
-.enyo-locale-non-latin .moon-mini-header .moon-header-title {
-  line-height: 1.5em;
-}
-.moon-mini-header .moon-header-title-wrapper {
-  padding-left: 0;
-  padding-top: 26px;
-  box-sizing: border-box;
-  max-height: 88px;
-}
-.enyo-locale-right-to-left .moon-mini-header .moon-header-title-wrapper {
-  padding-right: 0;
-}
-.moon-mini-header .moon-header-title-below {
-  height: 0;
-  opacity: 0;
-  margin-top: 0;
-}
-.moon-mini-header .moon-header-sub-title-below {
   height: 0;
   opacity: 0;
   margin-top: 0;
@@ -2910,12 +2910,12 @@
 .moon-list-actions-drawer-client.animated {
   -webkit-transition: -webkit-transform 0.225s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
-.moon-small-header .moon-list-actions-drawer-client,
-.moon-mini-header .moon-list-actions-drawer-client {
+.moon-medium-header .moon-list-actions-drawer-client,
+.moon-small-header .moon-list-actions-drawer-client {
   -webkit-transform: translateZ(0) translateY(-100%);
 }
-.moon-small-header .moon-list-actions-drawer-client.open,
-.moon-mini-header .moon-list-actions-drawer-client.open {
+.moon-medium-header .moon-list-actions-drawer-client.open,
+.moon-small-header .moon-list-actions-drawer-client.open {
   -webkit-transform: translateZ(0) translateY(0);
 }
 .moon-list-actions.stacked .enyo-fittable-rows-layout > * {
@@ -3262,7 +3262,7 @@
   height: 100%;
   overflow: hidden;
 }
-.moon-panel-mini-header-wrapper {
+.moon-panel-small-header-wrapper {
   -webkit-transform: scale3d(1, 1, 1);
   margin: 10px 0 0 0;
   position: absolute;
@@ -3273,52 +3273,52 @@
   padding: 0 10px 10px 10px;
   box-sizing: border-box;
 }
-.moon-panel-mini-header {
+.moon-panel-small-header {
   margin-top: 25px;
   color: #4b4b4b;
   display: block;
   overflow: hidden;
   padding: 0px;
 }
-.spotlight .moon-panel-mini-header {
+.spotlight .moon-panel-small-header {
   color: #ffffff;
 }
-.moon-panel-mini-header-title-above {
+.moon-panel-small-header-title-above {
   color: #4b4b4b;
   border-top: 2px solid #ffffff;
   padding-top: 5px;
 }
-.spotlight .moon-panel-mini-header-title-above {
+.spotlight .moon-panel-small-header-title-above {
   color: #ffffff;
 }
-.moon-panel .moon-panel-mini-header-wrapper.spotlight {
+.moon-panel .moon-panel-small-header-wrapper.spotlight {
   background: #cf0652;
   color: #ffffff;
 }
-.moon-panel .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
+.moon-panel .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header-title-above {
   border-top: 2px solid transparent;
 }
 /* Activity Panels Overrides */
 .moon-panels.activity .moon-panel {
   padding: 0;
 }
-.moon-panels.activity .moon-panel-mini-header-title-above {
+.moon-panels.activity .moon-panel-small-header-title-above {
   border-top: 2px solid #4b4b4b;
 }
-.moon-panels.activity .moon-panel-mini-header,
-.moon-panels.activity .moon-panel-mini-header-title-above {
+.moon-panels.activity .moon-panel-small-header,
+.moon-panels.activity .moon-panel-small-header-title-above {
   color: #4b4b4b;
 }
-.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header,
-.moon-panels.activity .moon-panel-mini-header-wrapper.spotlight .moon-panel-mini-header-title-above {
+.moon-panels.activity .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header,
+.moon-panels.activity .moon-panel-small-header-wrapper.spotlight .moon-panel-small-header-title-above {
   color: #ffffff;
 }
 /* AlwaysViewing Overrides */
 .moon-panels.always-viewing .moon-panel {
   padding: 0;
 }
-.moon-panels.always-viewing .moon-panel-mini-header,
-.moon-panels.always-viewing .moon-panel-mini-header-title-above {
+.moon-panels.always-viewing .moon-panel-small-header,
+.moon-panels.always-viewing .moon-panel-small-header-title-above {
   color: #ffffff;
 }
 /* Panel animations */
@@ -3359,7 +3359,7 @@
 .moon-panel .moon-panel-viewport,
 .moon-panel .moon-panel-content-wrapper,
 .moon-panel .moon-panel-breadcrumb-viewport,
-.moon-panel .moon-panel-mini-header-wrapper {
+.moon-panel .moon-panel-small-header-wrapper {
   -webkit-transform: translateZ(0);
   -webkit-animation-fill-mode: both;
   -webkit-animation-timing-function: ease-in-out;
@@ -3376,20 +3376,20 @@
 .moon-panel.shrinking .moon-panel-content-wrapper {
   -webkit-animation-name: panel-inner;
 }
-.moon-panel.growing .moon-panel-mini-header-wrapper,
-.moon-panel.shrinking .moon-panel-mini-header-wrapper {
+.moon-panel.growing .moon-panel-small-header-wrapper,
+.moon-panel.shrinking .moon-panel-small-header-wrapper {
   -webkit-animation-name: breadcrumb-inner;
 }
 .moon-panel.growing .moon-panel-viewport,
 .moon-panel.growing .moon-panel-content-wrapper,
 .moon-panel.growing .moon-panel-breadcrumb-viewport,
-.moon-panel.growing .moon-panel-mini-header-wrapper {
+.moon-panel.growing .moon-panel-small-header-wrapper {
   -webkit-animation-duration: 0.4s;
 }
 .moon-panel.shrinking .moon-panel-viewport,
 .moon-panel.shrinking .moon-panel-content-wrapper,
 .moon-panel.shrinking .moon-panel-breadcrumb-viewport,
-.moon-panel.shrinking .moon-panel-mini-header-wrapper {
+.moon-panel.shrinking .moon-panel-small-header-wrapper {
   -webkit-animation-duration: 0.5s;
   -webkit-animation-direction: reverse;
 }
@@ -3402,7 +3402,7 @@
 .moon-panel:not(.shrunken) .moon-panel-breadcrumb-viewport {
   -webkit-transform: translateZ(0) translateY(101%);
 }
-.moon-panel:not(.shrunken) .moon-panel-mini-header-wrapper {
+.moon-panel:not(.shrunken) .moon-panel-small-header-wrapper {
   -webkit-transform: translateZ(0) translateY(-101%);
 }
 /* Panels */
