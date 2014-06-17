@@ -4,8 +4,8 @@ enyo.kind({
 	components: [
 		{name: "panels", kind: "moon.Panels", pattern: "activity", classes: "enyo-fit", style: "z-index: 1000;", brandingSrc: "./assets/default-movie.png", components: [
 			{title: "First Panel", classes: "moon-7h", titleBelow:"Sub-title", subTitleBelow:"Sub-sub title", headerComponents: [
-				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "smallTapped"},
-				{kind: "moon.ToggleButton", small:true, content:"Mini", name:"miniHeaderToggle", ontap: "miniTapped"}
+				{kind: "moon.ToggleButton", small:true, content:"Medium", name:"mediumHeaderToggle", ontap: "mediumTapped"},
+				{kind: "moon.ToggleButton", small:true, content:"Small", name:"smallHeaderToggle", ontap: "smallTapped"}
 			], components: [
 				{kind: "moon.Scroller", fit:true, components: [
 					{kind: "moon.Item", content: "Item One", ontap: "next1"},
@@ -104,18 +104,18 @@ enyo.kind({
 			this.next3();
 		}
 	},
-	smallTapped: function(inSender, inEvent) {
-		if (this.$.smallHeaderToggle.value) {
-			this.$.miniHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("small");
+	mediumTapped: function(inSender, inEvent) {
+		if (this.$.mediumHeaderToggle.value) {
+			this.$.smallHeaderToggle.setValue(false);
+			this.$.panel.setHeaderType("medium");
 		} else {
 			this.$.panel.setHeaderType("large");
 		}
 	},
-	miniTapped: function(inSender, inEvent) {
-		if (this.$.miniHeaderToggle.value) {
-			this.$.smallHeaderToggle.setValue(false);
-			this.$.panel.setHeaderType("mini");
+	smallTapped: function(inSender, inEvent) {
+		if (this.$.smallHeaderToggle.value) {
+			this.$.mediumHeaderToggle.setValue(false);
+			this.$.panel.setHeaderType("small");
 		} else {
 			this.$.panel.setHeaderType("large");
 		}

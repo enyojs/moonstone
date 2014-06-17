@@ -28,7 +28,7 @@ enyo.kind({
 				]},
 				onInputHeaderInput: "handleInput",
 				onInputHeaderChange: "handleChange",
-				headerType: "small",
+				headerType: "medium",
 				title:"Small Input Header",
 				titleAbove: "02",
 				titleBelow: "Sub Header",

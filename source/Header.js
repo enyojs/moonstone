@@ -16,13 +16,14 @@ enyo.kind({
 		titleBelow: '',
 		//* Sub-text below the header
 		subTitleBelow: '',
-		/** If small, the _moon-small-header_ CSS class will be applied to this header
-			If mini, the _moon-mini-header_ CSS class will be applied to this header
+		/** If medium, the _moon-medium-header_ CSS class will be applied to this header
+			If small, the _moon-small-header_ CSS class will be applied to this header
 			If large, the _moon-header_ CSS class will be applied to this header
 		*/
 		type: "large",
-		//* If true, the _moon-small-header_ CSS class will be applied to this header
+		//* If true, the _moon-medium-header_ CSS class will be applied to this header
 		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
+		// And until it is removed, "small" refers to the historical size, which is now "medium"
 		small: false,
 		/**
 			URL of background image(s).
@@ -355,27 +356,27 @@ enyo.kind({
 	//* @protected
 	typeChanged: function(inOld) {
 		switch (inOld) {
+		case "medium":
+			this.removeClass("moon-medium-header");
+			break;
 		case "small":
 			this.removeClass("moon-small-header");
-			break;
-		case "mini":
-			this.removeClass("moon-mini-header");
 			break;
 		}
 
 		switch (this.getType()) {
+		case "medium":
+			this.addClass("moon-medium-header");
+			break;
 		case "small":
 			this.addClass("moon-small-header");
-			break;
-		case "mini":
-			this.addClass("moon-mini-header");
 			break;
 		}
 	},
 	//* @protected
 	// Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
 	smallChanged: function() {
-		this.addRemoveClass("moon-small-header", this.getSmall());
+		this.addRemoveClass("moon-medium-header", this.getSmall());
 	},	
 	//* @protected
 	contentChanged: function() {

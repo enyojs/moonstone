@@ -29,6 +29,7 @@ enyo.kind({
 		headerType: "large",
 		//* Facade for the header's _small_ property
 		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
+		// And until it is removed, "small" refers to the historical size, which is now "medium"
 		smallHeader: false,
 		//* If true, the header collapses when the panel body is scrolled down
 		collapsingHeader: false,
@@ -62,9 +63,9 @@ enyo.kind({
 	panelTools : [
 		{name: "breadcrumb", ontap: "handleBreadcrumbTap", classes: "moon-panel-breadcrumb", components: [
 			{name: "breadcrumbViewport", classes: "moon-panel-breadcrumb-viewport", components: [
-				{name: "breadcrumbBackground", classes: "moon-panel-mini-header-wrapper", components: [
-					{name: "breadcrumbTitleAbove", classes: "moon-super-header-text moon-panel-mini-header-title-above"},
-					{name: "breadcrumbText", mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-sub-header-text moon-panel-mini-header"}
+				{name: "breadcrumbBackground", classes: "moon-panel-small-header-wrapper", components: [
+					{name: "breadcrumbTitleAbove", classes: "moon-super-header-text moon-panel-small-header-title-above"},
+					{name: "breadcrumbText", mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-sub-header-text moon-panel-small-header"}
 				]}
 			]}
 		]},

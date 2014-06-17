@@ -4,19 +4,19 @@ enyo.kind({
 	classes: "moon enyo-unselectable enyo-fit moon-header-sample",
 	components: [
 		{kind: "moon.Scroller", fit:true, components: [
-			{kind: "moon.Header", name:"bigHeader", content: "Header", titleAbove: "02", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
-				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeBig"},
-				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareBig"}
+			{kind: "moon.Header", name:"largeHeader", content: "Header", titleAbove: "02", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
+				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeLarge"},
+				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareLarge"}
 			]},
 			{classes: "moon-1v"},
-			{kind: "moon.Header", name:"smallHeader", content: "Small Header", type: "small", titleAbove: "03", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
+			{kind: "moon.Header", name:"mediumHeader", content: "Medium Header", type: "medium", titleAbove: "03", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
+				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeMedium"},
+				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareMedium"}
+			]},
+			{classes: "moon-1v"},
+			{kind: "moon.Header", name:"smallHeader", content: "Small Header", type: "small", titleAbove: "04", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeSmall"},
 				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareSmall"}
-			]},
-			{classes: "moon-1v"},
-			{kind: "moon.Header", name:"miniHeader", content: "Mini Header", type: "mini", titleAbove: "04", titleBelow: "Sub Header", subTitleBelow:"Sub-sub Header", components: [
-				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-like.png", ontap:"likeMini"},
-				{kind: "moon.IconButton", src: "../patterns-samples/assets/icon-next.png", ontap:"shareMini"}
 			]},
 			{classes: "moon-1v"},
 			{kind: "moon.Header", content: "Varied Alignment", titleAbove: "02", titleBelow: "Panel actions can be positioned on left or right", components: [
@@ -46,23 +46,23 @@ enyo.kind({
 			]}
 		]}
 	],
-	likeBig: function(inSender, inEvent) {
-		this.$.bigHeader.setSubTitleBelow("Thanks for liking Enyo.");
+	likeLarge: function(inSender, inEvent) {
+		this.$.largeHeader.setSubTitleBelow("Thanks for liking Enyo.");
 	},
-	shareBig: function(inSender, inEvent) {
-		this.$.bigHeader.setSubTitleBelow("Please share Enyo.");
+	shareLarge: function(inSender, inEvent) {
+		this.$.largeHeader.setSubTitleBelow("Please share Enyo.");
+	},
+	likeMedium: function(inSender, inEvent) {
+		this.$.mediumHeader.setSubTitleBelow("Thanks for liking Enyo.");
+	},
+	shareMedium: function(inSender, inEvent) {
+		this.$.mediumHeader.setSubTitleBelow("Please share Enyo.");
 	},
 	likeSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setSubTitleBelow("Thanks for liking Enyo.");
 	},
 	shareSmall: function(inSender, inEvent) {
 		this.$.smallHeader.setSubTitleBelow("Please share Enyo.");
-	},
-	likeMini: function(inSender, inEvent) {
-		this.$.miniHeader.setSubTitleBelow("Thanks for liking Enyo.");
-	},
-	shareMini: function(inSender, inEvent) {
-		this.$.miniHeader.setSubTitleBelow("Please share Enyo.");
 	},
 	switchMode: function(inSender, inEvent) {
 		var header = this.$[inSender.header];
