@@ -576,10 +576,12 @@ enyo.kind({
 			i,
 			panel,
 			info,
-			popFrom;
+			popFrom,
+			toIndex = this.toIndex,
+			fromIndex = this.fromIndex;
 
 		// Pop panels starting at this index, plus any that are still onscreen
-		popFrom = this.toIndex + 1;
+		popFrom = toIndex + 1;
 		// Notify panels of transition
 		for (i =0 ; (panel = panels[i]); i++) {
 			info = this.getTransitionInfo(i);
@@ -587,22 +589,22 @@ enyo.kind({
 				panel[method](info);
 			}
 			// If a panel is onscreen, don't pop it
-			if ((i > this.toIndex) && !info.offscreen) {
+			if ((i > toIndex) && !info.offscreen) {
 				popFrom++;
 			}
 		}
+		this.inherited(arguments);
+
+		this.transitionInProgress = false;
+
 		// "sendEvents" means we actually transitioned (not a reflow), so
 		// check popOnBack logic
 		if (sendEvents) {
 			// Automatically pop off panels that are no longer on screen
-			if (this.popOnBack && (this.toIndex < this.fromIndex)) {
+			if (this.popOnBack && (toIndex < fromIndex)) {
 				this.popPanels(popFrom);
 			}
 		}
-
-		this.inherited(arguments);
-
-		this.transitionInProgress = false;
 
 		// queuedIndex becomes -1 when left key input is occurred 
  		// during transition from index 1 to 0.
