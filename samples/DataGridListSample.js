@@ -22,7 +22,7 @@ enyo.kind({
 					{kind:"moon.DataList", components: [
 						{kind:"moon.CheckboxItem", bindings: [
 							{from:".model.text", to:".content"},
-							{from:".model.on", to: ".checked", oneWay: false}
+							{from:".model.selected", to: ".checked", oneWay: false}
 						]}
 					]}
 				]}
@@ -51,7 +51,7 @@ enyo.kind({
 			var title = (idx % 8 === 0) ? " with long title" : "";
 			var subTitle = (idx % 8 === 0) ? "Lorem ipsum dolor sit amet" : "Subtitle";
 			records.push({
-				on: false,
+				selected: false,
 				text: "Item " + idx + title,
 				subText: subTitle,
 				url: "http://placehold.it/300x300/" + Math.floor(Math.random()*0x1000000).toString(16) + "/ffffff&text=Image " + idx
