@@ -74,6 +74,7 @@ enyo.kind({
 		onSpotlightLeft:			"spotlightLeft",
 		onSpotlightUp:				"spotlightUp",
 		onSpotlightDown:			"spotlightDown",
+		onSpotlightFocused:			"spotlightFocused",
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
 
@@ -310,6 +311,9 @@ enyo.kind({
 	},
 	spotlightDown: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+	},
+	spotlightFocused: function(oSender, oEvent) {
+		this.index = this.getPanelIndex(oEvent.originator);
 	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
