@@ -185,13 +185,13 @@ enyo.kind({
 	smallHeaderChanged: function() {
 		this.$.header.setSmall(this.smallHeader);
 		if (this.generated) {
-			this.$.contentWrapper.resized();
+			this.$.contentWrapper.resize();
 		}
 	},
 	headerTypeChanged: function() {
 		this.$.header.setType(this.headerType);
 		if (this.generated) {
-			this.$.contentWrapper.resized();
+			this.$.contentWrapper.resize();
 		}
 	},
 	collapseHeader: function() {
@@ -386,7 +386,7 @@ enyo.kind({
 		case "expandToLarge":
 			// FIXME: It would be better to call this during the animation so it resizes
 			// smoothly, but that's not possible with CSS transitions; it will jump now
-			this.resized();
+			this.resize();
 			break;
 		}
 	}

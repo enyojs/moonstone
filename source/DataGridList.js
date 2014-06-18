@@ -46,7 +46,7 @@ enyo.kind({
 		refresh: enyo.inherit(function (sup) {
 			return function (list) {
 				sup.apply(this, arguments);
-				list.$.scroller.resized();
+				list.$.scroller.resize();
 			};
 		}),
 		scrollToIndex: function (list, i) {

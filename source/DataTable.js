@@ -10,7 +10,7 @@ enyo.kind({
 	reset: enyo.inherit(function (sup) {
 		return function () {
 			sup.apply(this, arguments);
-			this.container.resized();
+			this.container.resize();
 		};
 	})
 });

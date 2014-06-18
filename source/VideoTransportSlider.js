@@ -56,7 +56,7 @@ enyo.kind({
 	//* @protected
 	handlers: {
 		onTimeupdate: "timeUpdate",
-		onresize: "resizeHandler"
+		onresize: "handleResize"
 	},
 	//* @public
 	events: {
@@ -168,7 +168,7 @@ enyo.kind({
 	isInPreview: function(inSender, inEvent) {
 		return this._previewMode;
 	},
-	resizeHandler: function() {
+	handleResize: function() {
 		this.inherited(arguments);
 		this.updateSliderRange();
 	},

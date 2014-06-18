@@ -54,7 +54,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.calcLineHeight();
 	},
-	resizeHandler: function() {
+	handleResize: function() {
 		this.reflow();
 	},
 	//* Updates _this.contentHeight_ on reflow.

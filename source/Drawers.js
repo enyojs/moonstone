@@ -192,7 +192,7 @@ enyo.kind({
 	updateActivator: function(up) {
 		this.$.activator.addRemoveClass("open", up);
 	},
-	resizeHandler: function() {
+	handleResize: function() {
 		this.inherited(arguments);
 		var dh = document.body.getBoundingClientRect().height;
 		this.waterfall("onDrawersResized", {drawersHeight: dh});

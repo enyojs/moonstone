@@ -90,7 +90,7 @@ enyo.kind({
 		this.setupBounds();
 		this.spotlightPagingControlsChanged();
 	},
-	resizeHandler: function() {
+	handleResize: function() {
 		this.resizing = true;
 		this.resetCachedValues();
 		this.setupBounds();
