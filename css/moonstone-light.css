@@ -2643,37 +2643,37 @@
 .moon-contextual-popup.reserve-close {
   padding-right: 70px;
 }
-.moon-contextual-popup::before,
-.moon-contextual-popup::after {
+.moon-contextual-popup:before,
+.moon-contextual-popup:after {
   position: absolute;
   content: '';
 }
-.moon-contextual-popup.left::before,
-.moon-contextual-popup.right::before {
+.moon-contextual-popup.left:before,
+.moon-contextual-popup.right:before {
   width: 0;
   height: 6px;
 }
-.moon-contextual-popup.below::before,
-.moon-contextual-popup.above::before {
+.moon-contextual-popup.below:before,
+.moon-contextual-popup.above:before {
   width: 6px;
   height: 0;
 }
-.moon-contextual-popup.left::after,
-.moon-contextual-popup.right::after,
-.moon-contextual-popup.below::after,
-.moon-contextual-popup.above::after {
+.moon-contextual-popup.left:after,
+.moon-contextual-popup.right:after,
+.moon-contextual-popup.below:after,
+.moon-contextual-popup.above:after {
   width: 0;
   height: 0;
 }
 .moon-contextual-popup.left {
   margin: 0 0 0 35px;
 }
-.moon-contextual-popup.left::before,
-.moon-contextual-popup.left::after {
+.moon-contextual-popup.left:before,
+.moon-contextual-popup.left:after {
   top: 50%;
   left: 0;
 }
-.moon-contextual-popup.left::before {
+.moon-contextual-popup.left:before {
   margin-top: -19px;
   margin-bottom: auto;
   margin-left: -24px;
@@ -2682,7 +2682,7 @@
   border-bottom: 16px solid transparent;
   border-right: 19px solid rgba(0, 0, 0, 0.5);
 }
-.moon-contextual-popup.left::after {
+.moon-contextual-popup.left:after {
   margin-top: -16px;
   margin-bottom: auto;
   margin-left: -19px;
@@ -2691,37 +2691,49 @@
   border-bottom: 16px solid transparent;
   border-right: 19px solid #686868;
 }
-.moon-contextual-popup.left.high::before,
-.moon-contextual-popup.left.high::after {
+.moon-contextual-popup.left.high:before,
+.moon-contextual-popup.left.high:after {
   top: 42.5px;
 }
-.moon-contextual-popup.left.low::before,
-.moon-contextual-popup.left.low::after {
-  top: auto;
-  bottom: 42.5px;
-}
-.moon-contextual-popup.left.low::before {
-  margin-top: auto;
-  margin-bottom: -19px;
+.moon-contextual-popup.left.high:before {
+  margin-top: -25px;
+  margin-bottom: auto;
   margin-left: -24px;
   margin-right: auto;
 }
-.moon-contextual-popup.left.low::after {
+.moon-contextual-popup.left.high:after {
+  margin-top: -22px;
+  margin-bottom: auto;
+  margin-left: -19px;
+  margin-right: auto;
+}
+.moon-contextual-popup.left.low:before,
+.moon-contextual-popup.left.low:after {
+  top: auto;
+  bottom: 42.5px;
+}
+.moon-contextual-popup.left.low:before {
   margin-top: auto;
-  margin-bottom: -16px;
+  margin-bottom: -25px;
+  margin-left: -24px;
+  margin-right: auto;
+}
+.moon-contextual-popup.left.low:after {
+  margin-top: auto;
+  margin-bottom: -22px;
   margin-left: -19px;
   margin-right: auto;
 }
 .moon-contextual-popup.right {
   margin: 0 0 0 -35px;
 }
-.moon-contextual-popup.right::before,
-.moon-contextual-popup.right::after {
+.moon-contextual-popup.right:before,
+.moon-contextual-popup.right:after {
   top: 50%;
   left: 100%;
   right: auto;
 }
-.moon-contextual-popup.right::before {
+.moon-contextual-popup.right:before {
   margin-top: -19px;
   margin-bottom: auto;
   margin-left: 5px;
@@ -2730,7 +2742,7 @@
   border-bottom: 16px solid transparent;
   border-left: 19px solid rgba(0, 0, 0, 0.5);
 }
-.moon-contextual-popup.right::after {
+.moon-contextual-popup.right:after {
   margin-top: -16px;
   margin-bottom: auto;
   margin-left: 0;
@@ -2739,37 +2751,49 @@
   border-bottom: 16px solid transparent;
   border-left: 19px solid #686868;
 }
-.moon-contextual-popup.right.high::before,
-.moon-contextual-popup.right.high::after {
+.moon-contextual-popup.right.high:before,
+.moon-contextual-popup.right.high:after {
   top: 42.5px;
 }
-.moon-contextual-popup.right.low::before,
-.moon-contextual-popup.right.low::after {
-  top: auto;
-  bottom: 42.5px;
-}
-.moon-contextual-popup.right.low::before {
-  margin-top: auto;
-  margin-bottom: -19px;
+.moon-contextual-popup.right.high:before {
+  margin-top: -25px;
+  margin-bottom: auto;
   margin-left: 5px;
   margin-right: auto;
 }
-.moon-contextual-popup.right.low::after {
+.moon-contextual-popup.right.high:after {
+  margin-top: -22px;
+  margin-bottom: auto;
+  margin-left: 0;
+  margin-right: auto;
+}
+.moon-contextual-popup.right.low:before,
+.moon-contextual-popup.right.low:after {
+  top: auto;
+  bottom: 42.5px;
+}
+.moon-contextual-popup.right.low:before {
   margin-top: auto;
-  margin-bottom: -16px;
+  margin-bottom: -25px;
+  margin-left: 5px;
+  margin-right: auto;
+}
+.moon-contextual-popup.right.low:after {
+  margin-top: auto;
+  margin-bottom: -22px;
   margin-left: 0;
   margin-right: auto;
 }
 .moon-contextual-popup.below {
   margin: 35px 0 0 0;
 }
-.moon-contextual-popup.below::before,
-.moon-contextual-popup.below::after {
+.moon-contextual-popup.below:before,
+.moon-contextual-popup.below:after {
   top: 0;
   left: 50%;
   right: auto;
 }
-.moon-contextual-popup.below::before {
+.moon-contextual-popup.below:before {
   margin-top: -24px;
   margin-bottom: auto;
   margin-left: -19px;
@@ -2778,7 +2802,7 @@
   border-left: 16px solid transparent;
   border-bottom: 19px solid rgba(0, 0, 0, 0.5);
 }
-.moon-contextual-popup.below::after {
+.moon-contextual-popup.below:after {
   margin-top: -19px;
   margin-bottom: auto;
   margin-left: -16px;
@@ -2787,37 +2811,37 @@
   border-left: 16px solid transparent;
   border-bottom: 19px solid #686868;
 }
-.moon-contextual-popup.below.right::before,
-.moon-contextual-popup.below.right::after {
+.moon-contextual-popup.below.right:before,
+.moon-contextual-popup.below.right:after {
   top: 0;
   left: 20%;
   right: auto;
 }
-.moon-contextual-popup.below.right::before {
+.moon-contextual-popup.below.right:before {
   margin-top: -40px;
   margin-bottom: auto;
   margin-left: -19px;
   margin-right: auto;
 }
-.moon-contextual-popup.below.right::after {
+.moon-contextual-popup.below.right:after {
   margin-top: -35px;
   margin-bottom: auto;
   margin-left: -16px;
   margin-right: auto;
 }
-.moon-contextual-popup.below.left::before,
-.moon-contextual-popup.below.left::after {
+.moon-contextual-popup.below.left:before,
+.moon-contextual-popup.below.left:after {
   top: 0;
   left: auto;
   right: 10%;
 }
-.moon-contextual-popup.below.left::before {
+.moon-contextual-popup.below.left:before {
   margin-top: -40px;
   margin-bottom: auto;
   margin-left: auto;
   margin-right: -19px;
 }
-.moon-contextual-popup.below.left::after {
+.moon-contextual-popup.below.left:after {
   margin-top: -35px;
   margin-bottom: auto;
   margin-left: auto;
@@ -2826,13 +2850,13 @@
 .moon-contextual-popup.above {
   margin: -35px 0 0 0;
 }
-.moon-contextual-popup.above::before,
-.moon-contextual-popup.above::after {
+.moon-contextual-popup.above:before,
+.moon-contextual-popup.above:after {
   top: 100%;
   left: 50%;
   right: auto;
 }
-.moon-contextual-popup.above::before {
+.moon-contextual-popup.above:before {
   margin-top: 5px;
   margin-bottom: auto;
   margin-left: -19px;
@@ -2841,7 +2865,7 @@
   border-left: 16px solid transparent;
   border-top: 19px solid rgba(0, 0, 0, 0.5);
 }
-.moon-contextual-popup.above::after {
+.moon-contextual-popup.above:after {
   margin-top: 0;
   margin-bottom: auto;
   margin-left: -16px;
@@ -2850,37 +2874,37 @@
   border-left: 16px solid transparent;
   border-top: 19px solid #686868;
 }
-.moon-contextual-popup.above.right::before,
-.moon-contextual-popup.above.right::after {
+.moon-contextual-popup.above.right:before,
+.moon-contextual-popup.above.right:after {
   top: 100%;
   left: 20%;
   right: auto;
 }
-.moon-contextual-popup.above.right::before {
+.moon-contextual-popup.above.right:before {
   margin-top: 5px;
   margin-bottom: auto;
   margin-left: -19px;
   margin-right: auto;
 }
-.moon-contextual-popup.above.right::after {
+.moon-contextual-popup.above.right:after {
   margin-top: 0;
   margin-bottom: auto;
   margin-left: -16px;
   margin-right: auto;
 }
-.moon-contextual-popup.above.left::before,
-.moon-contextual-popup.above.left::after {
+.moon-contextual-popup.above.left:before,
+.moon-contextual-popup.above.left:after {
   top: 100%;
   left: auto;
   right: 10%;
 }
-.moon-contextual-popup.above.left::before {
+.moon-contextual-popup.above.left:before {
   margin-top: 5px;
   margin-bottom: auto;
   margin-left: auto;
   margin-right: -19px;
 }
-.moon-contextual-popup.above.left::after {
+.moon-contextual-popup.above.left:after {
   margin-top: 0;
   margin-bottom: auto;
   margin-left: auto;

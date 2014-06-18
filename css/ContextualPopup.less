@@ -8,26 +8,26 @@
 }
 /*left nub*/
 .moon-popup-nub-left (@nub-bgcolor){
-	border-top: (@moon-contextual-popup-nub-height)-3 solid transparent;
-	border-bottom: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-top: @moon-contextual-popup-nub-height - 3 solid transparent;
+	border-bottom: @moon-contextual-popup-nub-height - 3 solid transparent;
 	border-right: @moon-contextual-popup-nub-height solid @nub-bgcolor;
 }
 /*right nub*/
 .moon-popup-nub-right (@nub-bgcolor){
-	border-top: (@moon-contextual-popup-nub-height)-3 solid transparent;
-	border-bottom: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-top: @moon-contextual-popup-nub-height - 3 solid transparent;
+	border-bottom: (@moon-contextual-popup-nub-height) - 3 solid transparent;
 	border-left: @moon-contextual-popup-nub-height solid @nub-bgcolor;
 }
 /*below nub*/
 .moon-popup-nub-below (@nub-bgcolor){
-	border-right: (@moon-contextual-popup-nub-height)-3 solid transparent;
-	border-left: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-right: @moon-contextual-popup-nub-height - 3 solid transparent;
+	border-left: @moon-contextual-popup-nub-height - 3 solid transparent;
 	border-bottom: @moon-contextual-popup-nub-height solid @nub-bgcolor;
 }
 /*above nub*/
 .moon-popup-nub-above(@nub-bgcolor){
-	border-right: (@moon-contextual-popup-nub-height)-3 solid transparent;
-	border-left: (@moon-contextual-popup-nub-height)-3 solid transparent;
+	border-right: @moon-contextual-popup-nub-height - 3 solid transparent;
+	border-left: @moon-contextual-popup-nub-height - 3 solid transparent;
 	border-top: @moon-contextual-popup-nub-height solid @nub-bgcolor;
 }
 
@@ -46,155 +46,190 @@
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	background-color: @moon-contextual-popup-bg-color;
+
 	&.reserve-close {
 		padding-right: @moon-icon-button-small-size + 10px;
 	}
-	&::before, &::after {
+	&:before,
+	&:after {
 		position: absolute;
 		content: '';
 	}
-	&.left::before, &.right::before{
+	&.left:before,
+	&.right:before {
 		width: 0;
 		height: 6px;
 	}
-	&.below::before, &.above::before{
+	&.below:before,
+	&.above:before {
 		width: 6px;
 		height: 0;
 	}
-	&.left::after, &.right::after, &.below::after, &.above::after{
+	&.left:after,
+	&.right:after,
+	&.below:after,
+	&.above:after {
 		width: 0;
 		height: 0;
 	}
+
 	&.left {
 		margin: 0 0 0 @moon-contextual-popup-gutter;
-		&::before, &::after{
+		&:before,
+		&:after {
 			top: 50%;
 			left: 0;
 		}
-		&::before {
+		&:before {
 			.moon-popup-nub-position(-@moon-contextual-popup-nub-height, auto, -@moon-contextual-popup-nub-height - 5, auto);
 			.moon-popup-nub-left(@moon-contextual-popup-border-color);
 		}
-		&::after{
+		&:after {
 			.moon-popup-nub-position (-@moon-contextual-popup-nub-height + 3, auto, -@moon-contextual-popup-nub-height, auto);
 			.moon-popup-nub-left(@moon-contextual-popup-bg-color);
 		}
-		&.high::before, &.high::after {
+		&.high:before,
+		&.high:after {
 			top: @moon-button-height / 2;
 		}
-		&.low::before, &.low::after {
+		&.high:before {
+			.moon-popup-nub-position (-@moon-contextual-popup-nub-height - 6, auto, -@moon-contextual-popup-nub-height - 5, auto);
+		}
+		&.high:after {
+			.moon-popup-nub-position (-@moon-contextual-popup-nub-height - 3, auto, -@moon-contextual-popup-nub-height, auto);
+		}
+		&.low:before,
+		&.low:after {
 			top: auto;
 			bottom: @moon-button-height / 2;
 		}
-		&.low::before {
-			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height, -@moon-contextual-popup-nub-height - 5, auto);
+		&.low:before {
+			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height - 6, -@moon-contextual-popup-nub-height - 5, auto);
 		}
-		&.low::after {
-			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height + 3, -@moon-contextual-popup-nub-height, auto);
+		&.low:after {
+			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height - 3, -@moon-contextual-popup-nub-height, auto);
 		}
 	}
+
 	&.right {
 		margin: 0 0 0 -@moon-contextual-popup-gutter;
-		&::before, &::after{
+		&:before,
+		&:after {
 			top: 50%;
 			left: 100%;
 			right: auto;
 		}
-		&::before {
+		&:before {
 			.moon-popup-nub-position (-@moon-contextual-popup-nub-height, auto, @moon-button-border-width, auto);
 			.moon-popup-nub-right(@moon-contextual-popup-border-color);
 		}
-		&::after{
+		&:after {
 			.moon-popup-nub-position (-@moon-contextual-popup-nub-height + 3, auto, 0, auto);
 			.moon-popup-nub-right(@moon-contextual-popup-bg-color);
 		}
-		&.high::before, &.high::after {
+		&.high:before,
+		&.high:after {
 			top: @moon-button-height / 2;
 		}
-		&.low::before, &.low::after {
+		&.high:before {
+			.moon-popup-nub-position (-@moon-contextual-popup-nub-height - 6, auto, @moon-button-border-width, auto);
+		}
+		&.high:after {
+			.moon-popup-nub-position (-@moon-contextual-popup-nub-height - 3, auto, 0, auto);
+		}
+		&.low:before,
+		&.low:after {
 			top: auto;
 			bottom: @moon-button-height / 2;
 		}
-		&.low::before {
-			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height, @moon-button-border-width, auto);
+		&.low:before {
+			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height - 6, @moon-button-border-width, auto);
 		}
-		&.low::after {
-			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height + 3, 0, auto);
+		&.low:after {
+			.moon-popup-nub-position (auto, -@moon-contextual-popup-nub-height - 3, 0, auto);
 		}
 	}
+
 	&.below {
 		margin: @moon-contextual-popup-gutter 0 0 0;
-		&::before, &::after{
+		&:before,
+		&:after {
 			top: 0;
 			left: 50%;
 			right: auto;
 		}
-		&::before {
+		&:before {
 			.moon-popup-nub-position (-@moon-contextual-popup-nub-height - 5, auto, -@moon-contextual-popup-nub-height, auto);
 			.moon-popup-nub-below(@moon-contextual-popup-border-color);
 		}
-		&::after{
-			.moon-popup-nub-position (-@moon-contextual-popup-nub-height, auto, (-@moon-contextual-popup-nub-height + 3), auto);	
+		&:after{
+			.moon-popup-nub-position (-@moon-contextual-popup-nub-height, auto, -@moon-contextual-popup-nub-height + 3, auto);	
 			.moon-popup-nub-below(@moon-contextual-popup-bg-color);
 		}
-		&.right::before, &.right::after {
+		&.right:before,
+		&.right:after {
 			top: 0;
 			left: 20%;
 			right: auto;
 		}
-		&.right::before {
+		&.right:before {
 			.moon-popup-nub-position (-@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 4, auto, -@moon-contextual-popup-nub-height, auto);  	
 		}
-		&.right::after{
+		&.right:after {
 			.moon-popup-nub-position (-@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 4, auto, -@moon-contextual-popup-nub-height + 3, auto);
 		}
-		&.left::before, &.left::after {
+		&.left:before,
+		&.left:after {
 			top: 0;
 			left: auto;
 			right: 10%;
 		}
-		&.left::before {
+		&.left:before {
 			.moon-popup-nub-position (-@moon-contextual-popup-padding - @moon-button-border-width - @moon-contextual-popup-nub-height + 4, auto, auto, -@moon-contextual-popup-nub-height);
 		}
-		&.left::after{
+		&.left:after {
 			.moon-popup-nub-position (-@moon-contextual-popup-padding - @moon-contextual-popup-nub-height + 4, auto, auto, -@moon-contextual-popup-nub-height + 3);
 		}
 	}
+
 	&.above {
 		margin: -@moon-contextual-popup-gutter 0 0 0;
-		&::before, &::after{
+		&:before,
+		&:after{
 			top: 100%;
 			left: 50%;
 			right: auto;
 		}
-		&::before {
+		&:before {
 			.moon-popup-nub-position (@moon-button-border-width, auto, -@moon-contextual-popup-nub-height, auto);
 			.moon-popup-nub-above(@moon-contextual-popup-border-color);
 		}
-		&::after{
+		&:after {
 			.moon-popup-nub-position (0, auto, -@moon-contextual-popup-nub-height + 3, auto);
 			.moon-popup-nub-above(@moon-contextual-popup-bg-color);
 		}
-		&.right::before, &.right::after {
+		&.right:before,
+		&.right:after {
 			top: 100%;
 			left: 20%;
 			right: auto;
 		}
-		&.right::before {
+		&.right:before {
 			.moon-popup-nub-position (@moon-button-border-width, auto, -@moon-contextual-popup-nub-height, auto);
 		}
-		&.right::after{
+		&.right:after{
 			.moon-popup-nub-position (0, auto, -@moon-contextual-popup-nub-height + 3, auto);
 		}
-		&.left::before, &.left::after {
+		&.left:before,
+		&.left:after {
 			top: 100%;
 			left: auto;
 			right: 10%;
 		}
-		&.left::before {
+		&.left:before {
 			.moon-popup-nub-position (@moon-button-border-width, auto, auto, -@moon-contextual-popup-nub-height);
 		}
-		&.left::after{
+		&.left:after {
 			.moon-popup-nub-position (0, auto, auto, -@moon-contextual-popup-nub-height + 3);
 		}
 	}
