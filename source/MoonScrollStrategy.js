@@ -70,7 +70,7 @@ enyo.kind({
 			]},
 			{name: "pageRightControl", kind: "moon.PagingControl", defaultSpotlightDisappear: "pageLeftControl", defaultSpotlightLeft: "pageLeftControl", side: "right", onPaginateScroll: "paginateScroll", onPaginate: "paginate"}
 		]},
-		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", isChrome: true}
+		{kind: "Signals", onSpotlightModeChanged: "spotlightModeChanged", onkeydown: "paginate", isChrome: true}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -239,12 +239,72 @@ enyo.kind({
 		this.hovering = false;
 		this.showHideScrollColumns(false);
 	},
-	//* Handles _paginate_ events sent from PagingControl buttons.
+	//* Handles _paginate_ events sent from PagingControl buttons or Page Up/Down Key.
 	paginate: function(inSender, inEvent) {
+		var _oMath = this.$.scrollMath,
+			_oSpot = enyo.Spotlight,
+			_oUtil = _oSpot.Util,
+			side = ''
+		;
+		if (inEvent.type !== undefined && inEvent.type === "keydown") {
+			if(!_oSpot.hasCurrent() || !_oUtil.isChild(this.parent, _oSpot.getCurrent())) {
+				return true;
+			}
+			switch (inEvent.keyIdentifier) {
+			case "PageUp" : 
+			case "U+1200021" :
+				side = _oMath.vertical ? "top" : _oMath.horizontal ? "left" : side;
+				break;
+			case "PageDown" :
+			case "U+1200022" :
+				side = _oMath.vertical ? "bottom" : _oMath.horizontal ? "right" : side;
+				break;
+			default:
+				return true;
+			}
+
+			if(this._paging === undefined) {
+				this._paging = {
+					set : false
+				};
+			}
+
+			if(this._paging.set === false) {
+				var target = _oSpot.getCurrent().getAbsoluteBounds(),
+					boundary = this.$.viewport.getAbsoluteBounds()
+				;
+				this._paging.directions = [];
+				this._paging.directions.push(_oMath.vertical ? "down" : _oMath.horizontal ? "right" : undefined);
+				this._paging.directions.push(_oMath.vertical ? "up" : _oMath.horizontal ? "left" : undefined);
+				this._paging.thumb = _oMath.vertical ? "vertical" : _oMath.horizontal ? "horizontal" : undefined;
+
+				target.right = target.left + target.width - 1;
+				target.bottom = target.top + target.height;
+				boundary.right = boundary.left + boundary.width;
+				boundary.bottom = boundary.top + boundary.height;
+				
+				target.originX = (this.rtl) ? target.right : target.left;
+				target.originX = (target.originX < boundary.left || target.originX > boundary.right) ? 
+										boundary.left + boundary.width/2 : target.originX;
+
+				target.originY = target.top;
+				target.originY = (target.originY < boundary.top || target.originY > boundary.bottom) ?
+										boundary.top + boundary.height/2 : target.originY;
+				
+				this._paging.target = target;
+				
+				this._paging.set = true;
+			}
+		} else {
+			side = inEvent.originator.side;
+		}
+		
+		this.paging(side);
+	},
+	paging: function(side) {
 		var sb = this.getScrollBounds(),
 			scrollYDelta = sb.clientHeight * this.paginationPageMultiplier,
 			scrollXDelta = sb.clientWidth * this.paginationPageMultiplier,
-			side = inEvent.originator.side,
 			x = this.getScrollLeft(),
 			y = this.getScrollTop()
 		;
@@ -327,6 +387,85 @@ enyo.kind({
 		}
 
 		return true;
+	},
+	//* Handles _scrollStop_ events sent from ScrollMath.
+	scrollMathStop: function(inSender, inEvent) {
+		this.inherited(arguments);
+		// When the end of scroll animating.
+		if(this._paging !== undefined && this._paging.set && inEvent.animating !== undefined && !inEvent.animating) {
+			var doc = document,
+				steps = 100,
+				target = this._paging.target,
+				deltaX = 1, deltaY = 1, x, y, oElement = null, oControl = null
+			;
+			this._paging.set = false;
+			deltaX = this.rtl ? (-1)*deltaX : deltaX;
+			
+			// Find a control based on target coordinate
+			for (var i = 0; i < steps; i++) {
+				x = target.originX + deltaX * i;
+				y = target.originY + deltaY * i;
+				oElement = doc.elementFromPoint(x, y);
+				oElement = enyo.$[oElement.id];
+				if(oElement !== null && oElement.parent.name !== "client") {
+					oControl = enyo.$[oElement.id];
+					break;
+				}
+			}
+			// Find a spottable control
+			if(oControl !== null) {
+				var oTemp = oControl;
+				while(oTemp.parent.name !== "client") {
+					if(!enyo.Spotlight.isSpottable(oTemp)) {
+						oTemp = oTemp.parent;
+					} else {
+						oControl = oTemp;
+						break; 
+					}
+				}
+				if(!this._findSpottableObject(oControl, this._paging.directions[0])){
+					if(!this._findSpottableObject(oControl, this._paging.directions[1])) {
+						// Nothing spottable item in current viewport
+						return false;
+					}
+				}
+				this._paging.set = false;
+			}
+		}
+		return true;
+	},
+	//* Find spottable item and spotlight to control inside viewport.
+	_findSpottableObject: function(oControl, sDirection) {
+		var _oSpotNN = enyo.Spotlight.NearestNeighbor;
+		
+		if(oControl === null) {
+			return false;
+		}
+
+		if(!enyo.Spotlight.isSpottable(oControl)) {
+			oControl = _oSpotNN.getNearestNeighbor(sDirection, oControl);
+			if(oControl===null) {
+				return false;
+			}
+		}
+
+		var obj = oControl.getAbsoluteBounds();
+		var vport = this.$.viewport.getAbsoluteBounds();
+
+		obj.bottom = obj.top + obj.height;
+		obj.right = obj.left + obj.width - 1;
+		vport.bottom = vport.top + vport.height;
+		vport.right = vport.left + vport.width;
+
+		if( obj.top < vport.top || obj.left < vport.left
+			|| obj.bottom > vport.bottom || obj.right > vport.right ) {
+			var directions = ( obj.top < vport.top || obj.left < vport.left )
+								? this._paging.directions[0] 
+								: this._paging.directions[1];
+			oControl = _oSpotNN.getNearestNeighbor(directions, oControl);
+		}
+
+		return (oControl===null) ? false : enyo.Spotlight.setCurrent(oControl);
 	},
 	//* Scrolls to specific x/y positions within the scroll area.
 	_scrollTo: function(inX, inY) {
