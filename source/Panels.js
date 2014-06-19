@@ -270,7 +270,7 @@ enyo.kind({
 	},
 	spotlightLeft: function(oSender, oEvent) {
 		if (this.toIndex !== null) {
-			this.queuedIndex = this.index - 1;
+			this.queuedIndex = this.toIndex - 1;
 			//queuedIndex could have out boundary value. It will be managed in setIndex()
 		}
 		var orig = oEvent.originator,
@@ -295,7 +295,7 @@ enyo.kind({
 	},
 	spotlightRight: function(oSender, oEvent) {
 		if (this.toIndex !== null) {
-			this.queuedIndex = this.index + 1;
+			this.queuedIndex = this.toIndex + 1;
 			//queuedIndex could have out boundary value. It will be managed in setIndex()
 		}
 		var orig = oEvent.originator,
