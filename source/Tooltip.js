@@ -150,7 +150,7 @@ enyo.kind({
 			}
 		}
 	},
-	resizeHandler: function() {
+	handleResize: function() {
 		this.applyPosition({"margin-left": this.defaultLeft, "bottom": "auto"});
 		this.adjustPosition(true);
 		this.inherited(arguments);

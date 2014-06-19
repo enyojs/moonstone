@@ -243,7 +243,7 @@ enyo.kind({
 			this.$.listActions.setVertical("hidden");
 		}
 		this.resetScroller = true;
-		this.$.listActions.resized();
+		this.$.listActions.resize();
 	},
 	stackMeUp: function() {
 		var optionGroup, i;
@@ -269,7 +269,7 @@ enyo.kind({
 			optionGroup.applyStyle("height", containerHeight + "px");
 		}
 	},
-	resizeHandler: function() {
+	handleResize: function() {
 		this.resetCachedValues();
 
 		// If drawer is collapsed, resize it the next time it is opened

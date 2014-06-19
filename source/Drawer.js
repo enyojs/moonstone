@@ -190,7 +190,7 @@ enyo.kind({
 			this.$.client.hide();
 		}
 		if (this.container) {
-			this.container.resized();
+			this.container.resize();
 		}
 	},
 	resizeDrawer: function(inSender, inProps) {
@@ -202,7 +202,7 @@ enyo.kind({
 	},
 	drawerPropsChanged: function(){
 		this.$.client.applyStyle("height", this.drawerProps.height + "px");
-		this.$.client.resized();
+		this.$.client.resize();
 		this.$.client.setShowing(this.open);
 	}
 });

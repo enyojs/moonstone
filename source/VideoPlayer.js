@@ -213,7 +213,7 @@ enyo.kind({
 		onSpotlightKeyUp: 'resetAutoTimeout',
 		onSpotlightDown: 'spotlightDownHandler',
 		onSpotlightKeyDown: 'spotlightKeyDownHandler',
-		onresize: 'resizeHandler'
+		onresize: 'handleResize'
 	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
@@ -624,7 +624,7 @@ enyo.kind({
 			this.resetAutoTimeout();
 			this.showScrim(true);
 			this.$.playerControl.setShowing(true);
-			this.$.playerControl.resized();
+			this.$.playerControl.resize();
 			if (!this.showPlaybackControls) {
 				//* Fixed index
 				this.$.controlsContainer.setIndex(1);
@@ -683,7 +683,7 @@ enyo.kind({
 		if (this.autoShowOverlay && this.autoShowInfo) {
 			this.resetAutoTimeout();
 			this.$.videoInfoHeaderClient.setShowing(true);
-			this.$.videoInfoHeaderClient.resized();
+			this.$.videoInfoHeaderClient.resize();
 			
 			// Kick off any marquees in the video info header
 			this.$.videoInfoHeaderClient.waterfallDown("onRequestStartMarquee");
@@ -845,7 +845,7 @@ enyo.kind({
 			this.$.inlineControl.setShowing(false);
 			this.$.fullscreenControl.setShowing(true);
 			this.showFSControls();
-			this.$.controlsContainer.resized();
+			this.$.controlsContainer.resize();
 		} else {
 			this.stopJob("autoHide");
 			this.addClass("inline");
@@ -927,7 +927,7 @@ enyo.kind({
 		this.setCurrentTime(inEvent.value);
 	},
 	//* Refreshes size of video player.
-	resizeHandler: function() {
+	handleResize: function() {
 		this.aspectRatioChanged();
 	},
 	//* Updates the height/width based on the video's aspect ratio.

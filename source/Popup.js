@@ -155,7 +155,7 @@ enyo.kind({
 			this.$.closeButton.setShowing(shouldShow);
 			this.addRemoveClass("reserve-close", shouldShow);
 			if (this.generated) {
-				this.resized();
+				this.resize();
 			}
 		}
 	},

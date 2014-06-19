@@ -127,7 +127,7 @@ enyo.kind({
 			oPanel = this.createComponent(inInfo, inMoreInfo);
 		oPanel.render();
 		this.reflow();
-		oPanel.resized();
+		oPanel.resize();
 		this.setIndex(lastIndex+1);
 		this.isModifyingPanels = false;
 		return oPanel;
@@ -146,7 +146,7 @@ enyo.kind({
 		}
 		this.reflow();
 		for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
-			oPanels[nPanel].resized();
+			oPanels[nPanel].resize();
 		}
 		this.setIndex(lastIndex+1);
 		this.isModifyingPanels = false;
@@ -178,7 +178,7 @@ enyo.kind({
 		}
 		oPanel = this.createComponent(inInfo, inMoreInfo);
 		oPanel.render();
-		this.resized();
+		this.resize();
 		this.isModifyingPanels = false;
 	},
 	/**
