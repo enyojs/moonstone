@@ -26,7 +26,7 @@
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
 	color: @moon-spotlight-text-color;
 }
-.moon-simple-integer-picker-button {  
+.moon-simple-integer-picker-button {
   border-radius: @moon-picker-button-width/2;  border: 0;
   background: inherit;
   padding: 0;
@@ -42,6 +42,10 @@
     height: 100%;
   }
 }
+.enyo-locale-non-latin .moon button.moon-simple-integer-picker-button {
+  font-family: "Moonstone Icons";
+}
+
 .spotlight .moon-simple-integer-picker-button {
 	&.moon-icon {
 		color: @moon-spotlight-text-color;
