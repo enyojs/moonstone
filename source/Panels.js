@@ -235,6 +235,9 @@ enyo.kind({
 	spotlightLeft: function(oSender, oEvent) {
 		// Don't allow left-movement from a breadcrumb
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+		if (this.toIndex !== null) {
+			this.queuedIndex = this.toIndex - 1;
+		}
 	},
 	spotlightRight: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") {
@@ -243,6 +246,9 @@ enyo.kind({
 			var idx = this.getPanelIndex(oEvent.originator) + 1;
 			enyo.Spotlight.spot(this.getPanels()[idx]);
 			return true; 
+		}
+		if (this.toIndex !== null) {
+			this.queuedIndex = this.toIndex + 1;
 		}
 	},
 	spotlightDown: function(oSender, oEvent) {
@@ -365,7 +371,6 @@ enyo.kind({
 		}
 
 		if (this.toIndex !== null) {
-			this.queuedIndex = inIndex;
 			return;
 		}
 
