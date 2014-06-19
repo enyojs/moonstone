@@ -321,6 +321,7 @@ enyo.kind({
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 	},
 	spotlightFocused: function(oSender, oEvent) {
+		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 		this.index = this.getPanelIndex(oEvent.originator);
 	},
 	//* Responds to tap on show/hide handle.
