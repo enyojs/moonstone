@@ -1206,6 +1206,37 @@
   margin-right: 32px;
   margin-left: 0px;
 }
+/* ToggleText.css */
+.moon-checkbox.moon-toggle-text {
+  text-align: left;
+  text-transform: uppercase;
+  background: inherit;
+  opacity: 1;
+  background: transparent none no-repeat 0 0;
+}
+.moon-checkbox.moon-toggle-text[disabled] {
+  opacity: 0.35;
+}
+.moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-checkbox-item.spotlight .moon-checkbox.moon-toggle-text[checked] {
+  background: transparent none no-repeat 0px 0px;
+}
+.moon-toggle-text-text {
+  position: absolute;
+  right: 0px;
+  top: 2px;
+  text-align: right;
+  color: #4b4b4b;
+}
+.enyo-locale-right-to-left .moon-toggle-text-text {
+  right: auto;
+  left: 0px;
+}
+.moon-checkbox-item.spotlight .moon-toggle-text-text {
+  color: #ffffff;
+}
 /* ToggleSwitch.css */
 .moon-checkbox.moon-toggle-switch {
   border-radius: 16.5px;

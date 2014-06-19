@@ -14,6 +14,7 @@ enyo.depends(
 	"GridListImageItem.js",
 	"Checkbox.js",
 	"CheckboxItem.js",
+	"ToggleText.js",
 	"ToggleSwitch.js",
 	"ToggleItem.js",
 	"ToggleButton.js",
