@@ -269,6 +269,10 @@ enyo.kind({
 		return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 	},
 	spotlightLeft: function(oSender, oEvent) {
+		if (this.toIndex !== null) {
+			this.queuedIndex = this.toIndex - 1;
+			//queuedIndex could have out boundary value. It will be managed in setIndex()
+		}
 		var orig = oEvent.originator,
 			idx;
 		// Don't allow left-movement from a breadcrumb
@@ -290,6 +294,10 @@ enyo.kind({
 		}
 	},
 	spotlightRight: function(oSender, oEvent) {
+		if (this.toIndex !== null) {
+			this.queuedIndex = this.toIndex + 1;
+			//queuedIndex could have out boundary value. It will be managed in setIndex()
+		}
 		var orig = oEvent.originator,
 			idx = this.getPanelIndex(orig),
 			next = this.getPanels()[idx + 1];
@@ -398,7 +406,6 @@ enyo.kind({
 		}
 
 		if (this.toIndex !== null) {
-			this.queuedIndex = inIndex;
 			return;
 		}
 
@@ -611,12 +618,13 @@ enyo.kind({
 		}
 
 		// queuedIndex becomes -1 when left key input is occurred 
- 		// during transition from index 1 to 0.
- 		if (this.queuedIndex === -1) {
- 			this.hide();
+		// during transition from index 1 to 0.
+		// We can hide panels if we use handle.
+		if (this.queuedIndex === -1 && this.useHandle) {
+			this.hide();
 		} else if (this.queuedIndex !== null) {
-  			this.setIndex(this.queuedIndex);
-  		}
+			this.setIndex(this.queuedIndex);
+		}
 
 		enyo.Spotlight.unmute(this);
 		// Spot the active panel
