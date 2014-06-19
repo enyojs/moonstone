@@ -619,7 +619,8 @@ enyo.kind({
 
 		// queuedIndex becomes -1 when left key input is occurred 
 		// during transition from index 1 to 0.
-		if (this.queuedIndex === -1) {
+		// We can hide panels if we use handle.
+		if (this.queuedIndex === -1 && this.useHandle) {
 			this.hide();
 		} else if (this.queuedIndex !== null) {
 			this.setIndex(this.queuedIndex);
