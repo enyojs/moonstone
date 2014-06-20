@@ -72,11 +72,11 @@ enyo.kind({
 		onSpotlightFocused: "scrollIntoView"
 	},
 	components: [
-		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", onSpotlightSelect: "left", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
+		{name: "buttonLeft",  kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button left", icon:"arrowlargeleft", onSpotlightKeyDown:"configureSpotlightHoldPulse", onSpotlightSelect: "left", ondown: "downLeft", onholdpulse:"left", defaultSpotlightDisappear: "buttonRight"},
 		{kind: "enyo.Control", name: "clientWrapper", classes:"moon-simple-picker-client-wrapper", components: [
 			{kind: "enyo.Control", name: "client", classes: "moon-simple-picker-client"}
 		]},
-		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightSelect: "right", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
+		{name: "buttonRight", kind: "moon.IconButton", noBackground:true, classes: "moon-simple-picker-button right", icon:"arrowlargeright", onSpotlightKeyDown:"configureSpotlightHoldPulse", onSpotlightSelect: "right", ondown: "downRight", onholdpulse:"right", defaultSpotlightDisappear: "buttonLeft"}
 	],
 	create: function() {
 		this.inherited(arguments);
@@ -236,46 +236,60 @@ enyo.kind({
 			}
 		}
 	},
-	left: function() {
+	left: function(inSender, inEvent) {
+		if (inEvent && inEvent.sentHold) { return; }
 		if (this.rtl) {
-			this.next();
+			this.next(inSender, inEvent);
 		} else {
-			this.previous();
+			this.previous(inSender, inEvent);
 		}
 	},
-	right: function() {
+	right: function(inSender, inEvent) {
+		if (inEvent && inEvent.sentHold) { return; }
 		if (this.rtl) {
-			this.previous();
+			this.previous(inSender, inEvent);
 		} else {
-			this.next();
+			this.next(inSender, inEvent);
 		}
 	},
 	downLeft: function(inSender, inEvent) {
 		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
-		this.left();
+		this.left(inSender, inEvent);
 	},
 	downRight: function(inSender, inEvent) {
 		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
-		this.right();
+		this.right(inSender, inEvent);
+	},
+	configureSpotlightHoldPulse: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
+		}
 	},
 	//* @public
 	//* Cycles the selected item to the one before the currently selected item.
-	previous: function() {
+	previous: function(inSender, inEvent) {
 		if (!this.disabled) {
 			var idx = this.selectedIndex - 1;
 			if (idx < 0) {
 				idx = this.wrap ? this.getClientControls().length - 1 : 0;
+			}
+			if (!this.wrap && idx === 0 && inEvent && inEvent.cancelHoldPulse) {
+				inEvent.cancelHoldPulse();
 			}
 			this.setSelectedIndex(idx);
 		}
 	},
 	//* @public
 	//* Cycles the selected item to the one after the currently selected item.
-	next: function() {
+	next: function(inSender, inEvent) {
 		if (!this.disabled) {
 			var idx = this.selectedIndex + 1;
 			if (idx > this.getClientControls().length - 1) {
 				idx = this.wrap ? 0 : this.getClientControls().length - 1;
+			}
+			if (!this.wrap && idx === this.getClientControls().length - 1 
+				&& inEvent && inEvent.cancelHoldPulse) {
+				inEvent.cancelHoldPulse();
 			}
 			this.setSelectedIndex(idx);
 		}

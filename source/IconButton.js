@@ -47,7 +47,7 @@ enyo.kind({
 	spotlight: true,
 	handlers: {
 		//* onSpotlightSelect simulates mousedown
-		onSpotlightSelect: "depress",
+		onSpotlightKeyDown: "depress",
 		//* onSpotlightKeyUp simulates mouseup
 		onSpotlightKeyUp: "undepress",
 		//* used to request it is in view in scrollers
@@ -75,8 +75,10 @@ enyo.kind({
 		this.bubble("onActivate");
 	},
 	//* Adds _pressed_ CSS class.
-	depress: function() {
-		this.addClass("pressed");
+	depress: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			this.addClass("pressed");
+		}
 	},
 	//* Removes _pressed_ CSS class.
 	undepress: function() {

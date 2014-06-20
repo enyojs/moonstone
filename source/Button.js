@@ -37,7 +37,7 @@ enyo.kind({
 	spotlight: true,
 	handlers: {
 		//* _onSpotlightSelect_ simulates _mousedown_.
-		onSpotlightSelect	: 'depress',
+		onSpotlightKeyDown	: 'depress',
 		//* _onSpotlightKeyUp_ simulates _mouseup_.
 		onSpotlightKeyUp	: 'undepress',
 		//* Also make sure we remove the pressed class if focus is removed from
@@ -56,8 +56,10 @@ enyo.kind({
 		this.inherited(arguments);
 	},
 	//* Adds _pressed_ CSS class.
-	depress: function() {
-		this.addClass('pressed');
+	depress: function(inSender, inEvent) {
+		if (inEvent.keyCode === 13) {
+			this.addClass('pressed');
+		}
 	},
 	//* Bubble _requestScrollIntoView_ event
 	spotFocused: function(inSender, inEvent) {
