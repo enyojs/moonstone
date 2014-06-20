@@ -985,6 +985,9 @@
   width: 60px;
   height: 100%;
 }
+.enyo-locale-non-latin .moon button.moon-simple-integer-picker-button {
+  font-family: "Moonstone Icons";
+}
 .spotlight .moon-simple-integer-picker-button {
   /* Hover while not Pressed state */
 }
