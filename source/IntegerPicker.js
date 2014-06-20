@@ -62,7 +62,7 @@ enyo.kind({
 			{classes:"moon-scroll-picker-overlay top"},
 			{classes: "moon-scroll-picker-taparea"}
 		]},
-		{kind: "enyo.Scroller", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
+		{kind: "enyo.Scroller", onScrollStop: "scrollStop", thumb:false, touch:true, useMouseWheel: false, classes: "moon-scroll-picker", components:[
 			{name:"repeater", kind:"enyo.FlyweightRepeater", ondragstart: "dragstart", onSetupItem: "setupItem", components: [
 				{name: "item", classes:"moon-scroll-picker-item"}
 			]}
@@ -97,6 +97,15 @@ enyo.kind({
 		var node = this.$.repeater.fetchRowNode(this.value - this.min);
 		if (node) {
 			this.$.scroller.scrollToNode(node);
+		}
+	},
+	scrollStop: function(inSender, inEvent) {
+		var node = this.$.repeater.fetchRowNode(this.value - this.min);
+		if (node) {
+			if (node.offsetTop != inEvent.scrollBounds.top) {
+				this.$.scroller.scrollToNode(node);
+				return true;
+			}
 		}
 	},
 	setupItem: function(inSender, inEvent) {
