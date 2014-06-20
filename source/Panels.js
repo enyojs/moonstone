@@ -74,7 +74,7 @@ enyo.kind({
 		onSpotlightLeft:			"spotlightLeft",
 		onSpotlightUp:				"spotlightUp",
 		onSpotlightDown:			"spotlightDown",
-		onSpotlightFocused:			"spotlightFocused",
+		onSpotlightFocus:			"spotlightFocus",
 		onSpotlightContainerLeave:	"onSpotlightPanelLeave",
 		onSpotlightContainerEnter:	"onSpotlightPanelEnter",
 
@@ -320,8 +320,12 @@ enyo.kind({
 	spotlightDown: function(oSender, oEvent) {
 		if (oEvent.originator.name === "breadcrumbBackground") { return true; }
 	},
-	spotlightFocused: function(oSender, oEvent) {
-		this.index = this.getPanelIndex(oEvent.originator);
+	spotlightFocus: function(oSender, oEvent) {
+		var orig = oEvent.originator;
+		var idx = this.getPanelIndex(orig);
+		if (this.index !== idx && idx !== -1 && orig.name !== "breadcrumbBackground") {
+			this.setIndex(idx);
+		}
 	},
 	//* Responds to tap on show/hide handle.
 	handleTap: function() {
