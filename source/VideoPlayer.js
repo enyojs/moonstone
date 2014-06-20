@@ -209,10 +209,12 @@ enyo.kind({
 	handlers: {
 		onRequestTimeChange: 'timeChange',
 		onRequestToggleFullscreen: 'toggleFullscreen',
-		onSpotlightUp: 'spotlightUpHandler',
 		onSpotlightKeyUp: 'resetAutoTimeout',
-		onSpotlightDown: 'spotlightDownHandler',
 		onSpotlightKeyDown: 'spotlightKeyDownHandler',
+		onSpotlightUp: 'spotlightUpHandler',
+		onSpotlightDown: 'spotlightDownHandler',
+		onSpotlightLeft: 'spotlightLeftRightFilter',
+		onSpotlightRight: 'spotlightLeftRightFilter',
 		onresize: 'handleResize'
 	},
     bindings: [
@@ -516,13 +518,16 @@ enyo.kind({
 		this.$.fullscreenControl.addRemoveClass('scrim', !show);
 	},
 	updateSpotability: function() {
+		var spotState = this._panelsShowing ? false : (this._controlsShowing ? "container" : true);
 		this.updatePlaybackControlState();
-		this.set("spotlight", !this._panelsShowing);
+		this.set("spotlight", spotState);
 		this.$.leftPremiumPlaceHolder.spotlightDisabled = this._panelsShowing;
 		this.$.rightPremiumPlaceHolder.spotlightDisabled = this._panelsShowing;
 	},
 	panelsShown: function(inSender, inEvent) {
 		this._panelsShowing = true;
+		this._controlsShowing = false;
+		this._infoShowing = false;
 		this.updateSpotability();
 		if (inEvent.initialization) {
 			return;
@@ -536,7 +541,9 @@ enyo.kind({
 	panelsHidden: function(inSender, inEvent) {
 		this._panelsShowing = false;
 		this.updateSpotability();
-		enyo.Spotlight.spot(this);
+		if (!enyo.Spotlight.getCurrent().isDescendantOf(this)) {
+			enyo.Spotlight.spot(this);
+		}
 	},
 	panelsHandleFocused: function(inSender, inEvent) {
 		this._infoShowing = this.$.videoInfoHeaderClient.getShowing();
@@ -556,8 +563,11 @@ enyo.kind({
 	isLarge: function() {
 		return this.isFullscreen() || !this.get("inline");
 	},
+	spotlightLeftRightFilter: function(inSender, inEvent) {
+		return this.spotlightModal && inEvent.originator === this;
+	},
 	spotlightUpHandler: function(inSender, inEvent) {
-		if (this.isLarge() && !inEvent.spotSentFromContainer) {
+		if (this._shouldHandleUpDown) {
 			// Toggle info header on "up" press
 			if (inEvent.originator !== this.$.slider) {
 				if (!this.$.videoInfoHeaderClient.getShowing()) {
@@ -570,7 +580,7 @@ enyo.kind({
 		}
 	},
 	spotlightDownHandler: function(inSender, inEvent) {
-		if (this.isLarge() && !inEvent.spotSentFromContainer) {
+		if (this._shouldHandleUpDown) {
 			// Toggle info header on "down" press
 			if (!this.$.playerControl.getShowing()) {
 				this.showFSBottomControls();
@@ -581,10 +591,7 @@ enyo.kind({
 		}
 	},
 	spotlightKeyDownHandler: function(inSender, inEvent) {
-		// Do not decorate event with spotlight container flag if sent from control whose events player should handle
-		if (inEvent.spotSentFromContainer && (enyo.Spotlight.getParent(inEvent.originator) === this || inEvent.originator === this)) {
-			inEvent.spotSentFromContainer = false;
-		}
+		this._shouldHandleUpDown = this.isLarge() && (inEvent.originator === this || enyo.Spotlight.getParent(inEvent.originator) === this);
 	},
 
 	///// Fullscreen controls /////
