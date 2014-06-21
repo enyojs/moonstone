@@ -17,6 +17,5 @@ enyo.kind({
 	buttonTapped: function(inSender, inEvent) {
 		var active = inSender.getActive();
 		inSender.parent.addRemoveClass("enyo-locale-right-to-left", active);
-		inSender.parent.applyStyle("direction", active ? "rtl" : "ltr");
 	}
 });

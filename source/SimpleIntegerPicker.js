@@ -78,20 +78,18 @@ enyo.kind({
 	components: [
 		{classes: "moon-scroll-picker-overlay-container-left", components: [
 			{name: "leftOverlay", showing: false, components:[
-				{classes: "moon-scroll-picker-overlay-left"},
-				{classes: "moon-scroll-picker-overlay-left-border"}
+				{classes: "moon-scroll-picker-overlay-left"}
 			]},
-			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left small moon-icon moon-icon-arrowsmallleft", ondown: "downPrevious", onholdpulse:"previous"}
+			{name: "buttonLeft", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
 		{classes: "moon-scroll-picker-overlay-container-right", components: [
 			{name: "rightOverlay", showing: false, components:[
-				{classes: "moon-scroll-picker-overlay-right"},
-				{classes: "moon-scroll-picker-overlay-right-border"}
+				{classes: "moon-scroll-picker-overlay-right"}
 			]},
-			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right small moon-icon moon-icon-arrowsmallright", ondown: "downNext", onholdpulse:"next"}
+			{name: "buttonRight", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next"}
 		]}
 	],
 	observers: {

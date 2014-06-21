@@ -937,6 +937,7 @@
   right: 0;
   margin-left: 10px;
 }
+/*mixin class for scroller left and right arrow*/
 .moon-simple-integer-picker {
   white-space: nowrap;
   font-family: "MuseoSans 700";
@@ -946,198 +947,111 @@
   letter-spacing: 0;
   color: #4b4b4b;
   position: relative;
-  display: table-cell;
-  vertical-align: middle;
+  display: inline-block;
   height: 60px;
   border-radius: 30px;
-}
-.enyo-locale-non-latin .moon-simple-integer-picker {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
 }
 .moon-simple-integer-picker > * {
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
+  height: 60px;
+  line-height: 60px;
 }
 .moon-simple-integer-picker.spotlight {
   background: #cf0652;
 }
-.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
-  color: #ffffff;
-}
+.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item,
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
   color: #ffffff;
 }
-.moon-simple-integer-picker-button {
-  border-radius: 30px;
-  border: 0;
-  background: inherit;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  vertical-align: middle;
-  z-index: 2;
-  color: #4b4b4b;
-  background-repeat: no-repeat;
-  background-position: center 0;
-}
-.moon-simple-integer-picker-button.moon-icon.small {
+.moon-simple-integer-picker .moon-simple-integer-picker-button {
   width: 60px;
-  height: 100%;
-}
-.enyo-locale-non-latin .moon button.moon-simple-integer-picker-button {
+  height: 60px;
+  border-radius: 30px;
+  text-align: center;
   font-family: "Moonstone Icons";
+  font-size: 64px;
+  line-height: 60px;
+  color: #4b4b4b;
 }
-.spotlight .moon-simple-integer-picker-button {
-  /* Hover while not Pressed state */
-}
-.spotlight .moon-simple-integer-picker-button.moon-icon {
-  color: #ffffff;
-}
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
-  content: "\0F0003";
-}
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
-  content: "\0F0004";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button {
-  /* Default RTL state */
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:after {
-  content: "\0F0008";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallright:after {
+.moon-simple-integer-picker .moon-simple-integer-picker-button.left:after {
   content: "\0F0007";
 }
-.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
-  /* Hover while not Pressed state */
+.moon-simple-integer-picker .moon-simple-integer-picker-button.right:after {
+  content: "\0F0008";
 }
-.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
-  content: "\0F0004";
-}
-.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
+.moon-simple-integer-picker .spotlight .moon-simple-integer-picker-button.left:after {
   content: "\0F0003";
 }
-.moon-simple-integer-picker-client {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  height: 36px;
+.moon-simple-integer-picker .spotlight .moon-simple-integer-picker-button.right:after {
+  content: "\0F0004";
 }
-.moon-simple-integer-picker-item {
+.moon-simple-integer-picker .moon-simple-integer-picker-item {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
-  display: table;
   white-space: nowrap;
-  text-align: center;
-  padding: 0 8px;
+  padding: 0 10px;
   width: auto;
+  text-align: center;
 }
-.enyo-locale-non-latin .moon-simple-integer-picker-item {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
+/* Overlay */
+.moon-scroll-picker-overlay-container-left,
+.moon-scroll-picker-overlay-container-right {
+  width: 60px;
+}
+.moon-scroll-picker-overlay-container-left .moon-scroll-picker-overlay-left,
+.moon-scroll-picker-overlay-container-right .moon-scroll-picker-overlay-left,
+.moon-scroll-picker-overlay-container-left .moon-scroll-picker-overlay-right,
+.moon-scroll-picker-overlay-container-right .moon-scroll-picker-overlay-right {
+  position: absolute;
+  width: 60px;
+  border-radius: 30px;
+  background: #cf0652;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: "Moonstone Icons";
+  font-size: 64px;
+  line-height: 60px;
+  color: #ffffff;
+}
+.moon-scroll-picker-overlay-container-left .moon-scroll-picker-overlay-left,
+.moon-scroll-picker-overlay-container-right .moon-scroll-picker-overlay-left {
+  border-left: solid 6px rgba(0, 0, 0, 0.13);
+}
+.moon-scroll-picker-overlay-container-left .moon-scroll-picker-overlay-left:before,
+.moon-scroll-picker-overlay-container-right .moon-scroll-picker-overlay-left:before {
+  content: "\0F0007";
+  margin-left: -6px;
+}
+.moon-scroll-picker-overlay-container-left .moon-scroll-picker-overlay-right,
+.moon-scroll-picker-overlay-container-right .moon-scroll-picker-overlay-right {
+  border-right: solid 6px rgba(0, 0, 0, 0.13);
+}
+.moon-scroll-picker-overlay-container-left .moon-scroll-picker-overlay-right:before,
+.moon-scroll-picker-overlay-container-right .moon-scroll-picker-overlay-right:before {
+  content: "\0F0008";
+  margin-right: -6px;
 }
 .moon-simple-integer-picker.disabled,
 .moon-simple-integer-picker-button[disabled] {
   cursor: default;
   opacity: 0.35;
-  filter: alpha(opacity=35);
 }
-/* Button shadow overlay */
-.moon-scroll-picker-overlay-container-left {
-  z-index: 1;
-  position: relative;
-  height: 100%;
+.enyo-locale-right-to-left .moon-simple-integer-picker {
+  float: right;
 }
-.moon-scroll-picker-overlay-left {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-left-color: rgba(0, 0, 0, 0.13);
+.enyo-locale-right-to-left .moon-simple-integer-picker-client {
+  direction: rtl;
 }
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-left-width: 0px;
-  border-left-style: none;
-  border-right-color: rgba(0, 0, 0, 0.13);
-  right: 0px;
-}
-.moon-scroll-picker-overlay-left-border {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-left-color: #cf0652;
-  left: 6px;
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-left-width: 0px;
-  border-left-style: none;
-  border-right-color: #cf0652;
-  left: 0px;
-  right: 6px;
-}
-.moon-scroll-picker-overlay-container-right {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-}
-.moon-scroll-picker-overlay-right {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-right-color: rgba(0, 0, 0, 0.13);
-  right: 0px;
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-right-width: 0px;
-  border-right-style: none;
-  border-left-color: rgba(0, 0, 0, 0.13);
-}
-.moon-scroll-picker-overlay-right-border {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-right-color: #cf0652;
-  right: 6px;
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-right-width: 0px;
-  border-right-style: none;
-  border-left-color: #cf0652;
-  right: -6px;
-}
-.spotlight .moon-simple-integer-picker-button {
-  background-position: center -50px;
+.enyo-locale-non-latin .moon-simple-integer-picker-item {
+  font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
+  font-size: 30px;
 }
 /* Checkbox.css */
 .moon-checkbox {
