@@ -77,19 +77,19 @@ enyo.kind({
 
 	components: [
 		{classes: "moon-scroll-picker-overlay-container-left", components: [
+			{name: "buttonLeft", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"},
 			{name: "leftOverlay", showing: false, components:[
 				{classes: "moon-scroll-picker-overlay-left"}
-			]},
-			{name: "buttonLeft", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"}
+			]}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
 		{classes: "moon-scroll-picker-overlay-container-right", components: [
+			{name: "buttonRight", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next"},
 			{name: "rightOverlay", showing: false, components:[
 				{classes: "moon-scroll-picker-overlay-right"}
-			]},
-			{name: "buttonRight", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next"}
+			]}
 		]}
 	],
 	observers: {

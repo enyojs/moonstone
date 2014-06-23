@@ -1,11 +1,3 @@
-/*mixin class for scroller left and right arrow*/
-.moon-simple-interger-arrow-font-style(@color) {
-  font-family: @moon-icon-font-family;
-  font-size: @moon-icon-small-size * 2;
-  line-height: @moon-picker-button-width;
-  color: @color;
-}
-
 .moon-simple-integer-picker {
   white-space: nowrap;
   .moon-sub-header-text;
@@ -13,12 +5,13 @@
   display: inline-block;
   height: @moon-picker-button-width;
   border-radius: @moon-picker-button-width / 2;
+
   > * {
     display: inline-block;
     vertical-align: middle;
-    box-sizing: border-box;
     height: @moon-picker-button-width;
     line-height: @moon-picker-button-width;
+    box-sizing: border-box;
   }
 
   &.spotlight {
@@ -32,69 +25,62 @@
   .moon-simple-integer-picker-button {
     width: @moon-picker-button-width;
     height: @moon-picker-button-width;
-    border-radius: @moon-picker-button-width / 2;
     text-align: center;
-    .moon-simple-interger-arrow-font-style(@moon-sub-header-text-color);
+    font-family: @moon-icon-font-family;
+    font-size: @moon-icon-small-size * 2;
+    line-height: @moon-picker-button-width;
+    color: @moon-sub-header-text-color;
 
     &.left:after {
       content: @moon-icon-arrowsmallleft;
     }
     &.right:after {
       content: @moon-icon-arrowsmallright;
-    }
-  }
-
-  .spotlight .moon-simple-integer-picker-button {
-    &.left:after {
-      content: @moon-icon-arrowlargeleft;
-    }
-    &.right:after {
-      content: @moon-icon-arrowlargeright;
     }
   }
 
   .moon-simple-integer-picker-item {
     .moon-sub-header-text;
-    white-space: nowrap;
-    padding: 0 10px;
     width: auto;
+    white-space: nowrap;
+    padding: 0 8px;
     text-align: center;
   }
 }
 
-/* Overlay */
-.moon-scroll-picker-overlay-container-left,
-.moon-scroll-picker-overlay-container-right {
-  width: @moon-picker-button-width;
+/*spotlight and overlay*/
+.spotlight {
+  .moon-simple-integer-picker-button {
+    &.left:not(.pressed):after {
+      content: @moon-icon-arrowlargeleft;
+    }
+    &.right:not(.pressed):after {
+      content: @moon-icon-arrowlargeright;
+    }
+  }
 
   .moon-scroll-picker-overlay-left,
   .moon-scroll-picker-overlay-right {
     position: absolute;
-    width: @moon-picker-button-width;
-    border-radius: @moon-picker-button-width / 2;
-    background: @moon-spotlight-border-color;
-    box-sizing: border-box;
-    text-align: center;
-    .moon-simple-interger-arrow-font-style(@moon-spotlight-text-color);
+    top: 0;
+    width: @moon-picker-button-width / 2;
+    height: @moon-picker-button-width;
+    background-color: transparent;
   }
 
   .moon-scroll-picker-overlay-left {
-    border-left: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
-    &:before {
-      content: @moon-icon-arrowsmallleft;
-      margin-left: -@moon-integer-picker-shadow-width;
-    }
+    border-left: solid @moon-integer-picker-shadow-width @moon-shadow-color;
+    border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
   }
- 
+
   .moon-scroll-picker-overlay-right {
+    right: 0;
     border-right: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
-    &:before {
-      content: @moon-icon-arrowsmallright;
-      margin-right: -@moon-integer-picker-shadow-width;
-    }
+    border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
   }
 }
 
+/*disabled*/
 .moon-simple-integer-picker.disabled,
 .moon-simple-integer-picker-button[disabled] {
   cursor: default;
