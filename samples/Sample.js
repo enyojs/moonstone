@@ -19,10 +19,13 @@ enyo.kind({
 							{content: "Set Locale", kind: "moon.Divider"},
 							{kind: "moon.Scroller", classes: "enyo-fill", components: [
 								{kind: "Group", onActivate: "localeGroupChanged", components: [
-									{content:"local", kind: "moon.ToggleItem", checked: true},
-									{content:"en-US", kind: "moon.ToggleItem"},
-									{content:"ko-KR", kind: "moon.ToggleItem"},
-									{content:"zh-Hant-HK", kind: "moon.ToggleItem"}
+									{content:'local', kind: "moon.ToggleItem", checked: true},
+									{content:'en-US <span style="font-family: \'MuseoSans 300\'";">- US English</span>', kind: "moon.ToggleItem", allowHtml: true},
+									{content:'ko-KR <span style="font-family: \'MuseoSans 300\'";">- Korean</span>', kind: "moon.ToggleItem", allowHtml: true},
+									{content:'ar-SA <span style="font-family: \'MuseoSans 300\'";">- RTL and standard font</span>', kind: "moon.ToggleItem", allowHtml: true},
+									{content:'ur-PK <span style="font-family: \'MuseoSans 300\'";">- RTL and custom Urdu font</span>', kind: "moon.ToggleItem", allowHtml: true},
+									{content:'zh-Hant-HK <span style="font-family: \'MuseoSans 300\';">- custom Hong Kong font</span>', kind: "moon.ToggleItem", allowHtml: true},
+									{content:'ja-JP <span style="font-family: \'MuseoSans 300\';">- custom Japanese font</span>', kind: "moon.ToggleItem", allowHtml: true}
 								]}
 							]}
 						]}
@@ -64,7 +67,7 @@ enyo.kind({
 			var file = sortedFiles[i],
 				sampleName = file.replace(/\.\w+$/i, "");
 			if (fs[file]) {
-				dataList.push({sampleName: sampleName, label: sampleName.replace(/Sample$/i, "")});
+				dataList.push({sampleName: sampleName, label: sampleName.replace(/(Sample)$/i, " $1")});
 			}
 		}
 		var c = new enyo.Collection(dataList);
@@ -124,20 +127,6 @@ enyo.kind({
 		var s = this.get("sample");
 		this.appendToHead( this.createNode("script", {type: "text/javascript", content: ' new moon.sample.' + s + '().renderInto(document.body); enyo.log("'+s+' Launched.")'}) );
 	},
-	getQueryObject: function() {
-		if (!window.location.search || !window.location.search.substr(1)) {
-			return {};
-		}
-		var i, pair,
-			querystring = window.location.search.substr(1),
-			pairs = querystring.split(/&/) || [],
-			query = {};
-		for (i = 0; i < pairs.length; i++) {
-			pair = pairs[i].split(/=/);
-			query[pair[0]] = (pair[1] !== undefined ? decodeURIComponent(pair[1]) : null);
-		}
-		return query;
-	},
 	haijackPackage: function() {
 		// Maybe we want to save this off and restore it after we've stolen it?
 		// var localDepends = enyo.depends;
@@ -154,6 +143,20 @@ enyo.kind({
 		});
 		
 		this.appendToHead( this.createNode("script", {src: "package.js"}) );
+	},
+	getQueryObject: function() {
+		if (!window.location.search || !window.location.search.substr(1)) {
+			return {};
+		}
+		var i, pair,
+			querystring = window.location.search.substr(1),
+			pairs = querystring.split(/&/) || [],
+			query = {};
+		for (i = 0; i < pairs.length; i++) {
+			pair = pairs[i].split(/=/);
+			query[pair[0]] = (pair[1] !== undefined ? decodeURIComponent(pair[1]) : null);
+		}
+		return query;
 	},
 	createNode: function(tagName, attrs) {
 		var key, node = document.createElement(tagName);
