@@ -217,6 +217,9 @@ enyo.kind({
 		onSpotlightRight: 'spotlightLeftRightFilter',
 		onresize: 'handleResize'
 	},
+	eventsToCapture: {
+		onSpotlightFocus: "capturedFocus"
+	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
@@ -853,7 +856,9 @@ enyo.kind({
 			this.$.fullscreenControl.setShowing(true);
 			this.showFSControls();
 			this.$.controlsContainer.resize();
+			this.capture();
 		} else {
+			this.release();
 			this.stopJob("autoHide");
 			this.addClass("inline");
 			this.$.inlineControl.setShowing(true);
@@ -1235,6 +1240,16 @@ enyo.kind({
 				}
 			}
 		}
+		return true;
+	},
+	capture: function() {
+		enyo.dispatcher.capture(this, this.eventsToCapture);
+	},
+	release: function() {
+		enyo.dispatcher.release(this);
+	},
+	capturedFocus: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this);
 		return true;
 	}
 });
