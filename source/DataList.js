@@ -101,12 +101,14 @@ moon.DataListSpotlightSupport = {
 				enyo.Spotlight.spot(spottableControl);
 				return true;
 			}
-		} else {
+		} else if (this.needToAdjustPages) {
 			var pagesForIndex = this.delegate.pageForIndex(this, inEvent.index),
 				pageCount = this.delegate.pageCount(this),
 				lastPageIndex = pages.lastPage.index;
+
 			if (pagesForIndex === lastPageIndex && pageCount -1 !== lastPageIndex) {
 				this.didScroll(this, {scrollBounds: {left: null, top: null, xDir: 1, yDir: 1}});
+				this.needToAdjustPages = false;
 			}
 		}
 	},
@@ -292,6 +294,8 @@ moon.DataListSpotlightSupport = {
 			this.unspotAndRememberFocus();
 			sup.apply(this, arguments);
 			this.restoreFocus();
+			// For specific case, page adjusting is required after models added
+			this.needToAdjustPages = true;
 		};
 	}),
 	modelsRemoved: enyo.inherit(function (sup) {
