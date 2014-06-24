@@ -77,15 +77,13 @@ enyo.kind({
 
 	components: [
 		{classes: "moon-scroll-picker-overlay-container-left", components: [
-			{name: "buttonLeft", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"},
-			{name: "leftOverlay", showing: false, classes: "moon-scroll-picker-overlay-left"}
+			{name: "buttonLeft", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous"}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
 		{classes: "moon-scroll-picker-overlay-container-right", components: [
-			{name: "buttonRight", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next"},
-			{name: "rightOverlay", showing: false, classes: "moon-scroll-picker-overlay-right"}
+			{name: "buttonRight", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next"}
 		]}
 	],
 	observers: {
@@ -197,7 +195,7 @@ enyo.kind({
 		if (this.getAbsoluteShowing()) {
 			var width = 0;
 			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
+				width = Math.max(width, c$[i].getBounds().width + 16);
 			}
 			this.$.client.setBounds({width:width});
 			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
@@ -208,10 +206,8 @@ enyo.kind({
 	},
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
-			this.$.leftOverlay.show();
 			this.$.buttonLeft.addClass("pressed");
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
-			this.$.rightOverlay.show();
 			this.$.buttonRight.addClass("pressed");
 		}
 		return true;
@@ -224,8 +220,6 @@ enyo.kind({
 		this.hideOverlays();
 	},
 	hideOverlays: function() {
-		this.$.leftOverlay.hide();
-		this.$.rightOverlay.hide();
 		this.$.buttonLeft.removeClass("pressed");
 		this.$.buttonRight.removeClass("pressed");
 	},

@@ -938,14 +938,12 @@
   margin-left: 10px;
 }
 .moon-simple-integer-picker {
-  white-space: nowrap;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
-  position: relative;
   display: inline-block;
   height: 60px;
   border-radius: 30px;
@@ -966,7 +964,6 @@
 }
 .moon-simple-integer-picker .moon-simple-integer-picker-button {
   width: 60px;
-  height: 60px;
   text-align: center;
   font-family: "Moonstone Icons";
   font-size: 64px;
@@ -992,27 +989,6 @@
   text-align: center;
 }
 /*spotlight and overlay*/
-.spotlight {
-  /*.moon-scroll-picker-overlay-left,
-  .moon-scroll-picker-overlay-right {
-    position: absolute;
-    top: 0;
-    width: @moon-picker-button-width / 2;
-    height: @moon-picker-button-width;
-    background-color: transparent;
-  }
-
-  .moon-scroll-picker-overlay-left {
-    border-left: solid @moon-integer-picker-shadow-width @moon-shadow-color;
-    border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
-  }
-
-  .moon-scroll-picker-overlay-right {
-    right: 0;
-    border-right: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
-    border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
-  }*/
-}
 .spotlight .moon-simple-integer-picker-button {
   box-sizing: border-box;
 }
@@ -1023,12 +999,18 @@
   border-left: solid 6px rgba(0, 0, 0, 0.13);
   border-radius: 30px 0 0 30px;
 }
+.spotlight .moon-simple-integer-picker-button.left.pressed:after {
+  margin-left: -6px;
+}
 .spotlight .moon-simple-integer-picker-button.right:not(.pressed):after {
   content: "\0F0004";
 }
 .spotlight .moon-simple-integer-picker-button.right.pressed {
   border-right: solid 6px rgba(0, 0, 0, 0.13);
   border-radius: 0 30px 30px 0;
+}
+.spotlight .moon-simple-integer-picker-button.right.pressed:after {
+  margin-right: -6px;
 }
 /*disabled*/
 .moon-simple-integer-picker.disabled,

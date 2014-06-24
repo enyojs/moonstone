@@ -1,7 +1,5 @@
 .moon-simple-integer-picker {
-  white-space: nowrap;
   .moon-sub-header-text;
-  position: relative;
   display: inline-block;
   height: @moon-picker-button-width;
   border-radius: @moon-picker-button-width / 2;
@@ -24,7 +22,6 @@
 
   .moon-simple-integer-picker-button {
     width: @moon-picker-button-width;
-    height: @moon-picker-button-width;
     text-align: center;
     font-family: @moon-icon-font-family;
     font-size: @moon-icon-small-size * 2;
@@ -58,6 +55,9 @@
     &.left.pressed {
         border-left: solid @moon-integer-picker-shadow-width @moon-shadow-color;
         border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
+        &:after {
+        margin-left: -@moon-integer-picker-shadow-width;
+        }
       }
     &.right:not(.pressed):after {
       content: @moon-icon-arrowlargeright;
@@ -65,6 +65,9 @@
     &.right.pressed {
       border-right: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
       border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
+      &:after {
+        margin-right: -@moon-integer-picker-shadow-width;
+      }
     }
   }
 }
