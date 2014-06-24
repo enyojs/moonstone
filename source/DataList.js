@@ -84,7 +84,9 @@ moon.DataListSpotlightSupport = {
 	// behavior occurs that is handled by Spotlight.
 	selectItem: function(inEvent, inDirection) {
 		var pages = this.delegate.pagesByPosition(this),
-			spottableControl;
+			spottableControl,
+			pagesForIndex = this.delegate.pageForIndex(this, inEvent.index),
+			pageCount = this.delegate.pageCount(this);
 
 		// If there are no spottable items generated in the current pages, generate the subsequent page(s)
 		// based on the current direction
@@ -101,6 +103,8 @@ moon.DataListSpotlightSupport = {
 				enyo.Spotlight.spot(spottableControl);
 				return true;
 			}
+		} else if (pagesForIndex === pages.lastPage.index && pageCount -1 !== pages.lastPage.index) {
+			this.didScroll(this, {scrollBounds: {left: null, top: null, xDir: 1, yDir: 1}});
 		}
 	},
 	// Find the next/previous spottable control, page to generate next page of controls in, and index of the next page to generate
