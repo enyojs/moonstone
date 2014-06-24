@@ -51,32 +51,21 @@
 /*spotlight and overlay*/
 .spotlight {
   .moon-simple-integer-picker-button {
+  box-sizing: border-box;
     &.left:not(.pressed):after {
       content: @moon-icon-arrowlargeleft;
     }
+    &.left.pressed {
+        border-left: solid @moon-integer-picker-shadow-width @moon-shadow-color;
+        border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
+      }
     &.right:not(.pressed):after {
       content: @moon-icon-arrowlargeright;
     }
-  }
-
-  .moon-scroll-picker-overlay-left,
-  .moon-scroll-picker-overlay-right {
-    position: absolute;
-    top: 0;
-    width: @moon-picker-button-width / 2;
-    height: @moon-picker-button-width;
-    background-color: transparent;
-  }
-
-  .moon-scroll-picker-overlay-left {
-    border-left: solid @moon-integer-picker-shadow-width @moon-shadow-color;
-    border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
-  }
-
-  .moon-scroll-picker-overlay-right {
-    right: 0;
-    border-right: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
-    border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
+    &.right.pressed {
+      border-right: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
+      border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
+    }
   }
 }
 

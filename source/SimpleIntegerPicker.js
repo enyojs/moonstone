@@ -136,6 +136,7 @@ enyo.kind({
 			this.validate();
 		}
 		this.disabledChanged();
+		this.reflow();
 	},
 	build: function() {
 		var indices = this.indices = {},
