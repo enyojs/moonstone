@@ -631,9 +631,13 @@ enyo.kind({
 		}
 
 		enyo.Spotlight.unmute(this);
+
+		if (!enyo.Spotlight.isSpottable(this.getActive())) {
+			// Create dummy div if there is no spottable child on panel
+			this.getActive().createComponent({name: "spotlightDummy", spotlight: true, style: "width:0;height:0;"}).render();
+		}
 		// Spot the active panel
 		enyo.Spotlight.spot(this.getActive());
-
 	},
 	/**
 		Override the default _getShowing()_ behavior to avoid setting _this.showing_
