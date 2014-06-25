@@ -57,7 +57,7 @@ moon.MarqueeSupport = {
 	rendered: enyo.inherit(function (sup) {
 		return function() {
 			sup.apply(this, arguments);
-			if (this.marqueeOnRender) {
+			if (this.marqueeOnRender && !this.disabled) {
 				this.startMarqueeCustomDelay(this.marqueeOnRenderDelay);
 			}
 		};
@@ -102,13 +102,13 @@ moon.MarqueeSupport = {
 	},
 	_marquee_enter: function(inSender, inEvent) {
 		this._marquee_isHovered = true;
-		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+		if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 			this.startMarquee();
 		}
 	},
 	_marquee_leave: function(inSender, inEvent) {
 		this._marquee_isHovered = false;
-		if (this.marqueeOnHover && !this.marqueeOnSpotlight) {
+		if ((this.marqueeOnHover && !this.marqueeOnSpotlight) || (this.disabled && this.marqueeOnSpotlight)) {
 			this.stopMarquee();
 		}
 	},
@@ -245,7 +245,8 @@ moon.MarqueeItem = {
 	},
 	observers: {
 		_marquee_contentChanged: ["content"],
-		_marquee_centeredChanged: ["centered"]
+		_marquee_centeredChanged: ["centered"],
+		_marquee_wrapInsteadOfMarqueeChanged: ["wrapInsteadOfMarquee"]
 	},
 	bindings: [
 		{from: ".allowHtml", to:".$.marqueeText.allowHtml"}
@@ -273,6 +274,7 @@ moon.MarqueeItem = {
 			sup.apply(this, arguments);
 			this.detectTextDirectionality();
 			this._marquee_centeredChanged();
+			this._marquee_wrapInsteadOfMarqueeChanged();
 		};
 	}),
 	reflow: enyo.inherit(function(sup) {
@@ -304,7 +306,7 @@ moon.MarqueeItem = {
 	},
 	//* If this control needs to marquee, lets the event originator know.
 	_marquee_requestMarquee: function(inSender, inEvent) {
-		if (!inEvent || this.disabled || !this.showing || !this._marquee_enabled || this._marquee_fits) {
+		if (!inEvent || !this.showing || this._marquee_fits) {
 			return;
 		}
 
@@ -420,6 +422,9 @@ moon.MarqueeItem = {
 	},
 	_marquee_centeredChanged: function() {
 		this.applyStyle("text-align", this.centered ? "center" : null);
+	},
+	_marquee_wrapInsteadOfMarqueeChanged: function() {
+		this.addRemoveClass("allow-wrap", this.wrapInsteadOfMarquee);
 	}
 };
 
@@ -475,7 +480,9 @@ enyo.kind({
 		//* When true, marqueeing will not occur
 		disabled: false,
 		//* When true, text is centered; otherwise left-aligned
-		centered: false
+		centered: false,
+		//* When true, element wraps instead of marqueeing
+		wrapInsteadOfMarquee: false
 	}
 });
 
