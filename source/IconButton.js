@@ -58,10 +58,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.noBackgroundChanged();
 	},
-	rendered: function() {
-		this.inherited(arguments);
-		this.activeChanged();
-	},
 	noBackgroundChanged: function() {
 		this.addRemoveClass("no-background", this.noBackground);
 	},
