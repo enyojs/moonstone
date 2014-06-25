@@ -58,8 +58,10 @@ enyo.kind({
 			this.requestHideTooltip();
 		}
 	},
-	enter: function() {
-		this.requestShowTooltip();
+	enter: function(inSender) {
+		if (inSender.getDisabled === undefined || !inSender.getDisabled()) {
+			this.requestShowTooltip();
+		}
 	},
 	leave: function() {
 		this.requestHideTooltip();
