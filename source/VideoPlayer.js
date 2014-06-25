@@ -217,6 +217,9 @@ enyo.kind({
 		onSpotlightRight: 'spotlightLeftRightFilter',
 		onresize: 'handleResize'
 	},
+	eventsToCapture: {
+		onSpotlightFocus: "capturedFocus"
+	},
     bindings: [
 		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
@@ -548,7 +551,7 @@ enyo.kind({
 	panelsHandleFocused: function(inSender, inEvent) {
 		this._infoShowing = this.$.videoInfoHeaderClient.getShowing();
 		this._controlsShowing = this.$.playerControl.getShowing();
-		this.hideFSControls();
+		this.hideFSControls(true);
 	},
 	panelsHandleBlurred: function(inSender, inEvent) {
 		if (this.isLarge() && !this.isOverlayShowing()) {
@@ -618,10 +621,14 @@ enyo.kind({
 		this.showFSInfo();
 		this.showFSBottomControls();
 	},
-	hideFSControls: function() {
+	hideFSControls: function(inSpottingHandled) {
 		if (this.isOverlayShowing()) {
 			this.hideFSInfo();
 			this.hideFSBottomControls();
+		}
+		if (!inSpottingHandled) {
+			enyo.Spotlight.setPointerMode(false);
+			enyo.Spotlight.spot(this);
 		}
 		this.stopJob("autoHide");
 	},
@@ -815,6 +822,16 @@ enyo.kind({
 		}
 		this.$.slider.setValue(this._currentTime);
 	},
+	capture: function() {
+		enyo.dispatcher.capture(this, this.eventsToCapture);
+	},
+	release: function() {
+		enyo.dispatcher.release(this);
+	},
+	capturedFocus: function(inSender, inEvent) {
+		enyo.Spotlight.spot(this);
+		return true;
+	},
 
 
 
@@ -853,7 +870,9 @@ enyo.kind({
 			this.$.fullscreenControl.setShowing(true);
 			this.showFSControls();
 			this.$.controlsContainer.resize();
+			this.capture();
 		} else {
+			this.release();
 			this.stopJob("autoHide");
 			this.addClass("inline");
 			this.$.inlineControl.setShowing(true);
