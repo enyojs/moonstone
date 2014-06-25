@@ -68,7 +68,10 @@ enyo.kind({
 			that a minimum width of 300px is still respected; if all menus don't fit
 			horizontally, they will be stacked vertically.
 		*/
-		proportionalWidth: false
+		proportionalWidth: false,
+		//* When true, activator is shown as disabled and does not generate tap
+		//* events
+		disabled: false
 	},
 
 	//* @protected
@@ -103,6 +106,7 @@ enyo.kind({
 		if (!this.$.drawer) {
 			throw "moon.ListActions must be created as a child of moon.Header";
 		}
+		this.disabledChanged();
 		this.listActionsChanged();
 		this.drawerNeedsResize = true;
 	},
@@ -118,6 +122,10 @@ enyo.kind({
 	destroy: function() {
 		enyo.dispatcher.release(this.$.drawer);
 		this.inherited(arguments);
+	},
+	disabledChanged: function() {
+		this.addRemoveClass("disabled", this.disabled);
+		this.$.activator.setDisabled(this.disabled);
 	},
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
