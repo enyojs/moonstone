@@ -195,10 +195,7 @@ enyo.kind({
 			this.applyZIndex();
 		}
 		else {
-
-			// events desired due to programmatic show/hide
 			this.doHiding();
-
 
 			if(moon.Popup.count > 0) {
 				moon.Popup.count--;
