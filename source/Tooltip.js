@@ -98,9 +98,14 @@ enyo.kind({
 				moonDefaultPadding = 20,
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds =null;
-
+			
 			this.activator = enyo.Spotlight.getCurrent();
-			acBounds = this.activator.getAbsoluteBounds();
+			if (!!this.activator) {
+				acBounds = this.activator.getAbsoluteBounds();	
+			} else {
+				acBounds = pBounds;
+			}
+			
 
 			//* Calculate the difference between decorator and activating
 			//* control's top, left, right differences, position tooltip against
