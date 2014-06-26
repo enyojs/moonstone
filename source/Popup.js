@@ -23,6 +23,14 @@ enyo.kind({
 	eventsToCapture: { 
 		onSpotlightFocus: "capturedFocus"
 	},
+
+	events: {
+		//* Fires after the animation is complete when the popup is shown.
+		onShown: "",
+		//* Fires before the animation starts when the popup is hidden.
+		onHiding: ""
+	},
+
 	//* @public
 	published: {
 		/**
@@ -187,6 +195,11 @@ enyo.kind({
 			this.applyZIndex();
 		}
 		else {
+
+			// events desired due to programmatic show/hide
+			this.doHiding();
+
+
 			if(moon.Popup.count > 0) {
 				moon.Popup.count--;
 			}
@@ -199,6 +212,12 @@ enyo.kind({
 			if (this.showing) {
 				this.inherited(arguments);
 				this.animateShow();
+				var args = arguments;
+				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+					if (inEvent.originator === this) {
+						this.doShown();
+					}
+				});
 			} else {
 				this.animateHide();
 				var args = arguments;
