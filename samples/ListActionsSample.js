@@ -7,7 +7,7 @@ enyo.kind({
 		onActivate: "activateHandler"
 	},
 	components: [
-		{kind:"moon.Panel", name: "panel0", headerType: "medium", title: "List Actions Sample", headerComponents: [
+		{kind:"moon.Panel", headerType: "medium", title: "List Actions Sample", headerComponents: [
 			{kind:"moon.TooltipDecorator", components: [
 				{kind:"moon.Tooltip", position:"above", content:"Test Dynamic Lists"},
 			
@@ -143,7 +143,7 @@ enyo.kind({
 		this.setIndex(this.getIndex() > 0 ? 0 : 1);
 	},
 	toggleHeaderSize: function() {
-		this.$.panel0.setHeaderType(this.$.panel0.getHeaderType() == "small" ? "medium": "small");
+		this.getActive().setHeaderType(this.getActive().getHeaderType() == "small" ? "medium": "small");
 	},
 	create: function() {
 		this.inherited(arguments);
