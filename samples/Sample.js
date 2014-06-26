@@ -65,9 +65,7 @@ enyo.kind({
 	},
 	initComponents: function() {
 		this.inherited(arguments);
-		// console.log("initComponents");
 		this.files = {};
-
 		this.haijackPackage();
 	},
 	createList: function() {
@@ -141,7 +139,6 @@ enyo.kind({
 				if (fs[jsFile]) {
 					this.appendToHead( this.createNode("script", {type: "text/javascript", src: jsFile, onload: this.bindSafely(this.launchSample, null) }) );
 				}
-				// debugger;
 				if (fs[jsFile] || fs[cssFile]) {
 					return true;
 				} else {
