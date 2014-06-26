@@ -99,6 +99,8 @@ enyo.kind({
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds =null;
 			
+			//* If target control is disabled, Spotlight focus cannot be captured.
+			//* In that case, we consider that tooltip decorator covers target bounds.
 			this.activator = enyo.Spotlight.getCurrent();
 			if (!!this.activator) {
 				acBounds = this.activator.getAbsoluteBounds();	
