@@ -102,10 +102,15 @@ moon.DataListSpotlightSupport = {
 				return true;
 			}
 		} else if (this.needToAdjustPages) {
+			// Sometimes after models added, page adjustment might be required.
 			var pagesForIndex = this.delegate.pageForIndex(this, inEvent.index),
 				pageCount = this.delegate.pageCount(this),
 				lastPageIndex = pages.lastPage.index;
-
+			
+			// If current selected index is lastPage and there is no page
+			// then lower bound of scrollThreshold is undefined because it is useless
+			// However after models are added then more pages could be generated
+			// We need to check whether current list's position passes scrollThreshold or not.
 			if (pagesForIndex === lastPageIndex && pageCount -1 !== lastPageIndex) {
 				this.didScroll(this, {scrollBounds: {left: null, top: null, xDir: 1, yDir: 1}});
 				this.needToAdjustPages = false;
