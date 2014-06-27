@@ -73,7 +73,15 @@ enyo.kind({
 
 	//* @protected
 	events: {
-		/** 
+		//* onShow - beginning of drawer animation
+		onShow: "",
+		//* onShown - end of drawer animation
+		onShown: "",
+		//* onHiding - beginning of drawer animation
+		onHiding: "",
+		//*	onHide - end of drawer animation
+		onHide: "",
+		/**
 			Used internally for ListActions to request Header to add fitting components to itself.
 			Not intended for use by end-developer.
 		*/
@@ -196,18 +204,24 @@ enyo.kind({
 			// Capture onSpotlightFocus happening outside the drawer, so that we can prevent focus
 			// from landing in the header beneath the drawer
 			enyo.dispatcher.capture(this.$.drawer, {onSpotlightFocus: "capturedSpotlightFocus"}, this);
+
+			this.doShow({originator: this.$.drawer});
 		} else {
 			enyo.dispatcher.release(this.$.drawer);
+
+			this.doHiding({originator: this.$.drawer});
 		}
 	},
-	drawerAnimationEnd: function() {
+	drawerAnimationEnd: function(inSender, inEvent) {
 		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
 			if (this.generated) {
 				enyo.Spotlight.spot(this.$.activator);
 			}
 			this.bubble("onRequestUnmuteTooltip");
-		} 
+
+			this.doHide({originator: inEvent.originator});
+		}
 		//on open, move top and spot _this.$.closeButton_
 		else {
 			if (this.resetScroller) {
@@ -218,6 +232,8 @@ enyo.kind({
 				enyo.Spotlight.spot(this.$.closeButton);
 			}
 			this.bubble("onRequestMuteTooltip");
+
+			this.doShown({originator: inEvent.originator});
 		}
 		return true;
 	},
