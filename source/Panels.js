@@ -426,6 +426,7 @@ enyo.kind({
 			if (this.animate) {
 				this.transitionInProgress = true;
 				enyo.Spotlight.mute(this);
+				this.fireTransitionStart();
 				this.triggerPreTransitions();
 			}
 			else {
@@ -498,6 +499,12 @@ enyo.kind({
 		info.index = inPanelIndex;
 		info.animate = this.animate;
 		return info;
+	},
+	startTransition: function(sendEvents) {
+		if (this.transitionInProgress) {
+			sendEvents = !this.transitionInProgress;
+		}
+		this.inherited(arguments);
 	},
 	/**
 		If any panel has a pre-transition, pushes the panel's index to
