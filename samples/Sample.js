@@ -1,3 +1,28 @@
+/**
+* _Moonstone Sample_ is a tool for displaying and interacting with sample code in the Moonstone
+* user interface library. This tool can display a list of all samples and load individual samples.
+* The URL to access samples accepts a sample-name and an optional internationalization locale to
+* load the sample in. When browsing through and running the samples, the URL will automatically
+* update as necessary.
+*
+* Some example URLs:
+* * Sample.html
+* * Sample.html#ButtonSample
+* * Sample.html#ButtonSample/ar-SA
+*
+* If you'd like to add a sample to the list, you'll need to include it, and any related files, in
+* the _package.js_ file in this directory. Be sure to name your file the same as your sample's kind.
+* 
+* **Example:** _ContextualPopupSample.js_
+* ```
+* enyo.kind({
+*     name: "moon.sample.ContextualPopupSample",
+*     ...
+* });
+* ```
+* 
+* @namespace moon.sample
+*/
 enyo.kind({
 	name: "moon.sample.app",
 	classes: "moon enyo-unselectable enyo-fit",
@@ -185,11 +210,13 @@ enyo.kind({
 	// 	}
 	// 	queryString = queryString.replace(/^\?/, "");
 	// 	var i, pair,
-	// 		querystring = window.location.search.substr(1),
-	// 		pairs = querystring.split(/&/) || [],
+	// 		pairs = queryString.split(/&/) || [],
 	// 		query = {};
 	// 	for (i = 0; i < pairs.length; i++) {
 	// 		pair = pairs[i].split(/=/);
+	// 		// Allow for and differentiate params that are == "" vs not equal to anything.
+	// 		// ?param1=value1   vs.  ?param1=     vs.  ?param1
+	// 		// {param1:value1}       {param1:""}       {param:null}
 	// 		query[pair[0]] = (pair[1] !== undefined ? decodeURIComponent(pair[1]) : null);
 	// 	}
 	// 	return query;
