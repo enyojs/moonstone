@@ -3,7 +3,9 @@
 	"version": "2.5.0",
 	"main":"package.js",
 	"dependencies": {
-		"enyo":"2.5.0"
+		"enyo":"enyojs/enyo#bower-graynorton",
+		"enyo-spotlight":"enyojs/spotlight#bower-graynorton",
+		"enyo-layout":"enyojs/layout#bower-graynorton"
 	},
 	"ignore": [
 		".jshintrc",
