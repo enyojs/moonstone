@@ -69,6 +69,8 @@ enyo.kind({
 	statics: { count: 0 },
 	defaultZ: 120,
 	activator: null,
+	directShowHide: false,
+	initialDuration: null,
 	//* Creates chrome
 	initComponents: function() {
 		this.createComponents(this.tools, {owner: this});
@@ -77,13 +79,13 @@ enyo.kind({
 	create: function () {
 		this.inherited(arguments);
 		this.animateChanged();
+		this.initialDuration = this.getComputedStyleValue("-webkit-transition-duration", "0.4s");
 	},
 	animateChanged: function() {
 		if (this.animate) {
 			this.animateShow();
 		}
 		this.addRemoveClass("animate", this.animate);
-		//this.addRemoveClass("animate", this.animate);
 		if (!this.animate) {
 			this.applyStyle("bottom", null);
 			enyo.dom.transform(this, {translateY: null});
@@ -196,16 +198,26 @@ enyo.kind({
 		}
 
 		if (this.animate) {
+			var args = arguments;
 			if (this.showing) {
 				this.inherited(arguments);
 				this.animateShow();
+				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
+					if (inEvent.originator === this) {
+						if (this.directShowHide) {
+							this.setDirectShowHide(false);
+						}
+					}
+				});
 			} else {
 				this.animateHide();
-				var args = arguments;
 				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
 					if (inEvent.originator === this) {
 						this.inherited(args);
 						this.isAnimatingHide = false;
+						if (this.directShowHide) {
+							this.setDirectShowHide(false);
+						}
 					}
 				});
 			}
@@ -228,6 +240,8 @@ enyo.kind({
 				}
 			}
 		}
+
+
 	},
 	getShowing: function() {
 		//* Override default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_ property
@@ -305,6 +319,24 @@ enyo.kind({
 			enyo.Spotlight.spot(enyo.Spotlight.getFirstChild(this.container));
 		}
 		this.activator = null;
+	},
+	setDirectShowHide: function(value) {
+		this.directShowHide = value;
+		// setting duration to "0" does not work, nor does toggling animate property
+		var duration = (value) ? "0.0001s" : this.initialDuration;
+		this.applyStyle("-webkit-transition-duration", duration);
+	},
+	showDirect: function() {
+		if (this.animate) {
+			this.setDirectShowHide(true);
+		}
+		this.show();
+	},
+	hideDirect: function() {
+		if (this.animate) {
+			this.setDirectShowHide(true);
+		}
+		this.hide();
 	},
 	//*@protected
 	_preventEventBubble: function(inSender, inEvent) {
