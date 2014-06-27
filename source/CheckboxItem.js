@@ -68,6 +68,7 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.contentChanged();
 		this.disabledChanged();
 		this.checkboxOnRightChanged();
 	},
