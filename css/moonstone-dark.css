@@ -1073,16 +1073,17 @@
   cursor: pointer;
   width: 24px;
   height: 32px;
-  text-align: center;
-}
-.moon-checkbox[checked]:after {
-  font-family: "Moonstone Icons";
-  font-size: 64px;
-  content: "\0F000A";
-  color: #a6a6a6;
 }
 .spotlight .moon-checkbox[checked]:after {
   color: #ffffff;
+}
+.moon-checkbox .moon-icon {
+  visibility: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+.moon-checkbox[checked] .moon-icon {
+  visibility: visible;
 }
 .moon-divider {
   border-bottom: 2px solid #a6a6a6;

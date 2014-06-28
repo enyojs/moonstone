@@ -3,15 +3,25 @@
 	cursor: pointer;
 	width: @moon-checkbox-icon-width;
 	height: @moon-checkbox-icon-height;
-	text-align: center;
-	&[checked]:after {
-		font-family: @moon-icon-font-family;
-		font-size: (2*@moon-icon-small-size);
-		content: @moon-icon-check;
-		color: @moon-body-text-color;
-	}
+	// text-align: center;
+	// &[checked]:after {
+	// 	font-family: @moon-icon-font-family;
+	// 	font-size: (2*@moon-icon-small-size);
+	// 	// content: @moon-icon-check;
+	// 	color: @moon-body-text-color;
+	// }
 }
 
 .spotlight .moon-checkbox[checked]:after {
 	color: @moon-white;
+}
+
+.moon-checkbox .moon-icon {
+	visibility: hidden;
+	margin: 0px;
+	padding: 0px;
+}
+
+.moon-checkbox[checked]  .moon-icon {
+	visibility: visible;
 }
