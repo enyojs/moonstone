@@ -149,9 +149,11 @@ enyo.kind({
 		subsequently 5-way move.
 	*/
 	closeDrawerAndHighlightHeader: function() {
+		var mode = enyo.Spotlight.getPointerMode();
 		enyo.Spotlight.setPointerMode(false);
 		enyo.Spotlight.unfreeze();
 		enyo.Spotlight.spot(this.$.headerWrapper);
+		enyo.Spotlight.setPointerMode(mode);
 		this.toggleActive();
 	}
 });
