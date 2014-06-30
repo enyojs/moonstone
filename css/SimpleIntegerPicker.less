@@ -89,12 +89,41 @@
   opacity: @moon-disabled-opacity;
 }
 
+/*RTL need these rules for directioal change -- do not remove*/
 .enyo-locale-right-to-left {
-  .moon-simple-integer-picker {
-    float: right;
+  .moon-simple-integer-picker-button {
+    &.left:after {
+      content: @moon-icon-arrowsmallright;
+    }
+    &.right:after {
+      content: @moon-icon-arrowsmallleft;
+    }
   }
-  .moon-simple-integer-picker-client {
-    direction: rtl;
+  .spotlight .moon-simple-integer-picker-button {
+    &.left:not(.pressed):after {
+      content: @moon-icon-arrowlargeright;
+    }
+    &.left.pressed {
+        border-left: 0;
+        border-right: solid @moon-integer-picker-shadow-width @moon-shadow-color;
+        border-radius: 0 @moon-picker-button-width / 2 @moon-picker-button-width / 2 0;
+        &:after {
+          margin-left: auto;
+          margin-right: -@moon-integer-picker-shadow-width;
+        }
+      }
+    &.right:not(.pressed):after {
+      content: @moon-icon-arrowlargeleft;
+    }
+    &.right.pressed {
+      border-right: 0;
+      border-left: solid  @moon-integer-picker-shadow-width @moon-shadow-color;
+      border-radius: @moon-picker-button-width / 2 0 0 @moon-picker-button-width / 2;
+      &:after {
+        margin-right: auto;
+        margin-left: -@moon-integer-picker-shadow-width;
+      }
+    }
   }
 }
 

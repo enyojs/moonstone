@@ -195,12 +195,13 @@ enyo.kind({
 		if (this.getAbsoluteShowing()) {
 			var i,
 				maxWidth = 0,
-				c = this.$.client.getPanels();
-			for (i = 0; i < c.length; i++) {
+				c = this.$.client.getPanels(),
+				cl = c.length;
+			for (i = 0; i < cl; i++) {
 				maxWidth = Math.max(maxWidth, c[i].getBounds().width);
 			}
 			this.$.client.setBounds({width: maxWidth});
-			for (i = 0; i < c.length; i++) {
+			for (i = 0; i < cl; i++) {
 				c[i].setBounds({width: maxWidth});
 			}
 			this.$.client.reflow();
