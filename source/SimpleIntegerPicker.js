@@ -193,13 +193,15 @@ enyo.kind({
 
 		// Find max width of all children
 		if (this.getAbsoluteShowing()) {
-			var width = 0;
-			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
+			var i,
+				maxWidth = 0,
+				c = this.$.client.getPanels();
+			for (i = 0; i < c.length; i++) {
+				maxWidth = Math.max(maxWidth, c[i].getBounds().width);
 			}
-			this.$.client.setBounds({width:width});
-			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				c$[i].setBounds({width:width});
+			this.$.client.setBounds({width: maxWidth});
+			for (i = 0; i < c.length; i++) {
+				c[i].setBounds({width: maxWidth});
 			}
 			this.$.client.reflow();
 		}
