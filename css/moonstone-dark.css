@@ -963,6 +963,7 @@
   color: #ffffff;
 }
 .moon-simple-integer-picker .moon-simple-integer-picker-button {
+  position: relative;
   width: 60px;
   text-align: center;
   font-family: "Moonstone Icons";
@@ -976,6 +977,13 @@
 .moon-simple-integer-picker .moon-simple-integer-picker-button.right:after {
   content: "\0F0008";
 }
+.moon-simple-integer-picker .moon-simple-integer-picker-button .moon-simple-integer-picker-button-tap-area {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+}
 .moon-simple-integer-picker .moon-simple-integer-picker-item {
   font-family: "MuseoSans 700";
   font-size: 30px;
@@ -987,6 +995,7 @@
   white-space: nowrap;
   padding: 0 8px;
   text-align: center;
+  box-sizing: border-box;
 }
 /*spotlight and overlay*/
 .spotlight .moon-simple-integer-picker-button {
