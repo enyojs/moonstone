@@ -4,7 +4,7 @@ enyo.kind({
 	kind: "FittableColumns",
 	components: [
 		{components: [
-			{kind: "moon.Calendar", name: "calendar", onChange: "changed", dayOfWeekClasses: "test"}
+			{kind: "moon.Calendar", name: "calendar", onChange: "changed"}
 		]},
 		{kind: "FittableRows", fit: true, components: [
 			{kind: "moon.Scroller", fit:true, components: [
