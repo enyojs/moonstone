@@ -4,7 +4,7 @@ enyo.kind({
 	kind: "FittableColumns",
 	components: [
 		{components: [
-			{kind: "moon.Calendar", name: "calendar", onChange: "changed"}
+			{kind: "moon.Calendar", name: "calendar", onChange: "changed", dayOfWeekClasses: "test"}
 		]},
 		{kind: "FittableRows", fit: true, components: [
 			{kind: "moon.Scroller", fit:true, components: [
@@ -44,7 +44,8 @@ enyo.kind({
 					]},
 					{kind: "moon.ExpandablePicker", content: "Choose DOW Label Class", onChange: "setLabelStyle", components: [
 						{content: "Default", active: true, className:""},
-						{content: "Divider", className:"moon-divider moon-divider-text"}
+						{content: "Divider", className:"moon-divider moon-divider-text"},
+						{content: "Smaller font", className: "moon-calendar-picker-small-day"}
 					]}
 				]}
 			]},
