@@ -4,14 +4,17 @@
 	width: @moon-checkbox-icon-width;
 	height: @moon-checkbox-icon-height;
 	text-align: center;
-	&[checked]:after {
-		font-family: @moon-icon-font-family;
-		font-size: (2*@moon-icon-small-size);
-		content: @moon-icon-check;
-		color: @moon-body-text-color;
+	font-family: @moon-icon-font-family;
+	font-size: (2*@moon-icon-small-size);
+	color: @moon-body-text-color;
+	visibility: hidden;
+	background-position: center 2px;
+	&[checked] {
+		visibility: visible;
 	}
 }
 
-.spotlight .moon-checkbox[checked]:after {
+.spotlight .moon-checkbox[checked] {
 	color: @moon-white;
+	background-position: center -@moon-icon-small-size + 2;
 }

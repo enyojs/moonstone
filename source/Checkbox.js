@@ -14,8 +14,15 @@ enyo.kind({
 		// prevent double onchange bubble in IE
 		onclick: ""
 	},
+	//@protected
+	checkboxIcon: "check",
+	locked: false,
+	create: function() {
+		this.inherited(arguments);
+		this.addClass("moon-icon-" + this.checkboxIcon);
+	},
 	tap: function(inSender, e) {
-		if (!this.disabled) {
+		if (!this.disabled && !this.locked) {
 			this.setChecked(!this.getChecked());
 			this.bubble("onchange");
 		} else {

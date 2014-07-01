@@ -11,20 +11,24 @@ enyo.kind({
 					{kind: "moon.CheckboxItem", content: "Option 2", onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", disabled: true, content: "Disabled", onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"}
+					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Customized Icon", checkboxIcon: "search", checked: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Locked Option", locked: true, checked: true, onchange: "itemChanged"},
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Right-Handed Checkbox Items"},
 					{kind: "moon.CheckboxItem", content: "Option 1", checked: true, checkboxOnRight: true, onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", content: "Option 2", checkboxOnRight: true, onchange: "itemChanged"},
 					{kind: "moon.CheckboxItem", disabled: true, content: "Disabled", checkboxOnRight: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "Option 4", checked: true, checkboxOnRight: true, onchange: "itemChanged"},
-					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", checkboxOnRight: true, onchange: "itemChanged"}
+					{kind: "moon.CheckboxItem", content: "Customized Icon", checked: true, checkboxIcon: "closex", checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "This is a verrry long option 5", checkboxOnRight: true, onchange: "itemChanged"},
+					{kind: "moon.CheckboxItem", content: "Customized Image", checkboxSrc: "assets/checkbox-trashcan.png", checkboxOnRight: true, onchange: "itemChanged"},
+
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Checkbox Item Group"},
 					{kind: "Group", onActivate: "groupChanged", components: [
-						{kind: "moon.CheckboxItem", content: "Group Option 1"},
+						{kind: "moon.CheckboxItem", checkboxIcon: "search", content: "Group Option 1"},
 						{kind: "moon.CheckboxItem", content: "Group Option 2", checked: true},
 						{kind: "moon.CheckboxItem", disabled: true, content: "Disabled"},
 						{kind: "moon.CheckboxItem", content: "Group Option 4"},

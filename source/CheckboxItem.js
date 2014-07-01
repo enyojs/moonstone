@@ -36,7 +36,10 @@ enyo.kind({
 		checkboxOnRight: false,
 		//* When true, button is shown as disabled and does not generate tap
 		//* events
-		disabled: false
+		disabled: false,
+		locked: false,
+		checkboxIcon: "",
+		checkboxSrc: ""
 	},
 	events: {
 	/**
@@ -69,15 +72,43 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.disabledChanged();
+		this.lockedChanged();
 		this.checkboxOnRightChanged();
+		this.checkboxIconChanged();
+		this.checkboxSrcChanged()
+		this.updateCheckboxIconOrSrc();
 	},
 	rendered: function() {
 		this.inherited(arguments);
 		this.checkedChanged();
 	},
+	checkboxIconChanged: function() {
+		this.setCheckboxIcon = this.get("checkboxIcon");
+	},
+	checkboxSrcChanged: function() {
+		this.setCheckboxSrc = this.get("checkboxSrc");
+	},
+	updateCheckboxIconOrSrc: function() {
+		// if the checkboxIcon is set programmatically, add the moon-icon class of that icon, otherwise use the default checkmark icon font
+		if (this.get("checkboxIcon") !== this.$.input.get("checkboxIcon") && this.get("checkboxIcon") !== "") {
+			//remove the default checkmark icon
+			this.$.input.removeClass("moon-icon-" + this.$.input.get("checkboxIcon"));
+			//set the checkbox with the new icon provided
+			this.$.input.addClass("moon-icon-" + this.get("checkboxIcon"));
+		}
+		// if the checkboxSrc is set programmatically, use the src image
+		if (!this.get("checkboxIcon") && this.get("checkboxSrc")) {
+			this.$.input.removeClass("moon-icon-" + this.$.input.get("checkboxIcon"));
+			src = "url(" + enyo.path.rewrite(this.get("checkboxSrc")) + ")";
+			this.$.input.applyStyle("background-image", src);
+		}
+	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
 		this.$.input.setDisabled(this.disabled);
+	},
+	lockedChanged: function() {
+		this.$.input.locked = this.locked;
 	},
 	checkedChanged: function() {
 		this.$.input.setChecked(this.getChecked());
