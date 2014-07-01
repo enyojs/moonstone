@@ -15,8 +15,10 @@ enyo.kind({
 		this.$.result.setContent(inSender.name + " changed to " + inEvent.content + " (" + inEvent.value + ")");
 	},
 	buttonTapped: function(inSender, inEvent) {
-		var active = inSender.getActive();
-		inSender.parent.addRemoveClass("enyo-locale-right-to-left", active);
-		inSender.parent.applyStyle("direction", active ? "rtl" : "ltr");
+		if (inSender.getActive()) {
+			enyo.dom.addBodyClass("enyo-locale-right-to-left");
+		} else {
+			enyo.dom.removeClass(document.body, "enyo-locale-right-to-left");
+		}
 	}
 });
