@@ -76,22 +76,14 @@ enyo.kind({
 	values: null,
 
 	components: [
-		{classes: "moon-scroll-picker-overlay-container-left", components: [
-			{name: "leftOverlay", showing: false, components:[
-				{classes: "moon-scroll-picker-overlay-left"},
-				{classes: "moon-scroll-picker-overlay-left-border"}
-			]},
-			{name: "buttonLeft", kind: "enyo.Button", classes: "moon-simple-integer-picker-button left small moon-icon moon-icon-arrowsmallleft", ondown: "downPrevious", onholdpulse:"previous"}
+		{name: "buttonLeft", classes: "moon-simple-integer-picker-button left", ondown: "downPrevious", onholdpulse:"previous", components: [
+			{classes: "moon-simple-integer-picker-button-tap-area"}
 		]},
 		{name: "client", kind: "enyo.Panels", classes: "moon-simple-integer-picker-client", controlClasses: "moon-simple-integer-picker-item", draggable: false, arrangerKind: "CarouselArranger",
 			onTransitionStart: "transitionStart", onTransitionFinish:"transitionFinished"
 		},
-		{classes: "moon-scroll-picker-overlay-container-right", components: [
-			{name: "rightOverlay", showing: false, components:[
-				{classes: "moon-scroll-picker-overlay-right"},
-				{classes: "moon-scroll-picker-overlay-right-border"}
-			]},
-			{name: "buttonRight", kind: "enyo.Button", classes: "moon-simple-integer-picker-button right small moon-icon moon-icon-arrowsmallright", ondown: "downNext", onholdpulse:"next"}
+		{name: "buttonRight", classes: "moon-simple-integer-picker-button right", ondown: "downNext", onholdpulse:"next", components: [
+			{classes: "moon-simple-integer-picker-button-tap-area"}
 		]}
 	],
 	observers: {
@@ -142,6 +134,7 @@ enyo.kind({
 			this.validate();
 		}
 		this.disabledChanged();
+		this.reflow();
 	},
 	build: function() {
 		var indices = this.indices = {},
@@ -200,23 +193,23 @@ enyo.kind({
 
 		// Find max width of all children
 		if (this.getAbsoluteShowing()) {
-			var width = 0;
-			for (var c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				width = Math.max(width, c$[i].getBounds().width);
+			var i,
+				maxWidth = 0,
+				c = this.$.client.getPanels();
+			for (i = 0; i < c.length; i++) {
+				maxWidth = Math.max(maxWidth, c[i].getBounds().width);
 			}
-			this.$.client.setBounds({width:width});
-			for (c$=this.$.client.getPanels(), i=0; i<c$.length; i++) {
-				c$[i].setBounds({width:width});
+			this.$.client.setBounds({width: maxWidth});
+			for (i = 0; i < c.length; i++) {
+				c[i].setBounds({width: maxWidth});
 			}
 			this.$.client.reflow();
 		}
 	},
 	transitionStart: function(inSender, inEvent) {
 		if (inEvent.fromIndex > inEvent.toIndex) {
-			this.$.leftOverlay.show();
 			this.$.buttonLeft.addClass("pressed");
 		} else if (inEvent.fromIndex < inEvent.toIndex) {
-			this.$.rightOverlay.show();
 			this.$.buttonRight.addClass("pressed");
 		}
 		return true;
@@ -229,8 +222,6 @@ enyo.kind({
 		this.hideOverlays();
 	},
 	hideOverlays: function() {
-		this.$.leftOverlay.hide();
-		this.$.rightOverlay.hide();
 		this.$.buttonLeft.removeClass("pressed");
 		this.$.buttonRight.removeClass("pressed");
 	},

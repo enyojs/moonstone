@@ -938,206 +938,130 @@
   margin-left: 10px;
 }
 .moon-simple-integer-picker {
-  white-space: nowrap;
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
-  position: relative;
-  display: table-cell;
-  vertical-align: middle;
+  display: inline-block;
   height: 60px;
   border-radius: 30px;
-}
-.enyo-locale-non-latin .moon-simple-integer-picker {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
 }
 .moon-simple-integer-picker > * {
   display: inline-block;
   vertical-align: middle;
+  height: 60px;
+  line-height: 60px;
   box-sizing: border-box;
 }
 .moon-simple-integer-picker.spotlight {
   background: #cf0652;
 }
-.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item {
-  color: #ffffff;
-}
+.moon-simple-integer-picker.spotlight .moon-simple-integer-picker-item,
 .moon-simple-integer-picker.spotlight .moon-simple-integer-picker-button {
   color: #ffffff;
 }
-.moon-simple-integer-picker-button {
-  border-radius: 30px;
-  border: 0;
-  background: inherit;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  vertical-align: middle;
-  z-index: 2;
-  color: #a6a6a6;
-  background-repeat: no-repeat;
-  background-position: center 0;
-}
-.moon-simple-integer-picker-button.moon-icon.small {
+.moon-simple-integer-picker .moon-simple-integer-picker-button {
+  position: relative;
   width: 60px;
-  height: 100%;
-}
-.enyo-locale-non-latin .moon button.moon-simple-integer-picker-button {
+  text-align: center;
   font-family: "Moonstone Icons";
+  font-size: 64px;
+  line-height: 60px;
+  color: #a6a6a6;
 }
-.spotlight .moon-simple-integer-picker-button {
-  /* Hover while not Pressed state */
-}
-.spotlight .moon-simple-integer-picker-button.moon-icon {
-  color: #ffffff;
-}
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
-  content: "\0F0003";
-}
-.spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
-  content: "\0F0004";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button {
-  /* Default RTL state */
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:after {
-  content: "\0F0008";
-}
-.enyo-locale-right-to-left .moon-simple-integer-picker-button.moon-icon-arrowsmallright:after {
+.moon-simple-integer-picker .moon-simple-integer-picker-button.left:after {
   content: "\0F0007";
 }
-.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button {
-  /* Hover while not Pressed state */
+.moon-simple-integer-picker .moon-simple-integer-picker-button.right:after {
+  content: "\0F0008";
 }
-.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallleft:not(.pressed):after {
-  content: "\0F0004";
+.moon-simple-integer-picker .moon-simple-integer-picker-button .moon-simple-integer-picker-button-tap-area {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
 }
-.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.moon-icon-arrowsmallright:not(.pressed):after {
-  content: "\0F0003";
-}
-.moon-simple-integer-picker-client {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  height: 36px;
-}
-.moon-simple-integer-picker-item {
+.moon-simple-integer-picker .moon-simple-integer-picker-item {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
   color: #a6a6a6;
-  display: table;
-  white-space: nowrap;
-  text-align: center;
-  padding: 0 8px;
   width: auto;
+  white-space: nowrap;
+  padding: 0 8px;
+  text-align: center;
+  box-sizing: border-box;
+}
+/*spotlight and overlay*/
+.spotlight .moon-simple-integer-picker-button {
+  box-sizing: border-box;
+}
+.spotlight .moon-simple-integer-picker-button.left:not(.pressed):after {
+  content: "\0F0003";
+}
+.spotlight .moon-simple-integer-picker-button.left.pressed {
+  border-left: solid 6px rgba(0, 0, 0, 0.13);
+  border-radius: 30px 0 0 30px;
+}
+.spotlight .moon-simple-integer-picker-button.left.pressed:after {
+  margin-left: -6px;
+}
+.spotlight .moon-simple-integer-picker-button.right:not(.pressed):after {
+  content: "\0F0004";
+}
+.spotlight .moon-simple-integer-picker-button.right.pressed {
+  border-right: solid 6px rgba(0, 0, 0, 0.13);
+  border-radius: 0 30px 30px 0;
+}
+.spotlight .moon-simple-integer-picker-button.right.pressed:after {
+  margin-right: -6px;
+}
+/*disabled*/
+.moon-simple-integer-picker.disabled,
+.moon-simple-integer-picker-button[disabled] {
+  cursor: default;
+  opacity: 0.6;
+}
+/*RTL need these rules for directioal change -- do not remove*/
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.left:after {
+  content: "\0F0008";
+}
+.enyo-locale-right-to-left .moon-simple-integer-picker-button.right:after {
+  content: "\0F0007";
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.left:not(.pressed):after {
+  content: "\0F0004";
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.left.pressed {
+  border-left: 0;
+  border-right: solid 6px rgba(0, 0, 0, 0.13);
+  border-radius: 0 30px 30px 0;
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.left.pressed:after {
+  margin-left: auto;
+  margin-right: -6px;
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.right:not(.pressed):after {
+  content: "\0F0003";
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.right.pressed {
+  border-right: 0;
+  border-left: solid 6px rgba(0, 0, 0, 0.13);
+  border-radius: 30px 0 0 30px;
+}
+.enyo-locale-right-to-left .spotlight .moon-simple-integer-picker-button.right.pressed:after {
+  margin-right: auto;
+  margin-left: -6px;
 }
 .enyo-locale-non-latin .moon-simple-integer-picker-item {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Bold";
   font-size: 30px;
-}
-.moon-simple-integer-picker.disabled,
-.moon-simple-integer-picker-button[disabled] {
-  cursor: default;
-  opacity: 0.6;
-  filter: alpha(opacity=60);
-}
-/* Button shadow overlay */
-.moon-scroll-picker-overlay-container-left {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-}
-.moon-scroll-picker-overlay-left {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-left-color: rgba(0, 0, 0, 0.13);
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-left {
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-left-width: 0px;
-  border-left-style: none;
-  border-right-color: rgba(0, 0, 0, 0.13);
-  right: 0px;
-}
-.moon-scroll-picker-overlay-left-border {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-left-color: #cf0652;
-  left: 6px;
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-left-border {
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-left-width: 0px;
-  border-left-style: none;
-  border-right-color: #cf0652;
-  left: 0px;
-  right: 6px;
-}
-.moon-scroll-picker-overlay-container-right {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-}
-.moon-scroll-picker-overlay-right {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-right-color: rgba(0, 0, 0, 0.13);
-  right: 0px;
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-right {
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-right-width: 0px;
-  border-right-style: none;
-  border-left-color: rgba(0, 0, 0, 0.13);
-}
-.moon-scroll-picker-overlay-right-border {
-  position: absolute;
-  width: 30px;
-  height: 100%;
-  border-width: 30px;
-  border-radius: 30px;
-  border-right-width: 30px;
-  border-right-style: solid;
-  border-right-color: #cf0652;
-  right: 6px;
-}
-.enyo-locale-right-to-left .moon-scroll-picker-overlay-right-border {
-  border-left-width: 30px;
-  border-left-style: solid;
-  border-right-width: 0px;
-  border-right-style: none;
-  border-left-color: #cf0652;
-  right: -6px;
-}
-.spotlight .moon-simple-integer-picker-button {
-  background-position: center -50px;
 }
 /* Checkbox.css */
 .moon-checkbox {
