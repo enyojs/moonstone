@@ -2649,46 +2649,28 @@
   left: 0;
 }
 .moon-contextual-popup.left:before {
-  margin-top: -19px;
-  margin-bottom: auto;
-  margin-left: -24px;
-  margin-right: auto;
+  margin: -19px auto auto -24px;
   border-top: 16px solid transparent;
   border-bottom: 16px solid transparent;
   border-right: 19px solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.left:after {
-  margin-top: -16px;
-  margin-bottom: auto;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: -16px auto auto -19px;
   border-top: 16px solid transparent;
   border-bottom: 16px solid transparent;
   border-right: 19px solid #686868;
 }
 .moon-contextual-popup.left.high:before {
-  margin-top: -25px;
-  margin-bottom: auto;
-  margin-left: -24px;
-  margin-right: auto;
+  margin: -25px auto auto -24px;
 }
 .moon-contextual-popup.left.high:after {
-  margin-top: -22px;
-  margin-bottom: auto;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: -22px auto auto -19px;
 }
 .moon-contextual-popup.left.low:before {
-  margin-top: auto;
-  margin-bottom: -25px;
-  margin-left: -24px;
-  margin-right: auto;
+  margin: auto auto -25px -24px;
 }
 .moon-contextual-popup.left.low:after {
-  margin-top: auto;
-  margin-bottom: -22px;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: auto auto -22px -19px;
 }
 .moon-contextual-popup.right {
   margin: 0 0 0 -35px;
@@ -2699,46 +2681,28 @@
   right: auto;
 }
 .moon-contextual-popup.right:before {
-  margin-top: -19px;
-  margin-bottom: auto;
-  margin-left: 5px;
-  margin-right: auto;
+  margin: -19px auto auto 5px;
   border-top: 16px solid transparent;
   border-bottom: 16px solid transparent;
   border-left: 19px solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.right:after {
-  margin-top: -16px;
-  margin-bottom: auto;
-  margin-left: 0;
-  margin-right: auto;
+  margin: -16px auto auto 0;
   border-top: 16px solid transparent;
   border-bottom: 16px solid transparent;
   border-left: 19px solid #686868;
 }
 .moon-contextual-popup.right.high:before {
-  margin-top: -25px;
-  margin-bottom: auto;
-  margin-left: 5px;
-  margin-right: auto;
+  margin: -25px auto auto 5px;
 }
 .moon-contextual-popup.right.high:after {
-  margin-top: -22px;
-  margin-bottom: auto;
-  margin-left: 0;
-  margin-right: auto;
+  margin: -22px auto auto 0;
 }
 .moon-contextual-popup.right.low:before {
-  margin-top: auto;
-  margin-bottom: -25px;
-  margin-left: 5px;
-  margin-right: auto;
+  margin: auto auto -25px 5px;
 }
 .moon-contextual-popup.right.low:after {
-  margin-top: auto;
-  margin-bottom: -22px;
-  margin-left: 0;
-  margin-right: auto;
+  margin: auto auto -22px 0;
 }
 .moon-contextual-popup.below.right:before,
 .moon-contextual-popup.above.right:before,
@@ -2761,46 +2725,28 @@
   top: 0;
 }
 .moon-contextual-popup.below:before {
-  margin-top: -24px;
-  margin-bottom: auto;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: -24px auto auto -19px;
   border-right: 16px solid transparent;
   border-left: 16px solid transparent;
   border-bottom: 19px solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.below:after {
-  margin-top: -19px;
-  margin-bottom: auto;
-  margin-left: -16px;
-  margin-right: auto;
+  margin: -19px auto auto -16px;
   border-right: 16px solid transparent;
   border-left: 16px solid transparent;
   border-bottom: 19px solid #686868;
 }
 .moon-contextual-popup.below.right:before {
-  margin-top: -40px;
-  margin-bottom: auto;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: -40px auto auto -19px;
 }
 .moon-contextual-popup.below.right:after {
-  margin-top: -35px;
-  margin-bottom: auto;
-  margin-left: -16px;
-  margin-right: auto;
+  margin: -35px auto auto -16px;
 }
 .moon-contextual-popup.below.left:before {
-  margin-top: -40px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: -19px;
+  margin: -40px -19px auto auto;
 }
 .moon-contextual-popup.below.left:after {
-  margin-top: -35px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: -16px;
+  margin: -35px -16px auto auto;
 }
 .moon-contextual-popup.above {
   margin: -35px 0 0 0;
@@ -2810,46 +2756,28 @@
   top: 100%;
 }
 .moon-contextual-popup.above:before {
-  margin-top: 5px;
-  margin-bottom: auto;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: 5px auto auto -19px;
   border-right: 16px solid transparent;
   border-left: 16px solid transparent;
   border-top: 19px solid rgba(0, 0, 0, 0.5);
 }
 .moon-contextual-popup.above:after {
-  margin-top: 0;
-  margin-bottom: auto;
-  margin-left: -16px;
-  margin-right: auto;
+  margin: 0 auto auto -16px;
   border-right: 16px solid transparent;
   border-left: 16px solid transparent;
   border-top: 19px solid #686868;
 }
 .moon-contextual-popup.above.right:before {
-  margin-top: 5px;
-  margin-bottom: auto;
-  margin-left: -19px;
-  margin-right: auto;
+  margin: 5px auto auto -19px;
 }
 .moon-contextual-popup.above.right:after {
-  margin-top: 0;
-  margin-bottom: auto;
-  margin-left: -16px;
-  margin-right: auto;
+  margin: 0 auto auto -16px;
 }
 .moon-contextual-popup.above.left:before {
-  margin-top: 5px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: -19px;
+  margin: 5px -19px auto auto;
 }
 .moon-contextual-popup.above.left:after {
-  margin-top: 0;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: -16px;
+  margin: 0 -16px auto auto;
 }
 .enyo-locale-right-to-left .moon-contextual-popup {
   direction: rtl;
