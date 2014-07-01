@@ -24,7 +24,7 @@ enyo.kind({
 	},
 	//* @protected
 	handlers: {
-		onkeypress : 'onKeyUp',
+		onkeyup    : 'onKeyUp',
 		onblur     : 'onBlur',
 		onfocus    : 'onFocus'
 	},
