@@ -1076,8 +1076,8 @@
 }
 .moon-checkbox .moon-icon {
   visibility: hidden;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 .moon-checkbox[checked] .moon-icon {
   visibility: visible;
@@ -5002,12 +5002,18 @@
   background-color: #ffffff;
   line-height: 42px;
 }
+.moon-item.moon-formcheckbox-item .moon-checkbox .moon-icon {
+  padding: 0 0 2px 5px;
+}
 .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   padding: 8px 10px;
   margin-left: 42px;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item {
   padding: 0 10px 0 0;
+}
+.enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox .moon-icon {
+  padding: 0 5px 2px 0;
 }
 .enyo-locale-right-to-left .moon-item.moon-formcheckbox-item .moon-checkbox-item-label-wrapper {
   margin-left: auto;
