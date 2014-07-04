@@ -47,12 +47,14 @@ enyo.kind({
 				{kind: "moon.Button", content:"Unload", ontap:"unload"},
 				{kind: "moon.Button", content:"Reload", ontap:"load"},
 				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
-				{kind: "moon.TooltipDecorator", components: [
+				{name: "popupTooltip", kind: "moon.TooltipDecorator", components: [
 					{kind: "moon.ContextualPopupDecorator", components: [
 						{kind: "moon.Button", content: "Popup"},
 						{
+							name: "popupVideo",
 							kind: "moon.ContextualPopup",
 							classes: "moon-3h moon-6v",
+							onShowingChanged: "popupShowingChanged",
 							components: [
 								{kind: "moon.Item", content:"Item 1"},
 								{kind: "moon.Item", content:"Item 2"},
@@ -87,5 +89,12 @@ enyo.kind({
 	load: function() {
 		this.$.player.unload();
 		this.$.player.setSrc("http://media.w3.org/2010/05/bunny/movie.mp4");
+	},
+	popupShowingChanged: function() {
+		if (this.$.popupVideo.getShowing()) {
+			this.$.popupTooltip.mute();
+		} else {
+			this.$.popupTooltip.unmute();
+		}
 	}
 });
