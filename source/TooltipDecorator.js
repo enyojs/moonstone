@@ -74,11 +74,21 @@ enyo.kind({
 		this.requestHideTooltip();
 	},
 	requestShowTooltip: function() {
-		if (this.autoShow && !enyo.Spotlight.isFrozen()) {
+		if (this.autoShow && !enyo.Spotlight.isFrozen() && !this.otherPopupsActive()) {
 			this.waterfallDown("onRequestShowTooltip");
 		}
 	},
 	requestHideTooltip: function() {
 		this.waterfallDown("onRequestHideTooltip");
+	},
+	otherPopupsActive: function() {
+		for (var i=0; i<this.children.length; i++) {
+			var obj = this.children[i];
+			if ((obj.kind == "moon.ContextualPopupDecorator") && obj.popup && obj.popup.showing)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 });

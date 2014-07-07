@@ -54,7 +54,7 @@ enyo.kind({
 							name: "popupVideo",
 							kind: "moon.ContextualPopup",
 							classes: "moon-3h moon-6v",
-							onShowingChanged: "popupShowingChanged",
+							// onShowingChanged: "popupShowingChanged",
 							components: [
 								{kind: "moon.Item", content:"Item 1"},
 								{kind: "moon.Item", content:"Item 2"},
