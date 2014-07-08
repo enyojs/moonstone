@@ -47,20 +47,20 @@ enyo.kind({
 				{kind: "moon.Button", content:"Unload", ontap:"unload"},
 				{kind: "moon.Button", content:"Reload", ontap:"load"},
 				{kind: "moon.ToggleButton", content:"FF/Rewind", name:"ffrewToggleButton"},
-				{kind: "moon.TooltipDecorator", components: [
-					{kind: "moon.ContextualPopupDecorator", components: [
+				{kind: "moon.ContextualPopupDecorator", components: [
+					{kind: "moon.TooltipDecorator", components: [
 						{kind: "moon.Button", content: "Popup"},
-						{
-							kind: "moon.ContextualPopup",
-							classes: "moon-3h moon-6v",
-							components: [
-								{kind: "moon.Item", content:"Item 1"},
-								{kind: "moon.Item", content:"Item 2"},
-								{kind: "moon.Item", content:"Item 3"}
-							]
-						}
+						{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
 					]},
-					{kind: "moon.Tooltip", floating:true, content: "I'm a tooltip for a button."}
+					{
+						kind: "moon.ContextualPopup",
+						classes: "moon-3h moon-6v",
+						components: [
+							{kind: "moon.Item", content:"Item 1"},
+							{kind: "moon.Item", content:"Item 2"},
+							{kind: "moon.Item", content:"Item 3"}
+						]
+					}
 				]},
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
 				{kind: "moon.IconButton", classes:"moon-icon-video-round-controls-style"},
