@@ -50,13 +50,11 @@ enyo.kind({
 		onSpotlightUp:"spotUp"
 	},
 	components: [
-		{name:"activatorWrapper", classes:"moon-drawers-activator-wrapper", spotlight:true, ontap:"activatorHandler", components: [
-			{name:"activator", classes:"moon-drawers-activator"}
-		]},
+		{name:"activator", classes: "moon-drawers-activator", spotlight: true, ontap: "activatorHandler"},
 		{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
-			{name:"handles", classes:"moon-neutral moon-drawers-handles"}
+			{name:"handles", classes: "moon-neutral moon-drawers-handles"}
 		]},
-		{name: "drawers", classes:"moon-drawers-drawer-container"},
+		{name: "drawers", classes:"moon-drawers-container"},
 		{name: "client", classes:"moon-drawers-client"}
 	],
 	eventsToCapture: {
@@ -83,7 +81,7 @@ enyo.kind({
 			for (index = 0; index < this.drawers.length; ++index) {
 				handles.push(this.drawers[index].handle || {});
 			}
-			this.$.handles.createComponents(handles, {kind: "moon.DrawerHandle", owner:this});
+			this.$.handles.createComponents(handles, {kind: "moon.Item", owner:this});
 			controls = this.$.handles.getControls();
 			enyo.forEach(handles, function (handle, idx) {
 				controls[idx].addClass('moon-drawers-handle');
@@ -207,7 +205,7 @@ enyo.kind({
 	resizeHandleContainer: function(inSender, inEvent) {
 		enyo.asyncMethod(inEvent.delegate.bindSafely(function(){
 			if (!this.$.animator.isAnimating()) {
-				this.parent.$.activator.addRemoveClass("drawer-open", this.parent.drawerOpen() ? true : false);
+				this.parent.$.activator.addRemoveClass("open", this.parent.drawerOpen() ? true : false);
 			}
 		}));
 	},

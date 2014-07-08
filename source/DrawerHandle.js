@@ -19,5 +19,5 @@ enyo.kind({
 	name: "moon.DrawerHandle",
 	kind: "moon.Item",
 	//* @protected
-	classes: "moon-drawer-handle"
+	classes: "moon-drawers-handle"
 });
