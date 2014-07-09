@@ -1279,30 +1279,25 @@
   font-style: normal;
   letter-spacing: 0;
   color: #4b4b4b;
-  border-width: 0 0;
-  border-left-color: transparent;
-  border-left-style: solid;
   line-height: 1.2em;
   padding: 10px;
-  vertical-align: top;
   position: relative;
+}
+.moon-item.spotlight {
+  background-color: #cf0652;
+  color: #ffffff;
 }
 .moon-item.allow-wrap {
   white-space: normal !important;
+}
+.moon-item.disabled {
+  cursor: default;
+  opacity: 0.35;
 }
 .enyo-locale-non-latin .moon-item {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Bold";
   font-size: 30px;
-}
-.moon-item.disabled {
-  cursor: default;
-  opacity: 0.35;
-  filter: alpha(opacity=35);
-}
-.moon-item.spotlight {
-  background-color: #cf0652;
-  color: #ffffff;
 }
 /* SelectableItem.css */
 .moon-selectable-item-indicator {
