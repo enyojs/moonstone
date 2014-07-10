@@ -97,6 +97,7 @@ enyo.kind({
 		} else {
 			if (this.$.handles.getControls().length == 1) {
 				this.openDrawer(this.$.handles.getControls()[0]);
+				this.updateActivator(true);
 			} else {
 				if (this.$.handleContainer.getOpen()) {
 					this.closeHandleContainer();
@@ -117,7 +118,7 @@ enyo.kind({
 		enyo.dispatcher.release(this.$.handleContainer);
 		this.$.handleContainer.spotlightDisabled = true;
 		this.$.handleContainer.setOpen(false);
-		this.updateActivator(false);
+		this.updateActivator(this.drawerOpen());
 	},
 	handleTapped: function(inSender, inEvent) {
 		this.openDrawer(inEvent.originator);
