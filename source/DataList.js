@@ -232,9 +232,10 @@
 			// Loop through the pages in top-down order
 			var pages = (this.$.page1.index < this.$.page2.index) ?
 				[this.$.page1, this.$.page2] :
-				[this.$.page2, this.$.page1];
-			for (var p in pages) {
-				var page = pages[p];
+				[this.$.page2, this.$.page1],
+				pageIdx;
+			for (pageIdx = 0; pageIdx < pages.length; pageIdx++) {
+				var page = pages[pageIdx];
 				var pb = page.getBounds();
 				// Loop through children in each page top-down
 				for (var i=0; i<page.children.length; i++) {
