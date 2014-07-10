@@ -233,14 +233,20 @@
 			var pages = (this.$.page1.index < this.$.page2.index) ?
 				[this.$.page1, this.$.page2] :
 				[this.$.page2, this.$.page1],
-				pageIdx;
+				pageIdx,
+				page,
+				pb,
+				i,
+				c,
+				cb;
+
 			for (pageIdx = 0; pageIdx < pages.length; pageIdx++) {
-				var page = pages[pageIdx];
-				var pb = page.getBounds();
+				page = pages[pageIdx];
+				pb = page.getBounds();
 				// Loop through children in each page top-down
-				for (var i=0; i<page.children.length; i++) {
-					var c = page.children[i];
-					var cb = c.getBounds();
+				for (i=0; i<page.children.length; i++) {
+					c = page.children[i];
+					cb = c.getBounds();
 					// Need to add page offset to target bounds
 					cb.top += pb.top;
 					cb.left += pb.left;
@@ -256,6 +262,7 @@
 					}
 				}
 			}
+
 			return null;
 		},
 
