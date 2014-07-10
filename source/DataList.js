@@ -1,6 +1,6 @@
 //* @protected
 /**
-	_moon.DataListSpotlightSupport_ a mixin that provides spotlight handling code for use by 
+	_moon.DataListSpotlightSupport_ a mixin that provides spotlight handling code for use by
 	_moon.DataList_ and _moon.DataGridList_.  Since those each extend from their respective
 	enyo counterparts, this mixin provides common add-on code needed for proper spotlight handling.
 */
@@ -44,7 +44,7 @@ moon.DataListSpotlightSupport = {
 	_subChildToFocus: null,
 	didRender: function () {
 		// Lists are set to spotlight:true by default, which allows them to receive focus before
-		// children are rendered; once rendred, it becomes spotlight:false, and the code below 
+		// children are rendered; once rendred, it becomes spotlight:false, and the code below
 		// ensures spotlight is transferred inside the list once rendering is complete
 		this.spotlight = false;
 		// If there is a queued index to focus (or an initialFocusIndex), focus that item now that
@@ -54,7 +54,7 @@ moon.DataListSpotlightSupport = {
 			this.focusOnIndex(index);
 			this._indexToFocus = -1;
 		} else {
-			// Otherwise, check if the list was focused and if so, transfer focus to the first 
+			// Otherwise, check if the list was focused and if so, transfer focus to the first
 			// spottable child inside
 			if (enyo.Spotlight.getCurrent() == this) {
 				enyo.Spotlight.spot(this);
@@ -126,7 +126,7 @@ moon.DataListSpotlightSupport = {
 		return control;
 	},
 	previewDomEvent: function(inEvent) {
-		// When spotlight is being applied back to the list after being unspotted, check that the child being 
+		// When spotlight is being applied back to the list after being unspotted, check that the child being
 		// focused is visible and if not, spot the first visible child that is
 		if ((inEvent.type == "onSpotlightFocus") && this._unspotSinceSpot) {
 			if (enyo.Spotlight.getPointerMode()) {
@@ -143,9 +143,9 @@ moon.DataListSpotlightSupport = {
 					tb.left += pb.left;
 					var sb = this.$.scroller.getScrollBounds();
 					// Check if target is inside the current scrollBounds
-					if ((tb.top < sb.top) || 
-						(tb.left < sb.left) || 
-						((tb.top + tb.height) > (sb.top + sb.clientHeight)) || 
+					if ((tb.top < sb.top) ||
+						(tb.left < sb.left) ||
+						((tb.top + tb.height) > (sb.top + sb.clientHeight)) ||
 						((tb.left + tb.width) > (sb.left + sb.clientWidth))) {
 						// Not in view, so find and spot the first visible child
 						var vc = this.getFirstVisibleChild(sb);
@@ -163,11 +163,12 @@ moon.DataListSpotlightSupport = {
 	},
 	getFirstVisibleChild: function(inScrollBounds) {
 		// Loop through the pages in top-down order
-		var pages = (this.$.page1.index < this.$.page2.index) ? 
-			[this.$.page1, this.$.page2] : 
-			[this.$.page2, this.$.page1];
-		for (var p in pages) {
-			var page = pages[p];
+		var pages = (this.$.page1.index < this.$.page2.index) ?
+			[this.$.page1, this.$.page2] :
+			[this.$.page2, this.$.page1],
+			pageIdx;
+		for (pageIdx = 0; pageIdx < pages.length; pageIdx++) {
+			var page = pages[pageIdx];
 			var pb = page.getBounds();
 			// Loop through children in each page top-down
 			for (var i=0; i<page.children.length; i++) {
@@ -328,7 +329,7 @@ enyo.kind({
 			};
 		}),
 		scrollToIndex: function (list, i) {
-			// This function recurses, so make sure we are scrolling to a valid index, 
+			// This function recurses, so make sure we are scrolling to a valid index,
 			// otherwise childForIndex will never return a control
 			if ((i < 0) || (i >= list.collection.length)) {
 				return;
@@ -348,7 +349,7 @@ enyo.kind({
 				list.$.scroller.scrollToControl(c, false, false, true);
 			} else {
 				var idx = list.$.page1.index;
-				
+
 				// attempting to line them up in a useful order
 				// given the direction from where our current index is
 				if (idx < p) {
@@ -359,7 +360,7 @@ enyo.kind({
 					list.$.page2.index = p + 1;
 				}
 				list.refresh();
-								
+
 				this.scrollToIndex(list, i);
 			}
 		}
