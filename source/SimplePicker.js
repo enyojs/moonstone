@@ -115,14 +115,14 @@ enyo.kind({
 		if (this.disabled) {
 			this.hideNavButton(prevButton);
 			this.hideNavButton(nextButton);
-		// Always show buttons if _this.wrap_ is _true_
-		} else if (this.wrap) {
-			this.showNavButton(prevButton);
-			this.showNavButton(nextButton);
 		// If we have one or less options, always show no buttons
 		} else if (maxIndex <= 0) {
 			this.hideNavButton(prevButton);
 			this.hideNavButton(nextButton);
+		// Always show buttons if _this.wrap_ is _true_
+		} else if (this.wrap) {
+			this.showNavButton(prevButton);
+			this.showNavButton(nextButton);
 		// If we are on the first option, hide the left button
 		} else if (index <= 0) {
 			this.showNavButton(nextButton);
