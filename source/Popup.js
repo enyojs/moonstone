@@ -209,7 +209,6 @@ enyo.kind({
 			if (this.showing) {
 				this.inherited(arguments);
 				this.animateShow();
-				var args = arguments;
 				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
 					if (inEvent.originator === this) {
 						this.doShown();
