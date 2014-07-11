@@ -2879,6 +2879,19 @@
 .moon-header .list-actions-drawer {
   top: -2px;
   bottom: -6px;
+  left: -10px;
+  right: -10px;
+}
+.moon-header .list-actions-drawer .moon-list-actions-client-container.moon-neutral {
+  background-color: transparent;
+}
+.moon-header .list-actions-drawer .moon-list-actions-client-container .moon-list-action-title {
+  line-height: 120px;
+  font-size: 85px;
+  font-family: "MuseoSans 900";
+  margin: 0px 10px 20px 10px;
+  text-transform: capitalize;
+  padding-bottom: 200px;
 }
 /* Close button */
 .moon-icon-button.moon-list-actions-close {
@@ -2895,6 +2908,8 @@
 .moon-list-actions-scroller {
   margin: 20px;
   margin-right: 80px;
+  margin-top: 80px;
+  margin-bottom: 160px;
   padding: 0px;
   z-index: 1;
 }
@@ -2906,9 +2921,9 @@
 .moon-list-actions-menu {
   display: inline-block;
   vertical-align: top;
-  width: 300px;
+  width: 460px;
   /* Do not change - used in JS */
-  min-width: 300px;
+  min-width: 460px;
   /* Do not change - used in JS */
   float: right;
   box-sizing: border-box;
@@ -2933,6 +2948,9 @@
   width: 100%;
   height: 100%;
   -webkit-transform: translateZ(0) translateY(100%);
+}
+.moon-list-actions-drawer-client.moon-neutral {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 .moon-list-actions-drawer-client.open {
   -webkit-transform: translateZ(0) translateY(0);

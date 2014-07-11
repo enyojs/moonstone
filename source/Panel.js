@@ -52,7 +52,8 @@ enyo.kind({
 	},
 	//* @protected
 	handlers: {
-		onScroll: "scroll"
+		onScroll: "scroll",
+		onListActionOpenChanged: "handleListActionsOpenChanged"
 	},
 
 	//* @protected
@@ -91,7 +92,8 @@ enyo.kind({
 		{from: ".headerBackgroundSrc", to: ".$.header.backgroundSrc"},
 		{from: ".headerBackgroundPosition", to: ".$.header.backgroundPosition"},
 		{from: ".titleUpperCase", to: ".$.header.titleUpperCase"},
-		{from: ".headerType", to: ".$.header.type", oneWay: false}
+		{from: ".headerType", to: ".$.header.type", oneWay: false},
+		{from: ".initialHeight", to: ".$.header.standardListActionHeight"}
 	],
 
 	headerComponents: [],
@@ -170,6 +172,10 @@ enyo.kind({
 	},
 	handleBreadcrumbTap: function(inSender, inEvent) {
 		inEvent.breadcrumbTap = true;
+	},
+	// Block spot on panel body when listActions is opened
+	handleListActionsOpenChanged: function(inSender, inEvent) {
+		this.$.panelBody.spotlightDisabled = inEvent.open;
 	},
 	// Note: smallHeader will be deprecated soon. For backward compatiblity, I leave it for a while.
 	scroll: function(inSender, inEvent) {
@@ -353,8 +359,8 @@ enyo.kind({
 			paddingR = parseInt(enyo.dom.getComputedStyleValue(node, "padding-right"), 10),
 			paddingB = parseInt(enyo.dom.getComputedStyleValue(node, "padding-bottom"), 10),
 			paddingL = parseInt(enyo.dom.getComputedStyleValue(node, "padding-left"), 10);
-		this.initialHeight = node.offsetHeight - paddingT - paddingB;
-		this.initialWidth = node.offsetWidth   - paddingR - paddingL;
+		this.set("initialHeight", node.offsetHeight - paddingT - paddingB);
+		this.set("initialWidth", node.offsetWidth   - paddingR - paddingL);
 	},
 	haltAnimations: function() {
 		this.removeClass("growing");

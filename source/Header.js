@@ -53,7 +53,9 @@ enyo.kind({
 		//* The value of the input
 		value: "",
 		//* When true, the title text will be converted to locale-safe uppercasing
-		titleUpperCase: true
+		titleUpperCase: true,
+		//* Height of listActions, panel set this value to adjust listAction height
+		standardListActionHeight: 360
 	},
 	//* @protected
 	mixins: ["moon.MarqueeSupport"],
@@ -61,8 +63,6 @@ enyo.kind({
 	marqueeOnHover: true,
 	marqueeOnRender: true,
 	marqueeOnRenderDelay: 10000,
-	// Described in .moon-header class
-	standardHeight: 360,
 	handlers: {
 		oninput: "handleInput",
 		onchange: "handleChange",
@@ -451,6 +451,6 @@ enyo.kind({
 		if (!inEvent.open) {
 			return;
 		}
-		inEvent.originator.beforeOpenDrawer(this.standardHeight, this.getType());
+		inEvent.originator.beforeOpenDrawer(this.standardListActionHeight, this.getType());
 	}
 });
