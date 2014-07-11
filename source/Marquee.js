@@ -330,7 +330,9 @@ moon.MarqueeItem = {
 			this._marquee_createMarquee();
 		}
 
-		this._marquee_addAnimationStyles(distance);
+		setTimeout(this.bindSafely(function(){
+			this._marquee_addAnimationStyles(distance);
+		}), 100);
 		return true;
 	},
 	_marquee_enable: function() {
