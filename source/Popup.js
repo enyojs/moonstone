@@ -23,14 +23,6 @@ enyo.kind({
 	eventsToCapture: { 
 		onSpotlightFocus: "capturedFocus"
 	},
-
-	events: {
-		//* Fires after the animation is complete when the popup is shown.
-		onShown: "",
-		//* Fires before the animation starts when the popup is hidden.
-		onHiding: ""
-	},
-
 	//* @public
 	published: {
 		/**
@@ -207,13 +199,7 @@ enyo.kind({
 			if (this.showing) {
 				this.inherited(arguments);
 				this.animateShow();
-				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
-					if (inEvent.originator === this) {
-						this.doShown();
-					}
-				});
 			} else {
-				this.doHiding();
 				this.animateHide();
 				var args = arguments;
 				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
