@@ -608,9 +608,10 @@ enyo.kind({
 				popFrom++;
 			}
 		}
-		this.inherited(arguments);
 
 		this.transitionInProgress = false;
+		
+		this.inherited(arguments);
 
 		// "sendEvents" means we actually transitioned (not a reflow), so
 		// check popOnBack logic
