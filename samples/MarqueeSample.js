@@ -51,6 +51,10 @@ enyo.kind({
 				{name: "marqueeDisabled", marqueeOnRender: true, disabled: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for disabled marquee test which is having disabled property"},
 				{tag: "br"},
 
+				{kind: "moon.Divider", content: "Disabled Wrap Instead Of Marquee:"},
+				{name: "marqueeDisabledWrap", wrapInsteadOfMarquee: true, disabled: true, mixins: ["moon.MarqueeSupport", "moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "This is long text for disabled text which wraps because wrapInsteadOfMarquee is set to true"},
+				{tag: "br"},
+
 				{kind: "moon.Divider", content: "LTR Languages:"},
 				{mixins: ["moon.MarqueeSupport"], marqueeOnRender: true, components: [
 					{marqueeOnRender: true, mixins: ["moon.MarqueeItem"], classes: "moon-marquee-start-on-render", content: "The quick brown fox jumped over the lazy dog.  The bean bird flies at sundown."},
