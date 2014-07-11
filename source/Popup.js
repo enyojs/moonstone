@@ -195,10 +195,6 @@ enyo.kind({
 			this.applyZIndex();
 		}
 		else {
-			if (this.animate) {
-				this.doHiding();
-			}
-
 			if(moon.Popup.count > 0) {
 				moon.Popup.count--;
 			}
@@ -217,6 +213,7 @@ enyo.kind({
 					}
 				});
 			} else {
+				this.doHiding();
 				this.animateHide();
 				var args = arguments;
 				this.animationEnd = this.bindSafely(function(inSender, inEvent) {
