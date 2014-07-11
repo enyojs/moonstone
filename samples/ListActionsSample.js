@@ -14,19 +14,19 @@ enyo.kind({
 				//* List actions with default width
 				{kind: "moon.ListActions", name:"listActions", proportionalWidth: true, icon:"drawer", listActions: [
 					{action:"category3", components: [
-						{kind: "moon.ListActionTitle", content: "Category 3 (DataList)"},
+						{kind: "moon.ListActionsMenuTitle", content: "Category 3 (DataList)"},
 						{kind: "moon.DataList", name:"list", fit:true, components: [
 							{kind:"moon.CheckboxItem", bindings: [{from:".model.name", to:".content"}]}
 						]}
 					]},
 					{action:"category2", components: [
-						{kind: "moon.ListActionTitle", content: "Category 2 (DataRepeater)"},
+						{kind: "moon.ListActionsMenuTitle", content: "Category 2 (DataRepeater)"},
 						{kind: "enyo.DataRepeater", containerOptions:{kind:"moon.Scroller", classes:"enyo-fill"}, name:"repeater", fit:true, components: [
 							{kind:"moon.ToggleItem", bindings: [{from:".model.name", to:".content"}]}
 						]}
 					]},
 					{action:"category1", components: [
-						{kind: "moon.ListActionTitle", content:"Category 1 (Static)"},
+						{kind: "moon.ListActionsMenuTitle", content:"Category 1 (Static)"},
 						{kind: "moon.Scroller", fit: true, components: [
 							{kind: "enyo.Group", name:"group", highlander: true, defaultKind: "moon.SelectableItem", components: [
 								{content:"Just Released"},
@@ -43,7 +43,7 @@ enyo.kind({
 				//* List actions with proportional width
 				{kind: "moon.ListActions", proportionalWidth: true, iconSrc: "./assets/icon-list.png", listActions: [
 					{action: "Cost", components: [
-						{kind: "moon.ListActionTitle", content:"Cost"},
+						{kind: "moon.ListActionsMenuTitle", content:"Cost"},
 						{kind: "moon.Scroller", defaultKind: "moon.ToggleItem", fit: true, components: [
 							{content:"$"},
 							{content:"$$"},
@@ -51,7 +51,7 @@ enyo.kind({
 						]}
 					]},
 					{action: "Flavor", components: [
-						{kind: "moon.ListActionTitle", content:"Flavor"},
+						{kind: "moon.ListActionsMenuTitle", content:"Flavor"},
 						{kind: "moon.Scroller", defaultKind: "moon.CheckboxItem", fit: true, components: [
 							{content:"Spicy"},
 							{content:"Sweet"},
@@ -71,7 +71,7 @@ enyo.kind({
 				//* List actions with auto-collapsing
 				{kind: "moon.ListActions", proportionalWidth: true, autoCollapse: true, iconSrc: "./assets/icon-list.png", listActions: [
 					{action: "AutoCollapseTest", components: [
-						{kind: "moon.ListActionTitle", content:"Try Auto-collapse"},
+						{kind: "moon.ListActionsMenuTitle", content:"Try Auto-collapse"},
 						{kind: "moon.Scroller", fit: true, components: [
 							{kind: "enyo.Group", highlander: true, defaultKind: "moon.CheckboxItem", components: [
 								{content:"Select"},
@@ -97,7 +97,7 @@ enyo.kind({
 				{kind:"moon.Button", small:true, content:"Breadcrumb Panel", ontap:"toggleBreadcrumb"}
 			]},
 			{fit: true},
-			{kind: "moon.ListActionTitle", content: "List Action Event"},
+			{kind: "moon.ListActionsMenuTitle", content: "List Action Event"},
 			{kind: "moon.BodyText", name: "console", content: "Event"}
 		]},
 		{kind:"moon.Panel", title: "Header", components: [

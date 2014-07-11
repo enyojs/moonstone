@@ -363,9 +363,9 @@ enyo.kind({
 	[moon.ListActions](#moon.ListActions) to display a menu title.
 */
 enyo.kind({
-	name: "moon.ListActionTitle",
+	name: "moon.ListActionsMenuTitle",
 	//* @protected
-	classes: "moon-list-action-title",
+	classes: "moon-list-actions-menu-title",
 	mixins: ["moon.MarqueeItem"]
 });
 
