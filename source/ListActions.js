@@ -204,7 +204,6 @@ enyo.kind({
 	drawerAnimationEnd: function() {
 		//on closed, hide drawer and spot _this.$.activator_
 		if (!this.getOpen()) {
-			this.$.drawer.set("spotlightDisabled", !this.getOpen());
 			if (this.generated) {
 				enyo.Spotlight.spot(this.$.activator);
 			}
