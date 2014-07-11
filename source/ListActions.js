@@ -180,9 +180,7 @@ enyo.kind({
 	},
 	beforeOpenDrawer: function(standardHeight, type) {
 		this.standardHeight = standardHeight;
-		if (type !== "large") {
-			this.set(this.stacked, "false");
-		}
+		this.updateStacking();
 	},
 	openChanged: function(){
 		this.setActive(this.getOpen());
@@ -231,6 +229,9 @@ enyo.kind({
 		return this.$.listActions.getBounds().width < (300 * this.listActionComponents.length);
 	},
 	stackedChanged: function() {
+		if (this.standardHeight) {
+			this.$.drawer.applyStyle("height", this.standardHeight + "px");
+		}
 		if (this.stacked) {
 			this.$.drawer.addClass("stacked");
 			this.stackMeUp();
@@ -259,9 +260,7 @@ enyo.kind({
 	},
 	unStackMeUp: function() {
 		var containerHeight, optionGroup, i;
-		if (this.standardHeight) {
-			this.$.drawer.applyStyle("height", this.standardHeight + "px");
-		}
+		
 		containerHeight = this.getContainerBounds().height;
 
 		for (i = 0; (optionGroup = this.listActionComponents[i]); i++) {
@@ -357,6 +356,17 @@ enyo.kind({
 	applyAnimatedMode: function(shouldAnimate) {
 		this.$.client.addRemoveClass("animated", shouldAnimate);
 	}
+});
+
+/**
+	_moon.ListActionTitle_ is a control which can be used in
+	[moon.ListActions](#moon.ListActions) to display a menu title.
+*/
+enyo.kind({
+	name: "moon.ListActionsMenuTitle",
+	//* @protected
+	classes: "moon-list-actions-menu-title",
+	mixins: ["moon.MarqueeItem"]
 });
 
 moon.ListActionActivationSupport = {
