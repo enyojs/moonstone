@@ -217,8 +217,9 @@ enyo.kind({
 		onSpotlightRight: 'spotlightLeftRightFilter',
 		onresize: 'handleResize'
 	},
-    bindings: [
-		{from: ".sourceComponents",			to:".$.video.sourceComponents"},
+	bindings: [
+		{from: ".src",						to:".$.video.src"},
+		{from: ".sources",					to:".$.video.sourceComponents"},
 		{from: ".playbackRateHash",			to:".$.video.playbackRateHash"},
 		{from: ".poster",					to:".$.video.poster"},
 		{from: ".constrainToBgProgress",	to:".$.slider.constrainToBgProgress"},
@@ -229,8 +230,10 @@ enyo.kind({
 		{from: ".showFFRewindControls",		to:".$.rewind.showing"},
 		{from: ".showPlayPauseControl",		to:".$.fsPlayPause.showing"},
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
-    ],
-	
+	],
+	observers: {
+		_srcChanged: ["src", "sources"]
+	},
 	_isPlaying: false,
 	_canPlay: false,
 	_autoCloseTimer: null,
@@ -297,7 +300,6 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.srcChanged();
 		this.createInfoControls();
 		this.inlineChanged();
 		this.showInfoChanged();
@@ -337,7 +339,7 @@ enyo.kind({
 	updatePlaybackControlState: function() {
 		var disabled = this.disablePlaybackControls || 
 			this._panelsShowing || 
-			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+			(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 		this.updateSliderState();
 		this.$.playbackControls.addRemoveClass("disabled", disabled);
 		this.$.jumpBack.setDisabled(disabled);
@@ -374,11 +376,7 @@ enyo.kind({
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
 	},
-	//* Overrides default _enyo.Control_ behavior.
-	getSrc: function() {
-		return this.src;
-	},
-	srcChanged: function() {
+	_srcChanged: function(inOld, inNew, inSource) {
 		this._canPlay = false;
 		this._isPlaying = this.autoplay;
 		this._errorCode = null;
@@ -386,7 +384,11 @@ enyo.kind({
 		this.updateSpinner();
 		this.updatePlaybackControlState();
 		this._resetTime();
-		this.$.video.setSrc(this.getSrc());
+		if (inSource === "sources") {
+			this.src = "";
+		} else {
+			this.sources = null;
+		}
 	},
 	//* Returns the underlying _enyo.Video_ control (wrapping the HTML5 video node)
 	getVideo: function() {
@@ -457,7 +459,7 @@ enyo.kind({
 			this.disableSlider || 
 			this.disablePlaybackControls || 
 			!this._loaded || 
-			(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+			(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 		this.$.slider.setDisabled(disabled);
 	},
 	autoShowOverlayChanged: function() {
@@ -510,7 +512,7 @@ enyo.kind({
 		this._isPlaying = false;
 		this._canPlay = false;
 		this._errorCode = null;
-		this.src = null;
+		this.src = "";
 		this.updatePlaybackControlState();
 		this.updateSpinner();
 	},

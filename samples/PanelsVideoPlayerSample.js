@@ -82,30 +82,45 @@ enyo.kind({
 	},
 	load: function() {
 		this.$.player.unload();
-		this.$.player.setSrc(this.src);
+		this.$.player.setSources(this.sources);
 	},
 	webMovieCounter: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
-		this.src = "http://media.w3.org/2010/05/video/movie_300.mp4";
-		this.$.player.setSrc(this.src);
+		// Set source by sources array
+		this.sources = [
+			{src: undefined, type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/video/movie_300.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/video/movie_300.webm", type: "video/webm"}
+		];
+		this.$.player.setSources(this.sources);
 		this.$.videoInfoHeader.setTitle("Ticking Counter Video");
 	},
 	webMovieBunny: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
-		this.src = "http://media.w3.org/2010/05/bunny/movie.mp4";
-		this.$.player.setSrc(this.src);
+		// Set source by sources array
+		this.sources = [
+			{src: null, type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
+		];
+		this.$.player.setSources(this.sources);
 		this.$.videoInfoHeader.setTitle("Bunny Video");
 	},
 	webMovieSintel: function(inSender, inEvent) {
 		if (!inEvent.originator.active) {
 			return;
 		}
-		this.src = "http://media.w3.org/2010/05/sintel/trailer.mp4";
-		this.$.player.setSrc(this.src);
+		// Set source by sources array
+		this.sources = [
+			{src: "http://media.w3.org/2010/05/sintel/trailer.mp4", type: "video/mp4"},
+			{src: "http://media.w3.org/2010/05/sintel/trailer.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"}
+		];
+		this.$.player.setSources(this.sources);
 		this.$.videoInfoHeader.setTitle("The Sintel Video");
 	},
 	error: function(inSender, inEvent) {
