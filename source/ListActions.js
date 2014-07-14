@@ -126,7 +126,6 @@ enyo.kind({
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
-		this.$.activator.setDisabled(this.disabled);
 	},
 	listActionsChanged: function() {
 		var owner = this.hasOwnProperty("listActions") ? this.getInstanceOwner() : this;
