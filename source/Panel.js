@@ -25,7 +25,7 @@ enyo.kind({
 			with the panel index
 		*/
 		autoNumber: true,
-		//* Facade for the header's _type_ property. You can choose among large, small and mini
+		//* Facade for the header's _type_ property. You can choose among large, medium and small
 		headerType: "large",
 		//* Facade for the header's _small_ property
 		// Note: This property will be deprecated soon. For backward compatiblity, I leave it for a while.
