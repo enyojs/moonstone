@@ -96,10 +96,10 @@ enyo.kind({
 		]}
 	],
 	bindings: [
-		{from: ".open", to: ".$.drawer.open"},
-		{from: ".iconSrc", to: ".$.activator.src"},
-		{from: ".icon", to: ".$.activator.icon"},
-		{from: ".disabled", to: ".$.activator.disabled", oneWay: false}
+		{from: "open", to: "$.drawer.open"},
+		{from: "iconSrc", to: "$.activator.src"},
+		{from: "icon", to: "$.activator.icon"},
+		{from: "disabled", to: "$.activator.disabled", oneWay: false}
 	],
 	create: function() {
 		this.inherited(arguments);
