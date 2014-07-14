@@ -154,6 +154,11 @@
 		 * @private
 		 */
 		requestShow: function (inSender, inEvent) {
+			// if onRequestShowTooltip is generated from moon.ListAction
+			// it must have activator
+			if (inSender.$.activator) {
+				this.activator = inSender.$.activator;
+			}
 			this.startJob('showJob', 'show', this.showDelay);
 			return true;
 		},
@@ -203,7 +208,9 @@
 					pBounds = this.parent.getAbsoluteBounds(),
 					acBounds =null;
 
-				this.activator = enyo.Spotlight.getCurrent();
+				// Sometimes enyo.Spotlight.getCurrent() is null.
+				// In this case, we can rely on onRequestShowTooltip event sender.
+				this.activator = enyo.Spotlight.getCurrent() || this.activator;
 				acBounds = this.activator.getAbsoluteBounds();
 
 				//* Calculate the difference between decorator and activating
