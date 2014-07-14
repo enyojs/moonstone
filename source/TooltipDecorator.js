@@ -108,8 +108,8 @@
 		/**
 		 * @private
 		 */
-		enter: function () {
-			this.requestShowTooltip();
+		enter: function (inSender, inEvent) {
+			this.requestShowTooltip(inSender, inEvent);
 		},
 
 		/**
@@ -143,9 +143,9 @@
 		/**
 		 * @private
 		 */
-		requestShowTooltip: function () {
+		requestShowTooltip: function(inSender, inEvent) {
 			if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-				this.waterfallDown('onRequestShowTooltip');
+				this.waterfallDown("onRequestShowTooltip", inEvent, inSender);
 			}
 		},
 

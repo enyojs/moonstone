@@ -153,7 +153,7 @@
 		/**
 		 * @private
 		 */
-		requestShow: function () {
+		requestShow: function (inSender, inEvent) {
 			this.startJob('showJob', 'show', this.showDelay);
 			return true;
 		},
