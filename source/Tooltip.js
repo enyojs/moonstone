@@ -98,18 +98,29 @@ enyo.kind({
 				moonDefaultPadding = 20,
 				pBounds = this.parent.getAbsoluteBounds(),
 				acBounds =null;
+			
+			var paTopDiff, 
+				paLeftDiff,
+				paRightDiff;
 
+			//* If activator is disabled, Spotlight focus cannot be captured.
+			//* In that case, we consider that tooltip decorator covers activator's bounds.
 			this.activator = enyo.Spotlight.getCurrent();
-			acBounds = this.activator.getAbsoluteBounds();
+			if (!!this.activator) {
+				acBounds = this.activator.getAbsoluteBounds();	
 
-			//* Calculate the difference between decorator and activating
-			//* control's top, left, right differences, position tooltip against
-			//* the activating control instead of the decorator accordingly.
-			var paTopDiff = pBounds.top - acBounds.top,
-				paLeftDiff =  acBounds.left - pBounds.left,
-				paRightDiff = pBounds.left + pBounds.width - acBounds.left - acBounds.width,
-				acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width;
+				//* Calculate the difference between decorator and activating
+				//* control's top, left, right differences, position tooltip against
+				//* the activating control instead of the decorator accordingly.
+				paTopDiff = pBounds.top - acBounds.top;
+				paLeftDiff =  acBounds.left - pBounds.left;
+				paRightDiff = pBounds.left + pBounds.width - acBounds.left - acBounds.width;
+			} else {
+				acBounds = pBounds;
 
+				paTopDiff = paLeftDiff = paRightDiff = 0;
+			}
+			
 			//* When there is not enough room in the bottom, move it above the
 			//* decorator; when the tooltip bottom is within window height but
 			//* set programmatically above, move it above
@@ -143,6 +154,7 @@ enyo.kind({
 				this.addClass("right-arrow");
 				this.applyPosition({"margin-left": - b.width + "px", "left": "auto"});
 				if (this.floating) {
+					var acRight = window.innerWidth - moonDefaultPadding - acBounds.left - acBounds.width;
 					this.applyStyle("right", acBounds.width / 2 + acRight + moonDefaultPadding + "px");
 				} else {
 					this.applyStyle("right", acBounds.width / 2 + paRightDiff + "px");
