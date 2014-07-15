@@ -112,8 +112,8 @@ enyo.kind({
 	showHideNavButtons: function() {
 		var index = this.getSelectedIndex(),
 			maxIndex = this.getClientControls().length - 1;
-		var prevButton = this.rtl ? this.$.buttonRight : this.$.buttonLeft;
-		var nextButton = this.rtl ? this.$.buttonLeft : this.$.buttonRight;
+		var prevButton = this.$.buttonLeft;
+		var nextButton = this.$.buttonRight;
 
 		if (this.disabled) {
 			this.hideNavButton(prevButton);
@@ -222,7 +222,7 @@ enyo.kind({
 		}
 	},
 	selectedIndexChanged: function() {
-		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * 100 * (this.rtl ? 1 : -1)) + "%"});
+		enyo.dom.transform(this.$.client, {translateX: (this.selectedIndex * -100) + "%"});
 		this.updateMarqueeDisable();
 		this.startMarquee();
 		this.setSelected(this.getClientControls()[this.selectedIndex]);
@@ -240,18 +240,10 @@ enyo.kind({
 		}
 	},
 	left: function() {
-		if (this.rtl) {
-			this.next();
-		} else {
-			this.previous();
-		}
+		this.previous();
 	},
 	right: function() {
-		if (this.rtl) {
-			this.previous();
-		} else {
-			this.next();
-		}
+		this.next();
 	},
 	downLeft: function(inSender, inEvent) {
 		inEvent.configureHoldPulse({endHold: "onLeave", delay: 300});
