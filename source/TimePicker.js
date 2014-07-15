@@ -151,9 +151,21 @@ enyo.kind({
 				fmtParams.locale = this.locale;
 			}
 			var merFormatter = new ilib.DateFmt(fmtParams);
-			var am = ilib.Date.newInstance({hour:10});
-			var pm = ilib.Date.newInstance({hour:14});
-			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+			if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh')  {
+				this.meridiems = [
+					merFormatter.format(ilib.Date.newInstance({hour:5})), // ~6, before dawn
+					merFormatter.format(ilib.Date.newInstance({hour:8})), // ~9, morging
+					merFormatter.format(ilib.Date.newInstance({hour:11})),// ~12 late morning
+					merFormatter.format(ilib.Date.newInstance({hour:12})),// ~13 noon
+					merFormatter.format(ilib.Date.newInstance({hour:17})),// ~18 after noon
+					merFormatter.format(ilib.Date.newInstance({hour:20})),// ~21 evening
+					merFormatter.format(ilib.Date.newInstance({hour:23})) // ~24 night
+				];
+			} else {
+				var am = ilib.Date.newInstance({hour:10}),
+					pm = ilib.Date.newInstance({hour:14});
+				this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+			}			
 		}
 	},
 	setupPickers: function(ordering) {
