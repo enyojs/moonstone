@@ -105,7 +105,7 @@ enyo.kind({
 				return this._tf.format(new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:"UTC"}));
 			}
 		} else {
-			return this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + ", " + this.value.getFullYear();
+			return this.getWeekDay()[this.value.getDay()] + " " + this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + " " + this.value.getFullYear();
 		}
 	},
 	updateValue: function(inSender, inEvent) {
@@ -146,6 +146,10 @@ enyo.kind({
 	getMonthName: function() {
 		// Only used when ilib is not loaded
 		return ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	},
+	getWeekDay: function() {
+		// Only used when ilib is not loaded
+		return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	},
 	//* Returns number of days in a particular month/year.
 	monthLength: function(inYear, inMonth) {

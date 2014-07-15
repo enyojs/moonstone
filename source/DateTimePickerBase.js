@@ -90,7 +90,8 @@ enyo.kind({
 			type: this.iLibFormatType,
 			useNative: false,
 			timezone: "local",
-			length: "full"
+			length: "full",
+			template: this.content === "Date" ? "EEEE d MMMM yyyy" : "h:mma"
 		};
 		if (this.locale) {
 			fmtParams.locale = this.locale;
@@ -156,7 +157,6 @@ enyo.kind({
 		var open = this.$.drawer.get("open"),
 			pickers = this.pickers,
 			i, p;
-		this.$.currentValue.setShowing(!open);
 		if (pickers) {
 			for (i = 0; i < pickers.length; i++) {
 				p = pickers[i];
