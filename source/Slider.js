@@ -164,7 +164,6 @@ enyo.kind({
 		this.popupWidthChanged();
 		this.drawToCanvas(this.popupColor);
 		this._setValue(this.value);
-		this.addRemoveClass("moon-slider-rtl", this.rtl);
 	},
 	disabledChanged: function() {
 		this.addRemoveClass("disabled", this.disabled);
@@ -292,8 +291,6 @@ enyo.kind({
 			knobValue = (this.showPercentage && this.popupContent === null) ? percent : inValue
 		;
 
-		if (this.rtl) { percent = 100 - percent; }
-
 		this.$.knob.applyStyle("left", percent + "%");
 		this.$.popup.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
 		this.$.popupLabel.addRemoveClass("moon-slider-popup-flip-h", percent > 50);
@@ -315,13 +312,8 @@ enyo.kind({
 		return inKnobValue;
 	},
 	calcKnobPosition: function(inEvent) {
-		var x;
-		if (this.rtl) { 
-			x = this.hasNode().getBoundingClientRect().right - inEvent.clientX;
-		} else {
-			x = inEvent.clientX - this.hasNode().getBoundingClientRect().left;
-		}
-		var pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
+		var x = inEvent.clientX - this.hasNode().getBoundingClientRect().left,
+			pos = (x / this.getBounds().width) * (this.max - this.min) + this.min;
 		return pos;
 	},
 	dragstart: function(inSender, inEvent) {
@@ -443,9 +435,7 @@ enyo.kind({
 	spotLeft: function(inSender, inEvent) {
 		if (this.selected) {
 			// If in the process of animating, work from the previously set value
-			var v = this.rtl
-				? this.getValue() + (this.increment || 1)
-				: this.getValue() - (this.increment || 1);
+			var v = this.getValue() - (this.increment || 1);
 
 			this.set("value",v);
 			return true;
@@ -453,9 +443,7 @@ enyo.kind({
 	},
 	spotRight: function(inSender, inEvent) {
 		if (this.selected) {
-			var v = this.rtl
-				? this.getValue() - (this.increment || 1)
-				: this.getValue() + (this.increment || 1);
+			var v = this.getValue() + (this.increment || 1);
 
 			this.set("value",v);
 			return true;
