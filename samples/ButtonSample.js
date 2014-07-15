@@ -71,6 +71,15 @@ enyo.kind({
 					{name: "appleButton", kind: "moon.Button", content: "Apple", ontap: "buttonTapped"},
 					{name: "bananaButton", kind: "moon.Button", content: "Banana", ontap: "buttonTapped"},
 					{name: "saskatoonberryButton", kind: "moon.Button", content: "Saskatoonberry", ontap: "buttonTapped"}
+				]},
+				{tag: "br"},
+				{tag: "br"},
+
+				{kind: "moon.Divider", content: "Grouped Buttons with selectedAndFocus option:"},
+				{kind: "enyo.Group", classes: "moon-button-sample-group", components: [
+					{name: "televisionButton", kind: "moon.Button", content: "Television", ontap: "buttonTapped"},
+					{name: "mobileButton", kind: "moon.Button", content: "Mobile", ontap: "buttonTapped"},
+					{name: "wearableDeviceButton", kind: "moon.Button", content: "Wearable Device", ontap: "buttonTapped"}
 				]}
 			]}
 		]},
