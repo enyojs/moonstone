@@ -262,7 +262,7 @@ enyo.kind({
 		return hour;
 	},
 	/**
-		'zh' language has 7 types for represent hour like meridiem (AM/PM)
+		'zh' language has 7 choices in meridiem list like AM/PM
 		This method could be used only when locale uses 'zh' language.
 		
 		@param {int} hour Current hour
