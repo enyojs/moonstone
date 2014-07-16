@@ -277,23 +277,24 @@ enyo.kind({
 		@private
 	*/
 	getMeridiemLevel: function (hour) {
-		if (!this.locale || this.locale.slice(0,2) !== 'zh' || this.iLibLocale !== 'zh') {
-			return -1;
-		}
-		if (hour < 6) {
-			return 0;
-		} else if (6 <= hour && hour < 9) {
-			return 1;
-		} else if (9 <= hour && hour < 12) {
-			return 2;
-		} else if (12 <= hour && hour < 13) {
-			return 3;
-		} else if (13 <= hour && hour < 18) {
-			return 4;
-		} else if (18 <= hour && hour < 21) {
-			return 5;
+		if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+			if (hour < 6) {
+				return 0;
+			} else if (6 <= hour && hour < 9) {
+				return 1;
+			} else if (9 <= hour && hour < 12) {
+				return 2;
+			} else if (12 <= hour && hour < 13) {
+				return 3;
+			} else if (13 <= hour && hour < 18) {
+				return 4;
+			} else if (18 <= hour && hour < 21) {
+				return 5;
+			} else {
+				return 6;
+			}
 		} else {
-			return 6;
+			return - 1;
 		}
 	},
 	updateValue: function(inSender, inEvent) {
