@@ -309,7 +309,25 @@ enyo.kind({
 		if (this.value) {
 			var hour = this.value.getHours();
 			if (this.meridiemEnable === true) {	
-				this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+				if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+					if (hour < 6) {
+						this.$.meridiem.setValue(0);
+					} else if (hour < 9) {
+						this.$.meridiem.setValue(1);
+					} else if (hour < 12) {
+						this.$.meridiem.setValue(2);
+					} else if (hour < 13) {
+						this.$.meridiem.setValue(3);
+					} else if (hour < 18) {
+						this.$.meridiem.setValue(4);
+					} else if (hour < 21) {
+						this.$.meridiem.setValue(5);
+					} else {
+						this.$.meridiem.setValue(6);	
+					} 
+				} else {
+					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+				}				
 			}
 			this.$.hour.setValue(this.value.getHours());
 			this.$.minute.setValue(this.value.getMinutes());
