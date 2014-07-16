@@ -261,6 +261,21 @@ enyo.kind({
 		}
 		return hour;
 	},
+	/**
+		'zh' language has 7 types for represent hour like meridiem (AM/PM)
+		This method could be used only when locale uses 'zh' language.
+		
+		@param {int} hour Current hour
+		@returns {int} Index of type that represent current hour
+			0 - Before Dawn.	From 0 to 6
+			1 - Morning.		From 6 to 9
+			2 - Late Morning.	From 9 to 12
+			3 - Noon.			From 12 to 13
+			4 - AfterNoon.		From 13 to 18
+			5 - Evening.		From 18 to 21
+			6 - Night.			From 21 to 24
+		@private
+	*/
 	getMeridiemLevel: function (hour) {
 		if (!this.locale || this.locale.slice(0,2) !== 'zh' || this.iLibLocale !== 'zh') {
 			return -1;
@@ -281,7 +296,6 @@ enyo.kind({
 			return 6;
 		}
 	},
-
 	updateValue: function(inSender, inEvent) {
 		var hour = this.$.hour.getValue();
 		var minute = this.$.minute.getValue();
