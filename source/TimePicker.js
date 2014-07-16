@@ -11,7 +11,7 @@ enyo.kind({
 	//* @protected
 	classes:"moon-date-picker-month",
 	min: 0,
-	max: 1,
+	max: null,
 	value: null,
 	//* @public
 	published: {
@@ -21,6 +21,10 @@ enyo.kind({
 			than 11, or _"AM"_ otherwise.
 		*/
 		meridiems: ["AM","PM"]
+	},
+	create: function() {
+		this.max = this.meridiems.length - 1;
+		this.inherited(arguments);
 	},
 	valueChanged: function() {
 		this.inherited(arguments);
@@ -151,9 +155,21 @@ enyo.kind({
 				fmtParams.locale = this.locale;
 			}
 			var merFormatter = new ilib.DateFmt(fmtParams);
-			var am = ilib.Date.newInstance({hour:10});
-			var pm = ilib.Date.newInstance({hour:14});
-			this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+			if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh')  {
+				this.meridiems = [
+					merFormatter.format(ilib.Date.newInstance({hour:5})), // ~6, before dawn
+					merFormatter.format(ilib.Date.newInstance({hour:8})), // ~9, morging
+					merFormatter.format(ilib.Date.newInstance({hour:11})),// ~12 late morning
+					merFormatter.format(ilib.Date.newInstance({hour:12})),// ~13 noon
+					merFormatter.format(ilib.Date.newInstance({hour:17})),// ~18 after noon
+					merFormatter.format(ilib.Date.newInstance({hour:20})),// ~21 evening
+					merFormatter.format(ilib.Date.newInstance({hour:23})) // ~24 night
+				];
+			} else {
+				var am = ilib.Date.newInstance({hour:10}),
+					pm = ilib.Date.newInstance({hour:14});
+				this.meridiems = [merFormatter.format(am), merFormatter.format(pm)];
+			}			
 		}
 	},
 	setupPickers: function(ordering) {
@@ -245,19 +261,75 @@ enyo.kind({
 		}
 		return hour;
 	},
+	/**
+		'zh' language has 7 choices in meridiem list like AM/PM
+		This method could be used only when locale uses 'zh' language.
+		
+		@param {int} hour Current hour
+		@returns {int} Index of type that represent current hour
+			0 - Before Dawn.	From 0 to 6
+			1 - Morning.		From 6 to 9
+			2 - Late Morning.	From 9 to 12
+			3 - Noon.			From 12 to 13
+			4 - AfterNoon.		From 13 to 18
+			5 - Evening.		From 18 to 21
+			6 - Night.			From 21 to 24
+		@private
+	*/
+	getMeridiemLevel: function (hour) {
+		if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+			if (hour < 6) {
+				return 0;
+			} else if (6 <= hour && hour < 9) {
+				return 1;
+			} else if (9 <= hour && hour < 12) {
+				return 2;
+			} else if (12 <= hour && hour < 13) {
+				return 3;
+			} else if (13 <= hour && hour < 18) {
+				return 4;
+			} else if (18 <= hour && hour < 21) {
+				return 5;
+			} else {
+				return 6;
+			}
+		} else {
+			return - 1;
+		}
+	},
 	updateValue: function(inSender, inEvent) {
 		var hour = this.$.hour.getValue();
 		var minute = this.$.minute.getValue();
 
 		if (inEvent.originator.kind == "moon.MeridiemPicker") {
-			if (hour < 12 && inEvent.originator.value == 1 ) {
-				hour += 12;
-			} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
-				hour -= 12;
-			} else if (hour == 24 && inEvent.originator.value === 1) {
-				hour -= 12;
-			} else if (hour == 12 && inEvent.originator.value === 0) {
-				hour += 12;
+			if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+				var newValue = inEvent.originator.value,
+					oldValue = this.getMeridiemLevel(hour),
+					meridiemBound = [0, 6, 9, 12, 13, 18, 21];					
+					
+				if (newValue === 3) {
+					hour = 12;	// specific case for afternoon				
+				} 
+				// With using picker control
+				else if (newValue === oldValue - 1) {
+					hour -= (meridiemBound[oldValue] - meridiemBound[newValue]);
+				} else if (newValue === oldValue + 1) {
+					hour += (meridiemBound[newValue] - meridiemBound[oldValue]);
+				} 
+				// Note that currently we do not support setting each picker's value
+				// without using picker control. 
+				// TimePicker instance does not expose its pickers like meridien, hour and minute
+				// so developer could not access them directly.
+			} else {				
+				if (hour < 12 && inEvent.originator.value == 1 ) {
+					hour += 12;
+				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
+					hour -= 12;
+				} else if (hour == 24 && inEvent.originator.value === 1) {
+					hour -= 12;
+				} else if (hour == 12 && inEvent.originator.value === 0) {
+					hour += 12;
+				}
 			}
 			this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
 			this.$.hour.setValue(hour);
@@ -292,8 +364,12 @@ enyo.kind({
 	setChildPickers: function(inOld) {
 		if (this.value) {
 			var hour = this.value.getHours();
-			if (this.meridiemEnable === true) {
-				this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+			if (this.meridiemEnable === true) {	
+				if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+					this.$.meridiem.setValue(this.getMeridiemLevel(hour));
+				} else {
+					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
+				}				
 			}
 			this.$.hour.setValue(this.value.getHours());
 			this.$.minute.setValue(this.value.getMinutes());
