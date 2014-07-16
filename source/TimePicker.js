@@ -261,19 +261,59 @@ enyo.kind({
 		}
 		return hour;
 	},
+	getMeridiemLevel: function (hour) {
+		if (hour < 6) {
+			return 0;
+		} else if (6 <= hour && hour < 9) {
+			return 1;
+		} else if (9 <= hour && hour < 12) {
+			return 2;
+		} else if (12 <= hour && hour < 13) {
+			return 3;
+		} else if (13 <= hour && hour < 18) {
+			return 4;
+		} else if (18 <= hour && hour < 21) {
+			return 5;
+		} else {
+			return 6;
+		}
+	},
+
 	updateValue: function(inSender, inEvent) {
 		var hour = this.$.hour.getValue();
 		var minute = this.$.minute.getValue();
 
 		if (inEvent.originator.kind == "moon.MeridiemPicker") {
-			if (hour < 12 && inEvent.originator.value == 1 ) {
-				hour += 12;
-			} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
-				hour -= 12;
-			} else if (hour == 24 && inEvent.originator.value === 1) {
-				hour -= 12;
-			} else if (hour == 12 && inEvent.originator.value === 0) {
-				hour += 12;
+			if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+				var newValue = inEvent.originator.value,
+					oldValue = this.getMeridiemLevel(hour),
+					meridiemBound = [0, 6, 9, 12, 13, 18, 21];					
+					
+				if (newValue === 3) {
+					hour = 12;	// specific case for afternoon				
+				} 
+				// With using picker control
+				else if (newValue === oldValue - 1) {
+					hour -= (meridiemBound[oldValue] - meridiemBound[newValue]);
+				} else if (newValue === oldValue + 1) {
+					hour += (meridiemBound[newValue] - meridiemBound[oldValue]);
+				} 
+				// Without using picker control, when developer manually set value of meridiem
+				else if (newValue < oldValue - 1) {
+					hour = meridiemBound[newValue] - 1;
+				} else if (newValue > oldValue + 1) {
+					hour = meridiemBound[newValue + 1];
+				}
+			} else {				
+				if (hour < 12 && inEvent.originator.value == 1 ) {
+					hour += 12;
+				} else if ( hour > 12 && hour != 24 && inEvent.originator.value === 0) {
+					hour -= 12;
+				} else if (hour == 24 && inEvent.originator.value === 1) {
+					hour -= 12;
+				} else if (hour == 12 && inEvent.originator.value === 0) {
+					hour += 12;
+				}
 			}
 			this.$.hour.setScrollTop(inEvent.originator.scrollBounds.clientHeight * (hour-1));
 			this.$.hour.setValue(hour);
