@@ -316,12 +316,10 @@ enyo.kind({
 				} else if (newValue === oldValue + 1) {
 					hour += (meridiemBound[newValue] - meridiemBound[oldValue]);
 				} 
-				// Without using picker control, when developer manually set value of meridiem
-				else if (newValue < oldValue - 1) {
-					hour = meridiemBound[newValue] - 1;
-				} else if (newValue > oldValue + 1) {
-					hour = meridiemBound[newValue + 1];
-				}
+				// Note that currently we do not support setting each picker's value
+				// without using picker control. 
+				// TimePicker instance does not expose its pickers like meridien, hour and minute
+				// so developer could not access them directly.
 			} else {				
 				if (hour < 12 && inEvent.originator.value == 1 ) {
 					hour += 12;
