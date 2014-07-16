@@ -11,7 +11,7 @@ enyo.kind({
 	//* @protected
 	classes:"moon-date-picker-month",
 	min: 0,
-	max: 1,
+	max: null,
 	value: null,
 	//* @public
 	published: {
@@ -21,6 +21,10 @@ enyo.kind({
 			than 11, or _"AM"_ otherwise.
 		*/
 		meridiems: ["AM","PM"]
+	},
+	create: function() {
+		this.max = this.meridiems.length - 1;
+		this.inherited(arguments);
 	},
 	valueChanged: function() {
 		this.inherited(arguments);
@@ -304,7 +308,7 @@ enyo.kind({
 	setChildPickers: function(inOld) {
 		if (this.value) {
 			var hour = this.value.getHours();
-			if (this.meridiemEnable === true) {
+			if (this.meridiemEnable === true) {	
 				this.$.meridiem.setValue(hour > 11 ? 1 : 0);
 			}
 			this.$.hour.setValue(this.value.getHours());
