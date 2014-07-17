@@ -15,7 +15,7 @@ enyo.kind({
 					{name: "bButton", kind: "moon.Button", content: "B", ontap: "buttonTapped"},
 					{kind: "moon.Tooltip", content:"minWidth: true"}
 				]},
-				{name: "button", kind: "moon.Button", content: "Button", contentUpperCase : false, ontap: "buttonTapped"},
+				{name: "button", kind: "moon.Button", content: "Button", ontap: "buttonTapped"},
 				{name: "disabledButton", kind: "moon.Button", disabled: true, content: "Disabled Button", ontap: "buttonTapped"},
 				{name: "longButton", kind: "moon.Button", content: "Looooooooooooooooong Button", ontap: "buttonTapped"},
 				{name: "spacesButton", kind: "moon.Button", content: "Button   with   extra   spaces", ontap: "buttonTapped"},
@@ -71,15 +71,6 @@ enyo.kind({
 					{name: "appleButton", kind: "moon.Button", content: "Apple", ontap: "buttonTapped"},
 					{name: "bananaButton", kind: "moon.Button", content: "Banana", ontap: "buttonTapped"},
 					{name: "saskatoonberryButton", kind: "moon.Button", content: "Saskatoonberry", ontap: "buttonTapped"}
-				]},
-				{tag: "br"},
-				{tag: "br"},
-
-				{kind: "moon.Divider", content: "Grouped Buttons with selectedAndFocus option:"},
-				{kind: "enyo.Group", classes: "moon-button-sample-group", components: [
-					{name: "televisionButton", kind: "moon.Button", content: "Television", ontap: "buttonTapped"},
-					{name: "mobileButton", kind: "moon.Button", content: "Mobile", ontap: "buttonTapped"},
-					{name: "wearableDeviceButton", kind: "moon.Button", content: "Wearable Device", ontap: "buttonTapped"}
 				]}
 			]}
 		]},
