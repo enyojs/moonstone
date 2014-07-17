@@ -89,6 +89,7 @@
 	* is being dragged, and the [_onChange_]{@link moon.Slider#event:onChange} event is fired when 
 	* the position is set, either by finishing a drag or by tapping the bar.
 	*
+	* @ui
 	* @class moon.VideoTransportSlider
 	* @extends moon.Slider
 	* @public

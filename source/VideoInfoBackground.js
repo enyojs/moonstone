@@ -10,6 +10,7 @@
 	* 
 	* For more details, see {moon.VideoPlayer}.
 	*
+	* @ui
 	* @class moon.VideoInfoBackground
 	* @extends enyo.Control
 	* @public
