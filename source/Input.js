@@ -6,7 +6,7 @@
 	*
 	* ```
 	* {kind: 'moon.InputDecorator', components: [
-	* 	{kind: 'moon.Input', placeholder: 'Enter some text...', onchange: 'inputChange'}
+	*	{kind: 'moon.Input', placeholder: 'Enter some text...', onchange: 'inputChange'}
 	* ]}
 	* ```
 	*
@@ -22,31 +22,31 @@
 	enyo.kind(
 		/** @lends moon.Input.prototype */ {
 
-	 	/**
-	 	* @private
-	 	*/
+		/**
+		* @private
+		*/
 		name: 'moon.Input',
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		kind: 'enyo.Input',
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		classes: 'moon-input',
 
- 		/**
+		/**
 		* 13==Enter, 16777221==KeypadEnter
 		*
- 		* @private
- 		*/
+		* @private
+		*/
 		spotlightIgnoredKeys: [13, 16777221],
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		published: /** @lends moon.Input.prototype */ {
 
 			/**
@@ -59,26 +59,26 @@
 			dismissOnEnter: false
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		handlers: {
-			onkeypress : 'onKeyUp',
+			onkeyup : 'onKeyUp',
 			onblur     : 'onBlur',
 			onfocus    : 'onFocus'
 		},
 
- 		/**
+		/**
 		* Used only for dismissOnEnter feature, cannot rely on hasFocus in this case because of
 		* racing condition
 		*
- 		* @private
- 		*/
+		* @private
+		*/
 		_bFocused: false,
 
 		/**
- 		* @private
- 		*/
+		* @private
+		*/
 		onFocus: function () {
 			if (this.dismissOnEnter) {
 				var oThis = this;
@@ -86,18 +86,18 @@
 			}
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		onBlur: function () {
 			if (this.dismissOnEnter) {
 				this._bFocused = false;
 			}
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		onKeyUp: function (oSender, oEvent) {
 			if (this.dismissOnEnter) {
 				if (oEvent.keyCode == 13) {
@@ -108,18 +108,18 @@
 			}
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		blur: function () {
 			if (this.hasNode()) {
 				this.node.blur();
 			}
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		left: function () {
 			if (!this.hasNode() || this.node.selectionStart === 0) {
 				return false;
@@ -127,9 +127,9 @@
 			return true;
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		right: function () {
 			if (!this.hasNode() || this.node.selectionStart == this.node.value.length) {
 				return false;
@@ -137,20 +137,19 @@
 			return true;
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		up: function () {
 			return false;
 		},
 
- 		/**
- 		* @private
- 		*/
+		/**
+		* @private
+		*/
 		down: function () {
 			return false;
 		}
 	});
 
 })(enyo, this);
-
