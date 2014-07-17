@@ -2,8 +2,10 @@
 	/**
 	* _moon.VideoFeedback_ is a control used by	{@link moon.VideoPlayer} to display feedback in 
 	* response to input from video playback controls. It may also be used to display custom 
-	* messages.
+	* messages. The {@link moon.VideoTransportSlider} control typically communicates directly with
+	* _moon.VideoFeedback_.
 	*
+	* @ui
 	* @class moon.VideoFeedback
 	* @extends enyo.Control
 	* @public

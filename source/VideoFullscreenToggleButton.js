@@ -16,6 +16,7 @@
 	* inside a {@link moon.VideoPlayer}, the button may be tapped to toggle the _VideoPlayer's_ 
 	* fullscreen state.
 	*
+	* @ui
 	* @class moon.VideoFullscreenToggleButton
 	* @extends moon.IconButton
 	* @public

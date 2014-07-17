@@ -1,6 +1,6 @@
 enyo.depends(
-	"version.js",
-	"css",
-	"source",
-	"moonstone.design"
+	'version.js',
+	'css',
+	'source',
+	'moonstone.design'
 );
