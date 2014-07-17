@@ -1,246 +1,254 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.Panels_ extends [enyo.Panels]{@link enyo.Panels}, adding support for 5-way focus (Spotlight) and
-	 * pre-configured Moonstone panels design patterns. By default, controls added to a _moon.Panels_ are instances of
-	 * [moon.Panel]{@link moon.Panel}.
-	 *
-	 * @class moon.Panels
-	 * @extends enyo.Panels
-	 * @public
-	 * @ui
-	 */
+	* _moon.Panels_ extends {@link enyo.Panels}, adding support for 5-way
+	* focus (Spotlight) and pre-configured Moonstone panels design patterns. By
+	* default, controls added to a _moon.Panels_ are instances of
+	* {@link moon.Panel}.
+	*
+	* _moon.Panels_ introduces the concept of a pattern for panel display. Setting
+	* {@link moon.Panels#pattern} to `activity` or `alwaysViewing` chooses between two patterns for
+	* app use on Smart TV systems.
+	*
+	* @class moon.Panels
+	* @extends enyo.Panels
+	* @public
+	* @ui
+	*/
 	enyo.kind(
 		/** @lends moon.Panels.prototype */ {
 
 		/**
-		 * @private
-		 */
-		name				: 'moon.Panels',
+		* @private
+		*/
+		name: 'moon.Panels',
 
 		/**
-		 * @private
-		 */
-		kind				: 'enyo.Panels',
+		* @private
+		*/
+		kind : 'enyo.Panels',
 
 		/**
-		 * @private
-		 */
-		classes				: 'moon-panels',
+		* @private
+		*/
+		classes : 'moon-panels',
 
 		/**
-		 * @private
-		 */
-		spotlightDecorate	: false,
+		* @private
+		*/
+		spotlightDecorate : false,
 
 		/**
-		 * @private
-		 */
-		published: {
+		* @private
+		*/
+		published: /** @lends moon.Panels.prototype */ {
 			/**
-			 * A convenience property for configuring _moon.Panels_ according to a
-			 * particular design pattern.  Valid values are "none" (default), "activity",
-			 * and "alwaysviewing". Note that this property may only be set at creation
-			 * time, and should not be changed at runtime.
-			 *
-			 * The "alwaysviewing" pattern uses the _moon.BreadcrumbArranger_ with
-			 * semi-transparent panels (depending on the color theme) over the right half
-			 * of the screen, allowing multiple breadcrumbs to accumulate on the left
-			 * half of the screen.
-			 *
-			 * The "activity" pattern  uses the _moon.BreadcrumbArranger_, with opaque
-			 * panels over the full screen, with only one breadcrumb showing onscreen.
-			 *
-			 * The "none" pattern should be used when selecting other arrangers, such as
-			 * _enyo.CarouselArranger_ or _enyo.CardArranger_.
-			 *
-			 * @type {String}
-			 * @default 'none'
-			 * @public
-			 */
-			pattern: "none",
+			* A convenience property for configuring _moon.Panels_ according to a
+			* particular design pattern.  Valid values are `'none'` (default), `'activity'`,
+			* and `'alwaysviewing'`. Note that this property may only be set at creation
+			* time, and should not be changed at runtime.
+			*
+			* The `'alwaysviewing'` pattern uses the {@link moon.BreadcrumbArranger} with
+			* semi-transparent panels (depending on the color theme) over the right half
+			* of the screen, allowing multiple breadcrumbs to accumulate on the left
+			* half of the screen.
+			*
+			* The `'activity'` pattern  uses the {@link moon.BreadcrumbArranger}, with opaque
+			* panels over the full screen, with only one breadcrumb showing onscreen.
+			*
+			* The `'none'` pattern should be used when selecting other arrangers, such as
+			* {@link enyo.CarouselArranger} or {@link enyo.CardArranger}.
+			*
+			* @type {String}
+			* @default 'none'
+			* @public
+			*/
+			pattern: 'none',
 
 			/**
-			 * When handle is used, it is automatically hidden after this amount of time (in milliseconds)
-			 *
-			 * @type {Number}
-			 * @default 4000
-			 * @public
-			 */
+			* When [`useHandle`]{@link moon.Panels#useHandle} is used, it is automatically hidden
+			* after this amount of time (in milliseconds).
+			*
+			* @type {Number}
+			* @default 4000
+			* @public
+			*/
 			autoHideTimeout: 4000,
 
 			/**
-			 * When true, a handle is created to allow the user to control the showing
-			 * state of the panels using animation. When false, no handle is created and
-			 * panels can only be hidden/shown programmatically with no animation.
-			 * When "auto" (the default), _useHandle_ is set to true if _pattern_ is
-			 * "alwaysviewing" and set to false if the _pattern_ is "activity". Note that
-			 * this property may only be set at creation time, and should not be changed
-			 * at runtime. This property only has an effect when using the "activity" or
-			 * "alwaysviewing" pattern.
-			 *
-			 * @type {String|Boolean}
-			 * @default 'auto'
-			 * @public
-			 */
-			useHandle: "auto",
+			* When `true`, a handle is created to allow the user to control the showing
+			* state of the panels using animation. When `false`, no handle is created and
+			* panels can only be hidden/shown programmatically with no animation.
+			* When `'auto'` (the default), `useHandle` is set to true if
+			* [`pattern`]{@link moon.Panels#pattern} is `'alwaysviewing'` and set to `false` if the
+			* [`pattern`]{@link moon.Panels#pattern} is `'activity'`. Note that this property may
+			* only be set at creation time, and should not be changed at runtime. This property
+			* only has an effect when using the `'activity'` or `'alwaysviewing'` pattern.
+			*
+			* @type {String|Boolean}
+			* @default 'auto'
+			* @public
+			*/
+			useHandle: 'auto',
 
 			/**
-			 * Dynamically controls whether the handle is showing.
-			 * When true (the default), the handle is shown and panels may be shown by
-			 * activating the handle and hidden by re-activating the handle or by tapping
-			 * outside the panel area. When false, the handle is hidden and panels may
-			 * only be shown or hidden programmatically using the _showing_ property or
-			 * the _hide()_/_show()_ API. This property only has an effect when the value
-			 * of _useHandle_ is true (or "auto", resulting in true).
-			 *
-			 * @type {Boolean}
-			 * @default true
-			 * @public
-			 */
+			* Dynamically controls whether the handle is showing.
+			* When `true` (the default), the handle is shown and panels may be shown by
+			* activating the handle and hidden by re-activating the handle or by tapping
+			* outside the panel area. When `false`, the handle is hidden and panels may
+			* only be shown or hidden programmatically using the {@link enyo.Control#showing}
+			* property or the {@link enyo.Control.hide} / {@link enyo.Control.show} API. This
+			* property only has an effect when the value of {@link moon.Panels#useHandle} is
+			* `true` (or `'auto'`, resulting in `true`).
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			handleShowing: true,
 
 			/**
-			 * When true, panels are automatically popped when the user moves back
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @public
-			 */
+			* When `true`, panels are automatically popped when the user moves back
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			popOnBack: false,
 
 			/**
-			 * The source of the image used for branding in the lower left region of the Panels (only applies to
-			 * Panels using the "activity" pattern)
-			 *
-			 * @type {String}
-			 * @default ''
-			 * @public
-			 */
-			brandingSrc: ""
-
+			* The source of the image used for branding in the lower left region of the Panels
+			* (only applies to Panels using the `'activity'` pattern)
+			*
+			* @type {String}
+			* @default ''
+			* @public
+			*/
+			brandingSrc: ''
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		narrowFit: false,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handlers: {
-			ontap:						"onTap",
+			ontap:						'tapped',
 
-			onSpotlightRight:			"spotlightRight",
-			onSpotlightLeft:			"spotlightLeft",
-			onSpotlightUp:				"spotlightUp",
-			onSpotlightDown:			"spotlightDown",
-			onSpotlightFocus:			"spotlightFocus",
-			onSpotlightContainerLeave:	"onSpotlightPanelLeave",
-			onSpotlightContainerEnter:	"onSpotlightPanelEnter",
+			onSpotlightRight:			'spotlightRight',
+			onSpotlightLeft:			'spotlightLeft',
+			onSpotlightUp:				'spotlightUp',
+			onSpotlightDown:			'spotlightDown',
+			onSpotlightFocus:			'spotlightFocus',
+			onSpotlightContainerLeave:	'onSpotlightPanelLeave',
+			onSpotlightContainerEnter:	'onSpotlightPanelEnter',
 
-			onPreTransitionComplete:	"preTransitionComplete",
-			onPostTransitionComplete:	"postTransitionComplete"
+			onPreTransitionComplete:	'preTransitionComplete',
+			onPostTransitionComplete:	'postTransitionComplete'
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handleTools: [
-			{name: "backgroundScrim", kind: "enyo.Control", classes: "moon-panels-background-scrim"},
-			{name: "clientWrapper", kind: "enyo.Control", classes: "enyo-fill enyo-arranger moon-panels-client", components: [
-				{name: "scrim", classes: "moon-panels-panel-scrim"},
-				{name: "client", tag: null}
+			{name: 'backgroundScrim', kind: 'enyo.Control', classes: 'moon-panels-background-scrim'},
+			{name: 'clientWrapper', kind: 'enyo.Control', classes: 'enyo-fill enyo-arranger moon-panels-client', components: [
+				{name: 'scrim', classes: 'moon-panels-panel-scrim'},
+				{name: 'client', tag: null}
 			]},
-			{name: "handleWrapper", kind: "enyo.Control", classes: "moon-panels-handle-wrapper hidden", canGenerate: false, ontap: "handleTap", onSpotlightLeft: "handleSpotLeft", onSpotlightRight: "handleSpotRight", onSpotlightFocused: "handleFocused", onSpotlightBlur: "handleBlur", components: [
-				{name: "showHideHandle", kind: "enyo.Control", classes: "moon-panels-handle"}
+			{name: 'handleWrapper', kind: 'enyo.Control', classes: 'moon-panels-handle-wrapper hidden', canGenerate: false, ontap: 'handleTap', onSpotlightLeft: 'handleSpotLeft', onSpotlightRight: 'handleSpotRight', onSpotlightFocused: 'handleFocused', onSpotlightBlur: 'handleBlur', components: [
+				{name: 'showHideHandle', kind: 'enyo.Control', classes: 'moon-panels-handle'}
 			]},
-			{name: "showHideAnimator", kind: "enyo.StyleAnimator", onComplete: "animationComplete"}
+			{name: 'showHideAnimator', kind: 'enyo.StyleAnimator', onComplete: 'animationComplete'}
 		],
 
 
 		/**
-		 * @private
-		 */
-		defaultKind: "moon.Panel",
+		* @private
+		*/
+		defaultKind: 'moon.Panel',
 
 		/**
-		 * Set to false to disable dragging
-		 *
-		 * @private
-		 */
+		* Set to false to disable dragging
+		*
+		* @private
+		*/
 		draggable: false,
 
 		/**
-		 * Value may be between 0 and 1, inclusive
-		 *
-		 * @private
-		 */
+		* Value may be between 0 and 1, inclusive
+		*
+		* @private
+		*/
 		panelCoverRatio: 1,
 
 		/**
-		 * True for "activity" pattern; false for "alwaysviewing" pattern
-		 *
-		 * @private
-		 */
+		* True for 'activity' pattern; false for 'alwaysviewing' pattern
+		*
+		* @private
+		*/
 		showFirstBreadcrumb: false,
 
 		/**
-		 * Default to using _moon.BreadcrumbArranger_
-		 *
-		 * @private
-		 */
-		arrangerKind: "moon.BreadcrumbArranger",
+		* Default to using _moon.BreadcrumbArranger_
+		*
+		* @private
+		*/
+		arrangerKind: 'moon.BreadcrumbArranger',
 
 		/**
-		 * Index of panel set in the middle of transition
-		 *
-		 * @private
-		 */
+		* Index of panel set in the middle of transition
+		*
+		* @private
+		*/
 		queuedIndex: null,
 
 		/**
-		 * Flag for initial transition
-		 *
-		 * @private
-		 */
+		* Flag for initial transition
+		*
+		* @private
+		*/
 		_initialTransition: true,
 
 		/**
-		 * Flag for panel transition
-		 *
-		 * @private
-		 */
+		* Flag for panel transition
+		*
+		* @private
+		*/
 		transitionInProgress: false,
 
 		/**
-		 * Flag for blocking consecutive push/pop/replace panel to protect create/render/destroy time
-		 *
-		 * @private
-		 */
+		* Flag for blocking consecutive push/pop/replace panel to protect create/render/destroy time
+		*
+		* @private
+		*/
 		isModifyingPanels: false,
 
 		/**
-		 * @return {Boolean} Returns true if a transition between panels is currently in progress.
-		 * @public
-		 */
-		inTransition: function() {
+		* Check the state of panel transitions
+		*
+		* @return {Boolean} `true` if a transition between panels is currently in progress.
+		* @public
+		*/
+		inTransition: function () {
 			return this.transitionInProgress;
 		},
 
 		/**
-		 * Creates a panel on top of the stack and increments index to select that component.
-		 *
-		 * @param {Object} inInfo The declarative {@link external:kind} definition.
-		 * @param {Object} inMoreInfo Additional properties to be applied (defaults).
-		 * @return {Object} The instance of the panel that was created on top of the stack.
-		 * @public
-		 */
-		pushPanel: function(inInfo, inMoreInfo) { // added
+		* Creates a panel on top of the stack and increments index to select that component.
+		*
+		* @param {Object} info The declarative {@link external:kind} definition.
+		* @param {Object} moreInfo Additional properties to be applied (defaults).
+		* @return {Object} The instance of the panel that was created on top of the stack.
+		* @public
+		*/
+		pushPanel: function (info, moreInfo) { // added
 			if (this.transitionInProgress || this.isModifyingPanels) {return null;}
 			this.isModifyingPanels = true;
 			var lastIndex = this.getPanels().length - 1,
-				oPanel = this.createComponent(inInfo, inMoreInfo);
+				oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
 			this.reflow();
 			oPanel.resize();
@@ -249,19 +257,19 @@
 			return oPanel;
 		},
 
-			/**
-			 * Creates multiple panels on top of the stack and updates index to select the last one created.
-			 *
-			 * @param {Object} inInfos The declarative {@link external:kind} definition.
-			 * @param {Object} inCommonInfo Additional properties to be applied (defaults).
-			 * @return {Array} Array of the panels that were created on top of the stack.
-			 * @public
-			 */
-		pushPanels: function(inInfos, inCommonInfo) { // added
+		/**
+		* Creates multiple panels on top of the stack and updates index to select the last one created.
+		*
+		* @param {Object} info The declarative {@link external:kind} definition.
+		* @param {Object} inCommonInfo Additional properties to be applied (defaults).
+		* @return {Array} Array of the panels that were created on top of the stack.
+		* @public
+		*/
+		pushPanels: function (info, inCommonInfo) { // added
 			if (this.transitionInProgress || this.isModifyingPanels) {return null;}
 			this.isModifyingPanels = true;
 			var lastIndex = this.getPanels().length - 1,
-				oPanels = this.createComponents(inInfos, inCommonInfo),
+				oPanels = this.createComponents(info, inCommonInfo),
 				nPanel;
 
 			for (nPanel = 0; nPanel < oPanels.length; ++nPanel) {
@@ -277,32 +285,32 @@
 		},
 
 		/**
-		 * Destroys panels whose index is greater than or equal to _inIndex_.
-		 *
-		 * @param {Number} inIndex Index to start destroying panels
-		 * @public
-		 */
-		popPanels: function(inIndex) {
+		* Destroys panels whose index is greater than or equal to _index_.
+		*
+		* @param {Number} index Index to start destroying panels
+		* @public
+		*/
+		popPanels: function (index) {
 			if (this.transitionInProgress || this.isModifyingPanels) {return;}
 			this.isModifyingPanels = true;
 			var panels = this.getPanels();
-			inIndex = inIndex || panels.length - 1;
+			index = index || panels.length - 1;
 
-			while (panels.length > inIndex && inIndex >= 0) {
+			while (panels.length > index && index >= 0) {
 				panels[panels.length - 1].destroy();
 			}
 			this.isModifyingPanels = false;
 		},
 
 		/**
-		 * Destroys right panel and creates new panel without transition effect.
-		 *
-		 * @param {Number} index Index of panel to destroy
-		 * @param {Object} inInfo The declarative {@link external:kind} definition.
-		 * @param {Object} inMoreInfo Additional properties to be applied (defaults).
-		 * @public
-		 */
-		replacePanel: function(index, inInfo, inMoreInfo) {
+		* Destroys specified panel and creates new panel in-place without transition effect.
+		*
+		* @param {Number} index Index of panel to destroy
+		* @param {Object} info The declarative {@link external:kind} definition.
+		* @param {Object} moreInfo Additional properties to be applied (defaults).
+		* @public
+		*/
+		replacePanel: function (index, info, moreInfo) {
 			if (this.transitionInProgress || this.isModifyingPanels) {return;}
 			this.isModifyingPanels = true;
 			var oPanel = null;
@@ -310,23 +318,23 @@
 			if (this.getPanels().length > index) {
 				this.getPanels()[index].destroy();
 				if (this.getPanels().length > index) {
-					inMoreInfo = enyo.mixin({addBefore: this.getPanels()[index]}, inMoreInfo);
+					moreInfo = enyo.mixin({addBefore: this.getPanels()[index]}, moreInfo);
 				}
 			}
-			oPanel = this.createComponent(inInfo, inMoreInfo);
+			oPanel = this.createComponent(info, moreInfo);
 			oPanel.render();
 			this.resize();
 			this.isModifyingPanels = false;
 		},
 
 		/**
-		 * Find the panel index of the passed-in control, or return -1 if the panel is not found.
-		 *
-		 * @param {Object} oControl A control
-		 * @return {Number} Panel index of control or -1
-		 * @public
-		 */
-		getPanelIndex: function(oControl) {
+		* Find the panel index of the passed-in control, or return -1 if the panel is not found.
+		*
+		* @param {Object} oControl A control
+		* @return {Number} Panel index of control or -1
+		* @public
+		*/
+		getPanelIndex: function (oControl) {
 			var oPanel = null;
 
 			while (oControl && oControl.parent) {
@@ -350,23 +358,23 @@
 		},
 
 		/**
-		 * Returns true if the passed-in control is a child panel of this Panels instance.
-		 *
-		 * @param {Object} inControl A panel control
-		 * @return {Boolean} True if control is a child  panel of this Panels instance.
-		 * @public
-		 */
-		isPanel: function(inControl) {
+		* Returns `true` if the passed-in control is a child panel of this Panels instance.
+		*
+		* @param {Object} control A panel control
+		* @return {Boolean} `true` if control is a child  panel of this Panels instance.
+		* @public
+		*/
+		isPanel: function (control) {
 			for (var n=0; n<this.getPanels().length; n++) {
-				if (this.getPanels()[n] == inControl) {
+				if (this.getPanels()[n] == control) {
 					return true;
 				}
 			}
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: enyo.inherit(function (sup) {
 			return function () {
 				sup.apply(this, arguments);
@@ -378,9 +386,9 @@
 		}),
 
 		/**
-		 * @private
-		 */
-		initComponents: function() {
+		* @private
+		*/
+		initComponents: function () {
 			this.applyPattern();
 			this.inherited(arguments);
 			this.initializeShowHideHandle();
@@ -388,9 +396,9 @@
 		},
 
 		/**
-		 * @private
-		 */
-		rendered: function() {
+		* @private
+		*/
+		rendered: function () {
 			this.inherited(arguments);
 
 			// Direct hide if not showing and using handle
@@ -404,10 +412,10 @@
 		},
 
 		/**
-		 * @private
-		 */
-		onTap: function(oSender, oEvent) {
-			if (oEvent.originator === this.$.showHideHandle || this.pattern === "none" ||
+		* @private
+		*/
+		tapped: function (oSender, oEvent) {
+			if (oEvent.originator === this.$.showHideHandle || this.pattern === 'none' ||
 				this.transitionInProgress === true || this.isModifyingPanels === true) {
 				return;
 			}
@@ -426,16 +434,16 @@
 		},
 
 		/**
-		 * @private
-		 */
-		shouldHide: function(oEvent) {
+		* @private
+		*/
+		shouldHide: function (oEvent) {
 			return (oEvent.originator === this.$.clientWrapper || (oEvent.originator instanceof moon.Panel && this.isPanel(oEvent.originator)));
 		},
 
 		/**
-		 * @private
-		 */
-		spotlightLeft: function(oSender, oEvent) {
+		* @private
+		*/
+		spotlightLeft: function (oSender, oEvent) {
 			if (this.toIndex !== null) {
 				this.queuedIndex = this.toIndex - 1;
 				//queuedIndex could have out boundary value. It will be managed in setIndex()
@@ -443,7 +451,7 @@
 			var orig = oEvent.originator,
 				idx;
 			// Don't allow left-movement from a breadcrumb
-			if (orig.name === "breadcrumbBackground") {
+			if (orig.name === 'breadcrumbBackground') {
 				return true;
 			}
 			if (orig instanceof moon.Panel) {
@@ -462,9 +470,9 @@
 		},
 
 		/**
-		 * @private
-		 */
-		spotlightRight: function(oSender, oEvent) {
+		* @private
+		*/
+		spotlightRight: function (oSender, oEvent) {
 			if (this.toIndex !== null) {
 				this.queuedIndex = this.toIndex + 1;
 				//queuedIndex could have out boundary value. It will be managed in setIndex()
@@ -472,7 +480,7 @@
 			var orig = oEvent.originator,
 				idx = this.getPanelIndex(orig),
 				next = this.getPanels()[idx + 1];
-			if (orig.name === "breadcrumbBackground") {
+			if (orig.name === 'breadcrumbBackground') {
 				// Upon pressing right from a pointer-focused breadcrumb, just jump
 				// to the current panel to keep focus visible
 				enyo.Spotlight.spot(next);
@@ -490,36 +498,36 @@
 		},
 
 		/**
-		 * @private
-		 */
-		spotlightDown: function(oSender, oEvent) {
-			if (oEvent.originator.name === "breadcrumbBackground") { return true; }
+		* @private
+		*/
+		spotlightDown: function (oSender, oEvent) {
+			if (oEvent.originator.name === 'breadcrumbBackground') { return true; }
 		},
 
 		/**
-		 * @private
-		 */
-		spotlightFocus: function(oSender, oEvent) {
+		* @private
+		*/
+		spotlightFocus: function (oSender, oEvent) {
 			var orig = oEvent.originator;
 			var idx = this.getPanelIndex(orig);
-			if (this.index !== idx && idx !== -1 && orig.name !== "breadcrumbBackground") {
+			if (this.index !== idx && idx !== -1 && orig.name !== 'breadcrumbBackground') {
 				this.setIndex(idx);
 			}
 		},
 
 		/**
-		 * Responds to tap on show/hide handle.
-		 *
-		 * @private
-		 */
-		handleTap: function() {
+		* Responds to tap on show/hide handle.
+		*
+		* @private
+		*/
+		handleTap: function () {
 			this.setShowing(!this.showing);
 		},
 
 		/**
-		 * @private
-		 */
-		handleSpotLeft: function() {
+		* @private
+		*/
+		handleSpotLeft: function () {
 			if (this.showing) {
 				enyo.Spotlight.spot(this.getActive());
 			} else {
@@ -529,83 +537,83 @@
 		},
 
 		/**
-		 * @private
-		 */
-		handleSpotRight: function(inSender, inEvent) {
+		* @private
+		*/
+		handleSpotRight: function (sender, event) {
 			if (this.showing) {
 				return true;
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		handleBlur: function(inSender, inEvent) {
+		* @private
+		*/
+		handleBlur: function (sender, event) {
 			if (this.isHandleFocused) {
 				this.isHandleFocused = false;
 				if (!enyo.Spotlight.getPointerMode()) {
 					if (!this.showing) {
 						// Use asyncMethod to prevent blur/focus bounce as onPanelsHandleBlurred signal is also being sent
-						enyo.asyncMethod(this, "panelsHiddenAsync");
+						enyo.asyncMethod(this, 'panelsHiddenAsync');
 					}
 				}
 			}
 			this.resetHandleAutoHide();
 			if (!this.showing) {
-				enyo.Signals.send("onPanelsHandleBlurred");
+				enyo.Signals.send('onPanelsHandleBlurred');
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		panelsHiddenAsync: function() {
-			enyo.Signals.send("onPanelsHidden");
+		* @private
+		*/
+		panelsHiddenAsync: function () {
+			enyo.Signals.send('onPanelsHidden');
 		},
 
 		/**
-		 * @private
-		 */
-		resetHandleAutoHide: function(inSender, inEvent) {
-			this.startJob("autoHide", "stashHandle", this.getAutoHideTimeout());
+		* @private
+		*/
+		resetHandleAutoHide: function (sender, event) {
+			this.startJob('autoHide', 'stashHandle', this.getAutoHideTimeout());
 		},
 
 		/**
-		 * @private
-		 */
-		stopHandleAutoHide: function(inSender, inEvent) {
-			this.stopJob("autoHide");
+		* @private
+		*/
+		stopHandleAutoHide: function (sender, event) {
+			this.stopJob('autoHide');
 		},
 
 		/**
-		 * @private
-		 */
-		stashHandle: function() {
-			this.$.showHideHandle.addRemoveClass("stashed", !this.showing);
+		* @private
+		*/
+		stashHandle: function () {
+			this.$.showHideHandle.addRemoveClass('stashed', !this.showing);
 		},
 
 		/**
-		 * @private
-		 */
-		unstashHandle: function() {
+		* @private
+		*/
+		unstashHandle: function () {
 			this.stopHandleAutoHide();
-			this.$.showHideHandle.removeClass("stashed");
+			this.$.showHideHandle.removeClass('stashed');
 		},
 
 		/**
-		 * @private
-		 */
-		handleFocused: function() {
+		* @private
+		*/
+		handleFocused: function () {
 			this.unstashHandle();
-			this.startJob("autoHide", "handleSpotLeft", this.getAutoHideTimeout());
+			this.startJob('autoHide', 'handleSpotLeft', this.getAutoHideTimeout());
 			this.isHandleFocused = true;
-			enyo.Signals.send("onPanelsHandleFocused");
+			enyo.Signals.send('onPanelsHandleFocused');
 		},
 
 		/**
-		 * @private
-		 */
-		handleShowingChanged: function() {
+		* @private
+		*/
+		handleShowingChanged: function () {
 			//* show handle only when useHandle is true
 			if (this.useHandle !== true) { return; }
 			this.$.handleWrapper.addRemoveClass('hidden', !this.handleShowing);
@@ -613,12 +621,12 @@
 		},
 
 		/**
-		 * Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
-		 * shows handle.
-		 *
-		 * @private
-		 */
-		onSpotlightPanelEnter: function() {
+		* Called when focus enters one of the panels. If currently hiding and _this.useHandle_ is true,
+		* shows handle.
+		*
+		* @private
+		*/
+		onSpotlightPanelEnter: function () {
 			if (!this.showing && (this.useHandle === true) && this.handleShowing ) {
 				enyo.Spotlight.spot(this.$.handleWrapper);
 				return true;
@@ -626,17 +634,20 @@
 		},
 
 		/**
-		 * @private
-		 */
-		setIndex: function(inIndex) {
+		* Set the index of the active panel, possibly transitioning the panel into view.
+		*
+		* @param {number} index Index of the panel to make active
+		* @public
+		*/
+		setIndex: function (index) {
 			// Normally this.index cannot be smaller than 0 and larger than panels.length
 			// However, if panels uses handle and there is sequential key input during transition
-			// then inIndex could have -1. It means that panels will be hided.
+			// then index could have -1. It means that panels will be hidden.
 			if (this.toIndex === null || this.useHandle === false) {
-				inIndex = this.clamp(inIndex);
+				index = this.clamp(index);
 			}
 
-			if (inIndex === this.index) {
+			if (index === this.index) {
 				return;
 			}
 
@@ -645,12 +656,12 @@
 			}
 
 			this.fromIndex = this.index;
-			this.toIndex = inIndex;
+			this.toIndex = index;
 
 			this.queuedIndex = null;
 
 			// Ensure any VKB is closed when transitioning panels
-			this.blurActiveElementIfHiding(inIndex);
+			this.blurActiveElementIfHiding(index);
 
 			// If panels will move for this index change, kickoff animation. Otherwise skip it.
 			if (this.shouldArrange()) {
@@ -669,9 +680,9 @@
 		},
 
 		/**
-		 * @private
-		 */
-		blurActiveElementIfHiding: function(inIndex) {
+		* @private
+		*/
+		blurActiveElementIfHiding: function (index) {
 			var activeElement = document.activeElement,
 				activeComponent = activeElement ? enyo.$[activeElement.id] : null,
 				panels = this.getPanels(),
@@ -681,7 +692,7 @@
 				for (var i = 0; i < panels.length; i++) {
 					panel = panels[i];
 					if (activeComponent.isDescendantOf(panel)) {
-						panelInfo = this.getPanelInfo(i, inIndex);
+						panelInfo = this.getPanelInfo(i, index);
 						if (panelInfo.offscreen) {
 							document.activeElement.blur();
 						}
@@ -692,40 +703,40 @@
 		},
 
 		/**
-		 * Returns true if any panels will move in the transition from _this.fromIndex_ to _this.toIndex_.
-		 *
-		 * @private
-		 */
-		shouldArrange: function() {
+		* Returns true if any panels will move in the transition from _this.fromIndex_ to _this.toIndex_.
+		*
+		* @private
+		*/
+		shouldArrange: function () {
 			return this.layout.shouldArrange ? this.layout.shouldArrange(this.fromIndex, this.toIndex) : true;
 		},
 
 		/**
-		 * Skips animation and jumps to next arrangement.
-		 *
-		 * @private
-		 */
-		skipArrangerAnimation: function() {
+		* Skips animation and jumps to next arrangement.
+		*
+		* @private
+		*/
+		skipArrangerAnimation: function () {
 			this._setIndex(this.toIndex);
 			this.completed();
 		},
 
 		/**
-		 *
-		 * @private
-		 */
-		_setIndex: function(inIndex) {
-			var prev = this.get("index");
-			this.index = this.clamp(inIndex);
-			this.notifyObservers("index", prev, inIndex);
+		*
+		* @private
+		*/
+		_setIndex: function (index) {
+			var prev = this.get('index');
+			this.index = this.clamp(index);
+			this.notifyObservers('index', prev, index);
 		},
 
 		/**
-		 * Called when the arranger animation completes.
-		 *
-		 * @private
-		 */
-		completed: function() {
+		* Called when the arranger animation completes.
+		*
+		* @private
+		*/
+		completed: function () {
 			if (this.$.animator.isAnimating()) {
 				this.$.animator.stop();
 			}
@@ -742,16 +753,16 @@
 		},
 
 		/**
-		 * @private
-		 */
-		getPanelInfo: function(inPanelIndex, inActiveIndex) {
+		* @private
+		*/
+		getPanelInfo: function (inPanelIndex, inActiveIndex) {
 			return this.layout.getPanelInfo && this.layout.getPanelInfo(inPanelIndex, inActiveIndex) || {};
 		},
 
 		/**
-		 * @private
-		 */
-		getTransitionInfo: function(inPanelIndex) {
+		* @private
+		*/
+		getTransitionInfo: function (inPanelIndex) {
 			var info = this.getPanelInfo(inPanelIndex, this.toIndex);
 			info.from = this.fromIndex;
 			info.to = this.toIndex;
@@ -761,11 +772,11 @@
 		},
 
 		/**
-		 * If any panel has a pre-transition, pushes the panel's index to _preTransitionWaitList_.
-		 *
-		 * @private
-		 */
-		triggerPreTransitions: function() {
+		* If any panel has a pre-transition, pushes the panel's index to _preTransitionWaitList_.
+		*
+		* @private
+		*/
+		triggerPreTransitions: function () {
 			var panels = this.getPanels(),
 				info;
 
@@ -784,10 +795,10 @@
 		},
 
 		/**
-		 * @private
-		 */
-		preTransitionComplete: function(inSender, inEvent) {
-			var index = this.getPanels().indexOf(inEvent.originator);
+		* @private
+		*/
+		preTransitionComplete: function (sender, event) {
+			var index = this.getPanels().indexOf(event.originator);
 
 			for (var i = 0; i < this.preTransitionWaitlist.length; i++) {
 				if (this.preTransitionWaitlist[i] === index) {
@@ -804,9 +815,9 @@
 		},
 
 		/**
-		 * @private
-		 */
-		triggerPostTransitions: function() {
+		* @private
+		*/
+		triggerPostTransitions: function () {
 			var panels = this.getPanels(),
 				info;
 
@@ -825,10 +836,10 @@
 		},
 
 		/**
-		 * @private
-		 */
-		postTransitionComplete: function(inSender, inEvent) {
-			var index = this.getPanels().indexOf(inEvent.originator);
+		* @private
+		*/
+		postTransitionComplete: function (sender, event) {
+			var index = this.getPanels().indexOf(event.originator);
 
 			for (var i = 0; i < this.postTransitionWaitlist.length; i++) {
 				if (this.postTransitionWaitlist[i] === index) {
@@ -845,12 +856,12 @@
 		},
 
 		/**
-		 * When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid
-		 * spotlight issues)
-		 *
-		 * @private
-		 */
-		indexChanged: function(inPrevious) {
+		* When index changes, make sure to update the breadcrumbed panel _spotlight_ property (to avoid
+		* spotlight issues)
+		*
+		* @private
+		*/
+		indexChanged: function (inPrevious) {
 			var activePanel = this.getActive();
 
 			if (activePanel && activePanel.isBreadcrumb) {
@@ -866,12 +877,12 @@
 		},
 
 		/**
-		 * @private
-		 */
-		finishTransition: function(sendEvents) {
+		* @private
+		*/
+		finishTransition: function (sendEvents) {
 			var panels = this.getPanels(),
-				transitioned = typeof this.lastIndex !== "undefined",
-				method = transitioned ? (sendEvents ? "transitionFinished" : "updatePanel") : "initPanel",
+				transitioned = typeof this.lastIndex !== 'undefined',
+				method = transitioned ? (sendEvents ? 'transitionFinished' : 'updatePanel') : 'initPanel',
 				i,
 				panel,
 				info,
@@ -896,7 +907,7 @@
 
 			this.transitionInProgress = false;
 
-			// "sendEvents" means we actually transitioned (not a reflow), so
+			// 'sendEvents' means we actually transitioned (not a reflow), so
 			// check popOnBack logic
 			if (sendEvents) {
 				// Automatically pop off panels that are no longer on screen
@@ -921,21 +932,21 @@
 		},
 
 		/**
-		 * Override the default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_
-		 * property.
-		 *
-		 * @private
-		 */
-		getShowing: function() {
+		* Override the default _getShowing()_ behavior to avoid setting _this.showing_ based on the CSS _display_
+		* property.
+		*
+		* @private
+		*/
+		getShowing: function () {
 			return this.showing;
 		},
 
 		/**
-		 * Returns true if this and all parents are showing.
-		 *
-		 * @private
-		 */
-		getAbsoluteShowing: function() {
+		* Returns true if this and all parents are showing.
+		*
+		* @private
+		*/
+		getAbsoluteShowing: function () {
 			var b = this.getBounds();
 
 			if ((b.height === 0 && b.width === 0)) {
@@ -950,11 +961,11 @@
 		},
 
 		/**
-		 * @private
-		 */
-		showingChanged: function(inOldValue) {
+		* @private
+		*/
+		showingChanged: function (inOldValue) {
 			if (this.$.backgroundScrim) {
-				this.$.backgroundScrim.addRemoveClass("visible", this.showing);
+				this.$.backgroundScrim.addRemoveClass('visible', this.showing);
 			}
 			if (this.useHandle === true) {
 				if (this.showing) {
@@ -977,14 +988,14 @@
 		},
 
 		/**
-		 * @private
-		 */
-		applyPattern: function() {
+		* @private
+		*/
+		applyPattern: function () {
 			switch (this.pattern) {
-			case "alwaysviewing":
+			case 'alwaysviewing':
 				this.applyAlwaysViewingPattern();
 				break;
-			case "activity":
+			case 'activity':
 				this.applyActivityPattern();
 				break;
 			default:
@@ -994,33 +1005,33 @@
 		},
 
 		/**
-		 * @private
-		 */
-		applyAlwaysViewingPattern: function() {
-			this.setArrangerKind("moon.BreadcrumbArranger");
+		* @private
+		*/
+		applyAlwaysViewingPattern: function () {
+			this.setArrangerKind('moon.BreadcrumbArranger');
 			this.addClass('always-viewing');
 			this.panelCoverRatio = 0.5;
-			this.useHandle = (this.useHandle === "auto") ? true : this.useHandle;
+			this.useHandle = (this.useHandle === 'auto') ? true : this.useHandle;
 			this.createChrome(this.handleTools);
 			this.breadcrumbGap = 20;
 		},
 
 		/**
-		 * @private
-		 */
-		applyActivityPattern: function() {
-			this.setArrangerKind("moon.BreadcrumbArranger");
+		* @private
+		*/
+		applyActivityPattern: function () {
+			this.setArrangerKind('moon.BreadcrumbArranger');
 			this.addClass('activity');
 			this.showFirstBreadcrumb = true;
-			this.useHandle = (this.useHandle === "auto") ? false : this.useHandle;
+			this.useHandle = (this.useHandle === 'auto') ? false : this.useHandle;
 			this.createChrome(this.handleTools);
 			this.breadcrumbGap = 0;
 		},
 
 		/**
-		 * @private
-		 */
-		initializeShowHideHandle: function() {
+		* @private
+		*/
+		initializeShowHideHandle: function () {
 			if (this.useHandle === true) {
 				this.$.handleWrapper.canGenerate = true;
 				this.$.handleWrapper.spotlight = true;
@@ -1028,123 +1039,123 @@
 		},
 
 		/**
-		 * Shows panels with transition from right.
-		 *
-		 * @private
-		 */
-		_show: function() {
+		* Shows panels with transition from right.
+		*
+		* @private
+		*/
+		_show: function () {
 			var init = false;
 			if (!this.hasNode()) {
 				init = true;
 			} else {
-				this.$.showHideHandle.addClass("right");
+				this.$.showHideHandle.addClass('right');
 				this.applyShowAnimation();
 			}
-			enyo.Signals.send("onPanelsShown", {initialization: init});
+			enyo.Signals.send('onPanelsShown', {initialization: init});
 		},
 
 		/**
-		 * Hides panels with transition to right.
-		 *
-		 * @private
-		 */
-		_hide: function() {
+		* Hides panels with transition to right.
+		*
+		* @private
+		*/
+		_hide: function () {
 			if (!this.hasNode()) {
 				return;
 			}
-			this.$.showHideHandle.removeClass("right");
+			this.$.showHideHandle.removeClass('right');
 			this.applyHideAnimation();
-			enyo.Signals.send("onPanelsHidden");
+			enyo.Signals.send('onPanelsHidden');
 		},
 
 		/**
-		 * Sets show state without animation.
-		 *
-		 * @private
-		 */
-		_directShow: function() {
-			this.$.showHideHandle.addClass("right");
+		* Sets show state without animation.
+		*
+		* @private
+		*/
+		_directShow: function () {
+			this.$.showHideHandle.addClass('right');
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass("hidden");
+				this.$.handleWrapper.removeClass('hidden');
 			}
 			this.applyShowAnimation(true);
 		},
 
 		/**
-		 * Sets hide state without animation.
-		 *
-		 * @private
-		 */
-		_directHide: function() {
-			this.$.handleWrapper.addClass("hidden");
-			this.$.showHideHandle.removeClass("right");
+		* Sets hide state without animation.
+		*
+		* @private
+		*/
+		_directHide: function () {
+			this.$.handleWrapper.addClass('hidden');
+			this.$.showHideHandle.removeClass('right');
 			this.applyHideAnimation(true);
 			this.hideAnimationComplete();
 		},
 
 		/**
-		 * @private
-		 */
-		applyShowAnimation: function(inDirect) {
-			this.$.clientWrapper.applyStyle("-webkit-transition", inDirect ? null : "-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)");
-			this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(0)");
+		* @private
+		*/
+		applyShowAnimation: function (direct) {
+			this.$.clientWrapper.applyStyle('-webkit-transition', direct ? null : '-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
+			this.$.clientWrapper.applyStyle('-webkit-transform', 'translateX(0)');
 		},
 
 		/**
-		 * @private
-		 */
-		applyHideAnimation: function(inDirect) {
-			this.$.clientWrapper.applyStyle("-webkit-transition", inDirect ? null : "-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)");
-			this.$.clientWrapper.applyStyle("-webkit-transform", "translateX(100%)");
+		* @private
+		*/
+		applyHideAnimation: function (direct) {
+			this.$.clientWrapper.applyStyle('-webkit-transition', direct ? null : '-webkit-transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)');
+			this.$.clientWrapper.applyStyle('-webkit-transform', 'translateX(100%)');
 		},
 
 		/**
-		 * @private
-		 */
-		getOffscreenXPosition: function() {
+		* @private
+		*/
+		getOffscreenXPosition: function () {
 			return this.$.clientWrapper.getBounds().width;
 		},
 
 		/**
-		 * Hide/show animation complete
-		 *
-		 * @private
-		 */
-		animationComplete: function(inSender, inEvent) {
-			switch (inEvent.animation.name) {
-			case "show":
+		* Hide/show animation complete
+		*
+		* @private
+		*/
+		animationComplete: function (sender, event) {
+			switch (event.animation.name) {
+			case 'show':
 				this.showAnimationComplete();
 				return true;
-			case "hide":
+			case 'hide':
 				this.hideAnimationComplete();
 				return true;
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		showAnimationComplete: function() {
+		* @private
+		*/
+		showAnimationComplete: function () {
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass("hidden");
+				this.$.handleWrapper.removeClass('hidden');
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		hideAnimationComplete: function() {
+		* @private
+		*/
+		hideAnimationComplete: function () {
 			if (this.handleShowing) {
-				this.$.handleWrapper.removeClass("hidden");
+				this.$.handleWrapper.removeClass('hidden');
 			}
 		},
 
 		/**
-		 * @private
-		 */
-		brandingSrcChanged: function() {
-			if (this.pattern === "activity") {
-				this.$.scrim.applyStyle("background-image", (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? "url(" + this.brandingSrc + ")" : "none");
+		* @private
+		*/
+		brandingSrcChanged: function () {
+			if (this.pattern === 'activity') {
+				this.$.scrim.applyStyle('background-image', (this.brandingSrc && this.getPanelInfo(0, this.index).breadcrumb) ? 'url(' + this.brandingSrc + ')' : 'none');
 			}
 		}
 	});

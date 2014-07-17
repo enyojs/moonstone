@@ -1,25 +1,19 @@
 (function (enyo, scope) {
 	/**
 	* Fires when this [panel]{@link moon.Panel} has completed its pre-arrangement transition.
+	* No additional data is passed with this event.
 	*
 	* @event moon.Panel#event:onPreTransitionComplete
 	* @type {Object}
-	* @property {Object} sender - The [Panel]{@link moon.Panel} completing pre-transition.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information. No event-specific information is supplied in this
-	*	event.
 	* @public
 	*/
 
 	/**
 	* Fires when this [panel]{@link moon.Panel} has completed its post-arrangement transition.
+	* No additional data is passed with this event.
 	*
 	* @event moon.Panel#event:onPostTransitionComplete
 	* @type {Object}
-	* @property {Object} sender - The [Panel]{@link moon.Panel} completing post-transition.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information. No event-specific information is supplied in this
-	*	event.
 	* @public
 	*/
 
