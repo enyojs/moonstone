@@ -1,5 +1,18 @@
-(function() {
+(function(enyo, scope) {
+	/**
+	* Instantiate and load {@link iLib} and its resources
+	*
+	* @private
+	*/
 	window.moon = window.moon || {};
+	/**
+	* Localized strings from {@link iLib} translations.
+	*
+	* @param {String} string String to be localized.
+	* @returns {String} Localized string.
+	* @name moon.$L
+	* @public
+	*/
 	if (window.ilib) {
 		moon.$L = (function() {
 			var lfunc = function (string) {
@@ -11,7 +24,7 @@
 			};
 			lfunc.rb = new ilib.ResBundle({
 				loadParams: {
-					root: "$lib/moonstone/resources"
+					root: '$lib/moonstone/resources'
 				}
 			});
 			return lfunc;
