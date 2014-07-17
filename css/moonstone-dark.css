@@ -2930,6 +2930,10 @@
 .moon-list-actions-drawer {
   overflow: hidden;
   z-index: 1;
+  pointer-events: none;
+}
+.moon-list-actions-drawer * {
+  pointer-events: auto;
 }
 .moon-list-actions-drawer-client {
   position: absolute;
