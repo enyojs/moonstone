@@ -24,15 +24,17 @@
 	 */
 
 	/**
-	 * _enyo.StyleAnimator_ is a basic animation component.  Call [play()](#play) to start
-	 * the animation.  The animation will run for the period of time (in milliseconds)
-	 * specified by its [duration](#duration), subject to its [timingFunction](#timingFunction)
-	 * and [direction](#direction).
+	 * _enyo.StyleAnimator_ is a basic animation component.  Call
+	 * [play()]{@link enyo.StyleAnimator#play) to start the animation.  The animation will run for
+	 * the period of time (in milliseconds) specified by its
+	 * [duration]{@link enyo.StyleAnimotor#duration}, subject to its
+	 * [timingFunction]{@link enyo.StyleAnimator#timingFunction}
+	 * and [direction]{@link enyo.StyleAnimator#direction}.
 	 *
 	 * @class enyo.StyleAnimator
 	 * @extends enyo.Component
-	 * @public
 	 * @ui
+	 * @public
 	 */
 	enyo.kind(
 		/** @lends  enyo.StyleAnimator.prototype */ {
@@ -58,7 +60,7 @@
 		/**
 		 * @private
 		 */
-		published: {
+		published: /** @lends moon.StyleAnimator.prototype */ {
 			//* Default value used if the animation has no _duration_ specified
 			defaultDuration: 1000,
 			//* Default value used if the animation has no _timingFunction_ specified
@@ -107,11 +109,13 @@
 
 		/**
 		 * Returns animation object reflecting the passed-in properties, while also adding it to the
-		 * [animations](#animations) array.
+		 * [animations]{@link enyo.StyleAnotmor#animations} array.
 		 *
+		 * @param {Object} props - An animation definition hash
 		 * @public
 		 */
 		newAnimation: function (inProps) {
+			// TODO: Document definition hash
 			if (this.animations && inProps.name && this.getAnimation(inProps.name)) {
 				this.deleteAnimation(inProps.name);
 			}

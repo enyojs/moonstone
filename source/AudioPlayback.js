@@ -2,26 +2,18 @@
 	/**
 	* Fires when an audio track is added to the list
 	*
-	* _event.tracks_ contains a reference to the collection of tracks
-	*
 	* @event moon.AudioPlaybackr#onAddAudio
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} tracks - contains a reference to the collection of tracks
 	* @public
 	*/
 
 	/**
-	* Fires when an audio list item is to be removed
+	* Fires when an audio list item is to be removed. The list event data is passed through.
+	* TODO: When fixed with right list component be sure to link to event data.
 	*
 	* @event moon.AudioListItem#onRemove
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @public
 	*/
 
@@ -30,7 +22,7 @@
 	* 2.4, and this code hasn't yet been updated to use {@link moon.DataList}.
 	*
 	* _moon.AudioPlayback_ is meant to be used with {@link moon.Drawers}.
-	* This extends a {@link moon.Drawer} by adding  an audio playback control
+	* This extends a {@link moon.Drawer} by adding an audio playback control
 	* and playlist for the imported audio.
 	*
 	* ```
@@ -48,9 +40,9 @@
 	* ]}
 	* ```
 	*
-	* @ui
 	* @class moon.AudioPlayback
 	* @extends moon.Drawer
+	* @ui
 	* @public
 	*/
 
@@ -129,7 +121,7 @@
 			repeat: false,
 
 			/**
-			* When false, audio player doesn't response to remote controller
+			* When `false`, audio player doesn't respond to remote controller
 			*
 			* @type {Boolean}
 			* @default true

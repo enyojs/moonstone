@@ -2,82 +2,54 @@
 	/**
 	* Fires to queue up a list of child animations
 	*
-	* _event.originator_ contains a reference to the originator of this event
-	*
-	* _event.marqueePause contains the value of {@link moon.MarqueeSupport#marqueePause}
-	*
-	* _event.marqueeSpeed contains the value of {@link moon.MarqueeSupport#marqueeSpeed}
-	*
 	* @event moon.MarqueeSupport#onRequestMarquee
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} originator - contains a reference to the originator of this event
+	*
+	* @property {Boolean} marqueePause - contains the value of {@link #marqueePause}
+	* @property {number} marqueeSpeed - contains the value of {@link #marqueeSpeed}
 	* @private
 	*/
 
 	/**
 	* Fires to start marquee animation in a child marquee.
 	*
-	* _event.originator_ contains a reference to the originator of this event
-	*
 	* @event moon.MarqueeSupport#onRequestMarqueeStart
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} originator - contains a reference to the originator of this event
 	* @private
 	*/
 
 	/**
 	* Fires to halt marquee animation in a child marquee.
 	*
-	* _event.originator_ contains a reference to the originator of this event
-	*
 	* @event moon.MarqueeSupport#onRequestMarqueeStop
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object} originator - contains a reference to the originator of this event
 	* @private
 	*/
 
 	/**
-	* Fires to enable animation in a child marquee.
+	* Fires to enable animation in a child marquee. No additional data is sent with this event.
 	*
 	* @event moon.MarqueeSupport#onRequestMarqueeEnable
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @private
 	*/
 
 	/**
-	* Fires to disable animation in a child marquee.
+	* Fires to disable animation in a child marquee. No additional data is sent with this event.
 	*
 	* @event moon.MarqueeSupport#onRequestMarqueeDisable
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @private
 	*/
 
 	/**
-	* Fires when marquee ends
+	* Fires when marquee ends. No additional data is sent with this event.
 	*
 	* @event moon.MarqueeItem#onMarqueeEnded
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {enyo.Scroller~ScrollEvent} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
 	* @private
 	*/
 
@@ -90,19 +62,20 @@
 	* The following properties defined on the base kind on which the mixin is applied
 	* control the marquee behavior:
 	*
-	* {@link moon.MarqueeSupport#marqueeOnSpotlight`}: When true, marquee will start when spotlight
-	* focused and end when spotlight blurred.
+	* {@link moon.MarqueeSupport#marqueeOnSpotlight}: When `true`, marquee will start when
+	* spotlight focused and end when spotlight blurred.
 	*
-	* {@link moon.MarqueeSupport#marqueeOnHover}: When true, marquee will run when hovered with the
-	* mouse. This property is ignored if `marqueeOnSpotlight` is true.
+	* {@link moon.MarqueeSupport#marqueeOnHover}: When `true`, marquee will run when hovered with
+	* the mouse. This property is ignored if `marqueeOnSpotlight` is `true`.
 	*
-	* {@link moon.MarqueeSupport#marqueeOnRender}: When true, marquee will start running as soon as
-	* it is rendered and run continuously.
+	* {@link moon.MarqueeSupport#marqueeOnRender}: When `true`, marquee will start running as soon
+	* as it is rendered and run continuously.
 	*
-	* {@link moon.MarqueeSupport#marqueeSpeed}: The speed of the marquee animation, in pixels/second.
+	* {@link moon.MarqueeSupport#marqueeSpeed}: The speed of the marquee animation, in
+	* pixels/second.
 	*
 	* {@link moon.MarqueeSupport#marqueeDelay}: The delay between spotlight focus/hover and the
-	* animation starting (only used when `marqueeOnSpotlight` or `marqueeOnHover` is true).
+	* animation starting (only used when `marqueeOnSpotlight` or `marqueeOnHover` is `true`).
 	*
 	* {@link moon.MarqueeSupport#marqueeOnRenderDelay}: Used when you want the marquee to run on
 	* render, after a custom delay
@@ -145,7 +118,7 @@
 		_marquee_active: false,
 
 		/**
-		* When true, marquee will start when spotlight focused and end when spotlight blurred.
+		* When `true`, marquee will start when spotlight focused and end when spotlight blurred.
 		*
 		* @type {Boolean}
 		* @default undefined
@@ -155,7 +128,7 @@
 
 		/**
 		* When true, marquee will run when hovered with the mouse. This property is ignored if
-		* `marqueeOnSpotlight` is true.
+		* {#marqueeOnSpotlight} is `true`.
 		*
 		* @type {Boolean}
 		* @default undefined
@@ -183,7 +156,7 @@
 
 		/**
 		* The delay between spotlight focus/hover and the animation starting (only used when
-		* `marqueeOnSpotlight` or `marqueeOnHover` is true).
+		* {#marqueeOnSpotlight} or {#marqueeOnHover} is true).
 		*
 		* @type {Number}
 		* @default undefined
@@ -230,7 +203,7 @@
 		}),
 
 		/**
-		* If {@link moon.MarqueeSupport#marqueeOnRender} is true, kick off marquee animation
+		* If {@link moon.MarqueeSupport#marqueeOnRender} is `true`, kick off marquee animation
 		*
 		* @method
 		* @private
@@ -397,13 +370,13 @@
 		},
 
 		/**
-		* Adds _inControl_ to {@link moon.MarqueeSupport#marqueeWaitList}.
+		* Adds _control_ to {@link moon.MarqueeSupport#marqueeWaitList}.
 		*
-		* @param {Object} inControl  Control to add to list
+		* @param {Object} control  Control to add to list
 		* @public
 		*/
-		addMarqueeItem: function (inControl) {
-			this.marqueeWaitList.push(inControl);
+		addMarqueeItem: function (control) {
+			this.marqueeWaitList.push(control);
 		},
 
 		/**
@@ -425,10 +398,10 @@
 		* starts Marquee with a custom delay. Used to provide a different delay for onRender and
 		* onSpotlight/Hover
 		*
-		* @param {Number} inDelay  Number of milliseconds to delay
+		* @param {Number} delay  Number of milliseconds to delay
 		* @public
 		*/
-		startMarqueeCustomDelay: function (inDelay) {
+		startMarqueeCustomDelay: function (delay) {
 			this._marquee_buildWaitList();
 
 			if (this.marqueeWaitList.length === 0) {
@@ -436,7 +409,7 @@
 			}
 
 			this._marquee_active = true;
-			this.startJob('marqueeSupportJob', '_marquee_startChildMarquees', inDelay);
+			this.startJob('marqueeSupportJob', '_marquee_startChildMarquees', delay);
 		},
 
 		/**

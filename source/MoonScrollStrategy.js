@@ -1,8 +1,8 @@
 (function (enyo, scope) {
 	/**
-	* _moon.ScrollStrategy_ inherits from [enyo.TouchScrollStrategy](#enyo.TouchScrollStrategy). Its
-	* main purpose is to handle scroller paging for [moon.Scroller](#moon.Scroller) and
-	* [moon.DataList](#moon.DataList).
+	* _moon.ScrollStrategy_ inherits from {@link enyo.TouchScrollStrategy}. Its
+	* main purpose is to handle scroller paging for {@link moon.Scroller} and
+	* {@link moon.DataList}.
 	*
 	* @class moon.ScrollStrategy
 	* @extends enyo.TouchScrollStrategy

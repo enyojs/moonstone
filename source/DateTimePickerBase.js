@@ -2,17 +2,11 @@
 	/**
 	* Fires when the value changes.
 	*
-	* _event.name_ contains the name of this control.
-	*
-	* _event.value_ contains a standard JavaScript Date object representing
-	* the current value.
-	*
 	* @event moon.DateTimePickerBase#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {String} name - contains the name of this control.
+	* @property {Date} value - contains a standard JavaScript Date object representing
+	* the current value.
 	* @public
 	*/
 
@@ -74,7 +68,7 @@
 		published: /** @lends moon.DateTimePickerBase.prototype */ {
 
 			/**
-			* Text to be displayed in the _currentValue_ control if no item is
+			* Text to be displayed in the `currentValue` control if no item is
 			* currently selected
 			*
 			* @type {String}
@@ -90,15 +84,15 @@
 			*
 			* When iLib is not present, US English (en-US) formatting is applied.
 			*
-				* When iLib is present and _locale_ is set to the default value (_null_),
-				the picker uses iLib's current locale (which iLib tries to determine
-				from the system).
-
-				* When iLib is present and an explicit _locale_ is provided, that locale
-				will be used (regardless of iLib's current locale).
-
-				_locale_ may be changed after the picker is created, in which case the
-				picker will	be reformatted to match the new setting.
+			* * When iLib is present and _locale_ is set to the default value (`null`),
+			* the picker uses iLib's current locale (which iLib tries to determine
+			* from the system).
+			*
+			* * When iLib is present and an explicit `locale` is provided, that locale
+			* will be used (regardless of iLib's current locale).
+			*
+			* `locale` may be changed after the picker is created, in which case the
+			* picker will be reformatted to match the new setting.
 			*
 			* @type {Object}
 			* @default null
@@ -107,18 +101,16 @@
 			locale: null,
 
 			/**
-			* The value, expressed as a standard JavaScript Date object. When a Date object
-			* is passed to _set('value')_, the control is updated to reflect the new
-			* value. _get('value')_ returns a Date object.
+			* The value, expressed as a standard JavaScript Date object.
 			*
-			* @type {Object}
+			* @type {Date}
 			* @default null
 			* @public
 			*/
 			value: null,
 
 			/**
-			* When true, the picker uses a 12-hour clock (this value is ignored when
+			* When `true`, the picker uses a 12-hour clock (this value is ignored when
 			* iLib is loaded, since the meridiem will be set by the current locale)
 			*
 			* @type {Boolean}
@@ -264,7 +256,8 @@
 		},
 
 		/**
-		* If no item is selected, uses {@link moon.DateTimePickerBase#noneText} as current value.
+		* If no item is selected, uses [`noneText]{@link moon.DateTimePickerBase#noneText}
+		* as current value.
 		*
 		* @private
 		*/
@@ -277,7 +270,7 @@
 		},
 
 		/**
-		* When {@link moon.ExpandableListItem#open} changes, shows/hides _this.$.currentValue_.
+		* When [`open`]{@link moon.ExpandableListItem#open} changes, shows/hides the current value
 		*
 		* @private
 		*/

@@ -21,10 +21,10 @@
 	* }
 	* ```
 	*
-	* @ui
 	* @class moon.VideoInfoHeader
 	* @extends enyo.Control
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(

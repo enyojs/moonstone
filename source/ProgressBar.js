@@ -36,9 +36,9 @@
 	* Indicators](building-apps/controls/progress-indicators.html) in the Enyo
 	* Developer Guide
 	*
-	* @ui
 	* @class moon.ProgressBar
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
