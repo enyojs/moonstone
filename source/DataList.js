@@ -233,7 +233,7 @@
 			var pages = (this.$.page1.index < this.$.page2.index) ?
 				[this.$.page1, this.$.page2] :
 				[this.$.page2, this.$.page1];
-			for (var p in pages) {
+			for (var p=0; p< pages.length; p++) {
 				var page = pages[p];
 				var pb = page.getBounds();
 				// Loop through children in each page top-down
