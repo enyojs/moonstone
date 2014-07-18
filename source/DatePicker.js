@@ -98,12 +98,19 @@ enyo.kind({
 			return (this.noneText);
 		}
 		if (this._tf) {
+			var fmt = new ilib.DateFmt({template: "EEEE"});
+			var date, weekDay;
 			switch (this._tf.getCalendar()) {
 			case "gregorian":
-				return this._tf.format(new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+				date = new ilib.Date.GregDate({unixtime: this.value.getTime(), timezone:"UTC"});
+				break;
 			case "thaisolar":
-				return this._tf.format(new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:"UTC"}));
+				date = new ilib.Date.ThaiSolarDate({unixtime: this.value.getTime(), timezone:"UTC"});
+				break;
 			}
+			weekDay = fmt.format(date);
+			return weekDay + " " + this._tf.format(date);
+
 		} else {
 			return this.getWeekDay()[this.value.getDay()] + " " + this.getMonthName()[this.value.getMonth()] + " " + this.value.getDate() + " " + this.value.getFullYear();
 		}

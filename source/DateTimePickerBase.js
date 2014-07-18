@@ -90,8 +90,7 @@ enyo.kind({
 			type: this.iLibFormatType,
 			useNative: false,
 			timezone: "local",
-			length: "full",
-			template: this.content === "Date" ? "EEEE d MMMM yyyy" : "h:mma"
+			length: "full"
 		};
 		if (this.locale) {
 			fmtParams.locale = this.locale;
