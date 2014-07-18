@@ -1426,6 +1426,16 @@
   background-color: #404040;
   color: #a6a6a6;
 }
+.moon-button.active.spotlight:hover:not([disabled]),
+.moon-button.active.spotlight,
+.moon-button.active.spotlight.pressed,
+.moon-button.small.active.spotlight:hover:not([disabled]),
+.moon-button.small.active.spotlight,
+.moon-button.small.active.spotlight.pressed {
+  border: 5px solid #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
 .moon-button:active:hover:not([disabled]) {
   border: 5px solid #cf0652;
   background-color: #404040;
@@ -1453,6 +1463,23 @@
 .moon-neutral .moon-button.spotlight:active *,
 .moon-neutral .moon-button.small.spotlight.pressed * {
   color: #4b4b4b;
+}
+.moon-neutral .moon-button.active.spotlight:hover:not([disabled]),
+.moon-neutral .moon-button.active.spotlight,
+.moon-neutral .moon-button.active.spotlight.pressed,
+.moon-neutral .moon-button.small.active.spotlight:hover:not([disabled]),
+.moon-neutral .moon-button.small.active.spotlight,
+.moon-neutral .moon-button.small.active.spotlight.pressed {
+  border: 5px solid #ffffff;
+  background-color: #cf0652;
+}
+.moon-neutral .moon-button.active.spotlight:hover:not([disabled]) *,
+.moon-neutral .moon-button.active.spotlight *,
+.moon-neutral .moon-button.active.spotlight.pressed *,
+.moon-neutral .moon-button.small.active.spotlight:hover:not([disabled]) *,
+.moon-neutral .moon-button.small.active.spotlight *,
+.moon-neutral .moon-button.small.active.spotlight.pressed * {
+  color: #ffffff;
 }
 /* Caption Decorator */
 .moon-button-caption-decorator {
