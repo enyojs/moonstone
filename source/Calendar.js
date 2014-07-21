@@ -45,7 +45,7 @@
 		/**
 		* @private
 		*/
-		kind: 'moon.Button',
+		kind: 'enyo.Group',
 
 		/**
 		* @private

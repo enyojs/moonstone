@@ -3554,22 +3554,27 @@
   width: 616px;
   background-color: #686868;
   border-radius: 16px;
-  margin: 0px 20px;
-  padding: 20px 0px;
+  margin: 0 20px;
+  padding: 20px 0;
+}
+.moon-calendar-picker > * {
+  display: inline-block;
 }
 .moon-calendar-picker .moon-simple-picker {
   max-width: 250px;
 }
-.moon-calendar-picker-block {
-  display: inline-block;
+.moon-calendar-picker .moon-simple-picker .moon-simple-picker-client > * {
+  color: #ffffff;
 }
-.moon-neutral .moon-calendar-picker-day-base {
-  display: inline-block;
-  width: 60px;
-  color: #a2a2a2;
-  margin: 10px;
+.moon-calendar-picker .moon-calendar-picker-month {
+  margin: 0 0 0 30px;
+  float: left;
 }
-.moon-calendar-picker-day {
+.moon-calendar-picker .moon-calendar-picker-year {
+  margin: 0 30px 0 0;
+  float: right;
+}
+.moon-calendar-picker .moon-calendar-picker-day {
   font-family: "MuseoSans 700";
   font-size: 30px;
   font-weight: normal;
@@ -3581,25 +3586,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.enyo-locale-non-latin .moon-calendar-picker-day {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
-}
-.moon-calendar-picker-month {
-  float: left;
-  margin: 0px 0px 0px 30px;
-}
-.moon-calendar-picker-year {
-  float: right;
-  margin: 0px 30px 0px 0px;
-}
-.moon-calendar-picker-days {
   display: inline-block;
 }
-.moon-calendar-picker-dates {
-  margin: 30px 0px 0px 0px;
+.moon-calendar-picker .moon-neutral .moon-calendar-picker-day-base {
+  width: 60px;
+  color: #a2a2a2;
+  margin: 10px;
+  border-color: #a2a2a2;
+  display: inline-block;
 }
 .moon-calendar-picker-date {
   font-family: "MuseoSans 700";
@@ -3609,56 +3603,32 @@
   letter-spacing: 0;
   color: #a6a6a6;
   width: 60px;
-  min-width: 60px;
   line-height: 60px;
-  border: 0px;
   border-radius: 9999px;
-  background: inherit;
   color: #ffffff;
-  padding: 0px;
-  margin: 10px;
-  text-align: center;
-  vertical-align: middle;
+  border: solid 10px transparent;
+  display: inline-block;
+}
+.moon-calendar-picker-date.spotlight,
+.moon-calendar-picker-date.active {
+  background-color: #cf0652;
+  border: solid 10px #686868;
+}
+.moon-calendar-picker-date.moon-calendar-picker-date-shadow {
+  color: #a2a2a2;
+}
+.moon-calendar-picker-date.moon-calendar-picker-date-shadow.spotlight {
+  color: #ffffff;
+}
+.enyo-locale-non-latin .moon-calendar-picker-day {
+  font-family: "Moonstone LG Display";
+  font-family: "Moonstone LG Display Bold";
+  font-size: 30px;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date {
   font-family: "Moonstone LG Display";
   font-family: "Moonstone LG Display Bold";
   font-size: 30px;
-}
-.moon-calendar-picker-date.moon-button.small {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  color: #ffffff;
-  padding: 0px;
-}
-.enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
-}
-.moon-calendar-picker-date-shadow.moon-button.small {
-  color: #a2a2a2;
-}
-.moon-calendar-picker-date-shadow.moon-button.small.spotlight {
-  color: #ffffff;
-}
-.moon-calendar-picker .moon-simple-picker-item {
-  color: #ffffff;
-}
-.moon-calendar-picker-date.moon-button.small.active,
-.moon-calendar-picker-date.moon-button.small.pressed,
-.moon-calendar-picker-date.moon-button.small.spotlight.pressed,
-.moon-calendar-picker-date.moon-button:active:hover:not([disabled]) {
-  color: #ffffff;
-  background-color: #cf0652;
-  border: 0px;
-}
-.moon-calendar-picker .moon-simple-picker-client > * {
-  color: #ffffff;
 }
 /* Table.css */
 /*.moon-table {
