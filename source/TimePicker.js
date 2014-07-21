@@ -237,6 +237,13 @@ enyo.kind({
 		var dateStr = "";
 		if (this._tf) {
 			dateStr = this._tf.format(ilib.Date.newInstance({unixtime: this.value.getTime(), timezone:"Etc/UTC"}));
+			// If it use 'zh' language, ilib will express 7 types meriediem basically.
+			// However before zhSupport is set to true, we just display 2 meridiem items
+			// as we do in other languages.
+			if ((this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') && !this.zhSupport) {
+				dateStr = dateStr.slice(2, dateStr.length);
+				dateStr = this.$.meridiem.getMeridiems()[this.$.meridiem.getValue()] + dateStr;
+			}
 		}
 		else {
 			dateStr += this.formatHour(this.value.getHours());
