@@ -1,15 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the current text changes.
-	*
-	* _event.value_ contains the value of the input.
+	* Fires when the current text changes. This passes through {@link enyo.Input#event:onChange}.
 	*
 	* @event moon.ExpandableInput#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {String} value - The value of the input.
 	* @public
 	*/
 
@@ -18,9 +13,9 @@
 	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down input that
 	* prompts the user to enter text.
 	*
-	* @ui
 	* @class moon.ExpandableInput
 	* @extends moon.ExpandableListItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(

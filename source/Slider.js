@@ -18,10 +18,10 @@
 	*/
 
 	/**
-	* Fires when animation to a position finishes.
-	*
-	* @event moon.Slider#event:onAnimateFinish.  No additional information is passed with this
+	* Fires when animation to a position finishes. No additional information is passed with this
 	* event.
+	*
+	* @event moon.Slider#event:onAnimateFinish
 	* @type {Object}
 	* @public
 	*/

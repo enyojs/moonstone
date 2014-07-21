@@ -2,7 +2,7 @@
 	/**
 	* Fires when an audio track is added to the list
 	*
-	* @event moon.AudioPlaybackr#onAddAudio
+	* @event moon.AudioPlaybackr#event:onAddAudio
 	* @type {Object}
 	* @property {Object} tracks - contains a reference to the collection of tracks
 	* @public
@@ -12,7 +12,7 @@
 	* Fires when an audio list item is to be removed. The list event data is passed through.
 	* TODO: When fixed with right list component be sure to link to event data.
 	*
-	* @event moon.AudioListItem#onRemove
+	* @event moon.AudioListItem#event:onRemove
 	* @type {Object}
 	* @public
 	*/

@@ -4,22 +4,16 @@
 	 *
 	 * @event enyo.StyleAnimator#event:onStep
 	 * @type {Object}
-	 * @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	 *	propagated the [event]{@link external:event}.
-	 * @property {Object} event - An [object]{@link external:Object} containing
-	 *	[event]{@link external:event} information.
+	 * @property {Object} animation - A link to the animation causing this event
 	 * @public
 	 */
 
 	/**
 	 * Fires when the animation completes.
 	 *
-	 * @event enyo.StyleAnimator#event:onStep
+	 * @event enyo.StyleAnimator#event:onComplete
 	 * @type {Object}
-	 * @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	 *	propagated the [event]{@link external:event}.
-	 * @property {Object} event - An [object]{@link external:Object} containing
-	 *	[event]{@link external:event} information.
+	 * @property {Object} animation - A link to the animation completing
 	 * @public
 	 */
 
@@ -33,7 +27,6 @@
 	 *
 	 * @class enyo.StyleAnimator
 	 * @extends enyo.Component
-	 * @ui
 	 * @public
 	 */
 	enyo.kind(

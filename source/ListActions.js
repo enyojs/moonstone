@@ -7,10 +7,7 @@
 	*
 	* @event moon.ListActions#event:onRequestCreateListActions
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
+	* @property {Object} components - The drawer components to be created
 	* @private
 	*/
 
@@ -19,10 +16,7 @@
 	*
 	* @event moon.ListActions#event:onListActionOpenChanged
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
+	* @property {Boolean} open - `true` if the drawer is open
 	* @public
 	*/
 
@@ -34,9 +28,9 @@
 	* menu item is selected, an action--such as filtering, sorting, moving, or deleting--may be
 	* invoked in the application by handling change events from the selected items.
 	*
-	* @ui
 	* @class moon.ListActions
 	* @extends enyo.GroupItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -107,16 +101,16 @@
 			* disabling any scrollers contained within, to prevent nested scrolling.
 			* 
 			* Note that the vertical stacking capability poses a limitation on using 
-			* _moon.DataList_. Since _moon.DataList_ must always be allowed to scroll, it is not 
-			* suitable for use in a stacked scenario in which only one outer scroller is used.  As 
-			* such, _moon.DataList_ cannot be used within a _ListActions_ that may need to stack 
+			* {@link moon.DataList}. Since _moon.DataList_ must always be allowed to scroll, it is
+			* not suitable for use in a stacked scenario in which only one outer scroller is used.
+			* As such, _moon.DataList_ cannot be used within a _ListActions_ that may need to stack
 			* vertically.
 			* 
-			* Each group should have a string value set for the _category_ property, as this will be
+			* Each group should have a string value set for the `action` property, as this will be
 			* passed in all events that bubble from the _ListActions_, to allow the user to identify
 			* which category changed.
 			*
-			* @type {Object}
+			* @type {Object[]}
 			* @default null
 			* @public
 			*/
@@ -159,7 +153,7 @@
 		*/
 		events: {
 			onRequestCreateListActions: '',
-			onListActionOpenChanged: ''	
+			onListActionOpenChanged: ''
 		},
 
 		/**
@@ -499,10 +493,6 @@
 	*
 	* @event moon.ListActionsDrawer#event:onComplete
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
 	* @public
 	*/
 
@@ -615,9 +605,9 @@
 	});
 
 	/**
-	* An internally-used support mixin added to a list action menu that decorates _activate_ events 
-	* with the menu's _action_ property.
-	* 
+	* An internally-used support mixin added to a {@link moon.ListActions} menu that decorates
+	* _activate_ events with the menu's _action_ property.
+	*
 	* @mixin moon.ListActionActivationSupport
 	* @protected
 	*/

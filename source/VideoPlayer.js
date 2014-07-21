@@ -2,14 +2,10 @@
 	/**
 	* Fires when [_disablePlaybackControls_]{@link enyo.VideoPlayer#disablePlaybackControls} 
 	* is `true` and the user taps one of the [controls]{@link enyo.Control}; may be handled to 
-	* re-enable the controls, if desired.
+	* re-enable the controls, if desired. No event-specific information is sent with this event.
 	*
 	* @event moon.VideoPlayer#event:onPlaybackControlsTapped
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary:event}.
-	* @property {Object} event - An [object]{@glossary Object} containing 
-	*	[event]{@glossary:event} information. 
 	* @public
 	*/
 
