@@ -189,13 +189,14 @@
 		},
 
 		/**
-		* value should submit if user clicks outside control. We check for 'down' to make sure not to
-		* contract on mousemove
+		* value should submit if user clicks outside control. We check for 'onSpotlightFocus' and  
+		* 'mouseover' to make sure not to contract on the event which is fired from itself.
 		*
 		* @private
 		*/
 		inputBlur: function (inSender, inEvent) {
-			if (this.$.clientInput.hasFocus() && enyo.Spotlight.getPointerMode() && enyo.Spotlight.getLastEvent().type === 'down') {
+			var eventType = enyo.Spotlight.getLastEvent().type;
+			if (enyo.Spotlight.getPointerMode() && eventType !== 'onSpotlightFocus' && eventType !== 'mouseover') {
 				this.toggleActive();
 			}
 		},
@@ -261,8 +262,8 @@
 		* @private
 		*/
 		drawerAnimationEnd: function () {
-			enyo.Spotlight.unfreeze();
 			if (this.getOpen()) {
+				enyo.Spotlight.unfreeze();
 				this.focusInput();
 			}
 			this.inherited(arguments);
@@ -278,9 +279,11 @@
 		* @private
 		*/
 		closeDrawerAndHighlightHeader: function () {
+			var mode = enyo.Spotlight.getPointerMode();
 			enyo.Spotlight.setPointerMode(false);
 			enyo.Spotlight.unfreeze();
 			enyo.Spotlight.spot(this.$.headerWrapper);
+			enyo.Spotlight.setPointerMode(mode);
 			this.toggleActive();
 		}
 	});
