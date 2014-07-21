@@ -89,7 +89,7 @@ enyo.kind({
 			c = inControl.getClientControls();
 			for (i=0; i<c.length; i++) {
 				if (c[i].content == inLabelName1) {
-					c[i].addRemoveClass("moon-calendar-dow-lable-nodisplay", Boolean(inEvent.content == inLabelName2))
+					c[i].addRemoveClass("moon-calendar-dow-lable-nodisplay", Boolean(inEvent.content == inLabelName2));
 				}
 			}
 	},
