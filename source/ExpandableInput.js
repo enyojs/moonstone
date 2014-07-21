@@ -189,8 +189,8 @@
 		},
 
 		/**
-		* value should submit if user clicks outside control. We check for 'down' to make sure not to
-		* contract on mousemove
+		* value should submit if user clicks outside control. We check for 'onSpotlightFocus' and 'mouseover' to 
+		* make sure not to contract on the event which is fired from itself.
 		*
 		* @private
 		*/
