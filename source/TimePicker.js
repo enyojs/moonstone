@@ -114,7 +114,13 @@ enyo.kind({
 			will be ignored and the current locale's rules will determine whether
 			zero-padding is used.)
 		*/
-		hoursZeroPadded: false
+		hoursZeroPadded: false,
+		/**
+			'zh' language has 7 types meridiem. 
+			If zhSupport is true, TimePicker should display 7 meridiem list.
+			If it is false, TimePicker just show 2 meridiem list
+		*/
+		zhSupport: false
 	},
 	//* @protected
 	observers: {
@@ -155,7 +161,7 @@ enyo.kind({
 				fmtParams.locale = this.locale;
 			}
 			var merFormatter = new ilib.DateFmt(fmtParams);
-			if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh')  {
+			if ((this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') && this.zhSupport) {
 				this.meridiems = [
 					merFormatter.format(ilib.Date.newInstance({hour:5})), // ~6, before dawn
 					merFormatter.format(ilib.Date.newInstance({hour:8})), // ~9, morging
@@ -277,7 +283,7 @@ enyo.kind({
 		@private
 	*/
 	getMeridiemLevel: function (hour) {
-		if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+		if ((this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') && this.zhSupport) {
 			if (hour < 6) {
 				return 0;
 			} else if (6 <= hour && hour < 9) {
@@ -302,7 +308,7 @@ enyo.kind({
 		var minute = this.$.minute.getValue();
 
 		if (inEvent.originator.kind == "moon.MeridiemPicker") {
-			if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+			if ((this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') && this.zhSupport) {
 				var newValue = inEvent.originator.value,
 					oldValue = this.getMeridiemLevel(hour),
 					meridiemBound = [0, 6, 9, 12, 13, 18, 21];					
@@ -365,7 +371,7 @@ enyo.kind({
 		if (this.value) {
 			var hour = this.value.getHours();
 			if (this.meridiemEnable === true) {	
-				if (this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') {
+				if ((this.iLibLocale === 'zh' || (this.locale && this.locale.slice(0,2)) === 'zh') && this.zhSupport) {
 					this.$.meridiem.setValue(this.getMeridiemLevel(hour));
 				} else {
 					this.$.meridiem.setValue(hour > 11 ? 1 : 0);
