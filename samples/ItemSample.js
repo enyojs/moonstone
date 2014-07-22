@@ -31,7 +31,7 @@ enyo.kind({
 							{kind: "moon.Icon", icon: "arrowlargeup", small: true},
 							{kind: "moon.Icon", icon: "arrowlargedown", small: true},
 							{kind: "moon.Icon", icon: "arrowlargeleft", small: true},
-							{kind: "moon.Icon", icon: "arrowlargeright", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeright", small: true}
 						]},
 						{kind: "moon.MarqueeText", content: "Item   with   icons   auto   hides"}
 					]},
@@ -40,7 +40,7 @@ enyo.kind({
 							{kind: "moon.Icon", icon: "arrowlargeup", small: true},
 							{kind: "moon.Icon", icon: "arrowlargedown", small: true},
 							{kind: "moon.Icon", icon: "arrowlargeleft", small: true},
-							{kind: "moon.Icon", icon: "arrowlargeright", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeright", small: true}
 						]},
 						{kind: "moon.MarqueeText", content: "Item   with   icons   on   right   side"}
 					]},
@@ -49,7 +49,7 @@ enyo.kind({
 							{kind: "moon.Icon", icon: "arrowlargeup", small: true},
 							{kind: "moon.Icon", icon: "arrowlargedown", small: true},
 							{kind: "moon.Icon", icon: "arrowlargeleft", small: true},
-							{kind: "moon.Icon", icon: "arrowlargeright", small: true},
+							{kind: "moon.Icon", icon: "arrowlargeright", small: true}
 						]},
 						{kind: "moon.MarqueeText", content: "Item   with   icons   on   left   side"}
 					]},
