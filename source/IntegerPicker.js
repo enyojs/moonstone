@@ -179,7 +179,7 @@
 		rendered: function (){
 			this.inherited(arguments);
 			this.rangeChanged();
-			this.refreshScrollState();
+			this.scrollToValue();
 			this.$.scroller.getStrategy().setFixedTime(false);
 			this.$.scroller.getStrategy().setFrame(this.scrollFrame);
 		},
@@ -198,23 +198,12 @@
 			this.value = this.getVerifiedValue();
 		},
 
-		/**
-		* @private
-		*/
-		refreshScrollState: function () {
-			this.updateScrollBounds();
-			var node = this.$.repeater.fetchRowNode(this.value - this.min);
-			if (node) {
-				this.$.scroller.scrollToNode(node);
-			}
-		},
-
-		/**
-		* @private
-		*/
+	 	/**
+	 	* @private
+	 	*/
 		setupItem: function (inSender, inEvent) {
 			var index = inEvent.index;
-			var content = index + this.min;
+			var content = (index % this.range) + this.min;
 			if (this.digits) {
 				content = ('00000000000000000000' + content).slice(-this.digits);
 			}
@@ -226,34 +215,23 @@
 		*/
 		rangeChanged: function () {
 			this.verifyValue();
-			this.$.repeater.setCount(this.max-this.min+1);
-			this.$.repeater.render();
-			//asynchronously scroll to the current node, this works around a potential scrolling glitch
-			enyo.asyncMethod(this.bindSafely(function (){
-				var node = this.$.repeater.fetchRowNode(this.value - this.min);
-				if (node) {
-					this.$.scroller.scrollToNode(node);
-				}
-			}));
+			this.range = this.max - this.min + 1;
 		},
 
 		/**
 		* Fail-safe design.
 		* If out-of-boundary value is assigned, adjust boundary.
 		*
-		* @private
-		*/
-		valueChanged: function (inOld) {
+	 	* @private
+	 	*/
+		valueChanged: function (old) {
 			if (this.value < this.min) {
 				this.setMin(this.value);
 			} else if (this.value > this.max) {
 				this.setMax(this.value);
 			}
 
-			var node = this.$.repeater.fetchRowNode(this.value - this.min);
-			if (node) {
-				this.$.scroller.scrollTo(node.offsetLeft, node.offsetTop);
-			}
+			this.scrollToValue(old);
 			this.updateOverlays();
 		},
 
@@ -343,8 +321,79 @@
 		},
 
 		/**
+		* Renders the repeater
+		*
+		* @param {Number} index - Index of row
+		* @param {Number} count - Number of rows to render
 		* @private
 		*/
+		updateRepeater: function(index, count) {
+			this.$.repeater.set('rowOffset', index);
+			this.$.repeater.set('count', count || 1)
+			this.$.repeater.render();
+		},
+
+		/**
+		* Scrolls to the node at `index` if it exists
+		*
+		* @param  {Number} index    - Index of row
+		* @param  {Boolean} animate - Animate the scroll if `true`
+		* @private
+		*/
+		scrollToIndex: function(index, animate) {
+			var node = this.$.repeater.fetchRowNode(index);
+			if (node) {
+				if(animate) {
+					this.$.scroller.scrollTo(node.offsetLeft, node.offsetTop);
+				} else {
+					this.$.scroller.setScrollTop(node.offsetTop);
+				}
+			}
+		},
+
+		/**
+		* Sets up the repeater to render the rows between `old` and
+		* `[value]{@link moon.IntegerPicker#value}` and scrolls to reveal the current value. If `old`
+		* is specified, the scroll will be animated. If `[wrap]{@link moon.IntegerPicker#wrap}` is
+		* `true`, the scroll will travel the shortest distance which may wrap.
+		*
+		* @param  {Number} [old] - Prior value from which to scroll
+		* @private
+		*/
+		scrollToValue: function(old) {
+			var newIndex = this.value - this.min;
+
+			if(old !== undefined) {
+				var delta = this.value - old;
+				var oldIndex = old - this.min;
+
+				if(this.wrap && Math.abs(delta) > this.range/2) {
+					// if wrapping and wrapping is a shorter distance, adjust the lesser index by the
+					// range so the distance is the shortest possible
+					if(newIndex > oldIndex) {
+						oldIndex += this.range;
+					} else {
+						newIndex += this.range;
+					}
+				}
+
+				// rowOffset should be the lesser of the indices and count is the difference + 1
+				var index = Math.min(oldIndex, newIndex);
+				var count = Math.abs(newIndex - oldIndex) + 1;
+				this.updateRepeater(index, count);
+
+				this.scrollToIndex(oldIndex, false);
+				this.startJob("valueChanged-Scroller", this.bindSafely("scrollToIndex", newIndex, true), 16);
+			} else {
+				// if old isn't specified, setup the repeater with only this.value and jump to it
+				this.updateRepeater(newIndex);
+				this.scrollToIndex(newIndex, false);
+			}
+		},
+
+	 	/**
+	 	* @private
+	 	*/
 		hideTopOverlay: function () {
 			this.$.topOverlay.removeClass('selected');
 		},
