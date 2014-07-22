@@ -120,6 +120,7 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
+			this.activeChanged();
 			this.noBackgroundChanged();
 		},
 
