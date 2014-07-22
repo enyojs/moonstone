@@ -1304,6 +1304,29 @@
   background-color: #cf0652;
   color: #ffffff;
 }
+/* ItemOverlay.css */
+.moon-item .moon-item-overlay {
+  float: left;
+}
+.moon-item:not(.spotlight) .moon-item-overlay.auto-hide {
+  display: none;
+}
+.moon-item.spotlight .moon-item-overlay.auto-hide {
+  display: block;
+}
+.moon-item .moon-item-overlay.right {
+  float: right;
+}
+.moon-item .moon-item-overlay .moon-icon {
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay {
+  float: right;
+}
+.enyo-locale-right-to-left .moon-item .moon-item-overlay.right {
+  float: left;
+}
 /* SelectableItem.css */
 .moon-selectable-item-indicator {
   width: 20px;
