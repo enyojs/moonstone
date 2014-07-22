@@ -164,6 +164,21 @@
 	 	*/
 		scrollFrame: 3,
 
+		/**
+		* Indicates direction of change from user. Necessary to support proper wrapping
+		* when `range == 2`
+		*
+		* @private
+		*/
+		direction: 0,
+
+		/**
+		* Range of possible values `max - min`
+		*
+		* @private
+		*/
+		range: 0,
+
 	 	/**
 	 	* @private
 	 	*/
@@ -262,6 +277,8 @@
 	 	* @private
 	 	*/
 		previous: function (inSender, inEvent) {
+			this.direction = -1;
+
 			if (this.value > this.min) {
 				this.setValue(this.value - 1);
 			} else if (this.wrap) {
@@ -274,6 +291,8 @@
 				this.startJob('hideBottomOverlay', 'hideBottomOverlay', 350);
 			}
 			this.fireChangeEvent();
+
+			this.direction = 0;
 			return true;
 		},
 
@@ -281,6 +300,8 @@
 	 	* @private
 	 	*/
 		next: function (inSender, inEvent) {
+			this.direction = 1;
+
 			if (this.value < this.max) {
 				this.setValue(this.value + 1);
 			} else if (this.wrap) {
@@ -293,6 +314,8 @@
 				this.startJob('hideTopOverlay', 'hideTopOverlay', 350);
 			}
 			this.fireChangeEvent();
+
+			this.direction = 0;
 			return true;
 		},
 
@@ -367,13 +390,20 @@
 				var delta = this.value - old;
 				var oldIndex = old - this.min;
 
-				if(this.wrap && Math.abs(delta) > this.range/2) {
-					// if wrapping and wrapping is a shorter distance, adjust the lesser index by the
-					// range so the distance is the shortest possible
-					if(newIndex > oldIndex) {
-						oldIndex += this.range;
-					} else {
-						newIndex += this.range;
+				if(this.wrap && Math.abs(delta) >= this.range/2) {
+
+					// when range is 2, we need special logic so scrolling matches the user's action
+					// (e.g. tapping the up arrow always scrolls up). If direction (set in next()
+					// and previous()) === delta (which will always be +/- 1), the natural rendering
+					// is correct even though we're wrapping around the boundary so don't adjust.
+					if(!(this.range === 2 && this.direction !== delta)) {
+						// if wrapping and wrapping is a shorter distance, adjust the lesser index by the
+						// range so the distance is the shortest possible
+						if(newIndex > oldIndex) {
+							oldIndex += this.range;
+						} else {
+							newIndex += this.range;
+						}
 					}
 				}
 
