@@ -1,14 +1,34 @@
-/**
-	_moon.ContextualPopupButton_ is a [moon.Button](#moon.Button) with additional
-	styling applied.
+(function (enyo, scope) {
+	/**
+	* _moon.ContextualPopupButton_ is a {@link moon.Button} with additional
+	* styling applied.
+	*
+	* For more information, see the documentation on
+	* [Buttons](building-apps/controls/buttons.html) in the Enyo Developer Guide.
+	*
+	* @ui
+	* @class moon.ContextualPopupButton
+	* @extends moon.Button
+	* @public
+	*/
 
-	For more information, see the documentation on
-	[Buttons](building-apps/controls/buttons.html) in the Enyo Developer Guide.
-*/
+	enyo.kind(
+		/** @lends moon.ContextualPopupButton.prototype */ {
 
-enyo.kind({
-	name: "moon.ContextualPopupButton",
-	kind: "moon.Button",
-	//* @protected
-	classes: "contextual-popup-button"
-});
+		/**
+		* @private
+		*/
+		name: 'moon.ContextualPopupButton',
+
+		/**
+		* @private
+		*/
+		kind: 'moon.Button',
+
+		/**
+		* @private
+		*/
+		classes: 'contextual-popup-button'
+	});
+
+})(enyo, this);

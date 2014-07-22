@@ -1,82 +1,160 @@
 (function (enyo, scope) {
-	
+	/**
+	* event sent to {@link moon.HighlighText} to turn on highlight
+	*
+	* @event moon.HighlighText#event:onHighlight
+	* @type {Object}
+	* @property {String|RegExp} highlight - String or regular expression specifying the text or
+	*	pattern to highlight.
+	* @public
+	*/
+
+	/**
+	* event sent to {@link moon.HighlighText} to turn off highlight
+	*
+	* @event moon.HighlighText#event:onUnHighlight
+	* @type {Object}
+	* @public
+	*/
+
 	var HTMLStringDelegate = enyo.HTMLStringDelegate,
 		HighlightTextDelegate = Object.create(HTMLStringDelegate);
-		
+
 	HighlightTextDelegate.generateInnerHtml = function (control) {
 		if (control.search) {
-			return control.content.replace(control.search, control.bindSafely(function(s) {
-				return "<span style='pointer-events:none;' class='" + this.highlightClasses + "'>" + enyo.dom.escape(s) + "</span>";
+			return control.content.replace(control.search, control.bindSafely(function (s) {
+				return '<span style=\'pointer-events:none;\' class=\'' + this.highlightClasses + '\'>' + enyo.dom.escape(s) + '</span>';
 			}));
 		} else {
-			return enyo.dom.escape(control.get("content"));
+			return enyo.dom.escape(control.get('content'));
 		}
 	};
-	
+
 	/**
-		_moon.HighlightText_ is a control that displays highlighted text.  When
-		_setHighlight()_ is called or an _onHighlight_ event is received, it will
-		highlight a specified string if that string is found within the control's
-		content.
-
-		For example, let's say we have the following control:
-
-			{kind: "moon.HighlightText", name: "myHT", content: "Hello World!"}
-
-		In response to the event
-
-			this.waterfall("onHighlight", {highlight: "Hello"});
-
-		or the direct API call
-
-			this.$.myHT.setHighlight("Hello");
-
-		the word "Hello" will be highlighted.
-
-		The highlighting will be turned when an _offHighlight_ event is received
-
-			this.waterfall("offHighlight");
-
-		or when _setHighlight()_ is passed a falsy value
-
-			this.$.myHT.setHighlight("");
+	* _moon.HighlightText_ is a control that displays highlighted text.  When
+	* {@link moon.HighlightText#setHighlight} is called or an
+	* {@link moon.HighlightText#event:onHighlight} event is received, it will highlight a specified
+	* string if that string is found within the control's content.
+	*
+	* For example, let's say we have the following control:
+	*
+	* ```
+	* {kind: 'moon.HighlightText', name: 'myHT', content: 'Hello World!'}
+	* ```
+	* In response to the event
+	*
+	* ```
+	* this.waterfall('onHighlight', {highlight: 'Hello'});
+	* ```
+	* or the direct API call
+	*
+	* ```
+	* this.$.myHT.setHighlight('Hello');
+	* ```
+	*
+	* the word 'Hello' will be highlighted.
+	*
+	* The highlighting will be turned off when an {@link moon.HighlightText#event:onUnHighlight}
+	* event is received
+	*
+	* ```
+	* this.waterfall('onUnHighlight');
+	* ```
+	* or when {@link moon.HighlightText#setHighlight} is passed a falsy value
+	*
+	* ```
+	* this.$.myHT.setHighlight('');
+	* ```
+	*
+	* @ui
+	* @class moon.HighlightText
+	* @extends enyo.Control
+	* @public
 	*/
-	enyo.kind({
-		name: "moon.HighlightText",
-		//* @public
-		published: {
-			//* String or regular expression specifying the text or pattern to
-			//* highlight. Setting this to an empty string, falsy value, or empty
-			//* regex will disable highlighting.
-			highlight: "",
-			//* When true, only case-sensitive matches of the string to highlight
-			//* will be highlighted.  This property will be ignored if the
-			//* _highlight_ property is set to a regular expression (you may use the
-			//* "i" modifier to create a case-insensitive regex).
+	enyo.kind(
+		/** @lends moon.HighlightText.prototype */ {
+
+		/**
+		* @private
+		*/
+		name: 'moon.HighlightText',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		*/
+		published: /** @lends moon.HighlightText.prototype */ {
+
+			/**
+			* String or regular expression specifying the text or pattern to
+			* highlight. Setting this to an empty string, falsy value, or empty
+			* regex will disable highlighting.
+			*
+			* @type {String|RegExp}
+			* @default ''
+			* @public
+			*/
+			highlight: '',
+
+			/**
+			* When `true`, only case-sensitive matches of the string to highlight will be
+			* highlighted.  This property will be ignored if the
+			* {@link moon.HighlightText#highlight} property is set to a regular expression (you
+			* may use the 'i' modifier to create a case-insensitive regex).
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			caseSensitive: false,
-			//* The default CSS class to apply to highlighted content
-			highlightClasses: "moon-highlight-text-highlighted"
+
+			/**
+			* The default CSS class to apply to highlighted content
+			*
+			* @type {String}
+			* @default 'moon-highlight-text-highlighted'
+			* @public
+			*/
+			highlightClasses: 'moon-highlight-text-highlighted'
 		},
-		//* @protected
+
+		/**
+		* @private
+		*/
 		renderDelegate: HighlightTextDelegate,
+
+		/**
+		* @private
+		*/
 		handlers: {
-			onHighlight: "onHighlightHandler",
-			onUnHighlight: "unHighlightHandler"
+			onHighlight: 'onHighlightHandler',
+			onUnHighlight: 'unHighlightHandler'
 		},
-		create: function() {
+
+		/**
+		* @private
+		*/
+		create: function () {
 			this.inherited(arguments);
 			this.highlightChanged();
 		},
-		//* @protected
-		highlightChanged: function() {
+
+		/**
+		* @private
+		*/
+		highlightChanged: function () {
 			if (this.highlight) {
 				if (this.highlight instanceof RegExp) {
 					// Make sure the regex isn't empty
-					this.search = ("".match(this.highlight)) ? null : this.highlight;
+					this.search = (''.match(this.highlight)) ? null : this.highlight;
 				} else {
 					// Escape string for use in regex (standard regex escape from google)
-					var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-					this.search = new RegExp(escaped, this.caseSensitive ? "g" : "ig");
+					var escaped = this.highlight.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+					this.search = new RegExp(escaped, this.caseSensitive ? 'g' : 'ig');
 				}
 			} else {
 				this.search = false;
@@ -85,19 +163,29 @@
 				this.contentChanged();
 			}
 		},
-		//* @protected
+
+		/**
+		* @private
+		*/
 		caseSensitiveChanged: function () {
 			this.highlightChanged();
 		},
-		//* @protected
-		onHighlightHandler: function(inSender, inEvent) {
+
+		/**
+		* @private
+		*/
+		onHighlightHandler: function (inSender, inEvent) {
 			this.setHighlight(inEvent.highlight);
 			return true;
 		},
-		//* @protected
-		unHighlightHandler: function(inSender, inEvent) {
-			this.setHighlight(false);
+
+		/**
+		* @private
+		*/
+		unHighlightHandler: function (inSender, inEvent) {
+			this.setHighlight('');
 			return true;
 		}
 	});
+
 })(enyo, this);
