@@ -4,23 +4,16 @@
 	*
 	* @event moon.PagingControl#event:onPaginate
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {number} scrollDelta - The distance of the scroll
 	* @public
 	*/
 
 	/**
 	* Fires when we've determined how large the bounceback effect should be.
 	*
-	* _event.scrollDelta_ contains a number representing the magnitude of the bounceback effect.
-	*
 	* @event moon.PagingControl#event:onPaginateScroll
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
+	* @property {number} scrollDelta - The magnitude of the scroll bounceback
 	*	[event]{@link external:event} information.
 	* @public
 	*/

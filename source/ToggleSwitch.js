@@ -1,13 +1,14 @@
 (function (enyo, scope) {
 	/**
-	 _moon.ToggleSwitch_, which extends [moon.Checkbox](#moon.Checkbox), is a control
-	 that looks like a switch with an 'on' state and an 'off' state. When the
-	 ToggleSwitch is tapped, it switches its state and fires an _onChange_ event.
+	 * _moon.ToggleSwitch_, which extends {@link moon.Checkbox}, is a control
+	 * that looks like a switch with an 'on' state and an 'off' state. When the
+	 * ToggleSwitch is tapped, it switches its state and fires an [`onChange`]{@link
+	 * enyo.Checkbox#event:onChange] event.
 	 *
 	 * @class moon.ToggleSwitch
 	 * @extends moon.Checkbox
-	 * @public
 	 * @ui
+	 * @public
 	 */
 	enyo.kind(
 		/** @lends  moon.ToggleSwitch.prototype */ {

@@ -1,23 +1,10 @@
 (function (enyo, scope) {
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onChange]{@link moon.Slider#event:onChange} and
-	* [onChanging]{@link moon.Slider#event:onChanging} [events]{@glossary event} are fired.
-	*
-	* @typedef {Object} moon.Slider~ChangeEventObject
-	* @property {String} value - The value of the current position.
-	* @public
-	*/
-
-	/**
 	* Fires when bar position is set.
 	*
 	* @event moon.Slider#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.Slider~ChangeEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary event} information.
+	* @property {number} value - The value of the current position.
 	* @public
 	*/
 
@@ -26,22 +13,16 @@
 	*
 	* @event moon.Slider#event:onChanging
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.Slider~ChangeEventObject} event - An [object]{@glossary Object} 
-	*	containing [event]{@glossary event} information.
+	* @property {number} value - The value of the current position.
 	* @public
 	*/
 
 	/**
-	* Fires when animation to a position finishes.
+	* Fires when animation to a position finishes. No additional information is passed with this
+	* event.
 	*
 	* @event moon.Slider#event:onAnimateFinish
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {Object} event - An [object]{@glossary Object} containing [event]{@glossary event} 
-	* information.
 	* @public
 	*/
 
@@ -54,9 +35,9 @@
 	* {kind: "moon.Slider", value: 30}
 	* ```
 	*
-	* @ui
 	* @class moon.Slider
 	* @extends moon.ProgressBar
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -784,7 +765,7 @@
 		animatorComplete: function(sender) {
 			this._setValue(sender.value);
 			this.animatingTo = null;
-			this.doAnimateFinish(sender);
+			this.doAnimateFinish();
 			return true;
 		},
 

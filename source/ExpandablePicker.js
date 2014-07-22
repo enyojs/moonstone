@@ -2,21 +2,17 @@
 	/**
 	* Fires when the currently selected item changes.
 	*
-	* _event.selected_ contains a reference to the currently selected item,
-	* or (when multipleSelection is true), an array of selected items.
-	*
-	* _event.content_ contains the content of the currently selected item,
-	* or (when multipleSelection is true), a comma separated list of selected items content.
-	*
-	* _event.index_ contains the index of the currently selected item,
-	* or (when multipleSelection is true), an array of indexes.
-	*
 	* @event moon.ExpandablePicker#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Object|Object[]} selected - a reference to the currently selected item,
+	*	or (when [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`),
+	*	an array of selected items.
+	* @property {String} content - The content of the currently selected item, or (when
+	*	[multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), a comma
+	*	(plus space) separated list of the selected items' content.
+	* @property {Number} index - The index of the currently selected item, or (when
+	*	[multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array of
+	*	indexes.
 	* @public
 	*/
 
@@ -70,9 +66,9 @@
 	* displayed as subtext below the picker label. In the multipleSelection case,
 	* the content of all selected items is displayed as a comma separated list
 	*
-	* @ui
 	* @class moon.ExpandablePicker
 	* @extends moon.ExpandableListItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -110,7 +106,7 @@
 
 			/**
 			* Reference to currently selected item, if any,
-			* or (when multipleSelection is true), an array of selected items.
+			* or (when [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an array of selected items.
 			*
 			* @type {Object | Object[]}
 			* @default null
@@ -119,8 +115,9 @@
 			selected: null,
 
 			/**
-			* Index of currently selected item, if any,
-			* or (when multipleSelection is true), an array of selected indexes.
+			* Index of currently selected item or -1, or (when
+			* [multipleSelection]{@link moon.ExpandablePicker#multipleSelection} is `true`), an
+			* array of selected indexes or an empty array, if none.
 			*
 			* @type {Number | Number[]}
 			* @default -1
@@ -147,7 +144,7 @@
 			helpText: null,
 
 			/**
-			* If true, auto collapse when an item is selected
+			* If `true`, auto collapse when an item is selected
 			*
 			* @type {Boolean}
 			* @default true
@@ -156,7 +153,7 @@
 			autoCollapseOnSelect: true,
 
 			/**
-			* If true, allow multiple selections.
+			* If `true`, allow multiple selections.
 			*
 			* @type {Boolean}
 			* @default false
@@ -447,10 +444,10 @@
 		},
 
 		/**
-		* When the picker is initialized, looks for any items with an _active: true_
+		* When the picker is initialized, looks for any items with an `active: true`
 		* flag; if one is found, it is set as the currently selected item. This is
-		* done without triggering an _onChange_ event, as it happens during
-		* initialization.
+		* done without triggering an [onChange]{@link moon.ExpandablePicker#event:onChange] event,
+		* as it happens during initialization.
 		*
 		* @private
 		*/
