@@ -97,6 +97,8 @@
 			* @public
 			*/
 			drawers: null
+			//* icon src of drawer
+			src:""
 		},
 
 		/**
@@ -115,7 +117,7 @@
 		*/
 		components: [
 			{name:'activatorWrapper', classes:'moon-drawers-activator-wrapper', spotlight:true, ontap:'activatorHandler', components: [
-				{name:'activator', classes:'moon-drawers-activator'}
+			{name:"activator", classes:"moon-drawers-activator",mixins: ["enyo.StylesheetSupport"],stylesheetContent:""}
 			]},
 			{name:'handleContainer', classes:'moon-drawers-handle-container', kind:'enyo.Drawer', resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:'resizeHandleContainer', components:[
 				{name:'handles', classes:'moon-neutral moon-drawers-handles'}
@@ -140,6 +142,9 @@
 			this.inherited(arguments);
 			this.$.drawers.createComponents(this.drawers, {kind: 'moon.Drawer', owner:this.owner});
 			this.setupHandles();
+			if(this.src){
+				this.srcChanged();
+			}
 		},
 
 		/**
@@ -173,6 +178,21 @@
 				}, this);
 			}
 		},
+	//Callback if icon source is changed
+	srcChanged: function(num){
+		var src = this.src || null;
+		//for class rules in css, needs to replace any special character in icon name with _
+		var className=src.replace(/[^a-zA-Z0-9]/g,'_');
+		if (src) {
+			if (src != "none" && src != "inherit" && src != "initial") {
+				src = "url(" + enyo.path.rewrite(this.src) + ")";
+			}
+			//Overriding content of div if src is passed
+			this.$.activator.addClass('moon-'+ className + '-d');
+			this.$.activator.addStylesheetContent('.moon-'+ className +'-d.moon-drawers-activator:after{content:'+src+'}');
+			this.$.activator.addStylesheetContent('.moon-'+ className +'-d.moon-drawers-activator.open:after{content:url(../images/DarkTheme_Icons/drawer_up_spotlight.png)}');
+		}
+	},
 
 		/**
 		* @private
