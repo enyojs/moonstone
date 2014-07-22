@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Item_ is a focusable Moonstone-styled control that can display simple
-	* text or a set of controls.
+	* {@link moon.Item} is a focusable Moonstone-styled [control]{@link enyo.Control}
+	* that can display simple text or a set of controls.
 	*
 	* @ui
 	* @class moon.Item
@@ -46,8 +46,8 @@
 		published: /** @lends moon.Item.prototype */ {
 
 			/**
-			* When true, the control is shown as disabled and does not generate tap
-			* events
+			* When `true`, the control is shown as disabled and does not generate tap
+			* events.
 			*
 			* @type {Boolean}
 			* @default false
@@ -86,7 +86,8 @@
 	});
 
 	/**
-	* _moon.ItemOverlay_ is a supplementary control that helps control layout inside of item.
+	* {@link moon.ItemOverlay} is a supplementary control that helps to manage
+	* layout within a {@link moon.Item}.
 	* 
 	* ```
 	* {kind: "moon.Item", components: [
@@ -122,7 +123,8 @@
 		published: /** @lends moon.ItemOverlay.prototype */ {
 
 			/**
-			* When true, the controls are hidden but only shown on focus
+			* When `true`, the controls in the overlay are only shown on focus; in
+			* other words, if the overlay is not focused, the controls will be hidden.
 			*
 			* @type {Boolean}
 			* @default false
@@ -131,7 +133,7 @@
 			autoHide: false,
 
 			/**
-			* When true, the controls are right aligned
+			* When `true`, the controls in the overlay are right-aligned.
 			*
 			* @type {Boolean}
 			* @default false
