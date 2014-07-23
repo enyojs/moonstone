@@ -66,7 +66,9 @@
 				this.selectionOverlayHorizontalOffsetChanged();
 				this.selectionOverlayVerticalOffsetChanged();
 				// Allow the icon to be modified by user
-				this.selectionScrimIcon = this.selectionScrimIcon || '$lib/moonstone/images/icon-selection.png';
+				if (this.selectionScrimIcon) {
+					this.$.selectionScrimIcon.removeClass('moon-icon-' + this.$.selectionScrimIcon.icon);
+				}
 			};
 		}),
 
@@ -82,7 +84,7 @@
 		*/
 		_selectionScrim: [
 			{classes: 'enyo-fit moon-selection-overlay-support-scrim', components: [
-				{name:'selectionScrimIcon', kind: 'moon.IconButton', classes: 'moon-selection-overlay-support-checkbox', spotlight: false}
+				{name:'selectionScrimIcon', kind: 'moon.IconButton', small: false, icon: "check", spotlight: false}
 			]}
 		],
 
