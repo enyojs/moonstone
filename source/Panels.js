@@ -668,6 +668,7 @@
 				if (this.animate) {
 					this.transitionInProgress = true;
 					enyo.Spotlight.mute(this);
+					this.fireTransitionStart();
 					this.triggerPreTransitions();
 				}
 				else {
@@ -769,6 +770,20 @@
 			info.index = inPanelIndex;
 			info.animate = this.animate;
 			return info;
+		},
+
+		/**
+		* Suppresses firing onTransitionStart when a transition is in progress because it was
+		* already fired in {@link moon.Panels#setIndex}
+		* 
+		* @see enyo.Panels#startTransition
+		* @private
+		*/
+		startTransition: function(sendEvents) {
+			if (this.transitionInProgress) {
+				sendEvents = !this.transitionInProgress;
+			}
+			this.inherited(arguments);
 		},
 
 		/**
