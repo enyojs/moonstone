@@ -46,15 +46,14 @@
 	margin: 30px 0px 0px 0px;
 }
 .moon-calendar-picker-date {
-	.moon-sub-header-text;
+	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-calendar-picker-date-color);
 	width: @moon-button-small-height;
 	min-width: @moon-button-small-height;
 	line-height: @moon-picker-button-width;
-	border: 0px;
+	border: 0;
 	border-radius: @moon-button-border-radius;
 	background: inherit;
-	color: @moon-calendar-picker-date-color;
-	padding: 0px;
+	padding: 0;
 	margin: 10px;
 	text-align: center;
 	vertical-align: middle;
@@ -63,9 +62,8 @@
 	.enyo-locale-non-latin 	.moon-sub-header-text;
 }
 .moon-calendar-picker-date.moon-button.small {
-	.moon-sub-header-text;
-	color: @moon-spotlight-text-color;
-	padding: 0px;
+	.moon-sub-header-text-base (@moon-sub-header-font-size, @moon-spotlight-text-color);
+	padding: 0;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
 	.enyo-locale-non-latin 	.moon-sub-header-text;
