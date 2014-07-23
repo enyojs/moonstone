@@ -114,11 +114,9 @@
 		* @private
 		*/
 		components: [
-			{name:'activatorWrapper', classes:'moon-drawers-activator-wrapper', spotlight:true, ontap:'activatorHandler', components: [
-				{name:'activator', classes:'moon-drawers-activator'}
-			]},
-			{name:'handleContainer', classes:'moon-drawers-handle-container', kind:'enyo.Drawer', resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:'resizeHandleContainer', components:[
-				{name:'handles', classes:'moon-neutral moon-drawers-handles'}
+			{name:"activator", classes: "moon-drawers-activator", spotlight: true, ontap: "activatorHandler"},
+			{name:"handleContainer", classes:"moon-drawers-handle-container", kind:"enyo.Drawer", resizeContainer:false, open:false, spotlightDisabled: true, onpostresize:"resizeHandleContainer", components:[
+				{name:"handles", classes: "moon-neutral moon-drawers-handles"}
 			]},
 			{name: 'drawers', classes:'moon-drawers-drawer-container'},
 			{name: 'client', classes:'moon-drawers-client'}
@@ -165,7 +163,7 @@
 				for (index = 0; index < this.drawers.length; ++index) {
 					handles.push(this.drawers[index].handle || {});
 				}
-				this.$.handles.createComponents(handles, {kind: 'moon.DrawerHandle', owner:this});
+				this.$.handles.createComponents(handles, {kind: 'moon.Item', owner:this});
 				controls = this.$.handles.getControls();
 				enyo.forEach(handles, function (handle, idx) {
 					controls[idx].addClass('moon-drawers-handle');
