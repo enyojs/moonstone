@@ -425,23 +425,23 @@
 .moon-superscript {
   font-size: 24px;
   vertical-align: top;
-  margin: 0px 0px 0px 2px;
-  padding: 0px;
+  margin: 0 0 0 2px;
+  padding: 0;
 }
 .moon-pre-text {
   font-size: 24px;
   vertical-align: top;
   height: 48px;
   line-height: 24px;
-  margin: 12px 2px 8px 0px;
+  margin: 12px 2px 8px 0;
   padding: 0px;
 }
 .moon-large-text {
   font-size: 48px;
   vertical-align: top;
   height: 48px;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 .moon-header-text {
   font-family: "Moonstone Miso";
@@ -1426,16 +1426,6 @@
   background-color: #404040;
   color: #a6a6a6;
 }
-.moon-button.active.spotlight:hover:not([disabled]),
-.moon-button.active.spotlight,
-.moon-button.active.spotlight.pressed,
-.moon-button.small.active.spotlight:hover:not([disabled]),
-.moon-button.small.active.spotlight,
-.moon-button.small.active.spotlight.pressed {
-  border: 5px solid #ffffff;
-  background-color: #cf0652;
-  color: #ffffff;
-}
 .moon-button:active:hover:not([disabled]) {
   border: 5px solid #cf0652;
   background-color: #404040;
@@ -1464,21 +1454,40 @@
 .moon-neutral .moon-button.small.spotlight.pressed * {
   color: #4b4b4b;
 }
-.moon-neutral .moon-button.active.spotlight:hover:not([disabled]),
-.moon-neutral .moon-button.active.spotlight,
+.moon-button.active.spotlight,
+.moon-button.small.active.spotlight {
+  border: 5px solid #ffffff;
+  background-color: #cf0652;
+  color: #ffffff;
+}
+.moon-button.active.spotlight:active,
+.moon-button.small.active.spotlight:active,
+.moon-button.active.spotlight.pressed,
+.moon-button.small.active.spotlight.pressed {
+  border: 5px solid #cf0652;
+  background-color: #404040;
+  color: #a6a6a6;
+}
+.moon-neutral .moon-button.active.spotlight:active,
 .moon-neutral .moon-button.active.spotlight.pressed,
-.moon-neutral .moon-button.small.active.spotlight:hover:not([disabled]),
-.moon-neutral .moon-button.small.active.spotlight,
+.moon-neutral .moon-button.small.active.spotlight:active,
 .moon-neutral .moon-button.small.active.spotlight.pressed {
+  border: 5px solid #cf0652;
+  background-color: #ffffff;
+}
+.moon-neutral .moon-button.active.spotlight:active *,
+.moon-neutral .moon-button.active.spotlight.pressed *,
+.moon-neutral .moon-button.small.active.spotlight:active *,
+.moon-neutral .moon-button.small.active.spotlight.pressed * {
+  color: #4b4b4b;
+}
+.moon-neutral .moon-button.active.spotlight,
+.moon-neutral .moon-button.small.active.spotlight {
   border: 5px solid #ffffff;
   background-color: #cf0652;
 }
-.moon-neutral .moon-button.active.spotlight:hover:not([disabled]) *,
 .moon-neutral .moon-button.active.spotlight *,
-.moon-neutral .moon-button.active.spotlight.pressed *,
-.moon-neutral .moon-button.small.active.spotlight:hover:not([disabled]) *,
-.moon-neutral .moon-button.small.active.spotlight *,
-.moon-neutral .moon-button.small.active.spotlight.pressed * {
+.moon-neutral .moon-button.small.active.spotlight * {
   color: #ffffff;
 }
 /* Caption Decorator */
@@ -1600,15 +1609,14 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #a6a6a6;
   display: inline-block;
   border-width: 0px;
   background-color: transparent;
-  letter-spacing: normal;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
   line-height: normal;
-  color: #a6a6a6;
   margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
   text-transform: none;
@@ -3634,15 +3642,14 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
+  color: #ffffff;
   width: 60px;
   min-width: 60px;
   line-height: 60px;
-  border: 0px;
+  border: 0;
   border-radius: 9999px;
   background: inherit;
-  color: #ffffff;
-  padding: 0px;
+  padding: 0;
   margin: 10px;
   text-align: center;
   vertical-align: middle;
@@ -3658,9 +3665,8 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
   color: #ffffff;
-  padding: 0px;
+  padding: 0;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
   font-family: "Moonstone LG Display";
@@ -4634,7 +4640,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4767,7 +4772,6 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4777,14 +4781,12 @@
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
-  font-size: 30px;
+  font-size: 20px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #a6a6a6;
-  font-size: 20px;
-  background-color: #ffffff;
   color: #000000;
+  background-color: #ffffff;
   border-radius: 5px;
   text-align: center;
   white-space: nowrap;
