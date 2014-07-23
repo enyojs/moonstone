@@ -239,7 +239,9 @@
   font-family: "Moonstone LG Display";
   src: local("LG Display-Light");
   font-weight: normal;
-  font-style: normal;/* We want "LG Display" to map to the bold variant, since that was originally the only option */
+  font-style: normal;
+  
+  /* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
   font-family: "Moonstone LG Display Bold";
@@ -2958,9 +2960,9 @@
   display: inline-block;
   vertical-align: top;
   width: 300px;
+  /* Do not change - used in JS */
   min-width: 300px;
   /* Do not change - used in JS */
-
   float: right;
   box-sizing: border-box;
 }
@@ -3270,7 +3272,7 @@
   width: 15%;
   left: 42.5%;
   bottom: 15%;
-  -webkit-transform-origin: center -133.33333333333331%;
+  -webkit-transform-origin: center -133.33333333%;
 }
 .moon-spinner .moon-spinner-ball:after {
   content: "\0F0013";
