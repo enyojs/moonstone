@@ -500,6 +500,11 @@ enyo.kind({
 		info.animate = this.animate;
 		return info;
 	},
+
+	/**
+	* @see enyo.Panels#startTransition
+	* @private
+	*/
 	startTransition: function(sendEvents) {
 		if (this.transitionInProgress) {
 			sendEvents = !this.transitionInProgress;
