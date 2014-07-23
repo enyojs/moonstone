@@ -239,9 +239,7 @@
   font-family: "Moonstone LG Display";
   src: local("LG Display-Light");
   font-weight: normal;
-  font-style: normal;
-  
-  /* We want "LG Display" to map to the bold variant, since that was originally the only option */
+  font-style: normal;/* We want "LG Display" to map to the bold variant, since that was originally the only option */
 }
 @font-face {
   font-family: "Moonstone LG Display Bold";
@@ -425,23 +423,23 @@
 .moon-superscript {
   font-size: 24px;
   vertical-align: top;
-  margin: 0 0 0 2px;
-  padding: 0;
+  margin: 0px 0px 0px 2px;
+  padding: 0px;
 }
 .moon-pre-text {
   font-size: 24px;
   vertical-align: top;
   height: 48px;
   line-height: 24px;
-  margin: 12px 2px 8px 0;
+  margin: 12px 2px 8px 0px;
   padding: 0px;
 }
 .moon-large-text {
   font-size: 48px;
   vertical-align: top;
   height: 48px;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 .moon-header-text {
   font-family: "Moonstone Miso";
@@ -563,8 +561,11 @@
 }
 .enyo-locale-non-latin {
   /* All/Medium weighted classes */
+
   /* Light weighted classes */
+
   /* Bold weighted classes */
+
 }
 .enyo-locale-non-latin .moon,
 .enyo-locale-non-latin .moon input,
@@ -1209,6 +1210,7 @@
 .moon-toggle-item .moon-checkbox.moon-toggle-switch {
   top: 11px;
   /* To override top:10px set by .moon-checkbox-item .moon-checkbox so the indicator vertically middle align */
+
 }
 .moon-toggle-item .moon-toggle-item-label-wrapper {
   margin-right: 75px;
@@ -1610,14 +1612,15 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #4b4b4b;
   display: inline-block;
   border-width: 0px;
   background-color: transparent;
+  letter-spacing: normal;
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
   line-height: normal;
+  color: #4b4b4b;
   margin: 0px 37px 33px 0px;
   padding: 3px 0px 2px 0px;
   text-transform: none;
@@ -1895,8 +1898,10 @@
   right: 0;
   text-align: right;
   /* fallback in case text-align:end isn't supported */
+
   text-align: end;
   /* CSS3 for RTL support */
+
 }
 .full-bleed .moon-header-client {
   left: 20px;
@@ -1905,13 +1910,16 @@
 .moon-header-client > * {
   text-align: left;
   /* fallback in case text-align:start isn't supported */
+
   text-align: start;
   /* CSS3 for RTL support */
+
 }
 .moon-header-client > .moon-button,
 .moon-header-client > .moon-icon {
   text-align: center;
   /* Overrides the text-align property  for button */
+
 }
 /* Medium Header */
 .moon-header.moon-medium-header {
@@ -2533,7 +2541,9 @@
   box-shadow: none;
   text-transform: none;
   /* FIXME: hack for styling reset on Android */
+
   /* -webkit-appearance: caret;*/
+
 }
 .moon-textarea-decorator.moon-focused .moon-richtext {
   cursor: text;
@@ -2871,10 +2881,13 @@
 }
 .moon-textarea-decorator > .moon-textarea {
   /* Remove scrollbars and resize handle */
+
   resize: none;
   overflow: auto;
   /* FIXME: hack for styling reset on Android */
+
   /* -webkit-appearance: caret;*/
+
 }
 .moon-textarea-decorator.moon-focused .moon-textarea {
   cursor: text;
@@ -2943,9 +2956,9 @@
   display: inline-block;
   vertical-align: top;
   width: 300px;
-  /* Do not change - used in JS */
   min-width: 300px;
   /* Do not change - used in JS */
+
   float: right;
   box-sizing: border-box;
 }
@@ -3255,7 +3268,7 @@
   width: 15%;
   left: 42.5%;
   bottom: 15%;
-  -webkit-transform-origin: center -133.33333333%;
+  -webkit-transform-origin: center -133.33333333333331%;
 }
 .moon-spinner .moon-spinner-ball:after {
   content: "\0F0013";
@@ -3640,14 +3653,14 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #4b4b4b;
   width: 60px;
   min-width: 60px;
   line-height: 60px;
-  border: 0;
+  border: 0px;
   border-radius: 9999px;
   background: inherit;
-  padding: 0;
+  color: #4b4b4b;
+  padding: 0px;
   margin: 10px;
   text-align: center;
   vertical-align: middle;
@@ -3663,8 +3676,9 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #4b4b4b;
   color: #ffffff;
-  padding: 0;
+  padding: 0px;
 }
 .enyo-locale-non-latin .moon-calendar-picker-date.moon-button.small {
   font-family: "Moonstone LG Display";
@@ -3865,6 +3879,7 @@
 		while it is fading out; however, this requires any showing classes
 		to set pointer events to auto or scrim will not function as expected.
 	*/
+
   pointer-events: none;
 }
 .moon-scrim.moon-scrim-translucent {
@@ -4565,10 +4580,12 @@
   width: 32px;
   margin: 0 0 0 15px;
   /* margin-right is inherited from moon-video-player-feedback */
+
   color: #cf0652;
   font-size: 124px;
   line-height: 26px;
   /* use line-height to middle align the icon, the defaut 32px from moon-icon will make it too low */
+
 }
 .moon-video-player-feedback .moon-icon.small {
   background-position: center -3px;
@@ -4630,6 +4647,7 @@
 .enyo-locale-non-latin .moon-video-player-info-title {
   line-height: 1.5em;
   /* Clip the title box by just a bit to help it fit better */
+
   height: 1.4em;
 }
 .moon-video-player-info-subtitle {
@@ -4638,6 +4656,7 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #4b4b4b;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4762,6 +4781,7 @@
 .enyo-locale-non-latin .moon-video-player-channel-info-no {
   line-height: 1.5em;
   /* Clip the title box by just a bit to help it fit better */
+
   height: 1.4em;
 }
 .moon-video-player-channel-info-name {
@@ -4770,6 +4790,7 @@
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
+  color: #4b4b4b;
   color: #ffffff;
   margin-bottom: 22px;
   white-space: nowrap;
@@ -4779,12 +4800,14 @@
 }
 .moon-video-player-info-icon {
   font-family: "MuseoSans 700";
-  font-size: 20px;
+  font-size: 30px;
   font-weight: normal;
   font-style: normal;
   letter-spacing: 0;
-  color: #000000;
+  color: #4b4b4b;
+  font-size: 20px;
   background-color: #ffffff;
+  color: #000000;
   border-radius: 5px;
   text-align: center;
   white-space: nowrap;
