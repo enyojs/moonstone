@@ -69,7 +69,8 @@ enyo.kind({
 		this.inherited(arguments);
 		this.adjustPosition(true);
 	},
-	requestShow: function() {
+	requestShow: function(sender, e) {
+		this.activator = e.activator;
 		this.startJob("showJob", "show", this.showDelay);
 		return true;
 	},
@@ -97,16 +98,8 @@ enyo.kind({
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = 20,
 				pBounds = this.parent.getAbsoluteBounds(),
-				acBounds =null,
-				pClients = this.parent.getClientControls();
+				acBounds =null;
 
-			for(var i=0; i<pClients.length; i++) {
-				if (pClients[i] !== this) {
-					this.activator = pClients[i];
-					break;
-				}
-			}
-			//this.activator = enyo.Spotlight.getCurrent();
 			acBounds = this.activator.getAbsoluteBounds();
 
 			//* Calculate the difference between decorator and activating

@@ -60,14 +60,14 @@ enyo.kind({
 			this.requestHideTooltip();
 		}
 	},
-	enter: function(inEvent) {
-		this.requestShowTooltip();
+	enter: function(sender, e) {
+		this.requestShowTooltip(sender);
 	},
 	leave: function() {
 		this.requestHideTooltip();
 	},
-	spotFocused: function() {
-		this.requestShowTooltip();
+	spotFocused: function(sender, e) {
+		this.requestShowTooltip(sender);
 	},
 	spotBlur: function() {
 		this.requestHideTooltip();
@@ -75,9 +75,9 @@ enyo.kind({
 	tap: function() {
 		this.requestHideTooltip();
 	},
-	requestShowTooltip: function() {
+	requestShowTooltip: function(activator) {
 		if (this.autoShow && !enyo.Spotlight.isFrozen()) {
-			this.waterfallDown("onRequestShowTooltip");
+			this.waterfallDown("onRequestShowTooltip", {activator: activator});
 		}
 	},
 	requestHideTooltip: function() {
