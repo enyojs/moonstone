@@ -142,15 +142,35 @@
 		 * @private
 		 */
 		setupItem: function (inSender, inEvent) {
-			var hour = inEvent.index;
+			var hour = this.format(inEvent.index);
+			this.$.item.setContent(hour);
+		},
+
+		format: function (index) {
+			var hour;
+
 			if (this.date) { // ilib enabled
-				this.date.hour = hour;
+				this.date.hour = index;
 				hour = this.formatter.format(this.date);
 			} else {	// Have TimePicker format the hours
-				hour = this.formatter.formatHour(hour);
+				hour = this.formatter.formatHour(index);
 			}
-			this.$.item.setContent(hour);
-		}
+
+			return hour;
+		},
+
+		scrollToValue: enyo.inherit(function (sup) {
+			return function(old) {
+				// try to avoid the format calls if the old and current values
+				// don't mod to the same value
+				var maybeSame = old !== undefined && old%12 === this.value%12;
+				if(maybeSame && this.format(old) === this.format(this.value)) {
+					sup.call(this);
+				} else {
+					sup.apply(this, arguments);
+				}
+			};
+		})
 	});
 	
 	/**
