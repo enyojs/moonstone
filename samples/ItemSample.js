@@ -20,8 +20,8 @@ enyo.kind({
 				]},
 				{kind: "moon.Item", components: [
 					{kind: "moon.MarqueeText", content: "Item with more complex components"},
-					{kind: "moon.Image", src: "http://placehold.it/440x80&text=Image+One", alt: "Image One"},
-					{kind: "moon.Image", src: "http://placehold.it/440x80&text=Image+Two", alt: "Image Two"}
+					{kind: "moon.Image", src: "http://placehold.it/450x80&text=Image+One", alt: "Image One"},
+					{kind: "moon.Image", src: "http://placehold.it/450x80&text=Image+Two", alt: "Image Two"}
 				]},
 				{kind: "moon.Item", components: [
 					{kind: "moon.MarqueeText", content: "Item with more complex components"},
