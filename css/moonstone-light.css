@@ -797,6 +797,13 @@
   background-position: center 0;
   margin: 0 10px;
   line-height: 75px;
+  /*&.hover:hover:not(.disabled),*/
+  /*	&.active:not(.spotlight),
+	&:active,
+	&.pressed,
+	&.pressed.spotlight,
+	&.hover:hover:not(.disabled).active,
+	&.hover:hover:not(.disabled):active,*/
 }
 .moon-icon-button.small {
   width: 60px;
@@ -806,22 +813,16 @@
   background-position: center 0;
   line-height: 50px;
 }
-.moon-icon-button.hover:hover:not(.disabled),
 .moon-icon-button.spotlight {
   color: #ffffff;
   background-color: #cf0652;
   background-position: center -75px;
 }
-.moon-icon-button.hover:hover:not(.disabled).small,
 .moon-icon-button.spotlight.small {
   background-position: center -50px;
 }
-.moon-icon-button.active:not(.spotlight),
-.moon-icon-button:active,
 .moon-icon-button.pressed,
-.moon-icon-button.pressed.spotlight,
-.moon-icon-button.hover:hover:not(.disabled).active,
-.moon-icon-button.hover:hover:not(.disabled):active {
+.moon-icon-button:active:not(.disabled) {
   color: #999999;
   background-color: #ffffff;
   background-position: center 0;
@@ -1958,6 +1959,7 @@
 	This way, you can minify your application, and just remove the "source" folder for production
 */
 .moon-gridlist-imageitem {
+  display: inline-block !important;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -5098,42 +5100,23 @@
 .moon-formcheckbox-item.spotlight .moon-checkbox-item-label-wrapper {
   color: #4b4b4b;
 }
-.selection-enabled .moon-selection-overlay-support.spotlight .moon-selection-overlay-support-scrim,
-.selection-enabled .moon-selection-overlay-support .spotlight.selected .moon-selection-overlay-support-scrim,
 .selection-enabled .moon-selection-overlay-support.selected .moon-selection-overlay-support-scrim {
   display: block;
-  visibility: hidden;
 }
 .selection-enabled .moon-selection-overlay-support.selected .moon-icon-button {
-  color: #999999;
-  background-position: center 0;
-  border-color: #cf0652;
   background-color: #ffffff;
   border-color: #ffffff;
   background-position: 0 -50px;
-  visibility: visible;
-}
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.active,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button:active,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.pressed,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight.pressed,
-.selection-enabled .moon-selection-overlay-support .moon-icon.moon-icon-button.spotlight:active {
-  background-color: #ffffff;
-  border-color: #ffffff;
 }
 .moon-selection-overlay-support-scrim {
   display: none;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 100000;
 }
 .moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
   position: absolute;
-  margin-top: -30px;
-  margin-left: -30px;
-}
-.enyo-locale-right-to-left .moon-selection-overlay-support-scrim .moon-selection-overlay-support-checkbox {
-  margin-left: initial;
-  margin-right: -30px;
+  color: #cf0652;
+  margin: -30px 0 0 -30px;
 }
 .moon-thumb {
   -webkit-transform-origin: 0px 0px;

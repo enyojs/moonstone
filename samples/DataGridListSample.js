@@ -13,8 +13,14 @@ enyo.kind({
 			{kind:"moon.Item", content:"Right!"}
 		]},
 		{kind: "moon.Panel", joinToPrev: true, title:"Data Grid List", headerComponents: [
-			{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle"},
-			{kind: "moon.ToggleButton", content:"MultiSelect", name:"multiSelectToggle"},
+			{kind: "moon.TooltipDecorator", components: [
+					{kind: "moon.ToggleButton", content:"Selection", name:"selectionToggle", ontap: "selectionTooltipChange"},
+					{name: "selectionTooltip", kind: "moon.Tooltip", position: "above", floating: true, content: "Click to enable selection."}
+				]},
+			{kind: "moon.TooltipDecorator", components: [
+					{kind: "moon.ToggleButton", content:"MultiSelect", disabled: true, spotlight:true, name:"multiSelectToggle", ontap: "MultiSelectionTooltipChange"},
+					{name: "multiSelectionTooltip", kind: "moon.Tooltip", position: "above", floating: true, content: "Click Selection Button First."}
+				]},
 			{kind: "moon.Button", content:"Refresh", ontap:"refreshItems"},
 			{kind: "moon.ContextualPopupDecorator", components: [
 				{kind: "moon.ContextualPopupButton", content:"Popup List"},
@@ -29,7 +35,7 @@ enyo.kind({
 			]}
 		], components: [
 			{name: "gridList", fit: true, spacing: 20, minWidth: 180, minHeight: 270, kind: "moon.DataGridList", scrollerOptions: { kind: "moon.Scroller", vertical:"scroll", horizontal: "hidden", spotlightPagingControls: true }, components: [
-				{ kind: "moon.sample.GridSampleItem" }
+				{kind: "moon.sample.GridSampleItem"}
 			]}
 		]}
 	],
@@ -44,6 +50,27 @@ enyo.kind({
 		// we set the collection that will fire the binding and add it to the list
 		this.set("collection", new enyo.Collection(this.generateRecords()));
 	},
+	selectionTooltipChange: function() {
+		if (this.$.selectionToggle.value == true ) {
+			this.$.selectionTooltip.setContent("Click to Disable Selection.");
+			this.$.multiSelectToggle.setDisabled(false);
+			this.$.multiSelectionTooltip.setContent("Click to Enable Multi Selection!")
+		} else {
+			this.$.selectionTooltip.setContent("Click to enable selection!");
+			this.$.multiSelectToggle.setDisabled(true);
+			this.$.multiSelectToggle.value = false;
+			this.$.multiSelectionTooltip.setContent("Click Selection Button First.");
+		}
+	},
+	MultiSelectionTooltipChange: function() {
+		if (this.$.selectionToggle.value == true ) {
+			if (this.$.multiSelectToggle.disabled == false) {
+				this.$.multiSelectionTooltip.setContent("You can do multi selection now!");
+			} else {
+				this.$.multiSelectionTooltip.setContent("Click to enable multiselection!");
+			}		
+		} 
+	}, 
 	generateRecords: function () {
 		var records = [],
 			idx     = this.modelIndex || 0;

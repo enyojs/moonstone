@@ -28,8 +28,10 @@ enyo.kind({
 	defaultKind: "moon.Button",
 	classes: "moon-contextual-popup-decorator",
 	handlers: {
-		onenter: "enter",
-		onleave: "leave",
+		//onenter: "enter",
+		onmouseover: "enter",
+		// onleave: "leave",
+		onmouseout: "leave",
 		onSpotlightFocused: "spotFocused",
 		onSpotlightBlur: "spotBlur",
 		onRequestMuteTooltip: "mute",
@@ -58,7 +60,7 @@ enyo.kind({
 			this.requestHideTooltip();
 		}
 	},
-	enter: function() {
+	enter: function(inEvent) {
 		this.requestShowTooltip();
 	},
 	leave: function() {

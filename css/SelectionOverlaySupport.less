@@ -1,44 +1,26 @@
 .selection-enabled {
 	.moon-selection-overlay-support {
-		&.spotlight, .spotlight.selected, &.selected {
+		&.selected {
 			.moon-selection-overlay-support-scrim {
 				display: block;
-				visibility: hidden;
 			}
-		}
-		&.selected {
+
 			.moon-icon-button {
-				.moon-icon-button.pressed;
 				background-color: @moon-selection-overlay-bg-color;
 				border-color: @moon-selection-overlay-bg-color;
 				background-position: 0 -50px;
-				visibility: visible;
 			}
-		}
-		.moon-icon.moon-icon-button,
-		.moon-icon.moon-icon-button.active,
-		.moon-icon.moon-icon-button:active,
-		.moon-icon.moon-icon-button.pressed,
-		.moon-icon.moon-icon-button.spotlight.pressed,
-		.moon-icon.moon-icon-button.spotlight:active {
-			background-color: @moon-selection-overlay-bg-color;
-			border-color: @moon-selection-overlay-bg-color;
 		}
 	}
 }
 .moon-selection-overlay-support-scrim {
 	display: none;
+	background-color: rgba(0, 0, 0, .5);
 	z-index: 100000;
+	
 	.moon-selection-overlay-support-checkbox {
 		position: absolute;
-		margin-top: -@moon-icon-button-small-size/2;
-		margin-left: -@moon-icon-button-small-size/2;
-	}
-}
-
-.enyo-locale-right-to-left .moon-selection-overlay-support-scrim {
-	.moon-selection-overlay-support-checkbox {
-		margin-left: initial;
-		margin-right: -@moon-icon-button-small-size/2;
+		color: @moon-accent;
+		margin: -@moon-icon-button-small-size / 2 0 0 -@moon-icon-button-small-size / 2;
 	}
 }

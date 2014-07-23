@@ -29,7 +29,7 @@ enyo.kind({
 		autoDismiss: false,
 		//* Hovering over the decorator for this length of time (in milliseconds)
 		//* causes the tooltip to appear
-		showDelay: 500,
+		showDelay: 250,
 		/**
 			Position of the tooltip with respect to the activating control.  Valid
 			values are "above", "below", and "auto".
@@ -97,9 +97,16 @@ enyo.kind({
 			var b = this.node.getBoundingClientRect(),
 				moonDefaultPadding = 20,
 				pBounds = this.parent.getAbsoluteBounds(),
-				acBounds =null;
+				acBounds =null,
+				pClients = this.parent.getClientControls();
 
-			this.activator = enyo.Spotlight.getCurrent();
+			for(var i=0; i<pClients.length; i++) {
+				if (pClients[i] !== this) {
+					this.activator = pClients[i];
+					break;
+				}
+			}
+			//this.activator = enyo.Spotlight.getCurrent();
 			acBounds = this.activator.getAbsoluteBounds();
 
 			//* Calculate the difference between decorator and activating

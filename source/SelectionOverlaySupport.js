@@ -46,16 +46,13 @@ moon.SelectionOverlaySupport = {
 			this.selectionOverlayVerticalOffset = this.selectionOverlayVerticalOffset === undefined ? 50 : this.selectionOverlayVerticalOffset;
 			this.selectionOverlayHorizontalOffsetChanged();
 			this.selectionOverlayVerticalOffsetChanged();
-			// Allow the icon to be modified by user
-			this.selectionScrimIcon = this.selectionScrimIcon || "$lib/moonstone/images/icon-selection.png";
+			this.$.selectionScrimIcon.addClass("moon-icon-" + this.$.selectionScrimIcon.icon);
 		};
+
 	}),
-	bindings: [
-		{from: ".selectionScrimIcon", to: ".$.selectionScrimIcon.src"}
-	],
 	_selectionScrim: [
 		{classes: "enyo-fit moon-selection-overlay-support-scrim", components: [
-			{name:"selectionScrimIcon", kind: "moon.IconButton", classes: "moon-selection-overlay-support-checkbox", spotlight: false}
+			{name:"selectionScrimIcon", kind: "moon.IconButton", icon: "check", classes: "moon-selection-overlay-support-checkbox", spotlight: false}
 		]}
 	],
 	selectionOverlayVerticalOffsetChanged: function() {
