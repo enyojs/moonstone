@@ -330,6 +330,9 @@
 							this.release();
 						}
 						this.isAnimatingHide = false;
+						if (this.directShowHide) {
+							this.setDirectShowHide(false);
+						}
 					}
 				}
 				this.activator = enyo.Spotlight.getCurrent();
