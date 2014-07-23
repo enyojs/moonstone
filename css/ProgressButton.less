@@ -1,0 +1,27 @@
+/* ProgressButton.css */
+.moon-progress-button {
+	position: relative;
+	border: @moon-progress-button-border-width solid transparent;
+}
+.moon-progress-button:active:hover:not([disabled]) {
+	border: @moon-progress-button-border-width solid transparent;
+}
+.moon-progress-button-bgcolor {
+	background-color: @moon-progress-button-bg-color;
+}
+.moon-progress-button-bar {
+	height: @moon-progress-button-bar-height;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: @moon-progress-button-bar-border-radius;
+}
+.moon-progress-button-progresspercent{
+	position: absolute;
+	left: 40%;
+}
+
+/* RTL classes */
+.moon-progress-button-rtl .moon-progress-button-bar {
+	float: right;
+}

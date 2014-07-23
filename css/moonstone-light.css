@@ -66,6 +66,8 @@
 /* ---------------------------------------*/
 /* Panel */
 /* ----------------------------------------*/
+/* Progress Button */
+/* ----------------------------------------*/
 /* Moonstone rules defined here */
 /* Import font styles */
 /* ----- SYSTEM FONT NAMES ------ */
@@ -2326,6 +2328,32 @@
 }
 /* RTL classes */
 .moon-progress-bar-rtl .moon-progress-bar-bar {
+  float: right;
+}
+/* ProgressButton.css */
+.moon-progress-button {
+  position: relative;
+  border: 0 solid transparent;
+}
+.moon-progress-button:active:hover:not([disabled]) {
+  border: 0 solid transparent;
+}
+.moon-progress-button-bgcolor {
+  background-color: #cf0652;
+}
+.moon-progress-button-bar {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+}
+.moon-progress-button-progresspercent {
+  position: absolute;
+  left: 40%;
+}
+/* RTL classes */
+.moon-progress-button-rtl .moon-progress-button-bar {
   float: right;
 }
 .moon-slider-taparea {
