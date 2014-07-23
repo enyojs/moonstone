@@ -44,6 +44,8 @@
 /* Divider */
 /* Breadcrumb */
 /* ---------------------------------------*/
+/* Selectable Item */
+/* ---------------------------------------*/
 /* Spinner */
 /* ---------------------------------------*/
 /* ToggleSwitch */
@@ -1305,50 +1307,28 @@
   color: #ffffff;
 }
 /* SelectableItem.css */
-.moon-selectable-item-indicator {
+.moon-selectable-item.selected {
+  padding: 10px 10px 10px 42px;
+}
+.moon-selectable-item.selected:before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 17px;
   width: 20px;
   height: 20px;
   border-radius: 10px;
   background-color: #cf0652;
-  display: none;
-  position: absolute;
-  left: 10px;
-  top: 17px;
 }
-.enyo-locale-right-to-left .moon-selectable-item-indicator {
+.moon-selectable-item.selected.spotlight:before {
+  background-color: #ffffff;
+}
+.enyo-locale-right-to-left .moon-selectable-item.selected {
+  padding: 10px 42px 10px 10px;
+}
+.enyo-locale-right-to-left .moon-selectable-item.selected:before {
   left: auto;
   right: 10px;
-}
-.moon-selectable-item.selected .moon-selectable-item-indicator {
-  display: inline-block;
-}
-.moon-selectable-item.spotlight .moon-selectable-item-indicator {
-  background-color: #fff;
-}
-.moon-selectable-item.selected .moon-selectable-item-client {
-  padding-left: 32px;
-}
-.enyo-locale-right-to-left .moon-selectable-item.selected .moon-selectable-item-client {
-  padding-left: 0;
-  padding-right: 32px;
-}
-/* Special treatment inside of ExpandablePicker (indented, nudged up) */
-.moon-expandable-picker .moon-selectable-item {
-  padding-left: 42px;
-}
-.enyo-locale-right-to-left .moon-expandable-picker .moon-selectable-item {
-  padding-left: 10px;
-  padding-right: 42px;
-}
-.moon-expandable-list-item .moon-selectable-item-indicator {
-  top: 15px;
-}
-.moon-expandable-picker .moon-selectable-item-indicator {
-  left: 42px;
-}
-.enyo-locale-right-to-left .moon-expandable-picker .moon-selectable-item-indicator {
-  left: auto;
-  right: 42px;
 }
 /* Button */
 .moon-button {
@@ -1526,83 +1506,38 @@
 /* Radio Item */
 .moon-radio-item {
   display: inline-block;
-}
-.moon-radio-item .moon-selectable-item-client {
   max-width: 250px;
-  padding: 0 10px 0 32px;
+  margin: 0 15px 0 0;
+  padding: 10px 10px 10px 42px;
 }
-.enyo-locale-right-to-left .moon-radio-item {
-  text-align: right;
-}
-/* Indicator */
-.moon-selectable-item-indicator.moon-radio-item-indicator {
-  display: inline-block;
-  background-color: #fff;
-  left: 10px;
-  top: 15px;
-}
-.enyo-locale-right-to-left .moon-selectable-item-indicator.moon-radio-item-indicator {
-  left: auto;
-  right: 10px;
-}
-.moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
+.moon-radio-item:before {
+  content: '';
   position: absolute;
+  left: 10px;
+  top: 17px;
   width: 16px;
   height: 16px;
-  border-radius: 8px;
-  top: 2px;
-  left: 2px;
+  border: solid 2px #ffffff;
+  border-radius: 10px;
   background-color: #4d4d4d;
 }
-.moon-selectable-item.selected .moon-selectable-item-indicator.moon-radio-item-indicator .moon-radio-item-indicator-center-dot {
+.moon-radio-item.selected:before {
   background-color: #cf0652;
 }
-.enyo-locale-right-to-left .moon-radio-item .moon-selectable-item-client,
-.enyo-locale-right-to-left .moon-radio-item.selected .moon-selectable-item-client {
-  padding: 0 32px 0 10px;
+.enyo-locale-right-to-left {
+  margin: 0 0 0 15px;
+}
+.enyo-locale-right-to-left .moon-radio-item {
+  padding: 10px 42px 10px 10px;
+}
+.enyo-locale-right-to-left .moon-radio-item:before {
+  left: auto;
+  right: 10px;
 }
 /* Radio Item */
 .moon-radio-item-group {
   position: relative;
   margin: 0 10px;
-  padding: 0;
-}
-.moon-radio-item-group .moon-button {
-  font-family: "MuseoSans 700";
-  font-size: 30px;
-  font-weight: normal;
-  font-style: normal;
-  letter-spacing: 0;
-  color: #a6a6a6;
-  display: inline-block;
-  border-width: 0px;
-  background-color: transparent;
-  white-space: nowrap;
-  overflow: hidden;
-  cursor: pointer;
-  line-height: normal;
-  margin: 0px 37px 33px 0px;
-  padding: 3px 0px 2px 0px;
-  text-transform: none;
-  min-width: 0px;
-}
-.enyo-locale-non-latin .moon-radio-item-group .moon-button {
-  font-family: "Moonstone LG Display";
-  font-family: "Moonstone LG Display Bold";
-  font-size: 30px;
-}
-.moon-radio-item-group .moon-button[disabled] {
-  cursor: default;
-  color: #4d4d4d;
-}
-.moon-radio-item-group .moon-button.spotlight,
-.moon-radio-item-group .moon-button.spotlight:active {
-  border: none;
-  color: #cf0652;
-}
-.enyo-locale-right-to-left .moon-radio-item-group .moon-button.spotlight {
-  border-right: 21px solid #cf0652;
-  border-left: 0;
 }
 /* ExpandableListItem Header*/
 .moon-expandable-list-item-header {

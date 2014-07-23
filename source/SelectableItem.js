@@ -81,14 +81,11 @@
 			*/
 			active: false
 		},
-		
+
 		/**
 		* @private
 		*/
-		components: [
-			{name: 'indicator', classes: 'moon-selectable-item-indicator'},
-			{name: 'client', kind: 'moon.MarqueeText', classes: 'moon-selectable-item-client'}
-		],
+		marqueeOnSpotlight: true,
 
 		/**
 		* @private
@@ -151,7 +148,6 @@
 		*/
 		updateActiveValue: function() {
 			this.setActive(this.getSelected());
-			this.resetMarquee();
 		},
 
 		/**
@@ -180,7 +176,7 @@
 		* @private
 		*/
 		contentChanged: function() {
-			this.$.client.setContent(this.content);
+			this.setContent(this.content);
 		}
 	});
 
