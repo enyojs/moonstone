@@ -359,7 +359,6 @@
 					});
 				} else {
 					this.animateHide();
-					var args = arguments;
 					this.animationEnd = this.bindSafely(function(sender, event) {
 						if (event.originator === this) {
 							this.inherited(args);
