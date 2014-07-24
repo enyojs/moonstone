@@ -245,6 +245,14 @@
 		},
 
 		/**
+		* @private
+		*/
+		getWeekDay: function() {
+			// Only used when ilib is not loaded
+			return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+		},
+
+		/**
 		* Returns number of days in a particular month/year.
 		*
 		* @private
