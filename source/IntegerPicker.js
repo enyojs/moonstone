@@ -352,7 +352,7 @@
 		*/
 		updateRepeater: function(index, count) {
 			this.$.repeater.set('rowOffset', index);
-			this.$.repeater.set('count', count || 1)
+			this.$.repeater.set('count', count || 1);
 			this.$.repeater.render();
 		},
 
