@@ -164,7 +164,7 @@ enyo.kind({
 			{kind: 'moon.InputDecorator', components: [
 				{kind: 'moon.Input', style: 'width: 120px', name:'topInput', placeholder: 'top (px or %)', classes: 'radioItemFont'}
 			]},
-			{kind: 'moon.Button', small: true, content: 'Set Position', ontap: 'setPosition'},
+			{kind: 'moon.Button', small: true, content: 'Set Position', ontap: 'setPosition'}
 		]},
 		{style: 'position: absolute; left: 30%; top: 50%; ', components: [
 			{kind: 'moon.Divider', content: 'Popup Direction', classes: 'radioItemFont'},
