@@ -494,6 +494,13 @@
 			onSpotlightRight: 'spotlightLeftRightFilter',
 			onresize: 'handleResize'
 		},
+		
+		/**
+		* @private
+		*/
+		eventsToCapture: {
+			onSpotlightFocus: 'capturedFocus'
+		},
 
 		/**
 		* @private
@@ -1001,7 +1008,7 @@
 		panelsHandleFocused: function(sender, e) {
 			this._infoShowing = this.$.videoInfoHeaderClient.getShowing();
 			this._controlsShowing = this.$.playerControl.getShowing();
-			this.hideFSControls();
+			this.hideFSControls(true);
 		},
 
 		/**
@@ -1115,10 +1122,14 @@
 			this.showFSInfo();
 			this.showFSBottomControls();
 		},
-		hideFSControls: function() {
+		hideFSControls: function(spottingHandled) {
 			if (this.isOverlayShowing()) {
 				this.hideFSInfo();
 				this.hideFSBottomControls();
+			}
+			if (!spottingHandled) {
+				enyo.Spotlight.setPointerMode(false);
+				enyo.Spotlight.spot(this);
 			}
 			this.stopJob('autoHide');
 		},
@@ -1370,7 +1381,27 @@
 			this.$.slider.setValue(this._currentTime);
 		},
 
-
+		/**
+		* @private
+		*/
+		capture: function () {
+			enyo.dispatcher.capture(this, this.eventsToCapture);
+		},
+		
+		/**
+		* @private
+		*/
+		release: function () {
+			enyo.dispatcher.release(this);
+		},
+		
+		/**
+		* @private
+		*/
+		capturedFocus: function (sender, event) {
+			enyo.Spotlight.spot(this);
+			return true;
+		},
 
 		///// Inline controls /////
 
@@ -1420,7 +1451,9 @@
 				this.$.fullscreenControl.setShowing(true);
 				this.showFSControls();
 				this.$.controlsContainer.resize();
+				this.capture();
 			} else {
+				this.release();
 				this.stopJob('autoHide');
 				this.addClass('inline');
 				this.$.inlineControl.setShowing(true);
