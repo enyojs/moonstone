@@ -146,6 +146,13 @@
 			this.$.item.setContent(hour);
 		},
 
+		/**
+		 * Formats the hour at `index` for the current locale
+		 *
+		 * @param  {Number} index - Hour between 0 and 24
+		 * @return {String}       - Formatted hour
+		 * @private
+		 */
 		format: function (index) {
 			var hour;
 
@@ -159,6 +166,13 @@
 			return hour;
 		},
 
+		/**
+		 * If the formatted new and old values are the same, skip animating by not passing
+		 * the old value to `IntegerPicker.scrollToValue`. 
+		 * 
+		 * @see moon.IntegerPicker#scrollToValue
+		 * @private
+		 */
 		scrollToValue: enyo.inherit(function (sup) {
 			return function(old) {
 				// try to avoid the format calls if the old and current values
