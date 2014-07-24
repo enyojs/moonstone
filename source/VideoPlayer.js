@@ -499,7 +499,8 @@
 		* @private
 		*/
 		bindings: [
-			{from: '.sourceComponents',			to:'.$.video.sourceComponents'},
+			{from: '.src',						to:'.$.video.src'},
+			{from: '.sources',					to:'.$.video.sourceComponents'},
 			{from: '.playbackRateHash',			to:'.$.video.playbackRateHash'},
 			{from: '.poster',					to:'.$.video.poster'},
 			{from: '.constrainToBgProgress',	to:'.$.slider.constrainToBgProgress'},
@@ -511,6 +512,13 @@
 			{from: '.showPlayPauseControl',		to:'.$.fsPlayPause.showing'},
 			{from: '.showVideo',				to:'.$.videoContainer.showing'}
 		],
+
+		/**
+		* @private
+		*/
+		observers: {
+			updateSource: ['src', 'sources']
+		},
 		
 		/**
 		* @private
@@ -604,7 +612,7 @@
 		*/
 		create: function() {
 			this.inherited(arguments);
-			this.srcChanged();
+			this.updateSource();
 			this.createInfoControls();
 			this.inlineChanged();
 			this.showInfoChanged();
@@ -664,7 +672,7 @@
 		updatePlaybackControlState: function() {
 			var disabled = this.disablePlaybackControls || 
 				this._panelsShowing || 
-				(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.updateSliderState();
 			this.$.playbackControls.addRemoveClass('disabled', disabled);
 			this.$.jumpBack.setDisabled(disabled);
@@ -717,20 +725,11 @@
 		showProgressBarChanged: function(was) {
 			this.$.sliderContainer.setShowing(this.showProgressBar);
 		},
-		
-		/** 
-		* Overrides default _enyo.Control_ behavior.
-		*
-		* @private
-		*/
-		getSrc: function() {
-			return this.src;
-		},
 
 		/**
 		* @private
 		*/
-		srcChanged: function() {
+		updateSource: function(old, value, source) {
 			this._canPlay = false;
 			this._isPlaying = this.autoplay;
 			this._errorCode = null;
@@ -738,7 +737,14 @@
 			this.updateSpinner();
 			this.updatePlaybackControlState();
 			this._resetTime();
-			this.$.video.setSrc(this.getSrc());
+
+			// since src and sources are mutually exclusive, clear the other property
+			// when one changes
+			if (source === 'src') {
+				this.sources = null;
+			} else if (source === 'sources') {
+				this.src = '';
+			}
 		},
 
 		/** 
@@ -863,7 +869,7 @@
 				this.disableSlider || 
 				this.disablePlaybackControls || 
 				!this._loaded || 
-				(this.disablePlaybackControlsOnUnload && (this._errorCode || !this.getSrc()));
+				(this.disablePlaybackControlsOnUnload && (this._errorCode || (!this.getSrc() && !this.getSources()) ));
 			this.$.slider.setDisabled(disabled);
 		},
 
@@ -941,7 +947,7 @@
 			this._isPlaying = false;
 			this._canPlay = false;
 			this._errorCode = null;
-			this.src = null;
+			this.src = '';
 			this.updatePlaybackControlState();
 			this.updateSpinner();
 		},
