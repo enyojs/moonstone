@@ -232,7 +232,7 @@ enyo.kind({
 		{from: ".showVideo",				to:".$.videoContainer.showing"}
 	],
 	observers: {
-		_srcChanged: ["src", "sources"]
+		updateSource: ["src", "sources"]
 	},
 	_isPlaying: false,
 	_canPlay: false,
@@ -376,7 +376,7 @@ enyo.kind({
 	showProgressBarChanged: function(inOld) {
 		this.$.sliderContainer.setShowing(this.showProgressBar);
 	},
-	_srcChanged: function(inOld, inNew, inSource) {
+	updateSource: function(inOld, inNew, inSource) {
 		this._canPlay = false;
 		this._isPlaying = this.autoplay;
 		this._errorCode = null;
@@ -384,9 +384,12 @@ enyo.kind({
 		this.updateSpinner();
 		this.updatePlaybackControlState();
 		this._resetTime();
+
+		// since src and sources are mutually exclusive, clear the other property
+		// when one changes
 		if (inSource === "sources") {
 			this.src = "";
-		} else {
+		} else if(inSource === "src") {
 			this.sources = null;
 		}
 	},

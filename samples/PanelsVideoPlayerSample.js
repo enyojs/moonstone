@@ -91,7 +91,7 @@ enyo.kind({
 		// Set source by sources array
 		this.sources = [
 			{src: undefined, type: "video/mp4"},
-			{src: "http://media.w3.org/2010/05/video/movie_300.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/video/movie_300.ogv", type: "video/ogg"},
 			{src: "http://media.w3.org/2010/05/video/movie_300.webm", type: "video/webm"}
 		];
 		this.$.player.setSources(this.sources);
@@ -104,7 +104,7 @@ enyo.kind({
 		// Set source by sources array
 		this.sources = [
 			{src: null, type: "video/mp4"},
-			{src: "http://media.w3.org/2010/05/bunny/movie.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/bunny/movie.ogv", type: "video/ogg"},
 			{src: "http://media.w3.org/2010/05/bunny/movie.webm", type: "video/webm"}
 		];
 		this.$.player.setSources(this.sources);
@@ -117,7 +117,7 @@ enyo.kind({
 		// Set source by sources array
 		this.sources = [
 			{src: "http://media.w3.org/2010/05/sintel/trailer.mp4", type: "video/mp4"},
-			{src: "http://media.w3.org/2010/05/sintel/trailer.ogg", type: "video/ogg"},
+			{src: "http://media.w3.org/2010/05/sintel/trailer.ogv", type: "video/ogg"},
 			{src: "http://media.w3.org/2010/05/sintel/trailer.webm", type: "video/webm"}
 		];
 		this.$.player.setSources(this.sources);
