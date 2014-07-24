@@ -1,18 +1,18 @@
 (function (enyo, scope) {
 	/**
-	* _moon.VideoInfoBackground_ is a [control]{@link enyo.Control} that provides a stylized 
-	* background for [components]{@link enyo.Component} placed in the _infoComponents_ block of a
-	* {moon.VideoPlayer}. It is designed as a decorator, wrapping components placed inside with the 
-	* stylized background.
+	* `moon.VideoInfoBackground` is a [control]{@link enyo.Control} that provides a stylized 
+	* background for [components]{@link enyo.Component} placed in the
+	* [`infoComponents`]{@link moon.VideoPlayer#infoComponents} block of a {@link moon.VideoPlayer}.
+	* It is designed as a decorator, wrapping components placed inside with the stylized background.
 	* 
-	* Use the [_orient_]{@link moon.VideoInfoBackground#orient} property to set the orientation 
-	* ("left" or "right").
+	* Use the [`orient`]{@link moon.VideoInfoBackground#orient} property to set the orientation 
+	* (`'left'` or `'right'`).
 	* 
-	* For more details, see {moon.VideoPlayer}.
+	* For more details, see {@link moon.VideoPlayer}.
 	*
-	* @ui
 	* @class moon.VideoInfoBackground
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -35,12 +35,12 @@
 		
 		/**
 		* @private
+		* @lends moon.VideoInfoBackground.prototype
 		*/
-		published: 
-			/** @lends moon.VideoInfoBackground.prototype */ {
+		published: {
 			
 			/** 
-			* Orientation of the control; valid values are 'left' and 'right'.
+			* Orientation of the control; valid values are `'left'` and `'right'`.
 			*
 			* @type {String}
 			* @default 'left'

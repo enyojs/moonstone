@@ -2,20 +2,19 @@
 	/**
 	* Fires when the control is either checked or unchecked.
 	*
-	* _event.toggledControl_ 	*
-	* @event moon.CheckboxItem#event:onActivate
+	* @event moon.CheckboxItem#onActivate
 	* @type {Object}
 	* @property {Boolean} checked - indicates whether the checkbox is currently checked.
 	* @property {Object} toggledControl - contains a reference to the CheckboxItem whose
 	*	state toggled. (Note that the originator of this event is actually the
-	*	{@link moon.Checkbox} contained within the CheckboxItem, so use this property to
-	*	reference the CheckboxItem.)
+	*	{@link moon.Checkbox} contained within the `CheckboxItem`, so use this property to
+	*	reference the `CheckboxItem`.)
 	*
 	* @public
 	*/
 
 	/**
-	* _moon.CheckboxItem_ is a control that combines a {@link moon.Checkbox} with a text label.
+	* `moon.CheckboxItem` is a control that combines a {@link moon.Checkbox} with a text label.
 	* The label text may be set via the {@link enyo.Control#content} property. The state of the
 	* checkbox may be retrieved by querying the {@link moon.CheckboxItem#checked} property.
 	*
@@ -68,8 +67,9 @@
 
 		/**
 		* @private
+		* @lends moon.CheckboxItem.prototype
 		*/
-		published: /** @lends moon.CheckboxItem.prototype */ {
+		published: {
 
 			/**
 			* Boolean value indicating whether checkbox is currently checked
@@ -81,7 +81,7 @@
 			checked: false,
 
 			/**
-			* If true, checkbox will be displayed on the right side of the checkbox item
+			* If `true`, checkbox will be displayed on the right side of the checkbox item
 			*
 			* @type {Boolean}
 			* @default false
@@ -90,8 +90,7 @@
 			checkboxOnRight: false,
 
 			/**
-			* When true, button is shown as disabled and does not generate tap
-			* events
+			* When `true`, button is shown as disabled and does not generate tap events
 			*
 			* @type {Boolean}
 			* @default false
@@ -218,7 +217,7 @@
 
 		/**
 		* waterfall event
-		* @fires enyo.Control#event:ontap
+		* @fires enyo.Control#ontap
 		* @private
 		*/
 		tap: function (inSender, inEvent) {
@@ -228,7 +227,7 @@
 		},
 
 		/**
-		* @fires moon.CheckboxItem#event:onActivate
+		* @fires moon.CheckboxItem#onActivate
 		* @private
 		*/
 		decorateActivateEvent: function (inSender, inEvent) {
@@ -238,7 +237,7 @@
 		},
 
 		/**
-		* @fires moon.Scroller#event:onRequestScrollIntoView
+		* @fires moon.Scroller#onRequestScrollIntoView
 		* @private
 		*/
 		spotlightFocused: function (inSender, inEvent) {

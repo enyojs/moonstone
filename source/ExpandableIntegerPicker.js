@@ -2,7 +2,7 @@
 	/**
 	* Fires when the currently selected item changes.
 	*
-	* @event moon.ExpandableIntegerPicker#event:onChange
+	* @event moon.ExpandableIntegerPicker#onChange
 	* @type {Object}
 	* @property {Number} value - The value of the currently selected item.
 	* @property {String} content -  The content of the currently selected item.
@@ -11,14 +11,13 @@
 	*/
 
 	/**
-	* _moon.ExpandableIntegerPicker_, which extends
-	* [moon.ExpandableListItem]{@link moon.ExpandableListItem}, is a drop-down picker
+	* `moon.ExpandableIntegerPicker`, which extends
+	* [`moon.ExpandableListItem`]{@link moon.ExpandableListItem}, is a drop-down picker
 	* menu that prompts the user to make a selection from a range of integer-based
 	* options.
 	*
-	* The value of the currently selected item is available in the picker's [value]{@link
-	* moon.ExpandableIntegerPicker.value} property, while the content of the item is available in
-	* {@link moon.ExpandableIntegerPicker#content}.
+	* The value of the currently selected item is available in the picker's
+	* [`value`]{@link moon.ExpandableIntegerPicker.value} property.
 	*
 	* When the picker is minimized, the content of the currently selected item is
 	* displayed as subtext below the picker label.
@@ -59,11 +58,12 @@
 
 		/**
 		* @private
+		* @lends moon.ExpandableIntegerPicker.prototype
 		*/
-		published: /** @lends moon.ExpandableIntegerPicker.prototype */ {
+		published: {
 
 			/**
-			* Text to be displayed in the _currentValue_ control if no item is currently selected
+			* Text to be displayed as the current value if no item is currently selected
 			*
 			* @type {String}
 			* @default ''
@@ -233,7 +233,7 @@
 		},
 
 		/**
-		* Sets {@link @moon.ExpandableIntegerPicker#value} to _this.$.clientInput.value_.
+		* Sets {@link @moon.ExpandableIntegerPicker#value} to `this.$.clientInput.value`.
 		*
 		* @private
 		*/
@@ -268,7 +268,7 @@
 		},
 
 		/**
-		* @fires moon.ExpandableIntegerPicker#event:onChange
+		* @fires moon.ExpandableIntegerPicker#onChange
 		* @private
 		*/
 		fireChangeEvent: function () {

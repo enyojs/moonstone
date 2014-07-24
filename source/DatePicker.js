@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* _moon.DatePicker_ is a control that can be used to display --or allow the selection of-- a
+	* `moon.DatePicker` is a control that can be used to display -- or allow the selection of -- a
 	* day, month, and year.
 	*
 	* ```
@@ -16,9 +16,9 @@
 	* [standard JavaScript Date object]{@link external:Date} to initialize the picker, or to change
 	* it programmatically at runtime.
 	*
-	* @ui
 	* @class moon.DatePicker
 	* @extends moon.DateTimePickerBase
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -36,8 +36,9 @@
 
 		/**
 		* @private
+		* @lends moon.DatePicker.prototype
 		*/
-		published: /** @lends moon.DatePicker.prototype */ {
+		published: {
 
 			/**
 			* Optional minimum year value. Must be specified using the Gregorian

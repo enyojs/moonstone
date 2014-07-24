@@ -3,7 +3,7 @@
 	* Fires when either the main drawer or the control drawer is activated. No event-specific
 	* data is sent with this event.
 	*
-	* @event moon.Drawer#event:onActivate
+	* @event moon.Drawer#onActivate
 	* @type {Object}
 	* @public
 	*/
@@ -12,17 +12,17 @@
 	* Fires when either the main drawer or the control drawer is deactivated. No event-specific
 	* data is sent with this event.
 	*
-	* @event moon.Drawer#event:onDeactivate
+	* @event moon.Drawer#onDeactivate
 	* @type {Object}
 	* @public
 	*/
 
 
 	/**
-	* _moon.Drawer_, a control designed for use with {@link moon.Drawers},
+	* `moon.Drawer`, a control designed for use with {@link moon.Drawers},
 	* consists of two drawers and a {@link moon.DrawerHandle}.
 	* The main drawer is populated with any child components that are specified in
-	* the constructor; the optional second drawer {@link moon.Drawer#controlDrawer} is populated
+	* the constructor; the optional second drawer (control drawer) is populated
 	* with components passed into the {@link moon.Drawer#controlDrawerComponents} property.
 	*
 	* If the second drawer has no components, the main drawer will take up the full
@@ -30,7 +30,7 @@
 	* height of the containing view minus the height of the
 	* {@link moon.Drawer#controlDrawerComponents}.
 	*
-	* A call to {@link moon.Drawer#toggleDrawer} will open the {@link moon.Drawer#controlDrawer} if
+	* A call to {@link moon.Drawer#toggleDrawer} will open the control drawer if
 	* {@link moon.Drawer#controlDrawerComponents} is non-empty; otherwise, it will open the main
 	* drawer.
 	*
@@ -75,8 +75,9 @@
 
 		/**
 		* @private
+		* @lends moon.Drawer.prototype
 		*/
-		published: /** @lends moon.Drawer.prototype */ {
+		published: {
 
 			/**
 			* Components that are to be placed in the control drawer
@@ -195,7 +196,7 @@
 		},
 
 		/**
-		* @private
+		* @public
 		*/
 		toggleDrawer: function () {
 			if (this.controlDrawerComponents == null) {
@@ -207,8 +208,8 @@
 		},
 
 		/**
-		* @fires moon.Drawer#event:onActivate
-		* @fires moon.Drawer#event:onDeactivate
+		* @fires moon.Drawer#onActivate
+		* @fires moon.Drawer#onDeactivate
 		* @private
 		*/
 		openChanged: function () {
@@ -224,8 +225,8 @@
 		},
 
 		/**
-		* @fires moon.Drawer#event:onActivate
-		* @fires moon.Drawer#event:onDeactivate
+		* @fires moon.Drawer#onActivate
+		* @fires moon.Drawer#onDeactivate
 		* @private
 		*/
 		controlsOpenChanged: function () {
@@ -254,7 +255,7 @@
 	});
 
 	/**
-	* _moon.FullScreenDrawer_ is a content-free drawer that fills the client's
+	* `moon.FullScreenDrawer` is a content-free drawer that fills the client's
 	* full screen area.  It is only intended for use inside of {@link moon.Drawer}.
 	* Users should not instantiate {@link moon.FullScreenDrawer} directly.
 	*
