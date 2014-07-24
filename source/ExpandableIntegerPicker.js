@@ -2,16 +2,11 @@
 	/**
 	* Fires when the currently selected item changes.
 	*
-	* _event.value_ contains the value of the currently selected item.
-	*
-	* _event.content_ contains the content of the currently selected item.
-	*
 	* @event moon.ExpandableIntegerPicker#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Number} value - The value of the currently selected item.
+	* @property {String} content -  The content of the currently selected item.
+	*
 	* @public
 	*/
 
@@ -21,16 +16,16 @@
 	* menu that prompts the user to make a selection from a range of integer-based
 	* options.
 	*
-	* The value of the currently selected item is available in the picker's _value_
-	* property, while the content of the item is available in
+	* The value of the currently selected item is available in the picker's [value]{@link
+	* moon.ExpandableIntegerPicker.value} property, while the content of the item is available in
 	* {@link moon.ExpandableIntegerPicker#content}.
 	*
 	* When the picker is minimized, the content of the currently selected item is
 	* displayed as subtext below the picker label.
 	*
-	* @ui
 	* @class moon.ExpandableIntegerPicker
-	@ @extends moon.ExpandableListItem
+	* @extends moon.ExpandableListItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(

@@ -1,24 +1,11 @@
 (function (enyo, scope) {
 	/**
-	* The extended [event]{@glossary:event} [object]{@link glossary Object} that is provided when 
-	* the [onChange]{@link moon.SimpleIntegerPicker#event:onChange} and
-	* [onSelect]{@link moon.SimpleIntegerPicker#event:onSelect} [events]{@glossary event} are fired.
-	*
-	* @typedef {Object} moon.SimpleIntegerPicker~SelectionEventObject
-	* @property {String} value - The value of the currently selected item.
-	* @property {String} content - The content of the currently selected item.
-	* @public
-	*/
-
-	/**
 	* Fires when the currently selected item changes.
 	*
 	* @event moon.SimpleIntegerPicker#event:onChange
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.SimpleIntegerPicker~SelectionEventObject} event - An 
-	*	[object]{@glossary Object} containing [event]{@glossary event} information.
+	* @property {Number} value - The value of the currently selected item.
+	* @property {String} content - The content of the currently selected item.
 	* @public
 	*/
 
@@ -28,10 +15,8 @@
 	*
 	* @event moon.SimpleIntegerPicker#event:onSelect
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {moon.SimpleIntegerPicker~SelectionEventObject} event - An 
-	*	[object]{@glossary Object} containing [event]{@glossary event} information.
+	* @property {Number} value - The value of the currently selected item.
+	* @property {String} content - The content of the currently selected item.
 	* @public
 	*/
 
@@ -39,14 +24,11 @@
 	* Fires when the picker is rebuilt, allowing other controls the opportunity to reflow the picker
 	* as necessary, i.e. as a child of 
 	* [_moon.ExpandableIntegerPicker_]{@link moon.ExpandableIntegerPicker} needing to be reflowed 
-	* when opened as it may currently not be visible.
+	* when opened as it may currently not be visible. No event-specific data is sent with this
+	* event.
 	*
 	* @event moon.SimpleIntegerPicker#event:onRebuilt
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently 
-	*	propagated the [event]{@glossary event}.
-	* @property {Object} event - An [object]{@glossary Object} containing [event]{@glossary event} 
-	*	information.
 	* @public
 	*/
 
@@ -59,9 +41,9 @@
 	* [_next()_]{@link moon.SimpleIntegerPicker#next}, or by modifying the published property 
 	* [_value_]{@link moon.SimpleIntegerPicker#value}.
 	*
-	* @ui
 	* @class moon.SimpleIntegerPicker
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(

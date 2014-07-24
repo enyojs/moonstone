@@ -46,9 +46,9 @@
 	*		]}
 	* ```
 	*
-	* @ui
 	* @class moon.ExpandableListItem
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -58,6 +58,11 @@
 		* @private
 		*/
 		name: 'moon.ExpandableListItem',
+
+		/**
+		* @private
+		*/
+		kind: 'enyo.Control',
 
 		/**
 		* @private
@@ -76,7 +81,7 @@
 			autoCollapse: false,
 
 			/**
-			* If true, the drawer is expanded, showing this item's contents. Use this
+			* If `true`, the drawer is expanded, showing this item's contents. Use this
 			* property (rather than moon.ExpandableListItem#active) to set the item's initial state.
 			*
 			* @type {Boolean}
@@ -99,7 +104,7 @@
 			active: false,
 
 			/**
-			* If true, the user is prevented from moving spotlight past the bottom of
+			* If `true`, the user is prevented from moving spotlight past the bottom of
 			* the drawer (when open) using five-way controls
 			*
 			* @type {Boolean}
@@ -109,7 +114,7 @@
 			lockBottom: false,
 
 			/**
-			* When true, item is shown as disabled and does not generate tap events
+			* When `true`, item is shown as disabled and does not generate tap events
 			*
 			* @type {Boolean}
 			* @default false

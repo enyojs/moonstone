@@ -181,7 +181,6 @@
 					return this.findSpottableControl(inDirection, inPage === pages.firstPage ? pages.lastPage : pages.firstPage, inPageIndex - 1);
 				}
 			}
-
 			return control;
 		},
 
@@ -232,14 +231,21 @@
 			// Loop through the pages in top-down order
 			var pages = (this.$.page1.index < this.$.page2.index) ?
 				[this.$.page1, this.$.page2] :
-				[this.$.page2, this.$.page1];
-			for (var p in pages) {
-				var page = pages[p];
-				var pb = page.getBounds();
+				[this.$.page2, this.$.page1],
+				pageIdx,
+				page,
+				pb,
+				i,
+				c,
+				cb;
+
+			for (pageIdx = 0; pageIdx < pages.length; pageIdx++) {
+				page = pages[pageIdx];
+				pb = page.getBounds();
 				// Loop through children in each page top-down
-				for (var i=0; i<page.children.length; i++) {
-					var c = page.children[i];
-					var cb = c.getBounds();
+				for (i=0; i<page.children.length; i++) {
+					c = page.children[i];
+					cb = c.getBounds();
 					// Need to add page offset to target bounds
 					cb.top += pb.top;
 					cb.left += pb.left;
@@ -255,6 +261,7 @@
 					}
 				}
 			}
+
 			return null;
 		},
 
@@ -324,6 +331,7 @@
 				}
 				oControl = oControl.parent;
 			}
+
 			return null;
 		},
 

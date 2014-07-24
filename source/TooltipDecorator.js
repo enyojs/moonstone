@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.TooltopDecorator_ is a control that activates a [moon.Tooltip]{@link moon.Tooltip}. It surrounds a
-	 * control such as a button and displays the tooltip when the control generates
+	 * _moon.TooltopDecorator_ is a control that activates a [moon.Tooltip]{@link moon.Tooltip}. It
+	 * surrounds a control such as a button and displays the tooltip when the control generates
 	 * an _onEnter_ event:
 	 *
 	 * ```
@@ -11,7 +11,8 @@
 	 * ]}
 	 * ```
 	 *
-	 * Here is an example with a [moon.Input]{@link moon.Input} control and a decorator around the input:
+	 * Here is an example with a [moon.Input]{@link moon.Input} control and a decorator around the
+	 * input:
 	 *
 	 * ```
 	 * {kind: 'moon.TooltipDecorator', components: [
@@ -22,14 +23,15 @@
 	 * ]}
 	 * ```
 	 *
-	 * Automatic hiding and showing of tooltips may be disabled by calling [mute()](#mute) or by bubbling the
-	 * `onRequestMuteTooltip` event; it may be re-enabled by calling [unmute()](#unmute) or by bubbling the
-	 * `onRequestUnmuteTooltip` event.
+	 * Automatic hiding and showing of tooltips may be disabled by calling
+	 * [mute()]{@link moon.TooltipDecorator#mute} or by bubbling the `onRequestMuteTooltip` event;
+	 *  it may be re-enabled by calling [unmute()]{@link moon.TooltipDecorator#unmute) or by
+	 *  bubbling the `onRequestUnmuteTooltip` event.
 	 *
 	 * @class moon.TooltipDecorator
 	 * @extends enyo.Control
-	 * @public
 	 * @ui
+	 * @public
 	 */
 	enyo.kind(
 		/** @lends  moon.TooltipDecorator.prototype */ {
@@ -64,13 +66,13 @@
 		/**
 		 * @private
 		 */
-		published: {
+		published: /** @lends moon.TooltipDecorator.prototype */ {
 			/**
-			 * Boolean indicating whether tooltips are automatically shown when the activator is hovered over
+			 * Boolean indicating whether tooltips are automatically shown when the activator is
+			 * hovered over
 			 *
 			 * @type {Boolean}
 			 * @default true
-			 * @memberof moon.TooltipDecorator.prototype
 			 * @public
 			 */
 			autoShow: true

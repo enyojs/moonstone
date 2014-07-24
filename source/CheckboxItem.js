@@ -2,34 +2,29 @@
 	/**
 	* Fires when the control is either checked or unchecked.
 	*
-	* _event.checked_ indicates whether the checkbox is currently checked.
-	*
-	* _event.toggledControl_ contains a reference to the CheckboxItem whose
-	* state toggled. (Note that the originator of this event is actually the
-	* _moon.Checkbox_ contained within the CheckboxItem, so use this property to
-	* reference the CheckboxItem.)
-	*
+	* _event.toggledControl_ 	*
 	* @event moon.CheckboxItem#event:onActivate
 	* @type {Object}
-	* @property {Object} sender - The [component]{@link enyo.Component} that most recently
-	*	propagated the [event]{@link external:event}.
-	* @property {Object} event - An [object]{@link external:Object} containing
-	*	[event]{@link external:event} information.
+	* @property {Boolean} checked - indicates whether the checkbox is currently checked.
+	* @property {Object} toggledControl - contains a reference to the CheckboxItem whose
+	*	state toggled. (Note that the originator of this event is actually the
+	*	{@link moon.Checkbox} contained within the CheckboxItem, so use this property to
+	*	reference the CheckboxItem.)
+	*
 	* @public
 	*/
 
 	/**
-	* _moon.CheckboxItem_ is a control that combines a
-	* {@link moon.Checkbox} with a text label. The label text may be set
-	* via the {@link enyo.Control#content} property. The state of the checkbox may be retrieved by
-	* querying the {@link moon.CheckboxItem#checked} property.
+	* _moon.CheckboxItem_ is a control that combines a {@link moon.Checkbox} with a text label.
+	* The label text may be set via the {@link enyo.Control#content} property. The state of the
+	* checkbox may be retrieved by querying the {@link moon.CheckboxItem#checked} property.
 	*
 	* ```
-	*		{kind: "moon.CheckboxItem", content: "San Francisco",
-	*			onchange: "checkedChanged"},
+	*		{kind: 'moon.CheckboxItem', content: 'San Francisco',
+	*			onchange: 'checkedChanged'},
 	*		...
-	*		checkedChanged: function(inSender, inEvent) {
-	*			var checked = inSender.get("checked");
+	*		checkedChanged: function (inSender, inEvent) {
+	*			var checked = inSender.get('checked');
 	*		}
 	* ```
 	*
@@ -38,18 +33,18 @@
 	* time (similar to how a {@link moon.RadioItemGroup} works):
 	*
 	* ```
-	*		{kind: "Group", components: [
-	*			{kind: "moon.CheckboxItem", content: "New York"},
-	*			{kind: "moon.CheckboxItem", content: "London"},
-	*			{kind: "moon.CheckboxItem", content: "San Francisco"},
-	*			{kind: "moon.CheckboxItem", content: "Beijing"}
+	*		{kind: 'Group', components: [
+	*			{kind: 'moon.CheckboxItem', content: 'New York'},
+	*			{kind: 'moon.CheckboxItem', content: 'London'},
+	*			{kind: 'moon.CheckboxItem', content: 'San Francisco'},
+	*			{kind: 'moon.CheckboxItem', content: 'Beijing'}
 	*		]}
 	* ```
 	*
-	* @ui
 	* @class moon.CheckboxItem
 	* @extends enyo.Control
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -58,12 +53,17 @@
 		/**
 		* @private
 		*/
-		name: "moon.CheckboxItem",
+		name: 'moon.CheckboxItem',
 
 		/**
 		* @private
 		*/
-		mixins: ["moon.MarqueeSupport"],
+		kind: 'enyo.Control',
+
+		/**
+		* @private
+		*/
+		mixins: ['moon.MarqueeSupport'],
 
 
 		/**
@@ -108,13 +108,13 @@
 			/**
 			* {@link moon.CheckboxItem#event:onActivate}
 			*/
-			onActivate: ""
+			onActivate: ''
 		},
 
 		/**
 		* @private
 		*/
-		classes: "moon-item moon-checkbox-item",
+		classes: 'moon-item moon-checkbox-item',
 
 		/**
 		* @private
@@ -125,30 +125,30 @@
 		* @private
 		*/
 		handlers: {
-			ontap: "tap",
-			onActivate: "decorateActivateEvent",
-			onSpotlightFocused: "spotlightFocused"
+			ontap: 'tap',
+			onActivate: 'decorateActivateEvent',
+			onSpotlightFocused: 'spotlightFocused'
 		},
 
 		/**
 		* @private
 		*/
 		components: [
-			{name: "client", mixins: ["moon.MarqueeItem"], classes: "moon-checkbox-item-label-wrapper"},
-			{name: "input", kind: "moon.Checkbox", spotlight: false}
+			{name: 'client', mixins: ['moon.MarqueeItem'], classes: 'moon-checkbox-item-label-wrapper'},
+			{name: 'input', kind: 'moon.Checkbox', spotlight: false}
 		],
 
 		/**
 		* @private
 		*/
 		bindings: [
-			{from: ".allowHtml", to: ".$.client.allowHtml"}
+			{from: '.allowHtml', to: '.$.client.allowHtml'}
 		],
 
 		/**
 		* @private
 		*/
-		create: function() {
+		create: function () {
 			this.inherited(arguments);
 			this.disabledChanged();
 			this.checkboxOnRightChanged();
@@ -157,7 +157,7 @@
 		/**
 		* @private
 		*/
-		rendered: function() {
+		rendered: function () {
 			this.inherited(arguments);
 			this.checkedChanged();
 		},
@@ -165,23 +165,23 @@
 		/**
 		* @private
 		*/
-		disabledChanged: function() {
-			this.addRemoveClass("disabled", this.disabled);
+		disabledChanged: function () {
+			this.addRemoveClass('disabled', this.disabled);
 			this.$.input.setDisabled(this.disabled);
 		},
 
 		/**
 		* @private
 		*/
-		checkedChanged: function() {
+		checkedChanged: function () {
 			this.$.input.setChecked(this.getChecked());
 		},
 
 		/**
 		* @private
 		*/
-		checkboxOnRightChanged: function() {
-			this.addRemoveClass("left-handed", !this.getCheckboxOnRight());
+		checkboxOnRightChanged: function () {
+			this.addRemoveClass('left-handed', !this.getCheckboxOnRight());
 		},
 
 		/**
@@ -189,9 +189,9 @@
 		* @fires enyo.Control#event:ontap
 		* @private
 		*/
-		tap: function(inSender, inEvent) {
+		tap: function (inSender, inEvent) {
 			if (inSender != this.$.input) {
-				this.waterfallDown("ontap", inEvent, inSender);
+				this.waterfallDown('ontap', inEvent, inSender);
 			}
 		},
 
@@ -199,7 +199,7 @@
 		* @fires moon.CheckboxItem#event:onActivate
 		* @private
 		*/
-		decorateActivateEvent: function(inSender, inEvent) {
+		decorateActivateEvent: function (inSender, inEvent) {
 			inEvent.toggledControl = this;
 			this.setChecked(this.$.input.getChecked());
 			inEvent.checked = this.checked;
@@ -209,16 +209,16 @@
 		* @fires moon.Scroller#event:onRequestScrollIntoView
 		* @private
 		*/
-		spotlightFocused: function(inSender, inEvent) {
+		spotlightFocused: function (inSender, inEvent) {
 			if (inEvent.originator === this) {
-				this.bubble("onRequestScrollIntoView");
+				this.bubble('onRequestScrollIntoView');
 			}
 		},
 
 		/**
 		* @private
 		*/
-		contentChanged: function() {
+		contentChanged: function () {
 			this.$.client.setContent(this.getContent());
 		}
 	});
