@@ -86,8 +86,7 @@
 		* @private
 		*/
 		components: [
-			{name: 'indicator', classes: 'moon-selectable-item-indicator'},
-			{name: 'client', kind: 'moon.MarqueeText', classes: 'moon-selectable-item-client'}
+			{name: 'client', kind: 'moon.MarqueeText'}
 		],
 
 		/**

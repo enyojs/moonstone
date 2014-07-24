@@ -11,7 +11,7 @@ enyo.kind({
 					{kind: "moon.SelectableItem", content: "Option 2", onActivate: "itemChanged"},
 					{kind: "moon.SelectableItem", disabled: true, content: "Disabled", onActivate: "itemChanged"},
 					{kind: "moon.SelectableItem", content: "Option 4", selected: true, onActivate: "itemChanged"},
-					{kind: "moon.SelectableItem", content: "Option 5", onActivate: "itemChanged"}
+					{kind: "moon.SelectableItem", content: "Option 5 is very very very long", onActivate: "itemChanged"}
 				]},
 				{components: [
 					{kind: "moon.Divider", content: "Selectable Item Group"},
