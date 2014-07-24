@@ -1,8 +1,9 @@
 (function (enyo, scope) {
 	/**
-	* moon.DataListSpotlightSupport_ a mixin that provides spotlight handling code for use by
-	* {@link moon.DataList} and {@link moon.DataGridList}. Since those each extend from their respective
-	* enyo counterparts, this mixin provides common add-on code needed for proper spotlight handling.
+	* `moon.DataListSpotlightSupport` is a [mixin]{@glossary mixin} that provides spotlight handling
+	* code for use by {@link moon.DataList} and {@link moon.DataGridList}. Since those each extend
+	* from their respective enyo counterparts, this mixin provides common add-on code needed for
+	* proper spotlight handling.
 	*
 	* @mixin moon.DataListSpotlightSupport
 	* @private
@@ -11,8 +12,16 @@
 
 		/**
 		* @private
+		* @lends moon.DataListSpotlightSupport.prototype
 		*/
 		published: {
+			/**
+			* The index of the item to focus at render time, or `-1` for no focused item.
+			*
+			* @type {Number}
+			* @default -1
+			* @public
+			*/
 			initialFocusIndex: -1
 		},
 
@@ -409,13 +418,13 @@
 	};
 
 	/**
-	* _moon.DataList_ is an {@link enyo.DataList} with Moonstone styling
+	* `moon.DataList` is an {@link enyo.DataList} with Moonstone styling
 	* applied.  It uses {@link moon.Scroller} as its default scroller.
 	*
-	* @ui
 	* @class moon.DataList
 	* @extends enyo.DataList
 	* @mixes moon.DataListSpotlightSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(

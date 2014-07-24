@@ -1,12 +1,12 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Divider_ is a simple styled component that may be used as a separator
+	* `moon.Divider` is a simply styled component that may be used as a separator
 	* between groups of components.
 	*
-	* @ui
 	* @class moon.Divider
 	* @mixes moon.MarqueeSupport
 	* @mixes moon.MarqueeItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(

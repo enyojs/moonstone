@@ -1,19 +1,20 @@
 (function (enyo, scope) {
 	/**
-	* Fires when the SelectableItem is tapped. No event-specific data is sent with this event.
+	* Fires when the [`SelectableItem`]{@link moon.SelectableItem} is tapped. No event-specific data
+	* is sent with this event.
 	*
-	* @event moon.SelectableItem#event:onActivate
+	* @event moon.SelectableItem#onActivate
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.SelectableItem_ is a {@link moon.Item} with a flag to track selection state.  It is 
+	* `moon.SelectableItem` is a {@link moon.Item} with a flag to track selection state.  It is
 	* especially useful within the context of the [Enyo Group API]{@link enyo.Group}.
-	* 
+	*
 	* When selected, the item appears as underlined.
-	* 
-	* If multiple _SelectableItems_ are used in a group, only one of them may be in
+	*
+	* If multiple `SelectableItem`s are used in a group, only one of them may be in
 	* the selected state at a given time.
 	*
 	* @class moon.SelectableItem
@@ -56,9 +57,9 @@
 
 		/**
 		* @private
+		* @lends moon.SelectableItem.prototype
 		*/
-		published: 
-			/** @lends moon.SelectableItem.prototype */ {
+		published: {
 
 			/**
 			* Is `true` if this item is currently selected; `false` if not.
@@ -70,10 +71,10 @@
 			selected: false,
 
 			/**
-			* For use with the Enyo Group API; `true` if this item is the selected item in the 
-			* group. Within this kind, [_selected_]{@link moon.SelectableItem#selected} and _active_
-			* appear to behave similarly; however, _active_ is meant to be used by
-			* {@link enyo.Group}, while _selected_ is to be used for changing selection state.
+			* For use with the Enyo Group API; `true` if this item is the selected item in the
+			* group. Within this kind, [`selected`]{@link moon.SelectableItem#selected} and `active`
+			* appear to behave similarly; however, `active` is meant to be used by
+			* {@link enyo.Group}, while `selected` is to be used for changing selection state.
 			*
 			* @type {Boolean}
 			* @default false
@@ -163,8 +164,8 @@
 
 		/**
 		* For use with the Enyo Group API, which is supported by this object. Called when the active
-		* item within the group changes. The [_active_]{@link enyo.SelectableItem#active} property 
-		* and [_onActivate_]{@link enyo.SelectableItem#event:onActivate} event are both part of the 
+		* item within the group changes. The [`active`]{@link enyo.SelectableItem#active} property
+		* and [`onActivate`]{@link enyo.SelectableItem#event:onActivate} event are both part of the
 		* Group API.
 		*
 		* @private

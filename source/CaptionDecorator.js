@@ -1,7 +1,7 @@
 (function (enyo, scope) {
 	/**
-	* _moon.CaptionDecorator_ wraps a control with a caption. The position of the
-	* caption is defined via the {@link moon.CaptionDecorator#side} property.
+	* `moon.CaptionDecorator` wraps a control with a caption. The position of the
+	* caption is defined via the [`side`]{@link moon.CaptionDecorator#side} property.
 	*
 	* ```
 	* 	{kind: 'moon.CaptionDecorator', side: 'top', content: 'Top Label', components: [
@@ -9,9 +9,9 @@
 	* 	]}
 	* ```
 	*
-	* @ui
 	* @class moon.CaptionDecorator
 	@ @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -32,12 +32,13 @@
 
 		/**
 		* @private
+		* @lends moon.CaptionDecorator.prototype
 		*/
-		published: /** @lends moon.CaptionDecorator.prototype */ {
+		published: {
 
 			/**
 			* The position of the caption with respect to the wrapped control; valid
-			* values are 'top', 'bottom', 'left', and 'right'
+			* values are `'top'`, `'bottom'`, `'left'`, and `'right'`
 			*
 			* @type {String}
 			* @default 'top'
@@ -46,7 +47,7 @@
 			side: 'top',
 
 			/**
-			* If true, the caption is only shown when the wrapped control has Spotlight
+			* If `true`, the caption is only shown when the wrapped control has Spotlight
 			* focus; otherwise, it is always visible
 			*
 			* @type {Boolean}
@@ -102,7 +103,7 @@
 		},
 
 		/**
-		* If _this.showOnFocus_ is _true_, reset caption position on reflow
+		* If `this.showOnFocus` is `true`, reset caption position on reflow
 		*
 		* @private
 		*/
@@ -115,7 +116,7 @@
 		},
 
 		/**
-		* If _this.showOnFocus_ is _true_, reset caption position on reflow
+		* If `this.showOnFocus` is `true`, reset caption position on reflow
 		*
 		* @private
 		*/
@@ -152,7 +153,7 @@
 		showOnFocusChanged: function () {
 			this.addRemoveClass('showOnFocus', this.getShowOnFocus());
 
-			// If _showOnFocus_ is _true_, reset caption position
+			// If `showOnFocus` is `true`, reset caption position
 			if (this.hasNode() && this.getShowOnFocus()) {
 				this.resetCaptionPosition();
 			}
@@ -164,7 +165,7 @@
 		contentChanged: function () {
 			this.$[this.getSide()+'Caption'].setContent(this.getContent());
 
-			// If _showOnFocus_ is _true_, reset caption position
+			// If `showOnFocus` is `true`, reset caption position
 			if (this.hasNode() && this.getShowOnFocus()) {
 				this.resetCaptionPosition();
 			}
@@ -220,7 +221,7 @@
 		},
 
 		/**
-		* Position caption based on the value of _this.side_
+		* Position caption based on the value of `this.side`
 		*
 		* @private
 		*/
@@ -256,7 +257,7 @@
 		},
 
 		/**
-		* Center caption control vertically relative to _this.decoratorBounds.height_
+		* Center caption control vertically relative to `this.decoratorBounds.height`
 		*
 		* @private
 		*/
@@ -265,7 +266,7 @@
 		},
 
 		/**
-		* Center caption control horizontally relative to _this.decoratorBounds.width_
+		* Center caption control horizontally relative to `this.decoratorBounds.width`
 		*
 		* @private
 		*/
@@ -274,7 +275,7 @@
 		},
 
 		/**
-		* Position caption at left edge of _this.$.client_
+		* Position caption at left edge of `this.$.client`
 		*
 		* @private
 		*/
@@ -284,7 +285,7 @@
 		},
 
 		/**
-		* Position caption at right edge of _this.$.client_
+		* Position caption at right edge of `this.$.client`
 		*
 		* @private
 		*/
@@ -294,7 +295,7 @@
 		},
 
 		/**
-		* Position caption at top edge of _this.$.client_
+		* Position caption at top edge of `this.$.client`
 		*
 		* @private
 		*/
@@ -304,7 +305,7 @@
 		},
 
 		/**
-		* Position caption at bottom edge of _this.$.client_
+		* Position caption at bottom edge of `this.$.client`
 		*
 		* @private
 		*/
@@ -314,7 +315,7 @@
 		},
 
 		/**
-		* Cache result from _this.getBounds()_ call and save in _this.decoratorBounds_
+		* Cache result from `this.getBounds()` call and save in `this.decoratorBounds`
 		*
 		* @private
 		*/
@@ -324,7 +325,7 @@
 		},
 
 		/**
-		* Cache caption bounds and save in _this.captionBounds_
+		* Cache caption bounds and save in `this.captionBounds`
 		*
 		* @private
 		*/
@@ -334,7 +335,7 @@
 		},
 
 		/**
-		* Cache client bounds and save in _this.clientBounds_
+		* Cache client bounds and save in `this.clientBounds`
 		*
 		* @private
 		*/

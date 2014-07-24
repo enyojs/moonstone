@@ -3,7 +3,7 @@
 	* Custom input event to allow apps to differentiate between inputs and header inputs. See
 	* {@link enyo.Input#event:oninput} for more event information.
 	*
-	* @event moon.Header#event:onInputHeaderInput
+	* @event moon.Header#onInputHeaderInput
 	* @type {Object}
 	* @public
 	*/
@@ -12,13 +12,13 @@
 	* Custom input change event to allow apps to differentiate between input changes and header
 	* input changes. See {@link enyo.Input#event:onchange} for more event information.
 	*
-	* @event moon.Header#event:onInputHeaderChange
+	* @event moon.Header#onInputHeaderChange
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.Header_ is a Moonstone-styled control with a large title and an area for
+	* `moon.Header` is a Moonstone-styled control with a large title and an area for
 	* additional controls.
 	*
 	* @class moon.Header
@@ -26,7 +26,7 @@
 	* @mixes moon.MarqueeSupport
 	* @ui
 	* @public
-	 */
+	*/
 	enyo.kind(
 		/** @lends moon.Header.prototype */ {
 
@@ -47,8 +47,9 @@
 
 		/**
 		* @private
+		* @lends moon.Header.prototype
 		*/
-		published: /** @lends moon.Header.prototype */ {
+		published: {
 
 			/**
 			* Title of the header
@@ -87,9 +88,9 @@
 			subTitleBelow: '',
 
 			/**
-			* If medium, the _moon-medium-header_ CSS class will be applied to this header
-			* If small, the _moon-small-header_ CSS class will be applied to this header
-			* If large, the _moon-header_ CSS class will be applied to this header
+			* If `'medium'`, the `moon-medium-header` CSS class will be applied to this header
+			* If `'small'`, the `moon-small-header` CSS class will be applied to this header
+			* If `'large'`, the `moon-header` CSS class will be applied to this header
 			*
 			* @type {String}
 			* @default 'large'
@@ -98,9 +99,11 @@
 			type: 'large',
 
 			/**
-			* If true, the _moon-medium-header_ CSS class will be applied to this header
-			* Note: This property will be deprecated soon. For backward compatiblity, I leave it for a
-			* while. And until it is removed, 'small' refers to the historical size, which is now 'medium'
+			* If `true`, the `moon-medium-header` CSS class will be applied to this header.
+			*
+			* Note: This property will be deprecated soon. For backward compatiblity, I leave it for
+			* a while. And until it is removed, `'small'` refers to the historical size, which is
+			* now `'medium'`
 			*
 			* @type {Boolean}
 			* @default false
@@ -120,12 +123,12 @@
 			backgroundSrc: null,
 
 			/**
-			* Position of background image, defined as a string of the form _'vertical
-			* horizontal'_, with a space separating the _vertical_ and _horizontal_
-			* properties (e.g., _'top right'_). If no second property is included, the
-			* horizontal value will default to _right_.
-			* As with {@link moon.Header#backgroundSrc}, an array of strings may be supplied to position
-			* multiple background images. The order of items should be the same as in
+			* Position of background image, defined as a string of the form `'vertical
+			* horizontal'`, with a space separating the `vertical` and `horizontal`
+			* properties (e.g., `'top right'`). If no second property is included, the
+			* horizontal value will default to `'right'`.
+			* As with {@link moon.Header#backgroundSrc}, an array of strings may be supplied to
+			* position multiple background images. The order of items should be the same as in
 			* {@link moon.Header#backgroundSrc}.
 			*
 			* @type {(String|String[])}
@@ -135,7 +138,7 @@
 			backgroundPosition: 'top right',
 
 			/**
-			* When using a full-bleed background image, set this property to true to indent
+			* When using a full-bleed background image, set this property to `true` to indent
 			* the header text/controls and remove the header lines
 			*
 			* @type {Boolean}
@@ -145,7 +148,7 @@
 			fullBleedBackground: false,
 
 			/**
-			* If true, title will be an input
+			* If `true`, title will be an input
 			*
 			* @type {Boolean}
 			* @default false
@@ -154,7 +157,7 @@
 			inputMode: false,
 
 			/**
-			* When true, input will be blurred on Enter keypress (if focused)
+			* When `true`, input will be blurred on Enter keypress (if focused)
 			*
 			* @type {Boolean}
 			* @default false
@@ -181,7 +184,7 @@
 			value: '',
 
 			/**
-			* When true, the title text will be converted to locale-safe uppercasing
+			* When `true`, the title text will be converted to locale-safe uppercasing
 			*
 			* @type {Boolean}
 			* @default true
@@ -243,8 +246,8 @@
 			onInputHeaderInput: '',
 
 			/**
-			* Custom input change event to allow apps to differentiate between input changes and header
-			* input changes
+			* Custom input change event to allow apps to differentiate between input changes and
+			* header input changes
 			*/
 			onInputHeaderChange: ''
 		},
@@ -307,7 +310,8 @@
 		*/
 		create: function () {
 			this.inherited(arguments);
-			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a while.
+			// Note: This line will be deprecated soon. For backward compatiblity, I leave it for a
+			// while.
 			this.smallChanged();
 			this.typeChanged();
 			this.titleChanged();
@@ -336,7 +340,9 @@
 		*/
 		backgroundSrcChanged: function () {
 			var bgs = (enyo.isArray(this.backgroundSrc)) ? this.backgroundSrc : [this.backgroundSrc];
-			bgs = enyo.map(bgs, function (inBackgroundSource) { return inBackgroundSource ? 'url(' + inBackgroundSource + ')' : null; });
+			bgs = enyo.map(bgs, function (inBackgroundSource) {
+					return inBackgroundSource ? 'url(' + inBackgroundSource + ')' : null;
+				});
 			this.applyStyle('background-image', (bgs.length) ? bgs.join(', ') : null);
 		},
 
@@ -348,13 +354,15 @@
 			if (enyo.isArray(bgp)) {
 				bgp = (bgp.length) ? bgp.join(', ') : null;
 			}
-			// If this.backgroundPosition is set explicitly to inherit or initial, apply that instead of assuming a position.
+			// If `this.backgroundPosition` is set explicitly to inherit or initial, apply that
+			// instead of assuming a position.
 			if (bgp === 'inherit' || bgp === 'initial') {
 				this.applyStyle('background-position', bgp);
 				return;
 			}
 			var posArray = bgp && bgp.split(' ') || [],
-				posStr = (posArray.length === 0) ? 'top right': (posArray.length === 1) ? posArray[0] + ' right': bgp;
+				posStr = (posArray.length === 0) ? 'top right'
+						: (posArray.length === 1) ? posArray[0] + ' right' : bgp;
 			this.applyStyle('background-position', posStr);
 		},
 
@@ -390,7 +398,8 @@
 			var subTitleBelowStyle = enyo.dom.getComputedStyle(this.$.subTitleBelow.hasNode());
 			var titleAboveStyle = enyo.dom.getComputedStyle(this.$.titleAbove.hasNode());
 
-			// TODO - animator should track initial positions so we don't have to store these if we want to reverse the animation
+			// TODO - animator should track initial positions so we don't have to store these if we
+			// want to reverse the animation
 			this.smallAnimProps = {
 				'height': myStyle['height']
 			};
@@ -590,7 +599,8 @@
 		},
 
 		/**
-		* Note: This method will be deprecated soon. For backward compatiblity, I leave it for a while.
+		* Note: This method will be deprecated soon. For backward compatiblity, I leave it for a
+		* while.
 		*
 		* @private
 		*/
@@ -602,7 +612,9 @@
 		* @private
 		*/
 		contentChanged: function () {
-			this.$.title.setContent( this.getTitleUpperCase() ? enyo.toUpperCase(this.title || this.content) : (this.title || this.content) );
+			this.$.title.setContent(this.getTitleUpperCase()
+					? enyo.toUpperCase(this.title || this.content)
+					: (this.title || this.content) );
 			this.placeholderChanged();
 		},
 
@@ -621,7 +633,9 @@
 		*/
 		placeholderChanged: function () {
 			// For backward-compatibility with original API
-			this.$.titleInput.set('placeholder', this.getTitleUpperCase() ? enyo.toUpperCase(this.placeholder || this.title || this.content) : (this.placeholder || this.title || this.content) );
+			this.$.titleInput.set('placeholder', this.getTitleUpperCase()
+					? enyo.toUpperCase(this.placeholder || this.title || this.content)
+					: (this.placeholder || this.title || this.content) );
 		},
 
 		/**
@@ -686,9 +700,9 @@
 		},
 
 		/**
-		* Create custom event for _input_ events
+		* Create custom event for `input` events
 		*
-		* @fires moon.Header#event:onInputHeaderInput
+		* @fires moon.Header#onInputHeaderInput
 		* @private
 		*/
 		handleInput: function (inSender, inEvent) {
@@ -696,9 +710,9 @@
 		},
 
 		/**
-		* Create custom event for _change_ events
+		* Create custom event for `change` events
 		*
-		* @fires moon.Header#event:onInputHeaderChange
+		* @fires moon.Header#onInputHeaderChange
 		* @private
 		*/
 		handleChange: function (inSender, inEvent) {

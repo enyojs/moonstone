@@ -1,6 +1,19 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Clock_ is a control that displays system clock information.
+	* Used for setting a static time for [`moon.Clock`]{@link moon.Clock} to display.
+	*
+	* @typedef {Object} moon.Clock~DateTimeObject
+	* @property {Number} year - Year to display
+	* @property {Number} month - Month to display
+	* @property {Number} day - Day to display
+	* @property {Number} hour - Hour to display
+	* @property {Number} minute - Minute to display
+	* @property {Number} second - Second to display
+	* @public
+	*/
+
+	/**
+	* `moon.Clock` is a control that displays clock information
 	*
 	* Example:
 	*
@@ -8,9 +21,9 @@
 	*		{kind: 'moon.Clock'}
 	* ```
 	*
-	* @ui
 	* @class moon.Clock
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -33,8 +46,9 @@
 
 		/**
 		* @private
+		* @lends moon.Clock.prototype
 		*/
-		published: /** @lends moon.Clock.prototype */ {
+		published: {
 
 			/**
 			* Refresh time in milliseconds
@@ -46,9 +60,11 @@
 			refresh: 1000,
 
 			/**
-			* User-provided date; if undefined, system date is used
+			* User-provided date; if `undefined`, system date is used. Can supply either a
+			* JavaScript {@glossary Date} object or a {@link moon.Clock~DateTimeObject} detailing
+			* the static date/time to use.
 			*
-			* @type {Object}
+			* @type {Date|moon.Clock~DateTimeObject}
 			* @default undefined
 			* @public
 			*/
@@ -57,7 +73,7 @@
 			/**
 			* Current locale used for formatting. May be set after the control is
 			* created, in which case the control will be updated to reflect the
-			* new value.  Only valid if _iLib_ is loaded.
+			* new value.  Only valid if {@glossary iLib} is loaded.
 			*
 			* @type {String}
 			* @default ''
@@ -98,7 +114,7 @@
 		_timeDiff: 0,
 
 		/**
-		* _ilib_ locale info instance; it contains information about the particular locale
+		* `ilib` locale info instance; it contains information about the particular locale
 		*
 		* @private
 		*/
@@ -106,9 +122,9 @@
 
 		/**
 		* Define clock mode.
-		* If date is assigned with JS Date object or null, it will be 'normal'.
-		* If date is assigned with JS object that indicates the exact time components
-		* to be formatted into the clock, it will be 'static'.
+		* If `date` is assigned with JS Date object or `null`, it will be `'normal'`.
+		* If `date` is assigned with JS object that indicates the exact time components
+		* to be formatted into the clock, it will be `'static'`.
 		*
 		* @private
 		*/
@@ -262,14 +278,14 @@
 		*
 		* @private
 		*/
-		parseStaticDate: function (inDate) {
+		parseStaticDate: function (date) {
 			return {
-				year: (inDate.year !== undefined) ? inDate.year : 0,
-				month: (inDate.month !== undefined) ? inDate.month : 1,
-				day: (inDate.day !== undefined) ? inDate.day : 0,
-				hour: (inDate.hour !== undefined) ? inDate.hour : 0,
-				minute: (inDate.min !== undefined) ? inDate.min : 0,
-				second: (inDate.sec !== undefined) ? inDate.sec : 0,
+				year: (date.year !== undefined) ? date.year : 0,
+				month: (date.month !== undefined) ? date.month : 1,
+				day: (date.day !== undefined) ? date.day : 0,
+				hour: (date.hour !== undefined) ? date.hour : 0,
+				minute: (date.min !== undefined) ? date.min : 0,
+				second: (date.sec !== undefined) ? date.sec : 0,
 				timezone: 'Etc/UTC'
 			};
 		},

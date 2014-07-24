@@ -1,97 +1,99 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.Table_ extends [enyo.Table]{@link enyo.Table}, adding Moonstone visual styling.
-	 *
-	 * @class moon.Table
-	 * @extends enyo.Table
-	 * @public
-	 * @ui
-	 */
+	* `moon.Table` extends [`enyo.Table`]{@link enyo.Table}, adding Moonstone visual styling.
+	*
+	* @class moon.Table
+	* @extends enyo.Table
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.Table.prototype */ {
+		/** @lends moon.Table.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.Table',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.Table',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-table',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		defaultKind: 'moon.TableRow'
 	});
 
 	/**
-	 * _moon.TableRow_ extends [enyo.TableRow]{@link enyo.TableRow}, adding Moonstone visual styling.
-	 *
-	 * @class moon.TableRow
-	 * @extends enyo.TableRow
-	 * @public
-	 * @ui
-	 */
+	* `moon.TableRow` extends [`enyo.TableRow`]{@link enyo.TableRow}, adding Moonstone visual
+	* styling.
+	*
+	* @class moon.TableRow
+	* @extends enyo.TableRow
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.TableRow.prototype */ {
+		/** @lends moon.TableRow.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.TableRow',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.TableRow',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-table-row',
 
 		/**
-		 * @private
-		 */
-		 spotlight: true,
+		* @private
+		*/
+		spotlight: true,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		defaultKind: 'moon.TableCell'
 	});
 
 	/**
-	 * _moon.TableCell_ extends [enyo.TableCell]{@link enyo.TableCell}, adding Moonstone visual styling.
-	 *
-	 * @class moon.TableCell
-	 * @extends enyo.TableCell
-	 * @public
-	 * @ui
-	 */
+	* `moon.TableCell` extends [`enyo.TableCell`]{@link enyo.TableCell}, adding Moonstone visual
+	* styling.
+	*
+	* @class moon.TableCell
+	* @extends enyo.TableCell
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.TableCell.prototype */ {
+		/** @lends moon.TableCell.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.TableCell',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.TableCell',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-table-cell'
 	});
 
