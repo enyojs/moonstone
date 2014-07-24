@@ -9,8 +9,8 @@
 	*	index: 1					// Index of selected item
 	* }
 	* ```
-	*
-	* @event moon.SimplePicker#event:onChange
+	* 
+	* @event moon.SimplePicker#onChange
 	* @type {Object}
 	* @property {enyo.Control} selected - A reference to the currently selected item.
 	* @property {String} content - The content of the currently selected item.
@@ -19,10 +19,10 @@
 	*/
 
 	/**
-	* _moon.SimplePicker_ is a [control]{@link enyo.Control} that solicits a choice from the user by
-	* cycling through a list of options. The picker's child [components]{@link enyo.Component},
-	* typically simple {@link enyo.Control} [objects]{@glossary Object} with text content, become
-	* the options for the picker.
+	* `moon.SimplePicker` is a [control]{@link enyo.Control} that solicits a choice from the user by
+	* cycling through a list of options. The picker's child [components]{@link enyo.Component}, 
+	* typically [`moon.MarqueeText`]{@link moon.MarqueeText} [objects]{@glossary Object} (the
+	* default component), become the options for the picker.
 	*
 	* ```javascript
 	* {kind: 'moon.SimplePicker', onChange: 'changed', selectedIndex: 1, components: [
@@ -31,10 +31,10 @@
 	*	{content: 'Tokyo'}
 	* ]}
 	* ```
-	*
-	* The picker may be changed programmatically by calling
-	* [_previous()_]{@link moon.SimplePicker#previous} or [_next()_]{@link moon.SimplePicker#next},
-	* or by modifying the [_selectedIndex_]{@link moon.SimplePicker#selectedIndex} published
+	* 
+	* The picker may be changed programmatically by calling 
+	* [`previous()`]{@link moon.SimplePicker#previous} or [`next()`]{@link moon.SimplePicker#next}, 
+	* or by modifying the [`selectedIndex`]{@link moon.SimplePicker#selectedIndex} published 
 	* property by calling `set('selectedIndex', <value>)`.
 	*
 	* The picker options may be modified programmatically in the standard manner, by calling
@@ -49,10 +49,10 @@
 	* this.$.picker.getSelected().destroy();
 	* ```
 	*
-	* @ui
 	* @class moon.SimplePicker
 	* @extends enyo.Control
 	* @mixes moon.MarqueeSupport
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -87,9 +87,9 @@
 
 		/**
 		* @private
+		* @lends moon.SimplePicker.prototype
 		*/
-		published:
-			/** @lends moon.SimplePicker.prototype */ {
+		published: {
 
 			/**
 			* Reference to currently selected item, if any.
@@ -192,7 +192,7 @@
 		},
 
 		/**
-		* @fires moon.SimplePicker#event:onChange
+		* @fires moon.SimplePicker#onChange
 		* @private
 		*/
 		fireChangedEvent: function() {
@@ -446,9 +446,14 @@
 			}
 		},
 
-		/**
-		* Cycles the selected item to the one before the currently selected item.
+		/** 
+		* Cycles the selected item to the one before the currently selected item. If chained from an
+		* event it will cancel {@link Spotlight} hold pulse events once reaching the first item,
+		* unless [`wrap`]{@link moon.SimplePicker#wrap} is `true`. When calling directly, no
+		* arguments are required.
 		*
+		* @param {Object} sender - (unused) Sender if chained from event
+		* @param {Object} e - Event object, if chained from event
 		* @public
 		*/
 		previous: function(sender, e) {
@@ -464,9 +469,14 @@
 			}
 		},
 
-		/**
-		* Cycles the selected item to the one after the currently selected item.
+		/** 
+		* Cycles the selected item to the one after the currently selected item. If chained from an
+		* event it will cancel {@link Spotlight} hold pulse events once reaching the last item,
+		* unless [`wrap`]{@link moon.SimplePicker#wrap} is `true`. When calling directly, no
+		* arguments are required.
 		*
+		* @param {Object} sender - (unused) Sender if chained from event
+		* @param {Object} e - Event object, if chained from event
 		* @public
 		*/
 		next: function(sender, e) {

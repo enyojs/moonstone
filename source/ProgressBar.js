@@ -3,13 +3,13 @@
 	* Fires when progress bar finishes animating to a position. No event-specific data is sent with
 	* this event.
 	*
-	* @event moon.ProgressBar#event:onAnimateProgressFinish
+	* @event moon.ProgressBar#onAnimateProgressFinish
 	* @type {Object}
 	* @public
 	*/
 
 	/**
-	* _moon.ProgressBar_ is a  control that shows the current progress of a
+	* `moon.ProgressBar` is a  control that shows the current progress of a
 	* process in a horizontal bar.
 	*
 	* ```
@@ -53,8 +53,9 @@
 
 		/**
 		* @private
+		* @lends moon.ProgressBar.prototype
 		*/
-		published: /** @lends moon.ProgressBar.prototype */ {
+		published: {
 
 			/**
 			* Current position of progress bar
@@ -117,7 +118,7 @@
 		events: {
 
 			/**
-			* {@link moon.ProgressBar#event:onAnimateProgressFinish}
+			* {@link moon.ProgressBar#onAnimateProgressFinish}
 			*/
 			onAnimateProgressFinish: ''
 		},
@@ -235,7 +236,7 @@
 		},
 
 		/**
-		* @fires moon.ProgressBar#event:onAnimateProgressFinish
+		* @fires moon.ProgressBar#onAnimateProgressFinish
 		* @private
 		*/
 		progressAnimatorComplete: function (inSender) {

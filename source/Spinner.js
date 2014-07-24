@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Spinner_ is a [control]{@link enyo.Control} that shows a spinning animation to indicate
+	* `moon.Spinner` is a [control]{@link enyo.Control} that shows a spinning animation to indicate
 	* that activity is taking place. By default, the spinner is light-colored and suitable for
 	* displaying against a dark background. If you need a dark spinner (to be shown on a lighter
 	* background), add the `moon-light` CSS class:
@@ -18,15 +18,17 @@
 	*
 	* Typically, a spinner is shown to indicate activity and hidden to indicate that the activity
 	* has ended. The animation automatically starts when the spinner is shown. If you wish, you may
-	* control the animation directly by calling the _start()_, _stop()_, and _toggle()_ methods.
+	* control the animation directly by calling the [`start()`]{@link moon.Spinner#start},
+	* [`stop()`]{@link moon.Spinner#stop}, and [`toggle()`]{@link moon.Spinner#toggle} methods.
 	*
-	* _moon.Spinner_ supports both `content` text and alternatively a `components` block. You may
+	* `moon.Spinner` supports both `content` text and alternatively a `components` block. You may
 	* only use one method at a time. Using a components block may be desirable if, for example,
 	* the text in the content section needs to [marquee]{@link moon.MarqueeSupport} or you'd like to
 	* include a {@link moon.Icon} in the message.
 	*
 	* @class moon.Spinner
 	* @extends enyo.Control
+	* @ui
 	* @public
 	*/
 	enyo.kind(
@@ -40,12 +42,18 @@
 		/**
 		* @private
 		*/
-		classes: 'moon-spinner',
+		kind: 'enyo.Control',
 
 		/**
 		* @private
 		*/
-		published: /** @lends moon.Spinner.prototype */ {
+		classes: 'moon-spinner',
+
+		/**
+		* @private
+		* @lends moon.Spinner.prototype
+		*/
+		published: {
 			/**
 			* Determines whether spinner's background is transparent.
 			*

@@ -1,6 +1,6 @@
 (function (enyo, scope) {
 	/**
-	* _moon.Accordion_ is a {@link moon.ExpandableListItem}
+	* `moon.Accordion` is an [`ExpandableListItem`]{@link moon.ExpandableListItem}
 	* with an arrow button to the right of the header and additional margin space to
 	* the left of the item list.
 	*
@@ -40,9 +40,9 @@
 	* ]}
 	* ```
 	*
-	* @ui
 	* @class moon.Accordion
 	* @extends moon.ExpandableListItem
+	* @ui
 	* @public
 	*/
 	enyo.kind(

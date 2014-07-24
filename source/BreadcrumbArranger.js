@@ -2,36 +2,34 @@
 	/**
 	* @typedef {Object} moon.BreadcrumbArranger~PanelInfoObject
 	* @property {Boolean} breadcrumb - reports whether panel is in breadcrumb (collapsed) form
-	* @property (Boolean) offscreen - reports whether a panel is is offscreen
+	* @property (Boolean) offscreen - reports whether a panel is offscreen
 	* @public
 	*/
 
 	/**
-	* _moon.BreadcrumbArranger_ is an {@link: enyo.Arranger}
-	* that displays the active control, along with some number of breadcrumbs on the
-	* right side. This is the default arranger for both the 'Always Viewing' and
-	* 'Activity' patterns; if you are using {@link: moon.Panel}
-	* with either of these patterns, you don't need to specify an arranger
-	* explicitly.
+	* `moon.BreadcrumbArranger` is an {@link enyo.Arranger} that displays the active control, along
+	* with some number of breadcrumbs on the right side. This is the default arranger for both the
+	* 'Always Viewing' and 'Activity' patterns; if you are using {@link moon.Panel} with either of
+	* these patterns, you don't need to specify an arranger explicitly.
 	*
 	* The breadcrumbs reflect the sequence of panels that the user has already seen.
 	*
-	* Transitions between arrangements are handled by sliding the new control	in
-	* from the right. If the old controls can fit within the width of the	container,
-	* they will slide to the left; if not, they will collapse to the left.
+	* Transitions between arrangements are handled by sliding the new control in from the right. If
+	* the old controls can fit within the width of the container, they will slide to the left; if
+	* not, they will collapse to the left.
 	*
 	* The control's child components may be of any kind; by default, they are
-	* instances of {@link: moon.Panel}.
+	* instances of {@link moon.Panel}.
 	*
 	* ```
 	* {name: 'panels', kind: 'moon.Panels', pattern: 'alwaysviewing', classes: 'enyo-fit', components: [
 	* 	{title: 'First', components: [
-	*  	{kind: 'moon.Item', style: 'margin-top:20px;', content: 'Item One'},
+	* 	{kind: 'moon.Item', style: 'margin-top:20px;', content: 'Item One'},
 	* 		{kind: 'moon.Item', content: 'Item Two'},
 	* 		{kind: 'moon.Item', content: 'Item Three'},
 	* 		{kind: 'moon.Item', content: 'Item Four'},
 	* 		{kind: 'moon.Item', content: 'Item Five'}
-	*	]},
+	* 	]},
 	* 	{title: 'Second', joinToPrev: true, components: [
 	* 		{kind: 'moon.Item', style: 'margin-top:20px;', content: 'Item One'},
 	* 		{kind: 'moon.Item', content: 'Item Two'},
@@ -42,13 +40,12 @@
 	* ]}
 	* ```
 	*
-	* @ui
 	* @class moon.BreadcrumbArranger
 	* @extends enyo.DockRightArranger
 	* @public
 	*/
 	enyo.kind(
-		/** @lends moon.BodyText.prototype */ {
+		/** @lends moon.BreadcrumbArranger.prototype */ {
 
 		/**
 		* @private
@@ -61,22 +58,21 @@
 		kind: 'enyo.DockRightArranger',
 
 		/**
-		* Returns an object containing information about the state
-		* of a given panel (identified by _inPanelIndex_) within a
-		* given arrangement (identified by _inActiveIndex_).
+		* Returns an object containing information about the state of a given panel (identified by
+		* `panelIndex`) within a given arrangement (identified by `activeIndex`).
 		*
-		* Specifically, _moon.BreadcrumbArranger_ reports whether a panel
-		* is offscreen, and whether it is in breadcrumb (collapsed) form.
+		* Specifically, `moon.BreadcrumbArranger` reports whether a panel is offscreen, and whether
+		* it is in breadcrumb (collapsed) form.
 		*
-		* @param {Number} inPanelIndex index of the panel for which to get info
-		* @param (Number) inActiveIndex index of the arranger the panel is in
+		* @param {Number} panelIndex - index of the panel for which to get info
+		* @param {Number} activeIndex - index of the arranger the panel is in
 		* @returns {moon.BreadcrumbArranger~PanelInfoObject}
 		* @public
 		*/
-		getPanelInfo: function (inPanelIndex, inActiveIndex) {
+		getPanelInfo: function (panelIndex, activeIndex) {
 			return {
-				breadcrumb: this.isBreadcrumb(inPanelIndex, inActiveIndex),
-				offscreen: this.isOffscreen(inPanelIndex, inActiveIndex)
+				breadcrumb: this.isBreadcrumb(panelIndex, activeIndex),
+				offscreen: this.isOffscreen(panelIndex, activeIndex)
 			};
 		},
 
@@ -135,8 +131,8 @@
 		/**
 		* @private
 		*/
-		calculateJoinedPanels: function (inContainerWidth) {
-			inContainerWidth = inContainerWidth || this.getContainerWidth();
+		calculateJoinedPanels: function (containerWidth) {
+			containerWidth = containerWidth || this.getContainerWidth();
 
 			var panels = this.container.getPanels(),
 				joinedPanels = {};
@@ -144,7 +140,7 @@
 			for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 				for (var index = 0; index < panels.length; index++) {
 					if (panelIndex > index) {
-						joinedPanels[panelIndex + '.' + index] = this.isPanelJoined(panelIndex, index, inContainerWidth);
+						joinedPanels[panelIndex + '.' + index] = this.isPanelJoined(panelIndex, index, containerWidth);
 					}
 				}
 			}
@@ -155,14 +151,14 @@
 		/**
 		* @private
 		*/
-		isPanelJoined: function (inPanelIndex, inIndex, inContainerWidth) {
-			inContainerWidth = inContainerWidth || this.getContainerWidth();
+		isPanelJoined: function (panelIndex, index, containerWidth) {
+			containerWidth = containerWidth || this.getContainerWidth();
 
 			var panels = this.container.getPanels(),
-				xPos = this.getBreadcrumbEdge(inIndex),
-				i = inPanelIndex;
+				xPos = this.getBreadcrumbEdge(index),
+				i = panelIndex;
 
-			while(i > inIndex) {
+			while(i > index) {
 				if (!panels[i].joinToPrev) {
 					return false;
 				}
@@ -171,7 +167,7 @@
 				i--;
 			}
 
-			if(xPos + panels[inIndex].width > inContainerWidth) {
+			if(xPos + panels[index].width > containerWidth) {
 				return false;
 			}
 
@@ -181,13 +177,13 @@
 		/**
 		* @private
 		*/
-		formatJoinedPanels: function (inJoinedPanels) {
+		formatJoinedPanels: function (joinedPanels) {
 			var panels = this.container.getPanels(),
 				ret = [], i, j;
 
 			for (i = 0; i < panels.length; i++) {
 				for (j = 0; j < panels.length; j++) {
-					if (!inJoinedPanels[i+'.'+j]) {
+					if (!joinedPanels[i+'.'+j]) {
 						continue;
 					}
 
@@ -202,13 +198,13 @@
 		/**
 		* @private
 		*/
-		calculateTransitionPositions: function (inContainerWidth, inJoinedPanels) {
+		calculateTransitionPositions: function (containerWidth, joinedPanels) {
 			var panels = this.container.getPanels(),
 				tp = {};
 
 			for (var panelIndex = 0; panelIndex < panels.length; panelIndex++) {
 				for (var index = 0; index < panels.length; index++) {
-					tp[panelIndex + '.' + index] = this.calculateXPos(panelIndex, index, inContainerWidth, inJoinedPanels);
+					tp[panelIndex + '.' + index] = this.calculateXPos(panelIndex, index, containerWidth, joinedPanels);
 				}
 			}
 
@@ -218,8 +214,8 @@
 		/**
 		* @private
 		*/
-		calculateXPos: function (inPanelIndex, inIndex, inContainerWidth, inJoinedPanels) {
-			var breadcrumbEdge = this.getBreadcrumbEdge(inIndex),
+		calculateXPos: function (panelIndex, index, containerWidth, joinedPanels) {
+			var breadcrumbEdge = this.getBreadcrumbEdge(index),
 				panels = this.container.getPanels(),
 				xPos,
 				i,
@@ -227,7 +223,7 @@
 
 			if (this.container.pattern == 'activity') {
 				// add some positional sugar just for the activity breadcrumbs
-				if (inIndex === 0) {
+				if (index === 0) {
 					patternOffset = breadcrumbEdge;
 				}
 				else {
@@ -237,24 +233,24 @@
 			}
 
 			// each active item should be at _breadcrumbEdge_
-			if (inIndex === inPanelIndex) {
+			if (index === panelIndex) {
 				return breadcrumbEdge + this.getBreadcrumbGap()/2 - patternOffset;
 
 			// breadcrumbed panels should be positioned to the left
-			} else if (inIndex > inPanelIndex) {
-				return breadcrumbEdge - (inIndex - inPanelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - patternOffset;
+			} else if (index > panelIndex) {
+				return breadcrumbEdge - (index - panelIndex) * this.breadcrumbWidth - this.getBreadcrumbGap()/2 - patternOffset;
 
 			// upcoming panels should be layed out to the right if _joinToPrev_ is true
 			} else {
 				// If this panel is not joined at this index, put it off the screen to the right
-				if (!inJoinedPanels[inPanelIndex] || inJoinedPanels[inPanelIndex].indexOf(inIndex) === -1) {
-					return inContainerWidth;
+				if (!joinedPanels[panelIndex] || joinedPanels[panelIndex].indexOf(index) === -1) {
+					return containerWidth;
 				}
 
 				xPos = breadcrumbEdge;
 
-				i = inPanelIndex;
-				while (i > inIndex) {
+				i = panelIndex;
+				while (i > index) {
 					if (panels[i - 1]) {
 						xPos += panels[i - 1].width - patternOffset;
 					}
@@ -268,28 +264,28 @@
 		/**
 		* @private
 		*/
-		recalculatePanelTransitionPositions: function (inPanelIndex, inContainerWidth, inJoinedPanels) {
+		recalculatePanelTransitionPositions: function (panelIndex, containerWidth, joinedPanels) {
 			var panels = this.container.getPanels();
 			for (var i = 0; i < panels.length; i++) {
-				this.container.transitionPositions[inPanelIndex + '.' + i] = this.calculateXPos(inPanelIndex, i, inContainerWidth, inJoinedPanels);
+				this.container.transitionPositions[panelIndex + '.' + i] = this.calculateXPos(panelIndex, i, containerWidth, joinedPanels);
 			}
 		},
 
 		/**
 		* @private
 		*/
-		adjustTransitionPositionsForJoinedPanels: function (inJoinedPanels) {
+		adjustTransitionPositionsForJoinedPanels: function (joinedPanels) {
 			var tp = this.container.transitionPositions,
 				panels = this.container.getPanels();
 
 			for (var i = panels.length; i >= 0; i--) {
-				if (!inJoinedPanels[i]) {
+				if (!joinedPanels[i]) {
 					continue;
 				}
 
-				for (var j = inJoinedPanels[i].length - 1; j >= 0; j--) {
+				for (var j = joinedPanels[i].length - 1; j >= 0; j--) {
 					for (var k = 0; k < panels.length; k++) {
-						tp[k+'.'+i] = tp[k+'.'+inJoinedPanels[i][j]];
+						tp[k+'.'+i] = tp[k+'.'+joinedPanels[i][j]];
 					}
 				}
 			}
@@ -298,34 +294,34 @@
 		/**
 		* @private
 		*/
-		updateWidths: function (inContainerWidth, inJoinedPanels) {
+		updateWidths: function (containerWidth, joinedPanels) {
 			var panels = this.container.getPanels(),
 				diff,
 				i, j;
 
 			// Calculate stretched widths for panels at the end of given index
-			for (i = 0; i < inJoinedPanels.length; i++) {
-				if (!inJoinedPanels[i]) {
+			for (i = 0; i < joinedPanels.length; i++) {
+				if (!joinedPanels[i]) {
 					continue;
 				}
 
 				var totalWidth = panels[i].width +
-					this.getBreadcrumbEdge(inJoinedPanels[i][0]) +
+					this.getBreadcrumbEdge(joinedPanels[i][0]) +
 					this.getBreadcrumbGap();
 
 				// Add the width of each additional panel that is visible at this index
-				for (j = 0; j < inJoinedPanels[i].length; j++) {
+				for (j = 0; j < joinedPanels[i].length; j++) {
 					// If this panel is joined with another one that has already been stretched, reposition
 					// it so everything is kosher. TODO - this is a strange edge case, needs to be discussed.
-					if (panels[inJoinedPanels[i][j]].actualWidth) {
-						totalWidth += panels[inJoinedPanels[i][j]].actualWidth;
-						// TODO - this.recalculatePanelTransitionPositions(i, inContainerWidth, inJoinedPanels);
+					if (panels[joinedPanels[i][j]].actualWidth) {
+						totalWidth += panels[joinedPanels[i][j]].actualWidth;
+						// TODO - this.recalculatePanelTransitionPositions(i, containerWidth, joinedPanels);
 					} else {
-						totalWidth += panels[inJoinedPanels[i][j]].width;
+						totalWidth += panels[joinedPanels[i][j]].width;
 					}
 				}
 
-				diff = inContainerWidth - totalWidth;
+				diff = containerWidth - totalWidth;
 				panels[i].actualWidth = panels[i].width + diff;
 
 				if (this.debug) {
@@ -337,14 +333,14 @@
 			for (i = 0; i < panels.length; i++) {
 				if (!panels[i].actualWidth) {
 					var match = false;
-					for (j = 0; j < inJoinedPanels.length; j++) {
-						if (inJoinedPanels[j] && inJoinedPanels[j].indexOf(i) >= 0) {
+					for (j = 0; j < joinedPanels.length; j++) {
+						if (joinedPanels[j] && joinedPanels[j].indexOf(i) >= 0) {
 							match = true;
 						}
 					}
 					panels[i].actualWidth = (match) ?
 						panels[i].width :
-						inContainerWidth - this.getBreadcrumbEdge(i) - this.getBreadcrumbGap();
+						containerWidth - this.getBreadcrumbEdge(i) - this.getBreadcrumbGap();
 				}
 			}
 		},
@@ -362,7 +358,7 @@
 		/**
 		* @private
 		*/
-		calcBreadcrumbPositions: function (inJoinedPanels) {
+		calcBreadcrumbPositions: function (joinedPanels) {
 			var panels = this.container.getPanels(),
 				isBreadcrumb,
 				index,
@@ -375,7 +371,7 @@
 					isBreadcrumb = false;
 
 					if (index > i) {
-						isBreadcrumb = !(inJoinedPanels[index] && inJoinedPanels[index].indexOf(i) > -1);
+						isBreadcrumb = !(joinedPanels[index] && joinedPanels[index].indexOf(i) > -1);
 					}
 
 					this.breadcrumbPositions[i+'.'+index] = isBreadcrumb;
@@ -421,7 +417,8 @@
 					// lets check if its fully off.
 					var containerPadding = this.getContainerPadding();
 					if (xPos <= ((this.breadcrumbWidth - containerPadding.left) * -1)) {
-						// Its visible portion is, so lets nudge it off entirely so it can't be highlighted using just its non-visible edge
+						// Its visible portion is, so lets nudge it off entirely so it can't be
+						// highlighted using just its non-visible edge
 						xPos -= containerPadding.right;
 					}
 				}
@@ -432,12 +429,12 @@
 		/**
 		* @private
 		*/
-		isOffscreen: function (inPanelIndex, inActiveIndex) {
+		isOffscreen: function (panelIndex, activeIndex) {
 			if (!this.container.transitionPositions) {
 				return;
 			}
-			var transitionPosition = this.container.transitionPositions[inPanelIndex + '.' + inActiveIndex];
-			var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(inPanelIndex) : 0;
+			var transitionPosition = this.container.transitionPositions[panelIndex + '.' + activeIndex];
+			var screenEdge = this.container.panelCoverRatio == 1 ? this.getBreadcrumbEdge(panelIndex) : 0;
 			if (transitionPosition < 0) {
 				return transitionPosition + this.breadcrumbWidth <= screenEdge;
 			} else {
@@ -448,8 +445,8 @@
 		/**
 		* @private
 		*/
-		isBreadcrumb: function (inPanelIndex, inActiveIndex) {
-			return this.breadcrumbPositions && this.breadcrumbPositions[inPanelIndex + '.' + inActiveIndex];
+		isBreadcrumb: function (panelIndex, activeIndex) {
+			return this.breadcrumbPositions && this.breadcrumbPositions[panelIndex + '.' + activeIndex];
 		},
 
 		/**
@@ -479,13 +476,13 @@
 		/**
 		* @private
 		*/
-		getBreadcrumbEdge: function (inIndex) {
+		getBreadcrumbEdge: function (index) {
 			var leftMargin = this.getContainerWidth() * (1 - this.container.panelCoverRatio);
 			if (this.container.panelCoverRatio == 1) {
 				var containerPadding = this.getContainerPadding();
 				leftMargin += containerPadding.left + containerPadding.right;
 			}
-			if (this.container.showFirstBreadcrumb && inIndex !== 0) {
+			if (this.container.showFirstBreadcrumb && index !== 0) {
 				leftMargin += this.breadcrumbWidth;
 			}
 			return leftMargin;
@@ -512,11 +509,11 @@
 		},
 
 		/**
-		* Return _true_ if any panels will move in the transition from _inFromIndex_ to _inToIndex_
+		* Return `true` if any panels will move in the transition from `fromIndex` to `toIndex`
 		* @private
 		*/
-		shouldArrange: function (inFromIndex, inToIndex) {
-			if (!(inFromIndex >= 0 && inToIndex >= 0)) {
+		shouldArrange: function (fromIndex, toIndex) {
+			if (!(fromIndex >= 0 && toIndex >= 0)) {
 				return;
 			}
 
@@ -527,8 +524,8 @@
 				to;
 
 			for (panelIndex = 0; panelIndex < panelCount; panelIndex++) {
-				from = transitionPositions[panelIndex + '.' + inFromIndex];
-				to = transitionPositions[panelIndex + '.' + inToIndex];
+				from = transitionPositions[panelIndex + '.' + fromIndex];
+				to = transitionPositions[panelIndex + '.' + toIndex];
 
 				if (from !== to) {
 					return true;

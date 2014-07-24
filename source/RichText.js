@@ -1,61 +1,61 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.RichText_ is a Moonstone-styled RichText control, derived from [enyo.RichText]{@link enyo.RichText}).
-	 * Typically, a _moon.RichText_ is placed inside a [moon.InputDecorator]{@link moon.InputDecorator}, which
-	 * provides styling, e.g.:
-	 *
-	 * ```
-	 * {kind: 'moon.InputDecorator', components: [
-	 *	{kind: 'moon.RichText', style: 'width: 240px;', onchange: 'inputChange'}
-	 * ]}
-	 * ```
-	 *
-	 * For more information, see the documentation on [Text Fields]{@link building-apps/controls/text-fields.html} in
-	 * the Enyo Developer Guide.
-	 *
-	 * @class moon.RichText
-	 * @extends enyo.RichText
-	 * @public
-	 * @ui
-	 */
+	* `moon.RichText` is a Moonstone-styled RichText control, derived from
+	* [`enyo.RichText`]{@link enyo.RichText}).  Typically, a `moon.RichText` is placed inside a
+	* [`moon.InputDecorator`]{@link moon.InputDecorator}, which provides styling, e.g.:
+	*
+	* ```
+	* {kind: 'moon.InputDecorator', components: [
+	*	{kind: 'moon.RichText', style: 'width: 240px;', onchange: 'inputChange'}
+	* ]}
+	* ```
+	*
+	* For more information, see the documentation on
+	* [Text Fields]{@link building-apps/controls/text-fields.html} in the Enyo Developer Guide.
+	*
+	* @class moon.RichText
+	* @extends enyo.RichText
+	* @ui
+	* @public
+	*/
 	enyo.kind(
-		/** @lends  moon.RichText.prototype */ {
+		/** @lends moon.RichText.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.RichText',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.RichText',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-richtext',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handlers: {
 			onblur: 'blurred'
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.disabledChanged();
 		},
 
 		/**
-		 * Set the focus on the textarea
-		 *
-		 * @public
-		 */
+		* Set the focus on the textarea
+		*
+		* @public
+		*/
 		focus: function () {
 			this.inherited(arguments);
 			var node = this.hasNode();
@@ -67,10 +67,10 @@
 		},
 
 		/**
-		 * Remove focus from textarea
-		 *
-		 * @public
-		 */
+		* Remove focus from textarea
+		*
+		* @public
+		*/
 		blur: function () {
 			if (this.hasNode()) {
 				this.node.blur();
@@ -78,15 +78,15 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		blurred: function () {
 			this.hasNode().scrollTop = 0;
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		disabledChanged: function () {
 			this.inherited(arguments);
 			if (this.disabled) {
@@ -95,8 +95,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		left: function () {
 			var sel = this.getSelection();
 			if (sel.rangeCount) {
@@ -114,8 +114,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		right: function () {
 			var sel = this.getSelection();
 			if (sel.rangeCount) {
@@ -133,15 +133,15 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		up: function (inEvent) {
 			return this.left();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		down: function (inEvent) {
 			return this.right();
 		}

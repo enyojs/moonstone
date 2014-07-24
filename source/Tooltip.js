@@ -1,134 +1,140 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.Tooltip_ is a popup that works in conjunction with
-	 * [moon.TooltipDecorator]{@link moon.TooltipDecorator}. It automatically displays a
-	 * tooltip when the user hovers over the decorator for a given period of time.
-	 * The tooltip is positioned around the decorator where there is available window
-	 * space.
-	 *
-	 * ```
-	 * {kind: 'moon.TooltipDecorator', components: [
-	 *	{kind: 'moon.Button', content: 'Tooltip'},
-	 *	{kind: 'moon.Tooltip', content: 'I am a tooltip for a button.'}
-	 * ]}
-	 * ```
-	 *
-	 * You may force the tooltip to appear by calling its [show()]{@link enyo.Control#show} method.
-	 *
-	 * @class moon.Tooltip
-	 * @extends enyo.Popup
-	 * @ui
-	 * @public
-	 */
+	* `moon.Tooltip` is a popup that works in conjunction with
+	* [`moon.TooltipDecorator`]{@link moon.TooltipDecorator}. It automatically displays a
+	* tooltip when the user hovers over the decorator for a given period of time.
+	* The tooltip is positioned around the decorator where there is available window
+	* space.
+	*
+	* ```
+	* {kind: 'moon.TooltipDecorator', components: [
+	*	{kind: 'moon.Button', content: 'Tooltip'},
+	*	{kind: 'moon.Tooltip', content: 'I am a tooltip for a button.'}
+	* ]}
+	* ```
+	*
+	* You may force the tooltip to appear by calling its [`show()`]{@link enyo.Control#show} method.
+	*
+	* @class moon.Tooltip
+	* @extends enyo.Popup
+	* @ui
+	* @public
+	*/
 	enyo.kind(
 		/** @lends moon.Tooltip.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.Tooltip',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.Popup',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-tooltip below left-arrow',
 
 		/**
-		 * @private
-		 */
-		published: /** @lends moon.Tooltip.prototype */ {
+		* @private
+		* @lends moon.Tooltip.prototype
+		*/
+		published: {
 			/**
-			 * This value overrides the default value of [autoDismiss]{@link enyo.Popup#autoDismiss}
-			 * inherited from [enyo.Popup]{@link enyo.Popup}. If `true`, the Tooltip will hide when
-			 * the user taps outside of it or presses ESC. Note that this property only
-			 * affects behavior when the Tooltip is used independently -- not when it is used with
-			 * TooltipDecorator.
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @public
-			 */
+			* This value overrides the default value of
+			* [`autoDismiss`]{@link enyo.Popup#autoDismiss} inherited from
+			* [`enyo.Popup`]{@link enyo.Popup}. If `true`, the Tooltip will hide when
+			* the user taps outside of it or presses ESC. Note that this property only
+			* affects behavior when the `Tooltip` is used independently -- not when it is used with
+			* TooltipDecorator.
+			*
+			* @type {Boolean}
+			* @default false
+			* @public
+			*/
 			autoDismiss: false,
+
 			/**
-			 * Hovering over the decorator for this length of time (in milliseconds) causes the
-			 * tooltip to appear.
-			 *
-			 * @type {Number}
-			 * @default 500
-			 * @public
-			 */
+			* Hovering over the decorator for this length of time (in milliseconds) causes the
+			* tooltip to appear.
+			*
+			* @type {Number}
+			* @default 500
+			* @public
+			*/
 			showDelay: 500,
+
 			/**
-			 * Position of the tooltip with respect to the activating control. Valid values are:
-			 * 'above', 'below', and 'auto'.
-			 *
-			 * @type {String}
-			 * @default 'auto'
-			 * @public
-			 */
+			* Position of the tooltip with respect to the activating control. Valid values are:
+			* `'above'`, `'below'`, and `'auto'`.
+			*
+			* @type {String}
+			* @default 'auto'
+			* @public
+			*/
 			position: 'auto',
+
 			/**
-			 * Default _margin-left_ value
-			 *
-			 * @type {Number}
-			 * @default 0
-			 * @public
-			 */
+			* Default `margin-left` value
+			*
+			* @type {Number}
+			* @default 0
+			* @public
+			*/
 			defaultLeft: 0,
+
 			/**
-			 * When true, the content will be converted to locale-safe uppercasing
-			 *
-			 * @type {Boolean}
-			 * @default true
-			 * @public
-			 */
+			* When `true`, the content will be converted to locale-safe uppercasing
+			*
+			* @type {Boolean}
+			* @default true
+			* @public
+			*/
 			contentUpperCase: true
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		captureEvents: false,
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handlers: {
 			onRequestShowTooltip: 'requestShow',
 			onRequestHideTooltip: 'requestHide'
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		tools: [
 			{name: 'client', classes: 'moon-tooltip-label moon-header-font'}
 		],
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		initComponents: function () {
 			this.createChrome(this.tools);
 			this.inherited(arguments);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		create: function () {
 			this.inherited(arguments);
 			this.contentChanged();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		contentChanged: function () {
 			this.detectTextDirectionality();
 			var content = this.getContent();
@@ -136,23 +142,23 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		contentUpperCaseChanged: function () {
 			this.contentChanged();
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		positionChanged:function () {
 			this.inherited(arguments);
 			this.adjustPosition(true);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		requestShow: function (inSender, inEvent) {
 			// if onRequestShowTooltip is generated from moon.ListAction
 			// it must have activator
@@ -164,23 +170,23 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		cancelShow: function () {
 			this.stopJob('showJob');
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		requestHide: function () {
 			this.cancelShow();
 			return this.inherited(arguments);
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		showingChanged: function () {
 			this.cancelShow();
 			this.inherited(arguments);
@@ -188,8 +194,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		applyPosition: function (inRect) {
 			var s = '';
 			for (var n in inRect) {
@@ -199,8 +205,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		adjustPosition: function (belowActivator) {
 			if (this.showing && this.hasNode()) {
 				var b = this.node.getBoundingClientRect(),
@@ -263,8 +269,8 @@
 		},
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		handleResize: function () {
 			this.applyPosition({'margin-left': this.defaultLeft, 'bottom': 'auto'});
 			this.adjustPosition(true);

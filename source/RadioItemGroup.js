@@ -1,43 +1,44 @@
 (function (enyo, scope) {
 	/**
-	 * _moon.RadioItemGroup_ is a container in which a group of [moon.RadioItem]{@link moon.RadioItem} objects are
-	 * laid out horizontally. Within a group, only one item may be active at a time; tapping on an item will
-	 * deactivate any previously-tapped item.
-	 *
-	 * ```
-	 * {kind: 'moon.RadioItemGroup', onActivate: 'buttonActivated', components: [
-	 *	{content: 'Lions', selected: true},
-	 *	{content: 'Tigers'},
-	 *	{content: 'Bears'}
-	 * ]}
-	 * ```
-	 *
-	 * @class moon.RadioItemGroup
-	 * @extends enyo.Group
-	 * @public
-	 * @ui
-	 */
+	* `moon.RadioItemGroup` is a container in which a group of
+	* [`moon.RadioItem`]{@link moon.RadioItem} objects are laid out horizontally. Within a group,
+	* only one item may be active at a time; tapping on an item will deactivate any
+	* previously-tapped item.
+	*
+	* ```
+	* {kind: 'moon.RadioItemGroup', onActivate: 'buttonActivated', components: [
+	*	{content: 'Lions', selected: true},
+	*	{content: 'Tigers'},
+	*	{content: 'Bears'}
+	* ]}
+	* ```
+	*
+	* @class moon.RadioItemGroup
+	* @extends enyo.Group
+	* @ui
+	* @public
+	*/
 	enyo.kind(
 		/** @lends  moon.RadioItemGroup.prototype */ {
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		name: 'moon.RadioItemGroup',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		kind: 'enyo.Group',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		classes: 'moon-radio-item-group',
 
 		/**
-		 * @private
-		 */
+		* @private
+		*/
 		defaultKind: 'moon.RadioItem'
 	});
 

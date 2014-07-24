@@ -1,13 +1,15 @@
 (function (enyo, scope) {
 	/**
-	* _moon.SelectionOverlaySupport_ is a [mixin]{@glossary mixin} that may be applied to any
-	* [_moon.DataList_]{@link moon.DataList}/[_moon.DataGridList_]{@link moon.DataGridList} item to 
+	* `moon.SelectionOverlaySupport` is a [mixin]{@glossary mixin} that may be applied to any
+	* [`moon.DataList`]{@link moon.DataList}/[`moon.DataGridList`]{@link moon.DataGridList} item to
 	* provide an overlay that is activated when the list is in selection mode.
-	* 
+	*
 	* The selection overlay has three visual states: focused but not selected, focused and selected,
 	* and selected but not focused.
-	* 
-	* The item may define a `selectionScrimIcon` URL to override the default icon.
+	*
+	* The item may define a
+	* [`selectionScrimIcon`]{@link moon.SelectionOverlaySupport#selectionScrimIcon} URL to override
+	* the default icon.
 	*
 	* ```javascript
 	* {name: 'list', selection: true, kind: 'moon.DataList', components: [
@@ -20,11 +22,13 @@
 	*	}
 	* ]}
 	* ```
-	* 
-	* By default, the overlay icon is centered horizontally and vertically over the item, but you 
-	* can override the default by specifying percentage values for 
-	* `selectionOverlayHorizontalOffset` and `selectionOverlayVerticalOffset`. Horizontal offset is 
-	* measured from the left in left-to-right locales, and from the right in right-to-left locales.
+	*
+	* By default, the overlay icon is centered horizontally and vertically over the item, but you
+	* can override the default by specifying percentage values for
+	* [`selectionOverlayHorizontalOffset`]{@link moon.SelectionOverlaySupport#selectionOverlayHorizontalOffset}
+	* and [`selectionOverlayVerticalOffset`]{@link moon.SelectionOverlaySupport#selectionOverlayVerticalOffset}.
+	* Horizontal offset is measured from the left in left-to-right locales, and from the right in
+	* right-to-left locales.
 	*
 	* ```javascript
 	* {name: 'gridList', selection: true, kind: 'moon.DataGridList', components: [
@@ -52,6 +56,35 @@
 		* @private
 		*/
 		classes: 'moon-selection-overlay-support',
+
+		/**
+		* URL for icon to be used in place of default icon
+		*
+		* @name moon.SelectionOverlaySupport#selectionScrimIcon
+		* @type {String}
+		* @default undefined
+		* @public
+		*/
+
+		/**
+		* Vertical offset, in percent, from the top, for the overlay icon. Will default to `50` if
+		* undefined
+		*
+		* @name moon.SelectionOverlaySupport#selectionOverlayVerticalOffset
+		* @type {Number}
+		* @default undefined
+		* @public
+		*/
+
+		/**
+		* Horizontal offset, in percent, for the overlay icon. Offset is measured from the left in
+		* left-to-right locales, and from the right in right-to-left locales.
+		*
+		* @name moon.SelectionOverlaySupport#selectionOverlayHorizontalOffset
+		* @type {Number}
+		* @default undefined
+		* @public
+		*/
 
 		/**
 		* @method
